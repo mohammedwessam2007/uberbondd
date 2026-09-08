@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "C10_CLOSURE_ORCHESTRATION__PREPARED_NOT_RUNNING",
+  "status": "C11_C20_PUBLISHED_PLAN__IMPLEMENTATION_NOT_LAUNCHED",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -99,13 +99,14 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C10",
+    "id": "C20",
     "date": "2026-09-08",
-    "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
-    "mode": "ORCHESTRATION_ONLY",
+    "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+    "mode": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "nextAction": "Execution-authorized worker starts V1 from c09ExecutionPlan. Old #482/#483/C06 build queue is superseded by merged source; current proof remains the task."
+    "nextAction": "Execution-authorized deterministic/cheap verifier starts C11-A, then C11-B on available runner; do not redispatch already merged construction."
   },
   "closedTribunal": [
     {
@@ -442,6 +443,15 @@
       "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
       "mode": "ORCHESTRATION_ONLY",
       "stateField": "c09ExecutionPlan"
+    },
+    {
+      "id": "C10",
+      "date": "2026-09-08",
+      "observedMain": "353a6d7a67cc8a5e3d6e4d7f586e192429820ed1",
+      "mode": "ORCHESTRATION_ONLY",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Execution-authorized worker starts V1 from c09ExecutionPlan. Old #482/#483/C06 build queue is superseded by merged source; current proof remains the task."
     }
   ],
   "c03Research": {
@@ -1391,5 +1401,2780 @@
       "state": "closed"
     }
   ],
-  "executionPacketsHistorical": true
+  "executionPacketsHistorical": true,
+  "finalRealization": {
+    "version": "C11-C20.1",
+    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+    "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+    "predecessors": [
+      "c08TruthReset",
+      "c09ExecutionPlan",
+      "c10ClosureTribunal"
+    ],
+    "coverage": {
+      "allowedClassifications": [
+        "VERIFIED_CURRENT",
+        "PARTIAL",
+        "GENUINE_INTERNAL_GAP",
+        "STRUCTURAL",
+        "EXTERNAL",
+        "OWNER_ONLY",
+        "ELAPSED_TIME",
+        "OPEN_ENDED_RESEARCH"
+      ],
+      "canonicalSections": [
+        [
+          "TOTAL-0",
+          "No-drop and anti-amputation law",
+          0,
+          "# 0. No-drop and anti-amputation law"
+        ],
+        [
+          "TOTAL-1",
+          "Terminal hierarchy",
+          0,
+          "# 1. Terminal hierarchy"
+        ],
+        [
+          "TOTAL-2",
+          "Sovereign Self",
+          0,
+          "# 2. Sovereign Self"
+        ],
+        [
+          "TOTAL-3",
+          "Will Kernel",
+          0,
+          "# 3. Will Kernel"
+        ],
+        [
+          "TOTAL-4",
+          "Thought Ocean",
+          0,
+          "# 4. Thought Ocean"
+        ],
+        [
+          "TOTAL-5",
+          "Living Mohamed Model",
+          0,
+          "# 5. Living Mohamed Model"
+        ],
+        [
+          "TOTAL-6",
+          "Preference Provenance",
+          0,
+          "# 6. Preference Provenance"
+        ],
+        [
+          "TOTAL-7",
+          "Value Genesis Engine",
+          0,
+          "# 7. Value Genesis Engine"
+        ],
+        [
+          "TOTAL-8",
+          "Meta-Volition Engine",
+          0,
+          "# 8. Meta-Volition Engine"
+        ],
+        [
+          "TOTAL-9",
+          "Volitional Integrity Engine",
+          0,
+          "# 9. Volitional Integrity Engine"
+        ],
+        [
+          "TOTAL-10",
+          "Four sovereignties",
+          0,
+          "# 10. Four sovereignties"
+        ],
+        [
+          "TOTAL-11",
+          "Sovereignty Type System",
+          0,
+          "# 11. Sovereignty Type System"
+        ],
+        [
+          "TOTAL-12",
+          "Anti-Capture Kernel",
+          0,
+          "# 12. Anti-Capture Kernel"
+        ],
+        [
+          "TOTAL-13",
+          "Cognitive Sovereignty Firewall",
+          0,
+          "# 13. Cognitive Sovereignty Firewall"
+        ],
+        [
+          "TOTAL-14",
+          "Salience Sovereignty",
+          0,
+          "# 14. Salience Sovereignty"
+        ],
+        [
+          "TOTAL-15",
+          "Epistemic Sovereignty",
+          0,
+          "# 15. Epistemic Sovereignty"
+        ],
+        [
+          "TOTAL-16",
+          "Cognitive Opacity / Right to Remain Unmodeled",
+          0,
+          "# 16. Cognitive Opacity / Right to Remain Unmodeled"
+        ],
+        [
+          "TOTAL-17",
+          "Memory Sovereignty",
+          0,
+          "# 17. Memory Sovereignty"
+        ],
+        [
+          "TOTAL-18",
+          "Strategic Forgetting and Rediscovery",
+          0,
+          "# 18. Strategic Forgetting and Rediscovery"
+        ],
+        [
+          "TOTAL-19",
+          "Epistemic Exit / No-UberBond View",
+          0,
+          "# 19. Epistemic Exit / No-UberBond View"
+        ],
+        [
+          "TOTAL-20",
+          "Right of Exit",
+          0,
+          "# 20. Right of Exit"
+        ],
+        [
+          "TOTAL-21",
+          "Fork Sovereignty",
+          0,
+          "# 21. Fork Sovereignty"
+        ],
+        [
+          "TOTAL-22",
+          "Constitutional Mutation Protocol",
+          0,
+          "# 22. Constitutional Mutation Protocol"
+        ],
+        [
+          "TOTAL-23",
+          "Intertemporal Sovereignty",
+          0,
+          "# 23. Intertemporal Sovereignty"
+        ],
+        [
+          "TOTAL-24",
+          "Irreversibility Atlas",
+          0,
+          "# 24. Irreversibility Atlas"
+        ],
+        [
+          "TOTAL-25",
+          "Constitution of Becoming / Freedom to Become",
+          0,
+          "# 25. Constitution of Becoming / Freedom to Become"
+        ],
+        [
+          "TOTAL-26",
+          "Life Knowledge Graph / Reality Lattice",
+          0,
+          "# 26. Life Knowledge Graph / Reality Lattice"
+        ],
+        [
+          "TOTAL-27",
+          "Reality Authentication Layer",
+          0,
+          "# 27. Reality Authentication Layer"
+        ],
+        [
+          "TOTAL-28",
+          "Civilizational Intelligence",
+          0,
+          "# 28. Civilizational Intelligence"
+        ],
+        [
+          "TOTAL-29",
+          "Intelligence Reinvention",
+          0,
+          "# 29. Intelligence Reinvention"
+        ],
+        [
+          "TOTAL-30",
+          "Substrate-Agnostic Cognition",
+          0,
+          "# 30. Substrate-Agnostic Cognition"
+        ],
+        [
+          "TOTAL-31",
+          "Ontogenesis",
+          0,
+          "# 31. Ontogenesis"
+        ],
+        [
+          "TOTAL-32",
+          "Ontological Crisis Protocol",
+          0,
+          "# 32. Ontological Crisis Protocol"
+        ],
+        [
+          "TOTAL-33",
+          "Reality Compression Engine",
+          0,
+          "# 33. Reality Compression Engine"
+        ],
+        [
+          "TOTAL-34",
+          "Abstraction Debt",
+          0,
+          "# 34. Abstraction Debt"
+        ],
+        [
+          "TOTAL-35",
+          "Scale Bridge",
+          0,
+          "# 35. Scale Bridge"
+        ],
+        [
+          "TOTAL-36",
+          "Meta-Sovereign Rationality",
+          0,
+          "# 36. Meta-Sovereign Rationality"
+        ],
+        [
+          "TOTAL-37",
+          "Computational Irreducibility Awareness",
+          0,
+          "# 37. Computational Irreducibility Awareness"
+        ],
+        [
+          "TOTAL-38",
+          "Assumption Escape / Incompleteness Awareness",
+          0,
+          "# 38. Assumption Escape / Incompleteness Awareness"
+        ],
+        [
+          "TOTAL-39",
+          "Reflexivity Engine",
+          0,
+          "# 39. Reflexivity Engine"
+        ],
+        [
+          "TOTAL-40",
+          "Knightian Uncertainty Model",
+          0,
+          "# 40. Knightian Uncertainty Model"
+        ],
+        [
+          "TOTAL-41",
+          "Universal Ignorance Map",
+          0,
+          "# 41. Universal Ignorance Map"
+        ],
+        [
+          "TOTAL-42",
+          "Unknown-Unknown Mining",
+          0,
+          "# 42. Unknown-Unknown Mining"
+        ],
+        [
+          "TOTAL-43",
+          "Epistemic Immune System",
+          0,
+          "# 43. Epistemic Immune System"
+        ],
+        [
+          "TOTAL-44",
+          "Model Ecology / Epistemic Biodiversity",
+          0,
+          "# 44. Model Ecology / Epistemic Biodiversity"
+        ],
+        [
+          "TOTAL-45",
+          "Anti-Correlation Intelligence",
+          0,
+          "# 45. Anti-Correlation Intelligence"
+        ],
+        [
+          "TOTAL-46",
+          "Causal Intervention Ladder",
+          0,
+          "# 46. Causal Intervention Ladder"
+        ],
+        [
+          "TOTAL-47",
+          "Counterfactual Evidence Engine",
+          0,
+          "# 47. Counterfactual Evidence Engine"
+        ],
+        [
+          "TOTAL-48",
+          "N-of-1 Personal Science",
+          0,
+          "# 48. N-of-1 Personal Science"
+        ],
+        [
+          "TOTAL-49",
+          "Reality Veto",
+          0,
+          "# 49. Reality Veto"
+        ],
+        [
+          "TOTAL-50",
+          "Reality Independence Principle",
+          0,
+          "# 50. Reality Independence Principle"
+        ],
+        [
+          "TOTAL-51",
+          "The Ability to Say NO MODEL",
+          0,
+          "# 51. The Ability to Say NO MODEL"
+        ],
+        [
+          "TOTAL-52",
+          "The Ability to Say NO RECOMMENDATION",
+          0,
+          "# 52. The Ability to Say NO RECOMMENDATION"
+        ],
+        [
+          "TOTAL-53",
+          "The Ability to Say ENOUGH",
+          0,
+          "# 53. The Ability to Say ENOUGH"
+        ],
+        [
+          "TOTAL-54",
+          "Anti-Goodhart Intelligence",
+          0,
+          "# 54. Anti-Goodhart Intelligence"
+        ],
+        [
+          "TOTAL-55",
+          "Value Pluralism / Value Manifold",
+          0,
+          "# 55. Value Pluralism / Value Manifold"
+        ],
+        [
+          "TOTAL-56",
+          "Option Universe",
+          0,
+          "# 56. Option Universe"
+        ],
+        [
+          "TOTAL-57",
+          "Sovereign Option & Outcome Forecast Engine",
+          0,
+          "# 57. Sovereign Option & Outcome Forecast Engine"
+        ],
+        [
+          "TOTAL-58",
+          "Forecasting Stack",
+          0,
+          "# 58. Forecasting Stack"
+        ],
+        [
+          "TOTAL-59",
+          "Darwinian Forecasting",
+          0,
+          "# 59. Darwinian Forecasting"
+        ],
+        [
+          "TOTAL-60",
+          "Prediction Half-Life",
+          0,
+          "# 60. Prediction Half-Life"
+        ],
+        [
+          "TOTAL-61",
+          "Counterfactual Accountability / Decision-Quality Memory",
+          0,
+          "# 61. Counterfactual Accountability / Decision-Quality Memory"
+        ],
+        [
+          "TOTAL-62",
+          "Decision Information Theory / Value of Information",
+          0,
+          "# 62. Decision Information Theory / Value of Information"
+        ],
+        [
+          "TOTAL-63",
+          "Decision Shelf Life",
+          0,
+          "# 63. Decision Shelf Life"
+        ],
+        [
+          "TOTAL-64",
+          "Regret Geometry",
+          0,
+          "# 64. Regret Geometry"
+        ],
+        [
+          "TOTAL-65",
+          "Regret Intelligence",
+          0,
+          "# 65. Regret Intelligence"
+        ],
+        [
+          "TOTAL-66",
+          "Adversarial Future Selves",
+          0,
+          "# 66. Adversarial Future Selves"
+        ],
+        [
+          "TOTAL-67",
+          "Ruin Firewall",
+          0,
+          "# 67. Ruin Firewall"
+        ],
+        [
+          "TOTAL-68",
+          "Recovery Compiler",
+          0,
+          "# 68. Recovery Compiler"
+        ],
+        [
+          "TOTAL-69",
+          "Anti-Fragility Map",
+          0,
+          "# 69. Anti-Fragility Map"
+        ],
+        [
+          "TOTAL-70",
+          "Existential Redundancy / Life Fault Tolerance",
+          0,
+          "# 70. Existential Redundancy / Life Fault Tolerance"
+        ],
+        [
+          "TOTAL-71",
+          "Personal Counterfactual Universe",
+          0,
+          "# 71. Personal Counterfactual Universe"
+        ],
+        [
+          "TOTAL-72",
+          "Future-Ancestor Compiler",
+          0,
+          "# 72. Future-Ancestor Compiler"
+        ],
+        [
+          "TOTAL-73",
+          "Reachable Future Geometry",
+          0,
+          "# 73. Reachable Future Geometry"
+        ],
+        [
+          "TOTAL-74",
+          "Freedom Gradient / Agency Geometry",
+          0,
+          "# 74. Freedom Gradient / Agency Geometry"
+        ],
+        [
+          "TOTAL-75",
+          "Optionality vs Depth Dial",
+          0,
+          "# 75. Optionality vs Depth Dial"
+        ],
+        [
+          "TOTAL-76",
+          "Explore / Exploit Life Controller",
+          0,
+          "# 76. Explore / Exploit Life Controller"
+        ],
+        [
+          "TOTAL-77",
+          "Gamechanger",
+          0,
+          "# 77. Gamechanger"
+        ],
+        [
+          "TOTAL-78",
+          "Boundary Discovery Engine",
+          0,
+          "# 78. Boundary Discovery Engine"
+        ],
+        [
+          "TOTAL-79",
+          "Impossible Detector",
+          0,
+          "# 79. Impossible Detector"
+        ],
+        [
+          "TOTAL-80",
+          "GENESIS",
+          0,
+          "# 80. GENESIS"
+        ],
+        [
+          "TOTAL-81",
+          "Unknown-Self Engine",
+          0,
+          "# 81. Unknown-Self Engine"
+        ],
+        [
+          "TOTAL-82",
+          "Human Capability Genome",
+          0,
+          "# 82. Human Capability Genome"
+        ],
+        [
+          "TOTAL-83",
+          "Osteogenesis",
+          0,
+          "# 83. Osteogenesis"
+        ],
+        [
+          "TOTAL-84",
+          "Bottleneck Theorem",
+          0,
+          "# 84. Bottleneck Theorem"
+        ],
+        [
+          "TOTAL-85",
+          "Nonlinear Threshold Detector",
+          0,
+          "# 85. Nonlinear Threshold Detector"
+        ],
+        [
+          "TOTAL-86",
+          "Capability Atrophy Detector",
+          0,
+          "# 86. Capability Atrophy Detector"
+        ],
+        [
+          "TOTAL-87",
+          "Agency Debt",
+          0,
+          "# 87. Agency Debt"
+        ],
+        [
+          "TOTAL-88",
+          "Environment Compiler",
+          0,
+          "# 88. Environment Compiler"
+        ],
+        [
+          "TOTAL-89",
+          "Embodied Reality Model",
+          0,
+          "# 89. Embodied Reality Model"
+        ],
+        [
+          "TOTAL-90",
+          "Phenomenology Bridge",
+          0,
+          "# 90. Phenomenology Bridge"
+        ],
+        [
+          "TOTAL-91",
+          "Untranslatable Layer",
+          0,
+          "# 91. Untranslatable Layer"
+        ],
+        [
+          "TOTAL-92",
+          "Consciousness Boundary",
+          0,
+          "# 92. Consciousness Boundary"
+        ],
+        [
+          "TOTAL-93",
+          "Experience Compiler",
+          0,
+          "# 93. Experience Compiler"
+        ],
+        [
+          "TOTAL-94",
+          "Reality as Experimental Partner",
+          0,
+          "# 94. Reality as Experimental Partner"
+        ],
+        [
+          "TOTAL-95",
+          "Existential Sandboxes",
+          0,
+          "# 95. Existential Sandboxes"
+        ],
+        [
+          "TOTAL-96",
+          "Reality Contact Guarantee",
+          0,
+          "# 96. Reality Contact Guarantee"
+        ],
+        [
+          "TOTAL-97",
+          "Preservation of Mystery",
+          0,
+          "# 97. Preservation of Mystery"
+        ],
+        [
+          "TOTAL-98",
+          "Presentness",
+          0,
+          "# 98. Presentness"
+        ],
+        [
+          "TOTAL-99",
+          "Serendipity Engineering",
+          0,
+          "# 99. Serendipity Engineering"
+        ],
+        [
+          "TOTAL-100",
+          "Surprise Engine",
+          0,
+          "# 100. Surprise Engine"
+        ],
+        [
+          "TOTAL-101",
+          "Self-Alienating Intelligence",
+          0,
+          "# 101. Self-Alienating Intelligence"
+        ],
+        [
+          "TOTAL-102",
+          "Personal Time Telescope",
+          0,
+          "# 102. Personal Time Telescope"
+        ],
+        [
+          "TOTAL-103",
+          "Personal Scarcity Physics",
+          0,
+          "# 103. Personal Scarcity Physics"
+        ],
+        [
+          "TOTAL-104",
+          "Mortal Horizon Model",
+          0,
+          "# 104. Mortal Horizon Model"
+        ],
+        [
+          "TOTAL-105",
+          "Window-of-Life Detection",
+          0,
+          "# 105. Window-of-Life Detection"
+        ],
+        [
+          "TOTAL-106",
+          "Uncopyable Experience Detector",
+          0,
+          "# 106. Uncopyable Experience Detector"
+        ],
+        [
+          "TOTAL-107",
+          "Meaning Archaeology",
+          0,
+          "# 107. Meaning Archaeology"
+        ],
+        [
+          "TOTAL-108",
+          "Soul Archive",
+          0,
+          "# 108. Soul Archive"
+        ],
+        [
+          "TOTAL-109",
+          "Identity Branch-and-Merge",
+          0,
+          "# 109. Identity Branch-and-Merge"
+        ],
+        [
+          "TOTAL-110",
+          "Identity Evolution Engine",
+          0,
+          "# 110. Identity Evolution Engine"
+        ],
+        [
+          "TOTAL-111",
+          "Anti-Narrative Engine",
+          0,
+          "# 111. Anti-Narrative Engine"
+        ],
+        [
+          "TOTAL-112",
+          "Life Autopoiesis",
+          0,
+          "# 112. Life Autopoiesis"
+        ],
+        [
+          "TOTAL-113",
+          "Economic Metabolism as a subordinate organ",
+          0,
+          "# 113. Economic Metabolism as a subordinate organ"
+        ],
+        [
+          "TOTAL-114",
+          "Personal Reality Compiler / Intent Compiler",
+          0,
+          "# 114. Personal Reality Compiler / Intent Compiler"
+        ],
+        [
+          "TOTAL-115",
+          "Non-Action Engine",
+          0,
+          "# 115. Non-Action Engine"
+        ],
+        [
+          "TOTAL-116",
+          "Consequence Ledger",
+          0,
+          "# 116. Consequence Ledger"
+        ],
+        [
+          "TOTAL-117",
+          "Externality Map",
+          0,
+          "# 117. Externality Map"
+        ],
+        [
+          "TOTAL-118",
+          "Strategic Reality Engine",
+          0,
+          "# 118. Strategic Reality Engine"
+        ],
+        [
+          "TOTAL-119",
+          "Sovereign Interaction Protocol / Inter-Sovereign Intelligence",
+          0,
+          "# 119. Sovereign Interaction Protocol / Inter-Sovereign Intelligence"
+        ],
+        [
+          "TOTAL-120",
+          "Mutuality Engine",
+          0,
+          "# 120. Mutuality Engine"
+        ],
+        [
+          "TOTAL-121",
+          "Social Reality Calibration",
+          0,
+          "# 121. Social Reality Calibration"
+        ],
+        [
+          "TOTAL-122",
+          "Reality-to-Self Firewall",
+          0,
+          "# 122. Reality-to-Self Firewall"
+        ],
+        [
+          "TOTAL-123",
+          "Information Hazard Layer",
+          0,
+          "# 123. Information Hazard Layer"
+        ],
+        [
+          "TOTAL-124",
+          "Cognitive Nutrition",
+          0,
+          "# 124. Cognitive Nutrition"
+        ],
+        [
+          "TOTAL-125",
+          "Attention Opportunity Cost",
+          0,
+          "# 125. Attention Opportunity Cost"
+        ],
+        [
+          "TOTAL-126",
+          "Life Compression Engine",
+          0,
+          "# 126. Life Compression Engine"
+        ],
+        [
+          "TOTAL-127",
+          "Error Budget for Life Models",
+          0,
+          "# 127. Error Budget for Life Models"
+        ],
+        [
+          "TOTAL-128",
+          "Reality Authentication + Anti-Correlation + Provenance DAG",
+          0,
+          "# 128. Reality Authentication + Anti-Correlation + Provenance DAG"
+        ],
+        [
+          "TOTAL-129",
+          "Posthumous Sovereignty",
+          0,
+          "# 129. Posthumous Sovereignty"
+        ],
+        [
+          "TOTAL-130",
+          "Century-Grade Continuity",
+          0,
+          "# 130. Century-Grade Continuity"
+        ],
+        [
+          "TOTAL-131",
+          "Tool-vs-Companion Boundary",
+          0,
+          "# 131. Tool-vs-Companion Boundary"
+        ],
+        [
+          "TOTAL-132",
+          "Non-Totalization Principle",
+          0,
+          "# 132. Non-Totalization Principle"
+        ],
+        [
+          "TOTAL-133",
+          "Existential Checksum",
+          0,
+          "# 133. Existential Checksum"
+        ],
+        [
+          "TOTAL-134",
+          "Personal Council of Future Selves",
+          0,
+          "# 134. Personal Council of Future Selves"
+        ],
+        [
+          "TOTAL-135",
+          "Prediction, value, and will boundary",
+          0,
+          "# 135. Prediction, value, and will boundary"
+        ],
+        [
+          "TOTAL-136",
+          "Terminal operating loop",
+          0,
+          "# 136. Terminal operating loop"
+        ],
+        [
+          "TOTAL-137",
+          "Terminal ontology / conceptual fixed point",
+          0,
+          "# 137. Terminal ontology / conceptual fixed point"
+        ],
+        [
+          "TOTAL-138",
+          "Open-under-future-invention law",
+          0,
+          "# 138. Open-under-future-invention law"
+        ],
+        [
+          "TOTAL-139",
+          "Current truth boundary",
+          0,
+          "# 139. Current truth boundary"
+        ],
+        [
+          "LIFE-1",
+          "Constitutional life objective",
+          1,
+          "## 1. Constitutional life objective"
+        ],
+        [
+          "LIFE-2",
+          "Life Knowledge Graph",
+          1,
+          "## 2. Life Knowledge Graph"
+        ],
+        [
+          "LIFE-3",
+          "Gamechanger for life",
+          1,
+          "## 3. Gamechanger for life"
+        ],
+        [
+          "LIFE-4",
+          "GENESIS for life",
+          1,
+          "## 4. GENESIS for life"
+        ],
+        [
+          "LIFE-5",
+          "Osteogenesis for life",
+          1,
+          "## 5. Osteogenesis for life"
+        ],
+        [
+          "LIFE-6",
+          "Life Possibility Engine",
+          1,
+          "## 6. Life Possibility Engine"
+        ],
+        [
+          "LIFE-7",
+          "Personal Counterfactual Universe",
+          1,
+          "## 7. Personal Counterfactual Universe"
+        ],
+        [
+          "LIFE-8",
+          "Human Capability Genome",
+          1,
+          "## 8. Human Capability Genome"
+        ],
+        [
+          "LIFE-9",
+          "Experience Compiler",
+          1,
+          "## 9. Experience Compiler"
+        ],
+        [
+          "LIFE-10",
+          "Identity Evolution Engine",
+          1,
+          "## 10. Identity Evolution Engine"
+        ],
+        [
+          "LIFE-11",
+          "Life Compression Engine",
+          1,
+          "## 11. Life Compression Engine"
+        ],
+        [
+          "LIFE-12",
+          "Serendipity Engineering",
+          1,
+          "## 12. Serendipity Engineering"
+        ],
+        [
+          "LIFE-13",
+          "Personal Time Telescope",
+          1,
+          "## 13. Personal Time Telescope"
+        ],
+        [
+          "LIFE-14",
+          "Personal Council of Future Selves",
+          1,
+          "## 14. Personal Council of Future Selves"
+        ],
+        [
+          "LIFE-15",
+          "Life Autopoiesis Engine",
+          1,
+          "## 15. Life Autopoiesis Engine"
+        ],
+        [
+          "LIFE-16",
+          "Knowledge Labyrinth / UberGraph",
+          1,
+          "## 16. Knowledge Labyrinth / UberGraph"
+        ],
+        [
+          "LIFE-17",
+          "UberMind Cognitive Exchange",
+          1,
+          "## 17. UberMind Cognitive Exchange"
+        ],
+        [
+          "LIFE-18",
+          "UberDNA Software Genome",
+          1,
+          "## 18. UberDNA Software Genome"
+        ],
+        [
+          "LIFE-19",
+          "Sovereign Compute Cell Fabric",
+          1,
+          "## 19. Sovereign Compute Cell Fabric"
+        ],
+        [
+          "LIFE-20",
+          "Economic Metabolism",
+          1,
+          "## 20. Economic Metabolism"
+        ],
+        [
+          "LIFE-21",
+          "Autonomous Company Compiler",
+          1,
+          "## 21. Autonomous Company Compiler"
+        ],
+        [
+          "LIFE-22",
+          "Economic Particle Accelerator",
+          1,
+          "## 22. Economic Particle Accelerator"
+        ],
+        [
+          "LIFE-23",
+          "Market Dark-Matter Detector",
+          1,
+          "## 23. Market Dark-Matter Detector"
+        ],
+        [
+          "LIFE-24",
+          "Business Embryogenesis",
+          1,
+          "## 24. Business Embryogenesis"
+        ],
+        [
+          "LIFE-25",
+          "Internal Prediction Economy",
+          1,
+          "## 25. Internal Prediction Economy"
+        ],
+        [
+          "LIFE-26",
+          "Opportunity Shockwave Simulator",
+          1,
+          "## 26. Opportunity Shockwave Simulator"
+        ],
+        [
+          "LIFE-27",
+          "Economic Theorem Prover",
+          1,
+          "## 27. Economic Theorem Prover"
+        ],
+        [
+          "LIFE-28",
+          "Capability Autophagy",
+          1,
+          "## 28. Capability Autophagy"
+        ],
+        [
+          "LIFE-29",
+          "Synthetic Economic Civilizations",
+          1,
+          "## 29. Synthetic Economic Civilizations"
+        ],
+        [
+          "LIFE-30",
+          "Million-Wall Solver",
+          1,
+          "## 30. Million-Wall Solver"
+        ],
+        [
+          "LIFE-31",
+          "Economic Reverse Engineering Engine",
+          1,
+          "## 31. Economic Reverse Engineering Engine"
+        ],
+        [
+          "LIFE-32",
+          "Capability Teleportation",
+          1,
+          "## 32. Capability Teleportation"
+        ],
+        [
+          "LIFE-33",
+          "Economic X-Ray Vision",
+          1,
+          "## 33. Economic X-Ray Vision"
+        ],
+        [
+          "LIFE-34",
+          "Counterfactual Company Generator",
+          1,
+          "## 34. Counterfactual Company Generator"
+        ],
+        [
+          "LIFE-35",
+          "Missing Institution Detector",
+          1,
+          "## 35. Missing Institution Detector"
+        ],
+        [
+          "LIFE-36",
+          "Economic Immune System",
+          1,
+          "## 36. Economic Immune System"
+        ],
+        [
+          "LIFE-37",
+          "World-to-Code Compiler",
+          1,
+          "## 37. World-to-Code Compiler"
+        ],
+        [
+          "LIFE-38",
+          "Billion-Hypothesis Engine",
+          1,
+          "## 38. Billion-Hypothesis Engine"
+        ],
+        [
+          "LIFE-39",
+          "Economic Memory Inheritance",
+          1,
+          "## 39. Economic Memory Inheritance"
+        ],
+        [
+          "LIFE-40",
+          "Opportunity Gravitational Field",
+          1,
+          "## 40. Opportunity Gravitational Field"
+        ],
+        [
+          "LIFE-41",
+          "Reality Fork Engine",
+          1,
+          "## 41. Reality Fork Engine"
+        ],
+        [
+          "LIFE-42",
+          "Economic Physics Discovery Engine",
+          1,
+          "## 42. Economic Physics Discovery Engine"
+        ],
+        [
+          "LIFE-43",
+          "Negative-Space Intelligence",
+          1,
+          "## 43. Negative-Space Intelligence"
+        ],
+        [
+          "LIFE-44",
+          "Future-Ancestor Compiler",
+          1,
+          "## 44. Future-Ancestor Compiler"
+        ],
+        [
+          "LIFE-45",
+          "Morphogenetic Software",
+          1,
+          "## 45. Morphogenetic Software"
+        ],
+        [
+          "LIFE-46",
+          "Protocol Genesis",
+          1,
+          "## 46. Protocol Genesis"
+        ],
+        [
+          "LIFE-47",
+          "Economic Spores",
+          1,
+          "## 47. Economic Spores"
+        ],
+        [
+          "LIFE-48",
+          "Reality Compression Engine",
+          1,
+          "## 48. Reality Compression Engine"
+        ],
+        [
+          "LIFE-49",
+          "Corporate Phylogenetic Tree",
+          1,
+          "## 49. Corporate Phylogenetic Tree"
+        ],
+        [
+          "LIFE-50",
+          "Causal Destiny Compiler",
+          1,
+          "## 50. Causal Destiny Compiler"
+        ],
+        [
+          "LIFE-51",
+          "Causal Sovereignty Engine",
+          1,
+          "## 51. Causal Sovereignty Engine"
+        ],
+        [
+          "LIFE-52",
+          "Possibility-Space Cartography",
+          1,
+          "## 52. Possibility-Space Cartography"
+        ],
+        [
+          "LIFE-53",
+          "Economic Language Genesis",
+          1,
+          "## 53. Economic Language Genesis"
+        ],
+        [
+          "LIFE-54",
+          "Necessity Generator",
+          1,
+          "## 54. Necessity Generator"
+        ],
+        [
+          "LIFE-55",
+          "Temporal Capability Arbitrage",
+          1,
+          "## 55. Temporal Capability Arbitrage"
+        ],
+        [
+          "LIFE-56",
+          "Counterfactual Colonization",
+          1,
+          "## 56. Counterfactual Colonization"
+        ],
+        [
+          "LIFE-57",
+          "Self-Referential Intelligence Architecture",
+          1,
+          "## 57. Self-Referential Intelligence Architecture"
+        ],
+        [
+          "LIFE-58",
+          "Unknown-Unknown Mining",
+          1,
+          "## 58. Unknown-Unknown Mining"
+        ],
+        [
+          "LIFE-59",
+          "Economic Autopoiesis",
+          1,
+          "## 59. Economic Autopoiesis"
+        ],
+        [
+          "LIFE-60",
+          "Possibility Sovereign",
+          1,
+          "## 60. Possibility Sovereign"
+        ]
+      ],
+      "completenessGate": "C12 cannot close until every section-body requirement, linked canonical ID/alias, C07 proposal and user term resolves to a row or explicit non-behavior class; unreferenced concepts fail closure.",
+      "coverageRule": "All numbered terminal/life canon sections and all user minimum-layer terms retained. Section bodies remain at exact source pointers; C12 must split compound requirements and import linked machine/alias registries progressively, never infer a full implementation map from headings. Classification null means unassessed, not absent.",
+      "layers": [
+        {
+          "behaviorOwner": "C14",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C14",
+          "evidenceOwner": "C12-A",
+          "layer": "PERSONAL CIVILIZATION",
+          "terms": [
+            "Thought Ocean",
+            "Living Mohamed Model",
+            "Life Knowledge Graph",
+            "Personal Counterfactual Universe",
+            "Life Possibility Engine",
+            "Reachable Future Geometry",
+            "Future Optionality Mass",
+            "Personal Time Telescope",
+            "Future Ancestor",
+            "Future Self machinery",
+            "Identity Evolution",
+            "Identity branch-and-merge",
+            "Unknown Self",
+            "Meaning Archaeology",
+            "Experience Compiler",
+            "Environment Compiler",
+            "Serendipity Engineering",
+            "Human Capability Genome",
+            "Osteogenesis",
+            "life bottleneck detection",
+            "voluntary reversible life experiments",
+            "N-of-1 science",
+            "reality-contact loop",
+            "embodied/lived evidence",
+            "memory sovereignty",
+            "export/delete",
+            "encrypted private state",
+            "right not to know",
+            "right to remain unmodeled",
+            "present free will",
+            "meta-volition",
+            "volitional integrity",
+            "salience sovereignty",
+            "attention constitution",
+            "non-totalization",
+            "preservation of mystery",
+            "joy/rest/beauty without productivity justification"
+          ]
+        },
+        {
+          "behaviorOwner": "C13",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C13",
+          "evidenceOwner": "C12-A",
+          "layer": "FORECAST / DECISION CIVILIZATION",
+          "terms": [
+            "Forecast Stack",
+            "calibrated distributions",
+            "scenarios",
+            "tails",
+            "hindcasting",
+            "backtesting",
+            "prediction half-life",
+            "decision shelf-life",
+            "Value of Information",
+            "expected regret",
+            "option value",
+            "reversibility",
+            "opportunity cost",
+            "path dependence",
+            "futures opened/closed",
+            "causal intervention",
+            "reference classes",
+            "strategic adaptation",
+            "reflexivity",
+            "adversarial forecast ecology",
+            "evaluator independence",
+            "matched-budget cross-domain transfer",
+            "fresh-context retention",
+            "revocation",
+            "risk",
+            "uncertainty",
+            "deep uncertainty",
+            "ignorance",
+            "refusal when no model deserves trust",
+            "NO_RECOMMENDATION at genuine value boundaries"
+          ]
+        },
+        {
+          "behaviorOwner": "C15",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C15",
+          "evidenceOwner": "C12-A",
+          "layer": "WORLD INTELLIGENCE / GENESIS",
+          "terms": [
+            "GENESIS",
+            "GENESIS²",
+            "Gamechanger",
+            "World Intelligence",
+            "Mechanism Lab",
+            "Artificial Imagination",
+            "mechanism decomposition",
+            "mutation",
+            "recombination",
+            "Boundary Discovery",
+            "Unknown-Unknown Mining",
+            "Negative Space Intelligence",
+            "Universal Ignorance Map",
+            "Ontological Crisis",
+            "Ontogenesis",
+            "Reality Fork",
+            "Impossible Detector",
+            "Necessity Generator",
+            "mechanism assimilation",
+            "hypothesis tournaments",
+            "counterexample learning",
+            "assumption escape",
+            "Wallbreaker"
+          ]
+        },
+        {
+          "behaviorOwner": "C16",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C16",
+          "evidenceOwner": "C12-A",
+          "layer": "CAPABILITY CIVILIZATION",
+          "terms": [
+            "Capability Genome",
+            "capability atoms",
+            "capability graph",
+            "dynamic retrieval",
+            "minimum sufficient bundle",
+            "suppliers",
+            "build-vs-buy",
+            "SaaS Cannibal",
+            "open/local software",
+            "skill acquisition",
+            "MCP/plugins/tools",
+            "capability benchmarking",
+            "security",
+            "provenance",
+            "licensing",
+            "compatibility",
+            "revocation",
+            "fallback",
+            "internal-build path",
+            "self-improvement experiment loop",
+            "capability market",
+            "minimum founder intervention"
+          ]
+        },
+        {
+          "behaviorOwner": "C13",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C13",
+          "evidenceOwner": "C12-A",
+          "layer": "MODEL / INTELLIGENCE ECOLOGY",
+          "terms": [
+            "frontier commercial models",
+            "local models",
+            "open-weight models",
+            "specialized models",
+            "deterministic algorithms",
+            "symbolic solvers",
+            "search",
+            "simulation",
+            "code",
+            "retrieval",
+            "model routing",
+            "council mechanisms",
+            "evaluator separation",
+            "distillation",
+            "caching",
+            "compression",
+            "context management",
+            "fallback",
+            "heterogeneous model swarms"
+          ]
+        },
+        {
+          "behaviorOwner": "C16",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C16",
+          "evidenceOwner": "C12-A",
+          "layer": "SELF-IMPROVEMENT",
+          "terms": [
+            "observe",
+            "detect weakness",
+            "formulate hypothesis",
+            "bounded experiment",
+            "independent evaluation",
+            "matched-budget comparison",
+            "retain / reject",
+            "fresh-context reproduction",
+            "promotion",
+            "monitor",
+            "degrade / revoke / replace",
+            "prompt improvement",
+            "retrieval improvement",
+            "tool improvement",
+            "model improvement",
+            "capability improvement",
+            "architecture improvement",
+            "workflow improvement",
+            "deployment improvement",
+            "economic improvement",
+            "life-intelligence improvement",
+            "no self-promotion",
+            "no hidden self-merge",
+            "no authority creation"
+          ]
+        },
+        {
+          "behaviorOwner": "C17",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C17",
+          "evidenceOwner": "C12-A",
+          "layer": "COMPUTE SOVEREIGNTY",
+          "terms": [
+            "provider-independent runtime",
+            "containers",
+            "Postgres",
+            "durable queues",
+            "durable scheduler",
+            "restart recovery",
+            "backup",
+            "restore",
+            "immutable releases",
+            "rollback",
+            "alternate substrates",
+            "cloud",
+            "local",
+            "edge where useful",
+            "authorized free compute",
+            "open compute",
+            "model-provider migration",
+            "state portability",
+            "supplier exit"
+          ]
+        },
+        {
+          "behaviorOwner": "C17",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C17",
+          "evidenceOwner": "C12-A",
+          "layer": "SELF-DEPLOYMENT",
+          "terms": [
+            "inspect runtime",
+            "detect failure",
+            "identify deployment objective",
+            "enumerate authorized substrates",
+            "build/test release",
+            "deploy",
+            "verify",
+            "monitor",
+            "recover",
+            "rollback",
+            "UBERBOND APPLICATION",
+            "SELF-MAINTAINER",
+            "DEPLOY CONTROLLER",
+            "BACKUP/RESTORE CREDENTIAL DOMAIN",
+            "INDEPENDENT MONITOR"
+          ]
+        },
+        {
+          "behaviorOwner": "C19",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C19",
+          "evidenceOwner": "C12-A",
+          "layer": "AUTONOMOUS CONTINUATION",
+          "terms": [
+            "Constraint Mutation",
+            "causal continuation",
+            "durable checkpoints",
+            "restart",
+            "resumable missions",
+            "evidence-triggered maintenance",
+            "blocker fingerprints",
+            "alternate route search",
+            "no identical retry without new evidence",
+            "autonomous but bounded maintenance",
+            "owner-absence operation",
+            "interruption minimization"
+          ]
+        },
+        {
+          "behaviorOwner": "C12",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C12",
+          "evidenceOwner": "C12-A",
+          "layer": "KNOWLEDGE ARCHITECTURE",
+          "terms": [
+            "Life Knowledge Graph",
+            "world graph",
+            "capability graph",
+            "economic graph",
+            "causal graph",
+            "evidence/proof DAG",
+            "provenance",
+            "temporal state",
+            "uncertainty",
+            "contradiction",
+            "supersession",
+            "memory compression",
+            "knowledge retrieval",
+            "entity/role/direction preservation"
+          ]
+        },
+        {
+          "behaviorOwner": "C13",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C13",
+          "evidenceOwner": "C12-A",
+          "layer": "PARALLEL INTELLIGENCE",
+          "terms": [
+            "massive parallel cognition",
+            "specialized agent/model swarms",
+            "independent evaluators",
+            "dependency-aware tasks",
+            "packet claiming",
+            "conflict avoidance",
+            "parent-organ multiplication",
+            "asynchronous durable work",
+            "evidence aggregation",
+            "council mechanisms",
+            "minimum sufficient intelligence bundle"
+          ]
+        },
+        {
+          "behaviorOwner": "C16",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C16",
+          "evidenceOwner": "C12-A",
+          "layer": "SOFTWARE DNA / REPOSITORY AUTOPHYSIOLOGY",
+          "terms": [
+            "repository as living software DNA",
+            "self-inspection",
+            "architecture fitness",
+            "dependency health",
+            "dead-code detection",
+            "reachability",
+            "provenance",
+            "security mutation",
+            "capability drift",
+            "runtime drift",
+            "generated-artifact freshness",
+            "donor supersession",
+            "source duplication",
+            "contract drift",
+            "self-maintenance",
+            "rollback"
+          ]
+        },
+        {
+          "behaviorOwner": "C18",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C18",
+          "evidenceOwner": "C12-A",
+          "layer": "ECONOMIC CIVILIZATION",
+          "terms": [
+            "Opportunity Factory",
+            "Business Genome",
+            "economic scientist",
+            "economic physics",
+            "mechanism recombination",
+            "offers",
+            "prospect supply",
+            "lawful public-web intelligence",
+            "Apollo/Clay/Instantly-like capabilities",
+            "intent",
+            "lookalikes",
+            "enrichment",
+            "verification",
+            "distribution",
+            "sender health",
+            "replies",
+            "qualification",
+            "CRM",
+            "payment",
+            "evidence",
+            "reconciliation",
+            "fulfilment",
+            "QA",
+            "delivery",
+            "acceptance",
+            "retention",
+            "renewal",
+            "expansion",
+            "recovery",
+            "financial telemetry",
+            "first cash",
+            "recurring cash",
+            "risk-adjusted cleared contribution profit / founder minute"
+          ]
+        },
+        {
+          "behaviorOwner": "C14",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C14",
+          "evidenceOwner": "C12-A",
+          "layer": "CONTROL SURFACE",
+          "terms": [
+            "iPad-first private operations",
+            "current truth",
+            "receipts",
+            "what changed",
+            "decisions needing Mohamed",
+            "maximum-three exception queue",
+            "no information flood",
+            "private-life separation",
+            "status",
+            "deployment",
+            "economics",
+            "opportunities",
+            "predictions",
+            "experiments",
+            "autonomy state",
+            "recovery state"
+          ]
+        },
+        {
+          "behaviorOwner": "C19",
+          "canonPointers": [
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md"
+          ],
+          "checkpoint": "C19",
+          "evidenceOwner": "C12-A",
+          "layer": "REALITY CALIBRATION",
+          "terms": [
+            "prediction before outcome",
+            "timestamp",
+            "horizon",
+            "cohort",
+            "exposure",
+            "outcome",
+            "calibration",
+            "Brier/log-style metrics where appropriate",
+            "longitudinal evidence",
+            "life outcomes",
+            "customer outcomes",
+            "business outcomes",
+            "mechanism outcomes",
+            "correction",
+            "Reality cannot be simulated into completion"
+          ]
+        }
+      ],
+      "mode": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+      "requiredEvidenceColumns": [
+        "CANON",
+        "SOURCE",
+        "CALLER",
+        "STATE",
+        "TEST",
+        "REACHABILITY",
+        "RECOVERY",
+        "RUNTIME EVIDENCE",
+        "OUTCOME EVIDENCE"
+      ],
+      "status": "NO_DROP_ROUTING_MAP__BEHAVIOR_CLASSIFICATION_PENDING_C12",
+      "unknownRule": "Until source/evidence classification, keep null plus missing-evidence reason; do not call missing proof a missing implementation. VERIFIED_REUSE is a disposition supported by proof, not an extra truth class.",
+      "defaultUnassessedEvidence": {
+        "SOURCE": null,
+        "CALLER": null,
+        "STATE": null,
+        "TEST": null,
+        "REACHABILITY": null,
+        "RECOVERY": null,
+        "RUNTIME_EVIDENCE": null,
+        "OUTCOME_EVIDENCE": null,
+        "reason": "C12 must resolve actual evidence; null is not a gap claim."
+      },
+      "canonSources": [
+        {
+          "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+          "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
+        },
+        {
+          "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
+          "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
+        }
+      ],
+      "canonicalSectionColumns": [
+        "id",
+        "name",
+        "canonSourceIndex",
+        "heading"
+      ],
+      "canonicalSectionDefaults": {
+        "coverageOwner": "C12",
+        "classification": null,
+        "evidenceTemplate": "defaultUnassessedEvidence"
+      }
+    },
+    "checkpoints": [
+      {
+        "ID": "C11",
+        "OUTCOME": {
+          "title": "EXACT CURRENT REALITY FREEZE",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Prevent stale truth and duplicate dispatch.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "Current handoff + pinned main/package + open PR metadata + Vercel status snapshot.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [],
+          "alternatives": [
+            "Metadata/reference audit or authenticated host inspection",
+            "Existing locked local runner",
+            "Authorized alternate container runner"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "C08–C10 and merged-source handoff; observed runtime/denominator still unverified.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C11-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Pin refs, dedupe current/open/donor work and inspect available provider/runtime receipts.",
+            "dependsOn": [],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C11.ACCEPTANCE CONTRACT",
+            "scopeRef": "C11.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C11-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Execute focused private/reachability proof and regenerate canonical artifacts on an actual runner.",
+            "dependsOn": [
+              "C11-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C11.ACCEPTANCE CONTRACT",
+            "scopeRef": "C11.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Deterministic/read-only verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "docs/CURRENT_HANDOFF.json",
+            "artifacts/system-readiness.json",
+            "artifacts/sovereign/implementation-coverage-matrix.json",
+            "package.json"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Current requirements, source refs, open-PR dispositions, artifact timestamps and runtime identities form one receipt; UNKNOWN where unavailable. Discover actual commands from pinned package; available: npm run check:syntax; npm run readiness; npm run sovereign:coverage. Targeted private tests before broader required gates.",
+        "HOSTILE FALSIFIERS": "Reject stale sourceCommit, zero-step CI as tests, branch-as-deployment, fake runner or restored old handoff.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "No runtime verdict until source+environment+actual commands/exits are recorded.",
+        "RECOVERY PROOF": "Fresh session loads freeze and resolves ref drift without duplicating jobs.",
+        "EXTERNAL BOUNDARY": "Provider/host access and account observations may be unavailable.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C12"
+      },
+      {
+        "ID": "C12",
+        "OUTCOME": {
+          "title": "TOTAL NORTH STAR COVERAGE COMPILER",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Preserve total scope without promoting names to proof.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "200 numbered canon sections + 306 user terms in 15 layers; exact canon pointers; no behavior inferred.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C11"
+          ],
+          "alternatives": [
+            "Existing canonical coverage generator",
+            "Read-only source/caller/evidence crosswalk",
+            "Targeted executable reachability/contract probe"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Existing coverage generator and C08–C10 maps, C07 capability catalog.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C12-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Resolve section bodies, aliases and user terms into the nine-column evidence map; classify each requirement.",
+            "dependsOn": [
+              "C11-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C12.ACCEPTANCE CONTRACT",
+            "scopeRef": "C12.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C12-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Produce only missing-proof or reproduced-gap packets with exact path claims and critical-gate scope.",
+            "dependsOn": [
+              "C12-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C12.ACCEPTANCE CONTRACT",
+            "scopeRef": "C12.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Deterministic/read-only verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "src/sovereign-coverage-matrix.mjs",
+            "scripts/sovereign-coverage-matrix.mjs",
+            "tests/sovereign-coverage-matrix.test.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Every requirement has CANON/SOURCE/CALLER/STATE/TEST/REACHABILITY/RECOVERY/RUNTIME/OUTCOME evidence or explicit missing reason. Use exactly the eight classification classes; preserve contradictions, direction/roles, time and supersession. No generic category becomes code proof. Unmapped IDs block closure.",
+        "HOSTILE FALSIFIERS": "Reject dropped aliases, keyword-only matches, category-to-module inflation, unknown counted green, and deleting requirements to shrink denominator.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Runtime/outcome columns remain unproven until domain receipts arrive; compile scope without waiting for future outcomes.",
+        "RECOVERY PROOF": "Regeneration preserves stable IDs and explicit evidence invalidation on changed dependencies.",
+        "EXTERNAL BOUNDARY": "OWNER_ONLY/EXTERNAL/ELAPSED_TIME/OPEN_ENDED_RESEARCH retain owners and triggers.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C13"
+      },
+      {
+        "ID": "C13",
+        "OUTCOME": {
+          "title": "INTELLIGENCE SINGULARITY STACK",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the intelligence singularity stack evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "C03/C07 experiment contracts and mapped source candidates; performance unmeasured.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C12"
+          ],
+          "alternatives": [
+            "Eligible commercial model with existing tools",
+            "Authorized local/open/specialized model",
+            "Deterministic solver/search/simulation plus decomposition"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Forecast/GENESIS/Wallbreaker/context/router/council/Genome; verify reuse before building.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C13-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify causal identity, forecast distributions/tails/VOI and NO_MODEL/NO_RECOMMENDATION semantics.",
+            "dependsOn": [
+              "C12-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C13.ACCEPTANCE CONTRACT",
+            "scopeRef": "C13.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C13-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Evaluate one needed composition against matched-budget baseline with held-out transfer, independent judging, fresh-context retention and revocation.",
+            "dependsOn": [
+              "C13-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C13.ACCEPTANCE CONTRACT",
+            "scopeRef": "C13.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "src/forecast-stack.mjs",
+            "src/forecast-decision-boundary.mjs",
+            "src/forecast-adversarial-ensemble.mjs",
+            "src/genesis-boundary-experiment.mjs",
+            "src/agent-model-router.mjs",
+            "src/frontier-context-spine.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Predeclare outcome rubric, cost/latency budget, cohort and improvement threshold; compare baseline/candidate/ablation. Preserve deep uncertainty, ignorance, reflexivity, strategic adaptation and value boundaries. Correlated models are not independent evidence. Claim measured task-family advantage only.",
+        "HOSTILE FALSIFIERS": "Swap entity roles, leak holdout answers, clone voters, silently reroute models, remove refusal, exceed tool budget; all must be caught.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Exact model/tool/prompt/evaluator/data revisions and actual costs or UNKNOWN; simulation labels retained.",
+        "RECOVERY PROOF": "Reproduce from clean context; revoked candidate unselectable; retain prior working route.",
+        "EXTERNAL BOUNDARY": "Restricted model entitlement and real forecast outcomes remain outside code.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C14"
+      },
+      {
+        "ID": "C14",
+        "OUTCOME": {
+          "title": "PERSONAL CIVILIZATION REALIZATION",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the personal civilization realization evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "Current handoff reports #507 encrypted founder-interactive source merged; execution missing.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C12"
+          ],
+          "alternatives": [
+            "Existing explicit local founder-interactive path",
+            "Encrypted user-controlled import/export with reversible offline packet",
+            "Redacted status-only control surface; defer private interaction until secure"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Private vault, model/graph/possibility/decision organs and C04; no new life database.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C14-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify private thought->memory/model/graph->options/forecast->volition->bottleneck->proposed experience; founder chooses BEFORE any experience occurs.",
+            "dependsOn": [
+              "C12-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C14.ACCEPTANCE CONTRACT",
+            "scopeRef": "C14.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C14-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify optional outcome/calibration, transitive export/delete and minimal iPad decision/exception surface without networking raw vault data.",
+            "dependsOn": [
+              "C14-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C14.ACCEPTANCE CONTRACT",
+            "scopeRef": "C14.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "src/personal-civilization-private-operator.mjs",
+            "src/personal-civilization-model-graph.mjs",
+            "src/personal-civilization-decision-loop.mjs",
+            "scripts/personal-civilization-private.mjs",
+            "tests/personal-civilization-private-sovereignty.test.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Carry all personal-layer terms and constitutional section bodies from coverage map. Encrypted persistence and authenticated restore; no autonomous vault reachability. Present will, meta-volition, right not to know/unmodeled, salience, mystery, joy/rest and non-totalization survive every transition. Max-three exceptions; value choices remain human.",
+        "HOSTILE FALSIFIERS": "Wrong key, tampered envelope, symlink, indirect unattended caller, deleted evidence resurrection, forced score/ranking, reversible-probe string treated as permission.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Real private interaction only under explicit participation; synthetic fixtures prove software only.",
+        "RECOVERY PROOF": "Restart/export/import/delete retains authority and revoked/deleted descendants do not return.",
+        "EXTERNAL BOUNDARY": "Lived benefits, N-of-1 horizons, embodied experience and another person's consent require reality.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C19"
+      },
+      {
+        "ID": "C15",
+        "OUTCOME": {
+          "title": "WORLD-BRAIN / GENESIS REALIZATION",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the world-brain / genesis realization evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "Canonical world/frontier objectives and existing donor source paths; discovery outcomes unmeasured.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C12"
+          ],
+          "alternatives": [
+            "Authorized official public source adapter",
+            "Existing licensed archived evidence with explicit age",
+            "Founder-supplied permitted document; mark discovery limits"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Gamechanger, mechanism compiler, GENESIS²/Ontogenesis, Genome and bounded experiments.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C15-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify lawful world change->provenance->mechanism/decomposition/mutation/recombination->capability->bounded experiment.",
+            "dependsOn": [
+              "C12-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C15.ACCEPTANCE CONTRACT",
+            "scopeRef": "C15.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C15-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify observed counterexample->retain/reject/revoke, unknown-unknown/ignorance/ontology boundary and dormant-opportunity revalidation.",
+            "dependsOn": [
+              "C15-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C15.ACCEPTANCE CONTRACT",
+            "scopeRef": "C15.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "src/genesis-mechanism-compiler.mjs",
+            "src/genesis-boundary-experiment.mjs",
+            "src/perpetual-frontier-genesis.mjs",
+            "src/capability-genome-runtime.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Scientific/technological/software/model/economic signals retain source, freshness and claim class. All world-layer terms map to real behavior or research classification. Internal imagination never becomes measured fact; no new category adopted merely because named.",
+        "HOSTILE FALSIFIERS": "Reverse causal roles, change negation/order, stale signal, vendor-to-fact promotion, synthetic demand, unlicensed source, no discriminating probe.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Evidence retrieval and experiment receipts identify actual source; live calls require separate authority.",
+        "RECOVERY PROOF": "Resume ingest idempotently; superseded/deleted source invalidates dependent hypothesis and candidates.",
+        "EXTERNAL BOUNDARY": "Public evidence availability, real discoveries and open-ended research cannot be guaranteed.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C16"
+      },
+      {
+        "ID": "C16",
+        "OUTCOME": {
+          "title": "SELF-IMPROVING SOFTWARE CIVILIZATION",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the self-improving software civilization evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "C05/C07/C10 and current merged maintenance/capability source reports.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C12"
+          ],
+          "alternatives": [
+            "Verified canonical reuse/composition",
+            "Licensed eligible supplier with benchmark proof",
+            "Small internal patch in existing isolated sandbox"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Repository DNA/reachability, Genome admission, model routing, sandbox and independent verification.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C16-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Observe drift/weakness->dedupe->bounded candidate for prompt/retrieval/tool/model/capability/architecture/workflow/deployment/economic/life-intelligence improvement.",
+            "dependsOn": [
+              "C12-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C16.ACCEPTANCE CONTRACT",
+            "scopeRef": "C16.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C16-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Independently compare->reject/retain->fresh-context reproduce->admitted promotion->monitor->degrade/revoke/replace.",
+            "dependsOn": [
+              "C16-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C16.ACCEPTANCE CONTRACT",
+            "scopeRef": "C16.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "src/capability-genome-admission.mjs",
+            "src/capability-genome-execution-admission.mjs",
+            "src/orchestration-frontier.mjs",
+            "src/linux-self-maintainer-sandbox.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "No self-promotion/hidden self-merge/authority widening. Resolve stale artifacts, duplicate/dead source, dependencies, security and contract drift. Each candidate has a counterexample, rollback and exact write claim. C13 evaluator gates apply to learned improvements; routine bug proof need not await broad research.",
+        "HOSTILE FALSIFIERS": "Candidate edits judge, removes rollback, hides failing tests, routes revoked supplier, exfiltrates synthetic secret, treats installation as runtime.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Executing sandbox limits and current candidate tests; deterministic first; model identity/cost observable.",
+        "RECOVERY PROOF": "Crash during patch/proposal/promotion reconciles persisted identity; restore prior release; no duplicate proposal.",
+        "EXTERNAL BOUNDARY": "Supplier license/model/compute access and production admission remain scoped.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C17"
+      },
+      {
+        "ID": "C17",
+        "OUTCOME": {
+          "title": "SOVEREIGN COMPUTE / SELF-DEPLOYMENT",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the sovereign compute / self-deployment evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "C06 contracts; handoff reports portable backend/durable scheduler/recovery harness merged.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C11",
+            "C12"
+          ],
+          "alternatives": [
+            "Existing authorized cloud container host",
+            "Owned local persistent container host",
+            "Authorized alternate cloud/edge host meeting storage/ingress needs"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Container/Postgres/worker/scheduler/compute sovereignty and supplier-exit donor; verification first.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C17-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Rehearse immutable release->portable web/auth/database/worker/schedule with independent controller/monitor/backup authority.",
+            "dependsOn": [
+              "C11-B",
+              "C12-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C17.ACCEPTANCE CONTRACT",
+            "scopeRef": "C17.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C17-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Restore to named authorized alternative, bounded workload, cutover/rollback and provider-loss drills.",
+            "dependsOn": [
+              "C17-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C17.ACCEPTANCE CONTRACT",
+            "scopeRef": "C17.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "scripts/provider-neutral-backend-doctor.mjs",
+            "scripts/deploy-restart-recovery-drill.mjs",
+            "src/portable-paypal-bridge.mjs",
+            "src/queue.mjs",
+            "src/durable-scheduler-occurrence.mjs",
+            "src/compute-sovereignty.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "No component proposes, approves, deploys, verifies and erases rollback for itself. Same tested image digest; database migration compatibility; separate backup credentials/failure domain. Test loss of one host/database/model/provider entitlement using legitimate substitutes. Free/open compute is available only when actually provisioned.",
+        "HOSTILE FALSIFIERS": "Kill app/controller, corrupt backup, revoke provider, duplicate scheduler wake, partial rollout, incompatible schema rollback; refusal/recovery must preserve effects.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "NAMED_RUNTIME_VERIFIED requires host identity+image/config/data version+auth+durable workload receipt; local proof remains local.",
+        "RECOVERY PROOF": "Measured restore/rollback and independently recoverable controller; no uncertain-effect blind replay.",
+        "EXTERNAL BOUNDARY": "Named compute, credentials, resource costs and provider entitlements; no new purchase inferred.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C19"
+      },
+      {
+        "ID": "C18",
+        "OUTCOME": {
+          "title": "AUTONOMOUS ECONOMIC ORGANISM",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the autonomous economic organism evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "Current handoff merged cash/delivery/capability source; commercial counters reported zero, not reread from provider.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C12"
+          ],
+          "alternatives": [
+            "Current authorized primary acquisition/payment adapters",
+            "Already-authorized alternative adapter with same evidence contract",
+            "Read-only intake/preparation and local rehearsal while external rail unavailable"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "Existing opportunity/Business Genome/prospect/distribution/CRM/payment/fulfilment/renewal; no second company stack.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C18-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify full signal->opportunity->offer->lawful prospect/distribution->reply/qualification->bound order/payment->QA/delivery.",
+            "dependsOn": [
+              "C12-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C18.ACCEPTANCE CONTRACT",
+            "scopeRef": "C18.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C18-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Verify customer-origin acceptance->retention/renewal/expansion->cost/margin/learning and failure recovery; prepare scoped external activation requirements.",
+            "dependsOn": [
+              "C18-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C18.ACCEPTANCE CONTRACT",
+            "scopeRef": "C18.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "src/first-cash-fulfillment-runtime.mjs",
+            "src/first-cash-prospect-completion.mjs",
+            "src/service-fulfillment.mjs",
+            "src/payment-renewal-truth.mjs",
+            "src/delivery-transport-contract.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Cover every economic term in map; risk-adjusted cleared contribution profit/founder minute; exact payment witnesses, tenant/order identities, consent/suppression/sender health and refunds/disputes. Exceptions only, max three; no volume or synthetic revenue metric.",
+        "HOSTILE FALSIFIERS": "Webhook replay to different order, partial witness triad, timeout-resend duplicate, silence=acceptance, suppressed lead, refund=retained revenue, fake renewal.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Provider receipts and genuine customer evidence for external transitions; sandbox explicitly distinct.",
+        "RECOVERY PROOF": "Crash at every effect boundary reconciles provider state; recover QA/support and do not duplicate delivery.",
+        "EXTERNAL BOUNDARY": "Merchant/KYC/legal-tax/sender readiness, actual buyer, payment, acceptance and retention are external.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C19"
+      },
+      {
+        "ID": "C19",
+        "OUTCOME": {
+          "title": "REALITY / AUTONOMY OBSERVATION",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the reality / autonomy observation evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "Checkpoint reports may include blocked gates; observe only actually admitted runtime.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C14",
+            "C16",
+            "C17",
+            "C18"
+          ],
+          "alternatives": [
+            "Named admitted host + independent monitor",
+            "Owned persistent local runtime + independent observer",
+            "Eligible alternate host restored from admitted state; start a new labelled interval"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "C06 owner-absence contracts, calibration/outcome and durable continuation.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C19-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Observe real uninterrupted timestamps, useful workload, crashes/restarts/provider interruption and recovery; count founder interventions.",
+            "dependsOn": [
+              "C14-B",
+              "C16-B",
+              "C17-B",
+              "C18-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C19.ACCEPTANCE CONTRACT",
+            "scopeRef": "C19.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C19-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Link pre-outcome prediction timestamp/horizon/cohort/exposure to actual life/customer/business/mechanism outcome and appropriate calibrated scoring.",
+            "dependsOn": [
+              "C19-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C19.ACCEPTANCE CONTRACT",
+            "scopeRef": "C19.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Cheapest capable domain executor + independent verifier",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "scripts/deploy-restart-recovery-drill.mjs",
+            "src/reality-calibration-ledger.mjs",
+            "src/durable-scheduler-occurrence.mjs"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "No accelerated-clock duration, backdated forecast, hidden outage or duplicate external effect. Brier/log-style metrics only for appropriate probabilistic tasks; retain censoring/missing outcomes and cohort definitions. No life causal claim from before/after alone.",
+        "HOSTILE FALSIFIERS": "Clock jumps, app-generated fake monitor, lost queue, synthetic outcomes, erased interventions, selection bias and right-censoring omission.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Real observed interval, actual model/provider/job identities, external evidence links and no invented duration.",
+        "RECOVERY PROOF": "Crash/restore/provider route and continuation tested; gap periods disclosed, observation resumes without rewriting past.",
+        "EXTERNAL BOUNDARY": "Real elapsed time, voluntary life outcomes, customers and revenue cannot be synthesized.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "C20"
+      },
+      {
+        "ID": "C20",
+        "OUTCOME": {
+          "title": "FINAL SOVEREIGN CLOSURE TRIBUNAL",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Close the final sovereign closure tribunal evidence chain using current source and bounded work.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+          "basis": "All predecessor reports including explicit blocked/unknown results; no dependency requires fabricated success.",
+          "verificationLimit": "Only inspected canon, handoff, package, tree and GitHub metadata. No executing/runtime/outcome proof produced here."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C11",
+            "C12",
+            "C13",
+            "C14",
+            "C15",
+            "C16",
+            "C17",
+            "C18",
+            "C19"
+          ],
+          "alternatives": [
+            "Machine-readable evidence join with static validation",
+            "Independent reviewer reconstructs from exact receipts",
+            "Conservative partial receipt with NOT_MEASURED where proof unavailable"
+          ],
+          "admission": "Dependencies require their scoped report/contract; blocked external evidence is carried forward, never treated as success. Start independent read-only/local proof when effectful prerequisites are unavailable. Named-runtime claims still require actual runtime."
+        },
+        "WHAT ALREADY EXISTS": "C10 nine-dimension contracts and scoped release logic remain predecessors.",
+        "GENUINE MISSING BEHAVIOR": "Not asserted absent from inventory. First classify via C11/C12: VERIFIED_REUSE -> no rebuild; missing proof -> verification; reproduced missing behavior -> smallest owned repair; reality -> external/elapsed gate.",
+        "WORK PACKETS": [
+          {
+            "id": "C20-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Compile release receipt across defined internal engineering, named-runtime, autonomy, external outcomes, longitudinal reality and open-ended frontier.",
+            "dependsOn": [
+              "C11-B",
+              "C12-B",
+              "C13-B",
+              "C14-B",
+              "C15-B",
+              "C16-B",
+              "C17-B",
+              "C18-B",
+              "C19-B"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C20.ACCEPTANCE CONTRACT",
+            "scopeRef": "C20.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          },
+          {
+            "id": "C20-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "task": "Audit scope/weights/unknowns/evidence and publish next dependency-satisfied work or honest closure boundary.",
+            "dependsOn": [
+              "C20-A"
+            ],
+            "owner": null,
+            "executor": "Deterministic script, then cheapest capable configured model; stronger agent/SOL only for evidenced difficulty; Astra only novel orchestration.",
+            "input": "Current main + this checkpoint + this packet + relevant source/evidence + exact blocker; no full history.",
+            "acceptanceRef": "C20.ACCEPTANCE CONTRACT",
+            "scopeRef": "C20.EXACT WRITE SURFACES OR READ-ONLY SCOPE",
+            "output": "Exact refs; classification; actual commands/exits or NOT_RUN; evidence links; falsifier; effects; unresolved gate; next action. Implementation only in a later execution-authorized session."
+          }
+        ],
+        "OWNER / WORKER CLASS": {
+          "owner": null,
+          "role": "Independent integration tribunal",
+          "acknowledgement": "UNASSIGNED_NOT_RUNNING",
+          "sharedFiles": "Integration owner only; exact claim/expiry checked before edits."
+        },
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "docs/CURRENT_HANDOFF.json",
+            "artifacts/work/astra-orchestrator-state-2026-09-08.json",
+            "artifacts/system-readiness.json"
+          ],
+          "orchestrationWrites": [],
+          "futureRepair": "Only after C12 reproduces a gap and current execution session permits it: claim exact existing source/test paths, reject overlaps, and retain scope in packet receipt. Do not pre-authorize arbitrary production edits."
+        },
+        "ACCEPTANCE CONTRACT": "Every percentage needs scope version, requirement IDs, predeclared weights, numerator/denominator, dates, exact SHA/runtime identity, unknown handling. Critical privacy/payment/recovery gates cannot be averaged away. 100% only for fully evidenced finite scope; autonomy/outcome/longitudinal metrics NOT_MEASURED absent defensible denominator; frontier never assigned fake completion.",
+        "HOSTILE FALSIFIERS": "Drop inconvenient requirement, inflate denominator weights, count skipped test, use stale hash, average failed critical gate away, confuse source/runtime/outcome.",
+        "MUTATION REQUIREMENTS": "For each changed critical guard: intended mutation must apply once and the intended assertion must fail for its intended reason; otherwise NOT_KILLED. Read-only/docs packets need tiny structural validation, not invented mutation work. Never weaken judge or tests.",
+        "RUNTIME PROOF": "Link exact named runtime or explicitly NONE; merged docs yield no runtime credit.",
+        "RECOVERY PROOF": "Receipt restartable, prior versions preserved, unresolved owner/external/elapsed triggers explicit.",
+        "EXTERNAL BOUNDARY": "All unsatisfied external/owner/elapsed/open-ended classes remain visible without blocking publication of an incomplete verdict.",
+        "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
+        "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
+        "NEXT CHECKPOINT": "NONE"
+      }
+    ],
+    "inputSnapshot": {
+      "openPRs": [
+        {
+          "base": "omega/night-convergence-20260907",
+          "draft": true,
+          "head": "75e2c945be7160cb35835f5186e12c39e7f70847",
+          "pr": 462,
+          "title": "SOL NIGHT: constraint mutation + evidence-triggered self-maintenance"
+        },
+        {
+          "base": "main",
+          "draft": true,
+          "head": "51979675c87fe08f27f878b15a568ca7af95f6f6",
+          "pr": 458,
+          "title": "OMEGA NIGHT: current-main Sovereign + cash-first + ROI multiplier convergence"
+        },
+        {
+          "base": "main",
+          "draft": true,
+          "head": "b062cfaca01f8dd902dc4765be12b1146824531c",
+          "pr": 446,
+          "title": "SOL OMEGA: donor merge-order and no-drop gap audit"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "e194ec4c29dcd2a0cd8e79e1c9dd68c13ea5c07b",
+          "pr": 433,
+          "title": "Verify and merge Personal Civilization Engine wave 1"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "7733e34975991de938f1b6e5c77ac19034ecd8c5",
+          "pr": 432,
+          "title": "Operationalize the Personal Civilization Engine with a zero-effect life kernel"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "9d43a3ec5f2cd1bbc21da73d1773d9d9840c980e",
+          "pr": 430,
+          "title": "Probe embedded Postgres as its real child identity"
+        },
+        {
+          "base": "gpt/uberbond-battery-ignition-20260905",
+          "draft": false,
+          "head": "5f8db3d0c393a2ecc7708c013867ef24d3e5d3fb",
+          "pr": 422,
+          "title": "GENESIS mechanism assimilation forge + continuation graphs"
+        },
+        {
+          "base": "gpt/uberbond-battery-ignition-20260905",
+          "draft": false,
+          "head": "12d4890c88bed76b7cd2bdc9fe705a4bab692d23",
+          "pr": 421,
+          "title": "Aggressive bounded self-improvement cadence"
+        },
+        {
+          "base": "gpt/uberbond-battery-ignition-20260905",
+          "draft": false,
+          "head": "c1b736ee11f79a50db49cabc61d036000343054a",
+          "pr": 420,
+          "title": "Operationalize and integrate all 25 Gamechanger mechanisms"
+        },
+        {
+          "base": "gpt/command-center-2-20260906",
+          "draft": false,
+          "head": "b058c2d4d20e97d78107677e63b483d3c86a6a22",
+          "pr": 416,
+          "title": "NIGHT-09 command-center hostile cache and freshness hardening"
+        },
+        {
+          "base": "gpt/uberbond-battery-ignition-20260905",
+          "draft": false,
+          "head": "f70f480fa02c582abac664a45f72f32e0d37bbe2",
+          "pr": 412,
+          "title": "Command Center 2.0: truthful connected iPad organism observer"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "8196121e241b22925aec60d82bcebfe8dd0adbd2",
+          "pr": 393,
+          "title": "Core security: make admin bearer ephemeral and header-only"
+        },
+        {
+          "base": "main",
+          "draft": true,
+          "head": "0e5a0afab80324f969ffc7918f75b1588b532567",
+          "pr": 390,
+          "title": "Cloud worker + shared-context cache + ephemeral client fabric"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "63934100f8040dc60b653577d13c8f9ea3c4d901",
+          "pr": 382,
+          "title": "Close PayPal provider-origin first-cash payment truth"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "db3d06d0d61e11012a57f098859062011a6f1cbc",
+          "pr": 381,
+          "title": "Make payment readiness provider-neutral"
+        },
+        {
+          "base": "main",
+          "draft": false,
+          "head": "43e57d4a1458cf902ff1282a33188dd90e8f16ab",
+          "pr": 380,
+          "title": "Wire bounded self-improvement operator entrypoint"
+        }
+      ],
+      "deploymentStatuses": {
+        "state": "failure",
+        "statuses": [
+          {
+            "context": "Vercel – uberbondd",
+            "description": "Deployment rate limited — retry in 24 hours.",
+            "state": "failure",
+            "target_url": "https://vercel.com/mohammedwessam2007s-projects?upgradeToPro=build-rate-limit"
+          },
+          {
+            "context": "Vercel – uberbondd-lite-private",
+            "description": "Deployment rate limited — retry in 24 hours.",
+            "state": "failure",
+            "target_url": "https://vercel.com/mohammedwessam2007s-projects?upgradeToPro=build-rate-limit"
+          }
+        ]
+      },
+      "runtime": "NOT_OBSERVED_THIS_SESSION",
+      "coverage": "NOT_REGENERATED_THIS_SESSION",
+      "ownerActions": "No new owner action discovered; current handoff provider/consent/host boundaries retained.",
+      "handoffSource": "e87757e520f4717c017cf1827404c933944923e8",
+      "warning": "Source claims in current handoff are carried with provenance, not re-executed."
+    },
+    "workerEconomics": [
+      "DETERMINISTIC_SCRIPT",
+      "CHEAPEST_CAPABLE_MODEL",
+      "CHEAP_WORK_AGENT",
+      "CLAUDE_CODE_OR_STRONG_CODING_AGENT",
+      "GPT_5_6_SOL",
+      "ASTRA_ONLY_NOVEL_ORCHESTRATION_OR_TRUE_HARDNESS"
+    ],
+    "executorPromptTemplate": "Refresh CURRENT_MAIN and applicable instructions. Load CHECKPOINT_ID and PACKET_ID only, then relevant files. Resolve dependencies, ownership and EXACT_BLOCKER. In an execution-authorized session run/repair only the admitted bounded packet; otherwise remain read-only. Apply ACCEPTANCE_CONTRACT, HOSTILE_FALSIFIERS, MUTATION_REQUIREMENTS, RUNTIME_PROOF and RECOVERY_PROOF. Return evidence-bound result and next action. Do not rebuild VERIFIED_REUSE or infer effect authority. Checkpoint before context loss.",
+    "resumeContract": {
+      "fields": [
+        "checkpointID",
+        "packetID",
+        "sourceSHA",
+        "runtimeIdentityOrUnknown",
+        "scope",
+        "ownerAcknowledgement",
+        "claimExpiry",
+        "commandsAndExitCodes",
+        "evidenceRefs",
+        "pendingEffects",
+        "blockerFingerprint",
+        "alternateRoute",
+        "nextAction"
+      ],
+      "cadence": "Each material result or five minutes of unsaved active work; before host/model switches; reserve final minute.",
+      "durability": "Publish to existing git-backed state. Failed save is not durability. Credentials/private data excluded.",
+      "noDispatch": true
+    },
+    "coverageValidation": "200 numbered canon sections plus 306 user minimum terms, 15 layers, nine evidence columns. Full source/runtime classification remains C12 execution work; section bodies and linked aliases must be accounted before C12 closure.",
+    "criticalPath": "C11 -> C12 -> C17 -> C19 -> C20; C19 additionally joins C14/C16/C18 reports; C20 joins every lane report.",
+    "parallelLanes": [
+      "C13 intelligence",
+      "C14 personal/control surface",
+      "C15 world/GENESIS",
+      "C16 software/capability",
+      "C17 compute/deployment",
+      "C18 economics"
+    ],
+    "parallelBudget": "At most two disjoint active execution packets plus independent verifier under available budget; logical lanes are not spawned workers. Increase concurrency only with measured benefit and disjoint claims.",
+    "closureRule": "C20 accepts honest blocked reports, never blocked behavior as success. Every percentage must satisfy c10ClosureTribunal and C20 contract. No forced 100%, no external evidence from simulation.",
+    "packetCount": 20
+  }
 }

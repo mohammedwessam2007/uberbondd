@@ -1,36 +1,42 @@
-# UberBond C08–C10 — current execution handoff
-Mode: ORCHESTRATION_ONLY; no workers launched by publication.
-State: `artifacts/work/astra-orchestrator-state-2026-09-08.json`; current mission: `docs/CURRENT_HANDOFF.json`.
+# UberBond C11–C20 final realization entrypoint
+ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED
 
-## Current truth
-Observed main: `353a6d7a67cc8a5e3d6e4d7f586e192429820ed1`. Refresh before execution.
-Live PR metadata confirms #482/#500/#502/#503/#504/#505/#506/#507 merged. #483 closed unmerged; #505 is the merged replacement.
-**Do not redispatch the old C02/C06 construction queue.** Source merge is not current-head execution or named-host proof.
+State: `artifacts/work/astra-orchestrator-state-2026-09-08.json` -> `finalRealization`.
+Observed main: `d6703a3be5c1435b644543ebecd5d447aa20cf89`; refresh before execution.
+Predecessors C08–C10 remain intact. Earlier source build queues remain historical unless new evidence reopens them.
 
-## Read progressively
-Complete required repository startup. Read checkpoint, c08TruthReset, one selected c09ExecutionPlan packet, and its relevant c10ClosureTribunal gate.
-Earlier C02–C07 designs remain preserved as donor contracts; they do not override C08's source reconciliation.
-C06 deployment acceptance contracts remain useful; its old construction status is stale.
-C07's fifteen ideas remain preserved; no duplicate platform builds.
+## Start
+Complete applicable startup with progressive retrieval.
+Load CURRENT MAIN + one checkpoint + one packet + relevant files + its exact acceptance contract + exact blocker.
+Next executor: deterministic/read-only verifier or cheapest capable work agent, C11-A.
+No worker is launched by this publication. Implementation is permitted only in a later execution-authorized session.
 
-## Work order for an execution-authorized session
-V1: current private-vault/reachability/syntax tests and canonical coverage/readiness regeneration on a real runner.
-V2: derive finite, evidence-linked residual scope; distinguish missing behavior from aliases/research/external boundaries.
-V3: named-host deployment, durable workload and crash/restore/rollback proof.
-V4: smallest safe existing iPad control surface under founder-private vault boundaries.
-V5: existing workflow automation and scoped provider readiness; retain all external-effect authority gates.
-V6: one optional bottleneck-justified C03/C04/C07 experiment with matched-budget proof.
-V7: exact integrated proof and actual unattended observation.
+## Routing
+C11 exact truth -> C12 no-drop nine-column coverage.
+Then independent scoped lanes: C13 intelligence, C14 personal/private control, C15 world/GENESIS, C16 software/capability, C17 compute/deployment, C18 economics.
+C19 observes actual operation and outcomes; C20 joins evidence/blocked reports and issues scoped verdict.
+Dependencies are report/contract dependencies, not permission to treat a blocked predecessor as completed behavior.
 
-Resolve exact paths, current claims, host availability and dependencies before editing. Cheapest capable worker plus independent verifier. Do not reopen completed work based on old prompt text.
+## Scope
+finalRealization.coverage preserves all 200 numbered terminal/life canon sections and 306 requested terms in 15 layers, with exact canon pointers. Null evidence is unassessed, not absent.
+C12 must resolve section bodies, linked canonical IDs/aliases and compound requirements into CANON/SOURCE/CALLER/STATE/TEST/REACHABILITY/RECOVERY/RUNTIME/OUTCOME evidence. Unmapped requirements block coverage closure.
+Sovereign Cognitive Continuum contains Personal Civilization Engine; economics supports both. Mohamed provides will; UberBond intelligence; reality feedback.
 
-## Completion law
-Use c10ClosureTribunal.dimensionContracts for all nine requested dimensions. Each percentage needs a defined dated scope, denominator, evidence and unknowns. No aggregate hides a critical failed gate. Use NOT_MEASURED when no defensible denominator exists.
-Internal finite software scope may reach complete; customers, cleared revenue, acceptance, retention, forecast horizons and lived outcomes require their own observations. No guarantee all dimensions reach 100%.
+## Work law
+20 packets only. Reuse current source; missing proof gets verification, reproduced missing behavior gets smallest admitted repair, missing reality gets external/elapsed gate.
+Each checkpoint has 19 required fields, three alternate routes and independent falsifiers.
+Use workerEconomics and executorPromptTemplate. Never send the whole history.
+Exact path claim/expiry and acknowledged owner before edits; integration alone owns shared canon/handoff.
+No propose+approve+deploy+verify+erase-rollback monopoly. No self-promotion, secret exposure or authority expansion.
+Restricted capability is unavailable unless legitimately authorized. Choose other models/tools/decomposition, never bypass access or quotas.
 
-## Receipt and recovery
-Record exact source/release/host, commands/exits, requirement evidence, critical gates, remaining unknowns, effects, rollback and next single action.
-Checkpoint after material results or five minutes of unsaved work; before context/host/model changes. Keep secrets/private data out of public git. Preserve final minute for durable write.
-If blocked: classify minimal cause; choose a materially different feasible route or the next independent packet. Never fake host/runtime evidence, weaken tests or widen permission.
+## Evidence and recovery
+Read-only docs checks are small. Changed critical guards require actually applied mutations killed by intended assertions; no fake giant suite.
+Runtime proof needs real source/config/model/host identity and executed receipts. A branch, container, plan or no-step CI is insufficient.
+Observe real time and actual outcomes; do not backdate predictions or accelerate clocks.
+Checkpoint on material results/five minutes of unsaved work and before resets; reserve final minute. Retain pending effects and reconcile before retry.
 
-First action: **V1**. This is enough to start; no further architecture is required.
+## Final tribunal
+C20 separates defined internal engineering, named runtime, observed autonomy, external outcomes, longitudinal reality and open-ended frontier.
+Every percentage requires scope version, IDs/weights, numerator/denominator, dates, SHA/runtime and unknown handling. No defensible denominator -> NOT_MEASURED. Critical gates cannot be averaged away.
+Publishing all plans completes Astra orchestration only. It does not complete UberBond.

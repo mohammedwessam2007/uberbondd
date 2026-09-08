@@ -46,7 +46,8 @@ test('founder ops exposes canonical first-cash truth without creating customer o
   assert.equal(view.businessEffectAuthority, 'NONE');
   assert.equal(view.firstCash.canonicalPath.priceUsd, 450);
   assert.equal(view.firstCash.canonicalPath.requiresProviderOriginPaymentTruth, true);
-  assert.equal(view.launchability.liveLaunchConfigurationReady, false);
+  assert.equal(view.launchability.localConfigurationGatesClear, false);
+  assert.equal(view.launchability.launchNowProven, false);
   assert.ok(view.launchability.externalActivationBlockers.includes('outbound-disabled-or-not-configured'));
   assert.ok(view.launchability.externalActivationBlockers.includes('outbound-dry-run'));
   assert.equal(view.privacy.rawPersonalCivilizationReachable, false);
@@ -60,12 +61,14 @@ test('founder ops exposes canonical first-cash truth without creating customer o
   ]) assert.equal(serialized.includes(secret), false, `secret leaked: ${secret}`);
 });
 
-test('configuration presence never manufactures cleared payment, customer, delivery or acceptance truth', async t => {
+test('configuration presence never manufactures launch proof, cleared payment, customer, delivery or acceptance truth', async t => {
   const h = await harness();
   t.after(() => fs.rm(h.dir, { recursive: true, force: true }));
+  const cfg = { ...h.cfg, outbound: { ...h.cfg.outbound, enabled: true, dryRun: false } };
 
   const view = await buildFounderOpsView({
     ...h,
+    cfg,
     env: {
       ADMIN_TOKEN: 'x', DATABASE_URL: 'postgres://configured',
       PAYPAL_ENVIRONMENT: 'LIVE', PAYPAL_LIVE_CLIENT_ID: 'id', PAYPAL_LIVE_CLIENT_SECRET: 'secret', PAYPAL_LIVE_WEBHOOK_ID: 'hook',
@@ -74,9 +77,12 @@ test('configuration presence never manufactures cleared payment, customer, deliv
     now: new Date('2026-09-08T18:31:00.000Z')
   });
 
-  assert.equal(view.launchability.liveLaunchConfigurationReady, true);
+  assert.equal(view.launchability.localConfigurationGatesClear, true);
+  assert.equal(view.launchability.launchNowProven, false);
+  assert.match(view.launchability.launchNowWhyNotProven, /external evidence/i);
   assert.equal(view.launchability.externalReality.clearedPaymentCount, 0);
-  assert.notEqual(view.launchability.note.includes('does not prove a customer'), false);
+  assert.match(view.launchability.note, /NOT launch proof/);
+  assert.match(view.truthBoundary, /CONFIGURATION PRESENCE IS NOT PROVIDER CALLABILITY OR LAUNCH PROOF/);
   assert.match(view.truthBoundary, /PREPARATION IS NOT CUSTOMER TRUTH/);
   assert.match(view.truthBoundary, /DELIVERY_READY IS NOT CUSTOMER_ACCEPTED/);
 });

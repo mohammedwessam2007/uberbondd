@@ -51,8 +51,8 @@ export function defaultPrivateState() {
 
 /**
  * Private founder state may live only at an absolute local filesystem path
- * outside the repository. Network URLs, repository paths and symlink targets
- * are refused before any content is read or written.
+ * outside the repository. Network URLs, repository paths and direct symlink
+ * targets are refused before any content is read or written.
  */
 export function validatePrivateStatePath(filePath = DEFAULT_FILE, { repoRoot = MODULE_REPO_ROOT } = {}) {
   const raw = String(filePath || '').trim();
@@ -80,6 +80,48 @@ export function validatePrivateStatePath(filePath = DEFAULT_FILE, { repoRoot = M
   return { ok: true, status: 'PRIVATE_STATE_PATH_ALLOWED', filePath: resolved, businessEffectAuthority: 'NONE' };
 }
 
+/**
+ * Resolve an existing private file before reading it. This closes the parent-
+ * directory symlink gap: `/outside/private/life.json` may look outside the repo
+ * while `/outside/private` is actually a symlink back into the repository.
+ * Reads use the resolved file and refuse any resolved target inside Git.
+ */
+function resolveExistingPrivateReadTarget(filePath, { repoRoot = MODULE_REPO_ROOT } = {}) {
+  const checked = validatePrivateStatePath(filePath, { repoRoot });
+  if (!checked.ok) return checked;
+  if (!fs.existsSync(checked.filePath)) {
+    return {
+      ok: true,
+      status: 'PRIVATE_STATE_TARGET_ABSENT',
+      exists: false,
+      filePath: checked.filePath,
+      readPath: null,
+      businessEffectAuthority: 'NONE'
+    };
+  }
+
+  let realFile;
+  let realRoot;
+  try {
+    realFile = fs.realpathSync(checked.filePath);
+    realRoot = fs.existsSync(repoRoot) ? fs.realpathSync(repoRoot) : path.resolve(repoRoot);
+  } catch {
+    return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-realpath-failed']);
+  }
+  if (inside(realRoot, realFile)) {
+    return fail('PRIVATE_STATE_PATH_REFUSED', ['private-state-resolved-into-repository']);
+  }
+
+  return {
+    ok: true,
+    status: 'PRIVATE_STATE_READ_TARGET_RESOLVED',
+    exists: true,
+    filePath: checked.filePath,
+    readPath: realFile,
+    businessEffectAuthority: 'NONE'
+  };
+}
+
 function validateStateShape(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return fail('PRIVATE_STATE_INVALID', ['private-state-object-required']);
   if (value.schemaVersion !== PRIVATE_STATE_SCHEMA) return fail('PRIVATE_STATE_INVALID', ['private-state-schema-mismatch']);
@@ -102,14 +144,14 @@ function validateStateShape(value) {
 
 export function loadPrivateState({ filePath = DEFAULT_FILE, authorization = null, repoRoot = MODULE_REPO_ROOT } = {}) {
   if (!founderAuthorized(authorization)) return fail('PRIVATE_STATE_FOUNDER_AUTHORITY_REQUIRED', ['founder-authorization-required']);
-  const checked = validatePrivateStatePath(filePath, { repoRoot });
-  if (!checked.ok) return checked;
-  if (!fs.existsSync(checked.filePath)) {
-    return { ok: true, status: 'PRIVATE_STATE_EMPTY', filePath: checked.filePath, state: defaultPrivateState(), businessEffectAuthority: 'NONE' };
+  const target = resolveExistingPrivateReadTarget(filePath, { repoRoot });
+  if (!target.ok) return target;
+  if (!target.exists) {
+    return { ok: true, status: 'PRIVATE_STATE_EMPTY', filePath: target.filePath, state: defaultPrivateState(), businessEffectAuthority: 'NONE' };
   }
 
   let stat;
-  try { stat = fs.statSync(checked.filePath); }
+  try { stat = fs.statSync(target.readPath); }
   catch { return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-stat-failed']); }
   if (!stat.isFile()) return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-path-is-not-file']);
   if (process.platform !== 'win32' && (stat.mode & 0o077) !== 0) {
@@ -117,11 +159,11 @@ export function loadPrivateState({ filePath = DEFAULT_FILE, authorization = null
   }
 
   let parsed;
-  try { parsed = JSON.parse(fs.readFileSync(checked.filePath, 'utf8')); }
+  try { parsed = JSON.parse(fs.readFileSync(target.readPath, 'utf8')); }
   catch { return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-json-invalid']); }
   const shaped = validateStateShape(parsed);
   if (!shaped.ok) return shaped;
-  return { ok: true, status: 'PRIVATE_STATE_LOADED', filePath: checked.filePath, state: shaped.state, businessEffectAuthority: 'NONE' };
+  return { ok: true, status: 'PRIVATE_STATE_LOADED', filePath: target.filePath, state: shaped.state, businessEffectAuthority: 'NONE' };
 }
 
 function atomicPrivateWrite(filePath, payload, { repoRoot = MODULE_REPO_ROOT } = {}) {

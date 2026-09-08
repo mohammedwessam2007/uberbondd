@@ -2,24 +2,24 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-07T20:52:34.662Z",
-  "sourceCommit": "c182ac0e44a721cd9d7adba24b36228a07e76091",
+  "generatedAt": "2026-09-08T04:44:07.872Z",
+  "sourceCommit": "a006cafd47d3b0110c111f884a4f0902185fe0f3",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 161,
+    "declaredConcepts": 166,
     "byState": {
-      "VERIFIED_CURRENT": 250,
+      "VERIFIED_CURRENT": 255,
       "PARTIAL_CURRENT": 61,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 117,
+      "SPEC_ONLY": 100,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
       "SUPERSEDED_WITH_PRESERVED_DONATION": 0,
       "UNKNOWN": 5,
-      "ENFORCED_BY_CODE": 39,
+      "ENFORCED_BY_CODE": 51,
       "STRUCTURAL_NOT_A_BUILD_TARGET": 137,
       "COVERED_BY_PARENT_ORGAN": 124,
       "REFERENCE_ONLY_BY_CANON": 33,
@@ -32,9 +32,9 @@
       "OMEGA-01": 14,
       "OMEGA-04": 121,
       "OMEGA-12": 1,
-      "OMEGA-05": 78,
+      "OMEGA-05": 83,
       "OMEGA-06": 15,
-      "OMEGA-07": 20,
+      "OMEGA-07": 15,
       "OMEGA-02": 170,
       "OMEGA-13": 14,
       "OMEGA-11": 4,
@@ -109,7 +109,7 @@
         "Reality provides feedback"
       ],
       "class": "TERMINAL_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -20018,22 +20018,26 @@
         "Opportunity Shockwave"
       ],
       "class": "GENESIS_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/perpetual-frontier-genesis.mjs"
+        ],
+        "testModules": [
+          "tests/perpetual-frontier-genesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Opportunity Shockwave",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-07",
+      "targetModule": "src/perpetual-frontier-genesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -20048,22 +20052,26 @@
         "Resurrection Engine"
       ],
       "class": "GENESIS_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/perpetual-frontier-genesis.mjs"
+        ],
+        "testModules": [
+          "tests/perpetual-frontier-genesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Resurrection Engine",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-07",
+      "targetModule": "src/perpetual-frontier-genesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -20108,22 +20116,26 @@
         "Frontier Latency Ledger"
       ],
       "class": "GENESIS_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/perpetual-frontier-genesis.mjs"
+        ],
+        "testModules": [
+          "tests/perpetual-frontier-genesis.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Frontier Latency Ledger",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-07",
+      "targetModule": "src/perpetual-frontier-genesis.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -20200,22 +20212,26 @@
         "Anti-UberBond"
       ],
       "class": "GENESIS_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/genesis-evolution-engine.mjs"
+        ],
+        "testModules": [
+          "tests/genesis-evolution-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Anti-UberBond",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-07",
+      "targetModule": "src/genesis-evolution-engine.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -20230,22 +20246,26 @@
         "Red Queen Evaluators"
       ],
       "class": "GENESIS_MECHANISM",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/genesis-evolution-engine.mjs"
+        ],
+        "testModules": [
+          "tests/genesis-evolution-engine.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Red Queen Evaluators",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-07",
+      "targetModule": "src/genesis-evolution-engine.mjs",
+      "owningLane": "OMEGA-05",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -25949,7 +25969,7 @@
         "reality outranks architecture"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26009,7 +26029,7 @@
         "accepted delivery is separate from payment"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26039,7 +26059,7 @@
         "first payment is separate from renewal"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -26189,7 +26209,7 @@
         "focused tests prove only focused seams"
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28489,7 +28509,7 @@
         "Never reduce UberBond to the currently active commercial experiment. The experiment is one validation path inside a much larger portfolio."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28519,7 +28539,7 @@
         "Never treat historical offer/combinations counts as customers, active SKUs, revenue or proof of demand."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28579,7 +28599,7 @@
         "Never resurrect a superseded architecture wholesale when current main already contains its useful semantics."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28609,7 +28629,7 @@
         "Never treat OMNIA synthetic scale/test counts as production, economic or market proof."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28639,7 +28659,7 @@
         "Never let a new chat infer that an unmentioned feature or program never existed; search the memory index, historical lineage and source registry first."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28669,7 +28689,7 @@
         "Owner-recalled but currently unverified names must remain visible as unresolved memory rather than being guessed or silently dropped."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],
@@ -28733,7 +28753,7 @@
         "Current repository and durable external receipts always outrank historical memory when they conflict."
       ],
       "class": "AUTHORITY_LAW",
-      "currentState": "SPEC_ONLY",
+      "currentState": "ENFORCED_BY_CODE",
       "currentEvidence": {
         "sourceModules": [],
         "testModules": [],

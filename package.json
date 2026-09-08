@@ -108,7 +108,9 @@
     "test:sovereign-coverage": "node --test tests/sovereign-coverage-matrix.test.mjs",
     "test:personal-civilization": "node --test tests/life-possibility-engine.test.mjs tests/life-compression-engine.test.mjs tests/gamechanger-for-life.test.mjs tests/genesis-for-life.test.mjs tests/freedom-gradient.test.mjs tests/anti-fragility-map.test.mjs tests/personal-civilization-doctor.test.mjs",
     "reasoning:doctor": "node scripts/reasoning-quality-doctor.mjs",
-    "test:reasoning-quality": "node --test tests/unknown-unknown-mining.test.mjs tests/assumption-escape.test.mjs tests/n-of-1-personal-science.test.mjs tests/reasoning-quality-doctor.test.mjs"
+    "test:reasoning-quality": "node --test tests/unknown-unknown-mining.test.mjs tests/assumption-escape.test.mjs tests/n-of-1-personal-science.test.mjs tests/reasoning-quality-doctor.test.mjs",
+    "memory:doctor": "node scripts/memory-truth-doctor.mjs",
+    "test:memory-truth": "node --test tests/memory-truth-boundary.test.mjs tests/memory-truth-doctor.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

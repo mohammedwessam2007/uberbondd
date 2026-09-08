@@ -1784,6 +1784,61 @@
         "tests/assumption-escape.test.mjs"
       ],
       "note": "distinguishingObservation returns UNDECIDABLE_WITHIN_AVAILABLE_EVIDENCE and withholds any plausibility ranking when no available observation separates the foundations, rather than picking and inheriting the same status with more conviction."
+    },
+    {
+      "concept": "Opportunity Shockwave",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs"
+      ],
+      "note": "buildFrontierShockwave. Propagates a changed primitive through affected domains and opportunity IDs, and refuses a shockwave that names no changed primitive."
+    },
+    {
+      "concept": "Resurrection Engine",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs"
+      ],
+      "note": "buildResurrectionQueue. Matches dormant opportunities against changed conditions and returns candidates under MATCHED_CONDITION_DOES_NOT_MEAN_OPPORTUNITY_IS_VIABLE_OR_RESURRECTED."
+    },
+    {
+      "concept": "Frontier Latency Ledger",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/perpetual-frontier-genesis.mjs"
+      ],
+      "tests": [
+        "tests/perpetual-frontier-genesis.test.mjs"
+      ],
+      "note": "buildFrontierLatencyReceipt. Accounts elapsed time across the eight frontier stages and refuses a receipt whose timestamps run backwards."
+    },
+    {
+      "concept": "Anti-UberBond",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "note": "buildAntiUberBondChallenges. Every challenge carries authority RESEARCH_AND_FALSIFICATION_ONLY and CHALLENGES_DO_NOT_AUTHORIZE_REPLACEMENT, so a counter-theory cannot promote itself."
+    },
+    {
+      "concept": "Red Queen Evaluators",
+      "lane": "OMEGA-05",
+      "sources": [
+        "src/genesis-evolution-engine.mjs"
+      ],
+      "tests": [
+        "tests/genesis-evolution-engine.test.mjs"
+      ],
+      "note": "buildRedQueenEvaluatorTournament. Five evaluator profiles ballot independently and disagreement is preserved rather than averaged; EVALUATOR_CONSENSUS_IS_INTERNAL_RANKING_NOT_EXTERNAL_PROOF."
     }
   ]
 }

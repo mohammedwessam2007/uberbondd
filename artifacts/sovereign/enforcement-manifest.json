@@ -412,6 +412,126 @@
         "tests/memory-sovereignty.test.mjs"
       ],
       "note": "Layer-gated inference: only ACTIVE_MODEL and SEMANTIC may inform an inference, and a do-not-infer mark survives promotion between layers. MEMSOV-01/02."
+    },
+    {
+      "concept": "reality outranks architecture",
+      "sources": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "tests": [
+        "tests/epistemic-immune-system.test.mjs"
+      ],
+      "note": "realityVeto returns internalSupportOffsetsObservation: false and MODEL < REALITY. No quantity of internal support offsets a single contradicting observation."
+    },
+    {
+      "concept": "Reality provides feedback",
+      "sources": [
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "tests": [
+        "tests/reality-calibration-ledger.test.mjs"
+      ],
+      "note": "Forecasts are sealed at record time and scored against observed outcomes; an edited forecast cannot be scored and an outcome already known at forecast time is recorded as memory rather than prediction."
+    },
+    {
+      "concept": "accepted delivery is separate from payment",
+      "sources": [
+        "src/payment-renewal-truth.mjs"
+      ],
+      "tests": [
+        "tests/payment-renewal-truth.test.mjs"
+      ],
+      "note": "acceptanceTruth requires a matching EXTERNAL_CUSTOMER acceptance event; an accepted boolean alone returns external-customer-acceptance-not-proven however the payment cleared."
+    },
+    {
+      "concept": "first payment is separate from renewal",
+      "sources": [
+        "src/payment-renewal-truth.mjs"
+      ],
+      "tests": [
+        "tests/payment-renewal-truth.test.mjs"
+      ],
+      "note": "Renewals are counted only from subscription_payment_success with matching provider evidence; subscription_updated cannot masquerade as a renewal even with a positive ledger row."
+    },
+    {
+      "concept": "focused tests prove only focused seams",
+      "sources": [
+        "scripts/mutation-war.mjs"
+      ],
+      "tests": [
+        "tests/mutation-verdict-honesty.test.mjs"
+      ],
+      "note": "classifySuiteRun separates a suite that skipped itself from one that killed, and a mutant that failed at import from one that failed an assertion, so a run that proved nothing cannot report as proof."
+    },
+    {
+      "concept": "Never reduce UberBond to the currently active commercial experiment. The experiment is one validation path inside a much larger portfolio.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "describePortfolio refuses an answer naming only the active experiment rather than caveating it, since the caveat is the part dropped when the sentence is quoted."
+    },
+    {
+      "concept": "Never treat historical offer/combinations counts as customers, active SKUs, revenue or proof of demand.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "answerFromCount returns answer: null for every commercial question asked of an INVENTORY count, and returns the number with its class attached so it cannot be quoted bare."
+    },
+    {
+      "concept": "Never treat OMNIA synthetic scale/test counts as production, economic or market proof.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "SYNTHETIC_SCALE is refused for all four commercial questions, tested across the whole COMMERCIAL_QUESTIONS vocabulary rather than one example."
+    },
+    {
+      "concept": "Never let a new chat infer that an unmentioned feature or program never existed; search the memory index, historical lineage and source registry first.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "resolveExistence has no NEVER_EXISTED state. Absence resolves to NOT_FOUND_IN_SEARCHED_SOURCES with the sources named and the required sources not yet searched listed."
+    },
+    {
+      "concept": "Owner-recalled but currently unverified names must remain visible as unresolved memory rather than being guessed or silently dropped.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "resolveRecalledName keeps a proposed meaning beside the name without resolving it; only a source ref resolves, so a confident narrative cannot."
+    },
+    {
+      "concept": "Never resurrect a superseded architecture wholesale when current main already contains its useful semantics.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "reconcile returns REUSE_THE_SEMANTICS_NOT_THE_OLD_ARCHITECTURE when the donation is already carried by current truth."
+    },
+    {
+      "concept": "Current repository and durable external receipts always outrank historical memory when they conflict.",
+      "sources": [
+        "src/memory-truth-boundary.mjs"
+      ],
+      "tests": [
+        "tests/memory-truth-boundary.test.mjs"
+      ],
+      "note": "reconcile answers the present tense from current truth and preserves the superseded record with its donations; precedence and preservation are one rule."
     }
   ]
 }

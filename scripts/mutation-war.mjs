@@ -2810,6 +2810,73 @@ export const MUTATIONS = [
     replace: '  if (false) {',
     suites: ['tests/assumption-escape.test.mjs']
   },
+  // ---- The counts that read like traction, and the silence that reads --
+  // ---- like deletion ---------------------------------------------------
+  {
+    // 438 opportunity IDs and 2,000 scored combinations are in the memory index
+    // right now. Each reads like traction when quoted without its class.
+    id: 'MEMTRUTH-01', guard: 'Only a commercial receipt answers a commercial question',
+    file: 'src/memory-truth-boundary.mjs',
+    find: '  if (COMMERCIAL_QUESTIONS.includes(asked) && kind !==',
+    replace: '  if (false && kind !==',
+    suites: ['tests/memory-truth-boundary.test.mjs', 'tests/memory-truth-doctor.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-02', guard: 'A number with no stated subject is refused',
+    file: 'src/memory-truth-boundary.mjs',
+    find: "  if (!subject) return fail('COUNT_INVALID', ['count-subject-required'], {",
+    replace: "  if (false) return fail('COUNT_INVALID', ['count-subject-required'], {",
+    suites: ['tests/memory-truth-boundary.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-03', guard: 'An absence claim with no stated search is refused',
+    file: 'src/memory-truth-boundary.mjs',
+    find: '  if (searched.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/memory-truth-boundary.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-04', guard: 'A partial search reports the required sources it did not reach',
+    file: 'src/memory-truth-boundary.mjs',
+    find: '  const unsearched = required.filter(item => !searched.includes(item)).sort();',
+    replace: '  const unsearched = [];',
+    suites: ['tests/memory-truth-boundary.test.mjs', 'tests/memory-truth-doctor.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-05', guard: 'A name without a source ref stays unresolved',
+    file: 'src/memory-truth-boundary.mjs',
+    find: '  if (!ref) {',
+    replace: '  if (false) {',
+    suites: ['tests/memory-truth-boundary.test.mjs', 'tests/memory-truth-doctor.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-06', guard: 'An answer naming only the active experiment is refused',
+    file: 'src/memory-truth-boundary.mjs',
+    find: '  const reducedToActive = Boolean(active) && named.length > 0 && named.every(item => item === active) && rows.length > 1;',
+    replace: '  const reducedToActive = false;',
+    suites: ['tests/memory-truth-boundary.test.mjs', 'tests/memory-truth-doctor.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-07', guard: 'An active experiment outside the portfolio is a second registry',
+    file: 'src/memory-truth-boundary.mjs',
+    find: '  if (active && !rows.includes(active)) {',
+    replace: '  if (false) {',
+    suites: ['tests/memory-truth-boundary.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-08', guard: 'Current truth never deletes what it superseded',
+    file: 'src/memory-truth-boundary.mjs',
+    find: "      ? { historicalMemory: historical, state: 'SUPERSEDED_DONATION_PRESERVED', donated: donations }",
+    replace: '      ? null',
+    suites: ['tests/memory-truth-boundary.test.mjs', 'tests/memory-truth-doctor.test.mjs']
+  },
+  {
+    id: 'MEMTRUTH-09', guard: 'Historical memory is labelled as memory, not as current truth',
+    file: 'src/memory-truth-boundary.mjs',
+    find: "      answerClass: 'HISTORICAL_MEMORY__NOT_CURRENT_TRUTH',",
+    replace: "      answerClass: 'CURRENT_TRUTH',",
+    suites: ['tests/memory-truth-boundary.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

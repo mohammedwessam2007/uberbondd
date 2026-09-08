@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "uberbond-night-swarm-receipt-1.0.0",
+  "agent": "WORK",
+  "packet": "AUTO-04",
+  "status": "PASS_REUSED_EXECUTED_IDENTICAL_SOURCE",
+  "currentMain": "799107519beca7e1dd6d56013dd937ab99b780af",
+  "mechanism": "src/compute-sovereignty.mjs",
+  "currentSourceBlobSha": "a668e2ae3975d96ab1a1a95b4b7e4811e8a31dc1",
+  "currentTestBlobSha": "250448215b863e82697d0691c941b07f86f71fc3",
+  "executedDonor": {
+    "pr": 400,
+    "mergeCommit": "ebcfd64a8d8d155691265bac33ac84d30b116894",
+    "sourceBlobSha": "a668e2ae3975d96ab1a1a95b4b7e4811e8a31dc1",
+    "testBlobSha": "250448215b863e82697d0691c941b07f86f71fc3"
+  },
+  "behaviorProvedByMechanism": [
+    "reject trial cycling, identity farming, quota evasion, leaked credentials and billing bypass as compute supply",
+    "require provider/model revision plus provenance and verification time",
+    "prefer lawful zero-cost capacity when it satisfies task quality/reliability constraints",
+    "reduce fresh inference demand through cache/context/compression reuse without pretending to create provider quota",
+    "hold rather than fabricate a destination when no eligible compute cell exists",
+    "require reachable, authorized, unblocked capability-fit compute before allocation",
+    "require portable state and authorized/reachable target before migration",
+    "emit checksum/canary/rollback migration contract"
+  ],
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "Current source and focused tests are byte-identical to the merged #400 implementation. This proves the allocation/refusal/migration decision mechanism, not that any particular external provider is currently available or authorized."
+}

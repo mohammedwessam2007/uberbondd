@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond-night-swarm-receipt-1.0.0",
+  "agent": "WORK",
+  "packet": "DEPLOY-02",
+  "status": "PASS_REUSED_EXECUTED_IDENTICAL_SOURCE",
+  "currentMain": "799107519beca7e1dd6d56013dd937ab99b780af",
+  "mechanism": "scripts/postgres-smoke.mjs",
+  "currentBlobSha": "41eb943c6273d73ad89884730533c833cf234098",
+  "executedDonor": {
+    "pr": 450,
+    "head": "31e3f2561ebf31138132e8b9384742f10ecf2248",
+    "blobSha": "41eb943c6273d73ad89884730533c833cf234098"
+  },
+  "behaviorProvedByMechanism": [
+    "start embedded PostgreSQL",
+    "create a real database",
+    "connect independent PostgresStore instances",
+    "initialize schema",
+    "write and read state",
+    "reject uniqueness conflicts",
+    "rollback failed transactions",
+    "coordinate concurrent claims without duplication",
+    "enforce discovery capacity jointly",
+    "exercise import-state idempotency behavior",
+    "query real PostgreSQL version and public tables",
+    "stop PostgreSQL in finally"
+  ],
+  "executedEvidence": {
+    "deterministic": "4144 tests; 4089 pass; 0 fail; 54 skipped",
+    "mutationWar": "231/231 killed",
+    "realPostgres": "24 suites",
+    "relaySafety": "150/150",
+    "browser": "1/1"
+  },
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "Exact current source is byte-identical to source that actually executed on PR #450. This certifies the local/embedded PostgreSQL startup rehearsal, not availability of any external managed Postgres provider."
+}

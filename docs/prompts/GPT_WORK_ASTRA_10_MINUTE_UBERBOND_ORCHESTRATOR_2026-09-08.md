@@ -1,6 +1,6 @@
 # GPT WORK ASTRA — 10-MINUTE UBERBOND COMMAND SWARM
 
-Status: `C03 / ORCHESTRATION_ONLY / PREPARED_NOT_DISPATCHED`
+Status: `C04 / ORCHESTRATION_ONLY / PREPARED_NOT_DISPATCHED`
 
 Repository: `mohammedwessam2007/uberbondd`
 
@@ -245,3 +245,18 @@ An AGI ambition is not an AGI result. This finite campaign measures bounded tran
 Keep evaluator-held-out answers out of generator context, record exposure, predeclare thresholds and preserve failures. Candidate cannot rewrite its judge. If independent evaluation is unavailable, label the limitation. Stop mechanisms that cannot beat a matched-budget baseline; checkpoint null results so another worker does not repeat the same failed theory.
 
 Checkpoint C03 persists in the existing state and CURRENT_HANDOFF pointer. Save after each result, changed assumption or five minutes of unsaved active work; retain last-minute reserve. No new runtime, workflow, authority, customer message or worker launch is created by publishing this plan.
+
+
+## C04 — chosen possibilities made reachable
+
+Read c04LifeOptions in the state artifact. The hypothesis is that one small, evidence-linked change can unlock a valued option, and one voluntary authentic experience can reveal something simulation cannot. This is a proposed experiment chain, not proof of benefit.
+
+First: falsify capability bottleneck heuristics with synthetic goal-specific thresholds, alternative prerequisites, null evidence and requirement-order permutations. A lowest score is not automatically the binding constraint. A generic 0.5 threshold is not automatically goal readiness. Inspect callers before changing any contract.
+
+Then: compare learning, tools, environment, consented collaboration, a smaller goal, waiting and declining. Offer at most three distinct feasible probes. Preserve choice and tradeoffs; no life ranking or universal utility score. Untested-dimension count is not demonstrated information gain.
+
+Finally: under explicit private participation, one chosen bounded experience -> optional outcome -> evidence-linked update or stop. Count the burden of using UberBond. Protect private state and deletion; no public life payload or autonomous private-organ access. No messages, bookings, spend or experiments are launched by this plan.
+
+Cheap-worker kickoff: Refresh main and C04-01. Use existing exports and caller contracts. Return one minimal reproduced counterexample or the exact mechanism that already prevents it, source/head/commands/evidence, then checkpoint. Do not build a new app or database. Any implementation requires your execution session's authority. Preserve C02 release priority and the single research-slot budget shared with C03.
+
+Checkpoint after each material result or five minutes of unsaved active work. Stop expanding this chain before its first falsification result unless the owner explicitly requests further orchestration. The desired outcome is less time managing software and more voluntary real-world possibility; none is claimed from publishing this document.

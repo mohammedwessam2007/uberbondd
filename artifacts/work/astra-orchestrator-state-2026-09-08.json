@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "ORCHESTRATION_CHECKPOINT_C03__EXPERIMENTS_PREPARED_NOT_DISPATCHED",
+  "status": "ORCHESTRATION_CHECKPOINT_C04__LIFE_OPTION_EXPERIMENTS_PREPARED",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -114,14 +114,13 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C03",
+    "id": "C04",
     "date": "2026-09-08",
-    "observedMain": "c4bad89ed0db9123ed0fe2d10fa2ef35072a71d0",
+    "observedMain": "e9a4df08da1ec89a6721416f3af823d57642addc",
     "mode": "ORCHESTRATION_ONLY",
-    "publicationAuthority": "Continuation of owner-authorized orchestration publication to main.",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "nextAction": "Execution-authorized cheap verifier runs C03-01 targeted falsification; C02 cash/recovery queue retains release priority."
+    "nextAction": "Keep C02 release priority. When a cheap research slot is available, reproduce C04-01 before any new life-planning architecture."
   },
   "closedTribunal": [
     {
@@ -400,6 +399,16 @@
       "workerAcknowledgements": [],
       "readScope": "Current refs, existing Astra artifacts, #463/#488 and #482/#483 comments, core canon. Not a full source audit.",
       "nextAction": "A later execution-authorized worker refreshes refs and ownership, then verifies #482/#483 on an executing host."
+    },
+    {
+      "id": "C03",
+      "date": "2026-09-08",
+      "observedMain": "c4bad89ed0db9123ed0fe2d10fa2ef35072a71d0",
+      "mode": "ORCHESTRATION_ONLY",
+      "publicationAuthority": "Continuation of owner-authorized orchestration publication to main.",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Execution-authorized cheap verifier runs C03-01 targeted falsification; C02 cash/recovery queue retains release priority."
     }
   ],
   "c03Research": {
@@ -517,5 +526,80 @@
       "regression and revocation behavior"
     ],
     "promotion": "No candidate chooses its own rubric, gains authority or promotes itself; acceptance belongs to existing independent review."
+  },
+  "c04LifeOptions": {
+    "classification": "PROPOSED_EXPERIMENTS__NO_LIFE_OUTCOME_OR_RUNTIME_CREDIT",
+    "purpose": "Find a small chosen change that makes a previously blocked valuable possibility reachable, without outsourcing the founder's will.",
+    "centralQuestion": "Which affordable reversible change would unlock a possibility the person actually wants to explore, and what observation could show that we are wrong?",
+    "sourceEvidence": {
+      "base": "e9a4df08da1ec89a6721416f3af823d57642addc",
+      "files": [
+        "src/human-capability-genome.mjs",
+        "src/genesis-for-life.mjs"
+      ],
+      "observations": [
+        "findBottleneck selects first missing requirement, otherwise lowest level.",
+        "growSkeleton uses a fixed level threshold of 0.5.",
+        "unknownSelfProbes orders by number of untested dimensions; this is not measured information gain."
+      ],
+      "boundary": "Source inspection only. Caller contracts, full reachability and downstream enforcement require verification before declaring a system defect."
+    },
+    "experiments": [
+      {
+        "id": "C04-01",
+        "dependsOn": [],
+        "status": "PREPARED_NOT_DISPATCHED",
+        "goal": "Replace assumed bottlenecks with falsifiable goal-specific constraints where a real gap is reproduced.",
+        "reuse": "src/human-capability-genome.mjs; existing goal/capability representations.",
+        "probe": "Construct fake cases: weakest skill already exceeds the goal threshold; stronger skill falls short of a higher requirement; either of two tools can substitute for a skill; two jointly missing prerequisites; permutation of missing inputs; null level versus measured zero.",
+        "acceptance": "Unknown stays unknown. Requirement ordering alone cannot establish priority. A weakest score is labelled a heuristic unless causal/threshold evidence supports it. Goal readiness does not follow from generic 0.5. Enumerate feasible alternatives with explicit requirements and uncertainty; use existing contracts before proposing extensions.",
+        "deliverable": "Minimal counterexample and smallest repair specification or verified existing enforcing path. No implementation in Astra session.",
+        "budget": "Deterministic fake cases first; zero provider calls."
+      },
+      {
+        "id": "C04-02",
+        "dependsOn": [
+          "C04-01"
+        ],
+        "status": "PREPARED_NOT_DISPATCHED",
+        "goal": "Discover multiple ways to unlock the same chosen option.",
+        "reuse": "Existing Human Capability Genome, Osteogenesis, GENESIS and possibility graph; no parallel personal database.",
+        "probe": "For one synthetic goal compare practice, a lawful tool, environmental redesign, an explicitly consented collaborator, a smaller version of the goal, wait and decline. Show prerequisite/alternative edges, cost ranges, time, expiry, reversibility and evidence.",
+        "acceptance": "Do not assume learning is always necessary or automation always better. Count only options whose explicit constraints changed. No universal life score. Present tradeoffs and dominated alternatives without erasing intentionally valued commitments. Resource estimates remain estimates.",
+        "deliverable": "One auditable option packet: selected goal, blocking evidence, candidate changes, prerequisite deltas, uncertainty and next observation. No action is taken.",
+        "budget": "Maximum three materially distinct feasible candidates after reuse/dedupe; unbounded possibility generation is out of scope."
+      },
+      {
+        "id": "C04-03",
+        "dependsOn": [
+          "C04-02"
+        ],
+        "status": "PREPARED_NOT_DISPATCHED",
+        "goal": "Compile the smallest authentic experience that distinguishes possibilities.",
+        "reuse": "GENESIS for Life and C03 bounded-experiment findings; conditional on appropriate private interaction admission.",
+        "probe": "For one founder-selected non-sensitive possibility, state rival explanations and expected observations before a voluntary reversible probe. Compare a cheap experience that distinguishes explanations with one touching many dimensions but distinguishing none.",
+        "acceptance": "Number of untested dimensions is a heuristic, not verified information gain. A reversible-probe string is not execution permission or proof the full path is safe. Scope, cost/time, consent and stop condition must bind the actual probe. No health, financial, travel booking or relationship action inferred. One experience cannot establish a durable trait.",
+        "deliverable": "Private one-screen choice: what could become possible, why uncertain, smallest optional experience, cost/time, stop condition, 'not now' and 'do not model this'. No account action or message.",
+        "budget": "At most one active voluntary probe; never schedule or contact anyone from this plan."
+      },
+      {
+        "id": "C04-04",
+        "dependsOn": [
+          "C04-03"
+        ],
+        "status": "PREPARED_NOT_DISPATCHED",
+        "goal": "Learn whether the system made life easier and expand only if justified.",
+        "reuse": "Existing outcome/calibration and memory sovereignty; preserve DELIBERATELY_UNREACHABLE rules for autonomous callers.",
+        "probe": "With explicit participation, preserve the pre-probe expectation and an optional after-probe report. Separate task completion, enjoyment, changed interest, capability evidence, effort and unexpected cost. Offer save, revise or delete; fresh-session resumption must obey retention choice.",
+        "acceptance": "No completion-to-benefit inference; no before/after causal certainty without appropriate comparison. A negative or declined result is useful, not user failure. Count founder time spent operating UberBond. If interaction burden exceeds user-endorsed benefit, simplify or stop. Deletion and revocation propagate through allowed stores; public git contains no personal payload.",
+        "deliverable": "Evidence-linked update and one optional next step, or a justified stop. Retain uncertainty; never claim life transformation from a demo.",
+        "budget": "No daily scoring obligation or automatic nudges; cadence is founder-chosen."
+      }
+    ],
+    "releaseAndBudget": "C02 remains release priority, C03 remains bounded intelligence evaluation. At most one research slot total across C03/C04; C04-01 can run without model calls. Do not open four speculative implementation PRs.",
+    "modelRouting": "Cheapest capable worker for probes/contracts; Astra only for new mechanism design when a concrete counterexample needs it.",
+    "distinctiveHypothesis": "The useful unit is a verified change in reachability plus a chosen real experience, not a recommendation count or a simulated life ranking.",
+    "antiPlanningDebt": "This checkpoint adds one gated experiment chain. No further expansion of this chain before its first falsification result unless the owner explicitly requests more orchestration. Publishing plans is not progress on their behavior.",
+    "claimBoundary": "No AGI, historical uniqueness, guaranteed income or life-changing outcome is established. The goal is testable usefulness while preserving will, privacy, rest and the right to remain unmodeled."
   }
 }

@@ -1,6 +1,9 @@
-import { compileBoundedExperiment } from './genesis-boundary-experiment.mjs';
+import {
+  compileBoundedExperiment,
+  REVERSIBILITY_CLASSES
+} from './genesis-boundary-experiment.mjs';
 
-export const GENESIS_EXPERIMENT_FEASIBILITY_VERSION = 'uberbond.genesis-experiment-feasibility.v1';
+export const GENESIS_EXPERIMENT_FEASIBILITY_VERSION = 'uberbond.genesis-experiment-feasibility.v1.1';
 
 const text = (value, max = 4000) => {
   const out = String(value ?? '').trim();
@@ -27,17 +30,22 @@ function normalizeProbe(raw, defaults) {
   const costCents = count(raw?.costCents, 1e12);
   const timeMinutes = count(raw?.timeMinutes, 1e9);
   const measure = text(raw?.measure, 1200);
+  const decisionRule = text(raw?.decisionRule, 2000);
   const supportsHypothesis = text(raw?.supportsHypothesis, 2000);
   const falsifiesHypothesis = text(raw?.falsifiesHypothesis, 2000);
-  const reversibility = text(raw?.reversibility, 120) || defaults.reversibility;
+  const reversibility = raw?.reversibility === undefined || raw?.reversibility === null
+    ? defaults.reversibility
+    : String(raw.reversibility);
 
   const reasons = [];
   if (!description) reasons.push('probe-description-required');
   if (costCents === null) reasons.push('probe-non-negative-cost-required');
   if (timeMinutes === null) reasons.push('probe-non-negative-time-required');
   if (!measure) reasons.push('probe-measure-required');
+  if (!decisionRule) reasons.push('probe-decision-rule-required');
   if (!supportsHypothesis) reasons.push('probe-supporting-observation-required');
   if (!falsifiesHypothesis) reasons.push('probe-falsifying-observation-required');
+  if (!REVERSIBILITY_CLASSES.includes(reversibility)) reasons.push('probe-recognized-reversibility-required');
   if (supportsHypothesis && falsifiesHypothesis && canonical(supportsHypothesis) === canonical(falsifiesHypothesis)) {
     reasons.push('probe-competing-observations-must-differ');
   }
@@ -51,23 +59,34 @@ function normalizeProbe(raw, defaults) {
       timeMinutes,
       reversibility,
       measure,
+      decisionRule,
       supportsHypothesis,
       falsifiesHypothesis,
-      structuralDiscrimination: 'EXPLICIT_COMPETING_OBSERVATIONS_NOT_EMPIRICALLY_VALIDATED'
+      structuralDiscrimination: 'EXPLICIT_MEASURE_RULE_AND_COMPETING_OBSERVATIONS_NOT_EMPIRICALLY_VALIDATED'
     }
   };
+}
+
+function validateEffects(effects = {}) {
+  if (!effects || typeof effects !== 'object' || Array.isArray(effects)) {
+    return fail(['effects-object-required']);
+  }
+  for (const [field, max] of [['spendCents', 1e12], ['providerCalls', 1e9]]) {
+    if (effects[field] === undefined || effects[field] === null) continue;
+    if (count(effects[field], max) === null) return fail([`${field}-must-be-a-non-negative-safe-integer`]);
+  }
+  return { ok: true };
 }
 
 /**
  * Hardened feasibility adapter over the mature GENESIS boundary compiler.
  *
- * The core continues to own authority, reversibility, blast radius and effect
- * truth. This adapter closes the missing seam before core compilation:
- * - an experiment needs an actual probe;
- * - the probe must name the measure and two distinct observable outcomes;
- * - a caller-written `discriminating: true` flag is ignored as evidence;
- * - the chosen probe must fit both top-level cost and time ceilings;
- * - probe cost may not understate separately declared spend.
+ * The mature core remains authority for reversibility, blast radius and effect
+ * scopes. This adapter makes feasibility inspectable before core compilation:
+ * an actual probe is required; cost/time must fit; a probe needs a measure,
+ * decision rule and distinct competing outcomes; malformed effect counts and
+ * reversibility typos fail closed. A caller-written `discriminating: true`
+ * flag carries no evidence by itself.
  */
 export function compileFeasibleBoundedExperiment(input = {}) {
   const probes = input?.probes;
@@ -83,14 +102,21 @@ export function compileFeasibleBoundedExperiment(input = {}) {
     return fail(['non-negative-cost-and-time-ceilings-required']);
   }
 
-  const reversibility = text(input?.reversibility, 120) || 'REVERSIBLE';
+  const reversibility = input?.reversibility === undefined || input?.reversibility === null
+    ? 'REVERSIBLE'
+    : String(input.reversibility);
+  if (!REVERSIBILITY_CLASSES.includes(reversibility)) {
+    return fail(['recognized-reversibility-class-required']);
+  }
+
+  const effectCheck = validateEffects(input?.effects ?? {});
+  if (!effectCheck.ok) return effectCheck;
+
   const normalized = [];
   const seenDescriptions = new Set();
   for (let index = 0; index < probes.length; index += 1) {
     const result = normalizeProbe(probes[index], { reversibility });
-    if (!result.ok) {
-      return fail(result.reasons, { probeIndex: index });
-    }
+    if (!result.ok) return fail(result.reasons, { probeIndex: index });
     if (seenDescriptions.has(result.probe.description)) {
       return fail(['probe-descriptions-must-be-unique'], { probeIndex: index });
     }
@@ -126,6 +152,7 @@ export function compileFeasibleBoundedExperiment(input = {}) {
 
   const core = compileBoundedExperiment({
     ...input,
+    reversibility,
     costCeilingCents: costCeiling,
     timeCeilingMinutes: timeCeiling,
     probes: feasible.map(probe => ({
@@ -133,8 +160,8 @@ export function compileFeasibleBoundedExperiment(input = {}) {
       costCents: probe.costCents,
       timeMinutes: probe.timeMinutes,
       reversibility: probe.reversibility,
-      // This boolean is consumed only by the mature core after this adapter has
-      // independently established the explicit outcome contract above.
+      // The mature core consumes this only after the adapter has established
+      // the explicit measure/rule/outcome contract above.
       discriminating: true
     }))
   });
@@ -145,9 +172,7 @@ export function compileFeasibleBoundedExperiment(input = {}) {
     && probe.costCents === core.probe?.costCents
     && probe.timeMinutes === core.probe?.timeMinutes
   );
-  if (!selected) {
-    return fail(['core-selected-probe-could-not-be-bound-to-feasibility-evidence']);
-  }
+  if (!selected) return fail(['core-selected-probe-could-not-be-bound-to-feasibility-evidence']);
 
   const declaredSpend = count(input?.effects?.spendCents ?? 0, 1e12) ?? 0;
   if (selected.costCents < declaredSpend) {
@@ -163,6 +188,7 @@ export function compileFeasibleBoundedExperiment(input = {}) {
     probe: {
       ...core.probe,
       measure: selected.measure,
+      decisionRule: selected.decisionRule,
       supportsHypothesis: selected.supportsHypothesis,
       falsifiesHypothesis: selected.falsifiesHypothesis,
       structuralDiscrimination: selected.structuralDiscrimination
@@ -172,6 +198,8 @@ export function compileFeasibleBoundedExperiment(input = {}) {
       costFits: selected.costCents <= costCeiling,
       timeFits: selected.timeMinutes <= timeCeiling,
       hasExecutableProbe: true,
+      hasExplicitMeasure: true,
+      hasExplicitDecisionRule: true,
       hasExplicitCompetingOutcomes: true,
       empiricallyValidatedDiscrimination: false,
       discardedProbes

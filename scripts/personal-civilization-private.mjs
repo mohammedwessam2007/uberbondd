@@ -1,3 +1,4 @@
+import path from 'node:path';
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -78,7 +79,7 @@ export async function runFounderInteractiveSession({
   }
 }
 
-const isEntryPoint = process.argv[1] && fileURLToPath(import.meta.url) === fileURLToPath(new URL(`file://${process.argv[1]}`));
+const isEntryPoint = Boolean(process.argv[1]) && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isEntryPoint) {
   const result = await runFounderInteractiveSession();
   if (!result.ok) {

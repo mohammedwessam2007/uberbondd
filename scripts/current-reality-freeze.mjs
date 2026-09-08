@@ -5,7 +5,8 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   compileCurrentRealityFreeze,
-  extractArtifactSourceCommit
+  extractArtifactSourceCommit,
+  extractPresentTenseMainClaims
 } from '../src/current-reality-freeze.mjs';
 
 const defaultRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -37,6 +38,12 @@ const EXACT_READINESS_FILES = new Set([
   'vercel.json'
 ]);
 
+const CANON_TRUTH_FILES = new Set([
+  'NORTH_STAR.md',
+  'docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md',
+  'docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md'
+]);
+
 export function readinessRelevant(path) {
   return EXACT_READINESS_FILES.has(path)
     || /^(src|scripts|api|tests|config|migrations|public|\.github\/workflows)\//.test(path);
@@ -51,6 +58,12 @@ export function coverageRelevant(path) {
     || path === 'package-lock.json';
 }
 
+export function currentTruthRelevant(path) {
+  if (path === 'docs/CURRENT_HANDOFF.json') return false;
+  if (/^artifacts\/work\//.test(path)) return false;
+  return readinessRelevant(path) || coverageRelevant(path) || CANON_TRUTH_FILES.has(path);
+}
+
 function changedPathsSince(rootDir, commit) {
   if (!commit) return null;
   const output = git(rootDir, ['diff', '--name-only', `${commit}..HEAD`]);
@@ -58,11 +71,14 @@ function changedPathsSince(rootDir, commit) {
   return output.split('\n').map(line => line.trim()).filter(Boolean);
 }
 
-function sourceChanged(rootDir, document, predicate) {
-  const commit = extractArtifactSourceCommit(document);
+function sourceChangedSince(rootDir, commit, predicate) {
   const changed = changedPathsSince(rootDir, commit);
   if (changed === null) return null;
   return changed.some(predicate);
+}
+
+function artifactSourceChanged(rootDir, document, predicate) {
+  return sourceChangedSince(rootDir, extractArtifactSourceCommit(document), predicate);
 }
 
 export function buildCurrentRealityFreeze({ rootDir = defaultRoot } = {}) {
@@ -74,6 +90,13 @@ export function buildCurrentRealityFreeze({ rootDir = defaultRoot } = {}) {
   const branch = git(rootDir, ['rev-parse', '--abbrev-ref', 'HEAD']);
   const porcelain = git(rootDir, ['status', '--porcelain']);
 
+  const sourceChangedByPresentClaim = Object.fromEntries(
+    extractPresentTenseMainClaims(handoff).map(row => [
+      row.pointer,
+      sourceChangedSince(rootDir, row.sha, currentTruthRelevant)
+    ])
+  );
+
   return compileCurrentRealityFreeze({
     headSha,
     branch,
@@ -82,9 +105,10 @@ export function buildCurrentRealityFreeze({ rootDir = defaultRoot } = {}) {
     readiness,
     coverage,
     orchestrator,
+    sourceChangedByPresentClaim,
     sourceChangedByArtifact: {
-      'system-readiness': sourceChanged(rootDir, readiness, readinessRelevant),
-      'sovereign-coverage': sourceChanged(rootDir, coverage, coverageRelevant)
+      'system-readiness': artifactSourceChanged(rootDir, readiness, readinessRelevant),
+      'sovereign-coverage': artifactSourceChanged(rootDir, coverage, coverageRelevant)
     }
   });
 }
@@ -95,6 +119,7 @@ if (direct) {
   process.stdout.write(`${JSON.stringify(receipt, null, 2)}\n`);
   if (process.argv.includes('--verify')) {
     const exact = receipt.ok
+      && receipt.handoff?.unknownPresentTenseClaims?.length === 0
       && receipt.staleGeneratedArtifactIds?.length === 0
       && receipt.unknownGeneratedArtifactIds?.length === 0
       && receipt.head?.workingTreeClean !== false;

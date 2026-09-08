@@ -1,4 +1,4 @@
-export const CURRENT_TRUTH_REGENERATION_VERSION = 'uberbond.current-truth-regeneration.v1';
+export const CURRENT_TRUTH_REGENERATION_VERSION = 'uberbond.current-truth-regeneration.v1.1';
 
 const SHA = /^[0-9a-f]{40}$/;
 const ZERO_EFFECTS = Object.freeze({
@@ -66,13 +66,16 @@ export function verifyCurrentTruthRegeneration({
     if (stateTotal !== Number(coverage.counts.rows)) reasons.push('coverage-state-counts-must-sum-to-row-denominator');
   }
 
+  // Regeneration is allowed to be idempotent. A generator can successfully run
+  // and leave a tracked output byte-identical to the existing file; requiring
+  // every output to appear in `git status` would turn idempotence into failure.
+  // The artifact's exact HEAD binding proves currency. `git status` is only the
+  // mutation boundary: no path outside the declared generated truth surfaces
+  // may change.
   const normalizedDirty = unique(dirtyPaths.map(path => String(path).trim()).filter(Boolean)).sort();
   const allowed = new Set(EXPECTED_TRUTH_OUTPUTS);
   const unexpectedDirty = normalizedDirty.filter(path => !allowed.has(path));
   if (unexpectedDirty.length) reasons.push('truth-regeneration-mutated-unexpected-path');
-  for (const required of EXPECTED_TRUTH_OUTPUTS) {
-    if (!normalizedDirty.includes(required)) reasons.push(`expected-truth-output-not-regenerated:${required}`);
-  }
 
   if (freeze?.ok !== true) reasons.push('current-reality-freeze-must-not-refuse');
   if (String(freeze?.head?.sha || '').toLowerCase() !== head) reasons.push('freeze-head-mismatch');

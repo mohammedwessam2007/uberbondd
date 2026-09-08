@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "ORCHESTRATION_CHECKPOINT_C02__WORKER_PACKETS_PREPARED_NOT_DISPATCHED",
+  "status": "ORCHESTRATION_CHECKPOINT_C03__EXPERIMENTS_PREPARED_NOT_DISPATCHED",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -114,15 +114,14 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C02",
+    "id": "C03",
     "date": "2026-09-08",
-    "observedMain": "576b8b7349b359809b314fe7af733e6e472f97d3",
+    "observedMain": "c4bad89ed0db9123ed0fe2d10fa2ef35072a71d0",
     "mode": "ORCHESTRATION_ONLY",
-    "publicationAuthority": "Owner explicitly requested orchestration pushed to main.",
+    "publicationAuthority": "Continuation of owner-authorized orchestration publication to main.",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "readScope": "Current refs, existing Astra artifacts, #463/#488 and #482/#483 comments, core canon. Not a full source audit.",
-    "nextAction": "A later execution-authorized worker refreshes refs and ownership, then verifies #482/#483 on an executing host."
+    "nextAction": "Execution-authorized cheap verifier runs C03-01 targeted falsification; C02 cash/recovery queue retains release priority."
   },
   "closedTribunal": [
     {
@@ -389,5 +388,134 @@
       "external outcome observed"
     ],
     "progressCreditThisCheckpoint": 0
+  },
+  "checkpointHistory": [
+    {
+      "id": "C02",
+      "date": "2026-09-08",
+      "observedMain": "576b8b7349b359809b314fe7af733e6e472f97d3",
+      "mode": "ORCHESTRATION_ONLY",
+      "publicationAuthority": "Owner explicitly requested orchestration pushed to main.",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "readScope": "Current refs, existing Astra artifacts, #463/#488 and #482/#483 comments, core canon. Not a full source audit.",
+      "nextAction": "A later execution-authorized worker refreshes refs and ownership, then verifies #482/#483 on an executing host."
+    }
+  ],
+  "c03Research": {
+    "classification": "CHAT_SPEC_GOAL_AND_SOURCE_ANCHORED_HYPOTHESES__NOT_IMPLEMENTATION",
+    "aspiration": "Advance transferable, adaptive, calibrated intelligence in service of Sovereign Cognitive Continuum.",
+    "claimBoundary": "No AGI, historical uniqueness, autonomous scientific discovery or general intelligence certification is earned by architecture, orchestration or this finite evaluation.",
+    "sourceInspection": {
+      "base": "c4bad89ed0db9123ed0fe2d10fa2ef35072a71d0",
+      "files": [
+        "src/genesis-mechanism-compiler.mjs",
+        "src/genesis-boundary-experiment.mjs",
+        "src/forecast-adversarial-ensemble.mjs"
+      ],
+      "execution": "None; hypotheses require reproduction."
+    },
+    "experiments": [
+      {
+        "id": "C03-01",
+        "dependsOn": [],
+        "goal": "Validate semantic identity before trusting novelty or dedupe.",
+        "source": "src/genesis-mechanism-compiler.mjs: canonical, causalSignature, decomposeToPrimitives",
+        "hypothesis": "Sorted token sets may erase causal direction, temporal order, multiplicity and entity roles; IDs may falsely merge distinct mechanisms.",
+        "probe": "Call existing exports with paired mechanisms: A funds B vs B funds A; verify before delivery vs verify after delivery; payer refunds seller vs seller refunds payer. Also include genuine paraphrases. Keep original provenance and role bindings.",
+        "acceptance": "Directionally distinct relations must remain distinguishable; equivalent phrasing should dedupe where equivalence is justified. Unknown equivalence remains unresolved. If failure reproduced, propose smallest typed relation/ordering fix at existing seam; do not call a sorted-word hash a causal model.",
+        "kill": "If canonical mechanism identity already preserves each tested distinction through another layer, record verified reuse and close without code.",
+        "budget": "One focused harness, no model calls required.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "id": "C03-02",
+        "dependsOn": [],
+        "goal": "Make experiment feasibility an enforceable contract.",
+        "source": "src/genesis-boundary-experiment.mjs: compileBoundedExperiment",
+        "hypothesis": "Selected probe cost/time may exceed top-level ceilings, and caller-declared discriminating=true is not evidence of actual discrimination.",
+        "probe": "Zero ceiling with positive-cost probe; probe time above ceiling; malformed effect counts; a probe giving identical observations under rival hypotheses. Separate syntactic checks from semantic discrimination.",
+        "acceptance": "Over-budget or malformed plans refuse rather than silently normalize to safe. The chosen probe's declared effects bind its authority check. A discrimination declaration is labelled unverified until a concrete predicted outcome difference is shown. Execution permission cannot arise from descriptive prose.",
+        "kill": "If downstream admission already enforces exact probe limits and effect identity, exercise that path and reuse it; avoid duplicate permission layers.",
+        "budget": "One focused fake-only harness; real probes require separate applicable authority.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "id": "C03-03",
+        "dependsOn": [
+          "C03-01",
+          "C03-02"
+        ],
+        "goal": "Prove cross-domain learning rather than a larger feature catalog.",
+        "source": "Existing GENESIS, Wallbreaker and Capability Genome; resolve and claim exact seams before editing.",
+        "hypothesis": "A reusable mechanism distilled from one observed failure can improve held-out tasks in different domains without more compute.",
+        "probe": "Freeze a development set and evaluator-held-out task families spanning software recovery, evidence reconciliation, resource planning and causal reasoning. Compare identical base model/tools with: no new mechanism, existing mechanism, candidate mechanism. Hold tokens/tool budgets constant; log route and actual cost.",
+        "acceptance": "Predeclare task-level success and meaningful improvement threshold before candidate sees holdouts. Report each family's paired outcomes and uncertainty, cost, latency, abstentions and regressions. A small smoke panel is feasibility only. No generality claim from one family or a synthetic aggregate.",
+        "kill": "Stop if gain disappears against the unchanged-model control or when extra compute is removed; preserve null results.",
+        "budget": "Cheap model on development cases first; one candidate at a time; no frontier-model tournament by default.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "id": "C03-04",
+        "dependsOn": [
+          "C03-03"
+        ],
+        "goal": "Separate learning from evaluator capture.",
+        "source": "Existing evaluator/adversary and forecast provenance paths; src/forecast-adversarial-ensemble.mjs is a donor to inspect.",
+        "hypothesis": "Generator/evaluator shared ancestry or repeated holdout reuse can manufacture apparent improvement.",
+        "probe": "Keep holdout answers outside generator context and editable worktree; track exposure and dataset versions. Test correlated copies, misleading high-confidence answers and evaluator blind spots. Reused holdout becomes development data.",
+        "acceptance": "Candidate cannot edit its acceptance standard or promote itself. Duplicated upstream evidence does not count as independent support. Independent executable checks outrank another model vote; unavailable isolation is explicitly EVALUATION_LIMITED.",
+        "kill": "Do not build model councils unless they find incremental independently verified errors within the same budget.",
+        "budget": "Deterministic checks first; different model label alone is not independence.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "id": "C03-05",
+        "dependsOn": [
+          "C03-03",
+          "C03-04"
+        ],
+        "goal": "Improve tool use and reasoning without eroding earlier capability.",
+        "source": "Existing capability admission/promotion/revocation; no new self-modification bypass.",
+        "hypothesis": "A promoted reusable skill can retain its benefit after a context reset and preserve earlier tasks.",
+        "probe": "Save the minimum mechanism plus applicability conditions, counterexamples, provenance and rollback pointer. Rehydrate in a fresh authorized session with a cheaper worker; run held-out transfer and old-task regression panels. Revoke the candidate and prove selection stops.",
+        "acceptance": "Replayable improvement receipt bound to model/tool/code revisions and evaluation version; no old-task harm beyond predeclared tolerance; sensitive authority gates have zero tolerated regression. Unproven memory remains a hypothesis. No autonomous production promotion.",
+        "kill": "Reject if benefit depends on hidden chat context, evaluator leakage, relaxed gates or forgotten prior capabilities.",
+        "budget": "One fresh-context replay, one regression panel; broader run only to resolve a concrete remaining risk.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "id": "C03-06",
+        "dependsOn": [
+          "C03-05"
+        ],
+        "goal": "Allocate reasoning to the next useful observation, not repeated internal discussion.",
+        "source": "Existing bounded experiments, forecast decision boundary and calibration ledger.",
+        "hypothesis": "An uncertainty-aware action/observe/defer policy reduces real cost per correct bounded decision.",
+        "probe": "Under fixed budget compare answer-now, one discriminating observation, and defer. Preserve prediction before observation; use authorized non-sensitive cases with objectively scoreable outcomes. Separate value of information from verbal confidence.",
+        "acceptance": "Report decision quality and cost at matched coverage; count abstentions and missed useful actions. Observation only selected when it can change a decision and fits authority/budget. Small-sample outcomes do not certify real-world life benefits.",
+        "kill": "Stop if additional reasoning/observation cannot beat the cheap baseline after its cost, or if no discriminating lawful observation exists.",
+        "budget": "No new paid commitment; no customer, financial or private-life experiment inferred from this plan.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      }
+    ],
+    "releasePriority": "C02 cash/recovery/portability remains the current release spine; C03 research must not starve it.",
+    "allocation": "At most one C03 cheap worker alongside release work when budget allows. Source guard probes first, transfer experiment next. No broad AGI rebuild.",
+    "modelPolicy": "Inherit C02 cheapest-capable execution and Astra-only invention. Current model identity is not changed by this document.",
+    "metrics": [
+      "held-out task-family outcomes",
+      "matched-budget baseline delta",
+      "cost per independently verified success",
+      "calibration at matched coverage",
+      "retention under context reset",
+      "regression and revocation behavior"
+    ],
+    "promotion": "No candidate chooses its own rubric, gains authority or promotes itself; acceptance belongs to existing independent review."
   }
 }

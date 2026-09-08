@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "C06_SELF_HOSTING_AND_WORKFLOW_AUTOMATION_PLAN__NOT_DEPLOYED",
+  "status": "C07_FIFTEEN_CAPABILITIES_RECONCILED__PLAN_ONLY",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -114,13 +114,13 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C06",
+    "id": "C07",
     "date": "2026-09-08",
-    "observedMain": "f4553f8995c7b7546d74b9f5b60c36aaec37c4a2",
+    "observedMain": "84a8bb37fe435ad8e9eb27820a43a525ad103aa1",
     "mode": "ORCHESTRATION_ONLY",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "nextAction": "Cheap execution-authorized worker inventories current portable donors and available authorized host; verifies #482/#483 current heads; executes DEPLOY-01/04/06 proof sequence using the C06 acceptance contracts. No host purchase inferred."
+    "nextAction": "Keep C06 operational priority. Cheap worker verifies reuse map for one selected context/retrieval/router seam; execute only in an execution-authorized session."
   },
   "closedTribunal": [
     {
@@ -427,6 +427,15 @@
       "implementationLaunched": false,
       "workerAcknowledgements": [],
       "nextAction": "Execution-authorized cheap verifier: refresh #482/#483 ownership and heads, identify an executing host, run the first focused proof packet. If no host is available, produce a minimal host-capability blocker and continue one independent deterministic probe."
+    },
+    {
+      "id": "C06",
+      "date": "2026-09-08",
+      "observedMain": "f4553f8995c7b7546d74b9f5b60c36aaec37c4a2",
+      "mode": "ORCHESTRATION_ONLY",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Cheap execution-authorized worker inventories current portable donors and available authorized host; verifies #482/#483 current heads; executes DEPLOY-01/04/06 proof sequence using the C06 acceptance contracts. No host purchase inferred."
     }
   ],
   "c03Research": {
@@ -878,5 +887,196 @@
     ],
     "checkpoint": "Five-minute/material-result checkpoints retain current release digest, actual host, DB/migration/backup references, claims, pending effects, next action; all public references secret-free. Existing source is git-backed; no duplicate repository backup to file storage.",
     "claimBoundary": "No deployment, workflow implementation, account change, worker launch, new spend, customer message or autonomy-duration evidence produced in this orchestration session."
+  },
+  "c07CapabilityConvergence": {
+    "classification": "FIFTEEN_USER_PROPOSALS_PRESERVED__REUSE_FIRST_ORCHESTRATION",
+    "sourceScope": "Live tree inventory; first 85 lines of agent-model-router and frontier-context-spine inspected. Other paths are candidate reuse anchors, not verified implementations. Empty anchors mean not located in bounded search, not absent.",
+    "observedMain": "84a8bb37fe435ad8e9eb27820a43a525ad103aa1",
+    "capabilities": [
+      {
+        "name": "Context Assembler",
+        "candidatePaths": [
+          "src/frontier-context-spine.mjs",
+          "src/uberbond-brain-context.mjs",
+          "src/lifetime-context-memory.mjs"
+        ],
+        "disposition": "REUSE_AUDIT",
+        "acceptance": "Reserve output/tool budget; retain mandatory authority and task contracts; dependency closure; exact provenance/revision and token accounting. Refuse mandatory-context overflow instead of truncating controls. Measure answer correctness at fixed total tokens.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Retrieval Stack",
+        "candidatePaths": [
+          "src/capability-genome-runtime.mjs",
+          "src/gamechanger-search-adapters.mjs"
+        ],
+        "disposition": "BENCHMARK_BEFORE_BUILD",
+        "acceptance": "Stable chunk IDs/source offsets/version; permission filters before search; lexical baseline then dense/rerank only when held-out evidence improves relevance and answer correctness net of latency/cost. Preserve deletions, multilingual text, contradictions and exact citations. Do not infer hybrid search exists from these candidate paths.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Model Router",
+        "candidatePaths": [
+          "src/agent-model-router.mjs",
+          "src/agent-model-routing-config.mjs",
+          "src/agent-model-routing-integration.mjs"
+        ],
+        "disposition": "REUSE_AUDIT",
+        "acceptance": "Authority/privacy first; eligible models by task and fresh quality/cost/latency evidence; actual provider identity and fallback reason logged. Budget bounded; exhausted providers not retried blindly. Same prompt on stronger model is not a guaranteed remedy.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Semantic Cache",
+        "candidatePaths": [],
+        "disposition": "CONDITIONAL_EXPERIMENT",
+        "acceptance": "Exact cache first; semantic cache only for permitted low-risk deterministic-enough answers. Key tenant/auth scope, prompt/model/tool/schema/retrieval revisions and freshness. Similarity alone never validates facts, permission, money, mutable state or effects. Test false hits, stale evidence, deletion and tenant isolation; monitor correctness and cost savings, not hit rate alone.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Agent Orchestrator",
+        "candidatePaths": [
+          "src/orchestration-frontier.mjs",
+          "src/claude-engineering-orchestrator.mjs"
+        ],
+        "disposition": "REUSE_AUDIT",
+        "acceptance": "Deterministic explicit states, transitions, bounded tasks, ownership/leases, admission and receipts. Reuse existing machine; no LangChain dependency required by proposal and no framework rewrite justified by preference alone.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "MCP Server and Client",
+        "candidatePaths": [
+          "scripts/uberbond-mcp.mjs"
+        ],
+        "disposition": "INTEROPERABILITY_GATE",
+        "acceptance": "Inspect existing endpoint and actual missing client operations. Raw JSON-RPC/no-SDK is a requested design candidate, not a completeness guarantee. Before implementation consult current official protocol; test negotiated version, initialization, request IDs, errors, cancellation, transport lifecycle and authentication. Reject unsolicited callbacks/redirects and unauthorized tool effects. Prefer maintaining a minimal correct subset over claiming whole protocol parity.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Multi-Agent Consensus",
+        "candidatePaths": [
+          "src/frontier-council-runtime.mjs",
+          "src/forecast-adversarial-ensemble.mjs"
+        ],
+        "disposition": "REUSE_AUDIT",
+        "acceptance": "Weighted voting remains hypothesis. Calibrate weights on held-out errors and source ancestry; correlated copies cannot multiply confidence. Independent executable checks first; compare against one strong/cheap baseline at equal budget; judge must abstain and escalation remain bounded.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Sandboxed Tool Executor",
+        "candidatePaths": [
+          "src/linux-self-maintainer-sandbox.mjs",
+          "src/claude-code-sandbox-executor.mjs",
+          "src/agent-sandbox-verifier.mjs"
+        ],
+        "disposition": "REUSE_AUDIT",
+        "acceptance": "Verify actual OS isolation, scoped filesystem/network/credentials, CPU/memory/process/time/output caps and kill cleanup. A subprocess or container label alone is not a security boundary. No host Docker socket; probe escape, fork/output storms and exfiltration using synthetic secrets on owned test hosts.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Guardrails Middleware",
+        "candidatePaths": [
+          "src/external-capability-control-plane.mjs",
+          "src/memory-sovereignty.mjs"
+        ],
+        "disposition": "COMPOSE_EXISTING_GATES",
+        "acceptance": "Input/output/tool-result boundaries, untrusted retrieval, structured argument checks, least privilege and redaction. Injection detector is defense-in-depth, never proof of safety. Test indirect injection, multilingual PII and false positives with synthetic data; redaction preserves necessary meaning and never logs original secrets.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Durable Workflow Engine",
+        "candidatePaths": [
+          "src/queue.mjs",
+          "src/scheduler.mjs"
+        ],
+        "disposition": "C06_PRIORITY",
+        "acceptance": "Reuse existing queue/admission; durable occurrences, checkpoint/version migration, retry/reconciliation, cancellation and compensation. Crash-before/after-effect cases against real test persistence. Mini-Temporal is a bounded behavior objective, not authorization to build or claim a Temporal replacement.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Streaming Proxy",
+        "candidatePaths": [],
+        "disposition": "MEASURE_NEED",
+        "acceptance": "Only if an existing endpoint needs it: SSE framing, cancellation, backpressure, bounded buffers, timeout and disconnect cleanup. Mark partial vs completed output. Do not replay a streamed tool effect on reconnect. Measure TTFT and token interval only where tokenizer/token timestamps justify the name; otherwise report event intervals.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "LLM Tracer",
+        "candidatePaths": [],
+        "disposition": "MINIMAL_OBSERVABILITY",
+        "acceptance": "Reuse existing logging/receipts before new backend. Correlate task -> retrieval -> route -> model -> tool -> workflow with parent/span IDs, monotonic duration, retries, actual tokens/cost or unknown. Redact by default, sample boundedly; tracing failure must not duplicate effects. Trace summaries must distinguish external wall time from model latency.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Eval Harness",
+        "candidatePaths": [
+          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs"
+        ],
+        "disposition": "C03_REUSE",
+        "acceptance": "Inventory existing tests/harness before building. Version task sets and trajectories; independent verifiable outcomes plus cost/latency/authority constraints. Held-out answers excluded from generator context, graders not self-edited; CI regression gate tests intended assertion and identifies skipped/unexecuted runs.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Prompt Registry",
+        "candidatePaths": [],
+        "disposition": "GIT_FIRST",
+        "acceptance": "Use current git-backed prompts as registry baseline. Bind immutable prompt/template/tool/schema versions, approvals and rollback. A/B route only eligible low-risk cases with stable experiment IDs; record model/retrieval confounders. No automatic exposure of private data or customer experiment from registry setup.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      },
+      {
+        "name": "Data Flywheel",
+        "candidatePaths": [
+          "src/inbound-feedback-kernel.mjs",
+          "src/economic-feedback-allocator.mjs"
+        ],
+        "disposition": "DEFER_LORA_UNTIL_EVIDENCE",
+        "acceptance": "Feedback with provenance/consent -> validated failure taxonomy -> counterexamples/evals -> prompt/retrieval/tool repair first. Synthetic data is labelled, deduped, leakage-screened and never ground truth by generation. LoRA only for a supported accessible model, licensed usable data, compute budget and a demonstrated baseline bottleneck; isolated training, held-out retention/safety/cost evaluation and rollback. No implied ability to fine-tune proprietary hosted models.",
+        "status": "PREPARED_NOT_DISPATCHED",
+        "owner": null
+      }
+    ],
+    "priority": "C06 self-hosting/durable execution first. Then one context/retrieval/router evaluation slice with minimal traces and git prompt versions. Conditional cache/streaming/MCP extensions only after evidence; LoRA last.",
+    "integratedExperiment": {
+      "goal": "Prove the integrated stack reduces cost per correct authorized task without losing reliability.",
+      "arms": [
+        "Current unchanged UberBond",
+        "One selected reuse/composition change",
+        "Ablation removing that change"
+      ],
+      "controls": "Same task distribution, provider/model budget, tool access and held-out answer isolation; measure actual config/model differences.",
+      "metrics": [
+        "task success with verifiable evidence",
+        "authority/privacy violations",
+        "cost per successful task",
+        "latency and time to first useful output",
+        "retrieval evidence correctness",
+        "recovery and duplicate effects",
+        "semantic false-hit rate where cache is tested"
+      ],
+      "promotion": "Predeclare tolerances; any critical authority/payment/privacy regression blocks promotion. Tiny pilot proves feasibility only. Every saved token must not come from discarding necessary evidence or hiding failed tasks."
+    },
+    "operatingRule": "No 15-product rebuild. One canonical pipeline and independent provider-neutral interfaces: approved task -> authorized context/retrieval -> router -> sandboxed tools/workflow -> evidence -> evaluation -> reviewed improvement. Reuse existing seams and consequence gates.",
+    "boundedNextActions": [
+      "Complete C06 DEPLOY proof priority.",
+      "For selected task class locate actual context caller, retrieval and router; name missing seam and baseline.",
+      "Use existing eval/trace/prompt infrastructure for one matched-budget experiment; smallest repair only.",
+      "Introduce semantic cache only after exact-cache baseline and false-hit tests.",
+      "Introduce model adaptation only when prompt/retrieval/tool fixes fail a measured bottleneck and training is feasible."
+    ],
+    "modelPolicy": "Cheapest capable worker; deterministic tests first. Astra only to design a new mechanism after a concrete counterexample. Do not spend scarce session quota on massive new scaffolds.",
+    "claimBoundary": "Planning cannot establish AGI, new capabilities, provider configuration, security, benchmark gains or life improvement. No implementation/worker launch/training/deployment in this session."
   }
 }

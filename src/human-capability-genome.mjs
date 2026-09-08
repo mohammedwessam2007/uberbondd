@@ -10,7 +10,7 @@
 // single observation cannot become a trait however low the score. The other
 // half is the cost nobody counts: delegating a capability saves time now and
 // atrophies it over years, which is a real trade and not a free one.
-export const HUMAN_CAPABILITY_GENOME_VERSION = 'uberbond.human-capability-genome.v1';
+export const HUMAN_CAPABILITY_GENOME_VERSION = 'uberbond.human-capability-genome.v1.1';
 
 /** How a capability level was arrived at. Ordered weakest first. */
 export const ASSESSMENT_BASIS = Object.freeze([
@@ -38,6 +38,10 @@ const fail = (status, reasonCodes, extra = {}) => ({
   ok: false, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))],
   businessEffectAuthority: 'NONE', ...extra
 });
+
+const uniqueText = (values, max = 80) => [...new Set(
+  (Array.isArray(values) ? values : []).map(value => text(value, 240)).filter(Boolean)
+)].slice(0, max);
 
 /** Whether an assessment is strong enough to support a claim about the person. */
 export const supportsDurableClaim = basis =>
@@ -79,23 +83,165 @@ export function capabilityAtom(input = {}) {
       level,
       basis,
       explanation,
-      // Absent an explanation strong enough to be a claim, the honest reading
-      // of a low level is that it is provisional.
       provisional: !supportsDurableClaim(basis),
-      dependsOn: [...new Set((Array.isArray(input?.dependsOn) ? input.dependsOn : []).map(d => text(d, 240)).filter(Boolean))].sort(),
-      unlocks: [...new Set((Array.isArray(input?.unlocks) ? input.unlocks : []).map(d => text(d, 240)).filter(Boolean))].sort(),
+      dependsOn: uniqueText(input?.dependsOn).sort(),
+      unlocks: uniqueText(input?.unlocks).sort(),
       trajectory: CAPABILITY_TRAJECTORY.includes(input?.trajectory) ? input.trajectory : null
     },
     businessEffectAuthority: 'NONE'
   };
 }
 
+function normalizeRequirement(value, index) {
+  if (typeof value === 'string') {
+    const name = text(value, 240);
+    return name ? {
+      id: `required:${name}`,
+      label: name,
+      mode: 'ANY_OF',
+      members: [name],
+      minimumLevel: null,
+      criticality: 1,
+      sourceIndex: index
+    } : null;
+  }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+
+  const capability = text(value.capability ?? value.name, 240);
+  const substitutes = uniqueText(value.substitutes);
+  const anyOf = uniqueText(value.anyOf);
+  const allOf = uniqueText(value.allOf);
+  const groups = [Boolean(anyOf.length), Boolean(allOf.length), Boolean(capability || substitutes.length)].filter(Boolean).length;
+  if (groups !== 1) return null;
+
+  const members = allOf.length ? allOf : anyOf.length ? anyOf : uniqueText([capability, ...substitutes]);
+  if (!members.length) return null;
+
+  const minimumRaw = value.minimumLevel;
+  const minimumLevel = minimumRaw === undefined || minimumRaw === null ? null : Number(minimumRaw);
+  if (minimumLevel !== null && (!Number.isFinite(minimumLevel) || minimumLevel < 0 || minimumLevel > 1)) return null;
+
+  const criticalityRaw = value.criticality;
+  const criticality = criticalityRaw === undefined || criticalityRaw === null ? 1 : Number(criticalityRaw);
+  if (!Number.isFinite(criticality) || criticality <= 0 || criticality > 1) return null;
+
+  const mode = allOf.length ? 'ALL_OF' : 'ANY_OF';
+  return {
+    id: text(value.id, 240) || `required:${index}:${members.join('|')}`,
+    label: text(value.label, 240) || (mode === 'ALL_OF' ? members.join(' + ') : capability || members.join(' OR ')),
+    mode,
+    members,
+    minimumLevel,
+    criticality,
+    sourceIndex: index
+  };
+}
+
+function rankClass(reason) {
+  if (reason === 'DEPENDENCY_CYCLE') return 6;
+  if (reason === 'DEPENDENCY_ABSENT' || reason === 'DEPENDENCY_UNUSABLE') return 5;
+  if (reason === 'JOINT_PREREQUISITE_SET') return 5;
+  if (reason === 'ABSENT' || reason === 'ALTERNATIVE_SET_ABSENT') return 4;
+  if (reason === 'JOINT_PREREQUISITE_MEMBER_ABSENT') return 4;
+  if (reason === 'GOAL_THRESHOLD_DEFICIT' || reason === 'JOINT_PREREQUISITE_MEMBER_BELOW_THRESHOLD') return 3;
+  return 1;
+}
+
+function rankTuple(constraint) {
+  return [
+    rankClass(constraint.reason),
+    Number(constraint.downstreamBlocked || 0),
+    Number(constraint.goalUnlock === true),
+    Number(constraint.criticality || 0),
+    Number(constraint.deficit || 0)
+  ];
+}
+
+function compareRank(a, b) {
+  const left = rankTuple(a);
+  const right = rankTuple(b);
+  for (let i = 0; i < left.length; i += 1) {
+    if (left[i] !== right[i]) return right[i] - left[i];
+  }
+  return String(a.capability || a.label || '').localeCompare(String(b.capability || b.label || ''));
+}
+
+function sameRank(a, b) {
+  if (!a || !b) return false;
+  const left = rankTuple(a);
+  const right = rankTuple(b);
+  return left.every((value, index) => value === right[index]);
+}
+
+function dependencyConstraints({ root, requirement, have, goal }) {
+  const constraints = [];
+  const visit = (name, path = []) => {
+    if (path.includes(name)) {
+      constraints.push({
+        capability: name,
+        reason: 'DEPENDENCY_CYCLE',
+        dependencyPath: [...path, name],
+        blockedCapability: root,
+        criticality: requirement.criticality,
+        downstreamBlocked: path.length,
+        goalUnlock: false,
+        requirementId: requirement.id
+      });
+      return;
+    }
+    const row = have.get(name);
+    if (!row) return;
+    for (const dependency of uniqueText(row.dependsOn)) {
+      const dep = have.get(dependency);
+      if (!dep) {
+        constraints.push({
+          capability: dependency,
+          reason: 'DEPENDENCY_ABSENT',
+          blockedCapability: name,
+          dependencyPath: [...path, name, dependency],
+          criticality: requirement.criticality,
+          downstreamBlocked: path.length + 1,
+          goalUnlock: false,
+          requirementId: requirement.id
+        });
+        continue;
+      }
+      if (Number(dep.level) <= 0) {
+        constraints.push({
+          capability: dependency,
+          reason: 'DEPENDENCY_UNUSABLE',
+          level: dep.level,
+          blockedCapability: name,
+          dependencyPath: [...path, name, dependency],
+          criticality: requirement.criticality,
+          downstreamBlocked: path.length + 1,
+          goalUnlock: uniqueText(dep.unlocks).includes(goal),
+          requirementId: requirement.id
+        });
+        continue;
+      }
+      visit(dependency, [...path, name]);
+    }
+  };
+  visit(root, []);
+  return constraints;
+}
+
 /**
  * The binding constraint, and what improving it would unlock.
  *
- * Returns the bottleneck rather than a ranked list of everything, because a
- * ranked list is how effort gets spread across dimensions that were not the
- * constraint -- which feels productive and moves nothing.
+ * Required entries may stay simple strings for the historical API or become
+ * explicit goal contracts:
+ *   { capability, substitutes, minimumLevel, criticality }
+ *   { anyOf: [...], minimumLevel, criticality }
+ *   { allOf: [...], minimumLevel, criticality }
+ *
+ * The function no longer equates "lowest raw score" with "binding" when the
+ * goal supplies stronger causal structure. Alternatives are treated as routes,
+ * joint prerequisites remain joint, and dependencies are followed before a
+ * present top-level capability is called reachable. If two independent missing
+ * requirements are causally indistinguishable, the result is UNDERDETERMINED
+ * rather than silently choosing the first array element.
  */
 export function findBottleneck({ goal = null, capabilities = [], required = [] } = {}) {
   const target = text(goal, 500);
@@ -105,29 +251,186 @@ export function findBottleneck({ goal = null, capabilities = [], required = [] }
   for (const row of (Array.isArray(capabilities) ? capabilities : [])) {
     if (row?.name) have.set(row.name, row);
   }
-  const needed = (Array.isArray(required) ? required : []).map(r => text(r, 240)).filter(Boolean);
-  if (needed.length === 0) return fail('BOTTLENECK_INVALID', ['required-capabilities-required']);
 
-  const missing = needed.filter(name => !have.has(name));
-  const weakest = needed
-    .filter(name => have.has(name))
-    .map(name => have.get(name))
-    .sort((a, b) => a.level - b.level)[0] || null;
+  const supplied = Array.isArray(required) ? required : [];
+  if (!supplied.length) return fail('BOTTLENECK_INVALID', ['required-capabilities-required']);
+  const requirements = supplied.map(normalizeRequirement);
+  if (requirements.some(row => !row)) {
+    return fail('BOTTLENECK_INVALID', ['required-capability-contract-invalid'], {
+      note: 'A requirement must be a capability string, one ANY_OF route, one ALL_OF joint set, or capability+substitutes with valid optional minimumLevel/criticality.'
+    });
+  }
 
-  // Something absent binds harder than something merely weak: no amount of
-  // improving what exists reaches a capability nobody has.
-  const bottleneck = missing.length ? { capability: missing[0], reason: 'ABSENT' }
-    : weakest ? { capability: weakest.name, reason: 'WEAKEST_PRESENT', level: weakest.level }
-      : null;
+  const constraints = [];
+  const fallback = [];
+  const substitutionsUsed = [];
+  const analysis = [];
+
+  for (const requirement of requirements) {
+    if (requirement.mode === 'ANY_OF') {
+      const present = requirement.members.map(name => have.get(name)).filter(Boolean).sort((a, b) => b.level - a.level);
+      const chosen = present[0] || null;
+      if (!chosen) {
+        constraints.push({
+          capability: requirement.members.length === 1 ? requirement.members[0] : requirement.label,
+          reason: requirement.members.length === 1 ? 'ABSENT' : 'ALTERNATIVE_SET_ABSENT',
+          alternatives: requirement.members,
+          criticality: requirement.criticality,
+          downstreamBlocked: 0,
+          goalUnlock: false,
+          requirementId: requirement.id
+        });
+        analysis.push({ requirementId: requirement.id, mode: requirement.mode, status: 'UNSATISFIED', chosen: null });
+        continue;
+      }
+
+      if (requirement.members.length > 1 && chosen.name !== requirement.members[0]) {
+        substitutionsUsed.push({ requirementId: requirement.id, requested: requirement.members[0], used: chosen.name });
+      }
+      if (requirement.minimumLevel !== null && chosen.level < requirement.minimumLevel) {
+        constraints.push({
+          capability: chosen.name,
+          reason: 'GOAL_THRESHOLD_DEFICIT',
+          level: chosen.level,
+          minimumLevel: requirement.minimumLevel,
+          deficit: requirement.minimumLevel - chosen.level,
+          alternatives: requirement.members,
+          criticality: requirement.criticality,
+          downstreamBlocked: 0,
+          goalUnlock: uniqueText(chosen.unlocks).includes(target),
+          requirementId: requirement.id
+        });
+      } else {
+        fallback.push({ ...chosen, requirementId: requirement.id, criticality: requirement.criticality });
+      }
+      constraints.push(...dependencyConstraints({ root: chosen.name, requirement, have, goal: target }));
+      analysis.push({
+        requirementId: requirement.id,
+        mode: requirement.mode,
+        status: requirement.minimumLevel !== null && chosen.level < requirement.minimumLevel ? 'BELOW_THRESHOLD' : 'ROUTE_SATISFIED',
+        chosen: chosen.name,
+        alternatives: requirement.members,
+        minimumLevel: requirement.minimumLevel
+      });
+      continue;
+    }
+
+    const memberState = requirement.members.map(name => ({ name, row: have.get(name) || null }));
+    const unsatisfied = memberState.filter(({ row }) => !row || (requirement.minimumLevel !== null && row.level < requirement.minimumLevel));
+    if (unsatisfied.length > 1) {
+      constraints.push({
+        capability: requirement.label,
+        label: requirement.label,
+        reason: 'JOINT_PREREQUISITE_SET',
+        members: unsatisfied.map(({ name, row }) => ({
+          capability: name,
+          present: Boolean(row),
+          level: row?.level ?? null,
+          minimumLevel: requirement.minimumLevel,
+          deficit: row && requirement.minimumLevel !== null ? requirement.minimumLevel - row.level : null
+        })),
+        criticality: requirement.criticality,
+        downstreamBlocked: unsatisfied.length,
+        goalUnlock: false,
+        requirementId: requirement.id
+      });
+    } else if (unsatisfied.length === 1) {
+      const { name, row } = unsatisfied[0];
+      constraints.push({
+        capability: name,
+        reason: row ? 'JOINT_PREREQUISITE_MEMBER_BELOW_THRESHOLD' : 'JOINT_PREREQUISITE_MEMBER_ABSENT',
+        level: row?.level ?? null,
+        minimumLevel: requirement.minimumLevel,
+        deficit: row && requirement.minimumLevel !== null ? requirement.minimumLevel - row.level : null,
+        jointRequirement: requirement.label,
+        criticality: requirement.criticality,
+        downstreamBlocked: requirement.members.length - 1,
+        goalUnlock: row ? uniqueText(row.unlocks).includes(target) : false,
+        requirementId: requirement.id
+      });
+    }
+
+    for (const { name, row } of memberState) {
+      if (row) {
+        if (requirement.minimumLevel === null || row.level >= requirement.minimumLevel) {
+          fallback.push({ ...row, requirementId: requirement.id, criticality: requirement.criticality });
+        }
+        constraints.push(...dependencyConstraints({ root: name, requirement, have, goal: target }));
+      }
+    }
+    analysis.push({
+      requirementId: requirement.id,
+      mode: requirement.mode,
+      status: unsatisfied.length ? 'JOINT_UNSATISFIED' : 'JOINT_SATISFIED',
+      members: requirement.members,
+      minimumLevel: requirement.minimumLevel
+    });
+  }
+
+  const dedupedConstraints = [];
+  const seen = new Set();
+  for (const constraint of constraints) {
+    const identity = JSON.stringify([
+      constraint.reason,
+      constraint.capability,
+      constraint.requirementId,
+      constraint.blockedCapability || null,
+      constraint.members || null
+    ]);
+    if (!seen.has(identity)) {
+      seen.add(identity);
+      dedupedConstraints.push(constraint);
+    }
+  }
+
+  dedupedConstraints.sort(compareRank);
+  let status;
+  let bottleneck;
+  let competingConstraints = [];
+
+  if (dedupedConstraints.length) {
+    const first = dedupedConstraints[0];
+    const tied = dedupedConstraints.filter(row => sameRank(row, first));
+    if (tied.length > 1) {
+      status = 'BOTTLENECK_UNDERDETERMINED';
+      bottleneck = null;
+      competingConstraints = tied;
+    } else {
+      status = 'BOTTLENECK_IDENTIFIED';
+      bottleneck = first;
+    }
+  } else {
+    const weakest = fallback.sort((a, b) => a.level - b.level)[0] || null;
+    bottleneck = weakest ? {
+      capability: weakest.name,
+      reason: 'WEAKEST_PRESENT',
+      level: weakest.level,
+      criticality: weakest.criticality,
+      requirementId: weakest.requirementId
+    } : null;
+    status = bottleneck ? 'BOTTLENECK_IDENTIFIED' : 'NO_BINDING_CONSTRAINT_FOUND';
+  }
+
+  const absentReasons = new Set(['ABSENT', 'ALTERNATIVE_SET_ABSENT', 'JOINT_PREREQUISITE_MEMBER_ABSENT', 'DEPENDENCY_ABSENT']);
+  const missing = [...new Set(dedupedConstraints.filter(row => absentReasons.has(row.reason)).flatMap(row =>
+    Array.isArray(row.alternatives) && row.reason === 'ALTERNATIVE_SET_ABSENT' ? row.alternatives : [row.capability]
+  ).filter(Boolean))];
 
   return {
     ok: true,
-    status: bottleneck ? 'BOTTLENECK_IDENTIFIED' : 'NO_BINDING_CONSTRAINT_FOUND',
+    status,
     goal: target,
     bottleneck,
     missing,
-    unlocks: bottleneck ? (have.get(bottleneck.capability)?.unlocks || []) : [],
+    substitutionsUsed,
+    competingConstraints,
+    requirementAnalysis: analysis,
+    unlocks: bottleneck?.capability && have.has(bottleneck.capability) ? (have.get(bottleneck.capability)?.unlocks || []) : [],
+    nextEvidenceRequired: status === 'BOTTLENECK_UNDERDETERMINED'
+      ? 'Add goal-specific criticality, threshold, dependency, or outcome evidence. Array order is not evidence.'
+      : null,
     law: 'EFFORT_ON_A_NON_BINDING_DIMENSION_FEELS_PRODUCTIVE_AND_MOVES_NOTHING',
+    truthBoundary: 'A BOTTLENECK IS A GOAL-AND-EVIDENCE-RELATIVE CAUSAL CLAIM, NOT A TRAIT VERDICT ABOUT THE PERSON.',
     businessEffectAuthority: 'NONE'
   };
 }
@@ -148,9 +451,6 @@ export function agencyDebt(capabilities = []) {
   return {
     ok: true,
     status: 'AGENCY_DEBT_ASSESSED',
-    // Delegation and atrophy are separated: delegating something you still
-    // practise is not the same as losing it, and merging them would either
-    // cry wolf or hide the real losses.
     delegated: delegated.map(row => row.name),
     atrophying: atrophying.map(row => row.name),
     deliberatelyAbandoned: deliberate.map(row => row.name),
@@ -180,7 +480,6 @@ export function growSkeleton({ future = null, required = [], capabilities = [] }
       capability: name,
       present: have.has(name),
       level: have.get(name)?.level ?? null,
-      // Carried through so a gap never hardens into a verdict on the way here.
       provisional: have.get(name)?.provisional ?? true
     }));
 

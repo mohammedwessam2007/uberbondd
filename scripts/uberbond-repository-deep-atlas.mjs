@@ -2,12 +2,12 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildUberBondRepositoryDeepAtlas } from '../src/uberbond-repository-deep-atlas.mjs';
+import { buildGrowthSafeUberBondRepositoryDeepAtlas } from '../src/uberbond-repository-deep-atlas-growth-safe.mjs';
 import { redactSecrets } from '../src/secret-patterns.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const featureGenome = JSON.parse(await readFile(resolve(root, 'artifacts/uberbond-feature-genome-latest.json'), 'utf8'));
-const result = buildUberBondRepositoryDeepAtlas({ root, featureGenome });
+const result = buildGrowthSafeUberBondRepositoryDeepAtlas({ root, featureGenome });
 if (!result.ok) {
   process.stderr.write(`${JSON.stringify(result, null, 2)}\n`);
   process.exit(2);
@@ -39,7 +39,8 @@ process.stdout.write(`${JSON.stringify({
   artifactOnlyFiles: result.artifactOnlyFileCount,
   deepFeatures: result.deepFeatureCount,
   classCounts: result.classCounts,
-  truncatedFiles: result.truncatedFiles.length,
+  structuralDetailCappedFiles: result.structuralDetailCappedFiles?.length || 0,
+  truncatedFiles: result.truncatedFiles?.length || 0,
   output,
   businessEffectAuthority: 'NONE'
 }, null, 2)}\n`);

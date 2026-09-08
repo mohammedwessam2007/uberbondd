@@ -1346,3 +1346,96 @@ For present-tense claims use:
 6. only then conceptual canon.
 
 The North Star defines **what the organism is trying to become**, not what the repository may honestly claim today.
+
+
+# ASI aspiration addendum — owner instruction, 2026-09-08
+
+Status: ASPIRATIONAL_RESEARCH_AND_ENGINEERING_NORTH_STAR; SYSTEM_LEVEL_ASI_NOT_ESTABLISHED.
+
+## 17. Artificial Superintelligence North Star
+
+Build a sovereign cognitive civilization whose compound intelligence can continually discover, acquire, invent, test and retain capabilities until its effective problem-solving performance becomes broadly superhuman, while remaining reality-calibrated, corrigible, self-deployable, provider-independent and subordinate to Mohamed's will. Sovereign Cognitive Continuum remains terminal identity; Personal Civilization Engine is contained life organism; ASI is aspirational intelligence objective, not new authority. Frontier + open/local + specialized models; search; simulation; symbolic reasoning; code execution; world/causal models; long-term memory; knowledge graphs; tools; Capability Genome; parallel specialization; independent evaluators; mechanism invention; self-improvement; reality feedback; retention/revocation.
+
+## 17.1 Operational capability dimensions
+
+1. novel problem solving
+2. causal reasoning
+3. scientific discovery
+4. software engineering
+5. mathematical reasoning
+6. strategy
+7. forecasting
+8. world-model construction
+9. mechanism invention
+10. economic reasoning
+11. planning under uncertainty
+12. long-horizon coherence
+13. transfer between domains
+14. learning from sparse evidence
+15. capability acquisition
+16. autonomous recovery
+17. self-improvement
+18. tool invention
+19. adversarial robustness
+20. calibrated refusal and ignorance detection 
+Each requires independent evidence. Each stage requires independent dimension-specific receipts; no stage skipped by proclamation. Benchmark improvement, agents, synthetic tests, large model, council confidence, architectural complexity or model self-description never establish ASI.
+
+## 17.2 Superhuman reference classes
+
+STRONG_GENERAL_HUMAN; TOP_1_PERCENT_PROFESSIONAL; DOMAIN_EXPERT; WORLD_CLASS_EXPERT; EXPERT_TEAM; BEST_AVAILABLE_SINGLE_AI_MODEL; BEST_AVAILABLE_MULTI_MODEL_BASELINE; CURRENT_UBERBOND; CANDIDATE_UBERBOND; BEST_AVAILABLE_HUMAN_AI_TOOL_COMPOSITION. Define actual accessible comparison target, task population, tools, budget, time, expertise and evidence provenance. Strongest available means verified at evaluation time. Unavailable experts/models remain unmeasured, never imagined benchmark scores. Match cost/time where feasible; disclose incomparable resources.
+
+## 17.3 Intelligence explosion research
+
+Better intelligence -> mechanisms -> capabilities -> software/tools/models -> evaluation -> deployment -> world understanding -> better intelligence. Positive recursive improvement is not assumed.
+Measure: improvement per generation; time per generation; compute cost; human intervention; transfer gain; regression rate; novel capability gain; evaluation reliability; security regressions.
+Classes: SUBLINEAR, LINEAR, SUPERLINEAR, SATURATING, UNSTABLE, UNKNOWN. Version generations, fixed/rotating heldouts, resource accounting and independent evaluator changes. Fit growth only with sufficient observations and uncertainty; synthetic test count is not exponential intelligence.
+
+## 17.4 Meta-improvement
+
+experiment design; benchmark design; evaluator independence; capability search; mechanism discovery; decomposition; model routing; memory; compression; verification; debugging; recovery; architecture search. Independent evaluation and rollback remain required.
+
+## 17.5 World-resource intelligence
+
+public scientific knowledge; public software; GitHub; open-source tools; open-weight models; APIs; MCP servers; plugins; skills; datasets; papers; benchmarks; public web information; databases; compute; mathematical solvers; simulators; specialist systems; human experts intentionally engaged.
+WORLD_RESOURCE -> NORMALIZE -> PROVENANCE -> SECURITY -> CAPABILITY_ATOMS -> BENCHMARK -> ADMISSION -> ROUTING -> OBSERVED_VALUE -> RETAIN/REPLACE/REVOKE
+
+## 17.6 Unknown-capability discovery
+
+anomaly discovery; capability emergence detection; cross-domain recombination; mechanism mutation; negative-space analysis; frontier research monitoring; counterfactual capability search; automated benchmark invention; adversarial task generation; unknown-unknown mining.
+What valuable cognitive operation appears impossible only because the right representation, mechanism, tool, model or decomposition has not been found?
+
+## 17.7 Superintelligence through composition
+
+Planner -> specialists -> tools -> critics -> adversarial review -> simulation -> evidence aggregation -> synthesis versus single best model and strongest feasible composition under matched cost/time. Retain only independently measured gain; correlated agents do not provide independent minds.
+
+## 17.8 Long-horizon intelligence
+
+multi-day objectives; multi-week objectives; persistent state; task resumption; dependency memory; contradiction resolution; strategy mutation; recovery after interruption; model/provider replacement; preservation of intent; cumulative learning. A brilliant single response is insufficient.
+
+## 17.9 Reality-calibrated superintelligence
+
+Capability increases require stronger evidence discipline, independent evaluation, uncertainty visibility, rollback and security. Reward correct uncertainty, abstention, counterexamples, falsification, calibrated probabilities and rapid belief correction.
+
+## 17.10 Human sovereignty
+
+PREDICTION != VALUE; VALUE != PREFERENCE; PREFERENCE != CHOICE; CHOICE != AUTHORITY; AUTHORITY != ACTION. Present Mohamed remains sovereign; future-self simulations advise and models cannot redefine values.
+
+## 17.11 Safety and corrigibility
+
+permission boundaries; blast-radius limits; sandboxing; independent evaluation; state provenance; reversible deployment; rollback; monitoring; revocation; external-effect accounting; owner override; fail-closed behavior; self-update separation of duties. No subsystem may propose, approve, deploy, verify and erase rollback for its own update.
+
+## 17.12 Restricted and hidden models
+
+No unauthorized models/weights/endpoints, entitlement bypass, leaked credentials, hidden endpoint exploitation, quota evasion, account cycling or access-control circumvention. Restricted capability is a competitive research target, not an existential dependency; no measurable superiority claim against inaccessible outputs. Better decomposition/tools/memory/search/simulation/verification/model composition; authorized open/local/specialized models; authorized distillation; continuous evaluated improvement. NO SECRET MODEL IS AN EXISTENTIAL DEPENDENCY.
+
+## 17.13 ASI evidence ladder
+
+CAPABILITY_PRESENT -> BENCHMARK_REPRODUCED -> CROSS_DOMAIN_TRANSFERRED -> FRESH_CONTEXT_REPRODUCED -> ADVERSARIALLY_VERIFIED -> LONG_HORIZON_RETAINED -> REAL_WORLD_VALUE_OBSERVED -> SUPERHUMAN_ON_DEFINED_DOMAIN -> SUPERHUMAN_ACROSS_MANY_DOMAINS -> BROAD_SYSTEM_LEVEL_SUPERINTELLIGENCE_EVIDENCE. Each stage requires independent dimension-specific receipts; no stage skipped by proclamation. Benchmark improvement, agents, synthetic tests, large model, council confidence, architectural complexity or model self-description never establish ASI.
+
+## 17.14 C21 — research and evidence program
+
+See existing orchestration state: asiResearchNorthStar and finalRealization.checkpoints C21. Permitted outputs: SYSTEM_LEVEL_ASI_NOT_ESTABLISHED; SYSTEM_LEVEL_ASI_EVIDENCE_PARTIAL; SYSTEM_LEVEL_ASI_EVIDENCE_STRONG_WITHIN_DEFINED_SCOPE. C21 never declares ASI. Optimize measured capabilities, not the label. Broad system-level evidence remains bounded by actual task coverage, comparators, uncertainty and observation.
+
+## 18. Revised terminal aspiration
+
+Build a sovereign cognitive civilization whose compound intelligence can continually discover, acquire, invent, test and retain capabilities until its effective problem-solving performance becomes broadly superhuman, while remaining reality-calibrated, corrigible, self-deployable, provider-independent and subordinate to Mohamed's will. Do not optimize for the label ASI. Optimize for capabilities that would make the label deserved.

@@ -40,3 +40,6 @@ Checkpoint on material results/five minutes of unsaved work and before resets; r
 C20 separates defined internal engineering, named runtime, observed autonomy, external outcomes, longitudinal reality and open-ended frontier.
 Every percentage requires scope version, IDs/weights, numerator/denominator, dates, SHA/runtime and unknown handling. No defensible denominator -> NOT_MEASURED. Critical gates cannot be averaged away.
 Publishing all plans completes Astra orchestration only. It does not complete UberBond.
+
+## C21 appended — system-level ASI research
+Read asiResearchNorthStar and checkpoint C21 in state. Twenty capability dimensions, strong actual baselines, independent evidence ladder, recursive/meta-improvement measurement, lawful world resources, unknown-capability discovery, long-horizon retention and scaling corrigibility. Current status SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. C21 cannot declare ASI. C11-C20 execution priorities remain; no implementation or workers launched.

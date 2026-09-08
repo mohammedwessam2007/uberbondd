@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "C11_C20_PUBLISHED_PLAN__IMPLEMENTATION_NOT_LAUNCHED",
+  "status": "C21_ASI_RESEARCH_PLAN__IMPLEMENTATION_NOT_LAUNCHED",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -99,14 +99,11 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C20",
-    "date": "2026-09-08",
-    "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+    "id": "C21",
     "mode": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
-    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+    "observedMain": "9c53535b58673ad0541df82695b49893af2b1771",
     "implementationLaunched": false,
-    "workerAcknowledgements": [],
-    "nextAction": "Execution-authorized deterministic/cheap verifier starts C11-A, then C11-B on available runner; do not redispatch already merged construction."
+    "nextAction": "Retain C11 execution priority; C21-A designs comparative evidence after relevant predecessor reports. No ASI claim."
   },
   "closedTribunal": [
     {
@@ -452,6 +449,16 @@
       "implementationLaunched": false,
       "workerAcknowledgements": [],
       "nextAction": "Execution-authorized worker starts V1 from c09ExecutionPlan. Old #482/#483/C06 build queue is superseded by merged source; current proof remains the task."
+    },
+    {
+      "id": "C20",
+      "date": "2026-09-08",
+      "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
+      "mode": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+      "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Execution-authorized deterministic/cheap verifier starts C11-A, then C11-B on available runner; do not redispatch already merged construction."
     }
   ],
   "c03Research": {
@@ -3994,6 +4001,82 @@
         "OWNER AUTHORITY BOUNDARY": "This session permits inspect/design/publish only: no implementation, deployment, messages, money, customer contact, accounts or worker launch. Later execution must verify its own scope; no forbidden endpoints, stolen/shared credentials, entitlement bypass, account cycling or quota evasion. Present choice, other people's consent and private-state restrictions survive all routes.",
         "STOP CONDITION": "Accept only independently supported scope; if blocked, preserve UNKNOWN/external/elapsed and choose next independent packet. Same blocker + same strategy + no new evidence = strategy mutation. Stop research that adds no decision-changing evidence. Never wait by repeatedly spending on unavailable routes.",
         "NEXT CHECKPOINT": "NONE"
+      },
+      {
+        "ID": "C21",
+        "OUTCOME": {
+          "title": "SYSTEM-LEVEL ASI RESEARCH AND EVIDENCE PROGRAM",
+          "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+          "intelligenceStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
+        },
+        "WHY THIS CHECKPOINT EXISTS": "Operationalize aspirational system-level sovereign superintelligence without self-certification.",
+        "CURRENT VERIFIED INPUTS": {
+          "observedMain": "9c53535b58673ad0541df82695b49893af2b1771",
+          "basis": "C11-C20 orchestration and existing canon only; no comparative intelligence experiments executed."
+        },
+        "DEPENDENCIES": {
+          "checkpoints": [
+            "C12",
+            "C13",
+            "C15",
+            "C16",
+            "C19",
+            "C20"
+          ],
+          "admission": "Consume scoped/blocked reports; design can proceed, evidence stages cannot skip missing runtime/outcomes.",
+          "alternatives": [
+            "Eligible commercial models + canonical tools",
+            "Authorized local/open/specialist models + tools",
+            "Deterministic symbolic/search/simulation/decomposition + independently evaluated composition"
+          ]
+        },
+        "WHAT ALREADY EXISTS": "C03 transfer/independence/retention, C07 resource and model ecosystem, C11-C20 evidence/recovery/corrigibility contracts. Reuse before new framework.",
+        "GENUINE MISSING BEHAVIOR": "No absence asserted. Resolve measured capability deficits and evidence gaps across the 20 dimensions; registry presence is not scientific discovery or superhuman proof.",
+        "WORK PACKETS": [
+          {
+            "id": "C21-A",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "owner": null,
+            "task": "Version taxonomy, strongest available reference classes, task distributions, matched budgets, independent evaluation and stage-specific acceptance; compare current/candidate/single-model/composition with uncertainty and contamination checks.",
+            "dependsOn": [
+              "C12-B",
+              "C13-B",
+              "C20-B"
+            ],
+            "output": "Dimension x baseline x evidence-stage matrix; unknown comparisons explicit; predeclared success and regression criteria."
+          },
+          {
+            "id": "C21-B",
+            "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+            "owner": null,
+            "task": "Measure recursive/meta-improvement, world-resource composition, unknown-capability discovery and actual long-horizon retention; apply scaling corrigibility; classify growth curve and terminal evidence state.",
+            "dependsOn": [
+              "C21-A",
+              "C15-B",
+              "C16-B",
+              "C19-B"
+            ],
+            "output": "Generation/resource/intervention/transfer/regression/security metrics, actual observations, growth uncertainty, revocation/rollback and one of the three permitted terminal outputs."
+          }
+        ],
+        "OWNER / WORKER CLASS": "Deterministic measurement -> cheapest capable executor -> stronger coding/evaluation agent where evidenced -> SOL review; Astra only novel orchestration. No launched worker.",
+        "EXACT WRITE SURFACES OR READ-ONLY SCOPE": {
+          "readOnlyScope": [
+            "artifacts/work/astra-orchestrator-state-2026-09-08.json",
+            "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+            "artifacts/sovereign-cognitive-continuum-total-north-star.json"
+          ],
+          "futureWrite": "Execution session resolves and claims exact existing evaluator/Genome/router/experiment paths from C12; no arbitrary new ASI engine."
+        },
+        "ACCEPTANCE CONTRACT": "Apply asiResearchNorthStar in full: all 20 dimensions and baselines, versioned independent evidence, matched resources, predeclared thresholds, per-domain uncertainty and all ladder prerequisites. No unobserved comparator or ASI achieved label.",
+        "HOSTILE FALSIFIERS": "Weak baseline substitution, hidden compute/human assistance, leaked holdout, correlated judges, evaluator self-edit, cherry-picked generation, synthetic exponentiality, backdated horizon, revoked supplier, erased rollback and value/authority conflation.",
+        "MUTATION REQUIREMENTS": "Changed evidence/authority guards require applied intended mutations killed by intended assertions. Research proposal receives only structural validation here; no fake executed-test credit.",
+        "RUNTIME PROOF": "Actual model/tool/data/evaluator/source/runtime identities and resource receipts. Model availability verified at execution time; no imagined restricted-model scores.",
+        "RECOVERY PROOF": "Fresh-context and model/provider replacement preserve intent/state; revoked candidates cannot return; independent rollback and owner stop work.",
+        "EXTERNAL BOUNDARY": "Human expert comparisons, access to resources, real scientific/economic/life outcomes and multi-day/week observations require authentic evidence.",
+        "OWNER AUTHORITY BOUNDARY": "Orchestration only. No implementation, deployment, training, worker launch, customer/expert contact or new spend. Capability never widens permission; no subsystem owns its entire self-upgrade chain.",
+        "STOP CONDITION": "No measured benefit -> reject/retain baseline. Insufficient evidence -> NOT_ESTABLISHED/PARTIAL. STRONG only within explicitly defined scope; never a declaration of ASI.",
+        "NEXT CHECKPOINT": "NONE"
       }
     ],
     "inputSnapshot": {
@@ -4175,6 +4258,174 @@
     ],
     "parallelBudget": "At most two disjoint active execution packets plus independent verifier under available budget; logical lanes are not spawned workers. Increase concurrency only with measured benefit and disjoint claims.",
     "closureRule": "C20 accepts honest blocked reports, never blocked behavior as success. Every percentage must satisfy c10ClosureTribunal and C20 contract. No forced 100%, no external evidence from simulation.",
-    "packetCount": 20
+    "packetCount": 22
+  },
+  "asiResearchNorthStar": {
+    "status": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+    "classification": "ASPIRATIONAL_RESEARCH_AND_ENGINEERING_NORTH_STAR__NOT_CAPABILITY_CLAIM",
+    "aspiration": "Build a sovereign cognitive civilization whose compound intelligence can continually discover, acquire, invent, test and retain capabilities until its effective problem-solving performance becomes broadly superhuman, while remaining reality-calibrated, corrigible, self-deployable, provider-independent and subordinate to Mohamed's will.",
+    "terminalHierarchy": "Sovereign Cognitive Continuum remains terminal identity; Personal Civilization Engine is contained life organism; ASI is aspirational intelligence objective, not new authority.",
+    "composition": "Frontier + open/local + specialized models; search; simulation; symbolic reasoning; code execution; world/causal models; long-term memory; knowledge graphs; tools; Capability Genome; parallel specialization; independent evaluators; mechanism invention; self-improvement; reality feedback; retention/revocation.",
+    "capabilityDimensions": [
+      "novel problem solving",
+      "causal reasoning",
+      "scientific discovery",
+      "software engineering",
+      "mathematical reasoning",
+      "strategy",
+      "forecasting",
+      "world-model construction",
+      "mechanism invention",
+      "economic reasoning",
+      "planning under uncertainty",
+      "long-horizon coherence",
+      "transfer between domains",
+      "learning from sparse evidence",
+      "capability acquisition",
+      "autonomous recovery",
+      "self-improvement",
+      "tool invention",
+      "adversarial robustness",
+      "calibrated refusal and ignorance detection"
+    ],
+    "referenceClasses": [
+      "STRONG_GENERAL_HUMAN",
+      "TOP_1_PERCENT_PROFESSIONAL",
+      "DOMAIN_EXPERT",
+      "WORLD_CLASS_EXPERT",
+      "EXPERT_TEAM",
+      "BEST_AVAILABLE_SINGLE_AI_MODEL",
+      "BEST_AVAILABLE_MULTI_MODEL_BASELINE",
+      "CURRENT_UBERBOND",
+      "CANDIDATE_UBERBOND",
+      "BEST_AVAILABLE_HUMAN_AI_TOOL_COMPOSITION"
+    ],
+    "comparisonLaw": "Define actual accessible comparison target, task population, tools, budget, time, expertise and evidence provenance. Strongest available means verified at evaluation time. Unavailable experts/models remain unmeasured, never imagined benchmark scores. Match cost/time where feasible; disclose incomparable resources.",
+    "recursiveImprovement": {
+      "hypothesis": "Better intelligence -> mechanisms -> capabilities -> software/tools/models -> evaluation -> deployment -> world understanding -> better intelligence. Positive recursive improvement is not assumed.",
+      "metrics": [
+        "improvement per generation",
+        "time per generation",
+        "compute cost",
+        "human intervention",
+        "transfer gain",
+        "regression rate",
+        "novel capability gain",
+        "evaluation reliability",
+        "security regressions"
+      ],
+      "growthClasses": [
+        "SUBLINEAR",
+        "LINEAR",
+        "SUPERLINEAR",
+        "SATURATING",
+        "UNSTABLE",
+        "UNKNOWN"
+      ],
+      "controls": "Version generations, fixed/rotating heldouts, resource accounting and independent evaluator changes. Fit growth only with sufficient observations and uncertainty; synthetic test count is not exponential intelligence."
+    },
+    "metaImprovement": [
+      "experiment design",
+      "benchmark design",
+      "evaluator independence",
+      "capability search",
+      "mechanism discovery",
+      "decomposition",
+      "model routing",
+      "memory",
+      "compression",
+      "verification",
+      "debugging",
+      "recovery",
+      "architecture search"
+    ],
+    "worldResources": [
+      "public scientific knowledge",
+      "public software",
+      "GitHub",
+      "open-source tools",
+      "open-weight models",
+      "APIs",
+      "MCP servers",
+      "plugins",
+      "skills",
+      "datasets",
+      "papers",
+      "benchmarks",
+      "public web information",
+      "databases",
+      "compute",
+      "mathematical solvers",
+      "simulators",
+      "specialist systems",
+      "human experts intentionally engaged"
+    ],
+    "resourcePipeline": "WORLD_RESOURCE -> NORMALIZE -> PROVENANCE -> SECURITY -> CAPABILITY_ATOMS -> BENCHMARK -> ADMISSION -> ROUTING -> OBSERVED_VALUE -> RETAIN/REPLACE/REVOKE",
+    "unknownCapabilityDiscovery": [
+      "anomaly discovery",
+      "capability emergence detection",
+      "cross-domain recombination",
+      "mechanism mutation",
+      "negative-space analysis",
+      "frontier research monitoring",
+      "counterfactual capability search",
+      "automated benchmark invention",
+      "adversarial task generation",
+      "unknown-unknown mining"
+    ],
+    "discoveryQuestion": "What valuable cognitive operation appears impossible only because the right representation, mechanism, tool, model or decomposition has not been found?",
+    "compositionExperiment": "Planner -> specialists -> tools -> critics -> adversarial review -> simulation -> evidence aggregation -> synthesis versus single best model and strongest feasible composition under matched cost/time. Retain only independently measured gain; correlated agents do not provide independent minds.",
+    "longHorizon": [
+      "multi-day objectives",
+      "multi-week objectives",
+      "persistent state",
+      "task resumption",
+      "dependency memory",
+      "contradiction resolution",
+      "strategy mutation",
+      "recovery after interruption",
+      "model/provider replacement",
+      "preservation of intent",
+      "cumulative learning"
+    ],
+    "epistemicScaling": "Capability increases require stronger evidence discipline, independent evaluation, uncertainty visibility, rollback and security. Reward correct uncertainty, abstention, counterexamples, falsification, calibrated probabilities and rapid belief correction.",
+    "sovereignty": "PREDICTION != VALUE; VALUE != PREFERENCE; PREFERENCE != CHOICE; CHOICE != AUTHORITY; AUTHORITY != ACTION. Present Mohamed remains sovereign; future-self simulations advise and models cannot redefine values.",
+    "corrigibility": [
+      "permission boundaries",
+      "blast-radius limits",
+      "sandboxing",
+      "independent evaluation",
+      "state provenance",
+      "reversible deployment",
+      "rollback",
+      "monitoring",
+      "revocation",
+      "external-effect accounting",
+      "owner override",
+      "fail-closed behavior",
+      "self-update separation of duties"
+    ],
+    "separation": "No subsystem may propose, approve, deploy, verify and erase rollback for its own update.",
+    "restrictedModels": "No unauthorized models/weights/endpoints, entitlement bypass, leaked credentials, hidden endpoint exploitation, quota evasion, account cycling or access-control circumvention. Restricted capability is a competitive research target, not an existential dependency; no measurable superiority claim against inaccessible outputs.",
+    "lawfulAlternatives": "Better decomposition/tools/memory/search/simulation/verification/model composition; authorized open/local/specialized models; authorized distillation; continuous evaluated improvement.",
+    "evidenceLadder": [
+      "CAPABILITY_PRESENT",
+      "BENCHMARK_REPRODUCED",
+      "CROSS_DOMAIN_TRANSFERRED",
+      "FRESH_CONTEXT_REPRODUCED",
+      "ADVERSARIALLY_VERIFIED",
+      "LONG_HORIZON_RETAINED",
+      "REAL_WORLD_VALUE_OBSERVED",
+      "SUPERHUMAN_ON_DEFINED_DOMAIN",
+      "SUPERHUMAN_ACROSS_MANY_DOMAINS",
+      "BROAD_SYSTEM_LEVEL_SUPERINTELLIGENCE_EVIDENCE"
+    ],
+    "ladderLaw": "Each stage requires independent dimension-specific receipts; no stage skipped by proclamation. Benchmark improvement, agents, synthetic tests, large model, council confidence, architectural complexity or model self-description never establish ASI.",
+    "terminalOutputs": [
+      "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+      "SYSTEM_LEVEL_ASI_EVIDENCE_PARTIAL",
+      "SYSTEM_LEVEL_ASI_EVIDENCE_STRONG_WITHIN_DEFINED_SCOPE"
+    ],
+    "terminalLaw": "C21 never declares ASI. Optimize measured capabilities, not the label. Broad system-level evidence remains bounded by actual task coverage, comparators, uncertainty and observation."
   }
 }

@@ -14,10 +14,16 @@ import {
 import { captureWillEvent, promoteCapture } from './personal-civilization-capture.mjs';
 import { registerHypothesis } from './personal-civilization-model-graph.mjs';
 import { composeDecisionPacket } from './personal-civilization-decision-loop.mjs';
+import { encryptJson, decryptJson } from './crypto.mjs';
 
-export const PERSONAL_CIVILIZATION_PRIVATE_OPERATOR_VERSION = 'uberbond.personal-civilization-private-operator.v1';
+export const PERSONAL_CIVILIZATION_PRIVATE_OPERATOR_VERSION = 'uberbond.personal-civilization-private-operator.v1.1';
 export const PRIVATE_STATE_SCHEMA = 'uberbond.personal-civilization-private-state.v1';
+export const PRIVATE_ENVELOPE_SCHEMA = 'uberbond.personal-civilization-private-envelope.v1';
+export const PRIVATE_EXPORT_SCHEMA = 'uberbond.personal-civilization-private-export.v1';
+export const PRIVATE_LIFE_KEY_ENV = 'UBERBOND_PRIVATE_LIFE_KEY';
 
+const PRIVATE_STATE_PURPOSE = 'PRIVATE_LIFE_STATE';
+const PRIVATE_EXPORT_PURPOSE = 'PRIVATE_LIFE_EXPORT';
 const DEFAULT_FILE = path.join(os.homedir(), '.uberbond-private', 'life-state.json');
 const MODULE_REPO_ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -37,6 +43,60 @@ const iso = value => {
 function inside(parent, candidate) {
   const relative = path.relative(parent, candidate);
   return relative === '' || (!relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative));
+}
+
+function keyReady(privateKey) {
+  return /^[a-f0-9]{64}$/i.test(String(privateKey || ''));
+}
+
+function requirePrivateKey(privateKey) {
+  if (keyReady(privateKey)) return { ok: true };
+  return fail('PRIVATE_STATE_KEY_REQUIRED', ['private-life-key-must-be-64-hex-characters']);
+}
+
+function seal(value, privateKey, purpose) {
+  const key = requirePrivateKey(privateKey);
+  if (!key.ok) return key;
+  let encrypted;
+  try {
+    encrypted = encryptJson({ purpose, value }, privateKey);
+  } catch {
+    return fail('PRIVATE_STATE_ENCRYPTION_REFUSED', ['private-state-encryption-failed']);
+  }
+  return {
+    ok: true,
+    envelope: {
+      schemaVersion: PRIVATE_ENVELOPE_SCHEMA,
+      cipher: 'AES-256-GCM',
+      iv: encrypted.iv,
+      tag: encrypted.tag,
+      data: encrypted.data
+    }
+  };
+}
+
+function openEnvelope(envelope, privateKey, expectedPurpose) {
+  const key = requirePrivateKey(privateKey);
+  if (!key.ok) return key;
+  if (!envelope || typeof envelope !== 'object' || Array.isArray(envelope)) {
+    return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-encrypted-envelope-required']);
+  }
+  if (envelope.schemaVersion !== PRIVATE_ENVELOPE_SCHEMA || envelope.cipher !== 'AES-256-GCM') {
+    return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-encrypted-envelope-required']);
+  }
+  if (![envelope.iv, envelope.tag, envelope.data].every(value => typeof value === 'string' && value.length > 0)) {
+    return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-encrypted-envelope-incomplete']);
+  }
+  let opened;
+  try {
+    opened = decryptJson({ iv: envelope.iv, tag: envelope.tag, data: envelope.data }, privateKey);
+  } catch {
+    return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-authentication-failed']);
+  }
+  if (!opened || opened.purpose !== expectedPurpose || !Object.hasOwn(opened, 'value')) {
+    return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-envelope-purpose-mismatch']);
+  }
+  return { ok: true, value: opened.value };
 }
 
 export function defaultPrivateState() {
@@ -82,9 +142,8 @@ export function validatePrivateStatePath(filePath = DEFAULT_FILE, { repoRoot = M
 
 /**
  * Resolve an existing private file before reading it. This closes the parent-
- * directory symlink gap: `/outside/private/life.json` may look outside the repo
- * while `/outside/private` is actually a symlink back into the repository.
- * Reads use the resolved file and refuse any resolved target inside Git.
+ * directory symlink gap: an apparent outside path can otherwise resolve back
+ * into the repository. Reads use the resolved target and refuse Git ancestry.
  */
 function resolveExistingPrivateReadTarget(filePath, { repoRoot = MODULE_REPO_ROOT } = {}) {
   const checked = validatePrivateStatePath(filePath, { repoRoot });
@@ -142,8 +201,15 @@ function validateStateShape(value) {
   };
 }
 
-export function loadPrivateState({ filePath = DEFAULT_FILE, authorization = null, repoRoot = MODULE_REPO_ROOT } = {}) {
+export function loadPrivateState({
+  filePath = DEFAULT_FILE,
+  authorization = null,
+  privateKey = null,
+  repoRoot = MODULE_REPO_ROOT
+} = {}) {
   if (!founderAuthorized(authorization)) return fail('PRIVATE_STATE_FOUNDER_AUTHORITY_REQUIRED', ['founder-authorization-required']);
+  const key = requirePrivateKey(privateKey);
+  if (!key.ok) return key;
   const target = resolveExistingPrivateReadTarget(filePath, { repoRoot });
   if (!target.ok) return target;
   if (!target.exists) {
@@ -158,10 +224,12 @@ export function loadPrivateState({ filePath = DEFAULT_FILE, authorization = null
     return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-file-permissions-too-open']);
   }
 
-  let parsed;
-  try { parsed = JSON.parse(fs.readFileSync(target.readPath, 'utf8')); }
+  let envelope;
+  try { envelope = JSON.parse(fs.readFileSync(target.readPath, 'utf8')); }
   catch { return fail('PRIVATE_STATE_READ_REFUSED', ['private-state-json-invalid']); }
-  const shaped = validateStateShape(parsed);
+  const opened = openEnvelope(envelope, privateKey, PRIVATE_STATE_PURPOSE);
+  if (!opened.ok) return opened;
+  const shaped = validateStateShape(opened.value);
   if (!shaped.ok) return shaped;
   return { ok: true, status: 'PRIVATE_STATE_LOADED', filePath: target.filePath, state: shaped.state, businessEffectAuthority: 'NONE' };
 }
@@ -197,14 +265,23 @@ function atomicPrivateWrite(filePath, payload, { repoRoot = MODULE_REPO_ROOT } =
   return { ok: true, status: 'PRIVATE_STATE_WRITTEN', filePath: checked.filePath, businessEffectAuthority: 'NONE' };
 }
 
-export function savePrivateState({ state = null, filePath = DEFAULT_FILE, authorization = null, repoRoot = MODULE_REPO_ROOT, now = new Date() } = {}) {
+export function savePrivateState({
+  state = null,
+  filePath = DEFAULT_FILE,
+  authorization = null,
+  privateKey = null,
+  repoRoot = MODULE_REPO_ROOT,
+  now = new Date()
+} = {}) {
   if (!founderAuthorized(authorization)) return fail('PRIVATE_STATE_FOUNDER_AUTHORITY_REQUIRED', ['founder-authorization-required']);
   const shaped = validateStateShape(state);
   if (!shaped.ok) return shaped;
   const at = iso(now);
   if (!at) return fail('PRIVATE_STATE_WRITE_REFUSED', ['valid-clock-required']);
   const persisted = { ...shaped.state, updatedAt: at };
-  const written = atomicPrivateWrite(filePath, `${JSON.stringify(persisted, null, 2)}\n`, { repoRoot });
+  const sealed = seal(persisted, privateKey, PRIVATE_STATE_PURPOSE);
+  if (!sealed.ok) return sealed;
+  const written = atomicPrivateWrite(filePath, `${JSON.stringify(sealed.envelope, null, 2)}\n`, { repoRoot });
   if (!written.ok) return written;
   return { ...written, state: persisted };
 }
@@ -218,7 +295,14 @@ function commandName(command) {
  * No function here sends a message, calls a provider, writes the repository,
  * chooses a life decision or grants business-effect authority.
  */
-export function executePrivateCommand({ state = defaultPrivateState(), command = {}, authorization = null, privateFilePath = DEFAULT_FILE, repoRoot = MODULE_REPO_ROOT, now = new Date() } = {}) {
+export function executePrivateCommand({
+  state = defaultPrivateState(),
+  command = {},
+  authorization = null,
+  privateFilePath = DEFAULT_FILE,
+  repoRoot = MODULE_REPO_ROOT,
+  now = new Date()
+} = {}) {
   if (!founderAuthorized(authorization)) return fail('PRIVATE_STATE_FOUNDER_AUTHORITY_REQUIRED', ['founder-authorization-required']);
   const shaped = validateStateShape(state);
   if (!shaped.ok) return shaped;
@@ -356,12 +440,19 @@ export function executePrivateCommand({ state = defaultPrivateState(), command =
 }
 
 /**
- * Loads, executes and durably commits one command. Export is written to the
- * founder-selected private destination; ordinary mutations update only the
- * configured private state file.
+ * Loads, executes and durably commits one command. The state and export files
+ * are authenticated ciphertext. The life key is process-only and is never
+ * included in state, receipts, exports, logs or returned command results.
  */
-export function runPrivateCommand({ command = {}, authorization = null, filePath = DEFAULT_FILE, repoRoot = MODULE_REPO_ROOT, now = new Date() } = {}) {
-  const loaded = loadPrivateState({ filePath, authorization, repoRoot });
+export function runPrivateCommand({
+  command = {},
+  authorization = null,
+  privateKey = null,
+  filePath = DEFAULT_FILE,
+  repoRoot = MODULE_REPO_ROOT,
+  now = new Date()
+} = {}) {
+  const loaded = loadPrivateState({ filePath, authorization, privateKey, repoRoot });
   if (!loaded.ok) return loaded;
   const executed = executePrivateCommand({ state: loaded.state, command, authorization, privateFilePath: loaded.filePath, repoRoot, now });
   if (!executed.ok) return executed;
@@ -374,7 +465,7 @@ export function runPrivateCommand({ command = {}, authorization = null, filePath
     };
     const stateDigest = createHash('sha256').update(JSON.stringify(fullState)).digest('hex');
     const exportPayload = {
-      schemaVersion: 'uberbond.personal-civilization-private-export.v1',
+      schemaVersion: PRIVATE_EXPORT_SCHEMA,
       exportedAt: executed.exportedAt,
       recordCount: executed.recordCount,
       hypothesisCount: loaded.state.hypotheses.length,
@@ -389,7 +480,9 @@ export function runPrivateCommand({ command = {}, authorization = null, filePath
       hypotheses: loaded.state.hypotheses,
       edges: loaded.state.edges
     };
-    const written = atomicPrivateWrite(executed.destination, `${JSON.stringify(exportPayload, null, 2)}\n`, { repoRoot });
+    const sealed = seal(exportPayload, privateKey, PRIVATE_EXPORT_PURPOSE);
+    if (!sealed.ok) return sealed;
+    const written = atomicPrivateWrite(executed.destination, `${JSON.stringify(sealed.envelope, null, 2)}\n`, { repoRoot });
     if (!written.ok) return written;
     return {
       ...executed,
@@ -397,19 +490,27 @@ export function runPrivateCommand({ command = {}, authorization = null, filePath
       exportDestination: written.filePath,
       stateDigest,
       hypothesisCount: loaded.state.hypotheses.length,
-      edgeCount: loaded.state.edges.length
+      edgeCount: loaded.state.edges.length,
+      encryption: 'AES-256-GCM'
     };
   }
 
   if (!executed.mutation) return executed;
-  const saved = savePrivateState({ state: executed.state, filePath: loaded.filePath, authorization, repoRoot, now });
+  const saved = savePrivateState({ state: executed.state, filePath: loaded.filePath, authorization, privateKey, repoRoot, now });
   if (!saved.ok) return saved;
-  return { ...executed, state: saved.state, persisted: true, privateFilePath: loaded.filePath };
+  return { ...executed, state: saved.state, persisted: true, privateFilePath: loaded.filePath, encryption: 'AES-256-GCM' };
 }
 
 export function founderAuthorization(now = new Date()) {
   const issuedAt = iso(now);
   return issuedAt ? { subject: 'FOUNDER', grant: 'PRIVATE_LIFE_STATE', issuedAt } : null;
+}
+
+/** Test/operator helper that reveals no key and grants no effect authority. */
+export function decryptPrivateEnvelopeForOwner({ envelope = null, privateKey = null, purpose = PRIVATE_EXPORT_PURPOSE } = {}) {
+  const opened = openEnvelope(envelope, privateKey, purpose);
+  if (!opened.ok) return opened;
+  return { ok: true, status: 'PRIVATE_ENVELOPE_OPENED', value: opened.value, businessEffectAuthority: 'NONE' };
 }
 
 export const DEFAULT_PRIVATE_STATE_FILE = DEFAULT_FILE;

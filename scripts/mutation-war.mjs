@@ -2877,6 +2877,114 @@ export const MUTATIONS = [
     replace: "      answerClass: 'CURRENT_TRUTH',",
     suites: ['tests/memory-truth-boundary.test.mjs']
   },
+  // ---- Who wins when the parts of a person disagree ---------------------
+  {
+    id: 'PRESENTWILL-01', guard: 'Rank decides and evidence strength never promotes a rung',
+    file: 'src/present-free-will.mjs',
+    find: '  const sorted = [...rows].sort((a, b) => a.rank - b.rank || String(a.claim).localeCompare(String(b.claim)));',
+    replace: '  const sorted = [...rows].sort((a, b) => (b.supportingEvidence || []).length - (a.supportingEvidence || []).length || a.rank - b.rank);',
+    suites: ['tests/present-free-will.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'PRESENTWILL-02', guard: 'A commitment nobody currently endorses is not a commitment',
+    file: 'src/present-free-will.mjs',
+    find: "  if (rung === 'ENDORSED_COMMITMENT' && input?.stillEndorsed !== true) {",
+    replace: '  if (false) {',
+    suites: ['tests/present-free-will.test.mjs']
+  },
+  {
+    id: 'PRESENTWILL-03', guard: 'Choosing against the optimum is sovereignty functioning',
+    file: 'src/present-free-will.mjs',
+    find: '    sovereigntyFunctioning: Boolean(present) && contradicted.length > 0,',
+    replace: '    sovereigntyFunctioning: false,',
+    suites: ['tests/present-free-will.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'PRESENTWILL-04', guard: 'A pattern of deferrals is a transfer nobody announced',
+    file: 'src/present-free-will.mjs',
+    find: '  const drifting = contested.length >= 3 && deferred.length * 2 > contested.length;',
+    replace: '  const drifting = false;',
+    suites: ['tests/present-free-will.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'PRESENTWILL-05', guard: 'Decisions where present choice was unavailable are not drift',
+    file: 'src/present-free-will.mjs',
+    find: '  const contested = rows.filter(row => row.presentChoiceWasAvailable === true);',
+    replace: '  const contested = rows;',
+    suites: ['tests/present-free-will.test.mjs']
+  },
+  // ---- A sharper chooser, not a longer menu -----------------------------
+  {
+    id: 'AMPLIFY-01', guard: 'More options with a flat chooser is noise, not amplification',
+    file: 'src/free-will-amplification.mjs',
+    find: '  const resolutionMoved = measured.UNDERSTANDING > 0 || measured.CAPABILITY > 0;',
+    replace: '  const resolutionMoved = measured.UNDERSTANDING > 0 || measured.CAPABILITY > 0 || measured.OPTION_COUNT > 0;',
+    suites: ['tests/free-will-amplification.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'AMPLIFY-02', guard: 'An unreported resolution delta is refused, not defaulted',
+    file: 'src/free-will-amplification.mjs',
+    find: '    if (value === null) {',
+    replace: '    if (false) {',
+    suites: ['tests/free-will-amplification.test.mjs']
+  },
+  {
+    id: 'AMPLIFY-03', guard: 'A cycle that did not close is not a cycle',
+    file: 'src/free-will-amplification.mjs',
+    find: '  if (missing.length > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/free-will-amplification.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'AMPLIFY-04', guard: 'A cycle that never touched reality would be self-certifying',
+    file: 'src/free-will-amplification.mjs',
+    find: '  if (!contact) {',
+    replace: '  if (false) {',
+    suites: ['tests/free-will-amplification.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'AMPLIFY-05', guard: 'A loop turning with a flat chooser is reported as spinning',
+    file: 'src/free-will-amplification.mjs',
+    find: '  const spinning = rows.length >= 3 && amplifying.length === 0;',
+    replace: '  const spinning = false;',
+    suites: ['tests/free-will-amplification.test.mjs']
+  },
+  // ---- Mohamed(t), not Mohamed ------------------------------------------
+  {
+    id: 'TEMPORAL-01', guard: 'An undated observation is refused',
+    file: 'src/temporal-civilization.mjs',
+    find: "  if (atAge === null) return fail('OBSERVATION_INVALID', ['era-required'], {",
+    replace: "  if (false) return fail('OBSERVATION_INVALID', ['era-required'], {",
+    suites: ['tests/temporal-civilization.test.mjs']
+  },
+  {
+    id: 'TEMPORAL-02', guard: 'Observed once at one age is a fact about that age',
+    file: 'src/temporal-civilization.mjs',
+    find: '  const persists = eras.length >= 2;',
+    replace: '  const persists = matching.length >= 2;',
+    suites: ['tests/temporal-civilization.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'TEMPORAL-03', guard: 'A theme inside one era is not a thread through a life',
+    file: 'src/temporal-civilization.mjs',
+    find: '    if (ages.length >= min) recurring.push(record);',
+    replace: '    if (entry.statements.length >= min) recurring.push(record);',
+    suites: ['tests/temporal-civilization.test.mjs', 'tests/sovereign-relation-doctor.test.mjs']
+  },
+  {
+    id: 'TEMPORAL-04', guard: 'A transformation running backwards is refused',
+    file: 'src/temporal-civilization.mjs',
+    find: "  if (to <= from) return fail('TRANSFORMATION_INVALID', ['later-era-must-follow-earlier']);",
+    replace: "  if (false) return fail('TRANSFORMATION_INVALID', ['later-era-must-follow-earlier']);",
+    suites: ['tests/temporal-civilization.test.mjs']
+  },
+  {
+    id: 'TEMPORAL-05', guard: 'A statement no observation supports cannot be applied',
+    file: 'src/temporal-civilization.mjs',
+    find: '  if (matching.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/temporal-civilization.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

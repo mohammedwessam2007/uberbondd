@@ -1839,6 +1839,17 @@
         "tests/genesis-evolution-engine.test.mjs"
       ],
       "note": "buildRedQueenEvaluatorTournament. Five evaluator profiles ballot independently and disagreement is preserved rather than averaged; EVALUATOR_CONSENSUS_IS_INTERNAL_RANKING_NOT_EXTERNAL_PROOF."
+    },
+    {
+      "concept": "Present Free Will Outranks the Model",
+      "lane": "OMEGA-01",
+      "sources": [
+        "src/present-free-will.mjs"
+      ],
+      "tests": [
+        "tests/present-free-will.test.mjs"
+      ],
+      "note": "AUTHORITY_RUNGS is a frozen ordering with present conscious choice first; resolve decides by rank and never by evidence strength, so a prediction with a hundred corroborations still loses. deferralDrift counts the accumulation the canon warns about, and returns it to Mohamed rather than correcting for it."
     }
   ]
 }

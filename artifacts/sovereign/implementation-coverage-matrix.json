@@ -2,18 +2,18 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-08T04:44:07.872Z",
-  "sourceCommit": "a006cafd47d3b0110c111f884a4f0902185fe0f3",
+  "generatedAt": "2026-09-08T05:57:38.665Z",
+  "sourceCommit": "7d9e0cc15a32dcea9c6096b341ca1a8ab3b44804",
   "counts": {
     "extractedConcepts": 1068,
     "rows": 1038,
     "mergedAliasRows": 30,
-    "declaredConcepts": 166,
+    "declaredConcepts": 167,
     "byState": {
-      "VERIFIED_CURRENT": 255,
+      "VERIFIED_CURRENT": 258,
       "PARTIAL_CURRENT": 61,
       "DRAFT_DONOR": 0,
-      "SPEC_ONLY": 100,
+      "SPEC_ONLY": 97,
       "EXTERNAL_BLOCKED": 19,
       "OWNER_BOUNDARY": 13,
       "ELAPSED_TIME_REQUIRED": 0,
@@ -27,9 +27,9 @@
       "ALIAS_OF_CANONICAL_CONCEPT": 45
     },
     "byLane": {
-      "OMEGA-14": 293,
+      "OMEGA-14": 291,
       "OMEGA-03": 61,
-      "OMEGA-01": 14,
+      "OMEGA-01": 16,
       "OMEGA-04": 121,
       "OMEGA-12": 1,
       "OMEGA-05": 83,
@@ -173,20 +173,26 @@
       "class": "HIERARCHY",
       "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/free-will-amplification.mjs",
+          "src/present-free-will.mjs"
+        ],
+        "testModules": [
+          "tests/free-will-amplification.test.mjs",
+          "tests/present-free-will.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "WILL_KERNEL",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/free-will-amplification.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -7789,20 +7795,26 @@
       "class": "ONTOLOGY",
       "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/free-will-amplification.mjs",
+          "src/present-free-will.mjs"
+        ],
+        "testModules": [
+          "tests/free-will-amplification.test.mjs",
+          "tests/present-free-will.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "WILL",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/free-will-amplification.mjs",
       "owningLane": "OMEGA-03",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -8666,20 +8678,24 @@
       "class": "ALIAS",
       "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/temporal-civilization.mjs"
+        ],
+        "testModules": [
+          "tests/temporal-civilization.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Temporal Civilization",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/temporal-civilization.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -8696,20 +8712,24 @@
       "class": "ALIAS",
       "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/free-will-amplification.mjs"
+        ],
+        "testModules": [
+          "tests/free-will-amplification.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Free Will Amplification",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/free-will-amplification.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -8726,20 +8746,24 @@
       "class": "ALIAS",
       "currentState": "ALIAS_OF_CANONICAL_CONCEPT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/present-free-will.mjs"
+        ],
+        "testModules": [
+          "tests/present-free-will.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Present Free Will Outranks the Model",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/present-free-will.mjs",
+      "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -9788,20 +9812,26 @@
       "class": "BOUNDARY",
       "currentState": "OWNER_BOUNDARY",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/free-will-amplification.mjs",
+          "src/present-free-will.mjs"
+        ],
+        "testModules": [
+          "tests/free-will-amplification.test.mjs",
+          "tests/present-free-will.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "free_will",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/free-will-amplification.mjs",
       "owningLane": "OMEGA-04",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -10293,20 +10323,26 @@
       "class": "HIERARCHY",
       "currentState": "STRUCTURAL_NOT_A_BUILD_TARGET",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/free-will-amplification.mjs",
+          "src/present-free-will.mjs"
+        ],
+        "testModules": [
+          "tests/free-will-amplification.test.mjs",
+          "tests/present-free-will.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "WILL_KERNEL",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/free-will-amplification.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11567,22 +11603,26 @@
         "Present Free Will Outranks the Model"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/present-free-will.mjs"
+        ],
+        "testModules": [
+          "tests/present-free-will.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "DECLARED_AND_VERIFIED",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Present Free Will Outranks the Model",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
-      "owningLane": "OMEGA-14",
+      "targetModule": "src/present-free-will.mjs",
+      "owningLane": "OMEGA-01",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11597,22 +11637,26 @@
         "Free Will Amplification"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/free-will-amplification.mjs"
+        ],
+        "testModules": [
+          "tests/free-will-amplification.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Free Will Amplification",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/free-will-amplification.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,
@@ -11661,22 +11705,26 @@
         "Temporal Civilization"
       ],
       "class": "ORGAN",
-      "currentState": "SPEC_ONLY",
+      "currentState": "VERIFIED_CURRENT",
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE",
-        "matchedPhrase": null,
+        "sourceModules": [
+          "src/temporal-civilization.mjs"
+        ],
+        "testModules": [
+          "tests/temporal-civilization.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME",
+        "matchedPhrase": "Temporal Civilization",
         "boundary": "FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME"
       },
-      "targetModule": null,
+      "targetModule": "src/temporal-civilization.mjs",
       "owningLane": "OMEGA-14",
       "dependencies": [],
       "authorityClass": "NONE",
       "privacyClass": "PUBLIC_REPOSITORY_SAFE",
-      "testsRequired": true,
+      "testsRequired": false,
       "realityEvidenceRequired": false,
       "supersedes": null,
       "supersededBy": null,

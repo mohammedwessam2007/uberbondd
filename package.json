@@ -110,7 +110,9 @@
     "reasoning:doctor": "node scripts/reasoning-quality-doctor.mjs",
     "test:reasoning-quality": "node --test tests/unknown-unknown-mining.test.mjs tests/assumption-escape.test.mjs tests/n-of-1-personal-science.test.mjs tests/reasoning-quality-doctor.test.mjs",
     "memory:doctor": "node scripts/memory-truth-doctor.mjs",
-    "test:memory-truth": "node --test tests/memory-truth-boundary.test.mjs tests/memory-truth-doctor.test.mjs"
+    "test:memory-truth": "node --test tests/memory-truth-boundary.test.mjs tests/memory-truth-doctor.test.mjs",
+    "sovereignty:doctor": "node scripts/sovereign-relation-doctor.mjs",
+    "test:sovereign-relation": "node --test tests/present-free-will.test.mjs tests/free-will-amplification.test.mjs tests/temporal-civilization.test.mjs tests/sovereign-relation-doctor.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

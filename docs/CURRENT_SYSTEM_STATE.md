@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-08**
 Branch: `claude/uberbond-sovereign-build-fyge0k`
-Reconciled from current head: `a006cafd47d3b0110c111f884a4f0902185fe0f3`
+Reconciled from current head: `7d9e0cc15a32dcea9c6096b341ca1a8ab3b44804`
 Live main before final merge decision: `efb63fddcbc9009594d9869a3e0929629ce7b4be`
 Current source-changing NIGHT-10 integration lineage includes reachability/readiness anti-drift, legacy-admin bearer hardening and exact-checkout canon regeneration before deterministic verification through `4eb65740fce52759f75f874b6df15070d314eddb`.
 

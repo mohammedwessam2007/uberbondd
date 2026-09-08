@@ -1,10 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileFirstCashCanaryPacket, FIRST_CASH_QUESTIONS } from '../src/first-cash-canary-packet.mjs';
+import {
+  compileFirstCashCanaryPacket,
+  FIRST_CASH_QUESTIONS,
+  FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION
+} from '../src/first-cash-canary-packet.mjs';
 import { PAYMENT_RENEWAL_TRUTH_VERSION } from '../src/payment-renewal-truth.mjs';
 import { compilePreCustomerRevenueReadiness } from '../src/pre-customer-revenue-readiness.mjs';
 
 const packet=compileFirstCashCanaryPacket({providers:[],date:new Date('2026-09-06T01:00:00Z')});
+
+test('producer and readiness consumer share one canonical first-cash schema contract',()=>{
+  assert.equal(packet.schemaVersion,FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION);
+  const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});
+  assert.equal(result.ok,true,JSON.stringify(result));
+  assert.equal(result.matrix.sourceSchemaVersion,FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION);
+});
 
 test('readiness matrix covers every canonical first-cash question without moving commercial truth',()=>{
   const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});

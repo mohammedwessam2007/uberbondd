@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { admitCapability } from './capability-genome-admission.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const CAPABILITY_SCALED_SECURITY_VERSION = 'uberbond.capability-scaled-security.v1';
+export const CAPABILITY_SCALED_SECURITY_VERSION = 'uberbond.capability-scaled-security.v1.1';
 
 export const SECURITY_TIERS = Object.freeze(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']);
 export const C26_EVIDENCE_CLASSES = Object.freeze([
@@ -80,11 +80,7 @@ function fail(status, reasons, extra = {}) {
     ...extra
   };
 }
-
 function tierAtLeast(a, b) { return (TIER_LEVEL[a] || 0) >= (TIER_LEVEL[b] || 0); }
-function maxTier(...tiers) {
-  return tiers.filter(Boolean).sort((a, b) => (TIER_LEVEL[b] || 0) - (TIER_LEVEL[a] || 0))[0] || 'LOW';
-}
 
 export function classifyCapabilitySecurityTier({ capability = {}, composition = {} } = {}) {
   const effects = uniq([...(capability?.sideEffects || []), ...(composition?.declaredEffects || [])]).map(value => value.toUpperCase());
@@ -173,28 +169,19 @@ function actorSeparationReasons(actors, tier) {
     for (const key of ['rollbackControllerId', 'emergencyStopControllerId', 'recoveryControllerId', 'auditRetentionOwnerId']) {
       if (!actors[key]) reasons.push(`critical-risk-role-required:${key}`);
     }
-    if (actors.emergencyStopControllerId && [actors.proposerId, actors.deployerId].includes(actors.emergencyStopControllerId)) {
-      reasons.push('emergency-stop-controller-must-be-independent-of-proposer-and-deployer');
-    }
-    if (actors.recoveryControllerId && [actors.emergencyStopControllerId, actors.deployerId].includes(actors.recoveryControllerId)) {
-      reasons.push('recovery-controller-must-be-independent-of-stop-and-deployer');
-    }
-    if (actors.auditRetentionOwnerId && [actors.proposerId, actors.deployerId].includes(actors.auditRetentionOwnerId)) {
-      reasons.push('audit-retention-owner-must-be-independent-of-proposer-and-deployer');
-    }
+    if (actors.emergencyStopControllerId && [actors.proposerId, actors.deployerId].includes(actors.emergencyStopControllerId)) reasons.push('emergency-stop-controller-must-be-independent-of-proposer-and-deployer');
+    if (actors.recoveryControllerId && [actors.emergencyStopControllerId, actors.deployerId].includes(actors.recoveryControllerId)) reasons.push('recovery-controller-must-be-independent-of-stop-and-deployer');
+    if (actors.auditRetentionOwnerId && [actors.proposerId, actors.deployerId].includes(actors.auditRetentionOwnerId)) reasons.push('audit-retention-owner-must-be-independent-of-proposer-and-deployer');
   }
   return reasons;
 }
 
 function normalizeEvidence(rows = [], now = new Date(), maxAgeDays = 30) {
   const nowMs = new Date(now).getTime();
-  const evidence = [];
-  for (const raw of Array.isArray(rows) ? rows : []) {
+  return (Array.isArray(rows) ? rows : []).map(raw => {
     const observed = new Date(raw?.observedAt);
-    const ageDays = Number.isFinite(observed.getTime()) && Number.isFinite(nowMs)
-      ? (nowMs - observed.getTime()) / 86_400_000
-      : Number.POSITIVE_INFINITY;
-    evidence.push({
+    const ageDays = Number.isFinite(observed.getTime()) && Number.isFinite(nowMs) ? (nowMs - observed.getTime()) / 86_400_000 : Number.POSITIVE_INFINITY;
+    return {
       evidenceClass: C26_EVIDENCE_CLASSES.includes(String(raw?.evidenceClass || '').toUpperCase()) ? String(raw.evidenceClass).toUpperCase() : null,
       passed: raw?.passed === true,
       subjectDigest: text(raw?.subjectDigest, 100)?.toLowerCase() || null,
@@ -204,22 +191,12 @@ function normalizeEvidence(rows = [], now = new Date(), maxAgeDays = 30) {
       observedAt: Number.isFinite(observed.getTime()) ? observed.toISOString() : null,
       ageDays,
       fresh: ageDays >= 0 && ageDays <= maxAgeDays
-    });
-  }
-  return evidence;
+    };
+  });
 }
 
 function normalizeLimits(raw = {}) {
-  const fields = [
-    'maxSpendCents',
-    'maxProviderCalls',
-    'maxDeployments',
-    'maxProductionMutations',
-    'maxCredentialChanges',
-    'maxPrivateReads',
-    'maxReplicas',
-    'maxComputeUnits'
-  ];
+  const fields = ['maxSpendCents', 'maxProviderCalls', 'maxDeployments', 'maxProductionMutations', 'maxCredentialChanges', 'maxPrivateReads', 'maxReplicas', 'maxComputeUnits'];
   return Object.fromEntries(fields.map(field => [field, integer(raw[field], 1_000_000_000_000)]));
 }
 
@@ -267,9 +244,7 @@ export function compileCapabilityScaledSecurityAdmission({
   maxEvidenceAgeDays = 30
 } = {}) {
   const baseAdmission = admitCapability(capability, { ...capabilityAdmissionOptions, now });
-  if (!baseAdmission?.ok || baseAdmission?.decision !== 'ELIGIBLE') {
-    return fail('C26_SECURITY_ADMISSION_REFUSED', ['existing-capability-genome-admission-must-be-eligible'], { baseAdmission });
-  }
+  if (!baseAdmission?.ok || baseAdmission?.decision !== 'ELIGIBLE') return fail('C26_SECURITY_ADMISSION_REFUSED', ['existing-capability-genome-admission-must-be-eligible'], { baseAdmission });
 
   const risk = classifyCapabilitySecurityTier({ capability, composition });
   const normalizedActors = normalizeActors(actors);
@@ -305,6 +280,7 @@ export function compileCapabilityScaledSecurityAdmission({
   if (tierAtLeast(risk.tier, 'HIGH')) {
     if (audit.appendOnly !== true || !text(audit.independentStoreRef, 500)) reasons.push('high-risk-append-only-independent-audit-required');
     if (!text(audit.retentionOwnerId, 200) || [normalizedActors.proposerId, normalizedActors.deployerId].includes(audit.retentionOwnerId)) reasons.push('high-risk-independent-audit-retention-owner-required');
+    if (audit.retentionOwnerId !== normalizedActors.auditRetentionOwnerId) reasons.push('audit-retention-owner-binding-mismatch');
   }
   if (risk.tier === 'CRITICAL') {
     if (!text(emergency.rollbackRef, 500)) reasons.push('critical-rollback-reference-required');
@@ -350,39 +326,27 @@ export function compileCapabilityScaledSecurityAdmission({
 }
 
 function observedRuntimeReceipt(receipt, receiptClass, subjectDigest) {
+  const observed = new Date(receipt?.observedAt);
   return receipt
     && typeof receipt === 'object'
     && receipt.evidenceClass === 'OBSERVED_RUNTIME'
     && receipt.receiptClass === receiptClass
     && receipt.subjectDigest === subjectDigest
+    && receipt.synthetic !== true
+    && Number.isFinite(observed.getTime())
     && text(receipt.runtimeIdentity, 500)
     && text(receipt.evidenceRef, 500)
+    && text(receipt.attestationRef, 500)
     && text(receipt.independentVerifierRef, 500)
     && Number(receipt.unauthorizedExternalEffects ?? 0) === 0;
 }
 
-export function verifyCapabilitySecurityRehearsal({
-  admission = null,
-  canaryReceipt = null,
-  rollbackReceipt = null,
-  revocationReceipt = null,
-  monitorReceipt = null,
-  emergencyStopReceipt = null
-} = {}) {
-  if (!admission?.ok || admission.status !== 'C26_SECURITY_ADMISSION_READY_FOR_SEPARATE_EFFECT_GATE' || !SHA256.test(admission.subjectDigest || '')) {
-    return fail('C26_SECURITY_REHEARSAL_REFUSED', ['successful-c26-admission-required']);
-  }
+export function verifyCapabilitySecurityRehearsal({ admission = null, canaryReceipt = null, rollbackReceipt = null, revocationReceipt = null, monitorReceipt = null, emergencyStopReceipt = null } = {}) {
+  if (!admission?.ok || admission.status !== 'C26_SECURITY_ADMISSION_READY_FOR_SEPARATE_EFFECT_GATE' || !SHA256.test(admission.subjectDigest || '')) return fail('C26_SECURITY_REHEARSAL_REFUSED', ['successful-c26-admission-required']);
   const reasons = [];
-  const required = [
-    ['CANARY', canaryReceipt],
-    ['ROLLBACK', rollbackReceipt],
-    ['REVOCATION', revocationReceipt],
-    ['MONITOR', monitorReceipt]
-  ];
+  const required = [['CANARY', canaryReceipt], ['ROLLBACK', rollbackReceipt], ['REVOCATION', revocationReceipt], ['MONITOR', monitorReceipt]];
   if (admission.risk?.tier === 'CRITICAL') required.push(['EMERGENCY_STOP', emergencyStopReceipt]);
-  for (const [klass, receipt] of required) {
-    if (!observedRuntimeReceipt(receipt, klass, admission.subjectDigest)) reasons.push(`observed-independent-runtime-receipt-required:${klass}`);
-  }
+  for (const [klass, receipt] of required) if (!observedRuntimeReceipt(receipt, klass, admission.subjectDigest)) reasons.push(`observed-independent-runtime-receipt-required:${klass}`);
   if (canaryReceipt && (canaryReceipt.boundedCanary !== true || canaryReceipt.canaryPassed !== true)) reasons.push('bounded-successful-canary-required');
   if (rollbackReceipt && (rollbackReceipt.priorReleaseRestored !== true || !text(rollbackReceipt.rollbackArtifactRef, 500))) reasons.push('observed-prior-release-rollback-required');
   if (revocationReceipt && revocationReceipt.revokedArtifactBlocked !== true) reasons.push('observed-revoked-artifact-block-required');
@@ -440,12 +404,8 @@ export function verifyRecursiveGovernanceChain({ generations = [] } = {}) {
     if (index > 0) {
       const parent = normalized[index - 1];
       if (row.parentGenerationId !== parent.generationId) reasons.push(`generation-parent-chain-mismatch:${row.generationId || index}`);
-      if (row.constitutionalDigest !== parent.constitutionalDigest && (!row.constitutionalMutationApproved || !row.ownerAuthorityRef)) {
-        reasons.push(`constitutional-mutation-requires-explicit-owner-authority:${row.generationId || index}`);
-      }
-    } else if (row.parentGenerationId) {
-      reasons.push('first-generation-must-not-invent-parent');
-    }
+      if (row.constitutionalDigest !== parent.constitutionalDigest && (!row.constitutionalMutationApproved || !row.ownerAuthorityRef)) reasons.push(`constitutional-mutation-requires-explicit-owner-authority:${row.generationId || index}`);
+    } else if (row.parentGenerationId) reasons.push('first-generation-must-not-invent-parent');
   }
 
   if (reasons.length) return fail('RECURSIVE_GOVERNANCE_REFUSED', reasons);

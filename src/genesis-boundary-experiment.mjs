@@ -84,6 +84,19 @@ export const AUTHORITY_SCOPES = Object.freeze([
   'BLAST_RADIUS_BEYOND_LOCAL'
 ]);
 
+/**
+ * How much a probe's discrimination claim has actually been shown.
+ *
+ * A caller writing `discriminating: true` is stating an intention, not
+ * supplying evidence, so the three states are kept apart: refuted, claimed but
+ * unchecked, and backed by a stated difference in predicted observation.
+ */
+export const PROBE_DISCRIMINATION_CLASSES = Object.freeze([
+  'NOT_DISCRIMINATING',
+  'CLAIMED_UNVERIFIED',
+  'PREDICTED_DIFFERENCE_STATED'
+]);
+
 /** What a prediction error can mean. UNCLASSIFIED is an open file, not a dismissal. */
 export const MODEL_FAILURE_CLASSES = Object.freeze([
   'WORLD_MODEL_WRONG',
@@ -460,6 +473,101 @@ function authorityFor(effects, reversibility, blastRadius) {
 }
 
 /**
+ * The stricter of two reversibility classes.
+ *
+ * A probe may raise the severity of the experiment it belongs to; it may never
+ * lower it. Taking the probe's own word would let the single field a caller
+ * fully controls delete IRREVERSIBLE_ACTION from the authority set of an
+ * experiment whose own declaration said the action could not be undone.
+ */
+function strictestReversibility(a, b) {
+  const rank = value => REVERSIBILITY_CLASSES.indexOf(value);
+  return rank(a) >= rank(b) ? a : b;
+}
+
+/** Comparison form for a predicted observation. Case and spacing are not a difference. */
+const observationKey = value => String(value ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.\s]+$/, '').trim();
+
+/**
+ * What a probe's discrimination claim is worth, given what it supplied.
+ *
+ * The check here is deliberately syntactic and says so. Two differing strings
+ * are evidence that the caller has at least thought about what each rival
+ * hypothesis predicts; they are not proof that the probe can tell them apart.
+ * Two identical strings are stronger than silence in the other direction: they
+ * are a statement that the probe's outcome is the same either way, which
+ * refutes the claim rather than merely leaving it unchecked.
+ */
+function discriminationOf(raw) {
+  if (raw?.discriminating !== true) {
+    return { discrimination: 'NOT_DISCRIMINATING', discardReason: 'cannot-produce-the-falsifying-observation' };
+  }
+  const ifTrue = text(raw?.predictedIfHypothesisTrue, 2000);
+  const ifFalse = text(raw?.predictedIfHypothesisFalse, 2000);
+  if (!ifTrue || !ifFalse) {
+    return {
+      discrimination: 'CLAIMED_UNVERIFIED',
+      discriminationEvidence: 'NONE__CALLER_DECLARATION_ONLY',
+      predictedIfHypothesisTrue: ifTrue,
+      predictedIfHypothesisFalse: ifFalse
+    };
+  }
+  if (observationKey(ifTrue) === observationKey(ifFalse)) {
+    return {
+      discrimination: 'NOT_DISCRIMINATING',
+      discriminationEvidence: 'REFUTED__PREDICTED_OBSERVATIONS_IDENTICAL',
+      discardReason: 'predicted-observations-identical-under-rival-hypotheses',
+      predictedIfHypothesisTrue: ifTrue,
+      predictedIfHypothesisFalse: ifFalse
+    };
+  }
+  return {
+    discrimination: 'PREDICTED_DIFFERENCE_STATED',
+    // Named for what was checked. A stated difference is not a demonstrated one.
+    discriminationEvidence: 'SYNTACTIC_DIFFERENCE_IN_STATED_PREDICTIONS',
+    predictedIfHypothesisTrue: ifTrue,
+    predictedIfHypothesisFalse: ifFalse
+  };
+}
+
+/**
+ * A declared effect set, or null if any field present is malformed.
+ *
+ * Absent means zero; malformed does not. Reading a negative, NaN, fractional or
+ * non-boolean field as the safe default is the failure mode this exists to stop,
+ * because every one of those defaults reads as "no effect" and so deletes the
+ * authority scope the field was there to require.
+ */
+function declaredEffectsOf(source) {
+  const counted = (value, max) => (value === undefined || value === null ? 0 : count(value, max));
+  const flagged = value => {
+    if (value === undefined || value === null) return false;
+    return typeof value === 'boolean' ? value : null;
+  };
+  const declared = {
+    spendCents: counted(source?.spendCents, 1e12),
+    providerCalls: counted(source?.providerCalls, 1e9),
+    customerContact: flagged(source?.customerContact),
+    deployment: flagged(source?.deployment),
+    credentialChange: flagged(source?.credentialChange),
+    dnsChange: flagged(source?.dnsChange),
+    productionMutation: flagged(source?.productionMutation)
+  };
+  return Object.values(declared).some(value => value === null) ? null : declared;
+}
+
+/** Union of two effect sets. An effect either side declares is an effect the plan has. */
+const mergeEffects = (a, b) => ({
+  spendCents: Math.max(a.spendCents, b.spendCents),
+  providerCalls: Math.max(a.providerCalls, b.providerCalls),
+  customerContact: a.customerContact || b.customerContact,
+  deployment: a.deployment || b.deployment,
+  credentialChange: a.credentialChange || b.credentialChange,
+  dnsChange: a.dnsChange || b.dnsChange,
+  productionMutation: a.productionMutation || b.productionMutation
+});
+
+/**
  * GENESIS-07. Compiles a hypothesis into the smallest reversible experiment
  * that could falsify it.
  *
@@ -474,6 +582,22 @@ function authorityFor(effects, reversibility, blastRadius) {
  * production, and that gets run because it was presented as ready. Anything
  * reaching outside this process comes back as requiring authority and is not
  * runnable, however cheap it is. Capability never creates authority.
+ *
+ * Three consequences of taking that second point seriously, each of which the
+ * caller controls and therefore none of which is taken on trust:
+ *
+ * - The effects read are the selected probe's unioned with the experiment's, so
+ *   a probe cannot carry an effect the enclosing declaration forgot to mention.
+ * - A probe may raise the reversibility class and never lower it, so the one
+ *   field a caller fully controls cannot delete IRREVERSIBLE_ACTION.
+ * - A malformed effect count is refused, not defaulted, because every plausible
+ *   default reads as "no effect" and quietly drops an authority requirement.
+ *
+ * The ceilings bind the plan that would run, not just the summary line: a probe
+ * costing more than the experiment declared is refused rather than trimmed to
+ * fit. And `discriminating: true` is a caller's intention, so it arrives as
+ * CLAIMED_UNVERIFIED unless the probe states what it would observe under each
+ * rival hypothesis. Stating the same observation under both refutes the claim.
  */
 export function compileBoundedExperiment({
   hypothesis = null,
@@ -508,11 +632,23 @@ export function compileBoundedExperiment({
     return fail('EXPERIMENT_COMPILATION_INVALID', ['recognized-blast-radius-required']);
   }
 
+  // The effects the experiment itself declares. Malformed is not zero: a
+  // negative, NaN, fractional or non-boolean field read as the safe default
+  // would silently delete the very authority scope that field exists to demand.
+  const experimentEffects = declaredEffectsOf(effects);
+  if (!experimentEffects) {
+    return fail('EXPERIMENT_COMPILATION_INVALID', ['declared-effects-must-be-non-negative-integers-and-booleans'], {
+      why: 'A malformed effect count is refused rather than defaulted to zero, because zero reads as "no effect" '
+         + 'and removes the authority requirement the field was there to raise.'
+    });
+  }
+
   // Smallest is chosen among offered probes, but only among those that could
   // actually produce the falsifying observation. A cheaper probe that cannot
   // discriminate is not a smaller experiment, it is a different and emptier one.
   let selectedProbe = null;
   let discardedProbes = [];
+  let refutedDiscriminationClaims = [];
   if (probes !== null && probes !== undefined) {
     if (!Array.isArray(probes) || probes.length > 256) {
       return fail('EXPERIMENT_COMPILATION_INVALID', ['bounded-probe-array-required']);
@@ -525,41 +661,102 @@ export function compileBoundedExperiment({
       if (!description || probeCost === null || probeTime === null) {
         return fail('EXPERIMENT_COMPILATION_INVALID', ['each-probe-needs-description-and-non-negative-cost-and-time']);
       }
+      // A probe's own effects are held to the same standard as the experiment's,
+      // because they are about to be merged into the set the authority check reads.
+      const probeEffects = raw?.effects === undefined || raw?.effects === null
+        ? null
+        : declaredEffectsOf(raw.effects);
+      if (raw?.effects !== undefined && raw?.effects !== null && !probeEffects) {
+        return fail('EXPERIMENT_COMPILATION_INVALID', ['declared-effects-must-be-non-negative-integers-and-booleans'], {
+          probeDescription: description
+        });
+      }
       normalized.push({
         description,
         costCents: probeCost,
         timeMinutes: probeTime,
-        reversibility: REVERSIBILITY_CLASSES.includes(raw?.reversibility) ? raw.reversibility : reversibility,
-        discriminating: raw?.discriminating === true
+        // A probe may raise severity and may not lower it. Taking its word would
+        // let a caller-supplied field erase IRREVERSIBLE_ACTION from an
+        // experiment that declared the action irreversible.
+        reversibility: strictestReversibility(
+          reversibility,
+          REVERSIBILITY_CLASSES.includes(raw?.reversibility) ? raw.reversibility : reversibility
+        ),
+        declaredEffects: probeEffects,
+        ...discriminationOf(raw)
       });
     }
-    const usable = normalized.filter(probe => probe.discriminating);
+
+    const discriminating = normalized.filter(probe => probe.discrimination !== 'NOT_DISCRIMINATING');
+    refutedDiscriminationClaims = normalized
+      .filter(probe => probe.discriminationEvidence === 'REFUTED__PREDICTED_OBSERVATIONS_IDENTICAL')
+      .map(probe => ({
+        description: probe.description,
+        predictedIfHypothesisTrue: probe.predictedIfHypothesisTrue,
+        predictedIfHypothesisFalse: probe.predictedIfHypothesisFalse,
+        refutation: 'the probe predicts the same observation whether the hypothesis holds or not'
+      }));
     discardedProbes = normalized
-      .filter(probe => !probe.discriminating)
-      .map(probe => ({ description: probe.description, discardReason: 'cannot-produce-the-falsifying-observation' }));
-    if (!usable.length) {
+      .filter(probe => probe.discrimination === 'NOT_DISCRIMINATING')
+      .map(probe => ({ description: probe.description, discardReason: probe.discardReason }));
+
+    if (!discriminating.length) {
       return fail('EXPERIMENT_COMPILATION_INVALID', ['no-discriminating-probe-available'], {
         discardedProbes,
+        refutedDiscriminationClaims,
         why: 'Every offered probe could run to completion without ever contradicting the hypothesis.'
       });
     }
-    usable.sort((a, b) => (
+
+    // A plan whose probe costs more than the experiment's own ceiling is not a
+    // bounded experiment. The over-budget probe is recorded rather than trimmed
+    // to fit, and if nothing remains the compilation is refused: quietly
+    // selecting a cheaper probe that nobody offered would be a different test.
+    //
+    // The two ceilings are read differently, and the asymmetry is deliberate. A
+    // zero cost ceiling is the strongest declaration in this file -- it says the
+    // experiment spends nothing -- and it is enforced as written. A zero time
+    // ceiling would say the experiment takes no time, which no experiment does,
+    // so zero there means the caller declared no time budget and none is imposed.
+    const timeCeilingDeclared = timeCeiling > 0;
+    const affordable = discriminating.filter(
+      probe => probe.costCents <= costCeiling && (!timeCeilingDeclared || probe.timeMinutes <= timeCeiling)
+    );
+    for (const probe of discriminating) {
+      if (!affordable.includes(probe)) {
+        discardedProbes.push({
+          description: probe.description,
+          discardReason: 'exceeds-the-declared-cost-or-time-ceiling',
+          costCents: probe.costCents,
+          timeMinutes: probe.timeMinutes
+        });
+      }
+    }
+    if (!affordable.length) {
+      return fail('EXPERIMENT_COMPILATION_INVALID', ['no-probe-within-declared-cost-and-time-ceilings'], {
+        discardedProbes,
+        refutedDiscriminationClaims,
+        costCeilingCents: costCeiling,
+        timeCeilingMinutes: timeCeiling,
+        why: 'Every discriminating probe costs more money or more time than the ceilings this experiment declared.'
+      });
+    }
+
+    affordable.sort((a, b) => (
       (a.reversibility === 'REVERSIBLE' ? 0 : 1) - (b.reversibility === 'REVERSIBLE' ? 0 : 1)
       || a.costCents - b.costCents
       || a.timeMinutes - b.timeMinutes
     ));
-    selectedProbe = usable[0];
+    selectedProbe = affordable[0];
   }
 
-  const declared = {
-    spendCents: count(effects?.spendCents, 1e12) ?? 0,
-    providerCalls: count(effects?.providerCalls, 1e9) ?? 0,
-    customerContact: effects?.customerContact === true,
-    deployment: effects?.deployment === true,
-    credentialChange: effects?.credentialChange === true,
-    dnsChange: effects?.dnsChange === true,
-    productionMutation: effects?.productionMutation === true
-  };
+  // The authority check reads the effects of the plan that would actually run,
+  // which is the experiment's declaration unioned with the selected probe's own.
+  // A probe that emails ten agencies needs customer-contact authority even when
+  // the enclosing experiment declared nothing, and its description does not vote.
+  const declared = selectedProbe?.declaredEffects
+    ? mergeEffects(experimentEffects, selectedProbe.declaredEffects)
+    : experimentEffects;
 
   // A spend larger than the ceiling it declared is not a bounded experiment. It
   // is refused rather than clamped, because clamping would silently change the
@@ -583,6 +780,13 @@ export function compileBoundedExperiment({
     falsifier: falsifyingObservation,
     probe: selectedProbe,
     discardedProbes,
+    // Kept visible rather than merged into the discard list: a probe that
+    // claimed to discriminate and demonstrably does not is a different piece of
+    // information from a probe that never claimed to.
+    refutedDiscriminationClaims,
+    // What the selected probe's discrimination claim is actually worth. A bare
+    // `discriminating: true` reaches here as CLAIMED_UNVERIFIED and stays there.
+    probeDiscrimination: selectedProbe ? selectedProbe.discrimination : null,
     costCeilingCents: costCeiling,
     timeCeilingMinutes: timeCeiling,
     reversibility: effectiveReversibility,

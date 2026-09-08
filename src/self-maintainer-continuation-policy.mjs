@@ -1,7 +1,7 @@
 import { compileConstraintMutationPlan } from './constraint-mutation-engine.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.0.1';
+export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.1.0';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
@@ -111,6 +111,84 @@ export function decideSelfMaintainerContinuation({
     mutationPlan: mutation,
     nextMechanismMustDiffer: true,
     requiresNewEvidenceOrNewMechanism: true,
-    truthBoundary: 'THE TIMER MAY REOBSERVE STATE; IT MAY NOT TURN THE SAME FAILED STRATEGY INTO A NEW ATTEMPT OR CLAIM PROGRESS'
+    truthBoundary: 'A TIMER OR MANUAL REENTRY MAY REOBSERVE STATE; IT MAY NOT TURN THE SAME FAILED STRATEGY INTO A NEW ATTEMPT OR CLAIM PROGRESS'
+  });
+}
+
+/**
+ * Enforce a prior continuation receipt before another same-base pulse.
+ * A changed main SHA is new repository evidence and may be evaluated normally.
+ * On the exact same base, waiting/review/STOP/mutation states block the ordinary
+ * self-maintainer tick so a manual rerun cannot silently become an identical
+ * retry. This gate does not execute a mutation and grants no new authority.
+ */
+export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = null } = {}) {
+  const currentBase = text(currentBaseRevision, 80).toLowerCase();
+  if (!/^[a-f0-9]{40}$/.test(currentBase)) {
+    return envelope({ ok: false, status: 'PULSE_PREFLIGHT_REFUSED', runPrimaryTick: false, reasonCodes: ['exact-current-base-required'] });
+  }
+  if (!priorReceipt || typeof priorReceipt !== 'object' || Array.isArray(priorReceipt)) {
+    return envelope({
+      ok: true,
+      status: 'PULSE_ALLOWED_NO_PRIOR_CONTINUATION',
+      runPrimaryTick: true,
+      currentBaseRevision: currentBase,
+      truthBoundary: 'NO PRIOR CONTINUATION RECEIPT WAS AVAILABLE; THIS DOES NOT IMPLY THE BASE IS NOVEL OUTSIDE THIS WORKFLOW'
+    });
+  }
+
+  const observedBase = text(priorReceipt.observedBaseRevision, 80).toLowerCase();
+  if (!/^[a-f0-9]{40}$/.test(observedBase)) {
+    return envelope({
+      ok: true,
+      status: 'PULSE_ALLOWED_UNUSABLE_PRIOR_RECEIPT',
+      runPrimaryTick: true,
+      currentBaseRevision: currentBase,
+      reasonCodes: ['prior-receipt-exact-base-unavailable'],
+      truthBoundary: 'AN UNBOUND HISTORICAL RECEIPT CANNOT BLOCK A CURRENT BASE'
+    });
+  }
+  if (observedBase !== currentBase) {
+    return envelope({
+      ok: true,
+      status: 'PULSE_ALLOWED_NEW_BASE_EVIDENCE',
+      runPrimaryTick: true,
+      currentBaseRevision: currentBase,
+      priorBaseRevision: observedBase,
+      truthBoundary: 'A DIFFERENT MAIN SHA IS NEW REPOSITORY EVIDENCE; PREVIOUS SAME-BASE STOPPING RULES DO NOT AUTOMATICALLY VETO REEVALUATION'
+    });
+  }
+
+  const priorContinuation = priorReceipt.continuation && typeof priorReceipt.continuation === 'object'
+    ? priorReceipt.continuation
+    : {};
+  const priorStatus = text(priorContinuation.status, 120).toUpperCase();
+  const blocking = new Set([
+    'WAIT_FOR_EXISTING_ATTEMPT',
+    'REVIEW_PENDING',
+    'NO_SAFE_CHANGE_THIS_BASE',
+    'STRATEGY_MUTATION_REQUIRED'
+  ]);
+  if (blocking.has(priorStatus)) {
+    return envelope({
+      ok: true,
+      status: 'CURRENT_BASE_REENTRY_BLOCKED',
+      runPrimaryTick: false,
+      currentBaseRevision: currentBase,
+      priorContinuationStatus: priorStatus,
+      requiredDecision: priorStatus === 'STRATEGY_MUTATION_REQUIRED'
+        ? 'MUTATE_MECHANISM_OR_WAIT_FOR_NEW_EVIDENCE'
+        : 'PRESERVE_EXISTING_ATTEMPT_OR_STOPPING_RULE',
+      truthBoundary: 'THE SAME BASE AND SAME CONTINUATION STATE MAY NOT BE RECAST AS A FRESH ATTEMPT BY MANUAL OR CLOCK REENTRY'
+    });
+  }
+
+  return envelope({
+    ok: true,
+    status: 'PULSE_ALLOWED_PRIOR_CONTINUATION_NONBLOCKING',
+    runPrimaryTick: true,
+    currentBaseRevision: currentBase,
+    priorContinuationStatus: priorStatus || null,
+    truthBoundary: 'THE PRIOR RECEIPT DID NOT REQUIRE WAIT, STOP, REVIEW HOLD, OR STRATEGY MUTATION'
   });
 }

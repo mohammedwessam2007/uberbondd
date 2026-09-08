@@ -38,6 +38,13 @@ const EXACT_READINESS_FILES = new Set([
   'vercel.json'
 ]);
 
+const GENERATED_TRUTH_OUTPUTS = new Set([
+  'docs/CURRENT_HANDOFF.json',
+  'docs/CURRENT_SYSTEM_STATE.md',
+  'artifacts/system-readiness.json',
+  'artifacts/sovereign/implementation-coverage-matrix.json'
+]);
+
 const CANON_TRUTH_FILES = new Set([
   'NORTH_STAR.md',
   'docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md',
@@ -50,7 +57,7 @@ export function readinessRelevant(path) {
 }
 
 export function coverageRelevant(path) {
-  if (path === 'artifacts/sovereign/implementation-coverage-matrix.json') return false;
+  if (GENERATED_TRUTH_OUTPUTS.has(path)) return false;
   if (/^artifacts\/work\//.test(path)) return false;
   return /^(src|scripts|api|tests|config|\.claude\/skills)\//.test(path)
     || /^artifacts\//.test(path)
@@ -59,7 +66,7 @@ export function coverageRelevant(path) {
 }
 
 export function currentTruthRelevant(path) {
-  if (path === 'docs/CURRENT_HANDOFF.json') return false;
+  if (GENERATED_TRUTH_OUTPUTS.has(path)) return false;
   if (/^artifacts\/work\//.test(path)) return false;
   return readinessRelevant(path) || coverageRelevant(path) || CANON_TRUTH_FILES.has(path);
 }

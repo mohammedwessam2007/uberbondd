@@ -67,6 +67,10 @@ test('unknown action-like equivalence is conservative rather than forcibly merge
     semanticStatementIdentity('alpha blocks beta'),
     semanticStatementIdentity('beta blocks alpha')
   );
+  assert.notEqual(
+    semanticStatementIdentity('alpha can block beta'),
+    semanticStatementIdentity('beta can block alpha')
+  );
 });
 
 test('causalSignature preserves direction even when primitive id inputs are absent', () => {
@@ -91,6 +95,27 @@ test('decomposition emits direction-safe primitive ids', () => {
   const actionB = b.primitives.find(row => row.role === 'ACTION');
   assert.notEqual(actionA.primitiveId, actionB.primitiveId);
   assert.notEqual(actionA.semanticIdentity, actionB.semanticIdentity);
+});
+
+test('same-role reversed preconditions survive before any lossy core dedupe', () => {
+  const mechanism = normalizeDonorMechanism({
+    mechanismId: 'same-role-reversal',
+    domain: 'synthetic-causal-test',
+    does: 'route verified work',
+    exploits: 'capacity sits idle',
+    preconditions: ['alpha funds beta', 'beta funds alpha'],
+    effects: ['a measurable outcome changes'],
+    assumptions: ['the mechanism continues to hold'],
+    evidenceClass: 'VERIFIED_FACT',
+    source: { kind: 'OBSERVED_SYSTEM', ref: 'fixture:same-role-reversal', observedAt: '2026-09-08T00:00:00.000Z' }
+  });
+  assert.equal(mechanism.ok, true);
+  const decomposed = decomposeToPrimitives({ mechanism });
+  assert.equal(decomposed.ok, true);
+  const preconditions = decomposed.primitives.filter(row => row.role === 'PRECONDITION');
+  assert.equal(preconditions.length, 2, 'the mature core must not erase one before hardening');
+  assert.notEqual(preconditions[0].primitiveId, preconditions[1].primitiveId);
+  assert.notEqual(preconditions[0].semanticIdentity, preconditions[1].semanticIdentity);
 });
 
 test('assumption mutation variants retain distinct hardened signatures', () => {

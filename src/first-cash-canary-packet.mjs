@@ -13,6 +13,7 @@ export * from './first-cash-canary-packet-core.mjs';
 import * as core from './first-cash-canary-packet-core.mjs';
 
 export const FIRST_CASH_CANARY_PACKET_VERSION = 'uberbond.first-cash-canary-packet-1.5.0';
+export const FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION = 'uberbond-first-cash-canary-packet-1.5.0';
 export const CANONICAL_FIRST_CASH_PAYMENT_METHOD = 'PAYPAL_BOUND_PROVIDER_ORDER';
 export const LEGACY_FIRST_CASH_PAYMENT_LINK = core.DEFAULT_FIRST_CASH_PAYMENT_LINK;
 export const LEGACY_FIRST_CASH_PAYMENT_LINK_CLASSIFICATION = 'HISTORICAL_NONCANONICAL_PAYMENT_DESTINATION';
@@ -68,7 +69,7 @@ export function compileFirstCashCanaryPacket(args = {}) {
   return {
     ...report,
     policyVersion: FIRST_CASH_CANARY_PACKET_VERSION,
-    schemaVersion: 'uberbond-first-cash-canary-packet-1.5.0',
+    schemaVersion: FIRST_CASH_CANARY_PACKET_SCHEMA_VERSION,
     packetId,
     questions,
     paymentMethod: CANONICAL_FIRST_CASH_PAYMENT_METHOD,

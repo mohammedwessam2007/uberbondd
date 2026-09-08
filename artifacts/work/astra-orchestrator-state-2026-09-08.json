@@ -1423,2406 +1423,1206 @@
         "OPEN_ENDED_RESEARCH"
       ],
       "canonicalSections": [
-        {
-          "canon": {
-            "heading": "# 0. No-drop and anti-amputation law",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-0",
-          "name": "No-drop and anti-amputation law",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 1. Terminal hierarchy",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-1",
-          "name": "Terminal hierarchy",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 2. Sovereign Self",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-2",
-          "name": "Sovereign Self",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 3. Will Kernel",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-3",
-          "name": "Will Kernel",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 4. Thought Ocean",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-4",
-          "name": "Thought Ocean",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 5. Living Mohamed Model",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-5",
-          "name": "Living Mohamed Model",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 6. Preference Provenance",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-6",
-          "name": "Preference Provenance",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 7. Value Genesis Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-7",
-          "name": "Value Genesis Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 8. Meta-Volition Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-8",
-          "name": "Meta-Volition Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 9. Volitional Integrity Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-9",
-          "name": "Volitional Integrity Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 10. Four sovereignties",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-10",
-          "name": "Four sovereignties",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 11. Sovereignty Type System",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-11",
-          "name": "Sovereignty Type System",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 12. Anti-Capture Kernel",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-12",
-          "name": "Anti-Capture Kernel",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 13. Cognitive Sovereignty Firewall",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-13",
-          "name": "Cognitive Sovereignty Firewall",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 14. Salience Sovereignty",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-14",
-          "name": "Salience Sovereignty",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 15. Epistemic Sovereignty",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-15",
-          "name": "Epistemic Sovereignty",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 16. Cognitive Opacity / Right to Remain Unmodeled",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-16",
-          "name": "Cognitive Opacity / Right to Remain Unmodeled",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 17. Memory Sovereignty",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-17",
-          "name": "Memory Sovereignty",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 18. Strategic Forgetting and Rediscovery",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-18",
-          "name": "Strategic Forgetting and Rediscovery",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 19. Epistemic Exit / No-UberBond View",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-19",
-          "name": "Epistemic Exit / No-UberBond View",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 20. Right of Exit",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-20",
-          "name": "Right of Exit",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 21. Fork Sovereignty",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-21",
-          "name": "Fork Sovereignty",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 22. Constitutional Mutation Protocol",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-22",
-          "name": "Constitutional Mutation Protocol",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 23. Intertemporal Sovereignty",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-23",
-          "name": "Intertemporal Sovereignty",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 24. Irreversibility Atlas",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-24",
-          "name": "Irreversibility Atlas",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 25. Constitution of Becoming / Freedom to Become",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-25",
-          "name": "Constitution of Becoming / Freedom to Become",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 26. Life Knowledge Graph / Reality Lattice",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-26",
-          "name": "Life Knowledge Graph / Reality Lattice",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 27. Reality Authentication Layer",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-27",
-          "name": "Reality Authentication Layer",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 28. Civilizational Intelligence",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-28",
-          "name": "Civilizational Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 29. Intelligence Reinvention",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-29",
-          "name": "Intelligence Reinvention",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 30. Substrate-Agnostic Cognition",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-30",
-          "name": "Substrate-Agnostic Cognition",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 31. Ontogenesis",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-31",
-          "name": "Ontogenesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 32. Ontological Crisis Protocol",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-32",
-          "name": "Ontological Crisis Protocol",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 33. Reality Compression Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-33",
-          "name": "Reality Compression Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 34. Abstraction Debt",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-34",
-          "name": "Abstraction Debt",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 35. Scale Bridge",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-35",
-          "name": "Scale Bridge",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 36. Meta-Sovereign Rationality",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-36",
-          "name": "Meta-Sovereign Rationality",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 37. Computational Irreducibility Awareness",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-37",
-          "name": "Computational Irreducibility Awareness",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 38. Assumption Escape / Incompleteness Awareness",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-38",
-          "name": "Assumption Escape / Incompleteness Awareness",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 39. Reflexivity Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-39",
-          "name": "Reflexivity Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 40. Knightian Uncertainty Model",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-40",
-          "name": "Knightian Uncertainty Model",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 41. Universal Ignorance Map",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-41",
-          "name": "Universal Ignorance Map",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 42. Unknown-Unknown Mining",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-42",
-          "name": "Unknown-Unknown Mining",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 43. Epistemic Immune System",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-43",
-          "name": "Epistemic Immune System",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 44. Model Ecology / Epistemic Biodiversity",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-44",
-          "name": "Model Ecology / Epistemic Biodiversity",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 45. Anti-Correlation Intelligence",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-45",
-          "name": "Anti-Correlation Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 46. Causal Intervention Ladder",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-46",
-          "name": "Causal Intervention Ladder",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 47. Counterfactual Evidence Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-47",
-          "name": "Counterfactual Evidence Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 48. N-of-1 Personal Science",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-48",
-          "name": "N-of-1 Personal Science",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 49. Reality Veto",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-49",
-          "name": "Reality Veto",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 50. Reality Independence Principle",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-50",
-          "name": "Reality Independence Principle",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 51. The Ability to Say NO MODEL",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-51",
-          "name": "The Ability to Say NO MODEL",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 52. The Ability to Say NO RECOMMENDATION",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-52",
-          "name": "The Ability to Say NO RECOMMENDATION",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 53. The Ability to Say ENOUGH",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-53",
-          "name": "The Ability to Say ENOUGH",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 54. Anti-Goodhart Intelligence",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-54",
-          "name": "Anti-Goodhart Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 55. Value Pluralism / Value Manifold",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-55",
-          "name": "Value Pluralism / Value Manifold",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 56. Option Universe",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-56",
-          "name": "Option Universe",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 57. Sovereign Option & Outcome Forecast Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-57",
-          "name": "Sovereign Option & Outcome Forecast Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 58. Forecasting Stack",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-58",
-          "name": "Forecasting Stack",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 59. Darwinian Forecasting",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-59",
-          "name": "Darwinian Forecasting",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 60. Prediction Half-Life",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-60",
-          "name": "Prediction Half-Life",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 61. Counterfactual Accountability / Decision-Quality Memory",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-61",
-          "name": "Counterfactual Accountability / Decision-Quality Memory",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 62. Decision Information Theory / Value of Information",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-62",
-          "name": "Decision Information Theory / Value of Information",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 63. Decision Shelf Life",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-63",
-          "name": "Decision Shelf Life",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 64. Regret Geometry",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-64",
-          "name": "Regret Geometry",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 65. Regret Intelligence",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-65",
-          "name": "Regret Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 66. Adversarial Future Selves",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-66",
-          "name": "Adversarial Future Selves",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 67. Ruin Firewall",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-67",
-          "name": "Ruin Firewall",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 68. Recovery Compiler",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-68",
-          "name": "Recovery Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 69. Anti-Fragility Map",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-69",
-          "name": "Anti-Fragility Map",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 70. Existential Redundancy / Life Fault Tolerance",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-70",
-          "name": "Existential Redundancy / Life Fault Tolerance",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 71. Personal Counterfactual Universe",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-71",
-          "name": "Personal Counterfactual Universe",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 72. Future-Ancestor Compiler",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-72",
-          "name": "Future-Ancestor Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 73. Reachable Future Geometry",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-73",
-          "name": "Reachable Future Geometry",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 74. Freedom Gradient / Agency Geometry",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-74",
-          "name": "Freedom Gradient / Agency Geometry",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 75. Optionality vs Depth Dial",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-75",
-          "name": "Optionality vs Depth Dial",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 76. Explore / Exploit Life Controller",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-76",
-          "name": "Explore / Exploit Life Controller",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 77. Gamechanger",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-77",
-          "name": "Gamechanger",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 78. Boundary Discovery Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-78",
-          "name": "Boundary Discovery Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 79. Impossible Detector",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-79",
-          "name": "Impossible Detector",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 80. GENESIS",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-80",
-          "name": "GENESIS",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 81. Unknown-Self Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-81",
-          "name": "Unknown-Self Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 82. Human Capability Genome",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-82",
-          "name": "Human Capability Genome",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 83. Osteogenesis",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-83",
-          "name": "Osteogenesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 84. Bottleneck Theorem",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-84",
-          "name": "Bottleneck Theorem",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 85. Nonlinear Threshold Detector",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-85",
-          "name": "Nonlinear Threshold Detector",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 86. Capability Atrophy Detector",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-86",
-          "name": "Capability Atrophy Detector",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 87. Agency Debt",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-87",
-          "name": "Agency Debt",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 88. Environment Compiler",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-88",
-          "name": "Environment Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 89. Embodied Reality Model",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-89",
-          "name": "Embodied Reality Model",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 90. Phenomenology Bridge",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-90",
-          "name": "Phenomenology Bridge",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 91. Untranslatable Layer",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-91",
-          "name": "Untranslatable Layer",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 92. Consciousness Boundary",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-92",
-          "name": "Consciousness Boundary",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 93. Experience Compiler",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-93",
-          "name": "Experience Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 94. Reality as Experimental Partner",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-94",
-          "name": "Reality as Experimental Partner",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 95. Existential Sandboxes",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-95",
-          "name": "Existential Sandboxes",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 96. Reality Contact Guarantee",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-96",
-          "name": "Reality Contact Guarantee",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 97. Preservation of Mystery",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-97",
-          "name": "Preservation of Mystery",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 98. Presentness",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-98",
-          "name": "Presentness",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 99. Serendipity Engineering",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-99",
-          "name": "Serendipity Engineering",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 100. Surprise Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-100",
-          "name": "Surprise Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 101. Self-Alienating Intelligence",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-101",
-          "name": "Self-Alienating Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 102. Personal Time Telescope",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-102",
-          "name": "Personal Time Telescope",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 103. Personal Scarcity Physics",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-103",
-          "name": "Personal Scarcity Physics",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 104. Mortal Horizon Model",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-104",
-          "name": "Mortal Horizon Model",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 105. Window-of-Life Detection",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-105",
-          "name": "Window-of-Life Detection",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 106. Uncopyable Experience Detector",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-106",
-          "name": "Uncopyable Experience Detector",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 107. Meaning Archaeology",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-107",
-          "name": "Meaning Archaeology",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 108. Soul Archive",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-108",
-          "name": "Soul Archive",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 109. Identity Branch-and-Merge",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-109",
-          "name": "Identity Branch-and-Merge",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 110. Identity Evolution Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-110",
-          "name": "Identity Evolution Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 111. Anti-Narrative Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-111",
-          "name": "Anti-Narrative Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 112. Life Autopoiesis",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-112",
-          "name": "Life Autopoiesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 113. Economic Metabolism as a subordinate organ",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-113",
-          "name": "Economic Metabolism as a subordinate organ",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 114. Personal Reality Compiler / Intent Compiler",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-114",
-          "name": "Personal Reality Compiler / Intent Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 115. Non-Action Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-115",
-          "name": "Non-Action Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 116. Consequence Ledger",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-116",
-          "name": "Consequence Ledger",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 117. Externality Map",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-117",
-          "name": "Externality Map",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 118. Strategic Reality Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-118",
-          "name": "Strategic Reality Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 119. Sovereign Interaction Protocol / Inter-Sovereign Intelligence",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-119",
-          "name": "Sovereign Interaction Protocol / Inter-Sovereign Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 120. Mutuality Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-120",
-          "name": "Mutuality Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 121. Social Reality Calibration",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-121",
-          "name": "Social Reality Calibration",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 122. Reality-to-Self Firewall",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-122",
-          "name": "Reality-to-Self Firewall",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 123. Information Hazard Layer",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-123",
-          "name": "Information Hazard Layer",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 124. Cognitive Nutrition",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-124",
-          "name": "Cognitive Nutrition",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 125. Attention Opportunity Cost",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-125",
-          "name": "Attention Opportunity Cost",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 126. Life Compression Engine",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-126",
-          "name": "Life Compression Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 127. Error Budget for Life Models",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-127",
-          "name": "Error Budget for Life Models",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 128. Reality Authentication + Anti-Correlation + Provenance DAG",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-128",
-          "name": "Reality Authentication + Anti-Correlation + Provenance DAG",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 129. Posthumous Sovereignty",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-129",
-          "name": "Posthumous Sovereignty",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 130. Century-Grade Continuity",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-130",
-          "name": "Century-Grade Continuity",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 131. Tool-vs-Companion Boundary",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-131",
-          "name": "Tool-vs-Companion Boundary",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 132. Non-Totalization Principle",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-132",
-          "name": "Non-Totalization Principle",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 133. Existential Checksum",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-133",
-          "name": "Existential Checksum",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 134. Personal Council of Future Selves",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-134",
-          "name": "Personal Council of Future Selves",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 135. Prediction, value, and will boundary",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-135",
-          "name": "Prediction, value, and will boundary",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 136. Terminal operating loop",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-136",
-          "name": "Terminal operating loop",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 137. Terminal ontology / conceptual fixed point",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-137",
-          "name": "Terminal ontology / conceptual fixed point",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 138. Open-under-future-invention law",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-138",
-          "name": "Open-under-future-invention law",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "# 139. Current truth boundary",
-            "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "TOTAL-139",
-          "name": "Current truth boundary",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 1. Constitutional life objective",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-1",
-          "name": "Constitutional life objective",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 2. Life Knowledge Graph",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-2",
-          "name": "Life Knowledge Graph",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 3. Gamechanger for life",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-3",
-          "name": "Gamechanger for life",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 4. GENESIS for life",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-4",
-          "name": "GENESIS for life",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 5. Osteogenesis for life",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-5",
-          "name": "Osteogenesis for life",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 6. Life Possibility Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-6",
-          "name": "Life Possibility Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 7. Personal Counterfactual Universe",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-7",
-          "name": "Personal Counterfactual Universe",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 8. Human Capability Genome",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-8",
-          "name": "Human Capability Genome",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 9. Experience Compiler",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-9",
-          "name": "Experience Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 10. Identity Evolution Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-10",
-          "name": "Identity Evolution Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 11. Life Compression Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-11",
-          "name": "Life Compression Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 12. Serendipity Engineering",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-12",
-          "name": "Serendipity Engineering",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 13. Personal Time Telescope",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-13",
-          "name": "Personal Time Telescope",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 14. Personal Council of Future Selves",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-14",
-          "name": "Personal Council of Future Selves",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 15. Life Autopoiesis Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-15",
-          "name": "Life Autopoiesis Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 16. Knowledge Labyrinth / UberGraph",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-16",
-          "name": "Knowledge Labyrinth / UberGraph",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 17. UberMind Cognitive Exchange",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-17",
-          "name": "UberMind Cognitive Exchange",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 18. UberDNA Software Genome",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-18",
-          "name": "UberDNA Software Genome",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 19. Sovereign Compute Cell Fabric",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-19",
-          "name": "Sovereign Compute Cell Fabric",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 20. Economic Metabolism",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-20",
-          "name": "Economic Metabolism",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 21. Autonomous Company Compiler",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-21",
-          "name": "Autonomous Company Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 22. Economic Particle Accelerator",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-22",
-          "name": "Economic Particle Accelerator",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 23. Market Dark-Matter Detector",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-23",
-          "name": "Market Dark-Matter Detector",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 24. Business Embryogenesis",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-24",
-          "name": "Business Embryogenesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 25. Internal Prediction Economy",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-25",
-          "name": "Internal Prediction Economy",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 26. Opportunity Shockwave Simulator",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-26",
-          "name": "Opportunity Shockwave Simulator",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 27. Economic Theorem Prover",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-27",
-          "name": "Economic Theorem Prover",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 28. Capability Autophagy",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-28",
-          "name": "Capability Autophagy",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 29. Synthetic Economic Civilizations",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-29",
-          "name": "Synthetic Economic Civilizations",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 30. Million-Wall Solver",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-30",
-          "name": "Million-Wall Solver",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 31. Economic Reverse Engineering Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-31",
-          "name": "Economic Reverse Engineering Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 32. Capability Teleportation",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-32",
-          "name": "Capability Teleportation",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 33. Economic X-Ray Vision",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-33",
-          "name": "Economic X-Ray Vision",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 34. Counterfactual Company Generator",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-34",
-          "name": "Counterfactual Company Generator",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 35. Missing Institution Detector",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-35",
-          "name": "Missing Institution Detector",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 36. Economic Immune System",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-36",
-          "name": "Economic Immune System",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 37. World-to-Code Compiler",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-37",
-          "name": "World-to-Code Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 38. Billion-Hypothesis Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-38",
-          "name": "Billion-Hypothesis Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 39. Economic Memory Inheritance",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-39",
-          "name": "Economic Memory Inheritance",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 40. Opportunity Gravitational Field",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-40",
-          "name": "Opportunity Gravitational Field",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 41. Reality Fork Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-41",
-          "name": "Reality Fork Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 42. Economic Physics Discovery Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-42",
-          "name": "Economic Physics Discovery Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 43. Negative-Space Intelligence",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-43",
-          "name": "Negative-Space Intelligence",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 44. Future-Ancestor Compiler",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-44",
-          "name": "Future-Ancestor Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 45. Morphogenetic Software",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-45",
-          "name": "Morphogenetic Software",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 46. Protocol Genesis",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-46",
-          "name": "Protocol Genesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 47. Economic Spores",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-47",
-          "name": "Economic Spores",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 48. Reality Compression Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-48",
-          "name": "Reality Compression Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 49. Corporate Phylogenetic Tree",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-49",
-          "name": "Corporate Phylogenetic Tree",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 50. Causal Destiny Compiler",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-50",
-          "name": "Causal Destiny Compiler",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 51. Causal Sovereignty Engine",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-51",
-          "name": "Causal Sovereignty Engine",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 52. Possibility-Space Cartography",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-52",
-          "name": "Possibility-Space Cartography",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 53. Economic Language Genesis",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-53",
-          "name": "Economic Language Genesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 54. Necessity Generator",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-54",
-          "name": "Necessity Generator",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 55. Temporal Capability Arbitrage",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-55",
-          "name": "Temporal Capability Arbitrage",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 56. Counterfactual Colonization",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-56",
-          "name": "Counterfactual Colonization",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 57. Self-Referential Intelligence Architecture",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-57",
-          "name": "Self-Referential Intelligence Architecture",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 58. Unknown-Unknown Mining",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-58",
-          "name": "Unknown-Unknown Mining",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 59. Economic Autopoiesis",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-59",
-          "name": "Economic Autopoiesis",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        },
-        {
-          "canon": {
-            "heading": "## 60. Possibility Sovereign",
-            "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
-            "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
-          },
-          "classification": null,
-          "coverageOwner": "C12",
-          "id": "LIFE-60",
-          "name": "Possibility Sovereign",
-          "evidenceTemplate": "defaultUnassessedEvidence"
-        }
+        [
+          "TOTAL-0",
+          "No-drop and anti-amputation law",
+          0,
+          "# 0. No-drop and anti-amputation law"
+        ],
+        [
+          "TOTAL-1",
+          "Terminal hierarchy",
+          0,
+          "# 1. Terminal hierarchy"
+        ],
+        [
+          "TOTAL-2",
+          "Sovereign Self",
+          0,
+          "# 2. Sovereign Self"
+        ],
+        [
+          "TOTAL-3",
+          "Will Kernel",
+          0,
+          "# 3. Will Kernel"
+        ],
+        [
+          "TOTAL-4",
+          "Thought Ocean",
+          0,
+          "# 4. Thought Ocean"
+        ],
+        [
+          "TOTAL-5",
+          "Living Mohamed Model",
+          0,
+          "# 5. Living Mohamed Model"
+        ],
+        [
+          "TOTAL-6",
+          "Preference Provenance",
+          0,
+          "# 6. Preference Provenance"
+        ],
+        [
+          "TOTAL-7",
+          "Value Genesis Engine",
+          0,
+          "# 7. Value Genesis Engine"
+        ],
+        [
+          "TOTAL-8",
+          "Meta-Volition Engine",
+          0,
+          "# 8. Meta-Volition Engine"
+        ],
+        [
+          "TOTAL-9",
+          "Volitional Integrity Engine",
+          0,
+          "# 9. Volitional Integrity Engine"
+        ],
+        [
+          "TOTAL-10",
+          "Four sovereignties",
+          0,
+          "# 10. Four sovereignties"
+        ],
+        [
+          "TOTAL-11",
+          "Sovereignty Type System",
+          0,
+          "# 11. Sovereignty Type System"
+        ],
+        [
+          "TOTAL-12",
+          "Anti-Capture Kernel",
+          0,
+          "# 12. Anti-Capture Kernel"
+        ],
+        [
+          "TOTAL-13",
+          "Cognitive Sovereignty Firewall",
+          0,
+          "# 13. Cognitive Sovereignty Firewall"
+        ],
+        [
+          "TOTAL-14",
+          "Salience Sovereignty",
+          0,
+          "# 14. Salience Sovereignty"
+        ],
+        [
+          "TOTAL-15",
+          "Epistemic Sovereignty",
+          0,
+          "# 15. Epistemic Sovereignty"
+        ],
+        [
+          "TOTAL-16",
+          "Cognitive Opacity / Right to Remain Unmodeled",
+          0,
+          "# 16. Cognitive Opacity / Right to Remain Unmodeled"
+        ],
+        [
+          "TOTAL-17",
+          "Memory Sovereignty",
+          0,
+          "# 17. Memory Sovereignty"
+        ],
+        [
+          "TOTAL-18",
+          "Strategic Forgetting and Rediscovery",
+          0,
+          "# 18. Strategic Forgetting and Rediscovery"
+        ],
+        [
+          "TOTAL-19",
+          "Epistemic Exit / No-UberBond View",
+          0,
+          "# 19. Epistemic Exit / No-UberBond View"
+        ],
+        [
+          "TOTAL-20",
+          "Right of Exit",
+          0,
+          "# 20. Right of Exit"
+        ],
+        [
+          "TOTAL-21",
+          "Fork Sovereignty",
+          0,
+          "# 21. Fork Sovereignty"
+        ],
+        [
+          "TOTAL-22",
+          "Constitutional Mutation Protocol",
+          0,
+          "# 22. Constitutional Mutation Protocol"
+        ],
+        [
+          "TOTAL-23",
+          "Intertemporal Sovereignty",
+          0,
+          "# 23. Intertemporal Sovereignty"
+        ],
+        [
+          "TOTAL-24",
+          "Irreversibility Atlas",
+          0,
+          "# 24. Irreversibility Atlas"
+        ],
+        [
+          "TOTAL-25",
+          "Constitution of Becoming / Freedom to Become",
+          0,
+          "# 25. Constitution of Becoming / Freedom to Become"
+        ],
+        [
+          "TOTAL-26",
+          "Life Knowledge Graph / Reality Lattice",
+          0,
+          "# 26. Life Knowledge Graph / Reality Lattice"
+        ],
+        [
+          "TOTAL-27",
+          "Reality Authentication Layer",
+          0,
+          "# 27. Reality Authentication Layer"
+        ],
+        [
+          "TOTAL-28",
+          "Civilizational Intelligence",
+          0,
+          "# 28. Civilizational Intelligence"
+        ],
+        [
+          "TOTAL-29",
+          "Intelligence Reinvention",
+          0,
+          "# 29. Intelligence Reinvention"
+        ],
+        [
+          "TOTAL-30",
+          "Substrate-Agnostic Cognition",
+          0,
+          "# 30. Substrate-Agnostic Cognition"
+        ],
+        [
+          "TOTAL-31",
+          "Ontogenesis",
+          0,
+          "# 31. Ontogenesis"
+        ],
+        [
+          "TOTAL-32",
+          "Ontological Crisis Protocol",
+          0,
+          "# 32. Ontological Crisis Protocol"
+        ],
+        [
+          "TOTAL-33",
+          "Reality Compression Engine",
+          0,
+          "# 33. Reality Compression Engine"
+        ],
+        [
+          "TOTAL-34",
+          "Abstraction Debt",
+          0,
+          "# 34. Abstraction Debt"
+        ],
+        [
+          "TOTAL-35",
+          "Scale Bridge",
+          0,
+          "# 35. Scale Bridge"
+        ],
+        [
+          "TOTAL-36",
+          "Meta-Sovereign Rationality",
+          0,
+          "# 36. Meta-Sovereign Rationality"
+        ],
+        [
+          "TOTAL-37",
+          "Computational Irreducibility Awareness",
+          0,
+          "# 37. Computational Irreducibility Awareness"
+        ],
+        [
+          "TOTAL-38",
+          "Assumption Escape / Incompleteness Awareness",
+          0,
+          "# 38. Assumption Escape / Incompleteness Awareness"
+        ],
+        [
+          "TOTAL-39",
+          "Reflexivity Engine",
+          0,
+          "# 39. Reflexivity Engine"
+        ],
+        [
+          "TOTAL-40",
+          "Knightian Uncertainty Model",
+          0,
+          "# 40. Knightian Uncertainty Model"
+        ],
+        [
+          "TOTAL-41",
+          "Universal Ignorance Map",
+          0,
+          "# 41. Universal Ignorance Map"
+        ],
+        [
+          "TOTAL-42",
+          "Unknown-Unknown Mining",
+          0,
+          "# 42. Unknown-Unknown Mining"
+        ],
+        [
+          "TOTAL-43",
+          "Epistemic Immune System",
+          0,
+          "# 43. Epistemic Immune System"
+        ],
+        [
+          "TOTAL-44",
+          "Model Ecology / Epistemic Biodiversity",
+          0,
+          "# 44. Model Ecology / Epistemic Biodiversity"
+        ],
+        [
+          "TOTAL-45",
+          "Anti-Correlation Intelligence",
+          0,
+          "# 45. Anti-Correlation Intelligence"
+        ],
+        [
+          "TOTAL-46",
+          "Causal Intervention Ladder",
+          0,
+          "# 46. Causal Intervention Ladder"
+        ],
+        [
+          "TOTAL-47",
+          "Counterfactual Evidence Engine",
+          0,
+          "# 47. Counterfactual Evidence Engine"
+        ],
+        [
+          "TOTAL-48",
+          "N-of-1 Personal Science",
+          0,
+          "# 48. N-of-1 Personal Science"
+        ],
+        [
+          "TOTAL-49",
+          "Reality Veto",
+          0,
+          "# 49. Reality Veto"
+        ],
+        [
+          "TOTAL-50",
+          "Reality Independence Principle",
+          0,
+          "# 50. Reality Independence Principle"
+        ],
+        [
+          "TOTAL-51",
+          "The Ability to Say NO MODEL",
+          0,
+          "# 51. The Ability to Say NO MODEL"
+        ],
+        [
+          "TOTAL-52",
+          "The Ability to Say NO RECOMMENDATION",
+          0,
+          "# 52. The Ability to Say NO RECOMMENDATION"
+        ],
+        [
+          "TOTAL-53",
+          "The Ability to Say ENOUGH",
+          0,
+          "# 53. The Ability to Say ENOUGH"
+        ],
+        [
+          "TOTAL-54",
+          "Anti-Goodhart Intelligence",
+          0,
+          "# 54. Anti-Goodhart Intelligence"
+        ],
+        [
+          "TOTAL-55",
+          "Value Pluralism / Value Manifold",
+          0,
+          "# 55. Value Pluralism / Value Manifold"
+        ],
+        [
+          "TOTAL-56",
+          "Option Universe",
+          0,
+          "# 56. Option Universe"
+        ],
+        [
+          "TOTAL-57",
+          "Sovereign Option & Outcome Forecast Engine",
+          0,
+          "# 57. Sovereign Option & Outcome Forecast Engine"
+        ],
+        [
+          "TOTAL-58",
+          "Forecasting Stack",
+          0,
+          "# 58. Forecasting Stack"
+        ],
+        [
+          "TOTAL-59",
+          "Darwinian Forecasting",
+          0,
+          "# 59. Darwinian Forecasting"
+        ],
+        [
+          "TOTAL-60",
+          "Prediction Half-Life",
+          0,
+          "# 60. Prediction Half-Life"
+        ],
+        [
+          "TOTAL-61",
+          "Counterfactual Accountability / Decision-Quality Memory",
+          0,
+          "# 61. Counterfactual Accountability / Decision-Quality Memory"
+        ],
+        [
+          "TOTAL-62",
+          "Decision Information Theory / Value of Information",
+          0,
+          "# 62. Decision Information Theory / Value of Information"
+        ],
+        [
+          "TOTAL-63",
+          "Decision Shelf Life",
+          0,
+          "# 63. Decision Shelf Life"
+        ],
+        [
+          "TOTAL-64",
+          "Regret Geometry",
+          0,
+          "# 64. Regret Geometry"
+        ],
+        [
+          "TOTAL-65",
+          "Regret Intelligence",
+          0,
+          "# 65. Regret Intelligence"
+        ],
+        [
+          "TOTAL-66",
+          "Adversarial Future Selves",
+          0,
+          "# 66. Adversarial Future Selves"
+        ],
+        [
+          "TOTAL-67",
+          "Ruin Firewall",
+          0,
+          "# 67. Ruin Firewall"
+        ],
+        [
+          "TOTAL-68",
+          "Recovery Compiler",
+          0,
+          "# 68. Recovery Compiler"
+        ],
+        [
+          "TOTAL-69",
+          "Anti-Fragility Map",
+          0,
+          "# 69. Anti-Fragility Map"
+        ],
+        [
+          "TOTAL-70",
+          "Existential Redundancy / Life Fault Tolerance",
+          0,
+          "# 70. Existential Redundancy / Life Fault Tolerance"
+        ],
+        [
+          "TOTAL-71",
+          "Personal Counterfactual Universe",
+          0,
+          "# 71. Personal Counterfactual Universe"
+        ],
+        [
+          "TOTAL-72",
+          "Future-Ancestor Compiler",
+          0,
+          "# 72. Future-Ancestor Compiler"
+        ],
+        [
+          "TOTAL-73",
+          "Reachable Future Geometry",
+          0,
+          "# 73. Reachable Future Geometry"
+        ],
+        [
+          "TOTAL-74",
+          "Freedom Gradient / Agency Geometry",
+          0,
+          "# 74. Freedom Gradient / Agency Geometry"
+        ],
+        [
+          "TOTAL-75",
+          "Optionality vs Depth Dial",
+          0,
+          "# 75. Optionality vs Depth Dial"
+        ],
+        [
+          "TOTAL-76",
+          "Explore / Exploit Life Controller",
+          0,
+          "# 76. Explore / Exploit Life Controller"
+        ],
+        [
+          "TOTAL-77",
+          "Gamechanger",
+          0,
+          "# 77. Gamechanger"
+        ],
+        [
+          "TOTAL-78",
+          "Boundary Discovery Engine",
+          0,
+          "# 78. Boundary Discovery Engine"
+        ],
+        [
+          "TOTAL-79",
+          "Impossible Detector",
+          0,
+          "# 79. Impossible Detector"
+        ],
+        [
+          "TOTAL-80",
+          "GENESIS",
+          0,
+          "# 80. GENESIS"
+        ],
+        [
+          "TOTAL-81",
+          "Unknown-Self Engine",
+          0,
+          "# 81. Unknown-Self Engine"
+        ],
+        [
+          "TOTAL-82",
+          "Human Capability Genome",
+          0,
+          "# 82. Human Capability Genome"
+        ],
+        [
+          "TOTAL-83",
+          "Osteogenesis",
+          0,
+          "# 83. Osteogenesis"
+        ],
+        [
+          "TOTAL-84",
+          "Bottleneck Theorem",
+          0,
+          "# 84. Bottleneck Theorem"
+        ],
+        [
+          "TOTAL-85",
+          "Nonlinear Threshold Detector",
+          0,
+          "# 85. Nonlinear Threshold Detector"
+        ],
+        [
+          "TOTAL-86",
+          "Capability Atrophy Detector",
+          0,
+          "# 86. Capability Atrophy Detector"
+        ],
+        [
+          "TOTAL-87",
+          "Agency Debt",
+          0,
+          "# 87. Agency Debt"
+        ],
+        [
+          "TOTAL-88",
+          "Environment Compiler",
+          0,
+          "# 88. Environment Compiler"
+        ],
+        [
+          "TOTAL-89",
+          "Embodied Reality Model",
+          0,
+          "# 89. Embodied Reality Model"
+        ],
+        [
+          "TOTAL-90",
+          "Phenomenology Bridge",
+          0,
+          "# 90. Phenomenology Bridge"
+        ],
+        [
+          "TOTAL-91",
+          "Untranslatable Layer",
+          0,
+          "# 91. Untranslatable Layer"
+        ],
+        [
+          "TOTAL-92",
+          "Consciousness Boundary",
+          0,
+          "# 92. Consciousness Boundary"
+        ],
+        [
+          "TOTAL-93",
+          "Experience Compiler",
+          0,
+          "# 93. Experience Compiler"
+        ],
+        [
+          "TOTAL-94",
+          "Reality as Experimental Partner",
+          0,
+          "# 94. Reality as Experimental Partner"
+        ],
+        [
+          "TOTAL-95",
+          "Existential Sandboxes",
+          0,
+          "# 95. Existential Sandboxes"
+        ],
+        [
+          "TOTAL-96",
+          "Reality Contact Guarantee",
+          0,
+          "# 96. Reality Contact Guarantee"
+        ],
+        [
+          "TOTAL-97",
+          "Preservation of Mystery",
+          0,
+          "# 97. Preservation of Mystery"
+        ],
+        [
+          "TOTAL-98",
+          "Presentness",
+          0,
+          "# 98. Presentness"
+        ],
+        [
+          "TOTAL-99",
+          "Serendipity Engineering",
+          0,
+          "# 99. Serendipity Engineering"
+        ],
+        [
+          "TOTAL-100",
+          "Surprise Engine",
+          0,
+          "# 100. Surprise Engine"
+        ],
+        [
+          "TOTAL-101",
+          "Self-Alienating Intelligence",
+          0,
+          "# 101. Self-Alienating Intelligence"
+        ],
+        [
+          "TOTAL-102",
+          "Personal Time Telescope",
+          0,
+          "# 102. Personal Time Telescope"
+        ],
+        [
+          "TOTAL-103",
+          "Personal Scarcity Physics",
+          0,
+          "# 103. Personal Scarcity Physics"
+        ],
+        [
+          "TOTAL-104",
+          "Mortal Horizon Model",
+          0,
+          "# 104. Mortal Horizon Model"
+        ],
+        [
+          "TOTAL-105",
+          "Window-of-Life Detection",
+          0,
+          "# 105. Window-of-Life Detection"
+        ],
+        [
+          "TOTAL-106",
+          "Uncopyable Experience Detector",
+          0,
+          "# 106. Uncopyable Experience Detector"
+        ],
+        [
+          "TOTAL-107",
+          "Meaning Archaeology",
+          0,
+          "# 107. Meaning Archaeology"
+        ],
+        [
+          "TOTAL-108",
+          "Soul Archive",
+          0,
+          "# 108. Soul Archive"
+        ],
+        [
+          "TOTAL-109",
+          "Identity Branch-and-Merge",
+          0,
+          "# 109. Identity Branch-and-Merge"
+        ],
+        [
+          "TOTAL-110",
+          "Identity Evolution Engine",
+          0,
+          "# 110. Identity Evolution Engine"
+        ],
+        [
+          "TOTAL-111",
+          "Anti-Narrative Engine",
+          0,
+          "# 111. Anti-Narrative Engine"
+        ],
+        [
+          "TOTAL-112",
+          "Life Autopoiesis",
+          0,
+          "# 112. Life Autopoiesis"
+        ],
+        [
+          "TOTAL-113",
+          "Economic Metabolism as a subordinate organ",
+          0,
+          "# 113. Economic Metabolism as a subordinate organ"
+        ],
+        [
+          "TOTAL-114",
+          "Personal Reality Compiler / Intent Compiler",
+          0,
+          "# 114. Personal Reality Compiler / Intent Compiler"
+        ],
+        [
+          "TOTAL-115",
+          "Non-Action Engine",
+          0,
+          "# 115. Non-Action Engine"
+        ],
+        [
+          "TOTAL-116",
+          "Consequence Ledger",
+          0,
+          "# 116. Consequence Ledger"
+        ],
+        [
+          "TOTAL-117",
+          "Externality Map",
+          0,
+          "# 117. Externality Map"
+        ],
+        [
+          "TOTAL-118",
+          "Strategic Reality Engine",
+          0,
+          "# 118. Strategic Reality Engine"
+        ],
+        [
+          "TOTAL-119",
+          "Sovereign Interaction Protocol / Inter-Sovereign Intelligence",
+          0,
+          "# 119. Sovereign Interaction Protocol / Inter-Sovereign Intelligence"
+        ],
+        [
+          "TOTAL-120",
+          "Mutuality Engine",
+          0,
+          "# 120. Mutuality Engine"
+        ],
+        [
+          "TOTAL-121",
+          "Social Reality Calibration",
+          0,
+          "# 121. Social Reality Calibration"
+        ],
+        [
+          "TOTAL-122",
+          "Reality-to-Self Firewall",
+          0,
+          "# 122. Reality-to-Self Firewall"
+        ],
+        [
+          "TOTAL-123",
+          "Information Hazard Layer",
+          0,
+          "# 123. Information Hazard Layer"
+        ],
+        [
+          "TOTAL-124",
+          "Cognitive Nutrition",
+          0,
+          "# 124. Cognitive Nutrition"
+        ],
+        [
+          "TOTAL-125",
+          "Attention Opportunity Cost",
+          0,
+          "# 125. Attention Opportunity Cost"
+        ],
+        [
+          "TOTAL-126",
+          "Life Compression Engine",
+          0,
+          "# 126. Life Compression Engine"
+        ],
+        [
+          "TOTAL-127",
+          "Error Budget for Life Models",
+          0,
+          "# 127. Error Budget for Life Models"
+        ],
+        [
+          "TOTAL-128",
+          "Reality Authentication + Anti-Correlation + Provenance DAG",
+          0,
+          "# 128. Reality Authentication + Anti-Correlation + Provenance DAG"
+        ],
+        [
+          "TOTAL-129",
+          "Posthumous Sovereignty",
+          0,
+          "# 129. Posthumous Sovereignty"
+        ],
+        [
+          "TOTAL-130",
+          "Century-Grade Continuity",
+          0,
+          "# 130. Century-Grade Continuity"
+        ],
+        [
+          "TOTAL-131",
+          "Tool-vs-Companion Boundary",
+          0,
+          "# 131. Tool-vs-Companion Boundary"
+        ],
+        [
+          "TOTAL-132",
+          "Non-Totalization Principle",
+          0,
+          "# 132. Non-Totalization Principle"
+        ],
+        [
+          "TOTAL-133",
+          "Existential Checksum",
+          0,
+          "# 133. Existential Checksum"
+        ],
+        [
+          "TOTAL-134",
+          "Personal Council of Future Selves",
+          0,
+          "# 134. Personal Council of Future Selves"
+        ],
+        [
+          "TOTAL-135",
+          "Prediction, value, and will boundary",
+          0,
+          "# 135. Prediction, value, and will boundary"
+        ],
+        [
+          "TOTAL-136",
+          "Terminal operating loop",
+          0,
+          "# 136. Terminal operating loop"
+        ],
+        [
+          "TOTAL-137",
+          "Terminal ontology / conceptual fixed point",
+          0,
+          "# 137. Terminal ontology / conceptual fixed point"
+        ],
+        [
+          "TOTAL-138",
+          "Open-under-future-invention law",
+          0,
+          "# 138. Open-under-future-invention law"
+        ],
+        [
+          "TOTAL-139",
+          "Current truth boundary",
+          0,
+          "# 139. Current truth boundary"
+        ],
+        [
+          "LIFE-1",
+          "Constitutional life objective",
+          1,
+          "## 1. Constitutional life objective"
+        ],
+        [
+          "LIFE-2",
+          "Life Knowledge Graph",
+          1,
+          "## 2. Life Knowledge Graph"
+        ],
+        [
+          "LIFE-3",
+          "Gamechanger for life",
+          1,
+          "## 3. Gamechanger for life"
+        ],
+        [
+          "LIFE-4",
+          "GENESIS for life",
+          1,
+          "## 4. GENESIS for life"
+        ],
+        [
+          "LIFE-5",
+          "Osteogenesis for life",
+          1,
+          "## 5. Osteogenesis for life"
+        ],
+        [
+          "LIFE-6",
+          "Life Possibility Engine",
+          1,
+          "## 6. Life Possibility Engine"
+        ],
+        [
+          "LIFE-7",
+          "Personal Counterfactual Universe",
+          1,
+          "## 7. Personal Counterfactual Universe"
+        ],
+        [
+          "LIFE-8",
+          "Human Capability Genome",
+          1,
+          "## 8. Human Capability Genome"
+        ],
+        [
+          "LIFE-9",
+          "Experience Compiler",
+          1,
+          "## 9. Experience Compiler"
+        ],
+        [
+          "LIFE-10",
+          "Identity Evolution Engine",
+          1,
+          "## 10. Identity Evolution Engine"
+        ],
+        [
+          "LIFE-11",
+          "Life Compression Engine",
+          1,
+          "## 11. Life Compression Engine"
+        ],
+        [
+          "LIFE-12",
+          "Serendipity Engineering",
+          1,
+          "## 12. Serendipity Engineering"
+        ],
+        [
+          "LIFE-13",
+          "Personal Time Telescope",
+          1,
+          "## 13. Personal Time Telescope"
+        ],
+        [
+          "LIFE-14",
+          "Personal Council of Future Selves",
+          1,
+          "## 14. Personal Council of Future Selves"
+        ],
+        [
+          "LIFE-15",
+          "Life Autopoiesis Engine",
+          1,
+          "## 15. Life Autopoiesis Engine"
+        ],
+        [
+          "LIFE-16",
+          "Knowledge Labyrinth / UberGraph",
+          1,
+          "## 16. Knowledge Labyrinth / UberGraph"
+        ],
+        [
+          "LIFE-17",
+          "UberMind Cognitive Exchange",
+          1,
+          "## 17. UberMind Cognitive Exchange"
+        ],
+        [
+          "LIFE-18",
+          "UberDNA Software Genome",
+          1,
+          "## 18. UberDNA Software Genome"
+        ],
+        [
+          "LIFE-19",
+          "Sovereign Compute Cell Fabric",
+          1,
+          "## 19. Sovereign Compute Cell Fabric"
+        ],
+        [
+          "LIFE-20",
+          "Economic Metabolism",
+          1,
+          "## 20. Economic Metabolism"
+        ],
+        [
+          "LIFE-21",
+          "Autonomous Company Compiler",
+          1,
+          "## 21. Autonomous Company Compiler"
+        ],
+        [
+          "LIFE-22",
+          "Economic Particle Accelerator",
+          1,
+          "## 22. Economic Particle Accelerator"
+        ],
+        [
+          "LIFE-23",
+          "Market Dark-Matter Detector",
+          1,
+          "## 23. Market Dark-Matter Detector"
+        ],
+        [
+          "LIFE-24",
+          "Business Embryogenesis",
+          1,
+          "## 24. Business Embryogenesis"
+        ],
+        [
+          "LIFE-25",
+          "Internal Prediction Economy",
+          1,
+          "## 25. Internal Prediction Economy"
+        ],
+        [
+          "LIFE-26",
+          "Opportunity Shockwave Simulator",
+          1,
+          "## 26. Opportunity Shockwave Simulator"
+        ],
+        [
+          "LIFE-27",
+          "Economic Theorem Prover",
+          1,
+          "## 27. Economic Theorem Prover"
+        ],
+        [
+          "LIFE-28",
+          "Capability Autophagy",
+          1,
+          "## 28. Capability Autophagy"
+        ],
+        [
+          "LIFE-29",
+          "Synthetic Economic Civilizations",
+          1,
+          "## 29. Synthetic Economic Civilizations"
+        ],
+        [
+          "LIFE-30",
+          "Million-Wall Solver",
+          1,
+          "## 30. Million-Wall Solver"
+        ],
+        [
+          "LIFE-31",
+          "Economic Reverse Engineering Engine",
+          1,
+          "## 31. Economic Reverse Engineering Engine"
+        ],
+        [
+          "LIFE-32",
+          "Capability Teleportation",
+          1,
+          "## 32. Capability Teleportation"
+        ],
+        [
+          "LIFE-33",
+          "Economic X-Ray Vision",
+          1,
+          "## 33. Economic X-Ray Vision"
+        ],
+        [
+          "LIFE-34",
+          "Counterfactual Company Generator",
+          1,
+          "## 34. Counterfactual Company Generator"
+        ],
+        [
+          "LIFE-35",
+          "Missing Institution Detector",
+          1,
+          "## 35. Missing Institution Detector"
+        ],
+        [
+          "LIFE-36",
+          "Economic Immune System",
+          1,
+          "## 36. Economic Immune System"
+        ],
+        [
+          "LIFE-37",
+          "World-to-Code Compiler",
+          1,
+          "## 37. World-to-Code Compiler"
+        ],
+        [
+          "LIFE-38",
+          "Billion-Hypothesis Engine",
+          1,
+          "## 38. Billion-Hypothesis Engine"
+        ],
+        [
+          "LIFE-39",
+          "Economic Memory Inheritance",
+          1,
+          "## 39. Economic Memory Inheritance"
+        ],
+        [
+          "LIFE-40",
+          "Opportunity Gravitational Field",
+          1,
+          "## 40. Opportunity Gravitational Field"
+        ],
+        [
+          "LIFE-41",
+          "Reality Fork Engine",
+          1,
+          "## 41. Reality Fork Engine"
+        ],
+        [
+          "LIFE-42",
+          "Economic Physics Discovery Engine",
+          1,
+          "## 42. Economic Physics Discovery Engine"
+        ],
+        [
+          "LIFE-43",
+          "Negative-Space Intelligence",
+          1,
+          "## 43. Negative-Space Intelligence"
+        ],
+        [
+          "LIFE-44",
+          "Future-Ancestor Compiler",
+          1,
+          "## 44. Future-Ancestor Compiler"
+        ],
+        [
+          "LIFE-45",
+          "Morphogenetic Software",
+          1,
+          "## 45. Morphogenetic Software"
+        ],
+        [
+          "LIFE-46",
+          "Protocol Genesis",
+          1,
+          "## 46. Protocol Genesis"
+        ],
+        [
+          "LIFE-47",
+          "Economic Spores",
+          1,
+          "## 47. Economic Spores"
+        ],
+        [
+          "LIFE-48",
+          "Reality Compression Engine",
+          1,
+          "## 48. Reality Compression Engine"
+        ],
+        [
+          "LIFE-49",
+          "Corporate Phylogenetic Tree",
+          1,
+          "## 49. Corporate Phylogenetic Tree"
+        ],
+        [
+          "LIFE-50",
+          "Causal Destiny Compiler",
+          1,
+          "## 50. Causal Destiny Compiler"
+        ],
+        [
+          "LIFE-51",
+          "Causal Sovereignty Engine",
+          1,
+          "## 51. Causal Sovereignty Engine"
+        ],
+        [
+          "LIFE-52",
+          "Possibility-Space Cartography",
+          1,
+          "## 52. Possibility-Space Cartography"
+        ],
+        [
+          "LIFE-53",
+          "Economic Language Genesis",
+          1,
+          "## 53. Economic Language Genesis"
+        ],
+        [
+          "LIFE-54",
+          "Necessity Generator",
+          1,
+          "## 54. Necessity Generator"
+        ],
+        [
+          "LIFE-55",
+          "Temporal Capability Arbitrage",
+          1,
+          "## 55. Temporal Capability Arbitrage"
+        ],
+        [
+          "LIFE-56",
+          "Counterfactual Colonization",
+          1,
+          "## 56. Counterfactual Colonization"
+        ],
+        [
+          "LIFE-57",
+          "Self-Referential Intelligence Architecture",
+          1,
+          "## 57. Self-Referential Intelligence Architecture"
+        ],
+        [
+          "LIFE-58",
+          "Unknown-Unknown Mining",
+          1,
+          "## 58. Unknown-Unknown Mining"
+        ],
+        [
+          "LIFE-59",
+          "Economic Autopoiesis",
+          1,
+          "## 59. Economic Autopoiesis"
+        ],
+        [
+          "LIFE-60",
+          "Possibility Sovereign",
+          1,
+          "## 60. Possibility Sovereign"
+        ]
       ],
       "completenessGate": "C12 cannot close until every section-body requirement, linked canonical ID/alias, C07 proposal and user term resolves to a row or explicit non-behavior class; unreferenced concepts fail closure.",
       "coverageRule": "All numbered terminal/life canon sections and all user minimum-layer terms retained. Section bodies remain at exact source pointers; C12 must split compound requirements and import linked machine/alias registries progressively, never infer a full implementation map from headings. Classification null means unassessed, not absent.",
@@ -4338,6 +3138,27 @@
         "RUNTIME_EVIDENCE": null,
         "OUTCOME_EVIDENCE": null,
         "reason": "C12 must resolve actual evidence; null is not a gap claim."
+      },
+      "canonSources": [
+        {
+          "path": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+          "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
+        },
+        {
+          "path": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
+          "sourceSHA": "d6703a3be5c1435b644543ebecd5d447aa20cf89"
+        }
+      ],
+      "canonicalSectionColumns": [
+        "id",
+        "name",
+        "canonSourceIndex",
+        "heading"
+      ],
+      "canonicalSectionDefaults": {
+        "coverageOwner": "C12",
+        "classification": null,
+        "evidenceTemplate": "defaultUnassessedEvidence"
       }
     },
     "checkpoints": [

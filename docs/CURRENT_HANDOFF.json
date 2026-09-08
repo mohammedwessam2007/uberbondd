@@ -1,6 +1,15 @@
 {
-  "schemaVersion": "uberbond-handoff-2.3.0",
-  "activeMission": "FULL UBERBOND REALIZATION from exact current main e87757e520f4717c017cf1827404c933944923e8. Continue the whole Sovereign Cognitive Continuum, Personal Civilization and subordinate economic organism by closing only genuine executable gaps, removing stale work queues, reducing founder minutes and preserving external truth boundaries.",
+  "activeMission": "Full defined UberBond realization under existing North Star; refresh live main before claims or dispatch. Planning snapshots are historical provenance.",
+  "blockers": [
+    "TRUTH REGENERATION REQUIRED: artifacts/sovereign/implementation-coverage-matrix.json is a historical generated snapshot from sourceCommit 19c6109641bd515a9526821355113caf85c34234 with 83 SPEC_ONLY rows. Many source merges landed after it. The exact current SPEC_ONLY count is UNKNOWN_PENDING_CANONICAL_REGENERATION and must not be guessed or copied from the historical artifact.",
+    "TRUTH REGENERATION REQUIRED: artifacts/system-readiness.json is a historical generated snapshot from 19c6109641bd515a9526821355113caf85c34234 and predates the current merge wave. Its reachability/test/source counts are not exact-current-main truth.",
+    "EXECUTION PROOF REQUIRED: PR #507 source is merged, but exact-head GitHub jobs received zero-step runner allocation and Vercel was at its free build cap. No exact-head executed-test proof is claimed for the new private runtime until a real runner executes it.",
+    "EXTERNAL/RUNTIME: DEPLOY-08 remains genuinely unresolved. Provider independence becomes operational only when a named owned/authorized alternate substrate actually serves restored state and a bounded verified workload. Source packaging alone is not cutover proof.",
+    "EXTERNAL/COMMERCIAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0 and retainedCustomers=0. Code, sandbox payments and internal simulations cannot change these facts.",
+    "EXTERNAL/COMMERCIAL: live PayPal merchant/KYC/callability/webhook/provider truth, lawful outreach sender/DNS/transport/consent/legal-tax readiness and real prospect/customer actions remain outside repository proof.",
+    "ELAPSED/REALITY: longitudinal life outcomes, forecast calibration and causal personal-learning evidence require future observations and cannot be minted from architecture."
+  ],
+  "checkpointedAt": "2026-09-08",
   "completed": [
     "Current-main cash artery is merged: PR #482 at 62202f48366a0fac217e99b3a6c1d277a54dd3b7 binds exact $450 PayPal order/capture/signed-webhook/provider-readback truth to a durable paid Lead-Path sprint, research.batch, recoverable QA and DELIVERY_READY. DELIVERY_READY remains distinct from DELIVERED and CUSTOMER_ACCEPTED.",
     "Current-main provider-neutral backend is merged: PR #506 at b520f6f69e690378f08e6a021d6b297ac077125c packages PostgreSQL, one-shot migration, hardened web, worker, PayPal bridge, restart/init/grace contracts and a fail-closed doctor without making Vercel the identity boundary.",
@@ -13,15 +22,58 @@
     "Reachability law now distinguishes production, unattended operator, founder-interactive-only and no-entry-point classes. Founder-interactive private state cannot be used as camouflage for a module reachable from any unattended path.",
     "Zombie C06 relay tickets #487-#494 and stale orchestration issue #484 were closed with exact merged-current-main receipts, removing already-completed work from the active command queue."
   ],
-  "blockers": [
-    "TRUTH REGENERATION REQUIRED: artifacts/sovereign/implementation-coverage-matrix.json is a historical generated snapshot from sourceCommit 19c6109641bd515a9526821355113caf85c34234 with 83 SPEC_ONLY rows. Many source merges landed after it. The exact current SPEC_ONLY count is UNKNOWN_PENDING_CANONICAL_REGENERATION and must not be guessed or copied from the historical artifact.",
-    "TRUTH REGENERATION REQUIRED: artifacts/system-readiness.json is a historical generated snapshot from 19c6109641bd515a9526821355113caf85c34234 and predates the current merge wave. Its reachability/test/source counts are not exact-current-main truth.",
-    "EXECUTION PROOF REQUIRED: PR #507 source is merged, but exact-head GitHub jobs received zero-step runner allocation and Vercel was at its free build cap. No exact-head executed-test proof is claimed for the new private runtime until a real runner executes it.",
-    "EXTERNAL/RUNTIME: DEPLOY-08 remains genuinely unresolved. Provider independence becomes operational only when a named owned/authorized alternate substrate actually serves restored state and a bounded verified workload. Source packaging alone is not cutover proof.",
-    "EXTERNAL/COMMERCIAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0 and retainedCustomers=0. Code, sandbox payments and internal simulations cannot change these facts.",
-    "EXTERNAL/COMMERCIAL: live PayPal merchant/KYC/callability/webhook/provider truth, lawful outreach sender/DNS/transport/consent/legal-tax readiness and real prospect/customer actions remain outside repository proof.",
-    "ELAPSED/REALITY: longitudinal life outcomes, forecast calibration and causal personal-learning evidence require future observations and cannot be minted from architecture."
-  ],
+  "currentTruth": {
+    "commercialProof": {
+      "acceptedPaidDeliveries": 0,
+      "clearedRevenueUsd": 0,
+      "realCustomers": 0,
+      "retainedCustomers": 0
+    },
+    "currentMainPRs": {
+      "capabilityHandoff504": "MERGED",
+      "cashArtery482": "MERGED",
+      "constraintMutation505": "MERGED",
+      "delivery502": "MERGED",
+      "personalCivilization507": "MERGED",
+      "portableBackend506": "MERGED",
+      "restart503": "MERGED",
+      "scheduler500": "MERGED"
+    },
+    "generatedCoverage": {
+      "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
+      "currentSpecOnly": "UNKNOWN_PENDING_CANONICAL_REGENERATION",
+      "historicalSpecOnly": 83,
+      "sourceCommit": "19c6109641bd515a9526821355113caf85c34234"
+    },
+    "generatedReadiness": {
+      "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
+      "currentExactReadiness": "UNKNOWN_PENDING_CANONICAL_REGENERATION",
+      "sourceCommit": "19c6109641bd515a9526821355113caf85c34234"
+    },
+    "historicalMainSnapshot": "e87757e520f4717c017cf1827404c933944923e8",
+    "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
+    "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_AUTHORIZED_HOST",
+    "repositoryIdentity": {
+      "LATEST_MAIN_REQUIRES_REFRESH": true,
+      "MERGE_COMMIT_IF_KNOWN": null,
+      "OBSERVED_DURING_PLANNING_SHA": "90aeaab89bddb182a7223f7f5d6fa0042b77759c",
+      "ORCHESTRATION_BRANCH_HEAD": null,
+      "resolution": "Null branch/merge SHA is intentional: resolve actual refs and PR merge metadata after publication; never embed a guessed self-referential commit. Every observation is dated provenance, not a live ref."
+    },
+    "snapshotSemantics": "Other retained truth/commercial fields are historical observations; refresh before current claims."
+  },
+  "latestOrchestrationCheckpoint": {
+    "id": "C26",
+    "identity": {
+      "LATEST_MAIN_REQUIRES_REFRESH": true,
+      "MERGE_COMMIT_IF_KNOWN": null,
+      "OBSERVED_DURING_PLANNING_SHA": "90aeaab89bddb182a7223f7f5d6fa0042b77759c",
+      "ORCHESTRATION_BRANCH_HEAD": null,
+      "resolution": "Null branch/merge SHA is intentional: resolve actual refs and PR merge metadata after publication; never embed a guessed self-referential commit. Every observation is dated provenance, not a live ref."
+    },
+    "next": "C11-A refresh, then strengthened C12 dependency-safe dispatch; no worker launched.",
+    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+  },
   "nextActions": [
     "On the first executing substrate that can run the exact current tree, run focused PR #507 private-vault/reachability suites plus syntax, then the canonical readiness and Sovereign coverage generators. Publish their exact source SHA and retire the historical 19c610 snapshots only after successful generation.",
     "Consume issue #501 only for genuinely unclosed C03/C04 causal experiments or new source defects. Do not redispatch the C06 six-gap queue closed by #500/#502/#503/#504/#505/#506.",
@@ -30,72 +82,23 @@
     "Move the economic organism from internally complete software into reality only through lawful external activation: verified sender/provider configuration, real prospect opportunity, real provider-origin payment, real delivery and customer-origin acceptance. No synthetic substitution.",
     "Continue residual Sovereign/GENESIS/Capability work only after exact-current coverage regeneration or direct causal dedupe proves the behavior is genuinely absent. Reuse existing organs before creating another framework."
   ],
-  "sourceCommit": "e87757e520f4717c017cf1827404c933944923e8",
-  "checkpointedAt": "2026-09-08",
-  "terminalNorthStar": "Sovereign Cognitive Continuum",
-  "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
-  "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
-  "currentTruth": {
-    "main": "e87757e520f4717c017cf1827404c933944923e8",
-    "currentMainPRs": {
-      "cashArtery482": "MERGED",
-      "scheduler500": "MERGED",
-      "delivery502": "MERGED",
-      "restart503": "MERGED",
-      "capabilityHandoff504": "MERGED",
-      "constraintMutation505": "MERGED",
-      "portableBackend506": "MERGED",
-      "personalCivilization507": "MERGED"
-    },
-    "generatedCoverage": {
-      "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
-      "sourceCommit": "19c6109641bd515a9526821355113caf85c34234",
-      "historicalSpecOnly": 83,
-      "currentSpecOnly": "UNKNOWN_PENDING_CANONICAL_REGENERATION"
-    },
-    "generatedReadiness": {
-      "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
-      "sourceCommit": "19c6109641bd515a9526821355113caf85c34234",
-      "currentExactReadiness": "UNKNOWN_PENDING_CANONICAL_REGENERATION"
-    },
-    "commercialProof": {
-      "realCustomers": 0,
-      "clearedRevenueUsd": 0,
-      "acceptedPaidDeliveries": 0,
-      "retainedCustomers": 0
-    },
-    "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
-    "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_AUTHORIZED_HOST"
-  },
   "provisionalProgress": {
+    "boundary": "These percentages are an evidence-bounded integration scoreboard, not generated coverage counts and not proof of customers, revenue, accepted delivery, retention, independent-host operation or improved life outcomes. They must not be sharpened from stale generated artifacts.",
     "canonPercent": 99,
-    "economicSoftwarePercent": 100,
-    "personalCivilizationRuntimePercent": 78,
-    "sovereignContinuumRuntimePercent": 92,
-    "realityCalibrationPercent": 38,
-    "fullSystemPercent": 98,
-    "firstDollarInternalReadinessPercent": 100,
-    "offerPaymentFulfilmentSoftwarePercent": 100,
     "deploymentRuntimeReadinessPercent": 98,
-    "boundary": "These percentages are an evidence-bounded integration scoreboard, not generated coverage counts and not proof of customers, revenue, accepted delivery, retention, independent-host operation or improved life outcomes. They must not be sharpened from stale generated artifacts."
+    "economicSoftwarePercent": 100,
+    "firstDollarInternalReadinessPercent": 100,
+    "fullSystemPercent": 98,
+    "offerPaymentFulfilmentSoftwarePercent": 100,
+    "personalCivilizationRuntimePercent": 78,
+    "realityCalibrationPercent": 38,
+    "sovereignContinuumRuntimePercent": 92
   },
-  "startupLaw": [
-    "Refresh live main, open PRs/issues and exact runtime/provider truth before present-tense claims.",
-    "Treat this handoff as the current command packet and older issue/PR language as historical unless refreshed evidence reactivates it.",
-    "Never quote 83, 93, 123 or 138 as the current genuine SPEC_ONLY denominator. The current exact count is unknown until the canonical coverage generator runs on current source.",
-    "Historical tests and READY deployments certify only their exact source tree. Zero-step jobs and provider-capacity rejections are infrastructure non-evidence.",
-    "Private founder-life state stays encrypted, local/founder-interactive and outside Git. No unattended network/API/worker path may gain access merely for dashboard convenience.",
-    "Same blocker + same strategy + no new safe evidence => mutate strategy, not retry. STOP is a valid terminal decision.",
-    "Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes customer acceptance. Sandbox payment never becomes cleared real revenue.",
-    "After every meaningful evidence-backed milestone, print all six progress percentages plus first-dollar/payment-fulfilment/deployment percentages and the exact delta reason."
-  ],
-  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
-  "latestOrchestrationCheckpoint": {
-    "id": "C21",
-    "observedMain": "9c53535b58673ad0541df82695b49893af2b1771",
-    "state": "artifacts/work/astra-orchestrator-state-2026-09-08.json",
-    "prompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
-    "mode": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
-    "note": "C21 appends ASI research/evidence program. C11-C20 unchanged; ASI remains NOT_ESTABLISHED. Source/runtime execution priorities remain."
-  }
+  "schemaVersion": "uberbond-handoff-2.3.0",
+  "sourceCommit": "e87757e520f4717c017cf1827404c933944923e8",
+  "startupLaw": "[\"Refresh live main, open PRs/issues and exact runtime/provider truth before present-tense claims.\",\"Treat this handoff as the current command packet and older issue/PR language as historical unless refreshed evidence reactivates it.\",\"Never quote 83, 93, 123 or 138 as the current genuine SPEC_ONLY denominator. The current exact count is unknown until the canonical coverage generator runs on current source.\",\"Historical tests and READY deployments certify only their exact source tree. Zero-step jobs and provider-capacity rejections are infrastructure non-evidence.\",\"Private founder-life state stays encrypted, local/founder-interactive and outside Git. No unattended network/API/worker path may gain access merely for dashboard convenience.\",\"Same blocker + same strategy + no new safe evidence => mutate strategy, not retry. STOP is a valid terminal decision.\",\"Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes customer acceptance. Sandbox payment never becomes cleared real revenue.\",\"After every meaningful evidence-backed milestone, print all six progress percentages plus first-dollar/payment-fulfilment/deployment percentages and the exact delta reason.\"] Reject stale present-tense main SHAs; resolve actual main, branch and PR merge refs independently.",
+  "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
+  "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
+  "terminalNorthStar": "Sovereign Cognitive Continuum",
+  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement."
 }

@@ -1,8 +1,8 @@
-# UberBond C11–C20 final realization entrypoint
+# UberBond final realization entrypoint
 ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED
 
 State: `artifacts/work/astra-orchestrator-state-2026-09-08.json` -> `finalRealization`.
-Observed main: `d6703a3be5c1435b644543ebecd5d447aa20cf89`; refresh before execution.
+Planning observations are historical. Refresh live main before execution; resolve identity fields from actual refs.
 Predecessors C08–C10 remain intact. Earlier source build queues remain historical unless new evidence reopens them.
 
 ## Start
@@ -23,7 +23,7 @@ C12 must resolve section bodies, linked canonical IDs/aliases and compound requi
 Sovereign Cognitive Continuum contains Personal Civilization Engine; economics supports both. Mohamed provides will; UberBond intelligence; reality feedback.
 
 ## Work law
-20 packets only. Reuse current source; missing proof gets verification, reproduced missing behavior gets smallest admitted repair, missing reality gets external/elapsed gate.
+28 top-level contracts; C12 materializes only needed causal execution leaves. Reuse current source; missing proof gets verification, reproduced missing behavior gets smallest admitted repair, missing reality gets external/elapsed gate.
 Each checkpoint has 19 required fields, three alternate routes and independent falsifiers.
 Use workerEconomics and executorPromptTemplate. Never send the whole history.
 Exact path claim/expiry and acknowledged owner before edits; integration alone owns shared canon/handoff.
@@ -43,3 +43,8 @@ Publishing all plans completes Astra orchestration only. It does not complete Ub
 
 ## C21 appended — system-level ASI research
 Read asiResearchNorthStar and checkpoint C21 in state. Twenty capability dimensions, strong actual baselines, independent evidence ladder, recursive/meta-improvement measurement, lawful world resources, unknown-capability discovery, long-horizon retention and scaling corrigibility. Current status SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. C21 cannot declare ASI. C11-C20 execution priorities remain; no implementation or workers launched.
+
+## Adversarial audit delta
+Read `adversarialGapAudit`; preserve C08–C21. New independent checkpoints: C23 continuity, C25 institutional/financial, C26 security. C22/C24/C27 reuse strengthened C12/C15/C16 respectively. All remain ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED.
+C12-B owns event-driven global scheduling, budgets, lease fencing, exact leaf admission and stale-input rejection. C25-A precedes economic effects; C26-A precedes rollout. Their B packets audit actual receipts; C23-B consumes C17 restore proof. C19/C20 join new reports without treating BLOCKED as success. C21 remains open-ended research.
+Planning SHA, branch head and merge SHA are distinct; null future hashes are intentional. Refresh refs, never infer a future merge SHA. Maximum six budgeted disjoint leaves, single integration writer, independent verifiers and maximum three visible owner exceptions. No workers launched by this document.

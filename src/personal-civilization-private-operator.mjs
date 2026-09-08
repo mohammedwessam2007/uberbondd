@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -10,7 +11,7 @@ import {
   exportPrivateState,
   derivedClosure
 } from './personal-civilization-core.mjs';
-import { captureWillEvent } from './personal-civilization-capture.mjs';
+import { captureWillEvent, promoteCapture } from './personal-civilization-capture.mjs';
 import { registerHypothesis } from './personal-civilization-model-graph.mjs';
 import { composeDecisionPacket } from './personal-civilization-decision-loop.mjs';
 
@@ -127,6 +128,7 @@ function atomicPrivateWrite(filePath, payload, { repoRoot = MODULE_REPO_ROOT } =
   const checked = validatePrivateStatePath(filePath, { repoRoot });
   if (!checked.ok) return checked;
   const dir = path.dirname(checked.filePath);
+  let temp = null;
   try {
     fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
     if (process.platform !== 'win32') fs.chmodSync(dir, 0o700);
@@ -138,12 +140,16 @@ function atomicPrivateWrite(filePath, payload, { repoRoot = MODULE_REPO_ROOT } =
     if (fs.existsSync(checked.filePath) && fs.lstatSync(checked.filePath).isSymbolicLink()) {
       return fail('PRIVATE_STATE_PATH_REFUSED', ['private-state-file-symlink-refused']);
     }
-    const temp = path.join(realDir, `.${path.basename(checked.filePath)}.${process.pid}.${Date.now()}.tmp`);
+    temp = path.join(realDir, `.${path.basename(checked.filePath)}.${process.pid}.${Date.now()}.tmp`);
     fs.writeFileSync(temp, payload, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
     if (process.platform !== 'win32') fs.chmodSync(temp, 0o600);
     fs.renameSync(temp, checked.filePath);
+    temp = null;
     if (process.platform !== 'win32') fs.chmodSync(checked.filePath, 0o600);
   } catch {
+    if (temp) {
+      try { fs.rmSync(temp, { force: true }); } catch {}
+    }
     return fail('PRIVATE_STATE_WRITE_REFUSED', ['private-state-atomic-write-failed']);
   }
   return { ok: true, status: 'PRIVATE_STATE_WRITTEN', filePath: checked.filePath, businessEffectAuthority: 'NONE' };
@@ -202,6 +208,7 @@ export function executePrivateCommand({ state = defaultPrivateState(), command =
       mutation: false,
       records: current.records,
       hypotheses: current.hypotheses,
+      edges: current.edges,
       state: current,
       businessEffectAuthority: 'NONE'
     };
@@ -223,6 +230,24 @@ export function executePrivateCommand({ state = defaultPrivateState(), command =
       ...captured,
       mutation: captured.persisted === true && captured.duplicate !== true,
       state: { ...current, records: captured.store }
+    };
+  }
+
+  if (action === 'promote') {
+    const promoted = promoteCapture({
+      store: current.records,
+      captureId: command.captureId,
+      target: command.target,
+      commitmentBody: command.commitmentBody,
+      authorization,
+      destination: privateFilePath,
+      now
+    });
+    if (!promoted.ok) return { ...promoted, mutation: false };
+    return {
+      ...promoted,
+      mutation: true,
+      state: { ...current, records: promoted.store }
     };
   }
 
@@ -259,9 +284,11 @@ export function executePrivateCommand({ state = defaultPrivateState(), command =
   }
 
   if (action === 'delete') {
-    const roots = Array.isArray(command.ids) ? command.ids : [];
+    const requested = Array.isArray(command.ids) ? command.ids : [];
+    const present = new Set(current.records.map(row => row.id));
+    const roots = requested.filter(id => present.has(id));
     const closure = derivedClosure(current.records, roots);
-    const deleted = deletePrivateRecords({ store: current.records, ids: roots, authorization, now });
+    const deleted = deletePrivateRecords({ store: current.records, ids: requested, authorization, now });
     if (!deleted.ok) return { ...deleted, mutation: false };
     const hypotheses = current.hypotheses.filter(row => !closure.has(row.recordId) && !(row.derivedFrom || []).some(id => closure.has(id)));
     const edges = current.edges.filter(row => !closure.has(row?.provenance?.sourceRecordId));
@@ -298,17 +325,38 @@ export function runPrivateCommand({ command = {}, authorization = null, filePath
   if (!executed.ok) return executed;
 
   if (commandName(command) === 'export') {
+    const fullState = {
+      records: executed.records,
+      hypotheses: loaded.state.hypotheses,
+      edges: loaded.state.edges
+    };
+    const stateDigest = createHash('sha256').update(JSON.stringify(fullState)).digest('hex');
     const exportPayload = {
       schemaVersion: 'uberbond.personal-civilization-private-export.v1',
       exportedAt: executed.exportedAt,
       recordCount: executed.recordCount,
-      completeness: executed.completeness,
-      digest: executed.digest,
-      records: executed.records
+      hypothesisCount: loaded.state.hypotheses.length,
+      edgeCount: loaded.state.edges.length,
+      completeness: {
+        ...executed.completeness,
+        completePrivateOperatorState: true
+      },
+      recordDigest: executed.digest,
+      stateDigest,
+      records: executed.records,
+      hypotheses: loaded.state.hypotheses,
+      edges: loaded.state.edges
     };
     const written = atomicPrivateWrite(executed.destination, `${JSON.stringify(exportPayload, null, 2)}\n`, { repoRoot });
     if (!written.ok) return written;
-    return { ...executed, exportWritten: true, exportDestination: written.filePath };
+    return {
+      ...executed,
+      exportWritten: true,
+      exportDestination: written.filePath,
+      stateDigest,
+      hypothesisCount: loaded.state.hypotheses.length,
+      edgeCount: loaded.state.edges.length
+    };
   }
 
   if (!executed.mutation) return executed;

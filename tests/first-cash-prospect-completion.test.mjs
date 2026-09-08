@@ -53,6 +53,17 @@ function inputReadySprint() {
   return ready.state;
 }
 
+function traceableFinding() {
+  return {
+    code: 'missing-cta',
+    title: 'No obvious primary action was detected',
+    severity: 5,
+    confidence: 0.94,
+    evidenceUrl: 'https://acme.example/',
+    evidenceExcerpt: 'No visible booking, contact, demo, quote, purchase, or start action was detected.'
+  };
+}
+
 function fakeStore({ withEvidence = true } = {}) {
   const sprint = inputReadySprint();
   const lead = {
@@ -71,14 +82,7 @@ function fakeStore({ withEvidence = true } = {}) {
     completedAt: '2026-09-07T16:10:00.000Z',
     firstCashFulfillment: sprint,
     dossier: { company: 'Acme', pages: 1, riskFlags: [] },
-    audit: withEvidence ? [{
-      code: 'missing-cta',
-      title: 'No obvious primary action was detected',
-      severity: 5,
-      confidence: 0.94,
-      evidenceUrl: 'https://acme.example/',
-      evidenceExcerpt: 'No visible booking, contact, demo, quote, purchase, or start action was detected.'
-    }] : []
+    audit: withEvidence ? [traceableFinding()] : []
   };
   const rows = {
     leads: new Map([[lead.id, lead]]),
@@ -154,6 +158,65 @@ test('paid sprint without traceable findings stops at QA_REQUIRED and cannot fal
   assert.equal(store.lead().status, 'qa-required');
   assert.equal(genericCalls, 0);
   assert.equal(store.rows.notifications.filter(row => row.type === 'paid_sprint_qa_required').length, 1);
+});
+
+test('QA_REQUIRED replay remains fail closed when evidence is still missing', async () => {
+  const store = fakeStore({ withEvidence: false });
+  let genericCalls = 0;
+  const revenue = { async onProspectComplete() { genericCalls += 1; } };
+  const first = await routeProspectCompletion({
+    store,
+    revenue,
+    prospect: store.prospect(),
+    date: new Date('2026-09-07T16:11:00.000Z')
+  });
+  assert.equal(first.status, 'FIRST_CASH_QA_REQUIRED');
+
+  const second = await routeProspectCompletion({
+    store,
+    revenue,
+    prospect: store.prospect(),
+    date: new Date('2026-09-07T16:12:00.000Z')
+  });
+  assert.equal(second.ok, false);
+  assert.equal(second.status, 'FIRST_CASH_QA_REQUIRED');
+  assert.equal(second.sprintStatus, 'QA_REQUIRED');
+  assert.equal(store.prospect().firstCashFulfillment.status, 'QA_REQUIRED');
+  assert.equal(store.prospect().firstCashFulfillment.fulfillmentState.economicTruth.acceptedDelivery, false);
+  assert.equal(genericCalls, 0, 'QA replay must never fall into generic delivery');
+  assert.equal(store.rows.notifications.filter(row => row.type === 'paid_sprint_qa_required').length, 1, 'recheck must not duplicate the founder notification');
+});
+
+test('QA_REQUIRED replay can recover to DELIVERY_READY after durable evidence improves', async () => {
+  const store = fakeStore({ withEvidence: false });
+  let genericCalls = 0;
+  const revenue = { async onProspectComplete() { genericCalls += 1; } };
+  const first = await routeProspectCompletion({
+    store,
+    revenue,
+    prospect: store.prospect(),
+    date: new Date('2026-09-07T16:11:00.000Z')
+  });
+  assert.equal(first.status, 'FIRST_CASH_QA_REQUIRED');
+  assert.equal(store.prospect().firstCashFulfillment.status, 'QA_REQUIRED');
+
+  await store.patch('prospects', PROSPECT_ID, { audit: [traceableFinding()] });
+  const second = await routeProspectCompletion({
+    store,
+    revenue,
+    prospect: store.prospect(),
+    date: new Date('2026-09-07T16:12:00.000Z')
+  });
+  assert.equal(second.ok, true, JSON.stringify(second.reasonCodes));
+  assert.equal(second.status, 'FIRST_CASH_DELIVERY_READY');
+  assert.equal(second.sprintStatus, 'DELIVERY_READY');
+  assert.equal(second.commercialDeliveryCount, 0);
+  assert.equal(store.prospect().firstCashFulfillment.status, 'DELIVERY_READY');
+  assert.equal(store.prospect().firstCashFulfillment.fulfillmentState.economicTruth.acceptedDelivery, false);
+  assert.deepEqual(store.prospect().paidSprintQaReasonCodes, []);
+  assert.equal(store.lead().status, 'delivery-ready');
+  assert.equal(genericCalls, 0, 'recovered paid sprint must stay outside generic delivery');
+  assert.equal(store.rows.notifications.filter(row => row.type === 'paid_sprint_delivery_ready').length, 1);
 });
 
 test('delivery-ready replay is idempotent and emits no duplicate receipt', async () => {

@@ -1,14 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { decideSelfMaintainerContinuation } from '../src/self-maintainer-continuation-policy.mjs';
+import {
+  decideSelfMaintainerContinuation,
+  gateSelfMaintainerPulse
+} from '../src/self-maintainer-continuation-policy.mjs';
 
 const BASE = 'a'.repeat(40);
+const NEXT_BASE = 'b'.repeat(40);
+const TASK_ID = 'uberbond_self_maintain_aaaaaaaaaaaaaaaaaaaaaaaa';
 const task = (status, reasonCodes = []) => decideSelfMaintainerContinuation({
-  taskId: 'uberbond_self_maintain_aaaaaaaaaaaaaaaaaaaaaaaa',
+  taskId: TASK_ID,
   baseRevision: BASE,
   relayStatus: status,
   reasonCodes,
   evidenceRefs: [`test:${status.toLowerCase()}`, ...reasonCodes.map(code => `reason:${code}`)]
+});
+const receipt = ({ status, issueNumber = 487, baseRevision = BASE } = {}) => ({
+  schemaVersion: 'uberbond.self-maintainer-continuation-receipt.v1',
+  observedBaseRevision: baseRevision,
+  observedIssueNumber: issueNumber,
+  continuation: { status },
+  businessEffectAuthority: 'NONE'
 });
 
 test('waiting for the existing worker never creates a duplicate attempt', () => {
@@ -17,6 +29,31 @@ test('waiting for the existing worker never creates a duplicate attempt', () => 
   assert.equal(result.status, 'WAIT_FOR_EXISTING_ATTEMPT');
   assert.equal(result.decision, 'DO_NOT_CREATE_DUPLICATE_TASK');
   assert.match(result.truthBoundary, /NOT BE COUNTED AS PROGRESS/);
+});
+
+test('same-base WAIT resumes only the exact existing relay issue so worker completion can still be observed', () => {
+  const result = gateSelfMaintainerPulse({
+    currentBaseRevision: BASE,
+    priorReceipt: receipt({ status: 'WAIT_FOR_EXISTING_ATTEMPT', issueNumber: 487 })
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'CURRENT_BASE_EXISTING_ATTEMPT_RESUME_ONLY');
+  assert.equal(result.runPrimaryTick, true);
+  assert.equal(result.resumeExistingAttemptOnly, true);
+  assert.equal(result.resumeIssueNumber, 487);
+  assert.equal(result.requiredDecision, 'READ_OR_ADVANCE_EXISTING_ATTEMPT_ONLY');
+  assert.match(result.truthBoundary, /MAY NOT CREATE A SECOND TASK/);
+});
+
+test('same-base WAIT without an exact issue binding fails closed instead of creating a new task', () => {
+  const result = gateSelfMaintainerPulse({
+    currentBaseRevision: BASE,
+    priorReceipt: receipt({ status: 'WAIT_FOR_EXISTING_ATTEMPT', issueNumber: null })
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'CURRENT_BASE_WAIT_WITHOUT_BOUND_ATTEMPT_BLOCKED');
+  assert.equal(result.runPrimaryTick, false);
+  assert.ok(result.reasonCodes.includes('waiting-continuation-requires-existing-issue-binding'));
 });
 
 test('review pending never reimplements or repromotes because an hour elapsed', () => {
@@ -56,6 +93,30 @@ test('principled worker STOP is preserved as a stopping rule instead of forced m
   assert.equal(result.requiresNewEvidenceOrNewMechanism, true);
   assert.match(result.truthBoundary, /PRINCIPLED STOP IS A STOPPING RULE/);
   assert.equal(result.businessEffectAuthority, 'NONE');
+});
+
+for (const status of ['REVIEW_PENDING', 'NO_SAFE_CHANGE_THIS_BASE', 'STRATEGY_MUTATION_REQUIRED']) {
+  test(`same-base ${status} blocks ordinary re-entry`, () => {
+    const result = gateSelfMaintainerPulse({
+      currentBaseRevision: BASE,
+      priorReceipt: receipt({ status })
+    });
+    assert.equal(result.ok, true);
+    assert.equal(result.status, 'CURRENT_BASE_REENTRY_BLOCKED');
+    assert.equal(result.runPrimaryTick, false);
+    assert.equal(result.resumeExistingAttemptOnly, false);
+  });
+}
+
+test('a genuinely new main SHA reopens evaluation instead of inheriting an old same-base STOP', () => {
+  const result = gateSelfMaintainerPulse({
+    currentBaseRevision: NEXT_BASE,
+    priorReceipt: receipt({ status: 'NO_SAFE_CHANGE_THIS_BASE', baseRevision: BASE })
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'PULSE_ALLOWED_NEW_BASE_EVIDENCE');
+  assert.equal(result.runPrimaryTick, true);
+  assert.equal(result.resumeExistingAttemptOnly, false);
 });
 
 test('authority/promotion block never recommends circumvention', () => {

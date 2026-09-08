@@ -4,7 +4,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
+import { encryptJson } from '../src/crypto.mjs';
 import {
+  PRIVATE_ENVELOPE_SCHEMA,
   defaultPrivateState,
   loadPrivateState
 } from '../src/personal-civilization-private-operator.mjs';
@@ -14,6 +16,12 @@ const OWNER = {
   grant: 'PRIVATE_LIFE_STATE',
   issuedAt: '2026-09-08T18:30:00.000Z'
 };
+const KEY = '33'.repeat(32);
+
+function encryptedState() {
+  const sealed = encryptJson({ purpose: 'PRIVATE_LIFE_STATE', value: defaultPrivateState() }, KEY);
+  return { schemaVersion: PRIVATE_ENVELOPE_SCHEMA, cipher: 'AES-256-GCM', ...sealed };
+}
 
 test('a path outside the repo that resolves through a parent symlink back into the repo is refused before read', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-private-path-root-'));
@@ -22,7 +30,7 @@ test('a path outside the repo that resolves through a parent symlink back into t
     const hidden = path.join(root, 'private-fixture');
     fs.mkdirSync(hidden, { recursive: true });
     const target = path.join(hidden, 'life-state.json');
-    fs.writeFileSync(target, `${JSON.stringify(defaultPrivateState())}\n`, { mode: 0o600 });
+    fs.writeFileSync(target, `${JSON.stringify(encryptedState())}\n`, { mode: 0o600 });
     if (process.platform !== 'win32') fs.chmodSync(target, 0o600);
 
     const portal = path.join(outside, 'portal');
@@ -41,6 +49,7 @@ test('a path outside the repo that resolves through a parent symlink back into t
     const loaded = loadPrivateState({
       filePath: apparentOutsidePath,
       authorization: OWNER,
+      privateKey: KEY,
       repoRoot: root
     });
     assert.equal(loaded.ok, false);

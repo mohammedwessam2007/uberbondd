@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-astra-orchestrator-state-1.0.0",
-  "status": "ORCHESTRATION_CHECKPOINT_C04__LIFE_OPTION_EXPERIMENTS_PREPARED",
+  "status": "C05_FINAL_ORCHESTRATION_HANDOFF__NOT_RUNNING",
   "createdFromMain": "799107519beca7e1dd6d56013dd937ab99b780af",
   "orchestratorBranch": "work/astra-swarm-reconciliation-20260908",
   "authoritativePrompt": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
@@ -62,16 +62,16 @@
   ],
   "freshCurrentTribunal": [
     {
-      "branch": "sol/cash-artery-main-20260908",
       "draft": true,
       "head": "6e34e42e8c2dce3ef5ae9a59ae1aee6a20562b5b",
+      "merged": false,
       "pr": 482,
       "state": "open"
     },
     {
-      "branch": "sol/constraint-mutation-main-20260908",
       "draft": true,
       "head": "ce1fb71239ac092c913b44ec166931bbcb1a0266",
+      "merged": false,
       "pr": 483,
       "state": "open"
     }
@@ -114,13 +114,13 @@
   },
   "mandatoryFinalMinute": "Astra must stop coding and write a durable checkpoint with exact main/PR heads, ownership, packet dispositions, tests, blockers, merge order, next worker prompts and percentage deltas before model limits arrive.",
   "checkpoint": {
-    "id": "C04",
+    "id": "C05",
     "date": "2026-09-08",
-    "observedMain": "e9a4df08da1ec89a6721416f3af823d57642addc",
+    "observedMain": "ea3a695fffef80ab49a4a7812cd8a1ee736189a0",
     "mode": "ORCHESTRATION_ONLY",
     "implementationLaunched": false,
     "workerAcknowledgements": [],
-    "nextAction": "Keep C02 release priority. When a cheap research slot is available, reproduce C04-01 before any new life-planning architecture."
+    "nextAction": "Execution-authorized cheap verifier: refresh #482/#483 ownership and heads, identify an executing host, run the first focused proof packet. If no host is available, produce a minimal host-capability blocker and continue one independent deterministic probe."
   },
   "closedTribunal": [
     {
@@ -409,6 +409,15 @@
       "implementationLaunched": false,
       "workerAcknowledgements": [],
       "nextAction": "Execution-authorized cheap verifier runs C03-01 targeted falsification; C02 cash/recovery queue retains release priority."
+    },
+    {
+      "id": "C04",
+      "date": "2026-09-08",
+      "observedMain": "e9a4df08da1ec89a6721416f3af823d57642addc",
+      "mode": "ORCHESTRATION_ONLY",
+      "implementationLaunched": false,
+      "workerAcknowledgements": [],
+      "nextAction": "Keep C02 release priority. When a cheap research slot is available, reproduce C04-01 before any new life-planning architecture."
     }
   ],
   "c03Research": {
@@ -601,5 +610,106 @@
     "distinctiveHypothesis": "The useful unit is a verified change in reachability plus a chosen real experience, not a recommendation count or a simulated life ranking.",
     "antiPlanningDebt": "This checkpoint adds one gated experiment chain. No further expansion of this chain before its first falsification result unless the owner explicitly requests more orchestration. Publishing plans is not progress on their behavior.",
     "claimBoundary": "No AGI, historical uniqueness, guaranteed income or life-changing outcome is established. The goal is testable usefulness while preserving will, privacy, rest and the right to remain unmodeled."
+  },
+  "c05Continuation": {
+    "classification": "ORCHESTRATION_DESIGN__NOT_NEW_RUNTIME",
+    "objective": "Maximize independently verified useful progress per scarce compute and founder attention while preserving Sovereign Cognitive Continuum, privacy and present human choice.",
+    "designPrinciple": "Represent a desired outcome by its causal prerequisites and alternatives. Spend on the smallest admissible change that removes a binding constraint. Transfer only the verified mechanism and its applicability conditions.",
+    "existingQueues": {
+      "release": "executionPackets (C02)",
+      "intelligenceResearch": "c03Research.experiments",
+      "lifeResearch": "c04LifeOptions.experiments",
+      "rule": "One release lane, one verifier and at most one research slot. These are ceilings, not instructions to launch workers now. Do not create a fifth queue."
+    },
+    "mechanisms": [
+      {
+        "name": "Outcome-first dependency compression",
+        "instruction": "For one existing packet, state observable completion and build a small AND/OR prerequisite graph: all-required vs alternative routes, verified vs unknown edges, authority and resource bounds. Identify shared prerequisites blocking several valuable outcomes. Prefer the cheapest admissible route, not a single lowest skill score or greatest raw graph fanout.",
+        "falsifier": "Removing the supposed blocker does not advance the intended outcome, or an already feasible cheaper route exists.",
+        "deliverable": "Bounded graph/receipt inside the existing packet; no new framework or global graph migration."
+      },
+      {
+        "name": "Assumption-directed strategy change",
+        "instruction": "After failure, isolate the exact assumption contradicted by evidence. Consider reuse, smaller decomposition, different supported provider/substrate, different capability bundle, or explicit stop. Preserve the objective and hard constraints. Choose one materially different route only when its prerequisites are available.",
+        "falsifier": "New strategy changes only wording, repeats the same failure conditions or expands authority.",
+        "deliverable": "One blocker fingerprint, failed assumption, selected alternative and disconfirming test."
+      },
+      {
+        "name": "Smallest useful observation",
+        "instruction": "Ask which lawful observation could change the next decision. Run deterministic checks first, then bounded experiments under existing authority. Separate absence of evidence from impossibility. Where outcomes are not discriminating, stop buying more thought.",
+        "falsifier": "Both rival explanations predict the same observation, or probe cost exceeds the benefit it could plausibly affect.",
+        "deliverable": "Two rival hypotheses, predicted differences, cost ceiling and next action for either result."
+      },
+      {
+        "name": "Proof reuse with explicit limits",
+        "instruction": "Bind receipts to source/dependencies/configuration/model/evaluator versions and scope. A fix or capability is reusable only when required assumptions still match. Changed hashes trigger affected-proof review; identical blobs alone do not prove integrated runtime. Do not re-run unrelated tests without a concrete risk or gate.",
+        "falsifier": "Reused proof depends on stale environment, hidden context, different caller semantics or exposed holdout.",
+        "deliverable": "Applicability conditions and evidence dependencies, not an unqualified VERIFIED label."
+      },
+      {
+        "name": "Failure becomes a regression case",
+        "instruction": "Persist the minimal counterexample, failure class and scope. Reuse it in relevant cheap-worker acceptance tests. A successful repair becomes a candidate reusable mechanism, then follows C03 transfer/evaluator/retention gates before broader promotion.",
+        "falsifier": "It only passes its own training example, worsens existing behavior or requires relaxing the acceptance standard.",
+        "deliverable": "Counterexample -> bounded repair -> independent proof -> conditional reuse; no automatic production promotion."
+      },
+      {
+        "name": "Compute buys a specific uncertainty reduction",
+        "instruction": "Route deterministic work without models where possible. Use cheapest configured capable model for remaining bounded work; escalate only with a minimal counterexample and a question a stronger model can resolve. Never send all checkpoint history by default.",
+        "falsifier": "Extra tokens, agents or model strength produce no independently measured incremental benefit.",
+        "deliverable": "Actual model/cost where observable, uncertainty before/after and stop reason; unknown budget remains unknown."
+      },
+      {
+        "name": "Restartable work, not chat dependence",
+        "instruction": "Persist exact refs, owner acknowledgement, occurrence identity, pending effects, evidence, next single action and claim expiry before context loss. Resume by refreshing relevant differences. If a prior external effect is uncertain, reconcile it before retry. No durable storage receipt means no durability claim.",
+        "falsifier": "Fresh session needs hidden conversation, duplicates an effect or mistakes a proposed owner for a running worker.",
+        "deliverable": "Small checkpoint linked from CURRENT_HANDOFF; secrets and personal payloads excluded."
+      }
+    ],
+    "sequence": [
+      {
+        "step": 1,
+        "action": "Refresh existing C02 claims, current #482/#483 heads and executing-host availability. Do not infer worker activity from issue assignment."
+      },
+      {
+        "step": 2,
+        "action": "Prove current release behaviors with cheap independent verification; preserve privacy/payment/replay gates. Integrate only earned tranches."
+      },
+      {
+        "step": 3,
+        "action": "If budget remains, choose exactly one C03-01/C03-02/C04-01 deterministic falsification, or AUTO-05 where its dependencies hold. Prefer a result that changes an imminent decision."
+      },
+      {
+        "step": 4,
+        "action": "Use a reproduced failure to exercise assumption-directed strategy change and record a minimal reusable counterexample. Do not build generic machinery first."
+      },
+      {
+        "step": 5,
+        "action": "After a repair is authorized and proven, apply C03 matched-budget transfer/retention gates before claiming a general improvement. C04 lived probes require explicit private participation."
+      },
+      {
+        "step": 6,
+        "action": "Update affected canonical evidence, integrate appropriate changes, checkpoint and continue dependency-satisfied work in the execution session. Finish with exact unresolved gates, not a whole-system percentage."
+      }
+    ],
+    "readBudget": {
+      "entrypoint": "docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md",
+      "firstStateFields": [
+        "checkpoint",
+        "freshCurrentTribunal",
+        "c05Continuation.sequence",
+        "executionPackets"
+      ],
+      "progressiveRead": "Load one chosen packet and its relevant source/evidence. C03/C04 only when selected. Historical prose is retained in git and state but not mandatory repeated context.",
+      "startup": "This compact routing does not waive repository constitutional startup or applicable source instructions."
+    },
+    "checkpointPolicy": "After each material result, before host/model/context changes, or five minutes of unsaved active work; reserve final minute. No background automation is created.",
+    "antiExpansion": "No more architecture required to start the prepared verification work. Further orchestration only when the owner asks or a concrete result changes the dependency graph.",
+    "acceptanceForCampaign": [
+      "One dependency-satisfied packet independently verified on an executing host.",
+      "One reproducible failure or verified reuse decision that prevents redundant work.",
+      "One fresh-session continuation without lost state or duplicate effect, when execution is authorized.",
+      "Actual integrated/reachable/runtime evidence reported separately from plans and outcomes."
+    ],
+    "claimBoundary": "No guarantee of AGI, everything unlocked, uniqueness, wealth, life improvement, continuous execution or 100% whole-system completion. This supplies a falsifiable operating strategy. Publication earns zero runtime progress."
   }
 }

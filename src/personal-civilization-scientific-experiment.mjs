@@ -45,7 +45,19 @@ export function compilePersonalScientificExperiment({
   const costCents=Number(experience?.costCents??0);
   const timeMinutes=Number(experience?.timeMinutes??0);
   const effects=Array.isArray(experience?.effects)?experience.effects:[];
-  const effectful=costCents>0||effects.length>0;
+  const triggeringFactors=Array.isArray(planned.experience?.triggeringFactors)?planned.experience.triggeringFactors:[];
+  const effectful=costCents>0||effects.length>0||triggeringFactors.length>0;
+
+  // LIFE_EXPERIENCE_COMMITMENT answers "did the founder choose this kind of
+  // consequence?". Generic effect authority answers "may an executor cause
+  // external effects?". Travel/third-party commitments must not disappear
+  // from the second boundary merely because costCents/effects were omitted.
+  if(effectful&&effectAuthority?.ok!==true){
+    return fail('PCE_EXPERIMENT_EFFECT_AUTHORITY_REQUIRED',['separate-effect-authority-required'],{
+      triggeringFactors,
+      authorityBoundary:'LIFE_EXPERIENCE_COMMITMENT_AND_EFFECT_AUTHORITY_ARE_SEPARATE_GRANTS'
+    });
+  }
 
   const bounded=compileBoundedExperiment({
     mission:`Learn whether founder-selected possibility is better modeled after one reversible experience: ${possibility}`,
@@ -66,8 +78,8 @@ export function compilePersonalScientificExperiment({
   if(!bounded.ok)return fail('PCE_EXPERIMENT_FEASIBILITY_REFUSED',bounded.reasonCodes||['bounded-experiment-refused'],{boundedExperiment:bounded});
 
   const information=evaluateValueOfInformation({
-    decision:`Whether to update confidence in possibility: ${possibility}`,
-    ...(voi||{})
+    ...(voi||{}),
+    decision:`Whether to update confidence in possibility: ${possibility}`
   });
   if(!information.ok)return fail('PCE_EXPERIMENT_VOI_INVALID',information.reasonCodes||['voi-invalid'],{valueOfInformation:information});
 
@@ -85,11 +97,13 @@ export function compilePersonalScientificExperiment({
       wouldReveal:planned.experience.wouldReveal,
       wouldFalsify:planned.experience.wouldFalsify,
       rivalHypotheses:bounded.hypotheses,
+      triggeringFactors,
       updateOnlyAfterObservation:true,
       chosenByFounder:true,
       runnableByThisModule:false
     },
     sovereigntyBoundary:'THE_FOUNDER_SELECTED_THE_POSSIBILITY__THIS MODULE ONLY COMPILES A REVERSIBLE LEARNING OPPORTUNITY__IT DOES NOT CHOOSE OR EXECUTE IT',
+    authorityBoundary:'LIFE_EXPERIENCE_COMMITMENT_AND_EFFECT_AUTHORITY_ARE_SEPARATE__NEITHER MAKES_THIS_COMPILER_AN_EXECUTOR',
     privateBoundary:'PRIVATE_LIFE_INPUTS_REMAIN_FOUNDER_INTERACTIVE__NO_UNATTENDED_WORKER_AUTHORITY_IS_CREATED',
     businessEffectAuthority:'NONE',
     externalEffectLedger:{...ZERO}

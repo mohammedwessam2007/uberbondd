@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import {
   DEFAULT_PRIVATE_STATE_FILE,
+  PRIVATE_LIFE_KEY_ENV,
   founderAuthorization,
   runPrivateCommand
 } from '../src/personal-civilization-private-operator.mjs';
@@ -28,12 +29,12 @@ function publicView(result, action) {
   }
   if (action === 'status') return { ok: true, status: result.status, summary: result.summary, businessEffectAuthority: 'NONE' };
   if (action === 'list') return { ok: true, status: result.status, records: result.records, hypotheses: result.hypotheses, edges: result.edges, businessEffectAuthority: 'NONE' };
-  if (action === 'capture') return { ok: true, status: result.status, persisted: result.persisted, recordId: result.record?.id || null, willEventType: result.willEventType, promotionBoundary: result.promotionBoundary, businessEffectAuthority: 'NONE' };
-  if (action === 'promote') return { ok: true, status: result.status, promotion: result.promotion, recordId: result.record?.id || null, promotionBoundary: result.promotionBoundary, businessEffectAuthority: 'NONE' };
-  if (action === 'hypothesis') return { ok: true, status: result.status, hypothesis: result.hypothesis, businessEffectAuthority: 'NONE' };
+  if (action === 'capture') return { ok: true, status: result.status, persisted: result.persisted, encryption: result.encryption, recordId: result.record?.id || null, willEventType: result.willEventType, promotionBoundary: result.promotionBoundary, businessEffectAuthority: 'NONE' };
+  if (action === 'promote') return { ok: true, status: result.status, promotion: result.promotion, encryption: result.encryption, recordId: result.record?.id || null, promotionBoundary: result.promotionBoundary, businessEffectAuthority: 'NONE' };
+  if (action === 'hypothesis') return { ok: true, status: result.status, hypothesis: result.hypothesis, encryption: result.encryption, businessEffectAuthority: 'NONE' };
   if (action === 'decision') return { ok: true, status: result.status, packet: result.packet, truthBoundary: result.truthBoundary, businessEffectAuthority: 'NONE' };
-  if (action === 'delete') return { ok: true, status: result.status, deletedIds: result.deletedIds, derivedAlsoDeleted: result.derivedAlsoDeleted, prunedHypothesisCount: result.prunedHypothesisCount, prunedEdgeCount: result.prunedEdgeCount, guarantee: result.guarantee, businessEffectAuthority: 'NONE' };
-  if (action === 'export') return { ok: true, status: result.status, exportWritten: result.exportWritten, exportDestination: result.exportDestination, recordCount: result.recordCount, hypothesisCount: result.hypothesisCount, edgeCount: result.edgeCount, stateDigest: result.stateDigest, completeness: result.completeness, businessEffectAuthority: 'NONE' };
+  if (action === 'delete') return { ok: true, status: result.status, encryption: result.encryption, deletedIds: result.deletedIds, derivedAlsoDeleted: result.derivedAlsoDeleted, prunedHypothesisCount: result.prunedHypothesisCount, prunedEdgeCount: result.prunedEdgeCount, guarantee: result.guarantee, businessEffectAuthority: 'NONE' };
+  if (action === 'export') return { ok: true, status: result.status, exportWritten: result.exportWritten, exportDestination: result.exportDestination, encryption: result.encryption, recordCount: result.recordCount, hypothesisCount: result.hypothesisCount, edgeCount: result.edgeCount, stateDigest: result.stateDigest, completeness: result.completeness, businessEffectAuthority: 'NONE' };
   return { ok: true, status: result.status, businessEffectAuthority: 'NONE' };
 }
 
@@ -41,6 +42,7 @@ export async function runFounderInteractiveSession({
   stdin = input,
   stdout = output,
   privateFilePath = process.env.UBERBOND_PRIVATE_LIFE_STORE || DEFAULT_PRIVATE_STATE_FILE,
+  privateKey = process.env[PRIVATE_LIFE_KEY_ENV] || null,
   rlFactory = options => readline.createInterface(options)
 } = {}) {
   if (stdin?.isTTY !== true || stdout?.isTTY !== true) {
@@ -50,6 +52,7 @@ export async function runFounderInteractiveSession({
   const rl = rlFactory({ input: stdin, output: stdout, terminal: true });
   try {
     stdout.write('UberBond private Personal Civilization operator. No network or autonomous entry point is authorized.\n');
+    stdout.write('Durable private life state is authenticated ciphertext; the life key remains process-only.\n');
     stdout.write(`Type exactly: ${PRIVATE_OPERATOR_CONFIRMATION}\n`);
     const confirmation = await rl.question('> ');
     if (!founderPresenceSatisfied({ stdinIsTTY: stdin.isTTY, stdoutIsTTY: stdout.isTTY, confirmation })) {
@@ -72,7 +75,7 @@ export async function runFounderInteractiveSession({
         continue;
       }
       const action = String(command?.action || '').trim().toLowerCase();
-      const result = runPrivateCommand({ command, authorization, filePath: privateFilePath });
+      const result = runPrivateCommand({ command, authorization, privateKey, filePath: privateFilePath });
       stdout.write(`${JSON.stringify(publicView(result, action), null, 2)}\n`);
     }
   } finally {

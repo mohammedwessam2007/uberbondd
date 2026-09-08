@@ -1,4 +1,4 @@
-# UberBond Astra C06 — self-hosting continuation entrypoint
+# UberBond Astra C07 — capability convergence entrypoint
 
 Mode: ORCHESTRATION_ONLY. Published plans do not launch workers.
 State: `artifacts/work/astra-orchestrator-state-2026-09-08.json`
@@ -72,3 +72,14 @@ Critical distinction: app and deploy-controller failure domains. The app must no
 Next worker: read cheapWorkerPrompt in c06SelfHosting. Resolve available authorized host and portable donor before editing. No new paid commitment. Cheapest capable execution; deterministic first; exact evidence. No duplicate workflow framework. No customer/payment/private-life authority inferred. If host unavailable, finish independent proof and name the external gap.
 
 Checkpoint after each material step or five minutes, including release/host/state/recovery identity and next action. No secrets in git. Report PLAN_ONLY, LOCAL_REHEARSAL_PASSED, NAMED_HOST_DEPLOYED, RECOVERY_REHEARSED and actual OBSERVED_UNATTENDED_INTERVAL separately. This publication launches nothing.
+
+
+## C07 — 15 capabilities, one proven execution path
+
+Read c07CapabilityConvergence for all 15 owner proposals. Candidate file paths are reuse leads, not full capability proof. C06 deployment/durability retains priority. Next intelligence slice is context/retrieval/router at a matched-budget held-out baseline with minimal traces and git prompt versions.
+
+Do not rebuild 15 products. Existing Context Spine, model router, council, sandboxes, queue and MCP entrypoint require caller/evidence audit before replacement. Retrieval begins with a measured lexical baseline. Semantic caching must not reuse permission, payment or mutable state merely because text is similar. Consensus cannot turn correlated agreement into independent truth. Injection detection is not isolation. Raw MCP must pass current official-protocol conformance before claims of support. Mini-Temporal means a bounded durable workflow requirement, not an entire platform.
+
+Feedback first creates verified counterexamples; use prompt/retrieval/tool improvements before model training. LoRA is conditional on supported model access, usable data, budget and a measured bottleneck. No model training is launched by this plan.
+
+Cheap-worker prompt: select one existing packet under C06 priority; refresh main and exact callers; audit candidate anchors; define one missing seam and its falsifier; compare unchanged baseline vs smallest candidate at matched budget. Preserve task success, privacy/authority, recovery and provenance. Record actual cost or unknown; checkpoint. Do not implement in an orchestration-only session. Do not create a new framework or registry merely because this catalog names one.

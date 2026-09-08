@@ -89,5 +89,10 @@
     "Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes customer acceptance. Sandbox payment never becomes cleared real revenue.",
     "After every meaningful evidence-backed milestone, print all six progress percentages plus first-dollar/payment-fulfilment/deployment percentages and the exact delta reason."
   ],
-  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement."
+  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
+  "latestOrchestrationCheckpoint": {
+    "id": "C07",
+    "observedMain": "84a8bb37fe435ad8e9eb27820a43a525ad103aa1",
+    "note": "C07 preserves all 15 requested capabilities with reuse anchors, conditional build/eval gates and no duplicate engine mandate. C06 remains first. Read c07CapabilityConvergence progressively; planning only."
+  }
 }

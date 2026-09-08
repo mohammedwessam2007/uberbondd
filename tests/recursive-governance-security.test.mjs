@@ -1,0 +1,22 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { admitRecursiveSecurityEvolution } from '../src/recursive-governance-security.mjs';
+
+const D=x=>`sha256:${String(x).repeat(64).slice(0,64)}`;
+const admission={ok:true,status:'C26_SECURITY_ADMISSION_READY_FOR_SEPARATE_EFFECT_GATE',subjectDigest:D('a'),subject:{composition:{selfModifying:true}}};
+const gen=(id,parent=null,policy=D('p'))=>({generationId:id,parentGenerationId:parent,proposerId:`${id}:p`,approverId:`${id}:a`,deployerId:`${id}:d`,verifierId:`${id}:v`,monitorId:`${id}:m`,policyDigest:policy,constitutionalDigest:D('c'),riskTier:'CRITICAL',securityEnvelopeTier:'CRITICAL',constitutionalMutationApproved:false,ownerAuthorityRef:null});
+const evidence=(generationId,fromPolicyDigest,toPolicyDigest,over={})=>({generationId,admissionSubjectDigest:admission.subjectDigest,fromPolicyDigest,toPolicyDigest,explicitlyAuthorized:true,authorityRef:'authority://founder/security-policy',independentVerifierId:'actor:independent-security-verifier',securityEnvelopeNotWeakened:true,rollbackPreserved:true,rollbackRef:'rollback://policy/previous',evidenceRef:'evidence://policy-mutation',immutableRef:'sha256://policy-mutation',...over});
+
+test('recursive self-improvement must be explicitly declared before policy evolution',()=>{const out=admitRecursiveSecurityEvolution({admission:{...admission,subject:{composition:{selfModifying:false}}},generations:[gen('g1')]});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('recursive-evolution-requires-explicit-self-modifying-composition-declaration'));});
+
+test('unchanged security policy across generations needs no mutation receipt',()=>{const out=admitRecursiveSecurityEvolution({admission,generations:[gen('g1'),gen('g2','g1')]});assert.equal(out.ok,true);assert.equal(out.businessEffectAuthority,'NONE');assert.equal(out.runtimeProof,undefined);assert.equal(out.receipt.runtimeProof,'NONE__STRUCTURAL_AND_EVIDENCE_CONTRACT_ONLY');});
+
+test('silent security policy swap is refused even when tier remains critical',()=>{const out=admitRecursiveSecurityEvolution({admission,generations:[gen('g1'),gen('g2','g1',D('q'))]});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('security-policy-mutation-evidence-required:g2'));});
+
+test('policy mutation receipt must bind to exact C26 composition admission',()=>{const g1=gen('g1'),g2=gen('g2','g1',D('q'));const out=admitRecursiveSecurityEvolution({admission,generations:[g1,g2],policyMutationEvidence:[evidence('g2',g1.policyDigest,g2.policyDigest,{admissionSubjectDigest:D('z')})]});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('security-policy-mutation-admission-binding-mismatch:g2'));});
+
+test('proposer approver or deployer cannot verify their own security policy mutation',()=>{const g1=gen('g1'),g2=gen('g2','g1',D('q'));const out=admitRecursiveSecurityEvolution({admission,generations:[g1,g2],policyMutationEvidence:[evidence('g2',g1.policyDigest,g2.policyDigest,{independentVerifierId:g2.proposerId})]});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('security-policy-mutation-independent-verifier-required:g2'));});
+
+test('policy mutation must prove no weaker envelope and preserve rollback',()=>{const g1=gen('g1'),g2=gen('g2','g1',D('q'));const out=admitRecursiveSecurityEvolution({admission,generations:[g1,g2],policyMutationEvidence:[evidence('g2',g1.policyDigest,g2.policyDigest,{securityEnvelopeNotWeakened:false,rollbackPreserved:false})]});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('security-policy-mutation-no-weaker-envelope-proof-required:g2'));assert.ok(out.reasonCodes.includes('security-policy-mutation-rollback-proof-required:g2'));});
+
+test('authorized independently verified policy evolution remains structurally non-authoritative',()=>{const g1=gen('g1'),g2=gen('g2','g1',D('q'));const out=admitRecursiveSecurityEvolution({admission,generations:[g1,g2],policyMutationEvidence:[evidence('g2',g1.policyDigest,g2.policyDigest)]});assert.equal(out.ok,true);assert.equal(out.status,'RECURSIVE_SECURITY_EVOLUTION_ADMISSIBLE_FOR_SEPARATE_EXECUTION_AUTHORITY');assert.equal(out.businessEffectAuthority,'NONE');assert.equal(out.asiClaim,'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED');assert.match(out.receiptDigest,/^sha256:[0-9a-f]{64}$/);});

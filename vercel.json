@@ -8,6 +8,7 @@
     "api/database-maintenance.mjs": { "maxDuration": 60 },
     "api/webhooks/billing.mjs": { "maxDuration": 30 },
     "api/admin/health-check.mjs": { "maxDuration": 30 },
+    "api/founder-ops.mjs": { "maxDuration": 30 },
     "api/command-center.mjs": {
       "maxDuration": 30,
       "includeFiles": "{config/frontier-model-candidates.json,artifacts/perpetual-frontier-implementation-ledger.json,artifacts/uberbond-*-latest.json,artifacts/cognitive/*-latest.json}"
@@ -19,7 +20,8 @@
   },
   "rewrites": [
     { "source": "/", "destination": "/uberbond.html" },
-    { "source": "/uberbond", "destination": "/uberbond.html" }
+    { "source": "/uberbond", "destination": "/uberbond.html" },
+    { "source": "/ops", "destination": "/ops.html" }
   ],
   "crons": [
     {

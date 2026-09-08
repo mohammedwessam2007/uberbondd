@@ -3,6 +3,17 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileFeasibleBoundedExperiment } from '../src/genesis-experiment-feasibility.mjs';
 
+const explicitProbe = (over = {}) => ({
+  description: 'run one synthetic fixture',
+  costCents: 0,
+  timeMinutes: 2,
+  measure: 'fixture verdict',
+  decisionRule: 'support on FAIL; falsify on PASS',
+  supportsHypothesis: 'fixture fails',
+  falsifiesHypothesis: 'fixture passes',
+  ...over
+});
+
 export function runGenesisExperimentFeasibilityDoctor() {
   const fakeBadge = compileFeasibleBoundedExperiment({
     hypothesis: 'x', falsifier: 'y', costCeilingCents: 0, timeCeilingMinutes: 10,
@@ -10,30 +21,32 @@ export function runGenesisExperimentFeasibilityDoctor() {
   });
   const overCeiling = compileFeasibleBoundedExperiment({
     hypothesis: 'x', falsifier: 'y', costCeilingCents: 0, timeCeilingMinutes: 5,
-    probes: [{
-      description: 'too slow', costCents: 0, timeMinutes: 6,
-      measure: 'fixture result', supportsHypothesis: 'fixture fails', falsifiesHypothesis: 'fixture passes'
-    }]
+    probes: [explicitProbe({ description: 'too slow', timeMinutes: 6 })]
+  });
+  const badReversibility = compileFeasibleBoundedExperiment({
+    hypothesis: 'x', falsifier: 'y', costCeilingCents: 0, timeCeilingMinutes: 5,
+    probes: [explicitProbe({ reversibility: 'REVERSIBL' })]
   });
   const local = compileFeasibleBoundedExperiment({
     hypothesis: 'the fixture exposes the defect',
     falsifier: 'the fixture passes under the candidate implementation',
     costCeilingCents: 0,
     timeCeilingMinutes: 5,
-    probes: [{
-      description: 'run one synthetic fixture', costCents: 0, timeMinutes: 2,
-      measure: 'fixture verdict', supportsHypothesis: 'fixture fails', falsifiesHypothesis: 'fixture passes'
-    }]
+    probes: [explicitProbe()]
   });
 
   const checks = {
     selfDeclaredDiscriminationRefused: fakeBadge.ok === false
-      && fakeBadge.reasonCodes?.includes('probe-measure-required'),
+      && fakeBadge.reasonCodes?.includes('probe-measure-required')
+      && fakeBadge.reasonCodes?.includes('probe-decision-rule-required'),
     timeCeilingActuallyBinds: overCeiling.ok === false
       && overCeiling.reasonCodes?.includes('no-probe-fits-declared-cost-and-time-ceilings'),
+    reversibilityTypoFailsClosed: badReversibility.ok === false
+      && badReversibility.reasonCodes?.includes('probe-recognized-reversibility-required'),
     boundedLocalProbeCompiles: local.ok === true
       && local.runnable === true
-      && local.feasibility?.hasExplicitCompetingOutcomes === true,
+      && local.feasibility?.hasExplicitCompetingOutcomes === true
+      && local.feasibility?.hasExplicitDecisionRule === true,
     noAuthorityMinted: local.businessEffectAuthority === 'NONE'
   };
   const ok = Object.values(checks).every(Boolean);

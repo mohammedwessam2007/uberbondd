@@ -8,19 +8,19 @@ import {
   extractArtifactSourceCommit
 } from '../src/current-reality-freeze.mjs';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const defaultRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-function readJson(relative) {
+function readJson(rootDir, relative) {
   try {
-    return JSON.parse(readFileSync(join(root, relative), 'utf8'));
+    return JSON.parse(readFileSync(join(rootDir, relative), 'utf8'));
   } catch {
     return {};
   }
 }
 
-function git(args) {
+function git(rootDir, args) {
   try {
-    return execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
+    return execFileSync('git', args, { cwd: rootDir, encoding: 'utf8' }).trim();
   } catch {
     return null;
   }
@@ -37,12 +37,12 @@ const EXACT_READINESS_FILES = new Set([
   'vercel.json'
 ]);
 
-function readinessRelevant(path) {
+export function readinessRelevant(path) {
   return EXACT_READINESS_FILES.has(path)
     || /^(src|scripts|api|tests|config|migrations|public|\.github\/workflows)\//.test(path);
 }
 
-function coverageRelevant(path) {
+export function coverageRelevant(path) {
   if (path === 'artifacts/sovereign/implementation-coverage-matrix.json') return false;
   if (/^artifacts\/work\//.test(path)) return false;
   return /^(src|scripts|api|tests|config|\.claude\/skills)\//.test(path)
@@ -51,28 +51,28 @@ function coverageRelevant(path) {
     || path === 'package-lock.json';
 }
 
-function changedPathsSince(commit) {
+function changedPathsSince(rootDir, commit) {
   if (!commit) return null;
-  const output = git(['diff', '--name-only', `${commit}..HEAD`]);
+  const output = git(rootDir, ['diff', '--name-only', `${commit}..HEAD`]);
   if (output === null) return null;
   return output.split('\n').map(line => line.trim()).filter(Boolean);
 }
 
-function sourceChanged(document, predicate) {
+function sourceChanged(rootDir, document, predicate) {
   const commit = extractArtifactSourceCommit(document);
-  const changed = changedPathsSince(commit);
+  const changed = changedPathsSince(rootDir, commit);
   if (changed === null) return null;
   return changed.some(predicate);
 }
 
-export function buildCurrentRealityFreeze() {
-  const handoff = readJson('docs/CURRENT_HANDOFF.json');
-  const readiness = readJson('artifacts/system-readiness.json');
-  const coverage = readJson('artifacts/sovereign/implementation-coverage-matrix.json');
-  const orchestrator = readJson('artifacts/work/astra-orchestrator-state-2026-09-08.json');
-  const headSha = git(['rev-parse', 'HEAD']);
-  const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']);
-  const porcelain = git(['status', '--porcelain']);
+export function buildCurrentRealityFreeze({ rootDir = defaultRoot } = {}) {
+  const handoff = readJson(rootDir, 'docs/CURRENT_HANDOFF.json');
+  const readiness = readJson(rootDir, 'artifacts/system-readiness.json');
+  const coverage = readJson(rootDir, 'artifacts/sovereign/implementation-coverage-matrix.json');
+  const orchestrator = readJson(rootDir, 'artifacts/work/astra-orchestrator-state-2026-09-08.json');
+  const headSha = git(rootDir, ['rev-parse', 'HEAD']);
+  const branch = git(rootDir, ['rev-parse', '--abbrev-ref', 'HEAD']);
+  const porcelain = git(rootDir, ['status', '--porcelain']);
 
   return compileCurrentRealityFreeze({
     headSha,
@@ -83,8 +83,8 @@ export function buildCurrentRealityFreeze() {
     coverage,
     orchestrator,
     sourceChangedByArtifact: {
-      'system-readiness': sourceChanged(readiness, readinessRelevant),
-      'sovereign-coverage': sourceChanged(coverage, coverageRelevant)
+      'system-readiness': sourceChanged(rootDir, readiness, readinessRelevant),
+      'sovereign-coverage': sourceChanged(rootDir, coverage, coverageRelevant)
     }
   });
 }

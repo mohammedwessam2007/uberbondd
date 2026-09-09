@@ -149,17 +149,40 @@ function topologicalAnalysis(leaves) {
   return { waves, cycleLeafIds, criticalPath, dependencyDepth: maxDistance };
 }
 
-function conflictFreeWidth(wave, byId) {
-  const selected = [];
-  const conflicts = new Set();
-  for (const id of [...wave].sort()) {
-    const leaf = byId.get(id);
-    const leafConflicts = new Set(leaf.parallelConflictSet);
-    if (selected.some(existing => leafConflicts.has(existing) || conflicts.has(id))) continue;
-    selected.push(id);
-    for (const conflict of leaf.parallelConflictSet) conflicts.add(conflict);
+function conflictFreeBounds(wave, byId) {
+  const ordered = [...wave].sort();
+  const witness = [];
+  for (const id of ordered) {
+    const conflicts = new Set(byId.get(id)?.parallelConflictSet || []);
+    if (witness.some(existing => conflicts.has(existing))) continue;
+    witness.push(id);
   }
-  return { width: selected.length, selected };
+
+  // Any matching of conflict edges is a lower bound on minimum vertex cover,
+  // therefore n - |matching| is a sound upper bound on the maximum independent
+  // set. A greedy matching may be loose, but it can never overclaim safety.
+  const matched = new Set();
+  const matching = [];
+  for (const id of ordered) {
+    if (matched.has(id)) continue;
+    const peer = [...(byId.get(id)?.parallelConflictSet || [])]
+      .filter(other => ordered.includes(other) && !matched.has(other))
+      .sort()[0];
+    if (!peer) continue;
+    matched.add(id);
+    matched.add(peer);
+    matching.push([id, peer]);
+  }
+  const lowerBound = witness.length;
+  const upperBound = ordered.length - matching.length;
+  return {
+    lowerBound,
+    upperBound,
+    exact: lowerBound === upperBound,
+    width: lowerBound === upperBound ? lowerBound : null,
+    witness,
+    matchingUpperBoundWitness: matching
+  };
 }
 
 export function compileExecutionLeafGraph({ sourceCommit, requirements = [], leaves = [] } = {}) {
@@ -226,8 +249,6 @@ export function compileExecutionLeafGraph({ sourceCommit, requirements = [], lea
     }
   }
 
-  // Parallel conflicts are symmetric facts. If A declares B but B omits A,
-  // scheduling can accidentally run them together depending on traversal order.
   for (const leaf of normalizedLeaves) {
     for (const conflict of leaf.parallelConflictSet) {
       const other = leafById.get(conflict);
@@ -241,8 +262,12 @@ export function compileExecutionLeafGraph({ sourceCommit, requirements = [], lea
   const orphanRequirements = normalizedRequirements.filter(row => row.executionLeafIds.length === 0).map(row => row.id);
   const floatingLeaves = normalizedLeaves.filter(row => row.requirementIds.length === 0).map(row => row.leafId);
   const byId = new Map(normalizedLeaves.map(row => [row.leafId, row]));
-  const waveCapacity = graph.waves.map(wave => conflictFreeWidth(wave, byId));
-  const maxSafeParallelWidth = waveCapacity.reduce((max, row) => Math.max(max, row.width), 0);
+  const waveCapacity = graph.waves.map(wave => conflictFreeBounds(wave, byId));
+  const safeParallelWidthLowerBound = waveCapacity.reduce((max, row) => Math.max(max, row.lowerBound), 0);
+  const safeParallelWidthUpperBound = waveCapacity.reduce((max, row) => Math.max(max, row.upperBound), 0);
+  const safeParallelWidthProvenExact = safeParallelWidthLowerBound === safeParallelWidthUpperBound;
+  const maxSafeParallelWidth = safeParallelWidthProvenExact ? safeParallelWidthLowerBound : null;
+  const widestWitness = waveCapacity.find(row => row.lowerBound === safeParallelWidthLowerBound)?.witness || [];
 
   if (reasons.length) {
     return fail(reasons, {
@@ -253,12 +278,24 @@ export function compileExecutionLeafGraph({ sourceCommit, requirements = [], lea
     });
   }
 
+  const parallelismProof = {
+    lowerBound: safeParallelWidthLowerBound,
+    upperBound: safeParallelWidthUpperBound,
+    provenExact: safeParallelWidthProvenExact,
+    conflictFreeWitness: widestWitness,
+    method: 'GREEDY_INDEPENDENT_SET_LOWER_BOUND_PLUS_CONFLICT_MATCHING_UPPER_BOUND',
+    truthBoundary: safeParallelWidthProvenExact
+      ? 'LOWER_AND_UPPER_BOUNDS_MATCH; MAXIMUM_SAFE_PARALLEL_WIDTH_IS_PROVEN_FOR_THIS_GRAPH.'
+      : 'MAXIMUM_SAFE_PARALLEL_WIDTH_IS_NOT_ESTABLISHED; ONLY_THE_REPORTED_LOWER_AND_UPPER_BOUNDS_ARE_PROVEN.'
+  };
+
   const stable = {
     sourceCommit: head,
     requirements: normalizedRequirements,
     leaves: normalizedLeaves,
     topologicalWaves: graph.waves,
-    criticalPath: graph.criticalPath
+    criticalPath: graph.criticalPath,
+    parallelismProof
   };
 
   return {
@@ -278,11 +315,15 @@ export function compileExecutionLeafGraph({ sourceCommit, requirements = [], lea
     dependencyDepth: graph.dependencyDepth,
     topologicalWaves: graph.waves,
     maxSafeParallelWidth,
+    safeParallelWidthLowerBound,
+    safeParallelWidthUpperBound,
+    safeParallelWidthProvenExact,
     waveCapacity,
+    parallelismProof,
     requirements: normalizedRequirements,
     leaves: normalizedLeaves,
     graphDigest: digest(stable),
-    truthBoundary: 'ZERO_ORPHAN_MEANS_EVERY_DECLARED_REQUIREMENT_HAS_AN_EXPLICIT_OWNER_LEAF_AND_EVERY_LEAF_MAPS_BACK_TO_CANON. IT DOES_NOT MEAN THE LEAVES ARE IMPLEMENTED, EXECUTED, VERIFIED, DEPLOYED OR EXTERNALLY PROVEN.',
+    truthBoundary: 'ZERO_ORPHAN_MEANS_EVERY_DECLARED_REQUIREMENT_HAS_AN_EXPLICIT_OWNER_LEAF_AND_EVERY_LEAF_MAPS_BACK_TO_CANON. IT_DOES_NOT_MEAN_THE_LEAVES_ARE_IMPLEMENTED_EXECUTED_VERIFIED_DEPLOYED_OR_EXTERNALLY_PROVEN; PARALLELISM_IS_ONLY_CALLED_MAXIMUM_WHEN_AN_INDEPENDENT_LOWER_BOUND_MEETS_A_SOUND_UPPER_BOUND.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };

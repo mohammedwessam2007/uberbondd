@@ -122,7 +122,8 @@ export function runtimeTransitionObserverReceiptPreimage(receipt={}){
 export function verifyRuntimeTransitionObserverReceipt(receipt={},assertion={}){
   if(!receipt||receipt.ok!==true||receipt.schemaVersion!==RUNTIME_TRANSITION_OBSERVER_VERSION||receipt.status!=='RUNTIME_TRANSITION_OBSERVER_EXECUTED') return false;
   if(!text(receipt.producerRef)||!SHA40.test(String(receipt.producerSourceCommit||'').toLowerCase())) return false;
-  if(!['DURABLE_WORKLOAD','CUTOVER_ROLLBACK','PROVIDER_LOSS'].includes(receipt.transitionKind)) return false;
+  if(!['DURABLE_WORKLOAD','CUTOVER_ROLLBACK','PROVIDER_LOSS'].includes(receipt.transitionKind)||receipt.transitionKind!==assertion?.receiptClass) return false;
+  if(String(receipt.producerSourceCommit||'').toLowerCase()!==String(assertion?.sourceCommit||'').toLowerCase()) return false;
   if(!SHA256.test(String(receipt.subjectAssertionDigest||'').toLowerCase())||receipt.subjectAssertionDigest!==assertion?.assertionDigest) return false;
   if(identityKey(receipt.runtimeIdentity)!==identityKey(assertion?.runtimeIdentity)) return false;
   if(!validDate(receipt.observedAt)||receipt.exitCode!==0||receipt.independentlyVerified!==true) return false;
@@ -167,6 +168,8 @@ export function verifyRuntimeTransitionReceiptIntegrity(receipt={},kind){
   if(String(receipt.sourceCommit||'').toLowerCase()!==String(assertion.sourceCommit||'').toLowerCase()||identityKey(receipt.runtimeIdentity)!==identityKey(assertion.runtimeIdentity)) return false;
   const observer=receipt.observerReceipt;
   if(!verifyRuntimeTransitionObserverReceipt(observer,assertion)||receipt.observerReceiptDigest!==observer.receiptDigest) return false;
+  if(observer.transitionKind!==kind||String(observer.producerSourceCommit||'').toLowerCase()!==String(receipt.sourceCommit||'').toLowerCase()) return false;
+  if(receipt.observedAt!==observer.observedAt) return false;
   if(!text(receipt.evidenceRef)||receipt.evidenceRef!==observer.evidenceRef||!text(receipt.independentVerifierRef)||receipt.independentVerifierRef!==observer.independentVerifierRef) return false;
   if(!distinctIdentity(receipt.runtimeIdentity,receipt.independentVerifierRef)||!validDate(receipt.observedAt)) return false;
   if(kind==='CUTOVER_ROLLBACK'&&!distinctIdentity(receipt.fromRuntimeIdentity,receipt.toRuntimeIdentity)) return false;

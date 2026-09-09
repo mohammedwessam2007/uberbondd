@@ -17,6 +17,7 @@ test('source establishes provider-neutral self-host controls without claiming ru
   assert.equal(result.properties.runtimeNeedsVercel, false);
   assert.equal(result.properties.runtimeNeedsGitHub, false);
   assert.equal(result.properties.runtimeNeedsPackageRegistry, false);
+  assert.equal(result.properties.runtimeImagePullPolicy, 'NEVER');
   assert.equal(result.properties.releaseBuildNetworkDisabled, true);
   assert.equal(result.properties.releaseSigningAuthoritySeparatedFromRuntime, true);
   assert.equal(result.properties.signedMonotonicReleaseAdmission, true);
@@ -44,12 +45,13 @@ test('sovereign image build is network-isolated and consumes an already-seeded d
   assert.match(ctl,/base image .* is not local/);
 });
 
-test('runtime compose consumes preloaded images and cannot silently build or pull',()=>{
+test('runtime compose consumes only preloaded images and explicitly forbids implicit pulls',()=>{
   const compose=read('docker-compose.sovereign.yml');
   assert.match(compose,/image: \$\{UBERBOND_RELEASE:/);
   assert.match(compose,/\$\{HOST_BIND:-127\.0\.0\.1\}/);
   assert.doesNotMatch(compose,/^\s*build\s*:/m);
-  assert.doesNotMatch(compose,/pull_policy\s*:/);
+  const policies=[...compose.matchAll(/^\s*pull_policy:\s*(\S+)\s*$/gm)].map(m=>m[1]);
+  assert.deepEqual(policies,['never','never','never','never']);
 });
 
 test('signed release admission is anti-replay and pins mutable Docker names to immutable image IDs',()=>{
@@ -62,6 +64,13 @@ test('signed release admission is anti-replay and pins mutable Docker names to i
   assert.match(source,/admitted app image vanished or changed/);
 });
 
+test('bundle verification does not require writing into transferred release media',()=>{
+  const source=read('ops/sovereign/uberbondctl');
+  const verify=source.slice(source.indexOf('verify_bundle(){'),source.indexOf('public_table_count(){'));
+  assert.match(verify,/CONTROL_DIR.*release-attestation/);
+  assert.doesNotMatch(verify,/\$dir\/\.attestation/);
+});
+
 test('failed promotion is backup-before-migration and rollback cannot fabricate source provenance',()=>{
   const source=read('ops/sovereign/uberbondctl');
   const backup=source.indexOf('backup="$(backup_db');
@@ -72,6 +81,17 @@ test('failed promotion is backup-before-migration and rollback cannot fabricate 
   assert.match(source,/PREVIOUS_SOURCE_COMMIT/);
   assert.match(source,/rollback source provenance is not exact/);
   assert.doesNotMatch(source,/rollback-from-/);
+});
+
+test('database restore recreates the database before pg_restore so new-schema leftovers cannot survive',()=>{
+  const source=read('ops/sovereign/uberbondctl');
+  const restore=source.slice(source.indexOf('restore_db(){'),source.indexOf('pack(){'));
+  assert.match(restore,/recreate_database_empty/);
+  assert.match(source,/pg_terminate_backend/);
+  assert.match(source,/dropdb --if-exists/);
+  assert.match(source,/createdb -U uberbond uberbond/);
+  assert.match(restore,/pg_restore --exit-on-error/);
+  assert.match(source,/first promotion requires an empty sovereign database/);
 });
 
 test('explicit rollback snapshots current DB first so rollback itself remains reversible',()=>{
@@ -104,7 +124,7 @@ test('local inbox can auto-deploy a signed monotonic release without a cloud web
   const apply=read('ops/sovereign/uberbond-release-apply.service');
   const watcher=read('ops/sovereign/uberbond-release-apply.path');
   assert.match(apply,/uberbondctl apply-inbox/);
-  assert.match(watcher,/PathChanged=\/var\/lib\/uberbond-control\/inbox\/NEXT_RELEASE/);
+  assert.match(watcher,/PathExists=\/var\/lib\/uberbond-control\/inbox\/NEXT_RELEASE/);
   assert.match(read('ops/sovereign/uberbondctl'),/deploy "\$dir"/);
 });
 

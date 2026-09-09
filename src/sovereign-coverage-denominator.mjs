@@ -1,6 +1,6 @@
 import { COVERAGE_STATES } from './sovereign-coverage-matrix.mjs';
 
-export const SOVEREIGN_COVERAGE_DENOMINATOR_VERSION = 'uberbond.sovereign-coverage-denominator.v1';
+export const SOVEREIGN_COVERAGE_DENOMINATOR_VERSION = 'uberbond.sovereign-coverage-denominator.v1.1';
 
 const stateSet = new Set(COVERAGE_STATES);
 const nni = value => Number.isSafeInteger(Number(value)) && Number(value) >= 0;
@@ -14,6 +14,7 @@ export function verifyCoverageDenominatorConservation(coverage = {}) {
   if (!rows.length) reasons.push('coverage-materialized-rows-required');
   if (!nni(coverage?.counts?.rows)) reasons.push('coverage-row-denominator-required');
   if (!nni(coverage?.counts?.extractedConcepts)) reasons.push('coverage-concept-denominator-required');
+  if (!nni(coverage?.counts?.mergedAliasRows)) reasons.push('coverage-merged-alias-denominator-required');
 
   for (const row of rows) {
     const state = String(row?.currentState || '').trim();
@@ -26,8 +27,11 @@ export function verifyCoverageDenominatorConservation(coverage = {}) {
 
   const declaredRows = Number(coverage?.counts?.rows);
   const extractedConcepts = Number(coverage?.counts?.extractedConcepts);
+  const mergedAliasRows = Number(coverage?.counts?.mergedAliasRows);
   if (nni(declaredRows) && declaredRows !== rows.length) reasons.push('coverage-materialized-rows-must-match-denominator');
-  if (nni(extractedConcepts) && extractedConcepts !== rows.length) reasons.push('coverage-extracted-concepts-must-match-materialized-rows');
+  if (nni(extractedConcepts) && nni(mergedAliasRows) && extractedConcepts !== rows.length + mergedAliasRows) {
+    reasons.push('coverage-extracted-concepts-must-equal-materialized-rows-plus-merged-aliases');
+  }
 
   const declaredByState = coverage?.counts?.byState;
   if (!declaredByState || typeof declaredByState !== 'object' || Array.isArray(declaredByState)) {
@@ -51,8 +55,10 @@ export function verifyCoverageDenominatorConservation(coverage = {}) {
     reasonCodes: [...new Set(reasons)],
     rows: rows.length,
     extractedConcepts: nni(extractedConcepts) ? extractedConcepts : null,
+    mergedAliasRows: nni(mergedAliasRows) ? mergedAliasRows : null,
     declaredRows: nni(declaredRows) ? declaredRows : null,
     observedByState: stableObject(histogram),
-    truthBoundary: 'DENOMINATOR_CONSERVATION_PROVES_ONLY_THAT_CANONICAL_EXTRACTION_MATERIALIZED_ROWS_AND_STATE_ACCOUNTING_DESCRIBE_THE_SAME_FINITE_SET. IT_DOES_NOT_PROVE_IMPLEMENTATION_RUNTIME_OR_EXTERNAL_OUTCOMES.'
+    conservationEquation: 'extractedConcepts = materializedRows + mergedAliasRows',
+    truthBoundary: 'DENOMINATOR_CONSERVATION_PROVES_ONLY_THAT_CANONICAL_EXTRACTION_EQUALS_MATERIALIZED_CANONICAL_ROWS_PLUS_EXPLICITLY_ACCOUNTED_MERGED_ALIASES_AND_THAT_ROW_STATE_ACCOUNTING_DESCRIBES_THE_MATERIALIZED_SET. IT_DOES_NOT_PROVE_IMPLEMENTATION_RUNTIME_OR_EXTERNAL_OUTCOMES.'
   };
 }

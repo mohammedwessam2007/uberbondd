@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { normalizePrivateRecord } from '../src/personal-civilization-core.mjs';
 import { loadPrivateState, savePrivateState } from '../src/personal-civilization-private-operator.mjs';
-import { runPrivateRealityCommand } from '../src/personal-civilization-private-reality-runtime.mjs';
+import { runPrivateRealityCommand } from '../scripts/personal-civilization-private.mjs';
 
 const OWNER = { subject: 'FOUNDER', grant: 'PRIVATE_LIFE_STATE', issuedAt: '2026-09-09T00:00:00.000Z' };
 const KEY = 'a'.repeat(64);

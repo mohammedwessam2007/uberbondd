@@ -84,10 +84,25 @@ function buildContract(row){
   };
 }
 
+function summarizeInvalidContracts(invalid=[]){
+  const familyCounts=new Map();
+  for(const item of invalid){
+    for(const reason of item?.reasonCodes||[]){
+      const family=String(reason).split(':',1)[0];
+      familyCounts.set(family,(familyCounts.get(family)||0)+1);
+    }
+  }
+  return{
+    reasonFamilyHistogram:Object.fromEntries([...familyCounts.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))),
+    sampleInvalidContracts:(invalid||[]).slice(0,25).map(item=>({requirementId:item.requirementId,reasonFamilies:[...new Set((item.reasonCodes||[]).map(reason=>String(reason).split(':',1)[0]))].sort()}))
+  };
+}
+
 const coverage=readJson('artifacts/sovereign/implementation-coverage-matrix.json');
 const contracts=(coverage.rows||[]).map(buildContract);
 const tribunal=compileSemanticRequirementTribunal({coverage,contracts});
-const output={...tribunal,contracts,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Static extraction can propose evidence links; it cannot turn a heading, filename, source presence, test presence or synthetic execution into runtime/external truth.'};
+const diagnostics=summarizeInvalidContracts(tribunal.invalidContracts||[]);
+const output={...tribunal,contracts,diagnostics,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Static extraction can propose evidence links; it cannot turn a heading, filename, source presence, test presence or synthetic execution into runtime/external truth.'};
 mkdirSync(join(root,'artifacts/sovereign'),{recursive:true});writeFileSync(join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'),`${JSON.stringify(output,null,2)}\n`,'utf8');
-console.log(JSON.stringify({ok:tribunal.ok,status:tribunal.status,counts:tribunal.counts,semanticOrphans:tribunal.semanticOrphans?.length||0,floatingContracts:tribunal.floatingContracts?.length||0,invalidContracts:tribunal.invalidContracts?.length||0,output:'artifacts/sovereign/semantic-requirement-tribunal.json'},null,2));
+console.log(JSON.stringify({ok:tribunal.ok,status:tribunal.status,counts:tribunal.counts,semanticOrphans:tribunal.semanticOrphans?.length||0,floatingContracts:tribunal.floatingContracts?.length||0,invalidContracts:tribunal.invalidContracts?.length||0,...diagnostics,output:'artifacts/sovereign/semantic-requirement-tribunal.json'},null,2));
 if(!tribunal.ok)process.exitCode=2;

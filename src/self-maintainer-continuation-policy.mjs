@@ -1,7 +1,7 @@
 import { compileConstraintMutationPlan } from './constraint-mutation-engine.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.3.0';
+export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.3.1';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
@@ -24,7 +24,7 @@ export function decideSelfMaintainerContinuation({
   priorContinuations = [],
   evidenceRefs = []
 } = {}) {
-  const normalizedStatus = text(relayStatus, 80).toUpperCase();
+  const normalizedStatus = text(relayStatus, 120).toUpperCase();
   const objectiveId = text(taskId, 200);
   const base = text(baseRevision, 80);
   const reasons = reasonSet(reasonCodes);
@@ -42,13 +42,13 @@ export function decideSelfMaintainerContinuation({
     });
   }
 
-  if (normalizedStatus === 'ALREADY_PROMOTED_REVIEW_PENDING') {
+  if (normalizedStatus === 'ALREADY_PROMOTED_REVIEW_PENDING' || normalizedStatus === 'VERIFIED_CHANGESET_READY_FOR_SEPARATE_PROMOTION_AUTHORITY') {
     return envelope({
       ok: true,
       status: 'REVIEW_PENDING',
       decision: 'DO_NOT_REIMPLEMENT_OR_REPROMOTE',
       taskId: objectiveId,
-      truthBoundary: 'A REVIEW-PENDING CHANGESET IS ONE ATTEMPT; CLOCK TIME DOES NOT CREATE A NEW ENGINEERING OBJECTIVE'
+      truthBoundary: 'A VERIFIED OR REVIEW-PENDING CHANGESET IS ONE ATTEMPT; CLOCK TIME DOES NOT CREATE A NEW ENGINEERING OBJECTIVE'
     });
   }
 

@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const AUTONOMY_COMMAND_CENTER_CONTROL_VERSION = 'uberbond.autonomy-command-center-control.v1';
+export const AUTONOMY_COMMAND_CENTER_CONTROL_VERSION = 'uberbond.autonomy-command-center-control.v1.1';
 export const AUTONOMY_COMMAND_CENTER_ISSUE = 604;
 export const AUTONOMY_PAUSE_LABEL = 'uberbond-autonomy-paused';
 
@@ -78,6 +78,7 @@ export function statusMarkdown({ status = {}, paused = false, sourceCommit = nul
   const bootstrap = status?.bootstrapAutonomy || {};
   const terminal = status?.terminal || {};
   const graph = status?.graph || {};
+  const release = status?.sovereignRelease || {};
   const terminalEvidenceAvailable = status?.evidence?.terminalRealization?.state === 'AVAILABLE';
   const graphEvidenceAvailable = status?.evidence?.executionGraph?.state === 'AVAILABLE';
   const safe = value => text(value, 300) || 'UNAVAILABLE';
@@ -98,6 +99,8 @@ export function statusMarkdown({ status = {}, paused = false, sourceCommit = nul
     `- **Finite open requirements:** ${measuredCount(bootstrap.finiteOpenRequirementCount, terminalEvidenceAvailable)}`,
     `- **Execution leaves:** ${measuredCount(graph.leafCount, graphEvidenceAvailable)}`,
     `- **Orphans / floating / cycles:** ${measuredCount(graph.orphanRequirementCount, graphEvidenceAvailable)} / ${measuredCount(graph.floatingLeafCount, graphEvidenceAvailable)} / ${measuredCount(graph.dependencyCycleCount, graphEvidenceAvailable)}`,
+    `- **Release handoff:** ${safe(bootstrap.releasePhase || release.releasePhase)}`,
+    `- **Runtime proof phase:** ${safe(bootstrap.runtimePhase || release.runtimePhase)}`,
     `- **Named runtime:** ${safe(terminal.namedRuntimeStatus)}`,
     `- **Observed autonomy:** ${safe(terminal.observedAutonomyStatus)}`,
     `- **Commercial reality:** ${safe(terminal.externalCommercialStatus)}`,
@@ -105,6 +108,6 @@ export function statusMarkdown({ status = {}, paused = false, sourceCommit = nul
     '',
     `Self-completion claim: **${safe(bootstrap.selfCompletionClaim)}**`,
     '',
-    '_Status is read from current repository evidence. Missing evidence stays missing._'
+    '_Status is read from current repository evidence. Missing release/runtime evidence stays missing and never becomes deployment._'
   ].join('\n');
 }

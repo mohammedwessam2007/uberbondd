@@ -13,9 +13,6 @@ const FILES = Object.freeze({
 function scalar(value) {
   return ['string', 'number', 'boolean'].includes(typeof value) ? value : null;
 }
-function count(value) {
-  return Array.isArray(value) ? value.length : null;
-}
 function fixedPath(root, relativePath) {
   const base = path.resolve(root);
   const resolved = path.resolve(base, relativePath);
@@ -77,8 +74,9 @@ function loopState({ maintainer, continuation, terminal, graph }) {
   const continuationStatus = String(continuation?.status || '').toUpperCase();
   const finite = String(terminal.finiteEngineeringClosure || '').toUpperCase();
   const graphClean = graph.orphanRequirementCount === 0 && graph.floatingLeafCount === 0 && graph.dependencyCycleCount === 0;
+  const finiteClosed = new Set(['CLOSED', 'COMPLETE', 'COMPLETED', 'FINITE_ENGINEERING_CLOSED', 'FINITE_ENGINEERING_COMPLETE']).has(finite);
 
-  if (finite.includes('CLOSED') || finite.includes('COMPLETE')) return 'FINITE_ENGINEERING_CLOSED__REALITY_PROOF_REMAINS';
+  if (finiteClosed) return 'FINITE_ENGINEERING_CLOSED__REALITY_PROOF_REMAINS';
   if (/(QUEUED|WAITING|PROMOTED|REVIEW|CANDIDATE|REPAIR|STRATEGY_MUTATION)/.test(maintainerStatus)) return 'SELF_COMPLETION_LOOP_ACTIVE';
   if (/(RUN|RESUME|WAIT|STRATEGY_MUTATION|REVIEW)/.test(continuationStatus)) return 'SELF_COMPLETION_LOOP_ARMED';
   if (graphClean && terminal.status) return 'FINITE_CLOSURE_TRIBUNAL_REQUIRED';
@@ -117,6 +115,6 @@ export async function buildAutonomyCommandCenterStatus({ root = process.cwd(), n
     observedAt: timestamp(maintainer, continuation, documents.terminalRealization.data, documents.executionGraph.data),
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'COMMAND_CENTER OBSERVES AUTONOMY RECEIPTS. IT DOES NOT TURN SOURCE READINESS INTO RUNTIME, CUSTOMER, PAYMENT, LIFE-OUTCOME OR ASI EVIDENCE.'
+    truthBoundary: 'COMMAND CENTER OBSERVES AUTONOMY RECEIPTS. IT DOES NOT TURN SOURCE READINESS INTO RUNTIME, CUSTOMER, PAYMENT, LIFE-OUTCOME OR ASI EVIDENCE.'
   };
 }

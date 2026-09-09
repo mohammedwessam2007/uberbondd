@@ -1,0 +1,150 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { normalizePrivateRecord, deletePrivateRecords, derivedClosure } from '../src/personal-civilization-core.mjs';
+import { compilePrivateRealityCycle } from '../src/personal-civilization-private-reality-cycle.mjs';
+
+const OWNER = { subject: 'FOUNDER', grant: 'PRIVATE_LIFE_STATE', issuedAt: '2026-09-09T00:00:00.000Z' };
+const AT = '2026-09-09T00:00:00.000Z';
+const DEST = '/tmp/uberbond-private-life.json';
+
+const source = () => normalizePrivateRecord({
+  kind: 'LIFE_EVENT', body: 'synthetic private source event', occurredAt: '2026-09-08T23:00:00.000Z'
+}).record;
+
+const scientificExperiment = () => ({
+  founderSelection: { chosenByFounder: true, possibility: 'explore a different working environment', selectedAt: AT, evidenceRef: 'private:synthetic:selection' },
+  requiredCapabilities: ['deep work'],
+  capabilities: [],
+  experience: {
+    uncertainty: 'whether the environment improves deep work',
+    smallestReversibleExperience: 'work for one hour in the alternate environment using the same task',
+    wouldReveal: 'whether focus and friction materially change',
+    wouldFalsify: 'no meaningful difference under matched task conditions',
+    reversible: true, cost: 'none', time: 'one hour', costCents: 0, timeMinutes: 60, effects: []
+  },
+  hypotheses: [
+    { id: 'environment-matters', predictedObservations: ['focus improves', 'friction falls'] },
+    { id: 'environment-does-not-matter', predictedObservations: ['focus unchanged', 'friction unchanged'] }
+  ],
+  budget: { maxCostCents: 0, maxTimeMinutes: 90, maxDeclaredEffects: 0 },
+  voi: {
+    unit: 'decision-loss-points', budgetUnits: 10, currentEvidenceSufficient: false,
+    observe: { canChangeDecision: true, discriminating: true, informationValueUnits: 9, costUnits: 1, delayCostUnits: 1, optionDecayUnits: 0, requiresExternalEffect: false },
+    defer: { informationGainUnits: 1, delayCostUnits: 1, optionDecayUnits: 1, windowRemainsOpen: true }
+  }
+});
+
+const decision = () => ({
+  statement: 'which working environment should I use for focused work',
+  options: [
+    { name: 'current', scores: { meaning: 0.7, financial_cost: 0.2 } },
+    { name: 'alternate', scores: { meaning: 0.8, financial_cost: 0.1 } }
+  ],
+  keyAssumptions: ['same task difficulty'],
+  updateConditions: ['new observed focus evidence']
+});
+
+const choice = () => ({ chosenByFounder: true, option: 'alternate', evidenceRef: 'private:synthetic:choice', chosenAt: AT });
+const forecast = () => ({ probabilities: { yes: 0.6, no: 0.4 }, evidenceCutoff: AT, method: 'bounded personal experiment', assumptions: ['same task difficulty'] });
+
+function base() {
+  const root = source();
+  return { store: [root], root, authorization: OWNER, privateDestination: DEST, sourceRecordIds: [root.id], scientificExperiment: scientificExperiment(), decision: decision(), now: AT };
+}
+
+test('private reality cycle refuses access without founder private-state authority', () => {
+  const input = base();
+  const result = compilePrivateRealityCycle({ ...input, authorization: null });
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 'PCE_PRIVATE_REALITY_FOUNDER_AUTHORITY_REQUIRED');
+});
+
+test('cycle reaches founder choice through existing experiment and decision organs without choosing for founder', () => {
+  const result = compilePrivateRealityCycle(base());
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'PCE_PRIVATE_REALITY_READY_FOR_FOUNDER_CHOICE');
+  assert.equal(result.experiment.status, 'PCE_REVERSIBLE_EXPERIMENT_READY_FOR_FOUNDER_DECISION');
+  assert.equal(result.recordIds.forecast, null);
+  assert.equal(result.recordIds.outcome, null);
+  assert.match(result.truthBoundary, /STOPS BEFORE CHOICE/);
+  assert.equal(result.businessEffectAuthority, 'NONE');
+});
+
+test('explicit founder choice produces a sealed forecast but still refuses to invent an outcome', () => {
+  const result = compilePrivateRealityCycle({ ...base(), founderChoice: choice(), choiceForecast: forecast() });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'PCE_PRIVATE_REALITY_WAITING_FOR_OBSERVED_OUTCOME');
+  assert.match(result.forecast.seal, /^[0-9a-f]{64}$/);
+  assert.ok(result.recordIds.forecast);
+  assert.equal(result.recordIds.outcome, null);
+  assert.match(result.truthBoundary, /NO OUTCOME OR CALIBRATION IS CLAIMED/);
+});
+
+test('AI or provenance-free choice cannot cross the founder-choice boundary', () => {
+  for (const founderChoice of [{ ...choice(), chosenByFounder: false }, { ...choice(), evidenceRef: null }]) {
+    const result = compilePrivateRealityCycle({ ...base(), founderChoice, choiceForecast: forecast() });
+    assert.equal(result.ok, false);
+    assert.equal(result.status, 'PCE_PRIVATE_REALITY_FOUNDER_CHOICE_REQUIRED');
+  }
+});
+
+test('observed outcome closes one calibration loop while keeping outcome separate from decision quality', () => {
+  const result = compilePrivateRealityCycle({
+    ...base(), founderChoice: choice(), choiceForecast: forecast(),
+    observedOutcome: { value: 'yes', observedAt: '2026-10-09T00:00:00.000Z', evidenceRef: 'private:synthetic:observation', availableAtTime: ['same task difficulty'] }
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.status, 'PCE_PRIVATE_REALITY_CYCLE_CLOSED_WITH_OBSERVED_CALIBRATION');
+  assert.equal(result.calibration.score.observed, 'yes');
+  assert.match(result.calibration.separation, /NOT_ON_THE_OUTCOME/);
+  assert.ok(result.recordIds.outcome);
+  assert.equal(result.businessEffectAuthority, 'NONE');
+});
+
+test('the entire reasoning trail is provenance-linked so deleting the source deletes dossier decision forecast and outcome', () => {
+  const input = base();
+  const result = compilePrivateRealityCycle({
+    ...input, founderChoice: choice(), choiceForecast: forecast(),
+    observedOutcome: { value: 'yes', observedAt: '2026-10-09T00:00:00.000Z', evidenceRef: 'private:synthetic:observation', availableAtTime: ['same task difficulty'] }
+  });
+  assert.equal(result.ok, true);
+  const closure = derivedClosure(result.store, [input.root.id]);
+  for (const id of Object.values(result.recordIds)) assert.ok(closure.has(id));
+  const deleted = deletePrivateRecords({ store: result.store, ids: [input.root.id], authorization: OWNER, now: '2026-10-10T00:00:00.000Z' });
+  assert.equal(deleted.ok, true);
+  assert.equal(deleted.remainingCount, 0);
+  assert.match(deleted.guarantee, /NO_RECORD_DERIVED_FROM_A_DELETED_RECORD_REMAINS/);
+});
+
+test('unknown source ids fail closed before any scientific or decision artifact can be emitted', () => {
+  const input = base();
+  const result = compilePrivateRealityCycle({ ...input, sourceRecordIds: ['pcr_missing'] });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('source-private-records-missing'));
+});
+
+test('an effectful life experiment still requires the separate effect-authority gate', () => {
+  const input = base();
+  const effectful = scientificExperiment();
+  effectful.experience = {
+    ...effectful.experience,
+    involvesSpend: true,
+    cost: '$1',
+    costCents: 100,
+    authorization: { subject: 'FOUNDER', grant: 'LIFE_EXPERIENCE_COMMITMENT', issuedAt: AT }
+  };
+  effectful.budget = { ...effectful.budget, maxCostCents: 100 };
+  const result = compilePrivateRealityCycle({ ...input, scientificExperiment: effectful });
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 'PCE_PRIVATE_REALITY_EXPERIMENT_REFUSED');
+  assert.ok(result.reasonCodes.includes('separate-effect-authority-required'));
+});
+
+test('outcome cannot be backdated before the forecast evidence cutoff', () => {
+  const result = compilePrivateRealityCycle({
+    ...base(), founderChoice: choice(), choiceForecast: forecast(),
+    observedOutcome: { value: 'yes', observedAt: '2026-09-08T00:00:00.000Z', evidenceRef: 'private:synthetic:backdated' }
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 'PCE_PRIVATE_REALITY_OUTCOME_NOT_SCORABLE');
+});

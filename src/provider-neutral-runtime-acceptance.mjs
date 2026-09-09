@@ -1,8 +1,11 @@
+import { verifyRuntimeTransitionReceiptIntegrity } from './runtime-transition-receipts.mjs';
+
 export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
 const text=(v,max=500)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
+const norm=(v,max=500)=>text(v,max)?.toLowerCase()||null;
 const uniq=a=>[...new Set(a.filter(Boolean))];
 const fail=(r,e={})=>({ok:false,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_ACCEPTANCE_REFUSED',reasonCodes:uniq(r),businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO},...e});
 
@@ -28,14 +31,16 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(restart.noDuplicateEffectClaim!=='QUEUE_REPLAY_SAFE_WORK_RECLAIMED_ONCE__UNCERTAIN_RECONCILE_WORK_NOT_REPLAYED') reasons.push('restart-no-duplicate-effect-proof-required');
 
   const workload=input.durableWorkloadReceipt||{};
+  if(!verifyRuntimeTransitionReceiptIntegrity(workload,'DURABLE_WORKLOAD')) reasons.push('canonical-durable-workload-receipt-integrity-required');
   if(workload.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-durable-workload-receipt-required');
-  if(text(workload.runtimeIdentity)!==text(host.runtimeIdentity)) reasons.push('durable-workload-runtime-mismatch');
+  if(norm(workload.runtimeIdentity)!==norm(host.runtimeIdentity)) reasons.push('durable-workload-runtime-mismatch');
   if(String(workload.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('durable-workload-source-mismatch');
   if(workload.persistedAcrossRestart!==true) reasons.push('durable-workload-must-survive-restart');
   if(workload.duplicateExternalEffects!==0) reasons.push('durable-workload-must-have-zero-duplicate-effects');
   if(!text(workload.evidenceRef)||!text(workload.independentVerifierRef)) reasons.push('durable-workload-independent-evidence-required');
 
   const cut=input.cutoverRollbackReceipt||{};
+  if(!verifyRuntimeTransitionReceiptIntegrity(cut,'CUTOVER_ROLLBACK')) reasons.push('canonical-cutover-rollback-receipt-integrity-required');
   if(cut.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-cutover-rollback-receipt-required');
   if(String(cut.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('cutover-source-mismatch');
   if(cut.cutoverSucceeded!==true||cut.rollbackExercised!==true||cut.rollbackSucceeded!==true) reasons.push('successful-cutover-and-rollback-rehearsal-required');
@@ -45,9 +50,10 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   const continuity=input.continuityRehearsal||{};
   if(continuity.ok!==true||continuity.status!=='CONTINUITY_REHEARSAL_VERIFIED_WITHIN_DECLARED_SCOPE') reasons.push('verified-century-continuity-rehearsal-required');
   const loss=input.providerLossReceipt||{};
+  if(!verifyRuntimeTransitionReceiptIntegrity(loss,'PROVIDER_LOSS')) reasons.push('canonical-provider-loss-receipt-integrity-required');
   if(loss.evidenceClass!=='OBSERVED_RUNTIME'||loss.receiptClass!=='PROVIDER_LOSS') reasons.push('observed-provider-loss-receipt-required');
   if(loss.primaryUnavailable!==true) reasons.push('provider-loss-primary-unavailable-must-be-observed');
-  if(!text(loss.failedProvider,160)||!text(loss.alternateProvider,160)||loss.failedProvider===loss.alternateProvider) reasons.push('provider-loss-must-cross-provider-boundary');
+  if(!text(loss.failedProvider,160)||!text(loss.alternateProvider,160)||norm(loss.failedProvider,160)===norm(loss.alternateProvider,160)) reasons.push('provider-loss-must-cross-provider-boundary');
   if(loss.duplicateExternalEffects!==0) reasons.push('provider-loss-must-have-zero-duplicate-effects');
   if(!text(loss.evidenceRef)||!text(loss.independentVerifierRef)) reasons.push('provider-loss-independent-evidence-required');
   if(continuity.manifestDigest&&loss.manifestDigest!==continuity.manifestDigest) reasons.push('provider-loss-continuity-manifest-mismatch');
@@ -55,7 +61,7 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   const control=input.controlPlaneReceipt||{};
   if(control.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-control-plane-receipt-required');
   if(String(control.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('control-plane-source-mismatch');
-  if(text(control.runtimeIdentity)!==text(host.runtimeIdentity)) reasons.push('control-plane-runtime-mismatch');
+  if(norm(control.runtimeIdentity)!==norm(host.runtimeIdentity)) reasons.push('control-plane-runtime-mismatch');
   if(control.authenticatedReadSucceeded!==true) reasons.push('authenticated-control-plane-read-required');
   if(control.privateLifeStateExposed!==false) reasons.push('control-plane-must-not-expose-private-life-state');
   if(control.writeAuthorityGranted!==false) reasons.push('control-plane-must-remain-read-only');

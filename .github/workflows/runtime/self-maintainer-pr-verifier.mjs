@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { compileAgentCodeChangeSet, contentSha256 } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_PR_VERIFIER_VERSION = 'uberbond.self-maintainer-pr-verifier.v1';
+export const SELF_MAINTAINER_PR_VERIFIER_VERSION = 'uberbond.self-maintainer-pr-verifier.v1.1';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const BRANCH_PREFIX = 'uberbond/self-maintain/';
@@ -55,6 +55,10 @@ function contentAtBase(baseSha, filePath) {
   return runGit(['show', `${baseSha}:${filePath}`]);
 }
 
+function existingTestMutation(row) {
+  return String(row?.path || '').startsWith('tests/') && row?.status !== 'A';
+}
+
 export async function verifySelfMaintainerPullRequest({ env = process.env } = {}) {
   const baseSha = text(env.UBERBOND_PR_BASE_SHA, 80).toLowerCase();
   const headSha = text(env.UBERBOND_PR_HEAD_SHA, 80).toLowerCase();
@@ -82,6 +86,7 @@ export async function verifySelfMaintainerPullRequest({ env = process.env } = {}
   const rows = parseNameStatus(runGit(['diff', '--name-status', '-z', `${baseSha}..${headSha}`]));
   if (!rows.length) return fail(['nonempty-self-maintainer-diff-required']);
   if (rows.length > 20) return fail(['self-maintainer-change-count-limit']);
+  if (rows.some(existingTestMutation)) return fail(['autonomous-existing-test-mutation-requires-human-review']);
 
   const changes = [];
   for (const row of rows) {
@@ -129,6 +134,7 @@ export async function verifySelfMaintainerPullRequest({ env = process.env } = {}
     canonicalContractVersion: reconstructed.policyVersion,
     canonicalReconstructionId: reconstructed.changeSetId,
     requiredVerification: [...REQUIRED_VERIFICATION],
+    evaluatorMutationPolicy: 'EXISTING_TEST_MODIFY_OR_DELETE_REQUIRES_HUMAN_REVIEW',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     truthBoundary: 'THIS RECEIPT ADMITS THE PR TO READ_ONLY TESTING. IT DOES NOT MERGE, DEPLOY, CONTACT CUSTOMERS, MOVE MONEY, OR ESTABLISH RUNTIME/COMMERCIAL/ASI TRUTH.'

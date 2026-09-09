@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
 import { compileFiniteCompletionDirective, compileFiniteCompletionTask } from './uberbond-finite-completion-seed.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
@@ -124,7 +125,8 @@ export async function runSovereignAutonomyPulse({ env = process.env, repoRoot = 
   return ready;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const invokedAsCli = Boolean(process.argv[1]) && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (invokedAsCli) {
   runSovereignAutonomyPulse().then(result => {
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
     if (!result?.ok) process.exitCode = 2;

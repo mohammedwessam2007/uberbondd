@@ -63,7 +63,13 @@ const RECOVERY=/recover|restart|resume|rollback|retry|restore|revoke|delete|reco
 const STATEFUL=/persist|store|queue|database|postgres|writeFile|scheduler|worker|runtime|checkpoint|state\b|ledger|receipt/i;
 function buildContract(row){
   const requirementClass=inferSemanticRequirementClass(row,null),meaning=meaningFor(row);
-  if(requirementClass==='STRUCTURAL_CONSTITUTION')return{requirementId:row.canonicalId,requirementClass,meaning,structuralRationale:`${row.class||'STRUCTURAL'} is a canonical structure/classification whose executable descendants carry behavior; this row itself must not manufacture implementation credit.`,implementationClaim:false,externalEvidenceRequirement:'NONE_FOR_STRUCTURAL_CONSTITUTION'};
+  if(requirementClass==='OPEN_ENDED_FRONTIER')return{
+    requirementId:row.canonicalId,requirementClass,meaning,
+    frontierDefinition:'Canon explicitly classifies this row as an open-ended far-future conceptual donor. It remains in the no-drop requirement universe and can generate future research, but no finite source merge may claim to complete the frontier.',
+    implementationClaim:false,
+    externalEvidenceRequirement:'ONGOING_RESEARCH_OR_REALITY_EVIDENCE_REQUIRED_FOR_ANY_SPECIFIC_FRONTIER_CLAIM'
+  };
+  if(requirementClass==='STRUCTURAL_CONSTITUTION')return{requirementId:row.canonicalId,requirementClass,meaning,structuralRationale:`${row.class||'STRUCTURAL'} is a canonical structure/classification/review criterion whose executable descendants or human review carry behavior; this row itself must not manufacture implementation credit.`,implementationClaim:false,externalEvidenceRequirement:'NONE_FOR_STRUCTURAL_CONSTITUTION'};
   if(requirementClass==='EXTERNAL')return{requirementId:row.canonicalId,requirementClass,meaning,implementationClaim:false,externalEvidenceRequirement:`Real external or owner-origin evidence required for canonical state ${row.currentState}; repository source cannot satisfy this boundary.`};
   if(requirementClass==='ELAPSED')return{requirementId:row.canonicalId,requirementClass,meaning,implementationClaim:false,externalEvidenceRequirement:'Real elapsed-time longitudinal observation is required; clocks, fixtures and source merges cannot manufacture it.'};
   const names=row.literalNames||[],entry=names.map(n=>manifestByName.get(norm(n))).find(Boolean)||null;
@@ -87,7 +93,7 @@ function buildContract(row){
 const coverage=readJson('artifacts/sovereign/implementation-coverage-matrix.json');
 const contracts=(coverage.rows||[]).map(buildContract);
 const tribunal=compileSemanticRequirementTribunal({coverage,contracts});
-const output={...tribunal,contracts,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Static extraction can propose evidence links; it cannot turn a heading, filename, source presence, test presence or synthetic execution into runtime/external truth.'};
+const output={...tribunal,contracts,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Canonically typed far-future donors and human review criteria stay accounted for without being converted into finite software obligations. An ordinary missing organ remains finite. Static extraction can propose evidence links; it cannot turn a heading, filename, source presence, test presence or synthetic execution into runtime/external truth.'};
 mkdirSync(join(root,'artifacts/sovereign'),{recursive:true});writeFileSync(join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'),`${JSON.stringify(output,null,2)}\n`,'utf8');
 console.log(JSON.stringify({ok:tribunal.ok,status:tribunal.status,counts:tribunal.counts,semanticOrphans:tribunal.semanticOrphans?.length||0,floatingContracts:tribunal.floatingContracts?.length||0,invalidContracts:tribunal.invalidContracts?.length||0,output:'artifacts/sovereign/semantic-requirement-tribunal.json'},null,2));
 if(!tribunal.ok)process.exitCode=2;

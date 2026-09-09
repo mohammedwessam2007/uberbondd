@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION='uberbond.semantic-requirement-tribunal.v1.1';
+export const SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION='uberbond.semantic-requirement-tribunal.v1.2';
 export const SEMANTIC_REQUIREMENT_CLASSES=Object.freeze(['FINITE_BEHAVIOR','STRUCTURAL_CONSTITUTION','EXTERNAL','ELAPSED','OPEN_ENDED_FRONTIER']);
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^(?:sha256:)?[0-9a-f]{64}$/;
@@ -17,6 +17,11 @@ const fail=(reasons,extra={})=>({ok:false,status:'SEMANTIC_REQUIREMENT_TRIBUNAL_
 
 export function inferSemanticRequirementClass(row={},explicit=null){
   if(SEMANTIC_REQUIREMENT_CLASSES.includes(explicit))return explicit;
+  // These two classes come only from reviewed canonical extraction metadata.
+  // They cannot be inferred from a convenient row state or from missing code:
+  // an ordinary SPEC_ONLY organ therefore remains FINITE_BEHAVIOR.
+  if(row.class==='OPEN_ENDED_FRONTIER')return'OPEN_ENDED_FRONTIER';
+  if(row.class==='EVALUATION_CRITERION')return'STRUCTURAL_CONSTITUTION';
   if(row.currentState==='ELAPSED_TIME_REQUIRED')return'ELAPSED';
   if(row.currentState==='EXTERNAL_BLOCKED'||row.currentState==='OWNER_BOUNDARY')return'EXTERNAL';
   if(TERMINAL_STRUCTURAL.has(row.currentState))return'STRUCTURAL_CONSTITUTION';
@@ -109,5 +114,5 @@ export function compileSemanticRequirementTribunal({coverage={},contracts=[]}={}
   if(floatingContracts.length)reasons.push('floating-semantic-contracts-remain');
   if(reasons.length)return fail(reasons,{sourceCommit,semanticOrphans,floatingContracts,invalidContracts:invalid,counts:{requirements:rows.length,contracts:normalizedContracts.length,...classifiedCounts}});
   const receipt={version:SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION,sourceCommit,requirementIds:[...rowSet].sort(),contractDigests:normalizedContracts.map(c=>digest(c)).sort(),classifiedCounts};
-  return{ok:true,status:'SEMANTIC_ZERO_ORPHAN_REQUIREMENTS_VERIFIED',sourceCommit,semanticOrphans:[],floatingContracts:[],invalidContracts:[],counts:{requirements:rows.length,contracts:normalizedContracts.length,...classifiedCounts},requirements:normalized,receipt,receiptDigest:digest(receipt),truthBoundary:'SEMANTIC CLOSURE REQUIRES MEANING-BEARING CANON PLUS BEHAVIOR OR REFUSAL, CALLER, STATE, TEST, HOSTILE FALSIFIER, RECOVERY AND EVIDENCE BOUNDARIES. TERMINAL STRUCTURAL, PARENT-COVERED, DONOR, REFERENCE AND ALIAS ROWS REMAIN ACCOUNTED FOR WITHOUT ENTERING THE FINITE IMPLEMENTATION DENOMINATOR. A HEADING, FILE NAME OR GENERIC VERIFICATION LEAF ALONE EARNS ZERO CREDIT. THIS RECEIPT DOES NOT CREATE RUNTIME OR EXTERNAL EVIDENCE.',businessEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS)};
+  return{ok:true,status:'SEMANTIC_ZERO_ORPHAN_REQUIREMENTS_VERIFIED',sourceCommit,semanticOrphans:[],floatingContracts:[],invalidContracts:[],counts:{requirements:rows.length,contracts:normalizedContracts.length,...classifiedCounts},requirements:normalized,receipt,receiptDigest:digest(receipt),truthBoundary:'SEMANTIC CLOSURE REQUIRES MEANING-BEARING CANON PLUS BEHAVIOR OR REFUSAL, CALLER, STATE, TEST, HOSTILE FALSIFIER, RECOVERY AND EVIDENCE BOUNDARIES. TERMINAL STRUCTURAL, PARENT-COVERED, DONOR, REFERENCE, REVIEW-CRITERION AND ALIAS ROWS REMAIN ACCOUNTED FOR WITHOUT ENTERING THE FINITE IMPLEMENTATION DENOMINATOR. CANONICALLY TYPED OPEN-ENDED FRONTIERS REMAIN ACCOUNTED FOR WITHOUT BEING PRETENDED FINITE. AN ORDINARY MISSING ORGAN CANNOT ACQUIRE EITHER CLASS FROM ITS STATE. A HEADING, FILE NAME OR GENERIC VERIFICATION LEAF ALONE EARNS ZERO CREDIT. THIS RECEIPT DOES NOT CREATE RUNTIME OR EXTERNAL EVIDENCE.',businessEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS)};
 }

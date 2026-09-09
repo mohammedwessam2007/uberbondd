@@ -38,10 +38,29 @@ function validIso(value) {
   return Number.isFinite(ms) ? { iso: new Date(ms).toISOString(), ms } : null;
 }
 
-function normalizeInfluences(values) {
-  return unique((Array.isArray(values) ? values : [])
-    .map(value => text(value, 80)?.toUpperCase())
-    .filter(value => DECLARED_INFLUENCES.has(value)));
+function parseInfluences(values) {
+  const normalized = unique((Array.isArray(values) ? values : [])
+    .map(value => text(value, 80)?.toUpperCase()).filter(Boolean));
+  return {
+    recognized: normalized.filter(value => DECLARED_INFLUENCES.has(value)),
+    unknown: normalized.filter(value => !DECLARED_INFLUENCES.has(value))
+  };
+}
+
+function validateFreshSelfReport({ report, evaluatedAt, maxAgeMs, requiredBooleanField = null } = {}) {
+  const now = validIso(evaluatedAt);
+  if (!now) return { ok: false, reasons: ['explicit-valid-evaluated-at-required'] };
+  if (!Number.isFinite(Number(maxAgeMs)) || Number(maxAgeMs) <= 0) {
+    return { ok: false, reasons: ['positive-present-report-max-age-required'], now };
+  }
+  const stated = validIso(report?.statedAt);
+  const reasons = [];
+  if (report?.source !== 'PRESENT_SELF_REPORT') reasons.push('present-self-report-required');
+  if (requiredBooleanField && report?.[requiredBooleanField] !== true) reasons.push('explicit-present-endorsement-required');
+  if (!stated) reasons.push('valid-present-report-time-required');
+  if (stated && stated.ms > now.ms) reasons.push('future-dated-present-report-refused');
+  if (stated && now.ms - stated.ms > Number(maxAgeMs)) reasons.push('stale-present-report-refused');
+  return { ok: reasons.length === 0, reasons, now, stated };
 }
 
 /**
@@ -56,27 +75,18 @@ export function verifyPresentEndorsement({ provenance, endorsement, evaluatedAt,
   const preference = text(provenance.preference, 500);
   if (!preference) return fail(['canonical-preference-required']);
 
-  const now = validIso(evaluatedAt);
-  if (!now) return fail(['explicit-valid-evaluated-at-required']);
-  if (!Number.isFinite(Number(maxAgeMs)) || Number(maxAgeMs) <= 0) return fail(['positive-endorsement-max-age-required']);
-
-  const stated = validIso(endorsement?.statedAt);
-  const reasons = [];
-  if (endorsement?.source !== 'PRESENT_SELF_REPORT') reasons.push('present-self-report-required');
-  if (endorsement?.explicitlyEndorsed !== true) reasons.push('explicit-present-endorsement-required');
+  const fresh = validateFreshSelfReport({ report: endorsement, evaluatedAt, maxAgeMs, requiredBooleanField: 'explicitlyEndorsed' });
+  const reasons = [...fresh.reasons];
   if (text(endorsement?.preference, 500) !== preference) reasons.push('endorsement-preference-mismatch');
-  if (!stated) reasons.push('valid-endorsement-time-required');
-  if (stated && stated.ms > now.ms) reasons.push('future-dated-endorsement-refused');
-  if (stated && now.ms - stated.ms > Number(maxAgeMs)) reasons.push('stale-present-endorsement-refused');
+  if (reasons.length) return fail(reasons, { preference, evaluatedAt: fresh.now?.iso || null });
 
-  if (reasons.length) return fail(reasons, { preference, evaluatedAt: now.iso });
   return {
     ok: true,
     status: 'FRESH_PRESENT_ENDORSEMENT_VERIFIED',
     preference,
-    statedAt: stated.iso,
-    evaluatedAt: now.iso,
-    ageMs: now.ms - stated.ms,
+    statedAt: fresh.stated.iso,
+    evaluatedAt: fresh.now.iso,
+    ageMs: fresh.now.ms - fresh.stated.ms,
     authenticityClaim: 'NONE',
     recommendationAuthority: 'NONE',
     choiceAuthority: 'NONE',
@@ -106,8 +116,13 @@ export function assessVolitionalIntegrity({
   const preference = text(provenance.preference, 500);
   if (!preference) return fail(['canonical-preference-required']);
 
+  const parsedInfluences = parseInfluences(declaredInfluences);
+  if (parsedInfluences.unknown.length) {
+    return fail(['unknown-declared-influence-refused'], { unknownInfluences: parsedInfluences.unknown.sort() });
+  }
+
   const origins = unique(provenance.origins).sort();
-  const influences = normalizeInfluences(declaredInfluences).sort();
+  const influences = parsedInfluences.recognized.sort();
   const consequential = highStakes === true || practicallyIrreversible === true;
   const pressureOrigin = origins.some(origin => PRESSURE_ORIGINS.has(origin));
   const declaredPressure = influences.length > 0;
@@ -153,9 +168,13 @@ export function detectPreferenceFeedbackLoop({ provenance, recommendationRefs = 
   if (!provenance?.ok || provenance?.status !== 'PROVENANCE_TRACED') {
     return fail(['canonical-preference-provenance-required']);
   }
+  const parsedInfluences = parseInfluences(declaredInfluences);
+  if (parsedInfluences.unknown.length) {
+    return fail(['unknown-declared-influence-refused'], { unknownInfluences: parsedInfluences.unknown.sort() });
+  }
   const recommendations = unique(recommendationRefs.map(value => text(value, 300))).sort();
   const behavior = unique(behaviorEvidenceRefs.map(value => text(value, 300))).sort();
-  const influences = normalizeInfluences(declaredInfluences);
+  const influences = parsedInfluences.recognized;
   const systemInfluenced = influences.includes('AI_SUGGESTION') || influences.includes('BEHAVIORAL_INFERENCE');
   const feedbackPossible = systemInfluenced && recommendations.length > 0 && behavior.length > 0;
   return {
@@ -171,13 +190,19 @@ export function detectPreferenceFeedbackLoop({ provenance, recommendationRefs = 
 }
 
 /** Explicit present choice terminates model override. It grants no external effect. */
-export function presentWillBoundary({ presentChoice, modelRecommendation = null } = {}) {
-  const choice = text(presentChoice, 80)?.toUpperCase();
-  if (!['CHOOSE', 'DO_NOT_CHOOSE', 'DEFER'].includes(choice)) return fail(['explicit-present-choice-required']);
+export function presentWillBoundary({ presentChoice, modelRecommendation = null, evaluatedAt, maxAgeMs = MAX_ENDORSEMENT_AGE_MS } = {}) {
+  const fresh = validateFreshSelfReport({ report: presentChoice, evaluatedAt, maxAgeMs });
+  const choice = text(presentChoice?.stance, 80)?.toUpperCase();
+  const reasons = [...fresh.reasons];
+  if (!['CHOOSE', 'DO_NOT_CHOOSE', 'DEFER'].includes(choice)) reasons.push('explicit-present-choice-required');
+  if (reasons.length) return fail(reasons);
+
   return {
     ok: true,
     status: choice === 'DO_NOT_CHOOSE' ? 'PRESENT_WILL_VETO' : choice === 'DEFER' ? 'PRESENT_WILL_DEFERS' : 'PRESENT_WILL_CHOOSES',
     presentChoice: choice,
+    statedAt: fresh.stated.iso,
+    evaluatedAt: fresh.now.iso,
     modelRecommendation: text(modelRecommendation, 500),
     modelMayOverride: false,
     effectMayExecuteFromThisReceipt: false,

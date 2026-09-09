@@ -18,42 +18,24 @@ function git(args, { trim = true } = {}) {
 }
 
 function readJson(relative) {
-  try {
-    return JSON.parse(readFileSync(join(root, relative), 'utf8'));
-  } catch {
-    return {};
-  }
+  try { return JSON.parse(readFileSync(join(root, relative), 'utf8')); }
+  catch { return {}; }
 }
 
 function run(command, args) {
-  const result = spawnSync(command, args, {
-    cwd: root,
-    env: process.env,
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'pipe']
-  });
+  const result = spawnSync(command, args, { cwd: root, env: process.env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
   if (result.stdout) process.stdout.write(result.stdout);
   if (result.stderr) process.stderr.write(result.stderr);
-  return {
-    command: [command, ...args].join(' '),
-    exitCode: result.status ?? 1,
-    started: !result.error,
-    error: result.error ? String(result.error.message || result.error) : null
-  };
+  return { command: [command, ...args].join(' '), exitCode: result.status ?? 1, started: !result.error, error: result.error ? String(result.error.message || result.error) : null };
 }
 
 export function parseGitPorcelainPaths(porcelain = '') {
   return String(porcelain).split('\n').filter(Boolean).map(line => {
-    // `git status --porcelain` reserves columns 0-1 for XY status and column 2
-    // for the separator. Do not trim the whole command output first: a first
-    // line beginning with " M" would lose its leading status column and the
-    // path parser would amputate the first filename character.
     const path = line.slice(3).trim();
     const rename = path.includes(' -> ') ? path.split(' -> ').at(-1) : path;
     return rename;
   }).filter(Boolean);
 }
-
 function dirtyPaths() {
   const porcelain = git(['status', '--porcelain'], { trim: false });
   if (porcelain === null) return null;
@@ -63,61 +45,27 @@ function dirtyPaths() {
 export function executeCurrentTruthRegeneration() {
   const headSha = git(['rev-parse', 'HEAD']);
   const before = dirtyPaths();
-  if (!headSha || before === null) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['git-head-and-status-required'],
-      businessEffectAuthority: 'NONE'
-    };
-  }
-  if (before.length) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['clean-source-checkout-required-before-regeneration'],
-      dirtyPathsBefore: before,
-      businessEffectAuthority: 'NONE'
-    };
-  }
+  if (!headSha || before === null) return { ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['git-head-and-status-required'],businessEffectAuthority:'NONE' };
+  if (before.length) return { ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['clean-source-checkout-required-before-regeneration'],dirtyPathsBefore:before,businessEffectAuthority:'NONE' };
 
   const readinessRun = run('node', ['scripts/system-readiness.mjs']);
-  if (readinessRun.exitCode !== 0) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['readiness-generator-failed'],
-      generatorResults: { readiness: readinessRun },
-      businessEffectAuthority: 'NONE'
-    };
-  }
+  if (readinessRun.exitCode !== 0) return { ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['readiness-generator-failed'],generatorResults:{readiness:readinessRun},businessEffectAuthority:'NONE' };
 
   const coverageRun = run('node', ['scripts/sovereign-coverage-matrix.mjs']);
-  if (coverageRun.exitCode !== 0) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['coverage-generator-failed'],
-      generatorResults: { readiness: readinessRun, coverage: coverageRun },
-      businessEffectAuthority: 'NONE'
-    };
-  }
+  if (coverageRun.exitCode !== 0) return { ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['coverage-generator-failed'],generatorResults:{readiness:readinessRun,coverage:coverageRun},businessEffectAuthority:'NONE' };
+
+  const leafGraphRun = run('node', ['scripts/canonical-execution-leaf-materializer.mjs']);
+  if (leafGraphRun.exitCode !== 0) return { ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['canonical-leaf-graph-generator-failed'],generatorResults:{readiness:readinessRun,coverage:coverageRun,leafGraph:leafGraphRun},businessEffectAuthority:'NONE' };
 
   const readiness = readJson('artifacts/system-readiness.json');
   const coverage = readJson('artifacts/sovereign/implementation-coverage-matrix.json');
+  const leafGraph = readJson('artifacts/sovereign/canonical-execution-leaf-graph.json');
   const freeze = buildCurrentRealityFreeze({ rootDir: root });
   const after = dirtyPaths();
 
   return verifyCurrentTruthRegeneration({
-    headSha,
-    readiness,
-    coverage,
-    freeze,
-    dirtyPaths: after || [],
-    generatorResults: {
-      readiness: readinessRun,
-      coverage: coverageRun
-    }
+    headSha, readiness, coverage, leafGraph, freeze, dirtyPaths: after || [],
+    generatorResults: { readiness: readinessRun, coverage: coverageRun, leafGraph: leafGraphRun }
   });
 }
 

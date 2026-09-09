@@ -18,7 +18,7 @@ function adapter(overrides = {}) {
     async restore(url, dump) { calls.push(['restore', url, dump.sha256]); return { exitCode: 0 }; },
     async boundedReadWrite(url) { calls.push(['bounded', url]); return { ok: true, rolledBack: true }; },
     async dropIsolatedDatabase(url, name) { calls.push(['drop', url, name]); return { ok: true }; },
-    async cleanupDump(dump) { calls.push(['cleanupDump', dump.path]); }
+    async cleanupDump(dump) { calls.push(['cleanupDump', dump.path]); return { ok: true }; }
   };
   return Object.assign(base, overrides);
 }
@@ -42,7 +42,7 @@ test('database identity excludes credentials while binding host port and databas
   assert.notEqual(identity, databaseIdentity('postgresql://other:other@example.test:5432/another'));
 });
 
-test('observed dump isolated restore fingerprint and rollback produce observer-only receipt', async () => {
+test('observed dump isolated restore fingerprint rollback and artifact cleanup produce observer-only receipt', async () => {
   const a = adapter();
   const result = await runPostgresBackupRestoreRehearsal(input(a));
   assert.equal(result.ok, true, JSON.stringify(result));
@@ -50,6 +50,7 @@ test('observed dump isolated restore fingerprint and rollback produce observer-o
   assert.equal(result.independentlyVerified, false);
   assert.equal(result.independentVerifierRef, null);
   assert.equal(result.c23RestoreReceipt, null);
+  assert.equal(result.backupArtifactCleanupVerified, true);
   assert.equal(result.businessEffectAuthority, 'NONE');
   assert.deepEqual(a.calls.map(row => row[0]), ['fingerprint', 'dump', 'create', 'restore', 'fingerprint', 'bounded', 'fingerprint', 'drop', 'cleanupDump']);
   assert.equal(JSON.stringify(result).includes('secret'), false);
@@ -84,6 +85,12 @@ test('failed isolated cleanup prevents a positive receipt', async () => {
   assert.ok(result.reasonCodes.includes('isolated-restore-cleanup-required'));
 });
 
+test('failed dump cleanup prevents a positive receipt and cannot leave a successful cleanup claim', async () => {
+  const result = await runPostgresBackupRestoreRehearsal(input(adapter({ async cleanupDump() { throw new Error('dump cleanup failed'); } })));
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('backup-artifact-cleanup-required'));
+});
+
 test('failed pg_restore still drops the isolated database and cleans dump', async () => {
   const a = adapter({ async restore(url, dump) { a.calls.push(['restore', url, dump.sha256]); return { exitCode: 1 }; } });
   const result = await runPostgresBackupRestoreRehearsal(input(a));
@@ -91,6 +98,14 @@ test('failed pg_restore still drops the isolated database and cleans dump', asyn
   assert.ok(result.reasonCodes.includes('observed-successful-pg-restore-required'));
   assert.ok(a.calls.some(row => row[0] === 'drop'));
   assert.ok(a.calls.some(row => row[0] === 'cleanupDump'));
+});
+
+test('failed pg_restore plus failed dump cleanup reports both causal failures', async () => {
+  const a = adapter({ async restore() { return { exitCode: 1 }; }, async cleanupDump() { throw new Error('cleanup failed'); } });
+  const result = await runPostgresBackupRestoreRehearsal(input(a));
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('observed-successful-pg-restore-required'));
+  assert.ok(result.reasonCodes.includes('backup-artifact-cleanup-failed'));
 });
 
 test('unsafe caller-chosen restore database name is refused before any database call', async () => {
@@ -102,9 +117,11 @@ test('unsafe caller-chosen restore database name is refused before any database 
 });
 
 test('missing adapter method fails closed rather than silently skipping a proof step', async () => {
-  const a = adapter();
-  delete a.restore;
-  const result = await runPostgresBackupRestoreRehearsal(input(a));
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('adapter-restore-required'));
+  for (const method of ['restore','cleanupDump']) {
+    const a = adapter();
+    delete a[method];
+    const result = await runPostgresBackupRestoreRehearsal(input(a));
+    assert.equal(result.ok, false);
+    assert.ok(result.reasonCodes.includes(`adapter-${method}-required`));
+  }
 });

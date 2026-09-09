@@ -19,17 +19,20 @@ const peerDonorsPath = args.get('--peer-donors') ? resolve(root, String(args.get
 const outputPath = args.get('--output') ? resolve(root, String(args.get('--output'))) : null;
 const maxCandidates = args.get('--max-candidates') == null ? 50 : Number(args.get('--max-candidates'));
 
-async function readJson(path, label) {
-  if (!path) throw new Error(`${label}-path-required`);
+async function readJson(path) {
   const raw = await readFile(path, 'utf8');
   return JSON.parse(raw);
 }
 
 try {
+  if (!candidatePath) throw new Error('candidate-path-required');
+  if (!extractionPath) throw new Error('extraction-path-required');
+  if (!peerDonorsPath) throw new Error('peer-donors-path-required');
+
   const [gamechangerCandidate, extractedMechanism, peerDonorsDoc] = await Promise.all([
-    readJson(candidatePath, 'candidate'),
-    readJson(extractionPath, 'extraction'),
-    readJson(peerDonorsPath, 'peer-donors')
+    readJson(candidatePath),
+    readJson(extractionPath),
+    readJson(peerDonorsPath)
   ]);
   const peerDonors = Array.isArray(peerDonorsDoc) ? peerDonorsDoc : peerDonorsDoc?.donors;
   const result = compileGamechangerIntoGenesis({

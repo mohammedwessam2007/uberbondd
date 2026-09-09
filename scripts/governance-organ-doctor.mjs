@@ -36,11 +36,10 @@ const organs = Object.freeze([
 ]);
 
 function revisionIdentity(namespace) {
-  const versions = Object.entries(namespace)
+  return Object.entries(namespace)
     .filter(([key, value]) => /(?:VERSION|STATUS)$/.test(key) && typeof value === 'string')
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([key, value]) => ({ key, value }));
-  return versions;
 }
 
 export function inspectGovernanceOrgans() {
@@ -51,12 +50,20 @@ export function inspectGovernanceOrgans() {
   }));
 
   const empty = rows.filter(row => row.exportedBindings === 0).map(row => row.id);
-  if (empty.length) {
+  const missingRevisionIdentity = rows
+    .filter(row => row.revisionIdentity.length === 0)
+    .map(row => row.id);
+
+  if (empty.length || missingRevisionIdentity.length) {
+    const reasonCodes = [];
+    if (empty.length) reasonCodes.push('governance-organ-export-surface-missing');
+    if (missingRevisionIdentity.length) reasonCodes.push('governance-organ-revision-identity-missing');
     return {
       ok: false,
       status: 'GOVERNANCE_ORGAN_DOCTOR_REFUSED',
-      reasonCodes: ['governance-organ-export-surface-missing'],
+      reasonCodes,
       emptyOrgans: empty,
+      missingRevisionIdentity,
       businessEffectAuthority: 'NONE',
       externalEffectAuthority: 'NONE'
     };

@@ -4,6 +4,7 @@ import { compileGenesisMechanisms } from '../src/genesis-mechanism-compiler.mjs'
 import { compileGenesisSelfImprovementAdmission } from '../src/genesis-self-improvement-bridge.mjs';
 
 const BASE='d6a8020f09890a671beebf5aa907882546b2294f';
+const EVALUATED_AT='2026-09-09T01:00:00.000Z';
 const donors=(suffix='')=>[
   {
     mechanismId:'observed-routing',domain:'queue-systems',does:'verified work routes to idle capacity',exploits:'verified capacity sits idle',
@@ -24,6 +25,7 @@ const candidateId=(rows=donors())=>{
 };
 const request=(rows=donors())=>({
   donors:rows,
+  evaluatedAt:EVALUATED_AT,
   candidateId:candidateId(rows),
   predictedObservations:['the reproduced false-positive fixture is refused','the existing valid fixture remains admissible'],
   falsifier:'the recombined mechanism increases valid-candidate rejection without reducing the reproduced false positive',
@@ -42,6 +44,7 @@ test('canonical GENESIS candidate enters existing C16 causal admission without g
   assert.equal(out.status,'GENESIS_MECHANISM_CAUSALLY_ADMISSIBLE_FOR_EXISTING_SELF_IMPROVEMENT_PIPELINE');
   assert.match(out.genesisBindingDigest,/^[0-9a-f]{64}$/);
   assert.match(out.bridgeDigest,/^[0-9a-f]{64}$/);
+  assert.equal(out.genesisBinding.evaluatedAt,EVALUATED_AT);
   assert.equal(out.causalAdmission.ok,true);
   assert.equal(out.causalAdmission.selectedHypothesis.mechanismId,out.genesisBinding.candidateId);
   assert.equal(out.maintainerTask.genesisCandidateId,out.genesisBinding.candidateId);

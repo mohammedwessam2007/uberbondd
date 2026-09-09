@@ -1,11 +1,14 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION='uberbond.semantic-requirement-tribunal.v1';
+export const SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION='uberbond.semantic-requirement-tribunal.v1.1';
 export const SEMANTIC_REQUIREMENT_CLASSES=Object.freeze(['FINITE_BEHAVIOR','STRUCTURAL_CONSTITUTION','EXTERNAL','ELAPSED','OPEN_ENDED_FRONTIER']);
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^(?:sha256:)?[0-9a-f]{64}$/;
-const TERMINAL_STRUCTURAL=new Set(['STRUCTURAL_NOT_A_BUILD_TARGET','REFERENCE_ONLY_BY_CANON','HISTORICAL_DONOR_PRESERVED','ALIAS_OF_CANONICAL_CONCEPT','SUPERSEDED_WITH_PRESERVED_DONATION']);
+const TERMINAL_STRUCTURAL=new Set([
+  'STRUCTURAL_NOT_A_BUILD_TARGET','COVERED_BY_PARENT_ORGAN','REFERENCE_ONLY_BY_CANON','HISTORICAL_DONOR_PRESERVED',
+  'ALIAS_OF_CANONICAL_CONCEPT','SUPERSEDED_WITH_PRESERVED_DONATION','DRAFT_DONOR'
+]);
 const text=(v,max=4000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 const uniq=v=>[...new Set((Array.isArray(v)?v:[]).map(x=>text(x,1000)).filter(Boolean))].sort();
 const stable=v=>Array.isArray(v)?v.map(stable):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v;
@@ -106,5 +109,5 @@ export function compileSemanticRequirementTribunal({coverage={},contracts=[]}={}
   if(floatingContracts.length)reasons.push('floating-semantic-contracts-remain');
   if(reasons.length)return fail(reasons,{sourceCommit,semanticOrphans,floatingContracts,invalidContracts:invalid,counts:{requirements:rows.length,contracts:normalizedContracts.length,...classifiedCounts}});
   const receipt={version:SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION,sourceCommit,requirementIds:[...rowSet].sort(),contractDigests:normalizedContracts.map(c=>digest(c)).sort(),classifiedCounts};
-  return{ok:true,status:'SEMANTIC_ZERO_ORPHAN_REQUIREMENTS_VERIFIED',sourceCommit,semanticOrphans:[],floatingContracts:[],invalidContracts:[],counts:{requirements:rows.length,contracts:normalizedContracts.length,...classifiedCounts},requirements:normalized,receipt,receiptDigest:digest(receipt),truthBoundary:'SEMANTIC CLOSURE REQUIRES MEANING-BEARING CANON PLUS BEHAVIOR OR REFUSAL, CALLER, STATE, TEST, HOSTILE FALSIFIER, RECOVERY AND EVIDENCE BOUNDARIES. A HEADING, FILE NAME OR GENERIC VERIFICATION LEAF ALONE EARNS ZERO CREDIT. THIS RECEIPT DOES NOT CREATE RUNTIME OR EXTERNAL EVIDENCE.',businessEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS)};
+  return{ok:true,status:'SEMANTIC_ZERO_ORPHAN_REQUIREMENTS_VERIFIED',sourceCommit,semanticOrphans:[],floatingContracts:[],invalidContracts:[],counts:{requirements:rows.length,contracts:normalizedContracts.length,...classifiedCounts},requirements:normalized,receipt,receiptDigest:digest(receipt),truthBoundary:'SEMANTIC CLOSURE REQUIRES MEANING-BEARING CANON PLUS BEHAVIOR OR REFUSAL, CALLER, STATE, TEST, HOSTILE FALSIFIER, RECOVERY AND EVIDENCE BOUNDARIES. TERMINAL STRUCTURAL, PARENT-COVERED, DONOR, REFERENCE AND ALIAS ROWS REMAIN ACCOUNTED FOR WITHOUT ENTERING THE FINITE IMPLEMENTATION DENOMINATOR. A HEADING, FILE NAME OR GENERIC VERIFICATION LEAF ALONE EARNS ZERO CREDIT. THIS RECEIPT DOES NOT CREATE RUNTIME OR EXTERNAL EVIDENCE.',businessEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS)};
 }

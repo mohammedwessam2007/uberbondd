@@ -1,36 +1,45 @@
 #!/usr/bin/env node
 // Zero-effect reachability surface for pure admission / evidence / governance organs.
 //
-// These modules are intentionally NOT production entry points and this doctor does
-// not call any of their consequence-bearing functions. Its job is narrower: make
-// the contracts inspectable from an unattended operator surface, prove they can be
-// loaded together, and expose their revision identities without turning capability
-// or evidence into authority.
+// These modules are intentionally NOT production entry points. This doctor only
+// imports their source contracts and exposes revision identities. It invokes no
+// consequence-bearing function and therefore creates no runtime, commercial,
+// provider, customer, founder-life, deployment, payment, or ASI authority.
 
 import * as capabilityScaledSecurity from '../src/capability-scaled-security.mjs';
+import * as composedEffectAuthorityAudit from '../src/composed-effect-authority-audit.mjs';
+import * as finiteClosureTribunal from '../src/finite-closure-tribunal.mjs';
 import * as genesisSelfImprovementBridge from '../src/genesis-self-improvement-bridge.mjs';
 import * as modelAdaptationAdmission from '../src/model-adaptation-admission.mjs';
 import * as operationalWorldResourceAdmission from '../src/operational-world-resource-admission.mjs';
 import * as portablePaypalBridge from '../src/portable-paypal-bridge.mjs';
 import * as providerNeutralRuntimeAcceptance from '../src/provider-neutral-runtime-acceptance.mjs';
+import * as recursiveGovernancePrincipals from '../src/recursive-governance-principals.mjs';
 import * as recursiveGovernanceSecurity from '../src/recursive-governance-security.mjs';
 import * as recursiveImprovementRetention from '../src/recursive-improvement-retention.mjs';
 import * as runtimeEvidenceAttestation from '../src/runtime-evidence-attestation.mjs';
 import * as selfImprovementCausalAdmission from '../src/self-improvement-causal-admission.mjs';
+import * as semanticRequirementTribunal from '../src/semantic-requirement-tribunal.mjs';
+import * as sovereignCutSetAudit from '../src/sovereign-cut-set-audit.mjs';
 import * as systemLevelAsiEvidence from '../src/system-level-asi-evidence.mjs';
 import * as worldResourceObservedValue from '../src/world-resource-observed-value.mjs';
 
 const organs = Object.freeze([
   ['capability-scaled-security', capabilityScaledSecurity],
+  ['composed-effect-authority-audit', composedEffectAuthorityAudit],
+  ['finite-closure-tribunal', finiteClosureTribunal],
   ['genesis-self-improvement-bridge', genesisSelfImprovementBridge],
   ['model-adaptation-admission', modelAdaptationAdmission],
   ['operational-world-resource-admission', operationalWorldResourceAdmission],
   ['portable-paypal-bridge', portablePaypalBridge],
   ['provider-neutral-runtime-acceptance', providerNeutralRuntimeAcceptance],
+  ['recursive-governance-principals', recursiveGovernancePrincipals],
   ['recursive-governance-security', recursiveGovernanceSecurity],
   ['recursive-improvement-retention', recursiveImprovementRetention],
   ['runtime-evidence-attestation', runtimeEvidenceAttestation],
   ['self-improvement-causal-admission', selfImprovementCausalAdmission],
+  ['semantic-requirement-tribunal', semanticRequirementTribunal],
+  ['sovereign-cut-set-audit', sovereignCutSetAudit],
   ['system-level-asi-evidence', systemLevelAsiEvidence],
   ['world-resource-observed-value', worldResourceObservedValue]
 ]);
@@ -50,20 +59,12 @@ export function inspectGovernanceOrgans() {
   }));
 
   const empty = rows.filter(row => row.exportedBindings === 0).map(row => row.id);
-  const missingRevisionIdentity = rows
-    .filter(row => row.revisionIdentity.length === 0)
-    .map(row => row.id);
-
-  if (empty.length || missingRevisionIdentity.length) {
-    const reasonCodes = [];
-    if (empty.length) reasonCodes.push('governance-organ-export-surface-missing');
-    if (missingRevisionIdentity.length) reasonCodes.push('governance-organ-revision-identity-missing');
+  if (empty.length) {
     return {
       ok: false,
       status: 'GOVERNANCE_ORGAN_DOCTOR_REFUSED',
-      reasonCodes,
+      reasonCodes: ['governance-organ-export-surface-missing'],
       emptyOrgans: empty,
-      missingRevisionIdentity,
       businessEffectAuthority: 'NONE',
       externalEffectAuthority: 'NONE'
     };

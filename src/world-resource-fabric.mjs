@@ -1,6 +1,11 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
-import { normalizeCapability, normalizeCapabilityAtom } from './capability-genome-schema.mjs';
+import {
+  CAPABILITY_DATA_CLASSES,
+  CAPABILITY_SIDE_EFFECT_CLASSES,
+  normalizeCapability,
+  normalizeCapabilityAtom
+} from './capability-genome-schema.mjs';
 import { admitCapability } from './capability-genome-admission.mjs';
 
 export const WORLD_RESOURCE_FABRIC_VERSION = 'uberbond.world-resource-fabric.v1';
@@ -14,6 +19,7 @@ export const HUMAN_RESOURCE_TYPES = Object.freeze(['HUMAN_EXPERT']);
 const SHA256 = /^[a-f0-9]{64}$/;
 const ID = /^[a-z0-9][a-z0-9._:/-]{1,199}$/;
 const EXECUTABLE_LICENSE_DENY = new Set(['UNKNOWN', 'NOASSERTION', 'AGPL-3.0', 'GPL-3.0', 'SSPL-1.0']);
+const WORLD_PRIVACY_CLASSES = new Set([...CAPABILITY_DATA_CLASSES, 'PRIVATE_FOUNDER']);
 const ZERO = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const text = (value, max = 1000) => { const out = String(value ?? '').trim(); return out && out.length <= max ? out : null; };
@@ -44,7 +50,7 @@ function normalizeEvidence(item, expectedClaimClass = null) {
   return { ref, observedAt, claimClass, subjectHash, verifierId: verifierId || null };
 }
 function sourceTypeFor(type) { if (type === 'API') return 'API'; if (type === 'COMPUTE') return 'RUNTIME'; if (type === 'AUTHORIZED_APP') return 'PLUGIN'; if (type === 'PROFESSIONAL_SERVICE') return 'HOSTED_SERVICE'; return 'NATIVE'; }
-function dataClassFor(privacyClasses) { if (privacyClasses.includes('CREDENTIAL')) return 'CREDENTIAL'; if (privacyClasses.includes('PRIVATE_CUSTOMER')) return 'PRIVATE_CUSTOMER'; if (privacyClasses.includes('SOURCE_CODE')) return 'SOURCE_CODE'; if (privacyClasses.includes('INTERNAL_NON_SECRET')) return 'INTERNAL_NON_SECRET'; return 'PUBLIC'; }
+function dataClassFor(privacyClasses) { if (privacyClasses.includes('CREDENTIAL')) return 'CREDENTIAL'; if (privacyClasses.includes('PAYMENT_RAW')) return 'PAYMENT_RAW'; if (privacyClasses.includes('PRIVATE_CUSTOMER')) return 'PRIVATE_CUSTOMER'; if (privacyClasses.includes('SOURCE_CODE')) return 'SOURCE_CODE'; if (privacyClasses.includes('INTERNAL_NON_SECRET')) return 'INTERNAL_NON_SECRET'; return 'PUBLIC'; }
 function normalizeAtoms(rawAtoms) { if (!Array.isArray(rawAtoms) || rawAtoms.length === 0 || rawAtoms.length > 128) return null; const atoms=[]; for(const raw of rawAtoms){const result=normalizeCapabilityAtom(raw);if(!result.ok)return null;atoms.push(result.atom);} return atoms; }
 
 export function normalizeWorldResource(input = {}) {
@@ -60,6 +66,9 @@ export function normalizeWorldResource(input = {}) {
   if(!id||!ID.test(id))reasons.push('valid-resource-id-required'); if(!WORLD_RESOURCE_TYPES.includes(type))reasons.push('recognized-resource-type-required'); if(!name)reasons.push('resource-name-required');
   if(!sourceUrl||!sourceRevision||!sourceHash||!SHA256.test(sourceHash)||!observedAt)reasons.push('immutable-provenance-required'); if(!ownerClass||!ownerRef)reasons.push('resource-owner-required'); if(!atoms)reasons.push('valid-capability-atoms-required');
   if(!permissions||!privacyClasses||!sideEffects||!legalConstraints||!failureModes||!substitutes||!inputs||!outputs)reasons.push('bounded-resource-fields-required'); if(licenseConfidence==null)reasons.push('license-confidence-required');
+  if(privacyClasses?.some(v=>!WORLD_PRIVACY_CLASSES.has(v)))reasons.push('recognized-resource-privacy-class-required');
+  if(privacyClasses?.includes('PRIVATE_FOUNDER'))reasons.push('private-founder-state-prohibited-from-world-resource-fabric');
+  if(sideEffects?.some(v=>!CAPABILITY_SIDE_EFFECT_CLASSES.includes(v)))reasons.push('recognized-resource-side-effect-required');
   if(credentialRef&&!credentialRef.startsWith('credential-ref:'))reasons.push('credential-must-be-reference-only'); if(HUMAN_RESOURCE_TYPES.includes(type)&&ownerClass!=='HUMAN')reasons.push('human-expert-owner-must-be-human'); if(HUMAN_RESOURCE_TYPES.includes(type)&&credentialRef)reasons.push('human-expert-cannot-have-credential-ref');
   if(revocation.revoked===true&&(!Array.isArray(revocation.reasonCodes)||revocation.reasonCodes.length===0))reasons.push('revocation-reasons-required'); if(reasons.length)return fail('WORLD_RESOURCE_INVALID',reasons);
   const normalized={schemaVersion:WORLD_RESOURCE_FABRIC_VERSION,id,type,name,provenance:{sourceUrl,sourceRevision,sourceHash,observedAt},owner:{class:ownerClass,ref:ownerRef},capabilityAtoms:atoms,inputs,outputs,permissions,privacyClasses,sideEffects,credentialRef,license,licenseConfidence,legalConstraints,failureModes,substitutes,availability,consent,costs:{monetaryCents:input.costs?.monetaryCents==null?null:finite(input.costs.monetaryCents),latencyMs:input.costs?.latencyMs==null?null:finite(input.costs.latencyMs)},reliability:input.reliability&&typeof input.reliability==='object'?structuredClone(input.reliability):{status:'UNKNOWN'},benchmarks:Array.isArray(input.benchmarks)?structuredClone(input.benchmarks):[],observedValue:Array.isArray(input.observedValue)?structuredClone(input.observedValue):[],revocation};

@@ -18,11 +18,17 @@ const text = (value, max = 1800) => {
   return out && out.length <= max ? out : null;
 };
 const unique = values => [...new Set((Array.isArray(values) ? values : []).filter(Boolean))];
+const normalizedSet = values => [...new Set((Array.isArray(values) ? values : []).map(String))].sort();
 const sameSet = (left, right) => {
-  const a = [...new Set((Array.isArray(left) ? left : []).map(String))].sort();
-  const b = [...new Set((Array.isArray(right) ? right : []).map(String))].sort();
+  const a = normalizedSet(left);
+  const b = normalizedSet(right);
   return a.length === b.length && a.every((value, index) => value === b[index]);
 };
+const provenanceKey = row => JSON.stringify({
+  donorId: String(row?.donorId || ''),
+  sourceKind: String(row?.sourceKind || ''),
+  evidenceClass: String(row?.evidenceClass || '')
+});
 
 function fail(reasonCodes, extra = {}) {
   return {
@@ -65,13 +71,26 @@ function validateCandidate(compilation, candidateId) {
   if (!primitiveIds.length || primitives.length !== primitiveIds.length) reasons.push('candidate-primitives-must-resolve-exactly');
   if (!sameSet(primitiveIds, primitives.map(row => row?.primitiveId))) reasons.push('candidate-primitive-set-mismatch');
 
-  const donorIds = [...new Set(primitives.map(row => text(row?.donorId, 220)).filter(Boolean))].sort();
+  const donorIds = normalizedSet(primitives.map(row => text(row?.donorId, 220)).filter(Boolean));
+  const donorDomains = normalizedSet(primitives.map(row => text(row?.donorDomain, 220)).filter(Boolean));
   if (donorIds.length < 2) reasons.push('cross-donor-genesis-candidate-required');
   if (!sameSet(candidate?.donorIds, donorIds)) reasons.push('candidate-donor-set-mismatch');
+  if (!sameSet(candidate?.donorDomains, donorDomains)) reasons.push('candidate-donor-domain-set-mismatch');
   if (primitives.some(row => !row?.semanticIdentity || !row?.provenance?.sourceRef || !row?.provenance?.observedAt)) {
     reasons.push('primitive-provenance-and-semantic-identity-required');
   }
   if (primitives.some(row => row?.businessEffectAuthority !== 'NONE')) reasons.push('genesis-primitives-must-not-carry-authority');
+
+  const expectedProvenance = primitives.map(row => provenanceKey({
+    donorId: row.donorId,
+    sourceKind: row.provenance?.sourceKind,
+    evidenceClass: row.evidenceClass
+  })).sort();
+  const declaredProvenance = (Array.isArray(candidate?.inheritedProvenance) ? candidate.inheritedProvenance : [])
+    .map(provenanceKey).sort();
+  if (expectedProvenance.length !== declaredProvenance.length || expectedProvenance.some((value, index) => value !== declaredProvenance[index])) {
+    reasons.push('candidate-inherited-provenance-mismatch');
+  }
 
   if (candidate) {
     const expectedSignature = causalSignature({
@@ -82,7 +101,7 @@ function validateCandidate(compilation, candidateId) {
     if (candidate.candidateId !== `candidate_${expectedSignature.slice(0, 24)}`) reasons.push('genesis-candidate-id-integrity-mismatch');
   }
 
-  return { ok: reasons.length === 0, reasonCodes: unique(reasons), candidate, primitives, donorIds };
+  return { ok: reasons.length === 0, reasonCodes: unique(reasons), candidate, primitives, donorIds, donorDomains };
 }
 
 function mechanismStatement(primitives) {
@@ -121,13 +140,14 @@ export function compileGenesisSelfImprovementAdmission({
     causalSignature: validated.candidate.causalSignature,
     primitiveIds: [...validated.candidate.primitiveIds].sort(),
     donorIds: validated.donorIds,
-    donorDomains: [...new Set((validated.candidate.donorDomains || []).map(String))].sort(),
+    donorDomains: validated.donorDomains,
     evidenceClass: validated.candidate.evidenceClass,
     inheritedProvenance: structuredClone(validated.candidate.inheritedProvenance || []),
     compilationDigest: digest({
       version: genesisCompilation.version,
       normalized: genesisCompilation.normalized,
       primitives: genesisCompilation.primitives,
+      variants: genesisCompilation.variants,
       candidates: genesisCompilation.candidates
     })
   };

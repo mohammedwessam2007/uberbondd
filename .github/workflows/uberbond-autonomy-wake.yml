@@ -19,23 +19,27 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - name: Collapse pulse when the trusted self-maintainer is already active
-        id: active
+      - name: Respect founder pause and collapse when worker is already active
+        id: gate
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
         shell: bash
         run: |
           set -euo pipefail
+          paused=$(gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond:completion-paused") != null')
           active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" \
             --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
-          echo "count=$active" >> "$GITHUB_OUTPUT"
-          if [ "$active" != '0' ]; then
+          echo "paused=$paused" >> "$GITHUB_OUTPUT"
+          echo "active=$active" >> "$GITHUB_OUTPUT"
+          if [ "$paused" = 'true' ]; then
+            echo 'Founder pause is active on Command Center issue #604; completion pulse is a no-op.'
+          elif [ "$active" != '0' ]; then
             echo "Self-maintainer already has ${active} active/queued run(s); completion pulse collapses to no-op."
           fi
 
       - name: Checkout exact current main for finite completion truth
-        if: steps.active.outputs.count == '0'
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0'
         uses: actions/checkout@v4
         with:
           ref: main
@@ -43,12 +47,18 @@ jobs:
           persist-credentials: false
 
       - uses: actions/setup-node@v4
-        if: steps.active.outputs.count == '0'
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0'
         with:
           node-version: 22
 
+      - name: Bind checked-out main revision
+        id: source
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0'
+        shell: bash
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Verify protected admission of finite-completion controller
-        if: steps.active.outputs.count == '0'
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0'
         shell: bash
         run: |
           set -euo pipefail
@@ -61,14 +71,15 @@ jobs:
 
       - name: Seed exactly one finite-completion task from current tribunal truth
         id: seed
-        if: steps.active.outputs.count == '0'
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0'
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          UBERBOND_SOURCE_SHA: ${{ steps.source.outputs.sha }}
         run: node scripts/uberbond-finite-completion-seed.mjs
 
       - name: Dispatch trusted self-maintainer onto the exact seeded completion task
-        if: steps.active.outputs.count == '0' && steps.seed.outputs.closed != 'true' && steps.seed.outputs.issue_number != ''
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0' && steps.seed.outputs.closed != 'true' && steps.seed.outputs.issue_number != ''
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
@@ -82,5 +93,5 @@ jobs:
           echo "Finite completion task #${ISSUE_NUMBER} dispatched to the trusted self-maintainer."
 
       - name: Report finite completion already closed
-        if: steps.active.outputs.count == '0' && steps.seed.outputs.closed == 'true'
+        if: steps.gate.outputs.paused != 'true' && steps.gate.outputs.active == '0' && steps.seed.outputs.closed == 'true'
         run: echo 'Declared finite engineering scope is already closed on this exact main; no engineering task dispatched.'

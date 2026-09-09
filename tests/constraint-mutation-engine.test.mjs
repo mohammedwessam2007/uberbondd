@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileConstraintMutationPlan } from '../src/constraint-mutation-engine.mjs';
+import { compileConstraintMutationPlan, CONSTRAINT_MUTATION_ENGINE_VERSION } from '../src/constraint-mutation-engine.mjs';
 
 function attempt(overrides = {}) {
   return {
@@ -18,7 +18,12 @@ test('repeating the same blocked provider strategy requires immediate mutation',
   const current = attempt();
   const plan = compileConstraintMutationPlan({ currentAttempt: current, history: [prior] });
   assert.equal(plan.ok, true);
+  assert.equal(plan.policyVersion, CONSTRAINT_MUTATION_ENGINE_VERSION);
   assert.equal(plan.status, 'STRATEGY_MUTATION_REQUIRED');
+  assert.equal(plan.objectiveId, 'deploy-uberbond-portably');
+  assert.equal(plan.mechanismId, 'vercel-preview');
+  assert.equal(plan.providerId, 'vercel');
+  assert.equal(plan.failedSignature, null);
   assert.equal(plan.identicalRetryAllowed, false);
   assert.equal(plan.hardMutationRequired, true);
   assert.equal(plan.decision, 'MUTATE_STRATEGY_NOW');
@@ -26,6 +31,17 @@ test('repeating the same blocked provider strategy requires immediate mutation',
   assert.ok(plan.mutationFamilies.includes('switch-execution-substrate'));
   assert.ok(plan.mutationFamilies.includes('self-host-authorized-runtime'));
   assert.ok(plan.forbidden.includes('blind-identical-retry'));
+});
+
+test('receipt preserves failed mechanism identity and signature without creating authority',()=>{
+  const a=attempt({mechanismId:'runner-a',providerId:'provider-a',failure:{failureClass:'VERIFIER_FAILURE',failedSignature:'sig-17',outcomeUncertain:true}});
+  const plan=compileConstraintMutationPlan({currentAttempt:a,history:[a]});
+  assert.equal(plan.status,'STRATEGY_MUTATION_REQUIRED');
+  assert.equal(plan.mechanismId,'runner-a');
+  assert.equal(plan.providerId,'provider-a');
+  assert.equal(plan.failedSignature,'sig-17');
+  assert.match(plan.strategyFingerprint,/^[0-9a-f]{32}$/);
+  assert.equal(plan.businessEffectAuthority,'NONE');
 });
 
 test('new evidence does not permit retry when provider outcome remains uncertain', () => {
@@ -92,6 +108,7 @@ test('changing mechanism family is not misclassified as an identical retry', () 
   });
   assert.equal(plan.sameStrategyRepeated, false);
   assert.equal(plan.repeatCount, 0);
+  assert.equal(plan.mechanismId,'portable-docker-host');
 });
 
 test('engine never gains effect authority', () => {

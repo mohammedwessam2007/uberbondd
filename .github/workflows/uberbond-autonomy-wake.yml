@@ -19,8 +19,24 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      - name: Honor durable founder pause fence
+        id: control
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! paused=$(gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond-autonomy-paused") != null'); then
+            echo 'Command Center pause state is unavailable; failing closed.' >&2
+            echo 'paused=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "paused=${paused}" >> "$GITHUB_OUTPUT"
+
       - name: Collapse pulse when the trusted self-maintainer is already active
         id: active
+        if: steps.control.outputs.paused != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
@@ -35,7 +51,7 @@ jobs:
           fi
 
       - name: Checkout exact current main for finite completion truth
-        if: steps.active.outputs.count == '0'
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
         uses: actions/checkout@v4
         with:
           ref: main
@@ -43,12 +59,12 @@ jobs:
           persist-credentials: false
 
       - uses: actions/setup-node@v4
-        if: steps.active.outputs.count == '0'
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
         with:
           node-version: 22
 
       - name: Verify protected admission of finite-completion controller
-        if: steps.active.outputs.count == '0'
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
         shell: bash
         run: |
           set -euo pipefail
@@ -61,14 +77,14 @@ jobs:
 
       - name: Seed exactly one finite-completion task from current tribunal truth
         id: seed
-        if: steps.active.outputs.count == '0'
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node scripts/uberbond-finite-completion-seed.mjs
 
       - name: Dispatch trusted self-maintainer onto the exact seeded completion task
-        if: steps.active.outputs.count == '0' && steps.seed.outputs.closed != 'true' && steps.seed.outputs.issue_number != ''
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0' && steps.seed.outputs.closed != 'true' && steps.seed.outputs.issue_number != ''
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
@@ -82,5 +98,9 @@ jobs:
           echo "Finite completion task #${ISSUE_NUMBER} dispatched to the trusted self-maintainer."
 
       - name: Report finite completion already closed
-        if: steps.active.outputs.count == '0' && steps.seed.outputs.closed == 'true'
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0' && steps.seed.outputs.closed == 'true'
         run: echo 'Declared finite engineering scope is already closed on this exact main; no engineering task dispatched.'
+
+      - name: Report founder pause fence
+        if: steps.control.outputs.paused == 'true'
+        run: echo 'Founder pause fence is active; no new finite-completion task or self-maintainer run was created.'

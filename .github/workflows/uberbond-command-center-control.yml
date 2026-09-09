@@ -1,0 +1,107 @@
+name: UberBond Command Center Control
+
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: uberbond-command-center-control-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+jobs:
+  command:
+    if: >-
+      github.event.issue.number == 604 &&
+      github.event.comment.user.login == github.repository_owner &&
+      github.event.comment.author_association == 'OWNER'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Bind exact checked-out source revision
+        id: source
+        shell: bash
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Read durable founder pause fence
+        id: control
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          paused=$(gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond-autonomy-paused") != null')
+          echo "paused=${paused}" >> "$GITHUB_OUTPUT"
+
+      - name: Compile bounded founder command
+        id: plan
+        env:
+          COMMAND_BODY: ${{ github.event.comment.body }}
+          COMMAND_ACTOR: ${{ github.event.comment.user.login }}
+          REPOSITORY_OWNER: ${{ github.repository_owner }}
+          AUTHOR_ASSOCIATION: ${{ github.event.comment.author_association }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          UBERBOND_PAUSED: ${{ steps.control.outputs.paused }}
+          SOURCE_COMMIT: ${{ steps.source.outputs.sha }}
+        run: node scripts/uberbond-command-center-control.mjs
+
+      - name: Ensure pause label exists
+        if: steps.plan.outputs.apply_pause == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "/repos/${GH_REPOSITORY}/labels/uberbond-autonomy-paused" >/dev/null 2>&1 || \
+            gh api --method POST "/repos/${GH_REPOSITORY}/labels" \
+              -f name='uberbond-autonomy-paused' \
+              -f color='B60205' \
+              -f description='Founder pause fence for new UberBond finite-completion pulses'
+          gh issue edit 604 --repo "$GH_REPOSITORY" --add-label 'uberbond-autonomy-paused'
+
+      - name: Remove founder pause fence
+        if: steps.plan.outputs.remove_pause == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond-autonomy-paused") != null' | grep -qx true; then
+            gh issue edit 604 --repo "$GH_REPOSITORY" --remove-label 'uberbond-autonomy-paused'
+          fi
+
+      - name: Dispatch one bounded finite-completion wake
+        if: steps.plan.outputs.dispatch_wake == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --method POST "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-autonomy-wake.yml/dispatches" -f ref='main'
+
+      - name: Reply with evidence-bound command result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          RESPONSE_PATH: ${{ steps.plan.outputs.response_path }}
+        shell: bash
+        run: gh issue comment 604 --repo "$GH_REPOSITORY" --body-file "$RESPONSE_PATH"

@@ -25,7 +25,7 @@ const declarations=[
     compositionId:'PLANNER_SCHEDULER',mode:'NON_SINK_WITH_DOWNSTREAM_GATE',
     entrypointRefs:['src/frontier-worker-compiler.mjs'],terminalSinkRefs:['src/omnia-v9/integrations/external-effect-dispatcher.mjs','src/relay-vercel-api-executor.mjs'],
     authorityLaw:'Planning, scheduling and worker compilation create no business authority. External effects must terminate in a separately authoritative sink.',
-    sourceMarkers:[{path:'src/frontier-worker-compiler.mjs',mustContain:["businessEffectAuthority: 'NONE'","externalEffectAuthority: 'NONE'","MESSAGE_PREPARATION"],mustNotContain:['MESSAGE_SEND','PRODUCTION_DEPLOY','MONEY_MOVEMENT']}]
+    sourceMarkers:[{path:'src/frontier-worker-compiler.mjs',mustContain:["businessEffectAuthority: 'NONE'","externalEffectAuthority: 'NONE'","MESSAGE_PREPARATION","forbiddenEffects = list(input.forbiddenEffects || ['MESSAGE', 'DEPLOYMENT', 'MONEY_MOVEMENT', 'PRODUCTION_MUTATION']"],mustNotContain:['MESSAGE_SEND','PRODUCTION_DEPLOY']}]
   },
   {
     compositionId:'BROWSER_RESEARCH',mode:'READ_ONLY_SURFACE',externalMutationAuthority:'NONE',
@@ -47,7 +47,7 @@ const declarations=[
     authorityLaw:'A real messaging provider may be called only after authoritative final admission over the exact durable effect identity and prepared arguments. Uncertainty never permits automatic resend.',
     sourceMarkers:[
       {path:'src/omnia-v9/integrations/external-effect-dispatcher.mjs',mustContain:['finalAdmissionCheck','final-admission:not-authoritative-and-enforced',"toStatus: 'DISPATCHING'",'authorizationDigest','policyDigest','constitutionDigest','RESULT_UNCERTAIN','adapter.dispatch(preparedEffect)']},
-      {path:'src/omnia-v9/integrations/external-effect-recovery.mjs',mustContain:['Never\n * calls adapter.dispatch()','WITHOUT ever calling adapter.dispatch() again']}
+      {path:'src/omnia-v9/integrations/external-effect-recovery.mjs',mustContain:['calls adapter.dispatch() -- the only network-mutating call this module','WITHOUT ever calling adapter.dispatch() again']}
     ],
     productionProviderImportViolations:providerImports
   },

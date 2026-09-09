@@ -15,6 +15,7 @@ PUBLIC_SOURCE="${1:-}"
 install -d -m 0755 /opt/uberbond "$CONTROL"
 install -d -m 0700 "$CONFIG" "$STATE" "$STATE/backups" "$STATE/inbox"
 install -m 0755 "$ROOT/ops/sovereign/uberbondctl" "$CONTROL/uberbondctl"
+install -m 0755 "$ROOT/ops/sovereign/uberbond-release-inbox-runner" "$CONTROL/uberbond-release-inbox-runner"
 install -m 0644 "$ROOT/docker-compose.sovereign.yml" "$CONTROL/docker-compose.sovereign.yml"
 for unit in uberbond-reconcile.service uberbond-reconcile.timer uberbond-release-apply.service uberbond-release-apply.path; do
   install -m 0644 "$ROOT/ops/sovereign/$unit" "/etc/systemd/system/$unit"
@@ -66,20 +67,21 @@ cat <<EOF
 UberBond sovereign host control plane installed.
 
 Runtime control:  $CONTROL/uberbondctl
+Inbox admission:  $CONTROL/uberbond-release-inbox-runner
 Secrets/config:   $CONFIG/uberbond.env
 Release verifier: $CONFIG/release-public.pem
 State/backups:    $STATE
 Release inbox:    $STATE/inbox
 
 No application release was downloaded or deployed.
-The release-signing PRIVATE key must remain on a separate authoring/offline machine.
+The release-signing PRIVATE key must remain on a separate UberBond Forge/authoring node.
 EOF
 
 if [[ ! -f "$CONFIG/release-public.pem" ]]; then
   cat <<EOF
 
 BLOCKER: no release public key is installed yet.
-Create release authority on a separate machine with:
+Create release authority on a separate UberBond Forge/authoring node with:
   ops/sovereign/init-release-authority.sh
 Then copy ONLY release-public.pem here and re-run:
   sudo $ROOT/ops/sovereign/install-host.sh /path/to/release-public.pem
@@ -90,11 +92,13 @@ else
 To deploy manually:
   $CONTROL/uberbondctl deploy /path/to/signed-release-directory
 
-To deploy automatically after an offline/local transfer:
+To deploy automatically after an UberBond Forge/local transfer:
   1. place the signed release directory under $STATE/inbox/<safe-name>
   2. atomically write that directory name to $STATE/inbox/NEXT_RELEASE
 The systemd path unit will verify signature, anti-replay sequence, image IDs,
 backup the database, migrate, health-check, and roll back on failure.
+It then writes exactly one terminal ADMITTED-<name>.receipt or REJECTED-<name>.receipt
+for the Forge to reconcile before it advances source truth or mutates strategy.
 EOF
 fi
 

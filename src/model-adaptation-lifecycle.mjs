@@ -2,26 +2,15 @@ import crypto from 'node:crypto';
 import { COMPOUND_INTELLIGENCE_EVALUATION_VERSION } from './compound-intelligence-evaluation.mjs';
 import { CAPABILITY_SCALED_SECURITY_VERSION } from './capability-scaled-security.mjs';
 
-export const MODEL_ADAPTATION_LIFECYCLE_VERSION = 'uberbond.model-adaptation-lifecycle.v1';
+export const MODEL_ADAPTATION_LIFECYCLE_VERSION = 'uberbond.model-adaptation-lifecycle.v1.1';
 export const MODEL_ADAPTATION_METHODS = Object.freeze(['LORA', 'FINE_TUNE', 'DISTILLATION', 'CONTINUAL_LEARNING']);
 export const ADAPTATION_PRIOR_STAGES = Object.freeze([
-  'PROMPT',
-  'RETRIEVAL',
-  'TOOLS',
-  'DECOMPOSITION',
-  'COMPOSITION',
-  'AUTHORIZED_EXISTING_MODEL'
+  'PROMPT', 'RETRIEVAL', 'TOOLS', 'DECOMPOSITION', 'COMPOSITION', 'AUTHORIZED_EXISTING_MODEL'
 ]);
 
 const ZERO_EFFECTS = Object.freeze({
-  customerMessages: 0,
-  providerCalls: 0,
-  spendCents: 0,
-  deployments: 0,
-  dnsChanges: 0,
-  credentialChanges: 0,
-  paymentMutations: 0,
-  productionMutations: 0
+  customerMessages: 0, providerCalls: 0, spendCents: 0, deployments: 0,
+  dnsChanges: 0, credentialChanges: 0, paymentMutations: 0, productionMutations: 0
 });
 const SHA256 = /^(?:sha256:)?[0-9a-f]{64}$/;
 const ISO_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/;
@@ -105,17 +94,8 @@ function normalizeExample(raw = {}) {
   const synthetic = ['SYNTHETIC_LABELLED', 'ADVERSARIAL_GENERATED'].includes(labelClass);
   if (synthetic && raw.groundTruthEligible === true) return null;
   return {
-    exampleId,
-    contentDigest,
-    split,
-    sourceRef,
-    provenanceRef,
-    licenseStatus,
-    consentBasis,
-    privacyStatus,
-    labelClass,
-    synthetic,
-    groundTruthEligible: raw.groundTruthEligible === true
+    exampleId, contentDigest, split, sourceRef, provenanceRef, licenseStatus, consentBasis,
+    privacyStatus, labelClass, synthetic, groundTruthEligible: raw.groundTruthEligible === true
   };
 }
 
@@ -142,12 +122,13 @@ function normalizeDataset(raw = {}) {
     .filter(([, rows]) => new Set(rows.map(row => row.split)).size > 1)
     .map(([contentDigest, rows]) => ({ contentDigest, rows }));
   if (leakage.length) return { invalid: true, reason: 'content-digest-cross-split-leakage', leakage };
+  const sortedExamples = [...examples].sort((a, b) => a.exampleId.localeCompare(b.exampleId));
   return {
     datasetId,
     revision,
-    examples: examples.sort((a, b) => a.exampleId.localeCompare(b.exampleId)),
+    examples: sortedExamples,
     splitCounts,
-    datasetDigest: digest({ datasetId, revision, examples: examples.sort((a, b) => a.exampleId.localeCompare(b.exampleId)) })
+    datasetDigest: digest({ datasetId, revision, examples: sortedExamples })
   };
 }
 
@@ -171,10 +152,7 @@ function normalizeComputeAuthority(raw = {}) {
   return { authorityRef, maxComputeUnits, maxSpendCents, expiresAt: expires.raw, expiresAtMs: expires.ms };
 }
 
-/**
- * Stage 1: prove adaptation is a justified, bounded candidate after cheaper
- * mechanisms failed. This compiles a training plan only. It executes nothing.
- */
+/** Stage 1: compile a bounded candidate only after cheaper mechanisms fail. */
 export function compileModelAdaptationPlan({
   candidateId = null,
   method = null,
@@ -245,13 +223,12 @@ export function compileModelAdaptationPlan({
     },
     proposedAt: proposed.raw
   };
-  const planDigest = digest(plan);
   return {
     ok: true,
     version: MODEL_ADAPTATION_LIFECYCLE_VERSION,
     status: 'MODEL_ADAPTATION_TRAINING_PLAN_ADMISSIBLE__EXECUTION_SEPARATE',
     plan,
-    planDigest,
+    planDigest: digest(plan),
     escalationLaw: 'PROMPT_RETRIEVAL_TOOLS_DECOMPOSITION_COMPOSITION_AND_AUTHORIZED_EXISTING_MODEL_PRECEDE_ADAPTATION',
     trainingAuthority: 'NONE',
     promotionAuthority: 'NONE',
@@ -277,20 +254,20 @@ function normalizeTrainingReceipt(raw = {}) {
 function normalizeServingArtifact(raw = {}) {
   const modelId = text(raw.modelId, 200);
   const revision = text(raw.revision, 300);
+  const sourceTrainedWeightsDigest = text(raw.sourceTrainedWeightsDigest, 80)?.toLowerCase();
   const weightsDigest = text(raw.weightsDigest, 80)?.toLowerCase();
   const runtimeDigest = text(raw.runtimeDigest, 80)?.toLowerCase();
   const quantizationRef = text(raw.quantizationRef, 500);
   const hardwareRef = text(raw.hardwareRef, 500);
   const transformEvidenceRef = text(raw.transformEvidenceRef, 500);
-  if (!modelId || !revision || !weightsDigest || !runtimeDigest || !SHA256.test(weightsDigest) || !SHA256.test(runtimeDigest) || !quantizationRef || !hardwareRef || !transformEvidenceRef) return null;
-  const artifact = { modelId, revision, weightsDigest, runtimeDigest, quantizationRef, hardwareRef, transformEvidenceRef };
+  if (!modelId || !revision || !sourceTrainedWeightsDigest || !weightsDigest || !runtimeDigest || ![sourceTrainedWeightsDigest, weightsDigest, runtimeDigest].every(value => SHA256.test(value)) || !quantizationRef || !hardwareRef || !transformEvidenceRef) return null;
+  const artifact = { modelId, revision, sourceTrainedWeightsDigest, weightsDigest, runtimeDigest, quantizationRef, hardwareRef, transformEvidenceRef };
   return { ...artifact, servingArtifactDigest: digest(artifact) };
 }
 
 /**
- * Stage 2: the exact artifact that would be served must independently survive
- * evaluation/security/recovery. A trained checkpoint is not a serving proof.
- * Even success only makes it eligible for a separate promotion decision.
+ * Stage 2: the exact artifact that would be served must survive evaluation,
+ * security, rollback and revocation. Success grants no promotion authority.
  */
 export function evaluateAdaptedServingArtifact({
   planResult = null,
@@ -317,16 +294,23 @@ export function evaluateAdaptedServingArtifact({
   const expiry = instant(planResult.plan?.computeEnvelope?.expiresAt);
   if (training && expiry && training.observedAtMs > expiry.ms) reasons.push('training-finished-after-compute-authority-expiry');
   if (training && observed && training.observedAtMs > observed.ms) reasons.push('future-dated-training-receipt-refused');
+  if (training && serving && serving.sourceTrainedWeightsDigest !== training.trainedWeightsDigest) reasons.push('serving-artifact-must-descend-from-exact-trained-weights');
 
   const evaluationSubject = text(servingEvaluation?.servingArtifactDigest, 80)?.toLowerCase();
   const compound = servingEvaluation?.compoundEvaluation;
   if (!serving || evaluationSubject !== serving?.servingArtifactDigest.toLowerCase()) reasons.push('evaluation-must-bind-exact-serving-artifact');
   if (!compound?.ok || compound?.version !== COMPOUND_INTELLIGENCE_EVALUATION_VERSION || compound?.status !== 'COMPOUND_INTELLIGENCE_GAIN_SUPPORTED_WITHIN_DEFINED_SCOPE' || compound?.asiStatus !== 'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED' || compound?.promotionAuthority !== 'NONE') reasons.push('successful-c13-defined-scope-evaluation-required');
+  if (serving && compound?.receipt) {
+    const included = (Array.isArray(compound.receipt.componentRevisions) ? compound.receipt.componentRevisions : [])
+      .some(row => row?.componentId === serving.modelId && row?.revision === serving.servingArtifactDigest);
+    if (!included) reasons.push('c13-evaluation-must-include-exact-serving-artifact-as-component');
+  }
   const servingEvalRef = text(servingEvaluation?.evidenceRef, 500);
   const evaluatorId = text(servingEvaluation?.evaluatorId, 200);
   if (!servingEvalRef || !evaluatorId || (training && evaluatorId === training.trainerId)) reasons.push('independent-serving-evaluator-required');
 
   if (!securityAdmission?.ok || securityAdmission?.version !== CAPABILITY_SCALED_SECURITY_VERSION || securityAdmission?.status !== 'C26_SECURITY_ADMISSION_READY_FOR_SEPARATE_EFFECT_GATE' || securityAdmission?.businessEffectAuthority !== 'NONE') reasons.push('successful-c26-serving-security-admission-required');
+  if (serving && (securityAdmission?.subject?.capabilityId !== serving.modelId || String(securityAdmission?.subject?.sourceHash || '').toLowerCase() !== serving.weightsDigest.toLowerCase())) reasons.push('c26-security-admission-must-bind-exact-serving-model-and-weights');
   if (securityAdmission?.subject?.composition?.selfModifying === true && securityAdmission?.asiClaim !== 'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED') reasons.push('security-admission-cannot-claim-asi');
 
   const recoveryEvaluator = text(recovery?.verifierId, 200);

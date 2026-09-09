@@ -1,17 +1,22 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const OPERATIONAL_WORLD_RESOURCE_ADMISSION_VERSION = 'uberbond.operational-world-resource-admission.v1';
+export const OPERATIONAL_WORLD_RESOURCE_ADMISSION_VERSION = 'uberbond.operational-world-resource-admission.v1.1';
 
 const HUMAN = new Set(['HUMAN_EXPERT', 'HUMAN_OPERATOR', 'HUMAN_PARTNER']);
 const EXECUTABLE = new Set(['API', 'MODEL', 'COMPUTE', 'SOFTWARE_TOOL', 'DATA_SERVICE']);
+const PASSIVE = new Set(['PUBLIC_DATA', 'HARDWARE', 'SENSOR', 'INSTITUTION', 'LAB', 'FACILITY', 'PROFESSIONAL_SERVICE']);
+const RESOURCE_TYPES = new Set([...HUMAN, ...EXECUTABLE, ...PASSIVE]);
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const clone = value => structuredClone(value);
 const unique = values => [...new Set(values.filter(Boolean))];
 const iso = value => {
-  const date = new Date(value);
+  const date = value instanceof Date ? value : new Date(String(value ?? ''));
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
 };
+const sha256 = value => /^[a-f0-9]{64}$/.test(String(value || '').trim().toLowerCase());
+const strictNonnegativeInteger = value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+const strictNonnegativeFinite = value => typeof value === 'number' && Number.isFinite(value) && value >= 0;
 
 function deny(reasonCodes, extra = {}) {
   return {
@@ -53,19 +58,22 @@ export function admitOperationalWorldResource({
   const type = String(resource?.type || '').trim().toUpperCase();
   const subjectDigest = String(resource?.subjectDigest || '').trim().toLowerCase();
   if (!id) reasons.push('resource-id-required');
-  if (!type) reasons.push('resource-type-required');
-  if (!/^[a-f0-9]{64}$/.test(subjectDigest)) reasons.push('resource-subject-digest-required');
+  if (!RESOURCE_TYPES.has(type)) reasons.push(type ? 'recognized-resource-type-required' : 'resource-type-required');
+  if (!sha256(subjectDigest)) reasons.push('resource-subject-digest-required');
 
   if (!discoveryEvidence?.artifactRef) reasons.push('discovery-evidence-required');
   if (String(discoveryEvidence?.subjectDigest || '').toLowerCase() !== subjectDigest) reasons.push('discovery-subject-mismatch');
 
-  const nowMs = new Date(now).getTime();
+  const nowIso = iso(now);
+  const nowMs = nowIso ? new Date(nowIso).getTime() : NaN;
+  if (!nowIso) reasons.push('valid-admission-clock-required');
   const observedAt = iso(availabilityEvidence?.observedAt);
   const expiresAt = iso(availabilityEvidence?.expiresAt);
   if (!availabilityEvidence?.artifactRef || availabilityEvidence?.available !== true) reasons.push('fresh-availability-evidence-required');
   if (String(availabilityEvidence?.subjectDigest || '').toLowerCase() !== subjectDigest) reasons.push('availability-subject-mismatch');
-  if (!observedAt || new Date(observedAt).getTime() > nowMs) reasons.push('availability-observation-must-not-be-future-dated');
-  if (!expiresAt || new Date(expiresAt).getTime() < nowMs) reasons.push('availability-evidence-expired');
+  if (!observedAt || (Number.isFinite(nowMs) && new Date(observedAt).getTime() > nowMs)) reasons.push('availability-observation-must-not-be-future-dated');
+  if (!expiresAt || (Number.isFinite(nowMs) && new Date(expiresAt).getTime() < nowMs)) reasons.push('availability-evidence-expired');
+  if (observedAt && expiresAt && new Date(expiresAt).getTime() <= new Date(observedAt).getTime()) reasons.push('availability-expiry-must-follow-observation');
 
   if (HUMAN.has(type)) {
     if (consentEvidence?.consented !== true || !consentEvidence?.artifactRef) reasons.push('explicit-human-consent-required');
@@ -75,26 +83,30 @@ export function admitOperationalWorldResource({
   if (EXECUTABLE.has(type)) {
     if (capabilityAdmission?.decision !== 'ELIGIBLE') reasons.push('eligible-capability-admission-required');
     if (!capabilityAdmission?.admissionRef && !capabilityAdmission?.securityEvidenceDigest) reasons.push('capability-admission-evidence-required');
+    if (capabilityAdmission?.securityEvidenceDigest && !sha256(capabilityAdmission.securityEvidenceDigest)) reasons.push('valid-capability-security-evidence-digest-required');
     if (capabilityAdmission?.revoked === true) reasons.push('capability-resource-revoked');
-    if (capabilityAdmission?.subjectDigest && String(capabilityAdmission.subjectDigest).toLowerCase() !== subjectDigest) reasons.push('capability-admission-subject-mismatch');
+    if (String(capabilityAdmission?.subjectDigest || '').toLowerCase() !== subjectDigest) reasons.push('capability-admission-subject-mismatch');
   }
 
   if (usageTerms?.resolved !== true) reasons.push('usage-terms-or-license-unresolved');
   if (usageTerms?.jurisdictionRequired === true && usageTerms?.jurisdictionSatisfied !== true) reasons.push('jurisdiction-requirement-unresolved');
 
-  const spendRequired = Number(procurement?.requiredSpendCents || 0);
-  const spendAuthorized = Number(procurement?.authorizedSpendCents || 0);
-  if (!Number.isSafeInteger(spendRequired) || spendRequired < 0 || !Number.isSafeInteger(spendAuthorized) || spendAuthorized < 0) reasons.push('valid-procurement-amounts-required');
-  if (spendRequired > spendAuthorized) reasons.push('procurement-authority-insufficient');
-  if (spendRequired > 0 && !procurement?.authorityRef) reasons.push('procurement-authority-evidence-required');
+  const spendRequired = procurement?.requiredSpendCents ?? 0;
+  const spendAuthorized = procurement?.authorizedSpendCents ?? 0;
+  if (!strictNonnegativeInteger(spendRequired) || !strictNonnegativeInteger(spendAuthorized)) reasons.push('valid-procurement-amounts-required');
+  else if (spendRequired > spendAuthorized) reasons.push('procurement-authority-insufficient');
+  if (strictNonnegativeInteger(spendRequired) && spendRequired > 0 && !procurement?.authorityRef) reasons.push('procurement-authority-evidence-required');
 
-  const requestedCapacity = Number(requested?.capacity || 0);
-  const provenCapacity = Number(availabilityEvidence?.capacity || 0);
-  if (!Number.isFinite(requestedCapacity) || requestedCapacity < 0 || !Number.isFinite(provenCapacity) || provenCapacity < 0) reasons.push('valid-capacity-required');
+  const requestedCapacity = requested?.capacity ?? 0;
+  const provenCapacity = availabilityEvidence?.capacity ?? 0;
+  if (!strictNonnegativeFinite(requestedCapacity) || !strictNonnegativeFinite(provenCapacity)) reasons.push('valid-capacity-required');
   else if (requestedCapacity > provenCapacity) reasons.push('requested-capacity-exceeds-observed-capacity');
 
-  const requestedPermissions = unique((requested?.permissions || []).map(String));
-  const authorizedPermissions = new Set((authorized?.permissions || []).map(String));
+  const requestedPermissionInput = requested?.permissions ?? [];
+  const authorizedPermissionInput = authorized?.permissions ?? [];
+  if (!Array.isArray(requestedPermissionInput) || !Array.isArray(authorizedPermissionInput)) reasons.push('permission-arrays-required');
+  const requestedPermissions = Array.isArray(requestedPermissionInput) ? unique(requestedPermissionInput.map(String)) : [];
+  const authorizedPermissions = new Set(Array.isArray(authorizedPermissionInput) ? authorizedPermissionInput.map(String) : []);
   const unauthorizedPermissions = requestedPermissions.filter(permission => !authorizedPermissions.has(permission));
   if (unauthorizedPermissions.length) reasons.push('resource-permission-not-authorized');
 

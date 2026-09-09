@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { compilePostgresBackupRestoreReceipt } from './postgres-backup-restore-receipt.mjs';
 
-export const POSTGRES_BACKUP_RESTORE_RUNNER_VERSION = 'uberbond.postgres-backup-restore-runner.v1';
+export const POSTGRES_BACKUP_RESTORE_RUNNER_VERSION = 'uberbond.postgres-backup-restore-runner.v1.1';
 const SHA40 = /^[0-9a-f]{40}$/;
 const ZERO_EFFECTS = Object.freeze({ customerMessages: 0, providerCalls: 0, spendCents: 0, deployments: 0, dnsChanges: 0, credentialChanges: 0, paymentMutations: 0, productionMutations: 0 });
 const digest = value => `sha256:${crypto.createHash('sha256').update(String(value)).digest('hex')}`;
@@ -31,13 +31,6 @@ export function databaseIdentity(databaseUrl) {
   }
 }
 
-/**
- * Execute one real dump -> isolated restore -> comparison rehearsal.
- *
- * The adapter owns provider/CLI mechanics. This parent owns ordering, cleanup,
- * exact-source binding and the truth boundary. It never independently verifies
- * its own observation and never serializes a connection string.
- */
 export async function runPostgresBackupRestoreRehearsal({
   sourceCommit,
   primaryDatabaseUrl,
@@ -62,7 +55,7 @@ export async function runPostgresBackupRestoreRehearsal({
   if (!observer) reasons.push('observer-reference-required');
   if (!evidence) reasons.push('evidence-reference-required');
   if (!rollback) reasons.push('rollback-reference-required');
-  for (const method of ['fingerprint', 'dump', 'createIsolatedDatabase', 'restore', 'boundedReadWrite', 'dropIsolatedDatabase']) {
+  for (const method of ['fingerprint', 'dump', 'createIsolatedDatabase', 'restore', 'boundedReadWrite', 'dropIsolatedDatabase', 'cleanupDump']) {
     if (typeof adapter?.[method] !== 'function') reasons.push(`adapter-${method}-required`);
   }
   if (reasons.length) return fail(reasons, { sourceCommit: commit });
@@ -72,6 +65,7 @@ export async function runPostgresBackupRestoreRehearsal({
 
   let isolatedCreated = false;
   let cleanupOk = false;
+  let dumpCleanupOk = false;
   let dump = null;
   let receiptInput = null;
   let executionFailure = null;
@@ -95,7 +89,6 @@ export async function runPostgresBackupRestoreRehearsal({
           const afterRestore = await adapter.fingerprint(isolated.databaseUrl);
           const bounded = await adapter.boundedReadWrite(isolated.databaseUrl);
           const afterPrimary = await adapter.fingerprint(primaryDatabaseUrl);
-
           const sourceFingerprint = digest(JSON.stringify(beforePrimary));
           const restoreFingerprint = digest(JSON.stringify(afterRestore));
           const primaryAfterFingerprint = digest(JSON.stringify(afterPrimary));
@@ -140,24 +133,35 @@ export async function runPostgresBackupRestoreRehearsal({
         cleanupOk = false;
       }
     }
-    try { if (dump && typeof adapter.cleanupDump === 'function') await adapter.cleanupDump(dump); } catch { /* best effort; never upgrades proof */ }
+    if (dump) {
+      try {
+        const cleanup = await adapter.cleanupDump(dump);
+        dumpCleanupOk = cleanup?.ok !== false;
+      } catch {
+        dumpCleanupOk = false;
+      }
+    } else {
+      dumpCleanupOk = true;
+    }
   }
 
   if (executionFailure) {
-    if (isolatedCreated && !cleanupOk) {
-      return fail([...executionFailure.reasonCodes, 'isolated-restore-cleanup-failed'], { sourceCommit: commit });
-    }
-    return executionFailure;
+    const failureReasons = [...executionFailure.reasonCodes];
+    if (isolatedCreated && !cleanupOk) failureReasons.push('isolated-restore-cleanup-failed');
+    if (dump && !dumpCleanupOk) failureReasons.push('backup-artifact-cleanup-failed');
+    return fail(failureReasons, { sourceCommit: commit });
   }
   if (!receiptInput) return fail(['restore-receipt-input-not-produced'], { sourceCommit: commit });
+  if (!dumpCleanupOk) return fail(['backup-artifact-cleanup-required'], { sourceCommit: commit });
 
   const receipt = compilePostgresBackupRestoreReceipt({ ...receiptInput, cleanupOk });
   return {
     ...receipt,
     runnerVersion: POSTGRES_BACKUP_RESTORE_RUNNER_VERSION,
+    backupArtifactCleanupVerified: dumpCleanupOk,
     independentVerifierRef: null,
     truthBoundary: receipt.ok
-      ? `${receipt.truthBoundary} This producer is the observer and therefore cannot independently verify its own rehearsal.`
+      ? `${receipt.truthBoundary} The temporary backup artifact was also observed cleaned. This producer is the observer and therefore cannot independently verify its own rehearsal.`
       : undefined
   };
 }

@@ -1,0 +1,25 @@
+[Unit]
+Description=UberBond isolated local model worker
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=uberbond-worker
+Group=uberbond-autonomy
+EnvironmentFile=/etc/uberbond/worker.env
+ExecStart=/usr/bin/node /opt/uberbond/source/scripts/sovereign-local-worker-runner.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateNetwork=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/uberbond/source /var/lib/uberbond-worker/inbox
+ReadWritePaths=/var/lib/uberbond-worker/outbox /tmp
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+UMask=0027
+TimeoutStartSec=3600

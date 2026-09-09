@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch for a new UberBond isolated-worker task
+
+[Path]
+PathChanged=/var/lib/uberbond-worker/inbox/task.json
+Unit=uberbond-local-worker.service
+
+[Install]
+WantedBy=multi-user.target

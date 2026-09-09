@@ -1,0 +1,28 @@
+[Unit]
+Description=UberBond independent candidate verifier
+After=uberbond-local-worker.service
+
+[Service]
+Type=oneshot
+User=uberbond-author
+Group=uberbond-autonomy
+Environment=UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
+Environment=UBERBOND_WORKER_OUTBOX_ROOT=/var/lib/uberbond-worker/outbox
+Environment=UBERBOND_WORKER_RESULT_PATH=/var/lib/uberbond-worker/outbox/result.json
+Environment=UBERBOND_REPOSITORY=local/uberbond
+WorkingDirectory=/opt/uberbond/source
+ExecStart=/usr/bin/node /opt/uberbond/source/scripts/sovereign-autonomy-verify.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/uberbond/source /var/lib/uberbond-worker/outbox
+ReadWritePaths=/var/lib/uberbond-control /tmp
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+UMask=0077
+TimeoutStartSec=3600

@@ -1,0 +1,24 @@
+[Unit]
+Description=UberBond sovereign truth-first authoring pulse
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=uberbond-author
+Group=uberbond-autonomy
+Environment=UBERBOND_AUTHOR_CONFIG=/etc/uberbond/authoring.env
+ExecStart=/opt/uberbond/control/uberbond-authorctl wake
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/uberbond/source /var/lib/uberbond-control /var/lib/uberbond-worker/inbox /tmp
+ReadOnlyPaths=/var/lib/uberbond-worker/outbox
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+UMask=0027
+TimeoutStartSec=3600

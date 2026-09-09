@@ -24,11 +24,13 @@ test('delivery software is ready while acceptance remains external proof',()=>{
   assert.equal(accepted.classification,'EXTERNAL_PROOF_REQUIRED');
 });
 
-test('payment destination preparation does not launder reconciliation into software or payment proof',()=>{
+test('unconfigured bound-order payment destination stays configuration-gated while reconciliation stays external proof',()=>{
   const result=compilePreCustomerRevenueReadiness({firstCashPacket:packet});
   const link=result.matrix.questions.find(row=>row.question==='WHAT_PAYMENT_LINK');
   const reconciliation=result.matrix.questions.find(row=>row.question==='HOW_RECONCILED');
-  assert.equal(link.classification,'SOFTWARE_READY_OR_PREPARED');
+  assert.equal(link.status,'BLOCKED');
+  assert.equal(link.classification,'CONFIG_OR_PROVIDER_REQUIRED');
+  assert.ok(link.reasonCodes.includes('paypal-bound-order-live-rail-not-ready'));
   assert.equal(reconciliation.classification,'EXTERNAL_PROOF_REQUIRED');
   assert.equal(result.matrix.commercialTruth.clearedRevenueCents,0);
 });

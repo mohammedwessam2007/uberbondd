@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import {
   buildLocalMergeAdmissionEnvelope,
   compilePendingForgeDecision,
-  FORGE_STATE_SCHEMA,
   newPendingForgeState,
   parseRuntimeReleaseReceipt,
   RUNTIME_RELEASE_RECEIPT_SCHEMA,
@@ -31,9 +30,7 @@ function runtimeReceipt(status, extra = {}) {
 }
 
 function pending() {
-  return {
-    schemaVersion: FORGE_STATE_SCHEMA,
-    status: 'PENDING_RUNTIME_ADMISSION',
+  const compiled = newPendingForgeState({
     baseRevision: BASE,
     candidateRevision: HEAD,
     branchName: 'uberbond/self-maintain/task-aaaaaaaaaaaa',
@@ -41,8 +38,11 @@ function pending() {
     changeSetId: CHANGE,
     receiptId: RECEIPT,
     releaseName: RELEASE,
-    releaseSequence: SEQUENCE
-  };
+    releaseSequence: SEQUENCE,
+    createdAt: new Date('2026-09-09T19:59:00.000Z')
+  });
+  assert.equal(compiled.ok, true);
+  return compiled.state;
 }
 
 test('sovereign forge prefers a ready open model and grants no authority', () => {
@@ -76,7 +76,7 @@ test('external provider fallback requires an explicit opt-in', () => {
   assert.equal(selected.status, 'MODEL_PROVIDER_READY_WITH_EXPLICIT_FALLBACK');
 });
 
-test('runtime admission receipt is exact-release and exact-source bound', () => {
+test('runtime admission receipt is exact-release and exact-source syntactically bound', () => {
   const parsed = parseRuntimeReleaseReceipt(runtimeReceipt('ADMITTED'), { expectedReleaseName: RELEASE });
   assert.equal(parsed.ok, true);
   assert.equal(parsed.receipt.sourceCommit, HEAD);
@@ -101,6 +101,28 @@ test('pending candidate advances only after admitted receipt and runtime state a
   assert.equal(decision.status, 'ADVANCE_CANONICAL_SOURCE_AFTER_RUNTIME_ADMISSION');
 });
 
+test('pending state digest is load-bearing and tamper evidence refuses admission', () => {
+  const state = pending();
+  state.candidateRevision = BASE;
+  const decision = compilePendingForgeDecision({
+    pending: state,
+    admittedReceipt: runtimeReceipt('ADMITTED'),
+    runtimeSourceCommit: HEAD
+  });
+  assert.equal(decision.ok, false);
+  assert.equal(decision.status, 'PENDING_STATE_REJECTED');
+  assert.ok(decision.reasonCodes.includes('pending-forge-state-digest-invalid'));
+});
+
+test('admitted receipt cannot advance source when runtime state is missing', () => {
+  const decision = compilePendingForgeDecision({
+    pending: pending(),
+    admittedReceipt: runtimeReceipt('ADMITTED')
+  });
+  assert.equal(decision.ok, false);
+  assert.ok(decision.reasonCodes.includes('runtime-state-source-commit-required'));
+});
+
 test('admitted receipt without matching runtime state is refused', () => {
   const decision = compilePendingForgeDecision({
     pending: pending(),
@@ -111,6 +133,16 @@ test('admitted receipt without matching runtime state is refused', () => {
   assert.match(decision.reasonCodes.join(','), /runtime-state-does-not-confirm-admitted-candidate/);
 });
 
+test('admitted receipt must carry the exact pending release sequence', () => {
+  const decision = compilePendingForgeDecision({
+    pending: pending(),
+    admittedReceipt: runtimeReceipt('ADMITTED', { releaseSequence: '20260910000000' }),
+    runtimeSourceCommit: HEAD
+  });
+  assert.equal(decision.ok, false);
+  assert.ok(decision.reasonCodes.includes('admitted-receipt-release-sequence-mismatch'));
+});
+
 test('rejected runtime release becomes strategy mutation evidence', () => {
   const decision = compilePendingForgeDecision({
     pending: pending(),
@@ -119,6 +151,15 @@ test('rejected runtime release becomes strategy mutation evidence', () => {
   assert.equal(decision.ok, true);
   assert.equal(decision.status, 'ROLL_BACK_CANDIDATE_AND_MUTATE_STRATEGY');
   assert.match(decision.blockerFingerprint, /^[a-f0-9]{64}$/);
+});
+
+test('rejected receipt must carry the exact pending release sequence', () => {
+  const decision = compilePendingForgeDecision({
+    pending: pending(),
+    rejectedReceipt: runtimeReceipt('REJECTED', { releaseSequence: '20260910000000' })
+  });
+  assert.equal(decision.ok, false);
+  assert.ok(decision.reasonCodes.includes('rejected-receipt-release-sequence-mismatch'));
 });
 
 test('conflicting admitted and rejected receipts fail closed', () => {
@@ -183,4 +224,20 @@ test('pending state is cryptographically identified and authority-free', () => {
   assert.equal(compiled.ok, true);
   assert.match(compiled.state.stateDigest, /^[a-f0-9]{64}$/);
   assert.equal(compiled.state.businessEffectAuthority, 'NONE');
+});
+
+test('invalid pending timestamp is refused before digest creation', () => {
+  const compiled = newPendingForgeState({
+    baseRevision: BASE,
+    candidateRevision: HEAD,
+    branchName: 'uberbond/self-maintain/task-aaaaaaaaaaaa',
+    taskId: 'task_1',
+    changeSetId: CHANGE,
+    receiptId: RECEIPT,
+    releaseName: RELEASE,
+    releaseSequence: SEQUENCE,
+    createdAt: 'not-a-date'
+  });
+  assert.equal(compiled.ok, false);
+  assert.ok(compiled.reasonCodes.includes('pending-state-created-at-invalid'));
 });

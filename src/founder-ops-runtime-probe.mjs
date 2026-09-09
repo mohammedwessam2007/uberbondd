@@ -1,7 +1,9 @@
 import crypto from 'node:crypto';
+import { runtimeTransitionIdentityEquivalent } from './runtime-transition-receipts.mjs';
 
-export const FOUNDER_OPS_RUNTIME_PROBE_VERSION = 'uberbond.founder-ops-runtime-probe.v1.1';
+export const FOUNDER_OPS_RUNTIME_PROBE_VERSION = 'uberbond.founder-ops-runtime-probe.v1.2';
 const SHA40 = /^[0-9a-f]{40}$/;
+const SHA256 = /^sha256:[0-9a-f]{64}$/;
 const ZERO = Object.freeze({ customerMessages: 0, providerCalls: 0, spendCents: 0, deployments: 0, dnsChanges: 0, credentialChanges: 0, paymentMutations: 0, productionMutations: 0 });
 const text = (value, max = 500) => { const out = String(value ?? '').trim(); return out && out.length <= max ? out : null; };
 const digest = value => `sha256:${crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex')}`;
@@ -53,6 +55,44 @@ export function founderOpsTargetIdentity(targetUrl) {
   return target ? `target:${digest(target).slice('sha256:'.length, 'sha256:'.length + 40)}` : null;
 }
 
+export function founderOpsRuntimeProbeReceiptPreimage(receipt = {}) {
+  return {
+    evidenceClass: receipt.evidenceClass,
+    receiptClass: receipt.receiptClass,
+    sourceCommit: receipt.sourceCommit,
+    targetUrl: receipt.targetUrl,
+    targetIdentity: receipt.targetIdentity,
+    runtimeIdentity: receipt.runtimeIdentity,
+    observedViewDigest: receipt.observedViewDigest,
+    authenticatedReadSucceeded: receipt.authenticatedReadSucceeded,
+    privateLifeStateExposed: receipt.privateLifeStateExposed,
+    writeAuthorityGranted: receipt.writeAuthorityGranted,
+    evidenceRef: receipt.evidenceRef,
+    independentVerifierRef: receipt.independentVerifierRef,
+    observedAt: receipt.observedAt
+  };
+}
+
+export function verifyFounderOpsRuntimeProbeReceiptIntegrity(receipt = {}) {
+  if (receipt?.ok !== true) return false;
+  if (receipt?.schemaVersion !== FOUNDER_OPS_RUNTIME_PROBE_VERSION) return false;
+  if (receipt?.status !== 'FOUNDER_OPS_RUNTIME_READ_INDEPENDENTLY_OBSERVED') return false;
+  if (receipt?.evidenceClass !== 'OBSERVED_RUNTIME' || receipt?.receiptClass !== 'FOUNDER_CONTROL_PLANE') return false;
+  if (!SHA40.test(String(receipt?.sourceCommit || '').toLowerCase())) return false;
+  const target = canonicalTarget(receipt?.targetUrl);
+  if (!target || target !== receipt.targetUrl || founderOpsTargetIdentity(target) !== receipt.targetIdentity) return false;
+  if (!/^runtime:sha256:[0-9a-f]{40}$/.test(String(receipt?.runtimeIdentity || ''))) return false;
+  if (!SHA256.test(String(receipt?.observedViewDigest || ''))) return false;
+  if (receipt?.authenticatedReadSucceeded !== true || receipt?.privateLifeStateExposed !== false || receipt?.writeAuthorityGranted !== false) return false;
+  if (!text(receipt?.evidenceRef) || !text(receipt?.independentVerifierRef)) return false;
+  if (runtimeTransitionIdentityEquivalent(receipt.independentVerifierRef, receipt.runtimeIdentity)) return false;
+  if (runtimeTransitionIdentityEquivalent(receipt.independentVerifierRef, receipt.targetIdentity)) return false;
+  const at = new Date(receipt?.observedAt);
+  if (Number.isNaN(at.getTime())) return false;
+  const expectedDigest = digest(founderOpsRuntimeProbeReceiptPreimage(receipt));
+  return receipt?.receiptDigest === expectedDigest;
+}
+
 /** Convert one independently observed authenticated GET into the C17 receipt shape. */
 export function compileFounderOpsRuntimeProbeReceipt({
   expectedSourceCommit,
@@ -87,8 +127,8 @@ export function compileFounderOpsRuntimeProbeReceipt({
   if (!evidence) reasons.push('evidence-reference-required');
   const runtimeIdentity = founderOpsRuntimeIdentity(view?.runtime);
   if (!runtimeIdentity) reasons.push('canonical-runtime-identity-required');
-  if (verifier && runtimeIdentity && verifier === runtimeIdentity) reasons.push('runtime-cannot-self-verify-control-plane');
-  if (verifier && targetIdentity && verifier === targetIdentity) reasons.push('target-cannot-self-verify-control-plane');
+  if (verifier && runtimeIdentity && runtimeTransitionIdentityEquivalent(verifier, runtimeIdentity)) reasons.push('runtime-cannot-self-verify-control-plane');
+  if (verifier && targetIdentity && runtimeTransitionIdentityEquivalent(verifier, targetIdentity)) reasons.push('target-cannot-self-verify-control-plane');
   const at = observedAt instanceof Date ? observedAt : new Date(observedAt);
   const clock = now instanceof Date ? now : new Date(now);
   if (Number.isNaN(at.getTime())) reasons.push('valid-observed-at-required');

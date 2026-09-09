@@ -32,9 +32,8 @@ function pr(overrides = {}) {
 function files(overrides = {}) {
   return [{ filename: 'src/example-repair.mjs', status: 'modified', additions: 4, deletions: 2, patch: '@@ safe patch @@', ...overrides }];
 }
-
-function admit(p = pr(), f = files(), main = BASE) {
-  return admitSelfMaintainerPullRequest({ pullRequest: p, changedFiles: f, currentMainSha: main, repository: REPO });
+function admit(p = pr(), f = files(), main = BASE, parents = [BASE]) {
+  return admitSelfMaintainerPullRequest({ pullRequest: p, changedFiles: f, currentMainSha: main, repository: REPO, headParents: parents });
 }
 
 test('exact self-maintainer PR is admitted only for read-only verification', () => {
@@ -50,6 +49,18 @@ test('stale base refuses instead of silently rebasing', () => {
   const out = admit(pr(), files(), 'c'.repeat(40));
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('pull-request-base-must-equal-current-main'));
+});
+
+test('candidate commit parent must be exact admitted base', () => {
+  const out = admit(pr(), files(), BASE, ['c'.repeat(40)]);
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('candidate-commit-parent-must-equal-admitted-base'));
+});
+
+test('merge commit ancestry is refused even if PR reports one commit', () => {
+  const out = admit(pr(), files(), BASE, [BASE, 'c'.repeat(40)]);
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('candidate-commit-parent-must-equal-admitted-base'));
 });
 
 test('workflow edits are build protected', () => {

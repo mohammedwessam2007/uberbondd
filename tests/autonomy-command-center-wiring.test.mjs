@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const wake = readFileSync(new URL('../.github/workflows/uberbond-autonomy-wake.yml', import.meta.url), 'utf8');
+const maintainerWorkflow = readFileSync(new URL('../.github/workflows/uberbond-self-maintainer.yml', import.meta.url), 'utf8');
+const finiteSeed = readFileSync(new URL('../scripts/uberbond-finite-completion-seed.mjs', import.meta.url), 'utf8');
 const governorWorkflow = readFileSync(new URL('../.github/workflows/uberbond-self-maintainer-merge-governor.yml', import.meta.url), 'utf8');
 const governor = readFileSync(new URL('../.github/workflows/runtime/self-maintainer-merge-governor.mjs', import.meta.url), 'utf8');
 const commandCenter = readFileSync(new URL('../api/command-center.mjs', import.meta.url), 'utf8');
@@ -16,6 +18,20 @@ test('autonomy wake is a bounded pulse rather than schedule truth', () => {
   assert.match(wake, /-f ref='main'/);
   assert.doesNotMatch(wake, /GITHUB_TOKEN:\s*\$\{\{\s*secrets\./);
   assert.doesNotMatch(wake, /contents:\s*write/);
+});
+
+test('self-maintainer pulse targets exact finite work before generic maintenance', () => {
+  assert.match(maintainerWorkflow, /Regenerate exact finite truth and seed one bounded completion target/);
+  assert.match(maintainerWorkflow, /git worktree add --detach "\$target" "\$GITHUB_SHA"/);
+  assert.match(maintainerWorkflow, /node scripts\/terminal-realization\.mjs/);
+  assert.match(maintainerWorkflow, /node scripts\/uberbond-finite-completion-seed\.mjs/);
+  assert.match(maintainerWorkflow, /steps\.finite\.outputs\.issue_number/);
+  assert.match(maintainerWorkflow, /steps\.finite\.outputs\.closed != 'true'/);
+  assert.match(finiteSeed, /FINITE_REQUIREMENT_TARGET_READY/);
+  assert.match(finiteSeed, /FINITE_ENGINEERING_ALREADY_CLOSED/);
+  assert.match(finiteSeed, /EXACT_CURRENT_TERMINAL_REPAIR_REQUIRED/);
+  assert.match(finiteSeed, /do-not-convert-external-elapsed-or-open-frontier-work-into-finite-engineering/);
+  assert.match(finiteSeed, /targetRequirementId:\s*openRequirements\[0\]/);
 });
 
 test('merge governor never executes candidate code with write authority', () => {

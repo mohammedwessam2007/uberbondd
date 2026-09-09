@@ -13,7 +13,7 @@ function stable(value) {
 }
 function digest(value) { return `sha256:${crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex')}`; }
 function fail(reasonCodes, status = 'SOVEREIGN_RELEASE_REQUEST_REFUSED', extra = {}) {
-  return { ok: false, version: SOVEREIGN_RELEASE_HANDOFF_VERSION, status, reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))], signingAuthority: 'NONE', deploymentAuthority: 'NONE', businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', ...extra };
+  return { ...extra, ok: false, version: SOVEREIGN_RELEASE_HANDOFF_VERSION, status, reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))], signingAuthority: 'NONE', deploymentAuthority: 'NONE', businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE' };
 }
 function coreOf(request = {}) {
   return {
@@ -23,8 +23,8 @@ function coreOf(request = {}) {
     priorMainSha: request.priorMainSha,
     prNumber: request.prNumber,
     changeSetId: request.changeSetId,
-    verificationReceiptId: request.verificationReceiptId,
-    verificationClass: request.verificationClass,
+    selfMaintenanceReceiptId: request.selfMaintenanceReceiptId,
+    independentVerificationClass: request.independentVerificationClass,
     requestedAction: request.requestedAction,
     signerBoundary: request.signerBoundary,
     deploymentAuthority: request.deploymentAuthority,
@@ -41,14 +41,14 @@ export function compileSovereignReleaseRequest({ mergeReceipt } = {}) {
   const priorMainSha = text(m.priorMainSha, 80).toLowerCase();
   const prNumber = Number(m.prNumber || 0);
   const changeSetId = text(m.changeSetId, 100);
-  const verificationReceiptId = text(m.receiptId, 100);
+  const selfMaintenanceReceiptId = text(m.receiptId, 100);
   if (m.ok !== true || m.status !== 'SELF_MAINTAINER_PR_MERGED_AFTER_INDEPENDENT_VERIFICATION') reasons.push('verified-autonomous-merge-receipt-required');
   if (!SHA40.test(sourceCommit)) reasons.push('exact-merge-commit-required');
   if (!SHA40.test(candidateHeadSha)) reasons.push('exact-candidate-head-required');
   if (!SHA40.test(priorMainSha)) reasons.push('exact-prior-main-required');
   if (!Number.isSafeInteger(prNumber) || prNumber <= 0) reasons.push('valid-pr-number-required');
   if (!CHANGE_SET.test(changeSetId)) reasons.push('canonical-change-set-id-required');
-  if (!RECEIPT.test(verificationReceiptId)) reasons.push('canonical-verification-receipt-id-required');
+  if (!RECEIPT.test(selfMaintenanceReceiptId)) reasons.push('canonical-self-maintenance-receipt-id-required');
   if (String(m.deploymentAuthority || '').toUpperCase() !== 'NONE') reasons.push('merge-receipt-must-not-carry-deployment-authority');
   if (String(m.businessEffectAuthority || '').toUpperCase() !== 'NONE') reasons.push('merge-receipt-must-not-carry-business-effect-authority');
   if (String(m.externalEffectAuthority || '').toUpperCase() !== 'NONE') reasons.push('merge-receipt-must-not-carry-external-effect-authority');
@@ -61,8 +61,8 @@ export function compileSovereignReleaseRequest({ mergeReceipt } = {}) {
     priorMainSha,
     prNumber,
     changeSetId,
-    verificationReceiptId,
-    verificationClass: 'INDEPENDENT_READ_ONLY_SYNTAX_AND_DETERMINISTIC_TRIBUNAL',
+    selfMaintenanceReceiptId,
+    independentVerificationClass: 'MERGE_GOVERNOR_CONFIRMED_EXACT_HEAD_SYNTAX_AND_DETERMINISTIC_TRIBUNAL',
     requestedAction: 'PACK_SIGNED_SOVEREIGN_RELEASE_OFFLINE',
     signerBoundary: 'OFFLINE_OWNER_CONTROLLED_AUTHORING_MACHINE_ONLY',
     deploymentAuthority: 'NONE',
@@ -82,7 +82,7 @@ export function compileSovereignReleaseRequest({ mergeReceipt } = {}) {
       'uberbondctl pack reruns syntax and deterministic verification before signing'
     ],
     signingAuthority: 'NOT_GRANTED_BY_REQUEST',
-    truthBoundary: 'THIS REQUEST RECORDS A VERIFIED SOURCE MERGE ONLY. IT DOES NOT SIGN, DEPLOY, ACTIVATE PRODUCTION, CONTACT CUSTOMERS, MOVE MONEY OR ESTABLISH RUNTIME SOVEREIGNTY.'
+    truthBoundary: 'THIS REQUEST RECORDS A MERGE GOVERNOR RESULT THAT WAS PRODUCED ONLY AFTER THE INDEPENDENT EXACT-HEAD TRIBUNAL. selfMaintenanceReceiptId NAMES THE WORKER SELF-MAINTENANCE RECEIPT, NOT A SEPARATE VERIFIER RECEIPT. THE REQUEST DOES NOT SIGN, DEPLOY, ACTIVATE PRODUCTION, CONTACT CUSTOMERS, MOVE MONEY OR ESTABLISH RUNTIME SOVEREIGNTY.'
   };
 }
 
@@ -96,7 +96,7 @@ export function verifySovereignReleaseRequest(request = {}) {
   if (!SHA40.test(text(request.priorMainSha, 80))) reasons.push('exact-prior-main-required');
   if (!Number.isSafeInteger(Number(request.prNumber)) || Number(request.prNumber) <= 0) reasons.push('valid-pr-number-required');
   if (!CHANGE_SET.test(text(request.changeSetId, 100))) reasons.push('canonical-change-set-id-required');
-  if (!RECEIPT.test(text(request.verificationReceiptId, 100))) reasons.push('canonical-verification-receipt-id-required');
+  if (!RECEIPT.test(text(request.selfMaintenanceReceiptId, 100))) reasons.push('canonical-self-maintenance-receipt-id-required');
   if (request.requestedAction !== 'PACK_SIGNED_SOVEREIGN_RELEASE_OFFLINE') reasons.push('offline-pack-action-required');
   if (request.signerBoundary !== 'OFFLINE_OWNER_CONTROLLED_AUTHORING_MACHINE_ONLY') reasons.push('offline-signer-boundary-required');
   if (request.signingAuthority !== 'NOT_GRANTED_BY_REQUEST') reasons.push('request-cannot-grant-signing-authority');

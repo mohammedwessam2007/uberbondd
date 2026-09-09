@@ -32,6 +32,7 @@ test('governance doctor loads all twelve formerly anonymous organs without grant
   assert.equal(result.commercialTruth, 'NOT_INFERRED');
   assert.equal(result.asiTruth, 'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED');
   assert.ok(result.organs.every(row => row.exportedBindings > 0));
+  assert.ok(result.organs.every(row => row.revisionIdentity.length > 0));
 });
 
 test('doctor is an inert import surface, not a hidden executor', () => {

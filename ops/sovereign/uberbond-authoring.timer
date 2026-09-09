@@ -1,0 +1,12 @@
+[Unit]
+Description=Wake UberBond sovereign authoring brain every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+AccuracySec=30s
+Persistent=true
+Unit=uberbond-authoring.service
+
+[Install]
+WantedBy=timers.target

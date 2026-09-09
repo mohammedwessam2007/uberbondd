@@ -1,6 +1,7 @@
 import { verifyRuntimeTransitionReceiptIntegrity, runtimeTransitionIdentityEquivalent } from './runtime-transition-receipts.mjs';
+import { verifyRuntimeEvidenceAttestation } from './runtime-evidence-attestation.mjs';
 
-export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1.1';
+export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1.2';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
@@ -54,6 +55,9 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(loss.duplicateExternalEffects!==0) reasons.push('provider-loss-must-have-zero-duplicate-effects');
   if(continuity.manifestDigest&&loss.manifestDigest!==continuity.manifestDigest) reasons.push('provider-loss-continuity-manifest-mismatch');
 
+  const runtimeEvidencePublicKey=process.env.UBERBOND_RUNTIME_EVIDENCE_PUBLIC_KEY_PEM||'';
+  if(!verifyRuntimeEvidenceAttestation({attestation:input.runtimeEvidenceAttestation,input,publicKeyPem:runtimeEvidencePublicKey})) reasons.push('externally-trusted-runtime-evidence-attestation-required');
+
   const control=input.controlPlaneReceipt||{};
   if(control.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-control-plane-receipt-required');
   if(String(control.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('control-plane-source-mismatch');
@@ -64,5 +68,5 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(!text(control.evidenceRef)||!text(control.independentVerifierRef)) reasons.push('control-plane-independent-evidence-required');
 
   if(reasons.length) return fail(reasons,{sourceCommit});
-  return {ok:true,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_VERIFIED_WITHIN_REHEARSED_SCOPE',sourceCommit,host:{runtimeIdentity:host.runtimeIdentity,provider:host.provider,region:host.region,imageDigest:host.imageDigest,configDigest:host.configDigest,dataSchemaDigest:host.dataSchemaDigest},evidenceRefs:[pg.evidenceRef,restart.commands?.[0],workload.evidenceRef,cut.evidenceRef,loss.evidenceRef,control.evidenceRef].filter(Boolean),providerIndependence:'PROVIDER_LOSS_REHEARSED_ACROSS_DISTINCT_NAMED_PROVIDERS_AND_ACCEPTED_HOST_RUNS_ON_THE_ALTERNATE_PROVIDER',postgresPersistence:'BACKUP_RESTORE_AND_RESTART_REHEARSED',cutoverRollback:'OBSERVED_BY_EXECUTING_OBSERVER_AND_REVERSIBLE_WITHIN_DECLARED_SCOPE',controlPlane:'AUTHENTICATED_READ_ONLY__PRIVATE_LIFE_STATE_NOT_EXPOSED',truthBoundary:'This proves only the named exact-source runtime and cryptographically bound executing-observer rehearsal scope. Source-only assertions cannot satisfy this gate. It does not prove elapsed autonomy, future restoreability, commercial outcomes, legal readiness, century continuity, AGI or ASI.',asiTruth:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO}};
+  return {ok:true,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_VERIFIED_WITHIN_REHEARSED_SCOPE',sourceCommit,host:{runtimeIdentity:host.runtimeIdentity,provider:host.provider,region:host.region,imageDigest:host.imageDigest,configDigest:host.configDigest,dataSchemaDigest:host.dataSchemaDigest},evidenceRefs:[pg.evidenceRef,restart.commands?.[0],workload.evidenceRef,cut.evidenceRef,loss.evidenceRef,control.evidenceRef].filter(Boolean),providerIndependence:'PROVIDER_LOSS_REHEARSED_ACROSS_DISTINCT_NAMED_PROVIDERS_AND_ACCEPTED_HOST_RUNS_ON_THE_ALTERNATE_PROVIDER',postgresPersistence:'BACKUP_RESTORE_AND_RESTART_REHEARSED',cutoverRollback:'EXTERNALLY_ATTESTED_EXECUTING_OBSERVER_EVIDENCE_AND_REVERSIBLE_WITHIN_DECLARED_SCOPE',controlPlane:'AUTHENTICATED_READ_ONLY__PRIVATE_LIFE_STATE_NOT_EXPOSED',truthBoundary:'This proves only the named exact-source runtime and externally trust-anchored rehearsal scope. Repository/source-only JSON and recomputable digests cannot satisfy this gate without a valid signature under the protected runtime evidence public key. It does not prove elapsed autonomy, future restoreability, commercial outcomes, legal readiness, century continuity, AGI or ASI.',asiTruth:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO}};
 }

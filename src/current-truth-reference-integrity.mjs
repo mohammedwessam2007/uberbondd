@@ -11,8 +11,8 @@ export function bindReferenceIntegrityToTruthReceipt({baseReceipt={},referenceIn
   if(baseReceipt?.ok!==true) return baseReceipt;
   return{
     ...baseReceipt,
-    evidenceReferenceIntegrity:{version:CURRENT_TRUTH_REFERENCE_INTEGRITY_VERSION,status:referenceIntegrity.status,referenceDigest:referenceIntegrity.referenceDigest,trackedPathCount:referenceIntegrity.trackedPathCount,checkedRepositoryPathCount:referenceIntegrity.checkedRepositoryPaths.length},
-    closureBoundary:{...baseReceipt.closureBoundary,internalEvidenceReferenceTruth:'EXACT_REPOSITORY_REFERENCES_RESOLVED_AND_BOUND_TO_CANONICAL_COVERAGE_STATE'},
+    evidenceReferenceIntegrity:{wrapperVersion:CURRENT_TRUTH_REFERENCE_INTEGRITY_VERSION,verifierVersion:referenceIntegrity.version,status:referenceIntegrity.status,referenceDigest:referenceIntegrity.referenceDigest,trackedPathCount:referenceIntegrity.trackedPathCount,checkedRepositoryPathCount:referenceIntegrity.checkedRepositoryPaths.length,bindingCounts:structuredClone(referenceIntegrity.bindingCounts||{})},
+    closureBoundary:{...baseReceipt.closureBoundary,internalEvidenceReferenceTruth:'EXACT_REPOSITORY_REFERENCES_RESOLVED_AND_EXACT_ROW_REQUIREMENT_LEAF_ASSIGNMENTS_BOUND_TO_CANONICAL_COVERAGE_STATE'},
     businessEffectAuthority:'NONE',
     externalEffectLedger:{...ZERO}
   };

@@ -7,6 +7,7 @@ Wants=network-online.target
 Type=oneshot
 User=uberbond-forge
 Group=uberbond-forge
+SupplementaryGroups=docker
 Environment=UBERBOND_FORGE_CONFIG=/etc/uberbond-forge/forge.env
 ExecStartPre=/opt/uberbond-forge/uberbond-forge-runner doctor
 ExecStart=/opt/uberbond-forge/uberbond-forge-runner cycle

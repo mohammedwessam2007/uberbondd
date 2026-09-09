@@ -13,7 +13,9 @@ const fail=(kind,reasons,extra={})=>({ok:false,schemaVersion:RUNTIME_TRANSITION_
 
 function identityKey(value){
   let out=String(value??'').normalize('NFKC').trim().toLowerCase().replace(/\s+/g,' ');
-  while(/^(?:verifier|runtime|provider|observer):/.test(out)) out=out.replace(/^(?:verifier|runtime|provider|observer):/,'');
+  while(/^(?:verifier|runtime|provider|observer):/.test(out)) {
+    out=out.replace(/^(?:verifier|runtime|provider|observer):/,'').trim().replace(/\s+/g,' ');
+  }
   return out;
 }
 function distinctIdentity(a,b){const x=identityKey(a),y=identityKey(b);return Boolean(x&&y&&x!==y);}

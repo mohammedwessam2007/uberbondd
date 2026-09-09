@@ -97,4 +97,19 @@ jobs:
           UBERBOND_MERGE_GOVERNOR_MODE: FINALIZE
           UBERBOND_VERIFY_JOB_CONCLUSION: ${{ needs.verify.result }}
           UBERBOND_VERIFIED_HEAD_SHA: ${{ needs.admission.outputs.head_sha }}
-        run: node .github/workflows/runtime/self-maintainer-merge-governor.mjs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/sovereign
+          node .github/workflows/runtime/self-maintainer-merge-governor.mjs | tee artifacts/sovereign/self-maintainer-merge-receipt.json
+          node scripts/sovereign-release-request.mjs artifacts/sovereign/self-maintainer-merge-receipt.json > artifacts/sovereign/sovereign-release-request.json
+          node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('artifacts/sovereign/sovereign-release-request.json','utf8'));if(v.ok!==true||v.status!=='SOVEREIGN_RELEASE_REQUEST_READY_FOR_OFFLINE_SIGNER'||v.deploymentAuthority!=='NONE'||v.signingAuthority!=='NOT_GRANTED_BY_REQUEST')process.exit(2)"
+      - name: Preserve authority-separated sovereign release handoff
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberbond-sovereign-release-request-${{ needs.admission.outputs.pr_number }}-${{ needs.admission.outputs.head_sha }}
+          path: |
+            artifacts/sovereign/self-maintainer-merge-receipt.json
+            artifacts/sovereign/sovereign-release-request.json
+          retention-days: 14
+          if-no-files-found: error

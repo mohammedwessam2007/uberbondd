@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { recomputeExecutionLeafGraphDigest } from './execution-leaf-graph-receipt-digest.mjs';
 
 export const EXECUTION_LEAF_CONTINUATION_VERSION='uberbond.execution-leaf-continuation.v1';
 const SHA40=/^[0-9a-f]{40}$/; const SHA256=/^[0-9a-f]{64}$/;
@@ -6,8 +7,7 @@ const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deploy
 const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const uniq=v=>[...new Set((Array.isArray(v)?v:[]).map(x=>String(x??'').trim()).filter(Boolean))];
 const fail=(reasons,extra={})=>({ok:false,version:EXECUTION_LEAF_CONTINUATION_VERSION,status:'EXECUTION_LEAF_CONTINUATION_REFUSED',reasonCodes:[...new Set(reasons)],businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO},...extra});
-function graphDigest(g){return digest({sourceCommit:g.sourceCommit,requirements:g.requirements,leaves:g.leaves,topologicalWaves:g.topologicalWaves,criticalPath:g.criticalPath});}
-function validGraph(g){return g?.ok===true&&g?.status==='ZERO_ORPHAN_EXECUTION_LEAF_GRAPH_COMPILED'&&SHA40.test(String(g.sourceCommit||''))&&Array.isArray(g.leaves)&&g.leaves.length>0&&g.graphDigest===graphDigest(g);}
+function validGraph(g){return g?.ok===true&&g?.status==='ZERO_ORPHAN_EXECUTION_LEAF_GRAPH_COMPILED'&&SHA40.test(String(g.sourceCommit||''))&&Array.isArray(g.leaves)&&g.leaves.length>0&&g.graphDigest===recomputeExecutionLeafGraphDigest(g);}
 function stateCore(state){return{schemaVersion:state.schemaVersion,sourceCommit:state.sourceCommit,graphDigest:state.graphDigest,maxAttempts:state.maxAttempts,nodes:state.nodes,receipts:state.receipts,runnableLeafIds:state.runnableLeafIds,completedLeafIds:state.completedLeafIds,terminalFailedLeafIds:state.terminalFailedLeafIds,blockedLeafIds:state.blockedLeafIds,status:state.status};}
 function validState(state,graph){if(!state||state.schemaVersion!==EXECUTION_LEAF_CONTINUATION_VERSION||state.sourceCommit!==graph.sourceCommit||state.graphDigest!==graph.graphDigest||!Number.isSafeInteger(state.maxAttempts)||state.maxAttempts<1||state.maxAttempts>20||!SHA256.test(String(state.stateDigest||'')))return false;const ids=graph.leaves.map(l=>l.leafId).sort();if(Object.keys(state.nodes||{}).sort().join('\0')!==ids.join('\0'))return false;return state.stateDigest===digest(stateCore(state));}
 function runnable(state,graph){const done=new Set(Object.entries(state.nodes).filter(([,v])=>v.status==='COMPLETED').map(([id])=>id));return graph.leaves.filter(l=>['PENDING','PENDING_RETRY'].includes(state.nodes[l.leafId]?.status)&&uniq(l.predecessors).every(p=>done.has(p))).map(l=>l.leafId).sort();}

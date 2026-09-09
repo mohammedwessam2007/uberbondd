@@ -2,11 +2,12 @@
 
 import { compileAgentCodeChangeSet, contentSha256 } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.2';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.3';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const BRANCH_PREFIX = 'uberbond/self-maintain/';
 const MAX_RESPONSE_BYTES = 2_000_000;
+const CONTINUATION_EVENT = 'uberbond-self-maintainer-continuation';
 
 function text(value, max = 1000) {
   return String(value ?? '').trim().slice(0, max);
@@ -76,7 +77,14 @@ function makeClient({ token, repository, fetchImpl = globalThis.fetch } = {}) {
       commit_title: `UberBond autonomous verified maintenance (#${number})`,
       commit_message: 'Merged by the independent UberBond self-maintainer merge governor after exact-head read-only verification.'
     }),
-    dispatchContinuation: () => request('POST', `${prefix}/actions/workflows/uberbond-self-maintainer.yml/dispatches`, { ref: 'main' })
+    dispatchContinuation: ({ mergedCommit, prNumber }) => request('POST', `${prefix}/dispatches`, {
+      event_type: CONTINUATION_EVENT,
+      client_payload: {
+        reason: 'verified-autonomous-merge',
+        mergedCommit,
+        prNumber
+      }
+    })
   });
 }
 
@@ -197,7 +205,8 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     return fail(merged?.reasonCodes || ['github-merge-refused'], 'MERGE_BLOCKED', { githubMessage: text(merged?.payload?.message, 300) || null });
   }
 
-  const continuation = await client.dispatchContinuation();
+  const mergedCommit = text(merged.payload?.sha, 80) || null;
+  const continuation = await client.dispatchContinuation({ mergedCommit, prNumber });
   const continuationDispatched = continuation?.ok === true;
 
   return {
@@ -210,12 +219,13 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     prNumber,
     baseRevision: body.baseRevision,
     verifiedHead: expectedHead,
-    mergedCommit: text(merged.payload?.sha, 80) || null,
+    mergedCommit,
     taskId: body.taskId,
     changeSetId: body.changeSetId,
     selfMaintenanceReceiptId: body.selfMaintenanceReceiptId,
     changedPaths: changes.map(change => change.path),
     continuation: {
+      eventType: CONTINUATION_EVENT,
       dispatchAttempted: true,
       dispatched: continuationDispatched,
       fallback: continuationDispatched ? 'NOT_NEEDED' : 'TWICE_HOURLY_SCHEDULE',
@@ -224,7 +234,7 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     repositoryMergeAuthority: 'CONSUMED_FOR_THIS_EXACT_VERIFIED_HEAD_ONLY',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'MERGE AUTHORITY APPLIED ONLY TO THE EXACT INDEPENDENTLY VERIFIED LOCAL-PREPARATION PR. CONTINUATION DISPATCH CARRIES NO BUSINESS AUTHORITY. NO DEPLOYMENT, CUSTOMER, PAYMENT, SPEND, DNS, CREDENTIAL, PRIVATE-LIFE, OR ASI AUTHORITY IS CREATED.'
+    truthBoundary: 'MERGE AUTHORITY APPLIED ONLY TO THE EXACT INDEPENDENTLY VERIFIED LOCAL-PREPARATION PR. REPOSITORY DISPATCH ONLY WAKES THE SAME PROTECTED SELF-MAINTAINER WORKFLOW AND CARRIES NO BUSINESS AUTHORITY. NO DEPLOYMENT, CUSTOMER, PAYMENT, SPEND, DNS, CREDENTIAL, PRIVATE-LIFE, OR ASI AUTHORITY IS CREATED.'
   };
 }
 

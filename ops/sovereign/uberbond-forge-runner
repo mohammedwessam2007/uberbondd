@@ -11,6 +11,9 @@ set +a
 
 [[ -n "${UBERBOND_FORGE_REPO:-}" ]] || { echo '[uberbond-forge] REFUSED: UBERBOND_FORGE_REPO required' >&2; exit 2; }
 [[ -d "$UBERBOND_FORGE_REPO" && ! -L "$UBERBOND_FORGE_REPO" ]] || { echo '[uberbond-forge] REFUSED: dedicated forge repo missing' >&2; exit 2; }
+[[ -n "${UBERBOND_RUNTIME_INBOX:-}" && -d "$UBERBOND_RUNTIME_INBOX" && ! -L "$UBERBOND_RUNTIME_INBOX" && -w "$UBERBOND_RUNTIME_INBOX" ]] || { echo '[uberbond-forge] REFUSED: writable runtime submission/receipt channel required' >&2; exit 2; }
+[[ -n "${UBERBOND_RUNTIME_STATE_FILE:-}" && -f "$UBERBOND_RUNTIME_STATE_FILE" && ! -L "$UBERBOND_RUNTIME_STATE_FILE" ]] || { echo '[uberbond-forge] REFUSED: regular independent runtime-state evidence file required' >&2; exit 2; }
+[[ ! -w "$UBERBOND_RUNTIME_STATE_FILE" ]] || { echo '[uberbond-forge] REFUSED: Forge must not be able to write runtime-state evidence' >&2; exit 2; }
 command="${1:-cycle}"
 case "$command" in
   doctor|cycle) ;;

@@ -19,6 +19,8 @@ import * as recursiveGovernanceSecurity from '../src/recursive-governance-securi
 import * as recursiveImprovementRetention from '../src/recursive-improvement-retention.mjs';
 import * as runtimeEvidenceAttestation from '../src/runtime-evidence-attestation.mjs';
 import * as selfImprovementCausalAdmission from '../src/self-improvement-causal-admission.mjs';
+import * as semanticRequirementTribunal from '../src/semantic-requirement-tribunal.mjs';
+import * as sovereignCutSetAudit from '../src/sovereign-cut-set-audit.mjs';
 import * as systemLevelAsiEvidence from '../src/system-level-asi-evidence.mjs';
 import * as worldResourceObservedValue from '../src/world-resource-observed-value.mjs';
 
@@ -36,6 +38,8 @@ const organs = Object.freeze([
   ['recursive-improvement-retention', recursiveImprovementRetention],
   ['runtime-evidence-attestation', runtimeEvidenceAttestation],
   ['self-improvement-causal-admission', selfImprovementCausalAdmission],
+  ['semantic-requirement-tribunal', semanticRequirementTribunal],
+  ['sovereign-cut-set-audit', sovereignCutSetAudit],
   ['system-level-asi-evidence', systemLevelAsiEvidence],
   ['world-resource-observed-value', worldResourceObservedValue]
 ]);

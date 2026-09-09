@@ -3,6 +3,7 @@ name: uberbond
 services:
   postgres:
     image: ${UBERBOND_POSTGRES_IMAGE:-postgres:16-alpine}
+    pull_policy: never
     container_name: uberbond-postgres
     restart: unless-stopped
     environment:
@@ -20,6 +21,7 @@ services:
 
   migrate:
     image: ${UBERBOND_RELEASE:?UBERBOND_RELEASE must name an already-loaded immutable app image}
+    pull_policy: never
     container_name: uberbond-migrate
     init: true
     command: ["node", "scripts/migrate.mjs"]
@@ -38,6 +40,7 @@ services:
 
   web:
     image: ${UBERBOND_RELEASE:?UBERBOND_RELEASE must name an already-loaded immutable app image}
+    pull_policy: never
     container_name: uberbond-web
     init: true
     restart: unless-stopped
@@ -66,6 +69,7 @@ services:
 
   worker:
     image: ${UBERBOND_RELEASE:?UBERBOND_RELEASE must name an already-loaded immutable app image}
+    pull_policy: never
     container_name: uberbond-worker
     init: true
     restart: unless-stopped

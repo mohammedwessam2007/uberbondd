@@ -23,7 +23,9 @@ export function databaseIdentity(databaseUrl) {
   try {
     const url = new URL(databaseUrl);
     if (!/^postgres(?:ql)?:$/.test(url.protocol)) return null;
-    return digest(`${url.hostname.toLowerCase()}:${url.port || '5432'}/${url.pathname.replace(/^\//, '')}`);
+    const database = url.pathname.replace(/^\//, '');
+    if (!url.hostname || !database) return null;
+    return digest(`${url.hostname.toLowerCase()}:${url.port || '5432'}/${database}`);
   } catch {
     return null;
   }
@@ -71,94 +73,64 @@ export async function runPostgresBackupRestoreRehearsal({
   let isolatedCreated = false;
   let cleanupOk = false;
   let dump = null;
+  let receiptInput = null;
+  let executionFailure = null;
+
   try {
     const beforePrimary = await adapter.fingerprint(primaryDatabaseUrl);
     dump = await adapter.dump(primaryDatabaseUrl);
     if (!dump || dump.exitCode !== 0 || !Number.isSafeInteger(dump.bytes) || dump.bytes <= 0 || !/^sha256:[0-9a-f]{64}$/.test(String(dump.sha256 || ''))) {
-      return fail(['observed-nonempty-successful-pg-dump-required'], { sourceCommit: commit });
-    }
+      executionFailure = fail(['observed-nonempty-successful-pg-dump-required'], { sourceCommit: commit });
+    } else {
+      const isolated = await adapter.createIsolatedDatabase(primaryDatabaseUrl, generatedRestoreName);
+      isolatedCreated = true;
+      const restoreIdentity = databaseIdentity(isolated?.databaseUrl);
+      if (!restoreIdentity || restoreIdentity === primaryIdentity) {
+        executionFailure = fail(['isolated-restore-database-required'], { sourceCommit: commit });
+      } else {
+        const restored = await adapter.restore(isolated.databaseUrl, dump);
+        if (!restored || restored.exitCode !== 0) {
+          executionFailure = fail(['observed-successful-pg-restore-required'], { sourceCommit: commit });
+        } else {
+          const afterRestore = await adapter.fingerprint(isolated.databaseUrl);
+          const bounded = await adapter.boundedReadWrite(isolated.databaseUrl);
+          const afterPrimary = await adapter.fingerprint(primaryDatabaseUrl);
 
-    const isolated = await adapter.createIsolatedDatabase(primaryDatabaseUrl, generatedRestoreName);
-    isolatedCreated = true;
-    const restoreIdentity = databaseIdentity(isolated?.databaseUrl);
-    if (!restoreIdentity || restoreIdentity === primaryIdentity) return fail(['isolated-restore-database-required'], { sourceCommit: commit });
+          const sourceFingerprint = digest(JSON.stringify(beforePrimary));
+          const restoreFingerprint = digest(JSON.stringify(afterRestore));
+          const primaryAfterFingerprint = digest(JSON.stringify(afterPrimary));
+          const primaryUnchanged = sourceFingerprint === primaryAfterFingerprint;
+          const stateMatches = sourceFingerprint === restoreFingerprint;
 
-    const restored = await adapter.restore(isolated.databaseUrl, dump);
-    if (!restored || restored.exitCode !== 0) return fail(['observed-successful-pg-restore-required'], { sourceCommit: commit });
-
-    const afterRestore = await adapter.fingerprint(isolated.databaseUrl);
-    const bounded = await adapter.boundedReadWrite(isolated.databaseUrl);
-    const afterPrimary = await adapter.fingerprint(primaryDatabaseUrl);
-
-    const sourceFingerprint = digest(JSON.stringify(beforePrimary));
-    const restoreFingerprint = digest(JSON.stringify(afterRestore));
-    const primaryAfterFingerprint = digest(JSON.stringify(afterPrimary));
-    const primaryUnchanged = sourceFingerprint === primaryAfterFingerprint;
-    const stateMatches = sourceFingerprint === restoreFingerprint;
-
-    const receipt = compilePostgresBackupRestoreReceipt({
-      sourceCommit: commit,
-      environment: 'POSTGRES',
-      primaryDatabaseIdentity: primaryIdentity,
-      restoreDatabaseIdentity: restoreIdentity,
-      backupDigest: dump.sha256,
-      dumpBytes: dump.bytes,
-      dumpExitCode: dump.exitCode,
-      restoreExitCode: restored.exitCode,
-      sourceFingerprint,
-      restoreFingerprint,
-      schemaMigrationsMatch: stateMatches && beforePrimary?.migrationFingerprint === afterRestore?.migrationFingerprint,
-      tableSetMatch: stateMatches && beforePrimary?.tableFingerprint === afterRestore?.tableFingerprint,
-      rowCountFingerprintMatch: stateMatches && beforePrimary?.rowCountFingerprint === afterRestore?.rowCountFingerprint,
-      boundedReadWriteVerified: bounded?.ok === true && bounded?.rolledBack === true,
-      primaryDatabaseMutated: !primaryUnchanged,
-      // cleanup is finalized in finally, so compile after cleanup below.
-      cleanupOk: false,
-      runtimeIdentity: runtime,
-      rollbackRef: rollback,
-      evidenceRef: evidence,
-      observerRef: observer,
-      evidenceClass: 'OBSERVED_RUNTIME',
-      manifestDigest,
-      businessEffectAuthority: 'NONE'
-    });
-
-    return {
-      pendingCleanupReceiptInput: receipt.ok ? null : {
-        sourceCommit: commit,
-        environment: 'POSTGRES',
-        primaryDatabaseIdentity: primaryIdentity,
-        restoreDatabaseIdentity: restoreIdentity,
-        backupDigest: dump.sha256,
-        dumpBytes: dump.bytes,
-        dumpExitCode: dump.exitCode,
-        restoreExitCode: restored.exitCode,
-        sourceFingerprint,
-        restoreFingerprint,
-        schemaMigrationsMatch: stateMatches && beforePrimary?.migrationFingerprint === afterRestore?.migrationFingerprint,
-        tableSetMatch: stateMatches && beforePrimary?.tableFingerprint === afterRestore?.tableFingerprint,
-        rowCountFingerprintMatch: stateMatches && beforePrimary?.rowCountFingerprint === afterRestore?.rowCountFingerprint,
-        boundedReadWriteVerified: bounded?.ok === true && bounded?.rolledBack === true,
-        primaryDatabaseMutated: !primaryUnchanged,
-        runtimeIdentity: runtime,
-        rollbackRef: rollback,
-        evidenceRef: evidence,
-        observerRef: observer,
-        evidenceClass: 'OBSERVED_RUNTIME',
-        manifestDigest,
-        businessEffectAuthority: 'NONE'
-      },
-      preliminary: {
-        stateMatches,
-        primaryUnchanged,
-        boundedReadWriteVerified: bounded?.ok === true && bounded?.rolledBack === true,
-        sourceFingerprint,
-        restoreFingerprint,
-        restoreDatabaseIdentity: restoreIdentity
+          receiptInput = {
+            sourceCommit: commit,
+            environment: 'POSTGRES',
+            primaryDatabaseIdentity: primaryIdentity,
+            restoreDatabaseIdentity: restoreIdentity,
+            backupDigest: dump.sha256,
+            dumpBytes: dump.bytes,
+            dumpExitCode: dump.exitCode,
+            restoreExitCode: restored.exitCode,
+            sourceFingerprint,
+            restoreFingerprint,
+            schemaMigrationsMatch: stateMatches && beforePrimary?.migrationFingerprint === afterRestore?.migrationFingerprint,
+            tableSetMatch: stateMatches && beforePrimary?.tableFingerprint === afterRestore?.tableFingerprint,
+            rowCountFingerprintMatch: stateMatches && beforePrimary?.rowCountFingerprint === afterRestore?.rowCountFingerprint,
+            boundedReadWriteVerified: bounded?.ok === true && bounded?.rolledBack === true,
+            primaryDatabaseMutated: !primaryUnchanged,
+            runtimeIdentity: runtime,
+            rollbackRef: rollback,
+            evidenceRef: evidence,
+            observerRef: observer,
+            evidenceClass: 'OBSERVED_RUNTIME',
+            manifestDigest,
+            businessEffectAuthority: 'NONE'
+          };
+        }
       }
-    };
+    }
   } catch (error) {
-    return fail(['postgres-backup-restore-rehearsal-threw'], { sourceCommit: commit, errorClass: String(error?.name || 'Error') });
+    executionFailure = fail(['postgres-backup-restore-rehearsal-threw'], { sourceCommit: commit, errorClass: String(error?.name || 'Error') });
   } finally {
     if (isolatedCreated) {
       try {
@@ -168,20 +140,18 @@ export async function runPostgresBackupRestoreRehearsal({
         cleanupOk = false;
       }
     }
-    try { if (dump && typeof adapter.cleanupDump === 'function') await adapter.cleanupDump(dump); } catch { /* best effort, never upgrades proof */ }
+    try { if (dump && typeof adapter.cleanupDump === 'function') await adapter.cleanupDump(dump); } catch { /* best effort; never upgrades proof */ }
   }
-}
 
-/**
- * Finalize a runner result only after its isolated database cleanup has been
- * independently observed by the caller/adapter boundary.
- */
-export function finalizePostgresBackupRestoreRehearsal(runResult, { cleanupOk } = {}) {
-  if (!runResult?.pendingCleanupReceiptInput) return fail(['pending-receipt-input-required']);
-  const receipt = compilePostgresBackupRestoreReceipt({
-    ...runResult.pendingCleanupReceiptInput,
-    cleanupOk: cleanupOk === true
-  });
+  if (executionFailure) {
+    if (isolatedCreated && !cleanupOk) {
+      return fail([...executionFailure.reasonCodes, 'isolated-restore-cleanup-failed'], { sourceCommit: commit });
+    }
+    return executionFailure;
+  }
+  if (!receiptInput) return fail(['restore-receipt-input-not-produced'], { sourceCommit: commit });
+
+  const receipt = compilePostgresBackupRestoreReceipt({ ...receiptInput, cleanupOk });
   return {
     ...receipt,
     runnerVersion: POSTGRES_BACKUP_RESTORE_RUNNER_VERSION,

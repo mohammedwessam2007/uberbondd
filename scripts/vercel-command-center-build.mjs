@@ -6,14 +6,14 @@ const fixturePreparation = process.platform === 'linux' && process.arch === 'x64
 
 const steps = [
   ...fixturePreparation,
-  // C11-B/C12 executes before repository-derived atlases. It requires clean
-  // truth inputs (provider workspace metadata may already be dirty), regenerates
-  // readiness + Sovereign coverage + the exact denominator-bound zero-orphan
-  // execution graph, then cross-checks them against git HEAD and C11-A. Only
-  // the four declared generated truth outputs may be newly dirtied. This is
-  // source/canon accounting only: no runtime, customer, commercial, life-outcome
-  // or ASI evidence is created.
-  ['node', ['scripts/current-truth-regeneration.mjs']],
+  // The finite terminal tribunal owns exact-checkout truth regeneration as its
+  // first internal step. Running current-truth-regeneration separately here
+  // would dirty its generated truth inputs and correctly make the tribunal's
+  // second regeneration refuse the workspace. One owner, one regeneration.
+  // The tribunal may certify only its declared finite engineering denominator;
+  // runtime, provider, commercial, personal-reality and ASI facets remain
+  // explicitly evidence-gated inside the tribunal itself.
+  ['node', ['scripts/terminal-realization.mjs']],
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
@@ -46,6 +46,8 @@ console.log(JSON.stringify({
   ok: true,
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
   exactHeadTruthRegenerationRequired: true,
+  exactHeadTruthRegenerationOwner: 'scripts/terminal-realization.mjs',
+  finiteEngineeringTribunalRequired: true,
   sovereignCoverageDenominatorRequired: true,
   zeroOrphanCanonicalExecutionGraphRequired: true,
   ultimateGraphRequired: true,

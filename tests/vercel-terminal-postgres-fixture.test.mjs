@@ -22,6 +22,7 @@ import { prepareEmbeddedPostgresFixture } from '../scripts/prepare-embedded-post
 test('terminal gate narrowly approves and prepares the pinned embedded Postgres fixture at both required boundaries', () => {
   const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
   const terminal = readFileSync('scripts/vercel-command-center-build.mjs', 'utf8');
+  const realization = readFileSync('scripts/terminal-realization.mjs', 'utf8');
   const fixture = readFileSync('scripts/prepare-embedded-postgres-fixture.mjs', 'utf8');
 
   assert.deepEqual(packageJson.allowScripts, {
@@ -35,6 +36,8 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
   const executablePreparation = terminal.indexOf("['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]");
   const firstPreparation = terminal.indexOf('...fixturePreparation');
   const secondPreparation = terminal.indexOf('...fixturePreparation', firstPreparation + 1);
+  const terminalRealization = terminal.indexOf("['node', ['scripts/terminal-realization.mjs']]");
+  const featureGenome = terminal.indexOf("['node', ['scripts/uberbond-feature-genome.mjs']]");
   const deterministic = terminal.indexOf("['npm', ['run', 'test:deterministic']]");
   const mutationWar = terminal.indexOf("['npm', ['run', 'test:mutation-war']]");
 
@@ -45,6 +48,17 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
   assert.ok(secondPreparation > deterministic && secondPreparation < mutationWar,
     'fixture preparation must be reasserted after deterministic and immediately before Mutation War');
   assert.ok(mutationWar > deterministic, 'Mutation War must remain after the complete deterministic suite');
+  assert.ok(terminalRealization >= 0,
+    'finite engineering tribunal must execute on the exact Vercel checkout');
+  assert.ok(featureGenome > terminalRealization,
+    'finite engineering tribunal must fail closed before downstream repository-derived atlases');
+  assert.match(realization, /executeCurrentTruthRegeneration\(\)/,
+    'finite tribunal must own exact-checkout truth regeneration internally');
+  assert.doesNotMatch(terminal, /\['node', \['scripts\/current-truth-regeneration\.mjs'\]\]/,
+    'Vercel gate must not dirty truth inputs by regenerating once before the tribunal regenerates');
+  assert.match(terminal, /exactHeadTruthRegenerationOwner: 'scripts\/terminal-realization\.mjs'/);
+  assert.match(terminal, /finiteEngineeringTribunalRequired: true/,
+    'terminal gate success receipt must declare the finite tribunal as required evidence');
   assert.match(terminal, /process\.platform === 'linux' && process\.arch === 'x64'/);
 
   assert.match(fixture, /spawnSync\('id', \['-u', 'postgres'\]/,

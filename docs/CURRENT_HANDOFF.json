@@ -1,26 +1,20 @@
 {
-  "activeMission": "Full defined UberBond realization under existing North Star; refresh live main before claims or dispatch. Planning snapshots are historical provenance.",
+  "activeMission": "Execute the exact-current finite engineering tribunal and sovereign owned-host rehearsal. Do not reopen already-merged architecture or stale donor stacks unless new evidence proves a concrete defect.",
   "blockers": [
-    "TRUTH REGENERATION REQUIRED: artifacts/sovereign/implementation-coverage-matrix.json is a historical generated snapshot from sourceCommit 19c6109641bd515a9526821355113caf85c34234 with 83 SPEC_ONLY rows. Many source merges landed after it. The exact current SPEC_ONLY count is UNKNOWN_PENDING_CANONICAL_REGENERATION and must not be guessed or copied from the historical artifact.",
-    "TRUTH REGENERATION REQUIRED: artifacts/system-readiness.json is a historical generated snapshot from 19c6109641bd515a9526821355113caf85c34234 and predates the current merge wave. Its reachability/test/source counts are not exact-current-main truth.",
-    "EXECUTION PROOF REQUIRED: PR #507 source is merged, but exact-head GitHub jobs received zero-step runner allocation and Vercel was at its free build cap. No exact-head executed-test proof is claimed for the new private runtime until a real runner executes it.",
-    "EXTERNAL/RUNTIME: DEPLOY-08 remains genuinely unresolved. Provider independence becomes operational only when a named owned/authorized alternate substrate actually serves restored state and a bounded verified workload. Source packaging alone is not cutover proof.",
-    "EXTERNAL/COMMERCIAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0 and retainedCustomers=0. Code, sandbox payments and internal simulations cannot change these facts.",
-    "EXTERNAL/COMMERCIAL: live PayPal merchant/KYC/callability/webhook/provider truth, lawful outreach sender/DNS/transport/consent/legal-tax readiness and real prospect/customer actions remain outside repository proof.",
-    "ELAPSED/REALITY: longitudinal life outcomes, forecast calibration and causal personal-learning evidence require future observations and cannot be minted from architecture."
+    "EXECUTION PROOF REQUIRED: exact-current GitHub Actions jobs for the latest convergence heads are failing before runner assignment with runner_id=0 and steps=[]. This is infrastructure non-evidence, not a test pass or code failure. Canonical current-truth regeneration and terminal-realization scripts therefore remain unexecuted on exact current main.",
+    "RUNTIME PROOF REQUIRED: sovereign self-hosting source is on main, but no owned/authorized Linux host has yet executed source/dependency/image pack -> transfer -> install -> signed exact-release admission -> Postgres/web/worker boot -> bounded durable workload -> crash/restart reconciliation -> backup/restore -> failed-promotion rollback -> explicit rollback.",
+    "EXTERNAL/PROVIDER: live PayPal merchant/KYC/callability/webhook/provider truth, lawful outbound sender/DNS/transport/consent/legal-tax readiness, live alternate model/messaging/payment provider callability and independent credential custody remain outside repository proof.",
+    "EXTERNAL/COMMERCIAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0 and retainedCustomers=0. Source, sandbox payments, internal simulations and DELIVERY_READY cannot change these facts.",
+    "ELAPSED/REALITY: longitudinal personal-life outcomes, forecast calibration, observed autonomy duration and any system-level ASI claim require real future evidence and cannot be minted from source closure."
   ],
-  "checkpointedAt": "2026-09-08",
+  "checkpointedAt": "2026-09-09",
   "completed": [
-    "Current-main cash artery is merged: PR #482 at 62202f48366a0fac217e99b3a6c1d277a54dd3b7 binds exact $450 PayPal order/capture/signed-webhook/provider-readback truth to a durable paid Lead-Path sprint, research.batch, recoverable QA and DELIVERY_READY. DELIVERY_READY remains distinct from DELIVERED and CUSTOMER_ACCEPTED.",
-    "Current-main provider-neutral backend is merged: PR #506 at b520f6f69e690378f08e6a021d6b297ac077125c packages PostgreSQL, one-shot migration, hardened web, worker, PayPal bridge, restart/init/grace contracts and a fail-closed doctor without making Vercel the identity boundary.",
-    "Current-main durable recurring scheduler is merged via PR #500: deterministic occurrence identity, durable cursor, duplicate-wake collapse, bounded catch-up and crash-after-enqueue healing through the existing DurableQueue.",
-    "Current-main delivery transport and bounded silence semantics are merged via PR #502: attempt != provider-confirmed delivery != customer acceptance; ambiguous effects reconcile instead of blind resend; silence cannot manufacture acceptance, retention or renewal.",
-    "Current-main restart/recovery rehearsal harness is merged via PR #503. It can exercise terminate -> reconnect -> replacement-worker recovery against real PostgreSQL when an executing database substrate is available; the harness is software, not proof that the real drill has run on this exact main.",
-    "Current-main missing-capability handoff is merged via PR #504: genuine gap -> verified reuse first -> supplier/build candidate -> license/security/dependency/benchmark admission -> bounded implementation handoff. Capability never creates authority and build candidates cannot self-promote.",
-    "Current-main Constraint Mutation is merged via PR #505: same base + same failed mechanism + no new evidence forbids identical retry; STOP remains STOP; REVIEW remains review; new evidence/main movement can reopen evaluation without quota/access/identity circumvention.",
-    "Founder-interactive encrypted Personal Civilization runtime is merged via PR #507 at e87757e520f4717c017cf1827404c933944923e8. It adds the only explicit founder-interactive entry point, a dedicated UBERBOND_PRIVATE_LIFE_KEY, AES-256-GCM authenticated local state/export envelopes, Will-event capture, explicit founder-written promotion, provenance-linked hypotheses, Sovereign Decision Packets, transitive delete/export sovereignty and parent-symlink path hardening while keeping private life modules unreachable from unattended execution.",
-    "Reachability law now distinguishes production, unattended operator, founder-interactive-only and no-entry-point classes. Founder-interactive private state cannot be used as camouflage for a module reachable from any unattended path.",
-    "Zombie C06 relay tickets #487-#494 and stale orchestration issue #484 were closed with exact merged-current-main receipts, removing already-completed work from the active command queue."
+    "Cash artery, provider-neutral backend, durable recurring scheduler, delivery transport/silence truth, restart/recovery harness, missing-capability handoff, Constraint Mutation and founder-interactive encrypted Personal Civilization runtime remain merged on main from the prior convergence wave.",
+    "Sovereign self-hosting source was cleanly transplanted from stale PR #594 onto then-current main without its stale ancestry and merged through PR #597 at c6e836a51490697b3b59bbfa968b420a2a784ca0. The 16-file slice includes offline immutable Docker runtime, local release inbox, signed monotonic release admission, independent systemd reconciliation, backup/restore/rollback and sovereign kit export/import. This is source capability, not real-host proof.",
+    "C11 governance-organ reachability repair merged on current lineage at c4993c5745d7d6bfb34e26a0c1525312e4816e80. It provides an inert operator import surface and does not create external-effect authority.",
+    "Terminal finite-closure machinery was cleanly transplanted from stale PR #593 onto current main without its 25-commit stale ancestry and merged through PR #598 at 7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3. The 20-file payload adds semantic no-drop requirement tribunals, composed effect-authority cut sets, recursive principal/credential/custody separation, sovereign failure-cut auditing, canonical continuation composition and finite closure with separated runtime/commercial/ASI/human truth.",
+    "Stale donor PR #593 and stacked sovereign PR #594 are closed as superseded historical donors. Do not merge them. Their useful final payloads are represented by clean PRs #598 and #597 respectively.",
+    "Open pull-request queue was observed empty immediately after #598 merge and donor retirement. Closed issue #501 is historical execution provenance, not an active construction queue."
   ],
   "currentTruth": {
     "commercialProof": {
@@ -29,56 +23,57 @@
       "realCustomers": 0,
       "retainedCustomers": 0
     },
-    "currentMainPRs": {
-      "capabilityHandoff504": "MERGED",
-      "cashArtery482": "MERGED",
-      "constraintMutation505": "MERGED",
-      "delivery502": "MERGED",
-      "personalCivilization507": "MERGED",
-      "portableBackend506": "MERGED",
-      "restart503": "MERGED",
-      "scheduler500": "MERGED"
+    "repositoryIdentity": {
+      "observedMain": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
+      "observedMainTree": "59704da2b37611272ae2a78fa78e6093ec6902d1",
+      "openPullRequestsAtCheckpoint": 0,
+      "latestMainRequiresRefreshBeforeNewClaims": true
+    },
+    "recentConvergence": {
+      "sovereignHost597": "MERGED",
+      "governanceReachability596": "MERGED",
+      "terminalFiniteClosure598": "MERGED",
+      "staleTerminalDonor593": "CLOSED_SUPERSEDED",
+      "staleSovereignDonor594": "CLOSED_SUPERSEDED"
     },
     "generatedCoverage": {
       "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
-      "currentSpecOnly": "UNKNOWN_PENDING_CANONICAL_REGENERATION",
+      "currentSpecOnly": "UNKNOWN_PENDING_EXACT_CURRENT_REGENERATION",
       "historicalSpecOnly": 83,
-      "sourceCommit": "19c6109641bd515a9526821355113caf85c34234"
+      "historicalSourceCommit": "19c6109641bd515a9526821355113caf85c34234"
     },
     "generatedReadiness": {
       "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
-      "currentExactReadiness": "UNKNOWN_PENDING_CANONICAL_REGENERATION",
-      "sourceCommit": "19c6109641bd515a9526821355113caf85c34234"
+      "currentExactReadiness": "UNKNOWN_PENDING_EXACT_CURRENT_REGENERATION",
+      "historicalSourceCommit": "19c6109641bd515a9526821355113caf85c34234"
     },
-    "historicalMainSnapshot": "e87757e520f4717c017cf1827404c933944923e8",
+    "exactHeadExecutionEvidence": {
+      "classification": "NOT_EXECUTED_DUE_RUNNER_ALLOCATION_FAILURE",
+      "observedFailurePattern": "runner_id=0; steps=[]",
+      "claim": "NO_PASS_OR_FAIL_INFERENCE_FROM_ZERO_STEP_JOBS"
+    },
+    "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_OWNED_OR_AUTHORIZED_HOST",
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
-    "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_AUTHORIZED_HOST",
-    "repositoryIdentity": {
-      "OBSERVED_DURING_PLANNING_SHA": "722e802d7c282d101aa6159798d8a338c72f7d4e",
-      "ORCHESTRATION_PUBLICATION_SHA": "10f214330ccaac666a2b1c823c2c3d9fcfef8758",
-      "ORCHESTRATION_BRANCH_HEAD": null,
-      "MERGE_COMMIT_IF_KNOWN": null,
-      "LATEST_MAIN_REQUIRES_REFRESH": true
-    },
-    "snapshotSemantics": "Other retained truth/commercial fields are historical observations; refresh before current claims."
+    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "latestOrchestrationCheckpoint": {
-    "id": "TP01-TP10_REFRESH",
-    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
-    "observedMain": "722e802d7c282d101aa6159798d8a338c72f7d4e",
-    "verdict": "FINITE_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
-    "next": "Existing exact-current regeneration + semantic binding; no redispatch of TP03/TP05 repaired source."
+    "id": "SOVEREIGN_HOST_PLUS_TERMINAL_FINITE_CLOSURE_CURRENT_MAIN",
+    "status": "SOURCE_CONVERGED__EXACT_CURRENT_EXECUTION_PENDING",
+    "observedMain": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
+    "verdict": "KNOWN_STALE_SOURCE_STACKS_REHOMED; NEXT_VALUE_IS_EXECUTED_PROOF_NOT_MORE_ARCHITECTURE",
+    "next": "Run exact-current current-truth regeneration and scripts/terminal-realization.mjs on the first trustworthy executing substrate. Repair only reproducible internal failures; otherwise advance the owned-host rehearsal."
   },
   "nextActions": [
-    "On the first executing substrate that can run the exact current tree, run focused PR #507 private-vault/reachability suites plus syntax, then the canonical readiness and Sovereign coverage generators. Publish their exact source SHA and retire the historical 19c610 snapshots only after successful generation.",
-    "Consume issue #501 only for genuinely unclosed C03/C04 causal experiments or new source defects. Do not redispatch the C06 six-gap queue closed by #500/#502/#503/#504/#505/#506.",
-    "Advance DEPLOY-08 only on owned/authorized compute: restore current state, start Postgres/web/worker, execute a bounded replay-safe workload, observe restart/recovery and perform cutover/rollback. Do not purchase or bypass provider limits merely to create a badge.",
-    "Build the smallest safe iPad-first Sovereign control surface that exposes truthful summaries, decisions, blockers and receipts without networking raw founder-private life records or weakening the founder-interactive encrypted-vault boundary.",
-    "Move the economic organism from internally complete software into reality only through lawful external activation: verified sender/provider configuration, real prospect opportunity, real provider-origin payment, real delivery and customer-origin acceptance. No synthetic substitution.",
-    "Continue residual Sovereign/GENESIS/Capability work only after exact-current coverage regeneration or direct causal dedupe proves the behavior is genuinely absent. Reuse existing organs before creating another framework."
+    "On the first trustworthy executing substrate, refresh exact main and run the canonical current-truth regeneration plus scripts/terminal-realization.mjs. Record exact source SHA, actual pass/fail/skip counts and generated receipt digests. Do not infer results from source presence or zero-step CI jobs.",
+    "If the exact-current tribunal exposes an internally reproducible defect, repair the smallest causal seam, add hostile coverage and rerun. If it passes, do not invent another framework simply to keep coding.",
+    "Execute the sovereign owned-host rehearsal on owned/authorized Linux: export source/dependency/image kit, transfer offline if needed, install host control plane, initialize release authority, admit the exact signed candidate, boot Postgres/web/worker, authenticate, execute a bounded durable replay-safe job, kill/restart, reconcile, prove backup/restore, force a failed promotion and observe automatic rollback, then perform explicit rollback.",
+    "After named-host proof, activate only lawful external gates with real evidence: provider configuration/callability, real prospect/customer interaction, provider-origin payment, accepted delivery and retention. Preserve external-effect and owner-choice boundaries.",
+    "Keep Vercel and GitHub-hosted runners as optional diagnostic/transit surfaces, not the sovereignty root. Never make provider quotas, CI availability or one SaaS control plane a prerequisite for UberBond continuity.",
+    "Preserve founder-private life state as encrypted founder-interactive data. Recommendation never becomes choice; capability never creates authority; prediction never becomes preference; DELIVERY_READY never becomes customer acceptance."
   ],
   "provisionalProgress": {
-    "boundary": "These percentages are an evidence-bounded integration scoreboard, not generated coverage counts and not proof of customers, revenue, accepted delivery, retention, independent-host operation or improved life outcomes. They must not be sharpened from stale generated artifacts.",
+    "boundary": "Prior integration percentages are retained only as historical estimates because exact-current generators have not executed after the latest convergence. Do not increase them from source merges alone and do not treat them as proof of runtime, customers, revenue, acceptance, retention, life improvement or ASI.",
+    "classification": "HISTORICAL_ESTIMATE_NOT_RECOMPUTED_AT_THIS_CHECKPOINT",
     "canonPercent": 99,
     "deploymentRuntimeReadinessPercent": 98,
     "economicSoftwarePercent": 100,
@@ -89,42 +84,28 @@
     "realityCalibrationPercent": 38,
     "sovereignContinuumRuntimePercent": 92
   },
-  "schemaVersion": "uberbond-handoff-2.3.0",
-  "sourceCommit": "e87757e520f4717c017cf1827404c933944923e8",
-  "startupLaw": "[\"Refresh live main, open PRs/issues and exact runtime/provider truth before present-tense claims.\",\"Treat this handoff as the current command packet and older issue/PR language as historical unless refreshed evidence reactivates it.\",\"Never quote 83, 93, 123 or 138 as the current genuine SPEC_ONLY denominator. The current exact count is unknown until the canonical coverage generator runs on current source.\",\"Historical tests and READY deployments certify only their exact source tree. Zero-step jobs and provider-capacity rejections are infrastructure non-evidence.\",\"Private founder-life state stays encrypted, local/founder-interactive and outside Git. No unattended network/API/worker path may gain access merely for dashboard convenience.\",\"Same blocker + same strategy + no new safe evidence => mutate strategy, not retry. STOP is a valid terminal decision.\",\"Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes customer acceptance. Sandbox payment never becomes cleared real revenue.\",\"After every meaningful evidence-backed milestone, print all six progress percentages plus first-dollar/payment-fulfilment/deployment percentages and the exact delta reason.\"] Reject stale present-tense main SHAs; resolve actual main, branch and PR merge refs independently.",
+  "schemaVersion": "uberbond-handoff-2.4.0",
+  "sourceCommit": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
+  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, canon pointers, this handoff and current readiness in that order. Stale donor PRs #593/#594 are historical only. Never quote historical coverage counts as current. Zero-step jobs are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. 100% may describe only a declared finite engineering denominator actually proven by the terminal tribunal; runtime, commercial, personal-reality and ASI facets remain separate.",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
-  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
+  "truthBoundary": "This handoff records source convergence and current blockers. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
   "terminalOrchestrationProof": {
-    "version": "TP01-TP10-refresh.1",
-    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
-    "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
-    "observedMain": "722e802d7c282d101aa6159798d8a338c72f7d4e",
-    "verdict": "FINITE_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
-    "scope": "Semantic finite denominator and actual runtime trust not established; preserve current repaired source.",
-    "nextExecutor": "W1 deterministic TP01 verifier; narrow TP04 coverage-wrapper reproduction. No worker launched.",
-    "admissionGate": "No historical materialized leaf may dispatch until exact current semantic scope, dependency/conflict and verifier binding pass. Existing current implementation remains reusable.",
-    "topLevelContracts": 28,
-    "repairLeaves": 20,
-    "newCheckpoints": 0,
-    "activeCampaign": "artifacts/work/astra-terminal-proof-2026-09-09.json#/terminalRefresh",
-    "sourceRetirements": [
-      {
-        "basis": "#587/#588 source + reported focused evidence",
-        "next": "Verification only; no redispatch of these implementations",
-        "scope": "TP03 scope truncation/shared-mutating conflicts/greedy maximum/proof digest"
-      },
-      {
-        "basis": "#590 source + reported 17/17 focused evidence",
-        "next": "Independent enrollment/runtime signed receipts; no signature implementation redispatch",
-        "scope": "TP05 arbitrary digest completion/identical automatic retries"
-      },
-      {
-        "basis": "#589",
-        "next": "Verify deliberate non-autonomous reachability in TP01; do not make private modules unattended-callable",
-        "scope": "Founder-interactive classification"
-      }
-    ]
+    "version": "terminal-current-main-convergence.1",
+    "status": "SOURCE_MACHINERY_MERGED__EXECUTION_PROOF_PENDING",
+    "observedMain": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
+    "sourceMechanisms": [
+      "scripts/terminal-realization.mjs",
+      "src/finite-closure-tribunal.mjs",
+      "src/semantic-requirement-tribunal.mjs",
+      "src/composed-effect-authority-audit.mjs",
+      "src/recursive-governance-principals.mjs",
+      "src/sovereign-cut-set-audit.mjs",
+      "ops/sovereign/uberbondctl",
+      "docker-compose.sovereign.yml"
+    ],
+    "nextExecutor": "First trustworthy exact-current Node/Postgres/owned-host runner",
+    "admissionGate": "No finite closure claim until exact-current regeneration and terminal tribunal execute. No runtime sovereignty claim until the owned-host drill produces real receipts. No commercial or ASI claim without external evidence."
   }
 }

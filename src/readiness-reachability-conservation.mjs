@@ -1,4 +1,4 @@
-export const READINESS_REACHABILITY_CONSERVATION_VERSION = 'uberbond.readiness-reachability-conservation.v1';
+export const READINESS_REACHABILITY_CONSERVATION_VERSION = 'uberbond.readiness-reachability-conservation.v1.1';
 
 const nni = value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
 
@@ -16,6 +16,7 @@ export function verifyReachabilityConservation({ repository = {}, reachability =
     if (!nni(value)) reasons.push(`reachability-count-must-be-nonnegative-integer:${name}`);
   }
   if (!nni(repository?.sourceModules)) reasons.push('readiness-source-module-count-must-be-nonnegative-integer');
+  if (reachability?.partitionExact !== true) reasons.push('reachability-partition-must-be-exact');
 
   if (Object.values(counts).every(nni)) {
     const observedPartition = counts.production + counts.unattendedOperatorOnly + counts.founderInteractiveOnly + counts.unreachable;

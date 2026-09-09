@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+
+CONFIG="${UBERBOND_FORGE_CONFIG:-/etc/uberbond-forge/forge.env}"
+[[ -f "$CONFIG" && ! -L "$CONFIG" ]] || { echo '[uberbond-forge] REFUSED: regular forge config required' >&2; exit 2; }
+# shellcheck disable=SC1090
+set -a
+source "$CONFIG"
+set +a
+
+[[ -n "${UBERBOND_FORGE_REPO:-}" ]] || { echo '[uberbond-forge] REFUSED: UBERBOND_FORGE_REPO required' >&2; exit 2; }
+[[ -d "$UBERBOND_FORGE_REPO" && ! -L "$UBERBOND_FORGE_REPO" ]] || { echo '[uberbond-forge] REFUSED: dedicated forge repo missing' >&2; exit 2; }
+cd "$UBERBOND_FORGE_REPO"
+exec /usr/bin/node scripts/sovereign-autonomy-forge.mjs cycle

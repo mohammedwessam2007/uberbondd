@@ -10,7 +10,7 @@ import {
 } from './self-improvement-causal-admission.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const GENESIS_SELF_IMPROVEMENT_BRIDGE_VERSION = 'uberbond.genesis-self-improvement-bridge.v1.1';
+export const GENESIS_SELF_IMPROVEMENT_BRIDGE_VERSION = 'uberbond.genesis-self-improvement-bridge.v1.2';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -114,15 +114,20 @@ export function compileGenesisSelfImprovementAdmission({
   falsifier,
   rivals = [],
   evaluatedAt,
+  now = new Date(),
   ...causalArgs
 } = {}) {
   const evaluationDate = evaluatedAt instanceof Date ? evaluatedAt : new Date(evaluatedAt ?? NaN);
   if (Number.isNaN(evaluationDate.getTime())) return fail(['valid-genesis-evaluation-time-required']);
+  const verifierDate = now instanceof Date ? now : new Date(now ?? NaN);
+  if (Number.isNaN(verifierDate.getTime())) return fail(['valid-genesis-verifier-time-required']);
+  if (evaluationDate.getTime() > verifierDate.getTime()) return fail(['future-genesis-evaluation-time-prohibited']);
   const evaluationIso = evaluationDate.toISOString();
   const futureDatedDonors = (Array.isArray(donors) ? donors : []).filter(row => {
     const raw = row?.source?.observedAt;
     const observed = raw instanceof Date ? raw : new Date(raw ?? NaN);
-    return !Number.isNaN(observed.getTime()) && observed.getTime() > evaluationDate.getTime();
+    return !Number.isNaN(observed.getTime())
+      && (observed.getTime() > evaluationDate.getTime() || observed.getTime() > verifierDate.getTime());
   });
   if (futureDatedDonors.length) return fail(['future-dated-donor-evidence-prohibited'], { evaluatedAt: evaluationIso });
 

@@ -6,6 +6,9 @@ on:
       - main
   schedule:
     - cron: '7,37 * * * *'
+  repository_dispatch:
+    types:
+      - uberbond-self-maintainer-continuation
   workflow_dispatch:
     inputs:
       issueNumber:

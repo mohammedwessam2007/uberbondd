@@ -9,6 +9,7 @@ import {
   founderAuthorization,
   runPrivateCommand
 } from '../src/personal-civilization-private-operator.mjs';
+import { runPrivateRealityCommand } from '../src/personal-civilization-private-reality-runtime.mjs';
 
 export const PRIVATE_OPERATOR_CONFIRMATION = 'OPEN MY PRIVATE LIFE STATE';
 
@@ -35,6 +36,22 @@ function publicView(result, action) {
   if (action === 'decision') return { ok: true, status: result.status, packet: result.packet, truthBoundary: result.truthBoundary, businessEffectAuthority: 'NONE' };
   if (action === 'delete') return { ok: true, status: result.status, encryption: result.encryption, deletedIds: result.deletedIds, derivedAlsoDeleted: result.derivedAlsoDeleted, prunedHypothesisCount: result.prunedHypothesisCount, prunedEdgeCount: result.prunedEdgeCount, guarantee: result.guarantee, businessEffectAuthority: 'NONE' };
   if (action === 'export') return { ok: true, status: result.status, exportWritten: result.exportWritten, exportDestination: result.exportDestination, encryption: result.encryption, recordCount: result.recordCount, hypothesisCount: result.hypothesisCount, edgeCount: result.edgeCount, stateDigest: result.stateDigest, completeness: result.completeness, businessEffectAuthority: 'NONE' };
+  if (action === 'start_reality_cycle' || action === 'close_reality_cycle') {
+    return {
+      ok: true,
+      status: result.status,
+      persisted: result.persisted,
+      encryption: result.encryption,
+      recordIds: result.recordIds,
+      recordCount: result.recordCount,
+      calibration: result.calibration,
+      truthBoundary: result.truthBoundary,
+      sovereigntyBoundary: result.sovereigntyBoundary,
+      privateDataReturned: false,
+      networkAuthority: 'NONE',
+      businessEffectAuthority: 'NONE'
+    };
+  }
   return { ok: true, status: result.status, businessEffectAuthority: 'NONE' };
 }
 
@@ -62,7 +79,7 @@ export async function runFounderInteractiveSession({
     const authorization = founderAuthorization(new Date());
     if (!authorization) return { ok: false, status: 'FOUNDER_PRESENCE_REQUIRED', reasonCodes: ['authorization-clock-invalid'], businessEffectAuthority: 'NONE' };
 
-    stdout.write('Authorized for this interactive process only. Enter one-line JSON commands. Actions: status, capture, promote, list, hypothesis, decision, delete, export. Type quit to close.\n');
+    stdout.write('Authorized for this interactive process only. Enter one-line JSON commands. Actions: status, capture, promote, list, hypothesis, decision, start_reality_cycle, close_reality_cycle, delete, export. Type quit to close.\n');
     for (;;) {
       const line = await rl.question('private> ');
       if (String(line).trim().toLowerCase() === 'quit') {
@@ -75,7 +92,10 @@ export async function runFounderInteractiveSession({
         continue;
       }
       const action = String(command?.action || '').trim().toLowerCase();
-      const result = runPrivateCommand({ command, authorization, privateKey, filePath: privateFilePath });
+      const realityAction = action === 'start_reality_cycle' || action === 'close_reality_cycle';
+      const result = realityAction
+        ? runPrivateRealityCommand({ command: { ...command, action: action.toUpperCase() }, authorization, privateKey, filePath: privateFilePath })
+        : runPrivateCommand({ command, authorization, privateKey, filePath: privateFilePath });
       stdout.write(`${JSON.stringify(publicView(result, action), null, 2)}\n`);
     }
   } finally {

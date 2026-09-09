@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+
+CONTROL_DIR="${UBERBOND_CONTROL_DIR:-/var/lib/uberbond-control}"
+INBOX_DIR="${CONTROL_DIR}/inbox"
+CONTROL_BIN="${UBERBOND_CONTROL_BIN:-/opt/uberbond/control/uberbondctl}"
+POINTER="${INBOX_DIR}/NEXT_RELEASE"
+SCHEMA='uberbond.runtime-release-receipt.v1'
+
+log(){ printf '[uberbond-release-inbox] %s\n' "$*" >&2; }
+die(){ log "REFUSED: $*"; exit 2; }
+
+json_receipt(){
+  local status="$1" name="$2" source="$3" sequence="$4" exit_code="$5" output="$6" tmp
+  tmp="${output}.tmp.$$"
+  printf '{"schemaVersion":"%s","status":"%s","releaseName":"%s","sourceCommit":"%s","releaseSequence":"%s","recordedAt":"%s","exitCode":%s}\n' \
+    "$SCHEMA" "$status" "$name" "$source" "$sequence" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$exit_code" > "$tmp"
+  chmod 600 "$tmp"
+  mv -f "$tmp" "$output"
+}
+
+release_field(){
+  local file="$1" key="$2" line
+  line="$(grep -E "^${key}=[A-Za-z0-9._:/@+,-]+$" "$file" | tail -n 1 || true)"
+  [[ -n "$line" ]] || return 1
+  printf '%s\n' "${line#*=}"
+}
+
+[[ -f "$POINTER" && ! -L "$POINTER" ]] || { log 'no inbox release pointer'; exit 0; }
+[[ -x "$CONTROL_BIN" && ! -L "$CONTROL_BIN" ]] || die 'trusted uberbondctl executable required'
+
+name="$(tr -d '\r\n' < "$POINTER")"
+[[ "$name" =~ ^[A-Za-z0-9._-]+$ ]] || die 'unsafe inbox release name'
+dir="${INBOX_DIR}/${name}"
+[[ -d "$dir" && ! -L "$dir" ]] || die 'inbox release directory missing'
+[[ -f "$dir/release.env" && ! -L "$dir/release.env" ]] || die 'release.env required'
+source_commit="$(release_field "$dir/release.env" SOURCE_COMMIT || true)"
+release_sequence="$(release_field "$dir/release.env" RELEASE_SEQUENCE || true)"
+[[ "$source_commit" =~ ^[0-9a-f]{40}$ ]] || die 'release source commit malformed'
+[[ "$release_sequence" =~ ^[0-9]{14}$ ]] || die 'release sequence malformed'
+
+admitted="${INBOX_DIR}/ADMITTED-${name}.receipt"
+rejected="${INBOX_DIR}/REJECTED-${name}.receipt"
+[[ ! -e "$admitted" && ! -e "$rejected" ]] || die 'terminal receipt for release already exists'
+
+if "$CONTROL_BIN" deploy "$dir"; then
+  applied_pointer="${INBOX_DIR}/APPLIED-${name}-$(date -u +%Y%m%dT%H%M%SZ)"
+  mv -f "$POINTER" "$applied_pointer"
+  json_receipt ADMITTED "$name" "$source_commit" "$release_sequence" 0 "$admitted"
+  log "RELEASE_ADMITTED name=${name} source=${source_commit} sequence=${release_sequence}"
+  exit 0
+fi
+
+code=$?
+rejected_pointer="${INBOX_DIR}/REJECTED-${name}-$(date -u +%Y%m%dT%H%M%SZ)"
+mv -f "$POINTER" "$rejected_pointer"
+json_receipt REJECTED "$name" "$source_commit" "$release_sequence" "$code" "$rejected"
+log "RELEASE_REJECTED name=${name} source=${source_commit} sequence=${release_sequence} exit=${code}"
+exit "$code"

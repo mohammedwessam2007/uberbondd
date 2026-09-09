@@ -1,4 +1,9 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "uberbond/self-maintain/**": false
+    }
+  },
   "buildCommand": "node scripts/build-visual-cortex.mjs",
   "functions": {
     "api/command-center.mjs": { "maxDuration": 30 },

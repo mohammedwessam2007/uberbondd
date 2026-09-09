@@ -24,7 +24,7 @@ for account in uberbond-author uberbond-worker; do
 done
 
 install -d -m 0755 /opt/uberbond /opt/uberbond/control
-install -d -m 0700 -o uberbond-author -g uberbond-author /var/lib/uberbond-control /var/lib/uberbond-control/autonomy /var/lib/uberbond-control/founder-intents
+install -d -m 0700 -o uberbond-author -g uberbond-author /var/lib/uberbond-control /var/lib/uberbond-control/autonomy /var/lib/uberbond-control/founder-intents /var/lib/uberbond-control/founder-dialogue
 install -d -m 0750 -o uberbond-author -g uberbond-autonomy /var/lib/uberbond-worker/inbox
 install -d -m 0750 -o uberbond-worker -g uberbond-autonomy /var/lib/uberbond-worker/outbox
 install -d -m 0700 /etc/uberbond
@@ -42,6 +42,7 @@ if [[ "$(git -C /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" ]]; then
 rm -rf "$PREVIOUS"; trap - EXIT
 
 install -m 0755 /opt/uberbond/source/ops/sovereign/uberbond-authorctl /opt/uberbond/control/uberbond-authorctl
+install -m 0755 /opt/uberbond/source/ops/sovereign/uberbond-founder-console /opt/uberbond/control/uberbond-founder-console
 for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service; do
   install -m 0644 "/opt/uberbond/source/ops/sovereign/$unit" "/etc/systemd/system/$unit"
 done
@@ -74,6 +75,20 @@ UBERBOND_FOUNDER_CONSOLE_HOST=127.0.0.1
 UBERBOND_FOUNDER_CONSOLE_PORT=8787
 UBERBOND_FOUNDER_CONSOLE_TOKEN=
 UBERBOND_AUTHORCTL=/opt/uberbond/control/uberbond-authorctl
+UBERBOND_FOUNDER_DIALOGUE_ENABLED=false
+UBERBOND_FOUNDER_DIALOGUE_MAX_TOKENS=4096
+UBERBOND_FOUNDER_DIALOGUE_MAX_COST_CENTS=25
+OPEN_MODEL_AGENT_ENABLED=false
+OPEN_MODEL_RUNTIME=
+OPEN_MODEL_MODEL=
+OPEN_MODEL_ENDPOINT=
+OPEN_MODEL_API_STYLE=CHAT_COMPLETIONS
+OPEN_MODEL_API_KEY=
+OPEN_MODEL_INPUT_USD_PER_MILLION=
+OPEN_MODEL_OUTPUT_USD_PER_MILLION=
+OPEN_MODEL_INFRASTRUCTURE_USD_PER_REQUEST=
+OPEN_MODEL_PRICING_SOURCE=
+OPEN_MODEL_PRICING_VERIFIED_AT=
 EOF
 chown root:uberbond-author /etc/uberbond/founder-console.env; chmod 0640 /etc/uberbond/founder-console.env
 
@@ -87,12 +102,19 @@ Founder console: http://127.0.0.1:8787/
 Founder control: /opt/uberbond/control/uberbond-authorctl
 Author state:    /var/lib/uberbond-control/autonomy
 Founder intents: /var/lib/uberbond-control/founder-intents
+Dialogue receipts: /var/lib/uberbond-control/founder-dialogue
 Worker inbox:    /var/lib/uberbond-worker/inbox
 Worker outbox:   /var/lib/uberbond-worker/outbox
 
 Default console binding is loopback-only and cloud-independent. Do not bind it to
 another interface without a strong UBERBOND_FOUNDER_CONSOLE_TOKEN and a private,
 trusted network path. The console never reads the Personal Civilization vault.
+
+Direct free-text dialogue is disabled until an approved local open-model runtime
+is configured in /etc/uberbond/founder-console.env. The sovereign dialogue path
+accepts loopback OpenAI-compatible runtimes only; it never silently falls back
+to a cloud provider. UberBond already supports Ollama, vLLM, SGLang, llama.cpp,
+MLX and TGI-style runtimes through the canonical open-model executor.
 
 Default autonomy is truth/task generation only. To enable autonomous model
 proposals, install a local worker executable outside the source tree, set it in

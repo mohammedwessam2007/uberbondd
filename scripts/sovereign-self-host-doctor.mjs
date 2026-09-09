@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const SOVEREIGN_SELF_HOST_DOCTOR_VERSION = 'uberbond.sovereign-self-host-doctor.v2';
+export const SOVEREIGN_SELF_HOST_DOCTOR_VERSION = 'uberbond.sovereign-self-host-doctor.v3';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ZERO = Object.freeze({ customerMessages:0, providerCalls:0, spendCents:0, deployments:0, dnsChanges:0, credentialChanges:0, paymentMutations:0, productionMutations:0 });
 
@@ -15,10 +15,13 @@ const required = Object.freeze([
   'ops/sovereign/uberbondctl',
   'ops/sovereign/install-host.sh',
   'ops/sovereign/init-release-authority.sh',
+  'ops/sovereign/export-sovereign-kit.sh',
+  'ops/sovereign/import-sovereign-kit.sh',
   'ops/sovereign/uberbond-reconcile.service',
   'ops/sovereign/uberbond-reconcile.timer',
   'ops/sovereign/uberbond-release-apply.service',
-  'ops/sovereign/uberbond-release-apply.path'
+  'ops/sovereign/uberbond-release-apply.path',
+  'ops/sovereign/README.md'
 ]);
 
 export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
@@ -37,6 +40,8 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
   const ctl = read('ops/sovereign/uberbondctl');
   const install = read('ops/sovereign/install-host.sh');
   const authority = read('ops/sovereign/init-release-authority.sh');
+  const exportKit = read('ops/sovereign/export-sovereign-kit.sh');
+  const importKit = read('ops/sovereign/import-sovereign-kit.sh');
   const service = read('ops/sovereign/uberbond-reconcile.service');
   const timer = read('ops/sovereign/uberbond-reconcile.timer');
   const applyService = read('ops/sovereign/uberbond-release-apply.service');
@@ -78,6 +83,17 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
   if (!authority.includes('release-private.pem') || !authority.includes('release-public.pem') || !authority.includes('Refusing to overwrite')) {
     reasons.push('separate-release-authority-bootstrap-required');
   }
+
+  const kitMarkers = [
+    [exportKit, 'git bundle create'], [exportKit, '--all'], [exportKit, 'node_modules.tar'], [exportKit, 'docker save'], [exportKit, 'kit.sig'],
+    [importKit, 'sha256sum -c'], [importKit, 'kit signature verification failed'], [importKit, 'git clone'], [importKit, 'git checkout --detach'],
+    [importKit, 'PACKAGE_LOCK_SHA256'], [importKit, 'Base image identity mismatch after load'], [importKit, 'npm ls --all']
+  ];
+  for (const [body, marker] of kitMarkers) if (!body.toLowerCase().includes(marker.toLowerCase())) reasons.push(`offline-resurrection-marker-missing:${marker}`);
+  for (const body of [exportKit, importKit]) {
+    if (/\b(?:curl|wget)\b|docker\s+pull|git\s+fetch|npm\s+(?:ci|install)/i.test(body)) reasons.push('offline-resurrection-kit-regained-network-fetch');
+  }
+
   if (!service.includes('ExecStart=/opt/uberbond/control/uberbondctl reconcile')) reasons.push('independent-supervisor-entrypoint-required');
   if (!timer.includes('OnUnitActiveSec=60s') || !timer.includes('Persistent=true')) reasons.push('durable-minute-reconciliation-required');
   if (!applyService.includes('ExecStart=/opt/uberbond/control/uberbondctl apply-inbox') || !applyPath.includes('PathChanged=/var/lib/uberbond-control/inbox/NEXT_RELEASE')) {
@@ -101,6 +117,10 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
       immutableImageIdentityPinned:true,
       releaseSigningAuthoritySeparatedFromRuntime:true,
       localInboxAutoDeployment:true,
+      offlineSourceHistoryPreserved:true,
+      offlineDependencySeedPreserved:true,
+      offlineBuildImageSeedPreserved:true,
+      authoringEnvironmentOfflineRestorable:true,
       preMigrationBackup:true,
       automaticFailedPromotionRollback:true,
       reversibleRollbackSnapshot:true,
@@ -110,7 +130,7 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
       defaultExternalEffects:'DISABLED',
       defaultBind:'127.0.0.1'
     },
-    proofBoundary:'SOURCE INSPECTION ONLY. A REAL OWNED/AUTHORIZED HOST MUST STILL EXECUTE OFFLINE PACK, INSTALL, SIGNED DEPLOY, CRASH/RESTART, RESTORE-DRILL, FAILED-PROMOTION ROLLBACK AND EXPLICIT ROLLBACK BEFORE RUNTIME SOVEREIGNTY IS CLAIMED.',
+    proofBoundary:'SOURCE INSPECTION ONLY. A REAL OWNED/AUTHORIZED HOST MUST STILL EXECUTE SOVEREIGN-KIT EXPORT/IMPORT, OFFLINE PACK, INSTALL, SIGNED DEPLOY, CRASH/RESTART, RESTORE-DRILL, FAILED-PROMOTION ROLLBACK AND EXPLICIT ROLLBACK BEFORE RUNTIME SOVEREIGNTY IS CLAIMED.',
     businessEffectAuthority:'NONE',
     externalEffectLedger:{...ZERO}
   };

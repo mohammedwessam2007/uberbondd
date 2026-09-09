@@ -2487,7 +2487,7 @@
         ]
       },
       {
-        "ACCEPTANCE CONTRACT": "Apply asiResearchNorthStar in full: all 20 dimensions and baselines, versioned independent evidence, matched resources, predeclared thresholds, per-domain uncertainty and all ladder prerequisites. No unobserved comparator or ASI achieved label. C15 owns resource acquisition; C16 owns conditional model learning; C26 owns capability-scaled independent admission. Research design may start from blocked reports, but evidence maturity never inherits unearned security/runtime/outcome stages.",
+        "ACCEPTANCE CONTRACT": "Apply asiResearchNorthStar in full: all 20 dimensions and baselines, versioned independent evidence, matched resources, predeclared thresholds, per-domain uncertainty and all ladder prerequisites. No unobserved comparator or ASI achieved label. C15 owns resource acquisition; C16 owns conditional model learning; C26 owns capability-scaled independent admission. Research design may start from blocked reports, but evidence maturity never inherits unearned security/runtime/outcome stages. Terminal-refresh measurement clarification: compare strongest available model+tools and current/candidate system with matched compute, money, tools, time and information access; report founder-minute amplification and meta-improvement gain separately. UBERBOND-1000 is symbolic, never an IQ or achieved-ASI label. Reuse C21; no TP11 platform.",
         "CURRENT VERIFIED INPUTS": {
           "basis": "C11-C20 orchestration and existing canon only; no comparative intelligence experiments executed.",
           "observedMain": "9c53535b58673ad0541df82695b49893af2b1771"
@@ -4827,16 +4827,34 @@
   },
   "status": "C21_ASI_RESEARCH_PLAN__IMPLEMENTATION_NOT_LAUNCHED",
   "terminalOrchestrationProof": {
-    "version": "uberbond.astra-terminal-proof.1",
+    "version": "TP01-TP10-refresh.1",
     "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
     "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
-    "observedMain": "cfd429e37264275536dc9b7e87cf65b36390f0ad",
-    "verdict": "FINAL_REALIZATION_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
-    "scope": "Current semantic finite-scope graph NOT proven complete; historical zero-orphan accounting is insufficient.",
-    "nextExecutor": "Deterministic/cheapest capable verifier, TP01 then TP02. No worker launched.",
+    "observedMain": "722e802d7c282d101aa6159798d8a338c72f7d4e",
+    "verdict": "FINITE_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
+    "scope": "Semantic finite denominator and actual runtime trust not established; preserve current repaired source.",
+    "nextExecutor": "W1 deterministic TP01 verifier; narrow TP04 coverage-wrapper reproduction. No worker launched.",
     "admissionGate": "No historical materialized leaf may dispatch until exact current semantic scope, dependency/conflict and verifier binding pass. Existing current implementation remains reusable.",
     "topLevelContracts": 28,
     "repairLeaves": 20,
-    "newCheckpoints": 0
+    "newCheckpoints": 0,
+    "activeCampaign": "artifacts/work/astra-terminal-proof-2026-09-09.json#/terminalRefresh",
+    "sourceRetirements": [
+      {
+        "basis": "#587/#588 source + reported focused evidence",
+        "next": "Verification only; no redispatch of these implementations",
+        "scope": "TP03 scope truncation/shared-mutating conflicts/greedy maximum/proof digest"
+      },
+      {
+        "basis": "#590 source + reported 17/17 focused evidence",
+        "next": "Independent enrollment/runtime signed receipts; no signature implementation redispatch",
+        "scope": "TP05 arbitrary digest completion/identical automatic retries"
+      },
+      {
+        "basis": "#589",
+        "next": "Verify deliberate non-autonomous reachability in TP01; do not make private modules unattended-callable",
+        "scope": "Founder-interactive classification"
+      }
+    ]
   }
 }

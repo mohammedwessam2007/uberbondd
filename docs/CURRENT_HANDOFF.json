@@ -54,7 +54,7 @@
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
     "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_AUTHORIZED_HOST",
     "repositoryIdentity": {
-      "OBSERVED_DURING_PLANNING_SHA": "cfd429e37264275536dc9b7e87cf65b36390f0ad",
+      "OBSERVED_DURING_PLANNING_SHA": "722e802d7c282d101aa6159798d8a338c72f7d4e",
       "ORCHESTRATION_PUBLICATION_SHA": "10f214330ccaac666a2b1c823c2c3d9fcfef8758",
       "ORCHESTRATION_BRANCH_HEAD": null,
       "MERGE_COMMIT_IF_KNOWN": null,
@@ -63,11 +63,11 @@
     "snapshotSemantics": "Other retained truth/commercial fields are historical observations; refresh before current claims."
   },
   "latestOrchestrationCheckpoint": {
-    "id": "C26_TERMINAL_PROOF",
+    "id": "TP01-TP10_REFRESH",
     "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
-    "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
-    "verdict": "FINAL_REALIZATION_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
-    "next": "TP01 -> TP02; no worker launched. Reuse current implementation."
+    "observedMain": "722e802d7c282d101aa6159798d8a338c72f7d4e",
+    "verdict": "FINITE_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
+    "next": "Existing exact-current regeneration + semantic binding; no redispatch of TP03/TP05 repaired source."
   },
   "nextActions": [
     "On the first executing substrate that can run the exact current tree, run focused PR #507 private-vault/reachability suites plus syntax, then the canonical readiness and Sovereign coverage generators. Publish their exact source SHA and retire the historical 19c610 snapshots only after successful generation.",
@@ -97,16 +97,34 @@
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
   "terminalOrchestrationProof": {
-    "version": "uberbond.astra-terminal-proof.1",
+    "version": "TP01-TP10-refresh.1",
     "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
     "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
-    "observedMain": "cfd429e37264275536dc9b7e87cf65b36390f0ad",
-    "verdict": "FINAL_REALIZATION_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
-    "scope": "Current semantic finite-scope graph NOT proven complete; historical zero-orphan accounting is insufficient.",
-    "nextExecutor": "Deterministic/cheapest capable verifier, TP01 then TP02. No worker launched.",
+    "observedMain": "722e802d7c282d101aa6159798d8a338c72f7d4e",
+    "verdict": "FINITE_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
+    "scope": "Semantic finite denominator and actual runtime trust not established; preserve current repaired source.",
+    "nextExecutor": "W1 deterministic TP01 verifier; narrow TP04 coverage-wrapper reproduction. No worker launched.",
     "admissionGate": "No historical materialized leaf may dispatch until exact current semantic scope, dependency/conflict and verifier binding pass. Existing current implementation remains reusable.",
     "topLevelContracts": 28,
     "repairLeaves": 20,
-    "newCheckpoints": 0
+    "newCheckpoints": 0,
+    "activeCampaign": "artifacts/work/astra-terminal-proof-2026-09-09.json#/terminalRefresh",
+    "sourceRetirements": [
+      {
+        "basis": "#587/#588 source + reported focused evidence",
+        "next": "Verification only; no redispatch of these implementations",
+        "scope": "TP03 scope truncation/shared-mutating conflicts/greedy maximum/proof digest"
+      },
+      {
+        "basis": "#590 source + reported 17/17 focused evidence",
+        "next": "Independent enrollment/runtime signed receipts; no signature implementation redispatch",
+        "scope": "TP05 arbitrary digest completion/identical automatic retries"
+      },
+      {
+        "basis": "#589",
+        "next": "Verify deliberate non-autonomous reachability in TP01; do not make private modules unattended-callable",
+        "scope": "Founder-interactive classification"
+      }
+    ]
   }
 }

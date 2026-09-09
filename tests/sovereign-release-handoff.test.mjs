@@ -112,7 +112,7 @@ test('merge governor emits request artifact but never signs or deploys from GitH
   const body = readFileSync(new URL('../.github/workflows/uberbond-self-maintainer-merge-governor.yml', import.meta.url), 'utf8');
   assert.match(body, /sovereign-release-request\.mjs/);
   assert.match(body, /actions\/upload-artifact@v4/);
-  assert.match(body, /signingAuthority!'NOT_GRANTED_BY_REQUEST'/);
+  assert.match(body, /signingAuthority\s*!==\s*'NOT_GRANTED_BY_REQUEST'/);
   assert.doesNotMatch(body, /UBERBOND_RELEASE_SIGNING_KEY/);
   assert.doesNotMatch(body, /uberbondctl\s+(?:pack|deploy)/);
 });

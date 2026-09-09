@@ -8,3 +8,4 @@ data/screenshots/*
 !data/screenshots/.gitkeep
 .env
 .DS_Store
+.uberbond-sovereign-forge

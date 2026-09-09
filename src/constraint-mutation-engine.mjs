@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { deriveCountermoves } from './wallbreaker.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const CONSTRAINT_MUTATION_ENGINE_VERSION = 'constraint-mutation-engine-1.0.0';
+export const CONSTRAINT_MUTATION_ENGINE_VERSION = 'constraint-mutation-engine-1.0.1';
 
 const MAX_HISTORY = 200;
 const MAX_EVIDENCE = 100;
@@ -118,6 +118,9 @@ export function compileConstraintMutationPlan({ currentAttempt, history = [] } =
     policyVersion: CONSTRAINT_MUTATION_ENGINE_VERSION,
     status,
     objectiveId: current.attempt.objectiveId,
+    mechanismId: current.attempt.mechanismId,
+    providerId: current.attempt.providerId,
+    failedSignature: current.attempt.failedSignature,
     strategyFingerprint: current.attempt.strategyFingerprint,
     repeatCount,
     sameStrategyRepeated,

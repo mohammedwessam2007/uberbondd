@@ -2,6 +2,9 @@
 import crypto from 'node:crypto';
 import { evaluateCompoundIntelligence } from '../src/compound-intelligence-evaluation.mjs';
 
+// This doctor is deliberately negative. A synthetic fixture must never mint a
+// positive compound-intelligence receipt now that C13 requires observed,
+// task-set-bound evaluation evidence.
 const hash = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const components = [
   { componentId: 'planner-a', revision: 'model-a@1', lineageRef: 'lineage:model-a', role: 'PLANNER', capabilityState: 'APPROVED', countsAsIndependentVote: true },
@@ -22,6 +25,9 @@ const arm = (systemId, revision, score) => ({
 });
 const families = ['software', 'science', 'strategy'].map((familyId, index) => ({
   familyId,
+  measurementEvidenceRef: `doctor:synthetic:${familyId}`,
+  measurementClass: 'SYNTHETIC',
+  taskSetHash: hash({ doctor: true, familyId }),
   protectedGate: familyId === 'software',
   baseline: arm('baseline', 'baseline@1', 0.40 + index * 0.01),
   current: arm('current', 'current@1', 0.50 + index * 0.01),
@@ -67,55 +73,45 @@ const result = evaluateCompoundIntelligence({
   families,
   freshContextRetention: {
     mechanism: {
-      mechanismId: 'doctor-composition',
-      revision: 'doctor@1',
-      applicabilityConditions: ['doctor-only'],
-      counterexamples: ['revocation'],
-      provenanceRefs: ['doctor:provenance'],
-      rollbackRef: 'doctor@0'
+      mechanismId: 'doctor-composition', revision: 'doctor@1',
+      applicabilityConditions: ['doctor-only'], counterexamples: ['revocation'],
+      provenanceRefs: ['doctor:provenance'], rollbackRef: 'doctor@0'
     },
-    priorContextRef: 'doctor:development',
-    freshContextRef: 'doctor:fresh',
-    rehydration: {
-      mechanismLoadedFromArtifact: true,
-      hiddenConversationStateUsed: false,
-      contextRef: 'doctor:fresh',
-      mechanismRevision: 'doctor@1'
-    },
-    capabilityState: 'APPROVED',
-    revocationState: { revoked: false },
+    priorContextRef: 'doctor:development', freshContextRef: 'doctor:fresh',
+    rehydration: { mechanismLoadedFromArtifact: true, hiddenConversationStateUsed: false, contextRef: 'doctor:fresh', mechanismRevision: 'doctor@1' },
+    capabilityState: 'APPROVED', revocationState: { revoked: false },
     holdout: { baselineScore: 0.5, retainedScore: 0.7 },
     regression: { oldTaskRegressionRate: 0, maxAllowedRegressionRate: 0.02 },
     protectedGateRegressions: []
   },
   revocationSnapshot: {
-    snapshotRef: 'doctor:revocation',
-    verifiedAt: '2026-09-09T00:00:00Z',
-    verifierId: 'doctor-revocation-verifier',
-    verifierLineageRef: 'lineage:doctor-revocation-verifier',
+    snapshotRef: 'doctor:revocation', verifiedAt: '2026-09-09T00:00:00Z',
+    verifierId: 'doctor-revocation-verifier', verifierLineageRef: 'lineage:doctor-revocation-verifier',
     components: components.map(row => ({ componentId: row.componentId, revision: row.revision, evidenceRef: `doctor:registry:${row.componentId}`, revoked: false }))
   },
   observedAt: '2026-09-09T00:30:00Z',
   maxRevocationAgeMs: 3_600_000,
-  decisionPolicy: {
-    abstainOnInsufficientEvidence: true,
-    noRecommendationOnValueBoundary: true,
-    escalationBudgetRef: 'doctor:escalation-budget',
-    maxEscalationSteps: 1
-  }
+  decisionPolicy: { abstainOnInsufficientEvidence: true, noRecommendationOnValueBoundary: true, escalationBudgetRef: 'doctor:escalation-budget', maxEscalationSteps: 1 }
 });
 
-if (!result.ok) {
-  console.error(JSON.stringify(result, null, 2));
+const expectedReason = 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required';
+if (result.ok || !result.reasonCodes?.includes(expectedReason)) {
+  console.error(JSON.stringify({
+    ok: false,
+    status: 'SYNTHETIC_MEASUREMENT_REFUSAL_REGRESSION',
+    expectedReason,
+    observed: result,
+    businessEffectAuthority: 'NONE'
+  }, null, 2));
   process.exitCode = 1;
 } else {
   console.log(JSON.stringify({
     ok: true,
-    status: result.status,
-    evidenceStage: result.evidenceStage,
-    asiStatus: result.asiStatus,
-    businessEffectAuthority: result.businessEffectAuthority,
-    promotionAuthority: result.promotionAuthority,
-    note: 'SYNTHETIC_ZERO_EFFECT_DOCTOR__NOT_REAL_WORLD_OR_ASI_EVIDENCE'
+    status: 'SYNTHETIC_MEASUREMENTS_CORRECTLY_REFUSED',
+    reason: expectedReason,
+    asiStatus: 'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',
+    businessEffectAuthority: 'NONE',
+    promotionAuthority: 'NONE',
+    note: 'NEGATIVE_ZERO_EFFECT_DOCTOR__NO_INTELLIGENCE_GAIN_CLAIM'
   }, null, 2));
 }

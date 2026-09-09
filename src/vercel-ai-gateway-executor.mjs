@@ -14,6 +14,7 @@ const MAX_CACHEABLE_CONTEXT_BYTES = 200_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
 const REASONING_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 const CACHEABLE_DATA_CLASSES = new Set(['PUBLIC', 'INTERNAL_NON_SECRET', 'SOURCE_CODE']);
+const EXPLICIT_CACHE_CONTROL_MODEL_PREFIXES = Object.freeze(['anthropic/', 'minimax/']);
 const text = (v, max = 1000) => String(v ?? '').trim().slice(0, max);
 const integer = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
 const finite = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isFinite(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
@@ -51,7 +52,7 @@ function observedInteger(candidates) {
   return { observed: false, valid: true, value: 0 };
 }
 
-function cacheEvidence(payload, { requested, prefix, dataClass, inputTokens }) {
+function cacheEvidence(payload, { requested, prefix, dataClass, inputTokens, requestMode }) {
   const read = observedInteger([
     payload?.usage?.prompt_tokens_details?.cached_tokens,
     payload?.usage?.inputTokenDetails?.cacheReadTokens,
@@ -68,7 +69,7 @@ function cacheEvidence(payload, { requested, prefix, dataClass, inputTokens }) {
   const observed = read.observed || write.observed;
   return {
     requested,
-    mode: requested ? 'AUTO' : 'NOT_REQUESTED',
+    requestMode: requested ? requestMode : 'NOT_REQUESTED',
     dataClass: requested ? dataClass : null,
     prefixBytes: requested ? bytes(prefix) : 0,
     prefixSha256: requested && prefix ? crypto.createHash('sha256').update(prefix).digest('hex') : null,
@@ -88,13 +89,25 @@ function resultText(payload) {
   return '';
 }
 
+function requiresExplicitCacheControl(model) {
+  return EXPLICIT_CACHE_CONTROL_MODEL_PREFIXES.some(prefix => model.startsWith(prefix));
+}
+
 function requestBody({ task, model, maxTokens, reasoningEffort, cacheableContext }) {
   const messages = [
     { role: 'system', content: 'You are a bounded UberBond worker. Do only local preparation. Never claim external effects, revenue, deployment, sending, purchases, DNS changes, or credential changes. Return only the required structured JSON result.' }
   ];
   // Stable shared context precedes request-specific material so exact-prefix
-  // caches can reuse it. The stable context is never serialized into receipts.
-  if (cacheableContext) messages.push({ role: 'system', content: cacheableContext });
+  // provider caches can reuse it. For Chat Completions providers requiring an
+  // explicit marker, Vercel documents cache_control on the message itself.
+  // Providers with implicit prefix caching need no nonstandard request option.
+  if (cacheableContext) {
+    messages.push({
+      role: 'system',
+      content: cacheableContext,
+      ...(requiresExplicitCacheControl(model) ? { cache_control: { type: 'ephemeral' } } : {})
+    });
+  }
   messages.push({
     role: 'user',
     content: JSON.stringify({ taskId: task.taskId, objective: task.objective, originAgent: task.originAgent, targetAgent: task.targetAgent, parentTask: task.parentTask || null, contextRefs: task.contextRefs || [], evidenceRefs: task.evidenceRefs || [], constraints: task.constraints || [], forbiddenActions: task.forbiddenActions || [], requiredOutputs: task.requiredOutputs || [], acceptanceTests: task.acceptanceTests || [], economicObjective: task.economicObjective || '', consequenceClass: task.consequenceClass || 'LOCAL_PREPARATION' })
@@ -104,7 +117,6 @@ function requestBody({ task, model, maxTokens, reasoningEffort, cacheableContext
     temperature: 0,
     max_tokens: maxTokens,
     ...(reasoningEffort ? { reasoning: { effort: reasoningEffort } } : {}),
-    ...(cacheableContext ? { providerOptions: { gateway: { caching: 'auto' } } } : {}),
     messages,
     response_format: { type: 'json_object' }
   };
@@ -186,7 +198,10 @@ export function createVercelAIGatewayExecutor({
     const metered = usage(raw, pricing);
     if (!metered) return failure(['ai-gateway-usage-or-pricing-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId });
     if (metered.costCents > costLimit) return failure(['actual-cost-exceeds-reserved-ceiling'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });
-    const observedCache = cacheEvidence(raw, { requested: Boolean(stablePrefix), prefix: stablePrefix, dataClass: cacheDataClass, inputTokens: metered.inputTokens });
+    const cacheRequestMode = stablePrefix
+      ? (requiresExplicitCacheControl(selectedModel) ? 'CHAT_COMPLETIONS_EXPLICIT_EPHEMERAL' : 'STABLE_PREFIX_IMPLICIT_PROVIDER_CACHE')
+      : 'NOT_REQUESTED';
+    const observedCache = cacheEvidence(raw, { requested: Boolean(stablePrefix), prefix: stablePrefix, dataClass: cacheDataClass, inputTokens: metered.inputTokens, requestMode: cacheRequestMode });
     if (!observedCache) return failure(['ai-gateway-cache-usage-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });
     const bodyText = resultText(raw);
     if (!bodyText) return failure(['ai-gateway-structured-output-missing'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });

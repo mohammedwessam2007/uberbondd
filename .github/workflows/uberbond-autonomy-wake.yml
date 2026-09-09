@@ -1,0 +1,36 @@
+name: UberBond Autonomy Wake
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: uberbond-autonomy-wake
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  pulse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Dispatch self-maintainer only when no run is active or queued
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" \
+            --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
+          if [ "$active" != '0' ]; then
+            echo "Self-maintainer already has ${active} active/queued run(s); pulse collapses to no-op."
+            exit 0
+          fi
+          gh api --method POST "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/dispatches" \
+            -f ref='main'
+          echo 'Self-maintainer wake dispatched. Schedule remains a pulse only; local continuation state decides whether work may proceed.'

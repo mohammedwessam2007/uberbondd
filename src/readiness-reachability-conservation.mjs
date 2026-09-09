@@ -1,6 +1,7 @@
 export const READINESS_REACHABILITY_CONSERVATION_VERSION = 'uberbond.readiness-reachability-conservation.v1.1';
 
 const nni = value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+const cleanList = value => [...new Set((Array.isArray(value) ? value : []).map(item => String(item || '').trim()).filter(Boolean))].sort();
 
 export function verifyReachabilityConservation({ repository = {}, reachability = {} } = {}) {
   const reasons = [];
@@ -28,10 +29,14 @@ export function verifyReachabilityConservation({ repository = {}, reachability =
     reasons.push('readiness-source-modules-must-match-reachability-denominator');
   }
 
+  const unclassified = cleanList(reachability?.unclassified);
+  const staleClassifications = cleanList(reachability?.staleClassifications);
+  const founderInteractiveClassificationViolations = cleanList(reachability?.founderInteractiveClassificationViolations);
+
   if (reachability?.allClassified !== true) reasons.push('reachability-must-be-fully-classified');
-  if (Array.isArray(reachability?.unclassified) && reachability.unclassified.length) reasons.push('reachability-unclassified-list-must-be-empty');
-  if (Array.isArray(reachability?.staleClassifications) && reachability.staleClassifications.length) reasons.push('reachability-stale-classifications-must-be-empty');
-  if (Array.isArray(reachability?.founderInteractiveClassificationViolations) && reachability.founderInteractiveClassificationViolations.length) reasons.push('reachability-founder-classification-violations-must-be-empty');
+  if (unclassified.length) reasons.push('reachability-unclassified-list-must-be-empty');
+  if (staleClassifications.length) reasons.push('reachability-stale-classifications-must-be-empty');
+  if (founderInteractiveClassificationViolations.length) reasons.push('reachability-founder-classification-violations-must-be-empty');
 
   return {
     ok: reasons.length === 0,
@@ -39,6 +44,11 @@ export function verifyReachabilityConservation({ repository = {}, reachability =
     reasonCodes: [...new Set(reasons)],
     counts: Object.fromEntries(Object.entries(counts).map(([key, value]) => [key, nni(value) ? value : null])),
     sourceModules: nni(repository?.sourceModules) ? repository.sourceModules : null,
-    truthBoundary: 'REACHABILITY_CONSERVATION_PROVES_ONLY_ARITHMETIC_AND_CLASSIFICATION_ACCOUNTING_FOR_THE_DECLARED_EXACT_SOURCE_TREE. IT_DOES_NOT_PROVE_RUNTIME_EXECUTION_OR_EXTERNAL_OUTCOMES.'
+    classificationDiagnostics: {
+      unclassified,
+      staleClassifications,
+      founderInteractiveClassificationViolations
+    },
+    truthBoundary: 'REACHABILITY_CONSERVATION_PROVES_ONLY_ARITHMETIC_AND_CLASSIFICATION_ACCOUNTING_FOR_THE_DECLARED_EXACT_SOURCE_TREE. DIAGNOSTIC LISTS REPORT THE SOURCE PATHS THAT FAILED THAT ACCOUNTING; THEY GRANT NO REACHABILITY OR AUTHORITY. IT DOES_NOT_PROVE_RUNTIME_EXECUTION_OR_EXTERNAL_OUTCOMES.'
   };
 }

@@ -1,7 +1,7 @@
 import { compileConstraintMutationPlan } from './constraint-mutation-engine.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.2.0';
+export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.3.0';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
@@ -162,7 +162,10 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
 
   if (priorStatus === 'WAIT_FOR_EXISTING_ATTEMPT') {
     const issueNumber = Number(priorReceipt.observedIssueNumber);
-    if (!Number.isSafeInteger(issueNumber) || issueNumber <= 0) {
+    const issueBound = Number.isSafeInteger(issueNumber) && issueNumber > 0;
+    const attemptId = text(priorReceipt.observedAttemptId, 100).toLowerCase();
+    const attemptBound = /^[a-f0-9]{64}$/.test(attemptId);
+    if (!issueBound && !attemptBound) {
       return envelope({
         ok: true,
         status: 'CURRENT_BASE_WAIT_WITHOUT_BOUND_ATTEMPT_BLOCKED',
@@ -170,8 +173,8 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
         resumeExistingAttemptOnly: false,
         currentBaseRevision: currentBase,
         priorContinuationStatus: priorStatus,
-        reasonCodes: ['waiting-continuation-requires-existing-issue-binding'],
-        truthBoundary: 'WAIT MAY RESUME ONLY THE EXACT EXISTING RELAY ATTEMPT; WITHOUT ITS ISSUE ID A NEW SAME-BASE ATTEMPT IS REFUSED'
+        reasonCodes: ['waiting-continuation-requires-existing-issue-binding', 'waiting-continuation-requires-existing-attempt-binding'],
+        truthBoundary: 'WAIT MAY RESUME ONLY AN EXACT EXISTING RELAY ISSUE OR A DIGEST-BOUND LOCAL ATTEMPT; WITHOUT EITHER BINDING A NEW SAME-BASE ATTEMPT IS REFUSED'
       });
     }
     return envelope({
@@ -179,11 +182,12 @@ export function gateSelfMaintainerPulse({ currentBaseRevision, priorReceipt = nu
       status: 'CURRENT_BASE_EXISTING_ATTEMPT_RESUME_ONLY',
       runPrimaryTick: true,
       resumeExistingAttemptOnly: true,
-      resumeIssueNumber: issueNumber,
+      resumeIssueNumber: issueBound ? issueNumber : null,
+      resumeAttemptId: attemptBound ? attemptId : null,
       currentBaseRevision: currentBase,
       priorContinuationStatus: priorStatus,
-      requiredDecision: 'READ_OR_ADVANCE_EXISTING_ATTEMPT_ONLY',
-      truthBoundary: 'THE SAME-BASE PULSE MAY OBSERVE OR ADVANCE THE EXACT EXISTING RELAY ISSUE; IT MAY NOT CREATE A SECOND TASK OR COUNT WAITING AS PROGRESS'
+      requiredDecision: issueBound ? 'READ_OR_ADVANCE_EXISTING_ATTEMPT_ONLY' : 'RESUME_DIGEST_BOUND_LOCAL_ATTEMPT_ONLY',
+      truthBoundary: 'THE SAME-BASE PULSE MAY OBSERVE OR ADVANCE ONLY THE EXACT EXISTING ATTEMPT; IT MAY NOT CREATE A SECOND TASK OR COUNT WAITING AS PROGRESS'
     });
   }
 

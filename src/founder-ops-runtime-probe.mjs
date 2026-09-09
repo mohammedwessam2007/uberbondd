@@ -1,11 +1,16 @@
 import crypto from 'node:crypto';
+import { runtimeTransitionIdentityEquivalent } from './runtime-transition-receipts.mjs';
 
-export const FOUNDER_OPS_RUNTIME_PROBE_VERSION = 'uberbond.founder-ops-runtime-probe.v1.1';
+export const FOUNDER_OPS_RUNTIME_PROBE_VERSION = 'uberbond.founder-ops-runtime-probe.v1.3';
 const SHA40 = /^[0-9a-f]{40}$/;
+const SHA256 = /^sha256:[0-9a-f]{64}$/;
 const ZERO = Object.freeze({ customerMessages: 0, providerCalls: 0, spendCents: 0, deployments: 0, dnsChanges: 0, credentialChanges: 0, paymentMutations: 0, productionMutations: 0 });
+const RECEIPT_KEYS=Object.freeze(['authenticatedReadSucceeded','businessEffectAuthority','evidenceClass','evidenceRef','externalEffectLedger','independentVerifierRef','observedAt','observedViewDigest','ok','privateLifeStateExposed','receiptClass','receiptDigest','runtimeIdentity','schemaVersion','sourceCommit','status','targetIdentity','targetUrl','truthBoundary','writeAuthorityGranted']);
+const LEDGER_KEYS=Object.freeze(Object.keys(ZERO));
 const text = (value, max = 500) => { const out = String(value ?? '').trim(); return out && out.length <= max ? out : null; };
 const digest = value => `sha256:${crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex')}`;
 const ledger = providerCallObserved => ({ ...ZERO, providerCalls: providerCallObserved === true ? 1 : 0 });
+const exactKeys=(value,expected)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join('\0')===[...expected].sort().join('\0');
 
 function fail(reasonCodes, { providerCallObserved = false, ...extra } = {}) {
   return { ok: false, schemaVersion: FOUNDER_OPS_RUNTIME_PROBE_VERSION, status: 'FOUNDER_OPS_RUNTIME_PROBE_REFUSED', reasonCodes: [...new Set(reasonCodes.filter(Boolean))], businessEffectAuthority: 'NONE', externalEffectLedger: ledger(providerCallObserved), ...extra };
@@ -53,6 +58,55 @@ export function founderOpsTargetIdentity(targetUrl) {
   return target ? `target:${digest(target).slice('sha256:'.length, 'sha256:'.length + 40)}` : null;
 }
 
+export function founderOpsRuntimeProbeReceiptPreimage(receipt = {}) {
+  return {
+    ok: receipt.ok,
+    schemaVersion: receipt.schemaVersion,
+    status: receipt.status,
+    evidenceClass: receipt.evidenceClass,
+    receiptClass: receipt.receiptClass,
+    sourceCommit: receipt.sourceCommit,
+    targetUrl: receipt.targetUrl,
+    targetIdentity: receipt.targetIdentity,
+    runtimeIdentity: receipt.runtimeIdentity,
+    observedViewDigest: receipt.observedViewDigest,
+    authenticatedReadSucceeded: receipt.authenticatedReadSucceeded,
+    privateLifeStateExposed: receipt.privateLifeStateExposed,
+    writeAuthorityGranted: receipt.writeAuthorityGranted,
+    evidenceRef: receipt.evidenceRef,
+    independentVerifierRef: receipt.independentVerifierRef,
+    observedAt: receipt.observedAt,
+    truthBoundary: receipt.truthBoundary,
+    businessEffectAuthority: receipt.businessEffectAuthority,
+    externalEffectLedger: receipt.externalEffectLedger
+  };
+}
+
+export function verifyFounderOpsRuntimeProbeReceiptIntegrity(receipt = {}) {
+  if (!exactKeys(receipt,RECEIPT_KEYS)) return false;
+  if (receipt?.ok !== true) return false;
+  if (receipt?.schemaVersion !== FOUNDER_OPS_RUNTIME_PROBE_VERSION) return false;
+  if (receipt?.status !== 'FOUNDER_OPS_RUNTIME_READ_INDEPENDENTLY_OBSERVED') return false;
+  if (receipt?.evidenceClass !== 'OBSERVED_RUNTIME' || receipt?.receiptClass !== 'FOUNDER_CONTROL_PLANE') return false;
+  if (!SHA40.test(String(receipt?.sourceCommit || '').toLowerCase())) return false;
+  const target = canonicalTarget(receipt?.targetUrl);
+  if (!target || target !== receipt.targetUrl || founderOpsTargetIdentity(target) !== receipt.targetIdentity) return false;
+  if (!/^runtime:[0-9a-f]{40}$/.test(String(receipt?.runtimeIdentity || ''))) return false;
+  if (!SHA256.test(String(receipt?.observedViewDigest || ''))) return false;
+  if (receipt?.authenticatedReadSucceeded !== true || receipt?.privateLifeStateExposed !== false || receipt?.writeAuthorityGranted !== false) return false;
+  if (!text(receipt?.evidenceRef) || !text(receipt?.independentVerifierRef)) return false;
+  if (runtimeTransitionIdentityEquivalent(receipt.independentVerifierRef, receipt.runtimeIdentity)) return false;
+  if (runtimeTransitionIdentityEquivalent(receipt.independentVerifierRef, receipt.targetIdentity)) return false;
+  const at = new Date(receipt?.observedAt);
+  if (Number.isNaN(at.getTime())) return false;
+  if (!text(receipt?.truthBoundary,1000)) return false;
+  if (receipt?.businessEffectAuthority !== 'NONE') return false;
+  if (!exactKeys(receipt?.externalEffectLedger,LEDGER_KEYS)) return false;
+  if (Object.entries(receipt.externalEffectLedger).some(([key,value])=>value!==(key==='providerCalls'?1:0))) return false;
+  const expectedDigest = digest(founderOpsRuntimeProbeReceiptPreimage(receipt));
+  return receipt?.receiptDigest === expectedDigest;
+}
+
 /** Convert one independently observed authenticated GET into the C17 receipt shape. */
 export function compileFounderOpsRuntimeProbeReceipt({
   expectedSourceCommit,
@@ -87,8 +141,8 @@ export function compileFounderOpsRuntimeProbeReceipt({
   if (!evidence) reasons.push('evidence-reference-required');
   const runtimeIdentity = founderOpsRuntimeIdentity(view?.runtime);
   if (!runtimeIdentity) reasons.push('canonical-runtime-identity-required');
-  if (verifier && runtimeIdentity && verifier === runtimeIdentity) reasons.push('runtime-cannot-self-verify-control-plane');
-  if (verifier && targetIdentity && verifier === targetIdentity) reasons.push('target-cannot-self-verify-control-plane');
+  if (verifier && runtimeIdentity && runtimeTransitionIdentityEquivalent(verifier, runtimeIdentity)) reasons.push('runtime-cannot-self-verify-control-plane');
+  if (verifier && targetIdentity && runtimeTransitionIdentityEquivalent(verifier, targetIdentity)) reasons.push('target-cannot-self-verify-control-plane');
   const at = observedAt instanceof Date ? observedAt : new Date(observedAt);
   const clock = now instanceof Date ? now : new Date(now);
   if (Number.isNaN(at.getTime())) reasons.push('valid-observed-at-required');
@@ -97,7 +151,10 @@ export function compileFounderOpsRuntimeProbeReceipt({
   if (reasons.length) return fail(reasons, { providerCallObserved, sourceCommit: expected || actual, targetIdentity });
 
   const observedViewDigest = digest(safeObservedView(view));
-  const core = {
+  const receipt = {
+    ok: true,
+    schemaVersion: FOUNDER_OPS_RUNTIME_PROBE_VERSION,
+    status: 'FOUNDER_OPS_RUNTIME_READ_INDEPENDENTLY_OBSERVED',
     evidenceClass: 'OBSERVED_RUNTIME',
     receiptClass: 'FOUNDER_CONTROL_PLANE',
     sourceCommit: actual,
@@ -110,16 +167,11 @@ export function compileFounderOpsRuntimeProbeReceipt({
     writeAuthorityGranted: false,
     evidenceRef: evidence,
     independentVerifierRef: verifier,
-    observedAt: at.toISOString()
-  };
-  return {
-    ok: true,
-    schemaVersion: FOUNDER_OPS_RUNTIME_PROBE_VERSION,
-    status: 'FOUNDER_OPS_RUNTIME_READ_INDEPENDENTLY_OBSERVED',
-    ...core,
-    receiptDigest: digest(core),
+    observedAt: at.toISOString(),
     truthBoundary: 'This receipt proves only one authenticated read-only founder-ops observation for the exact target, reported source/runtime, and safe observed view. It does not prove private-life access, deployment authority, provider independence, elapsed autonomy, customer outcomes or ASI.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: ledger(true)
   };
+  receipt.receiptDigest = digest(founderOpsRuntimeProbeReceiptPreimage(receipt));
+  return receipt;
 }

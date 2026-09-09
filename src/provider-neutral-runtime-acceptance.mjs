@@ -1,7 +1,9 @@
 import { verifyRuntimeTransitionReceiptIntegrity, runtimeTransitionIdentityEquivalent } from './runtime-transition-receipts.mjs';
 import { verifyRuntimeEvidenceAttestation } from './runtime-evidence-attestation.mjs';
+import { verifyFounderOpsRuntimeProbeReceiptIntegrity } from './founder-ops-runtime-probe.mjs';
+import { verifyRestartRecoveryReceiptIntegrity } from './deploy-restart-recovery-receipt.mjs';
 
-export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1.2';
+export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1.4';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
@@ -26,8 +28,8 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(pg.sourceCommit&&String(pg.sourceCommit).toLowerCase()!==sourceCommit) reasons.push('postgres-restore-source-mismatch');
 
   const restart=input.restartRecoveryReceipt||{};
-  if(restart.ok!==true||restart.status!=='RESTART_RECOVERY_REHEARSAL_PASSED') reasons.push('restart-recovery-rehearsal-required');
-  if(restart.sourceCommit&&String(restart.sourceCommit).toLowerCase()!==sourceCommit) reasons.push('restart-recovery-source-mismatch');
+  if(!verifyRestartRecoveryReceiptIntegrity(restart)) reasons.push('canonical-restart-recovery-receipt-required');
+  if(String(restart.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('restart-recovery-source-mismatch');
   if(restart.noDuplicateEffectClaim!=='QUEUE_REPLAY_SAFE_WORK_RECLAIMED_ONCE__UNCERTAIN_RECONCILE_WORK_NOT_REPLAYED') reasons.push('restart-no-duplicate-effect-proof-required');
 
   const workload=input.durableWorkloadReceipt||{};
@@ -59,7 +61,7 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(!verifyRuntimeEvidenceAttestation({attestation:input.runtimeEvidenceAttestation,input,publicKeyPem:runtimeEvidencePublicKey})) reasons.push('externally-trusted-runtime-evidence-attestation-required');
 
   const control=input.controlPlaneReceipt||{};
-  if(control.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-control-plane-receipt-required');
+  if(!verifyFounderOpsRuntimeProbeReceiptIntegrity(control)) reasons.push('canonical-control-plane-observer-receipt-required');
   if(String(control.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('control-plane-source-mismatch');
   if(!runtimeTransitionIdentityEquivalent(control.runtimeIdentity,host.runtimeIdentity)) reasons.push('control-plane-runtime-mismatch');
   if(control.authenticatedReadSucceeded!==true) reasons.push('authenticated-control-plane-read-required');

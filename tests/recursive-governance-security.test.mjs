@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import { admitRecursiveSecurityEvolution } from '../src/recursive-governance-security.mjs';
 
 const D=x=>`sha256:${String(x).repeat(64).slice(0,64)}`;
+const H=x=>`sha256:${crypto.createHash('sha256').update(String(x)).digest('hex')}`;
 const admission={ok:true,status:'C26_SECURITY_ADMISSION_READY_FOR_SEPARATE_EFFECT_GATE',subjectDigest:D('a'),subject:{composition:{selfModifying:true}}};
-const roleControl=(generation,role)=>({principalId:`principal:${generation}:${role.toLowerCase()}`,credentialFingerprint:D(`${generation}${role}`.replace(/[^a-f0-9]/gi,'a').slice(0,1)||'a'),custodyDomain:`custody:${generation}:${role.toLowerCase()}`,controlDomain:`control:${generation}:${role.toLowerCase()}`});
+const roleControl=(generation,role)=>({principalId:`principal:${generation}:${role.toLowerCase()}`,credentialFingerprint:H(`${generation}:${role}`),custodyDomain:`custody:${generation}:${role.toLowerCase()}`,controlDomain:`control:${generation}:${role.toLowerCase()}`});
 const controls=id=>Object.fromEntries(['PROPOSER','EVALUATOR','HOLDOUT','APPROVER','DEPLOYER','MONITOR','EVIDENCE_STORE','ROLLBACK','CANON_WRITER','SECURITY_POLICY'].map(role=>[role,roleControl(id,role)]));
 const gen=(id,parent=null,policy=D('b'))=>({generationId:id,parentGenerationId:parent,proposerId:`${id}:p`,approverId:`${id}:a`,deployerId:`${id}:d`,verifierId:`${id}:v`,monitorId:`${id}:m`,policyDigest:policy,constitutionalDigest:D('c'),riskTier:'CRITICAL',securityEnvelopeTier:'CRITICAL',constitutionalMutationApproved:false,ownerAuthorityRef:null,verifierTrustEpoch:D('7'),principalControls:controls(id)});
 const evidence=(generationId,fromPolicyDigest,toPolicyDigest,over={})=>({generationId,admissionSubjectDigest:admission.subjectDigest,fromPolicyDigest,toPolicyDigest,explicitlyAuthorized:true,authorityRef:'authority://founder/security-policy',independentVerifierId:'actor:independent-security-verifier',securityEnvelopeNotWeakened:true,rollbackPreserved:true,rollbackRef:'rollback://policy/previous',evidenceRef:'evidence://policy-mutation',immutableRef:'sha256://policy-mutation',...over});

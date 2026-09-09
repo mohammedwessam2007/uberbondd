@@ -1,0 +1,13 @@
+[Unit]
+Description=Wake UberBond Sovereign Autonomy Forge every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+AccuracySec=30s
+RandomizedDelaySec=15s
+Persistent=true
+Unit=uberbond-forge.service
+
+[Install]
+WantedBy=timers.target

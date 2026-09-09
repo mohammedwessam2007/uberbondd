@@ -6,6 +6,8 @@ const wake = readFileSync(new URL('../.github/workflows/uberbond-autonomy-wake.y
 const governorWorkflow = readFileSync(new URL('../.github/workflows/uberbond-self-maintainer-merge-governor.yml', import.meta.url), 'utf8');
 const governor = readFileSync(new URL('../.github/workflows/runtime/self-maintainer-merge-governor.mjs', import.meta.url), 'utf8');
 const commandCenter = readFileSync(new URL('../api/command-center.mjs', import.meta.url), 'utf8');
+const commandCenterHtml = readFileSync(new URL('../public/command-center.html', import.meta.url), 'utf8');
+const autonomyView = readFileSync(new URL('../public/command-center-autonomy.js', import.meta.url), 'utf8');
 
 test('autonomy wake is a bounded pulse rather than schedule truth', () => {
   assert.match(wake, /cron:\s*['"]\*\/15 \* \* \* \*['"]/);
@@ -48,4 +50,13 @@ test('authenticated command center composes autonomy as evidence only', () => {
   assert.match(commandCenter, /String\(req\?\.method \|\| ''\)\.toUpperCase\(\) !== 'GET'/);
   assert.match(commandCenter, /command-center-admin-auth-not-configured/);
   assert.match(commandCenter, /equalBearer/);
+});
+
+test('autonomy cockpit is visible but reads sanitized last-good telemetry only', () => {
+  for (const id of ['autonomyState','maintainerState','continuationState','finiteClosure','mergePolicy','selfCompletionClaim']) assert.match(commandCenterHtml, new RegExp(`id=["']${id}["']`));
+  assert.match(commandCenterHtml, /command-center-autonomy\.js/);
+  assert.match(autonomyView, /uberbond\.command-center\.last-good\.v1/);
+  assert.match(autonomyView, /localStorage\.getItem\(CACHE_KEY\)/);
+  assert.doesNotMatch(autonomyView, /authorization|Bearer|ADMIN_TOKEN|tokenInput|fetch\s*\(/i);
+  assert.match(autonomyView, /NOT_ESTABLISHED_UNTIL_REPEATED_OBSERVED_CYCLES/);
 });

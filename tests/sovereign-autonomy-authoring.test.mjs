@@ -73,6 +73,36 @@ test('local authoring scripts preserve proposer verifier promotion separation', 
   assert.match(verify, /VERIFIED_CHANGESET_READY_FOR_SEPARATE_PROMOTION_AUTHORITY/);
 });
 
+test('timer wake is continuation-gated and cannot duplicate the same local attempt', () => {
+  const pulse = readFileSync(new URL('../scripts/sovereign-autonomy-pulse.mjs', import.meta.url), 'utf8');
+  assert.match(pulse, /gateSelfMaintainerPulse/);
+  assert.match(pulse, /continuation-receipt\.json/);
+  assert.match(pulse, /WAIT_FOR_EXISTING_ATTEMPT/);
+  assert.match(pulse, /resumeExistingAttemptOnly/);
+  assert.match(pulse, /newWorkerDispatch:\s*false/);
+  assert.match(pulse, /observedAttemptId/);
+  assert.match(pulse, /localAttemptId/);
+});
+
+test('worker failures become durable verifier input instead of a permanent wait', () => {
+  const worker = readFileSync(new URL('../scripts/sovereign-local-worker-runner.mjs', import.meta.url), 'utf8');
+  const verify = readFileSync(new URL('../scripts/sovereign-autonomy-verify.mjs', import.meta.url), 'utf8');
+  assert.match(worker, /emitFailure/);
+  assert.match(worker, /atomicJson\(resultPath, receipt\)/);
+  assert.match(verify, /decideSelfMaintainerContinuation/);
+  assert.match(verify, /CANDIDATE_REJECTED/);
+  assert.match(verify, /continuation-receipt\.json/);
+  assert.match(verify, /STRATEGY_MUTATION|relayStatus:\s*'CANDIDATE_REJECTED'/);
+});
+
+test('verified candidate becomes review pending under canonical continuation policy', () => {
+  const verify = readFileSync(new URL('../scripts/sovereign-autonomy-verify.mjs', import.meta.url), 'utf8');
+  const policy = readFileSync(new URL('../src/self-maintainer-continuation-policy.mjs', import.meta.url), 'utf8');
+  assert.match(verify, /relayStatus:\s*out\.status/);
+  assert.match(policy, /VERIFIED_CHANGESET_READY_FOR_SEPARATE_PROMOTION_AUTHORITY/);
+  assert.match(policy, /status:\s*'REVIEW_PENDING'/);
+});
+
 test('installer keeps author and worker configs private to their identities and release signing separate', () => {
   const installer = readFileSync(new URL('../ops/sovereign/install-authoring-node.sh', import.meta.url), 'utf8');
   assert.match(installer, /groupadd --system uberbond-autonomy/);

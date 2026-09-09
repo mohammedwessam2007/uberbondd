@@ -15,7 +15,7 @@ test('composed-effect recovery markers bind to exact current source text', () =>
     assert.ok(recoverySource.includes(marker), `recovery source must contain marker: ${marker}`);
     assert.ok(auditScript.includes(marker), `audit declaration must bind marker: ${marker}`);
   }
-  assert.doesNotMatch(auditScript, /Never\\\\n \* calls adapter\.dispatch\(\)/);
+  assert.doesNotMatch(auditScript, /Never\\n \* calls adapter\.dispatch\(\)/);
 });
 
 test('recovery safety text still states uncertainty never redispatches', () => {

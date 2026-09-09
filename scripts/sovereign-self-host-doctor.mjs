@@ -3,20 +3,23 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const SOVEREIGN_SELF_HOST_DOCTOR_VERSION = 'uberbond.sovereign-self-host-doctor.v1';
+export const SOVEREIGN_SELF_HOST_DOCTOR_VERSION = 'uberbond.sovereign-self-host-doctor.v2';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ZERO = Object.freeze({ customerMessages:0, providerCalls:0, spendCents:0, deployments:0, dnsChanges:0, credentialChanges:0, paymentMutations:0, productionMutations:0 });
 
 const required = Object.freeze([
-  'Dockerfile',
+  'Dockerfile.sovereign',
+  'Dockerfile.sovereign.dockerignore',
   'docker-compose.sovereign.yml',
   'portable-server.mjs',
   'ops/sovereign/uberbondctl',
   'ops/sovereign/install-host.sh',
+  'ops/sovereign/init-release-authority.sh',
   'ops/sovereign/uberbond-reconcile.service',
-  'ops/sovereign/uberbond-reconcile.timer'
+  'ops/sovereign/uberbond-reconcile.timer',
+  'ops/sovereign/uberbond-release-apply.service',
+  'ops/sovereign/uberbond-release-apply.path'
 ]);
-const read = rel => fs.readFileSync(path.join(root, rel), 'utf8');
 
 export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
   const reasons = [];
@@ -27,11 +30,17 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
     reasonCodes:reasons, missingFiles, businessEffectAuthority:'NONE', externalEffectLedger:{...ZERO}
   };
 
-  const compose = fs.readFileSync(path.join(repoRoot, 'docker-compose.sovereign.yml'), 'utf8');
-  const ctl = fs.readFileSync(path.join(repoRoot, 'ops/sovereign/uberbondctl'), 'utf8');
-  const install = fs.readFileSync(path.join(repoRoot, 'ops/sovereign/install-host.sh'), 'utf8');
-  const service = fs.readFileSync(path.join(repoRoot, 'ops/sovereign/uberbond-reconcile.service'), 'utf8');
-  const timer = fs.readFileSync(path.join(repoRoot, 'ops/sovereign/uberbond-reconcile.timer'), 'utf8');
+  const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
+  const compose = read('docker-compose.sovereign.yml');
+  const dockerfile = read('Dockerfile.sovereign');
+  const dockerignore = read('Dockerfile.sovereign.dockerignore');
+  const ctl = read('ops/sovereign/uberbondctl');
+  const install = read('ops/sovereign/install-host.sh');
+  const authority = read('ops/sovereign/init-release-authority.sh');
+  const service = read('ops/sovereign/uberbond-reconcile.service');
+  const timer = read('ops/sovereign/uberbond-reconcile.timer');
+  const applyService = read('ops/sovereign/uberbond-release-apply.service');
+  const applyPath = read('ops/sovereign/uberbond-release-apply.path');
 
   const requiredCompose = [
     'image: ${UBERBOND_RELEASE:', 'container_name: uberbond-postgres', 'container_name: uberbond-web',
@@ -43,20 +52,37 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
 
   const requiredCtl = [
     'docker load -i', 'sha256sum -c SHA256SUMS', 'release signature verification failed',
-    'backup_db', 'restore_db', 'restore_drill', 'promotion refused and rollback attempted',
+    'RELEASE_SEQUENCE', 'release replay or non-monotonic promotion refused', 'CURRENT_RELEASE_ID', 'POSTGRES_IMAGE_ID',
+    'backup_db', 'restore_db', 'restore_drill', 'forward_backup', 'promotion refused and rollback attempted',
     'reconciler will not download replacements', 'npm run check:syntax', 'npm run test:deterministic',
-    'docker build --pull=false', 'flock -n'
+    'docker build --network=none --pull=false', 'Dockerfile.sovereign', 'flock -n', 'apply_inbox'
   ];
   for (const marker of requiredCtl) if (!ctl.includes(marker)) reasons.push(`control-marker-missing:${marker}`);
   for (const forbidden of ['docker pull', 'git pull', 'vercel ', 'api.vercel.com', 'api.github.com', 'curl ', 'wget ']) {
     if (ctl.toLowerCase().includes(forbidden.toLowerCase())) reasons.push(`runtime-network-dependency-forbidden:${forbidden.trim()}`);
   }
 
+  if (!dockerfile.includes('COPY . .') || !dockerfile.includes('node_modules') || /npm\s+(?:ci|install)/.test(dockerfile)) {
+    reasons.push('sovereign-image-build-must-consume-preseeded-local-dependencies');
+  }
+  for (const secretPattern of ['.env', '*.pem', '*.key', '*.dump', '*.tar']) {
+    if (!dockerignore.includes(secretPattern)) reasons.push(`sovereign-build-context-secret-exclusion-required:${secretPattern}`);
+  }
+
   if (!install.includes('AUTOPILOT_ENABLED=false') || !install.includes('OUTBOUND_ENABLED=false') || !install.includes('HOST_BIND=127.0.0.1')) {
     reasons.push('bootstrap-must-default-to-local-fail-closed-posture');
   }
+  if (!install.includes('release signing private key must never live on the runtime host') || install.includes('genpkey -algorithm RSA')) {
+    reasons.push('runtime-host-must-not-own-release-signing-private-key');
+  }
+  if (!authority.includes('release-private.pem') || !authority.includes('release-public.pem') || !authority.includes('Refusing to overwrite')) {
+    reasons.push('separate-release-authority-bootstrap-required');
+  }
   if (!service.includes('ExecStart=/opt/uberbond/control/uberbondctl reconcile')) reasons.push('independent-supervisor-entrypoint-required');
   if (!timer.includes('OnUnitActiveSec=60s') || !timer.includes('Persistent=true')) reasons.push('durable-minute-reconciliation-required');
+  if (!applyService.includes('ExecStart=/opt/uberbond/control/uberbondctl apply-inbox') || !applyPath.includes('PathChanged=/var/lib/uberbond-control/inbox/NEXT_RELEASE')) {
+    reasons.push('local-signed-release-auto-apply-required');
+  }
 
   return {
     ok: reasons.length === 0,
@@ -67,17 +93,24 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
     properties:{
       runtimeNeedsVercel:false,
       runtimeNeedsGitHub:false,
+      runtimeNeedsPackageRegistry:false,
       runtimeMayDownloadReplacement:false,
+      releaseBuildNetworkDisabled:true,
       immutableOfflineReleaseBundle:true,
+      signedMonotonicReleaseAdmission:true,
+      immutableImageIdentityPinned:true,
+      releaseSigningAuthoritySeparatedFromRuntime:true,
+      localInboxAutoDeployment:true,
       preMigrationBackup:true,
       automaticFailedPromotionRollback:true,
+      reversibleRollbackSnapshot:true,
       restoreDrillImplemented:true,
       recoverySupervisorOutsideAppProcess:true,
       reconciliationIntervalSeconds:60,
       defaultExternalEffects:'DISABLED',
       defaultBind:'127.0.0.1'
     },
-    proofBoundary:'SOURCE INSPECTION ONLY. A REAL OWNED/AUTHORIZED HOST MUST STILL EXECUTE PACK, INSTALL, DEPLOY, CRASH/RESTART, RESTORE-DRILL AND ROLLBACK BEFORE RUNTIME SOVEREIGNTY IS CLAIMED.',
+    proofBoundary:'SOURCE INSPECTION ONLY. A REAL OWNED/AUTHORIZED HOST MUST STILL EXECUTE OFFLINE PACK, INSTALL, SIGNED DEPLOY, CRASH/RESTART, RESTORE-DRILL, FAILED-PROMOTION ROLLBACK AND EXPLICIT ROLLBACK BEFORE RUNTIME SOVEREIGNTY IS CLAIMED.',
     businessEffectAuthority:'NONE',
     externalEffectLedger:{...ZERO}
   };

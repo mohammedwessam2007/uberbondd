@@ -1,4 +1,6 @@
-export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1';
+import { verifyRuntimeTransitionReceiptIntegrity, runtimeTransitionIdentityEquivalent } from './runtime-transition-receipts.mjs';
+
+export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1.1';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
@@ -28,39 +30,39 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(restart.noDuplicateEffectClaim!=='QUEUE_REPLAY_SAFE_WORK_RECLAIMED_ONCE__UNCERTAIN_RECONCILE_WORK_NOT_REPLAYED') reasons.push('restart-no-duplicate-effect-proof-required');
 
   const workload=input.durableWorkloadReceipt||{};
-  if(workload.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-durable-workload-receipt-required');
-  if(text(workload.runtimeIdentity)!==text(host.runtimeIdentity)) reasons.push('durable-workload-runtime-mismatch');
+  if(!verifyRuntimeTransitionReceiptIntegrity(workload,'DURABLE_WORKLOAD')) reasons.push('canonical-durable-workload-observer-receipt-required');
+  if(!runtimeTransitionIdentityEquivalent(workload.runtimeIdentity,host.runtimeIdentity)) reasons.push('durable-workload-runtime-mismatch');
   if(String(workload.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('durable-workload-source-mismatch');
   if(workload.persistedAcrossRestart!==true) reasons.push('durable-workload-must-survive-restart');
   if(workload.duplicateExternalEffects!==0) reasons.push('durable-workload-must-have-zero-duplicate-effects');
-  if(!text(workload.evidenceRef)||!text(workload.independentVerifierRef)) reasons.push('durable-workload-independent-evidence-required');
 
   const cut=input.cutoverRollbackReceipt||{};
-  if(cut.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-cutover-rollback-receipt-required');
+  if(!verifyRuntimeTransitionReceiptIntegrity(cut,'CUTOVER_ROLLBACK')) reasons.push('canonical-cutover-rollback-observer-receipt-required');
   if(String(cut.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('cutover-source-mismatch');
+  if(!runtimeTransitionIdentityEquivalent(cut.runtimeIdentity,host.runtimeIdentity)||!runtimeTransitionIdentityEquivalent(cut.toRuntimeIdentity,host.runtimeIdentity)) reasons.push('cutover-target-runtime-mismatch');
   if(cut.cutoverSucceeded!==true||cut.rollbackExercised!==true||cut.rollbackSucceeded!==true) reasons.push('successful-cutover-and-rollback-rehearsal-required');
   if(cut.duplicateExternalEffects!==0) reasons.push('cutover-rollback-must-have-zero-duplicate-effects');
-  if(!text(cut.evidenceRef)||!text(cut.independentVerifierRef)) reasons.push('cutover-independent-evidence-required');
 
   const continuity=input.continuityRehearsal||{};
   if(continuity.ok!==true||continuity.status!=='CONTINUITY_REHEARSAL_VERIFIED_WITHIN_DECLARED_SCOPE') reasons.push('verified-century-continuity-rehearsal-required');
   const loss=input.providerLossReceipt||{};
-  if(loss.evidenceClass!=='OBSERVED_RUNTIME'||loss.receiptClass!=='PROVIDER_LOSS') reasons.push('observed-provider-loss-receipt-required');
+  if(!verifyRuntimeTransitionReceiptIntegrity(loss,'PROVIDER_LOSS')) reasons.push('canonical-provider-loss-observer-receipt-required');
   if(loss.primaryUnavailable!==true) reasons.push('provider-loss-primary-unavailable-must-be-observed');
-  if(!text(loss.failedProvider,160)||!text(loss.alternateProvider,160)||loss.failedProvider===loss.alternateProvider) reasons.push('provider-loss-must-cross-provider-boundary');
+  if(!runtimeTransitionIdentityEquivalent(loss.runtimeIdentity,host.runtimeIdentity)) reasons.push('provider-loss-runtime-mismatch');
+  if(!runtimeTransitionIdentityEquivalent(loss.alternateProvider,host.provider)) reasons.push('provider-loss-alternate-provider-must-own-accepted-host');
+  if(runtimeTransitionIdentityEquivalent(loss.failedProvider,loss.alternateProvider)) reasons.push('provider-loss-must-cross-provider-boundary');
   if(loss.duplicateExternalEffects!==0) reasons.push('provider-loss-must-have-zero-duplicate-effects');
-  if(!text(loss.evidenceRef)||!text(loss.independentVerifierRef)) reasons.push('provider-loss-independent-evidence-required');
   if(continuity.manifestDigest&&loss.manifestDigest!==continuity.manifestDigest) reasons.push('provider-loss-continuity-manifest-mismatch');
 
   const control=input.controlPlaneReceipt||{};
   if(control.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-control-plane-receipt-required');
   if(String(control.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('control-plane-source-mismatch');
-  if(text(control.runtimeIdentity)!==text(host.runtimeIdentity)) reasons.push('control-plane-runtime-mismatch');
+  if(!runtimeTransitionIdentityEquivalent(control.runtimeIdentity,host.runtimeIdentity)) reasons.push('control-plane-runtime-mismatch');
   if(control.authenticatedReadSucceeded!==true) reasons.push('authenticated-control-plane-read-required');
   if(control.privateLifeStateExposed!==false) reasons.push('control-plane-must-not-expose-private-life-state');
   if(control.writeAuthorityGranted!==false) reasons.push('control-plane-must-remain-read-only');
   if(!text(control.evidenceRef)||!text(control.independentVerifierRef)) reasons.push('control-plane-independent-evidence-required');
 
   if(reasons.length) return fail(reasons,{sourceCommit});
-  return {ok:true,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_VERIFIED_WITHIN_REHEARSED_SCOPE',sourceCommit,host:{runtimeIdentity:host.runtimeIdentity,provider:host.provider,region:host.region,imageDigest:host.imageDigest,configDigest:host.configDigest,dataSchemaDigest:host.dataSchemaDigest},evidenceRefs:[pg.evidenceRef,restart.commands?.[0],workload.evidenceRef,cut.evidenceRef,loss.evidenceRef,control.evidenceRef].filter(Boolean),providerIndependence:'PROVIDER_LOSS_REHEARSED_ACROSS_DISTINCT_NAMED_PROVIDERS',postgresPersistence:'BACKUP_RESTORE_AND_RESTART_REHEARSED',cutoverRollback:'OBSERVED_AND_REVERSIBLE_WITHIN_DECLARED_SCOPE',controlPlane:'AUTHENTICATED_READ_ONLY__PRIVATE_LIFE_STATE_NOT_EXPOSED',truthBoundary:'This proves only the named exact-source runtime and recorded rehearsal scope. It does not prove elapsed autonomy, future restoreability, commercial outcomes, legal readiness, century continuity, AGI or ASI.',asiTruth:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO}};
+  return {ok:true,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_VERIFIED_WITHIN_REHEARSED_SCOPE',sourceCommit,host:{runtimeIdentity:host.runtimeIdentity,provider:host.provider,region:host.region,imageDigest:host.imageDigest,configDigest:host.configDigest,dataSchemaDigest:host.dataSchemaDigest},evidenceRefs:[pg.evidenceRef,restart.commands?.[0],workload.evidenceRef,cut.evidenceRef,loss.evidenceRef,control.evidenceRef].filter(Boolean),providerIndependence:'PROVIDER_LOSS_REHEARSED_ACROSS_DISTINCT_NAMED_PROVIDERS_AND_ACCEPTED_HOST_RUNS_ON_THE_ALTERNATE_PROVIDER',postgresPersistence:'BACKUP_RESTORE_AND_RESTART_REHEARSED',cutoverRollback:'OBSERVED_BY_EXECUTING_OBSERVER_AND_REVERSIBLE_WITHIN_DECLARED_SCOPE',controlPlane:'AUTHENTICATED_READ_ONLY__PRIVATE_LIFE_STATE_NOT_EXPOSED',truthBoundary:'This proves only the named exact-source runtime and cryptographically bound executing-observer rehearsal scope. Source-only assertions cannot satisfy this gate. It does not prove elapsed autonomy, future restoreability, commercial outcomes, legal readiness, century continuity, AGI or ASI.',asiTruth:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO}};
 }

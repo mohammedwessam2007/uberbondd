@@ -1,6 +1,7 @@
 import { verifyRuntimeTransitionReceiptIntegrity } from './runtime-transition-receipts.mjs';
+import { verifyIndependentPostgresBackupRestoreReceiptIntegrity } from './postgres-backup-restore-verifier.mjs';
 
-export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1';
+export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1.1';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
@@ -22,7 +23,7 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(host.authenticatedHealthObserved!==true) reasons.push('authenticated-host-health-required');
 
   const pg=input.postgresRestoreReceipt||{};
-  if(pg.ok!==true||pg.independentlyVerified!==true||pg.status!=='POSTGRES_BACKUP_RESTORE_REHEARSAL_INDEPENDENTLY_VERIFIED') reasons.push('independently-verified-postgres-restore-required');
+  if(!verifyIndependentPostgresBackupRestoreReceiptIntegrity(pg)) reasons.push('cryptographically-independent-postgres-restore-required');
   if(pg.sourceCommit&&String(pg.sourceCommit).toLowerCase()!==sourceCommit) reasons.push('postgres-restore-source-mismatch');
 
   const restart=input.restartRecoveryReceipt||{};
@@ -68,5 +69,5 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(!text(control.evidenceRef)||!text(control.independentVerifierRef)) reasons.push('control-plane-independent-evidence-required');
 
   if(reasons.length) return fail(reasons,{sourceCommit});
-  return {ok:true,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_VERIFIED_WITHIN_REHEARSED_SCOPE',sourceCommit,host:{runtimeIdentity:host.runtimeIdentity,provider:host.provider,region:host.region,imageDigest:host.imageDigest,configDigest:host.configDigest,dataSchemaDigest:host.dataSchemaDigest},evidenceRefs:[pg.evidenceRef,restart.commands?.[0],workload.evidenceRef,cut.evidenceRef,loss.evidenceRef,control.evidenceRef].filter(Boolean),providerIndependence:'PROVIDER_LOSS_REHEARSED_ACROSS_DISTINCT_NAMED_PROVIDERS',postgresPersistence:'BACKUP_RESTORE_AND_RESTART_REHEARSED',cutoverRollback:'OBSERVED_AND_REVERSIBLE_WITHIN_DECLARED_SCOPE',controlPlane:'AUTHENTICATED_READ_ONLY__PRIVATE_LIFE_STATE_NOT_EXPOSED',truthBoundary:'This proves only the named exact-source runtime and recorded rehearsal scope. It does not prove elapsed autonomy, future restoreability, commercial outcomes, legal readiness, century continuity, AGI or ASI.',asiTruth:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO}};
+  return {ok:true,schemaVersion:PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION,status:'NAMED_RUNTIME_VERIFIED_WITHIN_REHEARSED_SCOPE',sourceCommit,host:{runtimeIdentity:host.runtimeIdentity,provider:host.provider,region:host.region,imageDigest:host.imageDigest,configDigest:host.configDigest,dataSchemaDigest:host.dataSchemaDigest},evidenceRefs:[pg.verificationEvidenceRef,pg.evidenceRef,restart.commands?.[0],workload.evidenceRef,cut.evidenceRef,loss.evidenceRef,control.evidenceRef].filter(Boolean),providerIndependence:'PROVIDER_LOSS_REHEARSED_ACROSS_DISTINCT_NAMED_PROVIDERS',postgresPersistence:'BACKUP_RESTORE_INDEPENDENTLY_VERIFIED_AND_RESTART_REHEARSED',cutoverRollback:'OBSERVED_AND_REVERSIBLE_WITHIN_DECLARED_SCOPE',controlPlane:'AUTHENTICATED_READ_ONLY__PRIVATE_LIFE_STATE_NOT_EXPOSED',truthBoundary:'This proves only the named exact-source runtime and recorded rehearsal scope. It does not prove elapsed autonomy, future restoreability, commercial outcomes, legal readiness, century continuity, AGI or ASI.',asiTruth:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO}};
 }

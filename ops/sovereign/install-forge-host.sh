@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo 'Run as root.' >&2; exit 2; }
-for cmd in systemctl install runuser git node npm docker; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in systemctl install runuser git node npm docker mktemp; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 docker compose version >/dev/null 2>&1 || { echo 'Docker Compose v2 is required.' >&2; exit 2; }
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -45,6 +45,7 @@ UBERBOND_FORGE_REPO=$REPO
 UBERBOND_FORGE_STATE_DIR=$STATE_DIR
 # These two paths must expose the independently controlled runtime host's admission inbox/state,
 # for example through an authenticated, restricted transport or mounted control channel.
+# The inbox must be writable by Forge; the runtime-state file MUST be read-only to Forge.
 UBERBOND_RUNTIME_INBOX=/mnt/uberbond-runtime/inbox
 UBERBOND_RUNTIME_STATE_FILE=/mnt/uberbond-runtime/state.env
 UBERBOND_RELEASE_SIGNING_KEY=$SIGNING_KEY
@@ -69,13 +70,15 @@ chown "$FORGE_USER:$FORGE_GROUP" "$SIGNING_KEY"
 chmod 0600 "$SIGNING_KEY"
 
 systemctl daemon-reload
-if runuser -u "$FORGE_USER" -- "$BIN_DIR/uberbond-forge-runner" doctor >/tmp/uberbond-forge-doctor.json 2>/tmp/uberbond-forge-doctor.err; then
+doctor_dir="$(mktemp -d /tmp/uberbond-forge-doctor.XXXXXX)"
+trap 'rm -rf "$doctor_dir"' EXIT
+if runuser -u "$FORGE_USER" -- "$BIN_DIR/uberbond-forge-runner" doctor >"$doctor_dir/result.json" 2>"$doctor_dir/error.log"; then
   systemctl enable --now uberbond-forge.timer
   echo 'UberBond Sovereign Forge doctor passed; bounded 15-minute heartbeat enabled.'
 else
   systemctl disable --now uberbond-forge.timer >/dev/null 2>&1 || true
   echo 'Forge installed but NOT enabled because the doctor refused. Resolve the reported model/runtime/repository prerequisite and rerun this installer.' >&2
-  cat /tmp/uberbond-forge-doctor.json >&2 || true
-  cat /tmp/uberbond-forge-doctor.err >&2 || true
+  cat "$doctor_dir/result.json" >&2 || true
+  cat "$doctor_dir/error.log" >&2 || true
   exit 4
 fi

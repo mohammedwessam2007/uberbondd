@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { BUILD_PROTECTED_PATHS, SOVEREIGNTY_PROTECTED_PATHS } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.2';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.3';
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const SAFE_BRANCH_PREFIX = 'uberbond/self-maintain/';
 const MAX_CHANGED_FILES = 20;
@@ -13,6 +13,9 @@ const MAX_RESPONSE_BYTES = 2_000_000;
 const GOVERNOR_ONLY_PROTECTED_PREFIXES = Object.freeze([
   'api',
   'public',
+  'vercel.json',
+  'lite/vercel.json',
+  'scripts/uberbond-finite-completion-seed.mjs',
   'src/uberbond-command-center-status.mjs',
   'src/uberbond-command-center-normalizer.mjs',
   'src/command-center-client-policy.mjs',

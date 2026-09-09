@@ -50,11 +50,11 @@ if "$CONTROL_BIN" deploy "$dir"; then
   json_receipt ADMITTED "$name" "$source_commit" "$release_sequence" 0 "$admitted"
   log "RELEASE_ADMITTED name=${name} source=${source_commit} sequence=${release_sequence}"
   exit 0
+else
+  code=$?
+  rejected_pointer="${INBOX_DIR}/REJECTED-${name}-$(date -u +%Y%m%dT%H%M%SZ)"
+  mv -f "$POINTER" "$rejected_pointer"
+  json_receipt REJECTED "$name" "$source_commit" "$release_sequence" "$code" "$rejected"
+  log "RELEASE_REJECTED name=${name} source=${source_commit} sequence=${release_sequence} exit=${code}"
+  exit "$code"
 fi
-
-code=$?
-rejected_pointer="${INBOX_DIR}/REJECTED-${name}-$(date -u +%Y%m%dT%H%M%SZ)"
-mv -f "$POINTER" "$rejected_pointer"
-json_receipt REJECTED "$name" "$source_commit" "$release_sequence" "$code" "$rejected"
-log "RELEASE_REJECTED name=${name} source=${source_commit} sequence=${release_sequence} exit=${code}"
-exit "$code"

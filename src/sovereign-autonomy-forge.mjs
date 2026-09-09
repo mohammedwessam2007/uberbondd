@@ -1,11 +1,12 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SOVEREIGN_AUTONOMY_FORGE_POLICY_VERSION = 'uberbond.sovereign-autonomy-forge.v1';
+export const SOVEREIGN_AUTONOMY_FORGE_POLICY_VERSION = 'uberbond.sovereign-autonomy-forge.v1.1';
 export const RUNTIME_RELEASE_RECEIPT_SCHEMA = 'uberbond.runtime-release-receipt.v1';
 export const FORGE_STATE_SCHEMA = 'uberbond.sovereign-forge-state.v1';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
+const EXACT_DIGEST = /^[a-f0-9]{64}$/i;
 const SAFE_RELEASE = /^[A-Za-z0-9._-]{1,220}$/;
 const PROVIDERS = Object.freeze(['open-model', 'claude-code-sandbox', 'openai', 'anthropic', 'ai-gateway']);
 
@@ -25,6 +26,30 @@ function fail(reasonCodes, status = 'FORGE_REFUSED', extra = {}) {
     externalEffectLedger: zeroEffects(),
     ...extra
   };
+}
+
+function pendingStateCore(state) {
+  return {
+    schemaVersion: state.schemaVersion,
+    status: state.status,
+    baseRevision: state.baseRevision,
+    candidateRevision: state.candidateRevision,
+    branchName: state.branchName,
+    taskId: state.taskId,
+    changeSetId: state.changeSetId,
+    receiptId: state.receiptId,
+    releaseName: state.releaseName,
+    releaseSequence: state.releaseSequence,
+    createdAt: state.createdAt,
+    businessEffectAuthority: state.businessEffectAuthority,
+    externalEffectAuthority: state.externalEffectAuthority
+  };
+}
+
+function validatePendingStateDigest(state) {
+  const observed = text(state?.stateDigest, 80).toLowerCase();
+  if (!EXACT_DIGEST.test(observed)) return false;
+  return digest(pendingStateCore(state)) === observed;
 }
 
 export function selectSovereignForgeProvider(readiness, { preferred = 'open-model', allowExternalFallback = false } = {}) {
@@ -111,10 +136,14 @@ export function compilePendingForgeDecision({ pending, admittedReceipt = null, r
   if (!state || state.schemaVersion !== FORGE_STATE_SCHEMA || state.status !== 'PENDING_RUNTIME_ADMISSION') {
     return fail(['valid-pending-forge-state-required'], 'PENDING_STATE_REJECTED');
   }
+  if (!validatePendingStateDigest(state)) {
+    return fail(['pending-forge-state-digest-invalid'], 'PENDING_STATE_REJECTED');
+  }
   const baseRevision = text(state.baseRevision, 80).toLowerCase();
   const candidateRevision = text(state.candidateRevision, 80).toLowerCase();
   const releaseName = text(state.releaseName, 220);
-  if (!EXACT_SHA.test(baseRevision) || !EXACT_SHA.test(candidateRevision) || !SAFE_RELEASE.test(releaseName)) {
+  const releaseSequence = text(state.releaseSequence, 40);
+  if (!EXACT_SHA.test(baseRevision) || !EXACT_SHA.test(candidateRevision) || !SAFE_RELEASE.test(releaseName) || !/^\d{14}$/.test(releaseSequence)) {
     return fail(['pending-forge-state-identity-invalid'], 'PENDING_STATE_REJECTED');
   }
   const runtimeSha = text(runtimeSourceCommit, 80).toLowerCase();
@@ -127,7 +156,9 @@ export function compilePendingForgeDecision({ pending, admittedReceipt = null, r
   if (admitted?.ok) {
     if (admitted.receipt.status !== 'ADMITTED') return fail(['admitted-receipt-status-mismatch'], 'RUNTIME_ADMISSION_CONFLICT');
     if (admitted.receipt.sourceCommit !== candidateRevision) return fail(['admitted-receipt-candidate-sha-mismatch'], 'RUNTIME_ADMISSION_CONFLICT');
-    if (runtimeSha && runtimeSha !== candidateRevision) return fail(['runtime-state-does-not-confirm-admitted-candidate'], 'RUNTIME_ADMISSION_CONFLICT');
+    if (admitted.receipt.releaseSequence !== releaseSequence) return fail(['admitted-receipt-release-sequence-mismatch'], 'RUNTIME_ADMISSION_CONFLICT');
+    if (!EXACT_SHA.test(runtimeSha)) return fail(['runtime-state-source-commit-required'], 'RUNTIME_ADMISSION_CONFLICT');
+    if (runtimeSha !== candidateRevision) return fail(['runtime-state-does-not-confirm-admitted-candidate'], 'RUNTIME_ADMISSION_CONFLICT');
     return {
       ok: true,
       policyVersion: SOVEREIGN_AUTONOMY_FORGE_POLICY_VERSION,
@@ -135,6 +166,7 @@ export function compilePendingForgeDecision({ pending, admittedReceipt = null, r
       baseRevision,
       candidateRevision,
       releaseName,
+      releaseSequence,
       runtimeReceipt: admitted.receipt,
       businessEffectAuthority: 'NONE',
       externalEffectAuthority: 'NONE',
@@ -144,6 +176,7 @@ export function compilePendingForgeDecision({ pending, admittedReceipt = null, r
   if (rejected?.ok) {
     if (rejected.receipt.status !== 'REJECTED') return fail(['rejected-receipt-status-mismatch'], 'RUNTIME_ADMISSION_CONFLICT');
     if (rejected.receipt.sourceCommit !== candidateRevision) return fail(['rejected-receipt-candidate-sha-mismatch'], 'RUNTIME_ADMISSION_CONFLICT');
+    if (rejected.receipt.releaseSequence !== releaseSequence) return fail(['rejected-receipt-release-sequence-mismatch'], 'RUNTIME_ADMISSION_CONFLICT');
     return {
       ok: true,
       policyVersion: SOVEREIGN_AUTONOMY_FORGE_POLICY_VERSION,
@@ -151,10 +184,12 @@ export function compilePendingForgeDecision({ pending, admittedReceipt = null, r
       baseRevision,
       candidateRevision,
       releaseName,
+      releaseSequence,
       blockerFingerprint: digest({
         kind: 'runtime-release-rejected',
         candidateRevision,
         releaseName,
+        releaseSequence,
         exitCode: rejected.receipt.exitCode
       }),
       runtimeReceipt: rejected.receipt,
@@ -170,6 +205,7 @@ export function compilePendingForgeDecision({ pending, admittedReceipt = null, r
     baseRevision,
     candidateRevision,
     releaseName,
+    releaseSequence,
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
@@ -228,6 +264,7 @@ export function newPendingForgeState({ baseRevision, candidateRevision, branchNa
   if (!text(branchName, 200).startsWith('uberbond/self-maintain/')) reasons.push('pending-state-branch-prefix-required');
   if (reasons.length) return fail(reasons, 'PENDING_STATE_REFUSED');
   const at = createdAt instanceof Date ? createdAt : new Date(createdAt || Date.now());
+  if (!Number.isFinite(at.getTime())) return fail(['pending-state-created-at-invalid'], 'PENDING_STATE_REFUSED');
   const state = {
     schemaVersion: FORGE_STATE_SCHEMA,
     status: 'PENDING_RUNTIME_ADMISSION',

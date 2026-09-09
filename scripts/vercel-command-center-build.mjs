@@ -1,89 +1,40 @@
 import { spawnSync } from 'node:child_process';
 
-// npm 11 blocks unreviewed dependency lifecycle scripts. embedded-postgres
-// requires its reviewed platform package postinstall to hydrate the PostgreSQL
-// binary tree. Rebuild the pinned Vercel platform fixture up front, then make
-// its executable-bit contract explicit. Re-run the same narrow preparation
-// immediately before Mutation War because Vercel has demonstrated that a
-// successful early rebuild alone does not guarantee initdb remains executable
-// at the later disposable-Postgres boundary. Other platforms keep their normal
-// local package installation path.
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
-  ? [
-      ['npm', ['rebuild', '@embedded-postgres/linux-x64']],
-      ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]
-    ]
+  ? [['npm', ['rebuild', '@embedded-postgres/linux-x64']], ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]]
   : [];
 
 const steps = [
   ...fixturePreparation,
-  // C11-B must execute before the rest of this build writes repository-derived
-  // atlases. It requires a clean exact checkout, runs the canonical readiness
-  // and Sovereign coverage generators, cross-checks both against git HEAD and
-  // C11-A, and refuses any mutation outside the three declared truth outputs.
-  // This is source/canon truth only: it creates no named-runtime, customer,
-  // commercial, life-outcome or ASI evidence.
+  // C11-B/C12 executes before repository-derived atlases. It requires clean
+  // truth inputs (provider workspace metadata may already be dirty), regenerates
+  // readiness + Sovereign coverage + the exact denominator-bound zero-orphan
+  // execution graph, then cross-checks them against git HEAD and C11-A. Only
+  // the four declared generated truth outputs may be newly dirtied. This is
+  // source/canon accounting only: no runtime, customer, commercial, life-outcome
+  // or ASI evidence is created.
   ['node', ['scripts/current-truth-regeneration.mjs']],
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
   ['node', ['scripts/uberbond-repository-deep-atlas.mjs']],
-  // The Deep Atlas writes a durable repository self-model. Test that artifact
-  // immediately, before Ultimate Graph composition or the multi-thousand-test
-  // deterministic tree, so a credential/fixture-marker persistence regression
-  // fails at the boundary that created it instead of hours later in the siege.
-  ['node', ['--test',
-    'tests/uberbond-repository-deep-atlas.test.mjs',
-    'tests/secret-leakage-sweep.test.mjs'
-  ]],
+  ['node', ['--test', 'tests/uberbond-repository-deep-atlas.test.mjs', 'tests/secret-leakage-sweep.test.mjs']],
   ['node', ['scripts/uberbond-ultimate-graph.mjs']],
-  ['node', ['--test',
-    'tests/uberbond-command-center-status.test.mjs',
-    'tests/uberbond-synaptic-map.test.mjs',
-    'tests/uberbond-synaptic-cycle-binding.test.mjs',
-    'tests/uberbond-ultimate-graph.test.mjs',
-    'tests/uberbond-ultimate-graph-cycle-binding.test.mjs',
-    'tests/ultimate-graph-api.test.mjs'
-  ]],
-  ['node', ['--test',
-    'tests/wessam-continuity.test.mjs',
-    'tests/lifetime-context-memory.test.mjs',
-    'tests/capability-world-harvester.test.mjs',
-    'tests/compute-sovereignty-capacity.test.mjs',
-    'tests/organism-metabolism.test.mjs',
-    'tests/pre-customer-revenue-readiness.test.mjs'
-  ]],
-  ['node', ['--test',
-    'tests/admin-ephemeral-client-hostile.test.mjs',
-    'tests/command-center-2-auth.test.mjs',
-    'tests/command-center-2-policy.test.mjs'
-  ]],
+  ['node', ['--test', 'tests/uberbond-command-center-status.test.mjs', 'tests/uberbond-synaptic-map.test.mjs', 'tests/uberbond-synaptic-cycle-binding.test.mjs', 'tests/uberbond-ultimate-graph.test.mjs', 'tests/uberbond-ultimate-graph-cycle-binding.test.mjs', 'tests/ultimate-graph-api.test.mjs']],
+  ['node', ['--test', 'tests/wessam-continuity.test.mjs', 'tests/lifetime-context-memory.test.mjs', 'tests/capability-world-harvester.test.mjs', 'tests/compute-sovereignty-capacity.test.mjs', 'tests/organism-metabolism.test.mjs', 'tests/pre-customer-revenue-readiness.test.mjs']],
+  ['node', ['--test', 'tests/admin-ephemeral-client-hostile.test.mjs', 'tests/command-center-2-auth.test.mjs', 'tests/command-center-2-policy.test.mjs']],
   ['node', ['scripts/reachability-report.mjs']],
   ['npm', ['run', 'check:syntax']],
-  // Canon freshness is part of the deterministic suite. Refresh present-tense
-  // readiness against this exact checkout before asking that suite to judge it;
-  // otherwise an immutable old receipt can masquerade as current state until
-  // the very last build step and create an avoidable always-red terminal gate.
   ['npm', ['run', 'readiness']],
   ['npm', ['run', 'test:deterministic']],
-  // Reassert the reviewed fixture at the exact consumer boundary. This is not
-  // a skipped or weakened mutation gate; it makes the real PostgreSQL fixture
-  // runnable so the mutation gate can execute rather than die with EACCES.
   ...fixturePreparation,
   ['npm', ['run', 'test:mutation-war']],
   ['npm', ['run', 'test:whole-brain']],
-  // Re-emit readiness after every proof step so the terminal workspace ends
-  // with a current exact-checkout artifact rather than the pre-proof snapshot.
   ['npm', ['run', 'readiness']]
 ];
 
 for (const [command, args] of steps) {
-  const result = spawnSync(command, args, {
-    cwd: process.cwd(),
-    env: process.env,
-    encoding: 'utf8',
-    stdio: 'inherit'
-  });
+  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding: 'utf8', stdio: 'inherit' });
   if (result.error) {
     console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
     process.exit(1);
@@ -96,6 +47,7 @@ console.log(JSON.stringify({
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
   exactHeadTruthRegenerationRequired: true,
   sovereignCoverageDenominatorRequired: true,
+  zeroOrphanCanonicalExecutionGraphRequired: true,
   ultimateGraphRequired: true,
   deepAtlasPersistencePrivacyRequired: true,
   adminEphemeralBearerRequired: true,

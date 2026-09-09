@@ -14,12 +14,13 @@ STATUS_FILE="$AUTONOMY_DIR/status.json"
 TASK_FILE="$AUTONOMY_DIR/next-task.json"
 WORKER_RESULT="${UBERBOND_WORKER_RESULT_PATH:-/var/lib/uberbond-worker/outbox/result.json}"
 VERIFIED_FILE="$AUTONOMY_DIR/verified-change.json"
-NODE="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
+NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
+NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
 
 mkdir -p "$AUTONOMY_DIR"
 chmod 700 "$AUTONOMY_DIR" 2>/dev/null || true
 [[ -d "$SOURCE_ROOT" && ! -L "$SOURCE_ROOT" ]] || { echo "REFUSED: real source directory required" >&2; exit 2; }
-[[ -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted Node executable required" >&2; exit 2; }
+[[ -n "$NODE" && -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted real Node executable required" >&2; exit 2; }
 run_from_source(){ (cd "$SOURCE_ROOT" && "$@"); }
 json_status(){ if [[ -f "$STATUS_FILE" && ! -L "$STATUS_FILE" ]]; then cat "$STATUS_FILE"; else printf '%s\n' '{"ok":true,"status":"NO_AUTONOMY_PULSE_RECORDED"}'; fi; }
 

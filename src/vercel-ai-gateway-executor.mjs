@@ -14,7 +14,8 @@ const MAX_CACHEABLE_CONTEXT_BYTES = 200_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
 const REASONING_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
 const CACHEABLE_DATA_CLASSES = new Set(['PUBLIC', 'INTERNAL_NON_SECRET', 'SOURCE_CODE']);
-const EXPLICIT_CACHE_CONTROL_MODEL_PREFIXES = Object.freeze(['anthropic/', 'minimax/']);
+const EXPLICIT_CACHE_CONTROL_MODEL_PREFIXES = Object.freeze(['anthropic/']);
+const VERIFIED_IMPLICIT_CACHE_MODEL_PREFIXES = Object.freeze(['openai/', 'google/', 'deepseek/']);
 const text = (v, max = 1000) => String(v ?? '').trim().slice(0, max);
 const integer = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
 const finite = (v, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isFinite(Number(v)) && Number(v) >= min && Number(v) <= max ? Number(v) : null;
@@ -89,23 +90,30 @@ function resultText(payload) {
   return '';
 }
 
-function requiresExplicitCacheControl(model) {
-  return EXPLICIT_CACHE_CONTROL_MODEL_PREFIXES.some(prefix => model.startsWith(prefix));
+function cacheWireMode(model) {
+  if (EXPLICIT_CACHE_CONTROL_MODEL_PREFIXES.some(prefix => model.startsWith(prefix))) {
+    return 'CHAT_COMPLETIONS_EXPLICIT_EPHEMERAL';
+  }
+  if (VERIFIED_IMPLICIT_CACHE_MODEL_PREFIXES.some(prefix => model.startsWith(prefix))) {
+    return 'STABLE_PREFIX_IMPLICIT_PROVIDER_CACHE';
+  }
+  return null;
 }
 
-function requestBody({ task, model, maxTokens, reasoningEffort, cacheableContext }) {
+function requestBody({ task, model, maxTokens, reasoningEffort, cacheableContext, cacheMode }) {
   const messages = [
     { role: 'system', content: 'You are a bounded UberBond worker. Do only local preparation. Never claim external effects, revenue, deployment, sending, purchases, DNS changes, or credential changes. Return only the required structured JSON result.' }
   ];
   // Stable shared context precedes request-specific material so exact-prefix
-  // provider caches can reuse it. For Chat Completions providers requiring an
-  // explicit marker, Vercel documents cache_control on the message itself.
-  // Providers with implicit prefix caching need no nonstandard request option.
+  // provider caches can reuse it. The raw Chat Completions wire contract is
+  // model-family specific: Anthropic uses Vercel-documented cache_control;
+  // OpenAI/Google/DeepSeek cache repeated prefixes implicitly. Other families
+  // are refused until their raw wire format is independently verified.
   if (cacheableContext) {
     messages.push({
       role: 'system',
       content: cacheableContext,
-      ...(requiresExplicitCacheControl(model) ? { cache_control: { type: 'ephemeral' } } : {})
+      ...(cacheMode === 'CHAT_COMPLETIONS_EXPLICIT_EPHEMERAL' ? { cache_control: { type: 'ephemeral' } } : {})
     });
   }
   messages.push({
@@ -153,10 +161,12 @@ export function createVercelAIGatewayExecutor({
     const cacheDataClass = text(cacheableContextDataClass, 80).toUpperCase();
     if (stablePrefix && !CACHEABLE_DATA_CLASSES.has(cacheDataClass)) return failure(['cacheable-context-explicit-approved-data-class-required']);
     if (bytes(stablePrefix) > MAX_CACHEABLE_CONTEXT_BYTES) return failure(['ai-gateway-cacheable-context-too-large']);
+    const cacheMode = stablePrefix ? cacheWireMode(selectedModel) : 'NOT_REQUESTED';
+    if (stablePrefix && !cacheMode) return failure(['cacheable-context-model-caching-wire-format-unverified']);
     const estimatedInputTokens = Math.ceil((bytes(task) + bytes(stablePrefix)) / 4);
     const estimatedCostCents = Math.max(0, Math.ceil(((estimatedInputTokens * Number(pricing.inputUsdPerMillion) + outputLimit * Number(pricing.outputUsdPerMillion)) / 1_000_000) * 100 - 1e-12));
     if (estimatedCostCents > costLimit) return failure(['estimated-cost-exceeds-reserved-ceiling']);
-    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort: requestedReasoningEffort, cacheableContext: stablePrefix });
+    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort: requestedReasoningEffort, cacheableContext: stablePrefix, cacheMode });
     if (bytes(body) > MAX_BODY_BYTES) return failure(['ai-gateway-request-body-too-large']);
     let response;
     let timeoutHandle;
@@ -198,10 +208,7 @@ export function createVercelAIGatewayExecutor({
     const metered = usage(raw, pricing);
     if (!metered) return failure(['ai-gateway-usage-or-pricing-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId });
     if (metered.costCents > costLimit) return failure(['actual-cost-exceeds-reserved-ceiling'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });
-    const cacheRequestMode = stablePrefix
-      ? (requiresExplicitCacheControl(selectedModel) ? 'CHAT_COMPLETIONS_EXPLICIT_EPHEMERAL' : 'STABLE_PREFIX_IMPLICIT_PROVIDER_CACHE')
-      : 'NOT_REQUESTED';
-    const observedCache = cacheEvidence(raw, { requested: Boolean(stablePrefix), prefix: stablePrefix, dataClass: cacheDataClass, inputTokens: metered.inputTokens, requestMode: cacheRequestMode });
+    const observedCache = cacheEvidence(raw, { requested: Boolean(stablePrefix), prefix: stablePrefix, dataClass: cacheDataClass, inputTokens: metered.inputTokens, requestMode: cacheMode });
     if (!observedCache) return failure(['ai-gateway-cache-usage-invalid'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });
     const bodyText = resultText(raw);
     if (!bodyText) return failure(['ai-gateway-structured-output-missing'], 'UNCERTAIN', { uncertain: true, providerRequestId, usage: metered });

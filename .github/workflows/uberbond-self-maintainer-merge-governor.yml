@@ -1,0 +1,54 @@
+name: UberBond Self Maintainer Merge Governor
+
+on:
+  workflow_run:
+    workflows:
+      - UberBond Self Maintainer Verify
+    types:
+      - completed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: uberbond-self-maintainer-merge-governor
+  cancel-in-progress: false
+
+jobs:
+  merge-exact-verified-head:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      startsWith(github.event.workflow_run.head_branch, 'uberbond/self-maintain/') &&
+      github.event.workflow_run.pull_requests[0].number > 0
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UBERBOND_VERIFY_RUN_ID: ${{ github.event.workflow_run.id }}
+      UBERBOND_VERIFY_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+      UBERBOND_PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+    steps:
+      - name: Checkout trusted current main only
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Govern exact independently verified merge
+        run: |
+          mkdir -p artifacts/cognitive
+          node .github/workflows/runtime/self-maintainer-merge-governor.mjs > artifacts/cognitive/self-maintainer-merge-governor.json
+      - name: Upload merge-governor receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberbond-self-maintainer-merge-${{ github.event.workflow_run.id }}
+          path: artifacts/cognitive/self-maintainer-merge-governor.json
+          retention-days: 30
+          if-no-files-found: warn

@@ -2,11 +2,10 @@
 
 import { compileAgentCodeChangeSet, contentSha256 } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.1';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const BRANCH_PREFIX = 'uberbond/self-maintain/';
-const VERIFY_WORKFLOW = 'UberBond Self Maintainer Verify';
 const MAX_RESPONSE_BYTES = 2_000_000;
 
 function text(value, max = 1000) {
@@ -66,7 +65,6 @@ function makeClient({ token, repository, fetchImpl = globalThis.fetch } = {}) {
   }
   const prefix = `/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}`;
   return Object.freeze({
-    getWorkflowRun: runId => request('GET', `${prefix}/actions/runs/${encodeURIComponent(runId)}`),
     getPullRequest: number => request('GET', `${prefix}/pulls/${number}`),
     getMainBranch: () => request('GET', `${prefix}/branches/main`),
     getPullCommits: number => request('GET', `${prefix}/pulls/${number}/commits?per_page=100`),
@@ -96,33 +94,30 @@ function decodeContent(result, expectedState) {
   return { ok: true, exists: true, content };
 }
 
+function existingTestMutation(filePath, status) {
+  return String(filePath || '').startsWith('tests/') && status !== 'added';
+}
+
 export async function governVerifiedSelfMaintainerMerge({ env = process.env, fetchImpl = globalThis.fetch } = {}) {
   const repository = parseRepository(env.GITHUB_REPOSITORY);
   const token = String(env.GITHUB_TOKEN || '');
-  const runId = text(env.UBERBOND_VERIFY_RUN_ID, 80);
+  const verificationMode = text(env.UBERBOND_VERIFICATION_MODE, 40).toUpperCase();
+  const verificationJobResult = text(env.UBERBOND_VERIFICATION_JOB_RESULT, 40).toLowerCase();
   const prNumber = Number(env.UBERBOND_PR_NUMBER || 0);
   const expectedHead = text(env.UBERBOND_VERIFY_HEAD_SHA, 80).toLowerCase();
+  const expectedBase = text(env.UBERBOND_VERIFY_BASE_SHA, 80).toLowerCase();
   const reasons = [];
   if (!repository) reasons.push('github-repository-required');
   if (!token) reasons.push('github-token-required');
-  if (!/^\d+$/.test(runId)) reasons.push('verification-workflow-run-id-required');
+  if (verificationMode !== 'JOB_CHAIN') reasons.push('protected-job-chain-verification-required');
+  if (verificationJobResult !== 'success') reasons.push('successful-independent-verification-job-required');
   if (!Number.isSafeInteger(prNumber) || prNumber <= 0) reasons.push('verification-pr-number-required');
   if (!EXACT_SHA.test(expectedHead)) reasons.push('verification-head-sha-required');
+  if (!EXACT_SHA.test(expectedBase)) reasons.push('verification-base-sha-required');
   if (typeof fetchImpl !== 'function') reasons.push('fetch-implementation-required');
   if (reasons.length) return fail(reasons);
 
   const client = makeClient({ token, repository, fetchImpl });
-  const run = await client.getWorkflowRun(runId);
-  if (!run?.ok) return fail(run?.reasonCodes || ['verification-workflow-run-unavailable']);
-  const runPayload = run.payload || {};
-  if (runPayload.name !== VERIFY_WORKFLOW) reasons.push('independent-verification-workflow-name-mismatch');
-  if (runPayload.event !== 'pull_request') reasons.push('pull-request-verification-event-required');
-  if (runPayload.status !== 'completed' || runPayload.conclusion !== 'success') reasons.push('successful-independent-verification-required');
-  if (text(runPayload.head_sha, 80).toLowerCase() !== expectedHead) reasons.push('verification-run-head-sha-mismatch');
-  const runPrNumbers = (Array.isArray(runPayload.pull_requests) ? runPayload.pull_requests : []).map(row => Number(row?.number || 0));
-  if (!runPrNumbers.includes(prNumber)) reasons.push('verification-run-pr-binding-missing');
-  if (reasons.length) return fail(reasons);
-
   const prResult = await client.getPullRequest(prNumber);
   if (!prResult?.ok) return fail(prResult?.reasonCodes || ['pull-request-unavailable']);
   const pr = prResult.payload || {};
@@ -136,6 +131,7 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
   if (text(pr.head?.sha, 80).toLowerCase() !== expectedHead) reasons.push('pr-head-not-independently-verified-head');
   if (!body.taskId) reasons.push('promotion-task-id-missing');
   if (!EXACT_SHA.test(body.baseRevision)) reasons.push('promotion-base-revision-missing');
+  if (body.baseRevision !== expectedBase) reasons.push('promotion-base-not-independently-verified-base');
   if (body.candidateCommit !== expectedHead) reasons.push('promotion-candidate-commit-mismatch');
   if (!body.changeSetId) reasons.push('promotion-change-set-id-missing');
   if (!body.selfMaintenanceReceiptId) reasons.push('promotion-self-maintenance-receipt-id-missing');
@@ -167,6 +163,7 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     const filePath = text(file?.filename, 1000);
     const status = text(file?.status, 40).toLowerCase();
     if (!filePath || !['added', 'modified', 'removed'].includes(status)) return fail([`unsupported-pr-file-status:${status || 'missing'}`]);
+    if (existingTestMutation(filePath, status)) return fail(['autonomous-existing-test-mutation-requires-human-review']);
     if (status === 'added') {
       const after = decodeContent(await client.getContent(filePath, expectedHead), 'PRESENT');
       if (!after.ok) return fail(after.reasonCodes);
@@ -203,8 +200,8 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     ok: true,
     policyVersion: SELF_MAINTAINER_MERGE_GOVERNOR_VERSION,
     status: 'SELF_MAINTAINER_CHANGE_MERGED_AFTER_INDEPENDENT_VERIFICATION',
+    verificationMode,
     prNumber,
-    verifiedWorkflowRunId: Number(runId),
     baseRevision: body.baseRevision,
     verifiedHead: expectedHead,
     mergedCommit: text(merged.payload?.sha, 80) || null,

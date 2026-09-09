@@ -1,7 +1,8 @@
 import crypto from 'node:crypto';
 import {
   GENESIS_MECHANISM_COMPILER_VERSION,
-  causalSignature
+  causalSignature,
+  compileGenesisMechanisms
 } from './genesis-mechanism-compiler.mjs';
 import {
   compileSelfImprovementCausalAdmission,
@@ -51,18 +52,14 @@ function validateCandidate(compilation, candidateId) {
   if (compilation?.ok !== true || compilation?.status !== 'MECHANISMS_COMPILED') {
     reasons.push('canonical-genesis-compilation-required');
   }
-  if (compilation?.version !== GENESIS_MECHANISM_COMPILER_VERSION) {
-    reasons.push('genesis-compiler-version-mismatch');
-  }
+  if (compilation?.version !== GENESIS_MECHANISM_COMPILER_VERSION) reasons.push('genesis-compiler-version-mismatch');
   if (compilation?.businessEffectAuthority !== 'NONE') reasons.push('genesis-compilation-must-not-carry-authority');
 
   const id = text(candidateId, 220);
   const candidates = Array.isArray(compilation?.candidates) ? compilation.candidates : [];
   const candidate = id ? candidates.find(row => row?.candidateId === id) : null;
   if (!id || !candidate) reasons.push('exact-genesis-candidate-required');
-  if (candidate?.status !== 'HYPOTHESIS' || candidate?.validated !== false) {
-    reasons.push('genesis-candidate-must-remain-unvalidated-hypothesis');
-  }
+  if (candidate?.status !== 'HYPOTHESIS' || candidate?.validated !== false) reasons.push('genesis-candidate-must-remain-unvalidated-hypothesis');
   if (candidate?.businessEffectAuthority !== 'NONE') reasons.push('genesis-candidate-must-not-carry-authority');
 
   const primitiveIds = Array.isArray(candidate?.primitiveIds) ? candidate.primitiveIds.map(String) : [];
@@ -86,17 +83,13 @@ function validateCandidate(compilation, candidateId) {
     sourceKind: row.provenance?.sourceKind,
     evidenceClass: row.evidenceClass
   })).sort();
-  const declaredProvenance = (Array.isArray(candidate?.inheritedProvenance) ? candidate.inheritedProvenance : [])
-    .map(provenanceKey).sort();
+  const declaredProvenance = (Array.isArray(candidate?.inheritedProvenance) ? candidate.inheritedProvenance : []).map(provenanceKey).sort();
   if (expectedProvenance.length !== declaredProvenance.length || expectedProvenance.some((value, index) => value !== declaredProvenance[index])) {
     reasons.push('candidate-inherited-provenance-mismatch');
   }
 
   if (candidate) {
-    const expectedSignature = causalSignature({
-      primitiveIds,
-      exploits: primitives.map(row => row.exploits).filter(Boolean)
-    });
+    const expectedSignature = causalSignature({ primitiveIds, exploits: primitives.map(row => row.exploits).filter(Boolean) });
     if (candidate.causalSignature !== expectedSignature) reasons.push('genesis-causal-signature-integrity-mismatch');
     if (candidate.candidateId !== `candidate_${expectedSignature.slice(0, 24)}`) reasons.push('genesis-candidate-id-integrity-mismatch');
   }
@@ -114,22 +107,26 @@ function mechanismStatement(primitives) {
 }
 
 export function compileGenesisSelfImprovementAdmission({
-  genesisCompilation,
+  donors = [],
+  maxCandidates = 50,
   candidateId,
   predictedObservations = [],
   falsifier,
   rivals = [],
   ...causalArgs
 } = {}) {
+  const genesisCompilation = compileGenesisMechanisms({ donors, maxCandidates });
+  if (!genesisCompilation.ok) {
+    return fail(['canonical-genesis-compilation-refused'], { genesisCompilation });
+  }
+
   const validated = validateCandidate(genesisCompilation, candidateId);
   if (!validated.ok) return fail(validated.reasonCodes);
 
   const predictions = unique((Array.isArray(predictedObservations) ? predictedObservations : [])
     .map(value => text(value, 700)).filter(Boolean));
   const falsifierText = text(falsifier, 1200);
-  if (!predictions.length || !falsifierText) {
-    return fail(['predeclared-genesis-predictions-and-falsifier-required']);
-  }
+  if (!predictions.length || !falsifierText) return fail(['predeclared-genesis-predictions-and-falsifier-required']);
 
   const mechanism = mechanismStatement(validated.primitives);
   if (!mechanism) return fail(['genesis-mechanism-statement-could-not-be-derived']);
@@ -171,12 +168,8 @@ export function compileGenesisSelfImprovementAdmission({
       causalAdmission: causal
     });
   }
-  if (causal.policyVersion !== SELF_IMPROVEMENT_CAUSAL_ADMISSION_VERSION) {
-    return fail(['self-improvement-causal-policy-version-mismatch']);
-  }
-  if (causal.selectedHypothesis?.mechanismId !== validated.candidate.candidateId) {
-    return fail(['causal-admission-genesis-candidate-binding-mismatch']);
-  }
+  if (causal.policyVersion !== SELF_IMPROVEMENT_CAUSAL_ADMISSION_VERSION) return fail(['self-improvement-causal-policy-version-mismatch']);
+  if (causal.selectedHypothesis?.mechanismId !== validated.candidate.candidateId) return fail(['causal-admission-genesis-candidate-binding-mismatch']);
 
   const bridgeDigest = digest({
     genesisBindingDigest,

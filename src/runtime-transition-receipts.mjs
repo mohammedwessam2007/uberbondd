@@ -24,7 +24,20 @@ function common(input,kind){
   if(input.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-runtime-evidence-class-required');
   return {reasons,sourceCommit,runtimeIdentity,verifierIdentity,evidenceRef,observedAt,kind};
 }
-function safeBase(c){return{evidenceClass:'OBSERVED_RUNTIME',sourceCommit:c.sourceCommit,runtimeIdentity:c.runtimeIdentity,evidenceRef:c.evidenceRef,independentVerifierRef:`verifier:${c.verifierIdentity}`,observedAt:c.observedAt};}
+function safeBase(c,status){return{ok:true,schemaVersion:RUNTIME_TRANSITION_RECEIPTS_VERSION,status,evidenceClass:'OBSERVED_RUNTIME',sourceCommit:c.sourceCommit,runtimeIdentity:c.runtimeIdentity,evidenceRef:c.evidenceRef,independentVerifierRef:`verifier:${c.verifierIdentity}`,observedAt:c.observedAt};}
+function finalize(receipt){return{...receipt,receiptDigest:digest(receipt)};}
+
+export function runtimeTransitionReceiptPreimage(receipt={},kind){
+  const base={ok:true,schemaVersion:RUNTIME_TRANSITION_RECEIPTS_VERSION,status:`${kind}_OBSERVED`,evidenceClass:'OBSERVED_RUNTIME',sourceCommit:receipt.sourceCommit,runtimeIdentity:receipt.runtimeIdentity,evidenceRef:receipt.evidenceRef,independentVerifierRef:receipt.independentVerifierRef,observedAt:receipt.observedAt};
+  if(kind==='DURABLE_WORKLOAD') return {...base,workloadId:receipt.workloadId,beforeStateDigest:receipt.beforeStateDigest,afterStateDigest:receipt.afterStateDigest,restartObserved:true,replacementWorkerObserved:true,persistedAcrossRestart:true,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'};
+  if(kind==='CUTOVER_ROLLBACK') return {...base,fromRuntimeIdentity:receipt.fromRuntimeIdentity,toRuntimeIdentity:receipt.toRuntimeIdentity,cutoverSucceeded:true,boundedWorkloadSucceeded:true,rollbackExercised:true,rollbackSucceeded:true,rollbackRuntimeIdentity:receipt.fromRuntimeIdentity,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'};
+  if(kind==='PROVIDER_LOSS') return {...base,receiptClass:'PROVIDER_LOSS',manifestDigest:receipt.manifestDigest,failedProvider:receipt.failedProvider,alternateProvider:receipt.alternateProvider,primaryUnavailable:true,alternateRestoreSucceeded:true,boundedWorkloadSucceeded:true,recoveryUsedPrimaryProvider:false,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'};
+  return null;
+}
+export function verifyRuntimeTransitionReceiptIntegrity(receipt={},kind){
+  const preimage=runtimeTransitionReceiptPreimage(receipt,kind);
+  return Boolean(preimage&&receipt.ok===true&&receipt.schemaVersion===RUNTIME_TRANSITION_RECEIPTS_VERSION&&receipt.status===`${kind}_OBSERVED`&&text(receipt.receiptDigest,80)?.toLowerCase()===digest(preimage));
+}
 
 export function compileDurableWorkloadReceipt(input={}){
   const c=common(input,'DURABLE_WORKLOAD');
@@ -41,8 +54,7 @@ export function compileDurableWorkloadReceipt(input={}){
   if(input.duplicateExternalEffects!==0) r.push('zero-duplicate-external-effects-required');
   if(input.uncertainEffectBlindReplayObserved===true) r.push('uncertain-effect-blind-replay-prohibited');
   if(r.length) return fail('DURABLE_WORKLOAD',r,{sourceCommit:c.sourceCommit});
-  const receipt={...safeBase(c),workloadId,beforeStateDigest:before,afterStateDigest:after,restartObserved:true,replacementWorkerObserved:true,persistedAcrossRestart:true,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'};
-  return {...receipt,receiptDigest:digest(receipt)};
+  return finalize({...safeBase(c,'DURABLE_WORKLOAD_OBSERVED'),workloadId,beforeStateDigest:before,afterStateDigest:after,restartObserved:true,replacementWorkerObserved:true,persistedAcrossRestart:true,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'});
 }
 
 export function compileCutoverRollbackReceipt(input={}){
@@ -59,8 +71,7 @@ export function compileCutoverRollbackReceipt(input={}){
   if(input.duplicateExternalEffects!==0) r.push('zero-duplicate-external-effects-required');
   if(input.uncertainEffectBlindReplayObserved===true) r.push('uncertain-effect-blind-replay-prohibited');
   if(r.length) return fail('CUTOVER_ROLLBACK',r,{sourceCommit:c.sourceCommit});
-  const receipt={...safeBase(c),fromRuntimeIdentity,toRuntimeIdentity,cutoverSucceeded:true,boundedWorkloadSucceeded:true,rollbackExercised:true,rollbackSucceeded:true,rollbackRuntimeIdentity:fromRuntimeIdentity,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'};
-  return {...receipt,receiptDigest:digest(receipt)};
+  return finalize({...safeBase(c,'CUTOVER_ROLLBACK_OBSERVED'),fromRuntimeIdentity,toRuntimeIdentity,cutoverSucceeded:true,boundedWorkloadSucceeded:true,rollbackExercised:true,rollbackSucceeded:true,rollbackRuntimeIdentity:fromRuntimeIdentity,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'});
 }
 
 export function compileProviderLossReceipt(input={}){
@@ -78,6 +89,5 @@ export function compileProviderLossReceipt(input={}){
   if(input.duplicateExternalEffects!==0) r.push('zero-duplicate-external-effects-required');
   if(input.uncertainEffectBlindReplayObserved===true) r.push('uncertain-effect-blind-replay-prohibited');
   if(r.length) return fail('PROVIDER_LOSS',r,{sourceCommit:c.sourceCommit});
-  const receipt={...safeBase(c),receiptClass:'PROVIDER_LOSS',manifestDigest,failedProvider,alternateProvider,primaryUnavailable:true,alternateRestoreSucceeded:true,boundedWorkloadSucceeded:true,recoveryUsedPrimaryProvider:false,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'};
-  return {...receipt,receiptDigest:digest(receipt)};
+  return finalize({...safeBase(c,'PROVIDER_LOSS_OBSERVED'),receiptClass:'PROVIDER_LOSS',manifestDigest,failedProvider,alternateProvider,primaryUnavailable:true,alternateRestoreSucceeded:true,boundedWorkloadSucceeded:true,recoveryUsedPrimaryProvider:false,duplicateExternalEffects:0,uncertainEffectBlindReplayObserved:false,businessEffectAuthority:'NONE'});
 }

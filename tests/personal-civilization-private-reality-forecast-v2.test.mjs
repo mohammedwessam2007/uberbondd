@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { normalizePrivateRecord } from '../src/personal-civilization-core.mjs';
+import { compilePrivateRealityCycle, closePrivateRealityCycle } from '../scripts/personal-civilization-private.mjs';
+
+const OWNER={subject:'FOUNDER',grant:'PRIVATE_LIFE_STATE',issuedAt:'2026-09-09T00:00:00.000Z'};
+const AT='2026-09-09T00:00:00.000Z';
+const DEST='/tmp/uberbond-private-life-v2.json';
+const source=()=>normalizePrivateRecord({kind:'LIFE_EVENT',body:'synthetic forecast-v2 source',occurredAt:'2026-09-08T23:00:00.000Z'}).record;
+const experiment=()=>({founderSelection:{chosenByFounder:true,possibility:'compare two synthetic work environments',selectedAt:AT,evidenceRef:'private:synthetic:selection-v2'},requiredCapabilities:['deep work'],capabilities:[],experience:{uncertainty:'which environment changes focus',smallestReversibleExperience:'one matched synthetic session',wouldReveal:'focus difference',wouldFalsify:'no difference',reversible:true,cost:'none',time:'one hour',costCents:0,timeMinutes:60,effects:[]},hypotheses:[{id:'a',predictedObservations:['focus changes']},{id:'b',predictedObservations:['focus unchanged']}],budget:{maxCostCents:0,maxTimeMinutes:90,maxDeclaredEffects:0},voi:{unit:'decision-loss-points',budgetUnits:10,currentEvidenceSufficient:false,observe:{canChangeDecision:true,discriminating:true,informationValueUnits:9,costUnits:1,delayCostUnits:1,optionDecayUnits:0,requiresExternalEffect:false},defer:{informationGainUnits:1,delayCostUnits:1,optionDecayUnits:1,windowRemainsOpen:true}}});
+const decision=()=>({statement:'which synthetic environment should be used',options:[{name:'current',scores:{meaning:0.7,financial_cost:0.2}},{name:'alternate',scores:{meaning:0.8,financial_cost:0.1}}],keyAssumptions:['same task difficulty'],updateConditions:['new evidence']});
+const choice=()=>({chosenByFounder:true,option:'alternate',evidenceRef:'private:synthetic:choice-v2',chosenAt:AT});
+const forecast=()=>({probabilities:{yes:0.6,no:0.4},evidenceCutoff:AT,method:'bounded personal experiment',assumptions:['same task difficulty']});
+const outcome=()=>({value:'yes',observedAt:'2026-10-09T00:00:00.000Z',evidenceRef:'private:synthetic:observation-v2',availableAtTime:['same task difficulty']});
+function started(){const root=source();const result=compilePrivateRealityCycle({store:[root],authorization:OWNER,privateDestination:DEST,sourceRecordIds:[root.id],scientificExperiment:experiment(),decision:decision(),founderChoice:choice(),choiceForecast:forecast(),now:AT});assert.equal(result.ok,true,JSON.stringify(result));return result;}
+function tamper(field,value){const begun=started();const store=structuredClone(begun.store);const record=store.find(row=>row.id===begun.recordIds.forecast);const parsed=JSON.parse(record.body);parsed.payload.forecast[field]=value;record.body=JSON.stringify(parsed);return closePrivateRealityCycle({store,authorization:OWNER,privateDestination:DEST,forecastRecordId:record.id,observedOutcome:outcome()});}
+
+test('forecast-seal v2 rejects persisted assumptions rewritten after founder choice',()=>{const closed=tamper('assumptions',['hindsight rewrite']);assert.equal(closed.ok,false);assert.equal(closed.status,'PCE_PRIVATE_REALITY_OUTCOME_NOT_SCORABLE');assert.equal(closed.closeFailure.scoreFailure.status,'FORECAST_TAMPERED');});
+test('forecast-seal v2 rejects persisted method rewritten after founder choice',()=>{const closed=tamper('method','hindsight method');assert.equal(closed.ok,false);assert.equal(closed.status,'PCE_PRIVATE_REALITY_OUTCOME_NOT_SCORABLE');assert.equal(closed.closeFailure.scoreFailure.status,'FORECAST_TAMPERED');});
+test('forecast-seal v2 rejects persisted evidence cutoff rewritten after founder choice',()=>{const closed=tamper('evidenceCutoff','2026-10-08T00:00:00.000Z');assert.equal(closed.ok,false);assert.equal(closed.status,'PCE_PRIVATE_REALITY_OUTCOME_NOT_SCORABLE');assert.equal(closed.closeFailure.scoreFailure.status,'FORECAST_TAMPERED');});

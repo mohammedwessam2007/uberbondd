@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const EXECUTION_LEAF_GRAPH_RECEIPT_DIGEST_VERSION = 'uberbond.execution-leaf-graph-receipt-digest.v1';
+export const EXECUTION_LEAF_GRAPH_RECEIPT_DIGEST_VERSION = 'uberbond.execution-leaf-graph-receipt-digest.v1.1';
 const SHA = /^[0-9a-f]{40}$/;
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 
@@ -26,6 +26,7 @@ export function recomputeCanonicalExecutionBindingDigest(binding = {}) {
     coverageContentDigest: binding?.coverageContentDigest ?? null,
     canonicalRequirementIds: binding.canonicalRequirementIds,
     coverageRows: binding?.coverageRows ?? null,
+    extractedConcepts: binding?.extractedConcepts ?? null,
     coverageStates: binding?.coverageStates ?? {},
     graphDigest: binding?.graphDigest ?? null
   };

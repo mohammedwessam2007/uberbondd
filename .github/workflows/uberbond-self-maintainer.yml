@@ -17,16 +17,20 @@ concurrency:
   group: uberbond-self-maintainer
   cancel-in-progress: false
 
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  id-token: write
-
 jobs:
   bounded-maintenance:
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    outputs:
+      promoted: ${{ steps.coordinates.outputs.promoted }}
+      pr_number: ${{ steps.coordinates.outputs.pr_number }}
+      branch: ${{ steps.coordinates.outputs.branch }}
+      base_sha: ${{ steps.coordinates.outputs.base_sha }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ inputs.issueNumber }}
@@ -144,6 +148,27 @@ jobs:
           if [ ! -f artifacts/cognitive/self-maintainer-latest.json ] && [ -f artifacts/cognitive/self-maintainer-initial.json ]; then
             cp artifacts/cognitive/self-maintainer-initial.json artifacts/cognitive/self-maintainer-latest.json
           fi
+      - name: Export exact promoted review coordinates
+        id: coordinates
+        if: always()
+        shell: bash
+        run: |
+          node <<'NODE' >> "$GITHUB_OUTPUT"
+          const fs=require('node:fs');
+          const paths=['artifacts/cognitive/self-maintainer-latest.json','artifacts/cognitive/self-maintainer-initial.json'];
+          let value=null;
+          for(const p of paths){try{const v=JSON.parse(fs.readFileSync(p,'utf8'));if(v){value=v;break}}catch{}}
+          const promotion=value?.promotion||{};
+          const marker=value?.promotionMarker||{};
+          const pr=Number(promotion.prNumber||marker.prNumber||0);
+          const branch=String(promotion.branch||marker.branch||'');
+          const base=String(promotion.baseRevision||marker.baseRevision||value?.baseRevision||'').toLowerCase();
+          const promoted=Number.isSafeInteger(pr)&&pr>0&&branch.startsWith('uberbond/self-maintain/')&&/^[a-f0-9]{40}$/.test(base);
+          console.log(`promoted=${promoted?'true':'false'}`);
+          console.log(`pr_number=${promoted?pr:0}`);
+          console.log(`branch=${promoted?branch:''}`);
+          console.log(`base_sha=${promoted?base:''}`);
+          NODE
       - name: Compile or preserve non-repeating continuation decision
         if: always()
         shell: bash
@@ -189,3 +214,120 @@ jobs:
           if [ -n "$initial" ] && [ "$initial" != '0' ]; then exit 1; fi
           if [ -n "$proposal" ] && [ "$proposal" != '0' ]; then exit 1; fi
           if [ -n "$final" ] && [ "$final" != '0' ]; then exit 1; fi
+
+  independent-verification:
+    needs: bounded-maintenance
+    if: needs.bounded-maintenance.result == 'success' && needs.bounded-maintenance.outputs.promoted == 'true'
+    permissions:
+      contents: read
+      pull-requests: read
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    outputs:
+      pr_number: ${{ needs.bounded-maintenance.outputs.pr_number }}
+      head_sha: ${{ steps.verified-coordinates.outputs.head_sha }}
+      base_sha: ${{ steps.verified-coordinates.outputs.base_sha }}
+    env:
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      AUTO_EMAIL_REPORTS: 'false'
+      DISCOVERY_ENABLED: 'false'
+      DISCOVERY_DRY_RUN: 'true'
+      ALLOW_TEST_PAYMENT_UNLOCK: 'false'
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    steps:
+      - name: Checkout exact promoted branch without persisted credentials
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.bounded-maintenance.outputs.branch }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Derive exact candidate coordinates from Git ancestry
+        id: verified-coordinates
+        shell: bash
+        run: |
+          head_sha=$(git rev-parse HEAD)
+          base_sha=$(git rev-parse HEAD^)
+          if [ "$base_sha" != '${{ needs.bounded-maintenance.outputs.base_sha }}' ]; then
+            echo 'candidate parent no longer equals promoted base' >&2
+            exit 1
+          fi
+          echo "head_sha=$head_sha" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
+      - name: Install exact locked dependencies
+        run: npm ci
+      - name: Reconstruct candidate through canonical autonomous-change constitution
+        env:
+          UBERBOND_PR_BASE_SHA: ${{ steps.verified-coordinates.outputs.base_sha }}
+          UBERBOND_PR_HEAD_SHA: ${{ steps.verified-coordinates.outputs.head_sha }}
+          UBERBOND_PR_BASE_REF: main
+          UBERBOND_PR_HEAD_REF: ${{ needs.bounded-maintenance.outputs.branch }}
+          UBERBOND_PR_AUTHOR: github-actions[bot]
+        run: |
+          mkdir -p artifacts/cognitive
+          node .github/workflows/runtime/self-maintainer-pr-verifier.mjs > artifacts/cognitive/self-maintainer-pr-verification.json
+      - name: Parse every JavaScript module
+        run: npm run check:syntax
+      - name: Run deterministic whole-repository tribunal
+        run: npm run test:deterministic
+      - name: Re-run sovereignty-critical autonomous-maintenance regressions explicitly
+        run: >-
+          node --test
+          tests/sovereignty-self-modification.test.mjs
+          tests/enforcement-surface-sovereignty-boundary.test.mjs
+          tests/self-maintainer-proposal-contract.test.mjs
+          tests/uberbond-self-maintainer-tick.test.mjs
+      - name: Upload independent verifier receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberbond-self-maintainer-verification-${{ needs.bounded-maintenance.outputs.pr_number }}-${{ steps.verified-coordinates.outputs.head_sha }}
+          path: artifacts/cognitive/self-maintainer-pr-verification.json
+          retention-days: 14
+          if-no-files-found: warn
+
+  merge-verified-self-maintainer:
+    needs:
+      - bounded-maintenance
+      - independent-verification
+    if: needs.independent-verification.result == 'success'
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UBERBOND_VERIFICATION_MODE: JOB_CHAIN
+      UBERBOND_VERIFICATION_JOB_RESULT: ${{ needs.independent-verification.result }}
+      UBERBOND_PR_NUMBER: ${{ needs.independent-verification.outputs.pr_number }}
+      UBERBOND_VERIFY_HEAD_SHA: ${{ needs.independent-verification.outputs.head_sha }}
+      UBERBOND_VERIFY_BASE_SHA: ${{ needs.independent-verification.outputs.base_sha }}
+    steps:
+      - name: Checkout trusted current main only
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Merge only the exact independently verified local-preparation head
+        run: |
+          mkdir -p artifacts/cognitive
+          node .github/workflows/runtime/self-maintainer-merge-governor.mjs > artifacts/cognitive/self-maintainer-merge-governor.json
+      - name: Upload merge-governor receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberbond-self-maintainer-merge-${{ needs.independent-verification.outputs.pr_number }}-${{ needs.independent-verification.outputs.head_sha }}
+          path: artifacts/cognitive/self-maintainer-merge-governor.json
+          retention-days: 30
+          if-no-files-found: warn

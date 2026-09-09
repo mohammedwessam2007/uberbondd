@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { recomputeExecutionLeafGraphDigest } from './execution-leaf-graph-receipt-digest.mjs';
 
-export const EXECUTION_LEAF_CONTINUATION_VERSION='uberbond.execution-leaf-continuation.v1.1';
+export const EXECUTION_LEAF_CONTINUATION_VERSION='uberbond.execution-leaf-continuation.v1.2';
 export const EXECUTION_LEAF_RESULT_ATTESTATION_VERSION='uberbond.execution-leaf-result-attestation.v1';
 const SHA40=/^[0-9a-f]{40}$/; const SHA256=/^[0-9a-f]{64}$/;
 const ZERO=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
@@ -9,7 +9,8 @@ const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('he
 const uniq=v=>[...new Set((Array.isArray(v)?v:[]).map(x=>String(x??'').trim()).filter(Boolean))].sort();
 const text=(v,max=1000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 const fail=(reasons,extra={})=>({ok:false,version:EXECUTION_LEAF_CONTINUATION_VERSION,status:'EXECUTION_LEAF_CONTINUATION_REFUSED',reasonCodes:[...new Set(reasons)],businessEffectAuthority:'NONE',externalEffectLedger:{...ZERO},...extra});
-function validGraph(g){return g?.ok===true&&g?.status==='ZERO_ORPHAN_EXECUTION_LEAF_GRAPH_COMPILED'&&SHA40.test(String(g.sourceCommit||''))&&Array.isArray(g.leaves)&&g.leaves.length>0&&g.graphDigest===recomputeExecutionLeafGraphDigest(g);}
+const ACCEPTED_GRAPH_STATUSES=new Set(['ZERO_ORPHAN_EXECUTION_LEAF_GRAPH_COMPILED','ZERO_ORPHAN_CANONICAL_EXECUTION_LEAF_GRAPH_COMPILED']);
+function validGraph(g){return g?.ok===true&&ACCEPTED_GRAPH_STATUSES.has(g?.status)&&SHA40.test(String(g.sourceCommit||''))&&Array.isArray(g.leaves)&&g.leaves.length>0&&g.graphDigest===recomputeExecutionLeafGraphDigest(g);}
 function configuredEd25519PublicKey(publicKeyPem){try{const key=crypto.createPublicKey(publicKeyPem);return key.asymmetricKeyType==='ed25519'?key:null;}catch{return null;}}
 function publicKeyFingerprint(publicKeyPem){const key=configuredEd25519PublicKey(publicKeyPem);if(!key)return null;try{return digest(key.export({type:'spki',format:'der'}));}catch{return null;}}
 function stateCore(state){return{schemaVersion:state.schemaVersion,sourceCommit:state.sourceCommit,graphDigest:state.graphDigest,maxAttempts:state.maxAttempts,trustedVerifierFingerprint:state.trustedVerifierFingerprint,nodes:state.nodes,receipts:state.receipts,runnableLeafIds:state.runnableLeafIds,completedLeafIds:state.completedLeafIds,terminalFailedLeafIds:state.terminalFailedLeafIds,blockedLeafIds:state.blockedLeafIds,status:state.status};}

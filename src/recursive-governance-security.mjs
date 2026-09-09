@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { verifyRecursiveGovernanceChain } from './capability-scaled-security.mjs';
+import { verifyRecursiveGovernancePrincipals } from './recursive-governance-principals.mjs';
 
-export const RECURSIVE_GOVERNANCE_SECURITY_VERSION='uberbond.recursive-governance-security.v1.1';
+export const RECURSIVE_GOVERNANCE_SECURITY_VERSION='uberbond.recursive-governance-security.v1.2';
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const text=(v,max=500)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 const stable=value=>Array.isArray(value)?value.map(stable):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,stable(value[k])])):value;
@@ -15,6 +16,8 @@ export function admitRecursiveSecurityEvolution({admission=null,generations=[],p
   if(admission?.subject?.composition?.selfModifying!==true) reasons.push('recursive-evolution-requires-explicit-self-modifying-composition-declaration');
   const chain=verifyRecursiveGovernanceChain({generations});
   if(!chain.ok) reasons.push(...chain.reasonCodes);
+  const principalControl=verifyRecursiveGovernancePrincipals({generations});
+  if(!principalControl.ok) reasons.push(...principalControl.reasonCodes);
   const evidenceByGeneration=new Map((Array.isArray(policyMutationEvidence)?policyMutationEvidence:[]).map(row=>[text(row?.generationId,200),row]));
   if(chain.ok){
     for(let i=1;i<chain.generations.length;i+=1){
@@ -39,6 +42,6 @@ export function admitRecursiveSecurityEvolution({admission=null,generations=[],p
     }
   }
   if(reasons.length) return fail(reasons);
-  const receipt={version:RECURSIVE_GOVERNANCE_SECURITY_VERSION,admissionSubjectDigest:admission.subjectDigest,chainDigest:chain.chainDigest,generationIds:chain.generations.map(g=>g.generationId),policyMutationEvidenceRefs:(policyMutationEvidence||[]).map(e=>text(e?.evidenceRef,500)).filter(Boolean),lineageSeparationChecked:true,runtimeProof:'NONE__STRUCTURAL_AND_EVIDENCE_CONTRACT_ONLY'};
-  return{ok:true,status:'RECURSIVE_SECURITY_EVOLUTION_ADMISSIBLE_FOR_SEPARATE_EXECUTION_AUTHORITY',receipt,receiptDigest:digest(receipt),businessEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS),asiClaim:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',truthBoundary:'This gate prevents silent security-policy drift and gradual evaluator capture across recursive generations. It does not authorize self-modification, deployment, spend, replication, private-state access or any external effect.'};
+  const receipt={version:RECURSIVE_GOVERNANCE_SECURITY_VERSION,admissionSubjectDigest:admission.subjectDigest,chainDigest:chain.chainDigest,principalControlReceiptDigest:principalControl.receiptDigest,generationIds:chain.generations.map(g=>g.generationId),policyMutationEvidenceRefs:(policyMutationEvidence||[]).map(e=>text(e?.evidenceRef,500)).filter(Boolean),lineageSeparationChecked:true,principalCredentialCustodySeparationChecked:true,runtimeProof:'NONE__STRUCTURAL_AND_EVIDENCE_CONTRACT_ONLY'};
+  return{ok:true,status:'RECURSIVE_SECURITY_EVOLUTION_ADMISSIBLE_FOR_SEPARATE_EXECUTION_AUTHORITY',receipt,receiptDigest:digest(receipt),businessEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS),asiClaim:'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED',truthBoundary:'This gate prevents silent security-policy drift and gradual evaluator capture across recursive generations at both role-id and controlling-principal/credential/custody levels. It does not authorize self-modification, deployment, spend, replication, private-state access or any external effect.'};
 }

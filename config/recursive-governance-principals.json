@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond.recursive-governance-principals.declaration.v1",
+  "truthBoundary": "Logical principal/credential/custody identities below exist only to make source-level separation explicit and falsifiable. They are NOT evidence that independent human/provider credentials or custody domains are enrolled at runtime.",
+  "generations": [
+    {
+      "generationId": "source-governance-v1",
+      "verifierTrustEpoch": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "principalControls": {
+        "PROPOSER": {"principalId":"logical:v1:proposer","credentialFingerprint":"sha256:1010101010101010101010101010101010101010101010101010101010101010","custodyDomain":"logical-custody:v1:proposer","controlDomain":"source:v1:proposal"},
+        "EVALUATOR": {"principalId":"logical:v1:evaluator","credentialFingerprint":"sha256:2020202020202020202020202020202020202020202020202020202020202020","custodyDomain":"logical-custody:v1:evaluator","controlDomain":"source:v1:evaluation"},
+        "HOLDOUT": {"principalId":"logical:v1:holdout","credentialFingerprint":"sha256:3030303030303030303030303030303030303030303030303030303030303030","custodyDomain":"logical-custody:v1:holdout","controlDomain":"source:v1:holdout"},
+        "APPROVER": {"principalId":"logical:v1:approver","credentialFingerprint":"sha256:4040404040404040404040404040404040404040404040404040404040404040","custodyDomain":"logical-custody:v1:approver","controlDomain":"source:v1:approval"},
+        "DEPLOYER": {"principalId":"logical:v1:deployer","credentialFingerprint":"sha256:5050505050505050505050505050505050505050505050505050505050505050","custodyDomain":"logical-custody:v1:deployer","controlDomain":"source:v1:deployment"},
+        "MONITOR": {"principalId":"logical:v1:monitor","credentialFingerprint":"sha256:6060606060606060606060606060606060606060606060606060606060606060","custodyDomain":"logical-custody:v1:monitor","controlDomain":"source:v1:monitoring"},
+        "EVIDENCE_STORE": {"principalId":"logical:v1:evidence","credentialFingerprint":"sha256:7070707070707070707070707070707070707070707070707070707070707070","custodyDomain":"logical-custody:v1:evidence","controlDomain":"source:v1:evidence"},
+        "ROLLBACK": {"principalId":"logical:v1:rollback","credentialFingerprint":"sha256:8080808080808080808080808080808080808080808080808080808080808080","custodyDomain":"logical-custody:v1:rollback","controlDomain":"source:v1:rollback"},
+        "CANON_WRITER": {"principalId":"logical:v1:canon","credentialFingerprint":"sha256:9090909090909090909090909090909090909090909090909090909090909090","custodyDomain":"logical-custody:v1:canon","controlDomain":"source:v1:canon"},
+        "SECURITY_POLICY": {"principalId":"logical:v1:security","credentialFingerprint":"sha256:abababababababababababababababababababababababababababababababab","custodyDomain":"logical-custody:v1:security","controlDomain":"source:v1:security"}
+      }
+    },
+    {
+      "generationId": "source-governance-v2",
+      "verifierTrustEpoch": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "principalControls": {
+        "PROPOSER": {"principalId":"logical:v2:proposer","credentialFingerprint":"sha256:1212121212121212121212121212121212121212121212121212121212121212","custodyDomain":"logical-custody:v2:proposer","controlDomain":"source:v2:proposal"},
+        "EVALUATOR": {"principalId":"logical:v2:evaluator","credentialFingerprint":"sha256:2323232323232323232323232323232323232323232323232323232323232323","custodyDomain":"logical-custody:v2:evaluator","controlDomain":"source:v2:evaluation"},
+        "HOLDOUT": {"principalId":"logical:v2:holdout","credentialFingerprint":"sha256:3434343434343434343434343434343434343434343434343434343434343434","custodyDomain":"logical-custody:v2:holdout","controlDomain":"source:v2:holdout"},
+        "APPROVER": {"principalId":"logical:v2:approver","credentialFingerprint":"sha256:4545454545454545454545454545454545454545454545454545454545454545","custodyDomain":"logical-custody:v2:approver","controlDomain":"source:v2:approval"},
+        "DEPLOYER": {"principalId":"logical:v2:deployer","credentialFingerprint":"sha256:5656565656565656565656565656565656565656565656565656565656565656","custodyDomain":"logical-custody:v2:deployer","controlDomain":"source:v2:deployment"},
+        "MONITOR": {"principalId":"logical:v2:monitor","credentialFingerprint":"sha256:6767676767676767676767676767676767676767676767676767676767676767","custodyDomain":"logical-custody:v2:monitor","controlDomain":"source:v2:monitoring"},
+        "EVIDENCE_STORE": {"principalId":"logical:v2:evidence","credentialFingerprint":"sha256:7878787878787878787878787878787878787878787878787878787878787878","custodyDomain":"logical-custody:v2:evidence","controlDomain":"source:v2:evidence"},
+        "ROLLBACK": {"principalId":"logical:v2:rollback","credentialFingerprint":"sha256:8989898989898989898989898989898989898989898989898989898989898989","custodyDomain":"logical-custody:v2:rollback","controlDomain":"source:v2:rollback"},
+        "CANON_WRITER": {"principalId":"logical:v2:canon","credentialFingerprint":"sha256:9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a","custodyDomain":"logical-custody:v2:canon","controlDomain":"source:v2:canon"},
+        "SECURITY_POLICY": {"principalId":"logical:v2:security","credentialFingerprint":"sha256:bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc","custodyDomain":"logical-custody:v2:security","controlDomain":"source:v2:security"}
+      }
+    }
+  ]
+}

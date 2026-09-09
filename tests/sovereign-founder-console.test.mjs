@@ -55,7 +55,7 @@ test('snapshot exposes autonomy receipts but never private-life payloads', () =>
   assert.equal(out.privacy.personalCivilizationVaultRead, false);
 });
 
-test('server uses fixed argv control execution and has no business providers', () => {
+test('server uses fixed argv control execution and never calls business providers', () => {
   const server = readFileSync(new URL('../scripts/sovereign-founder-console-server.mjs', import.meta.url), 'utf8');
   assert.match(server, /execFile\(AUTHORCTL, \[command\]/);
   assert.doesNotMatch(server, /exec\s*\(/);
@@ -65,13 +65,29 @@ test('server uses fixed argv control execution and has no business providers', (
   assert.match(server, /externalEffectAuthority:'NONE'/);
 });
 
-test('systemd service and installer preserve local-only default', () => {
+test('free-text dialogue reuses canonical open-model factory and refuses cloud fallback', () => {
+  const server = readFileSync(new URL('../scripts/sovereign-founder-console-server.mjs', import.meta.url), 'utf8');
+  assert.match(server, /createModelExecutorFactory/);
+  assert.match(server, /provider:\s*'open-model'/);
+  assert.match(server, /founder-dialogue-requires-loopback-open-model-runtime/);
+  assert.match(server, /consequenceClass:\s*'LOCAL_PREPARATION'/);
+  assert.match(server, /do-not-read-personal-civilization-vault/);
+  assert.doesNotMatch(server, /provider:\s*['"](?:openai|anthropic|ai-gateway)['"]/i);
+});
+
+test('systemd service and installer preserve local-only defaults and real Node binding', () => {
   const service = readFileSync(new URL('../ops/sovereign/uberbond-founder-console.service', import.meta.url), 'utf8');
+  const wrapper = readFileSync(new URL('../ops/sovereign/uberbond-founder-console', import.meta.url), 'utf8');
   const installer = readFileSync(new URL('../ops/sovereign/install-authoring-node.sh', import.meta.url), 'utf8');
   assert.match(service, /^User=uberbond-author$/m);
   assert.match(service, /^NoNewPrivileges=true$/m);
   assert.match(service, /^ProtectSystem=strict$/m);
+  assert.match(service, /^ExecStart=\/opt\/uberbond\/control\/uberbond-founder-console$/m);
+  assert.match(wrapper, /UBERBOND_NODE_EXECUTABLE/);
+  assert.match(wrapper, /exec "\$NODE" \/opt\/uberbond\/source\/scripts\/sovereign-founder-console-server\.mjs/);
   assert.match(installer, /UBERBOND_FOUNDER_CONSOLE_HOST=127\.0\.0\.1/);
+  assert.match(installer, /UBERBOND_FOUNDER_DIALOGUE_ENABLED=false/);
+  assert.match(installer, /OPEN_MODEL_AGENT_ENABLED=false/);
   assert.match(installer, /http:\/\/127\.0\.0\.1:8787\//);
   assert.match(installer, /release signing authority must not live/i);
 });

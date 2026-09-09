@@ -62,12 +62,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Install exact locked dependencies
+      - name: Install exact locked dependencies before candidate execution
         run: npm ci
-      - name: Independent syntax tribunal
-        run: npm run check:syntax
-      - name: Independent deterministic tribunal
-        run: npm run test:deterministic
+      - name: Seed independent Node verifier image before candidate execution
+        run: docker pull node:22-bookworm
+      - name: Independent syntax tribunal in network-none sandbox
+        run: docker run --rm --network none -v "$PWD:/repo" -w /repo node:22-bookworm npm run check:syntax
+      - name: Independent deterministic tribunal in network-none sandbox
+        run: docker run --rm --network none -v "$PWD:/repo" -w /repo node:22-bookworm npm run test:deterministic
 
   merge:
     needs: [admission, verify]

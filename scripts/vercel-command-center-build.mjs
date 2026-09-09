@@ -14,6 +14,11 @@ const steps = [
   // source/canon accounting only: no runtime, customer, commercial, life-outcome
   // or ASI evidence is created.
   ['node', ['scripts/current-truth-regeneration.mjs']],
+  // The finite terminal tribunal must execute on the same exact checkout that
+  // passed current-truth regeneration. It may certify only its declared finite
+  // engineering denominator; runtime, provider, commercial, personal-reality
+  // and ASI facets remain explicitly evidence-gated inside the tribunal itself.
+  ['node', ['scripts/terminal-realization.mjs']],
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
@@ -46,6 +51,7 @@ console.log(JSON.stringify({
   ok: true,
   status: 'VERCEL_NIGHT10_TERMINAL_SOURCE_GATE_PASSED',
   exactHeadTruthRegenerationRequired: true,
+  finiteEngineeringTribunalRequired: true,
   sovereignCoverageDenominatorRequired: true,
   zeroOrphanCanonicalExecutionGraphRequired: true,
   ultimateGraphRequired: true,

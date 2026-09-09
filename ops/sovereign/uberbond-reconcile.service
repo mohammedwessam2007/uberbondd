@@ -1,0 +1,23 @@
+[Unit]
+Description=UberBond sovereign local reconciler
+Requires=docker.service
+After=docker.service
+ConditionPathExists=/var/lib/uberbond-control/state.env
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/uberbond/control/uberbondctl reconcile
+TimeoutStartSec=180
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictRealtime=true
+UMask=0077

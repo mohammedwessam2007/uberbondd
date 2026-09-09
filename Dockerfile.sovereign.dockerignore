@@ -1,0 +1,14 @@
+.git
+.env
+.env.*
+!.env.example
+dist
+coverage
+data
+*.log
+*.pem
+*.key
+*.crt
+*.dump
+*.tar
+*.tgz

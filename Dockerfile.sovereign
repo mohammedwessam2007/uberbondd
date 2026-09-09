@@ -12,8 +12,8 @@ ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
 RUN test -d node_modules \
  && node --version \
- && node -e "const p=require('./package.json'); if(!p.private) process.exit(2)" \
- && chmod +x ops/sovereign/uberbondctl ops/sovereign/install-host.sh 2>/dev/null || true
+ && node -e "const p=require('./package.json'); if(!p.private) process.exit(2)"
+RUN chmod +x ops/sovereign/uberbondctl ops/sovereign/install-host.sh
 
 EXPOSE 8080
 CMD ["node", "portable-server.mjs"]

@@ -10,6 +10,7 @@ const installer = readFileSync(new URL('../ops/sovereign/install-forge-host.sh',
 test('forge heartbeat is bounded, non-overlapping systemd oneshot work', () => {
   assert.match(service, /Type=oneshot/);
   assert.match(service, /User=uberbond-forge/);
+  assert.match(service, /SupplementaryGroups=docker/);
   assert.match(service, /ExecStartPre=.*uberbond-forge-runner doctor/);
   assert.match(service, /ExecStart=.*uberbond-forge-runner cycle/);
   assert.match(timer, /OnUnitActiveSec=15min/);
@@ -30,6 +31,12 @@ test('forge installer enables heartbeat only after doctor passes', () => {
   assert.match(installer, /systemctl enable --now uberbond-forge\.timer/);
   assert.match(installer, /systemctl disable --now uberbond-forge\.timer/);
   assert.match(installer, /Forge installed but NOT enabled because the doctor refused/);
+});
+
+test('forge installer uses a private unpredictable doctor directory', () => {
+  assert.match(installer, /mktemp -d \/tmp\/uberbond-forge-doctor\.XXXXXX/);
+  assert.match(installer, /trap 'rm -rf "\$doctor_dir"' EXIT/);
+  assert.doesNotMatch(installer, />\/tmp\/uberbond-forge-doctor\.json/);
 });
 
 test('forge and runtime signing authority remain separated', () => {

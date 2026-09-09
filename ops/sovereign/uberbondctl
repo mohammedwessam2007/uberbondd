@@ -90,7 +90,7 @@ release_get(){
 }
 
 verify_bundle(){
-  local dir="$1"
+  local dir="$1" attestation
   need find; need sha256sum; need openssl
   [[ -d "$dir" && ! -L "$dir" ]] || die "regular release directory not found: $dir"
   [[ -z "$(find "$dir" -type l -print -quit)" ]] || die "release bundle may not contain symlinks"
@@ -98,12 +98,23 @@ verify_bundle(){
   [[ -f "$dir/SHA256SUMS" && ! -L "$dir/SHA256SUMS" && -f "$dir/images.oci.tar" && ! -L "$dir/images.oci.tar" && -f "$dir/release.sig" && ! -L "$dir/release.sig" ]] || die "signed release bundle incomplete"
   (cd "$dir" && sha256sum -c SHA256SUMS >/dev/null) || die "release checksum verification failed"
   [[ -f "$PUBLIC_KEY" && ! -L "$PUBLIC_KEY" ]] || die "runtime release public key is required"
-  cat "$dir/release.env" "$dir/SHA256SUMS" > "$dir/.attestation.$$"
-  if ! openssl dgst -sha256 -verify "$PUBLIC_KEY" -signature "$dir/release.sig" "$dir/.attestation.$$" >/dev/null 2>&1; then
-    rm -f "$dir/.attestation.$$"
+  attestation="${CONTROL_DIR}/release-attestation.$$"
+  cat "$dir/release.env" "$dir/SHA256SUMS" > "$attestation"
+  if ! openssl dgst -sha256 -verify "$PUBLIC_KEY" -signature "$dir/release.sig" "$attestation" >/dev/null 2>&1; then
+    rm -f "$attestation"
     die "release signature verification failed"
   fi
-  rm -f "$dir/.attestation.$$"
+  rm -f "$attestation"
+}
+
+public_table_count(){
+  docker exec uberbond-postgres psql -At -v ON_ERROR_STOP=1 -U uberbond -d uberbond -c "select count(*) from pg_tables where schemaname='public';"
+}
+
+recreate_database_empty(){
+  docker exec uberbond-postgres psql -v ON_ERROR_STOP=1 -U uberbond -d postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname='uberbond' and pid <> pg_backend_pid();" >/dev/null
+  docker exec uberbond-postgres dropdb --if-exists -U uberbond uberbond
+  docker exec uberbond-postgres createdb -U uberbond uberbond
 }
 
 backup_db(){
@@ -125,8 +136,9 @@ restore_db(){
   local backup="$1"
   [[ "$backup" != "NONE" && -f "$backup" && ! -L "$backup" && -f "${backup}.sha256" && ! -L "${backup}.sha256" ]] || die "valid rollback backup required"
   (cd "$(dirname "$backup")" && sha256sum -c "$(basename "${backup}.sha256")" >/dev/null) || die "rollback backup checksum failed"
+  recreate_database_empty
   docker cp "$backup" uberbond-postgres:/tmp/uberbond-restore.dump
-  docker exec uberbond-postgres pg_restore --clean --if-exists --no-owner -U uberbond -d uberbond /tmp/uberbond-restore.dump
+  docker exec uberbond-postgres pg_restore --exit-on-error --no-owner -U uberbond -d uberbond /tmp/uberbond-restore.dump
   docker exec uberbond-postgres rm -f /tmp/uberbond-restore.dump
 }
 
@@ -227,6 +239,9 @@ deploy(){
 
   compose "$app" "$pg" up -d postgres
   wait_container uberbond-postgres true 120 || die "postgres did not become healthy"
+  if [[ -z "$previous" ]]; then
+    [[ "$(public_table_count)" == "0" ]] || die "first promotion requires an empty sovereign database"
+  fi
   compose "$app" "$pg" stop web worker >/dev/null 2>&1 || true
 
   local promoted=0
@@ -237,7 +252,11 @@ deploy(){
   if [[ "$promoted" != "1" ]]; then
     log "new release failed; restoring pre-deploy database and previous release"
     compose "$app" "$pg" stop web worker >/dev/null 2>&1 || true
-    [[ "$backup" == "NONE" ]] || restore_db "$backup"
+    if [[ "$backup" != "NONE" ]]; then
+      restore_db "$backup"
+    elif [[ -z "$previous" ]]; then
+      recreate_database_empty
+    fi
     if [[ -n "$previous" ]]; then
       [[ "$(docker image inspect -f '{{.Id}}' "$previous")" == "$previous_id" ]] || die "rollback app image identity unavailable"
       compose "$previous" "$previous_pg" up -d web worker
@@ -332,7 +351,7 @@ restore_drill(){
   docker run -d --name "$name" --network none --env-file "$ENV_FILE" -e POSTGRES_USER=uberbond -e POSTGRES_DB=uberbond -v "$backup:/restore.dump:ro" "$pg" >/dev/null
   local deadline=$((SECONDS+90))
   until docker exec "$name" pg_isready -U uberbond -d uberbond >/dev/null 2>&1; do (( SECONDS < deadline )) || die "restore-drill postgres did not start"; sleep 2; done
-  docker exec "$name" pg_restore --no-owner -U uberbond -d uberbond /restore.dump
+  docker exec "$name" pg_restore --exit-on-error --no-owner -U uberbond -d uberbond /restore.dump
   local tables
   tables="$(docker exec "$name" psql -At -U uberbond -d uberbond -c "select count(*) from pg_tables where schemaname='public';")"
   [[ "$tables" =~ ^[0-9]+$ && "$tables" -gt 0 ]] || die "restore drill produced no public tables"

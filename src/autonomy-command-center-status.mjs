@@ -1,13 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { summarizeAutonomySovereignReleasePhase } from './autonomy-sovereign-release-phase.mjs';
 
-export const AUTONOMY_COMMAND_CENTER_STATUS_VERSION = 'uberbond.autonomy-command-center-status.v1.1';
+export const AUTONOMY_COMMAND_CENTER_STATUS_VERSION = 'uberbond.autonomy-command-center-status.v1.2';
 
 const FILES = Object.freeze({
   selfMaintainer: 'artifacts/cognitive/self-maintainer-latest.json',
   selfMaintainerContinuation: 'artifacts/cognitive/self-maintainer-continuation.json',
   terminalRealization: 'artifacts/sovereign/terminal-realization.json',
-  executionGraph: 'artifacts/sovereign/canonical-execution-leaf-graph.json'
+  executionGraph: 'artifacts/sovereign/canonical-execution-leaf-graph.json',
+  sovereignReleaseRequest: 'artifacts/sovereign/sovereign-release-request.json'
 });
 
 const CANONICAL_GRAPH_STATUS = 'ZERO_ORPHAN_CANONICAL_EXECUTION_LEAF_GRAPH_COMPILED';
@@ -124,6 +126,12 @@ export async function buildAutonomyCommandCenterStatus({ root = process.cwd(), n
   const continuation = documents.selfMaintainerContinuation.data || {};
   const terminal = terminalSummary(documents.terminalRealization.data || {});
   const graph = graphSummary(documents.executionGraph.data || {});
+  const release = summarizeAutonomySovereignReleasePhase({
+    evidenceState: documents.sovereignReleaseRequest.state,
+    request: documents.sovereignReleaseRequest.data,
+    currentSourceCommit: sourceCommit,
+    namedRuntimeStatus: terminal.namedRuntimeStatus
+  });
   const state = loopState({ maintainer, continuation, terminal, graph });
 
   return {
@@ -137,16 +145,19 @@ export async function buildAutonomyCommandCenterStatus({ root = process.cwd(), n
       continuationStatus: scalar(continuation?.status) || 'UNAVAILABLE',
       finiteEngineeringClosure: terminal.finiteEngineeringClosure,
       finiteOpenRequirementCount: terminal.finiteOpenRequirementCount,
+      releasePhase: release.releasePhase,
+      runtimePhase: release.runtimePhase,
       mergePolicy: 'INDEPENDENT_EXACT_HEAD_GOVERNOR',
       wakePolicy: 'EVIDENCE_TRIGGERED_PLUS_BOUNDED_PERIODIC_PULSE',
       selfCompletionClaim: 'NOT_ESTABLISHED_UNTIL_REPEATED_OBSERVED_CYCLES'
     },
     graph,
     terminal,
+    sovereignRelease: release,
     evidence: Object.fromEntries(entries.map(([id, relativePath, result]) => [id, { path: relativePath, state: result.state }])),
-    observedAt: timestamp(maintainer, continuation, documents.terminalRealization.data, documents.executionGraph.data),
+    observedAt: timestamp(maintainer, continuation, documents.terminalRealization.data, documents.executionGraph.data, documents.sovereignReleaseRequest.data),
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'COMMAND CENTER OBSERVES AUTONOMY RECEIPTS. IT DOES NOT TURN SOURCE READINESS INTO RUNTIME, CUSTOMER, PAYMENT, LIFE-OUTCOME OR ASI EVIDENCE.'
+    truthBoundary: 'COMMAND CENTER OBSERVES AUTONOMY AND RELEASE-HANDOFF RECEIPTS. A RELEASE REQUEST IS NOT A SIGNED RELEASE OR A DEPLOYMENT. SOURCE READINESS NEVER BECOMES RUNTIME, CUSTOMER, PAYMENT, LIFE-OUTCOME OR ASI EVIDENCE.'
   };
 }

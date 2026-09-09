@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const RUNTIME_EVIDENCE_ATTESTATION_VERSION='uberbond.runtime-evidence-attestation.v1.1';
+export const RUNTIME_EVIDENCE_ATTESTATION_VERSION='uberbond.runtime-evidence-attestation.v1.2';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const MAX_DEPTH=64;
@@ -9,22 +9,39 @@ const MAX_CANONICAL_BYTES=1024*1024;
 const text=(v,max=1000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 function stable(value,state={seen:new WeakSet(),nodes:0},depth=0){
   if(depth>MAX_DEPTH)throw new Error('runtime-evidence-canonical-depth-exceeded');
+  if(value===null||typeof value==='string'||typeof value==='boolean')return value;
+  if(typeof value==='number'){
+    if(!Number.isFinite(value)||Object.is(value,-0))throw new Error('runtime-evidence-canonical-number-invalid');
+    return value;
+  }
+  if(['undefined','function','symbol','bigint'].includes(typeof value))throw new Error('runtime-evidence-canonical-type-invalid');
   if(value&&typeof value==='object'){
     if(state.seen.has(value))throw new Error('runtime-evidence-canonical-cycle');
     if(++state.nodes>MAX_NODES)throw new Error('runtime-evidence-canonical-node-limit-exceeded');
+    const proto=Object.getPrototypeOf(value);
+    if(!Array.isArray(value)&&proto!==Object.prototype&&proto!==null)throw new Error('runtime-evidence-canonical-prototype-invalid');
     state.seen.add(value);
-    const out=Array.isArray(value)
-      ? value.map(item=>stable(item,state,depth+1))
-      : Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key],state,depth+1)]));
+    let out;
+    if(Array.isArray(value)){
+      out=value.map(item=>stable(item,state,depth+1));
+    }else{
+      const entries=[];
+      for(const key of Object.keys(value).sort()){
+        const descriptor=Object.getOwnPropertyDescriptor(value,key);
+        if(!descriptor||!Object.prototype.hasOwnProperty.call(descriptor,'value'))throw new Error('runtime-evidence-canonical-accessor-invalid');
+        entries.push([key,stable(descriptor.value,state,depth+1)]);
+      }
+      out=Object.fromEntries(entries);
+    }
     state.seen.delete(value);
     return out;
   }
-  return value;
+  throw new Error('runtime-evidence-canonical-type-invalid');
 }
 function objectDigest(value){
   try{
     const serialized=JSON.stringify(stable(value));
-    if(Buffer.byteLength(serialized,'utf8')>MAX_CANONICAL_BYTES)return null;
+    if(typeof serialized!=='string'||Buffer.byteLength(serialized,'utf8')>MAX_CANONICAL_BYTES)return null;
     return `sha256:${crypto.createHash('sha256').update(serialized).digest('hex')}`;
   }catch{return null;}
 }

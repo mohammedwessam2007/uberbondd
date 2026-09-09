@@ -49,13 +49,13 @@ test('provider-reported cache reads are evidence while savings remain unclaimed'
     total_tokens: 105,
     prompt_tokens_details: { cached_tokens: 80 }
   }));
-  const out = await executor({ task: task(), maxTokens: 100, costCeilingCents: 50, cacheableContext: 'stable source context' });
+  const out = await executor({ task: task(), maxTokens: 100, costCeilingCents: 50, cacheableContext: 'stable source context', cacheableContextDataClass: 'SOURCE_CODE' });
   assert.equal(out.ok, true);
   assert.equal(out.cacheEvidence.cacheReadTokens, 80);
   assert.equal(out.cacheEvidence.status, 'OBSERVED_CACHE_HIT');
   assert.equal(out.cacheEvidence.observationClass, 'PROVIDER_USAGE_FIELD_OBSERVED');
   assert.equal(out.cacheEvidence.savingsClaim, 'NOT_COMPUTED_WITHOUT_VERIFIED_CACHE_PRICING');
-  assert.match(out.usage.costBasis, /CONSERVATIVE_ESTIMATE/);
+  assert.equal(out.usage.costBasis, 'CONFIGURED_CONSERVATIVE_ESTIMATE');
 });
 
 test('no shared context keeps caching opt-in and does not manufacture cache evidence', async () => {
@@ -69,13 +69,22 @@ test('no shared context keeps caching opt-in and does not manufacture cache evid
   assert.equal(out.cacheEvidence.savingsClaim, 'NOT_COMPUTED_WITHOUT_VERIFIED_CACHE_PRICING');
 });
 
+test('unclassified shared context is refused before any provider call', async () => {
+  let calls = 0;
+  const executor = configured(async () => { calls += 1; return response(); });
+  const out = await executor({ task: task(), maxTokens: 100, costCeilingCents: 50, cacheableContext: 'some shared context' });
+  assert.equal(out.ok, false);
+  assert.equal(calls, 0);
+  assert.ok(out.reasonCodes.includes('cacheable-context-explicit-approved-data-class-required'));
+});
+
 test('founder-private or otherwise unapproved context is refused before any provider call', async () => {
   let calls = 0;
   const executor = configured(async () => { calls += 1; return response(); });
   const out = await executor({ task: task(), maxTokens: 100, costCeilingCents: 50, cacheableContext: 'private life record', cacheableContextDataClass: 'WESSAM_INNERMOST' });
   assert.equal(out.ok, false);
   assert.equal(calls, 0);
-  assert.ok(out.reasonCodes.includes('cacheable-context-data-class-not-approved'));
+  assert.ok(out.reasonCodes.includes('cacheable-context-explicit-approved-data-class-required'));
 });
 
 test('impossible provider cache counters fail closed instead of fabricating a hit', async () => {
@@ -85,7 +94,7 @@ test('impossible provider cache counters fail closed instead of fabricating a hi
     total_tokens: 15,
     prompt_tokens_details: { cached_tokens: 11 }
   }));
-  const out = await executor({ task: task(), maxTokens: 100, costCeilingCents: 50, cacheableContext: 'stable source context' });
+  const out = await executor({ task: task(), maxTokens: 100, costCeilingCents: 50, cacheableContext: 'stable source context', cacheableContextDataClass: 'SOURCE_CODE' });
   assert.equal(out.ok, false);
   assert.equal(out.outcome, 'UNCERTAIN');
   assert.ok(out.reasonCodes.includes('ai-gateway-cache-usage-invalid'));

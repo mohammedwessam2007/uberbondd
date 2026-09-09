@@ -4,6 +4,7 @@ set -Eeuo pipefail
 # shellcheck disable=SC1091
 source /etc/uberbond/authoring.env
 [[ -r /etc/uberbond/founder-console.env ]] && source /etc/uberbond/founder-console.env
-NODE="${UBERBOND_NODE_EXECUTABLE:-}"
+NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-}"
+NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
 [[ -n "$NODE" && -x "$NODE" && ! -L "$NODE" ]] || { echo 'real configured node executable required' >&2; exit 2; }
 exec "$NODE" /opt/uberbond/source/scripts/sovereign-founder-console-server.mjs

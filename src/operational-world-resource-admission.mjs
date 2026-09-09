@@ -17,6 +17,7 @@ const iso = value => {
 const sha256 = value => /^[a-f0-9]{64}$/.test(String(value || '').trim().toLowerCase());
 const strictNonnegativeInteger = value => typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
 const strictNonnegativeFinite = value => typeof value === 'number' && Number.isFinite(value) && value >= 0;
+const supplied = (object, key) => Boolean(object) && typeof object === 'object' && Object.hasOwn(object, key);
 
 function deny(reasonCodes, extra = {}) {
   return {
@@ -91,14 +92,14 @@ export function admitOperationalWorldResource({
   if (usageTerms?.resolved !== true) reasons.push('usage-terms-or-license-unresolved');
   if (usageTerms?.jurisdictionRequired === true && usageTerms?.jurisdictionSatisfied !== true) reasons.push('jurisdiction-requirement-unresolved');
 
-  const spendRequired = procurement?.requiredSpendCents ?? 0;
-  const spendAuthorized = procurement?.authorizedSpendCents ?? 0;
+  const spendRequired = supplied(procurement, 'requiredSpendCents') ? procurement.requiredSpendCents : 0;
+  const spendAuthorized = supplied(procurement, 'authorizedSpendCents') ? procurement.authorizedSpendCents : 0;
   if (!strictNonnegativeInteger(spendRequired) || !strictNonnegativeInteger(spendAuthorized)) reasons.push('valid-procurement-amounts-required');
   else if (spendRequired > spendAuthorized) reasons.push('procurement-authority-insufficient');
   if (strictNonnegativeInteger(spendRequired) && spendRequired > 0 && !procurement?.authorityRef) reasons.push('procurement-authority-evidence-required');
 
-  const requestedCapacity = requested?.capacity ?? 0;
-  const provenCapacity = availabilityEvidence?.capacity ?? 0;
+  const requestedCapacity = supplied(requested, 'capacity') ? requested.capacity : 0;
+  const provenCapacity = supplied(availabilityEvidence, 'capacity') ? availabilityEvidence.capacity : 0;
   if (!strictNonnegativeFinite(requestedCapacity) || !strictNonnegativeFinite(provenCapacity)) reasons.push('valid-capacity-required');
   else if (requestedCapacity > provenCapacity) reasons.push('requested-capacity-exceeds-observed-capacity');
 

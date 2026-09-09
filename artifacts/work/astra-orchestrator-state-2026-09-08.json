@@ -1642,7 +1642,7 @@
   "finalRealization": {
     "checkpoints": [
       {
-        "ACCEPTANCE CONTRACT": "Current requirements, source refs, open-PR dispositions, artifact timestamps and runtime identities form one receipt; UNKNOWN where unavailable. Discover actual commands from pinned package; available: npm run check:syntax; npm run readiness; npm run sovereign:coverage. Targeted private tests before broader required gates. Reject every present-tense SHA until authenticated main-ref refresh. Record OBSERVED_DURING_PLANNING_SHA, ORCHESTRATION_BRANCH_HEAD, MERGE_COMMIT_IF_KNOWN, LATEST_MAIN_REQUIRES_REFRESH separately; unknown future hashes remain null. External gates require responsible role, exact prerequisite, authorized activation channel, minimally required owner decision, evidence to resume, expiry and three lawful alternatives; inaccessible channels remain UNKNOWN, not invented.",
+        "ACCEPTANCE CONTRACT": "Current requirements, source refs, open-PR dispositions, artifact timestamps and runtime identities form one receipt; UNKNOWN where unavailable. Discover actual commands from pinned package; available: npm run check:syntax; npm run readiness; npm run sovereign:coverage. Targeted private tests before broader required gates. Reject every present-tense SHA until authenticated main-ref refresh. Record OBSERVED_DURING_PLANNING_SHA, ORCHESTRATION_BRANCH_HEAD, MERGE_COMMIT_IF_KNOWN, LATEST_MAIN_REQUIRES_REFRESH separately; unknown future hashes remain null. External gates require responsible role, exact prerequisite, authorized activation channel, minimally required owner decision, evidence to resume, expiry and three lawful alternatives; inaccessible channels remain UNKNOWN, not invented. Consume terminal proof TP01; historical coverage is not current.",
         "CURRENT VERIFIED INPUTS": {
           "basis": "Current handoff + pinned main/package + open PR metadata + Vercel status snapshot.",
           "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
@@ -1719,7 +1719,7 @@
         ]
       },
       {
-        "ACCEPTANCE CONTRACT": "Every requirement has CANON/SOURCE/CALLER/STATE/TEST/REACHABILITY/RECOVERY/RUNTIME/OUTCOME evidence or explicit missing reason. Use exactly the eight classification classes; preserve contradictions, direction/roles, time and supersession. No generic category becomes code proof. Unmapped IDs block closure. C12-B is the global conductor: on evidence/ref/claim/budget/blocker changes recompute dependency-safe dispatch and merge order. Each leaf binds requirement/evidence delta, exact paths, prerequisites, three feasible alternatives, closure leverage without double-counting aliases, capability multiplication, founder minutes, cost/latency/compute bounds, success uncertainty, critical gate, collision risk, independent verifier and rollback. Optimize expected verified closure subject to separate money/compute/owner budgets (no unscaled sum of incompatible units). Prefer parent reuse; smallest capable worker; maximum three visible owner exceptions with overflow queued. Stop negative-VOI research; mutate repeated unchanged blockers. Claim leases require expiry, fencing token and atomic ownership; expired workers cannot commit effects. Revalidate base/input hashes and claims before dispatch and merge. Split each compound contract into one causal leaf per independently verifiable result; discovery-only leaf until exact paths and command are known. No implementation dispatch without owner, paths, authority and concrete acceptance. Track receipts using C20 schema.",
+        "ACCEPTANCE CONTRACT": "Every requirement has CANON/SOURCE/CALLER/STATE/TEST/REACHABILITY/RECOVERY/RUNTIME/OUTCOME evidence or explicit missing reason. Use exactly the eight classification classes; preserve contradictions, direction/roles, time and supersession. No generic category becomes code proof. Unmapped IDs block closure. C12-B is the global conductor: on evidence/ref/claim/budget/blocker changes recompute dependency-safe dispatch and merge order. Each leaf binds requirement/evidence delta, exact paths, prerequisites, three feasible alternatives, closure leverage without double-counting aliases, capability multiplication, founder minutes, cost/latency/compute bounds, success uncertainty, critical gate, collision risk, independent verifier and rollback. Optimize expected verified closure subject to separate money/compute/owner budgets (no unscaled sum of incompatible units). Prefer parent reuse; smallest capable worker; maximum three visible owner exceptions with overflow queued. Stop negative-VOI research; mutate repeated unchanged blockers. Claim leases require expiry, fencing token and atomic ownership; expired workers cannot commit effects. Revalidate base/input hashes and claims before dispatch and merge. Split each compound contract into one causal leaf per independently verifiable result; discovery-only leaf until exact paths and command are known. No implementation dispatch without owner, paths, authority and concrete acceptance. Track receipts using C20 schema. Consume terminal proof TP02/TP03: atomize bodies and accepted extensions; never infer semantic sufficiency from zero-orphan ID accounting; retain all exact paths and causal/conflict edges.",
         "CURRENT VERIFIED INPUTS": {
           "basis": "200 numbered canon sections + 306 user terms in 15 layers; exact canon pointers; no behavior inferred.",
           "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
@@ -2296,7 +2296,7 @@
         ]
       },
       {
-        "ACCEPTANCE CONTRACT": "No accelerated-clock duration, backdated forecast, hidden outage or duplicate external effect. Brier/log-style metrics only for appropriate probabilistic tasks; retain censoring/missing outcomes and cohort definitions. No life causal claim from before/after alone. Observed interval includes admitted C23 continuity/C25 institutional/C26 security scoped reports; any blocked runtime gate excludes corresponding success claim. Record independent monitor identity and interventions. No report-only dependency bypasses effect authority.",
+        "ACCEPTANCE CONTRACT": "No accelerated-clock duration, backdated forecast, hidden outage or duplicate external effect. Brier/log-style metrics only for appropriate probabilistic tasks; retain censoring/missing outcomes and cohort definitions. No life causal claim from before/after alone. Observed interval includes admitted C23 continuity/C25 institutional/C26 security scoped reports; any blocked runtime gate excludes corresponding success claim. Record independent monitor identity and interventions. No report-only dependency bypasses effect authority. Consume TP04/TP05: canonical graph schema must enter continuation unchanged with bound evidence; completion/retry requires independently verified scoped evidence, not arbitrary digest.",
         "CURRENT VERIFIED INPUTS": {
           "basis": "Checkpoint reports may include blocked gates; observe only actually admitted runtime.",
           "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
@@ -2385,7 +2385,7 @@
         ]
       },
       {
-        "ACCEPTANCE CONTRACT": "Every percentage needs scope version, requirement IDs, predeclared weights, numerator/denominator, dates, exact SHA/runtime identity, unknown handling. Critical privacy/payment/recovery gates cannot be averaged away. 100% only for fully evidenced finite scope; autonomy/outcome/longitudinal metrics NOT_MEASURED absent defensible denominator; frontier never assigned fake completion. Include C23/C25/C26 and all audit strengthenings in versioned requirement join. Scope cannot omit these to claim closure. Source/proof/authority/external/elapsed remain separate. Per threat and failure domain require independently sourced evidence or explicit open gate; hypothetical substitutes never count. Dynamically materialized leaf count is separate from top-level contract count.",
+        "ACCEPTANCE CONTRACT": "Every percentage needs scope version, requirement IDs, predeclared weights, numerator/denominator, dates, exact SHA/runtime identity, unknown handling. Critical privacy/payment/recovery gates cannot be averaged away. 100% only for fully evidenced finite scope; autonomy/outcome/longitudinal metrics NOT_MEASURED absent defensible denominator; frontier never assigned fake completion. Include C23/C25/C26 and all audit strengthenings in versioned requirement join. Scope cannot omit these to claim closure. Source/proof/authority/external/elapsed remain separate. Per threat and failure domain require independently sourced evidence or explicit open gate; hypothetical substitutes never count. Dynamically materialized leaf count is separate from top-level contract count. Terminal proof verdict STILL_HAS_INTERNAL_GAPS supersedes earlier audit completeness. No final closure until all current body/extension/graph/cut/authority/evidence obligations independently pass.",
         "CURRENT VERIFIED INPUTS": {
           "basis": "All predecessor reports including explicit blocked/unknown results; no dependency requires fabricated success.",
           "observedMain": "d6703a3be5c1435b644543ebecd5d447aa20cf89",
@@ -2571,7 +2571,7 @@
         ]
       },
       {
-        "ACCEPTANCE CONTRACT": "Inventory source/repo, database/object/graph/vector state, open formats/schema versions/checksums; encrypted offline copies and independently held recovery material, never keys alongside ciphertext. Test rotation/revocation and owner-controlled recovery under explicit threat model; document tolerated failures and unrecoverable combinations. Separate restore credentials; domain/DNS/cert recovery plus alternate-domain route, geographic/failure-domain loss, migration and full reconstruction. Owner incapacity/posthumous instructions default NO_AUTHORITY unless explicitly defined. Delete includes export copies/key revocation within documented control; inaccessible copies and mandatory retention are explicit limits. Preserve right to fork and abandon.",
+        "ACCEPTANCE CONTRACT": "Inventory source/repo, database/object/graph/vector state, open formats/schema versions/checksums; encrypted offline copies and independently held recovery material, never keys alongside ciphertext. Test rotation/revocation and owner-controlled recovery under explicit threat model; document tolerated failures and unrecoverable combinations. Separate restore credentials; domain/DNS/cert recovery plus alternate-domain route, geographic/failure-domain loss, migration and full reconstruction. Owner incapacity/posthumous instructions default NO_AUTHORITY unless explicitly defined. Delete includes export copies/key revocation within documented control; inaccessible copies and mandatory retention are explicit limits. Preserve right to fork and abandon. TP06/TP09 require authenticated owner-enrolled recovery and actual correlated failure-domain survival.",
         "CURRENT VERIFIED INPUTS": {
           "evidence": "Existing checkpoint contracts inspected; no new source execution or runtime evidence.",
           "observedMain": "90aeaab89bddb182a7223f7f5d6fa0042b77759c"
@@ -2721,7 +2721,7 @@
         ]
       },
       {
-        "ACCEPTANCE CONTRACT": "Threat matrix: prompt/tool injection; data/model poisoning; dependency/plugin/MCP/skill/supply-chain compromise; secret exfiltration; privilege escalation/authority drift; evaluator capture/benchmark gaming; hidden effects; runaway money/compute; unauthorized persistence/replication; self-update/monitor capture; rollback destruction; audit tampering; unauthorized constitutional mutation. Each has owner, test, mitigation, residual risk and admission gate. Enforce least privilege, sandbox/blast radius, hard quotas, independently verifiable provenance/attestation where appropriate, append-only independently retained audit, emergency stop, revocation, canary/rollback, owner override and separately controlled proposer/approver/deployer/verifier. Capability increase cannot precede proportionate security/evaluation/corrigibility evidence. No actor can remove all restraints or erase every recovery path.",
+        "ACCEPTANCE CONTRACT": "Threat matrix: prompt/tool injection; data/model poisoning; dependency/plugin/MCP/skill/supply-chain compromise; secret exfiltration; privilege escalation/authority drift; evaluator capture/benchmark gaming; hidden effects; runaway money/compute; unauthorized persistence/replication; self-update/monitor capture; rollback destruction; audit tampering; unauthorized constitutional mutation. Each has owner, test, mitigation, residual risk and admission gate. Enforce least privilege, sandbox/blast radius, hard quotas, independently verifiable provenance/attestation where appropriate, append-only independently retained audit, emergency stop, revocation, canary/rollback, owner override and separately controlled proposer/approver/deployer/verifier. Capability increase cannot precede proportionate security/evaluation/corrigibility evidence. No actor can remove all restraints or erase every recovery path. TP07/TP08 require actual sink authority and principal-level multi-generation independent trust roots, not identifier strings alone.",
         "CURRENT VERIFIED INPUTS": {
           "evidence": "Existing checkpoint contracts inspected; no new source execution or runtime evidence.",
           "observedMain": "90aeaab89bddb182a7223f7f5d6fa0042b77759c"
@@ -4825,5 +4825,18 @@
     "reason": "No defensible current whole-system denominator; orchestration earns zero runtime or outcome credit.",
     "status": "NOT_REMEASURED"
   },
-  "status": "C21_ASI_RESEARCH_PLAN__IMPLEMENTATION_NOT_LAUNCHED"
+  "status": "C21_ASI_RESEARCH_PLAN__IMPLEMENTATION_NOT_LAUNCHED",
+  "terminalOrchestrationProof": {
+    "version": "uberbond.astra-terminal-proof.1",
+    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+    "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
+    "observedMain": "cfd429e37264275536dc9b7e87cf65b36390f0ad",
+    "verdict": "FINAL_REALIZATION_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
+    "scope": "Current semantic finite-scope graph NOT proven complete; historical zero-orphan accounting is insufficient.",
+    "nextExecutor": "Deterministic/cheapest capable verifier, TP01 then TP02. No worker launched.",
+    "admissionGate": "No historical materialized leaf may dispatch until exact current semantic scope, dependency/conflict and verifier binding pass. Existing current implementation remains reusable.",
+    "topLevelContracts": 28,
+    "repairLeaves": 20,
+    "newCheckpoints": 0
+  }
 }

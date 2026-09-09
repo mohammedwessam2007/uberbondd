@@ -54,25 +54,20 @@
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
     "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_AUTHORIZED_HOST",
     "repositoryIdentity": {
-      "LATEST_MAIN_REQUIRES_REFRESH": true,
-      "MERGE_COMMIT_IF_KNOWN": null,
-      "OBSERVED_DURING_PLANNING_SHA": "90aeaab89bddb182a7223f7f5d6fa0042b77759c",
+      "OBSERVED_DURING_PLANNING_SHA": "cfd429e37264275536dc9b7e87cf65b36390f0ad",
+      "ORCHESTRATION_PUBLICATION_SHA": "10f214330ccaac666a2b1c823c2c3d9fcfef8758",
       "ORCHESTRATION_BRANCH_HEAD": null,
-      "resolution": "Null branch/merge SHA is intentional: resolve actual refs and PR merge metadata after publication; never embed a guessed self-referential commit. Every observation is dated provenance, not a live ref."
+      "MERGE_COMMIT_IF_KNOWN": null,
+      "LATEST_MAIN_REQUIRES_REFRESH": true
     },
     "snapshotSemantics": "Other retained truth/commercial fields are historical observations; refresh before current claims."
   },
   "latestOrchestrationCheckpoint": {
-    "id": "C26",
-    "identity": {
-      "LATEST_MAIN_REQUIRES_REFRESH": true,
-      "MERGE_COMMIT_IF_KNOWN": null,
-      "OBSERVED_DURING_PLANNING_SHA": "90aeaab89bddb182a7223f7f5d6fa0042b77759c",
-      "ORCHESTRATION_BRANCH_HEAD": null,
-      "resolution": "Null branch/merge SHA is intentional: resolve actual refs and PR merge metadata after publication; never embed a guessed self-referential commit. Every observation is dated provenance, not a live ref."
-    },
-    "next": "C11-A refresh, then strengthened C12 dependency-safe dispatch; no worker launched.",
-    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED"
+    "id": "C26_TERMINAL_PROOF",
+    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+    "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
+    "verdict": "FINAL_REALIZATION_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
+    "next": "TP01 -> TP02; no worker launched. Reuse current implementation."
   },
   "nextActions": [
     "On the first executing substrate that can run the exact current tree, run focused PR #507 private-vault/reachability suites plus syntax, then the canonical readiness and Sovereign coverage generators. Publish their exact source SHA and retire the historical 19c610 snapshots only after successful generation.",
@@ -100,5 +95,18 @@
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
-  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement."
+  "truthBoundary": "This handoff reconciles source lineage and active work. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
+  "terminalOrchestrationProof": {
+    "version": "uberbond.astra-terminal-proof.1",
+    "status": "ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED",
+    "artifact": "artifacts/work/astra-terminal-proof-2026-09-09.json",
+    "observedMain": "cfd429e37264275536dc9b7e87cf65b36390f0ad",
+    "verdict": "FINAL_REALIZATION_ORCHESTRATION_STILL_HAS_INTERNAL_GAPS",
+    "scope": "Current semantic finite-scope graph NOT proven complete; historical zero-orphan accounting is insufficient.",
+    "nextExecutor": "Deterministic/cheapest capable verifier, TP01 then TP02. No worker launched.",
+    "admissionGate": "No historical materialized leaf may dispatch until exact current semantic scope, dependency/conflict and verifier binding pass. Existing current implementation remains reusable.",
+    "topLevelContracts": 28,
+    "repairLeaves": 20,
+    "newCheckpoints": 0
+  }
 }

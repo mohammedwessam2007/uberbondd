@@ -1,29 +1,20 @@
 #!/usr/bin/env node
 
+import { appendFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { BUILD_PROTECTED_PATHS, SOVEREIGNTY_PROTECTED_PATHS } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.1';
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const SAFE_BRANCH_PREFIX = 'uberbond/self-maintain/';
 const MAX_CHANGED_FILES = 20;
 const MAX_RESPONSE_BYTES = 2_000_000;
 
-function text(value, max = 1000) {
-  return String(value ?? '').trim().slice(0, max);
-}
-function unique(values) {
-  return [...new Set((values || []).filter(Boolean))];
-}
+function text(value, max = 1000) { return String(value ?? '').trim().slice(0, max); }
+function unique(values) { return [...new Set((values || []).filter(Boolean))]; }
 function fail(reasonCodes, status = 'MERGE_REFUSED', extra = {}) {
-  return {
-    ok: false,
-    policyVersion: SELF_MAINTAINER_MERGE_GOVERNOR_VERSION,
-    status,
-    reasonCodes: unique(reasonCodes),
-    businessEffectAuthority: 'NONE',
-    externalEffectAuthority: 'NONE',
-    ...extra
-  };
+  return { ok: false, policyVersion: SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, status, reasonCodes: unique(reasonCodes), businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', ...extra };
 }
 function normalizedPath(value) {
   const p = text(value, 1000).replaceAll('\\', '/');
@@ -48,7 +39,7 @@ function bodyMarker(body, label, pattern) {
   return pattern.test(match[1]) ? match[1] : null;
 }
 
-export function admitSelfMaintainerPullRequest({ pullRequest, changedFiles, currentMainSha, repository } = {}) {
+export function admitSelfMaintainerPullRequest({ pullRequest, changedFiles, currentMainSha, repository, headParents } = {}) {
   const reasons = [];
   const pr = pullRequest || {};
   const mainSha = text(currentMainSha, 80).toLowerCase();
@@ -68,6 +59,8 @@ export function admitSelfMaintainerPullRequest({ pullRequest, changedFiles, curr
   if (text(pr?.head?.repo?.full_name, 300) !== repo || text(pr?.base?.repo?.full_name, 300) !== repo) reasons.push('same-repository-pull-request-required');
   if (!text(pr?.title, 300).startsWith('UberBond self-maintenance:')) reasons.push('self-maintainer-title-required');
   if (Number(pr?.commits) !== 1) reasons.push('single-atomic-candidate-commit-required');
+  const parents = Array.isArray(headParents) ? headParents.map(value => text(value, 80).toLowerCase()) : [];
+  if (parents.length !== 1 || parents[0] !== baseSha) reasons.push('candidate-commit-parent-must-equal-admitted-base');
 
   const body = String(pr?.body || '');
   const bodyBase = bodyMarker(body, 'Base', EXACT_SHA);
@@ -85,10 +78,7 @@ export function admitSelfMaintainerPullRequest({ pullRequest, changedFiles, curr
   const normalizedFiles = [];
   for (const file of files) {
     const filePath = normalizedPath(file?.filename);
-    if (!filePath) {
-      reasons.push('changed-file-path-invalid');
-      continue;
-    }
+    if (!filePath) { reasons.push('changed-file-path-invalid'); continue; }
     const status = String(file?.status || '').toLowerCase();
     if (!['added', 'modified', 'removed'].includes(status)) reasons.push(`changed-file-status-refused:${filePath}`);
     if (status !== 'removed' && typeof file?.patch !== 'string') reasons.push(`textual-patch-required:${filePath}`);
@@ -132,13 +122,7 @@ async function boundedJson(response) {
 async function github(pathname, { token, method = 'GET', body } = {}) {
   const response = await fetch(`https://api.github.com${pathname}`, {
     method,
-    headers: {
-      accept: 'application/vnd.github+json',
-      authorization: `Bearer ${token}`,
-      'x-github-api-version': '2022-11-28',
-      'user-agent': 'UberBond-Self-Maintainer-Merge-Governor',
-      ...(body === undefined ? {} : { 'content-type': 'application/json' })
-    },
+    headers: { accept: 'application/vnd.github+json', authorization: `Bearer ${token}`, 'x-github-api-version': '2022-11-28', 'user-agent': 'UberBond-Self-Maintainer-Merge-Governor', ...(body === undefined ? {} : { 'content-type': 'application/json' }) },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
     signal: AbortSignal.timeout(30_000)
   });
@@ -153,13 +137,16 @@ async function loadLiveAdmission({ repository, token, prNumber }) {
     github(`/repos/${repo.owner}/${repo.repo}/pulls/${prNumber}/files?per_page=100`, { token })
   ]);
   const mainSha = text(branch?.commit?.sha, 80).toLowerCase();
-  return admitSelfMaintainerPullRequest({ pullRequest: pr, changedFiles: files, currentMainSha: mainSha, repository: repo.fullName });
+  const headSha = text(pr?.head?.sha, 80).toLowerCase();
+  if (!EXACT_SHA.test(headSha)) return fail(['exact-head-sha-required'], 'ADMISSION_REFUSED');
+  const headCommit = await github(`/repos/${repo.owner}/${repo.repo}/commits/${headSha}`, { token });
+  const headParents = Array.isArray(headCommit?.parents) ? headCommit.parents.map(parent => parent?.sha) : [];
+  return admitSelfMaintainerPullRequest({ pullRequest: pr, changedFiles: files, currentMainSha: mainSha, repository: repo.fullName, headParents });
 }
 function writeOutput(name, value) {
   const target = process.env.GITHUB_OUTPUT;
   if (!target) return;
-  const line = `${name}=${String(value).replaceAll('\n', ' ')}\n`;
-  return import('node:fs').then(({ appendFileSync }) => appendFileSync(target, line, 'utf8'));
+  appendFileSync(target, `${name}=${String(value).replaceAll('\n', ' ')}\n`, 'utf8');
 }
 
 export async function runMergeGovernor({ env = process.env } = {}) {
@@ -173,10 +160,10 @@ export async function runMergeGovernor({ env = process.env } = {}) {
   if (!admission.ok) return admission;
 
   if (mode === 'ADMIT') {
-    await writeOutput('admitted', 'true');
-    await writeOutput('pr_number', admission.prNumber);
-    await writeOutput('head_sha', admission.headSha);
-    await writeOutput('base_sha', admission.baseSha);
+    writeOutput('admitted', 'true');
+    writeOutput('pr_number', admission.prNumber);
+    writeOutput('head_sha', admission.headSha);
+    writeOutput('base_sha', admission.baseSha);
     return admission;
   }
   if (mode !== 'FINALIZE') return fail(['merge-governor-mode-invalid']);
@@ -216,7 +203,7 @@ export async function runMergeGovernor({ env = process.env } = {}) {
   };
 }
 
-const direct = process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href;
+const direct = process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
 if (direct) {
   try {
     const result = await runMergeGovernor();

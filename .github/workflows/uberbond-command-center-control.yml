@@ -1,0 +1,155 @@
+name: UberBond Command Center Control
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+concurrency:
+  group: uberbond-command-center-control
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+jobs:
+  control:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.number == 604 && github.event.comment.user.login == github.repository_owner)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Parse founder command
+        id: command
+        env:
+          RAW_COMMAND: ${{ github.event.comment.body || '/status' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          command=$(printf '%s' "$RAW_COMMAND" | tr -d '\r' | head -n 1 | xargs | awk '{print tolower($1)}')
+          case "$command" in
+            /status|/wake|/pause|/resume|/help) ;;
+            *) command='/help' ;;
+          esac
+          echo "value=$command" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure pause label exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          gh api --method POST "/repos/${GH_REPOSITORY}/labels" \
+            -f name='uberbond:completion-paused' \
+            -f color='b60205' \
+            -f description='Founder hold on new finite-completion pulses' >/dev/null 2>&1 || true
+
+      - name: Pause finite completion
+        if: steps.command.outputs.value == '/pause'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh issue edit 604 --repo "$GH_REPOSITORY" --add-label 'uberbond:completion-paused'
+          gh issue comment 604 --repo "$GH_REPOSITORY" --body '⏸️ Finite completion paused by founder. Continuation/evidence state is preserved; no new completion pulse will dispatch until `/resume`.'
+
+      - name: Resume finite completion
+        if: steps.command.outputs.value == '/resume'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh issue edit 604 --repo "$GH_REPOSITORY" --remove-label 'uberbond:completion-paused' >/dev/null 2>&1 || true
+          gh api --method POST "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-autonomy-wake.yml/dispatches" -f ref='main'
+          gh issue comment 604 --repo "$GH_REPOSITORY" --body '▶️ Finite completion resumed. A fresh exact-main completion pulse was requested.'
+
+      - name: Wake finite completion now
+        if: steps.command.outputs.value == '/wake'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          paused=$(gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond:completion-paused") != null')
+          if [ "$paused" = 'true' ]; then
+            gh issue comment 604 --repo "$GH_REPOSITORY" --body '⏸️ Wake refused because founder pause is active. Use `/resume` to remove the hold and pulse immediately.'
+            exit 0
+          fi
+          gh api --method POST "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-autonomy-wake.yml/dispatches" -f ref='main'
+          gh issue comment 604 --repo "$GH_REPOSITORY" --body '⚡ Immediate finite-completion pulse requested. The wake controller will still collapse duplicates if a trusted worker is already queued/running.'
+
+      - name: Checkout current main for exact status
+        if: steps.command.outputs.value == '/status'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        if: steps.command.outputs.value == '/status'
+        with:
+          node-version: 22
+
+      - name: Compile evidence-bound founder status
+        if: steps.command.outputs.value == '/status'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          main_sha=$(git rev-parse HEAD)
+          paused=$(gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond:completion-paused") != null')
+          active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
+          MAIN_SHA="$main_sha" PAUSED="$paused" ACTIVE="$active" node <<'NODE' > /tmp/uberbond-command-center-status.md
+          const fs=require('fs');
+          const read=p=>{try{return JSON.parse(fs.readFileSync(p,'utf8'))}catch{return null}};
+          const terminal=read('artifacts/sovereign/terminal-realization.json');
+          const graph=read('artifacts/sovereign/canonical-execution-leaf-graph.json');
+          const main=process.env.MAIN_SHA;
+          const source=String(terminal?.sourceCommit||terminal?.headSha||'');
+          const graphSource=String(graph?.sourceCommit||'');
+          const separated=terminal?.separatedStatus||{};
+          const open=Array.isArray(terminal?.finiteOpenRequirements)?terminal.finiteOpenRequirements:[];
+          const counts=graph?.counts||{};
+          const exactTerminal=source===main;
+          const exactGraph=graphSource===main;
+          const lines=[
+            '## 🧠 UberBond finite-completion status',
+            '',
+            `- **Main:** \`${main}\``,
+            `- **Founder pause:** ${process.env.PAUSED==='true'?'ACTIVE':'off'}`,
+            `- **Trusted self-maintainer active/queued:** ${process.env.ACTIVE||'0'}`,
+            `- **Terminal receipt exact-current:** ${exactTerminal?'YES':'NO / stale or unavailable'}`,
+            `- **Execution graph exact-current:** ${exactGraph?'YES':'NO / stale or unavailable'}`,
+            `- **Finite engineering:** ${exactTerminal?(separated.FINITE_ENGINEERING_CLOSURE||'NOT_MEASURED'):'NOT_MEASURED_ON_CURRENT_MAIN'}`,
+            `- **Finite open requirements:** ${exactTerminal?open.length:'UNKNOWN_UNTIL_EXACT_REGENERATION'}`,
+            `- **Next finite target:** ${exactTerminal&&open.length?`\`${open[0]}\``:'exact-current terminal regeneration / none proven'}`,
+            `- **Graph rows:** requirements=${counts.requirements??'?'}, leaves=${counts.leaves??'?'}, orphans=${counts.orphanRequirements??'?'}, floating=${counts.floatingLeaves??'?'}, cycles=${counts.dependencyCycles??'?'}`,
+            '',
+            exactTerminal&&Array.isArray(terminal?.reasonCodes)&&terminal.reasonCodes.length
+              ? `**Current tribunal blockers:** ${terminal.reasonCodes.slice(0,8).map(String).join('; ')}`
+              : '**Current tribunal blockers:** none exact-currently enumerated / regeneration required.',
+            '',
+            '_This status does not promote runtime, customer, payment, personal-life, deployment, or ASI truth._'
+          ];
+          process.stdout.write(lines.join('\n')+'\n');
+          NODE
+          gh issue comment 604 --repo "$GH_REPOSITORY" --body-file /tmp/uberbond-command-center-status.md
+
+      - name: Show command help
+        if: steps.command.outputs.value == '/help'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          gh issue comment 604 --repo "$GH_REPOSITORY" --body $'**UberBond Command Center**\n\n- `/status` exact finite-completion truth\n- `/wake` immediate bounded pulse\n- `/pause` founder hold\n- `/resume` remove hold + pulse\n- `/help` commands\n\nThe control channel cannot grant deployment, customer, payment, spend, credential, DNS, production, private-life, or ASI authority.'

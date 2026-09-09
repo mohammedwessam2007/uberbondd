@@ -9,7 +9,7 @@ const leaf=(leafId,kind,requirementIds,over={})=>({
   alternateRoutes:['verified reuse'],terminalEvidenceClass:'SOURCE_RECEIPT',executorClass:'worker',...over
 });
 function valid(){
-  const coverage={ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,counts:{rows:2,extractedConcepts:2,byState:{VERIFIED_CURRENT:1,SPEC_ONLY:1}},rows:[{canonicalId:'TOTAL-1',currentState:'VERIFIED_CURRENT'},{canonicalId:'TOTAL-2',currentState:'SPEC_ONLY'}]};
+  const coverage={ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,counts:{rows:2,extractedConcepts:2,mergedAliasRows:0,byState:{VERIFIED_CURRENT:1,SPEC_ONLY:1}},rows:[{canonicalId:'TOTAL-1',currentState:'VERIFIED_CURRENT'},{canonicalId:'TOTAL-2',currentState:'SPEC_ONLY'}]};
   const requirements=[
     {id:'TOTAL-1',canonicalSource:'canon://TOTAL-1',disposition:'OWNED_INTERNAL',executionLeafIds:['I','V'],terminalEvidenceClass:'VERIFIED_SOURCE'},
     {id:'TOTAL-2',canonicalSource:'canon://TOTAL-2',disposition:'OWNED_EXTERNAL',executionLeafIds:['B'],terminalEvidenceClass:'EXTERNAL_EVIDENCE'}
@@ -31,6 +31,15 @@ test('canonical wrapper proves exact denominator binding plus zero orphan graph'
   assert.equal(out.businessEffectAuthority,'NONE');
 });
 
+test('canonical alias collapse conserves extracted concepts without minting duplicate requirements',()=>{
+  const x=valid();x.coverage.counts.extractedConcepts=3;x.coverage.counts.mergedAliasRows=1;
+  const out=compileCoverageBoundExecutionLeafGraph(x);
+  assert.equal(out.ok,true,JSON.stringify(out));
+  assert.equal(out.denominatorConservation.extractedConcepts,3);
+  assert.equal(out.denominatorConservation.rows,2);
+  assert.equal(out.canonicalBinding.canonicalRequirementIds.length,2);
+});
+
 test('omitting a canonical requirement is impossible to call zero orphan',()=>{
   const x=valid();x.requirements=x.requirements.filter(row=>row.id!=='TOTAL-2');x.leaves=x.leaves.filter(row=>!row.requirementIds.includes('TOTAL-2'));
   const out=compileCoverageBoundExecutionLeafGraph(x);
@@ -49,10 +58,19 @@ test('coverage row count must equal actual materialized rows',()=>{
   assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-materialized-rows-must-match-denominator'));
 });
 
-test('extracted concept count cannot exceed or shrink below materialized rows',()=>{
+test('extracted concept count must equal materialized rows plus explicit merged aliases',()=>{
   const x=valid();x.coverage.counts.extractedConcepts=3;
+  let out=compileCoverageBoundExecutionLeafGraph(x);
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-extracted-concepts-must-equal-materialized-rows-plus-merged-aliases'));
+  const y=valid();y.coverage.counts.extractedConcepts=3;y.coverage.counts.mergedAliasRows=2;
+  out=compileCoverageBoundExecutionLeafGraph(y);
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-extracted-concepts-must-equal-materialized-rows-plus-merged-aliases'));
+});
+
+test('merged alias denominator is mandatory rather than inferred from the delta',()=>{
+  const x=valid();delete x.coverage.counts.mergedAliasRows;
   const out=compileCoverageBoundExecutionLeafGraph(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-extracted-concepts-must-match-materialized-rows'));
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-merged-alias-denominator-required'));
 });
 
 test('declared state histogram must equal row-derived histogram exactly',()=>{

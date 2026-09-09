@@ -5,11 +5,19 @@ import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { BUILD_PROTECTED_PATHS, SOVEREIGNTY_PROTECTED_PATHS } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.1';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.2';
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const SAFE_BRANCH_PREFIX = 'uberbond/self-maintain/';
 const MAX_CHANGED_FILES = 20;
 const MAX_RESPONSE_BYTES = 2_000_000;
+const GOVERNOR_ONLY_PROTECTED_PREFIXES = Object.freeze([
+  'api',
+  'public',
+  'src/uberbond-command-center-status.mjs',
+  'src/uberbond-command-center-normalizer.mjs',
+  'src/command-center-client-policy.mjs',
+  'src/autonomy-command-center-status.mjs'
+]);
 
 function text(value, max = 1000) { return String(value ?? '').trim().slice(0, max); }
 function unique(values) { return [...new Set((values || []).filter(Boolean))]; }
@@ -30,6 +38,7 @@ function matchesPrefix(filePath, prefix) {
 function protectedReason(filePath) {
   if (SOVEREIGNTY_PROTECTED_PATHS.some(prefix => matchesPrefix(filePath, prefix))) return 'sovereignty-protected';
   if (BUILD_PROTECTED_PATHS.some(prefix => matchesPrefix(filePath, prefix))) return 'build-protected';
+  if (GOVERNOR_ONLY_PROTECTED_PREFIXES.some(prefix => matchesPrefix(filePath, prefix))) return 'governor-high-consequence-surface';
   return null;
 }
 function bodyMarker(body, label, pattern) {
@@ -82,6 +91,7 @@ export function admitSelfMaintainerPullRequest({ pullRequest, changedFiles, curr
     const status = String(file?.status || '').toLowerCase();
     if (!['added', 'modified', 'removed'].includes(status)) reasons.push(`changed-file-status-refused:${filePath}`);
     if (status !== 'removed' && typeof file?.patch !== 'string') reasons.push(`textual-patch-required:${filePath}`);
+    if (filePath.startsWith('tests/') && status !== 'added') reasons.push(`existing-test-modification-refused:${filePath}`);
     const protectedClass = protectedReason(filePath);
     if (protectedClass) reasons.push(`${protectedClass}:${filePath}`);
     normalizedFiles.push({ path: filePath, status, additions: Number(file?.additions || 0), deletions: Number(file?.deletions || 0) });

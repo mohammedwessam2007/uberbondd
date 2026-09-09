@@ -81,7 +81,7 @@ export function verifyFounderOpsRuntimeProbeReceiptIntegrity(receipt = {}) {
   if (!SHA40.test(String(receipt?.sourceCommit || '').toLowerCase())) return false;
   const target = canonicalTarget(receipt?.targetUrl);
   if (!target || target !== receipt.targetUrl || founderOpsTargetIdentity(target) !== receipt.targetIdentity) return false;
-  if (!/^runtime:sha256:[0-9a-f]{40}$/.test(String(receipt?.runtimeIdentity || ''))) return false;
+  if (!/^runtime:[0-9a-f]{40}$/.test(String(receipt?.runtimeIdentity || ''))) return false;
   if (!SHA256.test(String(receipt?.observedViewDigest || ''))) return false;
   if (receipt?.authenticatedReadSucceeded !== true || receipt?.privateLifeStateExposed !== false || receipt?.writeAuthorityGranted !== false) return false;
   if (!text(receipt?.evidenceRef) || !text(receipt?.independentVerifierRef)) return false;

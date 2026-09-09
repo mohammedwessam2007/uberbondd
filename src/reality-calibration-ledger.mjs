@@ -1,21 +1,12 @@
 // Forecasts scored against what actually happened.
 //
-// A forecasting system with no ledger is not a forecasting system; it is a
-// generator of confident sentences. The ledger is what makes the difference
-// observable, and it only works if three things are impossible:
-//
-//   1. Editing a forecast after the outcome is known. Retroactive accuracy is
-//      the easiest lie in the building and leaves no trace without this.
-//   2. Scoring a forecast against evidence it already had. That measures
-//      memory, not prediction.
-//   3. Reading an outcome as proof the decision was good. A lucky bad decision
-//      that becomes doctrine costs more than the loss it hid.
-//
-// The third is why `decisionQuality` exists separately from `calibrationError`
-// and why it refuses to compute from the outcome alone.
+// This ledger separates forecast accuracy from decision quality. A forecast is
+// immutable evidence: anything later used to score it or judge the decision
+// must be bound to the recording-time identity, not merely the probabilities.
 import { createHash } from 'node:crypto';
 
-export const REALITY_CALIBRATION_LEDGER_VERSION = 'uberbond.reality-calibration-ledger.v1';
+export const REALITY_CALIBRATION_LEDGER_VERSION = 'uberbond.reality-calibration-ledger.v1.1';
+export const FORECAST_SEAL_VERSION = 'uberbond.forecast-seal.v2';
 
 const text = (value, max = 4000) => {
   const out = String(value ?? '').trim();
@@ -32,13 +23,36 @@ const fail = (status, reasonCodes, extra = {}) => ({
   businessEffectAuthority: 'NONE', ...extra
 });
 
-/**
- * Records a forecast, sealed against later editing.
- *
- * The seal covers the claim, the probabilities and the evidence cutoff -- the
- * three things a later self would want to adjust. It is a hash rather than a
- * flag because a flag can be set to false by the same code that wants to edit.
- */
+// Everything downstream decision-quality logic is allowed to trust belongs in
+// this payload. In v1 the seal omitted assumptions/method/time, which allowed a
+// persisted forecast to be scored honestly and then have its assumptions
+// rewritten before decisionQuality() was called.
+function forecastSealPayload(forecast = {}) {
+  return {
+    sealVersion: forecast.sealVersion,
+    claim: forecast.claim,
+    probabilities: forecast.probabilities,
+    evidenceCutoff: forecast.evidenceCutoff,
+    forecastAt: forecast.forecastAt,
+    method: forecast.method ?? null,
+    assumptions: Array.isArray(forecast.assumptions) ? forecast.assumptions : []
+  };
+}
+
+function forecastIdFromPayload(payload) {
+  return `fc_${createHash('sha256').update(JSON.stringify(payload)).digest('hex').slice(0, 32)}`;
+}
+
+function forecastIntegrity(forecast) {
+  const reasons = [];
+  if (!forecast || typeof forecast !== 'object') return { ok: false, reasons: ['forecast-required'] };
+  if (forecast.sealVersion !== FORECAST_SEAL_VERSION) reasons.push('current-forecast-seal-version-required');
+  const payload = forecastSealPayload(forecast);
+  if (forecast.id !== forecastIdFromPayload(payload)) reasons.push('forecast-id-integrity-mismatch');
+  if (forecast.seal !== sealForecast(forecast)) reasons.push('forecast-edited-after-recording');
+  return { ok: reasons.length === 0, reasons };
+}
+
 export function recordForecast({ claim = null, probabilities = null, evidenceCutoff = null, method = null, assumptions = [], at = new Date() } = {}) {
   const reasonCodes = [];
   const body = text(claim, 2000);
@@ -56,13 +70,11 @@ export function recordForecast({ claim = null, probabilities = null, evidenceCut
   if (outcomes.length === 0) reasonCodes.push('probabilities-required');
 
   const total = outcomes.reduce((sum, [, p]) => sum + Number(p), 0);
-  // A distribution that does not sum to one is not a distribution, and the
-  // slack is where an unstated "something else" outcome hides.
   if (outcomes.length && Math.abs(total - 1) > 0.001) reasonCodes.push('probabilities-must-sum-to-one');
-
   if (reasonCodes.length) return fail('FORECAST_RECORD_INVALID', reasonCodes);
 
   const sealed = {
+    sealVersion: FORECAST_SEAL_VERSION,
     claim: body,
     probabilities: Object.fromEntries(outcomes.map(([k, p]) => [k, Number(p)])),
     evidenceCutoff: cutoff,
@@ -70,35 +82,26 @@ export function recordForecast({ claim = null, probabilities = null, evidenceCut
     method: text(method, 200) || null,
     assumptions: (Array.isArray(assumptions) ? assumptions : []).map(a => text(a, 500)).filter(Boolean)
   };
+  const id = forecastIdFromPayload(sealed);
   return {
     ok: true,
     status: 'FORECAST_RECORDED',
-    forecast: { id: `fc_${createHash('sha256').update(JSON.stringify(sealed)).digest('hex').slice(0, 32)}`, ...sealed, seal: sealForecast(sealed) },
+    forecast: { id, ...sealed, seal: sealForecast(sealed) },
     businessEffectAuthority: 'NONE'
   };
 }
 
 export function sealForecast(forecast) {
-  return createHash('sha256').update(JSON.stringify([
-    forecast.claim, forecast.probabilities, forecast.evidenceCutoff
-  ])).digest('hex');
+  return createHash('sha256').update(JSON.stringify(forecastSealPayload(forecast))).digest('hex');
 }
 
-/**
- * Scores a forecast against an observed outcome.
- *
- * Brier score, because it is proper: it cannot be improved by stating a
- * confidence you do not hold. The two refusals below matter more than the
- * arithmetic.
- */
 export function scoreForecast({ forecast = null, outcome = null, observedAt = null } = {}) {
   if (!forecast || typeof forecast !== 'object') return fail('FORECAST_SCORE_INVALID', ['forecast-required']);
 
-  // A forecast whose seal no longer matches its content was edited after the
-  // fact. Refusing to score it is the only way the edit becomes visible.
-  if (forecast.seal !== sealForecast(forecast)) {
-    return fail('FORECAST_TAMPERED', ['forecast-edited-after-recording'], {
-      note: 'The recorded claim, probabilities or evidence cutoff no longer match the seal.'
+  const integrity = forecastIntegrity(forecast);
+  if (!integrity.ok) {
+    return fail('FORECAST_TAMPERED', integrity.reasons, {
+      note: 'The current sealed forecast identity or one of its decision-quality-relevant fields no longer matches the recording-time evidence.'
     });
   }
 
@@ -107,8 +110,6 @@ export function scoreForecast({ forecast = null, outcome = null, observedAt = nu
   const at = iso(observedAt);
   if (!at) return fail('FORECAST_SCORE_INVALID', ['valid-observation-time-required']);
 
-  // Scoring against something already known at forecast time measures recall,
-  // not prediction, and would let a ledger fill with perfect scores.
   if (Date.parse(at) <= Date.parse(forecast.evidenceCutoff)) {
     return fail('FORECAST_NOT_SCORABLE', ['outcome-predates-evidence-cutoff'], {
       evidenceCutoff: forecast.evidenceCutoff, observedAt: at,
@@ -119,8 +120,6 @@ export function scoreForecast({ forecast = null, outcome = null, observedAt = nu
   if (!Object.hasOwn(forecast.probabilities, observed)) {
     return fail('FORECAST_NOT_SCORABLE', ['observed-outcome-was-not-among-the-forecast-outcomes'], {
       observed, forecastOutcomes: Object.keys(forecast.probabilities),
-      // The most informative failure a forecaster can have, so it is recorded
-      // as a result rather than discarded as unscorable noise.
       note: 'The state space was wrong, which is a stronger finding than a bad probability.'
     });
   }
@@ -141,19 +140,18 @@ export function scoreForecast({ forecast = null, outcome = null, observedAt = nu
   };
 }
 
-/**
- * Decision quality, which is not the outcome.
- *
- * Judged on what was knowable at the time. Without this separation a ledger
- * teaches the wrong lesson twice over: lucky bad decisions become doctrine, and
- * unlucky good ones get abandoned.
- */
 export function decisionQuality({ forecast = null, score = null, availableAtTime = [], consideredAlternatives = [] } = {}) {
   if (!forecast || !score?.ok) return fail('DECISION_QUALITY_INVALID', ['scored-forecast-required']);
 
+  // Revalidate independently. A caller may have obtained a valid score and
+  // mutated the forecast afterward; trusting score.ok alone would allow that
+  // post-outcome rewrite to change the quality verdict.
+  const integrity = forecastIntegrity(forecast);
+  if (!integrity.ok) return fail('DECISION_QUALITY_INVALID', ['sealed-forecast-integrity-required', ...integrity.reasons]);
+  if (score.forecastId !== forecast.id) return fail('DECISION_QUALITY_INVALID', ['score-forecast-identity-mismatch']);
+
   const available = (Array.isArray(availableAtTime) ? availableAtTime : []).map(e => text(e, 400)).filter(Boolean);
   const alternatives = (Array.isArray(consideredAlternatives) ? consideredAlternatives : []).map(a => text(a, 240)).filter(Boolean);
-
   const missed = available.filter(evidence => !(forecast.assumptions || []).some(a => a.includes(evidence)));
 
   return {
@@ -163,7 +161,6 @@ export function decisionQuality({ forecast = null, score = null, availableAtTime
     usedAvailableEvidence: available.length - missed.length,
     ignoredAvailableEvidence: missed,
     alternativesConsidered: alternatives.length,
-    // Stated rather than computed from the outcome, which is the whole point.
     quality: missed.length === 0 && alternatives.length > 1 ? 'WELL_MADE' : 'IMPROVABLE',
     separation: 'DECISION_QUALITY_IS_JUDGED_ON_WHAT_WAS_KNOWABLE_AT_THE_TIME_NOT_ON_THE_OUTCOME',
     outcomeWas: score.observed,
@@ -171,13 +168,6 @@ export function decisionQuality({ forecast = null, score = null, availableAtTime
   };
 }
 
-/**
- * Calibration across a set of scored forecasts.
- *
- * Reported per confidence band, because a single mean average hides the failure
- * that matters: a forecaster can look well-calibrated overall while being
- * systematically overconfident everywhere it said 90%.
- */
 export function calibrationSummary(scores = []) {
   const rows = (Array.isArray(scores) ? scores : []).filter(row => row?.ok && row.status === 'FORECAST_SCORED');
   if (rows.length === 0) {

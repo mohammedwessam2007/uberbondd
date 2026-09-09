@@ -49,15 +49,19 @@ const SOURCES = [
   ['artifacts/personal-civilization-engine-north-star.json', 'personal-civilization', [
     ['hierarchy', 'HIERARCHY'], ['canonicalLifeSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['supportingCognitiveTechnicalSystems', 'CONCEPT'], ['economicInventionSystems', 'ECONOMIC_DONOR'],
-    ['farFutureConceptualDonors', 'CONCEPT'],
-    // Parented now that an organ produces them. evaluationDimensions below
-    // stays parentless on purpose: those are criteria for a human reviewing
-    // UberBond, not outputs any module computes.
+    // Canon itself names this list `farFutureConceptualDonors`. These are kept
+    // in the no-drop denominator and remain searchable, but they describe an
+    // intentionally open-ended future research frontier rather than a finite
+    // current engineering obligation. The semantic tribunal separately guards
+    // that OPEN_ENDED_FRONTIER cannot be inferred for an ordinary missing organ.
+    ['farFutureConceptualDonors', 'OPEN_ENDED_FRONTIER'],
+    // Parented now that an organ produces them.
     ['lifeDecisionDimensions', 'FORECAST_DIMENSION', 'Value Manifold'],
     ['humanSovereigntyLaws', 'AUTHORITY_LAW'],
-    // evaluationDimensions are criteria for a human reviewing UberBond, not
-    // outputs a module computes -- deliberately parentless.
-    ['evaluationDimensions', 'FORECAST_DIMENSION']]],
+    // Canon defines evaluationDimensions as criteria for a human reviewing
+    // UberBond, not outputs any module computes. They stay in the denominator
+    // as review criteria but must not masquerade as 19 missing software organs.
+    ['evaluationDimensions', 'EVALUATION_CRITERION']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],
     ['founderFreedomDimensions', 'SOVEREIGNTY_DIMENSION']]],
@@ -88,7 +92,7 @@ const NESTED = [
 ];
 
 const LANE_BY_CLASS = {
-  PERSONAL_CIVILIZATION_ORGAN: 'OMEGA-01',
+  PERSONAL_CIVILIZATION_ORGAN: 'OMEGA-01', EVALUATION_CRITERION: 'OMEGA-01',
   FORECAST_REQUIREMENT: 'OMEGA-02', FORECAST_OUTPUT: 'OMEGA-02', FORECAST_MECHANISM: 'OMEGA-02',
   FORECAST_DIMENSION: 'OMEGA-02', CALIBRATION_FIELD: 'OMEGA-13', DECISION_PACKET_FIELD: 'OMEGA-02',
   ONTOLOGY: 'OMEGA-03', SOVEREIGNTY_DIMENSION: 'OMEGA-04', AUTHORITY_LAW: 'OMEGA-04',
@@ -96,7 +100,7 @@ const LANE_BY_CLASS = {
   CAPABILITY_ATOM: 'OMEGA-08', CAPABILITY_DOMAIN: 'OMEGA-08', EXTERNAL_SUPPLIER: 'OMEGA-08',
   REFERENCE_SURFACE: 'OMEGA-09', ECONOMIC_DONOR: 'OMEGA-09', STRATEGIC_STAGE: 'OMEGA-09',
   NAMED_INITIATIVE: 'OMEGA-14', HIERARCHY: 'OMEGA-14', LOOP_STAGE: 'OMEGA-14',
-  TERMINAL_LAW: 'OMEGA-14', ALIAS: 'OMEGA-14', CONCEPT: 'OMEGA-14'
+  TERMINAL_LAW: 'OMEGA-14', ALIAS: 'OMEGA-14', CONCEPT: 'OMEGA-14', OPEN_ENDED_FRONTIER: 'OMEGA-14'
 };
 
 function walkFiles(dir, extension = '.mjs') {

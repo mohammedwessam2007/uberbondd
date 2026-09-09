@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileFounderOpsRuntimeProbeReceipt, founderOpsRuntimeIdentity, founderOpsTargetIdentity } from '../src/founder-ops-runtime-probe.mjs';
+import { compileFounderOpsRuntimeProbeReceipt, founderOpsRuntimeIdentity, founderOpsTargetIdentity, verifyFounderOpsRuntimeProbeReceiptIntegrity } from '../src/founder-ops-runtime-probe.mjs';
 
 const SHA='a'.repeat(40);
 const TARGET='https://uberbond.example.test/api/founder-ops';
@@ -18,7 +18,21 @@ test('canonical target identity binds exact https target without secret-bearing 
 });
 
 test('authenticated read-only view compiles exact C17 receipt shape with truthful probe effect',()=>{
- const r=compileFounderOpsRuntimeProbeReceipt(base()); assert.equal(r.ok,true,JSON.stringify(r)); assert.equal(r.evidenceClass,'OBSERVED_RUNTIME'); assert.equal(r.authenticatedReadSucceeded,true); assert.equal(r.privateLifeStateExposed,false); assert.equal(r.writeAuthorityGranted,false); assert.equal(r.businessEffectAuthority,'NONE'); assert.equal(r.externalEffectLedger.providerCalls,1); assert.equal(r.targetUrl,TARGET); assert.match(r.observedViewDigest,/^sha256:[0-9a-f]{64}$/);
+ const r=compileFounderOpsRuntimeProbeReceipt(base()); assert.equal(r.ok,true,JSON.stringify(r)); assert.equal(r.evidenceClass,'OBSERVED_RUNTIME'); assert.equal(r.authenticatedReadSucceeded,true); assert.equal(r.privateLifeStateExposed,false); assert.equal(r.writeAuthorityGranted,false); assert.equal(r.businessEffectAuthority,'NONE'); assert.equal(r.externalEffectLedger.providerCalls,1); assert.equal(r.targetUrl,TARGET); assert.match(r.observedViewDigest,/^sha256:[0-9a-f]{64}$/); assert.equal(verifyFounderOpsRuntimeProbeReceiptIntegrity(r),true);
+});
+
+test('receipt integrity rejects post-observation mutation even when shape remains plausible',()=>{
+ for(const [key,value] of [['sourceCommit','b'.repeat(40)],['observedViewDigest','sha256:'+'f'.repeat(64)],['evidenceRef','evidence://other'],['observedAt','2026-09-09T01:59:59Z']]){const r=compileFounderOpsRuntimeProbeReceipt(base());r[key]=value;assert.equal(verifyFounderOpsRuntimeProbeReceiptIntegrity(r),false,key);}
+});
+
+test('receipt integrity rejects forged status schema digest and target identity',()=>{
+ const mutations=[r=>{r.status='FOUNDER_OPS_RUNTIME_READ_INDEPENDENTLY_OBSERVED-ish';},r=>{r.schemaVersion='old';},r=>{r.receiptDigest='sha256:'+'f'.repeat(64);},r=>{r.targetIdentity=founderOpsTargetIdentity('https://other.example.test/api/founder-ops');}];
+ for(const mutate of mutations){const r=compileFounderOpsRuntimeProbeReceipt(base());mutate(r);assert.equal(verifyFounderOpsRuntimeProbeReceiptIntegrity(r),false);}
+});
+
+test('normalized runtime and target aliases cannot fake verifier independence',()=>{
+ const runtime=founderOpsRuntimeIdentity(view().runtime); const target=founderOpsTargetIdentity(TARGET);
+ for(const verifierRef of [` verifier: ${runtime.toUpperCase()} `,`verifier:${target.toUpperCase()}`]){const x=base();x.verifierRef=verifierRef;const r=compileFounderOpsRuntimeProbeReceipt(x);assert.equal(r.ok,false,verifierRef);}
 });
 
 test('a 200 view cannot mint runtime evidence without admitting the observed provider call',()=>{const r=compileFounderOpsRuntimeProbeReceipt({...base(),providerCallObserved:false});assert.equal(r.ok,false);assert.ok(r.reasonCodes.includes('provider-call-observation-required'));assert.equal(r.externalEffectLedger.providerCalls,0);});

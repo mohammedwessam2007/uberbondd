@@ -2,7 +2,7 @@
 
 import { compileAgentCodeChangeSet, contentSha256 } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.1';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.2';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const BRANCH_PREFIX = 'uberbond/self-maintain/';
@@ -75,7 +75,8 @@ function makeClient({ token, repository, fetchImpl = globalThis.fetch } = {}) {
       merge_method: 'merge',
       commit_title: `UberBond autonomous verified maintenance (#${number})`,
       commit_message: 'Merged by the independent UberBond self-maintainer merge governor after exact-head read-only verification.'
-    })
+    }),
+    dispatchContinuation: () => request('POST', `${prefix}/actions/workflows/uberbond-self-maintainer.yml/dispatches`, { ref: 'main' })
   });
 }
 
@@ -196,10 +197,15 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     return fail(merged?.reasonCodes || ['github-merge-refused'], 'MERGE_BLOCKED', { githubMessage: text(merged?.payload?.message, 300) || null });
   }
 
+  const continuation = await client.dispatchContinuation();
+  const continuationDispatched = continuation?.ok === true;
+
   return {
     ok: true,
     policyVersion: SELF_MAINTAINER_MERGE_GOVERNOR_VERSION,
-    status: 'SELF_MAINTAINER_CHANGE_MERGED_AFTER_INDEPENDENT_VERIFICATION',
+    status: continuationDispatched
+      ? 'SELF_MAINTAINER_CHANGE_MERGED_AND_CONTINUATION_DISPATCHED'
+      : 'SELF_MAINTAINER_CHANGE_MERGED_SCHEDULED_CONTINUATION_FALLBACK',
     verificationMode,
     prNumber,
     baseRevision: body.baseRevision,
@@ -209,10 +215,16 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     changeSetId: body.changeSetId,
     selfMaintenanceReceiptId: body.selfMaintenanceReceiptId,
     changedPaths: changes.map(change => change.path),
+    continuation: {
+      dispatchAttempted: true,
+      dispatched: continuationDispatched,
+      fallback: continuationDispatched ? 'NOT_NEEDED' : 'TWICE_HOURLY_SCHEDULE',
+      reasonCodes: continuationDispatched ? [] : continuation?.reasonCodes || ['continuation-dispatch-unavailable']
+    },
     repositoryMergeAuthority: 'CONSUMED_FOR_THIS_EXACT_VERIFIED_HEAD_ONLY',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'MERGE AUTHORITY APPLIED ONLY TO THE EXACT INDEPENDENTLY VERIFIED LOCAL-PREPARATION PR. NO DEPLOYMENT, CUSTOMER, PAYMENT, SPEND, DNS, CREDENTIAL, PRIVATE-LIFE, OR ASI AUTHORITY IS CREATED.'
+    truthBoundary: 'MERGE AUTHORITY APPLIED ONLY TO THE EXACT INDEPENDENTLY VERIFIED LOCAL-PREPARATION PR. CONTINUATION DISPATCH CARRIES NO BUSINESS AUTHORITY. NO DEPLOYMENT, CUSTOMER, PAYMENT, SPEND, DNS, CREDENTIAL, PRIVATE-LIFE, OR ASI AUTHORITY IS CREATED.'
   };
 }
 

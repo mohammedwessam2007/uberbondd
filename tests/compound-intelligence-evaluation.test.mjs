@@ -41,6 +41,9 @@ function arm(systemId, revision, score, low, high, extra = {}) {
 function family(familyId, baselineScore, currentScore, candidateScore, protectedGate = false) {
   return {
     familyId,
+    measurementEvidenceRef: `evaluation-receipt:${familyId}:sealed`,
+    measurementClass: 'OBSERVED_EVALUATION',
+    taskSetHash: hash({ familyId, taskSetVersion: 1 }),
     protectedGate,
     baseline: arm('baseline-strong', 'baseline@9', baselineScore, baselineScore - 0.01, baselineScore + 0.01),
     current: arm('uberbond-current', 'main@current', currentScore, currentScore - 0.01, currentScore + 0.01),
@@ -135,6 +138,12 @@ function fixture() {
   };
 }
 
+const expectReason = (input, reason) => {
+  const result = evaluateCompoundIntelligence(input);
+  assert.equal(result.ok, false, JSON.stringify(result));
+  assert.ok(result.reasonCodes.includes(reason), JSON.stringify(result));
+};
+
 test('compound intelligence gain is supported only within the declared scope', () => {
   const result = evaluateCompoundIntelligence(fixture());
   assert.equal(result.ok, true, JSON.stringify(result));
@@ -143,238 +152,182 @@ test('compound intelligence gain is supported only within the declared scope', (
   assert.equal(result.asiStatus, 'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED');
   assert.equal(result.businessEffectAuthority, 'NONE');
   assert.equal(result.promotionAuthority, 'NONE');
-  assert.match(result.promotionBoundary, /DOES_NOT_PROMOTE/);
+  assert.match(result.evidenceTruth, /PURE_COMPILER_DOES_NOT_WITNESS/);
 });
 
-test('evaluation must bind the exact composition digest', () => {
-  const input = fixture();
-  input.evaluationSubjectDigest = '0'.repeat(64);
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('evaluation-subject-digest-must-bind-exact-composition'));
-});
-
-test('silent component revision change invalidates old evaluation identity', () => {
+test('evaluation binds exact composition revision and digest', () => {
   const input = fixture();
   input.components[0].revision = 'model-a@2';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('evaluation-subject-digest-must-bind-exact-composition'));
+  expectReason(input, 'evaluation-subject-digest-must-bind-exact-composition');
 });
 
-test('revoked declared component cannot enter the composition', () => {
+test('revoked component cannot enter composition', () => {
   const input = fixture();
   input.components[0].capabilityState = 'REVOKED';
   input.evaluationSubjectDigest = compositionDigest(input.components);
   input.independentEvaluation.generatorLineageRef = `composition:${input.evaluationSubjectDigest}`;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('revoked-component-cannot-enter-composition'));
+  expectReason(input, 'revoked-component-cannot-enter-composition');
 });
 
-test('correlated model copies cannot multiply independent votes', () => {
+test('correlated copies cannot multiply independent votes', () => {
   const input = fixture();
   input.components[1].lineageRef = input.components[0].lineageRef;
   input.evaluationSubjectDigest = compositionDigest(input.components);
   input.independentEvaluation.generatorLineageRef = `composition:${input.evaluationSubjectDigest}`;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('correlated-lineage-cannot-multiply-independent-votes'));
+  expectReason(input, 'correlated-lineage-cannot-multiply-independent-votes');
 });
 
-test('claimed independent vote count cannot exceed actual declared voters', () => {
+test('claimed independent count cannot exceed declared independent voters', () => {
   const input = fixture();
   input.claimedIndependentVotes = 3;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('claimed-independent-vote-count-mismatch'));
+  expectReason(input, 'claimed-independent-vote-count-mismatch');
 });
 
-test('evaluator protocol must name the exact composition digest', () => {
-  const input = fixture();
-  input.independentEvaluation.generatorLineageRef = 'composition:stale';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('evaluator-protocol-must-name-exact-composition-and-digest'));
+test('evaluator cannot share a component identity or lineage', () => {
+  const byId = fixture();
+  byId.independentEvaluation.evaluatorId = 'planner-a';
+  expectReason(byId, 'evaluator-must-be-independent-of-every-composition-component');
+  const byLineage = fixture();
+  byLineage.independentEvaluation.evaluatorLineageRef = 'lineage:model-a';
+  expectReason(byLineage, 'evaluator-must-be-independent-of-every-composition-component');
 });
 
-test('evaluator cannot be one of the composition components by id', () => {
-  const input = fixture();
-  input.independentEvaluation.evaluatorId = 'planner-a';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('evaluator-must-be-independent-of-every-composition-component'));
-});
-
-test('aggregate lineage cannot hide evaluator ancestry shared with a component', () => {
-  const input = fixture();
-  input.independentEvaluation.evaluatorLineageRef = 'lineage:model-a';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('evaluator-must-be-independent-of-every-composition-component'));
-});
-
-test('candidate and evaluator aggregate lineage still cannot be identical', () => {
+test('existing evaluator gate still refuses candidate evaluator lineage collapse', () => {
   const input = fixture();
   input.independentEvaluation.evaluatorLineageRef = input.independentEvaluation.generatorLineageRef;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('generator-evaluator-lineage-not-independent'));
+  expectReason(input, 'generator-evaluator-lineage-not-independent');
 });
 
-test('baseline selection must be evaluator-predeclared, not candidate-owned', () => {
-  const input = fixture();
-  input.baselineSelection.selectionOwner = 'CANDIDATE';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('evaluator-predeclared-baseline-selection-required'));
+test('baseline must be evaluator-predeclared and strongest accessible eligible option', () => {
+  const owned = fixture();
+  owned.baselineSelection.selectionOwner = 'CANDIDATE';
+  expectReason(owned, 'evaluator-predeclared-baseline-selection-required');
+  const weak = fixture();
+  weak.baselineSelection.selectedBaselineId = 'baseline-cheap';
+  weak.baselineSelection.selectedRevision = 'baseline@2';
+  expectReason(weak, 'strongest-accessible-eligible-baseline-required');
 });
 
-test('weaker accessible baseline cannot be selected while a stronger eligible one exists', () => {
-  const input = fixture();
-  input.baselineSelection.selectedBaselineId = 'baseline-cheap';
-  input.baselineSelection.selectedRevision = 'baseline@2';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('strongest-accessible-eligible-baseline-required'));
-});
-
-test('inaccessible hypothetical model does not become an imagined benchmark', () => {
-  const input = fixture();
-  const result = evaluateCompoundIntelligence(input);
+test('inaccessible hypothetical system is not converted into an imagined benchmark', () => {
+  const result = evaluateCompoundIntelligence(fixture());
   assert.equal(result.ok, true, JSON.stringify(result));
   assert.equal(result.receipt.baseline.id, 'baseline-strong');
 });
 
-test('family candidate arm cannot silently reroute to another revision', () => {
-  const input = fixture();
-  input.families[0].candidate.revision = 'composition@other';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('family-candidate-arm-does-not-match-exact-composition'));
+test('every task family requires observed evaluation provenance and a sealed task-set hash', () => {
+  const missing = fixture();
+  delete missing.families[0].measurementEvidenceRef;
+  expectReason(missing, 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required');
+  const synthetic = fixture();
+  synthetic.families[0].measurementClass = 'SYNTHETIC';
+  expectReason(synthetic, 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required');
+  const badHash = fixture();
+  badHash.families[0].taskSetHash = 'not-a-hash';
+  expectReason(badHash, 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required');
 });
 
-test('wall time must be matched instead of buying a hidden latency advantage', () => {
-  const input = fixture();
-  input.families[0].candidate.wallTimeMs += 1;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('matched-time-cost-and-human-assistance-budget-required'));
+test('numeric evidence rejects string and null coercion', () => {
+  const score = fixture();
+  score.families[0].candidate.score = '0.72';
+  expectReason(score, 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required');
+  const time = fixture();
+  time.families[0].candidate.wallTimeMs = null;
+  expectReason(time, 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required');
+  const rank = fixture();
+  rank.baselineSelection.alternatives[0].strengthRank = '20';
+  expectReason(rank, 'evaluator-predeclared-baseline-selection-required');
 });
 
-test('money and human assistance must be matched across comparison arms', () => {
+test('family arms cannot silently reroute candidate or current revision', () => {
+  const candidate = fixture();
+  candidate.families[0].candidate.revision = 'composition@other';
+  expectReason(candidate, 'family-candidate-arm-does-not-match-exact-composition');
+  const current = fixture();
+  current.families[0].current.revision = 'main@stale';
+  expectReason(current, 'family-current-arm-does-not-match-declared-current-system');
+});
+
+test('time money and human assistance are matched across all arms', () => {
+  const time = fixture();
+  time.families[0].candidate.wallTimeMs += 1;
+  expectReason(time, 'matched-time-cost-and-human-assistance-budget-required');
   const money = fixture();
   money.families[0].candidate.monetaryCostMicros += 1;
-  assert.ok(evaluateCompoundIntelligence(money).reasonCodes.includes('matched-time-cost-and-human-assistance-budget-required'));
+  expectReason(money, 'matched-time-cost-and-human-assistance-budget-required');
   const human = fixture();
   human.families[0].candidate.humanAssistanceMinutes = 1;
-  assert.ok(evaluateCompoundIntelligence(human).reasonCodes.includes('matched-time-cost-and-human-assistance-budget-required'));
+  expectReason(human, 'matched-time-cost-and-human-assistance-budget-required');
 });
 
-test('existing transfer governor still owns compute and tool budget parity', () => {
+test('existing transfer governor retains compute and tool budget parity authority', () => {
   const input = fixture();
   input.families[0].candidate.computeUnits = 101;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('matched-compute-and-tool-budget-required'));
+  expectReason(input, 'matched-compute-and-tool-budget-required');
 });
 
-test('uncertainty interval must contain the reported score', () => {
-  const input = fixture();
-  input.families[0].candidate.scoreInterval = { low: 0.8, high: 0.9 };
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('valid-family-system-budget-and-uncertainty-arms-required'));
-});
-
-test('point-score win is refused when uncertainty does not support robust gain', () => {
-  const input = fixture();
-  for (const row of input.families) {
+test('score interval must contain score and point wins need interval-robust gain', () => {
+  const invalid = fixture();
+  invalid.families[0].candidate.scoreInterval = { low: 0.8, high: 0.9 };
+  expectReason(invalid, 'valid-family-observed-evidence-system-budget-and-uncertainty-arms-required');
+  const overlap = fixture();
+  for (const row of overlap.families) {
     row.current.scoreInterval = { low: row.current.score - 0.01, high: row.current.score + 0.14 };
     row.candidate.scoreInterval = { low: row.candidate.score - 0.14, high: row.candidate.score + 0.01 };
   }
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('interval-robust-cross-domain-gain-not-supported'));
+  expectReason(overlap, 'interval-robust-cross-domain-gain-not-supported');
 });
 
-test('protected gate uncertainty regression has zero tolerance', () => {
+test('protected-gate uncertainty regression has zero tolerance', () => {
   const input = fixture();
   input.families[0].candidate.scoreInterval.low = 0.48;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('protected-gate-uncertainty-regression-zero-tolerance'));
+  expectReason(input, 'protected-gate-uncertainty-regression-zero-tolerance');
 });
 
-test('fresh-context retention must bind the exact composition revision', () => {
-  const input = fixture();
-  input.freshContextRetention.mechanism.revision = 'composition@2';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('fresh-context-retention-must-bind-exact-composition-revision'));
+test('fresh-context retention binds exact composition and forbids hidden context', () => {
+  const stale = fixture();
+  stale.freshContextRetention.mechanism.revision = 'composition@2';
+  expectReason(stale, 'fresh-context-retention-must-bind-exact-composition-revision');
+  const hidden = fixture();
+  hidden.freshContextRetention.rehydration.hiddenConversationStateUsed = true;
+  expectReason(hidden, 'fresh-context-rehydration-not-proven');
 });
 
-test('hidden conversation state cannot masquerade as fresh-context retention', () => {
-  const input = fixture();
-  input.freshContextRetention.rehydration.hiddenConversationStateUsed = true;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('fresh-context-rehydration-not-proven'));
+test('revocation snapshot covers exact components and any revocation invalidates evidence', () => {
+  const incomplete = fixture();
+  incomplete.revocationSnapshot.components.pop();
+  expectReason(incomplete, 'revocation-snapshot-must-cover-exact-composition-components');
+  const revoked = fixture();
+  revoked.revocationSnapshot.components[0].revoked = true;
+  expectReason(revoked, 'observed-revoked-component-invalidates-composition');
 });
 
-test('revocation snapshot must cover the exact component revision set', () => {
-  const input = fixture();
-  input.revocationSnapshot.components.pop();
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('revocation-snapshot-must-cover-exact-composition-components'));
+test('revocation verifier is independent of candidate and evaluation judge', () => {
+  const component = fixture();
+  component.revocationSnapshot.verifierLineageRef = 'lineage:model-b';
+  expectReason(component, 'revocation-verifier-must-be-independent-of-components-and-evaluator');
+  const judge = fixture();
+  judge.revocationSnapshot.verifierId = judge.independentEvaluation.evaluatorId;
+  judge.revocationSnapshot.verifierLineageRef = judge.independentEvaluation.evaluatorLineageRef;
+  expectReason(judge, 'revocation-verifier-must-be-independent-of-components-and-evaluator');
 });
 
-test('later observed revocation invalidates an otherwise passing evaluation', () => {
-  const input = fixture();
-  input.revocationSnapshot.components[0].revoked = true;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('observed-revoked-component-invalidates-composition'));
+test('revocation evidence cannot be stale future dated or ambiguously dated', () => {
+  const stale = fixture();
+  stale.revocationSnapshot.verifiedAt = '2026-09-08T20:00:00Z';
+  expectReason(stale, 'stale-revocation-snapshot-refused');
+  const future = fixture();
+  future.revocationSnapshot.verifiedAt = '2026-09-09T01:00:00Z';
+  expectReason(future, 'future-dated-revocation-snapshot-refused');
+  const ambiguous = fixture();
+  ambiguous.observedAt = '2026-09-09 00:30:00';
+  expectReason(ambiguous, 'composition-current-system-thresholds-and-observation-time-required');
 });
 
-test('revocation evidence cannot be verified by a candidate component lineage', () => {
-  const input = fixture();
-  input.revocationSnapshot.verifierLineageRef = 'lineage:model-b';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('revocation-verifier-must-be-independent-of-components-and-evaluator'));
-});
-
-test('evaluation judge cannot also be the revocation verifier', () => {
-  const input = fixture();
-  input.revocationSnapshot.verifierId = input.independentEvaluation.evaluatorId;
-  input.revocationSnapshot.verifierLineageRef = input.independentEvaluation.evaluatorLineageRef;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('revocation-verifier-must-be-independent-of-components-and-evaluator'));
-});
-
-test('stale revocation snapshot cannot keep a composition alive indefinitely', () => {
-  const input = fixture();
-  input.revocationSnapshot.verifiedAt = '2026-09-08T20:00:00Z';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('stale-revocation-snapshot-refused'));
-});
-
-test('future-dated revocation evidence is refused', () => {
-  const input = fixture();
-  input.revocationSnapshot.verifiedAt = '2026-09-09T01:00:00Z';
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('future-dated-revocation-snapshot-refused'));
-});
-
-test('composition must preserve abstention and the human value boundary', () => {
-  const input = fixture();
-  input.decisionPolicy.noRecommendationOnValueBoundary = false;
-  const result = evaluateCompoundIntelligence(input);
-  assert.equal(result.ok, false);
-  assert.ok(result.reasonCodes.includes('abstention-and-value-boundary-refusal-required'));
+test('composition preserves abstention value boundary and bounded escalation', () => {
+  const value = fixture();
+  value.decisionPolicy.noRecommendationOnValueBoundary = false;
+  expectReason(value, 'abstention-and-value-boundary-refusal-required');
+  const budget = fixture();
+  budget.decisionPolicy.maxEscalationSteps = '2';
+  expectReason(budget, 'bounded-escalation-policy-required');
 });

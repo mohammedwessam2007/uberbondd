@@ -24,16 +24,71 @@ async function makeBinExecutable(binDir) {
       continue;
     }
     if (!stat.isFile()) continue;
-    await fs.chmod(file, stat.mode | 0o111);
+    await fs.chmod(file, stat.mode | 0o115);
   }
 }
 
-function probeBinDir(binDir) {
+async function makeNativeTreeChildReadable(nativeDir) {
+  const entries = await fs.readdir(nativeDir, { withFileTypes: true });
+  const stat = await fs.stat(nativeDir);
+  await fs.chmod(nativeDir, stat.mode | 0o001);
+
+  for (const entry of entries) {
+    const file = path.join(nativeDir, entry.name);
+    let childStat;
+    try {
+      childStat = await fs.stat(file);
+    } catch {
+      continue;
+    }
+    if (childStat.isDirectory()) {
+      await makeNativeTreeChildReadable(file);
+    } else if (childStat.isFile()) {
+      await fs.chmod(file, childStat.mode | 0o004);
+    }
+  }
+}
+
+async function makeAncestorsSearchable(targetDir) {
+  let current = path.resolve(targetDir);
+  while (true) {
+    let stat;
+    try {
+      stat = await fs.stat(current);
+    } catch {
+      break;
+    }
+    if (stat.isDirectory()) {
+      try {
+        await fs.chmod(current, stat.mode | 0o001);
+      } catch (error) {
+        if (!['EPERM', 'EACCES', 'EROFS'].includes(String(error?.code || ''))) throw error;
+      }
+    }
+    const parent = path.dirname(current);
+    if (parent === current) break;
+    current = parent;
+  }
+}
+
+function resolvePostgresIdentity() {
+  if (typeof process.getuid !== 'function' || process.getuid() !== 0) return null;
+  const uidRun = spawnSync('id', ['-u', 'postgres'], { encoding: 'utf8' });
+  const gidRun = spawnSync('id', ['-g', 'postgres'], { encoding: 'utf8' });
+  if (uidRun.status !== 0 || gidRun.status !== 0) return null;
+  const uid = Number.parseInt(String(uidRun.stdout || '').trim(), 10);
+  const gid = Number.parseInt(String(gidRun.stdout || '').trim(), 10);
+  if (!Number.isSafeInteger(uid) || uid < 0 || !Number.isSafeInteger(gid) || gid < 0) return null;
+  return Object.freeze({ uid, gid });
+}
+
+function probeBinDir(binDir, identity = null) {
   for (const executable of REQUIRED_EXECUTABLES) {
     const file = path.join(binDir, executable);
     const run = spawnSync(file, ['--version'], {
       encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'pipe']
+      stdio: ['ignore', 'pipe', 'pipe'],
+      ...(identity ? { uid: identity.uid, gid: identity.gid } : {})
     });
     if (run.error) {
       return {
@@ -61,28 +116,26 @@ async function mirrorNativeTree({ packageRoot, mirrorBaseDir }) {
   const mirrorRoot = await fs.mkdtemp(path.join(mirrorBaseDir, 'uberbond-embedded-postgres-'));
   const mirrorNative = path.join(mirrorRoot, 'native');
 
+  await fs.chmod(mirrorRoot, 0o755);
   await fs.cp(sourceNative, mirrorNative, {
     recursive: true,
     dereference: false,
     verbatimSymlinks: true
   });
+  await makeNativeTreeChildReadable(mirrorNative);
   await makeBinExecutable(path.join(mirrorNative, 'bin'));
-
-  const mirrorProbe = probeBinDir(path.join(mirrorNative, 'bin'));
-  if (!mirrorProbe.ok) {
-    await fs.rm(mirrorRoot, { recursive: true, force: true }).catch(() => {});
-    throw new Error(`embedded Postgres executable mirror failed: ${mirrorProbe.executable}:${mirrorProbe.code}`);
-  }
 
   await fs.rm(nativeDir, { recursive: true, force: true });
   await fs.symlink(mirrorNative, nativeDir, 'dir');
+  await makeAncestorsSearchable(path.join(packageRoot, 'native', 'bin'));
   return mirrorNative;
 }
 
 export async function prepareEmbeddedPostgresFixture({
   packageRoot = PACKAGE_ROOT,
   mirrorBaseDir = os.tmpdir(),
-  forceMirror = false
+  forceMirror = false,
+  probeIdentity = undefined
 } = {}) {
   if (process.platform !== 'linux' || process.arch !== 'x64') {
     return Object.freeze({ status: 'NOT_APPLICABLE', platform: process.platform, arch: process.arch });
@@ -95,19 +148,22 @@ export async function prepareEmbeddedPostgresFixture({
   }
 
   let binDir = path.join(packageRoot, 'native', 'bin');
+  await makeNativeTreeChildReadable(path.join(packageRoot, 'native'));
   await makeBinExecutable(binDir);
+  await makeAncestorsSearchable(binDir);
   for (const executable of REQUIRED_EXECUTABLES) {
     await fs.access(path.join(binDir, executable), FS_CONSTANTS.X_OK);
   }
 
-  let probe = probeBinDir(binDir);
+  const identity = probeIdentity === undefined ? resolvePostgresIdentity() : probeIdentity;
+  let probe = probeBinDir(binDir, identity || null);
   let executionMode = 'PACKAGE_NATIVE';
 
   if (forceMirror || (!probe.ok && probe.code === 'EACCES')) {
     await mirrorNativeTree({ packageRoot, mirrorBaseDir });
     binDir = path.join(packageRoot, 'native', 'bin');
     executionMode = 'TMP_NATIVE_SYMLINK';
-    probe = probeBinDir(binDir);
+    probe = probeBinDir(binDir, identity || null);
   }
 
   if (!probe.ok) {
@@ -120,11 +176,12 @@ export async function prepareEmbeddedPostgresFixture({
     version: APPROVED_VERSION,
     requiredExecutables: [...REQUIRED_EXECUTABLES],
     executionProbe: 'PASSED',
-    executionMode
+    executionMode,
+    executionIdentity: identity ? 'POSTGRES_UID_GID' : 'CURRENT_PROCESS'
   });
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url))) {
   const result = await prepareEmbeddedPostgresFixture();
-  process.stdout.write(`embedded-postgres-fixture — ${result.status}${result.version ? ` ${result.version}` : ''}${result.executionMode ? ` ${result.executionMode}` : ''}\n`);
+  process.stdout.write(`embedded-postgres-fixture — ${result.status}${result.version ? ` ${result.version}` : ''}${result.executionMode ? ` ${result.executionMode}` : ''}${result.executionIdentity ? ` ${result.executionIdentity}` : ''}\n`);
 }

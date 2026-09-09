@@ -35,6 +35,9 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
   const executablePreparation = terminal.indexOf("['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]");
   const firstPreparation = terminal.indexOf('...fixturePreparation');
   const secondPreparation = terminal.indexOf('...fixturePreparation', firstPreparation + 1);
+  const truthRegeneration = terminal.indexOf("['node', ['scripts/current-truth-regeneration.mjs']]");
+  const terminalRealization = terminal.indexOf("['node', ['scripts/terminal-realization.mjs']]");
+  const featureGenome = terminal.indexOf("['node', ['scripts/uberbond-feature-genome.mjs']]");
   const deterministic = terminal.indexOf("['npm', ['run', 'test:deterministic']]");
   const mutationWar = terminal.indexOf("['npm', ['run', 'test:mutation-war']]");
 
@@ -45,6 +48,14 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
   assert.ok(secondPreparation > deterministic && secondPreparation < mutationWar,
     'fixture preparation must be reasserted after deterministic and immediately before Mutation War');
   assert.ok(mutationWar > deterministic, 'Mutation War must remain after the complete deterministic suite');
+  assert.ok(truthRegeneration >= 0,
+    'terminal gate must execute exact-checkout current-truth regeneration');
+  assert.ok(terminalRealization > truthRegeneration,
+    'finite engineering tribunal must execute after exact-checkout truth regeneration');
+  assert.ok(featureGenome > terminalRealization,
+    'finite engineering tribunal must fail closed before downstream repository-derived atlases');
+  assert.match(terminal, /finiteEngineeringTribunalRequired: true/,
+    'terminal gate success receipt must declare the finite tribunal as required evidence');
   assert.match(terminal, /process\.platform === 'linux' && process\.arch === 'x64'/);
 
   assert.match(fixture, /spawnSync\('id', \['-u', 'postgres'\]/,

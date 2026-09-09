@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildUberBondCommandCenterStatus } from '../src/uberbond-command-center-status.mjs';
 import { normalizeUberBondCommandCenterStatus } from '../src/uberbond-command-center-normalizer.mjs';
+import { buildAutonomyCommandCenterStatus } from '../src/autonomy-command-center-status.mjs';
 
 const JSON_HEADERS = {
   'content-type': 'application/json; charset=utf-8',
@@ -32,6 +33,7 @@ function equalBearer(header, secret) {
 export function createHandler(deps = {}) {
   const env = deps.env || process.env;
   const build = deps.buildUberBondCommandCenterStatus || buildUberBondCommandCenterStatus;
+  const buildAutonomy = deps.buildAutonomyCommandCenterStatus || buildAutonomyCommandCenterStatus;
   const normalize = deps.normalizeUberBondCommandCenterStatus || normalizeUberBondCommandCenterStatus;
   const repositoryRoot = deps.root || root;
   const clock = deps.now || (() => new Date());
@@ -46,17 +48,43 @@ export function createHandler(deps = {}) {
       return send(res, 401, { ok: false, status: 'REFUSED', reasonCodes: ['unauthorized'] });
     }
     try {
-      const status = await build({
-        root: repositoryRoot,
-        now: clock(),
-        runtime: {
-          platform: env.VERCEL ? 'VERCEL' : 'NODE',
-          environment: env.VERCEL_ENV || env.NODE_ENV || 'unknown',
-          sourceCommit: env.VERCEL_GIT_COMMIT_SHA || env.GITHUB_SHA || null,
-          region: env.VERCEL_REGION || null,
-          adminAuthConfigured: true
+      const now = clock();
+      const sourceCommit = env.VERCEL_GIT_COMMIT_SHA || env.GITHUB_SHA || null;
+      const [status, autonomy] = await Promise.all([
+        build({
+          root: repositoryRoot,
+          now,
+          runtime: {
+            platform: env.VERCEL ? 'VERCEL' : 'NODE',
+            environment: env.VERCEL_ENV || env.NODE_ENV || 'unknown',
+            sourceCommit,
+            region: env.VERCEL_REGION || null,
+            adminAuthConfigured: true
+          }
+        }),
+        buildAutonomy({ root: repositoryRoot, now, sourceCommit })
+      ]);
+      status.autonomy = autonomy;
+      status.receipts = {
+        ...(status.receipts || {}),
+        autonomy: {
+          id: 'autonomy',
+          label: 'Bootstrap autonomy / self-completion',
+          path: 'derived:autonomy-command-center-status',
+          state: 'AVAILABLE',
+          freshness: autonomy.observedAt ? 'EVIDENCE_BOUND' : 'UNVERIFIED',
+          timestamp: autonomy.observedAt,
+          summary: {
+            status: autonomy.status,
+            finiteEngineeringClosure: autonomy.terminal?.finiteEngineeringClosure,
+            maintainerStatus: autonomy.bootstrapAutonomy?.maintainerStatus,
+            continuationStatus: autonomy.bootstrapAutonomy?.continuationStatus,
+            mergePolicy: autonomy.bootstrapAutonomy?.mergePolicy,
+            selfCompletionClaim: autonomy.bootstrapAutonomy?.selfCompletionClaim,
+            businessEffectAuthority: 'NONE'
+          }
         }
-      });
+      };
       const normalized = await normalize(status, { root: repositoryRoot });
       return send(res, 200, normalized);
     } catch {

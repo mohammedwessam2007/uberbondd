@@ -1,0 +1,100 @@
+name: UberBond Self Maintainer Merge Governor
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+concurrency:
+  group: uberbond-self-maintainer-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  admission:
+    if: startsWith(github.event.pull_request.head.ref, 'uberbond/self-maintain/')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      admitted: ${{ steps.govern.outputs.admitted }}
+      pr_number: ${{ steps.govern.outputs.pr_number }}
+      head_sha: ${{ steps.govern.outputs.head_sha }}
+      base_sha: ${{ steps.govern.outputs.base_sha }}
+    steps:
+      - name: Checkout trusted current main only
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Admit exact atomic self-maintainer PR
+        id: govern
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          UBERBOND_PR_NUMBER: ${{ github.event.pull_request.number }}
+          UBERBOND_MERGE_GOVERNOR_MODE: ADMIT
+        run: node .github/workflows/runtime/self-maintainer-merge-governor.mjs
+
+  verify:
+    needs: admission
+    if: needs.admission.outputs.admitted == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout exact admitted candidate with read-only authority
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.admission.outputs.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install exact locked dependencies before candidate execution
+        run: npm ci
+      - name: Seed independent Node verifier image before candidate execution
+        run: docker pull node:22-bookworm
+      - name: Independent syntax tribunal in network-none sandbox
+        run: docker run --rm --network none -v "$PWD:/repo" -w /repo node:22-bookworm npm run check:syntax
+      - name: Independent deterministic tribunal in network-none sandbox
+        run: docker run --rm --network none -v "$PWD:/repo" -w /repo node:22-bookworm npm run test:deterministic
+
+  merge:
+    needs: [admission, verify]
+    if: needs.admission.outputs.admitted == 'true' && needs.verify.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout trusted main governor only
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Re-admit live PR and merge exact verified head only
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          UBERBOND_PR_NUMBER: ${{ needs.admission.outputs.pr_number }}
+          UBERBOND_MERGE_GOVERNOR_MODE: FINALIZE
+          UBERBOND_VERIFY_JOB_CONCLUSION: ${{ needs.verify.result }}
+          UBERBOND_VERIFIED_HEAD_SHA: ${{ needs.admission.outputs.head_sha }}
+        run: node .github/workflows/runtime/self-maintainer-merge-governor.mjs

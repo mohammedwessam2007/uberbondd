@@ -1,0 +1,86 @@
+name: UberBond Finite Completion Wake
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: uberbond-finite-completion-wake
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+jobs:
+  pulse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Collapse pulse when the trusted self-maintainer is already active
+        id: active
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" \
+            --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
+          echo "count=$active" >> "$GITHUB_OUTPUT"
+          if [ "$active" != '0' ]; then
+            echo "Self-maintainer already has ${active} active/queued run(s); completion pulse collapses to no-op."
+          fi
+
+      - name: Checkout exact current main for finite completion truth
+        if: steps.active.outputs.count == '0'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        if: steps.active.outputs.count == '0'
+        with:
+          node-version: 22
+
+      - name: Verify protected admission of finite-completion controller
+        if: steps.active.outputs.count == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='1501ea4e2d298704424b1d8b3c8f504970188b0a'
+          actual=$(git hash-object scripts/uberbond-finite-completion-seed.mjs)
+          if [ "$actual" != "$expected" ]; then
+            echo "Finite completion controller digest drifted: expected ${expected}, observed ${actual}. Protected/manual re-admission required." >&2
+            exit 1
+          fi
+
+      - name: Seed exactly one finite-completion task from current tribunal truth
+        id: seed
+        if: steps.active.outputs.count == '0'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/uberbond-finite-completion-seed.mjs
+
+      - name: Dispatch trusted self-maintainer onto the exact seeded completion task
+        if: steps.active.outputs.count == '0' && steps.seed.outputs.closed != 'true' && steps.seed.outputs.issue_number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ steps.seed.outputs.issue_number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --method POST "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/dispatches" \
+            -f ref='main' \
+            -F "inputs[issueNumber]=${ISSUE_NUMBER}"
+          echo "Finite completion task #${ISSUE_NUMBER} dispatched to the trusted self-maintainer."
+
+      - name: Report finite completion already closed
+        if: steps.active.outputs.count == '0' && steps.seed.outputs.closed == 'true'
+        run: echo 'Declared finite engineering scope is already closed on this exact main; no engineering task dispatched.'

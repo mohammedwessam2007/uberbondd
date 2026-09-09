@@ -75,12 +75,47 @@ jobs:
           echo "run_tick=$run_tick" >> "$GITHUB_OUTPUT"
           echo "resume_issue_number=$resume_issue_number" >> "$GITHUB_OUTPUT"
           echo "resume_only=$resume_only" >> "$GITHUB_OUTPUT"
+      - name: Regenerate exact finite truth and seed one bounded completion target
+        id: finite
+        if: steps.preflight.outputs.run_tick == 'true' && steps.preflight.outputs.resume_issue_number == '' && inputs.issueNumber == ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/cognitive
+          target="/tmp/uberbond-finite-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          terminal_out="/tmp/uberbond-terminal-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.json"
+          seed_out="/tmp/uberbond-finite-seed-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.json"
+          rm -rf "$target"
+          git worktree add --detach "$target" "$GITHUB_SHA"
+          cleanup() { git worktree remove --force "$target" >/dev/null 2>&1 || true; }
+          trap cleanup EXIT
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$target/node_modules"
+          set +e
+          (cd "$target" && node scripts/terminal-realization.mjs > "$terminal_out")
+          terminal_status=$?
+          set -e
+          set +e
+          (cd "$target" && node scripts/uberbond-finite-completion-seed.mjs > "$seed_out")
+          seed_status=$?
+          set -e
+          cp "$seed_out" artifacts/cognitive/finite-completion-seed.json
+          node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));if(!v||typeof v.status!=='string')process.exit(2)" "$seed_out"
+          issue_number=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));const n=Number(v.issueNumber||0);process.stdout.write(Number.isSafeInteger(n)&&n>0?String(n):'')" "$seed_out")
+          closed=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));process.stdout.write(v.status==='FINITE_ENGINEERING_ALREADY_CLOSED'?'true':'false')" "$seed_out")
+          echo "terminal_status=$terminal_status" >> "$GITHUB_OUTPUT"
+          echo "seed_status=$seed_status" >> "$GITHUB_OUTPUT"
+          echo "issue_number=$issue_number" >> "$GITHUB_OUTPUT"
+          echo "closed=$closed" >> "$GITHUB_OUTPUT"
+          if [ "$seed_status" != '0' ]; then
+            cat "$seed_out" >&2
+            exit "$seed_status"
+          fi
       - name: Run initial whole-brain self-maintenance tick
         id: initial
-        if: steps.preflight.outputs.run_tick == 'true'
+        if: steps.preflight.outputs.run_tick == 'true' && steps.finite.outputs.closed != 'true'
         shell: bash
         env:
-          UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.preflight.outputs.resume_issue_number || inputs.issueNumber }}
+          UBERBOND_SELF_MAINTAINER_ISSUE_NUMBER: ${{ steps.preflight.outputs.resume_issue_number || steps.finite.outputs.issue_number || inputs.issueNumber }}
         run: |
           mkdir -p artifacts/cognitive
           set +e
@@ -171,19 +206,22 @@ jobs:
         with:
           name: uberbond-self-maintenance-${{ github.run_id }}
           path: |
+            artifacts/cognitive/finite-completion-seed.json
             artifacts/cognitive/self-maintainer-preflight.json
             artifacts/cognitive/self-maintainer-initial.json
             artifacts/cognitive/self-maintainer-proposal-dispatch.json
             artifacts/cognitive/self-maintainer-latest.json
             artifacts/cognitive/self-maintainer-continuation.json
           retention-days: 14
-          if-no-files-found: error
+          if-no-files-found: warn
       - name: Preserve unsuccessful maintenance as visible workflow failure after evidence is saved
         shell: bash
         run: |
+          seed='${{ steps.finite.outputs.seed_status }}'
           initial='${{ steps.initial.outputs.tick_status }}'
           proposal='${{ steps.proposal.outputs.proposal_status }}'
           final='${{ steps.final.outputs.tick_status }}'
+          if [ -n "$seed" ] && [ "$seed" != '0' ]; then exit 1; fi
           if [ -n "$initial" ] && [ "$initial" != '0' ]; then exit 1; fi
           if [ -n "$proposal" ] && [ "$proposal" != '0' ]; then exit 1; fi
           if [ -n "$final" ] && [ "$final" != '0' ]; then exit 1; fi

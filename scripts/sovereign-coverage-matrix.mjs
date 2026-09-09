@@ -10,6 +10,7 @@ import { execFileSync } from 'node:child_process';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileCoverageMatrix } from '../src/sovereign-coverage-matrix.mjs';
+import { verifyCoverageStateEvidenceIntegrity } from '../src/coverage-state-evidence-integrity.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -232,6 +233,22 @@ function main() {
   const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, enforcement, externalGates, sourceCommit });
   if (!matrix.ok) { console.error(JSON.stringify(matrix, null, 2)); return 2; }
 
+  // Do not persist a matrix whose state labels cannot be independently
+  // reconstructed from the row evidence and semantic class. This is a second,
+  // non-promoting tribunal over the compiler output: it can only refuse an
+  // overclaim, and the same verifier is re-run by current-truth regeneration.
+  const stateEvidenceIntegrity = verifyCoverageStateEvidenceIntegrity(matrix);
+  if (!stateEvidenceIntegrity.ok) {
+    console.error(JSON.stringify({
+      ok: false,
+      status: 'COVERAGE_STATE_EVIDENCE_INTEGRITY_REFUSED',
+      reasonCodes: stateEvidenceIntegrity.reasonCodes,
+      violations: stateEvidenceIntegrity.violations,
+      businessEffectAuthority: 'NONE'
+    }, null, 2));
+    return 2;
+  }
+
   const output = join(root, 'artifacts/sovereign/implementation-coverage-matrix.json');
   mkdirSync(dirname(output), { recursive: true });
   writeFileSync(output, `${JSON.stringify(matrix, null, 2)}\n`, 'utf8');
@@ -243,6 +260,7 @@ function main() {
     mergedAliasRows: matrix.counts.mergedAliasRows,
     byState: matrix.counts.byState,
     byLane: matrix.counts.byLane,
+    stateEvidenceIntegrity: stateEvidenceIntegrity.status,
     output: 'artifacts/sovereign/implementation-coverage-matrix.json',
     businessEffectAuthority: 'NONE'
   }, null, 2));

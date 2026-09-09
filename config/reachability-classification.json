@@ -624,6 +624,10 @@
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
     },
+    "src/personal-civilization-private-operator.mjs": {
+      "category": "DELIBERATELY_UNREACHABLE",
+      "reason": "This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."
+    },
     "src/personal-civilization-possibility.mjs": {
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."

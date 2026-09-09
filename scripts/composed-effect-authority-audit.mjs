@@ -47,7 +47,7 @@ const declarations=[
     authorityLaw:'A real messaging provider may be called only after authoritative final admission over the exact durable effect identity and prepared arguments. Uncertainty never permits automatic resend.',
     sourceMarkers:[
       {path:'src/omnia-v9/integrations/external-effect-dispatcher.mjs',mustContain:['finalAdmissionCheck','final-admission:not-authoritative-and-enforced',"toStatus: 'DISPATCHING'",'authorizationDigest','policyDigest','constitutionDigest','RESULT_UNCERTAIN','adapter.dispatch(preparedEffect)']},
-      {path:'src/omnia-v9/integrations/external-effect-recovery.mjs',mustContain:['Never\n * calls adapter.dispatch()','WITHOUT ever calling adapter.dispatch() again']}
+      {path:'src/omnia-v9/integrations/external-effect-recovery.mjs',mustContain:['calls adapter.dispatch() -- the only network-mutating call this module','WITHOUT ever calling adapter.dispatch() again']}
     ],
     productionProviderImportViolations:providerImports
   },

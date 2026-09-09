@@ -4,11 +4,20 @@ import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { compileAgentCodeChangeSet, contentSha256 } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_PR_VERIFIER_VERSION = 'uberbond.self-maintainer-pr-verifier.v1.1';
+export const SELF_MAINTAINER_PR_VERIFIER_VERSION = 'uberbond.self-maintainer-pr-verifier.v1.2';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const BRANCH_PREFIX = 'uberbond/self-maintain/';
 const REQUIRED_VERIFICATION = Object.freeze(['npm run check:syntax', 'npm run test:deterministic']);
+const COMMAND_CENTER_TRUTH_SURFACES = new Set([
+  'api/command-center.mjs',
+  'src/uberbond-command-center-status.mjs',
+  'src/uberbond-command-center-normalizer.mjs',
+  'src/command-center-autonomy-control-plane.mjs',
+  'public/command-center.js',
+  'public/command-center.html',
+  'public/command-center-sw.js'
+]);
 
 function text(value, max = 1000) {
   return String(value ?? '').trim().slice(0, max);
@@ -59,6 +68,10 @@ function existingTestMutation(row) {
   return String(row?.path || '').startsWith('tests/') && row?.status !== 'A';
 }
 
+function commandCenterTruthMutation(row) {
+  return COMMAND_CENTER_TRUTH_SURFACES.has(String(row?.path || ''));
+}
+
 export async function verifySelfMaintainerPullRequest({ env = process.env } = {}) {
   const baseSha = text(env.UBERBOND_PR_BASE_SHA, 80).toLowerCase();
   const headSha = text(env.UBERBOND_PR_HEAD_SHA, 80).toLowerCase();
@@ -87,6 +100,7 @@ export async function verifySelfMaintainerPullRequest({ env = process.env } = {}
   if (!rows.length) return fail(['nonempty-self-maintainer-diff-required']);
   if (rows.length > 20) return fail(['self-maintainer-change-count-limit']);
   if (rows.some(existingTestMutation)) return fail(['autonomous-existing-test-mutation-requires-human-review']);
+  if (rows.some(commandCenterTruthMutation)) return fail(['autonomous-command-center-truth-surface-mutation-requires-human-review']);
 
   const changes = [];
   for (const row of rows) {
@@ -135,9 +149,10 @@ export async function verifySelfMaintainerPullRequest({ env = process.env } = {}
     canonicalReconstructionId: reconstructed.changeSetId,
     requiredVerification: [...REQUIRED_VERIFICATION],
     evaluatorMutationPolicy: 'EXISTING_TEST_MODIFY_OR_DELETE_REQUIRES_HUMAN_REVIEW',
+    commandCenterTruthPolicy: 'COMMAND_CENTER_TRUTH_SURFACES_REQUIRE_HUMAN_REVIEW',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'THIS RECEIPT ADMITS THE PR TO READ_ONLY TESTING. IT DOES NOT MERGE, DEPLOY, CONTACT CUSTOMERS, MOVE MONEY, OR ESTABLISH RUNTIME/COMMERCIAL/ASI TRUTH.'
+    truthBoundary: 'THIS RECEIPT ADMITS THE PR TO READ_ONLY TESTING. IT DOES NOT MERGE, DEPLOY, CONTACT CUSTOMERS, MOVE MONEY, MODIFY COMMAND-CENTER TRUTH SURFACES, OR ESTABLISH RUNTIME/COMMERCIAL/ASI TRUTH.'
   };
 }
 

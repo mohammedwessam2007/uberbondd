@@ -2,7 +2,7 @@
 Description=Watch for a locally transferred signed UberBond release
 
 [Path]
-PathChanged=/var/lib/uberbond-control/inbox/NEXT_RELEASE
+PathExists=/var/lib/uberbond-control/inbox/NEXT_RELEASE
 Unit=uberbond-release-apply.service
 
 [Install]

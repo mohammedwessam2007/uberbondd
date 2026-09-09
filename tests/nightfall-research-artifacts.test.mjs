@@ -149,59 +149,26 @@ test('Nightfall artifacts claim zero observed external effects wherever a ledger
   }
 });
 
-// This test used to assert `fullProjectExists === true` and
-// `privateLiteProjectExists === true`, and to forbid the activation contract
-// from saying otherwise.
-//
-// That is a belief about the outside world pinned as a repository invariant,
-// and it is contradicted by the strongest evidence available from inside:
-// `list_projects` on the account's only team returns an empty array, queried on
-// two separate days. One lane audited and recorded two projects; another
-// queried the API and found none. Both observations are preserved in the
-// handoff rather than one being deleted, because the truth hierarchy puts
-// durable provider evidence above internal claims and neither lane can settle
-// it from here -- only the owner's dashboard can.
-//
-// What the test should guard is what it was named for: not overstating cloud
-// liveness. Existence is a question for evidence; liveness is a question this
-// repository can answer, and the answer is no.
-test('Nightfall handoff records cloud activation truth with provenance', async () => {
-  const handoff = await loadJson('docs/CURRENT_HANDOFF.json');
-  const truth = handoff.cloudActivationTruth;
-  assert.ok(truth && typeof truth === 'object', 'the handoff must state cloud activation truth');
-
-  // Every existence claim carries how it was observed, so a reader can weigh it.
-  for (const field of ['fullProjectExists', 'privateLiteProjectExists']) {
-    assert.ok(Object.hasOwn(truth, field), `${field} must be stated, even as unknown`);
-    assert.ok(truth.observations && Array.isArray(truth.observations) && truth.observations.length > 0,
-      'an existence claim with no recorded observation is not evidence');
-    for (const observation of truth.observations) {
-      assert.ok(observation.observedVia, 'each observation must say how it was made');
-      assert.ok(observation.observedAt, 'each observation must say when');
-    }
-  }
-
-  // A contradiction between lanes is preserved, never silently resolved.
-  if (truth.contradiction) {
-    assert.ok(truth.contradiction.length > 20, 'a recorded contradiction must say what disagrees');
-  }
+test('current cloud contract records fresh connected-provider reachability with provenance', async () => {
+  const contract = await readFile(new URL('../docs/CLOUD_ACTIVATION_CONTRACT.md', import.meta.url), 'utf8');
+  assert.match(contract, /Observed provider state — 2026-09-09/);
+  assert.match(contract, /prj_RWUPf14w1xIz9NK92AbNW5z7qDCg/);
+  assert.match(contract, /prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz/);
+  assert.match(contract, /dpl_2PhVeSieAtWWADw4pdxavwd1ULZR/);
+  assert.match(contract, /08be0cd10a6e8e35d5c5dfa608ec0f7ad5583c2e/);
+  assert.match(contract, /historical connector-scope contradiction/i);
 });
 
-test('Nightfall handoff does not overstate cloud liveness', async () => {
+test('current cloud contract does not promote project reachability into production or scheduler liveness', async () => {
   const handoff = await loadJson('docs/CURRENT_HANDOFF.json');
-  const truth = handoff.cloudActivationTruth;
-  // These are the claims this repository can settle, and all three are false
-  // until something outside it says otherwise.
-  assert.equal(truth.currentMainExactProductionDeploymentProven, false);
-  assert.equal(truth.cronRegistrationProven, false);
-  assert.equal(truth.cronDeliveryProven, false);
-  assert.equal(handoff.repositoryPublicationEffects.productionDeploymentsAuthorizedOrPerformedByThisLane, 0);
+  assert.ok(Array.isArray(handoff.blockers));
+  assert.ok(handoff.blockers.some(item => /^RUNTIME PROOF REQUIRED:/i.test(item)));
+  assert.ok(handoff.blockers.some(item => /^EXTERNAL\/PROVIDER:/i.test(item)));
 
-  const contract = await readFile(
-    new URL('../docs/CLOUD_ACTIVATION_CONTRACT.md', import.meta.url),
-    'utf8'
-  );
+  const contract = await readFile(new URL('../docs/CLOUD_ACTIVATION_CONTRACT.md', import.meta.url), 'utf8');
   assert.match(contract, /Current main exact production SHA proven \| \*\*NO\*\*/);
-  // The contract must state the disagreement rather than assert either side.
-  assert.match(contract, /contradiction/i);
+  assert.match(contract, /Current zero-I\/O cron registration proven \| \*\*NO\*\*/);
+  assert.match(contract, /Current zero-I\/O cron delivery proven \| \*\*NO\*\*/);
+  assert.match(contract, /Production deployments authorized or performed by this repair lane \| \*\*NONE\*\*/);
+  assert.doesNotMatch(contract, /Current main exact production SHA proven \| \*\*YES\*\*/);
 });

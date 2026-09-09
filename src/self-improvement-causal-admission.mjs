@@ -52,6 +52,10 @@ function validateStrategyMutationReceipt(receipt, { primary, constraintObjective
   if (receipt?.hardMutationRequired !== true || receipt?.identicalRetryAllowed !== false || receipt?.decision !== 'MUTATE_STRATEGY_NOW') {
     reasons.push('strategy-mutation-must-forbid-identical-retry');
   }
+  const repeatCount = Number(receipt?.repeatCount);
+  if (receipt?.sameStrategyRepeated !== true || !Number.isSafeInteger(repeatCount) || repeatCount < 1) {
+    reasons.push('strategy-mutation-repeat-proof-required');
+  }
   if (receipt?.businessEffectAuthority !== 'NONE') reasons.push('strategy-mutation-receipt-must-not-carry-authority');
   const objectiveId = text(receipt?.objectiveId, 200);
   const priorMechanismId = text(receipt?.mechanismId, 200);
@@ -82,7 +86,8 @@ function validateStrategyMutationReceipt(receipt, { primary, constraintObjective
       failureClass: failureClass || null,
       failedSignature: failedSignature || null,
       strategyFingerprint: strategyFingerprint || null,
-      repeatCount: Number.isSafeInteger(Number(receipt?.repeatCount)) ? Number(receipt.repeatCount) : null
+      repeatCount: Number.isSafeInteger(repeatCount) ? repeatCount : null,
+      sameStrategyRepeated: receipt?.sameStrategyRepeated === true
     }
   };
 }

@@ -17,11 +17,14 @@ function section(name, next) {
   return workflow.slice(start, end < 0 ? workflow.length : end);
 }
 
-test('self-maintainer wakes without founder prompts but preserves non-repeating continuation', () => {
+test('self-maintainer wakes without founder prompts and can continue immediately after merge', () => {
   assert.match(workflow, /schedule:\s*\n\s*- cron: '7,37 \* \* \* \*'/);
+  assert.match(workflow, /repository_dispatch:\s*\n\s*types:\s*\n\s*- uberbond-self-maintainer-continuation/);
   assert.match(workflow, /self-maintainer-pulse-preflight\.mjs/);
   assert.match(workflow, /self-maintainer-continuation-receipt\.mjs/);
   assert.match(workflow, /push:\s*\n\s*branches:\s*\n\s*- main/);
+  assert.match(governor, /event_type: CONTINUATION_EVENT/);
+  assert.match(governor, /TWICE_HOURLY_SCHEDULE/);
 });
 
 test('proposal, verification and merge are isolated jobs with narrowing authority', () => {
@@ -89,6 +92,7 @@ test('command center reports autonomy configuration without becoming an actuator
   assert.equal(status.externalEffectAuthority, 'NONE');
   assert.equal(status.founderPrivateAuthority, 'NONE');
   assert.equal(status.sourceConfiguration.scheduledWake, 'TWICE_HOURLY_NON_REPEATING_PULSE');
+  assert.equal(status.sourceConfiguration.postMergeContinuation, 'REPOSITORY_DISPATCH_WITH_TWICE_HOURLY_FALLBACK');
   assert.match(api, /compileCommandCenterAutonomyControlPlane/);
   assert.match(api, /String\(req\?\.method \|\| ''\)\.toUpperCase\(\) !== 'GET'/);
   assert.doesNotMatch(api, /mergePullRequest|workflow_dispatch|repository_dispatch/);

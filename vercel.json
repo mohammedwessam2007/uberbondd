@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "uberbond/self-maintain/**": false
+    }
+  },
   "buildCommand": "node scripts/vercel-command-center-build.mjs",
   "functions": {
     "api/agent-relay.mjs": { "maxDuration": 60 },

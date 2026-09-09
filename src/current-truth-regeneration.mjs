@@ -4,7 +4,7 @@ import { verifyCoverageDenominatorConservation } from './sovereign-coverage-deno
 import { verifyReachabilityConservation } from './readiness-reachability-conservation.mjs';
 import { verifyCoverageStateEvidenceIntegrity } from './coverage-state-evidence-integrity.mjs';
 
-export const CURRENT_TRUTH_REGENERATION_VERSION='uberbond.current-truth-regeneration.v1.8';
+export const CURRENT_TRUTH_REGENERATION_VERSION='uberbond.current-truth-regeneration.v1.7';
 const SHA=/^[0-9a-f]{40}$/;const SHA256=/^[0-9a-f]{64}$/;
 const ZERO_EFFECTS=Object.freeze({customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0});
 export const EXPECTED_TRUTH_OUTPUTS=Object.freeze(['artifacts/system-readiness.json','artifacts/sovereign/implementation-coverage-matrix.json','artifacts/sovereign/canonical-execution-leaf-graph.json','docs/CURRENT_SYSTEM_STATE.md']);

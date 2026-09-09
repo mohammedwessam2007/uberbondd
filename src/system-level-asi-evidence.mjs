@@ -43,7 +43,7 @@ const hash=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex'
 const instant=v=>{const s=txt(v,100);if(!s||!ISO.test(s))return null;const ms=Date.parse(s);return Number.isFinite(ms)?{raw:s,ms}:null;};
 const fail=(reasons,extra={})=>({ok:false,version:SYSTEM_LEVEL_ASI_EVIDENCE_VERSION,status:'C21_EVIDENCE_PROTOCOL_REFUSED',reasonCodes:uniq(reasons.filter(Boolean)),asiStatus:SYSTEM_LEVEL_ASI_STATUS,businessEffectAuthority:'NONE',promotionAuthority:'NONE',externalEffectLedger:{...ZERO},...extra});
 
-function normalizeDimension(row, nowMs, maxAgeMs) {
+function normalizeDimension(row, nowMs, maxAgeMs, candidateId, candidateRevision) {
   const dimension=txt(row?.dimension,120)?.toLowerCase();
   const evidenceRef=txt(row?.evidenceRef,500);
   const evaluatorRef=txt(row?.independentEvaluatorRef,500);
@@ -55,8 +55,9 @@ function normalizeDimension(row, nowMs, maxAgeMs) {
   if(!dimension||!evidenceRef||!evaluatorRef||!verifierId||!verifierLineageRef||!taskPopulationHash||!SHA256.test(taskPopulationHash)||!observed) return null;
   if(observed.ms>nowMs||nowMs-observed.ms>maxAgeMs) return null;
   if(c13?.ok!==true||c13?.status!=='COMPOUND_INTELLIGENCE_GAIN_SUPPORTED_WITHIN_DEFINED_SCOPE'||c13?.evidenceStage!=='FRESH_CONTEXT_REPRODUCED_WITH_CROSS_DOMAIN_TRANSFER_SUPPORT'||c13?.asiStatus!==SYSTEM_LEVEL_ASI_STATUS||!SHA256.test(String(c13?.compositionDigest||'').toLowerCase())) return null;
+  if(c13?.compositionId!==candidateId||c13?.compositionRevision!==candidateRevision) return null;
   if(c13?.generalityClaim!=='WITHHELD__DEFINED_TASK_POPULATION_ONLY') return null;
-  if(row?.baselineVerifiedAtEvaluationTime!==true||row?.thresholdFrozenBeforeEvaluation!==true||row?.freshContextHeldout===true&&row?.freshContextRetained!==true) return null;
+  if(row?.baselineVerifiedAtEvaluationTime!==true||row?.thresholdFrozenBeforeEvaluation!==true||row?.freshContextHeldout!==true||row?.freshContextRetained!==true) return null;
   if(!['CLEAN','BOUNDED_DISCLOSED'].includes(txt(row?.contaminationStatus,40)?.toUpperCase())) return null;
   if(row?.evaluatorIndependent!==true) return null;
   return {dimension,evidenceRef,independentEvaluatorRef:evaluatorRef,verifierId,verifierLineageRef,taskPopulationHash,observedAt:observed.raw,compositionDigest:c13.compositionDigest.toLowerCase(),contaminationStatus:row.contaminationStatus.toUpperCase()};
@@ -82,8 +83,8 @@ export function evaluateSystemLevelAsiEvidence({
 
   const rows=[];
   for(const raw of Array.isArray(dimensions)?dimensions:[]) {
-    const row=normalizeDimension(raw,clock.ms,maxEvidenceAgeMs);
-    if(!row) return fail(['every-counted-dimension-requires-fresh-observed-c13-evidence-independent-evaluation-frozen-threshold-baseline-and-contamination-contract']);
+    const row=normalizeDimension(raw,clock.ms,maxEvidenceAgeMs,id,revision);
+    if(!row) return fail(['every-counted-dimension-requires-fresh-observed-exact-candidate-c13-evidence-independent-evaluation-heldout-retention-frozen-threshold-baseline-and-contamination-contract']);
     rows.push(row);
   }
   if(new Set(rows.map(r=>r.dimension)).size!==rows.length) return fail(['dimension-evidence-must-be-unique']);

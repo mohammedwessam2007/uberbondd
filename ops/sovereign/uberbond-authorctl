@@ -12,7 +12,7 @@ AUTONOMY_DIR="$CONTROL_DIR/autonomy"
 PAUSE_FILE="$AUTONOMY_DIR/PAUSED"
 STATUS_FILE="$AUTONOMY_DIR/status.json"
 TASK_FILE="$AUTONOMY_DIR/next-task.json"
-RESULT_FILE="$AUTONOMY_DIR/worker-result.json"
+WORKER_RESULT="${UBERBOND_WORKER_RESULT_PATH:-/var/lib/uberbond-worker/outbox/result.json}"
 VERIFIED_FILE="$AUTONOMY_DIR/verified-change.json"
 NODE="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
 
@@ -20,60 +20,45 @@ mkdir -p "$AUTONOMY_DIR"
 chmod 700 "$AUTONOMY_DIR" 2>/dev/null || true
 [[ -d "$SOURCE_ROOT" && ! -L "$SOURCE_ROOT" ]] || { echo "REFUSED: real source directory required" >&2; exit 2; }
 [[ -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted Node executable required" >&2; exit 2; }
-
 run_from_source(){ (cd "$SOURCE_ROOT" && "$@"); }
-json_status(){
-  if [[ -f "$STATUS_FILE" && ! -L "$STATUS_FILE" ]]; then cat "$STATUS_FILE"; else printf '%s\n' '{"ok":true,"status":"NO_AUTONOMY_PULSE_RECORDED"}'; fi
-}
+json_status(){ if [[ -f "$STATUS_FILE" && ! -L "$STATUS_FILE" ]]; then cat "$STATUS_FILE"; else printf '%s\n' '{"ok":true,"status":"NO_AUTONOMY_PULSE_RECORDED"}'; fi; }
 
 wake(){
   run_from_source env \
     UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
-    UBERBOND_LOCAL_WORKER_EXECUTABLE="${UBERBOND_LOCAL_WORKER_EXECUTABLE:-}" \
-    UBERBOND_LOCAL_WORKER_TIMEOUT_MS="${UBERBOND_LOCAL_WORKER_TIMEOUT_MS:-2700000}" \
+    UBERBOND_ISOLATED_WORKER_ENABLED="${UBERBOND_ISOLATED_WORKER_ENABLED:-false}" \
+    UBERBOND_WORKER_INBOX_ROOT="${UBERBOND_WORKER_INBOX_ROOT:-/var/lib/uberbond-worker/inbox}" \
+    UBERBOND_WORKER_TASK_PATH="${UBERBOND_WORKER_TASK_PATH:-/var/lib/uberbond-worker/inbox/task.json}" \
     "$NODE" scripts/sovereign-autonomy-pulse.mjs
-  local status
-  status="$($NODE -e "const fs=require('fs');const p=process.argv[1];const v=JSON.parse(fs.readFileSync(p,'utf8'));process.stdout.write(String(v.status||''));" "$STATUS_FILE")"
-  if [[ "$status" == "CANDIDATE_READY_FOR_INDEPENDENT_SANDBOX_VERIFICATION" ]]; then
-    verify
-  fi
 }
 
 verify(){
-  [[ -f "$TASK_FILE" && ! -L "$TASK_FILE" && -f "$RESULT_FILE" && ! -L "$RESULT_FILE" ]] || { echo "REFUSED: task and worker result required" >&2; exit 2; }
-  run_from_source env UBERBOND_CONTROL_DIR="$CONTROL_DIR" UBERBOND_REPOSITORY="${UBERBOND_REPOSITORY:-local/uberbond}" "$NODE" scripts/sovereign-autonomy-verify.mjs
+  [[ -f "$TASK_FILE" && ! -L "$TASK_FILE" && -f "$WORKER_RESULT" && ! -L "$WORKER_RESULT" ]] || { echo "REFUSED: authoring task and isolated worker result required" >&2; exit 2; }
+  run_from_source env \
+    UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
+    UBERBOND_WORKER_OUTBOX_ROOT="${UBERBOND_WORKER_OUTBOX_ROOT:-/var/lib/uberbond-worker/outbox}" \
+    UBERBOND_WORKER_RESULT_PATH="$WORKER_RESULT" \
+    UBERBOND_REPOSITORY="${UBERBOND_REPOSITORY:-local/uberbond}" \
+    "$NODE" scripts/sovereign-autonomy-verify.mjs
 }
 
-pause(){
-  local tmp="${PAUSE_FILE}.tmp.$$"
-  printf 'paused_at=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$tmp"
-  chmod 600 "$tmp"
-  mv -f "$tmp" "$PAUSE_FILE"
-  printf '%s\n' 'FOUNDER_PAUSED'
-}
-
-resume(){
-  rm -f "$PAUSE_FILE"
-  printf '%s\n' 'FOUNDER_RESUMED'
-  wake
-}
-
-help(){
-  cat <<'EOF'
+pause(){ local tmp="${PAUSE_FILE}.tmp.$$"; printf 'paused_at=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$tmp"; chmod 600 "$tmp"; mv -f "$tmp" "$PAUSE_FILE"; printf '%s\n' 'FOUNDER_PAUSED'; }
+resume(){ rm -f "$PAUSE_FILE"; printf '%s\n' 'FOUNDER_RESUMED'; wake; }
+help(){ cat <<'EOF'
 UberBond Sovereign Authoring Command Center
 
   uberbond-authorctl status   exact local autonomy receipt
-  uberbond-authorctl wake     regenerate truth and run one bounded local pulse
+  uberbond-authorctl wake     regenerate truth and emit one bounded task
   uberbond-authorctl pause    durably stop new authoring pulses
   uberbond-authorctl resume   remove pause and immediately wake
-  uberbond-authorctl verify   independently verify an existing worker candidate
+  uberbond-authorctl verify   independently verify isolated worker output
   uberbond-authorctl help     show this help
 
-This control surface does not merge, sign, deploy, send, spend, mutate DNS,
-change credentials, contact customers, or grant business-effect authority.
+The model worker is a separate OS identity with read-only source and no access to
+authoring receipts. This control surface does not merge, sign, deploy, send,
+spend, mutate DNS/credentials, contact customers, or grant business authority.
 EOF
 }
-
 case "${1:-}" in
   status) json_status ;;
   wake) wake ;;

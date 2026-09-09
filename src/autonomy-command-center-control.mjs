@@ -78,7 +78,14 @@ export function statusMarkdown({ status = {}, paused = false, sourceCommit = nul
   const bootstrap = status?.bootstrapAutonomy || {};
   const terminal = status?.terminal || {};
   const graph = status?.graph || {};
+  const terminalEvidenceAvailable = status?.evidence?.terminalRealization?.state === 'AVAILABLE';
+  const graphEvidenceAvailable = status?.evidence?.executionGraph?.state === 'AVAILABLE';
   const safe = value => text(value, 300) || 'UNAVAILABLE';
+  const measuredCount = (value, evidenceAvailable) => {
+    if (!evidenceAvailable || value === null || value === undefined || value === '') return 'UNKNOWN';
+    const number = Number(value);
+    return Number.isSafeInteger(number) && number >= 0 ? number : 'UNKNOWN';
+  };
   return [
     '### UberBond autonomy status',
     '',
@@ -88,9 +95,9 @@ export function statusMarkdown({ status = {}, paused = false, sourceCommit = nul
     `- **Self-maintainer:** ${safe(bootstrap.maintainerStatus)}`,
     `- **Continuation:** ${safe(bootstrap.continuationStatus)}`,
     `- **Finite engineering:** ${safe(bootstrap.finiteEngineeringClosure)}`,
-    `- **Finite open requirements:** ${Number.isSafeInteger(Number(bootstrap.finiteOpenRequirementCount)) ? Number(bootstrap.finiteOpenRequirementCount) : 'UNKNOWN'}`,
-    `- **Execution leaves:** ${Number.isSafeInteger(Number(graph.leafCount)) ? Number(graph.leafCount) : 'UNKNOWN'}`,
-    `- **Orphans / floating / cycles:** ${Number(graph.orphanRequirementCount ?? 0)} / ${Number(graph.floatingLeafCount ?? 0)} / ${Number(graph.dependencyCycleCount ?? 0)}`,
+    `- **Finite open requirements:** ${measuredCount(bootstrap.finiteOpenRequirementCount, terminalEvidenceAvailable)}`,
+    `- **Execution leaves:** ${measuredCount(graph.leafCount, graphEvidenceAvailable)}`,
+    `- **Orphans / floating / cycles:** ${measuredCount(graph.orphanRequirementCount, graphEvidenceAvailable)} / ${measuredCount(graph.floatingLeafCount, graphEvidenceAvailable)} / ${measuredCount(graph.dependencyCycleCount, graphEvidenceAvailable)}`,
     `- **Named runtime:** ${safe(terminal.namedRuntimeStatus)}`,
     `- **Observed autonomy:** ${safe(terminal.observedAutonomyStatus)}`,
     `- **Commercial reality:** ${safe(terminal.externalCommercialStatus)}`,

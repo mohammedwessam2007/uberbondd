@@ -19,7 +19,8 @@ const steps = [
     'tests/uberbond-repository-deep-atlas-growth-safe.test.mjs',
     'tests/uberbond-ultimate-graph.test.mjs',
     'tests/ultimate-graph-api.test.mjs',
-    'tests/command-center-owner-auth-hostile.test.mjs'
+    'tests/command-center-owner-auth-hostile.test.mjs',
+    'tests/lite-owner-bearer-source.test.mjs'
   ]]
 ];
 

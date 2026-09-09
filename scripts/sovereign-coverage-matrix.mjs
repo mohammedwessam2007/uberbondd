@@ -13,6 +13,9 @@ import { compileCoverageMatrix } from '../src/sovereign-coverage-matrix.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
+// Every canonical source, and which of its lists carry concepts. `class` shapes
+// the state ladder: BOUNDARY, EXTERNAL_GATE and ELAPSED_TIME can never be
+// satisfied by code, so they are never scored as if they could be.
 const FORECAST_ENGINE = 'Sovereign Option & Outcome Forecast Engine';
 
 const SOURCES = [
@@ -27,6 +30,10 @@ const SOURCES = [
     ['coreOrgans', 'ORGAN'], ['containedPersonalCivilizationSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['canonicalLoop', 'LOOP_STAGE']]],
   ['artifacts/sovereign-option-outcome-forecast-engine.json', 'forecast', [
+    // The third element names the organ a field belongs to. Supplied only where
+    // a real organ exists: the personal-civilization dimensions further down
+    // carry no parent, so they stay SPEC_ONLY rather than inheriting coverage
+    // from an organ nobody built.
     ['optionUniverseRequirements', 'FORECAST_REQUIREMENT', FORECAST_ENGINE],
     ['forecastOutputs', 'FORECAST_OUTPUT', FORECAST_ENGINE],
     ['forecastStack', 'FORECAST_MECHANISM', FORECAST_ENGINE],
@@ -42,13 +49,23 @@ const SOURCES = [
     ['hierarchy', 'HIERARCHY'], ['canonicalLifeSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['supportingCognitiveTechnicalSystems', 'CONCEPT'], ['economicInventionSystems', 'ECONOMIC_DONOR'],
     ['farFutureConceptualDonors', 'CONCEPT'],
+    // Parented now that an organ produces them. evaluationDimensions below
+    // stays parentless on purpose: those are criteria for a human reviewing
+    // UberBond, not outputs any module computes.
     ['lifeDecisionDimensions', 'FORECAST_DIMENSION', 'Value Manifold'],
     ['humanSovereigntyLaws', 'AUTHORITY_LAW'],
+    // evaluationDimensions are criteria for a human reviewing UberBond, not
+    // outputs a module computes -- deliberately parentless.
     ['evaluationDimensions', 'FORECAST_DIMENSION']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],
     ['founderFreedomDimensions', 'SOVEREIGNTY_DIMENSION']]],
   ['artifacts/uberbond-total-brain.json', 'total-brain', [
+    // truthPriority is an ordered evidence ranking, not a set of rules --
+    // "HYPOTHESIS" and "DRAFT_BRANCH_EVIDENCE" are rungs, and asking what
+    // module enforces a rung is a category error. Its sibling truthClasses was
+    // already typed ONTOLOGY; this was measuring the same thing as six
+    // unenforced laws.
     ['truthPriority', 'ONTOLOGY'], ['truthClasses', 'ONTOLOGY'], ['economicLoop', 'LOOP_STAGE'],
     ['constitutionalSpine', 'HIERARCHY'], ['productFamilies', 'ECONOMIC_DONOR'],
     ['recurringProductLineage', 'ECONOMIC_DONOR'], ['platformDestinations', 'ECONOMIC_DONOR'],
@@ -61,6 +78,7 @@ const SOURCES = [
     ['antiForgettingRules', 'AUTHORITY_LAW']]]
 ];
 
+// Nested families and object lists, which need a key rather than a bare string.
 const NESTED = [
   ['artifacts/uberbond-total-brain.json', 'total-brain', 'namedInitiativeFamilies', 'NAMED_INITIATIVE'],
   ['artifacts/uberbond-memory-index.json', 'memory-index', 'namedInitiatives', 'NAMED_INITIATIVE'],
@@ -142,8 +160,16 @@ export function extractConcepts() {
 
 export function repoIndex() {
   let classification = { modules: {} };
-  try { classification = JSON.parse(readFileSync(join(root, 'config/reachability-classification.json'), 'utf8')); } catch { /* absent */ }
+  try { classification = JSON.parse(readFileSync(join(root, 'config', 'reachability-classification.json'), 'utf8')); } catch { /* absent */ }
   const gated = new Set(Object.keys(classification.modules || {}));
+  // src, scripts and api are all implementation surfaces. Indexing only src
+  // made every script-hosted concept read SPEC_ONLY -- Mutation War is a
+  // scripts/ module with seven suites and a mutation registry behind it, and it
+  // was being reported as an idea nobody had built.
+  // Project-native skills are an implementation surface too. Indexing only
+  // src/scripts/api reported Find Skills, Task Observer, Strix and Agent Reach
+  // as unbuilt while their skill packages sit in the tree -- and would have
+  // pushed them toward being labelled externally blocked, which they are not.
   const sourceFiles = [
     ...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api'),
     ...walkFiles('.claude/skills', '.md')
@@ -152,6 +178,10 @@ export function repoIndex() {
   return {
     sourceFiles,
     testFiles,
+    // Approximate rather than pretending: a module carrying a registered gate is
+    // deliberately unreached, and anything else with a source file is treated as
+    // operator-reachable at worst. The exact production partition lives in the
+    // reachability ratchet and is not recomputed here.
     productionReachable: sourceFiles.filter(file => !gated.has(file)),
     operatorReachable: sourceFiles
   };
@@ -166,6 +196,9 @@ function main() {
   let sourceCommit = null;
   try { sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(); } catch { /* no git */ }
 
+  // Absent is fine; malformed is not. A manifest that fails to parse must not
+  // read as "no declarations", which would silently drop every concept whose
+  // implementation is only discoverable through it.
   let manifest = [];
   const manifestPath = join(root, 'artifacts/sovereign/implementation-manifest.json');
   if (existsSync(manifestPath)) {

@@ -30,6 +30,11 @@ test('receipt integrity rejects forged status schema digest and target identity'
  for(const mutate of mutations){const r=compileFounderOpsRuntimeProbeReceipt(base());mutate(r);assert.equal(verifyFounderOpsRuntimeProbeReceiptIntegrity(r),false);}
 });
 
+test('uncommitted top-level metadata or effect-ledger mutation cannot survive integrity verification',()=>{
+ const mutations=[r=>{r.deploymentAuthority='GRANTED';},r=>{r.truthBoundary='broader claim';},r=>{r.externalEffectLedger.deployments=1;},r=>{r.externalEffectLedger.hiddenEffects=1;}];
+ for(const mutate of mutations){const r=compileFounderOpsRuntimeProbeReceipt(base());mutate(r);assert.equal(verifyFounderOpsRuntimeProbeReceiptIntegrity(r),false);}
+});
+
 test('normalized runtime and target aliases cannot fake verifier independence',()=>{
  const runtime=founderOpsRuntimeIdentity(view().runtime); const target=founderOpsTargetIdentity(TARGET);
  for(const verifierRef of [` verifier: ${runtime.toUpperCase()} `,`verifier:${target.toUpperCase()}`]){const x=base();x.verifierRef=verifierRef;const r=compileFounderOpsRuntimeProbeReceipt(x);assert.equal(r.ok,false,verifierRef);}

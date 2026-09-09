@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
 import { compileExecutionLeafGraph } from './execution-leaf-graph.mjs';
 import { sovereignCoverageContentDigest } from './sovereign-coverage-content-digest.mjs';
+import { verifyCoverageDenominatorConservation } from './sovereign-coverage-denominator.mjs';
 
-export const CANONICAL_EXECUTION_LEAF_GRAPH_VERSION = 'uberbond.canonical-execution-leaf-graph.v1.1';
+export const CANONICAL_EXECUTION_LEAF_GRAPH_VERSION = 'uberbond.canonical-execution-leaf-graph.v1.2';
 
 const ZERO_EFFECTS = Object.freeze({
   customerMessages: 0,
@@ -36,11 +37,11 @@ export function compileCoverageBoundExecutionLeafGraph({ coverage = {}, requirem
   const sourceCommit = String(coverage?.sourceCommit ?? '').trim().toLowerCase();
   const rows = Array.isArray(coverage?.rows) ? coverage.rows : [];
   const coverageContentDigest = sovereignCoverageContentDigest(coverage);
+  const denominator = verifyCoverageDenominatorConservation(coverage);
 
   if (coverage?.ok !== true || coverage?.status !== 'COVERAGE_MATRIX_COMPILED') reasons.push('canonical-compiled-sovereign-coverage-required');
   if (!SHA.test(sourceCommit)) reasons.push('coverage-exact-source-commit-required');
-  if (!rows.length) reasons.push('coverage-row-denominator-required');
-  if (Number(coverage?.counts?.rows) !== rows.length) reasons.push('coverage-declared-row-count-must-match-materialized-rows');
+  if (!denominator.ok) reasons.push(...denominator.reasonCodes);
   if (!SHA256.test(String(coverageContentDigest || ''))) reasons.push('coverage-content-digest-required');
 
   const canonicalIds = rows.map(row => text(row?.canonicalId, 240));
@@ -60,6 +61,7 @@ export function compileCoverageBoundExecutionLeafGraph({ coverage = {}, requirem
     return fail(reasons, {
       sourceCommit: SHA.test(sourceCommit) ? sourceCommit : null,
       coverageContentDigest: SHA256.test(String(coverageContentDigest || '')) ? coverageContentDigest : null,
+      denominator,
       missingRequirements,
       extraRequirements,
       canonicalRequirementCount: canonicalSet.size,
@@ -72,6 +74,7 @@ export function compileCoverageBoundExecutionLeafGraph({ coverage = {}, requirem
     return fail(['execution-leaf-graph-invalid', ...graph.reasonCodes], {
       sourceCommit,
       coverageContentDigest,
+      denominator,
       missingRequirements: [],
       extraRequirements: [],
       graphFailure: graph
@@ -83,7 +86,8 @@ export function compileCoverageBoundExecutionLeafGraph({ coverage = {}, requirem
     coverageContentDigest,
     canonicalRequirementIds: [...canonicalSet].sort(),
     coverageRows: rows.length,
-    coverageStates: structuredClone(coverage?.counts?.byState || {}),
+    extractedConcepts: denominator.extractedConcepts,
+    coverageStates: structuredClone(denominator.observedByState),
     graphDigest: graph.graphDigest
   };
 
@@ -92,9 +96,15 @@ export function compileCoverageBoundExecutionLeafGraph({ coverage = {}, requirem
     version: CANONICAL_EXECUTION_LEAF_GRAPH_VERSION,
     status: 'ZERO_ORPHAN_CANONICAL_EXECUTION_LEAF_GRAPH_COMPILED',
     coverageContentDigest,
+    denominatorConservation: {
+      rows: denominator.rows,
+      extractedConcepts: denominator.extractedConcepts,
+      observedByState: structuredClone(denominator.observedByState),
+      exact: true
+    },
     canonicalBinding,
     canonicalBindingDigest: digest(canonicalBinding),
-    truthBoundary: 'ZERO_ORPHAN_IS_PROVEN_AGAINST_THE_EXACT_CANONICAL_REQUIREMENT_ID_SET_AND_EXACT_SEMANTIC_COVERAGE_CONTENT_FROM_THE_BOUND_SOVEREIGN_COVERAGE_MATRIX. THIS STILL_DOES_NOT_PROVE_IMPLEMENTATION_EXECUTION_RUNTIME_OR_EXTERNAL_OUTCOMES.',
+    truthBoundary: 'ZERO_ORPHAN_IS_PROVEN_AGAINST_THE_EXACT_CANONICAL_REQUIREMENT_ID_SET_EXACT_SEMANTIC_COVERAGE_CONTENT_AND_CONSERVED_EXTRACTION_ROW_STATE_DENOMINATOR. THIS STILL_DOES_NOT_PROVE_IMPLEMENTATION_EXECUTION_RUNTIME_OR_EXTERNAL_OUTCOMES.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };

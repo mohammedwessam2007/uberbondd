@@ -9,7 +9,7 @@ const leaf=(leafId,kind,requirementIds,over={})=>({
   alternateRoutes:['verified reuse'],terminalEvidenceClass:'SOURCE_RECEIPT',executorClass:'worker',...over
 });
 function valid(){
-  const coverage={ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,counts:{rows:2,byState:{VERIFIED_CURRENT:1,SPEC_ONLY:1}},rows:[{canonicalId:'TOTAL-1'},{canonicalId:'TOTAL-2'}]};
+  const coverage={ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,counts:{rows:2,extractedConcepts:2,byState:{VERIFIED_CURRENT:1,SPEC_ONLY:1}},rows:[{canonicalId:'TOTAL-1',currentState:'VERIFIED_CURRENT'},{canonicalId:'TOTAL-2',currentState:'SPEC_ONLY'}]};
   const requirements=[
     {id:'TOTAL-1',canonicalSource:'canon://TOTAL-1',disposition:'OWNED_INTERNAL',executionLeafIds:['I','V'],terminalEvidenceClass:'VERIFIED_SOURCE'},
     {id:'TOTAL-2',canonicalSource:'canon://TOTAL-2',disposition:'OWNED_EXTERNAL',executionLeafIds:['B'],terminalEvidenceClass:'EXTERNAL_EVIDENCE'}
@@ -20,10 +20,13 @@ function valid(){
 
 test('canonical wrapper proves exact denominator binding plus zero orphan graph',()=>{
   const out=compileCoverageBoundExecutionLeafGraph(valid());
-  assert.equal(out.ok,true);
+  assert.equal(out.ok,true,JSON.stringify(out));
   assert.equal(out.status,'ZERO_ORPHAN_CANONICAL_EXECUTION_LEAF_GRAPH_COMPILED');
   assert.equal(out.canonicalBinding.coverageRows,2);
+  assert.equal(out.canonicalBinding.extractedConcepts,2);
+  assert.deepEqual(out.canonicalBinding.coverageStates,{SPEC_ONLY:1,VERIFIED_CURRENT:1});
   assert.deepEqual(out.canonicalBinding.canonicalRequirementIds,['TOTAL-1','TOTAL-2']);
+  assert.equal(out.denominatorConservation.exact,true);
   assert.equal(out.counts.orphanRequirements,0);
   assert.equal(out.businessEffectAuthority,'NONE');
 });
@@ -43,7 +46,25 @@ test('inventing a noncanonical requirement also fails',()=>{
 test('coverage row count must equal actual materialized rows',()=>{
   const x=valid();x.coverage.counts.rows=999;
   const out=compileCoverageBoundExecutionLeafGraph(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-declared-row-count-must-match-materialized-rows'));
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-materialized-rows-must-match-denominator'));
+});
+
+test('extracted concept count cannot exceed or shrink below materialized rows',()=>{
+  const x=valid();x.coverage.counts.extractedConcepts=3;
+  const out=compileCoverageBoundExecutionLeafGraph(x);
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-extracted-concepts-must-match-materialized-rows'));
+});
+
+test('declared state histogram must equal row-derived histogram exactly',()=>{
+  const x=valid();x.coverage.counts.byState={VERIFIED_CURRENT:2};
+  const out=compileCoverageBoundExecutionLeafGraph(x);
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-state-counts-must-exactly-match-materialized-rows'));
+});
+
+test('unknown row state cannot enter the finite canonical denominator',()=>{
+  const x=valid();x.coverage.rows[0].currentState='TOTALLY_DONE_TRUST_ME';x.coverage.counts.byState={TOTALLY_DONE_TRUST_ME:1,SPEC_ONLY:1};
+  const out=compileCoverageBoundExecutionLeafGraph(x);
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-row-state-must-be-canonical'));
 });
 
 test('duplicate canonical ids fail instead of shrinking the denominator through Set dedupe',()=>{

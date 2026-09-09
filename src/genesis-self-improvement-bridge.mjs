@@ -113,7 +113,7 @@ export function compileGenesisSelfImprovementAdmission({
   predictedObservations = [],
   falsifier,
   rivals = [],
-  evaluatedAt = new Date(),
+  evaluatedAt,
   ...causalArgs
 } = {}) {
   const evaluationDate = evaluatedAt instanceof Date ? evaluatedAt : new Date(evaluatedAt ?? NaN);

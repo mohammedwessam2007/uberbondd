@@ -43,10 +43,12 @@ export function adjudicateWorldResourceLifecycle({admission,policy,observations=
   if(reasons.length)return fail(reasons,{resourceId:resourceId||null});
   const revoke=[];
   for(const ev of Array.isArray(revocationEvidence)?revocationEvidence:[]){
-    if(ev?.active!==true)continue;
+    if(ev?.active!==true||ev?.evidenceClass!=='OBSERVED_REVOCATION')continue;
     if(String(ev?.resourceId||'')!==resourceId)continue;
     if(String(ev?.admissionDigest||'').toLowerCase()!==admissionDigest)continue;
-    if(!ev?.evidenceRef||!ev?.verifiedBy)continue;
+    if(!ev?.evidenceRef||!ev?.verifierId)continue;
+    const revokedAt=iso(ev?.observedAt); if(!revokedAt)continue;
+    const revokedMs=new Date(revokedAt).getTime(); if(revokedMs>nowMs||nowMs-revokedMs>policy.maxObservationAgeMs)continue;
     if(['SECURITY_COMPROMISE','TERMS_REVOKED','CONSENT_WITHDRAWN','CAPABILITY_REVOKED','UNAUTHORIZED_EFFECT'].includes(ev?.reason))revoke.push(ev.reason);
   }
   if(revoke.length)return{ok:true,status:'WORLD_RESOURCE_REVOKE_SUPPORTED',decision:'REVOKE',resourceId,reasonCodes:uniq(revoke),evidenceDigest:digest(revoke.sort()),executionAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectLedger:ZERO(),truthBoundary:'LIFECYCLE_VERDICT_DOES_NOT_EXECUTE_REVOCATION_OR_GRANT_AUTHORITY'};
@@ -61,13 +63,13 @@ export function adjudicateWorldResourceLifecycle({admission,policy,observations=
   const comparator=substitute?.observations;
   if(substitute){
     const sid=String(substitute.resourceId||'').trim(); const sad=String(substitute.admissionDigest||'').toLowerCase();
-    if(!sid||sid===resourceId||!SHA256.test(sad)||substitute.decision!=='OPERATIONALLY_ADMISSIBLE')reasons.push('valid-distinct-admissible-substitute-required');
+    if(!sid||sid===resourceId||!SHA256.test(sad)||substitute.decision!=='OPERATIONALLY_ADMISSIBLE'||substitute.policyVersion!==OPERATIONAL_WORLD_RESOURCE_ADMISSION_VERSION)reasons.push('valid-distinct-admissible-substitute-required');
     if(String(substitute.metricId||'')!==metricId||String(substitute.taskSetDigest||'').toLowerCase()!==taskSetDigest)reasons.push('substitute-must-use-same-metric-and-task-set');
     if(!Array.isArray(comparator))reasons.push('substitute-observations-required');
     else {
       const comp=[]; for(const row of comparator){const c=normalizedObservation(row,{resourceId:sid,admissionDigest:sad,metricId,taskSetDigest,nowMs,maxAgeMs:policy.maxObservationAgeMs});if(c.reasons.length)reasons.push('substitute-observation-invalid');else comp.push(c.normalized);}
       const cand=withinBudget.map(r=>r.value); const alt=comp.filter(r=>r.costCents<=policy.maxCostCents&&r.latencyMs<=policy.maxLatencyMs).map(r=>r.value);
-      if(cand.length>=policy.minimumObservations&&alt.length>=policy.minimumObservations){const avg=a=>a.reduce((s,v)=>s+v,0)/a.length; if(avg(alt)>avg(cand)&&substitute.independentVerifier===true&&substitute.evidenceRef)return{ok:true,status:'WORLD_RESOURCE_REPLACE_SUPPORTED',decision:'REPLACE',resourceId,replacementResourceId:sid,observedValue:{currentAverage:avg(cand),replacementAverage:avg(alt),metricId,taskSetDigest},executionAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectLedger:ZERO(),truthBoundary:'REPLACEMENT_VERDICT_IS_EVIDENCE_ONLY_AND_DOES_NOT_ROUTE_OR_EXECUTE_THE_SUBSTITUTE'};}
+      if(reasons.length===0&&cand.length>=policy.minimumObservations&&alt.length>=policy.minimumObservations){const avg=a=>a.reduce((s,v)=>s+v,0)/a.length; if(avg(alt)>avg(cand)&&substitute.independentVerifier===true&&substitute.evidenceRef)return{ok:true,status:'WORLD_RESOURCE_REPLACE_SUPPORTED',decision:'REPLACE',resourceId,replacementResourceId:sid,observedValue:{currentAverage:avg(cand),replacementAverage:avg(alt),metricId,taskSetDigest},executionAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectLedger:ZERO(),truthBoundary:'REPLACEMENT_VERDICT_IS_EVIDENCE_ONLY_AND_DOES_NOT_ROUTE_OR_EXECUTE_THE_SUBSTITUTE'};}
     }
   }
   if(reasons.length)return fail(reasons,{resourceId,rejectedObservations:rejected});

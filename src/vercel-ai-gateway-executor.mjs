@@ -39,7 +39,7 @@ function usage(payload, pricing) {
   // Cache discounts vary by provider/model and cannot lower a reservation until
   // a separate verified pricing contract proves the applicable cache price.
   const costCents = Math.max(0, Math.ceil(((inputTokens * inputRate + outputTokens * outputRate) / 1_000_000) * 100 - 1e-12));
-  return { inputTokens, outputTokens, totalTokens, costCents, costBasis: 'CONFIGURED_CONSERVATIVE_ESTIMATE_CACHE_SAVINGS_NOT_ASSUMED' };
+  return { inputTokens, outputTokens, totalTokens, costCents, costBasis: 'CONFIGURED_CONSERVATIVE_ESTIMATE' };
 }
 
 function observedInteger(candidates) {
@@ -121,7 +121,7 @@ export function createVercelAIGatewayExecutor({
     : text(reasoningEffort, 40).toLowerCase();
   const validReasoning = requestedReasoningEffort == null || REASONING_EFFORTS.has(requestedReasoningEffort);
 
-  return async function vercelAIGatewayExecutor({ task, model, maxTokens, costCeilingCents, cacheableContext = '', cacheableContextDataClass = 'SOURCE_CODE' } = {}) {
+  return async function vercelAIGatewayExecutor({ task, model, maxTokens, costCeilingCents, cacheableContext = '', cacheableContextDataClass = '' } = {}) {
     if (!enabled) return failure(['ai-gateway-executor-disabled']);
     if (!key || key.length < 12) return failure(['ai-gateway-api-key-required']);
     if (endpoint !== VERCEL_AI_GATEWAY_ENDPOINT) return failure(['ai-gateway-endpoint-not-allowlisted']);
@@ -139,7 +139,7 @@ export function createVercelAIGatewayExecutor({
     if (typeof cacheableContext !== 'string') return failure(['cacheable-context-must-be-string']);
     const stablePrefix = cacheableContext.trim();
     const cacheDataClass = text(cacheableContextDataClass, 80).toUpperCase();
-    if (stablePrefix && !CACHEABLE_DATA_CLASSES.has(cacheDataClass)) return failure(['cacheable-context-data-class-not-approved']);
+    if (stablePrefix && !CACHEABLE_DATA_CLASSES.has(cacheDataClass)) return failure(['cacheable-context-explicit-approved-data-class-required']);
     if (bytes(stablePrefix) > MAX_CACHEABLE_CONTEXT_BYTES) return failure(['ai-gateway-cacheable-context-too-large']);
     const estimatedInputTokens = Math.ceil((bytes(task) + bytes(stablePrefix)) / 4);
     const estimatedCostCents = Math.max(0, Math.ceil(((estimatedInputTokens * Number(pricing.inputUsdPerMillion) + outputLimit * Number(pricing.outputUsdPerMillion)) / 1_000_000) * 100 - 1e-12));

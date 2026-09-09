@@ -2,12 +2,21 @@
 
 import { compileAgentCodeChangeSet, contentSha256 } from '../../../src/agent-code-change-contract.mjs';
 
-export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.3';
+export const SELF_MAINTAINER_MERGE_GOVERNOR_VERSION = 'uberbond.self-maintainer-merge-governor.v1.4';
 
 const EXACT_SHA = /^[a-f0-9]{40}$/i;
 const BRANCH_PREFIX = 'uberbond/self-maintain/';
 const MAX_RESPONSE_BYTES = 2_000_000;
 const CONTINUATION_EVENT = 'uberbond-self-maintainer-continuation';
+const COMMAND_CENTER_TRUTH_SURFACES = new Set([
+  'api/command-center.mjs',
+  'src/uberbond-command-center-status.mjs',
+  'src/uberbond-command-center-normalizer.mjs',
+  'src/command-center-autonomy-control-plane.mjs',
+  'public/command-center.js',
+  'public/command-center.html',
+  'public/command-center-sw.js'
+]);
 
 function text(value, max = 1000) {
   return String(value ?? '').trim().slice(0, max);
@@ -107,6 +116,10 @@ function existingTestMutation(filePath, status) {
   return String(filePath || '').startsWith('tests/') && status !== 'added';
 }
 
+function commandCenterTruthMutation(filePath) {
+  return COMMAND_CENTER_TRUTH_SURFACES.has(String(filePath || ''));
+}
+
 export async function governVerifiedSelfMaintainerMerge({ env = process.env, fetchImpl = globalThis.fetch } = {}) {
   const repository = parseRepository(env.GITHUB_REPOSITORY);
   const token = String(env.GITHUB_TOKEN || '');
@@ -173,6 +186,7 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
     const status = text(file?.status, 40).toLowerCase();
     if (!filePath || !['added', 'modified', 'removed'].includes(status)) return fail([`unsupported-pr-file-status:${status || 'missing'}`]);
     if (existingTestMutation(filePath, status)) return fail(['autonomous-existing-test-mutation-requires-human-review']);
+    if (commandCenterTruthMutation(filePath)) return fail(['autonomous-command-center-truth-surface-mutation-requires-human-review']);
     if (status === 'added') {
       const after = decodeContent(await client.getContent(filePath, expectedHead), 'PRESENT');
       if (!after.ok) return fail(after.reasonCodes);
@@ -231,10 +245,11 @@ export async function governVerifiedSelfMaintainerMerge({ env = process.env, fet
       fallback: continuationDispatched ? 'NOT_NEEDED' : 'TWICE_HOURLY_SCHEDULE',
       reasonCodes: continuationDispatched ? [] : continuation?.reasonCodes || ['continuation-dispatch-unavailable']
     },
+    commandCenterTruthPolicy: 'COMMAND_CENTER_TRUTH_SURFACES_REQUIRE_HUMAN_REVIEW',
     repositoryMergeAuthority: 'CONSUMED_FOR_THIS_EXACT_VERIFIED_HEAD_ONLY',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'MERGE AUTHORITY APPLIED ONLY TO THE EXACT INDEPENDENTLY VERIFIED LOCAL-PREPARATION PR. REPOSITORY DISPATCH ONLY WAKES THE SAME PROTECTED SELF-MAINTAINER WORKFLOW AND CARRIES NO BUSINESS AUTHORITY. NO DEPLOYMENT, CUSTOMER, PAYMENT, SPEND, DNS, CREDENTIAL, PRIVATE-LIFE, OR ASI AUTHORITY IS CREATED.'
+    truthBoundary: 'MERGE AUTHORITY APPLIED ONLY TO THE EXACT INDEPENDENTLY VERIFIED LOCAL-PREPARATION PR. REPOSITORY DISPATCH ONLY WAKES THE SAME PROTECTED SELF-MAINTAINER WORKFLOW AND CARRIES NO BUSINESS AUTHORITY. COMMAND-CENTER TRUTH SURFACES REMAIN OUTSIDE AUTONOMOUS AUTO-MERGE. NO DEPLOYMENT, CUSTOMER, PAYMENT, SPEND, DNS, CREDENTIAL, PRIVATE-LIFE, OR ASI AUTHORITY IS CREATED.'
   };
 }
 

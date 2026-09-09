@@ -158,9 +158,9 @@ export function extractConcepts() {
   return { concepts, missingSources };
 }
 
-function repoIndex() {
+export function repoIndex() {
   let classification = { modules: {} };
-  try { classification = JSON.parse(readFileSync(join(root, 'config/reachability-classification.json'), 'utf8')); } catch { /* absent */ }
+  try { classification = JSON.parse(readFileSync(join(root, 'config', 'reachability-classification.json'), 'utf8')); } catch { /* absent */ }
   const gated = new Set(Object.keys(classification.modules || {}));
   // src, scripts and api are all implementation surfaces. Indexing only src
   // made every script-hosted concept read SPEC_ONLY -- Mutation War is a
@@ -174,9 +174,10 @@ function repoIndex() {
     ...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api'),
     ...walkFiles('.claude/skills', '.md')
   ];
+  const testFiles = walkFiles('tests').filter(file => file.endsWith('.test.mjs'));
   return {
     sourceFiles,
-    testFiles: walkFiles('tests'),
+    testFiles,
     // Approximate rather than pretending: a module carrying a registered gate is
     // deliberately unreached, and anything else with a source file is treated as
     // operator-reachable at worst. The exact production partition lives in the

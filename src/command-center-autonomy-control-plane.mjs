@@ -1,4 +1,4 @@
-export const COMMAND_CENTER_AUTONOMY_CONTROL_PLANE_VERSION = 'uberbond.command-center-autonomy-control-plane.v1';
+export const COMMAND_CENTER_AUTONOMY_CONTROL_PLANE_VERSION = 'uberbond.command-center-autonomy-control-plane.v1.1';
 
 function text(value, max = 300) {
   return String(value ?? '').trim().slice(0, max);
@@ -25,9 +25,9 @@ export function compileCommandCenterAutonomyControlPlane({ selfMaintainerReceipt
       sandboxVerification: 'CREDENTIAL_FREE',
       reviewPromotion: 'BRANCH_AND_PR_ONLY',
       independentVerification: 'READ_ONLY_NO_SECRETS',
-      mergeGovernor: 'EXACT_HEAD_SEPARATE_WORKFLOW_RUN',
+      mergeGovernor: 'EXACT_HEAD_FRESH_JOB_TOKEN',
       mergeScope: 'LOCAL_PREPARATION_ONLY',
-      postMergeContinuation: 'PUSH_TO_MAIN_RESTARTS_SELF_MAINTAINER'
+      postMergeContinuation: 'REPOSITORY_DISPATCH_WITH_TWICE_HOURLY_FALLBACK'
     },
     observedSelfMaintainer: {
       state: receiptState,

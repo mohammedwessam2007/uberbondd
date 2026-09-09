@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 [[ -r /etc/uberbond/authoring.env ]] || { echo 'authoring config unavailable' >&2; exit 2; }
+set -a
 # shellcheck disable=SC1091
 source /etc/uberbond/authoring.env
 [[ -r /etc/uberbond/founder-console.env ]] && source /etc/uberbond/founder-console.env
+set +a
 NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-}"
 NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
 [[ -n "$NODE" && -x "$NODE" && ! -L "$NODE" ]] || { echo 'real configured node executable required' >&2; exit 2; }

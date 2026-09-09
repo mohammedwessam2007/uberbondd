@@ -1,3 +1,5 @@
+import { verifyRuntimeTransitionReceiptIntegrity } from './runtime-transition-receipts.mjs';
+
 export const PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION='uberbond.provider-neutral-runtime-acceptance.v1';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
@@ -28,6 +30,7 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(restart.noDuplicateEffectClaim!=='QUEUE_REPLAY_SAFE_WORK_RECLAIMED_ONCE__UNCERTAIN_RECONCILE_WORK_NOT_REPLAYED') reasons.push('restart-no-duplicate-effect-proof-required');
 
   const workload=input.durableWorkloadReceipt||{};
+  if(!verifyRuntimeTransitionReceiptIntegrity(workload,'DURABLE_WORKLOAD')) reasons.push('canonical-durable-workload-receipt-integrity-required');
   if(workload.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-durable-workload-receipt-required');
   if(text(workload.runtimeIdentity)!==text(host.runtimeIdentity)) reasons.push('durable-workload-runtime-mismatch');
   if(String(workload.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('durable-workload-source-mismatch');
@@ -36,6 +39,7 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   if(!text(workload.evidenceRef)||!text(workload.independentVerifierRef)) reasons.push('durable-workload-independent-evidence-required');
 
   const cut=input.cutoverRollbackReceipt||{};
+  if(!verifyRuntimeTransitionReceiptIntegrity(cut,'CUTOVER_ROLLBACK')) reasons.push('canonical-cutover-rollback-receipt-integrity-required');
   if(cut.evidenceClass!=='OBSERVED_RUNTIME') reasons.push('observed-cutover-rollback-receipt-required');
   if(String(cut.sourceCommit||'').toLowerCase()!==sourceCommit) reasons.push('cutover-source-mismatch');
   if(cut.cutoverSucceeded!==true||cut.rollbackExercised!==true||cut.rollbackSucceeded!==true) reasons.push('successful-cutover-and-rollback-rehearsal-required');
@@ -45,6 +49,7 @@ export function verifyProviderNeutralRuntimeAcceptance(input={}){
   const continuity=input.continuityRehearsal||{};
   if(continuity.ok!==true||continuity.status!=='CONTINUITY_REHEARSAL_VERIFIED_WITHIN_DECLARED_SCOPE') reasons.push('verified-century-continuity-rehearsal-required');
   const loss=input.providerLossReceipt||{};
+  if(!verifyRuntimeTransitionReceiptIntegrity(loss,'PROVIDER_LOSS')) reasons.push('canonical-provider-loss-receipt-integrity-required');
   if(loss.evidenceClass!=='OBSERVED_RUNTIME'||loss.receiptClass!=='PROVIDER_LOSS') reasons.push('observed-provider-loss-receipt-required');
   if(loss.primaryUnavailable!==true) reasons.push('provider-loss-primary-unavailable-must-be-observed');
   if(!text(loss.failedProvider,160)||!text(loss.alternateProvider,160)||loss.failedProvider===loss.alternateProvider) reasons.push('provider-loss-must-cross-provider-boundary');

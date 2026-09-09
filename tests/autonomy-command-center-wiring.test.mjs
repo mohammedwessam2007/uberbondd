@@ -24,6 +24,7 @@ test('merge governor never executes candidate code with write authority', () => 
   assert.match(governorWorkflow, /ref:\s*\$\{\{ github\.event\.repository\.default_branch \}\}/);
   assert.match(governorWorkflow, /ref:\s*\$\{\{ needs\.admission\.outputs\.head_sha \}\}/);
   assert.match(governorWorkflow, /verify:[\s\S]*?permissions:\s*\n\s*contents:\s*read/);
+  assert.match(governorWorkflow, /docker run --rm --network none/);
   assert.match(governorWorkflow, /npm run check:syntax/);
   assert.match(governorWorkflow, /npm run test:deterministic/);
   assert.match(governorWorkflow, /needs\.verify\.result == 'success'/);

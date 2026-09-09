@@ -1,0 +1,284 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+
+CONTROL_DIR="${UBERBOND_CONTROL_DIR:-/var/lib/uberbond-control}"
+CONFIG_DIR="${UBERBOND_CONFIG_DIR:-/etc/uberbond}"
+COMPOSE_FILE="${UBERBOND_COMPOSE_FILE:-/opt/uberbond/control/docker-compose.sovereign.yml}"
+ENV_FILE="${UBERBOND_ENV_FILE:-${CONFIG_DIR}/uberbond.env}"
+STATE_FILE="${CONTROL_DIR}/state.env"
+LOCK_FILE="${CONTROL_DIR}/control.lock"
+BACKUP_DIR="${CONTROL_DIR}/backups"
+PUBLIC_KEY="${UBERBOND_RELEASE_PUBLIC_KEY:-${CONFIG_DIR}/release-public.pem}"
+PROJECT="uberbond"
+
+log(){ printf '[uberbondctl] %s\n' "$*" >&2; }
+die(){ log "REFUSED: $*"; exit 2; }
+need(){ command -v "$1" >/dev/null 2>&1 || die "missing command: $1"; }
+
+mkdir -p "$CONTROL_DIR" "$BACKUP_DIR"
+chmod 700 "$CONTROL_DIR" "$BACKUP_DIR" 2>/dev/null || true
+
+compose(){
+  local release="$1" postgres_image="$2"; shift 2
+  UBERBOND_RELEASE="$release" \
+  UBERBOND_POSTGRES_IMAGE="$postgres_image" \
+  UBERBOND_ENV_FILE="$ENV_FILE" \
+  docker compose --project-name "$PROJECT" --env-file "$ENV_FILE" -f "$COMPOSE_FILE" "$@"
+}
+
+state_get(){
+  local key="$1"
+  [[ -f "$STATE_FILE" ]] || return 1
+  local line
+  line="$(grep -E "^${key}=[A-Za-z0-9._:/@+,-]*$" "$STATE_FILE" | tail -n 1 || true)"
+  [[ -n "$line" ]] || return 1
+  printf '%s\n' "${line#*=}"
+}
+
+atomic_state(){
+  local current="$1" previous="$2" source="$3" pgimage="$4" backup="$5"
+  local tmp="${STATE_FILE}.tmp.$$"
+  {
+    printf 'CURRENT_RELEASE=%s\n' "$current"
+    printf 'PREVIOUS_RELEASE=%s\n' "$previous"
+    printf 'CURRENT_SOURCE_COMMIT=%s\n' "$source"
+    printf 'POSTGRES_IMAGE=%s\n' "$pgimage"
+    printf 'LAST_BACKUP=%s\n' "$backup"
+  } > "$tmp"
+  chmod 600 "$tmp"
+  mv -f "$tmp" "$STATE_FILE"
+}
+
+wait_container(){
+  local name="$1" want_health="${2:-false}" deadline=$((SECONDS + ${3:-120}))
+  while (( SECONDS < deadline )); do
+    local running health
+    running="$(docker inspect -f '{{.State.Running}}' "$name" 2>/dev/null || true)"
+    health="$(docker inspect -f '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$name" 2>/dev/null || true)"
+    if [[ "$running" == "true" ]]; then
+      if [[ "$want_health" == "false" || "$health" == "healthy" || "$health" == "none" ]]; then return 0; fi
+    fi
+    sleep 2
+  done
+  return 1
+}
+
+validate_release_env(){
+  local file="$1"
+  [[ -f "$file" ]] || die "missing release.env"
+  if grep -Ev '^(SOURCE_COMMIT|APP_IMAGE|APP_IMAGE_ID|POSTGRES_IMAGE|POSTGRES_IMAGE_ID)=[A-Za-z0-9._:/@+,-]+$' "$file" | grep -q .; then
+    die "release.env contains unexpected or unsafe fields"
+  fi
+  for key in SOURCE_COMMIT APP_IMAGE APP_IMAGE_ID POSTGRES_IMAGE POSTGRES_IMAGE_ID; do
+    grep -Eq "^${key}=" "$file" || die "release.env missing ${key}"
+  done
+}
+
+release_get(){
+  local file="$1" key="$2"
+  grep -E "^${key}=" "$file" | tail -n 1 | cut -d= -f2-
+}
+
+verify_bundle(){
+  local dir="$1"
+  [[ -d "$dir" ]] || die "release directory not found: $dir"
+  validate_release_env "$dir/release.env"
+  [[ -f "$dir/SHA256SUMS" && -f "$dir/images.oci.tar" ]] || die "release bundle incomplete"
+  (cd "$dir" && sha256sum -c SHA256SUMS >/dev/null) || die "release checksum verification failed"
+  if [[ -f "$PUBLIC_KEY" ]]; then
+    need openssl
+    [[ -f "$dir/release.sig" ]] || die "signed releases required because release-public.pem is configured"
+    cat "$dir/release.env" "$dir/SHA256SUMS" > "$dir/.attestation.$$"
+    if ! openssl dgst -sha256 -verify "$PUBLIC_KEY" -signature "$dir/release.sig" "$dir/.attestation.$$" >/dev/null 2>&1; then
+      rm -f "$dir/.attestation.$$"
+      die "release signature verification failed"
+    fi
+    rm -f "$dir/.attestation.$$"
+  elif [[ "${UBERBOND_ALLOW_UNSIGNED_RELEASE:-0}" != "1" ]]; then
+    die "no release public key configured; set UBERBOND_ALLOW_UNSIGNED_RELEASE=1 only for an explicitly trusted bootstrap"
+  fi
+}
+
+backup_db(){
+  local source_commit="${1:-unknown}" ts out
+  ts="$(date -u +%Y%m%dT%H%M%SZ)"
+  out="${BACKUP_DIR}/uberbond-${source_commit}-${ts}.dump"
+  if ! docker inspect uberbond-postgres >/dev/null 2>&1; then
+    printf '%s\n' "NONE"
+    return 0
+  fi
+  docker exec uberbond-postgres pg_dump -U uberbond -d uberbond -Fc > "$out"
+  [[ -s "$out" ]] || { rm -f "$out"; die "database backup was empty"; }
+  chmod 600 "$out"
+  sha256sum "$out" > "${out}.sha256"
+  printf '%s\n' "$out"
+}
+
+restore_db(){
+  local backup="$1"
+  [[ "$backup" != "NONE" && -f "$backup" && -f "${backup}.sha256" ]] || die "valid rollback backup required"
+  (cd "$(dirname "$backup")" && sha256sum -c "$(basename "${backup}.sha256")" >/dev/null) || die "rollback backup checksum failed"
+  docker cp "$backup" uberbond-postgres:/tmp/uberbond-restore.dump
+  docker exec uberbond-postgres pg_restore --clean --if-exists --no-owner -U uberbond -d uberbond /tmp/uberbond-restore.dump
+  docker exec uberbond-postgres rm -f /tmp/uberbond-restore.dump
+}
+
+pack(){
+  need git; need npm; need docker; need sha256sum
+  local root="${1:-.}" out="${2:-}"
+  cd "$root"
+  local head
+  head="$(git rev-parse HEAD)"
+  [[ "$head" =~ ^[0-9a-f]{40}$ ]] || die "exact git commit required"
+  [[ -z "$(git status --porcelain)" ]] || die "clean source checkout required"
+  out="${out:-dist/sovereign-release-${head}}"
+  mkdir -p "$out"
+  npm run check:syntax
+  npm run test:deterministic
+  local app_image="uberbond-app:${head}" pg_image="${UBERBOND_POSTGRES_IMAGE:-postgres:16-alpine}"
+  docker image inspect "$pg_image" >/dev/null 2>&1 || die "${pg_image} is not local; seed it deliberately before offline packaging"
+  docker build --pull=false -t "$app_image" .
+  local app_id pg_id
+  app_id="$(docker image inspect -f '{{.Id}}' "$app_image")"
+  pg_id="$(docker image inspect -f '{{.Id}}' "$pg_image")"
+  docker save -o "$out/images.oci.tar" "$app_image" "$pg_image"
+  cat > "$out/release.env" <<EOF
+SOURCE_COMMIT=${head}
+APP_IMAGE=${app_image}
+APP_IMAGE_ID=${app_id}
+POSTGRES_IMAGE=${pg_image}
+POSTGRES_IMAGE_ID=${pg_id}
+EOF
+  (cd "$out" && sha256sum images.oci.tar release.env > SHA256SUMS)
+  local signing_key="${UBERBOND_RELEASE_SIGNING_KEY:-${CONFIG_DIR}/release-private.pem}"
+  if [[ -f "$signing_key" ]]; then
+    need openssl
+    cat "$out/release.env" "$out/SHA256SUMS" > "$out/.attestation"
+    openssl dgst -sha256 -sign "$signing_key" -out "$out/release.sig" "$out/.attestation"
+    rm -f "$out/.attestation"
+  fi
+  log "release bundle ready: $out"
+}
+
+deploy(){
+  need docker; need sha256sum; need flock
+  [[ -f "$ENV_FILE" ]] || die "missing $ENV_FILE"
+  [[ -f "$COMPOSE_FILE" ]] || die "missing $COMPOSE_FILE"
+  local dir="$1"
+  verify_bundle "$dir"
+  exec 9>"$LOCK_FILE"; flock -n 9 || die "another control operation is active"
+  local envf="$dir/release.env" source app image_id pg pg_id
+  source="$(release_get "$envf" SOURCE_COMMIT)"
+  app="$(release_get "$envf" APP_IMAGE)"
+  image_id="$(release_get "$envf" APP_IMAGE_ID)"
+  pg="$(release_get "$envf" POSTGRES_IMAGE)"
+  pg_id="$(release_get "$envf" POSTGRES_IMAGE_ID)"
+  [[ "$source" =~ ^[0-9a-f]{40}$ ]] || die "release source commit malformed"
+  docker load -i "$dir/images.oci.tar" >/dev/null
+  [[ "$(docker image inspect -f '{{.Id}}' "$app")" == "$image_id" ]] || die "loaded app image identity mismatch"
+  [[ "$(docker image inspect -f '{{.Id}}' "$pg")" == "$pg_id" ]] || die "loaded postgres image identity mismatch"
+
+  local previous="$(state_get CURRENT_RELEASE || true)"
+  local previous_source="$(state_get CURRENT_SOURCE_COMMIT || true)"
+  local previous_pg="$(state_get POSTGRES_IMAGE || true)"
+  local backup
+  backup="$(backup_db "${previous_source:-bootstrap}")"
+
+  compose "$app" "$pg" up -d postgres
+  wait_container uberbond-postgres true 120 || die "postgres did not become healthy"
+  compose "$app" "$pg" stop web worker >/dev/null 2>&1 || true
+
+  local promoted=0
+  if compose "$app" "$pg" run --rm migrate && compose "$app" "$pg" up -d web worker && wait_container uberbond-web true 180 && wait_container uberbond-worker false 60; then
+    promoted=1
+  fi
+
+  if [[ "$promoted" != "1" ]]; then
+    log "new release failed; restoring pre-deploy database and previous release"
+    compose "$app" "$pg" stop web worker >/dev/null 2>&1 || true
+    [[ "$backup" == "NONE" ]] || restore_db "$backup"
+    if [[ -n "$previous" && -n "$previous_pg" ]]; then
+      compose "$previous" "$previous_pg" up -d web worker
+      wait_container uberbond-web true 180 || die "rollback web health failed"
+    fi
+    die "promotion refused and rollback attempted"
+  fi
+
+  atomic_state "$app" "$previous" "$source" "$pg" "$backup"
+  log "PROMOTED source=${source} image=${app}"
+}
+
+rollback(){
+  need docker; need flock
+  exec 9>"$LOCK_FILE"; flock -n 9 || die "another control operation is active"
+  local current previous pg backup source
+  current="$(state_get CURRENT_RELEASE || true)"
+  previous="$(state_get PREVIOUS_RELEASE || true)"
+  pg="$(state_get POSTGRES_IMAGE || true)"
+  backup="$(state_get LAST_BACKUP || true)"
+  source="$(state_get CURRENT_SOURCE_COMMIT || true)"
+  [[ -n "$current" && -n "$previous" && -n "$pg" ]] || die "no previous release recorded"
+  compose "$current" "$pg" stop web worker >/dev/null 2>&1 || true
+  [[ -z "$backup" || "$backup" == "NONE" ]] || restore_db "$backup"
+  compose "$previous" "$pg" up -d web worker
+  wait_container uberbond-web true 180 || die "rollback web health failed"
+  atomic_state "$previous" "$current" "rollback-from-${source:-unknown}" "$pg" "$backup"
+  log "ROLLED_BACK current=${previous}"
+}
+
+reconcile(){
+  need docker; need flock
+  exec 9>"$LOCK_FILE"; flock -n 9 || exit 0
+  local release pg
+  release="$(state_get CURRENT_RELEASE || true)"
+  pg="$(state_get POSTGRES_IMAGE || true)"
+  [[ -n "$release" && -n "$pg" ]] || { log "no admitted release yet"; exit 0; }
+  docker image inspect "$release" >/dev/null 2>&1 || die "admitted app image vanished; reconciler will not download replacements"
+  docker image inspect "$pg" >/dev/null 2>&1 || die "admitted postgres image vanished; reconciler will not download replacements"
+  compose "$release" "$pg" up -d postgres >/dev/null
+  wait_container uberbond-postgres true 90 || die "postgres recovery failed"
+  compose "$release" "$pg" up -d web worker >/dev/null
+  wait_container uberbond-web true 120 || die "web recovery failed"
+  wait_container uberbond-worker false 60 || die "worker recovery failed"
+  log "RECONCILED release=${release}"
+}
+
+restore_drill(){
+  need docker; need sha256sum
+  local backup="${1:-$(state_get LAST_BACKUP || true)}" pg="${2:-$(state_get POSTGRES_IMAGE || true)}"
+  [[ -n "$backup" && "$backup" != "NONE" && -f "$backup" ]] || die "backup file required"
+  [[ -n "$pg" ]] || die "postgres image required"
+  (cd "$(dirname "$backup")" && sha256sum -c "$(basename "${backup}.sha256")" >/dev/null) || die "backup checksum failed"
+  local name="uberbond-restore-drill-$$"
+  cleanup(){ docker rm -f "$name" >/dev/null 2>&1 || true; }
+  trap cleanup EXIT
+  docker run -d --name "$name" --network none --env-file "$ENV_FILE" -e POSTGRES_USER=uberbond -e POSTGRES_DB=uberbond -v "$backup:/restore.dump:ro" "$pg" >/dev/null
+  local deadline=$((SECONDS+90))
+  until docker exec "$name" pg_isready -U uberbond -d uberbond >/dev/null 2>&1; do (( SECONDS < deadline )) || die "restore-drill postgres did not start"; sleep 2; done
+  docker exec "$name" pg_restore --no-owner -U uberbond -d uberbond /restore.dump
+  local tables
+  tables="$(docker exec "$name" psql -At -U uberbond -d uberbond -c "select count(*) from pg_tables where schemaname='public';")"
+  [[ "$tables" =~ ^[0-9]+$ && "$tables" -gt 0 ]] || die "restore drill produced no public tables"
+  log "RESTORE_DRILL_PASSED tables=${tables} backup=${backup}"
+}
+
+status(){
+  printf 'current_release=%s\n' "$(state_get CURRENT_RELEASE || echo NONE)"
+  printf 'previous_release=%s\n' "$(state_get PREVIOUS_RELEASE || echo NONE)"
+  printf 'source_commit=%s\n' "$(state_get CURRENT_SOURCE_COMMIT || echo NONE)"
+  printf 'postgres=%s\n' "$(docker inspect -f '{{.State.Status}}/{{if .State.Health}}{{.State.Health.Status}}{{else}}nohealth{{end}}' uberbond-postgres 2>/dev/null || echo absent)"
+  printf 'web=%s\n' "$(docker inspect -f '{{.State.Status}}/{{if .State.Health}}{{.State.Health.Status}}{{else}}nohealth{{end}}' uberbond-web 2>/dev/null || echo absent)"
+  printf 'worker=%s\n' "$(docker inspect -f '{{.State.Status}}' uberbond-worker 2>/dev/null || echo absent)"
+}
+
+case "${1:-}" in
+  pack) shift; pack "$@" ;;
+  deploy) shift; [[ $# -eq 1 ]] || die "usage: uberbondctl deploy RELEASE_DIR"; deploy "$1" ;;
+  rollback) rollback ;;
+  reconcile) reconcile ;;
+  backup) printf '%s\n' "$(backup_db "$(state_get CURRENT_SOURCE_COMMIT || echo manual)")" ;;
+  restore-drill) shift; restore_drill "$@" ;;
+  status) status ;;
+  *) die "usage: uberbondctl {pack|deploy|rollback|reconcile|backup|restore-drill|status}" ;;
+esac

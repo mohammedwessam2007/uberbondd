@@ -1,8 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileRestartRecoveryReceipt } from '../src/deploy-restart-recovery-receipt.mjs';
-const good={sourceCommit:'abc123',environment:'postgres',crashExitCode:91,replaySafeRecovered:1,replacementClaimCount:1,reconcileDeadLettered:true,reconcileReplacementClaimCount:0,cleanupOk:true,commands:['node scripts/deploy-restart-recovery-drill.mjs']};
-test('only exact real-postgres restart evidence earns PASS',()=>{ const r=compileRestartRecoveryReceipt(good); assert.equal(r.ok,true); assert.equal(r.status,'RESTART_RECOVERY_REHEARSAL_PASSED'); });
+import { compileRestartRecoveryReceipt, verifyRestartRecoveryReceiptIntegrity } from '../src/deploy-restart-recovery-receipt.mjs';
+const SHA='a'.repeat(40);
+const good={sourceCommit:SHA,environment:'postgres',crashExitCode:91,replaySafeRecovered:1,replacementClaimCount:1,reconcileDeadLettered:true,reconcileReplacementClaimCount:0,cleanupOk:true,commands:['node scripts/deploy-restart-recovery-drill.mjs']};
+test('only exact real-postgres restart evidence earns PASS',()=>{ const r=compileRestartRecoveryReceipt(good); assert.equal(r.ok,true); assert.equal(r.status,'RESTART_RECOVERY_REHEARSAL_PASSED'); assert.match(r.receiptDigest,/^sha256:[0-9a-f]{64}$/); assert.equal(verifyRestartRecoveryReceiptIntegrity(r),true); });
+test('short or malformed source commit cannot masquerade as exact-source runtime proof',()=>{ for(const sourceCommit of ['abc123','g'.repeat(40),'']){const r=compileRestartRecoveryReceipt({...good,sourceCommit});assert.equal(r.ok,false);assert.ok(r.reasonCodes.includes('exact-source-commit-required'));} });
+test('post-compilation mutation invalidates restart receipt integrity',()=>{ for(const mutate of [r=>{r.sourceCommit='b'.repeat(40);},r=>{r.observed.replacementClaimCount=2;},r=>{r.commands=['other'];},r=>{r.receiptDigest='sha256:'+'f'.repeat(64);}] ){const r=compileRestartRecoveryReceipt(good);mutate(r);assert.equal(verifyRestartRecoveryReceiptIntegrity(r),false);} });
 test('two replacement claims refuses duplicate-work proof',()=>{ const r=compileRestartRecoveryReceipt({...good,replacementClaimCount:2}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('exactly-one-replacement-claim-required')); });
 test('reconcile job replay refuses safety claim',()=>{ const r=compileRestartRecoveryReceipt({...good,reconcileReplacementClaimCount:1}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('uncertain-reconcile-work-must-not-replay')); });
 test('graceful in-process stop is not accepted as abrupt restart rehearsal',()=>{ const r=compileRestartRecoveryReceipt({...good,crashExitCode:0}); assert.equal(r.ok,false); assert.ok(r.reasonCodes.includes('abrupt-worker-termination-not-observed')); });

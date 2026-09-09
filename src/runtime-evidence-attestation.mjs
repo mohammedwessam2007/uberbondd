@@ -6,7 +6,6 @@ const SHA256=/^sha256:[0-9a-f]{64}$/;
 const text=(v,max=1000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 function stable(value){if(Array.isArray(value))return value.map(stable);if(value&&typeof value==='object')return Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key])]));return value;}
 function objectDigest(value){return `sha256:${crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex')}`;}
-function receiptDigestOrObject(receipt={}){const declared=String(receipt?.receiptDigest||'').toLowerCase();return SHA256.test(declared)?declared:objectDigest(receipt);}
 
 export function runtimeEvidenceAttestationPayload({sourceCommit,host={},postgresRestoreReceipt={},restartRecoveryReceipt={},durableWorkloadReceipt={},cutoverRollbackReceipt={},continuityRehearsal={},providerLossReceipt={},controlPlaneReceipt={}}={}){
   return {
@@ -23,13 +22,13 @@ export function runtimeEvidenceAttestationPayload({sourceCommit,host={},postgres
       authenticatedHealthObserved:host.authenticatedHealthObserved===true
     },
     acceptanceEvidenceDigests:{
-      postgresRestore:receiptDigestOrObject(postgresRestoreReceipt),
+      postgresRestore:objectDigest(postgresRestoreReceipt),
       restartRecovery:objectDigest(restartRecoveryReceipt),
-      durableWorkload:receiptDigestOrObject(durableWorkloadReceipt),
-      cutoverRollback:receiptDigestOrObject(cutoverRollbackReceipt),
+      durableWorkload:objectDigest(durableWorkloadReceipt),
+      cutoverRollback:objectDigest(cutoverRollbackReceipt),
       continuityRehearsal:objectDigest(continuityRehearsal),
-      providerLoss:receiptDigestOrObject(providerLossReceipt),
-      controlPlane:receiptDigestOrObject(controlPlaneReceipt)
+      providerLoss:objectDigest(providerLossReceipt),
+      controlPlane:objectDigest(controlPlaneReceipt)
     }
   };
 }

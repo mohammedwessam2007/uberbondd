@@ -6,7 +6,7 @@ KIT="${1:-}"
 TARGET="${2:-}"
 PUBLIC_KEY="${3:-}"
 [[ -n "$KIT" && -n "$TARGET" && -n "$PUBLIC_KEY" ]] || { echo "usage: import-sovereign-kit.sh KIT_DIR TARGET_DIR RELEASE_PUBLIC_KEY" >&2; exit 2; }
-for cmd in git npm docker sha256sum openssl tar uname grep cut find; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in git npm docker sha256sum openssl tar uname grep cut find wc; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 [[ -d "$KIT" && ! -L "$KIT" ]] || { echo "Regular kit directory required." >&2; exit 2; }
 [[ ! -e "$TARGET" ]] || { echo "Target must not already exist." >&2; exit 2; }
 [[ -f "$PUBLIC_KEY" && ! -L "$PUBLIC_KEY" ]] || { echo "Regular release public key required." >&2; exit 2; }
@@ -14,6 +14,15 @@ for cmd in git npm docker sha256sum openssl tar uname grep cut find; do command 
 for file in kit.env SHA256SUMS kit.sig uberbond-source.bundle node_modules.tar build-images.oci.tar; do
   [[ -f "$KIT/$file" && ! -L "$KIT/$file" ]] || { echo "Kit missing regular $file" >&2; exit 2; }
 done
+
+if grep -Ev '^(SOURCE_COMMIT|CREATED_SEQUENCE|ARCH|PACKAGE_LOCK_SHA256|BASE_IMAGE|BASE_IMAGE_ID|POSTGRES_IMAGE|POSTGRES_IMAGE_ID)=[A-Za-z0-9._:/@+,-]+$' "$KIT/kit.env" | grep -q .; then
+  echo "kit.env contains unexpected or unsafe fields." >&2; exit 2
+fi
+[[ "$(wc -l < "$KIT/kit.env" | tr -d ' ')" == "8" ]] || { echo "kit.env must contain exactly eight fields." >&2; exit 2; }
+for key in SOURCE_COMMIT CREATED_SEQUENCE ARCH PACKAGE_LOCK_SHA256 BASE_IMAGE BASE_IMAGE_ID POSTGRES_IMAGE POSTGRES_IMAGE_ID; do
+  [[ "$(grep -c "^${key}=" "$KIT/kit.env")" == "1" ]] || { echo "kit.env must contain $key exactly once." >&2; exit 2; }
+done
+
 (cd "$KIT" && sha256sum -c SHA256SUMS >/dev/null) || { echo "Kit checksum verification failed." >&2; exit 2; }
 cat "$KIT/kit.env" "$KIT/SHA256SUMS" > "$KIT/.attestation.$$"
 if ! openssl dgst -sha256 -verify "$PUBLIC_KEY" -signature "$KIT/kit.sig" "$KIT/.attestation.$$" >/dev/null 2>&1; then
@@ -21,7 +30,7 @@ if ! openssl dgst -sha256 -verify "$PUBLIC_KEY" -signature "$KIT/kit.sig" "$KIT/
 fi
 rm -f "$KIT/.attestation.$$"
 
-get(){ grep -E "^$1=[A-Za-z0-9._:/@+,-]+$" "$KIT/kit.env" | cut -d= -f2-; }
+get(){ grep -E "^$1=" "$KIT/kit.env" | cut -d= -f2-; }
 SOURCE="$(get SOURCE_COMMIT)"
 ARCH="$(get ARCH)"
 LOCK_SHA="$(get PACKAGE_LOCK_SHA256)"
@@ -33,10 +42,12 @@ PG_ID="$(get POSTGRES_IMAGE_ID)"
 [[ "$BASE_ID" =~ ^sha256:[0-9a-f]{64}$ && "$PG_ID" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "Kit image identity malformed." >&2; exit 2; }
 [[ "$ARCH" == "$(uname -m)" ]] || { echo "Kit architecture $ARCH does not match this host $(uname -m)." >&2; exit 2; }
 
-# Reject archive traversal before extraction. Every member must remain under node_modules/.
+# Reject path traversal before extraction. Symlinks inside node_modules are
+# expected (for example .bin entries), but every archive path must remain under
+# the signed node_modules root.
 while IFS= read -r member; do
   [[ "$member" == node_modules || "$member" == node_modules/* ]] || { echo "Unsafe dependency archive member: $member" >&2; exit 2; }
-  [[ "$member" != /* && "$member" != *"../"* && "$member" != ".." ]] || { echo "Dependency archive traversal refused." >&2; exit 2; }
+  [[ "$member" != /* && "$member" != *"../"* && "$member" != ".." && "$member" != */.. ]] || { echo "Dependency archive traversal refused." >&2; exit 2; }
 done < <(tar -tf "$KIT/node_modules.tar")
 
 docker load -i "$KIT/build-images.oci.tar" >/dev/null

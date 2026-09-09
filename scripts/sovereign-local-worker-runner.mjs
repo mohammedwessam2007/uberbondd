@@ -5,13 +5,13 @@ import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const SOVEREIGN_LOCAL_WORKER_VERSION = 'uberbond.sovereign-local-worker.v1';
+export const SOVEREIGN_LOCAL_WORKER_VERSION = 'uberbond.sovereign-local-worker.v2';
 const MAX_BYTES = 8_000_000;
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
 const fail = (reasonCodes, status = 'SOVEREIGN_LOCAL_WORKER_REFUSED', extra = {}) => ({ ok: false, policyVersion: SOVEREIGN_LOCAL_WORKER_VERSION, status, reasonCodes: [...new Set(reasonCodes.filter(Boolean))], businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), ...extra });
 function run(executable, args, { cwd, env = {}, timeoutMs = 45 * 60_000 } = {}) { return new Promise(resolve => execFile(executable, args, { cwd, env, timeout: timeoutMs, maxBuffer: MAX_BYTES, windowsHide: true }, (error, stdout, stderr) => resolve({ exitCode: typeof error?.code === 'number' ? error.code : (error ? 1 : 0), stdout: String(stdout || ''), stderr: String(stderr || ''), timedOut: Boolean(error?.killed) }))); }
-async function readJson(file) { try { const raw = await fs.readFile(file, 'utf8'); if (Buffer.byteLength(raw, 'utf8') > MAX_BYTES) return null; const v = JSON.parse(raw); return v && typeof v === 'object' && !Array.isArray(v) ? v : null; } catch { return null; } }
+async function readJson(file) { try { const stat = await fs.lstat(file); if (!stat.isFile() || stat.isSymbolicLink() || stat.size > MAX_BYTES) return null; const v = JSON.parse(await fs.readFile(file, 'utf8')); return v && typeof v === 'object' && !Array.isArray(v) ? v : null; } catch { return null; } }
 async function realExecutable(file) { try { if (!path.isAbsolute(file)) return null; const real = await fs.realpath(file); const stat = await fs.lstat(real); return stat.isFile() && !stat.isSymbolicLink() && (stat.mode & 0o111) !== 0 ? real : null; } catch { return null; } }
 async function atomicJson(file, value) { await fs.mkdir(path.dirname(file), { recursive: true }); const tmp = `${file}.tmp.${process.pid}`; await fs.writeFile(tmp, `${JSON.stringify(value, null, 2)}\n`, { mode: 0o640 }); await fs.chmod(tmp, 0o640); await fs.rename(tmp, file); }
 
@@ -25,8 +25,13 @@ export async function runSovereignLocalWorker({ env = process.env, runProcess = 
   if (!taskStat?.isFile() || taskStat.isSymbolicLink()) return fail(['regular-task-file-required']);
   const task = await readJson(taskPath);
   if (!task?.taskId || task.consequenceClass !== 'LOCAL_PREPARATION') return fail(['valid-local-preparation-task-required']);
+  const emitFailure = async (reasonCodes, status, extra = {}) => {
+    const receipt = fail(reasonCodes, status, { taskId: task.taskId, ...extra });
+    await atomicJson(resultPath, receipt);
+    return receipt;
+  };
   const worker = await realExecutable(text(env.UBERBOND_LOCAL_WORKER_EXECUTABLE, 2000));
-  if (!worker) return fail(['local-worker-executable-required']);
+  if (!worker) return emitFailure(['local-worker-executable-required'], 'SOVEREIGN_LOCAL_WORKER_FAILED');
   const tmpResult = path.join(outboxRoot, `.candidate-${process.pid}.json`);
   await fs.mkdir(outboxRoot, { recursive: true });
   await fs.rm(tmpResult, { force: true }).catch(() => {});
@@ -35,10 +40,10 @@ export async function runSovereignLocalWorker({ env = process.env, runProcess = 
     env: { PATH: env.PATH || '', HOME: env.HOME || '/tmp', UBERBOND_TASK_PATH: taskPath, UBERBOND_RESULT_PATH: tmpResult, UBERBOND_SOURCE_ROOT: sourceRoot },
     timeoutMs: Number(env.UBERBOND_LOCAL_WORKER_TIMEOUT_MS || 45 * 60_000)
   });
-  if (execution.exitCode !== 0) { await fs.rm(tmpResult, { force: true }).catch(() => {}); return fail([`worker-exit:${execution.exitCode}`], 'SOVEREIGN_LOCAL_WORKER_FAILED', { taskId: task.taskId, timedOut: execution.timedOut }); }
+  if (execution.exitCode !== 0) { await fs.rm(tmpResult, { force: true }).catch(() => {}); return emitFailure([`worker-exit:${execution.exitCode}`], 'SOVEREIGN_LOCAL_WORKER_FAILED', { timedOut: execution.timedOut }); }
   const result = await readJson(tmpResult);
   const candidate = result?.codeChangeSet || result?.changeSet || result;
-  if (!candidate?.ok || !candidate?.changeSetId || candidate?.taskId !== task.taskId) { await fs.rm(tmpResult, { force: true }).catch(() => {}); return fail(['task-bound-agent-code-change-set-required'], 'SOVEREIGN_LOCAL_WORKER_OUTPUT_REFUSED', { taskId: task.taskId }); }
+  if (!candidate?.ok || !candidate?.changeSetId || candidate?.taskId !== task.taskId) { await fs.rm(tmpResult, { force: true }).catch(() => {}); return emitFailure(['task-bound-agent-code-change-set-required'], 'SOVEREIGN_LOCAL_WORKER_OUTPUT_REFUSED'); }
   await atomicJson(resultPath, result);
   await fs.rm(tmpResult, { force: true }).catch(() => {});
   return { ok: true, policyVersion: SOVEREIGN_LOCAL_WORKER_VERSION, status: 'ISOLATED_WORKER_CANDIDATE_EMITTED', taskId: task.taskId, changeSetId: candidate.changeSetId, resultPath, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'The worker emitted a candidate only. The worker identity cannot write authoring truth, merge, sign, release or deploy.' };

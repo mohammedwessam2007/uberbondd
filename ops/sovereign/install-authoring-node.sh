@@ -24,7 +24,7 @@ for account in uberbond-author uberbond-worker; do
 done
 
 install -d -m 0755 /opt/uberbond /opt/uberbond/control
-install -d -m 0700 -o uberbond-author -g uberbond-author /var/lib/uberbond-control /var/lib/uberbond-control/autonomy
+install -d -m 0700 -o uberbond-author -g uberbond-author /var/lib/uberbond-control /var/lib/uberbond-control/autonomy /var/lib/uberbond-control/founder-intents
 install -d -m 0750 -o uberbond-author -g uberbond-autonomy /var/lib/uberbond-worker/inbox
 install -d -m 0750 -o uberbond-worker -g uberbond-autonomy /var/lib/uberbond-worker/outbox
 install -d -m 0700 /etc/uberbond
@@ -42,7 +42,7 @@ if [[ "$(git -C /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" ]]; then
 rm -rf "$PREVIOUS"; trap - EXIT
 
 install -m 0755 /opt/uberbond/source/ops/sovereign/uberbond-authorctl /opt/uberbond/control/uberbond-authorctl
-for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path; do
+for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service; do
   install -m 0644 "/opt/uberbond/source/ops/sovereign/$unit" "/etc/systemd/system/$unit"
 done
 
@@ -69,19 +69,33 @@ UBERBOND_LOCAL_WORKER_TIMEOUT_MS=2700000
 EOF
 chown root:uberbond-worker /etc/uberbond/worker.env; chmod 0640 /etc/uberbond/worker.env
 
+cat > /etc/uberbond/founder-console.env <<EOF
+UBERBOND_FOUNDER_CONSOLE_HOST=127.0.0.1
+UBERBOND_FOUNDER_CONSOLE_PORT=8787
+UBERBOND_FOUNDER_CONSOLE_TOKEN=
+UBERBOND_AUTHORCTL=/opt/uberbond/control/uberbond-authorctl
+EOF
+chown root:uberbond-author /etc/uberbond/founder-console.env; chmod 0640 /etc/uberbond/founder-console.env
+
 systemctl daemon-reload
-systemctl enable --now uberbond-authoring.timer uberbond-local-worker.path uberbond-autonomy-verify.path
+systemctl enable --now uberbond-authoring.timer uberbond-local-worker.path uberbond-autonomy-verify.path uberbond-founder-console.service
 
 cat <<EOF
 UberBond sovereign authoring node installed.
-Source commit: ${SOURCE_HEAD}
+Source commit:   ${SOURCE_HEAD}
+Founder console: http://127.0.0.1:8787/
 Founder control: /opt/uberbond/control/uberbond-authorctl
 Author state:    /var/lib/uberbond-control/autonomy
+Founder intents: /var/lib/uberbond-control/founder-intents
 Worker inbox:    /var/lib/uberbond-worker/inbox
 Worker outbox:   /var/lib/uberbond-worker/outbox
 
-Default state is truth/task generation only. To enable autonomous model proposals,
-install a local worker executable outside the source tree, set it in
+Default console binding is loopback-only and cloud-independent. Do not bind it to
+another interface without a strong UBERBOND_FOUNDER_CONSOLE_TOKEN and a private,
+trusted network path. The console never reads the Personal Civilization vault.
+
+Default autonomy is truth/task generation only. To enable autonomous model
+proposals, install a local worker executable outside the source tree, set it in
 /etc/uberbond/worker.env, then set UBERBOND_ISOLATED_WORKER_ENABLED=true in
 /etc/uberbond/authoring.env. The worker runs as a separate user with private
 network, read-only source, no authoring-state write, no release key, and no

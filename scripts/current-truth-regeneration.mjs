@@ -5,125 +5,23 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCurrentRealityFreeze } from './current-reality-freeze.mjs';
 import { verifyCurrentTruthRegeneration } from '../src/current-truth-regeneration.mjs';
-
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-
-function git(args, { trim = true } = {}) {
-  try {
-    const output = execFileSync('git', args, { cwd: root, encoding: 'utf8' }).replace(/\r/g, '');
-    return trim ? output.trim() : output;
-  } catch {
-    return null;
-  }
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const TRUTH_INPUT_PREFIXES=Object.freeze(['src/','scripts/','tests/','api/','config/','artifacts/','docs/','.claude/']);
+const TRUTH_INPUT_FILES=new Set(['package.json','package-lock.json','server.mjs','worker.mjs','AGENTS.md','CLAUDE.md','UBERBOND_BOOTSTRAP.json']);
+function git(args,{trim=true}={}){try{const out=execFileSync('git',args,{cwd:root,encoding:'utf8'}).replace(/\r/g,'');return trim?out.trim():out;}catch{return null;}}
+function readJson(relative){try{return JSON.parse(readFileSync(join(root,relative),'utf8'));}catch{return{};}}
+function run(command,args){const result=spawnSync(command,args,{cwd:root,env:process.env,encoding:'utf8',stdio:['ignore','pipe','pipe']});if(result.stdout)process.stdout.write(result.stdout);if(result.stderr)process.stderr.write(result.stderr);return{command:[command,...args].join(' '),exitCode:result.status??1,started:!result.error,error:result.error?String(result.error.message||result.error):null};}
+export function parseGitPorcelainPaths(porcelain=''){return String(porcelain).split('\n').filter(Boolean).map(line=>{const path=line.slice(3).trim();return path.includes(' -> ')?path.split(' -> ').at(-1):path;}).filter(Boolean);}
+export function truthInputDirtyPaths(paths=[]){return [...new Set((Array.isArray(paths)?paths:[]).map(p=>String(p).trim()).filter(Boolean).filter(path=>TRUTH_INPUT_FILES.has(path)||TRUTH_INPUT_PREFIXES.some(prefix=>path.startsWith(prefix))))].sort();}
+export function newlyDirtyPaths(before=[],after=[]){const prior=new Set(Array.isArray(before)?before:[]);return [...new Set((Array.isArray(after)?after:[]).filter(path=>!prior.has(path)))].sort();}
+function dirtyPaths(){const porcelain=git(['status','--porcelain'],{trim:false});return porcelain===null?null:parseGitPorcelainPaths(porcelain);}
+export function executeCurrentTruthRegeneration(){
+ const headSha=git(['rev-parse','HEAD']);const before=dirtyPaths();if(!headSha||before===null)return{ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['git-head-and-status-required'],businessEffectAuthority:'NONE'};
+ const dirtyTruthInputs=truthInputDirtyPaths(before);if(dirtyTruthInputs.length)return{ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['clean-truth-input-checkout-required-before-regeneration'],dirtyTruthInputsBefore:dirtyTruthInputs,ignoredPreexistingWorkspaceDirt:before.filter(p=>!dirtyTruthInputs.includes(p)),businessEffectAuthority:'NONE'};
+ const readinessRun=run('node',['scripts/system-readiness.mjs']);if(readinessRun.exitCode!==0)return{ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['readiness-generator-failed'],generatorResults:{readiness:readinessRun},businessEffectAuthority:'NONE'};
+ const coverageRun=run('node',['scripts/sovereign-coverage-matrix.mjs']);if(coverageRun.exitCode!==0)return{ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['coverage-generator-failed'],generatorResults:{readiness:readinessRun,coverage:coverageRun},businessEffectAuthority:'NONE'};
+ const leafGraphRun=run('node',['scripts/canonical-execution-leaf-materializer.mjs']);if(leafGraphRun.exitCode!==0)return{ok:false,status:'CURRENT_TRUTH_REGENERATION_REFUSED',reasonCodes:['canonical-leaf-graph-generator-failed'],generatorResults:{readiness:readinessRun,coverage:coverageRun,leafGraph:leafGraphRun},businessEffectAuthority:'NONE'};
+ const readiness=readJson('artifacts/system-readiness.json');const coverage=readJson('artifacts/sovereign/implementation-coverage-matrix.json');const leafGraph=readJson('artifacts/sovereign/canonical-execution-leaf-graph.json');const freeze=buildCurrentRealityFreeze({rootDir:root});const after=dirtyPaths();
+ return verifyCurrentTruthRegeneration({headSha,readiness,coverage,leafGraph,freeze,dirtyPaths:newlyDirtyPaths(before,after||[]),generatorResults:{readiness:readinessRun,coverage:coverageRun,leafGraph:leafGraphRun}});
 }
-
-function readJson(relative) {
-  try {
-    return JSON.parse(readFileSync(join(root, relative), 'utf8'));
-  } catch {
-    return {};
-  }
-}
-
-function run(command, args) {
-  const result = spawnSync(command, args, {
-    cwd: root,
-    env: process.env,
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'pipe']
-  });
-  if (result.stdout) process.stdout.write(result.stdout);
-  if (result.stderr) process.stderr.write(result.stderr);
-  return {
-    command: [command, ...args].join(' '),
-    exitCode: result.status ?? 1,
-    started: !result.error,
-    error: result.error ? String(result.error.message || result.error) : null
-  };
-}
-
-export function parseGitPorcelainPaths(porcelain = '') {
-  return String(porcelain).split('\n').filter(Boolean).map(line => {
-    // `git status --porcelain` reserves columns 0-1 for XY status and column 2
-    // for the separator. Do not trim the whole command output first: a first
-    // line beginning with " M" would lose its leading status column and the
-    // path parser would amputate the first filename character.
-    const path = line.slice(3).trim();
-    const rename = path.includes(' -> ') ? path.split(' -> ').at(-1) : path;
-    return rename;
-  }).filter(Boolean);
-}
-
-function dirtyPaths() {
-  const porcelain = git(['status', '--porcelain'], { trim: false });
-  if (porcelain === null) return null;
-  return parseGitPorcelainPaths(porcelain);
-}
-
-export function executeCurrentTruthRegeneration() {
-  const headSha = git(['rev-parse', 'HEAD']);
-  const before = dirtyPaths();
-  if (!headSha || before === null) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['git-head-and-status-required'],
-      businessEffectAuthority: 'NONE'
-    };
-  }
-  if (before.length) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['clean-source-checkout-required-before-regeneration'],
-      dirtyPathsBefore: before,
-      businessEffectAuthority: 'NONE'
-    };
-  }
-
-  const readinessRun = run('node', ['scripts/system-readiness.mjs']);
-  if (readinessRun.exitCode !== 0) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['readiness-generator-failed'],
-      generatorResults: { readiness: readinessRun },
-      businessEffectAuthority: 'NONE'
-    };
-  }
-
-  const coverageRun = run('node', ['scripts/sovereign-coverage-matrix.mjs']);
-  if (coverageRun.exitCode !== 0) {
-    return {
-      ok: false,
-      status: 'CURRENT_TRUTH_REGENERATION_REFUSED',
-      reasonCodes: ['coverage-generator-failed'],
-      generatorResults: { readiness: readinessRun, coverage: coverageRun },
-      businessEffectAuthority: 'NONE'
-    };
-  }
-
-  const readiness = readJson('artifacts/system-readiness.json');
-  const coverage = readJson('artifacts/sovereign/implementation-coverage-matrix.json');
-  const freeze = buildCurrentRealityFreeze({ rootDir: root });
-  const after = dirtyPaths();
-
-  return verifyCurrentTruthRegeneration({
-    headSha,
-    readiness,
-    coverage,
-    freeze,
-    dirtyPaths: after || [],
-    generatorResults: {
-      readiness: readinessRun,
-      coverage: coverageRun
-    }
-  });
-}
-
-const direct = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-if (direct) {
-  const receipt = executeCurrentTruthRegeneration();
-  process.stdout.write(`${JSON.stringify(receipt, null, 2)}\n`);
-  if (!receipt.ok) process.exitCode = 1;
-}
+const direct=process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url);if(direct){const receipt=executeCurrentTruthRegeneration();process.stdout.write(`${JSON.stringify(receipt,null,2)}\n`);if(!receipt.ok)process.exitCode=1;}

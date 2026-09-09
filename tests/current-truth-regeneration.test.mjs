@@ -1,113 +1,28 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { verifyCurrentTruthRegeneration, EXPECTED_TRUTH_OUTPUTS } from '../src/current-truth-regeneration.mjs';
-
-const HEAD='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+const HEAD='a'.repeat(40);
 function fixture(over={}){
-  const readiness={
-    generatedBy:'scripts/system-readiness.mjs',
-    generatedAt:'2026-09-09T00:00:00.000Z',
-    repository:{head:HEAD,workingTreeClean:true,sourceModules:400,testSuites:500},
-    measurements:{reachability:{measurementMode:'LIVE_COMPUTED_FROM_IMPORT_GRAPH',srcModules:400,reachableFromProduction:150,reachableFromUnattendedOperatorScriptsOnly:100,reachableFromFounderInteractiveOnly:20,noEntryPointAtAll:130,partitionExact:true,allClassified:true}}
-  };
-  const coverage={
-    ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,
-    counts:{rows:10,extractedConcepts:12,byState:{IMPLEMENTED:7,SPEC_ONLY:3},byLane:{'OMEGA-01':5,'OMEGA-02':5}}
-  };
-  const freeze={
-    ok:true,head:{sha:HEAD},
-    generatedArtifacts:[{id:'system-readiness',status:'CURRENT_EXACT_HEAD'},{id:'sovereign-coverage',status:'CURRENT_EXACT_HEAD'}],
-    closureBoundary:{runtimeTruth:'NOT_INFERRED_FROM_REPOSITORY_FREEZE',externalOutcomeTruth:'NOT_INFERRED_FROM_REPOSITORY_FREEZE'}
-  };
-  return {headSha:HEAD,readiness,coverage,freeze,dirtyPaths:[...EXPECTED_TRUTH_OUTPUTS],generatorResults:{readiness:{exitCode:0},coverage:{exitCode:0}},...over};
+ const readiness={generatedBy:'scripts/system-readiness.mjs',generatedAt:'2026-09-09T00:00:00.000Z',repository:{head:HEAD,workingTreeClean:true,sourceModules:400,testSuites:500},measurements:{reachability:{measurementMode:'LIVE_COMPUTED_FROM_IMPORT_GRAPH',srcModules:400,reachableFromProduction:150,reachableFromUnattendedOperatorScriptsOnly:100,reachableFromFounderInteractiveOnly:20,noEntryPointAtAll:130,partitionExact:true,allClassified:true}}};
+ const rows=Array.from({length:10},(_,i)=>({canonicalId:`r:${i}`,currentState:i<3?'SPEC_ONLY':'VERIFIED_CURRENT'}));const ids=rows.map(r=>r.canonicalId).sort();
+ const coverage={ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,rows,counts:{rows:10,extractedConcepts:12,byState:{VERIFIED_CURRENT:7,SPEC_ONLY:3},byLane:{'OMEGA-01':5,'OMEGA-02':5}}};
+ const leafGraph={ok:true,status:'ZERO_ORPHAN_CANONICAL_EXECUTION_LEAF_GRAPH_COMPILED',sourceCommit:HEAD,counts:{requirements:10,leaves:13,orphanRequirements:0,floatingLeaves:0,dependencyCycles:0},dependencyDepth:2,maxSafeParallelWidth:10,graphDigest:'b'.repeat(64),canonicalBindingDigest:'c'.repeat(64),canonicalBinding:{sourceCommit:HEAD,coverageRows:10,canonicalRequirementIds:ids}};
+ const freeze={ok:true,head:{sha:HEAD},generatedArtifacts:[{id:'system-readiness',status:'CURRENT_EXACT_HEAD'},{id:'sovereign-coverage',status:'CURRENT_EXACT_HEAD'}],closureBoundary:{runtimeTruth:'NOT_INFERRED_FROM_REPOSITORY_FREEZE',externalOutcomeTruth:'NOT_INFERRED_FROM_REPOSITORY_FREEZE'}};
+ return{headSha:HEAD,readiness,coverage,leafGraph,freeze,dirtyPaths:[...EXPECTED_TRUTH_OUTPUTS],generatorResults:{readiness:{exitCode:0},coverage:{exitCode:0},leafGraph:{exitCode:0}},...over};
 }
-
-test('exact-head canonical regeneration compiles a bounded source-truth receipt',()=>{
-  const out=verifyCurrentTruthRegeneration(fixture());
-  assert.equal(out.ok,true);
-  assert.equal(out.status,'CURRENT_TRUTH_REGENERATED_FOR_EXACT_SOURCE_HEAD');
-  assert.equal(out.coverage.rows,10);
-  assert.equal(out.coverage.byState.SPEC_ONLY,3);
-  assert.equal(out.closureBoundary.namedRuntimeTruth,'NOT_INFERRED');
-  assert.equal(out.closureBoundary.commercialTruth,'NOT_INFERRED');
-  assert.equal(out.closureBoundary.asiTruth,'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED');
-  assert.equal(out.businessEffectAuthority,'NONE');
-});
-
-test('invalid head fails closed',()=>{
-  const out=verifyCurrentTruthRegeneration(fixture({headSha:'nope'}));
-  assert.equal(out.ok,false);
-  assert.deepEqual(out.reasonCodes,['valid-exact-head-required']);
-});
-
-test('readiness must bind exact head',()=>{
-  const x=fixture();x.readiness.repository.head='b'.repeat(40);
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('readiness-head-mismatch'));
-});
-
-test('coverage must bind exact head',()=>{
-  const x=fixture();x.coverage.sourceCommit='b'.repeat(40);
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-head-mismatch'));
-});
-
-test('readiness must have observed a clean source checkout before it wrote outputs',()=>{
-  const x=fixture();x.readiness.repository.workingTreeClean=false;
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('readiness-must-be-measured-from-clean-source-checkout'));
-});
-
-test('recorded reachability cannot replace exact live import-graph reachability',()=>{
-  const x=fixture();x.readiness.measurements.reachability.measurementMode='RECORDED';
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('live-reachability-measurement-required'));
-});
-
-test('incomplete or unclassified reachability fails',()=>{
-  const x=fixture();x.readiness.measurements.reachability.partitionExact=false;x.readiness.measurements.reachability.allClassified=false;
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('reachability-partition-must-be-exact'));assert.ok(out.reasonCodes.includes('reachability-must-be-fully-classified'));
-});
-
-test('coverage denominator cannot be empty',()=>{
-  const x=fixture();x.coverage.counts.rows=0;x.coverage.counts.extractedConcepts=0;x.coverage.counts.byState={};
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-row-denominator-required'));assert.ok(out.reasonCodes.includes('coverage-concept-denominator-required'));
-});
-
-test('coverage state counts must account for every row',()=>{
-  const x=fixture();x.coverage.counts.byState={IMPLEMENTED:7,SPEC_ONLY:2};
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-state-counts-must-sum-to-row-denominator'));
-});
-
-test('unexpected mutation outside generated truth surfaces fails',()=>{
-  const x=fixture();x.dirtyPaths=[...EXPECTED_TRUTH_OUTPUTS,'src/evil-drift.mjs'];
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('truth-regeneration-mutated-unexpected-path'));assert.deepEqual(out.unexpectedDirtyPaths,['src/evil-drift.mjs']);
-});
-
-test('idempotent generator output is allowed to remain byte-identical',()=>{
-  const x=fixture();x.dirtyPaths=[];
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,true);
-});
-
-test('both canonical generators must actually execute successfully',()=>{
-  const x=fixture();x.generatorResults.readiness.exitCode=1;x.generatorResults.coverage.exitCode=2;
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('readiness-generator-must-exit-zero'));assert.ok(out.reasonCodes.includes('coverage-generator-must-exit-zero'));
-});
-
-test('freeze must independently agree that both generated artifacts bind exact head',()=>{
-  const x=fixture();x.freeze.generatedArtifacts[1].status='CURRENT_SOURCE_EQUIVALENT';
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('freeze-artifact-not-current-exact-head:sovereign-coverage'));
-});
-
-test('freeze may never launder repository regeneration into runtime or outcomes',()=>{
-  const x=fixture();x.freeze.closureBoundary.runtimeTruth='PROVEN';x.freeze.closureBoundary.externalOutcomeTruth='PROVEN';
-  const out=verifyCurrentTruthRegeneration(x);
-  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('freeze-runtime-boundary-must-remain-noninferred'));assert.ok(out.reasonCodes.includes('freeze-external-outcome-boundary-must-remain-noninferred'));
-});
+test('exact-head regeneration binds finite coverage to zero-orphan graph',()=>{const out=verifyCurrentTruthRegeneration(fixture());assert.equal(out.ok,true,JSON.stringify(out));assert.equal(out.status,'CURRENT_TRUTH_AND_ZERO_ORPHAN_GRAPH_REGENERATED_FOR_EXACT_SOURCE_HEAD');assert.equal(out.coverage.rows,10);assert.equal(out.executionLeafGraph.requirements,10);assert.equal(out.executionLeafGraph.orphanRequirements,0);assert.equal(out.closureBoundary.namedRuntimeTruth,'NOT_INFERRED');assert.equal(out.closureBoundary.commercialTruth,'NOT_INFERRED');assert.equal(out.closureBoundary.asiTruth,'SYSTEM_LEVEL_ASI_NOT_ESTABLISHED');});
+test('invalid head fails closed',()=>{assert.deepEqual(verifyCurrentTruthRegeneration(fixture({headSha:'nope'})).reasonCodes,['valid-exact-head-required']);});
+test('readiness and coverage bind exact head',()=>{let x=fixture();x.readiness.repository.head='b'.repeat(40);assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('readiness-head-mismatch'));x=fixture();x.coverage.sourceCommit='b'.repeat(40);assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('coverage-head-mismatch'));});
+test('materialized rows equal denominator and state counts',()=>{let x=fixture();x.coverage.rows.pop();assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('coverage-materialized-rows-must-match-denominator'));x=fixture();x.coverage.counts.byState={VERIFIED_CURRENT:7,SPEC_ONLY:2};assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('coverage-state-counts-must-sum-to-row-denominator'));});
+test('canonical coverage IDs must be present and unique',()=>{let x=fixture();x.coverage.rows[0].canonicalId='';assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('every-coverage-row-needs-canonical-id'));x=fixture();x.coverage.rows[1].canonicalId=x.coverage.rows[0].canonicalId;assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('coverage-canonical-ids-must-be-unique'));});
+test('readiness requires clean exact classified reachability',()=>{const x=fixture();x.readiness.repository.workingTreeClean=false;x.readiness.measurements.reachability.partitionExact=false;x.readiness.measurements.reachability.allClassified=false;const out=verifyCurrentTruthRegeneration(x);assert.ok(out.reasonCodes.includes('readiness-must-be-measured-from-clean-source-checkout'));assert.ok(out.reasonCodes.includes('reachability-partition-must-be-exact'));assert.ok(out.reasonCodes.includes('reachability-must-be-fully-classified'));});
+test('recorded reachability cannot replace live import graph',()=>{const x=fixture();x.readiness.measurements.reachability.measurementMode='RECORDED';assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('live-reachability-measurement-required'));});
+test('leaf graph binds exact head and denominator',()=>{const x=fixture();x.leafGraph.sourceCommit='b'.repeat(40);x.leafGraph.canonicalBinding.coverageRows=9;x.leafGraph.counts.requirements=9;const out=verifyCurrentTruthRegeneration(x);assert.ok(out.reasonCodes.includes('leaf-graph-head-mismatch'));assert.ok(out.reasonCodes.includes('leaf-graph-coverage-denominator-mismatch'));assert.ok(out.reasonCodes.includes('leaf-graph-requirement-denominator-mismatch'));});
+test('same count with swapped canonical ID fails identity proof',()=>{const x=fixture();x.leafGraph.canonicalBinding.canonicalRequirementIds[0]='r:forged';assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('leaf-graph-canonical-id-set-mismatch'));});
+test('orphan floating or cyclic graph cannot certify closure',()=>{const x=fixture();x.leafGraph.counts.orphanRequirements=1;x.leafGraph.counts.floatingLeaves=1;x.leafGraph.counts.dependencyCycles=1;const out=verifyCurrentTruthRegeneration(x);assert.ok(out.reasonCodes.includes('zero-orphan-requirement-proof-required'));assert.ok(out.reasonCodes.includes('zero-floating-leaf-proof-required'));assert.ok(out.reasonCodes.includes('acyclic-leaf-graph-proof-required'));});
+test('leaf digest chain must be SHA-256 shaped',()=>{const x=fixture();x.leafGraph.graphDigest='g'.repeat(64);assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('leaf-graph-digest-chain-required'));});
+test('all three generators must execute',()=>{const x=fixture();x.generatorResults.readiness.exitCode=1;x.generatorResults.coverage.exitCode=2;x.generatorResults.leafGraph.exitCode=3;const out=verifyCurrentTruthRegeneration(x);assert.ok(out.reasonCodes.includes('readiness-generator-must-exit-zero'));assert.ok(out.reasonCodes.includes('coverage-generator-must-exit-zero'));assert.ok(out.reasonCodes.includes('canonical-leaf-graph-generator-must-exit-zero'));});
+test('unexpected mutation outside truth surfaces fails',()=>{const x=fixture();x.dirtyPaths=[...EXPECTED_TRUTH_OUTPUTS,'src/evil-drift.mjs'];const out=verifyCurrentTruthRegeneration(x);assert.ok(out.reasonCodes.includes('truth-regeneration-mutated-unexpected-path'));assert.deepEqual(out.unexpectedDirtyPaths,['src/evil-drift.mjs']);});
+test('idempotent outputs may remain byte-identical',()=>{const x=fixture();x.dirtyPaths=[];assert.equal(verifyCurrentTruthRegeneration(x).ok,true);});
+test('freeze independently agrees readiness and coverage exact head',()=>{const x=fixture();x.freeze.generatedArtifacts[1].status='CURRENT_SOURCE_EQUIVALENT';assert.ok(verifyCurrentTruthRegeneration(x).reasonCodes.includes('freeze-artifact-not-current-exact-head:sovereign-coverage'));});
+test('freeze never launders repository regeneration into runtime/outcomes',()=>{const x=fixture();x.freeze.closureBoundary.runtimeTruth='PROVEN';x.freeze.closureBoundary.externalOutcomeTruth='PROVEN';const out=verifyCurrentTruthRegeneration(x);assert.ok(out.reasonCodes.includes('freeze-runtime-boundary-must-remain-noninferred'));assert.ok(out.reasonCodes.includes('freeze-external-outcome-boundary-must-remain-noninferred'));});

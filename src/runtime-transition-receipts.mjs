@@ -160,13 +160,49 @@ export function runtimeTransitionObservedReceiptPreimage(receipt={},kind){
   return null;
 }
 
+function observedSemanticsMatchAssertion(receipt,assertion,kind){
+  if(kind==='DURABLE_WORKLOAD') {
+    return receipt.workloadId===assertion.workloadId
+      && receipt.beforeStateDigest===assertion.beforeStateDigest
+      && receipt.afterStateDigest===assertion.afterStateDigest
+      && receipt.restartObserved===assertion.restartObserved
+      && receipt.replacementWorkerObserved===assertion.replacementWorkerObserved
+      && receipt.persistedAcrossRestart===assertion.persistedAcrossRestart
+      && receipt.duplicateExternalEffects===assertion.duplicateExternalEffects
+      && receipt.uncertainEffectBlindReplayObserved===assertion.uncertainEffectBlindReplayObserved;
+  }
+  if(kind==='CUTOVER_ROLLBACK') {
+    return identityKey(receipt.fromRuntimeIdentity)===identityKey(assertion.fromRuntimeIdentity)
+      && identityKey(receipt.toRuntimeIdentity)===identityKey(assertion.toRuntimeIdentity)
+      && receipt.cutoverSucceeded===assertion.cutoverSucceeded
+      && receipt.boundedWorkloadSucceeded===assertion.boundedWorkloadSucceeded
+      && receipt.rollbackExercised===assertion.rollbackExercised
+      && receipt.rollbackSucceeded===assertion.rollbackSucceeded
+      && identityKey(receipt.rollbackRuntimeIdentity)===identityKey(assertion.rollbackRuntimeIdentity)
+      && receipt.duplicateExternalEffects===assertion.duplicateExternalEffects
+      && receipt.uncertainEffectBlindReplayObserved===assertion.uncertainEffectBlindReplayObserved;
+  }
+  if(kind==='PROVIDER_LOSS') {
+    return receipt.manifestDigest===assertion.manifestDigest
+      && identityKey(receipt.failedProvider)===identityKey(assertion.failedProvider)
+      && identityKey(receipt.alternateProvider)===identityKey(assertion.alternateProvider)
+      && receipt.primaryUnavailable===assertion.primaryUnavailable
+      && receipt.alternateRestoreSucceeded===assertion.alternateRestoreSucceeded
+      && receipt.boundedWorkloadSucceeded===assertion.boundedWorkloadSucceeded
+      && receipt.recoveryUsedPrimaryProvider===assertion.recoveryUsedPrimaryProvider
+      && receipt.duplicateExternalEffects===assertion.duplicateExternalEffects
+      && receipt.uncertainEffectBlindReplayObserved===assertion.uncertainEffectBlindReplayObserved;
+  }
+  return false;
+}
+
 export function verifyRuntimeTransitionReceiptIntegrity(receipt={},kind){
   if(!['DURABLE_WORKLOAD','CUTOVER_ROLLBACK','PROVIDER_LOSS'].includes(kind)) return false;
   if(receipt?.ok!==true||receipt.schemaVersion!==RUNTIME_TRANSITION_RECEIPTS_VERSION||receipt.status!==`${kind}_OBSERVED`||receipt.evidenceClass!=='OBSERVED_RUNTIME'||receipt.originClass!=='EXECUTING_OBSERVER_RECEIPT'||receipt.receiptClass!==kind) return false;
   const assertion=receipt.assertion;
   if(!assertion||assertion.ok!==true||assertion.evidenceClass!=='UNVERIFIED_RUNTIME_ASSERTION'||assertion.originClass!=='SOURCE_ONLY_ASSERTION'||assertion.maySatisfyRuntimeAcceptance!==false||assertion.receiptClass!==kind) return false;
   if(!SHA256.test(String(assertion.assertionDigest||'').toLowerCase())||digest(Object.fromEntries(Object.entries(assertion).filter(([key])=>key!=='assertionDigest')))!==assertion.assertionDigest) return false;
-  if(receipt.assertionDigest!==assertion.assertionDigest) return false;
+  if(receipt.assertionDigest!==assertion.assertionDigest||!observedSemanticsMatchAssertion(receipt,assertion,kind)) return false;
   if(String(receipt.sourceCommit||'').toLowerCase()!==String(assertion.sourceCommit||'').toLowerCase()||identityKey(receipt.runtimeIdentity)!==identityKey(assertion.runtimeIdentity)) return false;
   const observer=receipt.observerReceipt;
   if(!verifyRuntimeTransitionObserverReceipt(observer,assertion)||receipt.observerReceiptDigest!==observer.receiptDigest) return false;

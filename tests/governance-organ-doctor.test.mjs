@@ -21,6 +21,8 @@ const expected = [
   'src/recursive-improvement-retention.mjs',
   'src/runtime-evidence-attestation.mjs',
   'src/self-improvement-causal-admission.mjs',
+  'src/semantic-requirement-tribunal.mjs',
+  'src/sovereign-cut-set-audit.mjs',
   'src/system-level-asi-evidence.mjs',
   'src/world-resource-observed-value.mjs'
 ];
@@ -46,7 +48,7 @@ test('doctor remains an inert import surface rather than a hidden executor', () 
   assert.doesNotMatch(source, /https?:\/\//);
 });
 
-test('the exact Vercel-refused organ set is operator-reachable rather than silently unclassified', () => {
+test('the exact terminal governance organ set is operator-reachable rather than silently unclassified', () => {
   const measured = measureReachability();
   assert.equal(measured.measurementMode, 'LIVE_COMPUTED_FROM_IMPORT_GRAPH');
   assert.equal(measured.partitionExact, true);

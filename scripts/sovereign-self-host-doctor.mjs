@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const SOVEREIGN_SELF_HOST_DOCTOR_VERSION = 'uberbond.sovereign-self-host-doctor.v3';
+export const SOVEREIGN_SELF_HOST_DOCTOR_VERSION = 'uberbond.sovereign-self-host-doctor.v4';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ZERO = Object.freeze({ customerMessages:0, providerCalls:0, spendCents:0, deployments:0, dnsChanges:0, credentialChanges:0, paymentMutations:0, productionMutations:0 });
 
@@ -53,12 +53,14 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
   ];
   for (const marker of requiredCompose) if (!compose.includes(marker)) reasons.push(`compose-marker-missing:${marker}`);
   if (/^\s*build\s*:/m.test(compose)) reasons.push('runtime-compose-must-not-build');
-  if (/pull_policy\s*:/m.test(compose)) reasons.push('runtime-compose-must-not-pull');
+  const pullPolicies=[...compose.matchAll(/^\s*pull_policy:\s*(\S+)\s*$/gm)].map(match=>match[1]);
+  if(pullPolicies.length!==4||pullPolicies.some(value=>value!=='never')) reasons.push('every-runtime-image-must-have-pull-policy-never');
 
   const requiredCtl = [
     'docker load -i', 'sha256sum -c SHA256SUMS', 'release signature verification failed',
     'RELEASE_SEQUENCE', 'release replay or non-monotonic promotion refused', 'CURRENT_RELEASE_ID', 'POSTGRES_IMAGE_ID',
-    'backup_db', 'restore_db', 'restore_drill', 'forward_backup', 'promotion refused and rollback attempted',
+    'backup_db', 'restore_db', 'recreate_database_empty', 'pg_terminate_backend', 'pg_restore --exit-on-error',
+    'restore_drill', 'forward_backup', 'promotion refused and rollback attempted', 'first promotion requires an empty sovereign database',
     'reconciler will not download replacements', 'npm run check:syntax', 'npm run test:deterministic',
     'docker build --network=none --pull=false', 'Dockerfile.sovereign', 'flock -n', 'apply_inbox'
   ];
@@ -96,7 +98,7 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
 
   if (!service.includes('ExecStart=/opt/uberbond/control/uberbondctl reconcile')) reasons.push('independent-supervisor-entrypoint-required');
   if (!timer.includes('OnUnitActiveSec=60s') || !timer.includes('Persistent=true')) reasons.push('durable-minute-reconciliation-required');
-  if (!applyService.includes('ExecStart=/opt/uberbond/control/uberbondctl apply-inbox') || !applyPath.includes('PathChanged=/var/lib/uberbond-control/inbox/NEXT_RELEASE')) {
+  if (!applyService.includes('ExecStart=/opt/uberbond/control/uberbondctl apply-inbox') || !applyPath.includes('PathExists=/var/lib/uberbond-control/inbox/NEXT_RELEASE')) {
     reasons.push('local-signed-release-auto-apply-required');
   }
 
@@ -111,6 +113,7 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
       runtimeNeedsGitHub:false,
       runtimeNeedsPackageRegistry:false,
       runtimeMayDownloadReplacement:false,
+      runtimeImagePullPolicy:'NEVER',
       releaseBuildNetworkDisabled:true,
       immutableOfflineReleaseBundle:true,
       signedMonotonicReleaseAdmission:true,
@@ -122,6 +125,7 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
       offlineBuildImageSeedPreserved:true,
       authoringEnvironmentOfflineRestorable:true,
       preMigrationBackup:true,
+      exactDatabaseRecreationBeforeRestore:true,
       automaticFailedPromotionRollback:true,
       reversibleRollbackSnapshot:true,
       restoreDrillImplemented:true,
@@ -130,7 +134,7 @@ export function inspectSovereignSelfHost({ repoRoot = root } = {}) {
       defaultExternalEffects:'DISABLED',
       defaultBind:'127.0.0.1'
     },
-    proofBoundary:'SOURCE INSPECTION ONLY. A REAL OWNED/AUTHORIZED HOST MUST STILL EXECUTE SOVEREIGN-KIT EXPORT/IMPORT, OFFLINE PACK, INSTALL, SIGNED DEPLOY, CRASH/RESTART, RESTORE-DRILL, FAILED-PROMOTION ROLLBACK AND EXPLICIT ROLLBACK BEFORE RUNTIME SOVEREIGNTY IS CLAIMED.',
+    proofBoundary:'SOURCE INSPECTION ONLY. A REAL OWNED/AUTHORIZED HOST MUST STILL EXECUTE SOVEREIGN-KIT EXPORT/IMPORT, OFFLINE PACK, INSTALL, SIGNED DEPLOY, DB PERSISTENCE, CRASH/RESTART, RESTORE-DRILL, FAILED-PROMOTION ROLLBACK AND EXPLICIT ROLLBACK BEFORE RUNTIME SOVEREIGNTY IS CLAIMED.',
     businessEffectAuthority:'NONE',
     externalEffectLedger:{...ZERO}
   };

@@ -8,7 +8,7 @@ Long chats can end, shared-chat URLs may be unavailable to a later runtime, codi
 
 ## Repository-native brain
 
-UberBond continuity is anchored in nine layers:
+UberBond continuity is anchored in ten layers:
 
 1. `AGENTS.md` — startup and engineering law for repo-aware agents.
 2. `UBERBOND_CANON.md` — durable product/constitutional doctrine.
@@ -18,7 +18,8 @@ UberBond continuity is anchored in nine layers:
 6. `docs/CURRENT_HANDOFF.json` — the short-horizon current mission/frontier, verified completion, blockers and next actions.
 7. current readiness/state files — present-tense measured software truth.
 8. `docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md` — curated cross-chat project context: current ChatGPT project goals, architecture, recent convergence wave, bootstrap-autonomy intent, self-hosting boundary and historical donor context. It restores conversation-level intent but never outranks newer exact-current repository/runtime evidence.
-9. `src/uberbond-brain-context.mjs` — fail-closed compiler that validates/digests bootstrap + Master Memory index into a context identity.
+9. `docs/handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md` — durable no-amputation law that heavy UberBond compute belongs on remote owner-controlled Linux nodes while Mohamed's iPad remains a thin founder cockpit; Vercel/GitHub-hosted control planes are not the terminal runtime or recovery root.
+10. `src/uberbond-brain-context.mjs` — fail-closed compiler that validates/digests bootstrap + Master Memory index into a context identity.
 
 The current repository and durable external receipts remain separate sources of present-tense truth. A stale handoff or rich historical memory never outranks a newer merged commit or provider/customer receipt.
 
@@ -26,7 +27,7 @@ The current repository and durable external receipts remain separate sources of 
 
 A new UberBond session should execute:
 
-`refresh main -> AGENTS -> CANON -> BOOTSTRAP -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> CHATGPT_PROJECT_CONTINUITY_CURRENT -> open/recent PRs -> requested mission -> dedupe -> execute`
+`refresh main -> AGENTS -> CANON -> BOOTSTRAP -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> CHATGPT_PROJECT_CONTINUITY_CURRENT -> SOVEREIGN_AIR_FABRIC_CURRENT -> open/recent PRs -> requested mission -> dedupe -> execute`
 
 If the user says only `continue` or `go`, the session should execute that recovery sequence instead of asking for a project retelling.
 
@@ -41,6 +42,8 @@ The memory therefore preserves superseded programs with a status and reconciliat
 `docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md` is the durable bridge for a long ChatGPT project conversation when the conversation itself becomes too large or sluggish. Update it when a long project chat is intentionally handed off to a fresh chat and material conversation-level goals or execution context are not yet safely represented by the stable Master Memory/current generated handoff.
 
 It may summarize project-chat context and external/File-Library donor packages, but must label their evidence state. It must not copy secrets, private customer payloads, credentials, raw transcripts or unsupported claims into Git. Newer exact-current source/runtime/provider evidence always wins over the curated packet.
+
+`docs/handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md` is the durable bridge for the founder's remote-compute intent. A future session must not silently reinterpret self-hosting as running heavy workloads on the iPad or making a hosted deployment company the runtime root. It records architecture and intent only; actual owned-host receipts remain the source of runtime truth.
 
 ## Handoff update law
 

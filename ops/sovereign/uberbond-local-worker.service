@@ -1,11 +1,13 @@
 [Unit]
 Description=UberBond isolated local model worker
-After=local-fs.target
+After=local-fs.target uberbond-local-model-proxy.service
+Wants=uberbond-local-model-proxy.service
 
 [Service]
 Type=oneshot
 User=uberbond-worker
 Group=uberbond-autonomy
+SupplementaryGroups=uberbond-model
 EnvironmentFile=/etc/uberbond/worker.env
 ExecStart=/usr/bin/node /opt/uberbond/source/scripts/sovereign-local-worker-runner.mjs
 NoNewPrivileges=true
@@ -13,7 +15,7 @@ PrivateTmp=true
 PrivateNetwork=true
 ProtectSystem=strict
 ProtectHome=true
-ReadOnlyPaths=/opt/uberbond/source /var/lib/uberbond-worker/inbox
+ReadOnlyPaths=/opt/uberbond/source /var/lib/uberbond-worker/inbox /run/uberbond-model
 ReadWritePaths=/var/lib/uberbond-worker/outbox /tmp
 ProtectKernelTunables=true
 ProtectKernelModules=true
@@ -21,5 +23,6 @@ ProtectControlGroups=true
 LockPersonality=true
 RestrictRealtime=true
 RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX
 UMask=0027
 TimeoutStartSec=3600

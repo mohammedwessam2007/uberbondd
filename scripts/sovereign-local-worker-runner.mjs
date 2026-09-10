@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const SOVEREIGN_LOCAL_WORKER_VERSION = 'uberbond.sovereign-local-worker.v2';
+export const SOVEREIGN_LOCAL_WORKER_VERSION = 'uberbond.sovereign-local-worker.v3';
 const MAX_BYTES = 8_000_000;
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
@@ -40,7 +40,18 @@ export async function runSovereignLocalWorker({ env = process.env, runProcess = 
     env: { PATH: env.PATH || '', HOME: env.HOME || '/tmp', UBERBOND_TASK_PATH: taskPath, UBERBOND_RESULT_PATH: tmpResult, UBERBOND_SOURCE_ROOT: sourceRoot },
     timeoutMs: Number(env.UBERBOND_LOCAL_WORKER_TIMEOUT_MS || 45 * 60_000)
   });
-  if (execution.exitCode !== 0) { await fs.rm(tmpResult, { force: true }).catch(() => {}); return emitFailure([`worker-exit:${execution.exitCode}`], 'SOVEREIGN_LOCAL_WORKER_FAILED', { timedOut: execution.timedOut }); }
+  if (execution.exitCode !== 0) {
+    const boundedFailure = await readJson(tmpResult);
+    await fs.rm(tmpResult, { force: true }).catch(() => {});
+    const reasons = Array.isArray(boundedFailure?.reasonCodes) && boundedFailure.reasonCodes.length
+      ? boundedFailure.reasonCodes.map(value => text(value, 500))
+      : [`worker-exit:${execution.exitCode}`];
+    return emitFailure(reasons, text(boundedFailure?.status, 160) || 'SOVEREIGN_LOCAL_WORKER_FAILED', {
+      timedOut: execution.timedOut,
+      workerExitCode: execution.exitCode,
+      boundedWorkerFailureObserved: Boolean(boundedFailure)
+    });
+  }
   const result = await readJson(tmpResult);
   const candidate = result?.codeChangeSet || result?.changeSet || result;
   if (!candidate?.ok || !candidate?.changeSetId || candidate?.taskId !== task.taskId) { await fs.rm(tmpResult, { force: true }).catch(() => {}); return emitFailure(['task-bound-agent-code-change-set-required'], 'SOVEREIGN_LOCAL_WORKER_OUTPUT_REFUSED'); }

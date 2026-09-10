@@ -1,13 +1,6 @@
 name: UberBond Sandwich Autocatalytic Loop
 
 on:
-  workflow_run:
-    workflows:
-      - UberBond Self Maintainer
-    types:
-      - completed
-  schedule:
-    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 concurrency:
@@ -52,7 +45,7 @@ jobs:
             --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
           echo "count=${active}" >> "$GITHUB_OUTPUT"
           if [ "$active" != '0' ]; then
-            echo "Self-maintainer has ${active} active/queued run(s); this fold collapses to no-op. Recovery clock remains armed."
+            echo "Self-maintainer has ${active} active/queued run(s); manual cloud fallback collapses to no-op."
           fi
 
       - name: Checkout exact current main

@@ -444,6 +444,20 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       problems: enforcementCheck.problems
     };
   }
+  const testlessEnforcement = [...enforcementCheck.byConcept.values()].filter(entry => entry.tests.length === 0);
+  if (testlessEnforcement.length) {
+    const problems = testlessEnforcement.map(entry => ({
+      reason: 'enforcement-entry-requires-test',
+      concept: entry.concept,
+      boundary: 'SOURCE_PRESENCE_ALONE_CANNOT_GRANT_ENFORCED_BY_CODE'
+    }));
+    return {
+      ok: false,
+      status: 'COVERAGE_ENFORCEMENT_INVALID',
+      reasonCodes: ['enforcement-entry-requires-test'],
+      problems
+    };
+  }
   const enforcementByConcept = enforcementCheck.byConcept;
 
   // External-gate declarations. "Blocked" is the most abusable label available

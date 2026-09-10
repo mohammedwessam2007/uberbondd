@@ -24,7 +24,7 @@ test('natural founder revenue command compiles into an active mission instead of
   assert.equal(mission.authority.outboundAuthorityInferredFromIntent, false);
 });
 
-test('zero observed profit before deadline is current state, never the terminal mission result', () => {
+test('unobserved zero before deadline is unknown and never the terminal mission result', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
   const state = evaluateFounderOutcomeMission({
     mission,
@@ -35,27 +35,81 @@ test('zero observed profit before deadline is current state, never the terminal 
   assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_ACTIVE');
   assert.equal(state.terminal, false);
   assert.equal(state.terminalResultAllowed, false);
-  assert.equal(state.currentObservedClearedContributionProfitCents, 0);
+  assert.equal(state.currentObservedClearedContributionProfitCents, null);
+  assert.equal(state.paymentObservationComplete, false);
   assert.match(state.truthBoundary, /not the terminal result/i);
 });
 
-test('early terminalization requires proof-complete admissible branch exhaustion', () => {
+test('provider-observed zero before deadline is still current state, never terminal result', () => {
+  const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
+  const state = evaluateFounderOutcomeMission({
+    mission,
+    now:new Date('2026-09-11T00:15:00.000Z'),
+    clearedContributionProfitCents:0,
+    paymentObservationComplete:true,
+    providerEvidenceRefs:['receipt://paypal-reconciliation/observed-zero']
+  });
+  assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_ACTIVE');
+  assert.equal(state.terminal, false);
+  assert.equal(state.currentObservedClearedContributionProfitCents, 0);
+  assert.equal(state.paymentObservationComplete, true);
+});
+
+test('early terminalization requires proof-complete branch exhaustion plus observed payment truth', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
   const weak = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T01:00:00.000Z'), exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:[] } });
   assert.equal(weak.terminal, false);
-  const proven = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T01:00:00.000Z'), clearedContributionProfitCents:0, exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] } });
+
+  const exhaustedButUnreconciled = evaluateFounderOutcomeMission({
+    mission,
+    now:new Date('2026-09-11T01:00:00.000Z'),
+    clearedContributionProfitCents:0,
+    exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] }
+  });
+  assert.equal(exhaustedButUnreconciled.status, 'FOUNDER_OUTCOME_MISSION_EXHAUSTED_RECONCILIATION_REQUIRED');
+  assert.equal(exhaustedButUnreconciled.terminal, false);
+  assert.equal(exhaustedButUnreconciled.terminalResultAllowed, false);
+
+  const proven = evaluateFounderOutcomeMission({
+    mission,
+    now:new Date('2026-09-11T01:00:00.000Z'),
+    clearedContributionProfitCents:0,
+    paymentObservationComplete:true,
+    providerEvidenceRefs:['receipt://paypal-reconciliation/observed-zero'],
+    exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] }
+  });
   assert.equal(proven.status, 'FOUNDER_OUTCOME_MISSION_EXHAUSTED_BEFORE_DEADLINE');
   assert.equal(proven.terminal, true);
   assert.equal(proven.terminalResultAllowed, true);
 });
 
-test('deadline with unknown payment reconciliation is unknown, not zero', () => {
+test('deadline with unknown payment reconciliation stays unresolved, never fake zero', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
-  const state = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T09:00:01.000Z') });
-  assert.equal(state.terminal, true);
+  const state = evaluateFounderOutcomeMission({
+    mission,
+    now:new Date('2026-09-11T09:00:01.000Z'),
+    clearedContributionProfitCents:0
+  });
+  assert.equal(state.terminal, false);
   assert.equal(state.terminalResultAllowed, false);
+  assert.equal(state.missionWindowClosed, true);
   assert.equal(state.clearedContributionProfitCents, null);
   assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED_RECONCILIATION_REQUIRED');
+});
+
+test('deadline zero becomes terminal only with a real payment observation receipt', () => {
+  const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
+  const state = evaluateFounderOutcomeMission({
+    mission,
+    now:new Date('2026-09-11T09:00:01.000Z'),
+    clearedContributionProfitCents:0,
+    paymentObservationComplete:true,
+    providerEvidenceRefs:['receipt://paypal-reconciliation/deadline-zero']
+  });
+  assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED');
+  assert.equal(state.terminal, true);
+  assert.equal(state.terminalResultAllowed, true);
+  assert.equal(state.clearedContributionProfitCents, 0);
 });
 
 test('economic pulse keeps preparation and reconciliation alive while withholding outbound without durable authority', () => {
@@ -67,6 +121,14 @@ test('economic pulse keeps preparation and reconciliation alive while withholdin
   assert.ok(plan.jobs.some(job => job.type === 'prometheus.commercial.catalog'));
   assert.ok(plan.jobs.some(job => job.type === 'payment.reconciliation.tick'));
   assert.equal(plan.jobs.some(job => job.type === 'outbound.process'), false);
+});
+
+test('after the deadline the heartbeat stops new monetization effects and continues reconciliation only', () => {
+  const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
+  const plan = compileFounderEconomicPulsePlan({ mission, now:new Date('2026-09-11T09:00:01.000Z'), paymentReconciliationAvailable:true });
+  assert.equal(plan.status, 'FOUNDER_ECONOMIC_RECONCILIATION_PULSE_PLAN_READY');
+  assert.equal(plan.reconciliationOnly, true);
+  assert.deepEqual(plan.jobs.map(job => job.type), ['payment.reconciliation.tick']);
 });
 
 test('outbound only enters the pulse with current named authority and mandatory health/suppression rechecks', () => {

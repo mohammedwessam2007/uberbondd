@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond.revenue-smoke-test.v1",
+  "date": "2026-09-11",
+  "timezone": "Africa/Cairo",
+  "startLocal": "2026-09-11T02:05:00+03:00",
+  "deadlineLocal": "2026-09-11T12:00:00+03:00",
+  "objective": "MAXIMIZE_PROVIDER_ORIGIN_CLEARED_CONTRIBUTION_PROFIT",
+  "founderMinutesTarget": 0,
+  "newSpendCeilingCents": 0,
+  "paymentDestination": {
+    "type": "PAYPAL_ME_NOMINATED_DESTINATION",
+    "value": "PayPal.me/Sarawessam",
+    "ownershipVerified": false,
+    "receivabilityVerified": false,
+    "countsAsRevenueWithoutProviderEvidence": false
+  },
+  "executionLaw": {
+    "parallelizeIndependentLanes": true,
+    "reallocateOnMaterialStateChange": true,
+    "humanHistoricalDurationsAreCausalFloors": false,
+    "externalEffectsRequireApplicableExistingAuthority": true,
+    "paymentRequiresProviderOriginEvidence": true,
+    "sourceWorkIsExternalProof": false
+  },
+  "forbidden": [
+    "gambling",
+    "speculative_trading",
+    "leverage_or_debt",
+    "new_paid_subscriptions_without_separate_authority",
+    "deception_or_fabricated_evidence",
+    "spam_or_suppression_bypass",
+    "unauthorized_access_or_credential_use",
+    "kyc_or_platform_control_bypass",
+    "authority_self-expansion"
+  ],
+  "morningQuestion": "How much provider-origin cleared contribution profit did UberBond actually create while Mohamed slept, and how much of it actually cleared through the nominated PayPal destination?",
+  "truthBoundary": "This artifact is a founder mission contract and target destination declaration. It does not prove a live runtime, configured PayPal adapter, ownership or receivability of the nominated destination, outbound authority, customer acceptance, or cleared revenue."
+}

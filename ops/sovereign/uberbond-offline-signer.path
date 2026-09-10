@@ -1,0 +1,10 @@
+[Unit]
+Description=Watch for UberBond sovereign release requests
+
+[Path]
+PathChanged=/var/lib/uberbond-offline-signer/inbox/sovereign-release-request.json
+Unit=uberbond-offline-signer.service
+MakeDirectory=true
+
+[Install]
+WantedBy=multi-user.target

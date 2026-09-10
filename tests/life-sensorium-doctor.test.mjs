@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-test('Life Sensorium doctor exercises synthetic private composition without external authority',()=>{
+test('Life Sensorium doctor exercises synthetic private perception plus attention routing without external authority',()=>{
   const run=spawnSync(process.execPath,[resolve(root,'scripts/life-sensorium-doctor.mjs')],{cwd:root,encoding:'utf8'});
   assert.equal(run.status,0,`${run.stdout}\n${run.stderr}`);
   const report=JSON.parse(run.stdout);
@@ -12,6 +12,9 @@ test('Life Sensorium doctor exercises synthetic private composition without exte
   assert.equal(report.source,'SYNTHETIC_FIXTURE');
   assert.equal(report.frame.topCandidate,'FOCUSED_STUDY');
   assert.equal(report.frame.ambiguity,'HIGH');
+  assert.equal(report.salience.status,'SALIENCE_ROUTED');
+  assert.ok(['PREPARE_SILENTLY','DEFER'].includes(report.salience.mode));
   assert.equal(report.externalEffectAuthority,'NONE');
-  assert.match(report.truthBoundary,/NOT_REAL_LIFE_OBSERVABILITY_OR_INFERENCE_ACCURACY/);
+  assert.match(report.truthBoundary,/NOT_REAL_LIFE_OBSERVABILITY_INFERENCE_ACCURACY_OR_INTERVENTION_VALUE/);
+  assert.match(report.authorityBoundary,/DO_NOT_CREATE_CHOICE_OR_EXTERNAL_ACTION_AUTHORITY/);
 });

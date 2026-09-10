@@ -11,6 +11,10 @@ const steps = [
   // backlog cannot hide a regression in the mechanism that is meant to repair
   // that backlog. This only adds a gate; it grants no worker/promotion authority.
   ['node', ['--test', 'tests/sovereign-native-local-worker.test.mjs']],
+  // Semantic evidence binding participates directly in terminal realization.
+  // Execute its exact-name/state-preservation regressions before the known
+  // semantic backlog so a terminal refusal cannot hide a binder regression.
+  ['node', ['--test', 'tests/semantic-enforcement-evidence.test.mjs']],
   // PR-scoped admission gate: the signed-release courier is part of the sovereign
   // control plane, and terminal realization currently refuses on a known semantic
   // backlog before the deterministic tail. Execute its provenance, idempotency,
@@ -72,5 +76,6 @@ console.log(JSON.stringify({
   reachabilityLiveComputedRequired: true,
   exactCheckoutReadinessBeforeDeterministic: true,
   nativeSovereignWorkerHostileGateRequired: true,
+  semanticEnforcementEvidenceGateRequired: true,
   externalEffectAuthority: 'NONE'
 }));

@@ -7,10 +7,16 @@ export const SEMANTIC_ENFORCEMENT_EVIDENCE_VERSION='uberbond.semantic-enforcemen
  * Carry already-verified law enforcement declarations into the semantic row
  * evidence consumed by the behavior tribunal.
  *
- * This does not grant ENFORCED_BY_CODE. The coverage compiler is the authority
- * for that state and verifies the declaration against the exact repository
- * tree before a row can receive it. This helper only prevents the next tribunal
- * from forgetting the same source/test evidence after that state was granted.
+ * This does not grant ENFORCED_BY_CODE or VERIFIED_CURRENT. The coverage
+ * compiler is the authority for currentState and verifies declarations against
+ * the exact repository tree before a law can receive enforcement credit. A law
+ * can also already be VERIFIED_CURRENT through stronger independently-derived
+ * source/test/reachability evidence; that stronger state must not make the next
+ * tribunal forget the same separately verified enforcement declaration.
+ *
+ * This helper therefore augments evidence only for rows whose state is already
+ * ENFORCED_BY_CODE or VERIFIED_CURRENT, and only on an exact normalized literal
+ * name match carrying both source and test references. It never changes state.
  */
 export function bindVerifiedEnforcementEvidence({coverage={},enforcementEntries=[]}={}){
   const rows=Array.isArray(coverage?.rows)?coverage.rows:[];
@@ -25,7 +31,7 @@ export function bindVerifiedEnforcementEvidence({coverage={},enforcementEntries=
   return{
     ...coverage,
     rows:rows.map(row=>{
-      if(row?.currentState!=='ENFORCED_BY_CODE')return row;
+      if(!['ENFORCED_BY_CODE','VERIFIED_CURRENT'].includes(row?.currentState))return row;
       const names=uniq(row?.literalNames);
       const declaration=names.map(name=>byName.get(norm(name))).find(Boolean);
       if(!declaration)return row;

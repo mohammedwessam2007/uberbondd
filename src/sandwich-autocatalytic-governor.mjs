@@ -1,6 +1,6 @@
 import { compileAgentTask } from './agent-relay.mjs';
 
-export const SANDWICH_AUTOCATALYTIC_GOVERNOR_VERSION = 'uberbond.sandwich-autocatalytic-governor.v2';
+export const SANDWICH_AUTOCATALYTIC_GOVERNOR_VERSION = 'uberbond.sandwich-autocatalytic-governor.v3';
 
 const ZERO_EFFECTS = Object.freeze({
   customerMessages: 0,
@@ -49,7 +49,8 @@ export function compileSandwichAutocatalyticDirective({ baseRevision = null, fin
     baseRevision: base,
     taskRequired: true,
     mode: 'ONE_NEW_FINITE_REQUIREMENT_ONLY',
-    nextTransition: 'MODEL_STRONGER_FUTURE_CAPABILITY__TEMPORAL_FOUNDRY_PULLS_ONE_INTERNAL_FUNCTION_PRIMITIVE_FORWARD__CHALLENGE_ITS_TIMELINE_TOPOLOGY__ADMIT_AS_FINITE_REQUIREMENT__RETURN_CONTROL_TO_EXISTING_FINITE_COMPLETION_ENGINE',
+    nextTransition: 'AUDIT_CONNECTOME__IF_INTEGRATION_DEBT_PRIORITIZE_ONE_BOUNDED_BRIDGE__ELSE_TEMPORAL_FOUNDRY_PULLS_ONE_INTERNAL_FUNCTION_PRIMITIVE_FORWARD__CHALLENGE_EXACT_PRIMITIVE_WITH_TIMELINE_TOPOLOGY__ADMIT_AS_FINITE_REQUIREMENT__RETURN_CONTROL_TO_EXISTING_FINITE_COMPLETION_ENGINE',
+    connectomeLaw: 'NEW_FEATURES_MUST_JOIN_THE_LIVING_CONNECTOME__ISOLATED_CAPABILITY_IS_INCOMPLETE_CAPABILITY__A_HEALTHY_CONNECTOME_MUST_NOT_MANUFACTURE_BRIDGE_WORK',
     paceLaw: 'NO_IDLE_WAIT_AFTER_VERIFIED_FINITE_CLOSURE__EVERY_NEW_MAIN_RECOMPUTES_TRUTH_AND_EITHER_FOLDS_ONE_INTERNAL_GAP_OR_STOPS_AT_A_REAL_BOUNDARY',
     futureRaidLaw: 'A_FUTURE_LABEL_IS_NOT_A_WAITING_PERIOD__DECOMPOSE_IT_INTO_FUNCTIONS__CAPTURE_EVERY_EVIDENCE_BACKED_PRESENT_FUNCTION__BACKCAST_THE_SMALLEST_DEPENDENCY_SATISFIED_INTERNAL_PRIMITIVE_THAT_PULLS_MORE_FUNCTION_FORWARD_NOW',
     timelineLaw: 'DO_NOT_MERELY_OPTIMIZE_A_LONG_ROUTE__FIRST_TEST_WHETHER_DEPENDENCIES_STEPS_OR_BOUNDARY_CONDITIONS_CAN_BE_DELETED_SUBSTITUTED_PARALLELIZED_PRECOMPUTED_OR_REPRESENTED_DIFFERENTLY',
@@ -66,7 +67,7 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     return fail(['ready-post-finite-descendant-directive-required'], 'SANDWICH_AUTOCATALYTIC_TASK_REFUSED');
   }
 
-  const objective = `On exact UberBond main ${base}, finite engineering is closed. Run one SANDWICH DESCENDANT-GENESIS pass over exact-current truth and canonical goals. First run Temporal Foundry: model a stronger future-labeled UberBond capability, decompose it into evidence-backed functions, preserve physical/external/unknown functions as uncaptured, and select ONE dependency-satisfied internal primitive that pulls the most useful function into the present. Then run Timeline Topology against that exact primitive and challenge its route through deletion, substitution, representation escape, parallelization, precompute, reuse, proxies, changed boundaries or invented intermediates. Admit exactly ONE novel INTERNAL_SOURCE/INTERNAL_RESEARCH requirement with source+test evidence and valid leaf mapping. Genesis only: do not implement it this cycle. Never weaken requirements, invent founder goals, or convert physical/provider/commercial/customer/elapsed/ASI claims into source closure. If no justified internal primitive exists, STOP with EXTERNAL_FRONTIER or NO_NOVEL_INTERNAL_GAP. Return one bounded AgentCodeChangeSet.`;
+  const objective = `On exact UberBond main ${base}, finite engineering is closed. First inspect Connectome Autopoiesis. If it reports one bounded integration feature, treat that bridge as a high-leverage descendant candidate; if healthy, invent no graph work. Otherwise model a stronger future capability and use Temporal Foundry to backcast one dependency-satisfied internal primitive. For the chosen exact primitive, run Timeline Topology and attack its route by deletion, substitution, representation escape, parallelization, precompute, reuse, proxies, changed boundaries or invented intermediates. Admit at most ONE novel INTERNAL_SOURCE/INTERNAL_RESEARCH requirement with source+test evidence and valid leaf mapping. Genesis only: do not implement it this cycle. Never weaken requirements, invent founder goals, or convert physical/provider/commercial/customer/elapsed/ASI claims into source closure. If no justified internal primitive exists, STOP with EXTERNAL_FRONTIER or NO_NOVEL_INTERNAL_GAP. Return one bounded AgentCodeChangeSet.`;
 
   const compiled = compileAgentTask({
     taskId: `uberbond_sandwich_descendant_${base.slice(0, 24)}`,
@@ -78,6 +79,9 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
       `main:${base}`,
       'doc:NORTH_STAR',
       'doc:SANDWICH_METHOD_CANON',
+      'source:connectome-autopoiesis',
+      'source:uberbond-cognitive-graph',
+      'context:connectome-autopoiesis',
       'doc:TEMPORAL_FOUNDRY_CANON',
       'source:temporal-foundry',
       'doc:TIMELINE_TOPOLOGY_ENGINE_CANON',
@@ -88,6 +92,7 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     ],
     evidenceRefs: [
       `evidence:exact-main-${base}`,
+      'audit:connectome-autopoiesis',
       'audit:terminal-realization',
       'audit:canonical-execution-leaf-graph',
       'audit:no-duplicate-canonical-requirement'
@@ -95,6 +100,10 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     constraints: [
       `exact-base-revision:${base}`,
       'sandwich-autocatalytic-descendant-genesis',
+      'connectome-autopoiesis-audit-required-before-descendant-selection',
+      'healthy-connectome-must-not-manufacture-bridge-work',
+      'isolated-capability-is-incomplete-capability',
+      'connectome-feature-still-requires-temporal-and-topology-binding',
       'temporal-foundry-future-raid-required-before-topology',
       'decompose-future-capability-before-accepting-future-duration',
       'present-function-capture-requires-evidence',
@@ -124,22 +133,24 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     forbiddenActions: [
       'merge', 'deploy', 'send', 'spend', 'purchase', 'change-credentials', 'change-dns',
       'mutate-production', 'customer-contact', 'payment-action', 'weaken-tests', 'weaken-authority',
-      'invent-founder-goal', 'treat-future-date-as-causal-evidence', 'claim-uncaptured-physical-function-as-present',
-      'change-terminal-contract-to-create-speedup', 'claim-causal-floor-bypass-without-rebuttal-evidence',
-      'claim-physical-proof-from-source', 'claim-commercial-proof-from-source', 'claim-asi',
-      'implement-newly-admitted-requirement-in-same-cycle'
+      'invent-founder-goal', 'manufacture-connectome-debt-when-audit-is-healthy',
+      'treat-cognitive-edge-as-execution-authority', 'treat-future-date-as-causal-evidence',
+      'claim-uncaptured-physical-function-as-present', 'change-terminal-contract-to-create-speedup',
+      'claim-causal-floor-bypass-without-rebuttal-evidence', 'claim-physical-proof-from-source',
+      'claim-commercial-proof-from-source', 'claim-asi', 'implement-newly-admitted-requirement-in-same-cycle'
     ],
     requiredOutputs: [
       'outcome', 'changedArtifacts', 'testsActuallyRun', 'truthTable', 'externalEffectLedger',
       'decision', 'codeChangeSet', 'descendantGap', 'newFiniteRequirementId',
       'duplicateSearchEvidence', 'acceptanceEvidenceContract', 'dependencyMapping', 'whyThisGapNow',
+      'connectomeAudit', 'connectomeFeatureCandidate',
       'futureCapabilityDecomposition', 'presentFunctionCapture', 'projectedFunctionCapture', 'enablingPrimitive',
       'timelineTopologyAnalysis', 'criticalPathBefore', 'projectedCriticalPathAfter',
       'wormholeCandidates', 'causalFloorEvidence'
     ],
     acceptanceTests: ['npm run check:syntax', 'npm run test:deterministic'],
     budget: { maxTokens: 120_000, maxCostCents: 0 },
-    economicObjective: 'maximize verified future function and critical-path time pulled into the present per founder minute while preserving canonical truth and sovereignty',
+    economicObjective: 'maximize verified future function, useful cognitive connectivity and critical-path time pulled into the present per founder minute while preserving canonical truth and sovereignty',
     consequenceClass: 'LOCAL_PREPARATION',
     date
   });

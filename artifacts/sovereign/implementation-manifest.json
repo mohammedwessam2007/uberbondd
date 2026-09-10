@@ -103,6 +103,17 @@
       "note": "selectMethod routes a question to a method that settles its kind, with the irreducible check before evidence so abundant data cannot convert a value question into a statistical one. METARAT-01/02."
     },
     {
+      "concept": "No Model",
+      "lane": "OMEGA-03",
+      "sources": [
+        "src/meta-rational-boundary.mjs"
+      ],
+      "tests": [
+        "tests/meta-rational-boundary.test.mjs"
+      ],
+      "note": "selectMethod returns NO_MODEL_CURRENTLY_DESERVES_TRUST when no available reasoning method settles the question, refusing to pick the nearest method or manufacture confidence from methods that cannot answer it."
+    },
+    {
       "concept": "No Recommendation",
       "lane": "OMEGA-03",
       "sources": [
@@ -1861,7 +1872,7 @@
       "tests": [
         "tests/external-capability-control-plane.test.mjs"
       ],
-      "note": "Registered as CANONICAL_METHOD and routed by defaultCapabilityForTask('automation-audit'); the project-local read-only recommender is .claude/skills/claude-automation-recommender/. Governance is implemented and tested. No host runtime is claimed installed \u2014 that remains npm run capabilities:doctor's question."
+      "note": "Registered as CANONICAL_METHOD and routed by defaultCapabilityForTask('automation-audit'); the project-local read-only recommender is .claude/skills/claude-automation-recommender/. Governance is implemented and tested. No host runtime is claimed installed — that remains npm run capabilities:doctor's question."
     },
     {
       "concept": "Fable Orchestrator",

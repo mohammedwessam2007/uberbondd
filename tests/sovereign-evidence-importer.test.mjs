@@ -37,6 +37,7 @@ test('config is data not root-executed shell and must have canonical custody',()
   assert.match(importer,/single-evidence-root-config-required/);
   assert.match(importer,/single-promotion-root-config-required/);
   assert.match(importer,/single-node-config-required/);
+  assert.match(importer,/single-git-config-required/);
 });
 
 test('receipt and source symlinks are refused before realpath can erase their identity',()=>{
@@ -54,21 +55,28 @@ test('importer shares the promoter exclusion lock before reading source identity
   assert.match(importer,/local-promotion-or-evidence-import-already-running/);
   assert.match(importer,/promotion-root-custody-invalid/);
   const lock=importer.indexOf("printf 'evidence-importer:%s\\n'");
-  const head=importer.indexOf('SOURCE_COMMIT="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"');
+  const head=importer.indexOf('SOURCE_COMMIT="$(git_as_promoter rev-parse HEAD)"');
   assert.ok(lock>=0&&head>lock,'shared promotion lock must be acquired before source identity is read');
   assert.match(importer,/rm -f "\$PROMOTION_LOCK"/);
+});
+
+test('source Git identity checks use trusted Git as the promoter owner, not root',()=>{
+  assert.match(importer,/trusted-real-git-required/);
+  assert.match(importer,/uberbond-promoter-identity-required/);
+  assert.match(importer,/git_as_promoter\(\)\{ runuser -u uberbond-promoter -- "\$GIT" -C "\$SOURCE_ROOT" "\$@"; \}/);
+  assert.match(importer,/git_as_promoter status --porcelain/);
+  assert.match(importer,/git_as_promoter rev-parse HEAD/);
+  assert.doesNotMatch(importer,/\bgit -C "\$SOURCE_ROOT"/);
 });
 
 test('importer binds validation to exact clean promoter-owned installed source',()=>{
   assert.match(importer,/installed-source-custody-invalid/);
   assert.match(importer,/installed-source-must-not-be-group-or-world-writable/);
-  assert.match(importer,/git -C "\$SOURCE_ROOT" status --porcelain/);
-  assert.match(importer,/git -C "\$SOURCE_ROOT" rev-parse HEAD/);
   assert.match(importer,/\^\[0-9a-f\]\{40\}\$/);
   assert.match(importer,/cd "\$SOURCE_ROOT"/);
   assert.match(importer,/compileSovereignBootstrapReadiness/);
   assert.match(importer,/verifySovereignRuntimeRehearsalReceipt/);
-  assert.match(importer,/git rev-parse HEAD.*SOURCE_COMMIT/s);
+  assert.match(importer,/git_as_promoter rev-parse HEAD.*SOURCE_COMMIT/s);
 });
 
 test('untrusted repository validators execute as uberbond-author rather than root',()=>{
@@ -107,6 +115,7 @@ test('authoring install and doctor make importer part of the canonical bootstrap
   assert.match(installer,/import-sovereign-evidence\.sh/);
   assert.match(installer,/UBERBOND_SOVEREIGN_EVIDENCE_ROOT=\/var\/lib\/uberbond-evidence/);
   assert.match(installer,/UBERBOND_PROMOTION_DIR=\/var\/lib\/uberbond-promotion/);
+  assert.match(installer,/UBERBOND_GIT_EXECUTABLE=\$\(command -v git\)/);
   assert.match(installer,/\brunuser\b/);
   assert.match(installer,/shares?.*promotion.*lock/is);
   assert.match(installer,/root-only/);

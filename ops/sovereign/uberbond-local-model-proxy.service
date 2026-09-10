@@ -1,0 +1,35 @@
+[Unit]
+Description=UberBond host-loopback local model bridge
+After=local-fs.target
+
+[Service]
+Type=simple
+User=uberbond-model-proxy
+Group=uberbond-model
+Environment=UBERBOND_MODEL_PROXY_SOCKET=/run/uberbond-model/proxy.sock
+Environment=UBERBOND_NODE_EXECUTABLE=/usr/bin/node
+ExecStart=/opt/uberbond/control/uberbond-local-model-proxy
+RuntimeDirectory=uberbond-model
+RuntimeDirectoryMode=0750
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/uberbond/source /etc/uberbond
+ReadWritePaths=/run/uberbond-model /tmp
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+UMask=0007
+Restart=on-failure
+RestartSec=3
+TimeoutStartSec=30
+
+[Install]
+WantedBy=multi-user.target

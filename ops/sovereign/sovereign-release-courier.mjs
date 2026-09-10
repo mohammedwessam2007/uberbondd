@@ -28,17 +28,19 @@ async function readPlacement(file,releaseName,label){
   for(const [key,value] of Object.entries(authorityBoundary))if(parsed?.[key]!==value)return fail([`${label}-courier-placement-authority-invalid`]);
   return{ok:true,placement:parsed};
 }
-async function verifyPlacement(runtimeInbox,final,releaseName){
+async function verifyPlacement(stateRoot,final,releaseName){
   const inside=await readPlacement(path.join(final,PLACEMENT_FILE),releaseName,'release');if(!inside.ok)return inside;
-  const journal=await readPlacement(path.join(runtimeInbox,`.courier-placement-${releaseName}.json`),releaseName,'journal');if(!journal.ok)return journal;
+  const journal=await readPlacement(path.join(stateRoot,`${releaseName}.json`),releaseName,'journal');if(!journal.ok)return journal;
   if(inside.placement.nonce!==journal.placement.nonce)return fail(['courier-placement-evidence-mismatch']);
   return{ok:true,nonce:inside.placement.nonce};
 }
+function overlaps(a,b){return a===b||a.startsWith(`${b}${path.sep}`)||b.startsWith(`${a}${path.sep}`);}
 
 export async function runSovereignReleaseCourier({env=process.env}={}){
   const sourceRoot=path.resolve(env.UBERBOND_RELEASE_COURIER_SOURCE||'/mnt/uberbond-signer-outbox');
   const runtimeInbox=path.resolve(env.UBERBOND_RELEASE_COURIER_RUNTIME_INBOX||'/var/lib/uberbond-control/inbox');
-  if(sourceRoot===runtimeInbox||runtimeInbox.startsWith(`${sourceRoot}${path.sep}`)||sourceRoot.startsWith(`${runtimeInbox}${path.sep}`))return fail(['courier-source-destination-separation-required']);
+  const stateRoot=path.resolve(env.UBERBOND_RELEASE_COURIER_STATE||'/var/lib/uberbond-release-courier');
+  if(overlaps(sourceRoot,runtimeInbox)||overlaps(sourceRoot,stateRoot)||overlaps(runtimeInbox,stateRoot))return fail(['courier-source-runtime-state-separation-required']);
   const marker=path.join(sourceRoot,'NEXT_RELEASE');
   if(!await regular(marker))return fail(['regular-signer-next-release-marker-required']);
   const releaseName=String(await fs.readFile(marker,'utf8')).trim();
@@ -48,13 +50,14 @@ export async function runSovereignReleaseCourier({env=process.env}={}){
   for(const name of REQUIRED)if(!await regular(path.join(source,name)))return fail([`signed-release-missing:${name}`]);
   const tree=await inspectTree(source);if(!tree.ok)return tree;
   await fs.mkdir(runtimeInbox,{recursive:true,mode:0o700});
+  await fs.mkdir(stateRoot,{recursive:true,mode:0o700});
   const final=path.join(runtimeInbox,releaseName);const tmp=path.join(runtimeInbox,`.courier-${releaseName}-${process.pid}`);const runtimeMarker=path.join(runtimeInbox,'NEXT_RELEASE');
-  const placementJournal=path.join(runtimeInbox,`.courier-placement-${releaseName}.json`);
+  const placementJournal=path.join(stateRoot,`${releaseName}.json`);
   if(await lst(final)){
     if(!await directory(final))return fail(['existing-runtime-release-not-directory']);
     for(const name of REQUIRED)if(!await regular(path.join(final,name)))return fail([`existing-runtime-release-missing:${name}`]);
     const copiedTree=await inspectTree(final);if(!copiedTree.ok)return fail(copiedTree.reasonCodes||['existing-runtime-release-invalid']);
-    const placement=await verifyPlacement(runtimeInbox,final,releaseName);if(!placement.ok)return placement;
+    const placement=await verifyPlacement(stateRoot,final,releaseName);if(!placement.ok)return placement;
     if(await regular(runtimeMarker)){
       const queued=String(await fs.readFile(runtimeMarker,'utf8')).trim();
       if(queued!==releaseName)return fail(['runtime-inbox-pointer-conflict'],{queuedRelease:queued,releaseName});
@@ -63,7 +66,7 @@ export async function runSovereignReleaseCourier({env=process.env}={}){
     const applied=await appliedReceipt(runtimeInbox,releaseName);
     if(applied)return{ok:true,status:'SOVEREIGN_RELEASE_ALREADY_APPLIED_BY_RUNTIME',releaseName,appliedReceipt:applied,...authorityBoundary,truthBoundary:'Courier-owned placement evidence exists and a runtime APPLIED receipt identifies this release. The courier does not republish it and claims no deployment or recovery evidence beyond that existing runtime-owned receipt.'};
     await atomic(runtimeMarker,`${releaseName}\n`);
-    const receipt={ok:true,status:'SOVEREIGN_RELEASE_PUBLICATION_RECOVERED_AFTER_COPY',releaseName,entries:copiedTree.entries,bytes:copiedTree.bytes,...authorityBoundary,truthBoundary:'The courier recovered only the publication edge after verifying its own durable placement evidence for this copied release. Runtime signature verification, anti-replay admission, deployment and recovery remain separate authorities.'};
+    const receipt={ok:true,status:'SOVEREIGN_RELEASE_PUBLICATION_RECOVERED_AFTER_COPY',releaseName,entries:copiedTree.entries,bytes:copiedTree.bytes,...authorityBoundary,truthBoundary:'The courier recovered only the publication edge after verifying its own isolated durable placement evidence for this copied release. Runtime signature verification, anti-replay admission, deployment and recovery remain separate authorities.'};
     await atomic(path.join(runtimeInbox,'courier-receipt.json'),`${JSON.stringify(receipt,null,2)}\n`);
     return receipt;
   }
@@ -78,7 +81,7 @@ export async function runSovereignReleaseCourier({env=process.env}={}){
     await fs.rename(tmp,final);
     await atomic(runtimeMarker,`${releaseName}\n`);
   }catch(error){await fs.rm(tmp,{recursive:true,force:true});return fail([`atomic-courier-copy-failed:${String(error?.message||error).slice(0,180)}`]);}
-  const receipt={ok:true,status:'SIGNED_RELEASE_COURIERED_TO_RUNTIME_INBOX',releaseName,entries:tree.entries,bytes:tree.bytes,...authorityBoundary,truthBoundary:'Courier authority is limited to an already-signed bundle copy into the sovereign runtime inbox. Durable placement evidence proves only this courier copy. Runtime signature verification, anti-replay admission, deployment and recovery remain separate authorities and require real execution evidence.'};
+  const receipt={ok:true,status:'SIGNED_RELEASE_COURIERED_TO_RUNTIME_INBOX',releaseName,entries:tree.entries,bytes:tree.bytes,...authorityBoundary,truthBoundary:'Courier authority is limited to an already-signed bundle copy into the sovereign runtime inbox. Isolated durable placement evidence proves only this courier copy. Runtime signature verification, anti-replay admission, deployment and recovery remain separate authorities and require real execution evidence.'};
   await atomic(path.join(runtimeInbox,'courier-receipt.json'),`${JSON.stringify(receipt,null,2)}\n`);
   return receipt;
 }

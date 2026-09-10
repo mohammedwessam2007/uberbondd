@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   SOVEREIGN_EXPANSION_LENSES,
   buildExpansionEnvelope,
@@ -80,4 +81,13 @@ test('mystery preservation accepts founder-declared non-model and non-surface zo
   assert.equal(result.rules.length, 2);
   assert.ok(result.rules.every(x => x.source === 'FOUNDER_DECLARED'));
   assert.equal(buildMysteryPreservationContract({ protectedDomains: [{ domain: 'x', mode: 'INVENT' }] }).ok, false);
+});
+
+test('public expansion kernel remains founder-generic and private personalization stays out of source', () => {
+  const source = readFileSync(new URL('../src/sovereign-expansion-kernel.mjs', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /Mohamed/i);
+  assert.doesNotMatch(source, /psychiatr|Kasr|iPad|medical training/i);
+  assert.match(source, /founder-specific adaptation/i);
+  assert.match(source, /businessEffectAuthority: 'NONE'/);
+  assert.match(source, /externalEffectAuthority: 'NONE'/);
 });

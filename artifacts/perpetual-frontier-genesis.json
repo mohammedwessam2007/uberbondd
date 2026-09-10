@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.1.0",
-  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_AND_MILLION_BRANCH_IDEATION",
-  "generatedAt": "2026-09-10T20:30:00+03:00",
+  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.2.0",
+  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_SOVEREIGN_EXPANSION",
+  "generatedAt": "2026-09-10T21:30:00+03:00",
   "canonicalDoc": "docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
   "ideaCount": 275,
   "ideaRanges": [
@@ -26,7 +26,8 @@
     "Multi-Generation Architecture",
     "Technology-to-Money Translation",
     "Artificial Imagination",
-    "Million-Branch Ideation Genome"
+    "Million-Branch Ideation Genome",
+    "Sovereign Expansion Kernel"
   ],
   "coreLoop": [
     "WORLD",
@@ -51,6 +52,7 @@
     "ONTOLOGY_EVOLUTION",
     "GENESIS",
     "MILLION_BRANCH_IDEATION",
+    "SOVEREIGN_EXPANSION",
     "GENESIS_SQUARED",
     "ONTOGENESIS"
   ],
@@ -67,7 +69,7 @@
   ],
   "businessEffectAuthority": "NONE",
   "externalEffectAuthority": "NONE",
-  "truthBoundary": "IDEAS_AND_INTERNAL_PLANS_ARE_NOT_CUSTOMER_DEMAND_REVENUE_PROVIDER_PROOF_OR_EXTERNAL_EFFECTS",
+  "truthBoundary": "IDEAS_INTERNAL_PLANS_AND_EXPANSION_LENSES_ARE_NOT_CUSTOMER_DEMAND_REVENUE_PROVIDER_PROOF_LIFE_OUTCOME_PROOF_ASI_PROOF_OR_EXTERNAL_EFFECTS",
   "millionBranchIdeationGenome": {
     "relation": "EXTENDS_275_IDEA_REGISTRY_WITHOUT_REPLACING_IT",
     "canonicalDoc": "docs/MILLION_BRANCH_IDEATION_GENOME.md",
@@ -80,6 +82,24 @@
     "defaultCandidatesPerGenerator": 50,
     "defaultFirstGenerationCapacity": 50000,
     "activation": "EVERY_VALID_PERPETUAL_FRONTIER_GENESIS_TICK_SELECTS_A_BOUNDED_DETERMINISTIC_SUBSET"
+  },
+  "sovereignExpansionKernel": {
+    "relation": "EXPANDS_EACH_VALID_IDEATION_CYCLE_ACROSS_REALITY_COGNITION_OPTIONALITY_AND_SELF_COMPLETION_DIMENSIONS",
+    "canonicalDoc": "docs/SOVEREIGN_EXPANSION_KERNEL.md",
+    "artifact": "artifacts/sovereign-expansion-kernel.json",
+    "module": "src/sovereign-expansion-kernel.mjs",
+    "test": "tests/genesis-sovereign-expansion-kernel.test.mjs",
+    "lensCount": 40,
+    "defaultSelectedLensCount": 16,
+    "mandatoryLensIds": [
+      "missing-uberbond",
+      "ontology-stress",
+      "possibility-derivative",
+      "bottleneck-gradient",
+      "reality-contact",
+      "self-completion-attractor"
+    ],
+    "activation": "EVERY_VALID_GENESIS_CYCLE_WITH_A_VALID_IDEATION_ACTIVATION_RECEIVES_A_BOUNDED_DETERMINISTIC_EXPANSION_ENVELOPE"
   },
   "firstExecutableLayer": {
     "module": "src/perpetual-frontier-genesis.mjs",
@@ -105,7 +125,13 @@
       "hourly public-frontier sensing to GENESIS receipt path when the GitHub Actions runner actually executes",
       "deterministic 20 x 50 million-branch ideation genome",
       "bounded context-specific generator activation",
-      "recursive idea search-space projection without synthetic execution claims"
+      "recursive idea search-space projection without synthetic execution claims",
+      "forty-lens Sovereign Expansion ecology",
+      "Missing UberBond negative-image ledger",
+      "Theory Ecology with explicit predictions and falsifiers",
+      "Possibility Derivative and Bottleneck Gradient search heuristics",
+      "founder-declared Mystery Preservation contract",
+      "bounded expansion activation on every valid GENESIS ideation cycle"
     ]
   }
 }

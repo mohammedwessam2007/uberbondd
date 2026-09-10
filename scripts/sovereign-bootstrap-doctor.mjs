@@ -22,7 +22,9 @@ const SOURCE_PATHS=Object.freeze({
   offlineModelInstaller:'ops/sovereign/install-offline-llama-runtime.sh',
   offlineSignerInstaller:'ops/sovereign/install-offline-signer-node.sh',
   releaseCourierInstaller:'ops/sovereign/install-release-courier.sh',
-  runtimeGraduationObserver:'ops/sovereign/observe-runtime-graduation.mjs'
+  runtimeGraduationObserver:'ops/sovereign/observe-runtime-graduation.mjs',
+  runtimeGraduationService:'ops/sovereign/uberbond-runtime-graduation.service',
+  runtimeGraduationTimer:'ops/sovereign/uberbond-runtime-graduation.timer'
 });
 const UNIT_NAMES=Object.freeze({
   authoringTimer:'uberbond-authoring.timer',workerPath:'uberbond-local-worker.path',verifierPath:'uberbond-autonomy-verify.path',

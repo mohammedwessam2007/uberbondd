@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "uberbond-timeline-topology-engine-1.0.0",
+  "status": "VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE",
+  "canonicalDoc": "docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md",
+  "engine": "src/timeline-topology-engine.mjs",
+  "trustedChallengeCompiler": "src/timeline-topology-challenge.mjs",
+  "sandwichGovernor": "src/sandwich-autocatalytic-governor.mjs",
+  "sovereignWorkerCompiler": "src/sovereign-native-local-worker.mjs",
+  "sovereignWorkerRuntime": "scripts/sovereign-native-local-model-worker.mjs",
+  "boundaryClasses": [
+    "COMPUTE",
+    "INFORMATION_ARRIVAL",
+    "NETWORK_PROPAGATION",
+    "MATTER_TRANSFORMATION",
+    "BIOLOGICAL_ADAPTATION",
+    "EXTERNAL_ACTOR",
+    "REGULATORY_PROCESS",
+    "ELAPSED_EVIDENCE",
+    "ARCHITECTURAL_CONVENTION",
+    "COORDINATION_OVERHEAD",
+    "REDUNDANT_WORK",
+    "INTERFACE_FRICTION",
+    "REPRESENTATION_LIMIT",
+    "UNKNOWN"
+  ],
+  "necessityStates": [
+    "EVIDENCE_BOUND_CAUSAL_FLOOR",
+    "REQUIRED_BUT_COMPRESSIBLE",
+    "ASSUMPTION_ONLY",
+    "UNKNOWN"
+  ],
+  "mechanismClasses": [
+    "DELETE_REQUIREMENT",
+    "SUBSTITUTE_TRANSFORMATION",
+    "REPRESENTATION_ESCAPE",
+    "PARALLELIZE_DEPENDENCIES",
+    "PRECOMPUTE",
+    "CACHE_OR_DISTILL",
+    "REUSE_EXISTING_CAPABILITY",
+    "PROXY_OBSERVABLE",
+    "CHANGE_BOUNDARY_CONDITIONS",
+    "INVENT_INTERMEDIATE",
+    "OUTSOURCE_EXISTING_INFRASTRUCTURE",
+    "MOVE_FUNCTION_TO_ENVIRONMENT"
+  ],
+  "evidenceClasses": [
+    "HYPOTHESIS",
+    "SIMULATION",
+    "EXECUTED_INTERNAL",
+    "OBSERVED_REALITY"
+  ],
+  "laws": {
+    "primary": "DO_NOT_OPTIMIZE_THE_ROUTE_UNTIL_YOU_HAVE_TRIED_TO_DELETE_OR_RETOPOLOGIZE_THE_ROUTE",
+    "terminalContract": "CHANGING_THE_GOAL_IS_NOT_TIMELINE_COMPRESSION",
+    "causalFloor": "AN_EVIDENCE_BOUND_CAUSAL_FLOOR_MAY_BE_CHALLENGED_BUT_NOT_SILENTLY_BYPASSED__EXPLICIT_REBUTTAL_EVIDENCE_IS_REQUIRED",
+    "sandwichAdmission": "POST_FINITE_DESCENDANT_GENESIS_MUST_PASS_A_TRUSTED_TIMELINE_TOPOLOGY_CHALLENGE_BEFORE_ONE_NEW_REQUIREMENT_CAN_ENTER_CANON",
+    "reality": "SOURCE_SIMULATION_OR_INTERNAL_EXECUTION_DOES_NOT_PROVE_PHYSICAL_BIOLOGICAL_EXTERNAL_REGULATORY_OR_LONGITUDINAL_SPEEDUP"
+  },
+  "metric": "verified critical-path time removed / wall-clock time spent discovering and validating the topology change",
+  "tests": [
+    "tests/timeline-topology-engine.test.mjs",
+    "tests/timeline-topology-challenge.test.mjs",
+    "tests/sandwich-autocatalytic-governor.test.mjs",
+    "tests/sovereign-native-local-worker.test.mjs",
+    "tests/reachability-ratchet.test.mjs"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THIS_ARTIFACT_DESCRIBES_SOURCE_LEVEL_TIMELINE_TOPOLOGY_ANALYSIS_AND_SANDWICH_ADMISSION_GOVERNANCE__IT_IS_NOT_EVIDENCE_THAT_ANY_PHYSICAL_WORMHOLE_EXISTS_OR_THAT_A_REAL_WORLD_CAUSAL_FLOOR_HAS_BEEN_BROKEN"
+}

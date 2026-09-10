@@ -1,10 +1,11 @@
 [Unit]
-Description=Wake UberBond sovereign authoring brain every 15 minutes
+Description=Run UberBond sovereign authoring continuously with a one-minute recovery cadence
 
 [Timer]
-OnBootSec=2min
-OnUnitActiveSec=15min
-AccuracySec=30s
+OnBootSec=10s
+OnUnitInactiveSec=60s
+AccuracySec=1s
+RandomizedDelaySec=0
 Persistent=true
 Unit=uberbond-authoring.service
 

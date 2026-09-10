@@ -40,20 +40,22 @@ export async function collectSovereignBootstrapReadiness({env=process.env,repoRo
   const sourceContracts={};for(const id of REQUIRED_SOURCE_CONTRACTS)sourceContracts[id]=await regular(path.join(root,SOURCE_PATHS[id]||''));
   const authoringEnv=await readEnv('/etc/uberbond/authoring.env');const founderEnv=await readEnv('/etc/uberbond/founder-console.env');const modelEnv=await readEnv('/etc/uberbond/model.env');
   const authoringConfigPresent=await regular('/etc/uberbond/authoring.env');
-  const installedHead=authoringConfigPresent?run('git',['rev-parse','HEAD'],root):{ok:false,stdout:''};
+  const configuredSourceRoot=authoringConfigPresent&&authoringEnv.UBERBOND_SOURCE_ROOT?await fs.realpath(authoringEnv.UBERBOND_SOURCE_ROOT).catch(()=>null):null;
+  const configuredSourceRootMatches=Boolean(configuredSourceRoot&&configuredSourceRoot===root);
+  const installedHead=configuredSourceRootMatches?run('git',['rev-parse','HEAD'],configuredSourceRoot):{ok:false,stdout:''};
   const services={};for(const [id,unit] of Object.entries(UNIT_NAMES))services[id]=active(unit);
   const controlDir=path.resolve(authoringEnv.UBERBOND_CONTROL_DIR||env.UBERBOND_CONTROL_DIR||'/var/lib/uberbond-control');
   const modelReceipt=await readJson(path.join(controlDir,'local-model-runtime-receipt.json'));
   const runtimeReceipt=await readJson(path.join(controlDir,'runtime-receipt.json'));
   const founderConsoleReachable=services.founderConsole?await probeFounderConsole({...founderEnv,...modelEnv}):false;
   const out=compileSovereignBootstrapReadiness({
-    sourceCommit:head.ok?head.stdout:'',cleanSource:clean.ok&&clean.stdout==='',sourceContracts,authoringConfigPresent,
+    sourceCommit:head.ok?head.stdout:'',cleanSource:clean.ok&&clean.stdout==='',sourceContracts,authoringConfigPresent,configuredSourceRootMatches,
     installedSourceCommit:installedHead.ok?installedHead.stdout:'',services,founderConsoleReachable,modelReceipt,runtimeReceipt,
     isolatedWorkerEnabled:String(authoringEnv.UBERBOND_ISOLATED_WORKER_ENABLED||'').toLowerCase()==='true',
     founderDialogueEnabled:String(modelEnv.UBERBOND_FOUNDER_DIALOGUE_ENABLED||'').toLowerCase()==='true',
     separateSignerObserved:false,releaseCourierObserved:active('uberbond-release-courier.path')
   });
-  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,controlDir},note:'A separate offline signer is intentionally not inferred from this authoring host. Signed-release and runtime proof require their own receipts.'};
+  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir},note:'A separate offline signer is intentionally not inferred from this authoring host. Signed-release and runtime proof require their own receipts.'};
 }
 const invoked=Boolean(process.argv[1])&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url);
 if(invoked){collectSovereignBootstrapReadiness().then(out=>{process.stdout.write(`${JSON.stringify(out,null,2)}\n`);if(out?.stages?.selfCompletionLoopReady!==true)process.exitCode=2;}).catch(error=>{process.stdout.write(`${JSON.stringify({ok:false,status:'SOVEREIGN_BOOTSTRAP_DOCTOR_CRASH',reasonCodes:[String(error?.message||error).slice(0,300)],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'},null,2)}\n`);process.exitCode=2;});}

@@ -11,6 +11,12 @@ const steps = [
   // backlog cannot hide a regression in the mechanism that is meant to repair
   // that backlog. This only adds a gate; it grants no worker/promotion authority.
   ['node', ['--test', 'tests/sovereign-native-local-worker.test.mjs']],
+  // PR-scoped admission gate: terminal realization currently refuses on a known
+  // semantic backlog before the repository-wide syntax/test tail can execute.
+  // Prove the offline runtime installer itself is syntactically valid and its
+  // hostile authority/recovery contract executes before that expected refusal.
+  ['bash', ['-n', 'ops/sovereign/install-offline-llama-runtime.sh']],
+  ['node', ['--test', 'tests/sovereign-offline-llama-runtime.test.mjs']],
   // The finite terminal tribunal owns exact-checkout truth regeneration as its
   // first internal step. Running current-truth-regeneration separately here
   // would dirty its generated truth inputs and correctly make the tribunal's
@@ -39,7 +45,7 @@ const steps = [
 ];
 
 for (const [command, args] of steps) {
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding: 'utf8', stdio: 'inherit' });
+  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
   if (result.error) {
     console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
     process.exit(1);

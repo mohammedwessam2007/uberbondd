@@ -3,22 +3,27 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateGenesisIdeaRegistry } from '../src/perpetual-frontier-genesis.mjs';
 import { validateMillionBranchIdeationGenome } from '../src/million-branch-ideation-genome.mjs';
+import { validateSovereignExpansionKernel } from '../src/sovereign-expansion-kernel.mjs';
 
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const docPath = resolve(root, 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md');
 const indexPath = resolve(root, 'artifacts/perpetual-frontier-genesis.json');
 const ideationIndexPath = resolve(root, 'artifacts/million-branch-ideation-genome.json');
+const expansionIndexPath = resolve(root, 'artifacts/sovereign-expansion-kernel.json');
 
-const [markdown, indexRaw, ideationIndexRaw] = await Promise.all([
+const [markdown, indexRaw, ideationIndexRaw, expansionIndexRaw] = await Promise.all([
   readFile(docPath, 'utf8'),
   readFile(indexPath, 'utf8'),
-  readFile(ideationIndexPath, 'utf8')
+  readFile(ideationIndexPath, 'utf8'),
+  readFile(expansionIndexPath, 'utf8')
 ]);
 
 const index = JSON.parse(indexRaw);
 const ideationIndex = JSON.parse(ideationIndexRaw);
+const expansionIndex = JSON.parse(expansionIndexRaw);
 const registry = validateGenesisIdeaRegistry(markdown, index.ideaCount);
 const ideationGenome = validateMillionBranchIdeationGenome();
+const expansionKernel = validateSovereignExpansionKernel();
 
 const requiredPointers = [
   'src/perpetual-frontier-genesis.mjs',
@@ -30,7 +35,11 @@ const requiredPointers = [
   'docs/MILLION_BRANCH_IDEATION_GENOME.md',
   'artifacts/million-branch-ideation-genome.json',
   'src/million-branch-ideation-genome.mjs',
-  'tests/genesis-million-branch-ideation.test.mjs'
+  'tests/genesis-million-branch-ideation.test.mjs',
+  'docs/SOVEREIGN_EXPANSION_KERNEL.md',
+  'artifacts/sovereign-expansion-kernel.json',
+  'src/sovereign-expansion-kernel.mjs',
+  'tests/genesis-sovereign-expansion-kernel.test.mjs'
 ];
 
 const pointerSet = new Set([
@@ -43,7 +52,11 @@ const pointerSet = new Set([
   index.millionBranchIdeationGenome?.canonicalDoc,
   index.millionBranchIdeationGenome?.artifact,
   index.millionBranchIdeationGenome?.module,
-  index.millionBranchIdeationGenome?.test
+  index.millionBranchIdeationGenome?.test,
+  index.sovereignExpansionKernel?.canonicalDoc,
+  index.sovereignExpansionKernel?.artifact,
+  index.sovereignExpansionKernel?.module,
+  index.sovereignExpansionKernel?.test
 ]);
 const missingPointers = requiredPointers.filter(path => !pointerSet.has(path));
 const missingFiles = [];
@@ -63,10 +76,20 @@ const ideationArtifactHealthy = ideationIndex.schemaVersion === 'uberbond-millio
   && ideationIndex.businessEffectAuthority === 'NONE'
   && ideationIndex.externalEffectAuthority === 'NONE';
 
+const expansionArtifactHealthy = expansionIndex.schemaVersion === 'uberbond-sovereign-expansion-kernel-1.0.0'
+  && expansionIndex.canonicalDoc === 'docs/SOVEREIGN_EXPANSION_KERNEL.md'
+  && expansionIndex.module === 'src/sovereign-expansion-kernel.mjs'
+  && expansionIndex.test === 'tests/genesis-sovereign-expansion-kernel.test.mjs'
+  && expansionIndex.lensCount === expansionKernel.lensCount
+  && expansionIndex.businessEffectAuthority === 'NONE'
+  && expansionIndex.externalEffectAuthority === 'NONE';
+
 const healthy = registry.ok
   && ideationGenome.ok
   && ideationArtifactHealthy
-  && index.schemaVersion === 'uberbond-perpetual-frontier-genesis-1.1.0'
+  && expansionKernel.ok
+  && expansionArtifactHealthy
+  && index.schemaVersion === 'uberbond-perpetual-frontier-genesis-1.2.0'
   && index.canonicalDoc === 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'
   && index.businessEffectAuthority === 'NONE'
   && index.externalEffectAuthority === 'NONE'
@@ -85,6 +108,9 @@ const result = {
   ideationGeneratorCount: ideationGenome.generatorCount,
   ideationSourceSha256: ideationGenome.sourceSha256,
   ideationArtifactHealthy,
+  expansionKernelStatus: expansionKernel.status,
+  expansionLensCount: expansionKernel.lensCount,
+  expansionArtifactHealthy,
   missingPointers,
   missingFiles,
   automatedHourlyPathDeclared: pointerSet.has('.github/workflows/gamechanger-mesh-hourly.yml'),

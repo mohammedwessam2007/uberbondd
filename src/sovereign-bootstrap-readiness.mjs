@@ -1,4 +1,6 @@
-export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.1';
+import {exactSovereignRuntimeGraduationReceipt} from './sovereign-runtime-graduation.mjs';
+
+export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.2';
 export const OFFLINE_MODEL_STATUS='OFFLINE_LOCAL_MODEL_RUNTIME_INSTALLED_AND_LOOPBACK_ATTESTED';
 const SHA40=/^[a-f0-9]{40}$/i;
 const SHA64=/^[a-f0-9]{64}$/i;
@@ -6,7 +8,7 @@ const SHA64=/^[a-f0-9]{64}$/i;
 export const REQUIRED_SOURCE_CONTRACTS=Object.freeze([
   'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringTimer',
   'workerPath','workerService','verifierPath','verifierService','promoterPath',
-  'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller'
+  'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller','runtimeGraduationObserver'
 ]);
 export const REQUIRED_AUTHORING_UNITS=Object.freeze([
   'authoringTimer','workerPath','verifierPath','promoterPath','postPromotionPath','founderConsole'
@@ -40,8 +42,11 @@ export function compileSovereignBootstrapReadiness(input={}){
   const localWorkerReady=hostControlReady&&localModelAttested&&input.isolatedWorkerEnabled===true;
   const dialogueReady=directFounderControlReady&&localModelAttested&&input.founderDialogueEnabled===true;
   const selfCompletionReady=localWorkerReady&&dialogueReady;
-  const releasePathObserved=input.separateSignerObserved===true&&input.releaseCourierObserved===true;
-  const runtimeRehearsalObserved=Boolean(runtimeReceipt&&runtimeReceipt.ok===true&&runtimeReceipt.rehearsalObserved===true&&String(runtimeReceipt.sourceCommit||runtimeReceipt.commit||'').toLowerCase()===sourceCommit);
+  const exactRuntimeReceipt=exactSovereignRuntimeGraduationReceipt(runtimeReceipt,sourceCommit);
+  const separateSignerObserved=input.separateSignerObserved===true||exactRuntimeReceipt&&runtimeReceipt.separateSignerObserved===true;
+  const releaseCourierObserved=input.releaseCourierObserved===true||exactRuntimeReceipt&&runtimeReceipt.releaseCourierObserved===true;
+  const releasePathObserved=separateSignerObserved&&releaseCourierObserved;
+  const runtimeRehearsalObserved=exactRuntimeReceipt;
 
   const reasons=[];
   if(!SHA40.test(sourceCommit))reasons.push('exact-source-commit-required');
@@ -54,8 +59,8 @@ export function compileSovereignBootstrapReadiness(input={}){
   if(hostControlReady&&!localModelAttested)reasons.push('owner-controlled-local-model-not-attested');
   if(hostControlReady&&input.isolatedWorkerEnabled!==true)reasons.push('isolated-worker-not-enabled');
   if(directFounderControlReady&&input.founderDialogueEnabled!==true)reasons.push('founder-dialogue-not-enabled');
-  if(selfCompletionReady&&!input.separateSignerObserved)reasons.push('separate-release-signer-not-observed');
-  if(selfCompletionReady&&!input.releaseCourierObserved)reasons.push('signed-release-courier-not-observed');
+  if(selfCompletionReady&&!separateSignerObserved)reasons.push('separate-release-signer-not-observed');
+  if(selfCompletionReady&&!releaseCourierObserved)reasons.push('signed-release-courier-not-observed');
   if(selfCompletionReady&&!runtimeRehearsalObserved)reasons.push('owned-runtime-rehearsal-not-observed');
 
   let status='SOVEREIGN_BOOTSTRAP_SOURCE_INCOMPLETE';
@@ -94,6 +99,6 @@ export function compileSovereignBootstrapReadiness(input={}){
       publicCloudModelRequiredForSelfCompletion:false
     },
     authority:{businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',releaseSigningAuthority:'SEPARATE',runtimeDeploymentAuthority:'SEPARATE'},
-    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. It does not prove signed deployment, runtime rehearsal, customer/payment outcomes, Personal Civilization outcomes, or ASI.'
+    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. SOVEREIGN_ENGINEERING_BOOTSTRAP_OBSERVED additionally requires a correlated runtime graduation receipt; neither state proves customer/payment outcomes, Personal Civilization outcomes, or ASI.'
   };
 }

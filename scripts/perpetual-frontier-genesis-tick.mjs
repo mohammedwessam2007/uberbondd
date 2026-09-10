@@ -4,6 +4,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildGenesisCycle } from '../src/perpetual-frontier-genesis.mjs';
 import { buildIdeationActivationPlan } from '../src/million-branch-ideation-genome.mjs';
+import { buildExpansionEnvelope } from '../src/sovereign-expansion-kernel.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -116,13 +117,23 @@ for (const signal of signals.slice(0, 500)) {
         seed: signalId
       })
     : null;
-  cycles.push({ signalId, ...cycle, ideation });
+  const expansion = cycle.ok && ideation?.ok
+    ? buildExpansionEnvelope({
+        context: summary,
+        affectedDomains: domains,
+        changedPrimitives: primitives,
+        ideationGeneratorKeys: ideation.selectedGenerators.map(item => item.key),
+        maxLenses: 16,
+        seed: signalId
+      })
+    : null;
+  cycles.push({ signalId, ...cycle, ideation, expansion });
 }
 
 const successful = cycles.filter(cycle => cycle.ok).length;
 const invalid = cycles.length - successful;
 const receipt = {
-  schemaVersion: 'uberbond.perpetual-frontier-genesis.tick.v2',
+  schemaVersion: 'uberbond.perpetual-frontier-genesis.tick.v3',
   generatedAt,
   dryRun,
   source: {
@@ -141,7 +152,9 @@ const receipt = {
     resurrectionReviewCandidates: cycles.reduce((sum, cycle) => sum + (cycle.resurrection?.candidates?.length || 0), 0),
     ideationActivations: cycles.filter(cycle => cycle.ideation?.ok).length,
     selectedIdeationGenerators: cycles.reduce((sum, cycle) => sum + (cycle.ideation?.selectedGeneratorCount || 0), 0),
-    projectedFirstGenerationCapacity: cycles.reduce((sum, cycle) => sum + (cycle.ideation?.selectedFirstGenerationCapacity || 0), 0)
+    projectedFirstGenerationCapacity: cycles.reduce((sum, cycle) => sum + (cycle.ideation?.selectedFirstGenerationCapacity || 0), 0),
+    expansionActivations: cycles.filter(cycle => cycle.expansion?.ok).length,
+    selectedExpansionLenses: cycles.reduce((sum, cycle) => sum + (cycle.expansion?.selectedLensCount || 0), 0)
   },
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
@@ -153,7 +166,7 @@ const receipt = {
     customerStateMutations: 0,
     providerCalls: 0
   },
-  truthBoundary: 'GENESIS_CYCLES_AND_IDEATION_BRANCHES_ARE_INTERNAL_RESEARCH_AND_PROPOSAL_RECEIPTS_NOT_TECHNOLOGY_MARKET_CUSTOMER_OR_REVENUE_PROOF'
+  truthBoundary: 'GENESIS_CYCLES_IDEATION_BRANCHES_AND_EXPANSION_LENSES_ARE_INTERNAL_RESEARCH_AND_PROPOSAL_RECEIPTS_NOT_TECHNOLOGY_MARKET_CUSTOMER_REVENUE_LIFE_OUTCOME_OR_ASI_PROOF'
 };
 
 await mkdir(dirname(outputPath), { recursive: true });
@@ -167,6 +180,8 @@ console.log(JSON.stringify({
   ideationActivations: receipt.summary.ideationActivations,
   selectedIdeationGenerators: receipt.summary.selectedIdeationGenerators,
   projectedFirstGenerationCapacity: receipt.summary.projectedFirstGenerationCapacity,
+  expansionActivations: receipt.summary.expansionActivations,
+  selectedExpansionLenses: receipt.summary.selectedExpansionLenses,
   output: outputPath,
   businessEffectAuthority: 'NONE'
 }, null, 2));

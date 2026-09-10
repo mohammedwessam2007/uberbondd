@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
-for cmd in wg wg-quick systemctl install grep sed; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in wg wg-quick systemctl install; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 
 ENDPOINT="${1:-${UBERBOND_COCKPIT_ENDPOINT:-}}"
 [[ -n "$ENDPOINT" && "$ENDPOINT" != *[[:space:]]* && "$ENDPOINT" != */* ]] || {
@@ -12,21 +12,29 @@ ENDPOINT="${1:-${UBERBOND_COCKPIT_ENDPOINT:-}}"
 }
 
 CONTROL=/var/lib/uberbond-control
-CONFIG=/etc/uberbond
 WGDIR=/etc/wireguard
 COCKPIT_DIR="$CONTROL/cockpit"
-ENV_FILE="$CONFIG/uberbond.env"
-SERVER_ADDR="${UBERBOND_COCKPIT_SERVER_ADDR:-10.73.0.1/24}"
-SERVER_IP="${SERVER_ADDR%/*}"
-CLIENT_ADDR="${UBERBOND_COCKPIT_CLIENT_ADDR:-10.73.0.2/32}"
-PORT="${UBERBOND_COCKPIT_PORT:-51820}"
+SERVER_ADDR="10.73.0.1/24"
+SERVER_IP="10.73.0.1"
+CLIENT_ADDR="10.73.0.2/32"
+WG_PORT="${UBERBOND_COCKPIT_PORT:-51820}"
+GATEWAY_PORT="${UBERBOND_FOUNDER_GATEWAY_PORT:-8788}"
 IFACE="uberbond0"
 
-[[ "$PORT" =~ ^[0-9]{1,5}$ ]] && (( PORT >= 1 && PORT <= 65535 )) || { echo "REFUSED: invalid WireGuard listen port." >&2; exit 2; }
-[[ "$SERVER_ADDR" =~ ^10\.73\.0\.1/24$ ]] || { echo "REFUSED: v1 sovereign cockpit server address is fixed to 10.73.0.1/24." >&2; exit 2; }
-[[ "$CLIENT_ADDR" =~ ^10\.73\.0\.2/32$ ]] || { echo "REFUSED: v1 sovereign cockpit client address is fixed to 10.73.0.2/32." >&2; exit 2; }
-[[ -f "$ENV_FILE" && ! -L "$ENV_FILE" ]] || { echo "REFUSED: install the sovereign host first; missing regular $ENV_FILE." >&2; exit 2; }
-[[ ! -e "$CONFIG/release-private.pem" ]] || { echo "REFUSED: release signing private key must never live on runtime host." >&2; exit 2; }
+[[ "$WG_PORT" =~ ^[0-9]{1,5}$ ]] && (( WG_PORT >= 1 && WG_PORT <= 65535 )) || { echo "REFUSED: invalid WireGuard listen port." >&2; exit 2; }
+[[ "$GATEWAY_PORT" =~ ^[0-9]{1,5}$ ]] && (( GATEWAY_PORT >= 1 && GATEWAY_PORT <= 65535 )) || { echo "REFUSED: invalid founder gateway port." >&2; exit 2; }
+[[ ! -e /etc/uberbond/release-private.pem ]] || { echo "REFUSED: release signing private key must never live on runtime host." >&2; exit 2; }
+
+# The founder console/gateway is an authoring/control-plane surface. The main
+# application remains loopback/private under its existing sovereign runtime law.
+GATEWAY_CONFIGURATOR="/opt/uberbond/control/configure-founder-private-gateway.sh"
+if [[ ! -x "$GATEWAY_CONFIGURATOR" ]]; then
+  GATEWAY_CONFIGURATOR="/opt/uberbond/source/ops/sovereign/configure-founder-private-gateway.sh"
+fi
+[[ -x "$GATEWAY_CONFIGURATOR" ]] || {
+  echo "REFUSED: install the sovereign authoring/control node before the air cockpit." >&2
+  exit 2
+}
 
 install -d -m 0700 "$WGDIR" "$COCKPIT_DIR"
 SERVER_PRIV="$WGDIR/${IFACE}.server.key"
@@ -58,7 +66,7 @@ CLIENT_PUBLIC="$(cat "$CLIENT_PUB")"
 cat > "$WG_CONF" <<EOF
 [Interface]
 Address = ${SERVER_ADDR}
-ListenPort = ${PORT}
+ListenPort = ${WG_PORT}
 PrivateKey = ${SERVER_PRIVATE}
 
 [Peer]
@@ -80,38 +88,27 @@ PersistentKeepalive = 25
 EOF
 chmod 600 "$CLIENT_CONF"
 
-# The web process binds only to the private WireGuard address. It is not exposed
-# on 0.0.0.0, the public NIC, a hosted proxy, or a cloud tunnel.
-tmp="${ENV_FILE}.tmp.$$"
-grep -Ev '^(HOST_BIND|APP_BASE_URL|FOUNDER_COCKPIT_TRANSPORT)=' "$ENV_FILE" > "$tmp"
-{
-  printf 'HOST_BIND=%s\n' "$SERVER_IP"
-  printf 'APP_BASE_URL=http://%s:8080\n' "$SERVER_IP"
-  printf 'FOUNDER_COCKPIT_TRANSPORT=wireguard\n'
-} >> "$tmp"
-chmod 600 "$tmp"
-mv -f "$tmp" "$ENV_FILE"
-
 systemctl enable --now "wg-quick@${IFACE}.service"
 
-# If a release is already admitted, recreate only the declared exact release
-# through the existing reconciler so the new private bind becomes effective.
-if [[ -f "$CONTROL/state.env" && -x /opt/uberbond/control/uberbondctl ]]; then
-  /opt/uberbond/control/uberbondctl reconcile
-fi
+# Reuse the already-hardened founder gateway. It exposes only the bounded
+# founder-console surface on the private tunnel and keeps the main app sealed.
+"$GATEWAY_CONFIGURATOR" "$SERVER_IP" "$GATEWAY_PORT"
 
 cat <<EOF
 UBERBOND_SOVEREIGN_AIR_COCKPIT_CONFIGURED
 
-Remote compute remains on this Linux host.
-Founder cockpit address (inside WireGuard only): http://${SERVER_IP}:8080
-Client profile written with mode 0600: ${CLIENT_CONF}
+Heavy compute remains on the remote Linux authoring/runtime fabric.
+The iPad is a thin founder cockpit only.
+Founder cockpit address inside WireGuard: http://${SERVER_IP}:${GATEWAY_PORT}/
+WireGuard client profile written with mode 0600: ${CLIENT_CONF}
 
-The client private key was NOT printed.
-Transfer ${CLIENT_CONF} to the founder device through an owner-approved secure channel,
-import it into a WireGuard client, then remove any temporary transfer copy.
+The WireGuard client private key was NOT printed.
+The founder-gateway bearer credential is managed by the existing hardened configurator.
+Transfer ${CLIENT_CONF} through an owner-approved secure channel, import it into a WireGuard client,
+then remove any temporary transfer copy.
 
-NETWORK GATE: the host/router must make UDP ${PORT} at ${ENDPOINT} reach this machine.
+NETWORK GATE: the host/router must make UDP ${WG_PORT} at ${ENDPOINT} reach this machine.
 If the site is behind CGNAT, use another owner-controlled routable node as the WireGuard rendezvous.
-No hosted tunnel, DNS service, deployment provider, or cloud control plane is required by this script.
+No hosted tunnel, DNS service, deployment provider, model provider, or cloud control plane is required
+for the cockpit transport itself.
 EOF

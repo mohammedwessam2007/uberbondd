@@ -3,20 +3,23 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
-for cmd in docker systemctl openssl install sha256sum; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in docker systemctl openssl install sha256sum node; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 docker compose version >/dev/null 2>&1 || { echo "Docker Compose v2 is required." >&2; exit 2; }
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CONTROL=/opt/uberbond/control
+OBSERVER=/opt/uberbond/runtime-observer
 CONFIG=/etc/uberbond
 STATE=/var/lib/uberbond-control
 PUBLIC_SOURCE="${1:-}"
 
-install -d -m 0755 /opt/uberbond "$CONTROL"
+install -d -m 0755 /opt/uberbond "$CONTROL" "$OBSERVER" "$OBSERVER/ops" "$OBSERVER/ops/sovereign" "$OBSERVER/src"
 install -d -m 0700 "$CONFIG" "$STATE" "$STATE/backups" "$STATE/inbox"
 install -m 0755 "$ROOT/ops/sovereign/uberbondctl" "$CONTROL/uberbondctl"
+install -m 0755 "$ROOT/ops/sovereign/observe-runtime-graduation.mjs" "$OBSERVER/ops/sovereign/observe-runtime-graduation.mjs"
+install -m 0644 "$ROOT/src/sovereign-runtime-graduation.mjs" "$OBSERVER/src/sovereign-runtime-graduation.mjs"
 install -m 0644 "$ROOT/docker-compose.sovereign.yml" "$CONTROL/docker-compose.sovereign.yml"
-for unit in uberbond-reconcile.service uberbond-reconcile.timer uberbond-release-apply.service uberbond-release-apply.path; do
+for unit in uberbond-reconcile.service uberbond-reconcile.timer uberbond-release-apply.service uberbond-release-apply.path uberbond-runtime-graduation.service uberbond-runtime-graduation.timer; do
   install -m 0644 "$ROOT/ops/sovereign/$unit" "/etc/systemd/system/$unit"
 done
 
@@ -60,19 +63,22 @@ if [[ -e "$CONFIG/release-private.pem" ]]; then
 fi
 
 systemctl daemon-reload
-systemctl enable --now uberbond-reconcile.timer uberbond-release-apply.path
+systemctl enable --now uberbond-reconcile.timer uberbond-release-apply.path uberbond-runtime-graduation.timer
 
 cat <<EOF
 UberBond sovereign host control plane installed.
 
-Runtime control:  $CONTROL/uberbondctl
-Secrets/config:   $CONFIG/uberbond.env
-Release verifier: $CONFIG/release-public.pem
-State/backups:    $STATE
-Release inbox:    $STATE/inbox
+Runtime control:       $CONTROL/uberbondctl
+Graduation observer:   $OBSERVER/ops/sovereign/observe-runtime-graduation.mjs
+Secrets/config:        $CONFIG/uberbond.env
+Release verifier:      $CONFIG/release-public.pem
+State/backups:         $STATE
+Release inbox:         $STATE/inbox
+Graduation receipt:    $STATE/runtime-receipt.json
 
 No application release was downloaded or deployed.
 The release-signing PRIVATE key must remain on a separate authoring/offline machine.
+The graduation observer is read-only with respect to release signing and deployment; it can only attest evidence already produced by the separated signer, courier, runtime apply path and reconciler.
 EOF
 
 if [[ ! -f "$CONFIG/release-public.pem" ]]; then
@@ -95,6 +101,11 @@ To deploy automatically after an offline/local transfer:
   2. atomically write that directory name to $STATE/inbox/NEXT_RELEASE
 The systemd path unit will verify signature, anti-replay sequence, image IDs,
 backup the database, migrate, health-check, and roll back on failure.
+
+After the runtime APPLIED marker exists, the independent reconciliation timer succeeds,
+and the runtime processes are healthy, the graduation observer can write
+$STATE/runtime-receipt.json. It will not manufacture signer, courier, deployment,
+customer, payment, life-outcome or ASI evidence.
 EOF
 fi
 

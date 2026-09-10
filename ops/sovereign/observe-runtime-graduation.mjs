@@ -6,7 +6,7 @@ import {compileSovereignRuntimeGraduation} from '../../src/sovereign-runtime-gra
 
 const MAX=4_000_000;
 const text=(value,max=2000)=>String(value??'').trim().slice(0,max);
-const run=(command,args=[])=>{const out=spawnSync(command,args,{encoding:'utf8',timeout:15_000,windowsHide:true});return{ok:out.status===0,status:out.status,stdout:text(out.stdout,10000),stderr:text(out.stderr,10000)};};
+const run=(command,args=[])=>{const out=spawnSync(command,args,{encoding:'utf8',timeout:15_000,windowsHide:true,env:{...process.env,TZ:'UTC',LC_ALL:'C'}});return{ok:out.status===0,status:out.status,stdout:text(out.stdout,10000),stderr:text(out.stderr,10000)};};
 async function regular(file){try{const s=await fs.lstat(file);return s.isFile()&&!s.isSymbolicLink()&&s.size<=MAX;}catch{return false;}}
 async function directory(file){try{const s=await fs.lstat(file);return s.isDirectory()&&!s.isSymbolicLink();}catch{return false;}}
 async function readJson(file){try{if(!await regular(file))return null;const out=JSON.parse(await fs.readFile(file,'utf8'));return out&&typeof out==='object'&&!Array.isArray(out)?out:null;}catch{return null;}}

@@ -1,0 +1,31 @@
+[Unit]
+Description=UberBond offline llama.cpp model runtime
+After=local-fs.target
+Before=uberbond-local-model-proxy.service
+
+[Service]
+Type=simple
+User=uberbond-local-model
+Group=uberbond-model
+EnvironmentFile=/etc/uberbond/offline-llama-runtime.env
+ExecStart=/opt/uberbond/model-runtime/llama-server --model /var/lib/uberbond-model-runtime/model.gguf --alias ${UBERBOND_LOCAL_MODEL_ID} --host 127.0.0.1 --port 11439
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/uberbond/model-runtime /var/lib/uberbond-model-runtime /etc/uberbond
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

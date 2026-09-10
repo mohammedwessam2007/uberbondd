@@ -4,6 +4,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { compileNativeWorkerModelPrompt, compileNativeWorkerProposal } from '../src/sovereign-native-local-worker.mjs';
+import { GENESIS_IMPLEMENTATION_EVIDENCE } from '../src/genesis-implementation-evidence-v2.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const MAX_JSON=8_000_000;
@@ -22,15 +23,17 @@ function taskBase(task){
   const parent=/^main:([a-f0-9]{40})$/i.exec(String(task?.parentTask||''));return parent?parent[1].toLowerCase():null;
 }
 function taskTarget(task){for(const c of Array.isArray(task?.constraints)?task.constraints:[]){const m=/^finite-completion-target:(.+)$/i.exec(String(c));if(m&&m[1]!=='terminal-truth-regeneration')return m[1].slice(0,500);}return null;}
+function continuumFrontierTarget(task){for(const c of Array.isArray(task?.constraints)?task.constraints:[]){const m=/^continuum-frontier-target:(\d{1,3})$/i.exec(String(c));if(m){const id=Number(m[1]);if(Number.isSafeInteger(id)&&id>=1&&id<=275)return id;}}return null;}
 async function sourceFile(root,rel){const file=safeChild(root,rel);if(!file)return{exists:false};try{const st=await fs.lstat(file);if(!st.isFile()||st.isSymbolicLink()||st.size>MAX_CONTEXT_FILE)return{exists:false};return{exists:true,content:await fs.readFile(file,'utf8')};}catch{return{exists:false};}}
+async function pushSource(rows,root,p){if(rows.some(row=>row.path===p))return;const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
 async function buildContext(root,task){
-  const rows=[];const target=taskTarget(task);
+  const rows=[];const target=taskTarget(task);const frontierId=continuumFrontierTarget(task);
   const coverage=await readJson(path.join(root,'artifacts/sovereign/implementation-coverage-matrix.json'));
   const semantic=await readJson(path.join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'));
-  if(target&&coverage){const row=(coverage.rows||[]).find(r=>r?.canonicalId===target);if(row){rows.push({path:'context:coverage-row',content:JSON.stringify(row,null,2)});const paths=[row.targetModule,...(row.currentEvidence?.sourceModules||[]),...(row.currentEvidence?.testModules||[])].filter(Boolean).slice(0,8);for(const p of paths){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}}
-  }
-  if(semantic?.diagnostics)rows.push({path:'context:semantic-diagnostics',content:JSON.stringify(semantic.diagnostics,null,2)});
-  if(!target){for(const p of ['scripts/terminal-realization.mjs','scripts/semantic-requirement-tribunal.mjs','src/semantic-requirement-tribunal.mjs']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}}
+  if(target&&coverage){const row=(coverage.rows||[]).find(r=>r?.canonicalId===target);if(row){rows.push({path:'context:coverage-row',content:JSON.stringify(row,null,2)});const paths=[row.targetModule,...(row.currentEvidence?.sourceModules||[]),...(row.currentEvidence?.testModules||[])].filter(Boolean).slice(0,8);for(const p of paths)await pushSource(rows,root,p);}}
+  if(frontierId){const evidence=GENESIS_IMPLEMENTATION_EVIDENCE[frontierId];if(evidence){rows.push({path:`context:continuum-frontier-${frontierId}`,content:JSON.stringify({id:frontierId,...evidence},null,2)});for(const p of [...(evidence.sources||[]),...(evidence.tests||[])].slice(0,8))await pushSource(rows,root,p);}for(const p of ['NORTH_STAR.md','docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md','docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'])await pushSource(rows,root,p);}
+  if(semantic?.diagnostics&&target)rows.push({path:'context:semantic-diagnostics',content:JSON.stringify(semantic.diagnostics,null,2)});
+  if(!target&&!frontierId){for(const p of ['scripts/terminal-realization.mjs','scripts/semantic-requirement-tribunal.mjs','src/semantic-requirement-tribunal.mjs'])await pushSource(rows,root,p);}
   return rows.slice(0,12);
 }
 function callModel(body){return new Promise((resolve,reject)=>{

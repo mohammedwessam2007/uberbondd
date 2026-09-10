@@ -23,6 +23,11 @@ test('first boot source executability contract survives a clean checkout', () =>
   }
 });
 
+test('first boot creates a root-owned read-only evidence ingress for the founder doctor', () => {
+  assert.match(script, /install -d -m 0750 -o root -g uberbond-autonomy \/var\/lib\/uberbond-evidence/);
+  assert.match(script, /not writable by the authoring identity/i);
+});
+
 test('first boot refuses to claim readiness without the canonical self-completion stages', () => {
   for (const field of [
     'sourceStackComplete',

@@ -31,6 +31,11 @@ MODEL_INSTALLER_SOURCE="$SOURCE/ops/sovereign/install-offline-llama-runtime.sh"
 # loopback founder console, but leaves model execution disabled.
 "$AUTHOR_INSTALLER" "$SOURCE"
 
+# External release/runtime receipts must be readable by the founder doctor but
+# not writable by the authoring identity. Root owns the evidence ingress; the
+# autonomy group receives read/traverse only. A missing receipt remains unknown.
+install -d -m 0750 -o root -g uberbond-autonomy /var/lib/uberbond-evidence
+
 # Stage 2: admit only the owner-supplied offline llama.cpp binary + GGUF model.
 # The existing installer checksum-binds both artifacts, attests the model on
 # loopback, enables the AF_UNIX worker proxy, direct founder dialogue, and the

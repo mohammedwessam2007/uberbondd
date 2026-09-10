@@ -27,6 +27,18 @@ test('database use remains stateful', () => {
   assert.equal(hasConcreteRecoverySurface("await sql('INSERT INTO jobs(id) VALUES($1)');"), true);
 });
 
+test('explicit SQL transaction control remains a concrete recovery surface', () => {
+  for (const statement of ['BEGIN;', 'COMMIT;', 'ROLLBACK;', "await sql('BEGIN;')", "await sql('ROLLBACK;')"]) {
+    assert.equal(hasConcreteRecoverySurface(statement), true, statement);
+  }
+});
+
+test('transaction vocabulary without executable SQL syntax stays stateless', () => {
+  for (const source of ['begin review', 'commitment ledger', 'rollback policy']) {
+    assert.equal(hasConcreteRecoverySurface(source), false, source);
+  }
+});
+
 test('surface detector is deterministic and bounded to concrete families', () => {
   const out = detectConcreteRecoverySurfaces('writeFileSync(a,b); setInterval(tick, 10);');
   assert.deepEqual(out, ['surface-1', 'surface-3']);

@@ -11,9 +11,11 @@
   "checkpointedAt": "2026-09-10",
   "completed": [
     "Cash artery, provider-neutral backend, durable recurring scheduler, delivery transport/silence truth, restart/recovery harness, missing-capability handoff, Constraint Mutation and founder-interactive encrypted Personal Civilization runtime remain merged from prior convergence waves.",
-    "Sovereign self-hosting source from the earlier donor wave remains represented on main: offline immutable runtime, local release inbox, signed monotonic release admission, independent reconciliation, backup/restore/rollback and sovereign kit export/import.",
-    "Terminal finite-closure machinery remains on main: semantic no-drop requirement tribunals, composed effect-authority cut sets, recursive principal/credential/custody separation, sovereign failure-cut auditing, canonical continuation composition and finite closure with runtime/commercial/ASI/human truth separated.",
-    "PR #643 merged at 7c80251612bf38ebc2bbb266230c952fa6277e0a, closing the exact historical-memory enforcement identity seam with a finite reviewed canonical-equivalence pair while preserving exact matching elsewhere. Independent focused hostile execution reported 7/7 pass. Its expected terminal effect was reduction from 137 to 136 finite semantic contracts, later evidence on the merged lineage preserved 136 rather than claiming zero.",
+    "Sovereign self-hosting source was cleanly transplanted from stale PR #594 onto then-current main without its stale ancestry and merged through PR #597 at c6e836a51490697b3b59bbfa968b420a2a784ca0. The slice includes offline immutable Docker runtime, local release inbox, signed monotonic release admission, independent systemd reconciliation, backup/restore/rollback and sovereign kit export/import. This is source capability, not real-host proof.",
+    "C11 governance-organ reachability repair merged on the current lineage at c4993c5745d7d6bfb34e26a0c1525312e4816e80. It provides an inert operator import surface and does not create external-effect authority.",
+    "Terminal finite-closure machinery was cleanly transplanted from stale PR #593 onto current main without its stale ancestry and merged through PR #598 at 7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3. It adds semantic no-drop requirement tribunals, composed effect-authority cut sets, recursive principal/credential/custody separation, sovereign failure-cut auditing, canonical continuation composition and finite closure with runtime/commercial/ASI/human truth separated.",
+    "Stale donor PR #593 and stacked sovereign PR #594 remain closed as superseded historical donors. Do not merge them; preserve their reconciliation status and donated mechanisms in memory rather than deleting the named initiatives.",
+    "PR #643 merged at 7c80251612bf38ebc2bbb266230c952fa6277e0a, closing the exact historical-memory enforcement identity seam with a finite reviewed canonical-equivalence pair while preserving exact matching elsewhere. Independent focused hostile execution reported 7/7 pass. Its expected terminal effect was reduction from 137 to 136 finite semantic contracts, and later merged-lineage evidence preserved 136 rather than claiming zero.",
     "PR #644 merged at 8994f5f8ef549a619e452e21990e5fd3d142f63e. It added compileSovereignBootstrapReadiness, the sovereign-bootstrap doctor, founder doctor/readiness dialogue routes, staged source/host/model/self-completion/release/runtime truth and explicit non-dependence of the local self-completion loop on GitHub, Vercel or public-cloud models. Focused readiness/collector hostile execution reported 13/13 pass.",
     "PR #645 merged at 0e9177b650361e528db8cdc481fb5a87c84bdefb. It exposed the strict one-command founder-node first boot. Exact-head focused hostile execution reported 4/4 pass and shell syntax passed; the merge explicitly preserved the 136 finite-contract terminal truth observed on its exercised ancestor and added no cloud fallback or authority expansion.",
     "PR #646 merged at 8bda1e8b3537723a176c071803a8b2f9c6bf48ab. It fixed a clean-checkout first-boot blocker by changing only install-authoring-node.sh and install-offline-llama-runtime.sh from Git mode 100644 to 100755 and adding a regression assertion that bootstrap plus both child installers remain executable. No installer content or authority changed."
@@ -32,10 +34,31 @@
       "latestMainRequiresRefreshBeforeNewClaims": true
     },
     "recentConvergence": {
+      "sovereignHost597": "MERGED",
+      "governanceReachability596": "MERGED",
+      "terminalFiniteClosure598": "MERGED",
+      "staleTerminalDonor593": "CLOSED_SUPERSEDED",
+      "staleSovereignDonor594": "CLOSED_SUPERSEDED",
       "historicalMemoryIdentity643": "MERGED",
       "sovereignBootstrapReadiness644": "MERGED",
       "sovereignFounderFirstBoot645": "MERGED",
       "founderBootstrapExecutableChildren646": "MERGED"
+    },
+    "generatedCoverage": {
+      "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
+      "currentSpecOnly": "UNKNOWN_PENDING_EXACT_CURRENT_REGENERATION",
+      "historicalSpecOnly": 83,
+      "historicalSourceCommit": "19c6109641bd515a9526821355113caf85c34234"
+    },
+    "generatedReadiness": {
+      "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
+      "currentExactReadiness": "UNKNOWN_PENDING_EXACT_CURRENT_REGENERATION",
+      "historicalSourceCommit": "19c6109641bd515a9526821355113caf85c34234"
+    },
+    "exactHeadExecutionEvidence": {
+      "classification": "NOT_EXECUTED_ON_EXACT_CURRENT_MAIN_AFTER_PR_646",
+      "priorFailurePattern": "runner_id=0; steps=[]",
+      "claim": "NO_PASS_OR_FAIL_INFERENCE_FROM_QUEUED_OR_ZERO_STEP_JOBS"
     },
     "terminalFiniteTruth": {
       "classification": "LATEST_EXECUTED_LINEAGE_EVIDENCE_NOT_EXACT_CURRENT_MAIN",
@@ -86,9 +109,9 @@
     "realityCalibrationPercent": 38,
     "sovereignContinuumRuntimePercent": 92
   },
-  "schemaVersion": "uberbond-handoff-2.5.0",
+  "schemaVersion": "uberbond-handoff-2.4.0",
   "sourceCommit": "8bda1e8b3537723a176c071803a8b2f9c6bf48ab",
-  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, canon pointers, this handoff and current readiness in that order. Historical donor stacks remain historical unless new evidence proves a missing mechanism. Never quote old coverage or terminal counts as exact-current. Queued and zero-step jobs are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. A finite engineering closure claim requires an actually executed declared denominator; runtime, commercial, personal-reality and ASI facets remain separate.",
+  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, canon pointers, this handoff and current readiness in that order. Stale donor PRs #593/#594 are historical only and their named initiatives/reconciliation status must remain preserved. Never quote old coverage or terminal counts as exact-current. Queued and zero-step jobs are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. A finite engineering closure claim requires an actually executed declared denominator; runtime, commercial, personal-reality and ASI facets remain separate.",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
   "terminalNorthStar": "Sovereign Cognitive Continuum",

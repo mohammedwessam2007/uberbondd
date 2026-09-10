@@ -4,10 +4,11 @@ After=local-fs.target
 
 [Service]
 Type=oneshot
-User=uberbond-autonomy
-Group=uberbond-autonomy
+User=uberbond-author
+Group=uberbond-author
 Environment=UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
 Environment=UBERBOND_SOURCE_ROOT=/opt/uberbond/source
+EnvironmentFile=-/etc/uberbond/economic.env
 WorkingDirectory=/opt/uberbond/source
 ExecStart=/usr/bin/node /opt/uberbond/source/scripts/compile-founder-outcome-mission.mjs
 ExecStart=/usr/bin/node /opt/uberbond/source/scripts/founder-economic-mission-pulse.mjs

@@ -38,9 +38,19 @@ test('recovers crash after bundle rename but before runtime marker publication',
   assert.equal((await readFile(path.join(f.inbox,'NEXT_RELEASE'),'utf8')).trim(),f.name);assert.equal(recovered.deploymentAuthority,'NONE');
 });
 
-test('does not republish a release carrying a runtime APPLIED receipt',async()=>{
+test('does not republish a release carrying a structurally valid runtime APPLIED receipt',async()=>{
   const f=await fixture();assert.equal((await run(f)).ok,true);await rm(path.join(f.inbox,'NEXT_RELEASE'));await writeFile(path.join(f.inbox,`APPLIED-${f.name}-20260910T050000Z`),`${f.name}\n`);
-  const out=await run(f);assert.equal(out.ok,true);assert.equal(out.status,'SOVEREIGN_RELEASE_ALREADY_APPLIED_BY_RUNTIME');assert.equal(await lstat(path.join(f.inbox,'NEXT_RELEASE')).then(()=>true).catch(()=>false),false);
+  const out=await run(f);assert.equal(out.ok,true);assert.equal(out.status,'SOVEREIGN_RELEASE_ALREADY_APPLIED_BY_RUNTIME');assert.match(out.truthBoundary,/not independent proof of deployment success/i);assert.equal(await lstat(path.join(f.inbox,'NEXT_RELEASE')).then(()=>true).catch(()=>false),false);
+});
+
+test('refuses an APPLIED-looking file whose content does not identify the release',async()=>{
+  const f=await fixture();assert.equal((await run(f)).ok,true);await rm(path.join(f.inbox,'NEXT_RELEASE'));await writeFile(path.join(f.inbox,`APPLIED-${f.name}-20260910T050000Z`),'\n');
+  const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('runtime-applied-receipt-content-mismatch'));assert.equal(await lstat(path.join(f.inbox,'NEXT_RELEASE')).then(()=>true).catch(()=>false),false);
+});
+
+test('refuses an APPLIED-looking file without the canonical runtime timestamp shape',async()=>{
+  const f=await fixture();assert.equal((await run(f)).ok,true);await rm(path.join(f.inbox,'NEXT_RELEASE'));await writeFile(path.join(f.inbox,`APPLIED-${f.name}-forged`),`${f.name}\n`);
+  const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('runtime-applied-receipt-name-invalid'));assert.equal(await lstat(path.join(f.inbox,'NEXT_RELEASE')).then(()=>true).catch(()=>false),false);
 });
 
 test('refuses to overwrite a different runtime release pointer during recovery',async()=>{

@@ -1,0 +1,21 @@
+[Unit]
+Description=UberBond founder outcome mission compiler and economic pulse
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=uberbond-autonomy
+Group=uberbond-autonomy
+Environment=UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
+Environment=UBERBOND_SOURCE_ROOT=/opt/uberbond/source
+WorkingDirectory=/opt/uberbond/source
+ExecStart=/usr/bin/node /opt/uberbond/source/scripts/compile-founder-outcome-mission.mjs
+ExecStart=/usr/bin/node /opt/uberbond/source/scripts/founder-economic-mission-pulse.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/uberbond-control
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

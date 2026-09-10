@@ -66,6 +66,7 @@ UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
 UBERBOND_SOVEREIGN_EVIDENCE_ROOT=/var/lib/uberbond-evidence
 UBERBOND_PROMOTION_DIR=/var/lib/uberbond-promotion
 UBERBOND_NODE_EXECUTABLE=$(command -v node)
+UBERBOND_GIT_EXECUTABLE=$(command -v git)
 UBERBOND_REPOSITORY=local/uberbond
 UBERBOND_ISOLATED_WORKER_ENABLED=false
 UBERBOND_WORKER_INBOX_ROOT=/var/lib/uberbond-worker/inbox

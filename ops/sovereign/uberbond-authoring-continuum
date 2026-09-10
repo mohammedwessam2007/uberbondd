@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+
+AUTHORCTL="${UBERBOND_AUTHORCTL:-/opt/uberbond/control/uberbond-authorctl}"
+INTERVAL_SEC="${UBERBOND_AUTHORING_INTERVAL_SEC:-60}"
+
+[[ -x "$AUTHORCTL" && ! -L "$AUTHORCTL" ]] || { echo "REFUSED: trusted authorctl executable required" >&2; exit 2; }
+[[ "$INTERVAL_SEC" =~ ^[0-9]+$ ]] || { echo "REFUSED: integer authoring interval required" >&2; exit 2; }
+(( INTERVAL_SEC >= 60 && INTERVAL_SEC <= 3600 )) || { echo "REFUSED: authoring interval must be 60..3600 seconds" >&2; exit 2; }
+
+stop=false
+trap 'stop=true' TERM INT
+
+echo "UBERBOND_SOVEREIGN_CONTINUUM_STARTED interval_sec=${INTERVAL_SEC}"
+while [[ "$stop" != true ]]; do
+  rc=0
+  "$AUTHORCTL" wake || rc=$?
+  if (( rc != 0 )); then
+    echo "UBERBOND_SOVEREIGN_CONTINUUM_PULSE_REFUSED exit_code=${rc}" >&2
+  fi
+
+  [[ "$stop" == true ]] && break
+  slept=0
+  while (( slept < INTERVAL_SEC )) && [[ "$stop" != true ]]; do
+    sleep 1
+    slept=$((slept + 1))
+  done
+done
+
+echo "UBERBOND_SOVEREIGN_CONTINUUM_STOPPED"

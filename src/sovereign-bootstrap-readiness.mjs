@@ -1,18 +1,18 @@
 import {verifySovereignRuntimeRehearsalReceipt} from '../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs';
 
-export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.4';
+export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.5';
 export const OFFLINE_MODEL_STATUS='OFFLINE_LOCAL_MODEL_RUNTIME_INSTALLED_AND_LOOPBACK_ATTESTED';
 const SHA40=/^[a-f0-9]{40}$/i;
 const SHA64=/^[a-f0-9]{64}$/i;
 const SAFE_RELEASE=/^release-[a-f0-9]{12}-[a-f0-9]{16}$/;
 
 export const REQUIRED_SOURCE_CONTRACTS=Object.freeze([
-  'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringTimer','founderIntentWakePath',
+  'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringContinuum','authoringContinuumService','founderIntentWakePath',
   'workerPath','workerService','verifierPath','verifierService','promoterPath',
   'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller','evidenceImporter'
 ]);
 export const REQUIRED_AUTHORING_UNITS=Object.freeze([
-  'authoringTimer','founderIntentWakePath','workerPath','verifierPath','promoterPath','postPromotionPath','founderConsole'
+  'authoringContinuum','founderIntentWakePath','workerPath','verifierPath','promoterPath','postPromotionPath','founderConsole'
 ]);
 
 const truth=value=>value===true;
@@ -82,7 +82,7 @@ export function compileSovereignBootstrapReadiness(input={}){
   if(missingSourceContracts.length)reasons.push('required-source-contracts-missing');
   if(sourceReady&&input.authoringConfigPresent===true&&input.configuredSourceRootMatches!==true)reasons.push('configured-authoring-source-root-mismatch');
   if(sourceReady&&!hostInstalled)reasons.push('sovereign-authoring-host-install-not-observed');
-  if(hostInstalled&&inactiveAuthoringUnits.length)reasons.push('authoring-automation-units-not-active');
+  if(hostInstalled&&inactiveAuthoringUnits.length)reasons.push('authoring-continuum-units-not-active');
   if(hostControlReady&&!directFounderControlReady)reasons.push('founder-console-not-reachable');
   if(hostControlReady&&!localModelAttested)reasons.push('owner-controlled-local-model-not-attested');
   if(hostControlReady&&input.isolatedWorkerEnabled!==true)reasons.push('isolated-worker-not-enabled');
@@ -126,9 +126,10 @@ export function compileSovereignBootstrapReadiness(input={}){
       requiresOwnerSuppliedLocalModelArtifacts:!localModelAttested,
       githubRequiredForSelfCompletion:false,
       vercelRequiredForSelfCompletion:false,
-      publicCloudModelRequiredForSelfCompletion:false
+      publicCloudModelRequiredForSelfCompletion:false,
+      hostedSchedulerRequiredForSelfCompletion:false
     },
     authority:{businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',releaseSigningAuthority:'SEPARATE',runtimeDeploymentAuthority:'SEPARATE'},
-    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. Active authoring additionally requires the founder-intent wake path so ordinary Communication Center messages can wake the same canonical loop without copying private founder text into public coding tasks. Signed-release readiness additionally requires source-bound signer and matching courier receipts imported through the protected root-owned evidence ingress. Owned-runtime rehearsal readiness additionally requires the exact runtime rehearsal receipt schema and digest to verify for this source commit. It does not prove customer/payment outcomes, Personal Civilization outcomes, or ASI.'
+    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit with a resident owner-controlled authoring continuum. Active authoring additionally requires the founder-intent wake path so ordinary Communication Center messages can wake the same canonical loop without copying private founder text into public coding tasks. Signed-release readiness additionally requires source-bound signer and matching courier receipts imported through the protected root-owned evidence ingress. Owned-runtime rehearsal readiness additionally requires the exact runtime rehearsal receipt schema and digest to verify for this source commit. It does not prove customer/payment outcomes, Personal Civilization outcomes, or ASI.'
   };
 }

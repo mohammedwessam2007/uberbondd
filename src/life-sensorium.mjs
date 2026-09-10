@@ -179,7 +179,7 @@ export function fuseLifeState({ signals = [], authorization = null, prototypes =
     candidateStates: selected,
     ambiguity: selected.length > 1 && Math.abs(selected[0].heuristicConfidence - selected[1].heuristicConfidence) < 0.08 ? 'HIGH' : selected.length > 1 ? 'PRESENT' : 'LOW',
     confidenceBoundary: 'HEURISTIC_CONFIDENCE_IS_NOT_A_CALIBRATED_PROBABILITY__LONGITUDINAL_CORRECTION_EVIDENCE_REQUIRED',
-    inferenceBoundary: 'INFERRED_ACTIVITY_IS_A_REVERSIBLE_PRIVATE_MODEL_NOT_A_FACT_ABOUT_MOHAMED',
+    inferenceBoundary: 'INFERRED_ACTIVITY_IS_A_REVERSIBLE_PRIVATE_MODEL_NOT_A_FACT_ABOUT_THE_FOUNDER',
     manualLoggingPrinciple: 'ASK_THE_FOUNDER_ONLY_WHEN_THE_UNCERTAINTY_MATTERS_ENOUGH_TO_JUSTIFY_THE_INTERRUPTION'
   });
 }

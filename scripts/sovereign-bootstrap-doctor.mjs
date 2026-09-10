@@ -21,7 +21,8 @@ const SOURCE_PATHS=Object.freeze({
   postPromotionPath:'ops/sovereign/uberbond-authoring-after-promotion.path',
   offlineModelInstaller:'ops/sovereign/install-offline-llama-runtime.sh',
   offlineSignerInstaller:'ops/sovereign/install-offline-signer-node.sh',
-  releaseCourierInstaller:'ops/sovereign/install-release-courier.sh'
+  releaseCourierInstaller:'ops/sovereign/install-release-courier.sh',
+  evidenceImporter:'ops/sovereign/import-sovereign-evidence.sh'
 });
 const UNIT_NAMES=Object.freeze({
   authoringTimer:'uberbond-authoring.timer',workerPath:'uberbond-local-worker.path',verifierPath:'uberbond-autonomy-verify.path',
@@ -57,7 +58,7 @@ export async function collectSovereignBootstrapReadiness({env=process.env,repoRo
     isolatedWorkerEnabled:String(authoringEnv.UBERBOND_ISOLATED_WORKER_ENABLED||'').toLowerCase()==='true',
     founderDialogueEnabled:String(modelEnv.UBERBOND_FOUNDER_DIALOGUE_ENABLED||'').toLowerCase()==='true'
   });
-  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir,evidenceRoot},note:'The authoring host never infers signer or courier proof from service liveness. Signed-release and runtime stages require validated receipts imported into the root-owned read-only evidence root; receipt observation grants no signer or deployment authority.'};
+  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir,evidenceRoot},note:'The authoring host never infers signer or courier proof from service liveness. Signed-release and runtime stages require validated receipts admitted through the root-only importer into the root-owned read-only evidence root; receipt observation grants no signer or deployment authority.'};
 }
 const invoked=Boolean(process.argv[1])&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url);
 if(invoked){collectSovereignBootstrapReadiness().then(out=>{process.stdout.write(`${JSON.stringify(out,null,2)}\n`);if(out?.stages?.selfCompletionLoopReady!==true)process.exitCode=2;}).catch(error=>{process.stdout.write(`${JSON.stringify({ok:false,status:'SOVEREIGN_BOOTSTRAP_DOCTOR_CRASH',reasonCodes:[String(error?.message||error).slice(0,300)],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'},null,2)}\n`);process.exitCode=2;});}

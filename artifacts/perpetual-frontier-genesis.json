@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.0.0",
-  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION",
-  "generatedAt": "2026-09-03T20:09:00+03:00",
+  "schemaVersion": "uberbond-perpetual-frontier-genesis-1.1.0",
+  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_AND_MILLION_BRANCH_IDEATION",
+  "generatedAt": "2026-09-10T20:30:00+03:00",
   "canonicalDoc": "docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
   "ideaCount": 275,
   "ideaRanges": [
@@ -25,7 +25,8 @@
     "Competitor Catch-Up Radar",
     "Multi-Generation Architecture",
     "Technology-to-Money Translation",
-    "Artificial Imagination"
+    "Artificial Imagination",
+    "Million-Branch Ideation Genome"
   ],
   "coreLoop": [
     "WORLD",
@@ -49,6 +50,7 @@
     "SEARCH_ALGORITHM_EVOLUTION",
     "ONTOLOGY_EVOLUTION",
     "GENESIS",
+    "MILLION_BRANCH_IDEATION",
     "GENESIS_SQUARED",
     "ONTOGENESIS"
   ],
@@ -66,6 +68,19 @@
   "businessEffectAuthority": "NONE",
   "externalEffectAuthority": "NONE",
   "truthBoundary": "IDEAS_AND_INTERNAL_PLANS_ARE_NOT_CUSTOMER_DEMAND_REVENUE_PROVIDER_PROOF_OR_EXTERNAL_EFFECTS",
+  "millionBranchIdeationGenome": {
+    "relation": "EXTENDS_275_IDEA_REGISTRY_WITHOUT_REPLACING_IT",
+    "canonicalDoc": "docs/MILLION_BRANCH_IDEATION_GENOME.md",
+    "artifact": "artifacts/million-branch-ideation-genome.json",
+    "module": "src/million-branch-ideation-genome.mjs",
+    "test": "tests/genesis-million-branch-ideation.test.mjs",
+    "domainCount": 20,
+    "operatorCount": 50,
+    "generatorCount": 1000,
+    "defaultCandidatesPerGenerator": 50,
+    "defaultFirstGenerationCapacity": 50000,
+    "activation": "EVERY_VALID_PERPETUAL_FRONTIER_GENESIS_TICK_SELECTS_A_BOUNDED_DETERMINISTIC_SUBSET"
+  },
   "firstExecutableLayer": {
     "module": "src/perpetual-frontier-genesis.mjs",
     "doctor": "scripts/perpetual-frontier-genesis-doctor.mjs",
@@ -87,7 +102,10 @@
       "frontier latency accounting",
       "zero-effect GENESIS cycle planning",
       "automatic conversion of Gamechanger frontier signals into GENESIS cycle receipts",
-      "hourly public-frontier sensing to GENESIS receipt path when the GitHub Actions runner actually executes"
+      "hourly public-frontier sensing to GENESIS receipt path when the GitHub Actions runner actually executes",
+      "deterministic 20 x 50 million-branch ideation genome",
+      "bounded context-specific generator activation",
+      "recursive idea search-space projection without synthetic execution claims"
     ]
   }
 }

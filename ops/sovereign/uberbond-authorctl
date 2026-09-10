@@ -12,6 +12,7 @@ AUTONOMY_DIR="$CONTROL_DIR/autonomy"
 PAUSE_FILE="$AUTONOMY_DIR/PAUSED"
 STATUS_FILE="$AUTONOMY_DIR/status.json"
 TASK_FILE="$AUTONOMY_DIR/next-task.json"
+WAKE_LOCK="$AUTONOMY_DIR/authoring-pulse.lock"
 WORKER_RESULT="${UBERBOND_WORKER_RESULT_PATH:-/var/lib/uberbond-worker/outbox/result.json}"
 VERIFIED_FILE="$AUTONOMY_DIR/verified-change.json"
 NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
@@ -21,10 +22,16 @@ mkdir -p "$AUTONOMY_DIR"
 chmod 700 "$AUTONOMY_DIR" 2>/dev/null || true
 [[ -d "$SOURCE_ROOT" && ! -L "$SOURCE_ROOT" ]] || { echo "REFUSED: real source directory required" >&2; exit 2; }
 [[ -n "$NODE" && -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted real Node executable required" >&2; exit 2; }
+command -v flock >/dev/null 2>&1 || { echo "REFUSED: flock required for single-writer authoring" >&2; exit 2; }
 run_from_source(){ (cd "$SOURCE_ROOT" && "$@"); }
 json_status(){ if [[ -f "$STATUS_FILE" && ! -L "$STATUS_FILE" ]]; then cat "$STATUS_FILE"; else printf '%s\n' '{"ok":true,"status":"NO_AUTONOMY_PULSE_RECORDED"}'; fi; }
 
 wake(){
+  exec 9>"$WAKE_LOCK"
+  if ! flock -n 9; then
+    printf '%s\n' 'AUTHORING_PULSE_ALREADY_ACTIVE'
+    return 0
+  fi
   run_from_source env \
     UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
     UBERBOND_ISOLATED_WORKER_ENABLED="${UBERBOND_ISOLATED_WORKER_ENABLED:-false}" \
@@ -62,6 +69,10 @@ UberBond Sovereign Authoring Command Center
   uberbond-authorctl verify   independently verify isolated worker output
   uberbond-authorctl doctor   inspect sovereign self-completion activation truth
   uberbond-authorctl help     show this help
+
+All wake paths share a local single-writer lock. The resident continuum, founder
+intent path, post-promotion path, manual wake and resume therefore cannot run two
+authoring brains concurrently.
 
 The model worker is a separate OS identity with read-only source and no access to
 authoring receipts. This control surface does not merge, sign, deploy, send,

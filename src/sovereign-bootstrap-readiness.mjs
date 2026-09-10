@@ -1,6 +1,6 @@
 import {verifySovereignRuntimeRehearsalReceipt} from '../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs';
 
-export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.2';
+export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.3';
 export const OFFLINE_MODEL_STATUS='OFFLINE_LOCAL_MODEL_RUNTIME_INSTALLED_AND_LOOPBACK_ATTESTED';
 const SHA40=/^[a-f0-9]{40}$/i;
 const SHA64=/^[a-f0-9]{64}$/i;
@@ -9,7 +9,7 @@ const SAFE_RELEASE=/^release-[a-f0-9]{12}-[a-f0-9]{16}$/;
 export const REQUIRED_SOURCE_CONTRACTS=Object.freeze([
   'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringTimer',
   'workerPath','workerService','verifierPath','verifierService','promoterPath',
-  'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller'
+  'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller','evidenceImporter'
 ]);
 export const REQUIRED_AUTHORING_UNITS=Object.freeze([
   'authoringTimer','workerPath','verifierPath','promoterPath','postPromotionPath','founderConsole'
@@ -129,6 +129,6 @@ export function compileSovereignBootstrapReadiness(input={}){
       publicCloudModelRequiredForSelfCompletion:false
     },
     authority:{businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',releaseSigningAuthority:'SEPARATE',runtimeDeploymentAuthority:'SEPARATE'},
-    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. Signed-release readiness additionally requires source-bound signer and matching courier receipts. Owned-runtime rehearsal readiness additionally requires the exact runtime rehearsal receipt schema and digest to verify for this source commit. It does not prove customer/payment outcomes, Personal Civilization outcomes, or ASI.'
+    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. Signed-release readiness additionally requires source-bound signer and matching courier receipts imported through the protected root-owned evidence ingress. Owned-runtime rehearsal readiness additionally requires the exact runtime rehearsal receipt schema and digest to verify for this source commit. It does not prove customer/payment outcomes, Personal Civilization outcomes, or ASI.'
   };
 }

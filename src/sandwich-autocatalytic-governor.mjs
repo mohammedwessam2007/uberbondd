@@ -49,8 +49,9 @@ export function compileSandwichAutocatalyticDirective({ baseRevision = null, fin
     baseRevision: base,
     taskRequired: true,
     mode: 'ONE_NEW_FINITE_REQUIREMENT_ONLY',
-    nextTransition: 'DISCOVER_ONE_STRONGER_DESCENDANT_GAP__ADMIT_AS_FINITE_REQUIREMENT__RETURN_CONTROL_TO_EXISTING_FINITE_COMPLETION_ENGINE',
+    nextTransition: 'DISCOVER_ONE_STRONGER_DESCENDANT_GAP__CHALLENGE_ITS_TIMELINE_TOPOLOGY__ADMIT_AS_FINITE_REQUIREMENT__RETURN_CONTROL_TO_EXISTING_FINITE_COMPLETION_ENGINE',
     paceLaw: 'NO_IDLE_WAIT_AFTER_VERIFIED_FINITE_CLOSURE__EVERY_NEW_MAIN_RECOMPUTES_TRUTH_AND_EITHER_FOLDS_ONE_INTERNAL_GAP_OR_STOPS_AT_A_REAL_BOUNDARY',
+    timelineLaw: 'DO_NOT_MERELY_OPTIMIZE_A_LONG_ROUTE__FIRST_TEST_WHETHER_DEPENDENCIES_STEPS_OR_BOUNDARY_CONDITIONS_CAN_BE_DELETED_SUBSTITUTED_PARALLELIZED_PRECOMPUTED_OR_REPRESENTED_DIFFERENTLY',
     sovereigntyBoundary: 'THE_GOVERNOR_MAY_DERIVE_INTERNAL_ENGINEERING_REQUIREMENTS_FROM_EXISTING_CANONICAL_GOALS_BUT_MAY_NOT_CREATE_FOUNDER_GOALS_OR_EFFECT_AUTHORITY',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
@@ -64,7 +65,7 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     return fail(['ready-post-finite-descendant-directive-required'], 'SANDWICH_AUTOCATALYTIC_TASK_REFUSED');
   }
 
-  const objective = `On exact UberBond main ${base}, declared finite engineering is closed. Run one SANDWICH DESCENDANT-GENESIS pass over exact-current repository truth, canonical North Star, terminal realization, execution graph, Sandwich canon, and existing implementation. Identify exactly ONE highest-leverage dependency-satisfied internally solvable missing capability implied by already-canonical goals/invariants. Only if novel, non-duplicative, falsifiable, and requiring no new founder preference or external authority, add one bounded canonical finite engineering requirement with explicit acceptance evidence and valid dependency/leaf mapping. Requirement genesis only: do not implement or claim it complete in this cycle. Never convert founder choice, physical/provider/commercial/customer/elapsed reality, deployment, spend, messaging, credentials, payment, or ASI claims into source-only closure. Never weaken/delete requirements or invariants. Prefer a root mechanism with large downstream unlock. If no justified internal gap exists, return STOP with EXTERNAL_FRONTIER or NO_NOVEL_INTERNAL_GAP and evidence. Return one bounded AgentCodeChangeSet in result.codeChangeSet.`;
+  const objective = `On exact UberBond main ${base}, finite engineering is closed. Run one SANDWICH DESCENDANT-GENESIS pass over exact-current truth, canonical North Star, execution graph, Sandwich canon, and Timeline Topology Engine. Before admitting a gap, challenge its apparent dependency path: preserve the terminal contract; separate evidence-bound causal floors from assumptions; try deletion, substitution, representation escape, parallelization, precompute, reuse, proxy observables, changed boundary conditions, and invented intermediates; prefer a falsifiable topology change that removes the most critical-path time. Admit exactly ONE novel dependency-satisfied INTERNAL_SOURCE/INTERNAL_RESEARCH requirement implied by existing canonical goals, with source+test acceptance evidence and valid leaf mapping. Requirement genesis only: do not implement or claim it complete in this cycle. Never weaken requirements, invent founder goals, or convert physical/provider/commercial/customer/elapsed/ASI claims into source closure. If no justified internal gap exists, STOP with EXTERNAL_FRONTIER or NO_NOVEL_INTERNAL_GAP. Return one bounded AgentCodeChangeSet.`;
 
   const compiled = compileAgentTask({
     taskId: `uberbond_sandwich_descendant_${base.slice(0, 24)}`,
@@ -76,6 +77,8 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
       `main:${base}`,
       'doc:NORTH_STAR',
       'doc:SANDWICH_METHOD_CANON',
+      'doc:TIMELINE_TOPOLOGY_ENGINE_CANON',
+      'source:timeline-topology-engine',
       'artifact:terminal-realization',
       'artifact:canonical-execution-leaf-graph',
       'mode:post-finite-descendant-genesis'
@@ -89,6 +92,10 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     constraints: [
       `exact-base-revision:${base}`,
       'sandwich-autocatalytic-descendant-genesis',
+      'timeline-topology-challenge-required-before-admission',
+      'preserve-terminal-contract-during-timeline-compression',
+      'evidence-bound-causal-floor-rebuttal-required-before-bypass',
+      'prefer-critical-path-elimination-over-local-duration-optimization',
       'exactly-one-new-finite-requirement-maximum',
       'requirement-genesis-only-do-not-implement-same-cycle',
       'derive-only-from-existing-canonical-goals-and-invariants',
@@ -108,17 +115,20 @@ export function compileSandwichAutocatalyticTask({ directive = null, date = new 
     forbiddenActions: [
       'merge', 'deploy', 'send', 'spend', 'purchase', 'change-credentials', 'change-dns',
       'mutate-production', 'customer-contact', 'payment-action', 'weaken-tests', 'weaken-authority',
-      'invent-founder-goal', 'claim-physical-proof-from-source', 'claim-commercial-proof-from-source',
-      'claim-asi', 'implement-newly-admitted-requirement-in-same-cycle'
+      'invent-founder-goal', 'change-terminal-contract-to-create-speedup',
+      'claim-causal-floor-bypass-without-rebuttal-evidence', 'claim-physical-proof-from-source',
+      'claim-commercial-proof-from-source', 'claim-asi', 'implement-newly-admitted-requirement-in-same-cycle'
     ],
     requiredOutputs: [
       'outcome', 'changedArtifacts', 'testsActuallyRun', 'truthTable', 'externalEffectLedger',
       'decision', 'codeChangeSet', 'descendantGap', 'newFiniteRequirementId',
-      'duplicateSearchEvidence', 'acceptanceEvidenceContract', 'dependencyMapping', 'whyThisGapNow'
+      'duplicateSearchEvidence', 'acceptanceEvidenceContract', 'dependencyMapping', 'whyThisGapNow',
+      'timelineTopologyAnalysis', 'criticalPathBefore', 'projectedCriticalPathAfter',
+      'wormholeCandidates', 'causalFloorEvidence'
     ],
     acceptanceTests: ['npm run check:syntax', 'npm run test:deterministic'],
     budget: { maxTokens: 120_000, maxCostCents: 0 },
-    economicObjective: 'maximize verified downstream capability unlocked per founder minute while preserving canonical truth and sovereignty',
+    economicObjective: 'maximize verified critical-path time and downstream capability unlocked per founder minute while preserving canonical truth and sovereignty',
     consequenceClass: 'LOCAL_PREPARATION',
     date
   });

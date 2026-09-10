@@ -1,6 +1,7 @@
 import { compileAgentCodeChangeSet, contentSha256 } from './agent-code-change-contract.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileSandwichDescendantAdmission, SANDWICH_DESCENDANT_CANON_PATH } from './sandwich-descendant-admission.mjs';
+import { compileTimelineTopologyChallenge } from './timeline-topology-challenge.mjs';
 
 export const SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION = 'uberbond.sovereign-native-local-worker.v2';
 const SHA40 = /^[a-f0-9]{40}$/i;
@@ -33,11 +34,12 @@ export function compileNativeWorkerModelPrompt({ task, baseRevision, context = [
     content:String(row?.content ?? '').slice(0,18_000)
   })).filter(row => row.path && row.content);
   const ordinarySchema = 'Return exactly {"decision":"CHANGE"|"STOP","summary":"...","changes":[{"operation":"CREATE"|"UPDATE"|"DELETE","path":"relative/path","content":"full file content for CREATE/UPDATE, omit for DELETE","rationale":"..."}],"reasonCodes":["..."]}.';
-  const sandwichSchema = 'For SANDWICH_DESCENDANT_GENESIS return exactly {"decision":"CHANGE"|"STOP","summary":"...","descendantRequirement":{"name":"...","foldClass":"INTERNAL_SOURCE"|"INTERNAL_RESEARCH","canonicalGoalRefs":["exact existing canonical concept names"],"dependencies":[],"acceptanceEvidence":["SOURCE: ...","TEST: ..."],"rationale":"..."},"reasonCodes":["..."]}. Do not return file changes. The trusted compiler alone appends the admitted requirement to canon.';
+  const sandwichSchema = 'For SANDWICH_DESCENDANT_GENESIS return exactly {"decision":"CHANGE"|"STOP","summary":"...","timelineTopologyChallenge":{"baselineGraph":{"objective":"same terminal contract","terminalIds":["id"],"nodes":[{"id":"id","label":"...","durationMs":1,"requires":[],"boundaryClass":"...","necessity":"...","evidenceRefs":[]}]},"decision":"WORMHOLE"|"NO_VALID_SHORTCUT","name":"...","mechanismClass":"...","projectedGraph":{},"evidenceRefs":["context/evidence ref"],"transformations":[],"attemptedMechanismClasses":[],"reason":"..."},"descendantRequirement":{"name":"...","foldClass":"INTERNAL_SOURCE"|"INTERNAL_RESEARCH","canonicalGoalRefs":["exact existing canonical concept names"],"dependencies":[],"acceptanceEvidence":["SOURCE: ...","TEST: ..."],"rationale":"..."},"reasonCodes":["..."]}. Do not return file changes. The trusted compiler validates Timeline Topology first, then alone appends the admitted requirement to canon.';
   const policy = sandwichGenesis
     ? [
         'This is requirement genesis only. Discover at most one novel dependency-satisfied internal gap implied by existing canonical goals.',
-        'You cannot choose a file, edit canon directly, implement the requirement, alter tests, weaken an invariant, create founder preferences, or grant authority. The trusted compiler owns the only append surface.',
+        'Before admission, model the apparent dependency route and run a Timeline Topology challenge. Preserve the terminal contract. A WORMHOLE must measurably shorten the declared critical path; NO_VALID_SHORTCUT must show at least four materially different mechanism classes attempted.',
+        'You cannot choose a file, edit canon directly, implement the requirement, alter tests, weaken an invariant, create founder preferences, or grant authority. Evidence-bound causal floors cannot be bypassed without explicit rebuttal evidence. The trusted compiler owns the only append surface.',
         'If no genuinely novel high-leverage internal gap is justified by the supplied exact-current context, return STOP.'
       ].join(' ')
     : 'Do not modify build, canon, sovereignty, truth/control surfaces or existing tests. Creating a new regression test is allowed only when required by the task. Prefer the smallest causal patch. If no safe justified source patch exists, return STOP.';
@@ -84,6 +86,8 @@ export function compileNativeWorkerProposal({ task, baseRevision, proposal, sour
   let changes=[];
   if (sandwichGenesis) {
     if (Array.isArray(proposal.changes) && proposal.changes.length) return fail(['sandwich-genesis-file-changes-forbidden'],'SOVEREIGN_NATIVE_LOCAL_WORKER_PROPOSAL_REFUSED');
+    const topology = compileTimelineTopologyChallenge(proposal.timelineTopologyChallenge);
+    if (!topology.ok) return fail(['timeline-topology-challenge-required-before-sandwich-admission', ...(topology.reasonCodes || [])], 'SOVEREIGN_NATIVE_LOCAL_WORKER_PROPOSAL_REFUSED');
     const snap = sourceSnapshot[SANDWICH_DESCENDANT_CANON_PATH];
     if (snap?.exists !== true) return fail(['sandwich-canonical-source-snapshot-required'],'SOVEREIGN_NATIVE_LOCAL_WORKER_PROPOSAL_REFUSED');
     let beforeDocument;
@@ -91,12 +95,13 @@ export function compileNativeWorkerProposal({ task, baseRevision, proposal, sour
     catch { return fail(['sandwich-canonical-source-json-invalid'],'SOVEREIGN_NATIVE_LOCAL_WORKER_PROPOSAL_REFUSED'); }
     const admission = compileSandwichDescendantAdmission({beforeDocument,candidate:proposal.descendantRequirement,baseRevision:base});
     if (!admission.ok) return fail(admission.reasonCodes,'SOVEREIGN_NATIVE_LOCAL_WORKER_PROPOSAL_REFUSED');
+    admission.entry.timelineTopologyEvidence = topology.trustedEvidence;
     changes=[{
       operation:'UPDATE',
       path:SANDWICH_DESCENDANT_CANON_PATH,
       beforeSha256:contentSha256(String(snap.content ?? '')),
       content:`${JSON.stringify(admission.afterDocument,null,2)}\n`,
-      rationale:`Append exactly one independently verifiable Sandwich descendant requirement ${admission.canonicalId}; implementation remains forbidden in this admission cycle.`
+      rationale:`Append one independently verifiable Sandwich descendant requirement ${admission.canonicalId} after a trusted Timeline Topology challenge; implementation remains forbidden in this admission cycle.`
     }];
   } else {
     const proposed = Array.isArray(proposal.changes) ? proposal.changes : [];
@@ -146,7 +151,7 @@ export function compileNativeWorkerProposal({ task, baseRevision, proposal, sour
     externalEffectAuthority:'NONE',
     externalEffectLedger:zeroEffects(),
     truthBoundary:sandwichGenesis
-      ? 'The native model supplied only a structured gap hypothesis. Trusted code converted it into exactly one append-only canonical requirement candidate. The same attempt cannot implement that requirement. Verification, promotion, signing and deployment remain separate.'
+      ? 'The native model supplied a structured gap hypothesis and timeline-topology challenge. Trusted code validated the route challenge, then converted only the gap into one append-only canonical requirement candidate. The same attempt cannot implement that requirement. Verification, promotion, signing and deployment remain separate.'
       : 'The native worker emitted a canonical candidate only. Exact-source before hashes and task-owned acceptance tests were imposed outside the model. Promotion, signing and deployment remain separate authorities.'
   };
 }

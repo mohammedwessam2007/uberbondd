@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { buildSandwichFoldMission } from '../src/sandwich-method.mjs';
 import { compileEvidenceBoundSandwich } from '../src/sandwich-evidence-binding.mjs';
 import { compileSandwichAgentTask } from '../src/sandwich-agent-task.mjs';
+import { proposeSandwichBlueprintRevision } from '../src/sandwich-blueprint-evolution.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 let head = null;
@@ -40,7 +41,30 @@ const evidenceBound = head ? compileEvidenceBoundSandwich({ currentSourceCommit:
 const sandwich = evidenceBound?.sandwich || null;
 const mission = sandwich?.status === 'SANDWICH_FOLD_READY' ? buildSandwichFoldMission({ sandwich }) : null;
 const agentTask = mission?.ok ? compileSandwichAgentTask({ evidenceBoundSandwich: evidenceBound, foldMission: mission, date: new Date('2026-09-10T00:00:00Z') }) : null;
-const ok = Boolean(head && evidenceBound?.ok && sandwich?.ok && mission?.ok && agentTask?.ok && sandwich.nextFold?.id === 'memory'
+const blueprintProposal = head ? proposeSandwichBlueprintRevision({
+  currentSourceCommit: head,
+  currentTarget: target,
+  newRevision: 'r2-synthetic-doctor',
+  addNodes: [{
+    id: 'future-representation',
+    label: 'Synthetic newly visible descendant structure',
+    state: 'MISSING',
+    foldClass: 'INTERNAL_RESEARCH',
+    requires: ['truth'],
+    evidenceRefs: [],
+    executionRequirementIds: ['synthetic-future-representation'],
+    leverage: 3,
+    effort: 1,
+    uncertainty: 0.8
+  }],
+  removeNodes: [],
+  discoveryEvidenceRefs: ['evidence:synthetic-blueprint-discovery'],
+  independentlyVerified: false
+}) : null;
+const ok = Boolean(head && evidenceBound?.ok && sandwich?.ok && mission?.ok && agentTask?.ok && blueprintProposal?.ok
+  && blueprintProposal?.candidateTarget?.targetRevision === 'r2-synthetic-doctor'
+  && blueprintProposal?.addedIds?.includes('future-representation')
+  && sandwich.nextFold?.id === 'memory'
   && sandwich.businessEffectAuthority === 'NONE' && sandwich.externalEffectAuthority === 'NONE');
 
 const report = {
@@ -49,13 +73,15 @@ const report = {
   sourceCommit: head,
   evidenceBindingHealthy: evidenceBound?.ok === true,
   agentTaskBridgeHealthy: agentTask?.ok === true,
+  blueprintEvolutionReachable: blueprintProposal?.ok === true,
+  blueprintSyntheticRevision: blueprintProposal?.candidateTarget?.targetRevision || null,
   selectedSyntheticFold: sandwich?.nextFold?.id || null,
   unresolvedSyntheticDependencies: sandwich?.filling?.unresolvedDependencies || [],
   progressLaw: sandwich?.progressLaw || null,
   foldingLaw: sandwich?.foldingLaw || null,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'SYNTHETIC_DOCTOR_PROVES_EXACT_HEAD_SOURCE_COMPOSITION_EVIDENCE_BINDING_AND_LOCAL_TASK_COMPILATION_ONLY__NOT_GLOBAL_COMPLETENESS_RUNTIME_PHYSICAL_COMMERCIAL_LIFE_OUTCOME_OR_ASI_EVIDENCE'
+  truthBoundary: 'SYNTHETIC_DOCTOR_PROVES_EXACT_HEAD_SOURCE_COMPOSITION_EVIDENCE_BINDING_BLUEPRINT_EVOLUTION_AND_LOCAL_TASK_COMPILATION_ONLY__NOT_GLOBAL_COMPLETENESS_RUNTIME_PHYSICAL_COMMERCIAL_LIFE_OUTCOME_OR_ASI_EVIDENCE'
 };
 
 console.log(JSON.stringify(report, null, 2));

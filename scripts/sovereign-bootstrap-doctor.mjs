@@ -45,17 +45,19 @@ export async function collectSovereignBootstrapReadiness({env=process.env,repoRo
   const installedHead=configuredSourceRootMatches?run('git',['rev-parse','HEAD'],configuredSourceRoot):{ok:false,stdout:''};
   const services={};for(const [id,unit] of Object.entries(UNIT_NAMES))services[id]=active(unit);
   const controlDir=path.resolve(authoringEnv.UBERBOND_CONTROL_DIR||env.UBERBOND_CONTROL_DIR||'/var/lib/uberbond-control');
+  const evidenceRoot=path.resolve(authoringEnv.UBERBOND_SOVEREIGN_EVIDENCE_ROOT||env.UBERBOND_SOVEREIGN_EVIDENCE_ROOT||'/var/lib/uberbond-evidence');
   const modelReceipt=await readJson(path.join(controlDir,'local-model-runtime-receipt.json'));
-  const runtimeReceipt=await readJson(path.join(controlDir,'runtime-receipt.json'));
+  const signerReceipt=await readJson(path.join(evidenceRoot,'signer-receipt.json'));
+  const courierReceipt=await readJson(path.join(evidenceRoot,'courier-receipt.json'));
+  const runtimeReceipt=await readJson(path.join(evidenceRoot,'runtime-receipt.json'));
   const founderConsoleReachable=services.founderConsole?await probeFounderConsole({...founderEnv,...modelEnv}):false;
   const out=compileSovereignBootstrapReadiness({
     sourceCommit:head.ok?head.stdout:'',cleanSource:clean.ok&&clean.stdout==='',sourceContracts,authoringConfigPresent,configuredSourceRootMatches,
-    installedSourceCommit:installedHead.ok?installedHead.stdout:'',services,founderConsoleReachable,modelReceipt,runtimeReceipt,
+    installedSourceCommit:installedHead.ok?installedHead.stdout:'',services,founderConsoleReachable,modelReceipt,signerReceipt,courierReceipt,runtimeReceipt,
     isolatedWorkerEnabled:String(authoringEnv.UBERBOND_ISOLATED_WORKER_ENABLED||'').toLowerCase()==='true',
-    founderDialogueEnabled:String(modelEnv.UBERBOND_FOUNDER_DIALOGUE_ENABLED||'').toLowerCase()==='true',
-    separateSignerObserved:false,releaseCourierObserved:active('uberbond-release-courier.path')
+    founderDialogueEnabled:String(modelEnv.UBERBOND_FOUNDER_DIALOGUE_ENABLED||'').toLowerCase()==='true'
   });
-  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir},note:'A separate offline signer is intentionally not inferred from this authoring host. Signed-release and runtime proof require their own receipts.'};
+  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir,evidenceRoot},note:'The authoring host never infers signer or courier proof from service liveness. Signed-release and runtime stages require validated receipts imported into the root-owned read-only evidence root; receipt observation grants no signer or deployment authority.'};
 }
 const invoked=Boolean(process.argv[1])&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url);
 if(invoked){collectSovereignBootstrapReadiness().then(out=>{process.stdout.write(`${JSON.stringify(out,null,2)}\n`);if(out?.stages?.selfCompletionLoopReady!==true)process.exitCode=2;}).catch(error=>{process.stdout.write(`${JSON.stringify({ok:false,status:'SOVEREIGN_BOOTSTRAP_DOCTOR_CRASH',reasonCodes:[String(error?.message||error).slice(0,300)],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'},null,2)}\n`);process.exitCode=2;});}

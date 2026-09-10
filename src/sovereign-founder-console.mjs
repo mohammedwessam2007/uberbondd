@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SOVEREIGN_FOUNDER_CONSOLE_VERSION = 'uberbond.sovereign-founder-console.v1.1';
-export const FOUNDER_CONSOLE_COMMANDS = Object.freeze(['status', 'wake', 'pause', 'resume', 'verify']);
+export const SOVEREIGN_FOUNDER_CONSOLE_VERSION = 'uberbond.sovereign-founder-console.v1.2';
+export const FOUNDER_CONSOLE_COMMANDS = Object.freeze(['status', 'wake', 'pause', 'resume', 'verify', 'doctor']);
 const LOOPBACKS = new Set(['127.0.0.1', '::1', 'localhost']);
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 4000) => String(value ?? '').trim().slice(0, max);
@@ -30,7 +30,8 @@ export function parseFounderConsoleInput(input) {
     ['status','status'],['what is happening','status'],['what are you doing','status'],['how are you doing','status'],
     ['continue','wake'],['go','wake'],['wake','wake'],['work','wake'],['keep working','wake'],
     ['pause','pause'],['stop','pause'],['hold','pause'],['resume','resume'],['unpause','resume'],
-    ['verify','verify'],['check','verify'],['review','verify']
+    ['verify','verify'],['check','verify'],['review','verify'],
+    ['doctor','doctor'],['diagnose','doctor'],['readiness','doctor'],['are you ready','doctor'],['can you finish yourself','doctor']
   ]);
   const command=aliases.get(normalized);
   if(command) return { ok:true, kind:'CONTROL_COMMAND', command, founderIntent:null, businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:zeroEffects() };

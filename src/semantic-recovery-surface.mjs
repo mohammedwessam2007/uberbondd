@@ -1,4 +1,4 @@
-export const SEMANTIC_RECOVERY_SURFACE_VERSION = 'uberbond.semantic-recovery-surface.v1';
+export const SEMANTIC_RECOVERY_SURFACE_VERSION = 'uberbond.semantic-recovery-surface.v1.1';
 
 const CONCRETE_STATEFUL_PATTERNS = Object.freeze([
   /\b(?:writeFile|writeFileSync|appendFile|appendFileSync|rename|renameSync|mkdir|mkdirSync|rm|rmSync|unlink|unlinkSync)\s*\(/,
@@ -8,7 +8,8 @@ const CONCRETE_STATEFUL_PATTERNS = Object.freeze([
   /\b(?:spawn|fork)\s*\(/,
   /\bnew\s+Worker\s*\(/,
   /\b(?:postgres|postgresql|pg\.Pool|pg\.Client|new\s+Pool|new\s+Client)\b/i,
-  /\b(?:INSERT\s+INTO|UPDATE\s+[A-Za-z_][\w.]*\s+SET|DELETE\s+FROM|BEGIN\s*;|COMMIT\s*;|ROLLBACK\s*;)\b/i
+  /\b(?:INSERT\s+INTO|UPDATE\s+[A-Za-z_][\w.]*\s+SET|DELETE\s+FROM)\b/i,
+  /\b(?:BEGIN|COMMIT|ROLLBACK)\s*;/i
 ]);
 
 export function detectConcreteRecoverySurfaces(sourceText = '') {

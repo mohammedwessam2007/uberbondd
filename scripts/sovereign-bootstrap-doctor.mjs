@@ -12,7 +12,8 @@ const SOURCE_PATHS=Object.freeze({
   autonomyPulse:'scripts/sovereign-autonomy-pulse.mjs',
   founderConsole:'ops/sovereign/uberbond-founder-console',
   founderConsoleServer:'scripts/sovereign-founder-console-server.mjs',
-  authoringTimer:'ops/sovereign/uberbond-authoring.timer',
+  authoringContinuum:'ops/sovereign/uberbond-authoring-continuum',
+  authoringContinuumService:'ops/sovereign/uberbond-authoring-continuum.service',
   founderIntentWakePath:'ops/sovereign/uberbond-founder-intent-wake.path',
   workerPath:'ops/sovereign/uberbond-local-worker.path',
   workerService:'ops/sovereign/uberbond-local-worker.service',
@@ -26,7 +27,7 @@ const SOURCE_PATHS=Object.freeze({
   evidenceImporter:'ops/sovereign/import-sovereign-evidence.sh'
 });
 const UNIT_NAMES=Object.freeze({
-  authoringTimer:'uberbond-authoring.timer',founderIntentWakePath:'uberbond-founder-intent-wake.path',workerPath:'uberbond-local-worker.path',verifierPath:'uberbond-autonomy-verify.path',
+  authoringContinuum:'uberbond-authoring-continuum.service',founderIntentWakePath:'uberbond-founder-intent-wake.path',workerPath:'uberbond-local-worker.path',verifierPath:'uberbond-autonomy-verify.path',
   promoterPath:'uberbond-local-promote.path',postPromotionPath:'uberbond-authoring-after-promotion.path',founderConsole:'uberbond-founder-console.service',
   localModelRuntime:'uberbond-offline-llama-runtime.service',localModelProxy:'uberbond-local-model-proxy.service'
 });
@@ -59,7 +60,7 @@ export async function collectSovereignBootstrapReadiness({env=process.env,repoRo
     isolatedWorkerEnabled:String(authoringEnv.UBERBOND_ISOLATED_WORKER_ENABLED||'').toLowerCase()==='true',
     founderDialogueEnabled:String(modelEnv.UBERBOND_FOUNDER_DIALOGUE_ENABLED||'').toLowerCase()==='true'
   });
-  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir,evidenceRoot},note:'The authoring host requires both periodic truth-first wake and immediate founder-intent wake. Raw founder text stays in the private founder-intents directory and is not copied into public coding tasks. The host never infers signer or courier proof from service liveness. Signed-release and runtime stages require validated receipts admitted through the root-only importer into the root-owned read-only evidence root; receipt observation grants no signer or deployment authority.'};
+  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir,evidenceRoot},note:'The authoring host requires the resident minute-continuum plus immediate founder-intent and post-promotion wake paths. All wake paths share a local single-writer lock. Raw founder text stays in the private founder-intents directory and is not copied into public coding tasks. The host never infers signer or courier proof from service liveness. Signed-release and runtime stages require validated receipts admitted through the root-only importer into the root-owned read-only evidence root; receipt observation grants no signer or deployment authority.'};
 }
 const invoked=Boolean(process.argv[1])&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url);
 if(invoked){collectSovereignBootstrapReadiness().then(out=>{process.stdout.write(`${JSON.stringify(out,null,2)}\n`);if(out?.stages?.selfCompletionLoopReady!==true)process.exitCode=2;}).catch(error=>{process.stdout.write(`${JSON.stringify({ok:false,status:'SOVEREIGN_BOOTSTRAP_DOCTOR_CRASH',reasonCodes:[String(error?.message||error).slice(0,300)],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'},null,2)}\n`);process.exitCode=2;});}

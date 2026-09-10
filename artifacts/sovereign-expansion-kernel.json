@@ -1,8 +1,12 @@
 {
   "schemaVersion": "uberbond-sovereign-expansion-kernel-1.1.0",
   "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_LIFE_AND_SELF_COMPLETION_EXTENSIONS",
-  "generatedAt": "2026-09-10T22:10:00+03:00",
+  "generatedAt": "2026-09-10T22:25:00+03:00",
   "canonicalDoc": "docs/SOVEREIGN_EXPANSION_KERNEL.md",
+  "conceptualExpansionAddendum": {
+    "doc": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_EXPANSION_ADDENDUM_2026-09-10.md",
+    "artifact": "artifacts/sovereign-cognitive-continuum-expansion-addendum-2026-09-10.json"
+  },
   "module": "src/sovereign-expansion-kernel.mjs",
   "test": "tests/genesis-sovereign-expansion-kernel.test.mjs",
   "integration": "scripts/perpetual-frontier-genesis-tick.mjs",

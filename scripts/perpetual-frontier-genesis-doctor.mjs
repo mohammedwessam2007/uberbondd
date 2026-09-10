@@ -13,15 +13,19 @@ const expansionIndexPath = resolve(root, 'artifacts/sovereign-expansion-kernel.j
 const selfCompletionIndexPath = resolve(root, 'artifacts/self-completion-attractor.json');
 const sensoriumIndexPath = resolve(root, 'artifacts/life-sensorium.json');
 const salienceIndexPath = resolve(root, 'artifacts/sovereign-salience-router.json');
+const substrateIndexPath = resolve(root, 'artifacts/substrate-liberation.json');
+const expansionAddendumPath = resolve(root, 'artifacts/sovereign-cognitive-continuum-expansion-addendum-2026-09-10.json');
 
-const [markdown, indexRaw, ideationIndexRaw, expansionIndexRaw, selfCompletionRaw, sensoriumRaw, salienceRaw] = await Promise.all([
+const [markdown, indexRaw, ideationIndexRaw, expansionIndexRaw, selfCompletionRaw, sensoriumRaw, salienceRaw, substrateRaw, expansionAddendumRaw] = await Promise.all([
   readFile(docPath, 'utf8'),
   readFile(indexPath, 'utf8'),
   readFile(ideationIndexPath, 'utf8'),
   readFile(expansionIndexPath, 'utf8'),
   readFile(selfCompletionIndexPath, 'utf8'),
   readFile(sensoriumIndexPath, 'utf8'),
-  readFile(salienceIndexPath, 'utf8')
+  readFile(salienceIndexPath, 'utf8'),
+  readFile(substrateIndexPath, 'utf8'),
+  readFile(expansionAddendumPath, 'utf8')
 ]);
 
 const index = JSON.parse(indexRaw);
@@ -30,6 +34,8 @@ const expansionIndex = JSON.parse(expansionIndexRaw);
 const selfCompletionIndex = JSON.parse(selfCompletionRaw);
 const sensoriumIndex = JSON.parse(sensoriumRaw);
 const salienceIndex = JSON.parse(salienceRaw);
+const substrateIndex = JSON.parse(substrateRaw);
+const expansionAddendum = JSON.parse(expansionAddendumRaw);
 const registry = validateGenesisIdeaRegistry(markdown, index.ideaCount);
 const ideationGenome = validateMillionBranchIdeationGenome();
 const expansionKernel = validateSovereignExpansionKernel();
@@ -49,6 +55,8 @@ const requiredPointers = [
   'artifacts/sovereign-expansion-kernel.json',
   'src/sovereign-expansion-kernel.mjs',
   'tests/genesis-sovereign-expansion-kernel.test.mjs',
+  'docs/SOVEREIGN_COGNITIVE_CONTINUUM_EXPANSION_ADDENDUM_2026-09-10.md',
+  'artifacts/sovereign-cognitive-continuum-expansion-addendum-2026-09-10.json',
   'artifacts/self-completion-attractor.json',
   'src/self-completion-attractor.mjs',
   'scripts/self-completion-attractor-doctor.mjs',
@@ -63,7 +71,11 @@ const requiredPointers = [
   'docs/SOVEREIGN_SALIENCE_ROUTER.md',
   'artifacts/sovereign-salience-router.json',
   'src/sovereign-salience-router.mjs',
-  'tests/sovereign-salience-router.test.mjs'
+  'tests/sovereign-salience-router.test.mjs',
+  'docs/SUBSTRATE_LIBERATION_CANON.md',
+  'artifacts/substrate-liberation.json',
+  'src/substrate-liberation.mjs',
+  'tests/substrate-liberation.test.mjs'
 ];
 
 const childValues = Object.values(expansionIndex.childOrgans || {}).flatMap(child => [
@@ -74,6 +86,10 @@ const childValues = Object.values(expansionIndex.childOrgans || {}).flatMap(chil
   child?.composedDoctor,
   ...(Array.isArray(child?.tests) ? child.tests : [])
 ]);
+const addendumValues = [
+  expansionIndex.conceptualExpansionAddendum?.doc,
+  expansionIndex.conceptualExpansionAddendum?.artifact
+];
 const pointerSet = new Set([
   index.firstExecutableLayer?.module,
   index.firstExecutableLayer?.doctor,
@@ -89,6 +105,7 @@ const pointerSet = new Set([
   index.sovereignExpansionKernel?.artifact,
   index.sovereignExpansionKernel?.module,
   index.sovereignExpansionKernel?.test,
+  ...addendumValues,
   ...childValues
 ].filter(Boolean));
 const missingPointers = requiredPointers.filter(path => !pointerSet.has(path));
@@ -109,7 +126,7 @@ const ideationArtifactHealthy = ideationIndex.schemaVersion === 'uberbond-millio
   && ideationIndex.businessEffectAuthority === 'NONE'
   && ideationIndex.externalEffectAuthority === 'NONE';
 
-const expansionArtifactHealthy = expansionIndex.schemaVersion === 'uberbond-sovereign-expansion-kernel-1.1.0'
+const expansionArtifactHealthy = expansionIndex.schemaVersion === 'uberbond-sovereign-expansion-kernel-1.2.0'
   && expansionIndex.canonicalDoc === 'docs/SOVEREIGN_EXPANSION_KERNEL.md'
   && expansionIndex.module === 'src/sovereign-expansion-kernel.mjs'
   && expansionIndex.test === 'tests/genesis-sovereign-expansion-kernel.test.mjs'
@@ -127,6 +144,12 @@ const sensoriumArtifactHealthy = sensoriumIndex.schemaVersion === 'uberbond-life
 const salienceArtifactHealthy = salienceIndex.schemaVersion === 'uberbond-sovereign-salience-router-1.0.0'
   && salienceIndex.module === 'src/sovereign-salience-router.mjs'
   && salienceIndex.externalEffectAuthority === 'NONE';
+const substrateArtifactHealthy = substrateIndex.schemaVersion === 'uberbond-substrate-liberation-1.0.0'
+  && substrateIndex.module === 'src/substrate-liberation.mjs'
+  && substrateIndex.externalEffectAuthority === 'NONE';
+const expansionAddendumHealthy = expansionAddendum.schemaVersion === 'uberbond-sovereign-continuum-expansion-addendum-2026-09-10-v1'
+  && expansionAddendum.canonicalDoc === 'docs/SOVEREIGN_COGNITIVE_CONTINUUM_EXPANSION_ADDENDUM_2026-09-10.md'
+  && expansionAddendum.externalEffectAuthority === 'NONE';
 
 const healthy = registry.ok
   && ideationGenome.ok
@@ -136,6 +159,8 @@ const healthy = registry.ok
   && selfCompletionArtifactHealthy
   && sensoriumArtifactHealthy
   && salienceArtifactHealthy
+  && substrateArtifactHealthy
+  && expansionAddendumHealthy
   && index.schemaVersion === 'uberbond-perpetual-frontier-genesis-1.2.0'
   && index.canonicalDoc === 'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md'
   && index.businessEffectAuthority === 'NONE'
@@ -161,6 +186,8 @@ const result = {
   selfCompletionArtifactHealthy,
   sensoriumArtifactHealthy,
   salienceArtifactHealthy,
+  substrateArtifactHealthy,
+  expansionAddendumHealthy,
   missingPointers,
   missingFiles,
   automatedHourlyPathDeclared: pointerSet.has('.github/workflows/gamechanger-mesh-hourly.yml'),

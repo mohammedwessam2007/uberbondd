@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   salienceLedger, frameDependence, unchosenUniverse, attentionBudget, preferenceDrift,
-  OMISSION_REASONS, ATTENTION_LEVELS
+  OMISSION_REASONS, ATTENTION_LEVELS, FOUNDER_ATTENTION_RULES
 } from '../src/salience-sovereignty.mjs';
 
 // A system can be scrupulously honest in every individual claim and still decide
@@ -88,10 +88,34 @@ test('the displaced mental state counts as a cost', () => {
   assert.equal(countingState.status, 'STAY_SILENT');
 });
 
-test('something irreversible if missed interrupts regardless of the arithmetic', () => {
+test('something irreversible if missed interrupts regardless of arithmetic when no stronger founder rule exists', () => {
   const urgent = attentionBudget({ value: 1, switchingCost: 100, currentStateValue: 100, irreversibleIfMissed: true });
   assert.equal(urgent.status, 'INTERRUPT');
   assert.ok(ATTENTION_LEVELS.includes('REQUIRE_CONFIRMATION'));
+});
+
+test('explicit right not to know dominates even an irreversible-if-missed heuristic', () => {
+  const out = attentionBudget({
+    value: 1000,
+    switchingCost: 0,
+    currentStateValue: 0,
+    irreversibleIfMissed: true,
+    founderRule: 'RIGHT_NOT_TO_KNOW'
+  });
+  assert.equal(out.ok, true);
+  assert.equal(out.status, 'STAY_SILENT');
+  assert.equal(out.level, 'STAY_SILENT');
+  assert.equal(out.founderRule, 'RIGHT_NOT_TO_KNOW');
+  assert.match(out.why, /cannot create permission/i);
+  assert.equal(out.businessEffectAuthority, 'NONE');
+});
+
+test('do-not-surface also attenuates attention and unknown rules fail closed', () => {
+  assert.ok(FOUNDER_ATTENTION_RULES.includes('DO_NOT_SURFACE'));
+  assert.equal(attentionBudget({ value: 100, irreversibleIfMissed: true, founderRule: 'DO_NOT_SURFACE' }).status, 'STAY_SILENT');
+  const unknown = attentionBudget({ value: 100, irreversibleIfMissed: true, founderRule: 'MODEL_DECIDES' });
+  assert.equal(unknown.ok, false);
+  assert.equal(unknown.status, 'ATTENTION_BUDGET_INVALID');
 });
 
 // ---- Drift ------------------------------------------------------------------

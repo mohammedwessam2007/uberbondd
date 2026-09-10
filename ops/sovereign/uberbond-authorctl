@@ -43,6 +43,13 @@ verify(){
     "$NODE" scripts/sovereign-autonomy-verify.mjs
 }
 
+doctor(){
+  run_from_source env \
+    UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
+    UBERBOND_SOURCE_ROOT="$SOURCE_ROOT" \
+    "$NODE" scripts/sovereign-bootstrap-doctor.mjs
+}
+
 pause(){ local tmp="${PAUSE_FILE}.tmp.$$"; printf 'paused_at=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$tmp"; chmod 600 "$tmp"; mv -f "$tmp" "$PAUSE_FILE"; printf '%s\n' 'FOUNDER_PAUSED'; }
 resume(){ rm -f "$PAUSE_FILE"; printf '%s\n' 'FOUNDER_RESUMED'; wake; }
 help(){ cat <<'EOF'
@@ -53,6 +60,7 @@ UberBond Sovereign Authoring Command Center
   uberbond-authorctl pause    durably stop new authoring pulses
   uberbond-authorctl resume   remove pause and immediately wake
   uberbond-authorctl verify   independently verify isolated worker output
+  uberbond-authorctl doctor   inspect sovereign self-completion activation truth
   uberbond-authorctl help     show this help
 
 The model worker is a separate OS identity with read-only source and no access to
@@ -66,6 +74,7 @@ case "${1:-}" in
   pause) pause ;;
   resume) resume ;;
   verify) verify ;;
+  doctor) doctor ;;
   help|--help|-h) help ;;
   *) help >&2; exit 2 ;;
 esac

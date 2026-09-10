@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond-sovereign-expansion-kernel-1.1.0",
-  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_LIFE_AND_SELF_COMPLETION_EXTENSIONS",
-  "generatedAt": "2026-09-10T22:25:00+03:00",
+  "schemaVersion": "uberbond-sovereign-expansion-kernel-1.2.0",
+  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_LIFE_SELF_COMPLETION_AND_SUBSTRATE_EXTENSIONS",
+  "generatedAt": "2026-09-10T22:40:00+03:00",
   "canonicalDoc": "docs/SOVEREIGN_EXPANSION_KERNEL.md",
   "conceptualExpansionAddendum": {
     "doc": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_EXPANSION_ADDENDUM_2026-09-10.md",
@@ -48,11 +48,17 @@
       "module": "src/sovereign-salience-router.mjs",
       "tests": ["tests/sovereign-salience-router.test.mjs"],
       "composedDoctor": "scripts/life-sensorium-doctor.mjs"
+    },
+    "substrateLiberation": {
+      "artifact": "artifacts/substrate-liberation.json",
+      "canonicalDoc": "docs/SUBSTRATE_LIBERATION_CANON.md",
+      "module": "src/substrate-liberation.mjs",
+      "tests": ["tests/substrate-liberation.test.mjs"]
     }
   },
   "relationToIdeationGenome": "CONSUMES_BOUNDED_IDEATION_ACTIVATIONS_AND_EXPANDS_THEIR_REALITY_COGNITION_SEARCH_DIMENSIONS",
   "relationToOntogenesis": "FORTY_LENSES_ARE_A_SEED_ECOLOGY_NOT_A_CEILING__ONTOGENESIS_MAY_PROPOSE_NEW_CATEGORIES",
   "businessEffectAuthority": "NONE",
   "externalEffectAuthority": "NONE",
-  "truthBoundary": "EXPANSION_QUESTIONS_SCORES_GAPS_THEORIES_PRIVATE_INFERENCES_AND_ATTENTION_ROUTES_ARE_INTERNAL_STRUCTURES_NOT_FACTS_DISCOVERIES_ACTION_AUTHORITY_LIFE_OUTCOMES_OR_ASI_PROOF"
+  "truthBoundary": "EXPANSION_QUESTIONS_SCORES_GAPS_THEORIES_PRIVATE_INFERENCES_ATTENTION_ROUTES_AND_SUBSTRATE_PLANS_ARE_INTERNAL_STRUCTURES_NOT_FACTS_DISCOVERIES_ACTION_AUTHORITY_PHYSICAL_PROOF_LIFE_OUTCOMES_OR_ASI_PROOF"
 }

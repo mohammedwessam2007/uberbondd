@@ -1,6 +1,6 @@
 # UberBond Sandwich Method
 
-Status: **DRAFT BRANCH / EXECUTABLE ZERO-EFFECT SELF-COMPLETION PROTOCOL**
+Status: **VERIFIED CURRENT SOURCE PROTOCOL / ZERO-EFFECT / RUNTIME EVIDENCE SEPARATE**
 
 The Sandwich Method turns the founder's self-folding metaphor into a bounded evidence protocol.
 
@@ -130,6 +130,26 @@ and
 
 A mature self-completing system can reach a local target while simultaneously discovering that the next meaningful definition of completion is larger.
 
+## Autocatalytic post-finite loop
+
+Finite engineering closure is a transition, not a sleep state.
+
+When the exact-current terminal tribunal proves that the declared finite engineering scope is closed, the Sandwich Autocatalytic Governor may create one descendant-genesis task. The task must discover at most one novel, highest-leverage, dependency-satisfied `INTERNAL_SOURCE` or `INTERNAL_RESEARCH` gap that follows from goals and invariants that are already canonical.
+
+The genesis pass is deliberately separated from implementation. It may admit one bounded, falsifiable finite engineering requirement and wire its acceptance evidence and canonical execution-leaf dependencies. It may not implement that newly admitted requirement in the same change. Independent verification and the existing promotion authority must first admit the requirement itself.
+
+After that promotion, `main` changes. Exact-current truth is regenerated. The mature finite-completion engine sees the newly open requirement and owns the next cycle. When it independently closes and promotes that requirement, completion of the trusted self-maintainer wakes the post-finite governor again.
+
+The resulting source-level rhythm is:
+
+`FINITE CLOSED -> DISCOVER ONE DESCENDANT GAP -> ADMIT ONE FINITE REQUIREMENT -> VERIFY/PROMOTE -> FINITE ENGINE CLOSES IT -> VERIFY/PROMOTE -> RECOMPUTE -> REPEAT`
+
+A 15-minute schedule remains only as recovery insurance. Normal continuation is event-driven from completion of the trusted self-maintainer and from main promotions. A closed same-base descendant-genesis attempt is not silently replayed. New main or genuinely new evidence is required before another attempt.
+
+Speed is obtained by removing idle waiting and duplicate cognition, not by deleting truth gates. The governor has no merge, deployment, spend, messaging, customer, payment, credential, physical-world, provider or founder-goal authority.
+
+If no novel internally solvable gap can be justified, the correct result is `STOP`, `EXTERNAL_FRONTIER` or `NO_NOVEL_INTERNAL_GAP`. Manufacturing another feature merely to keep the loop moving is a protocol failure.
+
 ## Canonical execution bridge
 
 When a selected gap carries `executionRequirementIds`, the Sandwich Method may map it to leaves in the exact-current canonical execution graph.
@@ -186,4 +206,4 @@ That is the Sandwich Method: **the blueprint participates in constructing the ma
 
 ## Truth boundary
 
-This protocol is self-completion planning and evidence accounting. It does not prove global UberBond completion, ASI, physical autonomy, life outcomes, customers, revenue, provider availability, scientific discovery or any external effect.
+This protocol is source-level self-completion planning, bounded requirement genesis and evidence accounting. It does not prove global UberBond completion, ASI, physical autonomy, life outcomes, customers, revenue, provider availability, scientific discovery or any external effect. Runtime execution remains a separate evidence class from source correctness.

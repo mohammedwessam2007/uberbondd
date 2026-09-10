@@ -18,11 +18,10 @@ function finiteClosedForBase(finiteDirective, base) {
     && exactSha(finiteDirective?.baseRevision) === base;
 }
 function candidateRows(ledger) {
-  if (ledger?.ok !== true || ledger?.status !== 'GENESIS_EVIDENCE_LEDGER_READY' || Number(ledger?.ideaCount) !== 275 || !Array.isArray(ledger?.entries)) return null;
-  return ledger.entries.filter(row => Number.isSafeInteger(Number(row?.id))
-    && Number(row.id) >= 1
-    && Number(row.id) <= 275
-    && row?.maturity === 'PARTIAL_PRIMITIVE'
+  if (ledger?.ok !== true || ledger?.status !== 'GENESIS_EVIDENCE_LEDGER_READY' || Number(ledger?.ideaCount) !== 275 || !Array.isArray(ledger?.entries) || ledger.entries.length !== 275) return null;
+  const ids=ledger.entries.map(row=>Number(row?.id));
+  if(ids.some(id=>!Number.isSafeInteger(id)||id<1||id>275)||new Set(ids).size!==275)return null;
+  return ledger.entries.filter(row => row?.maturity === 'PARTIAL_PRIMITIVE'
     && ALLOWED_EVIDENCE.has(String(row?.status || ''))
     && Array.isArray(row?.sources) && row.sources.length > 0
     && Array.isArray(row?.tests) && row.tests.length > 0)

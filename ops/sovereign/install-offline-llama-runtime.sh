@@ -5,7 +5,7 @@ umask 077
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
 [[ $# -eq 3 ]] || { echo "usage: install-offline-llama-runtime.sh /path/to/llama-server /path/to/model.gguf MODEL_ID" >&2; exit 2; }
 BINARY="$(realpath "$1")"; MODEL_FILE="$(realpath "$2")"; MODEL_ID="$3"
-for cmd in sha256sum head stat install mv rm chown chmod systemctl useradd id getent; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in sha256sum head stat install mv rm chown chmod systemctl useradd id getent awk realpath seq sleep node; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 [[ -f /etc/uberbond/authoring.env && ! -L /etc/uberbond/authoring.env ]] || { echo "Install the sovereign authoring node first." >&2; exit 2; }
 [[ -f "$BINARY" && ! -L "$BINARY" && -x "$BINARY" ]] || { echo "llama-server must be a real executable file, not a symlink." >&2; exit 2; }
 [[ -f "$MODEL_FILE" && ! -L "$MODEL_FILE" ]] || { echo "GGUF model must be a real file, not a symlink." >&2; exit 2; }

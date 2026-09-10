@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { dirname, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileSandwichMethod, buildSandwichFoldMission, buildCanonicalLeafHandoff } from '../src/sandwich-method.mjs';
+import { compileEvidenceBoundSandwich } from '../src/sandwich-evidence-binding.mjs';
 import { compileSandwichAgentTask } from '../src/sandwich-agent-task.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -36,8 +37,7 @@ async function readBoundedJson(path) {
   try {
     const stat = await lstat(path);
     if (!stat.isFile() || stat.isSymbolicLink() || stat.size <= 0 || stat.size > MAX_JSON_BYTES) return null;
-    const value = JSON.parse(await readFile(path, 'utf8'));
-    return value && typeof value === 'object' && !Array.isArray(value) ? value : null;
+    return JSON.parse(await readFile(path, 'utf8'));
   } catch {
     return null;
   }
@@ -62,13 +62,14 @@ if (typeof targetArg !== 'string') {
 const targetPath = resolve(root, targetArg);
 const target = await readBoundedJson(targetPath);
 const head = exactHead();
-if (!target || !head) {
-  const out = fail([!target ? 'bounded-regular-target-json-required' : null, !head ? 'exact-git-head-required' : null].filter(Boolean));
+if (!target || typeof target !== 'object' || Array.isArray(target) || !head) {
+  const out = fail([!target || typeof target !== 'object' || Array.isArray(target) ? 'bounded-regular-target-json-object-required' : null, !head ? 'exact-git-head-required' : null].filter(Boolean));
   console.log(JSON.stringify(out, null, 2));
   process.exit(2);
 }
 
 const privateTarget = target.authority === 'FOUNDER_AUTHORIZED_PRIVATE';
+const authoritativeTarget = target.authority === 'CANONICAL_REPOSITORY' || privateTarget;
 const outputArg = args.get('--output');
 const outputPath = typeof outputArg === 'string' ? resolve(root, outputArg) : null;
 if (privateTarget && insideRoot(targetPath)) {
@@ -82,28 +83,63 @@ if (privateTarget && (!outputPath || insideRoot(outputPath))) {
   process.exit(2);
 }
 
+const evidenceArg = args.get('--evidence');
+if (authoritativeTarget && typeof evidenceArg !== 'string') {
+  const out = fail(['authoritative-target-requires-independent-evidence-registry']);
+  console.log(JSON.stringify(out, null, 2));
+  process.exit(2);
+}
+let evidenceRegistry = null;
+let evidencePath = null;
+if (typeof evidenceArg === 'string') {
+  evidencePath = resolve(root, evidenceArg);
+  evidenceRegistry = await readBoundedJson(evidencePath);
+  if (!Array.isArray(evidenceRegistry)) {
+    const out = fail(['bounded-regular-evidence-registry-array-required']);
+    console.log(JSON.stringify(out, null, 2));
+    process.exit(2);
+  }
+  if (privateTarget && insideRoot(evidencePath)) {
+    const out = fail(['founder-private-evidence-registry-may-not-be-read-from-repository-path']);
+    console.log(JSON.stringify(out, null, 2));
+    process.exit(2);
+  }
+}
+
 const sandwich = compileSandwichMethod({ currentSourceCommit: head, target });
-const mission = sandwich.ok && sandwich.status === 'SANDWICH_FOLD_READY' ? buildSandwichFoldMission({ sandwich }) : null;
-const agentTask = mission?.ok ? compileSandwichAgentTask({ sandwich, foldMission: mission }) : null;
+const evidenceBound = authoritativeTarget && sandwich.ok
+  ? compileEvidenceBoundSandwich({ currentSourceCommit: head, target, evidenceRegistry })
+  : null;
+const executionSandwich = evidenceBound?.ok ? evidenceBound.sandwich : null;
+const mission = executionSandwich?.status === 'SANDWICH_FOLD_READY' ? buildSandwichFoldMission({ sandwich: executionSandwich }) : null;
+const agentTask = mission?.ok ? compileSandwichAgentTask({ evidenceBoundSandwich: evidenceBound, foldMission: mission }) : null;
 let handoff = null;
 const graphArg = args.get('--graph');
 if (typeof graphArg === 'string' && mission?.ok) {
   const graph = await readBoundedJson(resolve(root, graphArg));
-  handoff = graph ? buildCanonicalLeafHandoff({ sandwich, executionGraph: graph }) : fail(['bounded-regular-execution-graph-required']);
+  handoff = graph && typeof graph === 'object' && !Array.isArray(graph)
+    ? buildCanonicalLeafHandoff({ sandwich: executionSandwich, executionGraph: graph })
+    : fail(['bounded-regular-execution-graph-required']);
 }
 
+const executionReady = !authoritativeTarget || evidenceBound?.ok === true;
 const fullReport = {
-  ok: sandwich.ok && (!agentTask || agentTask.ok),
-  status: sandwich.status,
+  ok: sandwich.ok && executionReady && (!agentTask || agentTask.ok),
+  status: !sandwich.ok ? sandwich.status
+    : authoritativeTarget && !evidenceBound?.ok ? evidenceBound?.status || 'SANDWICH_EVIDENCE_BINDING_REFUSED'
+      : sandwich.status,
   generatedAt: new Date().toISOString(),
   sourceCommit: head,
   sandwich,
+  evidenceBinding: evidenceBound,
   mission,
   agentTask,
   canonicalLeafHandoff: handoff,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'PLANNING_ONLY__AGENT_TASK_IS_LOCAL_PREPARATION_CANDIDATE__EXISTING_EXECUTION_CONTINUATION_VERIFIER_PROMOTION_AND_REALITY_GATES_RETAIN_AUTHORITY'
+  truthBoundary: authoritativeTarget
+    ? 'AUTHORITATIVE_FOLD_TASKS_REQUIRE_INDEPENDENT_EVIDENCE_BINDING__AGENT_TASK_IS_LOCAL_PREPARATION_ONLY__EXISTING_EXECUTION_CONTINUATION_VERIFIER_PROMOTION_AND_REALITY_GATES_RETAIN_AUTHORITY'
+    : 'HYPOTHETICAL_TARGET_IS_SEARCH_SPACE_ONLY_AND_CANNOT_COMPILE_AN_AUTHORING_TASK'
 };
 
 if (outputPath) {
@@ -118,12 +154,13 @@ const stdoutReport = privateTarget ? {
   sourceCommit: head,
   privateTarget: true,
   fullPlanWrittenToPrivatePath: true,
-  nextFoldPresent: Boolean(sandwich.nextFold),
+  evidenceBound: evidenceBound?.ok === true,
+  nextFoldPresent: Boolean(executionSandwich?.nextFold),
   agentTaskReady: agentTask?.ok === true,
   canonicalLeafHandoffStatus: handoff?.status || null,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  privacyBoundary: 'FOUNDER_PRIVATE_TARGET_CONTENT_FOLD_LABELS_AND_AGENT_TASK_OBJECTIVE_ARE_NOT_EMITTED_TO_STDOUT'
+  privacyBoundary: 'FOUNDER_PRIVATE_TARGET_CONTENT_EVIDENCE_CONTENT_FOLD_LABELS_AND_AGENT_TASK_OBJECTIVE_ARE_NOT_EMITTED_TO_STDOUT'
 } : fullReport;
 
 console.log(JSON.stringify(stdoutReport, null, 2));

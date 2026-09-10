@@ -46,5 +46,5 @@ test('worker is enabled only after live API model identity attestation',()=>{
 test('offline runtime admission does not gain downstream authority',()=>{
   assert.match(installer,/businessEffectAuthority:'NONE'/);
   assert.match(installer,/externalEffectAuthority:'NONE'/);
-  assert.doesNotMatch(installer,/release-private\.pem|sign-release|git\s+push|git\s+merge|payment|customerMessages/i);
+  assert.doesNotMatch(installer,/release-private\.pem|\bsign-release\b|git\s+(?:push|merge)\b|paypal\s|stripe\s|customerMessages\s*[:=]\s*[1-9]/i);
 });

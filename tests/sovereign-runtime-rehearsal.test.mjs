@@ -11,16 +11,17 @@ const A='a'.repeat(40);
 const B='b'.repeat(40);
 const IDA=`sha256:${'1'.repeat(64)}`;
 const IDB=`sha256:${'2'.repeat(64)}`;
-const RESTART=`sha256:${'3'.repeat(64)}`;
+const RECOVERY=`sha256:${'3'.repeat(64)}`;
 const commands=[...SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS];
 const goodInput=()=>({
   sourceCommit:A,
   previousSourceCommit:B,
   finalCurrentReleaseId:IDA,
   finalPreviousReleaseId:IDB,
-  durableRestartRecoveryReceiptDigest:RESTART,
+  durableWorkerRecoveryReceiptDigest:RECOVERY,
   backupObserved:true,
   restoreDrillObserved:true,
+  postgresReconciledToExactImage:true,
   webReconciledToExactImage:true,
   workerReconciledToExactImage:true,
   failedPromotionRollbackObserved:true,
@@ -40,7 +41,7 @@ test('complete bounded rehearsal compiles to a self-consistent zero-authority re
 });
 
 test('every required physical observation fails closed when absent',()=>{
-  for(const field of ['backupObserved','restoreDrillObserved','webReconciledToExactImage','workerReconciledToExactImage','failedPromotionRollbackObserved','explicitRollbackRoundTripObserved']){
+  for(const field of ['backupObserved','restoreDrillObserved','postgresReconciledToExactImage','webReconciledToExactImage','workerReconciledToExactImage','failedPromotionRollbackObserved','explicitRollbackRoundTripObserved']){
     const input=goodInput();
     input[field]=false;
     const receipt=compileSovereignRuntimeRehearsalReceipt(input);
@@ -50,13 +51,13 @@ test('every required physical observation fails closed when absent',()=>{
   }
 });
 
-test('stale or malformed source/release/restart identities cannot become rehearsal evidence',()=>{
+test('stale or malformed source/release/recovery identities cannot become rehearsal evidence',()=>{
   for(const patch of [
     {sourceCommit:'not-a-sha'},
     {previousSourceCommit:'not-a-sha'},
     {finalCurrentReleaseId:'sha256:bad'},
     {finalPreviousReleaseId:'sha256:bad'},
-    {durableRestartRecoveryReceiptDigest:'sha256:bad'}
+    {durableWorkerRecoveryReceiptDigest:'sha256:bad'}
   ]){
     const receipt=compileSovereignRuntimeRehearsalReceipt({...goodInput(),...patch});
     assert.equal(receipt.ok,false,JSON.stringify(patch));
@@ -82,8 +83,8 @@ test('narrative booleans without the exact executed choreography cannot compile 
   for(const badCommands of [
     ['status'],
     commands.slice().reverse(),
-    commands.map((value,index)=>index===6?'deploy-something-else':value),
-    Array.from({length:10},(_,index)=>`claimed-step-${index}`)
+    commands.map((value,index)=>index===7?'deploy-something-else':value),
+    Array.from({length:11},(_,index)=>`claimed-step-${index}`)
   ]){
     const receipt=compileSovereignRuntimeRehearsalReceipt({...goodInput(),commands:badCommands});
     assert.equal(receipt.ok,false);
@@ -100,8 +101,16 @@ test('reversible rollback requires two distinct admitted good states',()=>{
 
 test('runtime witness preserves fail-closed posture and recovery chain',()=>{
   const script=readFileSync(new URL('../ops/sovereign/sovereign-runtime-rehearsal.sh',import.meta.url),'utf8');
-  for(const invariant of ['AUTOPILOT_ENABLED false','OUTBOUND_ENABLED false','OUTBOUND_DRY_RUN true','restore-drill','deploy-restart-recovery-drill.mjs','docker kill uberbond-web','docker kill uberbond-worker','promotion refused and rollback attempted','explicit-rollback-roundtrip-did-not-restore-starting-state']) assert.match(script,new RegExp(invariant.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+  for(const invariant of ['AUTOPILOT_ENABLED false','OUTBOUND_ENABLED false','OUTBOUND_DRY_RUN true','restore-drill','deploy-restart-recovery-drill.mjs','docker kill uberbond-postgres','docker kill uberbond-web','docker kill uberbond-worker','promotion refused and rollback attempted','explicit-rollback-roundtrip-did-not-restore-starting-state']) assert.match(script,new RegExp(invariant.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
   assert.doesNotMatch(script,/curl|wget|git clone|release-private\.pem|PAYPAL_LIVE|OUTBOUND_ENABLED true/i);
+});
+
+test('receipt distinguishes Postgres process recovery from worker crash recovery via durable Postgres state',()=>{
+  const source=readFileSync(new URL('../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs',import.meta.url),'utf8');
+  assert.match(source,/durable-worker-crash-recovery-via-postgres/);
+  assert.match(source,/kill-postgres\+reconcile/);
+  assert.match(source,/postgresReconciledToExactImage/);
+  assert.doesNotMatch(source,/durable Postgres crash\/recovery/);
 });
 
 test('runtime installer exposes the rehearsal through the existing control plane only',()=>{

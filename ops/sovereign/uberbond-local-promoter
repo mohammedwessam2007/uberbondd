@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+[[ -r /etc/uberbond/promotion.env ]] || { echo 'promotion config unavailable' >&2; exit 2; }
+set -a
+# shellcheck disable=SC1091
+source /etc/uberbond/promotion.env
+set +a
+NODE="$(realpath "${UBERBOND_NODE_EXECUTABLE:-}" 2>/dev/null || true)"
+[[ -n "$NODE" && -x "$NODE" && ! -L "$NODE" ]] || { echo 'real configured node executable required' >&2; exit 2; }
+exec "$NODE" /opt/uberbond/source/scripts/sovereign-local-promote.mjs

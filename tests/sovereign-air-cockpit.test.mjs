@@ -20,6 +20,12 @@ test('air cockpit exposes only the hardened founder gateway on WireGuard', () =>
   assert.doesNotMatch(cockpit, /APP_BASE_URL=/);
 });
 
+test('founder gateway cannot race ahead of its WireGuard interface on reboot', () => {
+  assert.match(cockpit, /Requires=wg-quick@\$\{IFACE\}\.service/);
+  assert.match(cockpit, /After=wg-quick@\$\{IFACE\}\.service/);
+  assert.match(cockpit, /systemctl is-active --quiet "wg-quick@\$\{IFACE\}\.service"/);
+});
+
 test('air cockpit has no hosted tunnel or cloud-control dependency', () => {
   for (const forbidden of ['tailscale', 'cloudflare', 'ngrok', 'vercel', 'github api', 'aws', 'azure']) {
     assert.doesNotMatch(cockpit.toLowerCase(), new RegExp(`\\b${forbidden.replace(' ', '\\s+')}\\b`));

@@ -3,16 +3,27 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
-for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod runuser; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod runuser stat id; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 if [[ -e /etc/uberbond/release-private.pem ]]; then echo "REFUSED: release signing authority must not live on the authoring/runtime control node." >&2; exit 2; fi
 
+GIT="$(realpath "$(command -v git)")"
+[[ -x "$GIT" && -f "$GIT" ]] || { echo "Trusted Git executable required." >&2; exit 2; }
 SOURCE="${1:-}"
 [[ -n "$SOURCE" ]] || { echo "usage: install-authoring-node.sh /path/to/clean/uberbond-checkout" >&2; exit 2; }
+# Refuse a symlink before realpath can erase the caller-visible path identity.
+[[ -d "$SOURCE/.git" && ! -L "$SOURCE" ]] || { echo "A real non-symlink Git checkout is required." >&2; exit 2; }
+SOURCE_OWNER="$(stat -c %U "$SOURCE")"
+[[ -n "$SOURCE_OWNER" && "$SOURCE_OWNER" != "UNKNOWN" ]] || { echo "Resolvable source owner required." >&2; exit 2; }
+OWNER_ENTRY="$(getent passwd "$SOURCE_OWNER" || true)"
+[[ -n "$OWNER_ENTRY" ]] || { echo "Source owner account must exist." >&2; exit 2; }
+IFS=: read -r _ _ _ _ _ SOURCE_OWNER_HOME _ <<<"$OWNER_ENTRY"
+[[ "$SOURCE_OWNER_HOME" = /* ]] || { echo "Source owner home must be absolute." >&2; exit 2; }
 SOURCE="$(realpath "$SOURCE")"
-[[ -d "$SOURCE/.git" && ! -L "$SOURCE" ]] || { echo "A real Git checkout is required." >&2; exit 2; }
-[[ -z "$(git -C "$SOURCE" status --porcelain)" ]] || { echo "Source checkout must be clean." >&2; exit 2; }
+[[ -d "$SOURCE/.git" && ! -L "$SOURCE" && "$(stat -c %U "$SOURCE")" == "$SOURCE_OWNER" ]] || { echo "Resolved source identity changed." >&2; exit 2; }
+git_as_source_owner(){ local cwd="$1"; shift; runuser -u "$SOURCE_OWNER" -- env HOME="$SOURCE_OWNER_HOME" XDG_CONFIG_HOME="$SOURCE_OWNER_HOME/.config" GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null "$GIT" -c core.fsmonitor=false -C "$cwd" "$@"; }
+[[ -z "$(git_as_source_owner "$SOURCE" status --porcelain)" ]] || { echo "Source checkout must be clean." >&2; exit 2; }
 [[ -d "$SOURCE/node_modules" && ! -L "$SOURCE/node_modules" ]] || { echo "Prepared node_modules is required; run the deliberate dependency seed first." >&2; exit 2; }
-SOURCE_HEAD="$(git -C "$SOURCE" rev-parse HEAD)"; [[ "$SOURCE_HEAD" =~ ^[0-9a-f]{40}$ ]] || { echo "Exact source commit required." >&2; exit 2; }
+SOURCE_HEAD="$(git_as_source_owner "$SOURCE" rev-parse HEAD)"; [[ "$SOURCE_HEAD" =~ ^[0-9a-f]{40}$ ]] || { echo "Exact source commit required." >&2; exit 2; }
 
 getent group uberbond-autonomy >/dev/null || groupadd --system uberbond-autonomy
 getent group uberbond-promotion >/dev/null || groupadd --system uberbond-promotion
@@ -42,15 +53,18 @@ install -d -m 0700 /etc/uberbond
 STAGE="/opt/uberbond/.source-stage.$$"; PREVIOUS="/opt/uberbond/.source-previous.$$"
 cleanup(){ rm -rf "$STAGE" "$PREVIOUS"; }; trap cleanup EXIT
 rm -rf "$STAGE" "$PREVIOUS"; cp -a "$SOURCE" "$STAGE"
-[[ -d "$STAGE/.git" && ! -L "$STAGE" ]] || { echo "Staged source lost Git identity." >&2; exit 2; }
-[[ "$(git -C "$STAGE" rev-parse HEAD)" == "$SOURCE_HEAD" ]] || { echo "Staged source commit mismatch." >&2; exit 2; }
-[[ -z "$(git -C "$STAGE" status --porcelain)" ]] || { echo "Staged source is not clean." >&2; exit 2; }
+[[ -d "$STAGE/.git" && ! -L "$STAGE" && "$(stat -c %U "$STAGE")" == "$SOURCE_OWNER" ]] || { echo "Staged source lost source-owner Git identity." >&2; exit 2; }
+[[ "$(git_as_source_owner "$STAGE" rev-parse HEAD)" == "$SOURCE_HEAD" ]] || { echo "Staged source commit mismatch." >&2; exit 2; }
+[[ -z "$(git_as_source_owner "$STAGE" status --porcelain)" ]] || { echo "Staged source is not clean." >&2; exit 2; }
 # Trusted source belongs to the promotion identity. Author and worker identities
 # can read/execute it through uberbond-autonomy but cannot rewrite trusted main.
 chown -R uberbond-promoter:uberbond-autonomy "$STAGE"
+chmod -R u+rwX,g+rX,g-w,o-rwx "$STAGE"
+git_as_promoter(){ local cwd="$1"; shift; runuser -u uberbond-promoter -- env HOME=/var/lib/uberbond-promoter XDG_CONFIG_HOME=/var/lib/uberbond-promoter/.config GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null "$GIT" -c core.fsmonitor=false -C "$cwd" "$@"; }
+[[ "$(git_as_promoter "$STAGE" rev-parse HEAD)" == "$SOURCE_HEAD" && -z "$(git_as_promoter "$STAGE" status --porcelain)" ]] || { echo "Promoter-owned staged source identity verification failed." >&2; exit 2; }
 if [[ -e /opt/uberbond/source ]]; then mv /opt/uberbond/source "$PREVIOUS"; fi
 mv "$STAGE" /opt/uberbond/source
-if [[ "$(git -C /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" ]]; then rm -rf /opt/uberbond/source; [[ ! -e "$PREVIOUS" ]] || mv "$PREVIOUS" /opt/uberbond/source; echo "Installed source identity verification failed; prior source restored." >&2; exit 2; fi
+if [[ "$(git_as_promoter /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" || -n "$(git_as_promoter /opt/uberbond/source status --porcelain)" ]]; then rm -rf /opt/uberbond/source; [[ ! -e "$PREVIOUS" ]] || mv "$PREVIOUS" /opt/uberbond/source; echo "Installed source identity verification failed; prior source restored." >&2; exit 2; fi
 rm -rf "$PREVIOUS"; trap - EXIT
 
 for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh import-sovereign-evidence.sh; do
@@ -66,7 +80,7 @@ UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
 UBERBOND_SOVEREIGN_EVIDENCE_ROOT=/var/lib/uberbond-evidence
 UBERBOND_PROMOTION_DIR=/var/lib/uberbond-promotion
 UBERBOND_NODE_EXECUTABLE=$(command -v node)
-UBERBOND_GIT_EXECUTABLE=$(command -v git)
+UBERBOND_GIT_EXECUTABLE=$GIT
 UBERBOND_REPOSITORY=local/uberbond
 UBERBOND_ISOLATED_WORKER_ENABLED=false
 UBERBOND_WORKER_INBOX_ROOT=/var/lib/uberbond-worker/inbox
@@ -93,7 +107,7 @@ UBERBOND_SOURCE_ROOT=/opt/uberbond/source
 UBERBOND_PROMOTION_DIR=/var/lib/uberbond-promotion
 UBERBOND_GOVERNANCE_VERIFIED_PATH=/var/lib/uberbond-governance/inbox/verified.json
 UBERBOND_NODE_EXECUTABLE=$(command -v node)
-UBERBOND_GIT_EXECUTABLE=$(command -v git)
+UBERBOND_GIT_EXECUTABLE=$GIT
 UBERBOND_NPM_EXECUTABLE=$(command -v npm)
 HOME=/var/lib/uberbond-promoter
 EOF

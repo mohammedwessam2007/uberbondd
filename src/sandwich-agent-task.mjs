@@ -1,6 +1,6 @@
 import { compileAgentTask } from './agent-relay.mjs';
 
-export const SANDWICH_AGENT_TASK_VERSION = 'uberbond.sandwich-agent-task.v1.0.0';
+export const SANDWICH_AGENT_TASK_VERSION = 'uberbond.sandwich-agent-task.v1.1.0';
 
 const ZERO_EFFECTS = Object.freeze({
   customerMessages: 0,
@@ -23,9 +23,11 @@ const fail = reasonCodes => ({
   externalEffectLedger: { ...ZERO_EFFECTS }
 });
 
-export function compileSandwichAgentTask({ sandwich = null, foldMission = null, date = new Date() } = {}) {
+export function compileSandwichAgentTask({ evidenceBoundSandwich = null, foldMission = null, date = new Date() } = {}) {
+  const sandwich = evidenceBoundSandwich?.sandwich;
   const mission = foldMission?.mission;
   const reasons = [];
+  if (!evidenceBoundSandwich?.ok || evidenceBoundSandwich.status !== 'SANDWICH_EVIDENCE_BOUND' || !evidenceBoundSandwich.evidenceBindingDigest) reasons.push('independently-evidence-bound-sandwich-required');
   if (!sandwich?.ok || sandwich.status !== 'SANDWICH_FOLD_READY' || !sandwich.nextFold) reasons.push('ready-sandwich-required');
   if (!foldMission?.ok || foldMission.status !== 'SANDWICH_FOLD_MISSION_READY' || !mission) reasons.push('ready-fold-mission-required');
   if (mission && sandwich) {
@@ -50,17 +52,19 @@ export function compileSandwichAgentTask({ sandwich = null, foldMission = null, 
     contextRefs: [
       `main:${base}`,
       `sandwich:${sandwich.sandwichDigest}`,
+      `evidence-binding:${evidenceBoundSandwich.evidenceBindingDigest}`,
       `descendant:${sandwich.upperSlice.targetDigest}`,
       `fold:${mission.gapId}`,
       ...mission.executionRequirementIds.map(id => `canonical-requirement:${id}`)
     ],
     evidenceRefs: [
       `evidence:exact-source-${base}`,
-      `evidence:sandwich-target-${sandwich.upperSlice.targetDigest}`,
-      ...sandwich.nextFold.evidenceRefs
+      `evidence:sandwich-binding-${evidenceBoundSandwich.evidenceBindingDigest}`,
+      ...evidenceBoundSandwich.bindings.flatMap(binding => binding.evidence.map(item => item.id))
     ],
     constraints: [
       `exact-base-revision:${base}`,
+      `sandwich-evidence-binding:${evidenceBoundSandwich.evidenceBindingDigest}`,
       'sandwich-fold-mode',
       `sandwich-gap:${mission.gapId}`,
       `sandwich-fold-class:${mission.foldClass}`,
@@ -99,9 +103,10 @@ export function compileSandwichAgentTask({ sandwich = null, foldMission = null, 
     task: compiled.task || compiled,
     sourceCommit: base,
     sandwichDigest: sandwich.sandwichDigest,
+    evidenceBindingDigest: evidenceBoundSandwich.evidenceBindingDigest,
     targetDigest: sandwich.upperSlice.targetDigest,
     gapId: mission.gapId,
-    executionBoundary: 'TASK_IS_COMPATIBLE_WITH_THE_EXISTING_ISOLATED_WORKER_PATH_BUT_CREATES_NO_DISPATCH_VERIFICATION_PROMOTION_MERGE_SIGNING_DEPLOYMENT_OR_EXTERNAL_AUTHORITY',
+    executionBoundary: 'ONLY_AN_INDEPENDENTLY_EVIDENCE_BOUND_SANDWICH_CAN_REACH_THIS_TASK_COMPILER__TASK_IS_COMPATIBLE_WITH_THE_EXISTING_ISOLATED_WORKER_PATH_BUT_CREATES_NO_DISPATCH_VERIFICATION_PROMOTION_MERGE_SIGNING_DEPLOYMENT_OR_EXTERNAL_AUTHORITY',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }

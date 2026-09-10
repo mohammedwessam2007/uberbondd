@@ -20,7 +20,7 @@ const steps = [
   // a terminal semantic refusal cannot hide a regression in the repair itself.
   // This test gate grants no implementation, authority, privacy, runtime,
   // commercial, provider, personal-reality, or ASI status.
-  ['node', ['--test', 'tests/sovereign-short-parented-field-coverage.test.mjs']],
+  ['node', ['--test', 'tests/sovereign-short-field-parent-coverage.test.mjs']],
   // PR-scoped admission gate: the signed-release courier is part of the sovereign
   // control plane, and terminal realization currently refuses on a known semantic
   // backlog before the deterministic tail. Execute its provenance, idempotency,

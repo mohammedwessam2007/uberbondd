@@ -10,6 +10,7 @@ const DEFAULT_ROOT=path.resolve(HERE,'..');
 const SOURCE_PATHS=Object.freeze({
   authorctl:'ops/sovereign/uberbond-authorctl',
   autonomyPulse:'scripts/sovereign-autonomy-pulse.mjs',
+  continuumPulse:'scripts/sovereign-continuum-pulse.mjs',
   founderConsole:'ops/sovereign/uberbond-founder-console',
   founderConsoleServer:'scripts/sovereign-founder-console-server.mjs',
   authoringTimer:'ops/sovereign/uberbond-authoring.timer',

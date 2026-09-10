@@ -35,7 +35,8 @@ const steps = [
     'tests/sandwich-method.test.mjs',
     'tests/sandwich-method-plan.test.mjs',
     'tests/sandwich-method-doctor.test.mjs',
-    'tests/sandwich-agent-task.test.mjs'
+    'tests/sandwich-agent-task.test.mjs',
+    'tests/sandwich-blueprint-evolution.test.mjs'
   ]],
   // The finite terminal tribunal owns exact-checkout truth regeneration as its
   // first internal step. Running current-truth-regeneration separately here
@@ -90,5 +91,6 @@ console.log(JSON.stringify({
   semanticEnforcementEvidenceGateRequired: true,
   sandwichMethodFocusedGateRequired: true,
   sandwichAgentTaskBridgeGateRequired: true,
+  sandwichBlueprintEvolutionGateRequired: true,
   externalEffectAuthority: 'NONE'
 }));

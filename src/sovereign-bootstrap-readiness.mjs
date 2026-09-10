@@ -8,7 +8,8 @@ const SHA64=/^[a-f0-9]{64}$/i;
 export const REQUIRED_SOURCE_CONTRACTS=Object.freeze([
   'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringTimer',
   'workerPath','workerService','verifierPath','verifierService','promoterPath',
-  'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller','runtimeGraduationObserver'
+  'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller',
+  'runtimeGraduationObserver','runtimeGraduationService','runtimeGraduationTimer'
 ]);
 export const REQUIRED_AUTHORING_UNITS=Object.freeze([
   'authoringTimer','workerPath','verifierPath','promoterPath','postPromotionPath','founderConsole'

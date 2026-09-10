@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "uberbond-connectome-autopoiesis-1.0.0",
+  "status": "VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE",
+  "engine": "src/connectome-autopoiesis.mjs",
+  "graph": "src/uberbond-cognitive-graph.mjs",
+  "bus": "src/uberbond-cognitive-bus.mjs",
+  "residentWorker": "scripts/sovereign-native-local-model-worker.mjs",
+  "sandwichGovernor": "src/sandwich-autocatalytic-governor.mjs",
+  "canon": "docs/CONNECTOME_AUTOPOIESIS_CANON.md",
+  "laws": {
+    "integration": "NEW_FEATURES_MUST_JOIN_THE_LIVING_CONNECTOME__ISOLATED_CAPABILITY_IS_INCOMPLETE_CAPABILITY",
+    "noBusywork": "A_HEALTHY_CONNECTOME_MUST_NOT_MANUFACTURE_BRIDGE_WORK",
+    "authority": "COGNITIVE_CONNECTIVITY_IS_INFORMATION_AND_CONTEXT_ROUTING_ONLY__IT_DOES_NOT_CREATE_EXECUTION_OR_EXTERNAL_EFFECT_AUTHORITY",
+    "growth": "CONNECTOME_DEBT_MAY_CREATE_AT_MOST_ONE_BOUNDED_FEATURE_HYPOTHESIS__NORMAL_TEMPORAL_FOUNDRY_TIMELINE_TOPOLOGY_SANDWICH_VERIFICATION_AND_PROMOTION_GATES_STILL_APPLY",
+    "parallelism": "PARALLEL_COGNITION__SERIAL_AUTHORITY"
+  },
+  "firstClassOrgans": [
+    "avengers",
+    "max-council",
+    "temporal-foundry",
+    "timeline-topology",
+    "sandwich",
+    "connectome-autopoiesis",
+    "self-maintainer",
+    "capability-genome",
+    "economic-memory"
+  ],
+  "newEventKinds": [
+    "FUTURE_FUNCTION_CANDIDATE",
+    "TIMELINE_TOPOLOGY_RESULT",
+    "DESCENDANT_GAP",
+    "CONNECTOME_GAP",
+    "FEATURE_GENESIS"
+  ],
+  "healthyState": "CONNECTOME_NO_FEATURE_REQUIRED",
+  "debtState": "CONNECTOME_FEATURE_HYPOTHESIS_READY",
+  "tests": [
+    "tests/connectome-autopoiesis.test.mjs",
+    "tests/connectome-resident-binding.test.mjs",
+    "tests/uberbond-cognitive-graph.test.mjs",
+    "tests/uberbond-cognitive-bus.test.mjs",
+    "tests/sandwich-autocatalytic-governor.test.mjs",
+    "tests/sovereign-native-local-worker.test.mjs",
+    "tests/reachability-ratchet.test.mjs"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THIS_ARTIFACT PROVES A SOURCE-LEVEL TYPED CONNECTOME, SELF-AUDIT AND BOUNDED INTEGRATION-FEATURE GENESIS CONTRACT. IT DOES NOT PROVE PHYSICAL CONTINUOUS RUNTIME, PROVIDER CALLABILITY, EXTERNAL EFFECTS OR GLOBAL UBERBOND COMPLETENESS."
+}

@@ -1,15 +1,17 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileUberBondCognitiveGraph } from './uberbond-cognitive-graph.mjs';
+import { compileConnectomeAutopoiesis } from './connectome-autopoiesis.mjs';
 
 export const UBERBOND_COGNITIVE_EVENT_SCHEMA = 'uberbond.cognitive-event.v1';
-export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.2.0';
+export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.3.0';
 
 const EVENT_KINDS = new Set([
   'WORLD_SIGNAL', 'GAMECHANGER_CANDIDATE', 'GENESIS_HYPOTHESIS', 'GENESIS_SCIENTIST_AGENDA',
   'ONTOLOGY_CANDIDATE', 'METABOLISM_UPDATE', 'MECHANISM_ATOM', 'IDEA_CANDIDATE',
   'OPPORTUNITY_CANDIDATE', 'CAPABILITY_GAP', 'CAPABILITY_CANDIDATE', 'MODEL_CANDIDATE',
-  'FEATURE_COVERAGE', 'FRONTIER_MODEL_ROSTER', 'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER',
+  'FEATURE_COVERAGE', 'FRONTIER_MODEL_ROSTER', 'FUTURE_FUNCTION_CANDIDATE', 'TIMELINE_TOPOLOGY_RESULT',
+  'DESCENDANT_GAP', 'CONNECTOME_GAP', 'FEATURE_GENESIS', 'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER',
   'CODE_DEFECT', 'CODE_CHANGE_CANDIDATE', 'VERIFICATION_RESULT', 'DISTRIBUTION_RESULT',
   'PAYMENT_RESULT', 'DELIVERY_RESULT', 'RETENTION_RESULT', 'COMMERCIAL_OUTCOME',
   'ECONOMIC_LEARNING', 'REVOCATION'
@@ -30,6 +32,11 @@ const EVENT_TARGET_HINTS = Object.freeze({
   MODEL_CANDIDATE: ['open-model-universe', 'avengers'],
   FEATURE_COVERAGE: ['context-spine', 'world-brain', 'max-council', 'wallbreaker'],
   FRONTIER_MODEL_ROSTER: ['open-model-universe', 'avengers', 'max-council', 'capability-genome'],
+  FUTURE_FUNCTION_CANDIDATE: ['temporal-foundry', 'avengers', 'max-council', 'timeline-topology', 'connectome-autopoiesis'],
+  TIMELINE_TOPOLOGY_RESULT: ['timeline-topology', 'avengers', 'max-council', 'wallbreaker', 'sandwich', 'connectome-autopoiesis'],
+  DESCENDANT_GAP: ['sandwich', 'avengers', 'max-council', 'capability-genome', 'connectome-autopoiesis'],
+  CONNECTOME_GAP: ['avengers', 'max-council', 'wallbreaker', 'sandwich', 'capability-genome'],
+  FEATURE_GENESIS: ['genesis', 'capability-genome', 'avengers', 'max-council', 'sandwich', 'self-maintainer', 'connectome-autopoiesis'],
   EXPERIMENT_RESULT: ['genesis-scientist', 'event-horizon', 'economic-memory'],
   CONTRADICTION: ['genesis', 'genesis-scientist', 'max-council'],
   BLOCKER: ['wallbreaker', 'max-council'],
@@ -191,6 +198,15 @@ export function compileClosedLoopActivation({ events = [], graph = compileUberBo
     else routes.push(route);
   }
   if (reasons.length) return fail(reasons, 'COGNITIVE_CYCLE_BLOCKED');
+  const autopoiesis = compileConnectomeAutopoiesis({ graph, evidenceRefs: [`cognitive-graph://${graph.graphDigest || 'unbound'}`] });
+  let generatedConnectomeEvent = null;
+  if (autopoiesis?.ok && autopoiesis.eventInput) {
+    generatedConnectomeEvent = compileCognitiveEvent(autopoiesis.eventInput);
+    if (!generatedConnectomeEvent.ok) return fail(['connectome-autopoiesis-event-invalid', ...(generatedConnectomeEvent.reasonCodes || [])], 'COGNITIVE_CYCLE_BLOCKED');
+    const generatedRoute = routeCognitiveEvent({ graph, compiledEvent: generatedConnectomeEvent });
+    if (!generatedRoute.ok) return fail(['connectome-autopoiesis-route-invalid', ...(generatedRoute.reasonCodes || [])], 'COGNITIVE_CYCLE_BLOCKED');
+    routes.push(generatedRoute);
+  }
   const targetCounts = {};
   for (const route of routes) {
     for (const activation of route.activations) targetCounts[activation.targetNodeId] = (targetCounts[activation.targetNodeId] || 0) + 1;
@@ -203,6 +219,9 @@ export function compileClosedLoopActivation({ events = [], graph = compileUberBo
     activationCount: routes.reduce((sum, route) => sum + route.activationCount, 0),
     targetCounts,
     routes,
+    connectomeAutopoiesis: autopoiesis,
+    generatedConnectomeEvent,
+    generatedConnectomeEventCount: generatedConnectomeEvent ? 1 : 0,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };

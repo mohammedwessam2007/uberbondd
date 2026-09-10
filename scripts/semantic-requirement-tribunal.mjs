@@ -60,7 +60,7 @@ function exportsFor(paths=[]){const refs=[];for(const path of paths){const body=
 function callersFor(paths=[]){const refs=[];for(const source of paths){const target=basename(source);for(const [candidate,body] of implementationBodies){if(candidate===source)continue;if(body.includes(target))refs.push(candidate);}if(source.startsWith('scripts/')||source.startsWith('api/'))refs.push(`ENTRYPOINT:${source}`);}return[...new Set(refs)];}
 const NEGATIVE=/refus|reject|block|tamper|cannot|must not|without|invalid|stale|wrong|duplicate|revok|unauthor|mismatch|fail|deny|expired|missing/i;
 const RECOVERY=/recover|restart|resume|rollback|retry|restore|revoke|delete|reconcile|crash|idempot/i;
-const STATEFUL=/persist|store|queue|database|postgres|writeFile|scheduler|worker|checkpoint|ledger|createServer|server\.listen|setInterval|daemon/i;
+const STATEFUL=/\bpersist\b|store|queue|database|postgres|writeFile|scheduler|worker|checkpoint|ledger|createServer|server\.listen|setInterval|daemon/i;
 function buildContract(row){
   const requirementClass=inferSemanticRequirementClass(row,null),meaning=meaningFor(row);
   if(requirementClass==='STRUCTURAL_CONSTITUTION')return{requirementId:row.canonicalId,requirementClass,meaning,structuralRationale:`${row.class||'STRUCTURAL'} is a canonical structure/classification whose executable descendants carry behavior; this row itself must not manufacture implementation credit.`,implementationClaim:false,externalEvidenceRequirement:'NONE_FOR_STRUCTURAL_CONSTITUTION'};

@@ -33,6 +33,7 @@ const steps = [
   // evidence. This proves only these source contracts on this checkout.
   ['node', ['--test',
     'tests/sandwich-method.test.mjs',
+    'tests/sandwich-evidence-binding.test.mjs',
     'tests/sandwich-method-plan.test.mjs',
     'tests/sandwich-method-doctor.test.mjs',
     'tests/sandwich-agent-task.test.mjs',
@@ -90,6 +91,7 @@ console.log(JSON.stringify({
   nativeSovereignWorkerHostileGateRequired: true,
   semanticEnforcementEvidenceGateRequired: true,
   sandwichMethodFocusedGateRequired: true,
+  sandwichEvidenceBindingGateRequired: true,
   sandwichAgentTaskBridgeGateRequired: true,
   sandwichBlueprintEvolutionGateRequired: true,
   externalEffectAuthority: 'NONE'

@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 
-const script = readFileSync(new URL('../ops/sovereign/bootstrap-founder-node.sh', import.meta.url), 'utf8');
+const bootstrapUrl = new URL('../ops/sovereign/bootstrap-founder-node.sh', import.meta.url);
+const script = readFileSync(bootstrapUrl, 'utf8');
 
 test('first boot composes existing sovereign installers instead of creating a second control plane', () => {
   assert.match(script, /install-authoring-node\.sh/);
@@ -10,6 +11,16 @@ test('first boot composes existing sovereign installers instead of creating a se
   assert.match(script, /configure-founder-console-private\.sh/);
   assert.match(script, /uberbond-authorctl doctor/);
   assert.match(script, /uberbond-authorctl wake/);
+});
+
+test('first boot source executability contract survives a clean checkout', () => {
+  for (const path of [
+    bootstrapUrl,
+    new URL('../ops/sovereign/install-authoring-node.sh', import.meta.url),
+    new URL('../ops/sovereign/install-offline-llama-runtime.sh', import.meta.url)
+  ]) {
+    assert.notEqual(statSync(path).mode & 0o111, 0, `${path.pathname} must remain executable`);
+  }
 });
 
 test('first boot refuses to claim readiness without the canonical self-completion stages', () => {

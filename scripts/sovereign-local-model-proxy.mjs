@@ -40,9 +40,14 @@ const server=http.createServer(async(req,res)=>{
     const upstream=await fetch(targetUrl(cfg.url),{method:'POST',headers,body:JSON.stringify(body),signal:AbortSignal.timeout(180_000)});
     const raw=await upstream.text();
     if(Buffer.byteLength(raw)>MAX_RESPONSE)return json(res,502,{ok:false,status:'MODEL_PROXY_RESPONSE_TOO_LARGE'});
+    if(upstream.ok){
+      let observed;try{observed=JSON.parse(raw);}catch{return json(res,502,{ok:false,status:'MODEL_PROXY_RESPONSE_JSON_INVALID'});}
+      const observedModel=text(observed?.model,400);
+      if(observedModel && observedModel!==MODEL)return json(res,502,{ok:false,status:'MODEL_PROXY_IDENTITY_MISMATCH',configuredModel:MODEL,observedModel});
+    }
     res.writeHead(upstream.status,{'content-type':upstream.headers.get('content-type')||'application/json','content-length':Buffer.byteLength(raw),'cache-control':'no-store','x-content-type-options':'nosniff'});res.end(raw);
   }catch(error){json(res,502,{ok:false,status:'SOVEREIGN_LOCAL_MODEL_PROXY_FAILURE',reasonCodes:[text(error?.message||error,300)]});}
 });
 server.on('error',error=>{process.stderr.write(`${JSON.stringify({ok:false,status:'SOVEREIGN_LOCAL_MODEL_PROXY_FAILURE',reasonCodes:[text(error?.message||error,300)]})}\n`);process.exitCode=2;});
-server.listen(SOCKET,()=>{fs.chmod(SOCKET,0o660).catch(()=>{});process.stdout.write(`${JSON.stringify({ok:true,status:'SOVEREIGN_LOCAL_MODEL_PROXY_LISTENING',socket:SOCKET,model:MODEL,endpointClass:'HOST_LOOPBACK_ONLY',externalNetworkAuthority:'NONE'})}\n`);});
+server.listen(SOCKET,()=>{fs.chmod(SOCKET,0o660).catch(()=>{});process.stdout.write(`${JSON.stringify({ok:true,status:'SOVEREIGN_LOCAL_MODEL_PROXY_LISTENING',socket:SOCKET,model:MODEL,endpointClass:'HOST_LOOPBACK_ONLY',publicNetworkAuthority:'NONE',loopbackModelAuthority:'CONFIGURED_LOCAL_ONLY'})}\n`);});
 for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>server.close(()=>fs.rm(SOCKET,{force:true}).finally(()=>process.exit(0))));

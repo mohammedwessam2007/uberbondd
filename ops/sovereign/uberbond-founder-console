@@ -5,6 +5,10 @@ set -a
 # shellcheck disable=SC1091
 source /etc/uberbond/authoring.env
 [[ -r /etc/uberbond/founder-console.env ]] && source /etc/uberbond/founder-console.env
+# The same owner-controlled local model may power direct founder dialogue and the
+# isolated coding worker. This file contains runtime identity/config only, never
+# release signing authority.
+[[ -r /etc/uberbond/model.env ]] && source /etc/uberbond/model.env
 set +a
 NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-}"
 NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"

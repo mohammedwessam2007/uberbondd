@@ -11,6 +11,7 @@ const read=rel=>readFileSync(path.join(root,rel),'utf8');
 const importer=read('ops/sovereign/import-sovereign-evidence.sh');
 const installer=read('ops/sovereign/install-authoring-node.sh');
 const doctor=read('scripts/sovereign-bootstrap-doctor.mjs');
+const promoter=read('scripts/sovereign-local-promote.mjs');
 
 test('evidence importer shell parses',()=>{
   const out=spawnSync('bash',['-n',path.join(root,'ops/sovereign/import-sovereign-evidence.sh')],{encoding:'utf8'});
@@ -34,6 +35,7 @@ test('config is data not root-executed shell and must have canonical custody',()
   assert.match(importer,/config_value\(\)/);
   assert.match(importer,/single-source-root-config-required/);
   assert.match(importer,/single-evidence-root-config-required/);
+  assert.match(importer,/single-promotion-root-config-required/);
   assert.match(importer,/single-node-config-required/);
 });
 
@@ -46,6 +48,17 @@ test('receipt and source symlinks are refused before realpath can erase their id
   assert.ok(sourceReject>=0&&sourceResolve>sourceReject,'source symlink refusal must occur before source realpath');
 });
 
+test('importer shares the promoter exclusion lock before reading source identity',()=>{
+  assert.match(promoter,/path\.join\(promotionRoot,'PROMOTION\.lock'\)/);
+  assert.match(importer,/PROMOTION_LOCK="\$PROMOTION_ROOT\/PROMOTION\.lock"/);
+  assert.match(importer,/local-promotion-or-evidence-import-already-running/);
+  assert.match(importer,/promotion-root-custody-invalid/);
+  const lock=importer.indexOf("printf 'evidence-importer:%s\\n'");
+  const head=importer.indexOf('SOURCE_COMMIT="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"');
+  assert.ok(lock>=0&&head>lock,'shared promotion lock must be acquired before source identity is read');
+  assert.match(importer,/rm -f "\$PROMOTION_LOCK"/);
+});
+
 test('importer binds validation to exact clean promoter-owned installed source',()=>{
   assert.match(importer,/installed-source-custody-invalid/);
   assert.match(importer,/installed-source-must-not-be-group-or-world-writable/);
@@ -55,6 +68,7 @@ test('importer binds validation to exact clean promoter-owned installed source',
   assert.match(importer,/cd "\$SOURCE_ROOT"/);
   assert.match(importer,/compileSovereignBootstrapReadiness/);
   assert.match(importer,/verifySovereignRuntimeRehearsalReceipt/);
+  assert.match(importer,/git rev-parse HEAD.*SOURCE_COMMIT/s);
 });
 
 test('untrusted repository validators execute as uberbond-author rather than root',()=>{
@@ -92,6 +106,8 @@ test('authoring install and doctor make importer part of the canonical bootstrap
   assert.match(installer,/install -d -m 0750 -o root -g uberbond-autonomy \/var\/lib\/uberbond-evidence/);
   assert.match(installer,/import-sovereign-evidence\.sh/);
   assert.match(installer,/UBERBOND_SOVEREIGN_EVIDENCE_ROOT=\/var\/lib\/uberbond-evidence/);
+  assert.match(installer,/UBERBOND_PROMOTION_DIR=\/var\/lib\/uberbond-promotion/);
   assert.match(installer,/\brunuser\b/);
+  assert.match(installer,/shared.*promotion.*lock/is);
   assert.match(installer,/root-only/);
 });

@@ -3,7 +3,6 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runSovereignAutonomyPulse } from './sovereign-autonomy-pulse.mjs';
 import {
   compileSandwichAutocatalyticDirective,
   compileSandwichAutocatalyticTask
@@ -27,6 +26,11 @@ function fail(reasonCodes, status = 'SOVEREIGN_CONTINUOUS_AUTHORING_REFUSED', ex
     externalEffectLedger: zeroEffects(),
     ...extra
   };
+}
+
+async function defaultPrimaryPulse(input) {
+  const { runSovereignAutonomyPulse } = await import('./sovereign-autonomy-pulse.mjs');
+  return runSovereignAutonomyPulse(input);
 }
 
 async function readJson(file) {
@@ -112,7 +116,7 @@ function waitingReceipt({ baseRevision, task, attemptId }) {
 export async function runSovereignContinuousAuthoringPulse({
   env = process.env,
   repoRoot = process.cwd(),
-  runPrimaryPulse = runSovereignAutonomyPulse,
+  runPrimaryPulse = defaultPrimaryPulse,
   date = new Date()
 } = {}) {
   if (typeof runPrimaryPulse !== 'function') return fail(['primary-autonomy-pulse-required']);

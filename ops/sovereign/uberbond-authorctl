@@ -30,7 +30,7 @@ wake(){
     UBERBOND_ISOLATED_WORKER_ENABLED="${UBERBOND_ISOLATED_WORKER_ENABLED:-false}" \
     UBERBOND_WORKER_INBOX_ROOT="${UBERBOND_WORKER_INBOX_ROOT:-/var/lib/uberbond-worker/inbox}" \
     UBERBOND_WORKER_TASK_PATH="${UBERBOND_WORKER_TASK_PATH:-/var/lib/uberbond-worker/inbox/task.json}" \
-    "$NODE" scripts/sovereign-autonomy-pulse.mjs
+    "$NODE" scripts/sovereign-continuous-authoring-pulse.mjs
 }
 
 verify(){
@@ -56,7 +56,7 @@ help(){ cat <<'EOF'
 UberBond Sovereign Authoring Command Center
 
   uberbond-authorctl status   exact local autonomy receipt
-  uberbond-authorctl wake     regenerate truth and emit one bounded task
+  uberbond-authorctl wake     run one truth-first finite-or-Sandwich authoring pulse
   uberbond-authorctl pause    durably stop new authoring pulses
   uberbond-authorctl resume   remove pause and immediately wake
   uberbond-authorctl verify   independently verify isolated worker output
@@ -64,8 +64,10 @@ UberBond Sovereign Authoring Command Center
   uberbond-authorctl help     show this help
 
 The model worker is a separate OS identity with read-only source and no access to
-authoring receipts. This control surface does not merge, sign, deploy, send,
-spend, mutate DNS/credentials, contact customers, or grant business authority.
+authoring receipts. Finite engineering retains priority; when exact-current finite
+closure is proven, the same local pulse may emit one bounded Sandwich descendant-
+genesis task. This control surface does not merge, sign, deploy, send, spend,
+mutate DNS/credentials, contact customers, or grant business authority.
 EOF
 }
 case "${1:-}" in

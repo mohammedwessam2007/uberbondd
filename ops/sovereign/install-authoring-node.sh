@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
-for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod runuser; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 if [[ -e /etc/uberbond/release-private.pem ]]; then echo "REFUSED: release signing authority must not live on the authoring/runtime control node." >&2; exit 2; fi
 
 SOURCE="${1:-}"
@@ -32,6 +32,7 @@ usermod -g uberbond-promoter -a -G uberbond-autonomy,uberbond-promotion uberbond
 
 install -d -m 0755 /opt/uberbond /opt/uberbond/control
 install -d -m 0700 -o uberbond-author -g uberbond-author /var/lib/uberbond-control /var/lib/uberbond-control/autonomy /var/lib/uberbond-control/founder-intents /var/lib/uberbond-control/founder-dialogue
+install -d -m 0750 -o root -g uberbond-autonomy /var/lib/uberbond-evidence
 install -d -m 0750 -o uberbond-author -g uberbond-autonomy /var/lib/uberbond-worker/inbox
 install -d -m 0750 -o uberbond-worker -g uberbond-autonomy /var/lib/uberbond-worker/outbox
 install -d -m 2770 -o uberbond-author -g uberbond-promotion /var/lib/uberbond-governance /var/lib/uberbond-governance/inbox
@@ -52,7 +53,7 @@ mv "$STAGE" /opt/uberbond/source
 if [[ "$(git -C /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" ]]; then rm -rf /opt/uberbond/source; [[ ! -e "$PREVIOUS" ]] || mv "$PREVIOUS" /opt/uberbond/source; echo "Installed source identity verification failed; prior source restored." >&2; exit 2; fi
 rm -rf "$PREVIOUS"; trap - EXIT
 
-for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh; do
+for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh import-sovereign-evidence.sh; do
   install -m 0755 "/opt/uberbond/source/ops/sovereign/$tool" "/opt/uberbond/control/$tool"
 done
 for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
@@ -62,7 +63,10 @@ done
 cat > /etc/uberbond/authoring.env <<EOF
 UBERBOND_SOURCE_ROOT=/opt/uberbond/source
 UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
+UBERBOND_SOVEREIGN_EVIDENCE_ROOT=/var/lib/uberbond-evidence
+UBERBOND_PROMOTION_DIR=/var/lib/uberbond-promotion
 UBERBOND_NODE_EXECUTABLE=$(command -v node)
+UBERBOND_GIT_EXECUTABLE=$(command -v git)
 UBERBOND_REPOSITORY=local/uberbond
 UBERBOND_ISOLATED_WORKER_ENABLED=false
 UBERBOND_WORKER_INBOX_ROOT=/var/lib/uberbond-worker/inbox
@@ -129,6 +133,8 @@ Founder control:    /opt/uberbond/control/uberbond-authorctl
 Author state:       /var/lib/uberbond-control/autonomy
 Founder intents:    /var/lib/uberbond-control/founder-intents
 Dialogue receipts: /var/lib/uberbond-control/founder-dialogue
+Evidence ingress:  /var/lib/uberbond-evidence
+Evidence importer: /opt/uberbond/control/import-sovereign-evidence.sh {signer|courier|runtime} RECEIPT
 Worker inbox:       /var/lib/uberbond-worker/inbox
 Worker outbox:      /var/lib/uberbond-worker/outbox
 Governance inbox:   /var/lib/uberbond-governance/inbox
@@ -149,6 +155,12 @@ the isolated worker with:
 The worker keeps PrivateNetwork=true and AF_UNIX-only access. A separate model
 proxy may reach host loopback only; it cannot reach public network addresses.
 There is no silent cloud fallback.
+
+The evidence importer is root-only. It shares the local promotion exclusion lock,
+stages a bounded regular receipt into the root-owned evidence ingress, validates
+it against the exact clean source commit, and only then atomically publishes one
+fixed signer/courier/runtime evidence name. It cannot sign, deploy, send, spend,
+change DNS/credentials, or mint missing proof.
 
 Worker, verifier, promoter, release signer and runtime deployment remain separate
 authorities. The promoter has zero network and refuses sovereignty/build/control

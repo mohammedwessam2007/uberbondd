@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FOUNDER_OUTCOME_MISSION_VERSION = 'uberbond.founder-outcome-mission.v1';
+export const FOUNDER_OUTCOME_MISSION_VERSION = 'uberbond.founder-outcome-mission.v1.1';
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 8000) => String(value ?? '').trim().slice(0, max);
 const uniq = values => [...new Set((Array.isArray(values) ? values : []).map(String).filter(Boolean))];
@@ -135,6 +135,7 @@ export function evaluateFounderOutcomeMission({
   now = new Date(),
   clearedContributionProfitCents = null,
   providerEvidenceRefs = [],
+  paymentObservationComplete = false,
   exhaustionProof = null,
   cancelled = false
 } = {}) {
@@ -145,18 +146,22 @@ export function evaluateFounderOutcomeMission({
   const money = clearedContributionProfitCents == null ? null : Number(clearedContributionProfitCents);
   if (money != null && (!Number.isSafeInteger(money) || money < 0)) return fail(['valid-cleared-profit-cents-required']);
   const evidenceRefs = uniq(providerEvidenceRefs);
+  const paymentObserved = paymentObservationComplete === true && evidenceRefs.length > 0;
+  const monetaryResultKnown = money != null && paymentObserved;
 
   if (cancelled) {
     return {
       ok: true,
       policyVersion: FOUNDER_OUTCOME_MISSION_VERSION,
       status: 'FOUNDER_OUTCOME_MISSION_CANCELLED',
+      state: 'TERMINAL',
       missionId: mission.missionId,
       terminal: true,
-      terminalResultAllowed: true,
+      terminalResultAllowed: monetaryResultKnown,
       observedAt: observedAt.toISOString(),
-      clearedContributionProfitCents: money,
+      clearedContributionProfitCents: monetaryResultKnown ? money : null,
       providerEvidenceRefs: evidenceRefs,
+      paymentObservationComplete: paymentObserved,
       businessEffectAuthority: 'NONE',
       externalEffectAuthority: 'NONE',
       externalEffectLedger: zeroEffects()
@@ -181,15 +186,44 @@ export function evaluateFounderOutcomeMission({
       missionId: mission.missionId,
       terminal: false,
       terminalResultAllowed: false,
+      missionWindowClosed: false,
       observedAt: observedAt.toISOString(),
       deadlineAt: deadline.toISOString(),
       remainingMs: deadline.getTime() - observedAt.getTime(),
-      currentObservedClearedContributionProfitCents: money,
+      currentObservedClearedContributionProfitCents: paymentObserved ? money : null,
       providerEvidenceRefs: evidenceRefs,
+      paymentObservationComplete: paymentObserved,
       businessEffectAuthority: 'MISSION_SCOPED_EXISTING_GATES_ONLY',
       externalEffectAuthority: 'MISSION_SCOPED_EXISTING_GATES_ONLY',
       externalEffectLedger: zeroEffects(),
-      truthBoundary: 'The mission deadline has not arrived. Current observed profit, including zero, is not the terminal result. Continue every admissible dependency-satisfied lane and preserve real external blockers as blockers rather than converting them into a finished mission.'
+      truthBoundary: 'The mission deadline has not arrived. Current observed profit, including a provider-observed zero, is not the terminal result. Continue every admissible dependency-satisfied lane and preserve real external blockers as blockers rather than converting them into a finished mission.'
+    };
+  }
+
+  if (beforeDeadline && exhaustionValid && !monetaryResultKnown) {
+    return {
+      ok: true,
+      policyVersion: FOUNDER_OUTCOME_MISSION_VERSION,
+      status: 'FOUNDER_OUTCOME_MISSION_EXHAUSTED_RECONCILIATION_REQUIRED',
+      state: 'RECONCILIATION_REQUIRED',
+      missionId: mission.missionId,
+      terminal: false,
+      terminalResultAllowed: false,
+      missionWindowClosed: true,
+      observedAt: observedAt.toISOString(),
+      deadlineAt: deadline.toISOString(),
+      clearedContributionProfitCents: null,
+      providerEvidenceRefs: evidenceRefs,
+      paymentObservationComplete: paymentObserved,
+      exhaustionProof: {
+        complete: true,
+        admissibleBranchCount: exhaustionProof.admissibleBranchCount,
+        proofRefs: uniq(exhaustionProof.proofRefs)
+      },
+      businessEffectAuthority: 'NONE',
+      externalEffectAuthority: 'NONE',
+      externalEffectLedger: zeroEffects(),
+      truthBoundary: 'Execution branches are proof-completely exhausted, but the monetary outcome is still unknown until payment state is actually observed and reconciled. Unknown is not zero.'
     };
   }
 
@@ -202,10 +236,12 @@ export function evaluateFounderOutcomeMission({
       missionId: mission.missionId,
       terminal: true,
       terminalResultAllowed: true,
+      missionWindowClosed: true,
       observedAt: observedAt.toISOString(),
       deadlineAt: deadline.toISOString(),
       clearedContributionProfitCents: money,
       providerEvidenceRefs: evidenceRefs,
+      paymentObservationComplete: true,
       exhaustionProof: {
         complete: true,
         admissibleBranchCount: exhaustionProof.admissibleBranchCount,
@@ -214,29 +250,50 @@ export function evaluateFounderOutcomeMission({
       businessEffectAuthority: 'NONE',
       externalEffectAuthority: 'NONE',
       externalEffectLedger: zeroEffects(),
-      truthBoundary: 'Early terminalization is permitted only because complete admissible-branch exhaustion carries explicit proof references. Missing or merely model-asserted branches do not satisfy this state.'
+      truthBoundary: 'Early terminalization is permitted only because complete admissible-branch exhaustion carries explicit proof references and the monetary state was independently observed. Missing or merely model-asserted branches do not satisfy this state.'
     };
   }
 
-  const moneyKnown = money != null && (money === 0 || evidenceRefs.length > 0);
+  if (!monetaryResultKnown) {
+    return {
+      ok: true,
+      policyVersion: FOUNDER_OUTCOME_MISSION_VERSION,
+      status: 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED_RECONCILIATION_REQUIRED',
+      state: 'RECONCILIATION_REQUIRED',
+      missionId: mission.missionId,
+      terminal: false,
+      terminalResultAllowed: false,
+      missionWindowClosed: true,
+      observedAt: observedAt.toISOString(),
+      deadlineAt: deadline.toISOString(),
+      clearedContributionProfitCents: null,
+      providerEvidenceRefs: evidenceRefs,
+      paymentObservationComplete: paymentObserved,
+      businessEffectAuthority: 'NONE',
+      externalEffectAuthority: 'NONE',
+      externalEffectLedger: zeroEffects(),
+      truthBoundary: 'The revenue window has closed, but provider-origin money has not been observed and reconciled sufficiently to state a terminal amount. Reconcile payment truth first; silence, missing credentials, or an unread provider state are UNKNOWN, never zero.'
+    };
+  }
+
   return {
     ok: true,
     policyVersion: FOUNDER_OUTCOME_MISSION_VERSION,
-    status: moneyKnown ? 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED' : 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED_RECONCILIATION_REQUIRED',
+    status: 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED',
     state: 'TERMINAL',
     missionId: mission.missionId,
     terminal: true,
-    terminalResultAllowed: moneyKnown,
+    terminalResultAllowed: true,
+    missionWindowClosed: true,
     observedAt: observedAt.toISOString(),
     deadlineAt: deadline.toISOString(),
-    clearedContributionProfitCents: moneyKnown ? money : null,
+    clearedContributionProfitCents: money,
     providerEvidenceRefs: evidenceRefs,
+    paymentObservationComplete: true,
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects(),
-    truthBoundary: moneyKnown
-      ? 'The deadline has arrived. The terminal monetary result is bounded to the supplied observed cleared-profit evidence; no pipeline or internal claim is money.'
-      : 'The deadline has arrived but provider-origin money has not been reconciled sufficiently to state a terminal amount. Reconcile first; unknown is not zero.'
+    truthBoundary: 'The deadline has arrived and provider-origin payment state was actually observed. The terminal monetary result is bounded to the supplied reconciliation evidence; no pipeline, silence or internal claim is money.'
   };
 }
 
@@ -258,6 +315,23 @@ export function compileFounderEconomicPulsePlan({
     terminal: true,
     externalEffectLedger: zeroEffects()
   };
+
+  if (state.missionWindowClosed) {
+    return {
+      ok: true,
+      policyVersion: FOUNDER_OUTCOME_MISSION_VERSION,
+      status: 'FOUNDER_ECONOMIC_RECONCILIATION_PULSE_PLAN_READY',
+      missionId: mission.missionId,
+      deadlineAt: mission.deadlineAt,
+      jobs: paymentReconciliationAvailable
+        ? [{ type: 'payment.reconciliation.tick', payload: { limit: 20 }, consequenceClass: 'READ_ONLY_EXTERNAL' }]
+        : [],
+      outboundReady: false,
+      reconciliationOnly: true,
+      externalEffectLedger: zeroEffects(),
+      truthBoundary: 'The revenue window is closed. New monetization effects are no longer scheduled for this mission; only payment reconciliation may continue until the monetary result is observed.'
+    };
+  }
 
   const jobs = [
     { type: 'prometheus.commercial.catalog', payload: {}, consequenceClass: 'LOCAL_PREPARATION' },
@@ -290,6 +364,7 @@ export function compileFounderEconomicPulsePlan({
     deadlineAt: mission.deadlineAt,
     jobs,
     outboundReady,
+    reconciliationOnly: false,
     externalEffectLedger: zeroEffects(),
     truthBoundary: 'This plan drives already-existing economic machinery while the mission is active. Including a job is not proof it executed. Outbound is omitted unless a current named-channel, named-audience authorization plus sender-health and suppression requirements are present.'
   };

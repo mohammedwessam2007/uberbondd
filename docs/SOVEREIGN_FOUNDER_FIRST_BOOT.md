@@ -20,7 +20,7 @@ No model or binary is silently downloaded by the bootstrap. GitHub, Vercel and a
 
 ## One command
 
-From the clean source checkout:
+The repository entrypoint is tracked as an executable file. From the clean source checkout:
 
 ```sh
 sudo ./ops/sovereign/bootstrap-founder-node.sh \

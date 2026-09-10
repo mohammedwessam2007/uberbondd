@@ -1,0 +1,10 @@
+[Unit]
+Description=Wake UberBond founder outcome mission compiler when founder intent arrives
+After=local-fs.target
+
+[Path]
+PathChanged=/var/lib/uberbond-control/founder-intents
+Unit=uberbond-founder-outcome-mission.service
+
+[Install]
+WantedBy=multi-user.target

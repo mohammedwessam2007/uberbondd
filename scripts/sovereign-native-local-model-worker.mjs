@@ -45,7 +45,7 @@ async function buildContext(root,task){
       };
       rows.push({path:'context:canonical-descendant-reference-names',content:JSON.stringify(named,null,2)});
     }
-    for(const p of ['NORTH_STAR.md','docs/SANDWICH_METHOD_CANON.md','docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md','src/timeline-topology-engine.mjs','artifacts/perpetual-frontier-genesis.json','artifacts/uberbond-total-brain.json']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
+    for(const p of ['NORTH_STAR.md','docs/SANDWICH_METHOD_CANON.md','docs/TEMPORAL_FOUNDRY_CANON.md','src/temporal-foundry.mjs','docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md','src/timeline-topology-engine.mjs','artifacts/perpetual-frontier-genesis.json','artifacts/uberbond-total-brain.json']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
   } else if(!target){
     for(const p of ['scripts/terminal-realization.mjs','scripts/semantic-requirement-tribunal.mjs','src/semantic-requirement-tribunal.mjs']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
   }

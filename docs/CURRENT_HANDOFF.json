@@ -1,90 +1,65 @@
 {
-  "schemaVersion": "uberbond-handoff-2.9.0",
-  "checkpointedAt": "2026-09-11",
-  "sourceCommit": "0c44b26cb3a48df8777cf952dc9a6bc02a7c159d",
+  "schemaVersion": "uberbond-handoff-3.0.0",
+  "checkpointedAt": "2026-09-11T01:24:19+03:00",
+  "sourceCommit": "0e905ce8d89d6566cc4377ac0903ae44d2cd1c06",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
+  "containedNorthStar": "Personal Civilization Engine",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
-  "activeMission": "Cross the source-to-reality boundary for direct founder communication: activate the already-merged UberBond Communication Center and resident sovereign self-completion continuum on one owned or authorized Linux node using owner-supplied local model artifacts. Repair source only when a reproducible internal defect exists. Do not create cloud dependencies, duplicate schedulers, or fake physical/runtime/commercial evidence.",
-  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Personal Civilization North Star, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory, memory index, every canon pointer, inherited handoffs and this handoff. All prior goals and named lineages remain inherited; this checkpoint only supersedes their present-tense repository status. Queued, zero-step or runner_id=0 jobs are infrastructure non-evidence. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. Physical runtime, commercial, personal-reality and ASI claims require their own evidence.",
-  "inheritedCheckpoint": {
-    "fileBlob": "2cffdbcb08a9871819a38ef8c20a02548c5a367c",
-    "declaredSourceCommit": "86d8dfaec47a5011fefb235b8409d4f8a488cd49",
-    "schemaVersion": "uberbond-handoff-2.8.0",
-    "retention": "All completed entries, blockers, truth boundaries, named programs, goals and historical evidence in the inherited checkpoint remain retained by reference and Git history. Nothing omitted here is deleted from UberBond canon.",
-    "keyLineage": [
-      "#643 historical-memory enforcement identity seam",
-      "#644 sovereign bootstrap readiness and doctor",
-      "#645 founder-node first boot",
-      "#646 executable bootstrap children",
-      "#648 strict signer/courier receipt readiness",
-      "#649 owned-host runtime rehearsal witness",
-      "#651 protected exact-current evidence importer",
-      "#653 foreign-owner Git and first-boot symlink hardening",
-      "#656 direct offline-model pre-realpath identity hardening",
-      "#659 founder-life privacy non-surfacing repair",
-      "#660 Founder Communication Center",
-      "#661 executable Sandwich self-completion protocol",
-      "#663 ordinary founder-message autonomy ignition",
-      "#667 post-promotion next-fold wake",
-      "#668 finite-closure descendant genesis",
-      "#669 acceptance-test weakening guard",
-      "#672 founder non-surfacing dominance",
-      "#674 resident sovereign continuum",
-      "#675 Sovereign Expansion Kernel"
-    ]
+  "inheritance": {
+    "previousCurrentHandoffBlob": "07fb19461a014827fb559abfb6a06585e7f2df4a",
+    "previousSchemaVersion": "uberbond-handoff-2.9.0",
+    "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
   },
+  "startupLaw": "Refresh live main, open PRs/issues, runtime/provider truth and exact-current execution evidence before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Personal Civilization and Sovereign Cognitive Continuum canon, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory/index, Sandwich canon, Timeline Topology canon, inherited handoffs and this checkpoint. Queued, zero-step or runner_id=0 jobs are infrastructure non-evidence. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. Source, simulation and internal execution never become physical, biological, external, commercial, longitudinal or ASI proof without their own evidence.",
+  "activeMission": "Cross the source-to-reality boundary for direct founder communication and resident sovereign self-completion on an owned or authorized Linux node with owner-supplied local model artifacts, while continuing only genuine dependency-satisfied internal source repairs discovered from exact-current truth. Preserve Communication Center, sovereign local-model independence, private founder context, worker/verifier/promoter separation, offline signing, zero-authority courier semantics and runtime authority boundaries.",
   "currentTruth": {
-    "repositoryIdentity": {
-      "observedMain": "0c44b26cb3a48df8777cf952dc9a6bc02a7c159d",
-      "observedMainTree": "185fc95cb5343d9e1be34a895c200d2ed91e6621",
-      "openPullRequestsAtCheckpoint": 0,
+    "repository": {
+      "observedMain": "0e905ce8d89d6566cc4377ac0903ae44d2cd1c06",
+      "observedMainTree": "8c573d120be06eb4c70d0106c58beea2c696fd47",
+      "openPullRequestsBeforeThisHandoffRefresh": 0,
       "latestMainRequiresRefreshBeforeNewClaims": true
     },
     "communicationCenter": {
       "sourceState": "MERGED",
-      "pageTitle": "UberBond Communication Center",
-      "server": "scripts/sovereign-founder-console-server.mjs",
-      "localRoute": "/",
-      "defaultEndpoint": "http://127.0.0.1:8787/",
-      "privateLanConfigurator": "ops/sovereign/configure-founder-console-private.sh",
-      "founderActivationEntrypoint": "ops/sovereign/activate-communication-center.sh",
-      "activationMode": "ONE_COMMAND_AFTER_OWNER_SUPPLIES_LOCAL_MODEL_BINARY_AND_GGUF",
-      "automaticPrivateLanSelection": "MERGED_LOWEST_METRIC_NON_VIRTUAL_DEFAULT_ROUTE_EXACTLY_ONE_RFC1918_ADDRESS",
-      "automaticSelectionFailsClosedOnAmbiguity": true,
-      "explicitLoopbackEscapeHatch": true,
-      "ordinaryLanguageDialogue": "MERGED",
-      "boundedLocalConversationContinuity": "MERGED",
-      "keepWorkingControl": "MERGED",
+      "ordinaryFounderDialogue": "MERGED",
       "ordinaryFounderMessageImmediateWake": "MERGED",
-      "rawFounderTextCopiedIntoPublicCodingTasks": false,
-      "browserTokenPersistence": "NONE_PAGE_MEMORY_ONLY",
+      "boundedLocalConversationContinuity": "MERGED",
+      "privateLanActivation": "MERGED",
+      "airNodeTailnetActivation": "MERGED_PR_681",
       "publicCloudModelRequired": false,
-      "physicalReachabilityObserved": false
+      "rawFounderTextAllowedInPublicCodingTasks": false,
+      "physicalFounderReachabilityObserved": false
     },
     "residentSelfCompletion": {
       "sourceState": "MERGED",
-      "residentService": "ops/sovereign/uberbond-authoring-continuum.service",
-      "residentExecutable": "ops/sovereign/uberbond-authoring-continuum",
       "hostedSchedulerRequired": false,
       "githubRequiredForHeartbeat": false,
       "vercelRequiredForHeartbeat": false,
-      "ordinaryFounderMessagesWakeCanonicalAuthoring": true,
       "finiteCompletionPriority": "MERGED",
-      "sandwichDescendantGenesisAfterFiniteClosure": "MERGED",
-      "digestBoundSameAttemptContinuation": "MERGED",
+      "postFiniteSandwichGenesis": "MERGED",
+      "timelineTopologyChallengeBeforeDescendantAdmission": "MERGED_PR_682",
+      "timelineTopologyChallengeExactRequirementBinding": "MERGED_PR_683",
       "workerVerifierPromoterSeparation": "MERGED",
       "physicalContinuousOperationObserved": false
     },
+    "timelineTopology": {
+      "engine": "src/timeline-topology-engine.mjs",
+      "trustedChallengeCompiler": "src/timeline-topology-challenge.mjs",
+      "status": "MERGED_PR_682",
+      "law": "Challenge the dependency topology before optimizing the route; preserve the same terminal contract; evidence-bound causal floors require rebuttal evidence before bypass; source evidence does not prove physical speedup.",
+      "admissionReplayHardening": "MERGED_PR_683",
+      "bindingMechanism": "Trusted worker requires timelineTopologyChallenge.subjectRequirementName to exactly equal descendantRequirement.name and records subjectRequirementSha256 over the normalized admitted requirement.",
+      "truthBoundary": "This is source-level graph analysis, challenge governance and admission binding. It does not establish a physical wormhole or prove a real-world causal floor was broken."
+    },
     "sovereignBootstrap": {
       "sourceStack": "MERGED",
-      "oneCommandCommunicationCenterActivation": "MERGED_PR_679",
-      "founderFirstBootEntrypoint": "MERGED",
-      "doctorAndReadinessDialogue": "MERGED",
-      "protectedExactCurrentEvidenceImporter": "MERGED",
-      "ownedHostRuntimeRehearsalWitness": "MERGED",
+      "oneCommandCommunicationCenterActivation": "MERGED",
+      "providerNeutralAirNodeTailnetPath": "MERGED_PR_681",
       "ownerSuppliedLocalModelInstaller": "MERGED_NO_DOWNLOAD_NO_CLOUD_FALLBACK",
-      "privateLanAddressManualDiscoveryRequired": false,
+      "protectedExactCurrentEvidenceImporter": "MERGED",
+      "strictSignerCourierEvidenceAdmission": "MERGED",
+      "ownedRuntimeRehearsalWitness": "MERGED",
       "ownedLinuxHostObserved": false,
       "ownerSuppliedLocalModelAttested": false,
       "founderConsoleReachabilityObserved": false,
@@ -93,23 +68,12 @@
       "signedReleaseCourierObservedForExactCurrentSource": false,
       "ownedRuntimeRehearsalObserved": false
     },
-    "recentConvergence": {
-      "residentContinuumHeartbeat678": "MERGED",
-      "communicationCenterOneCommandActivation679": "MERGED"
-    },
-    "executionEvidence": {
-      "pr678CausalExactHeadTests": "22/22 PASS AS RECORDED_BY_MERGE_COMMIT",
-      "pr679FocusedActivationTests": "6/6 PASS",
-      "pr679LauncherShellParse": "PASS",
-      "pr679LinuxRouteSelectionExercise": "PASS_SINGLE_REAL_DEFAULT_INTERFACE_AND_SINGLE_RFC1918_ADDRESS",
-      "pr679ExactBlobIdentity": {
-        "launcher": "61f0a7d0877fe7b92bcf99f9f02d4ab649266388",
-        "test": "9f440eafdbd65668957bb34ab1f8eb677b5ee43f"
-      },
-      "deterministicGateDiscovery": "scripts/run-tests.mjs auto-discovers tests/*.test.mjs except explicitly non-deterministic browser/live-postgres tests, so the PR #679 activation regression participates automatically",
-      "githubHostedRunnerPatternFor679": "FAILED JOBS HAD steps=[] AND runner_id=0; NON_EXECUTION",
-      "fullExactCurrentTerminalRegenerationAtThisCheckpoint": "NOT_CLAIMED",
-      "physicalOwnerHostExecution": "NOT_OBSERVED"
+    "verification": {
+      "pr682RecordedFocusedExactHead": "55/55 PASS as recorded in PR #682 merge evidence",
+      "pr683FocusedHostileReplayExecution": "PASS: valid topology challenge paired with a different descendant requirement was refused with timeline-topology-subject-must-match-descendant-requirement",
+      "pr683DiffScope": "2 files only: src/sovereign-native-local-worker.mjs and tests/sovereign-native-local-worker.test.mjs",
+      "pr683GithubHostedCI": "NON_EVIDENCE: jobs completed with steps=[] and runner_id=0",
+      "fullExactCurrentTerminalRegeneration": "NOT_CLAIMED"
     },
     "commercialProof": {
       "realCustomers": 0,
@@ -117,76 +81,27 @@
       "acceptedPaidDeliveries": 0,
       "retainedCustomers": 0
     },
-    "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_OWNED_OR_AUTHORIZED_HOST",
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
-  "blockers": [
-    "PHYSICAL FOUNDER HOST/MODEL: no owned or authorized Linux founder node with prepared dependencies plus owner-supplied llama-server executable and GGUF model has produced source-root, systemd, local-model, dialogue, isolated-worker or repeated-continuum receipts. This is now the first decisive gate to direct founder use.",
-    "PHYSICAL NETWORK OBSERVATION: automatic RFC1918 default-route selection is merged, but no target host network exists in current tool access, so the final iPad URL and founder token cannot exist until activation runs on that host.",
-    "PHYSICAL RELEASE/RUNTIME REHEARSAL: strict signer/courier evidence admission and the runtime witness are merged, but the separate offline signer, courier and owned runtime rehearsal have not been observed for exact current source.",
-    "EXACT-CURRENT FULL TRIBUNAL: focused source mechanisms have execution evidence, but a full terminal-realization regeneration on exact current main is not claimed at this checkpoint. Do not substitute zero-step GitHub jobs.",
-    "EXTERNAL/PROVIDER/COMMERCIAL: live payment, lawful messaging, provider callability, real customers, cleared revenue, accepted delivery and retention remain external evidence classes.",
-    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, calibration and any ASI-level claim require future observed reality and cannot be minted by source merges."
+  "completedSincePreviousCheckpoint": [
+    "#681 merged provider-neutral sovereign Air Node tailnet access for an authorized Linux cloud host while keeping the iPad as founder cockpit; no public tunnel or effect authority was added.",
+    "#682 merged Timeline Topology Engineering / Wormhole Engine and inserted a trusted topology challenge into post-finite Sandwich descendant genesis before another requirement is admitted; it also restored operator reachability for Sandwich blueprint evolution.",
+    "#683 merged exact-subject binding for the topology challenge: challenge replay/substitution against a different descendant requirement now fails closed and trusted topology evidence carries a SHA-256 binding to the normalized admitted requirement.",
+    "PR #683 was based exactly on main 2ea6ba605ba9cd873a1637465edf93c8d6169321, changed only the native worker plus its regression test, and merged as 0e905ce8d89d6566cc4377ac0903ae44d2cd1c06 after focused hostile execution."
   ],
-  "completedSinceInheritedCheckpoint": [
-    "#678 merged at d43b8b3b7d2f1cdd8ee6b3cbf656c542ff6903ee and made the resident owner-controlled sovereign continuum the single canonical autonomous heartbeat, retiring automatic hosted finite/Sandwich wake schedules and event triggers to manual emergency fallbacks.",
-    "#679 merged at 0c44b26cb3a48df8777cf952dc9a6bc02a7c159d and added ops/sovereign/activate-communication-center.sh as the founder-facing one-command activation wrapper. It uses the exact checkout it runs from, auto-selects exactly one RFC1918 address on the lowest-metric non-virtual default route, refuses ambiguity rather than guessing, preserves an explicit loopback mode and delegates to the hardened founder bootstrap.",
-    "PR #679 exact new-file tests executed 6/6 with shell syntax passing; the selector was additionally exercised against a real Linux routing table and selected exactly one RFC1918 address on the real default interface.",
-    "The normal deterministic test runner auto-discovers all deterministic tests/*.test.mjs, therefore the Communication Center activation regression is part of the standard deterministic universe without manual package.json enumeration."
+  "genuineBlockers": [
+    "PHYSICAL FOUNDER HOST/MODEL: no owned or authorized Linux founder node with prepared dependencies plus owner-supplied llama-server executable and GGUF model has produced source-root, systemd, local-model, dialogue, isolated-worker or repeated-continuum receipts.",
+    "PHYSICAL NETWORK/RUNTIME: private-LAN and tailnet activation paths are source-ready, but no target host is available in current execution access, so no real iPad URL, founder token or reachability receipt exists.",
+    "PHYSICAL RELEASE AUTHORITY: strict separate signer, zero-authority courier and owned runtime rehearsal mechanisms are merged but have not been observed for exact current source.",
+    "EXACT-CURRENT FULL TRIBUNAL: focused source mechanisms have execution evidence; a full terminal-realization regeneration on exact current main is not claimed. Zero-step GitHub jobs cannot satisfy this.",
+    "EXTERNAL/PROVIDER/COMMERCIAL: lawful provider callability, live payment, customer messaging, real customers, cleared revenue, accepted delivery and retention require external evidence.",
+    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, calibration, biological/physical acceleration and any ASI-level claim require future observed reality and cannot be minted by repository changes."
   ],
-  "latestOrchestrationCheckpoint": {
-    "id": "COMMUNICATION_CENTER_ONE_COMMAND_SOURCE_ACTIVATION_COMPLETE",
-    "status": "DIRECT_FOUNDER_COMMUNICATION_SOURCE_PATH_COMPLETE__OWNED_HOST_AND_LOCAL_MODEL_PHYSICAL_ACTIVATION_REQUIRED",
-    "observedMain": "0c44b26cb3a48df8777cf952dc9a6bc02a7c159d",
-    "verdict": "UberBond source now contains the chat-first Founder Communication Center, ordinary-message autonomy ignition, one resident local self-completion heartbeat and a founder-sized private-LAN activation command. Software no longer requires the founder to discover the host's LAN IP manually. The next decisive evidence is actual execution on owned or authorized Linux hardware with owner-supplied local model artifacts.",
-    "next": "On the first owned or authorized Linux host, use the exact-current checkout and run sudo ./ops/sovereign/activate-communication-center.sh /path/to/llama-server /path/to/model.gguf MODEL_ID. The launcher will determine the trusted private-LAN address or refuse ambiguity, bootstrap the founder node, attest the local model, print the iPad URL and one-time founder token, run the canonical doctor and issue the first wake."
+  "nextExecutor": {
+    "primary": "First owned or authorized Linux founder node with owner-supplied local model artifacts",
+    "activation": "Run the exact-current sovereign activation path on that host, preserve doctor/first-wake/repeated-continuum receipts, then separately exercise signer, courier and runtime rehearsal evidence.",
+    "internalFallback": "If exact-current inspection reveals a reproducible dependency-satisfied source defect before physical activation, close only that defect through the existing worker -> independent verifier -> promoter path; do not manufacture roadmap work when only reality blockers remain."
   },
-  "nextActions": [
-    "Obtain access to one owned or authorized always-on Linux host. Prepare an exact-current clean UberBond checkout with dependencies and place the owner-supplied llama-server executable plus GGUF model on that host. No repository path may silently download or substitute those artifacts.",
-    "From that checkout run: sudo ./ops/sovereign/activate-communication-center.sh /path/to/llama-server /path/to/model.gguf MODEL_ID. Default access mode is automatic private-LAN selection; pass an explicit RFC1918 address only if automatic selection safely refuses ambiguity, or loopback for same-machine-only access.",
-    "Open the printed http://PRIVATE_IPV4:8787/ address from the iPad on the same trusted private network, enter the one-time founder token and send ordinary language. Preserve doctor, first-wake and subsequent continuum receipts.",
-    "After direct communication is physically observed, execute separate signer, zero-authority courier and owned runtime rehearsal evidence, then advance external provider/customer/payment/delivery/retention and longitudinal life evidence."
-  ],
-  "progressModel": {
-    "classification": "SPLIT_SOURCE_COMPLETENESS_FROM_PHYSICAL_AND_LIVED_PROOF",
-    "sourceSideCommunicationCenter": 100,
-    "sourceSideFounderToAutonomyIgnition": 100,
-    "sourceSidePrivateLanActivationPath": 100,
-    "sourceSideResidentSelfCompletionBrainstem": 99,
-    "physicalFounderNodeActivationObserved": 0,
-    "physicalFounderCommunicationObserved": 0,
-    "physicalRepeatedResidentContinuumObserved": 0,
-    "commercialOutcomeObserved": 0,
-    "boundary": "100% here means the bounded source path for direct communication/activation exists and has focused execution evidence. It does not mean a physical founder node exists, that an iPad has connected, or that long-run self-completion, commercial, life, or ASI outcomes are proven."
-  },
-  "terminalOrchestrationProof": {
-    "version": "terminal-sovereign-communication-center-activation.1",
-    "status": "ONE_COMMAND_PRIVATE_COMMUNICATION_CENTER_SOURCE_READY__PHYSICAL_HOST_PROOF_PENDING",
-    "observedMain": "0c44b26cb3a48df8777cf952dc9a6bc02a7c159d",
-    "sourceMechanisms": [
-      "ops/sovereign/activate-communication-center.sh",
-      "ops/sovereign/bootstrap-founder-node.sh",
-      "ops/sovereign/install-authoring-node.sh",
-      "ops/sovereign/install-offline-llama-runtime.sh",
-      "ops/sovereign/configure-founder-console-private.sh",
-      "ops/sovereign/uberbond-founder-console",
-      "scripts/sovereign-founder-console-server.mjs",
-      "ops/sovereign/uberbond-authorctl",
-      "ops/sovereign/uberbond-authoring-continuum",
-      "ops/sovereign/uberbond-authoring-continuum.service",
-      "ops/sovereign/uberbond-founder-intent-wake.path",
-      "scripts/sovereign-autonomy-pulse.mjs",
-      "src/sandwich-method.mjs",
-      "src/sandwich-autocatalytic-governor.mjs",
-      "src/sandwich-descendant-admission.mjs",
-      "src/sovereign-bootstrap-readiness.mjs",
-      "scripts/sovereign-bootstrap-doctor.mjs",
-      "ops/sovereign/import-sovereign-evidence.sh",
-      "ops/sovereign/sovereign-runtime-rehearsal.sh"
-    ],
-    "nextExecutor": "First owned or authorized Linux founder node with owner-supplied local model artifacts",
-    "admissionGate": "No claim that UberBond is physically reachable, continuously self-completing, signed-release capable, runtime-sovereign, commercially successful, life-improving or ASI until the corresponding external receipts and elapsed observations exist."
-  },
-  "truthBoundary": "This handoff records current source convergence and genuine blockers. It creates no physical host, network address, founder token, model attestation, runtime deployment, customer, payment, acceptance, retention, provider entitlement, superintelligence, perfect prediction or observed life improvement."
+  "truthBoundary": "This checkpoint records source convergence and the remaining genuine boundaries. It creates no physical host, network address, founder token, model attestation, continuous runtime, customer, payment, acceptance, retention, provider entitlement, superintelligence, perfect prediction or observed life improvement."
 }

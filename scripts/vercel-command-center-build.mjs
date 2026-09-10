@@ -31,6 +31,19 @@ const steps = [
   // hostile authority/recovery contract executes before that expected refusal.
   ['bash', ['-n', 'ops/sovereign/install-offline-llama-runtime.sh']],
   ['node', ['--test', 'tests/sovereign-offline-llama-runtime.test.mjs']],
+  // PR-scoped Sandwich admission gate. The exact-current terminal tribunal has
+  // an independent regeneration refusal that can stop this build before the
+  // deterministic tail. Run the self-completion protocol's own hostile contract
+  // first so that unrelated terminal backlog cannot masquerade as Sandwich test
+  // evidence. This proves only these source contracts on this checkout.
+  ['node', ['--test',
+    'tests/sandwich-method.test.mjs',
+    'tests/sandwich-evidence-binding.test.mjs',
+    'tests/sandwich-method-plan.test.mjs',
+    'tests/sandwich-method-doctor.test.mjs',
+    'tests/sandwich-agent-task.test.mjs',
+    'tests/sandwich-blueprint-evolution.test.mjs'
+  ]],
   // The finite terminal tribunal owns exact-checkout truth regeneration as its
   // first internal step. Running current-truth-regeneration separately here
   // would dirty its generated truth inputs and correctly make the tribunal's
@@ -82,5 +95,9 @@ console.log(JSON.stringify({
   exactCheckoutReadinessBeforeDeterministic: true,
   nativeSovereignWorkerHostileGateRequired: true,
   semanticEnforcementEvidenceGateRequired: true,
+  sandwichMethodFocusedGateRequired: true,
+  sandwichEvidenceBindingGateRequired: true,
+  sandwichAgentTaskBridgeGateRequired: true,
+  sandwichBlueprintEvolutionGateRequired: true,
   externalEffectAuthority: 'NONE'
 }));

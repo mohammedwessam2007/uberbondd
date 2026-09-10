@@ -15,6 +15,7 @@ PUBLIC_SOURCE="${1:-}"
 install -d -m 0755 /opt/uberbond "$CONTROL"
 install -d -m 0700 "$CONFIG" "$STATE" "$STATE/backups" "$STATE/inbox"
 install -m 0755 "$ROOT/ops/sovereign/uberbondctl" "$CONTROL/uberbondctl"
+install -m 0755 "$ROOT/ops/sovereign/sovereign-runtime-rehearsal.sh" "$CONTROL/sovereign-runtime-rehearsal"
 install -m 0644 "$ROOT/docker-compose.sovereign.yml" "$CONTROL/docker-compose.sovereign.yml"
 for unit in uberbond-reconcile.service uberbond-reconcile.timer uberbond-release-apply.service uberbond-release-apply.path; do
   install -m 0644 "$ROOT/ops/sovereign/$unit" "/etc/systemd/system/$unit"
@@ -66,6 +67,7 @@ cat <<EOF
 UberBond sovereign host control plane installed.
 
 Runtime control:  $CONTROL/uberbondctl
+Rehearsal witness: $CONTROL/sovereign-runtime-rehearsal
 Secrets/config:   $CONFIG/uberbond.env
 Release verifier: $CONFIG/release-public.pem
 State/backups:    $STATE
@@ -95,6 +97,14 @@ To deploy automatically after an offline/local transfer:
   2. atomically write that directory name to $STATE/inbox/NEXT_RELEASE
 The systemd path unit will verify signature, anti-replay sequence, image IDs,
 backup the database, migrate, health-check, and roll back on failure.
+
+After two distinct known-good releases exist, the bounded runtime rehearsal can
+exercise backup/restore, durable Postgres restart recovery, killed-container
+reconciliation, failed-promotion rollback, and an explicit rollback round trip:
+  sudo $CONTROL/sovereign-runtime-rehearsal /path/to/valid-signed-failing-release
+Its JSON output is evidence only for the exact source commit it reports. Copying
+that receipt into another host's protected evidence ingress is a separate
+owner/root custody operation; the runtime witness grants itself no such authority.
 EOF
 fi
 

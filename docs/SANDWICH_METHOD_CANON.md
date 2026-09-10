@@ -13,7 +13,7 @@ The space between them is the **filling**: the negative image of missing, partia
 
 One fold is:
 
-`CURRENT -> STRONGER DESCENDANT MODEL -> NEGATIVE IMAGE -> HIGHEST-LEVERAGE DEPENDENCY-SATISFIED AUTHORIZED INTERNAL GAP -> BOUNDED MISSION -> INDEPENDENT VERIFICATION -> EXISTING PROMOTION AUTHORITY -> NEW CURRENT -> RECOMPUTE DESCENDANT`
+`CURRENT -> STRONGER DESCENDANT MODEL -> NEGATIVE IMAGE -> TIMELINE TOPOLOGY CHALLENGE -> HIGHEST-LEVERAGE DEPENDENCY-SATISFIED AUTHORIZED INTERNAL GAP -> BOUNDED MISSION -> INDEPENDENT VERIFICATION -> EXISTING PROMOTION AUTHORITY -> NEW CURRENT -> RECOMPUTE DESCENDANT`
 
 Then the sandwich folds again.
 
@@ -77,7 +77,7 @@ Only dependency-satisfied internal source/research nodes are eligible for automa
 
 ### Fold
 
-The next fold is the highest-ranked dependency-satisfied internal gap. Ranking rewards leverage and downstream unlocks while accounting for effort, state and uncertainty.
+The next fold is the highest-ranked dependency-satisfied internal gap after its apparent route has been challenged by Timeline Topology Engineering. Ranking rewards leverage and downstream unlocks while accounting for effort, state and uncertainty.
 
 The fold mission binds:
 
@@ -91,6 +91,26 @@ The fold mission binds:
 - prohibited shortcuts.
 
 The planner itself cannot merge, deploy, spend, message customers, move money, sign releases, mutate private goals or create physical-world proof.
+
+## Timeline Topology / Wormhole law
+
+Before the post-finite Sandwich path admits a new descendant requirement, it must challenge the apparent dependency route rather than simply accepting another long step.
+
+The trusted Timeline Topology Engine computes the declared critical path, separates currently evidence-bound causal floors from assumptions and compressible requirements, and tests proposed topology changes against the same terminal contract.
+
+The search order favors deleting or retopologizing the route before merely optimizing it: requirement deletion, substitute transformations, representation escape, dependency parallelization, precomputation, cache/distillation, reuse of existing capability, proxy observables, changed boundary conditions, invented intermediates, existing external infrastructure and moving functions into the environment.
+
+A model assertion that a shortcut exists is not proof. Trusted code validates the baseline graph, projected graph, critical-path reduction, exact transformations and terminal-contract conservation. A candidate that changes the objective or terminal identity is rejected as goal mutation, not acceleration.
+
+A node labeled `EVIDENCE_BOUND_CAUSAL_FLOOR` must carry evidence. It may still be challenged, but any attempt to shorten, remove or bypass it must provide explicit rebuttal evidence. This keeps current evidence falsifiable without allowing a model to erase physics, biology, external actors, regulation or elapsed evidence by declaration.
+
+For descendant genesis, the model must return either a valid `WORMHOLE` topology hypothesis or a `NO_VALID_SHORTCUT` result showing that it attempted multiple materially different mechanism classes. Only after this trusted challenge may the structured missing requirement proceed to Sandwich admission.
+
+Canonical law:
+
+> **DO NOT OPTIMIZE THE ROUTE UNTIL YOU HAVE TRIED TO DELETE OR RETOPOLOGIZE THE ROUTE.**
+
+The detailed contract lives in `docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md` and executable code in `src/timeline-topology-engine.mjs` plus `src/timeline-topology-challenge.mjs`.
 
 ## Fold outcomes
 
@@ -136,17 +156,21 @@ Finite engineering closure is a transition, not a sleep state.
 
 When the exact-current terminal tribunal proves that the declared finite engineering scope is closed, the Sandwich Autocatalytic Governor may create one descendant-genesis task. The task must discover at most one novel, highest-leverage, dependency-satisfied `INTERNAL_SOURCE` or `INTERNAL_RESEARCH` gap that follows from goals and invariants that are already canonical.
 
+Before that gap can be admitted, its apparent dependency route must pass the Timeline Topology challenge above. The goal is not to manufacture another item for the queue. The goal is to find whether a stronger descendant can delete or radically shorten a section of the queue while preserving the same terminal contract.
+
 The genesis pass is deliberately separated from implementation. It may admit one bounded, falsifiable finite engineering requirement and wire its acceptance evidence and canonical execution-leaf dependencies. It may not implement that newly admitted requirement in the same change. Independent verification and the existing promotion authority must first admit the requirement itself.
 
-After that promotion, `main` changes. Exact-current truth is regenerated. The mature finite-completion engine sees the newly open requirement and owns the next cycle. When it independently closes and promotes that requirement, completion of the trusted self-maintainer wakes the post-finite governor again.
+After that promotion, `main` changes. Exact-current truth is regenerated. The mature finite-completion engine sees the newly open requirement and owns the next cycle. When it independently closes and promotes that requirement, the resident sovereign authoring continuum immediately recomputes exact-current truth and continues.
 
 The resulting source-level rhythm is:
 
-`FINITE CLOSED -> DISCOVER ONE DESCENDANT GAP -> ADMIT ONE FINITE REQUIREMENT -> VERIFY/PROMOTE -> FINITE ENGINE CLOSES IT -> VERIFY/PROMOTE -> RECOMPUTE -> REPEAT`
+`FINITE CLOSED -> CHALLENGE TIMELINE TOPOLOGY -> DISCOVER ONE DESCENDANT GAP -> ADMIT ONE FINITE REQUIREMENT -> VERIFY/PROMOTE -> FINITE ENGINE CLOSES IT -> VERIFY/PROMOTE -> RECOMPUTE -> REPEAT`
 
-A 15-minute schedule remains only as recovery insurance. Normal continuation is event-driven from completion of the trusted self-maintainer and from main promotions. A closed same-base descendant-genesis attempt is not silently replayed. New main or genuinely new evidence is required before another attempt.
+The canonical autonomous heartbeat is the resident owner-controlled `uberbond-authoring-continuum.service`. It is not dependent on Vercel, GitHub Actions schedules or ChatGPT hourly tasks. The resident process performs a truth-first pulse, sleeps no more than its bounded local idle interval when nothing changes, and can also be awakened by founder intent or verified local promotion. Hosted finite/Sandwich workflows are manual emergency fallbacks, not autonomous clocks.
 
-Speed is obtained by removing idle waiting and duplicate cognition, not by deleting truth gates. The governor has no merge, deployment, spend, messaging, customer, payment, credential, physical-world, provider or founder-goal authority.
+A closed same-base descendant-genesis attempt is not silently replayed. New exact current state or genuinely new evidence is required before another attempt. Continuous operation therefore does not mean overlapping authoring brains or duplicate same-base folds.
+
+Speed is obtained by deleting route topology, removing idle waiting and duplicate cognition, not by deleting truth gates. The governor has no merge, deployment, spend, messaging, customer, payment, credential, physical-world, provider or founder-goal authority.
 
 If no novel internally solvable gap can be justified, the correct result is `STOP`, `EXTERNAL_FRONTIER` or `NO_NOVEL_INTERNAL_GAP`. Manufacturing another feature merely to keep the loop moving is a protocol failure.
 
@@ -186,6 +210,8 @@ The deepest form of the protocol is:
 
 `G(t) = D(t) - S(t)`
 
+Before choosing the transformation, challenge the dependency topology of `G(t)` and search for a route that preserves the terminal contract while deleting or shortening the largest amount of critical-path time.
+
 Choose a dependency-satisfied internal transformation `f` with high downstream unlock value.
 
 After independently verified promotion:
@@ -202,8 +228,8 @@ Recompute:
 
 The stronger system may see dimensions the weaker system could not.
 
-That is the Sandwich Method: **the blueprint participates in constructing the machine, and the constructed machine earns the right to redraw the blueprint.**
+That is the Sandwich Method: **the blueprint participates in constructing the machine, the machine attacks the topology of its own roadmap, and the constructed machine earns the right to redraw the blueprint.**
 
 ## Truth boundary
 
-This protocol is source-level self-completion planning, bounded requirement genesis and evidence accounting. It does not prove global UberBond completion, ASI, physical autonomy, life outcomes, customers, revenue, provider availability, scientific discovery or any external effect. Runtime execution remains a separate evidence class from source correctness.
+This protocol is source-level self-completion planning, bounded requirement genesis, timeline-topology search and evidence accounting. It does not prove global UberBond completion, ASI, physical autonomy, life outcomes, customers, revenue, provider availability, scientific discovery, a physical wormhole or any external effect. Runtime execution and observed real-world speedups remain separate evidence classes from source correctness.

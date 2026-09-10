@@ -43,6 +43,25 @@ test('worker is enabled only after live API model identity attestation',()=>{
   assert.match(installer,/Offline llama runtime did not attest the configured model alias before timeout/);
 });
 
+test('failed candidate admission restores the previous runtime and control configuration',()=>{
+  const backup=installer.indexOf('BACKUP_DIR="$(mktemp -d');
+  const errorTrap=installer.indexOf('trap rollback ERR');
+  const promotion=installer.indexOf('mv -f "$BINARY_STAGE" /opt/uberbond/model-runtime/llama-server');
+  const configure=installer.indexOf('/opt/uberbond/control/configure-local-model.sh LLAMA_CPP');
+  const successDisarm=installer.lastIndexOf('trap - ERR');
+  assert.ok(backup>0&&errorTrap>backup&&promotion>errorTrap&&configure>promotion&&successDisarm>configure);
+  assert.match(installer,/previous local runtime\/configuration restored/);
+  assert.match(installer,/\$BACKUP_DIR\/llama-server/);
+  assert.match(installer,/\$BACKUP_DIR\/model\.gguf/);
+  assert.match(installer,/\$BACKUP_DIR\/model\.env/);
+  assert.match(installer,/\$BACKUP_DIR\/authoring\.env/);
+  assert.match(installer,/PREV_RUNTIME_ACTIVE/);
+  assert.match(installer,/PREV_RUNTIME_ENABLED/);
+  assert.match(installer,/PREV_PROXY_ACTIVE/);
+  assert.match(installer,/PREV_FOUNDER_ACTIVE/);
+  assert.match(installer,/PREV_AUTHORING_ACTIVE/);
+});
+
 test('offline runtime admission does not gain downstream authority',()=>{
   assert.match(installer,/businessEffectAuthority:'NONE'/);
   assert.match(installer,/externalEffectAuthority:'NONE'/);

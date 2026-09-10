@@ -88,11 +88,25 @@ PersistentKeepalive = 25
 EOF
 chmod 600 "$CLIENT_CONF"
 
+# Ensure reboot ordering is deterministic. The founder gateway is allowed to
+# exist only after its private tunnel address has been installed.
+DROPIN=/etc/systemd/system/uberbond-founder-private-gateway.service.d
+install -d -m 0755 "$DROPIN"
+cat > "$DROPIN/air-cockpit.conf" <<EOF
+[Unit]
+Requires=wg-quick@${IFACE}.service
+After=wg-quick@${IFACE}.service
+EOF
+chmod 0644 "$DROPIN/air-cockpit.conf"
+
+systemctl daemon-reload
 systemctl enable --now "wg-quick@${IFACE}.service"
+systemctl is-active --quiet "wg-quick@${IFACE}.service" || { echo "REFUSED: WireGuard interface failed to start." >&2; exit 2; }
 
 # Reuse the already-hardened founder gateway. It exposes only the bounded
 # founder-console surface on the private tunnel and keeps the main app sealed.
 "$GATEWAY_CONFIGURATOR" "$SERVER_IP" "$GATEWAY_PORT"
+systemctl is-active --quiet uberbond-founder-private-gateway.service || { echo "REFUSED: founder cockpit gateway failed to start." >&2; exit 2; }
 
 cat <<EOF
 UBERBOND_SOVEREIGN_AIR_COCKPIT_CONFIGURED

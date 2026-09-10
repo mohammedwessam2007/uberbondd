@@ -21,7 +21,8 @@ const SOURCE_PATHS=Object.freeze({
   postPromotionPath:'ops/sovereign/uberbond-authoring-after-promotion.path',
   offlineModelInstaller:'ops/sovereign/install-offline-llama-runtime.sh',
   offlineSignerInstaller:'ops/sovereign/install-offline-signer-node.sh',
-  releaseCourierInstaller:'ops/sovereign/install-release-courier.sh'
+  releaseCourierInstaller:'ops/sovereign/install-release-courier.sh',
+  runtimeGraduationObserver:'ops/sovereign/observe-runtime-graduation.mjs'
 });
 const UNIT_NAMES=Object.freeze({
   authoringTimer:'uberbond-authoring.timer',workerPath:'uberbond-local-worker.path',verifierPath:'uberbond-autonomy-verify.path',
@@ -53,9 +54,9 @@ export async function collectSovereignBootstrapReadiness({env=process.env,repoRo
     installedSourceCommit:installedHead.ok?installedHead.stdout:'',services,founderConsoleReachable,modelReceipt,runtimeReceipt,
     isolatedWorkerEnabled:String(authoringEnv.UBERBOND_ISOLATED_WORKER_ENABLED||'').toLowerCase()==='true',
     founderDialogueEnabled:String(modelEnv.UBERBOND_FOUNDER_DIALOGUE_ENABLED||'').toLowerCase()==='true',
-    separateSignerObserved:false,releaseCourierObserved:active('uberbond-release-courier.path')
+    separateSignerObserved:false,releaseCourierObserved:false
   });
-  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir},note:'A separate offline signer is intentionally not inferred from this authoring host. Signed-release and runtime proof require their own receipts.'};
+  return{...out,collector:'scripts/sovereign-bootstrap-doctor.mjs',observedAt:new Date().toISOString(),observedPaths:{sourceRoot:root,configuredSourceRoot,controlDir},note:'A separate offline signer is never inferred from authoring-host configuration or a running courier unit. Graduation is accepted only from the exact correlated runtime-receipt contract produced by the owner-runtime observer.'};
 }
 const invoked=Boolean(process.argv[1])&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url);
 if(invoked){collectSovereignBootstrapReadiness().then(out=>{process.stdout.write(`${JSON.stringify(out,null,2)}\n`);if(out?.stages?.selfCompletionLoopReady!==true)process.exitCode=2;}).catch(error=>{process.stdout.write(`${JSON.stringify({ok:false,status:'SOVEREIGN_BOOTSTRAP_DOCTOR_CRASH',reasonCodes:[String(error?.message||error).slice(0,300)],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'},null,2)}\n`);process.exitCode=2;});}

@@ -2,6 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createGithubRelayTask } from '../src/github-relay.mjs';
+import { config as runtimeConfig } from '../src/config.mjs';
+import { createStore } from '../src/store.mjs';
+import { DurableQueue } from '../src/queue.mjs';
+import {
+  classifyFounderOutcomeIntent,
+  compileFounderOutcomeMission,
+  compileFounderEconomicPulsePlan
+} from '../src/founder-outcome-mission.mjs';
 
 export const FREE_MODEL = 'inclusionai/ling-3.0-flash-sante-free';
 const MAX_BODY_BYTES = 64_000;
@@ -60,7 +68,7 @@ function statusView(env) {
   return {
     ok: true,
     status: 'FOUNDER_CENTER_READY',
-    schemaVersion: 'uberbond.founder-center.v1',
+    schemaVersion: 'uberbond.founder-center.v1.1',
     runtime: 'VERCEL_SERVER_BACKED',
     environment: c.environment,
     sourceCommit: c.sourceCommit,
@@ -70,10 +78,12 @@ function statusView(env) {
     modelReady: Boolean(c.gatewayCredential),
     gatewayAuth: c.gatewayAuth,
     relayReady: Boolean(c.githubToken && c.owner && c.repo),
+    economicMissionReady: Boolean(env.DATABASE_URL),
     relayRepository: c.repository || null,
     founderChatPrivacy: 'CHAT_TEXT_IS_SENT_ONLY_TO_THE_CONFIGURED_SERVER_SIDE_MODEL_ROUTE_AND_IS_NOT_WRITTEN_TO_GITHUB_BY_THIS_ENDPOINT',
+    outcomeMissionPrivacy: 'RECOGNIZED_ECONOMIC_OUTCOME_TEXT_IS_COMPILED_IN_MEMORY; ONLY THE NORMALIZED MISSION CONTRACT AND EXECUTION RECEIPT MAY ENTER THE PRIVATE ECONOMIC STORE. RAW FOUNDER CHAT IS NOT PERSISTED BY THIS BRIDGE.',
     keepWorkingPrivacy: 'KEEP_WORKING_CREATES_ONLY_A_GENERIC_CANONICAL_RELAY_TASK_AND_NEVER_COPIES_RAW_FOUNDER_CHAT',
-    businessEffectAuthority: 'NONE_BY_DEFAULT__FOUNDER_BUTTON_MAY_CREATE_ONE_BOUNDED_GITHUB_RELAY_TASK',
+    businessEffectAuthority: 'NONE_BY_DEFAULT__FOUNDER_OUTCOME_MISSIONS_USE_ONLY_EXISTING_RUNTIME_GATES',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
 }
@@ -140,6 +150,7 @@ async function gatewayChat({ env, fetchImpl, root, message, history }) {
     'You are UberBond Communication Center, the private founder-facing intelligence surface.',
     'Terminal goal: a sovereign Personal Civilization / Ubermensch machine around the founder\'s free will. Economic systems are subordinate organs, never the terminal objective.',
     'Truth law: distinguish source code, deployed serverless runtime, actual external effects, and lived-world evidence. Never claim a change, action, payment, deployment, customer event, or physical runtime happened unless supplied evidence proves it.',
+    'Deadline law: never present a time-bounded founder mission as terminal before its deadline unless supplied evidence proves complete admissible-branch exhaustion. A current observed zero is not the final result.',
     'Privacy law: never instruct the founder to paste secrets. Do not reproduce private founder chat into public-repository artifacts.',
     'You may recommend actions. This chat call itself has no GitHub write/deploy/payment/messaging authority.',
     `Current deployed source commit: ${c.sourceCommit || 'UNKNOWN'}.`,
@@ -238,11 +249,173 @@ async function keepWorking({ env, fetchImpl, createRelayTask }) {
   return createRelayTask({ client, owner: c.owner, repo: c.repo, input: canonicalContinueTask(c), date: new Date() });
 }
 
+let economicContextPromise = null;
+async function defaultEconomicContext(env = process.env) {
+  if (!env.DATABASE_URL) throw Object.assign(new Error('live-economic-database-not-configured'), { code: 'ECONOMIC_DATABASE_NOT_CONFIGURED' });
+  if (!economicContextPromise) {
+    economicContextPromise = (async () => {
+      const cfg = {
+        ...runtimeConfig,
+        storeBackend: 'postgres',
+        databaseUrl: env.DATABASE_URL,
+        databaseSsl: String(env.DATABASE_SSL ?? runtimeConfig.databaseSsl).toLowerCase() !== 'false'
+      };
+      const store = createStore(cfg);
+      await store.init();
+      return { store, cfg, queue: new DurableQueue(store, cfg, console) };
+    })().catch(error => {
+      economicContextPromise = null;
+      throw error;
+    });
+  }
+  return economicContextPromise;
+}
+
+function normalizedMissionReceipt(mission) {
+  return {
+    missionId: mission.missionId,
+    policyVersion: mission.policyVersion,
+    missionClass: mission.missionClass,
+    objectiveClass: mission.objectiveClass,
+    startedAt: mission.startedAt,
+    deadlineAt: mission.deadlineAt,
+    timezone: mission.timezone,
+    nominatedPaymentDestination: mission.nominatedPaymentDestination,
+    spendCeilingCents: mission.spendCeilingCents,
+    sourceRevision: mission.sourceRevision,
+    successMetric: mission.successMetric,
+    state: 'ACTIVE',
+    terminal: false,
+    rawFounderTextPersisted: false,
+    externalEffectLedger: { ...ZERO_EFFECTS }
+  };
+}
+
+export async function startEconomicOutcomeMission({
+  env = process.env,
+  message,
+  now = new Date(),
+  getEconomicContext = () => defaultEconomicContext(env)
+} = {}) {
+  const classification = classifyFounderOutcomeIntent(message);
+  if (!classification.recognized) return { recognized:false };
+
+  const c = config(env);
+  const mission = compileFounderOutcomeMission({
+    founderIntent: message,
+    now,
+    timezone: 'Africa/Cairo',
+    timezoneOffsetMinutes: 180,
+    sourceRevision: c.sourceCommit
+  });
+  if (!mission.ok) {
+    return {
+      recognized:true,
+      ok:false,
+      status:'FOUNDER_OUTCOME_MISSION_NOT_COMPILED',
+      reasonCodes:mission.reasonCodes || [],
+      terminal:false,
+      externalEffectLedger:{ ...ZERO_EFFECTS }
+    };
+  }
+
+  let context;
+  try { context = await getEconomicContext(); }
+  catch (error) {
+    return {
+      recognized:true,
+      ok:false,
+      status:'FOUNDER_OUTCOME_MISSION_EXECUTION_BLOCKED',
+      missionId:mission.missionId,
+      deadlineAt:mission.deadlineAt,
+      terminal:false,
+      terminalResultAllowed:false,
+      reasonCodes:[boundedText(error?.code || error?.message, 160) || 'economic-runtime-unavailable'],
+      currentClearedContributionProfit:'UNKNOWN',
+      truthBoundary:'The founder outcome was recognized and compiled, but this deployed runtime cannot durably dispatch economic work. This is an execution blocker, not a terminal zero result.',
+      externalEffectLedger:{ ...ZERO_EFFECTS }
+    };
+  }
+
+  const zeroMarginalDiscoveryConfigured = String(env.UBERBOND_ZERO_MARGINAL_DISCOVERY || '').toLowerCase() === 'true';
+  const plan = compileFounderEconomicPulsePlan({
+    mission,
+    now,
+    zeroMarginalDiscoveryConfigured,
+    outboundAuthorization:null,
+    paymentReconciliationAvailable:true
+  });
+  if (!plan.ok) return { recognized:true, ...plan };
+
+  const jobsQueued = [];
+  const jobFailures = [];
+  try {
+    await context.store.log('founder_outcome_mission', normalizedMissionReceipt(mission));
+  } catch (error) {
+    return {
+      recognized:true,
+      ok:false,
+      status:'FOUNDER_OUTCOME_MISSION_PERSISTENCE_BLOCKED',
+      missionId:mission.missionId,
+      deadlineAt:mission.deadlineAt,
+      terminal:false,
+      terminalResultAllowed:false,
+      reasonCodes:[boundedText(error?.message,160) || 'mission-persistence-failed'],
+      currentClearedContributionProfit:'UNKNOWN',
+      externalEffectLedger:{ ...ZERO_EFFECTS }
+    };
+  }
+
+  for (const job of plan.jobs) {
+    try {
+      const queued = await context.queue.enqueue(job.type, job.payload || {}, {
+        maxAttempts: job.type === 'payment.reconciliation.tick' ? 5 : 3,
+        dedupeKey:`founder-center:${mission.missionId}:${job.type}:initial`
+      });
+      jobsQueued.push({ type:job.type, consequenceClass:job.consequenceClass, jobId:queued?.id || null });
+    } catch (error) {
+      jobFailures.push({ type:job.type, reason:boundedText(error?.message,160) || 'enqueue-failed' });
+    }
+  }
+  try {
+    await context.store.log('founder_outcome_mission_dispatch', {
+      missionId:mission.missionId,
+      deadlineAt:mission.deadlineAt,
+      jobsQueued:jobsQueued.map(job => ({ type:job.type, jobId:job.jobId })),
+      jobFailures,
+      terminal:false,
+      externalEffectLedger:{ ...ZERO_EFFECTS }
+    });
+  } catch {}
+
+  return {
+    recognized:true,
+    ok:jobsQueued.length > 0,
+    status:jobsQueued.length > 0 ? 'FOUNDER_OUTCOME_MISSION_ACTIVE' : 'FOUNDER_OUTCOME_MISSION_EXECUTION_BLOCKED',
+    missionId:mission.missionId,
+    startedAt:mission.startedAt,
+    deadlineAt:mission.deadlineAt,
+    nominatedPaymentDestination:mission.nominatedPaymentDestination,
+    terminal:false,
+    terminalResultAllowed:false,
+    currentClearedContributionProfit:'PENDING_PROVIDER_OBSERVATION',
+    jobsQueued,
+    jobFailures,
+    answer: jobsQueued.length > 0
+      ? `Mission ACTIVE until ${mission.deadlineAt}. I have dispatched the first economic pulse into UberBond's durable worker queue. I will not call the result $0 before the deadline, and unread payment state will remain UNKNOWN rather than being converted to zero.`
+      : 'Mission recognized, but the deployed runtime could not dispatch any economic jobs. This is an execution blocker, not a terminal revenue result.',
+    truthBoundary:'A queued economic job is an execution attempt, not proof of outreach, payment, customer acceptance, or revenue. Existing provider and consequence gates still decide every real-world effect.',
+    externalEffectLedger:{ ...ZERO_EFFECTS }
+  };
+}
+
 export function createHandler(deps = {}) {
   const env = deps.env || process.env;
   const fetchImpl = deps.fetch || fetch;
   const root = deps.root || defaultRoot;
   const createRelayTask = deps.createRelayTask || createGithubRelayTask;
+  const clock = deps.now || (() => new Date());
+  const startOutcome = deps.startOutcomeMission || (message => startEconomicOutcomeMission({ env, message, now:clock(), getEconomicContext:deps.getEconomicContext || (() => defaultEconomicContext(env)) }));
   return async function handler(req, res) {
     const method = String(req?.method || '').toUpperCase();
     if (method === 'GET') return send(res, 200, statusView(env));
@@ -255,6 +428,8 @@ export function createHandler(deps = {}) {
       if (action === 'chat') {
         const message = boundedText(body.message, MAX_MESSAGE_CHARS);
         if (!message) return send(res, 400, { ok: false, status: 'MESSAGE_REQUIRED' });
+        const outcome = await startOutcome(message);
+        if (outcome?.recognized) return send(res, outcome.ok ? 200 : 503, outcome);
         const result = await gatewayChat({ env, fetchImpl, root, message, history: body.history });
         return send(res, result.ok ? 200 : 503, result);
       }

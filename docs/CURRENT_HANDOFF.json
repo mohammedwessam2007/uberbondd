@@ -1,9 +1,9 @@
 {
-  "activeMission": "Execute exact-current terminal truth from the post-#649 sovereign bootstrap lineage, repair only reproducible internal defects, and then activate the already-merged founder-node plus runtime-rehearsal machinery on an owned/authorized Linux host. Do not invent more source architecture to disguise missing physical, provider, commercial, or elapsed evidence.",
+  "activeMission": "Execute exact-current terminal truth from the post-#651 sovereign bootstrap lineage, repair only reproducible internal defects, and then activate the already-merged founder-node, protected evidence-admission, signer/courier and runtime-rehearsal machinery on owned/authorized Linux hosts. Do not invent more source architecture to disguise missing physical, provider, commercial, or elapsed evidence.",
   "blockers": [
-    "EXACT-CURRENT TERMINAL EXECUTION: the terminal tribunal remains merged, but a full canonical terminal regeneration has not yet been observed on exact post-#649 main. GitHub-hosted jobs on recent heads have repeatedly completed with null/empty steps and are infrastructure non-evidence, not source failures.",
+    "EXACT-CURRENT TERMINAL EXECUTION: the terminal tribunal remains merged, but a full canonical terminal regeneration has not yet been observed on exact post-#651 main. GitHub-hosted jobs on recent heads have repeatedly completed with null/empty steps and are infrastructure non-evidence; Vercel deployments are also rate-limited and cannot substitute for execution evidence.",
     "PHYSICAL FOUNDER HOST/MODEL: no owned/authorized Linux founder node with prepared dependencies and owner-supplied local model artifacts has yet produced source-root, systemd, Founder Console, local-model, isolated-worker, direct-dialogue, or repeated self-completion receipts.",
-    "PHYSICAL RELEASE/RUNTIME REHEARSAL: source now includes strict signer/courier receipt admission and an executable bounded runtime witness, but no real host has yet observed separate offline signer -> signed-release courier -> monotonic runtime admission -> Postgres/web/worker boot -> durable worker recovery -> Postgres/web/worker kill+reconcile -> backup/restore -> failed-promotion rollback -> reversible explicit rollback.",
+    "PHYSICAL RELEASE/RUNTIME REHEARSAL: source now includes strict signer/courier receipt admission, a root-only exact-current evidence importer, and an executable bounded runtime witness, but no real owner host has yet observed separate offline signer -> signed-release courier -> monotonic runtime admission -> Postgres/web/worker boot -> durable worker recovery -> Postgres/web/worker kill+reconcile -> backup/restore -> failed-promotion rollback -> reversible explicit rollback.",
     "EXTERNAL/PROVIDER: live PayPal merchant/KYC/callability/webhook truth, lawful outbound sender/DNS/transport/consent/legal-tax readiness, live alternate model/messaging/payment-provider callability and independent credential custody remain outside repository proof.",
     "EXTERNAL/COMMERCIAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0 and retainedCustomers=0. Source, sandbox payments, internal simulations and DELIVERY_READY cannot change these facts.",
     "ELAPSED/REALITY: longitudinal Personal Civilization outcomes, forecast calibration, observed autonomy duration and any system-level ASI claim require future external evidence and cannot be minted from source closure."
@@ -18,7 +18,9 @@
     "PR #646 merged at 8bda1e8b3537723a176c071803a8b2f9c6bf48ab. It fixed a clean-checkout first-boot blocker by changing install-authoring-node.sh and install-offline-llama-runtime.sh from Git mode 100644 to 100755 and pinning executable regression coverage.",
     "PR #647 merged at bf82ad515ff9cc3d9fbb4d725a05a892698f2944. It refreshed the canonical short-horizon handoff through the founder bootstrap while retaining 136 only as lineage evidence and preserving physical/external truth boundaries.",
     "PR #648 merged at d466ba0ec512daaa57732988934aee4a7a066867. It closed an unreachable readiness rung: signer and courier readiness can no longer be inferred from naked booleans or service liveness. Exact-current source-bound signer receipts plus matching zero-authority courier receipts are required, and founder first boot creates root-owned author-read-only /var/lib/uberbond-evidence. Focused hostile execution reported 24/24 pass; hosted CI again produced zero-step non-evidence.",
-    "PR #649 merged at 166d4557a7f2515d664c6e61e185adc9cb51de1d. It adds the executable owned-host runtime rehearsal witness and strict receipt verifier, composes existing backup/restore, durable worker recovery, exact Postgres/web/worker reconciliation, failed-promotion rollback and reversible explicit rollback, and quiesces automatic release apply during destructive rehearsal. Exact reconstructed-head focused execution after two caught test defects passed 30/30 with both shell parsers clean. This is source capability, not physical host proof."
+    "PR #649 merged at 166d4557a7f2515d664c6e61e185adc9cb51de1d. It added the executable owned-host runtime rehearsal witness and strict receipt verifier, composing existing backup/restore, durable worker recovery, exact Postgres/web/worker reconciliation, failed-promotion rollback and reversible explicit rollback while quiescing automatic release apply during destructive rehearsal. Exact reconstructed-head focused execution passed 30/30 with both shell parsers clean. This is source capability, not physical host proof.",
+    "PR #650 merged at 9e53833d95d65a1bd7d234f60802caf39d7280c3. It advanced CURRENT_HANDOFF through #649 so new sessions wake on the executable founder/runtime frontier rather than stale #646 truth.",
+    "PR #651 merged at 5a38d5f8e3c11f6b12ad49c06e895ea19684cac0. It eliminated the manual evidence-copy ritual with a root-only exact-current signer/courier/runtime importer. Admission is serialized with local promotion through the same PROMOTION.lock; source Git identity checks run as uberbond-promoter through a trusted configured Git executable; repository validators run as uberbond-author; source/receipt symlinks, stale source and malformed custody fail closed; admitted evidence is root:uberbond-autonomy:0640. Exact changed blobs were hash-matched to GitHub, the focused importer/readiness slice passed 28/28, both shell parsers passed, and a production-like promoter-owned integration admitted valid signer/courier/runtime receipts while refusing concurrent-promotion, stale-source and symlink cases. No real owner-host event is implied."
   ],
   "currentTruth": {
     "commercialProof": {
@@ -28,8 +30,8 @@
       "retainedCustomers": 0
     },
     "repositoryIdentity": {
-      "observedMain": "166d4557a7f2515d664c6e61e185adc9cb51de1d",
-      "observedMainTree": "e6f72f8cbdb6b2a7a7a369d88c9c9a8cbf39a039",
+      "observedMain": "5a38d5f8e3c11f6b12ad49c06e895ea19684cac0",
+      "observedMainTree": "b2ee2cab9faf9a2a68d9521585ff4c3d886722ed",
       "openPullRequestsAtCheckpoint": 0,
       "latestMainRequiresRefreshBeforeNewClaims": true
     },
@@ -40,24 +42,27 @@
       "founderBootstrapExecutableChildren646": "MERGED",
       "handoffRefresh647": "MERGED",
       "signedReleaseEvidenceReadiness648": "MERGED",
-      "ownedHostRuntimeWitness649": "MERGED"
+      "ownedHostRuntimeWitness649": "MERGED",
+      "runtimeWitnessHandoff650": "MERGED",
+      "protectedEvidenceImporter651": "MERGED"
     },
     "exactHeadExecutionEvidence": {
-      "classification": "FOCUSED_POST_649_SOURCE_SLICE_EXECUTED__FULL_TERMINAL_REGENERATION_PENDING",
-      "focusedHead": "511b5382de7eee7c38747cf2bf8f94c2156b91ca",
-      "focusedTests": 30,
-      "focusedPass": 30,
+      "classification": "FOCUSED_POST_651_SOURCE_SLICE_EXECUTED__FULL_TERMINAL_REGENERATION_PENDING",
+      "focusedHead": "e8412581e139bac1824d678cfe4b8a81f61db496",
+      "focusedTests": 28,
+      "focusedPass": 28,
       "focusedFail": 0,
       "focusedSkipped": 0,
-      "shellParse": "PASS_FOR_RUNTIME_REHEARSAL_AND_HOST_INSTALLER",
-      "hostedWorkflowPattern": "jobs completed with null/empty steps",
-      "claim": "FOCUSED SOURCE BEHAVIOR IS EXECUTED; FULL EXACT-CURRENT TERMINAL TRUTH AND PHYSICAL HOST EXECUTION REMAIN SEPARATE"
+      "shellParse": "PASS_FOR_EVIDENCE_IMPORTER_AND_AUTHORING_INSTALLER",
+      "productionLikeIntegration": "PROMOTER_OWNED_SOURCE_VALID_SIGNER_COURIER_RUNTIME_ADMISSION_AND_HOSTILE_REFUSALS_OBSERVED",
+      "hostedWorkflowPattern": "GitHub jobs completed with null/empty steps; Vercel statuses reported deployment rate limit",
+      "claim": "FOCUSED SOURCE BEHAVIOR AND THE EVIDENCE-IMPORT OWNERSHIP GEOMETRY ARE EXECUTED; FULL EXACT-CURRENT TERMINAL TRUTH AND PHYSICAL OWNER-HOST EXECUTION REMAIN SEPARATE"
     },
     "terminalFiniteTruth": {
-      "classification": "LATEST_EXECUTED_LINEAGE_EVIDENCE_NOT_EXACT_POST_649_FULL_TERMINAL",
+      "classification": "LATEST_EXECUTED_LINEAGE_EVIDENCE_NOT_EXACT_POST_651_FULL_TERMINAL",
       "latestObservedFiniteSemanticContracts": 136,
       "latestObservedContext": "Merged-lineage terminal evidence referenced during the founder-bootstrap wave. Do not infer exact-current terminal closure from this number.",
-      "exactCurrentMainTerminalRun": "NOT_YET_OBSERVED_AFTER_166d4557a7f2515d664c6e61e185adc9cb51de1d"
+      "exactCurrentMainTerminalRun": "NOT_YET_OBSERVED_AFTER_5a38d5f8e3c11f6b12ad49c06e895ea19684cac0"
     },
     "sovereignBootstrap": {
       "sourceStack": "MERGED",
@@ -65,6 +70,7 @@
       "bootstrapChildInstallerModes": "EXECUTABLE_IN_GIT",
       "doctorAndReadinessDialogue": "MERGED",
       "strictSignerCourierReceiptAdmission": "MERGED",
+      "protectedExactCurrentEvidenceImporter": "MERGED",
       "ownedHostRuntimeRehearsalWitness": "MERGED",
       "ownedLinuxHostObserved": false,
       "ownerSuppliedLocalModelAttested": false,
@@ -78,18 +84,18 @@
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "latestOrchestrationCheckpoint": {
-    "id": "SOVEREIGN_FOUNDER_BOOTSTRAP_PLUS_RUNTIME_WITNESS_SOURCE_LANDED",
-    "status": "SOURCE_PATH_TO_SELF_COMPLETION_AND_RUNTIME_PROOF_IS_EXECUTABLE__PHYSICAL_ACTIVATION_AND_EXACT_CURRENT_TERMINAL_PROOF_REMAIN",
-    "observedMain": "166d4557a7f2515d664c6e61e185adc9cb51de1d",
-    "verdict": "THE SOURCE-SIDE BRAINSTEM NOW HAS FOUNDER FIRST BOOT, STRICT SIGNER/COURIER EVIDENCE ADMISSION AND A BOUNDED REAL-HOST RUNTIME REHEARSAL WITNESS. NEXT VALUE IS EXECUTED EXACT-CURRENT TRUTH AND PHYSICAL ACTIVATION, NOT ANOTHER PARALLEL CONTROL PLANE.",
-    "next": "Execute the full exact-current terminal tribunal on a trustworthy executor. Repair only reproducible internal failures. If no internal defect remains, activate the owner-controlled Linux founder node with owner-supplied local model artifacts and run the separate signer/courier/runtime rehearsal to produce real receipts."
+    "id": "SOVEREIGN_FOUNDER_BOOTSTRAP_RUNTIME_WITNESS_AND_EVIDENCE_INGRESS_SOURCE_LANDED",
+    "status": "SOURCE_PATH_TO_SELF_COMPLETION_SIGNED_RELEASE_EVIDENCE_AND_RUNTIME_PROOF_IS_EXECUTABLE__PHYSICAL_ACTIVATION_AND_FULL_EXACT_CURRENT_TERMINAL_PROOF_REMAIN",
+    "observedMain": "5a38d5f8e3c11f6b12ad49c06e895ea19684cac0",
+    "verdict": "THE SOURCE-SIDE BRAINSTEM NOW HAS FOUNDER FIRST BOOT, STRICT SIGNER/COURIER EVIDENCE ADMISSION, A ROOT-ONLY EXACT-CURRENT EVIDENCE IMPORTER AND A BOUNDED REAL-HOST RUNTIME REHEARSAL WITNESS. NEXT VALUE IS EXECUTED EXACT-CURRENT TRUTH AND PHYSICAL ACTIVATION, NOT ANOTHER PARALLEL CONTROL PLANE.",
+    "next": "Execute the full exact-current terminal tribunal on a trustworthy executor. Repair only reproducible internal failures. If no internal defect remains, activate the owner-controlled Linux founder node with owner-supplied local model artifacts and run the separate signer/courier/runtime rehearsal; admit resulting receipts through the protected importer."
   },
   "nextActions": [
-    "Run canonical current-truth regeneration plus scripts/terminal-realization.mjs on exact current main using a trustworthy executing substrate. Record source SHA, actual pass/fail/skip counts and generated receipt digests; queued/zero-step jobs are not execution.",
+    "Run canonical current-truth regeneration plus scripts/terminal-realization.mjs on exact current main using a trustworthy executing substrate. Record source SHA, actual pass/fail/skip counts and generated receipt digests; queued/zero-step jobs and rate-limited deployments are not execution.",
     "If exact-current terminal execution exposes an internally reproducible defect, repair the smallest causal seam, add hostile coverage and rerun. If remaining contracts require physical runtime, owner, provider, customer or elapsed evidence, stop source inflation and advance that evidence gate.",
     "On an owned/authorized Linux host, execute bootstrap-founder-node.sh with prepared dependencies and owner-supplied llama-server/GGUF/model identity. Verify exact installed source, systemd automation, Founder Console reachability, local model attestation, isolated worker readiness, direct dialogue and repeated self-completion receipts.",
     "Exercise the separated release chain for the exact current source: release request -> separate offline signer -> signer receipt -> zero-authority courier -> courier receipt -> runtime inbox -> signed monotonic admission.",
-    "On the runtime host with two distinct known-good admitted releases and a valid signed failing candidate, execute /opt/uberbond/control/sovereign-runtime-rehearsal. Preserve fail-closed external effects and import the resulting strict runtime receipt into the founder node evidence root through a separate owner/root custody action.",
+    "On the runtime host with two distinct known-good admitted releases and a valid signed failing candidate, execute /opt/uberbond/control/sovereign-runtime-rehearsal. Preserve fail-closed external effects and admit the resulting strict runtime receipt to the founder evidence root only through /opt/uberbond/control/import-sovereign-evidence.sh runtime RECEIPT under owner/root custody.",
     "Only after named-host proof, activate lawful external gates with real evidence: provider configuration/callability, real prospect/customer interaction, provider-origin payment, accepted delivery and retention. Preserve external-effect and owner-choice boundaries.",
     "Preserve founder-private life state as encrypted founder-interactive data. Recommendation never becomes choice; capability never creates authority; prediction never becomes preference; DELIVERY_READY never becomes customer acceptance."
   ],
@@ -106,17 +112,17 @@
     "realityCalibrationPercent": 38,
     "sovereignContinuumRuntimePercent": 92
   },
-  "schemaVersion": "uberbond-handoff-2.6.0",
-  "sourceCommit": "166d4557a7f2515d664c6e61e185adc9cb51de1d",
-  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, every canon pointer, this handoff and current readiness in that order. Historical donor stacks remain historical unless new evidence proves a missing mechanism. Never quote old coverage or terminal counts as exact-current. Queued and zero-step jobs are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. A finite engineering closure claim requires an actually executed declared denominator; physical runtime, commercial, personal-reality and ASI facets remain separate.",
+  "schemaVersion": "uberbond-handoff-2.7.0",
+  "sourceCommit": "5a38d5f8e3c11f6b12ad49c06e895ea19684cac0",
+  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, every canon pointer, this handoff and current readiness in that order. Historical donor stacks remain historical unless new evidence proves a missing mechanism. Never quote old coverage or terminal counts as exact-current. Queued/zero-step jobs and rate-limited deployments are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. A finite engineering closure claim requires an actually executed declared denominator; physical runtime, commercial, personal-reality and ASI facets remain separate.",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "truthBoundary": "This handoff records source convergence and current blockers. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
   "terminalOrchestrationProof": {
-    "version": "terminal-sovereign-bootstrap-current-main.3",
-    "status": "FOUNDER_BOOTSTRAP_AND_RUNTIME_WITNESS_SOURCE_MERGED__FULL_EXACT_CURRENT_TERMINAL_AND_OWNED_HOST_PROOF_PENDING",
-    "observedMain": "166d4557a7f2515d664c6e61e185adc9cb51de1d",
+    "version": "terminal-sovereign-bootstrap-current-main.4",
+    "status": "FOUNDER_BOOTSTRAP_PROTECTED_EVIDENCE_INGRESS_AND_RUNTIME_WITNESS_SOURCE_MERGED__FULL_EXACT_CURRENT_TERMINAL_AND_OWNED_HOST_PROOF_PENDING",
+    "observedMain": "5a38d5f8e3c11f6b12ad49c06e895ea19684cac0",
     "sourceMechanisms": [
       "scripts/terminal-realization.mjs",
       "src/finite-closure-tribunal.mjs",
@@ -130,6 +136,7 @@
       "ops/sovereign/install-authoring-node.sh",
       "ops/sovereign/install-offline-llama-runtime.sh",
       "ops/sovereign/uberbond-authorctl",
+      "ops/sovereign/import-sovereign-evidence.sh",
       "ops/sovereign/sovereign-runtime-rehearsal.sh",
       "ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs",
       "ops/sovereign/uberbondctl",

@@ -1,20 +1,24 @@
 {
-  "activeMission": "Execute the exact-current finite engineering tribunal and sovereign owned-host rehearsal. Do not reopen already-merged architecture or stale donor stacks unless new evidence proves a concrete defect.",
+  "activeMission": "Execute exact-current finite engineering proof from the latest sovereign founder-bootstrap lineage, repair only reproducible internal defects, then advance the owned-host sovereign rehearsal. Do not reopen already-merged architecture or stale donor stacks without new causal evidence.",
   "blockers": [
-    "EXECUTION PROOF REQUIRED: exact-current GitHub Actions jobs for the latest convergence heads are failing before runner assignment with runner_id=0 and steps=[]. This is infrastructure non-evidence, not a test pass or code failure. Canonical current-truth regeneration and terminal-realization scripts therefore remain unexecuted on exact current main.",
-    "RUNTIME PROOF REQUIRED: sovereign self-hosting source is on main, but no owned/authorized Linux host has yet executed source/dependency/image pack -> transfer -> install -> signed exact-release admission -> Postgres/web/worker boot -> bounded durable workload -> crash/restart reconciliation -> backup/restore -> failed-promotion rollback -> explicit rollback.",
-    "EXTERNAL/PROVIDER: live PayPal merchant/KYC/callability/webhook/provider truth, lawful outbound sender/DNS/transport/consent/legal-tax readiness, live alternate model/messaging/payment provider callability and independent credential custody remain outside repository proof.",
+    "EXECUTION PROOF REQUIRED: latest main contains the terminal tribunal plus founder self-completion bootstrap, but no exact-current full terminal regeneration has yet been observed after PR #646. Hosted workflow jobs may be queued or fail before runner assignment; zero-step or unexecuted jobs remain infrastructure non-evidence.",
+    "PHYSICAL HOST/MODEL REQUIRED: source now exposes a one-command founder-node bootstrap and direct readiness doctor, but no owned/authorized Linux machine with owner-supplied local model artifacts has yet produced the required host/model/runtime receipts. Repository code must not secretly download or substitute cloud dependencies to erase this boundary.",
+    "RUNTIME PROOF REQUIRED: the separated release path still needs real owned-host observation across offline signer -> signed-release courier -> monotonic runtime admission -> Postgres/web/worker boot -> durable replay-safe workload -> crash/restart reconciliation -> backup/restore -> failed-promotion rollback -> explicit rollback.",
+    "EXTERNAL/PROVIDER: live PayPal merchant/KYC/callability/webhook truth, lawful outbound sender/DNS/transport/consent/legal-tax readiness, live alternate model/messaging/payment-provider callability and independent credential custody remain outside repository proof.",
     "EXTERNAL/COMMERCIAL: realCustomers=0, clearedRevenueUsd=0, acceptedPaidDeliveries=0 and retainedCustomers=0. Source, sandbox payments, internal simulations and DELIVERY_READY cannot change these facts.",
-    "ELAPSED/REALITY: longitudinal personal-life outcomes, forecast calibration, observed autonomy duration and any system-level ASI claim require real future evidence and cannot be minted from source closure."
+    "ELAPSED/REALITY: longitudinal Personal Civilization outcomes, forecast calibration, observed autonomy duration and any system-level ASI claim require future external evidence and cannot be minted from source closure."
   ],
-  "checkpointedAt": "2026-09-09",
+  "checkpointedAt": "2026-09-10",
   "completed": [
-    "Cash artery, provider-neutral backend, durable recurring scheduler, delivery transport/silence truth, restart/recovery harness, missing-capability handoff, Constraint Mutation and founder-interactive encrypted Personal Civilization runtime remain merged on main from the prior convergence wave.",
-    "Sovereign self-hosting source was cleanly transplanted from stale PR #594 onto then-current main without its stale ancestry and merged through PR #597 at c6e836a51490697b3b59bbfa968b420a2a784ca0. The 16-file slice includes offline immutable Docker runtime, local release inbox, signed monotonic release admission, independent systemd reconciliation, backup/restore/rollback and sovereign kit export/import. This is source capability, not real-host proof.",
-    "C11 governance-organ reachability repair merged on current lineage at c4993c5745d7d6bfb34e26a0c1525312e4816e80. It provides an inert operator import surface and does not create external-effect authority.",
-    "Terminal finite-closure machinery was cleanly transplanted from stale PR #593 onto current main without its 25-commit stale ancestry and merged through PR #598 at 7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3. The 20-file payload adds semantic no-drop requirement tribunals, composed effect-authority cut sets, recursive principal/credential/custody separation, sovereign failure-cut auditing, canonical continuation composition and finite closure with separated runtime/commercial/ASI/human truth.",
-    "Stale donor PR #593 and stacked sovereign PR #594 are closed as superseded historical donors. Do not merge them. Their useful final payloads are represented by clean PRs #598 and #597 respectively.",
-    "Open pull-request queue was observed empty immediately after #598 merge and donor retirement. Closed issue #501 is historical execution provenance, not an active construction queue."
+    "Cash artery, provider-neutral backend, durable recurring scheduler, delivery transport/silence truth, restart/recovery harness, missing-capability handoff, Constraint Mutation and founder-interactive encrypted Personal Civilization runtime remain merged from prior convergence waves.",
+    "Sovereign self-hosting source was cleanly transplanted from stale PR #594 onto then-current main without its stale ancestry and merged through PR #597 at c6e836a51490697b3b59bbfa968b420a2a784ca0. The slice includes offline immutable Docker runtime, local release inbox, signed monotonic release admission, independent systemd reconciliation, backup/restore/rollback and sovereign kit export/import. This is source capability, not real-host proof.",
+    "C11 governance-organ reachability repair merged on the current lineage at c4993c5745d7d6bfb34e26a0c1525312e4816e80. It provides an inert operator import surface and does not create external-effect authority.",
+    "Terminal finite-closure machinery was cleanly transplanted from stale PR #593 onto current main without its stale ancestry and merged through PR #598 at 7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3. It adds semantic no-drop requirement tribunals, composed effect-authority cut sets, recursive principal/credential/custody separation, sovereign failure-cut auditing, canonical continuation composition and finite closure with runtime/commercial/ASI/human truth separated.",
+    "Stale donor PR #593 and stacked sovereign PR #594 remain closed as superseded historical donors. Do not merge them; preserve their reconciliation status and donated mechanisms in memory rather than deleting the named initiatives.",
+    "PR #643 merged at 7c80251612bf38ebc2bbb266230c952fa6277e0a, closing the exact historical-memory enforcement identity seam with a finite reviewed canonical-equivalence pair while preserving exact matching elsewhere. Independent focused hostile execution reported 7/7 pass. Its expected terminal effect was reduction from 137 to 136 finite semantic contracts, and later merged-lineage evidence preserved 136 rather than claiming zero.",
+    "PR #644 merged at 8994f5f8ef549a619e452e21990e5fd3d142f63e. It added compileSovereignBootstrapReadiness, the sovereign-bootstrap doctor, founder doctor/readiness dialogue routes, staged source/host/model/self-completion/release/runtime truth and explicit non-dependence of the local self-completion loop on GitHub, Vercel or public-cloud models. Focused readiness/collector hostile execution reported 13/13 pass.",
+    "PR #645 merged at 0e9177b650361e528db8cdc481fb5a87c84bdefb. It exposed the strict one-command founder-node first boot. Exact-head focused hostile execution reported 4/4 pass and shell syntax passed; the merge explicitly preserved the 136 finite-contract terminal truth observed on its exercised ancestor and added no cloud fallback or authority expansion.",
+    "PR #646 merged at 8bda1e8b3537723a176c071803a8b2f9c6bf48ab. It fixed a clean-checkout first-boot blocker by changing only install-authoring-node.sh and install-offline-llama-runtime.sh from Git mode 100644 to 100755 and adding a regression assertion that bootstrap plus both child installers remain executable. No installer content or authority changed."
   ],
   "currentTruth": {
     "commercialProof": {
@@ -24,8 +28,8 @@
       "retainedCustomers": 0
     },
     "repositoryIdentity": {
-      "observedMain": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
-      "observedMainTree": "59704da2b37611272ae2a78fa78e6093ec6902d1",
+      "observedMain": "8bda1e8b3537723a176c071803a8b2f9c6bf48ab",
+      "observedMainTree": "28108df2b673a6483adfce4a059d03dad46018b0",
       "openPullRequestsAtCheckpoint": 0,
       "latestMainRequiresRefreshBeforeNewClaims": true
     },
@@ -34,7 +38,11 @@
       "governanceReachability596": "MERGED",
       "terminalFiniteClosure598": "MERGED",
       "staleTerminalDonor593": "CLOSED_SUPERSEDED",
-      "staleSovereignDonor594": "CLOSED_SUPERSEDED"
+      "staleSovereignDonor594": "CLOSED_SUPERSEDED",
+      "historicalMemoryIdentity643": "MERGED",
+      "sovereignBootstrapReadiness644": "MERGED",
+      "sovereignFounderFirstBoot645": "MERGED",
+      "founderBootstrapExecutableChildren646": "MERGED"
     },
     "generatedCoverage": {
       "classification": "HISTORICAL_SNAPSHOT_NOT_CURRENT",
@@ -48,31 +56,48 @@
       "historicalSourceCommit": "19c6109641bd515a9526821355113caf85c34234"
     },
     "exactHeadExecutionEvidence": {
-      "classification": "NOT_EXECUTED_DUE_RUNNER_ALLOCATION_FAILURE",
-      "observedFailurePattern": "runner_id=0; steps=[]",
-      "claim": "NO_PASS_OR_FAIL_INFERENCE_FROM_ZERO_STEP_JOBS"
+      "classification": "NOT_EXECUTED_ON_EXACT_CURRENT_MAIN_AFTER_PR_646",
+      "priorFailurePattern": "runner_id=0; steps=[]",
+      "claim": "NO_PASS_OR_FAIL_INFERENCE_FROM_QUEUED_OR_ZERO_STEP_JOBS"
+    },
+    "terminalFiniteTruth": {
+      "classification": "LATEST_EXECUTED_LINEAGE_EVIDENCE_NOT_EXACT_CURRENT_MAIN",
+      "latestObservedFiniteSemanticContracts": 136,
+      "latestObservedContext": "Merged-lineage evidence referenced by PR #645; do not infer exact-current-main closure from this historical execution.",
+      "exactCurrentMainTerminalRun": "NOT_YET_OBSERVED_AFTER_8bda1e8b3537723a176c071803a8b2f9c6bf48ab"
+    },
+    "sovereignBootstrap": {
+      "sourceStack": "MERGED",
+      "founderFirstBootEntrypoint": "MERGED",
+      "bootstrapChildInstallerModes": "EXECUTABLE_IN_GIT_AFTER_PR_646",
+      "doctorAndReadinessDialogue": "MERGED",
+      "ownedLinuxHostObserved": false,
+      "ownerSuppliedLocalModelAttested": false,
+      "repeatedAutonomousSelfCompletionObserved": false,
+      "separateSignerToRuntimeRehearsalObserved": false
     },
     "providerIndependentHostProof": "NOT_YET_OBSERVED_ON_AN_INDEPENDENT_OWNED_OR_AUTHORIZED_HOST",
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "latestOrchestrationCheckpoint": {
-    "id": "SOVEREIGN_HOST_PLUS_TERMINAL_FINITE_CLOSURE_CURRENT_MAIN",
-    "status": "SOURCE_CONVERGED__EXACT_CURRENT_EXECUTION_PENDING",
-    "observedMain": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
-    "verdict": "KNOWN_STALE_SOURCE_STACKS_REHOMED; NEXT_VALUE_IS_EXECUTED_PROOF_NOT_MORE_ARCHITECTURE",
-    "next": "Run exact-current current-truth regeneration and scripts/terminal-realization.mjs on the first trustworthy executing substrate. Repair only reproducible internal failures; otherwise advance the owned-host rehearsal."
+    "id": "SOVEREIGN_SELF_COMPLETION_SOURCE_BOOTSTRAP_LANDED",
+    "status": "SOURCE_BOOTSTRAP_READY_FOR_PHYSICAL_ACTIVATION__EXACT_CURRENT_TERMINAL_AND_HOST_PROOF_REMAIN",
+    "observedMain": "8bda1e8b3537723a176c071803a8b2f9c6bf48ab",
+    "verdict": "SOURCE-SIDE FOUNDER BOOTSTRAP IS NOW COMPOSED AND CLEAN-CHECKOUT EXECUTABLE; NEXT VALUE IS EXECUTED EXACT-CURRENT PROOF AND OWNED-HOST ACTIVATION, NOT ANOTHER PARALLEL CONTROL PLANE.",
+    "next": "Run exact-current terminal truth on the first trustworthy executor. If it exposes a reproducible internal defect, repair the smallest causal seam. Otherwise activate the owner-controlled Linux host with the supplied local model and execute the complete sovereign signer/courier/runtime rehearsal."
   },
   "nextActions": [
-    "On the first trustworthy executing substrate, refresh exact main and run the canonical current-truth regeneration plus scripts/terminal-realization.mjs. Record exact source SHA, actual pass/fail/skip counts and generated receipt digests. Do not infer results from source presence or zero-step CI jobs.",
-    "If the exact-current tribunal exposes an internally reproducible defect, repair the smallest causal seam, add hostile coverage and rerun. If it passes, do not invent another framework simply to keep coding.",
-    "Execute the sovereign owned-host rehearsal on owned/authorized Linux: export source/dependency/image kit, transfer offline if needed, install host control plane, initialize release authority, admit the exact signed candidate, boot Postgres/web/worker, authenticate, execute a bounded durable replay-safe job, kill/restart, reconcile, prove backup/restore, force a failed promotion and observe automatic rollback, then perform explicit rollback.",
+    "Refresh exact main and run canonical current-truth regeneration plus scripts/terminal-realization.mjs on a trustworthy executing substrate. Record exact source SHA, actual pass/fail/skip counts and receipt digests. Do not infer results from source presence, queued jobs or zero-step jobs.",
+    "If the exact-current tribunal exposes an internally reproducible defect, repair the smallest causal seam, add hostile coverage and rerun. If the only remaining contracts require runtime, owner, provider, customer or elapsed evidence, stop source inflation and advance the corresponding real-world gate.",
+    "On an owned/authorized Linux host, execute the founder-node bootstrap with prepared dependencies and owner-supplied local model artifacts. Verify source identity, systemd automation, Founder Console reachability, local model attestation, isolated worker readiness and repeated self-completion receipts.",
+    "Execute the separated release rehearsal: release request -> separate offline signer -> signed-release courier -> runtime inbox -> signature/checksum/sequence admission -> Postgres/web/worker boot -> bounded durable replay-safe job -> crash/restart -> reconciliation -> backup/restore -> forced failed promotion and automatic rollback -> explicit rollback.",
     "After named-host proof, activate only lawful external gates with real evidence: provider configuration/callability, real prospect/customer interaction, provider-origin payment, accepted delivery and retention. Preserve external-effect and owner-choice boundaries.",
     "Keep Vercel and GitHub-hosted runners as optional diagnostic/transit surfaces, not the sovereignty root. Never make provider quotas, CI availability or one SaaS control plane a prerequisite for UberBond continuity.",
     "Preserve founder-private life state as encrypted founder-interactive data. Recommendation never becomes choice; capability never creates authority; prediction never becomes preference; DELIVERY_READY never becomes customer acceptance."
   ],
   "provisionalProgress": {
-    "boundary": "Prior integration percentages are retained only as historical estimates because exact-current generators have not executed after the latest convergence. Do not increase them from source merges alone and do not treat them as proof of runtime, customers, revenue, acceptance, retention, life improvement or ASI.",
+    "boundary": "These remain historical directional estimates, not proof. They must not increase merely because source merged. Exact-current terminal execution, owned-host runtime, real customers/revenue/acceptance/retention and longitudinal life evidence are separate denominators.",
     "classification": "HISTORICAL_ESTIMATE_NOT_RECOMPUTED_AT_THIS_CHECKPOINT",
     "canonPercent": 99,
     "deploymentRuntimeReadinessPercent": 98,
@@ -85,16 +110,16 @@
     "sovereignContinuumRuntimePercent": 92
   },
   "schemaVersion": "uberbond-handoff-2.4.0",
-  "sourceCommit": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
-  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, canon pointers, this handoff and current readiness in that order. Stale donor PRs #593/#594 are historical only. Never quote historical coverage counts as current. Zero-step jobs are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. 100% may describe only a declared finite engineering denominator actually proven by the terminal tribunal; runtime, commercial, personal-reality and ASI facets remain separate.",
+  "sourceCommit": "8bda1e8b3537723a176c071803a8b2f9c6bf48ab",
+  "startupLaw": "Refresh live main, open PRs/issues and runtime/provider truth before present-tense claims. Read AGENTS.md, CANON, BOOTSTRAP, MASTER_MEMORY, memory index, canon pointers, this handoff and current readiness in that order. Stale donor PRs #593/#594 are historical only and their named initiatives/reconciliation status must remain preserved. Never quote old coverage or terminal counts as exact-current. Queued and zero-step jobs are infrastructure non-evidence. Same blocker + same strategy + no new safe evidence => mutate strategy. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. A finite engineering closure claim requires an actually executed declared denominator; runtime, commercial, personal-reality and ASI facets remain separate.",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding Mohamed's sovereign free will. Mohamed provides will. UberBond provides intelligence. Reality provides feedback.",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "truthBoundary": "This handoff records source convergence and current blockers. It creates no external authority, customer, payment, acceptance, retention, provider entitlement, independent-host runtime, superintelligence, perfect prediction or observed life improvement.",
   "terminalOrchestrationProof": {
-    "version": "terminal-current-main-convergence.1",
-    "status": "SOURCE_MACHINERY_MERGED__EXECUTION_PROOF_PENDING",
-    "observedMain": "7178e2a0d52ebb6d6899d9ec0b2190549a8b7ad3",
+    "version": "terminal-sovereign-bootstrap-current-main.2",
+    "status": "FOUNDER_BOOTSTRAP_SOURCE_MERGED__EXACT_CURRENT_EXECUTION_AND_OWNED_HOST_PROOF_PENDING",
+    "observedMain": "8bda1e8b3537723a176c071803a8b2f9c6bf48ab",
     "sourceMechanisms": [
       "scripts/terminal-realization.mjs",
       "src/finite-closure-tribunal.mjs",
@@ -102,10 +127,15 @@
       "src/composed-effect-authority-audit.mjs",
       "src/recursive-governance-principals.mjs",
       "src/sovereign-cut-set-audit.mjs",
-      "ops/sovereign/uberbondctl",
+      "src/sovereign-bootstrap-readiness.mjs",
+      "scripts/sovereign-bootstrap-doctor.mjs",
+      "ops/sovereign/bootstrap-founder-node.sh",
+      "ops/sovereign/install-authoring-node.sh",
+      "ops/sovereign/install-offline-llama-runtime.sh",
+      "ops/sovereign/uberbond-authorctl",
       "docker-compose.sovereign.yml"
     ],
-    "nextExecutor": "First trustworthy exact-current Node/Postgres/owned-host runner",
-    "admissionGate": "No finite closure claim until exact-current regeneration and terminal tribunal execute. No runtime sovereignty claim until the owned-host drill produces real receipts. No commercial or ASI claim without external evidence."
+    "nextExecutor": "First trustworthy exact-current Node/Postgres executor plus the first owned/authorized Linux founder host",
+    "admissionGate": "No finite closure claim until exact-current regeneration and terminal tribunal execute. No local self-completion or runtime sovereignty claim until the owner-controlled host and local model produce real receipts. No commercial or ASI claim without external evidence."
   }
 }

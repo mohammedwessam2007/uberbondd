@@ -65,16 +65,18 @@ test('descendant objective survives the canonical 1200-character relay ceiling w
   assert.match(task.objective, /Return one bounded AgentCodeChangeSet/);
 });
 
-test('autocatalytic workflow fires after maintainer completion and keeps recovery clock', () => {
+test('hosted Sandwich workflow is manual fallback only', () => {
   const workflow = readFileSync(new URL('../.github/workflows/uberbond-sandwich-autocatalytic.yml', import.meta.url), 'utf8');
-  assert.match(workflow, /workflow_run:\s*\n\s*workflows:\s*\n\s*- UberBond Self Maintainer\s*\n\s*types:\s*\n\s*- completed/);
-  assert.match(workflow, /cron: '\*\/15 \* \* \* \*'/);
+  assert.match(workflow, /on:\s*\n\s*workflow_dispatch:/);
+  assert.doesNotMatch(workflow, /\n\s*schedule:/);
+  assert.doesNotMatch(workflow, /\n\s*workflow_run:/);
+  assert.doesNotMatch(workflow, /cron:/);
   assert.match(workflow, /persist-credentials: false/);
   assert.match(workflow, /contents: read/);
   assert.doesNotMatch(workflow, /contents: write/);
 });
 
-test('workflow regenerates truth before descendant seeding and dispatch', () => {
+test('manual hosted fallback preserves truth regeneration before descendant seeding and dispatch', () => {
   const workflow = readFileSync(new URL('../.github/workflows/uberbond-sandwich-autocatalytic.yml', import.meta.url), 'utf8');
   const truth = workflow.indexOf('Regenerate exact-current terminal truth');
   const seed = workflow.indexOf('Seed one post-finite descendant requirement task');

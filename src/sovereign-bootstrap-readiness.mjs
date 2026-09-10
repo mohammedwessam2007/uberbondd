@@ -1,10 +1,10 @@
-export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.1';
+export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.2';
 export const OFFLINE_MODEL_STATUS='OFFLINE_LOCAL_MODEL_RUNTIME_INSTALLED_AND_LOOPBACK_ATTESTED';
 const SHA40=/^[a-f0-9]{40}$/i;
 const SHA64=/^[a-f0-9]{64}$/i;
 
 export const REQUIRED_SOURCE_CONTRACTS=Object.freeze([
-  'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringTimer',
+  'authorctl','autonomyPulse','continuumPulse','founderConsole','founderConsoleServer','authoringTimer',
   'workerPath','workerService','verifierPath','verifierService','promoterPath',
   'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller'
 ]);
@@ -94,6 +94,6 @@ export function compileSovereignBootstrapReadiness(input={}){
       publicCloudModelRequiredForSelfCompletion:false
     },
     authority:{businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',releaseSigningAuthority:'SEPARATE',runtimeDeploymentAuthority:'SEPARATE'},
-    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. It does not prove signed deployment, runtime rehearsal, customer/payment outcomes, Personal Civilization outcomes, or ASI.'
+    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop, including the post-finite Continuum frontier gear, is observed configured on this exact source root and commit. It does not prove signed deployment, runtime rehearsal, customer/payment outcomes, Personal Civilization outcomes, or ASI.'
   };
 }

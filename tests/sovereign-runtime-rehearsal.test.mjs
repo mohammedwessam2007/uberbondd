@@ -116,7 +116,7 @@ test('receipt distinguishes Postgres process recovery from worker crash recovery
 test('runtime installer exposes the rehearsal through the existing control plane only',()=>{
   const installer=readFileSync(new URL('../ops/sovereign/install-host.sh',import.meta.url),'utf8');
   assert.match(installer,/install -m 0755 .*sovereign-runtime-rehearsal\.sh.*\/sovereign-runtime-rehearsal/);
-  assert.match(installer,/separate owner\/root custody operation/);
+  assert.match(installer,/separate\s+owner\/root custody operation/);
   assert.doesNotMatch(installer,/release-private\.pem.*install|curl|wget|git clone/i);
 });
 

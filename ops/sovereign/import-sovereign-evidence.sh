@@ -19,9 +19,10 @@ for cmd in realpath stat install mv rm git getent; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "REFUSED: missing-command:$cmd" >&2; exit 2; }
 done
 NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
-[[ -n "$NODE" && -x "$NODE" && -f "$NODE" && ! -L "$NODE" ]] || { echo 'REFUSED: trusted-real-node-required' >&2; exit 2; }
-SOURCE_ROOT="$(realpath "$SOURCE_ROOT")"
+[[ -n "$NODE" && -x "$NODE" && -f "$NODE" ]] || { echo 'REFUSED: trusted-real-node-required' >&2; exit 2; }
 [[ -d "$SOURCE_ROOT/.git" && ! -L "$SOURCE_ROOT" ]] || { echo 'REFUSED: exact-installed-git-source-required' >&2; exit 2; }
+SOURCE_ROOT="$(realpath "$SOURCE_ROOT")"
+[[ -d "$SOURCE_ROOT/.git" && ! -L "$SOURCE_ROOT" ]] || { echo 'REFUSED: resolved-installed-git-source-required' >&2; exit 2; }
 [[ -z "$(git -C "$SOURCE_ROOT" status --porcelain)" ]] || { echo 'REFUSED: installed-source-must-be-clean' >&2; exit 2; }
 SOURCE_COMMIT="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"
 [[ "$SOURCE_COMMIT" =~ ^[0-9a-f]{40}$ ]] || { echo 'REFUSED: exact-source-commit-required' >&2; exit 2; }
@@ -32,8 +33,9 @@ SOURCE_COMMIT="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"
 [[ "$(stat -c %a "$EVIDENCE_ROOT")" == "750" ]] || { echo 'REFUSED: evidence-root-mode-must-be-0750' >&2; exit 2; }
 getent group uberbond-autonomy >/dev/null || { echo 'REFUSED: uberbond-autonomy-group-required' >&2; exit 2; }
 
-SOURCE_RECEIPT="$(realpath "$SOURCE_RECEIPT")"
 [[ -f "$SOURCE_RECEIPT" && ! -L "$SOURCE_RECEIPT" ]] || { echo 'REFUSED: regular-nonsymlink-receipt-required' >&2; exit 2; }
+SOURCE_RECEIPT="$(realpath "$SOURCE_RECEIPT")"
+[[ -f "$SOURCE_RECEIPT" && ! -L "$SOURCE_RECEIPT" ]] || { echo 'REFUSED: resolved-regular-receipt-required' >&2; exit 2; }
 RECEIPT_BYTES="$(stat -c %s "$SOURCE_RECEIPT")"
 [[ "$RECEIPT_BYTES" =~ ^[0-9]+$ && "$RECEIPT_BYTES" -gt 1 && "$RECEIPT_BYTES" -le 4000000 ]] || { echo 'REFUSED: bounded-receipt-size-required' >&2; exit 2; }
 
@@ -51,6 +53,8 @@ trap cleanup EXIT
 install -m 0640 -o root -g uberbond-autonomy "$SOURCE_RECEIPT" "$TMP"
 [[ -f "$TMP" && ! -L "$TMP" && "$(stat -c %u "$TMP")" == "0" && "$(stat -c %G "$TMP")" == "uberbond-autonomy" && "$(stat -c %a "$TMP")" == "640" ]] || { echo 'REFUSED: staged-evidence-custody-invalid' >&2; exit 2; }
 
+(
+cd "$SOURCE_ROOT"
 TYPE="$TYPE" RECEIPT_PATH="$TMP" EVIDENCE_ROOT="$EVIDENCE_ROOT" EXPECTED_SOURCE_COMMIT="$SOURCE_COMMIT" "$NODE" --input-type=module - <<'NODE'
 import fs from 'node:fs';
 import path from 'node:path';
@@ -82,6 +86,7 @@ if(type==='signer'){
 }
 if(!ok)process.exit(2);
 NODE
+)
 
 mv -f "$TMP" "$TARGET"
 trap - EXIT

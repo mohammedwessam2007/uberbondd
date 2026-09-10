@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const SAFE_RELEASE=/^release-[a-f0-9]{12}-[a-f0-9]{16}$/;
 const REQUIRED=['release.env','SHA256SUMS','release.sig','images.oci.tar'];
@@ -12,7 +13,7 @@ async function regular(p){const s=await lst(p);return !!s&&s.isFile()&&!s.isSymb
 async function directory(p){const s=await lst(p);return !!s&&s.isDirectory()&&!s.isSymbolicLink();}
 async function atomic(file,body){await fs.mkdir(path.dirname(file),{recursive:true});const tmp=`${file}.tmp.${process.pid}`;await fs.writeFile(tmp,body,{mode:0o640});await fs.rename(tmp,file);}
 async function inspectTree(root){let entries=0,bytes=0;const stack=[root];while(stack.length){const dir=stack.pop();for(const ent of await fs.readdir(dir,{withFileTypes:true})){entries++;if(entries>MAX_ENTRIES)return fail(['release-tree-entry-limit-exceeded']);const p=path.join(dir,ent.name);const s=await fs.lstat(p);if(s.isSymbolicLink())return fail(['release-tree-symlink-refused'],{path:p});if(s.isDirectory()){stack.push(p);continue;}if(!s.isFile())return fail(['release-tree-special-node-refused'],{path:p});bytes+=s.size;if(bytes>MAX_BYTES)return fail(['release-tree-byte-limit-exceeded']);}}return{ok:true,entries,bytes};}
-async function copyTree(src,dst){await fs.mkdir(dst,{recursive:true,mode:0o750});for(const ent of await fs.readdir(src,{withFileTypes:true})){const from=path.join(src,ent.name),to=path.join(dst,ent.name);if(ent.isDirectory())await copyTree(from,to);else await fs.copyFile(from,to);}}
+async function copyTree(src,dst){await fs.mkdir(dst,{recursive:true,mode:0o750});for(const name of await fs.readdir(src)){const from=path.join(src,name),to=path.join(dst,name);const s=await fs.lstat(from);if(s.isSymbolicLink())throw new Error(`copy-time-symlink-refused:${name}`);if(s.isDirectory()){await copyTree(from,to);continue;}if(!s.isFile())throw new Error(`copy-time-special-node-refused:${name}`);await fs.copyFile(from,to);}}
 
 export async function runSovereignReleaseCourier({env=process.env}={}){
   const sourceRoot=path.resolve(env.UBERBOND_RELEASE_COURIER_SOURCE||'/mnt/uberbond-signer-outbox');
@@ -36,4 +37,6 @@ export async function runSovereignReleaseCourier({env=process.env}={}){
   return receipt;
 }
 
-runSovereignReleaseCourier().then(r=>{process.stdout.write(`${JSON.stringify(r,null,2)}\n`);if(!r.ok)process.exitCode=2;}).catch(e=>{process.stdout.write(`${JSON.stringify(fail([`unexpected:${String(e?.message||e).slice(0,180)}`]),null,2)}\n`);process.exitCode=2;});
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
+  runSovereignReleaseCourier().then(r=>{process.stdout.write(`${JSON.stringify(r,null,2)}\n`);if(!r.ok)process.exitCode=2;}).catch(e=>{process.stdout.write(`${JSON.stringify(fail([`unexpected:${String(e?.message||e).slice(0,180)}`]),null,2)}\n`);process.exitCode=2;});
+}

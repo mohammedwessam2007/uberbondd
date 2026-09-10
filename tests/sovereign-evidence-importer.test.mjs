@@ -25,7 +25,19 @@ test('importer is root-only and accepts only three fixed evidence classes',()=>{
   assert.match(importer,/evidence-type-must-be-signer-courier-or-runtime/);
 });
 
-test('receipt symlinks are refused before realpath can erase their identity',()=>{
+test('config is data not root-executed shell and must have canonical custody',()=>{
+  assert.doesNotMatch(importer,/source\s+"?\$CONFIG"?/);
+  assert.match(importer,/authoring-config-custody-invalid/);
+  assert.match(importer,/stat -c %u "\$CONFIG"/);
+  assert.match(importer,/stat -c %G "\$CONFIG"/);
+  assert.match(importer,/stat -c %a "\$CONFIG"/);
+  assert.match(importer,/config_value\(\)/);
+  assert.match(importer,/single-source-root-config-required/);
+  assert.match(importer,/single-evidence-root-config-required/);
+  assert.match(importer,/single-node-config-required/);
+});
+
+test('receipt and source symlinks are refused before realpath can erase their identity',()=>{
   const reject=importer.indexOf('regular-nonsymlink-receipt-required');
   const resolve=importer.indexOf('SOURCE_RECEIPT="$(realpath "$SOURCE_RECEIPT")"');
   assert.ok(reject>=0&&resolve>reject,'symlink refusal must occur before receipt realpath');
@@ -34,13 +46,21 @@ test('receipt symlinks are refused before realpath can erase their identity',()=
   assert.ok(sourceReject>=0&&sourceResolve>sourceReject,'source symlink refusal must occur before source realpath');
 });
 
-test('importer binds validation to exact clean installed source and trusted source cwd',()=>{
+test('importer binds validation to exact clean promoter-owned installed source',()=>{
+  assert.match(importer,/installed-source-custody-invalid/);
+  assert.match(importer,/installed-source-must-not-be-group-or-world-writable/);
   assert.match(importer,/git -C "\$SOURCE_ROOT" status --porcelain/);
   assert.match(importer,/git -C "\$SOURCE_ROOT" rev-parse HEAD/);
   assert.match(importer,/\^\[0-9a-f\]\{40\}\$/);
   assert.match(importer,/cd "\$SOURCE_ROOT"/);
   assert.match(importer,/compileSovereignBootstrapReadiness/);
   assert.match(importer,/verifySovereignRuntimeRehearsalReceipt/);
+});
+
+test('untrusted repository validators execute as uberbond-author rather than root',()=>{
+  assert.match(importer,/runuser -u uberbond-author -- env/);
+  assert.match(importer,/uberbond-author-identity-required/);
+  assert.doesNotMatch(importer,/sudo|su\s+-/);
 });
 
 test('importer stages root-owned read-only evidence before atomic publication',()=>{
@@ -72,5 +92,6 @@ test('authoring install and doctor make importer part of the canonical bootstrap
   assert.match(installer,/install -d -m 0750 -o root -g uberbond-autonomy \/var\/lib\/uberbond-evidence/);
   assert.match(installer,/import-sovereign-evidence\.sh/);
   assert.match(installer,/UBERBOND_SOVEREIGN_EVIDENCE_ROOT=\/var\/lib\/uberbond-evidence/);
+  assert.match(installer,/\brunuser\b/);
   assert.match(installer,/root-only/);
 });

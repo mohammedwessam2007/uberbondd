@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "uberbond-self-completion-attractor-1.0.0",
+  "status": "FOUNDER_SELF_FOLDING_SPEC_WITH_EXECUTABLE_GAP_GRAPH_FOUNDATION",
+  "generatedAt": "2026-09-10T22:00:00+03:00",
+  "module": "src/self-completion-attractor.mjs",
+  "test": "tests/self-completion-attractor.test.mjs",
+  "gapStates": ["VERIFIED_CURRENT", "PARTIAL_CURRENT", "MISSING", "UNKNOWN"],
+  "closureClasses": [
+    "INTERNAL_SOURCE",
+    "INTERNAL_RESEARCH",
+    "FOUNDER_CHOICE",
+    "OWNED_PHYSICAL_HOST",
+    "EXTERNAL_PROVIDER",
+    "EXTERNAL_COMMERCIAL",
+    "ELAPSED_REALITY",
+    "UNKNOWN"
+  ],
+  "coreRule": "CLOSE_THE_HIGHEST_LEVERAGE_DEPENDENCY_SATISFIED_INTERNAL_GAP__THEN_RECOMPUTE_THE_NEGATIVE_IMAGE",
+  "importantInterpretation": "A_STRONGER_MODEL_REVEALING_MORE_MISSING_STRUCTURE_CAN_BE_PROGRESS_RATHER_THAN_REGRESSION",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THE_GAP_GRAPH_MODELS_MISSING_OR_UNVERIFIED_STRUCTURE_AND_DOES_NOT_PROVE_COMPLETENESS_PHYSICAL_EXECUTION_COMMERCIAL_PROOF_OR_ASI"
+}

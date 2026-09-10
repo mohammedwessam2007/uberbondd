@@ -108,6 +108,6 @@ test('authoring install and doctor make importer part of the canonical bootstrap
   assert.match(installer,/UBERBOND_SOVEREIGN_EVIDENCE_ROOT=\/var\/lib\/uberbond-evidence/);
   assert.match(installer,/UBERBOND_PROMOTION_DIR=\/var\/lib\/uberbond-promotion/);
   assert.match(installer,/\brunuser\b/);
-  assert.match(installer,/shared.*promotion.*lock/is);
+  assert.match(installer,/shares?.*promotion.*lock/is);
   assert.match(installer,/root-only/);
 });

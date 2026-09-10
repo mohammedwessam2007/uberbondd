@@ -15,6 +15,12 @@ const steps = [
   // Execute its exact-name/state-preservation regressions before the known
   // semantic backlog so a terminal refusal cannot hide a binder regression.
   ['node', ['--test', 'tests/semantic-enforcement-evidence.test.mjs']],
+  // The short parented-field accounting repair changes evidence classification
+  // immediately before terminal realization. Run its hostile contract first so
+  // a terminal semantic refusal cannot hide a regression in the repair itself.
+  // This test gate grants no implementation, authority, privacy, runtime,
+  // commercial, provider, personal-reality, or ASI status.
+  ['node', ['--test', 'tests/sovereign-short-field-parent-coverage.test.mjs']],
   // The founder Communication Center is the human-to-sovereign boundary. Parse
   // and execute its focused contracts before terminal realization so an unrelated
   // semantic backlog cannot hide a dialogue/history/auth regression.

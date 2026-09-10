@@ -19,7 +19,20 @@ async function directory(p){const s=await lst(p);return !!s&&s.isDirectory()&&!s
 async function atomic(file,body){await fs.mkdir(path.dirname(file),{recursive:true});const tmp=`${file}.tmp.${process.pid}`;await fs.writeFile(tmp,body,{mode:0o640});await fs.rename(tmp,file);}
 async function inspectTree(root){let entries=0,bytes=0;const stack=[root];while(stack.length){const dir=stack.pop();for(const ent of await fs.readdir(dir,{withFileTypes:true})){entries++;if(entries>MAX_ENTRIES)return fail(['release-tree-entry-limit-exceeded']);const p=path.join(dir,ent.name);const s=await fs.lstat(p);if(s.isSymbolicLink())return fail(['release-tree-symlink-refused'],{path:p});if(s.isDirectory()){stack.push(p);continue;}if(!s.isFile())return fail(['release-tree-special-node-refused'],{path:p});bytes+=s.size;if(bytes>MAX_BYTES)return fail(['release-tree-byte-limit-exceeded']);}}return{ok:true,entries,bytes};}
 async function copyTree(src,dst){await fs.mkdir(dst,{recursive:true,mode:0o750});for(const name of await fs.readdir(src)){const from=path.join(src,name),to=path.join(dst,name);const s=await fs.lstat(from);if(s.isSymbolicLink())throw new Error(`copy-time-symlink-refused:${name}`);if(s.isDirectory()){await copyTree(from,to);continue;}if(!s.isFile())throw new Error(`copy-time-special-node-refused:${name}`);await fs.copyFile(from,to);}}
-async function appliedReceipt(runtimeInbox,releaseName){for(const name of await fs.readdir(runtimeInbox)){if(!name.startsWith(`APPLIED-${releaseName}-`))continue;if(await regular(path.join(runtimeInbox,name)))return name;}return null;}
+async function appliedReceipt(runtimeInbox,releaseName){
+  const prefix=`APPLIED-${releaseName}-`;
+  for(const name of await fs.readdir(runtimeInbox)){
+    if(!name.startsWith(prefix))continue;
+    const file=path.join(runtimeInbox,name);
+    if(!await regular(file))return fail(['runtime-applied-receipt-must-be-regular'],{appliedReceipt:name});
+    const timestamp=name.slice(prefix.length);
+    if(!/^\d{8}T\d{6}Z$/.test(timestamp))return fail(['runtime-applied-receipt-name-invalid'],{appliedReceipt:name});
+    const claimed=String(await fs.readFile(file,'utf8')).trim();
+    if(claimed!==releaseName)return fail(['runtime-applied-receipt-content-mismatch'],{appliedReceipt:name,releaseName});
+    return{ok:true,name};
+  }
+  return{ok:true,name:null};
+}
 function placementRecord(releaseName,nonce){return{schema:PLACEMENT_SCHEMA,releaseName,nonce,...authorityBoundary,truthBoundary:'This receipt proves only that the zero-network courier created this runtime placement. It grants no signing, deployment, business, external, customer, payment, founder-private, or ASI authority.'};}
 async function readPlacement(file,releaseName,label){
   if(!await regular(file))return fail([`${label}-courier-placement-evidence-required`]);
@@ -63,8 +76,8 @@ export async function runSovereignReleaseCourier({env=process.env}={}){
       if(queued!==releaseName)return fail(['runtime-inbox-pointer-conflict'],{queuedRelease:queued,releaseName});
       return{ok:true,status:'SOVEREIGN_RELEASE_ALREADY_PUBLISHED_TO_RUNTIME',releaseName,...authorityBoundary,truthBoundary:'Courier-owned placement evidence and the runtime publication marker both identify this release. This does not prove signature admission, deployment, recovery, customer, payment, life-outcome, or ASI evidence.'};
     }
-    const applied=await appliedReceipt(runtimeInbox,releaseName);
-    if(applied)return{ok:true,status:'SOVEREIGN_RELEASE_ALREADY_APPLIED_BY_RUNTIME',releaseName,appliedReceipt:applied,...authorityBoundary,truthBoundary:'Courier-owned placement evidence exists and a runtime APPLIED receipt identifies this release. The courier does not republish it and claims no deployment or recovery evidence beyond that existing runtime-owned receipt.'};
+    const applied=await appliedReceipt(runtimeInbox,releaseName);if(!applied.ok)return applied;
+    if(applied.name)return{ok:true,status:'SOVEREIGN_RELEASE_ALREADY_APPLIED_BY_RUNTIME',releaseName,appliedReceipt:applied.name,...authorityBoundary,truthBoundary:'Courier-owned placement evidence exists and a structurally valid runtime-owned APPLIED marker identifies this release. The courier does not republish it. This marker is not independent proof of deployment success, recovery, customer, payment, life-outcome, or ASI evidence.'};
     await atomic(runtimeMarker,`${releaseName}\n`);
     const receipt={ok:true,status:'SOVEREIGN_RELEASE_PUBLICATION_RECOVERED_AFTER_COPY',releaseName,entries:copiedTree.entries,bytes:copiedTree.bytes,...authorityBoundary,truthBoundary:'The courier recovered only the publication edge after verifying its own isolated durable placement evidence for this copied release. Runtime signature verification, anti-replay admission, deployment and recovery remain separate authorities.'};
     await atomic(path.join(runtimeInbox,'courier-receipt.json'),`${JSON.stringify(receipt,null,2)}\n`);

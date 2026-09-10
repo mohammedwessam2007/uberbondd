@@ -10,6 +10,10 @@ case "$RUNTIME" in VLLM|SGLANG|LLAMA_CPP|OLLAMA|MLX_LM|TGI|TRANSFORMERS_HTTP|CUS
 [[ "$ENDPOINT" =~ ^http://(127\.0\.0\.1|localhost|\[::1\])(:[0-9]{1,5})?(/[^[:space:]]*)?$ ]] || { echo 'Endpoint must be owner-host loopback HTTP.' >&2; exit 2; }
 [[ -f /etc/uberbond/authoring.env && ! -L /etc/uberbond/authoring.env ]] || { echo 'Authoring node must be installed first.' >&2; exit 2; }
 NODE="$(command -v node)"; [[ -x "$NODE" ]] || { echo 'Node.js required.' >&2; exit 2; }
+# The founder console may read the local-model identity/config only after the
+# owner explicitly activates a model. The worker itself never receives this
+# file or any optional local runtime credential.
+usermod -a -G uberbond-model uberbond-author
 NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 TMP="/etc/uberbond/model.env.tmp.$$"
 {

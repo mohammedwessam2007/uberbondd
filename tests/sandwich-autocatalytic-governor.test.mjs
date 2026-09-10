@@ -55,6 +55,16 @@ test('descendant task may admit one requirement but cannot implement it in the s
   assert.equal(task.consequenceClass, 'LOCAL_PREPARATION');
 });
 
+test('descendant objective survives the canonical 1200-character relay ceiling with stop law intact', () => {
+  const directive = compileSandwichAutocatalyticDirective({ baseRevision: HEAD, finiteDirective: closed });
+  const task = compileSandwichAutocatalyticTask({ directive, date: new Date('2026-09-10T20:00:00Z') });
+  assert.ok(task.objective.length <= 1200);
+  assert.match(task.objective, /NO_NOVEL_INTERNAL_GAP/);
+  assert.match(task.objective, /do not implement or claim it complete in this cycle/i);
+  assert.match(task.objective, /Never weaken\/delete requirements or invariants/);
+  assert.match(task.objective, /Return one bounded AgentCodeChangeSet/);
+});
+
 test('autocatalytic workflow fires after maintainer completion and keeps recovery clock', () => {
   const workflow = readFileSync(new URL('../.github/workflows/uberbond-sandwich-autocatalytic.yml', import.meta.url), 'utf8');
   assert.match(workflow, /workflow_run:\s*\n\s*workflows:\s*\n\s*- UberBond Self Maintainer\s*\n\s*types:\s*\n\s*- completed/);

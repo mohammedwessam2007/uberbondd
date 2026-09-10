@@ -14,6 +14,7 @@ import { createModelExecutorFactory } from '../src/agent-model-executor-factory.
 
 const MAX_BODY = 16_384;
 const CONTROL_DIR = path.resolve(process.env.UBERBOND_CONTROL_DIR || '/var/lib/uberbond-control');
+const PROMOTION_DIR = path.resolve(process.env.UBERBOND_PROMOTION_DIR || '/var/lib/uberbond-promotion');
 const AUTONOMY_DIR = path.join(CONTROL_DIR, 'autonomy');
 const INTENT_DIR = path.join(CONTROL_DIR, 'founder-intents');
 const DIALOGUE_DIR = path.join(CONTROL_DIR, 'founder-dialogue');
@@ -56,15 +57,17 @@ async function latestIntent() {
   } catch { return null; }
 }
 async function snapshot() {
-  const [autonomyStatus, continuation, verifiedChange, releaseRequest, runtimeReceipt, intent] = await Promise.all([
+  const [autonomyStatus, continuation, verifiedChange, localPromotion, localReleaseRequest, legacyReleaseRequest, runtimeReceipt, intent] = await Promise.all([
     readJson(path.join(AUTONOMY_DIR, 'status.json')),
     readJson(path.join(AUTONOMY_DIR, 'continuation-receipt.json')),
     readJson(path.join(AUTONOMY_DIR, 'verified-change.json')),
+    readJson(path.join(PROMOTION_DIR, 'promotion-receipt.json')),
+    readJson(path.join(PROMOTION_DIR, 'sovereign-release-request.json')),
     readJson(path.join(CONTROL_DIR, 'sovereign-release-request.json')),
     readJson(path.join(CONTROL_DIR, 'runtime-receipt.json')),
     latestIntent()
   ]);
-  return compileFounderConsoleSnapshot({ autonomyStatus, continuation, verifiedChange, releaseRequest, runtimeReceipt, latestIntent: intent });
+  return compileFounderConsoleSnapshot({ autonomyStatus, continuation, verifiedChange, localPromotion, releaseRequest:localReleaseRequest || legacyReleaseRequest, runtimeReceipt, latestIntent: intent });
 }
 function authorized(req) {
   if (!binding.tokenRequired) return true;
@@ -136,7 +139,7 @@ async function runLocalDialogue(founderIntent, intentReceipt, statusSnapshot) {
   await atomicJson(path.join(DIALOGUE_DIR, `${receipt.id}.json`), receipt);
   return receipt;
 }
-const PAGE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UberBond Founder Console</title><style>body{font:16px system-ui;max-width:760px;margin:40px auto;padding:0 18px;background:#0b0d10;color:#e9eef5}button,input{font:inherit;padding:10px;margin:4px}input{width:min(520px,70%)}pre{white-space:pre-wrap;background:#151922;padding:14px;border-radius:10px}button{cursor:pointer}</style></head><body><h1>UberBond Founder Console</h1><p>Local sovereign control and optional local-model dialogue. No private-life vault access. No signing/deployment/payment authority.</p><div><button onclick="cmd('status')">Status</button><button onclick="cmd('wake')">Wake</button><button onclick="cmd('pause')">Pause</button><button onclick="cmd('resume')">Resume</button><button onclick="cmd('verify')">Verify</button></div><div><input id="q" placeholder="Talk to UberBond, or type continue/status"><button onclick="send()">Send</button></div><pre id="out">Loading…</pre><script>async function api(command){let r=await fetch('/api/command',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({command})});document.getElementById('out').textContent=JSON.stringify(await r.json(),null,2)}function cmd(x){api(x)}function send(){let q=document.getElementById('q');api(q.value);q.value=''}async function load(){let r=await fetch('/api/status');document.getElementById('out').textContent=JSON.stringify(await r.json(),null,2)}load()</script></body></html>`;
+const PAGE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UberBond Founder Console</title><style>body{font:16px system-ui;max-width:760px;margin:40px auto;padding:0 18px;background:#0b0d10;color:#e9eef5}button,input{font:inherit;padding:10px;margin:4px}input{width:min(520px,70%)}pre{white-space:pre-wrap;background:#151922;padding:14px;border-radius:10px}button{cursor:pointer}</style></head><body><h1>UberBond Founder Console</h1><p>Local sovereign control, local promotion status, release state, and optional local-model dialogue. No private-life vault access. No signing/deployment/payment authority.</p><div><button onclick="cmd('status')">Status</button><button onclick="cmd('wake')">Wake</button><button onclick="cmd('pause')">Pause</button><button onclick="cmd('resume')">Resume</button><button onclick="cmd('verify')">Verify</button></div><div><input id="q" placeholder="Talk to UberBond, or type continue/status"><button onclick="send()">Send</button></div><pre id="out">Loading…</pre><script>async function api(command){let r=await fetch('/api/command',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({command})});document.getElementById('out').textContent=JSON.stringify(await r.json(),null,2)}function cmd(x){api(x)}function send(){let q=document.getElementById('q');api(q.value);q.value=''}async function load(){let r=await fetch('/api/status');document.getElementById('out').textContent=JSON.stringify(await r.json(),null,2)}load()</script></body></html>`;
 
 if (!binding.ok || !Number.isSafeInteger(PORT) || PORT < 1 || PORT > 65535) {
   process.stderr.write(`${JSON.stringify(binding.ok ? { ok:false, reasonCodes:['valid-founder-console-port-required'] } : binding, null, 2)}\n`); process.exit(2);

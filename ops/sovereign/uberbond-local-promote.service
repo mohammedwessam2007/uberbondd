@@ -1,0 +1,26 @@
+[Unit]
+Description=UberBond sovereign local promotion governor
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=uberbond-promoter
+Group=uberbond-promotion
+WorkingDirectory=/opt/uberbond/source
+EnvironmentFile=/etc/uberbond/promotion.env
+ExecStart=/opt/uberbond/control/uberbond-local-promoter
+NoNewPrivileges=true
+PrivateNetwork=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/etc/uberbond /var/lib/uberbond-worker /var/lib/uberbond-control
+ReadWritePaths=/opt/uberbond/source /var/lib/uberbond-governance /var/lib/uberbond-promotion
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX
+UMask=0077

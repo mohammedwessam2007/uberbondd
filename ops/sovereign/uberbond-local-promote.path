@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch for independently verified UberBond local changes
+
+[Path]
+PathChanged=/var/lib/uberbond-governance/inbox/verified.json
+Unit=uberbond-local-promote.service
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Resume UberBond authoring after a governed local promotion
+
+[Path]
+PathChanged=/var/lib/uberbond-promotion/promotion-receipt.json
+Unit=uberbond-authoring.service
+
+[Install]
+WantedBy=multi-user.target

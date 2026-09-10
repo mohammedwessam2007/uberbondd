@@ -1,7 +1,7 @@
 [Unit]
 Description=UberBond sovereign founder console
-After=local-fs.target uberbond-authoring.service
-Wants=uberbond-authoring.timer
+After=local-fs.target uberbond-authoring-continuum.service
+Wants=uberbond-authoring-continuum.service
 
 [Service]
 Type=simple

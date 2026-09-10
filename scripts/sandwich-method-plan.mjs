@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { dirname, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileSandwichMethod, buildSandwichFoldMission, buildCanonicalLeafHandoff } from '../src/sandwich-method.mjs';
+import { compileSandwichAgentTask } from '../src/sandwich-agent-task.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MAX_JSON_BYTES = 4_000_000;
@@ -83,6 +84,7 @@ if (privateTarget && (!outputPath || insideRoot(outputPath))) {
 
 const sandwich = compileSandwichMethod({ currentSourceCommit: head, target });
 const mission = sandwich.ok && sandwich.status === 'SANDWICH_FOLD_READY' ? buildSandwichFoldMission({ sandwich }) : null;
+const agentTask = mission?.ok ? compileSandwichAgentTask({ sandwich, foldMission: mission }) : null;
 let handoff = null;
 const graphArg = args.get('--graph');
 if (typeof graphArg === 'string' && mission?.ok) {
@@ -91,16 +93,17 @@ if (typeof graphArg === 'string' && mission?.ok) {
 }
 
 const fullReport = {
-  ok: sandwich.ok,
+  ok: sandwich.ok && (!agentTask || agentTask.ok),
   status: sandwich.status,
   generatedAt: new Date().toISOString(),
   sourceCommit: head,
   sandwich,
   mission,
+  agentTask,
   canonicalLeafHandoff: handoff,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  truthBoundary: 'PLANNING_ONLY__EXISTING_EXECUTION_CONTINUATION_VERIFIER_PROMOTION_AND_REALITY_GATES_RETAIN_AUTHORITY'
+  truthBoundary: 'PLANNING_ONLY__AGENT_TASK_IS_LOCAL_PREPARATION_CANDIDATE__EXISTING_EXECUTION_CONTINUATION_VERIFIER_PROMOTION_AND_REALITY_GATES_RETAIN_AUTHORITY'
 };
 
 if (outputPath) {
@@ -116,11 +119,12 @@ const stdoutReport = privateTarget ? {
   privateTarget: true,
   fullPlanWrittenToPrivatePath: true,
   nextFoldPresent: Boolean(sandwich.nextFold),
+  agentTaskReady: agentTask?.ok === true,
   canonicalLeafHandoffStatus: handoff?.status || null,
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
-  privacyBoundary: 'FOUNDER_PRIVATE_TARGET_CONTENT_AND_FOLD_LABELS_ARE_NOT_EMITTED_TO_STDOUT'
+  privacyBoundary: 'FOUNDER_PRIVATE_TARGET_CONTENT_FOLD_LABELS_AND_AGENT_TASK_OBJECTIVE_ARE_NOT_EMITTED_TO_STDOUT'
 } : fullReport;
 
 console.log(JSON.stringify(stdoutReport, null, 2));
-if (!sandwich.ok || (handoff && !handoff.ok)) process.exitCode = 2;
+if (!fullReport.ok || (handoff && !handoff.ok)) process.exitCode = 2;

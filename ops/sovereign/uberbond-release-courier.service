@@ -8,6 +8,7 @@ User=uberbond-release-courier
 Group=uberbond-release-courier
 Environment=UBERBOND_RELEASE_COURIER_SOURCE=/mnt/uberbond-signer-outbox
 Environment=UBERBOND_RELEASE_COURIER_RUNTIME_INBOX=/var/lib/uberbond-control/inbox
+Environment=UBERBOND_RELEASE_COURIER_STATE=/var/lib/uberbond-release-courier
 ExecStart=/usr/bin/node /opt/uberbond/release-courier/sovereign-release-courier.mjs
 NoNewPrivileges=true
 PrivateTmp=true
@@ -16,7 +17,7 @@ ProtectHome=true
 RestrictAddressFamilies=AF_UNIX
 IPAddressDeny=any
 ReadOnlyPaths=/mnt/uberbond-signer-outbox
-ReadWritePaths=/var/lib/uberbond-control/inbox
+ReadWritePaths=/var/lib/uberbond-control/inbox /var/lib/uberbond-release-courier
 LockPersonality=true
 MemoryDenyWriteExecute=true
 RestrictSUIDSGID=true

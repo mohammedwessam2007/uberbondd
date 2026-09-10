@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "uberbond-temporal-foundry-1.0.0",
+  "status": "VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE",
+  "canonicalDoc": "docs/TEMPORAL_FOUNDRY_CANON.md",
+  "engine": "src/temporal-foundry.mjs",
+  "functionStates": [
+    "PRESENT_VERIFIED",
+    "PRESENT_COMPOSABLE",
+    "INTERNAL_PRIMITIVE_MISSING",
+    "EXTERNAL_OR_PHYSICAL_FLOOR",
+    "UNKNOWN"
+  ],
+  "laws": {
+    "primary": "DO_NOT_WAIT_FOR_THE_FINAL_FUTURE_IMPLEMENTATION_WHEN_ITS_USEFUL_FUNCTION_CAN_BE_RECONSTRUCTED_NOW",
+    "futureLabel": "A_FUTURE_HORIZON_LABEL_IS_NOT_EVIDENCE_THAT_THE_CAPABILITY_REQUIRES_THAT_MUCH_TIME",
+    "decomposition": "EVERY_FUTURE_LABELED_CAPABILITY_MUST_BE_DECOMPOSED_INTO_FUNCTIONS_BEFORE_IT_EARNS_THE_RIGHT_TO_REMAIN_IN_THE_FUTURE",
+    "capture": "PRESENT_AND_COMPOSABLE_FUNCTIONS_REQUIRE_EVIDENCE__EXTERNAL_PHYSICAL_AND_UNKNOWN_FUNCTIONS_MUST_REMAIN_OUTSIDE_CURRENT_CAPTURE",
+    "backcast": "MODEL_STRONGER_DESCENDANT__DECOMPOSE_FUNCTIONS__SELECT_ONE_DEPENDENCY_SATISFIED_INTERNAL_ENABLING_PRIMITIVE__THEN_CHALLENGE_ITS_ROUTE_WITH_TIMELINE_TOPOLOGY",
+    "authority": "FUTURE_DESCENDANTS_ARE_DESIGN_INSTRUMENTS_NOT_FOUNDER_AUTHORITIES"
+  },
+  "metrics": [
+    "presentFunctionCaptureRatio",
+    "projectedFunctionCaptureRatio",
+    "futureFunctionWeightPulledForward",
+    "remainingExternalOrPhysicalFloorWeight",
+    "remainingUnknownWeight"
+  ],
+  "integration": {
+    "before": "Timeline Topology / Wormhole challenge",
+    "after": "stronger descendant modeling and negative-image discovery",
+    "sandwichRequirement": "Temporal Foundry enabling primitive and Timeline Topology challenge must bind to the same exact descendant requirement before trusted admission"
+  },
+  "tests": [
+    "tests/temporal-foundry.test.mjs",
+    "tests/sovereign-native-local-worker.test.mjs",
+    "tests/sandwich-autocatalytic-governor.test.mjs"
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THIS_ARTIFACT_PROVES_ONLY_SOURCE_LEVEL_FUTURE_FUNCTION_DECOMPOSITION_AND_INTERNAL_PRIMITIVE_SELECTION__IT_DOES_NOT_PROVE_THAT_A_FUTURE_PHYSICAL_BIOLOGICAL_EXTERNAL_LONGITUDINAL_OR_ASI_CAPABILITY_HAS_ALREADY_BEEN_OBTAINED"
+}

@@ -1,13 +1,13 @@
 import {verifySovereignRuntimeRehearsalReceipt} from '../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs';
 
-export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.4';
+export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.5';
 export const OFFLINE_MODEL_STATUS='OFFLINE_LOCAL_MODEL_RUNTIME_INSTALLED_AND_LOOPBACK_ATTESTED';
 const SHA40=/^[a-f0-9]{40}$/i;
 const SHA64=/^[a-f0-9]{64}$/i;
 const SAFE_RELEASE=/^release-[a-f0-9]{12}-[a-f0-9]{16}$/;
 
 export const REQUIRED_SOURCE_CONTRACTS=Object.freeze([
-  'authorctl','autonomyPulse','founderConsole','founderConsoleServer','authoringTimer','founderIntentWakePath',
+  'authorctl','autonomyPulse','continuousAuthoringPulse','founderConsole','founderConsoleServer','authoringTimer','founderIntentWakePath',
   'workerPath','workerService','verifierPath','verifierService','promoterPath',
   'postPromotionPath','offlineModelInstaller','offlineSignerInstaller','releaseCourierInstaller','evidenceImporter'
 ]);
@@ -59,11 +59,12 @@ export function compileSovereignBootstrapReadiness(input={}){
   const signerReceipt=input.signerReceipt&&typeof input.signerReceipt==='object'?input.signerReceipt:null;
   const courierReceipt=input.courierReceipt&&typeof input.courierReceipt==='object'?input.courierReceipt:null;
   const runtimeReceipt=input.runtimeReceipt&&typeof input.runtimeReceipt==='object'?input.runtimeReceipt:null;
+  const continuousMinuteAuthoringObserved=input.continuousMinuteAuthoringObserved===true;
   const missingSourceContracts=REQUIRED_SOURCE_CONTRACTS.filter(id=>!truth(sourceContracts[id]));
   const inactiveAuthoringUnits=REQUIRED_AUTHORING_UNITS.filter(id=>!truth(services[id]));
   const sourceReady=SHA40.test(sourceCommit)&&input.cleanSource===true&&missingSourceContracts.length===0;
   const hostInstalled=sourceReady&&input.authoringConfigPresent===true&&input.configuredSourceRootMatches===true&&String(input.installedSourceCommit||'').toLowerCase()===sourceCommit;
-  const hostControlReady=hostInstalled&&inactiveAuthoringUnits.length===0;
+  const hostControlReady=hostInstalled&&inactiveAuthoringUnits.length===0&&continuousMinuteAuthoringObserved;
   const directFounderControlReady=hostControlReady&&input.founderConsoleReachable===true;
   const localModelAttested=exactModelReceipt(modelReceipt)&&truth(services.localModelRuntime)&&truth(services.localModelProxy);
   const localWorkerReady=hostControlReady&&localModelAttested&&input.isolatedWorkerEnabled===true;
@@ -83,6 +84,7 @@ export function compileSovereignBootstrapReadiness(input={}){
   if(sourceReady&&input.authoringConfigPresent===true&&input.configuredSourceRootMatches!==true)reasons.push('configured-authoring-source-root-mismatch');
   if(sourceReady&&!hostInstalled)reasons.push('sovereign-authoring-host-install-not-observed');
   if(hostInstalled&&inactiveAuthoringUnits.length)reasons.push('authoring-automation-units-not-active');
+  if(hostInstalled&&inactiveAuthoringUnits.length===0&&!continuousMinuteAuthoringObserved)reasons.push('continuous-minute-authoring-not-observed');
   if(hostControlReady&&!directFounderControlReady)reasons.push('founder-console-not-reachable');
   if(hostControlReady&&!localModelAttested)reasons.push('owner-controlled-local-model-not-attested');
   if(hostControlReady&&input.isolatedWorkerEnabled!==true)reasons.push('isolated-worker-not-enabled');
@@ -107,6 +109,7 @@ export function compileSovereignBootstrapReadiness(input={}){
       sourceStackComplete:sourceReady,
       authoringHostInstalled:hostInstalled,
       authoringAutomationActive:hostControlReady,
+      continuousMinuteAuthoringObserved,
       directFounderControlReady,
       localModelAttested,
       isolatedWorkerReady:localWorkerReady,
@@ -129,6 +132,6 @@ export function compileSovereignBootstrapReadiness(input={}){
       publicCloudModelRequiredForSelfCompletion:false
     },
     authority:{businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',releaseSigningAuthority:'SEPARATE',runtimeDeploymentAuthority:'SEPARATE'},
-    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. Active authoring additionally requires the founder-intent wake path so ordinary Communication Center messages can wake the same canonical loop without copying private founder text into public coding tasks. Signed-release readiness additionally requires source-bound signer and matching courier receipts imported through the protected root-owned evidence ingress. Owned-runtime rehearsal readiness additionally requires the exact runtime rehearsal receipt schema and digest to verify for this source commit. It does not prove customer/payment outcomes, Personal Civilization outcomes, or ASI.'
+    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit, including an installed active one-minute authoring heartbeat. Active authoring additionally requires the founder-intent wake path so ordinary Communication Center messages can wake the same canonical loop without copying private founder text into public coding tasks. Signed-release readiness additionally requires source-bound signer and matching courier receipts imported through the protected root-owned evidence ingress. Owned-runtime rehearsal readiness additionally requires the exact runtime rehearsal receipt schema and digest to verify for this source commit. It does not prove customer/payment outcomes, Personal Civilization outcomes, or ASI.'
   };
 }

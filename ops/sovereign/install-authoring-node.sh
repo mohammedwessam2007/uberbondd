@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
-for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod runuser stat id; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod runuser stat id flock sleep; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 if [[ -e /etc/uberbond/release-private.pem ]]; then echo "REFUSED: release signing authority must not live on the authoring/runtime control node." >&2; exit 2; fi
 
 GIT="$(realpath "$(command -v git)")"
@@ -67,10 +67,10 @@ mv "$STAGE" /opt/uberbond/source
 if [[ "$(git_as_promoter /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" || -n "$(git_as_promoter /opt/uberbond/source status --porcelain)" ]]; then rm -rf /opt/uberbond/source; [[ ! -e "$PREVIOUS" ]] || mv "$PREVIOUS" /opt/uberbond/source; echo "Installed source identity verification failed; prior source restored." >&2; exit 2; fi
 rm -rf "$PREVIOUS"; trap - EXIT
 
-for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh import-sovereign-evidence.sh; do
+for tool in uberbond-authorctl uberbond-authoring-continuum uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh import-sovereign-evidence.sh; do
   install -m 0755 "/opt/uberbond/source/ops/sovereign/$tool" "/opt/uberbond/control/$tool"
 done
-for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-founder-intent-wake.path uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
+for unit in uberbond-authoring.service uberbond-authoring-continuum.service uberbond-founder-intent-wake.path uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
   install -m 0644 "/opt/uberbond/source/ops/sovereign/$unit" "/etc/systemd/system/$unit"
 done
 
@@ -136,14 +136,20 @@ OPEN_MODEL_PRICING_VERIFIED_AT=
 EOF
 chown root:uberbond-author /etc/uberbond/founder-console.env; chmod 0640 /etc/uberbond/founder-console.env
 
+# Migrate old installations away from the periodic timer. The resident continuum
+# becomes the only periodic brainstem. Immediate founder/promotion path wakes
+# still target the same single-writer oneshot authoring service.
+systemctl disable --now uberbond-authoring.timer >/dev/null 2>&1 || true
+rm -f /etc/systemd/system/uberbond-authoring.timer
 systemctl daemon-reload
-systemctl enable --now uberbond-authoring.timer uberbond-founder-intent-wake.path uberbond-local-worker.path uberbond-autonomy-verify.path uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-founder-console.service
+systemctl enable --now uberbond-authoring-continuum.service uberbond-founder-intent-wake.path uberbond-local-worker.path uberbond-autonomy-verify.path uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-founder-console.service
 
 cat <<EOF
 UberBond sovereign authoring node installed.
 Source commit:      ${SOURCE_HEAD}
 Founder console:    http://127.0.0.1:8787/
 Founder control:    /opt/uberbond/control/uberbond-authorctl
+Author continuum:  uberbond-authoring-continuum.service (resident, 60s post-pulse cadence)
 Author state:       /var/lib/uberbond-control/autonomy
 Founder intents:    /var/lib/uberbond-control/founder-intents
 Dialogue receipts: /var/lib/uberbond-control/founder-dialogue
@@ -156,6 +162,13 @@ Promotion state:    /var/lib/uberbond-promotion
 Native worker:      /opt/uberbond/control/uberbond-native-local-worker
 Private console:    /opt/uberbond/control/configure-founder-console-private.sh PRIVATE_RFC1918_IPV4
 
+The authoring brainstem is an owner-controlled resident process. It is not
+scheduled by Vercel, GitHub Actions, ChatGPT, or a hosted cron service. It starts
+on boot, executes the truth-first pulse, then starts the next pulse 60 seconds
+after the prior pulse returns. systemd restarts the continuum after process
+failure. All immediate/manual/event wakes share a local flock with the resident
+continuum so duplicate authoring brains cannot overlap.
+
 Default console binding is loopback-only and cloud-independent. To make the
 console reachable from an iPad or another founder device on the same trusted
 private RFC1918 network, use the installed configurator above. It generates a
@@ -164,9 +177,9 @@ never reads the Personal Civilization vault.
 
 Every new free-text founder intent changes only the private founder-intents
 directory. The local systemd path watcher immediately wakes the same canonical
-authoring service that the timer and Keep working command use. Raw founder text
-is not copied into the public coding task; exact-current canon and the terminal
-tribunal still choose the bounded finite engineering leaf.
+authoring service used by the resident continuum. Raw founder text is not copied
+into the public coding task; exact-current canon and the terminal tribunal still
+choose the bounded finite engineering leaf.
 
 A native code-writing worker is installed but intentionally disabled until an
 owner-controlled local model runtime is named. Activate both direct dialogue and

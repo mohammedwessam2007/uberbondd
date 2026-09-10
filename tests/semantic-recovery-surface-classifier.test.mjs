@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 
 const script = readFileSync(new URL('../scripts/semantic-requirement-tribunal.mjs', import.meta.url), 'utf8');
 const statefulLine = script.split(/\r?\n/).find(line => line.startsWith('const STATEFUL='));
+const statefulLiteral = statefulLine?.match(/^const STATEFUL=\/(.*)\/([a-z]*);$/);
+const STATEFUL = statefulLiteral ? new RegExp(statefulLiteral[1], statefulLiteral[2]) : null;
 
 test('semantic recovery classifier ignores evidence words that do not prove durable state', () => {
   assert.ok(statefulLine, 'STATEFUL classifier missing');
@@ -16,6 +18,12 @@ test('semantic recovery classifier still recognizes concrete durable or long-run
   for (const marker of ['persist', 'queue', 'database', 'postgres', 'writeFile', 'scheduler', 'worker', 'checkpoint', 'ledger', 'createServer', 'server\\.listen', 'setInterval', 'daemon']) {
     assert.ok(statefulLine.includes(marker), `${marker} recovery surface must remain classified`);
   }
+});
+
+test('semantic preference vocabulary cannot masquerade as operational persistence', () => {
+  assert.ok(STATEFUL, 'STATEFUL regex must remain parseable');
+  assert.equal(STATEFUL.test('persistsAcrossContexts'), false, 'preference provenance vocabulary is not a storage surface');
+  assert.equal(STATEFUL.test('const persisted = await persist(pool, event)'), true, 'an actual persist operation must remain stateful');
 });
 
 test('runtime evidence vocabulary cannot manufacture recovery obligations', () => {

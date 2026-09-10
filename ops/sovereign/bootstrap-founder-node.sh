@@ -12,19 +12,30 @@ for cmd in realpath node install mv rm chown chmod; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }
 done
 
-SOURCE="$(realpath "$1")"
-LLAMA_SERVER="$(realpath "$2")"
-MODEL_FILE="$(realpath "$3")"
+SOURCE_INPUT="$1"
+LLAMA_SERVER_INPUT="$2"
+MODEL_FILE_INPUT="$3"
 MODEL_ID="$4"
 PRIVATE_HOST="${5:-}"
+
+# Refuse indirection before realpath can erase caller-visible identity. The
+# exact owner-supplied artifacts may live anywhere, but the three admission
+# paths themselves must be real files/directories rather than symlink aliases.
+[[ -d "$SOURCE_INPUT/.git" && ! -L "$SOURCE_INPUT" ]] || { echo 'REFUSED: owner-supplied source must be a real non-symlink Git checkout.' >&2; exit 2; }
+[[ -x "$LLAMA_SERVER_INPUT" && -f "$LLAMA_SERVER_INPUT" && ! -L "$LLAMA_SERVER_INPUT" ]] || { echo 'REFUSED: owner-supplied llama-server must be a real executable file.' >&2; exit 2; }
+[[ -f "$MODEL_FILE_INPUT" && ! -L "$MODEL_FILE_INPUT" ]] || { echo 'REFUSED: owner-supplied GGUF model must be a real file.' >&2; exit 2; }
+SOURCE="$(realpath "$SOURCE_INPUT")"
+LLAMA_SERVER="$(realpath "$LLAMA_SERVER_INPUT")"
+MODEL_FILE="$(realpath "$MODEL_FILE_INPUT")"
+[[ -d "$SOURCE/.git" && ! -L "$SOURCE" ]] || { echo 'REFUSED: resolved source must remain a real Git checkout.' >&2; exit 2; }
+[[ -x "$LLAMA_SERVER" && -f "$LLAMA_SERVER" && ! -L "$LLAMA_SERVER" ]] || { echo 'REFUSED: resolved llama-server must remain a real executable file.' >&2; exit 2; }
+[[ -f "$MODEL_FILE" && ! -L "$MODEL_FILE" ]] || { echo 'REFUSED: resolved GGUF model must remain a real file.' >&2; exit 2; }
+[[ "$MODEL_ID" =~ ^[A-Za-z0-9._:/+@=-]{1,400}$ ]] || { echo 'REFUSED: invalid model identity.' >&2; exit 2; }
 
 AUTHOR_INSTALLER="$SOURCE/ops/sovereign/install-authoring-node.sh"
 MODEL_INSTALLER_SOURCE="$SOURCE/ops/sovereign/install-offline-llama-runtime.sh"
 [[ -x "$AUTHOR_INSTALLER" && ! -L "$AUTHOR_INSTALLER" ]] || { echo 'REFUSED: exact source authoring installer must be executable.' >&2; exit 2; }
 [[ -x "$MODEL_INSTALLER_SOURCE" && ! -L "$MODEL_INSTALLER_SOURCE" ]] || { echo 'REFUSED: exact source offline-model installer must be executable.' >&2; exit 2; }
-[[ -x "$LLAMA_SERVER" && -f "$LLAMA_SERVER" && ! -L "$LLAMA_SERVER" ]] || { echo 'REFUSED: owner-supplied llama-server must be a real executable file.' >&2; exit 2; }
-[[ -f "$MODEL_FILE" && ! -L "$MODEL_FILE" ]] || { echo 'REFUSED: owner-supplied GGUF model must be a real file.' >&2; exit 2; }
-[[ "$MODEL_ID" =~ ^[A-Za-z0-9._:/+@=-]{1,400}$ ]] || { echo 'REFUSED: invalid model identity.' >&2; exit 2; }
 
 # Stage 1: install the exact clean source as the sovereign authoring root. This
 # creates the separated author/worker/verifier/promoter identities and the

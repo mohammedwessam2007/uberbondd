@@ -23,6 +23,21 @@ test('first boot source executability contract survives a clean checkout', () =>
   }
 });
 
+test('first boot refuses source model and llama symlinks before realpath can erase identity', () => {
+  for (const [input, refusal] of [
+    ['SOURCE_INPUT', 'owner-supplied source must be a real non-symlink Git checkout'],
+    ['LLAMA_SERVER_INPUT', 'owner-supplied llama-server must be a real executable file'],
+    ['MODEL_FILE_INPUT', 'owner-supplied GGUF model must be a real file']
+  ]) {
+    const check = script.indexOf(refusal);
+    const resolve = script.indexOf(`realpath \"$${input}\"`);
+    assert.ok(check >= 0 && resolve > check, `${input} symlink refusal must precede realpath`);
+  }
+  assert.match(script, /resolved source must remain a real Git checkout/);
+  assert.match(script, /resolved llama-server must remain a real executable file/);
+  assert.match(script, /resolved GGUF model must remain a real file/);
+});
+
 test('first boot creates a root-owned read-only evidence ingress for the founder doctor', () => {
   assert.match(script, /install -d -m 0750 -o root -g uberbond-autonomy \/var\/lib\/uberbond-evidence/);
   assert.match(script, /not writable by the authoring identity/i);

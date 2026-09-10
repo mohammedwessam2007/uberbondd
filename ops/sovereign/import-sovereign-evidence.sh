@@ -5,24 +5,38 @@ umask 077
 CONFIG="${UBERBOND_AUTHOR_CONFIG:-/etc/uberbond/authoring.env}"
 [[ "${EUID}" -eq 0 ]] || { echo 'REFUSED: root-required' >&2; exit 2; }
 [[ $# -eq 2 ]] || { echo 'usage: import-sovereign-evidence {signer|courier|runtime} /path/to/receipt.json' >&2; exit 2; }
-[[ -f "$CONFIG" && ! -L "$CONFIG" ]] || { echo "REFUSED: regular authoring config required: $CONFIG" >&2; exit 2; }
-# shellcheck disable=SC1090
-source "$CONFIG"
-
-TYPE="$1"
-SOURCE_RECEIPT="$2"
-SOURCE_ROOT="${UBERBOND_SOURCE_ROOT:?UBERBOND_SOURCE_ROOT required}"
-EVIDENCE_ROOT="${UBERBOND_SOVEREIGN_EVIDENCE_ROOT:-/var/lib/uberbond-evidence}"
-NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
-
-for cmd in realpath stat install mv rm git getent; do
+for cmd in realpath stat install mv rm git getent id runuser; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "REFUSED: missing-command:$cmd" >&2; exit 2; }
 done
+[[ -f "$CONFIG" && ! -L "$CONFIG" ]] || { echo "REFUSED: regular authoring config required: $CONFIG" >&2; exit 2; }
+[[ "$(stat -c %u "$CONFIG")" == "0" && "$(stat -c %G "$CONFIG")" == "uberbond-author" && "$(stat -c %a "$CONFIG")" == "640" ]] || { echo 'REFUSED: authoring-config-custody-invalid' >&2; exit 2; }
+id -u uberbond-author >/dev/null 2>&1 || { echo 'REFUSED: uberbond-author-identity-required' >&2; exit 2; }
+getent group uberbond-autonomy >/dev/null || { echo 'REFUSED: uberbond-autonomy-group-required' >&2; exit 2; }
+
+config_value(){
+  local key="$1" line value='' count=0
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" == "$key="* ]]; then value="${line#*=}"; count=$((count+1)); fi
+  done < "$CONFIG"
+  [[ "$count" -eq 1 && -n "$value" ]] || return 1
+  printf '%s\n' "$value"
+}
+TYPE="$1"
+SOURCE_RECEIPT="$2"
+SOURCE_ROOT="$(config_value UBERBOND_SOURCE_ROOT)" || { echo 'REFUSED: single-source-root-config-required' >&2; exit 2; }
+EVIDENCE_ROOT="$(config_value UBERBOND_SOVEREIGN_EVIDENCE_ROOT)" || { echo 'REFUSED: single-evidence-root-config-required' >&2; exit 2; }
+NODE_CONFIGURED="$(config_value UBERBOND_NODE_EXECUTABLE)" || { echo 'REFUSED: single-node-config-required' >&2; exit 2; }
+[[ "$SOURCE_ROOT" = /* && "$EVIDENCE_ROOT" = /* && "$NODE_CONFIGURED" = /* ]] || { echo 'REFUSED: absolute-config-paths-required' >&2; exit 2; }
+[[ "$SOURCE_ROOT" != *$'\n'* && "$EVIDENCE_ROOT" != *$'\n'* && "$NODE_CONFIGURED" != *$'\n'* ]] || { echo 'REFUSED: single-line-config-paths-required' >&2; exit 2; }
+
 NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
 [[ -n "$NODE" && -x "$NODE" && -f "$NODE" ]] || { echo 'REFUSED: trusted-real-node-required' >&2; exit 2; }
 [[ -d "$SOURCE_ROOT/.git" && ! -L "$SOURCE_ROOT" ]] || { echo 'REFUSED: exact-installed-git-source-required' >&2; exit 2; }
 SOURCE_ROOT="$(realpath "$SOURCE_ROOT")"
 [[ -d "$SOURCE_ROOT/.git" && ! -L "$SOURCE_ROOT" ]] || { echo 'REFUSED: resolved-installed-git-source-required' >&2; exit 2; }
+[[ "$(stat -c %U "$SOURCE_ROOT")" == "uberbond-promoter" && "$(stat -c %G "$SOURCE_ROOT")" == "uberbond-autonomy" ]] || { echo 'REFUSED: installed-source-custody-invalid' >&2; exit 2; }
+SOURCE_MODE="$(stat -c %a "$SOURCE_ROOT")"
+(( (8#$SOURCE_MODE & 0022) == 0 )) || { echo 'REFUSED: installed-source-must-not-be-group-or-world-writable' >&2; exit 2; }
 [[ -z "$(git -C "$SOURCE_ROOT" status --porcelain)" ]] || { echo 'REFUSED: installed-source-must-be-clean' >&2; exit 2; }
 SOURCE_COMMIT="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"
 [[ "$SOURCE_COMMIT" =~ ^[0-9a-f]{40}$ ]] || { echo 'REFUSED: exact-source-commit-required' >&2; exit 2; }
@@ -31,7 +45,6 @@ SOURCE_COMMIT="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"
 [[ "$(stat -c %u "$EVIDENCE_ROOT")" == "0" ]] || { echo 'REFUSED: evidence-root-must-be-root-owned' >&2; exit 2; }
 [[ "$(stat -c %G "$EVIDENCE_ROOT")" == "uberbond-autonomy" ]] || { echo 'REFUSED: evidence-root-group-must-be-uberbond-autonomy' >&2; exit 2; }
 [[ "$(stat -c %a "$EVIDENCE_ROOT")" == "750" ]] || { echo 'REFUSED: evidence-root-mode-must-be-0750' >&2; exit 2; }
-getent group uberbond-autonomy >/dev/null || { echo 'REFUSED: uberbond-autonomy-group-required' >&2; exit 2; }
 
 [[ -f "$SOURCE_RECEIPT" && ! -L "$SOURCE_RECEIPT" ]] || { echo 'REFUSED: regular-nonsymlink-receipt-required' >&2; exit 2; }
 SOURCE_RECEIPT="$(realpath "$SOURCE_RECEIPT")"
@@ -55,7 +68,9 @@ install -m 0640 -o root -g uberbond-autonomy "$SOURCE_RECEIPT" "$TMP"
 
 (
 cd "$SOURCE_ROOT"
-TYPE="$TYPE" RECEIPT_PATH="$TMP" EVIDENCE_ROOT="$EVIDENCE_ROOT" EXPECTED_SOURCE_COMMIT="$SOURCE_COMMIT" "$NODE" --input-type=module - <<'NODE'
+runuser -u uberbond-author -- env \
+  TYPE="$TYPE" RECEIPT_PATH="$TMP" EVIDENCE_ROOT="$EVIDENCE_ROOT" EXPECTED_SOURCE_COMMIT="$SOURCE_COMMIT" \
+  "$NODE" --input-type=module - <<'NODE'
 import fs from 'node:fs';
 import path from 'node:path';
 import { compileSovereignBootstrapReadiness, REQUIRED_SOURCE_CONTRACTS } from './src/sovereign-bootstrap-readiness.mjs';

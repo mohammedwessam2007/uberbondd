@@ -20,6 +20,9 @@ const declaration={
   tests:['tests/sovereignty-type-system.test.mjs']
 };
 
+const canonicalMemoryLaw='Never delete a named historical initiative from memory merely because its branch or implementation is superseded; mark its reconciliation status instead.';
+const enforcementMemoryLaw='Never delete a named historical initiative from memory merely because its branch or implementation was superseded. Preserve what it donated and what replaced it.';
+
 test('an enforced law carries its declared source and hostile test into semantic evidence',()=>{
   const out=bindVerifiedEnforcementEvidence({coverage:baseCoverage,enforcementEntries:[declaration]});
   assert.deepEqual(out.rows[0].currentEvidence.sourceModules,['src/sovereignty-type-system.mjs']);
@@ -38,6 +41,41 @@ test('a verified-current law keeps separately verified enforcement evidence with
   assert.deepEqual(out.rows[0].currentEvidence.sourceModules,['src/already-verified.mjs','src/sovereignty-type-system.mjs']);
   assert.deepEqual(out.rows[0].currentEvidence.testModules,['tests/already-verified.test.mjs','tests/sovereignty-type-system.test.mjs']);
   assert.equal(out.rows[0].currentEvidence.enforcementEvidenceBound,true);
+});
+
+test('the canonical historical-memory law binds only through its reviewed exact equivalence',()=>{
+  const coverage={...baseCoverage,rows:[{
+    canonicalId:'memory-index:never-delete-a-named-historical-initiative-from-memory-merely-because-its-branch',
+    literalNames:[canonicalMemoryLaw],
+    currentState:'VERIFIED_CURRENT',
+    currentEvidence:{sourceModules:[],testModules:[],reachability:'OPERATOR_ONLY'}
+  }]};
+  const out=bindVerifiedEnforcementEvidence({coverage,enforcementEntries:[{
+    concept:enforcementMemoryLaw,
+    sources:['src/sovereign-coverage-matrix.mjs'],
+    tests:['tests/sovereign-coverage-matrix.test.mjs']
+  }]});
+  assert.equal(out.rows[0].currentState,'VERIFIED_CURRENT');
+  assert.deepEqual(out.rows[0].currentEvidence.sourceModules,['src/sovereign-coverage-matrix.mjs']);
+  assert.deepEqual(out.rows[0].currentEvidence.testModules,['tests/sovereign-coverage-matrix.test.mjs']);
+  assert.equal(out.rows[0].currentEvidence.enforcementEvidenceBound,true);
+});
+
+test('reviewed equivalence does not become prefix or semantic fuzzy matching',()=>{
+  const coverage={...baseCoverage,rows:[{
+    ...baseCoverage.rows[0],
+    literalNames:['Never delete a named historical initiative from memory because it seems obsolete.'],
+    currentState:'VERIFIED_CURRENT',
+    currentEvidence:{sourceModules:[],testModules:[],reachability:'OPERATOR_ONLY'}
+  }]};
+  const out=bindVerifiedEnforcementEvidence({coverage,enforcementEntries:[{
+    concept:enforcementMemoryLaw,
+    sources:['src/sovereign-coverage-matrix.mjs'],
+    tests:['tests/sovereign-coverage-matrix.test.mjs']
+  }]});
+  assert.deepEqual(out.rows[0].currentEvidence.sourceModules,[]);
+  assert.deepEqual(out.rows[0].currentEvidence.testModules,[]);
+  assert.equal(out.rows[0].currentEvidence.enforcementEvidenceBound,undefined);
 });
 
 test('enforcement declarations never promote a non-current row',()=>{

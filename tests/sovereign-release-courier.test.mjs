@@ -7,16 +7,16 @@ import { runSovereignReleaseCourier } from '../ops/sovereign/sovereign-release-c
 
 async function fixture(){
   const root=await mkdtemp(path.join(tmpdir(),'uberbond-courier-'));
-  const source=path.join(root,'source'),inbox=path.join(root,'inbox');
+  const source=path.join(root,'source'),inbox=path.join(root,'inbox'),state=path.join(root,'state');
   const name='release-aaaaaaaaaaaa-bbbbbbbbbbbbbbbb';const rel=path.join(source,name);
-  await mkdir(rel,{recursive:true});await mkdir(inbox,{recursive:true});
+  await mkdir(rel,{recursive:true});await mkdir(inbox,{recursive:true});await mkdir(state,{recursive:true});
   for(const f of ['release.env','SHA256SUMS','release.sig','images.oci.tar'])await writeFile(path.join(rel,f),f);
   await writeFile(path.join(source,'NEXT_RELEASE'),`${name}\n`);
-  return{root,source,inbox,name,rel};
+  return{root,source,inbox,state,name,rel};
 }
-const run=f=>runSovereignReleaseCourier({env:{UBERBOND_RELEASE_COURIER_SOURCE:f.source,UBERBOND_RELEASE_COURIER_RUNTIME_INBOX:f.inbox}});
+const run=f=>runSovereignReleaseCourier({env:{UBERBOND_RELEASE_COURIER_SOURCE:f.source,UBERBOND_RELEASE_COURIER_RUNTIME_INBOX:f.inbox,UBERBOND_RELEASE_COURIER_STATE:f.state}});
 const placementFile=f=>path.join(f.inbox,f.name,'.uberbond-courier-placement.json');
-const placementJournal=f=>path.join(f.inbox,`.courier-placement-${f.name}.json`);
+const placementJournal=f=>path.join(f.state,`${f.name}.json`);
 async function precreateCompleteForeignRelease(f){await cp(f.rel,path.join(f.inbox,f.name),{recursive:true});}
 
 test('couriers signed bundle atomically without granting signing or deployment authority',async()=>{
@@ -69,7 +69,7 @@ test('refuses malformed courier placement evidence',async()=>{
   const f=await fixture();assert.equal((await run(f)).ok,true);await writeFile(placementFile(f),'{not-json');const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('release-courier-placement-evidence-malformed'));
 });
 
-test('refuses mismatched placement journal and release evidence',async()=>{
+test('refuses mismatched isolated placement journal and release evidence',async()=>{
   const f=await fixture();assert.equal((await run(f)).ok,true);const journal=JSON.parse(await readFile(placementJournal(f),'utf8'));journal.nonce='f'.repeat(64);await writeFile(placementJournal(f),`${JSON.stringify(journal)}\n`);
   const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('courier-placement-evidence-mismatch'));
 });
@@ -79,15 +79,24 @@ test('refuses placement evidence that attempts to grant authority',async()=>{
   const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('release-courier-placement-authority-invalid'));
 });
 
+test('refuses source runtime or provenance-state overlap',async()=>{
+  const f=await fixture();
+  const out=await runSovereignReleaseCourier({env:{UBERBOND_RELEASE_COURIER_SOURCE:f.source,UBERBOND_RELEASE_COURIER_RUNTIME_INBOX:f.inbox,UBERBOND_RELEASE_COURIER_STATE:path.join(f.inbox,'state')}});
+  assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('courier-source-runtime-state-separation-required'));
+});
+
 test('refuses unsafe marker names',async()=>{const f=await fixture();await writeFile(path.join(f.source,'NEXT_RELEASE'),'../escape\n');const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('safe-release-name-required'));});
 
 test('refuses symlink anywhere in signed bundle',async()=>{const f=await fixture();await symlink('/etc/passwd',path.join(f.rel,'evil'));const out=await run(f);assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('release-tree-symlink-refused'));});
 
-test('refuses source and runtime inbox overlap',async()=>{const f=await fixture();const out=await runSovereignReleaseCourier({env:{UBERBOND_RELEASE_COURIER_SOURCE:f.source,UBERBOND_RELEASE_COURIER_RUNTIME_INBOX:path.join(f.source,'nested')}});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('courier-source-destination-separation-required'));});
-
-test('service is zero-network and cannot write signer outbox',async()=>{
+test('service is zero-network, cannot write signer outbox, and isolates provenance state',async()=>{
   const service=await readFile(new URL('../ops/sovereign/uberbond-release-courier.service',import.meta.url),'utf8');
-  assert.match(service,/RestrictAddressFamilies=AF_UNIX/);assert.match(service,/IPAddressDeny=any/);assert.match(service,/ReadOnlyPaths=\/mnt\/uberbond-signer-outbox/);assert.match(service,/ReadWritePaths=\/var\/lib\/uberbond-control\/inbox/);assert.doesNotMatch(service,/UBERBOND_RELEASE_SIGNING_KEY|uberbondctl|deploy/);
+  assert.match(service,/RestrictAddressFamilies=AF_UNIX/);assert.match(service,/IPAddressDeny=any/);assert.match(service,/ReadOnlyPaths=\/mnt\/uberbond-signer-outbox/);assert.match(service,/UBERBOND_RELEASE_COURIER_STATE=\/var\/lib\/uberbond-release-courier/);assert.match(service,/ReadWritePaths=\/var\/lib\/uberbond-control\/inbox \/var\/lib\/uberbond-release-courier/);assert.doesNotMatch(service,/UBERBOND_RELEASE_SIGNING_KEY|uberbondctl|deploy/);
+});
+
+test('installer provisions courier-owned provenance state',async()=>{
+  const installer=await readFile(new URL('../ops/sovereign/install-release-courier.sh',import.meta.url),'utf8');
+  assert.match(installer,/STATE_ROOT="\/var\/lib\/uberbond-release-courier"/);assert.match(installer,/install -d -o uberbond-release-courier -g uberbond-release-courier -m 0700/);assert.match(installer,/UBERBOND_RELEASE_COURIER_STATE=\$\{STATE_ROOT\}/);
 });
 
 test('courier path watches only the signer publication marker',async()=>{const unit=await readFile(new URL('../ops/sovereign/uberbond-release-courier.path',import.meta.url),'utf8');assert.match(unit,/PathChanged=\/mnt\/uberbond-signer-outbox\/NEXT_RELEASE/);assert.match(unit,/Unit=uberbond-release-courier\.service/);});

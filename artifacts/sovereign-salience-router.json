@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "uberbond-sovereign-salience-router-1.0.0",
+  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ATTENTION_ROUTING_FOUNDATION",
+  "generatedAt": "2026-09-10T22:05:00+03:00",
+  "canonicalDoc": "docs/SOVEREIGN_SALIENCE_ROUTER.md",
+  "module": "src/sovereign-salience-router.mjs",
+  "test": "tests/sovereign-salience-router.test.mjs",
+  "composedDoctor": "scripts/life-sensorium-doctor.mjs",
+  "interventionModes": ["INTERRUPT_NOW", "PREPARE_SILENTLY", "DEFER", "PRESERVE_MYSTERY", "SAY_NOTHING"],
+  "founderRules": ["RIGHT_NOT_TO_KNOW", "NO_SPOILERS", "DIRECT_EXPERIENCE_FIRST", "DO_NOT_SURFACE", "EMERGENCY_ONLY", "NORMAL"],
+  "law": "SENSING_AND_REASONING_MAY_SCALE_FAR_FASTER_THAN_INTERRUPTION__FOUNDER_ATTENTION_REMAINS_SCARCE",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "ATTENTION_ROUTING_SOURCE_DOES_NOT_PROVE_REAL_AMBIENT_DELIVERY_INTERVENTION_VALUE_OR_EXTERNAL_ACTION_AUTHORITY"
+}

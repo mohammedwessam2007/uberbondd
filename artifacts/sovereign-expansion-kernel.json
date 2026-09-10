@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "uberbond-sovereign-expansion-kernel-1.0.0",
+  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION",
+  "generatedAt": "2026-09-10T21:30:00+03:00",
+  "canonicalDoc": "docs/SOVEREIGN_EXPANSION_KERNEL.md",
+  "module": "src/sovereign-expansion-kernel.mjs",
+  "test": "tests/genesis-sovereign-expansion-kernel.test.mjs",
+  "integration": "scripts/perpetual-frontier-genesis-tick.mjs",
+  "lensCount": 40,
+  "mandatoryLensIds": [
+    "missing-uberbond",
+    "ontology-stress",
+    "possibility-derivative",
+    "bottleneck-gradient",
+    "reality-contact",
+    "self-completion-attractor"
+  ],
+  "executablePrimitives": [
+    "validateSovereignExpansionKernel",
+    "buildExpansionEnvelope",
+    "buildMissingUberBondLedger",
+    "buildTheoryEcology",
+    "scorePossibilityDerivative",
+    "rankBottleneckGradient",
+    "buildMysteryPreservationContract"
+  ],
+  "relationToIdeationGenome": "CONSUMES_BOUNDED_IDEATION_ACTIVATIONS_AND_EXPANDS_THEIR_REALITY_COGNITION_SEARCH_DIMENSIONS",
+  "relationToOntogenesis": "FORTY_LENSES_ARE_A_SEED_ECOLOGY_NOT_A_CEILING__ONTOGENESIS_MAY_PROPOSE_NEW_CATEGORIES",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "EXPANSION_QUESTIONS_SCORES_GAPS_AND_THEORIES_ARE_INTERNAL_SEARCH_STRUCTURES_NOT_FACTS_DISCOVERIES_ACTION_AUTHORITY_LIFE_OUTCOMES_OR_ASI_PROOF"
+}

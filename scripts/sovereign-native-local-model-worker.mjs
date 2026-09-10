@@ -6,6 +6,8 @@ import { execFile } from 'node:child_process';
 import { compileNativeWorkerModelPrompt, compileNativeWorkerProposal } from '../src/sovereign-native-local-worker.mjs';
 import { SANDWICH_DESCENDANT_CANON_PATH } from '../src/sandwich-descendant-admission.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
+import { compileUberBondCognitiveGraph } from '../src/uberbond-cognitive-graph.mjs';
+import { compileConnectomeAutopoiesis } from '../src/connectome-autopoiesis.mjs';
 
 const MAX_JSON=8_000_000;
 const MAX_CONTEXT_FILE=80_000;
@@ -35,6 +37,8 @@ async function buildContext(root,task){
   if(semantic?.diagnostics)rows.push({path:'context:semantic-diagnostics',content:JSON.stringify(semantic.diagnostics,null,2)});
   if(sandwichGenesis(task)){
     if(task.localTruthSnapshot)rows.push({path:'context:exact-local-truth',content:JSON.stringify(task.localTruthSnapshot,null,2)});
+    const connectome=compileConnectomeAutopoiesis({graph:compileUberBondCognitiveGraph(),evidenceRefs:[`main:${taskBase(task)}`]});
+    if(connectome?.ok)rows.push({path:'context:connectome-autopoiesis',content:JSON.stringify(connectome,null,2)});
     const north=await readJson(path.join(root,SANDWICH_DESCENDANT_CANON_PATH));
     if(north){
       const named={
@@ -45,7 +49,7 @@ async function buildContext(root,task){
       };
       rows.push({path:'context:canonical-descendant-reference-names',content:JSON.stringify(named,null,2)});
     }
-    for(const p of ['NORTH_STAR.md','docs/SANDWICH_METHOD_CANON.md','docs/TEMPORAL_FOUNDRY_CANON.md','src/temporal-foundry.mjs','docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md','src/timeline-topology-engine.mjs','artifacts/perpetual-frontier-genesis.json','artifacts/uberbond-total-brain.json']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
+    for(const p of ['NORTH_STAR.md','docs/SANDWICH_METHOD_CANON.md','docs/TEMPORAL_FOUNDRY_CANON.md','src/temporal-foundry.mjs','docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md','src/timeline-topology-engine.mjs','src/connectome-autopoiesis.mjs','src/uberbond-cognitive-graph.mjs','artifacts/perpetual-frontier-genesis.json','artifacts/uberbond-total-brain.json']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
   } else if(!target){
     for(const p of ['scripts/terminal-realization.mjs','scripts/semantic-requirement-tribunal.mjs','src/semantic-requirement-tribunal.mjs']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
   }

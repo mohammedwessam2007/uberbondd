@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "uberbond-million-branch-ideation-genome-1.0.0",
+  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION",
+  "generatedAt": "2026-09-10T20:30:00+03:00",
+  "canonicalDoc": "docs/MILLION_BRANCH_IDEATION_GENOME.md",
+  "sourceLineage": {
+    "name": "UBERBOND_MILLION_BRANCH_IDEATION_GENOME_v1.md",
+    "sha256": "4dc7269a2a8f6dfc1855d1f2cf7231d437b22fe948e4139808a1a97c937065e5"
+  },
+  "domainCount": 20,
+  "operatorCount": 50,
+  "generatorCount": 1000,
+  "defaultCandidatesPerGenerator": 50,
+  "defaultFirstGenerationCapacity": 50000,
+  "relationToPerpetualFrontier": "EXTENDS_275_IDEA_REGISTRY_WITHOUT_REPLACING_IT",
+  "module": "src/million-branch-ideation-genome.mjs",
+  "integration": "scripts/perpetual-frontier-genesis-tick.mjs",
+  "doctor": "scripts/perpetual-frontier-genesis-doctor.mjs",
+  "test": "tests/genesis-million-branch-ideation.test.mjs",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "claimBoundary": "GENERATORS_AND_PROJECTED_BRANCHES_ARE_INTERNAL_SEARCH_SPACE_NOT_FACTS_CAPABILITIES_REVENUE_OR_EXTERNAL_PROOF",
+  "terminalMetaQuestion": "WHAT_WOULD_A_STRONGER_UBERBOND_ASK_THAT_CURRENT_UBERBOND_IS_NOT_INTELLIGENT_ENOUGH_TO_ASK_YET"
+}

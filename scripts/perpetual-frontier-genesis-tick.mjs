@@ -3,6 +3,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildGenesisCycle } from '../src/perpetual-frontier-genesis.mjs';
+import { buildIdeationActivationPlan } from '../src/million-branch-ideation-genome.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Map();
@@ -106,13 +107,22 @@ for (const signal of signals.slice(0, 500)) {
     disagreements: [],
     timestamps: { t0, t1 }
   });
-  cycles.push({ signalId, ...cycle });
+  const ideation = cycle.ok
+    ? buildIdeationActivationPlan({
+        context: summary,
+        affectedDomains: domains,
+        maxGenerators: 12,
+        candidateBudgetPerGenerator: 50,
+        seed: signalId
+      })
+    : null;
+  cycles.push({ signalId, ...cycle, ideation });
 }
 
 const successful = cycles.filter(cycle => cycle.ok).length;
 const invalid = cycles.length - successful;
 const receipt = {
-  schemaVersion: 'uberbond.perpetual-frontier-genesis.tick.v1',
+  schemaVersion: 'uberbond.perpetual-frontier-genesis.tick.v2',
   generatedAt,
   dryRun,
   source: {
@@ -128,7 +138,10 @@ const receipt = {
     cycles: cycles.length,
     successful,
     invalid,
-    resurrectionReviewCandidates: cycles.reduce((sum, cycle) => sum + (cycle.resurrection?.candidates?.length || 0), 0)
+    resurrectionReviewCandidates: cycles.reduce((sum, cycle) => sum + (cycle.resurrection?.candidates?.length || 0), 0),
+    ideationActivations: cycles.filter(cycle => cycle.ideation?.ok).length,
+    selectedIdeationGenerators: cycles.reduce((sum, cycle) => sum + (cycle.ideation?.selectedGeneratorCount || 0), 0),
+    projectedFirstGenerationCapacity: cycles.reduce((sum, cycle) => sum + (cycle.ideation?.selectedFirstGenerationCapacity || 0), 0)
   },
   businessEffectAuthority: 'NONE',
   externalEffectAuthority: 'NONE',
@@ -140,7 +153,7 @@ const receipt = {
     customerStateMutations: 0,
     providerCalls: 0
   },
-  truthBoundary: 'GENESIS_CYCLES_ARE_INTERNAL_RESEARCH_AND_PROPOSAL_RECEIPTS_NOT_TECHNOLOGY_MARKET_CUSTOMER_OR_REVENUE_PROOF'
+  truthBoundary: 'GENESIS_CYCLES_AND_IDEATION_BRANCHES_ARE_INTERNAL_RESEARCH_AND_PROPOSAL_RECEIPTS_NOT_TECHNOLOGY_MARKET_CUSTOMER_OR_REVENUE_PROOF'
 };
 
 await mkdir(dirname(outputPath), { recursive: true });
@@ -151,6 +164,9 @@ console.log(JSON.stringify({
   successful,
   invalid,
   resurrectionReviewCandidates: receipt.summary.resurrectionReviewCandidates,
+  ideationActivations: receipt.summary.ideationActivations,
+  selectedIdeationGenerators: receipt.summary.selectedIdeationGenerators,
+  projectedFirstGenerationCapacity: receipt.summary.projectedFirstGenerationCapacity,
   output: outputPath,
   businessEffectAuthority: 'NONE'
 }, null, 2));

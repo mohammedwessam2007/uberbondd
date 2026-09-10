@@ -4,7 +4,7 @@ import { collectAgentGitSandboxChanges } from './agent-git-sandbox-collector.mjs
 import { runSandboxVerification } from './agent-sandbox-verifier.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBERBOND_SELF_MAINTAINER_POLICY_VERSION = 'uberbond-self-maintainer-1.0.0';
+export const UBERBOND_SELF_MAINTAINER_POLICY_VERSION = 'uberbond-self-maintainer-1.1.0';
 
 function zeroEffects() {
   return structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -37,6 +37,12 @@ function fail(reasonCodes, status = 'BLOCKED', extra = {}) {
 function typedEvidence(values) {
   if (!Array.isArray(values)) return [];
   return unique(values.map(value => text(value, 500)).filter(value => /^(receipt|test|audit|github|doc|provider|issue):/i.test(value))).slice(0, 50);
+}
+
+function monotonicVerificationCommands(task, candidateChangeSet) {
+  const required = Array.isArray(task?.acceptanceTests) ? task.acceptanceTests : [];
+  const proposed = Array.isArray(candidateChangeSet?.verification) ? candidateChangeSet.verification : [];
+  return unique([...required, ...proposed].map(value => text(value, 800)).filter(Boolean));
 }
 
 /**
@@ -163,9 +169,12 @@ export async function runUberBondSelfMaintenance({
       });
     }
 
-    const verificationCommands = Array.isArray(candidateChangeSet.verification) && candidateChangeSet.verification.length
-      ? candidateChangeSet.verification
-      : (Array.isArray(task.acceptanceTests) ? task.acceptanceTests : []);
+    // Verification is attenuation-only. A candidate may request additional
+    // checks, but it can never replace, delete, reorder ahead of, or weaken the
+    // acceptance tests carried by the trusted task. The sandbox verifier keeps
+    // its own allowlist and command-count ceiling, so an oversized union fails
+    // closed instead of silently dropping a required command.
+    const verificationCommands = monotonicVerificationCommands(task, candidateChangeSet);
     if (!verificationCommands.length) return fail(['self-maintenance-verification-commands-required'], 'REPAIR_REQUIRED');
 
     const verification = await verifySandbox({
@@ -211,6 +220,8 @@ export async function runUberBondSelfMaintenance({
       verifiedFingerprint: observedFingerprint,
       verificationReceiptId: verification.verificationReceiptId,
       verificationCommands,
+      requiredAcceptanceTests: unique((Array.isArray(task.acceptanceTests) ? task.acceptanceTests : []).map(value => text(value, 800)).filter(Boolean)),
+      candidateVerificationCommands: unique((Array.isArray(candidateChangeSet.verification) ? candidateChangeSet.verification : []).map(value => text(value, 800)).filter(Boolean)),
       isolationEvidenceRefs: typedEvidence(sandbox.isolationReceipt.evidenceRefs),
       modelProviderCallsInsideWriteSandbox: 0,
       repositoryPromotionAuthority: promotionAdapter ? 'SEPARATE_AUTHORITY_REQUIRED' : 'NOT_REQUESTED',
@@ -264,7 +275,7 @@ export async function runUberBondSelfMaintenance({
       promotion,
       businessEffectAuthority: 'NONE',
       externalEffectLedger: zeroEffects(),
-      truthBoundary: 'CANONICAL_EXTERNAL_EFFECT_LEDGER_COVERS_PROVIDER_BUSINESS_SPEND_EFFECTS; REPOSITORY_BRANCH_AND_PR_EFFECTS_ARE_REPORTED_SEPARATELY_IN_PROMOTION'
+      truthBoundary: 'CANONICAL_EXTERNAL_EFFECT_LEDGER_COVERS_PROVIDER_BUSINESS_SPEND_EFFECTS; REPOSITORY_BRANCH_AND_PR EFFECTS_ARE_REPORTED_SEPARATELY_IN_PROMOTION'
     };
   }
 

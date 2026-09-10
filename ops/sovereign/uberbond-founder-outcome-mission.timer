@@ -1,0 +1,12 @@
+[Unit]
+Description=Pulse active UberBond founder outcome missions every minute
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=60s
+Unit=uberbond-founder-outcome-mission.service
+AccuracySec=5s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

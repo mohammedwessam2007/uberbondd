@@ -7,16 +7,17 @@ const cockpit = read('ops/sovereign/init-air-cockpit.sh');
 const compose = read('docker-compose.sovereign.yml');
 const ui = read('public/ops.js');
 
-test('sovereign web defaults private and never binds all public interfaces', () => {
+test('sovereign app defaults private and never binds all public interfaces', () => {
   assert.match(compose, /HOST_BIND:-127\.0\.0\.1/);
   assert.doesNotMatch(compose, /0\.0\.0\.0:.*8080/);
 });
 
-test('air cockpit binds web only to the private WireGuard address', () => {
-  assert.match(cockpit, /SERVER_ADDR=.*10\.73\.0\.1\/24/);
-  assert.match(cockpit, /HOST_BIND=%s/);
-  assert.match(cockpit, /FOUNDER_COCKPIT_TRANSPORT=wireguard/);
-  assert.doesNotMatch(cockpit, /HOST_BIND=0\.0\.0\.0/);
+test('air cockpit exposes only the hardened founder gateway on WireGuard', () => {
+  assert.match(cockpit, /SERVER_ADDR="10\.73\.0\.1\/24"/);
+  assert.match(cockpit, /configure-founder-private-gateway\.sh/);
+  assert.match(cockpit, /"\$GATEWAY_CONFIGURATOR" "\$SERVER_IP" "\$GATEWAY_PORT"/);
+  assert.doesNotMatch(cockpit, /HOST_BIND=/);
+  assert.doesNotMatch(cockpit, /APP_BASE_URL=/);
 });
 
 test('air cockpit has no hosted tunnel or cloud-control dependency', () => {

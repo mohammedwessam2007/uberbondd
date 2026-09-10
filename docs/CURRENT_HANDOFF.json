@@ -1,80 +1,54 @@
 {
-  "schemaVersion": "uberbond-handoff-3.1.0",
+  "schemaVersion": "uberbond-handoff-3.2.0",
   "checkpointedAt": "2026-09-11",
-  "sourceCommit": "331e667b8466cfa33a703d26fd841ae9c58fd156",
+  "sourceCommit": "ae44b4d0ce3491189de304b8198cfd7c6da50620",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "inheritance": {
-    "previousCurrentHandoffBlob": "d7d4cfca1e5a286529b21b55e63923a77bbac0b8",
-    "previousSchemaVersion": "uberbond-handoff-3.0.0",
+    "previousCurrentHandoffBlob": "fbf488bda0d6ddd8c6b35e7fa4556eab634a891d",
+    "previousSchemaVersion": "uberbond-handoff-3.1.0",
     "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
   },
-  "startupLaw": "Refresh live main, open PRs/issues, runtime/provider truth and exact-current execution evidence before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Sovereign Cognitive Continuum and Personal Civilization canon, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory/index, Sandwich canon, Temporal Foundry canon, Timeline Topology canon, inherited handoffs and this checkpoint. A future date is not evidence of required duration. Source, simulation and internal execution never become physical, biological, external, commercial, longitudinal or ASI proof without their own evidence. Capability never creates authority and imagined future descendants never create founder goals.",
-  "activeMission": "Cross the source-to-reality boundary for direct founder communication and resident sovereign self-completion on an owned or authorized Linux node with owner-supplied local model artifacts. In parallel, use the merged Temporal Foundry -> Timeline Topology -> Sandwich path to pull evidence-backed future functions into present internal engineering whenever exact-current truth exposes a dependency-satisfied internal primitive. Do not manufacture source work when only physical, external or elapsed-reality blockers remain.",
+  "startupLaw": "Refresh live main, open PRs/issues, runtime/provider truth and exact-current evidence before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Sovereign Cognitive Continuum and Personal Civilization canon, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory/index, Sandwich canon, Temporal Foundry canon, Timeline Topology canon, Connectome Autopoiesis canon, inherited handoffs and this checkpoint. Source connectivity is not physical runtime proof; cognitive edges do not create consequence authority; a future date is not duration evidence.",
+  "activeMission": "Cross source-to-reality on an owned or authorized Linux founder node while the resident self-completion path continuously preserves and improves the cognitive organism. Use Connectome Autopoiesis to detect isolated or under-connected capabilities; when genuine integration debt exists, prioritize one bounded bridge through the same Temporal Foundry -> Timeline Topology -> Sandwich -> independent verification -> promotion funnel. When the connectome is healthy, do not manufacture graph work.",
   "currentTruth": {
     "repository": {
-      "observedMain": "331e667b8466cfa33a703d26fd841ae9c58fd156",
+      "observedMain": "ae44b4d0ce3491189de304b8198cfd7c6da50620",
       "latestMainRequiresRefreshBeforeNewClaims": true
     },
-    "communicationCenter": {
-      "sourceState": "MERGED",
-      "ordinaryFounderDialogue": "MERGED",
-      "ordinaryFounderMessageImmediateWake": "MERGED",
-      "privateLanActivation": "MERGED",
-      "airNodeTailnetActivation": "MERGED_PR_681",
-      "publicCloudModelRequired": false,
+    "sovereignRuntimeSource": {
+      "communicationCenter": "MERGED",
+      "residentSelfCompletion": "MERGED",
+      "airNodeTailnet": "MERGED_PR_681",
+      "zeroCostOracleAirNodeBootstrap": "MERGED_PR_687",
+      "providerIndependentUberMeshFounderTransport": "MERGED_PR_688",
+      "publicCloudModelRequiredForCanonicalHeartbeat": false,
+      "physicalContinuousOperationObserved": false,
       "physicalFounderReachabilityObserved": false
     },
-    "residentSelfCompletion": {
-      "sourceState": "MERGED",
-      "hostedSchedulerRequired": false,
-      "githubRequiredForHeartbeat": false,
-      "vercelRequiredForHeartbeat": false,
-      "finiteCompletionPriority": "MERGED",
-      "postFiniteSandwichGenesis": "MERGED",
-      "workerVerifierPromoterSeparation": "MERGED",
-      "physicalContinuousOperationObserved": false
+    "futureCompression": {
+      "temporalFoundry": "MERGED_PR_685",
+      "timelineTopologyWormhole": "MERGED_PR_682_PR_683",
+      "sandwich": "MERGED",
+      "law": "Decompose future capability into functions, pull evidence-backed present function forward, challenge the exact primitive's dependency topology, then admit only a bounded independently verifiable requirement."
     },
-    "temporalFoundry": {
-      "status": "MERGED_PR_685",
-      "engine": "src/temporal-foundry.mjs",
-      "canon": "docs/TEMPORAL_FOUNDRY_CANON.md",
-      "artifact": "artifacts/temporal-foundry.json",
-      "law": "Do not wait for the final future implementation when its useful function can be reconstructed now. Decompose future-labeled capability into evidence-backed functions, count only present/composable functions as current, preserve external/physical/unknown functions as uncaptured, and backcast one dependency-satisfied internal enabling primitive that increases present function capture.",
-      "sandwichBinding": "Temporal Foundry primitiveCandidate.requirementName and Timeline Topology subjectRequirementName must both equal the exact admitted descendantRequirement.name; trusted receipts are SHA-256 bound to the normalized admitted requirement.",
-      "futureLabelIsDurationEvidence": false,
-      "physicalOrExternalFunctionMayBeClaimedPresentFromSource": false
-    },
-    "timelineTopology": {
-      "status": "MERGED_PR_682_PR_683",
-      "engine": "src/timeline-topology-engine.mjs",
-      "trustedChallengeCompiler": "src/timeline-topology-challenge.mjs",
-      "law": "Challenge the dependency topology before optimizing the route; preserve the same terminal contract; evidence-bound causal floors require rebuttal evidence before bypass; source evidence does not prove physical speedup."
-    },
-    "sovereignBootstrap": {
-      "sourceStack": "MERGED",
-      "oneCommandCommunicationCenterActivation": "MERGED",
-      "providerNeutralAirNodeTailnetPath": "MERGED",
-      "ownerSuppliedLocalModelInstaller": "MERGED_NO_DOWNLOAD_NO_CLOUD_FALLBACK",
-      "protectedExactCurrentEvidenceImporter": "MERGED",
-      "strictSignerCourierEvidenceAdmission": "MERGED",
-      "ownedRuntimeRehearsalWitness": "MERGED",
-      "ownedLinuxHostObserved": false,
-      "ownerSuppliedLocalModelAttested": false,
-      "founderConsoleReachabilityObserved": false,
-      "repeatedAutonomousSelfCompletionObserved": false,
-      "separateSignerObservedForExactCurrentSource": false,
-      "signedReleaseCourierObservedForExactCurrentSource": false,
-      "ownedRuntimeRehearsalObserved": false
+    "connectomeAutopoiesis": {
+      "status": "MERGED_PR_689",
+      "engine": "src/connectome-autopoiesis.mjs",
+      "canon": "docs/CONNECTOME_AUTOPOIESIS_CANON.md",
+      "artifact": "artifacts/connectome-autopoiesis.json",
+      "firstClassOrgans": ["avengers", "max-council", "temporal-foundry", "timeline-topology", "sandwich", "connectome-autopoiesis", "self-maintainer", "capability-genome", "economic-memory"],
+      "frontierCrossWiring": "Avengers and MAX Council are directly connected with Temporal Foundry and Timeline Topology; future-function, topology-result, descendant-gap, connectome-gap and feature-genesis events share the Cognitive Bus.",
+      "selfGrowth": "Each post-finite resident descendant cycle computes a fresh exact-source Connectome Autopoiesis audit. Genuine integration debt may yield exactly one bounded bridge hypothesis; a healthy graph yields no feature candidate.",
+      "authorityBoundary": "A connectome edge or bridge hypothesis carries information/context only and cannot edit source, self-admit, deploy, spend, message, mutate credentials, move money, create physical proof or expand founder-goal authority."
     },
     "verification": {
-      "pr685ExactBranchWidenedSovereignSlice": "80/80 PASS, 0 fail",
-      "pr685ExactMergedMainWidenedSovereignSlice": "80/80 PASS, 0 fail at 331e667b8466cfa33a703d26fd841ae9c58fd156",
-      "pr685Syntax": "PASS for Temporal Foundry, sovereign worker, Sandwich governor and local model worker script",
-      "pr685Artifacts": "artifacts/temporal-foundry.json and artifacts/sandwich-method.json parse successfully",
-      "reachabilityRatchet": "PASS with Temporal Foundry reachable through the sovereign Sandwich worker path",
+      "pr689ExactBranchIntegratedSlice": "98/98 PASS, 0 fail at 0ab7236fda1744e9abece6e2632dfa0900a1e964",
+      "pr689ExactMergedMainIntegratedSlice": "98/98 PASS, 0 fail at ae44b4d0ce3491189de304b8198cfd7c6da50620",
+      "pr689Syntax": "PASS for Connectome Autopoiesis, cognitive graph, cognitive bus, Sandwich governor and sovereign native local worker script",
+      "pr689ReachabilityRatchets": "PASS",
       "fullExactCurrentTerminalRegeneration": "NOT_CLAIMED"
     },
     "commercialProof": {
@@ -87,25 +61,24 @@
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "completedSincePreviousCheckpoint": [
-    "#685 merged Temporal Foundry / Future Raid into main at 331e667b8466cfa33a703d26fd841ae9c58fd156.",
-    "Future-labeled capabilities are now decomposed into weighted functions before post-finite Sandwich may use them to justify another internal descendant requirement.",
-    "Trusted admission refuses present-function claims without evidence, refuses external/physical functions as internally pulled-forward capability, refuses internal functions whose dependencies remain external/unknown, and treats horizon labels as non-evidence.",
-    "Temporal Foundry selects one dependency-satisfied internal enabling primitive; Timeline Topology then attacks the route to that same exact primitive; both receipts are bound to the same normalized descendant requirement before append-only canon admission.",
-    "Exact branch and post-merge widened sovereign verification each passed 80/80 with reachability, resident continuum, Air Node, Sandwich doctor, sovereign worker, Temporal Foundry and Wormhole included."
+    "#687 merged a zero-cost Oracle Ampere A1 + Tailscale + pinned local-model bootstrap path while preserving explicit external account gates.",
+    "#688 merged provider-independent UberMesh founder transport using direct WireGuard semantics and preserved physical-network evidence boundaries.",
+    "#689 merged Connectome Autopoiesis and fused Avengers/MAX Council with Temporal Foundry, Timeline Topology/Wormhole, Sandwich, Self-Maintainer and trusted learning through typed cognitive paths.",
+    "Connectome Autopoiesis now detects required-synergy or structural graph debt and may surface one bounded integration-feature hypothesis; healthy connectome state explicitly produces no new bridge work.",
+    "The resident sovereign worker computes the connectome audit from exact source during descendant genesis, and the Sandwich governor prioritizes real integration debt before unrelated feature genesis while preserving Future Raid, Wormhole and independent verification gates."
   ],
   "genuineBlockers": [
-    "PHYSICAL FOUNDER HOST/MODEL: no owned or authorized Linux founder node with prepared dependencies plus owner-supplied llama-server executable and GGUF model has produced source-root, systemd, local-model, dialogue, isolated-worker or repeated-continuum receipts.",
-    "PHYSICAL NETWORK/RUNTIME: private-LAN and tailnet activation paths are source-ready, but no target host available to this execution context has produced a real iPad URL, founder token or reachability receipt.",
-    "PHYSICAL RELEASE AUTHORITY: strict separate signer, zero-authority courier and owned runtime rehearsal mechanisms are merged but have not been observed for exact current source.",
-    "EXACT-CURRENT FULL TRIBUNAL: widened focused source mechanisms have execution evidence; a full terminal-realization regeneration on exact current main is not claimed.",
-    "EXTERNAL/PROVIDER/COMMERCIAL: lawful provider callability, live payment, customer messaging, real customers, cleared revenue, accepted delivery and retention require external evidence.",
-    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, biological/physical acceleration and any ASI-level claim require observed reality and cannot be minted by repository changes. Temporal Foundry may challenge their topology but may not declare them captured without evidence."
+    "PHYSICAL FOUNDER HOST/MODEL: source now includes local, Air Node, Oracle bootstrap and UberMesh transport paths, but no owned or authorized target Linux node has produced exact-current model, service, dialogue and repeated-continuum receipts in this execution context.",
+    "PHYSICAL NETWORK/RUNTIME: source transport paths are merged; no real founder endpoint/reachability receipt for exact current source has been observed here.",
+    "PHYSICAL RELEASE AUTHORITY: separate signer, courier and owned runtime rehearsal remain evidence requirements and are not created by cognitive graph integration.",
+    "EXACT-CURRENT FULL TRIBUNAL: the integrated 98-test slice is green; a full repository terminal-realization regeneration on exact current main is not claimed.",
+    "EXTERNAL/COMMERCIAL: provider entitlement, live payment, customer messaging, real customers, cleared revenue, delivery acceptance and retention require their own evidence.",
+    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, biological/physical acceleration, novel scientific outcomes and ASI-level claims require observed reality."
   ],
   "nextExecutor": {
-    "primary": "First owned or authorized Linux founder node with owner-supplied local model artifacts",
-    "activation": "Run the exact-current sovereign activation path on that host, preserve doctor/first-wake/repeated-continuum receipts, then separately exercise signer, courier and runtime rehearsal evidence.",
-    "selfCompletion": "After finite source closure, the resident continuum models a stronger future capability, runs Temporal Foundry to select one present-pullable internal primitive, runs Timeline Topology against that same primitive, and only then may trusted Sandwich admission append one bounded requirement.",
-    "truthBoundary": "If Future Raid shows that remaining high-value function is physical, external, unknown or elapsed reality, stop source theater and obtain the relevant reality evidence instead."
+    "primary": "Activate exact-current UberBond on the first owned or authorized Linux founder node using an admitted local-model/runtime path and preserve real receipts.",
+    "selfCompletion": "On each post-finite cycle: exact truth -> Connectome audit -> if genuine integration debt, consider one bounded bridge; otherwise Future Raid -> Timeline Topology -> one bounded Sandwich requirement -> independent verification/promotion -> recompute.",
+    "cognitiveLaw": "Parallel cognition, serial authority. Mix evidence and intelligence aggressively; never mix authority boundaries implicitly."
   },
-  "truthBoundary": "This checkpoint proves source-level Future Raid, future-function decomposition, trusted internal primitive selection, Wormhole routing and Sandwich admission integration. It creates no physical host, future hardware, biological acceleration, customer, payment, acceptance, retention, provider entitlement, superintelligence, perfect prediction or observed life improvement."
+  "truthBoundary": "This checkpoint proves source-level cognitive interconnection, connectome self-audit and governed integration-feature genesis. It does not prove a physically running 24/7 UberBond, provider callability, customers, revenue, physical autonomy, biological acceleration, superintelligence or observed life outcomes."
 }

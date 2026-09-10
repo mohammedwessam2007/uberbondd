@@ -1,13 +1,18 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION='uberbond.semantic-requirement-tribunal.v1.1';
+export const SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION='uberbond.semantic-requirement-tribunal.v1.2';
 export const SEMANTIC_REQUIREMENT_CLASSES=Object.freeze(['FINITE_BEHAVIOR','STRUCTURAL_CONSTITUTION','EXTERNAL','ELAPSED','OPEN_ENDED_FRONTIER']);
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^(?:sha256:)?[0-9a-f]{64}$/;
 const TERMINAL_STRUCTURAL=new Set([
   'STRUCTURAL_NOT_A_BUILD_TARGET','COVERED_BY_PARENT_ORGAN','REFERENCE_ONLY_BY_CANON','HISTORICAL_DONOR_PRESERVED',
   'ALIAS_OF_CANONICAL_CONCEPT','SUPERSEDED_WITH_PRESERVED_DONATION','DRAFT_DONOR'
+]);
+const CANONICAL_STRUCTURAL_AXIOMS=new Set([
+  'total-north-star:mohamed-provides-will',
+  'total-north-star:uberbond-provides-intelligence',
+  'total-north-star:reality-provides-feedback'
 ]);
 const text=(v,max=4000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 const uniq=v=>[...new Set((Array.isArray(v)?v:[]).map(x=>text(x,1000)).filter(Boolean))].sort();
@@ -19,6 +24,7 @@ export function inferSemanticRequirementClass(row={},explicit=null){
   if(SEMANTIC_REQUIREMENT_CLASSES.includes(explicit))return explicit;
   if(row.currentState==='ELAPSED_TIME_REQUIRED')return'ELAPSED';
   if(row.currentState==='EXTERNAL_BLOCKED'||row.currentState==='OWNER_BOUNDARY')return'EXTERNAL';
+  if(CANONICAL_STRUCTURAL_AXIOMS.has(String(row.canonicalId||'')))return'STRUCTURAL_CONSTITUTION';
   if(TERMINAL_STRUCTURAL.has(row.currentState))return'STRUCTURAL_CONSTITUTION';
   return'FINITE_BEHAVIOR';
 }

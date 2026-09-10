@@ -4,7 +4,7 @@ umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo 'Run as root.' >&2; exit 2; }
 [[ $# -eq 1 ]] || { echo 'usage: configure-founder-console-private.sh PRIVATE_RFC1918_IPV4' >&2; exit 2; }
-for cmd in node systemctl install mktemp chown chmod rm; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in node systemctl install mktemp chown chmod rm id; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 
 HOST="$1"
 CONFIG=/etc/uberbond/founder-console.env

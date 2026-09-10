@@ -52,7 +52,7 @@ mv "$STAGE" /opt/uberbond/source
 if [[ "$(git -C /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" ]]; then rm -rf /opt/uberbond/source; [[ ! -e "$PREVIOUS" ]] || mv "$PREVIOUS" /opt/uberbond/source; echo "Installed source identity verification failed; prior source restored." >&2; exit 2; fi
 rm -rf "$PREVIOUS"; trap - EXIT
 
-for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh; do
+for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh; do
   install -m 0755 "/opt/uberbond/source/ops/sovereign/$tool" "/opt/uberbond/control/$tool"
 done
 for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
@@ -134,10 +134,13 @@ Worker outbox:      /var/lib/uberbond-worker/outbox
 Governance inbox:   /var/lib/uberbond-governance/inbox
 Promotion state:    /var/lib/uberbond-promotion
 Native worker:      /opt/uberbond/control/uberbond-native-local-worker
+Private console:    /opt/uberbond/control/configure-founder-console-private.sh PRIVATE_RFC1918_IPV4
 
-Default console binding is loopback-only and cloud-independent. Do not bind it to
-another interface without a strong UBERBOND_FOUNDER_CONSOLE_TOKEN and a private,
-trusted network path. The console never reads the Personal Civilization vault.
+Default console binding is loopback-only and cloud-independent. To make the
+console reachable from an iPad or another founder device on the same trusted
+private RFC1918 network, use the installed configurator above. It generates a
+strong token transactionally and refuses wildcard/public addresses. The console
+never reads the Personal Civilization vault.
 
 A native code-writing worker is installed but intentionally disabled until an
 owner-controlled local model runtime is named. Activate both direct dialogue and

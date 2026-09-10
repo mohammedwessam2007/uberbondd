@@ -10,28 +10,28 @@ function indexOfRequired(pattern, label) {
   return index;
 }
 
-test('verified main promotion immediately wakes the next completion cycle with recovery clock retained', () => {
-  assert.match(workflow, /on:\s*\n\s*push:\s*\n\s*branches:\s*\n\s*- main/);
-  assert.match(workflow, /schedule:\s*\n\s*- cron: '\*\/15 \* \* \* \*'/);
-  assert.match(workflow, /workflow_dispatch:/);
+test('hosted finite-completion workflow is manual fallback only', () => {
+  assert.match(workflow, /on:\s*\n\s*workflow_dispatch:/);
+  assert.doesNotMatch(workflow, /\n\s*schedule:/);
+  assert.doesNotMatch(workflow, /\n\s*push:/);
+  assert.doesNotMatch(workflow, /cron:/);
 });
 
-test('push handoff follows an in-flight promoting maintainer briefly instead of losing the event', () => {
-  assert.match(workflow, /GITHUB_EVENT_NAME:-.*push/);
-  assert.match(workflow, /for attempt in \$\(seq 1 12\)/);
-  assert.match(workflow, /sleep 5/);
+test('manual cloud fallback collapses when another self-maintainer is active', () => {
+  assert.match(workflow, /Collapse manual fallback when the trusted self-maintainer is already active/);
   assert.match(workflow, /actions\/workflows\/uberbond-self-maintainer\.yml\/runs\?per_page=20/);
+  assert.doesNotMatch(workflow, /GITHUB_EVENT_NAME:-.*push/);
 });
 
 test('founder pause and active-run collapse remain ahead of checkout and dispatch', () => {
   const pause = indexOfRequired(/Honor durable founder pause fence/, 'founder pause');
-  const active = indexOfRequired(/Collapse pulse when the trusted self-maintainer is already active/, 'active maintainer collapse');
+  const active = indexOfRequired(/Collapse manual fallback when the trusted self-maintainer is already active/, 'active maintainer collapse');
   const checkout = indexOfRequired(/Checkout exact current main for finite completion truth/, 'exact-current checkout');
   const dispatch = indexOfRequired(/Dispatch trusted self-maintainer onto the exact seeded completion task/, 'self-maintainer dispatch');
   assert.ok(pause < active && active < checkout && checkout < dispatch);
 });
 
-test('autocatalytic wake still regenerates truth before seeding one bounded task', () => {
+test('manual fallback still regenerates truth before seeding one bounded task', () => {
   const terminal = indexOfRequired(/Regenerate exact-current terminal truth before choosing work/, 'terminal truth regeneration');
   const seed = indexOfRequired(/Seed exactly one finite-completion task from freshly regenerated tribunal truth/, 'finite seed');
   const dispatch = indexOfRequired(/Dispatch trusted self-maintainer onto the exact seeded completion task/, 'dispatch');
@@ -40,7 +40,7 @@ test('autocatalytic wake still regenerates truth before seeding one bounded task
   assert.match(workflow, /node scripts\/uberbond-finite-completion-seed\.mjs/);
 });
 
-test('autocatalysis cannot acquire write credentials in checkout', () => {
+test('manual cloud fallback cannot acquire write credentials in checkout', () => {
   assert.match(workflow, /persist-credentials: false/);
   assert.match(workflow, /contents: read/);
   assert.doesNotMatch(workflow, /contents: write/);

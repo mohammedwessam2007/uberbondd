@@ -131,6 +131,23 @@ export async function runSandwichAutocatalyticSeed({ env = process.env, repoRoot
   const existing = issues.filter(issue => taskMatches(issue, task.taskId)).sort((a,b) => Number(b.number || 0) - Number(a.number || 0))[0];
   if (existing) {
     const issueNumber = Number(existing.number);
+    if (String(existing.state || '').toLowerCase() !== 'open') {
+      await writeOutput('task_required', 'false');
+      await writeOutput('issue_number', '');
+      return {
+        ok: true,
+        status: 'SANDWICH_DESCENDANT_SAME_BASE_ALREADY_ATTEMPTED',
+        policyVersion: SANDWICH_AUTOCATALYTIC_GOVERNOR_VERSION,
+        baseRevision,
+        priorIssueNumber: issueNumber,
+        taskId: task.taskId,
+        repositoryIssueEffects: 0,
+        nextRequiredAction: 'WAIT_FOR_NEW_MAIN_OR_NEW_EVIDENCE__DO_NOT_REPEAT_IDENTICAL_DESCENDANT_GENESIS_ON_SAME_BASE',
+        businessEffectAuthority: 'NONE',
+        externalEffectAuthority: 'NONE',
+        externalEffectLedger: { ...ZERO_EFFECTS }
+      };
+    }
     await writeOutput('task_required', 'true');
     await writeOutput('issue_number', issueNumber);
     return {
@@ -173,7 +190,7 @@ export async function runSandwichAutocatalyticSeed({ env = process.env, repoRoot
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS },
-    truthBoundary: 'THIS_CREATES_ONE_ZERO-EFFECT REQUIREMENT-GENESIS TASK. IT DOES NOT IMPLEMENT THE REQUIREMENT, MERGE, DEPLOY, CREATE EXTERNAL EFFECTS, OR PROVE GLOBAL COMPLETION.'
+    truthBoundary: 'THIS_CREATES_ONE ZERO-EFFECT REQUIREMENT-GENESIS TASK. IT DOES NOT IMPLEMENT THE REQUIREMENT, MERGE, DEPLOY, CREATE EXTERNAL EFFECTS, OR PROVE GLOBAL COMPLETION.'
   };
 }
 

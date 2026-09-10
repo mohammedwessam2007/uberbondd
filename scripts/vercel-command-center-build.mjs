@@ -6,6 +6,11 @@ const fixturePreparation = process.platform === 'linux' && process.arch === 'x64
 
 const steps = [
   ...fixturePreparation,
+  // The native sovereign worker is part of the bootstrap control plane. Run its
+  // hostile contract before terminal realization so a pre-existing semantic
+  // backlog cannot hide a regression in the mechanism that is meant to repair
+  // that backlog. This only adds a gate; it grants no worker/promotion authority.
+  ['node', ['--test', 'tests/sovereign-native-local-worker.test.mjs']],
   // The finite terminal tribunal owns exact-checkout truth regeneration as its
   // first internal step. Running current-truth-regeneration separately here
   // would dirty its generated truth inputs and correctly make the tribunal's
@@ -55,5 +60,6 @@ console.log(JSON.stringify({
   adminEphemeralBearerRequired: true,
   reachabilityLiveComputedRequired: true,
   exactCheckoutReadinessBeforeDeterministic: true,
+  nativeSovereignWorkerHostileGateRequired: true,
   externalEffectAuthority: 'NONE'
 }));

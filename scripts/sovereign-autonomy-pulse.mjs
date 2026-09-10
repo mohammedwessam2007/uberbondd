@@ -6,10 +6,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
 import { compileFiniteCompletionDirective, compileFiniteCompletionTask } from './uberbond-finite-completion-seed.mjs';
+import { compileSandwichAutocatalyticDirective, compileSandwichAutocatalyticTask } from '../src/sandwich-autocatalytic-governor.mjs';
 import { gateSelfMaintainerPulse } from '../src/self-maintainer-continuation-policy.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const SOVEREIGN_AUTONOMY_PULSE_VERSION = 'uberbond.sovereign-autonomy-pulse.v4';
+export const SOVEREIGN_AUTONOMY_PULSE_VERSION = 'uberbond.sovereign-autonomy-pulse.v5';
 const SHA40 = /^[a-f0-9]{40}$/i;
 const MAX_JSON_BYTES = 4_000_000;
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -26,6 +27,7 @@ function localAttemptId(baseRevision, task = {}) {
     taskId: text(task.taskId, 300),
     repairMode: task.repairMode || null,
     targetRequirementId: task.targetRequirementId || null,
+    taskClass: task.taskClass || null,
     evidenceRefs: Array.isArray(task.evidenceRefs) ? task.evidenceRefs.map(String) : [],
     requiredOutputs: Array.isArray(task.requiredOutputs) ? task.requiredOutputs.map(String) : [],
     acceptanceTests: Array.isArray(task.acceptanceTests) ? task.acceptanceTests.map(String) : []
@@ -55,9 +57,9 @@ function waitingReceipt({ baseRevision, task, attemptId }) {
 export function compileLocalAutonomyState({ paused = false, baseRevision, directive, isolatedWorkerEnabled = false } = {}) {
   if (!SHA40.test(text(baseRevision, 80))) return fail(['exact-source-commit-required']);
   if (paused) return { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: 'FOUNDER_PAUSED', baseRevision: baseRevision.toLowerCase(), taskRequired: false, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects() };
-  if (!directive?.ok) return fail(['finite-completion-directive-required']);
+  if (!directive?.ok) return fail(['completion-directive-required']);
   if (directive.taskRequired !== true) return { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: 'FINITE_ENGINEERING_ALREADY_CLOSED', baseRevision: baseRevision.toLowerCase(), taskRequired: false, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'Finite engineering closure is inherited only from the exact-current terminal tribunal; runtime, commercial, personal and ASI evidence remain separate.' };
-  return { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: isolatedWorkerEnabled ? 'TASK_READY_FOR_ISOLATED_WORKER' : 'TASK_READY_NO_LOCAL_WORKER', baseRevision: baseRevision.toLowerCase(), taskRequired: true, repairMode: directive.repairMode || null, targetRequirementId: directive.targetRequirementId || null, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'The authoring controller may select one LOCAL_PREPARATION task. Model execution occurs under a separate OS identity and cannot merge, sign, deploy or create business effects.' };
+  return { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: isolatedWorkerEnabled ? 'TASK_READY_FOR_ISOLATED_WORKER' : 'TASK_READY_NO_LOCAL_WORKER', baseRevision: baseRevision.toLowerCase(), taskRequired: true, repairMode: directive.repairMode || null, targetRequirementId: directive.targetRequirementId || null, taskClass: directive.taskClass || null, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'The authoring controller may select one LOCAL_PREPARATION task. Model execution occurs under a separate OS identity and cannot merge, sign, deploy or create business effects.' };
 }
 
 async function regenerateTerminalInEphemeralClone({ root, head, env, runProcess }) {
@@ -75,6 +77,26 @@ async function regenerateTerminalInEphemeralClone({ root, head, env, runProcess 
     if (![0, 2].includes(terminal.exitCode)) return fail([`terminal-realization-unexpected-exit:${terminal.exitCode}`], 'SOVEREIGN_AUTONOMY_TERMINAL_CRASH', { baseRevision: head });
     return { ok: true, terminalExitCode: terminal.exitCode, terminalDoc: await readJson(path.join(clone, 'artifacts/sovereign/terminal-realization.json')), graphDoc: await readJson(path.join(clone, 'artifacts/sovereign/canonical-execution-leaf-graph.json')) };
   } finally { await fs.rm(workspace, { recursive: true, force: true }).catch(() => {}); }
+}
+
+function compileNextLocalTask({ head, finiteDirective }) {
+  if (finiteDirective.taskRequired === true) {
+    const task = compileFiniteCompletionTask({ directive: finiteDirective });
+    if (!task?.taskId) return fail(['finite-completion-task-compilation-failed']);
+    return { ok: true, task, directive: { ...finiteDirective, taskClass: 'FINITE_COMPLETION' }, taskClass: 'FINITE_COMPLETION' };
+  }
+
+  const sandwichDirective = compileSandwichAutocatalyticDirective({ baseRevision: head, finiteDirective });
+  if (!sandwichDirective?.ok) return fail(sandwichDirective?.reasonCodes || ['sandwich-descendant-directive-refused'], 'SOVEREIGN_AUTONOMY_DESCENDANT_GENESIS_REFUSED', { baseRevision: head });
+  const compiled = compileSandwichAutocatalyticTask({ directive: sandwichDirective });
+  if (!compiled?.taskId) return fail(compiled?.reasonCodes || ['sandwich-descendant-task-compilation-failed'], 'SOVEREIGN_AUTONOMY_DESCENDANT_GENESIS_REFUSED', { baseRevision: head });
+  const task = { ...compiled, repairMode: 'SANDWICH_DESCENDANT_GENESIS', targetRequirementId: null, taskClass: 'SANDWICH_DESCENDANT_GENESIS' };
+  return {
+    ok: true,
+    task,
+    directive: { ...sandwichDirective, repairMode: 'SANDWICH_DESCENDANT_GENESIS', targetRequirementId: null, taskClass: 'SANDWICH_DESCENDANT_GENESIS' },
+    taskClass: 'SANDWICH_DESCENDANT_GENESIS'
+  };
 }
 
 export async function runSovereignAutonomyPulse({ env = process.env, repoRoot = process.cwd(), runProcess = run } = {}) {
@@ -109,22 +131,28 @@ export async function runSovereignAutonomyPulse({ env = process.env, repoRoot = 
     return resumed;
   }
   if (preflight.runPrimaryTick !== true) {
-    const blocked = { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: 'SAME_BASE_REENTRY_BLOCKED_BY_CONTINUATION_POLICY', baseRevision: head, taskRequired: false, newWorkerDispatch: false, continuation: preflight, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'Canonical continuation policy blocked same-base reentry. A timer or manual wake cannot manufacture a fresh attempt.' };
+    const blocked = { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: 'SAME_BASE_REENTRY_BLOCKED_BY_CONTINUATION_POLICY', baseRevision: head, taskRequired: false, newWorkerDispatch: false, continuation: preflight, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'Canonical continuation policy blocked same-base reentry. Resident continuum or manual wake cannot manufacture a fresh attempt.' };
     await atomicJson(statusPath, { ...blocked, observedAt: new Date().toISOString() });
     return blocked;
   }
 
   const truth = await regenerateTerminalInEphemeralClone({ root, head, env, runProcess }); if (!truth?.ok) return truth;
-  const directive = compileFiniteCompletionDirective({ baseRevision: head, terminalRealization: truth.terminalDoc, executionGraph: truth.graphDoc }); if (!directive?.ok) return fail(directive?.reasonCodes || ['finite-completion-directive-refused']);
-  const workerEnabled = String(env.UBERBOND_ISOLATED_WORKER_ENABLED || '').toLowerCase() === 'true'; const state = compileLocalAutonomyState({ paused: false, baseRevision: head, directive, isolatedWorkerEnabled: workerEnabled });
-  if (!directive.taskRequired) { await fs.rm(taskPath, { force: true }).catch(() => {}); await fs.rm(continuationPath, { force: true }).catch(() => {}); await atomicJson(statusPath, { ...state, terminalExitCode: truth.terminalExitCode, observedAt: new Date().toISOString() }); return state; }
-  const task = compileFiniteCompletionTask({ directive }); if (!task?.taskId) return fail(['finite-completion-task-compilation-failed']); await atomicJson(taskPath, task);
-  if (!workerEnabled) { await atomicJson(statusPath, { ...state, taskId: task.taskId, taskPath, terminalExitCode: truth.terminalExitCode, observedAt: new Date().toISOString() }); return { ...state, taskId: task.taskId, taskPath }; }
+  const finiteDirective = compileFiniteCompletionDirective({ baseRevision: head, terminalRealization: truth.terminalDoc, executionGraph: truth.graphDoc }); if (!finiteDirective?.ok) return fail(finiteDirective?.reasonCodes || ['finite-completion-directive-refused']);
+  const next = compileNextLocalTask({ head, finiteDirective }); if (!next?.ok) return next;
+  const workerEnabled = String(env.UBERBOND_ISOLATED_WORKER_ENABLED || '').toLowerCase() === 'true';
+  const state = compileLocalAutonomyState({ paused: false, baseRevision: head, directive: next.directive, isolatedWorkerEnabled: workerEnabled });
+  const task = next.task;
+  await atomicJson(taskPath, task);
+  if (!workerEnabled) {
+    const ready = { ...state, taskId: task.taskId, taskClass: next.taskClass, taskPath, terminalExitCode: truth.terminalExitCode, observedFiniteEngineeringClosed: finiteDirective.taskRequired !== true, observedAt: new Date().toISOString() };
+    await atomicJson(statusPath, ready);
+    return { ...state, taskId: task.taskId, taskClass: next.taskClass, taskPath, observedFiniteEngineeringClosed: finiteDirective.taskRequired !== true };
+  }
   const workerTaskPath = safeWorkerTaskPath(env); if (!workerTaskPath) return fail(['safe-isolated-worker-task-path-required'], 'SOVEREIGN_AUTONOMY_WORKER_HANDOFF_REFUSED', { baseRevision: head, taskId: task.taskId });
   const attemptId = localAttemptId(head, task);
   await atomicJson(continuationPath, waitingReceipt({ baseRevision: head, task, attemptId }));
   await atomicJson(workerTaskPath, task, 0o640);
-  const dispatched = { ...state, status: 'TASK_DISPATCHED_TO_ISOLATED_WORKER', taskId: task.taskId, attemptId, taskPath, workerTaskPath, continuationPath, terminalExitCode: truth.terminalExitCode, newWorkerDispatch: true, truthBoundary: 'Task selection and model execution are OS-separated. This digest-bound dispatch is one attempt only and is not a verified change, merge, signature, release or deployment.' }; await atomicJson(statusPath, { ...dispatched, observedAt: new Date().toISOString() }); return dispatched;
+  const dispatched = { ...state, status: 'TASK_DISPATCHED_TO_ISOLATED_WORKER', taskId: task.taskId, taskClass: next.taskClass, attemptId, taskPath, workerTaskPath, continuationPath, terminalExitCode: truth.terminalExitCode, observedFiniteEngineeringClosed: finiteDirective.taskRequired !== true, newWorkerDispatch: true, truthBoundary: next.taskClass === 'SANDWICH_DESCENDANT_GENESIS' ? 'Declared finite engineering was closed on this exact base, so the sovereign local Sandwich transition dispatched one zero-effect descendant-requirement genesis attempt. It may admit at most one bounded internal requirement and cannot implement it in the same attempt, merge, sign, release, deploy, or create external effects.' : 'Task selection and model execution are OS-separated. This digest-bound dispatch is one attempt only and is not a verified change, merge, signature, release or deployment.' }; await atomicJson(statusPath, { ...dispatched, observedAt: new Date().toISOString() }); return dispatched;
 }
 
 const invokedAsCli = Boolean(process.argv[1]) && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

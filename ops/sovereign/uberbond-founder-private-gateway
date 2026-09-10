@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+source /etc/uberbond/authoring.env
+exec "$UBERBOND_NODE_EXECUTABLE" /opt/uberbond/source/scripts/sovereign-founder-private-gateway.mjs

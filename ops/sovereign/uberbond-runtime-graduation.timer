@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodically observe UberBond sovereign runtime graduation evidence
+
+[Timer]
+OnBootSec=75s
+OnUnitActiveSec=60s
+Persistent=true
+Unit=uberbond-runtime-graduation.service
+
+[Install]
+WantedBy=timers.target

@@ -5,6 +5,22 @@ import { readFileSync } from 'node:fs';
 const installer=readFileSync(new URL('../ops/sovereign/install-offline-llama-runtime.sh',import.meta.url),'utf8');
 const unit=readFileSync(new URL('../ops/sovereign/uberbond-offline-llama-runtime.service',import.meta.url),'utf8');
 
+test('direct offline installer refuses artifact symlinks before realpath can erase identity',()=>{
+  for(const [input,reason] of [
+    ['BINARY_INPUT','llama-server must be a real executable file, not a symlink'],
+    ['MODEL_FILE_INPUT','GGUF model must be a real file, not a symlink']
+  ]){
+    const reject=installer.indexOf(reason);
+    const resolve=installer.indexOf(`realpath \"$${input}\"`);
+    assert.ok(reject>=0&&resolve>reject,`${input} refusal must precede realpath`);
+  }
+  assert.match(installer,/Resolved llama-server must remain a real executable file/);
+  assert.match(installer,/Resolved GGUF model must remain a real file/);
+  const prereq=installer.indexOf('for cmd in sha256sum');
+  const firstResolve=installer.indexOf('realpath "$BINARY_INPUT"');
+  assert.ok(prereq>=0&&firstResolve>prereq,'realpath prerequisite must be checked before use');
+});
+
 test('offline llama seed never downloads a runtime or model',()=>{
   assert.doesNotMatch(installer,/\b(?:curl|wget)\b|git\s+clone|huggingface|hf_hub|apt(?:-get)?\s+install|dnf\s+install|yum\s+install|npm\s+install/i);
   assert.doesNotMatch(installer,/https?:\/\/(?!127\.0\.0\.1)/i);

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "uberbond.verification-receipt.v1",
+  "subject": "self-maintainer-verification-monotonicity",
+  "baseCommit": "ab1bd930eda7618c3e2826e8a1b0732b45c4a33f",
+  "protectedModuleBlob": "f84d8421c3a9457ede01787e6a44ec414e33ea4e",
+  "existingTestBlob": "12fb905294495640aa0aa1c366a112bae9b43348",
+  "hostileTestBlob": "ec5fae220c6513f9e4d4ca9d136a5d6343308c40",
+  "execution": {
+    "nodeCheck": "PASS",
+    "focusedTests": 10,
+    "passed": 10,
+    "failed": 0
+  },
+  "verifiedBehavior": [
+    "trusted task acceptance tests execute before candidate-added verification",
+    "candidate-added checks can strengthen but cannot replace required checks",
+    "duplicate candidate checks cannot reorder or duplicate required checks",
+    "trusted acceptance tests still execute when candidate verification is empty",
+    "existing isolation promotion drift failure and cleanup behavior remains green"
+  ],
+  "truthBoundary": "This is exact-byte focused source execution. It does not prove hosted CI, physical founder-node execution, customer outcomes, life outcomes or ASI.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE"
+}

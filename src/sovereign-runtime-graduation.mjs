@@ -28,10 +28,12 @@ export function exactOfflineSignerReceipt(receipt){
     && noneAuthority(receipt,'externalEffectAuthority'));
 }
 
-export function exactReleaseCourierReceipt(receipt,releaseName){
+export function exactReleaseCourierReceipt(receipt,releaseName,signerReceiptSha256){
   if(!receipt||typeof receipt!=='object'||Array.isArray(receipt))return false;
+  const digest=text(signerReceiptSha256).toLowerCase();
   return Boolean(receipt.ok===true&&COURIER_STATUSES.has(text(receipt.status))
     && text(receipt.releaseName)===releaseName
+    && SHA64.test(digest)&&text(receipt.signerReceiptSha256).toLowerCase()===digest
     && noneAuthority(receipt,'signingAuthority')
     && noneAuthority(receipt,'deploymentAuthority')
     && noneAuthority(receipt,'businessEffectAuthority')
@@ -44,7 +46,9 @@ export function compileSovereignRuntimeGraduation(input={}){
   if(!signerValid)reasons.push('exact-offline-signer-receipt-required');
   const releaseName=signerValid?text(signer.releaseName):'';
   const sourceCommit=signerValid?text(signer.sourceCommit).toLowerCase():'';
-  const courierValid=signerValid&&exactReleaseCourierReceipt(input.courierReceipt,releaseName);
+  const signerReceiptSha256=text(input.signerReceiptSha256).toLowerCase();
+  if(!SHA64.test(signerReceiptSha256))reasons.push('signer-receipt-digest-required');
+  const courierValid=signerValid&&exactReleaseCourierReceipt(input.courierReceipt,releaseName,signerReceiptSha256);
   if(!courierValid)reasons.push('correlated-release-courier-receipt-required');
 
   const markerName=text(input.appliedMarkerName);const markerContent=text(input.appliedMarkerContent);const marker=APPLIED.exec(markerName);
@@ -74,6 +78,7 @@ export function compileSovereignRuntimeGraduation(input={}){
     sourceCommit:SHA40.test(sourceCommit)?sourceCommit:null,
     releaseName:releaseName||null,
     releaseSequence:/^\d{14}$/.test(releaseSequence)?releaseSequence:null,
+    signerReceiptSha256:SHA64.test(signerReceiptSha256)?signerReceiptSha256:null,
     rehearsalObserved:ok,
     separateSignerObserved:ok,
     releaseCourierObserved:ok,
@@ -81,7 +86,7 @@ export function compileSovereignRuntimeGraduation(input={}){
     reconciliationObserved:ok,
     reasonCodes:uniq(reasons),
     authority:{signingAuthority:'NONE',courierAuthority:'NONE',deploymentAuthority:'OBSERVATION_ONLY',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'},
-    truthBoundary:'This receipt proves only a correlated owner-runtime observation of an already-signed, couriered and applied exact-source release plus independent reconciliation and healthy runtime processes. It does not create signing or deployment authority and does not prove customers, payment, retention, life outcomes, unrestricted autonomy, or ASI.'
+    truthBoundary:'This receipt proves only a correlated owner-runtime observation of an already-signed, couriered and applied exact-source release plus independent reconciliation and healthy runtime processes. The courier digest binds the persisted signer receipt to the transfer event. It does not create signing or deployment authority and does not prove customers, payment, retention, life outcomes, unrestricted autonomy, or ASI.'
   };
 }
 
@@ -96,6 +101,7 @@ export function exactSovereignRuntimeGraduationReceipt(receipt,sourceCommit){
     && receipt.releaseCourierObserved===true
     && receipt.runtimeAppliedObserved===true
     && receipt.reconciliationObserved===true
+    && SHA64.test(text(receipt.signerReceiptSha256))
     && SHA40.test(source)&&text(receipt.sourceCommit).toLowerCase()===source
     && SAFE_RELEASE.test(text(receipt.releaseName))
     && /^\d{14}$/.test(text(receipt.releaseSequence)));

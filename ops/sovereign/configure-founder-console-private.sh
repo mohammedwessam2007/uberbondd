@@ -11,7 +11,7 @@ CONFIG=/etc/uberbond/founder-console.env
 [[ -f "$CONFIG" && ! -L "$CONFIG" ]] || { echo 'REFUSED: regular founder-console config required; install the authoring node first.' >&2; exit 2; }
 id -u uberbond-author >/dev/null 2>&1 || { echo 'REFUSED: uberbond-author identity missing.' >&2; exit 2; }
 
-HOST="$HOST" node --input-type=module - <<'NODE'
+if ! HOST="$HOST" node --input-type=module - <<'NODE'
 const host=String(process.env.HOST||'');
 const parts=host.split('.');
 const nums=parts.map(Number);
@@ -20,7 +20,7 @@ const privateRange=valid && (nums[0]===10 || (nums[0]===172&&nums[1]>=16&&nums[1
 const unusable=valid && (nums[3]===0 || nums[3]===255);
 if(!privateRange || unusable) process.exit(2);
 NODE
-if [[ $? -ne 0 ]]; then
+then
   echo 'REFUSED: bind address must be a specific RFC1918 IPv4 host address, never wildcard/public.' >&2
   exit 2
 fi

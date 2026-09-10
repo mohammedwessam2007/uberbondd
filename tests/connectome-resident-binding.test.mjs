@@ -36,4 +36,4 @@ test('connectome candidate remains inside the same trusted Future Raid, Wormhole
   for(const output of ['connectomeAudit','connectomeFeatureCandidate','futureCapabilityDecomposition','timelineTopologyAnalysis']) assert.ok(task.requiredOutputs.includes(output),output);
   assert.equal(task.consequenceClass,'LOCAL_PREPARATION');
   assert.equal(task.objective.length<=1200,true,`objective was ${task.objective.length}`);
-}
+});

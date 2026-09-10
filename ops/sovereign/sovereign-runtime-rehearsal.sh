@@ -23,7 +23,7 @@ recover_original(){
   "$CTL" reconcile >/dev/null 2>&1
   set -e
 }
-trap 'rc=$?; if [[ $rc -ne 0 ]]; then recover_original; rm -f "${RESTART_FILE:-}" "${RECEIPT_TMP:-}"; fi' EXIT
+trap 'rc=$?; if [[ $rc -ne 0 ]]; then recover_original; rm -f "${RECOVERY_FILE:-}" "${RECEIPT_TMP:-}"; fi' EXIT
 
 [[ "${EUID}" -eq 0 ]] || die "root-required"
 [[ -n "$FAILING_RELEASE" ]] || die "usage: sovereign-runtime-rehearsal.sh /path/to/valid-signed-next-release-that-fails-after-admission"
@@ -41,8 +41,9 @@ ORIGINAL_SEQUENCE="$(state_get CURRENT_RELEASE_SEQUENCE)"
 ORIGINAL_PREVIOUS_SOURCE="$(state_get PREVIOUS_SOURCE_COMMIT)"
 ORIGINAL_PREVIOUS_ID="$(state_get PREVIOUS_RELEASE_ID)"
 ORIGINAL_PREVIOUS_SEQUENCE="$(state_get PREVIOUS_RELEASE_SEQUENCE)"
+ORIGINAL_PG_ID="$(state_get POSTGRES_IMAGE_ID)"
 [[ "$ORIGINAL_SOURCE" =~ ^[0-9a-f]{40}$ && "$ORIGINAL_PREVIOUS_SOURCE" =~ ^[0-9a-f]{40}$ ]] || die "exact-current-and-previous-source-required"
-[[ "$ORIGINAL_ID" =~ ^sha256:[0-9a-f]{64}$ && "$ORIGINAL_PREVIOUS_ID" =~ ^sha256:[0-9a-f]{64}$ ]] || die "exact-current-and-previous-image-ids-required"
+[[ "$ORIGINAL_ID" =~ ^sha256:[0-9a-f]{64}$ && "$ORIGINAL_PREVIOUS_ID" =~ ^sha256:[0-9a-f]{64}$ && "$ORIGINAL_PG_ID" =~ ^sha256:[0-9a-f]{64}$ ]] || die "exact-current-previous-and-postgres-image-ids-required"
 [[ "$ORIGINAL_SEQUENCE" =~ ^[0-9]{14}$ && "$ORIGINAL_PREVIOUS_SEQUENCE" =~ ^[0-9]{14}$ ]] || die "exact-current-and-previous-sequences-required"
 [[ "$ORIGINAL_SOURCE" != "$ORIGINAL_PREVIOUS_SOURCE" || "$ORIGINAL_ID" != "$ORIGINAL_PREVIOUS_ID" ]] || die "two-distinct-good-release-history-required-for-reversible-rollback"
 systemctl is-active --quiet uberbond-reconcile.timer || die "independent-reconcile-timer-must-be-active"
@@ -52,17 +53,23 @@ systemctl is-active --quiet uberbond-reconcile.timer || die "independent-reconci
 RESTORE_OUT="$("$CTL" restore-drill 2>&1)"
 grep -Fq 'RESTORE_DRILL_PASSED' <<<"$RESTORE_OUT" || die "restore-drill-pass-marker-required"
 
-RESTART_FILE="$(mktemp)"
-docker exec -e "SOURCE_COMMIT=${ORIGINAL_SOURCE}" uberbond-web node scripts/deploy-restart-recovery-drill.mjs >"$RESTART_FILE"
-RESTART_DIGEST="$(docker exec -i -e "EXPECTED_SOURCE_COMMIT=${ORIGINAL_SOURCE}" uberbond-web node --input-type=module -e '
+RECOVERY_FILE="$(mktemp)"
+docker exec -e "SOURCE_COMMIT=${ORIGINAL_SOURCE}" uberbond-web node scripts/deploy-restart-recovery-drill.mjs >"$RECOVERY_FILE"
+RECOVERY_DIGEST="$(docker exec -i -e "EXPECTED_SOURCE_COMMIT=${ORIGINAL_SOURCE}" uberbond-web node --input-type=module -e '
 import fs from "node:fs";
 import {verifyRestartRecoveryReceiptIntegrity} from "./src/deploy-restart-recovery-receipt.mjs";
 const r=JSON.parse(fs.readFileSync(0,"utf8"));
 if(!verifyRestartRecoveryReceiptIntegrity(r)||r.sourceCommit!==process.env.EXPECTED_SOURCE_COMMIT)process.exit(2);
 process.stdout.write(r.receiptDigest);
-' <"$RESTART_FILE")"
-[[ "$RESTART_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]] || die "durable-restart-recovery-receipt-invalid"
-rm -f "$RESTART_FILE"; unset RESTART_FILE
+' <"$RECOVERY_FILE")"
+[[ "$RECOVERY_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]] || die "durable-worker-recovery-receipt-invalid"
+rm -f "$RECOVERY_FILE"; unset RECOVERY_FILE
+
+docker kill uberbond-postgres >/dev/null
+"$CTL" reconcile >/dev/null
+container_exact uberbond-postgres "$ORIGINAL_PG_ID" || die "postgres-not-reconciled-to-exact-admitted-image"
+container_exact uberbond-web "$ORIGINAL_ID" || die "web-not-healthy-after-postgres-reconciliation"
+container_exact uberbond-worker "$ORIGINAL_ID" || die "worker-not-healthy-after-postgres-reconciliation"
 
 docker kill uberbond-web >/dev/null
 "$CTL" reconcile >/dev/null
@@ -88,6 +95,7 @@ FINAL_ID="$(state_get CURRENT_RELEASE_ID)"
 FINAL_PREVIOUS_SOURCE="$(state_get PREVIOUS_SOURCE_COMMIT)"
 FINAL_PREVIOUS_ID="$(state_get PREVIOUS_RELEASE_ID)"
 [[ "$FINAL_SOURCE" == "$ORIGINAL_SOURCE" && "$FINAL_ID" == "$ORIGINAL_ID" && "$FINAL_PREVIOUS_SOURCE" == "$ORIGINAL_PREVIOUS_SOURCE" && "$FINAL_PREVIOUS_ID" == "$ORIGINAL_PREVIOUS_ID" ]] || die "explicit-rollback-roundtrip-did-not-restore-starting-state"
+container_exact uberbond-postgres "$ORIGINAL_PG_ID" || die "final-postgres-not-on-restored-admitted-image"
 container_exact uberbond-web "$FINAL_ID" || die "final-web-not-on-restored-current-image"
 container_exact uberbond-worker "$FINAL_ID" || die "final-worker-not-on-restored-current-image"
 
@@ -97,15 +105,15 @@ docker exec \
   -e "REHEARSAL_PREVIOUS_SOURCE=${FINAL_PREVIOUS_SOURCE}" \
   -e "REHEARSAL_CURRENT_ID=${FINAL_ID}" \
   -e "REHEARSAL_PREVIOUS_ID=${FINAL_PREVIOUS_ID}" \
-  -e "REHEARSAL_RESTART_DIGEST=${RESTART_DIGEST}" \
+  -e "REHEARSAL_WORKER_RECOVERY_DIGEST=${RECOVERY_DIGEST}" \
   uberbond-web node --input-type=module -e '
 import {compileSovereignRuntimeRehearsalReceipt,verifySovereignRuntimeRehearsalReceipt} from "./ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs";
-const commands=["status","backup","restore-drill","durable-postgres-crash-recovery","kill-web+reconcile","kill-worker+reconcile","deploy-valid-signed-failing-candidate","failed-promotion-rollback","explicit-rollback-out","explicit-rollback-return"];
+const commands=["status","backup","restore-drill","durable-worker-crash-recovery-via-postgres","kill-postgres+reconcile","kill-web+reconcile","kill-worker+reconcile","deploy-valid-signed-failing-candidate","failed-promotion-rollback","explicit-rollback-out","explicit-rollback-return"];
 const r=compileSovereignRuntimeRehearsalReceipt({
   sourceCommit:process.env.REHEARSAL_SOURCE,previousSourceCommit:process.env.REHEARSAL_PREVIOUS_SOURCE,
   finalCurrentReleaseId:process.env.REHEARSAL_CURRENT_ID,finalPreviousReleaseId:process.env.REHEARSAL_PREVIOUS_ID,
-  durableRestartRecoveryReceiptDigest:process.env.REHEARSAL_RESTART_DIGEST,
-  backupObserved:true,restoreDrillObserved:true,webReconciledToExactImage:true,workerReconciledToExactImage:true,
+  durableWorkerRecoveryReceiptDigest:process.env.REHEARSAL_WORKER_RECOVERY_DIGEST,
+  backupObserved:true,restoreDrillObserved:true,postgresReconciledToExactImage:true,webReconciledToExactImage:true,workerReconciledToExactImage:true,
   failedPromotionRollbackObserved:true,explicitRollbackRoundTripObserved:true,commands
 });
 if(!verifySovereignRuntimeRehearsalReceipt(r))process.exit(2);

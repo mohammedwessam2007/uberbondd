@@ -1,6 +1,10 @@
 import crypto from 'node:crypto';
 
 export const SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION='uberbond.sovereign-runtime-rehearsal.v1';
+export const SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS=Object.freeze([
+  'status','backup','restore-drill','durable-postgres-crash-recovery','kill-web+reconcile','kill-worker+reconcile',
+  'deploy-valid-signed-failing-candidate','failed-promotion-rollback','explicit-rollback-out','explicit-rollback-return'
+]);
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const RECEIPT_KEYS=Object.freeze(['businessEffectAuthority','commands','externalEffectAuthority','observed','ok','reasonCodes','receiptDigest','rehearsalObserved','schemaVersion','sourceCommit','status','truthBoundary']);
@@ -10,6 +14,7 @@ const TRUTH_BOUNDARY='This receipt proves one bounded fail-closed rehearsal on a
 const digest=value=>`sha256:${crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex')}`;
 const exactKeys=(value,expected)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join('\0')===[...expected].sort().join('\0');
 const text=(value,max=1000)=>{const s=String(value??'').trim();return s&&s.length<=max?s:null;};
+const exactCommands=value=>Array.isArray(value)&&value.length===SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS.length&&value.every((command,index)=>command===SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS[index]);
 
 export function sovereignRuntimeRehearsalPreimage(receipt={}){
   return {
@@ -35,9 +40,13 @@ export function verifySovereignRuntimeRehearsalReceipt(receipt={}){
   const o=receipt.observed;if(!exactKeys(o,OBSERVED_KEYS))return false;
   for(const key of ['backupObserved','restoreDrillObserved','webReconciledToExactImage','workerReconciledToExactImage','failedPromotionRollbackObserved','explicitRollbackRoundTripObserved'])if(o[key]!==true)return false;
   if(!SHA256.test(String(o.durableRestartRecoveryReceiptDigest||'')))return false;
-  if(!SHA256.test(String(o.finalCurrentReleaseId||''))||!SHA256.test(String(o.finalPreviousReleaseId||'')))return false;
-  if(String(o.finalCurrentSourceCommit||'').toLowerCase()!==source||!SHA40.test(String(o.finalPreviousSourceCommit||'').toLowerCase()))return false;
-  if(!Array.isArray(receipt.commands)||receipt.commands.length<8||receipt.commands.some(command=>!text(command,1000)))return false;
+  const currentId=String(o.finalCurrentReleaseId||'').toLowerCase();
+  const previousId=String(o.finalPreviousReleaseId||'').toLowerCase();
+  const previousSource=String(o.finalPreviousSourceCommit||'').toLowerCase();
+  if(!SHA256.test(currentId)||!SHA256.test(previousId))return false;
+  if(String(o.finalCurrentSourceCommit||'').toLowerCase()!==source||!SHA40.test(previousSource))return false;
+  if(source===previousSource&&currentId===previousId)return false;
+  if(!exactCommands(receipt.commands))return false;
   if(receipt.businessEffectAuthority!=='NONE'||receipt.externalEffectAuthority!=='NONE'||receipt.truthBoundary!==TRUTH_BOUNDARY)return false;
   if(!SHA256.test(String(receipt.receiptDigest||'')))return false;
   return receipt.receiptDigest===digest(sovereignRuntimeRehearsalPreimage(receipt));
@@ -54,6 +63,7 @@ export function compileSovereignRuntimeRehearsalReceipt(input={}){
   if(!SHA40.test(sourceCommit))reasons.push('exact-current-source-commit-required');
   if(!SHA40.test(previousSourceCommit))reasons.push('exact-previous-source-commit-required');
   if(!SHA256.test(finalCurrentReleaseId)||!SHA256.test(finalPreviousReleaseId))reasons.push('exact-final-image-identities-required');
+  if(SHA40.test(sourceCommit)&&SHA40.test(previousSourceCommit)&&SHA256.test(finalCurrentReleaseId)&&SHA256.test(finalPreviousReleaseId)&&sourceCommit===previousSourceCommit&&finalCurrentReleaseId===finalPreviousReleaseId)reasons.push('two-distinct-good-release-history-required');
   if(!SHA256.test(restartDigest))reasons.push('durable-restart-recovery-receipt-required');
   for(const [field,reason] of [
     ['backupObserved','backup-not-observed'],
@@ -63,7 +73,7 @@ export function compileSovereignRuntimeRehearsalReceipt(input={}){
     ['failedPromotionRollbackObserved','failed-promotion-rollback-not-observed'],
     ['explicitRollbackRoundTripObserved','explicit-rollback-roundtrip-not-observed']
   ])if(input[field]!==true)reasons.push(reason);
-  if(commands.length<8)reasons.push('executed-command-chain-required');
+  if(!exactCommands(commands))reasons.push('exact-executed-command-chain-required');
   const ok=reasons.length===0;
   const receipt={
     ok,

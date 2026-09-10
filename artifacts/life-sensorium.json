@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond-life-sensorium-1.0.0",
+  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_PRIVATE_RUNTIME_SOURCE_FOUNDATION",
+  "generatedAt": "2026-09-10T21:45:00+03:00",
+  "canonicalDoc": "docs/LIFE_SENSORIUM_CANON.md",
+  "module": "src/life-sensorium.mjs",
+  "doctor": "scripts/life-sensorium-doctor.mjs",
+  "tests": [
+    "tests/life-sensorium.test.mjs",
+    "tests/life-sensorium-doctor.test.mjs"
+  ],
+  "founderPrinciple": "LIVE_FIRST_LOG_NEVER",
+  "sensorKinds": [
+    "LOCATION",
+    "DEVICE_ACTIVITY",
+    "HEALTH",
+    "MOTION",
+    "CALENDAR",
+    "AUDIO_METADATA",
+    "VISION_METADATA",
+    "PROXIMITY",
+    "WEARABLE",
+    "EMG",
+    "EEG",
+    "ENVIRONMENT",
+    "FOUNDER_CORRECTION"
+  ],
+  "executablePrimitives": [
+    "normalizeSensorSignal",
+    "fuseLifeState",
+    "reconstructLifeTimeline",
+    "buildSensoriumCorrection",
+    "measureSensoriumCoverage"
+  ],
+  "privacyClass": "PRIVATE_LIFE_DATA",
+  "repositoryPersistenceAllowed": false,
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "SOURCE_FOUNDATION_AND_SYNTHETIC_TESTS_DO_NOT_PROVE_REAL_DEVICE_CONNECTION_REAL_LIFE_OBSERVABILITY_INFERENCE_ACCURACY_MEDICAL_VALIDITY_OR_LIFE_OUTCOMES"
+}

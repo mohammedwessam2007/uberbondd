@@ -1,0 +1,10 @@
+[Unit]
+Description=Wake UberBond sovereign authoring when a founder intent arrives
+After=local-fs.target
+
+[Path]
+PathChanged=/var/lib/uberbond-control/founder-intents
+Unit=uberbond-authoring.service
+
+[Install]
+WantedBy=multi-user.target

@@ -70,7 +70,7 @@ rm -rf "$PREVIOUS"; trap - EXIT
 for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh configure-founder-console-private.sh import-sovereign-evidence.sh; do
   install -m 0755 "/opt/uberbond/source/ops/sovereign/$tool" "/opt/uberbond/control/$tool"
 done
-for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
+for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-founder-intent-wake.path uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
   install -m 0644 "/opt/uberbond/source/ops/sovereign/$unit" "/etc/systemd/system/$unit"
 done
 
@@ -137,7 +137,7 @@ EOF
 chown root:uberbond-author /etc/uberbond/founder-console.env; chmod 0640 /etc/uberbond/founder-console.env
 
 systemctl daemon-reload
-systemctl enable --now uberbond-authoring.timer uberbond-local-worker.path uberbond-autonomy-verify.path uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-founder-console.service
+systemctl enable --now uberbond-authoring.timer uberbond-founder-intent-wake.path uberbond-local-worker.path uberbond-autonomy-verify.path uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-founder-console.service
 
 cat <<EOF
 UberBond sovereign authoring node installed.
@@ -161,6 +161,12 @@ console reachable from an iPad or another founder device on the same trusted
 private RFC1918 network, use the installed configurator above. It generates a
 strong token transactionally and refuses wildcard/public addresses. The console
 never reads the Personal Civilization vault.
+
+Every new free-text founder intent changes only the private founder-intents
+directory. The local systemd path watcher immediately wakes the same canonical
+authoring service that the timer and Keep working command use. Raw founder text
+is not copied into the public coding task; exact-current canon and the terminal
+tribunal still choose the bounded finite engineering leaf.
 
 A native code-writing worker is installed but intentionally disabled until an
 owner-controlled local model runtime is named. Activate both direct dialogue and

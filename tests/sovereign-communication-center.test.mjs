@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { REQUIRED_SOURCE_CONTRACTS, REQUIRED_AUTHORING_UNITS } from '../src/sovereign-bootstrap-readiness.mjs';
 
 const server=readFileSync(new URL('../scripts/sovereign-founder-console-server.mjs',import.meta.url),'utf8');
+const installer=readFileSync(new URL('../ops/sovereign/install-authoring-node.sh',import.meta.url),'utf8');
+const intentWake=readFileSync(new URL('../ops/sovereign/uberbond-founder-intent-wake.path',import.meta.url),'utf8');
+const authoringService=readFileSync(new URL('../ops/sovereign/uberbond-authoring.service',import.meta.url),'utf8');
 
 test('founder surface is the UberBond Communication Center with direct self-completion control',()=>{
   assert.match(server,/<title>UberBond Communication Center<\/title>/);
@@ -49,4 +53,20 @@ test('communication center preserves local-model and private-vault boundaries',(
   assert.match(server,/No cloud model fallback/);
   assert.doesNotMatch(server,/provider:\s*['"](?:openai|anthropic|ai-gateway)['"]/i);
   assert.doesNotMatch(server,/paypal|stripe|sendgrid|resend|twilio/i);
+});
+
+test('every queued free-text founder intent wakes the same canonical authoring service locally',()=>{
+  assert.match(intentWake,/^PathChanged=\/var\/lib\/uberbond-control\/founder-intents$/m);
+  assert.match(intentWake,/^Unit=uberbond-authoring\.service$/m);
+  assert.match(authoringService,/^ExecStart=\/opt\/uberbond\/control\/uberbond-authorctl wake$/m);
+  assert.match(installer,/uberbond-founder-intent-wake\.path/);
+  assert.match(installer,/systemctl enable --now[^\n]*uberbond-founder-intent-wake\.path/);
+  assert.ok(REQUIRED_SOURCE_CONTRACTS.includes('founderIntentWakePath'));
+  assert.ok(REQUIRED_AUTHORING_UNITS.includes('founderIntentWakePath'));
+});
+
+test('intent wake carries no founder text transport or new external authority',()=>{
+  assert.doesNotMatch(intentWake,/Exec(Start|Condition)|curl|wget|http|https|git|node|python|sh\s/i);
+  assert.doesNotMatch(intentWake,/Mohamed|intent\.json|PAYPAL|STRIPE|OPENAI|ANTHROPIC/i);
+  assert.match(installer,/Raw founder text[\s\S]*is not copied into the public coding task/);
 });

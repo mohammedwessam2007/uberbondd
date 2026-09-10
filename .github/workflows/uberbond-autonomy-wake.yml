@@ -1,6 +1,9 @@
 name: UberBond Finite Completion Wake
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
@@ -45,9 +48,25 @@ jobs:
           set -euo pipefail
           active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" \
             --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
+
+          # A verified self-maintainer promotion can emit the main push while the
+          # promoting run is still completing its final bookkeeping. For push
+          # wakes only, briefly follow that handoff instead of throwing away the
+          # event and waiting for the 15-minute recovery clock.
+          if [ "${GITHUB_EVENT_NAME:-}" = 'push' ] && [ "$active" != '0' ]; then
+            for attempt in $(seq 1 12); do
+              sleep 5
+              active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" \
+                --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
+              if [ "$active" = '0' ]; then
+                break
+              fi
+            done
+          fi
+
           echo "count=$active" >> "$GITHUB_OUTPUT"
           if [ "$active" != '0' ]; then
-            echo "Self-maintainer already has ${active} active/queued run(s); completion pulse collapses to no-op."
+            echo "Self-maintainer still has ${active} active/queued run(s); wake collapses to no-op and the recovery clock remains armed."
           fi
 
       - name: Checkout exact current main for finite completion truth

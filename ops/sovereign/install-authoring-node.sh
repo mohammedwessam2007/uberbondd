@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
-for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+for cmd in node npm git systemctl unshare install useradd usermod groupadd getent cp realpath mv rm chown chmod runuser; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
 if [[ -e /etc/uberbond/release-private.pem ]]; then echo "REFUSED: release signing authority must not live on the authoring/runtime control node." >&2; exit 2; fi
 
 SOURCE="${1:-}"

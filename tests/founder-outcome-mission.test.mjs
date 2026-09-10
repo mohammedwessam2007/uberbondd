@@ -26,11 +26,7 @@ test('natural founder revenue command compiles into an active mission instead of
 
 test('unobserved zero before deadline is unknown and never the terminal mission result', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
-  const state = evaluateFounderOutcomeMission({
-    mission,
-    now:new Date('2026-09-11T00:15:00.000Z'),
-    clearedContributionProfitCents:0
-  });
+  const state = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T00:15:00.000Z'), clearedContributionProfitCents:0 });
   assert.equal(state.ok, true);
   assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_ACTIVE');
   assert.equal(state.terminal, false);
@@ -85,11 +81,7 @@ test('early terminalization requires proof-complete branch exhaustion plus obser
 
 test('deadline with unknown payment reconciliation stays unresolved, never fake zero', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
-  const state = evaluateFounderOutcomeMission({
-    mission,
-    now:new Date('2026-09-11T09:00:01.000Z'),
-    clearedContributionProfitCents:0
-  });
+  const state = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T09:00:01.000Z'), clearedContributionProfitCents:0 });
   assert.equal(state.terminal, false);
   assert.equal(state.terminalResultAllowed, false);
   assert.equal(state.missionWindowClosed, true);
@@ -149,13 +141,18 @@ test('outbound only enters the pulse with current named authority and mandatory 
   assert.ok(plan.jobs.some(job => job.type === 'outbound.process'));
 });
 
-test('resident systemd wiring gives founder outcomes an independent immediate and minute heartbeat', () => {
+test('resident systemd wiring gives founder outcomes an independent immediate and minute heartbeat under the existing author identity', () => {
   const pathUnit = readFileSync(new URL('../ops/sovereign/uberbond-founder-outcome-mission.path', import.meta.url), 'utf8');
   const timerUnit = readFileSync(new URL('../ops/sovereign/uberbond-founder-outcome-mission.timer', import.meta.url), 'utf8');
   const serviceUnit = readFileSync(new URL('../ops/sovereign/uberbond-founder-outcome-mission.service', import.meta.url), 'utf8');
+  const installer = readFileSync(new URL('../ops/sovereign/install-founder-outcome-mission.sh', import.meta.url), 'utf8');
   assert.match(pathUnit, /PathChanged=\/var\/lib\/uberbond-control\/founder-intents/);
   assert.match(pathUnit, /Unit=uberbond-founder-outcome-mission\.service/);
   assert.match(timerUnit, /OnUnitActiveSec=60s/);
+  assert.match(serviceUnit, /User=uberbond-author/);
+  assert.match(serviceUnit, /EnvironmentFile=-\/etc\/uberbond\/economic\.env/);
   assert.match(serviceUnit, /compile-founder-outcome-mission\.mjs/);
   assert.match(serviceUnit, /founder-economic-mission-pulse\.mjs/);
+  assert.match(installer, /id -u uberbond-author/);
+  assert.match(installer, /economicRuntimeEnvPresent/);
 });

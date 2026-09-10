@@ -5,8 +5,10 @@ umask 077
 CTL="${UBERBOND_CTL:-/opt/uberbond/control/uberbondctl}"
 STATE_FILE="${UBERBOND_STATE_FILE:-/var/lib/uberbond-control/state.env}"
 RUNTIME_ENV="${UBERBOND_RUNTIME_ENV:-/etc/uberbond/uberbond.env}"
+INBOX_DIR="${UBERBOND_INBOX_DIR:-/var/lib/uberbond-control/inbox}"
 RECEIPT_PATH="${UBERBOND_RUNTIME_REHEARSAL_RECEIPT:-/var/lib/uberbond-control/runtime-rehearsal-receipt.json}"
 FAILING_RELEASE="${1:-}"
+RELEASE_PATH_QUIESCED=0
 
 die(){ printf 'SOVEREIGN_RUNTIME_REHEARSAL_REFUSED reason=%s\n' "$*" >&2; exit 2; }
 need(){ command -v "$1" >/dev/null 2>&1 || die "missing-command:$1"; }
@@ -14,6 +16,12 @@ state_get(){ local key="$1" line; [[ -f "$STATE_FILE" && ! -L "$STATE_FILE" ]] |
 env_exact(){ local key="$1" want="$2" line; [[ -f "$RUNTIME_ENV" && ! -L "$RUNTIME_ENV" ]] || die "regular-runtime-env-required"; line="$(grep -E "^${key}=[A-Za-z0-9._:/@+,-]+$" "$RUNTIME_ENV" | tail -n 1 || true)"; [[ "${line#*=}" == "$want" ]] || die "runtime-rehearsal-fail-closed-posture-required:${key}"; }
 container_exact(){ local name="$1" image_id="$2"; [[ "$(docker inspect -f '{{.State.Running}}|{{.Image}}' "$name" 2>/dev/null || true)" == "true|${image_id}" ]]; }
 write_receipt(){ local body="$1" tmp="${RECEIPT_PATH}.tmp.$$"; printf '%s\n' "$body" > "$tmp"; chmod 600 "$tmp"; mv -f "$tmp" "$RECEIPT_PATH"; }
+restore_release_path(){
+  if [[ "${RELEASE_PATH_QUIESCED:-0}" == "1" ]]; then
+    systemctl start uberbond-release-apply.path >/dev/null 2>&1 || return 1
+    RELEASE_PATH_QUIESCED=0
+  fi
+}
 recover_original(){
   set +e
   local now prev
@@ -23,7 +31,18 @@ recover_original(){
   "$CTL" reconcile >/dev/null 2>&1
   set -e
 }
-trap 'rc=$?; if [[ $rc -ne 0 ]]; then recover_original; rm -f "${RECOVERY_FILE:-}" "${RECEIPT_TMP:-}"; fi' EXIT
+on_exit(){
+  local rc=$?
+  trap - EXIT
+  if [[ $rc -ne 0 ]]; then recover_original; fi
+  rm -f "${RECOVERY_FILE:-}" "${RECEIPT_TMP:-}"
+  if ! restore_release_path; then
+    printf 'SOVEREIGN_RUNTIME_REHEARSAL_REFUSED reason=release-apply-path-restore-failed\n' >&2
+    exit 2
+  fi
+  exit "$rc"
+}
+trap on_exit EXIT
 
 [[ "${EUID}" -eq 0 ]] || die "root-required"
 [[ -n "$FAILING_RELEASE" ]] || die "usage: sovereign-runtime-rehearsal.sh /path/to/valid-signed-next-release-that-fails-after-admission"
@@ -47,6 +66,11 @@ ORIGINAL_PG_ID="$(state_get POSTGRES_IMAGE_ID)"
 [[ "$ORIGINAL_SEQUENCE" =~ ^[0-9]{14}$ && "$ORIGINAL_PREVIOUS_SEQUENCE" =~ ^[0-9]{14}$ ]] || die "exact-current-and-previous-sequences-required"
 [[ "$ORIGINAL_SOURCE" != "$ORIGINAL_PREVIOUS_SOURCE" || "$ORIGINAL_ID" != "$ORIGINAL_PREVIOUS_ID" ]] || die "two-distinct-good-release-history-required-for-reversible-rollback"
 systemctl is-active --quiet uberbond-reconcile.timer || die "independent-reconcile-timer-must-be-active"
+systemctl is-active --quiet uberbond-release-apply.path || die "release-apply-path-must-start-active"
+systemctl stop uberbond-release-apply.path
+RELEASE_PATH_QUIESCED=1
+systemctl is-active --quiet uberbond-release-apply.service && die "release-apply-service-active-during-rehearsal-quiesce"
+[[ ! -e "$INBOX_DIR/NEXT_RELEASE" && ! -L "$INBOX_DIR/NEXT_RELEASE" ]] || die "queued-release-must-be-cleared-before-rehearsal"
 
 "$CTL" status >/dev/null
 "$CTL" backup >/dev/null
@@ -98,6 +122,9 @@ FINAL_PREVIOUS_ID="$(state_get PREVIOUS_RELEASE_ID)"
 container_exact uberbond-postgres "$ORIGINAL_PG_ID" || die "final-postgres-not-on-restored-admitted-image"
 container_exact uberbond-web "$FINAL_ID" || die "final-web-not-on-restored-current-image"
 container_exact uberbond-worker "$FINAL_ID" || die "final-worker-not-on-restored-current-image"
+
+restore_release_path || die "release-apply-path-restore-failed"
+systemctl is-active --quiet uberbond-release-apply.path || die "release-apply-path-not-active-after-rehearsal"
 
 RECEIPT_TMP="$(mktemp)"
 docker exec \

@@ -15,6 +15,11 @@ const steps = [
   // Execute its exact-name/state-preservation regressions before the known
   // semantic backlog so a terminal refusal cannot hide a binder regression.
   ['node', ['--test', 'tests/semantic-enforcement-evidence.test.mjs']],
+  // The founder Communication Center is the human-to-sovereign boundary. Parse
+  // and execute its focused contracts before terminal realization so an unrelated
+  // semantic backlog cannot hide a dialogue/history/auth regression.
+  ['node', ['--check', 'scripts/sovereign-founder-console-server.mjs']],
+  ['node', ['--test', 'tests/sovereign-founder-console.test.mjs', 'tests/sovereign-communication-center.test.mjs']],
   // PR-scoped admission gate: the signed-release courier is part of the sovereign
   // control plane, and terminal realization currently refuses on a known semantic
   // backlog before the deterministic tail. Execute its provenance, idempotency,

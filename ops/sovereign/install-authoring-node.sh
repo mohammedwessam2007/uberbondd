@@ -64,6 +64,7 @@ cat > /etc/uberbond/authoring.env <<EOF
 UBERBOND_SOURCE_ROOT=/opt/uberbond/source
 UBERBOND_CONTROL_DIR=/var/lib/uberbond-control
 UBERBOND_SOVEREIGN_EVIDENCE_ROOT=/var/lib/uberbond-evidence
+UBERBOND_PROMOTION_DIR=/var/lib/uberbond-promotion
 UBERBOND_NODE_EXECUTABLE=$(command -v node)
 UBERBOND_REPOSITORY=local/uberbond
 UBERBOND_ISOLATED_WORKER_ENABLED=false
@@ -154,10 +155,11 @@ The worker keeps PrivateNetwork=true and AF_UNIX-only access. A separate model
 proxy may reach host loopback only; it cannot reach public network addresses.
 There is no silent cloud fallback.
 
-The evidence importer is root-only. It stages a bounded regular receipt into the
-root-owned evidence ingress, validates it against this exact clean source commit,
-and only then atomically publishes one fixed signer/courier/runtime evidence name.
-It cannot sign, deploy, send, spend, change DNS/credentials, or mint missing proof.
+The evidence importer is root-only. It shares the local promotion exclusion lock,
+stages a bounded regular receipt into the root-owned evidence ingress, validates
+it against the exact clean source commit, and only then atomically publishes one
+fixed signer/courier/runtime evidence name. It cannot sign, deploy, send, spend,
+change DNS/credentials, or mint missing proof.
 
 Worker, verifier, promoter, release signer and runtime deployment remain separate
 authorities. The promoter has zero network and refuses sovereignty/build/control

@@ -4,11 +4,14 @@ umask 077
 
 [[ "${EUID}" -eq 0 ]] || { echo "Run as root." >&2; exit 2; }
 [[ $# -eq 3 ]] || { echo "usage: install-offline-llama-runtime.sh /path/to/llama-server /path/to/model.gguf MODEL_ID" >&2; exit 2; }
-BINARY="$(realpath "$1")"; MODEL_FILE="$(realpath "$2")"; MODEL_ID="$3"
 for cmd in sha256sum head stat install mv rm chown chmod systemctl useradd id getent awk realpath seq sleep node mktemp; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done
+BINARY_INPUT="$1"; MODEL_FILE_INPUT="$2"; MODEL_ID="$3"
+[[ -f "$BINARY_INPUT" && -x "$BINARY_INPUT" && ! -L "$BINARY_INPUT" ]] || { echo "llama-server must be a real executable file, not a symlink." >&2; exit 2; }
+[[ -f "$MODEL_FILE_INPUT" && ! -L "$MODEL_FILE_INPUT" ]] || { echo "GGUF model must be a real file, not a symlink." >&2; exit 2; }
+BINARY="$(realpath "$BINARY_INPUT")"; MODEL_FILE="$(realpath "$MODEL_FILE_INPUT")"
+[[ -f "$BINARY" && ! -L "$BINARY" && -x "$BINARY" ]] || { echo "Resolved llama-server must remain a real executable file." >&2; exit 2; }
+[[ -f "$MODEL_FILE" && ! -L "$MODEL_FILE" ]] || { echo "Resolved GGUF model must remain a real file." >&2; exit 2; }
 [[ -f /etc/uberbond/authoring.env && ! -L /etc/uberbond/authoring.env ]] || { echo "Install the sovereign authoring node first." >&2; exit 2; }
-[[ -f "$BINARY" && ! -L "$BINARY" && -x "$BINARY" ]] || { echo "llama-server must be a real executable file, not a symlink." >&2; exit 2; }
-[[ -f "$MODEL_FILE" && ! -L "$MODEL_FILE" ]] || { echo "GGUF model must be a real file, not a symlink." >&2; exit 2; }
 [[ "$(head -c 4 "$MODEL_FILE")" == "GGUF" ]] || { echo "Model does not have the GGUF magic header." >&2; exit 2; }
 [[ "$MODEL_ID" =~ ^[A-Za-z0-9._:/+@=-]{1,400}$ ]] || { echo "Model identity contains unsupported characters." >&2; exit 2; }
 getent group uberbond-model >/dev/null || { echo "uberbond-model group missing; reinstall the sovereign authoring node." >&2; exit 2; }

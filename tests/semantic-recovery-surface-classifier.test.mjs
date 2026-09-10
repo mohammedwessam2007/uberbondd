@@ -14,7 +14,7 @@ test('semantic recovery classifier ignores evidence words that do not prove dura
 
 test('semantic recovery classifier still recognizes concrete durable or long-running surfaces', () => {
   for (const marker of ['persist', 'queue', 'database', 'postgres', 'writeFile', 'scheduler', 'worker', 'checkpoint', 'ledger', 'createServer', 'server\\.listen', 'setInterval', 'daemon']) {
-    assert.match(statefulLine, new RegExp(marker), `${marker} recovery surface must remain classified`);
+    assert.ok(statefulLine.includes(marker), `${marker} recovery surface must remain classified`);
   }
 });
 

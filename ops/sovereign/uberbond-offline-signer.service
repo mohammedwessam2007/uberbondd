@@ -1,0 +1,28 @@
+[Unit]
+Description=UberBond offline sovereign release signer
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=uberbond-offline-signer
+Group=uberbond-offline-signer
+WorkingDirectory=/opt/uberbond/offline-source
+Environment=UBERBOND_OFFLINE_SIGNER_INBOX=/var/lib/uberbond-offline-signer/inbox
+Environment=UBERBOND_OFFLINE_SIGNER_OUTBOX=/var/lib/uberbond-offline-signer/outbox
+Environment=UBERBOND_OFFLINE_SIGNER_SOURCE_ROOT=/opt/uberbond/offline-source
+Environment=UBERBOND_RELEASE_SIGNING_KEY=/var/lib/uberbond-offline-signer/keys/release-private.pem
+ExecStart=/usr/bin/node /opt/uberbond/offline-source/ops/sovereign/sovereign-offline-signer-worker.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/uberbond-offline-signer
+UMask=0077

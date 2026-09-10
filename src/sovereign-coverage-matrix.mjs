@@ -323,10 +323,10 @@ export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
 /**
  * Assigns a terminal state to a row that found no implementation evidence.
  *
- * Runs only after `classifyState` has returned SPEC_ONLY, so a row with real
- * evidence can never be reclassified into one of these -- the ordering is the
- * safeguard. A row that has a module is current; this is only about what a row
- * with no module actually is.
+ * Runs only after `classifyState` has found no implementation evidence, so a row
+ * with real evidence can never be reclassified into one of these -- the ordering
+ * is the safeguard. A row that has a module is current; this is only about what
+ * a row with no module actually is.
  *
  * `enforcement` and `parentStates` are supplied by the compiler from verified
  * facts, not by the concept describing itself.
@@ -380,7 +380,7 @@ export function classifyState(concept, evidence) {
   //
   // This was not hypothetical. Before the guard existed, "Possibility" -- one of
   // the twelve terminal ontology domains -- read VERIFIED_CURRENT because a
-  // module was named life-possibility-engine.mjs; "Action" read the same way off
+  // module was named life-possibility-engine.mjs; "Action" did the same way off
   // browser-action-contract.mjs, and "Knowledge" off life-knowledge-graph.mjs.
   // Twenty-nine rows were claiming implementation of things that are categories.
   // The matrix advertises `matcherBias: ..._NEVER_OVERSTATES`, and that promise
@@ -530,11 +530,15 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
     const declaredLane = declarations.byConcept.get(slugify(name))?.lane || null;
     const lane = declaredLane || laneMap[concept.class] || laneMap[concept.source] || concept.owningLane || 'OMEGA-14';
 
-    // Two passes, in this order. An organ with evidence is current; only a row
-    // with no evidence at all reaches the terminal classifier. Reversing them
-    // would let a class label overwrite real implementation evidence.
+    // Two passes, in this order. Real implementation evidence wins. A field
+    // with no match, including a short/common name that intentionally produces
+    // NO_DISTINCTIVE_TOKENS, may then inherit only the computed state of its
+    // named parent organ. Generic concepts with no distinctive tokens remain
+    // UNKNOWN, so this cannot turn common vocabulary into coverage.
     const evidenceState = classifyState({ name, ...concept }, evidence);
-    const currentState = evidenceState === 'SPEC_ONLY'
+    const terminalEligible = evidenceState === 'SPEC_ONLY'
+      || (evidenceState === 'UNKNOWN' && FIELD_CLASSES.includes(concept.class));
+    const currentState = terminalEligible
       ? classifyTerminalState({ name, ...concept }, {
         enforcement: enforcementByConcept.get(slugify(name)) || null,
         parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null,

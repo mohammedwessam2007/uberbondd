@@ -5,14 +5,16 @@ import {
   SOVEREIGNTY_PROTECTED_PATHS
 } from './agent-code-change-contract.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { SANDWICH_DESCENDANT_CANON_PATH } from './sandwich-descendant-admission.mjs';
 
-export const SOVEREIGN_LOCAL_PROMOTION_VERSION = 'uberbond.sovereign-local-promotion.v1.1';
+export const SOVEREIGN_LOCAL_PROMOTION_VERSION = 'uberbond.sovereign-local-promotion.v1.2';
 const SHA40 = /^[a-f0-9]{40}$/i;
 const CHANGE_SET = /^agent_changes_[a-f0-9]{24}$/i;
 const RECEIPT = /^self_maint_[a-f0-9]{24}$/i;
 const MAX_FILES = 20;
 const LOCAL_CONTROL_PREFIXES = Object.freeze([
   '.github','api','public','ops/sovereign','.claude','docs/canon','docs/memory','artifacts/sovereign',
+  SANDWICH_DESCENDANT_CANON_PATH,
   'AGENTS.md','CLAUDE.md','UBERBOND_BOOTSTRAP.json',
   'src/uberbond-command-center-status.mjs','src/uberbond-command-center-normalizer.mjs',
   'src/command-center-client-policy.mjs','src/autonomy-command-center-status.mjs'
@@ -42,6 +44,23 @@ function protectedReason(filePath){
   if(LOCAL_CONTROL_PATTERNS.some(pattern=>pattern.test(filePath)))return'local-promotion-control-surface-protected';
   return null;
 }
+function exactSandwichTask(taskId,head){return taskId===`uberbond_sandwich_descendant_${head.slice(0,24)}`;}
+function sandwichAdmissionShape(change,head){
+  if(normalizedPath(change?.path)!==SANDWICH_DESCENDANT_CANON_PATH||String(change?.operation||'').toUpperCase()!=='UPDATE')return false;
+  let doc;try{doc=JSON.parse(String(change?.content??''));}catch{return false;}
+  const concepts=Array.isArray(doc?.terminalConcepts)?doc.terminalConcepts:[];const entry=concepts.at(-1);
+  return Boolean(entry&&typeof entry==='object'&&!Array.isArray(entry)
+    && entry.kind==='SANDWICH_DESCENDANT_REQUIREMENT'
+    && ['INTERNAL_SOURCE','INTERNAL_RESEARCH'].includes(entry.foldClass)
+    && entry.admittedFromBaseRevision===head
+    && Array.isArray(entry.dependencies)&&entry.dependencies.length===0
+    && Array.isArray(entry.canonicalGoalRefs)&&entry.canonicalGoalRefs.length>0
+    && Array.isArray(entry.acceptanceEvidence)&&entry.acceptanceEvidence.some(v=>/^SOURCE:/i.test(String(v)))&&entry.acceptanceEvidence.some(v=>/^TEST:/i.test(String(v)))
+    && entry.implementationStatus==='MISSING'
+    && entry.implementationForbiddenInAdmission===true
+    && entry.businessEffectAuthority==='NONE'
+    && entry.externalEffectAuthority==='NONE');
+}
 export function sovereignChangeFingerprint(changeSet={}){const changes=Array.isArray(changeSet?.changes)?changeSet.changes:[];const normalized=changes.map(change=>({operation:String(change.operation||'').toUpperCase(),path:text(change.path,500),beforeSha256:change.beforeSha256||null,afterSha256:change.afterSha256||null,contentSha256:change.content==null?null:sha(String(change.content))})).sort((a,b)=>`${a.path}:${a.operation}`.localeCompare(`${b.path}:${b.operation}`));return sha(normalized);}
 
 export function compileSovereignLocalPromotionAdmission({verifiedChange,currentHead,branchName='main',worktreeClean=false}={}){
@@ -66,9 +85,15 @@ export function compileSovereignLocalPromotionAdmission({verifiedChange,currentH
   if(text(cs.baseRevision,80).toLowerCase()!==head)reasons.push('observed-change-set-base-mismatch');
   const fingerprint=sovereignChangeFingerprint(cs);if(!/^[a-f0-9]{64}$/i.test(text(vr.verifiedFingerprint,80))||text(vr.verifiedFingerprint,80).toLowerCase()!==fingerprint)reasons.push('verified-fingerprint-mismatch');
   const changes=Array.isArray(cs.changes)?cs.changes:[];if(!changes.length||changes.length>MAX_FILES)reasons.push('bounded-change-set-required');const changedPaths=[];
-  for(const change of changes){const p=normalizedPath(change.path);if(!p){reasons.push('changed-file-path-invalid');continue;}const protectedClass=protectedReason(p);if(protectedClass)reasons.push(`${protectedClass}:${p}`);if(p.startsWith('tests/')&&String(change.operation||'').toUpperCase()!=='CREATE')reasons.push(`existing-test-modification-refused:${p}`);changedPaths.push(p);}
+  const sandwichTask=SHA40.test(head)&&exactSandwichTask(text(vr.taskId,300),head);
+  if(sandwichTask&&changes.length!==1)reasons.push('sandwich-descendant-promotion-requires-exactly-one-change');
+  for(const change of changes){const p=normalizedPath(change.path);if(!p){reasons.push('changed-file-path-invalid');continue;}
+    const sandwichException=sandwichTask&&changes.length===1&&sandwichAdmissionShape(change,head);
+    if(sandwichTask&&!sandwichException)reasons.push(`sandwich-descendant-promotion-shape-refused:${p}`);
+    const protectedClass=protectedReason(p);if(protectedClass&&!sandwichException)reasons.push(`${protectedClass}:${p}`);
+    if(p.startsWith('tests/')&&String(change.operation||'').toUpperCase()!=='CREATE')reasons.push(`existing-test-modification-refused:${p}`);changedPaths.push(p);}
   if(reasons.length)return fail(reasons,'LOCAL_PROMOTION_ADMISSION_REFUSED',{currentHead:head||null,changeSetId:text(vr.changeSetId,100)||null});
-  return{ok:true,policyVersion:SOVEREIGN_LOCAL_PROMOTION_VERSION,status:'LOCAL_PROMOTION_ADMITTED_FOR_ISOLATED_STAGE_AND_FIXED_GATES',baseRevision:head,taskId:vr.taskId,changeSetId:vr.changeSetId,receiptId:vr.selfMaintenanceReceiptId,verifiedFingerprint:fingerprint,changedPaths:[...new Set(changedPaths)].sort(),observedChangeSet:cs,fixedPostApplyChecks:['npm run check:syntax','npm run test:deterministic'],promotionTarget:'LOCAL_REFS_HEADS_MAIN',networkRequired:false,signingAuthority:'NONE',deploymentAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'Admission allows a separate local promoter to stage, fixed-gate, and fast-forward only low-risk verified source changes. It cannot alter constitution, truth/evidence, sovereignty/build/control surfaces, sign releases, deploy, contact customers, move money, change credentials/DNS, or create runtime/commercial truth.'};
+  return{ok:true,policyVersion:SOVEREIGN_LOCAL_PROMOTION_VERSION,status:'LOCAL_PROMOTION_ADMITTED_FOR_ISOLATED_STAGE_AND_FIXED_GATES',baseRevision:head,taskId:vr.taskId,changeSetId:vr.changeSetId,receiptId:vr.selfMaintenanceReceiptId,verifiedFingerprint:fingerprint,changedPaths:[...new Set(changedPaths)].sort(),observedChangeSet:cs,fixedPostApplyChecks:['npm run check:syntax','npm run test:deterministic'],promotionTarget:'LOCAL_REFS_HEADS_MAIN',networkRequired:false,signingAuthority:'NONE',deploymentAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:sandwichTask?'Admission permits only the exact-base independently verified one-file Sandwich descendant append after fixed deterministic gates prove the working-tree canon mutation is append-only. It cannot implement the new requirement or widen authority.':'Admission allows a separate local promoter to stage, fixed-gate, and fast-forward only low-risk verified source changes. It cannot alter constitution, truth/evidence, sovereignty/build/control surfaces, sign releases, deploy, contact customers, move money, change credentials/DNS, or create runtime/commercial truth.'};
 }
 
 export function compileSovereignLocalPromotionReceipt({admission,promotionCommitSha,parentSha,verification=[]}={}){

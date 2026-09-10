@@ -37,6 +37,7 @@ function callModel(body){return new Promise((resolve,reject)=>{
   const raw=JSON.stringify(body);const req=http.request({socketPath:SOCKET,path:'/v1/chat/completions',method:'POST',headers:{'content-type':'application/json','content-length':Buffer.byteLength(raw)}},res=>{let total=0;const chunks=[];res.on('data',chunk=>{total+=chunk.length;if(total>1_500_000){req.destroy(new Error('model-response-too-large'));return;}chunks.push(chunk);});res.on('end',()=>resolve({status:res.statusCode||0,raw:Buffer.concat(chunks).toString('utf8')}));});req.setTimeout(180_000,()=>req.destroy(new Error('local-model-timeout')));req.on('error',reject);req.end(raw);
 });}
 function modelContent(payload){const c=payload?.choices?.[0]?.message?.content;if(typeof c==='string')return c.trim();if(Array.isArray(c))return c.map(x=>typeof x?.text==='string'?x.text:'').join('').trim();return'';}
+function parseProposal(body){let raw=String(body||'').trim();const fenced=/^```(?:json)?\s*([\s\S]*?)\s*```$/i.exec(raw);if(fenced)raw=fenced[1].trim();return JSON.parse(raw);}
 
 async function main(){
   const taskPath=path.resolve(process.argv[2]||process.env.UBERBOND_TASK_PATH||'');
@@ -50,14 +51,14 @@ async function main(){
   if(headRead.exitCode!==0||head!==base)return fail(['worker-source-head-must-equal-task-base'], 'SOVEREIGN_NATIVE_LOCAL_WORKER_STALE');
   if(dirty.exitCode!==0||text(dirty.stdout,20_000))return fail(['clean-worker-source-required']);
   const prompt=compileNativeWorkerModelPrompt({task,baseRevision:base,context:await buildContext(root,task)});if(!prompt.ok)return prompt;
-  const response=await callModel({model:'uberbond-local-sovereign',temperature:0,max_tokens:16000,response_format:{type:'json_object'},messages:[{role:'system',content:prompt.system},{role:'user',content:JSON.stringify({task:prompt.task,context:prompt.context})}]});
+  const response=await callModel({model:'uberbond-local-sovereign',temperature:0,max_tokens:16000,messages:[{role:'system',content:prompt.system},{role:'user',content:JSON.stringify({task:prompt.task,context:prompt.context})}]});
   if(response.status<200||response.status>=300)return fail([`local-model-proxy-http-${response.status}`]);
   let payload;try{payload=JSON.parse(response.raw);}catch{return fail(['local-model-proxy-json-invalid']);}
-  let proposal;try{const body=modelContent(payload);proposal=JSON.parse(body);}catch{return fail(['local-model-proposal-json-invalid']);}
+  let proposal;try{proposal=parseProposal(modelContent(payload));}catch{return fail(['local-model-proposal-json-invalid']);}
   const sourceSnapshot={};for(const row of Array.isArray(proposal?.changes)?proposal.changes:[]){const rel=text(row?.path,1000).replaceAll('\\','/');if(!rel||rel.startsWith('/')||rel.startsWith('../')||rel.includes('/../'))continue;sourceSnapshot[rel]=await sourceFile(root,rel);}
   const compiled=compileNativeWorkerProposal({task,baseRevision:base,proposal,sourceSnapshot});
-  const receipt=compiled.ok?{...compiled,modelProxySocket:SOCKET,modelIdentity:payload?.model||null,providerRequestId:payload?.id||null}:compiled;
-  await atomicJson(resultPath,receipt);return receipt;
+  return compiled.ok?{...compiled,modelProxySocket:SOCKET,modelIdentity:payload?.model||null,providerRequestId:payload?.id||null}:compiled;
 }
 
-main().then(result=>{if(!result?.ok)process.exitCode=2;}).catch(async error=>{const result=fail([`unexpected:${text(error?.message||error,300)}`]);const out=process.argv[3]||process.env.UBERBOND_RESULT_PATH;if(out)await atomicJson(path.resolve(out),result).catch(()=>{});process.exitCode=2;});
+const resultPath=process.argv[3]||process.env.UBERBOND_RESULT_PATH||'';
+main().then(async result=>{if(resultPath)await atomicJson(path.resolve(resultPath),result);if(!result?.ok)process.exitCode=2;}).catch(async error=>{const result=fail([`unexpected:${text(error?.message||error,300)}`]);if(resultPath)await atomicJson(path.resolve(resultPath),result).catch(()=>{});process.exitCode=2;});

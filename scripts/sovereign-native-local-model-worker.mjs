@@ -4,6 +4,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { compileNativeWorkerModelPrompt, compileNativeWorkerProposal } from '../src/sovereign-native-local-worker.mjs';
+import { SANDWICH_DESCENDANT_CANON_PATH } from '../src/sandwich-descendant-admission.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
 const MAX_JSON=8_000_000;
@@ -22,15 +23,32 @@ function taskBase(task){
   const parent=/^main:([a-f0-9]{40})$/i.exec(String(task?.parentTask||''));return parent?parent[1].toLowerCase():null;
 }
 function taskTarget(task){for(const c of Array.isArray(task?.constraints)?task.constraints:[]){const m=/^finite-completion-target:(.+)$/i.exec(String(c));if(m&&m[1]!=='terminal-truth-regeneration')return m[1].slice(0,500);}return null;}
+function sandwichGenesis(task){return task?.taskClass==='SANDWICH_DESCENDANT_GENESIS'&&Array.isArray(task?.constraints)&&task.constraints.includes('sandwich-autocatalytic-descendant-genesis');}
+function conceptName(value){return typeof value==='string'?value.trim():(value&&typeof value==='object'?String(value.name||'').trim():'');}
 async function sourceFile(root,rel){const file=safeChild(root,rel);if(!file)return{exists:false};try{const st=await fs.lstat(file);if(!st.isFile()||st.isSymbolicLink()||st.size>MAX_CONTEXT_FILE)return{exists:false};return{exists:true,content:await fs.readFile(file,'utf8')};}catch{return{exists:false};}}
 async function buildContext(root,task){
   const rows=[];const target=taskTarget(task);
   const coverage=await readJson(path.join(root,'artifacts/sovereign/implementation-coverage-matrix.json'));
   const semantic=await readJson(path.join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'));
-  if(target&&coverage){const row=(coverage.rows||[]).find(r=>r?.canonicalId===target);if(row){rows.push({path:'context:coverage-row',content:JSON.stringify(row,null,2)});const paths=[row.targetModule,...(row.currentEvidence?.sourceModules||[]),...(row.currentEvidence?.testModules||[])].filter(Boolean).slice(0,8);for(const p of paths){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}}
+  if(target&&coverage){const row=(coverage.rows||[]).find(r=>r?.canonicalId===target);if(row){rows.push({path:'context:coverage-row',content:JSON.stringify(row,null,2)});const paths=[row.targetModule,...(row.currentEvidence?.sourceModules||[]),...(row.currentEvidence?.testModules||[]),...(row.sourceArtifacts||[])].filter(Boolean).slice(0,8);for(const p of paths){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}}
   }
   if(semantic?.diagnostics)rows.push({path:'context:semantic-diagnostics',content:JSON.stringify(semantic.diagnostics,null,2)});
-  if(!target){for(const p of ['scripts/terminal-realization.mjs','scripts/semantic-requirement-tribunal.mjs','src/semantic-requirement-tribunal.mjs']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}}
+  if(sandwichGenesis(task)){
+    if(task.localTruthSnapshot)rows.push({path:'context:exact-local-truth',content:JSON.stringify(task.localTruthSnapshot,null,2)});
+    const north=await readJson(path.join(root,SANDWICH_DESCENDANT_CANON_PATH));
+    if(north){
+      const named={
+        canonicalDefinition:north.canonicalDefinition||null,
+        terminalConcepts:(north.terminalConcepts||[]).map(conceptName).filter(Boolean),
+        containedPersonalCivilizationSystems:(north.containedPersonalCivilizationSystems||[]).map(conceptName).filter(Boolean),
+        supportingEconomicAndTechnicalDonors:(north.supportingEconomicAndTechnicalDonors||[]).map(conceptName).filter(Boolean)
+      };
+      rows.push({path:'context:canonical-descendant-reference-names',content:JSON.stringify(named,null,2)});
+    }
+    for(const p of ['NORTH_STAR.md','docs/SANDWICH_METHOD_CANON.md','artifacts/perpetual-frontier-genesis.json','artifacts/uberbond-total-brain.json']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
+  } else if(!target){
+    for(const p of ['scripts/terminal-realization.mjs','scripts/semantic-requirement-tribunal.mjs','src/semantic-requirement-tribunal.mjs']){const s=await sourceFile(root,p);if(s.exists)rows.push({path:p,content:s.content});}
+  }
   return rows.slice(0,12);
 }
 function callModel(body){return new Promise((resolve,reject)=>{
@@ -55,7 +73,12 @@ async function main(){
   if(response.status<200||response.status>=300)return fail([`local-model-proxy-http-${response.status}`]);
   let payload;try{payload=JSON.parse(response.raw);}catch{return fail(['local-model-proxy-json-invalid']);}
   let proposal;try{proposal=parseProposal(modelContent(payload));}catch{return fail(['local-model-proposal-json-invalid']);}
-  const sourceSnapshot={};for(const row of Array.isArray(proposal?.changes)?proposal.changes:[]){const rel=text(row?.path,1000).replaceAll('\\','/');if(!rel||rel.startsWith('/')||rel.startsWith('../')||rel.includes('/../'))continue;sourceSnapshot[rel]=await sourceFile(root,rel);}
+  const sourceSnapshot={};
+  if(sandwichGenesis(task)){
+    sourceSnapshot[SANDWICH_DESCENDANT_CANON_PATH]=await sourceFile(root,SANDWICH_DESCENDANT_CANON_PATH);
+  } else {
+    for(const row of Array.isArray(proposal?.changes)?proposal.changes:[]){const rel=text(row?.path,1000).replaceAll('\\','/');if(!rel||rel.startsWith('/')||rel.startsWith('../')||rel.includes('/../'))continue;sourceSnapshot[rel]=await sourceFile(root,rel);}
+  }
   const compiled=compileNativeWorkerProposal({task,baseRevision:base,proposal,sourceSnapshot});
   return compiled.ok?{...compiled,modelProxySocket:SOCKET,modelIdentity:payload?.model||null,providerRequestId:payload?.id||null}:compiled;
 }

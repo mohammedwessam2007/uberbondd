@@ -11,6 +11,11 @@ const steps = [
   // backlog cannot hide a regression in the mechanism that is meant to repair
   // that backlog. This only adds a gate; it grants no worker/promotion authority.
   ['node', ['--test', 'tests/sovereign-native-local-worker.test.mjs']],
+  // PR-scoped admission gate: the signed-release courier is part of the sovereign
+  // control plane, and terminal realization currently refuses on a known semantic
+  // backlog before the deterministic tail. Execute its provenance, idempotency,
+  // authority-isolation and hostile recovery contract before that expected refusal.
+  ['node', ['--test', 'tests/sovereign-release-courier.test.mjs']],
   // PR-scoped admission gate: terminal realization currently refuses on a known
   // semantic backlog before the repository-wide syntax/test tail can execute.
   // Prove the offline runtime installer itself is syntactically valid and its

@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch owner-controlled signed release outbox
+
+[Path]
+PathChanged=/mnt/uberbond-signer-outbox/NEXT_RELEASE
+Unit=uberbond-release-courier.service
+
+[Install]
+WantedBy=multi-user.target

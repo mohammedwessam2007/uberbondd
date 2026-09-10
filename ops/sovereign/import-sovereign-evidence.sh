@@ -12,6 +12,7 @@ done
 [[ "$(stat -c %u "$CONFIG")" == "0" && "$(stat -c %G "$CONFIG")" == "uberbond-author" && "$(stat -c %a "$CONFIG")" == "640" ]] || { echo 'REFUSED: authoring-config-custody-invalid' >&2; exit 2; }
 id -u uberbond-author >/dev/null 2>&1 || { echo 'REFUSED: uberbond-author-identity-required' >&2; exit 2; }
 getent group uberbond-autonomy >/dev/null || { echo 'REFUSED: uberbond-autonomy-group-required' >&2; exit 2; }
+getent group uberbond-promotion >/dev/null || { echo 'REFUSED: uberbond-promotion-group-required' >&2; exit 2; }
 
 config_value(){
   local key="$1" line value='' count=0
@@ -25,12 +26,34 @@ TYPE="$1"
 SOURCE_RECEIPT="$2"
 SOURCE_ROOT="$(config_value UBERBOND_SOURCE_ROOT)" || { echo 'REFUSED: single-source-root-config-required' >&2; exit 2; }
 EVIDENCE_ROOT="$(config_value UBERBOND_SOVEREIGN_EVIDENCE_ROOT)" || { echo 'REFUSED: single-evidence-root-config-required' >&2; exit 2; }
+PROMOTION_ROOT="$(config_value UBERBOND_PROMOTION_DIR)" || { echo 'REFUSED: single-promotion-root-config-required' >&2; exit 2; }
 NODE_CONFIGURED="$(config_value UBERBOND_NODE_EXECUTABLE)" || { echo 'REFUSED: single-node-config-required' >&2; exit 2; }
-[[ "$SOURCE_ROOT" = /* && "$EVIDENCE_ROOT" = /* && "$NODE_CONFIGURED" = /* ]] || { echo 'REFUSED: absolute-config-paths-required' >&2; exit 2; }
-[[ "$SOURCE_ROOT" != *$'\n'* && "$EVIDENCE_ROOT" != *$'\n'* && "$NODE_CONFIGURED" != *$'\n'* ]] || { echo 'REFUSED: single-line-config-paths-required' >&2; exit 2; }
+[[ "$SOURCE_ROOT" = /* && "$EVIDENCE_ROOT" = /* && "$PROMOTION_ROOT" = /* && "$NODE_CONFIGURED" = /* ]] || { echo 'REFUSED: absolute-config-paths-required' >&2; exit 2; }
+[[ "$SOURCE_ROOT" != *$'\n'* && "$EVIDENCE_ROOT" != *$'\n'* && "$PROMOTION_ROOT" != *$'\n'* && "$NODE_CONFIGURED" != *$'\n'* ]] || { echo 'REFUSED: single-line-config-paths-required' >&2; exit 2; }
 
 NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
 [[ -n "$NODE" && -x "$NODE" && -f "$NODE" ]] || { echo 'REFUSED: trusted-real-node-required' >&2; exit 2; }
+[[ -d "$PROMOTION_ROOT" && ! -L "$PROMOTION_ROOT" ]] || { echo 'REFUSED: regular-promotion-root-required' >&2; exit 2; }
+PROMOTION_ROOT="$(realpath "$PROMOTION_ROOT")"
+[[ "$(stat -c %U "$PROMOTION_ROOT")" == "uberbond-promoter" && "$(stat -c %G "$PROMOTION_ROOT")" == "uberbond-promotion" && "$(stat -c %a "$PROMOTION_ROOT")" == "750" ]] || { echo 'REFUSED: promotion-root-custody-invalid' >&2; exit 2; }
+PROMOTION_LOCK="$PROMOTION_ROOT/PROMOTION.lock"
+TMP=''
+PROMOTION_LOCK_CREATED=0
+cleanup(){
+  [[ -z "${TMP:-}" ]] || rm -f "$TMP"
+  if [[ "${PROMOTION_LOCK_CREATED:-0}" == "1" ]]; then rm -f "$PROMOTION_LOCK"; fi
+}
+trap cleanup EXIT
+set -o noclobber
+if printf 'evidence-importer:%s\n' "$$" > "$PROMOTION_LOCK" 2>/dev/null; then
+  PROMOTION_LOCK_CREATED=1
+else
+  set +o noclobber
+  echo 'REFUSED: local-promotion-or-evidence-import-already-running' >&2
+  exit 2
+fi
+set +o noclobber
+
 [[ -d "$SOURCE_ROOT/.git" && ! -L "$SOURCE_ROOT" ]] || { echo 'REFUSED: exact-installed-git-source-required' >&2; exit 2; }
 SOURCE_ROOT="$(realpath "$SOURCE_ROOT")"
 [[ -d "$SOURCE_ROOT/.git" && ! -L "$SOURCE_ROOT" ]] || { echo 'REFUSED: resolved-installed-git-source-required' >&2; exit 2; }
@@ -61,13 +84,12 @@ esac
 [[ "$SOURCE_RECEIPT" != "$TARGET" ]] || { echo 'REFUSED: source-receipt-must-be-outside-evidence-target' >&2; exit 2; }
 
 TMP="$EVIDENCE_ROOT/.${TYPE}-receipt.tmp.$$"
-cleanup(){ rm -f "$TMP"; }
-trap cleanup EXIT
 install -m 0640 -o root -g uberbond-autonomy "$SOURCE_RECEIPT" "$TMP"
 [[ -f "$TMP" && ! -L "$TMP" && "$(stat -c %u "$TMP")" == "0" && "$(stat -c %G "$TMP")" == "uberbond-autonomy" && "$(stat -c %a "$TMP")" == "640" ]] || { echo 'REFUSED: staged-evidence-custody-invalid' >&2; exit 2; }
 
 (
 cd "$SOURCE_ROOT"
+[[ "$(git rev-parse HEAD)" == "$SOURCE_COMMIT" && -z "$(git status --porcelain)" ]] || exit 2
 runuser -u uberbond-author -- env \
   TYPE="$TYPE" RECEIPT_PATH="$TMP" EVIDENCE_ROOT="$EVIDENCE_ROOT" EXPECTED_SOURCE_COMMIT="$SOURCE_COMMIT" \
   "$NODE" --input-type=module - <<'NODE'
@@ -101,8 +123,12 @@ if(type==='signer'){
 }
 if(!ok)process.exit(2);
 NODE
+[[ "$(git rev-parse HEAD)" == "$SOURCE_COMMIT" && -z "$(git status --porcelain)" ]] || exit 2
 )
 
 mv -f "$TMP" "$TARGET"
+TMP=''
+rm -f "$PROMOTION_LOCK"
+PROMOTION_LOCK_CREATED=0
 trap - EXIT
 printf '{"ok":true,"status":"SOVEREIGN_EVIDENCE_IMPORTED","type":"%s","sourceCommit":"%s","target":"%s","signingAuthority":"NONE","deploymentAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"}\n' "$TYPE" "$SOURCE_COMMIT" "$TARGET"

@@ -23,6 +23,11 @@ export const ATTENTION_LEVELS = Object.freeze([
   'STAY_SILENT', 'SUMMARIZE_LATER', 'SURFACE_ON_NEXT_VISIT', 'INTERRUPT', 'REQUIRE_CONFIRMATION'
 ]);
 
+/** Explicit founder rules that can attenuate attention but never create action authority. */
+export const FOUNDER_ATTENTION_RULES = Object.freeze([
+  'NORMAL', 'RIGHT_NOT_TO_KNOW', 'DO_NOT_SURFACE'
+]);
+
 const text = (value, max = 2000) => {
   const out = String(value ?? '').trim();
   return out && out.length <= max ? out : null;
@@ -132,10 +137,32 @@ export function unchosenUniverse({ surfaced = [], families = [] } = {}) {
  * Every interruption displaces a mental state, and the displaced state is never
  * on the ledger. Defaults to silence, because a system that resolves ties
  * toward speaking will speak constantly.
+ *
+ * An explicit founder non-surfacing rule is an attenuation of system attention,
+ * not a score. It therefore dominates even `irreversibleIfMissed`: a heuristic
+ * about consequence cannot mint permission to override a declared right not to
+ * know. The rule can be changed only by a later founder choice at the caller.
  */
-export function attentionBudget({ value = 0, switchingCost = 0, currentStateValue = 0, irreversibleIfMissed = false } = {}) {
+export function attentionBudget({ value = 0, switchingCost = 0, currentStateValue = 0, irreversibleIfMissed = false, founderRule = 'NORMAL' } = {}) {
   const gain = Number(value) || 0;
   const cost = (Number(switchingCost) || 0) + (Number(currentStateValue) || 0);
+  const rule = text(founderRule, 60);
+  if (!FOUNDER_ATTENTION_RULES.includes(rule)) {
+    return fail('ATTENTION_BUDGET_INVALID', ['known-founder-attention-rule-required'], { gain, cost });
+  }
+
+  if (rule === 'RIGHT_NOT_TO_KNOW' || rule === 'DO_NOT_SURFACE') {
+    return {
+      ok: true,
+      status: 'STAY_SILENT',
+      level: 'STAY_SILENT',
+      gain,
+      cost,
+      founderRule: rule,
+      why: 'Explicit founder non-surfacing attenuates attention. A system estimate of urgency cannot create permission to override it.',
+      businessEffectAuthority: 'NONE'
+    };
+  }
 
   if (irreversibleIfMissed) {
     return {

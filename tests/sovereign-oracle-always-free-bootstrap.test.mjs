@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,statSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
+const url=new URL('../ops/sovereign/bootstrap-oracle-always-free-air-node.sh',import.meta.url);
+const source=readFileSync(url,'utf8');
+test('free Oracle bootstrap is executable and shell-valid',()=>{assert.notEqual(statSync(url).mode&0o111,0);const r=spawnSync('bash',['-n',url.pathname],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);});
+test('free bootstrap refuses the wrong architecture or undersized memory instead of pretending the host is suitable',()=>{assert.match(source,/aarch64.*arm64/);assert.match(source,/MEM_KB/);assert.match(source,/10000000/);assert.match(source,/Oracle Ampere A1 ARM64/);});
+test('Node llama and model downloads are pinned by exact SHA-256 before admission',()=>{for(const hash of ['5f4ddab610c1ab2016b3c227cebdbf6d9495161487e4739c7b90090595f465f7','e7491dca79c9799fc3ae169675a79f5777d3027e31ffb08ae679e5e0a7ae3c97','cc324af070c2ecbfd324a30884d2f951a7ff756aba85cb811a6ec436933bb046'])assert.match(source,new RegExp(hash));assert.equal((source.match(/sha256sum -c -/g)||[]).length,3);});
+test('bootstrap model is fixed to the small Apache-licensed Qwen coder artifact rather than an arbitrary URL',()=>{assert.match(source,/Qwen2\.5-Coder-1\.5B-Instruct-GGUF/);assert.match(source,/qwen2\.5-coder-1\.5b-instruct-q4_k_m\.gguf/);assert.match(source,/bootstrap brain, not a claim of frontier IQ/);assert.doesNotMatch(source,/MODEL_URL="\$|MODEL_URL='\$|read.*MODEL_URL/);});
+test('UberBond source resolves to one exact commit and delegates to existing hardened Air Node activation',()=>{assert.match(source,/RESOLVED=.*rev-parse/);assert.match(source,/\^\[0-9a-f\]\{40\}\$/);assert.match(source,/checkout --detach "\$RESOLVED"/);assert.match(source,/status --porcelain/);assert.match(source,/activate-air-node\.sh/);});
+test('Tailscale account authorization is an explicit owner gate, never fabricated by automation',()=>{assert.match(source,/ONE OWNER ACTION REQUIRED/);assert.match(source,/tailscale up/);assert.match(source,/exit 3/);assert.doesNotMatch(source,/authkey|TS_AUTHKEY|tailscale funnel/i);});
+test('bootstrap contains no purchase or paid-provider model path',()=>{assert.doesNotMatch(source,/stripe|paypal|credit card|upgrade.*paid|gpu.*purchase|AI_GATEWAY_API_KEY|OPENAI_API_KEY|ANTHROPIC_API_KEY/i);assert.match(source,/Model cost: \$0/);assert.match(source,/Tailscale Personal \$0/);});

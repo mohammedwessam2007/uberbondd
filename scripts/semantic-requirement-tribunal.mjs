@@ -5,6 +5,8 @@ import { resolve, dirname, join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileSemanticRequirementTribunal, inferSemanticRequirementClass } from '../src/semantic-requirement-tribunal.mjs';
 import { hasConcreteRecoverySurface } from '../src/semantic-recovery-surface.mjs';
+import { bindVerifiedEnforcementEvidence } from '../src/semantic-enforcement-evidence.mjs';
+import { isHostileTestTitle, isRecoveryTestTitle } from '../src/semantic-test-title-evidence.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const readJson=path=>JSON.parse(readFileSync(join(root,path),'utf8'));
@@ -55,12 +57,11 @@ function meaningFor(row){
   return{sourceClass:'HEADING_ONLY',sourceRef:(row.sourceArtifacts||[])[0]||'UNKNOWN',bodyDigest:H((names||[]).join('|')),headingOnly:true};
 }
 let manifest=[];try{manifest=readJson('artifacts/sovereign/implementation-manifest.json').entries||[];}catch{/* fail closed through missing behavior */}
+let enforcement=[];try{enforcement=readJson('artifacts/sovereign/enforcement-manifest.json').entries||[];}catch{/* fail closed through missing behavior */}
 const manifestByName=new Map(manifest.map(entry=>[norm(entry.concept),entry]));
 function testTitles(paths=[]){const titles=[];for(const path of paths){const body=safeRead(path);for(const match of body.matchAll(/\btest\s*\(\s*(['"`])([^'"`]+)\1/g))titles.push(`${path}#${match[2].trim()}`);}return[...new Set(titles)];}
 function exportsFor(paths=[]){const refs=[];for(const path of paths){const body=safeRead(path);for(const match of body.matchAll(/\bexport\s+(?:async\s+)?(?:function|class|const|let|var)\s+([A-Za-z_$][\w$]*)/g))refs.push(`${path}#${match[1]}`);}return[...new Set(refs)];}
 function callersFor(paths=[]){const refs=[];for(const source of paths){const target=basename(source);for(const [candidate,body] of implementationBodies){if(candidate===source)continue;if(body.includes(target))refs.push(candidate);}if(source.startsWith('scripts/')||source.startsWith('api/'))refs.push(`ENTRYPOINT:${source}`);}return[...new Set(refs)];}
-const NEGATIVE=/refus|reject|block|tamper|cannot|must not|without|invalid|stale|wrong|duplicate|revok|unauthor|mismatch|fail|deny|expired|missing/i;
-const RECOVERY=/recover|restart|resume|rollback|retry|restore|revoke|delete|reconcile|crash|idempot/i;
 function buildContract(row){
   const requirementClass=inferSemanticRequirementClass(row,null),meaning=meaningFor(row);
   if(requirementClass==='STRUCTURAL_CONSTITUTION')return{requirementId:row.canonicalId,requirementClass,meaning,structuralRationale:`${row.class||'STRUCTURAL'} is a canonical structure/classification whose executable descendants carry behavior; this row itself must not manufacture implementation credit.`,implementationClaim:false,externalEvidenceRequirement:'NONE_FOR_STRUCTURAL_CONSTITUTION'};
@@ -68,7 +69,7 @@ function buildContract(row){
   if(requirementClass==='ELAPSED')return{requirementId:row.canonicalId,requirementClass,meaning,implementationClaim:false,externalEvidenceRequirement:'Real elapsed-time longitudinal observation is required; clocks, fixtures and source merges cannot manufacture it.'};
   const names=row.literalNames||[],entry=names.map(n=>manifestByName.get(norm(n))).find(Boolean)||null;
   const sourceRefs=[...(row.currentEvidence?.sourceModules||[])],testRefs=[...(row.currentEvidence?.testModules||[])],titles=testTitles(testRefs),sourceText=sourceRefs.map(path=>safeRead(path)).join('\n');
-  const hostile=titles.filter(title=>NEGATIVE.test(title));const recovery=titles.filter(title=>RECOVERY.test(title));
+  const hostile=titles.filter(isHostileTestTitle);const recovery=titles.filter(isRecoveryTestTitle);
   return{
     requirementId:row.canonicalId,requirementClass,meaning,
     inputRefs:exportsFor(sourceRefs),
@@ -99,10 +100,11 @@ function summarizeInvalidContracts(invalid=[]){
 }
 
 const coverage=readJson('artifacts/sovereign/implementation-coverage-matrix.json');
-const contracts=(coverage.rows||[]).map(buildContract);
-const tribunal=compileSemanticRequirementTribunal({coverage,contracts});
+const semanticCoverage=bindVerifiedEnforcementEvidence({coverage,enforcementEntries:enforcement});
+const contracts=(semanticCoverage.rows||[]).map(buildContract);
+const tribunal=compileSemanticRequirementTribunal({coverage:semanticCoverage,contracts});
 const diagnostics=summarizeInvalidContracts(tribunal.invalidContracts||[]);
-const output={...tribunal,contracts,diagnostics,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Static extraction can propose evidence links; it cannot turn a heading, filename, source presence, test presence or synthetic execution into runtime/external truth.'};
+const output={...tribunal,contracts,diagnostics,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Verified enforcement declarations may carry their already-admitted source/test evidence into ENFORCED_BY_CODE semantic rows; negative-invariant classification can recognize only test titles already bound to the row. Neither mechanism can grant state, bind unrelated tests, widen authority, or turn source/test presence into runtime/external truth.'};
 mkdirSync(join(root,'artifacts/sovereign'),{recursive:true});writeFileSync(join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'),`${JSON.stringify(output,null,2)}\n`,'utf8');
 console.log(JSON.stringify({ok:tribunal.ok,status:tribunal.status,counts:tribunal.counts,semanticOrphans:tribunal.semanticOrphans?.length||0,floatingContracts:tribunal.floatingContracts?.length||0,invalidContracts:tribunal.invalidContracts?.length||0,...diagnostics,output:'artifacts/sovereign/semantic-requirement-tribunal.json'},null,2));
 if(!tribunal.ok)process.exitCode=2;

@@ -1,15 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {compileSovereignBootstrapReadiness,REQUIRED_SOURCE_CONTRACTS,REQUIRED_AUTHORING_UNITS,OFFLINE_MODEL_STATUS} from '../src/sovereign-bootstrap-readiness.mjs';
+import {compileSovereignRuntimeRehearsalReceipt} from '../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs';
 
 const all=xs=>Object.fromEntries(xs.map(x=>[x,true]));
 const sourceCommit='c'.repeat(40);
+const previousSourceCommit='b'.repeat(40);
 const requestDigest='d'.repeat(64);
 const releaseName=`release-${sourceCommit.slice(0,12)}-${requestDigest.slice(0,16)}`;
 const receipt={status:OFFLINE_MODEL_STATUS,modelId:'qwen-local',observedModelId:'qwen-local',binarySha256:'a'.repeat(64),modelSha256:'b'.repeat(64),endpoint:'http://127.0.0.1:11439'};
 const signerReceipt={ok:true,status:'SIGNED_RELEASE_READY_IN_OFFLINE_OUTBOX',requestDigest,sourceCommit,releaseName,signingAuthority:'SEPARATE_OFFLINE_SIGNER_ONLY',deploymentAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'};
 const courierReceipt={ok:true,status:'SIGNED_RELEASE_COURIERED_TO_RUNTIME_INBOX',releaseName,signingAuthority:'NONE',deploymentAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'};
-const base={sourceCommit,cleanSource:true,sourceContracts:all(REQUIRED_SOURCE_CONTRACTS),authoringConfigPresent:true,configuredSourceRootMatches:true,installedSourceCommit:sourceCommit,services:{...all(REQUIRED_AUTHORING_UNITS),localModelRuntime:true,localModelProxy:true},founderConsoleReachable:true,modelReceipt:receipt,isolatedWorkerEnabled:true,founderDialogueEnabled:true,signerReceipt,courierReceipt,runtimeReceipt:{ok:true,rehearsalObserved:true,sourceCommit}};
+const runtimeReceipt=compileSovereignRuntimeRehearsalReceipt({
+  sourceCommit,previousSourceCommit,
+  finalCurrentReleaseId:`sha256:${'1'.repeat(64)}`,
+  finalPreviousReleaseId:`sha256:${'2'.repeat(64)}`,
+  durableRestartRecoveryReceiptDigest:`sha256:${'3'.repeat(64)}`,
+  backupObserved:true,restoreDrillObserved:true,webReconciledToExactImage:true,workerReconciledToExactImage:true,
+  failedPromotionRollbackObserved:true,explicitRollbackRoundTripObserved:true,
+  commands:['status','backup','restore-drill','durable-postgres-crash-recovery','kill-web+reconcile','kill-worker+reconcile','deploy-valid-signed-failing-candidate','failed-promotion-rollback','explicit-rollback-out','explicit-rollback-return']
+});
+const base={sourceCommit,cleanSource:true,sourceContracts:all(REQUIRED_SOURCE_CONTRACTS),authoringConfigPresent:true,configuredSourceRootMatches:true,installedSourceCommit:sourceCommit,services:{...all(REQUIRED_AUTHORING_UNITS),localModelRuntime:true,localModelProxy:true},founderConsoleReachable:true,modelReceipt:receipt,isolatedWorkerEnabled:true,founderDialogueEnabled:true,signerReceipt,courierReceipt,runtimeReceipt};
 
 test('fully observed engineering bootstrap stays separate from external reality',()=>{const out=compileSovereignBootstrapReadiness(base);assert.equal(out.ok,true);assert.equal(out.status,'SOVEREIGN_ENGINEERING_BOOTSTRAP_OBSERVED__EXTERNAL_REALITY_REMAINS');assert.equal(out.stages.selfCompletionLoopReady,true);assert.equal(out.stages.separateReleaseSignerObserved,true);assert.equal(out.stages.signedReleaseCourierObserved,true);assert.equal(out.stages.ownedRuntimeRehearsalObserved,true);assert.equal(out.authority.businessEffectAuthority,'NONE');});
 test('source-complete checkout never becomes host evidence',()=>{const out=compileSovereignBootstrapReadiness({sourceCommit:base.sourceCommit,cleanSource:true,sourceContracts:base.sourceContracts});assert.equal(out.status,'SOVEREIGN_SOURCE_STACK_COMPLETE__HOST_ACTIVATION_REQUIRED');assert.equal(out.stages.authoringHostInstalled,false);assert.ok(out.reasonCodes.includes('sovereign-authoring-host-install-not-observed'));});
@@ -24,3 +35,6 @@ test('naked observation booleans cannot forge the separate signed release path',
 test('stale signer source cannot authorize current release readiness',()=>{const out=compileSovereignBootstrapReadiness({...base,signerReceipt:{...signerReceipt,sourceCommit:'e'.repeat(40)}});assert.equal(out.stages.separateReleaseSignerObserved,false);assert.ok(out.reasonCodes.includes('separate-release-signer-not-observed'));});
 test('signer receipt cannot claim deployment authority',()=>{const out=compileSovereignBootstrapReadiness({...base,signerReceipt:{...signerReceipt,deploymentAuthority:'SIGNED_RELEASE_DEPLOY'}});assert.equal(out.stages.separateReleaseSignerObserved,false);});
 test('courier receipt must bind to the exact signed release name',()=>{const out=compileSovereignBootstrapReadiness({...base,courierReceipt:{...courierReceipt,releaseName:`release-${'e'.repeat(12)}-${requestDigest.slice(0,16)}`},runtimeReceipt:null});assert.equal(out.stages.separateReleaseSignerObserved,true);assert.equal(out.stages.signedReleaseCourierObserved,false);assert.equal(out.status,'READY_TO_SELF_COMPLETE_LOCALLY__RELEASE_RUNTIME_PROOF_REMAINS');});
+test('naked runtime booleans cannot forge owned-host rehearsal readiness',()=>{const out=compileSovereignBootstrapReadiness({...base,runtimeReceipt:{ok:true,rehearsalObserved:true,sourceCommit}});assert.equal(out.stages.ownedRuntimeRehearsalObserved,false);assert.equal(out.status,'SELF_COMPLETION_AND_SIGNED_RELEASE_PATH_READY__RUNTIME_REHEARSAL_REQUIRED');assert.ok(out.reasonCodes.includes('owned-runtime-rehearsal-not-observed'));});
+test('mutated runtime receipt cannot authorize owned-host rehearsal readiness',()=>{const forged=structuredClone(runtimeReceipt);forged.observed.failedPromotionRollbackObserved=false;const out=compileSovereignBootstrapReadiness({...base,runtimeReceipt:forged});assert.equal(out.stages.ownedRuntimeRehearsalObserved,false);assert.equal(out.status,'SELF_COMPLETION_AND_SIGNED_RELEASE_PATH_READY__RUNTIME_REHEARSAL_REQUIRED');});
+test('valid rehearsal for a stale source commit cannot authorize current readiness',()=>{const stale=compileSovereignRuntimeRehearsalReceipt({...runtimeReceipt,sourceCommit:'e'.repeat(40)});const out=compileSovereignBootstrapReadiness({...base,runtimeReceipt:stale});assert.equal(out.stages.ownedRuntimeRehearsalObserved,false);});

@@ -9,6 +9,10 @@
     "api/webhooks/billing.mjs": { "maxDuration": 30 },
     "api/admin/health-check.mjs": { "maxDuration": 30 },
     "api/founder-ops.mjs": { "maxDuration": 30 },
+    "api/founder-center.mjs": {
+      "maxDuration": 60,
+      "includeFiles": "{NORTH_STAR.md,docs/CURRENT_HANDOFF.json,UBERBOND_BOOTSTRAP.json}"
+    },
     "api/command-center.mjs": {
       "maxDuration": 30,
       "includeFiles": "{config/frontier-model-candidates.json,artifacts/perpetual-frontier-implementation-ledger.json,artifacts/uberbond-*-latest.json,artifacts/cognitive/*-latest.json}"
@@ -21,6 +25,7 @@
   "rewrites": [
     { "source": "/", "destination": "/uberbond.html" },
     { "source": "/uberbond", "destination": "/uberbond.html" },
+    { "source": "/center", "destination": "/center.html" },
     { "source": "/ops", "destination": "/ops.html" }
   ],
   "crons": [

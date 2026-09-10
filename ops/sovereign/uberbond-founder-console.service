@@ -1,0 +1,30 @@
+[Unit]
+Description=UberBond sovereign founder console
+After=local-fs.target uberbond-authoring.service
+Wants=uberbond-authoring.timer
+
+[Service]
+Type=simple
+User=uberbond-author
+Group=uberbond-autonomy
+WorkingDirectory=/opt/uberbond/source
+ExecStart=/opt/uberbond/control/uberbond-founder-console
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/uberbond/source /var/lib/uberbond-worker/outbox /etc/uberbond
+ReadWritePaths=/var/lib/uberbond-control /var/lib/uberbond-worker/inbox /tmp
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

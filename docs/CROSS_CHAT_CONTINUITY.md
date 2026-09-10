@@ -8,7 +8,7 @@ Long chats can end, shared-chat URLs may be unavailable to a later runtime, codi
 
 ## Repository-native brain
 
-UberBond continuity is anchored in eight layers:
+UberBond continuity is anchored in nine layers:
 
 1. `AGENTS.md` — startup and engineering law for repo-aware agents.
 2. `UBERBOND_CANON.md` — durable product/constitutional doctrine.
@@ -17,7 +17,8 @@ UberBond continuity is anchored in eight layers:
 5. `artifacts/uberbond-memory-index.json` — machine-readable named initiatives, historical snapshots, recurring/platform ladders, unresolved names and source basis.
 6. `docs/CURRENT_HANDOFF.json` — the short-horizon current mission/frontier, verified completion, blockers and next actions.
 7. current readiness/state files — present-tense measured software truth.
-8. `src/uberbond-brain-context.mjs` — fail-closed compiler that validates/digests bootstrap + Master Memory index into a context identity.
+8. `docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md` — curated cross-chat project context: current ChatGPT project goals, architecture, recent convergence wave, bootstrap-autonomy intent, self-hosting boundary and historical donor context. It restores conversation-level intent but never outranks newer exact-current repository/runtime evidence.
+9. `src/uberbond-brain-context.mjs` — fail-closed compiler that validates/digests bootstrap + Master Memory index into a context identity.
 
 The current repository and durable external receipts remain separate sources of present-tense truth. A stale handoff or rich historical memory never outranks a newer merged commit or provider/customer receipt.
 
@@ -25,7 +26,7 @@ The current repository and durable external receipts remain separate sources of 
 
 A new UberBond session should execute:
 
-`refresh main -> AGENTS -> CANON -> BOOTSTRAP -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> open/recent PRs -> requested mission -> dedupe -> execute`
+`refresh main -> AGENTS -> CANON -> BOOTSTRAP -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> CHATGPT_PROJECT_CONTINUITY_CURRENT -> open/recent PRs -> requested mission -> dedupe -> execute`
 
 If the user says only `continue` or `go`, the session should execute that recovery sequence instead of asking for a project retelling.
 
@@ -34,6 +35,12 @@ If the user says only `continue` or `go`, the session should execute that recove
 The handoff should be small enough to change after every mission. The Master Memory should be stable enough to remember years of company lineage. Mixing them caused a recurring failure mode: a new chat saw the latest repair or latest offer and assumed that was the entire company.
 
 The memory therefore preserves superseded programs with a status and reconciliation note rather than deleting them. It also preserves `OWNER_RECALLED_UNRESOLVED` names such as Everest until a source is found or the owner explicitly retires the name.
+
+## ChatGPT project continuity packet
+
+`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md` is the durable bridge for a long ChatGPT project conversation when the conversation itself becomes too large or sluggish. Update it when a long project chat is intentionally handed off to a fresh chat and material conversation-level goals or execution context are not yet safely represented by the stable Master Memory/current generated handoff.
+
+It may summarize project-chat context and external/File-Library donor packages, but must label their evidence state. It must not copy secrets, private customer payloads, credentials, raw transcripts or unsupported claims into Git. Newer exact-current source/runtime/provider evidence always wins over the curated packet.
 
 ## Handoff update law
 
@@ -61,4 +68,4 @@ The repository cannot force every ChatGPT user-interface conversation to attach 
 
 ## Truth rule
 
-Repository continuity preserves context; it does not promote claims. Real customer demand, provider state, cleared money, accepted delivery, renewal, legal/tax conclusions, and unattended production duration remain external evidence even if the brain remembers every architectural goal perfectly.
+Repository continuity preserves context; it does not promote claims. Real customer demand, provider state, cleared money, accepted delivery, renewal, legal/tax conclusions, unattended production duration, sovereign owned-host runtime, Personal Civilization outcomes and system-level ASI evidence remain external/runtime evidence even if the brain remembers every architectural goal perfectly.

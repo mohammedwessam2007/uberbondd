@@ -16,14 +16,18 @@ SOURCE_HEAD="$(git -C "$SOURCE" rev-parse HEAD)"; [[ "$SOURCE_HEAD" =~ ^[0-9a-f]
 
 getent group uberbond-autonomy >/dev/null || groupadd --system uberbond-autonomy
 getent group uberbond-promotion >/dev/null || groupadd --system uberbond-promotion
+getent group uberbond-model >/dev/null || groupadd --system uberbond-model
 for account in uberbond-author uberbond-worker uberbond-promoter; do
   getent group "$account" >/dev/null || groupadd --system "$account"
   if ! id -u "$account" >/dev/null 2>&1; then
     useradd --system --gid "$account" --home-dir "/var/lib/$account" --create-home --shell /usr/sbin/nologin "$account"
   fi
 done
+if ! id -u uberbond-model-proxy >/dev/null 2>&1; then
+  useradd --system --gid uberbond-model --home-dir /var/lib/uberbond-model-proxy --create-home --shell /usr/sbin/nologin uberbond-model-proxy
+fi
 usermod -g uberbond-author -a -G uberbond-autonomy,uberbond-promotion uberbond-author
-usermod -g uberbond-worker -a -G uberbond-autonomy uberbond-worker
+usermod -g uberbond-worker -a -G uberbond-autonomy,uberbond-model uberbond-worker
 usermod -g uberbond-promoter -a -G uberbond-autonomy,uberbond-promotion uberbond-promoter
 
 install -d -m 0755 /opt/uberbond /opt/uberbond/control
@@ -48,10 +52,10 @@ mv "$STAGE" /opt/uberbond/source
 if [[ "$(git -C /opt/uberbond/source rev-parse HEAD)" != "$SOURCE_HEAD" ]]; then rm -rf /opt/uberbond/source; [[ ! -e "$PREVIOUS" ]] || mv "$PREVIOUS" /opt/uberbond/source; echo "Installed source identity verification failed; prior source restored." >&2; exit 2; fi
 rm -rf "$PREVIOUS"; trap - EXIT
 
-install -m 0755 /opt/uberbond/source/ops/sovereign/uberbond-authorctl /opt/uberbond/control/uberbond-authorctl
-install -m 0755 /opt/uberbond/source/ops/sovereign/uberbond-founder-console /opt/uberbond/control/uberbond-founder-console
-install -m 0755 /opt/uberbond/source/ops/sovereign/uberbond-local-promoter /opt/uberbond/control/uberbond-local-promoter
-for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path; do
+for tool in uberbond-authorctl uberbond-founder-console uberbond-local-promoter uberbond-native-local-worker uberbond-local-model-proxy configure-local-model.sh; do
+  install -m 0755 "/opt/uberbond/source/ops/sovereign/$tool" "/opt/uberbond/control/$tool"
+done
+for unit in uberbond-authoring.service uberbond-authoring.timer uberbond-local-worker.service uberbond-local-worker.path uberbond-autonomy-verify.service uberbond-autonomy-verify.path uberbond-founder-console.service uberbond-local-promote.service uberbond-local-promote.path uberbond-authoring-after-promotion.path uberbond-local-model-proxy.service; do
   install -m 0644 "/opt/uberbond/source/ops/sovereign/$unit" "/etc/systemd/system/$unit"
 done
 
@@ -75,7 +79,7 @@ UBERBOND_SOURCE_ROOT=/opt/uberbond/source
 UBERBOND_WORKER_TASK_PATH=/var/lib/uberbond-worker/inbox/task.json
 UBERBOND_WORKER_OUTBOX_ROOT=/var/lib/uberbond-worker/outbox
 UBERBOND_WORKER_RESULT_PATH=/var/lib/uberbond-worker/outbox/result.json
-UBERBOND_LOCAL_WORKER_EXECUTABLE=
+UBERBOND_LOCAL_WORKER_EXECUTABLE=/opt/uberbond/control/uberbond-native-local-worker
 UBERBOND_LOCAL_WORKER_TIMEOUT_MS=2700000
 EOF
 chown root:uberbond-worker /etc/uberbond/worker.env; chmod 0640 /etc/uberbond/worker.env
@@ -129,22 +133,23 @@ Worker inbox:       /var/lib/uberbond-worker/inbox
 Worker outbox:      /var/lib/uberbond-worker/outbox
 Governance inbox:   /var/lib/uberbond-governance/inbox
 Promotion state:    /var/lib/uberbond-promotion
+Native worker:      /opt/uberbond/control/uberbond-native-local-worker
 
 Default console binding is loopback-only and cloud-independent. Do not bind it to
 another interface without a strong UBERBOND_FOUNDER_CONSOLE_TOKEN and a private,
 trusted network path. The console never reads the Personal Civilization vault.
 
-Direct free-text dialogue is disabled until an approved local open-model runtime
-is configured in /etc/uberbond/founder-console.env. The sovereign dialogue path
-accepts loopback OpenAI-compatible runtimes only; it never silently falls back
-to a cloud provider.
+A native code-writing worker is installed but intentionally disabled until an
+owner-controlled local model runtime is named. Activate both direct dialogue and
+the isolated worker with:
+  sudo /opt/uberbond/control/configure-local-model.sh RUNTIME MODEL http://127.0.0.1:PORT
+The worker keeps PrivateNetwork=true and AF_UNIX-only access. A separate model
+proxy may reach host loopback only; it cannot reach public network addresses.
+There is no silent cloud fallback.
 
-Default model execution is disabled. After a trusted local worker executable is
-installed outside the source tree, set UBERBOND_LOCAL_WORKER_EXECUTABLE in
-/etc/uberbond/worker.env and UBERBOND_ISOLATED_WORKER_ENABLED=true in
-/etc/uberbond/authoring.env. Worker, verifier, and promoter are separated. The
-promoter has zero network and refuses sovereignty/build/control surfaces and
-existing-test rewrites. A successful low-risk local promotion emits an offline
-release request and immediately wakes truth-first authoring on the new exact base.
-Release signing remains a separate authority and this node refuses to hold its key.
+Worker, verifier, promoter, release signer and runtime deployment remain separate
+authorities. The promoter has zero network and refuses sovereignty/build/control
+surfaces and existing-test rewrites. A successful low-risk local promotion emits
+an offline release request and immediately wakes truth-first authoring on the new
+exact base. Release signing remains separate and this node refuses to hold its key.
 EOF

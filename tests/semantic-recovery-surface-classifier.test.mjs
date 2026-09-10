@@ -9,10 +9,16 @@ test('semantic recovery classifier ignores evidence words that do not prove dura
   assert.ok(statefulLine, 'STATEFUL classifier missing');
   assert.doesNotMatch(statefulLine, /(?:\||\/)state\\b(?:\||\/)/);
   assert.doesNotMatch(statefulLine, /(?:\||\/)receipt(?:\||\/)/);
+  assert.doesNotMatch(statefulLine, /(?:\||\/)runtime(?:\||\/)/);
 });
 
 test('semantic recovery classifier still recognizes concrete durable or long-running surfaces', () => {
-  for (const marker of ['persist', 'queue', 'database', 'postgres', 'writeFile', 'scheduler', 'worker', 'runtime', 'checkpoint', 'ledger']) {
+  for (const marker of ['persist', 'queue', 'database', 'postgres', 'writeFile', 'scheduler', 'worker', 'checkpoint', 'ledger', 'createServer', 'server\\.listen', 'setInterval', 'daemon']) {
     assert.match(statefulLine, new RegExp(marker), `${marker} recovery surface must remain classified`);
   }
+});
+
+test('runtime evidence vocabulary cannot manufacture recovery obligations', () => {
+  assert.match(script, /runtimeEvidenceRequirement:/, 'runtime evidence boundary must remain explicit');
+  assert.doesNotMatch(statefulLine, /runtime/, 'bare runtime vocabulary is evidence-plane metadata, not proof of owned durable state');
 });

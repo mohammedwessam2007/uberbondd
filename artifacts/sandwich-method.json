@@ -4,7 +4,12 @@
   "canonicalDoc": "docs/SANDWICH_METHOD_CANON.md",
   "module": "src/sandwich-method.mjs",
   "planner": "scripts/sandwich-method-plan.mjs",
-  "test": "tests/sandwich-method.test.mjs",
+  "doctor": "scripts/sandwich-method-doctor.mjs",
+  "tests": [
+    "tests/sandwich-method.test.mjs",
+    "tests/sandwich-method-plan.test.mjs",
+    "tests/sandwich-method-doctor.test.mjs"
+  ],
   "coreLoop": [
     "EXACT_CURRENT_STATE",
     "STRONGER_DESCENDANT_MODEL",

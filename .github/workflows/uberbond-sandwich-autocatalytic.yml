@@ -1,0 +1,143 @@
+name: UberBond Sandwich Autocatalytic Loop
+
+on:
+  workflow_run:
+    workflows:
+      - UberBond Self Maintainer
+    types:
+      - completed
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: uberbond-sandwich-autocatalytic-loop
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+jobs:
+  post-finite-fold:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Honor durable founder pause fence
+        id: control
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! paused=$(gh api "/repos/${GH_REPOSITORY}/issues/604" --jq '[.labels[].name] | index("uberbond-autonomy-paused") != null'); then
+            echo 'Command Center pause state is unavailable; failing closed.' >&2
+            echo 'paused=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "paused=${paused}" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse competing self-maintainer execution
+        id: active
+        if: steps.control.outputs.paused != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          active=$(gh api "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/runs?per_page=20" \
+            --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress")] | length')
+          echo "count=${active}" >> "$GITHUB_OUTPUT"
+          if [ "$active" != '0' ]; then
+            echo "Self-maintainer has ${active} active/queued run(s); this fold collapses to no-op. Recovery clock remains armed."
+          fi
+
+      - name: Checkout exact current main
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install exact locked dependencies
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
+        run: npm ci
+
+      - name: Regenerate exact-current terminal truth
+        id: terminal
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          head=$(git rev-parse HEAD)
+          set +e
+          node scripts/terminal-realization.mjs > /tmp/uberbond-sandwich-terminal.json
+          rc=$?
+          set -e
+          echo "exit_code=${rc}" >> "$GITHUB_OUTPUT"
+          echo "head=${head}" >> "$GITHUB_OUTPUT"
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 2 ]; then
+            cat /tmp/uberbond-sandwich-terminal.json >&2 || true
+            exit "$rc"
+          fi
+
+      - name: Seed one post-finite descendant requirement task
+        id: sandwich
+        if: steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          exact_head=$(git rev-parse HEAD)
+          set +e
+          GITHUB_ACTIONS=true GITHUB_SHA="$exact_head" node scripts/sandwich-autocatalytic-seed.mjs > /tmp/uberbond-sandwich-seed.json
+          rc=$?
+          set -e
+          cat /tmp/uberbond-sandwich-seed.json
+          if [ "$rc" -ne 0 ]; then
+            status=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('/tmp/uberbond-sandwich-seed.json','utf8'));process.stdout.write(String(v.status||''))")
+            if [ "$status" = 'FINITE_COMPLETION_RETAINS_PRIORITY' ]; then
+              echo 'task_required=false' >> "$GITHUB_OUTPUT"
+              echo 'issue_number=' >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            exit "$rc"
+          fi
+          task_required=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('/tmp/uberbond-sandwich-seed.json','utf8'));process.stdout.write(v.ok===true&&Number(v.issueNumber||0)>0?'true':'false')")
+          issue_number=$(node -e "const fs=require('node:fs');const v=JSON.parse(fs.readFileSync('/tmp/uberbond-sandwich-seed.json','utf8'));const n=Number(v.issueNumber||0);process.stdout.write(Number.isSafeInteger(n)&&n>0?String(n):'')")
+          echo "task_required=${task_required}" >> "$GITHUB_OUTPUT"
+          echo "issue_number=${issue_number}" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch the next Sandwich fold to the trusted self-maintainer
+        if: steps.sandwich.outputs.task_required == 'true' && steps.sandwich.outputs.issue_number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ steps.sandwich.outputs.issue_number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --method POST "/repos/${GH_REPOSITORY}/actions/workflows/uberbond-self-maintainer.yml/dispatches" \
+            -f ref='main' \
+            -F "inputs[issueNumber]=${ISSUE_NUMBER}"
+          echo "Sandwich descendant task #${ISSUE_NUMBER} dispatched."
+
+      - name: Report finite completion still owns the frontier
+        if: steps.sandwich.outputs.task_required != 'true' && steps.control.outputs.paused != 'true' && steps.active.outputs.count == '0'
+        run: echo 'No post-finite descendant task dispatched. Existing finite completion or a truthful stop boundary retains priority.'
+
+      - name: Report founder pause fence
+        if: steps.control.outputs.paused == 'true'
+        run: echo 'Founder pause fence is active; no Sandwich descendant task was created or dispatched.'

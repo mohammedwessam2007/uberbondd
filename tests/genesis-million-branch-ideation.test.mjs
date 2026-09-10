@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   MILLION_BRANCH_DOMAIN_COUNT,
   MILLION_BRANCH_GENERATOR_COUNT,
@@ -60,4 +61,18 @@ test('branch projection exposes search-space arithmetic without pretending branc
   assert.deepEqual(projection.generationCounts, [50000, 100000]);
   assert.equal(projection.totalCandidateNodes, 150000);
   assert.match(projection.claimBoundary, /NOT_EXECUTED_IDEAS_OR_DISCOVERIES/);
+});
+
+test('public million-branch artifacts stay founder-generic and keep personalization behind private context', () => {
+  const source = readFileSync(new URL('../src/million-branch-ideation-genome.mjs', import.meta.url), 'utf8');
+  const doc = readFileSync(new URL('../docs/MILLION_BRANCH_IDEATION_GENOME.md', import.meta.url), 'utf8');
+  const publicSurface = `${source}\n${doc}`;
+  assert.doesNotMatch(publicSurface, /Mohamed/i);
+  assert.doesNotMatch(publicSurface, /psychiatr/i);
+  assert.doesNotMatch(publicSurface, /screen activity|location, audio|family, friends|medical training/i);
+  assert.match(doc, /public genome is deliberately founder-generic/i);
+  assert.match(doc, /separately authorized private runtime\/context boundary/i);
+  assert.match(source, /separately authorized private context/i);
+  assert.match(source, /businessEffectAuthority:'NONE'/);
+  assert.match(source, /externalEffectAuthority:'NONE'/);
 });

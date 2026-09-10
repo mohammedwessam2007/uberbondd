@@ -13,25 +13,29 @@ The purpose is not to warehouse one thousand ordinary ideas. Each generator is a
 
 `1,000 META-GENERATORS -> MANY CANDIDATES -> EVIDENCE/FEASIBILITY TOURNAMENT -> CROSS-DOMAIN RECOMBINATION -> NEW GENERATORS -> REPEAT`
 
-Mohamed's current imagination, the present ontology, and this 1,000-generator seed are all floors rather than ceilings. The terminal meta-question is:
+The founder's current imagination, the present ontology, and this 1,000-generator seed are all floors rather than ceilings. The terminal meta-question is:
 
 > **What would a stronger UberBond ask that current UberBond is not intelligent enough to ask yet?**
 
+## Public/private isolation law
+
+This public genome is deliberately founder-generic. It may define personalization mechanisms, but it must not encode the founder's identity, private biography, education path, specialty preference, relationships, device/location traces, health facts, or other private-life state. Personalization enters only through a separately authorized private runtime/context boundary. Capability to ingest private context never creates authority to publish, persist, transmit, or act on that context.
+
 ## Twenty domains
 
-- **Cognition & Reasoning** — Mohamed’s thinking, reasoning, attention, intuition, judgment, problem-solving, and mental bandwidth.
+- **Cognition & Reasoning** — the founder's thinking, reasoning, attention, intuition, judgment, problem-solving, and mental bandwidth.
 - **Memory & Personal Knowledge** — lifelong memory, recall, personal knowledge graphs, provenance, forgetting, compression, and reconstruction.
-- **Learning & Education** — study, skill acquisition, medicine, languages, exam performance, mastery, and transfer.
+- **Learning & Education** — learning, skill acquisition, education, exam performance, mastery, and transfer.
 - **Health & Physiology** — health monitoring, prevention, recovery, fitness, nutrition, physiology, and long-term function.
 - **Sleep, Energy & Attention** — sleep, fatigue, arousal, focus, cognitive energy, recovery, and daily rhythms.
-- **Relationships & Social Intelligence** — family, friends, mentors, collaboration, communication, trust, social context, and relationship continuity.
+- **Relationships & Social Intelligence** — relationships, mentors, collaboration, communication, trust, social context, and continuity.
 - **Entertainment & Experience** — fun, games, stories, music, travel, immersion, boredom, play, and meaningful experiences.
-- **Creativity & Art** — acting, art, writing, design, performance, aesthetics, creative identity, and cultural creation.
-- **Career, Medicine & Mastery** — medical training, psychiatry, career architecture, professional excellence, and multidisciplinary mastery.
+- **Creativity & Art** — creative work, art, writing, design, performance, aesthetics, creative identity, and cultural creation.
+- **Career, Medicine & Mastery** — career architecture, professional training, medicine as a general capability domain, professional excellence, and multidisciplinary mastery.
 - **Wealth, Business & Capital** — revenue, investing, companies, capital allocation, risk, ownership, and economic autonomy.
 - **Opportunity & World Discovery** — new opportunities, people, places, markets, technologies, hidden openings, and serendipity.
 - **Software, Agents & Intelligence** — AI agents, models, tools, orchestration, self-improvement, coding, autonomy, and digital action.
-- **Sensing, Data & Reality Capture** — screen activity, location, audio, vision, context, passive telemetry, life reconstruction, and world-state sensing.
+- **Sensing, Data & Reality Capture** — founder-authorized private signals, multimodal context, passive telemetry, life reconstruction, and world-state sensing.
 - **Hardware & UberBond Forge** — electronics, CAD, fabrication, materials, prototypes, custom devices, manufacturing, and invention.
 - **Robotics & Physical Embodiment** — robots, actuators, machines, physical execution, distributed bodies, and real-world agency.
 - **Neuroengineering & Human-AI Symbiosis** — BCI, EMG, EEG, haptics, neural interfaces, artificial senses, co-adaptation, and nervous-system bandwidth.
@@ -98,7 +102,7 @@ Mohamed's current imagination, the present ontology, and this 1,000-generator se
 For every activated generator:
 
 1. Generate 20–100 candidate ideas.
-2. Score novelty, expected value, feasibility, founder-specific fit, reversibility, evidence quality, time-to-test, and cross-domain leverage.
+2. Score novelty, expected value, feasibility, founder-specific fit from authorized private context, reversibility, evidence quality, time-to-test, and cross-domain leverage.
 3. Keep the strongest candidates while preserving weird low-probability branches as dormant search-space memory.
 4. Crossbreed survivors with at least three other domains.
 5. Turn surprising failures into new generator hypotheses.

@@ -1,4 +1,4 @@
-export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1';
+export const SOVEREIGN_BOOTSTRAP_READINESS_VERSION='uberbond.sovereign-bootstrap-readiness.v1.1';
 export const OFFLINE_MODEL_STATUS='OFFLINE_LOCAL_MODEL_RUNTIME_INSTALLED_AND_LOOPBACK_ATTESTED';
 const SHA40=/^[a-f0-9]{40}$/i;
 const SHA64=/^[a-f0-9]{64}$/i;
@@ -33,7 +33,7 @@ export function compileSovereignBootstrapReadiness(input={}){
   const missingSourceContracts=REQUIRED_SOURCE_CONTRACTS.filter(id=>!truth(sourceContracts[id]));
   const inactiveAuthoringUnits=REQUIRED_AUTHORING_UNITS.filter(id=>!truth(services[id]));
   const sourceReady=SHA40.test(sourceCommit)&&input.cleanSource===true&&missingSourceContracts.length===0;
-  const hostInstalled=sourceReady&&input.authoringConfigPresent===true&&String(input.installedSourceCommit||'').toLowerCase()===sourceCommit;
+  const hostInstalled=sourceReady&&input.authoringConfigPresent===true&&input.configuredSourceRootMatches===true&&String(input.installedSourceCommit||'').toLowerCase()===sourceCommit;
   const hostControlReady=hostInstalled&&inactiveAuthoringUnits.length===0;
   const directFounderControlReady=hostControlReady&&input.founderConsoleReachable===true;
   const localModelAttested=exactModelReceipt(modelReceipt)&&truth(services.localModelRuntime)&&truth(services.localModelProxy);
@@ -47,6 +47,7 @@ export function compileSovereignBootstrapReadiness(input={}){
   if(!SHA40.test(sourceCommit))reasons.push('exact-source-commit-required');
   if(input.cleanSource!==true)reasons.push('clean-source-checkout-required');
   if(missingSourceContracts.length)reasons.push('required-source-contracts-missing');
+  if(sourceReady&&input.authoringConfigPresent===true&&input.configuredSourceRootMatches!==true)reasons.push('configured-authoring-source-root-mismatch');
   if(sourceReady&&!hostInstalled)reasons.push('sovereign-authoring-host-install-not-observed');
   if(hostInstalled&&inactiveAuthoringUnits.length)reasons.push('authoring-automation-units-not-active');
   if(hostControlReady&&!directFounderControlReady)reasons.push('founder-console-not-reachable');
@@ -93,6 +94,6 @@ export function compileSovereignBootstrapReadiness(input={}){
       publicCloudModelRequiredForSelfCompletion:false
     },
     authority:{businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',releaseSigningAuthority:'SEPARATE',runtimeDeploymentAuthority:'SEPARATE'},
-    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this source commit. It does not prove signed deployment, runtime rehearsal, customer/payment outcomes, Personal Civilization outcomes, or ASI.'
+    truthBoundary:'READY_TO_SELF_COMPLETE_LOCALLY means the bounded local engineering loop is observed configured on this exact source root and commit. It does not prove signed deployment, runtime rehearsal, customer/payment outcomes, Personal Civilization outcomes, or ASI.'
   };
 }

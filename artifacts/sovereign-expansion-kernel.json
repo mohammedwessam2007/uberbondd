@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond-sovereign-expansion-kernel-1.0.0",
-  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION",
-  "generatedAt": "2026-09-10T21:30:00+03:00",
+  "schemaVersion": "uberbond-sovereign-expansion-kernel-1.1.0",
+  "status": "FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_LIFE_AND_SELF_COMPLETION_EXTENSIONS",
+  "generatedAt": "2026-09-10T22:10:00+03:00",
   "canonicalDoc": "docs/SOVEREIGN_EXPANSION_KERNEL.md",
   "module": "src/sovereign-expansion-kernel.mjs",
   "test": "tests/genesis-sovereign-expansion-kernel.test.mjs",
@@ -24,9 +24,31 @@
     "rankBottleneckGradient",
     "buildMysteryPreservationContract"
   ],
+  "childOrgans": {
+    "selfCompletionAttractor": {
+      "artifact": "artifacts/self-completion-attractor.json",
+      "module": "src/self-completion-attractor.mjs",
+      "doctor": "scripts/self-completion-attractor-doctor.mjs",
+      "tests": ["tests/self-completion-attractor.test.mjs", "tests/self-completion-attractor-doctor.test.mjs"]
+    },
+    "lifeSensorium": {
+      "artifact": "artifacts/life-sensorium.json",
+      "canonicalDoc": "docs/LIFE_SENSORIUM_CANON.md",
+      "module": "src/life-sensorium.mjs",
+      "doctor": "scripts/life-sensorium-doctor.mjs",
+      "tests": ["tests/life-sensorium.test.mjs", "tests/life-sensorium-doctor.test.mjs"]
+    },
+    "sovereignSalienceRouter": {
+      "artifact": "artifacts/sovereign-salience-router.json",
+      "canonicalDoc": "docs/SOVEREIGN_SALIENCE_ROUTER.md",
+      "module": "src/sovereign-salience-router.mjs",
+      "tests": ["tests/sovereign-salience-router.test.mjs"],
+      "composedDoctor": "scripts/life-sensorium-doctor.mjs"
+    }
+  },
   "relationToIdeationGenome": "CONSUMES_BOUNDED_IDEATION_ACTIVATIONS_AND_EXPANDS_THEIR_REALITY_COGNITION_SEARCH_DIMENSIONS",
   "relationToOntogenesis": "FORTY_LENSES_ARE_A_SEED_ECOLOGY_NOT_A_CEILING__ONTOGENESIS_MAY_PROPOSE_NEW_CATEGORIES",
   "businessEffectAuthority": "NONE",
   "externalEffectAuthority": "NONE",
-  "truthBoundary": "EXPANSION_QUESTIONS_SCORES_GAPS_AND_THEORIES_ARE_INTERNAL_SEARCH_STRUCTURES_NOT_FACTS_DISCOVERIES_ACTION_AUTHORITY_LIFE_OUTCOMES_OR_ASI_PROOF"
+  "truthBoundary": "EXPANSION_QUESTIONS_SCORES_GAPS_THEORIES_PRIVATE_INFERENCES_AND_ATTENTION_ROUTES_ARE_INTERNAL_STRUCTURES_NOT_FACTS_DISCOVERIES_ACTION_AUTHORITY_LIFE_OUTCOMES_OR_ASI_PROOF"
 }

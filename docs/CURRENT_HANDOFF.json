@@ -1,34 +1,30 @@
 {
-  "schemaVersion": "uberbond-handoff-3.0.0",
-  "checkpointedAt": "2026-09-11T01:24:19+03:00",
-  "sourceCommit": "0e905ce8d89d6566cc4377ac0903ae44d2cd1c06",
+  "schemaVersion": "uberbond-handoff-3.1.0",
+  "checkpointedAt": "2026-09-11",
+  "sourceCommit": "331e667b8466cfa33a703d26fd841ae9c58fd156",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "inheritance": {
-    "previousCurrentHandoffBlob": "07fb19461a014827fb559abfb6a06585e7f2df4a",
-    "previousSchemaVersion": "uberbond-handoff-2.9.0",
+    "previousCurrentHandoffBlob": "d7d4cfca1e5a286529b21b55e63923a77bbac0b8",
+    "previousSchemaVersion": "uberbond-handoff-3.0.0",
     "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
   },
-  "startupLaw": "Refresh live main, open PRs/issues, runtime/provider truth and exact-current execution evidence before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Personal Civilization and Sovereign Cognitive Continuum canon, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory/index, Sandwich canon, Timeline Topology canon, inherited handoffs and this checkpoint. Queued, zero-step or runner_id=0 jobs are infrastructure non-evidence. Capability never creates authority. Recommendation never becomes choice. DELIVERY_READY never becomes acceptance. Sandbox payment never becomes cleared revenue. Source, simulation and internal execution never become physical, biological, external, commercial, longitudinal or ASI proof without their own evidence.",
-  "activeMission": "Cross the source-to-reality boundary for direct founder communication and resident sovereign self-completion on an owned or authorized Linux node with owner-supplied local model artifacts, while continuing only genuine dependency-satisfied internal source repairs discovered from exact-current truth. Preserve Communication Center, sovereign local-model independence, private founder context, worker/verifier/promoter separation, offline signing, zero-authority courier semantics and runtime authority boundaries.",
+  "startupLaw": "Refresh live main, open PRs/issues, runtime/provider truth and exact-current execution evidence before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Sovereign Cognitive Continuum and Personal Civilization canon, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory/index, Sandwich canon, Temporal Foundry canon, Timeline Topology canon, inherited handoffs and this checkpoint. A future date is not evidence of required duration. Source, simulation and internal execution never become physical, biological, external, commercial, longitudinal or ASI proof without their own evidence. Capability never creates authority and imagined future descendants never create founder goals.",
+  "activeMission": "Cross the source-to-reality boundary for direct founder communication and resident sovereign self-completion on an owned or authorized Linux node with owner-supplied local model artifacts. In parallel, use the merged Temporal Foundry -> Timeline Topology -> Sandwich path to pull evidence-backed future functions into present internal engineering whenever exact-current truth exposes a dependency-satisfied internal primitive. Do not manufacture source work when only physical, external or elapsed-reality blockers remain.",
   "currentTruth": {
     "repository": {
-      "observedMain": "0e905ce8d89d6566cc4377ac0903ae44d2cd1c06",
-      "observedMainTree": "8c573d120be06eb4c70d0106c58beea2c696fd47",
-      "openPullRequestsBeforeThisHandoffRefresh": 0,
+      "observedMain": "331e667b8466cfa33a703d26fd841ae9c58fd156",
       "latestMainRequiresRefreshBeforeNewClaims": true
     },
     "communicationCenter": {
       "sourceState": "MERGED",
       "ordinaryFounderDialogue": "MERGED",
       "ordinaryFounderMessageImmediateWake": "MERGED",
-      "boundedLocalConversationContinuity": "MERGED",
       "privateLanActivation": "MERGED",
       "airNodeTailnetActivation": "MERGED_PR_681",
       "publicCloudModelRequired": false,
-      "rawFounderTextAllowedInPublicCodingTasks": false,
       "physicalFounderReachabilityObserved": false
     },
     "residentSelfCompletion": {
@@ -38,24 +34,29 @@
       "vercelRequiredForHeartbeat": false,
       "finiteCompletionPriority": "MERGED",
       "postFiniteSandwichGenesis": "MERGED",
-      "timelineTopologyChallengeBeforeDescendantAdmission": "MERGED_PR_682",
-      "timelineTopologyChallengeExactRequirementBinding": "MERGED_PR_683",
       "workerVerifierPromoterSeparation": "MERGED",
       "physicalContinuousOperationObserved": false
     },
+    "temporalFoundry": {
+      "status": "MERGED_PR_685",
+      "engine": "src/temporal-foundry.mjs",
+      "canon": "docs/TEMPORAL_FOUNDRY_CANON.md",
+      "artifact": "artifacts/temporal-foundry.json",
+      "law": "Do not wait for the final future implementation when its useful function can be reconstructed now. Decompose future-labeled capability into evidence-backed functions, count only present/composable functions as current, preserve external/physical/unknown functions as uncaptured, and backcast one dependency-satisfied internal enabling primitive that increases present function capture.",
+      "sandwichBinding": "Temporal Foundry primitiveCandidate.requirementName and Timeline Topology subjectRequirementName must both equal the exact admitted descendantRequirement.name; trusted receipts are SHA-256 bound to the normalized admitted requirement.",
+      "futureLabelIsDurationEvidence": false,
+      "physicalOrExternalFunctionMayBeClaimedPresentFromSource": false
+    },
     "timelineTopology": {
+      "status": "MERGED_PR_682_PR_683",
       "engine": "src/timeline-topology-engine.mjs",
       "trustedChallengeCompiler": "src/timeline-topology-challenge.mjs",
-      "status": "MERGED_PR_682",
-      "law": "Challenge the dependency topology before optimizing the route; preserve the same terminal contract; evidence-bound causal floors require rebuttal evidence before bypass; source evidence does not prove physical speedup.",
-      "admissionReplayHardening": "MERGED_PR_683",
-      "bindingMechanism": "Trusted worker requires timelineTopologyChallenge.subjectRequirementName to exactly equal descendantRequirement.name and records subjectRequirementSha256 over the normalized admitted requirement.",
-      "truthBoundary": "This is source-level graph analysis, challenge governance and admission binding. It does not establish a physical wormhole or prove a real-world causal floor was broken."
+      "law": "Challenge the dependency topology before optimizing the route; preserve the same terminal contract; evidence-bound causal floors require rebuttal evidence before bypass; source evidence does not prove physical speedup."
     },
     "sovereignBootstrap": {
       "sourceStack": "MERGED",
       "oneCommandCommunicationCenterActivation": "MERGED",
-      "providerNeutralAirNodeTailnetPath": "MERGED_PR_681",
+      "providerNeutralAirNodeTailnetPath": "MERGED",
       "ownerSuppliedLocalModelInstaller": "MERGED_NO_DOWNLOAD_NO_CLOUD_FALLBACK",
       "protectedExactCurrentEvidenceImporter": "MERGED",
       "strictSignerCourierEvidenceAdmission": "MERGED",
@@ -69,10 +70,11 @@
       "ownedRuntimeRehearsalObserved": false
     },
     "verification": {
-      "pr682RecordedFocusedExactHead": "55/55 PASS as recorded in PR #682 merge evidence",
-      "pr683FocusedHostileReplayExecution": "PASS: valid topology challenge paired with a different descendant requirement was refused with timeline-topology-subject-must-match-descendant-requirement",
-      "pr683DiffScope": "2 files only: src/sovereign-native-local-worker.mjs and tests/sovereign-native-local-worker.test.mjs",
-      "pr683GithubHostedCI": "NON_EVIDENCE: jobs completed with steps=[] and runner_id=0",
+      "pr685ExactBranchWidenedSovereignSlice": "80/80 PASS, 0 fail",
+      "pr685ExactMergedMainWidenedSovereignSlice": "80/80 PASS, 0 fail at 331e667b8466cfa33a703d26fd841ae9c58fd156",
+      "pr685Syntax": "PASS for Temporal Foundry, sovereign worker, Sandwich governor and local model worker script",
+      "pr685Artifacts": "artifacts/temporal-foundry.json and artifacts/sandwich-method.json parse successfully",
+      "reachabilityRatchet": "PASS with Temporal Foundry reachable through the sovereign Sandwich worker path",
       "fullExactCurrentTerminalRegeneration": "NOT_CLAIMED"
     },
     "commercialProof": {
@@ -85,23 +87,25 @@
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "completedSincePreviousCheckpoint": [
-    "#681 merged provider-neutral sovereign Air Node tailnet access for an authorized Linux cloud host while keeping the iPad as founder cockpit; no public tunnel or effect authority was added.",
-    "#682 merged Timeline Topology Engineering / Wormhole Engine and inserted a trusted topology challenge into post-finite Sandwich descendant genesis before another requirement is admitted; it also restored operator reachability for Sandwich blueprint evolution.",
-    "#683 merged exact-subject binding for the topology challenge: challenge replay/substitution against a different descendant requirement now fails closed and trusted topology evidence carries a SHA-256 binding to the normalized admitted requirement.",
-    "PR #683 was based exactly on main 2ea6ba605ba9cd873a1637465edf93c8d6169321, changed only the native worker plus its regression test, and merged as 0e905ce8d89d6566cc4377ac0903ae44d2cd1c06 after focused hostile execution."
+    "#685 merged Temporal Foundry / Future Raid into main at 331e667b8466cfa33a703d26fd841ae9c58fd156.",
+    "Future-labeled capabilities are now decomposed into weighted functions before post-finite Sandwich may use them to justify another internal descendant requirement.",
+    "Trusted admission refuses present-function claims without evidence, refuses external/physical functions as internally pulled-forward capability, refuses internal functions whose dependencies remain external/unknown, and treats horizon labels as non-evidence.",
+    "Temporal Foundry selects one dependency-satisfied internal enabling primitive; Timeline Topology then attacks the route to that same exact primitive; both receipts are bound to the same normalized descendant requirement before append-only canon admission.",
+    "Exact branch and post-merge widened sovereign verification each passed 80/80 with reachability, resident continuum, Air Node, Sandwich doctor, sovereign worker, Temporal Foundry and Wormhole included."
   ],
   "genuineBlockers": [
     "PHYSICAL FOUNDER HOST/MODEL: no owned or authorized Linux founder node with prepared dependencies plus owner-supplied llama-server executable and GGUF model has produced source-root, systemd, local-model, dialogue, isolated-worker or repeated-continuum receipts.",
-    "PHYSICAL NETWORK/RUNTIME: private-LAN and tailnet activation paths are source-ready, but no target host is available in current execution access, so no real iPad URL, founder token or reachability receipt exists.",
+    "PHYSICAL NETWORK/RUNTIME: private-LAN and tailnet activation paths are source-ready, but no target host available to this execution context has produced a real iPad URL, founder token or reachability receipt.",
     "PHYSICAL RELEASE AUTHORITY: strict separate signer, zero-authority courier and owned runtime rehearsal mechanisms are merged but have not been observed for exact current source.",
-    "EXACT-CURRENT FULL TRIBUNAL: focused source mechanisms have execution evidence; a full terminal-realization regeneration on exact current main is not claimed. Zero-step GitHub jobs cannot satisfy this.",
+    "EXACT-CURRENT FULL TRIBUNAL: widened focused source mechanisms have execution evidence; a full terminal-realization regeneration on exact current main is not claimed.",
     "EXTERNAL/PROVIDER/COMMERCIAL: lawful provider callability, live payment, customer messaging, real customers, cleared revenue, accepted delivery and retention require external evidence.",
-    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, calibration, biological/physical acceleration and any ASI-level claim require future observed reality and cannot be minted by repository changes."
+    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, biological/physical acceleration and any ASI-level claim require observed reality and cannot be minted by repository changes. Temporal Foundry may challenge their topology but may not declare them captured without evidence."
   ],
   "nextExecutor": {
     "primary": "First owned or authorized Linux founder node with owner-supplied local model artifacts",
     "activation": "Run the exact-current sovereign activation path on that host, preserve doctor/first-wake/repeated-continuum receipts, then separately exercise signer, courier and runtime rehearsal evidence.",
-    "internalFallback": "If exact-current inspection reveals a reproducible dependency-satisfied source defect before physical activation, close only that defect through the existing worker -> independent verifier -> promoter path; do not manufacture roadmap work when only reality blockers remain."
+    "selfCompletion": "After finite source closure, the resident continuum models a stronger future capability, runs Temporal Foundry to select one present-pullable internal primitive, runs Timeline Topology against that same primitive, and only then may trusted Sandwich admission append one bounded requirement.",
+    "truthBoundary": "If Future Raid shows that remaining high-value function is physical, external, unknown or elapsed reality, stop source theater and obtain the relevant reality evidence instead."
   },
-  "truthBoundary": "This checkpoint records source convergence and the remaining genuine boundaries. It creates no physical host, network address, founder token, model attestation, continuous runtime, customer, payment, acceptance, retention, provider entitlement, superintelligence, perfect prediction or observed life improvement."
+  "truthBoundary": "This checkpoint proves source-level Future Raid, future-function decomposition, trusted internal primitive selection, Wormhole routing and Sandwich admission integration. It creates no physical host, future hardware, biological acceleration, customer, payment, acceptance, retention, provider entitlement, superintelligence, perfect prediction or observed life improvement."
 }

@@ -11,7 +11,9 @@ import {
 } from '../src/sovereign-context-fabric.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const SOVEREIGN_CONTEXT_DOCTOR_VERSION = 'sovereign-context-doctor-1.0.0';
+export const SOVEREIGN_CONTEXT_DOCTOR_VERSION = 'sovereign-context-doctor-1.1.0';
+export const TERMINAL_NORTH_STAR_PATH = 'artifacts/sovereign-cognitive-continuum-total-north-star.json';
+export const CURRENT_HANDOFF_PATH = 'docs/CURRENT_HANDOFF.json';
 
 function argValue(name) {
   const index = process.argv.indexOf(name);
@@ -37,6 +39,67 @@ function safeWriteJson(file, value) {
   return absolute;
 }
 
+function strings(value) {
+  return Array.isArray(value) ? value.filter(item => typeof item === 'string' && item.trim()).map(item => item.trim()) : [];
+}
+
+function nextExecutorActions(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return [];
+  return Object.entries(value)
+    .filter(([, item]) => typeof item === 'string' && item.trim())
+    .map(([key, item]) => `${key}: ${item.trim()}`);
+}
+
+export function overlayExactCurrentContext({ packet, rootDir } = {}) {
+  if (!packet || typeof packet !== 'object' || Array.isArray(packet)) throw new Error('brain-packet-required');
+  const root = path.resolve(rootDir || path.join(path.dirname(fileURLToPath(import.meta.url)), '..'));
+  const terminal = safeReadJson(path.join(root, TERMINAL_NORTH_STAR_PATH));
+  const handoff = safeReadJson(path.join(root, CURRENT_HANDOFF_PATH));
+
+  if (terminal.canonicalName !== 'Sovereign Cognitive Continuum') throw new Error('terminal-north-star-name-mismatch');
+  if (typeof terminal.canonicalDefinition !== 'string' || !terminal.canonicalDefinition.trim()) throw new Error('terminal-north-star-definition-required');
+  if (typeof terminal.subordinateEconomicObjective !== 'string' || !terminal.subordinateEconomicObjective.trim()) throw new Error('subordinate-economic-objective-required');
+  if (typeof handoff.activeMission !== 'string' || !handoff.activeMission.trim()) throw new Error('current-handoff-active-mission-required');
+
+  const completed = strings(handoff.completed).length
+    ? strings(handoff.completed)
+    : strings(handoff.completedSincePreviousCheckpoint);
+  const blockers = strings(handoff.blockers).length
+    ? strings(handoff.blockers)
+    : strings(handoff.genuineBlockers);
+  const nextActions = strings(handoff.nextActions).length
+    ? strings(handoff.nextActions)
+    : nextExecutorActions(handoff.nextExecutor);
+
+  const basis = typeof handoff.sourceCommit === 'string' ? handoff.sourceCommit.toLowerCase() : null;
+  return {
+    ...packet,
+    objective: terminal.canonicalDefinition.trim(),
+    economicNorthStar: terminal.subordinateEconomicObjective.trim(),
+    endState: `${terminal.canonicalName}: ${terminal.canonicalDefinition.trim()}`,
+    currentHandoff: {
+      ...packet.currentHandoff,
+      handoffBasisSha: basis,
+      activeMission: handoff.activeMission.trim(),
+      completed,
+      blockers,
+      nextActions,
+      freshAgainstSourceCommit: Boolean(basis && basis === packet.sourceCommit)
+    },
+    terminalContext: {
+      schemaVersion: terminal.schemaVersion || null,
+      status: terminal.status || null,
+      canonicalName: terminal.canonicalName,
+      canonicalDefinition: terminal.canonicalDefinition.trim(),
+      terminalTriad: terminal.terminalTriad || null,
+      canonicalHierarchy: Array.isArray(terminal.canonicalHierarchy) ? terminal.canonicalHierarchy : [],
+      subordinateEconomicObjective: terminal.subordinateEconomicObjective.trim(),
+      truthBoundary: terminal.truthBoundary || null,
+      containedNorthStar: handoff.containedNorthStar || 'Personal Civilization Engine'
+    }
+  };
+}
+
 export function runSovereignContextDoctor({
   rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   sourceCommit = null,
@@ -44,7 +107,8 @@ export function runSovereignContextDoctor({
   mission = null,
   generatedAt = new Date()
 } = {}) {
-  const packet = loadUberBondBrainFromRepository({ rootDir, sourceCommit, now: generatedAt });
+  const basePacket = loadUberBondBrainFromRepository({ rootDir, sourceCommit, now: generatedAt });
+  const packet = overlayExactCurrentContext({ packet: basePacket, rootDir });
   const compiled = compileBrainstateCapsule({ packet, generatedAt });
   if (!compiled.ok) return compiled;
 
@@ -64,6 +128,7 @@ export function runSovereignContextDoctor({
     sourceCommit: packet.sourceCommit,
     brainstateId: compiled.capsule.brainstateId,
     contextIdentityDigest: compiled.capsule.contextIdentity.identityDigest,
+    terminalNorthStar: packet.terminalContext,
     handoffFreshAgainstSourceCommit: compiled.capsule.frontier.handoffFreshAgainstSourceCommit,
     freshness,
     capsule: compiled.capsule,

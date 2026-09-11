@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import { MILLION_BRANCH_DOMAIN_NAMES, MILLION_BRANCH_OPERATOR_NAMES } from './million-branch-ideation-compat-data.mjs';
 
 export const MILLION_BRANCH_IDEATION_GENOME_VERSION='uberbond.million-branch-ideation-genome-compat.v2';
+export const MILLION_BRANCH_SOURCE_SHA256='4dc7269a2a8f6dfc1855d1f2cf7231d437b22fe948e4139808a1a97c937065e5';
 export const MILLION_BRANCH_DOMAIN_COUNT=20;
 export const MILLION_BRANCH_OPERATOR_COUNT=50;
 export const MILLION_BRANCH_GENERATOR_COUNT=1000;
@@ -28,7 +29,7 @@ export function validateMillionBranchIdeationGenome(){
   if(genome.length!==1000)reasons.push('generator-count-mismatch');
   if(new Set(genome.map(item=>item.key)).size!==1000)reasons.push('duplicate-generator-key');
   if(new Set(genome.map(item=>item.prompt.toLowerCase())).size!==1000)reasons.push('duplicate-generator-prompt');
-  return {ok:reasons.length===0,status:reasons.length?'MILLION_BRANCH_IDEATION_GENOME_INVALID':'MILLION_BRANCH_IDEATION_GENOME_HEALTHY',version:MILLION_BRANCH_IDEATION_GENOME_VERSION,domainCount:MILLION_BRANCH_DOMAINS.length,operatorCount:MILLION_BRANCH_OPERATORS.length,generatorCount:genome.length,reasonCodes:reasons,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
+  return {ok:reasons.length===0,status:reasons.length?'MILLION_BRANCH_IDEATION_GENOME_INVALID':'MILLION_BRANCH_IDEATION_GENOME_HEALTHY',version:MILLION_BRANCH_IDEATION_GENOME_VERSION,sourceSha256:MILLION_BRANCH_SOURCE_SHA256,domainCount:MILLION_BRANCH_DOMAINS.length,operatorCount:MILLION_BRANCH_OPERATORS.length,generatorCount:genome.length,reasonCodes:reasons,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
 }
 
 function matchDomains(values){

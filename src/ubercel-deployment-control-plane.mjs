@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileUberCloudPlan, compileUberCloudEvacuation } from './ubercloud-sovereign-fabric.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBERCEL_CONTROL_PLANE_VERSION='uberbond.ubercel-deployment-control-plane.v1';
+export const UBERCEL_CONTROL_PLANE_VERSION='uberbond.ubercel-deployment-control-plane.v1.1';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const TARGETS=new Set(['PREVIEW','STAGING','PRODUCTION','SOVEREIGN']);
@@ -47,22 +47,9 @@ function normalizeAdapter(raw={}){
   return {ok:true,adapter:{adapterId,adapterType,provider,sourceRef,verifiedAt:new Date(verifiedAt).toISOString(),capabilityTags}};
 }
 
-/**
- * Ubercel compiles a deployment intent into a provider-neutral plan. It does not
- * itself execute the deployment. Provider adapters are replaceable effectors and
- * receive no policy, signing, founder or deployment authority from registration.
- */
+/** Ubercel compiles a provider-neutral deployment plan. It does not deploy. */
 export function compileUbercelDeployment({
-  serviceId,
-  target='PREVIEW',
-  release={},
-  adapters=[],
-  cloudRequirements=[],
-  resourceCells=[],
-  meshReceipt={},
-  maxTotalCostCents=0,
-  healthContract={},
-  rollbackContract={}
+  serviceId,target='PREVIEW',release={},adapters=[],cloudRequirements=[],resourceCells=[],meshReceipt={},maxTotalCostCents=0,healthContract={},rollbackContract={}
 }={}){
   const id=text(serviceId,160);
   const normalizedTarget=text(target,80)?.toUpperCase();
@@ -100,41 +87,22 @@ export function compileUbercelDeployment({
 
   const plan={
     schemaVersion:'uberbond.ubercel-deployment-plan.v1',
-    serviceId:id,
-    target:normalizedTarget,
-    release:rel.release,
-    uberCloudPlanDigest:cloud.planDigest,
-    placements:cloud.plan.placements,
-    adapterBindings,
+    serviceId:id,target:normalizedTarget,release:rel.release,
+    uberCloudPlan:cloud.plan,uberCloudPlanDigest:cloud.planDigest,
+    placements:cloud.plan.placements,adapterBindings,
     healthContract:{authenticatedHealthRef,expectedStatus},
     rollbackContract:{rollbackProcedureRef,independentRollbackEvidenceRequired:true},
     authority:{signing:'OFFLINE_SIGNER_ONLY',deployment:'EXPLICIT_PROMOTER_OR_FOUNDER_ONLY',policy:'UBERBOND_ONLY',providerAdapters:'NONE'},
-    laws:[
-      'EXACT_SIGNED_RELEASE_ONLY',
-      'NO_PROVIDER_IS_THE_CONTROL_PLANE',
-      'PRODUCTION_PROMOTION_REQUIRES_INDEPENDENT_HEALTH_AND_ROLLBACK_EVIDENCE',
-      'PRIVATE_NETWORK_TRUST_ROOT_IS_UBERMESH_OR_LOCAL_ONLY',
-      'PROVIDER_LOSS_MUST_HAVE_A_DECLARED_DISTINCT_PROVIDER_EVACUATION_PATH'
-    ],
-    businessEffectAuthority:'NONE',
-    externalEffectAuthority:'NONE',
-    deploymentAuthority:'NONE'
+    laws:['EXACT_SIGNED_RELEASE_ONLY','NO_PROVIDER_IS_THE_CONTROL_PLANE','PRODUCTION_PROMOTION_REQUIRES_INDEPENDENT_HEALTH_AND_ROLLBACK_EVIDENCE','PRIVATE_NETWORK_TRUST_ROOT_IS_UBERMESH_OR_LOCAL_ONLY','PROVIDER_LOSS_MUST_HAVE_A_DECLARED_DISTINCT_PROVIDER_EVACUATION_PATH'],
+    businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',deploymentAuthority:'NONE'
   };
   return {ok:true,status:'UBERCEL_DEPLOYMENT_PLAN_READY',plan,planDigest:digest(plan),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',deploymentAuthority:'NONE',externalEffectLedger:zero()};
 }
 
-/**
- * Compiles an outage response from the signed deployment plan. Still no effect
- * authority: an authorized promoter/runtime must execute the resulting move.
- */
+/** Compiles outage response only. An authorized promoter/runtime executes it. */
 export function compileUbercelFailover({deploymentPlan,failedProviders=[]}={}){
   if(!deploymentPlan?.ok||!deploymentPlan.plan||!deploymentPlan.planDigest)return fail(['valid-ubercel-deployment-plan-required']);
   if(digest(deploymentPlan.plan)!==deploymentPlan.planDigest)return fail(['ubercel-plan-digest-mismatch']);
-  const cloudPlan={ok:true,plan:{serviceId:deploymentPlan.plan.serviceId,placements:deploymentPlan.plan.placements},planDigest:digest({serviceId:deploymentPlan.plan.serviceId,placements:deploymentPlan.plan.placements})};
-  // Reconstruct a canonical UberCloud result only from plan fields Ubercel bound.
-  const actualCloud={...cloudPlan,plan:{...deploymentPlan.plan,placements:deploymentPlan.plan.placements},planDigest:deploymentPlan.plan.uberCloudPlanDigest};
-  // UberCloud digest covers its richer plan; if the embedded plan is unavailable,
-  // fail closed rather than manufacture a provider-loss proof from deployment prose.
   const embedded=deploymentPlan.plan.uberCloudPlan;
   if(!embedded)return fail(['embedded-ubercloud-plan-required-for-failover']);
   const evacuation=compileUberCloudEvacuation({planResult:{ok:true,plan:embedded,planDigest:deploymentPlan.plan.uberCloudPlanDigest},failedProviders});

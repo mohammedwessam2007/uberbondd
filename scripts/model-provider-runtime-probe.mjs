@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createModelExecutorFactory } from '../src/agent-model-executor-factory.mjs';
+import { compileModelProviderRuntimeEvidence } from '../src/model-provider-runtime-evidence.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const outputIndex=process.argv.indexOf('--output');const outputPath=outputIndex>=0?String(process.argv[outputIndex+1]||'').trim():'';
+const runtimeHost=String(process.env.UBERBOND_RUNTIME_EVIDENCE_HOST||'').trim();
+const sourceCommit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim().toLowerCase();
+const dirty=execFileSync('git',['status','--porcelain','--untracked-files=no'],{cwd:root,encoding:'utf8'}).trim();
+if(dirty)throw new Error('tracked-working-tree-must-be-clean');
+const model=String(process.env.OPEN_MODEL_MODEL||'').trim();const taskId='model-provider-runtime-proof-v1';
+const objective=String(process.env.UBERBOND_MODEL_PROVIDER_PROBE_OBJECTIVE||'Classify the sentiment of the following text as POSITIVE or NEGATIVE. TEXT: I love precise evidence and reliable systems.').trim();
+const factory=createModelExecutorFactory({env:process.env});const executor=factory({provider:'open-model',model});
+const costCeilingCents=Number(process.env.UBERBOND_MODEL_PROVIDER_PROBE_COST_CEILING_CENTS??0);
+const result=await executor({task:{taskId,objective,originAgent:'provider-cut-rehearsal',targetAgent:'open-model',contextRefs:[],evidenceRefs:[],constraints:['local/alternate model inference only','no external business effects'],forbiddenActions:['messages','purchases','deployments','credential changes'],requiredOutputs:['structured JSON task result'],acceptanceTests:['canonical executor outcome COMPLETED','configured and observed model identities match'],economicObjective:'prove bounded model provider callability',consequenceClass:'LOCAL_PREPARATION'},maxTokens:128,costCeilingCents});
+const resultDigest=result?.result?`sha256:${crypto.createHash('sha256').update(JSON.stringify(result.result)).digest('hex')}`:null;
+const receipt=compileModelProviderRuntimeEvidence({sourceCommit,provider:'open-model',runtime:result?.runtime||process.env.OPEN_MODEL_RUNTIME,runtimeHost,taskId,configuredModel:result?.configuredModel||model,observedModel:result?.observedModel,identityVerification:result?.identityVerification,outcome:result?.outcome,resultDigest,inputTokens:result?.usage?.inputTokens,outputTokens:result?.usage?.outputTokens,totalTokens:result?.usage?.totalTokens,costCents:result?.usage?.costCents,costCeilingCents,businessEffectAuthority:result?.businessEffectAuthority,externalEffectLedger:result?.externalEffectLedger});
+if(outputPath){mkdirSync(dirname(outputPath),{recursive:true});writeFileSync(outputPath,`${JSON.stringify(receipt,null,2)}\n`,'utf8');}console.log(JSON.stringify({receipt,executorResult:result},null,2));if(!receipt.ok)process.exitCode=1;

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { verifyCognitiveJournalEntries } from './cognitive-event-journal.mjs';
 
-export const CONTEXT_HISTORY_RETRIEVAL_POLICY_VERSION = 'context-history-retrieval-1.0.0';
+export const CONTEXT_HISTORY_RETRIEVAL_POLICY_VERSION = 'context-history-retrieval-1.0.1';
 export const CONTEXT_MOUNT_SCHEMA_VERSION = 'uberbond.context-mount.v1';
 const MAX_HISTORY = 64;
 
@@ -83,20 +83,20 @@ export function retrieveRelevantCognitiveHistory({ entries = [], mission, maxEve
     const semantic = overlap(missionTokens, eventTokens);
     const priority = priorityKinds.has(event.kind) ? 2 : 0;
     const recency = entries.length ? (index + 1) / entries.length : 0;
-    return { entry, score: semantic * 10 + priority + recency };
+    return { entry, semantic, score: semantic * 10 + priority + recency };
   });
 
-  scored.sort((a, b) => b.score - a.score || b.entry.sequence - a.entry.sequence);
-  const relevant = scored.filter(row => row.score >= 10).slice(0, limit);
-  const selected = relevant.length
-    ? relevant
-    : scored.slice(0, Math.min(limit, 6));
+  const semanticMatches = scored.filter(row => row.semantic > 0);
+  semanticMatches.sort((a, b) => b.score - a.score || b.entry.sequence - a.entry.sequence);
+  const selected = semanticMatches.length
+    ? semanticMatches.slice(0, limit)
+    : entries.slice(-Math.min(limit, 6)).map(entry => ({ entry, semantic: 0, score: 0 }));
   selected.sort((a, b) => a.entry.sequence - b.entry.sequence);
 
   return {
     ok: true,
     policyVersion: CONTEXT_HISTORY_RETRIEVAL_POLICY_VERSION,
-    status: 'COGNITIVE_HISTORY_SLICE_READY',
+    status: semanticMatches.length ? 'COGNITIVE_HISTORY_RELEVANT_SLICE_READY' : 'COGNITIVE_HISTORY_RECENT_FALLBACK_READY',
     mission: missionText,
     totalJournalEntries: entries.length,
     selectedCount: selected.length,
@@ -129,6 +129,7 @@ export function compileContextMount({ doctorResult, journalEntries = [], mission
     brainstate: doctorResult.capsule,
     missionContext: doctorResult.missionContext,
     cognitiveHistory: {
+      retrievalStatus: history.status,
       totalJournalEntries: history.totalJournalEntries,
       selectedCount: history.selectedCount,
       journalTipDigest: history.journalTipDigest,

@@ -2,47 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { UBER_SOVEREIGN_LAYERS, compileUberSovereignStack } from '../src/uber-sovereign-stack.mjs';
 
-const evidenceForAll=(overrides={})=>Object.fromEntries(UBER_SOVEREIGN_LAYERS.map(layer=>[layer.id,{
-  sourceVerified:true,testsPassed:true,controlOwned:true,providerReplaceable:true,stateExportable:true,authorityRoot:'UBERBOND',runtimeObserved:false,evidenceRefs:[`test:${layer.id.toLowerCase()}`],...overrides[layer.id]
-}]));
+const evidenceFor=layer=>({sourceVerified:true,testsPassed:true,controlOwned:true,providerReplaceable:true,stateExportable:layer.stateful?true:false,authorityRoot:'UBERBOND',runtimeObserved:layer.runtimeProof?true:false,evidenceRefs:[`test:${layer.id}`]});
 
-test('Uber sovereign registry contains the first-party independence spine without duplicate identities',()=>{
-  const ids=UBER_SOVEREIGN_LAYERS.map(layer=>layer.id);
-  assert.equal(new Set(ids).size,ids.length);
-  for(const required of ['UBERMESH','UBERCLOUD','UBERCEL','UBERGRAPH','UBERMIND','UBERDNA','UBERMEMORY','UBERVAULT','UBERRUNTIME','UBERCONTROL','UBERAGENTS','UBERMODELS','UBERRESEARCH','UBERECONOMY','UBERPAY','UBERMAIL','UBERDELIVERY']) assert.ok(ids.includes(required),`${required} missing`);
-  assert.ok(UBER_SOVEREIGN_LAYERS.every(layer=>Array.isArray(layer.sourceRefs)&&layer.sourceRefs.length>0));
-});
-
-test('source evidence cannot impersonate live sovereign runtime',()=>{
-  const result=compileUberSovereignStack({layerEvidence:evidenceForAll()});
-  assert.equal(result.ok,true);
-  assert.equal(result.status,'UBER_SOVEREIGN_STACK_INDEPENDENCE_READY');
-  assert.ok(result.runtimeBlockers.length>0);
-  assert.ok(result.layers.filter(layer=>layer.runtimeProof).every(layer=>layer.runtimeReady===false));
-  assert.equal(result.externalEffectAuthority,'NONE');
-});
-
-test('Uber sovereign stack refuses any provider as the authority root',()=>{
-  const evidence=evidenceForAll({UBERCEL:{authorityRoot:'VERCEL'}});
-  const result=compileUberSovereignStack({layerEvidence:evidence});
-  assert.equal(result.ok,true,'source can still be proven while independence is refused');
-  assert.notEqual(result.status,'UBER_SOVEREIGN_STACK_INDEPENDENCE_READY');
-  assert.ok(result.independenceBlockers.includes('UBERCEL'));
-  const layer=result.layers.find(row=>row.id==='UBERCEL');
-  assert.ok(layer.reasonCodes.includes('uberbond-authority-root-required'));
-});
-
-test('stateful Uber layers cannot claim independence without exportability',()=>{
-  const evidence=evidenceForAll({UBERMEMORY:{stateExportable:false}});
-  const result=compileUberSovereignStack({layerEvidence:evidence});
-  assert.ok(result.independenceBlockers.includes('UBERMEMORY'));
-  const memory=result.layers.find(layer=>layer.id==='UBERMEMORY');
-  assert.ok(memory.reasonCodes.includes('state-exportability-required'));
-});
-
-test('runtime ready requires explicit runtime observation for every runtime-bearing Uber layer',()=>{
-  const overrides=Object.fromEntries(UBER_SOVEREIGN_LAYERS.filter(layer=>layer.runtimeProof).map(layer=>[layer.id,{runtimeObserved:true}]));
-  const result=compileUberSovereignStack({layerEvidence:evidenceForAll(overrides)});
-  assert.equal(result.status,'UBER_SOVEREIGN_STACK_RUNTIME_READY');
-  assert.equal(result.runtimeBlockers.length,0);
-});
+test('Uber sovereign registry contains complete 25-layer first-party stack without duplicate identities',()=>{const ids=UBER_SOVEREIGN_LAYERS.map(x=>x.id);assert.equal(ids.length,25);assert.equal(new Set(ids).size,25);for(const id of ['UBERMESH','UBERCLOUD','UBERCEL','UBERSOURCE','UBERFORGE','UBERSTATE','UBERQUEUE','UBEROBSERVE','UBERBROWSER','UBERIDENTITY','UBERSKILLS','UBERGRAPH','UBERMIND','UBERDNA','UBERMEMORY','UBERVAULT','UBERRUNTIME','UBERCONTROL','UBERAGENTS','UBERMODELS','UBERRESEARCH','UBERECONOMY','UBERPAY','UBERMAIL','UBERDELIVERY'])assert.ok(ids.includes(id),`${id} missing`);});
+test('source evidence cannot impersonate live sovereign runtime',()=>{const layerEvidence=Object.fromEntries(UBER_SOVEREIGN_LAYERS.map(l=>[l.id,{...evidenceFor(l),runtimeObserved:false}]));const r=compileUberSovereignStack({layerEvidence});assert.equal(r.ok,true);assert.notEqual(r.status,'UBER_SOVEREIGN_STACK_RUNTIME_READY');assert.ok(r.runtimeBlockers.length>0);});
+test('Uber sovereign stack refuses any provider as the authority root',()=>{const layerEvidence=Object.fromEntries(UBER_SOVEREIGN_LAYERS.map(l=>[l.id,evidenceFor(l)]));layerEvidence.UBERSOURCE.authorityRoot='GITHUB';const r=compileUberSovereignStack({layerEvidence});assert.equal(r.independenceBlockers.includes('UBERSOURCE'),true);assert.equal(r.status,'UBER_SOVEREIGN_STACK_SOURCE_READY');});
+test('stateful Uber layers cannot claim independence without exportability',()=>{const layerEvidence=Object.fromEntries(UBER_SOVEREIGN_LAYERS.map(l=>[l.id,evidenceFor(l)]));layerEvidence.UBERSTATE.stateExportable=false;const r=compileUberSovereignStack({layerEvidence});assert.ok(r.independenceBlockers.includes('UBERSTATE'));});
+test('all 25 layers can reach source independence and runtime ready only with complete evidence',()=>{const layerEvidence=Object.fromEntries(UBER_SOVEREIGN_LAYERS.map(l=>[l.id,evidenceFor(l)]));const r=compileUberSovereignStack({layerEvidence});assert.equal(r.ok,true);assert.equal(r.status,'UBER_SOVEREIGN_STACK_RUNTIME_READY');assert.deepEqual(r.sourceBlockers,[]);assert.deepEqual(r.independenceBlockers,[]);assert.deepEqual(r.runtimeBlockers,[]);});

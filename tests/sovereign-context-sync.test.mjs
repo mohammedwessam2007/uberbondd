@@ -56,7 +56,7 @@ test('resident authorctl fail-closes through Context Sync before autonomy pulse'
   assert.match(authorctl, /scripts\/sovereign-context-sync\.mjs/);
   assert.match(authorctl, /scripts\/sovereign-context-mount\.mjs/);
   assert.match(authorctl, /scripts\/sovereign-context-checkpoint\.mjs/);
-  assert.match(authorctl, /CONTEXT_JOURNAL=.*context.*events\.jsonl/);
+  assert.match(authorctl, /CONTEXT_JOURNAL="\$\{UBERBOND_CONTEXT_JOURNAL_PATH:-\$CONTEXT_DIR\/events\.jsonl\}"/);
   assert.ok(wake.indexOf('context_sync') >= 0);
   assert.ok(wake.indexOf('context_sync') < wake.indexOf('scripts/sovereign-autonomy-pulse.mjs'));
   assert.match(authorctl, /context\) context_show/);

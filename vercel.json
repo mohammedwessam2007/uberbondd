@@ -9,6 +9,7 @@
     "api/webhooks/billing.mjs": { "maxDuration": 30 },
     "api/admin/health-check.mjs": { "maxDuration": 30 },
     "api/founder-ops.mjs": { "maxDuration": 30 },
+    "api/private-asi-canary.mjs": { "maxDuration": 60 },
     "api/founder-center.mjs": {
       "maxDuration": 60,
       "includeFiles": "{NORTH_STAR.md,docs/CURRENT_HANDOFF.json,UBERBOND_BOOTSTRAP.json}"

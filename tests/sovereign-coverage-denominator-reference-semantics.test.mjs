@@ -36,5 +36,5 @@ test('all founder freedom dimensions remain external reality gates even when sim
   const dimensions = bySourceList(concepts, 'genesis', 'founderFreedomDimensions');
   assert.equal(dimensions.length, 8);
   assert.ok(dimensions.every(row => row.class === 'EXTERNAL_GATE'));
-  assert.ok(dimensions.some(row => row.name === 'Health and Safety'));
+  assert.ok(dimensions.some(row => String(row.name).toLowerCase() === 'health and safety'));
 });

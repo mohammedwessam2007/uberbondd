@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "uberbond.implementation-manifest.terminal-closure.v1",
+  "truthBoundary": "These declarations bind canonical umbrella names to existing source and test evidence. They do not create behavior, runtime evidence, provider access, authority, customers, revenue, or life outcomes. Every path is re-verified by the canonical coverage compiler.",
+  "entries": [
+    {"concept":"Protocol Genesis","sources":["src/perpetual-frontier-genesis.mjs"],"tests":["tests/perpetual-frontier-genesis.test.mjs"],"lane":"OMEGA-09"},
+    {"concept":"External action remains constrained by reality including law consent rights permissions and physics","sources":["src/external-reality-action-law.mjs"],"tests":["tests/external-reality-action-law.test.mjs"],"lane":"OMEGA-04"},
+    {"concept":"status_quo","sources":["src/forecast-parent-organ.mjs"],"tests":["tests/forecast-parent-organ.test.mjs"],"lane":"OMEGA-02"},
+    {"concept":"causal_models","sources":["src/forecast-parent-organ.mjs"],"tests":["tests/forecast-parent-organ.test.mjs"],"lane":"OMEGA-02"},
+    {"concept":"Rest and joy are legitimate ends","sources":["src/experience-compiler.mjs"],"tests":["tests/experience-compiler.test.mjs"],"lane":"OMEGA-04"},
+    {"concept":"Health-related recommendations require appropriate caution and evidence","sources":["src/health-recommendation-boundary.mjs"],"tests":["tests/health-recommendation-boundary.test.mjs"],"lane":"OMEGA-04"},
+    {"concept":"AI Reliability and Acceptance","sources":["src/proposal-acceptance-engine.mjs"],"tests":["tests/proposal-acceptance-engine.test.mjs"],"lane":"OMEGA-09"},
+    {"concept":"Evidence and Reconciliation","sources":["src/prospect-evidence-reconciliation.mjs"],"tests":["tests/prospect-evidence-reconciliation.test.mjs"],"lane":"OMEGA-09"},
+    {"concept":"Recovery and Vertical Operations","sources":["src/deploy-restart-recovery-receipt.mjs"],"tests":["tests/deploy-restart-recovery-receipt.test.mjs"],"lane":"OMEGA-09"},
+    {"concept":"open/public does not mean trusted/free/approved","sources":["src/open-model-foundry.mjs"],"tests":["tests/open-model-foundry.test.mjs"],"lane":"OMEGA-04"},
+    {"concept":"historical counts are not customers/revenue/capability maturity","sources":["src/pre-customer-revenue-readiness.mjs"],"tests":["tests/pre-customer-revenue-readiness.test.mjs"],"lane":"OMEGA-04"},
+    {"concept":"Every new material chat/export/share should be digested into repository-native memory with provenance, date, authority class, decisions, contradictions and supersession links; a share URL alone is not durable memory.","sources":["src/repository-memory-ingestion-law.mjs"],"tests":["tests/repository-memory-ingestion-law.test.mjs"],"lane":"OMEGA-04"},
+    {"concept":"UberBond Brain / Whole Chat Continuity","sources":["src/uberbond-brain-context.mjs"],"tests":["tests/uberbond-brain-context.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Brain V2","sources":["src/uberbond-brain-context.mjs"],"tests":["tests/uberbond-brain-bootstrap.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Night Frontier","sources":["src/overnight/control/automation-acquisition-frontier.mjs"],"tests":["tests/overnight-control/automation-acquisition-frontier.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Night Verification War","sources":["scripts/night-verification-frontier-open-model-mutations.mjs"],"tests":["tests/night-verification-frontier-open-model.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Night Payment / Distribution","sources":["src/distribution-channel.mjs"],"tests":["tests/distribution-channel.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"OMNIA X10","sources":["src/omnia-v9/kernel.mjs"],"tests":["tests/omnia-v9.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Lead OS","sources":["src/lead-operations.mjs"],"tests":["tests/lead-operations.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Frontier Engine","sources":["src/autonomous-frontier-intelligence.mjs"],"tests":["tests/autonomous-frontier-intelligence.test.mjs"],"lane":"OMEGA-14"},
+    {"concept":"Reachability War","sources":["src/readiness-reachability-conservation.mjs"],"tests":["tests/readiness-reachability-conservation.test.mjs"],"lane":"OMEGA-14"}
+  ]
+}

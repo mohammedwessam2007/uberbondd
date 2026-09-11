@@ -23,7 +23,12 @@ export async function materializeDeclaredNativeSymlinks({ packageRoot = PACKAGE_
   const root = path.resolve(packageRoot);
   const nativeRoot = path.join(root, 'native');
   const manifestPath = path.join(nativeRoot, 'pg-symlinks.json');
-  const manifestStat = await fs.lstat(manifestPath);
+  let manifestStat;
+  try { manifestStat = await fs.lstat(manifestPath); }
+  catch (error) {
+    if (error?.code === 'ENOENT') return Object.freeze({ declared: 0, created: 0, verified: 0, manifestPresent: false });
+    throw error;
+  }
   if (!manifestStat.isFile() || manifestStat.isSymbolicLink() || manifestStat.size > 64 * 1024) throw new Error('unsafe embedded Postgres symlink manifest');
   const rows = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
   if (!Array.isArray(rows) || rows.length > MAX_DECLARED_SYMLINKS) throw new Error('invalid embedded Postgres symlink manifest');
@@ -48,7 +53,7 @@ export async function materializeDeclaredNativeSymlinks({ packageRoot = PACKAGE_
     if (await fs.realpath(target) !== sourceReal) throw new Error('embedded Postgres declared symlink verification failed');
     created += 1;
   }
-  return Object.freeze({ declared: rows.length, created, verified: rows.length });
+  return Object.freeze({ declared: rows.length, created, verified: rows.length, manifestPresent: true });
 }
 
 async function makeBinExecutable(binDir) {
@@ -132,7 +137,6 @@ export async function prepareEmbeddedPostgresFixture({ packageRoot = PACKAGE_ROO
   const packageJsonPath = path.join(packageRoot, 'package.json');
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
   if (packageJson.version !== APPROVED_VERSION) throw new Error(`embedded Postgres fixture version drift: expected ${APPROVED_VERSION}, observed ${String(packageJson.version)}`);
-
   let executionMode = 'PACKAGE_NATIVE';
   if (forceMirror) { await mirrorNativeTree({ packageRoot, mirrorBaseDir }); executionMode = 'TMP_NATIVE_SYMLINK'; }
   let symlinkReceipt;
@@ -142,24 +146,17 @@ export async function prepareEmbeddedPostgresFixture({ packageRoot = PACKAGE_ROO
     await mirrorNativeTree({ packageRoot, mirrorBaseDir }); executionMode = 'TMP_NATIVE_SYMLINK';
     symlinkReceipt = await materializeDeclaredNativeSymlinks({ packageRoot });
   }
-
   let binDir = path.join(packageRoot, 'native', 'bin');
   await makeNativeTreeChildReadable(path.join(packageRoot, 'native'));
   await makeBinExecutable(binDir);
   await makeAncestorsSearchable(binDir);
   for (const executable of REQUIRED_EXECUTABLES) await fs.access(path.join(binDir, executable), FS_CONSTANTS.X_OK);
-
   const identity = probeIdentity === undefined ? resolvePostgresIdentity() : probeIdentity;
   let probe = probeBinDir(binDir, identity || null);
   if (!probe.ok && probe.code === 'EACCES' && executionMode === 'PACKAGE_NATIVE') {
-    await mirrorNativeTree({ packageRoot, mirrorBaseDir });
-    executionMode = 'TMP_NATIVE_SYMLINK';
-    symlinkReceipt = await materializeDeclaredNativeSymlinks({ packageRoot });
-    binDir = path.join(packageRoot, 'native', 'bin');
-    probe = probeBinDir(binDir, identity || null);
+    await mirrorNativeTree({ packageRoot, mirrorBaseDir });executionMode = 'TMP_NATIVE_SYMLINK';symlinkReceipt = await materializeDeclaredNativeSymlinks({ packageRoot });binDir = path.join(packageRoot, 'native', 'bin');probe = probeBinDir(binDir, identity || null);
   }
   if (!probe.ok) throw new Error(`embedded Postgres execution probe failed: ${probe.executable}:${probe.code}`);
-
   return Object.freeze({ status: 'READY', package: '@embedded-postgres/linux-x64', version: APPROVED_VERSION, requiredExecutables: [...REQUIRED_EXECUTABLES], declaredSymlinks: symlinkReceipt.declared, createdSymlinks: symlinkReceipt.created, executionProbe: 'PASSED', executionMode, executionIdentity: identity ? 'POSTGRES_UID_GID' : 'CURRENT_PROCESS' });
 }
 

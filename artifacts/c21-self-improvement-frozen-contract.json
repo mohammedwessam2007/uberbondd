@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond.c21-self-improvement-contract.v1",
+  "frozenBeforeCandidate": true,
+  "baselineRevision": "2f0dbdbcd7a7a17fd3d491aad8b2cdf943c8fd34",
+  "currentSystemRevision": "2f0dbdbcd7a7a17fd3d491aad8b2cdf943c8fd34",
+  "candidateId": "UBERBOND_WHOLE_SYSTEM_C21_20260911",
+  "candidateClass": "PRODUCTION_INVARIANT_COGNITION_COMPILATION",
+  "experimentId": "C21_SELF_IMPROVEMENT_WHOLE_SYSTEM_V1",
+  "freshTaskPopulation": {
+    "freezeAfterCandidateBeforeEvaluation": true,
+    "disclosure": "WITHHELD_UNTIL_CANDIDATE_REVISION_FROZEN",
+    "generatorProtocol": {
+      "MILLION_WORMHOLE_GLOBAL_PRIOR_TOPK": {"uniqueCases":24,"kMin":1,"kMax":64},
+      "OPPORTUNITY_BUILD_DISTANCE_BATCH": {"uniqueCases":32,"requiredCountMin":6,"requiredCountMax":18,"existingCountMin":20,"existingCountMax":50,"repeatChoices":[128,256,512,1024],"syntheticMissingRate":0.25},
+      "CAPABILITY_GRAPH_TOPOLOGY_BATCH": {"uniqueCases":32,"repeatChoices":[64,96,128,192,256]}
+    }
+  },
+  "families": [
+    {"id":"MILLION_WORMHOLE_GLOBAL_PRIOR_TOPK","criterion":"exact ordered identity against exhaustive composition of production shard compiler plus latency gain"},
+    {"id":"OPPORTUNITY_BUILD_DISTANCE_BATCH","criterion":"exact semantic identity against production incrementalBuildDistance plus latency gain"},
+    {"id":"CAPABILITY_GRAPH_TOPOLOGY_BATCH","criterion":"exact topology identity over production capability graph plus latency gain"}
+  ],
+  "matchedBudget": {"wallTimeBudgetMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"externalTools":"NONE"},
+  "minimumMeaningfulGain": 0.05,
+  "requiredRobustImprovedFamilies": 2,
+  "familyRegressionTolerance": 0,
+  "protectedGateRegressionTolerance": 0,
+  "requiredLatencyRounds": 21,
+  "bootstrapSamples": 10000,
+  "freshContextRetentionRequired": true,
+  "crossDomainTransferRequired": true,
+  "independentEvaluator": {"id":"C21_SELF_IMPROVEMENT_EVALUATOR_V1","lineageRef":"lineage:independent:c21-self-improvement-evaluator-v1","rubricOwner":"EVALUATOR_PREDECLARED"},
+  "independentVerifier": {"id":"C21_SELF_IMPROVEMENT_SECOND_LANGUAGE_VERIFIER_V1","lineageRef":"lineage:independent:c21-self-improvement-python-verifier-v1"},
+  "authority": {"promotionAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"},
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary": "FROZEN_PRE_CANDIDATE_EVALUATION_CONTRACT_ONLY__NO_CAPABILITY_OR_ASI_CLAIM"
+}

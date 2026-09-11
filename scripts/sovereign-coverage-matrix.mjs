@@ -31,6 +31,9 @@ const SOURCES = [
     ['coreOrgans', 'ORGAN'], ['containedPersonalCivilizationSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['canonicalLoop', 'LOOP_STAGE']]],
   ['artifacts/sovereign-option-outcome-forecast-engine.json', 'forecast', [
+    // The third element names the organ a field belongs to. Supplied only where
+    // a real organ exists: fields that are merely evaluation vocabulary are
+    // typed as ontology below rather than being smuggled into a build queue.
     ['optionUniverseRequirements', 'FORECAST_REQUIREMENT', FORECAST_ENGINE],
     ['forecastOutputs', 'FORECAST_OUTPUT', FORECAST_ENGINE],
     ['forecastStack', 'FORECAST_MECHANISM', FORECAST_ENGINE],
@@ -45,35 +48,59 @@ const SOURCES = [
   ['artifacts/personal-civilization-engine-north-star.json', 'personal-civilization', [
     ['hierarchy', 'HIERARCHY'], ['canonicalLifeSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['supportingCognitiveTechnicalSystems', 'CONCEPT'], ['economicInventionSystems', 'ECONOMIC_DONOR'],
+    // The source artifact literally calls these conceptual donors and marks
+    // itself CHAT_SPEC_GOAL / implementedClaim:false. Keep every name, but do
+    // not convert a far-future donor into a finite engineering obligation merely
+    // because the semantic tribunal now treats SPEC_ONLY as FINITE_BEHAVIOR.
+    // NAMED_INITIATIVE has the desired donor semantics without pretending these
+    // are economically implemented: real implementation evidence can still
+    // promote a donor later, while no-evidence rows remain preserved donors.
     ['farFutureConceptualDonors', 'NAMED_INITIATIVE'],
     ['lifeDecisionDimensions', 'FORECAST_DIMENSION', 'Value Manifold'],
     ['humanSovereigntyLaws', 'AUTHORITY_LAW'],
+    // These are criteria for a human reviewing UberBond, not outputs any module
+    // computes. The repository history explicitly records that distinction.
+    // Treat them as evaluation ontology so they stay in the no-drop denominator
+    // without becoming 18 fake finite modules in terminal realization.
     ['evaluationDimensions', 'ONTOLOGY']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],
-    // Founder-freedom dimensions are measured in lived reality. A similarly
-    // named software module cannot prove time, geographic, financial, health,
-    // artistic, intellectual, relational or reversibility outcomes for Mohamed.
+    // Founder-freedom dimensions are lived-world outcome axes, not modules.
+    // Keeping them as external gates prevents a coincidental health/recovery
+    // filename from impersonating observed freedom in Mohamed's actual life.
     ['founderFreedomDimensions', 'EXTERNAL_GATE']]],
   ['artifacts/uberbond-total-brain.json', 'total-brain', [
+    // truthPriority is an ordered evidence ranking, not a set of rules --
+    // "HYPOTHESIS" and "DRAFT_BRANCH_EVIDENCE" are rungs, and asking what
+    // module enforces a rung is a category error. Its sibling truthClasses was
+    // already typed ONTOLOGY; this was measuring the same thing as six
+    // unenforced laws.
     ['truthPriority', 'ONTOLOGY'], ['truthClasses', 'ONTOLOGY'], ['economicLoop', 'LOOP_STAGE'],
     ['constitutionalSpine', 'HIERARCHY'], ['productFamilies', 'ECONOMIC_DONOR'],
     ['recurringProductLineage', 'ECONOMIC_DONOR'], ['platformDestinations', 'ECONOMIC_DONOR'],
+    // Capability domains are taxonomy buckets containing many mechanisms, not
+    // one executable unit. Keep every literal name while refusing to create a
+    // fake module obligation for the bucket itself.
     ['capabilityDomains', 'ONTOLOGY'], ['softwareReferenceSurfaces', 'REFERENCE_SURFACE'],
+    // Named open runtimes are replaceable supplier/reference surfaces. UberBond
+    // may integrate them but must not pretend it owes an internal reimplementation.
     ['openModelRuntimes', 'REFERENCE_SURFACE'], ['permanentTruthLaws', 'AUTHORITY_LAW']]],
   ['artifacts/uberbond-memory-index.json', 'memory-index', [
     ['productFamilies', 'ECONOMIC_DONOR'], ['recurringProducts', 'ECONOMIC_DONOR'],
     ['longTermPlatforms', 'ECONOMIC_DONOR'], ['partnerGatedOfferLineage', 'ECONOMIC_DONOR'],
+    // Shared operating-system domains are index categories, not individual
+    // executable organs. Their descendants carry implementation evidence.
     ['strategicStages', 'STRATEGIC_STAGE'], ['sharedOperatingSystemDomains', 'ONTOLOGY'],
     ['antiForgettingRules', 'AUTHORITY_LAW']]]
 ];
 
+// Nested families and object lists, which need a key rather than a bare string.
 const NESTED = [
   ['artifacts/uberbond-total-brain.json', 'total-brain', 'namedInitiativeFamilies', 'NAMED_INITIATIVE'],
   ['artifacts/uberbond-memory-index.json', 'memory-index', 'namedInitiatives', 'NAMED_INITIATIVE'],
-  // Supplier identities are catalogue ontology. Whether a supplier package is
-  // installed/callable is separate evidence; the name itself is not an internal
-  // product obligation and is not permission to clone proprietary implementation.
+  // External supplier entries remain searchable catalogue ontology. Their
+  // adapters/packages/callability have separate evidence, and their names are
+  // neither missing internal products nor instructions to clone proprietary code.
   ['artifacts/external-skill-plugin-registry.json', 'suppliers', 'entries', 'ONTOLOGY'],
   ['artifacts/capability-genome/capability-atoms.json', 'capability-atoms', 'atoms', 'CAPABILITY_ATOM']
 ];
@@ -154,6 +181,14 @@ export function repoIndex() {
   let classification = { modules: {} };
   try { classification = JSON.parse(readFileSync(join(root, 'config', 'reachability-classification.json'), 'utf8')); } catch { /* absent */ }
   const gated = new Set(Object.keys(classification.modules || {}));
+  // src, scripts and api are all implementation surfaces. Indexing only src
+  // made every script-hosted concept read SPEC_ONLY -- Mutation War is a
+  // scripts/ module with seven suites and a mutation registry behind it, and it
+  // was being reported as an idea nobody had built.
+  // Project-native skills are an implementation surface too. Indexing only
+  // src/scripts/api reported Find Skills, Task Observer, Strix and Agent Reach
+  // as unbuilt while their skill packages sit in the tree -- and would have
+  // pushed them toward being labelled externally blocked, which they are not.
   const sourceFiles = [
     ...walkFiles('src'), ...walkFiles('scripts'), ...walkFiles('api'),
     ...walkFiles('.claude/skills', '.md')
@@ -162,6 +197,10 @@ export function repoIndex() {
   return {
     sourceFiles,
     testFiles,
+    // Approximate rather than pretending: a module carrying a registered gate is
+    // deliberately unreached, and anything else with a source file is treated as
+    // operator-reachable at worst. The exact production partition lives in the
+    // reachability ratchet and is not recomputed here.
     productionReachable: sourceFiles.filter(file => !gated.has(file)),
     operatorReachable: sourceFiles
   };
@@ -176,6 +215,9 @@ function main() {
   let sourceCommit = null;
   try { sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(); } catch { /* no git */ }
 
+  // Absent is fine; malformed is not. A manifest that fails to parse must not
+  // read as "no declarations", which would silently drop every concept whose
+  // implementation is only discoverable through it.
   let manifest = [];
   const manifestPath = join(root, 'artifacts/sovereign/implementation-manifest.json');
   if (existsSync(manifestPath)) {
@@ -209,6 +251,10 @@ function main() {
   const matrix = compileCoverageMatrix({ concepts, repoIndex: repoIndex(), laneMap: LANE_BY_CLASS, manifest, enforcement, externalGates, sourceCommit });
   if (!matrix.ok) { console.error(JSON.stringify(matrix, null, 2)); return 2; }
 
+  // Do not persist a matrix whose state labels cannot be independently
+  // reconstructed from the row evidence and semantic class. This is a second,
+  // non-promoting tribunal over the compiler output: it can only refuse an
+  // overclaim, and the same verifier is re-run by current-truth regeneration.
   const stateEvidenceIntegrity = verifyCoverageStateEvidenceIntegrity(matrix);
   if (!stateEvidenceIntegrity.ok) {
     console.error(JSON.stringify({

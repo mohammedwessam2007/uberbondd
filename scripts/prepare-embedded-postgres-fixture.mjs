@@ -11,7 +11,10 @@ const APPROVED_VERSION = '18.4.0-beta.17';
 const PACKAGE_ROOT = path.resolve('node_modules/@embedded-postgres/linux-x64');
 const REQUIRED_EXECUTABLES = Object.freeze(['initdb', 'pg_ctl', 'postgres']);
 const REQUIRED_RUNTIME_SONAMES = Object.freeze([
-  Object.freeze({ soname: 'libpq.so.5', payload: 'libpq.so.5.18' })
+  Object.freeze({ soname: 'libpq.so.5', payload: 'libpq.so.5.18' }),
+  Object.freeze({ soname: 'libicuuc.so.60', payload: 'libicuuc.so.60.2' }),
+  Object.freeze({ soname: 'libicui18n.so.60', payload: 'libicui18n.so.60.2' }),
+  Object.freeze({ soname: 'libicudata.so.60', payload: 'libicudata.so.60.2' })
 ]);
 
 async function makeBinExecutable(binDir) {
@@ -54,28 +57,42 @@ async function makeNativeTreeChildReadable(nativeDir) {
 
 async function ensureRuntimeSonames(nativeDir) {
   const libDir = path.join(nativeDir, 'lib');
+  try {
+    const stat = await fs.stat(libDir);
+    if (!stat.isDirectory()) return Object.freeze([]);
+  } catch (error) {
+    if (String(error?.code || '') === 'ENOENT') return Object.freeze([]);
+    throw error;
+  }
+
+  const entries = new Set(await fs.readdir(libDir));
+  const applicable = REQUIRED_RUNTIME_SONAMES.filter(({ soname, payload }) => entries.has(soname) || entries.has(payload));
+  if (!applicable.length) return Object.freeze([]);
+
   const statuses = [];
-  for (const { soname, payload } of REQUIRED_RUNTIME_SONAMES) {
+  for (const { soname, payload } of applicable) {
     const target = path.join(libDir, soname);
-    try {
+    if (entries.has(soname)) {
       await fs.access(target, FS_CONSTANTS.R_OK);
       statuses.push(Object.freeze({ soname, payload, status: 'PRESENT' }));
       continue;
-    } catch (error) {
-      if (String(error?.code || '') !== 'ENOENT') throw error;
     }
-
+    if (!entries.has(payload)) throw new Error(`embedded Postgres pinned runtime payload missing: ${payload}`);
     const source = path.join(libDir, payload);
-    try {
-      await fs.access(source, FS_CONSTANTS.R_OK);
-    } catch {
-      throw new Error(`embedded Postgres pinned runtime payload missing: ${payload}`);
-    }
+    await fs.access(source, FS_CONSTANTS.R_OK);
     await fs.copyFile(source, target, FS_CONSTANTS.COPYFILE_EXCL);
     await fs.chmod(target, 0o644);
+    entries.add(soname);
     statuses.push(Object.freeze({ soname, payload, status: 'MATERIALIZED_FROM_PINNED_PAYLOAD' }));
   }
   return Object.freeze(statuses);
+}
+
+function prependRuntimeLibraryPath(libDir) {
+  const prior = String(process.env.LD_LIBRARY_PATH || '').split(':').filter(Boolean);
+  const entries = [libDir, ...prior.filter(entry => path.resolve(entry) !== path.resolve(libDir))];
+  process.env.LD_LIBRARY_PATH = entries.join(':');
+  return process.env.LD_LIBRARY_PATH;
 }
 
 async function makeAncestorsSearchable(targetDir) {
@@ -111,12 +128,13 @@ function resolvePostgresIdentity() {
   return Object.freeze({ uid, gid });
 }
 
-function probeBinDir(binDir, identity = null) {
+function probeBinDir(binDir, identity = null, runtimeLibraryPath = '') {
   for (const executable of REQUIRED_EXECUTABLES) {
     const file = path.join(binDir, executable);
     const run = spawnSync(file, ['--version'], {
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'pipe'],
+      env: runtimeLibraryPath ? { ...process.env, LD_LIBRARY_PATH: runtimeLibraryPath } : process.env,
       ...(identity ? { uid: identity.uid, gid: identity.gid } : {})
     });
     if (run.error) {
@@ -177,8 +195,10 @@ export async function prepareEmbeddedPostgresFixture({
   }
 
   let binDir = path.join(packageRoot, 'native', 'bin');
-  await makeNativeTreeChildReadable(path.join(packageRoot, 'native'));
-  const runtimeSonames = await ensureRuntimeSonames(path.join(packageRoot, 'native'));
+  const nativeDir = path.join(packageRoot, 'native');
+  await makeNativeTreeChildReadable(nativeDir);
+  let runtimeSonames = await ensureRuntimeSonames(nativeDir);
+  let runtimeLibraryPath = runtimeSonames.length ? prependRuntimeLibraryPath(path.join(nativeDir, 'lib')) : '';
   await makeBinExecutable(binDir);
   await makeAncestorsSearchable(binDir);
   for (const executable of REQUIRED_EXECUTABLES) {
@@ -186,18 +206,20 @@ export async function prepareEmbeddedPostgresFixture({
   }
 
   const identity = probeIdentity === undefined ? resolvePostgresIdentity() : probeIdentity;
-  let probe = probeBinDir(binDir, identity || null);
+  let probe = probeBinDir(binDir, identity || null, runtimeLibraryPath);
   let executionMode = 'PACKAGE_NATIVE';
 
   if (forceMirror || (!probe.ok && probe.code === 'EACCES')) {
     await mirrorNativeTree({ packageRoot, mirrorBaseDir });
     binDir = path.join(packageRoot, 'native', 'bin');
     executionMode = 'TMP_NATIVE_SYMLINK';
-    probe = probeBinDir(binDir, identity || null);
+    runtimeSonames = await ensureRuntimeSonames(path.join(packageRoot, 'native'));
+    runtimeLibraryPath = runtimeSonames.length ? prependRuntimeLibraryPath(path.join(packageRoot, 'native', 'lib')) : '';
+    probe = probeBinDir(binDir, identity || null, runtimeLibraryPath);
   }
 
   if (!probe.ok) {
-    throw new Error(`embedded Postgres execution probe failed: ${probe.executable}:${probe.code}`);
+    throw new Error(`embedded Postgres execution probe failed: ${probe.executable}:${probe.code}${probe.detail ? `:${probe.detail}` : ''}`);
   }
 
   return Object.freeze({
@@ -206,6 +228,7 @@ export async function prepareEmbeddedPostgresFixture({
     version: APPROVED_VERSION,
     requiredExecutables: [...REQUIRED_EXECUTABLES],
     runtimeSonames,
+    runtimeLibraryPathConfigured: Boolean(runtimeLibraryPath),
     executionProbe: 'PASSED',
     executionMode,
     executionIdentity: identity ? 'POSTGRES_UID_GID' : 'CURRENT_PROCESS'

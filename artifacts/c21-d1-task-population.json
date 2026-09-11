@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "uberbond.c21-d1-task-population.v1",
+  "candidateRevision": "c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "generatedAfterCandidate": true,
+  "rng": "SHA256_COUNTER_U64_BE_V1",
+  "seed": "b043eeb43bc5434a028b4f78489381c86a4f90b36f1a42afc6e7e17f7eda468e",
+  "generatorSpec": {
+    "searchTopK": {"uniqueCases": 24, "domain": [1, 64], "sampling": "without-replacement-sorted"},
+    "buildDistanceCases": {"uniqueCases": 32, "existingCount": [20, 50], "requiredCount": [6, 18], "repeatChoices": [128, 256, 512, 1024], "syntheticMissingRate": 0.25},
+    "topologyTasks": {"uniqueCases": 32}
+  },
+  "expandedPopulationHash": "49901049facbfa7114717d2df17d7315c2202b126cd4fbf8fedbc74146c306be"
+}

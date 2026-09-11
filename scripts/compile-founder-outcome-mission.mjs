@@ -55,11 +55,11 @@ export async function compileLatestFounderOutcomeMission({ now = new Date() } = 
   if (!intent?.intent) return { ok:true, status:'NO_FOUNDER_INTENT', missionCreated:false };
 
   const existing = await readJson(ACTIVE_PATH);
-  if (existing?.ok === true && existing.state === 'ACTIVE' && existing.founderIntent === intent.intent) {
-    const deadline = Date.parse(existing.deadlineAt || '');
-    if (Number.isFinite(deadline) && deadline > now.getTime()) {
+  if (existing?.ok === true && ['ACTIVE','RECONCILIATION_REQUIRED'].includes(existing.state)) {
+    if (existing.founderIntent === intent.intent) {
       return { ok:true, status:'FOUNDER_OUTCOME_MISSION_ALREADY_ACTIVE', missionCreated:false, missionId:existing.missionId, deadlineAt:existing.deadlineAt };
     }
+    return { ok:true, status:'FOUNDER_OUTCOME_MISSION_CONFLICT_ACTIVE', missionCreated:false, missionId:existing.missionId, deadlineAt:existing.deadlineAt, pendingFounderIntentId:intent.id || null, truthBoundary:'A different unresolved founder mission already owns the active slot. It is preserved rather than silently overwritten.' };
   }
 
   const mission = compileFounderOutcomeMission({

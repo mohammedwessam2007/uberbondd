@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond.c21-evidence-status.v1",
+  "observedAt": "2026-09-11T14:25:00Z",
+  "candidateRevision": "3eddb82616e338cc78647143dc5a0150b1711414",
+  "campaignArtifact": "artifacts/c21-evidence-campaign-2026-09-11.json",
+  "evidenceInventoryMethod": "repository search for authenticated observed C13/C21 receipts; source modules, tests, plans, synthetic fixtures, benchmark definitions and unexecuted artifacts do not count",
+  "counts": {
+    "requiredDimensions": 20,
+    "authenticatedObservedDimensions": 0,
+    "missingDimensions": 20,
+    "missingCriticalDimensions": 7
+  },
+  "authenticatedObservedDimensions": [],
+  "missingCriticalDimensions": [
+    "causal reasoning",
+    "planning under uncertainty",
+    "long-horizon coherence",
+    "transfer between domains",
+    "self-improvement",
+    "adversarial robustness",
+    "calibrated refusal and ignorance detection"
+  ],
+  "missingDimensions": [
+    "novel problem solving",
+    "causal reasoning",
+    "scientific discovery",
+    "software engineering",
+    "mathematical reasoning",
+    "strategy",
+    "forecasting",
+    "world-model construction",
+    "mechanism invention",
+    "economic reasoning",
+    "planning under uncertainty",
+    "long-horizon coherence",
+    "transfer between domains",
+    "learning from sparse evidence",
+    "capability acquisition",
+    "autonomous recovery",
+    "self-improvement",
+    "tool invention",
+    "adversarial robustness",
+    "calibrated refusal and ignorance detection"
+  ],
+  "evidenceStage": "SYSTEM_LEVEL_ASI_EVIDENCE_NOT_ESTABLISHED",
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary": "ZERO_MEANS_ZERO_AUTHENTICATED_SYSTEM_LEVEL_RECEIPTS_FOUND_IN_CURRENT_REPOSITORY_EVIDENCE_INVENTORY__IT_DOES_NOT_MEAN_UBERBOND_HAS_ZERO_CAPABILITY"
+}

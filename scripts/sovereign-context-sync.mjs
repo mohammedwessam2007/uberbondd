@@ -2,11 +2,11 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
-import { readCognitiveJournal } from '../src/cognitive-event-journal.mjs';
 import { checkpointSovereignContext } from './sovereign-context-checkpoint.mjs';
 import { mountSovereignContext } from './sovereign-context-mount.mjs';
+import { readRuntimeCognitiveJournal } from './sovereign-cognitive-journal-runtime.mjs';
 
-export const SOVEREIGN_CONTEXT_SYNC_VERSION = 'sovereign-context-sync-1.0.0';
+export const SOVEREIGN_CONTEXT_SYNC_VERSION = 'sovereign-context-sync-1.1.0';
 
 function zeroEffects() {
   return structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -36,6 +36,8 @@ function lastCheckpoint(entries = []) {
 export function syncSovereignContext({
   rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   journalPath,
+  journalArchiveSnapshotPath = process.env.UBERBOND_CONTEXT_ARCHIVE_SNAPSHOT_PATH || null,
+  journalTailPath = process.env.UBERBOND_CONTEXT_TAIL_PATH || null,
   capsuleCachePath = null,
   mountCachePath = null,
   mission = null,
@@ -46,6 +48,8 @@ export function syncSovereignContext({
   const mounted = mountSovereignContext({
     rootDir,
     journalPath,
+    journalArchiveSnapshotPath,
+    journalTailPath,
     capsuleCachePath,
     mountCachePath,
     mission,
@@ -56,7 +60,7 @@ export function syncSovereignContext({
     contextMountStatus: mounted.status
   });
 
-  const journal = readCognitiveJournal(journalPath);
+  const journal = readRuntimeCognitiveJournal({ journalPath, archiveSnapshotPath: journalArchiveSnapshotPath, tailPath: journalTailPath });
   if (!journal.ok) return fail(['verified-cognitive-journal-required', ...(journal.reasonCodes || [])], 'CONTEXT_SYNC_JOURNAL_REFUSED');
   const checkpoint = lastCheckpoint(journal.entries);
   const currentBrainstateId = mounted.mount?.brainstateId;
@@ -70,6 +74,8 @@ export function syncSovereignContext({
       sourceCommit: mounted.mount.sourceCommit,
       brainstateId: currentBrainstateId,
       contextMountId: mounted.mount.contextMountId,
+      journalRuntimeMode: journal.runtimeMode,
+      journalArchiveManifestId: journal.archiveManifestId || null,
       journalEntryCount: journal.entryCount,
       journalTipDigest: journal.tipDigest,
       lastCheckpointEventId: checkpoint.eventId,
@@ -84,6 +90,8 @@ export function syncSovereignContext({
   const appended = checkpointSovereignContext({
     rootDir,
     journalPath,
+    journalArchiveSnapshotPath,
+    journalTailPath,
     capsulePath: capsuleCachePath,
     mission: mission || mounted.mount?.mission,
     generatedAt
@@ -101,6 +109,8 @@ export function syncSovereignContext({
   const remounted = mountSovereignContext({
     rootDir,
     journalPath,
+    journalArchiveSnapshotPath,
+    journalTailPath,
     capsuleCachePath,
     mountCachePath,
     mission,
@@ -116,6 +126,8 @@ export function syncSovereignContext({
     sourceCommit: remounted.mount.sourceCommit,
     brainstateId: remounted.mount.brainstateId,
     contextMountId: remounted.mount.contextMountId,
+    journalRuntimeMode: appended.journalRuntimeMode || remounted.journalRuntimeMode || 'LEGACY_JSONL',
+    journalArchiveManifestId: appended.journalArchiveManifestId || remounted.journalArchiveManifestId || null,
     checkpointEventId: appended.eventId,
     checkpointSequence: appended.journalSequence,
     checkpointEntryDigest: appended.journalEntryDigest,

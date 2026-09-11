@@ -29,3 +29,20 @@ export function compileContextSourceAncestryReceipt({currentSourceCommit,candida
   receipt.receiptId=digest(payload(receipt));
   return{ok:true,policyVersion:CONTEXT_SOURCE_ANCESTRY_POLICY_VERSION,status:'CONTEXT_SOURCE_ANCESTRY_READY',receipt,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
 }
+
+export function verifyContextSourceAncestryReceipt(receipt,{currentSourceCommit=null,candidateSourceCommit=null,allowSame=true,allowFastForward=true}={}){
+  if(!receipt||typeof receipt!=='object'||Array.isArray(receipt)||receipt.schemaVersion!==CONTEXT_SOURCE_ANCESTRY_SCHEMA)return fail(['canonical-context-source-ancestry-receipt-required'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(!/^[a-f0-9]{64}$/.test(String(receipt.receiptId||''))||receipt.receiptId!==digest(payload(receipt)))return fail(['context-source-ancestry-digest-mismatch'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(!SHA40.test(String(receipt.currentSourceCommit||''))||!SHA40.test(String(receipt.candidateSourceCommit||''))||!SHA40.test(String(receipt.mergeBase||'')))return fail(['exact-source-ancestry-identities-required'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(receipt.consequenceAuthority!=='NONE'||receipt.businessEffectAuthority!=='NONE'||receipt.externalEffectAuthority!=='NONE')return fail(['zero-source-ancestry-authority-required'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(currentSourceCommit&&receipt.currentSourceCommit!==String(currentSourceCommit).toLowerCase())return fail(['context-source-ancestry-current-mismatch'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(candidateSourceCommit&&receipt.candidateSourceCommit!==String(candidateSourceCommit).toLowerCase())return fail(['context-source-ancestry-candidate-mismatch'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(receipt.relation==='ROLLBACK')return fail(['context-source-rollback-refused'],'CONTEXT_SOURCE_ROLLBACK_REFUSED');
+  if(receipt.relation==='DIVERGED')return fail(['context-source-divergence-refused'],'CONTEXT_SOURCE_DIVERGENCE_REFUSED');
+  if(receipt.relation==='SAME'&&allowSame!==true)return fail(['same-source-context-import-not-allowed'],'CONTEXT_SOURCE_ANCESTRY_REFUSED');
+  if(receipt.relation==='FAST_FORWARD'&&allowFastForward!==true)return fail(['fast-forward-context-import-not-allowed'],'CONTEXT_SOURCE_ANCESTRY_REFUSED');
+  if(!['SAME','FAST_FORWARD'].includes(receipt.relation))return fail(['recognized-safe-source-relation-required'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(receipt.relation==='SAME'&&!(receipt.currentSourceCommit===receipt.candidateSourceCommit&&receipt.mergeBase===receipt.currentSourceCommit))return fail(['same-source-receipt-inconsistent'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  if(receipt.relation==='FAST_FORWARD'&&receipt.mergeBase!==receipt.currentSourceCommit)return fail(['fast-forward-merge-base-must-equal-current-source'],'CONTEXT_SOURCE_ANCESTRY_INVALID');
+  return{ok:true,policyVersion:CONTEXT_SOURCE_ANCESTRY_POLICY_VERSION,status:'CONTEXT_SOURCE_ANCESTRY_VERIFIED',receiptId:receipt.receiptId,relation:receipt.relation,currentSourceCommit:receipt.currentSourceCommit,candidateSourceCommit:receipt.candidateSourceCommit,mergeBase:receipt.mergeBase,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'The receipt integrity is content-addressed. Git ancestry truth must come from a real local probe over commits present in the trusted repository.'};
+}

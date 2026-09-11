@@ -21,12 +21,20 @@ test('named open model runtimes are preserved as reference surfaces, not interna
   assert.ok(runtimes.every(row => row.class === 'REFERENCE_SURFACE'));
 });
 
-test('external skill and plugin suppliers remain literal references rather than missing UberBond products', () => {
+test('external skill and plugin supplier identities are catalogue ontology, not missing UberBond products', () => {
   const { concepts } = extractConcepts();
   const suppliers = bySourceList(concepts, 'suppliers', 'entries');
   assert.ok(suppliers.length > 0);
-  assert.ok(suppliers.every(row => row.class === 'REFERENCE_SURFACE'));
+  assert.ok(suppliers.every(row => row.class === 'ONTOLOGY'));
   for (const expected of ['Find Skills', 'Task Observer', 'Strix', 'Agent Reach']) {
-    assert.ok(suppliers.some(row => row.name === expected), `${expected} missing from no-drop supplier references`);
+    assert.ok(suppliers.some(row => row.name === expected), `${expected} missing from no-drop supplier catalogue`);
   }
+});
+
+test('all founder freedom dimensions remain external reality gates even when similarly named software exists', () => {
+  const { concepts } = extractConcepts();
+  const dimensions = bySourceList(concepts, 'genesis', 'founderFreedomDimensions');
+  assert.equal(dimensions.length, 8);
+  assert.ok(dimensions.every(row => row.class === 'EXTERNAL_GATE'));
+  assert.ok(dimensions.some(row => row.name === 'Health and Safety'));
 });

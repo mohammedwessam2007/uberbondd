@@ -14,6 +14,9 @@ CONTEXT_JOURNAL="${UBERBOND_CONTEXT_JOURNAL_PATH:-$CONTEXT_DIR/events.jsonl}"
 BRAINSTATE_FILE="${UBERBOND_BRAINSTATE_PATH:-$CONTEXT_DIR/brainstate.json}"
 CONTEXT_MOUNT_FILE="${UBERBOND_CONTEXT_MOUNT_PATH:-$CONTEXT_DIR/mount.json}"
 CONTEXT_SYNC_FILE="${UBERBOND_CONTEXT_SYNC_PATH:-$CONTEXT_DIR/sync.json}"
+WORKER_INBOX_ROOT="${UBERBOND_WORKER_INBOX_ROOT:-/var/lib/uberbond-worker/inbox}"
+WORKER_TASK_FILE="${UBERBOND_WORKER_TASK_PATH:-$WORKER_INBOX_ROOT/task.json}"
+WORKER_CONTEXT_FILE="${UBERBOND_WORKER_CONTEXT_PATH:-$WORKER_INBOX_ROOT/context-projection.json}"
 PAUSE_FILE="$AUTONOMY_DIR/PAUSED"
 STATUS_FILE="$AUTONOMY_DIR/status.json"
 TASK_FILE="$AUTONOMY_DIR/next-task.json"
@@ -49,6 +52,20 @@ context_sync(){
   mv -f "$tmp" "$CONTEXT_SYNC_FILE"
 }
 
+publish_worker_context(){
+  [[ "${UBERBOND_ISOLATED_WORKER_ENABLED:-false}" == "true" ]] || return 0
+  [[ -d "$WORKER_INBOX_ROOT" && ! -L "$WORKER_INBOX_ROOT" ]] || { echo "REFUSED: real worker inbox required for context projection" >&2; return 2; }
+  run_from_source env \
+    UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
+    UBERBOND_SOURCE_ROOT="$SOURCE_ROOT" \
+    UBERBOND_CONTEXT_JOURNAL_PATH="$CONTEXT_JOURNAL" \
+    UBERBOND_BRAINSTATE_PATH="$BRAINSTATE_FILE" \
+    UBERBOND_CONTEXT_MOUNT_PATH="$CONTEXT_MOUNT_FILE" \
+    UBERBOND_WORKER_INBOX_ROOT="$WORKER_INBOX_ROOT" \
+    UBERBOND_WORKER_CONTEXT_PATH="$WORKER_CONTEXT_FILE" \
+    "$NODE" scripts/sovereign-context-project-worker.mjs >/dev/null
+}
+
 context_show(){
   run_from_source env \
     UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
@@ -75,15 +92,17 @@ wake(){
     return 0
   fi
   # Every resident/manual/event wake first mounts exact-current Brainstate and
-  # appends a durable checkpoint only when that Brainstate changed. A context
-  # integrity failure blocks authoring instead of letting a stale parallel brain
-  # continue from conversational memory.
+  # appends a durable checkpoint only when that Brainstate changed. When an
+  # isolated worker is enabled, publish a digest-bound zero-authority projection
+  # into its read-only inbox before any task may be emitted.
   context_sync
+  publish_worker_context
   run_from_source env \
     UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
     UBERBOND_ISOLATED_WORKER_ENABLED="${UBERBOND_ISOLATED_WORKER_ENABLED:-false}" \
-    UBERBOND_WORKER_INBOX_ROOT="${UBERBOND_WORKER_INBOX_ROOT:-/var/lib/uberbond-worker/inbox}" \
-    UBERBOND_WORKER_TASK_PATH="${UBERBOND_WORKER_TASK_PATH:-/var/lib/uberbond-worker/inbox/task.json}" \
+    UBERBOND_WORKER_INBOX_ROOT="$WORKER_INBOX_ROOT" \
+    UBERBOND_WORKER_TASK_PATH="$WORKER_TASK_FILE" \
+    UBERBOND_WORKER_CONTEXT_PATH="$WORKER_CONTEXT_FILE" \
     "$NODE" scripts/sovereign-autonomy-pulse.mjs
 }
 
@@ -119,16 +138,14 @@ UberBond Sovereign Authoring Command Center
   uberbond-authorctl doctor      inspect sovereign self-completion activation truth
   uberbond-authorctl help        show this help
 
-All wake paths share a local single-writer lock. The resident continuum, founder
-intent path, post-promotion path, manual wake and resume therefore cannot run two
-authoring brains concurrently. Before any authoring pulse, Context Sync verifies
-and mounts exact-current Brainstate and journals a checkpoint only when the
-Brainstate changed. Integrity failure blocks the pulse rather than silently
-falling back to conversational memory.
+All wake paths share a local single-writer lock. Before any authoring pulse,
+Context Sync verifies and mounts exact-current Brainstate. When the isolated
+worker is enabled, authoring publishes only a bounded digest-bound projection to
+the worker inbox. The worker still cannot read authoring receipts or mutate the
+brain. Integrity failure blocks the pulse rather than falling back to chat memory.
 
-The model worker is a separate OS identity with read-only source and no access to
-authoring receipts. This control surface does not merge, sign, deploy, send,
-spend, mutate DNS/credentials, contact customers, or grant business authority.
+This control surface does not merge, sign, deploy, send, spend, mutate
+DNS/credentials, contact customers, or grant business authority.
 EOF
 }
 case "${1:-}" in

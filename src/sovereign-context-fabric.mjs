@@ -1,16 +1,27 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import {
+  compileCognitiveEvent as compileCanonicalCognitiveEvent,
+  UBERBOND_COGNITIVE_EVENT_SCHEMA
+} from './uberbond-cognitive-bus.mjs';
 
-export const SOVEREIGN_CONTEXT_FABRIC_POLICY_VERSION = 'sovereign-context-fabric-1.0.0';
+export const SOVEREIGN_CONTEXT_FABRIC_POLICY_VERSION = 'sovereign-context-fabric-1.1.0';
 export const BRAINSTATE_CAPSULE_SCHEMA_VERSION = 'uberbond.brainstate-capsule.v1';
-export const COGNITIVE_EVENT_SCHEMA_VERSION = 'uberbond.cognitive-event.v1';
 export const CONTEXT_ABI_VERSION = 'uberbond.context-abi.v1';
+export const CONTEXT_COGNITIVE_EVENT_KINDS = Object.freeze([
+  'CONTEXT_CHECKPOINT',
+  'FOUNDER_DOCTRINE',
+  'DECISION_UPDATE',
+  'MEMORY_UPDATE',
+  'SESSION_HANDOFF'
+]);
 
 const SHA40 = /^[a-f0-9]{40}$/i;
 const SHA64 = /^[a-f0-9]{64}$/i;
 const SAFE_ID = /^[a-z0-9][a-z0-9._:-]{0,159}$/i;
 const MAX_TEXT = 4000;
 const MAX_LIST = 256;
+const CONTEXT_EVENT_KIND_SET = new Set(CONTEXT_COGNITIVE_EVENT_KINDS);
 
 function canonical(value) {
   if (Array.isArray(value)) return value.map(canonical);
@@ -96,7 +107,6 @@ export function compileContextIdentity(packet = {}) {
   if (!externalCapabilityDigest || !SHA64.test(externalCapabilityDigest)) reasonCodes.push('external-capability-digest-required');
   const capabilityGraphDigest = cleanText(packet?.capabilityGenome?.capabilityGraphDigest, 80)?.toLowerCase() || null;
   if (!capabilityGraphDigest || !SHA64.test(capabilityGraphDigest)) reasonCodes.push('capability-graph-digest-required');
-
   if (reasonCodes.length) return fail(reasonCodes);
 
   const identity = {
@@ -198,10 +208,7 @@ export function compileBrainstateCapsule({ packet, generatedAt = new Date() } = 
     generatedAt: generated.toISOString(),
     project: 'UberBond',
     sourceCommit: identity.identity.sourceCommit,
-    contextIdentity: {
-      ...identity.identity,
-      identityDigest: identity.identityDigest
-    },
+    contextIdentity: { ...identity.identity, identityDigest: identity.identityDigest },
     objective,
     economicNorthStar,
     endState,
@@ -215,11 +222,7 @@ export function compileBrainstateCapsule({ packet, generatedAt = new Date() } = 
       blockers,
       nextActions
     },
-    memory: {
-      initiativeCount: initiatives.length,
-      initiatives,
-      unresolvedNames: unresolved
-    },
+    memory: { initiativeCount: initiatives.length, initiatives, unresolvedNames: unresolved },
     externalProofGates: proofGates,
     laws: {
       truthLaw,
@@ -235,7 +238,9 @@ export function compileBrainstateCapsule({ packet, generatedAt = new Date() } = 
       memoryIndex: 'artifacts/uberbond-memory-index.json',
       currentHandoff: 'docs/CURRENT_HANDOFF.json',
       continuityCanon: 'docs/CROSS_CHAT_CONTINUITY.md',
-      compiler: 'scripts/uberbond-brain-bootstrap.mjs'
+      compiler: 'scripts/uberbond-brain-bootstrap.mjs',
+      cognitiveEventSchema: UBERBOND_COGNITIVE_EVENT_SCHEMA,
+      cognitiveBus: 'src/uberbond-cognitive-bus.mjs'
     },
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
@@ -338,56 +343,34 @@ export function compileMissionContext({ capsule, mission, maxInitiatives = 24 } 
   };
 }
 
-export function compileCognitiveEvent({
-  kind,
-  occurredAt = new Date(),
-  source,
-  evidenceClass,
-  claimsAdded = [],
-  claimsSuperseded = [],
-  affectedNodes = [],
-  parentEventIds = [],
-  note = null
+export function compileContextCognitiveEvent({
+  kind = 'CONTEXT_CHECKPOINT',
+  sourceNodeId = 'context-spine',
+  subjectType = 'BRAINSTATE',
+  subjectId,
+  summary,
+  evidenceRefs = [],
+  payloadRef = null,
+  truthClass = 'CURRENT_REPOSITORY_CANON',
+  observedAt = new Date(),
+  parentEventIds = []
 } = {}) {
-  const normalizedKind = cleanText(kind, 120);
-  const normalizedSource = cleanText(source, 1000);
-  const normalizedEvidence = cleanText(evidenceClass, 160);
-  const added = cleanStrings(claimsAdded, 128, 2000);
-  const superseded = cleanStrings(claimsSuperseded, 128, 2000);
-  const affected = cleanStrings(affectedNodes, 256, 300);
-  const parents = cleanStrings(parentEventIds, 64, 160);
-  const timestamp = new Date(occurredAt);
-  const normalizedNote = note == null ? null : cleanText(note, 2000);
-  const reasonCodes = [];
-  if (!normalizedKind || !SAFE_ID.test(normalizedKind)) reasonCodes.push('valid-event-kind-required');
-  if (!normalizedSource) reasonCodes.push('event-source-required');
-  if (!normalizedEvidence) reasonCodes.push('event-evidence-class-required');
-  if (!added || !superseded || !affected || !parents) reasonCodes.push('bounded-event-lists-required');
-  if (!Number.isFinite(timestamp.getTime())) reasonCodes.push('valid-event-time-required');
-  if (note != null && !normalizedNote) reasonCodes.push('valid-event-note-required');
-  if (parents && parents.some(id => !SHA64.test(id))) reasonCodes.push('parent-event-id-invalid');
-  if (reasonCodes.length) return fail(reasonCodes);
-
-  const event = {
-    schemaVersion: COGNITIVE_EVENT_SCHEMA_VERSION,
-    occurredAt: timestamp.toISOString(),
+  const normalizedKind = cleanText(kind, 80)?.toUpperCase();
+  if (!normalizedKind || !CONTEXT_EVENT_KIND_SET.has(normalizedKind)) {
+    return fail(['recognized-context-event-kind-required']);
+  }
+  const compiled = compileCanonicalCognitiveEvent({
     kind: normalizedKind,
-    source: normalizedSource,
-    evidenceClass: normalizedEvidence,
-    claimsAdded: added,
-    claimsSuperseded: superseded,
-    affectedNodes: affected,
-    parentEventIds: parents,
-    note: normalizedNote,
-    businessEffectAuthority: 'NONE',
-    externalEffectAuthority: 'NONE'
-  };
-  event.eventId = digest(event);
-  return {
-    ok: true,
-    policyVersion: SOVEREIGN_CONTEXT_FABRIC_POLICY_VERSION,
-    status: 'COGNITIVE_EVENT_COMPILED',
-    event,
-    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
-  };
+    sourceNodeId,
+    subjectType,
+    subjectId,
+    summary,
+    evidenceRefs,
+    payloadRef,
+    truthClass,
+    observedAt,
+    parentEventIds
+  });
+  if (!compiled.ok) return fail(['canonical-cognitive-event-refused', ...(compiled.reasonCodes || [])]);
+  return compiled;
 }

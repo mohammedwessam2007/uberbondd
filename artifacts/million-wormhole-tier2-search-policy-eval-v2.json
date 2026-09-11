@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "uberbond.million-wormhole-tier2-search-policy-eval.v2",
+  "frozenBeforeCandidateImplementation": true,
+  "baseCandidateRevision": "27043d852d52f3ce2ff1ddd099f9ecfc01b5eb24",
+  "target": "SEARCH_POLICY",
+  "baseline": "COMPILED_10400_ADDRESS_EXACT_PRIOR_SEARCH",
+  "candidateClass": "EARLY_EXIT_COMPILED_PRIOR_SEARCH",
+  "holdoutTopK": [7, 29, 101, 211, 251],
+  "correctness": {
+    "required": "EXACT_ORDERED_IDENTITY_MATCH_TO_COMPILED_V1_AND_EXHAUSTIVE_BASELINE",
+    "tolerance": 0
+  },
+  "efficiency": {
+    "maximumCandidateAddressEvaluationsRatioToMillion": 0.001,
+    "required": "ADDRESS_EVALUATIONS_EQUAL_TOP_K_AND_MEDIAN_WALL_TIME_BELOW_COMPILED_V1"
+  },
+  "promotion": {
+    "automatic": false,
+    "candidateMaySelfPromote": false,
+    "rollbackRequired": true
+  },
+  "truthBoundary": "THIS_FROZEN_PLAN_TESTS A SECOND SEARCH-POLICY EFFICIENCY COMPRESSION ONLY; IT DOES NOT ESTABLISH GENERAL INTELLIGENCE OR ASI."
+}

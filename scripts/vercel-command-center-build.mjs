@@ -1,7 +1,11 @@
 import { spawnSync } from 'node:child_process';
 
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
-  ? [['npm', ['rebuild', '@embedded-postgres/linux-x64']], ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]]
+  ? [
+      ['node', ['scripts/hydrate-embedded-postgres-fixture.mjs']],
+      ['npm', ['rebuild', '@embedded-postgres/linux-x64']],
+      ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]
+    ]
   : [];
 
 const restartRecoveryReceiptPath='/tmp/uberbond-restart-recovery-receipt.json';

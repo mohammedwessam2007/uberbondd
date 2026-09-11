@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "uberbond.c13.invariant-cognition-independent-python-verifier.v1",
+  "holdoutCanonicalSha256": "6cae3e0ce62d908a9b95ed256534e09d3432aafb2994c9d33c3f830f2918edbf",
+  "candidateCommit": "977f07586c6af3ff84647812b57d49939fb85665",
+  "contractCommit": "4dfe638106d294130ad43fc73c331e7b13cfb836",
+  "evaluatorCommit": "8bd83575e0848ca6e2ca410dbaab11c46f278118",
+  "semanticVerification": {"MILLION_WORMHOLE_TOPK":true,"OPPORTUNITY_BUILD_DISTANCE":true,"ORCHESTRATION_STATIC_TOPOLOGY":true},
+  "deterministicOperationReduction": {"MILLION_WORMHOLE_TOPK":{"min":1051.7311935807422,"median":8256.503937007874,"max":80659.69230769231},"OPPORTUNITY_BUILD_DISTANCE":{"min":352.0,"median":484.0,"max":649.0},"ORCHESTRATION_STATIC_TOPOLOGY":{"ratio":160.0}},
+  "nodeObservedEvaluation": {"ok":true,"status":"C13_INVARIANT_TRANSFER_SUPPORTED","supported":true,"robustImprovedFamilies":3,"requiredRobustImprovedFamilies":2,"families":[{"familyId":"MILLION_WORMHOLE_TOPK","currentScore":0.5,"candidateScore":0.9999310520321743,"speedup":7251.845351899282,"scoreInterval":{"low":0.9997986379089064,"high":0.9999832404305788},"robustGainVsCurrent":0.49979863790890644,"passes":true},{"familyId":"OPPORTUNITY_BUILD_DISTANCE","currentScore":0.5,"candidateScore":0.9921137716133265,"speedup":63.401663695781345,"scoreInterval":{"low":0.9857092498256538,"high":0.9941603878529537},"robustGainVsCurrent":0.4857092498256538,"passes":true},{"familyId":"ORCHESTRATION_STATIC_TOPOLOGY","currentScore":0.5,"candidateScore":0.9991193370269381,"speedup":567.7540844729517,"scoreInterval":{"low":0.9985654455261511,"high":0.9992472824267664},"robustGainVsCurrent":0.4985654455261511,"passes":true}],"reasonCodes":[],"promotionAuthority":"NONE","externalEffectAuthority":"NONE","asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED","truthBoundary":"C13_TRANSFER_EVALUATION_ONLY__NO_AUTOMATIC_PROMOTION__NO_C21_OR_ASI_CLAIM"},
+  "verdict": "INDEPENDENT_SEMANTIC_AND_OPERATION_COUNT_CONFIRMATION",
+  "canonicalC13Status": "PRELIMINARY_SUPPORTED_PENDING_CANONICAL_PACKET_AND_FRESH_CONTEXT_REPLAY",
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "promotionAuthority": "NONE",
+  "truthBoundary": "INDEPENDENT_SECOND_LANGUAGE_VERIFIER__DOES_NOT_SELF_PROMOTE_OR_DECLARE_C21_ASI",
+  "observedResultSha256": "1c9d75910e593bf0e1bd31861721d9684e54e8b988b7f4a05618922fbb637e6d"
+}

@@ -4,10 +4,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { compileContextCognitiveEvent } from '../src/sovereign-context-fabric.mjs';
-import { appendCognitiveJournalEvent, readCognitiveJournal } from '../src/cognitive-event-journal.mjs';
 import { runSovereignContextDoctor } from './sovereign-context-doctor.mjs';
+import { appendRuntimeCognitiveJournalEvent, readRuntimeCognitiveJournal } from './sovereign-cognitive-journal-runtime.mjs';
 
-export const SOVEREIGN_CONTEXT_CHECKPOINT_VERSION = 'sovereign-context-checkpoint-1.0.0';
+export const SOVEREIGN_CONTEXT_CHECKPOINT_VERSION = 'sovereign-context-checkpoint-1.1.0';
 
 function zeroEffects() {
   return structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -50,6 +50,8 @@ function writeCapsule(file, capsule) {
 export function checkpointSovereignContext({
   rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   journalPath,
+  journalArchiveSnapshotPath = process.env.UBERBOND_CONTEXT_ARCHIVE_SNAPSHOT_PATH || null,
+  journalTailPath = process.env.UBERBOND_CONTEXT_TAIL_PATH || null,
   capsulePath = null,
   mission = null,
   generatedAt = new Date()
@@ -60,7 +62,7 @@ export function checkpointSovereignContext({
     return fail(['current-context-doctor-required', ...(doctor.reasonCodes || [])], 'CONTEXT_CHECKPOINT_CONTEXT_REFUSED');
   }
 
-  const journal = readCognitiveJournal(journalPath);
+  const journal = readRuntimeCognitiveJournal({ journalPath, archiveSnapshotPath: journalArchiveSnapshotPath, tailPath: journalTailPath });
   if (!journal.ok) return fail(['existing-journal-invalid', ...(journal.reasonCodes || [])], 'CONTEXT_CHECKPOINT_JOURNAL_REFUSED');
   const parentEventIds = journal.entries.length ? [journal.entries.at(-1).eventId] : [];
   const event = compileContextCognitiveEvent({
@@ -80,7 +82,7 @@ export function checkpointSovereignContext({
     parentEventIds
   });
   if (!event.ok) return fail(['context-checkpoint-event-invalid', ...(event.reasonCodes || [])]);
-  const appended = appendCognitiveJournalEvent({ journalPath, compiledEvent: event });
+  const appended = appendRuntimeCognitiveJournalEvent({ journalPath, archiveSnapshotPath: journalArchiveSnapshotPath, tailPath: journalTailPath, compiledEvent: event });
   if (!appended.ok) return fail(['context-checkpoint-journal-append-failed', ...(appended.reasonCodes || [])], appended.status, { eventId: event.eventId });
 
   let writtenCapsule = null;
@@ -107,6 +109,8 @@ export function checkpointSovereignContext({
     journalSequence: appended.sequence,
     journalEntryDigest: appended.entryDigest,
     previousJournalEntryDigest: appended.previousEntryDigest,
+    journalRuntimeMode: appended.runtimeMode || journal.runtimeMode || 'LEGACY_JSONL',
+    journalArchiveManifestId: appended.archiveManifestId || journal.archiveManifestId || null,
     journalPath: appended.path,
     capsulePath: writtenCapsule,
     businessEffectAuthority: 'NONE',

@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCapabilityRetrieve } from '../src/capability-retrieve.mjs';runUberSkillAtomContract({atomId:'capability.retrieve',compile:compileCapabilityRetrieve});

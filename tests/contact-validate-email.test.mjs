@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileContactValidateEmail } from '../src/contact-validate-email.mjs';runUberSkillAtomContract({atomId:'contact.validate-email',compile:compileContactValidateEmail});

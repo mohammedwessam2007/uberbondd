@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileMessagingSendAuthorizedEmail } from '../src/messaging-send-authorized-email.mjs';runUberSkillAtomContract({atomId:'messaging.send-authorized-email',compile:compileMessagingSendAuthorizedEmail});

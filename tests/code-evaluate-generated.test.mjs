@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCodeEvaluateGenerated } from '../src/code-evaluate-generated.mjs';runUberSkillAtomContract({atomId:'code.evaluate-generated',compile:compileCodeEvaluateGenerated});

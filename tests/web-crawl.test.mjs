@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileWebCrawl } from '../src/web-crawl.mjs';runUberSkillAtomContract({atomId:'web.crawl',compile:compileWebCrawl});

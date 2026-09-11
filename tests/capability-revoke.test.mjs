@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCapabilityRevoke } from '../src/capability-revoke.mjs';runUberSkillAtomContract({atomId:'capability.revoke',compile:compileCapabilityRevoke});

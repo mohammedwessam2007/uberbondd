@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileInvoiceParse } from '../src/invoice-parse.mjs';runUberSkillAtomContract({atomId:'invoice.parse',compile:compileInvoiceParse});

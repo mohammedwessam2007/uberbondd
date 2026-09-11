@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileBuyerClassifyIntent } from '../src/buyer-classify-intent.mjs';runUberSkillAtomContract({atomId:'buyer.classify-intent',compile:compileBuyerClassifyIntent});

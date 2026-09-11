@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileDataExtractStructured } from '../src/data-extract-structured.mjs';runUberSkillAtomContract({atomId:'data.extract-structured',compile:compileDataExtractStructured});

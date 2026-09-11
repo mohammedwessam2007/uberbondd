@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compilePaymentVerifyCleared } from '../src/payment-verify-cleared.mjs';runUberSkillAtomContract({atomId:'payment.verify-cleared',compile:compilePaymentVerifyCleared});

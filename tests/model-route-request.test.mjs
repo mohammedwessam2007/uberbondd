@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileModelRouteRequest } from '../src/model-route-request.mjs';runUberSkillAtomContract({atomId:'model.route-request',compile:compileModelRouteRequest});

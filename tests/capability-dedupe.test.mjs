@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCapabilityDedupe } from '../src/capability-dedupe.mjs';runUberSkillAtomContract({atomId:'capability.dedupe',compile:compileCapabilityDedupe});

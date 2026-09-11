@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileDocumentSummarize } from '../src/document-summarize.mjs';runUberSkillAtomContract({atomId:'document.summarize',compile:compileDocumentSummarize});

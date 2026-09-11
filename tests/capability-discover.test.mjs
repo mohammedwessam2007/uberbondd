@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCapabilityDiscover } from '../src/capability-discover.mjs';runUberSkillAtomContract({atomId:'capability.discover',compile:compileCapabilityDiscover});

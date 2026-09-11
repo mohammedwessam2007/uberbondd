@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileContextCompressReversible } from '../src/context-compress-reversible.mjs';runUberSkillAtomContract({atomId:'context.compress-reversible',compile:compileContextCompressReversible});

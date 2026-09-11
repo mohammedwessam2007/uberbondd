@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileWebRenderJs } from '../src/web-render-js.mjs';runUberSkillAtomContract({atomId:'web.render-js',compile:compileWebRenderJs});

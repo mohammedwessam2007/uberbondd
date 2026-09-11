@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCapabilityBenchmark } from '../src/capability-benchmark.mjs';runUberSkillAtomContract({atomId:'capability.benchmark',compile:compileCapabilityBenchmark});

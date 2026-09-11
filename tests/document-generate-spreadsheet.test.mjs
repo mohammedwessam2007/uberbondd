@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileDocumentGenerateSpreadsheet } from '../src/document-generate-spreadsheet.mjs';runUberSkillAtomContract({atomId:'document.generate-spreadsheet',compile:compileDocumentGenerateSpreadsheet});

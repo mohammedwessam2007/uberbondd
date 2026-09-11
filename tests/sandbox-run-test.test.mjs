@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileSandboxRunTest } from '../src/sandbox-run-test.mjs';runUberSkillAtomContract({atomId:'sandbox.run-test',compile:compileSandboxRunTest});

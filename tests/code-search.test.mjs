@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCodeSearch } from '../src/code-search.mjs';runUberSkillAtomContract({atomId:'code.search',compile:compileCodeSearch});

@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileDatabaseQueryPostgres } from '../src/database-query-postgres.mjs';runUberSkillAtomContract({atomId:'database.query-postgres',compile:compileDatabaseQueryPostgres});

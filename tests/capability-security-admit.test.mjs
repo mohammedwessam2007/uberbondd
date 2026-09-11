@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCapabilitySecurityAdmit } from '../src/capability-security-admit.mjs';runUberSkillAtomContract({atomId:'capability.security-admit',compile:compileCapabilitySecurityAdmit});

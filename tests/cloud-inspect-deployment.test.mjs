@@ -1,0 +1,1 @@
+import { runUberSkillAtomContract } from './helpers/uberskills-atom-contract.mjs';import { compileCloudInspectDeployment } from '../src/cloud-inspect-deployment.mjs';runUberSkillAtomContract({atomId:'cloud.inspect-deployment',compile:compileCloudInspectDeployment});

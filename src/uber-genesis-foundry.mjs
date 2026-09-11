@@ -1,0 +1,62 @@
+import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+
+export const UBER_GENESIS_FOUNDRY_VERSION='uberbond.uber-genesis-foundry.v1';
+const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
+const txt=(v,m=1000)=>{const s=String(v??'').trim();return s&&s.length<=m?s:null;};
+const arr=(v,n=128)=>Array.isArray(v)&&v.length<=n?v:[];
+const unit=v=>Number.isFinite(Number(v))&&Number(v)>=0&&Number(v)<=1?Number(v):null;
+const hash=v=>`sha256:${crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex')}`;
+const fail=(mechanism,reasons)=>({ok:false,status:'UBERGENESIS_REFUSED',mechanism,reasonCodes:[...new Set(reasons)],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()});
+const ready=(mechanism,payload)=>({ok:true,status:'UBERGENESIS_PROPOSAL_READY',mechanism,payload,payloadDigest:hash(payload),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero(),truthBoundary:'FUTURE_SEARCH_OUTPUTS_ARE_HYPOTHESES_OR_RESEARCH_CANDIDATES__NOT_FACTS_DEMAND_REVENUE_OR_AUTHORITY'});
+const evidenceItem=(x,idKey='id')=>({id:txt(x?.[idKey],180),evidenceRef:txt(x?.evidenceRef),observedAt:txt(x?.observedAt,100)});
+
+export function compileZeroDayFrontierRadar({signals=[],maxSignals=64}={}){
+ const reasons=[]; if(!Number.isInteger(maxSignals)||maxSignals<1||maxSignals>256)reasons.push('bounded-signal-budget-required'); const xs=arr(signals,256).slice(0,Math.max(0,maxSignals)); if(!xs.length)reasons.push('evidence-bound-signals-required');
+ const candidates=[]; for(const raw of xs){const x=evidenceItem(raw,'signalId');const novelty=unit(raw?.novelty);if(!x.id||!x.evidenceRef||!x.observedAt||!Number.isFinite(Date.parse(x.observedAt))||novelty===null){reasons.push('signal-provenance-and-novelty-required');continue;}if(raw?.confirmedFuture===true)reasons.push('future-certainty-claim-forbidden');candidates.push({...x,novelty,changedPrimitiveRefs:arr(raw?.changedPrimitiveRefs,32).map(v=>txt(v,240)).filter(Boolean)});}
+ if(reasons.length)return fail('ZERO_DAY_FRONTIER_RADAR',reasons); return ready('ZERO_DAY_FRONTIER_RADAR',{candidates:candidates.sort((a,b)=>b.novelty-a.novelty),observedOnly:true});
+}
+
+export function compileFuturePrimitiveExtractor({signals=[],maxPrimitives=128}={}){
+ const reasons=[];if(!Number.isInteger(maxPrimitives)||maxPrimitives<1||maxPrimitives>512)reasons.push('bounded-primitive-budget-required');const out=[];for(const s of arr(signals,128)){const signalId=txt(s?.signalId,180),evidenceRef=txt(s?.evidenceRef);for(const p of arr(s?.primitives,32)){const primitiveId=txt(p?.primitiveId,180),mechanismRef=txt(p?.mechanismRef),causalRef=txt(p?.causalRef);if(!signalId||!evidenceRef||!primitiveId||!mechanismRef||!causalRef){reasons.push('primitive-mechanism-causal-evidence-required');continue;}out.push({primitiveId,signalId,evidenceRef,mechanismRef,causalRef});}}
+ if(!out.length)reasons.push('extractable-primitive-required');if(out.length>maxPrimitives)reasons.push('primitive-budget-exceeded');if(reasons.length)return fail('FUTURE_PRIMITIVE_EXTRACTOR',reasons);return ready('FUTURE_PRIMITIVE_EXTRACTOR',{primitives:out.slice(0,maxPrimitives),claimClass:'MECHANISM_HYPOTHESIS'});
+}
+
+export function compileFrontierAssimilationTournament({candidates=[],maxCandidates=64}={}){
+ const reasons=[];if(!Number.isInteger(maxCandidates)||maxCandidates<1||maxCandidates>256)reasons.push('bounded-candidate-budget-required');const rows=[];for(const c of arr(candidates,256).slice(0,maxCandidates)){const candidateId=txt(c?.candidateId,180),evidenceRefs=arr(c?.evidenceRefs,32).map(v=>txt(v)).filter(Boolean),judgeRefs=[...new Set(arr(c?.independentJudgeRefs,16).map(v=>txt(v)).filter(Boolean))],utility=unit(c?.utility),novelty=unit(c?.novelty),reversibility=unit(c?.reversibility);if(!candidateId||!evidenceRefs.length||judgeRefs.length<2||[utility,novelty,reversibility].some(v=>v===null)){reasons.push('candidate-independent-evidence-required');continue;}rows.push({candidateId,evidenceRefs,independentJudgeRefs:judgeRefs,score:(utility+novelty+reversibility)/3});}
+ if(!rows.length)reasons.push('tournament-candidate-required');if(candidates.some(c=>c?.autoPromote===true))reasons.push('auto-promotion-forbidden');if(reasons.length)return fail('FRONTIER_ASSIMILATION_TOURNAMENT',reasons);return ready('FRONTIER_ASSIMILATION_TOURNAMENT',{ranking:rows.sort((a,b)=>b.score-a.score),promotionState:'RESEARCH_CANDIDATE_ONLY'});
+}
+
+export function compilePreFutureResearch({unknowns=[],maxQuestions=64}={}){
+ const reasons=[];if(!Number.isInteger(maxQuestions)||maxQuestions<1||maxQuestions>256)reasons.push('bounded-question-budget-required');const questions=[];for(const u of arr(unknowns,256).slice(0,maxQuestions)){const questionId=txt(u?.questionId,180),evidenceGapRef=txt(u?.evidenceGapRef),falsifier=txt(u?.falsifier),observationPlanRef=txt(u?.observationPlanRef);if(!questionId||!evidenceGapRef||!falsifier||!observationPlanRef){reasons.push('falsifiable-research-question-required');continue;}if(u?.answerKnown===true)reasons.push('unknown-cannot-claim-known-answer');questions.push({questionId,evidenceGapRef,falsifier,observationPlanRef});}
+ if(!questions.length)reasons.push('research-question-required');if(reasons.length)return fail('PRE_FUTURE_RESEARCH',reasons);return ready('PRE_FUTURE_RESEARCH',{questions,claimClass:'OPEN_QUESTION'});
+}
+
+export function compileNPlusOneRule({currentApproachRef,alternatives=[],maxAlternatives=32}={}){
+ const reasons=[];const current=txt(currentApproachRef);if(!current)reasons.push('current-approach-ref-required');if(!Number.isInteger(maxAlternatives)||maxAlternatives<1||maxAlternatives>128)reasons.push('bounded-alternative-budget-required');const xs=[...new Set(arr(alternatives,128).map(v=>txt(v)).filter(Boolean))].filter(v=>v!==current);if(!xs.length)reasons.push('at-least-one-distinct-alternative-required');if(xs.length>maxAlternatives)reasons.push('alternative-budget-exceeded');if(reasons.length)return fail('N_PLUS_ONE_RULE',reasons);return ready('N_PLUS_ONE_RULE',{currentApproachRef:current,alternatives:xs.slice(0,maxAlternatives),stoppingRule:'COMPARE_BEFORE_COMMIT'});
+}
+
+export function compileFutureCapitalReserve({totalUnits,reserveUnits,reservePurposeRef,releaseEvidenceRef=null}={}){
+ const reasons=[];const total=Number(totalUnits),reserve=Number(reserveUnits),purpose=txt(reservePurposeRef);if(!Number.isFinite(total)||total<=0||total>1e9)reasons.push('bounded-total-units-required');if(!Number.isFinite(reserve)||reserve<0||reserve>total)reasons.push('valid-reserve-units-required');if(!purpose)reasons.push('reserve-purpose-ref-required');if(releaseEvidenceRef!==null&&!txt(releaseEvidenceRef))reasons.push('release-evidence-ref-invalid');if(reasons.length)return fail('FUTURE_CAPITAL_RESERVE',reasons);return ready('FUTURE_CAPITAL_RESERVE',{totalUnits:total,reserveUnits:reserve,reserveFraction:reserve/total,reservePurposeRef:purpose,releaseEvidenceRef:releaseEvidenceRef?txt(releaseEvidenceRef):null,spendAuthority:'NONE'});
+}
+
+export function compileCompetitorCatchUpRadar({observations=[],maxObservations=128}={}){
+ const reasons=[];if(!Number.isInteger(maxObservations)||maxObservations<1||maxObservations>512)reasons.push('bounded-observation-budget-required');const rows=[];for(const o of arr(observations,512).slice(0,maxObservations)){const competitorId=txt(o?.competitorId,180),publicEvidenceRef=txt(o?.publicEvidenceRef),capabilityRef=txt(o?.capabilityRef),gap=unit(o?.catchUpPressure);if(!competitorId||!publicEvidenceRef||!capabilityRef||gap===null){reasons.push('public-competitor-evidence-required');continue;}if(o?.proprietarySource===true||o?.stolenSource===true)reasons.push('proprietary-or-stolen-source-forbidden');rows.push({competitorId,publicEvidenceRef,capabilityRef,catchUpPressure:gap});}
+ if(!rows.length)reasons.push('competitor-observation-required');if(reasons.length)return fail('COMPETITOR_CATCH_UP_RADAR',reasons);return ready('COMPETITOR_CATCH_UP_RADAR',{observations:rows.sort((a,b)=>b.catchUpPressure-a.catchUpPressure),cleanRoomOnly:true});
+}
+
+export function compileMultiGenerationArchitecture({generations=[]}={}){
+ const reasons=[];const xs=arr(generations,8);if(xs.length<3)reasons.push('n-nplus1-nplus2-required');const normalized=[];for(const g of xs){const generation=txt(g?.generation,40),contractRef=txt(g?.contractRef),compatibilityRef=txt(g?.compatibilityRef),rollbackRef=txt(g?.rollbackRef);if(!generation||!contractRef||!compatibilityRef||!rollbackRef){reasons.push('generation-contract-compatibility-rollback-required');continue;}normalized.push({generation,contractRef,compatibilityRef,rollbackRef});}for(const req of ['N','N+1','N+2'])if(!normalized.some(g=>g.generation===req))reasons.push(`missing-${req.toLowerCase().replace('+','plus')}`);if(reasons.length)return fail('MULTI_GENERATION_ARCHITECTURE',reasons);return ready('MULTI_GENERATION_ARCHITECTURE',{generations:normalized,forwardCompatibilityRequired:true,rollbackRequired:true});
+}
+
+export function compileTechnologyToMoneyTranslation({technologyEvidenceRef,buyerProblemEvidenceRef,routes=[],maxRoutes=64}={}){
+ const reasons=[];const tech=txt(technologyEvidenceRef),buyer=txt(buyerProblemEvidenceRef);if(!tech)reasons.push('technology-evidence-required');if(!buyer)reasons.push('buyer-problem-evidence-required');if(!Number.isInteger(maxRoutes)||maxRoutes<1||maxRoutes>256)reasons.push('bounded-route-budget-required');const out=[];for(const r of arr(routes,256).slice(0,maxRoutes)){const routeId=txt(r?.routeId,180),mechanismRef=txt(r?.mechanismRef),testRef=txt(r?.testRef);if(!routeId||!mechanismRef||!testRef){reasons.push('route-mechanism-test-required');continue;}if(r?.clearedRevenueClaim===true||r?.demandProven===true)reasons.push('unobserved-economic-proof-forbidden');out.push({routeId,mechanismRef,testRef});}if(!out.length)reasons.push('economic-hypothesis-route-required');if(reasons.length)return fail('TECHNOLOGY_TO_MONEY_TRANSLATION',reasons);return ready('TECHNOLOGY_TO_MONEY_TRANSLATION',{technologyEvidenceRef:tech,buyerProblemEvidenceRef:buyer,routes:out,claimClass:'ECONOMIC_HYPOTHESIS'});
+}
+
+export function compileArtificialImagination({seedEvidenceRefs=[],constraints=[],branchBudget=64}={}){
+ const reasons=[];const seeds=[...new Set(arr(seedEvidenceRefs,64).map(v=>txt(v)).filter(Boolean))],cs=[...new Set(arr(constraints,64).map(v=>txt(v,240)).filter(Boolean))];if(!seeds.length)reasons.push('seed-evidence-required');if(!Number.isInteger(branchBudget)||branchBudget<2||branchBudget>512)reasons.push('bounded-imagination-budget-required');if(!cs.length)reasons.push('constraint-required');if(reasons.length)return fail('ARTIFICIAL_IMAGINATION',reasons);const branches=Array.from({length:branchBudget},(_,i)=>({branchId:`imagined-${i+1}`,seedRef:seeds[i%seeds.length],constraintRef:cs[i%cs.length],claimClass:'HYPOTHESIS'}));return ready('ARTIFICIAL_IMAGINATION',{branches,generatedCount:branches.length,notRealityClaims:true});
+}
+
+export function compileMillionBranchIdeationGenome({dimensions=[],activeSampleBudget=256,minVirtualBranches=1_000_000}={}){
+ const reasons=[];const dims=[];let virtual=1;for(const d of arr(dimensions,32)){const dimensionId=txt(d?.dimensionId,120),optionRefs=[...new Set(arr(d?.optionRefs,128).map(v=>txt(v,240)).filter(Boolean))];if(!dimensionId||optionRefs.length<2){reasons.push('dimension-with-options-required');continue;}virtual=Math.min(Number.MAX_SAFE_INTEGER,virtual*optionRefs.length);dims.push({dimensionId,optionRefs});}if(dims.length<2)reasons.push('multiple-search-dimensions-required');if(!Number.isSafeInteger(activeSampleBudget)||activeSampleBudget<1||activeSampleBudget>5000)reasons.push('bounded-active-sample-budget-required');if(!Number.isSafeInteger(minVirtualBranches)||minVirtualBranches<1_000_000)reasons.push('million-branch-threshold-required');if(virtual<minVirtualBranches)reasons.push('virtual-branch-space-below-threshold');if(reasons.length)return fail('MILLION_BRANCH_IDEATION_GENOME',reasons);const samples=[];for(let i=0;i<Math.min(activeSampleBudget,virtual);i++){let n=i;const choices={};for(const d of dims){choices[d.dimensionId]=d.optionRefs[n%d.optionRefs.length];n=Math.floor(n/d.optionRefs.length);}samples.push({branchId:`sample-${i+1}`,choices});}return ready('MILLION_BRANCH_IDEATION_GENOME',{dimensions:dims,virtualBranchCount:virtual,activeSampleBudget:samples.length,samples,coverageFraction:samples.length/virtual,claimBoundary:'UNSAMPLED_BRANCHES_NOT_EVALUATED'});
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion":"uberbond.c21-seven-critical-result.v1",
+  "candidateId":"UBERBOND_WHOLE_SYSTEM_C21_20260911",
+  "candidateRevision":"c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "c13Receipts":[
+    {"dimension":"causal reasoning","receiptHash":"53a3aed84733bc0917ff877a6a0bfe2e60bce91cc5a44ee06caffda5b951c649","compositionDigest":"14d43b3c11c05e2526e10aa9c8ecb7d6f158de3c670720063f6e6c407359fdab"},
+    {"dimension":"planning under uncertainty","receiptHash":"87bcf0bb85cbb7d818f628549cc013d059cfcbeedea7b8d6d30ff3689f61b8aa","compositionDigest":"14d43b3c11c05e2526e10aa9c8ecb7d6f158de3c670720063f6e6c407359fdab"},
+    {"dimension":"long-horizon coherence","receiptHash":"c15695f0594cdc34162b7d3ba444fa4f9533b7401fd94cfbc9b97bb53edbb1f7","compositionDigest":"14d43b3c11c05e2526e10aa9c8ecb7d6f158de3c670720063f6e6c407359fdab"},
+    {"dimension":"transfer between domains","receiptHash":"ef01e9ec3c85f3f91eaa9e773bd988c2d61faef4e31310f723add8c0e96de032","compositionDigest":"14d43b3c11c05e2526e10aa9c8ecb7d6f158de3c670720063f6e6c407359fdab"},
+    {"dimension":"adversarial robustness","receiptHash":"29b8fabd35ea9fceddc1c5bd36a30eca58fea97268397c1c0be25dedbc6a1380","compositionDigest":"14d43b3c11c05e2526e10aa9c8ecb7d6f158de3c670720063f6e6c407359fdab"},
+    {"dimension":"calibrated refusal and ignorance detection","receiptHash":"b08d9bf23d10702a29a00d632ecef1832f4a8a7c79b9757356d1710cefcc62a7","compositionDigest":"14d43b3c11c05e2526e10aa9c8ecb7d6f158de3c670720063f6e6c407359fdab"}
+  ],
+  "c21EvidenceDigest":"fe26ba5efae19772d1396e08798202bea9df1ca0211f009ee00bf6d5aaccd494",
+  "c21Status":"C21_SYSTEM_LEVEL_COMPARATIVE_EVIDENCE_COMPILED",
+  "evidenceStage":"SYSTEM_LEVEL_ASI_EVIDENCE_NOT_ESTABLISHED",
+  "counts":{"canonicalDimensions":20,"evidencedDimensions":7,"missingDimensions":13,"independentVerifierIdentities":7,"independentVerifierLineages":7},
+  "missingCriticalDimensions":[],
+  "missingDimensions":["novel problem solving","scientific discovery","software engineering","mathematical reasoning","strategy","forecasting","world-model construction","mechanism invention","economic reasoning","learning from sparse evidence","capability acquisition","autonomous recovery","tool invention"],
+  "asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary":"SEVEN_AUTHENTICATED_DIMENSIONS_ALL_CRITICAL_COVERED__ASI_NOT_ESTABLISHED"
+}

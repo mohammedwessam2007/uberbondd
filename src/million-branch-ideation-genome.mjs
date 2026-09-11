@@ -1,1 +1,2 @@
-export { compileMillionBranchIdeationGenome } from './uber-genesis-foundry.mjs';
+import { compileMillionBranchIdeationGenome as compileCore } from './uber-genesis-foundry.mjs';
+export function compileMillionBranchIdeationGenome(input={}){return compileCore(input);}

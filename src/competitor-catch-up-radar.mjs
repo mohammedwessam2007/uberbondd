@@ -1,1 +1,2 @@
-export { compileCompetitorCatchUpRadar } from './uber-genesis-foundry.mjs';
+import { compileCompetitorCatchUpRadar as compileCore } from './uber-genesis-foundry.mjs';
+export function compileCompetitorCatchUpRadar(input={}){return compileCore(input);}

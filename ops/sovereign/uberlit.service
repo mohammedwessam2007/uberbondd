@@ -9,7 +9,8 @@ User=uberlit
 Group=uberlit
 WorkingDirectory=/opt/uberlit/source
 Environment=UBERLIT_ROOT=/var/lib/uberlit/uberbond
-Environment=APP_BASE_URL=https://uberlit.local
+Environment=APP_BASE_URL=https://127.0.0.1:32443
+Environment=TRUST_PROXY_HOPS=1
 Environment=OUTBOUND_ENABLED=false
 Environment=DISCOVERY_ENABLED=false
 EnvironmentFile=-/etc/uberlit/uberlit.env

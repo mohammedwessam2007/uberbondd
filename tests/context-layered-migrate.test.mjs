@@ -1,0 +1,24 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { compileContextCognitiveEvent } from '../src/sovereign-context-fabric.mjs';
+import { appendCognitiveJournalEvent } from '../src/cognitive-event-journal.mjs';
+import { appendConfiguredRuntimeCognitiveJournalEvent, readConfiguredRuntimeCognitiveJournal } from '../scripts/sovereign-cognitive-journal-configured-runtime.mjs';
+import { migrateContextJournalToLayered } from '../scripts/sovereign-context-layered-migrate.mjs';
+
+function event(id, minute=0){const out=compileContextCognitiveEvent({kind:'MEMORY_UPDATE',sourceNodeId:'context-spine',subjectType:'MIGRATION_TEST',subjectId:id,summary:`Migration ${id}`,evidenceRefs:[`test://${id}`],truthClass:'VERIFIED_CURRENT',observedAt:`2026-09-12T00:${String(minute).padStart(2,'0')}:00Z`});assert.equal(out.ok,true);return out;}
+function fixture(){const root=fs.mkdtempSync(path.join(os.tmpdir(),'ub-layered-migrate-'));const journal=path.join(root,'events.jsonl');for(let i=0;i<4;i+=1)assert.equal(appendCognitiveJournalEvent({journalPath:journal,compiledEvent:event(`legacy-${i}`,i)}).ok,true);return{root,journal};}
+
+test('migration preserves exact logical journal identity and freezes legacy bytes',()=>{const f=fixture();try{const before=fs.readFileSync(f.journal,'utf8');const out=migrateContextJournalToLayered({journalPath:f.journal,segmentSize:2,activatedAt:'2026-09-12T00:10:00Z'});assert.equal(out.ok,true);assert.equal(out.status,'CONTEXT_LAYERED_MIGRATION_ACTIVATED');assert.equal(out.entryCount,4);assert.equal(fs.readFileSync(f.journal,'utf8'),before);const read=readConfiguredRuntimeCognitiveJournal({journalPath:f.journal});assert.equal(read.ok,true);assert.equal(read.runtimeMode,'ARCHIVE_PLUS_TAIL');assert.equal(read.entryCount,4);assert.equal(read.tipDigest,out.journalTipDigest);assert.equal(read.runtimeStateId,out.runtimeStateId);}finally{fs.rmSync(f.root,{recursive:true,force:true});}});
+
+test('migration is idempotent once exact layered state is active',()=>{const f=fixture();try{const first=migrateContextJournalToLayered({journalPath:f.journal,activatedAt:'2026-09-12T00:10:00Z'});assert.equal(first.ok,true);const second=migrateContextJournalToLayered({journalPath:f.journal,activatedAt:'2026-09-12T00:11:00Z'});assert.equal(second.ok,true);assert.equal(second.status,'CONTEXT_LAYERED_MIGRATION_ALREADY_ACTIVE');assert.equal(second.runtimeStateId,first.runtimeStateId);}finally{fs.rmSync(f.root,{recursive:true,force:true});}});
+
+test('post-migration appends go only to the generation tail',()=>{const f=fixture();try{const before=fs.readFileSync(f.journal,'utf8');const migrated=migrateContextJournalToLayered({journalPath:f.journal,activatedAt:'2026-09-12T00:10:00Z'});const appended=appendConfiguredRuntimeCognitiveJournalEvent({journalPath:f.journal,compiledEvent:event('tail-new',9)});assert.equal(appended.ok,true);assert.equal(appended.sequence,5);assert.equal(fs.readFileSync(f.journal,'utf8'),before);const read=readConfiguredRuntimeCognitiveJournal({journalPath:f.journal});assert.equal(read.entryCount,5);assert.equal(read.entries.at(-1).event.subjectId,'tail-new');assert.equal(read.runtimeStateId,migrated.runtimeStateId);}finally{fs.rmSync(f.root,{recursive:true,force:true});}});
+
+test('migration refuses while legacy writer lock is held',()=>{const f=fixture();let fd;try{fd=fs.openSync(`${f.journal}.lock`,'wx');const out=migrateContextJournalToLayered({journalPath:f.journal});assert.equal(out.ok,false);assert.equal(out.status,'CONTEXT_LAYERED_MIGRATION_BUSY');}finally{if(fd!=null)fs.closeSync(fd);try{fs.unlinkSync(`${f.journal}.lock`);}catch{}fs.rmSync(f.root,{recursive:true,force:true});}});
+
+test('sentinel-only crash window fails normal reads but migration can safely finish activation',()=>{const f=fixture();try{fs.writeFileSync(path.join(f.root,'layered-required'),'UBERBOND_CONTEXT_LAYERED_REQUIRED_V1\n');const refused=readConfiguredRuntimeCognitiveJournal({journalPath:f.journal});assert.equal(refused.ok,false);assert.equal(refused.status,'CONFIGURED_COGNITIVE_JOURNAL_RUNTIME_DOWNGRADE_REFUSED');const repaired=migrateContextJournalToLayered({journalPath:f.journal,activatedAt:'2026-09-12T00:10:00Z'});assert.equal(repaired.ok,true);assert.equal(readConfiguredRuntimeCognitiveJournal({journalPath:f.journal}).ok,true);}finally{fs.rmSync(f.root,{recursive:true,force:true});}});
+
+test('removing runtime state after migration cannot silently revive legacy history',()=>{const f=fixture();try{migrateContextJournalToLayered({journalPath:f.journal,activatedAt:'2026-09-12T00:10:00Z'});fs.rmSync(path.join(f.root,'journal-runtime.json'));const read=readConfiguredRuntimeCognitiveJournal({journalPath:f.journal});assert.equal(read.ok,false);assert.equal(read.status,'CONFIGURED_COGNITIVE_JOURNAL_RUNTIME_DOWNGRADE_REFUSED');}finally{fs.rmSync(f.root,{recursive:true,force:true});}});

@@ -32,9 +32,8 @@ const SOURCES = [
     ['canonicalLoop', 'LOOP_STAGE']]],
   ['artifacts/sovereign-option-outcome-forecast-engine.json', 'forecast', [
     // The third element names the organ a field belongs to. Supplied only where
-    // a real organ exists: the personal-civilization dimensions further down
-    // carry no parent, so they stay SPEC_ONLY rather than inheriting coverage
-    // from an organ nobody built.
+    // a real organ exists: fields that are merely evaluation vocabulary are
+    // typed as ontology below rather than being smuggled into a build queue.
     ['optionUniverseRequirements', 'FORECAST_REQUIREMENT', FORECAST_ENGINE],
     ['forecastOutputs', 'FORECAST_OUTPUT', FORECAST_ENGINE],
     ['forecastStack', 'FORECAST_MECHANISM', FORECAST_ENGINE],
@@ -49,15 +48,21 @@ const SOURCES = [
   ['artifacts/personal-civilization-engine-north-star.json', 'personal-civilization', [
     ['hierarchy', 'HIERARCHY'], ['canonicalLifeSystems', 'PERSONAL_CIVILIZATION_ORGAN'],
     ['supportingCognitiveTechnicalSystems', 'CONCEPT'], ['economicInventionSystems', 'ECONOMIC_DONOR'],
-    ['farFutureConceptualDonors', 'CONCEPT'],
-    // Parented now that an organ produces them. evaluationDimensions below
-    // stays parentless on purpose: those are criteria for a human reviewing
-    // UberBond, not outputs any module computes.
+    // The source artifact literally calls these conceptual donors and marks
+    // itself CHAT_SPEC_GOAL / implementedClaim:false. Keep every name, but do
+    // not convert a far-future donor into a finite engineering obligation merely
+    // because the semantic tribunal now treats SPEC_ONLY as FINITE_BEHAVIOR.
+    // NAMED_INITIATIVE has the desired donor semantics without pretending these
+    // are economically implemented: real implementation evidence can still
+    // promote a donor later, while no-evidence rows remain preserved donors.
+    ['farFutureConceptualDonors', 'NAMED_INITIATIVE'],
     ['lifeDecisionDimensions', 'FORECAST_DIMENSION', 'Value Manifold'],
     ['humanSovereigntyLaws', 'AUTHORITY_LAW'],
-    // evaluationDimensions are criteria for a human reviewing UberBond, not
-    // outputs a module computes -- deliberately parentless.
-    ['evaluationDimensions', 'FORECAST_DIMENSION']]],
+    // These are criteria for a human reviewing UberBond, not outputs any module
+    // computes. The repository history explicitly records that distinction.
+    // Treat them as evaluation ontology so they stay in the no-drop denominator
+    // without becoming 18 fake finite modules in terminal realization.
+    ['evaluationDimensions', 'ONTOLOGY']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],
     ['founderFreedomDimensions', 'SOVEREIGNTY_DIMENSION']]],

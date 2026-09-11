@@ -1,0 +1,16 @@
+{
+  "schemaVersion":"uberbond.c21-d1-canonical-result.v1",
+  "candidateId":"UBERBOND_WHOLE_SYSTEM_C21_20260911",
+  "candidateRevision":"c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "dimension":"self-improvement",
+  "c13ReceiptHash":"3696cfc24c9ba95b4afb5676719343c224fa4f0d49e02241fcd5d8ed42be2afb",
+  "c13CompositionDigest":"e1ecf40f6be2f651d2055a2dddc3cc7a58b8f1e2786913d20e4b57571cefda4c",
+  "c13Status":"COMPOUND_INTELLIGENCE_GAIN_SUPPORTED_WITHIN_DEFINED_SCOPE",
+  "c21EvidenceDigest":"22a30f587aa65986c05eddd68e72a4ad949c1f368dba135d35ddb1b280ddcb37",
+  "c21Status":"C21_SYSTEM_LEVEL_COMPARATIVE_EVIDENCE_COMPILED",
+  "c21EvidenceStage":"SYSTEM_LEVEL_ASI_EVIDENCE_NOT_ESTABLISHED",
+  "counts":{"canonicalDimensions":20,"evidencedDimensions":1,"missingDimensions":19,"independentVerifierIdentities":1,"independentVerifierLineages":1},
+  "missingCriticalDimensions":["causal reasoning","planning under uncertainty","long-horizon coherence","transfer between domains","adversarial robustness","calibrated refusal and ignorance detection"],
+  "asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary":"ONE_AUTHENTICATED_C21_DIMENSION_ONLY__NO_SYSTEM_LEVEL_ASI_CLAIM"
+}

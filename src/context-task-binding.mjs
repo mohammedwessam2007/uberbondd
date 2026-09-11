@@ -30,3 +30,19 @@ export function compileTaskBoundContextProjection({projection,taskId,taskClass=n
   bound.bindingId=digest(payload(bound));
   return {ok:true,policyVersion:CONTEXT_TASK_BINDING_POLICY_VERSION,status:'CONTEXT_TASK_BINDING_READY',boundProjection:bound,externalEffectLedger:zeroEffects()};
 }
+
+export function verifyTaskBoundContextProjection(bound,{taskId=null,taskClass=null,objective=null,audience=null,sourceCommit=null}={}) {
+  if(!bound||typeof bound!=='object'||Array.isArray(bound)) return fail(['context-task-binding-object-required'],'CONTEXT_TASK_BINDING_INVALID');
+  if(bound.schemaVersion!==CONTEXT_TASK_BINDING_SCHEMA_VERSION) return fail(['context-task-binding-schema-mismatch'],'CONTEXT_TASK_BINDING_INVALID');
+  if(!/^[a-f0-9]{64}$/.test(String(bound.bindingId||''))||bound.bindingId!==digest(payload(bound))) return fail(['context-task-binding-digest-mismatch'],'CONTEXT_TASK_BINDING_INVALID');
+  if(bound.consequenceAuthority!=='NONE'||bound.businessEffectAuthority!=='NONE'||bound.externalEffectAuthority!=='NONE') return fail(['zero-context-task-binding-authority-required'],'CONTEXT_TASK_BINDING_INVALID');
+  const nested=verifyContextProjection(bound.projection,{audience,sourceCommit});
+  if(!nested.ok) return fail(['nested-context-projection-invalid',...(nested.reasonCodes||[])],'CONTEXT_TASK_BINDING_INVALID');
+  const binding=bound.taskBinding;
+  if(!binding||typeof binding!=='object'||Array.isArray(binding)||!text(binding.taskId,300)) return fail(['task-binding-required'],'CONTEXT_TASK_BINDING_INVALID');
+  if(binding.projectionId!==bound.projection.projectionId||binding.sourceCommit!==bound.projection.sourceCommit||binding.audience!==bound.projection.audience) return fail(['task-binding-projection-identity-mismatch'],'CONTEXT_TASK_BINDING_INVALID');
+  if(taskId&&binding.taskId!==String(taskId)) return fail(['context-task-binding-task-mismatch'],'CONTEXT_TASK_BINDING_INVALID');
+  if(taskClass!=null&&binding.taskClass!==String(taskClass)) return fail(['context-task-binding-class-mismatch'],'CONTEXT_TASK_BINDING_INVALID');
+  if(objective!=null&&binding.objectiveSha256!==digest(String(objective))) return fail(['context-task-binding-objective-mismatch'],'CONTEXT_TASK_BINDING_INVALID');
+  return {ok:true,policyVersion:CONTEXT_TASK_BINDING_POLICY_VERSION,status:'CONTEXT_TASK_BINDING_VERIFIED',bindingId:bound.bindingId,projectionId:bound.projection.projectionId,taskId:binding.taskId,sourceCommit:binding.sourceCommit,brainstateId:bound.projection.brainstateId,contextMountId:bound.projection.contextMountId,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
+}

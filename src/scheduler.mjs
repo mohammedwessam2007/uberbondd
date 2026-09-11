@@ -15,6 +15,20 @@ export function startScheduler(queue, cfg, log = console) {
     maxCatchUpBuckets: 2
   });
 
+  // Founder outcome missions are not generic autopilot work. If the dedicated
+  // economic worker exists, its durable mission supervision heartbeat must keep
+  // running even when broad autopilot is disabled. Server/API processes do not
+  // schedule this job because only worker.mjs owns its handler.
+  if (cfg.processRole === 'worker') {
+    const type = 'founder.outcome.supervise';
+    const intervalMs = MINUTE;
+    const options = { maxAttempts: 5 };
+    safe(`initial ${type}`, () => schedule(type, intervalMs, {}, options));
+    const timer = setInterval(() => safe(`schedule ${type}`, () => schedule(type, intervalMs, {}, options)), intervalMs);
+    timer.unref?.();
+    timers.push(timer);
+  }
+
   if (cfg.autopilot) {
     const recurring = [
       ['research.batch', 15 * MINUTE, { limit: cfg.maxBatch, reason: 'scheduled' }, { maxAttempts: 3 }],

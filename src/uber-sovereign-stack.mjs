@@ -1,7 +1,7 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { UBER_SUBSTRATE_LAYERS } from './uber-sovereign-substrate.mjs';
 
-export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.3';
+export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.4';
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 
 /** Canonical first-party surfaces. Uber* means UberBond owns policy, contract and truth boundary, not every physical rail. */
@@ -21,10 +21,12 @@ export const UBER_SOVEREIGN_LAYERS=Object.freeze([
   {id:'UBERMODELS',role:'replaceable model supply and reasoning topology',kind:'SUPPLIER_ABSTRACTION',stateful:false,runtimeProof:true,sourceRefs:['src/frontier-cognitive-fabric.mjs','src/agent-model-router.mjs']},
   {id:'UBERRESEARCH',role:'world sensing unknown-unknown search and frontier assimilation',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/perpetual-frontier-genesis.mjs']},
   {id:'UBERGENESIS',role:'evidence-bound future primitive discovery vast possibility search and bounded assimilation',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['src/uber-genesis-foundry.mjs','src/uber-genesis-orchestrator.mjs','tests/million-branch-ideation-genome.test.mjs']},
+  {id:'UBERORCHESTRATION',role:'dependency-aware cross-organ mission planning degraded-mode composition and next-blocker selection',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['src/uber-orchestration-singularity.mjs','tests/uber-orchestration-singularity.test.mjs']},
   {id:'UBERECONOMY',role:'founder-minute-aware resource and intervention metabolism',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:false,sourceRefs:['src/economic-metabolism.mjs','src/economic-feedback-allocator.mjs']},
   {id:'UBERPAY',role:'provider-neutral payment truth and reconciliation',kind:'SUPPLIER_ABSTRACTION',stateful:true,runtimeProof:true,sourceRefs:['src/payments.mjs','src/payment-renewal-truth.mjs']},
   {id:'UBERMAIL',role:'governed messaging and deliverability abstraction',kind:'SUPPLIER_ABSTRACTION',stateful:true,runtimeProof:true,sourceRefs:['src/pipeline.mjs','src/deliverability-guard.mjs']},
-  {id:'UBERDELIVERY',role:'acceptance-bound fulfillment and evidence delivery',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/service-fulfillment.mjs']}
+  {id:'UBERDELIVERY',role:'acceptance-bound fulfillment and evidence delivery',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/service-fulfillment.mjs']},
+  {id:'UBERDISTRIBUTION',role:'first-party evidence-bound distribution portfolio and channel allocation control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/sender-infrastructure-mesh.mjs','src/distribution-control-plane.mjs','tests/uber-distribution-orchestrator.test.mjs']}
 ]);
 
 const cleanEvidence=(raw={})=>({sourceVerified:raw.sourceVerified===true,testsPassed:raw.testsPassed===true,controlOwned:raw.controlOwned===true,providerReplaceable:raw.providerReplaceable===true,stateExportable:raw.stateExportable===true,authorityRoot:String(raw.authorityRoot||'').trim().toUpperCase(),runtimeObserved:raw.runtimeObserved===true,evidenceRefs:[...new Set((Array.isArray(raw.evidenceRefs)?raw.evidenceRefs:[]).map(v=>String(v||'').trim()).filter(Boolean))]});

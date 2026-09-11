@@ -3,8 +3,9 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileSandwichDescendantAdmission, SANDWICH_DESCENDANT_CANON_PATH } from './sandwich-descendant-admission.mjs';
 import { compileTimelineTopologyChallenge } from './timeline-topology-challenge.mjs';
 import { compileTemporalFoundryRaid } from './temporal-foundry.mjs';
+import { verifyTaskBoundContextProjection } from './context-task-binding.mjs';
 
-export const SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION = 'uberbond.sovereign-native-local-worker.v4';
+export const SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION = 'uberbond.sovereign-native-local-worker.v5';
 const SHA40 = /^[a-f0-9]{40}$/i;
 const OPS = new Set(['CREATE', 'UPDATE', 'DELETE']);
 const SANDWICH_CONSTRAINT = 'sandwich-autocatalytic-descendant-genesis';
@@ -39,11 +40,14 @@ function descendantBinding(entry) {
 export function compileNativeWorkerModelPrompt({ task, baseRevision, context = [] } = {}) {
   const base = text(baseRevision, 80).toLowerCase();
   if (!task?.taskId || task.consequenceClass !== 'LOCAL_PREPARATION' || !SHA40.test(base)) return fail(['valid-exact-base-local-preparation-task-required']);
+  const contextGate = verifyTaskBoundContextProjection(task.contextBinding, { taskId:task.taskId, taskClass:task.taskClass || null, objective:task.objective || null, audience:'isolated-worker', sourceCommit:base });
+  if (!contextGate.ok) return fail(['verified-task-bound-context-required', ...(contextGate.reasonCodes || [])]);
   const sandwichGenesis = isSandwichGenesis(task);
-  const boundedContext = (Array.isArray(context) ? context : []).slice(0, 12).map(row => ({
+  const boundedContext = (Array.isArray(context) ? context : []).slice(0, 11).map(row => ({
     path:text(row?.path,1000),
     content:String(row?.content ?? '').slice(0,18_000)
   })).filter(row => row.path && row.content);
+  boundedContext.unshift({path:'context:task-bound-brainstate',content:JSON.stringify(task.contextBinding).slice(0,18_000)});
   const ordinarySchema = 'Return exactly {"decision":"CHANGE"|"STOP","summary":"...","changes":[{"operation":"CREATE"|"UPDATE"|"DELETE","path":"relative/path","content":"full file content for CREATE/UPDATE, omit for DELETE","rationale":"..."}],"reasonCodes":["..."]}.';
   const sandwichSchema = 'For SANDWICH_DESCENDANT_GENESIS return exactly {"decision":"CHANGE"|"STOP","summary":"...","temporalFoundry":{"futureCapability":{"futureCapabilityName":"...","terminalContract":"...","horizonLabel":"...","terminalFunctionIds":["id"],"functions":[{"id":"id","label":"...","weight":1,"requires":[],"realizationState":"PRESENT_VERIFIED|PRESENT_COMPOSABLE|INTERNAL_PRIMITIVE_MISSING|EXTERNAL_OR_PHYSICAL_FLOOR|UNKNOWN","evidenceRefs":[]}]},"primitiveCandidate":{"requirementName":"exact descendantRequirement.name","name":"...","unlockFunctionIds":["id"],"evidenceRefs":["context/evidence ref"],"rationale":"..."}},"timelineTopologyChallenge":{"subjectRequirementName":"exact descendantRequirement.name","baselineGraph":{"objective":"same terminal contract","terminalIds":["id"],"nodes":[{"id":"id","label":"...","durationMs":1,"requires":[],"boundaryClass":"...","necessity":"...","evidenceRefs":[]}]},"decision":"WORMHOLE|NO_VALID_SHORTCUT","name":"...","mechanismClass":"...","projectedGraph":{},"evidenceRefs":["context/evidence ref"],"transformations":[],"attemptedMechanismClasses":[],"reason":"..."},"descendantRequirement":{"name":"...","foldClass":"INTERNAL_SOURCE|INTERNAL_RESEARCH","canonicalGoalRefs":["exact existing canonical concept names"],"dependencies":[],"acceptanceEvidence":["SOURCE: ...","TEST: ..."],"rationale":"..."},"reasonCodes":["..."]}. Do not return file changes. Temporal Foundry primitiveCandidate.requirementName and topology subjectRequirementName must both exactly equal descendantRequirement.name. Trusted code validates future-function capture first, topology second, binds both receipts to the exact admitted requirement digest, then alone appends the requirement to canon.';
   const policy = sandwichGenesis
@@ -60,6 +64,7 @@ export function compileNativeWorkerModelPrompt({ task, baseRevision, context = [
     ok:true,
     policyVersion:SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION,
     status:'LOCAL_MODEL_PATCH_PROMPT_READY',
+    contextBindingId:contextGate.bindingId,
     system:[
       'You are UberBond native sovereign coding worker. Return JSON only.',
       'You may propose one bounded LOCAL_PREPARATION source change set. You never merge, sign, deploy, send, spend, change credentials or DNS, contact customers, or claim runtime/commercial truth.',
@@ -78,7 +83,8 @@ export function compileNativeWorkerModelPrompt({ task, baseRevision, context = [
       acceptanceTests:Array.isArray(task.acceptanceTests)?task.acceptanceTests:[],
       consequenceClass:task.consequenceClass,
       exactBaseRevision:base,
-      exactTruthSnapshot:task.localTruthSnapshot || null
+      exactTruthSnapshot:task.localTruthSnapshot || null,
+      contextBindingId:contextGate.bindingId
     },
     context:boundedContext,
     businessEffectAuthority:'NONE',

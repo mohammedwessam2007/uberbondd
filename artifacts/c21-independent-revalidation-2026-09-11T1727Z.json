@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "uberbond.c21-independent-revalidation.v1",
+  "observedAt": "2026-09-11T17:27:00Z",
+  "inspectedMainRevision": "2242917858327cd5121036a0efa1de773117bd86",
+  "inspectionClass": "INDEPENDENT_REPOSITORY_EVIDENCE_REVALIDATION",
+  "countsAsObservedBenchmark": false,
+  "countsAsAuthenticatedC21Dimension": false,
+  "systemLevelEvidenceDelta": "NONE",
+  "sources": {
+    "campaign": "artifacts/c21-evidence-campaign-2026-09-11.json",
+    "latestStatus": "artifacts/c21-evidence-status-refresh-2026-09-11.json",
+    "latestObservedPrecursor": "artifacts/c21-calibrated-ignorance-result-v2.json",
+    "systemLevelEvaluator": "src/system-level-asi-evidence.mjs",
+    "compoundEvaluator": "src/compound-intelligence-evaluation.mjs"
+  },
+  "exactRevisionFindings": {
+    "campaignCandidateRevision": "cc6dc5c22254267402fb8832973471553e3d454b",
+    "latestStatusCandidateRevision": "ca6847da1fa317c9deefbcea0be82206ea09516f",
+    "latestObservedPrecursorCandidateRevision": "dbde672c3c0c4f6b1feac15f38096ddb0c6e54d1",
+    "currentMainRevision": "2242917858327cd5121036a0efa1de773117bd86",
+    "authenticatedObservedDimensions": 0,
+    "requiredDimensions": 20,
+    "missingCriticalDimensions": 7,
+    "candidateRevisionDriftPresent": true,
+    "priorPrecursorMayAuthenticateCurrentMain": false
+  },
+  "deltaSincePriorStatusRevision": {
+    "baseRevision": "ca6847da1fa317c9deefbcea0be82206ea09516f",
+    "headRevision": "2242917858327cd5121036a0efa1de773117bd86",
+    "commitsAhead": 8,
+    "c21OrC13EvaluatorSemanticsChanged": false,
+    "newObservedC21BenchmarkArtifactFound": false,
+    "newAuthenticatedC21DimensionReceiptFound": false,
+    "relevantChangesClass": "RUNTIME_HOST_AND_RUNTIME_PROOF_ONLY"
+  },
+  "protocolChecks": {
+    "exactCandidateBindingRequired": true,
+    "matchedTimeCostHumanBudgetRequired": true,
+    "atLeastThreeUniqueTaskFamiliesRequired": true,
+    "intervalRobustMeaningfulGainRequiredInAtLeastTwoThirdsFamilies": true,
+    "freshContextRetentionRequired": true,
+    "crossDomainTransferSupportRequired": true,
+    "independentEvaluationRequired": true,
+    "independentVerifierLineagesRequired": true,
+    "taskPopulationReuseAcrossDimensionsRefused": true,
+    "c13ReceiptReuseAcrossDimensionsRefused": true,
+    "evaluatorRecordReuseAcrossDimensionsRefused": true
+  },
+  "latestObservedPrecursorDisposition": {
+    "dimension": "calibrated refusal and ignorance detection",
+    "baselineScore": 0.75,
+    "candidateScore": 1.0,
+    "absoluteGain": 0.25,
+    "independentBlindJudgeLineages": 3,
+    "unsupportedClaims": 0,
+    "frozenExperimentVerdict": "PASS",
+    "canonicalC13Status": "NOT_ESTABLISHED",
+    "promotionPermitted": false,
+    "reason": "Only one of four evaluated task families showed positive gain; canonical C13 requires uncertainty-robust meaningful gain across at least two thirds of evaluated families."
+  },
+  "nextDependencySatisfiedEvidenceWork": {
+    "class": "REAL_OBSERVED_MATCHED_BUDGET_C13_EVALUATION",
+    "requirements": [
+      "freeze a fresh task population before candidate execution",
+      "use at least three unique task families",
+      "bind baseline/current/candidate to exact revisions",
+      "match wall-time, monetary-cost and human-assistance budgets",
+      "obtain interval-robust meaningful candidate gain in at least two thirds of families",
+      "perform fresh-context retention",
+      "obtain cross-domain transfer support",
+      "use fresh independent evaluator and verifier lineages",
+      "do not reuse the calibrated-ignorance task population, evaluator record, C13 receipt or verifier identity lineage"
+    ],
+    "sourceOnlyOrSyntheticSubstitutionPermitted": false
+  },
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  },
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "promotionAuthority": "NONE",
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "THIS_RECEIPT REVALIDATES THE CURRENT REPOSITORY EVIDENCE BOUNDARY ONLY. IT IS NOT A BENCHMARK RUN, DOES NOT COUNT AS SYSTEM-LEVEL CAPABILITY EVIDENCE, DOES NOT PROMOTE ANY C21 DIMENSION, AND DOES NOT SUPPORT AN ASI CLAIM."
+}

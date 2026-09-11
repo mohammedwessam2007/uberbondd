@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1';
+export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.1';
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 
 /**
@@ -11,6 +11,7 @@ const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 export const UBER_SOVEREIGN_LAYERS=Object.freeze([
   {id:'UBERMESH',role:'provider-independent private networking',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['ops/sovereign/configure-founder-console-ubermesh.sh','tests/sovereign-ubermesh.test.mjs']},
   {id:'UBERCLOUD',role:'portable multi-cell compute/runtime/storage control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercloud-sovereign-fabric.mjs','tests/ubercloud-sovereign-fabric.test.mjs']},
+  {id:'UBERCEL',role:'first-party signed deployment build release rollback and host-failover control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercel-deployment-control-plane.mjs','ops/sovereign/sovereign-release-courier.mjs','src/provider-neutral-runtime-acceptance.mjs']},
   {id:'UBERGRAPH',role:'provenance-bound semantic relational causal reality graph',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:false,sourceRefs:['src/knowledge-labyrinth-ubergraph.mjs','src/life-knowledge-graph.mjs']},
   {id:'UBERMIND',role:'minimum-useful mission cognition exchange',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['src/ubermind-cognitive-exchange.mjs','src/frontier-cognitive-fabric.mjs']},
   {id:'UBERDNA',role:'machine-readable software genotype and mutation evidence',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:false,sourceRefs:['src/uberdna-software-genome.mjs','src/uberbond-feature-genome.mjs']},
@@ -27,21 +28,9 @@ export const UBER_SOVEREIGN_LAYERS=Object.freeze([
   {id:'UBERDELIVERY',role:'acceptance-bound fulfillment and evidence delivery',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/service-fulfillment.mjs']}
 ]);
 
-const cleanEvidence=(raw={})=>({
-  sourceVerified:raw.sourceVerified===true,
-  testsPassed:raw.testsPassed===true,
-  controlOwned:raw.controlOwned===true,
-  providerReplaceable:raw.providerReplaceable===true,
-  stateExportable:raw.stateExportable===true,
-  authorityRoot:String(raw.authorityRoot||'').trim().toUpperCase(),
-  runtimeObserved:raw.runtimeObserved===true,
-  evidenceRefs:[...new Set((Array.isArray(raw.evidenceRefs)?raw.evidenceRefs:[]).map(v=>String(v||'').trim()).filter(Boolean))]
-});
+const cleanEvidence=(raw={})=>({sourceVerified:raw.sourceVerified===true,testsPassed:raw.testsPassed===true,controlOwned:raw.controlOwned===true,providerReplaceable:raw.providerReplaceable===true,stateExportable:raw.stateExportable===true,authorityRoot:String(raw.authorityRoot||'').trim().toUpperCase(),runtimeObserved:raw.runtimeObserved===true,evidenceRefs:[...new Set((Array.isArray(raw.evidenceRefs)?raw.evidenceRefs:[]).map(v=>String(v||'').trim()).filter(Boolean))]});
 
-/**
- * Truthfully separates source sovereignty, architectural independence and live
- * runtime proof. Passing source tests can never impersonate owned runtime.
- */
+/** Truthfully separates source sovereignty, architecture independence and runtime proof. */
 export function compileUberSovereignStack({layerEvidence={}}={}){
   const rows=UBER_SOVEREIGN_LAYERS.map(layer=>{
     const evidence=cleanEvidence(layerEvidence[layer.id]);
@@ -59,23 +48,10 @@ export function compileUberSovereignStack({layerEvidence={}}={}){
     if(layer.runtimeProof&&!evidence.runtimeObserved)reasonCodes.push('runtime-observation-required');
     return {...layer,evidence,sourceReady,independenceReady,runtimeReady,reasonCodes};
   });
-
   const sourceBlockers=rows.filter(row=>!row.sourceReady).map(row=>row.id);
   const independenceBlockers=rows.filter(row=>!row.independenceReady).map(row=>row.id);
   const runtimeBlockers=rows.filter(row=>!row.runtimeReady).map(row=>row.id);
-  const sourceReady=sourceBlockers.length===0;
-  const independenceReady=independenceBlockers.length===0;
-  const runtimeReady=runtimeBlockers.length===0;
+  const sourceReady=sourceBlockers.length===0,independenceReady=independenceBlockers.length===0,runtimeReady=runtimeBlockers.length===0;
   const status=runtimeReady?'UBER_SOVEREIGN_STACK_RUNTIME_READY':independenceReady?'UBER_SOVEREIGN_STACK_INDEPENDENCE_READY':sourceReady?'UBER_SOVEREIGN_STACK_SOURCE_READY':'UBER_SOVEREIGN_STACK_INCOMPLETE';
-
-  return {
-    ok:sourceReady,
-    status,
-    layers:rows,
-    counts:{total:rows.length,sourceReady:rows.filter(r=>r.sourceReady).length,independenceReady:rows.filter(r=>r.independenceReady).length,runtimeReady:rows.filter(r=>r.runtimeReady).length},
-    sourceBlockers,independenceBlockers,runtimeBlockers,
-    sovereigntyLaw:'UBERBOND_OWNS_IDENTITY_AUTHORITY_POLICY_MEMORY_EXPORT_AND_RECOVERY; EXTERNAL_PROVIDERS_ARE_REPLACEABLE_SUPPLIERS_AND_NEVER_AUTHORITY_ROOTS',
-    namingLaw:'UBER_PREFIX_DENOTES_A_FIRST_PARTY_CONTROL_OR_TRUTH_SURFACE_NOT_A_CLAIM_THAT_UBERBOND_PHYSICALLY_MANUFACTURES_EVERY_UNDERLYING_RESOURCE',
-    businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()
-  };
+  return {ok:sourceReady,status,layers:rows,counts:{total:rows.length,sourceReady:rows.filter(r=>r.sourceReady).length,independenceReady:rows.filter(r=>r.independenceReady).length,runtimeReady:rows.filter(r=>r.runtimeReady).length},sourceBlockers,independenceBlockers,runtimeBlockers,sovereigntyLaw:'UBERBOND_OWNS_IDENTITY_AUTHORITY_POLICY_MEMORY_EXPORT_AND_RECOVERY; EXTERNAL_PROVIDERS_ARE_REPLACEABLE_SUPPLIERS_AND_NEVER_AUTHORITY_ROOTS',namingLaw:'UBER_PREFIX_DENOTES_A_FIRST_PARTY_CONTROL_OR_TRUTH_SURFACE_NOT_A_CLAIM_THAT_UBERBOND_PHYSICALLY_MANUFACTURES_EVERY_UNDERLYING_RESOURCE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
 }

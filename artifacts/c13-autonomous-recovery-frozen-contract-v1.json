@@ -1,0 +1,28 @@
+{
+  "schemaVersion":"uberbond.c13-autonomous-recovery-contract.v1",
+  "frozenBeforeHoldoutExecution":true,
+  "candidate":{"id":"UBERBOND_SYSTEM","revision":"e0e5d1fcbd4407a88a121c02abcf716121afc4ae"},
+  "baseline":{"id":"UBERBOND_PRE_RECOVERY_MAIN","revision":"ca6847da1fa317c9deefbcea0be82206ea09516f"},
+  "experimentId":"C13_AUTONOMOUS_RECOVERY_E0E5_V1",
+  "families":[
+    {"id":"DATABASE_CRASH_RESTART","holdoutAttempts":3,"success":"real disposable PostgreSQL crash is recovered with replay-safe work claimed once, reconcile work not replayed, cleanup true"},
+    {"id":"SOURCE_HOST_RESTORE_CUTBACK","holdoutAttempts":3,"success":"exact source exports, restores byte-identical tree, executes restored copy and rollback copy, cleanup true"},
+    {"id":"WEB_RUNTIME_BOOT_RESTART","holdoutAttempts":3,"success":"isolated exact source boots healthy web role, then shuts down and releases port, outbound and discovery disabled"}
+  ],
+  "developmentRunsExcluded":true,
+  "matchedEnvironment":"MACALY_ISOLATED",
+  "matchedPreparation":"npm ci --no-audit --no-fund using each revision's own lockfile",
+  "databaseFixture":"single evaluator-owned current portable embedded-Postgres harness used for both revisions",
+  "attemptTimeoutMs":60000,
+  "monetaryCostMicros":0,
+  "humanAssistanceMinutes":0,
+  "minimumMeaningfulGain":0.05,
+  "requiredImprovedFamilies":2,
+  "maxAllowedRegression":0,
+  "freshContextRetentionRequired":true,
+  "independentEvaluator":{"id":"C13_AUTONOMOUS_RECOVERY_EVALUATOR_V1","lineageRef":"lineage:independent:c13-recovery-evaluator-v1"},
+  "independentVerifier":{"id":"C13_AUTONOMOUS_RECOVERY_PYTHON_VERIFIER_V1","lineageRef":"lineage:independent:c13-recovery-python-v1"},
+  "authority":{"promotionAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"},
+  "asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary":"FROZEN_RECOVERY_EVALUATION_ONLY__NO_PROMOTION__NO_ASI_CLAIM"
+}

@@ -37,7 +37,9 @@ function authenticatedC13(c13,candidateId,candidateRevision){
   if(!SHA256.test(compositionDigest)||!SHA256.test(receiptHash)||!receipt||typeof receipt!=='object'||Array.isArray(receipt)) return null;
   if(hash(receipt)!==receiptHash) return null;
   if(receipt?.version!==REQUIRED_C13_EVALUATION_VERSION||receipt?.compositionId!==candidateId||receipt?.compositionRevision!==candidateRevision||String(receipt?.compositionDigest||'').toLowerCase()!==compositionDigest) return null;
-  if(c13?.compositionId!==candidateId||c13?.compositionRevision!==candidateRevision) return null;
+  const topLevelCompositionId=txt(c13?.compositionId,200),topLevelCompositionRevision=txt(c13?.compositionRevision,300);
+  if(topLevelCompositionId&&topLevelCompositionId!==candidateId)return null;
+  if(topLevelCompositionRevision&&topLevelCompositionRevision!==candidateRevision)return null;
   return {compositionDigest,receiptHash};
 }
 

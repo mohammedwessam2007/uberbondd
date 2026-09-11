@@ -2,8 +2,9 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { verifyBrainstateIntegrity } from './sovereign-context-fabric.mjs';
 import { verifyCognitiveJournalSegments } from './cognitive-journal-segments.mjs';
+import { compileContextSchemaCompatibility } from './context-schema-compatibility.mjs';
 
-export const CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION='context-replication-bundle-1.0.0';
+export const CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION='context-replication-bundle-1.1.0';
 export const CONTEXT_REPLICATION_BUNDLE_SCHEMA='uberbond.context-replication-bundle.v1';
 const SHA40=/^[a-f0-9]{40}$/;
 const SHA64=/^[a-f0-9]{64}$/;
@@ -16,10 +17,14 @@ function payload(bundle={}){const{bundleId:_ignored,...rest}=bundle;return rest;
 export function compileContextReplicationBundle({brainstate,manifest,segments}={}){
   const brain=verifyBrainstateIntegrity(brainstate);if(!brain.ok)return fail(['verified-brainstate-required',...(brain.reasonCodes||[])]);
   const journal=verifyCognitiveJournalSegments({manifest,segments});if(!journal.ok)return fail(['verified-segmented-journal-required',...(journal.reasonCodes||[])]);
+  const schemas={brainstate:brainstate?.schemaVersion,journalManifest:manifest?.schemaVersion,replicationBundle:CONTEXT_REPLICATION_BUNDLE_SCHEMA};
+  if(Array.isArray(segments)&&segments.length)schemas.journalSegment=segments[0]?.schemaVersion;
+  const compatibility=compileContextSchemaCompatibility({contextAbiVersion:brainstate?.contextAbiVersion,schemas});
+  if(!compatibility.ok)return fail(['context-schema-compatibility-required',...(compatibility.reasonCodes||[])]);
   if(!SHA40.test(String(brainstate.sourceCommit||''))||!SHA64.test(String(brainstate.brainstateId||''))||!SHA64.test(String(manifest.manifestId||'')))return fail(['exact-replication-identities-required']);
   const bundle={schemaVersion:CONTEXT_REPLICATION_BUNDLE_SCHEMA,sourceCommit:brainstate.sourceCommit,brainstateId:brainstate.brainstateId,contextAbiVersion:brainstate.contextAbiVersion,journalManifestId:manifest.manifestId,journalTipDigest:journal.journalTipDigest,totalJournalEntries:journal.totalEntries,segmentCount:journal.segmentCount,lastSegmentDigest:manifest.lastSegmentDigest,consequenceAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'};
   bundle.bundleId=digest(payload(bundle));
-  return{ok:true,policyVersion:CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION,status:'CONTEXT_REPLICATION_BUNDLE_READY',bundle,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
+  return{ok:true,policyVersion:CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION,status:'CONTEXT_REPLICATION_BUNDLE_READY',bundle,schemaCompatibility:compatibility.receipt,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
 }
 
 export function verifyContextReplicationBundle(bundle,{brainstate,manifest,segments,expectedSourceCommit=null,currentBundle=null}={}){
@@ -34,5 +39,5 @@ export function verifyContextReplicationBundle(bundle,{brainstate,manifest,segme
     if(currentBundle.sourceCommit===bundle.sourceCommit&&bundle.totalJournalEntries<currentBundle.totalJournalEntries)return fail(['same-source-journal-rollback-refused'],'CONTEXT_REPLICATION_BUNDLE_ROLLBACK_REFUSED');
     if(currentBundle.sourceCommit===bundle.sourceCommit&&bundle.totalJournalEntries===currentBundle.totalJournalEntries&&bundle.journalTipDigest!==currentBundle.journalTipDigest)return fail(['same-source-equal-height-fork-refused'],'CONTEXT_REPLICATION_BUNDLE_FORK_REFUSED');
   }
-  return{ok:true,policyVersion:CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION,status:'CONTEXT_REPLICATION_BUNDLE_VERIFIED',bundleId:bundle.bundleId,sourceCommit:bundle.sourceCommit,brainstateId:bundle.brainstateId,journalManifestId:bundle.journalManifestId,journalTipDigest:bundle.journalTipDigest,totalJournalEntries:bundle.totalJournalEntries,segmentCount:bundle.segmentCount,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'This proves internal integrity and component binding. It does not prove remote host identity, transport authenticity, or source-commit ancestry by itself.'};
+  return{ok:true,policyVersion:CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION,status:'CONTEXT_REPLICATION_BUNDLE_VERIFIED',bundleId:bundle.bundleId,sourceCommit:bundle.sourceCommit,brainstateId:bundle.brainstateId,journalManifestId:bundle.journalManifestId,journalTipDigest:bundle.journalTipDigest,totalJournalEntries:bundle.totalJournalEntries,segmentCount:bundle.segmentCount,schemaCompatibility:compiled.schemaCompatibility,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'This proves internal integrity, exact registered schema compatibility, and component binding. Remote host identity, transport authenticity, and source-commit ancestry remain separate evidence requirements.'};
 }

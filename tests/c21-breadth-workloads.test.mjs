@@ -1,0 +1,4 @@
+import test from'node:test';import assert from'node:assert/strict';import{makeBreadthWorkload,runBreadthWorkload,breadthDigest}from'../scripts/c21-breadth-workloads.mjs';
+const slugs=['novel','science','software','math','strategy','forecasting','world-model','mechanism','economic','sparse','acquisition','recovery','tool-invention'];
+for(const slug of slugs)test(`${slug} compiled invariant preserves exact fresh semantics`,()=>{for(let familyIndex=0;familyIndex<3;familyIndex++){const w=makeBreadthWorkload({slug,seed:`test-${slug}`,familyIndex,size:36,queries:10}),a=runBreadthWorkload(w),b=runBreadthWorkload(w,{compiled:true});assert.equal(breadthDigest(a),breadthDigest(b));}});
+test('thirteen breadth semantics do not collapse to one output population',()=>{const hs=slugs.map(slug=>breadthDigest(runBreadthWorkload(makeBreadthWorkload({slug,seed:`distinct-${slug}`,size:32,queries:6}))));assert.equal(new Set(hs).size,slugs.length);});

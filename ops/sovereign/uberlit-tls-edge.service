@@ -1,6 +1,6 @@
 [Unit]
-Description=UberLit sovereign UberBond runtime
-After=network.target
+Description=UberLit sovereign HTTPS ingress
+After=network.target uberlit.service
 Wants=network.target
 
 [Service]
@@ -9,15 +9,14 @@ User=uberlit
 Group=uberlit
 WorkingDirectory=/opt/uberlit/source
 Environment=UBERLIT_ROOT=/var/lib/uberlit/uberbond
-Environment=APP_BASE_URL=https://127.0.0.1:32443
-Environment=TRUST_PROXY_HOPS=1
-Environment=OUTBOUND_ENABLED=false
-Environment=DISCOVERY_ENABLED=false
+Environment=UBERLIT_TLS_BIND=127.0.0.1
+Environment=UBERLIT_TLS_PORT=32443
+Environment=UBERLIT_WEB_PORT=32123
 EnvironmentFile=-/etc/uberlit/uberlit.env
-ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-supervisor.mjs --keep-running --root /var/lib/uberlit/uberbond --port 32123 --db-port 35432 --timeout 30000
+ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-tls-edge.mjs --root /var/lib/uberlit/uberbond --bind ${UBERLIT_TLS_BIND} --port ${UBERLIT_TLS_PORT} --upstream-port ${UBERLIT_WEB_PORT}
 Restart=on-failure
 RestartSec=3
-TimeoutStopSec=20
+TimeoutStopSec=10
 KillMode=control-group
 UMask=0077
 NoNewPrivileges=true

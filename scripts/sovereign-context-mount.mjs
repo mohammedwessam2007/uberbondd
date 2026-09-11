@@ -3,11 +3,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
-import { readCognitiveJournal } from '../src/cognitive-event-journal.mjs';
 import { compileContextMount } from '../src/context-history-retrieval.mjs';
 import { runSovereignContextDoctor } from './sovereign-context-doctor.mjs';
+import { readRuntimeCognitiveJournal } from './sovereign-cognitive-journal-runtime.mjs';
 
-export const SOVEREIGN_CONTEXT_MOUNT_VERSION = 'sovereign-context-mount-1.0.0';
+export const SOVEREIGN_CONTEXT_MOUNT_VERSION = 'sovereign-context-mount-1.1.0';
 
 function zeroEffects() {
   return structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -61,6 +61,8 @@ function atomicWriteJson(file, value) {
 export function mountSovereignContext({
   rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
   journalPath,
+  journalArchiveSnapshotPath = process.env.UBERBOND_CONTEXT_ARCHIVE_SNAPSHOT_PATH || null,
+  journalTailPath = process.env.UBERBOND_CONTEXT_TAIL_PATH || null,
   capsuleCachePath = null,
   mountCachePath = null,
   mission = null,
@@ -87,7 +89,7 @@ export function mountSovereignContext({
     });
   }
 
-  const journal = readCognitiveJournal(journalPath);
+  const journal = readRuntimeCognitiveJournal({ journalPath, archiveSnapshotPath: journalArchiveSnapshotPath, tailPath: journalTailPath });
   if (!journal.ok) return fail(['cognitive-journal-invalid', ...(journal.reasonCodes || [])], 'CONTEXT_MOUNT_JOURNAL_REFUSED');
   const compiled = compileContextMount({
     doctorResult: doctor,
@@ -104,6 +106,10 @@ export function mountSovereignContext({
     return {
       ...compiled,
       mountVersion: SOVEREIGN_CONTEXT_MOUNT_VERSION,
+      journalRuntimeMode: journal.runtimeMode,
+      journalArchiveManifestId: journal.archiveManifestId || null,
+      journalArchiveEntryCount: journal.archiveEntryCount || 0,
+      journalTailEntryCount: journal.tailEntryCount || 0,
       capsuleCachePath: writtenCapsuleCache,
       mountCachePath: writtenMountCache
     };

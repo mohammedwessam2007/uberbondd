@@ -1,0 +1,19 @@
+{
+  "schemaVersion":"uberbond.c13-invariant-cognition-fresh-context.v2",
+  "candidateRevision":"b3860b964de1cc0ae78f7be0eb9da8a78fc5d6a3",
+  "baselineRevision":"e0e5d1fcbd4407a88a121c02abcf716121afc4ae",
+  "frozenAfterCandidateBeforeReplay":true,
+  "privateTaskPopulationSha256":"e525f8d3e95ccaf22418e7315c765e9919b54f102ac7f972fffb7055b3f49660",
+  "taskCounts":{"search":27,"opportunity":111,"orchestration":189},
+  "freshContextRef":"context:c13-invariant-v2-fresh-replay",
+  "priorContextRef":"context:c13-invariant-v2-development",
+  "hiddenConversationStateAllowed":false,
+  "mechanismMustLoadFromDurableArtifact":true,
+  "requiredFamilies":3,
+  "requiredPassingFamilies":3,
+  "oldTaskRegressionTolerance":0,
+  "protectedGateRegressionTolerance":0,
+  "authority":{"promotionAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"},
+  "asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary":"FRESH_CONTEXT_RETENTION_EVALUATION_ONLY__NO_PROMOTION_OR_ASI_CLAIM"
+}

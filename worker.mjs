@@ -42,7 +42,7 @@ const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
 });
 revenue = new RevenueEngine(store, config, pipeline, { enqueueResearch });
 const discoveryRunner = new DiscoveryRunner(store, config);
-const handlers = createJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner });
+const handlers = createJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner, enqueueJob: (type, payload, options) => queue.enqueue(type, payload, options) });
 const stopScheduler = startScheduler(queue, config, console);
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 

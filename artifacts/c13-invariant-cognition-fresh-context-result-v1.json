@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "uberbond.c13.invariant-cognition.fresh-context-result.v1",
+  "candidateCommit": "977f07586c6af3ff84647812b57d49939fb85665",
+  "retentionContractCommit": "ff041d15a727a259f20c3f1e0ddccd63a045391a",
+  "freshTaskSetSha256": "ccff713bf59cbc3da57f0bdc7cfbb0d10eebee5f49ade000f8147fd9a89c5fee",
+  "mechanismLoadedFromArtifact": true,
+  "hiddenConversationStateUsed": false,
+  "priorContextRef": "context:c13-invariant-development-v1",
+  "freshContextRef": "context:c13-invariant-fresh-replay-v1",
+  "baselineScore": 0.5,
+  "retainedScore": 1,
+  "familyPasses": {
+    "MILLION_WORMHOLE_TOPK": true,
+    "OPPORTUNITY_BUILD_DISTANCE": true,
+    "ORCHESTRATION_STATIC_TOPOLOGY": true
+  },
+  "minimumWorkReduction": {
+    "MILLION_WORMHOLE_TOPK": 1066.7100712105798,
+    "OPPORTUNITY_BUILD_DISTANCE": 319,
+    "ORCHESTRATION_STATIC_TOPOLOGY": 128
+  },
+  "oldTaskRegressionRate": 0,
+  "maxAllowedRegressionRate": 0,
+  "protectedGateRegressions": [],
+  "retentionStatus": "FRESH_CONTEXT_RETENTION_PROVEN",
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "promotionAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "receiptSha256": "b05f69e3e094dd1ab716a28cd4a246472ac1142769f5796cfe155c3015c711af"
+}

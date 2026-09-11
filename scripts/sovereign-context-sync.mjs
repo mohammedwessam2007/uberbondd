@@ -4,165 +4,23 @@ import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { checkpointSovereignContext } from './sovereign-context-checkpoint.mjs';
 import { mountSovereignContext } from './sovereign-context-mount.mjs';
-import { readRuntimeCognitiveJournal } from './sovereign-cognitive-journal-runtime.mjs';
+import { readConfiguredRuntimeCognitiveJournal } from './sovereign-cognitive-journal-configured-runtime.mjs';
 
-export const SOVEREIGN_CONTEXT_SYNC_VERSION = 'sovereign-context-sync-1.1.0';
+export const SOVEREIGN_CONTEXT_SYNC_VERSION='sovereign-context-sync-1.2.0';
+function zeroEffects(){return structuredClone(ZERO_EXTERNAL_EFFECTS);}
+function fail(reasonCodes,status='CONTEXT_SYNC_REFUSED',extra={}){return{ok:false,syncVersion:SOVEREIGN_CONTEXT_SYNC_VERSION,status,reasonCodes:[...new Set((reasonCodes||[]).filter(Boolean))],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),...extra};}
+function lastCheckpoint(entries=[]){for(let index=entries.length-1;index>=0;index-=1){const entry=entries[index];if(entry?.event?.kind==='CONTEXT_CHECKPOINT'&&entry?.event?.subjectType==='BRAINSTATE')return entry;}return null;}
 
-function zeroEffects() {
-  return structuredClone(ZERO_EXTERNAL_EFFECTS);
+export function syncSovereignContext({rootDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),journalPath,journalArchiveSnapshotPath=process.env.UBERBOND_CONTEXT_ARCHIVE_SNAPSHOT_PATH||null,journalTailPath=process.env.UBERBOND_CONTEXT_TAIL_PATH||null,capsuleCachePath=null,mountCachePath=null,mission=null,maxHistoricalEvents=24,generatedAt=new Date()}={}){
+  if(!journalPath)return fail(['journal-path-required']);
+  const mounted=mountSovereignContext({rootDir,journalPath,journalArchiveSnapshotPath,journalTailPath,capsuleCachePath,mountCachePath,mission,maxHistoricalEvents,generatedAt});if(!mounted.ok)return fail(['context-mount-required',...(mounted.reasonCodes||[])],'CONTEXT_SYNC_MOUNT_REFUSED',{contextMountStatus:mounted.status});
+  const journal=readConfiguredRuntimeCognitiveJournal({journalPath,archiveSnapshotPath:journalArchiveSnapshotPath,tailPath:journalTailPath});if(!journal.ok)return fail(['verified-cognitive-journal-required',...(journal.reasonCodes||[])],'CONTEXT_SYNC_JOURNAL_REFUSED');
+  const checkpoint=lastCheckpoint(journal.entries);const currentBrainstateId=mounted.mount?.brainstateId;if(!currentBrainstateId)return fail(['current-brainstate-id-required']);
+  if(checkpoint?.event?.subjectId===currentBrainstateId)return{ok:true,syncVersion:SOVEREIGN_CONTEXT_SYNC_VERSION,status:'CONTEXT_SYNC_CURRENT_NO_CHECKPOINT',sourceCommit:mounted.mount.sourceCommit,brainstateId:currentBrainstateId,contextMountId:mounted.mount.contextMountId,journalRuntimeMode:journal.runtimeMode,journalConfigurationSource:journal.configurationSource||null,journalRuntimeStateId:journal.runtimeStateId||null,journalArchiveManifestId:journal.archiveManifestId||null,journalEntryCount:journal.entryCount,journalTipDigest:journal.tipDigest,lastCheckpointEventId:checkpoint.eventId,checkpointAppended:false,recompiledFromStale:mounted.mount.recompiledFromStale===true,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
+  const appended=checkpointSovereignContext({rootDir,journalPath,journalArchiveSnapshotPath,journalTailPath,capsulePath:capsuleCachePath,mission:mission||mounted.mount?.mission,generatedAt});if(!appended.ok)return fail(['context-checkpoint-required',...(appended.reasonCodes||[])],'CONTEXT_SYNC_CHECKPOINT_REFUSED',{checkpointStatus:appended.status});
+  if(appended.brainstateId!==currentBrainstateId)return fail(['mounted-and-checkpointed-brainstate-mismatch'],'CONTEXT_SYNC_RACE_REFUSED',{mountedBrainstateId:currentBrainstateId,checkpointedBrainstateId:appended.brainstateId});
+  const remounted=mountSovereignContext({rootDir,journalPath,journalArchiveSnapshotPath,journalTailPath,capsuleCachePath,mountCachePath,mission,maxHistoricalEvents,generatedAt});if(!remounted.ok)return fail(['post-checkpoint-remount-required',...(remounted.reasonCodes||[])],'CONTEXT_SYNC_REMOUNT_REFUSED');
+  return{ok:true,syncVersion:SOVEREIGN_CONTEXT_SYNC_VERSION,status:'CONTEXT_SYNC_CHECKPOINT_APPENDED',sourceCommit:remounted.mount.sourceCommit,brainstateId:remounted.mount.brainstateId,contextMountId:remounted.mount.contextMountId,journalRuntimeMode:appended.journalRuntimeMode||remounted.journalRuntimeMode||'LEGACY_JSONL',journalConfigurationSource:appended.journalConfigurationSource||remounted.journalConfigurationSource||null,journalRuntimeStateId:appended.journalRuntimeStateId||remounted.journalRuntimeStateId||null,journalArchiveManifestId:appended.journalArchiveManifestId||remounted.journalArchiveManifestId||null,checkpointEventId:appended.eventId,checkpointSequence:appended.journalSequence,checkpointEntryDigest:appended.journalEntryDigest,checkpointAppended:true,recompiledFromStale:mounted.mount.recompiledFromStale===true,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
 }
-
-function fail(reasonCodes, status = 'CONTEXT_SYNC_REFUSED', extra = {}) {
-  return {
-    ok: false,
-    syncVersion: SOVEREIGN_CONTEXT_SYNC_VERSION,
-    status,
-    reasonCodes: [...new Set((reasonCodes || []).filter(Boolean))],
-    businessEffectAuthority: 'NONE',
-    externalEffectAuthority: 'NONE',
-    externalEffectLedger: zeroEffects(),
-    ...extra
-  };
-}
-
-function lastCheckpoint(entries = []) {
-  for (let index = entries.length - 1; index >= 0; index -= 1) {
-    const entry = entries[index];
-    if (entry?.event?.kind === 'CONTEXT_CHECKPOINT' && entry?.event?.subjectType === 'BRAINSTATE') return entry;
-  }
-  return null;
-}
-
-export function syncSovereignContext({
-  rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
-  journalPath,
-  journalArchiveSnapshotPath = process.env.UBERBOND_CONTEXT_ARCHIVE_SNAPSHOT_PATH || null,
-  journalTailPath = process.env.UBERBOND_CONTEXT_TAIL_PATH || null,
-  capsuleCachePath = null,
-  mountCachePath = null,
-  mission = null,
-  maxHistoricalEvents = 24,
-  generatedAt = new Date()
-} = {}) {
-  if (!journalPath) return fail(['journal-path-required']);
-  const mounted = mountSovereignContext({
-    rootDir,
-    journalPath,
-    journalArchiveSnapshotPath,
-    journalTailPath,
-    capsuleCachePath,
-    mountCachePath,
-    mission,
-    maxHistoricalEvents,
-    generatedAt
-  });
-  if (!mounted.ok) return fail(['context-mount-required', ...(mounted.reasonCodes || [])], 'CONTEXT_SYNC_MOUNT_REFUSED', {
-    contextMountStatus: mounted.status
-  });
-
-  const journal = readRuntimeCognitiveJournal({ journalPath, archiveSnapshotPath: journalArchiveSnapshotPath, tailPath: journalTailPath });
-  if (!journal.ok) return fail(['verified-cognitive-journal-required', ...(journal.reasonCodes || [])], 'CONTEXT_SYNC_JOURNAL_REFUSED');
-  const checkpoint = lastCheckpoint(journal.entries);
-  const currentBrainstateId = mounted.mount?.brainstateId;
-  if (!currentBrainstateId) return fail(['current-brainstate-id-required']);
-
-  if (checkpoint?.event?.subjectId === currentBrainstateId) {
-    return {
-      ok: true,
-      syncVersion: SOVEREIGN_CONTEXT_SYNC_VERSION,
-      status: 'CONTEXT_SYNC_CURRENT_NO_CHECKPOINT',
-      sourceCommit: mounted.mount.sourceCommit,
-      brainstateId: currentBrainstateId,
-      contextMountId: mounted.mount.contextMountId,
-      journalRuntimeMode: journal.runtimeMode,
-      journalArchiveManifestId: journal.archiveManifestId || null,
-      journalEntryCount: journal.entryCount,
-      journalTipDigest: journal.tipDigest,
-      lastCheckpointEventId: checkpoint.eventId,
-      checkpointAppended: false,
-      recompiledFromStale: mounted.mount.recompiledFromStale === true,
-      businessEffectAuthority: 'NONE',
-      externalEffectAuthority: 'NONE',
-      externalEffectLedger: zeroEffects()
-    };
-  }
-
-  const appended = checkpointSovereignContext({
-    rootDir,
-    journalPath,
-    journalArchiveSnapshotPath,
-    journalTailPath,
-    capsulePath: capsuleCachePath,
-    mission: mission || mounted.mount?.mission,
-    generatedAt
-  });
-  if (!appended.ok) return fail(['context-checkpoint-required', ...(appended.reasonCodes || [])], 'CONTEXT_SYNC_CHECKPOINT_REFUSED', {
-    checkpointStatus: appended.status
-  });
-  if (appended.brainstateId !== currentBrainstateId) {
-    return fail(['mounted-and-checkpointed-brainstate-mismatch'], 'CONTEXT_SYNC_RACE_REFUSED', {
-      mountedBrainstateId: currentBrainstateId,
-      checkpointedBrainstateId: appended.brainstateId
-    });
-  }
-
-  const remounted = mountSovereignContext({
-    rootDir,
-    journalPath,
-    journalArchiveSnapshotPath,
-    journalTailPath,
-    capsuleCachePath,
-    mountCachePath,
-    mission,
-    maxHistoricalEvents,
-    generatedAt
-  });
-  if (!remounted.ok) return fail(['post-checkpoint-remount-required', ...(remounted.reasonCodes || [])], 'CONTEXT_SYNC_REMOUNT_REFUSED');
-
-  return {
-    ok: true,
-    syncVersion: SOVEREIGN_CONTEXT_SYNC_VERSION,
-    status: 'CONTEXT_SYNC_CHECKPOINT_APPENDED',
-    sourceCommit: remounted.mount.sourceCommit,
-    brainstateId: remounted.mount.brainstateId,
-    contextMountId: remounted.mount.contextMountId,
-    journalRuntimeMode: appended.journalRuntimeMode || remounted.journalRuntimeMode || 'LEGACY_JSONL',
-    journalArchiveManifestId: appended.journalArchiveManifestId || remounted.journalArchiveManifestId || null,
-    checkpointEventId: appended.eventId,
-    checkpointSequence: appended.journalSequence,
-    checkpointEntryDigest: appended.journalEntryDigest,
-    checkpointAppended: true,
-    recompiledFromStale: mounted.mount.recompiledFromStale === true,
-    businessEffectAuthority: 'NONE',
-    externalEffectAuthority: 'NONE',
-    externalEffectLedger: zeroEffects()
-  };
-}
-
-function argValue(name) {
-  const index = process.argv.indexOf(name);
-  return index >= 0 && index + 1 < process.argv.length ? process.argv[index + 1] : null;
-}
-
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  try {
-    const controlDir = path.resolve(process.env.UBERBOND_CONTROL_DIR || '/var/lib/uberbond-control');
-    const journalPath = argValue('--journal') || process.env.UBERBOND_CONTEXT_JOURNAL_PATH || path.join(controlDir, 'context', 'events.jsonl');
-    const capsuleCachePath = argValue('--capsule-cache') || process.env.UBERBOND_BRAINSTATE_PATH || path.join(controlDir, 'context', 'brainstate.json');
-    const mountCachePath = argValue('--mount-cache') || process.env.UBERBOND_CONTEXT_MOUNT_PATH || path.join(controlDir, 'context', 'mount.json');
-    const mission = argValue('--mission');
-    const result = syncSovereignContext({ journalPath, capsuleCachePath, mountCachePath, mission });
-    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
-    if (!result.ok) process.exitCode = 2;
-  } catch (error) {
-    process.stderr.write(`${JSON.stringify({
-      ok: false,
-      status: 'CONTEXT_SYNC_FAILED',
-      reason: error?.message || 'unknown-error',
-      businessEffectAuthority: 'NONE',
-      externalEffectAuthority: 'NONE',
-      externalEffectLedger: zeroEffects()
-    }, null, 2)}\n`);
-    process.exitCode = 1;
-  }
-}
+function argValue(name){const index=process.argv.indexOf(name);return index>=0&&index+1<process.argv.length?process.argv[index+1]:null;}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){try{const controlDir=path.resolve(process.env.UBERBOND_CONTROL_DIR||'/var/lib/uberbond-control');const journalPath=argValue('--journal')||process.env.UBERBOND_CONTEXT_JOURNAL_PATH||path.join(controlDir,'context','events.jsonl');const capsuleCachePath=argValue('--capsule-cache')||process.env.UBERBOND_BRAINSTATE_PATH||path.join(controlDir,'context','brainstate.json');const mountCachePath=argValue('--mount-cache')||process.env.UBERBOND_CONTEXT_MOUNT_PATH||path.join(controlDir,'context','mount.json');const mission=argValue('--mission');const result=syncSovereignContext({journalPath,capsuleCachePath,mountCachePath,mission});process.stdout.write(`${JSON.stringify(result,null,2)}\n`);if(!result.ok)process.exitCode=2;}catch(error){process.stderr.write(`${JSON.stringify({ok:false,status:'CONTEXT_SYNC_FAILED',reason:error?.message||'unknown-error',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()},null,2)}\n`);process.exitCode=1;}}

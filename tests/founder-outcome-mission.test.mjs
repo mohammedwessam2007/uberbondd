@@ -10,6 +10,17 @@ import {
 
 const now = new Date('2026-09-10T23:32:00.000Z'); // 02:32 Cairo Sep 11
 const command = 'From now until 12:00 PM Africa/Cairo today, make me as much money as legally and truthfully possible while I sleep. New spend ceiling is $0. PayPal.me/Sarawessam';
+const structuredObservation = (throughAt, over = {}) => ({
+  clearedContributionProfitCents: 0,
+  providerOrigin: true,
+  reconciled: true,
+  independentVerification: true,
+  evidenceClass: 'PROVIDER_ORIGIN_RECONCILIATION',
+  throughAt,
+  evidenceRefs: ['receipt://paypal-reconciliation/observed-zero'],
+  environment: 'LIVE',
+  ...over
+});
 
 test('natural founder revenue command compiles into an active mission instead of terminal prose', () => {
   assert.equal(classifyFounderOutcomeIntent(command).recognized, true);
@@ -24,6 +35,21 @@ test('natural founder revenue command compiles into an active mission instead of
   assert.equal(mission.authority.outboundAuthorityInferredFromIntent, false);
 });
 
+test('null deadline does not become the Unix epoch before natural-language parsing', () => {
+  const mission = compileFounderOutcomeMission({ founderIntent:command, now, deadline:null, timezoneOffsetMinutes:180 });
+  assert.equal(mission.ok, true);
+  assert.equal(mission.deadlineAt, '2026-09-11T09:00:00.000Z');
+});
+
+test('explicit named calendar date is honored and an explicit past date is never silently shifted', () => {
+  const exact = compileFounderOutcomeMission({ founderIntent:'Make revenue by 12 PM Africa/Cairo on September 11, 2026', now, timezoneOffsetMinutes:180 });
+  assert.equal(exact.ok, true);
+  assert.equal(exact.deadlineAt, '2026-09-11T09:00:00.000Z');
+  const past = compileFounderOutcomeMission({ founderIntent:'Make revenue by 12 PM Africa/Cairo on September 10, 2026', now, timezoneOffsetMinutes:180 });
+  assert.equal(past.ok, false);
+  assert.ok(past.reasonCodes.includes('future-mission-deadline-required'));
+});
+
 test('unobserved zero before deadline is unknown and never the terminal mission result', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
   const state = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T00:15:00.000Z'), clearedContributionProfitCents:0 });
@@ -33,50 +59,55 @@ test('unobserved zero before deadline is unknown and never the terminal mission 
   assert.equal(state.terminalResultAllowed, false);
   assert.equal(state.currentObservedClearedContributionProfitCents, null);
   assert.equal(state.paymentObservationComplete, false);
-  assert.match(state.truthBoundary, /not the terminal result/i);
 });
 
-test('provider-observed zero before deadline is still current state, never terminal result', () => {
+test('legacy provider-observed zero may be current state but cannot certify a terminal amount', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
-  const state = evaluateFounderOutcomeMission({
+  const current = evaluateFounderOutcomeMission({
     mission,
     now:new Date('2026-09-11T00:15:00.000Z'),
     clearedContributionProfitCents:0,
     paymentObservationComplete:true,
     providerEvidenceRefs:['receipt://paypal-reconciliation/observed-zero']
   });
-  assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_ACTIVE');
-  assert.equal(state.terminal, false);
-  assert.equal(state.currentObservedClearedContributionProfitCents, 0);
-  assert.equal(state.paymentObservationComplete, true);
+  assert.equal(current.status, 'FOUNDER_OUTCOME_MISSION_ACTIVE');
+  assert.equal(current.terminal, false);
+  assert.equal(current.currentObservedClearedContributionProfitCents, 0);
+  const deadline = evaluateFounderOutcomeMission({
+    mission,
+    now:new Date('2026-09-11T09:00:01.000Z'),
+    clearedContributionProfitCents:0,
+    paymentObservationComplete:true,
+    providerEvidenceRefs:['receipt://paypal-reconciliation/observed-zero']
+  });
+  assert.equal(deadline.terminal, false);
+  assert.equal(deadline.clearedContributionProfitCents, null);
 });
 
-test('early terminalization requires proof-complete branch exhaustion plus observed payment truth', () => {
+test('terminal money requires provider-origin reconciliation covering the terminal instant', () => {
+  const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
+  const stale = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T09:00:01.000Z'), paymentObservation:structuredObservation('2026-09-11T08:59:59.000Z') });
+  assert.equal(stale.terminal, false);
+  const sandbox = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T09:00:01.000Z'), paymentObservation:structuredObservation('2026-09-11T09:00:01.000Z', { environment:'SANDBOX' }) });
+  assert.equal(sandbox.terminal, false);
+  const internal = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T09:00:01.000Z'), paymentObservation:structuredObservation('2026-09-11T09:00:01.000Z', { evidenceClass:'INTERNAL_LEDGER' }) });
+  assert.equal(internal.terminal, false);
+  const proven = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T09:00:01.000Z'), paymentObservation:structuredObservation('2026-09-11T09:00:00.000Z') });
+  assert.equal(proven.status, 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED');
+  assert.equal(proven.terminal, true);
+  assert.equal(proven.clearedContributionProfitCents, 0);
+});
+
+test('early terminalization requires proof-complete branch exhaustion plus provider truth through exhaustion time', () => {
   const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
   const weak = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T01:00:00.000Z'), exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:[] } });
   assert.equal(weak.terminal, false);
-
-  const exhaustedButUnreconciled = evaluateFounderOutcomeMission({
-    mission,
-    now:new Date('2026-09-11T01:00:00.000Z'),
-    clearedContributionProfitCents:0,
-    exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] }
-  });
-  assert.equal(exhaustedButUnreconciled.status, 'FOUNDER_OUTCOME_MISSION_EXHAUSTED_RECONCILIATION_REQUIRED');
-  assert.equal(exhaustedButUnreconciled.terminal, false);
-  assert.equal(exhaustedButUnreconciled.terminalResultAllowed, false);
-
-  const proven = evaluateFounderOutcomeMission({
-    mission,
-    now:new Date('2026-09-11T01:00:00.000Z'),
-    clearedContributionProfitCents:0,
-    paymentObservationComplete:true,
-    providerEvidenceRefs:['receipt://paypal-reconciliation/observed-zero'],
-    exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] }
-  });
+  const stale = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T01:00:00.000Z'), exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] }, paymentObservation:structuredObservation('2026-09-11T00:59:59.000Z') });
+  assert.equal(stale.status, 'FOUNDER_OUTCOME_MISSION_EXHAUSTED_RECONCILIATION_REQUIRED');
+  assert.equal(stale.terminal, false);
+  const proven = evaluateFounderOutcomeMission({ mission, now:new Date('2026-09-11T01:00:00.000Z'), exhaustionProof:{ complete:true, admissibleBranchCount:20, proofRefs:['receipt://branch-tournament/1'] }, paymentObservation:structuredObservation('2026-09-11T01:00:00.000Z') });
   assert.equal(proven.status, 'FOUNDER_OUTCOME_MISSION_EXHAUSTED_BEFORE_DEADLINE');
   assert.equal(proven.terminal, true);
-  assert.equal(proven.terminalResultAllowed, true);
 });
 
 test('deadline with unknown payment reconciliation stays unresolved, never fake zero', () => {
@@ -87,21 +118,6 @@ test('deadline with unknown payment reconciliation stays unresolved, never fake 
   assert.equal(state.missionWindowClosed, true);
   assert.equal(state.clearedContributionProfitCents, null);
   assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED_RECONCILIATION_REQUIRED');
-});
-
-test('deadline zero becomes terminal only with a real payment observation receipt', () => {
-  const mission = compileFounderOutcomeMission({ founderIntent:command, now, timezoneOffsetMinutes:180 });
-  const state = evaluateFounderOutcomeMission({
-    mission,
-    now:new Date('2026-09-11T09:00:01.000Z'),
-    clearedContributionProfitCents:0,
-    paymentObservationComplete:true,
-    providerEvidenceRefs:['receipt://paypal-reconciliation/deadline-zero']
-  });
-  assert.equal(state.status, 'FOUNDER_OUTCOME_MISSION_DEADLINE_REACHED');
-  assert.equal(state.terminal, true);
-  assert.equal(state.terminalResultAllowed, true);
-  assert.equal(state.clearedContributionProfitCents, 0);
 });
 
 test('economic pulse keeps preparation and reconciliation alive while withholding outbound without durable authority', () => {
@@ -146,6 +162,7 @@ test('resident systemd wiring gives founder outcomes an independent immediate an
   const timerUnit = readFileSync(new URL('../ops/sovereign/uberbond-founder-outcome-mission.timer', import.meta.url), 'utf8');
   const serviceUnit = readFileSync(new URL('../ops/sovereign/uberbond-founder-outcome-mission.service', import.meta.url), 'utf8');
   const installer = readFileSync(new URL('../ops/sovereign/install-founder-outcome-mission.sh', import.meta.url), 'utf8');
+  const pulse = readFileSync(new URL('../scripts/founder-economic-mission-pulse.mjs', import.meta.url), 'utf8');
   assert.match(pathUnit, /PathChanged=\/var\/lib\/uberbond-control\/founder-intents/);
   assert.match(pathUnit, /Unit=uberbond-founder-outcome-mission\.service/);
   assert.match(timerUnit, /OnUnitActiveSec=60s/);
@@ -155,4 +172,7 @@ test('resident systemd wiring gives founder outcomes an independent immediate an
   assert.match(serviceUnit, /founder-economic-mission-pulse\.mjs/);
   assert.match(installer, /id -u uberbond-author/);
   assert.match(installer, /economicRuntimeEnvPresent/);
+  assert.match(pulse, /UBERBOND_EVIDENCE_DIR/);
+  assert.match(pulse, /\/var\/lib\/uberbond-evidence/);
+  assert.match(pulse, /founder-outcome-payment-observation\.json/);
 });

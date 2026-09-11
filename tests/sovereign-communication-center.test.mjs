@@ -68,5 +68,5 @@ test('every queued free-text founder intent wakes the same canonical authoring s
 test('intent wake carries no founder text transport or new external authority',()=>{
   assert.doesNotMatch(intentWake,/Exec(Start|Condition)|curl|wget|http|https|git|node|python|sh\s/i);
   assert.doesNotMatch(intentWake,/Mohamed|intent\.json|PAYPAL|STRIPE|OPENAI|ANTHROPIC/i);
-  assert.match(installer,/Raw founder text[\s\S]*is not copied into the public coding task/);
+  assert.match(installer,/Raw founder text[\s\S]*is not copied\s+into the public coding task/);
 });

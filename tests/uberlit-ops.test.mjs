@@ -25,7 +25,9 @@ test('installer copies exact local Git source and does not require a cloud provi
 
 test('production supervisor owns local Postgres without leaking its credential',()=>{
   const supervisor=read('scripts/uberlit-supervisor.mjs');
-  assert.match(supervisor,/persistent:true/);assert.match(supervisor,/secrets.*postgres\.json/);
+  assert.match(supervisor,/persistent:true/);
+  assert.match(supervisor,/path\.join\(runtimeRoot,'secrets'\)/);
+  assert.match(supervisor,/path\.join\(secretDir,'postgres\.json'\)/);
   assert.match(supervisor,/mode:0o600/);assert.match(supervisor,/DATABASE_URL:databaseUrl/);
   assert.doesNotMatch(supervisor,/console\.log\(.*password|process\.stdout.*password/);
   assert.match(supervisor,/OUTBOUND_ENABLED:process\.env\.OUTBOUND_ENABLED\|\|'false'/);

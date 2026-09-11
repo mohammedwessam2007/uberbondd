@@ -4,3 +4,5 @@ import { verifyContextProjection } from './context-projection.mjs';
 
 export const CONTEXT_TASK_BINDING_POLICY_VERSION = 'context-task-binding-1.0.0';
 export const CONTEXT_TASK_BINDING_SCHEMA_VERSION = 'uberbond.context-task-binding.v1';
+const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
+function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }

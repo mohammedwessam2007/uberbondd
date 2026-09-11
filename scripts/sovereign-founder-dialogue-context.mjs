@@ -1,11 +1,13 @@
 #!/usr/bin/env node
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { compileContextProjection } from '../src/context-projection.mjs';
 import { mountSovereignContext } from './sovereign-context-mount.mjs';
 
-export const SOVEREIGN_FOUNDER_DIALOGUE_CONTEXT_VERSION = 'sovereign-founder-dialogue-context-1.0.0';
+export const SOVEREIGN_FOUNDER_DIALOGUE_CONTEXT_VERSION = 'sovereign-founder-dialogue-context-1.0.1';
+const MODULE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function fail(reasonCodes, status = 'FOUNDER_DIALOGUE_CONTEXT_REFUSED', extra = {}) {
@@ -20,15 +22,25 @@ function fail(reasonCodes, status = 'FOUNDER_DIALOGUE_CONTEXT_REFUSED', extra = 
     ...extra
   };
 }
+function usableRepositoryRoot(value) {
+  try {
+    const candidate = path.resolve(value || '');
+    const bootstrap = path.join(candidate, 'UBERBOND_BOOTSTRAP.json');
+    const stat = fs.lstatSync(bootstrap);
+    return stat.isFile() && !stat.isSymbolicLink() ? candidate : null;
+  } catch { return null; }
+}
 
 export function mountFounderDialogueContext({
-  rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'),
+  rootDir = MODULE_ROOT,
   controlDir = '/var/lib/uberbond-control',
   mission,
   generatedAt = new Date()
 } = {}) {
   const founderMission = String(mission || '').trim();
   if (!founderMission || founderMission.length > 16_000) return fail(['bounded-founder-dialogue-mission-required']);
+  const repositoryRoot = usableRepositoryRoot(rootDir) || usableRepositoryRoot(MODULE_ROOT);
+  if (!repositoryRoot) return fail(['founder-dialogue-repository-root-required']);
   const absoluteControl = path.resolve(controlDir);
   const journalPath = path.join(absoluteControl, 'context', 'events.jsonl');
   const capsuleCachePath = path.join(absoluteControl, 'context', 'brainstate.json');
@@ -36,7 +48,7 @@ export function mountFounderDialogueContext({
   // Deliberately do not persist a mission-specific mount. The founder's raw
   // turn may be private; only the durable Brainstate cache is refreshed here.
   const mounted = mountSovereignContext({
-    rootDir,
+    rootDir: repositoryRoot,
     journalPath,
     capsuleCachePath,
     mountCachePath: null,
@@ -52,6 +64,7 @@ export function mountFounderDialogueContext({
     ok: true,
     contextVersion: SOVEREIGN_FOUNDER_DIALOGUE_CONTEXT_VERSION,
     status: 'FOUNDER_DIALOGUE_CONTEXT_READY',
+    repositoryRoot,
     projection: compiled.projection,
     contextMountStatus: mounted.status,
     recompiledFromStale: mounted.mount?.recompiledFromStale === true,

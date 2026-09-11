@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "uberbond.c13.invariant-cognition-compilation.eval.v1",
+  "frozenBeforeCandidateImplementation": true,
+  "baseRevision": "fa01ada9a119a24d03d1a16e80a911e81280971b",
+  "candidateClass": "INVARIANT_COGNITION_COMPILATION",
+  "hypothesis": "Compile stable/invariant cognition once and reuse it across independent UberBond organs without semantic drift or authority widening.",
+  "privateTaskSetSha256": "6cae3e0ce62d908a9b95ed256534e09d3432aafb2994c9d33c3f830f2918edbf",
+  "taskFamilyCount": 3,
+  "taskFamilies": [
+    {
+      "familyId": "MILLION_WORMHOLE_TOPK",
+      "organ": "Million-Wormhole Search",
+      "mutation": "compile invariant highest-prior equivalence structure; preserve exact ordered top-K identity",
+      "holdoutTasks": 64
+    },
+    {
+      "familyId": "OPPORTUNITY_BUILD_DISTANCE",
+      "organ": "Opportunity Tournament",
+      "mutation": "hoist invariant build-distance computation outside per-row mapping; preserve exact tournament output",
+      "holdoutTasks": 96
+    },
+    {
+      "familyId": "ORCHESTRATION_STATIC_TOPOLOGY",
+      "organ": "UberOrchestration",
+      "mutation": "compile static dependency integrity/topology once; preserve exact plan output across varying evidence and mission inputs",
+      "holdoutTasks": 160
+    }
+  ],
+  "arms": {
+    "baseline": {"systemId": "UBERBOND_MAIN", "revision": "fa01ada9a119a24d03d1a16e80a911e81280971b"},
+    "current": {"systemId": "UBERBOND_MAIN", "revision": "fa01ada9a119a24d03d1a16e80a911e81280971b"},
+    "candidate": {"systemId": "UBERBOND_INVARIANT_COGNITION_COMPILER_V1", "revision": "PENDING_PRE_CANDIDATE_FREEZE"}
+  },
+  "measurement": {
+    "warmupRounds": 3,
+    "measuredRounds": 11,
+    "clock": "monotonic_high_resolution",
+    "scoreFormula": "currentScore=0.5; candidateScore=clamp(0,1,1-(0.5/speedupRatio)), where speedupRatio=currentMedianLatency/candidateMedianLatency; intervals from deterministic bootstrap over measured per-task latencies",
+    "semanticRequirement": "byte-equivalent canonical JSON output after stripping explicitly-declared timing-only fields",
+    "minimumMeaningfulGain": 0.05,
+    "maxAllowedRegression": 0.0,
+    "requiredRobustImprovedFamilies": 2,
+    "protectedGates": ["semantic_identity", "zero_authority_widening", "truth_boundary_identity"]
+  },
+  "budget": {
+    "wallTimeBudgetMsPerArmPerFamily": 5000,
+    "monetaryCostMicrosPerArmPerFamily": 0,
+    "humanAssistanceMinutesPerArmPerFamily": 0,
+    "newSpendAuthorized": false
+  },
+  "independence": {
+    "candidateMaySelfScore": false,
+    "candidateMaySelfPromote": false,
+    "evaluatorMustPreexistCandidate": true,
+    "evaluatorLineage": "C13_INVARIANT_COMPILATION_EVALUATOR_V1",
+    "freshContextRetentionRequired": true,
+    "crossDomainTransferRequired": true
+  },
+  "truthBoundary": "EVALUATION_CONTRACT_ONLY__NO_C13_C21_OR_ASI_CLAIM__NO_EXECUTION_OR_PROMOTION_AUTHORITY",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE"
+}

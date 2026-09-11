@@ -8,6 +8,9 @@ export const UBERSTATIC_POLICY = 'uberstatic-1.0.0';
 
 const SHA40 = /^[0-9a-f]{40}$/;
 const LABEL = /^[a-z0-9][a-z0-9._-]{1,24}$/;
+const DEPLOYMENT_ID = /^uberstatic_[0-9a-f]{32}$/;
+const ACTIVATION_ID = /^uberstatic_activation_[0-9a-f]{32}$/;
+const SHA256 = /^sha256:[0-9a-f]{64}$/;
 const MAX_FILES = 4096;
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
 const MAX_TOTAL_BYTES = 64 * 1024 * 1024;
@@ -66,12 +69,7 @@ export function compileUberStaticDeployment({ files, labels = [], sourceCommit =
     if (bytes.byteLength > MAX_FILE_BYTES) throw new Error('uberstatic-file-too-large');
     totalBytes += bytes.byteLength;
     if (totalBytes > MAX_TOTAL_BYTES) throw new Error('uberstatic-total-too-large');
-    return {
-      path: filePath,
-      bytes,
-      size: bytes.byteLength,
-      digest: `sha256:${sha256(bytes)}`
-    };
+    return { path: filePath, bytes, size: bytes.byteLength, digest: `sha256:${sha256(bytes)}` };
   }).sort((a, b) => a.path.localeCompare(b.path));
 
   const manifestBody = {
@@ -95,7 +93,7 @@ export function compileUberStaticDeployment({ files, labels = [], sourceCommit =
 
 function deploymentDir(rootDir, deploymentId) {
   const id = String(deploymentId || '').trim();
-  if (!/^uberstatic_[0-9a-f]{32}$/.test(id)) throw new Error('uberstatic-deployment-id-invalid');
+  if (!DEPLOYMENT_ID.test(id)) throw new Error('uberstatic-deployment-id-invalid');
   return path.join(path.resolve(rootDir), 'deployments', id);
 }
 
@@ -114,8 +112,7 @@ function atomicJsonWrite(file, value, mode = 0o600) {
 
 function verifyManifestShape(manifest) {
   if (!exactObject(manifest) || manifest.schemaVersion !== UBERSTATIC_SCHEMA || manifest.policyVersion !== UBERSTATIC_POLICY) return false;
-  if (!/^uberstatic_[0-9a-f]{32}$/.test(String(manifest.deploymentId || ''))) return false;
-  if (!/^sha256:[0-9a-f]{64}$/.test(String(manifest.deploymentDigest || ''))) return false;
+  if (!DEPLOYMENT_ID.test(String(manifest.deploymentId || '')) || !SHA256.test(String(manifest.deploymentDigest || ''))) return false;
   if (!Array.isArray(manifest.files) || manifest.files.length !== manifest.fileCount || manifest.files.length < 1) return false;
   if (!Array.isArray(manifest.labels) || !Number.isSafeInteger(manifest.totalBytes) || manifest.totalBytes < 0) return false;
   if (manifest.sourceCommit !== null && !SHA40.test(String(manifest.sourceCommit || ''))) return false;
@@ -129,7 +126,7 @@ function verifyManifestShape(manifest) {
     if (filePath !== file.path || seen.has(filePath)) return false;
     seen.add(filePath);
     if (!Number.isSafeInteger(file.size) || file.size < 0 || file.size > MAX_FILE_BYTES) return false;
-    if (!/^sha256:[0-9a-f]{64}$/.test(String(file.digest || ''))) return false;
+    if (!SHA256.test(String(file.digest || ''))) return false;
     total += file.size;
   }
   if (total !== manifest.totalBytes || total > MAX_TOTAL_BYTES) return false;
@@ -154,9 +151,7 @@ export function verifyUberStaticDeployment({ rootDir, deploymentId } = {}) {
     for (const entry of manifest.files) {
       const file = path.join(dir, 'payload', ...entry.path.split('/'));
       const stat = fs.lstatSync(file);
-      if (!stat.isFile() || stat.isSymbolicLink() || stat.size !== entry.size) {
-        return { ok: false, status: 'UBERSTATIC_DEPLOYMENT_REFUSED', reasonCodes: [`payload-shape:${entry.path}`] };
-      }
+      if (!stat.isFile() || stat.isSymbolicLink() || stat.size !== entry.size) return { ok: false, status: 'UBERSTATIC_DEPLOYMENT_REFUSED', reasonCodes: [`payload-shape:${entry.path}`] };
       const digest = `sha256:${sha256(fs.readFileSync(file))}`;
       if (digest !== entry.digest) return { ok: false, status: 'UBERSTATIC_DEPLOYMENT_REFUSED', reasonCodes: [`payload-digest:${entry.path}`] };
     }
@@ -175,8 +170,7 @@ export function writeUberStaticDeployment({ rootDir, deployment } = {}) {
     if (!verified.ok) throw new Error('uberstatic-existing-deployment-corrupt');
     return { ...verified, status: 'UBERSTATIC_DEPLOYMENT_ALREADY_PRESENT' };
   }
-  const parent = path.dirname(target);
-  fs.mkdirSync(parent, { recursive: true });
+  fs.mkdirSync(path.dirname(target), { recursive: true });
   const temp = `${target}.tmp.${process.pid}.${crypto.randomBytes(6).toString('hex')}`;
   fs.mkdirSync(path.join(temp, 'payload'), { recursive: true, mode: 0o700 });
   try {
@@ -205,6 +199,12 @@ function accessPolicy(password) {
   return { protected: true, salt, passwordDigest };
 }
 
+function validAccessPolicy(policy) {
+  if (!exactObject(policy) || typeof policy.protected !== 'boolean') return false;
+  if (!policy.protected) return policy.salt === null && policy.passwordDigest === null;
+  return /^[0-9a-f]{32}$/.test(String(policy.salt || '')) && /^[0-9a-f]{64}$/.test(String(policy.passwordDigest || ''));
+}
+
 export function verifyUberStaticPassword(pointer, candidate) {
   const policy = pointer?.accessPolicy;
   if (!policy?.protected) return true;
@@ -215,12 +215,37 @@ export function verifyUberStaticPassword(pointer, candidate) {
   return actual.length === expected.length && crypto.timingSafeEqual(actual, expected);
 }
 
+export function verifyUberStaticPointerIntegrity(pointer) {
+  if (!exactObject(pointer) || pointer.schemaVersion !== UBERSTATIC_POINTER_SCHEMA) return false;
+  if (!DEPLOYMENT_ID.test(String(pointer.deploymentId || ''))) return false;
+  if (pointer.previousDeploymentId !== null && !DEPLOYMENT_ID.test(String(pointer.previousDeploymentId || ''))) return false;
+  if (!ACTIVATION_ID.test(String(pointer.activationId || '')) || !SHA256.test(String(pointer.activationDigest || ''))) return false;
+  if (!SHA256.test(String(pointer.deploymentDigest || ''))) return false;
+  if (pointer.sourceCommit !== null && !SHA40.test(String(pointer.sourceCommit || ''))) return false;
+  if (!validAccessPolicy(pointer.accessPolicy) || pointer.businessEffectAuthority !== 'STATIC_CONTENT_ONLY') return false;
+  if (typeof pointer.activatedAt !== 'string' || Number.isNaN(Date.parse(pointer.activatedAt))) return false;
+  const body = {
+    schemaVersion: pointer.schemaVersion,
+    deploymentId: pointer.deploymentId,
+    previousDeploymentId: pointer.previousDeploymentId,
+    activatedAt: pointer.activatedAt,
+    accessPolicy: pointer.accessPolicy,
+    sourceCommit: pointer.sourceCommit,
+    deploymentDigest: pointer.deploymentDigest,
+    businessEffectAuthority: pointer.businessEffectAuthority
+  };
+  const digest = sha256(canonical(body));
+  return pointer.activationDigest === `sha256:${digest}` && pointer.activationId === `uberstatic_activation_${digest.slice(0, 32)}`;
+}
+
 export function readUberStaticPointer({ rootDir } = {}) {
   const file = path.join(path.resolve(rootDir), 'state', 'current.json');
   if (!fs.existsSync(file)) return null;
   const pointer = safeJsonRead(file);
-  if (!exactObject(pointer) || pointer.schemaVersion !== UBERSTATIC_POINTER_SCHEMA || !/^uberstatic_[0-9a-f]{32}$/.test(String(pointer.deploymentId || ''))) {
-    throw new Error('uberstatic-pointer-invalid');
+  if (!verifyUberStaticPointerIntegrity(pointer)) throw new Error('uberstatic-pointer-integrity-failed');
+  const deployed = verifyUberStaticDeployment({ rootDir, deploymentId: pointer.deploymentId });
+  if (!deployed.ok || deployed.manifest.deploymentDigest !== pointer.deploymentDigest || deployed.manifest.sourceCommit !== pointer.sourceCommit) {
+    throw new Error('uberstatic-pointer-target-mismatch');
   }
   return pointer;
 }
@@ -246,7 +271,7 @@ export function activateUberStaticDeployment({ rootDir, deploymentId, password =
   const historyFile = path.join(root, 'activations', `${pointer.activationId}.json`);
   if (fs.existsSync(historyFile)) {
     const existing = safeJsonRead(historyFile);
-    if (canonical(existing) !== canonical(pointer)) throw new Error('uberstatic-activation-history-conflict');
+    if (canonical(existing) !== canonical(pointer) || !verifyUberStaticPointerIntegrity(existing)) throw new Error('uberstatic-activation-history-conflict');
   } else {
     atomicJsonWrite(historyFile, pointer, 0o600);
   }
@@ -264,7 +289,7 @@ export function listUberStaticDeployments({ rootDir } = {}) {
   const dir = path.join(path.resolve(rootDir), 'deployments');
   if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true })
-    .filter(entry => entry.isDirectory() && /^uberstatic_[0-9a-f]{32}$/.test(entry.name))
+    .filter(entry => entry.isDirectory() && DEPLOYMENT_ID.test(entry.name))
     .map(entry => verifyUberStaticDeployment({ rootDir, deploymentId: entry.name }))
     .filter(result => result.ok)
     .map(result => result.manifest)
@@ -288,8 +313,5 @@ export function readUberStaticAsset({ rootDir, deploymentId, assetPath } = {}) {
   const normalized = normalizeStaticPath(assetPath);
   const entry = verified.manifest.files.find(file => file.path === normalized);
   if (!entry) return null;
-  return {
-    entry,
-    bytes: fs.readFileSync(path.join(deploymentDir(rootDir, deploymentId), 'payload', ...normalized.split('/')))
-  };
+  return { entry, bytes: fs.readFileSync(path.join(deploymentDir(rootDir, deploymentId), 'payload', ...normalized.split('/'))) };
 }

@@ -1,6 +1,6 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const OPEN_MODEL_FOUNDRY_VERSION = 'uberbond.open-model-foundry-1.0.0';
+export const OPEN_MODEL_FOUNDRY_VERSION = 'uberbond.open-model-foundry-1.0.1';
 export const MODEL_SUPPLY_TYPES = Object.freeze(['OPEN_WEIGHT', 'CLOSED_API', 'LOCAL_RUNTIME', 'HOSTED_OPEN_WEIGHT']);
 export const MODEL_SUPPLY_STATES = Object.freeze(['DISCOVERED', 'SCREENED', 'BENCHMARKED', 'APPROVED', 'ACTIVE', 'DEGRADED', 'REVOKED']);
 
@@ -100,7 +100,7 @@ export function normalizeModelSupply(input = {}) {
   });
 }
 
-export function rankModelCandidates({ candidates = [], taskClass, maxEstimatedCostUsd = Number.MAX_SAFE_INTEGER, now = new Date().toISOString(), benchmarkMaxAgeDays = 30 } = {}) {
+export function rankModelCandidates({ candidates = [], taskClass, maxEstimatedCostUsd = 1_000_000_000, now = new Date().toISOString(), benchmarkMaxAgeDays = 30 } = {}) {
   const normalizedTask = text(taskClass, 200);
   const maxCost = number(maxEstimatedCostUsd, { min: 0, max: 1_000_000_000 });
   const observedNow = iso(now);

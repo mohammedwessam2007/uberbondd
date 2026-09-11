@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+import fs from'node:fs';import{compileLiteralAsiExternalCampaign}from'../src/literal-asi-external-campaign.mjs';const path=process.argv[2]||'artifacts/c21-twenty-dimension-result.json';const c21=JSON.parse(fs.readFileSync(path,'utf8'));const r=compileLiteralAsiExternalCampaign({candidateId:c21.candidateId,candidateRevision:c21.candidateRevision,c21EvidenceDigest:c21.c21EvidenceDigest,createdAt:new Date()});console.log(JSON.stringify(r,null,2));if(!r.ok)process.exit(1);

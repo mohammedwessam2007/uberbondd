@@ -1,0 +1,20 @@
+{
+  "schemaVersion":"uberbond.c21-breadth-thirteen-populations.v1",
+  "candidateRevision":"c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "generatedAfterSemanticsCommit":"a5ad30eb16095884cf9dd518a4bfd01d3ea66fba",
+  "populations":[
+    {"dimension":"novel problem solving","slug":"novel","seed":"c8f01ac7dc0ccf9632b2d065f8072fba77014ca98bc281e359216204f48e0252","taskPopulationHash":"c2dea2601a3b27e53e69be03eeb1f5ba7060c802097129f034463146dc324b4c","size":88,"queries":56,"families":3},
+    {"dimension":"scientific discovery","slug":"science","seed":"bca5ffb1772cf2bfb35f08ee0f48c45c4c496e9e031f972a430c317bcc40aef1","taskPopulationHash":"cb2dbfb2e9aafe33c6ba7103ed5e489248b30b391e153bb680e194f485f49480","size":88,"queries":56,"families":3},
+    {"dimension":"software engineering","slug":"software","seed":"024d8585361c68a4f3e47a9756d7a18b56efdd706fcf3115241f3c8869c7a115","taskPopulationHash":"ad97361767b8032374a590d20eda062317ae10c865deec63827c7848c79e6618","size":88,"queries":56,"families":3},
+    {"dimension":"mathematical reasoning","slug":"math","seed":"7b9ee86bbc625749ea468a392decc347e4d8bcb7e824bd5022c2e6d48c9280c7","taskPopulationHash":"c2e3e4118bb5f108441c638b4cc68b0b876c37021bd72330f0b22b4f7301d46c","size":88,"queries":56,"families":3},
+    {"dimension":"strategy","slug":"strategy","seed":"681c28f82e07eed9a7520aa85619a826a8f1d78b5ed93e6af5440c0a8f84a357","taskPopulationHash":"2d6e1985c3e8b90ed6a61006674563aa5bcce3bdcfd7fb825b091fc3067e64ce","size":88,"queries":56,"families":3},
+    {"dimension":"forecasting","slug":"forecasting","seed":"43d95e611f4ba1affbafaad6209c1c47412308df787d2557a5f1b867e51e151d","taskPopulationHash":"a20323d40a72e4b9cb92cb5385e7410c37b43722c75e3b0aaa0888ff0d362d7d","size":88,"queries":56,"families":3},
+    {"dimension":"world-model construction","slug":"world-model","seed":"9c6b3657257c9101c4902114788151e1735cbfe93e123a928d541b2bd0e95599","taskPopulationHash":"06d288fda9be1f8835ae2be8c22f18bc5ff327e8fd6a9ed23a2a52eacb66a626","size":88,"queries":56,"families":3},
+    {"dimension":"mechanism invention","slug":"mechanism","seed":"0c5ae74c12d9077499e8cc9b23682f64a58c14b657c91994c5cb77d7e871d7ad","taskPopulationHash":"3d7e895dab64166fb50acdb2f869b2878fc2b5cf85e821069bf584747458f15d","size":88,"queries":56,"families":3},
+    {"dimension":"economic reasoning","slug":"economic","seed":"41bf584d51e196e03b4bb1e93b7d2e75357f47f526579fb728a6c266db441db6","taskPopulationHash":"daed3ef445e4bd6344fd4c28ce993397c81e2c99c79898aff8a42c5f33b4654f","size":88,"queries":56,"families":3},
+    {"dimension":"learning from sparse evidence","slug":"sparse","seed":"ff7d147e9398be74c0fb267221f5f4323209858e551cde3063b4689f89aeeafd","taskPopulationHash":"dbd99eda1e3d0c1e57394f1f45f7de5ccdd218c3f4daac00a0adcfe3d57f1508","size":88,"queries":56,"families":3},
+    {"dimension":"capability acquisition","slug":"acquisition","seed":"dab90b008be21b534d7673df46fb0f872e1f6f6ba9e7ae74951f26da14ee3a9d","taskPopulationHash":"c67dd22e9233f6d80cc980ec504368cfd401a8d0fbb1c620480086cd1deacb46","size":88,"queries":56,"families":3},
+    {"dimension":"autonomous recovery","slug":"recovery","seed":"b3bb5c57228caece295fe7ae3d003e4c8f627c5f323bc1c62fdeb6027ef61e24","taskPopulationHash":"1e928e5e606a0cf81500f008b8cb038731f1cd07ac40a8a08b09f12008301d0f","size":88,"queries":56,"families":3},
+    {"dimension":"tool invention","slug":"tool-invention","seed":"30d14bad09920ddfc632944742dc6b1b37810a6d67ed1e66b9948887cba4583c","taskPopulationHash":"e90e2ae032730e9d59577525ce97f62e8c4fc6ade343ed89a55813eb071d674a","size":88,"queries":56,"families":3}
+  ]
+}

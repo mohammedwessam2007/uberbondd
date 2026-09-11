@@ -1,0 +1,13 @@
+{
+  "schemaVersion":"uberbond.c21-d1-observed-summary.v1",
+  "candidateId":"UBERBOND_WHOLE_SYSTEM_C21_20260911",
+  "candidateRevision":"c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "baselineRevision":"2f0dbdbcd7a7a17fd3d491aad8b2cdf943c8fd34",
+  "contractDigest":"90a0b5ce42e1e404aaad39eb39f991b7f0bb5022dbf498aa71fd8181c5efe0e8",
+  "taskPopulationHash":"49901049facbfa7114717d2df17d7315c2202b126cd4fbf8fedbc74146c306be",
+  "semanticIdentity":{"search":true,"build":true,"topology":true},
+  "evaluation":{"ok":true,"status":"C21_SELF_IMPROVEMENT_TRANSFER_SUPPORTED","supported":true,"robustImprovedFamilies":3,"requiredRobustImprovedFamilies":2,"families":[{"familyId":"MILLION_WORMHOLE_GLOBAL_PRIOR_TOPK","candidateScore":0.9999674731112113,"speedup":15371.89748601635,"low":0.9999658163475938,"high":0.9999698219647285},{"familyId":"OPPORTUNITY_BUILD_DISTANCE_BATCH","candidateScore":0.9862628049478659,"speedup":36.397532254761416,"low":0.985304537985159,"high":0.9874650225258536},{"familyId":"CAPABILITY_GRAPH_TOPOLOGY_BATCH","candidateScore":0.9975087771752672,"speedup":200.70464794879254,"low":0.9968515311280193,"high":0.9985906640645532}]},
+  "secondLanguageVerifier":{"runtime":"python3","checksPassed":7,"checksTotal":7,"rawObservedSha256":"a19e623561c0c7cc4eed48b2b154f5cd82fd58b73e38cd2f44675a4242d6f206"},
+  "externalEffectLedger":{"customerMessages":0,"providerCalls":0,"spendCents":0,"deployments":0,"dnsChanges":0,"credentialChanges":0,"paymentMutations":0,"productionMutations":0},
+  "asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
+}

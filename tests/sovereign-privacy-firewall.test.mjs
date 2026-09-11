@@ -6,6 +6,7 @@ import {
   externalArtifactSha256,
   assertSovereignPrivacyForExternalMessage
 } from '../src/sovereign-privacy-firewall.mjs';
+import { sendEmail } from '../src/gmail.mjs';
 
 const clean = {
   from:'Mohamed <sales@example.com>',
@@ -52,4 +53,19 @@ test('declassification is exact recipient and exact artifact bound', () => {
   assert.equal(evaluateSovereignPrivacyFirewall({ message, declassificationReceipt:receipt }).ok, true);
   assert.equal(evaluateSovereignPrivacyFirewall({ message:{...message,to:'other@example.org'}, declassificationReceipt:receipt }).ok, false);
   assert.equal(evaluateSovereignPrivacyFirewall({ message:{...message,body:'I build UberBond. Public repo: https://github.com/mohammedwessam2007/uberbondd'}, declassificationReceipt:receipt }).ok, false);
+});
+
+test('Gmail provider boundary denies private material before auth or network access', async () => {
+  let networkCalls = 0;
+  const cfg = { fetchImpl: async () => { networkCalls += 1; throw new Error('network must not be reached'); } };
+  await assert.rejects(
+    () => sendEmail(cfg, {}, 'unused', {
+      from:'UberBond <sales@example.com>',
+      to:'prospect@example.org',
+      subject:'Public code',
+      body:'See https://github.com/mohammedwessam2007/uberbondd'
+    }),
+    error => error.code === 'SOVEREIGN_PRIVACY_FIREWALL_DENY'
+  );
+  assert.equal(networkCalls, 0);
 });

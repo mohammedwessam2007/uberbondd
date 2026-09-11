@@ -31,6 +31,19 @@ if (!command.length) {
   process.exit(2);
 }
 
+// Some cloud runners advertise UTF-8 locales that are not actually installed.
+// initdb refuses those settings before any database exists. POSIX C is always
+// available and is sufficient for this disposable test fixture, so make the
+// embedded server launch deterministic instead of inheriting runner locale drift.
+const POSTGRES_LOCALE_ENV = Object.freeze({
+  LANG: 'C',
+  LC_ALL: 'C',
+  LC_CTYPE: 'C',
+  LC_MESSAGES: 'C',
+  LC_COLLATE: 'C'
+});
+Object.assign(process.env, POSTGRES_LOCALE_ENV);
+
 const root = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-real-postgres-'));
 await fs.chmod(root, 0o777);
 const databaseDir = path.join(root, 'db');
@@ -78,6 +91,7 @@ try {
     stdio: 'inherit',
     env: {
       ...process.env,
+      ...POSTGRES_LOCALE_ENV,
       OMNIA_V9_TEST_DATABASE_URL: databaseUrl,
       // DATABASE_URL as well, so `npm run db:migrate` and `npm run db:import-json`
       // work through this harness -- both read that variable and nothing else.

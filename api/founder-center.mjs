@@ -273,6 +273,7 @@ async function defaultEconomicContext(env = process.env) {
 
 function normalizedMissionReceipt(mission) {
   return {
+    ok: true,
     missionId: mission.missionId,
     policyVersion: mission.policyVersion,
     missionClass: mission.missionClass,
@@ -377,11 +378,22 @@ export async function startEconomicOutcomeMission({
       jobFailures.push({ type:job.type, reason:boundedText(error?.message,160) || 'enqueue-failed' });
     }
   }
+  let supervisorJob = null;
+  try {
+    const nextAt = new Date(now.getTime() + 60_000);
+    supervisorJob = await context.queue.enqueue('founder.outcome.mission.pulse', { missionId:mission.missionId }, {
+      runAt:nextAt, maxAttempts:3, priority:110,
+      dedupeKey:`founder-center:${mission.missionId}:supervisor:${Math.floor(nextAt.getTime()/60_000)}`
+    });
+  } catch (error) {
+    jobFailures.push({ type:'founder.outcome.mission.pulse', reason:boundedText(error?.message,160) || 'supervisor-enqueue-failed' });
+  }
   try {
     await context.store.log('founder_outcome_mission_dispatch', {
       missionId:mission.missionId,
       deadlineAt:mission.deadlineAt,
       jobsQueued:jobsQueued.map(job => ({ type:job.type, jobId:job.jobId })),
+      supervisorJobId:supervisorJob?.id || null,
       jobFailures,
       terminal:false,
       externalEffectLedger:{ ...ZERO_EFFECTS }
@@ -391,7 +403,7 @@ export async function startEconomicOutcomeMission({
   return {
     recognized:true,
     ok:jobsQueued.length > 0,
-    status:jobsQueued.length > 0 ? 'FOUNDER_OUTCOME_MISSION_ACTIVE' : 'FOUNDER_OUTCOME_MISSION_EXECUTION_BLOCKED',
+    status:(jobsQueued.length > 0 || supervisorJob) ? 'FOUNDER_OUTCOME_MISSION_ACTIVE' : 'FOUNDER_OUTCOME_MISSION_EXECUTION_BLOCKED',
     missionId:mission.missionId,
     startedAt:mission.startedAt,
     deadlineAt:mission.deadlineAt,
@@ -400,8 +412,9 @@ export async function startEconomicOutcomeMission({
     terminalResultAllowed:false,
     currentClearedContributionProfit:'PENDING_PROVIDER_OBSERVATION',
     jobsQueued,
+    supervisorJobId:supervisorJob?.id || null,
     jobFailures,
-    answer: jobsQueued.length > 0
+    answer: (jobsQueued.length > 0 || supervisorJob)
       ? `Mission ACTIVE until ${mission.deadlineAt}. I have dispatched the first economic pulse into UberBond's durable worker queue. I will not call the result $0 before the deadline, and unread payment state will remain UNKNOWN rather than being converted to zero.`
       : 'Mission recognized, but the deployed runtime could not dispatch any economic jobs. This is an execution blocker, not a terminal revenue result.',
     truthBoundary:'A queued economic job is an execution attempt, not proof of outreach, payment, customer acceptance, or revenue. Existing provider and consequence gates still decide every real-world effect.',

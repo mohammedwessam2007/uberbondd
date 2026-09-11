@@ -62,6 +62,16 @@ const manifestByName=new Map(manifest.map(entry=>[norm(entry.concept),entry]));
 function testTitles(paths=[]){const titles=[];for(const path of paths){const body=safeRead(path);for(const match of body.matchAll(/\btest\s*\(\s*(['"`])([^'"`]+)\1/g))titles.push(`${path}#${match[2].trim()}`);}return[...new Set(titles)];}
 function exportsFor(paths=[]){const refs=[];for(const path of paths){const body=safeRead(path);for(const match of body.matchAll(/\bexport\s+(?:async\s+)?(?:function|class|const|let|var)\s+([A-Za-z_$][\w$]*)/g))refs.push(`${path}#${match[1]}`);}return[...new Set(refs)];}
 function callersFor(paths=[]){const refs=[];for(const source of paths){const target=basename(source);for(const [candidate,body] of implementationBodies){if(candidate===source)continue;if(body.includes(target))refs.push(candidate);}if(source.startsWith('scripts/')||source.startsWith('api/'))refs.push(`ENTRYPOINT:${source}`);}return[...new Set(refs)];}
+function boundedEvidenceRefs(refs=[],maxChars=1800,maxItems=8){
+  const out=[];let used=0;
+  for(const ref of [...new Set(refs)]){
+    const item=String(ref||'').trim();if(!item)continue;
+    const next=used+(out.length?3:0)+item.length;
+    if(next>maxChars||out.length>=maxItems)break;
+    out.push(item);used=next;
+  }
+  return out;
+}
 function buildContract(row){
   const requirementClass=inferSemanticRequirementClass(row,null),meaning=meaningFor(row);
   if(requirementClass==='STRUCTURAL_CONSTITUTION')return{requirementId:row.canonicalId,requirementClass,meaning,structuralRationale:`${row.class||'STRUCTURAL'} is a canonical structure/classification whose executable descendants carry behavior; this row itself must not manufacture implementation credit.`,implementationClaim:false,externalEvidenceRequirement:'NONE_FOR_STRUCTURAL_CONSTITUTION'};
@@ -69,7 +79,7 @@ function buildContract(row){
   if(requirementClass==='ELAPSED')return{requirementId:row.canonicalId,requirementClass,meaning,implementationClaim:false,externalEvidenceRequirement:'Real elapsed-time longitudinal observation is required; clocks, fixtures and source merges cannot manufacture it.'};
   const names=row.literalNames||[],entry=names.map(n=>manifestByName.get(norm(n))).find(Boolean)||null;
   const sourceRefs=[...(row.currentEvidence?.sourceModules||[])],testRefs=[...(row.currentEvidence?.testModules||[])],titles=testTitles(testRefs),sourceText=sourceRefs.map(path=>safeRead(path)).join('\n');
-  const hostile=titles.filter(isHostileTestTitle);const recovery=titles.filter(isRecoveryTestTitle);
+  const hostile=titles.filter(isHostileTestTitle);const recovery=titles.filter(isRecoveryTestTitle);const boundedRecovery=boundedEvidenceRefs(recovery);
   return{
     requirementId:row.canonicalId,requirementClass,meaning,
     inputRefs:exportsFor(sourceRefs),
@@ -78,7 +88,7 @@ function buildContract(row){
     callerRefs:callersFor(sourceRefs),
     stateRefs:[`coverage-state:${row.currentState}`,row.currentEvidence?.reachability?`reachability:${row.currentEvidence.reachability}`:null].filter(Boolean),
     sourceRefs,testRefs,hostileFalsifiers:hostile,
-    recoveryBehavior:recovery.length?recovery.join(' | '):(!hasConcreteRecoverySurface(sourceText)?'NOT_APPLICABLE__STATIC_ANALYSIS_FOUND_NO_CONCRETE_STATEFUL_OR_LONG_RUNNING_SURFACE':null),
+    recoveryBehavior:boundedRecovery.length?boundedRecovery.join(' | '):(!hasConcreteRecoverySurface(sourceText)?'NOT_APPLICABLE__STATIC_ANALYSIS_FOUND_NO_CONCRETE_STATEFUL_OR_LONG_RUNNING_SURFACE':null),
     runtimeEvidenceRequirement:row.currentEvidence?.reachability==='PRODUCTION'?'EXACT_CURRENT_SOURCE_PRODUCTION_EXECUTION_REQUIRED':row.currentEvidence?.reachability==='OPERATOR_ONLY'?'EXACT_CURRENT_SOURCE_OPERATOR_EXECUTION_REQUIRED':'EXACT_CURRENT_SOURCE_EXECUTION_AND_REACHABILITY_PROOF_REQUIRED',
     externalEvidenceRequirement:'NONE_FOR_INTERNAL_BEHAVIOR__EXTERNAL_OR_OUTCOME_CLAIMS_REMAIN_SEPARATE',
     implementationClaim:true
@@ -104,7 +114,7 @@ const semanticCoverage=bindVerifiedEnforcementEvidence({coverage,enforcementEntr
 const contracts=(semanticCoverage.rows||[]).map(buildContract);
 const tribunal=compileSemanticRequirementTribunal({coverage:semanticCoverage,contracts});
 const diagnostics=summarizeInvalidContracts(tribunal.invalidContracts||[]);
-const output={...tribunal,contracts,diagnostics,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Verified enforcement declarations may carry their already-admitted source/test evidence into ENFORCED_BY_CODE semantic rows; negative-invariant classification can recognize only test titles already bound to the row. Neither mechanism can grant state, bind unrelated tests, widen authority, or turn source/test presence into runtime/external truth.'};
+const output={...tribunal,contracts,diagnostics,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Verified enforcement declarations may carry their already-admitted source/test evidence into ENFORCED_BY_CODE semantic rows; negative-invariant classification can recognize only test titles already bound to the row. Recovery evidence is selected as a bounded set of whole bound test references so large suites cannot overflow the semantic contract field. Neither mechanism can grant state, bind unrelated tests, widen authority, or turn source/test presence into runtime/external truth.'};
 mkdirSync(join(root,'artifacts/sovereign'),{recursive:true});writeFileSync(join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'),`${JSON.stringify(output,null,2)}\n`,'utf8');
 console.log(JSON.stringify({ok:tribunal.ok,status:tribunal.status,counts:tribunal.counts,semanticOrphans:tribunal.semanticOrphans?.length||0,floatingContracts:tribunal.floatingContracts?.length||0,invalidContracts:tribunal.invalidContracts?.length||0,...diagnostics,output:'artifacts/sovereign/semantic-requirement-tribunal.json'},null,2));
 if(!tribunal.ok)process.exitCode=2;

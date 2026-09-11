@@ -21,6 +21,11 @@ const steps = [
   // This test gate grants no implementation, authority, privacy, runtime,
   // commercial, provider, personal-reality, or ASI status.
   ['node', ['--test', 'tests/sovereign-short-field-parent-coverage.test.mjs']],
+  // The source-list semantic types feed the same exact terminal denominator.
+  // Prove conceptual donors remain preserved, human evaluation criteria remain
+  // structural, and genuine supporting cognitive systems remain finite before
+  // terminal realization consumes the regenerated matrix.
+  ['node', ['--test', 'tests/sovereign-coverage-source-semantics.test.mjs']],
   // The founder Communication Center is the human-to-sovereign boundary. Parse
   // and execute its focused contracts before terminal realization so an unrelated
   // semantic backlog cannot hide a dialogue/history/auth regression.
@@ -101,6 +106,7 @@ console.log(JSON.stringify({
   exactCheckoutReadinessBeforeDeterministic: true,
   nativeSovereignWorkerHostileGateRequired: true,
   semanticEnforcementEvidenceGateRequired: true,
+  coverageSourceSemanticsGateRequired: true,
   sandwichMethodFocusedGateRequired: true,
   sandwichEvidenceBindingGateRequired: true,
   sandwichAgentTaskBridgeGateRequired: true,

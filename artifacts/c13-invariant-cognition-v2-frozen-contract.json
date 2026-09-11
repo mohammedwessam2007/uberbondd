@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.c13-invariant-cognition-contract.v2",
+  "frozenBeforeCandidate": true,
+  "baselineRevision": "e0e5d1fcbd4407a88a121c02abcf716121afc4ae",
+  "currentSystemRevision": "e0e5d1fcbd4407a88a121c02abcf716121afc4ae",
+  "experimentId": "C13_INVARIANT_COGNITION_TRANSFER_V2_EXACT_MAIN",
+  "candidateClass": "INVARIANT_COGNITION_COMPILATION",
+  "privateTaskPopulationSha256": "e89e2e8935a6b7477cb0acc9a854914230e5a28f14dabb5efd9d43b3fabeb1ee",
+  "taskPopulationDisclosure": "PRIVATE_UNTIL_AFTER_CANDIDATE_FREEZE",
+  "families": [
+    {"id":"MILLION_WORMHOLE_TOPK","hiddenCases":24,"criterion":"exact ordered identity plus latency gain"},
+    {"id":"OPPORTUNITY_BUILD_DISTANCE","hiddenCases":96,"criterion":"exact semantic identity plus latency gain"},
+    {"id":"ORCHESTRATION_STATIC_TOPOLOGY","hiddenCases":160,"criterion":"exact topology identity plus latency gain"}
+  ],
+  "matchedBudget": {"wallTimeBudgetMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"externalTools":"NONE"},
+  "minimumMeaningfulGain": 0.05,
+  "requiredRobustImprovedFamilies": 2,
+  "familyRegressionTolerance": 0,
+  "protectedGateRegressionTolerance": 0,
+  "requiredLatencyRounds": 21,
+  "bootstrapSamples": 10000,
+  "freshContextRetentionRequired": true,
+  "crossDomainTransferRequired": true,
+  "independentEvaluator": {
+    "id":"C13_INVARIANT_EVALUATOR_V2_EXACT_MAIN",
+    "lineageRef":"lineage:independent:c13-invariant-evaluator-v2-exact-main",
+    "rubricOwner":"EVALUATOR_PREDECLARED"
+  },
+  "independentVerifier": {
+    "id":"C13_INVARIANT_SECOND_LANGUAGE_VERIFIER_V2",
+    "lineageRef":"lineage:independent:c13-python-verifier-v2"
+  },
+  "authority": {"promotionAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"},
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary": "FROZEN_EVALUATION_CONTRACT_ONLY__NO_CAPABILITY_OR_ASI_CLAIM"
+}

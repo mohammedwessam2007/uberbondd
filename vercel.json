@@ -1,43 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/vercel-command-center-build.mjs",
+  "buildCommand": "node -e \"console.log('UBERCEL_TERMINAL_CELL_READY')\"",
   "functions": {
-    "api/agent-relay.mjs": { "maxDuration": 60 },
-    "api/agent-mesh-cron.mjs": { "maxDuration": 60 },
-    "api/self-maintainer-proposal.mjs": { "maxDuration": 60 },
-    "api/database-maintenance.mjs": { "maxDuration": 60 },
-    "api/webhooks/billing.mjs": { "maxDuration": 30 },
-    "api/admin/health-check.mjs": { "maxDuration": 30 },
-    "api/founder-ops.mjs": { "maxDuration": 30 },
     "api/founder-center.mjs": {
       "maxDuration": 60,
       "includeFiles": "{NORTH_STAR.md,docs/CURRENT_HANDOFF.json,UBERBOND_BOOTSTRAP.json}"
-    },
-    "api/command-center.mjs": {
-      "maxDuration": 30,
-      "includeFiles": "{config/frontier-model-candidates.json,artifacts/perpetual-frontier-implementation-ledger.json,artifacts/uberbond-*-latest.json,artifacts/cognitive/*-latest.json}"
-    },
-    "api/ultimate-graph.mjs": {
-      "maxDuration": 30,
-      "includeFiles": "artifacts/cognitive/uberbond-ultimate-graph-latest.json"
     }
   },
-  "rewrites": [
-    { "source": "/", "destination": "/uberbond.html" },
-    { "source": "/uberbond", "destination": "/uberbond.html" },
-    { "source": "/center", "destination": "/center.html" },
-    { "source": "/ops", "destination": "/ops.html" }
-  ],
-  "crons": [
-    {
-      "path": "/api/agent-mesh-cron",
-      "schedule": "17 12 * * *"
-    },
-    {
-      "path": "/api/database-maintenance",
-      "schedule": "37 2 * * 0"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",

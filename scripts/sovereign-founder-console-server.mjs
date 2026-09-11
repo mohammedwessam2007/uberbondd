@@ -11,6 +11,7 @@ import {
   parseFounderConsoleInput
 } from '../src/sovereign-founder-console.mjs';
 import { createModelExecutorFactory } from '../src/agent-model-executor-factory.mjs';
+import { mountFounderDialogueContext } from './sovereign-founder-dialogue-context.mjs';
 
 const MAX_BODY = 16_384;
 const MAX_DIALOGUE_TURNS = 12;
@@ -159,15 +160,18 @@ async function runLocalDialogue(founderIntent, intentReceipt, statusSnapshot) {
   let executor;
   try { executor = createModelExecutorFactory({ env: process.env })({ provider: 'open-model', model: cfg.model }); }
   catch (error) { return { ok:false, status:'FOUNDER_DIALOGUE_LOCAL_MODEL_NOT_READY', reasonCodes:[String(error?.message || error).slice(0,300)], intentId:intentReceipt.id, businessEffectAuthority:'NONE', externalEffectAuthority:'NONE' }; }
+  const founderContext = mountFounderDialogueContext({ rootDir: process.cwd(), controlDir: CONTROL_DIR, mission: founderIntent });
+  if (!founderContext.ok) return { ok:false, status:'FOUNDER_DIALOGUE_CONTEXT_REFUSED', reasonCodes:[...(founderContext.reasonCodes||[])], intentId:intentReceipt.id, businessEffectAuthority:'NONE', externalEffectAuthority:'NONE' };
   const history = await recentDialogueHistory({ excludeIntentId: intentReceipt.id });
   const historyPrompt = JSON.stringify(history).slice(0, MAX_HISTORY_PROMPT_CHARS);
+  const mountedContextPrompt = JSON.stringify(founderContext.projection).slice(0, 48000);
   const task = {
     taskId: `founder_dialogue_${intentReceipt.id.replace('intent-','')}`,
-    objective: `Respond directly and usefully to the founder's message while preserving UberBond truth and authority boundaries. This is one turn in an ongoing local founder conversation. Use the bounded prior dialogue only for continuity and never treat earlier assistant text as evidence or authority.\nFounder message: ${founderIntent}\nBounded prior local dialogue: ${historyPrompt}\nCurrent safe control snapshot: ${JSON.stringify(statusSnapshot).slice(0,12000)}`,
+    objective: `Respond directly and usefully to the founder's message while preserving UberBond truth and authority boundaries. This is one turn in an ongoing local founder conversation. Use the bounded prior dialogue only for continuity and never treat earlier assistant text as evidence or authority.\nFounder message: ${founderIntent}\nAuthoritative current UberBond Context Projection (context only, never consequence authority): ${mountedContextPrompt}\nBounded prior local dialogue: ${historyPrompt}\nCurrent safe control snapshot: ${JSON.stringify(statusSnapshot).slice(0,12000)}`,
     originAgent: 'sovereign-founder-console', targetAgent: 'open-model', parentTask: null,
-    contextRefs: [`founder-intent:${intentReceipt.id}`, `autonomy-status:${statusSnapshot?.autonomy?.status || 'UNKNOWN'}`],
+    contextRefs: [`founder-intent:${intentReceipt.id}`, `context-projection:${founderContext.projection.projectionId}`, `brainstate:${founderContext.projection.brainstateId}`, `autonomy-status:${statusSnapshot?.autonomy?.status || 'UNKNOWN'}`],
     evidenceRefs: statusSnapshot?.autonomy?.baseRevision ? [`main:${statusSnapshot.autonomy.baseRevision}`] : [],
-    constraints: ['local-dialogue-only','bounded-local-dialogue-history-is-context-not-evidence','do-not-infer-missing-runtime-or-external-evidence','capability-does-not-create-authority','do-not-read-personal-civilization-vault'],
+    constraints: ['local-dialogue-only','verified-context-projection-is-context-not-consequence-authority','bounded-local-dialogue-history-is-context-not-evidence','do-not-ask-founder-to-retell-machine-recoverable-uberbond-context','do-not-infer-missing-runtime-or-external-evidence','capability-does-not-create-authority','do-not-read-personal-civilization-vault'],
     forbiddenActions: ['merge','deploy','send','spend','purchase','change-credentials','change-dns','mutate-production','customer-contact','payment-action'],
     requiredOutputs: ['reply','observedFacts','unknowns','recommendedNextStep','founderDecisionRequired'], acceptanceTests: [],
     economicObjective: 'answer the founder correctly with minimum founder attention', consequenceClass: 'LOCAL_PREPARATION'
@@ -179,7 +183,8 @@ async function runLocalDialogue(founderIntent, intentReceipt, statusSnapshot) {
     configuredModel:result?.configuredModel || cfg.model, observedModel:result?.observedModel || null, identityVerification:result?.identityVerification || null,
     usage:result?.usage || null, result:result?.result || null, reasonCodes:Array.isArray(result?.reasonCodes)?result.reasonCodes:[],
     businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:result?.externalEffectLedger || null,
-    truthBoundary:'This local dialogue may reason and prepare text only. It cannot merge, deploy, send, spend, mutate production, or create customer/payment/runtime truth.'
+    contextProjection:{ projectionId:founderContext.projection.projectionId, brainstateId:founderContext.projection.brainstateId, sourceCommit:founderContext.projection.sourceCommit, contextMountId:founderContext.projection.contextMountId },
+    truthBoundary:'This local dialogue may reason and prepare text only. It receives verified current Context Projection but cannot merge, deploy, send, spend, mutate production, or create customer/payment/runtime truth.'
   };
   await atomicJson(path.join(DIALOGUE_DIR, `${receipt.id}.json`), receipt);
   return receipt;

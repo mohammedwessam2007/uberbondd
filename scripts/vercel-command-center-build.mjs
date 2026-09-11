@@ -3,8 +3,12 @@ import { spawnSync } from 'node:child_process';
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
   ? [['npm', ['rebuild', '@embedded-postgres/linux-x64']], ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]]
   : [];
+const providerCallabilityCanary = process.env.VERCEL_GIT_COMMIT_REF === 'provider-callability-canary-v1'
+  ? [['node', ['scripts/provider-callability-canary.mjs']]]
+  : [];
 
 const steps = [
+  ...providerCallabilityCanary,
   ...fixturePreparation,
   ['node', ['--test', 'tests/sovereign-native-local-worker.test.mjs']],
   ['node', ['--test', 'tests/semantic-enforcement-evidence.test.mjs']],

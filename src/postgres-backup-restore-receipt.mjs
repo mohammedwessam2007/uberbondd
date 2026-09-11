@@ -38,6 +38,7 @@ export function compilePostgresBackupRestoreReceipt(input = {}) {
   const reasons = [];
   const sourceCommit = text(input.sourceCommit, 40)?.toLowerCase() || null;
   const environment = String(input.environment || '').toUpperCase();
+  const evidenceClass = String(input.evidenceClass || '').toUpperCase();
   const primaryDatabaseIdentity = text(input.primaryDatabaseIdentity);
   const restoreDatabaseIdentity = text(input.restoreDatabaseIdentity);
   const backupDigest = text(input.backupDigest, 80)?.toLowerCase() || null;
@@ -74,7 +75,7 @@ export function compilePostgresBackupRestoreReceipt(input = {}) {
   if (!rollbackRef) reasons.push('restore-rollback-reference-required');
   if (!evidenceRef) reasons.push('observed-evidence-reference-required');
   if (!observerRef) reasons.push('observer-reference-required');
-  if (input.evidenceClass !== 'OBSERVED_RUNTIME') reasons.push('observed-runtime-evidence-class-required');
+  if (evidenceClass !== 'OBSERVED_RUNTIME') reasons.push('observed-runtime-evidence-class-required');
   if (input.businessEffectAuthority && input.businessEffectAuthority !== 'NONE') reasons.push('restore-rehearsal-cannot-create-business-authority');
 
   if (reasons.length) return fail(reasons, { sourceCommit });
@@ -83,10 +84,13 @@ export function compilePostgresBackupRestoreReceipt(input = {}) {
   const receiptCore = {
     sourceCommit,
     environment,
+    evidenceClass,
     primaryDatabaseIdentity,
     restoreDatabaseIdentity,
     backupDigest,
     dumpBytes,
+    dumpExitCode,
+    restoreExitCode,
     sourceFingerprint,
     restoreFingerprint,
     schemaMigrationsMatch: true,

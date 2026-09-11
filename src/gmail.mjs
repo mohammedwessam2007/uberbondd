@@ -1,4 +1,5 @@
 import { encryptJson, decryptJson } from './crypto.mjs';
+import { assertSovereignPrivacyForExternalMessage } from './sovereign-privacy-firewall.mjs';
 
 const scopes = ['https://www.googleapis.com/auth/gmail.readonly','https://www.googleapis.com/auth/gmail.send'];
 export function googleAuthUrl(cfg, state) {
@@ -40,6 +41,7 @@ async function gmail(cfg, account, key, path, options={}) {
 const b64url = s => Buffer.from(s).toString('base64url');
 export async function getProfile(cfg, account, key) { return gmail(cfg,account,key,'profile'); }
 export async function sendEmail(cfg, account, key, message) {
+  assertSovereignPrivacyForExternalMessage(message);
   const headers = [`From: ${message.from}`,`To: ${message.to}`,`Subject: ${message.subject}`,'MIME-Version: 1.0','Content-Type: text/plain; charset="UTF-8"'];
   // Caller-supplied Message-ID (opt-in, additive): when provided, this exact
   // value is sent verbatim instead of leaving Gmail to generate its own --

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "uberbond.provider-callability-canary-trigger.v1",
+  "armedAt": "2026-09-11T14:20:00Z",
+  "branch": "provider-callability-canary-v1",
+  "purpose": "Force an exact-head Vercel preview after the branch-only AI Gateway canary hook was installed.",
+  "spendAuthority": "FREE_MODEL_ONLY",
+  "businessEffectAuthority": "NONE"
+}

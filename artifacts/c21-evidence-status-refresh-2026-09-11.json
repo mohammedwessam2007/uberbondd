@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "uberbond.c21-evidence-status-refresh.v1",
+  "observedAt": "2026-09-11T16:55:00Z",
+  "candidateRevision": "ca6847da1fa317c9deefbcea0be82206ea09516f",
+  "campaignArtifact": "artifacts/c21-evidence-campaign-2026-09-11.json",
+  "latestObservedBenchmark": {
+    "artifact": "artifacts/c21-calibrated-ignorance-result-v2.json",
+    "mergeCommit": "1e9b3e63da307840cb753c171744d988eccea38e",
+    "dimension": "calibrated refusal and ignorance detection",
+    "baselineScore": 0.75,
+    "candidateScore": 1.0,
+    "absoluteGain": 0.25,
+    "independentBlindJudgeLineages": 3,
+    "unsupportedClaims": 0,
+    "frozenExperimentVerdict": "PASS",
+    "canonicalC13Status": "NOT_ESTABLISHED",
+    "countsAsAuthenticatedC21Dimension": false,
+    "nonPromotionReason": "Only one of four task families showed positive gain; canonical C13 requires interval-robust meaningful gain across at least two thirds of evaluated families."
+  },
+  "counts": {
+    "requiredDimensions": 20,
+    "authenticatedObservedDimensions": 0,
+    "experimentalPrecursors": 1,
+    "missingDimensions": 20,
+    "missingCriticalDimensions": 7
+  },
+  "authenticatedObservedDimensions": [],
+  "experimentalPrecursors": [
+    "calibrated refusal and ignorance detection"
+  ],
+  "nextHighestValueEvidenceNeed": "Run a frozen matched-budget observed C13 evaluation with at least three unique task families and interval-robust meaningful candidate gain in at least two thirds of families, followed by fresh-context retention and independent evaluator evidence. Prefer a critical dimension and do not reuse the calibrated-ignorance task population, evaluator record, C13 receipt, or verifier identity lineage.",
+  "evidenceStage": "SYSTEM_LEVEL_ASI_EVIDENCE_NOT_ESTABLISHED",
+  "asiStatus": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "promotionAuthority": "NONE",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  },
+  "truthBoundary": "THE_BLINDED_V2_BENCHMARK_IS_REAL_OBSERVED_EVIDENCE_AND_A_VALID_EXPERIMENTAL_PRECURSOR_BUT_IT_DOES_NOT_SATISFY_CANONICAL_C13_AND_MUST_NOT_COUNT_AS_A_C21_AUTHENTICATED_DIMENSION_OR_ASI_EVIDENCE"
+}

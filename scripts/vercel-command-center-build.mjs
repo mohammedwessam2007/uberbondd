@@ -26,6 +26,20 @@ const steps = [
   // structural, and genuine supporting cognitive systems remain finite before
   // terminal realization consumes the regenerated matrix.
   ['node', ['--test', 'tests/sovereign-coverage-source-semantics.test.mjs']],
+  // PR #703 resurrection gate. These are the near-term civilization organs plus
+  // the provider-independent UberCloud and the Uber sovereign-stack truth audit.
+  // Run them before terminal realization so the known semantic residue cannot
+  // masquerade as evidence that these new source contracts were exercised.
+  ['node', ['--test',
+    'tests/knowledge-labyrinth-ubergraph.test.mjs',
+    'tests/ubermind-cognitive-exchange.test.mjs',
+    'tests/uberdna-software-genome.test.mjs',
+    'tests/sovereign-compute-cell-fabric.test.mjs',
+    'tests/economic-metabolism.test.mjs',
+    'tests/ubercloud-sovereign-fabric.test.mjs',
+    'tests/uber-sovereign-stack.test.mjs'
+  ]],
+  ['node', ['scripts/supporting-civilization-organs-doctor.mjs']],
   // The founder Communication Center is the human-to-sovereign boundary. Parse
   // and execute its focused contracts before terminal realization so an unrelated
   // semantic backlog cannot hide a dialogue/history/auth regression.
@@ -107,6 +121,9 @@ console.log(JSON.stringify({
   nativeSovereignWorkerHostileGateRequired: true,
   semanticEnforcementEvidenceGateRequired: true,
   coverageSourceSemanticsGateRequired: true,
+  supportingCivilizationOrgansGateRequired: true,
+  uberCloudSovereigntyGateRequired: true,
+  uberSovereignStackGateRequired: true,
   sandwichMethodFocusedGateRequired: true,
   sandwichEvidenceBindingGateRequired: true,
   sandwichAgentTaskBridgeGateRequired: true,

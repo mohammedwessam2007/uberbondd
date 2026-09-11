@@ -8,12 +8,13 @@ import { mountSovereignContext } from './sovereign-context-mount.mjs';
 import { migrateContextJournalToLayeredStore } from './sovereign-context-journal-migrate.mjs';
 import { compactContextJournalLayeredStore } from './sovereign-context-journal-compact.mjs';
 
-export const SOVEREIGN_CONTEXT_SYNC_VERSION='sovereign-context-sync-2.0.0';
+export const SOVEREIGN_CONTEXT_SYNC_VERSION='sovereign-context-sync-2.0.1';
 function zeroEffects(){return structuredClone(ZERO_EXTERNAL_EFFECTS);}
 function fail(reasonCodes,status='CONTEXT_SYNC_REFUSED',extra={}){return{ok:false,syncVersion:SOVEREIGN_CONTEXT_SYNC_VERSION,status,reasonCodes:[...new Set((reasonCodes||[]).filter(Boolean))],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),...extra};}
 function lastCheckpoint(entries=[]){for(let index=entries.length-1;index>=0;index-=1){const entry=entries[index];if(entry?.event?.kind==='CONTEXT_CHECKPOINT'&&entry?.event?.subjectType==='BRAINSTATE')return entry;}return null;}
 function boundedThreshold(value,fallback){const number=Number(value??fallback);return Number.isSafeInteger(number)&&number>=1&&number<=50000?number:null;}
 function maintenance({journalPath,layeredStorePath,journal,migrateAt,compactAt,generatedAt}){
+  if(journal.storageMode==='LAYERED_ARCHIVE_TAIL'&&journal.downgradeProtected!==true){const result=migrateContextJournalToLayeredStore({journalPath,layeredStorePath,activatedAt:generatedAt});if(result.ok){const rebound=readContextJournalRuntime({journalPath,layeredStorePath});return{ok:rebound.ok,status:'CONTEXT_MAINTENANCE_LAYERED_HARDENED',result,rebound};}return{ok:false,status:'CONTEXT_MAINTENANCE_HARDENING_FAILED',result,rebound:journal};}
   if(journal.storageMode==='LEGACY_JSONL'&&journal.entryCount>=migrateAt){const result=migrateContextJournalToLayeredStore({journalPath,layeredStorePath,activatedAt:generatedAt});if(result.ok){const rebound=readContextJournalRuntime({journalPath,layeredStorePath});return{ok:rebound.ok,status:result.status,result,rebound};}if(result.status==='CONTEXT_JOURNAL_MIGRATION_BUSY')return{ok:true,status:'CONTEXT_MAINTENANCE_DEFERRED_BUSY',result,rebound:journal};return{ok:false,status:'CONTEXT_MAINTENANCE_MIGRATION_FAILED',result,rebound:journal};}
   if(journal.storageMode==='LAYERED_ARCHIVE_TAIL'&&journal.tailEntryCount>=compactAt){const result=compactContextJournalLayeredStore({journalPath,layeredStorePath,activatedAt:generatedAt});if(result.ok){const rebound=readContextJournalRuntime({journalPath,layeredStorePath});return{ok:rebound.ok,status:result.status,result,rebound};}if(result.status==='CONTEXT_JOURNAL_COMPACTION_BUSY')return{ok:true,status:'CONTEXT_MAINTENANCE_DEFERRED_BUSY',result,rebound:journal};return{ok:false,status:'CONTEXT_MAINTENANCE_COMPACTION_FAILED',result,rebound:journal};}
   return{ok:true,status:'CONTEXT_MAINTENANCE_NOT_NEEDED',result:null,rebound:journal};

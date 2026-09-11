@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+umask 077
+CONFIG="${UBERBOND_AUTHOR_CONFIG:-/etc/uberbond/authoring.env}"
+[[ -f "$CONFIG" && ! -L "$CONFIG" ]] || { echo "REFUSED: regular authoring config required" >&2; exit 2; }
+# shellcheck disable=SC1090
+source "$CONFIG"
+NODE_CONFIGURED="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
+NODE="$(realpath "$NODE_CONFIGURED" 2>/dev/null || true)"
+[[ -n "$NODE" && -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted real Node executable required" >&2; exit 2; }
+[[ -n "${UBERBOND_SOURCE_ROOT:-}" && -d "$UBERBOND_SOURCE_ROOT" && ! -L "$UBERBOND_SOURCE_ROOT" ]] || { echo "REFUSED: real source root required" >&2; exit 2; }
+(( $# > 0 )) || { echo "usage: uberbond-context-query <mission text>" >&2; exit 2; }
+exec env UBERBOND_SOURCE_ROOT="$UBERBOND_SOURCE_ROOT" UBERBOND_CONTROL_DIR="${UBERBOND_CONTROL_DIR:-/var/lib/uberbond-control}" "$NODE" "$UBERBOND_SOURCE_ROOT/scripts/sovereign-context-query.mjs" "$@"

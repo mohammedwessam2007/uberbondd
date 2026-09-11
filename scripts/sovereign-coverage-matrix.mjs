@@ -75,12 +75,19 @@ const SOURCES = [
     ['truthPriority', 'ONTOLOGY'], ['truthClasses', 'ONTOLOGY'], ['economicLoop', 'LOOP_STAGE'],
     ['constitutionalSpine', 'HIERARCHY'], ['productFamilies', 'ECONOMIC_DONOR'],
     ['recurringProductLineage', 'ECONOMIC_DONOR'], ['platformDestinations', 'ECONOMIC_DONOR'],
-    ['capabilityDomains', 'CAPABILITY_DOMAIN'], ['softwareReferenceSurfaces', 'REFERENCE_SURFACE'],
-    ['openModelRuntimes', 'COMPUTE_RUNTIME'], ['permanentTruthLaws', 'AUTHORITY_LAW']]],
+    // Capability domains are taxonomy buckets containing many mechanisms, not
+    // one executable unit. Keep every literal name while refusing to create a
+    // fake module obligation for the bucket itself.
+    ['capabilityDomains', 'ONTOLOGY'], ['softwareReferenceSurfaces', 'REFERENCE_SURFACE'],
+    // Named open runtimes are replaceable supplier/reference surfaces. UberBond
+    // may integrate them but must not pretend it owes an internal reimplementation.
+    ['openModelRuntimes', 'REFERENCE_SURFACE'], ['permanentTruthLaws', 'AUTHORITY_LAW']]],
   ['artifacts/uberbond-memory-index.json', 'memory-index', [
     ['productFamilies', 'ECONOMIC_DONOR'], ['recurringProducts', 'ECONOMIC_DONOR'],
     ['longTermPlatforms', 'ECONOMIC_DONOR'], ['partnerGatedOfferLineage', 'ECONOMIC_DONOR'],
-    ['strategicStages', 'STRATEGIC_STAGE'], ['sharedOperatingSystemDomains', 'CAPABILITY_DOMAIN'],
+    // Shared operating-system domains are index categories, not individual
+    // executable organs. Their descendants carry implementation evidence.
+    ['strategicStages', 'STRATEGIC_STAGE'], ['sharedOperatingSystemDomains', 'ONTOLOGY'],
     ['antiForgettingRules', 'AUTHORITY_LAW']]]
 ];
 
@@ -88,7 +95,10 @@ const SOURCES = [
 const NESTED = [
   ['artifacts/uberbond-total-brain.json', 'total-brain', 'namedInitiativeFamilies', 'NAMED_INITIATIVE'],
   ['artifacts/uberbond-memory-index.json', 'memory-index', 'namedInitiatives', 'NAMED_INITIATIVE'],
-  ['artifacts/external-skill-plugin-registry.json', 'suppliers', 'entries', 'EXTERNAL_SUPPLIER'],
+  // External supplier entries are preserved literal references. Their adapters,
+  // packages and callability have separate evidence; the supplier name itself is
+  // not a missing internal product that UberBond must clone.
+  ['artifacts/external-skill-plugin-registry.json', 'suppliers', 'entries', 'REFERENCE_SURFACE'],
   ['artifacts/capability-genome/capability-atoms.json', 'capability-atoms', 'atoms', 'CAPABILITY_ATOM']
 ];
 

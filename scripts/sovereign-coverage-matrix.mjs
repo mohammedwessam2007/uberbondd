@@ -65,7 +65,10 @@ const SOURCES = [
     ['evaluationDimensions', 'ONTOLOGY']]],
   ['artifacts/perpetual-frontier-genesis.json', 'genesis', [
     ['frontierMechanisms', 'GENESIS_MECHANISM'], ['coreLoop', 'LOOP_STAGE'],
-    ['founderFreedomDimensions', 'SOVEREIGNTY_DIMENSION']]],
+    // Founder-freedom dimensions are lived-world outcome axes, not modules.
+    // Keeping them as external gates prevents a coincidental health/recovery
+    // filename from impersonating observed freedom in Mohamed's actual life.
+    ['founderFreedomDimensions', 'EXTERNAL_GATE']]],
   ['artifacts/uberbond-total-brain.json', 'total-brain', [
     // truthPriority is an ordered evidence ranking, not a set of rules --
     // "HYPOTHESIS" and "DRAFT_BRANCH_EVIDENCE" are rungs, and asking what
@@ -95,10 +98,10 @@ const SOURCES = [
 const NESTED = [
   ['artifacts/uberbond-total-brain.json', 'total-brain', 'namedInitiativeFamilies', 'NAMED_INITIATIVE'],
   ['artifacts/uberbond-memory-index.json', 'memory-index', 'namedInitiatives', 'NAMED_INITIATIVE'],
-  // External supplier entries are preserved literal references. Their adapters,
-  // packages and callability have separate evidence; the supplier name itself is
-  // not a missing internal product that UberBond must clone.
-  ['artifacts/external-skill-plugin-registry.json', 'suppliers', 'entries', 'REFERENCE_SURFACE'],
+  // External supplier entries remain searchable catalogue ontology. Their
+  // adapters/packages/callability have separate evidence, and their names are
+  // neither missing internal products nor instructions to clone proprietary code.
+  ['artifacts/external-skill-plugin-registry.json', 'suppliers', 'entries', 'ONTOLOGY'],
   ['artifacts/capability-genome/capability-atoms.json', 'capability-atoms', 'atoms', 'CAPABILITY_ATOM']
 ];
 

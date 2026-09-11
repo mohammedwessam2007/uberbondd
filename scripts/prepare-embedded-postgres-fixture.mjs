@@ -10,6 +10,9 @@ import { fileURLToPath } from 'node:url';
 const APPROVED_VERSION = '18.4.0-beta.17';
 const PACKAGE_ROOT = path.resolve('node_modules/@embedded-postgres/linux-x64');
 const REQUIRED_EXECUTABLES = Object.freeze(['initdb', 'pg_ctl', 'postgres']);
+const REQUIRED_RUNTIME_SONAMES = Object.freeze([
+  Object.freeze({ soname: 'libpq.so.5', payload: 'libpq.so.5.18' })
+]);
 
 async function makeBinExecutable(binDir) {
   const entries = await fs.readdir(binDir, { withFileTypes: true });
@@ -47,6 +50,32 @@ async function makeNativeTreeChildReadable(nativeDir) {
       await fs.chmod(file, childStat.mode | 0o004);
     }
   }
+}
+
+async function ensureRuntimeSonames(nativeDir) {
+  const libDir = path.join(nativeDir, 'lib');
+  const statuses = [];
+  for (const { soname, payload } of REQUIRED_RUNTIME_SONAMES) {
+    const target = path.join(libDir, soname);
+    try {
+      await fs.access(target, FS_CONSTANTS.R_OK);
+      statuses.push(Object.freeze({ soname, payload, status: 'PRESENT' }));
+      continue;
+    } catch (error) {
+      if (String(error?.code || '') !== 'ENOENT') throw error;
+    }
+
+    const source = path.join(libDir, payload);
+    try {
+      await fs.access(source, FS_CONSTANTS.R_OK);
+    } catch {
+      throw new Error(`embedded Postgres pinned runtime payload missing: ${payload}`);
+    }
+    await fs.copyFile(source, target, FS_CONSTANTS.COPYFILE_EXCL);
+    await fs.chmod(target, 0o644);
+    statuses.push(Object.freeze({ soname, payload, status: 'MATERIALIZED_FROM_PINNED_PAYLOAD' }));
+  }
+  return Object.freeze(statuses);
 }
 
 async function makeAncestorsSearchable(targetDir) {
@@ -149,6 +178,7 @@ export async function prepareEmbeddedPostgresFixture({
 
   let binDir = path.join(packageRoot, 'native', 'bin');
   await makeNativeTreeChildReadable(path.join(packageRoot, 'native'));
+  const runtimeSonames = await ensureRuntimeSonames(path.join(packageRoot, 'native'));
   await makeBinExecutable(binDir);
   await makeAncestorsSearchable(binDir);
   for (const executable of REQUIRED_EXECUTABLES) {
@@ -175,6 +205,7 @@ export async function prepareEmbeddedPostgresFixture({
     package: '@embedded-postgres/linux-x64',
     version: APPROVED_VERSION,
     requiredExecutables: [...REQUIRED_EXECUTABLES],
+    runtimeSonames,
     executionProbe: 'PASSED',
     executionMode,
     executionIdentity: identity ? 'POSTGRES_UID_GID' : 'CURRENT_PROCESS'

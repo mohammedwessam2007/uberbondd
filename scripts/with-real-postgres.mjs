@@ -38,13 +38,17 @@ await fs.mkdir(databaseDir, { recursive: true });
 await fs.chmod(databaseDir, 0o777);
 
 const port = 25000 + Math.floor(Math.random() * 3000);
+const runningAsRoot = typeof process.getuid === 'function' && process.getuid() === 0;
 const postgres = new EmbeddedPostgres({
   databaseDir,
   user: 'postgres',
   password: 'password',
   port,
   persistent: false,
-  createPostgresUser: true,
+  // Root execution needs the package to create/drop privileges to a postgres
+  // service user. Provider sandboxes that already run as an unprivileged user
+  // must not require host-level groupadd/useradd merely to start the fixture.
+  createPostgresUser: runningAsRoot,
   // Durability settings for a database that is deleted when this process ends.
   //
   // This instance exists for one run and is torn down in the finally block

@@ -66,11 +66,11 @@ async function ensureRuntimeSonames(nativeDir) {
   }
 
   const entries = new Set(await fs.readdir(libDir));
-  const applicable = REQUIRED_RUNTIME_SONAMES.filter(({ soname, payload }) => entries.has(soname) || entries.has(payload));
-  if (!applicable.length) return Object.freeze([]);
+  const recognizedRuntimePayloadPresent = REQUIRED_RUNTIME_SONAMES.some(({ soname, payload }) => entries.has(soname) || entries.has(payload));
+  if (!recognizedRuntimePayloadPresent) return Object.freeze([]);
 
   const statuses = [];
-  for (const { soname, payload } of applicable) {
+  for (const { soname, payload } of REQUIRED_RUNTIME_SONAMES) {
     const target = path.join(libDir, soname);
     if (entries.has(soname)) {
       await fs.access(target, FS_CONSTANTS.R_OK);

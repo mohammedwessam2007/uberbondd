@@ -1,0 +1,39 @@
+[Unit]
+Description=UberLit sovereign HTTPS ingress
+After=network.target uberlit.service
+Wants=network.target
+
+[Service]
+Type=simple
+User=uberlit
+Group=uberlit
+WorkingDirectory=/opt/uberlit/source
+Environment=UBERLIT_ROOT=/var/lib/uberlit/uberbond
+Environment=UBERLIT_TLS_BIND=127.0.0.1
+Environment=UBERLIT_TLS_PORT=32443
+Environment=UBERLIT_WEB_PORT=32123
+EnvironmentFile=-/etc/uberlit/uberlit.env
+ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-tls-edge.mjs --root /var/lib/uberlit/uberbond --bind ${UBERLIT_TLS_BIND} --port ${UBERLIT_TLS_PORT} --upstream-port ${UBERLIT_WEB_PORT}
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadOnlyPaths=/opt/uberlit/source
+ReadWritePaths=/var/lib/uberlit
+
+[Install]
+WantedBy=multi-user.target

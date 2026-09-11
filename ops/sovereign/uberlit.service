@@ -1,0 +1,39 @@
+[Unit]
+Description=UberLit sovereign UberBond runtime
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=uberlit
+Group=uberlit
+WorkingDirectory=/opt/uberlit/source
+Environment=UBERLIT_ROOT=/var/lib/uberlit/uberbond
+Environment=APP_BASE_URL=https://uberlit.local
+Environment=OUTBOUND_ENABLED=false
+Environment=DISCOVERY_ENABLED=false
+EnvironmentFile=-/etc/uberlit/uberlit.env
+ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-supervisor.mjs --keep-running --root /var/lib/uberlit/uberbond --port 32123 --db-port 35432 --timeout 30000
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadOnlyPaths=/opt/uberlit/source
+ReadWritePaths=/var/lib/uberlit
+
+[Install]
+WantedBy=multi-user.target

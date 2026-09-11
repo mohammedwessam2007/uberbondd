@@ -5,6 +5,7 @@ import { RevenueEngine } from './src/revenue.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { DiscoveryRunner } from './src/discovery-runner.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
+import { createFounderOutcomeRuntimeHandlers } from './src/founder-outcome-runtime.mjs';
 import { startScheduler } from './src/scheduler.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
@@ -42,7 +43,10 @@ const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
 });
 revenue = new RevenueEngine(store, config, pipeline, { enqueueResearch });
 const discoveryRunner = new DiscoveryRunner(store, config);
-const handlers = createJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner });
+const handlers = {
+  ...createJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner }),
+  ...createFounderOutcomeRuntimeHandlers({ store, queue, cfg: config })
+};
 const stopScheduler = startScheduler(queue, config, console);
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 

@@ -11,23 +11,23 @@ function invoke(handler,{method='GET',body=null,headers={}}={}){
 }
 
 test('status reports server-backed free-only model, relay and economic mission readiness without secrets',async()=>{
-  const h=createHandler({env:{VERCEL_OIDC_TOKEN:'secret-oidc',GITHUB_TOKEN:'secret-gh',GITHUB_REPOSITORY:'o/r',VERCEL_GIT_COMMIT_SHA:'a'.repeat(40),VERCEL_ENV:'preview',DATABASE_URL:'postgres://secret-db'}});
+  const h=createHandler({env:{VERCEL_OIDC_TOKEN:'test-oidc-status',GITHUB_TOKEN:'test-gh-status',GITHUB_REPOSITORY:'o/r',VERCEL_GIT_COMMIT_SHA:'a'.repeat(40),VERCEL_ENV:'preview',DATABASE_URL:'test-db-status'}});
   const r=await invoke(h);
-  assert.equal(r.status,200); assert.equal(r.payload.model,FREE_MODEL); assert.equal(r.payload.modelPricing,'FREE_ONLY_NO_PAID_FALLBACK'); assert.equal(r.payload.modelReady,true); assert.equal(r.payload.relayReady,true); assert.equal(r.payload.economicMissionReady,true); assert.doesNotMatch(JSON.stringify(r.payload),/secret-oidc|secret-gh|secret-db/);
+  assert.equal(r.status,200); assert.equal(r.payload.model,FREE_MODEL); assert.equal(r.payload.modelPricing,'FREE_ONLY_NO_PAID_FALLBACK'); assert.equal(r.payload.modelReady,true); assert.equal(r.payload.relayReady,true); assert.equal(r.payload.economicMissionReady,true); assert.doesNotMatch(JSON.stringify(r.payload),/test-oidc-status|test-gh-status|test-db-status/);
 });
 
 test('ordinary chat still uses Vercel OIDC against the fixed free model',async()=>{
   let seen;
-  const h=createHandler({env:{VERCEL_OIDC_TOKEN:'oidc-token',VERCEL_GIT_COMMIT_SHA:'b'.repeat(40)},root:'/definitely/missing',fetch:async(url,init)=>{seen={url,init,body:JSON.parse(init.body)};return {ok:true,status:200,text:async()=>JSON.stringify({choices:[{message:{content:'server answer'}}],usage:{total_tokens:12}})};}});
+  const h=createHandler({env:{VERCEL_OIDC_TOKEN:'test-oidc-token',VERCEL_GIT_COMMIT_SHA:'b'.repeat(40)},root:'/definitely/missing',fetch:async(url,init)=>{seen={url,init,body:JSON.parse(init.body)};return {ok:true,status:200,text:async()=>JSON.stringify({choices:[{message:{content:'server answer'}}],usage:{total_tokens:12}})};}});
   const r=await invoke(h,{method:'POST',headers:{host:'center.test',origin:'https://center.test'},body:{action:'chat',message:'hello',history:[{role:'user',content:'prior'}]}});
-  assert.equal(r.status,200); assert.equal(r.payload.answer,'server answer'); assert.equal(seen.url,'https://ai-gateway.vercel.sh/v1/chat/completions'); assert.equal(seen.init.headers.authorization,'Bearer oidc-token'); assert.equal(seen.body.model,FREE_MODEL); assert.equal(seen.body.stream,false);
+  assert.equal(r.status,200); assert.equal(r.payload.answer,'server answer'); assert.equal(seen.url,'https://ai-gateway.vercel.sh/v1/chat/completions'); assert.equal(seen.init.headers.authorization,'Bearer test-oidc-token'); assert.equal(seen.body.model,FREE_MODEL); assert.equal(seen.body.stream,false);
 });
 
 test('economic founder command is intercepted before conversational model and becomes mission state',async()=>{
   let modelCalled=false;
   let seenMessage='';
   const h=createHandler({
-    env:{VERCEL_OIDC_TOKEN:'oidc-token'},
+    env:{VERCEL_OIDC_TOKEN:'test-outcome-token'},
     fetch:async()=>{modelCalled=true;throw new Error('economic command must not reach model')},
     startOutcomeMission:async message=>{seenMessage=message;return {recognized:true,ok:true,status:'FOUNDER_OUTCOME_MISSION_ACTIVE',missionId:'mission-1',deadlineAt:'2026-09-11T09:00:00.000Z',terminal:false,answer:'Mission ACTIVE'};}
   });
@@ -44,7 +44,7 @@ test('economic bridge persists normalized mission without raw founder chat and d
   const logs=[]; const jobs=[];
   const privateText='Make me as much money as possible legally until 12:00 PM today while I sleep. New spend ceiling is $0. PayPal.me/Sarawessam PRIVATE CHAT MARKER';
   const result=await startEconomicOutcomeMission({
-    env:{DATABASE_URL:'postgres://configured',VERCEL_GIT_COMMIT_SHA:'d'.repeat(40)},
+    env:{DATABASE_URL:'test-db',VERCEL_GIT_COMMIT_SHA:'d'.repeat(40)},
     message:privateText,
     now:new Date('2026-09-10T23:32:00.000Z'),
     getEconomicContext:async()=>({
@@ -60,6 +60,11 @@ test('economic bridge persists normalized mission without raw founder chat and d
   assert.equal(result.deadlineAt,'2026-09-11T09:00:00.000Z');
   assert.ok(jobs.some(job=>job.type==='prometheus.commercial.catalog'));
   assert.ok(jobs.some(job=>job.type==='payment.reconciliation.tick'));
+  const supervisor=jobs.find(job=>job.type==='founder.outcome.mission.pulse');
+  assert.ok(supervisor);
+  assert.equal(supervisor.options.priority,110);
+  assert.ok(supervisor.options.runAt instanceof Date);
+  assert.ok(result.supervisorJobId);
   assert.doesNotMatch(JSON.stringify(logs),/PRIVATE CHAT MARKER/);
   assert.equal(logs[0].detail.rawFounderTextPersisted,false);
 });
@@ -92,7 +97,7 @@ test('keep-working refuses honestly when GitHub runtime credential is absent',as
 
 test('keep-working compiles a generic privacy-preserving relay task',async()=>{
   let call;
-  const h=createHandler({env:{GITHUB_TOKEN:'gh',GITHUB_REPOSITORY:'o/r',VERCEL_GIT_COMMIT_SHA:'c'.repeat(40)},fetch:async()=>{throw new Error('client should not execute in injected relay')},createRelayTask:async args=>{call=args;return {ok:true,status:'QUEUED',taskId:args.input.taskId,issueNumber:7,issueUrl:'https://github.test/7'}}});
+  const h=createHandler({env:{GITHUB_TOKEN:'test-gh-token',GITHUB_REPOSITORY:'o/r',VERCEL_GIT_COMMIT_SHA:'c'.repeat(40)},fetch:async()=>{throw new Error('client should not execute in injected relay')},createRelayTask:async args=>{call=args;return {ok:true,status:'QUEUED',taskId:args.input.taskId,issueNumber:7,issueUrl:'https://github.test/7'}}});
   const r=await invoke(h,{method:'POST',headers:{host:'c.test',origin:'https://c.test'},body:{action:'keep-working',message:'PRIVATE FOUNDER SECRET'}});
   assert.equal(r.status,200); assert.equal(r.payload.status,'QUEUED');
   const serialized=JSON.stringify(call.input);
@@ -105,7 +110,7 @@ test('keep-working compiles a generic privacy-preserving relay task',async()=>{
 
 test('cross-origin POST is refused before model, mission or relay work',async()=>{
   let outcomeCalled=false;
-  const h=createHandler({env:{VERCEL_OIDC_TOKEN:'oidc'},fetch:async()=>{throw new Error('must not call')},startOutcomeMission:async()=>{outcomeCalled=true;return {recognized:true}}});
+  const h=createHandler({env:{VERCEL_OIDC_TOKEN:'test-cross-origin'},fetch:async()=>{throw new Error('must not call')},startOutcomeMission:async()=>{outcomeCalled=true;return {recognized:true}}});
   const r=await invoke(h,{method:'POST',headers:{host:'good.test',origin:'https://evil.test'},body:{action:'chat',message:'make money'}});
   assert.equal(r.status,403); assert.equal(r.payload.status,'CROSS_ORIGIN_REFUSED'); assert.equal(outcomeCalled,false);
 });

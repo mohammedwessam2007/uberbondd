@@ -21,6 +21,7 @@ function fail(reasonCodes, status = 'FOUNDER_OUTCOME_MISSION_REFUSED', extra = {
 }
 
 function asDate(value) {
+  if (value === null || value === undefined || value === '') return null;
   const date = value instanceof Date ? value : new Date(value);
   return Number.isFinite(date.getTime()) ? date : null;
 }

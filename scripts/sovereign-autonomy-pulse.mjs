@@ -8,9 +8,10 @@ import { execFile } from 'node:child_process';
 import { compileFiniteCompletionDirective, compileFiniteCompletionTask } from './uberbond-finite-completion-seed.mjs';
 import { compileSandwichAutocatalyticDirective, compileSandwichAutocatalyticTask } from '../src/sandwich-autocatalytic-governor.mjs';
 import { gateSelfMaintainerPulse } from '../src/self-maintainer-continuation-policy.mjs';
+import { compileTaskBoundContextProjection } from '../src/context-task-binding.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 
-export const SOVEREIGN_AUTONOMY_PULSE_VERSION = 'uberbond.sovereign-autonomy-pulse.v5';
+export const SOVEREIGN_AUTONOMY_PULSE_VERSION = 'uberbond.sovereign-autonomy-pulse.v6';
 const SHA40 = /^[a-f0-9]{40}$/i;
 const MAX_JSON_BYTES = 4_000_000;
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -19,7 +20,9 @@ function fail(reasonCodes, status = 'SOVEREIGN_AUTONOMY_REFUSED', extra = {}) { 
 function run(executable, args, { cwd, env = {}, timeoutMs = 20 * 60_000 } = {}) { return new Promise(resolve => execFile(executable, args, { cwd, env, timeout: timeoutMs, maxBuffer: 8_000_000, windowsHide: true }, (error, stdout, stderr) => resolve({ exitCode: typeof error?.code === 'number' ? error.code : (error ? 1 : 0), signal: error?.signal || null, timedOut: Boolean(error?.killed), stdout: String(stdout || ''), stderr: String(stderr || '') }))); }
 async function readJson(file) { try { const stat = await fs.lstat(file); if (!stat.isFile() || stat.isSymbolicLink() || stat.size > MAX_JSON_BYTES) return null; const v = JSON.parse(await fs.readFile(file, 'utf8')); return v && typeof v === 'object' && !Array.isArray(v) ? v : null; } catch { return null; } }
 async function atomicJson(file, value, mode = 0o600) { await fs.mkdir(path.dirname(file), { recursive: true, mode: 0o700 }); const tmp = `${file}.tmp.${process.pid}`; await fs.writeFile(tmp, `${JSON.stringify(value, null, 2)}\n`, { mode }); await fs.chmod(tmp, mode); await fs.rename(tmp, file); }
-function safeWorkerTaskPath(env) { const root = path.resolve(env.UBERBOND_WORKER_INBOX_ROOT || '/var/lib/uberbond-worker/inbox'); const target = path.resolve(env.UBERBOND_WORKER_TASK_PATH || path.join(root, 'task.json')); return target.startsWith(`${root}${path.sep}`) && target !== root ? target : null; }
+function safeWorkerInboxPath(env, configured, fallback) { const root=path.resolve(env.UBERBOND_WORKER_INBOX_ROOT || '/var/lib/uberbond-worker/inbox'); const target=path.resolve(configured || path.join(root,fallback)); return target.startsWith(`${root}${path.sep}`)&&target!==root?target:null; }
+function safeWorkerTaskPath(env) { return safeWorkerInboxPath(env,env.UBERBOND_WORKER_TASK_PATH,'task.json'); }
+function safeWorkerContextPath(env) { return safeWorkerInboxPath(env,env.UBERBOND_WORKER_CONTEXT_PATH,'context-projection.json'); }
 function stable(value) { if (Array.isArray(value)) return value.map(stable); if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])])); return value; }
 function localAttemptId(baseRevision, task = {}) {
   const core = {
@@ -30,7 +33,8 @@ function localAttemptId(baseRevision, task = {}) {
     taskClass: task.taskClass || null,
     evidenceRefs: Array.isArray(task.evidenceRefs) ? task.evidenceRefs.map(String) : [],
     requiredOutputs: Array.isArray(task.requiredOutputs) ? task.requiredOutputs.map(String) : [],
-    acceptanceTests: Array.isArray(task.acceptanceTests) ? task.acceptanceTests.map(String) : []
+    acceptanceTests: Array.isArray(task.acceptanceTests) ? task.acceptanceTests.map(String) : [],
+    contextBindingId: task.contextBinding?.bindingId || null
   };
   return crypto.createHash('sha256').update(JSON.stringify(stable(core))).digest('hex');
 }
@@ -41,16 +45,11 @@ function waitingReceipt({ baseRevision, task, attemptId }) {
     observedTaskId: text(task?.taskId, 300),
     observedAttemptId: attemptId,
     observedEvidenceRefs: Array.isArray(task?.evidenceRefs) ? task.evidenceRefs.map(String) : [],
-    continuation: {
-      ok: true,
-      status: 'WAIT_FOR_EXISTING_ATTEMPT',
-      decision: 'DO_NOT_CREATE_DUPLICATE_TASK',
-      taskId: text(task?.taskId, 300),
-      businessEffectAuthority: 'NONE'
-    },
+    observedContextBindingId: task?.contextBinding?.bindingId || null,
+    continuation: { ok: true, status: 'WAIT_FOR_EXISTING_ATTEMPT', decision: 'DO_NOT_CREATE_DUPLICATE_TASK', taskId: text(task?.taskId, 300), businessEffectAuthority: 'NONE' },
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    truthBoundary: 'THIS RECEIPT RESERVES ONE DIGEST-BOUND LOCAL ATTEMPT ON ONE EXACT BASE. CLOCK OR MANUAL REENTRY MAY RESUME THAT ATTEMPT BUT MAY NOT CREATE A SECOND SAME-BASE DISPATCH.'
+    truthBoundary: 'THIS RECEIPT RESERVES ONE DIGEST-BOUND LOCAL ATTEMPT ON ONE EXACT BASE AND ONE TASK-BOUND CONTEXT. REENTRY MAY RESUME THAT ATTEMPT BUT MAY NOT CREATE A SECOND SAME-BASE DISPATCH.'
   };
 }
 
@@ -85,18 +84,12 @@ function compileNextLocalTask({ head, finiteDirective }) {
     if (!task?.taskId) return fail(['finite-completion-task-compilation-failed']);
     return { ok: true, task, directive: { ...finiteDirective, taskClass: 'FINITE_COMPLETION' }, taskClass: 'FINITE_COMPLETION' };
   }
-
   const sandwichDirective = compileSandwichAutocatalyticDirective({ baseRevision: head, finiteDirective });
   if (!sandwichDirective?.ok) return fail(sandwichDirective?.reasonCodes || ['sandwich-descendant-directive-refused'], 'SOVEREIGN_AUTONOMY_DESCENDANT_GENESIS_REFUSED', { baseRevision: head });
   const compiled = compileSandwichAutocatalyticTask({ directive: sandwichDirective });
   if (!compiled?.taskId) return fail(compiled?.reasonCodes || ['sandwich-descendant-task-compilation-failed'], 'SOVEREIGN_AUTONOMY_DESCENDANT_GENESIS_REFUSED', { baseRevision: head });
   const task = { ...compiled, repairMode: 'SANDWICH_DESCENDANT_GENESIS', targetRequirementId: null, taskClass: 'SANDWICH_DESCENDANT_GENESIS' };
-  return {
-    ok: true,
-    task,
-    directive: { ...sandwichDirective, repairMode: 'SANDWICH_DESCENDANT_GENESIS', targetRequirementId: null, taskClass: 'SANDWICH_DESCENDANT_GENESIS' },
-    taskClass: 'SANDWICH_DESCENDANT_GENESIS'
-  };
+  return { ok: true, task, directive: { ...sandwichDirective, repairMode: 'SANDWICH_DESCENDANT_GENESIS', targetRequirementId: null, taskClass: 'SANDWICH_DESCENDANT_GENESIS' }, taskClass: 'SANDWICH_DESCENDANT_GENESIS' };
 }
 
 export async function runSovereignAutonomyPulse({ env = process.env, repoRoot = process.cwd(), runProcess = run } = {}) {
@@ -113,46 +106,47 @@ export async function runSovereignAutonomyPulse({ env = process.env, repoRoot = 
   if (preflight.resumeExistingAttemptOnly) {
     const existingTask = await readJson(taskPath);
     const attemptId = existingTask?.taskId ? localAttemptId(head, existingTask) : null;
-    if (!existingTask?.taskId || !preflight.resumeAttemptId || attemptId !== preflight.resumeAttemptId) {
-      return fail(['digest-bound-existing-attempt-state-required'], 'SOVEREIGN_AUTONOMY_EXISTING_ATTEMPT_REFUSED', { baseRevision: head, preflightStatus: preflight.status });
-    }
+    if (!existingTask?.taskId || !preflight.resumeAttemptId || attemptId !== preflight.resumeAttemptId) return fail(['digest-bound-existing-attempt-state-required'], 'SOVEREIGN_AUTONOMY_EXISTING_ATTEMPT_REFUSED', { baseRevision: head, preflightStatus: preflight.status });
     const workerEnabled = String(env.UBERBOND_ISOLATED_WORKER_ENABLED || '').toLowerCase() === 'true';
-    let recoveredHandoff = false;
-    let workerTaskPath = null;
+    let recoveredHandoff = false; let workerTaskPath = null;
     if (workerEnabled) {
       workerTaskPath = safeWorkerTaskPath(env);
-      if (!workerTaskPath) return fail(['safe-isolated-worker-task-path-required'], 'SOVEREIGN_AUTONOMY_WORKER_HANDOFF_REFUSED', { baseRevision: head, taskId: existingTask.taskId });
+      if (!workerTaskPath || !existingTask.contextBinding?.bindingId) return fail(['safe-worker-task-and-bound-context-required'], 'SOVEREIGN_AUTONOMY_WORKER_HANDOFF_REFUSED', { baseRevision: head, taskId: existingTask.taskId });
       const workerTask = await readJson(workerTaskPath);
       if (!workerTask) { await atomicJson(workerTaskPath, existingTask, 0o640); recoveredHandoff = true; }
-      else if (workerTask.taskId !== existingTask.taskId) return fail(['worker-inbox-bound-to-different-attempt'], 'SOVEREIGN_AUTONOMY_EXISTING_ATTEMPT_REFUSED', { baseRevision: head, taskId: existingTask.taskId });
+      else if (workerTask.taskId !== existingTask.taskId || workerTask.contextBinding?.bindingId !== existingTask.contextBinding.bindingId) return fail(['worker-inbox-bound-to-different-attempt'], 'SOVEREIGN_AUTONOMY_EXISTING_ATTEMPT_REFUSED', { baseRevision: head, taskId: existingTask.taskId });
     }
-    const resumed = { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: recoveredHandoff ? 'EXISTING_ATTEMPT_HANDOFF_RECOVERED' : 'EXISTING_ATTEMPT_RESUME_ONLY', baseRevision: head, taskId: existingTask.taskId, attemptId, taskRequired: false, newWorkerDispatch: false, recoveredHandoff, workerTaskPath, continuation: preflight, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'The exact same digest-bound local attempt was resumed or observed. No second same-base task was created and no clock tick was counted as progress.' };
-    await atomicJson(statusPath, { ...resumed, observedAt: new Date().toISOString() });
-    return resumed;
+    const resumed = { ok:true, policyVersion:SOVEREIGN_AUTONOMY_PULSE_VERSION, status:recoveredHandoff?'EXISTING_ATTEMPT_HANDOFF_RECOVERED':'EXISTING_ATTEMPT_RESUME_ONLY', baseRevision:head, taskId:existingTask.taskId, attemptId, contextBindingId:existingTask.contextBinding?.bindingId||null, taskRequired:false, newWorkerDispatch:false, recoveredHandoff, workerTaskPath, continuation:preflight, businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:zeroEffects(), truthBoundary:'The exact same digest-bound local attempt and task-bound context were resumed or observed. No second same-base task was created.' };
+    await atomicJson(statusPath,{...resumed,observedAt:new Date().toISOString()}); return resumed;
   }
   if (preflight.runPrimaryTick !== true) {
-    const blocked = { ok: true, policyVersion: SOVEREIGN_AUTONOMY_PULSE_VERSION, status: 'SAME_BASE_REENTRY_BLOCKED_BY_CONTINUATION_POLICY', baseRevision: head, taskRequired: false, newWorkerDispatch: false, continuation: preflight, businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE', externalEffectLedger: zeroEffects(), truthBoundary: 'Canonical continuation policy blocked same-base reentry. Resident continuum or manual wake cannot manufacture a fresh attempt.' };
-    await atomicJson(statusPath, { ...blocked, observedAt: new Date().toISOString() });
-    return blocked;
+    const blocked = { ok:true, policyVersion:SOVEREIGN_AUTONOMY_PULSE_VERSION, status:'SAME_BASE_REENTRY_BLOCKED_BY_CONTINUATION_POLICY', baseRevision:head, taskRequired:false, newWorkerDispatch:false, continuation:preflight, businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:zeroEffects(), truthBoundary:'Canonical continuation policy blocked same-base reentry. Resident continuum or manual wake cannot manufacture a fresh attempt.' };
+    await atomicJson(statusPath,{...blocked,observedAt:new Date().toISOString()}); return blocked;
   }
 
   const truth = await regenerateTerminalInEphemeralClone({ root, head, env, runProcess }); if (!truth?.ok) return truth;
   const finiteDirective = compileFiniteCompletionDirective({ baseRevision: head, terminalRealization: truth.terminalDoc, executionGraph: truth.graphDoc }); if (!finiteDirective?.ok) return fail(finiteDirective?.reasonCodes || ['finite-completion-directive-refused']);
   const next = compileNextLocalTask({ head, finiteDirective }); if (!next?.ok) return next;
   const workerEnabled = String(env.UBERBOND_ISOLATED_WORKER_ENABLED || '').toLowerCase() === 'true';
-  const state = compileLocalAutonomyState({ paused: false, baseRevision: head, directive: next.directive, isolatedWorkerEnabled: workerEnabled });
+  const state = compileLocalAutonomyState({ paused:false, baseRevision:head, directive:next.directive, isolatedWorkerEnabled:workerEnabled });
   const task = next.task;
-  await atomicJson(taskPath, task);
   if (!workerEnabled) {
-    const ready = { ...state, taskId: task.taskId, taskClass: next.taskClass, taskPath, terminalExitCode: truth.terminalExitCode, observedFiniteEngineeringClosed: finiteDirective.taskRequired !== true, observedAt: new Date().toISOString() };
-    await atomicJson(statusPath, ready);
-    return { ...state, taskId: task.taskId, taskClass: next.taskClass, taskPath, observedFiniteEngineeringClosed: finiteDirective.taskRequired !== true };
+    await atomicJson(taskPath, task);
+    const ready = { ...state, taskId:task.taskId, taskClass:next.taskClass, taskPath, terminalExitCode:truth.terminalExitCode, observedFiniteEngineeringClosed:finiteDirective.taskRequired!==true, observedAt:new Date().toISOString() };
+    await atomicJson(statusPath,ready); return { ...state, taskId:task.taskId, taskClass:next.taskClass, taskPath, observedFiniteEngineeringClosed:finiteDirective.taskRequired!==true };
   }
-  const workerTaskPath = safeWorkerTaskPath(env); if (!workerTaskPath) return fail(['safe-isolated-worker-task-path-required'], 'SOVEREIGN_AUTONOMY_WORKER_HANDOFF_REFUSED', { baseRevision: head, taskId: task.taskId });
-  const attemptId = localAttemptId(head, task);
-  await atomicJson(continuationPath, waitingReceipt({ baseRevision: head, task, attemptId }));
-  await atomicJson(workerTaskPath, task, 0o640);
-  const dispatched = { ...state, status: 'TASK_DISPATCHED_TO_ISOLATED_WORKER', taskId: task.taskId, taskClass: next.taskClass, attemptId, taskPath, workerTaskPath, continuationPath, terminalExitCode: truth.terminalExitCode, observedFiniteEngineeringClosed: finiteDirective.taskRequired !== true, newWorkerDispatch: true, truthBoundary: next.taskClass === 'SANDWICH_DESCENDANT_GENESIS' ? 'Declared finite engineering was closed on this exact base, so the sovereign local Sandwich transition dispatched one zero-effect descendant-requirement genesis attempt. It may admit at most one bounded internal requirement and cannot implement it in the same attempt, merge, sign, release, deploy, or create external effects.' : 'Task selection and model execution are OS-separated. This digest-bound dispatch is one attempt only and is not a verified change, merge, signature, release or deployment.' }; await atomicJson(statusPath, { ...dispatched, observedAt: new Date().toISOString() }); return dispatched;
+  const workerTaskPath=safeWorkerTaskPath(env); const workerContextPath=safeWorkerContextPath(env);
+  if(!workerTaskPath||!workerContextPath)return fail(['safe-worker-task-and-context-path-required'],'SOVEREIGN_AUTONOMY_WORKER_HANDOFF_REFUSED',{baseRevision:head,taskId:task.taskId});
+  const projection=await readJson(workerContextPath);
+  const bound=compileTaskBoundContextProjection({projection,taskId:task.taskId,taskClass:task.taskClass||null,objective:task.objective||null});
+  if(!bound.ok)return fail(['task-bound-context-compilation-required',...(bound.reasonCodes||[])],'SOVEREIGN_AUTONOMY_WORKER_HANDOFF_REFUSED',{baseRevision:head,taskId:task.taskId});
+  const boundTask={...task,contextBinding:bound.boundProjection};
+  await atomicJson(taskPath,boundTask);
+  const attemptId=localAttemptId(head,boundTask);
+  await atomicJson(continuationPath,waitingReceipt({baseRevision:head,task:boundTask,attemptId}));
+  await atomicJson(workerTaskPath,boundTask,0o640);
+  const dispatched={...state,status:'TASK_DISPATCHED_TO_ISOLATED_WORKER',taskId:boundTask.taskId,taskClass:next.taskClass,attemptId,contextBindingId:bound.boundProjection.bindingId,taskPath,workerTaskPath,workerContextPath,continuationPath,terminalExitCode:truth.terminalExitCode,observedFiniteEngineeringClosed:finiteDirective.taskRequired!==true,newWorkerDispatch:true,truthBoundary:next.taskClass==='SANDWICH_DESCENDANT_GENESIS'?'Declared finite engineering was closed on this exact base, so one zero-effect descendant-requirement genesis attempt was dispatched with context cryptographically bound to this exact task.':'Task selection, context binding and model execution are separated. This dispatch is one exact task with one exact context binding and is not a verified change, merge, signature, release or deployment.'};
+  await atomicJson(statusPath,{...dispatched,observedAt:new Date().toISOString()}); return dispatched;
 }
 
 const invokedAsCli = Boolean(process.argv[1]) && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);

@@ -1,0 +1,72 @@
+{
+  "compositionId": "UBERBOND_INVARIANT_COGNITION_COMPILER_V1",
+  "compositionRevision": "977f07586c6af3ff84647812b57d49939fb85665",
+  "components": [
+    {"componentId":"INVARIANT_SEARCH_COMPILER","revision":"977f07586c6af3ff84647812b57d49939fb85665","lineageRef":"lineage:uberbond:million-wormhole:invariant-compiler-v1","role":"SEARCH_COMPILER","capabilityState":"ACTIVE","countsAsIndependentVote":false},
+    {"componentId":"INVARIANT_OPPORTUNITY_COMPILER","revision":"977f07586c6af3ff84647812b57d49939fb85665","lineageRef":"lineage:uberbond:opportunity:invariant-compiler-v1","role":"ECONOMIC_COMPILER","capabilityState":"ACTIVE","countsAsIndependentVote":false},
+    {"componentId":"INVARIANT_ORCHESTRATION_COMPILER","revision":"977f07586c6af3ff84647812b57d49939fb85665","lineageRef":"lineage:uberbond:orchestration:invariant-compiler-v1","role":"ORCHESTRATION_COMPILER","capabilityState":"ACTIVE","countsAsIndependentVote":false}
+  ],
+  "claimedIndependentVotes": 0,
+  "evaluationSubjectDigest": "14151540ed27f4d1278f4253b2adeffc064da997b6c744bc309157a4ed432ac0",
+  "independentEvaluation": {
+    "experimentId":"C13_INVARIANT_COGNITION_TRANSFER_V1",
+    "generatorId":"UBERBOND_INVARIANT_COGNITION_COMPILER_V1",
+    "evaluatorId":"C13_INVARIANT_COMPILATION_EVALUATOR_V1",
+    "generatorLineageRef":"composition:14151540ed27f4d1278f4253b2adeffc064da997b6c744bc309157a4ed432ac0",
+    "evaluatorLineageRef":"lineage:independent:c13-invariant-evaluator-v1",
+    "generatorContextRef":"context:c13-invariant-candidate-build-v1",
+    "evaluatorContextRef":"context:c13-invariant-independent-eval-v1",
+    "developmentCaseIds":["dev:invariant-search","dev:invariant-opportunity","dev:invariant-orchestration"],
+    "holdoutCaseIds":["holdout:mw:64","holdout:opp:96","holdout:orch:160"],
+    "candidateExposedCaseIds":[],
+    "generatorEvidenceRefs":["github:commit:977f07586c6af3ff84647812b57d49939fb85665","artifact:c13-invariant-cognition-result-v1"],
+    "evaluatorEvidenceRefs":["github:commit:8bd83575e0848ca6e2ca410dbaab11c46f278118","artifact:c13-invariant-cognition-python-verifier-v1"],
+    "rubricOwner":"EVALUATOR_PREDECLARED",
+    "rubricRef":"github:commit:4dfe638106d294130ad43fc73c331e7b13cfb836"
+  },
+  "baselineSelection": {
+    "selectedBaselineId":"UBERBOND_MAIN","selectedRevision":"fa01ada9a119a24d03d1a16e80a911e81280971b","selectionEvidenceRef":"github:commit:4dfe638106d294130ad43fc73c331e7b13cfb836","selectionOwner":"EVALUATOR_PREDECLARED","frozenBeforeEvaluation":true,
+    "alternatives":[{"id":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","evidenceRef":"github:commit:fa01ada9a119a24d03d1a16e80a911e81280971b","strengthRank":100,"accessible":true,"eligible":true}]
+  },
+  "currentSystemId":"UBERBOND_MAIN",
+  "currentSystemRevision":"fa01ada9a119a24d03d1a16e80a911e81280971b",
+  "minimumMeaningfulGain":0.05,
+  "maxAllowedRegression":0.0,
+  "families":[
+    {
+      "familyId":"MILLION_WORMHOLE_TOPK","measurementEvidenceRef":"artifact:c13-invariant-cognition-result-v1","measurementClass":"OBSERVED_EVALUATION","taskSetHash":"1e18f4e4d5b7a40efae754eb9652919058b83791129713677661d168a83fb4c7",
+      "baseline":{"systemId":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","score":0.5,"scoreInterval":{"low":0.5,"high":0.5},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},
+      "current":{"systemId":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","score":0.5,"scoreInterval":{"low":0.5,"high":0.5},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},
+      "candidate":{"systemId":"UBERBOND_INVARIANT_COGNITION_COMPILER_V1","revision":"977f07586c6af3ff84647812b57d49939fb85665","score":0.9999310520321743,"scoreInterval":{"low":0.9997986379089064,"high":0.9999832404305788},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},"protectedGate":true
+    },
+    {
+      "familyId":"OPPORTUNITY_BUILD_DISTANCE","measurementEvidenceRef":"artifact:c13-invariant-cognition-result-v1","measurementClass":"OBSERVED_EVALUATION","taskSetHash":"b43ac37de4af3b67b277d2a5cf1b637c34d8ad970327aa901713cc79e5147848",
+      "baseline":{"systemId":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","score":0.5,"scoreInterval":{"low":0.5,"high":0.5},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},
+      "current":{"systemId":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","score":0.5,"scoreInterval":{"low":0.5,"high":0.5},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},
+      "candidate":{"systemId":"UBERBOND_INVARIANT_COGNITION_COMPILER_V1","revision":"977f07586c6af3ff84647812b57d49939fb85665","score":0.9921137716133265,"scoreInterval":{"low":0.9857092498256538,"high":0.9941603878529537},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},"protectedGate":true
+    },
+    {
+      "familyId":"ORCHESTRATION_STATIC_TOPOLOGY","measurementEvidenceRef":"artifact:c13-invariant-cognition-result-v1","measurementClass":"OBSERVED_EVALUATION","taskSetHash":"e7b7f39522078961339950206134104c9bd7cdd91090073b5483a1160fec8caf",
+      "baseline":{"systemId":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","score":0.5,"scoreInterval":{"low":0.5,"high":0.5},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},
+      "current":{"systemId":"UBERBOND_MAIN","revision":"fa01ada9a119a24d03d1a16e80a911e81280971b","score":0.5,"scoreInterval":{"low":0.5,"high":0.5},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},
+      "candidate":{"systemId":"UBERBOND_INVARIANT_COGNITION_COMPILER_V1","revision":"977f07586c6af3ff84647812b57d49939fb85665","score":0.9991193370269381,"scoreInterval":{"low":0.9985654455261511,"high":0.9992472824267664},"wallTimeMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"computeUnits":1,"toolBudgetRef":"NO_EXTERNAL_TOOLS"},"protectedGate":true
+    }
+  ],
+  "freshContextRetention": {
+    "mechanism":{"mechanismId":"UBERBOND_INVARIANT_COGNITION_COMPILER_V1","revision":"977f07586c6af3ff84647812b57d49939fb85665","applicabilityConditions":["candidate computation depends on stable inputs within one evaluation batch","semantic output must be independent of compilation timing","compiled invariant can be invalidated and recomputed when inputs change"],"counterexamples":["dependency graph mutates during the same plan","required capability set changes per opportunity row","candidate ranking prior changes inside the same top-k query"],"provenanceRefs":["github:commit:977f07586c6af3ff84647812b57d49939fb85665","artifact:c13-invariant-cognition-result-v1","artifact:c13-invariant-cognition-python-verifier-v1","artifact:c13-invariant-cognition-fresh-context-result-v1"],"rollbackRef":"main@fa01ada9a119a24d03d1a16e80a911e81280971b"},
+    "priorContextRef":"context:c13-invariant-development-v1","freshContextRef":"context:c13-invariant-fresh-replay-v1",
+    "rehydration":{"mechanismLoadedFromArtifact":true,"hiddenConversationStateUsed":false,"contextRef":"context:c13-invariant-fresh-replay-v1","mechanismRevision":"977f07586c6af3ff84647812b57d49939fb85665"},
+    "capabilityState":"ACTIVE","revocationState":{"revoked":false},"holdout":{"baselineScore":0.5,"retainedScore":1.0},"regression":{"oldTaskRegressionRate":0,"maxAllowedRegressionRate":0},"protectedGateRegressions":[]
+  },
+  "revocationSnapshot": {
+    "snapshotRef":"artifact:c13-invariant-cognition-revocation-snapshot-v1","verifiedAt":"2026-09-11T17:24:30.000Z","verifierId":"C13_REVOCATION_AUDITOR_V1","verifierLineageRef":"lineage:independent:revocation-auditor-v1",
+    "components":[
+      {"componentId":"INVARIANT_OPPORTUNITY_COMPILER","revision":"977f07586c6af3ff84647812b57d49939fb85665","evidenceRef":"github:commit:977f07586c6af3ff84647812b57d49939fb85665","revoked":false},
+      {"componentId":"INVARIANT_ORCHESTRATION_COMPILER","revision":"977f07586c6af3ff84647812b57d49939fb85665","evidenceRef":"github:commit:977f07586c6af3ff84647812b57d49939fb85665","revoked":false},
+      {"componentId":"INVARIANT_SEARCH_COMPILER","revision":"977f07586c6af3ff84647812b57d49939fb85665","evidenceRef":"github:commit:977f07586c6af3ff84647812b57d49939fb85665","revoked":false}
+    ]
+  },
+  "observedAt":"2026-09-11T17:25:00.000Z","maxRevocationAgeMs":3600000,
+  "decisionPolicy":{"abstainOnInsufficientEvidence":true,"noRecommendationOnValueBoundary":true,"escalationBudgetRef":"budget:c13-invariant-evidence-only-v1","maxEscalationSteps":1},
+  "packetSha256":"869e0dc786c5d60650fb52606fd13ddd882c3178f50f3556be822994548e6a92"
+}

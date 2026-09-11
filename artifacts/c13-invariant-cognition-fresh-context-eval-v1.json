@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "uberbond.c13.invariant-cognition.fresh-context-eval.v1",
+  "frozenBeforeFreshReplay": true,
+  "candidateCommit": "977f07586c6af3ff84647812b57d49939fb85665",
+  "freshTaskSetSha256": "ccff713bf59cbc3da57f0bdc7cfbb0d10eebee5f49ade000f8147fd9a89c5fee",
+  "taskFamilyCount": 3,
+  "taskCounts": {"MILLION_WORMHOLE_TOPK":48,"OPPORTUNITY_BUILD_DISTANCE":72,"ORCHESTRATION_STATIC_TOPOLOGY":128},
+  "rehydration": {
+    "mechanismSource": "durable candidate artifact only",
+    "hiddenConversationStateAllowed": false,
+    "freshProcessRequired": true,
+    "priorContextRef": "context:c13-invariant-development-v1",
+    "freshContextRef": "context:c13-invariant-fresh-replay-v1"
+  },
+  "scoring": {
+    "baselineScore": 0.5,
+    "retainedScoreFormula": "fraction of three families preserving exact semantics and demonstrating >=1.05x deterministic work reduction on the fresh holdout",
+    "requiredRetainedScoreGreaterThanBaseline": true,
+    "oldTaskRegressionRateMax": 0,
+    "protectedGateRegressionTolerance": 0
+  },
+  "authority": {"promotionAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"},
+  "truthBoundary": "FRESH_CONTEXT_RETENTION_CONTRACT_ONLY__NO_C21_OR_ASI_CLAIM"
+}

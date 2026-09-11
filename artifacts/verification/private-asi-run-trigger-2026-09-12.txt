@@ -1,0 +1,1 @@
+Verification-only trigger for PR #757. No production authority. Run the branch-local private zero-spend ASI breadth canary and preserve only its receipt.

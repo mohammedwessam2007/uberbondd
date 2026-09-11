@@ -1,0 +1,106 @@
+name: Founder Outcome Overnight Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/overnight/founder-outcome-arm'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: founder-outcome-overnight-worker
+  cancel-in-progress: false
+
+env:
+  NODE_ENV: development
+  PROCESS_ROLE: worker
+  STORE_BACKEND: postgres
+  DATABASE_URL: ${{ secrets.LITE_DATABASE_URL }}
+  DATABASE_SSL: 'true'
+  AUTOPILOT_ENABLED: 'false'
+  PROMETHEUS_SCHEDULING_ENABLED: 'false'
+  DISCOVERY_ENABLED: ${{ vars.UBERBOND_ZERO_MARGINAL_DISCOVERY || 'false' }}
+  DISCOVERY_DRY_RUN: 'true'
+  OUTBOUND_ENABLED: ${{ vars.OUTBOUND_ENABLED || 'false' }}
+  OUTBOUND_DRY_RUN: ${{ vars.OUTBOUND_DRY_RUN || 'true' }}
+  OUTBOUND_LAUNCH_PHASE: ${{ vars.OUTBOUND_LAUNCH_PHASE || 'off' }}
+  OUTBOUND_PROVIDER: ${{ vars.OUTBOUND_PROVIDER || 'gmail-api' }}
+  OUTBOUND_ALLOWED_COUNTRIES: ${{ vars.OUTBOUND_ALLOWED_COUNTRIES || '' }}
+  INSTANTLY_API_KEY: ${{ secrets.INSTANTLY_API_KEY }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  GOOGLE_REDIRECT_URI: ${{ vars.GOOGLE_REDIRECT_URI || '' }}
+  GOOGLE_WORKSPACE_CLIENT_ID: ${{ secrets.GOOGLE_WORKSPACE_CLIENT_ID }}
+  GOOGLE_WORKSPACE_CLIENT_SECRET: ${{ secrets.GOOGLE_WORKSPACE_CLIENT_SECRET }}
+  MICROSOFT_365_CLIENT_ID: ${{ secrets.MICROSOFT_365_CLIENT_ID }}
+  MICROSOFT_365_CLIENT_SECRET: ${{ secrets.MICROSOFT_365_CLIENT_SECRET }}
+  MICROSOFT_365_TENANT_ID: ${{ secrets.MICROSOFT_365_TENANT_ID }}
+  PAYPAL_SANDBOX_CLIENT_ID: ${{ secrets.PAYPAL_SANDBOX_CLIENT_ID }}
+  PAYPAL_SANDBOX_CLIENT_SECRET: ${{ secrets.PAYPAL_SANDBOX_CLIENT_SECRET }}
+  PAYPAL_SANDBOX_WEBHOOK_ID: ${{ secrets.PAYPAL_SANDBOX_WEBHOOK_ID }}
+
+jobs:
+  worker-a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Refuse without shared Neon secret
+        shell: bash
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo 'LITE_DATABASE_URL is not configured; refusing to pretend the worker is live.' >&2
+            exit 2
+          fi
+      - run: npm ci
+      - name: Apply idempotent database migrations
+        run: npm run db:migrate
+      - name: Run real UberBond worker window A
+        shell: bash
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=45s 5h25m npm run start:worker
+          code=$?
+          if [ "$code" -eq 124 ] || [ "$code" -eq 143 ]; then
+            echo 'Worker window A ended at the planned handoff boundary.'
+            exit 0
+          fi
+          exit "$code"
+
+  worker-b:
+    needs: worker-a
+    if: ${{ always() && needs.worker-a.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Refuse without shared Neon secret
+        shell: bash
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo 'LITE_DATABASE_URL is not configured; refusing to pretend the worker is live.' >&2
+            exit 2
+          fi
+      - run: npm ci
+      - name: Run real UberBond worker window B
+        shell: bash
+        run: |
+          set +e
+          timeout --signal=TERM --kill-after=45s 5h25m npm run start:worker
+          code=$?
+          if [ "$code" -eq 124 ] || [ "$code" -eq 143 ]; then
+            echo 'Worker window B ended at the planned handoff boundary.'
+            exit 0
+          fi
+          exit "$code"

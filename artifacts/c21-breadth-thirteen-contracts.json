@@ -1,0 +1,27 @@
+{
+  "schemaVersion":"uberbond.c21-breadth-thirteen-contracts.v1",
+  "candidateId":"UBERBOND_WHOLE_SYSTEM_C21_20260911",
+  "candidateRevision":"c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "baselineRevision":"2f0dbdbcd7a7a17fd3d491aad8b2cdf943c8fd34",
+  "frozenBeforeHeldoutGeneration":true,
+  "evaluationPolicy":{"rounds":21,"bootstrapSamples":10000,"minimumMeaningfulGain":0.05,"requiredImprovedFamilies":2,"maxRegression":0,"wallTimeBudgetMs":5000,"monetaryCostMicros":0,"humanAssistanceMinutes":0,"externalTools":"NONE","semanticIdentityRequired":true},
+  "dimensions":[
+    {"dimension":"novel problem solving","slug":"novel","families":["hidden graph-rule induction","novel constraint transformation","unseen structural puzzle transfer"],"criterion":"exact solutions on freshly generated unseen structural rules under matched budget"},
+    {"dimension":"scientific discovery","slug":"science","families":["hypothesis discrimination experiments","latent-law recovery","falsifier selection"],"criterion":"exact identification of hidden laws and discriminating experiments from fresh synthetic scientific worlds"},
+    {"dimension":"software engineering","slug":"software","families":["dependency-aware patch planning","regression-safe module repair","build-order fault localization"],"criterion":"exact repair plans on fresh dependency/program graphs with all stated invariants preserved"},
+    {"dimension":"mathematical reasoning","slug":"math","families":["DAG recurrence evaluation","symbolic dependency reduction","proof-order consistency"],"criterion":"exact mathematical outputs and proof dependency order on fresh formal structures"},
+    {"dimension":"strategy","slug":"strategy","families":["minimax resource game","adversarial commitment game","multi-stage option game"],"criterion":"exact optimal actions on fresh finite adversarial games"},
+    {"dimension":"forecasting","slug":"forecasting","families":["Bayesian event propagation","conditional scenario forecast","shock-adjusted probability forecast"],"criterion":"exact probability forecasts on fresh probabilistic dependency worlds"},
+    {"dimension":"world-model construction","slug":"world-model","families":["transition-law identification","latent dynamics simulation","state-update model recovery"],"criterion":"exact next-state predictions from freshly generated hidden dynamics"},
+    {"dimension":"mechanism invention","slug":"mechanism","families":["constraint-satisfying mechanism synthesis","incentive-compatible dependency design","minimum-component mechanism composition"],"criterion":"exact feasible mechanism compositions satisfying fresh constraints"},
+    {"dimension":"economic reasoning","slug":"economic","families":["supply-chain shock propagation","marginal-value allocation","constraint-aware profit propagation"],"criterion":"exact economic decisions on fresh structured markets and shocks"},
+    {"dimension":"learning from sparse evidence","slug":"sparse","families":["few-example rule induction","sparse causal label recovery","few-observation structural generalization"],"criterion":"exact hidden-rule recovery from deliberately sparse fresh evidence"},
+    {"dimension":"capability acquisition","slug":"acquisition","families":["unseen tool dependency learning","fresh interface composition","novel capability onboarding"],"criterion":"exact use plans for freshly specified unseen tools and dependencies"},
+    {"dimension":"autonomous recovery","slug":"recovery","families":["dependency failure recovery","checkpoint restart planning","provider-failure reroute"],"criterion":"exact bounded recovery plans on fresh fault-injected systems"},
+    {"dimension":"tool invention","slug":"tool-invention","families":["reusable pipeline synthesis","minimum tool-chain invention","unseen-task tool reuse"],"criterion":"exact reusable tool compositions that solve fresh target transformations"}
+  ],
+  "evaluatorPattern":{"id":"C21_<SLUG>_BREADTH_EVALUATOR_V1","lineage":"lineage:independent:c21:<slug>:breadth-evaluator:v1","verifier":"C21_<SLUG>_BREADTH_VERIFIER_V1","verifierLineage":"lineage:independent:c21:<slug>:breadth-verifier:v1"},
+  "authority":{"promotionAuthority":"NONE","businessEffectAuthority":"NONE","externalEffectAuthority":"NONE"},
+  "asiStatus":"SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+  "truthBoundary":"FROZEN_BREADTH_EVALUATION_CONTRACTS_ONLY__NO_TASK_EXECUTION_OR_ASI_CLAIM"
+}

@@ -3,10 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
-import { readCognitiveJournal, appendCognitiveJournalEvent } from '../src/cognitive-event-journal.mjs';
+import { appendRuntimeCognitiveJournalEvent, readRuntimeCognitiveJournal } from './sovereign-cognitive-journal-runtime.mjs';
 import { compileFounderContextSuppression } from '../src/context-privacy.mjs';
 
-export const SOVEREIGN_CONTEXT_SUPPRESS_VERSION='sovereign-context-suppress-1.0.0';
+export const SOVEREIGN_CONTEXT_SUPPRESS_VERSION='sovereign-context-suppress-1.1.0';
 const EVENT_ID=/^brain_evt_[a-f0-9]{24}$/;
 const SHA64=/^[a-f0-9]{64}$/;
 const zeroEffects=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -19,12 +19,14 @@ export function suppressContextEvent({journalPath,authorizationRoot,targetEventI
   const root=path.resolve(authorizationRoot);const authPath=path.resolve(root,`${authId}.json`);
   if(authPath!==path.join(root,`${authId}.json`))return fail(['safe-founder-authorization-path-required']);
   const auth=safeJson(authPath);if(!auth)return fail(['regular-founder-authorization-receipt-required']);
-  const journal=readCognitiveJournal(journalPath);if(!journal.ok)return fail(['verified-journal-required',...(journal.reasonCodes||[])]);
+  const archiveSnapshotPath=process.env.UBERBOND_CONTEXT_ARCHIVE_SNAPSHOT_PATH||null;
+  const tailPath=process.env.UBERBOND_CONTEXT_TAIL_PATH||null;
+  const journal=readRuntimeCognitiveJournal({journalPath,archiveSnapshotPath,tailPath});if(!journal.ok)return fail(['verified-journal-required',...(journal.reasonCodes||[])]);
   if(!journal.entries.some(entry=>entry.eventId===target))return fail(['suppression-target-must-exist-in-journal']);
   if(journal.entries.some(entry=>entry.event.subjectType==='COGNITIVE_EVENT_SUPPRESSION'&&entry.event.subjectId===target))return fail(['context-event-already-suppressed'],'CONTEXT_SUPPRESSION_DUPLICATE');
   const compiled=compileFounderContextSuppression({targetEventId:target,founderAuthorizationReceipt:auth,observedAt});
   if(!compiled.ok)return fail(['valid-founder-suppression-required',...(compiled.reasonCodes||[])]);
-  const appended=appendCognitiveJournalEvent({journalPath,compiledEvent:compiled.compiledEvent});
+  const appended=appendRuntimeCognitiveJournalEvent({journalPath,archiveSnapshotPath,tailPath,compiledEvent:compiled.compiledEvent});
   if(!appended.ok)return fail(['suppression-journal-append-failed',...(appended.reasonCodes||[])],appended.status);
   return{ok:true,suppressVersion:SOVEREIGN_CONTEXT_SUPPRESS_VERSION,status:'CONTEXT_EVENT_SUPPRESSED_FROM_ORDINARY_RETRIEVAL',targetEventId:target,authorizationId:authId,directiveEventId:appended.eventId,journalSequence:appended.sequence,journalEntryDigest:appended.entryDigest,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'This appends a founder-authorized retrieval suppression directive. The target remains in the immutable journal and may remain in backups, replicas, or prior exports.'};
 }

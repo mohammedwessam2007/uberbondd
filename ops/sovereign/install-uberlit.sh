@@ -6,7 +6,7 @@ SOURCE="${1:-}"
 START=false
 [[ "${2:-}" == "--start" ]] && START=true
 [[ $EUID -eq 0 ]] || { echo "install-uberlit.sh must run as root" >&2; exit 2; }
-for bin in git node npm tar systemctl; do command -v "$bin" >/dev/null || { echo "missing required executable: $bin" >&2; exit 2; }; done
+for bin in git node npm tar openssl systemctl; do command -v "$bin" >/dev/null || { echo "missing required executable: $bin" >&2; exit 2; }; done
 SOURCE="$(realpath "$SOURCE")"
 [[ -d "$SOURCE/.git" ]] || { echo "source must be a Git checkout" >&2; exit 2; }
 [[ -z "$(git -C "$SOURCE" status --porcelain --untracked-files=no)" ]] || { echo "source tracked tree must be clean" >&2; exit 2; }
@@ -33,7 +33,11 @@ install -d -o uberlit -g uberlit -m 0700 /var/lib/uberlit /var/lib/uberlit/uberb
 install -d -o root -g uberlit -m 0750 /etc/uberlit
 if [[ ! -f /etc/uberlit/uberlit.env ]]; then
   cat > /etc/uberlit/uberlit.env <<'ENV'
-APP_BASE_URL=https://uberlit.local
+APP_BASE_URL=https://127.0.0.1:32443
+TRUST_PROXY_HOPS=1
+UBERLIT_TLS_BIND=127.0.0.1
+UBERLIT_TLS_PORT=32443
+UBERLIT_WEB_PORT=32123
 OUTBOUND_ENABLED=false
 DISCOVERY_ENABLED=false
 ENV
@@ -41,10 +45,13 @@ ENV
   chmod 0640 /etc/uberlit/uberlit.env
 fi
 install -m 0644 /opt/uberlit/source/ops/sovereign/uberlit.service /etc/systemd/system/uberlit.service
+install -m 0644 /opt/uberlit/source/ops/sovereign/uberlit-tls-edge.service /etc/systemd/system/uberlit-tls-edge.service
 systemctl daemon-reload
-systemctl enable uberlit.service >/dev/null
+systemctl enable uberlit.service uberlit-tls-edge.service >/dev/null
 if $START; then
   systemctl restart uberlit.service
+  systemctl restart uberlit-tls-edge.service
   systemctl --no-pager --full status uberlit.service
+  systemctl --no-pager --full status uberlit-tls-edge.service
 fi
-printf '{"ok":true,"status":"UBERLIT_NODE_INSTALLED","sourceCommit":"%s","sourceTree":"%s","serviceEnabled":true,"serviceStarted":%s,"runtimeRoot":"/var/lib/uberlit/uberbond"}\n' "$SOURCE_SHA" "$SOURCE_TREE" "$START"
+printf '{"ok":true,"status":"UBERLIT_NODE_INSTALLED","sourceCommit":"%s","sourceTree":"%s","serviceEnabled":true,"tlsEdgeEnabled":true,"serviceStarted":%s,"runtimeRoot":"/var/lib/uberlit/uberbond","localHttpsUrl":"https://127.0.0.1:32443"}\n' "$SOURCE_SHA" "$SOURCE_TREE" "$START"

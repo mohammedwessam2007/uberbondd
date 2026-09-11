@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileUberDistributionCycle } from '../src/uber-distribution-orchestrator.mjs';
+import { compileUberDistributionCycle } from '../src/sender-infrastructure-mesh.mjs';
 
 const motion={id:'owned-content',type:'OWNED_CONTENT',capabilityRef:'cap:content',configured:true,blocked:false,evidence:{verifiedOutcomeCount:0,clearedPaymentCount:0,quality:'NO_VERIFIED_OUTCOMES'},safety:{suppressionClear:true,complaintClear:true,senderHealthClear:true}};
 

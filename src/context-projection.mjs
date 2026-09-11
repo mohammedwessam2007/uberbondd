@@ -1,10 +1,13 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const CONTEXT_PROJECTION_POLICY_VERSION = 'context-projection-1.0.0';
+export const CONTEXT_PROJECTION_POLICY_VERSION = 'context-projection-1.1.0';
 export const CONTEXT_PROJECTION_SCHEMA_VERSION = 'uberbond.context-projection.v1';
 const MAX_HISTORY = 12;
 const MAX_INITIATIVES = 20;
+const AUDIENCES = Object.freeze(['isolated-worker', 'founder-dialogue', 'research-worker']);
+const SHA40 = /^[a-f0-9]{40}$/;
+const SHA64 = /^[a-f0-9]{64}$/;
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function canonical(value) {
@@ -33,6 +36,21 @@ function payload(projection = {}) {
   const { projectionId: _ignored, ...rest } = projection;
   return rest;
 }
+function projectionShapeReasons(projection) {
+  const reasons = [];
+  if (!AUDIENCES.includes(String(projection?.audience || ''))) reasons.push('recognized-context-audience-required');
+  if (!SHA40.test(String(projection?.sourceCommit || ''))) reasons.push('exact-context-source-commit-required');
+  for (const key of ['brainstateId', 'contextMountId', 'missionContextId']) {
+    if (!SHA64.test(String(projection?.[key] || ''))) reasons.push(`exact-${key}-required`);
+  }
+  if (!text(projection?.terminalObjective, 5000) || !text(projection?.economicNorthStar, 2000) || !text(projection?.mission, 4000) || !text(projection?.activeMission, 4000)) reasons.push('projection-north-star-and-mission-required');
+  if (!projection?.frontier || !Array.isArray(projection.frontier.blockers) || projection.frontier.blockers.length > 16 || projection.frontier.blockers.some(v => !text(v, 1800)) || !Array.isArray(projection.frontier.nextActions) || projection.frontier.nextActions.length > 16 || projection.frontier.nextActions.some(v => !text(v, 1800))) reasons.push('bounded-projection-frontier-required');
+  if (!Array.isArray(projection?.relevantInitiatives) || projection.relevantInitiatives.length > MAX_INITIATIVES || projection.relevantInitiatives.some(item => !item || typeof item !== 'object' || Array.isArray(item) || !text(item.id,160) || !text(item.name,300) || !text(item.status,120))) reasons.push('bounded-projection-initiatives-required');
+  if (!Array.isArray(projection?.cognitiveHistory) || projection.cognitiveHistory.length > MAX_HISTORY || projection.cognitiveHistory.some(event => !event || typeof event !== 'object' || Array.isArray(event) || !text(event.eventId,80) || !text(event.kind,120) || !text(event.summary,1800) || !text(event.truthClass,120) || !text(event.observedAt,80) || !Array.isArray(event.evidenceRefs) || event.evidenceRefs.length > 16 || event.evidenceRefs.some(ref => !text(ref,500)))) reasons.push('bounded-projection-history-required');
+  if (!projection?.laws || typeof projection.laws !== 'object' || Array.isArray(projection.laws) || !text(projection.laws.zeroRetelling,4000) || !text(projection.laws.staleContext,4000) || projection.laws.capabilityNeverCreatesAuthority !== true) reasons.push('projection-laws-required');
+  if (projection?.consequenceAuthority !== 'NONE' || projection?.businessEffectAuthority !== 'NONE' || projection?.externalEffectAuthority !== 'NONE') reasons.push('zero-context-projection-authority-required');
+  return reasons;
+}
 
 export function compileContextProjection({ mountResult, audience = 'isolated-worker', maxHistory = 8 } = {}) {
   if (!mountResult?.ok || !String(mountResult.status || '').startsWith('CONTEXT_MOUNT_READY')) return fail(['verified-current-context-mount-required']);
@@ -41,7 +59,7 @@ export function compileContextProjection({ mountResult, audience = 'isolated-wor
   const historyLimit = Number(maxHistory);
   if (!Number.isSafeInteger(historyLimit) || historyLimit < 0 || historyLimit > MAX_HISTORY) return fail(['valid-history-limit-required']);
   const normalizedAudience = text(audience, 80);
-  if (!normalizedAudience || !['isolated-worker', 'founder-dialogue', 'research-worker'].includes(normalizedAudience)) return fail(['recognized-context-audience-required']);
+  if (!normalizedAudience || !AUDIENCES.includes(normalizedAudience)) return fail(['recognized-context-audience-required']);
 
   const initiatives = Array.isArray(mount.missionContext?.relevantInitiatives)
     ? mount.missionContext.relevantInitiatives.slice(0, MAX_INITIATIVES).map(item => ({ id: text(item?.id, 160), name: text(item?.name, 300), status: text(item?.status, 120) }))
@@ -61,7 +79,7 @@ export function compileContextProjection({ mountResult, audience = 'isolated-wor
   const blockers = Array.isArray(mount.brainstate?.frontier?.blockers) ? mount.brainstate.frontier.blockers.slice(0, 16).map(v => text(v, 1800)) : null;
   const nextActions = Array.isArray(mount.brainstate?.frontier?.nextActions) ? mount.brainstate.frontier.nextActions.slice(0, 16).map(v => text(v, 1800)) : null;
   const reasons = [];
-  if (!text(mount.sourceCommit, 64) || !text(mount.brainstateId, 80) || !text(mount.contextMountId, 80) || !text(mount.missionContextId, 80)) reasons.push('mount-identity-required');
+  if (!SHA40.test(String(mount.sourceCommit || '')) || !SHA64.test(String(mount.brainstateId || '')) || !SHA64.test(String(mount.contextMountId || '')) || !SHA64.test(String(mount.missionContextId || ''))) reasons.push('mount-identity-required');
   if (!text(mount.brainstate?.objective, 5000) || !text(mount.brainstate?.economicNorthStar, 2000) || !text(mount.mission, 4000) || !text(mount.brainstate?.frontier?.activeMission, 4000)) reasons.push('north-star-and-mission-required');
   if (!initiatives || initiatives.some(item => !item.id || !item.name || !item.status)) reasons.push('bounded-relevant-initiatives-required');
   if (!history || history.some(item => !item.eventId || !item.kind || !item.summary || !item.truthClass || !item.observedAt)) reasons.push('bounded-cognitive-history-required');
@@ -91,6 +109,8 @@ export function compileContextProjection({ mountResult, audience = 'isolated-wor
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE'
   };
+  const shapeReasons = projectionShapeReasons(projection);
+  if (shapeReasons.length) return fail(shapeReasons);
   projection.projectionId = digest(payload(projection));
   return {
     ok: true,
@@ -104,9 +124,10 @@ export function compileContextProjection({ mountResult, audience = 'isolated-wor
 export function verifyContextProjection(projection, { audience = null, sourceCommit = null } = {}) {
   if (!projection || typeof projection !== 'object' || Array.isArray(projection)) return fail(['context-projection-object-required'], 'CONTEXT_PROJECTION_INVALID');
   if (projection.schemaVersion !== CONTEXT_PROJECTION_SCHEMA_VERSION) return fail(['context-projection-schema-mismatch'], 'CONTEXT_PROJECTION_INVALID');
+  const shapeReasons = projectionShapeReasons(projection);
+  if (shapeReasons.length) return fail(shapeReasons, 'CONTEXT_PROJECTION_INVALID');
   const observed = digest(payload(projection));
-  if (!/^[a-f0-9]{64}$/.test(String(projection.projectionId || '')) || projection.projectionId !== observed) return fail(['context-projection-digest-mismatch'], 'CONTEXT_PROJECTION_INVALID');
-  if (projection.consequenceAuthority !== 'NONE' || projection.businessEffectAuthority !== 'NONE' || projection.externalEffectAuthority !== 'NONE') return fail(['zero-context-projection-authority-required'], 'CONTEXT_PROJECTION_INVALID');
+  if (!SHA64.test(String(projection.projectionId || '')) || projection.projectionId !== observed) return fail(['context-projection-digest-mismatch'], 'CONTEXT_PROJECTION_INVALID');
   if (audience && projection.audience !== audience) return fail(['context-projection-audience-mismatch'], 'CONTEXT_PROJECTION_INVALID');
   if (sourceCommit && projection.sourceCommit !== String(sourceCommit).toLowerCase()) return fail(['context-projection-source-mismatch'], 'CONTEXT_PROJECTION_INVALID');
   return {

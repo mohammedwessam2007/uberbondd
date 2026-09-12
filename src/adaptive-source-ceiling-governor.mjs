@@ -50,5 +50,5 @@ export function buildAlwaysOnSensoriumPlan({overrides={}}={}){
  const atlasDefaults=Object.fromEntries(SOURCE_FAMILIES.map(sourceId=>[sourceId,{sourceId,mode:'ADAPTIVE_PUBLIC_SOURCE',continuous:true,minDelayMs:1000,maxConcurrency:1}]));
  const all={...atlasDefaults,...DEFAULT_PUBLIC_SOURCE_POLICIES};
  const lanes=Object.entries(all).map(([id,base])=>buildSourceCeilingPolicy({...base,...overrides[id]}));
- return {version:SOURCE_CEILING_GOVERNOR_VERSION,status:'ALWAYS_ON_SENSORIUM_PLAN_READY',lanes,sourceFamilyCount:SOURCE_FAMILIES.length,goal:'MAXIMIZE_LAWFUL_USEFUL_SIGNAL_INGESTION_PER_UNIT_TIME',schedulerLaw:'RUN_WHILE_CAPACITY_EXISTS_SLEEP_WHEN_PROVIDER_OR_POLITENESS_REQUIRES'};
+ return {version:SOURCE_CEILING_GOVERNOR_VERSION,status:'ALWAYS_ON_SENSORIUM_PLAN_READY',lanes,sourceFamilyCount:SOURCE_FAMILIES.length,goal:'MAXIMIZE_LAWFUL_USEFUL_SIGNAL_INGESTION_PER_UNIT_TIME',schedulerLaw:'24_7_RUN_WHILE_CAPACITY_EXISTS_SLEEP_WHEN_PROVIDER_OR_POLITENESS_REQUIRES'};
 }

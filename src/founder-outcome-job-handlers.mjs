@@ -1,6 +1,7 @@
 import { createJobHandlers } from './job-handlers.mjs';
 import { runFounderOutcomeMissionSupervisor } from './founder-outcome-mission-supervisor.mjs';
 import { runFrontierLearningJob } from './frontier-learning-job-handler.mjs';
+import { runPersonalCivilizationJob } from './personal-civilization-job-handler.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
@@ -26,6 +27,13 @@ export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } 
   handlers['frontier.learning.process'] = async payload => {
     const input = payload && typeof payload === 'object' ? payload : {};
     return runFrontierLearningJob({
+      ...input,
+      root: input.root || process.cwd()
+    });
+  };
+  handlers['personal.civilization.pulse'] = async payload => {
+    const input = payload && typeof payload === 'object' ? payload : {};
+    return runPersonalCivilizationJob({
       ...input,
       root: input.root || process.cwd()
     });

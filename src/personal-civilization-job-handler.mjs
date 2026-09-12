@@ -1,8 +1,10 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { buildPersonalCivilizationPulse, PERSONAL_CIVILIZATION_KERNEL_VERSION } from './personal-civilization-kernel.mjs';
 
 export const PERSONAL_CIVILIZATION_JOB_VERSION='uberbond.personal-civilization-job.v1';
+const digest=value=>crypto.createHash('sha256').update(String(value??'')).digest('hex');
 
 async function readPrivateSnapshot(root, relativePath) {
   const target=path.resolve(root,relativePath);
@@ -29,8 +31,8 @@ export async function runPersonalCivilizationJob({ root=process.cwd(), snapshot=
     status:pulse.status,
     privateStateDigest:pulse.privateStateDigest,
     organCount:Object.keys(pulse.organs).length,
-    missionCandidateIds:pulse.lifeAutopoiesis.missionCandidates.map(m=>m.id),
-    vetoedActionIds:pulse.constitutionalContinuity.vetoedIds,
+    missionCandidateDigests:pulse.lifeAutopoiesis.missionCandidates.map(m=>digest(m.id)),
+    vetoedActionDigests:pulse.constitutionalContinuity.vetoedIds.map(digest),
     externalEffectAuthority:'NONE',
     truthBoundary:pulse.truthBoundary
   };

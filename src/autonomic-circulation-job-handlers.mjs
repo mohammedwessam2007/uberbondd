@@ -8,7 +8,7 @@ import { compileObjectiveMetabolism, planMetabolismCycle } from './organism-meta
 import { compileRevenueMethodExchange } from './revenue-method-exchange.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const AUTONOMIC_CIRCULATION_JOB_HANDLERS_VERSION='uberbond.autonomic-circulation-job-handlers.v1.1';
+export const AUTONOMIC_CIRCULATION_JOB_HANDLERS_VERSION='uberbond.autonomic-circulation-job-handlers.v1.2';
 const execFileAsync=promisify(execFile);
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
@@ -40,6 +40,10 @@ function strategyCandidates(targetCounts={}){
     {id:'autonomic-new-mechanism',family:'NEW_MECHANISM_INVENTION',mechanism:'Generate a bounded new mechanism only if existing direct, decomposition and substitution families remain insufficient.',assumptions:['novel composition may dominate existing mechanisms'],constraintViolations:[],evidenceRefs:[evidenceRef],reversible:true,successProbability:.35,expectedContributionCents:180,costCents:0,founderMinutes:0,risk:2,evidenceStrength:3,novelty:9,robustness:4}
   ];
 }
+function autonomicFeedbackEvent(event){
+  const refs=event?.event?.evidenceRefs;
+  return Array.isArray(refs)&&refs.some(ref=>String(ref).startsWith('receipt:autonomic-'));
+}
 
 export function attachAutonomicCirculationJobHandlers({handlers,store,cfg,enqueueJob}={}){
   if(!handlers||typeof handlers!=='object'||!store||typeof store.log!=='function')return handlers;
@@ -58,8 +62,11 @@ export function attachAutonomicCirculationJobHandlers({handlers,store,cfg,enqueu
     const run=await execFileAsync(process.execPath,args,{cwd:root,timeout:120_000,maxBuffer:8_000_000});
     const cycle=await readJson(cyclePath);
     if(!cycle||cycle.schemaVersion!=='uberbond.cognitive-cycle.v1'||cycle.externalEffectAuthority!=='NONE')throw new Error('autonomic-cognitive-cycle-invalid');
-    const cycleDigest=digest({sourceCommit,graph:cycle.graph?.graphDigest||null,events:(cycle.events||[]).map(event=>event.eventId),activationSummary:cycle.activationSummary});
-    const receipt={schemaVersion:'uberbond.autonomic-cognitive-cycle-receipt.v1',receiptId:digest({sourceCommit,cycleDigest}),observedAt:new Date().toISOString(),sourceCommit,cycleDigest,eventCount:Number(cycle.activationSummary?.eventCount||0),activationCount:Number(cycle.activationSummary?.activationCount||0),targetCounts:cycle.activationSummary?.targetCounts||{},eventSummaries:(cycle.events||[]).slice(0,24).map(event=>text(event.summary,500)).filter(Boolean),autonomicFeedbackDigest:cycle.autonomicFeedback?.feedbackDigest||null,stdout:String(run.stdout||'').slice(0,2000),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
+    const events=Array.isArray(cycle.events)?cycle.events:[];
+    const cycleDigest=digest({sourceCommit,graph:cycle.graph?.graphDigest||null,events:events.map(event=>event.eventId),activationSummary:cycle.activationSummary});
+    const stimulusEvents=events.filter(event=>!autonomicFeedbackEvent(event));
+    const stimulusDigest=digest({sourceCommit,graph:cycle.graph?.graphDigest||null,events:stimulusEvents.map(event=>event.eventId)});
+    const receipt={schemaVersion:'uberbond.autonomic-cognitive-cycle-receipt.v1',receiptId:digest({sourceCommit,cycleDigest}),observedAt:new Date().toISOString(),sourceCommit,cycleDigest,stimulusDigest,eventCount:Number(cycle.activationSummary?.eventCount||0),activationCount:Number(cycle.activationSummary?.activationCount||0),targetCounts:cycle.activationSummary?.targetCounts||{},eventSummaries:events.slice(0,24).map(event=>text(event?.event?.summary||event?.summary,500)).filter(Boolean),autonomicFeedbackDigest:cycle.autonomicFeedback?.feedbackDigest||null,autonomicFeedbackEventCount:Number(cycle.autonomicFeedback?.eventCount||0),stdout:String(run.stdout||'').slice(0,2000),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
     await store.log('autonomic_cognitive_cycle',receipt);
     return receipt;
   };

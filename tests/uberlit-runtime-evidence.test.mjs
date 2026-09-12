@@ -36,3 +36,10 @@ test('summary closes runtime cuts only and refuses provider or ASI overclaim',()
   for(const cut of ['SOURCE_REPOSITORY_HOST','DATABASE_STATE','WORKER_SCHEDULER_PROCESS','WEB_RUNTIME_HOST'])assert.match(script,new RegExp(cut));
   assert.match(script,/do not close provider, owner-custody, customer, revenue, production-traffic, or ASI boundaries/);
 });
+
+test('restart drill executes inside the staged exact release, not the dependency-empty source checkout',()=>{
+  assert.match(script,/const releaseSource=path\.join\(runtimeRoot,'releases'/);
+  assert.match(script,/const drill=run\(releaseSource,process\.execPath/);
+  assert.doesNotMatch(script,/const drill=run\(repoRoot,process\.execPath/);
+  assert.match(script,/uberlit-staged-release-source-required/);
+});

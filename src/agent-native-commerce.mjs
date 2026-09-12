@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const AGENT_NATIVE_COMMERCE_VERSION = 'uberbond.agent-native-commerce.v1';
+export const AGENT_NATIVE_COMMERCE_VERSION = 'uberbond.agent-native-commerce.v1.1';
 
 const EXIT = Object.freeze({ OK: 0, INVALID: 2, UNAUTHORIZED: 3, DRY_RUN_REQUIRED: 4, NOT_FOUND: 5 });
 
@@ -44,22 +44,27 @@ export function buildAgentCommerceManifest(product = {}) {
 }
 
 export function createDelegatedAgentIdentity({ principalId, agentId, scopes = [], spendCap = 0, expiresAt, parent = null } = {}) {
+  if (!Array.isArray(scopes)) return response({ ok: false, exitCode: EXIT.INVALID, status: 'IDENTITY_INVALID', reasonCodes: ['scopes-array-required'] });
+  const expiry = new Date(expiresAt);
+  if (!principalId || !agentId || !expiresAt || !Number.isFinite(expiry.getTime())) return response({ ok: false, exitCode: EXIT.INVALID, status: 'IDENTITY_INVALID', reasonCodes: ['valid-principal-agent-expiry-required'] });
   const requestedScopes = [...new Set(scopes.map(String))].sort();
-  if (!principalId || !agentId || !expiresAt) return response({ ok: false, exitCode: EXIT.INVALID, status: 'IDENTITY_INVALID', reasonCodes: ['principal-agent-expiry-required'] });
   if (parent) {
-    const parentScopes = new Set(parent.scopes || []);
+    const parentScopes = new Set(Array.isArray(parent.scopes) ? parent.scopes : []);
     if (requestedScopes.some(scope => !parentScopes.has(scope))) return response({ ok: false, exitCode: EXIT.UNAUTHORIZED, status: 'DELEGATION_WIDENS_SCOPE', reasonCodes: ['attenuation-only'] });
     if (Number(spendCap) > Number(parent.spendCap || 0)) return response({ ok: false, exitCode: EXIT.UNAUTHORIZED, status: 'DELEGATION_WIDENS_SPEND', reasonCodes: ['attenuation-only'] });
   }
-  const identity = { principalId: String(principalId), agentId: String(agentId), scopes: requestedScopes, spendCap: Math.max(0, Number(spendCap) || 0), expiresAt: new Date(expiresAt).toISOString(), parentAgentId: parent?.agentId || null };
+  const identity = { principalId: String(principalId), agentId: String(agentId), scopes: requestedScopes, spendCap: Math.max(0, Number(spendCap) || 0), expiresAt: expiry.toISOString(), parentAgentId: parent?.agentId || null };
   return response({ ok: true, exitCode: EXIT.OK, status: 'IDENTITY_CREATED', data: { ...identity, identityHash: digest(identity) } });
 }
 
 function authorize(command, identity, input, now) {
   if (!identity) return ['identity-required'];
-  if (new Date(identity.expiresAt).getTime() <= new Date(now).getTime()) return ['identity-expired'];
-  const scopes = new Set(identity.scopes || []);
-  const missing = (command.scopes || []).filter(scope => !scopes.has(scope));
+  const expiry = new Date(identity.expiresAt).getTime();
+  const current = new Date(now).getTime();
+  if (!Number.isFinite(expiry) || !Number.isFinite(current)) return ['valid-time-required'];
+  if (expiry <= current) return ['identity-expired'];
+  const scopes = new Set(Array.isArray(identity.scopes) ? identity.scopes : []);
+  const missing = (Array.isArray(command.scopes) ? command.scopes : []).filter(scope => !scopes.has(scope));
   if (missing.length) return missing.map(scope => `missing-scope:${scope}`);
   if (command.spendCapRequired) {
     const amount = Math.max(0, Number(input?.amount) || 0);

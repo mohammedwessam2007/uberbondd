@@ -10,7 +10,7 @@ import { UBER_SOVEREIGN_LAYERS } from '../src/uber-sovereign-stack.mjs';
 
 const now='2026-09-11T10:00:00Z';
 const sha='a'.repeat(40),d='sha256:'+'b'.repeat(64);
-const doctorCell=(id,provider)=>({cellId:id,resourceType:'EXECUTION',provider,sourceRef:`receipt:doctor:${id}`,verifiedAt:now,capabilityTags:['node20'],allowedDataClasses:['SOURCE_CODE'],availableUnits:1,costCents:0,reliability:provider==='owned-a'?1:.95,latencyScore:1,privacyScore:1,trustScore:1,reversibilityScore:1,ownershipClass:provider==='owned-a'?'OWNER_OWNED':'OPEN_SELF_HOSTED',networkMode:'UBERMESH',credentialCustody:'OWNER'});
+const doctorCell=(id,provider)=>({cellId:id,resourceType:'EXECUTION',provider,failureDomain:`doctor-fd-${provider}`,failureDomainEvidenceRef:`receipt:doctor:failure-domain:${provider}`,sourceRef:`receipt:doctor:${id}`,verifiedAt:now,capabilityTags:['node20'],allowedDataClasses:['SOURCE_CODE'],availableUnits:1,costCents:0,reliability:provider==='owned-a'?1:.95,latencyScore:1,privacyScore:1,trustScore:1,reversibilityScore:1,ownershipClass:provider==='owned-a'?'OWNER_OWNED':'OPEN_SELF_HOSTED',networkMode:'UBERMESH',credentialCustody:'OWNER'});
 const requiredUber=['UBERMESH','UBERCLOUD','UBERCEL','UBERGRAPH','UBERMIND','UBERDNA','UBERMEMORY','UBERVAULT','UBERRUNTIME','UBERCONTROL','UBERAGENTS','UBERMODELS','UBERRESEARCH','UBERECONOMY','UBERPAY','UBERMAIL','UBERDELIVERY'];
 const uberIds=UBER_SOVEREIGN_LAYERS.map(layer=>layer.id);
 const stackRegistry={ok:new Set(uberIds).size===uberIds.length&&requiredUber.every(id=>uberIds.includes(id)),status:'UBER_SOVEREIGN_STACK_REGISTRY_INTACT',layerCount:uberIds.length,missing:requiredUber.filter(id=>!uberIds.includes(id)),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'};
@@ -28,6 +28,6 @@ const probes={
   stackRegistry
 };
 const failed=Object.entries(probes).filter(([,v])=>v?.ok!==true).map(([k,v])=>({organ:k,status:v?.status||'UNKNOWN',reasonCodes:v?.reasonCodes||[]}));
-const output={ok:failed.length===0,status:failed.length?'SUPPORTING_CIVILIZATION_ORGANS_BLOCKED':'SUPPORTING_CIVILIZATION_ORGANS_READY',simulationOnly:true,organs:Object.fromEntries(Object.entries(probes).map(([k,v])=>[k,{ok:v?.ok===true,status:v?.status||'UNKNOWN'}])),failed,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',truthBoundary:'DOCTOR PROVES ONLY ZERO-EFFECT SOURCE COMPOSITION AND SYNTHETIC POLICY PATHS ON THIS CHECKOUT. SYNTHETIC UBERCLOUD/UBERCEL CELLS, SIGNATURES AND MESH RECEIPTS ARE NOT PHYSICAL RUNTIME OR PROVIDER EVIDENCE. THIS DOES NOT PROVE CALLABILITY, CUSTOMER VALUE, LIFE OUTCOMES OR ASI.'};
+const output={ok:failed.length===0,status:failed.length?'SUPPORTING_CIVILIZATION_ORGANS_BLOCKED':'SUPPORTING_CIVILIZATION_ORGANS_READY',simulationOnly:true,organs:Object.fromEntries(Object.entries(probes).map(([k,v])=>[k,{ok:v?.ok===true,status:v?.status||'UNKNOWN'}])),failed,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',truthBoundary:'DOCTOR PROVES ONLY ZERO-EFFECT SOURCE COMPOSITION AND SYNTHETIC POLICY PATHS ON THIS CHECKOUT. SYNTHETIC UBERCLOUD/UBERCEL CELLS, SIGNATURES, FAILURE-DOMAIN ATTESTATIONS AND MESH RECEIPTS ARE NOT PHYSICAL RUNTIME OR PROVIDER EVIDENCE. THIS DOES NOT PROVE CALLABILITY, CUSTOMER VALUE, LIFE OUTCOMES OR ASI.'};
 console.log(JSON.stringify(output,null,2));
 if(!output.ok)process.exitCode=2;

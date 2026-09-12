@@ -1,4 +1,4 @@
-export const SOURCE_GENESIS_VERSION='uberbond.source-genesis.v1';
+export const SOURCE_GENESIS_VERSION='uberbond.source-genesis.v2';
 const num=v=>Number.isFinite(Number(v))?Number(v):0;
 const id=v=>String(v??'').trim().toLowerCase();
 
@@ -17,4 +17,18 @@ export function proposeSource(input={}){
 
 export function rankSources(inputs=[]){
  return inputs.map(proposeSource).sort((a,b)=>b.score-a.score);
+}
+
+export function discoverSourceCandidatesFromLinks(links=[]){
+ const hosts=new Map();
+ for(const raw of links){
+  try{
+   const url=new URL(String(raw));
+   if(!['http:','https:'].includes(url.protocol)) continue;
+   const host=url.hostname.toLowerCase().replace(/^www\./,'');
+   if(!host) continue;
+   hosts.set(host,(hosts.get(host)||0)+1);
+  }catch{}
+ }
+ return [...hosts.entries()].map(([sourceId,observations])=>proposeSource({sourceId,uniqueUsefulDiscoveries:observations,northStarGain:1,freshnessValue:1})).sort((a,b)=>b.score-a.score||a.sourceId.localeCompare(b.sourceId));
 }

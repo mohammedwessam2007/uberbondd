@@ -31,11 +31,27 @@ test('stable matching receipts collapse work instead of clock-spamming the same 
  const first=compileAutonomicCirculationPlan({sourceCommit:SHA,cognitive:cognitive(),revenue:revenue(),now});
  const cd=first.plan.cognitiveDigest;
  const stableMet=metabolism({inputDigest:cd});
- const feedback={sourceCommit:SHA,cognitiveDigest:cd,metabolismReceiptId:stableMet.receiptId,revenueReceiptId:'rev-1',observedAt:'2026-09-12T23:59:50Z'};
- const r=compileAutonomicCirculationPlan({sourceCommit:SHA,cognitive:cognitive(),metabolism:stableMet,revenue:revenue(),commercialCatalog:{inputDigest:cd},contradictionScan:{inputDigest:cd},feedback,now});
+ const feedback={sourceCommit:SHA,feedbackDigest:'f'.repeat(64),cognitiveDigest:cd,metabolismReceiptId:stableMet.receiptId,revenueReceiptId:'rev-1',observedAt:'2026-09-12T23:59:50Z'};
+ const acknowledged=cognitive({autonomicFeedbackDigest:feedback.feedbackDigest});
+ const r=compileAutonomicCirculationPlan({sourceCommit:SHA,cognitive:acknowledged,metabolism:stableMet,revenue:revenue(),commercialCatalog:{inputDigest:cd},contradictionScan:{inputDigest:cd},feedback,now});
  assert.equal(r.ok,true,JSON.stringify(r));
  assert.equal(r.plan.jobs.length,0,JSON.stringify(r.plan.jobs));
  assert.equal(r.status,'AUTONOMIC_CIRCULATION_STABLE');
+});
+
+test('assimilating internal feedback changes the full cycle but not upstream stimulus identity or metabolism demand',()=>{
+ const stimulus='s'.repeat(64);const feedbackDigest='f'.repeat(64);
+ const met=metabolism({inputDigest:stimulus});
+ const feedback={sourceCommit:SHA,feedbackDigest,metabolismReceiptId:met.receiptId,revenueReceiptId:'rev-1',observedAt:'2026-09-12T23:59:50Z'};
+ const before=cognitive({stimulusDigest:stimulus,autonomicFeedbackDigest:null});
+ const pending=compileAutonomicCirculationPlan({sourceCommit:SHA,cognitive:before,metabolism:met,revenue:revenue(),commercialCatalog:{inputDigest:stimulus},contradictionScan:{inputDigest:stimulus},feedback,now});
+ assert.ok(pending.plan.jobs.some(job=>job.type==='autonomic.cognitive.refresh'));
+ assert.ok(!pending.plan.jobs.some(job=>job.type==='autonomic.metabolism.plan'));
+ const after=cognitive({cycleDigest:'d'.repeat(64),stimulusDigest:stimulus,autonomicFeedbackDigest:feedbackDigest,eventCount:6,activationCount:12});
+ const settled=compileAutonomicCirculationPlan({sourceCommit:SHA,cognitive:after,metabolism:met,revenue:revenue(),commercialCatalog:{inputDigest:stimulus},contradictionScan:{inputDigest:stimulus},feedback,now});
+ assert.equal(settled.plan.cognitiveDigest,stimulus);
+ assert.ok(!settled.plan.jobs.some(job=>job.type==='autonomic.metabolism.plan'));
+ assert.ok(!settled.plan.jobs.some(job=>job.type==='autonomic.cognitive.refresh'));
 });
 
 test('stale cognition self-refreshes while unrelated paper allocation remains independently eligible',()=>{

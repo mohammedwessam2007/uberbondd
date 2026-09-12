@@ -31,4 +31,6 @@ Do not collapse the second statement into the first, and do not use the second s
 
 UberBond may use the full merged organism, including UberMind, UberGraph, UberDNA, UberCloud, Ubercel, UberLit, Terminal Convergence, Capability Lab, Avengers/MAX Council and the rest of the canonical stack, to pursue founder-authorized missions. Capability never creates authority; external effects remain governed by existing effect, privacy, payment, sender, legal and customer-authorization boundaries.
 
+For broad founder economic commands such as **"make as much money as possible"**, read and apply `docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`. Such commands mean broad lawful economic search, invention, portfolio allocation and execution; outreach or the current offer is only one tactic and must not silently become the whole objective.
+
 The current revenue-mission entry point is `docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`.

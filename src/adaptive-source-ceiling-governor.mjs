@@ -42,8 +42,8 @@ export const DEFAULT_PUBLIC_SOURCE_POLICIES=Object.freeze({
  bluesky:{sourceId:'bluesky',mode:'STREAM',continuous:true,minDelayMs:0,maxConcurrency:1},
  'software-heritage':{sourceId:'software-heritage',mode:'BULK_PLUS_API',continuous:false,minDelayMs:1000,maxConcurrency:1},
  commoncrawl:{sourceId:'commoncrawl',mode:'INDEX_PLUS_SELECTIVE_FETCH',continuous:false,minDelayMs:1000,maxConcurrency:2},
- osv:{sourceId:'osv',mode:'API',continuous:true,minDelayMs:250,maxConcurrency:2},
- web:{sourceId:'public-web',mode:'ROBOTS_AND_PROVIDER_LIMITS',continuous:true,minDelayMs:1000,maxConcurrency:2}
+ 'osv-nvd-cisa':{sourceId:'osv-nvd-cisa',mode:'API_AND_FEEDS',continuous:true,minDelayMs:250,maxConcurrency:2},
+ 'public-web-search':{sourceId:'public-web-search',mode:'ROBOTS_AND_PROVIDER_LIMITS',continuous:true,minDelayMs:1000,maxConcurrency:2}
 });
 
 export function buildAlwaysOnSensoriumPlan({overrides={}}={}){

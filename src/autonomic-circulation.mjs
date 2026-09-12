@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileCognitiveEvent } from './uberbond-cognitive-bus.mjs';
 
-export const AUTONOMIC_CIRCULATION_VERSION = 'uberbond.autonomic-circulation.v1.1';
+export const AUTONOMIC_CIRCULATION_VERSION = 'uberbond.autonomic-circulation.v1.2';
 const SHA40 = /^[a-f0-9]{40}$/i;
 const FIVE_MINUTES = 5 * 60_000;
 const THIRTY_MINUTES = 30 * 60_000;
@@ -48,8 +48,10 @@ function fail(reasonCodes, status = 'AUTONOMIC_CIRCULATION_REFUSED') {
   return { ok:false, policyVersion:AUTONOMIC_CIRCULATION_VERSION, status, reasonCodes:[...new Set(reasonCodes)], businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:zero() };
 }
 function cognitiveDigest(receipt) {
-  if (!receipt?.cycleDigest || !receipt?.sourceCommit) return null;
-  return digest({ sourceCommit:receipt.sourceCommit, cycleDigest:receipt.cycleDigest, targetCounts:receipt.targetCounts || {}, eventCount:receipt.eventCount || 0, activationCount:receipt.activationCount || 0 });
+  if (!receipt?.sourceCommit) return null;
+  if (/^[a-f0-9]{64}$/i.test(String(receipt.stimulusDigest || ''))) return String(receipt.stimulusDigest).toLowerCase();
+  if (!receipt?.cycleDigest) return null;
+  return digest({ sourceCommit:receipt.sourceCommit, cycleDigest:receipt.cycleDigest, eventCount:receipt.eventCount || 0 });
 }
 function hasEffects(receipt) {
   const ledger=receipt?.externalEffectLedger;
@@ -80,8 +82,14 @@ export function compileAutonomicCirculationPlan({
   const nowMs = date.getTime();
   const jobs = [];
   const cognitiveCurrent = cognitive?.sourceCommit === source && zeroAuthorityReceipt(cognitive) && !stale(cognitive, nowMs, FIVE_MINUTES);
-  if (!cognitiveCurrent) {
-    jobs.push(job('autonomic.cognitive.refresh', `cognitive:${source}:${Math.floor(nowMs / FIVE_MINUTES)}`, { sourceCommit:source }, 100));
+  const feedbackWaitingForCognition = Boolean(
+    feedback?.feedbackDigest
+    && feedback?.sourceCommit === source
+    && cognitive?.autonomicFeedbackDigest !== feedback.feedbackDigest
+  );
+  if (!cognitiveCurrent || feedbackWaitingForCognition) {
+    const feedbackKey=feedback?.feedbackDigest ? `:${feedback.feedbackDigest.slice(0,24)}` : `:${Math.floor(nowMs / FIVE_MINUTES)}`;
+    jobs.push(job('autonomic.cognitive.refresh', `cognitive:${source}${feedbackKey}`, { sourceCommit:source }, 100));
   }
 
   const cycleIdentity = cognitiveCurrent ? cognitiveDigest(cognitive) : null;
@@ -115,12 +123,14 @@ export function compileAutonomicCirculationPlan({
     jobs.push(job('autonomic.revenue.paper', `revenue:${source}:${Math.floor(nowMs / THIRTY_MINUTES)}`, { sourceCommit:source }, 75));
   }
 
+  // Feedback identity depends only on the receipts it carries. It deliberately
+  // does not depend on the downstream cognitive digest, or cognition could
+  // recursively create a new feedback packet merely by observing itself.
   const feedbackNeedsRefresh = feedback?.sourceCommit !== source
-    || feedback?.cognitiveDigest !== (cycleIdentity || null)
     || feedback?.metabolismReceiptId !== (metabolism?.receiptId || null)
     || feedback?.revenueReceiptId !== (revenue?.receiptId || null);
   if (feedbackNeedsRefresh && (metabolism?.receiptId || revenue?.receiptId)) {
-    jobs.push(job('autonomic.feedback.compile', `feedback:${digest({source,cycleIdentity,metabolism:metabolism?.receiptId||null,revenue:revenue?.receiptId||null})}`, {
+    jobs.push(job('autonomic.feedback.compile', `feedback:${digest({source,metabolism:metabolism?.receiptId||null,revenue:revenue?.receiptId||null})}`, {
       sourceCommit:source,
       cognitiveDigest:cycleIdentity,
       metabolismReceiptId:metabolism?.receiptId || null,
@@ -134,6 +144,7 @@ export function compileAutonomicCirculationPlan({
     sourceCommit:source,
     cognitiveCurrent,
     cognitiveDigest:cycleIdentity,
+    feedbackWaitingForCognition,
     revenueCurrent,
     jobs:uniqueJobs(jobs),
     businessEffectAuthority:'NONE',
@@ -193,6 +204,12 @@ export function compileAutonomicFeedback({ sourceCommit, cognitive = null, metab
     externalEffectAuthority:'NONE',
     externalEffectLedger:zero()
   };
-  bundle.feedbackDigest = digest(bundle);
+  bundle.feedbackDigest = digest({
+    schemaVersion:bundle.schemaVersion,
+    sourceCommit:bundle.sourceCommit,
+    metabolismReceiptId:bundle.metabolismReceiptId,
+    revenueReceiptId:bundle.revenueReceiptId,
+    eventIds:events.map(event=>event.eventId)
+  });
   return { ok:true, status:'AUTONOMIC_FEEDBACK_READY', bundle, businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:zero() };
 }

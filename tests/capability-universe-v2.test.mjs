@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {canonicalMechanismIdentity,sameMechanism} from '../src/capability-mechanism-identity.mjs';
 import {scoreSource,rankSources,discoverSourceCandidatesFromLinks} from '../src/source-genesis.mjs';
+import {scoreResourceEfficiency} from '../src/resource-efficiency.mjs';
 import {buildEliteReserve,ELITE_CAPABILITY_RESERVE_TARGET,eliteEligibility} from '../src/elite-capability-reserve.mjs';
 import {buildCapabilitySourceAtlas,CAPABILITY_OBJECT_TARGET} from '../src/capability-source-atlas.mjs';
 import {compileMissionBrain} from '../src/mission-brain-compiler.mjs';
@@ -24,6 +25,12 @@ test('source genesis recursively discovers source ecosystems from outbound links
  const discovered=discoverSourceCandidatesFromLinks(['https://lab.example/a','https://lab.example/b','https://new.example/x','not-a-url']);
  assert.deepEqual(discovered.map(x=>x.sourceId),['lab.example','new.example']);
  assert.ok(discovered[0].score>discovered[1].score);
+});
+
+test('resource efficiency rewards equal gain at lower resource burden',()=>{
+ const lean=scoreResourceEfficiency({measuredGain:10,costUsd:1,seconds:10});
+ const heavy=scoreResourceEfficiency({measuredGain:10,costUsd:20,seconds:100});
+ assert.ok(lean.fitness>heavy.fitness);
 });
 
 test('elite reserve counts mechanisms not duplicate suppliers',()=>{
@@ -54,7 +61,8 @@ test('adaptive sensorium includes the full source atlas',()=>{
  const plan=buildAlwaysOnSensoriumPlan();
  assert.ok(plan.sourceFamilyCount>=45);
  const ids=new Set(plan.lanes.map(x=>x.sourceId));
- for(const id of ['github','bluesky','software-heritage','commoncrawl','formal-proof-ecosystems','scientific-databases']) assert.ok(ids.has(id));
+ for(const id of ['github','bluesky','software-heritage','commoncrawl','formal-proof-ecosystems','scientific-databases','osv-nvd-cisa','public-web-search']) assert.ok(ids.has(id));
+ assert.equal(ids.size,plan.lanes.length);
 });
 
 test('mission compiler prefers higher mission-adjusted utility and avoids conflicts',()=>{

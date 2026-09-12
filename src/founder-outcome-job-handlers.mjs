@@ -1,5 +1,6 @@
 import { createJobHandlers } from './job-handlers.mjs';
 import { runFounderOutcomeMissionSupervisor } from './founder-outcome-mission-supervisor.mjs';
+import { attachAutonomicCirculationJobHandlers } from './autonomic-circulation-job-handlers.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
@@ -22,5 +23,5 @@ export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } 
       paymentReconciliationAvailable:true
     });
   };
-  return handlers;
+  return attachAutonomicCirculationJobHandlers({ handlers, store:options.store, cfg:options.cfg, enqueueJob });
 }

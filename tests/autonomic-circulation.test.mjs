@@ -40,7 +40,7 @@ test('stable matching receipts collapse work instead of clock-spamming the same 
 });
 
 test('assimilating internal feedback changes the full cycle but not upstream stimulus identity or metabolism demand',()=>{
- const stimulus='s'.repeat(64);const feedbackDigest='f'.repeat(64);
+ const stimulus='b'.repeat(64);const feedbackDigest='f'.repeat(64);
  const met=metabolism({inputDigest:stimulus});
  const feedback={sourceCommit:SHA,feedbackDigest,metabolismReceiptId:met.receiptId,revenueReceiptId:'rev-1',observedAt:'2026-09-12T23:59:50Z'};
  const before=cognitive({stimulusDigest:stimulus,autonomicFeedbackDigest:null});

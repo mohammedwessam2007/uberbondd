@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const NEURAL_REPOSITORY_ATLAS_VERSION='uberbond.neural-repository-atlas.v1';
+export const NEURAL_REPOSITORY_ATLAS_VERSION='uberbond.neural-repository-atlas.v1.1';
 export const NEURAL_REPOSITORY_TARGET=50_000;
 const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 
@@ -26,13 +26,16 @@ math:['neural theorem prover','symbolic regression ai','automated mathematics','
 efficiency:['model compression','quantization neural network','sparse neural network','low rank adaptation','efficient transformer']
 });
 
-export function compileNeuralAtlasPlan({target=NEURAL_REPOSITORY_TARGET,starFloors=[0,10,50,200,1000],pushedAfter=null}={}){
+export const DEFAULT_STAR_BANDS=Object.freeze([[0,9],[10,49],[50,199],[200,999],[1000,null]]);
+export function compileNeuralAtlasPlan({target=NEURAL_REPOSITORY_TARGET,starBands=DEFAULT_STAR_BANDS,pushedAfter=null}={}){
  const queries=[];
- for(const [family,seeds] of Object.entries(NEURAL_QUERY_FAMILIES)) for(const seed of seeds) for(const floor of starFloors){
-  const n=Math.max(0,Math.floor(Number(floor)||0));
-  queries.push({family,seed,floorStars:n,query:`${seed} stars:>=${n}${pushedAfter?` pushed:>=${pushedAfter}`:''}`});
+ for(const [family,seeds] of Object.entries(NEURAL_QUERY_FAMILIES)) for(const seed of seeds) for(const band of starBands){
+  const lo=Math.max(0,Math.floor(Number(band?.[0])||0));
+  const hi=band?.[1]==null?null:Math.max(lo,Math.floor(Number(band[1])||lo));
+  const stars=hi==null?`stars:>=${lo}`:`stars:${lo}..${hi}`;
+  queries.push({family,seed,starBand:[lo,hi],query:`${seed} ${stars}${pushedAfter?` pushed:>=${pushedAfter}`:''}`});
  }
- return {ok:true,status:'NEURAL_ATLAS_DISCOVERY_PLAN_COMPILED',target,familyCount:Object.keys(NEURAL_QUERY_FAMILIES).length,queryCount:queries.length,queries,law:'INDEX_50000_INSTALL_ONLY_MINIMUM_SUFFICIENT_VERIFIED_WINNERS'};
+ return {ok:true,status:'NEURAL_ATLAS_DISCOVERY_PLAN_COMPILED',target,familyCount:Object.keys(NEURAL_QUERY_FAMILIES).length,queryCount:queries.length,queries,refinementLaw:'IF_A_QUERY_REPORTS_MORE_THAN_1000_RESULTS_SPLIT_BY_TIME_OR_LANGUAGE_BEFORE_CLAIMING_COVERAGE',law:'INDEX_50000_INSTALL_ONLY_MINIMUM_SUFFICIENT_VERIFIED_WINNERS'};
 }
 
 export function scoreNeuralRepository(r={}){

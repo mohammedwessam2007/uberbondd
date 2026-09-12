@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "uberbond.always-on-sensorium.v1",
+  "objective": "Use every permitted source continuously up to its current provider ceiling, then sleep or back off exactly as required and resume automatically.",
+  "lanes": [
+    {"id":"x","strategy":"STREAM_PLUS_SEARCH","cadence":"continuous","priority":"P0","discover":"accounts + topics + github links + mechanisms + launches + research"},
+    {"id":"github","strategy":"API_PLUS_EVENTS_PLUS_SEARCH","cadence":"ceiling-driven","priority":"P0","discover":"repositories + releases + commits + discussions + capability suppliers"},
+    {"id":"huggingface","strategy":"API_PLUS_WEBHOOKS_PLUS_TRENDING","cadence":"header-driven","priority":"P0","discover":"models + datasets + spaces + papers + leaderboards"},
+    {"id":"arxiv","strategy":"API_RSS_POLITE_POLL","cadence":"continuous-polite","priority":"P0","discover":"papers + methods + benchmarks + citations"},
+    {"id":"hackernews","strategy":"PUBLIC_API","cadence":"continuous-polite","priority":"P1","discover":"launches + practitioner signals + links"},
+    {"id":"youtube","strategy":"DATA_API_PLUS_FEEDS","cadence":"quota-driven","priority":"P1","discover":"technical demos + creator mechanisms + talks + launch videos"},
+    {"id":"reddit","strategy":"APPROVED_API_ONLY","cadence":"provider-driven","priority":"P1","discover":"community experience + failure reports + emerging tools"},
+    {"id":"package-registries","strategy":"REGISTRY_APIS_AND_CHANGE_FEEDS","cadence":"continuous-polite","priority":"P0","discover":"packages + versions + dependency ecosystems"},
+    {"id":"official-changelogs","strategy":"RSS_API_HTML_CONDITIONAL","cadence":"continuous-polite","priority":"P0","discover":"new platform capabilities + pricing + limits + deprecations"},
+    {"id":"public-web","strategy":"ROBOTS_RESPECTING_SEARCH_AND_FETCH","cadence":"continuous-polite","priority":"P1","discover":"blogs + docs + benchmarks + company mechanisms"}
+  ],
+  "globalLaws": [
+    "provider headers override stale local constants",
+    "conditional requests and caching first",
+    "dedupe before expensive analysis",
+    "429/retry-after/reset pauses are mandatory",
+    "source discovery grants no execution authority",
+    "private/authenticated user data is excluded unless explicitly authorized",
+    "harvest receipts record source, timestamp, fingerprint, license/terms state, and downstream promotion state"
+  ]
+}

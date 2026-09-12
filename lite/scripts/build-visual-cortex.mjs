@@ -10,6 +10,7 @@ process.env.UBERBOND_RESTART_RECOVERY_RECEIPT_PATH = restartRecoveryReceiptPath;
 
 const runtimeEvidenceSteps = process.platform === 'linux' && process.arch === 'x64'
   ? [
+      ['node', ['scripts/hydrate-embedded-postgres-fixture.mjs']],
       ['npm', ['rebuild', '@embedded-postgres/linux-x64']],
       ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']],
       ['node', ['scripts/with-real-postgres.mjs', 'node', 'scripts/deploy-restart-recovery-drill.mjs', '--output', restartRecoveryReceiptPath]],

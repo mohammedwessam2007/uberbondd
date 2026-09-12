@@ -8,9 +8,9 @@ const D='sha256:'+'b'.repeat(64);
 const release={sourceCommit:SHA,imageDigest:D,configDigest:D,artifactDigest:D,signatureRef:'receipt:offline-signer:release',signerIdentity:'uberbond-offline-signer',signedAt:NOW,signatureVerified:true};
 const mesh={providerIndependent:true,transport:'WIREGUARD',evidenceRef:'receipt:ubermesh:test'};
 const req={requirementId:'web',resourceType:'EXECUTION',dataClass:'SOURCE_CODE',requiredTags:['node20'],units:1,minimumReliability:.8,minimumPrivacy:.8,minimumTrust:.8,minimumReversibility:.8};
-const cell=(id,provider,overrides={})=>({cellId:id,resourceType:'EXECUTION',provider,sourceRef:`receipt:${id}`,verifiedAt:NOW,capabilityTags:['node20'],allowedDataClasses:['SOURCE_CODE'],availableUnits:2,costCents:0,reliability:.99,latencyScore:.9,privacyScore:1,trustScore:1,reversibilityScore:1,ownershipClass:provider==='owned'?'OWNER_OWNED':'THIRD_PARTY_REPLACEABLE',networkMode:'UBERMESH',credentialCustody:'OWNER',...overrides});
+const cell=(id,provider,failureDomain,overrides={})=>({cellId:id,resourceType:'EXECUTION',provider,failureDomain,failureDomainEvidenceRef:`receipt:failure-domain:${failureDomain}`,sourceRef:`receipt:${id}`,verifiedAt:NOW,capabilityTags:['node20'],allowedDataClasses:['SOURCE_CODE'],availableUnits:2,costCents:0,reliability:.99,latencyScore:.9,privacyScore:1,trustScore:1,reversibilityScore:1,ownershipClass:provider==='owned'?'OWNER_OWNED':'THIRD_PARTY_REPLACEABLE',networkMode:'UBERMESH',credentialCustody:'OWNER',...overrides});
 const adapter=(id,provider,type)=>({adapterId:id,adapterType:type,provider,sourceRef:`receipt:adapter:${id}`,verifiedAt:NOW,capabilityTags:['deploy'],deploymentAuthority:false,policyAuthority:false});
-const base=()=>({serviceId:'uberbond-runtime',target:'SOVEREIGN',release,cloudRequirements:[req],resourceCells:[cell('owned-a','owned'),cell('vercel-b','vercel')],meshReceipt:mesh,maxTotalCostCents:0,adapters:[adapter('owned-linux','owned','OWNED_LINUX'),adapter('vercel','vercel','VERCEL')],healthContract:{authenticatedHealthRef:'probe:/api/health',expectedStatus:200},rollbackContract:{rollbackProcedureRef:'ops:rollback:signed-release',independentRollbackEvidenceRequired:true}});
+const base=()=>({serviceId:'uberbond-runtime',target:'SOVEREIGN',release,cloudRequirements:[req],resourceCells:[cell('owned-a','owned','founder-node-a'),cell('open-b','open-b','independent-host-b')],meshReceipt:mesh,maxTotalCostCents:0,adapters:[adapter('owned-linux','owned','OWNED_LINUX'),adapter('generic-docker','open-b','GENERIC_DOCKER')],healthContract:{authenticatedHealthRef:'probe:/api/health',expectedStatus:200},rollbackContract:{rollbackProcedureRef:'ops:rollback:signed-release',independentRollbackEvidenceRequired:true}});
 
 test('Ubercel refuses unsigned or unverifiable releases',()=>{
   const result=compileUbercelDeployment({...base(),release:{...release,signatureVerified:false}});
@@ -29,13 +29,22 @@ test('Ubercel refuses a provider adapter that claims deployment or policy author
 
 test('Ubercel requires every primary and fallback provider cell to have an explicit adapter',()=>{
   const input=base();
-  input.adapters=input.adapters.filter(row=>row.provider!=='vercel');
+  input.adapters=input.adapters.filter(row=>row.provider!=='open-b');
   const result=compileUbercelDeployment(input);
   assert.equal(result.ok,false);
   assert.ok(result.reasonCodes.includes('unbound-provider-cell'));
 });
 
-test('Ubercel compiles a signed provider-neutral plan with zero effect authority',()=>{
+test('Ubercel refuses cosmetic provider diversity inside one failure domain',()=>{
+  const input=base();
+  input.resourceCells[1]={...input.resourceCells[1],failureDomain:input.resourceCells[0].failureDomain,failureDomainEvidenceRef:'receipt:failure-domain:same-host'};
+  const result=compileUbercelDeployment(input);
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('ubercloud-placement-required'));
+  assert.ok(result.uberCloud.blocked.some(row=>row.reasonCodes.includes('distinct-provider-and-failure-domain-fallback-required')));
+});
+
+test('Ubercel compiles a signed provider-neutral plan with evidenced failure-domain diversity',()=>{
   const result=compileUbercelDeployment(base());
   assert.equal(result.ok,true,JSON.stringify(result));
   assert.equal(result.status,'UBERCEL_DEPLOYMENT_PLAN_READY');
@@ -45,6 +54,7 @@ test('Ubercel compiles a signed provider-neutral plan with zero effect authority
   assert.equal(result.plan.uberCloudPlan.serviceId,'uberbond-runtime');
   assert.equal(result.plan.placements.length,1);
   assert.notEqual(result.plan.placements[0].primary.provider,result.plan.placements[0].fallback.provider);
+  assert.notEqual(result.plan.placements[0].primary.failureDomain,result.plan.placements[0].fallback.failureDomain);
 });
 
 test('Ubercel failover is digest-bound and proposal-only',()=>{

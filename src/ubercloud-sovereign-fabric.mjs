@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { allocateSovereignCells, normalizeResourceCell } from './sovereign-compute-cell-fabric.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBERCLOUD_SOVEREIGN_FABRIC_VERSION='uberbond.ubercloud-sovereign-fabric.v1';
+export const UBERCLOUD_SOVEREIGN_FABRIC_VERSION='uberbond.ubercloud-sovereign-fabric.v1.1';
 const STATEFUL=new Set(['STORAGE','DATABASE','QUEUE']);
 const PRIVATE_NETWORKS=new Set(['UBERMESH','LOCAL_ONLY']);
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -21,6 +21,12 @@ function meshEvidence(meshReceipt={}){
     evidenceRef,
     providerIndependent:meshReceipt.providerIndependent===true
   };
+}
+
+function failureDomainEvidence(raw={}){
+  const failureDomain=text(raw.failureDomain,160)?.toLowerCase();
+  const evidenceRef=text(raw.failureDomainEvidenceRef,1000);
+  return {ok:Boolean(failureDomain&&evidenceRef),failureDomain,evidenceRef};
 }
 
 function normalizeRequirement(raw={},index=0){
@@ -73,6 +79,8 @@ export function compileUberCloudPlan({
   const rejectedCells=normalizedCells.filter(result=>!result.ok).map(result=>result.reasonCodes||[]);
   const admitted=normalizedCells.filter(result=>result.ok).map(result=>result.cell);
   if(!admitted.length)return fail(['no-admissible-resource-cells'],{rejectedCells});
+  const rawById=new Map(cells.map(raw=>[text(raw?.cellId,160),raw]).filter(([id])=>Boolean(id)));
+  const failureById=new Map(admitted.map(cell=>[cell.cellId,failureDomainEvidence(rawById.get(cell.cellId)||{})]));
 
   const normalizedRequirements=requirements.map(normalizeRequirement);
   if(normalizedRequirements.some(req=>!req.resourceType||!req.dataClass||!req.requiredTags.length||[req.units,req.minimumReliability,req.minimumPrivacy,req.minimumTrust,req.minimumReversibility].some(v=>v==null))){
@@ -90,38 +98,48 @@ export function compileUberCloudPlan({
     const primaryCell=byId.get(allocation.cellId);
     if(!primaryCell){blocked.push({requirementId:req.requirementId,reasonCodes:['primary-cell-missing-after-normalization']});continue;}
     if(req.stateful&&!primaryCell.sovereignty.statePortable){blocked.push({requirementId:req.requirementId,reasonCodes:['primary-state-not-portable']});continue;}
+    const primaryFailure=failureById.get(primaryCell.cellId)||{ok:false};
+    if(requireIndependentFallback&&!primaryFailure.ok){blocked.push({requirementId:req.requirementId,primaryProvider:primaryCell.provider,reasonCodes:['primary-failure-domain-evidence-required']});continue;}
 
     const fallbacks=admitted
-      .filter(cell=>cell.cellId!==primaryCell.cellId&&cell.provider!==primaryCell.provider&&eligibleFor(req,cell))
+      .filter(cell=>{
+        if(cell.cellId===primaryCell.cellId||cell.provider===primaryCell.provider||!eligibleFor(req,cell))return false;
+        const failure=failureById.get(cell.cellId);
+        return Boolean(failure?.ok&&failure.failureDomain!==primaryFailure.failureDomain);
+      })
       .sort((a,b)=>b.reliability-a.reliability||b.reversibilityScore-a.reversibilityScore||a.costCents-b.costCents||a.cellId.localeCompare(b.cellId));
     const fallback=fallbacks[0]||null;
-    if(requireIndependentFallback&&!fallback){blocked.push({requirementId:req.requirementId,primaryProvider:primaryCell.provider,reasonCodes:['distinct-provider-fallback-required']});continue;}
+    if(requireIndependentFallback&&!fallback){blocked.push({requirementId:req.requirementId,primaryProvider:primaryCell.provider,primaryFailureDomain:primaryFailure.failureDomain||null,reasonCodes:['distinct-provider-and-failure-domain-fallback-required']});continue;}
+    const fallbackFailure=fallback?failureById.get(fallback.cellId):null;
 
     placements.push({
       requirementId:req.requirementId,
       resourceType:req.resourceType,
       dataClass:req.dataClass,
       units:req.units,
-      primary:{cellId:primaryCell.cellId,provider:primaryCell.provider,sourceRef:primaryCell.sourceRef,sovereignty:primaryCell.sovereignty},
-      fallback:fallback?{cellId:fallback.cellId,provider:fallback.provider,sourceRef:fallback.sourceRef,sovereignty:fallback.sovereignty}:null
+      primary:{cellId:primaryCell.cellId,provider:primaryCell.provider,failureDomain:primaryFailure.failureDomain,failureDomainEvidenceRef:primaryFailure.evidenceRef,sourceRef:primaryCell.sourceRef,sovereignty:primaryCell.sovereignty},
+      fallback:fallback?{cellId:fallback.cellId,provider:fallback.provider,failureDomain:fallbackFailure.failureDomain,failureDomainEvidenceRef:fallbackFailure.evidenceRef,sourceRef:fallback.sourceRef,sovereignty:fallback.sovereignty}:null
     });
   }
   if(blocked.length)return fail(['independence-constraints-unmet'],{placements,blocked,rejectedCells,mesh});
 
   const providers=[...new Set(placements.flatMap(p=>[p.primary.provider,p.fallback?.provider]).filter(Boolean))];
+  const failureDomains=[...new Set(placements.flatMap(p=>[p.primary.failureDomain,p.fallback?.failureDomain]).filter(Boolean))];
   const plan={
-    schemaVersion:'uberbond.ubercloud-plan.v1',
+    schemaVersion:'uberbond.ubercloud-plan.v1.1',
     serviceId:id,
     mesh,
     placements,
     providers,
     providerDiversity:providers.length,
+    failureDomains,
+    failureDomainDiversity:failureDomains.length,
     controlPlaneAuthority:'OWNER_ONLY',
     identityRoot:'UBERBOND_SOVEREIGN_CORE',
     policyRoot:'UBERBOND_SOVEREIGN_CORE',
     stateLaw:'STATEFUL_CELLS_REQUIRE_OPEN_EXPORT_AND_RESTORE_EVIDENCE_BEFORE_SOVEREIGN_PLACEMENT',
     networkLaw:'PRIVATE_OR_SOVEREIGN_TRAFFIC_USES_UBERMESH_OR_LOCAL_ONLY_TRANSPORT; PROVIDER_NETWORKING_IS_NOT_THE_ROOT_OF_TRUST',
-    supplierLaw:'ANY_ONE_PROVIDER_MAY_DISAPPEAR_WITHOUT_GAINING_IDENTITY_POLICY_AUTHORITY_OR_ERASING_THE_DECLARED_EVACUATION_PATH',
+    supplierLaw:'A SOVEREIGN FALLBACK REQUIRES BOTH A DISTINCT PROVIDER AND A DISTINCT EVIDENCED FAILURE DOMAIN; PROVIDER LABELS ALONE NEVER PROVE INDEPENDENCE',
     businessEffectAuthority:'NONE',
     externalEffectAuthority:'NONE'
   };
@@ -129,22 +147,21 @@ export function compileUberCloudPlan({
 }
 
 /** Produces a bounded failover plan only. It never calls a provider or spends. */
-export function compileUberCloudEvacuation({planResult,failedProviders=[]}={}){
+export function compileUberCloudEvacuation({planResult,failedProviders=[],failedFailureDomains=[]}={}){
   if(!planResult?.ok||!planResult.plan||!planResult.planDigest)return fail(['valid-ubercloud-plan-required']);
   if(digest(planResult.plan)!==planResult.planDigest)return fail(['ubercloud-plan-digest-mismatch']);
   const failed=new Set((Array.isArray(failedProviders)?failedProviders:[]).map(v=>text(v,120)?.toLowerCase()).filter(Boolean));
-  if(!failed.size)return fail(['failed-provider-set-required']);
+  const failedDomains=new Set((Array.isArray(failedFailureDomains)?failedFailureDomains:[]).map(v=>text(v,160)?.toLowerCase()).filter(Boolean));
+  if(!failed.size&&!failedDomains.size)return fail(['failed-provider-or-failure-domain-set-required']);
   const moves=[];const blocked=[];
   for(const placement of planResult.plan.placements||[]){
-    const primaryFailed=failed.has(String(placement.primary?.provider||'').toLowerCase());
+    const primaryFailed=failed.has(String(placement.primary?.provider||'').toLowerCase())||failedDomains.has(String(placement.primary?.failureDomain||'').toLowerCase());
     if(!primaryFailed)continue;
     const fallback=placement.fallback;
-    if(!fallback||failed.has(String(fallback.provider||'').toLowerCase())){
-      blocked.push({requirementId:placement.requirementId,reasonCodes:['no-surviving-distinct-provider-fallback']});
-      continue;
-    }
+    const fallbackFailed=!fallback||failed.has(String(fallback.provider||'').toLowerCase())||failedDomains.has(String(fallback.failureDomain||'').toLowerCase());
+    if(fallbackFailed){blocked.push({requirementId:placement.requirementId,reasonCodes:['no-surviving-distinct-provider-and-failure-domain-fallback']});continue;}
     moves.push({requirementId:placement.requirementId,from:placement.primary,to:fallback,action:'PROPOSE_FAILOVER_ONLY'});
   }
   if(blocked.length)return fail(['evacuation-path-incomplete'],{moves,blocked});
-  return {ok:true,status:'UBERCLOUD_EVACUATION_PLAN_READY',moves,failedProviders:[...failed],law:'FAILOVER_PLAN_DOES_NOT_CREATE_PROVIDER_CREDENTIAL_DEPLOYMENT_SPEND_OR_DATA_MOVEMENT_AUTHORITY',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
+  return {ok:true,status:'UBERCLOUD_EVACUATION_PLAN_READY',moves,failedProviders:[...failed],failedFailureDomains:[...failedDomains],law:'FAILOVER PLAN DOES NOT CREATE PROVIDER, CREDENTIAL, DEPLOYMENT, SPEND OR DATA-MOVEMENT AUTHORITY',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
 }

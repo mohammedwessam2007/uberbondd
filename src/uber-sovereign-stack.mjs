@@ -1,21 +1,21 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { UBER_SUBSTRATE_LAYERS } from './uber-sovereign-substrate.mjs';
 
-export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.4';
+export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.5';
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 
 /** Canonical first-party surfaces. Uber* means UberBond owns policy, contract and truth boundary, not every physical rail. */
 export const UBER_SOVEREIGN_LAYERS=Object.freeze([
   {id:'UBERMESH',role:'provider-independent private networking',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['ops/sovereign/configure-founder-console-ubermesh.sh','tests/sovereign-ubermesh.test.mjs']},
   {id:'UBERCLOUD',role:'portable multi-cell compute/runtime/storage control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercloud-sovereign-fabric.mjs','tests/ubercloud-sovereign-fabric.test.mjs']},
-  {id:'UBERCEL',role:'first-party signed deployment build release rollback and host-failover control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercel-deployment-control-plane.mjs','ops/sovereign/sovereign-release-courier.mjs','src/provider-neutral-runtime-acceptance.mjs']},
+  {id:'UBERCEL',role:'first-party signed deployment build release rollback and host-failover control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercel-deployment-control-plane.mjs','src/ubercel-deployment-actuator.mjs','src/ubercel-uberlit-linux-adapter.mjs','ops/sovereign/sovereign-release-courier.mjs','src/provider-neutral-runtime-acceptance.mjs']},
   ...UBER_SUBSTRATE_LAYERS,
   {id:'UBERGRAPH',role:'provenance-bound semantic relational causal reality graph',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:false,sourceRefs:['src/knowledge-labyrinth-ubergraph.mjs','src/life-knowledge-graph.mjs']},
   {id:'UBERMIND',role:'minimum-useful mission cognition exchange',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['src/ubermind-cognitive-exchange.mjs','src/frontier-cognitive-fabric.mjs']},
   {id:'UBERDNA',role:'machine-readable software genotype and mutation evidence',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:false,sourceRefs:['src/uberdna-software-genome.mjs','src/uberbond-feature-genome.mjs']},
   {id:'UBERMEMORY',role:'lifetime context virtualization with evidence boundaries',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/lifetime-context-memory.mjs','src/frontier-context-spine.mjs']},
   {id:'UBERVAULT',role:'founder-private records and deletion closure',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/personal-civilization-core.mjs']},
-  {id:'UBERRUNTIME',role:'owned resident execution and signed-release continuity',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['scripts/sovereign-founder-console-server.mjs','ops/sovereign/bootstrap-founder-node.sh']},
+  {id:'UBERRUNTIME',role:'owned resident execution, UberLit runtime, and signed-release continuity',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['scripts/sovereign-founder-console-server.mjs','ops/sovereign/bootstrap-founder-node.sh','scripts/uberlit-supervisor.mjs','ops/sovereign/install-uberlit.sh','ops/sovereign/uberlit.service','ops/sovereign/uberlit-worker.service','ops/sovereign/uberlit-tls-edge.service']},
   {id:'UBERCONTROL',role:'founder-owned authority and control surface',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['api/sovereign-control.mjs','scripts/sovereign-founder-console-server.mjs']},
   {id:'UBERAGENTS',role:'bounded agent orchestration and autonomy',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/agent-autonomy-loop.mjs','src/avengers-execution-guard.mjs']},
   {id:'UBERMODELS',role:'replaceable model supply and reasoning topology',kind:'SUPPLIER_ABSTRACTION',stateful:false,runtimeProof:true,sourceRefs:['src/frontier-cognitive-fabric.mjs','src/agent-model-router.mjs']},

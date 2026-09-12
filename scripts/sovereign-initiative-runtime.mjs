@@ -11,7 +11,7 @@ import { compileContextProjection } from '../src/context-projection.mjs';
 import { compileFiniteCompletionDirective } from './uberbond-finite-completion-seed.mjs';
 import { compileNorthStarInitiativeCycle, compileInitiativeExecutionReceipt } from '../src/north-star-initiative-runtime.mjs';
 
-export const SOVEREIGN_INITIATIVE_RUNTIME_VERSION='uberbond.sovereign-initiative-runtime.v1.1';
+export const SOVEREIGN_INITIATIVE_RUNTIME_VERSION='uberbond.sovereign-initiative-runtime.v1.2';
 const execFileAsync=promisify(execFile);
 const MAX_BYTES=4_000_000;
 const zeroEffects=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
@@ -48,6 +48,7 @@ export async function runSovereignInitiativeRuntime({env=process.env,now=new Dat
   const mountCachePath=path.resolve(env.UBERBOND_CONTEXT_MOUNT_PATH||path.join(contextDir,'mount.json'));
   const portfolioPath=path.join(initiativeDir,'portfolio.json');const activeCyclePath=path.join(initiativeDir,'active-cycle.json');
   const selectionReceiptPath=path.join(initiativeDir,'selection-receipt.json');const executionReceiptPath=path.join(initiativeDir,'execution-receipt.json');
+  const agentMeshMissionPath=path.join(initiativeDir,'agent-mesh-mission.json');
   const missionReceiptPath=env.UBERBOND_INITIATIVE_MISSION_RECEIPT_PATH?path.resolve(env.UBERBOND_INITIATIVE_MISSION_RECEIPT_PATH):path.join(initiativeDir,'mission-result.json');
   const head=await exactHead(root);if(!head)return fail(['exact-source-commit-required']);
   const finite=await exactFiniteClosure({root,head,env});if(!finite.ok)return finite;
@@ -66,9 +67,9 @@ export async function runSovereignInitiativeRuntime({env=process.env,now=new Dat
   }
   const cycle=compileNorthStarInitiativeCycle({baseRevision:head,contextProjection:projected.projection,founderIntent:founderIntent?.intent||null,founderMission,priorPortfolio,completedCandidateIds,observedAt:now});
   if(!cycle.ok)return cycle;
-  await atomicJson(portfolioPath,cycle.portfolio);await atomicJson(activeCyclePath,cycle);await atomicJson(selectionReceiptPath,cycle.selectionReceipt);
+  await atomicJson(portfolioPath,cycle.portfolio);await atomicJson(activeCyclePath,cycle);await atomicJson(selectionReceiptPath,cycle.selectionReceipt);await atomicJson(agentMeshMissionPath,cycle.agentMeshMission);
   if(missionResult)await fs.rm(missionReceiptPath,{force:true}).catch(()=>{});
-  return{ok:true,runtimeVersion:SOVEREIGN_INITIATIVE_RUNTIME_VERSION,status:executionReceipt?'NORTH_STAR_INITIATIVE_ADVANCED_WITHOUT_NEW_PROMPT':'NORTH_STAR_INITIATIVE_SELECTED',initiativeAdmitted:true,sourceCommit:head,brainstateId:projected.projection.brainstateId,contextProjectionId:projected.projection.projectionId,portfolioId:cycle.portfolio.portfolioId,realityDigest:cycle.portfolio.realityDigest,selectedCandidateId:cycle.portfolio.selectedCandidateId,goalContractId:cycle.goalContract.id,task:cycle.task,selectionReceipt:cycle.selectionReceipt,executionReceipt,paths:{portfolioPath,activeCyclePath,selectionReceiptPath,executionReceiptPath,missionReceiptPath},businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'This runtime selects and advances zero-authority/local-preparation North-Star missions from verified current context after exact finite-engineering closure. It does not manufacture founder preference, private-life access or consequence authority.'};
+  return{ok:true,runtimeVersion:SOVEREIGN_INITIATIVE_RUNTIME_VERSION,status:executionReceipt?'NORTH_STAR_INITIATIVE_ADVANCED_WITHOUT_NEW_PROMPT':'NORTH_STAR_INITIATIVE_SELECTED',initiativeAdmitted:true,sourceCommit:head,brainstateId:projected.projection.brainstateId,contextProjectionId:projected.projection.projectionId,portfolioId:cycle.portfolio.portfolioId,realityDigest:cycle.portfolio.realityDigest,selectedCandidateId:cycle.portfolio.selectedCandidateId,goalContractId:cycle.goalContract.id,task:cycle.task,agentMeshMission:cycle.agentMeshMission,selectionReceipt:cycle.selectionReceipt,executionReceipt,paths:{portfolioPath,activeCyclePath,selectionReceiptPath,executionReceiptPath,agentMeshMissionPath,missionReceiptPath},businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),truthBoundary:'This runtime selects and advances zero-authority/local-preparation North-Star missions from verified current context after exact finite-engineering closure. It persists an Agent Mesh mission declaration but does not manufacture provider callability, founder preference, private-life access or consequence authority.'};
 }
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))runSovereignInitiativeRuntime().then(result=>{process.stdout.write(`${JSON.stringify(result,null,2)}\n`);if(!result.ok)process.exitCode=2;}).catch(error=>{process.stdout.write(`${JSON.stringify(fail([`unexpected:${String(error?.message||error).slice(0,300)}`]),null,2)}\n`);process.exitCode=2;});

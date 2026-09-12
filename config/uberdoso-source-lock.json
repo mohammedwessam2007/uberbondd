@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "uberdoso.source-lock.v1",
+  "capturedAt": "2026-09-13T00:00:00Z",
+  "policy": {
+    "managedSaasDependencyAllowed": false,
+    "floatingTagsAllowed": false,
+    "automaticUpstreamUpgradeAllowed": false,
+    "runtimeImageDigestRequiredBeforeActivation": true
+  },
+  "postal": {
+    "role": "replaceable-source-owned-mail-transport-substrate",
+    "license": "MIT",
+    "version": "3.3.7",
+    "gitRepository": "https://github.com/postalserver/postal",
+    "gitCommit": "d038eaa8c763d3cafa797ccd6f773d53470bd336",
+    "containerRepository": "ghcr.io/postalserver/postal",
+    "runtimeImageDigest": null,
+    "upgradeMode": "explicit-source-review-benchmark-then-promote"
+  },
+  "postalInstallHelper": {
+    "role": "reference-only-bootstrap-supplier",
+    "license": "MIT",
+    "gitRepository": "https://github.com/postalserver/install",
+    "gitCommit": "451926cc78a1056e9f16dad6ec5c62d4f76d2445",
+    "runtimeDependency": false
+  },
+  "mariaDb": {
+    "role": "owned-mail-state-database",
+    "minimumVersion": "10.6",
+    "runtimeImage": null,
+    "runtimeImageDigest": null,
+    "activationRule": "digest-pinned-image-or-owned-host-package-required"
+  },
+  "truthBoundary": "This lock records reviewed source identities only. It does not prove a running mail node, an available public IP, port-25 permission, PTR, DNS publication, DKIM publication, sender reputation, or outreach authority."
+}

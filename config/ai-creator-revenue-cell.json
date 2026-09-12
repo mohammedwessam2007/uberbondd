@@ -1,0 +1,31 @@
+{
+  "schema": "uberbond.ai-creator-revenue-cell.config.v1",
+  "enabled": true,
+  "mode": "paper-to-cleared-cash",
+  "creator": {
+    "identity": "UberBond Virtual Studio",
+    "syntheticDisclosure": true,
+    "impersonatesRealPerson": false,
+    "adultContent": false,
+    "monetizationRoutes": ["sponsorship", "affiliate", "digital-product", "service-lead", "platform-revenue"]
+  },
+  "channels": ["youtube-shorts", "instagram-reels", "tiktok"],
+  "experimentPolicy": {
+    "maxLive": 3,
+    "dailyPublishCap": 12,
+    "maxFounderMinutesPerDay": 20,
+    "maxCashSpendPerDay": 0,
+    "requireSyntheticDisclosure": true,
+    "requireClearedRevenueForPromotion": true,
+    "killAfterZeroSignalPosts": 30
+  },
+  "initialNiches": [
+    "AI-tool transformations",
+    "visual explainers",
+    "micro-stories with original synthetic characters",
+    "before-after business automation",
+    "future-of-work experiments"
+  ],
+  "successMetrics": ["retention", "shares", "qualified_clicks", "cleared_revenue", "contribution_per_founder_minute"],
+  "truthBoundary": "NO_LIVE_PLATFORM_ACTION_OR_REVENUE_CLAIM_WITHOUT_EXTERNAL_RECEIPT"
+}

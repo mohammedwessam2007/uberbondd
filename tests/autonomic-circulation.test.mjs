@@ -50,7 +50,7 @@ test('feedback converts metabolism and revenue receipts into cognitive events wi
  assert.equal(r.ok,true,JSON.stringify(r));
  assert.equal(r.bundle.events.length,2);
  assert.deepEqual(r.bundle.events.map(e=>e.event.kind).sort(),['ECONOMIC_LEARNING','METABOLISM_UPDATE']);
- assert.ok(r.bundle.events.every(e=>e.businessEffectAuthority==='NONE'));
+ assert.ok(r.bundle.events.every(e=>e.event.businessEffectAuthority==='NONE'&&e.event.consequenceAuthority==='NONE'));
  assert.equal(r.bundle.externalEffectAuthority,'NONE');
 });
 

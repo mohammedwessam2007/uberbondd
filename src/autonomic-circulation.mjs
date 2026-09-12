@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileCognitiveEvent } from './uberbond-cognitive-bus.mjs';
 
-export const AUTONOMIC_CIRCULATION_VERSION = 'uberbond.autonomic-circulation.v1';
+export const AUTONOMIC_CIRCULATION_VERSION = 'uberbond.autonomic-circulation.v1.1';
 const SHA40 = /^[a-f0-9]{40}$/i;
 const FIVE_MINUTES = 5 * 60_000;
 const THIRTY_MINUTES = 30 * 60_000;
@@ -51,6 +51,16 @@ function cognitiveDigest(receipt) {
   if (!receipt?.cycleDigest || !receipt?.sourceCommit) return null;
   return digest({ sourceCommit:receipt.sourceCommit, cycleDigest:receipt.cycleDigest, targetCounts:receipt.targetCounts || {}, eventCount:receipt.eventCount || 0, activationCount:receipt.activationCount || 0 });
 }
+function hasEffects(receipt) {
+  const ledger=receipt?.externalEffectLedger;
+  return ledger && typeof ledger==='object' && Object.values(ledger).some(value=>Number(value)>0);
+}
+function zeroAuthorityReceipt(receipt) {
+  if (!receipt) return true;
+  const business=String(receipt.businessEffectAuthority || 'NONE').toUpperCase();
+  const external=String(receipt.externalEffectAuthority || 'NONE').toUpperCase();
+  return business==='NONE' && external==='NONE' && !hasEffects(receipt);
+}
 
 export function compileAutonomicCirculationPlan({
   sourceCommit,
@@ -69,9 +79,9 @@ export function compileAutonomicCirculationPlan({
   if (!Number.isFinite(date.getTime())) return fail(['valid-now-required']);
   const nowMs = date.getTime();
   const jobs = [];
-  const cognitiveCurrent = cognitive?.sourceCommit === source && cognitive?.businessEffectAuthority === 'NONE' && !stale(cognitive, nowMs, FIVE_MINUTES);
+  const cognitiveCurrent = cognitive?.sourceCommit === source && zeroAuthorityReceipt(cognitive) && !stale(cognitive, nowMs, FIVE_MINUTES);
   if (!cognitiveCurrent) {
-    jobs.push(job('autonomic.cognitive.refresh', `cognitive:${source}`, { sourceCommit:source }, 100));
+    jobs.push(job('autonomic.cognitive.refresh', `cognitive:${source}:${Math.floor(nowMs / FIVE_MINUTES)}`, { sourceCommit:source }, 100));
   }
 
   const cycleIdentity = cognitiveCurrent ? cognitiveDigest(cognitive) : null;
@@ -100,7 +110,7 @@ export function compileAutonomicCirculationPlan({
     }
   }
 
-  const revenueCurrent = revenue?.sourceCommit === source && revenue?.businessEffectAuthority === 'NONE' && !stale(revenue, nowMs, THIRTY_MINUTES);
+  const revenueCurrent = revenue?.sourceCommit === source && zeroAuthorityReceipt(revenue) && !stale(revenue, nowMs, THIRTY_MINUTES);
   if (!revenueCurrent) {
     jobs.push(job('autonomic.revenue.paper', `revenue:${source}:${Math.floor(nowMs / THIRTY_MINUTES)}`, { sourceCommit:source }, 75));
   }
@@ -140,6 +150,8 @@ export function compileAutonomicFeedback({ sourceCommit, cognitive = null, metab
   if (!source || !SHA40.test(source)) return fail(['exact-source-commit-required'], 'AUTONOMIC_FEEDBACK_REFUSED');
   const date = observedAt instanceof Date ? observedAt : new Date(observedAt);
   if (!Number.isFinite(date.getTime())) return fail(['valid-observed-at-required'], 'AUTONOMIC_FEEDBACK_REFUSED');
+  if (metabolism?.receiptId && !zeroAuthorityReceipt(metabolism)) return fail(['zero-authority-metabolism-receipt-required'],'AUTONOMIC_FEEDBACK_REFUSED');
+  if (revenue?.receiptId && !zeroAuthorityReceipt(revenue)) return fail(['zero-authority-revenue-receipt-required'],'AUTONOMIC_FEEDBACK_REFUSED');
   const events = [];
   if (metabolism?.receiptId) {
     const event = compileCognitiveEvent({

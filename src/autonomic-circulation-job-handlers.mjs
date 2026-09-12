@@ -8,7 +8,7 @@ import { compileObjectiveMetabolism, planMetabolismCycle } from './organism-meta
 import { compileRevenueMethodExchange } from './revenue-method-exchange.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const AUTONOMIC_CIRCULATION_JOB_HANDLERS_VERSION='uberbond.autonomic-circulation-job-handlers.v1';
+export const AUTONOMIC_CIRCULATION_JOB_HANDLERS_VERSION='uberbond.autonomic-circulation-job-handlers.v1.1';
 const execFileAsync=promisify(execFile);
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
@@ -53,13 +53,13 @@ export function attachAutonomicCirculationJobHandlers({handlers,store,cfg,enqueu
     const sourceCommit=exactSource(root);
     if(payload?.sourceCommit&&String(payload.sourceCommit).toLowerCase()!==sourceCommit)throw new Error('autonomic-cognitive-source-mismatch');
     await fs.mkdir(autonomicDir,{recursive:true,mode:0o700});
-    const args=['scripts/uberbond-cognitive-cycle.mjs','--output',cyclePath];
+    const args=['scripts/uberbond-autonomic-cognitive-cycle.mjs','--output',cyclePath];
     if(await fs.stat(feedbackPath).then(s=>s.isFile()).catch(()=>false))args.push('--autonomic-events',feedbackPath);
     const run=await execFileAsync(process.execPath,args,{cwd:root,timeout:120_000,maxBuffer:8_000_000});
     const cycle=await readJson(cyclePath);
     if(!cycle||cycle.schemaVersion!=='uberbond.cognitive-cycle.v1'||cycle.externalEffectAuthority!=='NONE')throw new Error('autonomic-cognitive-cycle-invalid');
     const cycleDigest=digest({sourceCommit,graph:cycle.graph?.graphDigest||null,events:(cycle.events||[]).map(event=>event.eventId),activationSummary:cycle.activationSummary});
-    const receipt={schemaVersion:'uberbond.autonomic-cognitive-cycle-receipt.v1',receiptId:digest({sourceCommit,cycleDigest}),observedAt:new Date().toISOString(),sourceCommit,cycleDigest,eventCount:Number(cycle.activationSummary?.eventCount||0),activationCount:Number(cycle.activationSummary?.activationCount||0),targetCounts:cycle.activationSummary?.targetCounts||{},eventSummaries:(cycle.events||[]).slice(0,24).map(event=>text(event.summary,500)).filter(Boolean),stdout:String(run.stdout||'').slice(0,2000),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
+    const receipt={schemaVersion:'uberbond.autonomic-cognitive-cycle-receipt.v1',receiptId:digest({sourceCommit,cycleDigest}),observedAt:new Date().toISOString(),sourceCommit,cycleDigest,eventCount:Number(cycle.activationSummary?.eventCount||0),activationCount:Number(cycle.activationSummary?.activationCount||0),targetCounts:cycle.activationSummary?.targetCounts||{},eventSummaries:(cycle.events||[]).slice(0,24).map(event=>text(event.summary,500)).filter(Boolean),autonomicFeedbackDigest:cycle.autonomicFeedback?.feedbackDigest||null,stdout:String(run.stdout||'').slice(0,2000),businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
     await store.log('autonomic_cognitive_cycle',receipt);
     return receipt;
   };

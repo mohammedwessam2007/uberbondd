@@ -38,6 +38,7 @@ TRUST_PROXY_HOPS=1
 UBERLIT_TLS_BIND=127.0.0.1
 UBERLIT_TLS_PORT=32443
 UBERLIT_WEB_PORT=32123
+UBERLIT_DB_PORT=35432
 OUTBOUND_ENABLED=false
 DISCOVERY_ENABLED=false
 ENV
@@ -46,12 +47,15 @@ ENV
 fi
 install -m 0644 /opt/uberlit/source/ops/sovereign/uberlit.service /etc/systemd/system/uberlit.service
 install -m 0644 /opt/uberlit/source/ops/sovereign/uberlit-tls-edge.service /etc/systemd/system/uberlit-tls-edge.service
+install -m 0644 /opt/uberlit/source/ops/sovereign/uberlit-worker.service /etc/systemd/system/uberlit-worker.service
 systemctl daemon-reload
-systemctl enable uberlit.service uberlit-tls-edge.service >/dev/null
+systemctl enable uberlit.service uberlit-tls-edge.service uberlit-worker.service >/dev/null
 if $START; then
   systemctl restart uberlit.service
   systemctl restart uberlit-tls-edge.service
+  systemctl restart uberlit-worker.service
   systemctl --no-pager --full status uberlit.service
   systemctl --no-pager --full status uberlit-tls-edge.service
+  systemctl --no-pager --full status uberlit-worker.service
 fi
-printf '{"ok":true,"status":"UBERLIT_NODE_INSTALLED","sourceCommit":"%s","sourceTree":"%s","serviceEnabled":true,"tlsEdgeEnabled":true,"serviceStarted":%s,"runtimeRoot":"/var/lib/uberlit/uberbond","localHttpsUrl":"https://127.0.0.1:32443"}\n' "$SOURCE_SHA" "$SOURCE_TREE" "$START"
+printf '{"ok":true,"status":"UBERLIT_NODE_INSTALLED","sourceCommit":"%s","sourceTree":"%s","serviceEnabled":true,"tlsEdgeEnabled":true,"workerEnabled":true,"serviceStarted":%s,"runtimeRoot":"/var/lib/uberlit/uberbond","localHttpsUrl":"https://127.0.0.1:32443"}\n' "$SOURCE_SHA" "$SOURCE_TREE" "$START"

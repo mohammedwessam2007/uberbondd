@@ -21,5 +21,5 @@ test('authorctl doctor delegates only to the local sovereign bootstrap collector
 
 test('doctor wiring does not expand the founder control authority statement',()=>{
   assert.match(authorctl,/does not merge, sign, deploy, send/);
-  assert.match(authorctl,/spend, mutate DNS\/credentials, contact customers/);
+  assert.match(authorctl,/spend, mutate\s+DNS\/credentials, contact customers/);
 });

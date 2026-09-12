@@ -1,0 +1,44 @@
+[Unit]
+Description=UberLit sovereign UberBond worker
+Requires=uberlit.service
+After=uberlit.service
+PartOf=uberlit.service
+
+[Service]
+Type=simple
+User=uberlit
+Group=uberlit
+WorkingDirectory=/opt/uberlit/source
+Environment=UBERLIT_ROOT=/var/lib/uberlit/uberbond
+Environment=UBERLIT_WEB_PORT=32123
+Environment=UBERLIT_DB_PORT=35432
+Environment=UBERLIT_TLS_PORT=32443
+Environment=APP_BASE_URL=https://127.0.0.1:32443
+Environment=TRUST_PROXY_HOPS=1
+Environment=OUTBOUND_ENABLED=false
+Environment=DISCOVERY_ENABLED=false
+EnvironmentFile=-/etc/uberlit/uberlit.env
+ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-worker-supervisor.mjs --root /var/lib/uberlit/uberbond --web-port ${UBERLIT_WEB_PORT} --db-port ${UBERLIT_DB_PORT} --timeout 60000
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+KillMode=control-group
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadOnlyPaths=/opt/uberlit/source
+ReadWritePaths=/var/lib/uberlit
+
+[Install]
+WantedBy=multi-user.target

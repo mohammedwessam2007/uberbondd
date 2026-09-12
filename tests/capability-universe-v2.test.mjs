@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {canonicalMechanismIdentity,sameMechanism} from '../src/capability-mechanism-identity.mjs';
-import {scoreSource,rankSources} from '../src/source-genesis.mjs';
+import {scoreSource,rankSources,discoverSourceCandidatesFromLinks} from '../src/source-genesis.mjs';
 import {buildEliteReserve,ELITE_CAPABILITY_RESERVE_TARGET} from '../src/elite-capability-reserve.mjs';
 import {buildCapabilitySourceAtlas,CAPABILITY_OBJECT_TARGET} from '../src/capability-source-atlas.mjs';
 import {compileMissionBrain} from '../src/mission-brain-compiler.mjs';
@@ -15,12 +15,15 @@ test('mechanism identity ignores ordering noise',()=>{
 });
 
 test('source genesis rewards useful low-burden sources',()=>{
- const ranked=rankSources([
-  {sourceId:'slow',uniqueUsefulDiscoveries:10,northStarGain:1,freshnessValue:1,apiCostUsd:20},
-  {sourceId:'fast',uniqueUsefulDiscoveries:10,northStarGain:1,freshnessValue:1,apiCostUsd:0}
- ]);
+ const ranked=rankSources([{sourceId:'slow',uniqueUsefulDiscoveries:10,northStarGain:1,freshnessValue:1,apiCostUsd:20},{sourceId:'fast',uniqueUsefulDiscoveries:10,northStarGain:1,freshnessValue:1,apiCostUsd:0}]);
  assert.equal(ranked[0].sourceId,'fast');
  assert.ok(scoreSource({uniqueUsefulDiscoveries:2,northStarGain:2,freshnessValue:1})>0);
+});
+
+test('source genesis recursively discovers source ecosystems from outbound links',()=>{
+ const discovered=discoverSourceCandidatesFromLinks(['https://lab.example/a','https://lab.example/b','https://new.example/x','not-a-url']);
+ assert.deepEqual(discovered.map(x=>x.sourceId),['lab.example','new.example']);
+ assert.ok(discovered[0].score>discovered[1].score);
 });
 
 test('elite reserve counts mechanisms not duplicate suppliers',()=>{
@@ -49,10 +52,6 @@ test('adaptive sensorium includes the full source atlas',()=>{
 
 test('mission compiler prefers higher mission-adjusted utility and avoids conflicts',()=>{
  const base={provenanceDigest:'p',benchmarkReceipt:'b',incrementalUtility:2,inputContract:['x'],outputContract:['y'],runtimeCostUsd:0};
- const result=compileMissionBrain({mission:'research',maxCapabilities:2,candidates:[
-  {...base,mechanismId:'a',missionFit:1,conflicts:['b']},
-  {...base,mechanismId:'b',missionFit:0.5},
-  {...base,mechanismId:'c',missionFit:0.8}
- ]});
+ const result=compileMissionBrain({mission:'research',maxCapabilities:2,candidates:[{...base,mechanismId:'a',missionFit:1,conflicts:['b']},{...base,mechanismId:'b',missionFit:0.5},{...base,mechanismId:'c',missionFit:0.8}]});
  assert.deepEqual(result.selected.map(x=>x.mechanismId),['a','c']);
 });

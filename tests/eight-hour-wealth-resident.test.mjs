@@ -49,3 +49,17 @@ test('resident pulse with no mechanism assumptions reports zero simulation rathe
   assert.equal(receipt.eightHourSimulation.p50,0);
   assert.match(receipt.truthBoundary,/NO SIMULATED_DOLLAR_IS_REVENUE/);
 });
+
+test('resident pulse emits conservative/base/aggressive synthetic thought experiments without converting them into money claims',async()=>{
+  const root=await fs.mkdtemp(path.join(os.tmpdir(),'wealth8-synthetic-resident-'));
+  const receipt=await runUniversalWealthJob({root,maxSearchCells:7,simulationIterations:300,syntheticSamples:96,syntheticIterations:300});
+  for(const scenario of ['CONSERVATIVE','BASE','AGGRESSIVE']){
+    const x=receipt.syntheticEightHourThoughtExperiments[scenario];
+    assert.equal(x.synthetic,true);
+    assert.equal(x.forecastAuthority,'NONE');
+    assert.equal(x.materializedSampleCount,96);
+    assert.ok(x.fantasyGrossCeiling>=x.executableGrossCeiling);
+  }
+  assert.equal(receipt.eightHourSimulation.expectedClearedGross,0);
+  assert.match(receipt.truthBoundary,/THOUGHT_EXPERIMENTS_NOT_FORECASTS/);
+});

@@ -9,6 +9,14 @@ test('plan spans broad neural families and targets 50k',()=>{
  assert.ok(plan.familyCount>=18);
  assert.ok(plan.queryCount>=400);
  assert.match(plan.law,/50000/);
+ assert.match(plan.refinementLaw,/1000/);
+});
+
+test('default star bands do not overlap within a seed',()=>{
+ const plan=compileNeuralAtlasPlan();
+ const rows=plan.queries.filter(q=>q.family==='models'&&q.seed==='topic:llm');
+ assert.deepEqual(rows.map(q=>q.starBand),[[0,9],[10,49],[50,199],[200,999],[1000,null]]);
+ assert.equal(new Set(rows.map(q=>q.query)).size,5);
 });
 
 test('candidate selection dedupes identities',()=>{

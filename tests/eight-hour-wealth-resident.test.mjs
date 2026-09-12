@@ -41,6 +41,21 @@ test('resident wealth pulse persists an eight-hour distribution without leaking 
   assert.equal(raw.includes('grossIfSuccess'),false);
 });
 
+test('resident wealth restart rerun reconstructs the same bounded distribution from persisted private input',async()=>{
+  const root=await fs.mkdtemp(path.join(os.tmpdir(),'wealth8-restart-'));
+  await fs.mkdir(path.join(root,'private'),{recursive:true});
+  await fs.writeFile(path.join(root,'private/universal-wealth-input.json'),JSON.stringify({sleepHours:8,simulationIterations:800,sleepMechanisms:[secretMechanism]}));
+  const first=await runUniversalWealthJob({root,maxSearchCells:11,simulationIterations:800});
+  const afterRestart=await runUniversalWealthJob({root,maxSearchCells:11,simulationIterations:800});
+  for(const field of ['status','expectedClearedGross','p10','p50','p90','p99','moneyClaimAuthority']){
+    assert.equal(afterRestart.eightHourSimulation[field],first.eightHourSimulation[field],field);
+  }
+  assert.equal(afterRestart.openWorldAddressableCombinationCount,first.openWorldAddressableCombinationCount);
+  const raw=await fs.readFile(path.join(root,'artifacts/universal-wealth-latest.json'),'utf8');
+  assert.equal(raw.includes('secret-eight-hour-mechanism'),false);
+  assert.equal(raw.includes('do-not-persist-this'),false);
+});
+
 test('resident pulse with no mechanism assumptions reports zero simulation rather than inventing a dollar forecast',async()=>{
   const root=await fs.mkdtemp(path.join(os.tmpdir(),'wealth8-resident-'));
   const receipt=await runUniversalWealthJob({root,maxSearchCells:7,simulationIterations:500});

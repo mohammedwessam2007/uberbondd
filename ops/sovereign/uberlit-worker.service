@@ -17,6 +17,8 @@ Environment=APP_BASE_URL=https://127.0.0.1:32443
 Environment=TRUST_PROXY_HOPS=1
 Environment=OUTBOUND_ENABLED=false
 Environment=DISCOVERY_ENABLED=false
+Environment=AUTONOMIC_CIRCULATION_ENABLED=true
+Environment=AUTONOMIC_CIRCULATION_INTERVAL_MS=60000
 EnvironmentFile=-/etc/uberlit/uberlit.env
 ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-worker-supervisor.mjs --root /var/lib/uberlit/uberbond --web-port ${UBERLIT_WEB_PORT} --db-port ${UBERLIT_DB_PORT} --timeout 60000
 Restart=on-failure

@@ -1,29 +1,17 @@
-export const SOURCE_CEILING_GOVERNOR_VERSION='uberbond.source-ceiling-governor.v1';
+import {SOURCE_FAMILIES} from './capability-source-atlas.mjs';
 
+export const SOURCE_CEILING_GOVERNOR_VERSION='uberbond.source-ceiling-governor.v2';
 const n=v=>v==null||v===''?null:Number.isFinite(Number(v))?Number(v):null;
 const lowerHeaders=h=>Object.fromEntries(Object.entries(h||{}).map(([k,v])=>[String(k).toLowerCase(),String(v)]));
 
 export function parseRateLimitHeaders(headers={}){
  const h=lowerHeaders(headers);
- const retryAfter=n(h['retry-after']);
- const resetEpoch=n(h['x-ratelimit-reset']);
- const remaining=n(h['x-ratelimit-remaining']);
- const limit=n(h['x-ratelimit-limit']);
- const hf=h['ratelimit']||null;
- const hfPolicy=h['ratelimit-policy']||null;
- return {retryAfterSeconds:retryAfter,resetEpochSeconds:resetEpoch,remaining,limit,hfRateLimit:hf,hfPolicy};
+ return {retryAfterSeconds:n(h['retry-after']),resetEpochSeconds:n(h['x-ratelimit-reset']),remaining:n(h['x-ratelimit-remaining']),limit:n(h['x-ratelimit-limit']),hfRateLimit:h['ratelimit']||null,hfPolicy:h['ratelimit-policy']||null};
 }
 
 export function buildSourceCeilingPolicy({sourceId,mode='POLL',publishedLimit=null,publishedWindowSeconds=null,quotaUnitsPerDay=null,minDelayMs=250,maxConcurrency=1,continuous=false}={}){
  if(!sourceId) throw new Error('sourceId required');
- return {
-  version:SOURCE_CEILING_GOVERNOR_VERSION,
-  sourceId:String(sourceId),mode,
-  publishedLimit:n(publishedLimit),publishedWindowSeconds:n(publishedWindowSeconds),quotaUnitsPerDay:n(quotaUnitsPerDay),
-  minDelayMs:Math.max(0,Number(minDelayMs)||0),maxConcurrency:Math.max(1,Math.floor(Number(maxConcurrency)||1)),continuous:Boolean(continuous),
-  authority:'PUBLIC_READ_RESEARCH_ONLY',
-  laws:['HONOR_PROVIDER_LIMITS','HONOR_RETRY_AFTER_AND_RESET','USE_CONDITIONAL_REQUESTS_WHERE_SUPPORTED','CACHE_AND_DEDUPE','NO_AUTHORITY_FROM_INGESTION']
- };
+ return {version:SOURCE_CEILING_GOVERNOR_VERSION,sourceId:String(sourceId),mode,publishedLimit:n(publishedLimit),publishedWindowSeconds:n(publishedWindowSeconds),quotaUnitsPerDay:n(quotaUnitsPerDay),minDelayMs:Math.max(0,Number(minDelayMs)||0),maxConcurrency:Math.max(1,Math.floor(Number(maxConcurrency)||1)),continuous:Boolean(continuous),authority:'PUBLIC_READ_RESEARCH_ONLY',laws:['HONOR_PROVIDER_LIMITS','HONOR_RETRY_AFTER_AND_RESET','USE_CONDITIONAL_REQUESTS_WHERE_SUPPORTED','CACHE_AND_DEDUPE','NO_AUTHORITY_FROM_INGESTION']};
 }
 
 export function nextSourceAction({policy,headers={},status=200,nowMs=Date.now(),usedQuotaUnitsToday=0,lastRequestAtMs=0}={}){
@@ -51,10 +39,16 @@ export const DEFAULT_PUBLIC_SOURCE_POLICIES=Object.freeze({
  huggingface:{sourceId:'huggingface',mode:'HEADER_DRIVEN',minDelayMs:100,maxConcurrency:2},
  arxiv:{sourceId:'arxiv',mode:'POLITE_POLL',minDelayMs:3000,maxConcurrency:1},
  hackernews:{sourceId:'hackernews',mode:'PUBLIC_API',continuous:true,minDelayMs:1000,maxConcurrency:1},
+ bluesky:{sourceId:'bluesky',mode:'STREAM',continuous:true,minDelayMs:0,maxConcurrency:1},
+ 'software-heritage':{sourceId:'software-heritage',mode:'BULK_PLUS_API',continuous:false,minDelayMs:1000,maxConcurrency:1},
+ commoncrawl:{sourceId:'commoncrawl',mode:'INDEX_PLUS_SELECTIVE_FETCH',continuous:false,minDelayMs:1000,maxConcurrency:2},
+ osv:{sourceId:'osv',mode:'API',continuous:true,minDelayMs:250,maxConcurrency:2},
  web:{sourceId:'public-web',mode:'ROBOTS_AND_PROVIDER_LIMITS',continuous:true,minDelayMs:1000,maxConcurrency:2}
 });
 
 export function buildAlwaysOnSensoriumPlan({overrides={}}={}){
- const lanes=Object.entries(DEFAULT_PUBLIC_SOURCE_POLICIES).map(([id,base])=>buildSourceCeilingPolicy({...base,...overrides[id]}));
- return {version:SOURCE_CEILING_GOVERNOR_VERSION,status:'ALWAYS_ON_SENSORIUM_PLAN_READY',lanes,goal:'MAXIMIZE_LAWFUL_USEFUL_SIGNAL_INGESTION_PER_UNIT_TIME',schedulerLaw:'RUN_24_7_WHILE_CAPACITY_EXISTS_SLEEP_EXACTLY_WHEN_PROVIDER_OR_POLITENESS_REQUIRES'};
+ const atlasDefaults=Object.fromEntries(SOURCE_FAMILIES.map(sourceId=>[sourceId,{sourceId,mode:'ADAPTIVE_PUBLIC_SOURCE',continuous:true,minDelayMs:1000,maxConcurrency:1}]));
+ const all={...atlasDefaults,...DEFAULT_PUBLIC_SOURCE_POLICIES};
+ const lanes=Object.entries(all).map(([id,base])=>buildSourceCeilingPolicy({...base,...overrides[id]}));
+ return {version:SOURCE_CEILING_GOVERNOR_VERSION,status:'ALWAYS_ON_SENSORIUM_PLAN_READY',lanes,sourceFamilyCount:SOURCE_FAMILIES.length,goal:'MAXIMIZE_LAWFUL_USEFUL_SIGNAL_INGESTION_PER_UNIT_TIME',schedulerLaw:'RUN_WHILE_CAPACITY_EXISTS_SLEEP_WHEN_PROVIDER_OR_POLITENESS_REQUIRES'};
 }

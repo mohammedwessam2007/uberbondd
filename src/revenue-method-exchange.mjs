@@ -1,6 +1,6 @@
 import { runRevenueDecisionDesk } from './revenue-decision-desk.mjs';
 
-export const REVENUE_METHOD_EXCHANGE_VERSION='uberbond.revenue-method-exchange.v1';
+export const REVENUE_METHOD_EXCHANGE_VERSION='uberbond.revenue-method-exchange.v1.1';
 
 export const REVENUE_METHOD_SEEDS=Object.freeze([
   {id:'voice-receptionist',buyer:'local-service-business',model:'managed-subscription',asset:'voice-intake-workflow',spawn:['workflow-template','dfy-setup','productized-saas']},
@@ -53,7 +53,7 @@ function toDeskCandidate(method={}){
 
 function seedById(id){return REVENUE_METHOD_SEEDS.find(x=>x.id===id)||null;}
 
-export function compileRevenueMethodExchange({methods=[],archive=[],maxLive=3}={}){
+export function compileRevenueMethodExchange({methods=[],archive=[],maxCanaries=3}={}){
   const normalized=(Array.isArray(methods)?methods:[]).map(method=>{
     const seed=seedById(method?.id);
     return seed?{...seed,...method,spawn:uniq(method.spawn?.length?method.spawn:seed.spawn)}:{...method,spawn:uniq(method.spawn)};
@@ -61,23 +61,24 @@ export function compileRevenueMethodExchange({methods=[],archive=[],maxLive=3}={
   const validations=normalized.map(method=>({id:method?.id||null,...validateRevenueMethod(method)}));
   const eligibleIds=new Set(validations.filter(v=>v.ok).map(v=>v.id));
   const eligible=normalized.filter(m=>eligibleIds.has(m.id));
-  const desk=runRevenueDecisionDesk(eligible.map(toDeskCandidate),{archive,maxActions:Math.max(0,Math.floor(n(maxLive,3)))});
+  const desk=runRevenueDecisionDesk(eligible.map(toDeskCandidate),{archive,maxActions:Math.max(0,Math.floor(n(maxCanaries,3)))});
   const selected=new Set(desk.selected);
   const ranked=eligible.map(method=>{
     const decision=desk.decisions.find(d=>d.candidateId===method.id);
-    return {...method,decision:selected.has(method.id)?'LIVE':'PARKED',score:decision?.economics?.score??Number.NEGATIVE_INFINITY,economics:decision?.economics??null};
+    return {...method,stage:selected.has(method.id)?'CANARY':'PARKED',score:decision?.economics?.score??Number.NEGATIVE_INFINITY,economics:decision?.economics??null};
   }).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id));
   return {
     version:REVENUE_METHOD_EXCHANGE_VERSION,
     ok:true,
-    status:desk.selected.length?'REVENUE_METHODS_SELECTED':'NO_REVENUE_METHOD_SELECTED',
-    selected:desk.selected,
+    status:desk.selected.length?'REVENUE_CANARIES_SELECTED':'NO_REVENUE_CANARY_SELECTED',
+    canaries:desk.selected,
     validations,
     ranked,
     methodCatalog:REVENUE_METHOD_SEEDS,
     executionMoat:['shared-capability-graph','buyer-specific-context','distribution','integration-reliability','evidence-receipts','delivery-acceptance','cleared-payment-history'],
     lifecycle:['DISCOVER','PAPER_TEST','CANARY','LIVE','SCALE','CLONE','DEGRADE','RETIRE'],
-    truthBoundary:'PUBLIC_PROMPTS_DO_NOT_EQUAL_PROVEN_BUSINESS; ONLY CLEARED_PAYMENT_AND_ACCEPTED_DELIVERY PROMOTE A METHOD'
+    externalEffectAuthority:'NONE',
+    truthBoundary:'PUBLIC_PROMPTS_DO_NOT_EQUAL_PROVEN_BUSINESS; FORECASTS MAY SELECT CANARIES, BUT ONLY CLEARED_PAYMENT_AND_ACCEPTED_DELIVERY PROMOTE A METHOD TO LIVE'
   };
 }
 
@@ -97,8 +98,8 @@ export function reallocateRevenueMethods({methods=[],outcomes=[],maxLive=3,zeroS
     const score=killed?Number.NEGATIVE_INFINITY:(outcome.promotable?outcome.contributionPerFounderMinute:0);
     return {methodId:method.id,score,killed,promotable:outcome.promotable,outcome};
   }).sort((a,b)=>b.score-a.score||a.methodId.localeCompare(b.methodId));
-  const live=scored.filter(x=>!x.killed).slice(0,Math.max(0,Math.floor(n(maxLive,3)))).map(x=>x.methodId);
-  return {version:REVENUE_METHOD_EXCHANGE_VERSION,status:'PORTFOLIO_REALLOCATED',live,retired:scored.filter(x=>x.killed).map(x=>x.methodId),ranking:scored,truthBoundary:'ALLOCATE BY OBSERVED CLEARED CONTRIBUTION PER FOUNDER MINUTE; VANITY ACTIVITY HAS ZERO PROMOTION AUTHORITY'};
+  const live=scored.filter(x=>!x.killed&&x.promotable).slice(0,Math.max(0,Math.floor(n(maxLive,3)))).map(x=>x.methodId);
+  return {version:REVENUE_METHOD_EXCHANGE_VERSION,status:'PORTFOLIO_REALLOCATED',live,retired:scored.filter(x=>x.killed).map(x=>x.methodId),ranking:scored,truthBoundary:'ALLOCATE LIVE CAPACITY ONLY TO OBSERVED CLEARED CONTRIBUTION PER FOUNDER MINUTE; VANITY ACTIVITY HAS ZERO PROMOTION AUTHORITY'};
 }
 
 export function spawnRevenueDerivatives({methodId,outcome,availableMethods=REVENUE_METHOD_SEEDS}={}){
@@ -106,5 +107,5 @@ export function spawnRevenueDerivatives({methodId,outcome,availableMethods=REVEN
   if(!seed) return {ok:false,status:'UNKNOWN_METHOD',spawn:[]};
   if(!outcome?.promotable) return {ok:false,status:'PROVEN_OUTCOME_REQUIRED_BEFORE_SPAWN',spawn:[]};
   const allowed=new Set((Array.isArray(availableMethods)?availableMethods:[]).map(x=>x.id));
-  return {ok:true,status:'DERIVATIVES_AVAILABLE',sourceMethodId:methodId,spawn:uniq(seed.spawn).filter(id=>allowed.has(id)),reason:'reuse proven delivery assets across adjacent monetization surfaces without claiming new revenue until separately earned'};
+  return {ok:true,status:'DERIVATIVES_AVAILABLE',sourceMethodId:methodId,spawn:uniq(seed.spawn).filter(id=>allowed.has(id)).map(id=>({methodId:id,stage:'PAPER_TEST'})),reason:'reuse proven delivery assets across adjacent monetization surfaces without claiming new revenue until separately earned'};
 }

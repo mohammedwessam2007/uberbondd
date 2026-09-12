@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {freezeCurrentHeadCampaign,preflightCurrentHeadEvidence,evaluateCurrentHeadC21} from '../src/c21-current-head-tribunal.mjs';
 
-const REV='2fbcd75ad41b8020d1bec2ceed75508503e184b1';
+const REV='1ebe6d2c9cc4aacf03998eb369dabf20b9cd293a';
 const AT='2026-09-12T19:30:00Z';
 const OBS='2026-09-12T19:31:00Z';
 const sha=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');

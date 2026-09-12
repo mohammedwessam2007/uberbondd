@@ -1,5 +1,6 @@
 import { createJobHandlers } from './job-handlers.mjs';
 import { runFounderOutcomeMissionSupervisor } from './founder-outcome-mission-supervisor.mjs';
+import { runFrontierLearningJob } from './frontier-learning-job-handler.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
@@ -20,6 +21,13 @@ export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } 
       missionId:input.missionId,
       zeroMarginalDiscoveryConfigured:Boolean(input.zeroMarginalDiscoveryConfigured),
       paymentReconciliationAvailable:true
+    });
+  };
+  handlers['frontier.learning.process'] = async payload => {
+    const input = payload && typeof payload === 'object' ? payload : {};
+    return runFrontierLearningJob({
+      ...input,
+      root: input.root || process.cwd()
     });
   };
   return handlers;

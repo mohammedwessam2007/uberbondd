@@ -11,7 +11,8 @@ export function freezeCurrentHeadCampaign({candidateRevision,frozenAt,rotationSa
 }
 
 function normalizeReceipt(receipt){
-  return {...receipt,compoundReceiptHash:receipt?.compoundReceiptHash||receipt?.compoundEvaluation?.receiptHash};
+  const independence=receipt?.evaluatorIndependent===true||receipt?.independentEvaluator===true;
+  return {...receipt,evaluatorIndependent:independence,independentEvaluator:independence,compoundReceiptHash:receipt?.compoundReceiptHash||receipt?.compoundEvaluation?.receiptHash};
 }
 
 export function preflightCurrentHeadEvidence({campaign,currentRevision,receipts=[]}={}){

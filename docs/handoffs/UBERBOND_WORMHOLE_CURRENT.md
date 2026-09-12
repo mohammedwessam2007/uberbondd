@@ -46,11 +46,11 @@ Preserve the Personal Civilization Engine and its life possibility/counterfactua
 
 Current independently re-proven main at this checkpoint:
 
-`220a70abecc0370d3773c3ab3d75ab9b196902ff`
+`a8504a1215cd28d376ca7e08c45c451b7aa18548`
 
 PR #777, **Bind resident continuum to total North-Star initiative selection**, is merged. Issue #770 is closed as completed.
 
-The missing junction is now source/runtime-host complete:
+The missing junction is now merged and exact-main verified:
 
 `verified Context Projection + durable founder will + current frontier/world/runtime evidence -> ranked initiative portfolio -> normalized Frontier Goal Contract -> bounded zero-authority Agent Mesh mission -> durable occurrence/run identity -> result reconciliation -> changed reality -> next mission selection`
 
@@ -58,51 +58,113 @@ The resident path reuses existing Context Fabric, founder intent/mission, Fronti
 
 Explicit founder `PAUSED` remains above both finite completion and initiative. Finite engineering truth retains priority when finite scope is genuinely open. Private-life data, messaging, payments, spend, deployment, credentials, security targets and irreversible effects remain behind their existing gates.
 
-Only `src/frontier-operator.mjs`, which is now actually reachable through the initiative path, had its stale `NO_FRONTIER_OPERATOR_HOST` classification retired. The other Frontier modules remain gated until a real caller exists for each of them.
+Only `src/frontier-operator.mjs`, now actually reachable through the initiative path, had its stale `NO_FRONTIER_OPERATOR_HOST` classification retired. Other Frontier helpers remain gated until a real caller exists for each.
 
-## Exact merged-main evidence for #777/#770
+## Exact sprint evidence
 
-On exact main `220a70abecc0370d3773c3ab3d75ab9b196902ff`, independently in Macaly:
+On exact main `a8504a1215cd28d376ca7e08c45c451b7aa18548`, an independent Macaly clone installed locked dependencies and ran the post-merge critical bundle:
 
-- focused initiative/restart/reachability/context surface: **41/41 PASS**;
-- current-truth regeneration: PASS;
-- terminal tribunal: `FINITE_REALIZATION_TRIBUNAL_PASSED_WITH_SEPARATE_REALITY_BOUNDARIES`;
-- finite source closure: `100_PERCENT_OF_DECLARED_FINITE_ENGINEERING_SCOPE`;
-- `finiteOpenRequirements: []`;
-- real resident host wake #1: `NORTH_STAR_INITIATIVE_SELECTED_AND_DISPATCHED`;
-- wake #2: `NORTH_STAR_INITIATIVE_HOST_ACTIVE` with the exact same durable run ID, proving no duplicate same-reality dispatch;
-- external effect authority remained `NONE`;
-- Agent Mesh provider pump remained disabled rather than pretending a provider ran.
+- initiative selection, dispatch, durable store, no-new-prompt advance, restart, reachability, production coverage, founder control, organ-callability and sovereign-stack truth: **64/64 PASS**;
+- terminal realization: `FINITE_REALIZATION_TRIBUNAL_PASSED_WITH_SEPARATE_REALITY_BOUNDARIES`;
+- canonical execution leaf graph: **1040 requirements / 1040 leaves / 0 orphan requirements / 0 floating leaves / 0 dependency cycles**.
 
-A deliberately **SIMULATION_ONLY**, zero-network, zero-provider acceptance result was then inserted into that real durable run solely to exercise the reconciliation state machine. The unchanged resident host consumed it and on the next wake returned `NORTH_STAR_INITIATIVE_ADVANCED_AND_DISPATCHED`, with:
+Additional focused source-contract verification during this sprint:
 
-- a different next candidate;
-- a different durable run ID;
-- an evidence-bound execution receipt;
-- `externalEffectAuthority: NONE`.
+- UberCloud/Ubercel/UberLit/UberMesh, sovereign compute cells and provider-neutral runtime acceptance: **67/67 PASS**;
+- interruption recovery, same-occurrence abandonment, uncertain-effect replay prevention, model/provider failover, runtime-transition receipts, supplier exit/cutover/rollback: **101/101 PASS**;
+- evaluator integrity, breadth/critical evidence rules, self-improvement, promotion/revocation and regression safeguards: **105/105 PASS**;
+- economic search/preparation, Business Genome, 439-record opportunity tournament, offer compiler, dry-run experiment and commercial/payment truth separation: **172/172 PASS**;
+- full-claim/replication/control contracts including compound-evaluation parity, hidden-context isolation, recursive-improvement retention and literal-ASI tribunal: **121/121 PASS**;
+- life/Personal Civilization synthetic contract sweep: **220/221 PASS** before a stale whitespace-only founder-control assertion was identified; that assertion was repaired and the exact-main founder-control gate now passes in the 64/64 post-merge bundle.
 
-This proves the durable receipt -> next-mission mechanism and no-new-founder-prompt transition. It **does not prove live model/provider cognition** and must never be cited as such.
+The organ callability inventory on exact source distinguished implementation from observation:
 
-GitHub Actions on this lineage have repeatedly produced zero-step jobs with `runner_id=0`; treat those as infrastructure non-evidence. Vercel Free-plan deployment quota failures are also external verifier limitations, not behavioral evidence.
+- `MISSING_SOURCE`: 0
+- `REGISTERED_SOURCE_ONLY`: 1 (`UBERVAULT`, deliberately founder-private rather than unattended)
+- `EXTERNALLY_BLOCKED_OR_GATED`: 1 (`UBERDISTRIBUTION`, consequence-gated)
+- `CALLABLE_UNOBSERVED`: 26
+- `RUNTIME_OBSERVED`: 0 in this inventory
+
+Do not convert source callability into runtime observation.
+
+## Finite engineering status versus reality status
+
+The exact-main terminal tribunal says finite repository realization is closed under its declared engineering denominator. This does **not** close reality-bound outcomes.
+
+Current separated truth remains:
+
+- `NAMED_RUNTIME_STATUS: NOT_MEASURED`
+- `EXTERNAL_COMMERCIAL_STATUS: NO_REAL_CUSTOMERS_OR_CLEARED_REVENUE`
+- `PERSONAL_REALITY_STATUS: LONGITUDINAL_EVIDENCE_PENDING`
+
+Runtime evidence overlay still reports these runtime cuts open:
+
+1. `SOURCE_REPOSITORY_HOST`
+2. `DATABASE_STATE`
+3. `WEB_RUNTIME_HOST`
+4. `WORKER_SCHEDULER_PROCESS`
+
+Provider evidence overlay still reports these provider cuts open:
+
+1. `MODEL_PROVIDER`
+2. `MESSAGING_PROVIDER`
+3. `PAYMENT_PROVIDER`
+4. `DEPLOYMENT_PROVIDER`
+
+Owner-custody cuts remain:
+
+1. `CREDENTIAL_CUSTODY`
+2. `SOVEREIGN_IDENTITY`
+
+These evidence classes are non-transitive. A model-provider receipt cannot close messaging/payment/deployment. Runtime host evidence cannot close owner custody. Source tests cannot close any of them.
+
+## What is closed versus what cannot be manufactured in one sprint
+
+Closed internally in this sprint:
+
+- P00/P02–P06 initiative source/runtime-host seam and durable mission lifecycle;
+- P08/P09 source callability and native substrate dependency truth, with no legitimate source repair needed merely to release gated/private layers;
+- P10 source-contract recovery/failover semantics;
+- P11–P15 evaluation/self-improvement governance contracts;
+- P16–P18 economic search/preparation contracts;
+- P22/P24/P26 and P28 life-option/control source contracts;
+- P30/P42 continuity/status refresh through this file and generated truth;
+- issue #770 / PR #777 integration frontier.
+
+Not truthfully closable by code or synthetic tests alone:
+
+- P07 as a claim of live model/provider cognition: source/durable-loop path exists, but named runtime/provider observation remains absent;
+- P13/P35 as a new broad empirical capability result beyond existing historical evidence: requires fresh held-out execution, not unit contracts;
+- P19–P21: real authorized commercial action, accepted engagement, provider-reconciled cleared payment, accepted delivery and repeat economics;
+- P23: delayed retention or assessed human performance;
+- P25/P27: a real reversible life/opportunity experiment and observed founder-relevant outcome;
+- P29: a genuinely multi-day multi-goal operating window;
+- P34/P39 where independent outside custody/replication is materially required;
+- owner-only identity/liveness, credential custody and any new paid/legal/irreversible decision.
+
+Do not fabricate these states to make a percentage read 100.
+
+## ASI truth boundary
+
+The separately frozen **private UberBond ASI milestone remains 100%** under its internal project definition. This sprint neither resets that historical project milestone nor upgrades it into scientific proof of literal ASI.
+
+The stronger literal/external claim remains bounded by the repository's claim tribunal. Existing tests explicitly preserve `strong-within-defined-scope evidence` separately from `ASI established` and refuse reused populations, evaluator-lineage collapse, post-hoc thresholds, hidden-context leakage, stale evidence and wrong-candidate evidence.
 
 ## Next frontier
 
 Do **not** reopen finite source engineering merely because another chat begins.
 
-The resident initiative system's first selected goal on both PR head and merged main was effectively:
+The next highest-value work is real activation/evidence, in this order when authority and resources permit:
 
-> Refresh exact live truth and Context Fabric; seek admissible real evidence for the remaining sovereign cuts; if unavailable, work on independently valuable external activation/reality tasks rather than inventing more source architecture.
+1. persistent physical resident-host activation on already-authorized/no-new-spend compute;
+2. exact-current signed runtime-cut receipts for repository host, database state, web runtime and worker/scheduler;
+3. live model-provider callability through an already-authorized lane, preserving exact model/provider/resource accounting;
+4. messaging/payment/deployment provider reality only when their existing authorization, credential and customer gates are satisfied;
+5. owner-custody cuts only at genuine founder identity/liveness and credential-custody boundaries;
+6. real commercial, learning and life-outcome experiments with elapsed/external evidence;
+7. fresh broad cognition experiments only under preregistered hidden-task and independent-evaluation controls.
 
-Therefore the next highest-value work is **real activation/evidence**, especially:
-
-1. persistent physical resident-host activation on already-authorized/no-new-spend compute if available;
-2. exact-current runtime-cut receipts and rebinding where behavior/source identity changed;
-3. live model/provider callability through an already-authorized lane, while keeping simulation evidence separate;
-4. messaging/payment/deployment provider reality only when their existing authority/credential/customer gates are genuinely satisfied;
-5. owner-custody cuts such as credential custody / sovereign identity only at the genuine owner boundary;
-6. continue independent world/research/economic lanes whenever one external lane is blocked.
-
-Before creating new source architecture, prove that the required mechanism does not already exist and that the blocker cannot be removed by activation, evidence, configuration, provider substitution or a reversible external proof.
+Before creating new architecture, prove the required mechanism does not already exist and that the blocker cannot be removed by activation, evidence, configuration, provider substitution or a reversible external proof.
 
 ## Immediate resume instruction
 
@@ -112,10 +174,10 @@ On any fresh UberBond chat:
 2. mount/reconcile Context Fabric and `docs/CURRENT_HANDOFF.json`;
 3. inspect open/recent PRs/issues for work newer than this overlay;
 4. do not restart #770/#777 unless newer evidence proves a regression;
-5. identify the highest-value still-open real activation/evidence leaf;
-6. execute the smallest real proof first;
-7. parallelize independent lanes;
-8. preserve exact truth boundaries between source, simulation, runtime, provider, commercial and owner evidence;
+5. treat finite source engineering as closed unless current generated truth reopens a concrete leaf;
+6. identify the highest-value still-open real activation/evidence cut;
+7. execute the smallest real proof first and parallelize independent admissible lanes;
+8. preserve exact truth boundaries between source, simulation, runtime, provider, commercial, personal-outcome and owner evidence;
 9. after every merged frontier, update this overlay and immediately compile the next one.
 
 Do not create hourly ChatGPT cron loops as a substitute for a resident system. Do not fake 24/7 operation without persistent physical runtime evidence.
@@ -126,4 +188,4 @@ This file is the hot execution overlay. `docs/UBERBOND_MASTER_MEMORY.md` preserv
 
 ## Truth boundary
 
-This file preserves context, goals, execution method and checkpointed evidence. It does not prove customers, revenue, accepted delivery, live provider callability, owner identity/liveness, persistent owned-host runtime, life outcomes or ASI. Those require their own evidence.
+This file preserves context, goals, execution method and checkpointed evidence. It does not prove customers, revenue, accepted delivery, live provider callability, owner identity/liveness, persistent owned-host runtime, longitudinal life outcomes or literal ASI. Those require their own evidence.

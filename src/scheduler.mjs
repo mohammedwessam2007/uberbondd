@@ -36,7 +36,13 @@ export function startScheduler(queue, cfg, log = console) {
       // Universal Wealth performs zero-capital economic search while the founder
       // is absent. It may research/build/test locally, but has no spend, trading,
       // contracting, publishing, outreach, borrowing, or account-opening authority.
-      ['universal.wealth.pulse', 30 * MINUTE, { maxSearchCells: 256, maxCanaries: 5, maxCapitalAtRisk: 0 }, { maxAttempts: 3 }]
+      ['universal.wealth.pulse', 30 * MINUTE, { maxSearchCells: 256, maxCanaries: 5, maxCapitalAtRisk: 0 }, { maxAttempts: 3 }],
+      // UberDoso is the owned outreach-mail control plane. The pulse only creates
+      // canonical internal registry state and schedules already-governed DNS/
+      // health reconciliation work. It cannot publish DNS, deploy a mail node,
+      // warm/send mail, spend, or create outreach authority. Idempotent content
+      // keys let this run frequently without turning into clock-driven spam.
+      ['uberdoso.reconcile', 5 * MINUTE, {}, { maxAttempts: 3 }]
     ];
     if (cfg.discovery?.enabled) {
       recurring.push(['discovery.run', Math.max(1, Number(cfg.discovery.runEveryHours || 24)) * HOUR, { scheduled: true }, { maxAttempts: 4 }]);
@@ -54,15 +60,9 @@ export function startScheduler(queue, cfg, log = console) {
         ['prometheus.commercial.catalog', 24 * HOUR, {}, { maxAttempts: 2 }]
       );
     }
-    // Domain/mailbox warm-up reconciliation -- read-only unless a real
-    // registered mailbox+provider pair exists, in which case it re-asks the
-    // provider for real status and persists the receipt. Off by default,
-    // layered on autopilot, same pattern as the Prometheus jobs above. This
-    // scheduler has no way to enumerate registered mailboxes on its own
-    // (deliberately -- adding that here would require a new query surface);
-    // a real deployment wires payload.mailboxId/provider via its own
-    // dispatch layer. Left as a documented, disabled-by-default hook rather
-    // than guessed at.
+    // Legacy external-provider warm-up reconciliation remains opt-in. UberDoso
+    // does not use it until a real owned seed/warm-up mesh is separately
+    // evidenced; warm-up completion is never inferred from scheduler time.
     if (cfg.domainMailbox?.schedulingEnabled) {
       recurring.push(
         ['domainMailbox.warmup.reconcile', HOUR, {}, { maxAttempts: 3 }]

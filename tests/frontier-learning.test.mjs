@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {normalizeApprovedObservation,buildMechanismLearningQueue,planFrontierLearningTick} from '../src/frontier-learning-autopilot.mjs';
+import {buildFrontierLearningRuntimePlan,runFrontierLearningCycle,HIGH_SIGNAL_SURFACES} from '../src/frontier-learning-runtime.mjs';
+const base={policyDecision:'ALLOW',sourceRef:'s1',sourceKind:'PATENT',rightsState:'PUBLIC_FACTS',mechanismAtoms:['router','confidence-gate'],observations:['conditional path'],evidenceRefs:['e1'],novelty:.9,impact:.9,evidenceStrength:.6,legalConfidence:.9};
+test('policy denial never enters learning queue',()=>{assert.equal(normalizeApprovedObservation({...base,policyDecision:'DENY'}).ok,false);assert.equal(buildMechanismLearningQueue([{...base,policyDecision:'DENY'}]).length,0);});
+test('approved input has zero authority',()=>{const x=normalizeApprovedObservation(base);assert.equal(x.ok,true);assert.equal(x.executionAuthority,'NONE');});
+test('cross-source clues dedupe into one hypothesis',()=>{const q=buildMechanismLearningQueue([base,{...base,sourceRef:'s2',sourceKind:'JOB_POST',evidenceRefs:['e2']},{...base,sourceRef:'s3',sourceKind:'PRODUCT_DEMO',evidenceRefs:['e3']}]);assert.equal(q.length,1);assert.equal(q[0].corroboratingSourceCount,3);assert.ok(q[0].evidenceScore>.4);});
+test('tick hands hypotheses to capability lab then fusion',()=>{const t=planFrontierLearningTick({observations:[base]});assert.equal(t.investigations[0].target,'CAPABILITY_GENOME_LAB');assert.equal(t.investigations[0].afterAdmissionTarget,'FRONTIER_CAPABILITY_FUSION');assert.equal(t.executionAuthority,'NONE');});
+test('runtime plan binds always-on sensorium and broad high-signal surfaces',()=>{const p=buildFrontierLearningRuntimePlan();assert.equal(p.upstream,'ALWAYS_ON_SENSORIUM_PLUS_POLICY_GATE');assert.ok(HIGH_SIGNAL_SURFACES.length>=14);assert.equal(p.executionAuthority,'NONE');});
+test('runtime cycle preserves zero authority',()=>{assert.equal(runFrontierLearningCycle({observations:[base]}).executionAuthority,'NONE');});

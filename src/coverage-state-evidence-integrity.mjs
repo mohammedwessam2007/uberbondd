@@ -1,7 +1,8 @@
-export const COVERAGE_STATE_EVIDENCE_INTEGRITY_VERSION = 'uberbond.coverage-state-evidence-integrity.v1';
+export const COVERAGE_STATE_EVIDENCE_INTEGRITY_VERSION = 'uberbond.coverage-state-evidence-integrity.v1.1';
 
 const STRUCTURAL_CLASSES = new Set(['HIERARCHY', 'ONTOLOGY', 'LOOP_STAGE', 'STRATEGIC_STAGE']);
 const ALIAS_CLASSES = new Set(['ALIAS']);
+const REFERENCE_CLASSES = new Set(['REFERENCE_SURFACE']);
 const FIELD_CLASSES = new Set([
   'FORECAST_DIMENSION', 'FORECAST_OUTPUT', 'FORECAST_REQUIREMENT',
   'FORECAST_MECHANISM', 'CALIBRATION_FIELD', 'DECISION_PACKET_FIELD'
@@ -51,6 +52,14 @@ export function verifyCoverageStateEvidenceIntegrity(coverage = {}) {
     if (cls === 'ELAPSED_TIME' && state !== 'ELAPSED_TIME_REQUIRED') add('elapsed-time-state-overridden');
     if (STRUCTURAL_CLASSES.has(cls) && state !== 'STRUCTURAL_NOT_A_BUILD_TARGET') add('structural-state-overridden');
     if (ALIAS_CLASSES.has(cls) && state !== 'ALIAS_OF_CANONICAL_CONCEPT') add('alias-state-overridden');
+
+    // REFERENCE_ONLY_BY_CANON is deliberately weaker than implementation. It
+    // is valid only for a canonical mechanism/vendor/runtime reference and must
+    // carry no source/test evidence that could be misread as shipped behavior.
+    if (state === 'REFERENCE_ONLY_BY_CANON') {
+      if (!REFERENCE_CLASSES.has(cls)) add('reference-only-state-requires-reference-surface-class');
+      if (sources.length > 0 || tests.length > 0) add('reference-only-state-must-not-claim-implementation-evidence');
+    }
 
     // Current implementation states must be reconstructable from the row's own
     // evidence, not from a mutable declaredState field upstream.

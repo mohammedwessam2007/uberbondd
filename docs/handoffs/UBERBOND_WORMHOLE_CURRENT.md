@@ -1,148 +1,128 @@
 # UberBond Wormhole Context — Current
 
-**Purpose:** fast-moving shared execution context for every repo-aware UberBond chat/session. This file exists so a crashed or fresh chat does not restart architecture, repeat archaeology, or ask the founder to retell work that the machine can recover.
+**Purpose:** fast-moving shared execution context for every repo-aware UberBond chat/session. A crashed or fresh chat must continue the organism rather than restart architecture, repeat archaeology, or ask the founder to retell recoverable state.
 
-**Checkpoint observation:** 2026-09-12. Always refresh live `main`, open PRs, issues, generated truth and external/runtime evidence before present-tense claims. This file is a recovery pointer and execution law, not authority to overwrite newer truth.
+**Checkpoint observation:** 2026-09-12. Always refresh live `main`, open/recent PRs/issues, generated truth and external/runtime evidence before present-tense claims. Newer exact-current evidence wins over this file.
 
 ## Wormhole execution law
 
-A new UberBond chat must not behave like a new project. Recover current truth, dedupe, and continue the highest-value dependency-satisfied frontier immediately.
+A fresh UberBond chat is not a fresh project.
 
-Use this execution topology:
+`refresh live truth -> mount Context Fabric/Brainstate -> reconcile CURRENT_HANDOFF + this overlay + open/recent PRs/issues -> identify the smallest frontier-moving leaf -> parallelize independent build/research/proof cells -> reuse valid evidence whose causal surface is unchanged -> merge only verified winners -> regenerate truth -> immediately compile the next frontier`
 
-`refresh live truth -> mount Context Fabric/Brainstate -> reconcile CURRENT_HANDOFF + this wormhole overlay + open/recent PRs -> identify the smallest frontier-moving leaf -> parallelize independent build/research/proof cells -> reuse valid evidence whose causal surface is unchanged -> merge only verified winners -> regenerate truth -> immediately compile the next frontier`
+Do not optimize PR count, code volume, agent count, architecture prestige, test-count theater or hourly ChatGPT wakeups. Optimize verified valuable progress per founder minute and machine minute.
 
-Do not optimize for PR count, code volume, agent count, architecture prestige, test-count theater or hourly wakeups. Optimize verified valuable progress per founder minute and machine minute.
-
-PRs are serialization points, not the unit of thought. Git is the durable ledger, not the workspace. Blocked lanes do not idle independent admissible lanes.
+PRs are serialization points, not units of thought. Git is the durable ledger, not the workspace. Blocked lanes do not idle independent admissible lanes.
 
 ## Founder-labor law
 
 Founder silence is not a pause. An explicit durable pause is a pause.
 
-Every repeatable founder software action is an UberBond defect candidate. Do not routinely ask the founder to clone, paste commands, inspect GitHub, reconcile branches, retry tests, select evidence-decidable alternatives or re-explain context. Interrupt only for genuine owner identity/liveness, new paid commitment, credential custody, legal/physical-world action, irreversible consequence or other authority that software cannot legitimately manufacture.
+Every repeatable founder software action is an UberBond defect candidate. Do not routinely ask the founder to clone, paste commands, inspect GitHub, reconcile branches, retry tests, choose evidence-decidable alternatives or re-explain context. Interrupt only for genuine owner identity/liveness, new paid commitment, credential custody, legal/physical-world action, irreversible consequence or authority software cannot legitimately manufacture.
 
-Target software-side founder action ratio: effectively zero tactical labor. Capability never creates authority.
+Capability never creates authority.
 
 ## Meta law
 
-Do not merely accelerate loops. Search for representations, laws and generators that delete the loops.
-
-Current hierarchy of engineering metas to preserve and challenge:
+Do not merely accelerate loops. Search for representations, laws and generators that delete loops.
 
 `prompt -> agent -> loop -> graph -> hypergraph -> possibility-space -> ecology/market -> law -> generator -> search-space engineering -> reality-space engineering -> meta-reality`
 
-UberBond should continuously invent and benchmark better metas rather than treating mainstream engineering practice as law. Methods are mortal; the constitutional core stays small: founder authority, truth, permissions, consequence/risk ceilings, evidence, rollback and auditability.
+Mainstream engineering is a prior, not a law. Methods are mortal; the constitutional core stays small: founder authority, truth, permissions, consequence/risk ceilings, evidence, rollback and auditability.
 
 ## Highest-level North Star
 
 UberBond is a Sovereign Cognitive Continuum / Personal Civilization Engine around the founder's sovereign free will, not merely an app, SaaS, outbound system or autonomous company.
 
-Canonical relationship:
-
 **Founder provides WILL. UberBond provides INTELLIGENCE. Reality provides FEEDBACK.**
 
-The economic objective remains a subordinate but load-bearing organ:
+Economic objective, subordinate but load-bearing:
 
 **risk-adjusted cleared contribution profit / founder minute**
 
-Preserve the full Personal Civilization Engine, life possibility/counterfactual/capability/experience/identity/serendipity/time-telescope/future-self/autopoiesis architecture, alongside the complete economic organism, Capability Genome, Open Model Universe, Gamechanger/World Intelligence, Perpetual Frontier/GENESIS, orchestration, distribution, payment/delivery/reconciliation and sovereign compute lineages. A narrow current repair must never amputate the larger organism.
+Preserve the Personal Civilization Engine and its life possibility/counterfactual/capability/experience/identity/serendipity/time-telescope/future-self/autopoiesis architecture alongside the complete economic organism, Capability Genome, Open Model Universe, Gamechanger/World Intelligence, Perpetual Frontier/GENESIS, orchestration, distribution, payment/delivery/reconciliation and sovereign-compute lineages. A narrow current repair must never amputate the larger organism.
 
-## Current wormhole checkpoint
+## Current verified checkpoint
 
-Last independently observed `main` before this overlay branch: `0cde5a4c998460f85afbbc5724785d5ac717f837`, produced by merged PR #776.
+Current independently re-proven main at this checkpoint:
 
-PR #776 removed stale-base friction by transplanting an already physically proven two-file embedded-Postgres hydration-order repair onto exact current main instead of rebasing obsolete PR #774.
+`220a70abecc0370d3773c3ab3d75ab9b196902ff`
 
-Current active engineering frontier: issue #770 / PR #777, the **North-Star Initiative Runtime** seam.
+PR #777, **Bind resident continuum to total North-Star initiative selection**, is merged. Issue #770 is closed as completed.
 
-At checkpoint time PR #777 is an open draft and its observed head is `25619631e967d6d35d0d869047d864cf8c5109d4`. Refresh before acting because this branch is intentionally moving quickly.
+The missing junction is now source/runtime-host complete:
 
-The underlying defect is not “build another autonomous agent.” UberBond already had Context Fabric/Brainstate, founder intent/mission, Frontier Operator primitives, Agent Relay, Agent Mesh, local coding worker, verifier/promoter and resident authoring control. The missing junction was that after finite engineering closure the resident continuum did not yet turn total North Star + durable founder will + changed reality into a persistent general mission portfolio and continue without another tactical founder prompt.
+`verified Context Projection + durable founder will + current frontier/world/runtime evidence -> ranked initiative portfolio -> normalized Frontier Goal Contract -> bounded zero-authority Agent Mesh mission -> durable occurrence/run identity -> result reconciliation -> changed reality -> next mission selection`
 
-The wormhole implementation reuses existing organs instead of adding another brain:
+The resident path reuses existing Context Fabric, founder intent/mission, Frontier Operator core, Agent Relay, Agent Mesh, durable autonomy store and `uberbond-authorctl`; it does not create a second constitution or replacement UberBond.
 
-`verified Context Projection + durable founder will + current frontier/world/runtime evidence -> ranked initiative portfolio -> normalized Frontier Goal Contract -> bounded zero-authority task/Agent Mesh mission -> durable dispatch/result receipt -> changed reality -> next mission selection`
+Explicit founder `PAUSED` remains above both finite completion and initiative. Finite engineering truth retains priority when finite scope is genuinely open. Private-life data, messaging, payments, spend, deployment, credentials, security targets and irreversible effects remain behind their existing gates.
 
-The initiative path must remain subordinate to exact finite-engineering truth while finite scope is genuinely open. Explicit founder `PAUSED` must dominate both initiative and finite-completion paths. Private-life data, messaging, payments, spend, deployment, credentials, security targets and irreversible effects remain behind their existing gates.
+Only `src/frontier-operator.mjs`, which is now actually reachable through the initiative path, had its stale `NO_FRONTIER_OPERATOR_HOST` classification retired. The other Frontier modules remain gated until a real caller exists for each of them.
 
-## PR #777 checkpointed contents
+## Exact merged-main evidence for #777/#770
 
-At this checkpoint the branch contains work in these surfaces:
+On exact main `220a70abecc0370d3773c3ab3d75ab9b196902ff`, independently in Macaly:
 
-- `ops/sovereign/uberbond-authorctl`
-- `scripts/sovereign-initiative-runtime.mjs`
-- `scripts/sovereign-initiative-selection-runtime.mjs`
-- `scripts/sovereign-initiative-host.mjs`
-- `src/north-star-initiative-runtime.mjs`
-- `src/north-star-initiative-dispatch.mjs`
-- `src/organ-callability-inventory.mjs`
-- `scripts/organ-callability-inventory.mjs`
-- focused initiative/runtime/restart/dispatch/callability/context-sync tests
+- focused initiative/restart/reachability/context surface: **41/41 PASS**;
+- current-truth regeneration: PASS;
+- terminal tribunal: `FINITE_REALIZATION_TRIBUNAL_PASSED_WITH_SEPARATE_REALITY_BOUNDARIES`;
+- finite source closure: `100_PERCENT_OF_DECLARED_FINITE_ENGINEERING_SCOPE`;
+- `finiteOpenRequirements: []`;
+- real resident host wake #1: `NORTH_STAR_INITIATIVE_SELECTED_AND_DISPATCHED`;
+- wake #2: `NORTH_STAR_INITIATIVE_HOST_ACTIVE` with the exact same durable run ID, proving no duplicate same-reality dispatch;
+- external effect authority remained `NONE`;
+- Agent Mesh provider pump remained disabled rather than pretending a provider ran.
 
-The branch has already evolved beyond the first compiler-only slice. Do not overwrite later branch work from an older chat summary. Read the exact current diff/head first.
+A deliberately **SIMULATION_ONLY**, zero-network, zero-provider acceptance result was then inserted into that real durable run solely to exercise the reconciliation state machine. The unchanged resident host consumed it and on the next wake returned `NORTH_STAR_INITIATIVE_ADVANCED_AND_DISPATCHED`, with:
 
-## Evidence already earned, with scope
+- a different next candidate;
+- a different durable run ID;
+- an evidence-bound execution receipt;
+- `externalEffectAuthority: NONE`.
 
-On exact earlier PR #777 head `4dba0d67b8f6842ed6401fbee11639432eb6c877`, an independent Macaly clone installed dependencies and ran the focused initiative/context suite: **8/8 passed**. That evidence supports the compiler/control slice on that exact behavior surface; it is not automatically a blanket pass for later branch commits.
+This proves the durable receipt -> next-mission mechanism and no-new-founder-prompt transition. It **does not prove live model/provider cognition** and must never be cited as such.
 
-Those tests established at that checkpoint:
+GitHub Actions on this lineage have repeatedly produced zero-step jobs with `runner_id=0`; treat those as infrastructure non-evidence. Vercel Free-plan deployment quota failures are also external verifier limitations, not behavioral evidence.
 
-- current verified reality outranks habitual self-improvement;
-- durable founder mission changes priority without granting outbound/payment/deployment/spend authority;
-- blocked lanes do not idle independent admissible work;
-- changed reality can select a fresh mission without a new founder prompt;
-- tampered or wrong-source Context Projection fails closed;
-- initiative completion requires evidence before advancing the completed-candidate ledger;
-- resident Context Sync remains idempotent;
-- founder pause/context ordering remains load-bearing.
+## Next frontier
 
-GitHub Actions on this lineage has repeatedly produced zero-step jobs with `runner_id=0`; treat those as infrastructure non-evidence, not a behavioral failure or pass.
+Do **not** reopen finite source engineering merely because another chat begins.
 
-Vercel preview attempts are currently rate-limited by the Free-plan daily deployment quota and are not a reason to stop source/independent verification.
+The resident initiative system's first selected goal on both PR head and merged main was effectively:
 
-## Acceptance contract for closing #770
+> Refresh exact live truth and Context Fabric; seek admissible real evidence for the remaining sovereign cuts; if unavailable, work on independently valuable external activation/reality tasks rather than inventing more source architecture.
 
-Do not declare `NO_FRONTIER_OPERATOR_HOST` released merely because source code exists.
+Therefore the next highest-value work is **real activation/evidence**, especially:
 
-Closure requires an actually callable entry point that drives a normalized Goal Contract through the governed initiative/Agent Mesh path and records a bounded mission/dispatch/result receipt while preserving all consequence gates.
+1. persistent physical resident-host activation on already-authorized/no-new-spend compute if available;
+2. exact-current runtime-cut receipts and rebinding where behavior/source identity changed;
+3. live model/provider callability through an already-authorized lane, while keeping simulation evidence separate;
+4. messaging/payment/deployment provider reality only when their existing authority/credential/customer gates are genuinely satisfied;
+5. owner-custody cuts such as credential custody / sovereign identity only at the genuine owner boundary;
+6. continue independent world/research/economic lanes whenever one external lane is blocked.
 
-Minimum proof:
-
-1. exact source identity is bound;
-2. current Context Fabric/Brainstate is mounted and verified;
-3. finite-engineering priority is respected;
-4. a Goal Contract is selected from current reality / durable founder will;
-5. a durable dispatch/mission identity is created without duplicate same-occurrence work;
-6. a governed cognition/tool path is callable or the exact existing activation gate is recorded without pretending execution occurred;
-7. completion evidence advances the ledger;
-8. a second cycle selects/reconciles the next mission **without a new founder prompt**;
-9. crash/restart/re-entry does not duplicate or lose the active mission;
-10. explicit founder pause wins;
-11. external/business authority remains `NONE` unless separately issued by existing gates;
-12. only Frontier modules actually made callable may be reclassified from `NO_FRONTIER_OPERATOR_HOST`.
+Before creating new source architecture, prove that the required mechanism does not already exist and that the blocker cannot be removed by activation, evidence, configuration, provider substitution or a reversible external proof.
 
 ## Immediate resume instruction
 
-On any fresh UberBond chat, after refreshing live truth:
+On any fresh UberBond chat:
 
-1. inspect current PR #777 head/diff and issue #770;
-2. run the smallest affected test/proof surface first;
-3. inspect the latest failed/blocked physical acceptance receipt before changing code;
-4. close only the smallest real seam;
-5. execute the no-new-prompt two-cycle + restart proof;
-6. update reachability only after physical callability evidence exists;
-7. merge #777 only after exact-head verification is sufficient and no stale-base/conflict or authority regression remains;
-8. regenerate current handoff/continuity after merge;
-9. immediately compile the next frontier instead of waiting for another founder prompt.
+1. refresh current `main` and compare it with this checkpoint;
+2. mount/reconcile Context Fabric and `docs/CURRENT_HANDOFF.json`;
+3. inspect open/recent PRs/issues for work newer than this overlay;
+4. do not restart #770/#777 unless newer evidence proves a regression;
+5. identify the highest-value still-open real activation/evidence leaf;
+6. execute the smallest real proof first;
+7. parallelize independent lanes;
+8. preserve exact truth boundaries between source, simulation, runtime, provider, commercial and owner evidence;
+9. after every merged frontier, update this overlay and immediately compile the next one.
 
-Do not restart architecture. Do not create hourly ChatGPT cron loops as a substitute for a resident system. Do not fake 24/7 operation without persistent physical runtime evidence.
+Do not create hourly ChatGPT cron loops as a substitute for a resident system. Do not fake 24/7 operation without persistent physical runtime evidence.
 
 ## Shared-context rule
 
-This file is the hot execution overlay. `docs/UBERBOND_MASTER_MEMORY.md` preserves the long-lived organism, `docs/CURRENT_HANDOFF.json` preserves compact current truth, `docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md` preserves broader project-chat context, and this file preserves the latest wormhole execution state.
-
-A fresh session should reconcile all four rather than choosing one and forgetting the rest. Newer exact-current repository/runtime/provider evidence always wins.
+This file is the hot execution overlay. `docs/UBERBOND_MASTER_MEMORY.md` preserves the long-lived organism, `docs/CURRENT_HANDOFF.json` preserves compact current truth, and `docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md` preserves broader project-chat context. A fresh session must reconcile all of them rather than choosing one and forgetting the rest.
 
 ## Truth boundary
 

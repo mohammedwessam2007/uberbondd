@@ -120,6 +120,14 @@ wake(){
     printf '%s\n' 'AUTHORING_PULSE_ALREADY_ACTIVE'
     return 0
   fi
+  if [[ -L "$PAUSE_FILE" ]]; then
+    echo "REFUSED: founder pause marker must not be a symlink" >&2
+    return 2
+  fi
+  if [[ -f "$PAUSE_FILE" ]]; then
+    printf '%s\n' 'FOUNDER_PAUSED'
+    return 0
+  fi
   context_sync
   local initiative_rc=0
   if initiative_wake; then
@@ -171,13 +179,14 @@ UberBond Sovereign Authoring Command Center
   uberbond-authorctl help        show this help
 
 All wake paths share a local single-writer lock and start from exact-current
-Context Fabric. If exact-current finite engineering remains open, the existing
-finite-completion controller keeps priority. Once finite engineering is proven
-closed, the North-Star Initiative Runtime selects a bounded mission portfolio
-from current Brainstate, durable founder will and current reality. Founder
-silence is not a pause. Initiative never creates authority; private-life,
-message, payment, spend, deployment, credential, security and irreversible
-consequences remain behind their existing gates.
+Context Fabric. An explicit founder pause is checked before either initiative or
+finite completion can run. If exact-current finite engineering remains open,
+the existing finite-completion controller keeps priority. Once finite
+engineering is proven closed, the North-Star Initiative Runtime selects a
+bounded mission portfolio from current Brainstate, durable founder will and
+current reality. Founder silence is not a pause. Initiative never creates
+authority; private-life, message, payment, spend, deployment, credential,
+security and irreversible consequences remain behind their existing gates.
 
 This control surface does not merge, sign, deploy, send, spend, mutate
 DNS/credentials, contact customers, or grant business authority.

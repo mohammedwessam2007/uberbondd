@@ -117,5 +117,15 @@
     "identityAndCustody": "Require explicit owner participation for custody enrollment, liveness and same-identity recovery. Never manufacture these from software state.",
     "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling."
   },
-  "truthBoundary": "This checkpoint is a compact retrieval frontier bound to verified source ancestor f8f3d579c04a565882ba62342d9c94a104eab73a. It records zero remaining finite source/runtime cuts on that ancestor and five remaining external/owner sovereign cuts. Because committing a checkpoint creates a descendant SHA, every future session must refresh live main before exact-source claims. This checkpoint does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery/settlement, independent deployment failover, owner custody enrollment, owner liveness/identity recovery, customers, revenue, life outcomes or ASI."
+  "truthBoundary": "This checkpoint is a compact retrieval frontier bound to verified source ancestor f8f3d579c04a565882ba62342d9c94a104eab73a. It records zero remaining finite source/runtime cuts on that ancestor and five remaining external/owner sovereign cuts. Because committing a checkpoint creates a descendant SHA, every future session must refresh live main before exact-source claims. This checkpoint does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery/settlement, independent deployment failover, owner custody enrollment, owner liveness/identity recovery, customers, revenue, life outcomes or ASI.",
+  "orchestrationCheckpoint": {
+    "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
+    "importedAt": "2026-09-12",
+    "sourceBasis": "7310e9771f77a11b0751defd8a7bb73a2cea9369",
+    "classification": "ORCHESTRATION_SPECIFICATION",
+    "packetCount": 43,
+    "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+    "reportedIssue770": "OBSERVED_OPEN_AT_IMPORT",
+    "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority."
+  }
 }

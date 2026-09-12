@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { compileSleepWealthCycle, UNIVERSAL_WEALTH_ENGINE_VERSION } from './universal-wealth-engine.mjs';
 import { compileOpenWorldMoneyUniverse, simulateEightHourWealthUniverse, EIGHT_HOUR_WEALTH_SIM_VERSION } from './eight-hour-wealth-universe-simulator.mjs';
+import { simulateSyntheticEightHourUniverse, SYNTHETIC_WEALTH_PRIOR_VERSION } from './synthetic-eight-hour-wealth-priors.mjs';
 
 export const UNIVERSAL_WEALTH_JOB_VERSION='uberbond.universal-wealth-job.v1';
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -22,7 +23,9 @@ export async function runUniversalWealthJob({
   maxCapitalAtRisk=0,
   sleepHours=8,
   simulationIterations=5000,
-  maxConcurrentMechanisms=64
+  maxConcurrentMechanisms=64,
+  syntheticSamples=512,
+  syntheticIterations=1200
 }={}){
   const resolvedRoot=path.resolve(root);
   const inputFile=path.resolve(resolvedRoot,inputPath);
@@ -56,10 +59,43 @@ export async function runUniversalWealthJob({
     maxConcurrentMechanisms:Number.isFinite(Number(input.maxConcurrentMechanisms))?Number(input.maxConcurrentMechanisms):maxConcurrentMechanisms,
     maxCapitalAtRisk
   });
+  const syntheticScenarios={};
+  for(const scenario of ['CONSERVATIVE','BASE','AGGRESSIVE']){
+    const thought=simulateSyntheticEightHourUniverse({
+      domains,
+      materializedSamples:Number.isFinite(Number(input.syntheticSamples))?Number(input.syntheticSamples):syntheticSamples,
+      scenario,
+      sleepHours:Number.isFinite(Number(input.sleepHours))?Number(input.sleepHours):sleepHours,
+      iterations:Number.isFinite(Number(input.syntheticIterations))?Number(input.syntheticIterations):syntheticIterations,
+      seed:`resident-synthetic:${inputDigest.slice(0,24)}:${scenario}`,
+      maxConcurrentMechanisms:Number.isFinite(Number(input.maxConcurrentMechanisms))?Number(input.maxConcurrentMechanisms):maxConcurrentMechanisms,
+      maxCapitalAtRisk,
+      assumeRegulatoryClearance:false
+    });
+    syntheticScenarios[scenario]={
+      status:thought.status,
+      scenario,
+      materializedSampleCount:thought.universe.materializedSampleCount,
+      selectedMechanismCount:thought.simulation.selectedMechanismCount,
+      fantasyGrossCeiling:thought.simulation.fantasyGrossCeiling,
+      executableGrossCeiling:thought.simulation.executableGrossCeiling,
+      expectedClearedGross:thought.simulation.expectedClearedGross,
+      analyticExpectedNetContribution:thought.simulation.analyticExpectedNetContribution,
+      evidenceWeightedExpectedNetContribution:thought.simulation.evidenceWeightedExpectedNetContribution,
+      p10:thought.simulation.simulation.p10,
+      p50:thought.simulation.simulation.p50,
+      p90:thought.simulation.simulation.p90,
+      p99:thought.simulation.simulation.p99,
+      probabilityPositive:thought.simulation.simulation.probabilityPositive,
+      synthetic:true,
+      forecastAuthority:'NONE'
+    };
+  }
   const receipt={
     schema:UNIVERSAL_WEALTH_JOB_VERSION,
     engineVersion:UNIVERSAL_WEALTH_ENGINE_VERSION,
     sleepSimulationVersion:EIGHT_HOUR_WEALTH_SIM_VERSION,
+    syntheticPriorVersion:SYNTHETIC_WEALTH_PRIOR_VERSION,
     generatedAt:new Date().toISOString(),
     inputDigest,
     searchCellCount:cycle.searchLattice.cellCount,
@@ -89,11 +125,12 @@ export async function runUniversalWealthJob({
       assumptionsAreHypotheses:true,
       moneyClaimAuthority:'NONE'
     },
+    syntheticEightHourThoughtExperiments:syntheticScenarios,
     externalEffectAuthority:'NONE',
     capitalDeploymentAuthority:'NONE',
     tradingAuthority:'NONE',
     status:cycle.status,
-    truthBoundary:'PRIVATE_WEALTH_INPUT_STAYS_RUNTIME_LOCAL; OPEN_WORLD_AND_EIGHT_HOUR_OUTPUTS_ARE_COUNTERFACTUAL_AGGREGATES_ONLY; NO SIMULATED_DOLLAR_IS_REVENUE_OR_PAYMENT_EVIDENCE'
+    truthBoundary:'PRIVATE_WEALTH_INPUT_STAYS_RUNTIME_LOCAL; OPEN_WORLD_AND_EIGHT_HOUR_OUTPUTS_ARE_COUNTERFACTUAL_AGGREGATES_ONLY; SYNTHETIC_SCENARIOS_ARE_THOUGHT_EXPERIMENTS_NOT_FORECASTS; NO SIMULATED_DOLLAR_IS_REVENUE_OR_PAYMENT_EVIDENCE'
   };
   await fs.mkdir(path.dirname(outputFile),{recursive:true});
   await fs.writeFile(outputFile,`${JSON.stringify(receipt,null,2)}\n`,'utf8');

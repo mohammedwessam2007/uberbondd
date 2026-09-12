@@ -23,7 +23,12 @@ export function startScheduler(queue, cfg, log = console) {
       ['followups.process', 15 * MINUTE, {}, { maxAttempts: 5 }],
       ['outbound.reservations.recover', 15 * MINUTE, {}, { maxAttempts: 3 }],
       ['monitoring.process', HOUR, {}, { maxAttempts: 5 }],
-      ['artifacts.cleanup', 24 * HOUR, {}, { maxAttempts: 3 }]
+      ['artifacts.cleanup', 24 * HOUR, {}, { maxAttempts: 3 }],
+      // Read-only frontier learning consumes only the latest policy-cleared
+      // Gamechanger receipt and writes a local audit receipt. It makes no
+      // provider call and has no messaging, spend, deployment, or customer
+      // authority. Deep investigation stays downstream behind Genome gates.
+      ['frontier.learning.process', 5 * MINUTE, { maxInvestigations: 8 }, { maxAttempts: 3 }]
     ];
     if (cfg.discovery?.enabled) {
       recurring.push(['discovery.run', Math.max(1, Number(cfg.discovery.runEveryHours || 24)) * HOUR, { scheduled: true }, { maxAttempts: 4 }]);

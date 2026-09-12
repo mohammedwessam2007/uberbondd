@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond.frontier-learning-autopilot.v1",
+  "status": "READY_FOR_POLICY_CLEARED_OBSERVATIONS",
+  "upstream": [
+    "always-on-sensorium",
+    "external-capability-control-plane",
+    "gamechanger-intelligence-mesh"
+  ],
+  "wakePolicy": "ON_POLICY_CLEARED_BATCH_OR_5_MINUTE_SWEEP",
+  "highSignalFamilies": [
+    "patent-families",
+    "job-hiring-traces",
+    "sdk-api-diffs",
+    "pricing-limit-diffs",
+    "benchmark-eval-deltas",
+    "package-dependency-diffs",
+    "container-metadata",
+    "product-demos",
+    "incident-postmortems",
+    "conference-material",
+    "standards-drafts",
+    "filings-procurement-grants",
+    "licensed-materials",
+    "owner-authorized-product-observations"
+  ],
+  "pipeline": [
+    "POLICY_CLEAR",
+    "NORMALIZE",
+    "CORRELATE_CROSS_SOURCE_CLUES",
+    "FORM_MECHANISM_HYPOTHESIS",
+    "PRIORITIZE_BY_EXPECTED_VALUE_PER_BURDEN",
+    "CAPABILITY_GENOME_LAB",
+    "FRONTIER_CAPABILITY_FUSION"
+  ],
+  "truthLaw": "POLICY_CLEARED_OBSERVATION_IS_A_LEARNING_INPUT_NOT_EXECUTION_AUTHORITY",
+  "promotionLaw": "REPRODUCE_SANDBOX_SECURE_BENCHMARK_INDEPENDENTLY_VERIFY_BEFORE_CAPABILITY_ADMISSION",
+  "instructionAuthority": "NONE",
+  "executionAuthority": "NONE"
+}

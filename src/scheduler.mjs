@@ -32,7 +32,11 @@ export function startScheduler(queue, cfg, log = console) {
       // Personal Civilization reads only runtime-local private state and writes
       // a redacted digest/mission receipt. It models dreams, futures, capability
       // gaps and life-level priorities but has no external-effect authority.
-      ['personal.civilization.pulse', 15 * MINUTE, {}, { maxAttempts: 3 }]
+      ['personal.civilization.pulse', 15 * MINUTE, {}, { maxAttempts: 3 }],
+      // Universal Wealth performs zero-capital economic search while the founder
+      // is absent. It may research/build/test locally, but has no spend, trading,
+      // contracting, publishing, outreach, borrowing, or account-opening authority.
+      ['universal.wealth.pulse', 30 * MINUTE, { maxSearchCells: 256, maxCanaries: 5, maxCapitalAtRisk: 0 }, { maxAttempts: 3 }]
     ];
     if (cfg.discovery?.enabled) {
       recurring.push(['discovery.run', Math.max(1, Number(cfg.discovery.runEveryHours || 24)) * HOUR, { scheduled: true }, { maxAttempts: 4 }]);

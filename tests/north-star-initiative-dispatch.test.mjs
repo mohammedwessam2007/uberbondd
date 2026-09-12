@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileInitiativeOccurrence, seedInitiativeCycle } from '../src/north-star-initiative-dispatch.mjs';
-import { loadLatestAutonomyRun } from '../src/agent-autonomy-store.mjs';
+import { compileInitiativeOccurrence, seedInitiativeCycle, observeInitiativeDispatch } from '../src/north-star-initiative-dispatch.mjs';
+import { loadLatestAutonomyRun, saveAutonomyRunSnapshot } from '../src/agent-autonomy-store.mjs';
 
 const BASE = 'a'.repeat(40);
 const PORTFOLIO = 'b'.repeat(64);
@@ -29,12 +29,7 @@ function cycle(overrides = {}) {
   return {
     ok: true,
     status: 'NORTH_STAR_INITIATIVE_CYCLE_READY',
-    portfolio: {
-      sourceCommit: BASE,
-      portfolioId: PORTFOLIO,
-      realityDigest: REALITY,
-      selectedCandidateId: GOAL
-    },
+    portfolio: { sourceCommit: BASE, portfolioId: PORTFOLIO, realityDigest: REALITY, selectedCandidateId: GOAL },
     goalContract: { id: GOAL },
     agentMeshMission: {
       missionKey: GOAL,
@@ -96,6 +91,50 @@ test('changed reality produces a distinct occurrence while preserving logical mi
   assert.equal(second.missionKey, first.missionKey);
 });
 
+test('pending durable run cannot be promoted into a passing initiative receipt', async () => {
+  const store = durableStore();
+  const dispatch = await seedInitiativeCycle({ store, cycle: cycle() });
+  const observed = await observeInitiativeDispatch({ store, dispatch });
+  assert.equal(observed.ok, true);
+  assert.equal(observed.status, 'NORTH_STAR_INITIATIVE_RUN_PENDING');
+  assert.equal(observed.terminal, false);
+  assert.equal(observed.missionReceipt, undefined);
+});
+
+test('completed durable run returns evidence-bound zero-authority mission receipt', async () => {
+  const store = durableStore();
+  const dispatch = await seedInitiativeCycle({ store, cycle: cycle() });
+  const loaded = await loadLatestAutonomyRun(store, dispatch.runId);
+  const completed = structuredClone(loaded.run);
+  completed.sequence = Number(completed.sequence || 0) + 1;
+  completed.status = 'COMPLETED';
+  completed.updatedAt = '2026-09-12T15:31:00.000Z';
+  completed.session.status = 'COMPLETED';
+  completed.session.history.push({ event:'AGENT_RESULT', taskId:completed.currentIntent.taskId, agent:'chatgpt', action:'DONE', summary:'bounded mission complete', evidenceRefs:['receipt:initiative-local-proof'], at:completed.updatedAt });
+  const saved = await saveAutonomyRunSnapshot(store, completed, { reason:'test-complete', date:new Date(completed.updatedAt) });
+  assert.equal(saved.ok, true);
+  const observed = await observeInitiativeDispatch({ store, dispatch, date:new Date('2026-09-12T15:32:00Z') });
+  assert.equal(observed.ok, true);
+  assert.equal(observed.status, 'NORTH_STAR_INITIATIVE_RUN_COMPLETED');
+  assert.equal(observed.missionReceipt.status, 'PASS');
+  assert.deepEqual(observed.missionReceipt.evidenceRefs, ['receipt:initiative-local-proof']);
+  assert.equal(observed.missionReceipt.externalEffectAuthority, 'NONE');
+});
+
+test('completion without evidence is refused instead of becoming success', async () => {
+  const store = durableStore();
+  const dispatch = await seedInitiativeCycle({ store, cycle: cycle() });
+  const loaded = await loadLatestAutonomyRun(store, dispatch.runId);
+  const completed = structuredClone(loaded.run);
+  completed.sequence = Number(completed.sequence || 0) + 1;
+  completed.status = 'COMPLETED';
+  completed.session.status = 'COMPLETED';
+  await saveAutonomyRunSnapshot(store, completed, { reason:'test-complete-no-evidence' });
+  const observed = await observeInitiativeDispatch({ store, dispatch });
+  assert.equal(observed.ok, false);
+  assert.ok(observed.reasonCodes.includes('completed-run-evidence-required'));
+});
+
 test('invalid identity or widened founder-action budget is refused before durable seeding', async () => {
   const store = durableStore();
   const widened = cycle();
@@ -104,7 +143,6 @@ test('invalid identity or widened founder-action budget is refused before durabl
   assert.equal(refused.ok, false);
   assert.ok(refused.reasonCodes.includes('zero-founder-action-budget-required'));
   assert.equal(store.auditLog.length, 0);
-
   const mismatched = cycle();
   mismatched.goalContract.id = 'different-goal';
   const wrong = compileInitiativeOccurrence(mismatched);

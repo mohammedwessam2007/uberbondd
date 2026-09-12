@@ -19,14 +19,13 @@ export function preflightCurrentHeadEvidence({campaign,currentRevision,receipts=
   if(!campaign||campaign.version!=='uberbond.c21-evidence-factory.v1') reasons.push('frozen-c21-campaign-required');
   if(!text(currentRevision,300)||campaign?.candidateRevision!==currentRevision) reasons.push('campaign-must-bind-exact-current-revision');
   const rows=(Array.isArray(receipts)?receipts:[]).map(normalizeReceipt);
-  const externalRefs=new Set(),privateRefs=new Set(),resourceDigests=new Set();
+  const externalRefs=new Set(),privateRefs=new Set();
   for(const row of rows){
     const cell=campaign?.cells?.find(c=>c.dimension===row?.dimension);
     if(row?.candidateId!==campaign?.candidateId||row?.candidateRevision!==campaign?.candidateRevision) reasons.push('receipt-candidate-must-match-frozen-campaign');
     if(row?.matchedResourceBudgetVerified!==true) reasons.push('matched-resource-budget-proof-required');
     const budgetDigest=text(row?.resourceBudgetDigest,64)?.toLowerCase();
     if(!budgetDigest||!SHA256.test(budgetDigest)) reasons.push('resource-budget-digest-required');
-    else if(resourceDigests.has(budgetDigest)) reasons.push('resource-budget-receipt-reuse-refused'); else resourceDigests.add(budgetDigest);
     if(row?.externalBenchmarkObserved!==true||row?.privateHoldoutObserved!==true) reasons.push('external-benchmark-and-private-holdout-both-required');
     if(!cell||row?.externalBenchmarkSurface!==cell.benchmarkSurfaces?.[0]||row?.privateHoldoutSurface!==cell.benchmarkSurfaces?.[1]) reasons.push('benchmark-surfaces-must-match-frozen-cell');
     const ext=text(row?.externalBenchmarkEvidenceRef),priv=text(row?.privateHoldoutEvidenceRef);

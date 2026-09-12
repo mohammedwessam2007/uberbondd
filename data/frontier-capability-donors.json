@@ -1,0 +1,53 @@
+{
+  "schema": "uberbond.frontier-capability-donors.v1",
+  "observedAt": "2026-09-13T00:00:00Z",
+  "truthBoundary": "PUBLIC_VENDOR_MATERIAL_IS_A_MECHANISM_DONOR_AND_DISCOVERY_SIGNAL, NOT PROOF_OF_UBERBOND_CALLABILITY_OR PERFORMANCE",
+  "donors": [
+    {
+      "id": "openai-frontier",
+      "source": "OpenAI",
+      "mechanisms": ["DYNAMIC_REASONING_EFFORT", "PARALLEL_MULTI_AGENT", "PROGRAMMATIC_TOOL_LOOP", "NATIVE_COMPUTER_USE", "SUPPLIER_TOURNAMENT"],
+      "evidence": [
+        "https://openai.com/index/gpt-5-6/",
+        "https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency/"
+      ]
+    },
+    {
+      "id": "anthropic-frontier",
+      "source": "Anthropic",
+      "mechanisms": ["PERSISTENT_CHECKPOINT_MEMORY", "CONTEXT_COMPACTION", "PROACTIVE_SELF_CHECK", "EXTERNAL_TEST_ORACLE", "PARALLEL_MULTI_AGENT"],
+      "evidence": [
+        "https://www.anthropic.com/news/claude-sonnet-5",
+        "https://www.anthropic.com/research/long-running-Claude"
+      ]
+    },
+    {
+      "id": "google-frontier",
+      "source": "Google DeepMind",
+      "mechanisms": ["NATIVE_COMPUTER_USE", "MULTIMODAL_WORLD_UNDERSTANDING", "ALWAYS_ON_PROACTIVE_LOOP", "PROGRAMMATIC_TOOL_LOOP"],
+      "evidence": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-computer-use-gemini-3-5-flash/",
+        "https://blog.google/innovation-and-ai/products/gemini-app/next-evolution-gemini-app/"
+      ]
+    },
+    {
+      "id": "meta-frontier",
+      "source": "Meta Superintelligence Labs",
+      "mechanisms": ["MULTIMODAL_WORLD_UNDERSTANDING", "PARALLEL_MULTI_AGENT", "PROGRAMMATIC_TOOL_LOOP"],
+      "evidence": [
+        "https://ai.meta.com/blog/introducing-muse-spark-msl/",
+        "https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/"
+      ]
+    },
+    {
+      "id": "mistral-frontier",
+      "source": "Mistral AI",
+      "mechanisms": ["SOVEREIGN_OPEN_FALLBACK", "FORMAL_PROOF_ESCALATION", "MULTIMODAL_WORLD_UNDERSTANDING"],
+      "evidence": [
+        "https://mistral.ai/news/mistral-small-4/",
+        "https://mistral.ai/news/leanstral/",
+        "https://mistral.ai/news/regional-inference-open-models-new-compute/"
+      ]
+    }
+  ]
+}

@@ -66,6 +66,35 @@ publish_worker_context(){
     "$NODE" scripts/sovereign-context-project-worker.mjs >/dev/null
 }
 
+initiative_wake(){
+  local tmp="$AUTONOMY_DIR/initiative-wake.tmp.$$"
+  rm -f "$tmp"
+  if ! run_from_source env \
+      UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
+      UBERBOND_SOURCE_ROOT="$SOURCE_ROOT" \
+      UBERBOND_CONTEXT_JOURNAL_PATH="$CONTEXT_JOURNAL" \
+      UBERBOND_BRAINSTATE_PATH="$BRAINSTATE_FILE" \
+      UBERBOND_CONTEXT_MOUNT_PATH="$CONTEXT_MOUNT_FILE" \
+      "$NODE" scripts/sovereign-initiative-runtime.mjs > "$tmp"; then
+    [[ ! -f "$tmp" ]] || cat "$tmp" >&2
+    rm -f "$tmp"
+    return 2
+  fi
+  if grep -Eq '"initiativeAdmitted"[[:space:]]*:[[:space:]]*true' "$tmp"; then
+    chmod 600 "$tmp"
+    mv -f "$tmp" "$STATUS_FILE"
+    cat "$STATUS_FILE"
+    return 0
+  fi
+  if grep -Eq '"status"[[:space:]]*:[[:space:]]*"NORTH_STAR_INITIATIVE_DEFERRED_TO_FINITE_ENGINEERING"' "$tmp"; then
+    rm -f "$tmp"
+    return 1
+  fi
+  cat "$tmp" >&2
+  rm -f "$tmp"
+  return 2
+}
+
 context_show(){
   run_from_source env \
     UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
@@ -91,11 +120,22 @@ wake(){
     printf '%s\n' 'AUTHORING_PULSE_ALREADY_ACTIVE'
     return 0
   fi
-  # Every resident/manual/event wake first mounts exact-current Brainstate and
-  # appends a durable checkpoint only when that Brainstate changed. When an
-  # isolated worker is enabled, publish a digest-bound zero-authority projection
-  # into its read-only inbox before any task may be emitted.
+  if [[ -L "$PAUSE_FILE" ]]; then
+    echo "REFUSED: founder pause marker must not be a symlink" >&2
+    return 2
+  fi
+  if [[ -f "$PAUSE_FILE" ]]; then
+    printf '%s\n' 'FOUNDER_PAUSED'
+    return 0
+  fi
   context_sync
+  local initiative_rc=0
+  if initiative_wake; then
+    return 0
+  else
+    initiative_rc=$?
+    [[ "$initiative_rc" -eq 1 ]] || return "$initiative_rc"
+  fi
   publish_worker_context
   run_from_source env \
     UBERBOND_CONTROL_DIR="$CONTROL_DIR" \
@@ -128,21 +168,25 @@ resume(){ rm -f "$PAUSE_FILE"; printf '%s\n' 'FOUNDER_RESUMED'; wake; }
 help(){ cat <<'EOF'
 UberBond Sovereign Authoring Command Center
 
-  uberbond-authorctl status      exact local autonomy receipt
-  uberbond-authorctl wake        mount current Brainstate, then emit one bounded task
+  uberbond-authorctl status      exact local autonomy/initiative receipt
+  uberbond-authorctl wake        mount current Brainstate, then continue finite completion or North-Star initiative
   uberbond-authorctl context     verify and print the current Context Mount
   uberbond-authorctl checkpoint  append an explicit verified Brainstate checkpoint
-  uberbond-authorctl pause       durably stop new authoring pulses
+  uberbond-authorctl pause       durably stop new authoring/initiative pulses
   uberbond-authorctl resume      remove pause and immediately wake
-  uberbond-authorctl verify      independently verify isolated worker output
+  uberbond-authorctl verify      independently verify isolated engineering-worker output
   uberbond-authorctl doctor      inspect sovereign self-completion activation truth
   uberbond-authorctl help        show this help
 
-All wake paths share a local single-writer lock. Before any authoring pulse,
-Context Sync verifies and mounts exact-current Brainstate. When the isolated
-worker is enabled, authoring publishes only a bounded digest-bound projection to
-the worker inbox. The worker still cannot read authoring receipts or mutate the
-brain. Integrity failure blocks the pulse rather than falling back to chat memory.
+All wake paths share a local single-writer lock and start from exact-current
+Context Fabric. An explicit founder pause is checked before either initiative or
+finite completion can run. If exact-current finite engineering remains open,
+the existing finite-completion controller keeps priority. Once finite
+engineering is proven closed, the North-Star Initiative Runtime selects a
+bounded mission portfolio from current Brainstate, durable founder will and
+current reality. Founder silence is not a pause. Initiative never creates
+authority; private-life, message, payment, spend, deployment, credential,
+security and irreversible consequences remain behind their existing gates.
 
 This control surface does not merge, sign, deploy, send, spend, mutate
 DNS/credentials, contact customers, or grant business authority.

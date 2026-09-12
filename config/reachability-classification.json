@@ -238,11 +238,6 @@
       "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
       "reason": "Checks a model's licence class and admission evidence before the operator may route to it. Waits on the same runtime the open-model catalogue waits on."
     },
-    "src/frontier-operator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Compiles and scores bounded operator missions across LEADER/WORKER/VERIFIER/ADVERSARY/JUDGE roles. The kernel of the family; nothing schedules it."
-    },
     "src/frontier-replacement-tournament-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",

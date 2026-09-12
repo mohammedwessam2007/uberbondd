@@ -1,4 +1,4 @@
-export const ELITE_CAPABILITY_RESERVE_VERSION='uberbond.elite-capability-reserve.v1';
+export const ELITE_CAPABILITY_RESERVE_VERSION='uberbond.elite-capability-reserve.v2';
 export const ELITE_CAPABILITY_RESERVE_TARGET=1_000_000;
 const n=v=>Number.isFinite(Number(v))?Number(v):0;
 const s=v=>String(v??'').trim();
@@ -7,6 +7,8 @@ export function eliteEligibility(candidate={}){
  const reasons=[];
  if(!s(candidate.mechanismId)) reasons.push('MECHANISM_ID');
  if(!s(candidate.provenanceDigest)) reasons.push('PROVENANCE');
+ if(!['ALLOWED','INTERNAL_ONLY'].includes(candidate.rightsState)) reasons.push('RIGHTS');
+ if(candidate.securityState!=='PASSED') reasons.push('SECURITY');
  if(!s(candidate.benchmarkReceipt)) reasons.push('BENCHMARK');
  if(!(n(candidate.incrementalUtility)>0)) reasons.push('UTILITY');
  if(!Array.isArray(candidate.inputContract)||candidate.inputContract.length===0) reasons.push('INPUT_CONTRACT');

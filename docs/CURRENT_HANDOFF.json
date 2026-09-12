@@ -1,55 +1,85 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-11",
-  "sourceCommit": "ae44b4d0ce3491189de304b8198cfd7c6da50620",
+  "checkpointedAt": "2026-09-12",
+  "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
   "subordinateEconomicObjective": "risk-adjusted cleared contribution profit / founder minute",
   "inheritance": {
-    "previousCurrentHandoffBlob": "fbf488bda0d6ddd8c6b35e7fa4556eab634a891d",
-    "previousSchemaVersion": "uberbond-handoff-3.1.0",
+    "previousCurrentHandoffBlob": "491645cbcd28541b6ad873a4a05da5f5435964ae",
+    "previousSchemaVersion": "uberbond-handoff-3.2.0",
     "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
   },
-  "startupLaw": "Refresh live main, open PRs/issues, runtime/provider truth and exact-current evidence before present-tense claims. Read AGENTS.md, NORTH_STAR.md, Sovereign Cognitive Continuum and Personal Civilization canon, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, Total Brain and overlays, master memory/index, Sandwich canon, Temporal Foundry canon, Timeline Topology canon, Connectome Autopoiesis canon, inherited handoffs and this checkpoint. Source connectivity is not physical runtime proof; cognitive edges do not create consequence authority; a future date is not duration evidence.",
-  "activeMission": "Cross source-to-reality on an owned or authorized Linux founder node while the resident self-completion path continuously preserves and improves the cognitive organism. Use Connectome Autopoiesis to detect isolated or under-connected capabilities; when genuine integration debt exists, prioritize one bounded bridge through the same Temporal Foundry -> Timeline Topology -> Sandwich -> independent verification -> promotion funnel. When the connectome is healthy, do not manufacture graph work.",
+  "startupLaw": "A session may be new; UberBond may not be new. Refresh live main before present-tense claims, then mount the canonical Context Fabric/Brainstate and reconcile open PRs, exact-current runtime/provider receipts, CURRENT_HANDOFF and executable terminal truth. Read AGENTS.md, NORTH_STAR.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, master memory/index and inherited handoffs before narrowing scope. A stale handoff is a retrieval pointer, never authority to overwrite newer executable truth. Capability never creates authority.",
+  "activeMission": "Operate from the five-cut external/owner frontier without reopening completed finite engineering or manufacturing graph work. Preserve the resident Context Fabric and exact-source runtime proofs; close a remaining cut only when its cut-specific real-world receipt is observed. In parallel, activate the first owned or authorized persistent founder host when physical compute and owner-controlled model artifacts are available, so resident compute and resident cognition coexist continuously.",
   "currentTruth": {
     "repository": {
-      "observedMain": "ae44b4d0ce3491189de304b8198cfd7c6da50620",
-      "latestMainRequiresRefreshBeforeNewClaims": true
+      "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
+      "latestMainRequiresRefreshBeforeNewClaims": true,
+      "finiteEngineeringClosure": "100_PERCENT_OF_DECLARED_FINITE_ENGINEERING_SCOPE",
+      "finiteOpenRequirements": 0,
+      "semanticRequirements": 1040,
+      "semanticOrphans": 0,
+      "internalSovereignCuts": 0
     },
-    "sovereignRuntimeSource": {
-      "communicationCenter": "MERGED",
-      "residentSelfCompletion": "MERGED",
-      "airNodeTailnet": "MERGED_PR_681",
-      "zeroCostOracleAirNodeBootstrap": "MERGED_PR_687",
-      "providerIndependentUberMeshFounderTransport": "MERGED_PR_688",
-      "publicCloudModelRequiredForCanonicalHeartbeat": false,
-      "physicalContinuousOperationObserved": false,
-      "physicalFounderReachabilityObserved": false
+    "contextSovereignty": {
+      "status": "MERGED_AND_EXECUTABLE",
+      "brainstate": "CONTENT_ADDRESSED",
+      "contextMount": "EXACT_CURRENT_WITH_AUTOMATIC_BENIGN_STALE_RECOMPILE_AND_TAMPER_REFUSAL",
+      "cognitiveJournal": "HASH_CHAINED_LAYERED_GENERATIONS_WITH_ANTI_DOWNGRADE_AND_RESIDENT_SELF_MAINTENANCE",
+      "contextProjection": "AUDIENCE_SOURCE_AND_TASK_BOUND_ZERO_AUTHORITY",
+      "privacySuppression": "APPEND_ONLY_RETRIEVAL_TOMBSTONE_WITHOUT_FALSE_PHYSICAL_ERASURE_CLAIMS",
+      "newChatLaw": "ZERO_RETELLING_FOR_MACHINE_RECOVERABLE_CONTEXT"
     },
-    "futureCompression": {
-      "temporalFoundry": "MERGED_PR_685",
-      "timelineTopologyWormhole": "MERGED_PR_682_PR_683",
-      "sandwich": "MERGED",
-      "law": "Decompose future capability into functions, pull evidence-backed present function forward, challenge the exact primitive's dependency topology, then admit only a bounded independently verifiable requirement."
+    "runtimeProof": {
+      "sourceRepositoryHost": {
+        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
+        "receiptDigest": "sha256:3d449783c270a8cde1a010a72a979507d4a31f5233603c36ecbc08143dc09c5e"
+      },
+      "databaseStateAndWorkerScheduler": {
+        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
+        "receiptDigest": "sha256:7c5fcd907e166a9e33976702d63f512e9d28c3c5ebda79f8787b51bf408aba7e",
+        "observed": "REAL_DISPOSABLE_POSTGRES_CRASH_91__REPLAY_SAFE_RECOVERED_ONCE__RECONCILE_WORK_NOT_REPLAYED"
+      },
+      "webRuntimeHost": {
+        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
+        "receiptDigest": "sha256:9752dd94ccef7b7d557f83dbdce8738855ad6c4b16e49128cc1d9dc779ea53b5"
+      },
+      "modelProvider": {
+        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
+        "provider": "open-model",
+        "runtime": "TRANSFORMERS_HTTP",
+        "model": "Xenova/distilbert-base-uncased-finetuned-sst-2-english",
+        "identityVerification": "MATCHED",
+        "meteredTokens": 304,
+        "costCents": 0,
+        "receiptDigest": "sha256:8d293f99169903130274fb9b881e6df693c13173aff1eb63cf0484ed794de308"
+      },
+      "remainingRuntimeCuts": []
     },
-    "connectomeAutopoiesis": {
-      "status": "MERGED_PR_689",
-      "engine": "src/connectome-autopoiesis.mjs",
-      "canon": "docs/CONNECTOME_AUTOPOIESIS_CANON.md",
-      "artifact": "artifacts/connectome-autopoiesis.json",
-      "firstClassOrgans": ["avengers", "max-council", "temporal-foundry", "timeline-topology", "sandwich", "connectome-autopoiesis", "self-maintainer", "capability-genome", "economic-memory"],
-      "frontierCrossWiring": "Avengers and MAX Council are directly connected with Temporal Foundry and Timeline Topology; future-function, topology-result, descendant-gap, connectome-gap and feature-genesis events share the Cognitive Bus.",
-      "selfGrowth": "Each post-finite resident descendant cycle computes a fresh exact-source Connectome Autopoiesis audit. Genuine integration debt may yield exactly one bounded bridge hypothesis; a healthy graph yields no feature candidate.",
-      "authorityBoundary": "A connectome edge or bridge hypothesis carries information/context only and cannot edit source, self-admit, deploy, spend, message, mutate credentials, move money, create physical proof or expand founder-goal authority."
+    "remainingSovereignCuts": {
+      "externalProvider": [
+        "MESSAGING_PROVIDER",
+        "PAYMENT_PROVIDER",
+        "DEPLOYMENT_PROVIDER"
+      ],
+      "ownerCustody": [
+        "CREDENTIAL_CUSTODY",
+        "SOVEREIGN_IDENTITY"
+      ],
+      "law": "No remaining cut may be closed by source claims, simulations, sandbox payments, same-provider substitution, cloned receipts, repository text, or another cut's evidence."
     },
-    "verification": {
-      "pr689ExactBranchIntegratedSlice": "98/98 PASS, 0 fail at 0ab7236fda1744e9abece6e2632dfa0900a1e964",
-      "pr689ExactMergedMainIntegratedSlice": "98/98 PASS, 0 fail at ae44b4d0ce3491189de304b8198cfd7c6da50620",
-      "pr689Syntax": "PASS for Connectome Autopoiesis, cognitive graph, cognitive bus, Sandwich governor and sovereign native local worker script",
-      "pr689ReachabilityRatchets": "PASS",
-      "fullExactCurrentTerminalRegeneration": "NOT_CLAIMED"
+    "externalObservations": {
+      "gmailSenderIdentityObserved": "uberbond.co@gmail.com",
+      "gmailHistoricalSentActivityObserved": true,
+      "secondIndependentMessagingProviderEvidence": "NOT_OBSERVED",
+      "livePaymentSettlementOrPayPalRecovery": "NOT_OBSERVED",
+      "distinctDeploymentProviderExactBootCutoverRollback": "NOT_OBSERVED",
+      "ownerCustodyDiversityEnrollment": "NOT_OBSERVED",
+      "sameIdentityRecoveryWithLivenessAndConsent": "NOT_OBSERVED",
+      "vercelNewDeploymentCapacity": "DAILY_FREE_PLAN_QUOTA_EXHAUSTED_WHEN_LAST_CHECKED",
+      "digitalOceanExistingDroplets": 0
     },
     "commercialProof": {
       "realCustomers": 0,
@@ -61,24 +91,41 @@
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "completedSincePreviousCheckpoint": [
-    "#687 merged a zero-cost Oracle Ampere A1 + Tailscale + pinned local-model bootstrap path while preserving explicit external account gates.",
-    "#688 merged provider-independent UberMesh founder transport using direct WireGuard semantics and preserved physical-network evidence boundaries.",
-    "#689 merged Connectome Autopoiesis and fused Avengers/MAX Council with Temporal Foundry, Timeline Topology/Wormhole, Sandwich, Self-Maintainer and trusted learning through typed cognitive paths.",
-    "Connectome Autopoiesis now detects required-synergy or structural graph debt and may surface one bounded integration-feature hypothesis; healthy connectome state explicitly produces no new bridge work.",
-    "The resident sovereign worker computes the connectome audit from exact source during descendant genesis, and the Sandwich governor prioritizes real integration debt before unrelated feature genesis while preserving Future Raid, Wormhole and independent verification gates."
+    "Context Sovereignty was promoted from a documented recovery procedure into executable Brainstate, Context Mount, canonical Cognitive Bus, durable cognitive journal, privacy suppression, task-bound projections, Context Query, replication bundles, schema/ancestry admission and resident self-maintaining layered storage.",
+    "Founder dialogue, resident authoring pulses and isolated workers consume the same verified cognitive substrate without granting workers brain-write or consequence authority.",
+    "Terminal Context continuity/scale maintenance closed on main through PR #749; literal-ASI evidence reachability/canon drift closed through #750.",
+    "Embedded PostgreSQL cloud portability was repaired through #751/#753/#755, including pinned native-library soname and loader-path handling without widening install authority.",
+    "Exact merged source f8f3d579c04a565882ba62342d9c94a104eab73a independently re-earned source-host, web-host, real PostgreSQL restart/recovery and local-model receipts.",
+    "Canonical terminal realization on the checkpoint source reports 100% of declared finite engineering scope, zero finite open requirements, zero runtime proof cuts, MODEL_PROVIDER closed, and exactly five external/owner cuts remaining.",
+    "The canonical founder-absence doctor reports CODE_READY open = 0; all remaining open blockers are external-human, provider-acceptance, customer-reality or elapsed-time classes."
   ],
   "genuineBlockers": [
-    "PHYSICAL FOUNDER HOST/MODEL: source now includes local, Air Node, Oracle bootstrap and UberMesh transport paths, but no owned or authorized target Linux node has produced exact-current model, service, dialogue and repeated-continuum receipts in this execution context.",
-    "PHYSICAL NETWORK/RUNTIME: source transport paths are merged; no real founder endpoint/reachability receipt for exact current source has been observed here.",
-    "PHYSICAL RELEASE AUTHORITY: separate signer, courier and owned runtime rehearsal remain evidence requirements and are not created by cognitive graph integration.",
-    "EXACT-CURRENT FULL TRIBUNAL: the integrated 98-test slice is green; a full repository terminal-realization regeneration on exact current main is not claimed.",
-    "EXTERNAL/COMMERCIAL: provider entitlement, live payment, customer messaging, real customers, cleared revenue, delivery acceptance and retention require their own evidence.",
-    "ELAPSED/REALITY: longitudinal Personal Civilization improvement, biological/physical acceleration, novel scientific outcomes and ASI-level claims require observed reality."
+    "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
+    "PAYMENT_PROVIDER: the sovereign receipt requires LIVE second-rail settlement or LIVE PayPal recovery. PayPal sandbox evidence cannot close this cut and no qualifying live settlement/recovery receipt is observed.",
+    "DEPLOYMENT_PROVIDER: a distinct provider must physically boot the exact release and demonstrate cutover plus rollback. Macaly scratch execution and same-provider Vercel previews are not sufficient; current Vercel new-deployment attempts are also quota-blocked.",
+    "CREDENTIAL_CUSTODY: requires observed founder enrollment with threshold >=2, at least two factor types and at least two custody domains, with no secret material in the receipt. This cannot be inferred from configured accounts.",
+    "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
+    "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
+    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations."
   ],
   "nextExecutor": {
-    "primary": "Activate exact-current UberBond on the first owned or authorized Linux founder node using an admitted local-model/runtime path and preserve real receipts.",
-    "selfCompletion": "On each post-finite cycle: exact truth -> Connectome audit -> if genuine integration debt, consider one bounded bridge; otherwise Future Raid -> Timeline Topology -> one bounded Sandwich requirement -> independent verification/promotion -> recompute.",
-    "cognitiveLaw": "Parallel cognition, serial authority. Mix evidence and intelligence aggressively; never mix authority boundaries implicitly."
+    "primary": "Refresh exact live main and mount Context Fabric. Do not reopen finite source engineering. Seek admissible real evidence for the five remaining sovereign cuts; if unavailable, work only on independently valuable external activation/reality tasks rather than inventing more source architecture.",
+    "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
+    "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
+    "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",
+    "deployment": "Admit only a genuinely distinct provider exact-release boot, cutover and rollback receipt.",
+    "identityAndCustody": "Require explicit owner participation for custody enrollment, liveness and same-identity recovery. Never manufacture these from software state.",
+    "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling."
   },
-  "truthBoundary": "This checkpoint proves source-level cognitive interconnection, connectome self-audit and governed integration-feature genesis. It does not prove a physically running 24/7 UberBond, provider callability, customers, revenue, physical autonomy, biological acceleration, superintelligence or observed life outcomes."
+  "truthBoundary": "This checkpoint is a compact retrieval frontier bound to verified source ancestor f8f3d579c04a565882ba62342d9c94a104eab73a. It records zero remaining finite source/runtime cuts on that ancestor and five remaining external/owner sovereign cuts. Because committing a checkpoint creates a descendant SHA, every future session must refresh live main before exact-source claims. This checkpoint does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery/settlement, independent deployment failover, owner custody enrollment, owner liveness/identity recovery, customers, revenue, life outcomes or ASI.",
+  "orchestrationCheckpoint": {
+    "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
+    "importedAt": "2026-09-12",
+    "sourceBasis": "7310e9771f77a11b0751defd8a7bb73a2cea9369",
+    "classification": "ORCHESTRATION_SPECIFICATION",
+    "packetCount": 43,
+    "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+    "reportedIssue770": "OBSERVED_OPEN_AT_IMPORT",
+    "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority."
+  }
 }

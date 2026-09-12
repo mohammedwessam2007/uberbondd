@@ -26,7 +26,13 @@ test('existing refusal vocabulary remains recognized',()=>{
   }
 });
 
-test('recovery evidence classification remains separate',()=>{
-  assert.equal(isRecoveryTestTitle('restart reconciles an uncertain occurrence'),true);
+test('recovery evidence classification remains separate and recognizes checkpoint replay semantics',()=>{
+  for(const title of [
+    'restart reconciles an uncertain occurrence',
+    'provider call ceiling checkpoints partial partition progress instead of dropping it',
+    'the second attempt is bounded to hangs, and its verdict is final',
+    'seed dry run is deterministic across reruns'
+  ]) assert.equal(isRecoveryTestTitle(title),true,title);
   assert.equal(isRecoveryTestTitle('capability is not authority'),false);
+  assert.equal(isRecoveryTestTitle('the matrix is deterministic'),false);
 });

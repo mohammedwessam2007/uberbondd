@@ -4,7 +4,7 @@ import { compileUberBondCognitiveGraph } from './uberbond-cognitive-graph.mjs';
 import { compileConnectomeAutopoiesis } from './connectome-autopoiesis.mjs';
 
 export const UBERBOND_COGNITIVE_EVENT_SCHEMA = 'uberbond.cognitive-event.v1';
-export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.3.0';
+export const UBERBOND_COGNITIVE_BUS_POLICY_VERSION = 'uberbond-cognitive-bus-1.4.0';
 
 const EVENT_KINDS = new Set([
   'WORLD_SIGNAL', 'GAMECHANGER_CANDIDATE', 'GENESIS_HYPOTHESIS', 'GENESIS_SCIENTIST_AGENDA',
@@ -14,7 +14,8 @@ const EVENT_KINDS = new Set([
   'DESCENDANT_GAP', 'CONNECTOME_GAP', 'FEATURE_GENESIS', 'EXPERIMENT_RESULT', 'CONTRADICTION', 'BLOCKER',
   'CODE_DEFECT', 'CODE_CHANGE_CANDIDATE', 'VERIFICATION_RESULT', 'DISTRIBUTION_RESULT',
   'PAYMENT_RESULT', 'DELIVERY_RESULT', 'RETENTION_RESULT', 'COMMERCIAL_OUTCOME',
-  'ECONOMIC_LEARNING', 'REVOCATION'
+  'ECONOMIC_LEARNING', 'REVOCATION',
+  'CONTEXT_CHECKPOINT', 'FOUNDER_DOCTRINE', 'DECISION_UPDATE', 'MEMORY_UPDATE', 'SESSION_HANDOFF'
 ]);
 
 const EVENT_TARGET_HINTS = Object.freeze({
@@ -49,7 +50,12 @@ const EVENT_TARGET_HINTS = Object.freeze({
   RETENTION_RESULT: ['retention-learning', 'economic-memory'],
   COMMERCIAL_OUTCOME: ['event-horizon', 'business-genome', 'opportunity-factory', 'capability-genome', 'economic-memory'],
   ECONOMIC_LEARNING: ['gamechanger', 'genesis', 'business-genome', 'event-horizon', 'capability-genome', 'world-brain'],
-  REVOCATION: ['genesis-metabolism', 'capability-genome', 'open-model-universe', 'world-brain']
+  REVOCATION: ['genesis-metabolism', 'capability-genome', 'open-model-universe', 'world-brain'],
+  CONTEXT_CHECKPOINT: ['context-spine', 'world-brain'],
+  FOUNDER_DOCTRINE: ['context-spine', 'world-brain', 'max-council'],
+  DECISION_UPDATE: ['context-spine', 'max-council', 'economic-memory'],
+  MEMORY_UPDATE: ['context-spine', 'world-brain', 'economic-memory'],
+  SESSION_HANDOFF: ['context-spine', 'self-maintainer', 'world-brain']
 });
 
 function zeroEffects() {

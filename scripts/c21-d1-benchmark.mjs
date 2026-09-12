@@ -1,0 +1,23 @@
+import fs from 'node:fs';
+import { compileMillionWormholeShard } from '../src/million-wormhole-tournament.mjs';
+import { incrementalBuildDistance } from '../src/opportunity-registry.mjs';
+import { listCapabilities } from '../src/capability-graph.mjs';
+import { compileMillionWormholeGlobalPriorTopK,compileBuildDistanceBatch,compileCapabilityTopologyBatch,computeCapabilityTopology } from '../src/invariant-cognition-compiler.mjs';
+import { evaluateWholeSystemSelfImprovement } from './c21-self-improvement-evaluator.mjs';
+import { expandC21D1Population,C21_D1_POPULATION_HASH,c21d1Hash } from './c21-d1-population.mjs';
+const ID='UBERBOND_WHOLE_SYSTEM_C21_20260911',REV='c40843d55cca9110ab9661524f5cd662d00dec6d';
+const contract=JSON.parse(fs.readFileSync(new URL('../artifacts/c21-self-improvement-frozen-contract.json',import.meta.url),'utf8')),pop=expandC21D1Population(),caps=listCapabilities();
+function currentSearch(){const rows=[];for(let s=0;s<4096;s++)rows.push(...compileMillionWormholeShard({shardIndex:s,topK:64}).selected);rows.sort((a,b)=>b.staticPrior-a.staticPrior||a.index-b.index);return rows.slice(0,64);}
+function currentBuildCase(c){const rows=[];for(let i=0;i<c.repetitions;i++)rows.push(incrementalBuildDistance(c.requiredCapabilities,c.existingCapabilities));return{rows,final:incrementalBuildDistance(c.requiredCapabilities,c.existingCapabilities)};}
+const currentBuild=()=>pop.buildDistanceCases.map(currentBuildCase),candidateBuild=()=>pop.buildDistanceCases.map(c=>{const x=compileBuildDistanceBatch(c);return{rows:x.rows,final:x.final};});
+const currentTopology=()=>pop.topologyTasks.map(task=>({task,topology:computeCapabilityTopology(caps)})),candidateTopology=()=>compileCapabilityTopologyBatch(pop.topologyTasks).rows;
+const searchRef=currentSearch(),searchA=pop.searchTopK.map(k=>searchRef.slice(0,k)),searchB=pop.searchTopK.map(k=>compileMillionWormholeGlobalPriorTopK(k).selected),buildA=currentBuild(),buildB=candidateBuild(),topoA=currentTopology(),topoB=candidateTopology();
+const semantic={search:[c21d1Hash(searchA),c21d1Hash(searchB)],build:[c21d1Hash(buildA),c21d1Hash(buildB)],topology:[c21d1Hash(topoA),c21d1Hash(topoB)]};
+const boundary=c21d1Hash({promotionAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalTools:'NONE'}),truth=c21d1Hash({scope:'pure-local-comparison',claim:'semantic-identity-and-latency-only'}),ns=fn=>{const a=process.hrtime.bigint();fn();return Number(process.hrtime.bigint()-a);};
+const timing={search:{current:[],candidate:[]},build:{current:[],candidate:[]},topology:{current:[],candidate:[]}};
+const candidateSearch=()=>compileMillionWormholeGlobalPriorTopK(64);for(const f of [currentSearch,candidateSearch,currentBuild,candidateBuild,currentTopology,candidateTopology])f();
+for(let i=0;i<21;i++)for(const [key,a,b] of [['search',currentSearch,candidateSearch],['build',currentBuild,candidateBuild],['topology',currentTopology,candidateTopology]]){if(i%2){timing[key].candidate.push(ns(b));timing[key].current.push(ns(a));}else{timing[key].current.push(ns(a));timing[key].candidate.push(ns(b));}}
+const family=(id,key)=>({familyId:id,currentLatenciesNs:timing[key].current,candidateLatenciesNs:timing[key].candidate,currentSemanticDigest:semantic[key][0],candidateSemanticDigest:semantic[key][1],currentAuthorityDigest:boundary,candidateAuthorityDigest:boundary,currentTruthBoundaryDigest:truth,candidateTruthBoundaryDigest:truth,wallTimeBudgetMs:5000,monetaryCostMicros:0,humanAssistanceMinutes:0,externalTools:'NONE'});
+const families=[family('MILLION_WORMHOLE_GLOBAL_PRIOR_TOPK','search'),family('OPPORTUNITY_BUILD_DISTANCE_BATCH','build'),family('CAPABILITY_GRAPH_TOPOLOGY_BATCH','topology')],contractDigest=c21d1Hash(contract),evaluation=evaluateWholeSystemSelfImprovement({contractDigest,expectedContractDigest:contractDigest,candidateId:ID,candidateRevision:REV,expectedCandidateId:contract.candidateId,taskPopulationHash:C21_D1_POPULATION_HASH,families});
+const out={schemaVersion:'uberbond.c21-d1-observed.v1',candidateId:ID,candidateRevision:REV,baselineRevision:contract.baselineRevision,contractDigest,taskPopulationHash:C21_D1_POPULATION_HASH,semanticIdentity:{search:semantic.search[0]===semantic.search[1],build:semantic.build[0]===semantic.build[1],topology:semantic.topology[0]===semantic.topology[1]},families,evaluation,externalEffectLedger:{customerMessages:0,providerCalls:0,spendCents:0,deployments:0,dnsChanges:0,credentialChanges:0,paymentMutations:0,productionMutations:0}};
+console.log(JSON.stringify(out,null,2));if(!evaluation.ok||!evaluation.supported)process.exit(1);

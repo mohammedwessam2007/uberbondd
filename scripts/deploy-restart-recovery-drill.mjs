@@ -1,5 +1,7 @@
 import crypto from 'node:crypto';
 import { execFileSync, spawnSync } from 'node:child_process';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PostgresStore } from '../src/store.mjs';
 import { compileRestartRecoveryReceipt } from '../src/deploy-restart-recovery-receipt.mjs';
@@ -7,6 +9,12 @@ import { compileRestartRecoveryReceipt } from '../src/deploy-restart-recovery-re
 const DATABASE_URL=process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 const self=fileURLToPath(import.meta.url);
 const uid=()=>crypto.randomUUID();
+const outputIndex=process.argv.indexOf('--output');
+const outputPath=outputIndex>=0?String(process.argv[outputIndex+1]||'').trim():'';
+function emit(receipt){
+  if(outputPath){mkdirSync(dirname(outputPath),{recursive:true});writeFileSync(outputPath,`${JSON.stringify(receipt,null,2)}\n`,'utf8');}
+  console.log(JSON.stringify(receipt,null,2));
+}
 
 async function insertActive(store,{id,type,recoveryPolicy,maxAttempts}){
   const stale=new Date(Date.now()-10_000).toISOString();
@@ -26,7 +34,7 @@ if (process.argv.includes('--seed-crash')) {
 }
 
 if (!DATABASE_URL) {
-  console.log(JSON.stringify({ok:false,status:'REAL_POSTGRES_REQUIRED',reasonCodes:['OMNIA_V9_TEST_DATABASE_URL-required'],businessEffectAuthority:'NONE'},null,2));
+  emit({ok:false,status:'REAL_POSTGRES_REQUIRED',reasonCodes:['OMNIA_V9_TEST_DATABASE_URL-required'],businessEffectAuthority:'NONE'});
   process.exitCode=2;
 } else {
   const child=spawnSync(process.execPath,[self,'--seed-crash'],{env:process.env,encoding:'utf8'});
@@ -60,7 +68,7 @@ if (!DATABASE_URL) {
       cleanupOk,
       commands:[`${process.execPath} ${self} --seed-crash`,`${process.execPath} ${self}`]
     });
-    console.log(JSON.stringify(receipt,null,2));
+    emit(receipt);
     if (!receipt.ok) process.exitCode=1;
   } finally {
     if (!cleanupOk && seed.replayId && seed.reconcileId) await storeA.pool.query('DELETE FROM jobs WHERE id = ANY($1::text[])',[[seed.replayId,seed.reconcileId]]).catch(()=>{});

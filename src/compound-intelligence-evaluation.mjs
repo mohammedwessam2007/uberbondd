@@ -301,6 +301,8 @@ export function evaluateCompoundIntelligence({
     ok: true,
     version: COMPOUND_INTELLIGENCE_EVALUATION_VERSION,
     status: 'COMPOUND_INTELLIGENCE_GAIN_SUPPORTED_WITHIN_DEFINED_SCOPE',
+    compositionId: receipt.compositionId,
+    compositionRevision: receipt.compositionRevision,
     compositionDigest,
     receipt,
     receiptHash: hash(receipt),

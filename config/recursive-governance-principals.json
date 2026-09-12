@@ -30,8 +30,8 @@
         "MONITOR": {"principalId":"logical:v2:monitor","credentialFingerprint":"sha256:6767676767676767676767676767676767676767676767676767676767676767","custodyDomain":"logical-custody:v2:monitor","controlDomain":"source:v2:monitoring"},
         "EVIDENCE_STORE": {"principalId":"logical:v2:evidence","credentialFingerprint":"sha256:7878787878787878787878787878787878787878787878787878787878787878","custodyDomain":"logical-custody:v2:evidence","controlDomain":"source:v2:evidence"},
         "ROLLBACK": {"principalId":"logical:v2:rollback","credentialFingerprint":"sha256:8989898989898989898989898989898989898989898989898989898989898989","custodyDomain":"logical-custody:v2:rollback","controlDomain":"source:v2:rollback"},
-        "CANON_WRITER": {"principalId":"logical:v2:canon","credentialFingerprint":"sha256:9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a9a","custodyDomain":"logical-custody:v2:canon","controlDomain":"source:v2:canon"},
-        "SECURITY_POLICY": {"principalId":"logical:v2:security","credentialFingerprint":"sha256:bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc","custodyDomain":"logical-custody:v2:security","controlDomain":"source:v2:security"}
+        "CANON_WRITER": {"principalId":"logical:v2:canon","credentialFingerprint":"sha256:9999999999999999999999999999999999999999999999999999999999999999","custodyDomain":"logical-custody:v2:canon","controlDomain":"source:v2:canon"},
+        "SECURITY_POLICY": {"principalId":"logical:v2:security","credentialFingerprint":"sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","custodyDomain":"logical-custody:v2:security","controlDomain":"source:v2:security"}
       }
     }
   ]

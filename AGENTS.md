@@ -141,3 +141,7 @@ After material work, leave enough repository-native state for the next session t
 The handoff must state verified completion, unresolved blockers, external-proof gates, unresolved historical names when relevant, and the next highest-value mission. Never turn a blocker into a success label to make a progress number look better.
 
 A stale handoff may never override the terminal North Star or redefine UberBond as one historical offer.
+
+## Orchestration checkpoint handoff
+
+After terminal North Star/canon startup and before selecting implementation work, read [UBERBOND_ORCHESTRATION_CHECKPOINTS.md](UBERBOND_ORCHESTRATION_CHECKPOINTS.md). It preserves the founder's 43 bounded packets, dependency corrections, evidence gates and continuation rules. Reconcile them with current source; reuse completed behavior. This is an orchestration specification, not runtime or literal-ASI proof. Preserve the separate historical private milestone and current evidence-based capability status. Do not launch implementation merely because a packet exists; follow current session authorization.

@@ -163,3 +163,7 @@ Never claim a host runtime is installed/configured/healthy until `npm run capabi
 `current repository/executable truth -> durable external provider/customer/world evidence -> repository canon/master memory/handoffs -> approved working summaries -> plugin/session memory`
 
 Capability never creates authority. A plugin recommendation, Wallbreaker plan, memory summary, security score, model route, web result, skill output, North Star concept, forecast, or simulated life path is not cleared payment, customer acceptance, legal clearance, consent, provider success, demand, renewal, superintelligence, perfect prediction, consciousness, or proof that a proposed life intervention improves the founder's life.
+
+## Orchestration checkpoint handoff
+
+After terminal North Star/canon startup and before selecting implementation work, read [UBERBOND_ORCHESTRATION_CHECKPOINTS.md](UBERBOND_ORCHESTRATION_CHECKPOINTS.md). It preserves the founder's 43 bounded packets, dependency corrections, evidence gates and continuation rules. Reconcile them with current source; reuse completed behavior. This is an orchestration specification, not runtime or literal-ASI proof. Preserve the separate historical private milestone and current evidence-based capability status. Do not launch implementation merely because a packet exists; follow current session authorization.

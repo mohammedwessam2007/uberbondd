@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
+import { compileContextCognitiveEvent } from '../src/sovereign-context-fabric.mjs';
+import { readContextJournalRuntime, appendContextJournalRuntime } from '../src/context-journal-runtime.mjs';
+import { runSovereignContextDoctor } from './sovereign-context-doctor.mjs';
+
+export const SOVEREIGN_CONTEXT_CHECKPOINT_VERSION='sovereign-context-checkpoint-1.1.0';
+function zeroEffects(){return structuredClone(ZERO_EXTERNAL_EFFECTS);}
+function argValue(name){const index=process.argv.indexOf(name);return index>=0&&index+1<process.argv.length?process.argv[index+1]:null;}
+function fail(reasonCodes,status='CONTEXT_CHECKPOINT_REFUSED',extra={}){return{ok:false,checkpointVersion:SOVEREIGN_CONTEXT_CHECKPOINT_VERSION,status,reasonCodes:[...new Set((reasonCodes||[]).filter(Boolean))],businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects(),...extra};}
+function writeCapsule(file,capsule){const absolute=path.resolve(file);fs.mkdirSync(path.dirname(absolute),{recursive:true,mode:0o700});if(fs.existsSync(absolute)){const stat=fs.lstatSync(absolute);if(!stat.isFile()||stat.isSymbolicLink())throw new Error('regular-nonsymlink-capsule-required');}const temporary=`${absolute}.tmp.${process.pid}`;fs.writeFileSync(temporary,`${JSON.stringify(capsule,null,2)}\n`,{mode:0o600});const handle=fs.openSync(temporary,'r');try{fs.fsyncSync(handle);}finally{fs.closeSync(handle);}fs.renameSync(temporary,absolute);fs.chmodSync(absolute,0o600);return absolute;}
+
+export function checkpointSovereignContext({rootDir=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),journalPath,layeredStorePath=null,capsulePath=null,mission=null,generatedAt=new Date()}={}){
+  if(!journalPath)return fail(['journal-path-required']);
+  const doctor=runSovereignContextDoctor({rootDir,mission,generatedAt});if(!doctor.ok||doctor.status!=='CONTEXT_CURRENT__MISSION_CONTEXT_READY')return fail(['current-context-doctor-required',...(doctor.reasonCodes||[])],'CONTEXT_CHECKPOINT_CONTEXT_REFUSED');
+  const journal=readContextJournalRuntime({journalPath,layeredStorePath});if(!journal.ok)return fail(['existing-journal-invalid',...(journal.reasonCodes||[])],'CONTEXT_CHECKPOINT_JOURNAL_REFUSED');
+  const parentEventIds=journal.entries.length?[journal.entries.at(-1).eventId]:[];
+  const event=compileContextCognitiveEvent({kind:'CONTEXT_CHECKPOINT',sourceNodeId:'context-spine',subjectType:'BRAINSTATE',subjectId:doctor.brainstateId,summary:`Verified UberBond Brainstate checkpoint for source ${doctor.sourceCommit} and mission context ${doctor.missionContext?.missionContextId||'unbound'}.`,evidenceRefs:[`source-commit://${doctor.sourceCommit}`,`context-identity://${doctor.contextIdentityDigest}`,`brainstate://${doctor.brainstateId}`],payloadRef:`brainstate://${doctor.brainstateId}`,truthClass:'CURRENT_REPOSITORY_CANON',observedAt:generatedAt,parentEventIds});
+  if(!event.ok)return fail(['context-checkpoint-event-invalid',...(event.reasonCodes||[])]);
+  const appended=appendContextJournalRuntime({journalPath,layeredStorePath,compiledEvent:event});if(!appended.ok)return fail(['context-checkpoint-journal-append-failed',...(appended.reasonCodes||[])],appended.status,{eventId:event.eventId});
+  let writtenCapsule=null;if(capsulePath){try{writtenCapsule=writeCapsule(capsulePath,doctor.capsule);}catch(error){return fail(['capsule-cache-write-failed'],'CONTEXT_CHECKPOINT_JOURNALED__CAPSULE_CACHE_FAILED',{eventId:event.eventId,journalEntryDigest:appended.entryDigest,error:error?.message||'capsule-write-failed'});}}
+  return{ok:true,checkpointVersion:SOVEREIGN_CONTEXT_CHECKPOINT_VERSION,status:'CONTEXT_CHECKPOINT_JOURNALED',sourceCommit:doctor.sourceCommit,brainstateId:doctor.brainstateId,missionContextId:doctor.missionContext?.missionContextId||null,eventId:event.eventId,journalSequence:appended.sequence,journalEntryDigest:appended.entryDigest,previousJournalEntryDigest:appended.previousEntryDigest,journalPath:appended.path,journalStorageMode:appended.storageMode||journal.storageMode||'LEGACY_JSONL',capsulePath:writtenCapsule,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()};
+}
+
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+  try{const journalPath=argValue('--journal')||process.env.UBERBOND_CONTEXT_JOURNAL_PATH||null;const layeredStorePath=argValue('--layered-store')||process.env.UBERBOND_CONTEXT_LAYERED_STORE_PATH||null;const capsulePath=argValue('--capsule-cache')||process.env.UBERBOND_BRAINSTATE_PATH||null;const mission=argValue('--mission');const result=checkpointSovereignContext({journalPath,layeredStorePath,capsulePath,mission});process.stdout.write(`${JSON.stringify(result,null,2)}\n`);if(!result.ok)process.exitCode=2;}
+  catch(error){process.stderr.write(`${JSON.stringify({ok:false,status:'CONTEXT_CHECKPOINT_FAILED',reason:error?.message||'unknown-error',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zeroEffects()},null,2)}\n`);process.exitCode=1;}
+}

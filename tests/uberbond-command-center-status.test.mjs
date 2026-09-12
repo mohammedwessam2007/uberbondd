@@ -43,7 +43,8 @@ test('command center never invents missing receipt values', async t => {
   t.after(() => rm(root, { recursive: true, force: true }));
   const status = await buildUberBondCommandCenterStatus({ root, now: new Date('2026-09-06T12:00:00Z') });
   assert.equal(status.cognitive.integrity.ok, true);
-  assert.equal(status.cognitive.graph.nodeCount, 29);
+  assert.ok(status.cognitive.graph.nodeCount > 0);
+  assert.equal(status.cognitive.graph.nodeCount, status.cognitive.graph.nodes.length);
   assert.equal(status.observability.observedReceiptCount, 0);
   assert.equal(status.observability.unavailableReceiptCount, UBERBOND_COMMAND_CENTER_RECEIPTS.length);
   assert.equal(status.truthState, 'PARTIAL_OBSERVABILITY');

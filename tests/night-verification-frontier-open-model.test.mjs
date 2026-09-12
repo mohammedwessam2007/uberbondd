@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 
 import { validateRegistrations } from '../scripts/night-verification-frontier-open-model-mutations.mjs';
 import { createOpenModelRuntimeExecutor } from '../src/open-model-runtime-executor.mjs';
@@ -21,6 +22,18 @@ test('Frontier/Open-Model mutation registrations have unique anchors and named a
     assert.ok(result.suiteEvidence.length > 0);
     assert.ok(result.suiteEvidence.every(item => item.assertionNeedlePresent));
   }
+});
+
+test('Night Frontier recovery rerun preserves deterministic mutation registration evidence', () => {
+  const first = validateRegistrations();
+  const replay = validateRegistrations();
+  assert.deepEqual(replay, first);
+});
+
+test('Night Verification War recovery cleanup removes each mutation sandbox in a finally path', async () => {
+  const source = await readFile(new URL('../scripts/night-verification-frontier-open-model-mutations.mjs', import.meta.url), 'utf8');
+  assert.match(source, /finally\s*\{/);
+  assert.match(source, /rmSync\(root,\s*\{\s*recursive:\s*true,\s*force:\s*true\s*\}\)/);
 });
 
 test('Open Model runtime must not report successful completion when provider model identity mismatches configured model', async () => {

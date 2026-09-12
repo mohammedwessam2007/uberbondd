@@ -5,8 +5,22 @@ import { fileURLToPath } from 'node:url';
 
 const liteRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = path.resolve(liteRoot, '..');
+const restartRecoveryReceiptPath = '/tmp/uberbond-restart-recovery-receipt.json';
+process.env.UBERBOND_RESTART_RECOVERY_RECEIPT_PATH = restartRecoveryReceiptPath;
+
+const runtimeEvidenceSteps = process.platform === 'linux' && process.arch === 'x64'
+  ? [
+      ['node', ['scripts/hydrate-embedded-postgres-fixture.mjs']],
+      ['npm', ['rebuild', '@embedded-postgres/linux-x64']],
+      ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']],
+      ['node', ['scripts/with-real-postgres.mjs', 'node', 'scripts/deploy-restart-recovery-drill.mjs', '--output', restartRecoveryReceiptPath]],
+      ['node', ['--test', 'tests/runtime-proof-ingestion.test.mjs', 'tests/runtime-cut-evidence-overlay.test.mjs', 'tests/provider-neutral-runtime-acceptance.test.mjs']],
+      ['node', ['scripts/terminal-realization.mjs']]
+    ]
+  : [];
 
 const steps = [
+  ...runtimeEvidenceSteps,
   ['node', ['scripts/uberbond-feature-genome.mjs']],
   ['node', ['scripts/uberbond-feature-atom-atlas.mjs']],
   ['node', ['scripts/uberbond-synaptic-map.mjs']],
@@ -63,5 +77,7 @@ console.log(JSON.stringify({
   nodeCount: graph?.nodeCount ?? null,
   edgeCount: graph?.edgeCount ?? null,
   orphanNodeCount: Array.isArray(graph?.orphanNodes) ? graph.orphanNodes.length : null,
+  runtimeRestartRecoveryReceiptRequired: runtimeEvidenceSteps.length > 0,
+  runtimeRestartRecoveryReceiptPath: restartRecoveryReceiptPath,
   externalEffectAuthority: 'NONE'
 }));

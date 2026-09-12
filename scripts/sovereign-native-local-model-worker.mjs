@@ -8,6 +8,7 @@ import { SANDWICH_DESCENDANT_CANON_PATH } from '../src/sandwich-descendant-admis
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { compileUberBondCognitiveGraph } from '../src/uberbond-cognitive-graph.mjs';
 import { compileConnectomeAutopoiesis } from '../src/connectome-autopoiesis.mjs';
+import { verifyContextProjection } from '../src/context-projection.mjs';
 
 const MAX_JSON=8_000_000;
 const MAX_CONTEXT_FILE=80_000;
@@ -72,7 +73,13 @@ async function main(){
   const dirty=await run('git',['status','--porcelain'],{cwd:root});
   if(headRead.exitCode!==0||head!==base)return fail(['worker-source-head-must-equal-task-base'], 'SOVEREIGN_NATIVE_LOCAL_WORKER_STALE');
   if(dirty.exitCode!==0||text(dirty.stdout,20_000))return fail(['clean-worker-source-required']);
-  const prompt=compileNativeWorkerModelPrompt({task,baseRevision:base,context:await buildContext(root,task)});if(!prompt.ok)return prompt;
+  const projectionPath=path.resolve(process.env.UBERBOND_WORKER_CONTEXT_PATH||'/var/lib/uberbond-worker/inbox/context-projection.json');
+  const projection=await readJson(projectionPath,200_000);
+  const projectionVerified=verifyContextProjection(projection,{audience:'isolated-worker',sourceCommit:base});
+  if(!projectionVerified.ok)return fail(['verified-worker-context-projection-required',...(projectionVerified.reasonCodes||[])]);
+  const context=await buildContext(root,task);
+  context.unshift({path:'context:sovereign-context-projection',content:JSON.stringify(projection,null,2)});
+  const prompt=compileNativeWorkerModelPrompt({task,baseRevision:base,context});if(!prompt.ok)return prompt;
   const response=await callModel({model:'uberbond-local-sovereign',temperature:0,max_tokens:16000,messages:[{role:'system',content:prompt.system},{role:'user',content:JSON.stringify({task:prompt.task,context:prompt.context})}]});
   if(response.status<200||response.status>=300)return fail([`local-model-proxy-http-${response.status}`]);
   let payload;try{payload=JSON.parse(response.raw);}catch{return fail(['local-model-proxy-json-invalid']);}

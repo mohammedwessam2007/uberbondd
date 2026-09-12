@@ -1,11 +1,23 @@
 import { spawnSync } from 'node:child_process';
 
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
-  ? [['npm', ['rebuild', '@embedded-postgres/linux-x64']], ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]]
+  ? [
+      ['node', ['scripts/hydrate-embedded-postgres-fixture.mjs']],
+      ['npm', ['rebuild', '@embedded-postgres/linux-x64']],
+      ['node', ['scripts/prepare-embedded-postgres-fixture.mjs']]
+    ]
+  : [];
+
+const restartRecoveryReceiptPath='/tmp/uberbond-restart-recovery-receipt.json';
+process.env.UBERBOND_RESTART_RECOVERY_RECEIPT_PATH=restartRecoveryReceiptPath;
+const runtimeEvidenceSteps = process.platform === 'linux' && process.arch === 'x64'
+  ? [['node', ['scripts/with-real-postgres.mjs', 'node', 'scripts/deploy-restart-recovery-drill.mjs', '--output', restartRecoveryReceiptPath]]]
   : [];
 
 const steps = [
   ...fixturePreparation,
+  ...runtimeEvidenceSteps,
+  ['node', ['--test', 'tests/runtime-proof-ingestion.test.mjs', 'tests/runtime-cut-evidence-overlay.test.mjs', 'tests/provider-neutral-runtime-acceptance.test.mjs']],
   ['node', ['--test', 'tests/sovereign-native-local-worker.test.mjs']],
   ['node', ['--test', 'tests/semantic-enforcement-evidence.test.mjs']],
   ['node', ['--test', 'tests/sovereign-short-field-parent-coverage.test.mjs']],
@@ -72,6 +84,8 @@ console.log(JSON.stringify({
   exactHeadTruthRegenerationRequired: true,
   exactHeadTruthRegenerationOwner: 'scripts/terminal-realization.mjs',
   finiteEngineeringTribunalRequired: true,
+  runtimeRestartRecoveryReceiptRequired: process.platform === 'linux' && process.arch === 'x64',
+  runtimeRestartRecoveryReceiptPath: restartRecoveryReceiptPath,
   sovereignCoverageDenominatorRequired: true,
   zeroOrphanCanonicalExecutionGraphRequired: true,
   ultimateGraphRequired: true,

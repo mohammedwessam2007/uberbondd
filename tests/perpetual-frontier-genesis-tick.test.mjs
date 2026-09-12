@@ -48,5 +48,5 @@ test('GENESIS tick converts a Gamechanger frontier signal into a zero-effect sho
   assert.equal(receipt.externalEffectAuthority, 'NONE');
   assert.equal(receipt.externalEffectLedger.messages, 0);
   assert.equal(receipt.externalEffectLedger.providerCalls, 0);
-  assert.match(receipt.truthBoundary, /NOT_TECHNOLOGY_MARKET_CUSTOMER_OR_REVENUE_PROOF/);
+  assert.match(receipt.truthBoundary, /NOT_TECHNOLOGY_MARKET_CUSTOMER_REVENUE_LIFE_OUTCOME_OR_ASI_PROOF/);
 });

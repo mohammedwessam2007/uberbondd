@@ -65,7 +65,8 @@
     "src/wallbreaker.mjs",
     "docs/CROSS_CHAT_CONTINUITY.md",
     "docs/memory/CHAT_IMPORT_PROTOCOL.md",
-    "docs/CURRENT_HANDOFF.json"
+    "docs/CURRENT_HANDOFF.json",
+    "UBERBOND_ORCHESTRATION_CHECKPOINTS.md"
   ],
   "goals": [
     "Build toward the Personal Civilization Engine as UberBond's highest-level North Star: a private second cognitive layer around the founder's life that expands agency, capability, understanding, meaningful experience, relationships, freedom and the set of valuable futures genuinely reachable while preserving human sovereignty, privacy, uncertainty and reversible choice.",
@@ -78,7 +79,7 @@
     "Turn opportunities into bounded offers, distribution experiments, accepted delivery, cleared payment, renewal, expansion, and trusted learning.",
     "Customer acquisition and economic proof remain UberBond responsibilities; pre-customer engineering completion must not turn the founder into the permanent manual salesperson or operator.",
     "Run revenue generation and safe self-improvement in parallel so real outcomes continuously improve targeting, offers, routing, fulfilment, retention, economics and capability selection.",
-    "Treat Perpetual Frontier, Artificial Imagination, GENESIS, GENESIS\u00b2 and ONTOGENESIS as permanent open-ended search layers: continuously discover new primitives, propagate opportunity shockwaves, revisit dormant hypotheses, evolve evaluators/search/ontology, invent valuable categories that neither the founder nor the current architecture explicitly supplied, and ultimately expand from economic possibility generation into life possibility generation.",
+    "Treat Perpetual Frontier, Artificial Imagination, GENESIS, GENESIS² and ONTOGENESIS as permanent open-ended search layers: continuously discover new primitives, propagate opportunity shockwaves, revisit dormant hypotheses, evolve evaluators/search/ontology, invent valuable categories that neither the founder nor the current architecture explicitly supplied, and ultimately expand from economic possibility generation into life possibility generation.",
     "Minimize frontier latency from first lawful public signal through understanding, normalization, verification, sandboxing and economically or life-optionally useful capture while preserving provenance, law, security, authority, budget and truth boundaries.",
     "Maintain the 275-idea Perpetual Frontier registry as no-amputation search-space memory, not as a false claim that every idea is already implemented or externally proven.",
     "Preserve the larger conceptual-donor universe enumerated in docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md, including Knowledge Labyrinth/UberGraph, UberMind, UberDNA, Sovereign Compute Cell Fabric, company/economic invention systems, Reality Fork/Future-Ancestor/Unknown-Unknown/Possibility systems and related far-future architecture without treating names as implementation proof.",
@@ -121,7 +122,7 @@
   "capabilityFamilies": [
     "Personal Civilization Engine life-context possibility counterfactual capability experience identity compression serendipity temporal future-self and autopoiesis systems",
     "world sensing Gamechanger intelligence and public-source research",
-    "Perpetual Frontier latency Artificial Imagination GENESIS GENESIS\u00b2 ONTOGENESIS and open-ended theory/search/evaluator/ontology evolution",
+    "Perpetual Frontier latency Artificial Imagination GENESIS GENESIS² ONTOGENESIS and open-ended theory/search/evaluator/ontology evolution",
     "public-web crawling browser evidence and lawful source adapters",
     "opportunity discovery Business Genome mechanism atoms recombination and evidence",
     "offer experiment and portfolio compilation",
@@ -167,7 +168,7 @@
     "Refresh live main and inspect open, draft, recently merged shared PRs and relevant branches before selecting work.",
     "Read docs/UBERBOND_TOTAL_BRAIN.md, its machine index and recovery addendum before narrowing UberBond to the current handoff or latest implementation wave.",
     "Read docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md, docs/UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md, docs/ORCHESTRATION_CAPABILITY_CANON.md and the orchestration assimilation receipt so Fable N+1, Metaswarm/Superpowers donor mechanisms, cross-harness orchestration, and continuous challenger discovery cannot be amputated.",
-    "Read docs/PERPETUAL_FRONTIER_GENESIS_CANON.md and artifacts/perpetual-frontier-genesis.json so future technology, artificial imagination, resurrection, GENESIS\u00b2 and Ontogenesis goals cannot be amputated.",
+    "Read docs/PERPETUAL_FRONTIER_GENESIS_CANON.md and artifacts/perpetual-frontier-genesis.json so future technology, artificial imagination, resurrection, GENESIS² and Ontogenesis goals cannot be amputated.",
     "Treat the Personal Civilization Engine, Total Brain and overlays as superset anti-amputation/search-space memory, not present-tense truth; current repository/external receipts outrank them for current claims.",
     "Read docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md so customer-acquisition responsibility, parallel revenue/improvement and founder-action doctrine cannot be forgotten.",
     "Read UBERBOND_BOOTSTRAP.json, docs/UBERBOND_MASTER_MEMORY.md, artifacts/uberbond-memory-index.json, and every remaining path listed in canonPointers.",
@@ -208,5 +209,6 @@
     "startupInstruction": "Repository canon and North Star outrank chat recollection. Refresh main; read the Personal Civilization Engine North Star and machine index, Total Brain overlays including orchestration, Perpetual Frontier/GENESIS, owner goals, bootstrap, Master Memory, machine memory, checkpoint, canon pointers, readiness, capability/GENESIS health, open/draft/recent PRs and durable handoff before acting.",
     "updateInstruction": "After every material mission, update the durable handoff and checkpoint pointer; when new durable history appears, update North Star/Total Brain/memory index/master memory or record an explicit supersession so the next session can resume without reconstructing the previous conversation.",
     "chatImportInstruction": "When a material ChatGPT/Claude/Codex chat, share, export, transcript, ZIP, research package, draft PR or donor branch becomes available, digest it into repository-native North Star/Total Brain/memory with source title/date, evidence class, named initiatives, durable decisions, capabilities, goals, contradictions, supersession links, unresolved names, and anti-duplication notes. Never rely on the external share URL alone."
-  }
+  },
+  "orchestrationCheckpointPath": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md"
 }

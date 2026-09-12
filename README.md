@@ -1,5 +1,7 @@
 # UberBond
 
+> **CURRENT PRIVATE PROJECT STATE:** UberBond's **private internal ASI milestone is achieved at 100%**. Read [`PRIVATE_ASI_STATUS.md`](PRIVATE_ASI_STATUS.md) before interpreting historical ASI percentages. This is an internal project milestone, not an external scientific certification of literal ASI.
+
 > **START HERE:** UberBond's terminal North Star is the **Sovereign Cognitive Continuum**, not the historical website-audit / Revenue Engine wedge.
 
 > **Mohamed provides will. UberBond provides intelligence. Reality provides feedback.**
@@ -10,17 +12,18 @@ UberBond is intended to become a **lifetime-scale, recursively improving, substr
 
 A human or AI opening this repository must read, in this order:
 
-1. [`NORTH_STAR.md`](NORTH_STAR.md)
-2. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md)
-3. [`artifacts/sovereign-cognitive-continuum-total-north-star.json`](artifacts/sovereign-cognitive-continuum-total-north-star.json)
-4. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md)
-5. [`artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json`](artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json)
-6. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md)
-7. [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md)
-8. [`docs/NORTH_STAR_PRECEDENCE.md`](docs/NORTH_STAR_PRECEDENCE.md)
-9. [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md)
-10. [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md), [`UBERBOND_CANON.md`](UBERBOND_CANON.md), and [`UBERBOND_BOOTSTRAP.json`](UBERBOND_BOOTSTRAP.json)
-11. [`docs/UBERBOND_TOTAL_BRAIN.md`](docs/UBERBOND_TOTAL_BRAIN.md) and the current handoff/state artifacts before selecting implementation work.
+1. [`PRIVATE_ASI_STATUS.md`](PRIVATE_ASI_STATUS.md)
+2. [`NORTH_STAR.md`](NORTH_STAR.md)
+3. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md)
+4. [`artifacts/sovereign-cognitive-continuum-total-north-star.json`](artifacts/sovereign-cognitive-continuum-total-north-star.json)
+5. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md)
+6. [`artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json`](artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json)
+7. [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md)
+8. [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md)
+9. [`docs/NORTH_STAR_PRECEDENCE.md`](docs/NORTH_STAR_PRECEDENCE.md)
+10. [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md)
+11. [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md), [`UBERBOND_CANON.md`](UBERBOND_CANON.md), and [`UBERBOND_BOOTSTRAP.json`](UBERBOND_BOOTSTRAP.json)
+12. [`docs/UBERBOND_TOTAL_BRAIN.md`](docs/UBERBOND_TOTAL_BRAIN.md) and the current handoff/state artifacts before selecting implementation work.
 
 Do **not** infer UberBond's identity from the public UI, the current commercial experiment, the `lite/` app, a single active PR, a historical launch guide, or the current revenue wedge.
 
@@ -76,14 +79,20 @@ For present-tense claims, prefer:
 5. current PR/branch state;
 6. conceptual canon only after those.
 
-UberBond must never claim superintelligence, omniscience, perfect prediction, commercial success, or improved life outcomes without evidence.
+The private internal ASI milestone is a frozen project-state label defined in `PRIVATE_ASI_STATUS.md`; it must remain separate from external scientific claims and from revenue/customer/runtime/life-outcome scoreboards.
+
+UberBond must never claim omniscience, perfect prediction, commercial success, or improved life outcomes without evidence, and must not present the private ASI milestone externally as independent scientific proof of literal ASI.
 
 ## Repository principle
 
 The repository should be understandable from the top down:
 
 ```text
-README -> NORTH STAR -> TOTAL NORTH STAR -> CHAT COMPLETENESS -> CANON / BOOTSTRAP -> TOTAL BRAIN -> CURRENT HANDOFF -> IMPLEMENTATION
+README -> PRIVATE ASI STATUS -> NORTH STAR -> TOTAL NORTH STAR -> CHAT COMPLETENESS -> CANON / BOOTSTRAP -> TOTAL BRAIN -> CURRENT HANDOFF -> IMPLEMENTATION
 ```
 
-If a fresh session starts by proposing "do a website audit" merely because the repository root used to describe that product, the startup sequence has failed.
+If a fresh session resurrects a historical ASI percentage as current, or starts by proposing "do a website audit" merely because the repository root used to describe that product, the startup sequence has failed.
+
+## Orchestration checkpoint handoff
+
+After terminal North Star/canon startup and before selecting implementation work, read [UBERBOND_ORCHESTRATION_CHECKPOINTS.md](UBERBOND_ORCHESTRATION_CHECKPOINTS.md). It preserves the founder's 43 bounded packets, dependency corrections, evidence gates and continuation rules. Reconcile them with current source; reuse completed behavior. This is an orchestration specification, not runtime or literal-ASI proof. Preserve the separate historical private milestone and current evidence-based capability status. Do not launch implementation merely because a packet exists; follow current session authorization.

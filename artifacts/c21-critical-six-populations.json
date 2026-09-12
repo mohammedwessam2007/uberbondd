@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "uberbond.c21-critical-six-populations.v1",
+  "candidateRevision": "c40843d55cca9110ab9661524f5cd662d00dec6d",
+  "generatedAfterContractsCommit": "3997fe7b08c793339bcd24cb16b3842bd2c3aaf9",
+  "populations": [
+    {"dimension":"causal reasoning","slug":"causal","seed":"9e986e249961f4cdeca7d9e1d096de1b8a3d68a72bafbce44359178d9943801c","taskPopulationHash":"c23a034ea46cdb0828591fdbc937e880907862e58d83e6087d9ba58006530251","size":96,"queries":64,"families":3},
+    {"dimension":"planning under uncertainty","slug":"planning","seed":"9c3154e015600ba786a06a7f606ee1c70dcb748d66fd693c65eb1c5ffe3b4fd5","taskPopulationHash":"5c9475e04238b69f8fb817919a138f0ab0827875e6cf22fa8c7eb643315f64f4","size":96,"queries":64,"families":3},
+    {"dimension":"long-horizon coherence","slug":"long-horizon","seed":"524353f70948c80f9c05678183c2a73e460413bd9fda7512715bbc196e23074e","taskPopulationHash":"e1ae949fda7ecfbe814ed782f5b9f6d08b4f087902e913d9653e208f0aa87ea5","size":96,"queries":64,"families":3},
+    {"dimension":"transfer between domains","slug":"transfer","seed":"1a2ef5f8490d8459c8fd6d0ba4d390939be5171524f10e790c366aa449c64613","taskPopulationHash":"33710f191ed21bc15dc13c6f7096caaaf1de8f5800c54e048d0bbc8418822703","size":96,"queries":64,"families":3},
+    {"dimension":"adversarial robustness","slug":"adversarial","seed":"87b23bce4bcdf813933bbc221c821de83c226339863a997a7ff3ae7dbfee4aba","taskPopulationHash":"3729b47488e436fc6e12fe53608f77d9f3d3978cb6b75095c2e2e3b542d45256","size":96,"queries":64,"families":3},
+    {"dimension":"calibrated refusal and ignorance detection","slug":"refusal","seed":"d1466a6edac4caaa4f5e5d0be7955a31394eecfd505652be430bcd3e6d18471f","taskPopulationHash":"3c9611f8fc2a6117ba64a0519d610b99d212d7afda18e5aeeeb995f2e424d462","size":96,"queries":64,"families":3}
+  ]
+}

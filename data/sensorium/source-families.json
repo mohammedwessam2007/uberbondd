@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "uberbond.sensorium-source-families.v1",
+  "objective": "Cover every high-value public source family that can feed UberBond discovery while letting the adaptive ceiling governor determine real request cadence.",
+  "families": [
+    "x","github","huggingface","arxiv","hackernews","youtube","reddit","public-web",
+    "bluesky","mastodon","stackexchange","npm","pypi","crates","rubygems","maven","nuget","go-modules",
+    "docker-oci","crossref","semantic-scholar","pubmed","patents","standards-rfcs","product-changelogs",
+    "public-procurement","grants","sec-filings","company-filings","datasets","benchmarks","model-hubs",
+    "plugin-app-ecosystems","search-engines","rss-atom","public-sitemaps","public-forums","public-news","public-code-forges"
+  ],
+  "ingestionPolicy": "Use official APIs, feeds and registries first; adapt to provider headers and quotas; use caching and conditional requests; deduplicate before expensive analysis; do not bypass provider controls.",
+  "authority": "DISCOVERY_ONLY"
+}

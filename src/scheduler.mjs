@@ -28,7 +28,11 @@ export function startScheduler(queue, cfg, log = console) {
       // Gamechanger receipt and writes a local audit receipt. It makes no
       // provider call and has no messaging, spend, deployment, or customer
       // authority. Deep investigation stays downstream behind Genome gates.
-      ['frontier.learning.process', 5 * MINUTE, { maxInvestigations: 8 }, { maxAttempts: 3 }]
+      ['frontier.learning.process', 5 * MINUTE, { maxInvestigations: 8 }, { maxAttempts: 3 }],
+      // Personal Civilization reads only runtime-local private state and writes
+      // a redacted digest/mission receipt. It models dreams, futures, capability
+      // gaps and life-level priorities but has no external-effect authority.
+      ['personal.civilization.pulse', 15 * MINUTE, {}, { maxAttempts: 3 }]
     ];
     if (cfg.discovery?.enabled) {
       recurring.push(['discovery.run', Math.max(1, Number(cfg.discovery.runEveryHours || 24)) * HOUR, { scheduled: true }, { maxAttempts: 4 }]);

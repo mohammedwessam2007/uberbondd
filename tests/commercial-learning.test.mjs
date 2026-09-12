@@ -164,6 +164,21 @@ test('queue handler summarizes durable receipts and writes one compact learning 
   assert.equal(calls[0].detail.policyVersion, COMMERCIAL_LEARNING_POLICY_VERSION);
 });
 
+test('commercial learning restart reconstructs the same summary from durable outcome receipts', async () => {
+  const durable = [{ detail: cleared() }];
+  const makeHandlers = () => createJobHandlers({
+    store: {
+      list: async () => durable,
+      log: async () => ({ id: 'audit-learning-restart' })
+    },
+    cfg: {}
+  });
+  const first = await makeHandlers()['prometheus.learning.summarize']({ date: referenceDate });
+  const afterRestart = await makeHandlers()['prometheus.learning.summarize']({ date: referenceDate });
+  assert.deepEqual(afterRestart, first);
+  assert.equal(afterRestart.metrics.grossClearedRevenueCents, 10000);
+});
+
 test('learning audit writer excludes raw outcomes', async () => {
   const calls = [];
   const summary = summarizeCommercialLearning({ outcomes: [cleared()], date: referenceDate });

@@ -37,6 +37,13 @@ test('delegation can only attenuate scope', () => {
   assert.equal(widened.status, 'DELEGATION_WIDENS_SCOPE');
 });
 
+test('malformed delegation fails closed instead of throwing', () => {
+  const badScopes = createDelegatedAgentIdentity({ principalId:'p', agentId:'a', scopes:'admin', expiresAt:'2099-01-01T00:00:00Z' });
+  const badExpiry = createDelegatedAgentIdentity({ principalId:'p', agentId:'a', scopes:[], expiresAt:'not-a-date' });
+  assert.equal(badScopes.status, 'IDENTITY_INVALID');
+  assert.equal(badExpiry.status, 'IDENTITY_INVALID');
+});
+
 test('destructive agent commands require dry-run', () => {
   const product = { productId:'uberbond', commands:[{ name:'provision', destructive:true, scopes:['task:write'], inputSchema:{} }] };
   const identity = createDelegatedAgentIdentity({ principalId:'p', agentId:'a', scopes:['task:write'], spendCap:0, expiresAt:'2099-01-01T00:00:00Z' }).data;

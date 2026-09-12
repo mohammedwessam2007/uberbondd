@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "uberbond.x-listening-profile.v1",
+  "sourcePriority": ["OFFICIAL_API_STREAM", "OFFICIAL_API_SEARCH", "PUBLIC_WEB_ALLOWED", "SEARCH_ENGINE_DISCOVERY"],
+  "accounts": ["0xCristal", "zrebroia", "nicos_ai", "antpalkin"],
+  "topics": [
+    "AI agent",
+    "agent memory",
+    "MCP",
+    "open source agent",
+    "AI automation",
+    "AI business",
+    "multi agent",
+    "coding agent",
+    "computer use",
+    "model routing",
+    "context engineering",
+    "reasoning benchmark",
+    "AI creator"
+  ],
+  "includeGithubLinks": true,
+  "refreshPolicy": {
+    "stream": "continuous-when-provider-connected",
+    "recentSearch": "bounded-backfill",
+    "archiveSearch": "optional-provider-lane"
+  },
+  "truthBoundary": "SOCIAL_POSTS_ARE_DISCOVERY_SIGNALS. EXTERNAL PERFORMANCE CLAIMS REQUIRE INDEPENDENT EVIDENCE. DISCOVERY NEVER GRANTS EXECUTION AUTHORITY.",
+  "destinations": ["GAMECHANGER_MESH", "CAPABILITY_GENOME", "GENESIS"]
+}

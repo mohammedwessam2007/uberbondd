@@ -1,0 +1,54 @@
+name: Generated truth refresh
+
+on:
+  push:
+    branches:
+      - chore/generated-truth-refresh-20260912
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Regenerate canonical truth
+        run: |
+          npm run readiness
+          node scripts/sovereign-coverage-terminal-closure.mjs
+      - name: Verify focused truth surfaces
+        run: |
+          node --test \
+            tests/coverage-short-reference-surfaces.test.mjs \
+            tests/coverage-state-evidence-integrity.test.mjs \
+            tests/sovereign-coverage-matrix.test.mjs \
+            tests/semantic-requirement-tribunal.test.mjs \
+            tests/production-coverage-ratchet.test.mjs \
+            tests/founder-outcome-job-handlers.test.mjs \
+            tests/sovereign-bootstrap-founder-control.test.mjs
+      - name: Seal generated truth bundle
+        id: seal
+        run: |
+          git config user.name 'UberBond Truth Bot'
+          git config user.email 'uberbond-truth-bot@users.noreply.github.com'
+          git add artifacts/system-readiness.json artifacts/sovereign/implementation-coverage-matrix.json docs/CURRENT_SYSTEM_STATE.md
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            git commit -m 'chore: refresh generated current truth'
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Verify clean source-equivalent freeze
+        run: node scripts/current-reality-freeze.mjs --verify
+      - name: Push verified bundle
+        if: steps.seal.outputs.changed == 'true'
+        run: git push origin HEAD:chore/generated-truth-refresh-20260912

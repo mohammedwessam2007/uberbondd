@@ -6,7 +6,9 @@
 // reportable while a credential, account or payment blocker is open. Elapsed
 // founder-absence evidence cannot be produced by this or any other process:
 // only real elapsed time with matching receipts produces it.
-import { evaluateFounderAbsenceBlockers } from '../src/founder-absence-blocker-doctor.mjs';
+import { evaluateFounderAbsenceBlockers, RAGNAROK_BLOCKER_LEDGER } from '../src/founder-absence-blocker-doctor.mjs';
+import { loadModelProviderRuntimeEvidence } from '../src/model-provider-runtime-evidence.mjs';
+import { loadRemainingCutEvidence } from '../src/remaining-cut-evidence.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -62,12 +64,87 @@ export function sourceUnchangedSince(commit) {
   } catch { return false; }
 }
 
+const RECEIPT_BINDINGS = Object.freeze([
+  Object.freeze({
+    cutId: 'MODEL_PROVIDER',
+    blockerId: 'zero-configured-model-providers',
+    envName: 'UBERBOND_MODEL_PROVIDER_RECEIPT_PATH',
+    signal: 'canonicalModelProviderEvidence',
+    load: ({ path, expectedSourceCommit }) => loadModelProviderRuntimeEvidence({ path, expectedSourceCommit })
+  }),
+  Object.freeze({
+    cutId: 'MESSAGING_PROVIDER',
+    blockerId: 'zero-activated-email-provider-accounts',
+    envName: 'UBERBOND_MESSAGING_PROVIDER_RECEIPT_PATH',
+    signal: 'canonicalMessagingProviderEvidence',
+    load: ({ path, expectedSourceCommit }) => loadRemainingCutEvidence({ path, expectedSourceCommit, expectedCutId: 'MESSAGING_PROVIDER' })
+  }),
+  Object.freeze({
+    cutId: 'PAYMENT_PROVIDER',
+    blockerId: 'zero-payment-provider-account',
+    envName: 'UBERBOND_PAYMENT_PROVIDER_RECEIPT_PATH',
+    signal: 'canonicalPaymentProviderEvidence',
+    load: ({ path, expectedSourceCommit }) => loadRemainingCutEvidence({ path, expectedSourceCommit, expectedCutId: 'PAYMENT_PROVIDER' })
+  })
+]);
+
+function safeReceiptValidation(validation, cutId) {
+  return {
+    cutId,
+    accepted: validation?.accepted === true,
+    status: String(validation?.status || 'EVIDENCE_NOT_SUPPLIED'),
+    reasonCodes: Array.isArray(validation?.reasonCodes) ? [...validation.reasonCodes] : [],
+    sourceCommit: validation?.sourceCommit || null,
+    receiptDigest: validation?.receiptDigest || null,
+    businessEffectAuthority: 'NONE'
+  };
+}
+
+export function canonicalBlockerOverlay({ env = {}, currentSourceCommit = null } = {}) {
+  const validations = {};
+  const signals = {};
+  const acceptedByBlocker = new Map();
+
+  for (const binding of RECEIPT_BINDINGS) {
+    // These environment values are file references, not credentials. The
+    // canonical loaders parse the receipt and independently verify digest,
+    // source commit, cut identity and cut-specific admission conditions.
+    const receiptPath = String(env?.[binding.envName] || '').trim();
+    const validation = binding.load({ path: receiptPath, expectedSourceCommit: currentSourceCommit });
+    validations[binding.cutId] = safeReceiptValidation(validation, binding.cutId);
+    if (validation?.accepted === true) {
+      signals[binding.signal] = true;
+      acceptedByBlocker.set(binding.blockerId, {
+        signal: binding.signal,
+        cutId: binding.cutId,
+        receiptDigest: validation.receiptDigest
+      });
+    }
+  }
+
+  const blockers = RAGNAROK_BLOCKER_LEDGER.map(row => {
+    const accepted = acceptedByBlocker.get(row.id);
+    if (!accepted) return row;
+    return {
+      ...row,
+      removedBy: `canonical exact-source ${accepted.cutId} receipt ${accepted.receiptDigest}`,
+      resolvedWhen: { externalEvidence: accepted.signal }
+    };
+  });
+
+  return { blockers, externalEvidence: signals, validations };
+}
+
 export function buildFounderAbsenceReport({ env = process.env, now = new Date() } = {}) {
-  return evaluateFounderAbsenceBlockers({
+  const currentSourceCommit = headSha();
+  const canonical = canonicalBlockerOverlay({ env, currentSourceCommit });
+  const report = evaluateFounderAbsenceBlockers({
+    blockers: canonical.blockers,
     env,
     now,
-    currentSourceCommit: headSha(),
+    currentSourceCommit,
     canonCommit: canonCommit(),
+    externalEvidence: canonical.externalEvidence,
     // Both probes the evaluator declares. Supplying only one silently falls
     // back to the refusing default for the other, and every row whose
     // resolution is a source probe then reports open -- a doctor that says the
@@ -81,6 +158,7 @@ export function buildFounderAbsenceReport({ env = process.env, now = new Date() 
       sourceUnchangedSince
     }
   });
+  return { ...report, canonicalReceiptEvidence: canonical.validations };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

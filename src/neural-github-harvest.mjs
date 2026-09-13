@@ -15,6 +15,7 @@ function addDays(day, delta) { const date = new Date(`${day}T00:00:00.000Z`); da
 function midpointDay(start, end) { const a = new Date(`${start}T00:00:00.000Z`).getTime(); const b = new Date(`${end}T00:00:00.000Z`).getTime(); return new Date(a + Math.floor((b - a) / 2)).toISOString().slice(0, 10); }
 function sizeQualifier(band) { if (!band) return ''; const [lo, hi] = band; return hi == null ? ` size:>=${lo}` : ` size:${lo}..${hi}`; }
 function partitionQuery(partition) { return `${partition.baseQuery} created:${partition.rangeStart}..${partition.rangeEnd}${sizeQualifier(partition.sizeBand)}`; }
+function pushUniquePartition(queue, partition) { if (!partition?.id || queue.some(item => item?.id === partition.id)) return; queue.push(partition); }
 
 export function compileNeuralGithubPartitions({ atlasEntries = [], startDate, endDate, maxEntries = 25, maxPartitions = 10_000 } = {}) {
   const start = isoDay(startDate), end = isoDay(endDate);
@@ -80,7 +81,8 @@ export async function executeNeuralGithubPartitions({ partitions = [], fetchImpl
       if (response.status === 403 || response.status === 429) {
         terminationStatus = 'RATE_LIMITED_NO_BLIND_RETRY';
         receipts.push({ partitionId: partition.id, partition, query: partition.query, providerCalls: callsForPartition, reportedTotalCount, incompleteResults, searchCapExceeded: reportedTotalCount != null && reportedTotalCount > 1000, repositories, complete: false, terminationStatus });
-        return { ok: true, status: 'NEURAL_HARVEST_RATE_LIMITED_NO_BLIND_RETRY', receipts, refinements, unresolvedSaturatedLeaves, providerCalls, retryAfter: response.headers?.get?.('retry-after') || null, businessEffectAuthority: 'NONE' };
+        pushUniquePartition(refinements, partition);
+        return { ok: true, status: 'NEURAL_HARVEST_RATE_LIMITED_NO_BLIND_RETRY', receipts, refinements, unresolvedSaturatedLeaves, providerCalls, retryAfter: response.headers?.get?.('retry-after') || null, businessEffectAuthority: 'NONE', consequenceAuthority: 'NONE' };
       }
       if (!response.ok) return fail(['github-search-http-error'], { providerCalls, httpStatus: response.status, receipts });
       let body; try { body = await response.json(); } catch (error) { return fail(['github-search-json-error'], { providerCalls, errorClass: error?.name || 'UNKNOWN', receipts }); }
@@ -97,8 +99,14 @@ export async function executeNeuralGithubPartitions({ partitions = [], fetchImpl
     const searchCapExceeded = Number(reportedTotalCount || 0) > Number(partition.perPage || 100) * Number(partition.maxPages || MAX_PAGES);
     const receipt = { partitionId: partition.id, partition, query: partition.query, providerCalls: callsForPartition, reportedTotalCount, incompleteResults, searchCapExceeded, repositories, complete: terminationStatus == null && !searchCapExceeded && !incompleteResults, terminationStatus };
     receipts.push(receipt);
-    if (searchCapExceeded || incompleteResults) { const refinement = refineNeuralGithubPartition(partition, receipt); refinements.push(...(refinement.partitions || [])); if (refinement.unresolved) unresolvedSaturatedLeaves.push(refinement.unresolved); }
+    if (terminationStatus === 'PROVIDER_CALL_BUDGET_EXHAUSTED') {
+      pushUniquePartition(refinements, partition);
+    } else if (searchCapExceeded || incompleteResults) {
+      const refinement = refineNeuralGithubPartition(partition, receipt);
+      for (const child of refinement.partitions || []) pushUniquePartition(refinements, child);
+      if (refinement.unresolved) unresolvedSaturatedLeaves.push(refinement.unresolved);
+    }
   }
   const status = providerCalls >= callCap ? 'NEURAL_HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED' : 'NEURAL_GITHUB_READ_ONLY_BATCH_COMPLETE';
-  return { ok: true, status, receipts, refinements, unresolvedSaturatedLeaves, providerCalls, observedRepositories: receipts.reduce((sum, receipt) => sum + receipt.repositories.length, 0), businessEffectAuthority: 'NONE', consequenceAuthority: 'NONE', networkEffect: 'PUBLIC_READ_ONLY_GITHUB_API' };
+  return { ok: true, status, receipts, refinements, unresolvedSaturatedLeaves, providerCalls, observedRepositories: receipts.reduce((sum, receipt) => sum + receipt.repositories.length, 0), processedPartitionIds: [...new Set(receipts.map(receipt => receipt.partitionId).filter(Boolean))], businessEffectAuthority: 'NONE', consequenceAuthority: 'NONE', networkEffect: 'PUBLIC_READ_ONLY_GITHUB_API' };
 }

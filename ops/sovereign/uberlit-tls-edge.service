@@ -14,7 +14,7 @@ Environment=UBERLIT_TLS_PORT=32443
 Environment=UBERLIT_WEB_PORT=32123
 EnvironmentFile=-/etc/uberlit/uberlit.env
 ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-tls-edge.mjs --root /var/lib/uberlit/uberbond --bind ${UBERLIT_TLS_BIND} --port ${UBERLIT_TLS_PORT} --upstream-port ${UBERLIT_WEB_PORT}
-Restart=on-failure
+Restart=always
 RestartSec=3
 TimeoutStopSec=10
 KillMode=control-group

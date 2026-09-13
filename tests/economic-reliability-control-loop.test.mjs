@@ -52,7 +52,24 @@ function trials(id,{domain=id,regimeId='regime-sep14',n=20,wins=10,observedAt=nu
 
 const run=args=>runEconomicReliabilityControlLoop({...args,now:NOW});
 
-test('insufficient calibration emits fresh provider-readback collection work',()=>{
+test('dependency proof is requested before trials when route structure is unproven',()=>{
+  const result=run({activeRoutes:[route('market',{dependencyReceipt:null})],trials:[]});
+  const request=result.nextActions.find(x=>x.routeId==='market');
+  assert.equal(request.type,'BUILD_EVIDENCED_DEPENDENCY_FINGERPRINT');
+  assert.equal(result.reliability.reliabilityContributingRouteCount,0);
+});
+
+test('policy clearance is requested before trials when dependency truth already exists',()=>{
+  const result=run({activeRoutes:[route('market',{policyCleared:false})],trials:[]});
+  assert.equal(result.nextActions.find(x=>x.routeId==='market').type,'RESOLVE_POLICY_CLEARANCE');
+});
+
+test('execution dependencies are closed before trial collection',()=>{
+  const result=run({activeRoutes:[route('market',{executableNow:false})],trials:[]});
+  assert.equal(result.nextActions.find(x=>x.routeId==='market').type,'CLOSE_EXECUTION_DEPENDENCIES');
+});
+
+test('fully admissible route with insufficient calibration emits fresh provider-readback collection work',()=>{
   const result=run({activeRoutes:[route('market')],trials:trials('market',{n:5,wins:3})});
   assert.equal(result.targetReached,false);
   const request=result.nextActions.find(x=>x.routeId==='market');
@@ -64,13 +81,6 @@ test('stale evidence triggers fresh evidence work instead of using old success r
   const result=run({activeRoutes:[route('market')],trials:trials('market',{n:30,wins:30,observedAt:'2026-07-01T12:00:00Z'})});
   const request=result.nextActions.find(x=>x.routeId==='market');
   assert.equal(request.type,'COLLECT_FRESH_PROVIDER_READBACK_TRIALS');
-  assert.equal(result.reliability.reliabilityContributingRouteCount,0);
-});
-
-test('calibrated route without dependency fingerprint emits fingerprint work',()=>{
-  const result=run({activeRoutes:[route('market',{dependencyReceipt:null})],trials:trials('market',{n:30,wins:20})});
-  assert.equal(result.targetReached,false);
-  assert.equal(result.nextActions.find(x=>x.routeId==='market').type,'BUILD_EVIDENCED_DEPENDENCY_FINGERPRINT');
   assert.equal(result.reliability.reliabilityContributingRouteCount,0);
 });
 
@@ -93,16 +103,6 @@ test('shared dependency prevents fake orthogonal expansion',()=>{
   const candidate=route('bounty',{domain:'bounty',dependencyReceipt:dependency('bounty',{paymentRail:'paypal'})});
   const result=run({activeRoutes:[active],candidateRoutes:[candidate],trials:[...trials('market',{domain:'marketplace',n:40,wins:30}),...trials('bounty',{domain:'bounty',n:40,wins:30})],maxAdditions:1});
   assert.equal(result.expansion.selectedCount,0);
-});
-
-test('policy blocked calibrated route does not silently disappear',()=>{
-  const result=run({activeRoutes:[route('market',{policyCleared:false})],trials:trials('market',{n:30,wins:20})});
-  assert.equal(result.nextActions.find(x=>x.routeId==='market').type,'RESOLVE_POLICY_CLEARANCE');
-});
-
-test('execution blocked calibrated route emits dependency closure',()=>{
-  const result=run({activeRoutes:[route('market',{executableNow:false})],trials:trials('market',{n:30,wins:20})});
-  assert.equal(result.nextActions.find(x=>x.routeId==='market').type,'CLOSE_EXECUTION_DEPENDENCIES');
 });
 
 test('below target with actionable route never returns empty next actions',()=>{

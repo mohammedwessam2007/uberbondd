@@ -2,23 +2,48 @@
 set -Eeuo pipefail
 umask 077
 
+CONFIG="${UBERBOND_AUTHOR_CONFIG:-/etc/uberbond/authoring.env}"
+if [[ -f "$CONFIG" && ! -L "$CONFIG" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$CONFIG"
+  set +a
+fi
+
 AUTHORCTL="${UBERBOND_AUTHORCTL:-/opt/uberbond/control/uberbond-authorctl}"
 INTERVAL_SEC="${UBERBOND_AUTHORING_INTERVAL_SEC:-60}"
+SOURCE_ROOT="${UBERBOND_SOURCE_ROOT:-/opt/uberbond/source}"
+NODE="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
+RENEWER="${UBERBOND_FOREVER_MISSION_RENEWER:-$SOURCE_ROOT/scripts/sovereign-forever-mission-renewer.mjs}"
+OUTCOME_COMPILER="${UBERBOND_FOUNDER_OUTCOME_COMPILER:-$SOURCE_ROOT/scripts/compile-founder-outcome-mission.mjs}"
+OUTCOME_PULSE="${UBERBOND_FOUNDER_ECONOMIC_PULSE:-$SOURCE_ROOT/scripts/founder-economic-mission-pulse.mjs}"
 
 [[ -x "$AUTHORCTL" && ! -L "$AUTHORCTL" ]] || { echo "REFUSED: trusted authorctl executable required" >&2; exit 2; }
+[[ -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted node executable required" >&2; exit 2; }
+for script in "$RENEWER" "$OUTCOME_COMPILER" "$OUTCOME_PULSE"; do
+  [[ -f "$script" && ! -L "$script" ]] || { echo "REFUSED: required sovereign mission script missing: $script" >&2; exit 2; }
+done
 [[ "$INTERVAL_SEC" =~ ^[0-9]+$ ]] || { echo "REFUSED: integer authoring interval required" >&2; exit 2; }
 (( INTERVAL_SEC >= 60 && INTERVAL_SEC <= 3600 )) || { echo "REFUSED: authoring interval must be 60..3600 seconds" >&2; exit 2; }
 
 stop=false
 trap 'stop=true' TERM INT
 
-echo "UBERBOND_SOVEREIGN_CONTINUUM_STARTED interval_sec=${INTERVAL_SEC}"
-while [[ "$stop" != true ]]; do
-  rc=0
-  "$AUTHORCTL" wake || rc=$?
+pulse(){
+  local label="$1"; shift
+  local rc=0
+  "$@" || rc=$?
   if (( rc != 0 )); then
-    echo "UBERBOND_SOVEREIGN_CONTINUUM_PULSE_REFUSED exit_code=${rc}" >&2
+    echo "UBERBOND_SOVEREIGN_${label}_REFUSED exit_code=${rc}" >&2
   fi
+}
+
+echo "UBERBOND_SOVEREIGN_CONTINUUM_STARTED interval_sec=${INTERVAL_SEC} forever_mission=true"
+while [[ "$stop" != true ]]; do
+  pulse FOREVER_MISSION "$NODE" "$RENEWER"
+  pulse FOUNDER_OUTCOME_COMPILE "$NODE" "$OUTCOME_COMPILER"
+  pulse FOUNDER_ECONOMIC "$NODE" "$OUTCOME_PULSE"
+  pulse AUTHORING "$AUTHORCTL" wake
 
   [[ "$stop" == true ]] && break
   slept=0

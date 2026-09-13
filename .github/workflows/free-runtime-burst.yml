@@ -1,0 +1,62 @@
+name: UberBond Free Runtime Burst
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Why the free runtime mesh woke this burst
+        required: false
+        default: free-runtime-burst
+      requestedJobs:
+        description: Bounded number of logical jobs requested
+        required: false
+        default: '1'
+
+concurrency:
+  group: uberbond-free-runtime-burst
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  wealth-burst:
+    runs-on: ubuntu-slim
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Execute bounded zero-authority wealth burst
+        id: burst
+        env:
+          UBERBOND_FREE_RUNTIME_REASON: ${{ inputs.reason }}
+          UBERBOND_FREE_RUNTIME_REQUESTED_JOBS: ${{ inputs.requestedJobs }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/free-runtime-burst.mjs | tee /tmp/free-runtime-summary.json
+
+      - name: Return completion receipt to free runtime coordinator
+        if: ${{ always() && secrets.UBERBOND_FREE_MESH_CALLBACK_URL != '' && secrets.UBERBOND_FREE_MESH_TOKEN != '' }}
+        env:
+          CALLBACK_URL: ${{ secrets.UBERBOND_FREE_MESH_CALLBACK_URL }}
+          MESH_TOKEN: ${{ secrets.UBERBOND_FREE_MESH_TOKEN }}
+          RUN_STATUS: ${{ job.status }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          SUMMARY='{}'
+          if [ -f /tmp/free-runtime-summary.json ]; then SUMMARY=$(tail -n 1 /tmp/free-runtime-summary.json); fi
+          curl --fail --silent --show-error \
+            -X POST "$CALLBACK_URL/complete" \
+            -H "authorization: Bearer $MESH_TOKEN" \
+            -H 'content-type: application/json' \
+            --data "$(jq -cn --arg status "$RUN_STATUS" --argjson summary "$SUMMARY" '{status:$status,summary:$summary}')"

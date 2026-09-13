@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const UBERCLOUD_CONTABO_PREFLIGHT_VERSION='uberbond.ubercloud-contabo-preflight.v1';

@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PUBLIC_RESEARCH_ADAPTER_MESH_VERSION='uberbond.public-research-adapter-mesh.v1.1';
+export const PUBLIC_RESEARCH_ADAPTER_MESH_VERSION='uberbond.public-research-adapter-mesh.v1.2';
 const hash=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const envelope=extra=>({businessEffectAuthority:'NONE',externalEffectAuthority:'READ_ONLY_NETWORK',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS),...extra});
 const text=(v,max=2000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
@@ -25,7 +25,7 @@ function canonicalProvenanceUrl(adapter,value){
 function parse(adapter,json){
   if(adapter==='github')return (json?.items||[]).map(x=>{const full=text(x.full_name,300);return {id:`github:${x.id}`,title:full,url:full?`https://github.com/${full}`:null,summary:x.description||'',observedSignals:{stars:x.stargazers_count,updatedAt:x.updated_at,language:x.language}};});
   if(adapter==='hackernews')return (json?.hits||[]).map(x=>({id:`hn:${x.objectID}`,title:x.title||x.story_title||'untitled',url:`https://news.ycombinator.com/item?id=${encodeURIComponent(String(x.objectID||''))}`,targetUrl:x.url||x.story_url||null,summary:x.story_text||x.comment_text||'',observedSignals:{points:x.points,createdAt:x.created_at,author:x.author}}));
-  if(adapter==='npm')return (json?.objects||[]).map(x=>{const name=text(x.package?.name,300);return {id:`npm:${name}`,title:name,url:name?`https://registry.npmjs.org/${encodeURIComponent(name)}`:null,targetUrl:name?`https://www.npmjs.com/package/${name}`:null,summary:x.package?.description||'',observedSignals:{version:x.package?.version,date:x.package?.date,score:x.score?.final}};});
+  if(adapter==='npm')return (json?.objects||[]).map(x=>{const name=text(x.package?.name,300),encoded=name?encodeURIComponent(name):null;return {id:`npm:${name}`,title:name,url:encoded?`https://registry.npmjs.org/${encoded}`:null,targetUrl:encoded?`https://www.npmjs.com/package/${encoded}`:null,summary:x.package?.description||'',observedSignals:{version:x.package?.version,date:x.package?.date,score:x.score?.final}};});
   return [];
 }
 

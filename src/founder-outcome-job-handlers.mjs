@@ -2,7 +2,8 @@ import { createJobHandlers } from './job-handlers.mjs';
 import { runFounderOutcomeMissionSupervisor } from './founder-outcome-mission-supervisor.mjs';
 import { runFrontierLearningJob } from './frontier-learning-job-handler.mjs';
 import { runPersonalCivilizationJob } from './personal-civilization-job-handler.mjs';
-import { runUniversalWealthJob } from './universal-wealth-job-handler.mjs';
+import { runEconomicWealthResidentSupervisor } from './economic-wealth-resident-supervisor.mjs';
+import { runEconomicWealthRepairJob, runEconomicWealthSaturationJob } from './economic-wealth-repair-job-handler.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
@@ -41,9 +42,26 @@ export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } 
   };
   handlers['universal.wealth.pulse'] = async payload => {
     const input = payload && typeof payload === 'object' ? payload : {};
-    return runUniversalWealthJob({
+    return runEconomicWealthResidentSupervisor({
       ...input,
-      root: input.root || process.cwd()
+      root: input.root || process.cwd(),
+      enqueueJob
+    });
+  };
+  handlers['economic.wealth.repair'] = async payload => {
+    const input = payload && typeof payload === 'object' ? payload : {};
+    return runEconomicWealthRepairJob({
+      ...input,
+      store:options.store,
+      enqueueJob
+    });
+  };
+  handlers['economic.wealth.saturate'] = async payload => {
+    const input = payload && typeof payload === 'object' ? payload : {};
+    return runEconomicWealthSaturationJob({
+      ...input,
+      store:options.store,
+      enqueueJob
     });
   };
   return handlers;

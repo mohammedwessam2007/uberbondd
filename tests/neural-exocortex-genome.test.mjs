@@ -33,7 +33,7 @@ test('neural atlas targets one million final retained capabilities rather than a
   assert.ok(plan.familyCount >= 50);
   assert.ok(plan.queryCount >= 2_000);
   assert.match(plan.law, /1000000/);
-  assert.doesNotMatch(plan.law, /COMPRESS.*50000/i);
+  assert.match(plan.law, /NEVER_COMPRESS_THE_FINAL_LIBRARY_TO_50000/);
 });
 
 test('same repository and neural family dedupe into one capability record', () => {

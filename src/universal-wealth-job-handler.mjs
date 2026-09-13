@@ -4,6 +4,7 @@ import path from 'node:path';
 import { compileSleepWealthCycle, UNIVERSAL_WEALTH_ENGINE_VERSION } from './universal-wealth-engine.mjs';
 import { compileOpenWorldMoneyUniverse, simulateEightHourWealthUniverse, EIGHT_HOUR_WEALTH_SIM_VERSION } from './eight-hour-wealth-universe-simulator.mjs';
 import { simulateSyntheticEightHourUniverse, SYNTHETIC_WEALTH_PRIOR_VERSION } from './synthetic-eight-hour-wealth-priors.mjs';
+import { compileEconomicInevitabilityPlan, ECONOMIC_INEVITABILITY_VERSION } from './economic-inevitability-engine.mjs';
 
 export const UNIVERSAL_WEALTH_JOB_VERSION='uberbond.universal-wealth-job.v1';
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -91,11 +92,17 @@ export async function runUniversalWealthJob({
       forecastAuthority:'NONE'
     };
   }
+  const inevitability=compileEconomicInevitabilityPlan({
+    paths:Array.isArray(input.executionPaths)?input.executionPaths:[],
+    policyClearedDonorDigests:Array.isArray(input.policyClearedDonorDigests)?input.policyClearedDonorDigests:[],
+    minimumIndependentPaths:Number.isFinite(Number(input.minimumIndependentPaths))?Math.max(1,Math.floor(Number(input.minimumIndependentPaths))):3
+  });
   const receipt={
     schema:UNIVERSAL_WEALTH_JOB_VERSION,
     engineVersion:UNIVERSAL_WEALTH_ENGINE_VERSION,
     sleepSimulationVersion:EIGHT_HOUR_WEALTH_SIM_VERSION,
     syntheticPriorVersion:SYNTHETIC_WEALTH_PRIOR_VERSION,
+    economicInevitabilityVersion:ECONOMIC_INEVITABILITY_VERSION,
     generatedAt:new Date().toISOString(),
     inputDigest,
     searchCellCount:cycle.searchLattice.cellCount,
@@ -125,12 +132,35 @@ export async function runUniversalWealthJob({
       assumptionsAreHypotheses:true,
       moneyClaimAuthority:'NONE'
     },
+    economicInevitability:{
+      status:inevitability.status,
+      inevitabilityIndex:inevitability.inevitabilityIndex,
+      pathCount:inevitability.pathCount,
+      executablePathCount:inevitability.executablePathCount,
+      realizedPathCount:inevitability.realizedPathCount,
+      recurringPathCount:inevitability.recurringPathCount,
+      independentExecutionClassCount:inevitability.independentExecutionClassCount,
+      executableMechanismFamilyCount:inevitability.executableMechanismFamilyCount,
+      blockerCounts:inevitability.blockerCounts,
+      stageBlockerCounts:inevitability.stageBlockerCounts,
+      singlePointFailures:inevitability.singlePointFailures,
+      autonomousResolutionTaskCount:inevitability.autonomousResolutionTasks.length,
+      ownerOnlyBlockerCount:inevitability.ownerOnlyBlockers.length,
+      killedPathCount:inevitability.killedPathIds.length,
+      donorAtomIds:inevitability.donorAtomIds,
+      policyClearedDonorCount:inevitability.policyClearedDonorDigests.length,
+      boundedNightClearanceModel:inevitability.boundedNightClearanceModel,
+      selectedExecutablePathDigests:inevitability.selectedExecutablePathIds.map(hashId),
+      moneyClaimAuthority:'NONE',
+      inevitabilityClaimAuthority:'NONE',
+      externalEffectAuthority:'NONE'
+    },
     syntheticEightHourThoughtExperiments:syntheticScenarios,
     externalEffectAuthority:'NONE',
     capitalDeploymentAuthority:'NONE',
     tradingAuthority:'NONE',
     status:cycle.status,
-    truthBoundary:'PRIVATE_WEALTH_INPUT_STAYS_RUNTIME_LOCAL; OPEN_WORLD_AND_EIGHT_HOUR_OUTPUTS_ARE_COUNTERFACTUAL_AGGREGATES_ONLY; SYNTHETIC_SCENARIOS_ARE_THOUGHT_EXPERIMENTS_NOT_FORECASTS; NO SIMULATED_DOLLAR_IS_REVENUE_OR_PAYMENT_EVIDENCE'
+    truthBoundary:'PRIVATE_WEALTH_INPUT_STAYS_RUNTIME_LOCAL; OPEN_WORLD_AND_EIGHT_HOUR_OUTPUTS_ARE_COUNTERFACTUAL_AGGREGATES_ONLY; SYNTHETIC_SCENARIOS_ARE_THOUGHT_EXPERIMENTS_NOT_FORECASTS; INEVITABILITY_IS_A_RESILIENCE_AND_EVIDENCE_SCORE_NOT_A_GUARANTEE; OWNER_AUTHORITY_BLOCKS_MUST_NOT_BE_BYPASSED; NO SIMULATED_DOLLAR_OR_READINESS_INDEX_IS_REVENUE_OR_PAYMENT_EVIDENCE'
   };
   await fs.mkdir(path.dirname(outputFile),{recursive:true});
   await fs.writeFile(outputFile,`${JSON.stringify(receipt,null,2)}\n`,'utf8');

@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
+import { buildEconomicDependencyComponents, validateEconomicRouteDependencyReceipt } from './economic-route-dependency.mjs';
 
-export const ECONOMIC_RELIABILITY_VERSION='uberbond.economic-reliability.v1.1';
+export const ECONOMIC_RELIABILITY_VERSION='uberbond.economic-reliability.v1.2';
 export const TARGET_SUCCESS_PROBABILITY=0.99999999999;
 export const TARGET_ZERO_MONEY_PROBABILITY=1-TARGET_SUCCESS_PROBABILITY;
 
@@ -16,33 +17,22 @@ function normalizeRoute(raw={}){
   const failureDomain=text(raw.failureDomain,180);
   const evidenceRefs=arr(raw.evidenceRefs).map(v=>text(v,1000)).filter(Boolean);
   const calibrationRefs=arr(raw.calibrationRefs).map(v=>text(v,1000)).filter(Boolean);
-  const independenceEvidenceRefs=arr(raw.independenceEvidenceRefs).map(v=>text(v,1000)).filter(Boolean);
   const founderMinutes=Math.max(0,num(raw.founderMinutes));
   const timeToCashMinutes=Math.max(0,num(raw.timeToCashMinutes));
   const eligible=Boolean(routeId&&failureDomain&&p!=null&&evidenceRefs.length&&calibrationRefs.length&&raw.policyCleared===true&&raw.executableNow===true);
-  const reliabilityEligible=eligible&&independenceEvidenceRefs.length>0;
-  return {routeId,failureDomain,successProbabilityLowerBound:p,evidenceRefs,calibrationRefs,independenceEvidenceRefs,founderMinutes,timeToCashMinutes,policyCleared:raw.policyCleared===true,executableNow:raw.executableNow===true,eligible,reliabilityEligible};
+  const dependencyValidation=eligible?validateEconomicRouteDependencyReceipt(raw.dependencyReceipt,routeId):{ok:false,reasonCodes:['structural-route-eligibility-required-first']};
+  const reliabilityEligible=eligible&&dependencyValidation.ok;
+  return {routeId,failureDomain,successProbabilityLowerBound:p,evidenceRefs,calibrationRefs,dependencyReceipt:dependencyValidation.ok?dependencyValidation.receipt:null,dependencyReasonCodes:dependencyValidation.reasonCodes||[],founderMinutes,timeToCashMinutes,policyCleared:raw.policyCleared===true,executableNow:raw.executableNow===true,eligible,reliabilityEligible};
 }
 
-function groupRoutes(routes=[]){
-  const groups=new Map();
-  for(const route of routes){
-    if(!route.reliabilityEligible) continue;
-    const key=`domain:${route.failureDomain}`;
-    if(!groups.has(key)) groups.set(key,[]);
-    groups.get(key).push(route);
-  }
-  return [...groups.entries()].map(([groupId,members])=>({groupId,members}));
-}
-
-function conservativeGroupProbability(group){
-  const best=[...group.members].sort((a,b)=>b.successProbabilityLowerBound-a.successProbabilityLowerBound||a.routeId.localeCompare(b.routeId))[0];
+function conservativeGroupProbability(members,index){
+  const best=[...members].sort((a,b)=>b.successProbabilityLowerBound-a.successProbabilityLowerBound||a.routeId.localeCompare(b.routeId))[0];
   return {
-    groupId:group.groupId,
+    groupId:`dependency-component:${index}`,
     successProbabilityLowerBound:best?.successProbabilityLowerBound??0,
     representativeRouteId:best?.routeId??null,
-    memberRouteIds:group.members.map(x=>x.routeId),
-    law:'WITHIN_A_FAILURE_DOMAIN_ASSUME_PERFECT_CORRELATION; ONLY_THE_BEST_EVIDENCE_BACKED_LOWER_BOUND_COUNTS'
+    memberRouteIds:members.map(x=>x.routeId),
+    law:'ANY_SHARED_CRITICAL_DEPENDENCY_COLLAPSES_ROUTES_INTO_ONE_CORRELATED_COMPONENT; ONLY_THE_STRONGEST_CALIBRATED_LOWER_BOUND_COUNTS'
   };
 }
 
@@ -59,9 +49,10 @@ export function evaluateEconomicReliability({routes=[]}={}){
     !x.policyCleared?'policy-clearance-required':null,
     !x.executableNow?'route-not-executable-now':null
   ].filter(Boolean)}));
-  const independenceWithheld=eligible.filter(x=>!x.reliabilityEligible).map(x=>({routeId:x.routeId,reasonCodes:['independence-evidence-required-before-reliability-contribution']}));
+  const dependencyWithheld=eligible.filter(x=>!x.reliabilityEligible).map(x=>({routeId:x.routeId,reasonCodes:x.dependencyReasonCodes.length?x.dependencyReasonCodes:['valid-structured-dependency-receipt-required']}));
 
-  const groups=groupRoutes(reliabilityEligible).map(conservativeGroupProbability);
+  const dependencyGraph=buildEconomicDependencyComponents(reliabilityEligible);
+  const groups=dependencyGraph.components.map(conservativeGroupProbability);
   let logResidual=0;
   for(const group of groups){
     const failure=Math.max(Number.MIN_VALUE,1-group.successProbabilityLowerBound);
@@ -77,16 +68,19 @@ export function evaluateEconomicReliability({routes=[]}={}){
     eligibleRouteCount:eligible.length,
     reliabilityContributingRouteCount:reliabilityEligible.length,
     rejectedRouteCount:rejected.length,
-    independenceWithheldCount:independenceWithheld.length,
+    dependencyWithheldCount:dependencyWithheld.length,
+    independenceWithheldCount:dependencyWithheld.length,
     independentFailureDomainCount:groups.length,
     groups,
+    sharedDependencyEdges:dependencyGraph.sharedEdges,
     residualZeroProbability,
     successProbability,
     targetReached,
     status:targetReached?'ECONOMIC_RELIABILITY_11_NINES_EVIDENCE_THRESHOLD_REACHED':'ECONOMIC_RELIABILITY_TARGET_NOT_YET_PROVEN',
     rejected,
-    independenceWithheld,
-    truthBoundary:'This is a conservative evidence-backed lower-bound model, not a guarantee. Routes without calibration are excluded. Routes without independence evidence contribute zero to the reliability proof. Within an evidenced failure domain, repeated attempts are treated as perfectly correlated and only the strongest calibrated lower bound counts. Reaching the numeric threshold does not itself prove cleared money; provider-origin settlement evidence remains required.'
+    dependencyWithheld,
+    independenceWithheld:dependencyWithheld,
+    truthBoundary:'This is a conservative evidence-backed lower-bound model, not a guarantee. Routes without fresh calibration or a valid structured dependency receipt contribute zero. Any shared critical demand, buyer, distribution, payment, fulfillment, platform, or provider dependency collapses routes into one correlated component. Reaching the numeric threshold does not itself prove cleared money; provider-origin settlement evidence remains required.'
   };
   return {...receipt,receiptDigest:hash(receipt)};
 }

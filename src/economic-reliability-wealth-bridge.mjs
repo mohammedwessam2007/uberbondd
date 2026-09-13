@@ -1,7 +1,7 @@
 import { compileUniversalWealthPortfolio } from './universal-wealth-engine.mjs';
 import { evaluateEconomicReliability, rankReliabilityActions } from './economic-reliability-engine.mjs';
 
-export const ECONOMIC_RELIABILITY_WEALTH_BRIDGE_VERSION='uberbond.economic-reliability-wealth-bridge.v1';
+export const ECONOMIC_RELIABILITY_WEALTH_BRIDGE_VERSION='uberbond.economic-reliability-wealth-bridge.v1.1';
 
 const arr=v=>Array.isArray(v)?v:[];
 const num=v=>Number.isFinite(Number(v))?Number(v):null;
@@ -11,10 +11,11 @@ function reliabilityRouteFromCandidate(candidate={}){
   return {
     routeId:candidate.id,
     failureDomain:candidate.failureDomain,
+    regimeId:candidate.regimeId||null,
     successProbabilityLowerBound:p,
     evidenceRefs:arr(candidate.evidenceRefs),
     calibrationRefs:arr(candidate.calibrationRefs),
-    independenceEvidenceRefs:arr(candidate.independenceEvidenceRefs),
+    dependencyReceipt:candidate.dependencyReceipt&&typeof candidate.dependencyReceipt==='object'?structuredClone(candidate.dependencyReceipt):null,
     policyCleared:candidate.policyCleared===true,
     executableNow:candidate.executableNow===true,
     founderMinutes:candidate.founderMinutes,
@@ -39,9 +40,9 @@ export function compileReliabilityFirstWealthPortfolio({candidates=[],maxCanarie
     canaries,
     reliability,
     wealth,
-    selectionLaw:'PRIMARY_OBJECTIVE_MINIMIZES_EVIDENCE_BACKED_ZERO_MONEY_PROBABILITY; EXPECTED_CONTRIBUTION_REMAINS_A_FEASIBILITY_AND_VALUE_GATE',
+    selectionLaw:'PRIMARY_OBJECTIVE_MINIMIZES_FRESH_EVIDENCE_BACKED_ZERO_MONEY_PROBABILITY_AFTER_SHARED_DEPENDENCY_COLLAPSE; EXPECTED_CONTRIBUTION_REMAINS_A_FEASIBILITY_AND_VALUE_GATE',
     externalEffectAuthority:'NONE',
     capitalDeploymentAuthority:'NONE',
-    truthBoundary:'Reliability ranking cannot create execution authority, customer demand, settlement, or money. Only wealth-eligible candidates enter the reliability tournament, and only calibrated executable routes can reduce the modeled zero-money probability.'
+    truthBoundary:'Reliability ranking cannot create execution authority, customer demand, settlement, or money. Only wealth-eligible candidates enter the reliability tournament, and only calibrated executable routes with valid dependency receipts can reduce the modeled zero-money probability.'
   };
 }

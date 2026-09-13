@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { startScheduler } from '../src/scheduler.mjs';
 
-test('Universal Wealth has exactly one resident one-minute scheduler heartbeat', async () => {
+test('Universal Wealth has exactly one resident ten-second scheduler heartbeat', async () => {
   const originalSetInterval = globalThis.setInterval;
   const originalClearInterval = globalThis.clearInterval;
   const intervals = [];
@@ -45,7 +45,7 @@ test('Universal Wealth has exactly one resident one-minute scheduler heartbeat',
     assert.equal(wealthJobs.length, 1);
     assert.equal(wealthJobs[0].payload.maxCapitalAtRisk, 0);
     assert.equal(wealthJobs[0].options.singletonKey, 'singleton:universal.wealth.pulse');
-    assert.equal(intervals.filter(ms => ms === 60_000).length, 1);
+    assert.equal(intervals.filter(ms => ms === 10_000).length, 1);
     assert.equal(errors.length, 0);
   } finally {
     globalThis.setInterval = originalSetInterval;

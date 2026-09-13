@@ -3,9 +3,12 @@ Description=UberLit sovereign UberBond worker
 Requires=uberlit.service
 After=uberlit.service
 PartOf=uberlit.service
+StartLimitIntervalSec=60
+StartLimitBurst=20
 
 [Service]
-Type=simple
+Type=notify
+NotifyAccess=all
 User=uberlit
 Group=uberlit
 WorkingDirectory=/opt/uberlit/source
@@ -18,9 +21,15 @@ Environment=TRUST_PROXY_HOPS=1
 Environment=OUTBOUND_ENABLED=false
 Environment=DISCOVERY_ENABLED=false
 EnvironmentFile=-/etc/uberlit/uberlit.env
+Environment=AUTOPILOT_ENABLED=true
+Environment=UBERLIT_WORKER_LIVENESS_INTERVAL_MS=5000
+Environment=UBERLIT_WEALTH_STARTUP_GRACE_MS=120000
+Environment=UBERLIT_WEALTH_STALE_MS=300000
 ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-worker-supervisor.mjs --root /var/lib/uberlit/uberbond --web-port ${UBERLIT_WEB_PORT} --db-port ${UBERLIT_DB_PORT} --timeout 60000
-Restart=on-failure
+Restart=always
 RestartSec=3
+WatchdogSec=60
+TimeoutStartSec=90
 TimeoutStopSec=30
 KillMode=control-group
 UMask=0077

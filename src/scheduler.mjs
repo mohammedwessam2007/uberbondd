@@ -1,7 +1,9 @@
 import { reconcileScheduledOccurrence } from './durable-scheduler-occurrence.mjs';
 
-const MINUTE = 60000;
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
+const WEALTH_HEARTBEAT_MS = 10 * SECOND;
 
 export function startScheduler(queue, cfg, log = console) {
   const timers = [];
@@ -34,14 +36,14 @@ export function startScheduler(queue, cfg, log = console) {
       // gaps and life-level priorities but has no external-effect authority.
       ['personal.civilization.pulse', 15 * MINUTE, {}, { maxAttempts: 3 }],
       // Universal Wealth is the resident economic control heartbeat. It wakes
-      // every minute while autopilot is running so opportunity discovery,
+      // every ten seconds while autopilot is running so opportunity discovery,
       // ranking, simulation, reconciliation, inevitability checks, and bounded
       // self-repair never wait on a ChatGPT/task scheduler. Durable occurrence
       // dedupe + singleton protection prevent overlapping wealth pulses when a
-      // prior minute is still being processed. External effects remain behind
+      // prior heartbeat is still being processed. External effects remain behind
       // the existing spend/trading/contracting/publishing/outreach/borrowing/
       // account-opening consequence gates.
-      ['universal.wealth.pulse', MINUTE, { maxSearchCells: 256, maxCanaries: 5, maxCapitalAtRisk: 0 }, { maxAttempts: 3 }],
+      ['universal.wealth.pulse', WEALTH_HEARTBEAT_MS, { maxSearchCells: 256, maxCanaries: 5, maxCapitalAtRisk: 0 }, { maxAttempts: 3 }],
       // UberDoso is the owned outreach-mail control plane. The pulse only creates
       // canonical internal registry state and schedules already-governed DNS/
       // health reconciliation work. It cannot publish DNS, deploy a mail node,

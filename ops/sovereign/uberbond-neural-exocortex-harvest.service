@@ -1,0 +1,29 @@
+[Unit]
+Description=UberBond read-only Neural Exocortex Genome GitHub harvester
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=uberbond-author
+Group=uberbond-autonomy
+EnvironmentFile=/etc/uberbond/capability-genome.env
+WorkingDirectory=/opt/uberbond/source
+ExecStart=/usr/bin/node /opt/uberbond/source/scripts/neural-repository-harvest.mjs --execute-github --atlas-batch-size=12 --window-days=30 --max-provider-calls=100 --refinement-batch-size=20 --refresh-interval-sec=21600
+ExecStartPost=/usr/bin/node /opt/uberbond/source/scripts/neural-exocortex-compact.mjs
+ExecStartPost=/usr/bin/node /opt/uberbond/source/scripts/neural-exocortex-brain-pulse.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/uberbond/source /etc/uberbond
+ReadWritePaths=/var/lib/uberbond-capability-corpus
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0077
+TimeoutStartSec=1800

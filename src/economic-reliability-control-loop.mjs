@@ -3,7 +3,7 @@ import { evaluateEconomicReliability, TARGET_ZERO_MONEY_PROBABILITY } from './ec
 import { planEconomicReliabilityExpansion } from './economic-reliability-expansion-planner.mjs';
 import { validateEconomicRouteDependencyReceipt } from './economic-route-dependency.mjs';
 
-export const ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION='uberbond.economic-reliability-control-loop.v1.2';
+export const ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION='uberbond.economic-reliability-control-loop.v1.3';
 
 const arr=v=>Array.isArray(v)?v:[];
 const text=(v,max=1000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
@@ -33,18 +33,22 @@ function evidenceRequestFor({shell,calibration,bound}){
   if(!shell.routeId||!shell.failureDomain||!shell.regimeId){
     return {type:'REPAIR_ROUTE_IDENTITY',routeId:shell.routeId||null,failureDomain:shell.failureDomain||null,regimeId:shell.regimeId||null,reasonCodes:['route-id-failure-domain-and-regime-required']};
   }
+  const dependency=validateEconomicRouteDependencyReceipt(shell.dependencyReceipt,shell.routeId);
+  if(!dependency.ok){
+    return {type:'BUILD_EVIDENCED_DEPENDENCY_FINGERPRINT',routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,reasonCodes:dependency.reasonCodes||['structured-dependency-receipt-required']};
+  }
+  if(!shell.policyCleared){
+    return {type:'RESOLVE_POLICY_CLEARANCE',routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,reasonCodes:['policy-clearance-required']};
+  }
+  if(!shell.executableNow){
+    return {type:'CLOSE_EXECUTION_DEPENDENCIES',routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,reasonCodes:['route-not-executable-now']};
+  }
   if(!calibration.calibrated){
     const needed=Math.max(0,calibration.minTrials-calibration.completedTrials);
     return {type:'COLLECT_FRESH_PROVIDER_READBACK_TRIALS',routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,completedTrials:calibration.completedTrials,minTrials:calibration.minTrials,additionalCompletedTrialsRequired:needed,staleOrFutureTrials:calibration.staleOrFutureTrials,reasonCodes:['fresh-current-regime-calibration-insufficient']};
   }
-  const dependency=validateEconomicRouteDependencyReceipt(shell.dependencyReceipt,shell.routeId);
-  if(!dependency.ok){
-    return {type:'BUILD_EVIDENCED_DEPENDENCY_FINGERPRINT',routeId:shell.routeId,failureDomain:shell.failureDomain,reasonCodes:dependency.reasonCodes||['structured-dependency-receipt-required']};
-  }
-  if(!shell.policyCleared) return {type:'RESOLVE_POLICY_CLEARANCE',routeId:shell.routeId,failureDomain:shell.failureDomain,reasonCodes:['policy-clearance-required']};
-  if(!shell.executableNow) return {type:'CLOSE_EXECUTION_DEPENDENCIES',routeId:shell.routeId,failureDomain:shell.failureDomain,reasonCodes:['route-not-executable-now']};
-  if(bound?.ok) return {type:'EXECUTE_CALIBRATED_ROUTE_CANARY',routeId:shell.routeId,failureDomain:shell.failureDomain,successProbabilityLowerBound:bound.route.successProbabilityLowerBound,reasonCodes:['reliability-target-not-yet-reached']};
-  return {type:'REPAIR_ROUTE_ADMISSION',routeId:shell.routeId,failureDomain:shell.failureDomain,reasonCodes:bound?.reasonCodes||['route-not-admissible']};
+  if(bound?.ok) return {type:'EXECUTE_CALIBRATED_ROUTE_CANARY',routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,successProbabilityLowerBound:bound.route.successProbabilityLowerBound,reasonCodes:['reliability-target-not-yet-reached']};
+  return {type:'REPAIR_ROUTE_ADMISSION',routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,reasonCodes:bound?.reasonCodes||['route-not-admissible']};
 }
 
 function domainsNeededAtProbability({currentResidual,p,target=TARGET_ZERO_MONEY_PROBABILITY}){
@@ -85,8 +89,8 @@ export function runEconomicReliabilityControlLoop({activeRoutes=[],candidateRout
     schemaVersion:ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION,status:targetReached?'ECONOMIC_RELIABILITY_MODEL_THRESHOLD_REACHED':'ECONOMIC_RELIABILITY_WORK_REMAINS',targetReached,reliability,expansion,
     calibrations:records.map(({shell,calibration})=>({routeId:shell.routeId,failureDomain:shell.failureDomain,regimeId:shell.regimeId,calibration})),
     nextActions:targetReached?[]:prioritizedRequests,shortfall,externalEffectAuthority:'NONE',moneyAuthority:'NONE',
-    controlLaw:'CALIBRATE_FRESH_CURRENT_REGIME_PROVIDER_READBACK -> REQUIRE_STRUCTURED_DEPENDENCY_FINGERPRINT -> COLLAPSE_SHARED_FAILURE_FACTORS -> EVALUATE_RESIDUAL_ZERO_MONEY_PROBABILITY -> SELECT_HIGHEST_MARGINAL_ORTHOGONAL_ROUTE -> REQUEST_NEXT_EVIDENCE_OR_EXECUTION_STEP -> REPEAT',
-    truthBoundary:'MODEL_THRESHOLD_REACHED means only that the conservative fresh-regime evidence model is at or below the configured zero-money probability target. Shared critical dependencies collapse routes together. This is not a guarantee and is not evidence that money cleared in the current window. This loop creates no messaging, spend, customer, payment, deployment, or execution authority.'
+    controlLaw:'IDENTITY -> EVIDENCED_DEPENDENCY_FINGERPRINT -> POLICY_CLEARANCE -> EXECUTABLE_RAIL -> FRESH_CURRENT_REGIME_PROVIDER_READBACK_CALIBRATION -> COLLAPSE_SHARED_FAILURE_FACTORS -> EVALUATE_RESIDUAL_ZERO_MONEY_PROBABILITY -> SELECT_HIGHEST_MARGINAL_ORTHOGONAL_ROUTE -> REPEAT',
+    truthBoundary:'MODEL_THRESHOLD_REACHED means only that the conservative fresh-regime evidence model is at or below the configured zero-money probability target. Impossible or unauthorized routes are repaired before trial collection. Shared critical dependencies collapse routes together. This is not a guarantee and is not evidence that money cleared in the current window. This loop creates no messaging, spend, customer, payment, deployment, or execution authority.'
   };
 }
 

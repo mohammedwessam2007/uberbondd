@@ -70,6 +70,22 @@
       "targetIdentityRef": "owned-loopback-disposable:UberBond-Sovereign-Cell",
       "runtimeReceiptRef": "https://github.com/mohammedwessam2007/uberbondd/blob/evidence/security-runtime-20260913/artifacts/capability-reality/security-runtime-2026-09-13.json",
       "truthBoundary": "This proves a real bounded autonomous exploit witness against a disposable loopback-owned fixture only. It grants no authority to test third-party targets and does not claim broad pentest parity."
+    },
+    {
+      "id": "independent-deployment-provider",
+      "synthetic": false,
+      "observedAt": "2026-09-13T13:29:00Z",
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/evidence/deployment-cutover-20260913/artifacts/capability-reality/deployment-cutover-2026-09-13.json",
+        "https://macaly-wzay3ql2c57f2mvaskc4eei6-prod.macaly-app.com"
+      ],
+      "distinctPhysicalProvider": true,
+      "exactReleaseBootObserved": true,
+      "cutoverObserved": true,
+      "rollbackObserved": true,
+      "providerIdentity": "macaly-convex",
+      "releaseDigest": "sha256:a1ce916eecc65222b0bb884a8f8255488e8c4ff2747e14e45098371f65aae8ee",
+      "truthBoundary": "This proves a distinct live Macaly/Convex deployment path with exact UberBond main identity, an observed cutover release, and observed restoration of the exact prior baseline release bytes. It creates no customer, payment, messaging, or owner-identity evidence."
     }
   ]
 }

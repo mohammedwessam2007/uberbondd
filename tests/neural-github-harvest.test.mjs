@@ -73,3 +73,36 @@ test('read-only executor preserves family metadata and rejects private results',
   assert.equal(result.businessEffectAuthority, 'NONE');
   assert.equal(result.consequenceAuthority, 'NONE');
 });
+
+test('provider-call exhaustion requeues an interrupted partition instead of losing it', async () => {
+  const plan = compileNeuralGithubPartitions({ atlasEntries: [atlasEntry], startDate: '2026-09-14', endDate: '2026-09-14' });
+  const fetchImpl = async () => ({
+    ok: true,
+    status: 200,
+    headers: { get: () => null },
+    json: async () => ({
+      total_count: 150,
+      incomplete_results: false,
+      items: Array.from({ length: 100 }, (_, index) => ({ id: index + 1, full_name: `public/reasoner-${index}`, html_url: `https://github.com/public/reasoner-${index}`, private: false, visibility: 'public' }))
+    })
+  });
+  const result = await executeNeuralGithubPartitions({ partitions: plan.partitions, fetchImpl, maxProviderCalls: 1 });
+  assert.equal(result.status, 'NEURAL_HARVEST_PROVIDER_CALL_BUDGET_EXHAUSTED');
+  assert.equal(result.receipts[0].complete, false);
+  assert.equal(result.receipts[0].terminationStatus, 'PROVIDER_CALL_BUDGET_EXHAUSTED');
+  assert.equal(result.refinements.some(item => item.id === plan.partitions[0].id), true);
+});
+
+test('rate limiting requeues the current partition without a blind retry', async () => {
+  const plan = compileNeuralGithubPartitions({ atlasEntries: [atlasEntry], startDate: '2026-09-14', endDate: '2026-09-14' });
+  let calls = 0;
+  const fetchImpl = async () => {
+    calls += 1;
+    return { ok: false, status: 429, headers: { get: name => name === 'retry-after' ? '60' : null }, json: async () => ({}) };
+  };
+  const result = await executeNeuralGithubPartitions({ partitions: plan.partitions, fetchImpl, maxProviderCalls: 10 });
+  assert.equal(result.status, 'NEURAL_HARVEST_RATE_LIMITED_NO_BLIND_RETRY');
+  assert.equal(calls, 1);
+  assert.equal(result.refinements.some(item => item.id === plan.partitions[0].id), true);
+  assert.equal(result.retryAfter, '60');
+});

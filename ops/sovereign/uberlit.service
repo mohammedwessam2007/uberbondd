@@ -15,7 +15,7 @@ Environment=OUTBOUND_ENABLED=false
 Environment=DISCOVERY_ENABLED=false
 EnvironmentFile=-/etc/uberlit/uberlit.env
 ExecStart=/usr/bin/env node /opt/uberlit/source/scripts/uberlit-supervisor.mjs --keep-running --root /var/lib/uberlit/uberbond --port 32123 --db-port 35432 --timeout 30000
-Restart=on-failure
+Restart=always
 RestartSec=3
 TimeoutStopSec=20
 KillMode=control-group

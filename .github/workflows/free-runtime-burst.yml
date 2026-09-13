@@ -11,6 +11,14 @@ on:
         description: Bounded number of logical jobs requested
         required: false
         default: '1'
+      callbackUrl:
+        description: One-run callback URL supplied by the free runtime coordinator
+        required: false
+        default: ''
+      callbackNonce:
+        description: One-run callback nonce supplied by the free runtime coordinator
+        required: false
+        default: ''
 
 concurrency:
   group: uberbond-free-runtime-burst
@@ -45,10 +53,10 @@ jobs:
           node scripts/free-runtime-burst.mjs | tee /tmp/free-runtime-summary.json
 
       - name: Return completion receipt to free runtime coordinator
-        if: ${{ always() && secrets.UBERBOND_FREE_MESH_CALLBACK_URL != '' && secrets.UBERBOND_FREE_MESH_TOKEN != '' }}
+        if: ${{ always() && inputs.callbackUrl != '' && inputs.callbackNonce != '' }}
         env:
-          CALLBACK_URL: ${{ secrets.UBERBOND_FREE_MESH_CALLBACK_URL }}
-          MESH_TOKEN: ${{ secrets.UBERBOND_FREE_MESH_TOKEN }}
+          CALLBACK_URL: ${{ inputs.callbackUrl }}
+          CALLBACK_NONCE: ${{ inputs.callbackNonce }}
           RUN_STATUS: ${{ job.status }}
         shell: bash
         run: |
@@ -57,6 +65,6 @@ jobs:
           if [ -f /tmp/free-runtime-summary.json ]; then SUMMARY=$(tail -n 1 /tmp/free-runtime-summary.json); fi
           curl --fail --silent --show-error \
             -X POST "$CALLBACK_URL/complete" \
-            -H "authorization: Bearer $MESH_TOKEN" \
+            -H "x-uberbond-callback-nonce: $CALLBACK_NONCE" \
             -H 'content-type: application/json' \
             --data "$(jq -cn --arg status "$RUN_STATUS" --argjson summary "$SUMMARY" '{status:$status,summary:$summary}')"

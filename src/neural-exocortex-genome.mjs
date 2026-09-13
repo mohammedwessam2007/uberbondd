@@ -116,9 +116,9 @@ function balancedTopMillion(records, target) {
   for (const group of groups.values()) group.sort((a, b) => b.neuralPrior.score - a.neuralPrior.score || a.id.localeCompare(b.id));
   const familyCount = Math.max(1, groups.size);
   const protectedBudget = Math.floor(target * 0.35);
-  const floorPerFamily = Math.max(1, Math.floor(protectedBudget / familyCount));
+  const floorPerFamily = target >= familyCount ? Math.max(1, Math.floor(protectedBudget / familyCount)) : 0;
   const selected = [], selectedIds = new Set();
-  for (const family of [...groups.keys()].sort()) for (const record of groups.get(family).slice(0, floorPerFamily)) { selected.push(record); selectedIds.add(record.id); if (selected.length >= target) return selected; }
+  if (floorPerFamily > 0) for (const family of [...groups.keys()].sort()) for (const record of groups.get(family).slice(0, floorPerFamily)) { selected.push(record); selectedIds.add(record.id); if (selected.length >= target) return selected; }
   const remainder = records.filter(record => !selectedIds.has(record.id)).sort((a, b) => b.neuralPrior.score - a.neuralPrior.score || a.id.localeCompare(b.id));
   for (const record of remainder) { if (selected.length >= target) break; selected.push(record); }
   return selected;
@@ -133,7 +133,7 @@ export function buildNeuralExocortexCorpus({ observations = [], capabilityRecord
   const selected = balancedTopMillion(deduped, requestedTarget);
   const familyCounts = {}; for (const record of selected) familyCounts[record.family] = (familyCounts[record.family] || 0) + 1;
   const targetSatisfied = selected.length >= requestedTarget;
-  const manifestCore = { schemaVersion: 'uberbond.neural-exocortex-corpus.v1', version: NEURAL_EXOCORTEX_GENOME_VERSION, requestedFinalCapabilityTarget: requestedTarget, immutableProgramTarget: FINAL_NEURAL_CAPABILITY_TARGET, observedClaims: observations.length + capabilityRecords.length, rejectedObservations, distinctCapabilityRecords: deduped.length, retainedCapabilityRecords: selected.length, targetSatisfied, familyCounts, activeCortexMaximum: ACTIVE_NEURAL_CORTEX_MAX, truthBoundary: 'THE_FINAL_ONE_MILLION_IS_A_DEDUPED_REFERENCE_EXOCORTEX_LIBRARY__DISCOVERY_RECORDS_ARE_NOT_EXECUTABLE__ONLY_SEPARATELY_SECURITY_REVIEWED_BENCHMARKED_APPROVED_RECORDS_MAY_ENTER_THE_ACTIVE_CORTEX' };
+  const manifestCore = { schemaVersion: 'uberbond.neural-exocortex-corpus.v1', version: NEURAL_EXOCORTEX_GENOME_VERSION, requestedFinalCapabilityTarget: requestedTarget, immutableProgramTarget: FINAL_NEURAL_CAPABILITY_TARGET, observedClaims: observations.length + capabilityRecords.length, rejectedObservations, distinctCapabilityRecords: deduped.length, retainedCapabilityRecords: selected.length, targetSatisfied, familyCounts, activeCortexMaximum: ACTIVE_NEURAL_CORTEX_MAX, truthBoundary: 'THE_FINAL_ONE_MILLION_IS_A_DEDUPED_REFERENCE_EXOCORTEX_LIBRARY__DISCOVERY_RECORDS_ARE_NOT_EXECUTABLE__ACTIVE_EXECUTION_REQUIRES_THE_SEPARATE_CAPABILITY_GENOME_BACKED_ADMISSION_PATH' };
   return { ok: true, status: targetSatisfied ? 'NEURAL_EXOCORTEX_ONE_MILLION_FINAL_LIBRARY_READY' : 'NEURAL_EXOCORTEX_FINAL_LIBRARY_ACCUMULATING', manifest: { ...manifestCore, corpusDigest: digest(selected.map(record => [record.id, record.recordDigest, record.neuralPrior.score])) }, capabilities: selected, businessEffectAuthority: 'NONE', consequenceAuthority: 'NONE' };
 }
 
@@ -151,10 +151,18 @@ export function retrieveNeuralReferenceBundle({ mission, capabilities = [], limi
 
 export function selectActiveNeuralCortex({ mission, capabilities = [], limit = ACTIVE_NEURAL_CORTEX_MAX } = {}) {
   if (!clean(mission, 4000)) return { ok: false, status: 'ACTIVE_NEURAL_CORTEX_REJECTED', reasonCodes: ['mission-required'] };
-  const cap = Math.max(1, Math.min(ACTIVE_NEURAL_CORTEX_MAX, Number(limit) || ACTIVE_NEURAL_CORTEX_MAX));
-  const eligible = capabilities.filter(record => ['APPROVED','ACTIVE'].includes(record?.promotionState) && record?.securityState === 'APPROVED' && record?.benchmarkState === 'ELIGIBLE' && record?.revocationState?.revoked !== true && record?.executionAuthority === 'BOUNDED_MISSION_ONLY');
-  const ranked = eligible.map(record => ({ record, score: missionScore(mission, record) })).sort((a, b) => b.score - a.score || a.record.id.localeCompare(b.record.id)).slice(0, cap);
-  return { ok: true, status: ranked.length ? 'ACTIVE_NEURAL_CORTEX_BUNDLE_SELECTED' : 'NO_APPROVED_NEURAL_CAPABILITY_ROUTE', mission, selected: ranked.map(item => ({ id: item.record.id, family: item.record.family, score: Number(item.score.toFixed(6)) })), candidateCount: eligible.length, activeLimit: cap, authorityLaw: 'ACTIVE_SELECTION_NEVER_WIDENS_THE_UNDERLYING_CAPABILITY_PERMISSION_OR_MISSION_AUTHORITY', selectionDigest: digest(ranked.map(item => [item.record.id, item.score])) };
+  return {
+    ok: true,
+    status: 'NEURAL_REFERENCE_RECORDS_NOT_EXECUTABLE_USE_CAPABILITY_GENOME_BACKED_SELECTION',
+    mission,
+    selected: [],
+    candidateCount: Array.isArray(capabilities) ? capabilities.length : 0,
+    activeLimit: Math.max(1, Math.min(ACTIVE_NEURAL_CORTEX_MAX, Number(limit) || ACTIVE_NEURAL_CORTEX_MAX)),
+    executionAuthority: 'NONE',
+    consequenceAuthority: 'NONE',
+    authorityLaw: 'DISCOVERY_RECORD_FLAGS_CAN_NEVER_CREATE_EXECUTABILITY__USE_selectCapabilityGenomeBackedNeuralCortex_AFTER_CANONICAL_CAPABILITY_GENOME_ADMISSION',
+    selectionDigest: digest([])
+  };
 }
 
 export function neuralExocortexProgress(corpus) {

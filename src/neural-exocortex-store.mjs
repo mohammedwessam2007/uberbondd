@@ -36,7 +36,7 @@ function less(a, b) { if (a.score !== b.score) return a.score < b.score; return 
 function heapSwap(heap, a, b) { const t = heap[a]; heap[a] = heap[b]; heap[b] = t; }
 function heapUp(heap, index) { while (index > 0) { const parent = Math.floor((index - 1) / 2); if (!less(heap[index], heap[parent])) break; heapSwap(heap, index, parent); index = parent; } }
 function heapDown(heap, index) { for (;;) { const left = index * 2 + 1, right = left + 1; let smallest = index; if (left < heap.length && less(heap[left], heap[smallest])) smallest = left; if (right < heap.length && less(heap[right], heap[smallest])) smallest = right; if (smallest === index) break; heapSwap(heap, index, smallest); index = smallest; } }
-function offerTop(heap, item, limit) { if (heap.length < limit) { heap.push(item); heapUp(heap, heap.length - 1); return; } if (less(item, heap[0])) return; heap[0] = item; heapDown(heap, 0); }
+function offerTop(heap, item, limit) { if (limit <= 0) return; if (heap.length < limit) { heap.push(item); heapUp(heap, heap.length - 1); return; } if (less(item, heap[0])) return; heap[0] = item; heapDown(heap, 0); }
 
 export async function compactNeuralExocortexCorpus({ rootDir, target = FINAL_NEURAL_CAPABILITY_TARGET, shardCount = 256 } = {}) {
   const root = safeRoot(rootDir);
@@ -51,7 +51,7 @@ export async function compactNeuralExocortexCorpus({ rootDir, target = FINAL_NEU
   for (const file of files) await forEachJsonLine(file, record => { if (!record?.id) return; observedRows += 1; const shard = parseInt(crypto.createHash('sha256').update(record.id).digest('hex').slice(0, 8), 16) % shardTotal; streamFor(shard).write(`${JSON.stringify(record)}\n`); });
   await Promise.all([...shardStreams.values()].map(stream => new Promise((resolve, reject) => { stream.on('error', reject); stream.end(resolve); })));
 
-  const heap = []; let distinctRows = 0; const familyCounts = {};
+  let distinctRows = 0; const familyCounts = {};
   for (let shard = 0; shard < shardTotal; shard += 1) {
     const inputPath = path.join(shardRoot, `${String(shard).padStart(4, '0')}.jsonl`); try { await fsp.access(inputPath); } catch { continue; }
     const byId = new Map();
@@ -60,10 +60,31 @@ export async function compactNeuralExocortexCorpus({ rootDir, target = FINAL_NEU
     const outputPath = path.join(dedupRoot, `${String(shard).padStart(4, '0')}.jsonl`);
     await fsp.writeFile(outputPath, deduped.map(record => JSON.stringify(record)).join('\n') + (deduped.length ? '\n' : ''), { encoding: 'utf8', mode: 0o600 });
     distinctRows += deduped.length;
-    for (const record of deduped) { familyCounts[record.family] = (familyCounts[record.family] || 0) + 1; offerTop(heap, { id: record.id, score: Number(record.neuralPrior?.score || 0), shard }, finalTarget); }
+    for (const record of deduped) familyCounts[record.family] = (familyCounts[record.family] || 0) + 1;
   }
 
-  const selectedMeta = heap.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+  const familyNames = Object.keys(familyCounts).sort();
+  const familyDiversityBudget = distinctRows > finalTarget ? Math.floor(finalTarget * 0.35) : 0;
+  const protectedPerFamily = familyDiversityBudget > 0 && finalTarget >= familyNames.length ? Math.max(1, Math.floor(familyDiversityBudget / Math.max(1, familyNames.length))) : 0;
+  const globalHeap = [], familyHeaps = new Map();
+  for (const family of familyNames) familyHeaps.set(family, []);
+  for (let shard = 0; shard < shardTotal; shard += 1) {
+    const dedupPath = path.join(dedupRoot, `${String(shard).padStart(4, '0')}.jsonl`); try { await fsp.access(dedupPath); } catch { continue; }
+    await forEachJsonLine(dedupPath, record => {
+      const item = { id: record.id, score: Number(record.neuralPrior?.score || 0), shard, family: record.family || 'unknown' };
+      offerTop(globalHeap, item, finalTarget);
+      if (!familyHeaps.has(item.family)) familyHeaps.set(item.family, []);
+      offerTop(familyHeaps.get(item.family), item, protectedPerFamily);
+    });
+  }
+
+  const protectedItems = [...familyHeaps.values()].flat().sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+  const globalItems = globalHeap.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+  const selectedMeta = [], selectedIds = new Set();
+  for (const item of protectedItems) { if (selectedMeta.length >= finalTarget || selectedIds.has(item.id)) continue; selectedMeta.push(item); selectedIds.add(item.id); }
+  for (const item of globalItems) { if (selectedMeta.length >= finalTarget || selectedIds.has(item.id)) continue; selectedMeta.push(item); selectedIds.add(item.id); }
+  selectedMeta.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+
   const selectedByShard = new Map();
   for (const item of selectedMeta) { if (!selectedByShard.has(item.shard)) selectedByShard.set(item.shard, new Set()); selectedByShard.get(item.shard).add(item.id); }
   const tempFinal = `${finalRoot}.tmp-${process.pid}-${Date.now()}`; await fsp.mkdir(tempFinal, { recursive: true, mode: 0o700 });
@@ -74,8 +95,8 @@ export async function compactNeuralExocortexCorpus({ rootDir, target = FINAL_NEU
     await forEachJsonLine(dedupPath, record => { if (!ids.has(record.id)) return; output.write(`${JSON.stringify(record)}\n`); retained += 1; retainedFamilyCounts[record.family] = (retainedFamilyCounts[record.family] || 0) + 1; });
   }
   await new Promise((resolve, reject) => { output.on('error', reject); output.end(resolve); });
-  const manifestCore = { schemaVersion: 'uberbond.neural-exocortex-final-manifest.v1', storeVersion: NEURAL_EXOCORTEX_STORE_VERSION, compactedAt: new Date().toISOString(), sourceBatchFiles: files.length, observedCapabilityRows: observedRows, distinctCapabilityRecords: distinctRows, requestedFinalTarget: finalTarget, immutableProgramTarget: FINAL_NEURAL_CAPABILITY_TARGET, retainedCapabilityRecords: retained, targetSatisfied: retained >= finalTarget, discoveredFamilyCounts: familyCounts, retainedFamilyCounts, selectionLaw: 'GLOBAL_NEURAL_PRIOR_TOP_K_AFTER_CANONICAL_IDENTITY_DEDUPE__ACTIVE_CORTEX_REMAINS_SEPARATELY_APPROVED_AND_MISSION_SCOPED', truthBoundary: 'FINAL_LIBRARY_COMPLETION_MEANS_ONE_MILLION_DEDUPED_RETAINED_REFERENCE_CAPABILITY_RECORDS__NOT_ONE_MILLION_INSTALLED_OR_EXECUTABLE_CAPABILITIES__NOT_ASI_PROOF' };
-  const manifest = { ...manifestCore, finalDigest: digest(selectedMeta.map(item => [item.id, item.score])) };
+  const manifestCore = { schemaVersion: 'uberbond.neural-exocortex-final-manifest.v1', storeVersion: NEURAL_EXOCORTEX_STORE_VERSION, compactedAt: new Date().toISOString(), sourceBatchFiles: files.length, observedCapabilityRows: observedRows, distinctCapabilityRecords: distinctRows, requestedFinalTarget: finalTarget, immutableProgramTarget: FINAL_NEURAL_CAPABILITY_TARGET, retainedCapabilityRecords: retained, targetSatisfied: retained >= finalTarget, discoveredFamilyCounts: familyCounts, retainedFamilyCounts, familyDiversityBudget, protectedPerFamily, selectionLaw: 'DIVERSITY_PROTECTED_NEURAL_PRIOR_TOP_K_AFTER_CANONICAL_IDENTITY_DEDUPE__PROTECT_ELITE_REPRESENTATIVES_ACROSS_NEURAL_FAMILIES_THEN_FILL_REMAINING_CAPACITY_BY_GLOBAL_EVIDENCE_WEIGHTED_PRIOR__ACTIVE_CORTEX_REMAINS_SEPARATELY_APPROVED_AND_MISSION_SCOPED', truthBoundary: 'FINAL_LIBRARY_COMPLETION_MEANS_ONE_MILLION_DEDUPED_RETAINED_REFERENCE_CAPABILITY_RECORDS__NOT_ONE_MILLION_INSTALLED_OR_EXECUTABLE_CAPABILITIES__NOT_ASI_PROOF' };
+  const manifest = { ...manifestCore, finalDigest: digest(selectedMeta.map(item => [item.id, item.score, item.family])) };
   await fsp.writeFile(path.join(tempFinal, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, { encoding: 'utf8', mode: 0o600 });
   try { await fsp.rm(finalRoot, { recursive: true, force: true }); } catch {}
   await fsp.rename(tempFinal, finalRoot); await fsp.rm(workRoot, { recursive: true, force: true });

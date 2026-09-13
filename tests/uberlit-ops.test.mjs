@@ -7,7 +7,7 @@ const read=p=>fs.readFileSync(new URL(`../${p}`,import.meta.url),'utf8');
 test('UberLit service is non-root, restartable, and filesystem-bounded',()=>{
   const unit=read('ops/sovereign/uberlit.service');
   assert.match(unit,/User=uberlit/);assert.match(unit,/Group=uberlit/);
-  assert.match(unit,/Restart=on-failure/);assert.match(unit,/NoNewPrivileges=true/);
+  assert.match(unit,/Restart=always/);assert.match(unit,/NoNewPrivileges=true/);
   assert.match(unit,/ProtectSystem=strict/);assert.match(unit,/ProtectHome=true/);
   assert.match(unit,/ReadOnlyPaths=\/opt\/uberlit\/source/);assert.match(unit,/ReadWritePaths=\/var\/lib\/uberlit/);
   assert.match(unit,/uberlit-supervisor\.mjs --keep-running/);assert.match(unit,/APP_BASE_URL=https:\/\/127\.0\.0\.1:32443/);assert.match(unit,/TRUST_PROXY_HOPS=1/);
@@ -15,7 +15,7 @@ test('UberLit service is non-root, restartable, and filesystem-bounded',()=>{
 
 test('UberLit TLS edge is separately supervised with least privilege',()=>{
   const unit=read('ops/sovereign/uberlit-tls-edge.service');
-  assert.match(unit,/User=uberlit/);assert.match(unit,/Restart=on-failure/);assert.match(unit,/NoNewPrivileges=true/);
+  assert.match(unit,/User=uberlit/);assert.match(unit,/Restart=always/);assert.match(unit,/NoNewPrivileges=true/);
   assert.match(unit,/uberlit-tls-edge\.mjs/);assert.match(unit,/UBERLIT_TLS_BIND=127\.0\.0\.1/);
   assert.match(unit,/ReadOnlyPaths=\/opt\/uberlit\/source/);assert.match(unit,/ReadWritePaths=\/var\/lib\/uberlit/);
 });

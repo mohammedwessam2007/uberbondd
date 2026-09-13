@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBERCLOUD_CONTABO_CELL_VERSION='uberbond.ubercloud-contabo-cell.v1';
+export const UBERCLOUD_CONTABO_CELL_VERSION='uberbond.ubercloud-contabo-cell.v1.1';
 const SHA40=/^[0-9a-f]{40}$/;
 const SHA256=/^sha256:[0-9a-f]{64}$/;
 const IPV4=/^(?:25[0-5]|2[0-4]\d|1?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
@@ -53,25 +53,16 @@ export function compileContaboMailCellPlan({
   if(period!==1)reasons.push('one-month-initial-period-required');
   if(reasons.length)return fail(reasons);
   const plan={
-    schemaVersion:'uberbond.contabo-mail-cell-plan.v1',
+    schemaVersion:'uberbond.contabo-mail-cell-plan.v1.1',
     provider:'contabo',
     serviceId:'uberdoso-owned-mail-cell',
     sourceCommit:source,
     hostname:host,
     quote:observedQuote.quote,
-    request:{
-      productId:'V153',
-      regionId:region,
-      imageId:image,
-      period:1,
-      displayName:'uberdoso-mail-cell',
-      defaultUser:'admin',
-      sshKeys:[sshKey]
-    },
+    request:{productId:'V153',regionId:region,imageId:image,period:1,displayName:'uberdoso-mail-cell',defaultUser:'admin',sshKeys:[sshKey]},
+    boundedPostAcquisitionEffects:['OBSERVE_PUBLIC_IPV4','SET_PTR_TO_CANONICAL_MAIL_HOST'],
     handoff:{nextControlPlane:'UBERCEL_UBERLIT_LINUX',nextRuntime:'UBERDOSO_POSTAL',requiredObservation:['instance-id','public-ipv4','ptr-updated','host-reachability']},
-    businessEffectAuthority:'NONE',
-    spendAuthority:'NONE',
-    deploymentAuthority:'NONE'
+    businessEffectAuthority:'NONE',spendAuthority:'NONE',deploymentAuthority:'NONE'
   };
   return{ok:true,status:'CONTABO_MAIL_CELL_PLAN_READY',plan,planDigest:digest(plan),businessEffectAuthority:'NONE',spendAuthority:'NONE',deploymentAuthority:'NONE',externalEffectLedger:zero()};
 }
@@ -93,13 +84,18 @@ function validateAuthorization(raw={},planResult,nowMs){
   return reasons.length?{ok:false,reasonCodes:reasons}:{ok:true,authorization:{authorizationId:id,evidenceRef,approvedByRole,planDigest,currency,maxSpendCents,approvedAt:new Date(approvedMs).toISOString(),expiresAt:new Date(expiresMs).toISOString(),spendAuthority:'EXPLICIT_ONE_SHOT',oneShot:true}};
 }
 
-export async function executeContaboMailCellAcquisition({
-  planResult,
-  authorization,
-  claimAuthorization,
-  client,
-  now=new Date()
-}={}){
+function acquiredReceipt({planResult,auth,claim,instanceId,publicIpv4=null,ptrStatus='PENDING_OBSERVATION_OR_UPDATE'}){
+  return{
+    schemaVersion:UBERCLOUD_CONTABO_CELL_VERSION,
+    provider:'contabo',instanceId,publicIpv4,hostname:planResult.plan.hostname,sourceCommit:planResult.plan.sourceCommit,planDigest:planResult.planDigest,
+    authorizationId:auth.authorization.authorizationId,authorizationEvidenceRef:auth.authorization.evidenceRef,claimRef:claim.claimRef,quoteEvidenceRef:planResult.plan.quote.evidenceRef,
+    expectedInitialSpendCents:planResult.plan.quote.expectedInitialSpendCents,currency:planResult.plan.quote.currency,
+    postAcquisitionAuthority:'BOUND_TO_EXACT_ACQUISITION_PLAN',nextControlPlane:'UBERCEL_UBERLIT_LINUX',nextRuntime:'UBERDOSO_POSTAL',ptrStatus,
+    truthBoundary:'This receipt proves only provider-reported cell acquisition and any explicitly observed PTR action bound to the exact authorized plan. It does not prove SMTP reachability, persistent UberLit/Postal operation, DKIM, DNS publication, mailbox health, or delivery authority.'
+  };
+}
+
+export async function executeContaboMailCellAcquisition({planResult,authorization,claimAuthorization,client,now=new Date()}={}){
   if(!planResult?.ok||planResult.status!=='CONTABO_MAIL_CELL_PLAN_READY'||!planResult.plan||digest(planResult.plan)!==planResult.planDigest)return fail(['valid-contabo-mail-cell-plan-required']);
   const nowMs=now instanceof Date?now.getTime():Date.parse(String(now));if(!Number.isFinite(nowMs))return fail(['valid-observation-time-required']);
   const auth=validateAuthorization(authorization,planResult,nowMs);if(!auth.ok)return fail(auth.reasonCodes);
@@ -113,27 +109,28 @@ export async function executeContaboMailCellAcquisition({
   catch(error){return{ok:false,status:'CONTABO_MAIL_CELL_ACQUISITION_UNCERTAIN',reasonCodes:['instance-create-threw-after-spend-authorization-claim'],claimRef:claim.claimRef,errorClass:error?.name||'Error',businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:null,purchases:null,deployments:null,spendCents:null}};}
   const instanceId=text(created?.instanceId,120);
   if(!created?.ok||!instanceId)return{ok:false,status:'CONTABO_MAIL_CELL_ACQUISITION_UNCERTAIN',reasonCodes:['canonical-instance-creation-receipt-required'],claimRef:claim.claimRef,businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:null,purchases:null,deployments:null,spendCents:null}};
-  const ip=text(created.publicIpv4,64);
-  const receipt={
-    schemaVersion:UBERCLOUD_CONTABO_CELL_VERSION,
-    provider:'contabo',
-    instanceId,
-    publicIpv4:IPV4.test(ip||'')?ip:null,
-    hostname:planResult.plan.hostname,
-    sourceCommit:planResult.plan.sourceCommit,
-    planDigest:planResult.planDigest,
-    authorizationId:auth.authorization.authorizationId,
-    authorizationEvidenceRef:auth.authorization.evidenceRef,
-    claimRef:claim.claimRef,
-    quoteEvidenceRef:planResult.plan.quote.evidenceRef,
-    expectedInitialSpendCents:planResult.plan.quote.expectedInitialSpendCents,
-    currency:planResult.plan.quote.currency,
-    nextControlPlane:'UBERCEL_UBERLIT_LINUX',
-    nextRuntime:'UBERDOSO_POSTAL',
-    ptrStatus:'PENDING_OBSERVATION_OR_UPDATE',
-    truthBoundary:'This receipt proves the provider reported an instance creation after an explicitly bounded one-shot founder spend authorization. It does not prove PTR, SMTP reachability, persistent UberLit/Postal operation, DKIM, DNS publication, mailbox health, or delivery authority.'
-  };
-  return{ok:true,status:'CONTABO_MAIL_CELL_ACQUIRED__PHYSICAL_RECONCILIATION_REQUIRED',receipt,receiptDigest:digest(receipt),businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:1,purchases:1,deployments:1,spendCents:planResult.plan.quote.expectedInitialSpendCents}};
+  const ip=text(created.publicIpv4,64);let ptrStatus='PENDING_OBSERVATION_OR_UPDATE';let providerCalls=1;let dnsChanges=0;
+  if(IPV4.test(ip||'')&&typeof client.setPtr==='function'){
+    try{const ptr=await client.setPtr({ip,ptr:planResult.plan.hostname});providerCalls++;if(ptr?.ok){ptrStatus='UPDATE_ACCEPTED';dnsChanges=1;}else ptrStatus='UPDATE_UNCERTAIN';}
+    catch{providerCalls++;ptrStatus='UPDATE_UNCERTAIN';}
+  }
+  const receipt=acquiredReceipt({planResult,auth,claim,instanceId,publicIpv4:IPV4.test(ip||'')?ip:null,ptrStatus});
+  return{ok:true,status:ptrStatus==='UPDATE_ACCEPTED'?'CONTABO_MAIL_CELL_ACQUIRED__PTR_UPDATE_ACCEPTED':'CONTABO_MAIL_CELL_ACQUIRED__PHYSICAL_RECONCILIATION_REQUIRED',receipt,receiptDigest:digest(receipt),businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls,purchases:1,deployments:1,dnsChanges,spendCents:planResult.plan.quote.expectedInitialSpendCents}};
+}
+
+export async function reconcileContaboMailCell({acquisitionResult,client}={}){
+  if(!acquisitionResult?.ok||!acquisitionResult.receipt||!SHA256.test(String(acquisitionResult.receiptDigest||''))||digest(acquisitionResult.receipt)!==acquisitionResult.receiptDigest)return fail(['valid-acquisition-receipt-required']);
+  const receipt=acquisitionResult.receipt;
+  if(receipt.provider!=='contabo'||receipt.postAcquisitionAuthority!=='BOUND_TO_EXACT_ACQUISITION_PLAN'||receipt.hostname!=='mta.uberbond.cloud')return fail(['bounded-post-acquisition-authority-required']);
+  if(!client||typeof client.getInstance!=='function'||typeof client.setPtr!=='function')return fail(['contabo-reconciliation-client-required']);
+  let observed;
+  try{observed=await client.getInstance(receipt.instanceId);}catch{return{ok:false,status:'CONTABO_MAIL_CELL_RECONCILIATION_UNCERTAIN',reasonCodes:['instance-observation-failed'],businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:null,dnsChanges:null}};}
+  const ip=text(observed?.publicIpv4,64);
+  if(!observed?.ok||!IPV4.test(ip||''))return{ok:true,status:'CONTABO_MAIL_CELL_WAITING_FOR_PUBLIC_IPV4',instanceId:receipt.instanceId,businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:1}};
+  try{const ptr=await client.setPtr({ip,ptr:receipt.hostname});if(!ptr?.ok)throw new Error('ptr-not-accepted');}
+  catch{return{ok:false,status:'CONTABO_MAIL_CELL_RECONCILIATION_UNCERTAIN',reasonCodes:['ptr-update-failed-after-instance-observation'],instanceId:receipt.instanceId,publicIpv4:ip,businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:null,dnsChanges:null}};}
+  const reconciled={...receipt,publicIpv4:ip,ptrStatus:'UPDATE_ACCEPTED'};
+  return{ok:true,status:'CONTABO_MAIL_CELL_PTR_UPDATE_ACCEPTED',receipt:reconciled,receiptDigest:digest(reconciled),businessEffectAuthority:'NONE',spendAuthority:'CONSUMED',deploymentAuthority:'CONSUMED',externalEffectLedger:{...zero(),providerCalls:2,dnsChanges:1}};
 }
 
 export function createContaboApiClient({clientId,clientSecret,apiUser,apiPassword,fetchFn=globalThis.fetch,requestId=()=>crypto.randomUUID()}={}){
@@ -147,21 +144,24 @@ export function createContaboApiClient({clientId,clientSecret,apiUser,apiPasswor
     if(!response?.ok)throw new Error(`contabo-auth-failed:${response?.status??'unknown'}`);
     const json=await response.json();token=text(json?.access_token,10_000);if(!token)throw new Error('contabo-access-token-required');return token;
   }
+  const headers=async()=>({authorization:`Bearer ${await accessToken()}`,'content-type':'application/json','x-request-id':requestId()});
   return{
     async createInstance(request){
-      const bearer=await accessToken();
-      const response=await fetchFn('https://api.contabo.com/v1/compute/instances',{method:'POST',headers:{authorization:`Bearer ${bearer}`,'content-type':'application/json','x-request-id':requestId()},body:JSON.stringify(request)});
+      const response=await fetchFn('https://api.contabo.com/v1/compute/instances',{method:'POST',headers:await headers(),body:JSON.stringify(request)});
       if(!response?.ok)throw new Error(`contabo-instance-create-failed:${response?.status??'unknown'}`);
-      const json=await response.json();
-      const instanceId=text(json?.instanceId??json?.data?.[0]?.instanceId,120);
-      const publicIpv4=text(json?.ipConfig?.v4?.ip??json?.data?.[0]?.ipConfig?.v4?.ip??json?.publicIpv4,64);
+      const json=await response.json();const instanceId=text(json?.instanceId??json?.data?.[0]?.instanceId,120);const publicIpv4=text(json?.ipConfig?.v4?.ip??json?.data?.[0]?.ipConfig?.v4?.ip??json?.publicIpv4,64);
       return{ok:Boolean(instanceId),instanceId,publicIpv4:IPV4.test(publicIpv4||'')?publicIpv4:null,rawStatus:'CREATED'};
     },
+    async getInstance(instanceId){
+      const id=text(instanceId,120);if(!id)throw new Error('instance-id-required');
+      const response=await fetchFn(`https://api.contabo.com/v1/compute/instances/${encodeURIComponent(id)}`,{method:'GET',headers:await headers()});
+      if(!response?.ok)throw new Error(`contabo-instance-read-failed:${response?.status??'unknown'}`);
+      const json=await response.json();const row=json?.data?.[0]??json;const publicIpv4=text(row?.ipConfig?.v4?.ip??row?.publicIpv4,64);
+      return{ok:true,instanceId:id,publicIpv4:IPV4.test(publicIpv4||'')?publicIpv4:null,providerStatus:text(row?.status,120)};
+    },
     async setPtr({ip,ptr}){
-      const address=text(ip,64),hostname=text(ptr,253)?.toLowerCase();
-      if(!IPV4.test(address||'')||!hostname)throw new Error('valid-ip-and-ptr-required');
-      const bearer=await accessToken();
-      const response=await fetchFn(`https://api.contabo.com/v1/dns/ptrs/${encodeURIComponent(address)}`,{method:'PUT',headers:{authorization:`Bearer ${bearer}`,'content-type':'application/json','x-request-id':requestId()},body:JSON.stringify({ptr:hostname})});
+      const address=text(ip,64),hostname=text(ptr,253)?.toLowerCase();if(!IPV4.test(address||'')||!hostname)throw new Error('valid-ip-and-ptr-required');
+      const response=await fetchFn(`https://api.contabo.com/v1/dns/ptrs/${encodeURIComponent(address)}`,{method:'PUT',headers:await headers(),body:JSON.stringify({ptr:hostname})});
       if(!response?.ok)throw new Error(`contabo-ptr-update-failed:${response?.status??'unknown'}`);
       return{ok:true,status:'PTR_UPDATE_ACCEPTED',ip:address,ptr:hostname};
     }

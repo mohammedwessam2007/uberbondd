@@ -8,8 +8,6 @@ on:
       - runtime_signal
       - recovery_signal
   push:
-    branches:
-      - main
     paths:
       - scripts/free-runtime-witness.mjs
       - .github/workflows/uberlit-free-runtime.yml

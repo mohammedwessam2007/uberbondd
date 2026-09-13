@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.capability-reality.receipts.v1",
+  "receipts": [
+    {
+      "id": "live-cross-platform-public-research-adapters",
+      "synthetic": false,
+      "observedAt": "2026-09-13T00:00:00Z",
+      "evidenceRefs": [
+        "https://api.github.com/repos/mohammedwessam2007/uberbondd/branches/main",
+        "https://registry.modelcontextprotocol.io/docs"
+      ],
+      "adapters": [
+        {
+          "platform": "github",
+          "live": true,
+          "policyCompliant": true,
+          "publicDataObserved": true,
+          "receiptRef": "https://api.github.com/repos/mohammedwessam2007/uberbondd/branches/main"
+        },
+        {
+          "platform": "official-mcp-registry",
+          "live": true,
+          "policyCompliant": true,
+          "publicDataObserved": true,
+          "receiptRef": "https://registry.modelcontextprotocol.io/docs"
+        }
+      ],
+      "truthBoundary": "This receipt proves two fresh policy-compliant read-only public research surfaces were observed live. It does not prove authenticated private-platform research, outbound actions, provider credentials, spending authority, messaging authority, deployment authority, payment authority, or identity/custody evidence."
+    }
+  ]
+}

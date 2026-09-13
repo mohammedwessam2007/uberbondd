@@ -32,3 +32,27 @@ test('external store dedupes repeated capability identities before final selecti
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('final compaction protects rare neural faculties before filling by global prior', async () => {
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'neural-diversity-'));
+  try {
+    const reasoning = [
+      cap('x/r1', 'reasoning', 100000, '2026-09-01T00:00:00Z'),
+      cap('x/r2', 'reasoning', 90000, '2026-09-01T00:00:00Z'),
+      cap('x/r3', 'reasoning', 80000, '2026-09-01T00:00:00Z'),
+      cap('x/r4', 'reasoning', 70000, '2026-09-01T00:00:00Z'),
+      cap('x/r5', 'reasoning', 60000, '2026-09-01T00:00:00Z')
+    ];
+    const rare = cap('x/rare-causal', 'causal', 0, '2018-01-01T00:00:00Z');
+    rare.neuralPrior = { ...rare.neuralPrior, score: 0.000001 };
+    await writeNeuralHarvestBatch({ rootDir: dir, repositories: [], capabilities: [...reasoning, rare], manifest: { batchId: 'diverse' } });
+    const result = await compactNeuralExocortexCorpus({ rootDir: dir, target: 4, shardCount: 16 });
+    assert.equal(result.manifest.retainedCapabilityRecords, 4);
+    assert.equal(result.manifest.protectedPerFamily, 1);
+    assert.match(result.manifest.selectionLaw, /DIVERSITY_PROTECTED/);
+    const rows = (await readFile(path.join(dir, 'final', 'capabilities.jsonl'), 'utf8')).trim().split('\n').map(JSON.parse);
+    assert.equal(rows.some(row => row.family === 'causal'), true);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});

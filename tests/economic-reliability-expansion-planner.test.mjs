@@ -1,15 +1,31 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { planEconomicReliabilityExpansion } from '../src/economic-reliability-expansion-planner.mjs';
+import { compileEconomicRouteDependencyReceipt } from '../src/economic-route-dependency.mjs';
 
-function route(i,{p=0.5,domain=`d${i}`,independent=true,calibrated=true,minutes=1}={}){
+function dependency(i,overrides={}){
+  const factors={
+    demandSource:`demand-${i}`,
+    buyerPool:`buyers-${i}`,
+    distributionRail:`distribution-${i}`,
+    paymentRail:`payment-${i}`,
+    fulfillmentRail:`fulfillment-${i}`,
+    platformDependency:`platform-${i}`,
+    providerDependency:`provider-${i}`,
+    ...overrides
+  };
+  const factorEvidence=Object.fromEntries(Object.keys(factors).map(k=>[k,[`e:${i}:${k}`]]));
+  return compileEconomicRouteDependencyReceipt({routeId:`r${i}`,factors,factorEvidence,observedAt:new Date('2026-09-14T12:00:00Z')}).receipt;
+}
+
+function route(i,{p=0.5,calibrated=true,minutes=1,dependencyReceipt=dependency(i)}={}){
   return {
     routeId:`r${i}`,
-    failureDomain:domain,
+    failureDomain:`domain-${i}`,
     successProbabilityLowerBound:p,
     evidenceRefs:[`e:${i}`],
     calibrationRefs:calibrated?[`c:${i}`]:[],
-    independenceEvidenceRefs:independent?[`i:${i}`]:[],
+    dependencyReceipt,
     policyCleared:true,
     executableNow:true,
     founderMinutes:minutes,
@@ -17,10 +33,10 @@ function route(i,{p=0.5,domain=`d${i}`,independent=true,calibrated=true,minutes=
   };
 }
 
-test('same-domain weaker route has zero marginal reliability gain',()=>{
+test('shared dependency weaker route has zero marginal reliability gain',()=>{
   const result=planEconomicReliabilityExpansion({
-    activeRoutes:[route(1,{p:0.6,domain:'marketplace'})],
-    candidateRoutes:[route(2,{p:0.4,domain:'marketplace'})],
+    activeRoutes:[route(1,{p:0.6,dependencyReceipt:dependency(1,{paymentRail:'same-pay'})})],
+    candidateRoutes:[route(2,{p:0.4,dependencyReceipt:dependency(2,{paymentRail:'same-pay'})})],
     maxAdditions:3
   });
   assert.equal(result.selectedCount,0);
@@ -28,25 +44,18 @@ test('same-domain weaker route has zero marginal reliability gain',()=>{
   assert.equal(result.finalReliability.successProbability,0.6);
 });
 
-test('orthogonal evidenced route has positive marginal gain',()=>{
-  const result=planEconomicReliabilityExpansion({
-    activeRoutes:[route(1,{p:0.5,domain:'marketplace'})],
-    candidateRoutes:[route(2,{p:0.5,domain:'bounty'})],
-    maxAdditions:1
-  });
+test('dependency-disjoint evidenced route has positive marginal gain',()=>{
+  const result=planEconomicReliabilityExpansion({activeRoutes:[route(1,{p:0.5})],candidateRoutes:[route(2,{p:0.5})],maxAdditions:1});
   assert.equal(result.selectedCount,1);
   assert.equal(result.selectedAdditions[0].routeId,'r2');
   assert.ok(result.selectedAdditions[0].logReliabilityGain>0);
   assert.equal(result.finalReliability.successProbability,0.75);
 });
 
-test('uncalibrated or independence-unproven candidate has zero gain',()=>{
+test('uncalibrated or dependency-unproven candidate has zero gain',()=>{
   const result=planEconomicReliabilityExpansion({
-    activeRoutes:[route(1,{p:0.5,domain:'marketplace'})],
-    candidateRoutes:[
-      route(2,{p:0.99,domain:'bounty',calibrated:false}),
-      route(3,{p:0.99,domain:'referral',independent:false})
-    ],
+    activeRoutes:[route(1,{p:0.5})],
+    candidateRoutes:[route(2,{p:0.99,calibrated:false}),route(3,{p:0.99,dependencyReceipt:null})],
     maxAdditions:2
   });
   assert.equal(result.selectedCount,0);
@@ -54,9 +63,9 @@ test('uncalibrated or independence-unproven candidate has zero gain',()=>{
   assert.equal(result.finalReliability.successProbability,0.5);
 });
 
-test('36 independent 50 percent domains plus one orthogonal 50 percent candidate crosses target',()=>{
-  const active=Array.from({length:36},(_,i)=>route(i,{p:0.5,domain:`active-${i}`}));
-  const candidate=route(100,{p:0.5,domain:'new-orthogonal'});
+test('36 disjoint 50 percent components plus one disjoint candidate crosses target',()=>{
+  const active=Array.from({length:36},(_,i)=>route(i,{p:0.5}));
+  const candidate=route(100,{p:0.5});
   const result=planEconomicReliabilityExpansion({activeRoutes:active,candidateRoutes:[candidate],maxAdditions:1});
   assert.equal(result.startReliability.targetReached,false);
   assert.equal(result.finalReliability.targetReached,true);
@@ -65,12 +74,13 @@ test('36 independent 50 percent domains plus one orthogonal 50 percent candidate
 });
 
 test('planner prefers better marginal reliability gain per burden and recomputes after selection',()=>{
+  const sharedFast='fast-shared-buyers';
   const result=planEconomicReliabilityExpansion({
-    activeRoutes:[route(1,{p:0.2,domain:'base'})],
+    activeRoutes:[route(1,{p:0.2})],
     candidateRoutes:[
-      route(2,{p:0.6,domain:'fast',minutes:1}),
-      route(3,{p:0.8,domain:'slow',minutes:20}),
-      route(4,{p:0.5,domain:'fast',minutes:1})
+      route(2,{p:0.6,minutes:1,dependencyReceipt:dependency(2,{buyerPool:sharedFast})}),
+      route(3,{p:0.8,minutes:20}),
+      route(4,{p:0.5,minutes:1,dependencyReceipt:dependency(4,{buyerPool:sharedFast})})
     ],
     maxAdditions:2
   });
@@ -80,11 +90,7 @@ test('planner prefers better marginal reliability gain per burden and recomputes
 });
 
 test('planner never claims target when no evidence-backed path crosses it',()=>{
-  const result=planEconomicReliabilityExpansion({
-    activeRoutes:[],
-    candidateRoutes:[route(1,{p:0.9,independent:false}),route(2,{p:0.9,calibrated:false})],
-    maxAdditions:10
-  });
+  const result=planEconomicReliabilityExpansion({activeRoutes:[],candidateRoutes:[route(1,{p:0.9,dependencyReceipt:null}),route(2,{p:0.9,calibrated:false})],maxAdditions:10});
   assert.equal(result.targetReached,false);
   assert.equal(result.status,'ECONOMIC_RELIABILITY_EXPANSION_REQUIRED');
   assert.equal(result.finalReliability.residualZeroProbability,1);

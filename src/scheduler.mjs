@@ -3,7 +3,7 @@ import { reconcileScheduledOccurrence } from './durable-scheduler-occurrence.mjs
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
-const WEALTH_HEARTBEAT_MS = 10 * SECOND;
+const WEALTH_HEARTBEAT_MS = SECOND;
 
 export function startScheduler(queue, cfg, log = console) {
   const timers = [];
@@ -36,7 +36,7 @@ export function startScheduler(queue, cfg, log = console) {
       // gaps and life-level priorities but has no external-effect authority.
       ['personal.civilization.pulse', 15 * MINUTE, {}, { maxAttempts: 3 }],
       // Universal Wealth is the resident economic control heartbeat. It wakes
-      // every ten seconds while autopilot is running so opportunity discovery,
+      // every second while autopilot is running so opportunity discovery,
       // ranking, simulation, reconciliation, inevitability checks, and bounded
       // self-repair never wait on a ChatGPT/task scheduler. Durable occurrence
       // dedupe + singleton protection prevent overlapping wealth pulses when a

@@ -36,7 +36,7 @@ if (!execute) {
   emit({ ok: true, status: 'NEURAL_EXOCORTEX_HARVEST_NOT_DUE', nextEligibleAt: state.nextEligibleAt, measuredFinalRetainedCapabilities: Number(finalManifest?.retainedCapabilityRecords || 0), state, revenueRuntimeDependency: 'NONE' });
 } else {
   const priorRefinements = uniquePartitions(state.refinementQueue || []);
-  let selectedPartitions = priorRefinements.slice(0, refinementBatchSize), atlasAdvance = 0, windowStart = null;
+  let selectedPartitions = priorRefinements.slice(0, refinementBatchSize), windowStart = null;
   let windowEnd = state.windowEnd || isoDay(), source = 'REFINEMENT_QUEUE';
   if (!selectedPartitions.length) {
     source = 'ATLAS_SWEEP';
@@ -45,7 +45,7 @@ if (!execute) {
     windowStart = addDays(windowEnd, -(windowDays - 1)); if (windowStart < earliestDate) windowStart = earliestDate;
     const compiled = compileNeuralGithubPartitions({ atlasEntries: entries, startDate: windowStart, endDate: windowEnd, maxEntries: entries.length });
     if (!compiled.ok) emit({ ...compiled, status: 'NEURAL_EXOCORTEX_PARTITION_COMPILE_REFUSED', revenueRuntimeDependency: 'NONE' }, 1);
-    else { selectedPartitions = compiled.partitions; atlasAdvance = entries.length; }
+    else selectedPartitions = compiled.partitions;
   }
   if (selectedPartitions.length) {
     const execution = await executeNeuralGithubPartitions({ partitions: selectedPartitions, maxProviderCalls });
@@ -54,14 +54,19 @@ if (!execute) {
       const repositories = execution.receipts.flatMap(receipt => receipt.repositories || []), capabilities = [];
       let rejectedCapabilityObservations = 0;
       for (const repository of repositories) { const normalized = normalizeNeuralCapabilityObservation(repository, { observedAt: repository.observedAt || new Date() }); if (!normalized.ok) { rejectedCapabilityObservations += 1; continue; } capabilities.push(normalized.capability); }
-      const stored = await writeNeuralHarvestBatch({ rootDir, repositories, capabilities, manifest: { source, providerCalls: execution.providerCalls, executionStatus: execution.status, partitionCount: selectedPartitions.length, refinementCount: execution.refinements.length, unresolvedSaturatedLeafCount: execution.unresolvedSaturatedLeaves.length, rejectedCapabilityObservations, immutableFinalCapabilityTarget: NEURAL_FINAL_CAPABILITY_TARGET } });
+      const stored = await writeNeuralHarvestBatch({ rootDir, repositories, capabilities, manifest: { source, providerCalls: execution.providerCalls, executionStatus: execution.status, requestedPartitionCount: selectedPartitions.length, processedPartitionCount: execution.processedPartitionIds?.length || execution.receipts.length, refinementCount: execution.refinements.length, unresolvedSaturatedLeafCount: execution.unresolvedSaturatedLeaves.length, rejectedCapabilityObservations, immutableFinalCapabilityTarget: NEURAL_FINAL_CAPABILITY_TARGET } });
       if (!stored.ok) emit({ ...stored, status: 'NEURAL_EXOCORTEX_BATCH_STORE_REFUSED', revenueRuntimeDependency: 'NONE' }, 1);
       else {
+        const processedIds = new Set((execution.processedPartitionIds || execution.receipts.map(receipt => receipt.partitionId)).filter(Boolean));
+        const processedPartitionCount = processedIds.size;
         let nextAtlasCursor = Number(state.atlasCursor || 0), nextWindowEnd = windowEnd, historicalSweepsCompleted = Number(state.historicalSweepsCompleted || 0);
-        let remainingRefinements = priorRefinements.slice(selectedPartitions.length);
-        if (source === 'REFINEMENT_QUEUE') remainingRefinements = uniquePartitions([...remainingRefinements, ...(execution.refinements || [])]);
-        else {
-          nextAtlasCursor += atlasAdvance; remainingRefinements = uniquePartitions([...(execution.refinements || [])]);
+        let remainingRefinements;
+        if (source === 'REFINEMENT_QUEUE') {
+          const untouchedPrior = priorRefinements.filter(partition => !processedIds.has(partition.id));
+          remainingRefinements = uniquePartitions([...untouchedPrior, ...(execution.refinements || [])]);
+        } else {
+          nextAtlasCursor += processedPartitionCount;
+          remainingRefinements = uniquePartitions([...(execution.refinements || [])]);
           if (nextAtlasCursor >= atlas.queries.length) { nextAtlasCursor = 0; const priorWindowEnd = addDays(windowStart, -1); if (priorWindowEnd < earliestDate) { historicalSweepsCompleted += 1; nextWindowEnd = isoDay(); } else nextWindowEnd = priorWindowEnd; }
         }
         const unresolved = [...(state.unresolvedSaturatedLeaves || []), ...(execution.unresolvedSaturatedLeaves || [])];
@@ -69,7 +74,7 @@ if (!execute) {
         const nextState = { ...state, atlasCursor: nextAtlasCursor, windowEnd: nextWindowEnd, refinementQueue: remainingRefinements, unresolvedSaturatedLeaves: uniqueUnresolved, historicalSweepsCompleted, providerCalls: Number(state.providerCalls || 0) + Number(execution.providerCalls || 0), repositoryObservations: Number(state.repositoryObservations || 0) + repositories.length, capabilityObservations: Number(state.capabilityObservations || 0) + capabilities.length, batches: Number(state.batches || 0) + 1, lastRunAt: new Date().toISOString(), nextEligibleAt: new Date(Date.now() + refreshIntervalSec * 1000).toISOString(), immutableFinalCapabilityTarget: NEURAL_FINAL_CAPABILITY_TARGET };
         await writeNeuralHarvestState(rootDir, nextState);
         const afterManifest = await readNeuralFinalManifest(rootDir);
-        emit({ ok: true, status: execution.status === 'NEURAL_HARVEST_RATE_LIMITED_NO_BLIND_RETRY' ? execution.status : 'NEURAL_EXOCORTEX_HARVEST_BATCH_RECORDED', source, providerCalls: execution.providerCalls, repositoriesObservedThisBatch: repositories.length, capabilityClaimsThisBatch: capabilities.length, batchId: stored.batchId, queuedRefinements: nextState.refinementQueue.length, unresolvedSaturatedLeaves: nextState.unresolvedSaturatedLeaves.length, historicalSweepsCompleted: nextState.historicalSweepsCompleted, measuredFinalRetainedCapabilities: Number(afterManifest?.retainedCapabilityRecords || finalManifest?.retainedCapabilityRecords || 0), finalDedupedCapabilityTarget: NEURAL_FINAL_CAPABILITY_TARGET, finalTargetSatisfied: Number(afterManifest?.retainedCapabilityRecords || 0) >= NEURAL_FINAL_CAPABILITY_TARGET, state: nextState, revenueRuntimeDependency: 'NONE', promotionAuthority: 'NONE', consequenceAuthority: 'NONE', truthBoundary: 'HARVEST_BATCHES_ACCUMULATE_DISCOVERY_CLAIMS_ONLY__THE_FINAL_ONE_MILLION_COUNT_COMES_ONLY_FROM_DEDUPED_COMPACTION__NO_DISCOVERED_RECORD_IS_EXECUTABLE_WITHOUT_SEPARATE_SECURITY_BENCHMARK_AND_APPROVAL' });
+        emit({ ok: true, status: execution.status === 'NEURAL_HARVEST_RATE_LIMITED_NO_BLIND_RETRY' ? execution.status : 'NEURAL_EXOCORTEX_HARVEST_BATCH_RECORDED', source, providerCalls: execution.providerCalls, requestedPartitions: selectedPartitions.length, processedPartitions: processedPartitionCount, repositoriesObservedThisBatch: repositories.length, capabilityClaimsThisBatch: capabilities.length, batchId: stored.batchId, queuedRefinements: nextState.refinementQueue.length, unresolvedSaturatedLeaves: nextState.unresolvedSaturatedLeaves.length, historicalSweepsCompleted: nextState.historicalSweepsCompleted, measuredFinalRetainedCapabilities: Number(afterManifest?.retainedCapabilityRecords || finalManifest?.retainedCapabilityRecords || 0), finalDedupedCapabilityTarget: NEURAL_FINAL_CAPABILITY_TARGET, finalTargetSatisfied: Number(afterManifest?.retainedCapabilityRecords || 0) >= NEURAL_FINAL_CAPABILITY_TARGET, state: nextState, revenueRuntimeDependency: 'NONE', promotionAuthority: 'NONE', consequenceAuthority: 'NONE', truthBoundary: 'HARVEST_BATCHES_ACCUMULATE_DISCOVERY_CLAIMS_ONLY__UNPROCESSED_OR_INTERRUPTED_PARTITIONS_REMAIN_QUEUED__THE_FINAL_ONE_MILLION_COUNT_COMES_ONLY_FROM_DEDUPED_COMPACTION__NO_DISCOVERED_RECORD_IS_EXECUTABLE_WITHOUT_SEPARATE_SECURITY_BENCHMARK_AND_APPROVAL' });
       }
     }
   }

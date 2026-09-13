@@ -1,11 +1,12 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const PUBLIC_RESEARCH_ADAPTER_MESH_VERSION='uberbond.public-research-adapter-mesh.v1';
+export const PUBLIC_RESEARCH_ADAPTER_MESH_VERSION='uberbond.public-research-adapter-mesh.v1.1';
 const hash=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const envelope=extra=>({businessEffectAuthority:'NONE',externalEffectAuthority:'READ_ONLY_NETWORK',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS),...extra});
 const text=(v,max=2000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
 const MAX_RESULTS=25;
+const ALLOWED_PROVENANCE_HOSTS=Object.freeze({github:'github.com',hackernews:'news.ycombinator.com',npm:'registry.npmjs.org'});
 
 function queryUrl(adapter,query,limit){
   const q=encodeURIComponent(query);
@@ -14,10 +15,17 @@ function queryUrl(adapter,query,limit){
   if(adapter==='npm')return `https://registry.npmjs.org/-/v1/search?text=${q}&size=${limit}`;
   return null;
 }
+function canonicalProvenanceUrl(adapter,value){
+  try{
+    const parsed=new URL(String(value||''));
+    if(parsed.protocol!=='https:'||parsed.username||parsed.password||parsed.hostname!==ALLOWED_PROVENANCE_HOSTS[adapter])return null;
+    parsed.hash='';return parsed.toString();
+  }catch{return null;}
+}
 function parse(adapter,json){
-  if(adapter==='github')return (json?.items||[]).map(x=>({id:`github:${x.id}`,title:x.full_name,url:x.html_url,summary:x.description||'',observedSignals:{stars:x.stargazers_count,updatedAt:x.updated_at,language:x.language}}));
-  if(adapter==='hackernews')return (json?.hits||[]).map(x=>({id:`hn:${x.objectID}`,title:x.title||x.story_title||'untitled',url:x.url||x.story_url||`https://news.ycombinator.com/item?id=${x.objectID}`,summary:x.story_text||x.comment_text||'',observedSignals:{points:x.points,createdAt:x.created_at,author:x.author}}));
-  if(adapter==='npm')return (json?.objects||[]).map(x=>({id:`npm:${x.package?.name}`,title:x.package?.name,url:x.package?.links?.npm||`https://www.npmjs.com/package/${x.package?.name}`,summary:x.package?.description||'',observedSignals:{version:x.package?.version,date:x.package?.date,score:x.score?.final}}));
+  if(adapter==='github')return (json?.items||[]).map(x=>{const full=text(x.full_name,300);return {id:`github:${x.id}`,title:full,url:full?`https://github.com/${full}`:null,summary:x.description||'',observedSignals:{stars:x.stargazers_count,updatedAt:x.updated_at,language:x.language}};});
+  if(adapter==='hackernews')return (json?.hits||[]).map(x=>({id:`hn:${x.objectID}`,title:x.title||x.story_title||'untitled',url:`https://news.ycombinator.com/item?id=${encodeURIComponent(String(x.objectID||''))}`,targetUrl:x.url||x.story_url||null,summary:x.story_text||x.comment_text||'',observedSignals:{points:x.points,createdAt:x.created_at,author:x.author}}));
+  if(adapter==='npm')return (json?.objects||[]).map(x=>{const name=text(x.package?.name,300);return {id:`npm:${name}`,title:name,url:name?`https://registry.npmjs.org/${encodeURIComponent(name)}`:null,targetUrl:name?`https://www.npmjs.com/package/${name}`:null,summary:x.package?.description||'',observedSignals:{version:x.package?.version,date:x.package?.date,score:x.score?.final}};});
   return [];
 }
 
@@ -28,10 +36,10 @@ export async function searchPublicAdapter({adapter,query,limit=10,fetchImpl=glob
   try{
     const response=await fetchImpl(url,{method:'GET',redirect:'follow',signal:controller.signal,headers:{accept:'application/json','user-agent':'UberBond-Public-Research/1.0'}});
     if(!response.ok)return envelope({ok:false,status:'PUBLIC_RESEARCH_ADAPTER_FAILED',adapter:id,reasonCodes:[`http-status-${response.status}`]});
-    const json=await response.json(),rows=parse(id,json).slice(0,cap).filter(r=>r.id&&r.title&&String(r.url||'').startsWith('https://'));
+    const json=await response.json(),rows=parse(id,json).slice(0,cap).map(r=>({...r,url:canonicalProvenanceUrl(id,r.url)})).filter(r=>r.id&&r.title&&r.url);
     const observedAt=new Date().toISOString();
-    const results=rows.map(r=>({...r,adapter:id,sourceUrl:r.url,observedAt,evidenceDigest:hash({adapter:id,id:r.id,title:r.title,url:r.url,summary:r.summary,observedSignals:r.observedSignals})}));
-    return envelope({ok:true,status:'PUBLIC_RESEARCH_ADAPTER_COMPLETE',adapter:id,query:q,resultCount:results.length,results,receiptDigest:hash({adapter:id,query:q,results:results.map(r=>r.evidenceDigest)}),claimBoundary:'PUBLIC_SEARCH_RESULTS_ARE OBSERVATIONS_WITH_SOURCE_PROVENANCE_NOT_VERIFIED_FACTS'});
+    const results=rows.map(r=>({...r,adapter:id,sourceUrl:r.url,observedAt,evidenceDigest:hash({adapter:id,id:r.id,title:r.title,url:r.url,targetUrl:r.targetUrl||null,summary:r.summary,observedSignals:r.observedSignals})}));
+    return envelope({ok:true,status:'PUBLIC_RESEARCH_ADAPTER_COMPLETE',adapter:id,query:q,resultCount:results.length,results,receiptDigest:hash({adapter:id,query:q,results:results.map(r=>r.evidenceDigest)}),claimBoundary:'PUBLIC_SEARCH_RESULTS_ARE OBSERVATIONS_WITH_CANONICAL_SOURCE_PROVENANCE_NOT_VERIFIED_FACTS'});
   }catch(error){return envelope({ok:false,status:'PUBLIC_RESEARCH_ADAPTER_FAILED',adapter:id,reasonCodes:['network-read-failed'],errorClass:String(error?.name||'ERROR')});}
   finally{clearTimeout(timer);}
 }
@@ -44,5 +52,5 @@ export async function searchPublicMesh({query,adapters=['github','hackernews','n
   const byUrl=new Map();for(const receipt of successes)for(const row of receipt.results){const key=row.sourceUrl.toLowerCase();if(!byUrl.has(key))byUrl.set(key,row);}
   const results=[...byUrl.values()].sort((a,b)=>a.adapter.localeCompare(b.adapter)||a.id.localeCompare(b.id));
   const state={requestedAdapters:unique,successfulAdapters:successes.map(x=>x.adapter).sort(),failedAdapters:failures.map(x=>x.adapter).sort(),resultCount:results.length};
-  return envelope({ok:successes.length>=2,status:successes.length===unique.length?'PUBLIC_RESEARCH_MESH_COMPLETE':successes.length>=2?'PUBLIC_RESEARCH_MESH_PARTIAL':'PUBLIC_RESEARCH_MESH_INSUFFICIENT',state,results,failures,meshDigest:hash({state,evidence:results.map(r=>r.evidenceDigest)}),claimBoundary:'MESH_REQUIRES_AT_LEAST_TWO_INDEPENDENT_PUBLIC_ADAPTERS; PARTIAL_FAILURE_IS_VISIBLE; OBSERVATIONS_RETAIN_SOURCE_IDENTITY'});
+  return envelope({ok:successes.length>=2,status:successes.length===unique.length?'PUBLIC_RESEARCH_MESH_COMPLETE':successes.length>=2?'PUBLIC_RESEARCH_MESH_PARTIAL':'PUBLIC_RESEARCH_MESH_INSUFFICIENT',state,results,failures,meshDigest:hash({state,evidence:results.map(r=>r.evidenceDigest)}),claimBoundary:'MESH_REQUIRES_AT_LEAST_TWO_INDEPENDENT_PUBLIC_ADAPTERS; PARTIAL_FAILURE_IS_VISIBLE; OBSERVATIONS_RETAIN_CANONICAL_SOURCE_IDENTITY'});
 }

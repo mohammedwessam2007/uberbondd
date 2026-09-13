@@ -1,0 +1,12 @@
+[Unit]
+Description=Run UberBond Neural Exocortex Genome world harvest every six hours
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=6h
+Persistent=true
+RandomizedDelaySec=5min
+Unit=uberbond-neural-exocortex-harvest.service
+
+[Install]
+WantedBy=timers.target

@@ -20,20 +20,30 @@ test('UberLit TLS edge is separately supervised with least privilege',()=>{
   assert.match(unit,/ReadOnlyPaths=\/opt\/uberlit\/source/);assert.match(unit,/ReadWritePaths=\/var\/lib\/uberlit/);
 });
 
-test('UberLit worker is a separate restartable exact-runtime service',()=>{
+test('UberLit worker is a self-healing exact-runtime service with wealth liveness proof',()=>{
   const unit=read('ops/sovereign/uberlit-worker.service');const worker=read('scripts/uberlit-worker-supervisor.mjs');
-  assert.match(unit,/Requires=uberlit\.service/);assert.match(unit,/PartOf=uberlit\.service/);assert.match(unit,/User=uberlit/);assert.match(unit,/Restart=on-failure/);assert.match(unit,/NoNewPrivileges=true/);
+  assert.match(unit,/Requires=uberlit\.service/);assert.match(unit,/PartOf=uberlit\.service/);assert.match(unit,/User=uberlit/);assert.match(unit,/Restart=always/);assert.match(unit,/NoNewPrivileges=true/);
+  assert.match(unit,/Type=notify/);assert.match(unit,/NotifyAccess=all/);assert.match(unit,/WatchdogSec=60/);assert.match(unit,/AUTOPILOT_ENABLED=true/);
   assert.match(unit,/uberlit-worker-supervisor\.mjs/);assert.match(unit,/OUTBOUND_ENABLED=false/);assert.match(unit,/DISCOVERY_ENABLED=false/);
   assert.match(worker,/pointer\.sourceCommit!==sourceCommit/);assert.match(worker,/verifyStagedUberLitRelease/);assert.match(worker,/verifyUberLitBuild/);assert.match(worker,/\/api\/health/);
-  assert.match(worker,/PROCESS_ROLE:'worker'/);assert.match(worker,/worker\.mjs/);assert.match(worker,/uberlit-worker-secret-unsafe/);
+  assert.match(worker,/PROCESS_ROLE:'worker'/);assert.match(worker,/AUTOPILOT_ENABLED:'true'/);assert.match(worker,/UBERBOND_RUNTIME_ROOT:runtimeRoot/);assert.match(worker,/worker\.mjs/);assert.match(worker,/uberlit-worker-secret-unsafe/);
+  assert.match(worker,/worker-liveness\.json/);assert.match(worker,/universal-wealth-latest\.json/);assert.match(worker,/systemd-notify/);assert.match(worker,/WATCHDOG=1/);assert.match(worker,/requestRecycle/);
   assert.doesNotMatch(worker,/console\.log\(.*postgresPassword|process\.stdout.*databaseUrl/);
+});
+
+test('resident planners use sovereign runtime root instead of ephemeral release source',()=>{
+  const handlers=read('src/founder-outcome-job-handlers.mjs');
+  assert.match(handlers,/process\.env\.UBERBOND_RUNTIME_ROOT/);
+  assert.match(handlers,/root: residentRoot\(input\)/);
+  assert.match(handlers,/universal\.wealth\.pulse/);
 });
 
 test('installer copies exact local Git source and installs all resident services without a cloud provider',()=>{
   const script=read('ops/sovereign/install-uberlit.sh');
   assert.match(script,/git clone --quiet --no-hardlinks --no-checkout/);assert.match(script,/SOURCE_SHA=.*rev-parse HEAD/);assert.match(script,/SOURCE_TREE=.*HEAD\^\{tree\}/);
   assert.match(script,/remote remove origin/);assert.match(script,/tracked tree must be clean/);assert.doesNotMatch(script,/vercel|replit|macaly|railway|render|fly\.io/i);
-  assert.match(script,/openssl/);assert.match(script,/uberlit-tls-edge\.service/);assert.match(script,/uberlit-worker\.service/);
+  assert.match(script,/openssl/);assert.match(script,/systemd-notify/);assert.match(script,/uberlit-tls-edge\.service/);assert.match(script,/uberlit-worker\.service/);
+  assert.match(script,/AUTOPILOT_ENABLED=true/);assert.match(script,/OUTBOUND_ENABLED=false/);assert.match(script,/DISCOVERY_ENABLED=false/);
   assert.match(script,/systemctl enable uberlit\.service uberlit-tls-edge\.service uberlit-worker\.service/);assert.match(script,/APP_BASE_URL=https:\/\/127\.0\.0\.1:32443/);
   assert.match(script,/\[\[ "\$\{2:-\}" == "--start" \]\]/);
 });

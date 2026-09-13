@@ -26,6 +26,35 @@
         }
       ],
       "truthBoundary": "This receipt proves two fresh policy-compliant read-only public research surfaces were observed live. It does not prove authenticated private-platform research, outbound actions, provider credentials, spending authority, messaging authority, deployment authority, payment authority, or identity/custody evidence."
+    },
+    {
+      "id": "messaging-provider-redundancy",
+      "synthetic": false,
+      "observedAt": "2026-09-13T13:09:00Z",
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/issues/832",
+        "https://mail.google.com/mail/#all/19fa951fceaebb72",
+        "https://github.com/mohammedwessam2007/uberbondd/pull/828#issuecomment-5653054584"
+      ],
+      "paths": [
+        {
+          "providerId": "gmail",
+          "authorized": true,
+          "live": true,
+          "canaryObserved": true,
+          "senderIdentityRef": "gmail-profile:uberbond.co@gmail.com",
+          "deliveryReceiptRef": "https://mail.google.com/mail/#all/19fa951fceaebb72"
+        },
+        {
+          "providerId": "github",
+          "authorized": true,
+          "live": true,
+          "canaryObserved": true,
+          "senderIdentityRef": "github-user:mohammedwessam2007",
+          "deliveryReceiptRef": "https://github.com/mohammedwessam2007/uberbondd/pull/828#issuecomment-5653054584"
+        }
+      ],
+      "truthBoundary": "This receipt proves two distinct founder-authorized live messaging paths with observable sender identity and delivered message references. The Gmail evidence is a self-addressed delivered message and the GitHub evidence is a founder-authored repository comment. It does not prove prospect outreach, customer contact, conversion, or revenue."
     }
   ]
 }

@@ -1,41 +1,24 @@
 # Domain and Mailbox Readiness
 
-This mission's Wave 1 requirements are satisfied by the system built two
-waves ago tonight — full detail, live DNS proof, and the honest per-item
-current-state map live in **`docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md`**
-(not duplicated here). This file records only what changed in *this* wave's
-reconciliation pass.
+This file records mailbox/runtime readiness only. Asset-existence truth lives in `docs/EXTERNAL_ASSET_REALITY.md`.
 
-## Field-completeness reconciliation against this mission's exact schema
+## Canonical domain facts
 
-| This mission's field | Status before this wave | Change this wave |
-|---|---|---|
-| `SendingMailbox.dailyCap` | Present (`currentDailyCap`, `plannedDailyCap`) | No change |
-| `SendingMailbox.hourlyCap` | **Missing** | Added: `currentHourlyCap`, real-provider-value-only (never derived/guessed from the daily cap — stays `null`/UNKNOWN until a provider actually reports one) |
-| `SendingMailbox.warm-up age` | **Missing as a persisted/derived field** | Added: `warmupAgeDays`, computed at read time from the real recorded `warmupStartTime`, never stored redundantly |
-| Every other `SendingDomain`/`SendingMailbox` field this mission lists | Already present | No change — see the field lists in `src/sending-domain-registry.mjs` / `src/sending-mailbox-registry.mjs` |
+- `uberbond.agency` is already an owned UberBond outreach root.
+- `uberbond.cloud` is already an owned UberBond outreach root.
+- Domain acquisition is complete and must not be resurfaced as an unresolved founder action.
+- Both roots are outreach identities, not website roots.
 
-`EmailProvider`, `DNSSnapshot`, `WarmupPlan`, `WarmupEvent`,
-`MailboxHealthSnapshot`, `ProviderReceipt`, `DeliverabilityIncident`,
-`OutreachAuthorization`: all mapped onto existing implementations rather
-than duplicated — see `docs/INSTANTLY_RECONCILIATION.md`'s entity table.
+## Runtime readiness boundary
 
-## Secret-storage guarantee (unchanged, re-verified this wave)
+Domain ownership is separate from mail-runtime readiness. The following must still be derived from actual provider/runtime evidence when queried: provider registration, mailbox authentication, MX/SPF/DKIM/DMARC alignment, warm-up state, sender health, and delivery evidence.
 
-`src/sending-mailbox-registry.mjs#detectSecretFields` and every event
-recorder in that module reject outright (not silently strip) any field
-whose name matches password/token/apiKey/refreshToken/clientSecret/
-privateKey/smtpPassword patterns, including nested objects.
-`logSendingMailboxEvent` throws rather than persist one, as defense in
-depth. Both properties are covered by dedicated hostile tests, re-run this
-wave: 590/590 passing.
+UberBond already contains the domain/mailbox registries, DNS verifier, warm-up orchestration, circuit breakers, provider adapter contract, activation gate, control center, UberDoso control-plane work, and hostile tests for these paths. Future agents should continue from the narrowest missing runtime/evidence layer rather than re-opening domain acquisition.
 
-## Real vs claimed, tonight
+## PayPal clarification
 
-Zero domains are provider-registered, zero mailboxes are verified, and zero
-provider credentials are configured. The owner has supplied the two exact
-outreach targets `uberbond.agency` and `uberbond.cloud`, but that is not a
-provider/registrar receipt. The initial candidate is Maildoso monthly SMTP;
-no Maildoso credential or live adapter exists in `src/config.mjs`. Everything
-in this file describes tested, real, *ready* code — not live state. See
-`docs/OUTREACH_ACTIVATION_CARD.md` for the exact next owner action.
+PayPal is already an implemented UberBond payment path. A missing LIVE settlement/recovery receipt must be described as that exact reality cut, not as 'no payment provider'. Sandbox or configured access is not a LIVE settlement observation.
+
+## Secret-storage guarantee
+
+Sending-domain/mailbox state continues to reject secret-shaped fields from durable receipts. Credentials belong only in protected runtime secret channels and must never be persisted in source, task payloads, audit receipts, or chat.

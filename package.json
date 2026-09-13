@@ -71,7 +71,7 @@
     "probes:outbound": "node scripts/outbound-probes.mjs",
     "test:mutation-war": "node scripts/mutation-war.mjs",
     "test:mutation-war:full": "node scripts/with-real-postgres.mjs npm run test:mutation-war",
-    "brain": "node scripts/uberbond-brain-bootstrap.mjs",
+    "brain": "node scripts/uberbond-brain-safe.mjs",
     "brain:features": "node scripts/uberbond-feature-genome.mjs",
     "brain:feature-atlas": "node scripts/uberbond-feature-atom-atlas.mjs",
     "brain:metacognitive": "node scripts/uberbond-metacognitive-synthesis.mjs",

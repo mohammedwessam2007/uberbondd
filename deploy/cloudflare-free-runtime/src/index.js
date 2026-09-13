@@ -1,5 +1,5 @@
 import { DurableObject } from 'cloudflare:workers';
-import { compileFreeMissionClock } from '../../../src/free-mission-clock-policy.mjs';
+import { compileFreeMissionClock } from './policy.js';
 
 const json = (value, status = 200) => new Response(JSON.stringify(value), {
   status,
@@ -50,7 +50,7 @@ export class RuntimeClock extends DurableObject {
         lastTickAt: null
       });
       await this.ctx.storage.setAlarm(now + policy.intervalMs);
-      return json({ ok: true, policy, startedAt: now, activeUntil });
+      return json({ ok: true, policy, startedAt: now, activeUntil, externalEffectAuthority: 'NONE' });
     }
 
     if (method === 'POST' && url.pathname === '/stop') {

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "uberbond.owned-security-runtime.receipt.v1",
+  "observedAt": "2026-09-13T13:24:00Z",
+  "targetClass": "OWNED_LOOPBACK_DISPOSABLE",
+  "targetAuthorized": true,
+  "runtime": "NODE_HTTP_AUTONOMOUS_PROBE",
+  "runtimeExecuted": true,
+  "exploitWitnessObserved": true,
+  "boundedNonDestructive": true,
+  "persistenceAttempted": false,
+  "credentialAccessAttempted": false,
+  "witnessDigest": "sha256:f9a30db264fca318dd2fcca25c596679b14132f36fa9c74620b2265a523a5909",
+  "runtimeEnvironmentRef": "macaly:UberBond-Sovereign-Cell",
+  "truthBoundary": "This proves a real autonomous bounded exploit witness against a disposable loopback-owned canary only. It does not prove third-party testing authority, production penetration, persistence, credential access, or broad Strix parity."
+}

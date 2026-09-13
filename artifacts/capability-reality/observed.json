@@ -55,6 +55,21 @@
         }
       ],
       "truthBoundary": "This receipt proves two distinct founder-authorized live messaging paths with observable sender identity and delivered message references. The Gmail evidence is a self-addressed delivered message and the GitHub evidence is a founder-authored repository comment. It does not prove prospect outreach, customer contact, conversion, or revenue."
+    },
+    {
+      "id": "autonomous-exploit-verification-runtime",
+      "synthetic": false,
+      "observedAt": "2026-09-13T13:24:00Z",
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/evidence/security-runtime-20260913/artifacts/capability-reality/security-runtime-2026-09-13.json"
+      ],
+      "targetAuthorized": true,
+      "runtimeExecuted": true,
+      "exploitWitnessObserved": true,
+      "boundedNonDestructive": true,
+      "targetIdentityRef": "owned-loopback-disposable:UberBond-Sovereign-Cell",
+      "runtimeReceiptRef": "https://github.com/mohammedwessam2007/uberbondd/blob/evidence/security-runtime-20260913/artifacts/capability-reality/security-runtime-2026-09-13.json",
+      "truthBoundary": "This proves a real bounded autonomous exploit witness against a disposable loopback-owned fixture only. It grants no authority to test third-party targets and does not claim broad pentest parity."
     }
   ]
 }

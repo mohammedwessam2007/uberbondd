@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "uberbond-free-runtime",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-13",
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RUNTIME_CLOCK",
+        "class_name": "RuntimeClock"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["RuntimeClock"]
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

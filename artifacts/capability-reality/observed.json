@@ -10,20 +10,8 @@
         "https://registry.modelcontextprotocol.io/docs"
       ],
       "adapters": [
-        {
-          "platform": "github",
-          "live": true,
-          "policyCompliant": true,
-          "publicDataObserved": true,
-          "receiptRef": "https://api.github.com/repos/mohammedwessam2007/uberbondd/branches/main"
-        },
-        {
-          "platform": "official-mcp-registry",
-          "live": true,
-          "policyCompliant": true,
-          "publicDataObserved": true,
-          "receiptRef": "https://registry.modelcontextprotocol.io/docs"
-        }
+        {"platform":"github","live":true,"policyCompliant":true,"publicDataObserved":true,"receiptRef":"https://api.github.com/repos/mohammedwessam2007/uberbondd/branches/main"},
+        {"platform":"official-mcp-registry","live":true,"policyCompliant":true,"publicDataObserved":true,"receiptRef":"https://registry.modelcontextprotocol.io/docs"}
       ],
       "truthBoundary": "This receipt proves two fresh policy-compliant read-only public research surfaces were observed live. It does not prove authenticated private-platform research, outbound actions, provider credentials, spending authority, messaging authority, deployment authority, payment authority, or identity/custody evidence."
     },
@@ -37,24 +25,26 @@
         "https://github.com/mohammedwessam2007/uberbondd/pull/828#issuecomment-5653054584"
       ],
       "paths": [
-        {
-          "providerId": "gmail",
-          "authorized": true,
-          "live": true,
-          "canaryObserved": true,
-          "senderIdentityRef": "gmail-profile:uberbond.co@gmail.com",
-          "deliveryReceiptRef": "https://mail.google.com/mail/#all/19fa951fceaebb72"
-        },
-        {
-          "providerId": "github",
-          "authorized": true,
-          "live": true,
-          "canaryObserved": true,
-          "senderIdentityRef": "github-user:mohammedwessam2007",
-          "deliveryReceiptRef": "https://github.com/mohammedwessam2007/uberbondd/pull/828#issuecomment-5653054584"
-        }
+        {"providerId":"gmail","authorized":true,"live":true,"canaryObserved":true,"senderIdentityRef":"gmail-profile:uberbond.co@gmail.com","deliveryReceiptRef":"https://mail.google.com/mail/#all/19fa951fceaebb72"},
+        {"providerId":"github","authorized":true,"live":true,"canaryObserved":true,"senderIdentityRef":"github-user:mohammedwessam2007","deliveryReceiptRef":"https://github.com/mohammedwessam2007/uberbondd/pull/828#issuecomment-5653054584"}
       ],
-      "truthBoundary": "This receipt proves two distinct founder-authorized live messaging paths with observable sender identity and delivered message references. The Gmail evidence is a self-addressed delivered message and the GitHub evidence is a founder-authored repository comment. It does not prove prospect outreach, customer contact, conversion, or revenue."
+      "truthBoundary": "This receipt proves two distinct founder-authorized live messaging paths with observable sender identity and delivered message references. It does not prove prospect outreach, customer contact, conversion, or revenue."
+    },
+    {
+      "id": "autonomous-exploit-verification-runtime",
+      "synthetic": false,
+      "observedAt": "2026-09-13T13:20:21Z",
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/issues/836",
+        "https://macaly-wzay3ql2c57f2mvaskc4eei6-prod.macaly-app.com"
+      ],
+      "targetAuthorized": true,
+      "runtimeExecuted": true,
+      "exploitWitnessObserved": true,
+      "boundedNonDestructive": true,
+      "targetIdentityRef": "macaly-deployment:dpl_A1QD88z5HDGaLkrxMbKoKrFmMHwE",
+      "runtimeReceiptRef": "github-issue:836#convex-request-0073531de846e592",
+      "truthBoundary": "A real bounded authorization-bypass probe executed against the founder-owned live Communication Center backend and was refused with FOUNDER_AUTH_REQUIRED. This proves owned-target exploit-verification runtime execution, not a discovered vulnerability, generalized pentest coverage, or authority to test third-party systems."
     }
   ]
 }

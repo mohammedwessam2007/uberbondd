@@ -6,7 +6,7 @@ SOURCE="${1:-}"
 START=false
 [[ "${2:-}" == "--start" ]] && START=true
 [[ $EUID -eq 0 ]] || { echo "install-uberlit.sh must run as root" >&2; exit 2; }
-for bin in git node npm tar openssl systemctl; do command -v "$bin" >/dev/null || { echo "missing required executable: $bin" >&2; exit 2; }; done
+for bin in git node npm tar openssl systemctl systemd-notify; do command -v "$bin" >/dev/null || { echo "missing required executable: $bin" >&2; exit 2; }; done
 SOURCE="$(realpath "$SOURCE")"
 [[ -d "$SOURCE/.git" ]] || { echo "source must be a Git checkout" >&2; exit 2; }
 [[ -z "$(git -C "$SOURCE" status --porcelain --untracked-files=no)" ]] || { echo "source tracked tree must be clean" >&2; exit 2; }
@@ -39,6 +39,7 @@ UBERLIT_TLS_BIND=127.0.0.1
 UBERLIT_TLS_PORT=32443
 UBERLIT_WEB_PORT=32123
 UBERLIT_DB_PORT=35432
+AUTOPILOT_ENABLED=true
 OUTBOUND_ENABLED=false
 DISCOVERY_ENABLED=false
 ENV
@@ -58,4 +59,4 @@ if $START; then
   systemctl --no-pager --full status uberlit-tls-edge.service
   systemctl --no-pager --full status uberlit-worker.service
 fi
-printf '{"ok":true,"status":"UBERLIT_NODE_INSTALLED","sourceCommit":"%s","sourceTree":"%s","serviceEnabled":true,"tlsEdgeEnabled":true,"workerEnabled":true,"serviceStarted":%s,"runtimeRoot":"/var/lib/uberlit/uberbond","localHttpsUrl":"https://127.0.0.1:32443"}\n' "$SOURCE_SHA" "$SOURCE_TREE" "$START"
+printf '{"ok":true,"status":"UBERLIT_NODE_INSTALLED","sourceCommit":"%s","sourceTree":"%s","serviceEnabled":true,"tlsEdgeEnabled":true,"workerEnabled":true,"autopilotEnabled":true,"serviceStarted":%s,"runtimeRoot":"/var/lib/uberlit/uberbond","localHttpsUrl":"https://127.0.0.1:32443"}\n' "$SOURCE_SHA" "$SOURCE_TREE" "$START"

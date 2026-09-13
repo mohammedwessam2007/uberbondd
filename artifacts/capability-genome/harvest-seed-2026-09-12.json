@@ -1,0 +1,35 @@
+{
+  "schema": "uberbond.capability-harvest-seed.v1",
+  "observedAt": "2026-09-12",
+  "status": "HARVEST_STARTED_MEASURED_SEED",
+  "source": "github-public-repository-search",
+  "queriesExecuted": [
+    "topic:llm stars:0..9",
+    "agent memory stars:10..199"
+  ],
+  "truthBoundary": "THIS_IS_A_SEED_RECEIPT_NOT_COMPLETION_EVIDENCE; SEARCH RESULTS ARE DISCOVERY CANDIDATES ONLY",
+  "notableCandidates": [
+    "wdf-wyh/Agentic-RAG-Knowledge-Base",
+    "KartikeyMish/RepoSavant",
+    "ScalingOpt/SGG",
+    "menot-you/n-memory",
+    "Bharath2/Minimal-GRPO",
+    "Fraunhofer-IIS/RAGonite",
+    "ai-sec-lab/SecRepoBench",
+    "realchendahuang/opencode-hermes-memory",
+    "Forge-researchlab/forge-kernels",
+    "Spectral-Knight-Ops/local-llm-evaluator",
+    "OWASP/www-project-agent-memory-guard",
+    "vectorize-io/agent-memory-benchmark",
+    "openJiuwen-ai/agent-memory",
+    "langchain-ai/memory-agent-js",
+    "sqliteai/sqlite-memory",
+    "OpenDataBox/awesome-agent-memory",
+    "ruvnet/agentdb",
+    "redhat-ai-americas/memory-hub",
+    "AzureCosmosDB/AgentMemoryToolkit",
+    "KnowledgeXLab/MemVerse"
+  ],
+  "next": "continue bounded non-overlapping shards across the full neural atlas; dedupe canonical identities; extract provenance/license/security metadata; feed survivors into capability-atom tournaments",
+  "promotionAuthority": "NONE"
+}

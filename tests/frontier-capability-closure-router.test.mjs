@@ -16,6 +16,22 @@ test('after runtime proof, an external-validation primitive moves to external re
   assert.equal(out.routed[0].closureClass,'EXTERNAL_OR_OWNER_ONLY');
 });
 
+test('independent runtime receipt ids advance source-only bounded primitives without mutating maturity',()=>{
+  const sourceOnly=entry('42','Bounded Primitive');
+  const out=routeFrontierCapabilityClosures({entries:[sourceOnly],runtimeEvidenceCapabilityIds:['42']});
+  assert.equal(out.routed[0].independentRuntimeEvidenceBound,true);
+  assert.equal(out.routed[0].closureClass,'ALREADY_IMPLEMENTED');
+  assert.equal(out.independentRuntimeEvidenceCount,1);
+  assert.equal(sourceOnly.maturity,'PARTIAL_PRIMITIVE');
+});
+
+test('independent runtime evidence cannot turn an external boundary into internal completion',()=>{
+  const external=entry('123','World Twin',{note:'Synthetic state never becomes external evidence or market truth.'});
+  const out=routeFrontierCapabilityClosures({entries:[external],runtimeEvidenceCapabilityIds:['123']});
+  assert.equal(out.routed[0].closureClass,'EXTERNAL_OR_OWNER_ONLY');
+  assert.equal(out.routed[0].ultimateBoundary,'EXTERNAL_OR_OWNER_ONLY');
+});
+
 test('explicit capability depth gaps remain internal deepening work',()=>{
   const out=routeFrontierCapabilityClosures({entries:[entry('rival','Future Rival',{status:'OBSERVED_INTERNAL_RUNTIME_RECEIPT',runtimeReceipts:['artifact:rival'],note:'Autonomous rival implementation is not yet present.'})]});
   assert.equal(out.routed[0].closureClass,'INTERNAL_DEEPENING');
@@ -33,11 +49,11 @@ test('implemented capabilities are not reopened',()=>{
   assert.equal(out.counts.ALREADY_IMPLEMENTED,1);
 });
 
-test('routing never promotes maturity or grants effects',()=>{
+test('routing never promotes canonical maturity or grants effects',()=>{
   const input=entry('x','X');
   const out=routeFrontierCapabilityClosures({entries:[input]});
   assert.equal(input.maturity,'PARTIAL_PRIMITIVE');
   assert.equal(out.externalEffectAuthority,'NONE');
   assert.equal(out.businessEffectAuthority,'NONE');
-  assert.match(out.truthBoundary,/DOES_NOT_PROMOTE_MATURITY/);
+  assert.match(out.truthBoundary,/DO NOT MUTATE CANONICAL MATURITY/);
 });

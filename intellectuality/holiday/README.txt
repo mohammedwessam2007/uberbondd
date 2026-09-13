@@ -1,0 +1,1 @@
+Holiday Renaissance Week deployment source. Zero-medicine holiday course. The HTML artifact is self-contained and stores progress locally in the browser.

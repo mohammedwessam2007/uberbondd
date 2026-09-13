@@ -5,6 +5,7 @@ import { compileSleepWealthCycle, UNIVERSAL_WEALTH_ENGINE_VERSION } from './univ
 import { compileOpenWorldMoneyUniverse, simulateEightHourWealthUniverse, EIGHT_HOUR_WEALTH_SIM_VERSION } from './eight-hour-wealth-universe-simulator.mjs';
 import { simulateSyntheticEightHourUniverse, SYNTHETIC_WEALTH_PRIOR_VERSION } from './synthetic-eight-hour-wealth-priors.mjs';
 import { compileEconomicInevitabilityPlan, ECONOMIC_INEVITABILITY_VERSION } from './economic-inevitability-engine.mjs';
+import { compileTotalCommercialGenomeOfferUniverseWealth, TOTAL_COMMERCIAL_GENOME_OFFER_UNIVERSE_WEALTH_VERSION } from './uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs';
 
 export const UNIVERSAL_WEALTH_JOB_VERSION='uberbond.universal-wealth-job.v1';
 const digest=value=>crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -38,6 +39,19 @@ export async function runUniversalWealthJob({
     signals:Array.isArray(input.signals)?input.signals:[],
     candidates:Array.isArray(input.candidates)?input.candidates:[],
     constraints:input.constraints&&typeof input.constraints==='object'?input.constraints:{},
+    maxSearchCells,
+    maxCanaries,
+    maxCapitalAtRisk
+  });
+  const commercialAggregate=compileTotalCommercialGenomeOfferUniverseWealth({
+    candidate:input.commercialCandidate&&typeof input.commercialCandidate==='object'?input.commercialCandidate:null,
+    evidenceRefs:Array.isArray(input.commercialEvidenceRefs)?input.commercialEvidenceRefs:[],
+    buyer:input.commercialBuyer||'',
+    objective:input.commercialObjective||'discover and validate economically useful offers',
+    signals:Array.isArray(input.signals)?input.signals:[],
+    wealthCandidates:Array.isArray(input.candidates)?input.candidates:[],
+    constraints:input.constraints&&typeof input.constraints==='object'?input.constraints:{},
+    maxOfferHypotheses:Number.isFinite(Number(input.maxOfferHypotheses))?Math.max(0,Math.min(25,Math.floor(Number(input.maxOfferHypotheses)))):25,
     maxSearchCells,
     maxCanaries,
     maxCapitalAtRisk
@@ -100,11 +114,22 @@ export async function runUniversalWealthJob({
   const receipt={
     schema:UNIVERSAL_WEALTH_JOB_VERSION,
     engineVersion:UNIVERSAL_WEALTH_ENGINE_VERSION,
+    totalCommercialGenomeOfferUniverseWealthVersion:TOTAL_COMMERCIAL_GENOME_OFFER_UNIVERSE_WEALTH_VERSION,
     sleepSimulationVersion:EIGHT_HOUR_WEALTH_SIM_VERSION,
     syntheticPriorVersion:SYNTHETIC_WEALTH_PRIOR_VERSION,
     economicInevitabilityVersion:ECONOMIC_INEVITABILITY_VERSION,
     generatedAt:new Date().toISOString(),
     inputDigest,
+    totalCommercialGenomeOfferUniverseWealth:{
+      status:commercialAggregate.status,
+      commercialGenomeCompleteness:commercialAggregate.commercialGenome?.completeness??null,
+      offerAtomCount:commercialAggregate.offerUniverse?.atomCount??0,
+      offerHypothesisCount:commercialAggregate.offerUniverse?.candidateCount??0,
+      wealthSearchCellCount:commercialAggregate.wealth?.searchLattice?.cellCount??0,
+      wealthCanaryCount:commercialAggregate.wealth?.portfolio?.canaries?.length??0,
+      moneyClaimAuthority:'NONE',
+      externalEffectAuthority:'NONE'
+    },
     searchCellCount:cycle.searchLattice.cellCount,
     candidateCount:Array.isArray(input.candidates)?input.candidates.length:0,
     canaryCount:cycle.portfolio.canaries.length,
@@ -160,7 +185,7 @@ export async function runUniversalWealthJob({
     capitalDeploymentAuthority:'NONE',
     tradingAuthority:'NONE',
     status:cycle.status,
-    truthBoundary:'PRIVATE_WEALTH_INPUT_STAYS_RUNTIME_LOCAL; OPEN_WORLD_AND_EIGHT_HOUR_OUTPUTS_ARE_COUNTERFACTUAL_AGGREGATES_ONLY; SYNTHETIC_SCENARIOS_ARE_THOUGHT_EXPERIMENTS_NOT_FORECASTS; INEVITABILITY_IS_A_RESILIENCE_AND_EVIDENCE_SCORE_NOT_A_GUARANTEE; OWNER_AUTHORITY_BLOCKS_MUST_NOT_BE_BYPASSED; NO SIMULATED_DOLLAR_OR_READINESS_INDEX_IS_REVENUE_OR_PAYMENT_EVIDENCE'
+    truthBoundary:'PRIVATE_WEALTH_INPUT_STAYS_RUNTIME_LOCAL; COMMERCIAL GENOME AND OFFER-UNIVERSE OUTPUTS REMAIN ZERO-AUTHORITY INTERNAL HYPOTHESES; OPEN_WORLD_AND_EIGHT_HOUR_OUTPUTS_ARE_COUNTERFACTUAL_AGGREGATES_ONLY; SYNTHETIC_SCENARIOS_ARE_THOUGHT_EXPERIMENTS_NOT_FORECASTS; INEVITABILITY_IS_A RESILIENCE_AND_EVIDENCE_SCORE_NOT_A_GUARANTEE; OWNER_AUTHORITY_BLOCKS_MUST_NOT_BE_BYPASSED; NO SIMULATED_DOLLAR_OR_READINESS_INDEX_IS_REVENUE_OR_PAYMENT_EVIDENCE'
   };
   await fs.mkdir(path.dirname(outputFile),{recursive:true});
   await fs.writeFile(outputFile,`${JSON.stringify(receipt,null,2)}\n`,'utf8');

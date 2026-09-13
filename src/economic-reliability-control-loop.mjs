@@ -2,7 +2,7 @@ import { calibrateEconomicRoute, compileReliabilityRouteFromCalibration } from '
 import { evaluateEconomicReliability, TARGET_ZERO_MONEY_PROBABILITY } from './economic-reliability-engine.mjs';
 import { planEconomicReliabilityExpansion } from './economic-reliability-expansion-planner.mjs';
 
-export const ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION='uberbond.economic-reliability-control-loop.v1';
+export const ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION='uberbond.economic-reliability-control-loop.v1.1';
 
 const arr=v=>Array.isArray(v)?v:[];
 const text=(v,max=1000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
@@ -92,8 +92,7 @@ export function runEconomicReliabilityControlLoop({activeRoutes=[],candidateRout
       if(activeIds.has(shell.routeId)) activeBound.push(bound.route);
       else candidateBound.push(bound.route);
     }
-    const request=evidenceRequestFor({shell,calibration,bound});
-    if(request.type!=='EXECUTE_CALIBRATED_ROUTE_CANARY'||!activeIds.has(shell.routeId)) evidenceRequests.push(request);
+    evidenceRequests.push(evidenceRequestFor({shell,calibration,bound}));
   }
 
   const reliability=evaluateEconomicReliability({routes:activeBound});

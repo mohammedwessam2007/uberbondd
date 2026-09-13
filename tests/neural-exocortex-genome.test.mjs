@@ -80,21 +80,24 @@ test('discovered reference records can be retrieved for research but cannot ente
   const active = selectActiveNeuralCortex({ mission: 'reason carefully', capabilities: corpus.capabilities });
   assert.equal(active.ok, true);
   assert.equal(active.selected.length, 0);
-  assert.equal(active.status, 'NO_APPROVED_NEURAL_CAPABILITY_ROUTE');
+  assert.equal(active.status, 'NEURAL_REFERENCE_RECORDS_NOT_EXECUTABLE_USE_CAPABILITY_GENOME_BACKED_SELECTION');
+  assert.equal(active.executionAuthority, 'NONE');
 });
 
-test('active cortex requires explicit promotion, security, benchmark and bounded execution gates', () => {
+test('manually flipping discovery flags still cannot bypass Capability Genome-backed admission', () => {
   const normalized = normalizeNeuralCapabilityObservation(observed()).capability;
-  const approved = {
+  const forged = {
     ...normalized,
     promotionState: 'APPROVED',
     securityState: 'APPROVED',
     benchmarkState: 'ELIGIBLE',
     executionAuthority: 'BOUNDED_MISSION_ONLY'
   };
-  const active = selectActiveNeuralCortex({ mission: 'reasoning verification', capabilities: [approved] });
-  assert.equal(active.status, 'ACTIVE_NEURAL_CORTEX_BUNDLE_SELECTED');
-  assert.equal(active.selected.length, 1);
+  const active = selectActiveNeuralCortex({ mission: 'reasoning verification', capabilities: [forged] });
+  assert.equal(active.status, 'NEURAL_REFERENCE_RECORDS_NOT_EXECUTABLE_USE_CAPABILITY_GENOME_BACKED_SELECTION');
+  assert.equal(active.selected.length, 0);
+  assert.equal(active.executionAuthority, 'NONE');
+  assert.match(active.authorityLaw, /selectCapabilityGenomeBackedNeuralCortex/);
 });
 
 test('Neural Exocortex is connected to the whole brain and preserves graph integrity', () => {

@@ -8,6 +8,8 @@ import { planWallbreakerCycle } from './wallbreaker.mjs';
 import { runUberDosoJob } from './uberdoso-job-handler.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
+const residentRoot=input=>input.root||process.env.UBERBOND_RUNTIME_ROOT||process.cwd();
+
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
   const handlers = createJobHandlers(options);
   handlers['founder.outcome.mission.pulse'] = async payload => {
@@ -32,21 +34,21 @@ export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } 
     const input = payload && typeof payload === 'object' ? payload : {};
     return runFrontierLearningJob({
       ...input,
-      root: input.root || process.cwd()
+      root: residentRoot(input)
     });
   };
   handlers['personal.civilization.pulse'] = async payload => {
     const input = payload && typeof payload === 'object' ? payload : {};
     return runPersonalCivilizationJob({
       ...input,
-      root: input.root || process.cwd()
+      root: residentRoot(input)
     });
   };
   handlers['universal.wealth.pulse'] = async payload => {
     const input = payload && typeof payload === 'object' ? payload : {};
     return runUniversalWealthOverdeterminationJob({
       ...input,
-      root: input.root || process.cwd(),
+      root: residentRoot(input),
       enqueueJob
     });
   };

@@ -3,6 +3,7 @@ import { runFounderOutcomeMissionSupervisor } from './founder-outcome-mission-su
 import { runFrontierLearningJob } from './frontier-learning-job-handler.mjs';
 import { runPersonalCivilizationJob } from './personal-civilization-job-handler.mjs';
 import { runUniversalWealthJob } from './universal-wealth-job-handler.mjs';
+import { runUberDosoJob } from './uberdoso-job-handler.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
@@ -44,6 +45,14 @@ export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } 
     return runUniversalWealthJob({
       ...input,
       root: input.root || process.cwd()
+    });
+  };
+  handlers['uberdoso.reconcile'] = async payload => {
+    const input = payload && typeof payload === 'object' ? payload : {};
+    return runUberDosoJob({
+      ...input,
+      store:options.store,
+      enqueueJob
     });
   };
   return handlers;

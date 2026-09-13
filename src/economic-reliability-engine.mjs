@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const ECONOMIC_RELIABILITY_VERSION='uberbond.economic-reliability.v1';
+export const ECONOMIC_RELIABILITY_VERSION='uberbond.economic-reliability.v1.1';
 export const TARGET_SUCCESS_PROBABILITY=0.99999999999;
 export const TARGET_ZERO_MONEY_PROBABILITY=1-TARGET_SUCCESS_PROBABILITY;
 
@@ -20,23 +20,18 @@ function normalizeRoute(raw={}){
   const founderMinutes=Math.max(0,num(raw.founderMinutes));
   const timeToCashMinutes=Math.max(0,num(raw.timeToCashMinutes));
   const eligible=Boolean(routeId&&failureDomain&&p!=null&&evidenceRefs.length&&calibrationRefs.length&&raw.policyCleared===true&&raw.executableNow===true);
-  return {routeId,failureDomain,successProbabilityLowerBound:p,evidenceRefs,calibrationRefs,independenceEvidenceRefs,founderMinutes,timeToCashMinutes,policyCleared:raw.policyCleared===true,executableNow:raw.executableNow===true,eligible};
+  const reliabilityEligible=eligible&&independenceEvidenceRefs.length>0;
+  return {routeId,failureDomain,successProbabilityLowerBound:p,evidenceRefs,calibrationRefs,independenceEvidenceRefs,founderMinutes,timeToCashMinutes,policyCleared:raw.policyCleared===true,executableNow:raw.executableNow===true,eligible,reliabilityEligible};
 }
 
 function groupRoutes(routes=[]){
-  const provenIndependent=[];
-  const unprovenDependence=[];
-  for(const route of routes){
-    if(route.independenceEvidenceRefs.length) provenIndependent.push(route);
-    else unprovenDependence.push(route);
-  }
   const groups=new Map();
-  for(const route of provenIndependent){
+  for(const route of routes){
+    if(!route.reliabilityEligible) continue;
     const key=`domain:${route.failureDomain}`;
     if(!groups.has(key)) groups.set(key,[]);
     groups.get(key).push(route);
   }
-  if(unprovenDependence.length) groups.set('domain:UNPROVEN_DEPENDENCE',unprovenDependence);
   return [...groups.entries()].map(([groupId,members])=>({groupId,members}));
 }
 
@@ -54,6 +49,7 @@ function conservativeGroupProbability(group){
 export function evaluateEconomicReliability({routes=[]}={}){
   const normalized=arr(routes).map(normalizeRoute);
   const eligible=normalized.filter(x=>x.eligible);
+  const reliabilityEligible=normalized.filter(x=>x.reliabilityEligible);
   const rejected=normalized.filter(x=>!x.eligible).map(x=>({routeId:x.routeId,reasonCodes:[
     !x.routeId?'route-id-required':null,
     !x.failureDomain?'failure-domain-required':null,
@@ -63,8 +59,9 @@ export function evaluateEconomicReliability({routes=[]}={}){
     !x.policyCleared?'policy-clearance-required':null,
     !x.executableNow?'route-not-executable-now':null
   ].filter(Boolean)}));
+  const independenceWithheld=eligible.filter(x=>!x.reliabilityEligible).map(x=>({routeId:x.routeId,reasonCodes:['independence-evidence-required-before-reliability-contribution']}));
 
-  const groups=groupRoutes(eligible).map(conservativeGroupProbability);
+  const groups=groupRoutes(reliabilityEligible).map(conservativeGroupProbability);
   let logResidual=0;
   for(const group of groups){
     const failure=Math.max(Number.MIN_VALUE,1-group.successProbabilityLowerBound);
@@ -78,7 +75,9 @@ export function evaluateEconomicReliability({routes=[]}={}){
     targetSuccessProbability:TARGET_SUCCESS_PROBABILITY,
     targetZeroMoneyProbability:TARGET_ZERO_MONEY_PROBABILITY,
     eligibleRouteCount:eligible.length,
+    reliabilityContributingRouteCount:reliabilityEligible.length,
     rejectedRouteCount:rejected.length,
+    independenceWithheldCount:independenceWithheld.length,
     independentFailureDomainCount:groups.length,
     groups,
     residualZeroProbability,
@@ -86,13 +85,14 @@ export function evaluateEconomicReliability({routes=[]}={}){
     targetReached,
     status:targetReached?'ECONOMIC_RELIABILITY_11_NINES_EVIDENCE_THRESHOLD_REACHED':'ECONOMIC_RELIABILITY_TARGET_NOT_YET_PROVEN',
     rejected,
-    truthBoundary:'This is a conservative evidence-backed lower-bound model, not a guarantee. Routes without calibration are excluded. Routes without independence evidence are treated as one perfectly correlated failure domain. Reaching the numeric threshold does not itself prove cleared money; provider-origin settlement evidence remains required.'
+    independenceWithheld,
+    truthBoundary:'This is a conservative evidence-backed lower-bound model, not a guarantee. Routes without calibration are excluded. Routes without independence evidence contribute zero to the reliability proof. Within an evidenced failure domain, repeated attempts are treated as perfectly correlated and only the strongest calibrated lower bound counts. Reaching the numeric threshold does not itself prove cleared money; provider-origin settlement evidence remains required.'
   };
   return {...receipt,receiptDigest:hash(receipt)};
 }
 
 export function rankReliabilityActions({routes=[]}={}){
-  const normalized=arr(routes).map(normalizeRoute).filter(x=>x.eligible);
+  const normalized=arr(routes).map(normalizeRoute).filter(x=>x.reliabilityEligible);
   return normalized.map(route=>{
     const p=route.successProbabilityLowerBound;
     const reliabilityGain=-Math.log(Math.max(Number.MIN_VALUE,1-p));

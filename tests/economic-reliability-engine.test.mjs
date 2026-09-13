@@ -43,11 +43,24 @@ test('correlated attempts do not manufacture reliability',()=>{
   assert.equal(result.targetReached,false);
 });
 
-test('unproven independence collapses across nominal domains',()=>{
+test('routes without independence evidence contribute zero reliability',()=>{
   const routes=Array.from({length:50},(_,i)=>route(i,{p:0.9,domain:`nominal-${i}`,independent:false}));
   const result=evaluateEconomicReliability({routes});
+  assert.equal(result.independentFailureDomainCount,0);
+  assert.equal(result.successProbability,0);
+  assert.equal(result.residualZeroProbability,1);
+  assert.equal(result.independenceWithheldCount,50);
+  assert.equal(result.targetReached,false);
+});
+
+test('unproven high probability route cannot inflate a proven route',()=>{
+  const result=evaluateEconomicReliability({routes:[
+    route(1,{p:0.5,domain:'marketplace',independent:true}),
+    route(2,{p:0.999999999,domain:'different-name',independent:false})
+  ]});
   assert.equal(result.independentFailureDomainCount,1);
-  assert.equal(result.successProbability,0.9);
+  assert.equal(result.independenceWithheldCount,1);
+  assert.equal(result.successProbability,0.5);
   assert.equal(result.targetReached,false);
 });
 

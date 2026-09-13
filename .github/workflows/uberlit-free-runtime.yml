@@ -1,0 +1,62 @@
+name: UberLit Free Runtime Mesh
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - uberbond_wake
+      - runtime_signal
+      - recovery_signal
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/free-runtime-witness.mjs
+      - .github/workflows/uberlit-free-runtime.yml
+  pull_request:
+    paths:
+      - scripts/free-runtime-witness.mjs
+      - .github/workflows/uberlit-free-runtime.yml
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: uberlit-free-runtime
+  cancel-in-progress: false
+
+jobs:
+  witness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify witness syntax
+        run: node --check scripts/free-runtime-witness.mjs
+
+      - name: Execute runtime witness
+        env:
+          UBERBOND_RUNTIME_SHA: ${{ github.sha }}
+          UBERBOND_RUNTIME_EVENT: ${{ github.event_name }}
+          UBERBOND_RUNTIME_RUN_ID: ${{ github.run_id }}
+        run: node scripts/free-runtime-witness.mjs
+
+      - name: Verify zero-effect receipt
+        run: |
+          node --input-type=module -e "import fs from 'node:fs'; const r=JSON.parse(fs.readFileSync('artifacts/free-runtime-witness.json','utf8')); if(r.runtimeAlive!==true||r.externalEffectAuthority!=='NONE') process.exit(1); console.log(JSON.stringify(r));"
+
+      - name: Persist liveness receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: uberlit-free-runtime-witness-${{ github.run_id }}
+          path: artifacts/free-runtime-witness.json
+          retention-days: 1

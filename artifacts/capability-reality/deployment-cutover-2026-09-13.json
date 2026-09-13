@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "uberbond.independent-deployment.receipt.v1",
+  "observedAt": "2026-09-13T13:29:00Z",
+  "providerIdentity": "macaly-convex",
+  "distinctFromPrimaryProvider": true,
+  "liveUrl": "https://macaly-wzay3ql2c57f2mvaskc4eei6-prod.macaly-app.com",
+  "uberBondMain": "a285b0dc3fde8807fde0ac088eebe5e40783b959",
+  "baselineReleaseDigest": "sha256:61c0e1013ced336d9e8f45d1a41691abf8a6e616b87eb52a3750007bbebb498d",
+  "cutoverReleaseDigest": "sha256:a1ce916eecc65222b0bb884a8f8255488e8c4ff2747e14e45098371f65aae8ee",
+  "baselineBootObserved": true,
+  "cutoverObserved": true,
+  "rollbackToExactBaselineObserved": true,
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "This proves a live independent Macaly/Convex deployment canary bound to exact UberBond main, a distinct cutover release, and restoration of the exact prior baseline bytes. It does not prove customer effects, payment, messaging, or general provider independence beyond this deployment path."
+}

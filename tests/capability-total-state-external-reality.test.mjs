@@ -13,12 +13,23 @@ const receipts=[
 {...base,id:'sovereign-identity',ownerConsentObserved:true,livenessObserved:true,recoveryRehearsalObserved:true,sameIdentityConfirmed:true}
 ];
 
-test('total capability truth consumes safe reality receipts but preserves externally gated security runtime',()=>{
+test('total capability truth consumes safe reality receipts but keeps security open without runtime evidence',()=>{
   const r=inspectCapabilityTotalState({sourceRevision:'TEST',observedAt,externalRealityReceipts:receipts});
   assert.equal(r.ok,true);
   assert.equal(r.state.internalCapabilityGapCount,0);
   assert.equal(r.state.externalRealityGapCount,1);
   assert.deepEqual(r.state.externalOnly.map(x=>x.id),['autonomous-exploit-verification-runtime']);
   assert.equal(r.state.closedExternalReality.length,6);
+  assert.equal(r.externalEffectAuthority,'NONE');
+});
+
+test('valid owned-target security runtime receipt closes the final capability reality gap',()=>{
+  const security={...base,id:'autonomous-exploit-verification-runtime',targetAuthorized:true,runtimeExecuted:true,exploitWitnessObserved:true,boundedNonDestructive:true,targetIdentityRef:'owned:fixture',runtimeReceiptRef:'receipt:security'};
+  const r=inspectCapabilityTotalState({sourceRevision:'TEST',observedAt,externalRealityReceipts:[security,...receipts]});
+  assert.equal(r.ok,true);
+  assert.equal(r.state.internalCapabilityGapCount,0);
+  assert.equal(r.state.externalRealityGapCount,0);
+  assert.deepEqual(r.state.externalOnly,[]);
+  assert.equal(r.state.closedExternalReality.length,7);
   assert.equal(r.externalEffectAuthority,'NONE');
 });

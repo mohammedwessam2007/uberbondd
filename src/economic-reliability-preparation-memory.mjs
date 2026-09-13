@@ -1,7 +1,8 @@
 import crypto from 'node:crypto';
 
-export const ECONOMIC_RELIABILITY_PREPARATION_MEMORY_VERSION='uberbond.economic-reliability-preparation-memory.v1';
+export const ECONOMIC_RELIABILITY_PREPARATION_MEMORY_VERSION='uberbond.economic-reliability-preparation-memory.v1.1';
 export const PREPARATION_AUDIT_TYPE='commercial_opportunity_preparation';
+export const DEFAULT_PREPARATION_MEMORY_MAX_AGE_MS=7*24*60*60*1000;
 
 const arr=v=>Array.isArray(v)?v:[];
 const text=(v,max=1000)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
@@ -76,7 +77,7 @@ export function compilePreparationEvidenceRecord({result,actionContext={},observ
   };
 }
 
-export function validatePreparationEvidenceRecord(record,{maxAgeMs=7*24*60*60*1000,now=new Date()}={}){
+export function validatePreparationEvidenceRecord(record,{maxAgeMs=DEFAULT_PREPARATION_MEMORY_MAX_AGE_MS,now=new Date()}={}){
   if(!record||typeof record!=='object') return {ok:false,reasonCodes:['record-required']};
   const observedAt=iso(record.observedAt);
   const nowDate=now instanceof Date?now:new Date(now);
@@ -95,17 +96,41 @@ export function validatePreparationEvidenceRecord(record,{maxAgeMs=7*24*60*60*10
   return {ok:reasons.length===0,reasonCodes:reasons,ageMs:Number.isFinite(ageMs)?ageMs:null};
 }
 
-export function indexPreparationEvidence(auditRows=[],options={}){
+export function indexPreparationRecords(records=[],options={}){
   const byRoute=new Map();
-  for(const row of arr(auditRows)){
-    if(row?.type!==PREPARATION_AUDIT_TYPE) continue;
-    const record=row?.detail?.record||row?.detail;
+  for(const record of arr(records)){
     const validation=validatePreparationEvidenceRecord(record,options);
     if(!validation.ok) continue;
     const previous=byRoute.get(record.routeId);
-    if(!previous||new Date(record.observedAt).getTime()>new Date(previous.observedAt).getTime()){
-      byRoute.set(record.routeId,{...record,auditId:row.id||null});
-    }
+    if(!previous||new Date(record.observedAt).getTime()>new Date(previous.observedAt).getTime()) byRoute.set(record.routeId,record);
   }
   return byRoute;
+}
+
+export function indexPreparationEvidence(auditRows=[],options={}){
+  const records=[];
+  for(const row of arr(auditRows)){
+    if(row?.type!==PREPARATION_AUDIT_TYPE) continue;
+    const record=row?.detail?.record||row?.detail;
+    if(record&&typeof record==='object') records.push({...record,auditId:row.id||record.auditId||null});
+  }
+  return indexPreparationRecords(records,options);
+}
+
+export function filterFreshPreparedActions(actions=[],records=[],options={}){
+  const prepared=indexPreparationRecords(records,options);
+  const kept=[];
+  const suppressed=[];
+  for(const action of arr(actions)){
+    const routeId=text(action?.routeId,220);
+    if(routeId&&prepared.has(routeId)) suppressed.push({action,preparation:prepared.get(routeId)});
+    else kept.push(action);
+  }
+  return {
+    kept,
+    suppressed,
+    freshPreparedRouteCount:prepared.size,
+    suppressedCount:suppressed.length,
+    truthBoundary:'Fresh local preparation memory only suppresses redundant preparation work. It never upgrades dependency, policy, execution, trial, payment, delivery, profit, or probability truth.'
+  };
 }

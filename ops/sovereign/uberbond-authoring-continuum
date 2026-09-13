@@ -17,10 +17,11 @@ NODE="${UBERBOND_NODE_EXECUTABLE:-/usr/bin/node}"
 RENEWER="${UBERBOND_FOREVER_MISSION_RENEWER:-$SOURCE_ROOT/scripts/sovereign-forever-mission-renewer.mjs}"
 OUTCOME_COMPILER="${UBERBOND_FOUNDER_OUTCOME_COMPILER:-$SOURCE_ROOT/scripts/compile-founder-outcome-mission.mjs}"
 OUTCOME_PULSE="${UBERBOND_FOUNDER_ECONOMIC_PULSE:-$SOURCE_ROOT/scripts/founder-economic-mission-pulse.mjs}"
+REVENUE_PULSE="${UBERBOND_SOVEREIGN_REVENUE_PULSE:-$SOURCE_ROOT/scripts/sovereign-revenue-runtime-pulse.mjs}"
 
 [[ -x "$AUTHORCTL" && ! -L "$AUTHORCTL" ]] || { echo "REFUSED: trusted authorctl executable required" >&2; exit 2; }
 [[ -x "$NODE" && ! -L "$NODE" ]] || { echo "REFUSED: trusted node executable required" >&2; exit 2; }
-for script in "$RENEWER" "$OUTCOME_COMPILER" "$OUTCOME_PULSE"; do
+for script in "$RENEWER" "$OUTCOME_COMPILER" "$OUTCOME_PULSE" "$REVENUE_PULSE"; do
   [[ -f "$script" && ! -L "$script" ]] || { echo "REFUSED: required sovereign mission script missing: $script" >&2; exit 2; }
 done
 [[ "$INTERVAL_SEC" =~ ^[0-9]+$ ]] || { echo "REFUSED: integer authoring interval required" >&2; exit 2; }
@@ -38,11 +39,12 @@ pulse(){
   fi
 }
 
-echo "UBERBOND_SOVEREIGN_CONTINUUM_STARTED interval_sec=${INTERVAL_SEC} forever_mission=true"
+echo "UBERBOND_SOVEREIGN_CONTINUUM_STARTED interval_sec=${INTERVAL_SEC} forever_mission=true sovereign_revenue=true"
 while [[ "$stop" != true ]]; do
   pulse FOREVER_MISSION "$NODE" "$RENEWER"
   pulse FOUNDER_OUTCOME_COMPILE "$NODE" "$OUTCOME_COMPILER"
   pulse FOUNDER_ECONOMIC "$NODE" "$OUTCOME_PULSE"
+  pulse SOVEREIGN_REVENUE "$NODE" "$REVENUE_PULSE"
   pulse AUTHORING "$AUTHORCTL" wake
 
   [[ "$stop" == true ]] && break

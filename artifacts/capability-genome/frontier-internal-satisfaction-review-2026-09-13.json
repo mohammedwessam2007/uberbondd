@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "uberbond.frontier-internal-satisfaction-review.v1",
+  "status": "FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED",
+  "ok": true,
+  "reviewedBehaviorHead": "655926e5f16cb31f77f5d93a46394c8218c6bc6f",
+  "reviewedCapabilityIds": ["1","10","11","22","30","87","121","123","124","131","134","136","137","138","139","141","143","146","153","155","164","170","183","196","198","203","211","228"],
+  "testSummary": {"tests":72,"pass":72,"fail":0,"skipped":0},
+  "testFamilies": ["genesis-economic-physics","genesis-final-frontier","genesis-ontology","genesis-scientist","genesis-sensing-cognition","genesis-venture-organism","genesis-world-resilience"],
+  "reviewDecision": "PROMOTE_BOUNDED_INTERNAL_PRIMITIVE_MATURITY_ONLY",
+  "externalEffectAuthority": "NONE",
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "THIS_REVIEW_PROMOTES_ONLY_INTERNAL_BOUNDED_PRIMITIVE_MATURITY. IT DOES_NOT_SUPPLY MARKET, CUSTOMER, PROVIDER, LEGAL, PHYSICAL, PAYMENT, OR OTHER EXTERNAL_REALITY EVIDENCE."
+}

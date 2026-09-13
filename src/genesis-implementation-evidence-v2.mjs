@@ -5,12 +5,19 @@ import { normalizeVentureEvidence } from './genesis-venture-organism-evidence.mj
 import { normalizeSensingCognitionEvidence } from './genesis-sensing-cognition-evidence.mjs';
 import { normalizeWorldResilienceEvidence } from './genesis-world-resilience-evidence.mjs';
 import { normalizeFinalFrontierEvidence } from './genesis-final-frontier-evidence.mjs';
-export const GENESIS_IMPLEMENTATION_EVIDENCE_V2_VERSION='uberbond.genesis-implementation-evidence-v2-2.0.0';
+import { GENESIS_FRONTIER_DEEPENING_EVIDENCE } from './genesis-frontier-deepening-evidence.mjs';
+export const GENESIS_IMPLEMENTATION_EVIDENCE_V2_VERSION='uberbond.genesis-implementation-evidence-v2-2.2.0';
+const REVIEWED_INTERNAL_PROMOTION_IDS=Object.freeze([1,10,11,22,30,87,121,123,124,131,134,136,137,138,139,141,143,146,153,155,164,170,183,196,198,203,211,228]);
+const REVIEW_RECEIPT='artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json';
 const economicPhysics=normalizeGenesisEvidencePack(GENESIS_ECONOMIC_PHYSICS_EVIDENCE,{sources:['src/genesis-economic-physics.mjs'],tests:['tests/genesis-economic-physics.test.mjs']});
 const ventureOrganism=normalizeVentureEvidence(),sensingCognition=normalizeSensingCognitionEvidence(),worldAll=normalizeWorldResilienceEvidence(),finalFrontier=normalizeFinalFrontierEvidence();
 const worldResilience=Object.fromEntries(Object.entries(worldAll).filter(([id])=>![126,127].includes(Number(id))));
 function mergePacks(...packs){const merged={};for(const pack of packs)for(const [rawId,evidence] of Object.entries(pack)){const id=Number(rawId);if(merged[id])throw new Error(`duplicate-genesis-evidence-id:${id}`);merged[id]=evidence;}return Object.freeze(merged);}
-export const GENESIS_IMPLEMENTATION_EVIDENCE=mergePacks(FOUNDATION_EVIDENCE,economicPhysics,ventureOrganism,sensingCognition,worldResilience,finalFrontier);
+function applyMaturityOverrides(base,overrides){const merged={...base};for(const [rawId,evidence] of Object.entries(overrides)){const id=Number(rawId),prior=merged[id];if(!prior)throw new Error(`frontier-deepening-missing-base-id:${id}`);if(prior.name!==evidence.name)throw new Error(`frontier-deepening-name-mismatch:${id}`);if(prior.maturity!=='PARTIAL_PRIMITIVE')throw new Error(`frontier-deepening-non-partial-base:${id}`);if(evidence.maturity!=='IMPLEMENTED_PRIMITIVE')throw new Error(`frontier-deepening-invalid-target-maturity:${id}`);merged[id]=Object.freeze({...evidence});}return Object.freeze(merged);}
+function applyReviewedInternalPromotions(base){const merged={...base};for(const id of REVIEWED_INTERNAL_PROMOTION_IDS){const prior=merged[id];if(!prior)throw new Error(`reviewed-frontier-missing-id:${id}`);if(prior.maturity!=='PARTIAL_PRIMITIVE')throw new Error(`reviewed-frontier-non-partial:${id}`);merged[id]=Object.freeze({...prior,maturity:'IMPLEMENTED_PRIMITIVE',runtimeReceipts:[...new Set([...(prior.runtimeReceipts||[]),REVIEW_RECEIPT])],note:`${prior.note} Independently reviewed on 2026-09-13 as internally complete for the declared bounded primitive; external-value claims remain outside this maturity.`});}return Object.freeze(merged);}
+const BASE_EVIDENCE=mergePacks(FOUNDATION_EVIDENCE,economicPhysics,ventureOrganism,sensingCognition,worldResilience,finalFrontier);
+const DEEPENED_EVIDENCE=applyMaturityOverrides(BASE_EVIDENCE,GENESIS_FRONTIER_DEEPENING_EVIDENCE);
+export const GENESIS_IMPLEMENTATION_EVIDENCE=applyReviewedInternalPromotions(DEEPENED_EVIDENCE);
 const envelope=extra=>({businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:structuredClone(ZERO_EXTERNAL_EFFECTS),...extra});
 export function buildGenesisEvidenceLedger({canonicalMarkdown,availablePaths=[],observedRuntimeReceipts=[]}={}){
  const registry=parseGenesisRegistry(canonicalMarkdown);if(registry.length!==275)return envelope({ok:false,status:'GENESIS_EVIDENCE_LEDGER_INVALID',reasonCodes:['canonical-275-registry-required'],observedCount:registry.length});

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "uberbond.genesis-frontier-deepening-runtime-proof.v1",
+  "status": "GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED",
+  "ok": true,
+  "sourceCommit": "ac7a19f2eec8478681e3603146e01ecd0eab482a",
+  "capabilityCount": 9,
+  "capabilityIds": ["3","61","103","167","175","176","184","227","230"],
+  "testSummary": {"tests":45,"pass":45,"fail":0,"skipped":0},
+  "sourceDigests": {
+    "src/genesis-scientist-deepening.mjs": "sha256:413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+    "src/genesis-evolution-deepening.mjs": "sha256:e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+    "src/genesis-ontology-deepening.mjs": "sha256:8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3"
+  },
+  "testDigests": {
+    "tests/genesis-frontier-deepening.test.mjs": "sha256:cd973860f084021afc2cf1e10a2df6e5a12f726d70eda7fc6c816e333f295a6f"
+  },
+  "externalEffectAuthority": "NONE",
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "THIS_RECEIPT_PROVES_ZERO_EFFECT_INTERNAL_DEPTH_BEHAVIOR_ON_THE_HASHED_BRANCH_BYTES_ONLY. IT_DOES_NOT_CREATE_EXTERNAL_PROOF, PRODUCTION_AUTHORITY, OR REAL_WORLD_OUTCOME EVIDENCE."
+}

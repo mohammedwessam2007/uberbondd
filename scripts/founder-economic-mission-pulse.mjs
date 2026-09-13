@@ -10,6 +10,7 @@ import {
 } from '../src/founder-outcome-mission.mjs';
 import { runEconomicReliabilityControlLoop } from '../src/economic-reliability-control-loop.mjs';
 import { compileEconomicReliabilityInput } from '../src/economic-reliability-input-builder.mjs';
+import { compileEconomicReliabilityPreparationJobs } from '../src/economic-reliability-autoprep.mjs';
 
 const CONTROL_DIR = path.resolve(process.env.UBERBOND_CONTROL_DIR || '/var/lib/uberbond-control');
 const MISSION_DIR = path.join(CONTROL_DIR, 'founder-missions');
@@ -22,6 +23,7 @@ const ECONOMIC_TRIALS_PATH = path.join(MISSION_DIR, 'economic-trials.json');
 const RELIABILITY_RECEIPT_PATH = path.join(MISSION_DIR, 'economic-reliability-latest.json');
 const MAX_BYTES = 1_000_000;
 const MAX_RELIABILITY_ACTIONS_IN_RECEIPT = 64;
+const MAX_AUTOPREP_JOBS_PER_PULSE = 8;
 
 async function readJson(file) {
   try {
@@ -67,7 +69,7 @@ export function compileReliabilityPulse({ mission, input, now }) {
   const allActions = Array.isArray(result.nextActions) ? result.nextActions : [];
   return {
     ok: true,
-    schemaVersion: 'uberbond.founder-economic-reliability-pulse.v1.1',
+    schemaVersion: 'uberbond.founder-economic-reliability-pulse.v1.2',
     status: result.status,
     missionId: mission.missionId,
     observedAt: now.toISOString(),
@@ -132,6 +134,11 @@ export async function runFounderEconomicMissionPulse({ now = new Date() } = {}) 
   const reliabilityInput = await resolveReliabilityInput(now);
   const reliability = compileReliabilityPulse({ mission, input: reliabilityInput, now });
   await atomicJson(RELIABILITY_RECEIPT_PATH, reliability);
+  const reliabilityPreparation = compileEconomicReliabilityPreparationJobs({
+    reliabilityReceipt: reliability,
+    maxJobs: MAX_AUTOPREP_JOBS_PER_PULSE,
+    date: now.toISOString().slice(0,10)
+  });
 
   const durableAuthority = authorityForPulse(await readJson(AUTHORITY_PATH));
   const zeroMarginalDiscoveryConfigured = String(process.env.UBERBOND_ZERO_MARGINAL_DISCOVERY || '').toLowerCase() === 'true';
@@ -143,7 +150,7 @@ export async function runFounderEconomicMissionPulse({ now = new Date() } = {}) 
     paymentReconciliationAvailable: true
   });
   if (!plan.ok) {
-    const receipt = { ...plan, observedAt:now.toISOString(), jobsQueued:[], reliability };
+    const receipt = { ...plan, observedAt:now.toISOString(), jobsQueued:[], reliability, reliabilityPreparation };
     await atomicJson(RECEIPT_PATH, receipt);
     return receipt;
   }
@@ -156,15 +163,17 @@ export async function runFounderEconomicMissionPulse({ now = new Date() } = {}) 
     await store.init();
     const queue = new DurableQueue(store, config, console);
     const bucket = Math.floor(now.getTime() / 60_000);
-    for (const job of plan.jobs) {
+    const allJobs = [...plan.jobs, ...reliabilityPreparation.jobs];
+    for (const job of allJobs) {
       try {
+        const sourceKey = job.sourceAction?.routeId ? `${job.sourceAction.type}:${job.sourceAction.routeId}` : job.type;
         const queued = await queue.enqueue(job.type, job.payload || {}, {
           maxAttempts: job.type === 'payment.reconciliation.tick' ? 5 : 3,
-          dedupeKey: `founder-mission:${mission.missionId}:${job.type}:${bucket}`
+          dedupeKey: `founder-mission:${mission.missionId}:${sourceKey}:${bucket}`
         });
-        jobsQueued.push({ type:job.type, consequenceClass:job.consequenceClass, queueReceipt:queued || null });
+        jobsQueued.push({ type:job.type, consequenceClass:job.consequenceClass, sourceAction:job.sourceAction||null, queueReceipt:queued || null });
       } catch (error) {
-        jobFailures.push({ type:job.type, reason:String(error?.message || error).slice(0,300) });
+        jobFailures.push({ type:job.type, sourceAction:job.sourceAction||null, reason:String(error?.message || error).slice(0,300) });
       }
     }
   } catch (error) {
@@ -175,22 +184,23 @@ export async function runFounderEconomicMissionPulse({ now = new Date() } = {}) 
 
   const receipt = {
     ok: true,
-    schemaVersion: 'uberbond.founder-economic-mission-pulse.v1.2',
+    schemaVersion: 'uberbond.founder-economic-mission-pulse.v1.3',
     status: jobsQueued.length ? 'FOUNDER_ECONOMIC_MISSION_PULSE_DISPATCHED' : 'FOUNDER_ECONOMIC_MISSION_ACTIVE_EXECUTION_BLOCKED',
     missionId: mission.missionId,
     observedAt: now.toISOString(),
     deadlineAt: mission.deadlineAt,
     terminal: false,
     currentMissionState: state.status,
-    jobsPlanned: plan.jobs.map(job => ({ type:job.type, consequenceClass:job.consequenceClass })),
+    jobsPlanned: [...plan.jobs, ...reliabilityPreparation.jobs].map(job => ({ type:job.type, consequenceClass:job.consequenceClass, sourceAction:job.sourceAction||null })),
     jobsQueued,
     jobFailures,
     outboundReady: plan.outboundReady,
     reliability,
+    reliabilityPreparation,
     reliabilityReceiptPath: RELIABILITY_RECEIPT_PATH,
     reliabilityInputSource: reliability.inputSource,
     truthBoundary: jobsQueued.length
-      ? 'Queued jobs are execution attempts, not outcomes. The resident reliability receipt automatically derives commercial candidate breadth when no explicit input exists, but it never mints probability or authority. Provider calls, messages, payments and delivery still require their own receipts. This mission remains active until its deadline or proof-complete admissible-branch exhaustion.'
+      ? 'Queued jobs are execution attempts, not outcomes. The resident reliability controller now also queues bounded local preparation for safe reliability actions using existing worker handlers. Preparation never proves dependency truth, grants authority, creates trials, or changes modeled probability by itself. Provider calls, messages, payments and delivery still require their own receipts.'
       : 'The mission remains ACTIVE even though this pulse could not reach the durable economic queue. Reliability shortfall and runtime/configuration failures remain explicit blockers, never a fabricated terminal $0 result.'
   };
   await atomicJson(RECEIPT_PATH, receipt);

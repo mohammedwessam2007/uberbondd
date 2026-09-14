@@ -5,6 +5,9 @@ export const UBEROUTBOUND_RESEARCH_IMPORT_VERSION = 'uberbond.uberoutbound-resea
 
 const clean = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
 const sha256 = value => crypto.createHash('sha256').update(String(value ?? '')).digest('hex');
+const finiteOrNull = value => value === null || value === undefined || value === ''
+  ? null
+  : (Number.isFinite(Number(value)) ? Number(value) : null);
 const VALID_EVIDENCE_STATES = new Set(Object.values(UBEROUTBOUND_EVIDENCE_STATES));
 const VALID_ASSET_TYPES = new Set(['SOURCE_LEDGER', 'EXPERT_UNIVERSE', 'CLAIM_MATRIX', 'HYPOTHESES', 'UNKNOWN_UNKNOWNS', 'SAMPLE_SIZE', 'CONSOLIDATED_DATASET', 'GENOME_SCHEMA', 'RESEARCH_PACK_MANIFEST']);
 
@@ -26,7 +29,7 @@ function normalizeRow(row, assetType, index) {
     sourceDate: clean(row?.sourceDate || row?.date, 80) || null,
     author: clean(row?.author, 240) || null,
     organization: clean(row?.organization, 240) || null,
-    sampleSize: Number.isFinite(Number(row?.sampleSize)) ? Number(row.sampleSize) : null,
+    sampleSize: finiteOrNull(row?.sampleSize),
     population: clean(row?.population, 500) || null,
     metric: clean(row?.metric, 240) || null,
     finding: clean(row?.finding || row?.claim || row?.hypothesis || row?.description, 1200) || null,
@@ -60,6 +63,7 @@ export function compileUberOutboundResearchImport({
   now = new Date()
 } = {}) {
   const normalizedType = clean(assetType, 80).toUpperCase();
+  const normalizedExpectedRowCount = finiteOrNull(expectedRowCount);
   const reasons = [];
   if (!VALID_ASSET_TYPES.has(normalizedType)) reasons.push('unsupported-asset-type');
   if (!clean(assetId, 240)) reasons.push('asset-id-required');
@@ -81,7 +85,7 @@ export function compileUberOutboundResearchImport({
   }
   if (duplicateRowIds.length) reasons.push('duplicate-row-id');
   if (invalidRows.length) reasons.push('invalid-research-row');
-  if (Number.isFinite(Number(expectedRowCount)) && normalizedRows.length !== Number(expectedRowCount)) reasons.push('expected-row-count-mismatch');
+  if (normalizedExpectedRowCount != null && normalizedRows.length !== normalizedExpectedRowCount) reasons.push('expected-row-count-mismatch');
 
   const manifest = {
     version: UBEROUTBOUND_RESEARCH_IMPORT_VERSION,
@@ -98,7 +102,7 @@ export function compileUberOutboundResearchImport({
     },
     inputRowCount: normalizedRows.length,
     uniqueRowCount: byRowId.size,
-    expectedRowCount: Number.isFinite(Number(expectedRowCount)) ? Number(expectedRowCount) : null,
+    expectedRowCount: normalizedExpectedRowCount,
     duplicateRowIds: [...new Set(duplicateRowIds)],
     invalidRows,
     rows: [...byRowId.values()],

@@ -11,8 +11,10 @@ const commandCenter = readFileSync(new URL('../api/command-center.mjs', import.m
 const commandCenterHtml = readFileSync(new URL('../public/command-center.html', import.meta.url), 'utf8');
 const autonomyView = readFileSync(new URL('../public/command-center-autonomy.js', import.meta.url), 'utf8');
 
-test('autonomy wake is a bounded pulse rather than schedule truth', () => {
-  assert.match(wake, /cron:\s*['"]\*\/15 \* \* \* \*['"]/);
+test('autonomy wake is a bounded manual pulse rather than schedule truth', () => {
+  assert.match(wake, /workflow_dispatch:/);
+  assert.doesNotMatch(wake, /schedule:/);
+  assert.doesNotMatch(wake, /cron:/);
   assert.match(wake, /status == "queued" or \.status == "in_progress"/);
   assert.match(wake, /uberbond-self-maintainer\.yml\/dispatches/);
   assert.match(wake, /-f ref='main'/);

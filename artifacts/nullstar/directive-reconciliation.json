@@ -4,8 +4,8 @@
   "status": "FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE",
   "directiveId": "project-nullstar",
   "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e",
-  "sourceCommit": "f6384f68426eadb0c410646e0125acf1d0bc8f10",
-  "generatedAt": "2026-09-14T21:00:01.920Z",
+  "sourceCommit": "97eafdb12bfdb6f07b527cf6286d7b48b84ae0ae",
+  "generatedAt": "2026-09-14T22:11:17.046Z",
   "counts": {
     "sections": 336,
     "rows": 336,

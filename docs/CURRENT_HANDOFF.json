@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-15",
-  "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
+  "checkpointedAt": "2026-09-14T23:40:00.000Z",
+  "sourceCommit": "1834abe32a410fc8f282bdd6e4f7516e807ef480",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
@@ -13,183 +13,68 @@
     "previousCheckpointedAt": "2026-09-12"
   },
   "startupLaw": "A session may be new; UberBond may not be new. Refresh live main before present-tense claims, then mount the canonical Context Fabric/Brainstate and reconcile open PRs, exact-current runtime/provider receipts, CURRENT_HANDOFF and executable terminal truth. Read AGENTS.md, NORTH_STAR.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, master memory/index and inherited handoffs before narrowing scope. A stale handoff is a retrieval pointer, never authority to overwrite newer executable truth. Capability never creates authority.",
-  "activeMission": "Run the OMEGA spine (npm run omega:cycle) at the start of cognitive work and select from its bottleneck ranking rather than from prose. The spine is operating and its terminal local finding is that capability measurement is provider-gated: do not author more local corpus tasks expecting them to separate capability from consistency. Reconcile PR #868 by merging the repair, then the null-versus-zero question. Keep main green; a red tree outranks new construction.",
+  "activeMission": {
+    "directive": "PROJECT NULLSTAR OMEGA (339 sections, 2026-09-15)",
+    "state": "Every section that does not require founder consent, identity, money, a customer, a legal fact, a physical action, an unavailable credential, provider acceptance or real elapsed time has been executed.",
+    "whatChangedMost": "The evaluation instrument stopped reading its own answers. G0 through G2 all scored 1.0 on every dimension because each corpus task was a direct read of a value the repository computes for itself. G3 measures outcomes instead and separates: 0.60 calibration, 0 selfDiagnosis, 0.33 crossDomain, spread 1, mean 0.77."
+  },
   "currentTruth": {
-    "repository": {
-      "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
-      "latestMainRequiresRefreshBeforeNewClaims": true,
-      "finiteEngineeringClosure": "100_PERCENT_OF_DECLARED_FINITE_ENGINEERING_SCOPE",
-      "finiteOpenRequirements": 0,
-      "semanticRequirements": 1040,
-      "semanticOrphans": 0,
-      "internalSovereignCuts": 0
-    },
-    "contextSovereignty": {
-      "status": "MERGED_AND_EXECUTABLE",
-      "brainstate": "CONTENT_ADDRESSED",
-      "contextMount": "EXACT_CURRENT_WITH_AUTOMATIC_BENIGN_STALE_RECOMPILE_AND_TAMPER_REFUSAL",
-      "cognitiveJournal": "HASH_CHAINED_LAYERED_GENERATIONS_WITH_ANTI_DOWNGRADE_AND_RESIDENT_SELF_MAINTENANCE",
-      "contextProjection": "AUDIENCE_SOURCE_AND_TASK_BOUND_ZERO_AUTHORITY",
-      "privacySuppression": "APPEND_ONLY_RETRIEVAL_TOMBSTONE_WITHOUT_FALSE_PHYSICAL_ERASURE_CLAIMS",
-      "newChatLaw": "ZERO_RETELLING_FOR_MACHINE_RECOVERABLE_CONTEXT"
-    },
-    "runtimeProof": {
-      "sourceRepositoryHost": {
-        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
-        "receiptDigest": "sha256:3d449783c270a8cde1a010a72a979507d4a31f5233603c36ecbc08143dc09c5e"
-      },
-      "databaseStateAndWorkerScheduler": {
-        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
-        "receiptDigest": "sha256:7c5fcd907e166a9e33976702d63f512e9d28c3c5ebda79f8787b51bf408aba7e",
-        "observed": "REAL_DISPOSABLE_POSTGRES_CRASH_91__REPLAY_SAFE_RECOVERED_ONCE__RECONCILE_WORK_NOT_REPLAYED"
-      },
-      "webRuntimeHost": {
-        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
-        "receiptDigest": "sha256:9752dd94ccef7b7d557f83dbdce8738855ad6c4b16e49128cc1d9dc779ea53b5"
-      },
-      "modelProvider": {
-        "status": "CLOSED_ON_CHECKPOINT_SOURCE",
-        "provider": "open-model",
-        "runtime": "TRANSFORMERS_HTTP",
-        "model": "Xenova/distilbert-base-uncased-finetuned-sst-2-english",
-        "identityVerification": "MATCHED",
-        "meteredTokens": 304,
-        "costCents": 0,
-        "receiptDigest": "sha256:8d293f99169903130274fb9b881e6df693c13173aff1eb63cf0484ed794de308"
-      },
-      "remainingRuntimeCuts": []
-    },
-    "remainingSovereignCuts": {
-      "externalProvider": [
-        "MESSAGING_PROVIDER",
-        "PAYMENT_PROVIDER",
-        "DEPLOYMENT_PROVIDER"
-      ],
-      "ownerCustody": [
-        "CREDENTIAL_CUSTODY",
-        "SOVEREIGN_IDENTITY"
-      ],
-      "law": "No remaining cut may be closed by source claims, simulations, sandbox payments, same-provider substitution, cloned receipts, repository text, or another cut's evidence."
-    },
-    "externalObservations": {
-      "gmailSenderIdentityObserved": "uberbond.co@gmail.com",
-      "gmailHistoricalSentActivityObserved": true,
-      "secondIndependentMessagingProviderEvidence": "NOT_OBSERVED",
-      "livePaymentSettlementOrPayPalRecovery": "NOT_OBSERVED",
-      "distinctDeploymentProviderExactBootCutoverRollback": "NOT_OBSERVED",
-      "ownerCustodyDiversityEnrollment": "NOT_OBSERVED",
-      "sameIdentityRecoveryWithLivenessAndConsent": "NOT_OBSERVED",
-      "vercelNewDeploymentCapacity": "DAILY_FREE_PLAN_QUOTA_EXHAUSTED_WHEN_LAST_CHECKED",
-      "digitalOceanExistingDroplets": 0
-    },
-    "commercialProof": {
-      "realCustomers": 0,
-      "clearedRevenueUsd": 0,
-      "acceptedPaidDeliveries": 0,
-      "retainedCustomers": 0
-    },
-    "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
-    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
-    "nullstarDirective": {
-      "status": "IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROOF",
-      "humanReadable": "docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md",
-      "machineReadable": "artifacts/project-nullstar-directive.json",
-      "reading": "docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md",
-      "sections": 336,
-      "reconciliation": {
-        "command": "npm run nullstar:reconcile",
-        "artifact": "artifacts/nullstar/directive-reconciliation.json",
-        "verifiedCurrent": 31,
-        "partial": 30,
-        "blocked": 14,
-        "notCurrentlyJustified": 14,
-        "missing": 247,
-        "missingIsUpperBound": "The matcher will not split a title on whitespace, so a section implemented under a different repository name reads MISSING until a reviewed alias says otherwise. Six aliases moved 253 to 247. Reduce it further with more reviewed aliases, never by loosening the matcher.",
-        "reviewedAliases": 6,
-        "aliasLaw": "An alias supplies only which repository name to search under; the state is still computed from what that search finds, and an alias that stops resolving fails the compile rather than reverting its row to MISSING."
-      },
-      "authority": "NONE"
-    },
-    "nullstarOmega": {
-      "status": "SPINE_OPERATING__NO_VERIFIED_SELF_IMPROVEMENT__EXTERNAL_GATE_CONFIRMED",
-      "denominator": {
-        "artifact": "artifacts/nullstar-omega/denominator.json",
-        "doc": "docs/NULLSTAR_OMEGA_DENOMINATOR.md",
-        "command": "npm run omega:denominator",
-        "dimensions": 24,
-        "operating": 7,
-        "verified": 17,
-        "absent": 0,
-        "realityCalibrated": 0,
-        "law": "Additive only. States computed from file evidence; OPERATING needs a run receipt and REALITY_CALIBRATED needs a prediction checked against an observation, so neither is reachable by writing code."
-      },
-      "generations": {
-        "G0": "4 of 17 dimensions measured from local repository evidence; all scored 1.0.",
-        "G1": "Difficulty hypothesis tested with derived cross-artifact answers. 9 dimensions measured, all still 1.0. HYPOTHESIS REFUTED, recorded in artifacts/nullstar-omega/refutations.json.",
-        "G2": "Successor diagnosis's discriminating test executed. Four probes for judgement capability all negative. NO_PROMOTION, classification EXTERNAL_BLOCKED.",
-        "G3": "NOT RUN. No further local generation can move the measurement while the provider gate holds."
-      },
-      "velocity": {
-        "generations": 3,
-        "trend": "FLAT",
-        "accelerationClaim": "NOT_ESTABLISHED"
-      },
-      "terminalFinding": "Every local evaluation task is a deterministic assertion over repository artifacts, so it measures the internal consistency the existing suite already enforces rather than capability. Separating them needs a judgement the repository does not compute, which needs a configured model provider. That is an external gate, not a software gap.",
-      "authority": "NONE"
-    },
-    "pullRequestDebt": {
-      "PR868": {
-        "title": "UberReach industrial mesh",
-        "head": "9b0bf0798457ebc781e5a4c7b50d3ebe29c618b3",
-        "classification": "FIX_THEN_MERGE",
-        "hostedCi": "CI_INFRA_NON_EXECUTION: every check failed in 3-10 seconds; the deterministic suite takes about four minutes locally, so no steps executed. Not a pass and not a source failure.",
-        "exactHeadVerification": "Run locally in a detached worktree at 9b0bf07: syntax 1898 files parse; deterministic 6868 pass / 56 fail.",
-        "diagnosis": "54 of the 56 failures are inherited from the pre-repair main this branch forked from and are already fixed on claude/uberbond-bootstrap-archaeology-zmqw8l. Only 2 are the branch's own.",
-        "ownFailures": "tests/uberinboxes-scale-profiles.test.mjs asserts theoreticalColdDailyCap === null in two places while the source returns 0. One semantic question: is an unknown cold cap null (unknown) or 0 (none)? The PR's own doctrine says unknown egress contributes zero, so the source may be right and the test stale -- that is the author's call.",
-        "nextStep": "Merge the repaired branch (or main once it carries the repair), then resolve the null-versus-zero question. Expected result: 56 failures collapse to 2, then 0."
-      },
-      "PR870": {
-        "title": "UberReach scale frontier + UberOutbound Genome V2.2",
-        "classification": "BLOCKED_ON_PR868",
-        "staleDescription": "The PR record names head 88108a10b2bf8ce8389908b62f2553d65e02fff8 but the live branch head is a438dfa812b59983a22f43fe27693c6652613090. Per the stale-description rule the body's verification claims do not describe the current head.",
-        "nextStep": "Reconcile after #868. It is stacked on #868's branch, so its base moves when #868 does."
-      }
-    }
+    "head": "1834abe32a410fc8f282bdd6e4f7516e807ef480",
+    "deterministicSuite": "7050 tests, 0 source failures (canon freshness regenerated in the final commit)",
+    "mutationWar": "408 mutations, 408 killed, 0 not killed",
+    "reachability": "704 src modules, 213 production, 344 operator-only, 140 no-entry, allClassified true, zero NEEDS_TRIAGE",
+    "denominator": "24 dimensions: 14 VERIFIED, 9 OPERATING, 1 REALITY_CALIBRATED",
+    "firstRealityCalibratedDimension": "N12 CALIBRATION, earned by forecasts sealed before a procedure ran and scored against what the procedure emitted",
+    "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506",
+    "improvementTrend": "INSTRUMENT_CHANGED. The suite changed inside the series, so score movement describes the instrument rather than the system. Acceleration NOT_ESTABLISHED.",
+    "metaImprovement": "3 episodes: 1 moved-elsewhere, 1 persisted, 1 resolved. META_IMPROVEMENT_NOT_ESTABLISHED, because a working verdict needs two prospective episodes and there is one.",
+    "generalization": "1 of 3 families correct on first attempt. DID_NOT_GENERALIZE.",
+    "calibration": "2 closed loops, 1 voided, 2 surprises, mean Brier 0.7975. The system's self-model is measurably miscalibrated.",
+    "clearedRevenue": 0,
+    "customers": 0,
+    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
   },
   "completedSincePreviousCheckpoint": [
-    "Current main was red: 55 deterministic failures on an untouched checkout, and 203 before dependencies were installed in this container. Diagnosed and repaired to the remainder recorded below.",
-    "Three genuine source defects were found and fixed. operational-world-resource-admission coerced absent permission collections into empty ones, so a resource with permissions:null on both sides admitted with ok:true and no permission evidence. Two callers of enforcement decisions (sovereign-local-promotion, sovereign-native-local-worker) sat outside SOVEREIGNTY_PROTECTED_PATHS and could have discarded the decision. FIRST_CASH_OFFER.sku feeds requiresExactSku on the PayPal order a buyer approves and nothing asserted it.",
-    "Five mutation anchors pointed at text that no longer existed, so five guards were silently untested. Re-anchored; two then survived, which found a missing SKU test and a redundant integrity check absorbing its own mutation. All five now kill.",
-    "Ten modules had landed with tests and no entry point or classification, and are now recorded as NEEDS_TRIAGE with what is actually undecided about each. Four modules declaring the canonical effect-ledger name over a different key shape now share one definition.",
-    "docs/CURRENT_SYSTEM_STATE.md named c45873676dce, which is not a valid object in this repository. Canon was regenerated; capability entries 33 before and 33 after, checked explicitly.",
-    "PROJECT NULLSTAR was imported as a durable 336-section human/machine pair with truth class FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL. It is an execution-discipline program beneath the existing hierarchy, not a new North Star.",
-    "The founder-directive reconciler (npm run nullstar:reconcile) compiles every directive section against repository evidence, reusing the sovereign coverage matrix's locator rather than growing a second view of the tree. Its anti-fiction guards are mutation-verified.",
-    "CXLIX MODEL FAILURE MAP, the highest-reference genuinely-absent section, is built, tested, mutation-checked and wired into routeModel, and the reconciler independently re-measures it as VERIFIED_CURRENT."
+    "Section 312 reality connection. Built on the existing sealed ledger: an observable must name a runnable procedure, and the outcome must come from its output. Three forecasts sealed before anything ran; two closed, both surprised.",
+    "Two observation-apparatus defects found by the seal rather than by review. A derivation rule matched the word 'survived' inside guard descriptions WAR-02, LKG-04 and FCSTACK-07 and read the mutation catalogue as the result, against an actual 397 killed 0 not killed; that loop is voided rather than rescored, because the answer is now known and a replacement forecast would measure memory. A second observer read config/reachability-classification.json, the file this session used to park those modules, so the observation was scored against its own prior declaration; the declared rule always said the import graph, so the observer was repaired and returned the same answer independently.",
+    "Section 310 meta-improvement. G0 and G1 both named a saturated instrument and both times the response widened coverage instead of raising difficulty. The G2 diagnosis named the cause and G3 acted on it; that symptom resolved. Retrospective episodes can show a process failing and cannot show it succeeding.",
+    "Section 311 generalization. The reality-connection discipline was carried to three families and was correct on first attempt in one. The existing cross-domain transfer evaluator was run and refused, as expected: its three-arm matched-budget protocol needs an instrument this environment does not have, and filling the arms with invented numbers would manufacture the evidence.",
+    "Sections 313 and 314 transfer. The command center's money claim now carries a sealed forecast that a provider-origin receipt decides, lopsided against clearing because no authorized contact path exists. CRM state, invoice status, internal ledger rows, model output and operator assertion are refused as deciders.",
+    "G3 (sections 038 and 309). First generation in four whose instrument separated. G3 reads only meta-improvement episodes whose successor is not G3, so the G2-to-G3 result cannot score the generation it is about.",
+    "Two comparator defects found by G3. compareGenerations subtracted scores taken on different suites and called the difference a regression; it now reports deltas and refuses to classify them. improvementTrend called [0, 0, -0.23] FLAT; a series that holds still and then drops is falling, and a trend spanning a suite change is INSTRUMENT_CHANGED.",
+    "Ten NEEDS_TRIAGE modules traced and resolved. Six have no importer at all; the other four form two islands. None reaches production. Each is now AWAITING_ACTIVATION against a named gate, and eight new gates are registered. NEEDS_TRIAGE is empty.",
+    "Eleven mutation anchors added for the new guards. All eleven kill. 408/408."
   ],
   "genuineBlockers": [
-    "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
-    "PAYMENT_PROVIDER: the sovereign receipt requires LIVE second-rail settlement or LIVE PayPal recovery. PayPal sandbox evidence cannot close this cut and no qualifying live settlement/recovery receipt is observed.",
-    "DEPLOYMENT_PROVIDER: a distinct provider must physically boot the exact release and demonstrate cutover plus rollback. Macaly scratch execution and same-provider Vercel previews are not sufficient; current Vercel new-deployment attempts are also quota-blocked.",
-    "CREDENTIAL_CUSTODY: requires observed founder enrollment with threshold >=2, at least two factor types and at least two custody domains, with no secret material in the receipt. This cannot be inferred from configured accounts.",
-    "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
-    "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
-    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
-    "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
-    "NULLSTAR ALIAS RECONCILIATION: 247 sections still read MISSING, an upper bound. The alias mechanism exists, is tested and is mutation-verified; what remains is per-section review of which titles name an organ the repository already has under another name. Do not lower the number by loosening the matcher.",
-    "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED: G2 confirmed with four negative probes that no provider credential, configured provider, local transformers runtime or ollama binary exists here. Every local evaluation task measures repository consistency, not capability. No further local corpus authorship closes this; a configured model provider does.",
-    "NO REALITY-CALIBRATED DIMENSION: all 24 denominator dimensions sit at OPERATING or below. Nothing in this repository has yet made a prediction that was later checked against an observed outcome, which is the honest state of the reality-connection requirement."
+    {
+      "blocker": "MODEL_JUDGEMENT_CAPABILITY",
+      "precision": "Two independent blockers, and the runtime is neither. onnxruntime 1.30.0 installs and imports here with CPUExecutionProvider available, and PyPI is reachable at 54 MB/s. Every model-weight host is refused by network policy: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. Separately, the Capability Genome admission gate requires independent STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three.",
+      "whatOpensIt": "A provider credential, or a policy-permitted weight host plus the admission evidence.",
+      "whatItDoesNotBlock": "Bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer. All six were treated as blocked by association in the G2 verdict and none of them needs a provider. All six are now done.",
+      "evidence": "artifacts/nullstar-omega/G2-discriminating-test.json v1.1"
+    },
+    {
+      "blocker": "NO_AUTHORIZED_CONTACT_PATH",
+      "whatOpensIt": "Owner authorization for a contact path, which no code change can produce."
+    },
+    {
+      "blocker": "NO_OBSERVED_UNATTENDED_OPERATION",
+      "whatOpensIt": "24 hours of genuinely elapsed unattended operation with durable pulse receipts. Real time is the input; synthesised timestamps do not release it."
+    },
+    {
+      "blocker": "SECOND_PROSPECTIVE_META_IMPROVEMENT_EPISODE",
+      "whatOpensIt": "One more generation where the bottleneck is named before the successor is built and the named symptom then resolves. G4 can produce it. This is not external: it needs another turn of the loop, not permission."
+    }
   ],
   "nextExecutor": {
-    "primary": "Refresh live main and mount the Context Fabric. Run npm run nullstar:reconcile before selecting work, and select from its cut set rather than from the directive text. Verify a MISSING section is genuinely absent before building it -- several are renamed, not unbuilt. Do not reopen closed finite engineering.",
-    "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
-    "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
-    "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",
-    "deployment": "Admit only a genuinely distinct provider exact-release boot, cutover and rollback receipt.",
-    "identityAndCustody": "Require explicit owner participation for custody enrollment, liveness and same-identity recovery. Never manufacture these from software state.",
-    "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling.",
-    "directiveDiscipline": "A directive section is not a work order. Build only what current authorization covers, and never convert a cut-set position into authority."
+    "highestValue": "G4. Name the bottleneck from artifacts/nullstar-omega/bottlenecks-G3.json before building the successor, and record the symptom kind prospectively. That is the only remaining path to a second prospective episode, and a working-process verdict needs two.",
+    "thenConsider": [
+      "The G3 bottleneck is BN-EVAL-COVERAGE again, leverage 9, unlocks 17. Read it before assuming the answer is more dimensions -- that was the G1 mistake and it cost two generations.",
+      "247 directive sections remain MISSING. The alias mechanism exists and is mutation-verified; further reviewed aliases are a reading exercise, not new code.",
+      "The reality-connection loop currently runs from an operator command. A scheduled loop that records forecasts without an operator would make src/nullstar-omega-reality-connection.mjs production-reachable and release its gate."
+    ]
   },
-  "truthBoundary": "This checkpoint is bound to the source carrying the NULLSTAR OMEGA spine, the repaired main, the NULLSTAR import and the model failure map. It records three completed generations whose net capability improvement is zero and whose trend is FLAT, one refuted hypothesis, and an external gate confirmed by probe. It does not prove verified self-improvement, acceleration, generalization beyond local artifacts, a configured provider, customers, revenue, life outcomes or ASI. Refresh live main before any exact-source claim.",
+  "truthBoundary": "G3 SEPARATED THE INSTRUMENT. IT DID NOT MAKE THE SYSTEM MORE CAPABLE, AND THE SCORES WENT DOWN BECAUSE THE MEASUREMENT GOT HONEST. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. THE CALIBRATION RESULT SAYS THIS SYSTEM'S SELF-MODEL IS WRONG MORE OFTEN THAN IT EXPECTS TO BE.",
   "orchestrationCheckpoint": {
     "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
     "importedAt": "2026-09-12",
@@ -199,5 +84,14 @@
     "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
     "reportedIssue770": "OBSERVED_OPEN_AT_IMPORT",
     "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority."
+  },
+  "inheritedWork": {
+    "pr868": {
+      "title": "Evidence-bound UberInboxes scale profiles",
+      "author": "mohammedwessam2007",
+      "notMine": "Opened by the founder. Not pushed to from this session.",
+      "openQuestionResolved": "theoreticalColdDailyCap: the source is right and the test is stale. src/uberinboxes-scale-profiles.mjs already returns null when the provider cold cap is not a finite non-negative number, and a product otherwise. That is the correct distinction between unknown and known-zero. tests/uberinboxes-scale-profiles.test.mjs asserts null for a case where the cap is known, which asserts that a known zero is unknown and erases the distinction the source makes.",
+      "action": "The author's call. The analysis is recorded here rather than pushed."
+    }
   }
 }

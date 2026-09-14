@@ -2985,6 +2985,87 @@ export const MUTATIONS = [
     replace: '  if (false) {',
     suites: ['tests/temporal-civilization.test.mjs']
   },
+  // ---- Reality connection: who is allowed to decide an outcome ------------
+  {
+    id: 'REALITY-01', guard: 'A forecaster who reports their own outcome cannot be scored',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: "  if (!observable.independent) {",
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-02', guard: 'A claimed outcome absent from the observer output is refused',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: "  } else if (observed && evidence && !evidence.includes(observed)) {",
+    replace: '  } else if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-03', guard: 'A derived outcome must name the rule sealed with the observable',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: "    if (text(derivationRuleId, 200) !== observable.derivation.ruleId) {",
+    replace: '    if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-04', guard: 'A forecast may not narrow the declared outcome space',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: '  if (declared.length !== offered.length || declared.some((key, index) => key !== offered[index])) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-05', guard: 'All-easy correct forecasts do not establish calibration',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: '  const allNearCertain = closed.every(loop => loop.assignedProbability >= 0.9);',
+    replace: '  const allNearCertain = false;',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  // ---- Meta-improvement: what counts as resolving a named symptom ---------
+  {
+    id: 'METAIMP-01', guard: 'Widening a saturated instrument does not resolve saturation',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '    resolved = afterSpread > beforeSpread;',
+    replace: '    resolved = after.length > before.length;',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'METAIMP-02', guard: 'Retrospective episodes cannot establish a working process',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '  const status = prospective.length >= 2 && resolved.length > persisted.length',
+    replace: '  const status = resolved.length > persisted.length',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  // ---- Transfer bindings: who may settle an economic claim ----------------
+  {
+    id: 'XFER-01', guard: 'CRM state and invoice status may not decide an economic forecast',
+    file: 'src/nullstar-omega-transfer-bindings.mjs',
+    find: '  if (refusedDeciders.includes(decider)) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-transfer-bindings.test.mjs']
+  },
+  {
+    id: 'XFER-02', guard: 'A decider the forecaster controls is refused',
+    file: 'src/nullstar-omega-transfer-bindings.mjs',
+    find: '  if (!allowedDeciders.includes(decider)) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-transfer-bindings.test.mjs']
+  },
+  // ---- Generations: an instrument change is not a capability change ------
+  {
+    id: 'GENCMP-01', guard: 'A suite change is not reported as a capability regression',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '  const instrumentChanged = previous.suiteVersion !== next.suiteVersion;',
+    replace: '  const instrumentChanged = false;',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
+    id: 'GENCMP-02', guard: 'A series that holds still and then drops is falling, not flat',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '  else if (negative) trend = \'FALLING\';',
+    replace: '',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

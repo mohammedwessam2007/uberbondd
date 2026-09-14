@@ -52,3 +52,7 @@ Blind-spot dimensions include mailbox count, throughput, domain density, IP repu
 UberInbox must fail closed when provider evidence is stale or materially future-dated, ownership is unverified, terms are not explicitly compatible, API provisioning is not observed, slot capacity is not numeric, or unit cost is unknown. It reuses UberDoso's current per-domain mailbox policy ceiling and does not create contact or send authority.
 
 Provisioning, purchases, provider writes, DNS changes, warmup, placement claims, live sends, and any provider-policy exceptions belong to separate authorized execution and evidence layers.
+
+## Verification status
+
+The branch carries hostile tests for provider evidence freshness, unknown unit cost, budget ceilings, provider slot ceilings, domain ownership, canonical root-domain enforcement, per-domain density, provider binding, bounded batches, and unknown-unknown blind spots. GitHub-hosted verification must still execute successfully before these tests count as passing evidence; a workflow that fails before running steps is infrastructure non-evidence rather than a source verdict.

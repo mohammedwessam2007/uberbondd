@@ -1,0 +1,16 @@
+---
+description: UberBond universal context bootstrap
+alwaysApply: true
+---
+
+Before substantive work in UberBond:
+
+- Read `AI_START_HERE.md`.
+- Read `AGENTS.md` completely.
+- Follow `docs/UNIVERSAL_CONTEXT_PROTOCOL.md`.
+- Refresh latest `main`; never trust remembered SHAs.
+- Run `npm run brain` and `node scripts/context-universe.mjs --mission "<current request>"` when shell access exists.
+- Preserve the full Sovereign Cognitive Continuum hierarchy and no-amputation law.
+- Current exact source and durable external evidence outrank handoffs, memory, historical docs, and chat recollection.
+
+This rule is a pointer to canonical context, not a competing source of truth.

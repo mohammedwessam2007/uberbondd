@@ -4,7 +4,7 @@ import path from 'node:path';
 import { compileUberLaunchManifest, pressUberLaunchButton } from './uberlaunch-one-button.mjs';
 import { PostalEffectAdapter, postalProviderEffectIdentity } from './omnia-v9/integrations/providers/postal-effect-adapter.mjs';
 
-export const UBERLAUNCH_RUNTIME_VERSION = 'uberbond.uberlaunch-runtime.v1';
+export const UBERLAUNCH_RUNTIME_VERSION = 'uberbond.uberlaunch-runtime.v1.1';
 const MAX_PACKET_AGE_MS = 5 * 60 * 1000;
 const PRESS_TTL_MS = 5 * 60 * 1000;
 
@@ -17,9 +17,18 @@ function parseJson(value) {
   catch { return null; }
 }
 
-export function readUberLaunchPacket(env = process.env, now = new Date()) {
-  const packet = parseJson(env.UBERLAUNCH_PACKET_JSON);
+export async function readUberLaunchPacket(env = process.env, now = new Date()) {
   const reasons = [];
+  const packetPath = text(env.UBERLAUNCH_PACKET_PATH, 1200);
+  let raw = env.UBERLAUNCH_PACKET_JSON;
+  if (packetPath) {
+    if (!path.isAbsolute(packetPath)) reasons.push('uberlaunch-runtime-packet-path-must-be-absolute');
+    else {
+      try { raw = await readFile(packetPath, 'utf8'); }
+      catch { reasons.push('uberlaunch-runtime-packet-file-unavailable'); }
+    }
+  }
+  const packet = parseJson(raw);
   if (!packet || typeof packet !== 'object') reasons.push('uberlaunch-runtime-packet-required');
   const observedAt = packet?.observedAt ? Date.parse(packet.observedAt) : NaN;
   const nowMs = new Date(now).getTime();
@@ -30,7 +39,15 @@ export function readUberLaunchPacket(env = process.env, now = new Date()) {
   if (expectedCommit && packetCommit !== expectedCommit) reasons.push('uberlaunch-runtime-source-commit-mismatch');
   if (!text(packet?.idempotencyKey, 500)) reasons.push('uberlaunch-idempotency-key-required');
   if (!packet?.dispatchAuthorization || !packet?.message) reasons.push('uberlaunch-effect-packet-incomplete');
-  return { ok: reasons.length === 0, packet, reasonCodes: reasons, observedAt: Number.isFinite(observedAt) ? new Date(observedAt).toISOString() : null, expectedCommit: expectedCommit || null };
+  return {
+    ok: reasons.length === 0,
+    packet,
+    reasonCodes: [...new Set(reasons)],
+    source: packetPath ? 'SELF_HOSTED_RUNTIME_FILE' : 'ENV_FALLBACK',
+    packetPathConfigured: Boolean(packetPath),
+    observedAt: Number.isFinite(observedAt) ? new Date(observedAt).toISOString() : null,
+    expectedCommit: expectedCommit || null
+  };
 }
 
 function previewOwnerAuthorization(now = new Date()) {
@@ -68,6 +85,7 @@ export function compileUberLaunchPreflight({ packetRead, adminSecret, now = new 
     hardStopReasonCodes: manifest.hardStopReasonCodes,
     waitReasonCodes: manifest.waitReasonCodes,
     selfHost: manifest.selfHost,
+    runtimePacketSource: packetRead.source || null,
     truthBoundary: 'READY_FOR_FOUNDER_PRESS means all supplied non-founder gates are green on fresh runtime evidence. It creates no effect authority until an authenticated founder press is separately validated.'
   };
 }

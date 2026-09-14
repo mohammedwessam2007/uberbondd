@@ -12,10 +12,10 @@ for cmd in node tailscale realpath; do
 done
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
-BOOTSTRAP="$ROOT/ops/sovereign/bootstrap-founder-node.sh"
+BOOTSTRAP="$ROOT/ops/sovereign/bootstrap-economic-founder-node.sh"
 TAILNET_CONFIG="$ROOT/ops/sovereign/configure-founder-console-tailnet.sh"
 [[ -d "$ROOT/.git" && ! -L "$ROOT" ]] || { echo 'REFUSED: run this from a real non-symlink UberBond Git checkout.' >&2; exit 2; }
-[[ -x "$BOOTSTRAP" && -f "$BOOTSTRAP" && ! -L "$BOOTSTRAP" ]] || { echo 'REFUSED: hardened founder bootstrap must be executable.' >&2; exit 2; }
+[[ -x "$BOOTSTRAP" && -f "$BOOTSTRAP" && ! -L "$BOOTSTRAP" ]] || { echo 'REFUSED: hardened economic founder bootstrap must be executable.' >&2; exit 2; }
 [[ -x "$TAILNET_CONFIG" && -f "$TAILNET_CONFIG" && ! -L "$TAILNET_CONFIG" ]] || { echo 'REFUSED: tailnet founder configurator must be executable.' >&2; exit 2; }
 
 if ! tailscale status --json | node --input-type=module -e "let s='';for await(const c of process.stdin)s+=c;const j=JSON.parse(s);if(j?.BackendState!=='Running')process.exit(2)"; then
@@ -35,18 +35,21 @@ then
 fi
 
 # First boot stays loopback-only while source, local model, worker, verifier,
-# promoter and resident continuum are admitted. Network founder access is added
-# only after the canonical doctor and first wake succeed.
+# promoter, resident continuum, and the founder economic heartbeat are admitted.
+# Network founder access is added only after those local checks succeed.
 "$BOOTSTRAP" "$ROOT" "$1" "$2" "$3"
 "$TAILNET_CONFIG" "$TAIL_IP"
 
 cat <<EOF
-UBERBOND AIR NODE READY
+UBERBOND ECONOMIC AIR NODE READY
 
 Communication Center: http://${TAIL_IP}:8787/
 Transport:            private Tailscale tailnet only
 Founder device:       iPad / iPhone / any authenticated tailnet device
+Economic heartbeat:   resident systemd path + timer + service verified by bootstrap
 
-The iPad is the cockpit. Compute, model inference, memory, verification and
-self-completion remain on this Linux Air Node.
+The iPad is the cockpit. Compute, model inference, memory, verification,
+self-completion and the resident economic heartbeat remain on this Linux Air Node.
+This readiness does not itself prove live provider credentials, customer demand,
+cleared payment, accepted delivery, positive contribution profit, or 24h endurance.
 EOF

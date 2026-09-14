@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
+import { discoverBusinesses } from './discovery.mjs';
 import { evaluateOutreachLaunchGate, OUTREACH_LAUNCH_STATES } from './outreach-launch-gate.mjs';
 import { dispatchGovernedOutreach } from './governed-outreach-dispatch.mjs';
 
-export const UBERLAUNCH_ONE_BUTTON_VERSION = 'uberbond.uberlaunch-one-button.v1';
+export const UBERLAUNCH_ONE_BUTTON_VERSION = 'uberbond.uberlaunch-one-button.v1.1';
 export const UBERLAUNCH_SELF_HOST_POLICY = Object.freeze({
   defaultControlPlane: 'SELF_HOSTED',
   preferredSubstrates: Object.freeze(['UBERCLOUD', 'UBERLIT', 'UBERCEL']),
@@ -36,6 +37,36 @@ function substrateDecision(substrate = {}) {
     substrateId: substrateId || null,
     blockers,
     truthBoundary: 'Self-hosted readiness requires observed runtime evidence. Naming UberCloud, UberLit, or UberCel never proves that the physical runtime is online.'
+  };
+}
+
+export async function prepareUberLaunchDiscovery({
+  discoveryConfig,
+  discoveryOptions,
+  fetcher = fetch
+} = {}) {
+  const result = await discoverBusinesses(discoveryConfig || {}, discoveryOptions || {}, fetcher);
+  const prospects = Array.isArray(result?.prospects) ? result.prospects : [];
+  const evidenceSeed = prospects.map(prospect => ({
+    company: clean(prospect.company, 180),
+    website: clean(prospect.website, 1000),
+    sourceUrl: clean(prospect.sourceUrl, 1000),
+    sourceRecordId: clean(prospect.sourceRecordId, 240)
+  }));
+
+  return {
+    state: prospects.length ? 'READY' : 'WAIT',
+    sourceClass: 'PUBLIC_BUSINESS_DATA',
+    provider: clean(result?.provider, 160) || 'unknown',
+    qualifiedProspectCount: prospects.length,
+    prospects,
+    protectedSource: false,
+    captchaBypass: false,
+    privateDataInference: false,
+    evidenceRef: prospects.length ? `ubdisc_${sha256(JSON.stringify(evidenceSeed))}` : null,
+    rawCount: Number(result?.rawCount) || 0,
+    attribution: clean(result?.attribution, 500) || null,
+    truthBoundary: 'Discovery readiness proves only that public business records with public websites were returned by the configured allowed discovery adapter. It does not infer private contact data, prove legal outreach eligibility, or authorize contact.'
   };
 }
 
@@ -101,6 +132,21 @@ export function compileUberLaunchManifest({
     businessEffectAuthority: 'NONE',
     truthBoundary: 'READY_TO_PRESS means the source, public-business discovery inventory, sovereign runtime evidence, outreach launch gate, and fresh founder authorization supplied to this manifest are all green. It does not create authority, fabricate runtime evidence, prove inbox placement, or waive legal/provider/suppression rules.'
   };
+}
+
+export async function prepareAndCompileUberLaunch({
+  sourceReadiness,
+  discoveryConfig,
+  discoveryOptions,
+  substrate,
+  launchInputs,
+  ownerAuthorization,
+  fetcher = fetch,
+  now = new Date()
+} = {}) {
+  const discovery = await prepareUberLaunchDiscovery({ discoveryConfig, discoveryOptions, fetcher });
+  const manifest = compileUberLaunchManifest({ sourceReadiness, discovery, substrate, launchInputs, ownerAuthorization, now });
+  return { discovery, manifest };
 }
 
 export async function pressUberLaunchButton({

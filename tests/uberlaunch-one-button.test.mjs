@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileUberLaunchManifest, pressUberLaunchButton } from '../src/uberlaunch-one-button.mjs';
+import { compileUberLaunchManifest, prepareUberLaunchDiscovery, pressUberLaunchButton } from '../src/uberlaunch-one-button.mjs';
 
 const now = new Date('2026-09-15T00:00:00.000Z');
 
@@ -25,6 +25,40 @@ function readyInputs() {
     now
   };
 }
+
+test('public-business discovery adapter is wired into launch preparation without private-data inference', async () => {
+  const payload = {
+    elements: [{
+      type: 'node',
+      id: 123,
+      lat: 30,
+      lon: 31,
+      tags: { name: 'Clinic Fixture', amenity: 'clinic', website: 'https://clinic.example' }
+    }]
+  };
+  const fetcher = async () => ({ ok: true, status: 200, json: async () => payload, headers: new Headers() });
+  const out = await prepareUberLaunchDiscovery({
+    discoveryConfig: {
+      endpoint: 'https://overpass-api.de/api/interpreter',
+      categories: ['clinic'],
+      bbox: [29.9, 30.9, 30.1, 31.1],
+      maxBboxSpan: 5,
+      timeoutMs: 1000,
+      retryAttempts: 1,
+      minIntervalMs: 0,
+      dailyCap: 10,
+      userAgent: 'UberBond-test'
+    },
+    discoveryOptions: { categories: ['clinic'], bbox: [29.9, 30.9, 30.1, 31.1], limit: 10 },
+    fetcher
+  });
+  assert.equal(out.state, 'READY');
+  assert.equal(out.sourceClass, 'PUBLIC_BUSINESS_DATA');
+  assert.equal(out.qualifiedProspectCount, 1);
+  assert.equal(out.privateDataInference, false);
+  assert.match(out.evidenceRef, /^ubdisc_[a-f0-9]{64}$/);
+  assert.equal(out.prospects[0].company, 'Clinic Fixture');
+});
 
 test('green sovereign evidence compiles one READY_TO_PRESS manifest with zero automatic authority', () => {
   const out = compileUberLaunchManifest(readyInputs());

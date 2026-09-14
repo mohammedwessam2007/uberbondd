@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const UBEROUTBOUND_GENOME_VERSION = 'uberbond.uberoutbound-genome.v2.1';
+export const UBEROUTBOUND_GENOME_VERSION = 'uberbond.uberoutbound-genome.v2.2';
 
 export const UBEROUTBOUND_EVIDENCE_STATES = Object.freeze({
   PROVEN_NORMATIVE: 'PROVEN_NORMATIVE',
@@ -210,19 +210,17 @@ export function compileUberOutboundMessageGenotype(message = {}, prospect = {}) 
     },
     trigger: {
       type: clean(prospect?.trigger?.type, 120).toUpperCase() || null,
-      triggerMentioned: message.triggerMentioned === true,
-      evidenceSnapshotDigest: clean(message.evidenceSnapshotDigest, 160) || null
+      triggerMentioned: message.triggerMentioned === true
     },
     personalization: {
       class: clean(message.personalizationClass, 80).toUpperCase() || null,
       researchDepth: clean(message.researchDepth, 80).toUpperCase() || null,
-      sourceCount: Math.max(0, Math.floor(finite(message.sourceCount) || 0)),
-      sourceFreshness: clamp01(message.sourceFreshness)
+      sourceCountBucket: Math.max(0, Math.floor(finite(message.sourceCountBucket ?? message.sourceCount) || 0)),
+      sourceFreshnessBucket: clamp01(message.sourceFreshnessBucket ?? message.sourceFreshness)
     },
     subject: {
       architecture: clean(message.subjectArchitecture, 120).toUpperCase() || null,
-      wordCount: Math.max(0, Math.floor(finite(message.subjectWordCount) || 0)),
-      contentDigest: sha256Text(message.subject)
+      wordCount: Math.max(0, Math.floor(finite(message.subjectWordCount) || 0))
     },
     opening: {
       architecture: clean(message.openingArchitecture, 120).toUpperCase() || null
@@ -260,18 +258,37 @@ export function compileUberOutboundMessageGenotype(message = {}, prospect = {}) 
       modelVersion: clean(message.modelVersion, 160) || null,
       promptOrPolicyVersion: clean(message.promptOrPolicyVersion, 160) || null,
       factCheckStatus: clean(message.factCheckStatus, 80).toUpperCase() || null,
-      generationCostCents: finite(message.generationCostCents),
-      researchMinutes: finite(message.researchMinutes)
-    },
-    contentReceipt: {
-      bodyDigest: sha256Text(message.body),
-      contentReceiptId: clean(message.contentReceiptId, 240) || null
+      generationCostBand: clean(message.generationCostBand, 80).toUpperCase() || null,
+      researchEffortBand: clean(message.researchEffortBand, 80).toUpperCase() || null
     }
   };
   return {
     genotypeId: `ubog_${sha256Object(atoms)}`,
     atoms,
-    truthBoundary: 'The genotype captures causal-candidate structure and content digests without embedding unnecessary recipient payloads. A genotype ID identifies the strategy representation, not a proven causal mechanism.'
+    truthBoundary: 'The genotype identifies the reusable strategy structure. Exact rendered copy and prospect-specific evidence are intentionally excluded so creative variation does not masquerade as a new strategy genotype.'
+  };
+}
+
+export function compileUberOutboundRenderedMessageReceipt(message = {}, genotype = null) {
+  const resolvedGenotype = genotype && genotype.genotypeId
+    ? genotype
+    : compileUberOutboundMessageGenotype(message, {});
+  const contentReceipt = {
+    subjectDigest: sha256Text(message.subject),
+    bodyDigest: sha256Text(message.body),
+    contentReceiptId: clean(message.contentReceiptId, 240) || null,
+    evidenceSnapshotDigest: clean(message.evidenceSnapshotDigest, 240) || null,
+    renderedAt: clean(message.renderedAt, 80) || null
+  };
+  const identity = {
+    genotypeId: resolvedGenotype.genotypeId,
+    contentReceipt
+  };
+  return {
+    genotypeId: resolvedGenotype.genotypeId,
+    renderedMessageId: `ubom_${sha256Object(identity)}`,
+    contentReceipt,
+    truthBoundary: 'The rendered-message receipt fingerprints the exact exposure separately from the reusable strategy genotype. Different prospect-specific copy may share one genotype while retaining distinct rendered-message IDs.'
   };
 }
 
@@ -306,10 +323,7 @@ function strategyPrior(message = {}, prospect = {}) {
   if (message.relevantProof === true) { score += 0.06; reasons.push('probable-relevant-proof-prior'); }
   if (firstTouch && ['OFFER', 'INTEREST', 'SEND_ASSET', 'BENCHMARK'].includes(cta)) { score += 0.08; reasons.push('probable-low-friction-cta-prior'); }
   if (firstTouch && cta === 'MEETING') { score -= 0.08; reasons.push('direct-meeting-ask-is-challenger-on-cold-first-touch'); }
-  if (Math.max(1, Math.floor(finite(message.sequencePosition) || 1)) > 1 && message.newInformation === true) {
-    score += 0.04;
-    reasons.push('new-information-followup-prior');
-  }
+  if (!firstTouch && message.newInformation === true) { score += 0.04; reasons.push('new-information-followup-prior'); }
 
   const preferredPersonalization = new Set(outboundPersonalizationPrior(prospect.seniority));
   if (preferredPersonalization.has(clean(message.personalizationClass, 80).toUpperCase())) {
@@ -385,6 +399,7 @@ function compileDecisionId({ prospect = {}, sender = {}, legalEvidence = {}, exp
     experimentId: experimentAssignment?.experimentId || null,
     experimentArm: experimentAssignment?.arm || null,
     genotypeId: candidate?.genotypeId || null,
+    renderedMessageId: candidate?.renderedMessageId || null,
     policyVersion: clean(policy.policyVersion, 160) || null
   };
   return `ubod_${sha256Object(identity)}`;
@@ -420,10 +435,13 @@ export function compileUberOutboundGenomeDecision({
   const candidates = (Array.isArray(messageCandidates) ? messageCandidates : []).map((message, index) => {
     const prior = strategyPrior(message, prospect);
     const genotype = compileUberOutboundMessageGenotype(message, prospect);
+    const rendered = compileUberOutboundRenderedMessageReceipt(message, genotype);
     return {
       candidateId: clean(message.candidateId || `candidate-${index + 1}`, 160),
       genotypeId: genotype.genotypeId,
+      renderedMessageId: rendered.renderedMessageId,
       genotypeAtoms: genotype.atoms,
+      contentReceipt: rendered.contentReceipt,
       priorScore: prior.score,
       priorReasonCodes: prior.reasonCodes,
       wordCount: Math.max(0, Math.floor(finite(message.wordCount) || 0)),
@@ -468,17 +486,19 @@ export function compileUberOutboundGenomeDecision({
     messageCandidates: candidates,
     recommendedCandidateId: recommendedCandidate?.candidateId || null,
     recommendedGenotypeId: recommendedCandidate?.genotypeId || null,
+    recommendedRenderedMessageId: recommendedCandidate?.renderedMessageId || null,
     experimentAssignment,
     priors: UBEROUTBOUND_V1_PRIORS,
     messagesSent: 0,
     providerCalls: 0,
-    truthBoundary: 'This compiler converts the 2026-09-14 research corpus into evidence-weighted priors, reconstructible strategy genotypes, abstention choices and hard governance gates. It does not prove a universal best template, create legal eligibility, authorize outreach, send messages, or claim causal lift.'
+    truthBoundary: 'This compiler converts the 2026-09-14 research corpus into evidence-weighted priors, reusable strategy genotypes, exact rendered-message fingerprints, abstention choices and hard governance gates. It does not prove a universal best template, create legal eligibility, authorize outreach, send messages, or claim causal lift.'
   });
 }
 
 export function compileUberOutboundOutcomeReceipt({
   decisionId = null,
   genotypeId = null,
+  renderedMessageId = null,
   experimentAssignment = null,
   outcome = {},
   economics = {},
@@ -497,6 +517,7 @@ export function compileUberOutboundOutcomeReceipt({
     receiptType: 'UBEROUTBOUND_OUTCOME',
     decisionId: clean(decisionId, 240) || null,
     genotypeId: clean(genotypeId, 240) || null,
+    renderedMessageId: clean(renderedMessageId, 240) || null,
     observedAt: new Date(observedAt).toISOString(),
     experimentAssignment: experimentAssignment || null,
     delivery: {
@@ -556,6 +577,7 @@ export function compileUberOutboundLearningPacket({ outcomes = [], policy = {} }
     const closedWon = count(row => row?.commercial?.closedWon === true);
     const knownMarginal = armRows.map(row => finite(row?.economics?.marginalSendValueCents)).filter(value => value != null);
     const uniqueGenotypes = new Set(armRows.map(row => clean(row?.genotypeId, 240)).filter(Boolean)).size;
+    const uniqueRenderedMessages = new Set(armRows.map(row => clean(row?.renderedMessageId, 240)).filter(Boolean)).size;
     const complaintRate = n ? complaints / n : 0;
     return {
       arm,
@@ -565,6 +587,7 @@ export function compileUberOutboundLearningPacket({ outcomes = [], policy = {} }
       opportunityRate: n ? opportunities / n : 0,
       closedWonRate: n ? closedWon / n : 0,
       uniqueGenotypeCount: uniqueGenotypes,
+      uniqueRenderedMessageCount: uniqueRenderedMessages,
       knownMarginalValueCount: knownMarginal.length,
       totalKnownMarginalSendValueCents: knownMarginal.reduce((sum, value) => sum + value, 0),
       guardrailsPassed: complaintRate < maxComplaintRate,
@@ -581,6 +604,6 @@ export function compileUberOutboundLearningPacket({ outcomes = [], policy = {} }
     eligibleForCausalAnalysis,
     promotionState: eligibleForCausalAnalysis ? 'READY_FOR_INDEPENDENT_CAUSAL_ANALYSIS' : 'EVIDENCE_ACCUMULATING',
     automaticWinner: null,
-    truthBoundary: 'This aggregator exposes rates, genotype diversity and guardrails but deliberately does not declare a causal winner. Promotion requires independent statistical/causal analysis, validation traffic and downstream economic evidence.'
+    truthBoundary: 'This aggregator exposes outcome rates, reusable strategy-genotype diversity, rendered-message diversity and guardrails but deliberately does not declare a causal winner. Promotion requires independent statistical/causal analysis, validation traffic and downstream economic evidence.'
   });
 }

@@ -17,6 +17,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Pulse UberBond serverless continuity
+        env:
+          UBERBOND_CONTINUITY_URL: https://lslifasfebpjbtqmkitm.supabase.co/functions/v1/uberbond-heartbeat
+          UBERBOND_CONTINUITY_KEY: sb_publishable_lKlb6YYRRPVplCJIj128cA_pzhlnbPd
+        run: |
+          set -euo pipefail
+          response="$(curl --silent --show-error --fail-with-body --retry 2 --connect-timeout 10 --max-time 30 \
+            -X POST "$UBERBOND_CONTINUITY_URL" \
+            -H "apikey: $UBERBOND_CONTINUITY_KEY" \
+            -H "Content-Type: application/json" \
+            --data '{"source":"github-lite-audits"}')"
+          printf '%s\n' "$response"
+          printf '%s' "$response" | jq -e '.ok == true and .status == "CONTINUITY_ACTIVE" and .externalEffectAuthority == "NONE"' >/dev/null
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4

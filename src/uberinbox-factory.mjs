@@ -37,6 +37,7 @@ function finiteInt(value, fallback = null, min = 0, max = Number.MAX_SAFE_INTEGE
 }
 
 function finiteMoney(value, fallback = null) {
+  if (value === null || value === undefined || value === '') return fallback;
   const parsed = Number(value);
   return Number.isFinite(parsed) && parsed >= 0 ? Math.round(parsed) : fallback;
 }
@@ -96,7 +97,9 @@ function providerDimensions(raw = {}) {
 function normalizeProviderOffer(input = {}, now, policy) {
   const observedAt = text(input.observedAt, 80);
   const observedMs = parseTime(observedAt);
-  const ageHours = observedMs == null ? Infinity : Math.max(0, (now.getTime() - observedMs) / 3_600_000);
+  const nowMs = now.getTime();
+  const ageHours = observedMs == null ? Infinity : (nowMs - observedMs) / 3_600_000;
+  const evidenceFresh = observedMs != null && ageHours >= -5 / 60 && ageHours <= policy.maxProviderEvidenceAgeHours;
   const availableMailboxSlots = finiteInt(input.availableMailboxSlots, null, 0, 10_000_000);
   const monthlyCostPerMailboxCents = finiteMoney(input.monthlyCostPerMailboxCents, null);
   const monthlyVolumeCap = finiteInt(input.monthlyVolumeCap, null, 0, 1_000_000_000);
@@ -105,7 +108,7 @@ function normalizeProviderOffer(input = {}, now, policy) {
     provider: text(input.provider, 80).toLowerCase(),
     source: text(input.source || input.evidenceRef || input.sourceUrl, 700),
     observedAt,
-    evidenceFresh: observedMs != null && ageHours <= policy.maxProviderEvidenceAgeHours,
+    evidenceFresh,
     status: text(input.status || 'UNKNOWN', 80).toUpperCase(),
     termsAllowed: input.termsAllowed === true,
     apiProvisioning: input.apiProvisioning === true,

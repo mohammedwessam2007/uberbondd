@@ -208,7 +208,7 @@ test('outcome receipt keeps economics unknown when costs are missing', () => {
     outcome: { qualifiedPositiveReply: true, clearedRevenueCents: 10000 },
     economics: { clearedContributionCents: 7000 }
   });
-  assert.equal(receipt.commercial.qualifiedPositiveReply, true);
+  assert.equal(receipt.conversation.qualifiedPositiveReply, true);
   assert.equal(receipt.economics.marginalSendValueCents, null);
   assert.equal(receipt.economics.state, 'PARTIAL_UNKNOWN');
 });

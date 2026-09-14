@@ -30,7 +30,7 @@ const add = (id, ok, detail) => checks.push({ id, ok: Boolean(ok), detail });
 const expertCount = Object.values(UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL).reduce((sum, rows) => sum + rows.length, 0);
 const coverage = compileUberOutboundResearchCoverage();
 
-add('genome-version-v2.1', UBEROUTBOUND_GENOME_VERSION === 'uberbond.uberoutbound-genome.v2.1', UBEROUTBOUND_GENOME_VERSION);
+add('genome-version-v2.2', UBEROUTBOUND_GENOME_VERSION === 'uberbond.uberoutbound-genome.v2.2', UBEROUTBOUND_GENOME_VERSION);
 add('policy-registry-v1', UBEROUTBOUND_POLICY_REGISTRY_VERSION === 'uberbond.uberoutbound-policy-registry.v1', UBEROUTBOUND_POLICY_REGISTRY_VERSION);
 add('uberreach-v1.3', UBERREACH_VERSION === 'uberbond.uberreach.v1.3', UBERREACH_VERSION);
 add('visible-source-ledger-22', UBEROUTBOUND_VISIBLE_SOURCE_LEDGER.length === 22, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER.length);

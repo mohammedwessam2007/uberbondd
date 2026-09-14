@@ -6,6 +6,7 @@ import {
   compileUberOutboundGenomeDecision,
   compileUberOutboundLearningPacket,
   compileUberOutboundMessageGenotype,
+  compileUberOutboundRenderedMessageReceipt,
   compileUberOutboundOutcomeReceipt
 } from '../src/uberoutbound-genome.mjs';
 
@@ -21,7 +22,7 @@ const schema = JSON.parse(await fs.readFile(schemaPath, 'utf8'));
 const checks = [];
 const add = (id, ok, detail) => checks.push({ id, ok: Boolean(ok), detail });
 
-add('version-v2.1', UBEROUTBOUND_GENOME_VERSION === 'uberbond.uberoutbound-genome.v2.1', UBEROUTBOUND_GENOME_VERSION);
+add('version-v2.2', UBEROUTBOUND_GENOME_VERSION === 'uberbond.uberoutbound-genome.v2.2', UBEROUTBOUND_GENOME_VERSION);
 add('research-cutoff', research.researchCutoff === '2026-09-14', research.researchCutoff);
 add('25-strongest-findings', Array.isArray(research.strongestFindings) && research.strongestFindings.length === 25, research.strongestFindings?.length);
 add('atom-families', Array.isArray(research.atomFamilies) && research.atomFamilies.length >= 15, research.atomFamilies?.length);
@@ -30,7 +31,7 @@ add('missing-downloads-explicit', Array.isArray(research.missingReferencedDownlo
 add('sample-size-priors', UBEROUTBOUND_SAMPLE_SIZE_PRIORS.length === 7, UBEROUTBOUND_SAMPLE_SIZE_PRIORS.length);
 add('canon-capacity-not-quota', canon.includes('capacity horizon, never a quota'), 'canon law present');
 add('schema-zero-authority', schema?.properties?.externalEffectAuthority?.const === 'NONE', schema?.properties?.externalEffectAuthority?.const);
-add('schema-version-v2.1', schema?.properties?.version?.const === 'uberbond.uberoutbound-genome.v2.1', schema?.properties?.version?.const);
+add('schema-version-v2.2', schema?.properties?.version?.const === 'uberbond.uberoutbound-genome.v2.2', schema?.properties?.version?.const);
 
 const prospect = {
   accountId: 'doctor-account',
@@ -73,14 +74,24 @@ const candidate = {
   sourceCount: 3,
   sourceFreshness: 1,
   factCheckStatus: 'PASSED',
-  contentReceiptId: 'doctor-content-1'
+  generationCostBand: 'LOW',
+  researchEffortBand: 'DEEP',
+  contentReceiptId: 'doctor-content-1',
+  evidenceSnapshotDigest: 'doctor-evidence-1'
 };
 
 const genotypeA = compileUberOutboundMessageGenotype(candidate, prospect);
 const genotypeB = compileUberOutboundMessageGenotype({ ...candidate }, { ...prospect });
+const copyVariant = { ...candidate, subject: 'different exact subject', body: 'Different exact body', contentReceiptId: 'doctor-content-2', evidenceSnapshotDigest: 'doctor-evidence-2' };
+const genotypeCopyVariant = compileUberOutboundMessageGenotype(copyVariant, prospect);
+const renderedA = compileUberOutboundRenderedMessageReceipt(candidate, genotypeA);
+const renderedB = compileUberOutboundRenderedMessageReceipt(copyVariant, genotypeCopyVariant);
+
 add('deterministic-genotype', genotypeA.genotypeId === genotypeB.genotypeId && genotypeA.genotypeId.startsWith('ubog_'), genotypeA.genotypeId);
-add('genotype-captures-ai-lineage', genotypeA.atoms.generation.modelVersion === 'doctor-v1' && genotypeA.atoms.personalization.sourceCount === 3, genotypeA.atoms.generation.modelVersion);
-add('genotype-content-digests', Boolean(genotypeA.atoms.subject.contentDigest && genotypeA.atoms.contentReceipt.bodyDigest), 'subject/body digests present');
+add('genotype-captures-ai-lineage', genotypeA.atoms.generation.modelVersion === 'doctor-v1' && genotypeA.atoms.personalization.sourceCountBucket === 3, genotypeA.atoms.generation.modelVersion);
+add('creative-copy-does-not-fragment-strategy-genotype', genotypeA.genotypeId === genotypeCopyVariant.genotypeId, `${genotypeA.genotypeId}/${genotypeCopyVariant.genotypeId}`);
+add('rendered-message-separates-exact-exposure', renderedA.renderedMessageId !== renderedB.renderedMessageId && renderedA.renderedMessageId.startsWith('ubom_'), `${renderedA.renderedMessageId}/${renderedB.renderedMessageId}`);
+add('content-digests-live-outside-genotype-atoms', !Object.hasOwn(genotypeA.atoms, 'contentReceipt') && Boolean(renderedA.contentReceipt.subjectDigest && renderedA.contentReceipt.bodyDigest), 'strategy/creative split present');
 
 const decision = compileUberOutboundGenomeDecision({
   prospect,
@@ -111,6 +122,7 @@ add('decision-zero-authority', decision.externalEffectAuthority === 'NONE' && de
 add('terminal-objective-not-opens', decision.evidencePolicy.openRateTerminalMetric === false && decision.evidencePolicy.volumeQuotaTerminalMetric === false, decision.evidencePolicy.terminalObjective);
 add('decision-id-present', /^ubod_[a-f0-9]{64}$/.test(decision.decisionId), decision.decisionId);
 add('recommended-genotype-lineage', decision.recommendedGenotypeId === genotypeA.genotypeId, decision.recommendedGenotypeId);
+add('recommended-rendered-lineage', decision.recommendedRenderedMessageId === renderedA.renderedMessageId, decision.recommendedRenderedMessageId);
 add('selection-vs-mention-dimension-recorded', decision.experimentAssignment?.treatmentDimension === 'TRIGGER_MENTION', decision.experimentAssignment?.treatmentDimension);
 
 const blocked = compileUberOutboundGenomeDecision({
@@ -125,23 +137,34 @@ const blocked = compileUberOutboundGenomeDecision({
 });
 add('suppression-dominates', blocked.recommendedAction === 'ABSTAIN' && blocked.blockers.includes('suppression-dominates'), blocked.recommendedAction);
 
-const outcomeA = compileUberOutboundOutcomeReceipt({
+const outcomeA1 = compileUberOutboundOutcomeReceipt({
   decisionId: decision.decisionId,
   genotypeId: decision.recommendedGenotypeId,
+  renderedMessageId: decision.recommendedRenderedMessageId,
   experimentAssignment: { arm: 'A' },
   outcome: { qualifiedPositiveReply: true },
   economics: { clearedContributionCents: 100, reputationDamageCents: 0, complianceRiskCostCents: 0, opportunityCostCents: 0 }
 });
+const outcomeA2 = compileUberOutboundOutcomeReceipt({
+  decisionId: decision.decisionId,
+  genotypeId: decision.recommendedGenotypeId,
+  renderedMessageId: renderedB.renderedMessageId,
+  experimentAssignment: { arm: 'A' },
+  outcome: { qualifiedPositiveReply: false },
+  economics: { clearedContributionCents: 0, reputationDamageCents: 0, complianceRiskCostCents: 0, opportunityCostCents: 0 }
+});
 const outcomeB = compileUberOutboundOutcomeReceipt({
   decisionId: decision.decisionId,
   genotypeId: decision.recommendedGenotypeId,
+  renderedMessageId: decision.recommendedRenderedMessageId,
   experimentAssignment: { arm: 'B' },
   outcome: { qualifiedPositiveReply: false },
   economics: { clearedContributionCents: 0, reputationDamageCents: 0, complianceRiskCostCents: 0, opportunityCostCents: 0 }
 });
-const learning = compileUberOutboundLearningPacket({ outcomes: [outcomeA, outcomeB], policy: { minSamplesPerArm: 1 } });
+const learning = compileUberOutboundLearningPacket({ outcomes: [outcomeA1, outcomeA2, outcomeB], policy: { minSamplesPerArm: 1 } });
+const armA = learning.arms.find(arm => arm.arm === 'A');
 add('learning-refuses-auto-winner', learning.automaticWinner === null, learning.automaticWinner);
-add('learning-retains-genotype-diversity', learning.arms.every(arm => arm.uniqueGenotypeCount === 1), learning.arms.map(arm => arm.uniqueGenotypeCount));
+add('learning-separates-strategy-from-creative-diversity', armA?.uniqueGenotypeCount === 1 && armA?.uniqueRenderedMessageCount === 2, `${armA?.uniqueGenotypeCount}/${armA?.uniqueRenderedMessageCount}`);
 
 const failed = checks.filter(check => !check.ok);
 const report = {
@@ -151,7 +174,7 @@ const report = {
   checkCount: checks.length,
   failedCount: failed.length,
   checks,
-  truthBoundary: 'READY_INTERNAL_V1 means the declared research-to-policy genome, strategy genotype lineage and fail-closed learning boundary are internally represented. It does not prove live deliverability, causal lift, legal clearance for any real recipient, customers, revenue, or 100k/day utilization.'
+  truthBoundary: 'READY_INTERNAL_V1 means the declared research-to-policy genome, reusable strategy genotype, exact rendered-exposure lineage and fail-closed learning boundary are internally represented. It does not prove live deliverability, causal lift, legal clearance for any real recipient, customers, revenue, or 100k/day utilization.'
 };
 
 console.log(JSON.stringify(report, null, 2));

@@ -58,6 +58,12 @@ function dayAge(observedAt, now) {
   return (current - observed) / 86400000;
 }
 
+function optionalNonNegativeNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
+}
+
 function founderAlias(index) {
   const n = String(index + 1).padStart(3, '0');
   return `mohamed.${n}`;
@@ -113,15 +119,16 @@ export function compileScaledUberInboxesFleet({
   }
 
   const missing = desired.filter(item => !item.alreadyExists);
-  const providerColdCap = Number(profile?.maxColdDailyPerMailbox);
-  const providerTotalCap = Number(profile?.maxTotalDailyPerMailbox);
-  const theoreticalColdDailyCap = Number.isFinite(providerColdCap) && providerColdCap >= 0
+  const providerColdCap = optionalNonNegativeNumber(profile?.maxColdDailyPerMailbox);
+  const providerWarmCap = optionalNonNegativeNumber(profile?.maxWarmDailyPerMailbox);
+  const providerTotalCap = optionalNonNegativeNumber(profile?.maxTotalDailyPerMailbox);
+  const theoreticalColdDailyCap = providerColdCap != null
     ? desired.length * providerColdCap
     : null;
-  const theoreticalTotalDailyCap = Number.isFinite(providerTotalCap) && providerTotalCap >= 0
+  const theoreticalTotalDailyCap = providerTotalCap != null
     ? desired.length * providerTotalCap
-    : (Number.isFinite(providerColdCap) && Number(profile?.maxWarmDailyPerMailbox) >= 0
-      ? desired.length * (providerColdCap + Number(profile.maxWarmDailyPerMailbox))
+    : (providerColdCap != null && providerWarmCap != null
+      ? desired.length * (providerColdCap + providerWarmCap)
       : null);
 
   const fleet = {

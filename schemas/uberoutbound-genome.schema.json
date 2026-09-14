@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uberbond.local/schemas/uberoutbound-genome.schema.json",
+  "title": "UberOutbound Genome Decision Packet",
+  "type": "object",
+  "required": [
+    "version",
+    "generatedAt",
+    "state",
+    "recommendedAction",
+    "blockers",
+    "evidencePolicy",
+    "legalEvidence",
+    "opportunity",
+    "messageCandidates",
+    "externalEffectAuthority",
+    "businessEffectAuthority"
+  ],
+  "properties": {
+    "version": {"const": "uberbond.uberoutbound-genome.v2"},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "state": {"enum": ["OUTBOUND_GENOME_BLOCKED", "READY_FOR_GOVERNED_SEND_REVIEW"]},
+    "recommendedAction": {"enum": ["SEND_CANDIDATE", "WAIT", "ABSTAIN", "ROUTE_ELSEWHERE"]},
+    "blockers": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "externalEffectAuthority": {"const": "NONE"},
+    "businessEffectAuthority": {"const": "NONE"},
+    "evidencePolicy": {
+      "type": "object",
+      "required": ["hardGates", "priorsAreNotHardGates", "terminalObjective", "openRateTerminalMetric", "volumeQuotaTerminalMetric"],
+      "properties": {
+        "hardGates": {"type": "array", "items": {"type": "string"}},
+        "priorsAreNotHardGates": {"const": true},
+        "terminalObjective": {"type": "string"},
+        "openRateTerminalMetric": {"const": false},
+        "volumeQuotaTerminalMetric": {"const": false}
+      },
+      "additionalProperties": true
+    },
+    "legalEvidence": {
+      "type": "object",
+      "required": ["passed", "status", "reasonCodes", "truthBoundary"],
+      "properties": {
+        "passed": {"type": "boolean"},
+        "status": {"type": "string"},
+        "jurisdiction": {"type": ["string", "null"]},
+        "basis": {"type": ["string", "null"]},
+        "recipientType": {"type": ["string", "null"]},
+        "policyVersion": {"type": ["string", "null"]},
+        "evidenceId": {"type": ["string", "null"]},
+        "reasonCodes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    },
+    "opportunity": {
+      "type": "object",
+      "required": ["score", "components", "trigger", "formula", "truthBoundary"],
+      "properties": {
+        "score": {"type": "number", "minimum": 0, "maximum": 1},
+        "components": {"type": "object"},
+        "trigger": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "messageCandidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["candidateId", "priorScore", "priorReasonCodes", "ctaType", "sequencePosition"],
+        "properties": {
+          "candidateId": {"type": "string", "minLength": 1},
+          "priorScore": {"type": "number", "minimum": 0, "maximum": 1},
+          "priorReasonCodes": {"type": "array", "items": {"type": "string"}},
+          "wordCount": {"type": "integer", "minimum": 0},
+          "sentenceCount": {"type": "integer", "minimum": 0},
+          "subjectWordCount": {"type": "integer", "minimum": 0},
+          "ctaType": {"type": ["string", "null"]},
+          "personalizationClass": {"type": ["string", "null"]},
+          "problemAltitude": {"type": ["string", "null"]},
+          "sequencePosition": {"type": "integer", "minimum": 1}
+        },
+        "additionalProperties": true
+      }
+    },
+    "experimentAssignment": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["experimentId", "primaryMetric", "unit", "accountKey", "arm", "holdout", "deterministic", "treatmentAuthorityCreated"],
+          "properties": {
+            "treatmentAuthorityCreated": {"const": false},
+            "deterministic": {"const": true}
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "truthBoundary": {"type": "string"}
+  },
+  "additionalProperties": true
+}

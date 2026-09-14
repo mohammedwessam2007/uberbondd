@@ -12,7 +12,9 @@ export const UBEROUTBOUND_PROMOTION_STATES = Object.freeze({
 });
 
 const clean = (value, max = 500) => String(value ?? '').trim().slice(0, max);
-const finite = value => Number.isFinite(Number(value)) ? Number(value) : null;
+const finite = value => value === null || value === undefined || value === ''
+  ? null
+  : (Number.isFinite(Number(value)) ? Number(value) : null);
 
 const TERMINAL_ECONOMIC_METRICS = new Set([
   'CLEARED_CONTRIBUTION_PROFIT',

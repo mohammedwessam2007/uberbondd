@@ -2,8 +2,8 @@
   "ok": true,
   "status": "COVERAGE_MATRIX_COMPILED",
   "schemaVersion": "uberbond.sovereign-coverage-matrix.v1",
-  "generatedAt": "2026-09-14T18:43:09.691Z",
-  "sourceCommit": "0ccf2e729ce45a2b45c6a1d6827c34536f82e8b7",
+  "generatedAt": "2026-09-14T19:02:04.905Z",
+  "sourceCommit": "f5bef68d373a3ec62ef18a137f4257f88e144e9a",
   "counts": {
     "extractedConcepts": 1070,
     "rows": 1040,

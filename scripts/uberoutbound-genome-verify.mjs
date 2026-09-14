@@ -4,6 +4,7 @@ const commands = [
   ['--check', 'src/uberoutbound-genome.mjs'],
   ['--check', 'src/uberoutbound-policy-registry.mjs'],
   ['--check', 'src/uberoutbound-research-import.mjs'],
+  ['--check', 'src/uberoutbound-promotion-gate.mjs'],
   ['--check', 'src/uberreach-control-plane.mjs'],
   ['--check', 'scripts/uberoutbound-genome-doctor.mjs'],
   ['--check', 'scripts/uberoutbound-genome-completion-doctor.mjs'],
@@ -12,6 +13,7 @@ const commands = [
     'tests/uberoutbound-genotype.test.mjs',
     'tests/uberoutbound-policy-registry.test.mjs',
     'tests/uberoutbound-research-import.test.mjs',
+    'tests/uberoutbound-promotion-gate.test.mjs',
     'tests/uberreach-control-plane.test.mjs',
     'tests/uberreach-scale-frontier.test.mjs'
   ],

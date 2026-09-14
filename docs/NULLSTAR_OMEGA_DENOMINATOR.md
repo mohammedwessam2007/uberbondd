@@ -35,10 +35,9 @@ writing more code cannot move a dimension past VERIFIED.
 
 | state | count |
 |---|---|
-| OPERATING | 6 |
-| VERIFIED | 16 |
-| IMPLEMENTED | 2 |
-| ABSENT / CANON / PARTIAL | 0 |
+| OPERATING | 7 |
+| VERIFIED | 17 |
+| ABSENT / CANON / PARTIAL / IMPLEMENTED | 0 |
 | **REALITY_CALIBRATED** | **0** |
 
 Zero dimensions are reality-calibrated. Nothing in this repository has yet made a
@@ -78,6 +77,35 @@ consistency the 6,900-test suite already enforces — not capability.** Separati
 the two requires a judgement the repository does not compute, which requires a
 configured model provider. That is an external gate (§201, §202), not a software
 gap, and no further local corpus authorship closes it.
+
+## G2: the successor test, executed
+
+G2's job is to recompute the bottleneck from scratch and run the successor
+diagnosis's own discriminating test — *configure any model provider and run one
+task whose answer the repository does not compute; if a local runtime can serve
+it, the gap was authorship rather than the provider.*
+
+G2 executed that test rather than assuming its answer. Four independent probes:
+
+| probe | available | detail |
+|---|---|---|
+| provider credential | no | none in environment |
+| provider doctor | no | `NO_MODEL_PROVIDER_CONFIGURED` |
+| local transformers runtime | no | not installed |
+| local ollama | no | no binary |
+
+Verdict: `EXTERNAL_GATE_CONFIRMED`. Promotion: `NO_PROMOTION`. Classification:
+**EXTERNAL_BLOCKED**, not a software gap.
+
+G2 records the capability dimension as **unmeasured** rather than scoring it.
+Nothing in this environment can render the judgement, and a number produced
+anyway would be exactly the fabrication this spine exists to prevent. The sealed
+task is still pinned in the corpus, so an environment with a provider can execute
+precisely it and compare.
+
+Three generations now exist. Velocity reports trend **FLAT** — which is correct:
+G1 measured more and improved nothing, and G2 changed nothing about the system.
+Acceleration remains `NOT_ESTABLISHED`.
 
 ## What this does not claim
 

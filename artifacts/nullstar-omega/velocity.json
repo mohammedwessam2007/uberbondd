@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-nullstar-omega-velocity-1.0.0",
-  "generatedAt": "2026-09-14T22:06:40.750Z",
+  "generatedAt": "2026-09-14T22:12:47.053Z",
   "generations": [
     {
       "id": "G0",
@@ -13,6 +13,12 @@
       "commit": "01cda737dee044735f581de45743af440426b07f",
       "measured": 9,
       "mean": 1
+    },
+    {
+      "id": "G2",
+      "commit": "b6c9aaf7a13bc5a1410e0e51854015d497352068",
+      "measured": 9,
+      "mean": 1
     }
   ],
   "pairwise": [
@@ -23,13 +29,25 @@
       "incomparable": 13,
       "netDelta": 0,
       "regressed": []
+    },
+    {
+      "from": "G1",
+      "to": "G2",
+      "comparable": 9,
+      "incomparable": 8,
+      "netDelta": 0,
+      "regressed": []
     }
   ],
   "trend": {
     "ok": true,
-    "trend": "INSUFFICIENT_DATA",
-    "generations": 2,
-    "reason": "Two points are a line. Three is the minimum that distinguishes a rising series from a noisy one.",
+    "trend": "FLAT",
+    "generations": 3,
+    "deltas": [
+      0,
+      0
+    ],
+    "accelerationClaim": "NOT_ESTABLISHED_BY_SCORE_SERIES_ALONE",
     "businessEffectAuthority": "NONE"
   },
   "accelerationClaim": "NOT_ESTABLISHED",

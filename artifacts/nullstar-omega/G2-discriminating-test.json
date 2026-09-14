@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-discriminating-test-1.0.0",
+  "diagnosis": "BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY",
+  "discriminatingTest": "Configure any model provider and run one task whose answer the repository does not compute. If a local runtime can serve it, the gap was authorship rather than the provider.",
+  "probes": [
+    {
+      "probe": "PROVIDER_CREDENTIAL",
+      "available": false,
+      "detail": "no provider credential in environment"
+    },
+    {
+      "probe": "PROVIDER_DOCTOR",
+      "available": false,
+      "detail": "DOCTOR_FAILED"
+    },
+    {
+      "probe": "LOCAL_TRANSFORMERS_RUNTIME",
+      "available": false,
+      "detail": "python transformers not installed"
+    },
+    {
+      "probe": "LOCAL_OLLAMA",
+      "available": false,
+      "detail": "no ollama binary"
+    }
+  ],
+  "verdict": "EXTERNAL_GATE_CONFIRMED__NO_JUDGEMENT_CAPABILITY_IN_THIS_ENVIRONMENT",
+  "promotion": "NO_PROMOTION",
+  "classification": "EXTERNAL_BLOCKED",
+  "consequence": "The gap is the provider, not the corpus. Further local corpus authorship cannot close it, and scoring a capability dimension without anything capable of the judgement would fabricate the number.",
+  "businessEffectAuthority": "NONE"
+}

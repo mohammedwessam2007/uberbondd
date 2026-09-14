@@ -111,6 +111,7 @@
     "omega:bottleneck": "node scripts/nullstar-omega-bottleneck.mjs",
     "omega:g1": "node scripts/nullstar-omega-g1.mjs",
     "omega:velocity": "node scripts/nullstar-omega-velocity.mjs",
+    "omega:g2": "node scripts/nullstar-omega-g2.mjs",
     "omega:cycle": "npm run omega:denominator && npm run omega:g0 && npm run omega:bottleneck && npm run omega:g1 && npm run omega:velocity && npm run omega:denominator",
     "test:omega": "node --test tests/nullstar-omega-denominator.test.mjs tests/nullstar-omega-generation.test.mjs tests/nullstar-omega-bottleneck.test.mjs tests/nullstar-omega-holdout.test.mjs",
     "test:nullstar": "node --test tests/founder-directive-reconciler.test.mjs",

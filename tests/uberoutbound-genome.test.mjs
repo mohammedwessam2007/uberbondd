@@ -6,8 +6,8 @@ import {
   compileOutboundLegalEvidence,
   compileUberOutboundLearningPacket,
   compileUberOutboundOutcomeReceipt,
-  compileUberOutboundTriggerPrior,
-  compileUberOutboundOpportunityScore,
+  compileOutboundTriggerPrior,
+  compileOutboundOpportunityScore,
   compileUberOutboundGenomeDecision,
   outboundProblemAltitude,
   outboundPersonalizationPrior
@@ -115,8 +115,8 @@ test('trigger prior preserves uncertainty rather than claiming universal causal 
 test('opportunity score collapses when legal eligibility is absent', () => {
   const goodLegal = compileOutboundLegalEvidence(legal());
   const badLegal = compileOutboundLegalEvidence({ status: 'UNKNOWN' });
-  const good = compileUberOutboundOpportunityScore({ prospect: prospect(), sender: sender(), legalEvidence: goodLegal });
-  const bad = compileUberOutboundOpportunityScore({ prospect: prospect(), sender: sender(), legalEvidence: badLegal });
+  const good = compileOutboundOpportunityScore({ prospect: prospect(), sender: sender(), legalEvidence: goodLegal });
+  const bad = compileOutboundOpportunityScore({ prospect: prospect(), sender: sender(), legalEvidence: badLegal });
   assert.ok(good.score > 0);
   assert.equal(bad.score, 0);
 });

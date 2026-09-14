@@ -29,7 +29,7 @@ add('genome-version', UBEROUTBOUND_GENOME_VERSION === 'uberbond.uberoutbound-gen
 add('policy-registry-version', UBEROUTBOUND_POLICY_REGISTRY_VERSION === 'uberbond.uberoutbound-policy-registry.v1', UBEROUTBOUND_POLICY_REGISTRY_VERSION);
 add('research-import-version', UBEROUTBOUND_RESEARCH_IMPORT_VERSION === 'uberbond.uberoutbound-research-import.v1', UBEROUTBOUND_RESEARCH_IMPORT_VERSION);
 add('promotion-gate-version', UBEROUTBOUND_PROMOTION_GATE_VERSION === 'uberbond.uberoutbound-promotion-gate.v1', UBEROUTBOUND_PROMOTION_GATE_VERSION);
-add('uberreach-version', UBERREACH_VERSION === 'uberbond.uberreach.v1.3', UBERREACH_VERSION);
+add('uberreach-version', UBERREACH_VERSION === 'uberbond.uberreach.v1.4', UBERREACH_VERSION);
 
 const coverage = compileUberOutboundResearchCoverage();
 add('report-visible-coverage-state', coverage.state === 'REPORT_VISIBLE_CORPUS_COMPLETE_EXTERNAL_DOWNLOADS_PENDING', coverage.state);

@@ -5,6 +5,7 @@
   "type": "object",
   "required": [
     "version",
+    "decisionId",
     "generatedAt",
     "state",
     "recommendedAction",
@@ -17,7 +18,8 @@
     "businessEffectAuthority"
   ],
   "properties": {
-    "version": {"const": "uberbond.uberoutbound-genome.v2"},
+    "version": {"const": "uberbond.uberoutbound-genome.v2.1"},
+    "decisionId": {"type": "string", "pattern": "^ubod_[a-f0-9]{64}$"},
     "generatedAt": {"type": "string", "format": "date-time"},
     "state": {"enum": ["OUTBOUND_GENOME_BLOCKED", "READY_FOR_GOVERNED_SEND_REVIEW"]},
     "recommendedAction": {"enum": ["SEND_CANDIDATE", "WAIT", "ABSTAIN", "ROUTE_ELSEWHERE"]},
@@ -65,9 +67,15 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["candidateId", "priorScore", "priorReasonCodes", "ctaType", "sequencePosition"],
+        "required": ["candidateId", "genotypeId", "genotypeAtoms", "priorScore", "priorReasonCodes", "ctaType", "sequencePosition"],
         "properties": {
           "candidateId": {"type": "string", "minLength": 1},
+          "genotypeId": {"type": "string", "pattern": "^ubog_[a-f0-9]{64}$"},
+          "genotypeAtoms": {
+            "type": "object",
+            "required": ["segment", "trigger", "personalization", "subject", "opening", "problem", "value", "proof", "offer", "cta", "tone", "sequence", "generation", "contentReceipt"],
+            "additionalProperties": true
+          },
           "priorScore": {"type": "number", "minimum": 0, "maximum": 1},
           "priorReasonCodes": {"type": "array", "items": {"type": "string"}},
           "wordCount": {"type": "integer", "minimum": 0},
@@ -76,10 +84,18 @@
           "ctaType": {"type": ["string", "null"]},
           "personalizationClass": {"type": ["string", "null"]},
           "problemAltitude": {"type": ["string", "null"]},
+          "triggerMentioned": {"type": "boolean"},
           "sequencePosition": {"type": "integer", "minimum": 1}
         },
         "additionalProperties": true
       }
+    },
+    "recommendedCandidateId": {"type": ["string", "null"]},
+    "recommendedGenotypeId": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^ubog_[a-f0-9]{64}$"}
+      ]
     },
     "experimentAssignment": {
       "anyOf": [
@@ -88,6 +104,8 @@
           "type": "object",
           "required": ["experimentId", "primaryMetric", "unit", "accountKey", "arm", "holdout", "deterministic", "treatmentAuthorityCreated"],
           "properties": {
+            "treatmentDimension": {"type": ["string", "null"]},
+            "causalQuestion": {"type": ["string", "null"]},
             "treatmentAuthorityCreated": {"const": false},
             "deterministic": {"const": true}
           },

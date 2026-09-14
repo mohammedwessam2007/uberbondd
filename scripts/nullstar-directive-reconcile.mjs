@@ -58,6 +58,7 @@ function main() {
     canonicalRows: Array.isArray(coverage.rows) ? coverage.rows : [],
     terminalDeclarations: Array.isArray(declarations.terminalDeclarations) ? declarations.terminalDeclarations : [],
     milestoneReceipts: Array.isArray(declarations.milestoneReceipts) ? declarations.milestoneReceipts : [],
+    aliasDeclarations: Array.isArray(declarations.aliasDeclarations) ? declarations.aliasDeclarations : [],
     sourceCommit
   });
 
@@ -76,6 +77,7 @@ function main() {
     byState: result.counts.byState,
     byClass: result.counts.byClass,
     cutSetSize: result.cutSet.length,
+    aliasedRows: result.rows.filter(row => row.aliasedTo).length,
     topCutSet: result.cutSet.slice(0, 10).map(row => `${row.numeral} ${row.title} [${row.currentState}, refs=${row.corpusReferences}]`),
     output: OUTPUT,
     truthBoundary: result.truthBoundary,

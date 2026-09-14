@@ -212,6 +212,80 @@ test('every emitted state is one of the canonical states', () => {
   for (const row of out.rows) assert.ok(DIRECTIVE_STATES.includes(row.currentState), `${row.sectionId} -> ${row.currentState}`);
 });
 
+test('an alias supplies a name to search under and never a state', () => {
+  const repoIndex = {
+    sourceFiles: ['src/renamed-organ.mjs'],
+    testFiles: [],
+    productionReachable: ['src/renamed-organ.mjs'],
+    operatorReachable: ['src/renamed-organ.mjs']
+  };
+  const out = reconcileFounderDirective({
+    directive: directive([section()]),
+    repoIndex,
+    aliasDeclarations: [{
+      sectionId: 'nullstar:001-example-organ',
+      repositoryName: 'Renamed Organ',
+      reason: 'the repository implements this under another name'
+    }]
+  });
+  assert.equal(out.ok, true);
+  // The alias found the module, so the row leaves MISSING -- and stops at
+  // PARTIAL because nothing tests it. An alias that could promote a row would
+  // be a way to declare coverage, which is the whole thing this refuses.
+  assert.equal(out.rows[0].currentState, 'PARTIAL');
+  assert.equal(out.rows[0].aliasedTo, 'Renamed Organ');
+});
+
+test('an alias that resolves to nothing fails the compile instead of reverting to MISSING', () => {
+  // A silently-dead alias is worse than no alias: the row quietly returns to
+  // MISSING and nobody learns the mapping rotted.
+  const out = reconcileFounderDirective({
+    directive: directive([section()]),
+    repoIndex: repo(),
+    aliasDeclarations: [{
+      sectionId: 'nullstar:001-example-organ',
+      repositoryName: 'Module That Does Not Exist Anywhere',
+      reason: 'stale mapping'
+    }]
+  });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.some(code => code.startsWith('alias-declaration-resolves-to-nothing:')));
+});
+
+test('an alias needs a known section, a name and a stated reason', () => {
+  const base = { sectionId: 'nullstar:001-example-organ', repositoryName: 'Renamed Organ', reason: 'r' };
+  const repoIndex = { sourceFiles: ['src/renamed-organ.mjs'], testFiles: [], productionReachable: ['src/renamed-organ.mjs'], operatorReachable: [] };
+  for (const [patch, prefix] of [
+    [{ sectionId: 'nullstar:999-ghost' }, 'alias-declaration-names-unknown-section:'],
+    [{ repositoryName: '' }, 'alias-declaration-requires-repository-name:'],
+    [{ reason: '' }, 'alias-declaration-requires-reason:']
+  ]) {
+    const out = reconcileFounderDirective({
+      directive: directive([section()]),
+      repoIndex,
+      aliasDeclarations: [{ ...base, ...patch }]
+    });
+    assert.equal(out.ok, false);
+    assert.ok(out.reasonCodes.some(code => code.startsWith(prefix)), `${prefix} -> ${out.reasonCodes}`);
+  }
+});
+
+test('a section the repository answers under its own title is never redirected by an alias', () => {
+  const repoIndex = {
+    sourceFiles: ['src/example-organ.mjs', 'src/renamed-organ.mjs'],
+    testFiles: ['tests/example-organ.test.mjs'],
+    productionReachable: ['src/example-organ.mjs', 'src/renamed-organ.mjs'],
+    operatorReachable: []
+  };
+  const out = reconcileFounderDirective({
+    directive: directive([section()]),
+    repoIndex,
+    aliasDeclarations: [{ sectionId: 'nullstar:001-example-organ', repositoryName: 'Renamed Organ', reason: 'r' }]
+  });
+  assert.equal(out.rows[0].aliasedTo, null, 'the own-name match must win');
+  assert.equal(out.rows[0].currentState, 'VERIFIED_CURRENT');
+});
+
 test('an empty directive is refused rather than reported as fully covered', () => {
   assert.equal(reconcileFounderDirective({ directive: { sections: [] } }).ok, false);
   assert.equal(reconcileFounderDirective({}).ok, false);

@@ -30,16 +30,16 @@ Its discipline is the coverage matrix's discipline:
 
 | state | count | meaning |
 |---|---|---|
-| VERIFIED_CURRENT | 26 | module, test, production reachability and an exact whole-name match |
-| PARTIAL | 29 | a module exists, or canon covers it, without the full evidence set |
+| VERIFIED_CURRENT | 31 | module, test, production reachability and an exact whole-name match |
+| PARTIAL | 30 | a module exists, or canon covers it, without the full evidence set |
 | BLOCKED | 14 | research gates, external reality and the five terminal milestones |
 | NOT_CURRENTLY_JUSTIFIED | 14 | missions, ontologies and research questions — not build targets |
-| MISSING | 253 | no evidence found under the directive's own name |
+| MISSING | 247 | no evidence found under the directive's own name or a reviewed alias |
 | DONOR_ONLY | 0 | — |
 
 ### How to read the MISSING count
 
-**253 is an upper bound on unmet requirements, not a measurement of them.** The matcher
+**247 is an upper bound on unmet requirements, not a measurement of them.** The matcher
 will not split a title on whitespace, because "GENESIS for Life" contains "GENESIS" and a
 looser join is exactly how a coverage report becomes fiction. So a section the repository
 implements under a different name reads MISSING until a reviewed alias says otherwise.
@@ -54,6 +54,21 @@ Understating coverage is the safe direction: it can cause duplicated effort on a
 that is already built, which review catches, while overstating it causes a requirement to
 be marked done and never revisited, which nothing catches. The number is honest about
 which way it errs.
+
+### Reviewed aliases
+
+`artifacts/nullstar/terminal-declarations.json` maps a section to the repository name that
+actually implements it. An alias supplies **only which name to search under** — the state
+is still computed from what that search finds, so an alias cannot promote a row. One of
+the six currently declared lands on PARTIAL rather than VERIFIED_CURRENT precisely because
+the module it names has no test, which is the mechanism working.
+
+An alias that stops resolving fails the compile rather than quietly reverting its row to
+MISSING, because a silently dead mapping is how a coverage report drifts back into fiction.
+Both properties are mutation-verified.
+
+Six aliases moved 253 MISSING to 247. The remainder still needs per-section review; the
+honest way to reduce it further is more reviewed aliases, never a looser matcher.
 
 ### The BLOCKED set is correct as it stands
 

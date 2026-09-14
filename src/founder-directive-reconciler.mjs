@@ -217,6 +217,7 @@ export function reconcileFounderDirective({
   canonicalRows = [],
   terminalDeclarations = [],
   milestoneReceipts = [],
+  aliasDeclarations = [],
   generatedAt = new Date().toISOString(),
   sourceCommit = null
 } = {}) {
@@ -262,9 +263,40 @@ export function reconcileFounderDirective({
     receiptById.set(id, { evidenceRef });
   }
 
+  // Reviewed section-to-repository-name aliases.
+  //
+  // The matcher will not split a title on whitespace, so a section the
+  // repository implements under another name reads MISSING. That understates
+  // coverage, which is the safe direction but not a resting place: the fix is a
+  // reviewed alias, not a looser matcher.
+  //
+  // An alias supplies only *which name to search under*. The state is still
+  // computed from what that search finds, so an alias cannot promote a row on
+  // its own -- pointing a section at a module with no test still lands on
+  // PARTIAL. And an alias that stops resolving fails the compile rather than
+  // silently reverting the row to MISSING, because an alias that quietly stops
+  // working is how a coverage report drifts back into fiction.
+  const aliasBySection = new Map();
+  for (const declaration of aliasDeclarations) {
+    const id = text(declaration?.sectionId, 300);
+    const repositoryName = text(declaration?.repositoryName, 300);
+    const reason = text(declaration?.reason, 1000);
+    if (!id || !seen.has(id)) return refuse([`alias-declaration-names-unknown-section:${id || '<missing>'}`]);
+    if (!repositoryName) return refuse([`alias-declaration-requires-repository-name:${id}`]);
+    if (!reason) return refuse([`alias-declaration-requires-reason:${id}`]);
+    const resolved = locateEvidence({ name: repositoryName }, repoIndex);
+    if (!resolved.sources.length) return refuse([`alias-declaration-resolves-to-nothing:${id}:${repositoryName}`]);
+    aliasBySection.set(id, { repositoryName, reason, evidence: resolved });
+  }
+
   const references = corpusReferenceCounts(sections);
   const rows = sections.map(section => {
-    const evidence = locateEvidence({ name: section.title }, repoIndex);
+    const alias = aliasBySection.get(section.sectionId) || null;
+    const ownEvidence = locateEvidence({ name: section.title }, repoIndex);
+    // The section's own name wins when it finds anything: an alias is a
+    // fallback for a renamed organ, never a way to redirect a section that the
+    // repository already answers under its own title.
+    const evidence = ownEvidence.sources.length ? ownEvidence : (alias?.evidence || ownEvidence);
     const canonicalMatches = matchCanonicalConcepts(section, canonicalRows);
     const declaredTerminal = terminalById.get(section.sectionId)?.state || null;
     const milestoneReceipt = receiptById.get(section.sectionId) || null;
@@ -284,6 +316,8 @@ export function reconcileFounderDirective({
         matchStrength: evidence.matchStrength,
         matchScope: evidence.matchScope
       },
+      aliasedTo: evidence === alias?.evidence ? alias.repositoryName : null,
+      aliasReason: evidence === alias?.evidence ? alias.reason : null,
       terminalReason: terminalById.get(section.sectionId)?.reason || null,
       milestoneEvidenceRef: milestoneReceipt?.evidenceRef || null
     };

@@ -99,12 +99,14 @@
       "reconciliation": {
         "command": "npm run nullstar:reconcile",
         "artifact": "artifacts/nullstar/directive-reconciliation.json",
-        "verifiedCurrent": 26,
-        "partial": 29,
+        "verifiedCurrent": 31,
+        "partial": 30,
         "blocked": 14,
         "notCurrentlyJustified": 14,
-        "missing": 253,
-        "missingIsUpperBound": "The matcher will not split a title on whitespace, so a section implemented under a different repository name reads MISSING until a reviewed alias says otherwise. Understating coverage is the safe direction and the artifact says so."
+        "missing": 247,
+        "missingIsUpperBound": "The matcher will not split a title on whitespace, so a section implemented under a different repository name reads MISSING until a reviewed alias says otherwise. Six aliases moved 253 to 247. Reduce it further with more reviewed aliases, never by loosening the matcher.",
+        "reviewedAliases": 6,
+        "aliasLaw": "An alias supplies only which repository name to search under; the state is still computed from what that search finds, and an alias that stops resolving fails the compile rather than reverting its row to MISSING."
       },
       "authority": "NONE"
     }
@@ -127,8 +129,8 @@
     "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
     "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
     "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
-    "NULLSTAR ALIAS RECONCILIATION: 253 sections read MISSING, which is an upper bound. Reducing it honestly needs reviewed section-to-repository-name aliases, each verified against the tree. Do not lower the number by loosening the matcher.",
-    "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one."
+    "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
+    "NULLSTAR ALIAS RECONCILIATION: 247 sections still read MISSING, an upper bound. The alias mechanism exists, is tested and is mutation-verified; what remains is per-section review of which titles name an organ the repository already has under another name. Do not lower the number by loosening the matcher."
   ],
   "nextExecutor": {
     "primary": "Refresh live main and mount the Context Fabric. Run npm run nullstar:reconcile before selecting work, and select from its cut set rather than from the directive text. Verify a MISSING section is genuinely absent before building it -- several are renamed, not unbuilt. Do not reopen closed finite engineering.",

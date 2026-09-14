@@ -4,16 +4,16 @@
   "status": "FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE",
   "directiveId": "project-nullstar",
   "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e",
-  "sourceCommit": "5774001ce0143b2df7a619aad0aba8f7e7efca6f",
-  "generatedAt": "2026-09-14T19:06:37.528Z",
+  "sourceCommit": "c03de80c19efdb25c6201126487fdd3208daf026",
+  "generatedAt": "2026-09-14T20:55:54.929Z",
   "counts": {
     "sections": 336,
     "rows": 336,
     "byState": {
-      "VERIFIED_CURRENT": 26,
-      "PARTIAL": 29,
+      "VERIFIED_CURRENT": 31,
+      "PARTIAL": 30,
       "DONOR_ONLY": 0,
-      "MISSING": 253,
+      "MISSING": 247,
       "BLOCKED": 14,
       "NOT_CURRENTLY_JUSTIFIED": 14
     },
@@ -46,6 +46,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -64,6 +66,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -89,6 +93,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -107,6 +113,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -125,6 +133,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -161,6 +171,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -186,6 +198,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -222,6 +236,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -240,6 +256,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -258,6 +276,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -283,6 +303,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -317,6 +339,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -353,6 +377,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -371,6 +397,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -444,6 +472,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -462,6 +492,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -480,6 +512,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -505,6 +539,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -542,6 +578,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -550,16 +588,22 @@
       "numeral": "XX",
       "title": "UNKNOWN-UNKNOWN MACHINE",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/unknown-unknown-mining.mjs"
+        ],
+        "testModules": [
+          "tests/unknown-unknown-mining.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": "unknown unknown mining",
+      "aliasReason": "The directive's UNKNOWN-UNKNOWN MACHINE is UberBond's Unknown-Unknown Mining organ, which is the canonical name in the total North Star and has its own module and suite.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -615,6 +659,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -633,6 +679,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -672,6 +720,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -690,6 +740,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -708,6 +760,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -733,6 +787,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -751,6 +807,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -769,6 +827,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -787,6 +847,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -805,6 +867,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -823,6 +887,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -841,6 +907,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -859,6 +927,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -877,6 +947,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -895,6 +967,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -913,6 +987,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -938,6 +1014,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -968,6 +1046,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -986,6 +1066,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1022,6 +1104,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1065,6 +1149,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1083,6 +1169,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1120,6 +1208,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1138,6 +1228,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1168,6 +1260,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1186,6 +1280,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1215,6 +1311,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1246,6 +1344,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1264,6 +1364,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1282,6 +1384,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1300,6 +1404,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1318,6 +1424,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1326,16 +1434,22 @@
       "numeral": "LIII",
       "title": "FOUNDER-MINUTE ECONOMICS",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/founder-minute-priority.mjs"
+        ],
+        "testModules": [
+          "tests/founder-minute-priority.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": "founder minute priority",
+      "aliasReason": "Founder-minute accounting and prioritisation live in founder-minute-priority. The directive names the discipline; the repository names the module after what it ranks.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1389,6 +1503,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1430,6 +1546,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1448,6 +1566,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1466,6 +1586,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1507,6 +1629,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1544,6 +1668,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1581,6 +1707,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1599,6 +1727,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1617,6 +1747,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1635,6 +1767,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1653,6 +1787,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1671,6 +1807,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1696,6 +1834,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1714,6 +1854,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1732,6 +1874,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1750,6 +1894,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1768,6 +1914,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1786,6 +1934,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1804,6 +1954,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1822,6 +1974,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1840,6 +1994,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1858,6 +2014,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1886,6 +2044,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1904,6 +2064,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1927,6 +2089,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1945,6 +2109,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1963,6 +2129,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1981,6 +2149,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1999,6 +2169,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2017,6 +2189,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2039,6 +2213,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2057,6 +2233,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2075,6 +2253,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2093,6 +2273,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2111,6 +2293,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2136,6 +2320,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2154,6 +2340,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2172,6 +2360,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2190,6 +2380,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2208,6 +2400,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2216,16 +2410,22 @@
       "numeral": "XCIV",
       "title": "RECURSIVE IMPROVEMENT VELOCITY",
       "class": "MECHANISM",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 1,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/recursive-improvement-retention.mjs"
+        ],
+        "testModules": [
+          "tests/recursive-improvement-retention.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": "recursive improvement retention",
+      "aliasReason": "Generation-over-generation improvement and retention measurement lives here. It is where velocity is computed, and no separate velocity module exists.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2244,6 +2444,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2262,6 +2464,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2280,6 +2484,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2305,6 +2511,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2338,6 +2546,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2356,6 +2566,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2374,6 +2586,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2392,6 +2606,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2410,6 +2626,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2428,6 +2646,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2446,6 +2666,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2464,6 +2686,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2482,6 +2706,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2500,6 +2726,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2518,6 +2746,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2536,6 +2766,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2560,6 +2792,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2578,6 +2812,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2596,6 +2832,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2632,6 +2870,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2657,6 +2897,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2675,6 +2917,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2700,6 +2944,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2718,6 +2964,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2736,6 +2984,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2754,6 +3004,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2772,6 +3024,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2790,6 +3044,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2815,6 +3071,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2833,6 +3091,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2851,6 +3111,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2869,6 +3131,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2887,6 +3151,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2905,6 +3171,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2923,6 +3191,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2941,6 +3211,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2959,6 +3231,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2977,6 +3251,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2995,6 +3271,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3013,6 +3291,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3031,6 +3311,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3049,6 +3331,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3067,6 +3351,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3085,6 +3371,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3112,6 +3400,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3130,6 +3420,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3148,6 +3440,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3166,6 +3460,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3184,6 +3480,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3202,6 +3500,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3220,6 +3520,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3238,6 +3540,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3256,6 +3560,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3274,6 +3580,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3298,6 +3606,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3316,6 +3626,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3334,6 +3646,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3352,6 +3666,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3374,6 +3690,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3392,6 +3710,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3414,6 +3734,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3432,6 +3754,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3450,6 +3774,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3468,6 +3794,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3486,6 +3814,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3504,6 +3834,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3522,6 +3854,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3540,6 +3874,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3558,6 +3894,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3576,6 +3914,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3605,6 +3945,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3623,6 +3965,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3641,6 +3985,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3659,6 +4005,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3677,6 +4025,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3695,6 +4045,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3720,6 +4072,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3738,6 +4092,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3756,6 +4112,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3774,6 +4132,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3792,6 +4152,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3810,6 +4172,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3828,6 +4192,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3846,6 +4212,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3864,6 +4232,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3882,6 +4252,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3900,6 +4272,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3918,6 +4292,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3936,6 +4312,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3954,6 +4332,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3972,6 +4352,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3990,6 +4372,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -3998,16 +4382,20 @@
       "numeral": "CLXXXVII",
       "title": "FOUNDER ABSENCE TEST",
       "class": "MECHANISM",
-      "currentState": "MISSING",
+      "currentState": "PARTIAL",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          "src/founder-absence-readiness.mjs"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": "founder absence readiness",
+      "aliasReason": "Founder-absence duration classes and what continues without the founder are modelled by the founder-absence readiness organ and its doctor.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4026,6 +4414,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4044,6 +4434,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4062,6 +4454,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4093,6 +4487,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4111,6 +4507,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4129,6 +4527,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4147,6 +4547,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4165,6 +4567,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4183,6 +4587,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4201,6 +4607,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4219,6 +4627,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4237,6 +4647,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4255,6 +4667,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4273,6 +4687,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4291,6 +4707,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4309,6 +4727,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4327,6 +4747,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4345,6 +4767,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4363,6 +4787,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4381,6 +4807,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4399,6 +4827,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4417,6 +4847,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4435,6 +4867,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4453,6 +4887,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4471,6 +4907,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4489,6 +4927,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4507,6 +4947,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4525,6 +4967,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4543,6 +4987,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4561,6 +5007,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4579,6 +5027,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4597,6 +5047,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4625,6 +5077,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4647,6 +5101,8 @@
         "matchStrength": "EXACT_SLUG",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4665,6 +5121,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4683,6 +5141,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4701,6 +5161,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4719,6 +5181,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4737,6 +5201,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4755,6 +5221,8 @@
         "matchStrength": "NO_DISTINCTIVE_TOKENS",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4773,6 +5241,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4791,6 +5261,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4822,6 +5294,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4840,6 +5314,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4858,6 +5334,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4876,6 +5354,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4894,6 +5374,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4912,6 +5394,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4930,6 +5414,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4948,6 +5434,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4966,6 +5454,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -4984,6 +5474,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5002,6 +5494,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5020,6 +5514,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5038,6 +5534,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5056,6 +5554,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5074,6 +5574,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5092,6 +5594,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5110,6 +5614,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5128,6 +5634,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5146,6 +5654,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5164,6 +5674,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5182,6 +5694,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5190,16 +5704,22 @@
       "numeral": "CCLI",
       "title": "FRONTIER TECHNOLOGY RADAR",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/zero-day-frontier-radar.mjs"
+        ],
+        "testModules": [
+          "tests/zero-day-frontier-radar.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": "zero day frontier radar",
+      "aliasReason": "Zero-Day Frontier Radar is the canonical Perpetual Frontier organ that watches for capability-changing technology signals.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5218,6 +5738,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5226,16 +5748,22 @@
       "numeral": "CCLIII",
       "title": "PERSONAL KNOWLEDGE GRAPH",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/life-knowledge-graph.mjs"
+        ],
+        "testModules": [
+          "tests/life-knowledge-graph.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": "life knowledge graph",
+      "aliasReason": "The Personal Civilization canon calls this the Life Knowledge Graph; it connects people, projects, decisions, goals and events with provenance on every edge.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5254,6 +5782,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5290,6 +5820,8 @@
         "matchStrength": "ALL_TOKENS",
         "matchScope": "WHOLE_NAME"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5308,6 +5840,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5326,6 +5860,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5344,6 +5880,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5362,6 +5900,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5380,6 +5920,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5398,6 +5940,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5416,6 +5960,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5434,6 +5980,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5452,6 +6000,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5470,6 +6020,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5495,6 +6047,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5513,6 +6067,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5531,6 +6087,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5549,6 +6107,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5580,6 +6140,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5598,6 +6160,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5616,6 +6180,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5641,6 +6207,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5659,6 +6227,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5677,6 +6247,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5695,6 +6267,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5713,6 +6287,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5731,6 +6307,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5756,6 +6334,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5774,6 +6354,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5792,6 +6374,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5810,6 +6394,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5828,6 +6414,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5846,6 +6434,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5864,6 +6454,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5882,6 +6474,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5900,6 +6494,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5918,6 +6514,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5936,6 +6534,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5954,6 +6554,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -5979,6 +6581,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6010,6 +6614,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6028,6 +6634,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6046,6 +6654,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6064,6 +6674,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6082,6 +6694,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6107,6 +6721,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6125,6 +6741,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6143,6 +6761,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6161,6 +6781,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6179,6 +6801,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6197,6 +6821,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6215,6 +6841,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6233,6 +6861,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6251,6 +6881,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6269,6 +6901,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6287,6 +6921,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6305,6 +6941,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6323,6 +6961,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6341,6 +6981,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6359,6 +7001,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6377,6 +7021,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6395,6 +7041,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6413,6 +7061,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6431,6 +7081,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6449,6 +7101,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6467,6 +7121,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6485,6 +7141,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6503,6 +7161,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6521,6 +7181,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6539,6 +7201,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6557,6 +7221,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6575,6 +7241,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6593,6 +7261,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6611,6 +7281,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6629,6 +7301,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6660,6 +7334,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6678,6 +7354,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6696,6 +7374,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6714,6 +7394,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6732,6 +7414,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6750,6 +7434,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6768,6 +7454,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6786,6 +7474,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6804,6 +7494,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -6822,6 +7514,8 @@
         "matchStrength": "NO_MATCH",
         "matchScope": "NONE"
       },
+      "aliasedTo": null,
+      "aliasReason": null,
       "terminalReason": null,
       "milestoneEvidenceRef": null
     }
@@ -7048,16 +7742,6 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:094-recursive-improvement-velocity",
-      "numeral": "XCIV",
-      "title": "RECURSIVE IMPROVEMENT VELOCITY",
-      "class": "MECHANISM",
-      "currentState": "MISSING",
-      "corpusReferences": 1,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:125-civilization-memory",
       "numeral": "CXXV",
       "title": "CIVILIZATION MEMORY",
@@ -7268,16 +7952,6 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:020-unknown-unknown-machine",
-      "numeral": "XX",
-      "title": "UNKNOWN-UNKNOWN MACHINE",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:022-mechanism-atom-universe",
       "numeral": "XXII",
       "title": "MECHANISM ATOM UNIVERSE",
@@ -7471,16 +8145,6 @@
       "sectionId": "nullstar:052-retention-expansion",
       "numeral": "LII",
       "title": "RETENTION + EXPANSION",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
-      "sectionId": "nullstar:053-founder-minute-economics",
-      "numeral": "LIII",
-      "title": "FOUNDER-MINUTE ECONOMICS",
       "class": "ORGAN",
       "currentState": "MISSING",
       "corpusReferences": 0,
@@ -8398,16 +9062,6 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:187-founder-absence-test",
-      "numeral": "CLXXXVII",
-      "title": "FOUNDER ABSENCE TEST",
-      "class": "MECHANISM",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:188-human-return-protocol",
       "numeral": "CLXXXVIII",
       "title": "HUMAN RETURN PROTOCOL",
@@ -8948,30 +9602,10 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:251-frontier-technology-radar",
-      "numeral": "CCLI",
-      "title": "FRONTIER TECHNOLOGY RADAR",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:252-hardware-future-interface",
       "numeral": "CCLII",
       "title": "HARDWARE FUTURE INTERFACE",
       "class": "MECHANISM",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
-      "sectionId": "nullstar:253-personal-knowledge-graph",
-      "numeral": "CCLIII",
-      "title": "PERSONAL KNOWLEDGE GRAPH",
-      "class": "ORGAN",
       "currentState": "MISSING",
       "corpusReferences": 0,
       "existingEvidence": [],
@@ -9646,6 +10280,18 @@
       "nearestCanonicalConcepts": []
     },
     {
+      "sectionId": "nullstar:187-founder-absence-test",
+      "numeral": "CLXXXVII",
+      "title": "FOUNDER ABSENCE TEST",
+      "class": "MECHANISM",
+      "currentState": "PARTIAL",
+      "corpusReferences": 0,
+      "existingEvidence": [
+        "src/founder-absence-readiness.mjs"
+      ],
+      "nearestCanonicalConcepts": []
+    },
+    {
       "sectionId": "nullstar:191-self-improvement-ladder",
       "numeral": "CXCI",
       "title": "SELF-IMPROVEMENT LADDER",
@@ -9734,7 +10380,7 @@
       ]
     }
   ],
-  "rowDigest": "32a21cd79ac46c54e36f72a073b4b8bc0d9c925d9c63e8dc8202d8931a604965",
+  "rowDigest": "afaa66f5662095c617096d8ef77a50176590209edf36b85c7f8d583794d353d0",
   "truthBoundary": "RECONCILIATION_REPORTS_ONLY_WHAT_THIS_TREE_AND_THE_CANONICAL_COVERAGE_MATRIX_SUPPORT. A_ROW_IS_NOT_A_WORK_ORDER; A_CUT_SET_POSITION_IS_A_CORPUS_REFERENCE_COUNT_AND_NOT_AN_ESTIMATE_OF_COST_VALUE_OR_UNLOCK. IT_DOES_NOT_PROVE_IMPLEMENTATION_RUNTIME_EXTERNAL_OUTCOMES_RECURSIVE_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {

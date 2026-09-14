@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond-nullstar-declarations-1.0.0",
+  "reviewedAt": "2026-09-14",
+  "law": "An alias supplies only which repository name to search under. The reconciler still computes the state from what that search finds, so an alias can never promote a row on its own, and an alias that stops resolving fails the compile rather than silently reverting the row to MISSING. Every entry below was checked against the tree: the named module exists and implements the section's mechanism, not merely a similar phrase.",
+  "aliasDeclarations": [
+    {
+      "sectionId": "nullstar:020-unknown-unknown-machine",
+      "repositoryName": "unknown unknown mining",
+      "reason": "The directive's UNKNOWN-UNKNOWN MACHINE is UberBond's Unknown-Unknown Mining organ, which is the canonical name in the total North Star and has its own module and suite."
+    },
+    {
+      "sectionId": "nullstar:053-founder-minute-economics",
+      "repositoryName": "founder minute priority",
+      "reason": "Founder-minute accounting and prioritisation live in founder-minute-priority. The directive names the discipline; the repository names the module after what it ranks."
+    },
+    {
+      "sectionId": "nullstar:251-frontier-technology-radar",
+      "repositoryName": "zero day frontier radar",
+      "reason": "Zero-Day Frontier Radar is the canonical Perpetual Frontier organ that watches for capability-changing technology signals."
+    },
+    {
+      "sectionId": "nullstar:253-personal-knowledge-graph",
+      "repositoryName": "life knowledge graph",
+      "reason": "The Personal Civilization canon calls this the Life Knowledge Graph; it connects people, projects, decisions, goals and events with provenance on every edge."
+    },
+    {
+      "sectionId": "nullstar:094-recursive-improvement-velocity",
+      "repositoryName": "recursive improvement retention",
+      "reason": "Generation-over-generation improvement and retention measurement lives here. It is where velocity is computed, and no separate velocity module exists."
+    },
+    {
+      "sectionId": "nullstar:187-founder-absence-test",
+      "repositoryName": "founder absence readiness",
+      "reason": "Founder-absence duration classes and what continues without the founder are modelled by the founder-absence readiness organ and its doctor."
+    }
+  ],
+  "terminalDeclarations": [],
+  "milestoneReceipts": [],
+  "truthBoundary": "These are reviewed name mappings, not evidence. A section aliased to a module with no test still reports PARTIAL, and nothing here grants authority."
+}

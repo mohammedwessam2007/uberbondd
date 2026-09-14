@@ -10,6 +10,8 @@ Raw mailbox count is a weak proxy for usable distribution capacity. A provider c
 
 UberInbox therefore plans against observed constraints rather than marketing language. An `unlimited` claim without a numeric slot observation remains `UNKNOWN` and is not converted into infinity.
 
+The current canonical capacity primitive is still mailbox inventory because that is what the provider and UberDoso contracts can measure directly. However, UberInbox explicitly carries an unknown-unknown research hypothesis that **reputation-isolated usable sending capacity** may be the better primitive. That hypothesis must earn promotion from observed operations.
+
 ## Inputs
 
 - canonical owner-confirmed outreach domains
@@ -47,6 +49,6 @@ Blind-spot dimensions include mailbox count, throughput, domain density, IP repu
 
 ## Hard boundaries
 
-UberInbox must fail closed when provider evidence is stale/future-dated, ownership is unverified, terms are not explicitly compatible, API provisioning is not observed, slot capacity is not numeric, or unit cost is unknown. It reuses UberDoso's current per-domain mailbox policy ceiling and does not create contact or send authority.
+UberInbox must fail closed when provider evidence is stale or materially future-dated, ownership is unverified, terms are not explicitly compatible, API provisioning is not observed, slot capacity is not numeric, or unit cost is unknown. It reuses UberDoso's current per-domain mailbox policy ceiling and does not create contact or send authority.
 
 Provisioning, purchases, provider writes, DNS changes, warmup, placement claims, live sends, and any provider-policy exceptions belong to separate authorized execution and evidence layers.

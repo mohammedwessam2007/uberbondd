@@ -47,6 +47,8 @@ const contact = {
 const genomeInputs = overrides => ({
   prospect: {
     accountId: 'acct-1',
+    industry: 'SaaS',
+    department: 'Finance',
     seniority: 'CFO',
     safeForOutreach: true,
     verificationStatus: 'VERIFIED',
@@ -77,7 +79,12 @@ const genomeInputs = overrides => ({
     wordCount: 80,
     sentenceCount: 4,
     subjectWordCount: 3,
+    subjectArchitecture: 'PRIORITY',
+    openingArchitecture: 'TRIGGER_PROBLEM',
+    problemArchitecture: 'COST_OF_INACTION',
+    offerType: 'BENCHMARK',
     ctaType: 'OFFER',
+    tone: 'PLAIN',
     personalizationClass: 'COMPANY',
     problemAltitude: 'STRATEGIC',
     problemBeforeProduct: true,
@@ -117,7 +124,7 @@ test('UberReach fails closed when sender or source-backed contact evidence is ab
   assert.equal(result.externalEffectAuthority, 'NONE');
 });
 
-test('UberReach can compose the outbound genome without granting send authority', () => {
+test('UberReach composes genome, context policy, research coverage and diversity observability with zero authority', () => {
   const result = compileUberReachReadiness({
     mailboxes: [mailbox],
     mailboxObservations: { 'mbx-1': observations },
@@ -127,6 +134,13 @@ test('UberReach can compose the outbound genome without granting send authority'
   });
   assert.equal(result.outboundGenome.recommendedAction, 'SEND_CANDIDATE');
   assert.equal(result.outboundGenome.recommendedCandidateId, 'offer-short');
+  assert.equal(result.outboundContextPolicy.seniorityKey, 'C_SUITE');
+  assert.equal(result.outboundContextPolicy.departmentKey, 'FINANCE');
+  assert.equal(result.outboundContextPolicy.industryKey, 'SAAS');
+  assert.equal(result.outboundResearchCoverage.reportVisible.expertResearchUniverseRows, 71);
+  assert.equal(result.outboundResearchCoverage.state, 'REPORT_VISIBLE_CORPUS_COMPLETE_EXTERNAL_DOWNLOADS_PENDING');
+  assert.equal(result.outboundMonoculture.sampleSize, 1);
+  assert.equal(result.outboundMonoculture.state, 'INSUFFICIENT_SAMPLE');
   assert.equal(result.outboundGenome.externalEffectAuthority, 'NONE');
   assert.equal(result.messagesSent, 0);
   assert.equal(result.providerCalls, 0);
@@ -147,4 +161,40 @@ test('optional enforced genome blocks readiness when suppression says abstain', 
   assert.ok(result.blockers.includes('outbound-genome-not-send-candidate'));
   assert.equal(result.state, 'PREPARATION_BLOCKED');
   assert.equal(result.messagesSent, 0);
+});
+
+test('sequence engine exits the cold-send path after a qualified reply', () => {
+  const inputs = genomeInputs({
+    enforce: true,
+    sequenceInputs: { qualifiedReply: true }
+  });
+  const result = compileUberReachReadiness({
+    mailboxes: [mailbox],
+    mailboxObservations: { 'mbx-1': observations },
+    contacts: [contact],
+    genomeInputs: inputs,
+    now: NOW
+  });
+  assert.equal(result.outboundSequence.action, 'EXIT_COLD_AUTOMATION_TO_REPLY_OPPORTUNITY_POLICY');
+  assert.ok(result.blockers.includes('outbound-sequence-exits-cold-send-path'));
+  assert.equal(result.state, 'PREPARATION_BLOCKED');
+  assert.equal(result.messagesSent, 0);
+});
+
+test('sequence suppression still dominates even when copy candidate is otherwise sendable', () => {
+  const inputs = genomeInputs({
+    enforce: true,
+    sequenceInputs: { unsubscribed: true, freshTrigger: true }
+  });
+  const result = compileUberReachReadiness({
+    mailboxes: [mailbox],
+    mailboxObservations: { 'mbx-1': observations },
+    contacts: [contact],
+    genomeInputs: inputs,
+    now: NOW
+  });
+  assert.equal(result.outboundGenome.recommendedAction, 'SEND_CANDIDATE');
+  assert.equal(result.outboundSequence.action, 'IMMEDIATE_GLOBAL_SUPPRESSION');
+  assert.ok(result.blockers.includes('outbound-sequence-exits-cold-send-path'));
+  assert.equal(result.externalEffectAuthority, 'NONE');
 });

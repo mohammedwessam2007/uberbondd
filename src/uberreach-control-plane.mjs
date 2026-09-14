@@ -1,12 +1,14 @@
 // UberReach: zero-authority composition layer for sender health, contact
-// evidence, and bounded account similarity. It prepares evidence for later
-// owner/governance review and deliberately performs no external side effects.
+// evidence, bounded account similarity, and quality-preserving outreach
+// capacity. It prepares evidence for later owner/governance review and
+// deliberately performs no external side effects.
 
 import { compileUberWarmFleet } from './uberwarm-reputation-lab.mjs';
 import { compileUberVerifyBatch } from './uberverify-contact-hygiene.mjs';
 import { rankUberLookalikes } from './uberlookalike-account-expander.mjs';
+import { compileQualityPreservingOutreachCapacity } from './uberquality-capacity-governor.mjs';
 
-export const UBERREACH_VERSION = 'uberbond.uberreach.v1';
+export const UBERREACH_VERSION = 'uberbond.uberreach.v1.1';
 
 export function compileUberReachReadiness({
   mailboxes = [],
@@ -18,6 +20,7 @@ export function compileUberReachReadiness({
   warmPolicy = {},
   lookalikeMinScore = 0.25,
   lookalikeLimit = 100,
+  capacityInputs = null,
   now = new Date()
 } = {}) {
   const senderHealth = compileUberWarmFleet({
@@ -47,9 +50,21 @@ export function compileUberReachReadiness({
       reasonCodes: ['no-lookalike-seeds-supplied']
     };
 
+  const capacity = capacityInputs && typeof capacityInputs === 'object'
+    ? compileQualityPreservingOutreachCapacity({
+      warmFleet: senderHealth,
+      domains: capacityInputs.domains || [],
+      egress: capacityInputs.egress || {},
+      recipientBudgets: capacityInputs.recipientBudgets || [],
+      leads: capacityInputs.leads || [],
+      policy: capacityInputs.policy || {}
+    })
+    : null;
+
   const blockers = [];
   if (!senderHealth.readyMailboxCount) blockers.push('no-evidence-ready-sender');
   if (!contactHygiene.verifiedForAuthorizationGate) blockers.push('no-source-backed-verified-contact-route');
+  if (capacity && capacity.qualityPreservingDailyMax === 0) blockers.push('quality-preserving-daily-capacity-zero');
 
   return {
     version: UBERREACH_VERSION,
@@ -59,12 +74,13 @@ export function compileUberReachReadiness({
     senderHealth,
     contactHygiene,
     accountExpansion,
+    capacity,
     providerCalls: 0,
     messagesSent: 0,
     purchases: 0,
     dnsChanges: 0,
     externalEffectAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
-    truthBoundary: 'Readiness means only that supplied evidence passed these local preparation gates. It is never permission to contact, spend, provision infrastructure, or claim deliverability.'
+    truthBoundary: 'Readiness means only that supplied evidence passed these local preparation gates. Capacity never relaxes the lead-quality floor and readiness is never permission to contact, spend, provision infrastructure, or claim deliverability.'
   };
 }

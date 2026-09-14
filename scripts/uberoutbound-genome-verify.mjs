@@ -8,6 +8,7 @@ const commands = [
   ['--check', 'src/uberreach-control-plane.mjs'],
   ['--check', 'scripts/uberoutbound-genome-doctor.mjs'],
   ['--check', 'scripts/uberoutbound-genome-completion-doctor.mjs'],
+  ['--check', 'scripts/uberoutbound-genome-final-doctor.mjs'],
   ['--test',
     'tests/uberoutbound-genome.test.mjs',
     'tests/uberoutbound-genotype.test.mjs',
@@ -18,7 +19,8 @@ const commands = [
     'tests/uberreach-scale-frontier.test.mjs'
   ],
   ['scripts/uberoutbound-genome-doctor.mjs'],
-  ['scripts/uberoutbound-genome-completion-doctor.mjs']
+  ['scripts/uberoutbound-genome-completion-doctor.mjs'],
+  ['scripts/uberoutbound-genome-final-doctor.mjs']
 ];
 
 const receipts = [];

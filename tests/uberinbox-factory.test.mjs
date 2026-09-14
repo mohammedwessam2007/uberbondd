@@ -103,6 +103,30 @@ test('stale provider evidence cannot manufacture provisioning capacity', () => {
   assert.ok(result.rejectedProviders[0].blockers.includes('provider-evidence-stale-or-undated'));
 });
 
+test('future-dated provider evidence cannot manufacture fresh provisioning capacity', () => {
+  const result = compileUberInboxPlan({
+    domains: [domain()],
+    providerOffers: [provider({ observedAt: '2026-09-15T20:00:00.000Z' })],
+    desiredAdditionalMailboxes: 8,
+    monthlyBudgetCents: 10000,
+    now: NOW
+  });
+  assert.equal(result.plannedAdditionalMailboxes, 0);
+  assert.ok(result.rejectedProviders[0].blockers.includes('provider-evidence-stale-or-undated'));
+});
+
+test('unknown mailbox unit cost cannot silently become zero-cost capacity', () => {
+  const result = compileUberInboxPlan({
+    domains: [domain()],
+    providerOffers: [provider({ monthlyCostPerMailboxCents: null })],
+    desiredAdditionalMailboxes: 8,
+    monthlyBudgetCents: 10000,
+    now: NOW
+  });
+  assert.equal(result.plannedAdditionalMailboxes, 0);
+  assert.ok(result.rejectedProviders[0].blockers.includes('mailbox-unit-cost-unknown'));
+});
+
 test('unknown or incompatible provider terms fail closed', () => {
   const result = compileUberInboxPlan({
     domains: [domain()],

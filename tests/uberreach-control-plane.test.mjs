@@ -44,6 +44,54 @@ const contact = {
   }]
 };
 
+const genomeInputs = overrides => ({
+  prospect: {
+    accountId: 'acct-1',
+    seniority: 'CFO',
+    safeForOutreach: true,
+    verificationStatus: 'VERIFIED',
+    suppressed: false,
+    unsubscribed: false,
+    problemEvidenceScore: 0.9,
+    roleOwnershipScore: 0.9,
+    accountValueScore: 0.8,
+    contactabilityScore: 0.95,
+    trigger: { type: 'EXPLICIT_PRIORITY', confidence: 0.9, freshness: 0.9, problemLinked: true }
+  },
+  sender: {
+    status: 'GREEN',
+    authenticationReady: true,
+    providerBudgetAvailable: true
+  },
+  authorization: { outreachAuthorized: true },
+  legalDecision: {
+    status: 'PASSED',
+    jurisdiction: 'US',
+    basis: 'TEST_RECORDED_BASIS',
+    policyVersion: 'test-v1',
+    evidenceId: 'legal-1',
+    recipientType: 'CORPORATE'
+  },
+  messageCandidates: [{
+    candidateId: 'offer-short',
+    wordCount: 80,
+    sentenceCount: 4,
+    subjectWordCount: 3,
+    ctaType: 'OFFER',
+    personalizationClass: 'COMPANY',
+    problemAltitude: 'STRATEGIC',
+    problemBeforeProduct: true,
+    relevantProof: true,
+    sequencePosition: 1
+  }],
+  experiment: {
+    experimentId: 'cta-v1',
+    primaryMetric: 'QUALIFIED_POSITIVE_REPLY',
+    arms: ['OFFER', 'MEETING']
+  },
+  ...overrides
+});
+
 test('UberReach composes healthy supplied evidence but still grants zero external authority', () => {
   const result = compileUberReachReadiness({
     mailboxes: [mailbox],
@@ -67,4 +115,36 @@ test('UberReach fails closed when sender or source-backed contact evidence is ab
   assert.ok(result.blockers.includes('no-evidence-ready-sender'));
   assert.ok(result.blockers.includes('no-source-backed-verified-contact-route'));
   assert.equal(result.externalEffectAuthority, 'NONE');
+});
+
+test('UberReach can compose the outbound genome without granting send authority', () => {
+  const result = compileUberReachReadiness({
+    mailboxes: [mailbox],
+    mailboxObservations: { 'mbx-1': observations },
+    contacts: [contact],
+    genomeInputs: genomeInputs(),
+    now: NOW
+  });
+  assert.equal(result.outboundGenome.recommendedAction, 'SEND_CANDIDATE');
+  assert.equal(result.outboundGenome.recommendedCandidateId, 'offer-short');
+  assert.equal(result.outboundGenome.externalEffectAuthority, 'NONE');
+  assert.equal(result.messagesSent, 0);
+  assert.equal(result.providerCalls, 0);
+});
+
+test('optional enforced genome blocks readiness when suppression says abstain', () => {
+  const blockedGenome = genomeInputs();
+  blockedGenome.enforce = true;
+  blockedGenome.prospect = { ...blockedGenome.prospect, suppressed: true };
+  const result = compileUberReachReadiness({
+    mailboxes: [mailbox],
+    mailboxObservations: { 'mbx-1': observations },
+    contacts: [contact],
+    genomeInputs: blockedGenome,
+    now: NOW
+  });
+  assert.equal(result.outboundGenome.recommendedAction, 'ABSTAIN');
+  assert.ok(result.blockers.includes('outbound-genome-not-send-candidate'));
+  assert.equal(result.state, 'PREPARATION_BLOCKED');
+  assert.equal(result.messagesSent, 0);
 });

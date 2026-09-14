@@ -1,13 +1,15 @@
 // UberReach: zero-authority composition layer for sender health, contact
 // evidence, bounded account similarity, quality-preserving outreach capacity,
-// and the evidence-weighted UberOutbound strategy genome. It prepares evidence
-// for later owner/governance review and deliberately performs no external effects.
+// the evidence-weighted UberOutbound strategy genome, and final launch evidence.
+// It prepares evidence for later owner/governance review and deliberately performs
+// no external effects.
 
 import { compileUberWarmFleet } from './uberwarm-reputation-lab.mjs';
 import { compileUberVerifyBatch } from './uberverify-contact-hygiene.mjs';
 import { rankUberLookalikes } from './uberlookalike-account-expander.mjs';
 import { compileQualityPreservingOutreachCapacity } from './uberquality-capacity-governor.mjs';
 import { compileUberOutboundGenomeDecision } from './uberoutbound-genome.mjs';
+import { evaluateOutreachLaunchGate } from './outreach-launch-gate.mjs';
 import {
   compileUberOutboundContextPolicy,
   compileUberOutboundMonocultureAudit,
@@ -15,7 +17,7 @@ import {
   compileUberOutboundSequenceDecision
 } from './uberoutbound-policy-registry.mjs';
 
-export const UBERREACH_VERSION = 'uberbond.uberreach.v1.3';
+export const UBERREACH_VERSION = 'uberbond.uberreach.v1.4';
 
 const COLD_SEQUENCE_STOP_ACTIONS = new Set([
   'IMMEDIATE_GLOBAL_SUPPRESSION',
@@ -36,6 +38,7 @@ export function compileUberReachReadiness({
   lookalikeLimit = 100,
   capacityInputs = null,
   genomeInputs = null,
+  launchInputs = null,
   now = new Date()
 } = {}) {
   const senderHealth = compileUberWarmFleet({
@@ -113,6 +116,10 @@ export function compileUberReachReadiness({
     ? compileUberOutboundResearchCoverage()
     : null;
 
+  const launchDecision = launchInputs && typeof launchInputs === 'object'
+    ? evaluateOutreachLaunchGate({ ...launchInputs, now })
+    : null;
+
   const blockers = [];
   if (!senderHealth.readyMailboxCount) blockers.push('no-evidence-ready-sender');
   if (!contactHygiene.verifiedForAuthorizationGate) blockers.push('no-source-backed-verified-contact-route');
@@ -126,12 +133,16 @@ export function compileUberReachReadiness({
   if (outboundMonoculture?.state === 'MONOCULTURE_RISK_CANDIDATE' && genomeInputs?.monoculturePolicy?.enforce === true) {
     blockers.push('outbound-structural-monoculture-risk');
   }
+  if (launchDecision && launchInputs?.enforce === true && launchDecision.state !== 'READY_FOR_GOVERNED_CANARY') {
+    blockers.push(...launchDecision.hardStopReasonCodes.map(code => `launch:${code}`));
+    blockers.push(...launchDecision.waitReasonCodes.map(code => `launch:${code}`));
+  }
 
   return {
     version: UBERREACH_VERSION,
     generatedAt: new Date(now).toISOString(),
     state: blockers.length ? 'PREPARATION_BLOCKED' : 'READY_FOR_SEPARATE_AUTHORIZATION_REVIEW',
-    blockers,
+    blockers: [...new Set(blockers)],
     senderHealth,
     contactHygiene,
     accountExpansion,
@@ -141,12 +152,13 @@ export function compileUberReachReadiness({
     outboundSequence,
     outboundMonoculture,
     outboundResearchCoverage,
+    launchDecision,
     providerCalls: 0,
     messagesSent: 0,
     purchases: 0,
     dnsChanges: 0,
     externalEffectAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
-    truthBoundary: 'Readiness means only that supplied evidence passed these local preparation gates. Capacity, research priors, context policies and sequence recommendations never relax the lead-quality floor, legal eligibility, suppression, provider policy or separate authorization. Readiness is never permission to contact, spend, provision infrastructure, or claim deliverability.'
+    truthBoundary: 'Readiness means only that supplied evidence passed these local preparation and launch-evidence gates. Capacity, research priors, context policies, launch readiness and sequence recommendations never relax the lead-quality floor, legal eligibility, suppression, provider policy or separate per-action authorization. Readiness is never permission to contact, spend, provision infrastructure, or claim deliverability.'
   };
 }

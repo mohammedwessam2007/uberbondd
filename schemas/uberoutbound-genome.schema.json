@@ -18,7 +18,7 @@
     "businessEffectAuthority"
   ],
   "properties": {
-    "version": {"const": "uberbond.uberoutbound-genome.v2.1"},
+    "version": {"const": "uberbond.uberoutbound-genome.v2.2"},
     "decisionId": {"type": "string", "pattern": "^ubod_[a-f0-9]{64}$"},
     "generatedAt": {"type": "string", "format": "date-time"},
     "state": {"enum": ["OUTBOUND_GENOME_BLOCKED", "READY_FOR_GOVERNED_SEND_REVIEW"]},
@@ -67,14 +67,28 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["candidateId", "genotypeId", "genotypeAtoms", "priorScore", "priorReasonCodes", "ctaType", "sequencePosition"],
+        "required": ["candidateId", "genotypeId", "renderedMessageId", "genotypeAtoms", "contentReceipt", "priorScore", "priorReasonCodes", "ctaType", "sequencePosition"],
         "properties": {
           "candidateId": {"type": "string", "minLength": 1},
           "genotypeId": {"type": "string", "pattern": "^ubog_[a-f0-9]{64}$"},
+          "renderedMessageId": {"type": "string", "pattern": "^ubom_[a-f0-9]{64}$"},
           "genotypeAtoms": {
             "type": "object",
-            "required": ["segment", "trigger", "personalization", "subject", "opening", "problem", "value", "proof", "offer", "cta", "tone", "sequence", "generation", "contentReceipt"],
+            "required": ["segment", "trigger", "personalization", "subject", "opening", "problem", "value", "proof", "offer", "cta", "tone", "sequence", "generation"],
+            "not": {"required": ["contentReceipt"]},
             "additionalProperties": true
+          },
+          "contentReceipt": {
+            "type": "object",
+            "required": ["subjectDigest", "bodyDigest", "contentReceiptId", "evidenceSnapshotDigest", "renderedAt"],
+            "properties": {
+              "subjectDigest": {"type": ["string", "null"]},
+              "bodyDigest": {"type": ["string", "null"]},
+              "contentReceiptId": {"type": ["string", "null"]},
+              "evidenceSnapshotDigest": {"type": ["string", "null"]},
+              "renderedAt": {"type": ["string", "null"]}
+            },
+            "additionalProperties": false
           },
           "priorScore": {"type": "number", "minimum": 0, "maximum": 1},
           "priorReasonCodes": {"type": "array", "items": {"type": "string"}},
@@ -95,6 +109,12 @@
       "anyOf": [
         {"type": "null"},
         {"type": "string", "pattern": "^ubog_[a-f0-9]{64}$"}
+      ]
+    },
+    "recommendedRenderedMessageId": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^ubom_[a-f0-9]{64}$"}
       ]
     },
     "experimentAssignment": {

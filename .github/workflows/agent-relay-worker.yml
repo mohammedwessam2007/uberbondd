@@ -29,9 +29,6 @@ on:
         type: boolean
         default: false
 
-# One worker at a time. Without this, an issues event and a scheduled run could
-# overlap and both claim the same task -- the lease resolves that after the
-# fact, but not before the duplicated work happened.
 concurrency:
   group: agent-relay-worker
   cancel-in-progress: false
@@ -41,13 +38,12 @@ permissions:
   issues: write
 
 jobs:
-  relay:
-    # Skip the noise: on an issues event, only wake for actual relay tasks.
+  continuity:
     if: >-
       github.event_name != 'issues' ||
       contains(join(github.event.issue.labels.*.name, ','), 'agent-relay:task')
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
+    runs-on: ubuntu-slim
+    timeout-minutes: 2
     steps:
       - name: Pulse UberBond serverless continuity
         env:
@@ -59,10 +55,19 @@ jobs:
             -X POST "$UBERBOND_CONTINUITY_URL" \
             -H "apikey: $UBERBOND_CONTINUITY_KEY" \
             -H "Content-Type: application/json" \
-            --data '{"source":"github-agent-relay"}')"
+            --data '{"source":"github-agent-relay-slim"}')"
           printf '%s\n' "$response"
-          printf '%s' "$response" | jq -e '.ok == true and .status == "CONTINUITY_ACTIVE" and .externalEffectAuthority == "NONE"' >/dev/null
+          printf '%s' "$response" | grep -F '"ok":true' >/dev/null
+          printf '%s' "$response" | grep -F '"status":"CONTINUITY_ACTIVE"' >/dev/null
+          printf '%s' "$response" | grep -F '"externalEffectAuthority":"NONE"' >/dev/null
 
+  relay:
+    if: >-
+      github.event_name != 'issues' ||
+      contains(join(github.event.issue.labels.*.name, ','), 'agent-relay:task')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:

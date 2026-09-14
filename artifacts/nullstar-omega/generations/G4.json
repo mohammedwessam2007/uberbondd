@@ -2,16 +2,16 @@
   "ok": true,
   "version": "uberbond.nullstar-omega-generation.v1",
   "status": "NULLSTAR_OMEGA_GENERATION_RECORDED",
-  "generationId": "G3",
+  "generationId": "G4",
   "sourceCommit": "0084609b357d3a09d5f404ded2eeecf5ffadb323",
   "suiteVersion": "omega-outcome-measured-suite-1.0.0",
-  "corpusDigest": "sha256:c90029590bff8352773853eacba1611f61415a117f308cdf7e3a2e1125da6ce8",
-  "generatedAt": "2026-09-14T23:51:42.762Z",
+  "corpusDigest": "sha256:f16c6cb7961c44d1d4965b6bbf45720b8dd0392dd86a046184e31047aaff9296",
+  "generatedAt": "2026-09-14T23:51:50.227Z",
   "vector": {
     "reasoning": 1,
     "mathematics": 1,
     "science": null,
-    "software": null,
+    "software": 0.6667,
     "research": null,
     "forecasting": null,
     "causality": null,
@@ -21,17 +21,16 @@
     "crossDomain": 0.3333,
     "unknownUnknown": 1,
     "longHorizon": 1,
-    "selfDiagnosis": 0,
+    "selfDiagnosis": 0.3333,
     "calibration": 0.6012500000000001,
     "robustness": 1,
     "resourceEfficiency": 1
   },
   "coverage": {
-    "measured": 9,
-    "unmeasured": 8,
+    "measured": 10,
+    "unmeasured": 7,
     "unmeasuredDimensions": [
       "science",
-      "software",
       "research",
       "forecasting",
       "causality",
@@ -40,7 +39,7 @@
       "invention"
     ]
   },
-  "meanMeasuredScore": 0.770506,
+  "meanMeasuredScore": 0.793455,
   "baselines": {
     "B0": null,
     "B1": null,
@@ -57,10 +56,10 @@
   },
   "environment": {
     "judgementCapability": "NONE",
-    "note": "No model provider and no admitted weights. These three dimensions are scored from observed outcomes, which is why they do not need one."
+    "note": "software is scored from git history. No provider was contacted."
   },
   "failures": [],
-  "generationDigest": "8a6500a63311faab02ae364ff9f96be9129a02a40da377dff4c0bc5ffc7fb6d5",
+  "generationDigest": "8256af246e5f6fdbb1e20540a7921928426c3cd9ab36f8a0b7fa7eee157c7c7d",
   "truthBoundary": "A_GENERATION_RECORDS_WHAT_WAS_MEASURED_AT_ONE_COMMIT_AGAINST_ONE_SUITE. AN_UNMEASURED_DIMENSION_IS_NULL_AND_NEVER_ZERO. IT_DOES_NOT_PROVE_IMPROVEMENT_GENERALIZATION_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {

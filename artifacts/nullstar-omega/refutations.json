@@ -12,6 +12,17 @@
       "observation": "G1 raised measured dimensions from 4 to 9 with derived cross-artifact answers and still scored 1.0 on every one. Difficulty was not the cause.",
       "consequence": "Promoted the successor diagnosis BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY: a deterministic assertion over repository artifacts measures internal consistency the test suite already enforces, not capability.",
       "recordedAt": "2026-09-15"
+    },
+    {
+      "bottleneckId": "BN-EVAL-COVERAGE",
+      "hypothesis": "The eight unmeasured capability dimensions are unmeasured because they need a configured model provider.",
+      "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it scores without a provider, the gap was authorship rather than the provider.",
+      "testedIn": "G4",
+      "evidenceRef": "artifacts/nullstar-omega/G4-discriminating-test.json",
+      "result": "REFUTED",
+      "observation": "software scored 0.6667 from git history alone -- of nine src modules introduced on this branch, six were never edited after the commit that introduced them. No provider was contacted. The dimension was unmeasured because nobody had written a task for it.",
+      "whatThisDoesNotShow": "Seven dimensions remain unattempted. One counterexample refutes the blanket claim without establishing that the other seven are locally scorable, and each still needs its own attempt.",
+      "carryForward": "Do not re-select 'those dimensions need a provider' as the explanation for an unmeasured dimension without first attempting it from local evidence."
     }
   ],
   "businessEffectAuthority": "NONE"

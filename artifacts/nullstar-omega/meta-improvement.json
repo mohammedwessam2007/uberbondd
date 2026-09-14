@@ -2,7 +2,7 @@
   "schemaVersion": "uberbond-nullstar-omega-meta-improvement-1.0.0",
   "module": "uberbond.nullstar-omega-meta-improvement.v1",
   "directiveSection": "310",
-  "generatedAt": "2026-09-14T23:13:06.396Z",
+  "generatedAt": "2026-09-14T23:51:49.937Z",
   "episodes": [
     {
       "ok": true,
@@ -60,19 +60,38 @@
       "businessEffectAuthority": "NONE",
       "selectedSymptom": "Configure any model provider and run one task whose answer the repository does not compute. If a local runtime can serve it, the gap was authorship rather than the provider.",
       "note": "BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY. This one is prospective: the diagnosis was recorded in G2-discriminating-test.json before G3 was built, and G3 was built in response to it."
+    },
+    {
+      "ok": true,
+      "status": "SYMPTOM_RESOLVED",
+      "generation": "G3",
+      "successorGeneration": "G4",
+      "bottleneckId": "BN-EVAL-COVERAGE",
+      "symptomKind": "COVERAGE_INSUFFICIENT",
+      "evidenceClass": "PROSPECTIVE",
+      "beforeCoverage": 9,
+      "afterCoverage": 10,
+      "beforeSpread": 1,
+      "afterSpread": 0.6667000000000001,
+      "beforeMean": 0.7705055555555556,
+      "afterMean": 0.793455,
+      "why": "Measured dimensions rose from 9 to 10.",
+      "businessEffectAuthority": "NONE",
+      "selectedSymptom": "8 of 17 capability dimensions are unmeasured at G3: science, software, research, forecasting, causality, planning...",
+      "note": "BN-EVAL-COVERAGE. The symptom kind and the resolution criterion were committed in G3-prospective-declaration.json before any G4 code existed, so the ordering is checkable in git rather than asserted here."
     }
   ],
-  "episodesAvailableBeforeG3": 2,
+  "episodesAvailableBeforeG3": 3,
   "verdict": {
     "ok": true,
-    "status": "META_IMPROVEMENT_NOT_ESTABLISHED",
-    "episodes": 3,
-    "resolved": 1,
+    "status": "IMPROVEMENT_PROCESS_WORKING",
+    "episodes": 4,
+    "resolved": 2,
     "persisted": 1,
     "movedElsewhere": 1,
     "untested": 0,
-    "prospectiveEpisodes": 1,
-    "reason": "a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-persistences",
+    "prospectiveEpisodes": 2,
+    "reason": null,
     "truthBoundary": "A PROCESS THAT RESOLVES ITS OWN NAMED SYMPTOMS IS WORKING ON ITS OWN TERMS. THAT IS NOT THE SAME AS THE SYSTEM GETTING MORE CAPABLE.",
     "businessEffectAuthority": "NONE"
   },

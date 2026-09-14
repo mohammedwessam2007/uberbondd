@@ -126,7 +126,8 @@
     "omega:reality": "node scripts/nullstar-omega-reality-connect.mjs",
     "omega:meta": "node scripts/nullstar-omega-meta.mjs",
     "omega:generalization": "node scripts/nullstar-omega-generalization.mjs",
-    "omega:g3": "node scripts/nullstar-omega-g3.mjs"
+    "omega:g3": "node scripts/nullstar-omega-g3.mjs",
+    "omega:g4": "node scripts/nullstar-omega-g4.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

@@ -3060,6 +3060,20 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'SWOUT-01', guard: 'A denominator too small to mean anything is refused, not scored',
+    file: 'src/nullstar-omega-software-outcome.mjs',
+    find: "  if (rows.length > 0 && rows.length < 5) reasonCodes.push('denominator-too-small-to-score:need-at-least-five-modules');",
+    replace: '',
+    suites: ['tests/nullstar-omega-software-outcome.test.mjs']
+  },
+  {
+    id: 'SWOUT-02', guard: 'A module edited after introduction counts against first-attempt correctness',
+    file: 'src/nullstar-omega-software-outcome.mjs',
+    find: '  const untouched = rows.filter(row => row.touchedByLater.length === 0);',
+    replace: '  const untouched = rows;',
+    suites: ['tests/nullstar-omega-software-outcome.test.mjs']
+  },
+  {
     id: 'GENCMP-02', guard: 'A series that holds still and then drops is falling, not flat',
     file: 'src/nullstar-omega-generation.mjs',
     find: '  else if (negative) trend = \'FALLING\';',

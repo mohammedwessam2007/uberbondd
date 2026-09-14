@@ -111,14 +111,17 @@
       "authority": "NONE"
     },
     "nullstarOmega": {
-      "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506",
+      "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506 / G4",
       "instrument": "SEPARATED at G3 after three saturated generations. spread 0 -> 1.",
       "trend": "INSTRUMENT_CHANGED. Score movement across a suite change describes the instrument, not the system.",
-      "metaImprovement": "META_IMPROVEMENT_NOT_ESTABLISHED. 3 episodes: 1 moved-elsewhere, 1 persisted, 1 resolved prospectively.",
+      "metaImprovement": "IMPROVEMENT_PROCESS_WORKING. 4 episodes: 1 moved-elsewhere, 1 persisted, 2 resolved, both prospective. The second prospective episode (G3->G4) was declared and committed before any G4 code existed.",
       "generalization": "DID_NOT_GENERALIZE. 1 of 3 families correct on first attempt.",
       "realityConnection": "REALITY_CALIBRATED. 2 closed loops, 1 voided for a defective derivation rule, 2 surprises, mean Brier 0.7975.",
       "denominator": "14 VERIFIED, 9 OPERATING, 1 REALITY_CALIBRATED",
-      "transfer": "Sections 313 and 314 wired into src/founder-command-center.mjs. The money claim carries a sealed forecast a provider-origin receipt decides."
+      "transfer": "Sections 313 and 314 wired into src/founder-command-center.mjs. The money claim carries a sealed forecast a provider-origin receipt decides.",
+      "g4": "software scored 0.6667 from git history alone -- 6 of 9 src modules introduced on this branch were never edited after the commit that introduced them. Coverage 9 -> 10. No provider contacted.",
+      "refutation": "BN-EVAL-COVERAGE's provider hypothesis is REFUTED for at least one dimension. Seven remain unattempted, so this refutes the blanket claim without closing the gap.",
+      "circularityGuards": "G3 and G4 each score selfDiagnosis only from episodes that had closed when they were built, using a numeric generation cutoff. Excluding by name alone would let a later generation raise an earlier one's score retroactively. The meta->G4 chain is verified stable across repeated runs."
     },
     "pullRequestDebt": {
       "title": "Evidence-bound UberInboxes scale profiles",
@@ -158,7 +161,11 @@
     "G3 (sections 038 and 309). First generation in four whose instrument separated. G3 reads only meta-improvement episodes whose successor is not G3, so the G2-to-G3 result cannot score the generation it is about.",
     "Two comparator defects found by G3. compareGenerations subtracted scores taken on different suites and called the difference a regression; it now reports deltas and refuses to classify them. improvementTrend called [0, 0, -0.23] FLAT; a series that holds still and then drops is falling, and a trend spanning a suite change is INSTRUMENT_CHANGED.",
     "Ten NEEDS_TRIAGE modules traced and resolved. Six have no importer at all; the other four form two islands. None reaches production. Each is now AWAITING_ACTIVATION against a named gate, and eight new gates are registered. NEEDS_TRIAGE is empty.",
-    "Eleven mutation anchors added for the new guards. All eleven kill. 408/408."
+    "Eleven mutation anchors added for the new guards. All eleven kill. 408/408.",
+    "G4 and the second prospective meta-improvement episode. The G3 bottleneck's symptom kind and resolution criterion were committed in G3-prospective-declaration.json before any G4 code existed, so the ordering is checkable in git rather than asserted. Criterion met: coverage rose 9 to 10.",
+    "BN-EVAL-COVERAGE's provider hypothesis refuted. software scores 0.6667 from git history alone: of nine src modules introduced on this branch, six were never edited after the commit that introduced them. The dimension was unmeasured because nobody had written a task for it, not because it needed a provider. Recorded in refutations.json so no later generation re-selects it.",
+    "Two circularity guards. G3 and G4 score selfDiagnosis only from episodes closed before they were built, under a numeric generation cutoff; excluding by name would let a later generation raise an earlier one's score retroactively. The meta-to-G4 chain is verified stable across repeated runs.",
+    "Thirteen mutation anchors total for this session's guards. All kill. 410 mutations, 410 killed, 0 not killed."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -172,11 +179,11 @@
     "NULLSTAR ALIAS RECONCILIATION: 247 sections still read MISSING, an upper bound. The alias mechanism exists, is tested and is mutation-verified; what remains is per-section review of which titles name an organ the repository already has under another name. Do not lower the number by loosening the matcher.",
     "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED, AND THE GATE IS NARROWER THAN G2 SAID: re-probing split it. A local inference runtime installs and runs here -- onnxruntime 1.30.0 imports with CPUExecutionProvider, and PyPI is reachable at 54 MB/s. What is refused is weights: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. A second, independent blocker sits behind that one: the Capability Genome admission gate requires STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three. Opening the network alone would not make a model selectable. This gates capability-by-judgement scoring only; bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer were blocked by association in the G2 verdict and are not. All six are now done. Evidence: artifacts/nullstar-omega/G2-discriminating-test.json v1.1.",
     "FIRST REALITY-CALIBRATED DIMENSION IS EARNED; THE REST ARE NOT. N12 CALIBRATION now sits at REALITY_CALIBRATED on 2 closed loops with mean Brier 0.7975 and 2 surprises out of 2. The other 23 dimensions sit at VERIFIED or OPERATING and still have no prediction checked against a later observation. One calibrated dimension is not a calibrated system, and a mean Brier of 0.80 says this system's self-model is wrong more often than it expects to be.",
-    "SECOND PROSPECTIVE META-IMPROVEMENT EPISODE: the improvement process has one prospective resolution (G2->G3) and needs two before a working verdict is permitted. This is not external. It needs another turn of the loop, not permission: name the G3 bottleneck and its symptom kind before building G4.",
+    "THIRD PROSPECTIVE META-IMPROVEMENT EPISODE (the second is done): the process now has two prospective resolutions and reads IMPROVEMENT_PROCESS_WORKING on its own terms. That verdict is earned under rules written before the results were seen, and it is still a verdict about four episodes. It says the selections resolved what they named; it does not say the system got more capable.",
     "OBSERVATION APPARATUS IS UNRELIABLE: of three observers written this session, one misread guard prose as a result and one read a file this session had written. Two of three failed on first attempt. The seal is what made both visible; nothing guarantees the next one is sound."
   ],
   "nextExecutor": {
-    "primary": "G4. Name the bottleneck from artifacts/nullstar-omega/bottlenecks-G3.json before building the successor, and record the symptom kind prospectively. That is the only remaining path to a second prospective episode, and a working-process verdict needs two.",
+    "primary": "G5. Attempt a second unmeasured dimension from local evidence -- seven remain (science, research, forecasting, causality, planning, toolUse, invention) and G4 refuted only the blanket claim that they need a provider. Declare the symptom kind and resolution criterion in an artifact and commit it before writing any G5 code, the way G3-prospective-declaration.json was committed. Read artifacts/nullstar-omega/refutations.json first: two hypotheses are already dead and re-selecting either spends a generation confirming what was disproved.",
     "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
     "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
     "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",

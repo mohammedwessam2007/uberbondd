@@ -38,6 +38,13 @@ const EPISODES = [
     evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
     bottleneckFrom: 'discriminating-test',
     note: 'BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY. This one is prospective: the diagnosis was recorded in G2-discriminating-test.json before G3 was built, and G3 was built in response to it.'
+  },
+  {
+    generation: 'G3',
+    successorGeneration: 'G4',
+    symptomKind: SYMPTOM_KINDS.COVERAGE_INSUFFICIENT,
+    evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
+    note: 'BN-EVAL-COVERAGE. The symptom kind and the resolution criterion were committed in G3-prospective-declaration.json before any G4 code existed, so the ordering is checkable in git rather than asserted here.'
   }
 ];
 

@@ -41,13 +41,17 @@ const calibration = Number.isFinite(meanBrier)
 
 // Resolved symptoms over completed episodes.
 //
-// Only episodes that closed before G3 existed may score G3. The G2->G3 episode
-// is about this generation, so letting it in would mean G3's selfDiagnosis
-// score depended on G3's own result -- the score would rise simply because the
-// generation happened. Zero is a real score here, not a missing measurement.
+// Only episodes that had already closed when G3 was built may score G3.
+//
+// An episode closes when its successor generation exists, so the cutoff is
+// numeric rather than a single exclusion: G2->G3 is about this generation, and
+// G3->G4 did not exist yet. Excluding only 'G3' by name would let a later
+// generation raise G3's score retroactively, which is the same circularity one
+// step further out. Zero is a real score here, not a missing measurement.
+const GENERATION_NUMBER = 3;
 const episodes = (meta.episodes || [])
   .filter(row => row.status !== 'SYMPTOM_UNTESTED')
-  .filter(row => row.successorGeneration !== 'G3');
+  .filter(row => Number(String(row.successorGeneration).slice(1)) < GENERATION_NUMBER);
 const selfDiagnosis = episodes.length
   ? episodes.filter(row => row.status === 'SYMPTOM_RESOLVED').length / episodes.length
   : null;

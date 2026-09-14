@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "uberbond.sovereign-institutional-harness.v1",
+  "classification": "IMPLEMENTED_INTERNAL_ENGINEERING_PRIMITIVE",
+  "donor": {
+    "sourceClass": "FOUNDER_SUPPLIED_RESEARCH_ARTICLE",
+    "capturedAt": "2026-09-14",
+    "use": "ARCHITECTURAL_DONOR_ONLY",
+    "truthBoundary": "The donor supports the structured-harness design pattern. It does not by itself prove the donor's wider performance or economic claims."
+  },
+  "articleDisciplines": [
+    "CONDUCTOR",
+    "BACKEND_ARCHITECT",
+    "TEST_ENGINEER",
+    "CODE_REVIEWER",
+    "DATA_ENGINEER",
+    "DEBUGGER",
+    "FRONTEND_ENGINEER",
+    "INFRA_DEVOPS_ENGINEER",
+    "PERFORMANCE_OBSERVABILITY_ENGINEER",
+    "SECURITY_ENGINEER"
+  ],
+  "uberbondAddedDisciplines": [
+    "RISK_OFFICER",
+    "ADVERSARIAL_FALSIFIER",
+    "AUTHORITY_GUARD",
+    "REALITY_RECONCILER"
+  ],
+  "phases": [
+    "SPECIFICATION",
+    "ARCHITECTURE",
+    "PLAN",
+    "BUILD",
+    "REVIEW",
+    "SHIP"
+  ],
+  "runtimeLayers": [
+    "DATA",
+    "SIGNAL",
+    "DECISION",
+    "RISK",
+    "EXECUTION",
+    "MONITORING"
+  ],
+  "selfImprovementStages": [
+    "OBSERVE",
+    "HYPOTHESIS",
+    "CANDIDATE_PATCH",
+    "SANDBOX",
+    "BENCHMARK",
+    "APPROVE",
+    "PRODUCTION",
+    "MONITOR",
+    "ROLLBACK"
+  ],
+  "requiredLaws": [
+    "EXACT_CONTEXT_BINDING",
+    "SPECIFICATION_BEFORE_IMPLEMENTATION",
+    "TEST_FIRST_CHRONOLOGY",
+    "INDEPENDENT_REVIEW_INSTANCES",
+    "PROOF_CARRYING_PHASE_TRANSITIONS",
+    "SYNTHETIC_ANCESTRY_VISIBILITY",
+    "MINIMUM_SUFFICIENT_EXECUTOR",
+    "RISK_MAY_BLOCK_OR_NARROW_BUT_NEVER_WIDEN_AUTHORITY",
+    "EXECUTION_REQUIRES_RISK_LEASE",
+    "MONITORING_RECONCILES_INTENDED_VS_OBSERVED",
+    "ROLLBACK_REHEARSED_BEFORE_CONSEQUENTIAL_SHIP",
+    "SELF_IMPROVEMENT_REQUIRES_HOLDOUT_AND_INDEPENDENT_APPROVAL",
+    "CAPABILITY_NEVER_CREATES_AUTHORITY",
+    "REALITY_OUTRANKS_SIMULATION"
+  ],
+  "implementation": {
+    "source": "src/sovereign-institutional-harness.mjs",
+    "tests": "tests/sovereign-institutional-harness.test.mjs",
+    "documentation": "docs/SOVEREIGN_INSTITUTIONAL_HARNESS.md"
+  },
+  "truthBoundary": "This harness can establish internal engineering readiness. It cannot manufacture external acceptance, provider state, legal state, market success, life outcomes, or ASI evidence."
+}

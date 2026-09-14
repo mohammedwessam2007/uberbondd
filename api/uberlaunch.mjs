@@ -60,7 +60,7 @@ export function createHandler(deps = {}) {
     if (!equalBearer(req?.headers?.authorization, env.ADMIN_TOKEN)) return send(res, 401, { ok: false, state: 'REFUSED', reasonCodes: ['unauthorized'] });
 
     const now = clock();
-    const packetRead = readPacket(env, now);
+    const packetRead = await readPacket(env, now);
     const preflight = compilePreflight({ packetRead, adminSecret: env.ADMIN_TOKEN, now });
     if (method === 'GET') return send(res, 200, { ...preflight, provider: 'SELF_HOSTED_POSTAL', effectAuthority: 'NONE_UNTIL_FOUNDER_PRESS' });
 

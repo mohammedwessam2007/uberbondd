@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond.astra-harness-donor.v1",
+  "sourceClass": "FOUNDER_SUPPLIED_RESEARCH_DONOR",
+  "donorWorkflow": ["SPECIFICATION", "ARCHITECTURE", "PLAN", "BUILD", "REVIEW", "SHIP"],
+  "donorRuntime": ["DATA", "SIGNAL", "DECISION", "RISK", "EXECUTION", "MONITORING"],
+  "absorbedInto": [
+    "src/sovereign-institutional-harness.mjs",
+    "src/sovereign-institutional-harness-hardening.mjs"
+  ],
+  "mergedPullRequests": [864, 865],
+  "durablePrinciples": [
+    "structured harness over one-shot prompting",
+    "role separation with isolated review",
+    "proof-carrying phase gates",
+    "test-first chronology",
+    "minimum-sufficient executor selection",
+    "independent risk",
+    "scoped expiring authority",
+    "runtime contract continuity",
+    "intended-versus-observed reconciliation",
+    "rollback before consequential shipping",
+    "bounded evidence-gated self-improvement",
+    "capability never creates authority",
+    "reality outranks simulation"
+  ],
+  "notPromotedToTruth": [
+    "market alpha",
+    "profitable live trading",
+    "one-person hedge-fund equivalence",
+    "claimed cost-equivalence to an institutional team",
+    "external economic success",
+    "superintelligence"
+  ],
+  "truthBoundary": "Research usefulness is not external proof. Economic, provider, customer, legal, market, life-outcome, and superintelligence claims require their own admissible observations.",
+  "externalEffectAuthority": "NONE",
+  "businessEffectAuthority": "NONE"
+}

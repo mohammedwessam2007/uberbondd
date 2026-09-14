@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-prospective-declaration-1.0.0",
+  "directiveSection": "310",
+  "purpose": "A prospective meta-improvement episode. Declared and committed before G4 is built, so the order is checkable in git history rather than asserted afterwards.",
+  "generation": "G3",
+  "successorGeneration": "G4",
+  "bottleneckId": "BN-EVAL-COVERAGE",
+  "bottleneckSymptom": "8 of 17 capability dimensions are unmeasured at G3: science, software, research, forecasting, causality, planning, toolUse, invention.",
+  "symptomKind": "COVERAGE_INSUFFICIENT",
+  "resolutionCriterion": "Resolved only if the count of measured dimensions rises above 9. Not resolved by the scores moving, by the spread widening, or by anything else improving.",
+  "whyThisIsNotTheG1Mistake": "G1 answered a SATURATION symptom by widening coverage, which is why the ceiling survived. The symptom here is coverage itself, and the instrument already separates at spread 1, so widening is the response the symptom actually names.",
+  "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it scores without a provider, the gap was authorship; if not, it is an external capability gate.",
+  "prediction": {
+    "claim": "At least one of the eight unmeasured dimensions can be scored from observed outcomes in this repository without a model provider.",
+    "candidate": "software, scored as first-attempt correctness of the code written this session, measured from the repair record rather than from any file's contents",
+    "confidence": "The record already contains defects found by tests rather than by review, so the data exists. What is uncertain is whether it can be scored without the scorer choosing the denominator to flatter itself."
+  },
+  "whatWouldFalsifyIt": "Every candidate dimension turning out to need a judgement the repository cannot make, which would confirm the external-gate branch of the discriminating test.",
+  "businessEffectAuthority": "NONE"
+}

@@ -1,0 +1,471 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-denominator.v1",
+  "status": "NULLSTAR_OMEGA_DENOMINATOR_COMPILED",
+  "sourceCommit": "01cda737dee044735f581de45743af440426b07f",
+  "generatedAt": "2026-09-14T22:06:40.976Z",
+  "counts": {
+    "dimensions": 24,
+    "byState": {
+      "ABSENT": 0,
+      "CANON": 0,
+      "PARTIAL": 0,
+      "IMPLEMENTED": 2,
+      "VERIFIED": 16,
+      "OPERATING": 6,
+      "REALITY_CALIBRATED": 0
+    }
+  },
+  "dimensions": [
+    {
+      "id": "N01",
+      "name": "REPOSITORY_SELF_MODEL",
+      "state": "OPERATING",
+      "evidence": {
+        "modulesPresent": [
+          "src/living-self-model.mjs",
+          "src/sovereign-coverage-matrix.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/sovereign-coverage-matrix.test.mjs"
+        ],
+        "canonPresent": [
+          "docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md"
+        ],
+        "runtimeReceiptsPresent": [
+          "artifacts/sovereign/implementation-coverage-matrix.json"
+        ],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N02",
+      "name": "COGNITIVE_EVALUATION",
+      "state": "OPERATING",
+      "evidence": {
+        "modulesPresent": [
+          "src/compound-intelligence-evaluation.mjs",
+          "src/capability-benchmark.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/compound-intelligence-evaluation.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/generations/G0.json"
+        ],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N03",
+      "name": "SEALED_HOLDOUTS",
+      "state": "OPERATING",
+      "evidence": {
+        "modulesPresent": [
+          "src/nullstar-omega-holdout.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/nullstar-omega-holdout.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/holdout-manifest.json"
+        ],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N04",
+      "name": "BOTTLENECK_DISCOVERY",
+      "state": "OPERATING",
+      "evidence": {
+        "modulesPresent": [
+          "src/nullstar-omega-bottleneck.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/nullstar-omega-bottleneck.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/bottlenecks-G0.json"
+        ],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N05",
+      "name": "CANDIDATE_INVENTION",
+      "state": "OPERATING",
+      "evidence": {
+        "modulesPresent": [
+          "src/wallbreaker.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/wallbreaker.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/generations/G1.json"
+        ],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N06",
+      "name": "INDEPENDENT_FALSIFICATION",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/forecast-adversarial-ensemble.mjs",
+          "scripts/mutation-war.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/mutation-registry-anchor-integrity.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N07",
+      "name": "PROMOTION_ROLLBACK",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/agent-code-change-contract.mjs",
+          "src/sovereign-local-promotion.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/enforcement-surface-sovereignty-boundary.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N08",
+      "name": "MULTI_GENERATION_SELF_IMPROVEMENT",
+      "state": "IMPLEMENTED",
+      "evidence": {
+        "modulesPresent": [
+          "src/multi-generation-architecture.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N09",
+      "name": "META_IMPROVEMENT",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/recursive-improvement-retention.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/recursive-improvement-retention.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N10",
+      "name": "IMPROVEMENT_VELOCITY",
+      "state": "OPERATING",
+      "evidence": {
+        "modulesPresent": [
+          "src/nullstar-omega-generation.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/nullstar-omega-generation.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/velocity.json"
+        ],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N11",
+      "name": "GENERALIZATION",
+      "state": "IMPLEMENTED",
+      "evidence": {
+        "modulesPresent": [
+          "src/cross-domain-transfer-evaluator.mjs",
+          "src/transfer-evaluation-governor.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N12",
+      "name": "CALIBRATION",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/reality-calibration-ledger.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/reality-calibration-ledger.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N13",
+      "name": "WORLD_MODEL",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/knowledge-labyrinth-ubergraph.mjs",
+          "src/life-knowledge-graph.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/knowledge-labyrinth-ubergraph.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N14",
+      "name": "REALITY_BUS",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/current-reality-freeze.mjs",
+          "src/runtime-transition-receipts.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/current-reality-freeze.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N15",
+      "name": "MISSION_COMPILATION",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/canonical-execution-leaf-materializer.mjs",
+          "src/execution-leaf-graph.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/execution-leaf-graph.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N16",
+      "name": "OPPORTUNITY_DISCOVERY",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/commercial-opportunity-catalog.mjs",
+          "src/ai-access-opportunity-registry.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/event-horizon.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N17",
+      "name": "PERSONAL_CIVILIZATION_RUNTIME",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/personal-civilization-core.mjs",
+          "src/life-possibility-engine.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/life-possibility-engine.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N18",
+      "name": "HUMAN_CAPABILITY_COMPILATION",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/human-capability-genome.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/human-capability-genome.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N19",
+      "name": "ECONOMIC_AUTONOMY",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/paypal-payment-truth.mjs",
+          "src/first-cash-canary-packet-core.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/paypal-replay-identity-hostile.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N20",
+      "name": "RUNTIME_SOVEREIGNTY",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/sovereign-founder-console.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/sovereign-founder-console-private-network-auth.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N21",
+      "name": "CONTEXT_IMMORTALITY",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "scripts/context-universe.mjs",
+          "scripts/uberbond-brain-bootstrap.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/uberbond-brain-bootstrap.test.mjs"
+        ],
+        "canonPresent": [
+          "docs/UNIVERSAL_CONTEXT_PROTOCOL.md",
+          "AI_START_HERE.md"
+        ],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N22",
+      "name": "SECURITY_AUTHORITY",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/sovereign-privacy-firewall.mjs",
+          "src/agent-code-change-contract.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/sovereign-privacy-firewall.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N23",
+      "name": "RESILIENCE",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "src/durable-scheduler-occurrence.mjs",
+          "src/reservation-recovery.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/reservation-recovery.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    },
+    {
+      "id": "N24",
+      "name": "FOUNDER_COCKPIT",
+      "state": "VERIFIED",
+      "evidence": {
+        "modulesPresent": [
+          "api/command-center.mjs",
+          "src/founder-minute-priority.mjs"
+        ],
+        "modulesMissing": [],
+        "testsPresent": [
+          "tests/autonomy-command-center-wiring.test.mjs"
+        ],
+        "canonPresent": [],
+        "runtimeReceiptsPresent": [],
+        "calibrationReceiptsPresent": []
+      }
+    }
+  ],
+  "denominatorDigest": "317d6523ecb7d5b00f48978e6205d1030a8fa6447a3abf097983aa69cf91cee5",
+  "immutabilityLaw": "ADDITIVE_ONLY. A dimension may be added. Removing one fails the compile, because a denominator that can be shortened reports a better number every time a hard dimension becomes inconvenient.",
+  "truthBoundary": "STATES_ARE_COMPUTED_FROM_FILE_EVIDENCE_ONLY. IMPLEMENTED_MEANS_THE_MODULES_EXIST; VERIFIED_MEANS_TESTS_EXERCISE_THEM; OPERATING_MEANS_A_RUN_LEFT_A_RECEIPT; REALITY_CALIBRATED_MEANS_A_PREDICTION_WAS_LATER_CHECKED_AGAINST_AN_OBSERVATION. NO_STATE_HERE_PROVES_RUNTIME_QUALITY_EXTERNAL_OUTCOMES_SELF_IMPROVEMENT_OR_ASI.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  }
+}

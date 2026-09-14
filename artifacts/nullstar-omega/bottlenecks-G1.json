@@ -1,0 +1,80 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-bottleneck.v1",
+  "status": "NULLSTAR_OMEGA_BOTTLENECKS_RANKED",
+  "sourceCommit": "01cda737dee044735f581de45743af440426b07f",
+  "generatedAt": "2026-09-14T22:06:07.596Z",
+  "counts": {
+    "bottlenecks": 2,
+    "strongEvidence": 2,
+    "weakEvidence": 0
+  },
+  "ranked": [
+    {
+      "ok": true,
+      "id": "BN-EVAL-COVERAGE",
+      "dimension": "evaluation",
+      "symptom": "8 of 17 capability dimensions are unmeasured at G1: science, software, research, forecasting, causality, planning...",
+      "evidenceClass": "DENOMINATOR_GAP",
+      "evidenceRef": "artifacts/nullstar-omega/generations/G1.json",
+      "rootCauseHypotheses": [
+        "Those dimensions need a configured model provider, which this environment does not have.",
+        "Those dimensions could be measured from local deterministic evidence but no task was written for them."
+      ],
+      "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it can be scored without a provider, the gap was authorship; if not, it is an external capability gate.",
+      "estimatedCost": 2,
+      "weakEvidence": false,
+      "downstreamUnlocks": 17,
+      "leverage": 9
+    },
+    {
+      "ok": true,
+      "id": "BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY",
+      "dimension": "evaluation",
+      "symptom": "G1 still scores 1.0 across 9 dimensions after the difficulty hypothesis was refuted. Every local task is a deterministic assertion over repository artifacts, so it measures internal consistency the test suite already guarantees, not any capability under test.",
+      "evidenceClass": "SEALED_HOLDOUT_FAILURE",
+      "evidenceRef": "artifacts/nullstar-omega/generations/G1.json",
+      "rootCauseHypotheses": [
+        "No model provider is configured, so no task can require a judgement the repository does not already compute deterministically.",
+        "A capability task could be written against a local open-weights runtime, and none has been.",
+        "The family vocabulary is right but the scoring needs graded rather than binary outcomes to show variance."
+      ],
+      "discriminatingTest": "Configure any model provider and run one task whose answer the repository does not compute. If the score leaves 1.0, the gate was the provider; if a local runtime can serve it, the gap was authorship.",
+      "estimatedCost": 3,
+      "weakEvidence": false,
+      "downstreamUnlocks": 17,
+      "leverage": 6
+    }
+  ],
+  "selected": {
+    "ok": true,
+    "id": "BN-EVAL-COVERAGE",
+    "dimension": "evaluation",
+    "symptom": "8 of 17 capability dimensions are unmeasured at G1: science, software, research, forecasting, causality, planning...",
+    "evidenceClass": "DENOMINATOR_GAP",
+    "evidenceRef": "artifacts/nullstar-omega/generations/G1.json",
+    "rootCauseHypotheses": [
+      "Those dimensions need a configured model provider, which this environment does not have.",
+      "Those dimensions could be measured from local deterministic evidence but no task was written for them."
+    ],
+    "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it can be scored without a provider, the gap was authorship; if not, it is an external capability gate.",
+    "estimatedCost": 2,
+    "weakEvidence": false,
+    "downstreamUnlocks": 17,
+    "leverage": 9
+  },
+  "selectionLaw": "The top strong-evidence finding by downstream unlocks per unit cost. A weak-evidence finding is a lead and may never be selected first.",
+  "truthBoundary": "A_RANKING_IS_A_PRIORITISATION_OF_DIAGNOSES_AND_NOT_A_PROOF_OF_CAUSE. EVERY_ENTRY_CARRIES_COMPETING_HYPOTHESES_AND_A_DISCRIMINATING_TEST_BECAUSE_THE_CAUSE_IS_NOT_YET_ESTABLISHED.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  },
+  "diagnosedGeneration": "G1"
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-refutations-1.0.0",
+  "law": "A hypothesis that was tested and failed is recorded here so no later generation re-selects it unchanged. Re-running a falsified candidate spends generations confirming what was already disproved.",
+  "refutations": [
+    {
+      "bottleneckId": "BN-EVAL-SATURATED",
+      "hypothesis": "The G0 corpus saturates because its tasks are too easy: each is a direct read of a value the repository already states.",
+      "discriminatingTest": "Add tasks whose answers require deriving a value no artifact states directly. If scores fall below 1.0, difficulty was the cause.",
+      "testedIn": "G1",
+      "evidenceRef": "artifacts/nullstar-omega/generations/G1.json",
+      "result": "REFUTED",
+      "observation": "G1 raised measured dimensions from 4 to 9 with derived cross-artifact answers and still scored 1.0 on every one. Difficulty was not the cause.",
+      "consequence": "Promoted the successor diagnosis BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY: a deterministic assertion over repository artifacts measures internal consistency the test suite already enforces, not capability.",
+      "recordedAt": "2026-09-15"
+    }
+  ],
+  "businessEffectAuthority": "NONE"
+}

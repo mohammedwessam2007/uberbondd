@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-velocity-1.0.0",
+  "generatedAt": "2026-09-14T22:06:40.750Z",
+  "generations": [
+    {
+      "id": "G0",
+      "commit": "01cda737dee044735f581de45743af440426b07f",
+      "measured": 4,
+      "mean": 1
+    },
+    {
+      "id": "G1",
+      "commit": "01cda737dee044735f581de45743af440426b07f",
+      "measured": 9,
+      "mean": 1
+    }
+  ],
+  "pairwise": [
+    {
+      "from": "G0",
+      "to": "G1",
+      "comparable": 4,
+      "incomparable": 13,
+      "netDelta": 0,
+      "regressed": []
+    }
+  ],
+  "trend": {
+    "ok": true,
+    "trend": "INSUFFICIENT_DATA",
+    "generations": 2,
+    "reason": "Two points are a line. Three is the minimum that distinguishes a rising series from a noisy one.",
+    "businessEffectAuthority": "NONE"
+  },
+  "accelerationClaim": "NOT_ESTABLISHED",
+  "accelerationLaw": "Acceleration requires repeated evidence that capability gain persists, generalizes, and arrives faster or larger, with controlled cost and no loss of security. A score series alone cannot establish it.",
+  "truthBoundary": "VELOCITY_IS_COMPUTED_FROM_RECORDED_GENERATIONS_ONLY. INSUFFICIENT_DATA_IS_A_RESULT_AND_NOT_A_FAILURE_TO_RUN.",
+  "businessEffectAuthority": "NONE"
+}

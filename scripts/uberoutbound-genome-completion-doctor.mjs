@@ -32,7 +32,7 @@ const coverage = compileUberOutboundResearchCoverage();
 
 add('genome-version-v2.2', UBEROUTBOUND_GENOME_VERSION === 'uberbond.uberoutbound-genome.v2.2', UBEROUTBOUND_GENOME_VERSION);
 add('policy-registry-v1', UBEROUTBOUND_POLICY_REGISTRY_VERSION === 'uberbond.uberoutbound-policy-registry.v1', UBEROUTBOUND_POLICY_REGISTRY_VERSION);
-add('uberreach-v1.3', UBERREACH_VERSION === 'uberbond.uberreach.v1.3', UBERREACH_VERSION);
+add('uberreach-v1.4', UBERREACH_VERSION === 'uberbond.uberreach.v1.4', UBERREACH_VERSION);
 add('visible-source-ledger-22', UBEROUTBOUND_VISIBLE_SOURCE_LEDGER.length === 22, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER.length);
 add('reported-full-source-ledger-26-preserved', coverage.reportVisible.reportedFullSourceLedgerRows === 26, coverage.reportVisible.reportedFullSourceLedgerRows);
 add('expert-universe-71', expertCount === 71, expertCount);

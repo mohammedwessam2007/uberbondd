@@ -2,7 +2,7 @@
 
 ## Objective
 
-Turn the existing two owned roots into the largest evidence-backed mailbox fleet that can later feed UberWarm and the governed sender mesh. This document is a dated decision receipt, not a permanent provider endorsement.
+Turn the existing two owned roots into the largest evidence-backed mailbox fleet that can later feed UberWarm and the governed sender mesh, while preserving lead quality. This document is a dated decision receipt, not a permanent provider endorsement.
 
 ## Current owned roots
 
@@ -30,6 +30,20 @@ Pricing evidence conflicts slightly: the pricing page observed $29/domain/month 
 
 Official Icemail documentation states up to 10 SMTP mailboxes per domain and up to 50 messages/day per mailbox. The documentation does not establish that all 50 may be cold outreach, so UberBond records 1,000 total messages/day across the two roots but leaves cold capacity UNKNOWN until a provider-specific cold limit is observed.
 
+## Sovereign mailbox layer added
+
+`src/ubermail-foundry.mjs` now compiles 100 founder-alias accounts per owned root, 200 identities total, for an owned Stalwart Community deployment. This removes the assumption that UberBond must pay a mailbox SaaS merely to create mailbox identities. Identity capacity remains separate from reputation/egress capacity.
+
+## Egress truth layer added
+
+`src/uberegress-topology.mjs` now admits only fresh, authorized, terms-compatible, observed-capacity egress. It supports self-hosted direct-MX and authorized SMTP-relay routes. Multiple roots sharing one route do not multiply its capacity. Unknown egress contributes zero.
+
+## Quality-preserving governor added
+
+`src/uberquality-capacity-governor.mjs` computes one daily maximum as the minimum of ready mailbox, domain, egress, recipient-provider, high-quality lead inventory, and campaign ceilings. It fixes the lead-quality floor first and never lowers it to fill infrastructure.
+
+If the system can carry 1,000/day but only 620 leads clear the quality floor, the correct maximum is 620/day while discovery/enrichment/verification searches for more qualifying opportunities.
+
 ## DigitalOcean eliminated as UberDoso SMTP host
 
 DigitalOcean's current documentation says SMTP ports 25, 465 and 587 are blocked on all Droplets. Therefore creating a DigitalOcean Droplet does not remove the UberDoso outbound SMTP bottleneck and would add spend without satisfying the mission. Do not provision a Droplet for this purpose unless DigitalOcean's policy changes and fresh evidence is captured.
@@ -40,24 +54,11 @@ Source:
 
 ## Architecture consequence
 
-The self-hosted UberDoso topology retains its conservative eight-mailbox-per-root policy. Provider-managed UberInboxes is a different capacity class and may use a higher density only when a fresh provider profile explicitly supports it. `src/uberinboxes-scale-profiles.mjs` implements that distinction.
-
-## Remaining external cut
-
-Software now has:
-
-1. provider-neutral mailbox provisioning adapters,
-2. explicit spend/approval gates,
-3. idempotent provisioning,
-4. provider inventory reconciliation,
-5. a 200-mailbox Azure fleet compiler,
-6. UberWarm health/ramp/quarantine,
-7. sender routing, suppression, reply handling and cold-send safety.
-
-The remaining physical cut is provider custody: an Icemail account/API key, a live provider quote/payment, domain connection/DNS authority, provider-created mailbox receipts, warm-up/health evidence, and outreach authorization. No repository commit can manufacture these external facts.
+The self-hosted UberDoso topology retains its conservative eight-mailbox-per-root policy. Provider-managed UberInboxes and sovereign mailbox identity virtualization are distinct capacity classes and may use higher identity density only without pretending identity density creates reputation.
 
 ## Number discipline
 
-- Physically verified live cold capacity before provider activation: **0/day**.
+- Physically verified live cold capacity before real egress/auth/warm-up observations: **not established by repository evidence**.
 - Evidence-backed Icemail Azure topology envelope on the two current roots: **1,000 cold/day**.
-- This becomes an operational number only after provider inventory, authentication, warm-up, health, placement and authorization evidence make the mailboxes eligible.
+- Current software target for quality-preserving operation: **up to 1,000/day**, but the runtime must calculate `min(mailbox, domain, egress, recipient, high-quality-leads, campaign-ceiling)` from observed evidence.
+- Scaling beyond 1,000/day requires evidence that a real bottleneck widened; it must never come from lowering lead quality, inventing reputation, or evading provider/recipient controls.

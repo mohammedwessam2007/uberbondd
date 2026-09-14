@@ -16,9 +16,9 @@ test('finite closure becomes local Sandwich descendant genesis rather than sleep
 });
 
 test('local Sandwich task binds exact context before entering the isolated worker conveyor', () => {
-  const sandwichCompilation = pulse.indexOf('compileSandwichAutocatalyticTask');
+  const sandwichCompilation = pulse.indexOf('compileSandwichAutocatalyticTask(');
   const projectionRead = pulse.indexOf('const projection=await readJson(workerContextPath)');
-  const binding = pulse.indexOf('compileTaskBoundContextProjection');
+  const binding = pulse.indexOf('compileTaskBoundContextProjection(');
   const boundTask = pulse.indexOf('const boundTask={...task,contextBinding:bound.boundProjection}');
   const attempt = pulse.indexOf('localAttemptId(head,boundTask)');
   const continuation = pulse.indexOf('waitingReceipt({baseRevision:head,task:boundTask,attemptId})');

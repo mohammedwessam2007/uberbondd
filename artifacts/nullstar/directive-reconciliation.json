@@ -4,16 +4,16 @@
   "status": "FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE",
   "directiveId": "project-nullstar",
   "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e",
-  "sourceCommit": "fd15288cf8504889b281dff750d6070e5c810fba",
-  "generatedAt": "2026-09-14T18:28:47.054Z",
+  "sourceCommit": "480bb4f856dde16cfc15dbd4eb0a2b21d5c94f26",
+  "generatedAt": "2026-09-14T18:51:47.332Z",
   "counts": {
     "sections": 336,
     "rows": 336,
     "byState": {
-      "VERIFIED_CURRENT": 25,
+      "VERIFIED_CURRENT": 26,
       "PARTIAL": 29,
       "DONOR_ONLY": 0,
-      "MISSING": 254,
+      "MISSING": 253,
       "BLOCKED": 14,
       "NOT_CURRENTLY_JUSTIFIED": 14
     },
@@ -3282,15 +3282,21 @@
       "numeral": "CXLIX",
       "title": "MODEL FAILURE MAP",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 9,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/model-failure-map.mjs"
+        ],
+        "testModules": [
+          "tests/model-failure-map.test.mjs",
+          "tests/omnia-v9-canary-failure-drills.test.mjs",
+          "tests/omnia-v9-reality-shadow-failure-drills.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
       "terminalReason": null,
       "milestoneEvidenceRef": null
@@ -6836,16 +6842,6 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:149-model-failure-map",
-      "numeral": "CXLIX",
-      "title": "MODEL FAILURE MAP",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 9,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:038-decision-engine",
       "numeral": "XXXVIII",
       "title": "DECISION ENGINE",
@@ -9738,7 +9734,7 @@
       ]
     }
   ],
-  "rowDigest": "ed3367677c43a7adb6b751bc631c20bcd6dd64a4e8fb0d05383ec1597cb4dd93",
+  "rowDigest": "32a21cd79ac46c54e36f72a073b4b8bc0d9c925d9c63e8dc8202d8931a604965",
   "truthBoundary": "RECONCILIATION_REPORTS_ONLY_WHAT_THIS_TREE_AND_THE_CANONICAL_COVERAGE_MATRIX_SUPPORT. A_ROW_IS_NOT_A_WORK_ORDER; A_CUT_SET_POSITION_IS_A_CORPUS_REFERENCE_COUNT_AND_NOT_AN_ESTIMATE_OF_COST_VALUE_OR_UNLOCK. IT_DOES_NOT_PROVE_IMPLEMENTATION_RUNTIME_EXTERNAL_OUTCOMES_RECURSIVE_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {

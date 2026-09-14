@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-12",
+  "checkpointedAt": "2026-09-14",
   "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
@@ -9,10 +9,11 @@
   "inheritance": {
     "previousCurrentHandoffBlob": "491645cbcd28541b6ad873a4a05da5f5435964ae",
     "previousSchemaVersion": "uberbond-handoff-3.2.0",
-    "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
+    "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion.",
+    "previousCheckpointedAt": "2026-09-12"
   },
   "startupLaw": "A session may be new; UberBond may not be new. Refresh live main before present-tense claims, then mount the canonical Context Fabric/Brainstate and reconcile open PRs, exact-current runtime/provider receipts, CURRENT_HANDOFF and executable terminal truth. Read AGENTS.md, NORTH_STAR.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, master memory/index and inherited handoffs before narrowing scope. A stale handoff is a retrieval pointer, never authority to overwrite newer executable truth. Capability never creates authority.",
-  "activeMission": "Operate from the five-cut external/owner frontier without reopening completed finite engineering or manufacturing graph work. Preserve the resident Context Fabric and exact-source runtime proofs; close a remaining cut only when its cut-specific real-world receipt is observed. In parallel, activate the first owned or authorized persistent founder host when physical compute and owner-controlled model artifacts are available, so resident compute and resident cognition coexist continuously.",
+  "activeMission": "Work the NULLSTAR cut set from measured evidence rather than from the directive's prose: run npm run nullstar:reconcile, take the highest-reference genuinely-absent section, verify by hand that it is absent rather than renamed, build it with tests and mutation evidence, wire it into the organ it advises so it is not another unreachable module, and let the reconciler re-measure the closure. Keep main green; a red tree outranks new construction. The five external/owner sovereign cuts remain external and are not closable by engineering.",
   "currentTruth": {
     "repository": {
       "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
@@ -88,16 +89,35 @@
       "retainedCustomers": 0
     },
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
-    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
+    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+    "nullstarDirective": {
+      "status": "IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROOF",
+      "humanReadable": "docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md",
+      "machineReadable": "artifacts/project-nullstar-directive.json",
+      "reading": "docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md",
+      "sections": 336,
+      "reconciliation": {
+        "command": "npm run nullstar:reconcile",
+        "artifact": "artifacts/nullstar/directive-reconciliation.json",
+        "verifiedCurrent": 26,
+        "partial": 29,
+        "blocked": 14,
+        "notCurrentlyJustified": 14,
+        "missing": 253,
+        "missingIsUpperBound": "The matcher will not split a title on whitespace, so a section implemented under a different repository name reads MISSING until a reviewed alias says otherwise. Understating coverage is the safe direction and the artifact says so."
+      },
+      "authority": "NONE"
+    }
   },
   "completedSincePreviousCheckpoint": [
-    "Context Sovereignty was promoted from a documented recovery procedure into executable Brainstate, Context Mount, canonical Cognitive Bus, durable cognitive journal, privacy suppression, task-bound projections, Context Query, replication bundles, schema/ancestry admission and resident self-maintaining layered storage.",
-    "Founder dialogue, resident authoring pulses and isolated workers consume the same verified cognitive substrate without granting workers brain-write or consequence authority.",
-    "Terminal Context continuity/scale maintenance closed on main through PR #749; literal-ASI evidence reachability/canon drift closed through #750.",
-    "Embedded PostgreSQL cloud portability was repaired through #751/#753/#755, including pinned native-library soname and loader-path handling without widening install authority.",
-    "Exact merged source f8f3d579c04a565882ba62342d9c94a104eab73a independently re-earned source-host, web-host, real PostgreSQL restart/recovery and local-model receipts.",
-    "Canonical terminal realization on the checkpoint source reports 100% of declared finite engineering scope, zero finite open requirements, zero runtime proof cuts, MODEL_PROVIDER closed, and exactly five external/owner cuts remaining.",
-    "The canonical founder-absence doctor reports CODE_READY open = 0; all remaining open blockers are external-human, provider-acceptance, customer-reality or elapsed-time classes."
+    "Current main was red: 55 deterministic failures on an untouched checkout, and 203 before dependencies were installed in this container. Diagnosed and repaired to the remainder recorded below.",
+    "Three genuine source defects were found and fixed. operational-world-resource-admission coerced absent permission collections into empty ones, so a resource with permissions:null on both sides admitted with ok:true and no permission evidence. Two callers of enforcement decisions (sovereign-local-promotion, sovereign-native-local-worker) sat outside SOVEREIGNTY_PROTECTED_PATHS and could have discarded the decision. FIRST_CASH_OFFER.sku feeds requiresExactSku on the PayPal order a buyer approves and nothing asserted it.",
+    "Five mutation anchors pointed at text that no longer existed, so five guards were silently untested. Re-anchored; two then survived, which found a missing SKU test and a redundant integrity check absorbing its own mutation. All five now kill.",
+    "Ten modules had landed with tests and no entry point or classification, and are now recorded as NEEDS_TRIAGE with what is actually undecided about each. Four modules declaring the canonical effect-ledger name over a different key shape now share one definition.",
+    "docs/CURRENT_SYSTEM_STATE.md named c45873676dce, which is not a valid object in this repository. Canon was regenerated; capability entries 33 before and 33 after, checked explicitly.",
+    "PROJECT NULLSTAR was imported as a durable 336-section human/machine pair with truth class FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL. It is an execution-discipline program beneath the existing hierarchy, not a new North Star.",
+    "The founder-directive reconciler (npm run nullstar:reconcile) compiles every directive section against repository evidence, reusing the sovereign coverage matrix's locator rather than growing a second view of the tree. Its anti-fiction guards are mutation-verified.",
+    "CXLIX MODEL FAILURE MAP, the highest-reference genuinely-absent section, is built, tested, mutation-checked and wired into routeModel, and the reconciler independently re-measures it as VERIFIED_CURRENT."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -106,18 +126,21 @@
     "CREDENTIAL_CUSTODY: requires observed founder enrollment with threshold >=2, at least two factor types and at least two custody domains, with no secret material in the receipt. This cannot be inferred from configured accounts.",
     "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
     "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
-    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations."
+    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
+    "NULLSTAR ALIAS RECONCILIATION: 253 sections read MISSING, which is an upper bound. Reducing it honestly needs reviewed section-to-repository-name aliases, each verified against the tree. Do not lower the number by loosening the matcher.",
+    "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one."
   ],
   "nextExecutor": {
-    "primary": "Refresh exact live main and mount Context Fabric. Do not reopen finite source engineering. Seek admissible real evidence for the five remaining sovereign cuts; if unavailable, work only on independently valuable external activation/reality tasks rather than inventing more source architecture.",
+    "primary": "Refresh live main and mount the Context Fabric. Run npm run nullstar:reconcile before selecting work, and select from its cut set rather than from the directive text. Verify a MISSING section is genuinely absent before building it -- several are renamed, not unbuilt. Do not reopen closed finite engineering.",
     "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
     "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
     "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",
     "deployment": "Admit only a genuinely distinct provider exact-release boot, cutover and rollback receipt.",
     "identityAndCustody": "Require explicit owner participation for custody enrollment, liveness and same-identity recovery. Never manufacture these from software state.",
-    "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling."
+    "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling.",
+    "directiveDiscipline": "A directive section is not a work order. Build only what current authorization covers, and never convert a cut-set position into authority."
   },
-  "truthBoundary": "This checkpoint is a compact retrieval frontier bound to verified source ancestor f8f3d579c04a565882ba62342d9c94a104eab73a. It records zero remaining finite source/runtime cuts on that ancestor and five remaining external/owner sovereign cuts. Because committing a checkpoint creates a descendant SHA, every future session must refresh live main before exact-source claims. This checkpoint does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery/settlement, independent deployment failover, owner custody enrollment, owner liveness/identity recovery, customers, revenue, life outcomes or ASI.",
+  "truthBoundary": "This checkpoint is bound to the source that carries the NULLSTAR import, the reconciler and the repaired main. It records that main was red and is repaired, that one directive-named organ was built and independently re-measured, and that 253 sections remain unreconciled as an upper bound. It does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery or settlement, independent deployment failover, owner custody enrollment, owner liveness or identity recovery, customers, revenue, life outcomes, recursive self-improvement or ASI. Because committing a checkpoint creates a descendant SHA, refresh live main before any exact-source claim.",
   "orchestrationCheckpoint": {
     "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
     "importedAt": "2026-09-12",

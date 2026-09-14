@@ -93,10 +93,24 @@ test('neither Prometheus job is registered when autopilot is off, even with prom
 
 test('both Prometheus jobs ARE registered when autopilot AND prometheus.schedulingEnabled are both true -- the mechanism is real, not permanently off', async () => {
   const enqueued = [];
-  const fakeQueue = { enqueue: async (type) => { enqueued.push(type); } };
-  const stop = startScheduler(fakeQueue, { autopilot: true, maxBatch: 10, replyPollMinutes: 10, prometheus: { schedulingEnabled: true } }, { error: () => {} });
+  // The scheduler reconciles durable occurrences, so a queue without a settings
+  // store makes every schedule() throw. Those throws land in log.error, which a
+  // silent stub swallows -- the registration looked absent when it was actually
+  // the double that was too thin. Give it the store the real contract needs,
+  // and surface scheduler errors instead of discarding them.
+  const settings = {};
+  const schedulerErrors = [];
+  const fakeQueue = {
+    enqueue: async (type) => { enqueued.push(type); return { id: `job-${enqueued.length}` }; },
+    store: {
+      getSettings: async () => ({ ...settings }),
+      setSetting: async (key, value) => { settings[key] = value; return value; }
+    }
+  };
+  const stop = startScheduler(fakeQueue, { autopilot: true, maxBatch: 10, replyPollMinutes: 10, prometheus: { schedulingEnabled: true } }, { error: (...args) => schedulerErrors.push(args) });
   await new Promise(resolve => setTimeout(resolve, 20)); // let the scheduler's initial (microtask-deferred) enqueue calls settle
   stop();
+  assert.deepEqual(schedulerErrors, [], 'a scheduler that cannot enqueue must fail loudly, not register nothing quietly');
   assert.ok(enqueued.includes('prometheus.capability_gap.recompute'));
   assert.ok(enqueued.includes('prometheus.capability_genome.plan'));
   assert.ok(enqueued.includes('prometheus.commercial_memory.contradiction_scan'));

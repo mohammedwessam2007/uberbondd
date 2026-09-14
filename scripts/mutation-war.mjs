@@ -1172,7 +1172,7 @@ export const MUTATIONS = [
   },
   {
     id: 'CASH-02', guard: 'Contact needs every gate, not any gate',
-    file: 'src/first-cash-canary-packet.mjs',
+    file: 'src/first-cash-canary-packet-core.mjs',
     find: '  return FIRST_CASH_CONTACT_GATES.every(id => gates?.[id]?.satisfied === true);',
     replace: '  return FIRST_CASH_CONTACT_GATES.some(id => gates?.[id]?.satisfied === true);',
     suites: ['tests/first-cash-canary-packet.test.mjs']
@@ -1254,10 +1254,10 @@ export const MUTATIONS = [
   },
   {
     id: 'CONV-07', guard: 'The first-cash offer stays bound to the canonical Lead-Path SKU',
-    file: 'src/first-cash-canary-packet.mjs',
+    file: 'src/first-cash-canary-packet-core.mjs',
     find: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: LEAD_PATH_SPRINT_SKU,",
     replace: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: 'some-other-sku',",
-    suites: ['tests/night-convergence-runtime.test.mjs']
+    suites: ['tests/first-cash-canary-packet.test.mjs']
   },
   {
     id: 'CONV-08', guard: 'CODE_READY needs observed elapsed operation, not an absence of complaints',
@@ -1466,8 +1466,8 @@ export const MUTATIONS = [
   {
     id: 'CALIB-01', guard: 'A forecast edited after recording cannot be scored',
     file: 'src/reality-calibration-ledger.mjs',
-    find: '  if (forecast.seal !== sealForecast(forecast)) {',
-    replace: '  if (false) {',
+    find: '  return { ok: reasons.length === 0, reasons };',
+    replace: '  return { ok: true, reasons };',
     suites: ['tests/reality-calibration-ledger.test.mjs']
   },
   {
@@ -1608,8 +1608,8 @@ export const MUTATIONS = [
     // NAMED_INITIATIVE with a working module is filed as historical lineage.
     id: 'TERMSTATE-01', guard: 'A row with real evidence is never overwritten by its class',
     file: 'src/sovereign-coverage-matrix.mjs',
-    find: "    const currentState = evidenceState === 'SPEC_ONLY'",
-    replace: '    const currentState = true',
+    find: "    const terminalEligible = evidenceState === 'SPEC_ONLY'",
+    replace: '    const terminalEligible = true || false',
     suites: ['tests/sovereign-coverage-matrix.test.mjs']
   },
   {
@@ -1791,8 +1791,8 @@ export const MUTATIONS = [
   {
     id: 'CAPGEN-03', guard: 'An absent capability binds harder than a weak one',
     file: 'src/human-capability-genome.mjs',
-    find: "  const bottleneck = missing.length ? { capability: missing[0], reason: 'ABSENT' }",
-    replace: '  const bottleneck = false ? null',
+    find: '  if (dedupedConstraints.length) {',
+    replace: '  if (false) {',
     suites: ['tests/human-capability-genome.test.mjs']
   },
   {

@@ -51,7 +51,7 @@ test('valid graph proves zero orphan and zero floating work without claiming exe
   assert.deepEqual(out.criticalPath,['I1','V1']);
   assert.equal(out.maxSafeParallelWidth,3);
   assert.equal(out.businessEffectAuthority,'NONE');
-  assert.match(out.truthBoundary,/DOES_NOT MEAN THE LEAVES ARE IMPLEMENTED/);
+  assert.match(out.truthBoundary,/DOES_NOT_MEAN_THE_LEAVES_ARE_IMPLEMENTED/);
 });
 
 test('orphan requirement is explicit instead of silently dropped',()=>{

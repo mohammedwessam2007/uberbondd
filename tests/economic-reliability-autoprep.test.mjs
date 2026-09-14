@@ -78,7 +78,7 @@ test('failure-domain diversity is only a scheduling heuristic and never an indep
     safe('commercial:a','domain-a'),safe('commercial:b','domain-b')
   ]),maxJobs:2});
   assert.equal(result.independenceClaimed,false);
-  assert.match(result.truthBoundary,/NEVER proves independence/);
+  assert.match(result.truthBoundary,/NEVER prove[s]? independence/);
   assert.equal(Object.hasOwn(result,'successProbability'),false);
   assert.equal(Object.hasOwn(result,'residualZeroProbability'),false);
 });

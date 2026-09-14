@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join, dirname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MUTATIONS } from '../scripts/mutation-war.mjs';
@@ -42,8 +42,37 @@ function sourceDirectlyBindsSpecifier(source, specifier) {
 
 function suiteDirectlyBindsTarget(suite, targetFile) {
   const suiteSource = readFileSync(join(repoRoot, suite), 'utf8');
-  const specifier = importSpecifier(suite, targetFile);
-  return sourceDirectlyBindsSpecifier(suiteSource, specifier);
+  if (sourceDirectlyBindsSpecifier(suiteSource, importSpecifier(suite, targetFile))) return true;
+  return facadesReExporting(targetFile)
+    .some(facade => sourceDirectlyBindsSpecifier(suiteSource, importSpecifier(suite, facade)));
+}
+
+/**
+ * Modules that re-export the target wholesale, e.g. `export * from './x.mjs'`.
+ *
+ * A suite importing such a facade does load and exercise the target, so a
+ * mutation in the target does reach it. Without this, splitting a module into
+ * a facade and a core silently makes the core unmutatable -- which is what
+ * happened to the first-cash packet: five guards behind the facade were
+ * registered against a file no suite could bind.
+ *
+ * Deliberately one hop and deliberately re-export-only. It reads the candidate
+ * facade and confirms the edge exists rather than inferring it from a name, and
+ * it does not accept a plain `import` that merely *uses* the target, because
+ * that does not make the target's exports part of the facade's surface.
+ */
+function facadesReExporting(targetFile) {
+  const targetName = targetFile.split('/').pop();
+  const facades = [];
+  for (const candidate of readdirSync(join(repoRoot, 'src')).filter(name => name.endsWith('.mjs'))) {
+    const relative = `src/${candidate}`;
+    if (relative === targetFile) continue;
+    const source = readFileSync(join(repoRoot, relative), 'utf8');
+    if (new RegExp(`export\\s*\\*\\s*from\\s*['"]\\./${targetName.replace('.', '\\.')}['"]`).test(source)) {
+      facades.push(relative);
+    }
+  }
+  return facades;
 }
 
 test('suite-binding detector rejects decoy path strings/comments and accepts real module loading syntax', () => {

@@ -89,6 +89,15 @@ const SOVEREIGNTY_PREFIXES = Object.freeze([
   'src/uberbond-self-maintainer.mjs',
   'src/uberbond-self-maintainer-trusted-runtime.mjs',
   'scripts/uberbond-self-maintainer-tick.mjs',
+  // The sovereign local lane asks the same enforcement questions from outside
+  // the surface that was protected: local promotion calls
+  // `validateAgentCodeChangeSet` before promoting, and the native local worker
+  // calls `compileAgentCodeChangeSet` to build the set in the first place. A
+  // caller that can discard the answer is a bypass whether or not the deciding
+  // module is touched -- the same shape as the applier and the outbound loop,
+  // found by the boundary test deriving callers from the import graph.
+  'src/sovereign-local-promotion.mjs',
+  'src/sovereign-native-local-worker.mjs',
   // Whether a message may be sent to a real person, and on whose authority.
   'src/deliverability-guard.mjs',
   'src/send-safety.mjs',

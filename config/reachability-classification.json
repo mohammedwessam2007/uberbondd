@@ -123,6 +123,11 @@
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "BROWSER_ADAPTER_NOT_CONFIGURED. The contract also names ACCOUNT_CREATION as a consequence class, which needs authorization separately from an adapter."
     },
+    "src/c21-dimension-evidence-producer.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Produces per-dimension ASI evidence records. Tested, but no C21 entry point calls it yet, and whether evidence production should be driven by the readiness generator or a separate operator command is undecided."
+    },
     "src/capability-genome-execution-admission.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_APPROVED_GENOME_CAPABILITY",
@@ -178,6 +183,16 @@
       "gate": "NO_COMMERCIAL_EVENTS",
       "reason": "Reallocates bounded weights from cleared outcomes. Zero cleared payments, accepted deliveries and renewals exist, so every proposal would be computed from an empty ledger."
     },
+    "src/economic-reliability-preparation-memory.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Suppresses redundant local commercial preparation. Tested only indirectly through the autoprep planner and imported by nothing; whether the planner should own this memory or read it is undecided."
+    },
+    "src/economic-reliability-wealth-bridge.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Maps reliability preparation onto wealth-bridge accounting. Tested, unimported; its consumer would be a commercial path that currently has zero cleared revenue behind it."
+    },
     "src/egress-health-pool.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CONFIGURED_EGRESS_ROUTES",
@@ -208,6 +223,11 @@
       "gate": "NO_CUSTOMER",
       "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
     },
+    "src/free-mission-clock-policy.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Bounds tick interval and active window for free-tier mission clocks. Tested, unimported; which scheduler should enforce it has not been chosen."
+    },
     "src/frontier-absorption-engine.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
@@ -228,10 +248,20 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
     },
+    "src/frontier-intelligence-neural-bridge.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Converts frontier records into neural-exocortex references. Tested, unimported; it belongs to the exocortex interface whose hardware and consent surface do not exist yet."
+    },
     "src/frontier-loop-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Stages and checks the world-sensing to replanning loop the operator would run. Proof helper for a path nothing schedules."
+    },
+    "src/frontier-mechanism-catalog.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Seed catalogue of reusable mechanism atoms. Tested, unimported; whether GENESIS should read it directly or it should be folded into the Capability Genome corpus is undecided."
     },
     "src/frontier-model-admission-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -297,6 +327,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Operational surface over lead state, feeding the same unauthorised outbound chain."
+    },
+    "src/neural-exocortex-admission.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Admission rules for exocortex references. Reached only from the neural bridge, which is itself unreached, so the pair is unreachable together."
     },
     "src/omnia-v9/authority-transition-ledger.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -619,13 +654,13 @@
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
     },
-    "src/personal-civilization-private-operator.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."
-    },
     "src/personal-civilization-possibility.mjs": {
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
+    },
+    "src/personal-civilization-private-operator.mjs": {
+      "category": "DELIBERATELY_UNREACHABLE",
+      "reason": "This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."
     },
     "src/personal-civilization-scientific-experiment.mjs": {
       "category": "DELIBERATELY_UNREACHABLE",
@@ -745,6 +780,21 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."
+    },
+    "src/sovereign-institutional-harness-hardening.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Hardening layer over the institutional harness. Unreached for the same reason as the harness it wraps."
+    },
+    "src/sovereign-institutional-harness.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Astra-donor institutional harness. Merged 2026-09-13 with tests and no caller; which lane should execute a harnessed mission has not been decided."
+    },
+    "src/sovereign-money-machine-proof.mjs": {
+      "category": "NEEDS_TRIAGE",
+      "gate": null,
+      "reason": "Validates a 24h continuous-operation money-machine receipt. Tested, unimported; the receipt it validates requires real elapsed unattended runtime that has not been observed, so no caller can supply a genuine input yet."
     },
     "src/staging-content-repository.mjs": {
       "category": "AWAITING_ACTIVATION",

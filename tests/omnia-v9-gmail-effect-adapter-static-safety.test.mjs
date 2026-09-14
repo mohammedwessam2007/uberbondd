@@ -7,7 +7,7 @@ import { createFakeGmailTransport } from './helpers/fake-gmail-transport.mjs';
 
 const ENCRYPTION_KEY = crypto.randomBytes(32).toString('hex');
 const CFG = { clientId: 'fake-client', clientSecret: 'fake-secret', redirectUri: 'https://example.test/callback' };
-const MESSAGE_ID_DOMAIN = 'uberbond-controlled-test.example';
+const MESSAGE_ID_DOMAIN = 'sovereign-controlled-test.example';
 
 function freshAccount() {
   const tokens = { access_token: 'fresh-token', refresh_token: 'fresh-refresh', expires_at: Date.now() + 3600_000 };
@@ -21,7 +21,7 @@ function makeAdapter(overrides = {}) {
     account: freshAccount(),
     encryptionKey: ENCRYPTION_KEY,
     messageIdDomain: MESSAGE_ID_DOMAIN,
-    fromAddress: 'sender@uberbond-controlled-test.example',
+    fromAddress: 'sender@sovereign-controlled-test.example',
     ...overrides
   });
 }
@@ -71,9 +71,9 @@ test('static safety: malformed Message-ID domain is rejected at generateMessageI
 });
 
 test('static safety: duplicate Message-ID generation is deterministic per execution ID, distinct across execution IDs', () => {
-  const a1 = generateMessageId('exec-same', 'uberbond-controlled-test.example');
-  const a2 = generateMessageId('exec-same', 'uberbond-controlled-test.example');
-  const b = generateMessageId('exec-different', 'uberbond-controlled-test.example');
+  const a1 = generateMessageId('exec-same', 'sovereign-controlled-test.example');
+  const a2 = generateMessageId('exec-same', 'sovereign-controlled-test.example');
+  const b = generateMessageId('exec-different', 'sovereign-controlled-test.example');
   assert.equal(a1, a2, 'same execution ID must always produce the same Message-ID');
   assert.notEqual(a1, b, 'different execution IDs must never collide');
   assert.doesNotMatch(a1, /exec-same/, 'the raw execution ID must never appear in the generated Message-ID (PII/internal-identifier leakage)');
@@ -184,5 +184,5 @@ test('static safety: a fully valid payload is accepted and produces a stable Mes
   const adapter = makeAdapter();
   const prepared = await adapter.prepare(preparedInput('12'));
   assert.equal(adapter.dispatchCallCount, 0, 'prepare() must never perform network I/O');
-  assert.match(prepared.messageId, /^<v9-[0-9a-f]{64}@uberbond-controlled-test\.example>$/);
+  assert.match(prepared.messageId, /^<v9-[0-9a-f]{64}@sovereign-controlled-test\.example>$/);
 });

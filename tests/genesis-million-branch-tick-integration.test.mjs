@@ -34,7 +34,7 @@ test('GENESIS tick activates a bounded deterministic slice of the million-branch
   });
   assert.equal(run.status, 0, `${run.stdout}\n${run.stderr}`);
   const receipt = JSON.parse(readFileSync(output, 'utf8'));
-  assert.equal(receipt.schemaVersion, 'uberbond.perpetual-frontier-genesis.tick.v2');
+  assert.equal(receipt.schemaVersion, 'uberbond.perpetual-frontier-genesis.tick.v3');
   assert.equal(receipt.summary.ideationActivations, 1);
   assert.equal(receipt.summary.selectedIdeationGenerators, 12);
   assert.equal(receipt.summary.projectedFirstGenerationCapacity, 600);
@@ -46,5 +46,5 @@ test('GENESIS tick activates a bounded deterministic slice of the million-branch
   assert.ok(ideation.selectedGenerators.every(item => item.domainId === 'neuroengineering-human-ai-symbiosis'));
   assert.equal(ideation.businessEffectAuthority, 'NONE');
   assert.equal(ideation.externalEffectAuthority, 'NONE');
-  assert.match(receipt.truthBoundary, /IDEATION_BRANCHES_ARE_INTERNAL_RESEARCH/);
+  assert.match(receipt.truthBoundary, /IDEATION_BRANCHES_.*ARE_INTERNAL_RESEARCH_AND_PROPOSAL_RECEIPTS_NOT_.*ASI_PROOF/);
 });

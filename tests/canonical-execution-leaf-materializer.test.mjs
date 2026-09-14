@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { materializeCanonicalExecutionLeaves } from '../src/canonical-execution-leaf-materializer.mjs';
 const HEAD='a'.repeat(40);
 const row=(id,state)=>({canonicalId:id,currentState:state,currentEvidence:{sourceModules:[],testModules:[]},sourceArtifacts:['artifacts/canon.json'],owningLane:'OMEGA-14'});
-function coverage(rows){const byState={};for(const r of rows)byState[r.currentState]=(byState[r.currentState]||0)+1;return{ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,rows,counts:{rows:rows.length,byState}};}
+function coverage(rows){const byState={};for(const r of rows)byState[r.currentState]=(byState[r.currentState]||0)+1;return{ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,rows,counts:{rows:rows.length,extractedConcepts:rows.length,mergedAliasRows:0,byState}};}
 
 test('materializes every canonical row with zero orphan and zero floating leaves',()=>{
  const rows=[row('x:spec','SPEC_ONLY'),row('x:partial','PARTIAL_CURRENT'),row('x:verified','VERIFIED_CURRENT'),row('x:external','EXTERNAL_BLOCKED'),row('x:owner','OWNER_BOUNDARY'),row('x:elapsed','ELAPSED_TIME_REQUIRED'),row('x:structural','STRUCTURAL_NOT_A_BUILD_TARGET'),row('x:unknown','UNKNOWN')];
@@ -38,7 +38,7 @@ test('refuses coverage rows without canonical identity or measured state',()=>{
 });
 
 test('canonical wrapper still refuses forged row denominator',()=>{
- const c=coverage([row('x:a','PARTIAL_CURRENT')]);c.counts.rows=2;const out=materializeCanonicalExecutionLeaves({coverage:c});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-declared-row-count-must-match-materialized-rows'));
+ const c=coverage([row('x:a','PARTIAL_CURRENT')]);c.counts.rows=2;const out=materializeCanonicalExecutionLeaves({coverage:c});assert.equal(out.ok,false);assert.ok(out.reasonCodes.includes('coverage-materialized-rows-must-match-denominator'));
 });
 
 test('all generated leaves retain zero business-effect authority',()=>{

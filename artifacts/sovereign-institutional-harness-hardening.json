@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond.sovereign-institutional-harness-hardening.v2",
+  "status": "IMPLEMENTED_INTERNAL_HARDENING_PRIMITIVE",
+  "inherits": "uberbond.sovereign-institutional-harness.v1",
+  "purpose": "Make proof, review independence, runtime connectivity, authority scoping, and reality reconciliation harder to fake while preserving zero external-effect authority.",
+  "hardeningLaws": [
+    "critical gate artifacts require observed non-synthetic Proof DAG evidence",
+    "review execution instances are isolated from build and pairwise distinct",
+    "adjacent phase proofs carry ancestry when both phases expose proof nodes",
+    "adjacent runtime layers share explicit contracts",
+    "authority leases bind exact mission, exact actions, time bounds, revocation state, and evidence",
+    "observed effect mismatch triggers stop/reconcile/rollback semantics"
+  ],
+  "criticalObservedArtifacts": [
+    "failing-test-receipt",
+    "passing-test-receipt",
+    "ci-receipt",
+    "risk-verdict",
+    "rollback-rehearsal"
+  ],
+  "runtimeOrder": ["DATA","SIGNAL","DECISION","RISK","EXECUTION","MONITORING"],
+  "reviewDisciplines": [
+    "CODE_REVIEWER",
+    "SECURITY_ENGINEER",
+    "PERFORMANCE_OBSERVABILITY_ENGINEER",
+    "RISK_OFFICER",
+    "ADVERSARIAL_FALSIFIER",
+    "AUTHORITY_GUARD",
+    "REALITY_RECONCILER"
+  ],
+  "files": {
+    "implementation": "src/sovereign-institutional-harness-hardening.mjs",
+    "tests": "tests/sovereign-institutional-harness-hardening.test.mjs",
+    "doctrine": "docs/SOVEREIGN_INSTITUTIONAL_HARNESS_HARDENING.md"
+  },
+  "truthBoundary": "Internal hardening is not external proof. This artifact does not prove alpha, profit, customer acceptance, cleared payment, legal clearance, provider acceptance, life outcomes, or ASI.",
+  "externalEffectAuthority": "NONE",
+  "businessEffectAuthority": "NONE"
+}

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "uberbond-outbound-genome-completion-1.0.0",
+  "schemaVersion": "uberbond-outbound-genome-completion-1.1.0",
   "researchCutoff": "2026-09-14",
   "declaredScope": "REPORT_VISIBLE_INTERNAL_V1",
   "state": "READY_INTERNAL_REPORT_VISIBLE_V1_EXTERNAL_RESEARCH_PACK_PENDING",
@@ -14,6 +14,7 @@
     "CONTEXT_CONDITIONED_PERSONALIZATION_PRIORS",
     "TRIGGER_TAXONOMY_WITH_SELECTION_VS_MENTION_CAUSAL_SEPARATION",
     "CONTENT_ADDRESSED_STRATEGY_GENOTYPE",
+    "EXACT_RENDERED_MESSAGE_EXPOSURE_LINEAGE",
     "DETERMINISTIC_DECISION_LINEAGE",
     "DETERMINISTIC_EXPERIMENT_AND_PERSISTENT_HOLDOUT_ASSIGNMENT",
     "OUTCOME_AND_ECONOMIC_RECEIPTS",
@@ -28,7 +29,10 @@
     "CONTRADICTION_MAP",
     "EXPERIMENT_PROTOCOL",
     "AI_MONOCULTURE_OBSERVABILITY",
+    "FAIL_CLOSED_EXTERNAL_RESEARCH_PACK_IMPORT_AND_CONTRADICTION_RECONCILIATION",
+    "CAUSAL_PROMOTION_VALIDATION_DEGRADATION_AND_REVOCATION_GATE",
     "UBERREACH_CONTROL_PLANE_INTEGRATION",
+    "ONE_COMMAND_EXACT_HEAD_VERIFICATION_HARNESS",
     "SEND_WAIT_ABSTAIN_ROUTE_ELSEWHERE_DECISION_SURFACE"
   ],
   "reportVisibleCoverage": {
@@ -63,9 +67,29 @@
     "GENOME_SCHEMA_JSON",
     "COMPLETE_RESEARCH_PACK_ZIP"
   ],
+  "externalResearchImportPolicy": {
+    "module": "src/uberoutbound-research-import.mjs",
+    "acceptedState": "RESEARCH_ASSET_ACCEPTED_FOR_REVIEW",
+    "promotionState": "RESEARCH_ASSET_ONLY",
+    "rowCountMismatchFailsClosed": true,
+    "contradictionsPreserved": true,
+    "automaticPolicyPromotion": false
+  },
+  "causalPromotionPolicy": {
+    "module": "src/uberoutbound-promotion-gate.mjs",
+    "requiresRandomizedEvidence": true,
+    "requiresIndependentAnalysis": true,
+    "requiresHoldoutProtection": true,
+    "requiresUntouchedValidation": true,
+    "vanityMetricsCannotPromote": true,
+    "complaintLegalProviderHarmCanRevoke": true,
+    "automaticRuntimePromotion": false
+  },
   "verification": {
     "sourceTestsWritten": true,
     "completionDoctorWritten": true,
+    "exactHeadVerifierWritten": true,
+    "exactHeadVerifierPath": "scripts/uberoutbound-genome-verify.mjs",
     "exactHeadRunnableVerificationObserved": false,
     "githubActionsInfrastructurePreviouslyFailedBeforeExecutingSteps": true,
     "mergeAuthorizedByThisReceipt": false
@@ -75,7 +99,9 @@
     "businessEffectAuthority": "NONE",
     "liveSendingAuthorized": false,
     "providerSpendAuthorized": false,
-    "legalClearanceManufactured": false
+    "legalClearanceManufactured": false,
+    "researchImportCreatesPolicyAuthority": false,
+    "promotionGateCreatesSendAuthority": false
   },
-  "truthBoundary": "Internal V1 completion means the material actually visible in the founder-supplied 30-page report is represented as executable policy, research registry, strategy genotype, experiment lineage, sequence controls, outcome learning and UberReach integration. It does not mean separately referenced downloads were embedded in the PDF; those rows remain pending rather than fabricated. It also does not prove causal lift, legal eligibility for any real recipient, live deliverability, 100000/day utilization, customers or revenue."
+  "truthBoundary": "Internal V1 completion means the material actually visible in the founder-supplied 30-page report is represented as executable policy, research registry, strategy genotype, exact rendered-message lineage, experiment lineage, sequence controls, research-pack import contract, causal promotion/revocation gate, outcome learning and UberReach integration. It does not mean separately referenced downloads were embedded in the PDF; those rows remain pending rather than fabricated. It also does not prove causal lift, legal eligibility for any real recipient, live deliverability, 100000/day utilization, customers or revenue."
 }

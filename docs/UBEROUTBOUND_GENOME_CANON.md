@@ -57,6 +57,25 @@ Every outbound decision should be reconstructible from these atoms:
 15. **Outcome**: accepted delivery, bounce, complaint, unsubscribe, reply class, meeting, show, opportunity, proposal, close, cleared revenue, contribution, retention, expansion.
 16. **AI-generation metadata**: model/version, research depth, source freshness, evidence-source count, fact-check status, reasoning/cost budget. These are UberBond-specific frontier variables not well covered by historical human-rep datasets.
 
+## Strategy genotype and lineage
+
+A message is not represented only by free-form prose. `compileUberOutboundMessageGenotype()` turns the causal-candidate structure into a canonical content-addressed genotype:
+
+- buyer segment and problem altitude;
+- selected trigger and whether that trigger is actually mentioned;
+- personalization class and research depth;
+- subject/opening/problem/value/proof/offer/CTA/tone architecture;
+- sequence state;
+- model/version/prompt-policy lineage, research cost and fact-check state;
+- evidence snapshot pointer/digest;
+- subject/body content digests and optional content-receipt pointer.
+
+The resulting `ubog_<sha256>` is deterministic. A causal atom change changes the genotype ID. Raw subject/body text is deliberately not duplicated inside the strategy receipt; the genotype carries content digests plus an external content receipt pointer where the exact rendered message must be recovered.
+
+Every compiled decision receives a deterministic `ubod_<sha256>` derived from stable account/sender/legal-evidence/experiment/genotype/policy lineage. Outcome receipts carry both `decisionId` and `genotypeId`, so downstream learning can answer **what strategy was actually exposed** rather than merely which campaign label happened to contain it.
+
+This traceability also makes the report's targeting-vs-copy confound executable. Trigger evidence belongs to prospect selection; `triggerMentioned` belongs to the message genotype; experiments may declare a `treatmentDimension` such as `TRIGGER_MENTION`. That lets UberBond estimate signal-selection value separately from the causal value of mentioning the signal in copy.
+
 ## Problem altitude
 
 Problem framing should be conditional on buyer altitude rather than treating seniority as cosmetic personalization:
@@ -144,6 +163,7 @@ Every material strategy change should support:
 - stable experiment identity;
 - account/recipient-level deterministic assignment;
 - persistent holdout where useful;
+- explicit treatment dimension and causal question where possible;
 - predeclared primary metric;
 - minimum sample/evidence policy;
 - provider/sender stratification;
@@ -181,6 +201,8 @@ Counterfactual incrementality matters. Attributed revenue is not automatically i
 
 At industrial scale, individually researched messages can still become structurally repetitive. The learning system should therefore measure legitimate diversity in lexical form, syntax, rhetorical architecture, CTA, opening, tone, length and sequence shape while never using fake identities or deceptive sender variation.
 
+The current learning packet records unique strategy genotype counts per arm. That is only a primitive observability hook, not a complete monoculture detector. Future empirical work may add lexical/syntactic/rhetorical diversity metrics without turning identity variation into deception.
+
 ## Current implementation
 
 `src/uberoutbound-genome.mjs` provides:
@@ -190,14 +212,23 @@ At industrial scale, individually researched messages can still become structura
 - recorded legal-evidence gate;
 - trigger prior with explicit causal uncertainty;
 - transparent opportunity score;
-- deterministic experiment/holdout assignment;
+- content-addressed strategy genotypes and stable decision IDs;
+- deterministic experiment/holdout assignment with causal treatment metadata;
 - message-candidate prior scoring;
 - `SEND_CANDIDATE / WAIT / ABSTAIN / ROUTE_ELSEWHERE` decision;
-- zero-authority outcome receipts;
+- zero-authority outcome receipts carrying decision/genotype lineage;
 - marginal-send-value truth boundary;
-- arm-level learning aggregation that refuses to auto-declare a causal winner.
+- arm-level learning aggregation with genotype-diversity observability that refuses to auto-declare a causal winner.
 
 `tests/uberoutbound-genome.test.mjs` hostile-tests suppression, legal refusal, sender/provider health, experiment requirement, deterministic assignment, zero authority, partial economic truth and complaint guardrails.
+
+`tests/uberoutbound-genotype.test.mjs` hostile-tests stable genotype IDs, atom-sensitive ID changes, privacy-preserving content digests, stable decision lineage, treatment-dimension recording and genotype lineage through learning.
+
+`artifacts/outbound-genome/research-2026-09-14.json` machine-encodes the material visible in the founder-supplied report while explicitly listing separately referenced research-pack files that were not embedded in the PDF.
+
+`schemas/uberoutbound-genome.schema.json` binds the decision packet to v2.1, zero authority, decision/genotype lineage and experiment metadata.
+
+`scripts/uberoutbound-genome-doctor.mjs` closes only when the declared V1 research-to-policy genome, genotype lineage and fail-closed learning boundary are internally represented.
 
 ## Completion boundary
 

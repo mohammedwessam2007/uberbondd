@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-14",
+  "checkpointedAt": "2026-09-15",
   "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
@@ -13,7 +13,7 @@
     "previousCheckpointedAt": "2026-09-12"
   },
   "startupLaw": "A session may be new; UberBond may not be new. Refresh live main before present-tense claims, then mount the canonical Context Fabric/Brainstate and reconcile open PRs, exact-current runtime/provider receipts, CURRENT_HANDOFF and executable terminal truth. Read AGENTS.md, NORTH_STAR.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, master memory/index and inherited handoffs before narrowing scope. A stale handoff is a retrieval pointer, never authority to overwrite newer executable truth. Capability never creates authority.",
-  "activeMission": "Work the NULLSTAR cut set from measured evidence rather than from the directive's prose: run npm run nullstar:reconcile, take the highest-reference genuinely-absent section, verify by hand that it is absent rather than renamed, build it with tests and mutation evidence, wire it into the organ it advises so it is not another unreachable module, and let the reconciler re-measure the closure. Keep main green; a red tree outranks new construction. The five external/owner sovereign cuts remain external and are not closable by engineering.",
+  "activeMission": "Run the OMEGA spine (npm run omega:cycle) at the start of cognitive work and select from its bottleneck ranking rather than from prose. The spine is operating and its terminal local finding is that capability measurement is provider-gated: do not author more local corpus tasks expecting them to separate capability from consistency. Reconcile PR #868 by merging the repair, then the null-versus-zero question. Keep main green; a red tree outranks new construction.",
   "currentTruth": {
     "repository": {
       "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
@@ -109,6 +109,51 @@
         "aliasLaw": "An alias supplies only which repository name to search under; the state is still computed from what that search finds, and an alias that stops resolving fails the compile rather than reverting its row to MISSING."
       },
       "authority": "NONE"
+    },
+    "nullstarOmega": {
+      "status": "SPINE_OPERATING__NO_VERIFIED_SELF_IMPROVEMENT__EXTERNAL_GATE_CONFIRMED",
+      "denominator": {
+        "artifact": "artifacts/nullstar-omega/denominator.json",
+        "doc": "docs/NULLSTAR_OMEGA_DENOMINATOR.md",
+        "command": "npm run omega:denominator",
+        "dimensions": 24,
+        "operating": 7,
+        "verified": 17,
+        "absent": 0,
+        "realityCalibrated": 0,
+        "law": "Additive only. States computed from file evidence; OPERATING needs a run receipt and REALITY_CALIBRATED needs a prediction checked against an observation, so neither is reachable by writing code."
+      },
+      "generations": {
+        "G0": "4 of 17 dimensions measured from local repository evidence; all scored 1.0.",
+        "G1": "Difficulty hypothesis tested with derived cross-artifact answers. 9 dimensions measured, all still 1.0. HYPOTHESIS REFUTED, recorded in artifacts/nullstar-omega/refutations.json.",
+        "G2": "Successor diagnosis's discriminating test executed. Four probes for judgement capability all negative. NO_PROMOTION, classification EXTERNAL_BLOCKED.",
+        "G3": "NOT RUN. No further local generation can move the measurement while the provider gate holds."
+      },
+      "velocity": {
+        "generations": 3,
+        "trend": "FLAT",
+        "accelerationClaim": "NOT_ESTABLISHED"
+      },
+      "terminalFinding": "Every local evaluation task is a deterministic assertion over repository artifacts, so it measures the internal consistency the existing suite already enforces rather than capability. Separating them needs a judgement the repository does not compute, which needs a configured model provider. That is an external gate, not a software gap.",
+      "authority": "NONE"
+    },
+    "pullRequestDebt": {
+      "PR868": {
+        "title": "UberReach industrial mesh",
+        "head": "9b0bf0798457ebc781e5a4c7b50d3ebe29c618b3",
+        "classification": "FIX_THEN_MERGE",
+        "hostedCi": "CI_INFRA_NON_EXECUTION: every check failed in 3-10 seconds; the deterministic suite takes about four minutes locally, so no steps executed. Not a pass and not a source failure.",
+        "exactHeadVerification": "Run locally in a detached worktree at 9b0bf07: syntax 1898 files parse; deterministic 6868 pass / 56 fail.",
+        "diagnosis": "54 of the 56 failures are inherited from the pre-repair main this branch forked from and are already fixed on claude/uberbond-bootstrap-archaeology-zmqw8l. Only 2 are the branch's own.",
+        "ownFailures": "tests/uberinboxes-scale-profiles.test.mjs asserts theoreticalColdDailyCap === null in two places while the source returns 0. One semantic question: is an unknown cold cap null (unknown) or 0 (none)? The PR's own doctrine says unknown egress contributes zero, so the source may be right and the test stale -- that is the author's call.",
+        "nextStep": "Merge the repaired branch (or main once it carries the repair), then resolve the null-versus-zero question. Expected result: 56 failures collapse to 2, then 0."
+      },
+      "PR870": {
+        "title": "UberReach scale frontier + UberOutbound Genome V2.2",
+        "classification": "BLOCKED_ON_PR868",
+        "staleDescription": "The PR record names head 88108a10b2bf8ce8389908b62f2553d65e02fff8 but the live branch head is a438dfa812b59983a22f43fe27693c6652613090. Per the stale-description rule the body's verification claims do not describe the current head.",
+        "nextStep": "Reconcile after #868. It is stacked on #868's branch, so its base moves when #868 does."
+      }
     }
   },
   "completedSincePreviousCheckpoint": [
@@ -130,7 +175,9 @@
     "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
     "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
     "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
-    "NULLSTAR ALIAS RECONCILIATION: 247 sections still read MISSING, an upper bound. The alias mechanism exists, is tested and is mutation-verified; what remains is per-section review of which titles name an organ the repository already has under another name. Do not lower the number by loosening the matcher."
+    "NULLSTAR ALIAS RECONCILIATION: 247 sections still read MISSING, an upper bound. The alias mechanism exists, is tested and is mutation-verified; what remains is per-section review of which titles name an organ the repository already has under another name. Do not lower the number by loosening the matcher.",
+    "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED: G2 confirmed with four negative probes that no provider credential, configured provider, local transformers runtime or ollama binary exists here. Every local evaluation task measures repository consistency, not capability. No further local corpus authorship closes this; a configured model provider does.",
+    "NO REALITY-CALIBRATED DIMENSION: all 24 denominator dimensions sit at OPERATING or below. Nothing in this repository has yet made a prediction that was later checked against an observed outcome, which is the honest state of the reality-connection requirement."
   ],
   "nextExecutor": {
     "primary": "Refresh live main and mount the Context Fabric. Run npm run nullstar:reconcile before selecting work, and select from its cut set rather than from the directive text. Verify a MISSING section is genuinely absent before building it -- several are renamed, not unbuilt. Do not reopen closed finite engineering.",
@@ -142,7 +189,7 @@
     "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling.",
     "directiveDiscipline": "A directive section is not a work order. Build only what current authorization covers, and never convert a cut-set position into authority."
   },
-  "truthBoundary": "This checkpoint is bound to the source that carries the NULLSTAR import, the reconciler and the repaired main. It records that main was red and is repaired, that one directive-named organ was built and independently re-measured, and that 253 sections remain unreconciled as an upper bound. It does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery or settlement, independent deployment failover, owner custody enrollment, owner liveness or identity recovery, customers, revenue, life outcomes, recursive self-improvement or ASI. Because committing a checkpoint creates a descendant SHA, refresh live main before any exact-source claim.",
+  "truthBoundary": "This checkpoint is bound to the source carrying the NULLSTAR OMEGA spine, the repaired main, the NULLSTAR import and the model failure map. It records three completed generations whose net capability improvement is zero and whose trend is FLAT, one refuted hypothesis, and an external gate confirmed by probe. It does not prove verified self-improvement, acceleration, generalization beyond local artifacts, a configured provider, customers, revenue, life outcomes or ASI. Refresh live main before any exact-source claim.",
   "orchestrationCheckpoint": {
     "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
     "importedAt": "2026-09-12",

@@ -2,8 +2,8 @@
   "ok": true,
   "version": "uberbond.nullstar-omega-denominator.v1",
   "status": "NULLSTAR_OMEGA_DENOMINATOR_COMPILED",
-  "sourceCommit": "b6c9aaf7a13bc5a1410e0e51854015d497352068",
-  "generatedAt": "2026-09-14T22:12:47.297Z",
+  "sourceCommit": "b741029274d0f60d163b296fedef4855f9082cd0",
+  "generatedAt": "2026-09-14T23:15:24.905Z",
   "counts": {
     "dimensions": 24,
     "byState": {
@@ -11,9 +11,9 @@
       "CANON": 0,
       "PARTIAL": 0,
       "IMPLEMENTED": 0,
-      "VERIFIED": 17,
-      "OPERATING": 7,
-      "REALITY_CALIBRATED": 0
+      "VERIFIED": 14,
+      "OPERATING": 9,
+      "REALITY_CALIBRATED": 1
     }
   },
   "dimensions": [
@@ -166,7 +166,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [
-          "artifacts/nullstar-omega/generations/G2.json"
+          "artifacts/nullstar-omega/generations/G2.json",
+          "artifacts/nullstar-omega/generations/G3.json"
         ],
         "calibrationReceiptsPresent": []
       }
@@ -174,17 +175,21 @@
     {
       "id": "N09",
       "name": "META_IMPROVEMENT",
-      "state": "VERIFIED",
+      "state": "OPERATING",
       "evidence": {
         "modulesPresent": [
-          "src/recursive-improvement-retention.mjs"
+          "src/recursive-improvement-retention.mjs",
+          "src/nullstar-omega-meta-improvement.mjs"
         ],
         "modulesMissing": [],
         "testsPresent": [
-          "tests/recursive-improvement-retention.test.mjs"
+          "tests/recursive-improvement-retention.test.mjs",
+          "tests/nullstar-omega-meta-improvement.test.mjs"
         ],
         "canonPresent": [],
-        "runtimeReceiptsPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/meta-improvement.json"
+        ],
         "calibrationReceiptsPresent": []
       }
     },
@@ -210,7 +215,7 @@
     {
       "id": "N11",
       "name": "GENERALIZATION",
-      "state": "VERIFIED",
+      "state": "OPERATING",
       "evidence": {
         "modulesPresent": [
           "src/cross-domain-transfer-evaluator.mjs",
@@ -221,25 +226,33 @@
           "tests/transfer-evaluation-governor.test.mjs"
         ],
         "canonPresent": [],
-        "runtimeReceiptsPresent": [],
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/generalization.json"
+        ],
         "calibrationReceiptsPresent": []
       }
     },
     {
       "id": "N12",
       "name": "CALIBRATION",
-      "state": "VERIFIED",
+      "state": "REALITY_CALIBRATED",
       "evidence": {
         "modulesPresent": [
-          "src/reality-calibration-ledger.mjs"
+          "src/reality-calibration-ledger.mjs",
+          "src/nullstar-omega-reality-connection.mjs"
         ],
         "modulesMissing": [],
         "testsPresent": [
-          "tests/reality-calibration-ledger.test.mjs"
+          "tests/reality-calibration-ledger.test.mjs",
+          "tests/nullstar-omega-reality-connection.test.mjs"
         ],
         "canonPresent": [],
-        "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "runtimeReceiptsPresent": [
+          "artifacts/nullstar-omega/reality-connection.json"
+        ],
+        "calibrationReceiptsPresent": [
+          "artifacts/nullstar-omega/reality-connection.json"
+        ]
       }
     },
     {
@@ -448,11 +461,13 @@
       "evidence": {
         "modulesPresent": [
           "api/command-center.mjs",
-          "src/founder-minute-priority.mjs"
+          "src/founder-minute-priority.mjs",
+          "src/nullstar-omega-transfer-bindings.mjs"
         ],
         "modulesMissing": [],
         "testsPresent": [
-          "tests/autonomy-command-center-wiring.test.mjs"
+          "tests/autonomy-command-center-wiring.test.mjs",
+          "tests/nullstar-omega-transfer-bindings.test.mjs"
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
@@ -460,7 +475,7 @@
       }
     }
   ],
-  "denominatorDigest": "0d9e17b7507539bc75e96050a503bead7c5a40f441ec2549026f91a6603ce85f",
+  "denominatorDigest": "03f9c4004dba6c0ef9de0bef86fc56ce4326310e8507c6bfae5dc5b3ecdb04b6",
   "immutabilityLaw": "ADDITIVE_ONLY. A dimension may be added. Removing one fails the compile, because a denominator that can be shortened reports a better number every time a hard dimension becomes inconvenient.",
   "truthBoundary": "STATES_ARE_COMPUTED_FROM_FILE_EVIDENCE_ONLY. IMPLEMENTED_MEANS_THE_MODULES_EXIST; VERIFIED_MEANS_TESTS_EXERCISE_THEM; OPERATING_MEANS_A_RUN_LEFT_A_RECEIPT; REALITY_CALIBRATED_MEANS_A_PREDICTION_WAS_LATER_CHECKED_AGAINST_AN_OBSERVATION. NO_STATE_HERE_PROVES_RUNTIME_QUALITY_EXTERNAL_OUTCOMES_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",

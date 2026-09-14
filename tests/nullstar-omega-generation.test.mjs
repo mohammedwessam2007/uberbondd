@@ -91,3 +91,81 @@ test('a generation carries no authority and declares its own limits', () => {
   assert.match(out.truthBoundary, /DOES_NOT_PROVE_IMPROVEMENT/);
   assert.ok(CAPABILITY_DIMENSIONS.length >= 17);
 });
+
+const suiteGen = (id, vector, suiteVersion = 'suite-a') => recordGeneration({
+  generationId: id,
+  sourceCommit: 'a'.repeat(40),
+  suiteVersion,
+  corpusDigest: `sha256:${id}`,
+  vector,
+  baselines: {},
+  cost: { providerCalls: 0, spendCents: 0 },
+  environment: {},
+  failures: []
+});
+
+test('a suite change is not a capability regression', () => {
+  const before = suiteGen('G2', { reasoning: 1, calibration: 1, crossDomain: 1 }, 'probe-suite-1.0.0');
+  const after = suiteGen('G3', { reasoning: 1, calibration: 0.6, crossDomain: 0.33 }, 'outcome-suite-1.0.0');
+  const compared = compareGenerations(before, after);
+
+  assert.equal(compared.status, 'INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE');
+  // The deltas stay visible, because they say what the new instrument reads.
+  assert.ok(compared.deltas.calibration < 0);
+  // But nothing may be called a regression across the change.
+  assert.deepEqual(compared.regressedDimensions, []);
+  assert.equal(compared.netDelta, null);
+  assert.equal(compared.counts.regressed, null);
+  assert.equal(compared.previousSuiteVersion, 'probe-suite-1.0.0');
+  assert.equal(compared.currentSuiteVersion, 'outcome-suite-1.0.0');
+});
+
+test('the same suite still reports regressions normally', () => {
+  const before = suiteGen('G1', { reasoning: 1, calibration: 1 });
+  const after = suiteGen('G2', { reasoning: 1, calibration: 0.4 });
+  const compared = compareGenerations(before, after);
+  assert.equal(compared.status, 'NULLSTAR_OMEGA_GENERATIONS_COMPARED');
+  assert.deepEqual(compared.regressedDimensions, ['calibration']);
+  assert.ok(compared.netDelta < 0);
+});
+
+test('a series that holds still and then drops is falling, not flat', () => {
+  const trend = improvementTrend([
+    suiteGen('G0', { reasoning: 1 }),
+    suiteGen('G1', { reasoning: 1 }),
+    suiteGen('G2', { reasoning: 1 }),
+    suiteGen('G3', { reasoning: 0.5 })
+  ]);
+  assert.equal(trend.trend, 'FALLING');
+});
+
+test('a genuinely unmoving series is flat', () => {
+  const trend = improvementTrend([
+    suiteGen('G0', { reasoning: 1 }),
+    suiteGen('G1', { reasoning: 1 }),
+    suiteGen('G2', { reasoning: 1 })
+  ]);
+  assert.equal(trend.trend, 'FLAT');
+});
+
+test('a series that holds still and then rises is rising', () => {
+  const trend = improvementTrend([
+    suiteGen('G0', { reasoning: 0.5 }),
+    suiteGen('G1', { reasoning: 0.5 }),
+    suiteGen('G2', { reasoning: 0.8 })
+  ]);
+  assert.equal(trend.trend, 'RISING');
+});
+
+test('a trend across a suite change describes the instrument, not the system', () => {
+  const trend = improvementTrend([
+    suiteGen('G0', { reasoning: 1 }, 'probe-suite-1.0.0'),
+    suiteGen('G1', { reasoning: 1 }, 'probe-suite-1.0.0'),
+    suiteGen('G2', { reasoning: 1 }, 'probe-suite-1.0.0'),
+    suiteGen('G3', { reasoning: 0.5 }, 'outcome-suite-1.0.0')
+  ]);
+  assert.equal(trend.trend, 'INSTRUMENT_CHANGED');
+  assert.equal(trend.suiteChanges.length, 1);
+  assert.equal(trend.suiteChanges[0].to, 'G3');
+  assert.equal(trend.accelerationClaim, 'NOT_ESTABLISHED_BY_SCORE_SERIES_ALONE');
+});

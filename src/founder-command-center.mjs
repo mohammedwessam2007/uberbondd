@@ -4,9 +4,13 @@ import { summarizePaymentOperatorAttention } from './payment-operator-attention.
 import { CANONICAL_FIRST_CASH_PAYMENT_METHOD } from './first-cash-canary-packet.mjs';
 import { LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 import { deriveFounderMinuteActions } from './founder-minute-priority.mjs';
+import {
+  bindFounderDecisionForecast,
+  bindEconomicOutcomeForecast
+} from './nullstar-omega-transfer-bindings.mjs';
 
 // Bump when the report's shape or derivation logic changes.
-export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.2.0';
+export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.3.0';
 
 const SELF_SERVE_PRODUCTS = ['full', 'strategy', 'monitoring'];
 
@@ -71,6 +75,66 @@ async function deliveryReadinessTable({ store }) {
 // Read-only. Never sends, never mutates. Answers the founder's actual
 // questions by composing existing summaries and compilers rather than
 // building a new dashboard data model.
+// The command center has always stated what can make money first. Until now
+// that claim carried no probability and named nothing that would settle it,
+// which made it unfalsifiable -- it could be restated unchanged for months
+// without ever being wrong.
+//
+// Both forecasts below are deliberately lopsided, and the basis is the
+// authority state rather than a guess about the market: with no authorized
+// contact path, no offer reaches a buyer, so no payment can clear. That is a
+// defensible reason for a low number. It is not a market prediction, and it
+// will be scored by a provider receipt rather than by anyone here.
+function realityBoundForecasts({ referenceDate, firstCashPath, hasContactAuthority }) {
+  const cutoff = referenceDate.toISOString();
+
+  const economic = bindEconomicOutcomeForecast({
+    id: `first-cash-${firstCashPath?.sku ?? 'unknown'}`,
+    question: `Will ${firstCashPath?.sku ?? 'the first-cash path'} produce a cleared payment within fourteen days of ${cutoff}?`,
+    deciderClass: 'PROVIDER_ORIGIN_RECEIPT',
+    decidedBy: 'a reconciled provider-origin settlement record for this SKU',
+    outcomeSpace: ['CLEARED', 'NOT_CLEARED'],
+    probabilities: hasContactAuthority
+      ? { CLEARED: 0.12, NOT_CLEARED: 0.88 }
+      : { CLEARED: 0.02, NOT_CLEARED: 0.98 },
+    evidenceCutoff: cutoff,
+    at: referenceDate,
+    method: 'authority state, not market estimate',
+    assumptions: [
+      hasContactAuthority
+        ? 'An authorized contact path exists, so an offer can reach a buyer.'
+        : 'No authorized contact path exists, so no offer reaches a buyer and no payment can clear.',
+      'Cleared payments to date: zero. There is no outcome history to form a base rate from.'
+    ]
+  });
+
+  const founder = bindFounderDecisionForecast({
+    id: `external-gates-${cutoff.slice(0, 10)}`,
+    question: `Will the external gates blocking first cash still be closed thirty days after ${cutoff}?`,
+    deciderClass: 'ELAPSED_TIME',
+    decidedBy: 'the gate registry read again after thirty days have actually elapsed',
+    outcomeSpace: ['ALL_STILL_CLOSED', 'SOME_OPENED', 'ALL_OPENED'],
+    probabilities: { ALL_STILL_CLOSED: 0.6, SOME_OPENED: 0.35, ALL_OPENED: 0.05 },
+    evidenceCutoff: cutoff,
+    at: referenceDate,
+    method: 'these gates need owner action, and no owner action is scheduled',
+    assumptions: [
+      'Every remaining gate needs something this process cannot produce about itself.',
+      'Nothing here can move a gate, so the forecast is about the owner rather than the system.'
+    ]
+  });
+
+  return {
+    economic: economic.ok
+      ? { forecastId: economic.forecast.id, probabilities: economic.forecast.probabilities, decidedBy: economic.observable.decidedBy, seal: economic.forecast.seal }
+      : { unbound: economic.status, reasonCodes: economic.reasonCodes },
+    founderDecision: founder.ok
+      ? { forecastId: founder.forecast.id, probabilities: founder.forecast.probabilities, decidedBy: founder.observable.decidedBy, seal: founder.forecast.seal }
+      : { unbound: founder.status, reasonCodes: founder.reasonCodes },
+    truthBoundary: 'A SEALED FORECAST IS NOT A PLAN, A RECOMMENDATION, OR REVENUE. IT IS A CLAIM THAT CAN NOW BE SHOWN WRONG.'
+  };
+}
+
 export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine = null, date = new Date(), auditLimit = 500 } = {}) {
   const referenceDate = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date();
   const timestamp = referenceDate.toISOString();
@@ -101,6 +165,11 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
     timestamp,
     whatCanMakeMoneyFirst: `${LEAD_PATH_SPRINT_SKU} ($${firstCashPath.priceUsd}) via ${CANONICAL_FIRST_CASH_PAYMENT_METHOD}; real contact/payment still requires external gates and provider-origin reconciliation`,
     canonicalFirstCashPath: firstCashPath,
+    realityBoundForecasts: realityBoundForecasts({
+      referenceDate,
+      firstCashPath,
+      hasContactAuthority: safeOutbound?.killSwitch?.enabled === false && (safeOutbound?.reservations ?? 0) > 0
+    }),
     checkoutReadiness: checkoutTable,
     nonBlockingLegacyCheckoutGaps: legacyCheckoutGaps,
     offerReadiness: offers,

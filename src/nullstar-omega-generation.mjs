@@ -149,6 +149,13 @@ export function recordGeneration({
 export function compareGenerations(previous, next) {
   if (!previous?.ok || !next?.ok) return refuse(['two-recorded-generations-required']);
 
+  // A score from one instrument is not comparable to a score from another.
+  // G2 scored 1.0 on a suite of direct reads; G3 scored 0.60 on observed
+  // outcomes. Subtracting those and reporting -0.40 would name a capability
+  // regression that did not happen, and would punish exactly the change that
+  // made the measurement honest.
+  const instrumentChanged = previous.suiteVersion !== next.suiteVersion;
+
   const deltas = {};
   const incomparable = [];
   let improved = 0;
@@ -164,6 +171,26 @@ export function compareGenerations(previous, next) {
   }
 
   const comparable = Object.keys(deltas);
+
+  if (instrumentChanged) {
+    return {
+      ok: true,
+      version: NULLSTAR_OMEGA_GENERATION_VERSION,
+      status: 'INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE',
+      from: previous.generationId,
+      to: next.generationId,
+      previousSuiteVersion: previous.suiteVersion,
+      currentSuiteVersion: next.suiteVersion,
+      deltas,
+      incomparableDimensions: incomparable,
+      counts: { comparable: comparable.length, improved: null, regressed: null, incomparable: incomparable.length },
+      netDelta: null,
+      regressedDimensions: [],
+      note: 'The deltas are reported because they say what the new instrument reads, but neither improvement nor regression can be claimed across a suite change. Re-measuring the previous generation on the new suite is what would make them comparable.',
+      businessEffectAuthority: 'NONE'
+    };
+  }
+
   return {
     ok: true,
     version: NULLSTAR_OMEGA_GENERATION_VERSION,
@@ -204,13 +231,35 @@ export function improvementTrend(generations = []) {
     };
   }
 
+  // A trend across a suite change is a trend in the instrument, not in the
+  // system. Saying "FALLING" because the measurement got harder would be the
+  // same error as saying "RISING" because it got easier.
+  const suiteChanges = ordered.slice(1)
+    .map((g, i) => (g.suiteVersion !== ordered[i].suiteVersion
+      ? { from: ordered[i].generationId, to: g.generationId, fromSuite: ordered[i].suiteVersion, toSuite: g.suiteVersion }
+      : null))
+    .filter(Boolean);
+  if (suiteChanges.length) {
+    return {
+      ok: true,
+      trend: 'INSTRUMENT_CHANGED',
+      generations: ordered.length,
+      suiteChanges,
+      reason: 'The measuring suite changed inside this series, so the score movement describes the instrument rather than the system.',
+      accelerationClaim: 'NOT_ESTABLISHED_BY_SCORE_SERIES_ALONE',
+      businessEffectAuthority: 'NONE'
+    };
+  }
+
   const deltas = ordered.slice(1).map((g, i) => g.meanMeasuredScore - ordered[i].meanMeasuredScore);
   const positive = deltas.filter(d => d > 0).length;
   const negative = deltas.filter(d => d < 0).length;
+  // FLAT means nothing moved. A series holding still and then dropping is not
+  // flat, and calling it flat would hide the only movement in it.
   let trend = 'FLAT';
-  if (positive === deltas.length) trend = 'RISING';
-  else if (negative === deltas.length) trend = 'FALLING';
-  else if (positive && negative) trend = 'NOISY';
+  if (positive && negative) trend = 'NOISY';
+  else if (positive) trend = 'RISING';
+  else if (negative) trend = 'FALLING';
 
   return {
     ok: true,

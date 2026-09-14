@@ -124,7 +124,9 @@
     "sovereignty:doctor": "node scripts/sovereign-relation-doctor.mjs",
     "test:sovereign-relation": "node --test tests/present-free-will.test.mjs tests/free-will-amplification.test.mjs tests/temporal-civilization.test.mjs tests/sovereign-relation-doctor.test.mjs",
     "omega:reality": "node scripts/nullstar-omega-reality-connect.mjs",
-    "omega:meta": "node scripts/nullstar-omega-meta.mjs"
+    "omega:meta": "node scripts/nullstar-omega-meta.mjs",
+    "omega:generalization": "node scripts/nullstar-omega-generalization.mjs",
+    "omega:g3": "node scripts/nullstar-omega-g3.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

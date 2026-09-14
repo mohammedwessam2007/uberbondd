@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-generalization-1.0.0",
+  "directiveSection": "311",
+  "generatedAt": "2026-09-14T23:09:29.043Z",
+  "improvementUnderTest": "The reality-connection discipline: sealed forecast, named decider, derivation rule fixed before the output exists.",
+  "builtForFamily": "mutation-survival",
+  "appliedToFamilies": [
+    "mutation-survival",
+    "import-graph-reachability",
+    "directive-coverage"
+  ],
+  "families": [
+    {
+      "familyId": "mutation-survival",
+      "domain": "test-guard behaviour",
+      "firstAttemptCorrect": false,
+      "whatHappened": "The derivation rule matched \"survived\" inside guard descriptions and read the catalogue as the result. Recorded SOME_SURVIVED against an actual 397 killed, 0 not killed."
+    },
+    {
+      "familyId": "import-graph-reachability",
+      "domain": "static structure of the tree",
+      "firstAttemptCorrect": false,
+      "whatHappened": "The observer read config/reachability-classification.json, the same file this session used to park those modules, so the observation was scored against its own prior declaration. Repaired to compute the import graph, which returned the same answer from an independent source."
+    },
+    {
+      "familyId": "directive-coverage",
+      "domain": "reconciler output over the tree",
+      "firstAttemptCorrect": true,
+      "whatHappened": "The observer ran the reconciler and counted MISSING rows. Admissible and correctly derived on first attempt."
+    }
+  ],
+  "firstAttemptCorrect": 1,
+  "familiesTried": 3,
+  "transferRate": 0.3333,
+  "verdict": "DID_NOT_GENERALIZE__APPARATUS_FAILED_ON_MOST_NEW_FAMILIES",
+  "finding": "The discipline held. The apparatus did not. Both failures were in the observer, not in the sealing: one read guard prose as a result, the other read a file this session had written. The seal is what made both failures visible instead of invisible.",
+  "existingEvaluator": {
+    "module": "src/cross-domain-transfer-evaluator.mjs",
+    "used": false,
+    "status": "TRANSFER_PROTOCOL_INVALID",
+    "reasonCodes": [
+      "experiment-evaluator-holdout-and-thresholds-required"
+    ],
+    "whyNotUsed": "Its protocol needs three arms per family at matched compute and tool budget, scored 0-1 by one instrument. No instrument here scores a candidate against a baseline, and filling the arms with invented numbers to pass the schema would manufacture the evidence the section asks for."
+  },
+  "truthBoundary": "THIS MEASURES WHETHER ONE MECHANISM SURVIVED THREE FAMILIES INSIDE THIS REPOSITORY. IT IS NOT EVIDENCE OF TRANSFER TO ANY DOMAIN OUTSIDE IT.",
+  "businessEffectAuthority": "NONE"
+}

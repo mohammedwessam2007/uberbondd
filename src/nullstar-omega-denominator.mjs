@@ -72,10 +72,10 @@ export const OMEGA_DIMENSIONS = Object.freeze([
   { id: 'N08', name: 'MULTI_GENERATION_SELF_IMPROVEMENT',
     modules: ['src/multi-generation-architecture.mjs'],
     tests: ['tests/multi-generation-architecture.test.mjs'],
-    runtimeReceipts: ['artifacts/nullstar-omega/generations/G2.json'] },
+    runtimeReceipts: ['artifacts/nullstar-omega/generations/G2.json', 'artifacts/nullstar-omega/generations/G3.json'] },
   { id: 'N09', name: 'META_IMPROVEMENT',
-    modules: ['src/recursive-improvement-retention.mjs'],
-    tests: ['tests/recursive-improvement-retention.test.mjs'],
+    modules: ['src/recursive-improvement-retention.mjs', 'src/nullstar-omega-meta-improvement.mjs'],
+    tests: ['tests/recursive-improvement-retention.test.mjs', 'tests/nullstar-omega-meta-improvement.test.mjs'],
     runtimeReceipts: ['artifacts/nullstar-omega/meta-improvement.json'] },
   { id: 'N10', name: 'IMPROVEMENT_VELOCITY',
     modules: ['src/nullstar-omega-generation.mjs'],
@@ -83,11 +83,17 @@ export const OMEGA_DIMENSIONS = Object.freeze([
     runtimeReceipts: ['artifacts/nullstar-omega/velocity.json'] },
   { id: 'N11', name: 'GENERALIZATION',
     modules: ['src/cross-domain-transfer-evaluator.mjs', 'src/transfer-evaluation-governor.mjs'],
-    tests: ['tests/transfer-evaluation-governor.test.mjs'] },
+    tests: ['tests/transfer-evaluation-governor.test.mjs'],
+    runtimeReceipts: ['artifacts/nullstar-omega/generalization.json'] },
+  // The calibration receipt is the reality-connection record rather than a
+  // summary of it: this dimension is only allowed past VERIFIED by forecasts
+  // that were sealed before a procedure ran and scored against what the
+  // procedure emitted.
   { id: 'N12', name: 'CALIBRATION',
-    modules: ['src/reality-calibration-ledger.mjs'],
-    tests: ['tests/reality-calibration-ledger.test.mjs'],
-    calibrationReceipts: ['artifacts/nullstar-omega/calibration.json'] },
+    modules: ['src/reality-calibration-ledger.mjs', 'src/nullstar-omega-reality-connection.mjs'],
+    tests: ['tests/reality-calibration-ledger.test.mjs', 'tests/nullstar-omega-reality-connection.test.mjs'],
+    runtimeReceipts: ['artifacts/nullstar-omega/reality-connection.json'],
+    calibrationReceipts: ['artifacts/nullstar-omega/reality-connection.json'] },
   { id: 'N13', name: 'WORLD_MODEL',
     modules: ['src/knowledge-labyrinth-ubergraph.mjs', 'src/life-knowledge-graph.mjs'],
     tests: ['tests/knowledge-labyrinth-ubergraph.test.mjs'] },
@@ -124,8 +130,8 @@ export const OMEGA_DIMENSIONS = Object.freeze([
     modules: ['src/durable-scheduler-occurrence.mjs', 'src/reservation-recovery.mjs'],
     tests: ['tests/reservation-recovery.test.mjs'] },
   { id: 'N24', name: 'FOUNDER_COCKPIT',
-    modules: ['api/command-center.mjs', 'src/founder-minute-priority.mjs'],
-    tests: ['tests/autonomy-command-center-wiring.test.mjs'] }
+    modules: ['api/command-center.mjs', 'src/founder-minute-priority.mjs', 'src/nullstar-omega-transfer-bindings.mjs'],
+    tests: ['tests/autonomy-command-center-wiring.test.mjs', 'tests/nullstar-omega-transfer-bindings.test.mjs'] }
 ]);
 
 const exists = (path, index) => Boolean(index?.has?.(path));

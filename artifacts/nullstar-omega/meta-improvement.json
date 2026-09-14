@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-meta-improvement-1.0.0",
+  "module": "uberbond.nullstar-omega-meta-improvement.v1",
+  "directiveSection": "310",
+  "generatedAt": "2026-09-14T23:08:08.044Z",
+  "episodes": [
+    {
+      "ok": true,
+      "status": "MOVED_ELSEWHERE",
+      "generation": "G0",
+      "successorGeneration": "G1",
+      "bottleneckId": "BN-EVAL-SATURATED",
+      "symptomKind": "INSTRUMENT_SATURATED",
+      "evidenceClass": "RETROSPECTIVE_RECONSTRUCTION",
+      "beforeCoverage": 4,
+      "afterCoverage": 9,
+      "beforeSpread": 0,
+      "afterSpread": 0,
+      "beforeMean": 1,
+      "afterMean": 1,
+      "why": "Scores are still flat at spread 0. Coverage moved from 4 to 9 dimensions, which is not the same as the instrument separating.",
+      "businessEffectAuthority": "NONE",
+      "selectedSymptom": "All 4 measured dimensions score 1.0 at G0. A saturated instrument cannot register improvement or regression.",
+      "note": "BN-EVAL-SATURATED: all measured dimensions at 1.0, so the instrument cannot register movement."
+    },
+    {
+      "ok": true,
+      "status": "SYMPTOM_PERSISTED",
+      "generation": "G1",
+      "successorGeneration": "G2",
+      "bottleneckId": "BN-EVAL-COVERAGE",
+      "symptomKind": "INSTRUMENT_SATURATED",
+      "evidenceClass": "RETROSPECTIVE_RECONSTRUCTION",
+      "beforeCoverage": 9,
+      "afterCoverage": 9,
+      "beforeSpread": 0,
+      "afterSpread": 0,
+      "beforeMean": 1,
+      "afterMean": 1,
+      "why": "Scores are still flat at spread 0. Coverage moved from 9 to 9 dimensions, which is not the same as the instrument separating.",
+      "businessEffectAuthority": "NONE",
+      "selectedSymptom": "8 of 17 capability dimensions are unmeasured at G1: science, software, research, forecasting, causality, planning...",
+      "note": "BN-EVAL-COVERAGE: the same ceiling, now over more dimensions."
+    }
+  ],
+  "verdict": {
+    "ok": true,
+    "status": "META_IMPROVEMENT_NOT_ESTABLISHED",
+    "episodes": 2,
+    "resolved": 0,
+    "persisted": 1,
+    "movedElsewhere": 1,
+    "untested": 0,
+    "prospectiveEpisodes": 0,
+    "reason": "a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-persistences",
+    "truthBoundary": "A PROCESS THAT RESOLVES ITS OWN NAMED SYMPTOMS IS WORKING ON ITS OWN TERMS. THAT IS NOT THE SAME AS THE SYSTEM GETTING MORE CAPABLE.",
+    "businessEffectAuthority": "NONE"
+  },
+  "finding": "See verdict.",
+  "truthBoundary": "EVERY EPISODE HERE IS RETROSPECTIVE. RETROSPECTIVE EVIDENCE CAN SHOW THIS PROCESS FAILING; IT CANNOT SHOW IT SUCCEEDING.",
+  "businessEffectAuthority": "NONE"
+}

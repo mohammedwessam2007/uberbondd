@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-reality-connection-1.0.0",
+  "module": "uberbond.nullstar-omega-reality-connection.v1",
+  "directiveSection": "312",
+  "evidenceCutoff": "2026-09-14T22:59:35.636Z",
+  "forecastsSealed": 3,
+  "loopsClosed": 2,
+  "loopsVoided": 1,
+  "verdict": {
+    "ok": true,
+    "status": "REALITY_CALIBRATED",
+    "closedLoops": 2,
+    "voidedLoops": 1,
+    "surprises": 2,
+    "meanBrier": 0.7975,
+    "calibrationSummary": {
+      "ok": true,
+      "status": "CALIBRATION_SUMMARY",
+      "scored": 2,
+      "meanBrier": 0.7975,
+      "bands": [
+        {
+          "band": 0.2,
+          "forecasts": 1,
+          "hits": 0,
+          "observedRate": 0
+        },
+        {
+          "band": 0.3,
+          "forecasts": 1,
+          "hits": 0,
+          "observedRate": 0
+        }
+      ],
+      "truthBoundary": "CALIBRATION OVER A SMALL SAMPLE IS ITSELF UNCERTAIN. A GOOD MEAN DOES NOT PROVE A CALIBRATED BAND.",
+      "businessEffectAuthority": "NONE"
+    },
+    "truthBoundary": "CALIBRATION ON THESE QUESTIONS DOES NOT TRANSFER TO QUESTIONS OF A DIFFERENT KIND.",
+    "businessEffectAuthority": "NONE"
+  },
+  "records": [
+    {
+      "observableId": "obs-triage-reachability",
+      "question": "Of the ten modules parked as NEEDS_TRIAGE, how many reach a production entrypoint?",
+      "decidedBy": "the import graph computed by scripts/reachability-report.mjs",
+      "derivationRuleId": "triage-production-count-bucket-v1",
+      "forecastId": "fc_82831e16483f32322fcf38e741977657",
+      "forecastProbabilities": {
+        "NONE": 0.25,
+        "ONE_TO_THREE": 0.45,
+        "FOUR_TO_SIX": 0.2,
+        "SEVEN_OR_MORE": 0.1
+      },
+      "observed": "NONE",
+      "assignedProbability": 0.25,
+      "brierScore": 0.815,
+      "surprised": true,
+      "evidenceDigest": "sha256:72dceeea46c35d6000ab655b92be797ed3ca608007a63cd0cca0685ec111284f",
+      "status": "REALITY_LOOP_CLOSED"
+    },
+    {
+      "observableId": "obs-mutation-war",
+      "question": "Does every registered mutation still die at the current head?",
+      "status": "REALITY_LOOP_VOID",
+      "forecastId": "fc_1ccf866b6571ed7b42f40dca7ad2f6a1",
+      "forecastProbabilities": {
+        "ALL_KILLED": 0.78,
+        "SOME_SURVIVED": 0.22
+      },
+      "recordedOutcome": "SOME_SURVIVED",
+      "correctedOutcome": "ALL_KILLED",
+      "ruleMisreadTheObserver": true,
+      "defect": "mutation-survivor-presence-v1 matched the word \"survived\" inside the guard descriptions WAR-02, LKG-04 and FCSTACK-07 rather than the survivor count on the summary line.",
+      "correctedEvidence": "mutation-war - 397 mutations, 397 killed, 0 not killed (exit 0)",
+      "evidenceDigest": "sha256:34085092a32df5fb9f54bdb82cdbc61055d29164c3cd19db383b5fe3104b165d",
+      "rescoreRefused": "THE ANSWER IS NOW KNOWN, SO A REPLACEMENT FORECAST ON THIS QUESTION WOULD MEASURE MEMORY RATHER THAN PREDICTION."
+    },
+    {
+      "observableId": "obs-directive-coverage-shift",
+      "question": "Does adding a reality-connection module move any directive section out of MISSING?",
+      "decidedBy": "src/founder-directive-reconciler.mjs evidence locator over the current tree",
+      "derivationRuleId": "missing-row-delta-bucket-v1",
+      "forecastId": "fc_8e2c83383eb6e80d64484fce5b948f52",
+      "forecastProbabilities": {
+        "UNCHANGED": 0.3,
+        "MISSING_DECREASED_1_TO_5": 0.5,
+        "MISSING_DECREASED_MORE_THAN_5": 0.2
+      },
+      "observed": "UNCHANGED",
+      "assignedProbability": 0.3,
+      "brierScore": 0.78,
+      "surprised": true,
+      "evidenceDigest": "sha256:72312c52be027ebfb5cc1a14a2d0fce2cfdfd1cbf7605c2d40ad92b79e5e10f3",
+      "status": "REALITY_LOOP_CLOSED"
+    }
+  ],
+  "truthBoundary": "THESE ARE FORECASTS ABOUT THIS REPOSITORY SCORED BY THIS REPOSITORY'S OWN TOOLS. THEY ARE REALITY CONTACT, NOT MARKET, CUSTOMER OR LIFE EVIDENCE.",
+  "businessEffectAuthority": "NONE"
+}

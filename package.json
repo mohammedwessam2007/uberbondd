@@ -122,7 +122,9 @@
     "memory:doctor": "node scripts/memory-truth-doctor.mjs",
     "test:memory-truth": "node --test tests/memory-truth-boundary.test.mjs tests/memory-truth-doctor.test.mjs",
     "sovereignty:doctor": "node scripts/sovereign-relation-doctor.mjs",
-    "test:sovereign-relation": "node --test tests/present-free-will.test.mjs tests/free-will-amplification.test.mjs tests/temporal-civilization.test.mjs tests/sovereign-relation-doctor.test.mjs"
+    "test:sovereign-relation": "node --test tests/present-free-will.test.mjs tests/free-will-amplification.test.mjs tests/temporal-civilization.test.mjs tests/sovereign-relation-doctor.test.mjs",
+    "omega:reality": "node scripts/nullstar-omega-reality-connect.mjs",
+    "omega:meta": "node scripts/nullstar-omega-meta.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

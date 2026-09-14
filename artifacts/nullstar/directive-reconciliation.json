@@ -4,8 +4,8 @@
   "status": "FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE",
   "directiveId": "project-nullstar",
   "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e",
-  "sourceCommit": "97eafdb12bfdb6f07b527cf6286d7b48b84ae0ae",
-  "generatedAt": "2026-09-14T22:11:17.046Z",
+  "sourceCommit": "14f2e8de806a325a91e2da826089ce51772dc3ea",
+  "generatedAt": "2026-09-14T23:04:52.335Z",
   "counts": {
     "sections": 336,
     "rows": 336,
@@ -358,10 +358,10 @@
           "src/embodied-reality.mjs",
           "src/external-capability-reality-safe.mjs",
           "src/external-reality-action-law.mjs",
+          "src/nullstar-omega-reality-connection.mjs",
           "src/omnia-v9/integrations/reality-shadow-cedar.mjs",
           "src/omnia-v9/integrations/reality-shadow-dataset.mjs",
-          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs",
-          "src/reality-calibration-ledger.mjs"
+          "src/omnia-v9/integrations/reality-shadow-evaluator.mjs"
         ],
         "testModules": [
           "tests/capability-total-state-external-reality.test.mjs",
@@ -370,8 +370,8 @@
           "tests/embodied-reality.test.mjs",
           "tests/external-capability-reality-safe.test.mjs",
           "tests/external-reality-action-law.test.mjs",
-          "tests/omnia-v9-reality-shadow-binding-drills.test.mjs",
-          "tests/omnia-v9-reality-shadow-cedar.test.mjs"
+          "tests/nullstar-omega-reality-connection.test.mjs",
+          "tests/omnia-v9-reality-shadow-binding-drills.test.mjs"
         ],
         "reachability": "PRODUCTION",
         "matchStrength": "ALL_TOKENS",

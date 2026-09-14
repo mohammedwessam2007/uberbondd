@@ -70,8 +70,8 @@
       "releasedBy": "A configured private object-storage adapter with a reviewed credential path, and an owner decision that artifacts may leave PostgreSQL at all. Configuring an adapter does not by itself authorize what is written through it."
     },
     "NO_APPROVED_GENOME_CAPABILITY": {
-      "description": "Execution admission decides whether an approved Capability Genome capability may run a bounded mission. The corpus currently holds 30 repository candidates, 2 imported bodies and 2 normalized records, and zero approved or active capabilities, so there is nothing it could admit. Wiring it to an entry point would advertise a capability-execution path that has no capability behind it.",
-      "releasedBy": "At least one capability reaching APPROVED through dedupe, independent STATIC, SEMANTIC and SANDBOX security evidence, and benchmark promotion -- after which the admission step is the gate that decides whether it may execute."
+      "description": "Neural cortex admission selects from Capability Genome records that are approved and active. The measured corpus holds 2 normalized records, 0 approved and 0 active, so admission would select from nothing.",
+      "releasedBy": "At least one Capability Genome record carrying independent STATIC, SEMANTIC and SANDBOX evidence promoted to APPROVED."
     },
     "NO_FRONTIER_OPERATOR_HOST": {
       "description": "The Frontier Operator family compiles bounded worker missions, verifies artifacts, absorbs observed mechanisms and scores its own coverage. Every module carries the zero external-effect ledger and none of them is scheduled: no entry point turns a Goal Contract into a running mission. Wiring them now would create an orchestrator with nothing to orchestrate, and an orchestrator that runs is exactly the thing that must not be switched on before its consequence path is decided.",
@@ -80,6 +80,34 @@
     "NO_CONFIGURED_OPEN_MODEL_RUNTIME": {
       "description": "The Open Model Universe discovers, normalizes and screens public model supply. The executor it feeds is already reachable through the model factory and reports runtime-absent, model-identity-absent, runtime-endpoint-absent, pricing-evidence-absent and explicitly-disabled, so no open model can execute. Discovery without a runtime is a catalogue: real, useful to read, and unable to route anything.",
       "releasedBy": "A configured open-model runtime endpoint with an exact model identity and pricing evidence, after which screened supply can be routed and the discovery layer has somewhere to send its output."
+    },
+    "NO_MODEL_JUDGEMENT_CAPABILITY": {
+      "description": "Per-dimension capability evidence needs something able to judge a task whose answer the repository does not already compute. No provider credential exists here, and every model-weight host is refused by the network policy while a local inference runtime installs fine. artifacts/nullstar-omega/G2-discriminating-test.json carries the probes.",
+      "releasedBy": "A provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires for the exact artifact."
+    },
+    "NO_COMMERCIAL_PREPARATION_AUDIT": {
+      "description": "Preparation memory records what was prepared for a commercial opportunity and how it aged. No preparation audit has ever been recorded, so the memory would age an empty set.",
+      "releasedBy": "One real commercial opportunity preparation audit reaching durable storage."
+    },
+    "NO_CLEARED_PAYMENT": {
+      "description": "The wealth bridge ranks reliability actions against a wealth portfolio. Both sides read from cleared contribution, which is currently zero, so every ranking would be over an empty portfolio.",
+      "releasedBy": "One cleared payment reconciled from provider-origin evidence."
+    },
+    "NO_FREE_MISSION_LOOP": {
+      "description": "The clock policy bounds tick interval, active window and ticks per window for an autonomous free-mission loop. No such loop is activated, so the policy would bound nothing.",
+      "releasedBy": "An activated free-mission loop that asks the policy for its tick budget before scheduling."
+    },
+    "NO_FRONTIER_REPRODUCTION_AUTHORITY": {
+      "description": "The mechanism catalog compiles reproduction experiments from frontier records. Running one reaches outside this process, and no reproduction authority or budget is granted.",
+      "releasedBy": "Explicit owner authority and budget for a bounded frontier reproduction experiment."
+    },
+    "NO_INSTITUTION_MISSION_AUTHORITY": {
+      "description": "The institutional harness compiles institution cells and asserts observed proof over them. Compiling a cell for a mission nobody authorized would manufacture an institution with no principal.",
+      "releasedBy": "One authorized institution mission with a named principal and a delegation record."
+    },
+    "NO_OBSERVED_UNATTENDED_OPERATION": {
+      "description": "The money machine proof requires at least 24 hours of endurance with pulse receipts no more than 5 minutes apart. Real elapsed time is the input and it cannot be produced by running code faster.",
+      "releasedBy": "24 hours of genuinely elapsed unattended operation with durable pulse receipts. Synthesised timestamps do not release it."
     }
   },
   "modules": {
@@ -124,9 +152,9 @@
       "reason": "BROWSER_ADAPTER_NOT_CONFIGURED. The contract also names ACCOUNT_CREATION as a consequence class, which needs authorization separately from an adapter."
     },
     "src/c21-dimension-evidence-producer.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Produces per-dimension ASI evidence records. Tested, but no C21 entry point calls it yet, and whether evidence production should be driven by the readiness generator or a separate operator command is undecided."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MODEL_JUDGEMENT_CAPABILITY",
+      "reason": "Produces per-dimension ASI evidence records. Import-graph trace on 2026-09-14 found no importer at all. Wiring it now would emit dimension records with nothing capable of judging the dimension."
     },
     "src/capability-genome-execution-admission.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -184,14 +212,14 @@
       "reason": "Reallocates bounded weights from cleared outcomes. Zero cleared payments, accepted deliveries and renewals exist, so every proposal would be computed from an empty ledger."
     },
     "src/economic-reliability-preparation-memory.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Suppresses redundant local commercial preparation. Tested only indirectly through the autoprep planner and imported by nothing; whether the planner should own this memory or read it is undecided."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_COMMERCIAL_PREPARATION_AUDIT",
+      "reason": "Ages commercial preparation audits. Trace found no importer. Nothing has ever written a preparation audit for it to age."
     },
     "src/economic-reliability-wealth-bridge.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Maps reliability preparation onto wealth-bridge accounting. Tested, unimported; its consumer would be a commercial path that currently has zero cleared revenue behind it."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CLEARED_PAYMENT",
+      "reason": "Joins the wealth portfolio to reliability action ranking. Trace found no importer. Both inputs are empty while cleared contribution is zero."
     },
     "src/egress-health-pool.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -224,9 +252,9 @@
       "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
     },
     "src/free-mission-clock-policy.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Bounds tick interval and active window for free-tier mission clocks. Tested, unimported; which scheduler should enforce it has not been chosen."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FREE_MISSION_LOOP",
+      "reason": "Bounds tick interval and active window for a free-mission loop. Trace found no importer. There is no loop asking it for a budget."
     },
     "src/frontier-absorption-engine.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -249,9 +277,9 @@
       "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
     },
     "src/frontier-intelligence-neural-bridge.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Converts frontier records into neural-exocortex references. Tested, unimported; it belongs to the exocortex interface whose hardware and consent surface do not exist yet."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APPROVED_GENOME_CAPABILITY",
+      "reason": "Converts frontier records into neural cortex references. Trace found no importer; it imports neural-exocortex-admission, and the pair forms an island with no entry point."
     },
     "src/frontier-loop-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -259,9 +287,9 @@
       "reason": "Stages and checks the world-sensing to replanning loop the operator would run. Proof helper for a path nothing schedules."
     },
     "src/frontier-mechanism-catalog.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Seed catalogue of reusable mechanism atoms. Tested, unimported; whether GENESIS should read it directly or it should be folded into the Capability Genome corpus is undecided."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_REPRODUCTION_AUTHORITY",
+      "reason": "Seeds frontier mechanisms and compiles reproduction experiments. Trace found no importer. Executing a compiled experiment needs authority that does not exist."
     },
     "src/frontier-model-admission-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -329,9 +357,9 @@
       "reason": "Operational surface over lead state, feeding the same unauthorised outbound chain."
     },
     "src/neural-exocortex-admission.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Admission rules for exocortex references. Reached only from the neural bridge, which is itself unreached, so the pair is unreachable together."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APPROVED_GENOME_CAPABILITY",
+      "reason": "Admits Genome capabilities as neural cortex. Imported only by frontier-intelligence-neural-bridge, which itself has no importer. The corpus holds 0 approved capabilities to admit."
     },
     "src/omnia-v9/authority-transition-ledger.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -782,19 +810,19 @@
       "reason": "Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."
     },
     "src/sovereign-institutional-harness-hardening.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Hardening layer over the institutional harness. Unreached for the same reason as the harness it wraps."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INSTITUTION_MISSION_AUTHORITY",
+      "reason": "Applies review disciplines over the harness. Trace found no importer. It hardens a harness nothing currently reaches."
     },
     "src/sovereign-institutional-harness.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Astra-donor institutional harness. Merged 2026-09-13 with tests and no caller; which lane should execute a harnessed mission has not been decided."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INSTITUTION_MISSION_AUTHORITY",
+      "reason": "Compiles institution cells and asserts observed proof. Imported only by its own hardening module, which has no importer. The pair is an island."
     },
     "src/sovereign-money-machine-proof.mjs": {
-      "category": "NEEDS_TRIAGE",
-      "gate": null,
-      "reason": "Validates a 24h continuous-operation money-machine receipt. Tested, unimported; the receipt it validates requires real elapsed unattended runtime that has not been observed, so no caller can supply a genuine input yet."
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OBSERVED_UNATTENDED_OPERATION",
+      "reason": "Proves endurance from pulse receipts over at least 24 hours. Trace found no importer. Its input is elapsed real time, which no code path can supply."
     },
     "src/staging-content-repository.mjs": {
       "category": "AWAITING_ACTIVATION",

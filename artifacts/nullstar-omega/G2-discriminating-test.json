@@ -1,7 +1,12 @@
 {
-  "schemaVersion": "uberbond-nullstar-omega-discriminating-test-1.0.0",
+  "schemaVersion": "uberbond-nullstar-omega-discriminating-test-1.1.0",
   "diagnosis": "BN-EVAL-MEASURES-CONSISTENCY-NOT-CAPABILITY",
   "discriminatingTest": "Configure any model provider and run one task whose answer the repository does not compute. If a local runtime can serve it, the gap was authorship rather than the provider.",
+  "revision": {
+    "supersedes": "uberbond-nullstar-omega-discriminating-test-1.0.0",
+    "reason": "The 1.0.0 verdict rested on four negative probes that were never pushed. Re-probing split the gate into a runtime half and a weight half, and the runtime half is open. Section 007 requires the observation to beat the prior belief.",
+    "whatTheEarlierVerdictGotWrong": "It read 'no runtime installed' as 'no runtime installable' and therefore attributed the whole gap to an external gate."
+  },
   "probes": [
     {
       "probe": "PROVIDER_CREDENTIAL",
@@ -14,19 +19,50 @@
       "detail": "DOCTOR_FAILED"
     },
     {
+      "probe": "PACKAGE_INDEX_REACHABLE",
+      "available": true,
+      "detail": "pypi.org and files.pythonhosted.org are in the proxy noProxy set; onnxruntime 1.30.0 wheel downloaded at 54.4 MB/s"
+    },
+    {
+      "probe": "LOCAL_INFERENCE_RUNTIME_INSTALLABLE",
+      "available": true,
+      "detail": "onnxruntime 1.30.0 installed and imported; CPUExecutionProvider present"
+    },
+    {
+      "probe": "MODEL_WEIGHT_HOST_REACHABLE",
+      "available": false,
+      "detail": "huggingface.co, cdn-lfs.huggingface.co, hf-mirror.com, gpt4all.io, ollama.com and modelscope.cn all refused; gateway answered 403 to CONNECT for huggingface.co"
+    },
+    {
       "probe": "LOCAL_TRANSFORMERS_RUNTIME",
       "available": false,
-      "detail": "python transformers not installed"
+      "detail": "python transformers not installed; installable, but it would have no weights to load"
     },
     {
       "probe": "LOCAL_OLLAMA",
       "available": false,
-      "detail": "no ollama binary"
+      "detail": "no ollama binary and ollama.com unreachable"
+    },
+    {
+      "probe": "ADMISSION_EVIDENCE_FOR_THIRD_PARTY_WEIGHTS",
+      "available": false,
+      "detail": "docs/CAPABILITY_GENOME_CANON.md requires independent STATIC, SEMANTIC and SANDBOX evidence plus resolved license before a world artifact may execute. No weight artifact in this environment carries any of the three."
     }
   ],
-  "verdict": "EXTERNAL_GATE_CONFIRMED__NO_JUDGEMENT_CAPABILITY_IN_THIS_ENVIRONMENT",
+  "verdict": "WEIGHT_DISTRIBUTION_BLOCKED_AND_ADMISSION_GATED__RUNTIME_IS_NOT_THE_BLOCKER",
   "promotion": "NO_PROMOTION",
   "classification": "EXTERNAL_BLOCKED",
-  "consequence": "The gap is the provider, not the corpus. Further local corpus authorship cannot close it, and scoring a capability dimension without anything capable of the judgement would fabricate the number.",
+  "blockerPrecision": {
+    "runtime": "OPEN",
+    "weights": "BLOCKED_BY_NETWORK_POLICY",
+    "admission": "BLOCKED_BY_OWN_CANON",
+    "note": "Two independent blockers. Opening the network policy alone would not make a downloaded model selectable, because the Genome admission gate would still refuse it. Both must open."
+  },
+  "whatWouldChangeThisVerdict": [
+    "A provider credential in the environment.",
+    "A policy-permitted weight host, plus STATIC, SEMANTIC and SANDBOX evidence for the exact artifact, plus a resolved SPDX license.",
+    "A judgement task whose answer the repository can verify without a model, which would make the capability dimension measurable without any provider at all."
+  ],
+  "consequence": "The capability-by-judgement dimensions stay unscored. This does not block bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer or economic transfer, none of which require a model provider. Those were treated as blocked by association and are not.",
   "businessEffectAuthority": "NONE"
 }

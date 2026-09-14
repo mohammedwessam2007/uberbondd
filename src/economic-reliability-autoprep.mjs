@@ -1,4 +1,4 @@
-export const ECONOMIC_RELIABILITY_AUTOPREP_VERSION='uberbond.economic-reliability-autoprep.v1.1';
+export const ECONOMIC_RELIABILITY_AUTOPREP_VERSION='uberbond.economic-reliability-autoprep.v1.2';
 
 const arr=v=>Array.isArray(v)?v:[];
 const text=(v,max=500)=>{const s=String(v??'').trim();return s&&s.length<=max?s:null;};
@@ -39,10 +39,6 @@ function selectDiversified(candidates,limit){
   const selectedKeys=new Set();
   const seenDomains=new Set();
 
-  // First pass: spread scarce preparation bandwidth across distinct observed
-  // failure-domain labels. This is only a scheduling heuristic. It does NOT
-  // prove statistical independence; the formal reliability engine still
-  // requires structured dependency receipts before probabilities multiply.
   for(const item of candidates){
     if(selected.length>=limit) break;
     const key=`${item.type}:${item.opportunityId}`;
@@ -52,8 +48,6 @@ function selectDiversified(candidates,limit){
     seenDomains.add(item.failureDomain);
   }
 
-  // Second pass: preserve original controller priority while filling unused
-  // capacity, including same-domain or unlabeled work that still deserves prep.
   for(const item of candidates){
     if(selected.length>=limit) break;
     const key=`${item.type}:${item.opportunityId}`;
@@ -64,14 +58,19 @@ function selectDiversified(candidates,limit){
   return selected;
 }
 
-export function compileEconomicReliabilityPreparationJobs({reliabilityReceipt,maxJobs=8,date=null}={}){
+export function compileEconomicReliabilityPreparationJobs({reliabilityReceipt,maxJobs=8,date=null,excludeRouteIds=[]}={}){
   const limit=Math.max(0,Math.min(32,Number.isSafeInteger(maxJobs)?maxJobs:8));
+  const excluded=new Set(arr(excludeRouteIds).map(v=>text(v,220)).filter(Boolean));
   const skipped=[];
   const candidates=[];
 
   for(const [index,action] of arr(reliabilityReceipt?.nextActions).entries()){
     const normalized=candidateFromAction(action,index);
     if(normalized.skip){skipped.push(normalized.skip);continue;}
+    if(excluded.has(normalized.candidate.routeId)){
+      skipped.push({routeId:normalized.candidate.routeId,type:normalized.candidate.type,reason:'fresh-preparation-evidence-already-present'});
+      continue;
+    }
     candidates.push(normalized.candidate);
   }
 
@@ -96,12 +95,13 @@ export function compileEconomicReliabilityPreparationJobs({reliabilityReceipt,ma
     status:jobs.length?'ECONOMIC_RELIABILITY_PREPARATION_JOBS_READY':'NO_SAFE_RELIABILITY_PREPARATION_JOBS',
     jobs,
     skipped,
+    excludedFreshPreparationRouteCount:excluded.size,
     eligibleCandidateCount:candidates.length,
     selectedFailureDomains:[...new Set(selected.map(x=>x.failureDomain).filter(Boolean))],
     diversityHeuristic:'DISTINCT_OBSERVED_FAILURE_DOMAIN_FIRST_THEN_ORIGINAL_PRIORITY_FILL',
     independenceClaimed:false,
     externalEffectAuthority:'NONE',
     moneyAuthority:'NONE',
-    truthBoundary:'Preparation bandwidth is spread across distinct observed failure-domain labels before same-domain fill, but this scheduling heuristic NEVER proves independence. These jobs only compile existing local commercial preparation packets. They do not prove dependency factors, grant policy clearance, close live execution dependencies, send messages, spend money, call providers, create trials, or alter reliability probability. Formal reliability still requires fresh calibrated outcomes plus evidenced structured dependency separation.'
+    truthBoundary:'Fresh preparation memory suppresses redundant local prep so bounded bandwidth advances across the catalog. Distinct failure-domain labels are scheduling hints only and NEVER prove independence. These jobs only compile existing local commercial preparation packets and cannot grant authority, create trials, or alter reliability probability.'
   };
 }

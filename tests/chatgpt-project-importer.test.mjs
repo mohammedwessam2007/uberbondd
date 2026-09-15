@@ -30,7 +30,7 @@ test('bulk ChatGPT export imports UberBond chats, preserves provenance, and keep
   assert.ok(status.sharedDocuments>=1);
   const hits=runtime.fabric.retrieve({query:'100K outreach runtime durable evidence',limit:10});
   assert.ok(hits.some(h=>h.peerId==='chatgpt:ub-100k-chat'));
-  assert.throws(()=>runtime.mesh.getPeer('chatgpt:ub-100k-chat')?.metadata?.archivalOnly!==true?new Error('expected archival peer'):undefined, /expected archival peer/);
+  assert.equal(runtime.mesh.getPeer('chatgpt:ub-100k-chat')?.metadata?.archivalOnly,true);
   await assert.rejects(()=>runtime.ask({fromPeer:'chatgpt:ub-100k-chat',toPeer:'chatgpt:ub-100k-chat',question:'What is missing?'}),/archival-only/);
   const cycle=runtime.cognitiveCycle();
   assert.equal(cycle.ok,true);

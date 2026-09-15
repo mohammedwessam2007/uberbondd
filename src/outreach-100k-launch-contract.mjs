@@ -5,8 +5,16 @@ export const OUTREACH_100K_CERTIFICATE_VERSION = 'uberbond.outreach-100k-certifi
 
 const sha256 = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const clean = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
-const positiveInt = value => Number.isFinite(Number(value)) && Number(value) >= 0 ? Math.floor(Number(value)) : null;
+const positiveInt = value => value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value)) && Number(value) >= 0 ? Math.floor(Number(value)) : null;
 const uniq = values => [...new Set((values || []).filter(Boolean))];
+const duplicateKeys = (rows, keyFn) => {
+  const seen = new Set(); const duplicates = new Set();
+  for (const row of Array.isArray(rows) ? rows : []) {
+    const key = clean(keyFn(row)).toLowerCase(); if (!key) continue;
+    if (seen.has(key)) duplicates.add(key); else seen.add(key);
+  }
+  return [...duplicates].sort();
+};
 
 function ageHours(value, now) {
   const observed = Date.parse(String(value || ''));
@@ -59,7 +67,7 @@ function compileMailboxes(mailboxes, domainReady, options) {
     const reasons = [...evidence.reasons];
     const observedDailyCap = positiveInt(raw?.observedColdDailyCap ?? raw?.currentDailyCap);
     const observedHourlyCap = positiveInt(raw?.observedColdHourlyCap ?? raw?.currentHourlyCap);
-    const usedToday = positiveInt(raw?.usedToday ?? 0);
+    const usedToday = positiveInt(raw?.usedToday);
     const capRemaining = remaining(observedDailyCap, usedToday);
     if (!mailboxId) reasons.push('mailbox-id-required');
     if (!domainId || !domainReady.has(domainId)) reasons.push('mailbox-ready-domain-required');
@@ -84,7 +92,7 @@ function compileEgress(routes, mailboxRows, options) {
     const routeId = clean(raw?.routeId || raw?.id, 240);
     const evidence = freshEvidence(raw, { ...options, prefix: `egress:${routeId || 'unknown'}` });
     const reasons = [...evidence.reasons];
-    const routeRemaining = remaining(raw?.observedColdDailyCap, raw?.usedToday ?? 0);
+    const routeRemaining = remaining(raw?.observedColdDailyCap, raw?.usedToday);
     if (!routeId) reasons.push('egress-route-id-required');
     if (raw?.ready !== true && String(raw?.status || '').toUpperCase() !== 'READY') reasons.push('egress-route-not-ready');
     if (raw?.authorized !== true) reasons.push('egress-route-not-authorized');
@@ -103,7 +111,7 @@ function compileRecipientProviders(rows, inventoryCounts, options) {
     const providerId = clean(raw?.providerId, 120).toLowerCase();
     const evidence = freshEvidence(raw, { ...options, prefix: `recipient-provider:${providerId || 'unknown'}` });
     const reasons = [...evidence.reasons];
-    const budgetRemaining = remaining(raw?.observedDailyBudget, raw?.usedToday ?? 0);
+    const budgetRemaining = remaining(raw?.observedDailyBudget, raw?.usedToday);
     const inventory = positiveInt(inventoryCounts?.[providerId]) ?? 0;
     if (!providerId) reasons.push('recipient-provider-id-required');
     if (raw?.ready !== true && String(raw?.state || '').toUpperCase() !== 'READY') reasons.push('recipient-provider-not-ready');
@@ -136,8 +144,8 @@ export function compileOutreach100kLaunchCertificate({
   const options = { now, maxAgeHours: Math.max(0.001, Number(maxEvidenceAgeHours) || 24) };
 
   if (outbound?.enabled !== true) waitReasonCodes.push('live-outbound-enabled-required');
-  if (outbound?.dryRun === true) waitReasonCodes.push('dry-run-must-be-disabled');
-  if (outbound?.globalPaused === true) waitReasonCodes.push('global-outbound-must-be-resumed');
+  if (outbound?.dryRun !== false) waitReasonCodes.push('dry-run-must-be-explicitly-disabled');
+  if (outbound?.globalPaused !== false) waitReasonCodes.push('global-outbound-must-be-explicitly-resumed');
   if (positiveInt(outbound?.uncertain ?? 0) !== 0) hardStopReasonCodes.push('uncertain-provider-outcomes-must-be-zero');
   if (outbound?.workerOnline !== true) waitReasonCodes.push('resident-outbound-worker-required');
   if (outbound?.schedulerActive !== true) waitReasonCodes.push('resident-outbound-scheduler-required');
@@ -153,6 +161,15 @@ export function compileOutreach100kLaunchCertificate({
   if (!clean(inventory?.recipientSetDigest, 200)) waitReasonCodes.push('recipient-set-digest-required');
   const providerCounts = inventory?.recipientProviderCounts && typeof inventory.recipientProviderCounts === 'object' ? inventory.recipientProviderCounts : null;
   if (!providerCounts) waitReasonCodes.push('recipient-provider-distribution-required');
+
+  const duplicateDomains = duplicateKeys(domains, row => row?.domainId || row?.domain);
+  const duplicateMailboxes = duplicateKeys(mailboxes, row => row?.mailboxId);
+  const duplicateEgressRoutes = duplicateKeys(egressRoutes, row => row?.routeId || row?.id);
+  const duplicateRecipientProviders = duplicateKeys(recipientProviders, row => row?.providerId);
+  if (duplicateDomains.length) waitReasonCodes.push('duplicate-domain-evidence');
+  if (duplicateMailboxes.length) waitReasonCodes.push('duplicate-mailbox-evidence');
+  if (duplicateEgressRoutes.length) waitReasonCodes.push('duplicate-egress-route-evidence');
+  if (duplicateRecipientProviders.length) waitReasonCodes.push('duplicate-recipient-provider-evidence');
 
   const domain = compileDomains(domains, options);
   if (!domain.rows.length) waitReasonCodes.push('observed-domain-fleet-required');
@@ -175,9 +192,10 @@ export function compileOutreach100kLaunchCertificate({
   const campaignEvidence = freshEvidence(campaign, { ...options, prefix: 'campaign' });
   waitReasonCodes.push(...campaignEvidence.reasons);
   if (campaign?.authorized !== true) waitReasonCodes.push('campaign-authorization-required');
-  const campaignRemaining = remaining(campaign?.dailyCeiling, campaign?.usedToday ?? 0);
+  const campaignRemaining = remaining(campaign?.dailyCeiling, campaign?.usedToday);
   if (campaignRemaining == null) waitReasonCodes.push('campaign-daily-ceiling-and-usage-required');
-  if (campaign?.expiresAt && (!Number.isFinite(Date.parse(campaign.expiresAt)) || Date.parse(campaign.expiresAt) <= new Date(now).getTime())) hardStopReasonCodes.push('campaign-authorization-expired');
+  if (!campaign?.expiresAt) waitReasonCodes.push('campaign-authorization-expiry-required');
+  else if (!Number.isFinite(Date.parse(campaign.expiresAt)) || Date.parse(campaign.expiresAt) <= new Date(now).getTime()) hardStopReasonCodes.push('campaign-authorization-expired');
 
   const scheduleEvidence = freshEvidence(schedule, { ...options, prefix: 'dispatch-schedule' });
   waitReasonCodes.push(...scheduleEvidence.reasons);

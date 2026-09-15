@@ -1,6 +1,6 @@
 import { ZERO_EFFECTS, POLICIES, digest, normalizeProblem, solveProblem } from './omega-private-lab-core.mjs';
 
-export const OMEGA_POLICY_META_LEARNER_VERSION='uberbond.omega-policy-meta-learner.v1';
+export const OMEGA_POLICY_META_LEARNER_VERSION='uberbond.omega-policy-meta-learner.v2';
 const envelope=extra=>({businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:{...ZERO_EFFECTS},...extra});
 const fail=(...r)=>envelope({ok:false,status:'OMEGA_POLICY_META_LEARNER_REFUSED',version:OMEGA_POLICY_META_LEARNER_VERSION,reasonCodes:[...new Set(r.flat().filter(Boolean))]});
 const TYPES=['neq','eq','lt','sumEq','allDifferent'];
@@ -30,14 +30,14 @@ export function trainPolicyMetaCrystal({sourceTasks=[],policyBudget=5000}={}){
   const examples=[]; let discoveryWork=0;
   for(const task of tasks){
     const scores=[];
-    for(const policy of POLICIES){ const run=solveProblem({problem:task,policy,maxWork:policyBudget}); const w=work(run); discoveryWork+=w; scores.push({policy,work:w,solved:run.ok===true&&run.verifier?.valid===true,cutoff:run.metrics?.cutoff===true}); }
+    for(const policy of POLICIES.filter(policy=>policy!=='INPUT_ORDER')){ const run=solveProblem({problem:task,policy,maxWork:policyBudget}); const w=work(run); discoveryWork+=w; scores.push({policy,work:w,solved:run.ok===true&&run.verifier?.valid===true,cutoff:run.metrics?.cutoff===true}); }
     const solved=scores.filter(x=>x.solved).sort((a,b)=>a.work-b.work||a.policy.localeCompare(b.policy));
     if(!solved.length) return fail('source-task-unsolved-within-budget');
-    examples.push({featureHash:digest(extractStructuralFeatures(task)),features:extractStructuralFeatures(task),bestPolicy:solved[0].policy,bestWork:solved[0].work,baselineWork:scores.find(x=>x.policy==='INPUT_ORDER'&&x.solved)?.work??null,domain:task.domain,cutoffPolicies:scores.filter(x=>x.cutoff).map(x=>x.policy)});
+    examples.push({featureHash:digest(extractStructuralFeatures(task)),features:extractStructuralFeatures(task),bestPolicy:solved[0].policy,bestWork:solved[0].work,domain:task.domain,cutoffPolicies:scores.filter(x=>x.cutoff).map(x=>x.policy)});
   }
   const scales={}; for(const k of FEATURE_KEYS) scales[k]=Math.max(1,...examples.map(e=>Math.abs(e.features[k]??0)));
   const core={featureKeys:FEATURE_KEYS,scales,examples:examples.map(e=>({features:e.features,bestPolicy:e.bestPolicy})),sourceDomains:[...new Set(tasks.map(t=>t.domain))].sort(),k:3,policyBudget};
-  return envelope({ok:true,status:'OMEGA_POLICY_META_CRYSTAL_TRAINED',version:OMEGA_POLICY_META_LEARNER_VERSION,crystal:{...core,crystalHash:digest(core),containsAnswers:false,containsTargetTasks:false,promotionAuthority:'NONE'},training:{discoveryWork,examples},truthBoundary:'This meta-crystal learns nearest-neighbor policy selection over a fixed solver-policy portfolio and declared structural feature schema. It is not open-ended algorithm synthesis.'});
+  return envelope({ok:true,status:'OMEGA_POLICY_META_CRYSTAL_TRAINED',version:OMEGA_POLICY_META_LEARNER_VERSION,crystal:{...core,crystalHash:digest(core),containsAnswers:false,containsTargetTasks:false,promotionAuthority:'NONE'},training:{discoveryWork,examples},truthBoundary:'This meta-crystal learns nearest-neighbor policy selection over a fixed structural solver-policy portfolio and declared structural feature schema. It cannot transfer lexical or input-order shortcuts.'});
 }
 
 export function selectPolicyFromMetaCrystal({crystal,targetTask}={}){
@@ -47,7 +47,7 @@ export function selectPolicyFromMetaCrystal({crystal,targetTask}={}){
   const neighbors=crystal.examples.map((e,i)=>({i,policy:e.bestPolicy,distance:distance(v,vector(e.features,crystal.scales))})).sort((a,b)=>a.distance-b.distance||a.i-b.i).slice(0,Math.max(1,Math.min(crystal.k??3,crystal.examples.length)));
   const votes=new Map(); for(const n of neighbors){const weight=1/(1e-9+n.distance);votes.set(n.policy,(votes.get(n.policy)||0)+weight);} const selected=[...votes.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))[0][0];
   const adapterCore={featureSchemaHash:digest(crystal.featureKeys),targetFeatureHash:digest(f),selectedPolicy:selected,neighborPolicies:neighbors.map(n=>n.policy)};
-  return envelope({ok:true,status:'OMEGA_META_POLICY_SELECTED',version:OMEGA_POLICY_META_LEARNER_VERSION,selectedPolicy:selected,features:f,adapter:{...adapterCore,adapterHash:digest(adapterCore),answerFree:true,usesTargetPortfolioRuns:false},neighbors,truthBoundary:'Selection uses target structural features only. No target answer, target policy tournament, or target verifier result is used to choose the policy.'});
+  return envelope({ok:true,status:'OMEGA_META_POLICY_SELECTED',version:OMEGA_POLICY_META_LEARNER_VERSION,selectedPolicy:selected,features:f,adapter:{...adapterCore,adapterHash:digest(adapterCore),answerFree:true,usesTargetPortfolioRuns:false,usesIdentifiers:false},neighbors,truthBoundary:'Selection uses target structural features only. No target answer, identifier semantics, target policy tournament, or target verifier result is used to choose the policy.'});
 }
 
 export function evaluateMetaTransfer({crystal,targetTasks=[]}={}){

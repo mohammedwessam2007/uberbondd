@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-nullstar-omega-absolute-final-report-1.0.0",
   "directive": "PROJECT NULLSTAR OMEGA ABSOLUTE",
-  "generatedAt": "2026-09-15T03:23:23.482Z",
+  "generatedAt": "2026-09-15T03:37:40.609Z",
   "START_MAIN_SHA": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
   "START_NULLSTAR_SHA": "0a5cd4b46e070855c04abfb4d2a27453976ddf20",
   "MERGE_BASE": "2831e4e010fce9b4775ade0c31aae0622de2b104",
   "FINAL_MAIN_SHA": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
-  "FINAL_INTEGRATION_SHA": "03a98c2752cef5a0c90c8c4107fb511a8415ea5c",
+  "FINAL_INTEGRATION_SHA": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
   "PR_HISTORY": [
     {
       "number": 889,
@@ -18,7 +18,7 @@
   ],
   "BRANCH_DEBT": {
     "behindMain": 0,
-    "aheadOfMain": 44,
+    "aheadOfMain": 45,
     "note": "Behind-count zero means the branch carries exact current main."
   },
   "DIRECTIVE_TOTAL": 336,
@@ -43,15 +43,21 @@
     "EXTERNALLY_CALIBRATED": 0,
     "LONGITUDINALLY_CALIBRATED": 0
   },
-  "TEST_TOTAL": null,
-  "TEST_PASS": null,
-  "TEST_FAIL": null,
-  "TEST_SKIP": null,
-  "MUTATIONS_TOTAL": null,
-  "MUTATIONS_KILLED": null,
-  "MUTATIONS_SURVIVED": null,
-  "PARSE_COUNT": null,
-  "REACHABILITY_COUNTS": null,
+  "TEST_TOTAL": 7285,
+  "TEST_PASS": 7231,
+  "TEST_FAIL": 0,
+  "TEST_SKIP": 54,
+  "MUTATIONS_TOTAL": 432,
+  "MUTATIONS_KILLED": 432,
+  "MUTATIONS_SURVIVED": 0,
+  "PARSE_COUNT": 1977,
+  "REACHABILITY_COUNTS": {
+    "srcModules": 734,
+    "production": 215,
+    "operatorOnly": 363,
+    "noEntry": 149,
+    "allClassified": true
+  },
   "CI_STATE": "NOT_OBSERVED_AT_THIS_HEAD__LOCAL_GATES_ONLY",
   "DEPLOYMENT_STATE": "NOT_ATTEMPTED__NO_DEPLOYMENT_AUTHORITY_IN_THIS_MISSION",
   "RUNTIME_STATE": "NOT_OBSERVED__NO_RUNTIME_RECEIPT_PRODUCED_BY_THIS_MISSION",
@@ -249,15 +255,5 @@
   "NEXT_HIGHEST_LEVERAGE_BOTTLENECK": "Instantiate the independent suite. The tautology-refusing definition exists and is mutation-guarded, but no task has been written against it, so there is currently no instrument that can separate this system from a constant. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on that.",
   "truthBoundary": "THIS REPORT IS GENERATED FROM ARTIFACTS AT ONE COMMIT. GATE NUMBERS ARE NULL UNLESS A RECEIPT NAMES THIS EXACT HEAD. NOTHING HERE ESTABLISHES ASI, AN INTELLIGENCE EXPLOSION, A SINGULARITY, REVENUE, A CUSTOMER, OR A LIFE OUTCOME.",
   "businessEffectAuthority": "NONE",
-  "FIELDS_WITH_NO_VALUE": [
-    "TEST_TOTAL",
-    "TEST_PASS",
-    "TEST_FAIL",
-    "TEST_SKIP",
-    "MUTATIONS_TOTAL",
-    "MUTATIONS_KILLED",
-    "MUTATIONS_SURVIVED",
-    "PARSE_COUNT",
-    "REACHABILITY_COUNTS"
-  ]
+  "FIELDS_WITH_NO_VALUE": []
 }

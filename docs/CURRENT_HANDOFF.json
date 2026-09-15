@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-12",
-  "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
+  "checkpointedAt": "2026-09-15T03:30:00.000Z",
+  "sourceCommit": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
@@ -130,7 +130,16 @@
     "generalization": "1 of 3 families correct on first attempt. DID_NOT_GENERALIZE.",
     "calibration": "2 closed loops, 1 voided, 2 surprises, mean Brier 0.7975. The system's self-model is measurably miscalibrated.",
     "clearedRevenue": 0,
-    "customers": 0
+    "customers": 0,
+    "nullstarOmegaAbsolute": {
+      "milestoneA_reconciledMain": "DONE. origin/main merged into the development branch; 121 behind to 0. Three conflicts resolved semantically. PR #889 open.",
+      "milestoneB_measurementIntegrity": "DONE. The meta timing boundary is derived from episode classes instead of a stale literal. Calibration is a seven-rung ladder and the denominator reads the placement inside a receipt rather than the file's existence. The observer contract refuses text matching against a structured producer and refuses an observer that reads the artifact stating its own claim.",
+      "milestoneC_baselines": "DONE. B0 3/6, B4 3/6, B5 6/6, B1-B3 blocked with dependency, attempt and unblock condition. Zero unexplained nulls.",
+      "theFindingThatMatters": "The sealed corpus was tautological. For every task the expected answer and the observation were the same expression over the same file, so any tree scored full marks against itself, and a single constant answers half of it. The previous UberBond scores exactly what a constant scores. The 1.0 across G0, G1 and G2 was never a capability measurement.",
+      "suiteRetired": "omega-local-evidence-suite-1.0.0 retired, G0 through G6 marked contaminated with their scores preserved. Successor omega-independent-suite-1.0.0 is defined and mutation-guarded but has no tasks yet.",
+      "gatesAtHead": "7231 pass / 0 fail / 54 skipped; 432 mutations 432 killed; 1977 files parse; 734 modules fully classified.",
+      "finalReport": "artifacts/nullstar-omega-absolute/final-report.json, generated from artifacts with an exact-head gate receipt. Zero fields with no value."
+    }
   },
   "completedSincePreviousCheckpoint": [
     "Context Sovereignty was promoted from a documented recovery procedure into executable Brainstate, Context Mount, canonical Cognitive Bus, durable cognitive journal, privacy suppression, task-bound projections, Context Query, replication bundles, schema/ancestry admission and resident self-maintaining layered storage.",
@@ -168,7 +177,14 @@
     "Closed a loophole in the meta verdict itself. The G4->G5 episode flipped from SYMPTOM_PERSISTED to MOVED_ELSEWHERE when a later generation recomputed one of its own dimension scores, moving the mean without measuring anything new, and the verdict climbed back to working on that bookkeeping change alone. A working verdict now requires resolutions to outnumber every non-resolution. 413 mutations, 413 killed.",
     "G6 and the stale-reading detector. G3 switched to the outcome suite and carried six ceiling readings forward from the saturated instrument it replaced, so every mean from G3 on averaged two instruments. recordGeneration now detects carryover automatically from the previous generation rather than trusting a caller to declare it, excludes carried readings from the headline mean, keeps the inflated figure visible beside it, and refuses a generation whose every reading was carried. Corrected mean: 0.525313 against a reported 0.810125.",
     "Declaration validation. The G5 declaration's prose criterion diverged from the symptom kind it committed, so a genuine fix scored as a persistence. It was not rescored. validateDeclaration now refuses a declaration whose stated rule differs from the one its kind is judged by, at declaration time rather than at scoring time.",
-    "416 mutations, 416 killed."
+    "416 mutations, 416 killed.",
+    "Reconciled the two lineages. The branch was 33 ahead and 121 behind; main carried APOTHEOSIS orchestration and one-button outreach, the branch carried the cognitive-measurement spine. Merged with three semantic conflict resolutions, ten newly-unclassified modules traced and gated, and one stale classification cleared. PR #889.",
+    "Repaired the meta-improvement contradiction. The artifact asserted every episode was retrospective directly above four marked prospective; the sentence is now derived from the data and a hostile test fails on the contradiction.",
+    "Replaced REALITY_CALIBRATED with a seven-rung calibration ladder. Two repository-local forecasts no longer carry the label a system calibrated against the world would carry; N12 reads REPOSITORY_LOCAL_CALIBRATED and names its shortfall.",
+    "Built the observer contract and wired it live, where it immediately refused the mutation observer for matching text against a producer that emits structure. Replaced with a counts read that rejects itself unless the counts sum.",
+    "Ran the baselines and found the corpus was tautological. This is the most important result of the mission and it invalidates the headline numbers of every prior generation.",
+    "Retired the contaminated suite and built its successor's definition, which refuses a task whose answer and observation share a path or a locator.",
+    "Generated the final report from artifacts with an exact-head gate receipt rather than writing it."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -182,11 +198,11 @@
     "NULLSTAR ALIAS RECONCILIATION: 244 sections read MISSING, an upper bound rather than a count of unbuilt organs. A name-similarity pass over all 247 found a >=50% word match for 137 of them, and verification killed almost all of those: ADVERSARIAL COUNCIL matched forecast-adversarial-ensemble, which is about source independence and not red-team critique roles, and PARALLEL GRAPH EXECUTION matched execution-leaf-graph, which does not measure wall-clock reduction. Two survived verification and both reached VERIFIED_CURRENT through the evidence gate. Mass-aliasing on a shared word would make the matrix look better while being less true, which is the failure this row exists to prevent. Each remaining section needs its requirement read against the candidate module.",
     "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED, AND THE GATE IS NARROWER THAN G2 SAID: re-probing split it. A local inference runtime installs and runs here -- onnxruntime 1.30.0 imports with CPUExecutionProvider, and PyPI is reachable at 54 MB/s. What is refused is weights: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. A second, independent blocker sits behind that one: the Capability Genome admission gate requires STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three. Opening the network alone would not make a model selectable. This gates capability-by-judgement scoring only; bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer were blocked by association in the G2 verdict and are not. All six are now done. Evidence: artifacts/nullstar-omega/G2-discriminating-test.json v1.1.",
     "FIRST REALITY-CALIBRATED DIMENSION IS EARNED; THE REST ARE NOT. N12 CALIBRATION now sits at REALITY_CALIBRATED on 2 closed loops with mean Brier 0.7975 and 2 surprises out of 2. The other 23 dimensions sit at VERIFIED or OPERATING and still have no prediction checked against a later observation. One calibrated dimension is not a calibrated system, and a mean Brier of 0.80 says this system's self-model is wrong more often than it expects to be.",
-    "INDEPENDENT EVIDENCE FOR THE REMAINING DIMENSIONS: seven capability dimensions are unmeasured and G5 established why. Every local score available for them is cut from observations already scoring another dimension, and the evidence-reuse guard refuses those. This is not a provider gate -- G4 refuted that -- and it is not solved by writing another scorer. It needs the system to do something that generates an observation it does not currently produce. That is a design question, not permission and not a credential.",
+    "NO INSTRUMENT CAN CURRENTLY SEPARATE THIS SYSTEM FROM A CONSTANT. The baselines showed the sealed corpus was tautological: answer and observation were the same expression, so every tree scored full marks against itself, and a single constant answers half the tasks. The suite is retired. Its successor refuses tautological tasks at definition time and is mutation-guarded, but no task has been written against it. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on instantiating it. This is software work, not an external gate.",
     "OBSERVATION APPARATUS IS UNRELIABLE: of three observers written this session, one misread guard prose as a result and one read a file this session had written. Two of three failed on first attempt. The seal is what made both visible; nothing guarantees the next one is sound."
   ],
   "nextExecutor": {
-    "primary": "PROJECT NULLSTAR OMEGA ABSOLUTE. The APOTHEOSIS trunk and the NULLSTAR OMEGA cognitive-measurement branch are now one lineage; do not treat either as the whole organism. Run npm run omega:cycle plus omega:reality, omega:meta, omega:generalization before selecting cognitive work, and read the current bottleneck artifact rather than assuming the answer is more dimensions.",
+    "primary": "Instantiate omega-independent-suite-1.0.0. The definition refuses tautological tasks and is mutation-guarded; what is missing is tasks. Each needs an answer path and an observation path that genuinely differ -- the sealed-prior-state path is the strongest available here, because answering a question about a tree state sealed before the tree changed requires prediction rather than a read. Until that exists there is no instrument, and no capability claim, generation or UB tier can mean anything.",
     "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
     "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
     "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",
@@ -204,10 +220,11 @@
       "Do not rescore a voided reality loop. The answer is known, so a replacement forecast measures memory.",
       "Do not push to PR #868. It is the founder's; the analysis is recorded, the decision is theirs.",
       "Do not edit a line a mutation anchor targets without re-running tests/mutation-registry-anchor-integrity.test.mjs immediately. Closing the MOVED_ELSEWHERE loophole rewrote the line METAIMP-02 anchors on and silently killed that guard; the integrity test caught it, but only because it was run again. Run it after the edit, not before.",
-      "Do not report a generation mean without checking coverage.carriedFromAnotherSuite. Six of ten readings were stale for four generations and the error ran in the flattering direction every time, because the dimensions nobody re-measures are the ones already at the ceiling."
+      "Do not report a generation mean without checking coverage.carriedFromAnotherSuite. Six of ten readings were stale for four generations and the error ran in the flattering direction every time, because the dimensions nobody re-measures are the ones already at the ceiling.",
+      "Do not report a score from any generation G0 through G6 as a capability measurement. They were all produced on a suite where the answer and the observation were the same expression, and artifacts/nullstar-omega/suite-retirement.json records which ones."
     ]
   },
-  "truthBoundary": "THE HONEST MEAN OVER WHAT THE OUTCOME INSTRUMENT ACTUALLY MEASURED IS 0.525313, NOT THE 0.810125 THIS SESSION REPORTED BEFORE G6. SIX OF TEN READINGS WERE CARRIED FROM THE SATURATED INSTRUMENT THAT WAS REPLACED. THE INSTRUMENT DID SEPARATE AT G3 AND THAT PART HOLDS. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. THE CALIBRATION RESULT SAYS THIS SYSTEM'S SELF-MODEL IS WRONG MORE OFTEN THAN IT EXPECTS TO BE, AND THIS FINDING IS AN INSTANCE OF THAT.",
+  "truthBoundary": "THE SEALED CORPUS WAS TAUTOLOGICAL. EVERY CAPABILITY NUMBER THIS PROJECT HAS REPORTED, INCLUDING THE CORRECTED 0.525313, WAS PRODUCED ON AN INSTRUMENT THAT COMPARED A TREE TO ITSELF AND WHICH A SINGLE CONSTANT SCORES HALF OF. THE PREVIOUS UBERBOND SCORES EXACTLY WHAT THE CONSTANT SCORES. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. NO UB TIER IS CLAIMABLE.",
   "orchestrationCheckpoint": {
     "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
     "importedAt": "2026-09-12",

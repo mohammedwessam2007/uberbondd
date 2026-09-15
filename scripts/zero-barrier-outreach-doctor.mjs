@@ -6,6 +6,7 @@ import { admitPermissionedGateway } from '../src/uberdepin-permissioned-gateway.
 import { compileReputationCredential } from '../src/uberreputation-credentials.mjs';
 import { compileJitProvisioningPlan } from '../src/ubermail-jit-provisioning.mjs';
 import { compileAttentionStake } from '../src/uberattention-stake-ledger.mjs';
+import { issueRecipientAttentionPermit, evaluateAttentionRequest } from '../src/uberattention-protocol.mjs';
 import { rankSubstitutionMechanisms } from '../src/uberzero-substitution-engine.mjs';
 
 export function runZeroBarrierOutreachDoctor({ now = new Date(), fixture = {} } = {}) {
@@ -22,6 +23,8 @@ export function runZeroBarrierOutreachDoctor({ now = new Date(), fixture = {} } 
   const reputation = (fixture.reputationCredentials || []).map(row => compileReputationCredential(row, { now }));
   const jit = (fixture.jitProvisioningPlans || []).map(row => compileJitProvisioningPlan(row, { now }));
   const stakes = (fixture.attentionStakes || []).map(row => compileAttentionStake(row, { now }));
+  const attentionPermits = (fixture.attentionPermits || []).map(row => issueRecipientAttentionPermit(row, { now }));
+  const attentionRequests = (fixture.attentionRequests || []).map(row => evaluateAttentionRequest({ permit: row.permit, request: row.request, now }));
   const substitutions = rankSubstitutionMechanisms(fixture.substitutionMechanisms || []);
 
   return {
@@ -32,6 +35,8 @@ export function runZeroBarrierOutreachDoctor({ now = new Date(), fixture = {} } 
     reputation,
     jit,
     stakes,
+    attentionPermits,
+    attentionRequests,
     substitutions,
     externalEffectAuthority: 'NONE',
     automaticSendAuthority: false,

@@ -5,7 +5,7 @@ export const OUTREACH_100K_CERTIFICATE_VERSION = 'uberbond.outreach-100k-certifi
 
 const sha256 = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const clean = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
-const positiveInt = value => Number.isFinite(Number(value)) && Number(value) >= 0 ? Math.floor(Number(value)) : null;
+const positiveInt = value => value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value)) && Number(value) >= 0 ? Math.floor(Number(value)) : null;
 const uniq = values => [...new Set((values || []).filter(Boolean))];
 
 function duplicateKeys(rows, keyFn) {
@@ -159,8 +159,8 @@ export function compileOutreach100kLaunchCertificate({
   if (duplicateEvidence.recipientProviders.length) hardStopReasonCodes.push('duplicate-recipient-provider-evidence');
 
   if (outbound?.enabled !== true) waitReasonCodes.push('live-outbound-enabled-required');
-  if (outbound?.dryRun === true) waitReasonCodes.push('dry-run-must-be-disabled');
-  if (outbound?.globalPaused === true) waitReasonCodes.push('global-outbound-must-be-resumed');
+  if (outbound?.dryRun !== false) waitReasonCodes.push('dry-run-must-be-explicitly-disabled');
+  if (outbound?.globalPaused !== false) waitReasonCodes.push('global-outbound-must-be-explicitly-resumed');
   if (positiveInt(outbound?.uncertain ?? 0) !== 0) hardStopReasonCodes.push('uncertain-provider-outcomes-must-be-zero');
   if (outbound?.workerOnline !== true) waitReasonCodes.push('resident-outbound-worker-required');
   if (outbound?.schedulerActive !== true) waitReasonCodes.push('resident-outbound-scheduler-required');
@@ -200,7 +200,8 @@ export function compileOutreach100kLaunchCertificate({
   if (campaign?.authorized !== true) waitReasonCodes.push('campaign-authorization-required');
   const campaignRemaining = remaining(campaign?.dailyCeiling, campaign?.usedToday);
   if (campaignRemaining == null) waitReasonCodes.push('campaign-daily-ceiling-and-usage-required');
-  if (campaign?.expiresAt && (!Number.isFinite(Date.parse(campaign.expiresAt)) || Date.parse(campaign.expiresAt) <= new Date(now).getTime())) hardStopReasonCodes.push('campaign-authorization-expired');
+  if (!campaign?.expiresAt) waitReasonCodes.push('campaign-authorization-expiry-required');
+  else if (!Number.isFinite(Date.parse(campaign.expiresAt)) || Date.parse(campaign.expiresAt) <= new Date(now).getTime()) hardStopReasonCodes.push('campaign-authorization-expired');
 
   const scheduleEvidence = freshEvidence(schedule, { ...options, prefix: 'dispatch-schedule' });
   waitReasonCodes.push(...scheduleEvidence.reasons);

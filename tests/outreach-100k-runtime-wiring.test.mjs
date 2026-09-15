@@ -14,15 +14,17 @@ test('server exposes only certified 100K start seam',()=>{
   assert.match(server,/outreach\.100k\.process/);
 });
 
-test('resident worker registers certified processor',()=>{
+test('resident worker registers certified processor and re-certifies dynamically',()=>{
   assert.match(worker,/handlers\['outreach\.100k\.process'\]/);
   assert.match(worker,/buildLiveOutreach100kSummary/);
   assert.match(worker,/runOutreach100kBatch/);
+  assert.match(worker,/founderCertificateId/);
+  assert.match(worker,/certificateId:\s*''/);
+  assert.match(worker,/exact recipient-set digest/);
 });
 
-test('runtime re-certifies each batch and quarantines uncertain outcomes',()=>{
+test('runtime re-certifies each batch, binds corpus digest, and quarantines uncertain outcomes',()=>{
   assert.match(runtime,/prepareOutreach100kRuntime/);
-  assert.match(runtime,/launch-certificate-changed-since-founder-press/);
   assert.match(runtime,/recipient-set-changed-since-founder-press/);
   assert.match(runtime,/DISPATCH_OUTCOME_UNCERTAIN/);
   assert.match(runtime,/automaticRetryAuthorized:\s*false/);

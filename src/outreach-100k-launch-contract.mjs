@@ -57,7 +57,10 @@ function compileMailboxes(mailboxes, domainReady, options) {
     const routeId = clean(raw?.egressRouteId || raw?.routeId, 240);
     const evidence = freshEvidence(raw, { ...options, prefix: `mailbox:${mailboxId || 'unknown'}` });
     const reasons = [...evidence.reasons];
-    const capRemaining = remaining(raw?.observedColdDailyCap ?? raw?.currentDailyCap, raw?.usedToday ?? 0);
+    const observedDailyCap = positiveInt(raw?.observedColdDailyCap ?? raw?.currentDailyCap);
+    const observedHourlyCap = positiveInt(raw?.observedColdHourlyCap ?? raw?.currentHourlyCap);
+    const usedToday = positiveInt(raw?.usedToday ?? 0);
+    const capRemaining = remaining(observedDailyCap, usedToday);
     if (!mailboxId) reasons.push('mailbox-id-required');
     if (!domainId || !domainReady.has(domainId)) reasons.push('mailbox-ready-domain-required');
     if (!routeId) reasons.push('mailbox-egress-route-required');
@@ -65,7 +68,10 @@ function compileMailboxes(mailboxes, domainReady, options) {
     if (!['WARMUP_COMPLETE','RAMP','HOLD','LIMITED_CANARY'].includes(String(raw?.warmupState || raw?.warmupStatus || '').toUpperCase())) reasons.push('mailbox-warmup-health-required');
     if (raw?.paused === true) reasons.push('mailbox-paused');
     if (capRemaining == null) reasons.push('mailbox-observed-cap-and-usage-required');
-    rows.push({ mailboxId: mailboxId || null, domainId: domainId || null, routeId: routeId || null, remainingDailyCap: reasons.length ? 0 : capRemaining, ready: reasons.length === 0, reasonCodes: uniq(reasons), evidenceAgeHours: evidence.ageHours });
+    if (observedHourlyCap == null || observedHourlyCap <= 0) reasons.push('mailbox-observed-hourly-cap-required');
+    const minGapSeconds = positiveInt(raw?.minGapSeconds ?? 0);
+    if (minGapSeconds == null) reasons.push('mailbox-valid-cadence-required');
+    rows.push({ mailboxId: mailboxId || null, domainId: domainId || null, routeId: routeId || null, observedDailyCap: observedDailyCap ?? 0, observedHourlyCap: observedHourlyCap ?? 0, usedToday: usedToday ?? 0, minGapSeconds: minGapSeconds ?? 0, remainingDailyCap: reasons.length ? 0 : capRemaining, ready: reasons.length === 0, reasonCodes: uniq(reasons), evidenceAgeHours: evidence.ageHours });
   }
   return rows;
 }
@@ -117,6 +123,7 @@ export function compileOutreach100kLaunchCertificate({
   recipientProviders = [],
   campaign = {},
   runtime = {},
+  schedule = {},
   outbound = {},
   now = new Date(),
   maxEvidenceAgeHours = 24
@@ -172,13 +179,20 @@ export function compileOutreach100kLaunchCertificate({
   if (campaignRemaining == null) waitReasonCodes.push('campaign-daily-ceiling-and-usage-required');
   if (campaign?.expiresAt && (!Number.isFinite(Date.parse(campaign.expiresAt)) || Date.parse(campaign.expiresAt) <= new Date(now).getTime())) hardStopReasonCodes.push('campaign-authorization-expired');
 
+  const scheduleEvidence = freshEvidence(schedule, { ...options, prefix: 'dispatch-schedule' });
+  waitReasonCodes.push(...scheduleEvidence.reasons);
+  if (schedule?.ready !== true) waitReasonCodes.push('dispatch-schedule-ready-required');
+  const scheduleRemaining = positiveInt(schedule?.remainingDispatchCapacityToday);
+  if (scheduleRemaining == null) waitReasonCodes.push('dispatch-schedule-capacity-required');
+
   const providerConfirmedToday = positiveInt(outbound?.providerConfirmedToday ?? 0) ?? 0;
   const targetRemaining = Math.max(0, OUTREACH_100K_TARGET - providerConfirmedToday);
   const capacities = {
     eligibleInventoryRemaining: eligibleRemaining ?? 0,
     senderAndEgressRemaining: egress.totalUsableRemainingDailyCap,
     recipientProviderRemaining: provider.totalUsableRemainingDailyCap,
-    campaignRemaining: campaignRemaining ?? 0
+    campaignRemaining: campaignRemaining ?? 0,
+    scheduledWindowRemaining: scheduleRemaining ?? 0
   };
   const certifiableRemaining = Math.min(...Object.values(capacities));
   const certifiableToday = providerConfirmedToday + certifiableRemaining;

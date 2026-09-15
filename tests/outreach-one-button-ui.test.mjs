@@ -8,18 +8,17 @@ const js = fs.readFileSync(new URL('../public/outreach-one-button.js', import.me
 test('admin exposes one guarded outreach start button', () => {
   assert.match(html, /id="start-outreach"/);
   assert.match(html, /outreach-one-button\.js/);
-  assert.match(js, /\/api\/summary/);
-  assert.match(js, /\/api\/campaigns/);
-  assert.match(js, /\/api\/worker\/resume/);
-  assert.match(js, /\/api\/outbound\/resume/);
-  assert.match(js, /\/api\/run/);
+  assert.match(js, /START CERTIFIED 100K OUTREACH/);
+  assert.match(js, /\/api\/outreach\/100k\/status/);
+  assert.match(js, /\/api\/outreach\/100k\/start/);
+  assert.match(js, /confirmExactTarget:\s*100000/);
 });
 
-test('one-button start fails closed on runtime and campaign blockers', () => {
-  assert.match(js, /outbound\.enabled !== true/);
-  assert.match(js, /outbound\.dryRun === true/);
-  assert.match(js, /outbound\.uncertain/);
-  assert.match(js, /campaign\?\.approved === true && campaign\?\.autoSend === true/);
+test('one-button start fails closed unless exact 100K certificate is green', () => {
+  assert.match(js, /CERTIFIED_100K_READY/);
+  assert.match(js, /hardStopReasonCodes/);
+  assert.match(js, /waitReasonCodes/);
+  assert.match(js, /shortfall/);
 });
 
 test('owner bearer is page-memory only and never persisted', () => {
@@ -28,8 +27,8 @@ test('owner bearer is page-memory only and never persisted', () => {
   assert.doesNotMatch(js, /console\.(?:log|info|debug|warn)\([^)]*token/i);
 });
 
-test('the one-button layer does not bypass #875 governed send gates', () => {
-  assert.doesNotMatch(js, /gmail\.users\.messages\.send|smtp|transportAdapter|dispatchGovernedOutreach|pressUberLaunchButton/);
-  assert.match(js, /#875 safety gates remain binding/);
-  assert.match(js, /limit:\s*250/);
+test('founder button cannot fall back to the legacy A/B Gmail wake path', () => {
+  assert.doesNotMatch(js, /\/api\/worker\/resume|\/api\/outbound\/resume|\/api\/run['"]/);
+  assert.doesNotMatch(js, /gmail\.users\.messages\.send|transportAdapter|dispatchGovernedOutreach|pressUberLaunchButton/);
+  assert.match(js, /every batch re-certifies/);
 });

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-prospective-declaration-1.0.0",
+  "directiveSection": "310",
+  "purpose": "The third prospective meta-improvement episode. Committed before any G5 code exists.",
+  "generation": "G4",
+  "successorGeneration": "G5",
+  "bottleneckId": "BN-EVAL-COVERAGE",
+  "bottleneckSymptom": "Seven capability dimensions remain unmeasured after G4 scored software: science, research, forecasting, causality, planning, toolUse, invention.",
+  "symptomKind": "COVERAGE_INSUFFICIENT",
+  "resolutionCriterion": "Resolved only if the count of measured dimensions rises above 10.",
+  "theRiskThisAttemptCarries": "Every remaining dimension I can see a local score for would be scored from evidence already used to score another dimension. Forecasting would re-slice the same three reality loops that produced calibration. Causality would re-slice the same bottleneck episodes that produced selfDiagnosis. Scoring either would raise the coverage count without measuring anything new, which is the G1 mistake wearing a different costume: coverage rises, nothing is learned.",
+  "whatIsBeingBuiltFirst": "An evidence-reuse guard. A dimension may only be scored from an evidence set that is not already scoring another dimension in the same generation. The guard is built before the attempt so it can refuse the attempt.",
+  "prediction": {
+    "claim": "The guard will refuse at least one dimension I would otherwise have scored.",
+    "confidence": "Fairly high. I can already name the overlap for forecasting and causality, which is why the guard is being written at all. What I do not know is whether any of the seven survives it.",
+    "ifTheGuardRefusesEverything": "That is a result, not a failure: it says this repository does not yet generate independent evidence for the remaining dimensions, and the honest next step is to make the system do something new rather than to measure the same thing again."
+  },
+  "whatWouldFalsifyTheRisk": "A remaining dimension whose evidence set shares nothing with calibration, selfDiagnosis, crossDomain or software.",
+  "businessEffectAuthority": "NONE"
+}

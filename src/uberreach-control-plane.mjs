@@ -16,6 +16,10 @@ import {
   compileUberOutboundResearchCoverage,
   compileUberOutboundSequenceDecision
 } from './uberoutbound-policy-registry.mjs';
+import {
+  compileUberReplyPortfolioAllocation,
+  compileUberReplyPortfolioDecision
+} from './uberreply-four-offer-genome.mjs';
 
 export const UBERREACH_VERSION = 'uberbond.uberreach.v1.4';
 
@@ -39,6 +43,7 @@ export function compileUberReachReadiness({
   capacityInputs = null,
   genomeInputs = null,
   launchInputs = null,
+  uberReplyInputs = null,
   now = new Date()
 } = {}) {
   const senderHealth = compileUberWarmFleet({
@@ -79,13 +84,47 @@ export function compileUberReachReadiness({
     })
     : null;
 
+  const uberReplyDecision = uberReplyInputs && typeof uberReplyInputs === 'object'
+    ? compileUberReplyPortfolioDecision({
+      prospect: uberReplyInputs.prospect || genomeInputs?.prospect || {},
+      research: uberReplyInputs.research || {},
+      sequencePosition: uberReplyInputs.sequencePosition || genomeInputs?.sequenceInputs?.sequencePosition || 1,
+      minimumFit: uberReplyInputs.minimumFit ?? 0.55
+    })
+    : null;
+
+  const uberReplyAllocation = uberReplyInputs?.eligibleByOffer && typeof uberReplyInputs.eligibleByOffer === 'object'
+    ? compileUberReplyPortfolioAllocation({
+      eligibleByOffer: uberReplyInputs.eligibleByOffer,
+      targetPerLane: uberReplyInputs.targetPerLane || 25_000
+    })
+    : null;
+
+  const suppliedGenomeCandidates = Array.isArray(genomeInputs?.messageCandidates)
+    ? genomeInputs.messageCandidates.filter(Boolean)
+    : [];
+  const uberReplyCandidate = uberReplyDecision?.policy?.ok === true
+    ? {
+      candidateId: uberReplyDecision.policy.experimentCellId,
+      ...uberReplyDecision.policy.messageCandidate,
+      sourceCount: uberReplyInputs?.prospect?.sourceCount ?? genomeInputs?.prospect?.sourceCount ?? 0,
+      sourceFreshness: uberReplyInputs?.prospect?.sourceFreshness ?? genomeInputs?.prospect?.sourceFreshness ?? 0,
+      factCheckStatus: uberReplyInputs?.factCheckStatus || null,
+      modelId: uberReplyInputs?.modelId || null,
+      modelVersion: uberReplyInputs?.modelVersion || null
+    }
+    : null;
+  const genomeMessageCandidates = suppliedGenomeCandidates.length
+    ? suppliedGenomeCandidates
+    : (uberReplyCandidate ? [uberReplyCandidate] : []);
+
   const outboundGenome = genomeInputs && typeof genomeInputs === 'object'
     ? compileUberOutboundGenomeDecision({
-      prospect: genomeInputs.prospect || {},
+      prospect: genomeInputs.prospect || uberReplyInputs?.prospect || {},
       sender: genomeInputs.sender || {},
       authorization: genomeInputs.authorization || {},
       legalDecision: genomeInputs.legalDecision || {},
-      messageCandidates: genomeInputs.messageCandidates || [],
+      messageCandidates: genomeMessageCandidates,
       experiment: genomeInputs.experiment || null,
       policy: genomeInputs.policy || {},
       now
@@ -124,6 +163,12 @@ export function compileUberReachReadiness({
   if (!senderHealth.readyMailboxCount) blockers.push('no-evidence-ready-sender');
   if (!contactHygiene.verifiedForAuthorizationGate) blockers.push('no-source-backed-verified-contact-route');
   if (capacity && capacity.qualityPreservingDailyMax === 0) blockers.push('quality-preserving-daily-capacity-zero');
+  if (uberReplyDecision && uberReplyInputs?.enforce === true && uberReplyDecision.state !== 'UBERREPLY_PORTFOLIO_DECISION_READY') {
+    blockers.push('uberreply-no-strong-offer-fit');
+  }
+  if (uberReplyAllocation && uberReplyInputs?.enforceAllocation === true && uberReplyAllocation.shortfall > 0) {
+    blockers.push('uberreply-4x25k-eligible-inventory-shortfall');
+  }
   if (outboundGenome && genomeInputs?.enforce === true && outboundGenome.recommendedAction !== 'SEND_CANDIDATE') {
     blockers.push('outbound-genome-not-send-candidate');
   }
@@ -147,6 +192,8 @@ export function compileUberReachReadiness({
     contactHygiene,
     accountExpansion,
     capacity,
+    uberReplyDecision,
+    uberReplyAllocation,
     outboundGenome,
     outboundContextPolicy,
     outboundSequence,
@@ -159,6 +206,6 @@ export function compileUberReachReadiness({
     dnsChanges: 0,
     externalEffectAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
-    truthBoundary: 'Readiness means only that supplied evidence passed these local preparation and launch-evidence gates. Capacity, research priors, context policies, launch readiness and sequence recommendations never relax the lead-quality floor, legal eligibility, suppression, provider policy or separate per-action authorization. Readiness is never permission to contact, spend, provision infrastructure, or claim deliverability.'
+    truthBoundary: 'Readiness means only that supplied evidence passed these local preparation and launch-evidence gates. UBERREPLY offer selection, diversification targets, strategy priors, capacity, context policies, launch readiness and sequence recommendations never relax the lead-quality floor, legal eligibility, suppression, provider policy or separate per-action authorization. Readiness is never permission to contact, spend, provision infrastructure, or claim deliverability.'
   };
 }

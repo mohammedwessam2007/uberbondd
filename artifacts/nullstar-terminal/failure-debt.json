@@ -2,8 +2,8 @@
   "ok": true,
   "status": "FAILURE_DEBT_COMPILED",
   "version": "uberbond.nullstar-failure-debt.v1",
-  "sourceSha": "3e88a7b14142883a9de74cd5033e8d2dc9b8ee04",
-  "generatedAt": "2026-09-15T12:47:39.344Z",
+  "sourceSha": "c68039ecf52669bdfe98cefba69613c02f920a24",
+  "generatedAt": "2026-09-15T12:48:11.464Z",
   "counts": {
     "total": 12,
     "byStatus": {
@@ -177,7 +177,7 @@
       "status": "FAILURE_RECORDED",
       "id": "F008-UNTESTED-PRODUCTION-PATH",
       "timestamp": "2026-09-15T04:00:00.000Z",
-      "sourceSha": "3e88a7b14142883a9de74cd5033e8d2dc9b8ee04",
+      "sourceSha": "c68039ecf52669bdfe98cefba69613c02f920a24",
       "mission": "NULLSTAR terminal completion war",
       "gate": "production coverage ratchet",
       "expected": "every production-reachable module is executed by some gate",
@@ -186,7 +186,7 @@
       "rootCause": "A suite that reads a module as a string satisfies every \"does a test exist\" check while exercising none of its behaviour. Wiring assertions over source text look like coverage and are not.",
       "severity": "HIGH",
       "regressionTest": "tests/outreach-100k-runtime-control-behaviour.test.mjs",
-      "repairCommit": "3e88a7b14142883a9de74cd5033e8d2dc9b8ee04",
+      "repairCommit": "c68039ecf52669bdfe98cefba69613c02f920a24",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [
@@ -233,7 +233,7 @@
       "rootCause": "I wrote each candidate set to explore one hypothesis and never included the minimal fix as an entrant, so the change every candidate shared was the one thing the tournament could not isolate. The tie was the visible symptom and I read it as convergence -- three independent designs agreeing -- when a tie at a perfect score means the opposite: the instrument ranked them by byte count because it could not rank them by capability. The promotion rule only ever asked whether a candidate beats the incumbent, which is a weaker question than whether the mechanism under test is what beat it.",
       "severity": "MEDIUM",
       "regressionTest": "tests/nullstar-out-of-pattern-gate.test.mjs",
-      "repairCommit": "SEE_CLOSING_NOTE",
+      "repairCommit": "c68039ec",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [

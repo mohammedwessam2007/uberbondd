@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "uberbond-nullstar-generalization-2.0.0",
+  "directiveSections": [
+    "068",
+    "069",
+    "070",
+    "071"
+  ],
+  "supersedes": "artifacts/nullstar-omega/generalization.json",
+  "whySuperseded": "That artifact was computed against the corpus retired for being tautological, where every solver scored the same as a constant. Its verdict measured nothing and is kept for history rather than reused.",
+  "generatedAt": "2026-09-15T12:29:44.228Z",
+  "sourceCommit": "b0055c6dc964fa7b03cf9bcff07b519bbced2dd0",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "probeA": {
+    "question": "Do the promoted solvers hold on seeds no tournament touched?",
+    "seedRange": "810000..810059",
+    "disjointFromTournamentSeeds": true,
+    "results": [
+      {
+        "generation": "GA1",
+        "family": "FORECASTING",
+        "mechanism": "walk to whatever difference order goes constant",
+        "seedsUsed": 60,
+        "byDifficulty": [
+          {
+            "difficulty": 1,
+            "mean": 1
+          },
+          {
+            "difficulty": 2,
+            "mean": 1
+          },
+          {
+            "difficulty": 3,
+            "mean": 1
+          }
+        ],
+        "holds": true
+      },
+      {
+        "generation": "GA2",
+        "family": "RESEARCH",
+        "mechanism": "rank sources on provenance and freshness",
+        "seedsUsed": 60,
+        "byDifficulty": [
+          {
+            "difficulty": 1,
+            "mean": 1
+          },
+          {
+            "difficulty": 2,
+            "mean": 1
+          },
+          {
+            "difficulty": 3,
+            "mean": 1
+          }
+        ],
+        "holds": true
+      },
+      {
+        "generation": "GA3",
+        "family": "INVENTION",
+        "mechanism": "assemble the composition the prompt names",
+        "seedsUsed": 60,
+        "byDifficulty": [
+          {
+            "difficulty": 1,
+            "mean": 1
+          },
+          {
+            "difficulty": 2,
+            "mean": 1
+          },
+          {
+            "difficulty": 3,
+            "mean": 1
+          }
+        ],
+        "holds": true
+      }
+    ],
+    "verdict": "HOLDS_ON_FRESH_SEEDS"
+  },
+  "probeB": {
+    "question": "Do they answer compositions the generator never emits, built from the same primitives and phrasing?",
+    "itemsAreHandBuilt": true,
+    "whyHandBuilt": "The generator emits only the four compositions the promoted solver has patterns for, so the question cannot be asked from inside it. These change the combination and nothing else.",
+    "results": [
+      {
+        "arm": "PROMOTED_I3_PROMPT_DIRECTED",
+        "correct": 0,
+        "refused": 2,
+        "confabulated": 1,
+        "of": 3,
+        "answers": [
+          {
+            "prompt": "Report the mean plus the midrange",
+            "expected": "16.5000",
+            "given": "8.0000",
+            "correct": false,
+            "refused": false
+          },
+          {
+            "prompt": "Report the midrange minus the mean",
+            "expected": "0.5000",
+            "given": null,
+            "correct": false,
+            "refused": true
+          },
+          {
+            "prompt": "Report the spread between largest and smallest divided by the mean",
+            "expected": "1.6250",
+            "given": null,
+            "correct": false,
+            "refused": true
+          }
+        ]
+      },
+      {
+        "arm": "RUNNER_UP_I4_COMPOSITIONAL_SEARCH",
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "answers": [
+          {
+            "prompt": "Report the mean plus the midrange",
+            "expected": "16.5000",
+            "given": "16.5000",
+            "correct": true,
+            "refused": false
+          },
+          {
+            "prompt": "Report the midrange minus the mean",
+            "expected": "0.5000",
+            "given": "0.5000",
+            "correct": true,
+            "refused": false
+          },
+          {
+            "prompt": "Report the spread between largest and smallest divided by the mean",
+            "expected": "1.6250",
+            "given": "1.6250",
+            "correct": true,
+            "refused": false
+          }
+        ]
+      },
+      {
+        "arm": "NULL_I1_HARDCODE_ONE_TARGET",
+        "correct": 0,
+        "refused": 0,
+        "confabulated": 3,
+        "of": 3,
+        "answers": [
+          {
+            "prompt": "Report the mean plus the midrange",
+            "expected": "16.5000",
+            "given": "8.2500",
+            "correct": false,
+            "refused": false
+          },
+          {
+            "prompt": "Report the midrange minus the mean",
+            "expected": "0.5000",
+            "given": "8.2500",
+            "correct": false,
+            "refused": false
+          },
+          {
+            "prompt": "Report the spread between largest and smallest divided by the mean",
+            "expected": "1.6250",
+            "given": "8.2500",
+            "correct": false,
+            "refused": false
+          }
+        ]
+      }
+    ],
+    "verdict": "DOES_NOT_GENERALIZE_AND_CONFABULATES"
+  },
+  "probeC": {
+    "question": "When it cannot answer, does it say so, or does it produce a confident wrong number?",
+    "promotedConfabulations": 1,
+    "promotedRefusals": 2,
+    "nullCandidateConfabulations": 3,
+    "verdict": "CONFABULATES"
+  },
+  "headlineFinding": "All three promoted solvers hold at or above 0.8 on sixty fresh seeds, so none of them memorised a tournament. The promoted invention solver answers 0 of 3 out-of-pattern compositions, while the runner-up it beat answers 3. The tournament selected the narrower mechanism because the instrument only ever asks in-pattern questions. On the ones it cannot do it returns a wrong number, which is the wrong failure.",
+  "whatThisDoesNotEstablish": "Generalization within one procedurally generated family to hand-built variants of the same primitives is the narrowest step outside a training distribution there is. It is not cross-family transfer, not transfer to any real organ, and not evidence of general reasoning. Cross-organ transfer is a separate measurement and is not claimed here.",
+  "truthBoundary": "THIS MEASURES THREE SOLVERS AGAINST ONE INSTRUMENT AND SOME HAND-BUILT ITEMS. IT IS NOT EVIDENCE OF INTELLIGENCE, ACCELERATION, OR RECURSIVE SELF-IMPROVEMENT.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

@@ -210,6 +210,24 @@ const FAILURES = [
       'artifacts/nullstar-terminal/ga3-result.json',
       'src/nullstar-cognitive-tasks.mjs'
     ]
+  },
+  {
+    id: 'F012-PROMOTED-SOLVER-ANSWERS-A-DIFFERENT-QUESTION',
+    timestamp: '2026-09-15T13:40:00.000Z',
+    sourceSha: 'b0055c6d',
+    mission: 'NULLSTAR TERMINAL COMPLETION WAR, generalization V2',
+    gate: 'out-of-pattern generalization',
+    expected: 'the invention solver promoted by GA3 either answers a composition built from the same primitives in a new combination, or returns nothing',
+    observed: 'It answers 0 of 3 and confabulates on one. Given "Report the mean plus the midrange" it returns 8.0000, the mean, because the prompt contains the substring "report the mean" and the pattern fires on it -- the answer is 16.5000. It does not fail loudly; it silently answers a question that was not asked. The runner-up it beat, I4_COMPOSITIONAL_SEARCH, answers all three. The tournament promoted the narrower mechanism because every question the generator asks is one the promoted solver has a pattern for.',
+    failureClass: 'EPISTEMIC_INFLATION',
+    rootCause: 'Promotion was decided entirely by score on items the generator emits, and the generator emits only the four compositions the winning solver matches. An evaluation drawn wholly from inside the training distribution cannot distinguish a mechanism from a lookup table over that distribution, so the selection pressure ran toward pattern matching. The substring test made it worse: a pattern for a short phrase claims any longer sentence containing it, which turns a missing capability into a wrong answer instead of a refusal.',
+    severity: 'HIGH',
+    status: 'OPEN',
+    evidenceRefs: [
+      'artifacts/nullstar-terminal/generalization-v2.json',
+      'artifacts/nullstar-terminal/ga3-result.json',
+      'src/nullstar-cognitive-solvers.mjs'
+    ]
   }
 ];
 

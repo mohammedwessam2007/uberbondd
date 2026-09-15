@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "uberbond-nullstar-cross-organ-transfer-1.0.0",
+  "completionDebtRef": "CD005-CROSS-ORGAN-TRANSFER-NOT-MEASURED",
+  "directiveSections": [
+    "087",
+    "088",
+    "089",
+    "090",
+    "183"
+  ],
+  "generatedAt": "2026-09-15T13:12:11.177Z",
+  "sourceCommit": "8a432c904d3d7e42bc8e2c23c2ee9aa9b3cbab42",
+  "claimUnderTest": "The GA2 declaration argued that ranking sources on provenance and freshness should transfer to organs that weigh evidence whose quality signals conflict. That was an architectural argument and nothing measured it.",
+  "receivingOrgan": {
+    "module": "src/epistemic-immune-system.mjs",
+    "vocabulary": "KNOWLEDGE_STATES",
+    "states": [
+      "UNKNOWABLE_FROM_AVAILABLE_EVIDENCE",
+      "CURRENTLY_UNMEASURABLE",
+      "UNKNOWN",
+      "STALE",
+      "SIMULATED",
+      "HYPOTHETICAL",
+      "WEAK_SIGNAL",
+      "CONTESTED",
+      "SUPPORTED_INFERENCE",
+      "STRONGLY_SUPPORTED",
+      "REPLICATED",
+      "DIRECTLY_OBSERVED"
+    ],
+    "sharesNoLabelWithTheSuite": true,
+    "orderingIsTheOrgansOwn": "Strength is the position in KNOWLEDGE_STATES, so no arm can disagree with the organ about what counts as better evidence."
+  },
+  "taskConstruction": {
+    "truthPlantedBeforeSourcesAreWritten": true,
+    "sourcesShuffled": true,
+    "firstConstructionWasIllPosed": "The decoy was drawn from the same band as the truth-carrying sources and dated later, so it was as strong and fresher and no rule weighing strength against recency could recover the intended answer. Every arm scored noise and the solver under test came out ahead at 0.48 by picking whatever the shuffle put first. It was caught because the ordering of the arms made no sense, not because a check failed.",
+    "illPosedVersionNotReported": "Its numbers are not in this artifact. A measurement of an unanswerable question is not a weaker measurement, it is not one.",
+    "whyNotTautological": "The generator decides which source carries the truth and the arms see only the sources. No arm can recover the answer from the task structure, and none of them computes the ground truth.",
+    "tasks": 60
+  },
+  "results": [
+    {
+      "arm": "PROMOTED_SOLVER_UNCHANGED",
+      "correct": 26,
+      "of": 60,
+      "rate": 0.4333
+    },
+    {
+      "arm": "PRE_GA2_FLAT_LADDER",
+      "correct": 0,
+      "of": 60,
+      "rate": 0
+    },
+    {
+      "arm": "MECHANISM_ON_ORGAN_VOCABULARY",
+      "correct": 60,
+      "of": 60,
+      "rate": 1
+    }
+  ],
+  "baseline": {
+    "chance": 0.5,
+    "why": "Two of the four sources carry the truth, so an arm that cannot read the vocabulary and falls through to whatever comes first lands near 0.5 by construction. The pre-GA2 ladder is not the baseline: it scores 0 by being systematically wrong, and beating a systematically wrong rule is not evidence.",
+    "margin": 0.05,
+    "correctionMade": "The first verdict compared every arm against the ladder and concluded the implementation transferred because 0.43 beats 0. That was flattery, and the arm it flattered was the one under test."
+  },
+  "mechanismTransfers": true,
+  "codeTransfers": false,
+  "finding": "THE_MECHANISM_TRANSFERS_AND_THE_IMPLEMENTATION_DOES_NOT",
+  "reading": "What generalizes is the idea, not the code. The promoted solver carries a table of the suite's own labels, so handed an organ that names evidence differently it scores every source at zero and falls through to whatever comes first -- 0.4333, which is chance. The same rule reading the organ's own ordering scores 1. The ladder it replaced scores 0, worse than chance, because it is systematically wrong rather than merely uninformed. So \"the solver transfers\" is false, \"nothing transfers\" is false, and the true statement is narrower than either: a mechanism transfers when it is given the receiving organ's vocabulary, and an implementation carrying its own vocabulary does not travel with it.",
+  "whatThisIsNot": [
+    "Not a production change. The receiving organ is unmodified and nothing in it calls this.",
+    "Not evidence about the economic or personal organs, which were not tested.",
+    "Not evidence that the mechanism improves real decisions, only that it ranks constructed claims better than the rule it replaced.",
+    "Not general transfer. One mechanism, one receiving vocabulary, one task shape."
+  ],
+  "truthBoundary": "TRANSFER MEASURED ON CONSTRUCTED TASKS IN ONE ORGAN'S VOCABULARY IS NOT TRANSFER TO THAT ORGAN'S WORK.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

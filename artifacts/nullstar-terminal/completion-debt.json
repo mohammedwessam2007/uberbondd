@@ -6,12 +6,12 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T13:09:24.224Z",
-  "sourceCommit": "ba0e26f08ba55c589c02d42eb1cb4fb82e1b34f1",
+  "generatedAt": "2026-09-15T13:12:35.843Z",
+  "sourceCommit": "8a432c904d3d7e42bc8e2c23c2ee9aa9b3cbab42",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 1,
+  "softwareOpen": 0,
   "externalOpen": 2,
-  "totalOpen": 3,
+  "totalOpen": 2,
   "items": [
     {
       "id": "CD001-TOOL-USE-VOCABULARY-GAP",
@@ -75,7 +75,7 @@
       "class": "SOFTWARE",
       "what": "No promoted improvement has been measured against the software, economic or personal organs. The GA2 declaration argued research ranking should transfer to provider evidence; that argument is unmeasured.",
       "whyNotDone": "A transfer measurement needs a task in the receiving organ whose answer is not already computed by the code being tested, and none has been built. Claiming transfer from an architectural argument is what the truth boundaries in every artifact here forbid.",
-      "open": true,
+      "open": false,
       "evidence": "artifacts/nullstar-terminal/cross-organ-transfer.json does not exist"
     },
     {
@@ -167,8 +167,8 @@
       "narrowedBy": "Nothing. It is stated in every generation artifact rather than narrowed."
     }
   ],
-  "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "1 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "doneVerdict": "SOFTWARE_SIDE_COMPLETE",
+  "whyNotDone": null,
   "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",

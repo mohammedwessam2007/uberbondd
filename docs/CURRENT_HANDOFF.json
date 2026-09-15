@@ -96,10 +96,10 @@
       "missingIsAnUpperBound": "A section reads MISSING when the evidence gate finds nothing under its name. Several are renamed rather than unbuilt, which is what the alias mechanism is for, and an alias supplies only the name -- the state is still computed from evidence."
     },
     "nullstarOmega": {
-      "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506 / G4 / G5",
+      "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 / G4 / G5 / G6",
       "instrument": "SEPARATED at G3 after three saturated generations. spread 0 -> 1.",
       "trend": "INSTRUMENT_CHANGED. Score movement across a suite change describes the instrument, not the system.",
-      "metaImprovement": "META_IMPROVEMENT_NOT_ESTABLISHED. 5 episodes: 2 moved-elsewhere, 1 persisted, 2 resolved. The verdict reached IMPROVEMENT_PROCESS_WORKING at G4 and fell back at G5, which is the point: it is not a ratchet. A working verdict now needs resolutions to outnumber every non-resolution, not just the persistences.",
+      "metaImprovement": "META_IMPROVEMENT_NOT_ESTABLISHED. 6 episodes: 2 resolved, 2 persisted, 2 moved-elsewhere. Four are prospective.",
       "generalization": "DID_NOT_GENERALIZE. 1 of 3 families correct on first attempt.",
       "realityConnection": "REALITY_CALIBRATED. 2 closed loops, 1 voided for a defective derivation rule, 2 surprises, mean Brier 0.7975.",
       "denominator": "14 VERIFIED, 9 OPERATING, 1 REALITY_CALIBRATED",
@@ -108,7 +108,9 @@
       "refutation": "BN-EVAL-COVERAGE's provider hypothesis is REFUTED for at least one dimension. Seven remain unattempted, so this refutes the blanket claim without closing the gap.",
       "circularityGuards": "G3 and G4 each score selfDiagnosis only from episodes that had closed when they were built, using a numeric generation cutoff. Excluding by name alone would let a later generation raise an earlier one's score retroactively. The meta->G4 chain is verified stable across repeated runs.",
       "g5": "The evidence-reuse guard refused forecasting and causality. Every observation behind them was already scoring another dimension, so counting them would have raised coverage without observing anything new. Coverage held at 10 and the symptom persisted.",
-      "integrityTension": "G5 scores as a persistence BECAUSE the guard refused to inflate coverage. A process that declines to inflate its own metric scores worse here than one that inflates it. Recorded rather than adjusted away: adjusting it would make the metric unfalsifiable."
+      "integrityTension": "G5 scores as a persistence BECAUSE the guard refused to inflate coverage. A process that declines to inflate its own metric scores worse here than one that inflates it. Recorded rather than adjusted away: adjusting it would make the metric unfalsifiable.",
+      "correctedHeadlineNumber": "G6 re-recorded G5's readings against G2, the last generation on the probe suite, and the detector found that six of the ten were carried across the suite change: reasoning, mathematics, unknownUnknown, longHorizon, robustness and resourceEfficiency, all at 1.0. The mean over what the outcome instrument actually measured is 0.525313. Every mean reported from G3 onward, including the 0.810125 this session reported for G5, averaged two instruments and reported the flattering half as current.",
+      "declarationDiscipline": "The G5 declaration predicted the corrected mean within 0.005 and still scored SYMPTOM_PERSISTED, because it committed the symptom kind INSTRUMENT_SATURATED while writing a prose criterion about how the mean is computed. The committed kind decides, so a real fix scored as a persistence and was not rescored. Declarations must now quote the rule their kind is judged by, and validateDeclaration refuses a mismatch at declaration time, when correcting it is free."
     },
     "pullRequestDebt": {
       "title": "Evidence-bound UberInboxes scale profiles",
@@ -157,7 +159,10 @@
     "G5 and the evidence-reuse guard. Coverage is the easiest number in the spine to inflate: take evidence already scoring one dimension, cut it differently, give the slice a second name. The guard makes a dimension declare the observations it reads and refuses one whose evidence is already spoken for. It refused forecasting and causality, which is what the declaration committed before G5 predicted it would do.",
     "The improvement-process verdict was taken back. G4 earned IMPROVEMENT_PROCESS_WORKING on two prospective resolutions; G5's prospective episode persisted and the verdict fell to META_IMPROVEMENT_NOT_ESTABLISHED. A metric that only ratchets up is not measuring anything.",
     "412 mutations, 412 killed.",
-    "Closed a loophole in the meta verdict itself. The G4->G5 episode flipped from SYMPTOM_PERSISTED to MOVED_ELSEWHERE when a later generation recomputed one of its own dimension scores, moving the mean without measuring anything new, and the verdict climbed back to working on that bookkeeping change alone. A working verdict now requires resolutions to outnumber every non-resolution. 413 mutations, 413 killed."
+    "Closed a loophole in the meta verdict itself. The G4->G5 episode flipped from SYMPTOM_PERSISTED to MOVED_ELSEWHERE when a later generation recomputed one of its own dimension scores, moving the mean without measuring anything new, and the verdict climbed back to working on that bookkeeping change alone. A working verdict now requires resolutions to outnumber every non-resolution. 413 mutations, 413 killed.",
+    "G6 and the stale-reading detector. G3 switched to the outcome suite and carried six ceiling readings forward from the saturated instrument it replaced, so every mean from G3 on averaged two instruments. recordGeneration now detects carryover automatically from the previous generation rather than trusting a caller to declare it, excludes carried readings from the headline mean, keeps the inflated figure visible beside it, and refuses a generation whose every reading was carried. Corrected mean: 0.525313 against a reported 0.810125.",
+    "Declaration validation. The G5 declaration's prose criterion diverged from the symptom kind it committed, so a genuine fix scored as a persistence. It was not rescored. validateDeclaration now refuses a declaration whose stated rule differs from the one its kind is judged by, at declaration time rather than at scoring time.",
+    "416 mutations, 416 killed."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -192,10 +197,11 @@
       "Do not widen coverage in response to the G3 bottleneck without first checking whether the instrument is saturated. Widening a saturated instrument was the G1 response and the ceiling survived it twice.",
       "Do not rescore a voided reality loop. The answer is known, so a replacement forecast measures memory.",
       "Do not push to PR #868. It is the founder's; the analysis is recorded, the decision is theirs.",
-      "Do not edit a line a mutation anchor targets without re-running tests/mutation-registry-anchor-integrity.test.mjs immediately. Closing the MOVED_ELSEWHERE loophole rewrote the line METAIMP-02 anchors on and silently killed that guard; the integrity test caught it, but only because it was run again. Run it after the edit, not before."
+      "Do not edit a line a mutation anchor targets without re-running tests/mutation-registry-anchor-integrity.test.mjs immediately. Closing the MOVED_ELSEWHERE loophole rewrote the line METAIMP-02 anchors on and silently killed that guard; the integrity test caught it, but only because it was run again. Run it after the edit, not before.",
+      "Do not report a generation mean without checking coverage.carriedFromAnotherSuite. Six of ten readings were stale for four generations and the error ran in the flattering direction every time, because the dimensions nobody re-measures are the ones already at the ceiling."
     ]
   },
-  "truthBoundary": "G3 SEPARATED THE INSTRUMENT. IT DID NOT MAKE THE SYSTEM MORE CAPABLE, AND THE SCORES WENT DOWN BECAUSE THE MEASUREMENT GOT HONEST. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. THE CALIBRATION RESULT SAYS THIS SYSTEM'S SELF-MODEL IS WRONG MORE OFTEN THAN IT EXPECTS TO BE.",
+  "truthBoundary": "THE HONEST MEAN OVER WHAT THE OUTCOME INSTRUMENT ACTUALLY MEASURED IS 0.525313, NOT THE 0.810125 THIS SESSION REPORTED BEFORE G6. SIX OF TEN READINGS WERE CARRIED FROM THE SATURATED INSTRUMENT THAT WAS REPLACED. THE INSTRUMENT DID SEPARATE AT G3 AND THAT PART HOLDS. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. THE CALIBRATION RESULT SAYS THIS SYSTEM'S SELF-MODEL IS WRONG MORE OFTEN THAN IT EXPECTS TO BE, AND THIS FINDING IS AN INSTANCE OF THAT.",
   "orchestrationCheckpoint": {
     "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
     "importedAt": "2026-09-12",

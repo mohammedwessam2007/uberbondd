@@ -128,7 +128,8 @@
     "omega:generalization": "node scripts/nullstar-omega-generalization.mjs",
     "omega:g3": "node scripts/nullstar-omega-g3.mjs",
     "omega:g4": "node scripts/nullstar-omega-g4.mjs",
-    "omega:g5": "node scripts/nullstar-omega-g5.mjs"
+    "omega:g5": "node scripts/nullstar-omega-g5.mjs",
+    "omega:g6": "node scripts/nullstar-omega-g6.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

@@ -4,7 +4,9 @@ import {
   SYMPTOM_KINDS,
   EPISODE_EVIDENCE_CLASSES,
   evaluateSelectionEpisode,
-  metaImprovementVerdict
+  metaImprovementVerdict,
+  resolutionRuleFor,
+  validateDeclaration
 } from '../src/nullstar-omega-meta-improvement.mjs';
 
 const episode = (overrides = {}) => evaluateSelectionEpisode({
@@ -163,4 +165,39 @@ test('resolutions must outnumber every non-resolution, not just persistences', (
   assert.equal(three.status, 'IMPROVEMENT_PROCESS_WORKING');
   assert.equal(three.resolved, 3);
   assert.equal(three.unresolved, 1);
+});
+
+test('a declaration quoting the rule its kind is judged by is valid', () => {
+  const result = validateDeclaration({
+    symptomKind: SYMPTOM_KINDS.COVERAGE_INSUFFICIENT,
+    statedResolutionRule: resolutionRuleFor(SYMPTOM_KINDS.COVERAGE_INSUFFICIENT)
+  });
+  assert.equal(result.ok, true);
+  assert.match(result.ruleThatWillBeApplied, /count of measured dimensions rises/);
+});
+
+test('a declaration whose criterion says something else is refused at declaration time', () => {
+  // The live case: a criterion about how the mean is computed, committed under
+  // a kind whose rule asks whether the scores separated.
+  const result = validateDeclaration({
+    symptomKind: SYMPTOM_KINDS.INSTRUMENT_SATURATED,
+    statedResolutionRule: 'Resolved only if the reported mean is computed from dimensions actually measured under the recording suite.'
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 'DECLARATION_CRITERION_DOES_NOT_MATCH_THE_COMMITTED_SYMPTOM_KIND');
+  assert.match(result.ruleThatWillBeApplied, /spread between the measured scores/);
+});
+
+test('an unknown symptom kind has no rule and cannot be declared', () => {
+  assert.equal(resolutionRuleFor('FEELS_STUCK'), null);
+  const result = validateDeclaration({ symptomKind: 'FEELS_STUCK', statedResolutionRule: 'anything' });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('known-symptom-kind-required'));
+});
+
+test('every symptom kind has a rule a declaration can quote', () => {
+  for (const kind of Object.values(SYMPTOM_KINDS)) {
+    assert.ok(resolutionRuleFor(kind), `${kind} must have a rule`);
+    assert.equal(validateDeclaration({ symptomKind: kind, statedResolutionRule: resolutionRuleFor(kind) }).ok, true);
+  }
 });

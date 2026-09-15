@@ -53,6 +53,14 @@ const EPISODES = [
     evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
     bottleneckFrom: 'g4-declaration',
     note: 'BN-EVAL-COVERAGE again. Declared in G4-prospective-declaration.json before any G5 code existed. G5 attempted forecasting and causality and the evidence-reuse guard refused both: every observation behind them was already scoring another dimension. Coverage held at 10, so the symptom persisted. The process was right to refuse and the symptom is still there; both are true.'
+  },
+  {
+    generation: 'G5',
+    successorGeneration: 'G6',
+    symptomKind: SYMPTOM_KINDS.INSTRUMENT_SATURATED,
+    evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
+    bottleneckFrom: 'g5-declaration',
+    note: 'BN-STALE-READINGS-CARRIED-ACROSS-A-SUITE-CHANGE. Declared before any G6 code existed, and the prediction landed within 0.005. But the declaration named the symptom kind INSTRUMENT_SATURATED while writing a prose criterion about how the mean is computed, and the machine rule for that kind asks whether the measured scores separated. The two do not agree, and the machine rule is what was committed, so it decides. The mismatch is the finding.'
   }
 ];
 
@@ -69,7 +77,12 @@ const episodes = EPISODES.map(spec => {
           const decl = read('artifacts/nullstar-omega/G4-prospective-declaration.json');
           return { id: decl.bottleneckId, symptom: decl.bottleneckSymptom };
         })()
-      : bottlenecks(spec.generation).selected;
+      : spec.bottleneckFrom === 'g5-declaration'
+        ? (() => {
+            const decl = read('artifacts/nullstar-omega/G5-prospective-declaration.json');
+            return { id: decl.bottleneckId, symptom: decl.symptom };
+          })()
+        : bottlenecks(spec.generation).selected;
   const evaluated = evaluateSelectionEpisode({
     generation: spec.generation,
     successorGeneration: spec.successorGeneration,

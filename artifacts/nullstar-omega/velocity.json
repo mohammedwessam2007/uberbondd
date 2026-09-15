@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-nullstar-omega-velocity-1.0.0",
-  "generatedAt": "2026-09-15T00:29:49.106Z",
+  "generatedAt": "2026-09-15T01:16:34.015Z",
   "generations": [
     {
       "id": "G0",
@@ -37,6 +37,12 @@
       "commit": "65b5c41196fa19fb71eca40535999264511bc9cb",
       "measured": 10,
       "mean": 0.810125
+    },
+    {
+      "id": "G6",
+      "commit": "28bc66330b2a2f556c3be629bfd8de643a81f428",
+      "measured": 10,
+      "mean": 0.525313
     }
   ],
   "pairwise": [
@@ -79,12 +85,20 @@
       "incomparable": 7,
       "netDelta": 0.1667,
       "regressed": []
+    },
+    {
+      "from": "G5",
+      "to": "G6",
+      "comparable": 10,
+      "incomparable": 7,
+      "netDelta": 0,
+      "regressed": []
     }
   ],
   "trend": {
     "ok": true,
     "trend": "INSTRUMENT_CHANGED",
-    "generations": 6,
+    "generations": 7,
     "suiteChanges": [
       {
         "from": "G0",

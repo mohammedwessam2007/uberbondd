@@ -67,6 +67,8 @@ export function recordGeneration({
   cost = {},
   environment = {},
   failures = [],
+  previousGeneration = null,
+  carriedForward = [],
   generatedAt = new Date().toISOString()
 } = {}) {
   const id = text(generationId, 40);
@@ -102,7 +104,43 @@ export function recordGeneration({
   if (reasons.length) return refuse(reasons);
 
   const measuredCount = CAPABILITY_DIMENSIONS.length - unmeasured.length;
-  const scores = CAPABILITY_DIMENSIONS.map(d => measured[d]).filter(v => v !== null);
+
+  // A value taken on one suite and reported under another is stale, and it is
+  // stale in the flattering direction: the dimensions nobody re-measures are
+  // the ones that were already at the ceiling.
+  //
+  // compareGenerations refuses to subtract across a suite change. Without this,
+  // a single vector could carry both instruments at once and average them
+  // together, which is the same error hidden one level down. Detection is
+  // automatic rather than declared, because a caller who forgets to declare it
+  // is exactly the case that produced the defect.
+  //
+  // A dimension genuinely re-measured to an identical value is flagged too.
+  // That understates the mean rather than inflating it, which is the direction
+  // to be wrong in.
+  const carriedSet = new Set(
+    (Array.isArray(carriedForward) ? carriedForward : []).filter(d => CAPABILITY_DIMENSIONS.includes(d))
+  );
+  const previousSuite = text(previousGeneration?.suiteVersion, 120);
+  if (previousGeneration?.ok && previousSuite && previousSuite !== suite) {
+    for (const dimension of CAPABILITY_DIMENSIONS) {
+      const now = measured[dimension];
+      const before = previousGeneration.vector?.[dimension];
+      if (now !== null && Number.isFinite(before) && now === before) carriedSet.add(dimension);
+    }
+  }
+
+  const freshDimensions = CAPABILITY_DIMENSIONS.filter(d => measured[d] !== null && !carriedSet.has(d));
+  const carriedDimensions = CAPABILITY_DIMENSIONS.filter(d => measured[d] !== null && carriedSet.has(d));
+
+  // A generation whose every reading came from a different instrument measured
+  // nothing of its own.
+  if (measuredCount > 0 && freshDimensions.length === 0) {
+    return refuse(['every-measured-dimension-was-carried-from-a-different-suite']);
+  }
+
+  const scores = freshDimensions.map(d => measured[d]);
+  const allScores = CAPABILITY_DIMENSIONS.map(d => measured[d]).filter(v => v !== null);
 
   return {
     ok: true,
@@ -116,8 +154,21 @@ export function recordGeneration({
     vector: measured,
     // Reported so a later generation cannot be compared against this one
     // without noticing they measured different things.
-    coverage: { measured: measuredCount, unmeasured: unmeasured.length, unmeasuredDimensions: unmeasured },
+    coverage: {
+      measured: measuredCount,
+      unmeasured: unmeasured.length,
+      unmeasuredDimensions: unmeasured,
+      measuredUnderThisSuite: freshDimensions.length,
+      carriedFromAnotherSuite: carriedDimensions.length,
+      carriedDimensions
+    },
+    // The headline mean covers only what this suite actually measured. The
+    // mean over everything is kept beside it so the gap between them is
+    // visible rather than a choice one reader made.
     meanMeasuredScore: scores.length ? Number((scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(6)) : null,
+    meanIncludingCarriedReadings: allScores.length
+      ? Number((allScores.reduce((a, b) => a + b, 0) / allScores.length).toFixed(6))
+      : null,
     baselines: Object.fromEntries(BASELINE_IDS.map(b => [b, baselines?.[b] ?? null])),
     declaredBaselines: BASELINE_IDS.filter(b => baselines?.[b]),
     cost: {

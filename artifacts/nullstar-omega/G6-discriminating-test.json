@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-discriminating-test-1.1.0",
+  "diagnosis": "BN-STALE-READINGS-CARRIED-ACROSS-A-SUITE-CHANGE",
+  "symptom": "Six of the ten dimensions G5 reports as measured are 1.0 readings taken on omega-capability-probe-suite-1.0.0, the saturated instrument: reasoning, mathematics, unknownUnknown, longHorizon, robustness and resourceEfficiency. G3 changed the suite version to omega-outcome-measured-suite-1.0.0 and carried those values forward unchanged. The instrument comparison already refuses to subtract a score taken on one suite from a score taken on another, and then the generation record quietly does exactly that inside a single vector.",
+  "declaredCriterion": "Resolved only if the reported mean is computed from dimensions actually measured under the recording suite, and carried-forward readings are excluded from it rather than counted. Not resolved by relabelling, by adding a note, or by the mean happening to move.",
+  "predictionUnderTest": {
+    "claim": "The honest mean over only the dimensions measured under the outcome suite will be materially lower than 0.810125.",
+    "estimate": "The four genuinely measured dimensions are software 0.6667, crossDomain 0.3333, selfDiagnosis 0.5 and calibration 0.60125, so the honest mean should land near 0.53.",
+    "confidence": "High on the arithmetic, which is checkable. What I do not know is whether recordGeneration can be made to refuse a carried-forward reading without invalidating the G0 through G5 records already written."
+  },
+  "carriedDimensions": [
+    "reasoning",
+    "mathematics",
+    "unknownUnknown",
+    "longHorizon",
+    "robustness",
+    "resourceEfficiency"
+  ],
+  "measuredUnderThisSuite": 4,
+  "meanOverFreshReadingsOnly": 0.525313,
+  "meanIncludingCarriedReadings": 0.810125,
+  "previouslyReportedMean": 0.810125,
+  "predictionHeld": true,
+  "predictionAccuracy": 0.0047,
+  "criterionMet": true,
+  "finding": "Six of ten readings came from the suite that was replaced for being saturated. The mean over what this instrument actually measured is 0.525313, not 0.810125.",
+  "whatThisDoesNotChange": "The four genuinely measured dimensions are unchanged, and the instrument really did separate at G3. What changes is the headline number, which was averaging two instruments and reporting the flattering half as if it were current.",
+  "businessEffectAuthority": "NONE"
+}

@@ -31,6 +31,68 @@ export const EPISODE_EVIDENCE_CLASSES = Object.freeze({
   RETROSPECTIVE_RECONSTRUCTION: 'RETROSPECTIVE_RECONSTRUCTION'
 });
 
+// The rule each symptom kind is actually judged by.
+//
+// A declaration that states its criterion in prose can drift from the kind it
+// commits to, and the kind is what decides. That happened: the stale-readings
+// declaration wrote a criterion about how the mean is computed and committed
+// the kind INSTRUMENT_SATURATED, whose rule asks whether the scores separated.
+// The two did not agree, the committed kind won, and a real fix scored as a
+// persistence. Quoting the rule at declaration time is what stops the drift.
+export const RESOLUTION_RULES = Object.freeze({
+  INSTRUMENT_SATURATED: 'Resolved only if the spread between the measured scores is wider than before. Coverage growth does not resolve it.',
+  COVERAGE_INSUFFICIENT: 'Resolved only if the count of measured dimensions rises. Score movement does not resolve it.',
+  NO_MOVEMENT: 'Resolved only if the mean of the measured scores changes in either direction.'
+});
+
+/**
+ * The rule a symptom kind will be judged by, so a declaration can quote it
+ * rather than paraphrase it.
+ */
+export function resolutionRuleFor(symptomKind) {
+  return RESOLUTION_RULES[String(symptomKind ?? '')] ?? null;
+}
+
+/**
+ * Check a declaration before its successor is built.
+ *
+ * The point is to fail at declaration time, when the answer is still unknown
+ * and correcting the kind costs nothing, rather than at scoring time when
+ * correcting it would be retrofitting.
+ */
+export function validateDeclaration({ symptomKind = null, statedResolutionRule = null } = {}) {
+  const rule = resolutionRuleFor(symptomKind);
+  if (!rule) {
+    return {
+      ok: false,
+      status: 'DECLARATION_INVALID',
+      reasonCodes: ['known-symptom-kind-required'],
+      knownKinds: Object.keys(RESOLUTION_RULES),
+      businessEffectAuthority: 'NONE'
+    };
+  }
+  const stated = String(statedResolutionRule ?? '').trim();
+  if (stated !== rule) {
+    return {
+      ok: false,
+      status: 'DECLARATION_CRITERION_DOES_NOT_MATCH_THE_COMMITTED_SYMPTOM_KIND',
+      reasonCodes: ['stated-rule-must-match-the-rule-the-symptom-kind-is-judged-by'],
+      symptomKind,
+      statedResolutionRule: stated || null,
+      ruleThatWillBeApplied: rule,
+      note: 'The symptom kind decides the score. A criterion that says something else will not be the one applied.',
+      businessEffectAuthority: 'NONE'
+    };
+  }
+  return {
+    ok: true,
+    status: 'DECLARATION_VALID',
+    symptomKind,
+    ruleThatWillBeApplied: rule,
+    businessEffectAuthority: 'NONE'
+  };
+}
+
 const fail = (status, reasonCodes, extra = {}) => ({
   ok: false,
   status,

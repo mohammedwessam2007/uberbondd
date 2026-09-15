@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-bottleneck.v1",
+  "status": "NULLSTAR_OMEGA_BOTTLENECKS_RANKED",
+  "sourceCommit": "28bc66330b2a2f556c3be629bfd8de643a81f428",
+  "generatedAt": "2026-09-15T01:16:33.861Z",
+  "counts": {
+    "bottlenecks": 1,
+    "strongEvidence": 1,
+    "weakEvidence": 0
+  },
+  "ranked": [
+    {
+      "ok": true,
+      "id": "BN-EVAL-COVERAGE",
+      "dimension": "evaluation",
+      "symptom": "7 of 17 capability dimensions are unmeasured at G6: science, research, forecasting, causality, planning, toolUse...",
+      "evidenceClass": "DENOMINATOR_GAP",
+      "evidenceRef": "artifacts/nullstar-omega/generations/G6.json",
+      "rootCauseHypotheses": [
+        "Those dimensions need a configured model provider, which this environment does not have.",
+        "Those dimensions could be measured from local deterministic evidence but no task was written for them."
+      ],
+      "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it can be scored without a provider, the gap was authorship; if not, it is an external capability gate.",
+      "estimatedCost": 2,
+      "weakEvidence": false,
+      "downstreamUnlocks": 17,
+      "leverage": 9
+    }
+  ],
+  "selected": {
+    "ok": true,
+    "id": "BN-EVAL-COVERAGE",
+    "dimension": "evaluation",
+    "symptom": "7 of 17 capability dimensions are unmeasured at G6: science, research, forecasting, causality, planning, toolUse...",
+    "evidenceClass": "DENOMINATOR_GAP",
+    "evidenceRef": "artifacts/nullstar-omega/generations/G6.json",
+    "rootCauseHypotheses": [
+      "Those dimensions need a configured model provider, which this environment does not have.",
+      "Those dimensions could be measured from local deterministic evidence but no task was written for them."
+    ],
+    "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it can be scored without a provider, the gap was authorship; if not, it is an external capability gate.",
+    "estimatedCost": 2,
+    "weakEvidence": false,
+    "downstreamUnlocks": 17,
+    "leverage": 9
+  },
+  "selectionLaw": "The top strong-evidence finding by downstream unlocks per unit cost. A weak-evidence finding is a lead and may never be selected first.",
+  "truthBoundary": "A_RANKING_IS_A_PRIORITISATION_OF_DIAGNOSES_AND_NOT_A_PROOF_OF_CAUSE. EVERY_ENTRY_CARRIES_COMPETING_HYPOTHESES_AND_A_DISCRIMINATING_TEST_BECAUSE_THE_CAUSE_IS_NOT_YET_ESTABLISHED.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  },
+  "diagnosedGeneration": "G6"
+}

@@ -2,7 +2,7 @@
   "schemaVersion": "uberbond-nullstar-omega-meta-improvement-1.0.0",
   "module": "uberbond.nullstar-omega-meta-improvement.v1",
   "directiveSection": "310",
-  "generatedAt": "2026-09-15T00:50:36.905Z",
+  "generatedAt": "2026-09-15T01:10:22.364Z",
   "episodes": [
     {
       "ok": true,
@@ -98,19 +98,38 @@
       "businessEffectAuthority": "NONE",
       "selectedSymptom": "Seven capability dimensions remain unmeasured after G4 scored software: science, research, forecasting, causality, planning, toolUse, invention.",
       "note": "BN-EVAL-COVERAGE again. Declared in G4-prospective-declaration.json before any G5 code existed. G5 attempted forecasting and causality and the evidence-reuse guard refused both: every observation behind them was already scoring another dimension. Coverage held at 10, so the symptom persisted. The process was right to refuse and the symptom is still there; both are true."
+    },
+    {
+      "ok": true,
+      "status": "SYMPTOM_PERSISTED",
+      "generation": "G5",
+      "successorGeneration": "G6",
+      "bottleneckId": "BN-STALE-READINGS-CARRIED-ACROSS-A-SUITE-CHANGE",
+      "symptomKind": "INSTRUMENT_SATURATED",
+      "evidenceClass": "PROSPECTIVE",
+      "beforeCoverage": 10,
+      "afterCoverage": 10,
+      "beforeSpread": 0.6667000000000001,
+      "afterSpread": 0.6667000000000001,
+      "beforeMean": 0.810125,
+      "afterMean": 0.810125,
+      "why": "Scores are still flat at spread 0.6667000000000001. Coverage moved from 10 to 10 dimensions, which is not the same as the instrument separating.",
+      "businessEffectAuthority": "NONE",
+      "selectedSymptom": "Six of the ten dimensions G5 reports as measured are 1.0 readings taken on omega-capability-probe-suite-1.0.0, the saturated instrument: reasoning, mathematics, unknownUnknown, longHorizon, robustness and resourceEfficiency. G3 changed the suite version to omega-outcome-measured-suite-1.0.0 and carried those values forward unchanged. The instrument comparison already refuses to subtract a score taken on one suite from a score taken on another, and then the generation record quietly does exactly that inside a single vector.",
+      "note": "BN-STALE-READINGS-CARRIED-ACROSS-A-SUITE-CHANGE. Declared before any G6 code existed, and the prediction landed within 0.005. But the declaration named the symptom kind INSTRUMENT_SATURATED while writing a prose criterion about how the mean is computed, and the machine rule for that kind asks whether the measured scores separated. The two do not agree, and the machine rule is what was committed, so it decides. The mismatch is the finding."
     }
   ],
-  "episodesAvailableBeforeG3": 4,
+  "episodesAvailableBeforeG3": 5,
   "verdict": {
     "ok": true,
     "status": "META_IMPROVEMENT_NOT_ESTABLISHED",
-    "episodes": 5,
+    "episodes": 6,
     "resolved": 2,
-    "persisted": 1,
+    "persisted": 2,
     "movedElsewhere": 2,
     "untested": 0,
-    "prospectiveEpisodes": 3,
-    "unresolved": 3,
+    "prospectiveEpisodes": 4,
+    "unresolved": 4,
     "reason": "a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-non-resolutions",
     "truthBoundary": "A PROCESS THAT RESOLVES ITS OWN NAMED SYMPTOMS IS WORKING ON ITS OWN TERMS. THAT IS NOT THE SAME AS THE SYSTEM GETTING MORE CAPABLE.",
     "businessEffectAuthority": "NONE"

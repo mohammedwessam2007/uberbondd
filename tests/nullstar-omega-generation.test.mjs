@@ -169,3 +169,87 @@ test('a trend across a suite change describes the instrument, not the system', (
   assert.equal(trend.suiteChanges[0].to, 'G3');
   assert.equal(trend.accelerationClaim, 'NOT_ESTABLISHED_BY_SCORE_SERIES_ALONE');
 });
+
+test('a reading carried across a suite change is excluded from the headline mean', () => {
+  const previous = suiteGen('G2', { reasoning: 1, robustness: 1, calibration: 1 }, 'probe-suite-1.0.0');
+  const current = recordGeneration({
+    generationId: 'G3',
+    sourceCommit: 'a'.repeat(40),
+    suiteVersion: 'outcome-suite-1.0.0',
+    corpusDigest: 'sha256:x',
+    // reasoning and robustness are unchanged from the old suite; calibration
+    // was actually re-measured.
+    vector: { reasoning: 1, robustness: 1, calibration: 0.4 },
+    previousGeneration: previous,
+    baselines: {},
+    cost: {},
+    environment: {},
+    failures: []
+  });
+
+  assert.equal(current.ok, true);
+  assert.deepEqual(current.coverage.carriedDimensions.sort(), ['reasoning', 'robustness']);
+  assert.equal(current.coverage.measuredUnderThisSuite, 1);
+  // The headline mean is the one dimension this suite actually measured.
+  assert.equal(current.meanMeasuredScore, 0.4);
+  // The inflated figure stays visible beside it rather than being the default.
+  assert.equal(current.meanIncludingCarriedReadings, 0.8);
+});
+
+test('carryover is only detected across a suite change, not within one', () => {
+  const previous = suiteGen('G1', { reasoning: 1, calibration: 1 }, 'same-suite');
+  const current = recordGeneration({
+    generationId: 'G2',
+    sourceCommit: 'a'.repeat(40),
+    suiteVersion: 'same-suite',
+    corpusDigest: 'sha256:x',
+    vector: { reasoning: 1, calibration: 0.4 },
+    previousGeneration: previous,
+    baselines: {}, cost: {}, environment: {}, failures: []
+  });
+  assert.equal(current.coverage.carriedFromAnotherSuite, 0);
+  assert.equal(current.meanMeasuredScore, 0.7);
+});
+
+test('a generation whose every reading was carried measured nothing of its own', () => {
+  const previous = suiteGen('G2', { reasoning: 1, robustness: 1 }, 'probe-suite');
+  const current = recordGeneration({
+    generationId: 'G3',
+    sourceCommit: 'a'.repeat(40),
+    suiteVersion: 'outcome-suite',
+    corpusDigest: 'sha256:x',
+    vector: { reasoning: 1, robustness: 1 },
+    previousGeneration: previous,
+    baselines: {}, cost: {}, environment: {}, failures: []
+  });
+  assert.equal(current.ok, false);
+  assert.ok(current.reasonCodes.includes('every-measured-dimension-was-carried-from-a-different-suite'));
+});
+
+test('an explicitly declared carryover is honoured even without a previous generation', () => {
+  const current = recordGeneration({
+    generationId: 'G3',
+    sourceCommit: 'a'.repeat(40),
+    suiteVersion: 'outcome-suite',
+    corpusDigest: 'sha256:x',
+    vector: { reasoning: 1, calibration: 0.4 },
+    carriedForward: ['reasoning'],
+    baselines: {}, cost: {}, environment: {}, failures: []
+  });
+  assert.equal(current.meanMeasuredScore, 0.4);
+  assert.deepEqual(current.coverage.carriedDimensions, ['reasoning']);
+});
+
+test('without a previous generation nothing is silently assumed fresh or stale', () => {
+  const current = recordGeneration({
+    generationId: 'G3',
+    sourceCommit: 'a'.repeat(40),
+    suiteVersion: 'outcome-suite',
+    corpusDigest: 'sha256:x',
+    vector: { reasoning: 1, calibration: 0.4 },
+    baselines: {}, cost: {}, environment: {}, failures: []
+  });
+  assert.equal(current.coverage.carriedFromAnotherSuite, 0);
+  assert.equal(current.meanMeasuredScore, 0.7);
+  assert.equal(current.meanIncludingCarriedReadings, 0.7);
+});

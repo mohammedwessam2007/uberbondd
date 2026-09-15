@@ -3060,6 +3060,27 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'METAIMP-04', guard: 'A declaration whose criterion differs from its symptom kind is refused',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '  if (stated !== rule) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'GENSTALE-01', guard: 'A reading carried across a suite change is excluded from the headline mean',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '      if (now !== null && Number.isFinite(before) && now === before) carriedSet.add(dimension);',
+    replace: '',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
+    id: 'GENSTALE-02', guard: 'A generation whose every reading was carried measured nothing of its own',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '  if (measuredCount > 0 && freshDimensions.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
     id: 'METAIMP-03', guard: 'Movement in an unnamed dimension does not rescue an unresolved symptom',
     file: 'src/nullstar-omega-meta-improvement.mjs',
     find: '  const unresolved = persisted.length + elsewhere.length;',

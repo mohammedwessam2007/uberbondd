@@ -6,8 +6,8 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T13:12:35.843Z",
-  "sourceCommit": "8a432c904d3d7e42bc8e2c23c2ee9aa9b3cbab42",
+  "generatedAt": "2026-09-15T13:36:01.757Z",
+  "sourceCommit": "9f669c3900559f489b8a6664d0d1568b9abe74ce",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
   "softwareOpen": 0,
   "externalOpen": 2,

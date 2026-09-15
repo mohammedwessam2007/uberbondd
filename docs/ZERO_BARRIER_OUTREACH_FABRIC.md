@@ -1,7 +1,6 @@
 # UberBond Zero-Barrier Outreach Fabric
 
 Date: 2026-09-16
-Source basis: exact `main` `fbe7316fae8e250ac2547499290b0b5add6a45f5` plus founder-directed zero-barrier outreach mission.
 
 ## Purpose
 
@@ -47,15 +46,19 @@ Compiles only resources for which eligibility and allowed use are verified. Fake
 
 Makes each infrastructure substitution state its scarce resource, maturity, remaining external dependencies, hard physical bounds and falsifier. Mechanisms requiring policy evasion, false evidence or unauthorized resources are invalid.
 
+### Canonical 100K evidence hardening
+
+`src/outreach-100k-launch-contract.mjs`
+
+The launch certificate rejects duplicate domain, mailbox, egress-route and recipient-provider evidence, rejects unknown numeric usage instead of coercing it to zero, requires dry-run to be explicitly disabled, requires global outbound to be explicitly resumed, and requires a future campaign-authorization expiry. These are truth hardenings, not new send authority.
+
 ### Zero-barrier composition
 
 `src/outreach-zero-barrier-fabric.mjs`
 
-Composes the above systems around the canonical SMTP launch certificate. It adds pre-certificate duplicate-evidence and unknown-usage hardening. It also keeps alternative economic reach explicitly separate from the SMTP 100K certificate.
+Composes the above systems around the canonical SMTP launch certificate. It keeps alternative economic reach explicitly separate from the SMTP 100K certificate.
 
 ## Preserved donor ideas
-
-The founder-supplied donor set remains preserved conceptually:
 
 1. owned-device P2P edge swarm
 2. permissioned DePIN / sovereign gateways
@@ -94,7 +97,7 @@ The existing SMTP path remains bounded by:
 
 `MIN(eligible inventory, sender+egress capacity, recipient-provider capacity, campaign authority, remaining dispatch-window capacity)`
 
-UberSwarm can reduce compute cost. UberMail Exchange can aggregate legitimate delegated transport. UberGrant can reduce infrastructure cost. UberReach/UberAttention can reduce dependence on SMTP for a separate economic-reach objective. None may counterfeit the missing term in the SMTP equation.
+UberSwarm can reduce compute cost. UberMail Exchange can aggregate legitimate delegated transport. UberGrant can reduce infrastructure cost. UberReach/UberAttention can reduce dependence on SMTP for a separate economic-reach objective. None may counterfeit a missing term in the SMTP equation.
 
 ## Safety and sovereignty law
 

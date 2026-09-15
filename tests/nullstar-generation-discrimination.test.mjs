@@ -9,7 +9,9 @@
 // leaving it to whoever reads the file.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { generateTaskSet } from '../src/nullstar-cognitive-tasks.mjs';
 import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solvers.mjs';
@@ -119,13 +121,33 @@ test('the promoted research solver still beats what it replaced', () => {
   assert.equal(scoreTaskSet(set.items, { ...UBERBOND_SOLVERS, RESEARCH: incumbent }).mean, 0);
 });
 
-test('both ablation scripts run clean and touch nothing external', () => {
-  for (const script of ['scripts/nullstar-ga1-ablation.mjs', 'scripts/nullstar-ga2-ablation.mjs']) {
-    const out = execFileSync(process.execPath, [script], {
-      cwd: new URL('..', import.meta.url).pathname,
-      encoding: 'utf8'
-    });
-    assert.match(out, /finding:/);
+test('every ablation script runs clean, writes where it is told, and touches nothing external', () => {
+  // Output is redirected to a temp file. Pointing these at their real artifacts
+  // would rewrite a tracked file on every test run, and a dirty tree fails the
+  // native worker suite, which refuses to run on uncommitted source.
+  const repo = new URL('..', import.meta.url).pathname;
+  const tmp = mkdtempSync(join(tmpdir(), 'nullstar-ablation-'));
+  try {
+    for (const script of [
+      'scripts/nullstar-ga1-ablation.mjs',
+      'scripts/nullstar-ga2-ablation.mjs',
+      'scripts/nullstar-ga3-ablation.mjs'
+    ]) {
+      const target = join(tmp, `${script.replace(/\W/g, '-')}.json`);
+      const out = execFileSync(process.execPath, [script], {
+        cwd: repo,
+        encoding: 'utf8',
+        env: { ...process.env, NULLSTAR_ABLATION_OUT: target }
+      });
+      assert.match(out, /finding:/);
+
+      const written = JSON.parse(readFileSync(target, 'utf8'));
+      assert.equal(written.businessEffectAuthority, 'NONE');
+      assert.equal(written.externalEffects.providerCalls, 0);
+      assert.equal(written.externalEffects.networkCalls, 0);
+    }
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
   }
 });
 

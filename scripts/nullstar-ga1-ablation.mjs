@@ -20,7 +20,11 @@ import { generateTaskSet } from '../src/nullstar-cognitive-tasks.mjs';
 import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solvers.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = 'artifacts/nullstar-terminal/ga1-ablation.json';
+// Redirectable so the test suite can execute this script without rewriting a
+// tracked artifact. It used to write in place, which dirtied the tree on every
+// test run and tripped a different suite entirely: the native worker refuses to
+// run on uncommitted source, so a test of this script failed a test of that one.
+const OUT = process.env.NULLSTAR_ABLATION_OUT || 'artifacts/nullstar-terminal/ga1-ablation.json';
 const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 
 /** The minimal fix: first difference, else second difference, else give up. */
@@ -90,8 +94,11 @@ const artifact = {
   externalEffects: { providerCalls: 0, spendCents: 0, networkCalls: 0, messagesSent: 0 }
 };
 
-mkdirSync(join(root, 'artifacts/nullstar-terminal'), { recursive: true });
-writeFileSync(join(root, OUT), `${JSON.stringify(artifact, null, 2)}\n`);
+// resolve, not join: OUT may be an absolute path when the suite redirects it,
+// and join would graft that onto the repo root.
+const outPath = resolve(root, OUT);
+mkdirSync(dirname(outPath), { recursive: true });
+writeFileSync(outPath, `${JSON.stringify(artifact, null, 2)}\n`);
 
 console.log(`GA1 ablation @ ${head.slice(0, 8)} | family FORECASTING`);
 for (const row of rows) {

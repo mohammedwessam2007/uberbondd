@@ -6,11 +6,7 @@ import { createStore } from './src/store.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { getUberSocketRuntime } from './src/uber-socket-runtime.mjs';
-
-// Harden the externally reachable request handler while preserving the mature
-// server implementation byte-for-byte in server-core.mjs. The donor keeps its
-// store, queue, scheduler, startup and shutdown semantics; this facade changes
-// only privileged credential transport and tightly bounded admin orchestration.
+import { restoreUberSocketState, persistUberSocketState } from './src/uber-socket-durable-state.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -19,6 +15,8 @@ const coreUrl = new URL('./server-core.mjs', import.meta.url);
 const corePath = fileURLToPath(coreUrl);
 const wrapperIsEntryPoint = originalArgv1 === wrapperPath;
 let createdHardenedHandler = null;
+let uberSocketRestorePromise = null;
+let uberSocketRestoreReceipt = null;
 
 const publicCapabilityPath = pathname => pathname === '/unsubscribe'
   || pathname === '/api/public/unsubscribe'
@@ -51,9 +49,7 @@ function captureResponse() {
         if (chunk !== undefined && chunk !== null) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)));
       }
     },
-    snapshot() {
-      return { statusCode, headers: { ...headers }, body: Buffer.concat(chunks).toString('utf8') };
-    }
+    snapshot() { return { statusCode, headers: { ...headers }, body: Buffer.concat(chunks).toString('utf8') }; }
   };
 }
 
@@ -87,12 +83,33 @@ async function requireAdmin(coreHandler, req, res) {
   return auth;
 }
 
+async function withUberSocketStore(fn) {
+  const store = createStore(config);
+  try {
+    await store.init();
+    return await fn(store);
+  } finally {
+    await store.close().catch(() => {});
+  }
+}
+
+async function ensureUberSocketRestored(runtime) {
+  if (!uberSocketRestorePromise) {
+    uberSocketRestorePromise = withUberSocketStore(store => restoreUberSocketState({ runtime, store }))
+      .then(receipt => (uberSocketRestoreReceipt = receipt))
+      .catch(error => { uberSocketRestorePromise = null; throw error; });
+  }
+  return uberSocketRestorePromise;
+}
+
+async function persistUberSocket(runtime) {
+  return withUberSocketStore(store => persistUberSocketState({ runtime, store }));
+}
+
 async function compile100kStatus(coreHandler, req) {
   const auth = await adminSummary(coreHandler, req);
   if (!auth.ok) return { auth };
-  const prepared = await prepareOutreach100kRuntime({
-    liveSummary: { ...auth.payload, schedulerActive: config.autopilot === true }
-  });
+  const prepared = await prepareOutreach100kRuntime({ liveSummary: { ...auth.payload, schedulerActive: config.autopilot === true } });
   return { auth, prepared };
 }
 
@@ -104,59 +121,24 @@ async function brokerOutreach100kStatus(coreHandler, req, res) {
 
 async function brokerOutreach100kStart(coreHandler, req, res) {
   let body;
-  try { body = await readSmallJsonBody(req); }
-  catch (error) { return sendJson(res, 400, { error: error.message }); }
-  if (Number(body.confirmExactTarget) !== 100000) {
-    return sendJson(res, 400, { error: 'confirmExactTarget must equal 100000' });
-  }
+  try { body = await readSmallJsonBody(req); } catch (error) { return sendJson(res, 400, { error: error.message }); }
+  if (Number(body.confirmExactTarget) !== 100000) return sendJson(res, 400, { error: 'confirmExactTarget must equal 100000' });
   const result = await compile100kStatus(coreHandler, req);
   if (!result.auth.ok) return sendJson(res, result.auth.statusCode || 401, result.auth.payload || { error: 'Unauthorized' });
   const prepared = result.prepared;
-  if (!prepared?.ok || prepared?.certificate?.state !== 'CERTIFIED_100K_READY' || prepared?.pressable !== true) {
-    return sendJson(res, 409, { error: 'Certified 100K launch is not ready', prepared });
-  }
-  if (config.storeBackend !== 'postgres') {
-    return sendJson(res, 503, { error: '100K launch requires the durable PostgreSQL store backend' });
-  }
+  if (!prepared?.ok || prepared?.certificate?.state !== 'CERTIFIED_100K_READY' || prepared?.pressable !== true) return sendJson(res, 409, { error: 'Certified 100K launch is not ready', prepared });
+  if (config.storeBackend !== 'postgres') return sendJson(res, 503, { error: '100K launch requires the durable PostgreSQL store backend' });
 
   const pressedAt = new Date().toISOString();
   const authHeaderDigest = crypto.createHash('sha256').update(String(req.headers.authorization || '')).digest('hex');
-  const founderPressReceiptId = `ub100kpress_${crypto.createHash('sha256').update(JSON.stringify({
-    certificateId: prepared.certificate.certificateId,
-    recipientSetDigest: prepared.corpus.recipientSetDigest,
-    pressedAt,
-    authHeaderDigest
-  })).digest('hex')}`;
-
+  const founderPressReceiptId = `ub100kpress_${crypto.createHash('sha256').update(JSON.stringify({ certificateId: prepared.certificate.certificateId, recipientSetDigest: prepared.corpus.recipientSetDigest, pressedAt, authHeaderDigest })).digest('hex')}`;
   const store = createStore(config);
   try {
     await store.init();
     const queue = new DurableQueue(store, config, console);
-    const job = await queue.enqueue('outreach.100k.process', {
-      cursor: 0,
-      limit: 250,
-      certificateId: prepared.certificate.certificateId,
-      recipientSetDigest: prepared.corpus.recipientSetDigest,
-      founderPressReceiptId
-    }, {
-      maxAttempts: 1,
-      recoveryPolicy: 'reconcile',
-      dedupeKey: `outreach100k:start:${prepared.certificate.certificateId}`
-    });
-    return sendJson(res, 202, {
-      ok: true,
-      state: 'CERTIFIED_100K_JOB_ENQUEUED',
-      jobId: job.id,
-      certificateId: prepared.certificate.certificateId,
-      recipientSetDigest: prepared.corpus.recipientSetDigest,
-      founderPressReceiptId,
-      pressedAt,
-      automaticRetryAuthorized: false,
-      truthBoundary: 'The authenticated founder press enqueued only the certified 100K worker. Every batch and every recipient remains independently gated; an uncertain provider outcome quarantines the stream.'
-    });
-  } finally {
-    await store.close().catch(() => {});
-  }
+    const job = await queue.enqueue('outreach.100k.process', { cursor: 0, limit: 250, certificateId: prepared.certificate.certificateId, recipientSetDigest: prepared.corpus.recipientSetDigest, founderPressReceiptId }, { maxAttempts: 1, recoveryPolicy: 'reconcile', dedupeKey: `outreach100k:start:${prepared.certificate.certificateId}` });
+    return sendJson(res, 202, { ok: true, state: 'CERTIFIED_100K_JOB_ENQUEUED', jobId: job.id, certificateId: prepared.certificate.certificateId, recipientSetDigest: prepared.corpus.recipientSetDigest, founderPressReceiptId, pressedAt, automaticRetryAuthorized: false, truthBoundary: 'The authenticated founder press enqueued only the certified 100K worker. Every batch and every recipient remains independently gated; an uncertain provider outcome quarantines the stream.' });
+  } finally { await store.close().catch(() => {}); }
 }
 
 async function brokerGoogleOAuthStart(coreHandler, req, res, url) {
@@ -164,13 +146,7 @@ async function brokerGoogleOAuthStart(coreHandler, req, res, url) {
   if (!header.startsWith('Bearer ')) return sendJson(res, 401, { error: 'Unauthorized' });
   const slot = url.searchParams.get('slot') === 'B' ? 'B' : 'A';
   const capture = captureResponse();
-  const proxyReq = {
-    method: 'GET',
-    url: `/oauth/google/start?slot=${slot}`,
-    headers: req.headers,
-    socket: req.socket
-  };
-  await coreHandler(proxyReq, capture.res);
+  await coreHandler({ method: 'GET', url: `/oauth/google/start?slot=${slot}`, headers: req.headers, socket: req.socket }, capture.res);
   const result = capture.snapshot();
   const authorizationUrl = String(result.headers.location || '');
   if (result.statusCode !== 302 || !authorizationUrl) {
@@ -180,63 +156,49 @@ async function brokerGoogleOAuthStart(coreHandler, req, res, url) {
   }
   let parsed;
   try { parsed = new URL(authorizationUrl); } catch { return sendJson(res, 502, { error: 'OAuth provider URL was invalid' }); }
-  if (parsed.protocol !== 'https:' || parsed.hostname !== 'accounts.google.com') {
-    return sendJson(res, 502, { error: 'OAuth provider URL was refused' });
-  }
+  if (parsed.protocol !== 'https:' || parsed.hostname !== 'accounts.google.com') return sendJson(res, 502, { error: 'OAuth provider URL was refused' });
   return sendJson(res, 200, { authorizationUrl: parsed.toString() });
 }
 
 async function brokerUberSocket(coreHandler, req, res, url) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   const runtime = getUberSocketRuntime();
+  try { await ensureUberSocketRestored(runtime); }
+  catch (error) { return sendJson(res, 503, { ok: false, error: `UberSocket durable restore failed: ${String(error?.message || error)}`, socket: runtime.status() }); }
+
   const path = url.pathname;
-  if (req.method === 'GET' && path === '/api/admin/uber-socket/status') {
-    return sendJson(res, 200, runtime.status());
-  }
-  if (req.method === 'GET' && path === '/api/admin/uber-socket/connectome') {
-    return sendJson(res, 200, runtime.connectomeDoctor());
-  }
+  if (req.method === 'GET' && path === '/api/admin/uber-socket/status') return sendJson(res, 200, { ...runtime.status(), durableRestore: uberSocketRestoreReceipt });
+  if (req.method === 'GET' && path === '/api/admin/uber-socket/connectome') return sendJson(res, 200, runtime.connectomeDoctor());
+
   let body = {};
   const maxBody = path.endsWith('/import-chatgpt') ? 8 * 1024 * 1024 : path.endsWith('/ingest') ? 256 * 1024 : 96 * 1024;
-  try { body = await readSmallJsonBody(req, maxBody); }
-  catch (error) { return sendJson(res, 400, { error: error.message }); }
+  try { body = await readSmallJsonBody(req, maxBody); } catch (error) { return sendJson(res, 400, { error: error.message }); }
+
   try {
     if (req.method === 'POST' && path === '/api/admin/uber-socket/register') {
-      return sendJson(res, 200, { ok: true, peer: await runtime.registerChat(body), status: runtime.status() });
+      const peer = await runtime.registerChat(body);
+      const durable = await persistUberSocket(runtime);
+      return sendJson(res, 200, { ok: true, peer, durable, status: runtime.status() });
     }
     if (req.method === 'POST' && path === '/api/admin/uber-socket/ingest') {
-      return sendJson(res, 200, { ok: true, document: runtime.ingest(body), status: runtime.status() });
+      const document = runtime.ingest(body);
+      const durable = await persistUberSocket(runtime);
+      return sendJson(res, 200, { ok: true, document, durable, status: runtime.status() });
     }
     if (req.method === 'POST' && path === '/api/admin/uber-socket/import-chatgpt') {
-      return sendJson(res, 200, { ...(await runtime.importChatGPTProject(body)), status: runtime.status() });
+      const imported = await runtime.importChatGPTProject(body);
+      const durable = await persistUberSocket(runtime);
+      return sendJson(res, 200, { ...imported, durable, status: runtime.status() });
     }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/ask') {
-      return sendJson(res, 200, await runtime.ask(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/council') {
-      return sendJson(res, 200, await runtime.council(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/monster') {
-      return sendJson(res, 200, await runtime.monster(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/whole-brain') {
-      return sendJson(res, 200, await runtime.compileWholeBrainMission(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/connectome-mission') {
-      return sendJson(res, 200, await runtime.compileConnectomeMission(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/cognitive-cycle') {
-      return sendJson(res, 200, runtime.cognitiveCycle());
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/contradiction') {
-      return sendJson(res, 200, runtime.reportContradiction(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/blocker') {
-      return sendJson(res, 200, runtime.reportBlocker(body));
-    }
-    if (req.method === 'POST' && path === '/api/admin/uber-socket/outreach-100k-council') {
-      return sendJson(res, 200, await runtime.outreach100kCouncil(body));
-    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/ask') return sendJson(res, 200, await runtime.ask(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/council') return sendJson(res, 200, await runtime.council(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/monster') return sendJson(res, 200, await runtime.monster(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/whole-brain') return sendJson(res, 200, await runtime.compileWholeBrainMission(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/connectome-mission') return sendJson(res, 200, await runtime.compileConnectomeMission(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/cognitive-cycle') return sendJson(res, 200, runtime.cognitiveCycle());
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/contradiction') return sendJson(res, 200, runtime.reportContradiction(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/blocker') return sendJson(res, 200, runtime.reportBlocker(body));
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/outreach-100k-council') return sendJson(res, 200, await runtime.outreach100kCouncil(body));
     return sendJson(res, 404, { error: 'UberSocket route not found' });
   } catch (error) {
     const message = String(error?.message || error);
@@ -248,24 +210,11 @@ async function brokerUberSocket(coreHandler, req, res, url) {
 function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
-
-    if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) {
-      return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
-    }
-
-    if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') {
-      return brokerOutreach100kStatus(coreHandler, req, res);
-    }
-    if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') {
-      return brokerOutreach100kStart(coreHandler, req, res);
-    }
-    if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') {
-      return brokerGoogleOAuthStart(coreHandler, req, res, url);
-    }
-    if (url.pathname.startsWith('/api/admin/uber-socket/')) {
-      return brokerUberSocket(coreHandler, req, res, url);
-    }
-
+    if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
+    if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') return brokerGoogleOAuthStart(coreHandler, req, res, url);
+    if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
     return coreHandler(req, res);
   };
 }
@@ -277,12 +226,8 @@ http.createServer = function hardenedCreateServer(handler, ...rest) {
 
 if (wrapperIsEntryPoint) process.argv[1] = corePath;
 let core;
-try {
-  core = await import(coreUrl.href);
-} finally {
-  process.argv[1] = originalArgv1;
-  http.createServer = originalCreateServer;
-}
+try { core = await import(coreUrl.href); }
+finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
 
 export const requestHandler = createdHardenedHandler || harden(core.requestHandler);
 export default requestHandler;

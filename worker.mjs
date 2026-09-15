@@ -10,6 +10,7 @@ import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
+import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -36,13 +37,23 @@ const pipeline = new Pipeline(store, config, {
   onProspectComplete: prospect => routeProspectCompletion({ store, revenue, prospect }),
   outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
 });
-const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
+const enqueueJob = (type, payload, options) => queue.enqueue(type, payload, options);
+const enqueueResearch = payload => enqueueJob('research.batch', payload, {
   maxAttempts: 3,
   dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`
 });
 revenue = new RevenueEngine(store, config, pipeline, { enqueueResearch });
 const discoveryRunner = new DiscoveryRunner(store, config);
-const handlers = createMissionAwareJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner, enqueueJob: (type, payload, options) => queue.enqueue(type, payload, options) });
+const handlers = createMissionAwareJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner, enqueueJob });
+handlers['outreach.100k.process'] = async payload => {
+  const liveSummary = await buildLiveOutreach100kSummary({ store, cfg: config });
+  return runOutreach100kBatch({
+    store,
+    cfg: config,
+    enqueueJob,
+    payload: { ...(payload && typeof payload === 'object' ? payload : {}), liveSummary }
+  });
+};
 const stopScheduler = startScheduler(queue, config, console);
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 

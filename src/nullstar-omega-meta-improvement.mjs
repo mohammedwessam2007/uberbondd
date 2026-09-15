@@ -166,6 +166,17 @@ export function metaImprovementVerdict(episodes = []) {
   const untested = rows.filter(row => row.status === 'SYMPTOM_UNTESTED');
   const prospective = rows.filter(row => row.evidenceClass === EPISODE_EVIDENCE_CLASSES.PROSPECTIVE);
 
+  // A named symptom either resolved or it did not. MOVED_ELSEWHERE says why it
+  // did not -- something shifted that the bottleneck never named -- and that is
+  // worth recording, but it cannot rescue the verdict.
+  //
+  // This was a live loophole. The G4->G5 episode flipped from SYMPTOM_PERSISTED
+  // to MOVED_ELSEWHERE when a later generation recomputed one of its own
+  // dimension scores, which moved the mean without measuring anything new, and
+  // the verdict climbed back to working on that bookkeeping change alone. Any
+  // generation could dodge a persistence by nudging an unrelated number.
+  const unresolved = persisted.length + elsewhere.length;
+
   // The failing verdict is reachable from retrospective evidence. The passing
   // one is not.
   if (persisted.length === rows.length) {
@@ -184,7 +195,7 @@ export function metaImprovementVerdict(episodes = []) {
     };
   }
 
-  const status = prospective.length >= 2 && resolved.length > persisted.length
+  const status = prospective.length >= 2 && resolved.length > unresolved
     ? 'IMPROVEMENT_PROCESS_WORKING'
     : 'META_IMPROVEMENT_NOT_ESTABLISHED';
 
@@ -197,8 +208,9 @@ export function metaImprovementVerdict(episodes = []) {
     movedElsewhere: elsewhere.length,
     untested: untested.length,
     prospectiveEpisodes: prospective.length,
+    unresolved,
     reason: status === 'META_IMPROVEMENT_NOT_ESTABLISHED'
-      ? 'a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-persistences'
+      ? 'a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-non-resolutions'
       : null,
     truthBoundary: 'A PROCESS THAT RESOLVES ITS OWN NAMED SYMPTOMS IS WORKING ON ITS OWN TERMS. THAT IS NOT THE SAME AS THE SYSTEM GETTING MORE CAPABLE.',
     businessEffectAuthority: 'NONE'

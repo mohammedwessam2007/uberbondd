@@ -3032,8 +3032,8 @@ export const MUTATIONS = [
   {
     id: 'METAIMP-02', guard: 'Retrospective episodes cannot establish a working process',
     file: 'src/nullstar-omega-meta-improvement.mjs',
-    find: '  const status = prospective.length >= 2 && resolved.length > persisted.length',
-    replace: '  const status = resolved.length > persisted.length',
+    find: '  const status = prospective.length >= 2 && resolved.length > unresolved',
+    replace: '  const status = resolved.length > unresolved',
     suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
   },
   // ---- Transfer bindings: who may settle an economic claim ----------------
@@ -3058,6 +3058,13 @@ export const MUTATIONS = [
     find: '  const instrumentChanged = previous.suiteVersion !== next.suiteVersion;',
     replace: '  const instrumentChanged = false;',
     suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
+    id: 'METAIMP-03', guard: 'Movement in an unnamed dimension does not rescue an unresolved symptom',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '  const unresolved = persisted.length + elsewhere.length;',
+    replace: '  const unresolved = persisted.length;',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
   },
   {
     id: 'REUSE-01', guard: 'A dimension re-slicing evidence already in use is refused, not counted',

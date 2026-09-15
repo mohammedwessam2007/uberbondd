@@ -99,7 +99,7 @@
       "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506 / G4 / G5",
       "instrument": "SEPARATED at G3 after three saturated generations. spread 0 -> 1.",
       "trend": "INSTRUMENT_CHANGED. Score movement across a suite change describes the instrument, not the system.",
-      "metaImprovement": "META_IMPROVEMENT_NOT_ESTABLISHED. 5 episodes: 1 moved-elsewhere, 2 persisted, 2 resolved. The verdict reached IMPROVEMENT_PROCESS_WORKING at G4 and G5 took it back, which is the point: it is not a ratchet.",
+      "metaImprovement": "META_IMPROVEMENT_NOT_ESTABLISHED. 5 episodes: 2 moved-elsewhere, 1 persisted, 2 resolved. The verdict reached IMPROVEMENT_PROCESS_WORKING at G4 and fell back at G5, which is the point: it is not a ratchet. A working verdict now needs resolutions to outnumber every non-resolution, not just the persistences.",
       "generalization": "DID_NOT_GENERALIZE. 1 of 3 families correct on first attempt.",
       "realityConnection": "REALITY_CALIBRATED. 2 closed loops, 1 voided for a defective derivation rule, 2 surprises, mean Brier 0.7975.",
       "denominator": "14 VERIFIED, 9 OPERATING, 1 REALITY_CALIBRATED",
@@ -156,7 +156,8 @@
     "Alias reconciliation pass. 137 of 247 MISSING sections had a name match of 50% or better; verification rejected almost all as coincidental word overlap. Two were confirmed against the requirement text and both reached VERIFIED_CURRENT through the evidence gate rather than by declaration. 33 VERIFIED_CURRENT, 31 PARTIAL, 244 MISSING.",
     "G5 and the evidence-reuse guard. Coverage is the easiest number in the spine to inflate: take evidence already scoring one dimension, cut it differently, give the slice a second name. The guard makes a dimension declare the observations it reads and refuses one whose evidence is already spoken for. It refused forecasting and causality, which is what the declaration committed before G5 predicted it would do.",
     "The improvement-process verdict was taken back. G4 earned IMPROVEMENT_PROCESS_WORKING on two prospective resolutions; G5's prospective episode persisted and the verdict fell to META_IMPROVEMENT_NOT_ESTABLISHED. A metric that only ratchets up is not measuring anything.",
-    "412 mutations, 412 killed."
+    "412 mutations, 412 killed.",
+    "Closed a loophole in the meta verdict itself. The G4->G5 episode flipped from SYMPTOM_PERSISTED to MOVED_ELSEWHERE when a later generation recomputed one of its own dimension scores, moving the mean without measuring anything new, and the verdict climbed back to working on that bookkeeping change alone. A working verdict now requires resolutions to outnumber every non-resolution. 413 mutations, 413 killed."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -190,7 +191,8 @@
     "doNot": [
       "Do not widen coverage in response to the G3 bottleneck without first checking whether the instrument is saturated. Widening a saturated instrument was the G1 response and the ceiling survived it twice.",
       "Do not rescore a voided reality loop. The answer is known, so a replacement forecast measures memory.",
-      "Do not push to PR #868. It is the founder's; the analysis is recorded, the decision is theirs."
+      "Do not push to PR #868. It is the founder's; the analysis is recorded, the decision is theirs.",
+      "Do not edit a line a mutation anchor targets without re-running tests/mutation-registry-anchor-integrity.test.mjs immediately. Closing the MOVED_ELSEWHERE loophole rewrote the line METAIMP-02 anchors on and silently killed that guard; the integrity test caught it, but only because it was run again. Run it after the edit, not before."
     ]
   },
   "truthBoundary": "G3 SEPARATED THE INSTRUMENT. IT DID NOT MAKE THE SYSTEM MORE CAPABLE, AND THE SCORES WENT DOWN BECAUSE THE MEASUREMENT GOT HONEST. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. THE CALIBRATION RESULT SAYS THIS SYSTEM'S SELF-MODEL IS WRONG MORE OFTEN THAN IT EXPECTS TO BE.",

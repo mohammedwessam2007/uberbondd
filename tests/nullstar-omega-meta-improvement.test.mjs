@@ -114,3 +114,53 @@ test('a mix where persistence outweighs resolution does not pass even when prosp
   assert.equal(verdict.persisted, 2);
   assert.equal(verdict.resolved, 1);
 });
+
+test('movement in an unnamed dimension does not rescue an unresolved symptom', () => {
+  // The live case: G4->G5 held coverage flat, so the named symptom did not
+  // resolve, but a later generation recomputed one of its own scores and the
+  // mean moved. That made the episode MOVED_ELSEWHERE, and before this rule the
+  // verdict climbed back to working on that bookkeeping change alone.
+  const resolvedRow = episode({
+    afterVector: { reasoning: 1, calibration: 0.3, robustness: 0.8, selfDiagnosis: 1 },
+    evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE
+  });
+  const movedElsewhere = episode({
+    symptomKind: SYMPTOM_KINDS.COVERAGE_INSUFFICIENT,
+    beforeVector: { reasoning: 1, calibration: 1, robustness: 1, selfDiagnosis: 1 },
+    afterVector: { reasoning: 1, calibration: 1, robustness: 1, selfDiagnosis: 0.5 },
+    evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE
+  });
+  assert.equal(movedElsewhere.status, 'MOVED_ELSEWHERE');
+
+  const verdict = metaImprovementVerdict([
+    resolvedRow,
+    { ...resolvedRow, generation: 'G1' },
+    movedElsewhere,
+    { ...movedElsewhere, generation: 'G3' }
+  ]);
+  assert.equal(verdict.status, 'META_IMPROVEMENT_NOT_ESTABLISHED');
+  assert.equal(verdict.resolved, 2);
+  assert.equal(verdict.unresolved, 2);
+  assert.match(verdict.reason, /non-resolutions/);
+});
+
+test('resolutions must outnumber every non-resolution, not just persistences', () => {
+  const resolvedRow = episode({
+    afterVector: { reasoning: 1, calibration: 0.3, robustness: 0.8, selfDiagnosis: 1 },
+    evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE
+  });
+  const three = metaImprovementVerdict([
+    resolvedRow,
+    { ...resolvedRow, generation: 'G1' },
+    { ...resolvedRow, generation: 'G2' },
+    episode({
+      symptomKind: SYMPTOM_KINDS.COVERAGE_INSUFFICIENT,
+      beforeVector: { a: 1, b: 1 },
+      afterVector: { a: 1, b: 0.5 },
+      evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE
+    })
+  ]);
+  assert.equal(three.status, 'IMPROVEMENT_PROCESS_WORKING');
+  assert.equal(three.resolved, 3);
+  assert.equal(three.unresolved, 1);
+});

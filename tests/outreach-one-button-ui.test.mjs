@@ -8,17 +8,21 @@ const js = fs.readFileSync(new URL('../public/outreach-one-button.js', import.me
 test('admin exposes one guarded outreach start button', () => {
   assert.match(html, /id="start-outreach"/);
   assert.match(html, /outreach-one-button\.js/);
-  assert.match(js, /START CERTIFIED 100K OUTREACH/);
+  assert.match(js, /START UBERBOND NOW/);
   assert.match(js, /\/api\/outreach\/100k\/status/);
   assert.match(js, /\/api\/outreach\/100k\/start/);
   assert.match(js, /confirmExactTarget:\s*100000/);
 });
 
-test('one-button start fails closed unless exact 100K certificate is green', () => {
+test('one-button starts internal mission when 100K is not green and preserves certified send gate', () => {
   assert.match(js, /CERTIFIED_100K_READY/);
   assert.match(js, /hardStopReasonCodes/);
   assert.match(js, /waitReasonCodes/);
   assert.match(js, /shortfall/);
+  assert.match(js, /\/api\/admin\/uber-socket\/outreach-100k-council/);
+  assert.match(js, /\/api\/admin\/uber-socket\/cognitive-cycle/);
+  assert.match(js, /START UBERBOND NOW/);
+  assert.match(js, /100K READY · PRESS TO LAUNCH/);
 });
 
 test('owner bearer is page-memory only and never persisted', () => {

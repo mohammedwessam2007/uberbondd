@@ -13,6 +13,7 @@ import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solver
 import { GA2_CANDIDATES } from '../src/nullstar-ga2-candidates.mjs';
 import { GA3_CANDIDATES } from '../src/nullstar-ga3-candidates.mjs';
 import { GA4_CANDIDATES } from '../src/nullstar-ga4-candidates.mjs';
+import { GA5_CANDIDATES } from '../src/nullstar-ga5-candidates.mjs';
 import { GATING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -39,7 +40,8 @@ if (!/^GA\d+$/.test(generation)) {
 const CANDIDATE_SETS = {
   GA2: { candidates: GA2_CANDIDATES, sourcePath: 'src/nullstar-ga2-candidates.mjs' },
   GA3: { candidates: GA3_CANDIDATES, sourcePath: 'src/nullstar-ga3-candidates.mjs' },
-  GA4: { candidates: GA4_CANDIDATES, sourcePath: 'src/nullstar-ga4-candidates.mjs' }
+  GA4: { candidates: GA4_CANDIDATES, sourcePath: 'src/nullstar-ga4-candidates.mjs' },
+  GA5: { candidates: GA5_CANDIDATES, sourcePath: 'src/nullstar-ga5-candidates.mjs' }
 };
 
 // The declaration is read first and on purpose. Criteria are fixed before the

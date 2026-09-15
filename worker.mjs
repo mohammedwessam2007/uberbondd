@@ -47,11 +47,16 @@ const discoveryRunner = new DiscoveryRunner(store, config);
 const handlers = createMissionAwareJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner, enqueueJob });
 handlers['outreach.100k.process'] = async payload => {
   const liveSummary = await buildLiveOutreach100kSummary({ store, cfg: config });
+  const input = payload && typeof payload === 'object' ? payload : {};
+  // Certificate IDs are observation receipts and may legitimately change as
+  // provider-confirmed counts and observation time advance. The immutable
+  // founder binding is the exact recipient-set digest; every batch recompiles
+  // a fresh green certificate from current evidence before any effect.
   return runOutreach100kBatch({
     store,
     cfg: config,
     enqueueJob,
-    payload: { ...(payload && typeof payload === 'object' ? payload : {}), liveSummary }
+    payload: { ...input, founderCertificateId: input.certificateId || input.founderCertificateId || null, certificateId: '', liveSummary }
   });
 };
 const stopScheduler = startScheduler(queue, config, console);

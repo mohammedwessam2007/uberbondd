@@ -146,75 +146,112 @@ function solveResearch(surface) {
 }
 
 /**
- * Assemble the quantity the prompt names out of the primitives on offer.
+ * Compose the quantity the prompt names out of the primitives on offer.
  *
- * Promoted from GA3 as I3_PROMPT_DIRECTED. The previous version always composed
- * the mean from sum and count whatever was asked, which answered one level-3
- * target in four.
+ * Promoted from GA6 as L2_OPERATOR_REPAIRED, and the route there is the part
+ * worth keeping.
  *
- * This is the first promotion in the three that is attributable. GA1 and GA2
- * both won out of a tie and both matched, on a later ablation, a minimal fix
- * that was never in the candidate set. GA3 put that null candidate in the
- * tournament instead: I1_HARDCODE_ONE_TARGET computed one fixed formula,
- * competed under the same precommitted threshold, and lost -- 0.6 against 1.0,
- * while regressing difficulties 1 and 2. The gap between reading the question
- * and guessing it is what the numbers separate.
+ * GA3 promoted a version that matched whole phrases. It scored 1.0 on every
+ * item the generator emits and could compose nothing the generator does not
+ * ask for -- and given "Report the mean plus the midrange" it returned the
+ * mean, because the prompt contains "report the mean" and the shorter pattern
+ * claimed the longer sentence. It answered a different question without
+ * refusing. No in-distribution score could have caught that: the distribution
+ * was what it had learned.
  *
- * I4_COMPOSITIONAL_SEARCH, which builds the answer from named parts rather than
- * whole phrases, reached 0.8 and did not clear the threshold. It is the better
- * mechanism for prompts that combine quantities in unseen ways and the weaker
- * one here, which is worth remembering when this family gets harder: the
- * promoted solver recognises complete formulas and will fail the moment one
- * appears that it has no pattern for.
+ * Three generations then went into replacing it. GA4 gated promotions on items
+ * built outside the generator and promoted nothing. GA5 repaired the operator
+ * search -- English puts "minus" between its operands and "the average of" in
+ * front of both, and searching only the span between them silently loses the
+ * second kind -- and promoted nothing, because the rule required beating an
+ * incumbent these candidates tied. GA6 repaired the comparison and promoted
+ * this.
+ *
+ * It reads the quantities the prompt names, in the order it names them, finds
+ * the operator where that operator's kind puts it, and assembles the result. On
+ * the three probes that gated the promotion it answers all three; on three more
+ * held back and used to gate nothing, it also answers all three, where the
+ * version it replaces answers none and confabulates on one.
+ *
+ * Two candidates tied it and are not worse: L3 additionally refuses when a
+ * named quantity is left unaccounted for, and L4 parses the clause structurally.
+ * The tournament chose among the three on size, so this one is the smallest of
+ * three equals rather than the best of three.
  */
-const COMPOSITION_TARGETS = [
-  // Longest phrase first. "the spread between largest and smallest, divided by
-  // how many numbers there are" contains "the spread between largest and
-  // smallest", so a shorter pattern tested earlier would claim the sentence and
-  // compute the wrong quantity.
-  {
-    test: text => text.includes('average of the mean and the midrange'),
-    compose: s => ({ value: (s.mean + s.midrange) / 2, needs: ['sum', 'count', 'max', 'min'] })
-  },
-  {
-    test: text => text.includes('mean minus the midrange'),
-    compose: s => ({ value: s.mean - s.midrange, needs: ['sum', 'count', 'max', 'min'] })
-  },
-  {
-    test: text => text.includes('mean divided by the spread'),
-    compose: s => ({ value: s.spread === 0 ? s.mean : s.mean / s.spread, needs: ['sum', 'count', 'max', 'min'] })
-  },
-  {
-    test: text => text.includes('spread between largest and smallest, divided by how many'),
-    compose: s => ({ value: s.spread / s.size, needs: ['max', 'min', 'count'] })
-  },
-  {
-    test: text => text.includes('report the mean'),
-    compose: s => ({ value: s.mean, needs: ['sum', 'count'] })
-  }
+const COMPOSITION_QUANTITIES = [
+  // Longest phrase first, so "the spread between largest and smallest" is not
+  // shadowed by a shorter fragment of itself.
+  { key: 'spread', phrase: 'spread between largest and smallest' },
+  { key: 'size', phrase: 'how many numbers there are' },
+  { key: 'midrange', phrase: 'midrange' },
+  { key: 'mean', phrase: 'mean' }
+];
+
+const COMPOSITION_NEEDS = {
+  mean: ['sum', 'count'],
+  midrange: ['max', 'min'],
+  spread: ['max', 'min'],
+  size: ['count']
+};
+
+// Position is part of what an operator is, not a detail of how it is written.
+// "the average of" governs from in front of both operands; "minus" from between
+// them. Prefix is tested first because "the average of a and b" also contains
+// "and", and reading that symmetrically would give a sum rather than a mean.
+const COMPOSITION_OPERATORS = [
+  { word: 'average of', position: 'PREFIX', apply: (a, b) => (a + b) / 2 },
+  { word: 'divided by', position: 'INFIX', apply: (a, b) => (b === 0 ? a : a / b) },
+  { word: 'minus', position: 'INFIX', apply: (a, b) => a - b },
+  { word: 'plus', position: 'INFIX', apply: (a, b) => a + b },
+  { word: 'times', position: 'INFIX', apply: (a, b) => a * b }
 ];
 
 function solveInvention(surface, prompt) {
   const data = surface.data ?? [];
   if (data.length === 0) return null;
 
+  const text = String(prompt ?? '').toLowerCase();
   const high = Math.max(...data);
   const low = Math.min(...data);
-  const s = {
+  const quantities = {
     mean: data.reduce((a, b) => a + b, 0) / data.length,
     midrange: (high + low) / 2,
     spread: high - low,
     size: data.length
   };
 
-  const target = COMPOSITION_TARGETS.find(entry => entry.test(String(prompt ?? '').toLowerCase()));
-  if (!target) return null;
+  const named = [];
+  for (const entry of COMPOSITION_QUANTITIES) {
+    const at = text.indexOf(entry.phrase);
+    if (at < 0) continue;
+    // A mention inside a longer phrase already claimed is part of that phrase,
+    // not a second operand.
+    if (named.some(prior => at >= prior.at && at < prior.at + prior.phrase.length)) continue;
+    named.push({ ...entry, at });
+  }
+  named.sort((a, b) => a.at - b.at);
+  if (named.length === 0) return null;
 
-  const { value, needs } = target.compose(s);
-  // Reporting a primitive the surface never offered would be claiming a route
-  // that does not exist.
   const available = new Set(surface.primitives ?? []);
-  return { answer: value.toFixed(4), used: needs.filter(name => available.has(name)) };
+  const report = (value, needs) => (Number.isFinite(value)
+    ? { answer: value.toFixed(4), used: [...new Set(needs)].filter(name => available.has(name)) }
+    : null);
+
+  if (named.length === 1) return report(quantities[named[0].key], COMPOSITION_NEEDS[named[0].key]);
+
+  const [first, second] = named;
+  const before = text.slice(0, first.at);
+  const between = text.slice(first.at, second.at + second.phrase.length);
+  const operator = COMPOSITION_OPERATORS.find(entry =>
+    (entry.position === 'PREFIX' ? before : between).includes(entry.word));
+  // Returning nothing is the right answer to a question this cannot read.
+  // Guessing is how the version this replaced produced a confident wrong number.
+  if (!operator) return null;
+
+  return report(
+    operator.apply(quantities[first.key], quantities[second.key]),
+    [...COMPOSITION_NEEDS[first.key], ...COMPOSITION_NEEDS[second.key]]
+  );
 }
 
 /**

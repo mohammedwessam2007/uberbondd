@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": [
+    "059",
+    "060",
+    "061",
+    "063",
+    "064",
+    "068",
+    "070",
+    "071",
+    "074"
+  ],
+  "generation": "GA6",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "Re-run GA5 under a comparison rule that can see both numbers, after GA5 showed the old one defended a gate-failing incumbent with a tie.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 3,
+  "whyTheSameFamilyAgain": "GA5 produced three candidates at 1.0 in-distribution that pass the out-of-pattern gate 3 of 3, against an incumbent at 1.0 that confabulates. Nothing was promoted because the rule required beating the incumbent on the one number they tie on. The candidates were right and the comparison was wrong.",
+  "criterionPrecondition": {
+    "whatChanged": "When a gate is in force and the incumbent fails it, a candidate that passes it beats the incumbent on an equal in-distribution score. A lower in-distribution score still loses, so this widens what can win without letting a candidate buy the gate with accuracy it gave up. The incumbent is now run against the gate explicitly rather than assumed to pass.",
+    "whyNeeded": "The GA4 declaration said the incumbent was not grandfathered. The comparison grandfathered it: it could only see the in-distribution score, so a strictly better candidate that tied there could never win. Intent and mechanism had diverged.",
+    "whyBeforeDeclaring": "Fixed before GA6 candidates exist and before its held-out seeds are read. GA5 stands as taken under the rule in force when it ran; it is not re-scored.",
+    "notRescoringGa5": true
+  },
+  "bottleneck": {
+    "observed": "In-distribution difficulty 3 stands at INVENTION 1.00 and TOOL_USE 0.67, but the invention 1.00 is an artefact of the generator asking only questions the promoted solver has patterns for. Against items outside it the promoted solver answers 0 of 3 and confabulates on 1.",
+    "selected": "INVENTION",
+    "whySelected": "It is the only family with a measured out-of-pattern failure and a known confabulation. A solver that answers a question nobody asked is worse than one that scores lower and refuses, because nothing downstream can tell its wrong answers from its right ones.",
+    "notSelected": {
+      "TOOL_USE": "Still open at 0.67, still a two-phrase vocabulary gap, still not worth spending a generation on. Recorded, not closed."
+    }
+  },
+  "hypotheses": {
+    "primary": "A composing candidate promotes under the repaired comparison, replacing a confabulating lookup with something that answers the same items and refuses or composes outside them.",
+    "alternativeA": "The repaired comparison promotes a candidate that is better only on hand-built probes written by the same author, in which case the held-back reporting probes should show it is no better on items it was not gated against.",
+    "alternativeB": "Something still blocks promotion, in which case five generations on this family have produced no promotable improvement and that is the result."
+  },
+  "discriminatingTest": "L1 is the null candidate again, unchanged across three generations now. L2, L3 and L4 are GA5 K2, K3 and K4 unchanged -- not re-tuned, because GA5 did not fail on the candidates. If a composing candidate promotes, the primary hypothesis holds and the held-back reporting probes say whether it generalizes past what it was gated on.",
+  "candidateFamilies": [
+    "L1 one-more-pattern: the same null candidate carried through GA4 and GA5, unchanged.",
+    "L2 operator-repaired: GA5 K2, unchanged.",
+    "L3 compositional-strict: GA5 K3, unchanged.",
+    "L4 structural-parse: GA5 K4, unchanged."
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [
+      1,
+      2,
+      3,
+      7,
+      11,
+      42,
+      99,
+      1234,
+      20260915,
+      777
+    ],
+    "heldOutSeeds": [
+      7710001,
+      7710002,
+      7710003,
+      7710004,
+      7710005,
+      7710006,
+      7710007,
+      7710008,
+      7710009,
+      7710010
+    ],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen, passing the out-of-pattern gate, no regression at difficulty 1 or 2, and beating the incumbent -- where beating an incumbent that fails the gate means passing it at an in-distribution score no lower.",
+    "outOfPatternGate": true,
+    "outOfPatternMinimumCorrectRate": 0.6,
+    "gateSemantics": "Confabulating on any gating probe disqualifies regardless of in-distribution score. Refusing is not disqualifying by itself but counts against the minimum correct rate.",
+    "incumbentNote": "The incumbent remains GA3's winner, which fails the gate. Still not grandfathered: if nothing clears both criteria, GA5 records NO_PROMOTION and the incumbent stays with its failure open.",
+    "nullResult": "NO_PROMOTION is a real outcome and is reported as one. It is not retried with a lower bar or a weaker gate.",
+    "thresholdLock": "Fixed here, including the gate and its minimum. A change after results invalidates the experiment.",
+    "heldOutSeedsNote": "Fresh again. GA5 scored four candidates against its set and I read the results, so that set is spent, exactly as GA4 s was.",
+    "candidatesUnchanged": "L2 to L4 are GA5 K2 to K4 byte for byte. GA5 did not fail because of its candidates, so changing them now would confound the comparison change with a candidate change and neither effect could be attributed."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface and the prompt.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds or on the gating probes.",
+    "A candidate may not read targetKey.",
+    "A candidate may not special-case the three gating prompts. Matching their exact text rather than their structure is disqualifying, and the held-back reporting probes exist to expose it.",
+    "A candidate may not refuse everything to avoid confabulating: refusals count against the minimum correct rate.",
+    "A candidate may not be adjusted after reading its GA5 held-out score. If GA5 also promotes nothing, that is the answer."
+  ],
+  "whatThisCannotEstablish": "Passing a hand-built probe set written by the same author as the candidates is a floor, not proof of compositional reasoning. The probes share his blind spots. Clearing them means a known failure mode is closed, not that unknown ones are.",
+  "businessEffectAuthority": "NONE",
+  "seedLeakage": {
+    "why": "Same reason as GA5. A held-out set is held out until someone reads the results, and I read GA5 s.",
+    "action": "A third disjoint range. Train seeds unchanged.",
+    "previousHeldOutSeedsRetired": [
+      555,
+      8080,
+      31337,
+      606,
+      24601,
+      90210,
+      13,
+      2718,
+      1618,
+      4242,
+      4400001,
+      4400002,
+      4400003,
+      4400004,
+      4400005,
+      4400006,
+      4400007,
+      4400008,
+      4400009,
+      4400010
+    ]
+  },
+  "reportingProbeRequirement": "If a candidate promotes, it is run against the held-back reporting probes afterwards. Those never gated anything, so they are the only items in this family no selection pressure has touched."
+}

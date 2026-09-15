@@ -14,6 +14,7 @@ import { GA2_CANDIDATES } from '../src/nullstar-ga2-candidates.mjs';
 import { GA3_CANDIDATES } from '../src/nullstar-ga3-candidates.mjs';
 import { GA4_CANDIDATES } from '../src/nullstar-ga4-candidates.mjs';
 import { GA5_CANDIDATES } from '../src/nullstar-ga5-candidates.mjs';
+import { GA6_CANDIDATES } from '../src/nullstar-ga6-candidates.mjs';
 import { GATING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -41,7 +42,8 @@ const CANDIDATE_SETS = {
   GA2: { candidates: GA2_CANDIDATES, sourcePath: 'src/nullstar-ga2-candidates.mjs' },
   GA3: { candidates: GA3_CANDIDATES, sourcePath: 'src/nullstar-ga3-candidates.mjs' },
   GA4: { candidates: GA4_CANDIDATES, sourcePath: 'src/nullstar-ga4-candidates.mjs' },
-  GA5: { candidates: GA5_CANDIDATES, sourcePath: 'src/nullstar-ga5-candidates.mjs' }
+  GA5: { candidates: GA5_CANDIDATES, sourcePath: 'src/nullstar-ga5-candidates.mjs' },
+  GA6: { candidates: GA6_CANDIDATES, sourcePath: 'src/nullstar-ga6-candidates.mjs' }
 };
 
 // The declaration is read first and on purpose. Criteria are fixed before the
@@ -86,6 +88,15 @@ const complexityOf = name => {
   return end < 0 ? rest.length : end;
 };
 
+// The incumbent faces the gate too. A candidate can only claim the gate as a
+// reason to win if the thing it is replacing actually fails it.
+const incumbentProbeResult = OUT_OF_PATTERN_GATE && (GATING_PROBES[FAMILY] ?? []).length
+  ? runProbes(UBERBOND_SOLVERS[FAMILY], GATING_PROBES[FAMILY])
+  : null;
+const incumbentGate = incumbentProbeResult
+  ? gateVerdict(incumbentProbeResult, { minimumCorrectRate: OUT_OF_PATTERN_MINIMUM })
+  : { passes: true, reason: null };
+
 const incumbentTrain = scoreTaskSet(itemsAt(trainSeeds, DIFFICULTY), UBERBOND_SOLVERS).mean;
 const incumbentHeldOut = scoreTaskSet(itemsAt(heldOutSeeds, DIFFICULTY), UBERBOND_SOLVERS).mean;
 
@@ -102,7 +113,6 @@ const results = Object.entries(candidates).map(([name, fn]) => {
   }
 
   const meetsThreshold = heldOut > THRESHOLD;
-  const beatsIncumbent = heldOut > incumbentHeldOut;
 
   // The out-of-pattern gate, when the declaration asks for one.
   //
@@ -115,6 +125,26 @@ const results = Object.entries(candidates).map(([name, fn]) => {
   const probes = OUT_OF_PATTERN_GATE ? GATING_PROBES[FAMILY] ?? [] : [];
   const probeResult = probes.length ? runProbes(fn, probes) : null;
   const gate = probeResult ? gateVerdict(probeResult, { minimumCorrectRate: OUT_OF_PATTERN_MINIMUM }) : { passes: true, reason: null };
+
+  /**
+   * Beating the incumbent, compared on both numbers rather than one.
+   *
+   * This used to be `heldOut > incumbentHeldOut` and nothing else. GA5 produced
+   * three candidates that tied the incumbent in-distribution at 1.0 and passed
+   * the out-of-pattern gate 3 of 3 where the incumbent confabulates -- strictly
+   * better, and none of them promotable, because the comparison could only see
+   * the number they tied on. The GA4 declaration had said in as many words that
+   * the incumbent was not grandfathered; the comparison grandfathered it.
+   *
+   * So when a gate is in force, passing it while the incumbent fails counts as
+   * beating the incumbent provided the in-distribution score is not worse. A
+   * lower in-distribution score still loses: this widens what can win, it does
+   * not let a candidate buy the gate with accuracy it gave up.
+   */
+  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;
+  const beatsIncumbent = gateIsDecisive
+    ? heldOut >= incumbentHeldOut
+    : heldOut > incumbentHeldOut;
 
   return {
     candidate: name,
@@ -171,7 +201,17 @@ const record = {
   declarationRef: declarationPath,
   precommittedThreshold: declaration.precommittedCriteria.promotionThreshold,
   thresholdUsed: THRESHOLD,
-  incumbent: { trainScore: incumbentTrain, heldOutScore: incumbentHeldOut },
+  incumbent: {
+    trainScore: incumbentTrain,
+    heldOutScore: incumbentHeldOut,
+    outOfPattern: incumbentProbeResult
+      ? { correct: incumbentProbeResult.correct, refused: incumbentProbeResult.refused, confabulated: incumbentProbeResult.confabulated, of: incumbentProbeResult.of }
+      : null,
+    outOfPatternGate: incumbentGate.passes ? 'PASSES' : incumbentGate.reason
+  },
+  comparisonRule: OUT_OF_PATTERN_GATE && !incumbentGate.passes
+    ? 'GATE_DECISIVE__A_CANDIDATE_PASSING_THE_GATE_BEATS_A_FAILING_INCUMBENT_ON_AN_EQUAL_IN_DISTRIBUTION_SCORE'
+    : 'IN_DISTRIBUTION_STRICTLY_GREATER',
   candidates: results,
   disqualifiedForRegression: disqualified.map(row => ({ candidate: row.candidate, regressions: row.regressions })),
   winner: winner ? winner.candidate : null,
@@ -205,7 +245,8 @@ mkdirSync(join(root, 'artifacts/nullstar-terminal'), { recursive: true });
 writeFileSync(join(root, `artifacts/nullstar-terminal/${generation.toLowerCase()}-result.json`), `${JSON.stringify(record, null, 2)}\n`);
 
 console.log(`${generation} @ ${head.slice(0, 8)} | family ${FAMILY} | difficulty ${DIFFICULTY}`);
-console.log(`  incumbent: train ${incumbentTrain} held-out ${incumbentHeldOut}`);
+console.log(`  incumbent: train ${incumbentTrain} held-out ${incumbentHeldOut}${incumbentProbeResult ? `  out-of-pattern ${incumbentProbeResult.correct}/${incumbentProbeResult.of}, ${incumbentProbeResult.confabulated} confabulated -- ${incumbentGate.passes ? 'gate passes' : 'GATE FAILS'}` : ''}`);
+console.log(`  comparison: ${record.comparisonRule}`);
 for (const row of results) {
   const flags = [row.meetsThreshold ? 'threshold' : null, row.beatsIncumbent ? 'beats-incumbent' : null, row.noRegression ? 'no-regression' : 'REGRESSES'].filter(Boolean).join(', ');
   console.log(`  ${row.candidate.padEnd(24)} train ${row.trainScore} held-out ${row.heldOutScore} [${flags}]`);

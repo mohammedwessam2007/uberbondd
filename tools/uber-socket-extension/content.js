@@ -47,6 +47,15 @@ function sendButton() {
     document.querySelector('button[aria-label="Send prompt"]') ||
     [...document.querySelectorAll('button')].find(b => /send/i.test(b.getAttribute('aria-label') || '') && !b.disabled);
 }
+async function waitForSendButton(timeoutMs = 4000) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    const button = sendButton();
+    if (button && !button.disabled) return button;
+    await sleep(75);
+  }
+  throw new Error('send-button-not-ready');
+}
 function stopButtonVisible() {
   return Boolean(document.querySelector('button[data-testid="stop-button"]') ||
     [...document.querySelectorAll('button')].find(b => /stop generating|stop streaming|stop response/i.test(b.getAttribute('aria-label') || b.textContent || '')));
@@ -88,9 +97,7 @@ async function injectAndCollect(message) {
     if (!input) throw new Error('composer-not-found');
     const before = assistantTurns().length;
     setComposerText(input, PEER_PREFIX + String(message.body || ''));
-    await sleep(150);
-    const button = sendButton();
-    if (!button || button.disabled) throw new Error('send-button-not-ready');
+    const button = await waitForSendButton();
     button.click();
     setStatus('peer prompt submitted');
     const answer = await waitForAssistantCompletion(before);

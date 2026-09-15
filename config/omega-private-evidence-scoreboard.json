@@ -1,29 +1,34 @@
 {
-  "schemaVersion": "uberbond.omega-private-evidence-scoreboard.v1",
+  "schemaVersion": "uberbond.omega-private-evidence-scoreboard.v3",
   "visibility": "FOUNDER_PRIVATE",
   "truthClass": "CURRENT_PRIVATE_EVIDENCE_STATE",
   "targetGrade": "E10",
-  "currentGrade": "E2",
+  "currentGrade": "E8",
   "dimensions": {
-    "semanticCompilation": {"status":"PARTIAL_CONTRACT_LATTICE_CANARY_NOT_NL_COMPILATION","evidenceRefs":["source:omega-contract-lattice-core","local:contract-lattice-isolated-check"]},
-    "sealedHiddenHoldouts": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "crossFamilyTransfer": {"status":"PARTIAL_CANARY","evidenceRefs":["local:multi-family-law-ir-canary"]},
-    "crossDomainTransfer": {"status":"NARROW_POSITIVE_STRUCTURAL_CANARY_NOT_E6","evidenceRefs":["artifact:artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json"]},
-    "verifierIndependence": {"status":"PARTIAL_CANARY","evidenceRefs":["source:omega-lawspace-independent-assignment-verifier","source:omega-structural-transfer-v2-independent-target-verifier"]},
-    "leakageResistance": {"status":"PARTIAL_CANARY","evidenceRefs":["source:crystal-excludes-instance-data-and-answers","source:target-problem-hashes-checked-against-training-hashes"]},
-    "fullCostAccounting": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "robustness": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "replication": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "semanticCompilation": {"status":"PASSED_BOUNDED_CONTROLLED_INTENT_NOT_OPEN_NL","evidenceRefs":["source:src/omega-controlled-intent-evidence.mjs","test:tests/omega-controlled-intent-evidence.test.mjs","source:src/omega-controlled-semantic-compiler.mjs"]},
+    "sealedHiddenHoldouts": {"status":"PASSED_MULTIPLE_PRECOMMITTED_HOLDOUT_WAVES","evidenceRefs":["artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json","artifact:artifacts/omega-v4-seal.json","artifact:artifacts/omega-v4-evidence.json"]},
+    "crossFamilyTransfer": {"status":"PASSED_FOUR_DECLARED_FINITE_CSP_ALGEBRAS","evidenceRefs":["source:src/omega-policy-meta-learner.mjs","artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"]},
+    "crossDomainTransfer": {"status":"PASSED_BOUNDED_NOVEL_NAMED_DOMAINS_WITH_STRUCTURAL_ADAPTERS","evidenceRefs":["source:src/omega-private-lab-protocol.mjs","source:src/omega-policy-meta-learner.mjs","artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"]},
+    "verifierIndependence": {"status":"PASSED_IMPLEMENTATION_SEPARATED_AND_REFERENCE_REIMPLEMENTATION","evidenceRefs":["source:src/omega-independent-csp-verifier.mjs","test:tests/omega-private-lab-v3.test.mjs","artifact:artifacts/omega-v4-evidence.json"]},
+    "leakageResistance": {"status":"PASSED_COMMITMENT_RENAME_AND_IDENTIFIER_CONTROLS","evidenceRefs":["artifact:artifacts/omega-private-holdout-commitments-v2-2026-09-15.json","artifact:artifacts/omega-v4-seal.json","artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"]},
+    "fullCostAccounting": {"status":"PASSED_DECLARED_OPERATION_COUNT_MODEL","evidenceRefs":["artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json","artifact:artifacts/omega-v4-evidence.json"]},
+    "robustness": {"status":"PASSED_BOUNDED_CONTROLS_WITH_ONE_PRESERVED_SMALL_SUPPORTED_REGRESSION","evidenceRefs":["artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json","artifact:artifacts/omega-private-v2-unseen-algebra-failure-2026-09-15.json","artifact:artifacts/omega-v4-evidence.json"]},
+    "replication": {"status":"PASSED_MULTIPLE_SEALED_REPLICATIONS","evidenceRefs":["artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json","artifact:artifacts/omega-v4-evidence.json"]},
     "realitySettlement": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "compoundingReduction": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "metaGeneralization": {"status":"NOT_PROVEN","evidenceRefs":[]}
+    "compoundingReduction": {"status":"PASSED_BOUNDED_AMORTIZED_REUSE_SEQUENCE","evidenceRefs":["artifact:artifacts/omega-private-evidence-v2-sealed-2026-09-15.json","artifact:artifacts/omega-v4-evidence.json"]},
+    "metaGeneralization": {"status":"PARTIAL_CALIBRATED_ABSTENTION_ON_FRESH_UNSEEN_EQUALITY_ALGEBRA","evidenceRefs":["artifact:artifacts/omega-private-v2-unseen-algebra-failure-2026-09-15.json","artifact:artifacts/omega-v4-evidence.json"]}
+  },
+  "e10Requirements": {
+    "frontierBreadth": "NOT_PROVEN",
+    "calibratedFailure": "BOUNDED_POSITIVE_EVIDENCE",
+    "evaluatorGapClosed": "NOT_PROVEN"
   },
   "promotionPolicy": "NO_MANUAL_SCORE_INFLATION",
   "notes": [
-    "The target is private evidence, not public claims.",
-    "E10 cannot be awarded from architecture quality alone.",
-    "A 2026-09-15 isolated Node v22.16.0 reproduction learned HIGH_DEGREE_FIRST on MAP_COLORING and reduced verified work on a differently named RADIO_CHANNEL_ASSIGNMENT holdout from 24 to 16, a 33.3% reduction. This is intentionally classified as a narrow structural canary, not broad cross-domain transfer.",
-    "GitHub-hosted exact-head jobs were observed failing before step execution; local focused evidence does not substitute for full repository CI.",
-    "Current evidence does not establish learned broad semantic transfer, frontier equivalence, recursive self-improvement, ASI, or singularity."
+    "E8 is the earned ceiling for the current bounded private program.",
+    "V4 supported holdouts: 120 tasks, cold work 6323634, transfer execution work 19629, discovery work 153434, total with discovery 173063, net measured work saved 6150571.",
+    "V4 unseen equality: 40 tasks, 40 abstentions, 0 transfers, 0 worsened tasks, exact cold fallback after v2 had catastrophic negative transfer on the same unseen constraint class.",
+    "One small supported v4 regression is preserved: 142 cold work versus 188 transferred work on one workflow task.",
+    "E9 is blocked by reality settlement. E10 additionally requires frontier breadth, evaluator-gap closure, broad open-world semantics, and all hardened E10 gates."
   ]
 }

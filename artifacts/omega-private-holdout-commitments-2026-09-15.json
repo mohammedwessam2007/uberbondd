@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond.omega-private-holdout-commitments.v1",
+  "createdAt": "2026-09-15",
+  "sourceFreezeCommit": "d2b25aced7f042fa45688f9480307aa6f316f8b0",
+  "testCommit": "89beb1200ffa78b6f063a821829d2693df3d31ab",
+  "visibility": "FOUNDER_PRIVATE_EVIDENCE_METADATA",
+  "rawHoldoutsStoredInRepository": false,
+  "learnerAccessBeforeEvaluation": false,
+  "generator": "uberbond.omega-private-benchmark-generators.v1",
+  "perFamily": 10,
+  "familiesPerRun": 4,
+  "runs": [
+    {
+      "id": "private-1",
+      "commitment": "ad4139fd722f333336ac76252d74e8ede43cb94feb32f0616be58d8992b0b487",
+      "taskCount": 40,
+      "taskHashesDigest": "4cec3c304351951062123fa3b1135d07058d0b93702eadcf7016250218d24a12",
+      "status": "SEALED_NOT_EVALUATED"
+    },
+    {
+      "id": "private-2",
+      "commitment": "8a83c34a923e7153745c8e1d3f40db2aad42a7c2460e71222af35a98a73ecbee",
+      "taskCount": 40,
+      "taskHashesDigest": "fa3a0461e4b8ec165cf2e951b5f2298dfb4528e768d819bd51709cc61b5292a5",
+      "status": "SEALED_NOT_EVALUATED"
+    },
+    {
+      "id": "private-3",
+      "commitment": "e5f1ff6564c55a62d30c97307b05492b464aea86fd125ca385129b69d55c0a5e",
+      "taskCount": 40,
+      "taskHashesDigest": "f6ddbaaa8080eb6f060ab6fe2590106713897a2761bb68cdce521c58fff0bb4e",
+      "status": "SEALED_NOT_EVALUATED"
+    }
+  ],
+  "law": "Commitments were written after algorithm freeze and before evaluation. Raw tasks, salts, and seeds remain outside the learner path. Evaluation results may not retroactively alter this source version.",
+  "truthBoundary": "Commitment metadata proves pre-registration order and later reveal integrity when paired with the private salts. It does not by itself prove secrecy, transfer advantage, or broad intelligence."
+}

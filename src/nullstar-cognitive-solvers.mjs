@@ -240,36 +240,61 @@ function solveInvention(surface, prompt) {
 
   const named = [];
   for (const entry of COMPOSITION_QUANTITIES) {
-    const at = text.indexOf(entry.phrase);
-    if (at < 0) continue;
-    // A mention inside a longer phrase already claimed is part of that phrase,
-    // not a second operand.
-    if (named.some(prior => at >= prior.at && at < prior.at + prior.phrase.length)) continue;
-    named.push({ ...entry, at });
+    let from = 0;
+    for (;;) {
+      const at = text.indexOf(entry.phrase, from);
+      if (at < 0) break;
+      from = at + entry.phrase.length;
+      // A mention inside a longer phrase already claimed is part of that
+      // phrase, not another operand.
+      if (named.some(prior => at >= prior.at && at < prior.at + prior.phrase.length)) continue;
+      named.push({ ...entry, at });
+    }
   }
   named.sort((a, b) => a.at - b.at);
   if (named.length === 0) return null;
 
   const available = new Set(surface.primitives ?? []);
-  const report = (value, needs) => (Number.isFinite(value)
-    ? { answer: value.toFixed(4), used: [...new Set(needs)].filter(name => available.has(name)) }
+  const report = (value, keys) => (Number.isFinite(value)
+    ? { answer: value.toFixed(4), used: [...new Set(keys.flatMap(key => COMPOSITION_NEEDS[key]))].filter(name => available.has(name)) }
     : null);
 
-  if (named.length === 1) return report(quantities[named[0].key], COMPOSITION_NEEDS[named[0].key]);
+  if (named.length === 1) return report(quantities[named[0].key], [named[0].key]);
 
-  const [first, second] = named;
-  const before = text.slice(0, first.at);
-  const between = text.slice(first.at, second.at + second.phrase.length);
-  const operator = COMPOSITION_OPERATORS.find(entry =>
-    (entry.position === 'PREFIX' ? before : between).includes(entry.word));
-  // Returning nothing is the right answer to a question this cannot read.
-  // Guessing is how the version this replaced produced a confident wrong number.
-  if (!operator) return null;
+  // Fold left to right through the operator joining each adjacent pair.
+  //
+  // Promoted from GA7 as M3_LEFT_TO_RIGHT_NARY. The version it replaces read
+  // the first two quantities and dropped the rest without saying so: on every
+  // difficulty-4 item -- three quantities, two operators -- it returned a
+  // confident wrong number, thirty out of thirty. That is the failure F012
+  // records, reappearing in the code promoted to stop it, and it went unseen
+  // until a level existed that could ask a three-quantity question.
+  //
+  // Two quantities is this loop running once, so the earlier behaviour is the
+  // special case rather than a separate path.
+  let accumulator = quantities[named[0].key];
+  const usedKeys = [named[0].key];
 
-  return report(
-    operator.apply(quantities[first.key], quantities[second.key]),
-    [...COMPOSITION_NEEDS[first.key], ...COMPOSITION_NEEDS[second.key]]
-  );
+  for (let i = 1; i < named.length; i += 1) {
+    const left = named[i - 1];
+    const right = named[i];
+    const between = text.slice(left.at + left.phrase.length, right.at);
+    // A prefix operator governs only the first join: "the average of a and b,
+    // minus c" is (average of a and b) minus c.
+    const head = i === 1 ? text.slice(0, left.at) : '';
+
+    const operator = COMPOSITION_OPERATORS.find(entry =>
+      (entry.position === 'PREFIX' ? head : between).includes(entry.word));
+    // A join this cannot read makes everything after it meaningless. Returning
+    // the part it managed would be the same silent-dropping mistake in a
+    // smaller shape.
+    if (!operator) return null;
+
+    accumulator = operator.apply(accumulator, quantities[right.key]);
+    usedKeys.push(right.key);
+  }
+
+  return report(accumulator, usedKeys);
 }
 
 /**

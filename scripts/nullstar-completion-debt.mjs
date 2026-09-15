@@ -131,21 +131,61 @@ const ITEMS = [
     }
   },
   {
-    id: 'CD008-DIFFICULTY-THREE-NO-LONGER-DISCRIMINATES',
+    id: 'CD008-INSTRUMENT-SATURATED-AT-ITS-TOP-DIFFICULTY',
     class: 'SOFTWARE',
-    what: 'Every family now scores 1.0 at difficulties 1 through 3, so the instrument has nothing left to measure at its top difficulty.',
-    whyNotDone: 'Closing the TOOL_USE gap saturated the last family below 1.0. A suite where everything scores perfectly cannot rank a candidate, which is the state the retired corpus was in for a different reason, and a generation declared against it would be measuring nothing. Difficulty 4 has to carry real escalation before the next generation, and it has to be built before its bottleneck is read rather than after.',
+    what: 'A suite where every family scores 1.0 at its hardest level cannot rank a candidate, so a generation declared against it measures nothing.',
+    whyNotDone: 'Closing the TOOL_USE gap saturated the last family below 1.0 at difficulty 3. Difficulty 4 has to carry escalation the incumbent genuinely cannot reach rather than merely finds harder, and it has to exist before its bottleneck is read.',
+    // Measured at the top difficulty rather than a fixed one. Pinning this to
+    // difficulty 3 would have made it reopen permanently the moment difficulty
+    // 3 was solved, which is the opposite of what it is asking.
     check: () => {
       const seeds = Array.from({ length: 20 }, (_, i) => 50000 + i);
       const families = ['PLANNING', 'SCIENCE', 'CAUSALITY', 'TOOL_USE', 'RESEARCH', 'INVENTION', 'FORECASTING'];
-      const top = families.map(family =>
-        scoreTaskSet(generateTaskSet({ seeds, families: [family], difficulty: 3 }).items, UBERBOND_SOLVERS).mean);
-      const saturated = top.every(score => score === 1);
+      const top = families.map(family => ({
+        family,
+        score: scoreTaskSet(generateTaskSet({ seeds, families: [family], difficulty: 4 }).items, UBERBOND_SOLVERS).mean
+      }));
+      const withHeadroom = top.filter(row => row.score < 1);
       return {
-        open: saturated,
-        evidence: saturated
-          ? 'all seven families score exactly 1.0 at difficulty 3'
-          : `headroom remains: lowest family at difficulty 3 is ${Math.min(...top)}`
+        open: withHeadroom.length === 0,
+        evidence: withHeadroom.length
+          ? `headroom at difficulty 4 in ${withHeadroom.map(row => `${row.family} ${row.score}`).join(', ')}`
+          : 'all seven families score exactly 1.0 at difficulty 4'
+      };
+    }
+  },
+  {
+    id: 'CD009-RIGHT-GROUPED-COMPOSITIONS-UNREADABLE',
+    class: 'SOFTWARE',
+    what: 'The promoted invention solver folds left to right, so a prompt grouped the other way -- "the mean, plus the midrange divided by how many numbers there are" -- is read as ((mean + midrange) / count) rather than mean + (midrange / count). It answers wrongly rather than refusing.',
+    whyNotDone: 'Found by hand after GA7, by constructing prompts where the two tied candidates disagree. Neither M3 nor M4 reads it correctly; M4 is worse, silently dropping trailing operations. The generator emits no right-grouped prompt at any difficulty, so nothing measures this and no tournament can select against it until a difficulty level asks.',
+    check: () => {
+      const surface = { primitives: ['sum', 'count', 'max', 'min'], data: [6, 13, 3, 18, 8, 12] };
+      const prompt = 'Report the mean, plus the midrange divided by how many numbers there are.';
+      const mean = 10;
+      const correct = (mean + (10.5 / 6)).toFixed(4);
+      const given = UBERBOND_SOLVERS.INVENTION(surface, prompt)?.answer ?? null;
+      return {
+        open: given !== correct,
+        evidence: given === null
+          ? 'the solver refuses the right-grouped prompt, which would be acceptable'
+          : `the solver answers ${given} where the right-grouped reading is ${correct}`
+      };
+    }
+  },
+  {
+    id: 'CD010-TIE-BREAK-DECIDED-GA7-ARBITRARILY',
+    class: 'SOFTWARE',
+    what: 'GA7 promoted M3 over M4 on registration order. Both scored 1.0, both passed the gate, and the size heuristic could not measure either because the candidate module re-exports from three others.',
+    whyNotDone: 'The repaired tie-break says out loud that it decided nothing, which is why this is visible at all. Checking afterwards showed M3 is genuinely better -- M4 drops trailing operations -- but that was found by hand, not by the tournament. A tie-break that falls back to arbitrary order will eventually pick the worse candidate, and it already did once: GA6 chose L2 over L3 on size and L2 turned out to confabulate on every difficulty-4 item.',
+    check: () => {
+      const ga7 = readJson('artifacts/nullstar-terminal/ga7-result.json');
+      const unmeasurable = ga7.candidates.some(row => row.eligible && row.complexityBytes === null);
+      return {
+        open: unmeasurable,
+        evidence: unmeasurable
+          ? 'at least one eligible GA7 candidate has no measurable size, so the tie-break fell back to registration order'
+          : 'every eligible candidate had a measurable size'
       };
     }
   },

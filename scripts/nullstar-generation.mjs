@@ -15,6 +15,7 @@ import { GA3_CANDIDATES } from '../src/nullstar-ga3-candidates.mjs';
 import { GA4_CANDIDATES } from '../src/nullstar-ga4-candidates.mjs';
 import { GA5_CANDIDATES } from '../src/nullstar-ga5-candidates.mjs';
 import { GA6_CANDIDATES } from '../src/nullstar-ga6-candidates.mjs';
+import { GA7_CANDIDATES } from '../src/nullstar-ga7-candidates.mjs';
 import { GATING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -43,7 +44,8 @@ const CANDIDATE_SETS = {
   GA3: { candidates: GA3_CANDIDATES, sourcePath: 'src/nullstar-ga3-candidates.mjs' },
   GA4: { candidates: GA4_CANDIDATES, sourcePath: 'src/nullstar-ga4-candidates.mjs' },
   GA5: { candidates: GA5_CANDIDATES, sourcePath: 'src/nullstar-ga5-candidates.mjs' },
-  GA6: { candidates: GA6_CANDIDATES, sourcePath: 'src/nullstar-ga6-candidates.mjs' }
+  GA6: { candidates: GA6_CANDIDATES, sourcePath: 'src/nullstar-ga6-candidates.mjs' },
+  GA7: { candidates: GA7_CANDIDATES, sourcePath: 'src/nullstar-ga7-candidates.mjs' }
 };
 
 // The declaration is read first and on purpose. Criteria are fixed before the
@@ -144,7 +146,7 @@ const results = Object.entries(candidates).map(([name, fn]) => {
   const heldOut = scoreTaskSet(itemsAt(heldOutSeeds, DIFFICULTY), solvers).mean;
 
   const regressions = [];
-  for (const level of [1, 2]) {
+  for (const level of declaration.precommittedCriteria.regressionLevels ?? [1, 2]) {
     const before = scoreTaskSet(itemsAt(trainSeeds, level), UBERBOND_SOLVERS).mean;
     const after = scoreTaskSet(itemsAt(trainSeeds, level), solvers).mean;
     if (after < before) regressions.push({ difficulty: level, before, after });

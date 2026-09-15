@@ -91,15 +91,29 @@ test('the generation runner computes discrimination rather than leaving it to th
   assert.match(source, /attributionWarning/);
 });
 
-test('the failure this produced is carried as open debt, not just as a comment', () => {
+test('the failure this produced is carried in the ledger with its evidence', () => {
+  // This asserted F010 was open, which was true when it was written and is the
+  // kind of assertion that quietly becomes a lie. What it was protecting is
+  // that the failure is recorded with the evidence that settled it, and that
+  // closing it did not erase how those winners were selected -- so that is what
+  // it asserts now.
   const ledger = read('artifacts/nullstar-terminal/failure-debt.json');
   const entry = ledger.failures.find(row => row.id === 'F010-UNDISCRIMINATING-TOURNAMENT');
   assert.ok(entry, 'F010 must be in the ledger');
   assert.equal(entry.failureClass, 'EPISTEMIC_INFLATION');
-  // It stays open until an item exists that actually separates the mechanisms.
-  assert.notEqual(entry.entryStatus, 'CLOSED_WITH_PROOF');
   for (const ref of ['ga1-ablation.json', 'ga2-ablation.json']) {
     assert.ok(entry.evidenceRefs.some(path => path.endsWith(ref)), `F010 must cite ${ref}`);
+  }
+
+  if (entry.entryStatus === 'CLOSED_WITH_PROOF') {
+    assert.ok(entry.regressionTest, 'closing requires a regression test');
+    assert.ok(entry.evidenceRefs.some(path => path.endsWith('attribution-audit.json')),
+      'closing rests on the attribution audit, so it must be cited');
+    // The tournaments do not become discriminating by being audited later.
+    for (const name of ['ga1', 'ga2']) {
+      assert.equal(read(`artifacts/nullstar-terminal/${name}-result.json`).discrimination,
+        'UNDISCRIMINATING__CANDIDATES_TIED');
+    }
   }
 });
 

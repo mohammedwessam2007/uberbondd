@@ -13,8 +13,8 @@ function readyInput() {
       { ...fresh, domainId: 'uberbond.cloud', ownerAuthorized: true, dnsAuthenticated: true, reputationHealthy: true }
     ],
     mailboxes: [
-      { ...fresh, mailboxId: 'm1', domainId: 'uberbond.agency', egressRouteId: 'r1', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, usedToday: 0 },
-      { ...fresh, mailboxId: 'm2', domainId: 'uberbond.cloud', egressRouteId: 'r2', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, usedToday: 0 }
+      { ...fresh, mailboxId: 'm1', domainId: 'uberbond.agency', egressRouteId: 'r1', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 },
+      { ...fresh, mailboxId: 'm2', domainId: 'uberbond.cloud', egressRouteId: 'r2', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 }
     ],
     egressRoutes: [
       { ...fresh, routeId: 'r1', ready: true, authorized: true, termsCompatible: true, observedColdDailyCap: 50000, usedToday: 0 },
@@ -26,6 +26,7 @@ function readyInput() {
     ],
     campaign: { ...fresh, authorized: true, dailyCeiling: 100000, usedToday: 0, expiresAt: '2026-09-16T00:00:00.000Z' },
     runtime: { ...fresh, ready: true, state: 'RUNTIME_EVIDENCE_READY' },
+    schedule: { ...fresh, ready: true, remainingDispatchCapacityToday: 100000 },
     outbound: { enabled: true, dryRun: false, globalPaused: false, uncertain: 0, workerOnline: true, schedulerActive: true, providerConfirmedToday: 0 }
   };
 }

@@ -2,6 +2,7 @@ import { createOpenAIConversationModelAdapter } from './openai-conversation-mode
 import { createProjectMesh } from './uber-socket-project-mesh.mjs';
 import { createSharedContentFabric } from './uber-socket-shared-content-fabric.mjs';
 import { createUberSocketCognitiveBackplane } from './uber-socket-cognitive-backplane.mjs';
+import { createUberSocketWholeBrainOrchestrator } from './uber-socket-whole-brain-orchestrator.mjs';
 
 let singleton = null;
 
@@ -25,6 +26,7 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
       rooms: snap.rooms.length,
       sharedDocuments: snap.peers.reduce((n,p)=>n+fabric.listPeerDocs(p.peerId).length,0),
       cognitiveBackplane: 'CONNECTED',
+      wholeBrainOrchestrator: 'CONNECTED',
       cognitiveJournal: cognitiveJournalPath ? 'ENABLED' : 'DISABLED',
       externalEffectsAuthorized: false,
     });
@@ -105,7 +107,12 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
   function reportContradiction(args){ return backplane.publishContradiction(args); }
   function reportBlocker(args){ return backplane.publishBlocker(args); }
 
-  return Object.freeze({ status, registerChat, ingest, ask, council, monster, outreach100kCouncil, cognitiveCycle, reportContradiction, reportBlocker, mesh, fabric, backplane });
+  const baseRuntime={ status, registerChat, ingest, ask, council, monster, outreach100kCouncil, cognitiveCycle, reportContradiction, reportBlocker, mesh, fabric, backplane };
+  const wholeBrain=createUberSocketWholeBrainOrchestrator({runtime:baseRuntime});
+  async function compileWholeBrainMission(args){ return wholeBrain.compileMission(args); }
+  function discoverMissionPeers(args){ return wholeBrain.discoverPeers(args); }
+
+  return Object.freeze({ ...baseRuntime, compileWholeBrainMission, discoverMissionPeers, wholeBrain });
 }
 
 export function getUberSocketRuntime(options={}){

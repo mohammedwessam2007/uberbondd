@@ -18,6 +18,11 @@ import {
   NULLSTAR_OMEGA_REALITY_CONNECTION_VERSION
 } from '../src/nullstar-omega-reality-connection.mjs';
 import { placeCalibration } from '../src/nullstar-omega-calibration-ladder.mjs';
+import {
+  PARSING_RULES,
+  INDEPENDENCE_CLASSES,
+  declareObserver
+} from '../src/nullstar-omega-observer-contract.mjs';
 
 const TRIAGE_MODULES = [
   'src/c21-dimension-evidence-producer.mjs',
@@ -65,6 +70,22 @@ const OBSERVABLES = [
       procedure: 'node scripts/reachability-report.mjs',
       outcomeSpace: ['NONE', 'ONE_TO_THREE', 'FOUR_TO_SIX', 'SEVEN_OR_MORE'],
       decidedBy: 'the import graph computed by scripts/reachability-report.mjs',
+      observerContract: {
+        id: 'triage-import-graph',
+        observes: 'how many of the ten triage modules reach a production entrypoint',
+        inputSource: 'the import graph computed from src/ file contents',
+        producesStructuredOutput: false,
+        parsingRule: PARSING_RULES.RECORD_COUNT,
+        independenceClass: INDEPENDENCE_CLASSES.DERIVED,
+        // The first implementation of this observer read
+        // config/reachability-classification.json, which this session wrote to
+        // declare those modules NEEDS_TRIAGE. Naming what it reads is what
+        // makes that refusable rather than merely regrettable.
+        readsArtifactsAuthoredBy: [],
+        claimArtifact: 'config/reachability-classification.json',
+        validationRule: 'the count must be between zero and the number of declared modules',
+        failureState: 'TRIAGE_OBSERVER_READ_REJECTED'
+      },
       derivation: {
         ruleId: 'triage-production-count-bucket-v1',
         description: 'Count how many of the ten listed modules the report places in the production-reachable partition, then bucket as 0 / 1-3 / 4-6 / 7+.'
@@ -137,9 +158,25 @@ const OBSERVABLES = [
       procedure: 'npm run test:mutation-war',
       outcomeSpace: ['ALL_KILLED', 'SOME_SURVIVED'],
       decidedBy: 'scripts/mutation-war.mjs survivor report',
+      observerContract: {
+        id: 'mutation-survivor-text',
+        observes: 'whether any registered mutation survived',
+        inputSource: 'npm run test:mutation-war stdout',
+        // The runner emits a summary line carrying three counts. The first
+        // version of this observer ignored it and matched the word "survived"
+        // anywhere in stdout, which found it inside the guard descriptions
+        // WAR-02, LKG-04 and FCSTACK-07 and reported survivors from a run that
+        // killed all 397. The contract refuses that combination now.
+        producesStructuredOutput: true,
+        parsingRule: PARSING_RULES.STRUCTURED_FIELD,
+        expectedSchema: 'the summary line: <total> mutations, <killed> killed, <notKilled> not killed',
+        independenceClass: INDEPENDENCE_CLASSES.INDEPENDENT,
+        validationRule: 'killed plus notKilled must equal total, or the read is rejected',
+        failureState: 'MUTATION_OBSERVER_READ_REJECTED'
+      },
       derivation: {
-        ruleId: 'mutation-survivor-presence-v1',
-        description: 'ALL_KILLED when the run reports zero survivors, SOME_SURVIVED otherwise. A run that fails to execute is neither and aborts the loop.'
+        ruleId: 'mutation-summary-counts-v2',
+        description: 'Read total, killed and notKilled from the summary line and check they sum. ALL_KILLED when notKilled is zero, SOME_SURVIVED when it is above zero. A missing or inconsistent summary line is a rejected read, not an outcome.'
       }
     },
     // Five anchors were re-targeted earlier in this session and two of those
@@ -160,17 +197,30 @@ const OBSERVABLES = [
     // keeps the defect because an observation apparatus that misreads its own
     // observer is a bigger finding than a missed forecast.
     retired: {
-      defect: 'mutation-survivor-presence-v1 matched the word "survived" inside the guard descriptions WAR-02, LKG-04 and FCSTACK-07 rather than the survivor count on the summary line.',
+      defect: 'mutation-survivor-presence-v1 matched the word "survived" inside the guard descriptions WAR-02, LKG-04 and FCSTACK-07 rather than the survivor count on the summary line. The observer contract now refuses text matching against this producer, and the replacement reads the three counts and checks they sum.',
       correctedOutcome: 'ALL_KILLED',
+      whyStillVoid: 'The observer is repaired and now reads the counts correctly, so it agrees with reality. The forecast still cannot be scored: this session knows the answer, so the sealed probabilities are no longer a prediction. Rescoring here would measure memory.',
       correctedEvidence: 'mutation-war - 397 mutations, 397 killed, 0 not killed (exit 0)'
     },
     observe() {
       const { output } = run('npm', ['run', 'test:mutation-war']);
-      const survivors = /survived/i.test(output) && !/0\s+survived|survivors:\s*0|survived:\s*0/i.test(output);
+
+      // Read the counts, not the prose. The summary line is the only place in
+      // this output that states a result; everything else is a catalogue of
+      // guard descriptions, several of which contain the word "survived".
+      const summary = output.match(/(\d+)\s+mutations,\s*(\d+)\s+killed,\s*(\d+)\s+not killed/);
+      if (!summary) {
+        return { outcome: null, derivationRuleId: 'mutation-summary-counts-v2', rawEvidence: output.slice(-40000), readRejected: 'MUTATION_OBSERVER_READ_REJECTED: no summary line' };
+      }
+      const [, total, killed, notKilled] = summary.map(Number);
+      // The declared validation rule, enforced rather than described.
+      if (killed + notKilled !== total) {
+        return { outcome: null, derivationRuleId: 'mutation-summary-counts-v2', rawEvidence: output.slice(-40000), readRejected: `MUTATION_OBSERVER_READ_REJECTED: ${killed}+${notKilled} != ${total}` };
+      }
       return {
-        outcome: survivors ? 'SOME_SURVIVED' : 'ALL_KILLED',
-        derivationRuleId: 'mutation-survivor-presence-v1',
-        rawEvidence: output.slice(-40000)
+        outcome: notKilled > 0 ? 'SOME_SURVIVED' : 'ALL_KILLED',
+        derivationRuleId: 'mutation-summary-counts-v2',
+        rawEvidence: JSON.stringify({ total, killed, notKilled, summaryLine: summary[0] }, null, 2)
       };
     }
   },
@@ -182,6 +232,17 @@ const OBSERVABLES = [
       procedure: 'npm run nullstar:reconcile',
       outcomeSpace: ['UNCHANGED', 'MISSING_DECREASED_1_TO_5', 'MISSING_DECREASED_MORE_THAN_5'],
       decidedBy: 'src/founder-directive-reconciler.mjs evidence locator over the current tree',
+      observerContract: {
+        id: 'directive-missing-count',
+        observes: 'whether any directive section moved out of MISSING',
+        inputSource: 'artifacts/nullstar/directive-reconciliation.json rows',
+        producesStructuredOutput: true,
+        parsingRule: PARSING_RULES.RECORD_COUNT,
+        expectedSchema: 'rows carrying a currentState field',
+        independenceClass: INDEPENDENCE_CLASSES.DERIVED,
+        validationRule: 'the row count must equal the directive section count',
+        failureState: 'DIRECTIVE_OBSERVER_READ_REJECTED'
+      },
       derivation: {
         ruleId: 'missing-row-delta-bucket-v1',
         description: 'Compare the MISSING row count against the 247 recorded before this module existed. Bucket as unchanged / down by 1-5 / down by more than 5.'
@@ -214,6 +275,21 @@ const OBSERVABLES = [
 // ---------------------------------------------------------------------------
 // Record every forecast before any procedure runs.
 // ---------------------------------------------------------------------------
+
+// Every observer states its contract before a forecast is sealed against it.
+// A declaration that refuses stops the run rather than producing an
+// observation nobody checked.
+const contracts = [];
+for (const entry of OBSERVABLES) {
+  const declared = declareObserver(entry.declaration.observerContract);
+  if (!declared.ok) {
+    console.error(`OBSERVER_DECLARATION_INVALID ${entry.declaration.id}`, declared.reasonCodes);
+    console.error('  An observer that cannot state its own contract cannot produce evidence.');
+    process.exit(1);
+  }
+  contracts.push({ observableId: entry.declaration.id, ...declared });
+}
+console.log(`declared ${contracts.length} observer contracts`);
 
 const evidenceCutoff = new Date().toISOString();
 const sealed = [];
@@ -254,6 +330,12 @@ for (const { entry, observable, forecast } of sealed) {
   } catch (error) {
     console.log('OBSERVER_FAILED');
     records.push({ observableId: observable.id, status: 'OBSERVER_FAILED', detail: String(error?.message ?? error) });
+    continue;
+  }
+
+  if (produced.readRejected) {
+    console.log(`READ_REJECTED ${produced.readRejected}`);
+    records.push({ observableId: observable.id, status: 'OBSERVER_READ_REJECTED', detail: produced.readRejected });
     continue;
   }
 
@@ -344,6 +426,7 @@ writeFileSync('artifacts/nullstar-omega/reality-connection.json', `${JSON.string
   module: NULLSTAR_OMEGA_REALITY_CONNECTION_VERSION,
   directiveSection: '312',
   evidenceCutoff,
+  observerContracts: contracts.map(c => ({ observableId: c.observableId, ...c.observer, countsAsEvidence: c.countsAsEvidence })),
   forecastsSealed: sealed.length,
   loopsClosed: loops.filter(loop => loop?.ok).length,
   loopsVoided: loops.filter(loop => loop?.status === 'REALITY_LOOP_VOID').length,

@@ -3060,6 +3060,41 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'OBSCONTRACT-01', guard: 'Text matching is refused when the producer emits structured output',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (producesStructuredOutput === true && parsingRule === PARSING_RULES.TEXT_PATTERN) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-02', guard: 'An observer reading the artifact stating its own claim is refused',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (readsOwnClaim && independenceClass !== INDEPENDENCE_CLASSES.SELF_REFERENTIAL) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-03', guard: 'Two observers on one input source are not independent derivations',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (a.inputSource === b.inputSource) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-04', guard: 'Disagreeing observers open a contradiction rather than promoting one',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (a !== b) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-05', guard: 'Provenance touching a session-authored artifact is self-referential',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '    if (authored.has(current)) touchedAuthored = true;',
+    replace: '',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
     id: 'METAIMP-05', guard: 'The evidence-timing boundary is derived from the episodes, not written once',
     file: 'src/nullstar-omega-meta-improvement.mjs',
     find: "  if (prospective === 0) {",

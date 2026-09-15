@@ -64,8 +64,8 @@ export function compileZeroBarrierOutreachReadiness({
   now = new Date()
 } = {}) {
   const hardened = hardenCertificateInput(launchInput);
-  const baseCertificate = compileOutreach100kLaunchCertificate(hardened.input);
-  const exchange = compileUberMailExchange({ ...mailExchange, now, required: baseCertificate.targetRemaining || 100_000 });
+  const baseCertificate = compileOutreach100kLaunchCertificate({ ...hardened.input, now });
+  const exchange = compileUberMailExchange({ ...mailExchange, now, required: baseCertificate.targetRemaining ?? 100_000 });
   const swarmPlan = compileUberSwarmPlan({ ...swarm, now });
   const reachPlan = compileUniversalReachPlan({ ...reach, now });
   const grants = compileZeroCostPortfolio({ ...zeroCostResources, now });

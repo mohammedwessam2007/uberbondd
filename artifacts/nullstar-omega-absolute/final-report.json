@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond-nullstar-omega-absolute-final-report-1.0.0",
   "directive": "PROJECT NULLSTAR OMEGA ABSOLUTE",
-  "generatedAt": "2026-09-15T03:37:40.609Z",
+  "generatedAt": "2026-09-15T03:38:50.300Z",
   "START_MAIN_SHA": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
   "START_NULLSTAR_SHA": "0a5cd4b46e070855c04abfb4d2a27453976ddf20",
   "MERGE_BASE": "2831e4e010fce9b4775ade0c31aae0622de2b104",
   "FINAL_MAIN_SHA": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
-  "FINAL_INTEGRATION_SHA": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
+  "FINAL_INTEGRATION_SHA": "47a3eb1271ea2be4a28760f11d125bf6bb3be736",
   "PR_HISTORY": [
     {
       "number": 889,
@@ -18,7 +18,7 @@
   ],
   "BRANCH_DEBT": {
     "behindMain": 0,
-    "aheadOfMain": 45,
+    "aheadOfMain": 47,
     "note": "Behind-count zero means the branch carries exact current main."
   },
   "DIRECTIVE_TOTAL": 336,
@@ -248,11 +248,17 @@
     "NULLSTAR ALIAS RECONCILIATION: 244 sections read MISSING, an upper bound rather than a count of unbuilt organs. A name-similarity pass over all 247 found a >=50% word match for 137 of them, and verification killed almost all of those: ADVERSARIAL COUNCIL matched forecast-adversarial-ensemble, which is about source independence and not red-team critique roles, and PARALLEL GRAPH EXECUTION matched execution-leaf-graph, which does not measure wall-clock reduction. Two survived verification and both reached VERIFIED_CURRENT through the evidence gate. Mass-aliasing on a shared word would make the matrix look better while being less true, which is the failure this row exists to prevent. Each remaining section needs its requirement read against the candidate module.",
     "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED, AND THE GATE IS NARROWER THAN G2 SAID: re-probing split it. A local inference runtime installs and runs here -- onnxruntime 1.30.0 imports with CPUExecutionProvider, and PyPI is reachable at 54 MB/s. What is refused is weights: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. A second, independent blocker sits behind that one: the Capability Genome admission gate requires STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three. Opening the network alone would not make a model selectable. This gates capability-by-judgement scoring only; bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer were blocked by association in the G2 verdict and are not. All six are now done. Evidence: artifacts/nullstar-omega/G2-discriminating-test.json v1.1.",
     "FIRST REALITY-CALIBRATED DIMENSION IS EARNED; THE REST ARE NOT. N12 CALIBRATION now sits at REALITY_CALIBRATED on 2 closed loops with mean Brier 0.7975 and 2 surprises out of 2. The other 23 dimensions sit at VERIFIED or OPERATING and still have no prediction checked against a later observation. One calibrated dimension is not a calibrated system, and a mean Brier of 0.80 says this system's self-model is wrong more often than it expects to be.",
-    "INDEPENDENT EVIDENCE FOR THE REMAINING DIMENSIONS: seven capability dimensions are unmeasured and G5 established why. Every local score available for them is cut from observations already scoring another dimension, and the evidence-reuse guard refuses those. This is not a provider gate -- G4 refuted that -- and it is not solved by writing another scorer. It needs the system to do something that generates an observation it does not currently produce. That is a design question, not permission and not a credential.",
+    "NO INSTRUMENT CAN CURRENTLY SEPARATE THIS SYSTEM FROM A CONSTANT. The baselines showed the sealed corpus was tautological: answer and observation were the same expression, so every tree scored full marks against itself, and a single constant answers half the tasks. The suite is retired. Its successor refuses tautological tasks at definition time and is mutation-guarded, but no task has been written against it. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on instantiating it. This is software work, not an external gate.",
     "OBSERVATION APPARATUS IS UNRELIABLE: of three observers written this session, one misread guard prose as a result and one read a file this session had written. Two of three failed on first attempt. The seal is what made both visible; nothing guarantees the next one is sound."
   ],
   "FOUNDER_ACTIONS": [],
   "NEXT_HIGHEST_LEVERAGE_BOTTLENECK": "Instantiate the independent suite. The tautology-refusing definition exists and is mutation-guarded, but no task has been written against it, so there is currently no instrument that can separate this system from a constant. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on that.",
+  "GATE_RECEIPT": {
+    "sourceCommit": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
+    "describesThisSource": true,
+    "sourceFilesChangedSinceReceipt": [],
+    "rule": "A receipt holds while no source file has changed since it was taken. Generated artifacts and canon do not invalidate it; any source change does."
+  },
   "truthBoundary": "THIS REPORT IS GENERATED FROM ARTIFACTS AT ONE COMMIT. GATE NUMBERS ARE NULL UNLESS A RECEIPT NAMES THIS EXACT HEAD. NOTHING HERE ESTABLISHES ASI, AN INTELLIGENCE EXPLOSION, A SINGULARITY, REVENUE, A CUSTOMER, OR A LIFE OUTCOME.",
   "businessEffectAuthority": "NONE",
   "FIELDS_WITH_NO_VALUE": []

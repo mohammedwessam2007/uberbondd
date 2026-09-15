@@ -17,10 +17,25 @@ const read = relative => { try { return JSON.parse(readFileSync(join(root, relat
 const git = (...args) => { try { return execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim(); } catch { return null; } };
 
 // Gate numbers come from a receipt this session writes after actually running
-// the gates. Section 013: a receipt that does not name the exact head is a
-// historical receipt, never exact-head evidence.
+// the gates. Section 013: a receipt that does not describe the code being
+// claimed is a historical receipt, never exact-head evidence.
+//
+// "Exact head" means the source the gates ran against, not the commit id. A
+// canon-only commit after the run -- regenerating readiness, say -- changes
+// the head without changing anything a gate exercised, and invalidating the
+// receipt for that would force either a re-run that cannot terminate or a
+// relabelled SHA, which is the forgery this rule exists to prevent. So the
+// receipt holds while no source file has changed since it was taken, which is
+// the same rule canon freshness already applies to readiness.
+const GENERATED_PREFIXES = ['artifacts/', 'docs/CURRENT_SYSTEM_STATE.md', 'docs/CURRENT_HANDOFF.json'];
 const gates = read(`${OUT_DIR}/gate-receipts.json`);
-const gatesAreExactHead = gates?.sourceCommit === head;
+const changedSinceReceipt = gates?.sourceCommit
+  ? (git('diff', '--name-only', gates.sourceCommit, head) ?? '').split('\n').filter(Boolean)
+  : null;
+const sourceChangedSinceReceipt = (changedSinceReceipt ?? [])
+  .filter(path => !GENERATED_PREFIXES.some(prefix => path.startsWith(prefix)));
+const gatesAreExactHead = Boolean(gates?.sourceCommit)
+  && (gates.sourceCommit === head || sourceChangedSinceReceipt.length === 0);
 const gate = key => (gatesAreExactHead ? gates?.[key] ?? null : null);
 
 const denominator = read('artifacts/nullstar-omega/denominator.json');
@@ -155,6 +170,13 @@ const report = {
 
   NEXT_HIGHEST_LEVERAGE_BOTTLENECK: 'Instantiate the independent suite. The tautology-refusing definition exists and is mutation-guarded, but no task has been written against it, so there is currently no instrument that can separate this system from a constant. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on that.',
 
+  GATE_RECEIPT: {
+    sourceCommit: gates?.sourceCommit ?? null,
+    describesThisSource: gatesAreExactHead,
+    sourceFilesChangedSinceReceipt: sourceChangedSinceReceipt,
+    rule: 'A receipt holds while no source file has changed since it was taken. Generated artifacts and canon do not invalidate it; any source change does.'
+  },
+
   truthBoundary: 'THIS REPORT IS GENERATED FROM ARTIFACTS AT ONE COMMIT. GATE NUMBERS ARE NULL UNLESS A RECEIPT NAMES THIS EXACT HEAD. NOTHING HERE ESTABLISHES ASI, AN INTELLIGENCE EXPLOSION, A SINGULARITY, REVENUE, A CUSTOMER, OR A LIFE OUTCOME.',
   businessEffectAuthority: 'NONE'
 };
@@ -165,7 +187,7 @@ mkdirSync(join(root, OUT_DIR), { recursive: true });
 writeFileSync(join(root, `${OUT_DIR}/final-report.json`), `${JSON.stringify({ ...report, FIELDS_WITH_NO_VALUE: missing }, null, 2)}\n`);
 
 console.log(`final report @ ${head.slice(0, 8)}`);
-console.log(`  gate receipts exact-head: ${gatesAreExactHead}`);
+console.log(`  gate receipt describes this source: ${gatesAreExactHead}${sourceChangedSinceReceipt.length ? ` (${sourceChangedSinceReceipt.length} source file(s) changed since)` : ''}`);
 console.log(`  directive: ${JSON.stringify(report.DIRECTIVE_BY_STATE)}`);
 console.log(`  denominator: ${JSON.stringify(report.N01_N24_BY_STATE)}`);
 console.log(`  baselines executed: ${['B0','B1','B2','B3','B4','B5'].filter(id => report[`BASELINE_${id}`].status === 'EXECUTED').join(', ')}`);

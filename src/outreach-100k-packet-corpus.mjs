@@ -36,7 +36,7 @@ export async function inspectOutreach100kPacketCorpus({filePath,mailboxes=[],cam
     if(!provider)reasons.push(`packet-${count}:recipient-provider-required`); else providerCounts[provider]=(providerCounts[provider]||0)+1;
     if(!idempotencyKey)reasons.push(`packet-${count}:idempotency-key-required`); else if(idem.has(idempotencyKey))reasons.push(`packet-${count}:duplicate-idempotency-key`); else idem.add(idempotencyKey);
     if(accountKey){if(accounts.has(accountKey))reasons.push(`packet-${count}:duplicate-account-day`);else accounts.add(accountKey);}
-    const box=mailboxMap.get(mailboxId);if(!box||box.ready===false)reasons.push(`packet-${count}:ready-mailbox-required`);else mailboxCounts[mailboxId]=(mailboxCounts[mailboxId]||0)+1;
+    const box=mailboxMap.get(mailboxId);if(!box||box.ready===false)reasons.push(`packet-${count}:ready-mailbox-required`);else{mailboxCounts[mailboxId]=(mailboxCounts[mailboxId]||0)+1;if(clean(p?.message?.from,320).toLowerCase()!==clean(box.address,320).toLowerCase())reasons.push(`packet-${count}:sender-address-must-match-certified-mailbox`);}
     if(clean(p?.campaignId,240)!==clean(campaignId,240))reasons.push(`packet-${count}:campaign-mismatch`);
     if(!clean(p?.message?.subject,998)||!clean(p?.message?.body,100000))reasons.push(`packet-${count}:complete-message-required`);
     if(clean(p?.launchInput?.recipient?.email,320).toLowerCase()!==to)reasons.push(`packet-${count}:launch-recipient-mismatch`);

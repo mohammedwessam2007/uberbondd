@@ -69,6 +69,8 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Preserve exact 40-character source identity
+        run: git config core.abbrev 40
       - uses: actions/setup-node@v4
         with:
           node-version: 22

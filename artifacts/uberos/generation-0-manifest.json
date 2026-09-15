@@ -19,7 +19,7 @@
       "source": "https://buildroot.org/downloads/buildroot-2026.08.tar.xz",
       "sourceDigest": "sha256:87aaca4164ea9d5c8085854953018263f7963f07c22e73a2a2185cc98c581c34",
       "license": "GPL-2.0",
-      "buildRecipeDigest": "sha256:d25e5980a96555fc0de16e95cf294abe02dd4796de63b886cf6ee104db0b9ba1",
+      "buildRecipeDigest": "sha256:4c0a05f39455d629eef05bcda571f4fdeb81715e4a56e525c69e4241495380c4",
       "buildInputs": ["uberos/scripts/build-gen0.sh", "uberos/buildroot"],
       "capabilities": ["toolchain", "root-filesystem", "kernel-build", "qemu-image"],
       "permissions": ["build-local-files"],

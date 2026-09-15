@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { compileZeroBarrierOutreachReadiness } from '../src/outreach-zero-barrier-fabric.mjs';
 import { admitPermissionedGateway } from '../src/uberdepin-permissioned-gateway.mjs';
 import { compileReputationCredential } from '../src/uberreputation-credentials.mjs';
@@ -39,6 +41,10 @@ export function runZeroBarrierOutreachDoctor({ now = new Date(), fixture = {} } 
   };
 }
 
-if (process.argv[1] && new URL(import.meta.url).pathname === process.argv[1]) {
+const invokedDirectly = process.argv[1]
+  ? pathToFileURL(resolve(process.argv[1])).href === import.meta.url
+  : false;
+
+if (invokedDirectly) {
   process.stdout.write(`${JSON.stringify(runZeroBarrierOutreachDoctor(), null, 2)}\n`);
 }

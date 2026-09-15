@@ -12,15 +12,19 @@ test('server exposes only certified 100K start seam',()=>{
   assert.match(server,/CERTIFIED_100K_READY/);
   assert.match(server,/confirmExactTarget/);
   assert.match(server,/outreach\.100k\.process/);
+  assert.match(server,/recoveryPolicy:\s*'reconcile'/);
+  assert.match(server,/maxAttempts:\s*1/);
 });
 
-test('resident worker registers certified processor and re-certifies dynamically',()=>{
+test('resident worker registers certified processor and fences retries behind reconciliation',()=>{
   assert.match(worker,/handlers\['outreach\.100k\.process'\]/);
   assert.match(worker,/buildLiveOutreach100kSummary/);
   assert.match(worker,/runOutreach100kBatch/);
   assert.match(worker,/founderCertificateId/);
   assert.match(worker,/certificateId:\s*''/);
   assert.match(worker,/exact recipient-set digest/);
+  assert.match(worker,/recoveryPolicy:\s*'reconcile'/);
+  assert.match(worker,/maxAttempts:\s*1/);
 });
 
 test('runtime re-certifies each batch, binds corpus digest, and quarantines uncertain outcomes',()=>{

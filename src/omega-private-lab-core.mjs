@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-export const OMEGA_PRIVATE_LAB_CORE_VERSION = 'uberbond.omega-private-lab-core.v1';
+export const OMEGA_PRIVATE_LAB_CORE_VERSION = 'uberbond.omega-private-lab-core.v2';
 export const ZERO_EFFECTS = Object.freeze({ providerCalls:0, messages:0, purchases:0, deployments:0, credentialChanges:0, dnsChanges:0, productionMutations:0, spendCents:0 });
 const envelope = extra => ({ businessEffectAuthority:'NONE', externalEffectAuthority:'NONE', externalEffectLedger:{...ZERO_EFFECTS}, ...extra });
 const fail = (...reasons) => envelope({ ok:false, status:'OMEGA_PRIVATE_LAB_REFUSED', version:OMEGA_PRIVATE_LAB_CORE_VERSION, reasonCodes:[...new Set(reasons.flat().filter(Boolean))] });
@@ -101,11 +101,24 @@ function featureTable(problem, assignment){
   return new Map(problem.variables.map(v=>[v.id,{degree:degree.get(v.id),weightedDegree:weighted.get(v.id),domainSize:v.domain.length,assigned:assignment[v.id]!==undefined} ]));
 }
 
-export const POLICIES=Object.freeze(['INPUT_ORDER','LEXICAL','HIGH_DEGREE','HIGH_WEIGHTED_DEGREE','SMALL_DOMAIN','LOW_DEGREE','ACTIVE_PRESSURE','FAIL_FIRST']);
+function structuralRoleKeys(problem){
+  const index=new Map(problem.variables.map((v,i)=>[v.id,i]));
+  let colors=problem.variables.map(v=>digest({domainSize:v.domain.length,incident:problem.constraints.filter(c=>c.vars.includes(v.id)).map(c=>`${c.type}/${c.vars.length}`).sort()}));
+  for(let round=0;round<3;round++){
+    colors=problem.variables.map((v,i)=>{
+      const incident=problem.constraints.filter(c=>c.vars.includes(v.id)).map(c=>({type:c.type,arity:c.vars.length,neighbors:c.vars.filter(x=>x!==v.id).map(x=>colors[index.get(x)]).sort()})).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b)));
+      return digest({self:colors[i],incident});
+    });
+  }
+  return new Map(problem.variables.map((v,i)=>[v.id,colors[i]]));
+}
+
+export const POLICIES=Object.freeze(['INPUT_ORDER','HIGH_DEGREE','HIGH_WEIGHTED_DEGREE','SMALL_DOMAIN','LOW_DEGREE','ACTIVE_PRESSURE','FAIL_FIRST']);
 function chooseVariable(problem, assignment, policy, metrics){
   const remaining=problem.variables.map(v=>v.id).filter(v=>assignment[v]===undefined);
   const features=featureTable(problem,assignment);
   const order=new Map(problem.variables.map((v,i)=>[v.id,i]));
+  const roleKeys=structuralRoleKeys(problem);
   const activePressure=new Map();
   const feasibleCount=new Map();
   if(policy==='ACTIVE_PRESSURE'){
@@ -132,16 +145,16 @@ function chooseVariable(problem, assignment, policy, metrics){
       feasibleCount.set(vid,count);
     }
   }
+  const structuralTie=(a,b)=>roleKeys.get(a).localeCompare(roleKeys.get(b)) || order.get(a)-order.get(b);
   const cmp=(a,b)=>{
     const A=features.get(a), B=features.get(b);
-    if(policy==='HIGH_DEGREE') return B.degree-A.degree || order.get(a)-order.get(b);
-    if(policy==='HIGH_WEIGHTED_DEGREE') return B.weightedDegree-A.weightedDegree || B.degree-A.degree || order.get(a)-order.get(b);
-    if(policy==='SMALL_DOMAIN') return A.domainSize-B.domainSize || B.degree-A.degree || order.get(a)-order.get(b);
-    if(policy==='LOW_DEGREE') return A.degree-B.degree || order.get(a)-order.get(b);
-    if(policy==='ACTIVE_PRESSURE') return (activePressure.get(b)-activePressure.get(a)) || B.weightedDegree-A.weightedDegree || order.get(a)-order.get(b);
-    if(policy==='FAIL_FIRST') return (feasibleCount.get(a)-feasibleCount.get(b)) || B.weightedDegree-A.weightedDegree || order.get(a)-order.get(b);
-    if(policy==='INPUT_ORDER') return order.get(a)-order.get(b);
-    return a.localeCompare(b);
+    if(policy==='HIGH_DEGREE') return B.degree-A.degree || structuralTie(a,b);
+    if(policy==='HIGH_WEIGHTED_DEGREE') return B.weightedDegree-A.weightedDegree || B.degree-A.degree || structuralTie(a,b);
+    if(policy==='SMALL_DOMAIN') return A.domainSize-B.domainSize || B.degree-A.degree || structuralTie(a,b);
+    if(policy==='LOW_DEGREE') return A.degree-B.degree || structuralTie(a,b);
+    if(policy==='ACTIVE_PRESSURE') return (activePressure.get(b)-activePressure.get(a)) || B.weightedDegree-A.weightedDegree || structuralTie(a,b);
+    if(policy==='FAIL_FIRST') return (feasibleCount.get(a)-feasibleCount.get(b)) || B.weightedDegree-A.weightedDegree || structuralTie(a,b);
+    return order.get(a)-order.get(b);
   };
   return remaining.sort(cmp)[0];
 }

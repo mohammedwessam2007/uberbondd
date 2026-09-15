@@ -3179,6 +3179,48 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
   },
   {
+    id: 'OOPGATE-01', guard: 'Confabulating on an out-of-pattern probe disqualifies a candidate at any in-distribution score',
+    file: 'src/nullstar-out-of-pattern-probes.mjs',
+    find: '  if (result.confabulated > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-02', guard: 'A solver that refuses everything cannot pass the gate by never being wrong',
+    file: 'src/nullstar-out-of-pattern-probes.mjs',
+    find: '  if (result.correctRate < minimumCorrectRate) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-03', guard: 'The promoted solver composes the named quantity instead of matching the shortest phrase it contains',
+    file: 'src/nullstar-cognitive-solvers.mjs',
+    find: "  const operator = COMPOSITION_OPERATORS.find(entry =>\n    (entry.position === 'PREFIX' ? before : between).includes(entry.word));",
+    replace: "  const operator = COMPOSITION_OPERATORS.find(entry => between.includes(entry.word));",
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-04', guard: 'A prompt the solver cannot read produces a refusal, never a guess',
+    file: 'src/nullstar-cognitive-solvers.mjs',
+    find: '  if (!operator) return null;\n\n  return report(',
+    replace: '  if (!operator) return report(quantities[first.key], COMPOSITION_NEEDS[first.key]);\n\n  return report(',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-05', guard: 'The incumbent is measured against the gate rather than assumed to pass it',
+    file: 'scripts/nullstar-generation.mjs',
+    find: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;',
+    replace: '  const gateIsDecisive = false;',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPCOMP-01', guard: 'Claiming a primitive the composition does not need costs score',
+    file: 'src/nullstar-cognitive-tasks.mjs',
+    find: '      return extra === 0 ? 1 : Math.max(0, 1 - extra / required.length);',
+    replace: '      return 1;',
+    suites: ['tests/nullstar-cognitive-tasks.test.mjs']
+  },
+  {
     id: 'GENDISC-01', guard: 'A tournament whose eligible candidates tie is reported as undiscriminating, not as a capability win',
     file: 'scripts/nullstar-generation.mjs',
     find: "    ? 'UNDISCRIMINATING__CANDIDATES_TIED'",

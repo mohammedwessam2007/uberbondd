@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "uberbond.omega-private-holdout-commitments.v2",
+  "createdAt": "2026-09-15",
+  "sourceFreezeCommit": "50dc95b336e9b9ad94c3402fbcbdfe4852e01528",
+  "generator": "uberbond.omega-private-benchmark-generators.v1",
+  "perFamily": 10,
+  "familiesPerRun": 4,
+  "evaluationTransforms": [
+    "ORIGINAL",
+    "OPAQUE_IDENTIFIER_RENAME_PRESERVE_ORDER",
+    "REVERSE_VARIABLE_PRESENTATION"
+  ],
+  "rawHoldoutsStoredInRepository": false,
+  "learnerAccessBeforeEvaluation": false,
+  "runs": [
+    {"id":"v2-private-1","commitment":"d6ae9d0e205b14b2312292400c49b0de34e9e4e5b7a61469f1d59a19897b2c59","taskCount":40,"taskHashesDigest":"5a6465970b0ba5238ec92c0b5d57720d1c96997c5f52c9d569eb4b8f032d897a","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v2-private-2","commitment":"1b783a12eecf39d0608d528ef442104f4ab0aa29f588294dead41ffe22b673bd","taskCount":40,"taskHashesDigest":"3966c5073d8f617897f25d74d1672786fa468e3eb84d909349207ca2cc6f1e4b","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v2-private-3","commitment":"c1324096dcf43530781e7dddf5ec11a94382f6d9ccb949d21867706173dbca9e","taskCount":40,"taskHashesDigest":"e853d1bc419c2a0c8e9d48e40d12d82c763e591b016038e64c0dd879beef0a73","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v2-private-4","commitment":"7402c3e3e78ed8655b7b5408f7769a6d79ddd52276ab850d7ba00454213f40ea","taskCount":40,"taskHashesDigest":"7fd0d620d9b0d2e57d6e27b938a94309ad9472b513423df72036b40ac935a957","status":"SEALED_NOT_EVALUATED"}
+  ],
+  "law": "These commitments were written after v2 source freeze and before evaluation. V1 evidence is disqualified from promotion. V2 may not be modified in response to these holdouts; any fix requires v3 and fresh commitments.",
+  "truthBoundary": "Commitment metadata establishes preregistration order and later reveal integrity when paired with founder-private salts. It does not by itself prove transfer advantage or leakage resistance."
+}

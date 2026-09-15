@@ -8,6 +8,18 @@ const clean = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
 const positiveInt = value => Number.isFinite(Number(value)) && Number(value) >= 0 ? Math.floor(Number(value)) : null;
 const uniq = values => [...new Set((values || []).filter(Boolean))];
 
+function duplicateKeys(rows, keyFn) {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const row of Array.isArray(rows) ? rows : []) {
+    const key = clean(keyFn(row), 500).toLowerCase();
+    if (!key) continue;
+    if (seen.has(key)) duplicates.add(key);
+    else seen.add(key);
+  }
+  return [...duplicates].sort();
+}
+
 function ageHours(value, now) {
   const observed = Date.parse(String(value || ''));
   const current = now instanceof Date ? now.getTime() : Date.parse(String(now || ''));
@@ -59,7 +71,7 @@ function compileMailboxes(mailboxes, domainReady, options) {
     const reasons = [...evidence.reasons];
     const observedDailyCap = positiveInt(raw?.observedColdDailyCap ?? raw?.currentDailyCap);
     const observedHourlyCap = positiveInt(raw?.observedColdHourlyCap ?? raw?.currentHourlyCap);
-    const usedToday = positiveInt(raw?.usedToday ?? 0);
+    const usedToday = positiveInt(raw?.usedToday);
     const capRemaining = remaining(observedDailyCap, usedToday);
     if (!mailboxId) reasons.push('mailbox-id-required');
     if (!domainId || !domainReady.has(domainId)) reasons.push('mailbox-ready-domain-required');
@@ -71,7 +83,7 @@ function compileMailboxes(mailboxes, domainReady, options) {
     if (observedHourlyCap == null || observedHourlyCap <= 0) reasons.push('mailbox-observed-hourly-cap-required');
     const minGapSeconds = positiveInt(raw?.minGapSeconds ?? 0);
     if (minGapSeconds == null) reasons.push('mailbox-valid-cadence-required');
-    rows.push({ mailboxId: mailboxId || null, domainId: domainId || null, routeId: routeId || null, observedDailyCap: observedDailyCap ?? 0, observedHourlyCap: observedHourlyCap ?? 0, usedToday: usedToday ?? 0, minGapSeconds: minGapSeconds ?? 0, remainingDailyCap: reasons.length ? 0 : capRemaining, ready: reasons.length === 0, reasonCodes: uniq(reasons), evidenceAgeHours: evidence.ageHours });
+    rows.push({ mailboxId: mailboxId || null, domainId: domainId || null, routeId: routeId || null, observedDailyCap: observedDailyCap ?? 0, observedHourlyCap: observedHourlyCap ?? 0, usedToday: usedToday ?? null, minGapSeconds: minGapSeconds ?? 0, remainingDailyCap: reasons.length ? 0 : capRemaining, ready: reasons.length === 0, reasonCodes: uniq(reasons), evidenceAgeHours: evidence.ageHours });
   }
   return rows;
 }
@@ -84,7 +96,7 @@ function compileEgress(routes, mailboxRows, options) {
     const routeId = clean(raw?.routeId || raw?.id, 240);
     const evidence = freshEvidence(raw, { ...options, prefix: `egress:${routeId || 'unknown'}` });
     const reasons = [...evidence.reasons];
-    const routeRemaining = remaining(raw?.observedColdDailyCap, raw?.usedToday ?? 0);
+    const routeRemaining = remaining(raw?.observedColdDailyCap, raw?.usedToday);
     if (!routeId) reasons.push('egress-route-id-required');
     if (raw?.ready !== true && String(raw?.status || '').toUpperCase() !== 'READY') reasons.push('egress-route-not-ready');
     if (raw?.authorized !== true) reasons.push('egress-route-not-authorized');
@@ -103,7 +115,7 @@ function compileRecipientProviders(rows, inventoryCounts, options) {
     const providerId = clean(raw?.providerId, 120).toLowerCase();
     const evidence = freshEvidence(raw, { ...options, prefix: `recipient-provider:${providerId || 'unknown'}` });
     const reasons = [...evidence.reasons];
-    const budgetRemaining = remaining(raw?.observedDailyBudget, raw?.usedToday ?? 0);
+    const budgetRemaining = remaining(raw?.observedDailyBudget, raw?.usedToday);
     const inventory = positiveInt(inventoryCounts?.[providerId]) ?? 0;
     if (!providerId) reasons.push('recipient-provider-id-required');
     if (raw?.ready !== true && String(raw?.state || '').toUpperCase() !== 'READY') reasons.push('recipient-provider-not-ready');
@@ -134,6 +146,17 @@ export function compileOutreach100kLaunchCertificate({
   if (requestedTarget !== OUTREACH_100K_TARGET) hardStopReasonCodes.push('exact-100k-target-required');
   if (!Number.isFinite(Number(maxEvidenceAgeHours)) || Number(maxEvidenceAgeHours) <= 0) hardStopReasonCodes.push('positive-evidence-age-window-required');
   const options = { now, maxAgeHours: Math.max(0.001, Number(maxEvidenceAgeHours) || 24) };
+
+  const duplicateEvidence = {
+    domains: duplicateKeys(domains, row => row?.domainId || row?.domain),
+    mailboxes: duplicateKeys(mailboxes, row => row?.mailboxId),
+    egressRoutes: duplicateKeys(egressRoutes, row => row?.routeId || row?.id),
+    recipientProviders: duplicateKeys(recipientProviders, row => row?.providerId)
+  };
+  if (duplicateEvidence.domains.length) hardStopReasonCodes.push('duplicate-domain-evidence');
+  if (duplicateEvidence.mailboxes.length) hardStopReasonCodes.push('duplicate-mailbox-evidence');
+  if (duplicateEvidence.egressRoutes.length) hardStopReasonCodes.push('duplicate-egress-route-evidence');
+  if (duplicateEvidence.recipientProviders.length) hardStopReasonCodes.push('duplicate-recipient-provider-evidence');
 
   if (outbound?.enabled !== true) waitReasonCodes.push('live-outbound-enabled-required');
   if (outbound?.dryRun === true) waitReasonCodes.push('dry-run-must-be-disabled');
@@ -175,7 +198,7 @@ export function compileOutreach100kLaunchCertificate({
   const campaignEvidence = freshEvidence(campaign, { ...options, prefix: 'campaign' });
   waitReasonCodes.push(...campaignEvidence.reasons);
   if (campaign?.authorized !== true) waitReasonCodes.push('campaign-authorization-required');
-  const campaignRemaining = remaining(campaign?.dailyCeiling, campaign?.usedToday ?? 0);
+  const campaignRemaining = remaining(campaign?.dailyCeiling, campaign?.usedToday);
   if (campaignRemaining == null) waitReasonCodes.push('campaign-daily-ceiling-and-usage-required');
   if (campaign?.expiresAt && (!Number.isFinite(Date.parse(campaign.expiresAt)) || Date.parse(campaign.expiresAt) <= new Date(now).getTime())) hardStopReasonCodes.push('campaign-authorization-expired');
 
@@ -220,6 +243,7 @@ export function compileOutreach100kLaunchCertificate({
     shortfall,
     hardStops,
     waits,
+    duplicateEvidence,
     runtimeRef: clean(runtime?.evidenceRef, 1500) || null,
     inventoryRef: clean(inventory?.evidenceRef, 1500) || null,
     recipientSetDigest: clean(inventory?.recipientSetDigest, 200) || null,
@@ -240,12 +264,14 @@ export function compileOutreach100kLaunchCertificate({
       exactTarget: OUTREACH_100K_TARGET,
       uniqueEligibleInventoryAtLeastTarget: state === 'CERTIFIED_100K_READY',
       observedRemainingCapacityAtLeastTarget: state === 'CERTIFIED_100K_READY',
+      noDuplicateCapacityEvidence: Object.values(duplicateEvidence).every(rows => rows.length === 0),
+      explicitObservedUsage: state === 'CERTIFIED_100K_READY',
       uncertainProviderOutcomeCount: positiveInt(outbound?.uncertain ?? 0) ?? null
     },
     automaticSendAuthority: false,
     externalEffectAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
-    truthBoundary: 'CERTIFIED_100K_READY proves only that fresh supplied evidence shows enough remaining eligible inventory and governed infrastructure capacity to target 100,000 provider-confirmed sends today. It cannot guarantee future provider uptime, inbox placement, human replies, meetings, revenue, or recipient behavior. Those require later provider/outcome receipts.'
+    truthBoundary: 'CERTIFIED_100K_READY proves only that fresh supplied evidence shows enough remaining eligible inventory and governed infrastructure capacity to target 100,000 provider-confirmed sends today, with duplicate capacity evidence rejected and current usage explicitly observed. It cannot guarantee future provider uptime, inbox placement, human replies, meetings, revenue, or recipient behavior. Those require later provider/outcome receipts.'
   };
 }
 

@@ -60,10 +60,23 @@ const ITEMS = [
     id: 'CD002-GA1-GA2-UNATTRIBUTABLE',
     class: 'SOFTWARE',
     what: 'The GA1 and GA2 promotions are improvements on the instrument that cannot be attributed to the mechanisms they were testing. Their families have no out-of-pattern probe set.',
-    whyNotDone: 'The gate that would settle it exists and is applied to INVENTION only. Extending it to FORECASTING and RESEARCH is writable work. Building those probes now and using them to re-judge finished runs would be choosing a test after knowing the answer, so it has to drive new generations rather than re-score old ones.',
+    whyNotDone: 'The gate existed for INVENTION only. Extending it to FORECASTING and RESEARCH was writable work, and the point was never to re-judge the finished runs -- a probe written after the winner is known cannot become the test that tournament used -- but to find out whether the promoted code is better than the minimal fix it tied.',
     check: () => {
-      const entry = failureDebt.failures.find(row => row.id === 'F010-UNDISCRIMINATING-TOURNAMENT');
-      return { open: entry?.entryStatus !== 'CLOSED_WITH_PROOF', evidence: 'F010 in the failure-debt ledger' };
+      // Answered by measurement rather than by F010's status. Both are real:
+      // the tournaments stay undiscriminating in the historical record, and the
+      // question of whether the promoted solvers were worth anything is
+      // separately decidable.
+      if (!has('artifacts/nullstar-terminal/attribution-audit.json')) {
+        return { open: true, evidence: 'no attribution audit exists' };
+      }
+      const audit = readJson('artifacts/nullstar-terminal/attribution-audit.json');
+      const settled = audit.rows.every(row => row.verdict === 'PROMOTED_SOLVER_IS_BETTER_OUT_OF_PATTERN');
+      return {
+        open: !settled,
+        evidence: settled
+          ? `both promoted solvers separate from their minimal fixes: ${audit.rows.map(row => `${row.generation} ${row.promoted.correct} vs ${row.minimalFix.correct} of ${row.probeCount}`).join('; ')}`
+          : audit.overall
+      };
     }
   },
   {

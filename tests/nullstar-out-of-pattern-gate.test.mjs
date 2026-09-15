@@ -96,3 +96,59 @@ test('two NO_PROMOTION results are recorded as results, not smoothed away', () =
   assert.equal(read('artifacts/nullstar-terminal/ga5-result.json').outcome, 'NO_PROMOTION');
   assert.equal(read('artifacts/nullstar-terminal/ga6-result.json').outcome, 'PROMOTED');
 });
+
+test('all three families with a promoted solver have probes, and the solvers pass them', () => {
+  for (const family of ['FORECASTING', 'RESEARCH', 'INVENTION']) {
+    for (const [label, probes] of [['gating', GATING_PROBES[family]], ['reporting', REPORTING_PROBES[family]]]) {
+      assert.ok(Array.isArray(probes) && probes.length >= 3, `${family} ${label}: needs a probe set`);
+      const result = runProbes(UBERBOND_SOLVERS[family], probes);
+      assert.equal(result.confabulated, 0, `${family} ${label}: confabulated ${result.confabulated}`);
+      assert.equal(result.correct, result.of, `${family} ${label}: ${result.correct} of ${result.of}`);
+    }
+  }
+});
+
+test('the promoted solvers separate from the minimal fixes they were shown to tie', () => {
+  // F010 closed on this. GA1 and GA2 each promoted out of a three-way tie, and
+  // an ablation showed a one-line fix matching the winner -- which said the
+  // instrument could not separate them, not that the mechanisms were the same.
+  // If this ever stops separating, the promoted code is carrying complexity it
+  // did not buy anything with and the closure was wrong.
+  const audit = read('artifacts/nullstar-terminal/attribution-audit.json');
+  assert.equal(audit.rows.length, 2);
+  for (const row of audit.rows) {
+    assert.equal(row.verdict, 'PROMOTED_SOLVER_IS_BETTER_OUT_OF_PATTERN', `${row.generation}: ${row.verdict}`);
+    assert.ok(row.promoted.correct > row.minimalFix.correct);
+    assert.equal(row.promoted.confabulated, 0);
+  }
+
+  // And the thing the audit explicitly cannot do. The historical record of how
+  // those winners were selected stays as it was taken.
+  assert.equal(audit.probesWrittenAfterTheFact, true);
+  for (const name of ['ga1', 'ga2']) {
+    assert.equal(read(`artifacts/nullstar-terminal/${name}-result.json`).discrimination, 'UNDISCRIMINATING__CANDIDATES_TIED');
+  }
+});
+
+test('the research probe F010 named as its closing condition is the one that separates', () => {
+  // "a fresh secondhand source carrying truth against a stale primary with no
+  // replication to shortcut it" -- written into F010 when it was opened, months
+  // of commits before the probe existed.
+  const probe = GATING_PROBES.RESEARCH.find(row => row.id === 'fresh-secondhand-beats-stale-primary');
+  assert.ok(probe, 'the probe F010 named must exist');
+  assert.ok(!probe.surface.sources.some(source => source.quality === 'REPLICATED_MEASUREMENT'),
+    'a replication present would let a ladder shortcut the ranking, which is the whole point of the probe');
+
+  const ladderOnly = surface => {
+    const rank = { REPLICATED_MEASUREMENT: 4, PRIMARY_MEASUREMENT: 3, SECONDHAND_SUMMARY: 1, UNSOURCED_ASSERTION: 0 };
+    let best = null;
+    let bestScore = -1;
+    for (const source of surface.sources ?? []) {
+      const score = rank[source.quality] ?? 0;
+      if (score > bestScore) { bestScore = score; best = source; }
+    }
+    return best ? String(best.claim) : null;
+  };
+  assert.equal(UBERBOND_SOLVERS.RESEARCH(probe.surface), probe.groundTruth);
+  assert.notEqual(ladderOnly(probe.surface), probe.groundTruth);
+});

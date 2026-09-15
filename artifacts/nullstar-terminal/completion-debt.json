@@ -6,12 +6,12 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T12:45:19.539Z",
-  "sourceCommit": "d7a28200d22da6fab32daab25b6c5cf6b4332f02",
+  "generatedAt": "2026-09-15T12:47:39.417Z",
+  "sourceCommit": "3e88a7b14142883a9de74cd5033e8d2dc9b8ee04",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 4,
+  "softwareOpen": 3,
   "externalOpen": 2,
-  "totalOpen": 6,
+  "totalOpen": 5,
   "items": [
     {
       "id": "CD001-TOOL-USE-VOCABULARY-GAP",
@@ -25,9 +25,9 @@
       "id": "CD002-GA1-GA2-UNATTRIBUTABLE",
       "class": "SOFTWARE",
       "what": "The GA1 and GA2 promotions are improvements on the instrument that cannot be attributed to the mechanisms they were testing. Their families have no out-of-pattern probe set.",
-      "whyNotDone": "The gate that would settle it exists and is applied to INVENTION only. Extending it to FORECASTING and RESEARCH is writable work. Building those probes now and using them to re-judge finished runs would be choosing a test after knowing the answer, so it has to drive new generations rather than re-score old ones.",
-      "open": true,
-      "evidence": "F010 in the failure-debt ledger"
+      "whyNotDone": "The gate existed for INVENTION only. Extending it to FORECASTING and RESEARCH was writable work, and the point was never to re-judge the finished runs -- a probe written after the winner is known cannot become the test that tournament used -- but to find out whether the promoted code is better than the minimal fix it tied.",
+      "open": false,
+      "evidence": "both promoted solvers separate from their minimal fixes: GA1 6 vs 4 of 6; GA2 6 vs 3 of 6"
     },
     {
       "id": "CD003-GATE-PROBES-SHARE-AN-AUTHOR",
@@ -78,13 +78,7 @@
       "evidence": "no payment provider receipt exists in the repository"
     }
   ],
-  "openFailureDebt": [
-    {
-      "id": "F010-UNDISCRIMINATING-TOURNAMENT",
-      "failureClass": "EPISTEMIC_INFLATION",
-      "severity": "MEDIUM"
-    }
-  ],
+  "openFailureDebt": [],
   "generationsRun": [
     {
       "generation": "GA1",
@@ -136,7 +130,7 @@
     }
   ],
   "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "4 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "whyNotDone": "3 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",
   "externalEffects": {

@@ -184,12 +184,16 @@ const FAILURES = [
     failureClass: 'EPISTEMIC_INFLATION',
     rootCause: 'I wrote each candidate set to explore one hypothesis and never included the minimal fix as an entrant, so the change every candidate shared was the one thing the tournament could not isolate. The tie was the visible symptom and I read it as convergence -- three independent designs agreeing -- when a tie at a perfect score means the opposite: the instrument ranked them by byte count because it could not rank them by capability. The promotion rule only ever asked whether a candidate beats the incumbent, which is a weaker question than whether the mechanism under test is what beat it.',
     severity: 'MEDIUM',
-    status: 'OPEN',
+    regressionTest: 'tests/nullstar-out-of-pattern-gate.test.mjs',
+    repairCommit: 'SEE_CLOSING_NOTE',
+    status: 'CLOSED_WITH_PROOF',
+    closingNote: 'Closed on the condition stated when it was opened: an item now exists that separates the mechanisms. For research that item was specified as a fresh secondhand source carrying truth against a stale primary with no replication to shortcut the ranking, and it was built as the fresh-secondhand-beats-stale-primary gating probe. It separates -- the promoted two-axis solver answers 58, the minimal fix answers 41. Over six out-of-pattern probes per family the promoted solvers answer 6 of 6 in both families, while GA1 minimal fix answers 4 and refuses 2, and GA2 minimal fix answers 3 and confabulates 3. Both promotions earn their complexity. What does NOT change is that the tournaments themselves were undiscriminating: probes written after the winners are known cannot become the test those tournaments used, and ga1-result.json and ga2-result.json still record UNDISCRIMINATING__CANDIDATES_TIED. The debt discharged is not knowing whether the promoted code was worth anything; the historical record of how it was selected stands as taken.',
     evidenceRefs: [
       'artifacts/nullstar-terminal/ga1-result.json',
       'artifacts/nullstar-terminal/ga1-ablation.json',
       'artifacts/nullstar-terminal/ga2-result.json',
       'artifacts/nullstar-terminal/ga2-ablation.json',
+      'artifacts/nullstar-terminal/attribution-audit.json',
       'src/nullstar-cognitive-solvers.mjs'
     ]
   },

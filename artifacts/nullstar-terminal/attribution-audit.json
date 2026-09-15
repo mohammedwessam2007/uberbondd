@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "uberbond-nullstar-attribution-audit-1.0.0",
+  "completionDebtRef": "CD002-GA1-GA2-UNATTRIBUTABLE",
+  "failureDebtRef": "F010-UNDISCRIMINATING-TOURNAMENT",
+  "generatedAt": "2026-09-15T12:47:01.909Z",
+  "sourceCommit": "3e88a7b14142883a9de74cd5033e8d2dc9b8ee04",
+  "question": "Are the solvers GA1 and GA2 promoted better than the minimal fixes they were shown to tie?",
+  "whatThisCannotDo": "Make those tournaments attributable. They were undiscriminating when they ran and remain so; F010 stays open on that basis. Probes written now, after the winners are known, cannot retroactively become the test those tournaments used.",
+  "whyItIsStillWorthKnowing": "The promoted code is in the tree. If it is no better than a one-line fix, the repository is carrying complexity that bought nothing, and that is worth knowing whether or not the tournament was sound.",
+  "probesWrittenAfterTheFact": true,
+  "rows": [
+    {
+      "generation": "GA1",
+      "family": "FORECASTING",
+      "minimalFixIs": "first difference, else second difference, else nothing",
+      "probeCount": 6,
+      "promoted": {
+        "correct": 6,
+        "refused": 0,
+        "confabulated": 0
+      },
+      "minimalFix": {
+        "correct": 4,
+        "refused": 2,
+        "confabulated": 0
+      },
+      "separates": true,
+      "verdict": "PROMOTED_SOLVER_IS_BETTER_OUT_OF_PATTERN",
+      "disagreements": [
+        {
+          "id": "cubic-series",
+          "expected": "216",
+          "promoted": "216",
+          "minimalFix": null
+        },
+        {
+          "id": "quartic-series",
+          "expected": "2401",
+          "promoted": "2401",
+          "minimalFix": null
+        }
+      ]
+    },
+    {
+      "generation": "GA2",
+      "family": "RESEARCH",
+      "minimalFixIs": "the original provenance ladder plus REPLICATED_MEASUREMENT, no freshness term",
+      "probeCount": 6,
+      "promoted": {
+        "correct": 6,
+        "refused": 0,
+        "confabulated": 0
+      },
+      "minimalFix": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 3
+      },
+      "separates": true,
+      "verdict": "PROMOTED_SOLVER_IS_BETTER_OUT_OF_PATTERN",
+      "disagreements": [
+        {
+          "id": "fresh-secondhand-beats-stale-primary",
+          "expected": "58",
+          "promoted": "58",
+          "minimalFix": "41"
+        },
+        {
+          "id": "stale-replication-against-fresh-primary",
+          "expected": "9",
+          "promoted": "9",
+          "minimalFix": "4"
+        },
+        {
+          "id": "two-primaries-disagree",
+          "expected": "140",
+          "promoted": "140",
+          "minimalFix": "100"
+        }
+      ]
+    }
+  ],
+  "overall": "BOTH_PROMOTED_SOLVERS_EARN_THEIR_COMPLEXITY",
+  "truthBoundary": "A HANDFUL OF HAND-BUILT PROBES IS NOT A CAPABILITY MEASUREMENT. THIS SAYS WHETHER TWO IMPLEMENTATIONS DIFFER WHERE IT MATTERS, NOTHING MORE.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

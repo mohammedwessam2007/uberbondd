@@ -129,11 +129,16 @@ const RESEARCH_PROVENANCE = Object.freeze({
  * the tournament could not distinguish the two-axis hypothesis from a missing
  * dictionary entry. The gap GA2 closed was vocabulary, not reasoning.
  *
- * That is recorded as F010 in the failure-debt ledger rather than left in the
- * result artifact as a capability win. Testing whether freshness carries real
- * weight needs an item where a fresh secondhand source beats a stale primary
- * with no replication present to shortcut it; no such item exists yet, so the
- * hypothesis is open, not confirmed.
+ * That was recorded as F010 rather than left in the result artifact as a
+ * capability win, and the test it named was an item where a fresh secondhand
+ * source beats a stale primary with no replication present to shortcut it.
+ *
+ * That item was later built, and the freshness axis earns its place on it: the
+ * two-axis solver answers 58 where the ladder-plus-one-entry answers the stale
+ * primary's 41. Over six out-of-pattern probes this answers all six; the
+ * minimal fix answers three and confabulates on three. So the mechanism is
+ * real and the tournament still could not see it -- which is a statement about
+ * the instrument, not a rehabilitation of the tournament.
  *
  * R1_RECENCY_ONLY, which also scored 1.0 here, was disqualified for regressing
  * difficulty 1 and 2 to zero. That much the instrument did establish: recency

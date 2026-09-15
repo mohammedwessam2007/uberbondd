@@ -36,8 +36,125 @@ const quantities = data => {
 
 const q = quantities(DATA);
 
+// ---------------------------------------------------------------------------
+// FORECASTING and RESEARCH.
+//
+// The invention probes exist because GA3's winner was caught being a lookup.
+// GA1 and GA2 were never caught, but they were never cleared either: both
+// promoted out of a three-way tie, and an ablation afterwards showed a minimal
+// fix matching the winner in each case. F010 records them as unattributable and
+// stays open.
+//
+// These cannot make those tournaments attributable -- a tournament is
+// undiscriminating or it is not, and no test run afterwards changes what it
+// separated. What they can do is answer the question underneath: whether the
+// promoted solvers are actually better than the minimal fixes they tied, on
+// items neither was selected against.
+// ---------------------------------------------------------------------------
+
+const FORECAST_PROBES_GATING = [
+  {
+    id: 'cubic-series',
+    // The generator emits constant first and second differences and nothing
+    // else. A solver that walks to whatever order goes constant answers this;
+    // one that hard-codes the two orders the generator uses cannot.
+    surface: { series: [1, 8, 27, 64, 125] },
+    groundTruth: '216',
+    whyIncluded: 'A third-order series. The generator never emits one.'
+  },
+  {
+    id: 'alternating-constant-second-difference',
+    surface: { series: [5, 6, 9, 14, 21] },
+    groundTruth: '30',
+    whyIncluded: 'Second difference constant at 2, but starting from a first difference of 1 rather than the generator\'s shapes.'
+  },
+  {
+    id: 'flat-series',
+    surface: { series: [7, 7, 7, 7] },
+    groundTruth: '7',
+    whyIncluded: 'Zero first difference. Degenerate, and a solver dividing or searching carelessly can miss it.'
+  }
+];
+
+const FORECAST_PROBES_REPORTING = [
+  { id: 'quartic-series', surface: { series: [1, 16, 81, 256, 625, 1296] }, groundTruth: '2401' },
+  { id: 'descending-linear', surface: { series: [20, 17, 14, 11] }, groundTruth: '8' },
+  { id: 'second-difference-negative', surface: { series: [10, 14, 16, 16, 14] }, groundTruth: '10' }
+];
+
+const RESEARCH_PROBES_GATING = [
+  {
+    id: 'fresh-secondhand-beats-stale-primary',
+    // The case GA2's declaration named as its own hypothesis and the generator
+    // never builds: no replication present, so a ladder that simply learned
+    // REPLICATED_MEASUREMENT has nothing to reach for.
+    surface: {
+      sources: [
+        { claim: '41', quality: 'PRIMARY_MEASUREMENT', observedAt: '2015-03-01' },
+        { claim: '58', quality: 'SECONDHAND_SUMMARY', observedAt: '2026-08-01' },
+        { claim: '58', quality: 'SECONDHAND_SUMMARY', observedAt: '2026-08-14' }
+      ]
+    },
+    groundTruth: '58',
+    whyIncluded: 'Eleven years of staleness against a corroborated recent summary, with no replication to shortcut the ranking.'
+  },
+  {
+    id: 'recent-primary-beats-recent-assertion',
+    surface: {
+      sources: [
+        { claim: '12', quality: 'UNSOURCED_ASSERTION', observedAt: '2026-09-01' },
+        { claim: '19', quality: 'PRIMARY_MEASUREMENT', observedAt: '2026-08-28' }
+      ]
+    },
+    groundTruth: '19',
+    whyIncluded: 'The opposite direction. A solver that overcorrected into recency-only fails this, and recency-only was disqualified in GA2 for exactly that.'
+  },
+  {
+    id: 'single-source',
+    surface: { sources: [{ claim: '33', quality: 'SECONDHAND_SUMMARY', observedAt: '2026-01-01' }] },
+    groundTruth: '33',
+    whyIncluded: 'One source of middling quality. There is nothing to rank, and the answer is still the answer.'
+  }
+];
+
+const RESEARCH_PROBES_REPORTING = [
+  {
+    id: 'stale-replication-against-fresh-primary',
+    surface: {
+      sources: [
+        { claim: '4', quality: 'REPLICATED_MEASUREMENT', observedAt: '2012-06-01' },
+        { claim: '9', quality: 'PRIMARY_MEASUREMENT', observedAt: '2026-09-01' }
+      ]
+    },
+    groundTruth: '9'
+  },
+  {
+    id: 'all-equally-stale',
+    surface: {
+      sources: [
+        { claim: '2', quality: 'UNSOURCED_ASSERTION', observedAt: '2020-01-01' },
+        { claim: '77', quality: 'PRIMARY_MEASUREMENT', observedAt: '2020-01-01' },
+        { claim: '2', quality: 'SECONDHAND_SUMMARY', observedAt: '2020-01-01' }
+      ]
+    },
+    groundTruth: '77'
+  },
+  {
+    id: 'two-primaries-disagree',
+    surface: {
+      sources: [
+        { claim: '100', quality: 'PRIMARY_MEASUREMENT', observedAt: '2019-01-01' },
+        { claim: '140', quality: 'PRIMARY_MEASUREMENT', observedAt: '2026-06-01' }
+      ]
+    },
+    groundTruth: '140'
+  }
+];
+
 /** Probes that gate a promotion. Candidates must never be tuned on these. */
 export const GATING_PROBES = Object.freeze({
+  FORECASTING: Object.freeze(FORECAST_PROBES_GATING),
+  RESEARCH: Object.freeze(RESEARCH_PROBES_GATING),
   INVENTION: Object.freeze([
     {
       id: 'mean-plus-midrange',
@@ -64,6 +181,8 @@ export const GATING_PROBES = Object.freeze({
 
 /** Probes held back for reporting. Never used to gate, so never trained against. */
 export const REPORTING_PROBES = Object.freeze({
+  FORECASTING: Object.freeze(FORECAST_PROBES_REPORTING),
+  RESEARCH: Object.freeze(RESEARCH_PROBES_REPORTING),
   INVENTION: Object.freeze([
     {
       id: 'midrange-plus-spread',
@@ -98,8 +217,14 @@ export const PROBE_SURFACE = Object.freeze({
  * the failure the whole apparatus exists to catch.
  */
 export function runProbes(solver, probes) {
-  const surface = { primitives: [...PROBE_SURFACE.primitives], data: [...PROBE_SURFACE.data] };
+  // Invention probes all share one surface and differ only in the prompt.
+  // Forecasting and research probes carry their own, because for those families
+  // the surface IS the question.
+  const defaultSurface = { primitives: [...PROBE_SURFACE.primitives], data: [...PROBE_SURFACE.data] };
   const answers = probes.map(probe => {
+    const surface = probe.surface
+      ? JSON.parse(JSON.stringify(probe.surface))
+      : defaultSurface;
     let response = null;
     try {
       response = solver(surface, probe.prompt);

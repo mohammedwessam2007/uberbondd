@@ -193,6 +193,9 @@ async function brokerUberSocket(coreHandler, req, res, url) {
   if (req.method === 'GET' && path === '/api/admin/uber-socket/status') {
     return sendJson(res, 200, runtime.status());
   }
+  if (req.method === 'GET' && path === '/api/admin/uber-socket/connectome') {
+    return sendJson(res, 200, runtime.connectomeDoctor());
+  }
   let body = {};
   try { body = await readSmallJsonBody(req, path.endsWith('/ingest') ? 256 * 1024 : 96 * 1024); }
   catch (error) { return sendJson(res, 400, { error: error.message }); }
@@ -212,13 +215,28 @@ async function brokerUberSocket(coreHandler, req, res, url) {
     if (req.method === 'POST' && path === '/api/admin/uber-socket/monster') {
       return sendJson(res, 200, await runtime.monster(body));
     }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/whole-brain') {
+      return sendJson(res, 200, await runtime.compileWholeBrainMission(body));
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/connectome-mission') {
+      return sendJson(res, 200, await runtime.compileConnectomeMission(body));
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/cognitive-cycle') {
+      return sendJson(res, 200, runtime.cognitiveCycle());
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/contradiction') {
+      return sendJson(res, 200, runtime.reportContradiction(body));
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/blocker') {
+      return sendJson(res, 200, runtime.reportBlocker(body));
+    }
     if (req.method === 'POST' && path === '/api/admin/uber-socket/outreach-100k-council') {
       return sendJson(res, 200, await runtime.outreach100kCouncil(body));
     }
     return sendJson(res, 404, { error: 'UberSocket route not found' });
   } catch (error) {
     const message = String(error?.message || error);
-    const status = /not-configured|required|invalid|not-registered|no-council-peers/.test(message) ? 409 : 500;
+    const status = /not-configured|required|invalid|not-registered|no-council-peers|no-project-chat-peers/.test(message) ? 409 : 500;
     return sendJson(res, status, { ok: false, error: message, socket: runtime.status() });
   }
 }

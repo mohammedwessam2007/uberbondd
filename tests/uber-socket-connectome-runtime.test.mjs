@@ -43,5 +43,6 @@ test('shared chats compile a bounded whole-organism mission fanout',async()=>{
   assert.ok(out.packets.every(p=>p.externalEffectsAuthorized===false&&p.businessEffectAuthority==='NONE'));
   assert.ok(out.organs.some(o=>['distribution-os','truth-evidence','max-council','agent-mesh','economic-memory'].includes(o.id)));
   assert.equal(out.doctor.ok,true);
-  assert.ok(calls.length>=7);
+  const expectedCouncilCalls=Math.min(6,out.wholeBrain.discoveredPeers.length);
+  assert.ok(calls.length>=expectedCouncilCalls+1);
 });

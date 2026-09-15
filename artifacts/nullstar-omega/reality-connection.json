@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-reality-connection-1.0.0",
+  "module": "uberbond.nullstar-omega-reality-connection.v1",
+  "directiveSection": "312",
+  "evidenceCutoff": "2026-09-15T02:43:02.550Z",
+  "observerContracts": [
+    {
+      "observableId": "obs-triage-reachability",
+      "id": "triage-import-graph",
+      "observes": "how many of the ten triage modules reach a production entrypoint",
+      "inputSource": "the import graph computed from src/ file contents",
+      "producesStructuredOutput": false,
+      "parsingRule": "RECORD_COUNT",
+      "expectedSchema": null,
+      "independenceClass": "DERIVED",
+      "readsArtifactsAuthoredBy": [],
+      "claimArtifact": "config/reachability-classification.json",
+      "validationRule": "the count must be between zero and the number of declared modules",
+      "failureState": "TRIAGE_OBSERVER_READ_REJECTED",
+      "countsAsEvidence": true
+    },
+    {
+      "observableId": "obs-mutation-war",
+      "id": "mutation-survivor-text",
+      "observes": "whether any registered mutation survived",
+      "inputSource": "npm run test:mutation-war stdout",
+      "producesStructuredOutput": true,
+      "parsingRule": "STRUCTURED_FIELD",
+      "expectedSchema": "the summary line: <total> mutations, <killed> killed, <notKilled> not killed",
+      "independenceClass": "INDEPENDENT",
+      "readsArtifactsAuthoredBy": [],
+      "claimArtifact": null,
+      "validationRule": "killed plus notKilled must equal total, or the read is rejected",
+      "failureState": "MUTATION_OBSERVER_READ_REJECTED",
+      "countsAsEvidence": true
+    },
+    {
+      "observableId": "obs-directive-coverage-shift",
+      "id": "directive-missing-count",
+      "observes": "whether any directive section moved out of MISSING",
+      "inputSource": "artifacts/nullstar/directive-reconciliation.json rows",
+      "producesStructuredOutput": true,
+      "parsingRule": "RECORD_COUNT",
+      "expectedSchema": "rows carrying a currentState field",
+      "independenceClass": "DERIVED",
+      "readsArtifactsAuthoredBy": [],
+      "claimArtifact": null,
+      "validationRule": "the row count must equal the directive section count",
+      "failureState": "DIRECTIVE_OBSERVER_READ_REJECTED",
+      "countsAsEvidence": true
+    }
+  ],
+  "forecastsSealed": 3,
+  "loopsClosed": 2,
+  "loopsVoided": 1,
+  "verdict": {
+    "ok": true,
+    "status": "REALITY_CALIBRATED",
+    "closedLoops": 2,
+    "voidedLoops": 1,
+    "surprises": 1,
+    "meanBrier": 0.5975,
+    "calibrationSummary": {
+      "ok": true,
+      "status": "CALIBRATION_SUMMARY",
+      "scored": 2,
+      "meanBrier": 0.5975,
+      "bands": [
+        {
+          "band": 0.2,
+          "forecasts": 1,
+          "hits": 0,
+          "observedRate": 0
+        },
+        {
+          "band": 0.5,
+          "forecasts": 1,
+          "hits": 1,
+          "observedRate": 1
+        }
+      ],
+      "truthBoundary": "CALIBRATION OVER A SMALL SAMPLE IS ITSELF UNCERTAIN. A GOOD MEAN DOES NOT PROVE A CALIBRATED BAND.",
+      "businessEffectAuthority": "NONE"
+    },
+    "truthBoundary": "CALIBRATION ON THESE QUESTIONS DOES NOT TRANSFER TO QUESTIONS OF A DIFFERENT KIND.",
+    "businessEffectAuthority": "NONE"
+  },
+  "calibrationPlacement": {
+    "ok": true,
+    "status": "REPOSITORY_LOCAL_CALIBRATED",
+    "version": "uberbond.nullstar-omega-calibration-ladder.v1",
+    "requirement": "At least 2 forecasts settled by running something in this repository, across at least 2 task families.",
+    "sample": {
+      "scoredForecasts": 2,
+      "taskFamilyCount": 2,
+      "domainCount": 1,
+      "timeHorizonCount": 1,
+      "externallySettledForecasts": 0,
+      "voidedForecasts": 1,
+      "meanBrier": 0.5975
+    },
+    "smallSample": true,
+    "confidenceInterval": null,
+    "smallSampleWarning": "A mean over 2 forecast(s) is not a calibration curve. No interval is reported because none would be honest at this sample size.",
+    "nextState": "DOMAIN_CALIBRATED",
+    "shortfallToNextState": [
+      "needs 20 scored forecasts, has 2",
+      "needs 5 task families, has 2"
+    ],
+    "truthBoundary": "CALIBRATION REACHES ONLY AS FAR AS THE QUESTIONS IT WAS SCORED ON. A HIGHER RUNG IS NOT IMPLIED BY A GOOD MEAN ON A LOWER ONE.",
+    "businessEffectAuthority": "NONE"
+  },
+  "records": [
+    {
+      "observableId": "obs-triage-reachability",
+      "question": "Of the ten modules parked as NEEDS_TRIAGE, how many reach a production entrypoint?",
+      "decidedBy": "the import graph computed by scripts/reachability-report.mjs",
+      "derivationRuleId": "triage-production-count-bucket-v1",
+      "forecastId": "fc_1621d6c1e81b703881e1ef8962106b6f",
+      "forecastProbabilities": {
+        "NONE": 0.25,
+        "ONE_TO_THREE": 0.45,
+        "FOUR_TO_SIX": 0.2,
+        "SEVEN_OR_MORE": 0.1
+      },
+      "observed": "NONE",
+      "assignedProbability": 0.25,
+      "brierScore": 0.815,
+      "surprised": true,
+      "evidenceDigest": "sha256:d8b5d33a6f9472db85192400639498bcb79990f812b503996b3dc1eeeee15f74",
+      "status": "REALITY_LOOP_CLOSED"
+    },
+    {
+      "observableId": "obs-mutation-war",
+      "question": "Does every registered mutation still die at the current head?",
+      "status": "REALITY_LOOP_VOID",
+      "forecastId": "fc_59bd9ebf13d307ce0ce9f6c2984dc996",
+      "forecastProbabilities": {
+        "ALL_KILLED": 0.78,
+        "SOME_SURVIVED": 0.22
+      },
+      "recordedOutcome": "ALL_KILLED",
+      "correctedOutcome": "ALL_KILLED",
+      "ruleMisreadTheObserver": false,
+      "defect": "mutation-survivor-presence-v1 matched the word \"survived\" inside the guard descriptions WAR-02, LKG-04 and FCSTACK-07 rather than the survivor count on the summary line. The observer contract now refuses text matching against this producer, and the replacement reads the three counts and checks they sum.",
+      "correctedEvidence": "mutation-war - 397 mutations, 397 killed, 0 not killed (exit 0)",
+      "evidenceDigest": "sha256:6fc5e1f0e86e28b467f184b24eca14e5a906600c3820ba6aeadce285e18d0f27",
+      "rescoreRefused": "THE ANSWER IS NOW KNOWN, SO A REPLACEMENT FORECAST ON THIS QUESTION WOULD MEASURE MEMORY RATHER THAN PREDICTION."
+    },
+    {
+      "observableId": "obs-directive-coverage-shift",
+      "question": "Does adding a reality-connection module move any directive section out of MISSING?",
+      "decidedBy": "src/founder-directive-reconciler.mjs evidence locator over the current tree",
+      "derivationRuleId": "missing-row-delta-bucket-v1",
+      "forecastId": "fc_911f55b79bcfb1b3b795e8534bd40266",
+      "forecastProbabilities": {
+        "UNCHANGED": 0.3,
+        "MISSING_DECREASED_1_TO_5": 0.5,
+        "MISSING_DECREASED_MORE_THAN_5": 0.2
+      },
+      "observed": "MISSING_DECREASED_1_TO_5",
+      "assignedProbability": 0.5,
+      "brierScore": 0.38,
+      "surprised": false,
+      "evidenceDigest": "sha256:ffe9f3d8c2aa033a114e237123cd2d97e44d4ba1570f4381d0eea7718d7d36e7",
+      "status": "REALITY_LOOP_CLOSED"
+    }
+  ],
+  "truthBoundary": "THESE ARE FORECASTS ABOUT THIS REPOSITORY SCORED BY THIS REPOSITORY'S OWN TOOLS. THEY ARE REALITY CONTACT, NOT MARKET, CUSTOMER OR LIFE EVIDENCE.",
+  "businessEffectAuthority": "NONE"
+}

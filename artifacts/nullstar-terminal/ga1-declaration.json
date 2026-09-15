@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": ["050", "051", "052", "053", "056", "057", "070", "071"],
+  "generation": "GA1",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "The first generation that targets a capability rather than the instrument. Committed before any candidate is written.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 3,
+  "bottleneck": {
+    "observed": "At difficulty 3 the deterministic solvers score 0.5286 overall. FORECASTING, RESEARCH and INVENTION score 0.00 and TOOL_USE scores 0.70. The trivial baseline scores 0.00, so every point of that gap is capability rather than guessing.",
+    "selected": "FORECASTING",
+    "whySelected": "It is one of three families at zero, and it is the one whose mechanism transfers: the calibration ladder, the reality-connection loop and every prospective declaration in this project rest on extrapolating from a series. Research and invention failures are narrower.",
+    "notSelected": {
+      "RESEARCH": "Also zero, but its fix is a source-weighting policy that does not carry to other families.",
+      "INVENTION": "Also zero, but its fix is a wider composition search, which is closer to a lookup-table change than a capability.",
+      "TOOL_USE": "Highest score of the failing set, so the least headroom."
+    }
+  },
+  "hypotheses": {
+    "primary": "The solver only tests a constant first difference, so any series whose rule is not first-order returns null. The gap is representational: one hypothesis class, no search.",
+    "alternativeA": "The solver is fine and the level-3 items are unanswerable from six terms, in which case no candidate will beat it and the item is at fault.",
+    "alternativeB": "The failure is arithmetic rather than representational -- the rule is detected but the extrapolation is off by a step."
+  },
+  "discriminatingTest": "Run a candidate that fits several hypothesis classes on held-out seeds. If a second-difference fitter scores above zero the gap was representational. If every candidate scores zero the items are at fault. If a candidate detects the rule but lands one term away the failure was arithmetic.",
+  "candidateFamilies": [
+    "C1 deterministic-polynomial: fit successive differences until one is constant, extrapolate from that order",
+    "C2 hypothesis-tournament: enumerate a fixed set of candidate rules, keep those consistent with every observed term, refuse when more than one survives",
+    "C3 recurrence-search: search for a linear recurrence over the last k terms",
+    "C4 ratio-and-difference: try both multiplicative and additive structure, choose whichever is exactly consistent"
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [1, 2, 3, 7, 11, 42, 99, 1234, 20260915, 777],
+    "heldOutSeeds": [555, 8080, 31337, 606, 24601, 90210, 13, 2718, 1618, 4242],
+    "promotionThreshold": "A candidate is promoted only if it scores above 0.8 on the held-out seeds it has never seen, beats the incumbent solver on those seeds, and causes no regression on difficulty 1 and 2.",
+    "nullResult": "If no candidate clears the threshold the generation records NO_PROMOTION and the next generation attacks a different hypothesis family.",
+    "thresholdLock": "This threshold is fixed here and may not be changed after results are seen. A change after results invalidates the experiment."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds; those are scored once at the end.",
+    "A candidate that hardcodes answers is rejected regardless of score."
+  ],
+  "businessEffectAuthority": "NONE"
+}

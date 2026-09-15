@@ -1,0 +1,1108 @@
+{
+  "schemaVersion": "uberbond-nullstar-baselines-v2-1.0.0",
+  "directiveSections": [
+    "040",
+    "041",
+    "045",
+    "046",
+    "047",
+    "176"
+  ],
+  "generatedAt": "2026-09-15T11:51:18.448Z",
+  "sourceCommit": "d966c8fe3a4d4def15827c089ee40c08b00d8ea5",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "seeds": [
+    1,
+    2,
+    3,
+    7,
+    11,
+    42,
+    99,
+    1234,
+    20260915,
+    777
+  ],
+  "set": {
+    "ok": true,
+    "status": "BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS",
+    "version": "uberbond.nullstar-omega-baselines.v1",
+    "suiteVersion": "nullstar-procedural-suite-1.0.0",
+    "sourceCommit": "d966c8fe3a4d4def15827c089ee40c08b00d8ea5",
+    "baselines": [
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B0",
+        "definition": "Trivial non-model baseline. No capability at all -- a fixed answer, steelmanned by taking the best-scoring constant rather than a deliberately bad one.",
+        "baselineStatus": "EXECUTED",
+        "score": 0.0286,
+        "tasksAttempted": 70,
+        "tasksCorrect": 2,
+        "method": "Steelmanned no-capability solvers: each answers with the first plausible option visible in the surface rather than something deliberately wrong. Mean 0.0286.",
+        "reason": null,
+        "blockingDependency": null,
+        "whatWasTried": null,
+        "nextUnblockCondition": null,
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B1",
+        "definition": "Raw frontier model with no UberBond harness, minimal necessary context, no tools.",
+        "baselineStatus": "BLOCKED_EXTERNAL",
+        "score": null,
+        "tasksAttempted": null,
+        "tasksCorrect": null,
+        "method": null,
+        "reason": "No model provider is reachable. No credential is present, and every model-weight host is refused by the network policy while a local inference runtime installs fine, so the blocker is weights and admission rather than runtime.",
+        "blockingDependency": "a provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires",
+        "whatWasTried": "checked 8 credential environment variables, 0 present; no ollama binary on any checked path; python transformers not installed; python onnxruntime importable; python llama_cpp not installed",
+        "nextUnblockCondition": "a credential in the environment, or an allowed weight host with admission evidence for the exact artifact",
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B2",
+        "definition": "Strongest available single-model configuration.",
+        "baselineStatus": "BLOCKED_EXTERNAL",
+        "score": null,
+        "tasksAttempted": null,
+        "tasksCorrect": null,
+        "method": null,
+        "reason": "No model provider is reachable. No credential is present, and every model-weight host is refused by the network policy while a local inference runtime installs fine, so the blocker is weights and admission rather than runtime.",
+        "blockingDependency": "a provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires",
+        "whatWasTried": "checked 8 credential environment variables, 0 present; no ollama binary on any checked path; python transformers not installed; python onnxruntime importable; python llama_cpp not installed",
+        "nextUnblockCondition": "a credential in the environment, or an allowed weight host with admission evidence for the exact artifact",
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B3",
+        "definition": "Reasonable multi-agent or role-separated baseline, built competently rather than crippled.",
+        "baselineStatus": "BLOCKED_EXTERNAL",
+        "score": null,
+        "tasksAttempted": null,
+        "tasksCorrect": null,
+        "method": null,
+        "reason": "A multi-agent baseline needs agents, and an agent needs a model. The orchestration exists; the thing it would orchestrate does not.",
+        "blockingDependency": "the same provider dependency as B1 and B2",
+        "whatWasTried": "checked 8 credential environment variables, 0 present; no ollama binary on any checked path; python transformers not installed; python onnxruntime importable; python llama_cpp not installed; confirmed the agent-mesh runtime exists in source but has no model to route to",
+        "nextUnblockCondition": "B1 unblocked, after which a role-separated baseline can be built on the same provider",
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B4",
+        "definition": "Previous canonical UberBond at a frozen ancestor commit, same suite.",
+        "baselineStatus": "EXECUTED",
+        "score": 0,
+        "tasksAttempted": 70,
+        "tasksCorrect": 0,
+        "method": "Checked out ancestor 2831e4e010fc into a detached worktree. It carries neither the task generator nor the solvers (tasks:false solvers:false), so it cannot attempt a single item. Zero is the honest score for a version that has no capability here, and the B4-to-B5 delta is therefore capability ADDED rather than capability improved.",
+        "reason": null,
+        "blockingDependency": null,
+        "whatWasTried": null,
+        "nextUnblockCondition": null,
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B5",
+        "definition": "Current UberBond at the exact head.",
+        "baselineStatus": "EXECUTED",
+        "score": 1,
+        "tasksAttempted": 70,
+        "tasksCorrect": 70,
+        "method": "Deterministic solvers over the surface only; the item never crosses the boundary. Mean 1.",
+        "reason": null,
+        "blockingDependency": null,
+        "whatWasTried": null,
+        "nextUnblockCondition": null,
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      }
+    ],
+    "executedBaselines": [
+      "B0",
+      "B4",
+      "B5"
+    ],
+    "blockedBaselines": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "trivialComparison": "CURRENT_BEATS_TRIVIAL_BY_0.9714",
+    "unexplainedNulls": 0,
+    "truthBoundary": "A BASELINE SET SAYS WHAT WAS COMPARED ON ONE SUITE AT ONE COMMIT. A MARGIN OVER A TRIVIAL BASELINE ON AN EASY SUITE IS STILL A MARGIN ON AN EASY SUITE.",
+    "businessEffectAuthority": "NONE"
+  },
+  "scores": {
+    "uberbond": {
+      "ok": true,
+      "version": "uberbond.nullstar-cognitive-solvers.v1",
+      "items": 70,
+      "totalScore": 70,
+      "mean": 1,
+      "byFamily": {
+        "PLANNING": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        },
+        "SCIENCE": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        },
+        "CAUSALITY": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        },
+        "TOOL_USE": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        },
+        "RESEARCH": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        },
+        "INVENTION": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        },
+        "FORECASTING": {
+          "items": 10,
+          "score": 10,
+          "mean": 1
+        }
+      },
+      "rows": [
+        {
+          "taskId": "planning.dag.1",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "5"
+        },
+        {
+          "taskId": "planning.dag.2",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "4"
+        },
+        {
+          "taskId": "planning.dag.3",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "4"
+        },
+        {
+          "taskId": "planning.dag.7",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "6"
+        },
+        {
+          "taskId": "planning.dag.11",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "6"
+        },
+        {
+          "taskId": "planning.dag.42",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "8"
+        },
+        {
+          "taskId": "planning.dag.99",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "5"
+        },
+        {
+          "taskId": "planning.dag.1234",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "6"
+        },
+        {
+          "taskId": "planning.dag.20260915",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "6"
+        },
+        {
+          "taskId": "planning.dag.777",
+          "family": "PLANNING",
+          "score": 1,
+          "response": "7"
+        },
+        {
+          "taskId": "science.rule.1",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.2",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.3",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.7",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.11",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.42",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.99",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.1234",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.20260915",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "science.rule.777",
+          "family": "SCIENCE",
+          "score": 1,
+          "response": "[1,1,1]"
+        },
+        {
+          "taskId": "causality.structure.1",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.2",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.3",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.7",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.11",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.42",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.99",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.1234",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.20260915",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "causality.structure.777",
+          "family": "CAUSALITY",
+          "score": 1,
+          "response": "b"
+        },
+        {
+          "taskId": "tooluse.select.1",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"sort\"]"
+        },
+        {
+          "taskId": "tooluse.select.2",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"sort\"]"
+        },
+        {
+          "taskId": "tooluse.select.3",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.7",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"reverse\"]"
+        },
+        {
+          "taskId": "tooluse.select.11",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"count\"]"
+        },
+        {
+          "taskId": "tooluse.select.42",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"unique\"]"
+        },
+        {
+          "taskId": "tooluse.select.99",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"sort\"]"
+        },
+        {
+          "taskId": "tooluse.select.1234",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"sort\"]"
+        },
+        {
+          "taskId": "tooluse.select.20260915",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"reverse\"]"
+        },
+        {
+          "taskId": "tooluse.select.777",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"reverse\"]"
+        },
+        {
+          "taskId": "research.contradiction.1",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "302"
+        },
+        {
+          "taskId": "research.contradiction.2",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "304"
+        },
+        {
+          "taskId": "research.contradiction.3",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "276"
+        },
+        {
+          "taskId": "research.contradiction.7",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "706"
+        },
+        {
+          "taskId": "research.contradiction.11",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "837"
+        },
+        {
+          "taskId": "research.contradiction.42",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "486"
+        },
+        {
+          "taskId": "research.contradiction.99",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "358"
+        },
+        {
+          "taskId": "research.contradiction.1234",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "362"
+        },
+        {
+          "taskId": "research.contradiction.20260915",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "762"
+        },
+        {
+          "taskId": "research.contradiction.777",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "806"
+        },
+        {
+          "taskId": "invention.compose.1",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"11.6667\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.2",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"11.8333\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.3",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"12.2000\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.7",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"8.7500\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.11",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"9.8889\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.42",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"5.5714\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.99",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"12.0000\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.1234",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"9.0000\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.20260915",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"11.7500\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "invention.compose.777",
+          "family": "INVENTION",
+          "score": 1,
+          "response": "{\"answer\":\"10.0000\",\"used\":[\"sum\",\"count\"]}"
+        },
+        {
+          "taskId": "forecasting.extrapolate.1",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "26"
+        },
+        {
+          "taskId": "forecasting.extrapolate.2",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "20"
+        },
+        {
+          "taskId": "forecasting.extrapolate.3",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "27"
+        },
+        {
+          "taskId": "forecasting.extrapolate.7",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "35"
+        },
+        {
+          "taskId": "forecasting.extrapolate.11",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "30"
+        },
+        {
+          "taskId": "forecasting.extrapolate.42",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "23"
+        },
+        {
+          "taskId": "forecasting.extrapolate.99",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "20"
+        },
+        {
+          "taskId": "forecasting.extrapolate.1234",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "18"
+        },
+        {
+          "taskId": "forecasting.extrapolate.20260915",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "31"
+        },
+        {
+          "taskId": "forecasting.extrapolate.777",
+          "family": "FORECASTING",
+          "score": 1,
+          "response": "29"
+        }
+      ],
+      "businessEffectAuthority": "NONE"
+    },
+    "trivial": {
+      "ok": true,
+      "version": "uberbond.nullstar-cognitive-solvers.v1",
+      "items": 70,
+      "totalScore": 2,
+      "mean": 0.0286,
+      "byFamily": {
+        "PLANNING": {
+          "items": 10,
+          "score": 0,
+          "mean": 0
+        },
+        "SCIENCE": {
+          "items": 10,
+          "score": 0,
+          "mean": 0
+        },
+        "CAUSALITY": {
+          "items": 10,
+          "score": 0,
+          "mean": 0
+        },
+        "TOOL_USE": {
+          "items": 10,
+          "score": 1,
+          "mean": 0.1
+        },
+        "RESEARCH": {
+          "items": 10,
+          "score": 1,
+          "mean": 0.1
+        },
+        "INVENTION": {
+          "items": 10,
+          "score": 0,
+          "mean": 0
+        },
+        "FORECASTING": {
+          "items": 10,
+          "score": 0,
+          "mean": 0
+        }
+      },
+      "rows": [
+        {
+          "taskId": "planning.dag.1",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "9"
+        },
+        {
+          "taskId": "planning.dag.2",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "9"
+        },
+        {
+          "taskId": "planning.dag.3",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "9"
+        },
+        {
+          "taskId": "planning.dag.7",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "12"
+        },
+        {
+          "taskId": "planning.dag.11",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "13"
+        },
+        {
+          "taskId": "planning.dag.42",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "11"
+        },
+        {
+          "taskId": "planning.dag.99",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "10"
+        },
+        {
+          "taskId": "planning.dag.1234",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "10"
+        },
+        {
+          "taskId": "planning.dag.20260915",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "13"
+        },
+        {
+          "taskId": "planning.dag.777",
+          "family": "PLANNING",
+          "score": 0,
+          "response": "13"
+        },
+        {
+          "taskId": "science.rule.1",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.2",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.3",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.7",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.11",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.42",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.99",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.1234",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.20260915",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "science.rule.777",
+          "family": "SCIENCE",
+          "score": 0,
+          "response": "[2,4,6]"
+        },
+        {
+          "taskId": "causality.structure.1",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.2",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.3",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.7",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.11",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.42",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.99",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.1234",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.20260915",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "causality.structure.777",
+          "family": "CAUSALITY",
+          "score": 0,
+          "response": "a"
+        },
+        {
+          "taskId": "tooluse.select.1",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.2",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.3",
+          "family": "TOOL_USE",
+          "score": 1,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.7",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.11",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.42",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.99",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.1234",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.20260915",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "tooluse.select.777",
+          "family": "TOOL_USE",
+          "score": 0,
+          "response": "[\"sum\"]"
+        },
+        {
+          "taskId": "research.contradiction.1",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "345"
+        },
+        {
+          "taskId": "research.contradiction.2",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "276"
+        },
+        {
+          "taskId": "research.contradiction.3",
+          "family": "RESEARCH",
+          "score": 1,
+          "response": "276"
+        },
+        {
+          "taskId": "research.contradiction.7",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "736"
+        },
+        {
+          "taskId": "research.contradiction.11",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "939"
+        },
+        {
+          "taskId": "research.contradiction.42",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "484"
+        },
+        {
+          "taskId": "research.contradiction.99",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "375"
+        },
+        {
+          "taskId": "research.contradiction.1234",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "370"
+        },
+        {
+          "taskId": "research.contradiction.20260915",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "738"
+        },
+        {
+          "taskId": "research.contradiction.777",
+          "family": "RESEARCH",
+          "score": 0,
+          "response": "809"
+        },
+        {
+          "taskId": "invention.compose.1",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"18\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.2",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"7\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.3",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"20\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.7",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"12\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.11",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"3\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.42",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"2\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.99",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"7\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.1234",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"4\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.20260915",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"5\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "invention.compose.777",
+          "family": "INVENTION",
+          "score": 0,
+          "response": "{\"answer\":\"2\",\"used\":[\"sum\"]}"
+        },
+        {
+          "taskId": "forecasting.extrapolate.1",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "24"
+        },
+        {
+          "taskId": "forecasting.extrapolate.2",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "18"
+        },
+        {
+          "taskId": "forecasting.extrapolate.3",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "25"
+        },
+        {
+          "taskId": "forecasting.extrapolate.7",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "31"
+        },
+        {
+          "taskId": "forecasting.extrapolate.11",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "26"
+        },
+        {
+          "taskId": "forecasting.extrapolate.42",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "20"
+        },
+        {
+          "taskId": "forecasting.extrapolate.99",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "18"
+        },
+        {
+          "taskId": "forecasting.extrapolate.1234",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "16"
+        },
+        {
+          "taskId": "forecasting.extrapolate.20260915",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "27"
+        },
+        {
+          "taskId": "forecasting.extrapolate.777",
+          "family": "FORECASTING",
+          "score": 0,
+          "response": "25"
+        }
+      ],
+      "businessEffectAuthority": "NONE"
+    }
+  },
+  "cost": {
+    "wallClockMs": 14,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0
+  },
+  "instrumentValidity": {
+    "separates": true,
+    "margin": 0.9714,
+    "trivialFloor": 0.0286,
+    "verdict": "INSTRUMENT_SEPARATES__A_NO_CAPABILITY_BASELINE_SCORES_FAR_BELOW"
+  },
+  "ceilingWarning": {
+    "finding": "B5_AT_CEILING",
+    "detail": "The solvers score 1. A suite at ceiling can register neither improvement nor regression, which is the condition that let the retired corpus sit at 1.0 for four generations.",
+    "consequence": "Difficulty must rise before this suite can measure a capability generation. Section 039.",
+    "alsoHonest": "These solvers were authored with knowledge of the generators. The separation from the trivial baseline is real -- both see the same surface -- but a ceiling score says the items are within reach of code written alongside them, not that the system is generally capable."
+  },
+  "truthBoundary": "A SEPARATION FROM A TRIVIAL BASELINE MEANS THE INSTRUMENT DISCRIMINATES. IT DOES NOT MEAN THE FAMILY NAMES MEASURE THE CAPABILITIES THEY ARE NAMED AFTER, AND A CEILING SCORE MEASURES NOTHING FURTHER.",
+  "businessEffectAuthority": "NONE"
+}

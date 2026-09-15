@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "uberbond-nullstar-completion-debt-1.0.0",
+  "directiveSections": [
+    "009",
+    "169",
+    "191",
+    "244"
+  ],
+  "generatedAt": "2026-09-15T13:36:01.757Z",
+  "sourceCommit": "9f669c3900559f489b8a6664d0d1568b9abe74ce",
+  "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
+  "softwareOpen": 0,
+  "externalOpen": 2,
+  "totalOpen": 2,
+  "items": [
+    {
+      "id": "CD001-TOOL-USE-VOCABULARY-GAP",
+      "class": "SOFTWARE",
+      "what": "The TOOL_USE family sits at 0.67 at difficulties 2 and 3 because the solver has no intent mapping for the goal phrases naming median and range.",
+      "whyNotDone": "Named in the GA3 declaration and deliberately not spent as a generation: closing it is a two-line dictionary edit that would have posted as a capability win. It is real work and it is small work, and it stayed open through four declarations that each said so.",
+      "open": false,
+      "evidence": "TOOL_USE measured live at d2 1 and d3 1"
+    },
+    {
+      "id": "CD002-GA1-GA2-UNATTRIBUTABLE",
+      "class": "SOFTWARE",
+      "what": "The GA1 and GA2 promotions are improvements on the instrument that cannot be attributed to the mechanisms they were testing. Their families have no out-of-pattern probe set.",
+      "whyNotDone": "The gate existed for INVENTION only. Extending it to FORECASTING and RESEARCH was writable work, and the point was never to re-judge the finished runs -- a probe written after the winner is known cannot become the test that tournament used -- but to find out whether the promoted code is better than the minimal fix it tied.",
+      "open": false,
+      "evidence": "both promoted solvers separate from their minimal fixes: GA1 6 vs 4 of 6; GA2 6 vs 3 of 6"
+    },
+    {
+      "id": "CD003-GATE-PROBES-ARE-SIX-HAND-PICKED-CASES",
+      "class": "SOFTWARE",
+      "what": "The out-of-pattern gate rested on six hand-written prompts, so passing it could mean the six happened to be six the solver could do.",
+      "whyNotDone": "Enumerating the space the grammar can build replaces hand-picking with coverage. That is writable work and it is the actionable half of what this item originally said.",
+      "reclassifiedFrom": "CD003-GATE-PROBES-SHARE-AN-AUTHOR",
+      "open": false,
+      "evidence": "the promoted solver answers all 54 prompts the grammar can build, against 6 hand-written probes"
+    },
+    {
+      "id": "CD004-TIE-BREAK-IS-MEANINGLESS-FOR-REEXPORTS",
+      "class": "SOFTWARE",
+      "what": "The tournament tie-break measures bytes of the candidate function in its source file. A candidate module that re-exports rather than defines has nothing to measure, so GA6 reported 1052 bytes against 1052 and the tie-break decided nothing.",
+      "whyNotDone": "Found while reading GA6 output. Small, and it changes which of several tied candidates wins, so it is worth fixing before a tie-break is ever load-bearing.",
+      "open": false,
+      "evidence": "the runner follows re-exports and sorts an unmeasurable size last instead of treating it as zero"
+    },
+    {
+      "id": "CD008-INSTRUMENT-SATURATED-AT-ITS-TOP-DIFFICULTY",
+      "class": "SOFTWARE",
+      "what": "A suite where every family scores 1.0 at its hardest level cannot rank a candidate, so a generation declared against it measures nothing.",
+      "whyNotDone": "Closing the TOOL_USE gap saturated the last family below 1.0 at difficulty 3. Difficulty 4 has to carry escalation the incumbent genuinely cannot reach rather than merely finds harder, and it has to exist before its bottleneck is read.",
+      "open": false,
+      "evidence": "headroom at difficulty 4 in TOOL_USE 0, FORECASTING 0"
+    },
+    {
+      "id": "CD009-RIGHT-GROUPED-COMPOSITIONS-UNREADABLE",
+      "class": "SOFTWARE",
+      "what": "The promoted invention solver folds left to right, so a prompt grouped the other way -- \"the mean, plus the midrange divided by how many numbers there are\" -- is read as ((mean + midrange) / count) rather than mean + (midrange / count). It answers wrongly rather than refusing.",
+      "whyNotDone": "Found by hand after GA7, by constructing prompts where the two tied candidates disagree. Neither M3 nor M4 reads it correctly; M4 is worse, silently dropping trailing operations. The generator emits no right-grouped prompt at any difficulty, so nothing measures this and no tournament can select against it until a difficulty level asks.",
+      "open": false,
+      "evidence": "the solver answers 11.7500 where the right-grouped reading is 11.7500"
+    },
+    {
+      "id": "CD010-TIE-BREAK-DECIDED-GA7-ARBITRARILY",
+      "class": "SOFTWARE",
+      "what": "GA7 promoted M3 over M4 on registration order. Both scored 1.0, both passed the gate, and the size heuristic could not measure either because the candidate module re-exports from three others.",
+      "whyNotDone": "The repaired tie-break says out loud that it decided nothing, which is why this is visible at all. Checking afterwards showed M3 is genuinely better -- M4 drops trailing operations -- but that was found by hand, not by the tournament. A tie-break that falls back to arbitrary order will eventually pick the worse candidate, and it already did once: GA6 chose L2 over L3 on size and L2 turned out to confabulate on every difficulty-4 item.",
+      "open": false,
+      "evidence": "the runner compares tied candidates against each other and records NO_PROMOTION__TIE_UNRESOLVED when they behave differently, instead of choosing on size or order"
+    },
+    {
+      "id": "CD005-CROSS-ORGAN-TRANSFER-NOT-MEASURED",
+      "class": "SOFTWARE",
+      "what": "No promoted improvement has been measured against the software, economic or personal organs. The GA2 declaration argued research ranking should transfer to provider evidence; that argument is unmeasured.",
+      "whyNotDone": "A transfer measurement needs a task in the receiving organ whose answer is not already computed by the code being tested, and none has been built. Claiming transfer from an architectural argument is what the truth boundaries in every artifact here forbid.",
+      "open": false,
+      "evidence": "artifacts/nullstar-terminal/cross-organ-transfer.json does not exist"
+    },
+    {
+      "id": "CD006-PROVIDER-EVALUATION-BLOCKED",
+      "class": "EXTERNAL",
+      "what": "Per-dimension capability evidence against anything other than deterministic solvers requires a model. No provider credential is configured and every model-weight host is refused by the network policy, while a local inference runtime installs and imports cleanly.",
+      "whyNotDone": "Two independent blockers, neither of which is code: weights are unreachable and Capability Genome admission has approved nothing. Writing more software does not resolve either.",
+      "open": true,
+      "evidence": "artifacts/nullstar-omega/G2-discriminating-test.json carries the probes; config/reachability-classification.json names the gate"
+    },
+    {
+      "id": "CD007-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "class": "EXTERNAL",
+      "what": "Revenue, customers and cleared payment remain zero. Nothing in this work changes that and nothing in it is evidence about it.",
+      "whyNotDone": "Requires a buyer, not a commit.",
+      "open": true,
+      "evidence": "no payment provider receipt exists in the repository"
+    }
+  ],
+  "openFailureDebt": [],
+  "generationsRun": [
+    {
+      "generation": "GA1",
+      "family": "FORECASTING",
+      "outcome": "PROMOTED",
+      "winner": "C1_POLYNOMIAL_DIFFERENCE",
+      "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+      "gateApplied": false
+    },
+    {
+      "generation": "GA2",
+      "family": "RESEARCH",
+      "outcome": "PROMOTED",
+      "winner": "R2_TWO_AXIS",
+      "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+      "gateApplied": false
+    },
+    {
+      "generation": "GA3",
+      "family": "INVENTION",
+      "outcome": "PROMOTED",
+      "winner": "I3_PROMPT_DIRECTED",
+      "discrimination": "SEPARATED",
+      "gateApplied": false
+    },
+    {
+      "generation": "GA4",
+      "family": "INVENTION",
+      "outcome": "NO_PROMOTION",
+      "winner": null,
+      "discrimination": "NO_ELIGIBLE_CANDIDATE",
+      "gateApplied": true
+    },
+    {
+      "generation": "GA5",
+      "family": "INVENTION",
+      "outcome": "NO_PROMOTION",
+      "winner": null,
+      "discrimination": "NO_ELIGIBLE_CANDIDATE",
+      "gateApplied": true
+    },
+    {
+      "generation": "GA6",
+      "family": "INVENTION",
+      "outcome": "PROMOTED",
+      "winner": "L2_OPERATOR_REPAIRED",
+      "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+      "gateApplied": true
+    }
+  ],
+  "permanentLimitations": [
+    {
+      "id": "PL001-PROBES-SHARE-AN-AUTHOR",
+      "what": "Every probe, grammar and generator in this work was written by the same author as the solvers they judge, so they test the failure modes that author can imagine.",
+      "whyNotResolvable": "Whoever writes the next probe set is an author too. Independence would need an adversary with different blind spots -- another model, another person, or items drawn from a source outside this repository -- and none of those is available here.",
+      "narrowedBy": "artifacts/nullstar-terminal/probe-saturation.json enumerates 54 prompts from the grammar rather than relying on 6 hand-picked ones, which removes the narrower worry without touching this one.",
+      "statedBefore": "artifacts/nullstar-terminal/ga4-declaration.json, written before any generation ran under the gate"
+    },
+    {
+      "id": "PL002-ONE-INSTRUMENT",
+      "what": "Every capability number in this work comes from one procedurally generated suite of seven families.",
+      "whyNotResolvable": "A second independent instrument would have to be built by someone who did not build the first, for the same reason as PL001.",
+      "narrowedBy": "Out-of-pattern probes sit outside the generator, and held-back reporting probes gate nothing, so not every number comes from inside the training distribution."
+    },
+    {
+      "id": "PL003-DETERMINISTIC-SOLVERS-ARE-NOT-MODELS",
+      "what": "The solvers are hand-written deterministic functions. Nothing here measures a model, and the capability being improved is the author's understanding of the task expressed as code.",
+      "whyNotResolvable": "Measuring a model needs a model, which is CD006 and is externally blocked.",
+      "narrowedBy": "Nothing. It is stated in every generation artifact rather than narrowed."
+    }
+  ],
+  "doneVerdict": "SOFTWARE_SIDE_COMPLETE",
+  "whyNotDone": null,
+  "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
+  "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

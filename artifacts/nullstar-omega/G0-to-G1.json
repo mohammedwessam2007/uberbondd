@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-generation.v1",
+  "status": "NULLSTAR_OMEGA_GENERATIONS_COMPARED",
+  "from": "G0",
+  "to": "G1",
+  "deltas": {
+    "reasoning": 0,
+    "selfDiagnosis": 0,
+    "calibration": 0,
+    "robustness": 0
+  },
+  "incomparableDimensions": [
+    "mathematics",
+    "science",
+    "software",
+    "research",
+    "forecasting",
+    "causality",
+    "planning",
+    "toolUse",
+    "invention",
+    "crossDomain",
+    "unknownUnknown",
+    "longHorizon",
+    "resourceEfficiency"
+  ],
+  "counts": {
+    "comparable": 4,
+    "improved": 0,
+    "regressed": 0,
+    "incomparable": 13
+  },
+  "netDelta": 0,
+  "regressedDimensions": [],
+  "businessEffectAuthority": "NONE"
+}

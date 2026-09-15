@@ -70,8 +70,8 @@
       "releasedBy": "A configured private object-storage adapter with a reviewed credential path, and an owner decision that artifacts may leave PostgreSQL at all. Configuring an adapter does not by itself authorize what is written through it."
     },
     "NO_APPROVED_GENOME_CAPABILITY": {
-      "description": "Execution admission decides whether an approved Capability Genome capability may run a bounded mission. The corpus currently holds 30 repository candidates, 2 imported bodies and 2 normalized records, and zero approved or active capabilities, so there is nothing it could admit. Wiring it to an entry point would advertise a capability-execution path that has no capability behind it.",
-      "releasedBy": "At least one capability reaching APPROVED through dedupe, independent STATIC, SEMANTIC and SANDBOX security evidence, and benchmark promotion -- after which the admission step is the gate that decides whether it may execute."
+      "description": "Neural cortex admission selects from Capability Genome records that are approved and active. The measured corpus holds 2 normalized records, 0 approved and 0 active, so admission would select from nothing.",
+      "releasedBy": "At least one Capability Genome record carrying independent STATIC, SEMANTIC and SANDBOX evidence promoted to APPROVED."
     },
     "NO_FRONTIER_OPERATOR_HOST": {
       "description": "The Frontier Operator family compiles bounded worker missions, verifies artifacts, absorbs observed mechanisms and scores its own coverage. Every module carries the zero external-effect ledger and none of them is scheduled: no entry point turns a Goal Contract into a running mission. Wiring them now would create an orchestrator with nothing to orchestrate, and an orchestrator that runs is exactly the thing that must not be switched on before its consequence path is decided.",
@@ -80,6 +80,46 @@
     "NO_CONFIGURED_OPEN_MODEL_RUNTIME": {
       "description": "The Open Model Universe discovers, normalizes and screens public model supply. The executor it feeds is already reachable through the model factory and reports runtime-absent, model-identity-absent, runtime-endpoint-absent, pricing-evidence-absent and explicitly-disabled, so no open model can execute. Discovery without a runtime is a catalogue: real, useful to read, and unable to route anything.",
       "releasedBy": "A configured open-model runtime endpoint with an exact model identity and pricing evidence, after which screened supply can be routed and the discovery layer has somewhere to send its output."
+    },
+    "NO_MODEL_JUDGEMENT_CAPABILITY": {
+      "description": "Per-dimension capability evidence needs something able to judge a task whose answer the repository does not already compute. No provider credential exists here, and every model-weight host is refused by the network policy while a local inference runtime installs fine. artifacts/nullstar-omega/G2-discriminating-test.json carries the probes.",
+      "releasedBy": "A provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires for the exact artifact."
+    },
+    "NO_COMMERCIAL_PREPARATION_AUDIT": {
+      "description": "Preparation memory records what was prepared for a commercial opportunity and how it aged. No preparation audit has ever been recorded, so the memory would age an empty set.",
+      "releasedBy": "One real commercial opportunity preparation audit reaching durable storage."
+    },
+    "NO_CLEARED_PAYMENT": {
+      "description": "The wealth bridge ranks reliability actions against a wealth portfolio. Both sides read from cleared contribution, which is currently zero, so every ranking would be over an empty portfolio.",
+      "releasedBy": "One cleared payment reconciled from provider-origin evidence."
+    },
+    "NO_FREE_MISSION_LOOP": {
+      "description": "The clock policy bounds tick interval, active window and ticks per window for an autonomous free-mission loop. No such loop is activated, so the policy would bound nothing.",
+      "releasedBy": "An activated free-mission loop that asks the policy for its tick budget before scheduling."
+    },
+    "NO_FRONTIER_REPRODUCTION_AUTHORITY": {
+      "description": "The mechanism catalog compiles reproduction experiments from frontier records. Running one reaches outside this process, and no reproduction authority or budget is granted.",
+      "releasedBy": "Explicit owner authority and budget for a bounded frontier reproduction experiment."
+    },
+    "NO_INSTITUTION_MISSION_AUTHORITY": {
+      "description": "The institutional harness compiles institution cells and asserts observed proof over them. Compiling a cell for a mission nobody authorized would manufacture an institution with no principal.",
+      "releasedBy": "One authorized institution mission with a named principal and a delegation record."
+    },
+    "NO_OBSERVED_UNATTENDED_OPERATION": {
+      "description": "The money machine proof requires at least 24 hours of endurance with pulse receipts no more than 5 minutes apart. Real elapsed time is the input and it cannot be produced by running code faster.",
+      "releasedBy": "24 hours of genuinely elapsed unattended operation with durable pulse receipts. Synthesised timestamps do not release it."
+    },
+    "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES": {
+      "description": "The APOTHEOSIS orchestration and agent-mesh runtimes are implemented and tested but reach no entry point. docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md names the gate: native P00/P08 source reconciliation and each packet's listed earlier acceptance prerequisites remain activation gates outside the seven-node planning graph. Import-graph trace on 2026-09-15 confirms the pair is an island.",
+      "releasedBy": "Native P00/P08 source reconciliation completed and each packet's acceptance prerequisites met, after which an entry point may reach the orchestration runtime."
+    },
+    "NO_MAILBOX_PROVISIONING_AUTHORITY": {
+      "description": "The inbox, mail-foundry, egress-topology and scale-frontier modules plan and shape sending infrastructure. Provisioning mailboxes, domains and egress routes spends money and creates real sending identity, neither of which is authorized. Import-graph trace on 2026-09-15 found no importer for any of them.",
+      "releasedBy": "Explicit owner authority and budget to provision sending infrastructure, recorded as durable authorization evidence."
+    },
+    "NO_FOUNDER_LIFE_DATA": {
+      "description": "The life-side engines model the founder's skills, locations, relationships and long-horizon institutions. Each needs founder-supplied data that does not exist in this repository, and inventing it would produce a model of nobody. Import-graph trace on 2026-09-15 found no importer for any of them.",
+      "releasedBy": "Founder-supplied and consented life data for the specific domain, plus a founder-facing surface that asks for it rather than inferring it."
     }
   },
   "modules": {
@@ -122,6 +162,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "BROWSER_ADAPTER_NOT_CONFIGURED. The contract also names ACCOUNT_CREATION as a consequence class, which needs authorization separately from an adapter."
+    },
+    "src/c21-dimension-evidence-producer.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MODEL_JUDGEMENT_CAPABILITY",
+      "reason": "Produces per-dimension ASI evidence records. Import-graph trace on 2026-09-14 found no importer at all. Wiring it now would emit dimension records with nothing capable of judging the dimension."
     },
     "src/capability-genome-execution-admission.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -173,10 +218,15 @@
       "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
       "reason": "Wraps the orchestrator; blocked by the same attestation."
     },
-    "src/economic-feedback-allocator.mjs": {
+    "src/economic-reliability-preparation-memory.mjs": {
       "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Reallocates bounded weights from cleared outcomes. Zero cleared payments, accepted deliveries and renewals exist, so every proposal would be computed from an empty ledger."
+      "gate": "NO_COMMERCIAL_PREPARATION_AUDIT",
+      "reason": "Ages commercial preparation audits. Trace found no importer. Nothing has ever written a preparation audit for it to age."
+    },
+    "src/economic-reliability-wealth-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CLEARED_PAYMENT",
+      "reason": "Joins the wealth portfolio to reliability action ranking. Trace found no importer. Both inputs are empty while cleared contribution is zero."
     },
     "src/egress-health-pool.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -208,6 +258,11 @@
       "gate": "NO_CUSTOMER",
       "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
     },
+    "src/free-mission-clock-policy.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FREE_MISSION_LOOP",
+      "reason": "Bounds tick interval and active window for a free-mission loop. Trace found no importer. There is no loop asking it for a budget."
+    },
     "src/frontier-absorption-engine.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
@@ -228,10 +283,20 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
     },
+    "src/frontier-intelligence-neural-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APPROVED_GENOME_CAPABILITY",
+      "reason": "Converts frontier records into neural cortex references. Trace found no importer; it imports neural-exocortex-admission, and the pair forms an island with no entry point."
+    },
     "src/frontier-loop-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Stages and checks the world-sensing to replanning loop the operator would run. Proof helper for a path nothing schedules."
+    },
+    "src/frontier-mechanism-catalog.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FRONTIER_REPRODUCTION_AUTHORITY",
+      "reason": "Seeds frontier mechanisms and compiles reproduction experiments. Trace found no importer. Executing a compiled experiment needs authority that does not exist."
     },
     "src/frontier-model-admission-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -297,6 +362,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Operational surface over lead state, feeding the same unauthorised outbound chain."
+    },
+    "src/neural-exocortex-admission.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APPROVED_GENOME_CAPABILITY",
+      "reason": "Admits Genome capabilities as neural cortex. Imported only by frontier-intelligence-neural-bridge, which itself has no importer. The corpus holds 0 approved capabilities to admit."
     },
     "src/omnia-v9/authority-transition-ledger.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -619,13 +689,13 @@
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
     },
-    "src/personal-civilization-private-operator.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."
-    },
     "src/personal-civilization-possibility.mjs": {
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
+    },
+    "src/personal-civilization-private-operator.mjs": {
+      "category": "DELIBERATELY_UNREACHABLE",
+      "reason": "This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."
     },
     "src/personal-civilization-scientific-experiment.mjs": {
       "category": "DELIBERATELY_UNREACHABLE",
@@ -655,11 +725,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_ENRICHMENT_PROVIDER",
       "reason": "Ranks enrichment steps for providers that do not exist yet."
-    },
-    "src/prospect-evidence-reconciliation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Reconciles evidence from providers none of which are configured or terms-confirmed."
     },
     "src/prospect-identity-ledger.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -746,6 +811,21 @@
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."
     },
+    "src/sovereign-institutional-harness-hardening.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INSTITUTION_MISSION_AUTHORITY",
+      "reason": "Applies review disciplines over the harness. Trace found no importer. It hardens a harness nothing currently reaches."
+    },
+    "src/sovereign-institutional-harness.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INSTITUTION_MISSION_AUTHORITY",
+      "reason": "Compiles institution cells and asserts observed proof. Imported only by its own hardening module, which has no importer. The pair is an island."
+    },
+    "src/sovereign-money-machine-proof.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OBSERVED_UNATTENDED_OPERATION",
+      "reason": "Proves endurance from pulse receipts over at least 24 hours. Trace found no importer. Its input is elapsed real time, which no code path can supply."
+    },
     "src/staging-content-repository.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
@@ -760,6 +840,86 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
+    },
+    "src/apotheosis-orchestration-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Orchestration runtime for the APOTHEOSIS planning graph. Imported only by apotheosis-agent-mesh-runtime, which itself has no importer; the pair is an island with no entry point."
+    },
+    "src/apotheosis-agent-mesh-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Native agent-mesh activation over the orchestration runtime. Trace found no importer. Wiring it before the named activation prerequisites would start a mesh whose acceptance gates are unmet."
+    },
+    "src/uberlaunch-one-button.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "One-button founder launch control. Imports discovery, the outreach launch gate and governed dispatch, so reaching it from an entry point puts a send path one call from an operator. Imported only by uberlead-launch-fusion, which has no importer."
+    },
+    "src/uberlead-launch-fusion.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Fuses Apollo-style lead selection into the one-button launch. Imported only by uberlaunch-runtime-evidence, which has no importer. The three form one island ending at a dispatch path."
+    },
+    "src/uberlaunch-runtime-evidence.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Compiles sovereign runtime evidence into the one-button launch. Trace found no importer. It is the head of the launch island."
+    },
+    "src/ubermail-foundry.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Compiles mailbox fleets from the uberdoso roots. Trace found no importer. Provisioning is a spend and a sending identity, not a code decision."
+    },
+    "src/uberinbox-factory.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Builds inbox fleets for outbound capacity. Trace found no importer."
+    },
+    "src/uberinboxes-scale-profiles.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Evidence-bound provider scale profiles for inbox fleets. Trace found no importer. Its caps are planning figures until a provider relationship exists."
+    },
+    "src/uberegress-topology.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
+      "reason": "Shapes egress topology for sending infrastructure. Trace found no importer, and no egress route is configured."
+    },
+    "src/uberreach-scale-frontier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Projects reach at scale across the outbound frontier. Trace found no importer. Scale projection is not permission to send."
+    },
+    "src/adaptive-mastery-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Compiles a desired human capability into baseline, prerequisites, practice and measurement. Tested by life-altering-frontier-gap; trace found no importer. It needs the founder's actual current ability, which nothing here has."
+    },
+    "src/geographic-sovereignty-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models geographic freedom and location options. Trace found no importer. Its inputs are the founder's constraints and intent, not repository state."
+    },
+    "src/legacy-institution-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models long-horizon institutions and posthumous continuity. Trace found no importer. Compiling an institution nobody authorized would manufacture one with no principal."
+    },
+    "src/relationship-opportunity-graph.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models relationships as an opportunity surface. Trace found no importer. Other people are sovereign and their data is not the repository's to assume."
+    },
+    "src/model-foundry-control-plane.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Control plane for the model foundry. Trace found no importer. No lawful model artifact is reachable here: every weight host is refused by the network policy while a local inference runtime installs fine."
+    },
+    "src/apotheosis-final-orchestrator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Final orchestrator over the APOTHEOSIS graph. Tested, but trace found no importer, and its own continuation doc names native P00/P08 reconciliation as the activation gate."
     }
   }
 }

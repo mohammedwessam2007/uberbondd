@@ -46,7 +46,19 @@ test('explicit STOP is the only legacy candidate rejection normalized into a suc
   assert.equal(stopPredicates.length, 2, 'initial and final pass must use the same narrow STOP condition');
   assert.equal(zeroAssignments.length, 2, 'only those two explicit STOP branches may normalize the exit code');
   assert.doesNotMatch(workflow, /continue-on-error\s*:\s*true/i);
-  assert.doesNotMatch(workflow, /\|\|\s*true/);
+  // `|| true` matters because a step that cannot fail cannot stop a bad
+  // promotion. A teardown is the one place it is correct: removing a temporary
+  // worktree must not fail the job, and it decides nothing. So the guard names
+  // the allowed shape instead of banning the operator outright -- a blanket ban
+  // failed the moment cleanup was added, which teaches the next session to
+  // delete the assertion rather than to look at the line.
+  const swallowed = workflow.split('\n').filter(line => /\|\|\s*true/.test(line));
+  const teardown = /cleanup\(\)|trap\s|git worktree remove|rm -rf/;
+  assert.deepEqual(
+    swallowed.filter(line => !teardown.test(line)),
+    [],
+    'only teardown may swallow a failure; a step whose result decides anything must be able to fail'
+  );
 });
 
 test('continuation memory prevents same-base blind repetition and preserves evidence', () => {

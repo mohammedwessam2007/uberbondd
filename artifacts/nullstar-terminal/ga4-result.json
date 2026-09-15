@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-1.0.0",
+  "generation": "GA4",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "directiveSections": [
+    "053",
+    "054",
+    "055",
+    "056",
+    "057",
+    "058",
+    "074",
+    "076"
+  ],
+  "generatedAt": "2026-09-15T12:33:57.552Z",
+  "sourceCommit": "bd1c151b228eb03c1b4d34a69b743d88fbf22915",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "INVENTION",
+  "difficulty": 3,
+  "declarationRef": "artifacts/nullstar-terminal/ga4-declaration.json",
+  "precommittedThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2, and passing the out-of-pattern gate.",
+  "thresholdUsed": 0.8,
+  "incumbent": {
+    "trainScore": 1,
+    "heldOutScore": 1
+  },
+  "candidates": [
+    {
+      "candidate": "J1_ONE_MORE_PATTERN",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 330,
+      "meetsThreshold": true,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 1,
+        "refused": 2,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 0.3333
+      },
+      "outOfPatternGate": "BELOW_OUT_OF_PATTERN_MINIMUM__0.3333_UNDER_0.6",
+      "eligible": false
+    },
+    {
+      "candidate": "J2_ANCHORED_PATTERNS",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 728,
+      "meetsThreshold": true,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 0,
+        "refused": 3,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 0
+      },
+      "outOfPatternGate": "BELOW_OUT_OF_PATTERN_MINIMUM__0_UNDER_0.6",
+      "eligible": false
+    },
+    {
+      "candidate": "J3_COMPOSITIONAL",
+      "trainScore": 0.8,
+      "heldOutScore": 0.8,
+      "regressions": [],
+      "complexityBytes": 101,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": false
+    },
+    {
+      "candidate": "J4_COMPOSITIONAL_STRICT",
+      "trainScore": 0.8,
+      "heldOutScore": 0.8,
+      "regressions": [],
+      "complexityBytes": 181,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": false
+    }
+  ],
+  "disqualifiedForRegression": [],
+  "winner": null,
+  "outcome": "NO_PROMOTION",
+  "discrimination": "NO_ELIGIBLE_CANDIDATE",
+  "outOfPatternGate": {
+    "applied": true,
+    "minimumCorrectRate": 0.6,
+    "probeCount": 3,
+    "confabulationDisqualifies": true
+  },
+  "disqualifiedByOutOfPatternGate": [
+    {
+      "candidate": "J1_ONE_MORE_PATTERN",
+      "heldOutScore": 1,
+      "reason": "BELOW_OUT_OF_PATTERN_MINIMUM__0.3333_UNDER_0.6"
+    },
+    {
+      "candidate": "J2_ANCHORED_PATTERNS",
+      "heldOutScore": 1,
+      "reason": "BELOW_OUT_OF_PATTERN_MINIMUM__0_UNDER_0.6"
+    }
+  ],
+  "tiedAtTop": [],
+  "attributionWarning": null,
+  "tieBreak": null,
+  "improvementVelocity": {
+    "deltaCapability": 0,
+    "wallClockMs": 8,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0,
+    "regressions": null
+  },
+  "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY ON ONE INSTRUMENT. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT OR ACCELERATION.",
+  "businessEffectAuthority": "NONE"
+}

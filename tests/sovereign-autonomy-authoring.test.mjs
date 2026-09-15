@@ -51,7 +51,9 @@ test('author worker verifier are separate kernel identities and worker network i
   assert.match(worker, /^User=uberbond-worker$/m);
   assert.match(verifier, /^User=uberbond-author$/m);
   assert.match(worker, /^PrivateNetwork=true$/m);
-  assert.match(worker, /^ReadOnlyPaths=.*\/opt\/uberbond\/source.*\/var\/lib\/uberbond-worker\/inbox$/m);
+  assert.match(worker, /^ReadOnlyPaths=.*\/opt\/uberbond\/source\b/m);
+  assert.match(worker, /^ReadOnlyPaths=.*\/var\/lib\/uberbond-worker\/inbox\b/m);
+  assert.doesNotMatch(worker, /^ReadWritePaths=.*\/opt\/uberbond\/source\b/m);
   assert.match(worker, /^ReadWritePaths=\/var\/lib\/uberbond-worker\/outbox \/tmp$/m);
   assert.doesNotMatch(worker, /var\/lib\/uberbond-control/);
   assert.match(verifier, /^ReadOnlyPaths=.*\/var\/lib\/uberbond-worker\/outbox$/m);
@@ -106,7 +108,10 @@ test('verified candidate becomes review pending under canonical continuation pol
 test('installer keeps author and worker configs private to their identities and release signing separate', () => {
   const installer = readFileSync(new URL('../ops/sovereign/install-authoring-node.sh', import.meta.url), 'utf8');
   assert.match(installer, /groupadd --system uberbond-autonomy/);
-  assert.match(installer, /usermod -g "\$account" -a -G uberbond-autonomy/);
+  for (const account of ['uberbond-author', 'uberbond-worker', 'uberbond-promoter']) {
+    assert.match(installer, new RegExp(`usermod -g ${account} -a -G [^\\n]*uberbond-autonomy`),
+      `${account} must be a member of uberbond-autonomy`);
+  }
   assert.match(installer, /chown root:uberbond-author \/etc\/uberbond\/authoring\.env/);
   assert.match(installer, /chown root:uberbond-worker \/etc\/uberbond\/worker\.env/);
   assert.match(installer, /release signing authority must not live/i);

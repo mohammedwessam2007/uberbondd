@@ -8,7 +8,7 @@ import { createFakeGmailTransport, FAKE_GMAIL_MODES } from './helpers/fake-gmail
 
 const ENCRYPTION_KEY = crypto.randomBytes(32).toString('hex');
 const CFG_BASE = { clientId: 'fake-client', clientSecret: 'fake-secret', redirectUri: 'https://example.test/callback' };
-const MESSAGE_ID_DOMAIN = 'uberbond-controlled-test.example';
+const MESSAGE_ID_DOMAIN = 'sovereign-controlled-test.example';
 
 function freshAccount() {
   const tokens = { access_token: 'fresh-token', refresh_token: 'fresh-refresh', expires_at: Date.now() + 3600_000 };
@@ -21,7 +21,7 @@ function makeAdapter(transport) {
     account: freshAccount(),
     encryptionKey: ENCRYPTION_KEY,
     messageIdDomain: MESSAGE_ID_DOMAIN,
-    fromAddress: 'sender@uberbond-controlled-test.example'
+    fromAddress: 'sender@sovereign-controlled-test.example'
   });
 }
 

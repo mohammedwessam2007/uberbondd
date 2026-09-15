@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": ["059", "060", "061", "051", "052", "053", "070", "071", "074"],
+  "generation": "GA3",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "The bottleneck recomputed after GA2's promotion, declared before any candidate exists, and carrying the correction F010 demands.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 3,
+  "instrumentPrecondition": {
+    "changedAt": "faf1bb7a",
+    "whatChanged": "Level-3 invention draws its target composition from four formulas over the same four primitives instead of always asking for one. Committed before this declaration, with no candidate written and no threshold set.",
+    "whyBeforeDeclaring": "With one fixed formula the family could be passed by hard-coding it, so a general method and a lookup would have scored identically and GA3 would have repeated F010 before it began. The change raises difficulty: the incumbent went 0.05 to 0.02.",
+    "notRescoring": "GA1 and GA2 are not re-run or re-scored against the changed generator. Their recorded results stand as taken."
+  },
+  "bottleneck": {
+    "observed": "After promoting GA2's two-axis research solver, difficulty 3 stands at PLANNING 1.00, SCIENCE 1.00, CAUSALITY 1.00, RESEARCH 1.00, FORECASTING 1.00, TOOL_USE 0.67, INVENTION 0.02.",
+    "selected": "INVENTION",
+    "whySelected": "It is the lowest, and after the instrument change it is the only remaining family whose gap is not obviously a missing dictionary entry. The level-3 item names a composition in the prompt and supplies primitives that individually compute none of it, so passing requires reading what was asked and assembling a route to it. That is the mechanism sections 087 and 088 need transferred: the economic organ composes provider primitives into an evidence claim nobody wrote a function for, and the software organ composes existing modules into a capability that has no module.",
+    "notSelected": {
+      "TOOL_USE": "At 0.67 it has less headroom, and its gap is precisely the F010 shape: two goal phrases, median and range, that the solver's intent table does not list. Closing it would be a dictionary edit dressed as a generation. It stays open and is recorded as such rather than being spent as a cheap win."
+    }
+  },
+  "hypotheses": {
+    "primary": "The solver computes one fixed composition and ignores the prompt entirely, so it cannot answer a question it was not built for. The gap is that the target is hard-coded where it should be read.",
+    "alternativeA": "The gap is only the arity of the composition -- the solver uses two primitives where level 3 needs three or four -- and widening the fixed formula closes it without any reading.",
+    "alternativeB": "The level-3 item is unfair because the prompt phrasing is not reliably parseable, in which case nothing will clear the threshold and the honest result is NO_PROMOTION."
+  },
+  "discriminatingTest": "The candidate set MUST contain the minimal fix as an entrant, not only variants of the hypothesis under test. I1 hard-codes the single most common level-3 target and nothing else; it is the null candidate that GA1 and GA2 both lacked. If I1 scores near a quarter and a prompt-reading candidate scores near one, the primary hypothesis holds and the difference is attributable. If I1 matches the prompt-reading candidates, the tournament was undiscriminating again and this generation records that rather than a winner.",
+  "candidateFamilies": [
+    "I1 hardcode-one-target: compute the most common level-3 formula regardless of what the prompt asks. The null candidate. Included specifically so the shared minimal fix is isolated.",
+    "I2 arity-widened: compute a fixed formula over all four primitives, still ignoring the prompt. Tests alternative A.",
+    "I3 prompt-directed: parse the named quantity out of the prompt and assemble the matching composition from the available primitives.",
+    "I4 compositional-search: enumerate compositions over the primitives and select the one whose description matches the prompt, reporting the primitives actually used."
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [1, 2, 3, 7, 11, 42, 99, 1234, 20260915, 777],
+    "heldOutSeeds": [555, 8080, 31337, 606, 24601, 90210, 13, 2718, 1618, 4242],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2.",
+    "discriminationRequirement": "A promotion out of a tie among eligible candidates is recorded as UNDISCRIMINATING__CANDIDATES_TIED and does not count as an attributable capability gain. The runner computes this; it is not left to the reader.",
+    "ablationRequirement": "Whatever the outcome, an ablation is run afterwards isolating the minimal shared fix, as was done retrospectively for GA1 and GA2.",
+    "nullResult": "If nothing clears the threshold, GA3 records NO_PROMOTION. A third generation that promotes nothing is a real result and is reported as one; it is not retried with a lower bar.",
+    "thresholdLock": "Fixed here. A change after results invalidates the experiment."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface and the prompt.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds.",
+    "A candidate may not read targetKey: it is generator bookkeeping, not part of the surface, and reading it would hand the solver the answer.",
+    "A candidate that enumerates the four level-3 formulas and tries each against a known answer is rejected. There is no answer to try against; selecting among compositions must be driven by the prompt."
+  ],
+  "whatThisCannotEstablish": "A score on one procedurally generated family is evidence about one instrument. It is not evidence of general compositional reasoning, not evidence of transfer until a transfer is separately measured, and not evidence of intelligence explosion, recursive self-improvement or any capability claim beyond the family measured.",
+  "businessEffectAuthority": "NONE"
+}

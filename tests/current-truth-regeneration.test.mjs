@@ -6,7 +6,12 @@ import { recomputeExecutionLeafGraphDigest, recomputeCanonicalExecutionBindingDi
 const HEAD='a'.repeat(40);
 function fixture(over={}){
  const readiness={generatedBy:'scripts/system-readiness.mjs',generatedAt:'2026-09-09T00:00:00.000Z',repository:{head:HEAD,workingTreeClean:true,sourceModules:400,testSuites:500},measurements:{reachability:{measurementMode:'LIVE_COMPUTED_FROM_IMPORT_GRAPH',srcModules:400,reachableFromProduction:150,reachableFromUnattendedOperatorScriptsOnly:100,reachableFromFounderInteractiveOnly:20,noEntryPointAtAll:130,partitionExact:true,allClassified:true}}};
- const rows=Array.from({length:10},(_,i)=>({canonicalId:`r:${i}`,currentState:i<3?'SPEC_ONLY':'VERIFIED_CURRENT'}));const ids=rows.map(r=>r.canonicalId).sort();
+ // VERIFIED_CURRENT rows carry the evidence shape the state-evidence tribunal
+ // independently requires. A fixture row that claims implementation without
+ // it is exactly the overclaim that verifier exists to refuse.
+ const rows=Array.from({length:10},(_,i)=>i<3
+  ?{canonicalId:`r:${i}`,currentState:'SPEC_ONLY'}
+  :{canonicalId:`r:${i}`,currentState:'VERIFIED_CURRENT',currentEvidence:{sourceModules:[`src/r-${i}.mjs`],testModules:[`tests/r-${i}.test.mjs`],reachability:'PRODUCTION',matchScope:'WHOLE_NAME',matchStrength:'EXACT_SLUG'}});const ids=rows.map(r=>r.canonicalId).sort();
  const coverage={ok:true,status:'COVERAGE_MATRIX_COMPILED',schemaVersion:'uberbond.sovereign-coverage-matrix.v1',sourceCommit:HEAD,rows,counts:{rows:10,extractedConcepts:10,mergedAliasRows:0,byState:{VERIFIED_CURRENT:7,SPEC_ONLY:3},byLane:{'OMEGA-01':5,'OMEGA-02':5}}};
  const coverageContentDigest=sovereignCoverageContentDigest(coverage);
  const requirements=ids.map(id=>({id,executionLeafIds:[`leaf:${id}`]}));

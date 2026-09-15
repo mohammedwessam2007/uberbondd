@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-1.0.0",
+  "generation": "GA2",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "directiveSections": [
+    "053",
+    "054",
+    "055",
+    "056",
+    "057",
+    "058",
+    "074",
+    "076"
+  ],
+  "generatedAt": "2026-09-15T12:00:35.351Z",
+  "sourceCommit": "9422ae8399c2c44022079cb767bffe104b5407cd",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "RESEARCH",
+  "difficulty": 3,
+  "declarationRef": "artifacts/nullstar-terminal/ga2-declaration.json",
+  "precommittedThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2.",
+  "thresholdUsed": 0.8,
+  "incumbent": {
+    "trainScore": 0,
+    "heldOutScore": 0
+  },
+  "candidates": [
+    {
+      "candidate": "R1_RECENCY_ONLY",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [
+        {
+          "difficulty": 1,
+          "before": 1,
+          "after": 0
+        },
+        {
+          "difficulty": 2,
+          "before": 1,
+          "after": 0
+        }
+      ],
+      "complexityBytes": 156,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": false,
+      "eligible": false
+    },
+    {
+      "candidate": "R2_TWO_AXIS",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 702,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    },
+    {
+      "candidate": "R3_CORROBORATION",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 945,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    },
+    {
+      "candidate": "R4_REFUSAL_AWARE",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 911,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    }
+  ],
+  "disqualifiedForRegression": [
+    {
+      "candidate": "R1_RECENCY_ONLY",
+      "regressions": [
+        {
+          "difficulty": 1,
+          "before": 1,
+          "after": 0
+        },
+        {
+          "difficulty": 2,
+          "before": 1,
+          "after": 0
+        }
+      ]
+    }
+  ],
+  "winner": "R2_TWO_AXIS",
+  "outcome": "PROMOTED",
+  "tieBreak": "Tied at 1; R2_TWO_AXIS won on being smaller (702 bytes vs 911).",
+  "improvementVelocity": {
+    "deltaCapability": 1,
+    "wallClockMs": 7,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0,
+    "regressions": 0
+  },
+  "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY ON ONE INSTRUMENT. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT OR ACCELERATION.",
+  "businessEffectAuthority": "NONE",
+  "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+  "tiedAtTop": [
+    "R2_TWO_AXIS",
+    "R3_CORROBORATION",
+    "R4_REFUSAL_AWARE"
+  ],
+  "attributionWarning": "3 eligible candidates scored 1 on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work.",
+  "ablationRef": "artifacts/nullstar-terminal/ga2-ablation.json",
+  "annotatedAt": "2026-09-15T12:06:19.407Z",
+  "annotationNote": "discrimination, tiedAtTop, attributionWarning and ablationRef were derived from the candidate scores already recorded in this file and added after the fact. No score, threshold, winner or outcome was recomputed or changed."
+}

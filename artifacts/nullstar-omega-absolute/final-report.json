@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-absolute-final-report-1.0.0",
+  "directive": "PROJECT NULLSTAR OMEGA ABSOLUTE",
+  "generatedAt": "2026-09-15T03:38:50.300Z",
+  "START_MAIN_SHA": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
+  "START_NULLSTAR_SHA": "0a5cd4b46e070855c04abfb4d2a27453976ddf20",
+  "MERGE_BASE": "2831e4e010fce9b4775ade0c31aae0622de2b104",
+  "FINAL_MAIN_SHA": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
+  "FINAL_INTEGRATION_SHA": "47a3eb1271ea2be4a28760f11d125bf6bb3be736",
+  "PR_HISTORY": [
+    {
+      "number": 889,
+      "title": "NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main",
+      "base": "main",
+      "head": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+      "state": "OPEN_AT_REPORT_TIME"
+    }
+  ],
+  "BRANCH_DEBT": {
+    "behindMain": 0,
+    "aheadOfMain": 47,
+    "note": "Behind-count zero means the branch carries exact current main."
+  },
+  "DIRECTIVE_TOTAL": 336,
+  "DIRECTIVE_BY_STATE": {
+    "VERIFIED_CURRENT": 33,
+    "PARTIAL": 32,
+    "DONOR_ONLY": 0,
+    "MISSING": 243,
+    "BLOCKED": 14,
+    "NOT_CURRENTLY_JUSTIFIED": 14
+  },
+  "N01_N24_BY_STATE": {
+    "ABSENT": 0,
+    "CANON": 0,
+    "PARTIAL": 0,
+    "IMPLEMENTED": 0,
+    "VERIFIED": 14,
+    "OPERATING": 9,
+    "REPOSITORY_LOCAL_CALIBRATED": 1,
+    "DOMAIN_CALIBRATED": 0,
+    "MULTI_DOMAIN_CALIBRATED": 0,
+    "EXTERNALLY_CALIBRATED": 0,
+    "LONGITUDINALLY_CALIBRATED": 0
+  },
+  "TEST_TOTAL": 7285,
+  "TEST_PASS": 7231,
+  "TEST_FAIL": 0,
+  "TEST_SKIP": 54,
+  "MUTATIONS_TOTAL": 432,
+  "MUTATIONS_KILLED": 432,
+  "MUTATIONS_SURVIVED": 0,
+  "PARSE_COUNT": 1977,
+  "REACHABILITY_COUNTS": {
+    "srcModules": 734,
+    "production": 215,
+    "operatorOnly": 363,
+    "noEntry": 149,
+    "allClassified": true
+  },
+  "CI_STATE": "NOT_OBSERVED_AT_THIS_HEAD__LOCAL_GATES_ONLY",
+  "DEPLOYMENT_STATE": "NOT_ATTEMPTED__NO_DEPLOYMENT_AUTHORITY_IN_THIS_MISSION",
+  "RUNTIME_STATE": "NOT_OBSERVED__NO_RUNTIME_RECEIPT_PRODUCED_BY_THIS_MISSION",
+  "BASELINE_B0": {
+    "status": "EXECUTED",
+    "score": 0.5,
+    "tasksCorrect": 3,
+    "tasksAttempted": 6,
+    "method": "Answered every sealed task with the single constant \"true\". Steelmanned: five constants were tried and the best-scoring one is reported, so this is the strongest no-capability baseline rather than a deliberately bad one."
+  },
+  "BASELINE_B1": {
+    "status": "BLOCKED_EXTERNAL",
+    "reason": "No model provider is reachable. No credential is present in the environment, and every model-weight host is refused by the network policy while a local inference runtime installs fine, so the blocker is weights and admission rather than runtime.",
+    "blockingDependency": "a provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires",
+    "whatWasTried": "checked 6 credential environment variables, 0 present; ollama binary absent; python transformers not installed; onnxruntime installed and importable",
+    "nextUnblockCondition": "a credential in the environment, or an allowed weight host with admission evidence for the exact artifact"
+  },
+  "BASELINE_B2": {
+    "status": "BLOCKED_EXTERNAL",
+    "reason": "No model provider is reachable. No credential is present in the environment, and every model-weight host is refused by the network policy while a local inference runtime installs fine, so the blocker is weights and admission rather than runtime.",
+    "blockingDependency": "a provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires",
+    "whatWasTried": "checked 6 credential environment variables, 0 present; ollama binary absent; python transformers not installed; onnxruntime installed and importable",
+    "nextUnblockCondition": "a credential in the environment, or an allowed weight host with admission evidence for the exact artifact"
+  },
+  "BASELINE_B3": {
+    "status": "BLOCKED_EXTERNAL",
+    "reason": "A multi-agent baseline needs agents, and an agent here needs a model. The orchestration exists; the thing it would orchestrate does not.",
+    "blockingDependency": "the same provider dependency as B1 and B2",
+    "whatWasTried": "checked 6 credential environment variables, 0 present; ollama binary absent; python transformers not installed; onnxruntime installed and importable; confirmed the agent-mesh runtime exists in source but has no model to route to",
+    "nextUnblockCondition": "B1 unblocked, after which a role-separated baseline can be built on the same provider"
+  },
+  "BASELINE_B4": {
+    "status": "EXECUTED",
+    "score": 0.5,
+    "tasksCorrect": 3,
+    "tasksAttempted": 6,
+    "method": "Checked out ancestor 2831e4e010fc into a detached worktree and ran the same answer procedure against that tree, scored against the current answer key."
+  },
+  "BASELINE_B5": {
+    "status": "EXECUTED",
+    "score": 1,
+    "tasksCorrect": 6,
+    "tasksAttempted": 6,
+    "method": "Ran the answer procedure against the exact head. Scores full marks by construction: in this corpus the expected answer and the observation are the same expression, so the tree is being compared against itself."
+  },
+  "EVALUATION_EPOCH": {
+    "retiredSuite": "omega-local-evidence-suite-1.0.0",
+    "retiredBecause": "For every sealed task the expected answer and the observation are produced by the same expression over the same file, so any tree scores full marks against itself. The 1.0 that stood across G0, G1 and G2 was not a capability measurement. A single constant answers 3 of 6 sealed tasks, because half the corpus asks yes-or-no questions whose answer is yes. No capability is required for those.",
+    "successorSuite": "omega-independent-suite-1.0.0",
+    "comparableAcrossEpochs": false,
+    "contaminatedGenerations": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6"
+    ]
+  },
+  "CURRENT_COGNITIVE_VECTOR": {
+    "reasoning": 1,
+    "mathematics": 1,
+    "science": null,
+    "software": 0.6667,
+    "research": null,
+    "forecasting": null,
+    "causality": null,
+    "planning": null,
+    "toolUse": null,
+    "invention": null,
+    "crossDomain": 0.3333,
+    "unknownUnknown": 1,
+    "longHorizon": 1,
+    "selfDiagnosis": 0.5,
+    "calibration": 0.6012500000000001,
+    "robustness": 1,
+    "resourceEfficiency": 1
+  },
+  "MEASURED_DIMENSIONS": [
+    "reasoning",
+    "mathematics",
+    "software",
+    "crossDomain",
+    "unknownUnknown",
+    "longHorizon",
+    "selfDiagnosis",
+    "calibration",
+    "robustness",
+    "resourceEfficiency"
+  ],
+  "UNMEASURED_DIMENSIONS": [
+    "science",
+    "research",
+    "forecasting",
+    "causality",
+    "planning",
+    "toolUse",
+    "invention"
+  ],
+  "COGNITIVE_VECTOR_CAVEAT": "Every number in this vector was produced on the retired suite. It is reported for continuity and none of it is a current capability measurement.",
+  "GENERALIZATION_VERDICT": "DID_NOT_GENERALIZE__APPARATUS_FAILED_ON_MOST_NEW_FAMILIES",
+  "META_IMPROVEMENT_VERDICT": "META_IMPROVEMENT_NOT_ESTABLISHED",
+  "META_IMPROVEMENT_TIMING_BOUNDARY": "4 OF 6 EPISODES ARE PROSPECTIVE AND 2 ARE RETROSPECTIVE RECONSTRUCTIONS. ONLY THE PROSPECTIVE ONES CAN SHOW THIS PROCESS SUCCEEDING; THE RECONSTRUCTIONS CAN ONLY SHOW IT FAILING.",
+  "CAPABILITY_GENERATIONS": {
+    "recorded": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6"
+    ],
+    "instrumentationFocused": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6"
+    ],
+    "actualCapabilityFocused": [],
+    "note": "Section 056 asks for generations that target capability rather than measurement coverage. None has run. Every recorded generation was instrumentation, and the baselines then showed the instrument was measuring self-consistency."
+  },
+  "IMPROVEMENT_VELOCITY": {
+    "trend": {
+      "ok": true,
+      "trend": "INSTRUMENT_CHANGED",
+      "generations": 7,
+      "suiteChanges": [
+        {
+          "from": "G0",
+          "to": "G1",
+          "fromSuite": "omega-local-evidence-suite-1.0.0",
+          "toSuite": "omega-local-evidence-suite-2.0.0-derived"
+        },
+        {
+          "from": "G1",
+          "to": "G2",
+          "fromSuite": "omega-local-evidence-suite-2.0.0-derived",
+          "toSuite": "omega-capability-probe-suite-1.0.0"
+        },
+        {
+          "from": "G2",
+          "to": "G3",
+          "fromSuite": "omega-capability-probe-suite-1.0.0",
+          "toSuite": "omega-outcome-measured-suite-1.0.0"
+        }
+      ],
+      "reason": "The measuring suite changed inside this series, so the score movement describes the instrument rather than the system.",
+      "accelerationClaim": "NOT_ESTABLISHED_BY_SCORE_SERIES_ALONE",
+      "businessEffectAuthority": "NONE"
+    },
+    "accelerationClaim": "NOT_ESTABLISHED",
+    "note": "A velocity computed across a retired instrument describes the instrument."
+  },
+  "CALIBRATION_STATE": "REPOSITORY_LOCAL_CALIBRATED",
+  "CALIBRATION_SAMPLE_SIZE": {
+    "scoredForecasts": 2,
+    "taskFamilyCount": 2,
+    "domainCount": 1,
+    "timeHorizonCount": 1,
+    "externallySettledForecasts": 0,
+    "voidedForecasts": 1,
+    "meanBrier": 0.5975
+  },
+  "UB_LEVEL_EARNED": "NONE__NO_UB_TIER_IS_CLAIMABLE_WHILE_THREE_BASELINES_ARE_BLOCKED_AND_THE_SUITE_IS_RETIRED",
+  "ASI_STATUS": "NOT_ESTABLISHED",
+  "INTELLIGENCE_EXPLOSION_STATUS": "NOT_ESTABLISHED",
+  "SINGULARITY_STATUS": "NOT_ESTABLISHED",
+  "REVENUE": 0,
+  "CLEARED_REVENUE": 0,
+  "CUSTOMERS": 0,
+  "PERSONAL_OUTCOME_EVIDENCE": "NONE_OBSERVED. The founder command center carries a sealed forecast settled by elapsed time; no outcome has been observed against it.",
+  "ECONOMIC_OUTCOME_EVIDENCE": "NONE_OBSERVED. The first-cash claim carries a sealed forecast settled by a provider-origin receipt; no such receipt exists.",
+  "SOFTWARE_OUTCOME_EVIDENCE": "Measured from git: of the src modules introduced on this branch, the share never edited after the commit that introduced them. This is a floor on first-attempt correctness, not a quality measure.",
+  "EXTERNAL_BLOCKERS": [
+    "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
+    "PAYMENT_PROVIDER: the sovereign receipt requires LIVE second-rail settlement or LIVE PayPal recovery. PayPal sandbox evidence cannot close this cut and no qualifying live settlement/recovery receipt is observed.",
+    "DEPLOYMENT_PROVIDER: a distinct provider must physically boot the exact release and demonstrate cutover plus rollback. Macaly scratch execution and same-provider Vercel previews are not sufficient; current Vercel new-deployment attempts are also quota-blocked.",
+    "CREDENTIAL_CUSTODY: requires observed founder enrollment with threshold >=2, at least two factor types and at least two custody domains, with no secret material in the receipt. This cannot be inferred from configured accounts.",
+    "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
+    "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
+    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
+    "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
+    "NULLSTAR ALIAS RECONCILIATION: 244 sections read MISSING, an upper bound rather than a count of unbuilt organs. A name-similarity pass over all 247 found a >=50% word match for 137 of them, and verification killed almost all of those: ADVERSARIAL COUNCIL matched forecast-adversarial-ensemble, which is about source independence and not red-team critique roles, and PARALLEL GRAPH EXECUTION matched execution-leaf-graph, which does not measure wall-clock reduction. Two survived verification and both reached VERIFIED_CURRENT through the evidence gate. Mass-aliasing on a shared word would make the matrix look better while being less true, which is the failure this row exists to prevent. Each remaining section needs its requirement read against the candidate module.",
+    "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED, AND THE GATE IS NARROWER THAN G2 SAID: re-probing split it. A local inference runtime installs and runs here -- onnxruntime 1.30.0 imports with CPUExecutionProvider, and PyPI is reachable at 54 MB/s. What is refused is weights: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. A second, independent blocker sits behind that one: the Capability Genome admission gate requires STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three. Opening the network alone would not make a model selectable. This gates capability-by-judgement scoring only; bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer were blocked by association in the G2 verdict and are not. All six are now done. Evidence: artifacts/nullstar-omega/G2-discriminating-test.json v1.1.",
+    "FIRST REALITY-CALIBRATED DIMENSION IS EARNED; THE REST ARE NOT. N12 CALIBRATION now sits at REALITY_CALIBRATED on 2 closed loops with mean Brier 0.7975 and 2 surprises out of 2. The other 23 dimensions sit at VERIFIED or OPERATING and still have no prediction checked against a later observation. One calibrated dimension is not a calibrated system, and a mean Brier of 0.80 says this system's self-model is wrong more often than it expects to be.",
+    "NO INSTRUMENT CAN CURRENTLY SEPARATE THIS SYSTEM FROM A CONSTANT. The baselines showed the sealed corpus was tautological: answer and observation were the same expression, so every tree scored full marks against itself, and a single constant answers half the tasks. The suite is retired. Its successor refuses tautological tasks at definition time and is mutation-guarded, but no task has been written against it. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on instantiating it. This is software work, not an external gate.",
+    "OBSERVATION APPARATUS IS UNRELIABLE: of three observers written this session, one misread guard prose as a result and one read a file this session had written. Two of three failed on first attempt. The seal is what made both visible; nothing guarantees the next one is sound."
+  ],
+  "FOUNDER_ACTIONS": [],
+  "NEXT_HIGHEST_LEVERAGE_BOTTLENECK": "Instantiate the independent suite. The tautology-refusing definition exists and is mutation-guarded, but no task has been written against it, so there is currently no instrument that can separate this system from a constant. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on that.",
+  "GATE_RECEIPT": {
+    "sourceCommit": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
+    "describesThisSource": true,
+    "sourceFilesChangedSinceReceipt": [],
+    "rule": "A receipt holds while no source file has changed since it was taken. Generated artifacts and canon do not invalidate it; any source change does."
+  },
+  "truthBoundary": "THIS REPORT IS GENERATED FROM ARTIFACTS AT ONE COMMIT. GATE NUMBERS ARE NULL UNLESS A RECEIPT NAMES THIS EXACT HEAD. NOTHING HERE ESTABLISHES ASI, AN INTELLIGENCE EXPLOSION, A SINGULARITY, REVENUE, A CUSTOMER, OR A LIFE OUTCOME.",
+  "businessEffectAuthority": "NONE",
+  "FIELDS_WITH_NO_VALUE": []
+}

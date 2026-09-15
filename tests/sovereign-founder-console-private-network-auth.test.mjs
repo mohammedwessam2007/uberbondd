@@ -25,6 +25,6 @@ test('founder token stays in page memory and is sent only as a bearer header', (
 });
 
 test('strong-token shell does not auto-call protected status before unlock', () => {
-  assert.match(server, /if\(!\$\{binding\.tokenRequired \? 'true' : 'false'\}\)load\(\)/);
-  assert.match(server, /function unlock\(\).*authToken=t\.value.*t\.value=''[^]*load\(\)/);
+  assert.match(server, /if\(!\$\{binding\.tokenRequired \? 'true' : 'false'\}\)[A-Za-z_$][\w$]*\(\)/);
+  assert.match(server, /async function unlock\(\)\{[^}]*authToken=t\.value;t\.value='';await [A-Za-z_$][\w$]*\(\)/);
 });

@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-generation.v1",
+  "status": "NULLSTAR_OMEGA_GENERATION_RECORDED",
+  "generationId": "G6",
+  "sourceCommit": "28bc66330b2a2f556c3be629bfd8de643a81f428",
+  "suiteVersion": "omega-outcome-measured-suite-1.0.0",
+  "corpusDigest": "sha256:8298c2c97f10da722d5b3320a52873633f14718835cdad7ab73da4af22ad5faf",
+  "generatedAt": "2026-09-15T01:09:52.184Z",
+  "vector": {
+    "reasoning": 1,
+    "mathematics": 1,
+    "science": null,
+    "software": 0.6667,
+    "research": null,
+    "forecasting": null,
+    "causality": null,
+    "planning": null,
+    "toolUse": null,
+    "invention": null,
+    "crossDomain": 0.3333,
+    "unknownUnknown": 1,
+    "longHorizon": 1,
+    "selfDiagnosis": 0.5,
+    "calibration": 0.6012500000000001,
+    "robustness": 1,
+    "resourceEfficiency": 1
+  },
+  "coverage": {
+    "measured": 10,
+    "unmeasured": 7,
+    "unmeasuredDimensions": [
+      "science",
+      "research",
+      "forecasting",
+      "causality",
+      "planning",
+      "toolUse",
+      "invention"
+    ],
+    "measuredUnderThisSuite": 4,
+    "carriedFromAnotherSuite": 6,
+    "carriedDimensions": [
+      "reasoning",
+      "mathematics",
+      "unknownUnknown",
+      "longHorizon",
+      "robustness",
+      "resourceEfficiency"
+    ]
+  },
+  "meanMeasuredScore": 0.525313,
+  "meanIncludingCarriedReadings": 0.810125,
+  "baselines": {
+    "B0": null,
+    "B1": null,
+    "B2": null,
+    "B3": null,
+    "B4": null,
+    "B5": null
+  },
+  "declaredBaselines": [],
+  "cost": {
+    "usdCents": null,
+    "wallClockMs": null,
+    "founderMinutes": null
+  },
+  "environment": {
+    "judgementCapability": "NONE",
+    "note": "Same readings as G5. The difference is which of them are allowed into the headline mean."
+  },
+  "failures": [],
+  "generationDigest": "ddca25624ad2a791257021b700ee7255ae4cb9d7fb72acabeaee4550d88c8705",
+  "truthBoundary": "A_GENERATION_RECORDS_WHAT_WAS_MEASURED_AT_ONE_COMMIT_AGAINST_ONE_SUITE. AN_UNMEASURED_DIMENSION_IS_NULL_AND_NEVER_ZERO. IT_DOES_NOT_PROVE_IMPROVEMENT_GENERALIZATION_SELF_IMPROVEMENT_OR_ASI.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  }
+}

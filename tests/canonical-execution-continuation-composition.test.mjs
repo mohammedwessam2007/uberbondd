@@ -14,7 +14,7 @@ const row=(id,state='VERIFIED_CURRENT')=>({
 function coverage(rows){
   const byState={};
   for(const item of rows)byState[item.currentState]=(byState[item.currentState]||0)+1;
-  return{ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,rows,counts:{rows:rows.length,byState}};
+  return{ok:true,status:'COVERAGE_MATRIX_COMPILED',sourceCommit:HEAD,rows,counts:{rows:rows.length,extractedConcepts:rows.length,mergedAliasRows:0,byState}};
 }
 
 test('coverage-bound canonical materializer composes unchanged into continuation',()=>{

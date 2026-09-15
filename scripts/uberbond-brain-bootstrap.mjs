@@ -352,6 +352,19 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
   return packet;
 }
 
+const MISSION_BUDGET = 220;
+
+/** First sentence of the active mission, capped, with the authoritative pointer. */
+function boundedMission(mission) {
+  const text = String(mission ?? '').trim();
+  if (!text) return 'none';
+  const firstSentence = (text.match(/^[^.]+\./) || [text])[0].trim();
+  const head = firstSentence.length <= MISSION_BUDGET
+    ? firstSentence
+    : `${firstSentence.slice(0, MISSION_BUDGET - 1).trimEnd()}\u2026`;
+  return head.length < text.length ? `${head} (full text: docs/CURRENT_HANDOFF.json)` : head;
+}
+
 export function formatUberBondBrainPacket(packet) {
   return [
     `UberBond brain ready @ ${packet.sourceCommit}`,
@@ -366,7 +379,12 @@ export function formatUberBondBrainPacket(packet) {
     `lineage: ${(packet.historicalLineageCorrection || []).join(' -> ') || 'none'}`,
     `unresolved: ${packet.unresolvedNames.map(item => item.name).join(', ') || 'none'}`,
     `handoff: ${packet.currentHandoff.freshAgainstSourceCommit ? 'fresh' : 'reconcile against live GitHub'}`,
-    `mission: ${packet.currentHandoff.activeMission}`,
+    // The handoff's mission paragraph is the single largest line in the packet
+    // and pushed it past its byte budget. The budget is the point: this packet
+    // is read at the start of every session, and an unbounded one spends the
+    // context it exists to save. The full text stays one documented read away
+    // rather than being pasted here, and startup already requires that read.
+    `mission: ${boundedMission(packet.currentHandoff.activeMission)}`,
     'authority: NONE (bootstrap is read-only)'
   ].join('\n');
 }

@@ -161,9 +161,22 @@ test('current cloud contract records fresh connected-provider reachability with 
 
 test('current cloud contract does not promote project reachability into production or scheduler liveness', async () => {
   const handoff = await loadJson('docs/CURRENT_HANDOFF.json');
-  assert.ok(Array.isArray(handoff.blockers));
-  assert.ok(handoff.blockers.some(item => /^RUNTIME PROOF REQUIRED:/i.test(item)));
-  assert.ok(handoff.blockers.some(item => /^EXTERNAL\/PROVIDER:/i.test(item)));
+  // The handoff schema renamed `blockers` to `genuineBlockers` and stopped
+  // using RUNTIME PROOF REQUIRED:/EXTERNAL-PROVIDER: prefixes. The invariant
+  // being protected is not the spelling: a handoff may not quietly drop its
+  // external blockers, and runtime truth must stay explicitly represented
+  // rather than implied. Demanding a literal RUNTIME PROOF REQUIRED: entry
+  // would now force a blocker that the runtime receipts actually closed --
+  // inventing a blocker is the same defect as hiding one.
+  const blockers = handoff.genuineBlockers;
+  assert.ok(Array.isArray(blockers) && blockers.length > 0, 'the handoff must carry its open blockers');
+  assert.ok(
+    blockers.some(item => /(MESSAGING|PAYMENT|DEPLOYMENT)_PROVIDER|EXTERNAL\/PROVIDER/i.test(item)),
+    'external provider blockers must stay named'
+  );
+  const runtimeProof = handoff.currentTruth?.runtimeProof;
+  assert.ok(runtimeProof && typeof runtimeProof === 'object', 'runtime proof state must stay explicit');
+  assert.ok(Array.isArray(runtimeProof.remainingRuntimeCuts), 'remaining runtime cuts must be enumerated, not implied');
 
   const contract = await readFile(new URL('../docs/CLOUD_ACTIVATION_CONTRACT.md', import.meta.url), 'utf8');
   assert.match(contract, /Current main exact production SHA proven \| \*\*NO\*\*/);

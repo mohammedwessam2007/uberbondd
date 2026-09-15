@@ -103,8 +103,14 @@ export function admitOperationalWorldResource({
   if (!strictNonnegativeFinite(requestedCapacity) || !strictNonnegativeFinite(provenCapacity)) reasons.push('valid-capacity-required');
   else if (requestedCapacity > provenCapacity) reasons.push('requested-capacity-exceeds-observed-capacity');
 
-  const requestedPermissionInput = requested?.permissions ?? [];
-  const authorizedPermissionInput = authorized?.permissions ?? [];
+  // Both collections must be real arrays. The previous `?? []` coalesced an
+  // absent or null collection into an empty one, and an empty requested set has
+  // nothing to find unauthorized -- so a resource supplied with
+  // `permissions: null` on both sides admitted with ok:true and no permission
+  // evidence at all. Absence of an authorization is not an authorization to do
+  // nothing in particular; it is missing evidence, and it fails closed.
+  const requestedPermissionInput = requested?.permissions;
+  const authorizedPermissionInput = authorized?.permissions;
   if (!Array.isArray(requestedPermissionInput) || !Array.isArray(authorizedPermissionInput)) reasons.push('permission-arrays-required');
   const requestedPermissions = Array.isArray(requestedPermissionInput) ? unique(requestedPermissionInput.map(String)) : [];
   const authorizedPermissions = new Set(Array.isArray(authorizedPermissionInput) ? authorizedPermissionInput.map(String) : []);

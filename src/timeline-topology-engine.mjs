@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { ZERO_CONSEQUENCE_EFFECTS as ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const TIMELINE_TOPOLOGY_ENGINE_VERSION = 'uberbond.timeline-topology-engine.v1';
 
@@ -48,16 +49,6 @@ export const WORMHOLE_EVIDENCE_CLASSES = Object.freeze([
   'OBSERVED_REALITY'
 ]);
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  customerMessages: 0,
-  providerCalls: 0,
-  spendCents: 0,
-  deployments: 0,
-  dnsChanges: 0,
-  credentialChanges: 0,
-  paymentMutations: 0,
-  productionMutations: 0
-});
 
 const text = (value, max = 2000) => {
   const out = String(value ?? '').trim();

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "uberbond-nullstar-generation-ablation-1.0.0",
+  "generation": "GA3",
+  "question": "Does reading the named composition out of the prompt beat hard-coding one formula, on seeds neither arm was selected on?",
+  "generatedAt": "2026-09-15T12:19:18.725Z",
+  "sourceCommit": "021f0028621d2b2662e5c13e05b9db2f3683eb90",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "INVENTION",
+  "seedRange": "70000..70039",
+  "seedsDisjointFromTournament": true,
+  "promotedSolver": "I3_PROMPT_DIRECTED (parse the named quantity, assemble it)",
+  "ablatedSolver": "I1_HARDCODE_ONE_TARGET (one fixed formula, prompt ignored)",
+  "nullCandidateWasInTheTournament": true,
+  "howThisDiffersFromGa1AndGa2": "In GA1 and GA2 the minimal fix was absent from the candidate set and had to be reconstructed afterwards, at which point it matched the winner and the promotions turned out to be unattributable. Here it competed under the same precommitted threshold and lost outright, so the difference between the two arms is the thing the tournament was built to measure.",
+  "rows": [
+    {
+      "difficulty": 1,
+      "promotedMean": 1,
+      "ablatedMean": 0.5125,
+      "separated": true
+    },
+    {
+      "difficulty": 2,
+      "promotedMean": 1,
+      "ablatedMean": 0.5125,
+      "separated": true
+    },
+    {
+      "difficulty": 3,
+      "promotedMean": 1,
+      "ablatedMean": 0.6125,
+      "separated": true
+    }
+  ],
+  "separated": true,
+  "tournamentDiscrimination": "SEPARATED",
+  "finding": "PROMPT_DIRECTED_COMPOSITION_DOES_MEASURED_WORK__THE_GAIN_IS_ATTRIBUTABLE",
+  "instrumentWeaknessFound": {
+    "what": "scoreComposition accepts any superset of the required primitives, so a solver claiming every available primitive satisfies the composition half of every item regardless of what it actually used.",
+    "reach": "8 of 40 level-3 items in this seed range need fewer than four primitives and still accept a claim of all four.",
+    "effect": "It inflated the null candidate from roughly a quarter to 0.6 by giving it the composition half for free. TOOL_USE already penalises calling every tool; INVENTION does not penalise claiming every primitive.",
+    "whyNotRepairedHere": "GA3's threshold and scorer were fixed before the run. Tightening the scorer after seeing the scores would invalidate the experiment, and the direction of the error is against the promoted candidate rather than for it: under an exact-set rule the null falls further and I3 still scores 1.0, so the verdict does not depend on the defect.",
+    "declaredFor": "A later generation, declared prospectively, together with the TOOL_USE vocabulary gap left open by the GA3 declaration."
+  },
+  "rescoresGa3": false,
+  "failureDebtRef": "F011-COMPOSITION-SUPERSET-ACCEPTED",
+  "truthBoundary": "A SEPARATION ON ONE PROCEDURALLY GENERATED FAMILY IS EVIDENCE ABOUT ONE INSTRUMENT. IT IS NOT EVIDENCE OF GENERAL COMPOSITIONAL REASONING, NOT EVIDENCE OF TRANSFER, AND NOT EVIDENCE OF RECURSIVE SELF-IMPROVEMENT.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

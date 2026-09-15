@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": [
+    "059",
+    "060",
+    "061",
+    "063",
+    "064",
+    "068",
+    "070",
+    "071",
+    "074"
+  ],
+  "generation": "GA5",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "Re-run the invention family with the operator-position defect in the composing candidates repaired, on held-out seeds that have not been read.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 3,
+  "whyTheSameFamilyAgain": "GA4 promoted nothing. The two composing candidates passed the out-of-pattern gate 3 of 3 and lost in-distribution to a defect in my own code rather than to a limit of composing: they read the joining operator from the text between the two named quantities, and in \"the average of the mean and the midrange\" the operator sits before the first one. That target failed entirely and the other three were perfect. GA5 repairs it and asks the question GA4 could not answer.",
+  "criterionPrecondition": {
+    "changedAt": "the commit carrying src/nullstar-out-of-pattern-probes.mjs and the runner gate",
+    "whatChanged": "Unchanged from GA4. The gate, its minimum, and the confabulation rule are exactly as declared there. Only the candidates and the held-out seeds differ.",
+    "backtest": "artifacts/nullstar-terminal/meta-improvement-v2.json. Applied to GA3 the gate promotes nothing: every candidate that cleared the in-distribution threshold confabulates out of pattern.",
+    "whyBeforeDeclaring": "The criterion is fixed before GA4's candidates exist, so it cannot be tuned to whichever candidate turns out to win."
+  },
+  "bottleneck": {
+    "observed": "In-distribution difficulty 3 stands at INVENTION 1.00 and TOOL_USE 0.67, but the invention 1.00 is an artefact of the generator asking only questions the promoted solver has patterns for. Against items outside it the promoted solver answers 0 of 3 and confabulates on 1.",
+    "selected": "INVENTION",
+    "whySelected": "It is the only family with a measured out-of-pattern failure and a known confabulation. A solver that answers a question nobody asked is worse than one that scores lower and refuses, because nothing downstream can tell its wrong answers from its right ones.",
+    "notSelected": {
+      "TOOL_USE": "Still open at 0.67, still a two-phrase vocabulary gap, still not worth spending a generation on. Recorded, not closed."
+    }
+  },
+  "hypotheses": {
+    "primary": "Composing from named parts reaches the in-distribution threshold once the operator is located correctly, and keeps the out-of-pattern behaviour that pattern matching cannot have.",
+    "alternativeA": "The operator defect is not the whole gap and composing still falls short in-distribution, in which case the family genuinely trades in-distribution accuracy for generality and that trade should be stated rather than engineered away.",
+    "alternativeB": "A repaired composer passes only because the repair amounts to another pattern, which the out-of-pattern gate and the held-back reporting probes should expose."
+  },
+  "discriminatingTest": "K1 is GA4 J1 unchanged: the null candidate, a lookup that ties the incumbent in-distribution and cannot compose. K2 repairs the operator search to consider the whole prompt rather than the span between quantities. K3 is K2 with the strict refusal when a named quantity is left unaccounted for. K4 parses the prompt structurally rather than by phrase membership at all. If K1 wins, composing was never needed. If nothing clears both criteria a second time, alternative A holds and GA5 says so.",
+  "candidateFamilies": [
+    "K1 one-more-pattern: GA4 J1, carried forward unchanged as the null candidate.",
+    "K2 compositional-operator-repaired: locate the joining operator anywhere in the clause, not only between the two named quantities.",
+    "K3 compositional-strict: K2, refusing when a named quantity is left unaccounted for.",
+    "K4 structural-parse: resolve the prompt into quantity, operator, quantity by structure rather than by testing phrase membership."
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [
+      1,
+      2,
+      3,
+      7,
+      11,
+      42,
+      99,
+      1234,
+      20260915,
+      777
+    ],
+    "heldOutSeeds": [
+      4400001,
+      4400002,
+      4400003,
+      4400004,
+      4400005,
+      4400006,
+      4400007,
+      4400008,
+      4400009,
+      4400010
+    ],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2, and passing the out-of-pattern gate.",
+    "outOfPatternGate": true,
+    "outOfPatternMinimumCorrectRate": 0.6,
+    "gateSemantics": "Confabulating on any gating probe disqualifies regardless of in-distribution score. Refusing is not disqualifying by itself but counts against the minimum correct rate.",
+    "incumbentNote": "The incumbent remains GA3's winner, which fails the gate. Still not grandfathered: if nothing clears both criteria, GA5 records NO_PROMOTION and the incumbent stays with its failure open.",
+    "nullResult": "NO_PROMOTION is a real outcome and is reported as one. It is not retried with a lower bar or a weaker gate.",
+    "thresholdLock": "Fixed here, including the gate and its minimum. A change after results invalidates the experiment.",
+    "heldOutSeedsNote": "Drawn from a range no previous generation, baseline, ablation or probe has used. Not read before this declaration was committed."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface and the prompt.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds or on the gating probes.",
+    "A candidate may not read targetKey.",
+    "A candidate may not special-case the three gating prompts. Matching their exact text rather than their structure is disqualifying, and the held-back reporting probes exist to expose it.",
+    "A candidate may not refuse everything to avoid confabulating: refusals count against the minimum correct rate.",
+    "A candidate may not be adjusted after reading its GA5 held-out score. If GA5 also promotes nothing, that is the answer."
+  ],
+  "whatThisCannotEstablish": "Passing a hand-built probe set written by the same author as the candidates is a floor, not proof of compositional reasoning. The probes share his blind spots. Clearing them means a known failure mode is closed, not that unknown ones are.",
+  "businessEffectAuthority": "NONE",
+  "seedLeakage": {
+    "why": "GA4 scored four candidates against the held-out set and I read the results. A held-out set is held out until someone reads it; after that, any edit made in light of those numbers is tuning against it, however indirectly.",
+    "action": "GA5 uses held-out seeds drawn from a range no generation has touched. The train seeds are unchanged, because seeing training scores is what training scores are for.",
+    "previousHeldOutSeedsRetired": [
+      555,
+      8080,
+      31337,
+      606,
+      24601,
+      90210,
+      13,
+      2718,
+      1618,
+      4242
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": ["059", "060", "061", "063", "064", "068", "070", "071", "074"],
+  "generation": "GA4",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "Re-attack the invention family under the out-of-pattern gate, after generalization V2 refuted GA3's promotion.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 3,
+  "whyTheSameFamilyAgain": "GA3's winner scores 1.0 on every item the generator emits and cannot compose anything it does not ask for; on one such item it returns the answer to a different question. The family is not solved, it was mismeasured. Moving to a fresh family now would bank a promotion that generalization V2 already refuted and leave the defect in the solver.",
+  "criterionPrecondition": {
+    "changedAt": "the commit carrying src/nullstar-out-of-pattern-probes.mjs and the runner gate",
+    "whatChanged": "A declaration may require candidates to face items built outside the generator. Confabulating on any of them disqualifies at any in-distribution score. Gating probes never enter the headline mean and are disjoint from the probes held back for reporting.",
+    "backtest": "artifacts/nullstar-terminal/meta-improvement-v2.json. Applied to GA3 the gate promotes nothing: every candidate that cleared the in-distribution threshold confabulates out of pattern.",
+    "whyBeforeDeclaring": "The criterion is fixed before GA4's candidates exist, so it cannot be tuned to whichever candidate turns out to win."
+  },
+  "bottleneck": {
+    "observed": "In-distribution difficulty 3 stands at INVENTION 1.00 and TOOL_USE 0.67, but the invention 1.00 is an artefact of the generator asking only questions the promoted solver has patterns for. Against items outside it the promoted solver answers 0 of 3 and confabulates on 1.",
+    "selected": "INVENTION",
+    "whySelected": "It is the only family with a measured out-of-pattern failure and a known confabulation. A solver that answers a question nobody asked is worse than one that scores lower and refuses, because nothing downstream can tell its wrong answers from its right ones.",
+    "notSelected": {
+      "TOOL_USE": "Still open at 0.67, still a two-phrase vocabulary gap, still not worth spending a generation on. Recorded, not closed."
+    }
+  },
+  "hypotheses": {
+    "primary": "The gap is that the solver matches whole phrases instead of composing from parts, so any arrangement it has no pattern for is unanswerable, and substring matching turns some of those into wrong answers rather than refusals.",
+    "alternativeA": "The gap is only the substring test. Anchoring the patterns so a longer prompt cannot match a shorter one removes the confabulation, and the narrowness is acceptable.",
+    "alternativeB": "The gap is coverage. Adding a pattern for each missing combination closes it, and composition is unnecessary.",
+    "alternativeC": "Compositional assembly cannot reach the in-distribution threshold, in which case nothing is promoted and the honest result is that the family has no candidate satisfying both criteria."
+  },
+  "discriminatingTest": "J1 adds one more pattern and nothing else: it tests alternative B and is this generation's null candidate. J2 anchors the existing patterns without composing: it tests alternative A, and should stop confabulating while still answering nothing new. J3 and J4 compose from named parts. If J1 or J2 wins, the primary hypothesis is wrong. If only a composing candidate clears both the threshold and the gate, it holds.",
+  "candidateFamilies": [
+    "J1 one-more-pattern: the incumbent plus a pattern for the combination that broke it. The null candidate.",
+    "J2 anchored-patterns: the incumbent with matching that refuses when the prompt carries quantity words the matched pattern does not account for.",
+    "J3 compositional: identify the quantities named, the order they are named in, and the operator between them.",
+    "J4 compositional-strict: J3, refusing when any recognised quantity word is left unaccounted for."
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [1, 2, 3, 7, 11, 42, 99, 1234, 20260915, 777],
+    "heldOutSeeds": [555, 8080, 31337, 606, 24601, 90210, 13, 2718, 1618, 4242],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2, and passing the out-of-pattern gate.",
+    "outOfPatternGate": true,
+    "outOfPatternMinimumCorrectRate": 0.6,
+    "gateSemantics": "Confabulating on any gating probe disqualifies regardless of in-distribution score. Refusing is not disqualifying by itself but counts against the minimum correct rate.",
+    "incumbentNote": "The incumbent is GA3's winner and it fails the gate. It is not grandfathered: if no candidate clears both criteria, GA4 records NO_PROMOTION and the incumbent stays in place with its failure recorded as open debt rather than quietly fixed.",
+    "nullResult": "NO_PROMOTION is a real outcome and is reported as one. It is not retried with a lower bar or a weaker gate.",
+    "thresholdLock": "Fixed here, including the gate and its minimum. A change after results invalidates the experiment."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface and the prompt.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds or on the gating probes.",
+    "A candidate may not read targetKey.",
+    "A candidate may not special-case the three gating prompts. Matching their exact text rather than their structure is disqualifying, and the held-back reporting probes exist to expose it.",
+    "A candidate may not refuse everything to avoid confabulating: refusals count against the minimum correct rate."
+  ],
+  "whatThisCannotEstablish": "Passing a hand-built probe set written by the same author as the candidates is a floor, not proof of compositional reasoning. The probes share his blind spots. Clearing them means a known failure mode is closed, not that unknown ones are.",
+  "businessEffectAuthority": "NONE"
+}

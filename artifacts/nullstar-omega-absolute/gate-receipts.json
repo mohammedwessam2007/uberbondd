@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-absolute-gate-receipts-1.0.0",
+  "sourceCommit": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
+  "recordedAt": "2026-09-15T03:37:40.447Z",
+  "howProduced": "Each number is read from the output of the named command run at this exact commit on a clean tree.",
+  "testTotal": 7285,
+  "testPass": 7231,
+  "testFail": 0,
+  "testSkip": 54,
+  "mutationsTotal": 432,
+  "mutationsKilled": 432,
+  "mutationsSurvived": 0,
+  "parseCount": 1977,
+  "reachability": {
+    "srcModules": 734,
+    "production": 215,
+    "operatorOnly": 363,
+    "noEntry": 149,
+    "allClassified": true
+  },
+  "commands": [
+    "npm run test:deterministic",
+    "npm run test:mutation-war",
+    "npm run check:syntax",
+    "node scripts/reachability-report.mjs"
+  ],
+  "businessEffectAuthority": "NONE"
+}

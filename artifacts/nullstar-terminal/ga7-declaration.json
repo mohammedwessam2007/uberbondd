@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": [
+    "059",
+    "060",
+    "061",
+    "063",
+    "064",
+    "068",
+    "070",
+    "071",
+    "074"
+  ],
+  "generation": "GA7",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "Attack the three-quantity composition at difficulty 4, where the promoted solver confabulates on every item.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 4,
+  "whyTheSameFamilyAgain": "Difficulty 4 shows the solver promoted in GA6 reading the first two quantities it finds and silently dropping the third, on every level-4 item. It is the same failure class as F012 -- answering a question that was not asked -- in a solver promoted specifically to stop doing that.",
+  "criterionPrecondition": {
+    "whatChanged": "When a gate is in force and the incumbent fails it, a candidate that passes it beats the incumbent on an equal in-distribution score. A lower in-distribution score still loses, so this widens what can win without letting a candidate buy the gate with accuracy it gave up. The incumbent is now run against the gate explicitly rather than assumed to pass.",
+    "whyNeeded": "The GA4 declaration said the incumbent was not grandfathered. The comparison grandfathered it: it could only see the in-distribution score, so a strictly better candidate that tied there could never win. Intent and mechanism had diverged.",
+    "whyBeforeDeclaring": "Fixed before GA6 candidates exist and before its held-out seeds are read. GA5 stands as taken under the rule in force when it ran; it is not re-scored.",
+    "notRescoringGa5": true
+  },
+  "bottleneck": {
+    "observed": "At difficulty 4: FORECASTING 0.00, TOOL_USE 0.00, INVENTION 0.50. Over thirty level-4 invention items the promoted solver is correct 0, refuses 0 and confabulates 30.",
+    "selected": "INVENTION",
+    "whySelected": "Not the lowest score, and chosen anyway. Forecasting and tool use at 0.00 are families whose mechanism does not reach the new level at all, which is a clean gap. Invention at 0.50 is a solver producing a confident wrong number on every single item, which is the failure this whole apparatus was built to catch, and it is in code promoted to stop it. A wrong answer nothing downstream can identify is worse than no answer.",
+    "notSelected": {
+      "FORECASTING": "Zero at difficulty 4 because differencing cannot reach a geometric series. A real gap and a clean one -- it refuses rather than guessing. It stays open and recorded.",
+      "TOOL_USE": "Zero at difficulty 4 because a goal-to-tool mapping cannot express a sequence. Same: a real gap that fails quietly. Open and recorded."
+    }
+  },
+  "hypotheses": {
+    "primary": "The gap is arity. The solver composes exactly two quantities and has no representation for a third, so it drops one silently rather than refusing or extending.",
+    "alternativeA": "The gap is only the silent dropping. Refusing when a quantity is left over is sufficient and composing three is unnecessary -- L3 already does this and scores 0 correct, so this predicts no promotion.",
+    "alternativeB": "Three-quantity prompts are ambiguous without grouping and no candidate can answer them reliably, in which case nothing clears the threshold."
+  },
+  "discriminatingTest": "M1 is the incumbent unchanged, the null candidate. M2 is L3, which refuses cleanly and answers nothing -- if refusing were enough, M2 would be the ceiling and this shows that it is not. M3 and M4 compose an arbitrary number of quantities. If only a composing candidate clears both the threshold and the gate, arity was the gap.",
+  "candidateFamilies": [
+    "M1 two-quantity-only: the GA6 incumbent, unchanged. The null candidate, and the one that confabulates.",
+    "M2 refuse-on-leftover: GA6 L3, unchanged. Refuses rather than dropping a quantity, and answers nothing.",
+    "M3 left-to-right-nary: fold the named quantities left to right through the operators between them.",
+    "M4 clause-grouped-nary: read the clause structure, so a comma before an operator groups what precedes it."
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [
+      1,
+      2,
+      3,
+      7,
+      11,
+      42,
+      99,
+      1234,
+      20260915,
+      777
+    ],
+    "heldOutSeeds": [
+      9910001,
+      9910002,
+      9910003,
+      9910004,
+      9910005,
+      9910006,
+      9910007,
+      9910008,
+      9910009,
+      9910010
+    ],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen at difficulty 4, passing the out-of-pattern gate, no regression at difficulty 1, 2 or 3, and beating the incumbent -- where beating an incumbent that fails the gate means passing it at an in-distribution score no lower.",
+    "outOfPatternGate": true,
+    "outOfPatternMinimumCorrectRate": 0.6,
+    "gateSemantics": "Confabulating on any gating probe disqualifies regardless of in-distribution score. Refusing is not disqualifying by itself but counts against the minimum correct rate.",
+    "incumbentNote": "The incumbent confabulates on every difficulty-4 item and passes the out-of-pattern gate, which is built from two-quantity prompts. Passing that gate does not excuse the confabulation: the gate is a floor, not a certificate.",
+    "nullResult": "NO_PROMOTION is a real outcome and is reported as one. It is not retried with a lower bar or a weaker gate.",
+    "thresholdLock": "Fixed here, including the gate and its minimum. A change after results invalidates the experiment.",
+    "heldOutSeedsNote": "Fourth disjoint range. GA6 s set was read when its results were.",
+    "candidatesUnchanged": "L2 to L4 are GA5 K2 to K4 byte for byte. GA5 did not fail because of its candidates, so changing them now would confound the comparison change with a candidate change and neither effect could be attributed.",
+    "regressionLevels": [
+      1,
+      2,
+      3
+    ]
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface and the prompt.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds or on the gating probes.",
+    "A candidate may not read targetKey.",
+    "A candidate may not special-case the three gating prompts. Matching their exact text rather than their structure is disqualifying, and the held-back reporting probes exist to expose it.",
+    "A candidate may not refuse everything to avoid confabulating: refusals count against the minimum correct rate.",
+    "A candidate may not be adjusted after reading its GA5 held-out score. If GA5 also promotes nothing, that is the answer.",
+    "A candidate may not detect three quantities and refuse in order to avoid confabulating while scoring nothing: M2 already occupies that position and is included precisely so the option is measured rather than rediscovered."
+  ],
+  "whatThisCannotEstablish": "Passing a hand-built probe set written by the same author as the candidates is a floor, not proof of compositional reasoning. The probes share his blind spots. Clearing them means a known failure mode is closed, not that unknown ones are.",
+  "businessEffectAuthority": "NONE",
+  "seedLeakage": {
+    "why": "Same as GA5 and GA6. Reading a result spends the set.",
+    "action": "A fourth disjoint range.",
+    "previousHeldOutSeedsRetired": "all sets used by GA4, GA5 and GA6"
+  },
+  "reportingProbeRequirement": "If a candidate promotes, it is run against the held-back reporting probes afterwards. Those never gated anything, so they are the only items in this family no selection pressure has touched.",
+  "instrumentPrecondition": {
+    "changedAt": "the commit adding difficulty 4",
+    "whatChanged": "Difficulty 4 added for forecasting (geometric rather than polynomial), tool use (two tools in order) and invention (three quantities joined by two operators). Difficulty 3 had saturated at 1.0 across all seven families.",
+    "disclosure": "I designed the invention escalation knowing L3_COMPOSITIONAL_STRICT refuses when a named quantity is left unaccounted for, so I knew a three-quantity prompt would separate it from the promoted L2. Choosing an escalation a known candidate survives is close enough to tuning toward an outcome that it is recorded here rather than left to be noticed. What defends it: the escalation is one the incumbent cannot do rather than one it does worse, and the measured result is worse for the promoted solver.",
+    "whyBeforeDeclaring": "Committed before this declaration, with no candidate written and no threshold set."
+  }
+}

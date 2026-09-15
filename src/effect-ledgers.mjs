@@ -35,6 +35,42 @@ export const ZERO_CANONICAL_EFFECTS = Object.freeze({
 export const ZERO_EXTERNAL_EFFECTS = ZERO_CANONICAL_EFFECTS;
 
 /**
+ * Planning/consequence-ledger dialect.
+ *
+ * Planners, graph compilers and zero-effect receipts across the tree emit this
+ * eight-key shape (`customerMessages`/`paymentMutations`) rather than the
+ * canonical one. It is a real second vocabulary, not a typo, and it is what
+ * already-persisted planning receipts contain -- so it is named here instead of
+ * being re-declared per module. Four modules had declared it locally under the
+ * canonical *name* `ZERO_EXTERNAL_EFFECTS`, which is worse than a duplicate: a
+ * name that promises the canonical key set while delivering a different one.
+ *
+ * New code should prefer ZERO_EXTERNAL_EFFECTS. This export exists so the
+ * dialect has exactly one definition while that migration is outstanding.
+ */
+export const CONSEQUENCE_EFFECT_KEYS = Object.freeze([
+  'customerMessages',
+  'providerCalls',
+  'spendCents',
+  'deployments',
+  'dnsChanges',
+  'credentialChanges',
+  'paymentMutations',
+  'productionMutations'
+]);
+
+export const ZERO_CONSEQUENCE_EFFECTS = Object.freeze({
+  customerMessages: 0,
+  providerCalls: 0,
+  spendCents: 0,
+  deployments: 0,
+  dnsChanges: 0,
+  credentialChanges: 0,
+  paymentMutations: 0,
+  productionMutations: 0
+});
+
+/**
  * Legacy autonomy-loop business-effect ledger. Kept only for compatibility
  * with already-persisted receipts and call sites while the migration proceeds.
  */

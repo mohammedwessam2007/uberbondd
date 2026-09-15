@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-generation.v1",
+  "status": "NULLSTAR_OMEGA_GENERATION_RECORDED",
+  "generationId": "G5",
+  "sourceCommit": "65b5c41196fa19fb71eca40535999264511bc9cb",
+  "suiteVersion": "omega-outcome-measured-suite-1.0.0",
+  "corpusDigest": "sha256:8298c2c97f10da722d5b3320a52873633f14718835cdad7ab73da4af22ad5faf",
+  "generatedAt": "2026-09-15T00:29:36.121Z",
+  "vector": {
+    "reasoning": 1,
+    "mathematics": 1,
+    "science": null,
+    "software": 0.6667,
+    "research": null,
+    "forecasting": null,
+    "causality": null,
+    "planning": null,
+    "toolUse": null,
+    "invention": null,
+    "crossDomain": 0.3333,
+    "unknownUnknown": 1,
+    "longHorizon": 1,
+    "selfDiagnosis": 0.5,
+    "calibration": 0.6012500000000001,
+    "robustness": 1,
+    "resourceEfficiency": 1
+  },
+  "coverage": {
+    "measured": 10,
+    "unmeasured": 7,
+    "unmeasuredDimensions": [
+      "science",
+      "research",
+      "forecasting",
+      "causality",
+      "planning",
+      "toolUse",
+      "invention"
+    ]
+  },
+  "meanMeasuredScore": 0.810125,
+  "baselines": {
+    "B0": null,
+    "B1": null,
+    "B2": null,
+    "B3": null,
+    "B4": null,
+    "B5": null
+  },
+  "declaredBaselines": [],
+  "cost": {
+    "usdCents": null,
+    "wallClockMs": null,
+    "founderMinutes": null
+  },
+  "environment": {
+    "judgementCapability": "NONE",
+    "note": "No provider contacted. Dimensions are gated by the evidence-reuse guard."
+  },
+  "failures": [],
+  "generationDigest": "b70553d16f83aa0f8515306ac8da3228400b2310a485cac9f95139b8fc5453b3",
+  "truthBoundary": "A_GENERATION_RECORDS_WHAT_WAS_MEASURED_AT_ONE_COMMIT_AGAINST_ONE_SUITE. AN_UNMEASURED_DIMENSION_IS_NULL_AND_NEVER_ZERO. IT_DOES_NOT_PROVE_IMPROVEMENT_GENERALIZATION_SELF_IMPROVEMENT_OR_ASI.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  }
+}

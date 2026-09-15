@@ -1172,7 +1172,7 @@ export const MUTATIONS = [
   },
   {
     id: 'CASH-02', guard: 'Contact needs every gate, not any gate',
-    file: 'src/first-cash-canary-packet.mjs',
+    file: 'src/first-cash-canary-packet-core.mjs',
     find: '  return FIRST_CASH_CONTACT_GATES.every(id => gates?.[id]?.satisfied === true);',
     replace: '  return FIRST_CASH_CONTACT_GATES.some(id => gates?.[id]?.satisfied === true);',
     suites: ['tests/first-cash-canary-packet.test.mjs']
@@ -1254,10 +1254,10 @@ export const MUTATIONS = [
   },
   {
     id: 'CONV-07', guard: 'The first-cash offer stays bound to the canonical Lead-Path SKU',
-    file: 'src/first-cash-canary-packet.mjs',
+    file: 'src/first-cash-canary-packet-core.mjs',
     find: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: LEAD_PATH_SPRINT_SKU,",
     replace: "  name: 'White-label Lead-Path Revenue Leak Evidence Sprint',\n  sku: 'some-other-sku',",
-    suites: ['tests/night-convergence-runtime.test.mjs']
+    suites: ['tests/first-cash-canary-packet.test.mjs']
   },
   {
     id: 'CONV-08', guard: 'CODE_READY needs observed elapsed operation, not an absence of complaints',
@@ -1466,8 +1466,8 @@ export const MUTATIONS = [
   {
     id: 'CALIB-01', guard: 'A forecast edited after recording cannot be scored',
     file: 'src/reality-calibration-ledger.mjs',
-    find: '  if (forecast.seal !== sealForecast(forecast)) {',
-    replace: '  if (false) {',
+    find: '  return { ok: reasons.length === 0, reasons };',
+    replace: '  return { ok: true, reasons };',
     suites: ['tests/reality-calibration-ledger.test.mjs']
   },
   {
@@ -1608,8 +1608,8 @@ export const MUTATIONS = [
     // NAMED_INITIATIVE with a working module is filed as historical lineage.
     id: 'TERMSTATE-01', guard: 'A row with real evidence is never overwritten by its class',
     file: 'src/sovereign-coverage-matrix.mjs',
-    find: "    const currentState = evidenceState === 'SPEC_ONLY'",
-    replace: '    const currentState = true',
+    find: "    const terminalEligible = evidenceState === 'SPEC_ONLY'",
+    replace: '    const terminalEligible = true || false',
     suites: ['tests/sovereign-coverage-matrix.test.mjs']
   },
   {
@@ -1791,8 +1791,8 @@ export const MUTATIONS = [
   {
     id: 'CAPGEN-03', guard: 'An absent capability binds harder than a weak one',
     file: 'src/human-capability-genome.mjs',
-    find: "  const bottleneck = missing.length ? { capability: missing[0], reason: 'ABSENT' }",
-    replace: '  const bottleneck = false ? null',
+    find: '  if (dedupedConstraints.length) {',
+    replace: '  if (false) {',
     suites: ['tests/human-capability-genome.test.mjs']
   },
   {
@@ -2984,6 +2984,318 @@ export const MUTATIONS = [
     find: '  if (matching.length === 0) {',
     replace: '  if (false) {',
     suites: ['tests/temporal-civilization.test.mjs']
+  },
+  // ---- Reality connection: who is allowed to decide an outcome ------------
+  {
+    id: 'REALITY-01', guard: 'A forecaster who reports their own outcome cannot be scored',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: "  if (!observable.independent) {",
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-02', guard: 'A claimed outcome absent from the observer output is refused',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: "  } else if (observed && evidence && !evidence.includes(observed)) {",
+    replace: '  } else if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-03', guard: 'A derived outcome must name the rule sealed with the observable',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: "    if (text(derivationRuleId, 200) !== observable.derivation.ruleId) {",
+    replace: '    if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-04', guard: 'A forecast may not narrow the declared outcome space',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: '  if (declared.length !== offered.length || declared.some((key, index) => key !== offered[index])) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  {
+    id: 'REALITY-05', guard: 'All-easy correct forecasts do not establish calibration',
+    file: 'src/nullstar-omega-reality-connection.mjs',
+    find: '  const allNearCertain = closed.every(loop => loop.assignedProbability >= 0.9);',
+    replace: '  const allNearCertain = false;',
+    suites: ['tests/nullstar-omega-reality-connection.test.mjs']
+  },
+  // ---- Meta-improvement: what counts as resolving a named symptom ---------
+  {
+    id: 'METAIMP-01', guard: 'Widening a saturated instrument does not resolve saturation',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '    resolved = afterSpread > beforeSpread;',
+    replace: '    resolved = after.length > before.length;',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'METAIMP-02', guard: 'Retrospective episodes cannot establish a working process',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '  const status = prospective.length >= 2 && resolved.length > unresolved',
+    replace: '  const status = resolved.length > unresolved',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  // ---- Transfer bindings: who may settle an economic claim ----------------
+  {
+    id: 'XFER-01', guard: 'CRM state and invoice status may not decide an economic forecast',
+    file: 'src/nullstar-omega-transfer-bindings.mjs',
+    find: '  if (refusedDeciders.includes(decider)) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-transfer-bindings.test.mjs']
+  },
+  {
+    id: 'XFER-02', guard: 'A decider the forecaster controls is refused',
+    file: 'src/nullstar-omega-transfer-bindings.mjs',
+    find: '  if (!allowedDeciders.includes(decider)) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-transfer-bindings.test.mjs']
+  },
+  // ---- Generations: an instrument change is not a capability change ------
+  {
+    id: 'GENCMP-01', guard: 'A suite change is not reported as a capability regression',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '  const instrumentChanged = previous.suiteVersion !== next.suiteVersion;',
+    replace: '  const instrumentChanged = false;',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
+    id: 'INDSUITE-01', guard: 'A task whose answer and observation share a path is refused',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  if (answerPath && observePath && answerPath === observePath) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'INDSUITE-02', guard: 'Two paths reading one locator is the same tautology relabelled',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  if (answerAt && observeAt && answerAt === observeAt) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'INDSUITE-03', guard: 'An unstated difficulty is refused rather than read as zero',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  const level = typeof difficulty === \'number\' ? difficulty : NaN;',
+    replace: '  const level = Number(difficulty);',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'INDSUITE-04', guard: 'A suite containing a rejected task is refused, not silently trimmed',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  if (rejected.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'BASELINE-01', guard: 'A blocked baseline must name its dependency, attempt and unblock condition',
+    file: 'src/nullstar-omega-baselines.mjs',
+    find: "    if (!text(blockingDependency, 500)) reasonCodes.push('a-blocked-baseline-must-name-the-dependency');",
+    replace: '',
+    suites: ['tests/nullstar-omega-baselines.test.mjs']
+  },
+  {
+    id: 'BASELINE-02', guard: 'A baseline set missing an entry is refused as an unexplained null',
+    file: 'src/nullstar-omega-baselines.mjs',
+    find: '  if (missing.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-baselines.test.mjs']
+  },
+  {
+    id: 'BASELINE-03', guard: 'Tying the trivial baseline is reported as the suite measuring nothing',
+    file: 'src/nullstar-omega-baselines.mjs',
+    find: "      : (margin === 0 ? 'CURRENT_TIES_TRIVIAL__THE_SUITE_MEASURES_NOTHING' : `TRIVIAL_BEATS_CURRENT_BY_${Math.abs(margin)}`);",
+    replace: "      : `CURRENT_BEATS_TRIVIAL_BY_${margin}`;",
+    suites: ['tests/nullstar-omega-baselines.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-01', guard: 'Text matching is refused when the producer emits structured output',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (producesStructuredOutput === true && parsingRule === PARSING_RULES.TEXT_PATTERN) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-02', guard: 'An observer reading the artifact stating its own claim is refused',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (readsOwnClaim && independenceClass !== INDEPENDENCE_CLASSES.SELF_REFERENTIAL) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-03', guard: 'Two observers on one input source are not independent derivations',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (a.inputSource === b.inputSource) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-04', guard: 'Disagreeing observers open a contradiction rather than promoting one',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '  if (a !== b) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'OBSCONTRACT-05', guard: 'Provenance touching a session-authored artifact is self-referential',
+    file: 'src/nullstar-omega-observer-contract.mjs',
+    find: '    if (authored.has(current)) touchedAuthored = true;',
+    replace: '',
+    suites: ['tests/nullstar-omega-observer-contract.test.mjs']
+  },
+  {
+    id: 'METAIMP-05', guard: 'The evidence-timing boundary is derived from the episodes, not written once',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: "  if (prospective === 0) {",
+    replace: '  if (true) {',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'CALLADDER-01', guard: 'A calibration rung requires the sample to actually reach it',
+    file: 'src/nullstar-omega-calibration-ladder.mjs',
+    find: '    return n >= t.n && families >= t.families && domains >= t.domains && horizons >= t.horizons && external >= t.external;',
+    replace: '    return true;',
+    suites: ['tests/nullstar-omega-calibration-ladder.test.mjs']
+  },
+  {
+    id: 'CALLADDER-02', guard: 'An omitted sample count is refused, not assumed generous',
+    file: 'src/nullstar-omega-calibration-ladder.mjs',
+    find: "  if (domains === null) reasonCodes.push('domain-count-required');",
+    replace: '',
+    suites: ['tests/nullstar-omega-calibration-ladder.test.mjs']
+  },
+  {
+    id: 'DENOMCAL-01', guard: 'A calibration receipt with no placement does not advance a dimension',
+    file: 'src/nullstar-omega-denominator.mjs',
+    find: '  if (rung) state = rung.rung;',
+    replace: "  if (calibration.length) state = 'LONGITUDINALLY_CALIBRATED';",
+    suites: ['tests/nullstar-omega-denominator.test.mjs']
+  },
+  {
+    id: 'METAIMP-04', guard: 'A declaration whose criterion differs from its symptom kind is refused',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '  if (stated !== rule) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'OOPGATE-01', guard: 'Confabulating on an out-of-pattern probe disqualifies a candidate at any in-distribution score',
+    file: 'src/nullstar-out-of-pattern-probes.mjs',
+    find: '  if (result.confabulated > 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-02', guard: 'A solver that refuses everything cannot pass the gate by never being wrong',
+    file: 'src/nullstar-out-of-pattern-probes.mjs',
+    find: '  if (result.correctRate < minimumCorrectRate) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-03', guard: 'The promoted solver composes the named quantity instead of matching the shortest phrase it contains',
+    file: 'src/nullstar-cognitive-solvers.mjs',
+    find: "    const operator = COMPOSITION_OPERATORS.find(entry =>\n      (entry.position === 'PREFIX' ? head : between).includes(entry.word));",
+    replace: "    const operator = COMPOSITION_OPERATORS.find(entry => between.includes(entry.word));",
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-04', guard: 'A join the solver cannot read refuses the whole answer rather than returning the part it managed',
+    file: 'src/nullstar-cognitive-solvers.mjs',
+    find: '    if (!operator) return null;',
+    replace: '    if (!operator) break;',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPGATE-05', guard: 'The incumbent is measured against the gate rather than assumed to pass it',
+    file: 'scripts/nullstar-generation.mjs',
+    find: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;',
+    replace: '  const gateIsDecisive = false;',
+    suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
+  },
+  {
+    id: 'OOPCOMP-01', guard: 'Claiming a primitive the composition does not need costs score',
+    file: 'src/nullstar-cognitive-tasks.mjs',
+    find: '      return extra === 0 ? 1 : Math.max(0, 1 - extra / required.length);',
+    replace: '      return 1;',
+    suites: ['tests/nullstar-cognitive-tasks.test.mjs']
+  },
+  {
+    id: 'GENDISC-01', guard: 'A tournament whose eligible candidates tie is reported as undiscriminating, not as a capability win',
+    file: 'scripts/nullstar-generation.mjs',
+    find: "    ? 'UNDISCRIMINATING__CANDIDATES_TIED'",
+    replace: "    ? 'SEPARATED'",
+    suites: ['tests/nullstar-generation-discrimination.test.mjs']
+  },
+  {
+    id: 'GENDISC-02', guard: 'A tie carries the warning that the winner was chosen on size rather than capability',
+    file: 'scripts/nullstar-generation.mjs',
+    find: "  attributionWarning: discrimination === 'UNDISCRIMINATING__CANDIDATES_TIED'",
+    replace: '  attributionWarning: false',
+    suites: ['tests/nullstar-generation-discrimination.test.mjs']
+  },
+  {
+    id: 'GENDISC-03', guard: 'The promoted research solver still beats the provenance-only ladder it replaced',
+    file: 'src/nullstar-cognitive-solvers.mjs',
+    find: '    const score = provenance * (1 / (1 + ageDays / 30));',
+    replace: '    const score = provenance === 4 ? 0 : provenance;',
+    suites: ['tests/nullstar-generation-discrimination.test.mjs']
+  },
+  {
+    id: 'GENSTALE-01', guard: 'A reading carried across a suite change is excluded from the headline mean',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '      if (now !== null && Number.isFinite(before) && now === before) carriedSet.add(dimension);',
+    replace: '',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
+    id: 'GENSTALE-02', guard: 'A generation whose every reading was carried measured nothing of its own',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '  if (measuredCount > 0 && freshDimensions.length === 0) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
+  },
+  {
+    id: 'METAIMP-03', guard: 'Movement in an unnamed dimension does not rescue an unresolved symptom',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: '  const unresolved = persisted.length + elsewhere.length;',
+    replace: '  const unresolved = persisted.length;',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'REUSE-01', guard: 'A dimension re-slicing evidence already in use is refused, not counted',
+    file: 'src/nullstar-omega-evidence-reuse.mjs',
+    find: '    if (ratio > maxOverlapRatio) {',
+    replace: '    if (false) {',
+    suites: ['tests/nullstar-omega-evidence-reuse.test.mjs']
+  },
+  {
+    id: 'REUSE-02', guard: 'A dimension naming no observations is refused, not admitted for free',
+    file: 'src/nullstar-omega-evidence-reuse.mjs',
+    find: '  if (missingKeys.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-evidence-reuse.test.mjs']
+  },
+  {
+    id: 'SWOUT-01', guard: 'A denominator too small to mean anything is refused, not scored',
+    file: 'src/nullstar-omega-software-outcome.mjs',
+    find: "  if (rows.length > 0 && rows.length < 5) reasonCodes.push('denominator-too-small-to-score:need-at-least-five-modules');",
+    replace: '',
+    suites: ['tests/nullstar-omega-software-outcome.test.mjs']
+  },
+  {
+    id: 'SWOUT-02', guard: 'A module edited after introduction counts against first-attempt correctness',
+    file: 'src/nullstar-omega-software-outcome.mjs',
+    find: '  const untouched = rows.filter(row => row.touchedByLater.length === 0);',
+    replace: '  const untouched = rows;',
+    suites: ['tests/nullstar-omega-software-outcome.test.mjs']
+  },
+  {
+    id: 'GENCMP-02', guard: 'A series that holds still and then drops is falling, not flat',
+    file: 'src/nullstar-omega-generation.mjs',
+    find: '  else if (negative) trend = \'FALLING\';',
+    replace: '',
+    suites: ['tests/nullstar-omega-generation.test.mjs']
   },
 ];
 

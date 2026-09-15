@@ -1,0 +1,353 @@
+{
+  "schemaVersion": "uberbond-nullstar-terminal-final-report-1.0.0",
+  "directiveSections": [
+    "009",
+    "221",
+    "222",
+    "244"
+  ],
+  "generatedAt": "2026-09-15T13:33:00.150Z",
+  "sourceCommit": "994b2e74adba0b0a4ec7c9e69076e7d7a4a37b6a",
+  "everyFigureComputed": "Generation rows are read from their own result files, capability is measured live at report time, and the verdict is the completion ledger's own count. Nothing here is a remembered number.",
+  "verdict": {
+    "softwareOpen": 0,
+    "externalOpen": 2,
+    "done": "SOFTWARE_SIDE_COMPLETE",
+    "whatDoneMeans": "No writable work remains that the completion ledger has identified. It does not mean the system is capable, that the permanent limitations have gone away, or that the external blockers have.",
+    "externalBlockers": [
+      {
+        "id": "CD006-PROVIDER-EVALUATION-BLOCKED",
+        "what": "Per-dimension capability evidence against anything other than deterministic solvers requires a model. No provider credential is configured and every model-weight host is refused by the network policy, while a local inference runtime installs and imports cleanly."
+      },
+      {
+        "id": "CD007-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+        "what": "Revenue, customers and cleared payment remain zero. Nothing in this work changes that and nothing in it is evidence about it."
+      }
+    ]
+  },
+  "generations": {
+    "run": 8,
+    "promoted": 6,
+    "nullResults": 2,
+    "everyOneDeclaredBeforeItsCandidates": true,
+    "table": [
+      {
+        "generation": "GA1",
+        "family": "FORECASTING",
+        "difficulty": 3,
+        "outcome": "PROMOTED",
+        "winner": "C1_POLYNOMIAL_DIFFERENCE",
+        "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+        "gateApplied": false,
+        "declaredBefore": "artifacts/nullstar-terminal/ga1-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA2",
+        "family": "RESEARCH",
+        "difficulty": 3,
+        "outcome": "PROMOTED",
+        "winner": "R2_TWO_AXIS",
+        "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+        "gateApplied": false,
+        "declaredBefore": "artifacts/nullstar-terminal/ga2-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA3",
+        "family": "INVENTION",
+        "difficulty": 3,
+        "outcome": "PROMOTED",
+        "winner": "I3_PROMPT_DIRECTED",
+        "discrimination": "SEPARATED",
+        "gateApplied": false,
+        "declaredBefore": "artifacts/nullstar-terminal/ga3-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA4",
+        "family": "INVENTION",
+        "difficulty": 3,
+        "outcome": "NO_PROMOTION",
+        "winner": null,
+        "discrimination": "NO_ELIGIBLE_CANDIDATE",
+        "gateApplied": true,
+        "declaredBefore": "artifacts/nullstar-terminal/ga4-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA5",
+        "family": "INVENTION",
+        "difficulty": 3,
+        "outcome": "NO_PROMOTION",
+        "winner": null,
+        "discrimination": "NO_ELIGIBLE_CANDIDATE",
+        "gateApplied": true,
+        "declaredBefore": "artifacts/nullstar-terminal/ga5-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA6",
+        "family": "INVENTION",
+        "difficulty": 3,
+        "outcome": "PROMOTED",
+        "winner": "L2_OPERATOR_REPAIRED",
+        "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+        "gateApplied": true,
+        "declaredBefore": "artifacts/nullstar-terminal/ga6-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA7",
+        "family": "INVENTION",
+        "difficulty": 4,
+        "outcome": "PROMOTED",
+        "winner": "M3_LEFT_TO_RIGHT_NARY",
+        "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+        "gateApplied": true,
+        "declaredBefore": "artifacts/nullstar-terminal/ga7-declaration.json",
+        "thresholdMatchesDeclaration": true
+      },
+      {
+        "generation": "GA8",
+        "family": "INVENTION",
+        "difficulty": 5,
+        "outcome": "PROMOTED",
+        "winner": "N4_RECURSIVE",
+        "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+        "gateApplied": true,
+        "declaredBefore": "artifacts/nullstar-terminal/ga8-declaration.json",
+        "thresholdMatchesDeclaration": true
+      }
+    ]
+  },
+  "capabilityNow": {
+    "measuredAt": "994b2e74adba0b0a4ec7c9e69076e7d7a4a37b6a",
+    "seeds": "50000..50029",
+    "families": [
+      {
+        "family": "PLANNING",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 1,
+          "d5": 1
+        }
+      },
+      {
+        "family": "SCIENCE",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 1,
+          "d5": 1
+        }
+      },
+      {
+        "family": "CAUSALITY",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 1,
+          "d5": 1
+        }
+      },
+      {
+        "family": "TOOL_USE",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 0,
+          "d5": 0
+        }
+      },
+      {
+        "family": "RESEARCH",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 1,
+          "d5": 1
+        }
+      },
+      {
+        "family": "INVENTION",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 1,
+          "d5": 1
+        }
+      },
+      {
+        "family": "FORECASTING",
+        "byDifficulty": {
+          "d1": 1,
+          "d2": 1,
+          "d3": 1,
+          "d4": 0,
+          "d5": 0
+        }
+      }
+    ],
+    "headroomRemaining": [
+      {
+        "family": "TOOL_USE",
+        "level": "d4",
+        "score": 0
+      },
+      {
+        "family": "TOOL_USE",
+        "level": "d5",
+        "score": 0
+      },
+      {
+        "family": "FORECASTING",
+        "level": "d4",
+        "score": 0
+      },
+      {
+        "family": "FORECASTING",
+        "level": "d5",
+        "score": 0
+      }
+    ]
+  },
+  "outOfPatternStanding": [
+    {
+      "family": "FORECASTING",
+      "gating": {
+        "correct": 3,
+        "of": 3,
+        "confabulated": 0,
+        "threw": 0
+      },
+      "heldBackReporting": {
+        "correct": 3,
+        "of": 3,
+        "confabulated": 0,
+        "threw": 0
+      }
+    },
+    {
+      "family": "RESEARCH",
+      "gating": {
+        "correct": 3,
+        "of": 3,
+        "confabulated": 0,
+        "threw": 0
+      },
+      "heldBackReporting": {
+        "correct": 3,
+        "of": 3,
+        "confabulated": 0,
+        "threw": 0
+      }
+    },
+    {
+      "family": "INVENTION",
+      "gating": {
+        "correct": 3,
+        "of": 3,
+        "confabulated": 0,
+        "threw": 0
+      },
+      "heldBackReporting": {
+        "correct": 3,
+        "of": 3,
+        "confabulated": 0,
+        "threw": 0
+      }
+    }
+  ],
+  "failureDebt": {
+    "total": 12,
+    "closedWithProof": 12,
+    "open": 0,
+    "everyClosureCarriesARegressionTest": true
+  },
+  "whatWasLearned": [
+    "An evaluation drawn from inside the distribution a solver was built against cannot distinguish a mechanism from a lookup over that distribution. This cost two promotions their attribution before it was named, and then cost three more generations to fix.",
+    "A tie among candidates means the instrument could not separate them, not that they are equivalent. Twice a tie-break chose on size and twice the tied candidates were separable by evidence nobody had run; once it picked the worse one.",
+    "Confabulation and refusal are different failures and a mean treats them alike. Every promotion on the invention family closed a confident wrong answer that the previous promotion introduced and no existing level could see.",
+    "A mechanism transfers between organs when given the receiving vocabulary; an implementation carrying its own vocabulary does not travel with it. Vocabulary and reasoning are separable and mistaking one for the other was the root of the attribution failures too.",
+    "A limitation is not debt. An item that no work can close makes a completion count meaningless, and three such were moved out of the ledger into a section that does not enter it."
+  ],
+  "correctionsMadeAgainstOwnResults": [
+    "The GA2 and GA3 tournaments were annotated as undiscriminating from their own recorded scores, without rescoring.",
+    "The GA1 audit was run because GA1 shared the symptom, not because anything flagged it.",
+    "The cross-organ task was rebuilt after its first construction proved unanswerable, and the flattering number it produced is not reported.",
+    "The cross-organ verdict was changed from comparing against the rule under replacement to comparing against chance, which reversed its conclusion about the implementation."
+  ],
+  "evidenceIndex": {
+    "failureDebt": "artifacts/nullstar-terminal/failure-debt.json",
+    "completionDebt": "artifacts/nullstar-terminal/completion-debt.json",
+    "generalization": "artifacts/nullstar-terminal/generalization-v2.json",
+    "metaImprovement": "artifacts/nullstar-terminal/meta-improvement-v2.json",
+    "attributionAudit": "artifacts/nullstar-terminal/attribution-audit.json",
+    "probeSaturation": "artifacts/nullstar-terminal/probe-saturation.json",
+    "crossOrganTransfer": "artifacts/nullstar-terminal/cross-organ-transfer.json",
+    "generationResults": [
+      "artifacts/nullstar-terminal/ga1-result.json",
+      "artifacts/nullstar-terminal/ga2-result.json",
+      "artifacts/nullstar-terminal/ga3-result.json",
+      "artifacts/nullstar-terminal/ga4-result.json",
+      "artifacts/nullstar-terminal/ga5-result.json",
+      "artifacts/nullstar-terminal/ga6-result.json",
+      "artifacts/nullstar-terminal/ga7-result.json",
+      "artifacts/nullstar-terminal/ga8-result.json"
+    ]
+  },
+  "supportingFindings": {
+    "generalization": "HOLDS_ON_FRESH_SEEDS",
+    "generalizationOutOfPattern": "DOES_NOT_GENERALIZE_AND_CONFABULATES",
+    "attribution": "BOTH_PROMOTED_SOLVERS_EARN_THEIR_COMPLEXITY",
+    "probeSaturation": "ANSWERS_THE_WHOLE_GRAMMAR",
+    "transfer": "THE_MECHANISM_TRANSFERS_AND_THE_IMPLEMENTATION_DOES_NOT",
+    "metaBacktest": "Under the new gate GA3 promotes nothing. Every candidate that cleared the in-distribution threshold either confabulates out of pattern or fails it, which is the honest reading: the generation found no mechanism, only a better lookup."
+  },
+  "permanentLimitations": [
+    {
+      "id": "PL001-PROBES-SHARE-AN-AUTHOR",
+      "what": "Every probe, grammar and generator in this work was written by the same author as the solvers they judge, so they test the failure modes that author can imagine.",
+      "whyNotResolvable": "Whoever writes the next probe set is an author too. Independence would need an adversary with different blind spots -- another model, another person, or items drawn from a source outside this repository -- and none of those is available here.",
+      "narrowedBy": "artifacts/nullstar-terminal/probe-saturation.json enumerates 54 prompts from the grammar rather than relying on 6 hand-picked ones, which removes the narrower worry without touching this one.",
+      "statedBefore": "artifacts/nullstar-terminal/ga4-declaration.json, written before any generation ran under the gate"
+    },
+    {
+      "id": "PL002-ONE-INSTRUMENT",
+      "what": "Every capability number in this work comes from one procedurally generated suite of seven families.",
+      "whyNotResolvable": "A second independent instrument would have to be built by someone who did not build the first, for the same reason as PL001.",
+      "narrowedBy": "Out-of-pattern probes sit outside the generator, and held-back reporting probes gate nothing, so not every number comes from inside the training distribution."
+    },
+    {
+      "id": "PL003-DETERMINISTIC-SOLVERS-ARE-NOT-MODELS",
+      "what": "The solvers are hand-written deterministic functions. Nothing here measures a model, and the capability being improved is the author's understanding of the task expressed as code.",
+      "whyNotResolvable": "Measuring a model needs a model, which is CD006 and is externally blocked.",
+      "narrowedBy": "Nothing. It is stated in every generation artifact rather than narrowed."
+    }
+  ],
+  "whatThisIsNot": [
+    "Not evidence of artificial general intelligence, superintelligence, an intelligence explosion or a singularity. No such claim is made or supported anywhere in this work.",
+    "Not evidence about a model. Every solver here is a hand-written deterministic function, so what improved is the author's understanding of a task expressed as code.",
+    "Not evidence of recursive self-improvement. The improvements were written by hand, selected by a tournament, and each one introduced the defect the next had to fix.",
+    "Not revenue, customers, cleared payment, or any economic outcome. Those remain zero and nothing here bears on them.",
+    "Not a production change to any organ. The epistemic immune system is unmodified and nothing in it references this work."
+  ],
+  "truthBoundary": "THIS REPORTS WORK DONE AND MEASUREMENTS TAKEN ON ONE INSTRUMENT BUILT BY THE SAME AUTHOR AS THE SOLVERS IT JUDGES. CAPABILITY NEVER CREATES AUTHORITY.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0,
+    "deployments": 0,
+    "purchases": 0
+  }
+}

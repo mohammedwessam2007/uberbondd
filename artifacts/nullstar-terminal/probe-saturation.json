@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "uberbond-nullstar-probe-saturation-1.0.0",
+  "completionDebtRef": "CD003-GATE-PROBES-SHARE-AN-AUTHOR",
+  "generatedAt": "2026-09-15T12:48:49.904Z",
+  "sourceCommit": "755519534b6e6d6888f99100faa8b4fd09e533a3",
+  "question": "Across every prompt the grammar can build, not just the six that were hand-written, where does the promoted invention solver stand?",
+  "grammar": {
+    "quantities": [
+      "mean",
+      "midrange",
+      "spread",
+      "size"
+    ],
+    "operators": [
+      "plus",
+      "minus",
+      "dividedBy",
+      "times",
+      "averageOf"
+    ],
+    "orderings": "both, except for the symmetric average-of which is counted once",
+    "totalItems": 54,
+    "handWrittenProbesInThisSpace": 6
+  },
+  "results": {
+    "of": 54,
+    "correct": 54,
+    "refused": 0,
+    "confabulated": 0
+  },
+  "confabulations": [],
+  "refusals": [],
+  "verdict": "ANSWERS_THE_WHOLE_GRAMMAR",
+  "whatThisNarrows": "That the six hand-written probes happened to be six the solver could do. They are a vanishing fraction of the space and the solver is measured on all of it.",
+  "whatThisDoesNotClose": "The grammar has an author too. A failure mode it cannot express is exactly as invisible as one the hand-written probes missed -- prompts with three quantities, nested clauses, an operator stated in words this grammar does not use, a quantity the generator never names. CD003 is narrowed, not closed, and the completion ledger should keep saying so.",
+  "truthBoundary": "ENUMERATING A GRAMMAR IS NOT ENUMERATING A CAPABILITY. THIS BOUNDS ONE SOLVER OVER ONE FINITE SPACE OF PROMPTS.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

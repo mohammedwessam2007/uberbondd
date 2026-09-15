@@ -80,15 +80,33 @@ const ITEMS = [
     }
   },
   {
-    id: 'CD003-GATE-PROBES-SHARE-AN-AUTHOR',
+    id: 'CD003-GATE-PROBES-ARE-SIX-HAND-PICKED-CASES',
     class: 'SOFTWARE',
-    what: 'The out-of-pattern probes were written by the same author as the solvers they judge, so they test the failure modes that author thought of.',
-    whyNotDone: 'Stated in the GA4 declaration before any generation ran under the gate, and it has not stopped being true. An adversarially generated probe set, or probes derived from a source other than the author, would narrow it. Neither exists.',
+    what: 'The out-of-pattern gate rested on six hand-written prompts, so passing it could mean the six happened to be six the solver could do.',
+    whyNotDone: 'Enumerating the space the grammar can build replaces hand-picking with coverage. That is writable work and it is the actionable half of what this item originally said.',
+    // This item was first written as "the probes share an author with the
+    // solvers, so they test the failure modes that author thought of". That is
+    // true, and it is not a task: no amount of work closes it, because whoever
+    // writes the next probe set is an author too. An item that can never close
+    // is a limitation filed in the wrong place, and leaving it in a ledger whose
+    // count governs whether work is finished would have made that count
+    // meaningless in one direction and hostage to a truism in the other.
+    //
+    // So the limitation moved to permanentLimitations, where it stays visible
+    // and is not pretended to be resolvable, and what remains here is the part
+    // that was actually actionable.
+    reclassifiedFrom: 'CD003-GATE-PROBES-SHARE-AN-AUTHOR',
     check: () => {
-      const declaration = readJson('artifacts/nullstar-terminal/ga4-declaration.json');
+      if (!has('artifacts/nullstar-terminal/probe-saturation.json')) {
+        return { open: true, evidence: 'no saturation run exists; the gate still rests on hand-picked cases' };
+      }
+      const saturation = readJson('artifacts/nullstar-terminal/probe-saturation.json');
+      const clean = saturation.results.confabulated === 0 && saturation.results.correct === saturation.results.of;
       return {
-        open: typeof declaration.whatThisCannotEstablish === 'string' && declaration.whatThisCannotEstablish.includes('blind spots'),
-        evidence: 'artifacts/nullstar-terminal/ga4-declaration.json whatThisCannotEstablish'
+        open: !clean,
+        evidence: clean
+          ? `the promoted solver answers all ${saturation.results.of} prompts the grammar can build, against ${saturation.grammar.handWrittenProbesInThisSpace} hand-written probes`
+          : `${saturation.results.confabulated} confabulations and ${saturation.results.of - saturation.results.correct} misses across ${saturation.results.of} generated prompts`
       };
     }
   },
@@ -199,11 +217,38 @@ const artifact = {
     gateApplied: row.outOfPatternGate?.applied ?? false
   })),
 
+  // Things that are true, that matter, and that no amount of work resolves.
+  // They are not debt and they do not enter the count, because a count that
+  // includes them can never reach zero and stops carrying information. They are
+  // here so that reaching zero is never read as their absence.
+  permanentLimitations: [
+    {
+      id: 'PL001-PROBES-SHARE-AN-AUTHOR',
+      what: 'Every probe, grammar and generator in this work was written by the same author as the solvers they judge, so they test the failure modes that author can imagine.',
+      whyNotResolvable: 'Whoever writes the next probe set is an author too. Independence would need an adversary with different blind spots -- another model, another person, or items drawn from a source outside this repository -- and none of those is available here.',
+      narrowedBy: 'artifacts/nullstar-terminal/probe-saturation.json enumerates 54 prompts from the grammar rather than relying on 6 hand-picked ones, which removes the narrower worry without touching this one.',
+      statedBefore: 'artifacts/nullstar-terminal/ga4-declaration.json, written before any generation ran under the gate'
+    },
+    {
+      id: 'PL002-ONE-INSTRUMENT',
+      what: 'Every capability number in this work comes from one procedurally generated suite of seven families.',
+      whyNotResolvable: 'A second independent instrument would have to be built by someone who did not build the first, for the same reason as PL001.',
+      narrowedBy: 'Out-of-pattern probes sit outside the generator, and held-back reporting probes gate nothing, so not every number comes from inside the training distribution.'
+    },
+    {
+      id: 'PL003-DETERMINISTIC-SOLVERS-ARE-NOT-MODELS',
+      what: 'The solvers are hand-written deterministic functions. Nothing here measures a model, and the capability being improved is the author\'s understanding of the task expressed as code.',
+      whyNotResolvable: 'Measuring a model needs a model, which is CD006 and is externally blocked.',
+      narrowedBy: 'Nothing. It is stated in every generation artifact rather than narrowed.'
+    }
+  ],
+
   doneVerdict: softwareOpen === 0 ? 'SOFTWARE_SIDE_COMPLETE' : 'NOT_DONE__SOFTWARE_WORK_REMAINS',
   whyNotDone: softwareOpen === 0
     ? null
     : `${softwareOpen} software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.`,
 
+  doneVerdictDoesNotMean: 'Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.',
   truthBoundary: 'THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.',
   businessEffectAuthority: 'NONE',
   externalEffects: { providerCalls: 0, spendCents: 0, networkCalls: 0, messagesSent: 0 }

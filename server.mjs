@@ -197,7 +197,8 @@ async function brokerUberSocket(coreHandler, req, res, url) {
     return sendJson(res, 200, runtime.connectomeDoctor());
   }
   let body = {};
-  try { body = await readSmallJsonBody(req, path.endsWith('/ingest') ? 256 * 1024 : 96 * 1024); }
+  const maxBody = path.endsWith('/import-chatgpt') ? 8 * 1024 * 1024 : path.endsWith('/ingest') ? 256 * 1024 : 96 * 1024;
+  try { body = await readSmallJsonBody(req, maxBody); }
   catch (error) { return sendJson(res, 400, { error: error.message }); }
   try {
     if (req.method === 'POST' && path === '/api/admin/uber-socket/register') {
@@ -205,6 +206,9 @@ async function brokerUberSocket(coreHandler, req, res, url) {
     }
     if (req.method === 'POST' && path === '/api/admin/uber-socket/ingest') {
       return sendJson(res, 200, { ok: true, document: runtime.ingest(body), status: runtime.status() });
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/import-chatgpt') {
+      return sendJson(res, 200, { ...(await runtime.importChatGPTProject(body)), status: runtime.status() });
     }
     if (req.method === 'POST' && path === '/api/admin/uber-socket/ask') {
       return sendJson(res, 200, await runtime.ask(body));
@@ -236,7 +240,7 @@ async function brokerUberSocket(coreHandler, req, res, url) {
     return sendJson(res, 404, { error: 'UberSocket route not found' });
   } catch (error) {
     const message = String(error?.message || error);
-    const status = /not-configured|required|invalid|not-registered|no-council-peers|no-project-chat-peers/.test(message) ? 409 : 500;
+    const status = /not-configured|required|invalid|not-registered|no-council-peers|no-project-chat-peers|archival-only/.test(message) ? 409 : 500;
     return sendJson(res, status, { ok: false, error: message, socket: runtime.status() });
   }
 }

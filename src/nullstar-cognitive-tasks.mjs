@@ -193,6 +193,37 @@ export function generateToolUseTask(seed, difficulty = 1) {
   const tools = level >= 2
     ? ['sum', 'sort', 'unique', 'reverse', 'count', 'median', 'range']
     : ['sum', 'sort', 'unique', 'reverse', 'count'];
+
+  // Level 4 needs two tools applied in order. Every earlier level has exactly
+  // one sufficient tool, so a solver mapping goal to tool answers all of them;
+  // this asks for a sequence, which that mapping cannot express.
+  if (level >= 4) {
+    const SEQUENCES = [
+      { tools: ['unique', 'count'], goal: 'report how many distinct values there are, counting each only once' },
+      { tools: ['sort', 'median'], goal: 'report the middle value, ordering first' },
+      { tools: ['unique', 'sum'], goal: 'report the total of the distinct values only' }
+    ];
+    const chosen = SEQUENCES[Math.floor(rand() * SEQUENCES.length)];
+    return {
+      taskId: `tooluse.select.${seed}.d${level}`,
+      family: 'TOOL_USE',
+      difficulty: level,
+      prompt: `Using the fewest tools, in order: ${chosen.goal}.`,
+      surface: { tools, data: Array.from({ length: intBetween(rand, 4, 8) }, () => intBetween(rand, 1, 9)) },
+      groundTruth: chosen.tools.join('+'),
+      answerKind: 'TOOL_SEQUENCE',
+      requiredSequence: [...chosen.tools],
+      scoreSelection: calls => {
+        const list = Array.isArray(calls) ? calls : [];
+        // Order is the whole question at this level: unique then count is not
+        // the same operation as count then unique.
+        if (list.length !== chosen.tools.length) return 0;
+        return list.every((tool, i) => tool === chosen.tools[i]) ? 1 : 0;
+      },
+      whyIndependent: 'The sequence is chosen before the goal is phrased, and the goal names an outcome rather than any tool.'
+    };
+  }
+
   const needed = pick(rand, tools);
   const goals = {
     sum: 'report the total of these numbers',
@@ -333,7 +364,37 @@ export function generateInventionTask(seed, difficulty = 1) {
     }
   ];
 
-  const target = level >= 3 ? LEVEL3_TARGETS[Math.floor(rand() * LEVEL3_TARGETS.length)] : null;
+  /**
+   * Level 4 asks for three quantities joined by two operators.
+   *
+   * The promoted solver reads exactly two and refuses anything else, which is
+   * correct behaviour and also a ceiling. A level it refuses is real headroom;
+   * a level it answers slightly worse would not be.
+   */
+  const LEVEL4_TARGETS = [
+    {
+      key: 'mean-plus-midrange-minus-spread',
+      phrase: 'the mean plus the midrange, minus the spread between largest and smallest',
+      value: mean + midrange - spread,
+      needs: ['sum', 'count', 'max', 'min']
+    },
+    {
+      key: 'mean-plus-spread-over-count',
+      phrase: 'the mean plus the spread between largest and smallest, divided by how many numbers there are',
+      value: (mean + spread) / data.length,
+      needs: ['sum', 'count', 'max', 'min']
+    },
+    {
+      key: 'midrange-minus-mean-plus-spread',
+      phrase: 'the midrange minus the mean, plus the spread between largest and smallest',
+      value: midrange - mean + spread,
+      needs: ['sum', 'count', 'max', 'min']
+    }
+  ];
+
+  const target = level >= 4
+    ? LEVEL4_TARGETS[Math.floor(rand() * LEVEL4_TARGETS.length)]
+    : level >= 3 ? LEVEL3_TARGETS[Math.floor(rand() * LEVEL3_TARGETS.length)] : null;
   const answer = target ? target.value : mean;
   const required = target ? target.needs : ['sum', 'count'];
 
@@ -370,9 +431,44 @@ export function generateInventionTask(seed, difficulty = 1) {
 // FORECASTING: a question about a value the surface does not contain.
 // ---------------------------------------------------------------------------
 
+/**
+ * Level 4 forecasting: a geometric series.
+ *
+ * Every level up to 3 is polynomial, so repeated differencing terminates and
+ * the promoted solver walks to the order that goes constant. Differencing a
+ * geometric series never terminates -- the differences are themselves
+ * geometric -- so the mechanism that answers every earlier level cannot answer
+ * this one at all. That is the point: difficulty 3 had saturated, and a level
+ * that the incumbent merely finds harder is not headroom, only a level it
+ * cannot reach is.
+ */
+function geometricSeries(rand) {
+  const ratio = intBetween(rand, 2, 4);
+  const start = intBetween(rand, 2, 6);
+  const length = intBetween(rand, 4, 5);
+  const series = Array.from({ length }, (_, i) => start * Math.pow(ratio, i));
+  return { series, next: start * Math.pow(ratio, length), ratio };
+}
+
 export function generateForecastingTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
   const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
+
+  if (level >= 4) {
+    const { series, next, ratio } = geometricSeries(rand);
+    return {
+      taskId: `forecasting.extend.${seed}.d${level}`,
+      family: 'FORECASTING',
+      difficulty: level,
+      prompt: 'Report the next value in this series.',
+      surface: { series },
+      groundTruth: String(next),
+      answerKind: 'NUMBER',
+      seriesKind: 'GEOMETRIC',
+      hiddenRatio: ratio,
+      whyIndependent: 'The ratio is drawn before the series is written and the next value is never shown. Repeated differencing does not terminate on a geometric series, so the polynomial method cannot reach it.'
+    };
+  }
   // The step is drawn once. Drawing it inside the map produced a series with
   // no rule at all -- [10,12,16,22,22,25] -- and an answer extrapolated from a
   // step that never existed, so the item was unanswerable rather than hard.

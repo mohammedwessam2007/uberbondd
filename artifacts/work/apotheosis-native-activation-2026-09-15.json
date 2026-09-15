@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.apotheosis-native-activation-receipt.v1",
+  "recordedAt": "2026-09-15",
+  "baseCommit": "7b6720583e72baa69e618d5e7279ee5830f41c00",
+  "pullRequest": 880,
+  "source": "src/apotheosis-agent-mesh-runtime.mjs",
+  "test": "tests/apotheosis-agent-mesh-runtime.test.mjs",
+  "activationGates": [
+    {"gate":1,"name":"P43-P49 runtime primitives","status":"MERGED","weightPercent":25},
+    {"gate":2,"name":"native composition bridge","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED","weightPercent":25},
+    {"gate":3,"name":"worker and continuity driver","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED","weightPercent":25},
+    {"gate":4,"name":"real observed closed-loop evidence","status":"UNOBSERVED_EXTERNAL_RUNTIME_GATE","weightPercent":25}
+  ],
+  "implementationPercent": 75,
+  "focusedLocalVerification": {
+    "tests": 12,
+    "passed": 12,
+    "failed": 0,
+    "command": "node --test tests/apotheosis-orchestration-runtime.test.mjs tests/apotheosis-agent-mesh-runtime.test.mjs"
+  },
+  "githubCi": {
+    "runId": 34917711362,
+    "conclusion": "failure",
+    "executedSteps": 0,
+    "classification": "CI_INFRASTRUCTURE_NON_EVIDENCE"
+  },
+  "truthBoundaries": [
+    "The agent-mesh driver defaults to UberBond's existing runAgentMeshCycle through dynamic import; tests inject a contract-equivalent runner and therefore do not prove a real provider call.",
+    "A successful mesh cycle remains PENDING_INDEPENDENT_VERIFICATION and cannot be promoted to observed outcome by the runner itself.",
+    "A5/frontier selection returns an escalation requirement instead of becoming the routine implementation worker.",
+    "HANDOFF_SAVED, FLEET_RESUMED and UNATTENDED_OBSERVED remain separate evidence levels.",
+    "No external or business authority is created."
+  ],
+  "remainingBlocker": "Gate 4 requires actual permitted non-frontier provider execution or a genuinely elapsed unattended interval plus independent receipts. This environment does not expose a callable cheaper-model provider, so fixtures cannot close it.",
+  "rollback": "Revert PR #880 merge through the normal reviewed repository workflow."
+}

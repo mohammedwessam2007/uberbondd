@@ -1,0 +1,122 @@
+{
+  "receiptVersion": "uberbond.uberoutbound-genome-completion.v1",
+  "genomeVersion": "uberbond.uberoutbound-genome.v2.2",
+  "researchCutoff": "2026-09-14",
+  "sourceTitle": "UberBond Outbound Genome: Evidence-First Research for Quality-Preserving Industrial Cold Outreach",
+  "completionState": "STRUCTURALLY_COMPLETE_INTERNAL_V1_VERIFICATION_PENDING",
+  "terminalObjective": "INCREMENTAL_CLEARED_CONTRIBUTION_PROFIT_SUBJECT_TO_QUALITY_REPUTATION_COMPLIANCE_AND_AUTHORITY",
+  "capacityDoctrine": {
+    "targetDailyCapacity": 100000,
+    "isQuota": false,
+    "actualUtilizationLaw": "MIN_QUALIFIED_ELIGIBLE_INVENTORY_LEGAL_CAPACITY_HEALTHY_SENDER_DOMAIN_EGRESS_RECIPIENT_PROVIDER_BUDGET_CAMPAIGN_RISK_POLICY",
+    "truthBoundary": "100000/day is an architecture horizon, not a claim of live or optimal send volume."
+  },
+  "canonicalChain": [
+    "ELIGIBILITY",
+    "EVIDENCE",
+    "TRIGGER",
+    "SEGMENT",
+    "STRATEGY_ATOMS",
+    "GOVERNED_MESSAGE",
+    "EXPERIMENT_ASSIGNMENT",
+    "DELIVERY",
+    "OUTCOME",
+    "CAUSAL_LEARNING",
+    "UPDATED_POLICY"
+  ],
+  "structuralCoverage": {
+    "evidenceStates": true,
+    "legalEligibilityGate": true,
+    "suppressionDominance": true,
+    "contactVerificationGate": true,
+    "senderHealthGate": true,
+    "authenticationGate": true,
+    "recipientProviderBudgetGate": true,
+    "separateOutreachAuthorityGate": true,
+    "problemAltitudePrior": true,
+    "seniorityConditionedPersonalizationPrior": true,
+    "triggerSelectionVsMentionSeparation": true,
+    "deterministicAccountRecipientExperimentAssignment": true,
+    "persistentHoldoutSupport": true,
+    "explicitTreatmentDimension": true,
+    "explicitCausalQuestion": true,
+    "strategyGenotypeSeparatedFromRenderedExposure": true,
+    "contentAddressedStrategyGenotype": true,
+    "contentAddressedRenderedMessageReceipt": true,
+    "stableDecisionLineage": true,
+    "sendWaitAbstainRouteElsewhereActions": true,
+    "outcomeReceipt": true,
+    "marginalSendValueTruthBoundary": true,
+    "complaintGuardrails": true,
+    "strategyVsCreativeDiversityObservability": true,
+    "automaticCausalWinnerDisabled": true,
+    "machineReadableResearchArtifact": true,
+    "decisionPacketSchema": true,
+    "doctor": true,
+    "uberReachComposition": true
+  },
+  "implementedFiles": [
+    "src/uberoutbound-genome.mjs",
+    "src/uberreach-control-plane.mjs",
+    "tests/uberoutbound-genome.test.mjs",
+    "tests/uberoutbound-genotype.test.mjs",
+    "tests/uberreach-control-plane.test.mjs",
+    "docs/UBEROUTBOUND_GENOME_CANON.md",
+    "artifacts/outbound-genome/research-2026-09-14.json",
+    "schemas/uberoutbound-genome.schema.json",
+    "scripts/uberoutbound-genome-doctor.mjs",
+    "artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json"
+  ],
+  "researchMaterialEncodedFromPdf": {
+    "strongestFindingCount": 25,
+    "sampleSizePlanningRowCount": 7,
+    "visiblePriorityHypothesisCount": 15,
+    "visibleUnknownUnknownCount": 22,
+    "researchGapCount": 10,
+    "fullSeparateDownloadRowsPresent": false
+  },
+  "missingExternalResearchAssets": [
+    "COMPLETE_SOURCE_LEDGER_CSV_26_CORE_SOURCES",
+    "71_EXPERT_RESEARCH_UNIVERSE_CSV",
+    "COMPLETE_CLAIM_MATRIX_CSV",
+    "TOP_100_TESTABLE_HYPOTHESES_CSV",
+    "TOP_50_UNKNOWN_UNKNOWNS_CSV",
+    "EXPERIMENT_SAMPLE_SIZE_CSV",
+    "CONSOLIDATED_MACHINE_READABLE_DATASET_JSON",
+    "GENOME_SCHEMA_JSON_FROM_RESEARCH_PACK",
+    "COMPLETE_RESEARCH_PACK_ZIP"
+  ],
+  "missingAssetPolicy": "DO_NOT_FABRICATE. IMPORT IF SUPPLIED. ABSENCE DOES NOT INVALIDATE THE STRUCTURAL V1 GENOME BUT PREVENTS CLAIMING FULL ROW-BY-ROW INGESTION OF SEPARATELY REFERENCED DOWNLOADS.",
+  "causalEvidenceState": "NOT_YET_OBSERVED_IN_UBERBOND",
+  "liveBusinessEvidenceState": {
+    "messagesSentByThisGenomeWork": 0,
+    "providerCallsByThisGenomeWork": 0,
+    "customersProven": false,
+    "clearedRevenueProven": false,
+    "liveDeliverabilityProven": false,
+    "hundredThousandDailyUtilizationProven": false
+  },
+  "authority": {
+    "externalEffectAuthority": "NONE",
+    "businessEffectAuthority": "NONE"
+  },
+  "verification": {
+    "authoredCoreLocalSyntaxPreflight": "PASSED_NON_AUTHORITATIVE",
+    "authoredCoreLocalSmokePreflight": "PASSED_NON_AUTHORITATIVE",
+    "exactHeadRepositoryTests": "PENDING_RUNNABLE_RUNNER",
+    "exactHeadDoctor": "PENDING_RUNNABLE_RUNNER",
+    "githubActionsKnownState": "RECENT_REPOSITORY_RUNS_HAVE_SHOWN_INFRASTRUCTURE_NON_EXECUTION_WITH_ZERO_EXECUTED_STEPS",
+    "mergeRecommendation": "DO_NOT_MERGE_UNTIL_EXACT_HEAD_RUNNABLE_VERIFICATION"
+  },
+  "completionMeaning": "The declared V1 research-to-decision genome is structurally represented as executable, testable, machine-readable policy with causal lineage and fail-closed authority boundaries. The empirical evolution phase begins only when governed real outcomes exist.",
+  "notClaimed": [
+    "UNIVERSAL_BEST_TEMPLATE",
+    "PROVEN_100K_DAY_OPTIMUM",
+    "PHYSICALLY_LIVE_100K_DAY_CAPACITY",
+    "GLOBAL_AUTOMATED_LEGAL_CLEARANCE",
+    "CAUSAL_LIFT_FOR_ANY_COPY_TREATMENT",
+    "LIVE_CUSTOMERS_OR_REVENUE_FROM_THIS_WORK",
+    "FULL_INGESTION_OF_REFERENCED_BUT_NOT_EMBEDDED_RESEARCH_DOWNLOADS"
+  ],
+  "truthBoundary": "STRUCTURALLY_COMPLETE_INTERNAL_V1_VERIFICATION_PENDING is a source-architecture statement only. It must not be upgraded to verified/merged/live until the exact branch head runs the relevant tests and doctor on a real runner and passes the repository's promotion law."
+}

@@ -11,7 +11,7 @@ const commandCenter = readFileSync(new URL('../api/command-center.mjs', import.m
 const commandCenterHtml = readFileSync(new URL('../public/command-center.html', import.meta.url), 'utf8');
 const autonomyView = readFileSync(new URL('../public/command-center-autonomy.js', import.meta.url), 'utf8');
 
-test('autonomy wake is a bounded pulse rather than schedule truth', () => {
+test('autonomy wake is a bounded manual pulse rather than schedule truth', () => {
   // The wake workflow is dispatch-only on this source. A previous assertion
   // demanded a 15-minute cron that does not exist here and is not in this
   // file's accessible history, so it asserted a schedule into existence
@@ -19,8 +19,13 @@ test('autonomy wake is a bounded pulse rather than schedule truth', () => {
   // founder's Actions minutes on a recurring basis, which is a founder
   // decision -- so this pins the actual trigger surface and leaves the
   // safety properties below doing the real work.
+  //
+  // Both lineages checked this property and each carried a check the other
+  // lacked: the anchored `on:` block, and the separate cron guard. Keeping
+  // both is strictly stronger than either.
   assert.match(wake, /^on:\n(?:  .*\n)*?  workflow_dispatch:/m);
   assert.doesNotMatch(wake, /schedule:/, 'a schedule here would be a recurring spend the founder has not authorized in source');
+  assert.doesNotMatch(wake, /cron:/, 'a cron entry is the same recurring spend under another name');
   assert.match(wake, /status == "queued" or \.status == "in_progress"/);
   assert.match(wake, /uberbond-self-maintainer\.yml\/dispatches/);
   assert.match(wake, /-f ref='main'/);

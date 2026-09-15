@@ -25,6 +25,8 @@
     <div class="button-row"><button id="save-token">Save token</button><button class="gold" id="run">Run nightshift</button></div>
     <div class="button-row"><button id="pause">Pause worker</button><button id="resume">Resume worker</button></div>
     <div class="button-row"><button id="pause-outbound">Emergency stop outbound</button><button id="resume-outbound">Resume outbound</button></div>
+    <div class="button-row"><button class="gold" id="start-outreach">START UBERBOND OUTREACH</button></div>
+    <small id="start-outreach-status">One guarded press wakes the worker, releases the outbound pause, and starts a bounded Nightshift pulse only when live outbound and an approved auto-send campaign are already green.</small>
     <small id="outbound-status">Outbound is loading…</small>
     <small>Research works without API keys. AI, Hunter, and Gmail remain optional upgrades.</small>
   </div>
@@ -99,4 +101,6 @@
 <div class="modal" id="modal" aria-hidden="true"><div class="modal-shell"><button class="close" id="close-modal" aria-label="Close">×</button><div id="dossier"></div></div></div>
 <footer>UberBond Nightshift · Automate repetition. Keep judgment human.</footer>
 <script type="module" src="/admin.js"></script>
-</body></html>
+<script type="module" src="/outreach-one-button.js"></script>
+</body>
+</html>

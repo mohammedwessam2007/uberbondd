@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-14T23:40:00.000Z",
-  "sourceCommit": "1834abe32a410fc8f282bdd6e4f7516e807ef480",
+  "checkpointedAt": "2026-09-12",
+  "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
@@ -9,11 +9,10 @@
   "inheritance": {
     "previousCurrentHandoffBlob": "491645cbcd28541b6ad873a4a05da5f5435964ae",
     "previousSchemaVersion": "uberbond-handoff-3.2.0",
-    "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion.",
-    "previousCheckpointedAt": "2026-09-12"
+    "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
   },
   "startupLaw": "A session may be new; UberBond may not be new. Refresh live main before present-tense claims, then mount the canonical Context Fabric/Brainstate and reconcile open PRs, exact-current runtime/provider receipts, CURRENT_HANDOFF and executable terminal truth. Read AGENTS.md, NORTH_STAR.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, master memory/index and inherited handoffs before narrowing scope. A stale handoff is a retrieval pointer, never authority to overwrite newer executable truth. Capability never creates authority.",
-  "activeMission": "PROJECT NULLSTAR OMEGA (339 sections). Every section that does not require founder consent, identity, money, a customer, a legal fact, a physical action, an unavailable credential, provider acceptance or real elapsed time has been executed. The change that matters: the evaluation instrument stopped reading its own answers. G0 through G2 all scored 1.0 on every dimension because each corpus task was a direct read of a value the repository computes for itself. G3 measures outcomes instead -- whether a sealed forecast was right, whether a named symptom resolved, whether a mechanism survived a new family -- and separates at 0.60, 0 and 0.33, spread 1, mean 0.77. Run npm run omega:cycle then omega:reality, omega:meta, omega:generalization and omega:g3 before selecting cognitive work, and read artifacts/nullstar-omega/bottlenecks-G3.json rather than assuming the answer is more dimensions -- that was the G1 mistake and it cost two generations.",
+  "activeMission": "PROJECT NULLSTAR OMEGA ABSOLUTE (406 sections, 2026-09-15). Two lineages were reconciled here: the APOTHEOSIS orchestration and one-button outreach work that advanced on main, and the NULLSTAR OMEGA cognitive-measurement spine that advanced on this branch while it was 121 commits behind. Neither is the organism on its own. Operate from the five-cut external/owner frontier without reopening completed finite engineering or manufacturing graph work. Preserve the resident Context Fabric and exact-source runtime proofs; close a remaining cut only when its cut-specific real-world receipt is observed. In parallel, activate the first owned or authorized persistent founder host when physical compute and owner-controlled model artifacts are available, so resident compute and resident cognition coexist continuously.",
   "currentTruth": {
     "repository": {
       "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
@@ -134,6 +133,13 @@
     "customers": 0
   },
   "completedSincePreviousCheckpoint": [
+    "Context Sovereignty was promoted from a documented recovery procedure into executable Brainstate, Context Mount, canonical Cognitive Bus, durable cognitive journal, privacy suppression, task-bound projections, Context Query, replication bundles, schema/ancestry admission and resident self-maintaining layered storage.",
+    "Founder dialogue, resident authoring pulses and isolated workers consume the same verified cognitive substrate without granting workers brain-write or consequence authority.",
+    "Terminal Context continuity/scale maintenance closed on main through PR #749; literal-ASI evidence reachability/canon drift closed through #750.",
+    "Embedded PostgreSQL cloud portability was repaired through #751/#753/#755, including pinned native-library soname and loader-path handling without widening install authority.",
+    "Exact merged source f8f3d579c04a565882ba62342d9c94a104eab73a independently re-earned source-host, web-host, real PostgreSQL restart/recovery and local-model receipts.",
+    "Canonical terminal realization on the checkpoint source reports 100% of declared finite engineering scope, zero finite open requirements, zero runtime proof cuts, MODEL_PROVIDER closed, and exactly five external/owner cuts remaining.",
+    "The canonical founder-absence doctor reports CODE_READY open = 0; all remaining open blockers are external-human, provider-acceptance, customer-reality or elapsed-time classes.",
     "Current main was red: 55 deterministic failures on an untouched checkout, and 203 before dependencies were installed in this container. Diagnosed and repaired to the remainder recorded below.",
     "Three genuine source defects were found and fixed. operational-world-resource-admission coerced absent permission collections into empty ones, so a resource with permissions:null on both sides admitted with ok:true and no permission evidence. Two callers of enforcement decisions (sovereign-local-promotion, sovereign-native-local-worker) sat outside SOVEREIGNTY_PROTECTED_PATHS and could have discarded the decision. FIRST_CASH_OFFER.sku feeds requiresExactSku on the PayPal order a buyer approves and nothing asserted it.",
     "Five mutation anchors pointed at text that no longer existed, so five guards were silently untested. Re-anchored; two then survived, which found a missing SKU test and a redundant integrity check absorbing its own mutation. All five now kill.",
@@ -180,7 +186,7 @@
     "OBSERVATION APPARATUS IS UNRELIABLE: of three observers written this session, one misread guard prose as a result and one read a file this session had written. Two of three failed on first attempt. The seal is what made both visible; nothing guarantees the next one is sound."
   ],
   "nextExecutor": {
-    "primary": "Do not write another scorer for the seven unmeasured dimensions. G4 refuted the provider explanation and G5 established the real one: every local score available for them re-slices observations already in use, and the evidence-reuse guard refuses those. The question is what the system could DO that would generate an observation it does not currently produce -- a real forecast about something outside this repository, a decision whose outcome a third party settles, a capability exercised against something that pushes back. Declare the symptom kind and criterion in an artifact and commit it before writing code, the way the G3 and G4 declarations were committed. Read refutations.json first: two hypotheses are already dead.",
+    "primary": "PROJECT NULLSTAR OMEGA ABSOLUTE. The APOTHEOSIS trunk and the NULLSTAR OMEGA cognitive-measurement branch are now one lineage; do not treat either as the whole organism. Run npm run omega:cycle plus omega:reality, omega:meta, omega:generalization before selecting cognitive work, and read the current bottleneck artifact rather than assuming the answer is more dimensions.",
     "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
     "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
     "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",
@@ -210,11 +216,43 @@
     "packetCount": 43,
     "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
     "reportedIssue770": "OBSERVED_OPEN_AT_IMPORT",
-    "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority."
+    "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority.",
+    "apotheosisContinuation": {
+      "path": "docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md",
+      "packetPath": "artifacts/work/apotheosis-continuation-2026-09-15.json",
+      "recordedAt": "2026-09-15",
+      "sourceBasis": "f48abf510632135203ced90d983d2d5d4da3a997",
+      "extensionPacketIds": [
+        "P43",
+        "P44",
+        "P45",
+        "P46",
+        "P47",
+        "P48",
+        "P49"
+      ],
+      "classification": "ORCHESTRATION_SPECIFICATION",
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "reportedIssue770": "OBSERVED_CLOSED_2026-09-15",
+      "resume": "Refresh main and authority; verify P44 then P47 against existing mechanisms. P47 does not wait for P46. Preserve earlier finite engineering and runtime receipts with their original source scope."
+    }
   },
   "activeMissionDetail": {
     "directive": "PROJECT NULLSTAR OMEGA (339 sections, 2026-09-15)",
     "state": "Every section that does not require founder consent, identity, money, a customer, a legal fact, a physical action, an unavailable credential, provider acceptance or real elapsed time has been executed.",
     "whatChangedMost": "The evaluation instrument stopped reading its own answers. G0 through G2 all scored 1.0 on every dimension because each corpus task was a direct read of a value the repository computes for itself. G3 measures outcomes instead and separates: 0.60 calibration, 0 selfDiagnosis, 0.33 crossDomain, spread 1, mean 0.77."
+  },
+  "reconciliation": {
+    "startMainSha": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
+    "startNullstarSha": "0a5cd4b46e070855c04abfb4d2a27453976ddf20",
+    "mergeBase": "2831e4e010fce9b4775ade0c31aae0622de2b104",
+    "aheadAtStart": 33,
+    "behindAtStart": 121,
+    "method": "origin/main merged into the designated development branch, so the branch carries exact current main plus the NULLSTAR work. Section 011 preferred a fresh branch cut from main; the goal it names -- NULLSTAR work sitting on exact current main -- is what this achieves, and it keeps the branch this session is required to develop on.",
+    "conflicts": [
+      "tests/autonomy-command-center-wiring.test.mjs: both lineages asserted the wake workflow is dispatch-only and each carried a check the other lacked. Resolved as the union.",
+      "tests/economic-reliability-autoprep.test.mjs: a tolerant regex against a strict one. Source emits 'NEVER prove independence' exactly, so the strict assertion describes the behaviour and the tolerant one would also pass a string this module never produces.",
+      "docs/CURRENT_HANDOFF.json: merged structurally. Main's seven blockers were verified byte-present among this branch's thirteen before taking the superset."
+    ]
   }
 }

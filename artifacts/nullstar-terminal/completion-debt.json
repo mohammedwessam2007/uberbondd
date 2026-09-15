@@ -6,12 +6,12 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T12:56:52.558Z",
-  "sourceCommit": "c52214584d67ccfd81969a4741c4bb6574ed7129",
+  "generatedAt": "2026-09-15T13:09:24.224Z",
+  "sourceCommit": "ba0e26f08ba55c589c02d42eb1cb4fb82e1b34f1",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 2,
+  "softwareOpen": 1,
   "externalOpen": 2,
-  "totalOpen": 4,
+  "totalOpen": 3,
   "items": [
     {
       "id": "CD001-TOOL-USE-VOCABULARY-GAP",
@@ -59,8 +59,8 @@
       "class": "SOFTWARE",
       "what": "The promoted invention solver folds left to right, so a prompt grouped the other way -- \"the mean, plus the midrange divided by how many numbers there are\" -- is read as ((mean + midrange) / count) rather than mean + (midrange / count). It answers wrongly rather than refusing.",
       "whyNotDone": "Found by hand after GA7, by constructing prompts where the two tied candidates disagree. Neither M3 nor M4 reads it correctly; M4 is worse, silently dropping trailing operations. The generator emits no right-grouped prompt at any difficulty, so nothing measures this and no tournament can select against it until a difficulty level asks.",
-      "open": true,
-      "evidence": "the solver answers 3.4167 where the right-grouped reading is 11.7500"
+      "open": false,
+      "evidence": "the solver answers 11.7500 where the right-grouped reading is 11.7500"
     },
     {
       "id": "CD010-TIE-BREAK-DECIDED-GA7-ARBITRARILY",
@@ -168,7 +168,7 @@
     }
   ],
   "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "2 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "whyNotDone": "1 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
   "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",

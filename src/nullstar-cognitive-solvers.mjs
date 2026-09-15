@@ -224,20 +224,8 @@ const COMPOSITION_OPERATORS = [
   { word: 'times', position: 'INFIX', apply: (a, b) => a * b }
 ];
 
-function solveInvention(surface, prompt) {
-  const data = surface.data ?? [];
-  if (data.length === 0) return null;
-
-  const text = String(prompt ?? '').toLowerCase();
-  const high = Math.max(...data);
-  const low = Math.min(...data);
-  const quantities = {
-    mean: data.reduce((a, b) => a + b, 0) / data.length,
-    midrange: (high + low) / 2,
-    spread: high - low,
-    size: data.length
-  };
-
+/** Fold a span with no internal grouping, left to right through its operators. */
+function foldCompositionSpan(text, quantities) {
   const named = [];
   for (const entry of COMPOSITION_QUANTITIES) {
     let from = 0;
@@ -253,28 +241,10 @@ function solveInvention(surface, prompt) {
   }
   named.sort((a, b) => a.at - b.at);
   if (named.length === 0) return null;
+  if (named.length === 1) return { value: quantities[named[0].key], keys: [named[0].key] };
 
-  const available = new Set(surface.primitives ?? []);
-  const report = (value, keys) => (Number.isFinite(value)
-    ? { answer: value.toFixed(4), used: [...new Set(keys.flatMap(key => COMPOSITION_NEEDS[key]))].filter(name => available.has(name)) }
-    : null);
-
-  if (named.length === 1) return report(quantities[named[0].key], [named[0].key]);
-
-  // Fold left to right through the operator joining each adjacent pair.
-  //
-  // Promoted from GA7 as M3_LEFT_TO_RIGHT_NARY. The version it replaces read
-  // the first two quantities and dropped the rest without saying so: on every
-  // difficulty-4 item -- three quantities, two operators -- it returned a
-  // confident wrong number, thirty out of thirty. That is the failure F012
-  // records, reappearing in the code promoted to stop it, and it went unseen
-  // until a level existed that could ask a three-quantity question.
-  //
-  // Two quantities is this loop running once, so the earlier behaviour is the
-  // special case rather than a separate path.
   let accumulator = quantities[named[0].key];
-  const usedKeys = [named[0].key];
-
+  const keys = [named[0].key];
   for (let i = 1; i < named.length; i += 1) {
     const left = named[i - 1];
     const right = named[i];
@@ -282,19 +252,99 @@ function solveInvention(surface, prompt) {
     // A prefix operator governs only the first join: "the average of a and b,
     // minus c" is (average of a and b) minus c.
     const head = i === 1 ? text.slice(0, left.at) : '';
-
     const operator = COMPOSITION_OPERATORS.find(entry =>
       (entry.position === 'PREFIX' ? head : between).includes(entry.word));
     // A join this cannot read makes everything after it meaningless. Returning
-    // the part it managed would be the same silent-dropping mistake in a
-    // smaller shape.
+    // the part it managed would be silent dropping in a smaller shape.
     if (!operator) return null;
-
     accumulator = operator.apply(accumulator, quantities[right.key]);
-    usedKeys.push(right.key);
+    keys.push(right.key);
+  }
+  return { value: accumulator, keys };
+}
+
+/**
+ * Compose the quantity the prompt names, respecting clause structure.
+ *
+ * Promoted from GA8 as N4_RECURSIVE, and it is the third promotion on this
+ * family. The sequence is worth keeping because each step closed a
+ * confabulation the previous one could not see:
+ *
+ *   GA3 matched whole phrases, so "the mean plus the midrange" returned the
+ *       mean -- the prompt contains "report the mean".
+ *   GA6 composed two named quantities, which fixed that and dropped the third
+ *       quantity of any three-quantity prompt without saying so.
+ *   GA7 folded every adjacent pair, which fixed that and read "A, plus B
+ *       divided by C" as ((A + B) / C).
+ *   GA8 resolves each comma-separated clause before joining it.
+ *
+ * Every one of those was a confident wrong answer rather than a refusal, and
+ * every one was invisible until a difficulty level existed that could ask. The
+ * pattern is the finding: an evaluation drawn from inside the distribution a
+ * solver was built against cannot show what the solver does outside it.
+ *
+ * N3_CLAUSE_FIRST tied this and handles a single comma; the two were checked
+ * against each other and agree everywhere measured, which is the only reason
+ * the size tie-break was allowed to decide.
+ */
+function solveInvention(surface, prompt) {
+  const data = surface.data ?? [];
+  if (data.length === 0) return null;
+
+  const text = String(prompt ?? '').toLowerCase().split('.')[0];
+  const high = Math.max(...data);
+  const low = Math.min(...data);
+  const quantities = {
+    mean: data.reduce((a, b) => a + b, 0) / data.length,
+    midrange: (high + low) / 2,
+    spread: high - low,
+    size: data.length
+  };
+
+  const available = new Set(surface.primitives ?? []);
+  const finish = (value, keys) => (Number.isFinite(value)
+    ? { answer: value.toFixed(4), used: [...new Set(keys.flatMap(key => COMPOSITION_NEEDS[key]))].filter(name => available.has(name)) }
+    : null);
+
+  const clauses = text.split(',');
+  if (clauses.length === 1) {
+    const flat = foldCompositionSpan(text, quantities);
+    return flat ? finish(flat.value, flat.keys) : null;
   }
 
-  return report(accumulator, usedKeys);
+  // A comma sets off a clause that is a complete expression in its own right,
+  // joined by the operator that opens it. Pouring every quantity into one
+  // running total instead is what read "A, plus B divided by C" as
+  // ((A + B) / C).
+  const first = foldCompositionSpan(clauses[0], quantities);
+  if (!first) return null;
+
+  let accumulator = first.value;
+  const keys = [...first.keys];
+
+  for (const clause of clauses.slice(1)) {
+    const named = [];
+    for (const entry of COMPOSITION_QUANTITIES) {
+      const at = clause.indexOf(entry.phrase);
+      if (at >= 0 && !named.some(prior => at >= prior.at && at < prior.at + prior.phrase.length)) {
+        named.push({ ...entry, at });
+      }
+    }
+    named.sort((a, b) => a.at - b.at);
+    if (named.length === 0) return null;
+
+    const join = COMPOSITION_OPERATORS.find(entry =>
+      entry.position === 'INFIX' && clause.slice(0, named[0].at).includes(entry.word));
+    if (!join) return null;
+
+    const resolved = foldCompositionSpan(clause.slice(named[0].at), quantities);
+    if (!resolved) return null;
+
+    accumulator = join.apply(accumulator, resolved.value);
+    keys.push(...resolved.keys);
+  }
+
+  return finish(accumulator, keys);
 }
 
 /**

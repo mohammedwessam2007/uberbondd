@@ -16,6 +16,7 @@ import { GA4_CANDIDATES } from '../src/nullstar-ga4-candidates.mjs';
 import { GA5_CANDIDATES } from '../src/nullstar-ga5-candidates.mjs';
 import { GA6_CANDIDATES } from '../src/nullstar-ga6-candidates.mjs';
 import { GA7_CANDIDATES } from '../src/nullstar-ga7-candidates.mjs';
+import { GA8_CANDIDATES } from '../src/nullstar-ga8-candidates.mjs';
 import { GATING_PROBES, REPORTING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
 import { separability } from '../src/nullstar-tie-resolution.mjs';
 
@@ -46,7 +47,8 @@ const CANDIDATE_SETS = {
   GA4: { candidates: GA4_CANDIDATES, sourcePath: 'src/nullstar-ga4-candidates.mjs' },
   GA5: { candidates: GA5_CANDIDATES, sourcePath: 'src/nullstar-ga5-candidates.mjs' },
   GA6: { candidates: GA6_CANDIDATES, sourcePath: 'src/nullstar-ga6-candidates.mjs' },
-  GA7: { candidates: GA7_CANDIDATES, sourcePath: 'src/nullstar-ga7-candidates.mjs' }
+  GA7: { candidates: GA7_CANDIDATES, sourcePath: 'src/nullstar-ga7-candidates.mjs' },
+  GA8: { candidates: GA8_CANDIDATES, sourcePath: 'src/nullstar-ga8-candidates.mjs' }
 };
 
 // The declaration is read first and on purpose. Criteria are fixed before the

@@ -3060,6 +3060,27 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'BASELINE-01', guard: 'A blocked baseline must name its dependency, attempt and unblock condition',
+    file: 'src/nullstar-omega-baselines.mjs',
+    find: "    if (!text(blockingDependency, 500)) reasonCodes.push('a-blocked-baseline-must-name-the-dependency');",
+    replace: '',
+    suites: ['tests/nullstar-omega-baselines.test.mjs']
+  },
+  {
+    id: 'BASELINE-02', guard: 'A baseline set missing an entry is refused as an unexplained null',
+    file: 'src/nullstar-omega-baselines.mjs',
+    find: '  if (missing.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-baselines.test.mjs']
+  },
+  {
+    id: 'BASELINE-03', guard: 'Tying the trivial baseline is reported as the suite measuring nothing',
+    file: 'src/nullstar-omega-baselines.mjs',
+    find: "      : (margin === 0 ? 'CURRENT_TIES_TRIVIAL__THE_SUITE_MEASURES_NOTHING' : `TRIVIAL_BEATS_CURRENT_BY_${Math.abs(margin)}`);",
+    replace: "      : `CURRENT_BEATS_TRIVIAL_BY_${margin}`;",
+    suites: ['tests/nullstar-omega-baselines.test.mjs']
+  },
+  {
     id: 'OBSCONTRACT-01', guard: 'Text matching is refused when the producer emits structured output',
     file: 'src/nullstar-omega-observer-contract.mjs',
     find: '  if (producesStructuredOutput === true && parsingRule === PARSING_RULES.TEXT_PATTERN) {',

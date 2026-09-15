@@ -12,6 +12,8 @@ import { generateTaskSet } from '../src/nullstar-cognitive-tasks.mjs';
 import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solvers.mjs';
 import { GA2_CANDIDATES } from '../src/nullstar-ga2-candidates.mjs';
 import { GA3_CANDIDATES } from '../src/nullstar-ga3-candidates.mjs';
+import { GA4_CANDIDATES } from '../src/nullstar-ga4-candidates.mjs';
+import { GATING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
@@ -36,7 +38,8 @@ if (!/^GA\d+$/.test(generation)) {
  */
 const CANDIDATE_SETS = {
   GA2: { candidates: GA2_CANDIDATES, sourcePath: 'src/nullstar-ga2-candidates.mjs' },
-  GA3: { candidates: GA3_CANDIDATES, sourcePath: 'src/nullstar-ga3-candidates.mjs' }
+  GA3: { candidates: GA3_CANDIDATES, sourcePath: 'src/nullstar-ga3-candidates.mjs' },
+  GA4: { candidates: GA4_CANDIDATES, sourcePath: 'src/nullstar-ga4-candidates.mjs' }
 };
 
 // The declaration is read first and on purpose. Criteria are fixed before the
@@ -64,6 +67,9 @@ const FAMILY = declaration.bottleneck.selected;
 const DIFFICULTY = declaration.evaluationDifficulty;
 const THRESHOLD = 0.8;
 const { trainSeeds, heldOutSeeds } = declaration.precommittedCriteria;
+
+const OUT_OF_PATTERN_GATE = declaration.precommittedCriteria.outOfPatternGate === true;
+const OUT_OF_PATTERN_MINIMUM = Number(declaration.precommittedCriteria.outOfPatternMinimumCorrectRate ?? 0);
 
 const itemsAt = (seeds, difficulty) => generateTaskSet({ seeds, families: [FAMILY], difficulty }).items;
 const started = Date.now();
@@ -95,6 +101,19 @@ const results = Object.entries(candidates).map(([name, fn]) => {
 
   const meetsThreshold = heldOut > THRESHOLD;
   const beatsIncumbent = heldOut > incumbentHeldOut;
+
+  // The out-of-pattern gate, when the declaration asks for one.
+  //
+  // GA3 promoted a solver that scored 1.0 on every item its generator emits and
+  // could not compose anything the generator does not ask for -- on one such
+  // item it returned the answer to a different question. No in-distribution
+  // score could have caught that, because the distribution is what it learned.
+  // So a declaration may require candidates to face items built outside the
+  // generator, and confabulating on them disqualifies at any score.
+  const probes = OUT_OF_PATTERN_GATE ? GATING_PROBES[FAMILY] ?? [] : [];
+  const probeResult = probes.length ? runProbes(fn, probes) : null;
+  const gate = probeResult ? gateVerdict(probeResult, { minimumCorrectRate: OUT_OF_PATTERN_MINIMUM }) : { passes: true, reason: null };
+
   return {
     candidate: name,
     trainScore: train,
@@ -104,7 +123,11 @@ const results = Object.entries(candidates).map(([name, fn]) => {
     meetsThreshold,
     beatsIncumbent,
     noRegression: regressions.length === 0,
-    eligible: meetsThreshold && beatsIncumbent && regressions.length === 0
+    outOfPattern: probeResult
+      ? { correct: probeResult.correct, refused: probeResult.refused, confabulated: probeResult.confabulated, of: probeResult.of, correctRate: probeResult.correctRate }
+      : null,
+    outOfPatternGate: gate.passes ? 'PASSES' : gate.reason,
+    eligible: meetsThreshold && beatsIncumbent && regressions.length === 0 && gate.passes
   };
 });
 
@@ -152,6 +175,11 @@ const record = {
   winner: winner ? winner.candidate : null,
   outcome: winner ? 'PROMOTED' : 'NO_PROMOTION',
   discrimination,
+  outOfPatternGate: OUT_OF_PATTERN_GATE
+    ? { applied: true, minimumCorrectRate: OUT_OF_PATTERN_MINIMUM, probeCount: (GATING_PROBES[FAMILY] ?? []).length, confabulationDisqualifies: true }
+    : { applied: false },
+  disqualifiedByOutOfPatternGate: results.filter(row => row.outOfPatternGate && row.outOfPatternGate !== 'PASSES')
+    .map(row => ({ candidate: row.candidate, heldOutScore: row.heldOutScore, reason: row.outOfPatternGate })),
   tiedAtTop: tiedAtTop.map(row => row.candidate),
   attributionWarning: discrimination === 'UNDISCRIMINATING__CANDIDATES_TIED'
     ? `${tiedAtTop.length} eligible candidates scored ${winner.heldOutScore} on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows that the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work. Isolating that needs an ablation carrying the minimal shared fix and nothing else.`
@@ -178,8 +206,12 @@ console.log(`${generation} @ ${head.slice(0, 8)} | family ${FAMILY} | difficulty
 console.log(`  incumbent: train ${incumbentTrain} held-out ${incumbentHeldOut}`);
 for (const row of results) {
   const flags = [row.meetsThreshold ? 'threshold' : null, row.beatsIncumbent ? 'beats-incumbent' : null, row.noRegression ? 'no-regression' : 'REGRESSES'].filter(Boolean).join(', ');
-  console.log(`  ${row.candidate.padEnd(20)} train ${row.trainScore} held-out ${row.heldOutScore} [${flags}]`);
+  console.log(`  ${row.candidate.padEnd(24)} train ${row.trainScore} held-out ${row.heldOutScore} [${flags}]`);
   for (const reg of row.regressions) console.log(`      regression at d${reg.difficulty}: ${reg.before} -> ${reg.after}`);
+  if (row.outOfPattern) {
+    const verdict = row.outOfPatternGate === 'PASSES' ? 'gate passes' : `GATE FAILS: ${row.outOfPatternGate}`;
+    console.log(`      out-of-pattern ${row.outOfPattern.correct}/${row.outOfPattern.of} correct, ${row.outOfPattern.refused} refused, ${row.outOfPattern.confabulated} confabulated -- ${verdict}`);
+  }
 }
 console.log(`\n  outcome: ${record.outcome}${winner ? ` -> ${winner.candidate}` : ''}`);
 if (record.tieBreak) console.log(`  tie-break: ${record.tieBreak}`);

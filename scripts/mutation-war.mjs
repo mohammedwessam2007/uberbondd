@@ -3195,15 +3195,15 @@ export const MUTATIONS = [
   {
     id: 'OOPGATE-03', guard: 'The promoted solver composes the named quantity instead of matching the shortest phrase it contains',
     file: 'src/nullstar-cognitive-solvers.mjs',
-    find: "  const operator = COMPOSITION_OPERATORS.find(entry =>\n    (entry.position === 'PREFIX' ? before : between).includes(entry.word));",
-    replace: "  const operator = COMPOSITION_OPERATORS.find(entry => between.includes(entry.word));",
+    find: "    const operator = COMPOSITION_OPERATORS.find(entry =>\n      (entry.position === 'PREFIX' ? head : between).includes(entry.word));",
+    replace: "    const operator = COMPOSITION_OPERATORS.find(entry => between.includes(entry.word));",
     suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
   },
   {
-    id: 'OOPGATE-04', guard: 'A prompt the solver cannot read produces a refusal, never a guess',
+    id: 'OOPGATE-04', guard: 'A join the solver cannot read refuses the whole answer rather than returning the part it managed',
     file: 'src/nullstar-cognitive-solvers.mjs',
-    find: '  if (!operator) return null;\n\n  return report(',
-    replace: '  if (!operator) return report(quantities[first.key], COMPOSITION_NEEDS[first.key]);\n\n  return report(',
+    find: '    if (!operator) return null;',
+    replace: '    if (!operator) break;',
     suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
   },
   {

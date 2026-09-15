@@ -11,7 +11,7 @@
   "coldWork": 93354,
   "transferredWork": 1383960,
   "excessWork": 1290606,
-  "relativeToCold": 14.824857",
+  "relativeToCold": 14.824857,
   "improvedTasks": 0,
   "worsenedTasks": 20,
   "finding": "The frozen v2 nearest-neighbor selector transferred confidently outside its learned structural support and caused catastrophic negative transfer. Strong in-distribution sealed performance does not imply unseen-algebra meta-generalization.",

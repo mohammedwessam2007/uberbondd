@@ -2,7 +2,7 @@ const button = document.querySelector('#start-outreach');
 const status = document.querySelector('#start-outreach-status');
 const tokenField = document.querySelector('#token');
 
-if (button) button.textContent = 'START CERTIFIED 100K OUTREACH';
+if (button) button.textContent = 'START UBERBOND NOW';
 
 const setStatus = (message, state = 'idle') => {
   if (!status) return;
@@ -34,43 +34,62 @@ async function request(path, { method = 'GET', body } = {}) {
   return payload;
 }
 
-function blockers(prepared) {
-  const certificate = prepared?.certificate || {};
-  return [
-    ...(certificate.hardStopReasonCodes || []),
-    ...(certificate.waitReasonCodes || [])
-  ];
+const blockers = prepared => [
+  ...(prepared?.certificate?.hardStopReasonCodes || []),
+  ...(prepared?.certificate?.waitReasonCodes || [])
+];
+const green = prepared => prepared?.certificate?.state === 'CERTIFIED_100K_READY' && prepared?.pressable === true;
+async function prepared() {
+  try { return await request('/api/outreach/100k/status'); }
+  catch (error) { return error?.payload?.prepared || error?.payload || null; }
+}
+
+let pollTimer = null;
+function poll() {
+  if (pollTimer) return;
+  pollTimer = setInterval(async () => {
+    const current = await prepared();
+    if (green(current)) {
+      button.textContent = '100K READY · PRESS TO LAUNCH';
+      setStatus(`CERTIFIED · ${current.certificate.certificateId} · press once more to enqueue the exact governed corpus`, 'ready');
+      clearInterval(pollTimer);
+      pollTimer = null;
+      return;
+    }
+    if (current?.certificate) {
+      const shortfall = Number(current.certificate.shortfall || 0);
+      setStatus(`MISSION ACTIVE · working toward certificate · ${shortfall.toLocaleString()} remaining · ${blockers(current).slice(0, 3).join(' · ')}`, 'working');
+    }
+  }, 15000);
 }
 
 async function startOutreach() {
   if (!button) return;
   button.disabled = true;
-  setStatus('Certifying exact 100,000-recipient launch…', 'working');
-
+  setStatus('Checking certified 100K path…', 'working');
   try {
-    const prepared = await request('/api/outreach/100k/status');
-    if (prepared?.certificate?.state !== 'CERTIFIED_100K_READY' || prepared?.pressable !== true) {
-      const reasons = blockers(prepared);
-      const shortfall = Number(prepared?.certificate?.shortfall || 0);
-      setStatus(`REFUSED · ${shortfall ? `${shortfall.toLocaleString()} capacity/inventory short · ` : ''}${reasons.join(' · ') || '100K certificate is not green'}`, 'blocked');
+    const current = await prepared();
+    if (green(current)) {
+      const run = await request('/api/outreach/100k/start', {
+        method: 'POST',
+        body: { confirmExactTarget: 100000 }
+      });
+      setStatus(`STARTED · exact 100K certified worker · job ${run.jobId || 'queued'} · every batch re-certifies and uncertain outcomes quarantine`, 'started');
+      setTimeout(() => document.querySelector('#refresh')?.click(), 750);
       return;
     }
 
-    setStatus(`CERTIFIED · ${prepared.certificate.certificateId} · enqueueing exact corpus…`, 'working');
-    const run = await request('/api/outreach/100k/start', {
+    const council = await request('/api/admin/uber-socket/outreach-100k-council', {
       method: 'POST',
-      body: { confirmExactTarget: 100000 }
+      body: { fromPeer: 'founder-button', maxResponders: 12 }
     });
-
-    setStatus(
-      `STARTED · exact 100K certified worker · job ${run.jobId || 'queued'} · every batch re-certifies and uncertain outcomes quarantine`,
-      'started'
-    );
-    setTimeout(() => document.querySelector('#refresh')?.click(), 750);
+    await request('/api/admin/uber-socket/cognitive-cycle', { method: 'POST', body: {} }).catch(() => null);
+    const shortfall = Number(current?.certificate?.shortfall || 0);
+    button.textContent = 'UBERBOND WORKING';
+    setStatus(`MISSION ACTIVE · ${council.councilId || 'outreach-council'} · UberSocket council engaged${shortfall ? ` · ${shortfall.toLocaleString()} certified-send capacity still to close` : ''}`, 'working');
+    poll();
   } catch (error) {
-    const prepared = error?.payload?.prepared;
-    const reasons = blockers(prepared);
-    setStatus(`REFUSED · ${reasons.length ? reasons.join(' · ') : error?.message || String(error)}`, 'blocked');
+    setStatus(`REFUSED · ${error?.message || String(error)}`, 'blocked');
   } finally {
     button.disabled = false;
   }

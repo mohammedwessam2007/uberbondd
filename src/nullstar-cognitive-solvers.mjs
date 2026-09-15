@@ -115,14 +115,38 @@ function solveInvention(surface) {
   return { answer: (total / data.length).toFixed(4), used: ['sum', 'count'] };
 }
 
-/** Extrapolate the constant step. */
+/**
+ * Extrapolate by finding the order at which differences go constant.
+ *
+ * Promoted from GA1 as C1_POLYNOMIAL_DIFFERENCE. The previous version tested
+ * only a constant first difference and returned null for anything else, which
+ * scored zero on every quadratic item. Three candidates tied at 1.0 on
+ * held-out seeds and this one won on being the smallest.
+ *
+ * It generalises the old behaviour rather than replacing it: order 1 is the
+ * case the previous version handled.
+ */
 function solveForecasting(surface) {
-  const series = surface.series ?? [];
-  if (series.length < 2) return null;
-  const step = series[1] - series[0];
-  const constant = series.every((value, i) => i === 0 || value - series[i - 1] === step);
-  if (!constant) return null;
-  return String(series[series.length - 1] + step);
+  const series = (surface.series ?? []).map(Number);
+  if (series.length < 3) return null;
+
+  const differences = list => list.slice(1).map((value, i) => value - list[i]);
+  const allEqual = list => list.length > 0 && list.every(value => value === list[0]);
+
+  let level = series;
+  const lastOfEachOrder = [];
+  for (let order = 0; order < series.length - 1; order += 1) {
+    lastOfEachOrder.push(level[level.length - 1]);
+    const next = differences(level);
+    if (next.length === 0) return null;
+    if (allEqual(next)) {
+      let carry = next[0];
+      for (let i = lastOfEachOrder.length - 1; i >= 0; i -= 1) carry += lastOfEachOrder[i];
+      return String(carry);
+    }
+    level = next;
+  }
+  return null;
 }
 
 export const UBERBOND_SOLVERS = Object.freeze({

@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-1.0.0",
+  "generation": "GA1",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "directiveSections": [
+    "050",
+    "053",
+    "054",
+    "055",
+    "056",
+    "057",
+    "074",
+    "076"
+  ],
+  "generatedAt": "2026-09-15T11:58:39.311Z",
+  "sourceCommit": "2156389bbe4e8bc291a4d9b5aab55c892dc73e67",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "FORECASTING",
+  "difficulty": 3,
+  "declarationRef": "artifacts/nullstar-terminal/ga1-declaration.json",
+  "precommittedThreshold": "A candidate is promoted only if it scores above 0.8 on the held-out seeds it has never seen, beats the incumbent solver on those seeds, and causes no regression on difficulty 1 and 2.",
+  "thresholdUsed": 0.8,
+  "incumbent": {
+    "trainScore": 0,
+    "heldOutScore": 0
+  },
+  "candidates": [
+    {
+      "candidate": "C1_POLYNOMIAL_DIFFERENCE",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 679,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    },
+    {
+      "candidate": "C2_HYPOTHESIS_TOURNAMENT",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 1232,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    },
+    {
+      "candidate": "C3_RECURRENCE_SEARCH",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 886,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    },
+    {
+      "candidate": "C4_RATIO_AND_DIFFERENCE",
+      "trainScore": 0,
+      "heldOutScore": 0,
+      "regressions": [],
+      "complexityBytes": 514,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "eligible": false
+    }
+  ],
+  "winner": "C1_POLYNOMIAL_DIFFERENCE",
+  "outcome": "PROMOTED",
+  "hypothesisVerdict": "PRIMARY_SUPPORTED__THE_GAP_WAS_REPRESENTATIONAL_NOT_ARITHMETIC",
+  "tieBreak": "Tied at 1; C1_POLYNOMIAL_DIFFERENCE won on being smaller (679 bytes vs 886).",
+  "improvementVelocity": {
+    "deltaCapability": 1,
+    "wallClockMs": 28,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0,
+    "regressions": 0
+  },
+  "whatThisDoesNotShow": "One family at one difficulty on one instrument. The winner generalizes within forecasting; whether the mechanism transfers to another family is a separate question that GA2 has to ask rather than assume.",
+  "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT, ACCELERATION, OR ANYTHING ABOUT THE WORLD OUTSIDE THIS SUITE.",
+  "businessEffectAuthority": "NONE"
+}

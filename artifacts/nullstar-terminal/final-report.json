@@ -6,8 +6,8 @@
     "222",
     "244"
   ],
-  "generatedAt": "2026-09-15T13:27:00.398Z",
-  "sourceCommit": "eba2861dfc4fa826f7b73bc832afea1d6fb7c80c",
+  "generatedAt": "2026-09-15T13:33:00.150Z",
+  "sourceCommit": "994b2e74adba0b0a4ec7c9e69076e7d7a4a37b6a",
   "everyFigureComputed": "Generation rows are read from their own result files, capability is measured live at report time, and the verdict is the completion ledger's own count. Nothing here is a remembered number.",
   "verdict": {
     "softwareOpen": 0,
@@ -122,7 +122,7 @@
     ]
   },
   "capabilityNow": {
-    "measuredAt": "eba2861dfc4fa826f7b73bc832afea1d6fb7c80c",
+    "measuredAt": "994b2e74adba0b0a4ec7c9e69076e7d7a4a37b6a",
     "seeds": "50000..50029",
     "families": [
       {

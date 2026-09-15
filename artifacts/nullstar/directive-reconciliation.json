@@ -4,16 +4,16 @@
   "status": "FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE",
   "directiveId": "project-nullstar",
   "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e",
-  "sourceCommit": "14f2e8de806a325a91e2da826089ce51772dc3ea",
-  "generatedAt": "2026-09-14T23:04:52.335Z",
+  "sourceCommit": "80aa2b16c7ebbf3a41b313ecac6b1efc7a75322c",
+  "generatedAt": "2026-09-15T00:16:31.913Z",
   "counts": {
     "sections": 336,
     "rows": 336,
     "byState": {
-      "VERIFIED_CURRENT": 31,
-      "PARTIAL": 30,
+      "VERIFIED_CURRENT": 33,
+      "PARTIAL": 31,
       "DONOR_ONLY": 0,
-      "MISSING": 247,
+      "MISSING": 244,
       "BLOCKED": 14,
       "NOT_CURRENTLY_JUSTIFIED": 14
     },
@@ -837,18 +837,23 @@
       "numeral": "XXIX",
       "title": "INTELLIGENCE BOTTLENECK MAP",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/nullstar-omega-bottleneck.mjs",
+          "scripts/nullstar-omega-bottleneck.mjs"
+        ],
+        "testModules": [
+          "tests/nullstar-omega-bottleneck.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
-      "aliasedTo": null,
-      "aliasReason": null,
+      "aliasedTo": "nullstar omega bottleneck",
+      "aliasReason": "The directive asks for continuous deficit measurement across seventeen named capability dimensions, producing ranked bottlenecks. That is the OMEGA spine: nullstar-omega-generation carries the seventeen-dimension vector and nullstar-omega-bottleneck ranks by downstream unlocks per unit cost from a declared dependency graph. Checked against the tree: the ranking is computed from measured evidence, not asserted, and G0 through G4 each produced one.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -1757,18 +1762,22 @@
       "numeral": "LXIII",
       "title": "FOUNDER COCKPIT",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "VERIFIED_CURRENT",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/founder-command-center.mjs"
+        ],
+        "testModules": [
+          "tests/founder-command-center.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
-      "aliasedTo": null,
-      "aliasReason": null,
+      "aliasedTo": "founder command center",
+      "aliasReason": "The directive's FOUNDER COCKPIT is the founder command center. Independently corroborated by the OMEGA denominator, whose N24 dimension is named FOUNDER_COCKPIT and already resolves to this module. The alias supplies the name only; whether the ten named interface sections are all present is left to the evidence gate, which is why this is expected to land short of VERIFIED_CURRENT.",
       "terminalReason": null,
       "milestoneEvidenceRef": null
     },
@@ -2314,11 +2323,13 @@
         }
       ],
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          "scripts/nullstar-omega-generalization.mjs"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "reachability": "PRODUCTION",
+        "matchStrength": "EXACT_SLUG",
+        "matchScope": "WHOLE_NAME"
       },
       "aliasedTo": null,
       "aliasReason": null,
@@ -5990,15 +6001,19 @@
       "numeral": "CCLXIV",
       "title": "META-META IMPROVEMENT",
       "class": "MECHANISM",
-      "currentState": "MISSING",
+      "currentState": "PARTIAL",
       "corpusReferences": 1,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
-        "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "sourceModules": [
+          "src/nullstar-omega-meta-improvement.mjs"
+        ],
+        "testModules": [
+          "tests/nullstar-omega-meta-improvement.test.mjs"
+        ],
+        "reachability": "PRODUCTION",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME"
       },
       "aliasedTo": null,
       "aliasReason": null,
@@ -7782,16 +7797,6 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:264-meta-meta-improvement",
-      "numeral": "CCLXIV",
-      "title": "META-META IMPROVEMENT",
-      "class": "MECHANISM",
-      "currentState": "MISSING",
-      "corpusReferences": 1,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:290-long-horizon-benchmark",
       "numeral": "CCXC",
       "title": "LONG-HORIZON BENCHMARK",
@@ -7856,6 +7861,18 @@
         "src/execution-leaf-continuation.mjs",
         "src/self-maintainer-continuation-policy.mjs",
         "scripts/execution-leaf-continuation-plan.mjs"
+      ],
+      "nearestCanonicalConcepts": []
+    },
+    {
+      "sectionId": "nullstar:264-meta-meta-improvement",
+      "numeral": "CCLXIV",
+      "title": "META-META IMPROVEMENT",
+      "class": "MECHANISM",
+      "currentState": "PARTIAL",
+      "corpusReferences": 1,
+      "existingEvidence": [
+        "src/nullstar-omega-meta-improvement.mjs"
       ],
       "nearestCanonicalConcepts": []
     },
@@ -7995,16 +8012,6 @@
       "sectionId": "nullstar:028-meta-capability-scientist",
       "numeral": "XXVIII",
       "title": "META-CAPABILITY SCIENTIST",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
-      "sectionId": "nullstar:029-intelligence-bottleneck-map",
-      "numeral": "XXIX",
-      "title": "INTELLIGENCE BOTTLENECK MAP",
       "class": "ORGAN",
       "currentState": "MISSING",
       "corpusReferences": 0,
@@ -8185,16 +8192,6 @@
       "sectionId": "nullstar:062-project-portfolio",
       "numeral": "LXII",
       "title": "PROJECT PORTFOLIO",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
-      "sectionId": "nullstar:063-founder-cockpit",
-      "numeral": "LXIII",
-      "title": "FOUNDER COCKPIT",
       "class": "ORGAN",
       "currentState": "MISSING",
       "corpusReferences": 0,
@@ -10380,7 +10377,7 @@
       ]
     }
   ],
-  "rowDigest": "afaa66f5662095c617096d8ef77a50176590209edf36b85c7f8d583794d353d0",
+  "rowDigest": "ae5c16c5f6e5a483b922224b130730243dc54ee55649a83294e9c31fdac50034",
   "truthBoundary": "RECONCILIATION_REPORTS_ONLY_WHAT_THIS_TREE_AND_THE_CANONICAL_COVERAGE_MATRIX_SUPPORT. A_ROW_IS_NOT_A_WORK_ORDER; A_CUT_SET_POSITION_IS_A_CORPUS_REFERENCE_COUNT_AND_NOT_AN_ESTIMATE_OF_COST_VALUE_OR_UNLOCK. IT_DOES_NOT_PROVE_IMPLEMENTATION_RUNTIME_EXTERNAL_OUTCOMES_RECURSIVE_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-nullstar-declarations-1.0.0",
-  "reviewedAt": "2026-09-14",
+  "reviewedAt": "2026-09-15",
   "law": "An alias supplies only which repository name to search under. The reconciler still computes the state from what that search finds, so an alias can never promote a row on its own, and an alias that stops resolving fails the compile rather than silently reverting the row to MISSING. Every entry below was checked against the tree: the named module exists and implements the section's mechanism, not merely a similar phrase.",
   "aliasDeclarations": [
     {
@@ -32,6 +32,16 @@
       "sectionId": "nullstar:187-founder-absence-test",
       "repositoryName": "founder absence readiness",
       "reason": "Founder-absence duration classes and what continues without the founder are modelled by the founder-absence readiness organ and its doctor."
+    },
+    {
+      "sectionId": "nullstar:029-intelligence-bottleneck-map",
+      "repositoryName": "nullstar omega bottleneck",
+      "reason": "The directive asks for continuous deficit measurement across seventeen named capability dimensions, producing ranked bottlenecks. That is the OMEGA spine: nullstar-omega-generation carries the seventeen-dimension vector and nullstar-omega-bottleneck ranks by downstream unlocks per unit cost from a declared dependency graph. Checked against the tree: the ranking is computed from measured evidence, not asserted, and G0 through G4 each produced one."
+    },
+    {
+      "sectionId": "nullstar:063-founder-cockpit",
+      "repositoryName": "founder command center",
+      "reason": "The directive's FOUNDER COCKPIT is the founder command center. Independently corroborated by the OMEGA denominator, whose N24 dimension is named FOUNDER_COCKPIT and already resolves to this module. The alias supplies the name only; whether the ten named interface sections are all present is left to the evidence gate, which is why this is expected to land short of VERIFIED_CURRENT."
     }
   ],
   "terminalDeclarations": [],

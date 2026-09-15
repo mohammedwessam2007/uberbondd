@@ -91,24 +91,9 @@
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
     "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
     "nullstarDirective": {
-      "status": "IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROOF",
-      "humanReadable": "docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md",
-      "machineReadable": "artifacts/project-nullstar-directive.json",
-      "reading": "docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md",
       "sections": 336,
-      "reconciliation": {
-        "command": "npm run nullstar:reconcile",
-        "artifact": "artifacts/nullstar/directive-reconciliation.json",
-        "verifiedCurrent": 31,
-        "partial": 30,
-        "blocked": 14,
-        "notCurrentlyJustified": 14,
-        "missing": 247,
-        "missingIsUpperBound": "The matcher will not split a title on whitespace, so a section implemented under a different repository name reads MISSING until a reviewed alias says otherwise. Six aliases moved 253 to 247. Reduce it further with more reviewed aliases, never by loosening the matcher.",
-        "reviewedAliases": 6,
-        "aliasLaw": "An alias supplies only which repository name to search under; the state is still computed from what that search finds, and an alias that stops resolving fails the compile rather than reverting its row to MISSING."
-      },
-      "authority": "NONE"
+      "byState": "33 VERIFIED_CURRENT, 31 PARTIAL, 244 MISSING, 14 BLOCKED, 14 NOT_CURRENTLY_JUSTIFIED",
+      "missingIsAnUpperBound": "A section reads MISSING when the evidence gate finds nothing under its name. Several are renamed rather than unbuilt, which is what the alias mechanism is for, and an alias supplies only the name -- the state is still computed from evidence."
     },
     "nullstarOmega": {
       "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506 / G4",
@@ -165,7 +150,8 @@
     "G4 and the second prospective meta-improvement episode. The G3 bottleneck's symptom kind and resolution criterion were committed in G3-prospective-declaration.json before any G4 code existed, so the ordering is checkable in git rather than asserted. Criterion met: coverage rose 9 to 10.",
     "BN-EVAL-COVERAGE's provider hypothesis refuted. software scores 0.6667 from git history alone: of nine src modules introduced on this branch, six were never edited after the commit that introduced them. The dimension was unmeasured because nobody had written a task for it, not because it needed a provider. Recorded in refutations.json so no later generation re-selects it.",
     "Two circularity guards. G3 and G4 score selfDiagnosis only from episodes closed before they were built, under a numeric generation cutoff; excluding by name would let a later generation raise an earlier one's score retroactively. The meta-to-G4 chain is verified stable across repeated runs.",
-    "Thirteen mutation anchors total for this session's guards. All kill. 410 mutations, 410 killed, 0 not killed."
+    "Thirteen mutation anchors total for this session's guards. All kill. 410 mutations, 410 killed, 0 not killed.",
+    "Alias reconciliation pass. 137 of 247 MISSING sections had a name match of 50% or better; verification rejected almost all as coincidental word overlap. Two were confirmed against the requirement text and both reached VERIFIED_CURRENT through the evidence gate rather than by declaration. 33 VERIFIED_CURRENT, 31 PARTIAL, 244 MISSING."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -176,7 +162,7 @@
     "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
     "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
     "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
-    "NULLSTAR ALIAS RECONCILIATION: 247 sections still read MISSING, an upper bound. The alias mechanism exists, is tested and is mutation-verified; what remains is per-section review of which titles name an organ the repository already has under another name. Do not lower the number by loosening the matcher.",
+    "NULLSTAR ALIAS RECONCILIATION: 244 sections read MISSING, an upper bound rather than a count of unbuilt organs. A name-similarity pass over all 247 found a >=50% word match for 137 of them, and verification killed almost all of those: ADVERSARIAL COUNCIL matched forecast-adversarial-ensemble, which is about source independence and not red-team critique roles, and PARALLEL GRAPH EXECUTION matched execution-leaf-graph, which does not measure wall-clock reduction. Two survived verification and both reached VERIFIED_CURRENT through the evidence gate. Mass-aliasing on a shared word would make the matrix look better while being less true, which is the failure this row exists to prevent. Each remaining section needs its requirement read against the candidate module.",
     "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED, AND THE GATE IS NARROWER THAN G2 SAID: re-probing split it. A local inference runtime installs and runs here -- onnxruntime 1.30.0 imports with CPUExecutionProvider, and PyPI is reachable at 54 MB/s. What is refused is weights: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. A second, independent blocker sits behind that one: the Capability Genome admission gate requires STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three. Opening the network alone would not make a model selectable. This gates capability-by-judgement scoring only; bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer were blocked by association in the G2 verdict and are not. All six are now done. Evidence: artifacts/nullstar-omega/G2-discriminating-test.json v1.1.",
     "FIRST REALITY-CALIBRATED DIMENSION IS EARNED; THE REST ARE NOT. N12 CALIBRATION now sits at REALITY_CALIBRATED on 2 closed loops with mean Brier 0.7975 and 2 surprises out of 2. The other 23 dimensions sit at VERIFIED or OPERATING and still have no prediction checked against a later observation. One calibrated dimension is not a calibrated system, and a mean Brier of 0.80 says this system's self-model is wrong more often than it expects to be.",
     "THIRD PROSPECTIVE META-IMPROVEMENT EPISODE (the second is done): the process now has two prospective resolutions and reads IMPROVEMENT_PROCESS_WORKING on its own terms. That verdict is earned under rules written before the results were seen, and it is still a verdict about four episodes. It says the selections resolved what they named; it does not say the system got more capable.",

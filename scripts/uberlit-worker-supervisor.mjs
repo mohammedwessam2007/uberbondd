@@ -16,9 +16,14 @@ const startupTimeoutMs=Number(arg('timeout')||60_000);
 const livenessIntervalMs=Math.max(1_000,Number(process.env.UBERLIT_WORKER_LIVENESS_INTERVAL_MS||5_000));
 const wealthStartupGraceMs=Math.max(30_000,Number(process.env.UBERLIT_WEALTH_STARTUP_GRACE_MS||120_000));
 const wealthStaleMs=Math.max(30_000,Number(process.env.UBERLIT_WEALTH_STALE_MS||300_000));
-const sourceCommit=execFileSync('git',['rev-parse','HEAD'],{cwd:repoRoot,encoding:'utf8'}).trim().toLowerCase();
-const dirty=execFileSync('git',['status','--porcelain','--untracked-files=no'],{cwd:repoRoot,encoding:'utf8'}).trim();
-if(dirty)throw new Error('uberlit-worker-supervisor-source-must-be-clean');
+let sourceCommit=null;
+try{
+  sourceCommit=execFileSync('git',['rev-parse','HEAD'],{cwd:repoRoot,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim().toLowerCase();
+  const dirty=execFileSync('git',['status','--porcelain','--untracked-files=no'],{cwd:repoRoot,encoding:'utf8'}).trim();
+  if(dirty)throw new Error('uberlit-worker-supervisor-source-must-be-clean');
+}catch(error){
+  if(String(error?.message||error)==='uberlit-worker-supervisor-source-must-be-clean')throw error;
+}
 for(const value of [webPort,dbPort,tlsPort])if(!Number.isSafeInteger(value)||value<1024||value>65535)throw new Error('uberlit-worker-supervisor-port-invalid');
 for(const value of [startupTimeoutMs,livenessIntervalMs,wealthStartupGraceMs,wealthStaleMs])if(!Number.isFinite(value)||value<=0)throw new Error('uberlit-worker-supervisor-timeout-invalid');
 
@@ -29,7 +34,7 @@ async function waitForRelease(){
     try{
       const pointer=readUberLitPointer({rootDir:runtimeRoot});
       if(!pointer){last='release-pointer-absent';await sleep(250);continue;}
-      if(pointer.sourceCommit!==sourceCommit){last='release-pointer-source-mismatch';await sleep(250);continue;}
+      if(sourceCommit&&pointer.sourceCommit!==sourceCommit){last='release-pointer-source-mismatch';await sleep(250);continue;}
       const staged=verifyStagedUberLitRelease({rootDir:runtimeRoot,releaseId:pointer.releaseId});
       if(!staged.ok){last=`staged-release-invalid:${staged.reasonCodes.join(',')}`;await sleep(250);continue;}
       const built=verifyUberLitBuild({rootDir:runtimeRoot,releaseId:pointer.releaseId});
@@ -59,6 +64,7 @@ function systemdNotify(...args){
 }
 
 const {pointer}=await waitForRelease();
+if(!sourceCommit)sourceCommit=pointer.sourceCommit;
 const postgresPassword=readSecret('postgres.json','password');
 const adminToken=process.env.ADMIN_TOKEN||readSecret('admin.json','token');
 const releaseSource=path.join(runtimeRoot,'releases',pointer.releaseId,'source');

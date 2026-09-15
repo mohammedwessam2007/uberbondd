@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "uberbond.apotheosis-runtime-implementation-receipt.v1",
+  "recordedAt": "2026-09-15",
+  "baseCommit": "f8450d334eb20703e1a9086fb153f3e63dcf4025",
+  "implementationCommit": "fe64471969c15c8eda6a9baf6657f4755939137a",
+  "pullRequest": 879,
+  "source": "src/apotheosis-orchestration-runtime.mjs",
+  "test": "tests/apotheosis-orchestration-runtime.test.mjs",
+  "progressDenominator": {
+    "packets": 7,
+    "weightPerPacketPercent": 14.2857142857
+  },
+  "packets": [
+    {"id":"P43","name":"scarce-model allocation","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"},
+    {"id":"P44","name":"worker packet quality","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"},
+    {"id":"P45","name":"context selection","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"},
+    {"id":"P46","name":"evidence-based downrouting","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"},
+    {"id":"P47","name":"exit and return continuity evidence","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"},
+    {"id":"P48","name":"comparative orchestration evaluation","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"},
+    {"id":"P49","name":"orchestration-policy improvement admission","status":"SOURCE_IMPLEMENTED_LOCAL_TESTED"}
+  ],
+  "focusedLocalVerification": {
+    "tests": 7,
+    "passed": 7,
+    "failed": 0,
+    "command": "node --test tests/apotheosis-orchestration-runtime.test.mjs",
+    "firstRunFailure": "P43 hostile null-cost case exposed JavaScript Number(null) coercion; finite() was hardened to reject null/undefined/empty numeric evidence before the green run."
+  },
+  "githubCi": {
+    "runId": 34917469853,
+    "conclusion": "failure",
+    "executedSteps": 0,
+    "classification": "CI_INFRASTRUCTURE_NON_EVIDENCE"
+  },
+  "truthBoundaries": [
+    "Fixture tests do not establish real unattended operation.",
+    "No external or business authority is created.",
+    "No paid-model superiority, ASI, singularity, intelligence explosion, revenue, or life outcome is established by this source implementation.",
+    "Actual model routing promotion still requires complete observed task outcomes and real provider availability."
+  ],
+  "rollback": "Revert PR #879 merge or the exact implementation commit through the normal reviewed repository workflow.",
+  "implementationPercent": 100,
+  "externalOutcomePercent": null
+}

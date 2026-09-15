@@ -5,22 +5,29 @@ const commands = [
   ['--check', 'src/uberoutbound-policy-registry.mjs'],
   ['--check', 'src/uberoutbound-research-import.mjs'],
   ['--check', 'src/uberoutbound-promotion-gate.mjs'],
+  ['--check', 'src/uberreply-four-offer-genome.mjs'],
+  ['--check', 'src/uberreply-tournament.mjs'],
   ['--check', 'src/uberreach-control-plane.mjs'],
   ['--check', 'scripts/uberoutbound-genome-doctor.mjs'],
   ['--check', 'scripts/uberoutbound-genome-completion-doctor.mjs'],
   ['--check', 'scripts/uberoutbound-genome-final-doctor.mjs'],
+  ['--check', 'scripts/uberreply-four-offer-doctor.mjs'],
   ['--test',
     'tests/uberoutbound-genome.test.mjs',
     'tests/uberoutbound-genotype.test.mjs',
     'tests/uberoutbound-policy-registry.test.mjs',
     'tests/uberoutbound-research-import.test.mjs',
     'tests/uberoutbound-promotion-gate.test.mjs',
+    'tests/uberreply-four-offer-genome.test.mjs',
+    'tests/uberreply-tournament.test.mjs',
+    'tests/uberreply-uberreach-integration.test.mjs',
     'tests/uberreach-control-plane.test.mjs',
     'tests/uberreach-scale-frontier.test.mjs'
   ],
   ['scripts/uberoutbound-genome-doctor.mjs'],
   ['scripts/uberoutbound-genome-completion-doctor.mjs'],
-  ['scripts/uberoutbound-genome-final-doctor.mjs']
+  ['scripts/uberoutbound-genome-final-doctor.mjs'],
+  ['scripts/uberreply-four-offer-doctor.mjs']
 ];
 
 const receipts = [];
@@ -54,7 +61,7 @@ const report = {
   receipts,
   externalEffectAuthority: 'NONE',
   businessEffectAuthority: 'NONE',
-  truthBoundary: 'PASSED proves only that the declared source syntax, focused tests and genome doctors executed successfully on the host that ran this script against the exact checked-out source. It does not prove live deliverability, legal eligibility for real recipients, causal treatment lift, customers, revenue or 100000/day capacity.'
+  truthBoundary: 'PASSED proves only that the declared source syntax, focused tests and genome doctors executed successfully on the host that ran this script against the exact checked-out source, including the UBERREPLY four-offer portfolio and economic tournament extension. It does not prove live deliverability, legal eligibility for real recipients, causal treatment lift, customers, revenue or 100000/day capacity.'
 };
 
 console.log(JSON.stringify(report, null, 2));

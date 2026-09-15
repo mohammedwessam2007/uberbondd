@@ -1,10 +1,12 @@
 import http from 'node:http';
 import { fileURLToPath } from 'node:url';
+import { createOutreach100kAdminRouter } from './src/outreach-100k-admin-router.mjs';
 
 // Harden the externally reachable request handler while preserving the mature
 // server implementation byte-for-byte in server-core.mjs. The donor keeps its
 // store, queue, scheduler, startup and shutdown semantics; this facade changes
-// only privileged credential transport and the admin OAuth launch handoff.
+// only privileged credential transport, the admin OAuth launch handoff, and
+// the separately certified industrial 100K outreach mission boundary.
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -79,6 +81,7 @@ async function brokerGoogleOAuthStart(coreHandler, req, res, url) {
 }
 
 function harden(coreHandler) {
+  const outreach100k = createOutreach100kAdminRouter({ coreHandler });
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
 
@@ -88,6 +91,8 @@ function harden(coreHandler) {
     if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) {
       return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
     }
+
+    if (await outreach100k.handle(req, res, url)) return;
 
     if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') {
       return brokerGoogleOAuthStart(coreHandler, req, res, url);

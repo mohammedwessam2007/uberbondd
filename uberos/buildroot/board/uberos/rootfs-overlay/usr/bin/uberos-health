@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+printf '%s\n' 'UBEROS_HEALTH=OK'
+printf '%s\n' 'GENERATION=0'
+printf '%s\n' 'MODEL_REQUIRED_FOR_BOOT=NO'
+printf '%s\n' 'KERNEL_ROLE=REPLACEABLE_BOOTSTRAP_SUPPLIER'
+if [ -r /etc/uberos-release ]; then
+  cat /etc/uberos-release
+fi

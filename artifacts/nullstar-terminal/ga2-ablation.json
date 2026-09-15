@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "uberbond-nullstar-generation-ablation-1.0.0",
+  "generation": "GA2",
+  "question": "Does ranking on provenance AND freshness beat ranking on provenance alone, once the missing REPLICATED_MEASUREMENT category is supplied to both?",
+  "generatedAt": "2026-09-15T12:14:22.029Z",
+  "sourceCommit": "9422ae8399c2c44022079cb767bffe104b5407cd",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "RESEARCH",
+  "seedRange": "70000..70039",
+  "seedsDisjointFromTournament": true,
+  "promotedSolver": "R2_TWO_AXIS (provenance x freshness)",
+  "ablatedSolver": "incumbent provenance ladder + REPLICATED_MEASUREMENT, no freshness term",
+  "rows": [
+    {
+      "difficulty": 1,
+      "items": 40,
+      "promotedMean": 1,
+      "ablatedMean": 1,
+      "separated": false
+    },
+    {
+      "difficulty": 2,
+      "items": 40,
+      "promotedMean": 1,
+      "ablatedMean": 1,
+      "separated": false
+    },
+    {
+      "difficulty": 3,
+      "items": 40,
+      "promotedMean": 1,
+      "ablatedMean": 1,
+      "separated": false
+    }
+  ],
+  "separated": false,
+  "finding": "THE_FRESHNESS_AXIS_DOES_NO_MEASURED_WORK__GA2_CLOSED_A_VOCABULARY_GAP",
+  "whatThisChanges": "The GA2 promotion stands -- it scores 1.0 where the incumbent scored 0.00 and regresses nothing -- but the two-axis hypothesis is untested, not confirmed. The instrument cannot currently distinguish it from a one-line dictionary fix.",
+  "whatWouldTestIt": "An item where a fresh SECONDHAND_SUMMARY carries the truth and a stale PRIMARY_MEASUREMENT carries a superseded value, with no REPLICATED_MEASUREMENT present to shortcut the ranking. No such item exists in the generator yet, so this must be declared prospectively as a new difficulty level rather than added and scored in the same pass.",
+  "rescoresGa2": false,
+  "failureDebtRef": "F010-UNDISCRIMINATING-TOURNAMENT",
+  "truthBoundary": "AN ABLATION SHOWS WHAT ONE INSTRUMENT CAN AND CANNOT SEPARATE. IT IS NOT EVIDENCE ABOUT RESEARCH QUALITY IN THE WORLD.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

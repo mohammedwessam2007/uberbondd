@@ -94,13 +94,52 @@ function solveToolUse(surface, prompt) {
  * Three secondhand sources repeating one number do not outweigh a primary
  * measurement, which is exactly the item's trap.
  */
+const RESEARCH_PROVENANCE = Object.freeze({
+  REPLICATED_MEASUREMENT: 4,
+  PRIMARY_MEASUREMENT: 3,
+  SECONDHAND_SUMMARY: 1,
+  UNSOURCED_ASSERTION: 0
+});
+
+/**
+ * Rank sources on provenance and freshness as two axes.
+ *
+ * Promoted from GA2 as R2_TWO_AXIS, and the promotion is sound: it scores 1.0
+ * where the previous version scored 0.00 at difficulty 3, and regresses
+ * nothing. What the promotion does NOT establish is why.
+ *
+ * The previous version's rank table had no entry for REPLICATED_MEASUREMENT,
+ * so it read as 0 and lost to every stale primary. An ablation run after the
+ * tournament -- the old provenance-only ladder with that one entry added and
+ * no freshness term at all -- scores 1.0 at difficulties 1, 2 and 3, the same
+ * as this. So the freshness axis does no measured work on this instrument, and
+ * the tournament could not distinguish the two-axis hypothesis from a missing
+ * dictionary entry. The gap GA2 closed was vocabulary, not reasoning.
+ *
+ * That is recorded as F010 in the failure-debt ledger rather than left in the
+ * result artifact as a capability win. Testing whether freshness carries real
+ * weight needs an item where a fresh secondhand source beats a stale primary
+ * with no replication present to shortcut it; no such item exists yet, so the
+ * hypothesis is open, not confirmed.
+ *
+ * R1_RECENCY_ONLY, which also scored 1.0 here, was disqualified for regressing
+ * difficulty 1 and 2 to zero. That much the instrument did establish: recency
+ * alone is the opposite error, not the fix.
+ */
 function solveResearch(surface) {
   const sources = surface.sources ?? [];
-  const rank = { PRIMARY_MEASUREMENT: 3, SECONDHAND_SUMMARY: 1, UNSOURCED_ASSERTION: 0 };
+  if (sources.length === 0) return null;
+  const latest = sources.reduce((best, source) =>
+    (!best || String(source.observedAt) > String(best.observedAt) ? source : best), null)?.observedAt;
+
   let best = null;
-  let bestScore = -1;
+  let bestScore = -Infinity;
   for (const source of sources) {
-    const score = rank[source.quality] ?? 0;
+    const provenance = RESEARCH_PROVENANCE[source.quality] ?? 0;
+    const from = Date.parse(source.observedAt);
+    const to = Date.parse(latest);
+    const ageDays = Number.isFinite(from) && Number.isFinite(to) ? Math.abs(to - from) / 86400000 : 0;
+    const score = provenance * (1 / (1 + ageDays / 30));
     if (score > bestScore) { bestScore = score; best = source; }
   }
   return best ? String(best.claim) : null;

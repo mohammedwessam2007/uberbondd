@@ -160,6 +160,26 @@ const FAILURES = [
     severity: 'HIGH',
     status: 'OPEN',
     evidenceRefs: ['artifacts/nullstar-omega/baselines.json']
+  },
+  {
+    id: 'F010-UNDISCRIMINATING-TOURNAMENT',
+    timestamp: '2026-09-15T12:20:00.000Z',
+    sourceSha: '9422ae8399c2c44022079cb767bffe104b5407cd',
+    mission: 'NULLSTAR TERMINAL COMPLETION WAR, generations GA1 and GA2',
+    gate: 'capability generation attribution',
+    expected: 'the GA2 tournament shows whether ranking sources on provenance and freshness as two axes beats ranking on provenance alone',
+    observed: 'Both generations promoted out of a three-way tie at 1.0, and in both the shared minimal fix scores the same. GA2: the old provenance-only ladder with one entry, REPLICATED_MEASUREMENT, added and no freshness term at all matches the promoted solver at every difficulty, so the freshness axis does no measured work. GA1: hard-coding difference orders one and two matches the promoted general method at every difficulty, because the generator emits nothing higher. Both result artifacts read as reasoning improvements. GA1 is the milder case -- its promoted solver does answer a cubic the ablation cannot -- but the instrument never presents one, so the generality is visible only by reading the code.',
+    failureClass: 'EPISTEMIC_INFLATION',
+    rootCause: 'I wrote each candidate set to explore one hypothesis and never included the minimal fix as an entrant, so the change every candidate shared was the one thing the tournament could not isolate. The tie was the visible symptom and I read it as convergence -- three independent designs agreeing -- when a tie at a perfect score means the opposite: the instrument ranked them by byte count because it could not rank them by capability. The promotion rule only ever asked whether a candidate beats the incumbent, which is a weaker question than whether the mechanism under test is what beat it.',
+    severity: 'MEDIUM',
+    status: 'OPEN',
+    evidenceRefs: [
+      'artifacts/nullstar-terminal/ga1-result.json',
+      'artifacts/nullstar-terminal/ga1-ablation.json',
+      'artifacts/nullstar-terminal/ga2-result.json',
+      'artifacts/nullstar-terminal/ga2-ablation.json',
+      'src/nullstar-cognitive-solvers.mjs'
+    ]
   }
 ];
 

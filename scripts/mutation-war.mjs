@@ -3179,6 +3179,27 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
   },
   {
+    id: 'GENDISC-01', guard: 'A tournament whose eligible candidates tie is reported as undiscriminating, not as a capability win',
+    file: 'scripts/nullstar-generation.mjs',
+    find: "    ? 'UNDISCRIMINATING__CANDIDATES_TIED'",
+    replace: "    ? 'SEPARATED'",
+    suites: ['tests/nullstar-generation-discrimination.test.mjs']
+  },
+  {
+    id: 'GENDISC-02', guard: 'A tie carries the warning that the winner was chosen on size rather than capability',
+    file: 'scripts/nullstar-generation.mjs',
+    find: "  attributionWarning: discrimination === 'UNDISCRIMINATING__CANDIDATES_TIED'",
+    replace: '  attributionWarning: false',
+    suites: ['tests/nullstar-generation-discrimination.test.mjs']
+  },
+  {
+    id: 'GENDISC-03', guard: 'The promoted research solver still beats the provenance-only ladder it replaced',
+    file: 'src/nullstar-cognitive-solvers.mjs',
+    find: '    const score = provenance * (1 / (1 + ageDays / 30));',
+    replace: '    const score = provenance === 4 ? 0 : provenance;',
+    suites: ['tests/nullstar-generation-discrimination.test.mjs']
+  },
+  {
     id: 'GENSTALE-01', guard: 'A reading carried across a suite change is excluded from the headline mean',
     file: 'src/nullstar-omega-generation.mjs',
     find: '      if (now !== null && Number.isFinite(before) && now === before) carriedSet.add(dimension);',

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "uberbond-nullstar-generation-ablation-1.0.0",
+  "generation": "GA1",
+  "question": "Does walking to whatever difference order goes constant beat hard-coding orders one and two, on the items the instrument actually emits?",
+  "generatedAt": "2026-09-15T12:14:21.971Z",
+  "sourceCommit": "9422ae8399c2c44022079cb767bffe104b5407cd",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "FORECASTING",
+  "seedRange": "70000..70039",
+  "seedsDisjointFromTournament": true,
+  "promotedSolver": "C1_POLYNOMIAL_DIFFERENCE (walk to constant order)",
+  "ablatedSolver": "first difference, else second difference, else null",
+  "rows": [
+    {
+      "difficulty": 1,
+      "items": 40,
+      "promotedMean": 1,
+      "ablatedMean": 1,
+      "separated": false
+    },
+    {
+      "difficulty": 2,
+      "items": 40,
+      "promotedMean": 1,
+      "ablatedMean": 1,
+      "separated": false
+    },
+    {
+      "difficulty": 3,
+      "items": 40,
+      "promotedMean": 1,
+      "ablatedMean": 1,
+      "separated": false
+    }
+  ],
+  "separated": false,
+  "outOfRangeProbe": {
+    "note": "A cubic series, outside every difficulty the generator emits. Not a scored task and not evidence of a capability the instrument measured -- it only shows whether the two implementations differ at all.",
+    "series": [
+      1,
+      8,
+      27,
+      64,
+      125
+    ],
+    "promotedAnswer": "216",
+    "ablatedAnswer": null,
+    "trueNext": 216
+  },
+  "finding": "THE_GENERAL_METHOD_DOES_NO_MEASURED_WORK_ON_THIS_INSTRUMENT__THE_GENERATOR_EMITS_ONLY_ORDERS_ONE_AND_TWO",
+  "whatThisChanges": "The GA1 promotion stands -- it scores where the incumbent scored zero and regresses nothing -- and unlike GA2 the promoted solver does handle input the ablation cannot, as the out-of-range probe shows. But the instrument never presents that input, so within what was measured the two are equivalent and the generality is asserted by reading the code, not established by the score.",
+  "rescoresGa1": false,
+  "failureDebtRef": "F010-UNDISCRIMINATING-TOURNAMENT",
+  "truthBoundary": "AN ABLATION SHOWS WHAT ONE INSTRUMENT CAN AND CANNOT SEPARATE. AN OUT-OF-RANGE PROBE SHOWS TWO IMPLEMENTATIONS DIFFER; IT IS NOT A MEASURED CAPABILITY.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

@@ -84,5 +84,15 @@
   },
   "whatThisDoesNotShow": "One family at one difficulty on one instrument. The winner generalizes within forecasting; whether the mechanism transfers to another family is a separate question that GA2 has to ask rather than assume.",
   "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT, ACCELERATION, OR ANYTHING ABOUT THE WORLD OUTSIDE THIS SUITE.",
-  "businessEffectAuthority": "NONE"
+  "businessEffectAuthority": "NONE",
+  "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+  "tiedAtTop": [
+    "C1_POLYNOMIAL_DIFFERENCE",
+    "C2_HYPOTHESIS_TOURNAMENT",
+    "C3_RECURRENCE_SEARCH"
+  ],
+  "attributionWarning": "3 eligible candidates scored 1 on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work.",
+  "ablationRef": "artifacts/nullstar-terminal/ga1-ablation.json",
+  "annotatedAt": "2026-09-15T12:06:19.402Z",
+  "annotationNote": "discrimination, tiedAtTop, attributionWarning and ablationRef were derived from the candidate scores already recorded in this file and added after the fact. No score, threshold, winner or outcome was recomputed or changed."
 }

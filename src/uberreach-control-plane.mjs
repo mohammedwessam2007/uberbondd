@@ -105,7 +105,15 @@ export function compileUberReachReadiness({
     })
     : null;
 
-  const autoExperimentAllowed = uberReplyDecision?.policy?.ok === true && !(genomeInputs?.experiment);
+  // Explicit existing Genome candidates and experiments retain precedence. UBERREPLY
+  // only supplies an experiment when it is also supplying the candidate, so this
+  // optional extension cannot silently mutate a legacy caller's experiment lineage.
+  const suppliedGenomeCandidates = Array.isArray(genomeInputs?.messageCandidates)
+    ? genomeInputs.messageCandidates.filter(Boolean)
+    : [];
+  const autoExperimentAllowed = uberReplyDecision?.policy?.ok === true
+    && suppliedGenomeCandidates.length === 0
+    && !(genomeInputs?.experiment);
   const uberReplyExperiment = autoExperimentAllowed
     ? assignUberReplyExperiment({
       prospect,
@@ -121,9 +129,6 @@ export function compileUberReachReadiness({
     })
     : null;
 
-  const suppliedGenomeCandidates = Array.isArray(genomeInputs?.messageCandidates)
-    ? genomeInputs.messageCandidates.filter(Boolean)
-    : [];
   const armAppliedCandidate = uberReplyDecision?.policy?.ok === true
     ? applyUberReplyArmToMessageCandidate(
       uberReplyDecision.policy.messageCandidate,

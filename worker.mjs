@@ -37,7 +37,9 @@ const pipeline = new Pipeline(store, config, {
   onProspectComplete: prospect => routeProspectCompletion({ store, revenue, prospect }),
   outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
 });
-const enqueueJob = (type, payload, options) => queue.enqueue(type, payload, options);
+const enqueueJob = (type, payload, options = {}) => queue.enqueue(type, payload, type === 'outreach.100k.process'
+  ? { ...options, maxAttempts: 1, recoveryPolicy: 'reconcile' }
+  : options);
 const enqueueResearch = payload => enqueueJob('research.batch', payload, {
   maxAttempts: 3,
   dedupeKey: payload.leadId ? `research:lead:${payload.leadId}` : `research:${payload.reason || 'manual'}:${Math.floor(Date.now() / 30000)}`

@@ -1,8 +1,10 @@
+import crypto from 'node:crypto';
 import { createOpenAIConversationModelAdapter } from './openai-conversation-model-adapter.mjs';
 import { createProjectMesh } from './uber-socket-project-mesh.mjs';
 import { createSharedContentFabric } from './uber-socket-shared-content-fabric.mjs';
 import { createUberSocketCognitiveBackplane } from './uber-socket-cognitive-backplane.mjs';
 import { createUberSocketWholeBrainOrchestrator } from './uber-socket-whole-brain-orchestrator.mjs';
+import { createUberSocketConnectomeRuntime } from './uber-socket-connectome-runtime.mjs';
 
 let singleton = null;
 
@@ -14,9 +16,11 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
   const mesh = createProjectMesh({ modelAdapter, authorizeModelCall });
   const fabric = createSharedContentFabric({ mesh, modelAdapter });
   const backplane = createUberSocketCognitiveBackplane({ journalPath: cognitiveJournalPath });
+  let connectome = null;
 
   function status(){
     const snap = mesh.snapshot();
+    const connectomeDoctor = connectome ? connectome.doctor() : null;
     return Object.freeze({
       ok: true,
       state: configured ? 'ACTIVE' : 'WAITING_FOR_OPENAI_KEY',
@@ -27,6 +31,9 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
       sharedDocuments: snap.peers.reduce((n,p)=>n+fabric.listPeerDocs(p.peerId).length,0),
       cognitiveBackplane: 'CONNECTED',
       wholeBrainOrchestrator: 'CONNECTED',
+      connectome: connectomeDoctor?.state || 'INITIALIZING',
+      canonicalCognitiveNodes: connectomeDoctor?.nodeCount || 0,
+      canonicalCognitiveEdges: connectomeDoctor?.edgeCount || 0,
       cognitiveJournal: cognitiveJournalPath ? 'ENABLED' : 'DISABLED',
       externalEffectsAuthorized: false,
     });
@@ -109,10 +116,15 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
 
   const baseRuntime={ status, registerChat, ingest, ask, council, monster, outreach100kCouncil, cognitiveCycle, reportContradiction, reportBlocker, mesh, fabric, backplane };
   const wholeBrain=createUberSocketWholeBrainOrchestrator({runtime:baseRuntime});
+  const wholeRuntime={...baseRuntime,wholeBrain};
+  connectome=createUberSocketConnectomeRuntime({runtime:wholeRuntime});
   async function compileWholeBrainMission(args){ return wholeBrain.compileMission(args); }
   function discoverMissionPeers(args){ return wholeBrain.discoverPeers(args); }
+  async function compileConnectomeMission(args){ return connectome.compileMissionFanout(args); }
+  function connectomeDoctor(){ return connectome.doctor(); }
+  function discoverMissionOrgans(args){ return connectome.discoverOrgans(args); }
 
-  return Object.freeze({ ...baseRuntime, compileWholeBrainMission, discoverMissionPeers, wholeBrain });
+  return Object.freeze({ ...baseRuntime, compileWholeBrainMission, discoverMissionPeers, wholeBrain, compileConnectomeMission, connectomeDoctor, discoverMissionOrgans, connectome });
 }
 
 export function getUberSocketRuntime(options={}){

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-suite-retirement-1.0.0",
+  "directiveSections": [
+    "321",
+    "322",
+    "323",
+    "324"
+  ],
+  "generatedAt": "2026-09-15T03:12:34.745Z",
+  "sourceCommit": "4bf6d3521c5a5ef17214a07b4434cfca96847756",
+  "retirement": {
+    "ok": true,
+    "status": "SUITE_RETIRED",
+    "suiteVersion": "omega-local-evidence-suite-1.0.0",
+    "reason": "For every sealed task the expected answer and the observation are produced by the same expression over the same file, so any tree scores full marks against itself. The 1.0 that stood across G0, G1 and G2 was not a capability measurement. A single constant answers 3 of 6 sealed tasks, because half the corpus asks yes-or-no questions whose answer is yes. No capability is required for those.",
+    "evidenceRef": "artifacts/nullstar-omega/baselines.json",
+    "replacedBy": "omega-independent-suite-1.0.0",
+    "historyPolicy": "SCORES FROM THIS SUITE REMAIN IN THE RECORD AND REMAIN READABLE. THEY ARE MARKED CONTAMINATED RATHER THAN DELETED, BECAUSE DELETING THEM WOULD HIDE WHY THE EARLIER GENERATIONS LOOKED PERFECT.",
+    "comparableWithSuccessor": false,
+    "businessEffectAuthority": "NONE"
+  },
+  "contaminatedGenerations": [
+    {
+      "generationId": "G0",
+      "suiteVersion": "omega-local-evidence-suite-1.0.0",
+      "meanMeasuredScore": 1,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    },
+    {
+      "generationId": "G1",
+      "suiteVersion": "omega-local-evidence-suite-2.0.0-derived",
+      "meanMeasuredScore": 1,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    },
+    {
+      "generationId": "G2",
+      "suiteVersion": "omega-capability-probe-suite-1.0.0",
+      "meanMeasuredScore": 1,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    },
+    {
+      "generationId": "G3",
+      "suiteVersion": "omega-outcome-measured-suite-1.0.0",
+      "meanMeasuredScore": 0.770506,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    },
+    {
+      "generationId": "G4",
+      "suiteVersion": "omega-outcome-measured-suite-1.0.0",
+      "meanMeasuredScore": 0.793455,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    },
+    {
+      "generationId": "G5",
+      "suiteVersion": "omega-outcome-measured-suite-1.0.0",
+      "meanMeasuredScore": 0.810125,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    },
+    {
+      "generationId": "G6",
+      "suiteVersion": "omega-outcome-measured-suite-1.0.0",
+      "meanMeasuredScore": 0.525313,
+      "contaminated": true,
+      "why": "Scored on a suite whose answers were read from the same expression that produced them."
+    }
+  ],
+  "trivialBaselineScore": 0.5,
+  "whatIsPreserved": "Every generation artifact stays on disk and unmodified. This record sits beside them and says which instrument produced them.",
+  "whatIsNotClaimed": "Retiring the instrument does not retroactively make the system more or less capable. It says the earlier numbers were not measuring what they appeared to measure.",
+  "businessEffectAuthority": "NONE"
+}

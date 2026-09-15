@@ -3060,6 +3060,34 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'INDSUITE-01', guard: 'A task whose answer and observation share a path is refused',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  if (answerPath && observePath && answerPath === observePath) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'INDSUITE-02', guard: 'Two paths reading one locator is the same tautology relabelled',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  if (answerAt && observeAt && answerAt === observeAt) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'INDSUITE-03', guard: 'An unstated difficulty is refused rather than read as zero',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  const level = typeof difficulty === \'number\' ? difficulty : NaN;',
+    replace: '  const level = Number(difficulty);',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
+    id: 'INDSUITE-04', guard: 'A suite containing a rejected task is refused, not silently trimmed',
+    file: 'src/nullstar-omega-independent-suite.mjs',
+    find: '  if (rejected.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-independent-suite.test.mjs']
+  },
+  {
     id: 'BASELINE-01', guard: 'A blocked baseline must name its dependency, attempt and unblock condition',
     file: 'src/nullstar-omega-baselines.mjs',
     find: "    if (!text(blockingDependency, 500)) reasonCodes.push('a-blocked-baseline-must-name-the-dependency');",

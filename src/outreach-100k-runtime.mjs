@@ -18,7 +18,6 @@ async function readJson(file,max=4_000_000){try{const s=await fsp.lstat(file);if
 async function atomicJson(file,value){await fsp.mkdir(path.dirname(file),{recursive:true,mode:0o700});const tmp=`${file}.tmp.${process.pid}`;await fsp.writeFile(tmp,`${JSON.stringify(value,null,2)}\n`,{mode:0o600});await fsp.rename(tmp,file);}
 function day(now=new Date()){return new Date(now).toISOString().slice(0,10);}
 function dayEndIso(now=new Date()){const d=new Date(now);d.setUTCHours(23,59,59,999);return d.toISOString();}
-function freshHeartbeat(row,now,maxAgeMs=90_000){const t=Date.parse(row?.heartbeatAt||'');return Number.isFinite(t)&&new Date(now).getTime()-t>=0&&new Date(now).getTime()-t<=maxAgeMs;}
 
 export function compileOutreach100kBatchAuthorization({certificate,authorizedBy='FOUNDER_ADMIN',campaignId,now=new Date()}={}){
   if(certificate?.state!=='CERTIFIED_100K_READY'||certificate?.oneButton100kPressAvailable!==true)return{ok:false,status:'OUTREACH_100K_AUTH_REFUSED',reasonCodes:['certified-100k-certificate-required']};
@@ -41,9 +40,18 @@ export function createOutreach100kRuntime({config,createStore,env=process.env,cl
   const statePath=d=>path.join(root,`mission-${d}.json`);
 
   async function outboundObservation(evidence,now){
-    const s=await store();const [settings,reservations,workers]=await Promise.all([s.getSettings(),s.list('outboundReservations'),s.list('workerHeartbeats')]);
+    const s=await store();const [settings,reservations]=await Promise.all([s.getSettings(),s.list('outboundReservations')]);
     const d=day(now);const today=reservations.filter(r=>String(r.reservedAt||'').startsWith(d)&&r.kind==='outreach100k');
-    return {enabled:config?.outbound?.enabled===true,dryRun:config?.outbound?.dryRun===true,globalPaused:settings?.outboundPaused===true,uncertain:today.filter(r=>r.status==='uncertain').length,workerOnline:workers.some(w=>freshHeartbeat(w,now)),schedulerActive:config?.autopilot===true,providerConfirmedToday:today.filter(r=>r.status==='sent'&&clean(r.providerReceiptId,500)).length,evidenceRuntime:evidence?.runtime||{}};
+    return {
+      enabled:env.UBERBOND_OUTREACH_100K_ENABLED==='1',
+      dryRun:env.UBERBOND_OUTREACH_100K_DRY_RUN!=='0',
+      globalPaused:settings?.outboundPaused===true,
+      uncertain:today.filter(r=>r.status==='uncertain').length,
+      workerOnline:true,
+      schedulerActive:true,
+      providerConfirmedToday:today.filter(r=>r.status==='sent'&&clean(r.providerReceiptId,500)).length,
+      evidenceRuntime:evidence?.runtime||{}
+    };
   }
 
   function transportReadiness(evidence){
@@ -56,6 +64,7 @@ export function createOutreach100kRuntime({config,createStore,env=process.env,cl
     const now=clock();const evidence=await readJson(evidencePath);if(!evidence)return{ok:false,status:'OUTREACH_100K_EVIDENCE_MISSING',reasonCodes:['runtime-evidence-file-required'],evidencePath};
     const packetCorpusPath=path.resolve(String(evidence.packetCorpusPath||''));if(!packetCorpusPath.startsWith(`${root}${path.sep}`))return{ok:false,status:'OUTREACH_100K_CORPUS_PATH_REFUSED',reasonCodes:['packet-corpus-must-be-inside-runtime-root'],evidencePath};evidence.packetCorpusPath=packetCorpusPath;
     const observation=await outboundObservation(evidence,now);const transport=transportReadiness(evidence);
+    if(config?.outbound?.enabled===true)return{ok:false,status:'OUTREACH_100K_LEGACY_OUTBOUND_CONFLICT',reasonCodes:['legacy-gmail-nightshift-must-be-disabled-during-certified-100k-mission'],transport,storeBackend:config?.storeBackend||null};
     const runtime={...(evidence.runtime||{}),ready:evidence.runtime?.ready===true&&transport.ok&&config?.storeBackend==='postgres',observedAt:evidence.runtime?.observedAt,evidenceRef:evidence.runtime?.evidenceRef};
     const pre=compileOutreach100kLaunchCertificate({domains:evidence.domains,mailboxes:evidence.mailboxes,egressRoutes:evidence.egressRoutes,recipientProviders:evidence.recipientProviders,campaign:evidence.campaign,runtime,schedule:{},inventory:{},outbound:{...observation,providerConfirmedToday:observation.providerConfirmedToday},now});
     const corpus=await inspectOutreach100kPacketCorpus({filePath:evidence.packetCorpusPath,mailboxes:pre.mailboxFleet,campaignId:evidence.campaign?.id,expectedCount:Number(evidence.packetCorpusExpectedCount||OUTREACH_100K_TARGET),businessHourStart:Number(evidence.businessHourStart??9),businessHourEnd:Number(evidence.businessHourEnd??17)});
@@ -73,13 +82,14 @@ export function createOutreach100kRuntime({config,createStore,env=process.env,cl
   async function start({authorizedBy='FOUNDER_ADMIN'}={}){
     const checked=await certify();if(!checked.ok||checked.certificate?.state!=='CERTIFIED_100K_READY')return{ok:false,status:'OUTREACH_100K_START_REFUSED',certificate:checked.certificate||null,diagnostic:checked};
     const evidence=await readJson(evidencePath);const auth=compileOutreach100kBatchAuthorization({certificate:checked.certificate,authorizedBy,campaignId:evidence.campaign?.id,now:clock()});if(!auth.ok)return auth;
-    const d=day(clock()),file=statePath(d);const existing=await readJson(file);if(existing?.state&&['RUNNING','WAITING_FOR_SCHEDULE'].includes(existing.state))return{ok:true,status:'OUTREACH_100K_ALREADY_RUNNING',mission:existing};
+    const d=day(clock()),file=statePath(d);const existing=await readJson(file);if(existing?.state&&['RUNNING','WAITING_FOR_SCHEDULE','WAITING_FOR_CAPACITY'].includes(existing.state))return{ok:true,status:'OUTREACH_100K_ALREADY_RUNNING',mission:existing};
     const mission={version:OUTREACH_100K_RUNTIME_VERSION,missionId:`ub100kmission_${digest({date:d,certificateId:checked.certificate.certificateId,auth:auth.receiptId})}`,date:d,state:'RUNNING',certificate:checked.certificate,batchAuthorization:auth,packetCorpusPath:evidence.packetCorpusPath,nextLineIndex:0,providerConfirmed:checked.certificate.providerConfirmedToday||0,startedAt:clock().toISOString(),updatedAt:clock().toISOString(),lastError:null};
     await atomicJson(file,mission);void run(d);return{ok:true,status:'OUTREACH_100K_STARTED',missionId:mission.missionId,certificateId:mission.certificate.certificateId,target:OUTREACH_100K_TARGET};
   }
 
   async function processPacket(packet,mission,evidence,s){
     const now=clock();const to=clean(packet?.message?.to,320).toLowerCase();const box=mission.certificate.mailboxFleet.find(x=>x.mailboxId===packet.mailboxId&&x.ready);if(!box)return{advance:false,blocked:true,reason:'certified-mailbox-required'};
+    if(clean(packet?.message?.from,320).toLowerCase()!==clean(box.address,320).toLowerCase())return{advance:false,blocked:true,reason:'sender-address-drift-from-certified-mailbox'};
     const liveSupp=await suppressionLookup(s,{website:packet?.launchInput?.recipient?.website||packet?.launchInput?.recipient?.domain||'',email:to});if(liveSupp.suppressed)return{advance:true,sent:false,reason:'live-suppression'};
     const launchInput=structuredClone(packet.launchInput||{});launchInput.suppression={...(launchInput.suppression||{}),checked:true,suppressed:false,unsubscribeRequested:false};
     const decision=evaluateOutreachLaunchGate({...launchInput,now});if(decision.state!=='READY_FOR_GOVERNED_CANARY'||decision.readyForGovernedCanary!==true)return{advance:true,sent:false,reason:'recipient-launch-gate-refused',decision};
@@ -91,11 +101,11 @@ export function createOutreach100kRuntime({config,createStore,env=process.env,cl
     const result=await dispatchGovernedOutreach({launchDecision:decision,authorization,message:{...packet.message,campaignId:packet.campaignId},transportAdapter:transport,idempotencyKey:packet.idempotencyKey,now});
     if(result.ok&&result.state==='PROVIDER_CONFIRMED_SEND'){
       await s.markOutboundReservation(reserved.reservation.id,'sent',{sentAt:clock().toISOString(),providerReceiptId:result.providerReceiptId,dispatchId:result.dispatchId,missionId:mission.missionId});
-      await s.recordOutboundEvent({inbox:packet.mailboxId,eventType:'sent',prospectId:packet.recipientId,recipientEmail:to,detail:{missionId:mission.missionId,providerReceiptId:result.providerReceiptId,dispatchId:result.dispatchId}},{});
+      await s.recordOutboundEvent({inbox:packet.mailboxId,eventType:'sent',prospectId:packet.recipientId,recipientEmail:to,detail:{missionId:mission.missionId,providerReceiptId:result.providerReceiptId,dispatchId:result.dispatchId}},{ });
       return{advance:true,sent:true,providerReceiptId:result.providerReceiptId};
     }
     await s.markOutboundReservation(reserved.reservation.id,'uncertain',{dispatchId:result.dispatchId||null,missionId:mission.missionId,reasonCodes:result.reasonCodes||[]});
-    await s.recordOutboundEvent({inbox:packet.mailboxId,eventType:'send_uncertain',prospectId:packet.recipientId,recipientEmail:to,detail:{missionId:mission.missionId,dispatchId:result.dispatchId||null}},{});
+    await s.recordOutboundEvent({inbox:packet.mailboxId,eventType:'send_uncertain',prospectId:packet.recipientId,recipientEmail:to,detail:{missionId:mission.missionId,dispatchId:result.dispatchId||null}},{ });
     return{advance:false,blocked:true,uncertain:true,reason:'provider-outcome-uncertain'};
   }
 

@@ -129,7 +129,8 @@ async function brokerOutreach100kStart(coreHandler, req, res) {
       recipientSetDigest: prepared.corpus.recipientSetDigest,
       founderPressReceiptId
     }, {
-      maxAttempts: 3,
+      maxAttempts: 1,
+      recoveryPolicy: 'reconcile',
       dedupeKey: `outreach100k:start:${prepared.certificate.certificateId}`
     });
     return sendJson(res, 202, {

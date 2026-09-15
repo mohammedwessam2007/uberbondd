@@ -288,23 +288,66 @@ export function generateInventionTask(seed, difficulty = 1) {
   const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
   const data = Array.from({ length: intBetween(rand, 5, 9) }, () => intBetween(rand, 1, 20));
   const primitives = ['sum', 'count', 'max', 'min'];
-  // Levels 1-2 want the mean, composed from sum and count. From level 3 the
-  // answer also needs max and min.
   const mean = data.reduce((a, b) => a + b, 0) / data.length;
   const midrange = (Math.max(...data) + Math.min(...data)) / 2;
-  const answer = level >= 3 ? (mean + midrange) / 2 : mean;
-  const required = level >= 3 ? ['sum', 'count', 'max', 'min'] : ['sum', 'count'];
+  const spread = Math.max(...data) - Math.min(...data);
+
+  /**
+   * At level 3 the target composition is drawn per seed.
+   *
+   * It used to be one fixed formula for every level-3 item, which meant the
+   * whole family could be passed by hard-coding that formula -- the solver
+   * would never have to read the prompt. That is the defect recorded as F010
+   * in another guise: a bottleneck that looks like missing reasoning and is
+   * actually a missing dictionary entry, and a tournament over it cannot tell
+   * a general method from a lookup.
+   *
+   * Four targets over the same four primitives. A solver that hard-codes one
+   * gets roughly a quarter of the family; a solver that reads the prompt gets
+   * all of it. That difference is the thing being measured.
+   */
+  const LEVEL3_TARGETS = [
+    {
+      key: 'mean-midrange-average',
+      phrase: 'the average of the mean and the midrange',
+      value: (mean + midrange) / 2,
+      needs: ['sum', 'count', 'max', 'min']
+    },
+    {
+      key: 'mean-minus-midrange',
+      phrase: 'the mean minus the midrange',
+      value: mean - midrange,
+      needs: ['sum', 'count', 'max', 'min']
+    },
+    {
+      key: 'spread-over-count',
+      phrase: 'the spread between largest and smallest, divided by how many numbers there are',
+      value: spread / data.length,
+      needs: ['max', 'min', 'count']
+    },
+    {
+      key: 'mean-over-spread',
+      phrase: 'the mean divided by the spread between largest and smallest',
+      value: spread === 0 ? mean : mean / spread,
+      needs: ['sum', 'count', 'max', 'min']
+    }
+  ];
+
+  const target = level >= 3 ? LEVEL3_TARGETS[Math.floor(rand() * LEVEL3_TARGETS.length)] : null;
+  const answer = target ? target.value : mean;
+  const required = target ? target.needs : ['sum', 'count'];
 
   return {
     taskId: `invention.compose.${seed}.d${level}`,
     family: 'INVENTION',
     difficulty: level,
-    prompt: level >= 3
-      ? 'Report the average of the mean and the midrange. No primitive computes it; compose one.'
+    prompt: target
+      ? `Report ${target.phrase}. No primitive computes it; compose one.`
       : 'Report the mean. No primitive computes it; compose one.',
     surface: { primitives, data },
     groundTruth: answer.toFixed(4),
     answerKind: 'NUMBER',
+    targetKey: target ? target.key : 'mean',
     requiredComposition: required,
     scoreComposition: used => {
       const list = Array.isArray(used) ? used : [];

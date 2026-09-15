@@ -251,15 +251,44 @@ test('the stale primary at level 3 breaks provenance-only ranking', () => {
   }
 });
 
-test('level 3 invention needs four primitives, not two', () => {
+test('level 3 invention needs more than sum and count, whichever target is drawn', () => {
+  // This asserted four specific primitives when every level-3 item shared one
+  // hard-coded formula. The target is now drawn per seed, so the assertion that
+  // survives is the one that was always the point: sum and count alone are
+  // never enough, and the composition the item names is.
   for (const seed of SEEDS) {
     const task = generateInventionTask(seed, 3);
-    assert.deepEqual(task.requiredComposition.slice().sort(), ['count', 'max', 'min', 'sum']);
+    assert.ok(task.requiredComposition.some(p => p === 'max' || p === 'min'),
+      'a level-3 target must reach past sum and count');
     assert.equal(task.scoreComposition(['sum', 'count']), 0);
-    assert.equal(task.scoreComposition(['sum', 'count', 'max', 'min']), 1);
+    assert.equal(task.scoreComposition(task.requiredComposition), 1);
+
+    // Recompute whichever target this seed drew, by a route independent of the
+    // generator's own arithmetic. If these ever disagree the instrument is
+    // wrong and every invention score built on it is meaningless.
     const data = task.surface.data;
     const mean = data.reduce((a, b) => a + b, 0) / data.length;
-    const midrange = (Math.max(...data) + Math.min(...data)) / 2;
-    assert.equal(((mean + midrange) / 2).toFixed(4), task.groundTruth);
+    const high = Math.max(...data);
+    const low = Math.min(...data);
+    const midrange = (high + low) / 2;
+    const spread = high - low;
+    const expected = {
+      'mean-midrange-average': (mean + midrange) / 2,
+      'mean-minus-midrange': mean - midrange,
+      'spread-over-count': spread / data.length,
+      'mean-over-spread': spread === 0 ? mean : mean / spread
+    }[task.targetKey];
+    assert.ok(expected !== undefined, `seed ${seed}: unrecognised target ${task.targetKey}`);
+    assert.equal(expected.toFixed(4), task.groundTruth);
   }
+});
+
+test('the level 3 invention target varies across seeds, so one formula cannot pass the family', () => {
+  // The whole point of drawing the target per seed. If this collapses back to
+  // one key, hard-coding beats reading the prompt and the family stops
+  // measuring composition -- which is exactly the state GA3 was declared to
+  // repair.
+  const drawn = new Set();
+  for (let seed = 40000; seed < 40080; seed += 1) drawn.add(generateInventionTask(seed, 3).targetKey);
+  assert.ok(drawn.size >= 3, `only ${drawn.size} distinct level-3 targets across 80 seeds`);
 });

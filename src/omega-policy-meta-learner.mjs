@@ -14,7 +14,7 @@ export function extractStructuralFeatures(raw){
   for(const c of p.constraints) typeCounts[c.type]++;
   const n=p.variables.length,m=p.constraints.length;
   const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
-  const features={nVars:n,nConstraints:m,meanDomain:mean(p.variables.map(v=>v.domain.length)),givenFraction:n?Object.keys(p.givens).length/n:0,meanDegree:mean(deg),maxDegree:deg.length?Math.max(...deg):0,degreeStd:deg.length?Math.sqrt(mean(deg.map(x=>(x-mean(deg))**2))):0,meanArity:m?mean(p.constraints.map(c=>c.vars.length):0),hyperFraction:m?p.constraints.filter(c=>c.vars.length>2).length/m:0};
+  const features={nVars:n,nConstraints:m,meanDomain:mean(p.variables.map(v=>v.domain.length)),givenFraction:n?Object.keys(p.givens).length/n:0,meanDegree:mean(deg),maxDegree:deg.length?Math.max(...deg):0,degreeStd:deg.length?Math.sqrt(mean(deg.map(x=>(x-mean(deg))**2))):0,meanArity:m?mean(p.constraints.map(c=>c.vars.length)):0,hyperFraction:m?p.constraints.filter(c=>c.vars.length>2).length/m:0};
   for(const t of TYPES) features[`type_${t}`]=m?typeCounts[t]/m:0;
   return features;
 }

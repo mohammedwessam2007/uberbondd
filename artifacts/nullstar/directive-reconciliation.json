@@ -4,16 +4,16 @@
   "status": "FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE",
   "directiveId": "project-nullstar",
   "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e",
-  "sourceCommit": "80aa2b16c7ebbf3a41b313ecac6b1efc7a75322c",
-  "generatedAt": "2026-09-15T00:16:31.913Z",
+  "sourceCommit": "96354b4e41859e0417999518bedec3760c91f446",
+  "generatedAt": "2026-09-15T02:29:55.191Z",
   "counts": {
     "sections": 336,
     "rows": 336,
     "byState": {
       "VERIFIED_CURRENT": 33,
-      "PARTIAL": 31,
+      "PARTIAL": 32,
       "DONOR_ONLY": 0,
-      "MISSING": 244,
+      "MISSING": 243,
       "BLOCKED": 14,
       "NOT_CURRENTLY_JUSTIFIED": 14
     },
@@ -1379,15 +1379,17 @@
       "numeral": "L",
       "title": "REPUTATION ENGINE",
       "class": "ORGAN",
-      "currentState": "MISSING",
+      "currentState": "PARTIAL",
       "corpusReferences": 0,
       "canonicalMatches": [],
       "currentEvidence": {
-        "sourceModules": [],
+        "sourceModules": [
+          "src/uberwarm-reputation-lab.mjs"
+        ],
         "testModules": [],
-        "reachability": null,
-        "matchStrength": "NO_MATCH",
-        "matchScope": "NONE"
+        "reachability": "PRODUCTION",
+        "matchStrength": "ALL_TOKENS",
+        "matchScope": "WHOLE_NAME"
       },
       "aliasedTo": null,
       "aliasReason": null,
@@ -8129,16 +8131,6 @@
       "nearestCanonicalConcepts": []
     },
     {
-      "sectionId": "nullstar:050-reputation-engine",
-      "numeral": "L",
-      "title": "REPUTATION ENGINE",
-      "class": "ORGAN",
-      "currentState": "MISSING",
-      "corpusReferences": 0,
-      "existingEvidence": [],
-      "nearestCanonicalConcepts": []
-    },
-    {
       "sectionId": "nullstar:051-fulfilment-compiler",
       "numeral": "LI",
       "title": "FULFILMENT COMPILER",
@@ -10201,6 +10193,18 @@
       "nearestCanonicalConcepts": []
     },
     {
+      "sectionId": "nullstar:050-reputation-engine",
+      "numeral": "L",
+      "title": "REPUTATION ENGINE",
+      "class": "ORGAN",
+      "currentState": "PARTIAL",
+      "corpusReferences": 0,
+      "existingEvidence": [
+        "src/uberwarm-reputation-lab.mjs"
+      ],
+      "nearestCanonicalConcepts": []
+    },
+    {
       "sectionId": "nullstar:066-autonomous-mission-market",
       "numeral": "LXVI",
       "title": "AUTONOMOUS MISSION MARKET",
@@ -10377,7 +10381,7 @@
       ]
     }
   ],
-  "rowDigest": "ae5c16c5f6e5a483b922224b130730243dc54ee55649a83294e9c31fdac50034",
+  "rowDigest": "a594c1a2374963a5932d9c304c0ee1c5acbe893131274e0d93c539f35aa05ea1",
   "truthBoundary": "RECONCILIATION_REPORTS_ONLY_WHAT_THIS_TREE_AND_THE_CANONICAL_COVERAGE_MATRIX_SUPPORT. A_ROW_IS_NOT_A_WORK_ORDER; A_CUT_SET_POSITION_IS_A_CORPUS_REFERENCE_COUNT_AND_NOT_AN_ESTIMATE_OF_COST_VALUE_OR_UNLOCK. IT_DOES_NOT_PROVE_IMPLEMENTATION_RUNTIME_EXTERNAL_OUTCOMES_RECURSIVE_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {

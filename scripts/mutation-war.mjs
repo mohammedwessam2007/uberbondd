@@ -3060,6 +3060,34 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'METAIMP-05', guard: 'The evidence-timing boundary is derived from the episodes, not written once',
+    file: 'src/nullstar-omega-meta-improvement.mjs',
+    find: "  if (prospective === 0) {",
+    replace: '  if (true) {',
+    suites: ['tests/nullstar-omega-meta-improvement.test.mjs']
+  },
+  {
+    id: 'CALLADDER-01', guard: 'A calibration rung requires the sample to actually reach it',
+    file: 'src/nullstar-omega-calibration-ladder.mjs',
+    find: '    return n >= t.n && families >= t.families && domains >= t.domains && horizons >= t.horizons && external >= t.external;',
+    replace: '    return true;',
+    suites: ['tests/nullstar-omega-calibration-ladder.test.mjs']
+  },
+  {
+    id: 'CALLADDER-02', guard: 'An omitted sample count is refused, not assumed generous',
+    file: 'src/nullstar-omega-calibration-ladder.mjs',
+    find: "  if (domains === null) reasonCodes.push('domain-count-required');",
+    replace: '',
+    suites: ['tests/nullstar-omega-calibration-ladder.test.mjs']
+  },
+  {
+    id: 'DENOMCAL-01', guard: 'A calibration receipt with no placement does not advance a dimension',
+    file: 'src/nullstar-omega-denominator.mjs',
+    find: '  if (rung) state = rung.rung;',
+    replace: "  if (calibration.length) state = 'LONGITUDINALLY_CALIBRATED';",
+    suites: ['tests/nullstar-omega-denominator.test.mjs']
+  },
+  {
     id: 'METAIMP-04', guard: 'A declaration whose criterion differs from its symptom kind is refused',
     file: 'src/nullstar-omega-meta-improvement.mjs',
     find: '  if (stated !== rule) {',

@@ -2,7 +2,7 @@
   "schemaVersion": "uberbond-nullstar-omega-meta-improvement-1.0.0",
   "module": "uberbond.nullstar-omega-meta-improvement.v1",
   "directiveSection": "310",
-  "generatedAt": "2026-09-15T01:10:22.364Z",
+  "generatedAt": "2026-09-15T02:12:19.885Z",
   "episodes": [
     {
       "ok": true,
@@ -132,10 +132,11 @@
     "unresolved": 4,
     "reason": "a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-non-resolutions",
     "truthBoundary": "A PROCESS THAT RESOLVES ITS OWN NAMED SYMPTOMS IS WORKING ON ITS OWN TERMS. THAT IS NOT THE SAME AS THE SYSTEM GETTING MORE CAPABLE.",
+    "evidenceTimingBoundary": "4 OF 6 EPISODES ARE PROSPECTIVE AND 2 ARE RETROSPECTIVE RECONSTRUCTIONS. ONLY THE PROSPECTIVE ONES CAN SHOW THIS PROCESS SUCCEEDING; THE RECONSTRUCTIONS CAN ONLY SHOW IT FAILING.",
     "businessEffectAuthority": "NONE"
   },
   "integrityTension": "G5 scores as a persistence because coverage did not rise, and coverage did not rise because the evidence-reuse guard refused two dimensions that would have been cut from observations already in use. A process that declines to inflate its own metric scores worse here than one that inflates it. That is a real cost of measuring the process this way and it is recorded rather than adjusted away, because adjusting it would make the metric unfalsifiable.",
   "finding": "G0 and G1 both named a saturated instrument and both times the response widened coverage instead of raising difficulty, so the ceiling survived. The G2 diagnosis named the cause -- the corpus was reading values the repository already computed -- and G3 measured observed outcomes instead. That symptom resolved. One prospective resolution is not a working process.",
-  "truthBoundary": "EVERY EPISODE HERE IS RETROSPECTIVE. RETROSPECTIVE EVIDENCE CAN SHOW THIS PROCESS FAILING; IT CANNOT SHOW IT SUCCEEDING.",
+  "truthBoundary": "4 OF 6 EPISODES ARE PROSPECTIVE AND 2 ARE RETROSPECTIVE RECONSTRUCTIONS. ONLY THE PROSPECTIVE ONES CAN SHOW THIS PROCESS SUCCEEDING; THE RECONSTRUCTIONS CAN ONLY SHOW IT FAILING.",
   "businessEffectAuthority": "NONE"
 }

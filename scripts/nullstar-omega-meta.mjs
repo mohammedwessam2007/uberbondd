@@ -7,6 +7,7 @@ import {
   EPISODE_EVIDENCE_CLASSES,
   evaluateSelectionEpisode,
   metaImprovementVerdict,
+  deriveTruthBoundary,
   NULLSTAR_OMEGA_META_IMPROVEMENT_VERSION
 } from '../src/nullstar-omega-meta-improvement.mjs';
 
@@ -116,6 +117,9 @@ writeFileSync('artifacts/nullstar-omega/meta-improvement.json', `${JSON.stringif
   verdict,
   integrityTension: 'G5 scores as a persistence because coverage did not rise, and coverage did not rise because the evidence-reuse guard refused two dimensions that would have been cut from observations already in use. A process that declines to inflate its own metric scores worse here than one that inflates it. That is a real cost of measuring the process this way and it is recorded rather than adjusted away, because adjusting it would make the metric unfalsifiable.',
   finding: 'G0 and G1 both named a saturated instrument and both times the response widened coverage instead of raising difficulty, so the ceiling survived. The G2 diagnosis named the cause -- the corpus was reading values the repository already computed -- and G3 measured observed outcomes instead. That symptom resolved. One prospective resolution is not a working process.',
-  truthBoundary: 'EVERY EPISODE HERE IS RETROSPECTIVE. RETROSPECTIVE EVIDENCE CAN SHOW THIS PROCESS FAILING; IT CANNOT SHOW IT SUCCEEDING.',
+  // Derived from the episodes rather than written once and left behind. The
+  // literal that used to sit here claimed every episode was retrospective
+  // while four of six were marked prospective directly above it.
+  truthBoundary: deriveTruthBoundary(episodes),
   businessEffectAuthority: 'NONE'
 }, null, 2)}\n`);

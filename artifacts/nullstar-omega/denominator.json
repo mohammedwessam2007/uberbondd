@@ -2,8 +2,8 @@
   "ok": true,
   "version": "uberbond.nullstar-omega-denominator.v1",
   "status": "NULLSTAR_OMEGA_DENOMINATOR_COMPILED",
-  "sourceCommit": "28bc66330b2a2f556c3be629bfd8de643a81f428",
-  "generatedAt": "2026-09-15T01:16:34.185Z",
+  "sourceCommit": "96354b4e41859e0417999518bedec3760c91f446",
+  "generatedAt": "2026-09-15T02:30:48.507Z",
   "counts": {
     "dimensions": 24,
     "byState": {
@@ -13,7 +13,11 @@
       "IMPLEMENTED": 0,
       "VERIFIED": 14,
       "OPERATING": 9,
-      "REALITY_CALIBRATED": 1
+      "REPOSITORY_LOCAL_CALIBRATED": 1,
+      "DOMAIN_CALIBRATED": 0,
+      "MULTI_DOMAIN_CALIBRATED": 0,
+      "EXTERNALLY_CALIBRATED": 0,
+      "LONGITUDINALLY_CALIBRATED": 0
     }
   },
   "dimensions": [
@@ -36,7 +40,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/sovereign/implementation-coverage-matrix.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -56,7 +61,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/generations/G0.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -75,7 +81,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/holdout-manifest.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -94,7 +101,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/bottlenecks-G0.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -113,7 +121,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/generations/G1.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -131,7 +140,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -149,7 +159,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -172,7 +183,8 @@
           "artifacts/nullstar-omega/generations/G5.json",
           "artifacts/nullstar-omega/generations/G6.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -197,7 +209,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/meta-improvement.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -216,7 +229,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/velocity.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -236,13 +250,14 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/generalization.json"
         ],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
       "id": "N12",
       "name": "CALIBRATION",
-      "state": "REALITY_CALIBRATED",
+      "state": "REPOSITORY_LOCAL_CALIBRATED",
       "evidence": {
         "modulesPresent": [
           "src/reality-calibration-ledger.mjs",
@@ -259,7 +274,20 @@
         ],
         "calibrationReceiptsPresent": [
           "artifacts/nullstar-omega/reality-connection.json"
-        ]
+        ],
+        "calibrationPlacement": {
+          "rung": "REPOSITORY_LOCAL_CALIBRATED",
+          "receipt": "artifacts/nullstar-omega/reality-connection.json",
+          "sample": {
+            "scoredForecasts": 2,
+            "taskFamilyCount": 2,
+            "domainCount": 1,
+            "timeHorizonCount": 1,
+            "externallySettledForecasts": 0,
+            "voidedForecasts": 1,
+            "meanBrier": 0.5975
+          }
+        }
       }
     },
     {
@@ -277,7 +305,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -295,7 +324,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -313,7 +343,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -331,7 +362,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -349,7 +381,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -366,7 +399,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -384,7 +418,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -401,7 +436,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -422,7 +458,8 @@
           "AI_START_HERE.md"
         ],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -440,7 +477,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -458,7 +496,8 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     },
     {
@@ -478,13 +517,14 @@
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [],
-        "calibrationReceiptsPresent": []
+        "calibrationReceiptsPresent": [],
+        "calibrationPlacement": null
       }
     }
   ],
-  "denominatorDigest": "03f9c4004dba6c0ef9de0bef86fc56ce4326310e8507c6bfae5dc5b3ecdb04b6",
+  "denominatorDigest": "b6593fe16e78fec392fd8016bd1965fc3b505555c8a95fffe636718f499fc461",
   "immutabilityLaw": "ADDITIVE_ONLY. A dimension may be added. Removing one fails the compile, because a denominator that can be shortened reports a better number every time a hard dimension becomes inconvenient.",
-  "truthBoundary": "STATES_ARE_COMPUTED_FROM_FILE_EVIDENCE_ONLY. IMPLEMENTED_MEANS_THE_MODULES_EXIST; VERIFIED_MEANS_TESTS_EXERCISE_THEM; OPERATING_MEANS_A_RUN_LEFT_A_RECEIPT; REALITY_CALIBRATED_MEANS_A_PREDICTION_WAS_LATER_CHECKED_AGAINST_AN_OBSERVATION. NO_STATE_HERE_PROVES_RUNTIME_QUALITY_EXTERNAL_OUTCOMES_SELF_IMPROVEMENT_OR_ASI.",
+  "truthBoundary": "STATES_ARE_COMPUTED_FROM_FILE_EVIDENCE_ONLY. IMPLEMENTED_MEANS_THE_MODULES_EXIST; VERIFIED_MEANS_TESTS_EXERCISE_THEM; OPERATING_MEANS_A_RUN_LEFT_A_RECEIPT; A_CALIBRATION_RUNG_MEANS_PREDICTIONS_WERE_CHECKED_AGAINST_OBSERVATIONS_AND_REACHES_ONLY_AS_FAR_AS_THE_RUNG_NAMES. NO_STATE_HERE_PROVES_RUNTIME_QUALITY_EXTERNAL_OUTCOMES_SELF_IMPROVEMENT_OR_ASI.",
   "businessEffectAuthority": "NONE",
   "externalEffectLedger": {
     "customerMessages": 0,

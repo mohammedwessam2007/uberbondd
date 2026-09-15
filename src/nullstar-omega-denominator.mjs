@@ -19,7 +19,15 @@ import { ZERO_CONSEQUENCE_EFFECTS } from './effect-ledgers.mjs';
 
 export const NULLSTAR_OMEGA_DENOMINATOR_VERSION = 'uberbond.nullstar-omega-denominator.v1';
 
-/** The state ladder. Ordered: each state is strictly stronger than the last. */
+/** The state ladder. Ordered: each state is strictly stronger than the last.
+ *
+ * The top used to be a single REALITY_CALIBRATED, awarded whenever a
+ * calibration receipt file existed. Two forecasts about this repository, both
+ * settled by running a command in this repository, earned the same label a
+ * system calibrated against the outside world would carry. The calibration
+ * rungs now come from the ladder module, so this cannot say more than the
+ * placement inside the receipt says.
+ */
 export const DENOMINATOR_STATES = Object.freeze([
   'ABSENT',
   'CANON',
@@ -27,8 +35,32 @@ export const DENOMINATOR_STATES = Object.freeze([
   'IMPLEMENTED',
   'VERIFIED',
   'OPERATING',
-  'REALITY_CALIBRATED'
+  'REPOSITORY_LOCAL_CALIBRATED',
+  'DOMAIN_CALIBRATED',
+  'MULTI_DOMAIN_CALIBRATED',
+  'EXTERNALLY_CALIBRATED',
+  'LONGITUDINALLY_CALIBRATED'
 ]);
+
+/** Placements that do not lift a dimension above OPERATING. */
+const NON_ADVANCING_PLACEMENTS = new Set(['UNMEASURED', 'INTERNAL_SIMULATED']);
+
+/**
+ * Read the rung a calibration receipt actually earned.
+ *
+ * A receipt with no placement is a file, not a calibration. It leaves the
+ * dimension where the runtime evidence put it.
+ */
+function calibrationRungFrom(receiptPaths, readJson) {
+  for (const path of receiptPaths) {
+    const placement = readJson(path)?.calibrationPlacement;
+    const status = placement?.status;
+    if (typeof status === 'string' && DENOMINATOR_STATES.includes(status) && !NON_ADVANCING_PLACEMENTS.has(status)) {
+      return { rung: status, sample: placement.sample ?? null, receipt: path };
+    }
+  }
+  return null;
+}
 
 /**
  * The twenty-four dimensions.
@@ -157,7 +189,7 @@ function refuse(reasonCodes, extra = {}) {
  * only because a prediction was later compared with an observation. That is the
  * difference between a system that could work and one that has.
  */
-export function classifyDimension(dimension, fileIndex) {
+export function classifyDimension(dimension, fileIndex, readJson = () => null) {
   const modules = (dimension.modules || []).filter(path => exists(path, fileIndex));
   const tests = (dimension.tests || []).filter(path => exists(path, fileIndex));
   const canon = (dimension.canonDocs || []).filter(path => exists(path, fileIndex));
@@ -167,8 +199,10 @@ export function classifyDimension(dimension, fileIndex) {
   const declaredModules = (dimension.modules || []).length;
   const allModules = declaredModules > 0 && modules.length === declaredModules;
 
+  const rung = calibration.length ? calibrationRungFrom(calibration, readJson) : null;
+
   let state;
-  if (calibration.length) state = 'REALITY_CALIBRATED';
+  if (rung) state = rung.rung;
   else if (receipts.length && tests.length) state = 'OPERATING';
   else if (allModules && tests.length) state = 'VERIFIED';
   else if (modules.length && tests.length) state = 'PARTIAL';
@@ -187,7 +221,12 @@ export function classifyDimension(dimension, fileIndex) {
       testsPresent: tests,
       canonPresent: canon,
       runtimeReceiptsPresent: receipts,
-      calibrationReceiptsPresent: calibration
+      calibrationReceiptsPresent: calibration,
+      calibrationPlacement: rung
+        ? { rung: rung.rung, receipt: rung.receipt, sample: rung.sample }
+        : (calibration.length
+            ? { rung: null, receipt: calibration[0], note: 'The receipt exists but carries no placement that advances past OPERATING. Presence of a file is not calibration.' }
+            : null)
     }
   };
 }
@@ -200,7 +239,7 @@ export function classifyDimension(dimension, fileIndex) {
  * shorten is a denominator that reports a better number every time a hard
  * dimension becomes inconvenient.
  */
-export function compileOmegaDenominator({ fileIndex = new Set(), previousDimensionIds = [], generatedAt = new Date().toISOString(), sourceCommit = null } = {}) {
+export function compileOmegaDenominator({ fileIndex = new Set(), previousDimensionIds = [], generatedAt = new Date().toISOString(), sourceCommit = null, readJson = () => null } = {}) {
   const index = fileIndex instanceof Set ? fileIndex : new Set(Array.isArray(fileIndex) ? fileIndex : []);
   const ids = OMEGA_DIMENSIONS.map(dimension => dimension.id);
   if (new Set(ids).size !== ids.length) return refuse(['duplicate-dimension-id']);
@@ -208,7 +247,7 @@ export function compileOmegaDenominator({ fileIndex = new Set(), previousDimensi
   const lost = previousDimensionIds.filter(id => !ids.includes(id));
   if (lost.length) return refuse(lost.map(id => `dimension-may-not-be-removed:${id}`));
 
-  const dimensions = OMEGA_DIMENSIONS.map(dimension => classifyDimension(dimension, index));
+  const dimensions = OMEGA_DIMENSIONS.map(dimension => classifyDimension(dimension, index, readJson));
   if (dimensions.length !== OMEGA_DIMENSIONS.length) return refuse(['denominator-must-not-drop-a-dimension']);
 
   const byState = Object.fromEntries(DENOMINATOR_STATES.map(state => [state, 0]));
@@ -231,7 +270,7 @@ export function compileOmegaDenominator({ fileIndex = new Set(), previousDimensi
     immutabilityLaw: 'ADDITIVE_ONLY. A dimension may be added. Removing one fails the compile, because a denominator that can be shortened reports a better number every time a hard dimension becomes inconvenient.',
     truthBoundary:
       'STATES_ARE_COMPUTED_FROM_FILE_EVIDENCE_ONLY. IMPLEMENTED_MEANS_THE_MODULES_EXIST; VERIFIED_MEANS_TESTS_EXERCISE_THEM; '
-      + 'OPERATING_MEANS_A_RUN_LEFT_A_RECEIPT; REALITY_CALIBRATED_MEANS_A_PREDICTION_WAS_LATER_CHECKED_AGAINST_AN_OBSERVATION. '
+      + 'OPERATING_MEANS_A_RUN_LEFT_A_RECEIPT; A_CALIBRATION_RUNG_MEANS_PREDICTIONS_WERE_CHECKED_AGAINST_OBSERVATIONS_AND_REACHES_ONLY_AS_FAR_AS_THE_RUNG_NAMES. '
       + 'NO_STATE_HERE_PROVES_RUNTIME_QUALITY_EXTERNAL_OUTCOMES_SELF_IMPROVEMENT_OR_ASI.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_CONSEQUENCE_EFFECTS }

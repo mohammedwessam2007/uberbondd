@@ -17,6 +17,7 @@ import {
   voidLoop,
   NULLSTAR_OMEGA_REALITY_CONNECTION_VERSION
 } from '../src/nullstar-omega-reality-connection.mjs';
+import { placeCalibration } from '../src/nullstar-omega-calibration-ladder.mjs';
 
 const TRIAGE_MODULES = [
   'src/c21-dimension-evidence-producer.mjs',
@@ -321,6 +322,22 @@ for (const { entry, observable, forecast } of sealed) {
 
 const verdict = realityCalibrationVerdict(loops);
 
+// realityCalibrationVerdict answers whether these loops were capable of
+// embarrassing the forecaster. It does not answer how far the result reaches,
+// and the denominator previously read its REALITY_CALIBRATED as though it did.
+// Every observable here is settled by running a command in this repository, so
+// nothing was settled outside this system.
+const closedLoops = loops.filter(loop => loop?.ok);
+const placement = placeCalibration({
+  scoredForecasts: closedLoops.length,
+  taskFamilyCount: new Set(closedLoops.map(loop => loop.observableId)).size,
+  domainCount: 1,
+  timeHorizonCount: 1,
+  externallySettledForecasts: 0,
+  meanBrier: verdict.meanBrier ?? null,
+  voidedForecasts: loops.filter(loop => loop?.status === 'REALITY_LOOP_VOID').length
+});
+
 mkdirSync('artifacts/nullstar-omega', { recursive: true });
 writeFileSync('artifacts/nullstar-omega/reality-connection.json', `${JSON.stringify({
   schemaVersion: 'uberbond-nullstar-omega-reality-connection-1.0.0',
@@ -331,9 +348,12 @@ writeFileSync('artifacts/nullstar-omega/reality-connection.json', `${JSON.string
   loopsClosed: loops.filter(loop => loop?.ok).length,
   loopsVoided: loops.filter(loop => loop?.status === 'REALITY_LOOP_VOID').length,
   verdict,
+  calibrationPlacement: placement,
   records,
   truthBoundary: 'THESE ARE FORECASTS ABOUT THIS REPOSITORY SCORED BY THIS REPOSITORY\'S OWN TOOLS. THEY ARE REALITY CONTACT, NOT MARKET, CUSTOMER OR LIFE EVIDENCE.',
   businessEffectAuthority: 'NONE'
 }, null, 2)}\n`);
 
 console.log(`\n${verdict.status} closedLoops=${verdict.closedLoops} voided=${verdict.voidedLoops ?? 0} surprises=${verdict.surprises ?? 0} meanBrier=${verdict.meanBrier ?? 'n/a'}`);
+console.log(`ladder: ${placement.status}${placement.smallSampleWarning ? ` -- ${placement.smallSampleWarning}` : ''}`);
+if (placement.shortfallToNextState?.length) console.log(`  to reach ${placement.nextState}: ${placement.shortfallToNextState.join('; ')}`);

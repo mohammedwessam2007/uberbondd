@@ -203,6 +203,30 @@ export function evaluateSelectionEpisode({
 }
 
 /**
+ * State the evidence limit from the episodes themselves.
+ *
+ * The previous truth boundary was a literal string written when every episode
+ * really was retrospective. Prospective episodes were added later and the
+ * sentence stayed, so the artifact asserted "EVERY EPISODE HERE IS
+ * RETROSPECTIVE" directly above four episodes marked PROSPECTIVE. A summary
+ * that cannot be contradicted by its own data is not a summary.
+ */
+export function deriveTruthBoundary(episodes = []) {
+  const rows = (Array.isArray(episodes) ? episodes : []).filter(row => row?.ok);
+  const prospective = rows.filter(row => row.evidenceClass === EPISODE_EVIDENCE_CLASSES.PROSPECTIVE).length;
+  const retrospective = rows.length - prospective;
+
+  if (rows.length === 0) return 'NO EPISODES. NOTHING IS SHOWN EITHER WAY.';
+  if (prospective === 0) {
+    return `ALL ${retrospective} EPISODES ARE RETROSPECTIVE. RETROSPECTIVE EVIDENCE CAN SHOW THIS PROCESS FAILING; IT CANNOT SHOW IT SUCCEEDING.`;
+  }
+  if (retrospective === 0) {
+    return `ALL ${prospective} EPISODES ARE PROSPECTIVE. A VERDICT OVER ${prospective} EPISODES IS STILL A VERDICT OVER ${prospective} EPISODES.`;
+  }
+  return `${prospective} OF ${rows.length} EPISODES ARE PROSPECTIVE AND ${retrospective} ARE RETROSPECTIVE RECONSTRUCTIONS. ONLY THE PROSPECTIVE ONES CAN SHOW THIS PROCESS SUCCEEDING; THE RECONSTRUCTIONS CAN ONLY SHOW IT FAILING.`;
+}
+
+/**
  * Verdict over the episodes.
  *
  * Deliberately hard to pass. One episode is an anecdote. Retrospective
@@ -251,6 +275,7 @@ export function metaImprovementVerdict(episodes = []) {
       movedElsewhere: 0,
       untested: 0,
       prospectiveEpisodes: prospective.length,
+      evidenceTimingBoundary: deriveTruthBoundary(rows),
       finding: 'Every named symptom survived the work done in response to it.',
       truthBoundary: 'THIS SAYS THE SELECTIONS DID NOT RESOLVE WHAT THEY NAMED. IT DOES NOT SAY THE WORK WAS WORTHLESS.',
       businessEffectAuthority: 'NONE'
@@ -275,6 +300,7 @@ export function metaImprovementVerdict(episodes = []) {
       ? 'a-working-verdict-needs-at-least-two-prospective-episodes-and-more-resolutions-than-non-resolutions'
       : null,
     truthBoundary: 'A PROCESS THAT RESOLVES ITS OWN NAMED SYMPTOMS IS WORKING ON ITS OWN TERMS. THAT IS NOT THE SAME AS THE SYSTEM GETTING MORE CAPABLE.',
+    evidenceTimingBoundary: deriveTruthBoundary(rows),
     businessEffectAuthority: 'NONE'
   };
 }

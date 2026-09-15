@@ -43,7 +43,12 @@ function main() {
   let sourceCommit = null;
   try { sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(); } catch { /* no git */ }
 
-  const result = compileOmegaDenominator({ fileIndex, previousDimensionIds, sourceCommit });
+  // The classifier reads the placement inside a calibration receipt rather
+  // than treating the file's existence as the calibration.
+  const readJson = relative => {
+    try { return JSON.parse(readFileSync(join(root, relative), 'utf8')); } catch { return null; }
+  };
+  const result = compileOmegaDenominator({ fileIndex, previousDimensionIds, sourceCommit, readJson });
   if (!result.ok) { console.error(JSON.stringify(result, null, 2)); return 1; }
 
   mkdirSync(join(root, 'artifacts/nullstar-omega'), { recursive: true });

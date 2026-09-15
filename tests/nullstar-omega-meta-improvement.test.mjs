@@ -6,7 +6,8 @@ import {
   evaluateSelectionEpisode,
   metaImprovementVerdict,
   resolutionRuleFor,
-  validateDeclaration
+  validateDeclaration,
+  deriveTruthBoundary
 } from '../src/nullstar-omega-meta-improvement.mjs';
 
 const episode = (overrides = {}) => evaluateSelectionEpisode({
@@ -200,4 +201,50 @@ test('every symptom kind has a rule a declaration can quote', () => {
     assert.ok(resolutionRuleFor(kind), `${kind} must have a rule`);
     assert.equal(validateDeclaration({ symptomKind: kind, statedResolutionRule: resolutionRuleFor(kind) }).ok, true);
   }
+});
+
+const prospectiveRow = (overrides = {}) => episode({
+  evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
+  afterVector: { reasoning: 1, calibration: 0.3, robustness: 0.8, selfDiagnosis: 1 },
+  ...overrides
+});
+const retrospectiveRow = (overrides = {}) => episode({
+  evidenceClass: EPISODE_EVIDENCE_CLASSES.RETROSPECTIVE_RECONSTRUCTION,
+  ...overrides
+});
+
+test('the evidence-timing boundary cannot claim all-retrospective while prospective episodes exist', () => {
+  // The live defect: the artifact asserted "EVERY EPISODE HERE IS
+  // RETROSPECTIVE" directly above four episodes marked PROSPECTIVE, because
+  // the sentence was a literal written before they existed.
+  const rows = [retrospectiveRow(), retrospectiveRow(), prospectiveRow(), prospectiveRow()];
+  const boundary = deriveTruthBoundary(rows);
+  const prospectiveCount = rows.filter(r => r.evidenceClass === EPISODE_EVIDENCE_CLASSES.PROSPECTIVE).length;
+  assert.ok(prospectiveCount > 0);
+  assert.doesNotMatch(boundary, /ALL \d+ EPISODES ARE RETROSPECTIVE/);
+  assert.match(boundary, /2 OF 4 EPISODES ARE PROSPECTIVE/);
+});
+
+test('an all-retrospective set says so, and an all-prospective set does not', () => {
+  assert.match(deriveTruthBoundary([retrospectiveRow(), retrospectiveRow()]), /ALL 2 EPISODES ARE RETROSPECTIVE/);
+  assert.match(deriveTruthBoundary([prospectiveRow(), prospectiveRow()]), /ALL 2 EPISODES ARE PROSPECTIVE/);
+});
+
+test('no episodes claims nothing either way', () => {
+  assert.match(deriveTruthBoundary([]), /NOTHING IS SHOWN EITHER WAY/);
+});
+
+test('the verdict carries a timing boundary that matches its own prospective count', () => {
+  const verdict = metaImprovementVerdict([retrospectiveRow(), prospectiveRow(), prospectiveRow()]);
+  assert.equal(verdict.prospectiveEpisodes, 2);
+  // The summary and the count come from the same rows, so they cannot disagree.
+  assert.match(verdict.evidenceTimingBoundary, /2 OF 3 EPISODES ARE PROSPECTIVE/);
+  assert.doesNotMatch(verdict.evidenceTimingBoundary, /ALL \d+ EPISODES ARE RETROSPECTIVE/);
+});
+
+test('the all-persisted verdict also carries a data-derived timing boundary', () => {
+  const persisted = retrospectiveRow({ afterVector: { reasoning: 1, calibration: 1, robustness: 1, selfDiagnosis: 1 } });
+  const verdict = metaImprovementVerdict([persisted, { ...persisted, generation: 'G1' }]);
+  assert.equal(verdict.status, 'IMPROVEMENT_PROCESS_NOT_WORKING');
+  assert.match(verdict.evidenceTimingBoundary, /ALL 2 EPISODES ARE RETROSPECTIVE/);
 });

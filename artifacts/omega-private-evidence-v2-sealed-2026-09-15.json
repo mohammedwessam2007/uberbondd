@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "uberbond.omega-private-evidence-receipt.v2",
+  "experimentVersion": "OMEGA_META_TRANSFER_V2",
+  "sourceFreezeCommit": "50dc95b336e9b9ad94c3402fbcbdfe4852e01528",
+  "holdoutCommitmentCommit": "82d92aab88bfd572f1a0fabb058955d87eb115a5",
+  "status": "CLEAN_BOUNDED_POSITIVE_EVIDENCE_NOT_E10",
+  "training": {
+    "discoveryWork": 70706,
+    "crystalHash": "2e9d9b6fac839f8c6b25b3259432bcf91ef4426d17c455c5332656b42bf41037",
+    "sourceDomains": ["TRAIN_ALLDIFF","TRAIN_BALANCE","TRAIN_COLOR","TRAIN_ORDER"]
+  },
+  "sealedRuns": [
+    {"id":"v2-private-1","tasks":40,"commitment":"d6ae9d0e205b14b2312292400c49b0de34e9e4e5b7a61469f1d59a19897b2c59","original":{"coldWork":163341,"transferWork":6499,"reductionFraction":0.9602120716782682,"improved":24,"worsened":5,"tied":11},"renamed":{"coldWork":163341,"transferWork":6499,"reductionFraction":0.9602120716782682},"reversed":{"coldWork":1184543,"transferWork":6495,"reductionFraction":0.9945168727517701}},
+    {"id":"v2-private-2","tasks":40,"commitment":"1b783a12eecf39d0608d528ef442104f4ab0aa29f588294dead41ffe22b673bd","original":{"coldWork":150173,"transferWork":6715,"reductionFraction":0.9552849047431962,"improved":29,"worsened":5,"tied":6},"renamed":{"coldWork":150173,"transferWork":6715,"reductionFraction":0.9552849047431962},"reversed":{"coldWork":2090502,"transferWork":6378,"reductionFraction":0.9969490581688035}},
+    {"id":"v2-private-3","tasks":40,"commitment":"c1324096dcf43530781e7dddf5ec11a94382f6d9ccb949d21867706173dbca9e","original":{"coldWork":332580,"transferWork":6809,"reductionFraction":0.9795267304107282,"improved":32,"worsened":3,"tied":5},"renamed":{"coldWork":332580,"transferWork":6809,"reductionFraction":0.9795267304107282},"reversed":{"coldWork":213930,"transferWork":6316,"reductionFraction":0.9704763240312252}},
+    {"id":"v2-private-4","tasks":40,"commitment":"7402c3e3e78ed8655b7b5408f7769a6d79ddd52276ab850d7ba00454213f40ea","original":{"coldWork":3606086,"transferWork":6257,"reductionFraction":0.9982648777649784,"improved":29,"worsened":8,"tied":3},"renamed":{"coldWork":3606086,"transferWork":6257,"reductionFraction":0.9982648777649784},"reversed":{"coldWork":122561,"transferWork":6747,"reductionFraction":0.9449498617015201}}
+  ],
+  "fullCostAmortization": {
+    "tasks": 160,
+    "coldWork": 4252180,
+    "trainingPlusTransferWork": 96986,
+    "netMeasuredWorkSaved": 4155194,
+    "breakEvenReachedAfterFirstSealedBatch": true
+  },
+  "robustness": {
+    "opaqueIdentifierRename": "PASS_EXACT_WORK_MATCH",
+    "reverseVariablePresentation": "PASS_AGGREGATE_ADVANTAGE_ALL_RUNS",
+    "allCommitmentRevealsValid": true
+  },
+  "promotionBoundary": "Strong bounded evidence for repeated structural transfer across four declared finite-CSP algebras and novel named domains. Does not establish unseen-algebra meta-generalization, unrestricted semantics, frontier-grade breadth, ASI, or singularity.",
+  "gradeCeilingFromThisReceiptAlone": "E8_CANDIDATE_PENDING_INDEPENDENT_VERIFIER_AND_META_GENERALIZATION"
+}

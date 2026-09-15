@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createProjectChatMesh } from '../src/uber-socket-project-mesh.mjs';
+import { createProjectMesh } from '../src/uber-socket-project-mesh.mjs';
 import { createSharedContentFabric } from '../src/uber-socket-shared-content-fabric.mjs';
 
 test('all project chats share content and compile council monster prompts', async()=>{
  const calls=[];
  const modelAdapter={async respond({conversationId,input}){calls.push({conversationId,input});return {text:`REPLY:${conversationId}:${input.slice(0,220)}`,responseId:`r${calls.length}`}}};
- const mesh=createProjectChatMesh({projectId:'uberbond',modelAdapter});
- for(let i=1;i<=12;i++) mesh.registerChat({peerId:`chat-${i}`,conversationId:`conv-${i}`,title:`UberBond ${i}`,tags:[i%2?'research':'runtime','uberbond']});
+ const mesh=createProjectMesh({modelAdapter});
+ for(let i=1;i<=12;i++) mesh.registerChat({peerId:`chat-${i}`,conversationId:`conv-${i}`,projectId:'uberbond',title:`UberBond ${i}`,tags:[i%2?'research':'runtime','uberbond']});
  const fabric=createSharedContentFabric({mesh,modelAdapter});
  fabric.ingest({peerId:'chat-1',docId:'doc-1',title:'Runtime law',text:'UberCel remains deployment authority. Providers are replaceable substrate. Never depend on Vercel.'});
  fabric.ingest({peerId:'chat-2',docId:'doc-2',title:'Truth law',text:'Live external evidence outranks source, canon, memory and recollection. Unknown stays unknown.'});
@@ -25,5 +25,6 @@ test('all project chats share content and compile council monster prompts', asyn
  assert.equal(monster.externalEffectsAuthorized,false);
  assert.ok(monster.sharedDocIds.includes('doc-3'));
  assert.ok(monster.prompt.length>0);
+ assert.equal(monster.replies.length,8);
  assert.ok(calls.length>=10);
 });

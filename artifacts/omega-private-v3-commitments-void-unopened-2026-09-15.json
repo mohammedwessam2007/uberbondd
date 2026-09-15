@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "uberbond.omega-private-holdout-void.v1",
+  "voidedCommitmentManifest": "artifacts/omega-private-holdout-commitments-v3-2026-09-15.json",
+  "commitmentManifestCommit": "56d6192503c551e610d09ad15ab2b3db0431faf9",
+  "status": "VOID_UNOPENED",
+  "performanceEvaluationOccurred": false,
+  "reason": "Independent reference setup found that the newly charged source baseline inherited the 5000-unit candidate-policy cap and could refuse training. The source was corrected before any sealed task performance was opened.",
+  "successorSourceCommit": "3174522424d0e8fec35eed88fa6eb96888f2ed3d",
+  "law": "Voided holdouts are never reused for promotion after an evidence-relevant source change, even when their performance was never opened.",
+  "truthBoundary": "This is provenance for an aborted preregistration, not positive or negative task-performance evidence."
+}

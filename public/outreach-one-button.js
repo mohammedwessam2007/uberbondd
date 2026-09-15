@@ -2,6 +2,8 @@ const button = document.querySelector('#start-outreach');
 const status = document.querySelector('#start-outreach-status');
 const tokenField = document.querySelector('#token');
 
+if (button) button.textContent = 'START CERTIFIED 100K OUTREACH';
+
 const setStatus = (message, state = 'idle') => {
   if (!status) return;
   status.textContent = message;
@@ -25,61 +27,50 @@ async function request(path, { method = 'GET', body } = {}) {
     const detail = typeof payload === 'string'
       ? payload
       : payload?.error || payload?.message || payload?.reasonCodes?.join(', ') || `HTTP ${response.status}`;
-    throw new Error(detail);
+    const error = new Error(detail);
+    error.payload = payload;
+    throw error;
   }
   return payload;
 }
 
-function readinessBlockers(summary, campaigns) {
-  const blockers = [];
-  const outbound = summary?.outbound || {};
-  const approvedAutoSend = (Array.isArray(campaigns) ? campaigns : [])
-    .filter(campaign => !campaign?.systemKey && campaign?.approved === true && campaign?.autoSend === true);
-
-  if (outbound.enabled !== true) blockers.push('live outbound is disabled at the runtime boundary');
-  if (outbound.dryRun === true) blockers.push('runtime is still in dry-run mode');
-  if (Number(outbound.uncertain || 0) > 0) blockers.push(`${Number(outbound.uncertain)} uncertain send outcome(s) require reconciliation`);
-  if (!approvedAutoSend.length) blockers.push('no approved auto-send campaign exists');
-
-  return { blockers, approvedAutoSend };
+function blockers(prepared) {
+  const certificate = prepared?.certificate || {};
+  return [
+    ...(certificate.hardStopReasonCodes || []),
+    ...(certificate.waitReasonCodes || [])
+  ];
 }
 
 async function startOutreach() {
   if (!button) return;
   button.disabled = true;
-  setStatus('Checking live gates…', 'working');
+  setStatus('Certifying exact 100,000-recipient launch…', 'working');
 
   try {
-    const [summary, campaigns] = await Promise.all([
-      request('/api/summary'),
-      request('/api/campaigns')
-    ]);
-    const { blockers, approvedAutoSend } = readinessBlockers(summary, campaigns);
-
-    if (blockers.length) {
-      setStatus(`REFUSED · ${blockers.join(' · ')}`, 'blocked');
+    const prepared = await request('/api/outreach/100k/status');
+    if (prepared?.certificate?.state !== 'CERTIFIED_100K_READY' || prepared?.pressable !== true) {
+      const reasons = blockers(prepared);
+      const shortfall = Number(prepared?.certificate?.shortfall || 0);
+      setStatus(`REFUSED · ${shortfall ? `${shortfall.toLocaleString()} capacity/inventory short · ` : ''}${reasons.join(' · ') || '100K certificate is not green'}`, 'blocked');
       return;
     }
 
-    setStatus('Gates green. Waking worker…', 'working');
-    await request('/api/worker/resume', { method: 'POST' });
+    setStatus(`CERTIFIED · ${prepared.certificate.certificateId} · enqueueing exact corpus…`, 'working');
+    const run = await request('/api/outreach/100k/start', {
+      method: 'POST',
+      body: { confirmExactTarget: 100000 }
+    });
 
-    setStatus('Worker awake. Releasing outbound pause…', 'working');
-    await request('/api/outbound/resume', { method: 'POST' });
-
-    setStatus('Outbound armed. Starting bounded Nightshift pulse…', 'working');
-    const run = await request('/api/run', { method: 'POST', body: { limit: 250 } });
-
-    const campaignNames = approvedAutoSend.map(campaign => campaign.name || campaign.id).slice(0, 3).join(', ');
-    const queued = Number(run?.queued ?? run?.enqueued ?? run?.count ?? 0);
     setStatus(
-      `STARTED · ${campaignNames || 'approved campaign'} · initial pulse ${queued || 'accepted'} · #875 safety gates remain binding`,
+      `STARTED · exact 100K certified worker · job ${run.jobId || 'queued'} · every batch re-certifies and uncertain outcomes quarantine`,
       'started'
     );
-
     setTimeout(() => document.querySelector('#refresh')?.click(), 750);
   } catch (error) {
-    setStatus(`REFUSED · ${error?.message || String(error)}`, 'blocked');
+    const prepared = error?.payload?.prepared;
+    const reasons = blockers(prepared);
+    setStatus(`REFUSED · ${reasons.length ? reasons.join(' · ') : error?.message || String(error)}`, 'blocked');
   } finally {
     button.disabled = false;
   }

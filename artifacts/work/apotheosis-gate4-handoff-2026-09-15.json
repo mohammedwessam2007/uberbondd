@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "uberbond.apotheosis-gate4-handoff.v1",
+  "recordedAt": "2026-09-15T01:36:13Z",
+  "mainCommit": "47be32d9126f8552ff905ffd565dcdf68268aba8",
+  "endToEndImplementationPercent": 75,
+  "completedGates": [
+    {"gate":1,"name":"P43-P49 runtime primitives","status":"MERGED","mergeCommit":"7b6720583e72baa69e618d5e7279ee5830f41c00"},
+    {"gate":2,"name":"native composition bridge","status":"MERGED","mergeCommit":"47be32d9126f8552ff905ffd565dcdf68268aba8"},
+    {"gate":3,"name":"worker and continuation driver","status":"MERGED","mergeCommit":"47be32d9126f8552ff905ffd565dcdf68268aba8"}
+  ],
+  "remainingGate": {
+    "gate": 4,
+    "name": "real observed closed-loop evidence",
+    "status": "EXTERNAL_RUNTIME_BLOCKED",
+    "acceptance": [
+      "Fresh current-source worker receipt or independently dated unattended receipt",
+      "Exact sourceCommit binding",
+      "Actual command/test execution, not a fixture or queued job",
+      "Valid canonical relay receipt",
+      "Strictly zero external effects for this verification task"
+    ]
+  },
+  "freshVerificationTask": {
+    "issue": 881,
+    "taskId": "apotheosis-gate4-20260915-0134",
+    "targetAgent": "claude-code",
+    "objective": "REPO_VERIFICATION",
+    "sourceCommitRequired": "47be32d9126f8552ff905ffd565dcdf68268aba8",
+    "label": "agent-relay:task",
+    "stateAtReceipt": "OPEN_QUEUED_NO_RESULT"
+  },
+  "triggeredWorkflow": {
+    "runId": 34917910133,
+    "workflow": "Agent relay worker",
+    "event": "issues",
+    "headSha": "47be32d9126f8552ff905ffd565dcdf68268aba8",
+    "conclusion": "failure",
+    "jobs": [
+      {"name":"relay","conclusion":"failure","executedSteps":0,"runnerId":0},
+      {"name":"continuity","conclusion":"failure","executedSteps":0,"runnerId":0}
+    ],
+    "classification": "RUNNER_INFRASTRUCTURE_NON_EVIDENCE"
+  },
+  "historicalSubstrateEvidence": {
+    "status": "VERIFIED_LIVE_HISTORICAL_DONOR_ONLY",
+    "summary": "The canonical bridge documents an earlier real unattended GitHub-relay worker run on issue #32, but it predates APOTHEOSIS and cannot be promoted into current-source gate-4 evidence.",
+    "canon": "docs/LIVE_BRIDGE_HANDOFF.md"
+  },
+  "nextAction": "When a permitted relay/worker runtime becomes callable, consume issue #881 against exact main if it has not moved. If main moved, reject acceptance, create a fresh exact-source verification task, and preserve #881 as a failed/stale attempt. Validate the returned canonical receipt before upgrading the evidence level.",
+  "ownerActionRequiredNow": false,
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "externalEffectAuthority": "NONE"
+  },
+  "truthBoundary": "Source implementation and native activation are complete. Gate 4 remains unearned until real current-source execution evidence exists. No ASI, singularity, intelligence explosion, provider superiority, revenue, or unattended-current-runtime claim follows from this artifact."
+}

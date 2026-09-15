@@ -6,7 +6,8 @@
     "SUPERSEDED": "Replaced by another module. Kept only until its history is no longer useful.",
     "UNREACHABLE_BUG": "Should be reachable and is not. This is a defect, not a decision.",
     "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state: an entry may sit here while archaeology is pending, but it may not be moved to AWAITING_ACTIVATION without a registered gate that states what would release it.",
-    "DELIBERATELY_UNREACHABLE": "Unreachability is the safety property, not a stage before wiring. An entry point reaching this module would itself be the harm, so there is no gate that releases it and no future session should 'finish the job' by connecting it. It is invoked only by an operator command carrying an explicit owner authorization on the call."
+    "DELIBERATELY_UNREACHABLE": "Unreachability is the safety property, not a stage before wiring. An entry point reaching this module would itself be the harm, so there is no gate that releases it and no future session should 'finish the job' by connecting it. It is invoked only by an operator command carrying an explicit owner authorization on the call.",
+    "RESEARCH_ONLY": "Intentional research/library surface; not expected to be production-reachable unless a later explicit promotion mission changes its truth class."
   },
   "gates": {
     "SANDBOX_PROVISIONER_EXTERNAL_BLOCK": {
@@ -80,686 +81,234 @@
     "NO_CONFIGURED_OPEN_MODEL_RUNTIME": {
       "description": "The Open Model Universe discovers, normalizes and screens public model supply. The executor it feeds is already reachable through the model factory and reports runtime-absent, model-identity-absent, runtime-endpoint-absent, pricing-evidence-absent and explicitly-disabled, so no open model can execute. Discovery without a runtime is a catalogue: real, useful to read, and unable to route anything.",
       "releasedBy": "A configured open-model runtime endpoint with an exact model identity and pricing evidence, after which screened supply can be routed and the discovery layer has somewhere to send its output."
+    },
+    "NO_FOUNDER_LIFE_DATA": {
+      "description": "The life-side engines model the founder's skills, locations, relationships and long-horizon institutions. Each needs founder-supplied data that does not exist in this repository, and inventing it would produce a model of nobody. Import-graph trace on 2026-09-15 found no importer for any of them.",
+      "releasedBy": "Founder-supplied and consented life data for the specific domain, plus a founder-facing surface that asks for it rather than inferring it."
+    },
+    "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES": {
+      "description": "The APOTHEOSIS orchestration and agent-mesh runtimes are implemented and tested but reach no entry point. docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md names the gate: native P00/P08 source reconciliation and each packet's listed earlier acceptance prerequisites remain activation gates outside the seven-node planning graph. Import-graph trace on 2026-09-15 confirms the pair is an island.",
+      "releasedBy": "Native P00/P08 source reconciliation completed and each packet's acceptance prerequisites met, after which an entry point may reach the orchestration runtime."
+    },
+    "NO_MODEL_JUDGEMENT_CAPABILITY": {
+      "description": "Per-dimension capability evidence needs something able to judge a task whose answer the repository does not already compute. No provider credential exists here, and every model-weight host is refused by the network policy while a local inference runtime installs fine. artifacts/nullstar-omega/G2-discriminating-test.json carries the probes.",
+      "releasedBy": "A provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires for the exact artifact."
+    },
+    "NO_COMMERCIAL_PREPARATION_AUDIT": {
+      "description": "Preparation memory records what was prepared for a commercial opportunity and how it aged. No preparation audit has ever been recorded, so the memory would age an empty set.",
+      "releasedBy": "One real commercial opportunity preparation audit reaching durable storage."
+    },
+    "NO_CLEARED_PAYMENT": {
+      "description": "The wealth bridge ranks reliability actions against a wealth portfolio. Both sides read from cleared contribution, which is currently zero, so every ranking would be over an empty portfolio.",
+      "releasedBy": "One cleared payment reconciled from provider-origin evidence."
+    },
+    "NO_FREE_MISSION_LOOP": {
+      "description": "The clock policy bounds tick interval, active window and ticks per window for an autonomous free-mission loop. No such loop is activated, so the policy would bound nothing.",
+      "releasedBy": "An activated free-mission loop that asks the policy for its tick budget before scheduling."
+    },
+    "NO_FRONTIER_REPRODUCTION_AUTHORITY": {
+      "description": "The mechanism catalog compiles reproduction experiments from frontier records. Running one reaches outside this process, and no reproduction authority or budget is granted.",
+      "releasedBy": "Explicit owner authority and budget for a bounded frontier reproduction experiment."
+    },
+    "NO_INSTITUTION_MISSION_AUTHORITY": {
+      "description": "The institutional harness compiles institution cells and asserts observed proof over them. Compiling a cell for a mission nobody authorized would manufacture an institution with no principal.",
+      "releasedBy": "One authorized institution mission with a named principal and a delegation record."
+    },
+    "NO_OBSERVED_UNATTENDED_OPERATION": {
+      "description": "The money machine proof requires at least 24 hours of endurance with pulse receipts no more than 5 minutes apart. Real elapsed time is the input and it cannot be produced by running code faster.",
+      "releasedBy": "24 hours of genuinely elapsed unattended operation with durable pulse receipts. Synthesised timestamps do not release it."
+    },
+    "NO_MAILBOX_PROVISIONING_AUTHORITY": {
+      "description": "The inbox, mail-foundry, egress-topology and scale-frontier modules plan and shape sending infrastructure. Provisioning mailboxes, domains and egress routes spends money and creates real sending identity, neither of which is authorized. Import-graph trace on 2026-09-15 found no importer for any of them.",
+      "releasedBy": "Explicit owner authority and budget to provision sending infrastructure, recorded as durable authorization evidence."
+    },
+    "NO_ADMITTED_UBEROCEAN_HOSTS": {
+      "description": "UberOcean needs owner-authorized reachable Linux hosts; source cannot manufacture physical host availability or fresh reachability evidence.",
+      "releasedBy": "At least one owner-authorized Linux host with fresh identity, reachability, resources and failure-domain evidence admitted by UberOcean."
     }
   },
   "modules": {
-    "src/accounting-ledger-export-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PAYMENT_PROVIDER",
-      "reason": "An accounting export exports cleared economics. Net cleared revenue is zero and no provider evidence exists, so an export would be a document about nothing."
-    },
-    "src/agent-code-artifact-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Persists engineering artifacts the blocked path would produce."
-    },
-    "src/agent-provider-execution.mjs": {
-      "category": "SUPERSEDED",
-      "gate": null,
-      "reason": "Duplicate provider-execution path. Superseded by the worker runtime; recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md and guarded by a test."
-    },
-    "src/agent-provider-worker.mjs": {
-      "category": "SUPERSEDED",
-      "gate": null,
-      "reason": "Reached only from the superseded provider-execution path. The model router it imported is now reachable in its own right via scripts/agent-model-route.mjs, which leaves this module as the last resident of that superseded cluster."
-    },
-    "src/ai-access-opportunity-registry.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION",
-      "reason": "AI access catalogue. Its meaningful execution path creates provider accounts and submits applications, which the external-effect ledger excludes; docs/AGENT_MESH_REACHABILITY_TRIAGE.md lists it under modules left unwired for that reason, not for want of a decision."
-    },
-    "src/artifact-storage-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OBJECT_STORAGE_ADAPTER",
-      "reason": "Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."
-    },
-    "src/booking-calendar-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "Booking needs a calendar provider. BOOKING_ADAPTER_NOT_CONFIGURED is the contract's own refusal and it is the current state."
-    },
-    "src/browser-action-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "BROWSER_ADAPTER_NOT_CONFIGURED. The contract also names ACCOUNT_CREATION as a consequence class, which needs authorization separately from an adapter."
-    },
-    "src/capability-genome-execution-admission.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_APPROVED_GENOME_CAPABILITY",
-      "reason": "Admits execution for an approved Genome capability. Zero capabilities are approved or active, so it has nothing to admit."
-    },
-    "src/causal-attribution-spine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "There are no real signals, sends, payments or deliveries to attribute yet."
-    },
-    "src/claude-code-sandbox-provisioner.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Provisions a real filesystem sandbox and refuses to claim network isolation it cannot verify."
-    },
-    "src/claude-engineering-orchestrator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "The autonomous engineering path cannot run until something outside this process attests network isolation."
-    },
-    "src/commercial-signature-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CUSTOMER",
-      "reason": "A signature is one form external customer acceptance can take. There is no customer to sign."
-    },
-    "src/cost-aware-public-evidence-tier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Plans the cheap-to-expensive public evidence ladder. Its meaningful path ends at a provider call, and the cheaper tiers it prefers still need an acquisition adapter to execute rather than plan."
-    },
-    "src/creator-ai-automation-service-bundle.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CUSTOMER",
-      "reason": "Owner-supplied CREATOR_CLAIM catalogue; a reference, not a runtime path."
-    },
-    "src/database-hygiene-maintenance.mjs": {
-      "category": "SUPERSEDED",
-      "gate": null,
-      "reason": "A maintenance-plan compiler that the executing worker does not call. `runSafeDatabaseHygiene`, which the cron route actually invokes, hardcodes deletion from `public_evidence_cache` and terminal `staged_content_repository` rows and never compiles a plan. The executing path is strictly narrower than this one, so nothing unsafe is reachable -- but this module's NEVER_AUTODELETE list (payment receipts, acceptance, audit and renewal evidence) is therefore an unenforced statement of a policy the executing path satisfies by construction rather than by consulting it. Recorded so nobody later cites it as the protection that stops those deletions; the narrow hardcoded path is what stops them."
-    },
-    "src/distribution-control-plane.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "The control plane's meaningful path drives person-targeted distribution. It is tested against fixtures and wired to nothing, because the motion it would coordinate is not authorized."
-    },
-    "src/durable-claude-engineering-executor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
-      "reason": "Wraps the orchestrator; blocked by the same attestation."
-    },
-    "src/economic-feedback-allocator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Reallocates bounded weights from cleared outcomes. Zero cleared payments, accepted deliveries and renewals exist, so every proposal would be computed from an empty ledger."
-    },
-    "src/egress-health-pool.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
-      "reason": "Route selection and quarantine logic with no configured routes to select among."
-    },
-    "src/enrichment-cost-tier-composer.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Composes the tier decision that gates paid enrichment. ALLOW_PLAN_ONLY is its current terminal state because no provider exists to escalate to."
-    },
-    "src/enterprise-journey-orchestrator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Journeys drive person-targeted touches through the omnichannel contract. The orchestration is written; the authority to contact anyone is not granted."
-    },
-    "src/evidence-to-content-compiler.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Compiles evidence into publishable derivatives. Compilation is local; every output it produces is destined for a channel that requires authorization to reach."
-    },
-    "src/external-crm-sync-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "CRM sync needs a CRM credential. No CRM is connected, and a CRM observation would not be canonical truth even if one were."
-    },
-    "src/form-feedback-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CUSTOMER",
-      "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
-    },
-    "src/frontier-absorption-engine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Tracks observed external mechanisms from DISCOVERED through parity. Reference-only until a mission actually absorbs one."
-    },
-    "src/frontier-absorption-proof.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Grades an absorbed external mechanism CLONED, PARITY or SUPERIOR. Absorption itself is unscheduled, so nothing yet produces the evidence this grades."
-    },
-    "src/frontier-artifact-verifier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Checks that a claimed artifact exists and matches what was promised. Verifies output the unscheduled path would produce."
-    },
-    "src/frontier-capability-harvest.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
-    },
-    "src/frontier-loop-proof.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Stages and checks the world-sensing to replanning loop the operator would run. Proof helper for a path nothing schedules."
-    },
-    "src/frontier-model-admission-proof.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
-      "reason": "Checks a model's licence class and admission evidence before the operator may route to it. Waits on the same runtime the open-model catalogue waits on."
-    },
-    "src/frontier-replacement-tournament-proof.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Proves a replacement supplier beat the one it replaces. No supplier is routed through the operator yet, so there is nothing to replace."
-    },
-    "src/frontier-routing-revalidation-proof.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Re-checks a routing decision against current evidence rather than the evidence it was made on. Nothing routes yet."
-    },
-    "src/frontier-source-coverage.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Maps the family's capability claims to the modules that implement them. A coverage receipt about the unscheduled path."
-    },
-    "src/frontier-task-tournament.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Scores candidate task decompositions against each other. Only meaningful once a host is compiling missions to decompose."
-    },
-    "src/frontier-worker-compiler.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FRONTIER_OPERATOR_HOST",
-      "reason": "Turns a mission into a worker brief with an explicit permission set. Only useful once a host exists to run the brief."
-    },
-    "src/gmail-inbound.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_GMAIL_READONLY_GRANT",
-      "reason": "Readonly inbound sensing needs an owner-authorised gmail.readonly grant."
-    },
-    "src/inbound-classify.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_GMAIL_READONLY_GRANT",
-      "reason": "Classifies inbound messages that cannot yet be read."
-    },
-    "src/inbound-feedback-kernel.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_GMAIL_READONLY_GRANT",
-      "reason": "Turns inbound observations into privacy-safe events; no inbound source is connected."
-    },
-    "src/lead-generation-benchmark.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Benchmarks the lead scorer; analysis only."
-    },
-    "src/lead-generation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Lead scoring feeds outreach, which is consequential and deliberately not wired."
-    },
-    "src/lead-intelligence-v3.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Lead intake, enrichment and action queue for the same unauthorised outbound chain."
-    },
-    "src/lead-operations.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Operational surface over lead state, feeding the same unauthorised outbound chain."
-    },
-    "src/omnia-v9/authority-transition-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Records how authority moved between states. No authority has been issued to move."
-    },
-    "src/omnia-v9/authorization-bound-receipt-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Durable storage for those receipts."
-    },
-    "src/omnia-v9/authorization-bound-receipt.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Binds a receipt to the authority that permitted the effect."
-    },
-    "src/omnia-v9/cedar-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Binds policy decisions to a Cedar evaluator. No live policy bundle is configured."
-    },
-    "src/omnia-v9/constitution.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The canonical role and authority document the kernel binds against."
-    },
-    "src/omnia-v9/execution-receipt-shadow.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Shadow evaluation of execution receipts."
-    },
-    "src/omnia-v9/execution-receipt-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Durable storage for execution receipts."
-    },
-    "src/omnia-v9/integrations/canary-approval.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Issues a bounded canary approval for a single effect."
-    },
-    "src/omnia-v9/integrations/canary-null-authority.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The null-authority canary: proves the dispatch sequence without an effect."
-    },
-    "src/omnia-v9/integrations/canary-receipt-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Receipt storage for canary runs."
-    },
-    "src/omnia-v9/integrations/compare.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Classifies a shadow decision against what the legacy path actually did. The wired hook imports it dynamically and only in compare mode, which nothing currently selects, so static analysis correctly reports no entry point."
-    },
-    "src/omnia-v9/integrations/external-effect-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The adapter contract an effect provider must satisfy."
-    },
-    "src/omnia-v9/integrations/external-effect-dispatcher.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Runs the safe dispatch sequence after an ALLOW and a successful authority reservation."
-    },
-    "src/omnia-v9/integrations/external-effect-evidence-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Evidence storage for performed effects."
-    },
-    "src/omnia-v9/integrations/external-effect-execution-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Execution state storage for performed effects."
-    },
-    "src/omnia-v9/integrations/external-effect-recovery.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Recovers an effect whose outcome is uncertain after a crash."
-    },
-    "src/omnia-v9/integrations/external-effect-state-machine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The state machine an external effect moves through."
-    },
-    "src/omnia-v9/integrations/metrics.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Aggregates execution metrics over V9 runs. Zero runs have executed, so every metric it could produce would be an aggregate of nothing presented as a measurement."
-    },
-    "src/omnia-v9/integrations/null-consequence-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "An adapter that performs no consequence, for proving the sequence."
-    },
-    "src/omnia-v9/integrations/null-sink-v2.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "An effect sink that deliberately performs no effect, used to exercise the dispatch sequence end to end without touching anything real. It is only meaningful once there is a real sink to contrast it with, and there is none."
-    },
-    "src/omnia-v9/integrations/outbound-consequence-gate.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The consequence gate for an outbound send. The pipeline accepts it as an injected hook; nothing wires the real one."
-    },
-    "src/omnia-v9/integrations/outreach-consequence-admission.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Admission for an outreach consequence."
-    },
-    "src/omnia-v9/integrations/owner-review.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Compiles an owner review packet for a decision that needs a human."
-    },
-    "src/omnia-v9/integrations/providers/email-effect-primitives.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Address, header and Message-ID rules shared by the Gmail and Postal effect adapters. It is reachable exactly when one of those adapters is, so it waits on the same gate rather than on one of its own."
-    },
-    "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "The Gmail effect adapter. Its meaningful path sends mail to a real person, which is the one thing no lane may release. The wired send path is src/gmail.mjs behind src/pipeline.mjs; both are inside the sovereignty boundary."
-    },
-    "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "A real external-effect adapter for a self-hosted mail server, deliberately unregistered in every dispatcher until outbound SMTP permission, PTR/rDNS, SPF/DKIM/DMARC/TLS alignment and seed placement are proven."
-    },
-    "src/omnia-v9/integrations/reality-shadow-cedar.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Cedar binding for reality-shadow evaluation."
-    },
-    "src/omnia-v9/integrations/reality-shadow-dataset.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The dataset a reality-shadow evaluation runs over."
-    },
-    "src/omnia-v9/integrations/reality-shadow-evaluator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Evaluates the reality shadow."
-    },
-    "src/omnia-v9/integrations/replay-scenarios.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The scenarios replay runs."
-    },
-    "src/omnia-v9/integrations/replay.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Replays recorded admission decisions to check they still evaluate the same way. No decisions have been recorded, so there is nothing to replay."
-    },
-    "src/omnia-v9/integrations/shadow-approval.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Issues a shadow approval for evaluation only."
-    },
-    "src/omnia-v9/outbound-shadow.mjs": {
-      "category": "SUPERSEDED",
-      "gate": null,
-      "reason": "The earlier outbound shadow. The wired one is src/omnia-v9/final-admission-shadow.mjs, which is production-reachable from pipeline.mjs; this one is its predecessor and nothing imports it."
-    },
-    "src/omnia-v9/persistent-admission.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Durable admission decisions across process restarts."
-    },
-    "src/omnia-v9/policy-bundle.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Loads and digests the policy bundle the kernel evaluates against."
-    },
-    "src/omnia-v9/pre-effect-authority-reconciler.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Reconciles authority immediately before an effect is performed."
-    },
-    "src/omnia-v9/proof-store.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Stores the proofs an authorized effect must leave behind."
-    },
-    "src/omnichannel-communication-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Every channel here is person-targeted. The contract is written and the authority to send is not granted."
-    },
-    "src/open-model-foundry.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
-      "reason": "Normalizes one model supply record and walks its promotion states. No record reaches APPROVED without evidence this host cannot yet produce."
-    },
-    "src/open-model-registry-crawler.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
-      "reason": "Bounded read-only registry discovery. Would populate the catalogue; the catalogue has nowhere to route to."
-    },
-    "src/open-model-source-coverage.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
-      "reason": "Maps open-model capability claims to implementing modules. A coverage receipt about the unrouted path."
-    },
-    "src/open-model-universe.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
-      "reason": "Normalizes public model-registry pages into typed supply records. The catalogue itself."
-    },
-    "src/outreach-automation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Wiring this without an explicit authorisation path is how a system contacts someone by accident."
-    },
-    "src/outreach-operator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Operator surface for outbound; same reason."
-    },
-    "src/outreach-provider-events.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Consumes provider events from a sender that is not sending."
-    },
-    "src/outreach-upgrades.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Upgrade proposals for the outbound system; they describe changes to a path that is not authorised to run."
-    },
-    "src/outreach-workbench.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Composes outbound work; same reason."
-    },
-    "src/overnight/control/automation-acquisition-frontier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "Ranks which automation capabilities to acquire next. Acquisition terminates in configuring a provider adapter, and none is configured."
-    },
-    "src/overnight/control/automation-acquisition-loop.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "Drives acquisition of a capability once one is chosen. Acquisition terminates in configuring a provider adapter, and none is configured."
-    },
-    "src/overnight/distribution/account-overlap.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
-      "reason": "Detects overlap between a partner's accounts and ours."
-    },
-    "src/overnight/distribution/partner-fit.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
-      "reason": "Scores whether an organization is a distribution fit."
-    },
-    "src/overnight/distribution/policy.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
-      "reason": "The distribution policy those scores are read under."
-    },
-    "src/overnight/distribution/referral-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PARTNER_OR_REFERRAL_RELATIONSHIP",
-      "reason": "Accounts for referrals and what is owed on them."
-    },
-    "src/overnight/intent/account-intent-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Records observed buying intent per account. Every input is enrichment output."
-    },
-    "src/overnight/intent/budgeted-enrichment-waterfall.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Ranks described providers and emits bounded enrichment work. Explicitly plan-only: it never calls a provider, performs network I/O, or spends money."
-    },
-    "src/overnight/journey/diagnosis.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Diagnoses where a customer journey failed. There are zero commercial events, so there is no journey to observe."
-    },
-    "src/overnight/journey/epistemic.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Grades how much the journey evidence can support. There are zero commercial events, so there is no journey to observe."
-    },
-    "src/overnight/journey/index.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "The journey lane entry surface. There are zero commercial events, so there is no journey to observe."
-    },
-    "src/overnight/journey/observation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Records a journey observation. There are zero commercial events, so there is no journey to observe."
-    },
-    "src/overnight/journey/offer-compiler.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Compiles an offer from journey findings. There are zero commercial events, so there is no journey to observe."
-    },
-    "src/pending-relay-reconciliation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Reconciles relay deployments that are not being made."
-    },
-    "src/personal-civilization-capture.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
-    },
-    "src/personal-civilization-core.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "Holds the founder's private life state -- the one data class that is not the company's. Every entry point in this repository is autonomous: the scheduler, the worker and the mesh tick all run without a person present. A path from any of them to this module would mean private life records could be read, derived from, or exported by a lane acting on its own, which is precisely what founderAuthorized exists to prevent. The authorization must be carried on the call by the owner, so the only correct caller is an operator command, and the correct number of production entry points is zero."
-    },
-    "src/personal-civilization-decision-loop.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
-    },
-    "src/personal-civilization-model-graph.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
-    },
-    "src/personal-civilization-private-operator.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."
-    },
-    "src/personal-civilization-possibility.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."
-    },
-    "src/personal-civilization-scientific-experiment.mjs": {
-      "category": "DELIBERATELY_UNREACHABLE",
-      "reason": "Reached only from the explicit founder-interactive private reality command. It composes founder-selected private-life possibility data into a non-executing experiment dossier and explicitly grants no unattended, network, provider, spend, or business-effect authority. Making it production or unattended-operator reachable would break the private-life isolation boundary; the correct caller remains the founder-present private operator."
-    },
-    "src/profile-discovery-provenance.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "No licensed discovery adapter is configured to produce candidates."
-    },
-    "src/programmatic-fulfillment-router.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PAYMENT_PROVIDER",
-      "reason": "Routes provisioning for a paid ServiceSKU and takes CLEARED_PAYMENT as its precondition. No payment has ever cleared, so the router has nothing to route."
-    },
-    "src/proposal-acceptance-engine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Scores and gates proposal text whose meaningful path ends in a message to a real prospect. No outbound authorization exists, so the engine has no proposal to send."
-    },
-    "src/prospect-enrichment-budget-gate.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Bounds spend on enrichment that cannot currently be purchased."
-    },
-    "src/prospect-enrichment-planner.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Ranks enrichment steps for providers that do not exist yet."
-    },
-    "src/prospect-evidence-reconciliation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Reconciles evidence from providers none of which are configured or terms-confirmed."
-    },
-    "src/prospect-identity-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."
-    },
-    "src/prospect-identity-repository.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."
-    },
-    "src/prospect-qualification-gate.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "Gates a score for prospects that nothing currently discovers."
-    },
-    "src/prospect-qualification-pipeline.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "Composes scorer and gate into one answer; awaits a prospect source."
-    },
-    "src/prospect-qualification.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "Scores prospects that nothing currently discovers."
-    },
-    "src/receivables-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PAYMENT_PROVIDER",
-      "reason": "An invoice is a claim about money that canonical payment truth must later confirm. With no payment provider there is nothing for a receivable to reconcile against."
-    },
-    "src/relay-deployment-attempt.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Records a bounded deployment attempt; deployments stay deliberately untriggered."
-    },
-    "src/relay-deployment-eligibility.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Decides whether a deployment may proceed, for deployments nobody is requesting."
-    },
-    "src/relay-preview-proof.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Preview deployment proof; deployments are deliberately not triggered."
-    },
-    "src/relay-preview-runbook.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Describes the steps a preview deployment would take; no deployment is being made."
-    },
-    "src/relay-shadow-binding.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Binds a shadow observation to a deployment that is not being created."
-    },
-    "src/relay-vercel-api-executor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Executes one bounded deployment request; nothing asks it to."
-    },
-    "src/relay-vercel-api-request.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Compiles an exact-target deployment request that is never dispatched."
-    },
-    "src/sender-infrastructure-mesh.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Selects and pauses sending capacity. With no outbound authorization there is no send for it to balance, and sender health has nothing to observe."
-    },
-    "src/service-sku.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CUSTOMER",
-      "reason": "Compiles a SKU; there is no customer requirement to compile against."
-    },
-    "src/shadow-canary-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "VERCEL_DEPLOYMENT_GATED",
-      "reason": "Contract for shadow and canary stages that require a deployment target."
-    },
-    "src/social-publication-schedule-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."
-    },
-    "src/staging-content-repository.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Holds staged content with claim and consumption state. Staging deliberately never grants send authority, so nothing consumes from it until outbound is authorized."
-    },
-    "src/voice-telephony-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Placing a call reaches a real person. No outbound authorization exists, so the meaningful path is refused before an adapter is even needed."
-    },
-    "src/web-context-extraction-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
-    }
+    "src/accounting-ledger-export-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PAYMENT_PROVIDER","reason":"An accounting export exports cleared economics. Net cleared revenue is zero and no provider evidence exists, so an export would be a document about nothing."},
+    "src/agent-code-artifact-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"SANDBOX_PROVISIONER_EXTERNAL_BLOCK","reason":"Persists engineering artifacts the blocked path would produce."},
+    "src/agent-provider-execution.mjs": {"category":"SUPERSEDED","gate":null,"reason":"Duplicate provider-execution path. Superseded by the worker runtime; recorded in docs/AGENT_MESH_REACHABILITY_TRIAGE.md and guarded by a test."},
+    "src/agent-provider-worker.mjs": {"category":"SUPERSEDED","gate":null,"reason":"Reached only from the superseded provider-execution path. The model router it imported is now reachable in its own right via scripts/agent-model-route.mjs, which leaves this module as the last resident of that superseded cluster."},
+    "src/ai-access-opportunity-registry.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_AI_ACCESS_EXTERNAL_AUTHORIZATION","reason":"AI access catalogue. Its meaningful execution path creates provider accounts and submits applications, which the external-effect ledger excludes; docs/AGENT_MESH_REACHABILITY_TRIAGE.md lists it under modules left unwired for that reason, not for want of a decision."},
+    "src/artifact-storage-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OBJECT_STORAGE_ADAPTER","reason":"Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."},
+    "src/booking-calendar-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"Booking needs a calendar provider. BOOKING_ADAPTER_NOT_CONFIGURED is the contract's own refusal and it is the current state."},
+    "src/browser-action-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"BROWSER_ADAPTER_NOT_CONFIGURED. The contract also names ACCOUNT_CREATION as a consequence class, which needs authorization separately from an adapter."},
+    "src/capability-genome-execution-admission.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_APPROVED_GENOME_CAPABILITY","reason":"Admits execution for an approved Genome capability. Zero capabilities are approved or active, so it has nothing to admit."},
+    "src/causal-attribution-spine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_EVENTS","reason":"There are no real signals, sends, payments or deliveries to attribute yet."},
+    "src/claude-code-sandbox-provisioner.mjs": {"category":"AWAITING_ACTIVATION","gate":"SANDBOX_PROVISIONER_EXTERNAL_BLOCK","reason":"Provisions a real filesystem sandbox and refuses to claim network isolation it cannot verify."},
+    "src/claude-engineering-orchestrator.mjs": {"category":"AWAITING_ACTIVATION","gate":"SANDBOX_PROVISIONER_EXTERNAL_BLOCK","reason":"The autonomous engineering path cannot run until something outside this process attests network isolation."},
+    "src/commercial-signature-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CUSTOMER","reason":"A signature is one form external customer acceptance can take. There is no customer to sign."},
+    "src/cost-aware-public-evidence-tier.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ENRICHMENT_PROVIDER","reason":"Plans the cheap-to-expensive public evidence ladder. Its meaningful path ends at a provider call, and the cheaper tiers it prefers still need an acquisition adapter to execute rather than plan."},
+    "src/creator-ai-automation-service-bundle.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CUSTOMER","reason":"Owner-supplied CREATOR_CLAIM catalogue; a reference, not a runtime path."},
+    "src/database-hygiene-maintenance.mjs": {"category":"SUPERSEDED","gate":null,"reason":"A maintenance-plan compiler that the executing worker does not call. `runSafeDatabaseHygiene`, which the cron route actually invokes, hardcodes deletion from `public_evidence_cache` and terminal `staged_content_repository` rows and never compiles a plan. The executing path is strictly narrower than this one, so nothing unsafe is reachable -- but this module's NEVER_AUTODELETE list (payment receipts, acceptance, audit and renewal evidence) is therefore an unenforced statement of a policy the executing path satisfies by construction rather than by consulting it. Recorded so nobody later cites it as the protection that stops those deletions; the narrow hardcoded path is what stops them."},
+    "src/distribution-control-plane.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"The control plane's meaningful path drives person-targeted distribution. It is tested against fixtures and wired to nothing, because the motion it would coordinate is not authorized."},
+    "src/durable-claude-engineering-executor.mjs": {"category":"AWAITING_ACTIVATION","gate":"SANDBOX_PROVISIONER_EXTERNAL_BLOCK","reason":"Wraps the orchestrator; blocked by the same attestation."},
+    "src/egress-health-pool.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_EGRESS_ROUTES","reason":"Route selection and quarantine logic with no configured routes to select among."},
+    "src/enrichment-cost-tier-composer.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ENRICHMENT_PROVIDER","reason":"Composes the tier decision that gates paid enrichment. ALLOW_PLAN_ONLY is its current terminal state because no provider exists to escalate to."},
+    "src/enterprise-journey-orchestrator.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Journeys drive person-targeted touches through the omnichannel contract. The orchestration is written; the authority to contact anyone is not granted."},
+    "src/evidence-to-content-compiler.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Compiles evidence into publishable derivatives. Compilation is local; every output it produces is destined for a channel that requires authorization to reach."},
+    "src/external-crm-sync-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"CRM sync needs a CRM credential. No CRM is connected, and a CRM observation would not be canonical truth even if one were."},
+    "src/form-feedback-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CUSTOMER","reason":"Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."},
+    "src/frontier-absorption-engine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Tracks observed external mechanisms from DISCOVERED through parity. Reference-only until a mission actually absorbs one."},
+    "src/frontier-absorption-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Grades an absorbed external mechanism CLONED, PARITY or SUPERIOR. Absorption itself is unscheduled, so nothing yet produces the evidence this grades."},
+    "src/frontier-artifact-verifier.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Checks that a claimed artifact exists and matches what was promised. Verifies output the unscheduled path would produce."},
+    "src/frontier-capability-harvest.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Records capability claims read from public sources, with provenance. A reading list, not a runtime."},
+    "src/frontier-loop-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Stages and checks the world-sensing to replanning loop the operator would run. Proof helper for a path nothing schedules."},
+    "src/frontier-model-admission-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_OPEN_MODEL_RUNTIME","reason":"Checks a model's licence class and admission evidence before the operator may route to it. Waits on the same runtime the open-model catalogue waits on."},
+    "src/frontier-replacement-tournament-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Proves a replacement supplier beat the one it replaces. No supplier is routed through the operator yet, so there is nothing to replace."},
+    "src/frontier-routing-revalidation-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Re-checks a routing decision against current evidence rather than the evidence it was made on. Nothing routes yet."},
+    "src/frontier-source-coverage.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Maps the family's capability claims to the modules that implement them. A coverage receipt about the unscheduled path."},
+    "src/frontier-task-tournament.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Scores candidate task decompositions against each other. Only meaningful once a host is compiling missions to decompose."},
+    "src/frontier-worker-compiler.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_OPERATOR_HOST","reason":"Turns a mission into a worker brief with an explicit permission set. Only useful once a host exists to run the brief."},
+    "src/gmail-inbound.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_GMAIL_READONLY_GRANT","reason":"Readonly inbound sensing needs an owner-authorised gmail.readonly grant."},
+    "src/inbound-classify.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_GMAIL_READONLY_GRANT","reason":"Classifies inbound messages that cannot yet be read."},
+    "src/inbound-feedback-kernel.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_GMAIL_READONLY_GRANT","reason":"Turns inbound observations into privacy-safe events; no inbound source is connected."},
+    "src/lead-generation-benchmark.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Benchmarks the lead scorer; analysis only."},
+    "src/lead-generation.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Lead scoring feeds outreach, which is consequential and deliberately not wired."},
+    "src/lead-intelligence-v3.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Lead intake, enrichment and action queue for the same unauthorised outbound chain."},
+    "src/lead-operations.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Operational surface over lead state, feeding the same unauthorised outbound chain."},
+    "src/omnia-v9/authority-transition-ledger.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Records how authority moved between states. No authority has been issued to move."},
+    "src/omnia-v9/authorization-bound-receipt-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Durable storage for those receipts."},
+    "src/omnia-v9/authorization-bound-receipt.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Binds a receipt to the authority that permitted the effect."},
+    "src/omnia-v9/cedar-adapter.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Binds policy decisions to a Cedar evaluator. No live policy bundle is configured."},
+    "src/omnia-v9/constitution.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The canonical role and authority document the kernel binds against."},
+    "src/omnia-v9/execution-receipt-shadow.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Shadow evaluation of execution receipts."},
+    "src/omnia-v9/execution-receipt-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Durable storage for execution receipts."},
+    "src/omnia-v9/integrations/canary-approval.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Issues a bounded canary approval for a single effect."},
+    "src/omnia-v9/integrations/canary-null-authority.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The null-authority canary: proves the dispatch sequence without an effect."},
+    "src/omnia-v9/integrations/canary-receipt-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Receipt storage for canary runs."},
+    "src/omnia-v9/integrations/compare.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Classifies a shadow decision against what the legacy path actually did. The wired hook imports it dynamically and only in compare mode, which nothing currently selects, so static analysis correctly reports no entry point."},
+    "src/omnia-v9/integrations/external-effect-adapter.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The adapter contract an effect provider must satisfy."},
+    "src/omnia-v9/integrations/external-effect-dispatcher.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Runs the safe dispatch sequence after an ALLOW and a successful authority reservation."},
+    "src/omnia-v9/integrations/external-effect-evidence-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Evidence storage for performed effects."},
+    "src/omnia-v9/integrations/external-effect-execution-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Execution state storage for performed effects."},
+    "src/omnia-v9/integrations/external-effect-recovery.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Recovers an effect whose outcome is uncertain after a crash."},
+    "src/omnia-v9/integrations/external-effect-state-machine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The state machine an external effect moves through."},
+    "src/omnia-v9/integrations/metrics.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Aggregates execution metrics over V9 runs. Zero runs have executed, so every metric it could produce would be an aggregate of nothing presented as a measurement."},
+    "src/omnia-v9/integrations/null-consequence-adapter.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"An adapter that performs no consequence, for proving the sequence."},
+    "src/omnia-v9/integrations/null-sink-v2.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"An effect sink that deliberately performs no effect, used to exercise the dispatch sequence end to end without touching anything real. It is only meaningful once there is a real sink to contrast it with, and there is none."},
+    "src/omnia-v9/integrations/outbound-consequence-gate.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The consequence gate for an outbound send. The pipeline accepts it as an injected hook; nothing wires the real one."},
+    "src/omnia-v9/integrations/outreach-consequence-admission.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Admission for an outreach consequence."},
+    "src/omnia-v9/integrations/owner-review.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Compiles an owner review packet for a decision that needs a human."},
+    "src/omnia-v9/integrations/providers/email-effect-primitives.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Address, header and Message-ID rules shared by the Gmail and Postal effect adapters. It is reachable exactly when one of those adapters is, so it waits on the same gate rather than on one of its own."},
+    "src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"The Gmail effect adapter. Its meaningful path sends mail to a real person, which is the one thing no lane may release. The wired send path is src/gmail.mjs behind src/pipeline.mjs; both are inside the sovereignty boundary."},
+    "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"A real external-effect adapter for a self-hosted mail server, deliberately unregistered in every dispatcher until outbound SMTP permission, PTR/rDNS, SPF/DKIM/DMARC/TLS alignment and seed placement are proven."},
+    "src/omnia-v9/integrations/reality-shadow-cedar.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Cedar binding for reality-shadow evaluation."},
+    "src/omnia-v9/integrations/reality-shadow-dataset.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The dataset a reality-shadow evaluation runs over."},
+    "src/omnia-v9/integrations/reality-shadow-evaluator.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Evaluates the reality shadow."},
+    "src/omnia-v9/integrations/replay-scenarios.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"The scenarios replay runs."},
+    "src/omnia-v9/integrations/replay.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Replays recorded admission decisions to check they still evaluate the same way. No decisions have been recorded, so there is nothing to replay."},
+    "src/omnia-v9/integrations/shadow-approval.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Issues a shadow approval for evaluation only."},
+    "src/omnia-v9/outbound-shadow.mjs": {"category":"SUPERSEDED","gate":null,"reason":"The earlier outbound shadow. The wired one is src/omnia-v9/final-admission-shadow.mjs, which is production-reachable from pipeline.mjs; this one is its predecessor and nothing imports it."},
+    "src/omnia-v9/persistent-admission.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Durable admission decisions across process restarts."},
+    "src/omnia-v9/policy-bundle.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Loads and digests the policy bundle the kernel evaluates against."},
+    "src/omnia-v9/pre-effect-authority-reconciler.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Reconciles authority immediately before an effect is performed."},
+    "src/omnia-v9/proof-store.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_EXTERNAL_EFFECT_AUTHORIZATION","reason":"Stores the proofs an authorized effect must leave behind."},
+    "src/omnichannel-communication-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Every channel here is person-targeted. The contract is written and the authority to send is not granted."},
+    "src/open-model-foundry.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_OPEN_MODEL_RUNTIME","reason":"Normalizes one model supply record and walks its promotion states. No record reaches APPROVED without evidence this host cannot yet produce."},
+    "src/open-model-registry-crawler.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_OPEN_MODEL_RUNTIME","reason":"Bounded read-only registry discovery. Would populate the catalogue; the catalogue has nowhere to route to."},
+    "src/open-model-source-coverage.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_OPEN_MODEL_RUNTIME","reason":"Maps open-model capability claims to implementing modules. A coverage receipt about the unrouted path."},
+    "src/open-model-universe.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_OPEN_MODEL_RUNTIME","reason":"Normalizes public model-registry pages into typed supply records. The catalogue itself."},
+    "src/outreach-automation.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Wiring this without an explicit authorisation path is how a system contacts someone by accident."},
+    "src/outreach-operator.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Operator surface for outbound; same reason."},
+    "src/outreach-provider-events.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Consumes provider events from a sender that is not sending."},
+    "src/outreach-upgrades.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Upgrade proposals for the outbound system; they describe changes to a path that is not authorised to run."},
+    "src/outreach-workbench.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Composes outbound work; same reason."},
+    "src/overnight/control/automation-acquisition-frontier.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"Ranks which automation capabilities to acquire next. Acquisition terminates in configuring a provider adapter, and none is configured."},
+    "src/overnight/control/automation-acquisition-loop.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"Drives acquisition of a capability once one is chosen. Acquisition terminates in configuring a provider adapter, and none is configured."},
+    "src/overnight/distribution/account-overlap.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PARTNER_OR_REFERRAL_RELATIONSHIP","reason":"Detects overlap between a partner's accounts and ours."},
+    "src/overnight/distribution/partner-fit.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PARTNER_OR_REFERRAL_RELATIONSHIP","reason":"Scores whether an organization is a distribution fit."},
+    "src/overnight/distribution/policy.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PARTNER_OR_REFERRAL_RELATIONSHIP","reason":"The distribution policy those scores are read under."},
+    "src/overnight/distribution/referral-ledger.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PARTNER_OR_REFERRAL_RELATIONSHIP","reason":"Accounts for referrals and what is owed on them."},
+    "src/overnight/intent/account-intent-ledger.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ENRICHMENT_PROVIDER","reason":"Records observed buying intent per account. Every input is enrichment output."},
+    "src/overnight/intent/budgeted-enrichment-waterfall.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ENRICHMENT_PROVIDER","reason":"Ranks described providers and emits bounded enrichment work. Explicitly plan-only: it never calls a provider, performs network I/O, or spends money."},
+    "src/overnight/journey/diagnosis.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_EVENTS","reason":"Diagnoses where a customer journey failed. There are zero commercial events, so there is no journey to observe."},
+    "src/overnight/journey/epistemic.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_EVENTS","reason":"Grades how much the journey evidence can support. There are zero commercial events, so there is no journey to observe."},
+    "src/overnight/journey/index.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_EVENTS","reason":"The journey lane entry surface. There are zero commercial events, so there is no journey to observe."},
+    "src/overnight/journey/observation.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_EVENTS","reason":"Records a journey observation. There are zero commercial events, so there is no journey to observe."},
+    "src/overnight/journey/offer-compiler.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_EVENTS","reason":"Compiles an offer from journey findings. There are zero commercial events, so there is no journey to observe."},
+    "src/pending-relay-reconciliation.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Reconciles relay deployments that are not being made."},
+    "src/personal-civilization-capture.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."},
+    "src/personal-civilization-core.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"Holds the founder's private life state -- the one data class that is not the company's. Every entry point in this repository is autonomous: the scheduler, the worker and the mesh tick all run without a person present. A path from any of them to this module would mean private life records could be read, derived from, or exported by a lane acting on its own, which is precisely what founderAuthorized exists to prevent. The authorization must be carried on the call by the owner, so the only correct caller is an operator command, and the correct number of production entry points is zero."},
+    "src/personal-civilization-decision-loop.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."},
+    "src/personal-civilization-model-graph.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."},
+    "src/personal-civilization-private-operator.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"This is the encrypted founder-present private-state operator behind scripts/personal-civilization-private.mjs. It reads and writes private life state only under explicit founder authorization and a dedicated private-life key. Making it production or unattended-operator reachable would create the exact autonomous access path the Personal Civilization boundary forbids."},
+    "src/personal-civilization-possibility.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"Composes personal-civilization-core, which is DELIBERATELY_UNREACHABLE because it holds the founder's private life state. Reachability is inherited: a path from any autonomous entry point to this module is a path to that store, and every entry point here runs with nobody present. The owner's authorization must be carried on the call, so the only correct caller is an operator command and the correct number of production entry points is zero. Wiring this to make a health check or a dashboard convenient would be the harm, not the fix."},
+    "src/personal-civilization-scientific-experiment.mjs": {"category":"DELIBERATELY_UNREACHABLE","reason":"Reached only from the explicit founder-interactive private reality command. It composes founder-selected private-life possibility data into a non-executing experiment dossier and explicitly grants no unattended, network, provider, spend, or business-effect authority. Making it production or unattended-operator reachable would break the private-life isolation boundary; the correct caller remains the founder-present private operator."},
+    "src/profile-discovery-provenance.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_DISCOVERY_ADAPTER","reason":"No licensed discovery adapter is configured to produce candidates."},
+    "src/programmatic-fulfillment-router.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PAYMENT_PROVIDER","reason":"Routes provisioning for a paid ServiceSKU and takes CLEARED_PAYMENT as its precondition. No payment has ever cleared, so the router has nothing to route."},
+    "src/proposal-acceptance-engine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Scores and gates proposal text whose meaningful path ends in a message to a real prospect. No outbound authorization exists, so the engine has no proposal to send."},
+    "src/prospect-enrichment-budget-gate.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ENRICHMENT_PROVIDER","reason":"Bounds spend on enrichment that cannot currently be purchased."},
+    "src/prospect-enrichment-planner.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ENRICHMENT_PROVIDER","reason":"Ranks enrichment steps for providers that do not exist yet."},
+    "src/prospect-identity-ledger.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."},
+    "src/prospect-identity-repository.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."},
+    "src/prospect-qualification-gate.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_DISCOVERY_ADAPTER","reason":"Gates a score for prospects that nothing currently discovers."},
+    "src/prospect-qualification-pipeline.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_DISCOVERY_ADAPTER","reason":"Composes scorer and gate into one answer; awaits a prospect source."},
+    "src/prospect-qualification.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_DISCOVERY_ADAPTER","reason":"Scores prospects that nothing currently discovers."},
+    "src/receivables-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PAYMENT_PROVIDER","reason":"An invoice is a claim about money that canonical payment truth must later confirm. With no payment provider there is nothing for a receivable to reconcile against."},
+    "src/relay-deployment-attempt.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Records a bounded deployment attempt; deployments stay deliberately untriggered."},
+    "src/relay-deployment-eligibility.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Decides whether a deployment may proceed, for deployments nobody is requesting."},
+    "src/relay-preview-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Preview deployment proof; deployments are deliberately not triggered."},
+    "src/relay-preview-runbook.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Describes the steps a preview deployment would take; no deployment is being made."},
+    "src/relay-shadow-binding.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Binds a shadow observation to a deployment that is not being created."},
+    "src/relay-vercel-api-executor.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Executes one bounded deployment request; nothing asks it to."},
+    "src/relay-vercel-api-request.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Compiles an exact-target deployment request that is never dispatched."},
+    "src/sender-infrastructure-mesh.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Selects and pauses sending capacity. With no outbound authorization there is no send for it to balance, and sender health has nothing to observe."},
+    "src/service-sku.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CUSTOMER","reason":"Compiles a SKU; there is no customer requirement to compile against."},
+    "src/shadow-canary-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"VERCEL_DEPLOYMENT_GATED","reason":"Contract for shadow and canary stages that require a deployment target."},
+    "src/social-publication-schedule-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"Publication needs a platform adapter and, at the due occurrence, fresh authority and current platform policy -- which the contract states as its own precondition."},
+    "src/staging-content-repository.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Holds staged content with claim and consumption state. Staging deliberately never grants send authority, so nothing consumes from it until outbound is authorized."},
+    "src/voice-telephony-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Placing a call reaches a real person. No outbound authorization exists, so the meaningful path is refused before an adapter is even needed."},
+    "src/web-context-extraction-contract.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_PROVIDER_ADAPTER_CONFIGURED","reason":"Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."},
+    "src/adaptive-mastery-engine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FOUNDER_LIFE_DATA","reason":"Compiles a desired human capability into baseline, prerequisites, practice and measurement. Tested by life-altering-frontier-gap; trace found no importer. It needs the founder's actual current ability, which nothing here has."},
+    "src/apotheosis-agent-mesh-runtime.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_APOTHEOSIS_ACTIVATION_PREREQUISITES","reason":"Native agent-mesh activation over the orchestration runtime. Trace found no importer. Wiring it before the named activation prerequisites would start a mesh whose acceptance gates are unmet."},
+    "src/apotheosis-final-orchestrator.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_APOTHEOSIS_ACTIVATION_PREREQUISITES","reason":"Final orchestrator over the APOTHEOSIS graph. Tested, but trace found no importer, and its own continuation doc names native P00/P08 reconciliation as the activation gate."},
+    "src/apotheosis-orchestration-runtime.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_APOTHEOSIS_ACTIVATION_PREREQUISITES","reason":"Orchestration runtime for the APOTHEOSIS planning graph. Imported only by apotheosis-agent-mesh-runtime, which itself has no importer; the pair is an island with no entry point."},
+    "src/c21-dimension-evidence-producer.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_MODEL_JUDGEMENT_CAPABILITY","reason":"Produces per-dimension ASI evidence records. Import-graph trace on 2026-09-14 found no importer at all. Wiring it now would emit dimension records with nothing capable of judging the dimension."},
+    "src/economic-reliability-preparation-memory.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_COMMERCIAL_PREPARATION_AUDIT","reason":"Ages commercial preparation audits. Trace found no importer. Nothing has ever written a preparation audit for it to age."},
+    "src/economic-reliability-wealth-bridge.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CLEARED_PAYMENT","reason":"Joins the wealth portfolio to reliability action ranking. Trace found no importer. Both inputs are empty while cleared contribution is zero."},
+    "src/free-mission-clock-policy.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FREE_MISSION_LOOP","reason":"Bounds tick interval and active window for a free-mission loop. Trace found no importer. There is no loop asking it for a budget."},
+    "src/frontier-intelligence-neural-bridge.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_APPROVED_GENOME_CAPABILITY","reason":"Converts frontier records into neural cortex references. Trace found no importer; it imports neural-exocortex-admission, and the pair forms an island with no entry point."},
+    "src/frontier-mechanism-catalog.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FRONTIER_REPRODUCTION_AUTHORITY","reason":"Seeds frontier mechanisms and compiles reproduction experiments. Trace found no importer. Executing a compiled experiment needs authority that does not exist."},
+    "src/geographic-sovereignty-engine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FOUNDER_LIFE_DATA","reason":"Models geographic freedom and location options. Trace found no importer. Its inputs are the founder's constraints and intent, not repository state."},
+    "src/legacy-institution-engine.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FOUNDER_LIFE_DATA","reason":"Models long-horizon institutions and posthumous continuity. Trace found no importer. Compiling an institution nobody authorized would manufacture one with no principal."},
+    "src/model-foundry-control-plane.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_OPEN_MODEL_RUNTIME","reason":"Control plane for the model foundry. Trace found no importer. No lawful model artifact is reachable here: every weight host is refused by the network policy while a local inference runtime installs fine."},
+    "src/neural-exocortex-admission.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_APPROVED_GENOME_CAPABILITY","reason":"Admits Genome capabilities as neural cortex. Imported only by frontier-intelligence-neural-bridge, which itself has no importer. The corpus holds 0 approved capabilities to admit."},
+    "src/relationship-opportunity-graph.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_FOUNDER_LIFE_DATA","reason":"Models relationships as an opportunity surface. Trace found no importer. Other people are sovereign and their data is not the repository's to assume."},
+    "src/sovereign-institutional-harness-hardening.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_INSTITUTION_MISSION_AUTHORITY","reason":"Applies review disciplines over the harness. Trace found no importer. It hardens a harness nothing currently reaches."},
+    "src/sovereign-institutional-harness.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_INSTITUTION_MISSION_AUTHORITY","reason":"Compiles institution cells and asserts observed proof. Imported only by its own hardening module, which has no importer. The pair is an island."},
+    "src/sovereign-money-machine-proof.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OBSERVED_UNATTENDED_OPERATION","reason":"Proves endurance from pulse receipts over at least 24 hours. Trace found no importer. Its input is elapsed real time, which no code path can supply."},
+    "src/uberegress-topology.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_CONFIGURED_EGRESS_ROUTES","reason":"Shapes egress topology for sending infrastructure. Trace found no importer, and no egress route is configured."},
+    "src/uberinbox-factory.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_MAILBOX_PROVISIONING_AUTHORITY","reason":"Builds inbox fleets for outbound capacity. Trace found no importer."},
+    "src/uberinboxes-scale-profiles.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_MAILBOX_PROVISIONING_AUTHORITY","reason":"Evidence-bound provider scale profiles for inbox fleets. Trace found no importer. Its caps are planning figures until a provider relationship exists."},
+    "src/uberlaunch-one-button.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"One-button founder launch control. Imports discovery, the outreach launch gate and governed dispatch, so reaching it from an entry point puts a send path one call from an operator. Imported only by uberlead-launch-fusion, which has no importer."},
+    "src/uberlaunch-runtime-evidence.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Compiles sovereign runtime evidence into the one-button launch. Trace found no importer. It is the head of the launch island."},
+    "src/uberlead-launch-fusion.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Fuses Apollo-style lead selection into the one-button launch. Imported only by uberlaunch-runtime-evidence, which has no importer. The three form one island ending at a dispatch path."},
+    "src/ubermail-foundry.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_MAILBOX_PROVISIONING_AUTHORITY","reason":"Compiles mailbox fleets from the uberdoso roots. Trace found no importer. Provisioning is a spend and a sending identity, not a code decision."},
+    "src/uberreach-scale-frontier.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_OUTBOUND_AUTHORIZATION","reason":"Projects reach at scale across the outbound frontier. Trace found no importer. Scale projection is not permission to send."},
+    "src/omega-contract-lattice-core.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-controlled-intent-evidence.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-controlled-semantic-compiler.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-goal-adjoint.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-independent-csp-verifier.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-intent-superposition.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-irreducible-work-ledger.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-lawspace-canary.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-operator-crystallizer.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-policy-meta-learner-v3.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-policy-meta-learner.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-private-benchmark-generators.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-private-evidence-gate.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-private-evidence-lab.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-private-lab-core.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-private-lab-protocol.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-sovereign-execution-fabric.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-structural-transfer-canary-v2.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/omega-structural-transfer-canary.mjs": {"category":"RESEARCH_ONLY","gate":null,"reason":"Omega private-evidence and structural-transfer research surface. Current claims are benchmark-bounded; production wiring requires a separate explicit promotion backed by current-source evidence."},
+    "src/uberocean-compute-fabric.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ADMITTED_UBEROCEAN_HOSTS","reason":"Provider-neutral host admission and planning fabric has no production importer or fresh admitted physical host inventory."},
+    "src/uberocean-ubercel-bridge.mjs": {"category":"AWAITING_ACTIVATION","gate":"NO_ADMITTED_UBEROCEAN_HOSTS","reason":"UberOcean to UberCel bridge has no meaningful runtime input until a real owner-authorized host is freshly admitted."}
   }
 }

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "uberbond.lawspace-experiment-registry.v1",
+  "date": "2026-09-15",
+  "base": "acd51138b6b5204f32b7dbe74e862c76ccee7b2f",
+  "truthClass": "SPECULATIVE_RESEARCH_NOT_RUNTIME_PROOF",
+  "northStar": "REDUCE_VERIFIED_FRESH_PHYSICAL_WORK_PER_HELD_OUT_CAPABILITY_EQUIVALENT_TASK",
+  "hypotheses": [
+    {
+      "id": "H1-semantic-to-dynamics",
+      "claim": "A common Cognitive Law IR can compile multiple structured task families into useful synthesized dynamics rather than hand-authored solvers.",
+      "priority": "A",
+      "falsifier": "No credible scaling or transfer advantage versus fixed generic dynamics or standard algorithms on any targeted family after compiler overhead."
+    },
+    {
+      "id": "H2-law-transfer",
+      "claim": "Verified dynamical motifs learned on prior task families reduce convergence cost on held-out structurally related instances.",
+      "priority": "A",
+      "falsifier": "Reusable motifs fail to reduce median verified state updates or wall-clock on held-outs at matched accuracy."
+    },
+    {
+      "id": "H3-equilibrium-internalization",
+      "claim": "Mastered task families require progressively shorter trajectories because initialization and laws move closer to verified solution manifolds.",
+      "priority": "A",
+      "falsifier": "Trajectory length does not decline across repeated related tasks without leakage or accuracy loss."
+    },
+    {
+      "id": "H4-antimatter-field",
+      "claim": "Narrow verified failure regions can be compiled into repulsive structure that prunes future search without suppressing valid solutions.",
+      "priority": "A",
+      "falsifier": "Adversarial counterexamples show false pruning or no meaningful search reduction."
+    },
+    {
+      "id": "H5-momentum-workspace",
+      "claim": "Second-order or momentum dynamics can improve convergence/fidelity per resource versus matched first-order relaxation on selected task classes.",
+      "priority": "B",
+      "falsifier": "No matched-quality gain after accounting for integration complexity and stability."
+    },
+    {
+      "id": "H6-crystallization",
+      "claim": "Repeated capabilities can migrate from frontier reasoning to trajectory/operator/law/dynamics tiers while preserving held-out correctness and reducing fresh model compute.",
+      "priority": "A",
+      "falsifier": "Fresh model tokens or total compute do not fall after compilation, or held-out correctness/regression safety degrades."
+    },
+    {
+      "id": "H7-substrate-portability",
+      "claim": "One Cognitive Law IR can preserve declared semantics across a numerical reference backend and at least one alternative physical/analog proxy backend.",
+      "priority": "B",
+      "falsifier": "Backend migration changes task semantics beyond declared tolerance or full-system cost erases any advantage."
+    },
+    {
+      "id": "H8-meta-law-improvement",
+      "claim": "The compiler can improve its own law-synthesis policy on held-out tasks using accumulated experiment evidence without self-certification.",
+      "priority": "C",
+      "falsifier": "Improvements vanish under independent holdouts, produce benchmark gaming, or only reflect added compute."
+    }
+  ],
+  "canaryDomains": [
+    "SAT",
+    "SUDOKU_LATIN_SQUARE",
+    "SHORTEST_PATH_PLANNING",
+    "SYMBOLIC_EQUATION_SOLVING",
+    "BOUNDED_PROGRAM_REPAIR"
+  ],
+  "baselines": [
+    "STANDARD_DOMAIN_ALGORITHM",
+    "FIXED_GENERIC_DYNAMICAL_SOLVER",
+    "TASK_COMPILED_DYNAMICS",
+    "TASK_COMPILED_DYNAMICS_PLUS_CRYSTALLIZED_LAWS",
+    "TASK_COMPILED_DYNAMICS_PLUS_FAILURE_GEOMETRY"
+  ],
+  "metrics": [
+    "VERIFIED_SUCCESS_RATE",
+    "WALL_CLOCK_MS",
+    "COMPILER_OVERHEAD_MS",
+    "INTEGRATION_STEPS",
+    "STATE_UPDATES",
+    "MODEL_INPUT_TOKENS",
+    "MODEL_OUTPUT_TOKENS",
+    "MODEL_CALL_COUNT",
+    "ENERGY_PROXY",
+    "REUSE_HIT_RATE",
+    "HELD_OUT_TRANSFER_GAIN",
+    "SPURIOUS_ATTRACTOR_RATE",
+    "FALSE_FAILURE_PRUNE_RATE",
+    "VERIFICATION_COST",
+    "DECRYSTALLIZATION_TRIGGER_ACCURACY"
+  ],
+  "experimentPhases": [
+    {
+      "phase": "P0_SOFTWARE_REFERENCE",
+      "goal": "Prove or kill semantic-to-dynamics compilation using ordinary CPU/GPU simulation.",
+      "externalAuthority": "NONE"
+    },
+    {
+      "phase": "P1_REUSABLE_LAWS",
+      "goal": "Measure transfer, trajectory shortening, crystallization and failure geometry on held-outs.",
+      "externalAuthority": "NONE"
+    },
+    {
+      "phase": "P2_BACKEND_ABSTRACTION",
+      "goal": "Run the same Cognitive Law IR through multiple software/accelerator realizations and validate semantic portability.",
+      "externalAuthority": "NONE"
+    },
+    {
+      "phase": "P3_PHYSICAL_PROXY",
+      "goal": "Only after prior evidence, evaluate one authorized physical/analog substrate with end-to-end resource accounting.",
+      "externalAuthority": "OWNER_REQUIRED_FOR_ANY_NEW_HARDWARE_OR_SPEND"
+    }
+  ],
+  "promotionGate": {
+    "requirements": [
+      "HELD_OUT_ADVANTAGE",
+      "NO_SELF_GRADING",
+      "ADVERSARIAL_COUNTEREXAMPLES",
+      "FULL_COMPILER_OVERHEAD_ACCOUNTED",
+      "NO_BENCHMARK_LEAKAGE",
+      "PROVENANCE_AND_DEPENDENCY_HASHES",
+      "ROLLBACK_OR_DECRYSTALLIZATION_PATH"
+    ]
+  },
+  "hardTruth": [
+    "HARDWARE_IS_ALWAYS_REQUIRED_SOMEWHERE",
+    "UNIVERSAL_COMPUTABILITY_DOES_NOT_IMPLY_EFFICIENCY",
+    "ANALOG_CORE_EFFICIENCY_IS_NOT_END_TO_END_EFFICIENCY",
+    "COMPLEXITY_THEORY_IS_NOT_REPEALED",
+    "SIMULATION_IS_NOT_PHYSICAL_SPEEDUP_PROOF",
+    "FRONTIER_EFFECTIVE_COGNITION_IS_NOT_CURRENTLY_PROVEN",
+    "EXACT_SYNTHESIS_NOVELTY_CANNOT_BE_GUARANTEED_AGAINST_SECRET_OR_DIFFERENTLY_NAMED_WORK"
+  ]
+}

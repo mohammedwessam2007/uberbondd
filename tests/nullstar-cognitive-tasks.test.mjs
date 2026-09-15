@@ -192,3 +192,74 @@ test('a full set covers every family', () => {
     assert.equal(row.scoreProbe, undefined);
   }
 });
+
+test('difficulty actually makes items harder rather than just relabelling them', () => {
+  for (const seed of SEEDS) {
+    const easy = generatePlanningTask(seed, 1);
+    const hard = generatePlanningTask(seed, 3);
+    assert.ok(hard.surface.nodes.length > easy.surface.nodes.length, `seed ${seed}: node count must grow`);
+    assert.ok(hard.surface.edges.length > easy.surface.edges.length, `seed ${seed}: edge count must grow`);
+    // The detached component is the point: the longest chain is no longer
+    // reachable by walking from one root.
+    assert.ok(hard.surface.nodes.some(node => node.startsWith('d')), `seed ${seed}: level 3 must add a detached component`);
+  }
+});
+
+test('planning ground truth stays independently verifiable at every difficulty', () => {
+  for (const level of [1, 2, 3, 4, 5]) {
+    for (const seed of SEEDS) {
+      const task = generatePlanningTask(seed, level);
+      const incoming = new Map(task.surface.nodes.map(n => [n, []]));
+      for (const { from, to } of task.surface.edges) incoming.get(to).push(from);
+      const depth = new Map();
+      const resolve = node => {
+        if (depth.has(node)) return depth.get(node);
+        const parents = incoming.get(node) ?? [];
+        const value = parents.length === 0 ? 1 : 1 + Math.max(...parents.map(resolve));
+        depth.set(node, value);
+        return value;
+      };
+      const longest = Math.max(...task.surface.nodes.map(resolve));
+      assert.equal(String(longest), task.groundTruth, `d${level} seed ${seed}: generator disagrees with independent computation`);
+    }
+  }
+});
+
+test('the quadratic series at level 3 is not extrapolable by a single step', () => {
+  for (const seed of SEEDS) {
+    const task = generateForecastingTask(seed, 3);
+    const series = task.surface.series;
+    const firstStep = series[1] - series[0];
+    const linearGuess = String(series[series.length - 1] + firstStep);
+    assert.notEqual(linearGuess, task.groundTruth, `seed ${seed}: a linear guess must not land on the answer`);
+    // The second difference is what is constant.
+    const seconds = series.slice(2).map((v, i) => (v - series[i + 1]) - (series[i + 1] - series[i]));
+    assert.ok(seconds.every(d => d === seconds[0]), `seed ${seed}: the second difference must be constant`);
+  }
+});
+
+test('the stale primary at level 3 breaks provenance-only ranking', () => {
+  for (const seed of SEEDS) {
+    const task = generateResearchTask(seed, 3);
+    const primary = task.surface.sources.find(s => s.quality === 'PRIMARY_MEASUREMENT');
+    const replicated = task.surface.sources.find(s => s.quality === 'REPLICATED_MEASUREMENT');
+    assert.ok(primary && replicated);
+    // Ranking on provenance alone now picks the stale primary and gets it wrong.
+    assert.notEqual(String(primary.claim), task.groundTruth);
+    assert.equal(String(replicated.claim), task.groundTruth);
+    assert.ok(primary.observedAt < replicated.observedAt);
+  }
+});
+
+test('level 3 invention needs four primitives, not two', () => {
+  for (const seed of SEEDS) {
+    const task = generateInventionTask(seed, 3);
+    assert.deepEqual(task.requiredComposition.slice().sort(), ['count', 'max', 'min', 'sum']);
+    assert.equal(task.scoreComposition(['sum', 'count']), 0);
+    assert.equal(task.scoreComposition(['sum', 'count', 'max', 'min']), 1);
+    const data = task.surface.data;
+    const mean = data.reduce((a, b) => a + b, 0) / data.length;
+    const midrange = (Math.max(...data) + Math.min(...data)) / 2;
+    assert.equal(((mean + midrange) / 2).toFixed(4), task.groundTruth);
+  }
+});

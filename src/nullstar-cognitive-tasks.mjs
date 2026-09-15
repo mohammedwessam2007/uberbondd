@@ -50,9 +50,10 @@ const intBetween = (rand, min, max) => min + Math.floor(rand() * (max - min + 1)
 // longest chain; the solver sees only the edges.
 // ---------------------------------------------------------------------------
 
-export function generatePlanningTask(seed) {
+export function generatePlanningTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
-  const nodeCount = intBetween(rand, 8, 14);
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
+  const nodeCount = intBetween(rand, 8, 14) + (level - 1) * 6;
   const nodes = Array.from({ length: nodeCount }, (_, i) => `n${i}`);
 
   // Build a layered DAG so the longest path is known while being constructed.
@@ -70,17 +71,33 @@ export function generatePlanningTask(seed) {
       // is what makes the layer count the true longest chain length.
       const parents = layers[i - 1];
       edges.push([pick(rand, parents), node]);
-      // Some extra edges from further back, which cannot lengthen the chain.
-      if (i >= 2 && rand() < 0.4) edges.push([pick(rand, layers[intBetween(rand, 0, i - 2)]), node]);
+      // Extra edges from further back cannot lengthen the chain, and at higher
+      // difficulty there are many more of them, so edge count and degree stop
+      // resembling the answer.
+      const density = 0.4 + (level - 1) * 0.12;
+      if (i >= 2 && rand() < density) edges.push([pick(rand, layers[intBetween(rand, 0, i - 2)]), node]);
     }
   }
 
+  // From level 3 a second, detached component is spliced in. The answer is the
+  // longest chain anywhere, so a solver that walks from one root and stops is
+  // wrong without ever looking incorrect.
+  let detachedNodes = [];
+  if (level >= 3) {
+    const detachedCount = intBetween(rand, 3, 5);
+    detachedNodes = Array.from({ length: detachedCount }, (_, i) => `d${i}`);
+    for (let i = 1; i < detachedNodes.length; i += 1) edges.push([detachedNodes[i - 1], detachedNodes[i]]);
+  }
+  const allNodes = [...nodes, ...detachedNodes];
+  const longest = Math.max(layers.length, detachedNodes.length);
+
   return {
-    taskId: `planning.dag.${seed}`,
+    taskId: `planning.dag.${seed}.d${level}`,
     family: 'PLANNING',
+    difficulty: level,
     prompt: 'Given these dependency edges, how many steps long is the longest chain that must run in order?',
-    surface: { nodes, edges: edges.map(([from, to]) => ({ from, to })) },
-    groundTruth: String(layers.length),
+    surface: { nodes: allNodes, edges: edges.map(([from, to]) => ({ from, to })) },
+    groundTruth: String(longest),
     answerKind: 'NUMBER',
     // The generator knows this because it built the layers. The solver has to
     // recover it from edges alone.
@@ -101,8 +118,9 @@ const SCIENCE_RULES = Object.freeze([
   { id: 'sum-under-twenty', test: ([a, b, c]) => a + b + c < 20 }
 ]);
 
-export function generateScienceTask(seed) {
+export function generateScienceTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
   const rule = SCIENCE_RULES[Math.floor(rand() * SCIENCE_RULES.length) % SCIENCE_RULES.length];
 
   // One positive example that several rules also explain, which is the trap:
@@ -111,8 +129,9 @@ export function generateScienceTask(seed) {
   const consistentRules = SCIENCE_RULES.filter(candidate => candidate.test(witness)).map(candidate => candidate.id);
 
   return {
-    taskId: `science.rule.${seed}`,
+    taskId: `science.rule.${seed}.d${level}`,
     family: 'SCIENCE',
+    difficulty: level,
     prompt: 'A hidden rule accepts [2,4,6]. Name a triple whose acceptance would rule OUT the largest number of candidate rules.',
     surface: { witness, candidateRules: SCIENCE_RULES.map(r => r.id) },
     groundTruth: rule.id,
@@ -135,17 +154,25 @@ export function generateScienceTask(seed) {
 // only under intervention.
 // ---------------------------------------------------------------------------
 
-export function generateCausalityTask(seed) {
+export function generateCausalityTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
-  // Chain A->B->C, or fork A<-B->C. Both make A and C correlate.
-  const structure = rand() < 0.5 ? 'CHAIN' : 'FORK';
-  const variables = ['a', 'b', 'c'];
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
+
+  // From level 3 a collider joins the candidates. A collider leaves a and c
+  // independent until b is conditioned on, which inverts the usual reading.
+  const structures = level >= 3 ? ['CHAIN', 'FORK', 'COLLIDER'] : ['CHAIN', 'FORK'];
+  const structure = pick(rand, structures);
+  const variables = level >= 4 ? ['a', 'b', 'c', 'd'] : ['a', 'b', 'c'];
+  const observed = structure === 'COLLIDER'
+    ? 'a and c are independent until b is conditioned on, after which they correlate'
+    : 'a and c correlate; b correlates with both';
 
   return {
-    taskId: `causality.structure.${seed}`,
+    taskId: `causality.structure.${seed}.d${level}`,
     family: 'CAUSALITY',
-    prompt: 'A and C are correlated. Which single variable should be intervened on to distinguish a chain from a common cause?',
-    surface: { variables, observed: 'a and c correlate; b correlates with both' },
+    difficulty: level,
+    prompt: 'Which single variable should be intervened on to distinguish the candidate structures?',
+    surface: { variables, observed },
     groundTruth: 'b',
     answerKind: 'VARIABLE',
     hiddenStructure: structure,
@@ -160,21 +187,27 @@ export function generateCausalityTask(seed) {
 // calling what it did not need.
 // ---------------------------------------------------------------------------
 
-export function generateToolUseTask(seed) {
+export function generateToolUseTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
-  const tools = ['sum', 'sort', 'unique', 'reverse', 'count'];
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
+  const tools = level >= 2
+    ? ['sum', 'sort', 'unique', 'reverse', 'count', 'median', 'range']
+    : ['sum', 'sort', 'unique', 'reverse', 'count'];
   const needed = pick(rand, tools);
   const goals = {
     sum: 'report the total of these numbers',
     sort: 'report these numbers in ascending order',
     unique: 'report how many distinct values there are',
     reverse: 'report these numbers back to front',
-    count: 'report how many numbers there are'
+    count: 'report how many numbers there are',
+    median: 'report the middle value once ordered',
+    range: 'report the spread between largest and smallest'
   };
 
   return {
-    taskId: `tooluse.select.${seed}`,
+    taskId: `tooluse.select.${seed}.d${level}`,
     family: 'TOOL_USE',
+    difficulty: level,
     prompt: `Using the fewest tools: ${goals[needed]}.`,
     surface: { tools, data: Array.from({ length: intBetween(rand, 4, 8) }, () => intBetween(rand, 1, 9)) },
     groundTruth: needed,
@@ -194,8 +227,9 @@ export function generateToolUseTask(seed) {
 // RESEARCH: a corpus with a planted contradiction and uneven source quality.
 // ---------------------------------------------------------------------------
 
-export function generateResearchTask(seed) {
+export function generateResearchTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
   const truth = intBetween(rand, 100, 999);
   const popularWrong = truth + intBetween(rand, 1, 50);
   const otherWrongA = truth - intBetween(rand, 1, 40);
@@ -220,9 +254,18 @@ export function generateResearchTask(seed) {
     [sources[i], sources[j]] = [sources[j], sources[i]];
   }
 
+  // From level 3 the primary measurement is stale and a fresh replication
+  // carries the truth, so ranking on provenance alone stops working.
+  if (level >= 3) {
+    sources.push({ id: 's7', quality: 'REPLICATED_MEASUREMENT', claim: truth, observedAt: '2026-09-14' });
+    const primary = sources.find(source => source.quality === 'PRIMARY_MEASUREMENT');
+    if (primary) { primary.claim = otherWrongA; primary.observedAt = '2019-01-01'; }
+  }
+
   return {
-    taskId: `research.contradiction.${seed}`,
+    taskId: `research.contradiction.${seed}.d${level}`,
     family: 'RESEARCH',
+    difficulty: level,
     prompt: 'These sources disagree. Which value is best supported?',
     // Three sources agree on the wrong number and one primary measurement
     // disagrees. Counting votes gets this wrong; weighing provenance gets it
@@ -240,24 +283,32 @@ export function generateResearchTask(seed) {
 // INVENTION: no provided tool solves it; a composition does.
 // ---------------------------------------------------------------------------
 
-export function generateInventionTask(seed) {
+export function generateInventionTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
   const data = Array.from({ length: intBetween(rand, 5, 9) }, () => intBetween(rand, 1, 20));
   const primitives = ['sum', 'count', 'max', 'min'];
-  // The mean is not a primitive. It has to be composed from sum and count.
-  const answer = data.reduce((a, b) => a + b, 0) / data.length;
+  // Levels 1-2 want the mean, composed from sum and count. From level 3 the
+  // answer also needs max and min.
+  const mean = data.reduce((a, b) => a + b, 0) / data.length;
+  const midrange = (Math.max(...data) + Math.min(...data)) / 2;
+  const answer = level >= 3 ? (mean + midrange) / 2 : mean;
+  const required = level >= 3 ? ['sum', 'count', 'max', 'min'] : ['sum', 'count'];
 
   return {
-    taskId: `invention.compose.${seed}`,
+    taskId: `invention.compose.${seed}.d${level}`,
     family: 'INVENTION',
-    prompt: 'Report the mean. No primitive computes it; compose one.',
+    difficulty: level,
+    prompt: level >= 3
+      ? 'Report the average of the mean and the midrange. No primitive computes it; compose one.'
+      : 'Report the mean. No primitive computes it; compose one.',
     surface: { primitives, data },
     groundTruth: answer.toFixed(4),
     answerKind: 'NUMBER',
-    requiredComposition: ['sum', 'count'],
+    requiredComposition: required,
     scoreComposition: used => {
       const list = Array.isArray(used) ? used : [];
-      return ['sum', 'count'].every(p => list.includes(p)) ? 1 : 0;
+      return required.every(p => list.includes(p)) ? 1 : 0;
     },
     whyIndependent: 'The mean is computed by the generator over data the solver receives, and no listed primitive returns it.'
   };
@@ -267,19 +318,24 @@ export function generateInventionTask(seed) {
 // FORECASTING: a question about a value the surface does not contain.
 // ---------------------------------------------------------------------------
 
-export function generateForecastingTask(seed) {
+export function generateForecastingTask(seed, difficulty = 1) {
   const rand = seededRandom(seed);
+  const level = Math.max(1, Math.min(5, Math.floor(difficulty)));
   // The step is drawn once. Drawing it inside the map produced a series with
   // no rule at all -- [10,12,16,22,22,25] -- and an answer extrapolated from a
   // step that never existed, so the item was unanswerable rather than hard.
   const step = intBetween(rand, 2, 4);
   const start = intBetween(rand, 5, 15);
-  const series = Array.from({ length: 6 }, (_, i) => start + i * step);
-  const next = series[series.length - 1] + step;
+  // From level 3 the second difference is constant rather than the first, so
+  // extrapolating a single step fails.
+  const quadratic = level >= 3;
+  const series = Array.from({ length: 6 }, (_, i) => (quadratic ? start + step * i * i : start + i * step));
+  const next = quadratic ? start + step * 36 : series[series.length - 1] + step;
 
   return {
-    taskId: `forecasting.extrapolate.${seed}`,
+    taskId: `forecasting.extrapolate.${seed}.d${level}`,
     family: 'FORECASTING',
+    difficulty: level,
     prompt: 'What is the next value in this series?',
     // The next value is withheld. Reading the surface cannot produce it.
     surface: { series },
@@ -305,16 +361,17 @@ export const GENERATORS = Object.freeze({
  * Every family, every seed, deterministic. The ground truth is returned
  * separately from the surface so a caller can hand a solver the surface alone.
  */
-export function generateTaskSet({ seeds = [1, 2, 3], families = Object.keys(GENERATORS) } = {}) {
+export function generateTaskSet({ seeds = [1, 2, 3], families = Object.keys(GENERATORS), difficulty = 1 } = {}) {
   const items = [];
   for (const family of families) {
     const generator = GENERATORS[family];
     if (!generator) continue;
-    for (const seed of seeds) items.push(generator(seed));
+    for (const seed of seeds) items.push(generator(seed, difficulty));
   }
   return {
     ok: items.length > 0,
     version: NULLSTAR_COGNITIVE_TASKS_VERSION,
+    difficulty,
     counts: { items: items.length, families: new Set(items.map(i => i.family)).size },
     items,
     surfaceOnly: items.map(({ taskId, family, prompt, surface }) => ({ taskId, family, prompt, surface })),

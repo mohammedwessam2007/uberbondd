@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": [
+    "059",
+    "060",
+    "061",
+    "063",
+    "064",
+    "068",
+    "070",
+    "071",
+    "074"
+  ],
+  "generation": "GA8",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "Attack right-grouped compositions at difficulty 5, where the promoted solver answers wrongly on every item.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 5,
+  "whyTheSameFamilyAgain": "Third time. The solver promoted in GA7 folds left to right, which is correct for every level up to 4 and wrong for a comma-grouped clause. It confabulates on all thirty level-5 items. Each generation on this family has closed one confabulation and the next level has found another, which is what a working instrument looks like rather than a reason to move on.",
+  "criterionPrecondition": {
+    "whatChanged": "When a gate is in force and the incumbent fails it, a candidate that passes it beats the incumbent on an equal in-distribution score. A lower in-distribution score still loses, so this widens what can win without letting a candidate buy the gate with accuracy it gave up. The incumbent is now run against the gate explicitly rather than assumed to pass.",
+    "whyNeeded": "The GA4 declaration said the incumbent was not grandfathered. The comparison grandfathered it: it could only see the in-distribution score, so a strictly better candidate that tied there could never win. Intent and mechanism had diverged.",
+    "whyBeforeDeclaring": "Fixed before GA6 candidates exist and before its held-out seeds are read. GA5 stands as taken under the rule in force when it ran; it is not re-scored.",
+    "notRescoringGa5": true
+  },
+  "bottleneck": {
+    "observed": "At difficulty 5 the promoted solver is correct 0, refuses 0 and confabulates 30 out of 30. Difficulty 4 remains at 0.00 for FORECASTING and TOOL_USE.",
+    "selected": "INVENTION",
+    "whySelected": "Same reason as GA7 and it has not weakened: a confident wrong number on every item is worse than a clean zero, because nothing downstream can identify it. Forecasting and tool use fail by refusing.",
+    "notSelected": {
+      "FORECASTING": "Still 0.00 at difficulty 4 -- differencing cannot reach a geometric series. Fails quietly. Open and recorded.",
+      "TOOL_USE": "Still 0.00 at difficulty 4 -- goal-to-tool mapping cannot express a sequence. Fails quietly. Open and recorded."
+    }
+  },
+  "hypotheses": {
+    "primary": "The gap is that the composition is treated as a flat left-to-right fold when it has structure. A clause set off by a comma has to be resolved before it is joined.",
+    "alternativeA": "The gap is unresolvable ambiguity and the right answer is to refuse a comma-grouped prompt rather than parse it, in which case the refusing candidate is the ceiling and scores zero.",
+    "alternativeB": "A recursive parse handles it and also breaks something at a lower level, which the regression check at difficulties 1 through 4 would catch."
+  },
+  "discriminatingTest": "N1 is the incumbent, which confabulates. N2 refuses any prompt containing a comma -- it tests alternative A and should score 0 while confabulating nothing. N3 resolves the trailing clause first. N4 parses recursively. If N2 is the best available, refusing is the ceiling and the generation says so.",
+  "candidateFamilies": [
+    "N1 left-to-right: the GA7 winner, unchanged. The null candidate.",
+    "N2 refuse-on-comma: refuse any prompt whose structure it cannot prove it reads. Answers nothing.",
+    "N3 clause-first: resolve the clause after the comma, then join it to what precedes.",
+    "N4 recursive: parse the prompt into nested expressions rather than a flat sequence."
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [
+      1,
+      2,
+      3,
+      7,
+      11,
+      42,
+      99,
+      1234,
+      20260915,
+      777
+    ],
+    "heldOutSeeds": [
+      3310001,
+      3310002,
+      3310003,
+      3310004,
+      3310005,
+      3310006,
+      3310007,
+      3310008,
+      3310009,
+      3310010
+    ],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen at difficulty 5, passing the out-of-pattern gate, no regression at difficulties 1 through 4, and beating the incumbent -- where beating an incumbent that fails the gate means passing it at an in-distribution score no lower.",
+    "outOfPatternGate": true,
+    "outOfPatternMinimumCorrectRate": 0.6,
+    "gateSemantics": "Confabulating on any gating probe disqualifies regardless of in-distribution score. Refusing is not disqualifying by itself but counts against the minimum correct rate.",
+    "incumbentNote": "The incumbent confabulates on every difficulty-4 item and passes the out-of-pattern gate, which is built from two-quantity prompts. Passing that gate does not excuse the confabulation: the gate is a floor, not a certificate.",
+    "nullResult": "NO_PROMOTION is a real outcome and is reported as one. It is not retried with a lower bar or a weaker gate.",
+    "thresholdLock": "Fixed here, including the gate and its minimum. A change after results invalidates the experiment.",
+    "heldOutSeedsNote": "Fifth disjoint range.",
+    "candidatesUnchanged": "L2 to L4 are GA5 K2 to K4 byte for byte. GA5 did not fail because of its candidates, so changing them now would confound the comparison change with a candidate change and neither effect could be attributed.",
+    "regressionLevels": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "tieRule": "A tie among eligible candidates is resolved by running them against each other. If they disagree anywhere the tie is unresolved and nothing is promoted; size and registration order decide nothing. This rule was added after GA6 and GA7 both promoted out of ties that later proved separable."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface and the prompt.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds or on the gating probes.",
+    "A candidate may not read targetKey.",
+    "A candidate may not special-case the three gating prompts. Matching their exact text rather than their structure is disqualifying, and the held-back reporting probes exist to expose it.",
+    "A candidate may not refuse everything to avoid confabulating: refusals count against the minimum correct rate.",
+    "A candidate may not be adjusted after reading its GA5 held-out score. If GA5 also promotes nothing, that is the answer.",
+    "A candidate may not detect three quantities and refuse in order to avoid confabulating while scoring nothing: M2 already occupies that position and is included precisely so the option is measured rather than rediscovered."
+  ],
+  "whatThisCannotEstablish": "Passing a hand-built probe set written by the same author as the candidates is a floor, not proof of compositional reasoning. The probes share his blind spots. Clearing them means a known failure mode is closed, not that unknown ones are.",
+  "businessEffectAuthority": "NONE",
+  "seedLeakage": {
+    "why": "Reading a result spends the set.",
+    "action": "A fifth disjoint range.",
+    "previousHeldOutSeedsRetired": "all sets used by GA4 through GA7"
+  },
+  "reportingProbeRequirement": "If a candidate promotes, it is run against the held-back reporting probes afterwards. Those never gated anything, so they are the only items in this family no selection pressure has touched.",
+  "instrumentPrecondition": {
+    "changedAt": "the commit adding difficulty 5",
+    "whatChanged": "Level-5 invention groups to the right: a comma sets off a trailing clause resolved before it is joined.",
+    "noDisclosureNeeded": "Unlike the difficulty-4 escalation, no existing candidate was known to survive this one. All four GA7 candidates fold left to right or worse, so none of them was in view when the level was designed.",
+    "whyBeforeDeclaring": "Committed before this declaration, with no candidate written and no threshold set."
+  }
+}

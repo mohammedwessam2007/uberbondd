@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "UberSocket Chat Bridge",
+  "version": "0.1.0",
+  "description": "User-armed encrypted prompt bridge between ChatGPT tabs through UberBond.",
+  "permissions": ["storage", "tabs", "activeTab"],
+  "host_permissions": ["https://chatgpt.com/*", "wss://lslifasfebpjbtqmkitm.supabase.co/*"],
+  "background": {"service_worker": "background.js", "type": "module"},
+  "action": {"default_popup": "popup.html", "default_title": "UberSocket"},
+  "content_scripts": [{"matches": ["https://chatgpt.com/*"], "js": ["content.js"], "run_at": "document_idle"}]
+}

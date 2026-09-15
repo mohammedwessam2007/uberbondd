@@ -1,16 +1,18 @@
 import { createOpenAIConversationModelAdapter } from './openai-conversation-model-adapter.mjs';
 import { createProjectMesh } from './uber-socket-project-mesh.mjs';
 import { createSharedContentFabric } from './uber-socket-shared-content-fabric.mjs';
+import { createUberSocketCognitiveBackplane } from './uber-socket-cognitive-backplane.mjs';
 
 let singleton = null;
 
-function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.UBER_SOCKET_MODEL || 'gpt-5', authorizeModelCall = async () => true } = {}) {
+function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.UBER_SOCKET_MODEL || 'gpt-5', authorizeModelCall = async () => true, cognitiveJournalPath = process.env.UBER_SOCKET_COGNITIVE_JOURNAL || null } = {}) {
   const configured = Boolean(apiKey);
   const modelAdapter = configured
     ? createOpenAIConversationModelAdapter({ apiKey, model })
     : { async respond(){ throw new Error('openai-api-key-not-configured'); } };
   const mesh = createProjectMesh({ modelAdapter, authorizeModelCall });
   const fabric = createSharedContentFabric({ mesh, modelAdapter });
+  const backplane = createUberSocketCognitiveBackplane({ journalPath: cognitiveJournalPath });
 
   function status(){
     const snap = mesh.snapshot();
@@ -22,6 +24,8 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
       peers: snap.peers.length,
       rooms: snap.rooms.length,
       sharedDocuments: snap.peers.reduce((n,p)=>n+fabric.listPeerDocs(p.peerId).length,0),
+      cognitiveBackplane: 'CONNECTED',
+      cognitiveJournal: cognitiveJournalPath ? 'ENABLED' : 'DISABLED',
       externalEffectsAuthorized: false,
     });
   }
@@ -35,18 +39,73 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
     return mesh.registerChat({ peerId, conversationId, projectId, title, tags, metadata });
   }
 
-  function ingest(doc){ return fabric.ingest(doc); }
-  async function ask(args){ return fabric.askWithSharedContext(args); }
-  async function council(args){ return mesh.council(args); }
-  async function monster(args){ return fabric.compileMonsterPrompt(args); }
+  function ingest(doc){
+    const saved = fabric.ingest(doc);
+    const cognitive = backplane.publishChatContent({
+      peerId:saved.peerId,
+      docId:saved.docId,
+      title:saved.title,
+      summary:`Shared project document ingested with ${saved.text.length} characters and tags ${(saved.tags||[]).join(', ')||'none'}.`,
+      evidenceRefs:[`uber-socket://peer/${saved.peerId}/doc/${saved.docId}`],
+      observedAt:saved.createdAt,
+    });
+    return Object.freeze({ ...saved, cognitive });
+  }
+
+  async function ask(args){
+    const result = await fabric.askWithSharedContext(args);
+    const peerId = String(args?.toPeer || 'unknown-peer');
+    const cognitive = backplane.publishPeerFinding({
+      peerId,
+      subjectId:`ask:${crypto.randomUUID()}`,
+      summary:`UberSocket peer ${peerId} answered a shared-context question.`,
+      evidenceRefs:(result.sharedDocIds||[]).map(id=>`uber-socket://doc/${id}`),
+    });
+    return Object.freeze({ ...result, cognitive });
+  }
+
+  async function council(args){
+    const result = await mesh.council(args);
+    const councilId = `council:${crypto.randomUUID()}`;
+    const cognitive = backplane.publishCouncilResult({
+      councilId,
+      summary:`UberSocket council ${args?.roomId || 'ad-hoc'} produced ${result.responders || result.replies?.length || 0} peer responses.`,
+      evidenceRefs:(result.replies||[]).map(r=>`uber-socket://peer/${r.peerId}/response/${r.responseId||'unknown'}`),
+    });
+    return Object.freeze({ ...result, councilId, cognitive });
+  }
+
+  async function monster(args){
+    const result = await fabric.compileMonsterPrompt(args);
+    const promptId = `monster:${crypto.randomUUID()}`;
+    const cognitive = backplane.publishMonsterPrompt({
+      promptId,
+      summary:`UberSocket monster prompt compiled from ${result.councilPeers?.length || 0} council peers and ${result.sharedDocIds?.length || 0} shared documents.`,
+      evidenceRefs:[...(result.sharedDocIds||[]).map(id=>`uber-socket://doc/${id}`),...(result.councilPeers||[]).map(id=>`uber-socket://peer/${id}`)],
+    });
+    return Object.freeze({ ...result, promptId, cognitive });
+  }
+
   async function outreach100kCouncil({ fromPeer, synthesizerPeer=null, maxResponders=12 }={}){
     const roomId = 'tag:outreach-100k';
     const prompt = 'Complete the UberBond 100K/day outreach mission. Identify what is already implemented, what is missing, contradictions, current evidence, bottlenecks, unsafe assumptions, and the strongest next execution prompt. Preserve source provenance and do not fabricate readiness.';
-    if(synthesizerPeer) return mesh.synthesizeCouncil({ fromPeer, roomId, prompt, synthesizerPeer, maxResponders });
-    return mesh.council({ fromPeer, roomId, prompt, maxResponders });
+    const result = synthesizerPeer
+      ? await mesh.synthesizeCouncil({ fromPeer, roomId, prompt, synthesizerPeer, maxResponders })
+      : await mesh.council({ fromPeer, roomId, prompt, maxResponders });
+    const councilId = `outreach100k:${crypto.randomUUID()}`;
+    const cognitive = backplane.publishCouncilResult({
+      councilId,
+      summary:`100K outreach council produced ${result.responders || result.replies?.length || 0} responses${synthesizerPeer ? ' plus synthesis' : ''}.`,
+      evidenceRefs:(result.replies||[]).map(r=>`uber-socket://peer/${r.peerId}/response/${r.responseId||'unknown'}`),
+    });
+    return Object.freeze({ ...result, councilId, cognitive });
   }
 
-  return Object.freeze({ status, registerChat, ingest, ask, council, monster, outreach100kCouncil, mesh, fabric });
+  function cognitiveCycle(){ return backplane.closeLoop(); }
+  function reportContradiction(args){ return backplane.publishContradiction(args); }
+  function reportBlocker(args){ return backplane.publishBlocker(args); }
+
+  return Object.freeze({ status, registerChat, ingest, ask, council, monster, outreach100kCouncil, cognitiveCycle, reportContradiction, reportBlocker, mesh, fabric, backplane });
 }
 
 export function getUberSocketRuntime(options={}){

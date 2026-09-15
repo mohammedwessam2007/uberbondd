@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.outreach-one-button-activation.v1",
+  "date": "2026-09-15",
+  "baseFrontier": "PR_875_MERGED",
+  "state": "SOURCE_IMPLEMENTED_VERIFICATION_PENDING",
+  "surface": {
+    "html": "public/admin.html",
+    "controller": "public/outreach-one-button.js",
+    "test": "tests/outreach-one-button-ui.test.mjs"
+  },
+  "sequence": [
+    "READ_SUMMARY_AND_CAMPAIGNS",
+    "REFUSE_IF_LIVE_OUTBOUND_DISABLED",
+    "REFUSE_IF_DRY_RUN",
+    "REFUSE_IF_UNCERTAIN_SENDS_EXIST",
+    "REFUSE_IF_NO_APPROVED_AUTOSEND_CAMPAIGN",
+    "RESUME_WORKER",
+    "RESUME_OUTBOUND",
+    "START_BOUNDED_NIGHTSHIFT_PULSE"
+  ],
+  "initialPulseLimit": 250,
+  "authority": {
+    "createsProviderCredentials": false,
+    "createsRuntimeEvidence": false,
+    "bypasses875Gates": false,
+    "persistsAdminToken": false
+  },
+  "capacityHorizonPerDay": 100000,
+  "capacityIsQuota": false,
+  "truthBoundary": "This receipt records the one-button source integration only. It does not prove the production runtime is armed, the UberBoxes are authenticated/warmed, the egress path is ready, a campaign is approved, any message was sent, or 100000/day is live."
+}

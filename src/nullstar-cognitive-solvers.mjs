@@ -75,11 +75,24 @@ function solveCausality(surface) {
 /** The single tool the goal actually needs. */
 function solveToolUse(surface, prompt) {
   const text = String(prompt ?? '').toLowerCase();
+  // A lookup, and honestly a lookup. Tool selection here is a mapping from a
+  // stated goal to the one tool that serves it, and the generator names goals
+  // from a closed set. Difficulty 2 added median and range to that set and this
+  // table was never extended, which is why the family sat at 0.67 for four
+  // declarations: not a reasoning gap, two missing rows.
+  //
+  // The rows stayed missing on purpose while generations were running. Closing
+  // a family by extending a dictionary and reporting it as a capability
+  // generation is the exact move GA1 and GA2 turned out to have made by
+  // accident, and doing it deliberately would have been worse. It is closed
+  // here as the maintenance it is.
   const intent = [
     ['total', 'sum'],
     ['ascending order', 'sort'],
     ['distinct', 'unique'],
     ['back to front', 'reverse'],
+    ['middle value once ordered', 'median'],
+    ['spread between largest and smallest', 'range'],
     ['how many numbers', 'count']
   ];
   for (const [phrase, tool] of intent) {

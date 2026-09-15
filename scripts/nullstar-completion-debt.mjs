@@ -16,6 +16,8 @@ import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { generateTaskSet } from '../src/nullstar-cognitive-tasks.mjs';
+import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solvers.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = process.env.NULLSTAR_COMPLETION_OUT || 'artifacts/nullstar-terminal/completion-debt.json';
@@ -38,12 +40,19 @@ const ITEMS = [
     id: 'CD001-TOOL-USE-VOCABULARY-GAP',
     class: 'SOFTWARE',
     what: 'The TOOL_USE family sits at 0.67 at difficulties 2 and 3 because the solver has no intent mapping for the goal phrases naming median and range.',
-    whyNotDone: 'Named in the GA3 declaration and deliberately not spent as a generation: closing it is a two-line dictionary edit that would have posted as a capability win. It is real work and it is small work, and it has stayed open through four declarations that each said so.',
+    whyNotDone: 'Named in the GA3 declaration and deliberately not spent as a generation: closing it is a two-line dictionary edit that would have posted as a capability win. It is real work and it is small work, and it stayed open through four declarations that each said so.',
     check: () => {
-      const declaration = readJson('artifacts/nullstar-terminal/ga3-declaration.json');
+      // Measured, not read. The first version of this check read the GA3
+      // declaration and asked whether it named TOOL_USE as deliberately
+      // not selected -- which it always will, because a declaration is a
+      // record of what was true when it was written. A status that can
+      // never change is not a check.
+      const seeds = Array.from({ length: 30 }, (_, i) => 50000 + i);
+      const scores = [2, 3].map(difficulty =>
+        scoreTaskSet(generateTaskSet({ seeds, families: ['TOOL_USE'], difficulty }).items, UBERBOND_SOLVERS).mean);
       return {
-        open: Boolean(declaration.bottleneck.notSelected?.TOOL_USE),
-        evidence: 'artifacts/nullstar-terminal/ga3-declaration.json names it as deliberately not selected'
+        open: scores.some(score => score < 1),
+        evidence: `TOOL_USE measured live at d2 ${scores[0]} and d3 ${scores[1]}`
       };
     }
   },
@@ -76,9 +85,37 @@ const ITEMS = [
     what: 'The tournament tie-break measures bytes of the candidate function in its source file. A candidate module that re-exports rather than defines has nothing to measure, so GA6 reported 1052 bytes against 1052 and the tie-break decided nothing.',
     whyNotDone: 'Found while reading GA6 output. Small, and it changes which of several tied candidates wins, so it is worth fixing before a tie-break is ever load-bearing.',
     check: () => {
-      const ga6 = readJson('artifacts/nullstar-terminal/ga6-result.json');
-      const sizes = ga6.candidates.map(row => row.complexityBytes);
-      return { open: new Set(sizes).size === 1, evidence: `all ${sizes.length} GA6 candidates measured ${sizes[0]} bytes` };
+      // The GA6 artifact records what the broken heuristic returned and always
+      // will, so this checks the runner instead: does it follow a re-export,
+      // and does it decline to measure rather than returning a file length.
+      const runner = readFileSync(join(root, 'scripts/nullstar-generation.mjs'), 'utf8');
+      const followsReExports = runner.includes("for (const match of source.matchAll(/from '");
+      const admitsFailure = runner.includes('return null;') && runner.includes('?? Infinity');
+      return {
+        open: !(followsReExports && admitsFailure),
+        evidence: followsReExports && admitsFailure
+          ? 'the runner follows re-exports and sorts an unmeasurable size last instead of treating it as zero'
+          : 'the runner still returns a whole-file length when it cannot find the candidate'
+      };
+    }
+  },
+  {
+    id: 'CD008-DIFFICULTY-THREE-NO-LONGER-DISCRIMINATES',
+    class: 'SOFTWARE',
+    what: 'Every family now scores 1.0 at difficulties 1 through 3, so the instrument has nothing left to measure at its top difficulty.',
+    whyNotDone: 'Closing the TOOL_USE gap saturated the last family below 1.0. A suite where everything scores perfectly cannot rank a candidate, which is the state the retired corpus was in for a different reason, and a generation declared against it would be measuring nothing. Difficulty 4 has to carry real escalation before the next generation, and it has to be built before its bottleneck is read rather than after.',
+    check: () => {
+      const seeds = Array.from({ length: 20 }, (_, i) => 50000 + i);
+      const families = ['PLANNING', 'SCIENCE', 'CAUSALITY', 'TOOL_USE', 'RESEARCH', 'INVENTION', 'FORECASTING'];
+      const top = families.map(family =>
+        scoreTaskSet(generateTaskSet({ seeds, families: [family], difficulty: 3 }).items, UBERBOND_SOLVERS).mean);
+      const saturated = top.every(score => score === 1);
+      return {
+        open: saturated,
+        evidence: saturated
+          ? 'all seven families score exactly 1.0 at difficulty 3'
+          : `headroom remains: lowest family at difficulty 3 is ${Math.min(...top)}`
+      };
     }
   },
   {

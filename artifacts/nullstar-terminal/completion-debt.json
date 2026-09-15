@@ -6,20 +6,20 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T12:44:05.217Z",
-  "sourceCommit": "737a1d19a7d39605d01529a12002c024ad99477d",
+  "generatedAt": "2026-09-15T12:45:19.539Z",
+  "sourceCommit": "d7a28200d22da6fab32daab25b6c5cf6b4332f02",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 5,
+  "softwareOpen": 4,
   "externalOpen": 2,
-  "totalOpen": 7,
+  "totalOpen": 6,
   "items": [
     {
       "id": "CD001-TOOL-USE-VOCABULARY-GAP",
       "class": "SOFTWARE",
       "what": "The TOOL_USE family sits at 0.67 at difficulties 2 and 3 because the solver has no intent mapping for the goal phrases naming median and range.",
-      "whyNotDone": "Named in the GA3 declaration and deliberately not spent as a generation: closing it is a two-line dictionary edit that would have posted as a capability win. It is real work and it is small work, and it has stayed open through four declarations that each said so.",
-      "open": true,
-      "evidence": "artifacts/nullstar-terminal/ga3-declaration.json names it as deliberately not selected"
+      "whyNotDone": "Named in the GA3 declaration and deliberately not spent as a generation: closing it is a two-line dictionary edit that would have posted as a capability win. It is real work and it is small work, and it stayed open through four declarations that each said so.",
+      "open": false,
+      "evidence": "TOOL_USE measured live at d2 1 and d3 1"
     },
     {
       "id": "CD002-GA1-GA2-UNATTRIBUTABLE",
@@ -42,8 +42,16 @@
       "class": "SOFTWARE",
       "what": "The tournament tie-break measures bytes of the candidate function in its source file. A candidate module that re-exports rather than defines has nothing to measure, so GA6 reported 1052 bytes against 1052 and the tie-break decided nothing.",
       "whyNotDone": "Found while reading GA6 output. Small, and it changes which of several tied candidates wins, so it is worth fixing before a tie-break is ever load-bearing.",
+      "open": false,
+      "evidence": "the runner follows re-exports and sorts an unmeasurable size last instead of treating it as zero"
+    },
+    {
+      "id": "CD008-DIFFICULTY-THREE-NO-LONGER-DISCRIMINATES",
+      "class": "SOFTWARE",
+      "what": "Every family now scores 1.0 at difficulties 1 through 3, so the instrument has nothing left to measure at its top difficulty.",
+      "whyNotDone": "Closing the TOOL_USE gap saturated the last family below 1.0. A suite where everything scores perfectly cannot rank a candidate, which is the state the retired corpus was in for a different reason, and a generation declared against it would be measuring nothing. Difficulty 4 has to carry real escalation before the next generation, and it has to be built before its bottleneck is read rather than after.",
       "open": true,
-      "evidence": "all 4 GA6 candidates measured 1052 bytes"
+      "evidence": "all seven families score exactly 1.0 at difficulty 3"
     },
     {
       "id": "CD005-CROSS-ORGAN-TRANSFER-NOT-MEASURED",
@@ -128,7 +136,7 @@
     }
   ],
   "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "5 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "whyNotDone": "4 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",
   "externalEffects": {

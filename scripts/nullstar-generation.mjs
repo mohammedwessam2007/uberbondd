@@ -79,13 +79,51 @@ const itemsAt = (seeds, difficulty) => generateTaskSet({ seeds, families: [FAMIL
 const started = Date.now();
 
 const source = readFileSync(join(root, sourcePath), 'utf8');
+/**
+ * Bytes of the candidate's implementation, used only to break a tie.
+ *
+ * It used to return the whole file's length whenever it could not find the
+ * function, which made every candidate in a re-exporting module measure
+ * identically: GA6 reported 1052 bytes against 1052 and the tie-break decided
+ * nothing while claiming to decide something. A measurement that silently
+ * returns the same number for everything is worse than one that admits it
+ * failed, so this follows the re-export to the module that defines the function
+ * and returns null when it cannot find it at all.
+ */
 const complexityOf = name => {
-  // Crude but consistent: bytes of the exported function's body.
-  const marker = source.indexOf(`export function ${name.split('_')[0].toLowerCase()}`);
-  if (marker < 0) return source.length;
-  const rest = source.slice(marker);
-  const end = rest.indexOf('\n}\n');
-  return end < 0 ? rest.length : end;
+  const bodyIn = (text, fnName) => {
+    const marker = text.indexOf(`export function ${fnName}`);
+    if (marker < 0) return null;
+    const rest = text.slice(marker);
+    const end = rest.indexOf('\n}\n');
+    return end < 0 ? rest.length : end;
+  };
+
+  // Candidates are named like L2_OPERATOR_REPAIRED and defined as
+  // l2OperatorRepaired, so try the camel-case spelling before the old prefix
+  // guess, which only ever matched by luck.
+  const parts = name.toLowerCase().split('_');
+  const camel = parts[0] + parts.slice(1).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+
+  for (const candidateName of [camel, parts[0]]) {
+    const direct = bodyIn(source, candidateName);
+    if (direct !== null) return direct;
+  }
+
+  // Follow re-exports: the module may only forward a function defined elsewhere.
+  for (const match of source.matchAll(/from '(\.\/[^']+\.mjs)'/g)) {
+    let imported = '';
+    try {
+      imported = readFileSync(join(root, 'src', match[1].replace('./', '')), 'utf8');
+    } catch {
+      continue;
+    }
+    for (const candidateName of [camel, parts[0]]) {
+      const found = bodyIn(imported, candidateName);
+      if (found !== null) return found;
+    }
+  }
+  return null;
 };
 
 // The incumbent faces the gate too. A candidate can only claim the gate as a
@@ -164,7 +202,10 @@ const results = Object.entries(candidates).map(([name, fn]) => {
 });
 
 const eligible = results.filter(row => row.eligible);
-eligible.sort((a, b) => (b.heldOutScore - a.heldOutScore) || (a.complexityBytes - b.complexityBytes));
+// An unmeasurable size cannot win a tie-break, so it sorts last rather than
+// being treated as zero bytes.
+eligible.sort((a, b) => (b.heldOutScore - a.heldOutScore)
+  || ((a.complexityBytes ?? Infinity) - (b.complexityBytes ?? Infinity)));
 const winner = eligible[0] ?? null;
 const disqualified = results.filter(row => !row.eligible && row.meetsThreshold && row.beatsIncumbent);
 const wallClockMs = Date.now() - started;
@@ -227,7 +268,9 @@ const record = {
     ? `${tiedAtTop.length} eligible candidates scored ${winner.heldOutScore} on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows that the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work. Isolating that needs an ablation carrying the minimal shared fix and nothing else.`
     : null,
   tieBreak: eligible.length > 1 && eligible[0].heldOutScore === eligible[1].heldOutScore
-    ? `Tied at ${eligible[0].heldOutScore}; ${winner.candidate} won on being smaller (${winner.complexityBytes} bytes vs ${eligible[1].complexityBytes}).`
+    ? (winner.complexityBytes === null || winner.complexityBytes === eligible[1].complexityBytes
+        ? `Tied at ${eligible[0].heldOutScore} and the size heuristic did not separate them either (${winner.complexityBytes ?? 'unmeasurable'} against ${eligible[1].complexityBytes ?? 'unmeasurable'}); ${winner.candidate} won on registration order, which is arbitrary.`
+        : `Tied at ${eligible[0].heldOutScore}; ${winner.candidate} won on being smaller (${winner.complexityBytes} bytes vs ${eligible[1].complexityBytes}).`)
     : null,
   improvementVelocity: {
     deltaCapability: winner ? Number((winner.heldOutScore - incumbentHeldOut).toFixed(4)) : 0,

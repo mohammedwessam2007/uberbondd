@@ -53,6 +53,7 @@ function compileMailboxes(mailboxes, domainReady, options) {
   const rows = [];
   for (const raw of Array.isArray(mailboxes) ? mailboxes : []) {
     const mailboxId = clean(raw?.mailboxId, 240);
+    const address = clean(raw?.address, 320).toLowerCase();
     const domainId = clean(raw?.domainId || String(raw?.address || '').split('@')[1], 253).toLowerCase();
     const routeId = clean(raw?.egressRouteId || raw?.routeId, 240);
     const evidence = freshEvidence(raw, { ...options, prefix: `mailbox:${mailboxId || 'unknown'}` });
@@ -62,6 +63,7 @@ function compileMailboxes(mailboxes, domainReady, options) {
     const usedToday = positiveInt(raw?.usedToday ?? 0);
     const capRemaining = remaining(observedDailyCap, usedToday);
     if (!mailboxId) reasons.push('mailbox-id-required');
+    if (!address || !address.endsWith(`@${domainId}`)) reasons.push('mailbox-authenticated-address-required');
     if (!domainId || !domainReady.has(domainId)) reasons.push('mailbox-ready-domain-required');
     if (!routeId) reasons.push('mailbox-egress-route-required');
     if (raw?.authenticated !== true && raw?.authenticationStatus !== 'AUTHENTICATED') reasons.push('mailbox-authentication-required');
@@ -71,7 +73,7 @@ function compileMailboxes(mailboxes, domainReady, options) {
     if (observedHourlyCap == null || observedHourlyCap <= 0) reasons.push('mailbox-observed-hourly-cap-required');
     const minGapSeconds = positiveInt(raw?.minGapSeconds ?? 0);
     if (minGapSeconds == null) reasons.push('mailbox-valid-cadence-required');
-    rows.push({ mailboxId: mailboxId || null, domainId: domainId || null, routeId: routeId || null, observedDailyCap: observedDailyCap ?? 0, observedHourlyCap: observedHourlyCap ?? 0, usedToday: usedToday ?? 0, minGapSeconds: minGapSeconds ?? 0, remainingDailyCap: reasons.length ? 0 : capRemaining, ready: reasons.length === 0, reasonCodes: uniq(reasons), evidenceAgeHours: evidence.ageHours });
+    rows.push({ mailboxId: mailboxId || null, address: address || null, domainId: domainId || null, routeId: routeId || null, observedDailyCap: observedDailyCap ?? 0, observedHourlyCap: observedHourlyCap ?? 0, usedToday: usedToday ?? 0, minGapSeconds: minGapSeconds ?? 0, remainingDailyCap: reasons.length ? 0 : capRemaining, ready: reasons.length === 0, reasonCodes: uniq(reasons), evidenceAgeHours: evidence.ageHours });
   }
   return rows;
 }

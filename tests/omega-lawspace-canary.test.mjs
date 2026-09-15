@@ -6,6 +6,7 @@ import {
   crystallizeLawTopology,
   verifyLawAssignment,
   solveWithCrystallizedDynamics,
+  solveColdGenericDynamics,
   solveColdEnumeration,
   compileExactFailureRepeller,
   benchmarkStructuralCrystallization
@@ -70,7 +71,7 @@ test('crystallized dynamics solves held-out related instances with independent v
   zero(solved);
 });
 
-test('structural crystallization canary beats complete cold enumeration in bounded candidate work', () => {
+test('structural crystallization benchmark separates naive enumeration from fresh and reused dynamics', () => {
   const family = latin3Family();
   const instances = [
     instance(family, 'heldout-1', { r0c0: 1, r1c1: 3, r2c2: 2 }),
@@ -79,10 +80,24 @@ test('structural crystallization canary beats complete cold enumeration in bound
   ];
   const benchmark = benchmarkStructuralCrystallization({ family, instances });
   assert.equal(benchmark.ok, true);
-  assert.ok(benchmark.summary.coldWork > benchmark.summary.compiledWork);
-  assert.ok(benchmark.summary.branchReductionRatio > 1);
-  assert.match(benchmark.summary.truthBoundary, /does not prove general intelligence/i);
+  assert.ok(benchmark.summary.enumerationWork > benchmark.summary.reusedCrystalWork);
+  assert.ok(benchmark.summary.branchReductionVsNaiveEnumeration > 1);
+  assert.equal(benchmark.summary.freshTopologyCompilations, instances.length);
+  assert.equal(benchmark.summary.reusedTopologyCompilations, 1);
+  assert.equal(benchmark.summary.avoidedRepeatedTopologyCompilations, instances.length - 1);
+  assert.equal(benchmark.summary.learnedTransferClaim, false);
+  for (const row of benchmark.rows) assert.equal(row.freshDynamicsBranches, row.reusedCrystalBranches);
+  assert.match(benchmark.summary.truthBoundary, /not a strong domain-solver baseline/i);
   zero(benchmark);
+});
+
+test('cold generic dynamics recompiles topology and remains independently valid', () => {
+  const family = latin3Family();
+  const heldout = instance(family, 'fresh-dynamics', { r0c0: 1, r1c1: 3, r2c2: 2 });
+  const cold = solveColdGenericDynamics({ instance: heldout });
+  assert.equal(cold.ok, true);
+  assert.equal(cold.verifier.valid, true);
+  assert.equal(cold.metrics.topologyCompilations, 1);
 });
 
 test('cold enumeration remains independently valid rather than serving as a fake straw verifier', () => {
@@ -92,6 +107,52 @@ test('cold enumeration remains independently valid rather than serving as a fake
   assert.equal(cold.ok, true);
   assert.equal(cold.verifier.valid, true);
   assert.ok(cold.metrics.candidatesEvaluated >= 1);
+});
+
+test('ordered constraints preserve orientation during canonicalization', () => {
+  const receipt = compileCognitiveLawFamily({
+    name: 'ordered-pair',
+    variables: [{ id: 'x', domain: [1, 2, 3] }, { id: 'y', domain: [1, 2, 3] }],
+    constraints: [{ type: 'lt', vars: ['y', 'x'] }]
+  });
+  assert.equal(receipt.ok, true);
+  const lt = receipt.family.constraints.find(constraint => constraint.type === 'lt');
+  assert.deepEqual(lt.vars, ['y', 'x']);
+  const validInstance = instance(receipt.family, 'ordered', { y: 2, x: 3 });
+  assert.equal(verifyLawAssignment({ instance: validInstance, assignment: { x: 3, y: 2 } }).valid, true);
+  assert.equal(verifyLawAssignment({ instance: validInstance, assignment: { x: 2, y: 3 } }).valid, false);
+});
+
+test('general primitive domains allow strings but numeric-only constraints refuse them', () => {
+  const symbolic = compileCognitiveLawFamily({
+    name: 'symbolic-neq',
+    variables: [{ id: 'a', domain: ['red', 'blue'] }, { id: 'b', domain: ['red', 'blue'] }],
+    constraints: [{ type: 'neq', vars: ['a', 'b'] }]
+  });
+  assert.equal(symbolic.ok, true);
+  const symbolicInstance = instance(symbolic.family, 'symbols', { a: 'red' });
+  const solved = solveWithCrystallizedDynamics({ instance: symbolicInstance, crystal: crystallizeLawTopology({ family: symbolic.family }).crystal });
+  assert.equal(solved.ok, true);
+  assert.equal(solved.assignment.b, 'blue');
+
+  const illegalNumeric = compileCognitiveLawFamily({
+    name: 'illegal-lt',
+    variables: [{ id: 'a', domain: ['red', 'blue'] }, { id: 'b', domain: ['red', 'blue'] }],
+    constraints: [{ type: 'lt', vars: ['a', 'b'] }]
+  });
+  assert.equal(illegalNumeric.ok, false);
+  assert.ok(illegalNumeric.reasonCodes.includes('invalid-constraints'));
+});
+
+test('independent verifier rejects assignments with undeclared extra state', () => {
+  const family = latin3Family();
+  const heldout = instance(family, 'strict', { r0c0: 1, r1c1: 3, r2c2: 2 });
+  const solved = solveWithCrystallizedDynamics({ instance: heldout, crystal: crystallizeLawTopology({ family }).crystal });
+  assert.equal(solved.ok, true);
+  const polluted = { ...solved.assignment, secretExtra: 42 };
+  const verdict = verifyLawAssignment({ instance: heldout, assignment: polluted });
+  assert.equal(verdict.valid, false);
+  assert.equal(verdict.checks.exactKeys, false);
 });
 
 test('crystal cannot cross an incompatible topology boundary', () => {
@@ -117,6 +178,10 @@ test('failure geometry is exact, evidence-bound, and cannot mark a valid solutio
   assert.equal(repeller.ok, true);
   assert.equal(repeller.repeller.scope, 'EXACT_ASSIGNMENT_ONLY');
   assert.equal(repeller.repeller.evidenceRef, 'test:observed-invalid-assignment');
+
+  const extraState = compileExactFailureRepeller({ instance: heldout, failedAssignment: { ...invalid, surprise: 9 } });
+  assert.equal(extraState.ok, false);
+  assert.ok(extraState.reasonCodes.includes('complete-failed-assignment-required'));
 
   const crystal = crystallizeLawTopology({ family }).crystal;
   const solved = solveWithCrystallizedDynamics({ instance: heldout, crystal, failureGeometry: [repeller.repeller] });

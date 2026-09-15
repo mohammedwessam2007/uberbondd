@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "uberbond-nullstar-completion-debt-1.0.0",
+  "directiveSections": [
+    "009",
+    "169",
+    "191",
+    "244"
+  ],
+  "generatedAt": "2026-09-15T12:44:05.217Z",
+  "sourceCommit": "737a1d19a7d39605d01529a12002c024ad99477d",
+  "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
+  "softwareOpen": 5,
+  "externalOpen": 2,
+  "totalOpen": 7,
+  "items": [
+    {
+      "id": "CD001-TOOL-USE-VOCABULARY-GAP",
+      "class": "SOFTWARE",
+      "what": "The TOOL_USE family sits at 0.67 at difficulties 2 and 3 because the solver has no intent mapping for the goal phrases naming median and range.",
+      "whyNotDone": "Named in the GA3 declaration and deliberately not spent as a generation: closing it is a two-line dictionary edit that would have posted as a capability win. It is real work and it is small work, and it has stayed open through four declarations that each said so.",
+      "open": true,
+      "evidence": "artifacts/nullstar-terminal/ga3-declaration.json names it as deliberately not selected"
+    },
+    {
+      "id": "CD002-GA1-GA2-UNATTRIBUTABLE",
+      "class": "SOFTWARE",
+      "what": "The GA1 and GA2 promotions are improvements on the instrument that cannot be attributed to the mechanisms they were testing. Their families have no out-of-pattern probe set.",
+      "whyNotDone": "The gate that would settle it exists and is applied to INVENTION only. Extending it to FORECASTING and RESEARCH is writable work. Building those probes now and using them to re-judge finished runs would be choosing a test after knowing the answer, so it has to drive new generations rather than re-score old ones.",
+      "open": true,
+      "evidence": "F010 in the failure-debt ledger"
+    },
+    {
+      "id": "CD003-GATE-PROBES-SHARE-AN-AUTHOR",
+      "class": "SOFTWARE",
+      "what": "The out-of-pattern probes were written by the same author as the solvers they judge, so they test the failure modes that author thought of.",
+      "whyNotDone": "Stated in the GA4 declaration before any generation ran under the gate, and it has not stopped being true. An adversarially generated probe set, or probes derived from a source other than the author, would narrow it. Neither exists.",
+      "open": true,
+      "evidence": "artifacts/nullstar-terminal/ga4-declaration.json whatThisCannotEstablish"
+    },
+    {
+      "id": "CD004-TIE-BREAK-IS-MEANINGLESS-FOR-REEXPORTS",
+      "class": "SOFTWARE",
+      "what": "The tournament tie-break measures bytes of the candidate function in its source file. A candidate module that re-exports rather than defines has nothing to measure, so GA6 reported 1052 bytes against 1052 and the tie-break decided nothing.",
+      "whyNotDone": "Found while reading GA6 output. Small, and it changes which of several tied candidates wins, so it is worth fixing before a tie-break is ever load-bearing.",
+      "open": true,
+      "evidence": "all 4 GA6 candidates measured 1052 bytes"
+    },
+    {
+      "id": "CD005-CROSS-ORGAN-TRANSFER-NOT-MEASURED",
+      "class": "SOFTWARE",
+      "what": "No promoted improvement has been measured against the software, economic or personal organs. The GA2 declaration argued research ranking should transfer to provider evidence; that argument is unmeasured.",
+      "whyNotDone": "A transfer measurement needs a task in the receiving organ whose answer is not already computed by the code being tested, and none has been built. Claiming transfer from an architectural argument is what the truth boundaries in every artifact here forbid.",
+      "open": true,
+      "evidence": "artifacts/nullstar-terminal/cross-organ-transfer.json does not exist"
+    },
+    {
+      "id": "CD006-PROVIDER-EVALUATION-BLOCKED",
+      "class": "EXTERNAL",
+      "what": "Per-dimension capability evidence against anything other than deterministic solvers requires a model. No provider credential is configured and every model-weight host is refused by the network policy, while a local inference runtime installs and imports cleanly.",
+      "whyNotDone": "Two independent blockers, neither of which is code: weights are unreachable and Capability Genome admission has approved nothing. Writing more software does not resolve either.",
+      "open": true,
+      "evidence": "artifacts/nullstar-omega/G2-discriminating-test.json carries the probes; config/reachability-classification.json names the gate"
+    },
+    {
+      "id": "CD007-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "class": "EXTERNAL",
+      "what": "Revenue, customers and cleared payment remain zero. Nothing in this work changes that and nothing in it is evidence about it.",
+      "whyNotDone": "Requires a buyer, not a commit.",
+      "open": true,
+      "evidence": "no payment provider receipt exists in the repository"
+    }
+  ],
+  "openFailureDebt": [
+    {
+      "id": "F010-UNDISCRIMINATING-TOURNAMENT",
+      "failureClass": "EPISTEMIC_INFLATION",
+      "severity": "MEDIUM"
+    }
+  ],
+  "generationsRun": [
+    {
+      "generation": "GA1",
+      "family": "FORECASTING",
+      "outcome": "PROMOTED",
+      "winner": "C1_POLYNOMIAL_DIFFERENCE",
+      "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+      "gateApplied": false
+    },
+    {
+      "generation": "GA2",
+      "family": "RESEARCH",
+      "outcome": "PROMOTED",
+      "winner": "R2_TWO_AXIS",
+      "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+      "gateApplied": false
+    },
+    {
+      "generation": "GA3",
+      "family": "INVENTION",
+      "outcome": "PROMOTED",
+      "winner": "I3_PROMPT_DIRECTED",
+      "discrimination": "SEPARATED",
+      "gateApplied": false
+    },
+    {
+      "generation": "GA4",
+      "family": "INVENTION",
+      "outcome": "NO_PROMOTION",
+      "winner": null,
+      "discrimination": "NO_ELIGIBLE_CANDIDATE",
+      "gateApplied": true
+    },
+    {
+      "generation": "GA5",
+      "family": "INVENTION",
+      "outcome": "NO_PROMOTION",
+      "winner": null,
+      "discrimination": "NO_ELIGIBLE_CANDIDATE",
+      "gateApplied": true
+    },
+    {
+      "generation": "GA6",
+      "family": "INVENTION",
+      "outcome": "PROMOTED",
+      "winner": "L2_OPERATOR_REPAIRED",
+      "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+      "gateApplied": true
+    }
+  ],
+  "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
+  "whyNotDone": "5 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

@@ -349,9 +349,18 @@ export function generateInventionTask(seed, difficulty = 1) {
     answerKind: 'NUMBER',
     targetKey: target ? target.key : 'mean',
     requiredComposition: required,
+    // Claiming a primitive the answer does not need is not a cheaper route, it
+    // is a false report of how the answer was reached. This used to test
+    // sufficiency alone, so a solver claiming all four satisfied every item
+    // whatever it used -- which is how GA3's null candidate, a solver that
+    // ignored the prompt entirely, collected the composition half of the score
+    // for free and reached 0.6. TOOL_USE already penalised calling every tool;
+    // this is the same rule for claiming every primitive.
     scoreComposition: used => {
-      const list = Array.isArray(used) ? used : [];
-      return required.every(p => list.includes(p)) ? 1 : 0;
+      const list = [...new Set(Array.isArray(used) ? used : [])];
+      if (!required.every(p => list.includes(p))) return 0;
+      const extra = list.filter(p => !required.includes(p)).length;
+      return extra === 0 ? 1 : Math.max(0, 1 - extra / required.length);
     },
     whyIndependent: 'The mean is computed by the generator over data the solver receives, and no listed primitive returns it.'
   };

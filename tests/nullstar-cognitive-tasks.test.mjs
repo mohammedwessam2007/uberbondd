@@ -263,6 +263,17 @@ test('level 3 invention needs more than sum and count, whichever target is drawn
     assert.equal(task.scoreComposition(['sum', 'count']), 0);
     assert.equal(task.scoreComposition(task.requiredComposition), 1);
 
+    // Claiming a primitive the answer does not need is a false report of the
+    // route taken, and it used to be free: a solver claiming all four satisfied
+    // every item whatever it actually used. That is how a solver ignoring the
+    // prompt entirely collected this half of the score.
+    if (task.requiredComposition.length < 4) {
+      assert.ok(task.scoreComposition(['sum', 'count', 'max', 'min']) < 1,
+        `seed ${seed}: over-claiming must cost something`);
+    }
+    assert.ok(task.scoreComposition([...task.requiredComposition, 'sum', 'count', 'max', 'min']) < 1
+      || task.requiredComposition.length === 4);
+
     // Recompute whichever target this seed drew, by a route independent of the
     // generator's own arithmetic. If these ever disagree the instrument is
     // wrong and every invention score built on it is meaningless.

@@ -204,7 +204,10 @@ const FAILURES = [
     failureClass: 'EPISTEMIC_INFLATION',
     rootCause: 'The scorer was written to check sufficiency and never to check that the claim was honest. TOOL_USE had the same temptation and was built to penalise calling every tool; INVENTION was not given the matching rule, so over-claiming is free there. The asymmetry survived because no candidate over-claimed until the null candidate was deliberately written to ignore the prompt.',
     severity: 'MEDIUM',
-    status: 'OPEN',
+    regressionTest: 'tests/nullstar-cognitive-tasks.test.mjs',
+    repairCommit: 'SEE_CLOSING_NOTE',
+    status: 'CLOSED_WITH_PROOF',
+    closingNote: 'scoreComposition now subtracts for each primitive claimed that the answer does not need, the same shape TOOL_USE already used for calling every tool. Repaired after GA6 rather than during GA3, because changing a scorer mid-experiment is changing the bar after seeing the scores. The promoted solver is unaffected -- it reports exactly the primitives its composition needs and still scores 1.0 -- while GA3 null candidate, which ignored the prompt and claimed all four, falls from 0.6 to 0.58 and would fall further on the three-primitive targets. Past generation results are not re-scored; they stand as taken under the scorer in force when they ran.',
     evidenceRefs: [
       'artifacts/nullstar-terminal/ga3-ablation.json',
       'artifacts/nullstar-terminal/ga3-result.json',

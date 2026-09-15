@@ -2,22 +2,21 @@
   "ok": true,
   "status": "FAILURE_DEBT_COMPILED",
   "version": "uberbond.nullstar-failure-debt.v1",
-  "sourceSha": "e76e4dad5526647474097108ce431239eff59b48",
-  "generatedAt": "2026-09-15T12:38:49.934Z",
+  "sourceSha": "7b67a9ce99ba652a13ab1eee8965f3241789bb05",
+  "generatedAt": "2026-09-15T12:39:43.543Z",
   "counts": {
     "total": 12,
     "byStatus": {
-      "OPEN": 2,
+      "OPEN": 1,
       "REPAIR_IN_PROGRESS": 0,
       "RETEST_REQUIRED": 0,
-      "CLOSED_WITH_PROOF": 10,
+      "CLOSED_WITH_PROOF": 11,
       "EXTERNAL_BLOCKED": 0
     },
-    "openRequiringWork": 2
+    "openRequiringWork": 1
   },
   "openIds": [
-    "F010-UNDISCRIMINATING-TOURNAMENT",
-    "F011-COMPOSITION-SUPERSET-ACCEPTED"
+    "F010-UNDISCRIMINATING-TOURNAMENT"
   ],
   "failures": [
     {
@@ -180,7 +179,7 @@
       "status": "FAILURE_RECORDED",
       "id": "F008-UNTESTED-PRODUCTION-PATH",
       "timestamp": "2026-09-15T04:00:00.000Z",
-      "sourceSha": "e76e4dad5526647474097108ce431239eff59b48",
+      "sourceSha": "7b67a9ce99ba652a13ab1eee8965f3241789bb05",
       "mission": "NULLSTAR terminal completion war",
       "gate": "production coverage ratchet",
       "expected": "every production-reachable module is executed by some gate",
@@ -189,7 +188,7 @@
       "rootCause": "A suite that reads a module as a string satisfies every \"does a test exist\" check while exercising none of its behaviour. Wiring assertions over source text look like coverage and are not.",
       "severity": "HIGH",
       "regressionTest": "tests/outreach-100k-runtime-control-behaviour.test.mjs",
-      "repairCommit": "e76e4dad5526647474097108ce431239eff59b48",
+      "repairCommit": "7b67a9ce99ba652a13ab1eee8965f3241789bb05",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [
@@ -261,9 +260,9 @@
       "failureClass": "EPISTEMIC_INFLATION",
       "rootCause": "The scorer was written to check sufficiency and never to check that the claim was honest. TOOL_USE had the same temptation and was built to penalise calling every tool; INVENTION was not given the matching rule, so over-claiming is free there. The asymmetry survived because no candidate over-claimed until the null candidate was deliberately written to ignore the prompt.",
       "severity": "MEDIUM",
-      "regressionTest": null,
-      "repairCommit": null,
-      "entryStatus": "OPEN",
+      "regressionTest": "tests/nullstar-cognitive-tasks.test.mjs",
+      "repairCommit": "SEE_CLOSING_NOTE",
+      "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [
         "artifacts/nullstar-terminal/ga3-ablation.json",

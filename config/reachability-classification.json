@@ -116,6 +116,10 @@
     "NO_MAILBOX_PROVISIONING_AUTHORITY": {
       "description": "The inbox, mail-foundry, egress-topology and scale-frontier modules plan and shape sending infrastructure. Provisioning mailboxes, domains and egress routes spends money and creates real sending identity, neither of which is authorized. Import-graph trace on 2026-09-15 found no importer for any of them.",
       "releasedBy": "Explicit owner authority and budget to provision sending infrastructure, recorded as durable authorization evidence."
+    },
+    "NO_FOUNDER_LIFE_DATA": {
+      "description": "The life-side engines model the founder's skills, locations, relationships and long-horizon institutions. Each needs founder-supplied data that does not exist in this repository, and inventing it would produce a model of nobody. Import-graph trace on 2026-09-15 found no importer for any of them.",
+      "releasedBy": "Founder-supplied and consented life data for the specific domain, plus a founder-facing surface that asks for it rather than inferring it."
     }
   },
   "modules": {
@@ -213,11 +217,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
       "reason": "Wraps the orchestrator; blocked by the same attestation."
-    },
-    "src/economic-feedback-allocator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_COMMERCIAL_EVENTS",
-      "reason": "Reallocates bounded weights from cleared outcomes. Zero cleared payments, accepted deliveries and renewals exist, so every proposal would be computed from an empty ledger."
     },
     "src/economic-reliability-preparation-memory.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -891,6 +890,36 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Projects reach at scale across the outbound frontier. Trace found no importer. Scale projection is not permission to send."
+    },
+    "src/adaptive-mastery-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Compiles a desired human capability into baseline, prerequisites, practice and measurement. Tested by life-altering-frontier-gap; trace found no importer. It needs the founder's actual current ability, which nothing here has."
+    },
+    "src/geographic-sovereignty-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models geographic freedom and location options. Trace found no importer. Its inputs are the founder's constraints and intent, not repository state."
+    },
+    "src/legacy-institution-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models long-horizon institutions and posthumous continuity. Trace found no importer. Compiling an institution nobody authorized would manufacture one with no principal."
+    },
+    "src/relationship-opportunity-graph.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models relationships as an opportunity surface. Trace found no importer. Other people are sovereign and their data is not the repository's to assume."
+    },
+    "src/model-foundry-control-plane.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Control plane for the model foundry. Trace found no importer. No lawful model artifact is reachable here: every weight host is refused by the network policy while a local inference runtime installs fine."
+    },
+    "src/apotheosis-final-orchestrator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Final orchestrator over the APOTHEOSIS graph. Tested, but trace found no importer, and its own continuation doc names native P00/P08 reconciliation as the activation gate."
     }
   }
 }

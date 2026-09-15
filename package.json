@@ -132,7 +132,8 @@
     "omega:g6": "node scripts/nullstar-omega-g6.mjs",
     "omega:baselines": "node scripts/nullstar-omega-baselines.mjs",
     "omega:retire-suite": "node scripts/nullstar-omega-retire-suite.mjs",
-    "omega:final-report": "node scripts/nullstar-omega-absolute-final-report.mjs"
+    "omega:final-report": "node scripts/nullstar-omega-absolute-final-report.mjs",
+    "nullstar:failure-debt": "node scripts/nullstar-failure-debt.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

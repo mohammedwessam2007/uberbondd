@@ -2,8 +2,8 @@
   "ok": true,
   "status": "FAILURE_DEBT_COMPILED",
   "version": "uberbond.nullstar-failure-debt.v1",
-  "sourceSha": "cbdc2ff75dd3015fa88b990b5372d1df6ba98467",
-  "generatedAt": "2026-09-15T12:38:49.770Z",
+  "sourceSha": "e76e4dad5526647474097108ce431239eff59b48",
+  "generatedAt": "2026-09-15T12:38:49.934Z",
   "counts": {
     "total": 12,
     "byStatus": {
@@ -180,7 +180,7 @@
       "status": "FAILURE_RECORDED",
       "id": "F008-UNTESTED-PRODUCTION-PATH",
       "timestamp": "2026-09-15T04:00:00.000Z",
-      "sourceSha": "cbdc2ff75dd3015fa88b990b5372d1df6ba98467",
+      "sourceSha": "e76e4dad5526647474097108ce431239eff59b48",
       "mission": "NULLSTAR terminal completion war",
       "gate": "production coverage ratchet",
       "expected": "every production-reachable module is executed by some gate",
@@ -189,7 +189,7 @@
       "rootCause": "A suite that reads a module as a string satisfies every \"does a test exist\" check while exercising none of its behaviour. Wiring assertions over source text look like coverage and are not.",
       "severity": "HIGH",
       "regressionTest": "tests/outreach-100k-runtime-control-behaviour.test.mjs",
-      "repairCommit": "cbdc2ff75dd3015fa88b990b5372d1df6ba98467",
+      "repairCommit": "e76e4dad5526647474097108ce431239eff59b48",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [
@@ -286,7 +286,7 @@
       "rootCause": "Promotion was decided entirely by score on items the generator emits, and the generator emits only the four compositions the winning solver matches. An evaluation drawn wholly from inside the training distribution cannot distinguish a mechanism from a lookup table over that distribution, so the selection pressure ran toward pattern matching. The substring test made it worse: a pattern for a short phrase claims any longer sentence containing it, which turns a missing capability into a wrong answer instead of a refusal.",
       "severity": "HIGH",
       "regressionTest": "tests/nullstar-out-of-pattern-gate.test.mjs",
-      "repairCommit": "SEE_CLOSING_NOTE",
+      "repairCommit": "e76e4dad",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [

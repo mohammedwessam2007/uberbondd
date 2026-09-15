@@ -223,7 +223,7 @@ const FAILURES = [
     rootCause: 'Promotion was decided entirely by score on items the generator emits, and the generator emits only the four compositions the winning solver matches. An evaluation drawn wholly from inside the training distribution cannot distinguish a mechanism from a lookup table over that distribution, so the selection pressure ran toward pattern matching. The substring test made it worse: a pattern for a short phrase claims any longer sentence containing it, which turns a missing capability into a wrong answer instead of a refusal.',
     severity: 'HIGH',
     regressionTest: 'tests/nullstar-out-of-pattern-gate.test.mjs',
-    repairCommit: 'SEE_CLOSING_NOTE',
+    repairCommit: 'e76e4dad',
     status: 'CLOSED_WITH_PROOF',
     closingNote: 'Three generations. GA4 added a gate on items built outside the generator and promoted nothing. GA5 repaired the operator search and promoted nothing, because the comparison rule defended an incumbent the candidates tied. GA6 repaired the comparison and promoted L2_OPERATOR_REPAIRED, which composes the named quantity rather than matching a phrase. It answers 3 of 3 gating probes and 3 of 3 held-back reporting probes that gated nothing, where the solver it replaces answers none and confabulates on one. What closes is the confabulation and the specific narrowness; what does not close is the general claim -- the probes are hand-built by the same author as the solvers and share his blind spots, which is stated in the GA4 declaration and remains true.',
     evidenceRefs: [

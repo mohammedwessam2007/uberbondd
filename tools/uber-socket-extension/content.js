@@ -51,12 +51,8 @@ function stopButtonVisible() {
   return Boolean(document.querySelector('button[data-testid="stop-button"]') ||
     [...document.querySelectorAll('button')].find(b => /stop generating|stop streaming|stop response/i.test(b.getAttribute('aria-label') || b.textContent || '')));
 }
-function assistantTurns() {
-  return [...document.querySelectorAll('[data-message-author-role="assistant"]')];
-}
-function turnText(el) {
-  return String(el?.innerText || el?.textContent || '').trim();
-}
+function assistantTurns() { return [...document.querySelectorAll('[data-message-author-role="assistant"]')]; }
+function turnText(el) { return String(el?.innerText || el?.textContent || '').trim(); }
 async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function waitForAssistantCompletion(beforeCount, timeoutMs = 300000) {
@@ -85,7 +81,8 @@ async function waitForAssistantCompletion(beforeCount, timeoutMs = 300000) {
 async function injectAndCollect(message) {
   if (busy) throw new Error('tab-busy');
   busy = true;
-  setStatus(`receiving from ${message.fromPeer}`);
+  const dialogue = message?.metadata?.dialogue || null;
+  setStatus(`turn ${dialogue?.turn || '?'} from ${message.fromPeer}`);
   try {
     const input = composer();
     if (!input) throw new Error('composer-not-found');
@@ -98,13 +95,11 @@ async function injectAndCollect(message) {
     setStatus('peer prompt submitted');
     const answer = await waitForAssistantCompletion(before);
     setStatus('sending encrypted response');
-    const result = await chrome.runtime.sendMessage({ type: 'UBER_SOCKET_REPLY', replyTo: message.messageId, body: answer });
+    const result = await chrome.runtime.sendMessage({ type: 'UBER_SOCKET_REPLY', replyTo: message.messageId, body: answer, dialogue });
     if (!result?.ok) throw new Error(result?.reason || result?.error || 'reply-send-failed');
     setStatus('response delivered');
     return answer;
-  } finally {
-    busy = false;
-  }
+  } finally { busy = false; }
 }
 
 chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
@@ -112,7 +107,7 @@ chrome.runtime.onMessage.addListener((req, _sender, sendResponse) => {
   if (req.type !== 'UBER_SOCKET_INBOUND') return;
   const m = req.message;
   if (!m || m.schema !== 'uberbond.peer.v1' || m.externalEffectsAuthorized !== false) { sendResponse({ ok: false, error: 'peer-envelope-rejected' }); return; }
-  if (!['PROMPT', 'QUESTION', 'MESSAGE', 'HANDOFF', 'STATE_SYNC'].includes(String(m.kind || '').toUpperCase())) { sendResponse({ ok: true, ignored: true }); return; }
+  if (!['PROMPT', 'RESPONSE', 'QUESTION', 'ANSWER', 'MESSAGE', 'HANDOFF', 'STATE_SYNC'].includes(String(m.kind || '').toUpperCase())) { sendResponse({ ok: true, ignored: true }); return; }
   injectAndCollect(m).then(answer => sendResponse({ ok: true, answerLength: answer.length })).catch(error => { setStatus(`error: ${error.message}`); sendResponse({ ok: false, error: error.message }); });
   return true;
 });

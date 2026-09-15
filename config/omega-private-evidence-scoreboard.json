@@ -1,29 +1,30 @@
 {
-  "schemaVersion": "uberbond.omega-private-evidence-scoreboard.v1",
+  "schemaVersion": "uberbond.omega-private-evidence-scoreboard.v2",
   "visibility": "FOUNDER_PRIVATE",
   "truthClass": "CURRENT_PRIVATE_EVIDENCE_STATE",
   "targetGrade": "E10",
-  "currentGrade": "E2",
+  "currentGrade": "E4",
   "dimensions": {
-    "semanticCompilation": {"status":"PARTIAL_CONTRACT_LATTICE_CANARY_NOT_NL_COMPILATION","evidenceRefs":["source:omega-contract-lattice-core","local:contract-lattice-isolated-check"]},
-    "sealedHiddenHoldouts": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "crossFamilyTransfer": {"status":"PARTIAL_CANARY","evidenceRefs":["local:multi-family-law-ir-canary"]},
-    "crossDomainTransfer": {"status":"NARROW_POSITIVE_STRUCTURAL_CANARY_NOT_E6","evidenceRefs":["artifact:artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json"]},
-    "verifierIndependence": {"status":"PARTIAL_CANARY","evidenceRefs":["source:omega-lawspace-independent-assignment-verifier","source:omega-structural-transfer-v2-independent-target-verifier"]},
-    "leakageResistance": {"status":"PARTIAL_CANARY","evidenceRefs":["source:crystal-excludes-instance-data-and-answers","source:target-problem-hashes-checked-against-training-hashes"]},
-    "fullCostAccounting": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "robustness": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "replication": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "semanticCompilation": {"status":"BOUNDED_CONTROLLED_LANGUAGE_CANARY_NOT_OPEN_NL","evidenceRefs":["source:src/omega-controlled-semantic-compiler.mjs","test:tests/omega-controlled-semantic-compiler.test.mjs","source:src/omega-contract-lattice-core.mjs"]},
+    "sealedHiddenHoldouts": {"status":"PASSED_TWO_PRECOMMITTED_108_TASK_HOLDOUTS","evidenceRefs":["artifact:artifacts/omega-evidence-seal-2026-09-15.json","artifact:artifacts/omega-sealed-transfer-receipt-2026-09-15.json"]},
+    "crossFamilyTransfer": {"status":"REPLICATED_MULTI_FAMILY_POSITIVE","evidenceRefs":["source:src/omega-private-evidence-lab.mjs","artifact:artifacts/omega-sealed-transfer-receipt-2026-09-15.json"]},
+    "crossDomainTransfer": {"status":"NARROW_STRUCTURAL_CANARY_NOT_E6","evidenceRefs":["artifact:artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json"]},
+    "verifierIndependence": {"status":"PARTIAL_MECHANICAL_SEPARATION_NOT_INDEPENDENT_TEAM","evidenceRefs":["source:omega-lawspace-independent-assignment-verifier","source:src/omega-private-evidence-lab.mjs"]},
+    "leakageResistance": {"status":"PASSED_CURRENT_LAB_COMMITMENT_AND_HASH_CONTROLS","evidenceRefs":["artifact:artifacts/omega-evidence-seal-2026-09-15.json","test:tests/omega-private-evidence-lab-smoke.test.mjs"]},
+    "fullCostAccounting": {"status":"PARTIAL_DISCOVERY_EXECUTION_VERIFICATION_COUNTED_NOT_ALL_PHYSICAL_COSTS","evidenceRefs":["artifact:artifacts/omega-sealed-transfer-receipt-2026-09-15.json"]},
+    "robustness": {"status":"PARTIAL_TWO_SEALED_REPLICATIONS_PLUS_SEED_FIXTURES","evidenceRefs":["artifact:artifacts/omega-sealed-transfer-receipt-2026-09-15.json","test:tests/omega-private-evidence-lab-smoke.test.mjs"]},
+    "replication": {"status":"PASSED_TWO_PRECOMMITTED_HOLDOUTS_WITH_ONE_FROZEN_CRYSTAL","evidenceRefs":["artifact:artifacts/omega-sealed-transfer-receipt-2026-09-15.json"]},
     "realitySettlement": {"status":"NOT_PROVEN","evidenceRefs":[]},
-    "compoundingReduction": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "compoundingReduction": {"status":"PARTIAL_AMORTIZATION_BREAK_EVEN_NOT_RECURSIVE_DISCOVERY_ACCELERATION","evidenceRefs":["artifact:artifacts/omega-sealed-transfer-receipt-2026-09-15.json"]},
     "metaGeneralization": {"status":"NOT_PROVEN","evidenceRefs":[]}
   },
   "promotionPolicy": "NO_MANUAL_SCORE_INFLATION",
   "notes": [
-    "The target is private evidence, not public claims.",
-    "E10 cannot be awarded from architecture quality alone.",
-    "A 2026-09-15 isolated Node v22.16.0 reproduction learned HIGH_DEGREE_FIRST on MAP_COLORING and reduced verified work on a differently named RADIO_CHANNEL_ASSIGNMENT holdout from 24 to 16, a 33.3% reduction. This is intentionally classified as a narrow structural canary, not broad cross-domain transfer.",
-    "GitHub-hosted exact-head jobs were observed failing before step execution; local focused evidence does not substitute for full repository CI.",
-    "Current evidence does not establish learned broad semantic transfer, frontier equivalence, recursive self-improvement, ASI, or singularity."
+    "E4 is earned only for repeated sealed multi-family advantage in the bounded private lab.",
+    "Replication A: 108/108 verified target tasks; cold work 104680; discovery plus transferred work 20302; net work saved 84378; break-even at target ordinal 47.",
+    "Replication B: 108/108 verified target tasks; cold work 117536; discovery plus transferred work 21281; net work saved 96255; break-even at target ordinal 39.",
+    "The same frozen crystal was used for both replications without target retuning.",
+    "Controlled-language compilation is bounded and refuses unsupported prose; it does not establish open-ended natural-language understanding.",
+    "Current evidence does not establish E5+ open-world structural transfer, frontier equivalence, recursive self-improvement, ASI, or singularity."
   ]
 }

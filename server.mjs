@@ -5,6 +5,7 @@ import { config } from './src/config.mjs';
 import { createStore } from './src/store.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
+import { getUberSocketRuntime } from './src/uber-socket-runtime.mjs';
 
 // Harden the externally reachable request handler while preserving the mature
 // server implementation byte-for-byte in server-core.mjs. The donor keeps its
@@ -75,6 +76,15 @@ async function adminSummary(coreHandler, req) {
   let payload = {};
   try { payload = JSON.parse(result.body || '{}'); } catch {}
   return { ok: result.statusCode === 200, statusCode: result.statusCode, payload };
+}
+
+async function requireAdmin(coreHandler, req, res) {
+  const auth = await adminSummary(coreHandler, req);
+  if (!auth.ok) {
+    sendJson(res, auth.statusCode || 401, auth.payload || { error: 'Unauthorized' });
+    return null;
+  }
+  return auth;
 }
 
 async function compile100kStatus(coreHandler, req) {
@@ -176,6 +186,43 @@ async function brokerGoogleOAuthStart(coreHandler, req, res, url) {
   return sendJson(res, 200, { authorizationUrl: parsed.toString() });
 }
 
+async function brokerUberSocket(coreHandler, req, res, url) {
+  if (!(await requireAdmin(coreHandler, req, res))) return;
+  const runtime = getUberSocketRuntime();
+  const path = url.pathname;
+  if (req.method === 'GET' && path === '/api/admin/uber-socket/status') {
+    return sendJson(res, 200, runtime.status());
+  }
+  let body = {};
+  try { body = await readSmallJsonBody(req, path.endsWith('/ingest') ? 256 * 1024 : 96 * 1024); }
+  catch (error) { return sendJson(res, 400, { error: error.message }); }
+  try {
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/register') {
+      return sendJson(res, 200, { ok: true, peer: await runtime.registerChat(body), status: runtime.status() });
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/ingest') {
+      return sendJson(res, 200, { ok: true, document: runtime.ingest(body), status: runtime.status() });
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/ask') {
+      return sendJson(res, 200, await runtime.ask(body));
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/council') {
+      return sendJson(res, 200, await runtime.council(body));
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/monster') {
+      return sendJson(res, 200, await runtime.monster(body));
+    }
+    if (req.method === 'POST' && path === '/api/admin/uber-socket/outreach-100k-council') {
+      return sendJson(res, 200, await runtime.outreach100kCouncil(body));
+    }
+    return sendJson(res, 404, { error: 'UberSocket route not found' });
+  } catch (error) {
+    const message = String(error?.message || error);
+    const status = /not-configured|required|invalid|not-registered|no-council-peers/.test(message) ? 409 : 500;
+    return sendJson(res, status, { ok: false, error: message, socket: runtime.status() });
+  }
+}
+
 function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
@@ -192,6 +239,9 @@ function harden(coreHandler) {
     }
     if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') {
       return brokerGoogleOAuthStart(coreHandler, req, res, url);
+    }
+    if (url.pathname.startsWith('/api/admin/uber-socket/')) {
+      return brokerUberSocket(coreHandler, req, res, url);
     }
 
     return coreHandler(req, res);

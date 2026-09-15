@@ -38,7 +38,16 @@ function validateConfig(c) {
   const id = v => /^[a-z0-9][a-z0-9._:-]{0,127}$/i.test(String(v || ''));
   if (!id(c?.roomId) || !id(c?.peerId) || !id(c?.targetPeer)) return 'invalid-id';
   try { if (b64uToBytes(c?.pairKey || '').byteLength !== 32) return 'invalid-pair-key'; } catch { return 'invalid-pair-key'; }
+  if (!Number.isInteger(c?.maxTurns) || c.maxTurns < 1 || c.maxTurns > 20) return 'invalid-max-turns';
   return null;
+}
+function dialogueOf(message) {
+  const d = message?.metadata?.dialogue;
+  if (!d || typeof d !== 'object') return null;
+  const turn = Number(d.turn);
+  const maxTurns = Number(d.maxTurns);
+  if (!d.id || !Number.isInteger(turn) || !Number.isInteger(maxTurns)) return null;
+  return { id: String(d.id), turn, maxTurns };
 }
 
 class RoomSocket {
@@ -67,6 +76,7 @@ class RoomSocket {
       this.heartbeat = null;
       for (const resolve of this.pending.values()) resolve({ ok: false, reason: 'socket-closed' });
       this.pending.clear();
+      broadcastStatus(this.roomId, 'DISCONNECTED');
       if (!this.closed) this.reconnectTimer = setTimeout(() => this.connect(), 1500);
     };
   }
@@ -106,6 +116,11 @@ class RoomSocket {
     for (const [tabId, cfg] of tabConfigs) {
       if (!cfg.armed || cfg.roomId !== this.roomId) continue;
       if (msg.toPeer !== cfg.peerId && msg.toPeer !== 'broadcast') continue;
+      const d = dialogueOf(msg);
+      if (msg.kind === 'RESPONSE' && (!cfg.autoDialogue || !d || d.turn > d.maxTurns)) {
+        chrome.tabs.sendMessage(tabId, { type: 'UBER_SOCKET_STATUS', status: 'DIALOGUE_COMPLETE' }).catch(() => {});
+        continue;
+      }
       chrome.tabs.sendMessage(tabId, { type: 'UBER_SOCKET_INBOUND', message: msg }).catch(() => {});
     }
   }
@@ -145,7 +160,11 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
   (async () => {
     const tabId = req.tabId || sender.tab?.id;
     if (req.type === 'UBER_SOCKET_CONFIGURE') {
-      const cfg = { roomId: String(req.config?.roomId || ''), pairKey: String(req.config?.pairKey || ''), peerId: String(req.config?.peerId || ''), targetPeer: String(req.config?.targetPeer || ''), armed: Boolean(req.config?.armed) };
+      const cfg = {
+        roomId: String(req.config?.roomId || ''), pairKey: String(req.config?.pairKey || ''), peerId: String(req.config?.peerId || ''),
+        targetPeer: String(req.config?.targetPeer || ''), armed: Boolean(req.config?.armed), autoDialogue: req.config?.autoDialogue !== false,
+        maxTurns: Math.max(1, Math.min(20, Number(req.config?.maxTurns) || 6))
+      };
       const error = validateConfig(cfg);
       if (error) return sendResponse({ ok: false, error });
       tabConfigs.set(tabId, cfg);
@@ -160,9 +179,13 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
       const cfg = tabConfigs.get(tabId);
       if (!cfg?.armed) return sendResponse({ ok: false, error: 'tab-not-armed' });
       const room = ensureRoom(cfg);
+      const prior = req.dialogue && typeof req.dialogue === 'object' ? req.dialogue : null;
+      const turn = prior ? Number(prior.turn) + 1 : 1;
+      const metadata = { dialogue: { id: String(prior?.id || uuid()), turn, maxTurns: Math.max(1, Math.min(20, Number(prior?.maxTurns) || cfg.maxTurns)) } };
       const message = {
         schema: 'uberbond.peer.v1', threadId: cfg.roomId, messageId: uuid(), fromPeer: cfg.peerId, toPeer: cfg.targetPeer,
-        replyTo: req.replyTo || null, kind: 'RESPONSE', body: String(req.body || ''), externalEffectsAuthorized: false, createdAt: new Date().toISOString()
+        replyTo: req.replyTo || null, kind: 'RESPONSE', body: String(req.body || ''), metadata,
+        externalEffectsAuthorized: false, createdAt: new Date().toISOString()
       };
       return sendResponse(await room.send(message));
     }
@@ -170,9 +193,11 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
       const cfg = tabConfigs.get(tabId);
       if (!cfg?.armed) return sendResponse({ ok: false, error: 'tab-not-armed' });
       const room = ensureRoom(cfg);
+      const metadata = { dialogue: { id: uuid(), turn: 1, maxTurns: cfg.maxTurns } };
       const message = {
         schema: 'uberbond.peer.v1', threadId: cfg.roomId, messageId: uuid(), fromPeer: cfg.peerId, toPeer: cfg.targetPeer,
-        replyTo: req.replyTo || null, kind: 'PROMPT', body: String(req.body || ''), externalEffectsAuthorized: false, createdAt: new Date().toISOString()
+        replyTo: req.replyTo || null, kind: 'PROMPT', body: String(req.body || ''), metadata,
+        externalEffectsAuthorized: false, createdAt: new Date().toISOString()
       };
       return sendResponse(await room.send(message));
     }

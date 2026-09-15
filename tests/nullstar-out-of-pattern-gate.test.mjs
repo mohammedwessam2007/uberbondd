@@ -152,3 +152,19 @@ test('the research probe F010 named as its closing condition is the one that sep
   assert.equal(UBERBOND_SOLVERS.RESEARCH(probe.surface), probe.groundTruth);
   assert.notEqual(ladderOnly(probe.surface), probe.groundTruth);
 });
+
+test('a solver that crashes cannot pass the gate by looking like one that refuses', () => {
+  // Refusing is a decision about the edge of competence. Throwing is the
+  // absence of one, and they used to collapse into the same null -- so a
+  // candidate crashing on every probe was counted as refusing on every probe,
+  // which the gate treats as acceptable behaviour.
+  const crashes = () => { throw new Error('boom'); };
+  const result = runProbes(crashes, GATING_PROBES.INVENTION);
+  assert.equal(result.threw, result.of);
+  assert.equal(result.refused, 0, 'a crash must not be counted as a refusal');
+  assert.equal(result.confabulated, 0, 'nor as a wrong answer');
+
+  const verdict = gateVerdict(result, { minimumCorrectRate: 0 });
+  assert.equal(verdict.passes, false, 'even at a zero minimum, crashing must not pass');
+  assert.match(verdict.reason, /THREW_ON__/);
+});

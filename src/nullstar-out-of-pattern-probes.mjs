@@ -225,30 +225,42 @@ export function runProbes(solver, probes) {
     const surface = probe.surface
       ? JSON.parse(JSON.stringify(probe.surface))
       : defaultSurface;
+    // Throwing and refusing are different behaviours and used to collapse into
+    // the same null. That made a solver crashing on every probe indistinguishable
+    // from one deliberately declining, which matters twice over: the gate treats
+    // refusal as acceptable, and a tie-break comparing two candidates would read
+    // a crash as agreement with a refusal.
     let response = null;
+    let threw = false;
     try {
       response = solver(surface, probe.prompt);
-    } catch {
+    } catch (error) {
+      threw = true;
       response = null;
     }
-    const given = response?.answer ?? (typeof response === 'string' ? response : null);
+    const given = threw
+      ? '__THREW__'
+      : (response?.answer ?? (typeof response === 'string' ? response : null));
     return {
       id: probe.id,
       expected: probe.groundTruth,
       given: given ?? null,
-      correct: given === probe.groundTruth,
-      refused: given === null || given === undefined
+      threw,
+      correct: !threw && given === probe.groundTruth,
+      refused: !threw && (given === null || given === undefined)
     };
   });
 
   const correct = answers.filter(row => row.correct).length;
   const refused = answers.filter(row => row.refused).length;
-  const confabulated = answers.filter(row => !row.correct && !row.refused).length;
+  const threw = answers.filter(row => row.threw).length;
+  const confabulated = answers.filter(row => !row.correct && !row.refused && !row.threw).length;
 
   return {
     of: answers.length,
     correct,
     refused,
+    threw,
     confabulated,
     correctRate: answers.length ? Number((correct / answers.length).toFixed(4)) : 0,
     answers
@@ -263,6 +275,13 @@ export function runProbes(solver, probes) {
  * downstream can tell its wrong answers from its right ones.
  */
 export function gateVerdict(result, { minimumCorrectRate = 0 } = {}) {
+  // A crash is not a refusal. Refusing is a decision the solver made about the
+  // edge of its competence; throwing is the absence of one, and a candidate
+  // that cannot run on a legal prompt has not earned a promotion by declining
+  // to answer it.
+  if ((result.threw ?? 0) > 0) {
+    return { passes: false, reason: `THREW_ON__${result.threw}_OF_${result.of}_PROBES` };
+  }
   if (result.confabulated > 0) {
     return {
       passes: false,

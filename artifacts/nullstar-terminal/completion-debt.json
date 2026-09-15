@@ -6,12 +6,12 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T12:53:51.158Z",
-  "sourceCommit": "7303fb8b012352bb888a6f29d5cd3bebc6c4a3db",
+  "generatedAt": "2026-09-15T12:56:52.558Z",
+  "sourceCommit": "c52214584d67ccfd81969a4741c4bb6574ed7129",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 3,
+  "softwareOpen": 2,
   "externalOpen": 2,
-  "totalOpen": 5,
+  "totalOpen": 4,
   "items": [
     {
       "id": "CD001-TOOL-USE-VOCABULARY-GAP",
@@ -67,8 +67,8 @@
       "class": "SOFTWARE",
       "what": "GA7 promoted M3 over M4 on registration order. Both scored 1.0, both passed the gate, and the size heuristic could not measure either because the candidate module re-exports from three others.",
       "whyNotDone": "The repaired tie-break says out loud that it decided nothing, which is why this is visible at all. Checking afterwards showed M3 is genuinely better -- M4 drops trailing operations -- but that was found by hand, not by the tournament. A tie-break that falls back to arbitrary order will eventually pick the worse candidate, and it already did once: GA6 chose L2 over L3 on size and L2 turned out to confabulate on every difficulty-4 item.",
-      "open": true,
-      "evidence": "at least one eligible GA7 candidate has no measurable size, so the tie-break fell back to registration order"
+      "open": false,
+      "evidence": "the runner compares tied candidates against each other and records NO_PROMOTION__TIE_UNRESOLVED when they behave differently, instead of choosing on size or order"
     },
     {
       "id": "CD005-CROSS-ORGAN-TRANSFER-NOT-MEASURED",
@@ -168,7 +168,7 @@
     }
   ],
   "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "3 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "whyNotDone": "2 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
   "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",

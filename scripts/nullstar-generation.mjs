@@ -9,14 +9,15 @@ import { execFileSync } from 'node:child_process';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateTaskSet } from '../src/nullstar-cognitive-tasks.mjs';
-import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solvers.mjs';
+import { UBERBOND_SOLVERS, scoreTaskSet, scoreItem } from '../src/nullstar-cognitive-solvers.mjs';
 import { GA2_CANDIDATES } from '../src/nullstar-ga2-candidates.mjs';
 import { GA3_CANDIDATES } from '../src/nullstar-ga3-candidates.mjs';
 import { GA4_CANDIDATES } from '../src/nullstar-ga4-candidates.mjs';
 import { GA5_CANDIDATES } from '../src/nullstar-ga5-candidates.mjs';
 import { GA6_CANDIDATES } from '../src/nullstar-ga6-candidates.mjs';
 import { GA7_CANDIDATES } from '../src/nullstar-ga7-candidates.mjs';
-import { GATING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
+import { GATING_PROBES, REPORTING_PROBES, runProbes, gateVerdict } from '../src/nullstar-out-of-pattern-probes.mjs';
+import { separability } from '../src/nullstar-tie-resolution.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
@@ -208,7 +209,29 @@ const eligible = results.filter(row => row.eligible);
 // being treated as zero bytes.
 eligible.sort((a, b) => (b.heldOutScore - a.heldOutScore)
   || ((a.complexityBytes ?? Infinity) - (b.complexityBytes ?? Infinity)));
-const winner = eligible[0] ?? null;
+
+// Whether tied candidates are actually interchangeable. The rule and its
+// reasoning live in src/nullstar-tie-resolution.mjs so they can be tested
+// directly rather than only through a whole generation run.
+const differentialCheck = tied => separability({
+  candidates: tied.map(row => ({ name: row.candidate, solver: candidates[row.candidate] })),
+  family: FAMILY,
+  probes: [...(GATING_PROBES[FAMILY] ?? []), ...(REPORTING_PROBES[FAMILY] ?? [])],
+  items: [...new Set([DIFFICULTY, ...(declaration.precommittedCriteria.regressionLevels ?? [])])]
+    .flatMap(level => itemsAt(trainSeeds, level)),
+  runProbes,
+  scoreItem,
+  baseSolvers: UBERBOND_SOLVERS
+});
+
+const topScore = eligible[0]?.heldOutScore;
+const tiedOnScore = eligible.filter(row => row.heldOutScore === topScore);
+const differential = tiedOnScore.length > 1 ? differentialCheck(tiedOnScore) : { separable: false, disagreements: [] };
+
+// A tie between candidates that behave differently is unresolved, not won. The
+// runner does not get to pick one on bytes and call it a promotion.
+const tieIsUnresolved = differential.separable;
+const winner = tieIsUnresolved ? null : (eligible[0] ?? null);
 const disqualified = results.filter(row => !row.eligible && row.meetsThreshold && row.beatsIncumbent);
 const wallClockMs = Date.now() - started;
 
@@ -258,7 +281,10 @@ const record = {
   candidates: results,
   disqualifiedForRegression: disqualified.map(row => ({ candidate: row.candidate, regressions: row.regressions })),
   winner: winner ? winner.candidate : null,
-  outcome: winner ? 'PROMOTED' : 'NO_PROMOTION',
+  outcome: winner ? 'PROMOTED' : (tieIsUnresolved ? 'NO_PROMOTION__TIE_UNRESOLVED' : 'NO_PROMOTION'),
+  differentialCheck: tiedOnScore.length > 1
+    ? { tiedCandidates: tiedOnScore.map(row => row.candidate), ...differential }
+    : null,
   discrimination,
   outOfPatternGate: OUT_OF_PATTERN_GATE
     ? { applied: true, minimumCorrectRate: OUT_OF_PATTERN_MINIMUM, probeCount: (GATING_PROBES[FAMILY] ?? []).length, confabulationDisqualifies: true }
@@ -286,8 +312,12 @@ const record = {
   businessEffectAuthority: 'NONE'
 };
 
-mkdirSync(join(root, 'artifacts/nullstar-terminal'), { recursive: true });
-writeFileSync(join(root, `artifacts/nullstar-terminal/${generation.toLowerCase()}-result.json`), `${JSON.stringify(record, null, 2)}\n`);
+// Redirectable so a rule change can be tried against a finished generation
+// without overwriting what that generation actually recorded.
+const resultPath = resolve(root, process.env.NULLSTAR_GENERATION_OUT
+  || `artifacts/nullstar-terminal/${generation.toLowerCase()}-result.json`);
+mkdirSync(dirname(resultPath), { recursive: true });
+writeFileSync(resultPath, `${JSON.stringify(record, null, 2)}\n`);
 
 console.log(`${generation} @ ${head.slice(0, 8)} | family ${FAMILY} | difficulty ${DIFFICULTY}`);
 console.log(`  incumbent: train ${incumbentTrain} held-out ${incumbentHeldOut}${incumbentProbeResult ? `  out-of-pattern ${incumbentProbeResult.correct}/${incumbentProbeResult.of}, ${incumbentProbeResult.confabulated} confabulated -- ${incumbentGate.passes ? 'gate passes' : 'GATE FAILS'}` : ''}`);
@@ -299,6 +329,12 @@ for (const row of results) {
   if (row.outOfPattern) {
     const verdict = row.outOfPatternGate === 'PASSES' ? 'gate passes' : `GATE FAILS: ${row.outOfPatternGate}`;
     console.log(`      out-of-pattern ${row.outOfPattern.correct}/${row.outOfPattern.of} correct, ${row.outOfPattern.refused} refused, ${row.outOfPattern.confabulated} confabulated -- ${verdict}`);
+  }
+}
+if (record.differentialCheck) {
+  console.log(`\n  differential: ${record.differentialCheck.verdict}`);
+  for (const row of record.differentialCheck.disagreements) {
+    console.log(`    ${row.on}: ${Object.entries(row.answers).map(([name, value]) => `${name}=${value}`).join('  ')}`);
   }
 }
 console.log(`\n  outcome: ${record.outcome}${winner ? ` -> ${winner.candidate}` : ''}`);

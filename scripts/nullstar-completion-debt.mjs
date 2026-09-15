@@ -178,14 +178,17 @@ const ITEMS = [
     class: 'SOFTWARE',
     what: 'GA7 promoted M3 over M4 on registration order. Both scored 1.0, both passed the gate, and the size heuristic could not measure either because the candidate module re-exports from three others.',
     whyNotDone: 'The repaired tie-break says out loud that it decided nothing, which is why this is visible at all. Checking afterwards showed M3 is genuinely better -- M4 drops trailing operations -- but that was found by hand, not by the tournament. A tie-break that falls back to arbitrary order will eventually pick the worse candidate, and it already did once: GA6 chose L2 over L3 on size and L2 turned out to confabulate on every difficulty-4 item.',
+    // The GA7 artifact records what happened and always will, so this checks
+    // whether the runner can still promote out of an unresolved tie.
     check: () => {
-      const ga7 = readJson('artifacts/nullstar-terminal/ga7-result.json');
-      const unmeasurable = ga7.candidates.some(row => row.eligible && row.complexityBytes === null);
+      const runner = readFileSync(join(root, 'scripts/nullstar-generation.mjs'), 'utf8');
+      const refuses = runner.includes('const tieIsUnresolved = differential.separable;')
+        && runner.includes('NO_PROMOTION__TIE_UNRESOLVED');
       return {
-        open: unmeasurable,
-        evidence: unmeasurable
-          ? 'at least one eligible GA7 candidate has no measurable size, so the tie-break fell back to registration order'
-          : 'every eligible candidate had a measurable size'
+        open: !refuses,
+        evidence: refuses
+          ? 'the runner compares tied candidates against each other and records NO_PROMOTION__TIE_UNRESOLVED when they behave differently, instead of choosing on size or order'
+          : 'the runner still breaks a tie on size or registration order'
       };
     }
   },

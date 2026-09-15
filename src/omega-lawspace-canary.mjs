@@ -27,8 +27,9 @@ const stable = value => {
 };
 
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex');
-const primitive = value => ['string', 'number', 'boolean'].includes(typeof value) && Number.isFinite(value === true || value === false ? 0 : value);
+const primitive = value => typeof value === 'string' || typeof value === 'boolean' || (typeof value === 'number' && Number.isFinite(value));
 const idOk = value => /^[A-Za-z][A-Za-z0-9_.:-]{0,63}$/.test(String(value || ''));
+const symmetricConstraint = type => ['allDifferent', 'eq', 'neq', 'sumEq'].includes(type);
 
 function normalizeVariables(raw) {
   if (!Array.isArray(raw) || raw.length === 0 || raw.length > 128) return null;
@@ -51,18 +52,21 @@ function normalizeVariables(raw) {
   return out.sort((a, b) => a.id.localeCompare(b.id));
 }
 
-function normalizeConstraints(raw, variableIds) {
+function normalizeConstraints(raw, variables) {
   if (!Array.isArray(raw) || raw.length === 0 || raw.length > 512) return null;
-  const ids = new Set(variableIds);
+  const domainMap = new Map(variables.map(variable => [variable.id, variable.domain]));
+  const ids = new Set(domainMap.keys());
   const out = [];
   for (const item of raw) {
     const type = String(item?.type || '');
     if (!['allDifferent', 'eq', 'neq', 'lt', 'sumEq'].includes(type)) return null;
-    const vars = Array.isArray(item?.vars) ? [...new Set(item.vars.map(String))] : [];
-    if (!vars.length || vars.some(id => !ids.has(id))) return null;
-    if (['eq', 'neq', 'lt'].includes(type) && vars.length !== 2) return null;
-    if (type === 'allDifferent' && vars.length < 2) return null;
-    const normalized = { type, vars: [...vars].sort() };
+    const rawVars = Array.isArray(item?.vars) ? item.vars.map(String) : [];
+    if (!rawVars.length || new Set(rawVars).size !== rawVars.length || rawVars.some(id => !ids.has(id))) return null;
+    if (['eq', 'neq', 'lt'].includes(type) && rawVars.length !== 2) return null;
+    if (type === 'allDifferent' && rawVars.length < 2) return null;
+    if (['lt', 'sumEq'].includes(type) && rawVars.some(id => domainMap.get(id).some(value => typeof value !== 'number' || !Number.isFinite(value)))) return null;
+    const vars = symmetricConstraint(type) ? [...rawVars].sort() : [...rawVars];
+    const normalized = { type, vars };
     if (type === 'sumEq') {
       const target = Number(item?.target);
       if (!Number.isFinite(target)) return null;
@@ -77,7 +81,7 @@ function normalizeConstraints(raw, variableIds) {
 export function compileCognitiveLawFamily({ variables = [], constraints = [], name = 'anonymous-family' } = {}) {
   const normalizedVariables = normalizeVariables(variables);
   if (!normalizedVariables) return fail('COGNITIVE_LAW_FAMILY_REFUSED', ['invalid-variables']);
-  const normalizedConstraints = normalizeConstraints(constraints, normalizedVariables.map(v => v.id));
+  const normalizedConstraints = normalizeConstraints(constraints, normalizedVariables);
   if (!normalizedConstraints) return fail('COGNITIVE_LAW_FAMILY_REFUSED', ['invalid-constraints']);
   const topology = { variables: normalizedVariables, constraints: normalizedConstraints };
   return envelope({
@@ -155,12 +159,15 @@ function constraintSatisfied(constraint, assignment) {
 }
 
 export function verifyLawAssignment({ instance, assignment } = {}) {
-  if (!instance?.family || !assignment || typeof assignment !== 'object') {
+  if (!instance?.family || !assignment || typeof assignment !== 'object' || Array.isArray(assignment)) {
     return fail('LAW_ASSIGNMENT_VERIFICATION_REFUSED', ['instance-and-assignment-required']);
   }
   const ids = instance.family.variables.map(v => v.id);
+  const expected = new Set(ids);
+  const actual = Object.keys(assignment);
+  const exactKeys = actual.length === ids.length && actual.every(id => expected.has(id));
   const domainMap = new Map(instance.family.variables.map(v => [v.id, v.domain]));
-  const complete = ids.every(id => Object.hasOwn(assignment, id));
+  const complete = exactKeys && ids.every(id => Object.hasOwn(assignment, id));
   const domainValid = complete && ids.every(id => domainMap.get(id).some(value => Object.is(value, assignment[id])));
   const givensValid = Object.entries(instance.givens || {}).every(([id, value]) => Object.is(assignment[id], value));
   const constraintsValid = complete && domainValid && instance.family.constraints.every(constraint => constraintSatisfied(constraint, assignment));
@@ -169,7 +176,7 @@ export function verifyLawAssignment({ instance, assignment } = {}) {
     status: 'LAW_ASSIGNMENT_VERIFIED',
     version: OMEGA_LAWSPACE_CANARY_VERSION,
     valid: Boolean(complete && domainValid && givensValid && constraintsValid),
-    checks: { complete, domainValid, givensValid, constraintsValid }
+    checks: { complete, exactKeys, domainValid, givensValid, constraintsValid }
   });
 }
 
@@ -241,7 +248,7 @@ function propagateConstraint(constraint, domains, metrics) {
 }
 
 function propagate(instance, crystal, domains, metrics) {
-  let queue = instance.family.constraints.map((_, index) => index);
+  const queue = instance.family.constraints.map((_, index) => index);
   const queued = new Set(queue);
   while (queue.length) {
     const index = queue.shift();
@@ -310,6 +317,21 @@ export function solveWithCrystallizedDynamics({ instance, crystal, failureGeomet
   });
 }
 
+export function solveColdGenericDynamics({ instance, failureGeometry = [] } = {}) {
+  if (!instance?.family) return fail('COLD_GENERIC_DYNAMICS_REFUSED', ['instance-required']);
+  const crystallized = crystallizeLawTopology({ family: instance.family });
+  if (!crystallized.ok) return crystallized;
+  const solved = solveWithCrystallizedDynamics({ instance, crystal: crystallized.crystal, failureGeometry });
+  return envelope({
+    ok: solved.ok,
+    status: solved.ok ? 'COLD_GENERIC_DYNAMICS_SOLVED' : 'COLD_GENERIC_DYNAMICS_UNSOLVED',
+    version: OMEGA_LAWSPACE_CANARY_VERSION,
+    assignment: solved.assignment,
+    verifier: solved.verifier,
+    metrics: { ...solved.metrics, topologyCompilations: 1 }
+  });
+}
+
 export function solveColdEnumeration({ instance, maxCandidates = 2_000_000 } = {}) {
   if (!instance?.family) return fail('COLD_ENUMERATION_REFUSED', ['instance-required']);
   const variables = instance.family.variables;
@@ -345,12 +367,14 @@ export function solveColdEnumeration({ instance, maxCandidates = 2_000_000 } = {
 }
 
 export function compileExactFailureRepeller({ instance, failedAssignment, evidenceRef = 'local:test' } = {}) {
-  if (!instance?.familyHash || !failedAssignment) return fail('FAILURE_REPELLER_REFUSED', ['instance-and-failed-assignment-required']);
+  if (!instance?.familyHash || !failedAssignment || typeof failedAssignment !== 'object' || Array.isArray(failedAssignment)) return fail('FAILURE_REPELLER_REFUSED', ['instance-and-failed-assignment-required']);
   const ids = instance.family.variables.map(v => v.id);
-  if (!ids.every(id => Object.hasOwn(failedAssignment, id))) return fail('FAILURE_REPELLER_REFUSED', ['complete-failed-assignment-required']);
+  const expected = new Set(ids);
+  const actual = Object.keys(failedAssignment);
+  if (actual.length !== ids.length || actual.some(id => !expected.has(id))) return fail('FAILURE_REPELLER_REFUSED', ['complete-failed-assignment-required']);
   const verdict = verifyLawAssignment({ instance, assignment: failedAssignment });
   if (verdict.valid) return fail('FAILURE_REPELLER_REFUSED', ['valid-solution-cannot-be-repeller']);
-  const pattern = Object.fromEntries(ids.sort().map(id => [id, failedAssignment[id]]));
+  const pattern = Object.fromEntries([...ids].sort().map(id => [id, failedAssignment[id]]));
   return envelope({
     ok: true,
     status: 'EXACT_FAILURE_REPELLER_COMPILED',
@@ -372,20 +396,26 @@ export function benchmarkStructuralCrystallization({ family, instances = [] } = 
   const rows = [];
   for (const instance of instances) {
     if (instance?.familyHash !== family.topologyHash) return fail('STRUCTURAL_CRYSTALLIZATION_BENCHMARK_REFUSED', ['instance-family-mismatch']);
-    const cold = solveColdEnumeration({ instance });
-    const compiled = solveWithCrystallizedDynamics({ instance, crystal: crystalReceipt.crystal });
+    const enumeration = solveColdEnumeration({ instance });
+    const freshDynamics = solveColdGenericDynamics({ instance });
+    const reusedCrystal = solveWithCrystallizedDynamics({ instance, crystal: crystalReceipt.crystal });
     rows.push({
       instanceId: instance.instanceId,
-      coldValid: Boolean(cold.verifier?.valid),
-      compiledValid: Boolean(compiled.verifier?.valid),
-      coldCandidates: cold.metrics?.candidatesEvaluated ?? null,
-      compiledBranches: compiled.metrics?.branches ?? null,
-      compiledConstraintEvaluations: compiled.metrics?.constraintEvaluations ?? null
+      enumerationValid: Boolean(enumeration.verifier?.valid),
+      freshDynamicsValid: Boolean(freshDynamics.verifier?.valid),
+      reusedCrystalValid: Boolean(reusedCrystal.verifier?.valid),
+      enumerationCandidates: enumeration.metrics?.candidatesEvaluated ?? null,
+      freshDynamicsBranches: freshDynamics.metrics?.branches ?? null,
+      reusedCrystalBranches: reusedCrystal.metrics?.branches ?? null,
+      freshTopologyCompilations: freshDynamics.metrics?.topologyCompilations ?? null,
+      reusedTopologyCompilations: 0,
+      reusedConstraintEvaluations: reusedCrystal.metrics?.constraintEvaluations ?? null
     });
   }
-  const comparable = rows.filter(row => row.coldValid && row.compiledValid && Number.isFinite(row.coldCandidates) && Number.isFinite(row.compiledBranches));
-  const coldWork = comparable.reduce((sum, row) => sum + row.coldCandidates, 0);
-  const compiledWork = comparable.reduce((sum, row) => sum + row.compiledBranches, 0);
+  const comparable = rows.filter(row => row.enumerationValid && row.freshDynamicsValid && row.reusedCrystalValid && Number.isFinite(row.enumerationCandidates) && Number.isFinite(row.reusedCrystalBranches));
+  const enumerationWork = comparable.reduce((sum, row) => sum + row.enumerationCandidates, 0);
+  const reusedCrystalWork = comparable.reduce((sum, row) => sum + row.reusedCrystalBranches, 0);
+  const freshTopologyCompilations = comparable.reduce((sum, row) => sum + row.freshTopologyCompilations, 0);
   return envelope({
     ok: comparable.length === rows.length,
     status: comparable.length === rows.length ? 'STRUCTURAL_CRYSTALLIZATION_BENCHMARK_READY' : 'STRUCTURAL_CRYSTALLIZATION_BENCHMARK_INCOMPLETE',
@@ -393,10 +423,14 @@ export function benchmarkStructuralCrystallization({ family, instances = [] } = 
     rows,
     summary: {
       instances: rows.length,
-      coldWork,
-      compiledWork,
-      branchReductionRatio: compiledWork > 0 ? coldWork / compiledWork : null,
-      truthBoundary: 'This canary demonstrates semantic-preserving structural compilation on bounded CSPs only. It does not prove general intelligence, physical speedup, learned transfer, or frontier-equivalent capability.'
+      enumerationWork,
+      reusedCrystalWork,
+      branchReductionVsNaiveEnumeration: reusedCrystalWork > 0 ? enumerationWork / reusedCrystalWork : null,
+      freshTopologyCompilations,
+      reusedTopologyCompilations: 1,
+      avoidedRepeatedTopologyCompilations: Math.max(0, freshTopologyCompilations - 1),
+      learnedTransferClaim: false,
+      truthBoundary: 'This bounded canary demonstrates semantic-preserving structural reuse and avoids repeated topology compilation. Naive enumeration is a validity/search reference, not a strong domain-solver baseline. Fresh generic dynamics and reused dynamics should have equivalent search behavior here. This does not prove learned transfer, general intelligence, physical speedup, or frontier-equivalent capability.'
     }
   });
 }

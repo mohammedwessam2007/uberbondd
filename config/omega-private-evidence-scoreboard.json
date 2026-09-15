@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "uberbond.omega-private-evidence-scoreboard.v1",
+  "visibility": "FOUNDER_PRIVATE",
+  "truthClass": "CURRENT_PRIVATE_EVIDENCE_STATE",
+  "targetGrade": "E10",
+  "currentGrade": "E2",
+  "dimensions": {
+    "semanticCompilation": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "sealedHiddenHoldouts": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "crossFamilyTransfer": {"status":"PARTIAL_CANARY","evidenceRefs":["local:multi-family-law-ir-canary"]},
+    "crossDomainTransfer": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "verifierIndependence": {"status":"PARTIAL_CANARY","evidenceRefs":["source:omega-lawspace-independent-assignment-verifier"]},
+    "leakageResistance": {"status":"PARTIAL_CANARY","evidenceRefs":["source:crystal-excludes-instance-data-and-answers"]},
+    "fullCostAccounting": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "robustness": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "replication": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "realitySettlement": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "compoundingReduction": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "metaGeneralization": {"status":"NOT_PROVEN","evidenceRefs":[]}
+  },
+  "promotionPolicy": "NO_MANUAL_SCORE_INFLATION",
+  "notes": [
+    "The target is private evidence, not public claims.",
+    "E10 cannot be awarded from architecture quality alone.",
+    "Current bounded canaries do not establish learned cross-domain transfer, frontier equivalence, recursive self-improvement, ASI, or singularity."
+  ]
+}

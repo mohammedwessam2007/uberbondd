@@ -1,13 +1,14 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { UBER_SUBSTRATE_LAYERS } from './uber-sovereign-substrate.mjs';
 
-export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.5';
+export const UBER_SOVEREIGN_STACK_VERSION='uberbond.uber-sovereign-stack.v1.6';
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 
 /** Canonical first-party surfaces. Uber* means UberBond owns policy, contract and truth boundary, not every physical rail. */
 export const UBER_SOVEREIGN_LAYERS=Object.freeze([
   {id:'UBERMESH',role:'provider-independent private networking',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['ops/sovereign/configure-founder-console-ubermesh.sh','tests/sovereign-ubermesh.test.mjs']},
   {id:'UBERCLOUD',role:'portable multi-cell compute/runtime/storage control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercloud-sovereign-fabric.mjs','tests/ubercloud-sovereign-fabric.test.mjs']},
+  {id:'UBEROCEAN',role:'provider-neutral physical Linux compute supply and host-admission fabric beneath UberCel',kind:'SOVEREIGN_CORE',stateful:false,runtimeProof:true,sourceRefs:['src/uberocean-compute-fabric.mjs','tests/uberocean-compute-fabric.test.mjs']},
   {id:'UBERCEL',role:'first-party signed deployment build release rollback and host-failover control plane',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:true,sourceRefs:['src/ubercel-deployment-control-plane.mjs','src/ubercel-deployment-actuator.mjs','src/ubercel-uberlit-linux-adapter.mjs','ops/sovereign/sovereign-release-courier.mjs','src/provider-neutral-runtime-acceptance.mjs']},
   ...UBER_SUBSTRATE_LAYERS,
   {id:'UBERGRAPH',role:'provenance-bound semantic relational causal reality graph',kind:'SOVEREIGN_CORE',stateful:true,runtimeProof:false,sourceRefs:['src/knowledge-labyrinth-ubergraph.mjs','src/life-knowledge-graph.mjs']},

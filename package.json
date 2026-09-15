@@ -136,7 +136,14 @@
     "nullstar:failure-debt": "node scripts/nullstar-failure-debt.mjs",
     "nullstar:baselines-v2": "node scripts/nullstar-baselines-v2.mjs",
     "nullstar:ga1": "node scripts/nullstar-ga1.mjs",
-    "nullstar:generation": "node scripts/nullstar-generation.mjs"
+    "nullstar:generation": "node scripts/nullstar-generation.mjs",
+    "nullstar:final-report": "node scripts/nullstar-final-report.mjs",
+    "nullstar:completion-debt": "node scripts/nullstar-completion-debt.mjs",
+    "nullstar:transfer": "node scripts/nullstar-cross-organ-transfer.mjs",
+    "nullstar:generalization": "node scripts/nullstar-generalization-v2.mjs",
+    "nullstar:attribution": "node scripts/nullstar-attribution-audit.mjs",
+    "nullstar:probe-saturation": "node scripts/nullstar-probe-saturation.mjs",
+    "nullstar:meta-improvement": "node scripts/nullstar-meta-improvement-v2.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

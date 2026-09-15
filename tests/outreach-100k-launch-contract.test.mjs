@@ -13,8 +13,8 @@ function readyInput() {
       { ...fresh, domainId: 'uberbond.cloud', ownerAuthorized: true, dnsAuthenticated: true, reputationHealthy: true }
     ],
     mailboxes: [
-      { ...fresh, mailboxId: 'm1', domainId: 'uberbond.agency', egressRouteId: 'r1', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 },
-      { ...fresh, mailboxId: 'm2', domainId: 'uberbond.cloud', egressRouteId: 'r2', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 }
+      { ...fresh, mailboxId: 'm1', address: 'mohamed.001@uberbond.agency', domainId: 'uberbond.agency', egressRouteId: 'r1', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 },
+      { ...fresh, mailboxId: 'm2', address: 'mohamed.001@uberbond.cloud', domainId: 'uberbond.cloud', egressRouteId: 'r2', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 }
     ],
     egressRoutes: [
       { ...fresh, routeId: 'r1', ready: true, authorized: true, termsCompatible: true, observedColdDailyCap: 50000, usedToday: 0 },

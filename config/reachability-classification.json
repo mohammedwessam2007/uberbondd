@@ -108,6 +108,14 @@
     "NO_OBSERVED_UNATTENDED_OPERATION": {
       "description": "The money machine proof requires at least 24 hours of endurance with pulse receipts no more than 5 minutes apart. Real elapsed time is the input and it cannot be produced by running code faster.",
       "releasedBy": "24 hours of genuinely elapsed unattended operation with durable pulse receipts. Synthesised timestamps do not release it."
+    },
+    "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES": {
+      "description": "The APOTHEOSIS orchestration and agent-mesh runtimes are implemented and tested but reach no entry point. docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md names the gate: native P00/P08 source reconciliation and each packet's listed earlier acceptance prerequisites remain activation gates outside the seven-node planning graph. Import-graph trace on 2026-09-15 confirms the pair is an island.",
+      "releasedBy": "Native P00/P08 source reconciliation completed and each packet's acceptance prerequisites met, after which an entry point may reach the orchestration runtime."
+    },
+    "NO_MAILBOX_PROVISIONING_AUTHORITY": {
+      "description": "The inbox, mail-foundry, egress-topology and scale-frontier modules plan and shape sending infrastructure. Provisioning mailboxes, domains and egress routes spends money and creates real sending identity, neither of which is authorized. Import-graph trace on 2026-09-15 found no importer for any of them.",
+      "releasedBy": "Explicit owner authority and budget to provision sending infrastructure, recorded as durable authorization evidence."
     }
   },
   "modules": {
@@ -719,11 +727,6 @@
       "gate": "NO_ENRICHMENT_PROVIDER",
       "reason": "Ranks enrichment steps for providers that do not exist yet."
     },
-    "src/prospect-evidence-reconciliation.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ENRICHMENT_PROVIDER",
-      "reason": "Reconciles evidence from providers none of which are configured or terms-confirmed."
-    },
     "src/prospect-identity-ledger.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
@@ -838,6 +841,56 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
+    },
+    "src/apotheosis-orchestration-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Orchestration runtime for the APOTHEOSIS planning graph. Imported only by apotheosis-agent-mesh-runtime, which itself has no importer; the pair is an island with no entry point."
+    },
+    "src/apotheosis-agent-mesh-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Native agent-mesh activation over the orchestration runtime. Trace found no importer. Wiring it before the named activation prerequisites would start a mesh whose acceptance gates are unmet."
+    },
+    "src/uberlaunch-one-button.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "One-button founder launch control. Imports discovery, the outreach launch gate and governed dispatch, so reaching it from an entry point puts a send path one call from an operator. Imported only by uberlead-launch-fusion, which has no importer."
+    },
+    "src/uberlead-launch-fusion.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Fuses Apollo-style lead selection into the one-button launch. Imported only by uberlaunch-runtime-evidence, which has no importer. The three form one island ending at a dispatch path."
+    },
+    "src/uberlaunch-runtime-evidence.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Compiles sovereign runtime evidence into the one-button launch. Trace found no importer. It is the head of the launch island."
+    },
+    "src/ubermail-foundry.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Compiles mailbox fleets from the uberdoso roots. Trace found no importer. Provisioning is a spend and a sending identity, not a code decision."
+    },
+    "src/uberinbox-factory.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Builds inbox fleets for outbound capacity. Trace found no importer."
+    },
+    "src/uberinboxes-scale-profiles.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Evidence-bound provider scale profiles for inbox fleets. Trace found no importer. Its caps are planning figures until a provider relationship exists."
+    },
+    "src/uberegress-topology.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
+      "reason": "Shapes egress topology for sending infrastructure. Trace found no importer, and no egress route is configured."
+    },
+    "src/uberreach-scale-frontier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Projects reach at scale across the outbound frontier. Trace found no importer. Scale projection is not permission to send."
     }
   }
 }

@@ -159,7 +159,11 @@ const FAILURES = [
     rootCause: 'Each generation diagnosed the instrument, and fixing the instrument was always the shortest path to a visible result. The drift was real but the diagnosis was also correct: the instrument was tautological, so no capability generation before now could have measured anything.',
     severity: 'HIGH',
     regressionTest: 'tests/nullstar-generation-discrimination.test.mjs',
-    repairCommit: '49949e24',
+    // The commit that carries tests/nullstar-generation-discrimination.test.mjs.
+    // Written in a follow-up rather than in that commit itself: a SHA recorded
+    // inside the commit it names cannot survive the commit being written, and
+    // amending to correct it just produces a new SHA the file no longer names.
+    repairCommit: '865b7ef5',
     status: 'CLOSED_WITH_PROOF',
     closingNote: 'Three capability-focused generations have now run against three distinct families -- GA1 forecasting, GA2 research, GA3 invention -- each against a threshold committed before its candidates existed. The test asserts the count, the kind, that each result names a declaration whose threshold matches the one used, and that the three families are distinct so a rerun cannot pass as a generation. Closing this says three generations exist; it does not say all three were attributable. F010 carries that, and by the ablations only GA3 was.',
     evidenceRefs: [

@@ -2,8 +2,8 @@
   "ok": true,
   "status": "FAILURE_DEBT_COMPILED",
   "version": "uberbond.nullstar-failure-debt.v1",
-  "sourceSha": "49949e244992b4f06d761d094f6d9cf198c4eb99",
-  "generatedAt": "2026-09-15T12:21:00.413Z",
+  "sourceSha": "865b7ef5f3aadf253c2422e6b57d4e79649f1a53",
+  "generatedAt": "2026-09-15T12:21:15.677Z",
   "counts": {
     "total": 11,
     "byStatus": {
@@ -180,7 +180,7 @@
       "status": "FAILURE_RECORDED",
       "id": "F008-UNTESTED-PRODUCTION-PATH",
       "timestamp": "2026-09-15T04:00:00.000Z",
-      "sourceSha": "49949e244992b4f06d761d094f6d9cf198c4eb99",
+      "sourceSha": "865b7ef5f3aadf253c2422e6b57d4e79649f1a53",
       "mission": "NULLSTAR terminal completion war",
       "gate": "production coverage ratchet",
       "expected": "every production-reachable module is executed by some gate",
@@ -189,7 +189,7 @@
       "rootCause": "A suite that reads a module as a string satisfies every \"does a test exist\" check while exercising none of its behaviour. Wiring assertions over source text look like coverage and are not.",
       "severity": "HIGH",
       "regressionTest": "tests/outreach-100k-runtime-control-behaviour.test.mjs",
-      "repairCommit": "49949e244992b4f06d761d094f6d9cf198c4eb99",
+      "repairCommit": "865b7ef5f3aadf253c2422e6b57d4e79649f1a53",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [
@@ -211,7 +211,7 @@
       "rootCause": "Each generation diagnosed the instrument, and fixing the instrument was always the shortest path to a visible result. The drift was real but the diagnosis was also correct: the instrument was tautological, so no capability generation before now could have measured anything.",
       "severity": "HIGH",
       "regressionTest": "tests/nullstar-generation-discrimination.test.mjs",
-      "repairCommit": "49949e24",
+      "repairCommit": "865b7ef5",
       "entryStatus": "CLOSED_WITH_PROOF",
       "supersededBy": null,
       "evidenceRefs": [

@@ -392,9 +392,47 @@ export function generateInventionTask(seed, difficulty = 1) {
     }
   ];
 
-  const target = level >= 4
-    ? LEVEL4_TARGETS[Math.floor(rand() * LEVEL4_TARGETS.length)]
-    : level >= 3 ? LEVEL3_TARGETS[Math.floor(rand() * LEVEL3_TARGETS.length)] : null;
+  /**
+   * Level 5 groups to the right.
+   *
+   * Every earlier level reads correctly folded left to right, so the promoted
+   * solver answers all of them by accumulating through each adjacent pair. In
+   * "the mean, plus the midrange divided by how many numbers there are" the
+   * comma sets off a trailing clause that has to be resolved before it is
+   * joined, and folding left to right gives ((mean + midrange) / count) rather
+   * than mean + (midrange / count).
+   *
+   * The solver does not refuse these, it answers them wrongly, which is the
+   * failure class the whole gate exists to catch appearing at a level nothing
+   * measured. The English is the ordinary reading: a comma before the joining
+   * operator groups what follows it.
+   */
+  const LEVEL5_TARGETS = [
+    {
+      key: 'mean-plus-grouped-midrange-over-count',
+      phrase: 'the mean, plus the midrange divided by how many numbers there are',
+      value: mean + (midrange / data.length),
+      needs: ['sum', 'count', 'max', 'min']
+    },
+    {
+      key: 'midrange-minus-grouped-spread-over-count',
+      phrase: 'the midrange, minus the spread between largest and smallest divided by how many numbers there are',
+      value: midrange - (spread / data.length),
+      needs: ['max', 'min', 'count']
+    },
+    {
+      key: 'spread-plus-grouped-mean-over-count',
+      phrase: 'the spread between largest and smallest, plus the mean divided by how many numbers there are',
+      value: spread + (mean / data.length),
+      needs: ['sum', 'count', 'max', 'min']
+    }
+  ];
+
+  const target = level >= 5
+    ? LEVEL5_TARGETS[Math.floor(rand() * LEVEL5_TARGETS.length)]
+    : level >= 4
+      ? LEVEL4_TARGETS[Math.floor(rand() * LEVEL4_TARGETS.length)]
+      : level >= 3 ? LEVEL3_TARGETS[Math.floor(rand() * LEVEL3_TARGETS.length)] : null;
   const answer = target ? target.value : mean;
   const required = target ? target.needs : ['sum', 'count'];
 

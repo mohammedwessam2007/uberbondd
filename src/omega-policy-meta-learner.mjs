@@ -1,6 +1,6 @@
 import { ZERO_EFFECTS, POLICIES, digest, normalizeProblem, solveProblem } from './omega-private-lab-core.mjs';
 
-export const OMEGA_POLICY_META_LEARNER_VERSION='uberbond.omega-policy-meta-learner.v2.1';
+export const OMEGA_POLICY_META_LEARNER_VERSION='uberbond.omega-policy-meta-learner.v2.2';
 const envelope=extra=>({businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:{...ZERO_EFFECTS},...extra});
 const fail=(...r)=>envelope({ok:false,status:'OMEGA_POLICY_META_LEARNER_REFUSED',version:OMEGA_POLICY_META_LEARNER_VERSION,reasonCodes:[...new Set(r.flat().filter(Boolean))]});
 const TYPES=['neq','eq','lt','sumEq','allDifferent'];
@@ -14,7 +14,7 @@ export function extractStructuralFeatures(raw){
   for(const c of p.constraints) typeCounts[c.type]++;
   const n=p.variables.length,m=p.constraints.length;
   const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
-  const features={nVars:n,nConstraints:m,meanDomain:mean(p.variables.map(v=>v.domain.length)),givenFraction:n?Object.keys(p.givens).length/n:0,meanDegree:mean(deg),maxDegree:deg.length?Math.max(...deg):0,degreeStd:deg.length?Math.sqrt(mean(deg.map(x=>(x-mean(deg))**2))):0,meanArity:m?mean(p.constraints.map(c=>c.vars.length)):0,hyperFraction:m?p.constraints.filter(c=>c.vars.length>2).length/m:0};
+  const features={nVars:n,nConstraints:m,meanDomain:mean(p.variables.map(v=>v.domain.length)),givenFraction:n?Object.keys(p.givens).length/n:0,meanDegree:mean(deg),maxDegree:deg.length?Math.max(...deg):0,degreeStd:deg.length?Math.sqrt(mean(deg.map(x=>(x-mean(deg))**2))):0,meanArity:m?mean(p.constraints.map(c=>c.vars.length):0),hyperFraction:m?p.constraints.filter(c=>c.vars.length>2).length/m:0};
   for(const t of TYPES) features[`type_${t}`]=m?typeCounts[t]/m:0;
   return features;
 }
@@ -31,15 +31,15 @@ export function trainPolicyMetaCrystal({sourceTasks=[],policyBudget=5000}={}){
   for(const task of tasks){
     const scores=[];
     for(const policy of POLICIES.filter(policy=>policy!=='INPUT_ORDER')){ const run=solveProblem({problem:task,policy,maxWork:policyBudget}); const w=work(run); discoveryWork+=w; scores.push({policy,work:w,solved:run.ok===true&&run.verifier?.valid===true,cutoff:run.metrics?.cutoff===true}); }
-    const baseline=solveProblem({problem:task,policy:'INPUT_ORDER',maxWork:policyBudget}); const baselineWork=work(baseline); discoveryWork+=baselineWork;
-    if(!baseline.ok||!baseline.verifier?.valid) return fail('source-baseline-unsolved-within-budget');
+    const baseline=solveProblem({problem:task,policy:'INPUT_ORDER'}); const baselineWork=work(baseline); discoveryWork+=baselineWork;
+    if(!baseline.ok||!baseline.verifier?.valid) return fail('source-baseline-unsolved');
     const solved=scores.filter(x=>x.solved).sort((a,b)=>a.work-b.work||a.policy.localeCompare(b.policy));
     if(!solved.length) return fail('source-task-unsolved-within-budget');
     examples.push({featureHash:digest(extractStructuralFeatures(task)),features:extractStructuralFeatures(task),bestPolicy:solved[0].policy,bestWork:solved[0].work,baselineWork,observedSavings:baselineWork-solved[0].work,observedSavingsFraction:baselineWork>0?(baselineWork-solved[0].work)/baselineWork:0,domain:task.domain,cutoffPolicies:scores.filter(x=>x.cutoff).map(x=>x.policy)});
   }
   const scales={}; for(const k of FEATURE_KEYS) scales[k]=Math.max(1,...examples.map(e=>Math.abs(e.features[k]??0)));
   const core={featureKeys:FEATURE_KEYS,scales,examples:examples.map(e=>({features:e.features,bestPolicy:e.bestPolicy,baselineWork:e.baselineWork,bestWork:e.bestWork,observedSavings:e.observedSavings,observedSavingsFraction:e.observedSavingsFraction})),sourceDomains:[...new Set(tasks.map(t=>t.domain))].sort(),k:3,policyBudget};
-  return envelope({ok:true,status:'OMEGA_POLICY_META_CRYSTAL_TRAINED',version:OMEGA_POLICY_META_LEARNER_VERSION,crystal:{...core,crystalHash:digest(core),containsAnswers:false,containsTargetTasks:false,promotionAuthority:'NONE'},training:{discoveryWork,examples},truthBoundary:'Source baseline observations are explicitly charged to discovery work so target transfer may require evidence of prior economic advantage. The portfolio remains fixed and structural.'});
+  return envelope({ok:true,status:'OMEGA_POLICY_META_CRYSTAL_TRAINED',version:OMEGA_POLICY_META_LEARNER_VERSION,crystal:{...core,crystalHash:digest(core),containsAnswers:false,containsTargetTasks:false,promotionAuthority:'NONE'},training:{discoveryWork,examples},truthBoundary:'Candidate policies are bounded, while the required source baseline is allowed to finish and its full observed work is charged to discovery. Target transfer may require positive source-side economic evidence.'});
 }
 
 export function selectPolicyFromMetaCrystal({crystal,targetTask}={}){

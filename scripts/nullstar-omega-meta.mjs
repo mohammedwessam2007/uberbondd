@@ -45,6 +45,14 @@ const EPISODES = [
     symptomKind: SYMPTOM_KINDS.COVERAGE_INSUFFICIENT,
     evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
     note: 'BN-EVAL-COVERAGE. The symptom kind and the resolution criterion were committed in G3-prospective-declaration.json before any G4 code existed, so the ordering is checkable in git rather than asserted here.'
+  },
+  {
+    generation: 'G4',
+    successorGeneration: 'G5',
+    symptomKind: SYMPTOM_KINDS.COVERAGE_INSUFFICIENT,
+    evidenceClass: EPISODE_EVIDENCE_CLASSES.PROSPECTIVE,
+    bottleneckFrom: 'g4-declaration',
+    note: 'BN-EVAL-COVERAGE again. Declared in G4-prospective-declaration.json before any G5 code existed. G5 attempted forecasting and causality and the evidence-reuse guard refused both: every observation behind them was already scoring another dimension. Coverage held at 10, so the symptom persisted. The process was right to refuse and the symptom is still there; both are true.'
   }
 ];
 
@@ -56,7 +64,12 @@ const episodes = EPISODES.map(spec => {
         const test = read('artifacts/nullstar-omega/G2-discriminating-test.json');
         return { id: test.diagnosis, symptom: test.discriminatingTest };
       })()
-    : bottlenecks(spec.generation).selected;
+    : spec.bottleneckFrom === 'g4-declaration'
+      ? (() => {
+          const decl = read('artifacts/nullstar-omega/G4-prospective-declaration.json');
+          return { id: decl.bottleneckId, symptom: decl.bottleneckSymptom };
+        })()
+      : bottlenecks(spec.generation).selected;
   const evaluated = evaluateSelectionEpisode({
     generation: spec.generation,
     successorGeneration: spec.successorGeneration,
@@ -88,6 +101,7 @@ writeFileSync('artifacts/nullstar-omega/meta-improvement.json', `${JSON.stringif
   // into the generation it is about.
   episodesAvailableBeforeG3: episodes.filter(row => row.successorGeneration !== 'G3').length,
   verdict,
+  integrityTension: 'G5 scores as a persistence because coverage did not rise, and coverage did not rise because the evidence-reuse guard refused two dimensions that would have been cut from observations already in use. A process that declines to inflate its own metric scores worse here than one that inflates it. That is a real cost of measuring the process this way and it is recorded rather than adjusted away, because adjusting it would make the metric unfalsifiable.',
   finding: 'G0 and G1 both named a saturated instrument and both times the response widened coverage instead of raising difficulty, so the ceiling survived. The G2 diagnosis named the cause -- the corpus was reading values the repository already computed -- and G3 measured observed outcomes instead. That symptom resolved. One prospective resolution is not a working process.',
   truthBoundary: 'EVERY EPISODE HERE IS RETROSPECTIVE. RETROSPECTIVE EVIDENCE CAN SHOW THIS PROCESS FAILING; IT CANNOT SHOW IT SUCCEEDING.',
   businessEffectAuthority: 'NONE'

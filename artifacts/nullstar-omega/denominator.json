@@ -2,8 +2,8 @@
   "ok": true,
   "version": "uberbond.nullstar-omega-denominator.v1",
   "status": "NULLSTAR_OMEGA_DENOMINATOR_COMPILED",
-  "sourceCommit": "0084609b357d3a09d5f404ded2eeecf5ffadb323",
-  "generatedAt": "2026-09-14T23:52:09.833Z",
+  "sourceCommit": "65b5c41196fa19fb71eca40535999264511bc9cb",
+  "generatedAt": "2026-09-15T00:29:49.306Z",
   "counts": {
     "dimensions": 24,
     "byState": {
@@ -168,7 +168,8 @@
         "runtimeReceiptsPresent": [
           "artifacts/nullstar-omega/generations/G2.json",
           "artifacts/nullstar-omega/generations/G3.json",
-          "artifacts/nullstar-omega/generations/G4.json"
+          "artifacts/nullstar-omega/generations/G4.json",
+          "artifacts/nullstar-omega/generations/G5.json"
         ],
         "calibrationReceiptsPresent": []
       }
@@ -181,13 +182,15 @@
         "modulesPresent": [
           "src/recursive-improvement-retention.mjs",
           "src/nullstar-omega-meta-improvement.mjs",
-          "src/nullstar-omega-software-outcome.mjs"
+          "src/nullstar-omega-software-outcome.mjs",
+          "src/nullstar-omega-evidence-reuse.mjs"
         ],
         "modulesMissing": [],
         "testsPresent": [
           "tests/recursive-improvement-retention.test.mjs",
           "tests/nullstar-omega-meta-improvement.test.mjs",
-          "tests/nullstar-omega-software-outcome.test.mjs"
+          "tests/nullstar-omega-software-outcome.test.mjs",
+          "tests/nullstar-omega-evidence-reuse.test.mjs"
         ],
         "canonPresent": [],
         "runtimeReceiptsPresent": [

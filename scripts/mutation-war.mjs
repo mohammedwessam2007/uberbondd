@@ -3060,6 +3060,20 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
   {
+    id: 'REUSE-01', guard: 'A dimension re-slicing evidence already in use is refused, not counted',
+    file: 'src/nullstar-omega-evidence-reuse.mjs',
+    find: '    if (ratio > maxOverlapRatio) {',
+    replace: '    if (false) {',
+    suites: ['tests/nullstar-omega-evidence-reuse.test.mjs']
+  },
+  {
+    id: 'REUSE-02', guard: 'A dimension naming no observations is refused, not admitted for free',
+    file: 'src/nullstar-omega-evidence-reuse.mjs',
+    find: '  if (missingKeys.length) {',
+    replace: '  if (false) {',
+    suites: ['tests/nullstar-omega-evidence-reuse.test.mjs']
+  },
+  {
     id: 'SWOUT-01', guard: 'A denominator too small to mean anything is refused, not scored',
     file: 'src/nullstar-omega-software-outcome.mjs',
     find: "  if (rows.length > 0 && rows.length < 5) reasonCodes.push('denominator-too-small-to-score:need-at-least-five-modules');",

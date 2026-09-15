@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond.omega-private-evidence-scoreboard.v1",
+  "visibility": "FOUNDER_PRIVATE",
+  "truthClass": "CURRENT_PRIVATE_EVIDENCE_STATE",
+  "targetGrade": "E10",
+  "currentGrade": "E2",
+  "dimensions": {
+    "semanticCompilation": {"status":"PARTIAL_CONTRACT_LATTICE_CANARY_NOT_NL_COMPILATION","evidenceRefs":["source:omega-contract-lattice-core","local:contract-lattice-isolated-check"]},
+    "sealedHiddenHoldouts": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "crossFamilyTransfer": {"status":"PARTIAL_CANARY","evidenceRefs":["local:multi-family-law-ir-canary"]},
+    "crossDomainTransfer": {"status":"NARROW_POSITIVE_STRUCTURAL_CANARY_NOT_E6","evidenceRefs":["artifact:artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json"]},
+    "verifierIndependence": {"status":"PARTIAL_CANARY","evidenceRefs":["source:omega-lawspace-independent-assignment-verifier","source:omega-structural-transfer-v2-independent-target-verifier"]},
+    "leakageResistance": {"status":"PARTIAL_CANARY","evidenceRefs":["source:crystal-excludes-instance-data-and-answers","source:target-problem-hashes-checked-against-training-hashes"]},
+    "fullCostAccounting": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "robustness": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "replication": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "realitySettlement": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "compoundingReduction": {"status":"NOT_PROVEN","evidenceRefs":[]},
+    "metaGeneralization": {"status":"NOT_PROVEN","evidenceRefs":[]}
+  },
+  "promotionPolicy": "NO_MANUAL_SCORE_INFLATION",
+  "notes": [
+    "The target is private evidence, not public claims.",
+    "E10 cannot be awarded from architecture quality alone.",
+    "A 2026-09-15 isolated Node v22.16.0 reproduction learned HIGH_DEGREE_FIRST on MAP_COLORING and reduced verified work on a differently named RADIO_CHANNEL_ASSIGNMENT holdout from 24 to 16, a 33.3% reduction. This is intentionally classified as a narrow structural canary, not broad cross-domain transfer.",
+    "GitHub-hosted exact-head jobs were observed failing before step execution; local focused evidence does not substitute for full repository CI.",
+    "Current evidence does not establish learned broad semantic transfer, frontier equivalence, recursive self-improvement, ASI, or singularity."
+  ]
+}

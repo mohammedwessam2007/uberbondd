@@ -6,13 +6,15 @@ import { createUberSocketCognitiveBackplane } from './uber-socket-cognitive-back
 import { createUberSocketWholeBrainOrchestrator } from './uber-socket-whole-brain-orchestrator.mjs';
 import { createUberSocketConnectomeRuntime } from './uber-socket-connectome-runtime.mjs';
 import { importChatGPTProjectExport } from './chatgpt-project-importer.mjs';
+import { readUberSocketOpenAIKey } from './uber-socket-openai-secret.mjs';
 
 let singleton = null;
 
-function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.UBER_SOCKET_MODEL || 'gpt-5', authorizeModelCall = async () => true, cognitiveJournalPath = process.env.UBER_SOCKET_COGNITIVE_JOURNAL || null } = {}) {
-  const configured = Boolean(apiKey);
+function makeRuntime({ apiKey = null, model = process.env.UBER_SOCKET_MODEL || 'gpt-5', authorizeModelCall = async () => true, cognitiveJournalPath = process.env.UBER_SOCKET_COGNITIVE_JOURNAL || null, runtimeRoot = process.env.UBERLIT_ROOT || '/var/lib/uberlit/uberbond' } = {}) {
+  const resolvedKey = apiKey || readUberSocketOpenAIKey({ runtimeRoot });
+  const configured = Boolean(resolvedKey);
   const modelAdapter = configured
-    ? createOpenAIConversationModelAdapter({ apiKey, model })
+    ? createOpenAIConversationModelAdapter({ apiKey: resolvedKey, model })
     : { async respond(){ throw new Error('openai-api-key-not-configured'); } };
   const mesh = createProjectMesh({ modelAdapter, authorizeModelCall });
   const fabric = createSharedContentFabric({ mesh, modelAdapter });
@@ -37,6 +39,7 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
       canonicalCognitiveNodes: connectomeDoctor?.nodeCount || 0,
       canonicalCognitiveEdges: connectomeDoctor?.edgeCount || 0,
       cognitiveJournal: cognitiveJournalPath ? 'ENABLED' : 'DISABLED',
+      secretSource: configured ? (process.env.OPENAI_API_KEY ? 'ENV_OR_RUNTIME_SECRET' : 'UBERLIT_RUNTIME_SECRET') : null,
       externalEffectsAuthorized: false,
     });
   }
@@ -136,6 +139,11 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
 
 export function getUberSocketRuntime(options={}){
   if(!singleton) singleton = makeRuntime(options);
+  return singleton;
+}
+
+export function reloadUberSocketRuntime(options={}){
+  singleton = makeRuntime(options);
   return singleton;
 }
 

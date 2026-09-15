@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-15**
 Branch: `claude/uberbond-bootstrap-archaeology-zmqw8l`
-Reconciled from current head: `6a33877b160077d76e374a0c1ecb66886f3f91c2`
+Reconciled from current head: `616b4ca1dfeb96bde6dbeaf6a6f3e375eb2bd565`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

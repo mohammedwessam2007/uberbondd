@@ -5,6 +5,7 @@ import { config } from './src/config.mjs';
 import { createStore } from './src/store.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
+import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
 import { getUberSocketRuntime } from './src/uber-socket-runtime.mjs';
 import { restoreUberSocketState, persistUberSocketState } from './src/uber-socket-durable-state.mjs';
 
@@ -123,11 +124,29 @@ async function brokerOutreach100kStart(coreHandler, req, res) {
   let body;
   try { body = await readSmallJsonBody(req); } catch (error) { return sendJson(res, 400, { error: error.message }); }
   if (Number(body.confirmExactTarget) !== 100000) return sendJson(res, 400, { error: 'confirmExactTarget must equal 100000' });
-  const result = await compile100kStatus(coreHandler, req);
-  if (!result.auth.ok) return sendJson(res, result.auth.statusCode || 401, result.auth.payload || { error: 'Unauthorized' });
-  const prepared = result.prepared;
-  if (!prepared?.ok || prepared?.certificate?.state !== 'CERTIFIED_100K_READY' || prepared?.pressable !== true) return sendJson(res, 409, { error: 'Certified 100K launch is not ready', prepared });
+
+  const auth = await adminSummary(coreHandler, req);
+  if (!auth.ok) return sendJson(res, auth.statusCode || 401, auth.payload || { error: 'Unauthorized' });
   if (config.storeBackend !== 'postgres') return sendJson(res, 503, { error: '100K launch requires the durable PostgreSQL store backend' });
+
+  const artifacts = await prepareOutreach100kArtifacts({ target: 100000 });
+  if (!artifacts?.ok) {
+    return sendJson(res, 409, {
+      error: '100K launch artifacts are not ready',
+      artifacts,
+      truthBoundary: 'The founder press cannot queue outreach until durable candidate and physical-evidence inputs can produce an exact governed 100,000-recipient corpus and runtime bundle.'
+    });
+  }
+
+  const prepared = await prepareOutreach100kRuntime({
+    liveSummary: { ...auth.payload, schedulerActive: config.autopilot === true }
+  });
+  if (!prepared?.ok || prepared?.certificate?.state !== 'CERTIFIED_100K_READY' || prepared?.pressable !== true) {
+    return sendJson(res, 409, { error: 'Certified 100K launch is not ready', artifacts, prepared });
+  }
+  if (artifacts.recipientSetDigest !== prepared.corpus?.recipientSetDigest) {
+    return sendJson(res, 409, { error: 'Prepared recipient set changed before certification', artifacts, prepared });
+  }
 
   const pressedAt = new Date().toISOString();
   const authHeaderDigest = crypto.createHash('sha256').update(String(req.headers.authorization || '')).digest('hex');
@@ -137,7 +156,7 @@ async function brokerOutreach100kStart(coreHandler, req, res) {
     await store.init();
     const queue = new DurableQueue(store, config, console);
     const job = await queue.enqueue('outreach.100k.process', { cursor: 0, limit: 250, certificateId: prepared.certificate.certificateId, recipientSetDigest: prepared.corpus.recipientSetDigest, founderPressReceiptId }, { maxAttempts: 1, recoveryPolicy: 'reconcile', dedupeKey: `outreach100k:start:${prepared.certificate.certificateId}` });
-    return sendJson(res, 202, { ok: true, state: 'CERTIFIED_100K_JOB_ENQUEUED', jobId: job.id, certificateId: prepared.certificate.certificateId, recipientSetDigest: prepared.corpus.recipientSetDigest, founderPressReceiptId, pressedAt, automaticRetryAuthorized: false, truthBoundary: 'The authenticated founder press enqueued only the certified 100K worker. Every batch and every recipient remains independently gated; an uncertain provider outcome quarantines the stream.' });
+    return sendJson(res, 202, { ok: true, state: 'CERTIFIED_100K_JOB_ENQUEUED', jobId: job.id, certificateId: prepared.certificate.certificateId, recipientSetDigest: prepared.corpus.recipientSetDigest, founderPressReceiptId, pressedAt, artifacts, automaticRetryAuthorized: false, truthBoundary: 'The authenticated founder press first materialized the governed artifacts from durable precleared candidates and observed fleet evidence, then re-certified the exact 100,000-recipient set, and only then enqueued the worker. Every batch and recipient remains independently gated; uncertain provider outcomes quarantine the stream.' });
   } finally { await store.close().catch(() => {}); }
 }
 

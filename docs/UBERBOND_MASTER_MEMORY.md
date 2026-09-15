@@ -136,3 +136,7 @@ A repo-aware session should perform:
 `refresh main -> AGENTS.md -> UBERBOND_CANON.md -> UBERBOND_BOOTSTRAP.json -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> open/recent PRs -> dedupe -> execute`
 
 If the owner says only “continue” or “go,” that is enough. Do not ask him to reconstruct the company from memory.
+
+## APOTHEOSIS orchestration continuation — 2026-09-15
+
+Founder-supplied partial APOTHEOSIS doctrine and checkpoints 1–3 are reconciled in `docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md` with seven native-format contracts at `artifacts/work/apotheosis-continuation-2026-09-15.json`. Preserve P00–P42; add P43–P49 for scarce-model allocation, packet quality, context selection, cheaper routing, return/exit continuity, comparative evaluation and orchestration improvement. Source basis: `f48abf510632135203ced90d983d2d5d4da3a997`. Class: ORCHESTRATION_SPECIFICATION / CHAT_SPEC_GOAL. Runtime execution and cognitive/economic improvement are not established by this import. Earlier omitted transcript remains unrecovered. The decisive dependency correction is P44 → P47 independent of P46; saving a handoff does not prove fleet resumption or unattended duration. Terminal North Star and founder authority remain unchanged.

@@ -126,6 +126,25 @@
     "packetCount": 43,
     "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
     "reportedIssue770": "OBSERVED_OPEN_AT_IMPORT",
-    "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority."
+    "resume": "Read the orchestration checkpoint after terminal North Star/canon; reconcile current source before selecting an unsatisfied packet. Preserve existing runtime/evidence claims and authority.",
+    "apotheosisContinuation": {
+      "path": "docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md",
+      "packetPath": "artifacts/work/apotheosis-continuation-2026-09-15.json",
+      "recordedAt": "2026-09-15",
+      "sourceBasis": "f48abf510632135203ced90d983d2d5d4da3a997",
+      "extensionPacketIds": [
+        "P43",
+        "P44",
+        "P45",
+        "P46",
+        "P47",
+        "P48",
+        "P49"
+      ],
+      "classification": "ORCHESTRATION_SPECIFICATION",
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "reportedIssue770": "OBSERVED_CLOSED_2026-09-15",
+      "resume": "Refresh main and authority; verify P44 then P47 against existing mechanisms. P47 does not wait for P46. Preserve earlier finite engineering and runtime receipts with their original source scope."
+    }
   }
 }

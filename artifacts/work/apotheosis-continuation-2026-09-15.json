@@ -1,0 +1,405 @@
+{
+  "schemaVersion": "uberbond.apotheosis-orchestration-spec.v1",
+  "sourceCommit": "f48abf510632135203ced90d983d2d5d4da3a997",
+  "checkpointId": "APOTHEOSIS-C05",
+  "recordedAt": "2026-09-15",
+  "classification": "ORCHESTRATION_SPECIFICATION",
+  "mission": "Compile source-grounded APOTHEOSIS extensions without replacing existing orchestration or implying runtime/outcome proof.",
+  "provenance": {
+    "source": "Founder-supplied partial conversation: APOTHEOSIS parts 121-306 and checkpoints 1-3",
+    "originalSourceCommit": "fd15288cf8504889b281dff750d6070e5c810fba",
+    "rawTranscriptComplete": false,
+    "missingContext": "Parts before 121 and prior seven extension bodies were not supplied/recovered; current seven contracts are a reconciled continuation, not a verbatim recovered artifact.",
+    "originalPackets": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md#implementation-packets-short-dependency-bounded-assignments"
+  },
+  "mode": "FABLE_GRAPH",
+  "parentAuthority": "NONE",
+  "dataClass": "INTERNAL_NON_SECRET",
+  "maxDepth": 1,
+  "maxIterations": 2,
+  "nodes": [
+    {
+      "id": "p43",
+      "title": "Scarce-model allocation",
+      "purpose": "Compare deterministic and permitted worker routes using measured task-level quality, failure cost, latency and total cost; reserve frontier reasoning for the residual. Reuse routing and failover; do not add another router.",
+      "dependencies": [],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p43 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P08, P11",
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "src/agent-model-failover.mjs",
+        "src/ai-compute-budget.mjs"
+      ],
+      "expectedOutput": "Selected route and rejected alternatives with evidence references; Remaining budget, marginal-value estimate and escalation reason",
+      "verification": [
+        "No configured-but-unavailable model is selected; authority precedes routing.",
+        "Quota exhaustion retains authorized alternatives and individual queue service without account cycling.",
+        "Missing quality or cost evidence yields UNKNOWN or bounded exploration, never a fabricated cheap-route victory."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P08",
+        "P11"
+      ],
+      "sourcePaths": [
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "src/agent-model-failover.mjs",
+        "src/ai-compute-budget.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/agent-model-routing-integration.test.mjs tests/agent-model-failover.test.mjs"
+      ],
+      "metricContract": "Allocation evidence: report verified useful outcomes per frontier-model token, total measured cost and wall time; unknown metering stays null."
+    },
+    {
+      "id": "p44",
+      "title": "Worker packet quality",
+      "purpose": "Map the existing graph node, task context binding and institutional harness into a worker packet; require objective/source identity, dependencies, ownership, input references, acceptance, bounded retries and inherited authority.",
+      "dependencies": [],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p44 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P01, P08",
+        "src/orchestration-frontier.mjs",
+        "src/context-task-binding.mjs",
+        "src/sovereign-institutional-harness.mjs"
+      ],
+      "expectedOutput": "Native field mapping and packet validation evidence; Return format: candidate revision, changed paths, commands/results, failures, cost and next eligible task",
+      "verification": [
+        "Reject wrong mission/objective/source digest, missing dependency evidence, conflicting file ownership and child authority expansion.",
+        "Independent verifier cannot certify its own build; hidden evaluator data stays out of development context.",
+        "An independent fresh worker identifies the next admissible task without founder retelling."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P01",
+        "P08"
+      ],
+      "sourcePaths": [
+        "src/orchestration-frontier.mjs",
+        "src/context-task-binding.mjs",
+        "src/sovereign-institutional-harness.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/orchestration-frontier.test.mjs tests/context-task-binding.test.mjs"
+      ],
+      "metricContract": "Packet quality: record clarification, rework and integration-conflict rates with denominators; do not score packet length as quality."
+    },
+    {
+      "id": "p45",
+      "title": "Context selection",
+      "purpose": "Compare minimal, moderate and retrieval-driven context through existing task-bound projections. Keep full provenance retrievable and measure task outcome against context cost; no duplicate memory store.",
+      "dependencies": [],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p45 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P08, P11",
+        "src/context-projection.mjs",
+        "src/context-task-binding.mjs",
+        "src/context-compress-reversible.mjs",
+        "src/context-history-retrieval.mjs"
+      ],
+      "expectedOutput": "Context arm definitions, hashes, reconstruction pointers and complete outcomes; Chosen context policy plus uncertainty and rollback conditions",
+      "verification": [
+        "Reject stale source, changed objective, wrong audience and poisoned untrusted context.",
+        "Compression preserves unique recoverable information and required constraints.",
+        "Context comparison uses the same held-out population and accounts for retrieval failures and latency."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P08",
+        "P11"
+      ],
+      "sourcePaths": [
+        "src/context-projection.mjs",
+        "src/context-task-binding.mjs",
+        "src/context-compress-reversible.mjs",
+        "src/context-history-retrieval.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/context-projection.test.mjs tests/context-task-binding.test.mjs"
+      ],
+      "metricContract": "Context selection: evaluate quality, retrieval misses, tokens, time and privacy scope; largest context is not presumed best."
+    },
+    {
+      "id": "p46",
+      "title": "Evidence-based downrouting",
+      "purpose": "Use complete independently checked task outcomes to challenge an expensive route with cheaper permitted workers; bind evidence to actual model/version, task class, source, population and time. Promotion changes only an already authorized route.",
+      "dependencies": [
+        "p43",
+        "p45"
+      ],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p46 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P11, P12",
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "src/agent-model-routing-config.mjs",
+        "src/frontier-routing-revalidation-proof.mjs"
+      ],
+      "expectedOutput": "Versioned routing experiment and admission/rejection receipt; Downward migration by task class and escalation/rollback events",
+      "verification": [
+        "Stale, poisoned, wrong-model, wrong-task or incomplete evidence cannot promote a route.",
+        "Include failed, timed-out and retried tasks in quality/cost denominators.",
+        "Preregister quality/noninferiority tolerance, minimum evidence and regression rollback before holdouts."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P11",
+        "P12"
+      ],
+      "sourcePaths": [
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "src/agent-model-routing-config.mjs",
+        "src/frontier-routing-revalidation-proof.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/agent-model-routing-integration.test.mjs tests/frontier-routing-revalidation-proof.test.mjs"
+      ],
+      "metricContract": "Downrouting delta: quality and uncertainty alongside total cost/latency, frontier tokens saved and hidden failure costs; never infer from one cheap success."
+    },
+    {
+      "id": "p47",
+      "title": "Exit and return continuity",
+      "purpose": "Persist a native continuation checkpoint before frontier-model exhaustion. Resume verified independent leaves with current permitted workers. This lane must not depend on p46 or completion of downrouting research.",
+      "dependencies": [
+        "p44"
+      ],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p47 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P05, P06, P08",
+        "src/execution-leaf-continuation.mjs",
+        "src/canonical-execution-leaf-graph.mjs",
+        "src/agent-model-failover.mjs",
+        "src/self-maintainer-continuation-policy.mjs"
+      ],
+      "expectedOutput": "Mission graph, source/state digests, completed/pending/blocked leaves, file ownership and current leases; Worker availability, bounded budget, retries, integration order, rollback, failed strategies and next wake trigger",
+      "verification": [
+        "Save then resume in a fresh process with frontier worker unavailable; reconcile changed main before dispatch.",
+        "Reject tampered checkpoint, stale attestation, wrong leaf, duplicate completion and self-approval.",
+        "With p46 unresolved, p47 remains eligible after p44 and its existing native prerequisites; unaffected ready work continues.",
+        "HANDOFF_SAVED requires durable checkpoint; FLEET_RESUMED requires a real worker result; UNATTENDED_OBSERVED requires independently dated elapsed operation. Fixtures prove only controlled behavior."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P05",
+        "P06",
+        "P08"
+      ],
+      "sourcePaths": [
+        "src/execution-leaf-continuation.mjs",
+        "src/canonical-execution-leaf-graph.mjs",
+        "src/agent-model-failover.mjs",
+        "src/self-maintainer-continuation-policy.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/execution-leaf-continuation.test.mjs tests/execution-leaf-continuation-parallelism.test.mjs tests/agent-model-failover.test.mjs"
+      ],
+      "metricContract": "Continuity delta: measured time to resume, lost/repeated work and observed absence duration; no scheduled-job or document existence inference."
+    },
+    {
+      "id": "p48",
+      "title": "Comparative orchestration evaluation",
+      "purpose": "Preregister and compare direct frontier model, current orchestrator and orchestrator-plus-cheaper-fleet on suitable unseen system tasks. Reuse evaluation receipts and keep model identity, population, limits and raw outputs independently auditable.",
+      "dependencies": [
+        "p44"
+      ],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p48 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P11, P12, P33",
+        "src/benchmark-evidence-ledger.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/orchestration-frontier.mjs",
+        "src/compound-intelligence-evaluation.mjs"
+      ],
+      "expectedOutput": "Protocol, complete arm receipts, raw-output references and independent evaluation; Quality/cost/wall-time/frontier-token comparison with limitations",
+      "verification": [
+        "Seal task population/scoring before results; prevent development access to held-out answers.",
+        "Retain every attempt, timeout, failure and all coordination/review/tool costs.",
+        "Report sample-size rationale, paired quality/cost/time differences, uncertainty and domain limits; no IQ or ASI inference."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P11",
+        "P12",
+        "P33"
+      ],
+      "sourcePaths": [
+        "src/benchmark-evidence-ledger.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/orchestration-frontier.mjs",
+        "src/compound-intelligence-evaluation.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/compound-intelligence-evaluation.test.mjs tests/benchmark-evidence-ledger.test.mjs tests/sovereign-institutional-harness.test.mjs"
+      ],
+      "metricContract": "Comparison delta: verified outcome advantage rather than test/PR/agent count. Unavailable paid model blocks that arm only; it is not a simulated win."
+    },
+    {
+      "id": "p49",
+      "title": "Improve orchestration itself",
+      "purpose": "Use observed routing, packet, continuity and comparative failures to propose one bounded orchestration-policy challenger. Preserve baseline, test on fresh heldouts, independently admit exact candidate and retain rollback. Do not create another self-improvement engine.",
+      "dependencies": [
+        "p46",
+        "p47",
+        "p48"
+      ],
+      "workerRequirement": "Lowest-cost callable worker demonstrated suitable; independent verifier; frontier model only for unresolved high-impact evidence conflicts.",
+      "ownedFilesOrResponsibility": [
+        "APOTHEOSIS/p49 analysis and evidence; integration controller serializes any future overlapping native edits"
+      ],
+      "inputs": [
+        "Refresh exact main, mandatory canon and runtime availability before activation",
+        "Prior-packet acceptance must be revalidated: P15, P38, P40",
+        "src/orchestration-frontier.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/self-improvement-causal-admission.mjs",
+        "src/genesis-self-improvement-bridge.mjs"
+      ],
+      "expectedOutput": "Failure/hypothesis/candidate/baseline/holdout/promotion/rollback evidence chain; Updated bottleneck and next bounded experiment or justified stop",
+      "verification": [
+        "Known harmful candidate is rejected; failed rollback prevents promotion.",
+        "Optimizer cannot change its own acceptance score, authority, hidden answers or reviewer identity.",
+        "Improvement must generalize beyond its development failures and include full cost, regressions and future benefit uncertainty."
+      ],
+      "stopCondition": "One bounded attempt plus one evidence-driven correction; stop the blocked effect on missing authority/provider/budget/evidence, retain receipt, continue independent ready work.",
+      "authorityCeiling": "NONE",
+      "implementation": false,
+      "callableWorkerVerified": false,
+      "implementationStatus": "NOT_EXECUTED_BY_THIS_IMPORT",
+      "existingPrerequisites": [
+        "P15",
+        "P38",
+        "P40"
+      ],
+      "sourcePaths": [
+        "src/orchestration-frontier.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/self-improvement-causal-admission.mjs",
+        "src/genesis-self-improvement-bridge.mjs"
+      ],
+      "verificationCommands": [
+        "node --test tests/orchestration-frontier.test.mjs tests/sovereign-institutional-harness.test.mjs tests/self-improvement-causal-admission-repeat-proof.test.mjs"
+      ],
+      "metricContract": "Meta delta: verified improvement per wall time and total cost over repeated controlled cycles; acceleration remains unestablished without repeated independent evidence."
+    }
+  ],
+  "activationContract": {
+    "status": "SPECIFICATION_ONLY",
+    "gate": "Refresh P00/P08 and cited native prerequisites, attach exact accepted receipts, current worker availability, ownership leases and bounded authority before translating a specification into execution. Graph readiness alone grants no authority.",
+    "callability": "Planning nodes set implementation=false and callableWorkerVerified=false. Do not flip these flags without observed worker availability and explicit session execution scope.",
+    "ownership": "sourcePaths are reuse candidates, not concurrently assigned mutation scopes; one integration controller assigns disjoint concrete paths before implementation.",
+    "externalEffects": "No provider calls, spending, deployments, messaging, production writes or truth promotion authorized by this file."
+  },
+  "integrationOrder": [
+    [
+      "p43",
+      "p44",
+      "p45"
+    ],
+    [
+      "p47",
+      "p48"
+    ],
+    [
+      "p46"
+    ],
+    [
+      "p49"
+    ]
+  ],
+  "continuityGates": {
+    "HANDOFF_SAVED": "Durable exact-source/state checkpoint and independently checked retrieval.",
+    "FLEET_RESUMED": "Fresh worker actually resumes admissible work and returns independent receipt without frontier model.",
+    "UNATTENDED_OBSERVED": "Prerecorded observation window, independently dated start/end and recovery/outcome evidence."
+  },
+  "returnPacketFields": [
+    "CURRENT_SHA",
+    "ACTIVE_MISSION_GRAPH",
+    "WORK_PACKETS",
+    "WORKER_ROUTING",
+    "FILE_OWNERSHIP",
+    "TEST_REQUIREMENTS",
+    "INTEGRATION_ORDER",
+    "COMPLETED",
+    "FAILED",
+    "KNOWN_FAILURES",
+    "UNRESOLVED_QUESTIONS",
+    "NEW_EVIDENCE",
+    "CONTRADICTIONS",
+    "WORKER_DISAGREEMENTS",
+    "COST",
+    "TIME",
+    "CURRENT_BOTTLENECK",
+    "ESCALATION_RULES",
+    "ROLLBACK_REQUIREMENTS",
+    "NEXT_WAKE_TRIGGER"
+  ],
+  "wakeTriggers": [
+    "New authorized continuation with available source/worker capacity",
+    "Architecture contradiction or unknown failure class",
+    "Security-critical or high-stakes unresolved decision",
+    "Large measured regression or worker deadlock",
+    "New high-impact evidence that changes the bottleneck"
+  ],
+  "currentBottleneck": "Unverified coupling between measured worker outcomes, cheaper route promotion and actual continuation without the frontier model; native primitives already exist.",
+  "observedDeltas": {
+    "sourceBehavior": "UNCHANGED_BY_SPECIFICATION",
+    "cognitiveCapability": "NOT_MEASURED",
+    "cost": "UNKNOWN",
+    "frontierTokenLeverage": "UNKNOWN",
+    "downwardMigration": "NOT_MEASURED",
+    "unattendedDuration": "NOT_OBSERVED"
+  },
+  "nextAction": "Fresh-session source/authority reconciliation, then verify p44 and p47 against existing native behavior; p46 research is not a prerequisite for p47.",
+  "rollback": "Revert the documentation/packet import through normal PR process if invalid; retain prior 43 packets and their history. Future runtime promotion requires native exact-candidate rollback proof."
+}

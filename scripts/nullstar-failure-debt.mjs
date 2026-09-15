@@ -158,8 +158,16 @@ const FAILURES = [
     failureClass: 'MISSION_DRIFT',
     rootCause: 'Each generation diagnosed the instrument, and fixing the instrument was always the shortest path to a visible result. The drift was real but the diagnosis was also correct: the instrument was tautological, so no capability generation before now could have measured anything.',
     severity: 'HIGH',
-    status: 'OPEN',
-    evidenceRefs: ['artifacts/nullstar-omega/baselines.json']
+    regressionTest: 'tests/nullstar-generation-discrimination.test.mjs',
+    repairCommit: '49949e24',
+    status: 'CLOSED_WITH_PROOF',
+    closingNote: 'Three capability-focused generations have now run against three distinct families -- GA1 forecasting, GA2 research, GA3 invention -- each against a threshold committed before its candidates existed. The test asserts the count, the kind, that each result names a declaration whose threshold matches the one used, and that the three families are distinct so a rerun cannot pass as a generation. Closing this says three generations exist; it does not say all three were attributable. F010 carries that, and by the ablations only GA3 was.',
+    evidenceRefs: [
+      'artifacts/nullstar-omega/baselines.json',
+      'artifacts/nullstar-terminal/ga1-result.json',
+      'artifacts/nullstar-terminal/ga2-result.json',
+      'artifacts/nullstar-terminal/ga3-result.json'
+    ]
   },
   {
     id: 'F010-UNDISCRIMINATING-TOURNAMENT',
@@ -179,6 +187,24 @@ const FAILURES = [
       'artifacts/nullstar-terminal/ga2-result.json',
       'artifacts/nullstar-terminal/ga2-ablation.json',
       'src/nullstar-cognitive-solvers.mjs'
+    ]
+  },
+  {
+    id: 'F011-COMPOSITION-SUPERSET-ACCEPTED',
+    timestamp: '2026-09-15T13:10:00.000Z',
+    sourceSha: '021f0028',
+    mission: 'NULLSTAR TERMINAL COMPLETION WAR, generation GA3',
+    gate: 'invention composition scoring',
+    expected: 'the composition half of an invention item rewards using the route the answer actually needs',
+    observed: 'scoreComposition tests that every required primitive appears in the claimed list, so any superset passes. A solver claiming all four available primitives satisfies the composition half of every item whatever it used. Eight of forty level-3 items in the ablation seed range need fewer than four and still accept a claim of four, and the effect inflated the GA3 null candidate from roughly a quarter to 0.6.',
+    failureClass: 'EPISTEMIC_INFLATION',
+    rootCause: 'The scorer was written to check sufficiency and never to check that the claim was honest. TOOL_USE had the same temptation and was built to penalise calling every tool; INVENTION was not given the matching rule, so over-claiming is free there. The asymmetry survived because no candidate over-claimed until the null candidate was deliberately written to ignore the prompt.',
+    severity: 'MEDIUM',
+    status: 'OPEN',
+    evidenceRefs: [
+      'artifacts/nullstar-terminal/ga3-ablation.json',
+      'artifacts/nullstar-terminal/ga3-result.json',
+      'src/nullstar-cognitive-tasks.mjs'
     ]
   }
 ];

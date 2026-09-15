@@ -16,7 +16,7 @@ import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solver
 
 const read = path => JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), 'utf8'));
 
-for (const generation of ['ga1', 'ga2']) {
+for (const generation of ['ga1', 'ga2', 'ga3']) {
   test(`${generation} records whether its tournament separated the candidates`, () => {
     const result = read(`artifacts/nullstar-terminal/${generation}-result.json`);
     assert.ok(result.discrimination, 'result must state a discrimination verdict');
@@ -47,13 +47,19 @@ for (const generation of ['ga1', 'ga2']) {
     // promotions are described as closing a narrower gap than they appeared to.
     const family = ablation.family;
     for (const row of ablation.rows) {
-      const set = generateTaskSet({
-        seeds: Array.from({ length: row.items }, (_, i) => 70000 + i),
-        families: [family],
-        difficulty: row.difficulty
-      });
-      assert.equal(scoreTaskSet(set.items, UBERBOND_SOLVERS).mean, row.promotedMean,
-        `d${row.difficulty}: the promoted solver no longer scores what the ablation recorded`);
+      // GA1 and GA2 recorded the live solver's score against a reconstructed
+      // minimal fix. GA3 recorded two named candidates against each other,
+      // because its null candidate was in the tournament rather than found
+      // afterwards, so only the first shape is checkable against UBERBOND_SOLVERS.
+      if (typeof row.items === 'number') {
+        const set = generateTaskSet({
+          seeds: Array.from({ length: row.items }, (_, i) => 70000 + i),
+          families: [family],
+          difficulty: row.difficulty
+        });
+        assert.equal(scoreTaskSet(set.items, UBERBOND_SOLVERS).mean, row.promotedMean,
+          `d${row.difficulty}: the promoted solver no longer scores what the ablation recorded`);
+      }
       assert.equal(row.separated, row.promotedMean !== row.ablatedMean);
     }
 
@@ -121,4 +127,70 @@ test('both ablation scripts run clean and touch nothing external', () => {
     });
     assert.match(out, /finding:/);
   }
+});
+
+test('three capability-focused generations exist, and each ran against criteria fixed beforehand', () => {
+  // Section 061. Instrumentation generations do not count, so this checks the
+  // kind as well as the count, and checks that each result names a declaration
+  // whose threshold matches the one the run used -- a threshold chosen after
+  // the fact is the failure mode the declaration exists to prevent.
+  const generations = ['ga1', 'ga2', 'ga3'].map(name => ({
+    name,
+    result: read(`artifacts/nullstar-terminal/${name}-result.json`),
+    declaration: read(`artifacts/nullstar-terminal/${name}-declaration.json`)
+  }));
+
+  assert.equal(generations.length, 3);
+  for (const { name, result, declaration } of generations) {
+    assert.equal(result.kind, 'ACTUAL_CAPABILITY_FOCUSED', `${name} must be a capability generation, not instrumentation`);
+    assert.equal(declaration.kind, 'ACTUAL_CAPABILITY_FOCUSED');
+    assert.equal(result.declarationRef, `artifacts/nullstar-terminal/${name}-declaration.json`);
+    assert.equal(result.precommittedThreshold, declaration.precommittedCriteria.promotionThreshold,
+      `${name}: the recorded threshold must be the declared one`);
+    assert.ok(declaration.precommittedCriteria.thresholdLock, `${name}: the declaration must lock its threshold`);
+    assert.equal(result.businessEffectAuthority, 'NONE');
+    assert.equal(result.improvementVelocity.providerCalls, 0);
+  }
+
+  // The three attacked three different families. A generation that re-attacked
+  // a family already at 1.0 would be a rerun wearing a new name.
+  const families = generations.map(row => row.result.family);
+  assert.equal(new Set(families).size, 3, `expected three distinct families, got ${families.join(', ')}`);
+});
+
+test('only GA3 separated its winner from the minimal fix, and the record says which', () => {
+  // The honest summary of the three. Two promotions are real improvements on
+  // the instrument and unattributable to the mechanism they were testing; one
+  // is attributable. Collapsing that distinction is what F010 is about, so it
+  // is asserted rather than left to prose.
+  const verdicts = ['ga1', 'ga2', 'ga3'].map(name => ({
+    name,
+    discrimination: read(`artifacts/nullstar-terminal/${name}-result.json`).discrimination,
+    separated: read(`artifacts/nullstar-terminal/${name}-ablation.json`).separated
+  }));
+
+  const ga3 = verdicts.find(row => row.name === 'ga3');
+  assert.equal(ga3.discrimination, 'SEPARATED');
+  assert.equal(ga3.separated, true);
+
+  for (const name of ['ga1', 'ga2']) {
+    const row = verdicts.find(entry => entry.name === name);
+    assert.equal(row.discrimination, 'UNDISCRIMINATING__CANDIDATES_TIED');
+    assert.equal(row.separated, false, `${name}: if this ever separates, the ablation record is stale`);
+  }
+});
+
+test('the GA3 null candidate really was in the tournament, not reconstructed after', () => {
+  // The single procedural difference between GA3 and its two predecessors.
+  const result = read('artifacts/nullstar-terminal/ga3-result.json');
+  const ablation = read('artifacts/nullstar-terminal/ga3-ablation.json');
+  const names = result.candidates.map(row => row.candidate);
+  assert.ok(names.includes('I1_HARDCODE_ONE_TARGET'), 'the null candidate must have competed');
+  assert.equal(ablation.nullCandidateWasInTheTournament, true);
+
+  const nullRow = result.candidates.find(row => row.candidate === 'I1_HARDCODE_ONE_TARGET');
+  const winnerRow = result.candidates.find(row => row.candidate === result.winner);
+  assert.equal(nullRow.eligible, false, 'the null candidate must not have been promotable');
+  assert.ok(winnerRow.heldOutScore > nullRow.heldOutScore,
+    'the winner must beat the null candidate, or the gain is not attributable');
 });

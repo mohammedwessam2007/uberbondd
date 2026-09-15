@@ -145,13 +145,76 @@ function solveResearch(surface) {
   return best ? String(best.claim) : null;
 }
 
-/** Compose the primitives the surface does provide. */
-function solveInvention(surface) {
+/**
+ * Assemble the quantity the prompt names out of the primitives on offer.
+ *
+ * Promoted from GA3 as I3_PROMPT_DIRECTED. The previous version always composed
+ * the mean from sum and count whatever was asked, which answered one level-3
+ * target in four.
+ *
+ * This is the first promotion in the three that is attributable. GA1 and GA2
+ * both won out of a tie and both matched, on a later ablation, a minimal fix
+ * that was never in the candidate set. GA3 put that null candidate in the
+ * tournament instead: I1_HARDCODE_ONE_TARGET computed one fixed formula,
+ * competed under the same precommitted threshold, and lost -- 0.6 against 1.0,
+ * while regressing difficulties 1 and 2. The gap between reading the question
+ * and guessing it is what the numbers separate.
+ *
+ * I4_COMPOSITIONAL_SEARCH, which builds the answer from named parts rather than
+ * whole phrases, reached 0.8 and did not clear the threshold. It is the better
+ * mechanism for prompts that combine quantities in unseen ways and the weaker
+ * one here, which is worth remembering when this family gets harder: the
+ * promoted solver recognises complete formulas and will fail the moment one
+ * appears that it has no pattern for.
+ */
+const COMPOSITION_TARGETS = [
+  // Longest phrase first. "the spread between largest and smallest, divided by
+  // how many numbers there are" contains "the spread between largest and
+  // smallest", so a shorter pattern tested earlier would claim the sentence and
+  // compute the wrong quantity.
+  {
+    test: text => text.includes('average of the mean and the midrange'),
+    compose: s => ({ value: (s.mean + s.midrange) / 2, needs: ['sum', 'count', 'max', 'min'] })
+  },
+  {
+    test: text => text.includes('mean minus the midrange'),
+    compose: s => ({ value: s.mean - s.midrange, needs: ['sum', 'count', 'max', 'min'] })
+  },
+  {
+    test: text => text.includes('mean divided by the spread'),
+    compose: s => ({ value: s.spread === 0 ? s.mean : s.mean / s.spread, needs: ['sum', 'count', 'max', 'min'] })
+  },
+  {
+    test: text => text.includes('spread between largest and smallest, divided by how many'),
+    compose: s => ({ value: s.spread / s.size, needs: ['max', 'min', 'count'] })
+  },
+  {
+    test: text => text.includes('report the mean'),
+    compose: s => ({ value: s.mean, needs: ['sum', 'count'] })
+  }
+];
+
+function solveInvention(surface, prompt) {
   const data = surface.data ?? [];
-  const primitives = surface.primitives ?? [];
-  if (!primitives.includes('sum') || !primitives.includes('count') || data.length === 0) return null;
-  const total = data.reduce((a, b) => a + b, 0);
-  return { answer: (total / data.length).toFixed(4), used: ['sum', 'count'] };
+  if (data.length === 0) return null;
+
+  const high = Math.max(...data);
+  const low = Math.min(...data);
+  const s = {
+    mean: data.reduce((a, b) => a + b, 0) / data.length,
+    midrange: (high + low) / 2,
+    spread: high - low,
+    size: data.length
+  };
+
+  const target = COMPOSITION_TARGETS.find(entry => entry.test(String(prompt ?? '').toLowerCase()));
+  if (!target) return null;
+
+  const { value, needs } = target.compose(s);
+  // Reporting a primitive the surface never offered would be claiming a route
+  // that does not exist.
+  const available = new Set(surface.primitives ?? []);
+  return { answer: value.toFixed(4), used: needs.filter(name => available.has(name)) };
 }
 
 /**

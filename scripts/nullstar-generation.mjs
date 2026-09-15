@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import { generateTaskSet } from '../src/nullstar-cognitive-tasks.mjs';
 import { UBERBOND_SOLVERS, scoreTaskSet } from '../src/nullstar-cognitive-solvers.mjs';
 import { GA2_CANDIDATES } from '../src/nullstar-ga2-candidates.mjs';
+import { GA3_CANDIDATES } from '../src/nullstar-ga3-candidates.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
@@ -34,7 +35,8 @@ if (!/^GA\d+$/.test(generation)) {
  * runs. Adding GA3 means adding its import here.
  */
 const CANDIDATE_SETS = {
-  GA2: GA2_CANDIDATES
+  GA2: { candidates: GA2_CANDIDATES, sourcePath: 'src/nullstar-ga2-candidates.mjs' },
+  GA3: { candidates: GA3_CANDIDATES, sourcePath: 'src/nullstar-ga3-candidates.mjs' }
 };
 
 // The declaration is read first and on purpose. Criteria are fixed before the
@@ -51,11 +53,12 @@ try {
   process.exit(1);
 }
 
-const candidates = CANDIDATE_SETS[generation];
-if (!candidates) {
+const registered = CANDIDATE_SETS[generation];
+if (!registered) {
   console.error(`no candidate set registered for ${generation}; add its static import to CANDIDATE_SETS`);
   process.exit(1);
 }
+const { candidates, sourcePath } = registered;
 
 const FAMILY = declaration.bottleneck.selected;
 const DIFFICULTY = declaration.evaluationDifficulty;
@@ -65,7 +68,7 @@ const { trainSeeds, heldOutSeeds } = declaration.precommittedCriteria;
 const itemsAt = (seeds, difficulty) => generateTaskSet({ seeds, families: [FAMILY], difficulty }).items;
 const started = Date.now();
 
-const source = readFileSync(join(root, modulePath.replace('../', '')), 'utf8');
+const source = readFileSync(join(root, sourcePath), 'utf8');
 const complexityOf = name => {
   // Crude but consistent: bytes of the exported function's body.
   const marker = source.indexOf(`export function ${name.split('_')[0].toLowerCase()}`);

@@ -5,6 +5,7 @@ import { createSharedContentFabric } from './uber-socket-shared-content-fabric.m
 import { createUberSocketCognitiveBackplane } from './uber-socket-cognitive-backplane.mjs';
 import { createUberSocketWholeBrainOrchestrator } from './uber-socket-whole-brain-orchestrator.mjs';
 import { createUberSocketConnectomeRuntime } from './uber-socket-connectome-runtime.mjs';
+import { importChatGPTProjectExport } from './chatgpt-project-importer.mjs';
 
 let singleton = null;
 
@@ -29,6 +30,7 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
       peers: snap.peers.length,
       rooms: snap.rooms.length,
       sharedDocuments: snap.peers.reduce((n,p)=>n+fabric.listPeerDocs(p.peerId).length,0),
+      archivalPeers: snap.peers.filter(p=>p.metadata?.archivalOnly===true).length,
       cognitiveBackplane: 'CONNECTED',
       wholeBrainOrchestrator: 'CONNECTED',
       connectome: connectomeDoctor?.state || 'INITIALIZING',
@@ -123,8 +125,13 @@ function makeRuntime({ apiKey = process.env.OPENAI_API_KEY, model = process.env.
   async function compileConnectomeMission(args){ return connectome.compileMissionFanout(args); }
   function connectomeDoctor(){ return connectome.doctor(); }
   function discoverMissionOrgans(args){ return connectome.discoverOrgans(args); }
+  async function importChatGPTProject(args={}){ return importChatGPTProjectExport({runtime:publicRuntime(),...args}); }
 
-  return Object.freeze({ ...baseRuntime, compileWholeBrainMission, discoverMissionPeers, wholeBrain, compileConnectomeMission, connectomeDoctor, discoverMissionOrgans, connectome });
+  function publicRuntime(){
+    return { status, registerChat, ingest, ask, council, monster, outreach100kCouncil, cognitiveCycle, reportContradiction, reportBlocker, mesh, fabric, backplane, compileWholeBrainMission, discoverMissionPeers, wholeBrain, compileConnectomeMission, connectomeDoctor, discoverMissionOrgans, connectome };
+  }
+
+  return Object.freeze({ ...publicRuntime(), importChatGPTProject });
 }
 
 export function getUberSocketRuntime(options={}){

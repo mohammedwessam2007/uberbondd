@@ -91,7 +91,7 @@ class RoomSocket {
   }
   async join() {
     const r = await this.push(this.topic(), 'phx_join', {
-      config: { broadcast: { ack: true, self: false }, presence: { enabled: false }, postgres_changes: [], private: false },
+      config: { broadcast: { ack: true, self: true }, presence: { enabled: false }, postgres_changes: [], private: false },
       access_token: PUBLISHABLE_KEY
     });
     this.joined = Boolean(r?.ok);

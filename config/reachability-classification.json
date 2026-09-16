@@ -125,6 +125,10 @@
     "NO_ADMITTED_UBEROCEAN_HOSTS": {
       "description": "UberOcean needs owner-authorized reachable Linux hosts; source cannot manufacture physical host availability or fresh reachability evidence.",
       "releasedBy": "At least one owner-authorized Linux host with fresh identity, reachability, resources and failure-domain evidence admitted by UberOcean. The UberCel bridge additionally refuses to compile a deployment plan without two independent failure domains, so a single admitted host releases admission but not deployment."
+    },
+    "NO_BUILT_UBEROS_IMAGE": {
+      "description": "UBER/OS Generation-0 ships a buildroot external tree, a build script and a machine manifest, but the manifest is a recipe rather than a receipt -- its kernel revision is the literal placeholder CAPTURE_EXACT_VERSION_IN_BUILD_RECEIPT. No image has been built and no machine runs it, so a transactional state-transition compiler has no state to transition.",
+      "releasedBy": "A completed Generation-0 build producing an image whose kernel revision, package digests and build-recipe digest are recorded as a real receipt, and a machine observed running it. Building requires a buildroot toolchain that is not present here."
     }
   },
   "modules": {
@@ -1010,6 +1014,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
       "reason": "Compiles admitted hosts into an UberCel deployment plan and refuses without two independent failure domains. With no admitted hosts there is nothing to compile, and the refusal is the tested behaviour."
+    },
+    "src/uberos/state-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_BUILT_UBEROS_IMAGE",
+      "reason": "Compiles a candidate state transition with its checks and rollback receipt, and refuses a transition that cannot be rolled back. Reached only from the UBER/OS test; the doctor reaches the system compiler, which does not use it. It is the piece that would make an OS update atomic, and there is no OS to update yet."
     }
   }
 }

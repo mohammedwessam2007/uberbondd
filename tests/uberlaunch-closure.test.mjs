@@ -19,11 +19,11 @@ test('UberPostal refuses to invent or publish an unapproved address',()=>{
   assert.ok(r.blockers.includes('public-footer-publication-authorization-required'));
 });
 
-test('UberProspect builds exactly four 500-recipient first-day lanes',()=>{
+test('UberProspect builds exactly four canonical 500-recipient first-day lanes',()=>{
   const rows=Array.from({length:2000},(_,i)=>({email:`prospect${i}@example.com`,sourceUrl:`https://example.com/${i}`,safeForOutreach:true,legalEligible:true}));
   const r=compileUberProspectPortfolio({records:rows,target:2000,perOfferTarget:500});
   assert.equal(r.ok,true);
-  assert.deepEqual(r.laneCounts,{UBERREPLY_01:500,UBERREPLY_02:500,UBERREPLY_03:500,UBERREPLY_04:500});
+  assert.deepEqual(r.laneCounts,{LEAD_TO_BOOKING_LEAK_AUDIT:500,AI_AGENT_RELEASE_GATE:500,CLIENT_ROI_PROOF_SPRINT:500,BILINGUAL_BOOKING_LEAK_AUDIT:500});
 });
 
 test('UberLaunch closes only when every external-reality atom is evidenced',()=>{

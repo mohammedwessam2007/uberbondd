@@ -6,14 +6,14 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-16T23:14:08.200Z",
-  "sourceCommit": "a378cf7fd365dd96c4abd9178744c6d248d37806",
+  "generatedAt": "2026-09-16T23:30:55.740Z",
+  "sourceCommit": "0e35067393010e6ef6d9020f7f16d455fd40c01a",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 1,
+  "softwareOpen": 0,
   "externalOpen": 2,
-  "totalOpen": 3,
+  "totalOpen": 2,
   "branchDebt": {
-    "measuredAgainstMain": "29014d43e18724515b669fc4905b387d123c7815",
+    "measuredAgainstMain": "a378cf7fd365dd96c4abd9178744c6d248d37806",
     "populations": {
       "PRE_REWRITE_LINEAGE": 735,
       "CONTAINED_IN_MAIN": 94,
@@ -95,8 +95,8 @@
       "class": "SOFTWARE",
       "what": "Branches that share an ancestor with main and carry commits beyond it, with no recorded disposition. EVENT HORIZON section 009 counts these in softwareOpen and section 183 makes completion invalid while valuable unique commits sit off main.",
       "whyNotDone": "Each needs MERGED, SUPERSEDED, ARCHIVED_DONOR, REJECTED_WITH_EVIDENCE or EXTERNAL_BLOCKED, decided on what the branch actually contains rather than on its name. Two clusters are already settled by evidence and recorded in the branch-debt artifact; the rest are not.",
-      "open": true,
-      "evidence": "3 of 25 diverged branches carry no terminal disposition: feat/outreach-100k-certified-launch-20260915, feat/command-center-big-button, feat/founder-big-button-outreach"
+      "open": false,
+      "evidence": "all 25 diverged branches reached a terminal class"
     },
     {
       "id": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",
@@ -203,8 +203,8 @@
       "narrowedBy": "Nothing. It is stated in every generation artifact rather than narrowed."
     }
   ],
-  "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "1 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "doneVerdict": "SOFTWARE_SIDE_COMPLETE",
+  "whyNotDone": null,
   "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",

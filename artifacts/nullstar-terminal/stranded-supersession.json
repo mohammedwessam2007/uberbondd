@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-nullstar-stranded-supersession-1.0.0",
   "debtItem": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",
-  "generatedAt": "2026-09-16T23:04:49.225Z",
+  "generatedAt": "2026-09-16T23:30:55.640Z",
   "mainSha": "a378cf7fd365dd96c4abd9178744c6d248d37806",
   "method": "Export-name identity first, distinctive filename token second, ABSENT when neither. Computed from the branch tree and main tree, not asserted.",
   "totalStrandedSrc": 101,

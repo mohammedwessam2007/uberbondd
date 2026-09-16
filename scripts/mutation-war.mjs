@@ -3235,6 +3235,20 @@ export const MUTATIONS = [
     suites: ['tests/reserved-domains.test.mjs']
   },
   {
+    id: 'MBXADDR-01', guard: 'A mailbox cannot certify against a verified domain its sending address does not belong to',
+    file: 'src/outreach-100k-launch-contract.mjs',
+    find: "    if (!address || !address.endsWith(`@${domainId}`)) reasons.push('mailbox-authenticated-address-required');",
+    replace: "    if (false) reasons.push('mailbox-authenticated-address-required');",
+    suites: ['tests/outreach-100k-launch-contract.test.mjs']
+  },
+  {
+    id: 'MBXADDR-02', guard: 'An explicitly supplied domainId cannot override the domain the address actually carries',
+    file: 'src/outreach-100k-launch-contract.mjs',
+    find: "    const domainId = clean(raw?.domainId || address.split('@')[1], 253).toLowerCase();",
+    replace: "    const domainId = clean(address.split('@')[1] || raw?.domainId, 253).toLowerCase();",
+    suites: ['tests/outreach-100k-launch-contract.test.mjs']
+  },
+  {
     id: 'OOPGATE-05', guard: 'The incumbent is measured against the gate rather than assumed to pass it',
     file: 'scripts/nullstar-generation.mjs',
     find: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;',

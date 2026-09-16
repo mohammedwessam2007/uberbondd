@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-generation.v1",
+  "status": "NULLSTAR_OMEGA_GENERATION_RECORDED",
+  "generationId": "G1",
+  "sourceCommit": "01cda737dee044735f581de45743af440426b07f",
+  "suiteVersion": "omega-local-evidence-suite-2.0.0-derived",
+  "corpusDigest": "4f75c7ae874dfb1d18b6b39c5ea6743d259a21eb30ef4471ee89a0a60c9b61f9",
+  "generatedAt": "2026-09-14T22:05:29.496Z",
+  "vector": {
+    "reasoning": 1,
+    "mathematics": 1,
+    "science": null,
+    "software": null,
+    "research": null,
+    "forecasting": null,
+    "causality": null,
+    "planning": null,
+    "toolUse": null,
+    "invention": null,
+    "crossDomain": 1,
+    "unknownUnknown": 1,
+    "longHorizon": 1,
+    "selfDiagnosis": 1,
+    "calibration": 1,
+    "robustness": 1,
+    "resourceEfficiency": 1
+  },
+  "coverage": {
+    "measured": 9,
+    "unmeasured": 8,
+    "unmeasuredDimensions": [
+      "science",
+      "software",
+      "research",
+      "forecasting",
+      "causality",
+      "planning",
+      "toolUse",
+      "invention"
+    ]
+  },
+  "meanMeasuredScore": 1,
+  "baselines": {
+    "B0": {
+      "description": "Derived-answer local evidence corpus. Each expected value is computed independently of the observation path."
+    },
+    "B1": null,
+    "B2": null,
+    "B3": null,
+    "B4": {
+      "description": "G0 on the direct-read corpus, which saturated at 1.0 across all four measured dimensions."
+    },
+    "B5": {
+      "description": "Current UberBond at this exact commit."
+    }
+  },
+  "declaredBaselines": [
+    "B0",
+    "B4",
+    "B5"
+  ],
+  "cost": {
+    "usdCents": 0,
+    "wallClockMs": null,
+    "founderMinutes": 0
+  },
+  "environment": {
+    "node": "v22.22.2",
+    "providerModelsConfigured": false
+  },
+  "failures": [],
+  "generationDigest": "15c1369904de20787717cdcad26ef0595fc2c87b32056a695df2e2ab7e3d7323",
+  "truthBoundary": "A_GENERATION_RECORDS_WHAT_WAS_MEASURED_AT_ONE_COMMIT_AGAINST_ONE_SUITE. AN_UNMEASURED_DIMENSION_IS_NULL_AND_NEVER_ZERO. IT_DOES_NOT_PROVE_IMPROVEMENT_GENERALIZATION_SELF_IMPROVEMENT_OR_ASI.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  }
+}

@@ -55,7 +55,9 @@ const ENFORCEMENT_SURFACE = [
   ['scripts/uberbond-self-maintainer-tick.mjs', 'is the scheduled controller that joins engineering results to repository promotion'],
   ['src/agent-worker-result-truth.mjs', 'decides what counts as finished work'],
   ['src/agent-autonomy-pump.mjs', 'acts on the truth decision'],
-  ['src/ai-employee-relay.mjs', 'acts on the truth decision']
+  ['src/ai-employee-relay.mjs', 'acts on the truth decision'],
+  ['src/sovereign-local-promotion.mjs', 'validates a change set before promoting it locally'],
+  ['src/sovereign-native-local-worker.mjs', 'compiles the change set the local lane promotes']
 ];
 
 function sourceFiles() {

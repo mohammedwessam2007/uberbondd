@@ -38,7 +38,7 @@ test('Air Node bootstraps locally before adding remote founder reachability',()=
   const bootstrap=activate.indexOf('"$BOOTSTRAP" "$ROOT" "$1" "$2" "$3"');
   const expose=activate.indexOf('"$TAILNET_CONFIG" "$TAIL_IP"');
   assert.ok(bootstrap>=0&&expose>bootstrap);
-  assert.match(activate,/canonical doctor and first wake succeed/i);
+  assert.match(activate,/added only after those local checks succeed/i);
 });
 
 test('tailnet exposure preserves strong token and rollback custody',()=>{

@@ -9,7 +9,7 @@ import {
 import { createFetchHandler } from '../api/webhooks/paypal.mjs';
 
 class MemoryStore {
-  constructor() { this.db = { leads: [], orders: [], auditLog: [], revenueEvents: [] }; }
+  constructor() { this.db = { leads: [], prospects: [], orders: [], auditLog: [], revenueEvents: [], jobs: [] }; }
   async get(key, id) { return structuredClone((this.db[key] || []).find(row => row.id === id) || null); }
   async list(key) { return structuredClone(this.db[key] || []); }
   async add(key, item) {
@@ -24,6 +24,12 @@ class MemoryStore {
     if (index < 0) throw new Error('missing');
     this.db[key][index] = { ...this.db[key][index], ...structuredClone(patch) };
     return structuredClone(this.db[key][index]);
+  }
+  // The canonical store exposes log(); the first-cash fulfillment runtime
+  // requires it, so the in-memory double must offer the same surface rather
+  // than silently failing the enqueue with store-required.
+  async log(type, detail = {}) {
+    return this.add('auditLog', { id: `audit-${this.db.auditLog.length + 1}`, type, detail, createdAt: new Date().toISOString() });
   }
   async transaction(fn) {
     const snapshot = structuredClone(this.db);
@@ -173,6 +179,7 @@ async function postWebhook(store, paypal, event) {
 async function onePayment(eventId = 'WH-STABLE') {
   const store = new MemoryStore();
   await store.add('leads', { id: 'lead-1', prospectId: 'prospect-1' });
+  await store.add('prospects', { id: 'prospect-1', domain: 'example.test' });
   const paypal = provider({ orderId: 'ORDER-A', captureId: 'CAPTURE-A' });
   await prepareAndCapture(store, paypal, 'stable-attempt', new Date('2026-09-04T18:00:00.000Z'));
   const event = completionEvent(paypal, eventId);
@@ -184,6 +191,7 @@ async function onePayment(eventId = 'WH-STABLE') {
 test('same PayPal webhook event id cannot certify a different capture/order even when economics and lead match', async () => {
   const store = new MemoryStore();
   await store.add('leads', { id: 'lead-1', prospectId: 'prospect-1' });
+  await store.add('prospects', { id: 'prospect-1', domain: 'example.test' });
 
   const firstProvider = provider({ orderId: 'ORDER-A', captureId: 'CAPTURE-A' });
   const secondProvider = provider({ orderId: 'ORDER-B', captureId: 'CAPTURE-B' });

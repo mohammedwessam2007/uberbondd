@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { failurePenaltyFor } from './model-failure-map.mjs';
 
 export const AGENT_MODEL_ROUTER_POLICY_VERSION = 'agent-model-router-1.0.0';
 
@@ -138,7 +139,12 @@ export function routeModel({
   minimumEvidenceConfidence = 0.5,
   explorationRate = 0.1,
   random = Math.random,
-  weights = {}
+  weights = {},
+  // Optional. A compiled model failure map, which knows what a specific
+  // provider and model systematically gets wrong on this task class -- the
+  // thing the aggregate benchmark below averages away. Absent, routing is
+  // exactly what it was.
+  failureMap = null
 } = {}) {
   const klass = text(taskClass, 80).toLowerCase();
   if (!TASK_CLASSES.has(klass)) return fail(['valid-task-class-required']);
@@ -172,11 +178,22 @@ export function routeModel({
   const scored = normalizedCandidates.map(candidate => {
     const benchmark = latest.get(candidate.candidateId) || null;
     const hasEvidence = Boolean(benchmark && benchmark.evidenceConfidence >= confidenceFloor);
+    const base = hasEvidence ? weightedScore(benchmark, w) * benchmark.evidenceConfidence : 0;
+    // The penalty applies only to systematic, task-class-specific findings, and
+    // it subtracts rather than disqualifies: a model with a known weakness here
+    // stays routable when it is still the best thing available.
+    const advice = failurePenaltyFor(failureMap, {
+      provider: candidate.provider,
+      model: candidate.model,
+      taskClass: klass
+    });
     return {
       candidate,
       benchmark,
       hasEvidence,
-      score: hasEvidence ? weightedScore(benchmark, w) * benchmark.evidenceConfidence : 0
+      failurePenalty: advice.penalty,
+      knownFailureModes: advice.systematicModes.map(item => item.failureMode),
+      score: Math.max(0, base - advice.penalty)
     };
   });
 
@@ -210,6 +227,11 @@ export function routeModel({
     benchmark: selected.benchmark,
     score: selected.score,
     evidenceStatus: selected.hasEvidence ? 'EVIDENCE_BACKED' : 'UNBENCHMARKED',
+    // Surfaced rather than folded silently into the score: a route chosen
+    // despite a known weakness should say so on the receipt, so the reason a
+    // model was picked or passed over is readable afterwards.
+    failurePenalty: selected.failurePenalty,
+    knownFailureModes: selected.knownFailureModes,
     alternatives: scored
       .filter(item => item.candidate.candidateId !== selected.candidate.candidateId)
       .sort((a, b) => b.score - a.score)

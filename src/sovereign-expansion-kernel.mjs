@@ -1,17 +1,8 @@
 import crypto from 'node:crypto';
+import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const SOVEREIGN_EXPANSION_KERNEL_VERSION = 'uberbond.sovereign-expansion-kernel-1.0.0';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  providerCalls: 0,
-  messages: 0,
-  purchases: 0,
-  deployments: 0,
-  credentialChanges: 0,
-  dnsChanges: 0,
-  productionMutations: 0,
-  spendCents: 0
-});
 
 const lens = (id, name, purpose, questions) => Object.freeze({ id, name, purpose, questions: Object.freeze(questions) });
 

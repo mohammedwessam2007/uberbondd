@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-1.0.0",
+  "generation": "GA7",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "directiveSections": [
+    "053",
+    "054",
+    "055",
+    "056",
+    "057",
+    "058",
+    "074",
+    "076"
+  ],
+  "generatedAt": "2026-09-15T12:52:20.455Z",
+  "sourceCommit": "7303fb8b012352bb888a6f29d5cd3bebc6c4a3db",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "INVENTION",
+  "difficulty": 4,
+  "declarationRef": "artifacts/nullstar-terminal/ga7-declaration.json",
+  "precommittedThreshold": "Above 0.8 on held-out seeds never seen at difficulty 4, passing the out-of-pattern gate, no regression at difficulty 1, 2 or 3, and beating the incumbent -- where beating an incumbent that fails the gate means passing it at an in-distribution score no lower.",
+  "thresholdUsed": 0.8,
+  "incumbent": {
+    "trainScore": 0.5,
+    "heldOutScore": 0.5,
+    "outOfPattern": {
+      "correct": 3,
+      "refused": 0,
+      "confabulated": 0,
+      "of": 3
+    },
+    "outOfPatternGate": "PASSES"
+  },
+  "comparisonRule": "IN_DISTRIBUTION_STRICTLY_GREATER",
+  "candidates": [
+    {
+      "candidate": "M1_TWO_QUANTITY_ONLY",
+      "trainScore": 0.5,
+      "heldOutScore": 0.5,
+      "regressions": [],
+      "complexityBytes": null,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": false
+    },
+    {
+      "candidate": "M2_REFUSE_ON_LEFTOVER",
+      "trainScore": 0,
+      "heldOutScore": 0,
+      "regressions": [],
+      "complexityBytes": null,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": false
+    },
+    {
+      "candidate": "M3_LEFT_TO_RIGHT_NARY",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": null,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": true
+    },
+    {
+      "candidate": "M4_CLAUSE_GROUPED_NARY",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": null,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": true
+    }
+  ],
+  "disqualifiedForRegression": [],
+  "winner": "M3_LEFT_TO_RIGHT_NARY",
+  "outcome": "PROMOTED",
+  "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+  "outOfPatternGate": {
+    "applied": true,
+    "minimumCorrectRate": 0.6,
+    "probeCount": 3,
+    "confabulationDisqualifies": true
+  },
+  "disqualifiedByOutOfPatternGate": [],
+  "tiedAtTop": [
+    "M3_LEFT_TO_RIGHT_NARY",
+    "M4_CLAUSE_GROUPED_NARY"
+  ],
+  "attributionWarning": "2 eligible candidates scored 1 on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows that the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work. Isolating that needs an ablation carrying the minimal shared fix and nothing else.",
+  "tieBreak": "Tied at 1 and the size heuristic did not separate them either (unmeasurable against unmeasurable); M3_LEFT_TO_RIGHT_NARY won on registration order, which is arbitrary.",
+  "improvementVelocity": {
+    "deltaCapability": 0.5,
+    "wallClockMs": 8,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0,
+    "regressions": 0
+  },
+  "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY ON ONE INSTRUMENT. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT OR ACCELERATION.",
+  "businessEffectAuthority": "NONE"
+}

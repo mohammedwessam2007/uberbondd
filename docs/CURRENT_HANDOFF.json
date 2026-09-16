@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-12",
-  "sourceCommit": "f8f3d579c04a565882ba62342d9c94a104eab73a",
+  "checkpointedAt": "2026-09-15T03:30:00.000Z",
+  "sourceCommit": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
@@ -12,7 +12,7 @@
     "law": "Every prior completed entry, blocker, named program, goal, privacy boundary, authority boundary, evidence receipt and historical classification remains inherited by Git history and this exact blob reference unless explicitly superseded below. Omission from this compact checkpoint is not deletion."
   },
   "startupLaw": "A session may be new; UberBond may not be new. Refresh live main before present-tense claims, then mount the canonical Context Fabric/Brainstate and reconcile open PRs, exact-current runtime/provider receipts, CURRENT_HANDOFF and executable terminal truth. Read AGENTS.md, NORTH_STAR.md, UBERBOND_CANON.md, UBERBOND_BOOTSTRAP.json, master memory/index and inherited handoffs before narrowing scope. A stale handoff is a retrieval pointer, never authority to overwrite newer executable truth. Capability never creates authority.",
-  "activeMission": "Operate from the five-cut external/owner frontier without reopening completed finite engineering or manufacturing graph work. Preserve the resident Context Fabric and exact-source runtime proofs; close a remaining cut only when its cut-specific real-world receipt is observed. In parallel, activate the first owned or authorized persistent founder host when physical compute and owner-controlled model artifacts are available, so resident compute and resident cognition coexist continuously.",
+  "activeMission": "PROJECT NULLSTAR OMEGA ABSOLUTE (406 sections, 2026-09-15). Two lineages were reconciled here: the APOTHEOSIS orchestration and one-button outreach work that advanced on main, and the NULLSTAR OMEGA cognitive-measurement spine that advanced on this branch while it was 121 commits behind. Neither is the organism on its own. Operate from the five-cut external/owner frontier without reopening completed finite engineering or manufacturing graph work. Preserve the resident Context Fabric and exact-source runtime proofs; close a remaining cut only when its cut-specific real-world receipt is observed. In parallel, activate the first owned or authorized persistent founder host when physical compute and owner-controlled model artifacts are available, so resident compute and resident cognition coexist continuously.",
   "currentTruth": {
     "repository": {
       "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
@@ -88,7 +88,58 @@
       "retainedCustomers": 0
     },
     "lifeOutcomeProof": "NOT_OBSERVED_FOR_CURRENT_PERSONAL_CIVILIZATION_RUNTIME",
-    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED"
+    "asiEvidence": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+    "nullstarDirective": {
+      "sections": 336,
+      "byState": "33 VERIFIED_CURRENT, 31 PARTIAL, 244 MISSING, 14 BLOCKED, 14 NOT_CURRENTLY_JUSTIFIED",
+      "missingIsAnUpperBound": "A section reads MISSING when the evidence gate finds nothing under its name. Several are renamed rather than unbuilt, which is what the alias mechanism is for, and an alias supplies only the name -- the state is still computed from evidence."
+    },
+    "nullstarOmega": {
+      "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 / G4 / G5 / G6",
+      "instrument": "SEPARATED at G3 after three saturated generations. spread 0 -> 1.",
+      "trend": "INSTRUMENT_CHANGED. Score movement across a suite change describes the instrument, not the system.",
+      "metaImprovement": "META_IMPROVEMENT_NOT_ESTABLISHED. 6 episodes: 2 resolved, 2 persisted, 2 moved-elsewhere. Four are prospective.",
+      "generalization": "DID_NOT_GENERALIZE. 1 of 3 families correct on first attempt.",
+      "realityConnection": "REALITY_CALIBRATED. 2 closed loops, 1 voided for a defective derivation rule, 2 surprises, mean Brier 0.7975.",
+      "denominator": "14 VERIFIED, 9 OPERATING, 1 REALITY_CALIBRATED",
+      "transfer": "Sections 313 and 314 wired into src/founder-command-center.mjs. The money claim carries a sealed forecast a provider-origin receipt decides.",
+      "g4": "software scored 0.6667 from git history alone -- 6 of 9 src modules introduced on this branch were never edited after the commit that introduced them. Coverage 9 -> 10. No provider contacted.",
+      "refutation": "BN-EVAL-COVERAGE's provider hypothesis is REFUTED for at least one dimension. Seven remain unattempted, so this refutes the blanket claim without closing the gap.",
+      "circularityGuards": "G3 and G4 each score selfDiagnosis only from episodes that had closed when they were built, using a numeric generation cutoff. Excluding by name alone would let a later generation raise an earlier one's score retroactively. The meta->G4 chain is verified stable across repeated runs.",
+      "g5": "The evidence-reuse guard refused forecasting and causality. Every observation behind them was already scoring another dimension, so counting them would have raised coverage without observing anything new. Coverage held at 10 and the symptom persisted.",
+      "integrityTension": "G5 scores as a persistence BECAUSE the guard refused to inflate coverage. A process that declines to inflate its own metric scores worse here than one that inflates it. Recorded rather than adjusted away: adjusting it would make the metric unfalsifiable.",
+      "correctedHeadlineNumber": "G6 re-recorded G5's readings against G2, the last generation on the probe suite, and the detector found that six of the ten were carried across the suite change: reasoning, mathematics, unknownUnknown, longHorizon, robustness and resourceEfficiency, all at 1.0. The mean over what the outcome instrument actually measured is 0.525313. Every mean reported from G3 onward, including the 0.810125 this session reported for G5, averaged two instruments and reported the flattering half as current.",
+      "declarationDiscipline": "The G5 declaration predicted the corrected mean within 0.005 and still scored SYMPTOM_PERSISTED, because it committed the symptom kind INSTRUMENT_SATURATED while writing a prose criterion about how the mean is computed. The committed kind decides, so a real fix scored as a persistence and was not rescored. Declarations must now quote the rule their kind is judged by, and validateDeclaration refuses a mismatch at declaration time, when correcting it is free."
+    },
+    "pullRequestDebt": {
+      "title": "Evidence-bound UberInboxes scale profiles",
+      "author": "mohammedwessam2007",
+      "notMine": "Opened by the founder. Not pushed to from this session.",
+      "openQuestionResolved": "theoreticalColdDailyCap: the source is right and the test is stale. src/uberinboxes-scale-profiles.mjs already returns null when the provider cold cap is not a finite non-negative number, and a product otherwise. That is the correct distinction between unknown and known-zero. tests/uberinboxes-scale-profiles.test.mjs asserts null for a case where the cap is known, which asserts that a known zero is unknown and erases the distinction the source makes.",
+      "action": "The author's call. The analysis is recorded here rather than pushed."
+    },
+    "head": "1834abe32a410fc8f282bdd6e4f7516e807ef480",
+    "deterministicSuite": "7050 tests, 0 source failures (canon freshness regenerated in the final commit)",
+    "mutationWar": "408 mutations, 408 killed, 0 not killed",
+    "reachability": "704 src modules, 213 production, 344 operator-only, 140 no-entry, allClassified true, zero NEEDS_TRIAGE",
+    "denominator": "24 dimensions: 14 VERIFIED, 9 OPERATING, 1 REALITY_CALIBRATED",
+    "firstRealityCalibratedDimension": "N12 CALIBRATION, earned by forecasts sealed before a procedure ran and scored against what the procedure emitted",
+    "generations": "G0 1.0 / G1 1.0 / G2 1.0 / G3 0.770506",
+    "improvementTrend": "INSTRUMENT_CHANGED. The suite changed inside the series, so score movement describes the instrument rather than the system. Acceleration NOT_ESTABLISHED.",
+    "metaImprovement": "3 episodes: 1 moved-elsewhere, 1 persisted, 1 resolved. META_IMPROVEMENT_NOT_ESTABLISHED, because a working verdict needs two prospective episodes and there is one.",
+    "generalization": "1 of 3 families correct on first attempt. DID_NOT_GENERALIZE.",
+    "calibration": "2 closed loops, 1 voided, 2 surprises, mean Brier 0.7975. The system's self-model is measurably miscalibrated.",
+    "clearedRevenue": 0,
+    "customers": 0,
+    "nullstarOmegaAbsolute": {
+      "milestoneA_reconciledMain": "DONE. origin/main merged into the development branch; 121 behind to 0. Three conflicts resolved semantically. PR #889 open.",
+      "milestoneB_measurementIntegrity": "DONE. The meta timing boundary is derived from episode classes instead of a stale literal. Calibration is a seven-rung ladder and the denominator reads the placement inside a receipt rather than the file's existence. The observer contract refuses text matching against a structured producer and refuses an observer that reads the artifact stating its own claim.",
+      "milestoneC_baselines": "DONE. B0 3/6, B4 3/6, B5 6/6, B1-B3 blocked with dependency, attempt and unblock condition. Zero unexplained nulls.",
+      "theFindingThatMatters": "The sealed corpus was tautological. For every task the expected answer and the observation were the same expression over the same file, so any tree scored full marks against itself, and a single constant answers half of it. The previous UberBond scores exactly what a constant scores. The 1.0 across G0, G1 and G2 was never a capability measurement.",
+      "suiteRetired": "omega-local-evidence-suite-1.0.0 retired, G0 through G6 marked contaminated with their scores preserved. Successor omega-independent-suite-1.0.0 is defined and mutation-guarded but has no tasks yet.",
+      "gatesAtHead": "7231 pass / 0 fail / 54 skipped; 432 mutations 432 killed; 1977 files parse; 734 modules fully classified.",
+      "finalReport": "artifacts/nullstar-omega-absolute/final-report.json, generated from artifacts with an exact-head gate receipt. Zero fields with no value."
+    }
   },
   "completedSincePreviousCheckpoint": [
     "Context Sovereignty was promoted from a documented recovery procedure into executable Brainstate, Context Mount, canonical Cognitive Bus, durable cognitive journal, privacy suppression, task-bound projections, Context Query, replication bundles, schema/ancestry admission and resident self-maintaining layered storage.",
@@ -97,7 +148,43 @@
     "Embedded PostgreSQL cloud portability was repaired through #751/#753/#755, including pinned native-library soname and loader-path handling without widening install authority.",
     "Exact merged source f8f3d579c04a565882ba62342d9c94a104eab73a independently re-earned source-host, web-host, real PostgreSQL restart/recovery and local-model receipts.",
     "Canonical terminal realization on the checkpoint source reports 100% of declared finite engineering scope, zero finite open requirements, zero runtime proof cuts, MODEL_PROVIDER closed, and exactly five external/owner cuts remaining.",
-    "The canonical founder-absence doctor reports CODE_READY open = 0; all remaining open blockers are external-human, provider-acceptance, customer-reality or elapsed-time classes."
+    "The canonical founder-absence doctor reports CODE_READY open = 0; all remaining open blockers are external-human, provider-acceptance, customer-reality or elapsed-time classes.",
+    "Current main was red: 55 deterministic failures on an untouched checkout, and 203 before dependencies were installed in this container. Diagnosed and repaired to the remainder recorded below.",
+    "Three genuine source defects were found and fixed. operational-world-resource-admission coerced absent permission collections into empty ones, so a resource with permissions:null on both sides admitted with ok:true and no permission evidence. Two callers of enforcement decisions (sovereign-local-promotion, sovereign-native-local-worker) sat outside SOVEREIGNTY_PROTECTED_PATHS and could have discarded the decision. FIRST_CASH_OFFER.sku feeds requiresExactSku on the PayPal order a buyer approves and nothing asserted it.",
+    "Five mutation anchors pointed at text that no longer existed, so five guards were silently untested. Re-anchored; two then survived, which found a missing SKU test and a redundant integrity check absorbing its own mutation. All five now kill.",
+    "Ten modules had landed with tests and no entry point or classification, and are now recorded as NEEDS_TRIAGE with what is actually undecided about each. Four modules declaring the canonical effect-ledger name over a different key shape now share one definition.",
+    "docs/CURRENT_SYSTEM_STATE.md named c45873676dce, which is not a valid object in this repository. Canon was regenerated; capability entries 33 before and 33 after, checked explicitly.",
+    "PROJECT NULLSTAR was imported as a durable 336-section human/machine pair with truth class FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL. It is an execution-discipline program beneath the existing hierarchy, not a new North Star.",
+    "The founder-directive reconciler (npm run nullstar:reconcile) compiles every directive section against repository evidence, reusing the sovereign coverage matrix's locator rather than growing a second view of the tree. Its anti-fiction guards are mutation-verified.",
+    "CXLIX MODEL FAILURE MAP, the highest-reference genuinely-absent section, is built, tested, mutation-checked and wired into routeModel, and the reconciler independently re-measures it as VERIFIED_CURRENT.",
+    "Section 312 reality connection. Built on the existing sealed ledger: an observable must name a runnable procedure, and the outcome must come from its output. Three forecasts sealed before anything ran; two closed, both surprised.",
+    "Two observation-apparatus defects found by the seal rather than by review. A derivation rule matched the word 'survived' inside guard descriptions WAR-02, LKG-04 and FCSTACK-07 and read the mutation catalogue as the result, against an actual 397 killed 0 not killed; that loop is voided rather than rescored, because the answer is now known and a replacement forecast would measure memory. A second observer read config/reachability-classification.json, the file this session used to park those modules, so the observation was scored against its own prior declaration; the declared rule always said the import graph, so the observer was repaired and returned the same answer independently.",
+    "Section 310 meta-improvement. G0 and G1 both named a saturated instrument and both times the response widened coverage instead of raising difficulty. The G2 diagnosis named the cause and G3 acted on it; that symptom resolved. Retrospective episodes can show a process failing and cannot show it succeeding.",
+    "Section 311 generalization. The reality-connection discipline was carried to three families and was correct on first attempt in one. The existing cross-domain transfer evaluator was run and refused, as expected: its three-arm matched-budget protocol needs an instrument this environment does not have, and filling the arms with invented numbers would manufacture the evidence.",
+    "Sections 313 and 314 transfer. The command center's money claim now carries a sealed forecast that a provider-origin receipt decides, lopsided against clearing because no authorized contact path exists. CRM state, invoice status, internal ledger rows, model output and operator assertion are refused as deciders.",
+    "G3 (sections 038 and 309). First generation in four whose instrument separated. G3 reads only meta-improvement episodes whose successor is not G3, so the G2-to-G3 result cannot score the generation it is about.",
+    "Two comparator defects found by G3. compareGenerations subtracted scores taken on different suites and called the difference a regression; it now reports deltas and refuses to classify them. improvementTrend called [0, 0, -0.23] FLAT; a series that holds still and then drops is falling, and a trend spanning a suite change is INSTRUMENT_CHANGED.",
+    "Ten NEEDS_TRIAGE modules traced and resolved. Six have no importer at all; the other four form two islands. None reaches production. Each is now AWAITING_ACTIVATION against a named gate, and eight new gates are registered. NEEDS_TRIAGE is empty.",
+    "Eleven mutation anchors added for the new guards. All eleven kill. 408/408.",
+    "G4 and the second prospective meta-improvement episode. The G3 bottleneck's symptom kind and resolution criterion were committed in G3-prospective-declaration.json before any G4 code existed, so the ordering is checkable in git rather than asserted. Criterion met: coverage rose 9 to 10.",
+    "BN-EVAL-COVERAGE's provider hypothesis refuted. software scores 0.6667 from git history alone: of nine src modules introduced on this branch, six were never edited after the commit that introduced them. The dimension was unmeasured because nobody had written a task for it, not because it needed a provider. Recorded in refutations.json so no later generation re-selects it.",
+    "Two circularity guards. G3 and G4 score selfDiagnosis only from episodes closed before they were built, under a numeric generation cutoff; excluding by name would let a later generation raise an earlier one's score retroactively. The meta-to-G4 chain is verified stable across repeated runs.",
+    "Thirteen mutation anchors total for this session's guards. All kill. 410 mutations, 410 killed, 0 not killed.",
+    "Alias reconciliation pass. 137 of 247 MISSING sections had a name match of 50% or better; verification rejected almost all as coincidental word overlap. Two were confirmed against the requirement text and both reached VERIFIED_CURRENT through the evidence gate rather than by declaration. 33 VERIFIED_CURRENT, 31 PARTIAL, 244 MISSING.",
+    "G5 and the evidence-reuse guard. Coverage is the easiest number in the spine to inflate: take evidence already scoring one dimension, cut it differently, give the slice a second name. The guard makes a dimension declare the observations it reads and refuses one whose evidence is already spoken for. It refused forecasting and causality, which is what the declaration committed before G5 predicted it would do.",
+    "The improvement-process verdict was taken back. G4 earned IMPROVEMENT_PROCESS_WORKING on two prospective resolutions; G5's prospective episode persisted and the verdict fell to META_IMPROVEMENT_NOT_ESTABLISHED. A metric that only ratchets up is not measuring anything.",
+    "412 mutations, 412 killed.",
+    "Closed a loophole in the meta verdict itself. The G4->G5 episode flipped from SYMPTOM_PERSISTED to MOVED_ELSEWHERE when a later generation recomputed one of its own dimension scores, moving the mean without measuring anything new, and the verdict climbed back to working on that bookkeeping change alone. A working verdict now requires resolutions to outnumber every non-resolution. 413 mutations, 413 killed.",
+    "G6 and the stale-reading detector. G3 switched to the outcome suite and carried six ceiling readings forward from the saturated instrument it replaced, so every mean from G3 on averaged two instruments. recordGeneration now detects carryover automatically from the previous generation rather than trusting a caller to declare it, excludes carried readings from the headline mean, keeps the inflated figure visible beside it, and refuses a generation whose every reading was carried. Corrected mean: 0.525313 against a reported 0.810125.",
+    "Declaration validation. The G5 declaration's prose criterion diverged from the symptom kind it committed, so a genuine fix scored as a persistence. It was not rescored. validateDeclaration now refuses a declaration whose stated rule differs from the one its kind is judged by, at declaration time rather than at scoring time.",
+    "416 mutations, 416 killed.",
+    "Reconciled the two lineages. The branch was 33 ahead and 121 behind; main carried APOTHEOSIS orchestration and one-button outreach, the branch carried the cognitive-measurement spine. Merged with three semantic conflict resolutions, ten newly-unclassified modules traced and gated, and one stale classification cleared. PR #889.",
+    "Repaired the meta-improvement contradiction. The artifact asserted every episode was retrospective directly above four marked prospective; the sentence is now derived from the data and a hostile test fails on the contradiction.",
+    "Replaced REALITY_CALIBRATED with a seven-rung calibration ladder. Two repository-local forecasts no longer carry the label a system calibrated against the world would carry; N12 reads REPOSITORY_LOCAL_CALIBRATED and names its shortfall.",
+    "Built the observer contract and wired it live, where it immediately refused the mutation observer for matching text against a producer that emits structure. Replaced with a counts read that rejects itself unless the counts sum.",
+    "Ran the baselines and found the corpus was tautological. This is the most important result of the mission and it invalidates the headline numbers of every prior generation.",
+    "Retired the contaminated suite and built its successor's definition, which refuses a task whose answer and observation share a path or a locator.",
+    "Generated the final report from artifacts with an exact-head gate receipt rather than writing it."
   ],
   "genuineBlockers": [
     "MESSAGING_PROVIDER: one real Gmail sender identity and historical sent activity are observable, but no second independent authorized/callable messaging provider with activation, sender identity, policy and canary evidence has been observed. Do not relabel fixtures or unrelated messaging systems to close it.",
@@ -106,18 +193,38 @@
     "CREDENTIAL_CUSTODY: requires observed founder enrollment with threshold >=2, at least two factor types and at least two custody domains, with no secret material in the receipt. This cannot be inferred from configured accounts.",
     "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
     "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
-    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations."
+    "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
+    "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
+    "NULLSTAR ALIAS RECONCILIATION: 244 sections read MISSING, an upper bound rather than a count of unbuilt organs. A name-similarity pass over all 247 found a >=50% word match for 137 of them, and verification killed almost all of those: ADVERSARIAL COUNCIL matched forecast-adversarial-ensemble, which is about source independence and not red-team critique roles, and PARALLEL GRAPH EXECUTION matched execution-leaf-graph, which does not measure wall-clock reduction. Two survived verification and both reached VERIFIED_CURRENT through the evidence gate. Mass-aliasing on a shared word would make the matrix look better while being less true, which is the failure this row exists to prevent. Each remaining section needs its requirement read against the candidate module.",
+    "NULLSTAR OMEGA COGNITIVE MEASUREMENT IS PROVIDER-GATED, AND THE GATE IS NARROWER THAN G2 SAID: re-probing split it. A local inference runtime installs and runs here -- onnxruntime 1.30.0 imports with CPUExecutionProvider, and PyPI is reachable at 54 MB/s. What is refused is weights: huggingface.co answers 403 to CONNECT, and gpt4all.io, ollama.com, hf-mirror.com and modelscope.cn are unreachable. A second, independent blocker sits behind that one: the Capability Genome admission gate requires STATIC, SEMANTIC and SANDBOX evidence plus a resolved SPDX license before any world artifact may execute, and no weight artifact here carries any of the three. Opening the network alone would not make a model selectable. This gates capability-by-judgement scoring only; bottleneck discovery, generalization, meta-improvement, reality calibration, life transfer and economic transfer were blocked by association in the G2 verdict and are not. All six are now done. Evidence: artifacts/nullstar-omega/G2-discriminating-test.json v1.1.",
+    "FIRST REALITY-CALIBRATED DIMENSION IS EARNED; THE REST ARE NOT. N12 CALIBRATION now sits at REALITY_CALIBRATED on 2 closed loops with mean Brier 0.7975 and 2 surprises out of 2. The other 23 dimensions sit at VERIFIED or OPERATING and still have no prediction checked against a later observation. One calibrated dimension is not a calibrated system, and a mean Brier of 0.80 says this system's self-model is wrong more often than it expects to be.",
+    "NO INSTRUMENT CAN CURRENTLY SEPARATE THIS SYSTEM FROM A CONSTANT. The baselines showed the sealed corpus was tautological: answer and observation were the same expression, so every tree scored full marks against itself, and a single constant answers half the tasks. The suite is retired. Its successor refuses tautological tasks at definition time and is mutation-guarded, but no task has been written against it. Everything downstream -- the seven unmeasured dimensions, any capability generation, any UB tier -- waits on instantiating it. This is software work, not an external gate.",
+    "OBSERVATION APPARATUS IS UNRELIABLE: of three observers written this session, one misread guard prose as a result and one read a file this session had written. Two of three failed on first attempt. The seal is what made both visible; nothing guarantees the next one is sound."
   ],
   "nextExecutor": {
-    "primary": "Refresh exact live main and mount Context Fabric. Do not reopen finite source engineering. Seek admissible real evidence for the five remaining sovereign cuts; if unavailable, work only on independently valuable external activation/reality tasks rather than inventing more source architecture.",
+    "primary": "Instantiate omega-independent-suite-1.0.0. The definition refuses tautological tasks and is mutation-guarded; what is missing is tasks. Each needs an answer path and an observation path that genuinely differ -- the sealed-prior-state path is the strongest available here, because answering a question about a tree state sealed before the tree changed requires prediction rather than a read. Until that exists there is no instrument, and no capability claim, generation or UB tier can mean anything.",
     "persistentRuntime": "When an owned or authorized Linux host is available without an unapproved paid commitment, install the already-complete resident sovereign stack, local model and Context Fabric, then collect host/service/dialogue/restart/failover receipts.",
     "messaging": "Import a second real authorized messaging-provider path only after provider activation, sender identity, policy and canary evidence actually exist.",
     "payment": "Admit only live second-rail settlement or live PayPal recovery evidence; sandbox is preparation only.",
     "deployment": "Admit only a genuinely distinct provider exact-release boot, cutover and rollback receipt.",
     "identityAndCustody": "Require explicit owner participation for custody enrollment, liveness and same-identity recovery. Never manufacture these from software state.",
-    "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling."
+    "cognitiveLaw": "Parallel cognition, serial authority. New sessions inherit one persistent brain; stale context triggers reconciliation, not founder retelling.",
+    "directiveDiscipline": "A directive section is not a work order. Build only what current authorization covers, and never convert a cut-set position into authority.",
+    "thenConsider": [
+      "The G3 bottleneck is BN-EVAL-COVERAGE again, leverage 9, unlocks 17. Read it before assuming the answer is more dimensions -- that was the G1 mistake and it cost two generations.",
+      "247 directive sections remain MISSING. The alias mechanism exists and is mutation-verified; further reviewed aliases are a reading exercise, not new code.",
+      "The reality-connection loop currently runs from an operator command. A scheduled loop that records forecasts without an operator would make src/nullstar-omega-reality-connection.mjs production-reachable and release its gate."
+    ],
+    "doNot": [
+      "Do not widen coverage in response to the G3 bottleneck without first checking whether the instrument is saturated. Widening a saturated instrument was the G1 response and the ceiling survived it twice.",
+      "Do not rescore a voided reality loop. The answer is known, so a replacement forecast measures memory.",
+      "Do not push to PR #868. It is the founder's; the analysis is recorded, the decision is theirs.",
+      "Do not edit a line a mutation anchor targets without re-running tests/mutation-registry-anchor-integrity.test.mjs immediately. Closing the MOVED_ELSEWHERE loophole rewrote the line METAIMP-02 anchors on and silently killed that guard; the integrity test caught it, but only because it was run again. Run it after the edit, not before.",
+      "Do not report a generation mean without checking coverage.carriedFromAnotherSuite. Six of ten readings were stale for four generations and the error ran in the flattering direction every time, because the dimensions nobody re-measures are the ones already at the ceiling.",
+      "Do not report a score from any generation G0 through G6 as a capability measurement. They were all produced on a suite where the answer and the observation were the same expression, and artifacts/nullstar-omega/suite-retirement.json records which ones."
+    ]
   },
-  "truthBoundary": "This checkpoint is a compact retrieval frontier bound to verified source ancestor f8f3d579c04a565882ba62342d9c94a104eab73a. It records zero remaining finite source/runtime cuts on that ancestor and five remaining external/owner sovereign cuts. Because committing a checkpoint creates a descendant SHA, every future session must refresh live main before exact-source claims. This checkpoint does not prove a 24/7 owner-controlled physical host, a second messaging provider, live payment recovery/settlement, independent deployment failover, owner custody enrollment, owner liveness/identity recovery, customers, revenue, life outcomes or ASI.",
+  "truthBoundary": "THE SEALED CORPUS WAS TAUTOLOGICAL. EVERY CAPABILITY NUMBER THIS PROJECT HAS REPORTED, INCLUDING THE CORRECTED 0.525313, WAS PRODUCED ON AN INSTRUMENT THAT COMPARED A TREE TO ITSELF AND WHICH A SINGLE CONSTANT SCORES HALF OF. THE PREVIOUS UBERBOND SCORES EXACTLY WHAT THE CONSTANT SCORES. REVENUE IS ZERO. CUSTOMERS ARE ZERO. CLEARED PAYMENTS ARE ZERO. SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. NO UB TIER IS CLAIMABLE.",
   "orchestrationCheckpoint": {
     "path": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
     "importedAt": "2026-09-12",
@@ -146,5 +253,23 @@
       "reportedIssue770": "OBSERVED_CLOSED_2026-09-15",
       "resume": "Refresh main and authority; verify P44 then P47 against existing mechanisms. P47 does not wait for P46. Preserve earlier finite engineering and runtime receipts with their original source scope."
     }
+  },
+  "activeMissionDetail": {
+    "directive": "PROJECT NULLSTAR OMEGA (339 sections, 2026-09-15)",
+    "state": "Every section that does not require founder consent, identity, money, a customer, a legal fact, a physical action, an unavailable credential, provider acceptance or real elapsed time has been executed.",
+    "whatChangedMost": "The evaluation instrument stopped reading its own answers. G0 through G2 all scored 1.0 on every dimension because each corpus task was a direct read of a value the repository computes for itself. G3 measures outcomes instead and separates: 0.60 calibration, 0 selfDiagnosis, 0.33 crossDomain, spread 1, mean 0.77."
+  },
+  "reconciliation": {
+    "startMainSha": "66430f5b7562de83d4d8907a6e228cbd3eb14ec1",
+    "startNullstarSha": "0a5cd4b46e070855c04abfb4d2a27453976ddf20",
+    "mergeBase": "2831e4e010fce9b4775ade0c31aae0622de2b104",
+    "aheadAtStart": 33,
+    "behindAtStart": 121,
+    "method": "origin/main merged into the designated development branch, so the branch carries exact current main plus the NULLSTAR work. Section 011 preferred a fresh branch cut from main; the goal it names -- NULLSTAR work sitting on exact current main -- is what this achieves, and it keeps the branch this session is required to develop on.",
+    "conflicts": [
+      "tests/autonomy-command-center-wiring.test.mjs: both lineages asserted the wake workflow is dispatch-only and each carried a check the other lacked. Resolved as the union.",
+      "tests/economic-reliability-autoprep.test.mjs: a tolerant regex against a strict one. Source emits 'NEVER prove independence' exactly, so the strict assertion describes the behaviour and the tolerant one would also pass a string this module never produces.",
+      "docs/CURRENT_HANDOFF.json: merged structurally. Main's seven blockers were verified byte-present among this branch's thirteen before taking the superset."
+    ]
   }
 }

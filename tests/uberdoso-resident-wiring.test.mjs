@@ -12,10 +12,46 @@ async function fixture(){
   const store=new Store(root);await store.init();
   return{root,store};
 }
-async function waitUntil(predicate,timeoutMs=1000){
+// Returns as soon as the predicate holds, so the budget only bounds failure.
+// Raised from 1000ms because that bound is a race against machine load rather
+// than a property of the code under test. The assertion is unchanged.
+async function waitUntil(predicate,timeoutMs=15000){
   const start=Date.now();
   while(Date.now()-start<timeoutMs){if(predicate())return true;await new Promise(resolve=>setTimeout(resolve,10));}
   return false;
+}
+
+/**
+ * Remove a fixture directory the scheduler may still be writing into.
+ *
+ * This test failed intermittently in the full suite and never in isolation, and
+ * the first thing I changed was the wait budget above -- which was not the
+ * cause. The actual error is ENOTEMPTY, thirty milliseconds in: the predicate
+ * is satisfied almost immediately, stop() is called, and the directory is
+ * deleted while work is still landing in it.
+ *
+ * stop() clears the interval timers and returns synchronously. It does not
+ * await the promises already in flight, and with a one-second wealth heartbeat
+ * and a dozen jobs firing their first tick immediately, several are mid-write
+ * when it returns. That is a reasonable scheduler design -- a caller wanting
+ * quiescence should wait for it -- and the test was not doing so.
+ *
+ * Under load the window widens, which is why parallelism exposed it.
+ */
+async function removeWhenQuiet(root, attempts = 40) {
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      await fs.rm(root, { recursive: true, force: true });
+      return;
+    } catch (error) {
+      // ENOTEMPTY means a write landed between the walk and the rmdir, so the
+      // work is still settling. Anything else is a real failure to surface.
+      if (error?.code !== 'ENOTEMPTY' && error?.code !== 'EBUSY') throw error;
+      await new Promise(resolve => setTimeout(resolve, 25));
+    }
+  }
+  // Out of attempts: say so rather than leaving a silently undeleted fixture.
+  await fs.rm(root, { recursive: true, force: true });
 }
 
 test('durable scheduler emits a resident UberDoso reconciliation occurrence',async()=>{
@@ -30,7 +66,7 @@ test('durable scheduler emits a resident UberDoso reconciliation occurrence',asy
     const jobs=enqueued.filter(job=>job.type==='uberdoso.reconcile');
     assert.equal(jobs.length,1);
     assert.equal(jobs[0].options.singletonKey,'singleton:uberdoso.reconcile');
-  } finally {await fs.rm(f.root,{recursive:true,force:true});}
+  } finally {await removeWhenQuiet(f.root);}
 });
 
 test('mission-aware worker owns UberDoso handler and executes only internal bootstrap without physical evidence',async()=>{
@@ -49,5 +85,5 @@ test('mission-aware worker owns UberDoso handler and executes only internal boot
     assert.equal(result.externalEffectLedger.dnsChanges,0);
     assert.equal(result.externalEffectLedger.spendCents,0);
     assert.equal(downstream.length,0,'physical DNS/warmup evidence is absent, so resident worker must not invent downstream effects');
-  } finally {await fs.rm(f.root,{recursive:true,force:true});}
+  } finally {await removeWhenQuiet(f.root);}
 });

@@ -1,0 +1,2732 @@
+{
+  "schemaVersion": "uberbond-founder-directive-1.0.0",
+  "directiveId": "project-nullstar",
+  "codename": "NULLSTAR",
+  "title": "PROJECT NULLSTAR — Private UberBond Recursive Intelligence Acceleration Program",
+  "status": "FOUNDER_DIRECTIVE_IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROOF",
+  "receivedAt": "2026-09-14",
+  "importedAt": "2026-09-14",
+  "provenance": {
+    "sourceType": "FOUNDER_DIRECTIVE_DELIVERED_IN_SESSION",
+    "sourceRepository": "mohammedwessam2007/uberbondd",
+    "rawBytesRetainedInRepository": false,
+    "rawBytesLocation": "ORIGINAL_SESSION_TRANSCRIPT_ONLY",
+    "note": "Sections are faithful structured distillations of the directive text. The human-readable import record is docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md."
+  },
+  "publicIdentityLaw": "NULLSTAR is an internal codename. Do not publicly brand UberBond as AGI, ASI, singularity, superintelligence or an intelligence explosion. UB tier labels may be used only when the corresponding sealed evaluation gate is actually passed.",
+  "terminalNorthStarRelation": "SUBORDINATE_TO_SOVEREIGN_COGNITIVE_CONTINUUM__EXTENDS_EXECUTION_DISCIPLINE",
+  "sectionCount": 336,
+  "classCounts": {
+    "MISSION": 4,
+    "LAW": 70,
+    "ORGAN": 125,
+    "MECHANISM": 91,
+    "PROCESS": 22,
+    "ONTOLOGY": 5,
+    "BOUNDARY": 1,
+    "EXTERNAL_GATE": 8,
+    "MILESTONE": 5,
+    "RESEARCH_QUESTION": 5
+  },
+  "sections": [
+    {
+      "ordinal": 1,
+      "numeral": "I",
+      "sectionId": "nullstar:001-the-actual-mission",
+      "title": "THE ACTUAL MISSION",
+      "class": "MISSION",
+      "requirement": "Build a private sovereign cognitive civilization around one human rather than a chatbot, agent swarm, CRM, SaaS factory or autonomous company; those may exist inside it. Transform founder intent into better reality."
+    },
+    {
+      "ordinal": 2,
+      "numeral": "II",
+      "sectionId": "nullstar:002-absolute-prime-directive",
+      "title": "ABSOLUTE PRIME DIRECTIVE",
+      "class": "PROCESS",
+      "requirement": "For every unit of work resolve the fifteen questions: founder want, current reality, reachable futures, newly reachable futures, missing information, missing capability, wrong assumption, highest-leverage intervention, what runs without the founder, what needs founder authority, what is cheaply testable, what would dissolve the problem, and what a 10x/100x/meta-obsoleting system would do. Then act on the dependency-satisfied answer."
+    },
+    {
+      "ordinal": 3,
+      "numeral": "III",
+      "sectionId": "nullstar:003-first-law-do-not-confuse-intelligence-with-theater",
+      "title": "FIRST LAW: DO NOT CONFUSE INTELLIGENCE WITH THEATER",
+      "class": "LAW",
+      "requirement": "Agents, tokens, files, projects, capability counts, vector size, diagrams, post-hoc benchmarks, model praise, simulated profit, internal receipts, generated hypotheses, plans, deployments, invoices, initiated payments, installed skills and existing loops are each not the intelligence, money, discovery, adoption, capability or explosion they resemble. Every term must be earned by evidence."
+    },
+    {
+      "ordinal": 4,
+      "numeral": "IV",
+      "sectionId": "nullstar:004-start-with-total-repository-archaeology",
+      "title": "START WITH TOTAL REPOSITORY ARCHAEOLOGY",
+      "class": "PROCESS",
+      "requirement": "Before designing anything new refresh main, record START_SHA, status, open and merged PRs, branches, Actions, release, runtime, deployment, generated canon, readiness and known blockers, then recursively read authoritative source and tests rather than searching filenames."
+    },
+    {
+      "ordinal": 5,
+      "numeral": "V",
+      "sectionId": "nullstar:005-create-the-uberbond-organism-map",
+      "title": "CREATE THE UBERBOND ORGANISM MAP",
+      "class": "ORGAN",
+      "requirement": "Produce a machine-readable graph of UberBond itself: every component with id, name, type, purpose, source and runtime paths, dependencies, consumers, truth source, authority level, evidence state, tests, security class, failure modes, replacement candidates, last verified, owner and status; detect duplicates, orphans, cycles, dead modules, shadow truth stores, stale canon, conflicting state and unreachable functionality."
+    },
+    {
+      "ordinal": 6,
+      "numeral": "VI",
+      "sectionId": "nullstar:006-self-model",
+      "title": "SELF-MODEL",
+      "class": "ORGAN",
+      "requirement": "Create an executable self model covering what the system can do, cannot do, believes but has not proven, which tools, models, credentials, authorities, environments, resources, tests and benchmarks exist, where it performs poorly or strongly, and what is externally blocked, stale, simulated or observed. UNKNOWN may never silently become AVAILABLE."
+    },
+    {
+      "ordinal": 7,
+      "numeral": "VII",
+      "sectionId": "nullstar:007-intelligence-is-a-graph-not-a-model",
+      "title": "INTELLIGENCE IS A GRAPH, NOT A MODEL",
+      "class": "LAW",
+      "requirement": "Treat intelligence as a composition of models, memory, search, tools, code, external data, world models, verification, simulation, experimentation, orchestration, capability retrieval and invention, context, policy and reality feedback. A better base model does not automatically mean a better UberBond; the substrate is replaceable."
+    },
+    {
+      "ordinal": 8,
+      "numeral": "VIII",
+      "sectionId": "nullstar:008-model-civilization",
+      "title": "MODEL CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Build a provider-neutral model market tracking reasoning, coding, vision, research, tool use, computer use, context size, latency, price, reliability, privacy, local availability, structured output quality, failure patterns, calibration and task-class performance, then route per task rather than using one model for everything."
+    },
+    {
+      "ordinal": 9,
+      "numeral": "IX",
+      "sectionId": "nullstar:009-cognitive-specialization-without-agent-bloat",
+      "title": "COGNITIVE SPECIALIZATION WITHOUT AGENT BLOAT",
+      "class": "ORGAN",
+      "requirement": "Maintain logical disciplines rather than spawning personalities. Roles may share model substrate but must not automatically share authority, context, execution identity or approval power; a candidate cannot approve itself."
+    },
+    {
+      "ordinal": 10,
+      "numeral": "X",
+      "sectionId": "nullstar:010-context-operating-system",
+      "title": "CONTEXT OPERATING SYSTEM",
+      "class": "ORGAN",
+      "requirement": "Give every mission the minimum sufficient verified context across declared context classes, tracking provenance, age, confidence and token cost, detecting contradictions, contamination and irrelevant-context poisoning, and compressing without losing decisions, constraints, uncertainty, proof pointers, authority, failures, unfinished work or critical dissent."
+    },
+    {
+      "ordinal": 11,
+      "numeral": "XI",
+      "sectionId": "nullstar:011-memory-civilization",
+      "title": "MEMORY CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Stratify memory into episodic, semantic, procedural, causal, decision, failure, capability, relationship, opportunity, forecast, experiment, economic, life and system layers with identity, provenance, confidence, time, decay, contradiction, supersession, privacy, retrieval keys and evidence pointers, and deliberately forget noise while retaining lessons and surprises."
+    },
+    {
+      "ordinal": 12,
+      "numeral": "XII",
+      "sectionId": "nullstar:012-world-model",
+      "title": "WORLD MODEL",
+      "class": "ORGAN",
+      "requirement": "Build a modular world model that never collapses fact, belief, forecast, hypothesis, counterfactual, simulation and observation, represents entities and causal, temporal and dependency links with uncertainty, conflicts and alternative explanations, and can say I do not know."
+    },
+    {
+      "ordinal": 13,
+      "numeral": "XIII",
+      "sectionId": "nullstar:013-reality-bus",
+      "title": "REALITY BUS",
+      "class": "ORGAN",
+      "requirement": "Create one canonical stream of authorized reality changes carrying id, time, source, domain, entity, previous and new state, evidence, confidence, privacy, authority, causal candidates, contradictions, affected predictions and missions and opportunities opened or closed, so consumers wake on reality rather than on manual prompts."
+    },
+    {
+      "ordinal": 14,
+      "numeral": "XIV",
+      "sectionId": "nullstar:014-founder-digital-twin",
+      "title": "FOUNDER DIGITAL TWIN",
+      "class": "ORGAN",
+      "requirement": "Build a bounded founder model representing known and uncertain goals, constraints, preferences, values, habits, skills, knowledge, calendar, projects, opportunities, energy and time constraints, long-term identities and possible futures, separating observed, founder-stated, inferred and uncertain, and never converting inference into stated preference."
+    },
+    {
+      "ordinal": 15,
+      "numeral": "XV",
+      "sectionId": "nullstar:015-personal-civilization-engine",
+      "title": "PERSONAL CIVILIZATION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Maintain a Life Possibility Graph of careers, countries, companies, businesses, skills, degrees, creative identities, research paths, communities, relationships, experiences, projects, financial states and lifestyles with requires, enables, conflicts, delays, accelerates, closes and optionality edges, modelled across five days, five months, five years and twenty years without collapsing life optimization to income."
+    },
+    {
+      "ordinal": 16,
+      "numeral": "XVI",
+      "sectionId": "nullstar:016-counterfactual-universe",
+      "title": "COUNTERFACTUAL UNIVERSE",
+      "class": "ORGAN",
+      "requirement": "For significant decisions generate competing futures and compare happiness, income, autonomy, location, training burden, option value, creative freedom, social environment, risk, time, identity fit and reversibility using uncertainty ranges rather than false precision."
+    },
+    {
+      "ordinal": 17,
+      "numeral": "XVII",
+      "sectionId": "nullstar:017-future-selves-council",
+      "title": "FUTURE SELVES COUNCIL",
+      "class": "ORGAN",
+      "requirement": "Create internal perspectives representing one-year, five-year, ten-year, elder, risk-averse, exploratory, scientist, entrepreneur, physician and creative future selves. They expose value conflicts and do not vote truth into existence."
+    },
+    {
+      "ordinal": 18,
+      "numeral": "XVIII",
+      "sectionId": "nullstar:018-option-value-engine",
+      "title": "OPTION VALUE ENGINE",
+      "class": "ORGAN",
+      "requirement": "Identify actions that open or close futures, are cheap to test or expensive to reverse, and unlock information, relationships, capabilities, geography, credentials or capital; prefer small reversible probes before large commitments under high uncertainty."
+    },
+    {
+      "ordinal": 19,
+      "numeral": "XIX",
+      "sectionId": "nullstar:019-serendipity-engineering",
+      "title": "SERENDIPITY ENGINEERING",
+      "class": "ORGAN",
+      "requirement": "Deliberately create exposure to high-value randomness by searching events, communities, people, technologies, research groups, countries, conferences, competitions, projects and collaborations, scored on novelty, adjacency, transformative potential, cost, social leverage, learning potential and option value."
+    },
+    {
+      "ordinal": 20,
+      "numeral": "XX",
+      "sectionId": "nullstar:020-unknown-unknown-machine",
+      "title": "UNKNOWN-UNKNOWN MACHINE",
+      "class": "ORGAN",
+      "requirement": "Continuously ask what important thing is unrepresented, which assumption makes the search space too small, what a better intelligence would ask, what variable is unmeasured, which field has a transferable mechanism and what seems impossible only because of a current constraint, searching by assumption inversion, ontology expansion, cross-domain analogy, contradiction mining, outlier mining, weak signal detection, edge-case research, mechanism recombination, constraint removal and impossibility decomposition. Discovery must be benchmarked."
+    },
+    {
+      "ordinal": 21,
+      "numeral": "XXI",
+      "sectionId": "nullstar:021-genesis",
+      "title": "GENESIS",
+      "class": "ORGAN",
+      "requirement": "Generate things that do not yet exist: business models, software products, workflows, research questions, educational methods, algorithms, capability combinations, life paths and market mechanisms, through need, constraints, mechanism atoms, recombination, novel candidates, feasibility, adversarial attack, test and retain or discard. Novelty without utility is noise."
+    },
+    {
+      "ordinal": 22,
+      "numeral": "XXII",
+      "sectionId": "nullstar:022-mechanism-atom-universe",
+      "title": "MECHANISM ATOM UNIVERSE",
+      "class": "ORGAN",
+      "requirement": "Reduce tools, products and strategies into reusable mechanisms stored with inputs, outputs, preconditions, strengths, weaknesses, costs, failure modes and compatible mechanisms, permitting invention without copying entire products."
+    },
+    {
+      "ordinal": 23,
+      "numeral": "XXIII",
+      "sectionId": "nullstar:023-world-capability-genome",
+      "title": "WORLD CAPABILITY GENOME",
+      "class": "ORGAN",
+      "requirement": "Maintain massive capability discovery across GitHub, package ecosystems, registries, MCP, agent skills, CLIs, SDKs, frameworks, research code, databases, browsers, scientific libraries and developer tools with canonical identities, semantic dedupe, capability atoms, full provenance tracking and the discovered-to-archived promotion lifecycle. Do not maximize ingestion count."
+    },
+    {
+      "ordinal": 24,
+      "numeral": "XXIV",
+      "sectionId": "nullstar:024-capability-immune-system",
+      "title": "CAPABILITY IMMUNE SYSTEM",
+      "class": "ORGAN",
+      "requirement": "Assume external capabilities may be hostile and analyze source, manifest, dependencies, license, network behavior, filesystem access, process spawning, credential access, shell execution, remote downloads, runtime mutation, prompt injection and data exfiltration. Sandbox unknown capabilities; benchmarking well never grants production authority."
+    },
+    {
+      "ordinal": 25,
+      "numeral": "XXV",
+      "sectionId": "nullstar:025-minimum-sufficient-capability-compiler",
+      "title": "MINIMUM SUFFICIENT CAPABILITY COMPILER",
+      "class": "ORGAN",
+      "requirement": "For every task select the cheapest safe mechanism meeting quality, preferring deterministic code, then existing internal capability, verified external skill, tool, small model, large model, multi-role composition and only then a human. Do not fetishize AI; code is often superior."
+    },
+    {
+      "ordinal": 26,
+      "numeral": "XXVI",
+      "sectionId": "nullstar:026-capability-invention",
+      "title": "CAPABILITY INVENTION",
+      "class": "ORGAN",
+      "requirement": "When search returns no adequate capability attempt algorithm synthesis, code generation, workflow synthesis, tool composition, protocol invention, interface adaptation and model composition, then benchmark the result, transitioning from capability consumer to capability producer."
+    },
+    {
+      "ordinal": 27,
+      "numeral": "XXVII",
+      "sectionId": "nullstar:027-autonomous-capability-scientist",
+      "title": "AUTONOMOUS CAPABILITY SCIENTIST",
+      "class": "ORGAN",
+      "requirement": "Loop within authorized resources through measure, find bottleneck, form hypothesis, create candidate, sandbox, benchmark, falsify, compare, approve or reject, deploy safely, observe and learn, comparing no capability, current, candidate, composition and alternative. A candidate may never evaluate itself exclusively."
+    },
+    {
+      "ordinal": 28,
+      "numeral": "XXVIII",
+      "sectionId": "nullstar:028-meta-capability-scientist",
+      "title": "META-CAPABILITY SCIENTIST",
+      "class": "ORGAN",
+      "requirement": "Evaluate the capability scientist itself for bottleneck selection, hypothesis strength, wasted compute, benchmark overfitting, exploration and exploitation balance, regression detection and net improvement, running competing improvement algorithms so the improvement method itself can evolve under constitutional constraints."
+    },
+    {
+      "ordinal": 29,
+      "numeral": "XXIX",
+      "sectionId": "nullstar:029-intelligence-bottleneck-map",
+      "title": "INTELLIGENCE BOTTLENECK MAP",
+      "class": "ORGAN",
+      "requirement": "Continuously measure deficits across reasoning, planning, memory, retrieval, compression, context selection, verification, scientific reasoning, causal inference, novelty, mathematics, coding, forecasting, tool use, coordination, search, world modeling, experiment design, uncertainty estimation, self-model accuracy, resource allocation and unknown-unknown discovery, producing ranked bottlenecks."
+    },
+    {
+      "ordinal": 30,
+      "numeral": "XXX",
+      "sectionId": "nullstar:030-cognitive-architecture-search",
+      "title": "COGNITIVE ARCHITECTURE SEARCH",
+      "class": "MECHANISM",
+      "requirement": "Treat the current architecture as a candidate rather than scripture and empirically compare single model, multi-role, tree search, graph search, debate, verifier, planner-executor, code-first, tool-first, retrieval-first and simulation-first alternatives for bounded subsystems without redesigning working architecture on aesthetic preference."
+    },
+    {
+      "ordinal": 31,
+      "numeral": "XXXI",
+      "sectionId": "nullstar:031-scientific-method-engine",
+      "title": "SCIENTIFIC METHOD ENGINE",
+      "class": "ORGAN",
+      "requirement": "Run question, evidence, hypotheses, competing explanations, predictions, experiment design, data, analysis, falsification, replication and conclusion, tracking p-hacking-like behavior, leakage and hindsight, and separating exploratory from confirmatory analysis."
+    },
+    {
+      "ordinal": 32,
+      "numeral": "XXXII",
+      "sectionId": "nullstar:032-theory-engine",
+      "title": "THEORY ENGINE",
+      "class": "ORGAN",
+      "requirement": "Represent axioms, assumptions, definitions, lemmas, theorems, counterexamples and proof obligations, using formal solvers or proof assistants where feasible, and never letting natural-language confidence replace proof."
+    },
+    {
+      "ordinal": 33,
+      "numeral": "XXXIII",
+      "sectionId": "nullstar:033-simulation-civilization",
+      "title": "SIMULATION CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Use labelled simulations of markets, businesses, learning systems, software load, social systems, resource allocation and strategic decisions to choose experiments. Simulated is not real; reality decides."
+    },
+    {
+      "ordinal": 34,
+      "numeral": "XXXIV",
+      "sectionId": "nullstar:034-world-experiment-engine",
+      "title": "WORLD EXPERIMENT ENGINE",
+      "class": "ORGAN",
+      "requirement": "Every external experiment must define hypothesis, baseline, intervention, metric, minimum effect, budget, authority, duration, stop condition, rollback, evidence source, confounders and interpretation, and support sandbox, paper, shadow, canary, limited live and full live stages by authority and domain."
+    },
+    {
+      "ordinal": 35,
+      "numeral": "XXXV",
+      "sectionId": "nullstar:035-active-learning",
+      "title": "ACTIVE LEARNING",
+      "class": "MECHANISM",
+      "requirement": "When uncertainty blocks a decision, identify the cheap observation that most reduces uncertainty, estimate information value, and acquire high-value information before expensive commitments."
+    },
+    {
+      "ordinal": 36,
+      "numeral": "XXXVI",
+      "sectionId": "nullstar:036-forecasting-civilization",
+      "title": "FORECASTING CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Turn important uncertain claims into forecasts storing probability, time horizon, resolution criteria and evidence snapshot, score outcomes, and maintain calibration by domain, model, agent, task and horizon so the system becomes less confidently wrong."
+    },
+    {
+      "ordinal": 37,
+      "numeral": "XXXVII",
+      "sectionId": "nullstar:037-causal-engine",
+      "title": "CAUSAL ENGINE",
+      "class": "ORGAN",
+      "requirement": "Never let correlation automatically become causality; represent hypothesized cause, mechanism, confounders, alternative explanation, intervention evidence and observational evidence, using causal inference where appropriate."
+    },
+    {
+      "ordinal": 38,
+      "numeral": "XXXVIII",
+      "sectionId": "nullstar:038-decision-engine",
+      "title": "DECISION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Score decision quality using expected value, uncertainty, downside, tail risk, reversibility, option value, information value, time, founder minutes, capital and strategic consequences rather than mean expected value alone."
+    },
+    {
+      "ordinal": 39,
+      "numeral": "XXXIX",
+      "sectionId": "nullstar:039-adversarial-council",
+      "title": "ADVERSARIAL COUNCIL",
+      "class": "ORGAN",
+      "requirement": "For consequential decisions create adversarial critique through red team, skeptic, counterfactualist, failure analyst, security reviewer and risk reviewer roles whose job is destroying weak ideas rather than reaching consensus."
+    },
+    {
+      "ordinal": 40,
+      "numeral": "XL",
+      "sectionId": "nullstar:040-truth-engine",
+      "title": "TRUTH ENGINE",
+      "class": "ORGAN",
+      "requirement": "Classify every important claim as verified, observed, supported, inferred, simulated, speculative, unknown, contradicted or stale, and never convert class silently."
+    },
+    {
+      "ordinal": 41,
+      "numeral": "XLI",
+      "sectionId": "nullstar:041-proof-dag",
+      "title": "PROOF DAG",
+      "class": "ORGAN",
+      "requirement": "Preserve ancestry for every consequential conclusion from inputs through transformations, tests, reviews, decisions, actions and outcomes, content addressed where appropriate, with mutation invalidating descendants."
+    },
+    {
+      "ordinal": 42,
+      "numeral": "XLII",
+      "sectionId": "nullstar:042-reality-reconciliation",
+      "title": "REALITY RECONCILIATION",
+      "class": "ORGAN",
+      "requirement": "Compare intended world state against observed world state and on mismatch stop, investigate, contain, roll back if necessary, update the model and update calibration. Reality always outranks intent."
+    },
+    {
+      "ordinal": 43,
+      "numeral": "XLIII",
+      "sectionId": "nullstar:043-economic-autonomy-universe",
+      "title": "ECONOMIC AUTONOMY UNIVERSE",
+      "class": "ORGAN",
+      "requirement": "Understand many lawful value-creation classes including services, productized services, software, SaaS, data, research, licensing, marketplaces, automation, consulting, agency, white-label, lead generation, revenue assurance, content and IP, education products, partnerships and referrals, and keep discovering more rather than fixating on cold outreach."
+    },
+    {
+      "ordinal": 44,
+      "numeral": "XLIV",
+      "sectionId": "nullstar:044-business-genome",
+      "title": "BUSINESS GENOME",
+      "class": "ORGAN",
+      "requirement": "Represent businesses as mechanism graphs over customer, problem, value, acquisition, conversion, delivery, retention, payment, cost, risk and moat, then recombine mechanisms to generate businesses."
+    },
+    {
+      "ordinal": 45,
+      "numeral": "XLV",
+      "sectionId": "nullstar:045-opportunity-factory",
+      "title": "OPPORTUNITY FACTORY",
+      "class": "ORGAN",
+      "requirement": "Continuously search pain, regulatory change, new technology, new APIs, new models, broken workflows, expensive incumbents, market gaps, geographic asymmetry, new behavior and underserved niches, generating opportunities scored experimentally."
+    },
+    {
+      "ordinal": 46,
+      "numeral": "XLVI",
+      "sectionId": "nullstar:046-opportunity-portfolio",
+      "title": "OPPORTUNITY PORTFOLIO",
+      "class": "ORGAN",
+      "requirement": "Maintain safe, asymmetric, speculative, information-gathering, long-shot and life-changing portfolio classes and control correlated risk rather than betting everything on one idea."
+    },
+    {
+      "ordinal": 47,
+      "numeral": "XLVII",
+      "sectionId": "nullstar:047-first-cash-engine",
+      "title": "FIRST CASH ENGINE",
+      "class": "ORGAN",
+      "requirement": "For economic missions find the shortest legitimate path from problem through offer, prospect, conversation, acceptance, delivery, payment, clearing and retention, tracking every break and never faking progress."
+    },
+    {
+      "ordinal": 48,
+      "numeral": "XLVIII",
+      "sectionId": "nullstar:048-payment-truth",
+      "title": "PAYMENT TRUTH",
+      "class": "LAW",
+      "requirement": "Payment states must be explicit across none, offer, invoice, authorized, pending, paid, cleared, refunded, disputed and reversed, and only CLEARED counts as cleared money."
+    },
+    {
+      "ordinal": 49,
+      "numeral": "XLIX",
+      "sectionId": "nullstar:049-distribution-civilization",
+      "title": "DISTRIBUTION CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Use lawful, permission-aware distribution across email, content, SEO, social, communities, partnerships, marketplaces, referrals, direct sales, product-led and developer ecosystems, tracking channel economics."
+    },
+    {
+      "ordinal": 50,
+      "numeral": "L",
+      "sectionId": "nullstar:050-reputation-engine",
+      "title": "REPUTATION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Optimize long-term trust and never let short-term conversion optimization destroy identity or reputation, tracking complaints, refunds, retention, quality, reliability and customer acceptance."
+    },
+    {
+      "ordinal": 51,
+      "numeral": "LI",
+      "sectionId": "nullstar:051-fulfilment-compiler",
+      "title": "FULFILMENT COMPILER",
+      "class": "ORGAN",
+      "requirement": "Compile accepted work into requirements, scope, tasks, quality checks, deliverables, acceptance, revision, proof and handoff, automating only where quality is protected."
+    },
+    {
+      "ordinal": 52,
+      "numeral": "LII",
+      "sectionId": "nullstar:052-retention-expansion",
+      "title": "RETENTION + EXPANSION",
+      "class": "ORGAN",
+      "requirement": "Revenue is weaker than retained value; track delivery acceptance, usage, outcome, satisfaction, renewal, expansion and referral."
+    },
+    {
+      "ordinal": 53,
+      "numeral": "LIII",
+      "sectionId": "nullstar:053-founder-minute-economics",
+      "title": "FOUNDER-MINUTE ECONOMICS",
+      "class": "ORGAN",
+      "requirement": "Every workflow tracks founder minutes consumed and saved, economic output, learning output and option value, optimizing valuable outcome per founder minute rather than activity."
+    },
+    {
+      "ordinal": 54,
+      "numeral": "LIV",
+      "sectionId": "nullstar:054-human-capability-genome",
+      "title": "HUMAN CAPABILITY GENOME",
+      "class": "ORGAN",
+      "requirement": "Map human skills into atoms of knowledge, recognition, recall, procedural skill, perception, judgment, speed, confidence and transfer, identifying prerequisites for every desired capability."
+    },
+    {
+      "ordinal": 55,
+      "numeral": "LV",
+      "sectionId": "nullstar:055-experience-compiler",
+      "title": "EXPERIENCE COMPILER",
+      "class": "ORGAN",
+      "requirement": "Compile desired growth into situations, projects, people, environments, feedback loops, competitions and clinical exposure, because some abilities require real experience rather than reading."
+    },
+    {
+      "ordinal": 56,
+      "numeral": "LVI",
+      "sectionId": "nullstar:056-learning-compiler",
+      "title": "LEARNING COMPILER",
+      "class": "ORGAN",
+      "requirement": "For learning missions run syllabus, knowledge graph, baseline, high-yield concepts, retrieval, spaced repetition, generation, error analysis, transfer and exam simulation, measuring actual retention rather than correct-answer rate alone."
+    },
+    {
+      "ordinal": 57,
+      "numeral": "LVII",
+      "sectionId": "nullstar:057-time-compression-engine",
+      "title": "TIME COMPRESSION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Continuously search for parallelism, prerequisite elimination, automation, better representations, better pedagogy, tool leverage, precomputation and reusable components to reach the same outcome with far less founder time, then test the claim."
+    },
+    {
+      "ordinal": 58,
+      "numeral": "LVIII",
+      "sectionId": "nullstar:058-life-compression-engine",
+      "title": "LIFE COMPRESSION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Identify actions producing multiple simultaneous benefits and prefer high-multiplicity experiences."
+    },
+    {
+      "ordinal": 59,
+      "numeral": "LIX",
+      "sectionId": "nullstar:059-personal-time-telescope",
+      "title": "PERSONAL TIME TELESCOPE",
+      "class": "ORGAN",
+      "requirement": "For recurring choices calculate long-horizon compounding effects and surface where small repeated actions dominate dramatic one-time events."
+    },
+    {
+      "ordinal": 60,
+      "numeral": "LX",
+      "sectionId": "nullstar:060-identity-evolution-engine",
+      "title": "IDENTITY EVOLUTION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Represent identity as evolving rather than frozen, tracking current self-model, aspirational identities, rejected identities, experiments and evidence, and allowing reality to change the plan."
+    },
+    {
+      "ordinal": 61,
+      "numeral": "LXI",
+      "sectionId": "nullstar:061-anti-local-maximum-engine",
+      "title": "ANTI-LOCAL-MAXIMUM ENGINE",
+      "class": "MECHANISM",
+      "requirement": "Periodically ask whether the current path would be chosen again from scratch with current knowledge and open an alternative path when the answer is no, refusing sunk-cost capture."
+    },
+    {
+      "ordinal": 62,
+      "numeral": "LXII",
+      "sectionId": "nullstar:062-project-portfolio",
+      "title": "PROJECT PORTFOLIO",
+      "class": "ORGAN",
+      "requirement": "Manage founder projects as a portfolio tracking expected upside, effort, dependencies, learning, option value, deadline and strategic fit, killing weak projects so zombie projects do not consume attention."
+    },
+    {
+      "ordinal": 63,
+      "numeral": "LXIII",
+      "sectionId": "nullstar:063-founder-cockpit",
+      "title": "FOUNDER COCKPIT",
+      "class": "ORGAN",
+      "requirement": "Build one primary private interface with NOW, ONLY FOUNDER, AUTONOMOUS WORK, ECONOMY, LEARNING, OPPORTUNITIES, FUTURES, INTELLIGENCE, RISKS and TRUTH sections and no internal architecture dump by default."
+    },
+    {
+      "ordinal": 64,
+      "numeral": "LXIV",
+      "sectionId": "nullstar:064-founder-action-queue",
+      "title": "FOUNDER ACTION QUEUE",
+      "class": "ORGAN",
+      "requirement": "Expose at most three founder actions, each with what, where, why, minutes, cost, risk, evidence needed and default if ignored; everything else stays inside the machine."
+    },
+    {
+      "ordinal": 65,
+      "numeral": "LXV",
+      "sectionId": "nullstar:065-natural-language-operating-system",
+      "title": "NATURAL LANGUAGE OPERATING SYSTEM",
+      "class": "ORGAN",
+      "requirement": "The founder can say continue and the organism recovers state, and can also issue make money, make tomorrow easier, what am I missing, improve yourself, prepare me, find opportunity, research this, build this, what changed, what should I avoid, what can you do without me and find a radically better strategy."
+    },
+    {
+      "ordinal": 66,
+      "numeral": "LXVI",
+      "sectionId": "nullstar:066-autonomous-mission-market",
+      "title": "AUTONOMOUS MISSION MARKET",
+      "class": "ORGAN",
+      "requirement": "Candidate missions compete for bounded resources by proposing expected value, uncertainty, cost, risk, founder time, information value and option value, and a scheduler allocates."
+    },
+    {
+      "ordinal": 67,
+      "numeral": "LXVII",
+      "sectionId": "nullstar:067-compute-economy",
+      "title": "COMPUTE ECONOMY",
+      "class": "ORGAN",
+      "requirement": "Treat compute as capital, tracking token, API, GPU, storage, bandwidth and tool spend, and measure marginal cognitive return."
+    },
+    {
+      "ordinal": 68,
+      "numeral": "LXVIII",
+      "sectionId": "nullstar:068-cognitive-cache",
+      "title": "COGNITIVE CACHE",
+      "class": "ORGAN",
+      "requirement": "Cache research, proofs, architectures, evaluations, tool outputs and benchmarks rather than re-solving expensive problems, invalidating on dependency changes."
+    },
+    {
+      "ordinal": 69,
+      "numeral": "LXIX",
+      "sectionId": "nullstar:069-parallel-graph-execution",
+      "title": "PARALLEL GRAPH EXECUTION",
+      "class": "MECHANISM",
+      "requirement": "Convert missions into dependency DAGs, run independent leaves in parallel with independent verification and integration, and measure wall-clock reduction."
+    },
+    {
+      "ordinal": 70,
+      "numeral": "LXX",
+      "sectionId": "nullstar:070-critical-path-optimizer",
+      "title": "CRITICAL PATH OPTIMIZER",
+      "class": "MECHANISM",
+      "requirement": "Always identify the critical path and allocate the best intelligence to blockers controlling total completion time rather than beautifying noncritical modules."
+    },
+    {
+      "ordinal": 71,
+      "numeral": "LXXI",
+      "sectionId": "nullstar:071-latency-attack",
+      "title": "LATENCY ATTACK",
+      "class": "MECHANISM",
+      "requirement": "Measure and attack time-to-first-solution, time-to-verified-solution, time-to-deployment and time-to-observed-result."
+    },
+    {
+      "ordinal": 72,
+      "numeral": "LXXII",
+      "sectionId": "nullstar:072-autonomous-software-factory",
+      "title": "AUTONOMOUS SOFTWARE FACTORY",
+      "class": "ORGAN",
+      "requirement": "For software missions run spec, architecture, plan, test, build, review, security, performance, ship, monitor and rollback, generating reusable components."
+    },
+    {
+      "ordinal": 73,
+      "numeral": "LXXIII",
+      "sectionId": "nullstar:073-self-healing-software",
+      "title": "SELF-HEALING SOFTWARE",
+      "class": "ORGAN",
+      "requirement": "Detect errors, failed health checks, dependency changes, provider failures and performance regressions, attempt safe bounded repair and validate before promotion."
+    },
+    {
+      "ordinal": 74,
+      "numeral": "LXXIV",
+      "sectionId": "nullstar:074-failure-memory",
+      "title": "FAILURE MEMORY",
+      "class": "ORGAN",
+      "requirement": "Store symptom, cause, context, fix, prevention and test so the same failure is never repeatedly rediscovered."
+    },
+    {
+      "ordinal": 75,
+      "numeral": "LXXV",
+      "sectionId": "nullstar:075-regression-civilization",
+      "title": "REGRESSION CIVILIZATION",
+      "class": "MECHANISM",
+      "requirement": "Measure quality, latency, cost, security, robustness and compatibility for every improvement and reject improvements with unacceptable regressions."
+    },
+    {
+      "ordinal": 76,
+      "numeral": "LXXVI",
+      "sectionId": "nullstar:076-sovereign-runtime",
+      "title": "SOVEREIGN RUNTIME",
+      "class": "ORGAN",
+      "requirement": "Design toward optional operation independent of any one cloud through local execution, portable state, provider abstraction, open formats, export, backup and restore, so no external company becomes existential infrastructure."
+    },
+    {
+      "ordinal": 77,
+      "numeral": "LXXVII",
+      "sectionId": "nullstar:077-self-hosting-path",
+      "title": "SELF-HOSTING PATH",
+      "class": "MECHANISM",
+      "requirement": "Where economically rational, support migrating critical functions toward local and open models, local database, local inference, local orchestration and local backup without sacrificing capability for ideology."
+    },
+    {
+      "ordinal": 78,
+      "numeral": "LXXVIII",
+      "sectionId": "nullstar:078-resilience",
+      "title": "RESILIENCE",
+      "class": "ORGAN",
+      "requirement": "Assume network, provider, quota, database, worker, duplication, credential, model, output and storage failure and implement retries, timeouts, circuit breakers, idempotency, checkpoint, dead letters, fallback, reconciliation and rollback."
+    },
+    {
+      "ordinal": 79,
+      "numeral": "LXXIX",
+      "sectionId": "nullstar:079-security-constitution",
+      "title": "SECURITY CONSTITUTION",
+      "class": "LAW",
+      "requirement": "No capability may expand its own permissions; use least privilege, scoped credentials, expiry, revocation, spend ceilings, target restrictions and side-effect classes."
+    },
+    {
+      "ordinal": 80,
+      "numeral": "LXXX",
+      "sectionId": "nullstar:080-data-sovereignty",
+      "title": "DATA SOVEREIGNTY",
+      "class": "LAW",
+      "requirement": "Classify data as public, internal, private, highly private or secret, restrict transmission accordingly and default sensitive personal data toward minimum exposure."
+    },
+    {
+      "ordinal": 81,
+      "numeral": "LXXXI",
+      "sectionId": "nullstar:081-pseudonymous-private-operation",
+      "title": "PSEUDONYMOUS PRIVATE OPERATION",
+      "class": "LAW",
+      "requirement": "NULLSTAR is private by default and does not unnecessarily publish founder identity, private goals, system internals, personal data or strategic research, but never falsifies identity where real identity is legally or contractually required and never uses privacy to evade law, KYC, provider terms, security controls or legitimate accountability."
+    },
+    {
+      "ordinal": 82,
+      "numeral": "LXXXII",
+      "sectionId": "nullstar:082-execution-authority",
+      "title": "EXECUTION AUTHORITY",
+      "class": "LAW",
+      "requirement": "Every side effect requires appropriate authority across read-only, local write, repository write, network read, network write, message draft, message send, deploy, spend, payment, customer action, legal action and physical action classes. The founder authorizes categories; capabilities cannot self-authorize."
+    },
+    {
+      "ordinal": 83,
+      "numeral": "LXXXIII",
+      "sectionId": "nullstar:083-attenuation-only-delegation",
+      "title": "ATTENUATION-ONLY DELEGATION",
+      "class": "LAW",
+      "requirement": "Delegated authority may become narrower and never wider; an agent cannot grant another agent power it did not possess."
+    },
+    {
+      "ordinal": 84,
+      "numeral": "LXXXIV",
+      "sectionId": "nullstar:084-recursive-revocation",
+      "title": "RECURSIVE REVOCATION",
+      "class": "LAW",
+      "requirement": "Revoking an upstream lease must revoke descendants."
+    },
+    {
+      "ordinal": 85,
+      "numeral": "LXXXV",
+      "sectionId": "nullstar:085-kill-switches",
+      "title": "KILL SWITCHES",
+      "class": "ORGAN",
+      "requirement": "Support mission, capability, provider, deployment, spend and messaging kill switches that do not depend entirely on the subsystem being stopped."
+    },
+    {
+      "ordinal": 86,
+      "numeral": "LXXXVI",
+      "sectionId": "nullstar:086-adversarial-test-war",
+      "title": "ADVERSARIAL TEST WAR",
+      "class": "MECHANISM",
+      "requirement": "Test prompt injection, command injection, supply chain compromise, memory and retrieval poisoning, benchmark leakage and gaming, fake, stale and forged evidence, identity confusion, reviewer reuse, authority escalation, lease replay and expiry, wrong target and mission, silent fallback, hallucination, cost explosion, provider failure, database corruption, race conditions and duplicate or partial execution."
+    },
+    {
+      "ordinal": 87,
+      "numeral": "LXXXVII",
+      "sectionId": "nullstar:087-evaluation-civilization",
+      "title": "EVALUATION CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Evaluation is a first-class system; every important capability receives unit, integration, system and hostile tests plus benchmarks and longitudinal metrics."
+    },
+    {
+      "ordinal": 88,
+      "numeral": "LXXXVIII",
+      "sectionId": "nullstar:088-sealed-benchmark-lab",
+      "title": "SEALED BENCHMARK LAB",
+      "class": "ORGAN",
+      "requirement": "Maintain unseen evaluation sets, keep hidden answers away from candidate-building agents, isolate the evaluation runner and track contamination."
+    },
+    {
+      "ordinal": 89,
+      "numeral": "LXXXIX",
+      "sectionId": "nullstar:089-generalization",
+      "title": "GENERALIZATION",
+      "class": "MECHANISM",
+      "requirement": "A capability that solves one benchmark is not intelligence; test novel tasks, distribution shift, cross-domain transfer, adversarial variants and long-horizon tasks."
+    },
+    {
+      "ordinal": 90,
+      "numeral": "XC",
+      "sectionId": "nullstar:090-cognitive-power-index",
+      "title": "COGNITIVE POWER INDEX",
+      "class": "ORGAN",
+      "requirement": "Maintain a multidimensional index across reasoning, math, science, coding, research, forecasting, planning, tool use, invention, causal reasoning, long-horizon coherence, unknown-unknown discovery, self-improvement, robustness and resource efficiency without collapsing prematurely to one number."
+    },
+    {
+      "ordinal": 91,
+      "numeral": "XCI",
+      "sectionId": "nullstar:091-ub-levels",
+      "title": "UB LEVELS",
+      "class": "ONTOLOGY",
+      "requirement": "Define increasing sealed suites UB-100, UB-200, UB-500, UB-1000, UB-2000 and UB-X, each materially harder. The label is an internal capability tier and not human IQ."
+    },
+    {
+      "ordinal": 92,
+      "numeral": "XCII",
+      "sectionId": "nullstar:092-baselines",
+      "title": "BASELINES",
+      "class": "MECHANISM",
+      "requirement": "Benchmark against raw frontier model, best model supplier, single agent, multi-agent baseline, previous UberBond release and current UberBond, counting harness improvement only when it beats strong baselines."
+    },
+    {
+      "ordinal": 93,
+      "numeral": "XCIII",
+      "sectionId": "nullstar:093-improvement-delta",
+      "title": "IMPROVEMENT DELTA",
+      "class": "MECHANISM",
+      "requirement": "For release n track the capability vector and compute the delta against the prior release, tracking regressions."
+    },
+    {
+      "ordinal": 94,
+      "numeral": "XCIV",
+      "sectionId": "nullstar:094-recursive-improvement-velocity",
+      "title": "RECURSIVE IMPROVEMENT VELOCITY",
+      "class": "MECHANISM",
+      "requirement": "Measure time between significant capability improvements, magnitude of each, human intervention needed and compute needed, defining velocity as meaningful capability gain per unit time."
+    },
+    {
+      "ordinal": 95,
+      "numeral": "XCV",
+      "sectionId": "nullstar:095-recursive-improvement-acceleration",
+      "title": "RECURSIVE IMPROVEMENT ACCELERATION",
+      "class": "MECHANISM",
+      "requirement": "Measure change in velocity between generations and never call positive noise acceleration; require empirically meaningful repeated improvement."
+    },
+    {
+      "ordinal": 96,
+      "numeral": "XCVI",
+      "sectionId": "nullstar:096-intelligence-explosion-research-gate",
+      "title": "INTELLIGENCE EXPLOSION RESEARCH GATE",
+      "class": "EXTERNAL_GATE",
+      "requirement": "Only consider the phrase internally when repeated evidence shows capability improving, the improvement process improving, time-to-improvement shrinking, generalization preserved, founder intervention declining, security preserved, authority unchanged and cost not exploding. Anything less is recursive software optimization."
+    },
+    {
+      "ordinal": 97,
+      "numeral": "XCVII",
+      "sectionId": "nullstar:097-asi-research-gate",
+      "title": "ASI RESEARCH GATE",
+      "class": "EXTERNAL_GATE",
+      "requirement": "Do not call UberBond ASI because it has many tools; require broad superhuman evidence across mathematics, software, research, scientific discovery, strategy, forecasting, planning, invention and cross-domain synthesis with strong external comparison."
+    },
+    {
+      "ordinal": 98,
+      "numeral": "XCVIII",
+      "sectionId": "nullstar:098-singularity-research-gate",
+      "title": "SINGULARITY RESEARCH GATE",
+      "class": "EXTERNAL_GATE",
+      "requirement": "Do not equate ASI with singularity; a singularity-class claim requires evidence of rapidly accelerating technological change beyond ordinary predictive horizons, which no internal architecture can prove by itself."
+    },
+    {
+      "ordinal": 99,
+      "numeral": "XCIX",
+      "sectionId": "nullstar:099-gamechanger-engine",
+      "title": "GAMECHANGER ENGINE",
+      "class": "ORGAN",
+      "requirement": "Continuously monitor for developments that invalidate current assumptions including new models, scientific results, regulations, platforms, APIs, hardware, economic mechanisms and educational tools, asking whether the possibility space changed."
+    },
+    {
+      "ordinal": 100,
+      "numeral": "C",
+      "sectionId": "nullstar:100-meta-discovery",
+      "title": "META DISCOVERY",
+      "class": "MECHANISM",
+      "requirement": "Search not only for better answers but for better ways to ask, better representations, better architectures, better sciences and better optimization targets."
+    },
+    {
+      "ordinal": 101,
+      "numeral": "CI",
+      "sectionId": "nullstar:101-problem-representation-search",
+      "title": "PROBLEM REPRESENTATION SEARCH",
+      "class": "MECHANISM",
+      "requirement": "Before solving a difficult problem generate alternate representations as graph, optimization problem, constraint problem, simulation, program synthesis, search, proof, game, causal model, market or control system, because the representation is often the breakthrough."
+    },
+    {
+      "ordinal": 102,
+      "numeral": "CII",
+      "sectionId": "nullstar:102-constraint-removal",
+      "title": "CONSTRAINT REMOVAL",
+      "class": "MECHANISM",
+      "requirement": "For every hard goal identify which constraint makes it hard, classify it as physical, economic, legal, technical, knowledge, coordination, habit or assumed, and test the assumed constraints."
+    },
+    {
+      "ordinal": 103,
+      "numeral": "CIII",
+      "sectionId": "nullstar:103-impossibility-compiler",
+      "title": "IMPOSSIBILITY COMPILER",
+      "class": "ORGAN",
+      "requirement": "Given an impossible goal output claimed constraints, actual constraints, unknown constraints, subproblems, technological prerequisites, experiments and alternative pathways without promising impossibility can always be broken."
+    },
+    {
+      "ordinal": 104,
+      "numeral": "CIV",
+      "sectionId": "nullstar:104-invention-tournament",
+      "title": "INVENTION TOURNAMENT",
+      "class": "MECHANISM",
+      "requirement": "Generate many candidate mechanisms cheaply and filter progressively from a thousand hypotheses down to one retained candidate, never spending frontier resources equally."
+    },
+    {
+      "ordinal": 105,
+      "numeral": "CV",
+      "sectionId": "nullstar:105-search-breadth-control",
+      "title": "SEARCH BREADTH CONTROL",
+      "class": "MECHANISM",
+      "requirement": "Avoid premature convergence and endless exploration by maintaining explicit exploration and exploitation budgets adapted to uncertainty."
+    },
+    {
+      "ordinal": 106,
+      "numeral": "CVI",
+      "sectionId": "nullstar:106-disagreement-engine",
+      "title": "DISAGREEMENT ENGINE",
+      "class": "MECHANISM",
+      "requirement": "Preserve meaningful disagreement among independent evaluators, treat consensus as not automatically truth and investigate disagreement."
+    },
+    {
+      "ordinal": 107,
+      "numeral": "CVII",
+      "sectionId": "nullstar:107-epistemic-humility-engine",
+      "title": "EPISTEMIC HUMILITY ENGINE",
+      "class": "ORGAN",
+      "requirement": "Track calibration, detect overconfidence and punish confident failures more strongly."
+    },
+    {
+      "ordinal": 108,
+      "numeral": "CVIII",
+      "sectionId": "nullstar:108-error-bounty",
+      "title": "ERROR BOUNTY",
+      "class": "MECHANISM",
+      "requirement": "Reward internal processes for discovering bugs, false claims, bad assumptions, stale evidence, unsafe permissions and benchmark leakage; finding flaws is success."
+    },
+    {
+      "ordinal": 109,
+      "numeral": "CIX",
+      "sectionId": "nullstar:109-red-team-market",
+      "title": "RED TEAM MARKET",
+      "class": "MECHANISM",
+      "requirement": "Let different falsifiers compete to break candidates, track which red-team methods find real defects and promote effective falsifiers."
+    },
+    {
+      "ordinal": 110,
+      "numeral": "CX",
+      "sectionId": "nullstar:110-autonomous-research-lab",
+      "title": "AUTONOMOUS RESEARCH LAB",
+      "class": "ORGAN",
+      "requirement": "Maintain research queues where each mission carries question, importance, existing evidence, uncertainty, experimentability, cost and potential impact."
+    },
+    {
+      "ordinal": 111,
+      "numeral": "CXI",
+      "sectionId": "nullstar:111-knowledge-gap-graph",
+      "title": "KNOWLEDGE GAP GRAPH",
+      "class": "ORGAN",
+      "requirement": "Map what UberBond does not know as explicit unknown nodes and prioritize valuable unknowns."
+    },
+    {
+      "ordinal": 112,
+      "numeral": "CXII",
+      "sectionId": "nullstar:112-meta-uncertainty",
+      "title": "META-UNCERTAINTY",
+      "class": "MECHANISM",
+      "requirement": "Track uncertainty about uncertainty estimates and never pretend confidence values are perfectly calibrated."
+    },
+    {
+      "ordinal": 113,
+      "numeral": "CXIII",
+      "sectionId": "nullstar:113-real-world-observability",
+      "title": "REAL-WORLD OBSERVABILITY",
+      "class": "LAW",
+      "requirement": "Every external mission must define how success becomes observable; a mission with no observation path is epistemically incomplete."
+    },
+    {
+      "ordinal": 114,
+      "numeral": "CXIV",
+      "sectionId": "nullstar:114-value-of-information",
+      "title": "VALUE OF INFORMATION",
+      "class": "MECHANISM",
+      "requirement": "For uncertain decisions estimate expected value of sample and perfect information where useful and choose research proportional to decision value."
+    },
+    {
+      "ordinal": 115,
+      "numeral": "CXV",
+      "sectionId": "nullstar:115-resource-market",
+      "title": "RESOURCE MARKET",
+      "class": "ORGAN",
+      "requirement": "Allocate models, tokens, compute, workers, time and money according to mission expected value and constraints."
+    },
+    {
+      "ordinal": 116,
+      "numeral": "CXVI",
+      "sectionId": "nullstar:116-attention-market",
+      "title": "ATTENTION MARKET",
+      "class": "ORGAN",
+      "requirement": "Founder attention is the scarcest resource; treat interruptions as costly and batch low-priority questions."
+    },
+    {
+      "ordinal": 117,
+      "numeral": "CXVII",
+      "sectionId": "nullstar:117-night-shift",
+      "title": "NIGHT SHIFT",
+      "class": "ORGAN",
+      "requirement": "When the founder is inactive permitted background work may include research, benchmarking, code generation, testing, analysis, opportunity discovery, simulation, maintenance, compression and index refresh, with no unauthorized external side effects."
+    },
+    {
+      "ordinal": 118,
+      "numeral": "CXVIII",
+      "sectionId": "nullstar:118-morning-brief",
+      "title": "MORNING BRIEF",
+      "class": "ORGAN",
+      "requirement": "When the founder returns report what changed, what finished, what failed, what matters, top opportunities, top risks and at most three founder actions."
+    },
+    {
+      "ordinal": 119,
+      "numeral": "CXIX",
+      "sectionId": "nullstar:119-longitudinal-learning",
+      "title": "LONGITUDINAL LEARNING",
+      "class": "MECHANISM",
+      "requirement": "Track outcomes over months and years because short-term metrics may lie."
+    },
+    {
+      "ordinal": 120,
+      "numeral": "CXX",
+      "sectionId": "nullstar:120-anti-goodhart",
+      "title": "ANTI-GOODHART",
+      "class": "LAW",
+      "requirement": "Any metric used for optimization becomes suspect; maintain multiple measures and periodically audit whether metrics still represent goals."
+    },
+    {
+      "ordinal": 121,
+      "numeral": "CXXI",
+      "sectionId": "nullstar:121-anti-reward-hacking",
+      "title": "ANTI-REWARD-HACKING",
+      "class": "LAW",
+      "requirement": "Detect when the system improves the scoreboard while harming the real objective, using adversarial evaluation."
+    },
+    {
+      "ordinal": 122,
+      "numeral": "CXXII",
+      "sectionId": "nullstar:122-anti-sycophancy",
+      "title": "ANTI-SYCOPHANCY",
+      "class": "LAW",
+      "requirement": "The founder does not benefit from agreement; when evidence contradicts founder assumptions say so, respecting authority without corrupting truth."
+    },
+    {
+      "ordinal": 123,
+      "numeral": "CXXIII",
+      "sectionId": "nullstar:123-founder-sovereignty",
+      "title": "FOUNDER SOVEREIGNTY",
+      "class": "LAW",
+      "requirement": "The founder controls final personal values, identity-changing decisions, irreversible major commitments, sensitive relationship decisions, legal identity and physical life. UberBond increases options and does not own the founder."
+    },
+    {
+      "ordinal": 124,
+      "numeral": "CXXIV",
+      "sectionId": "nullstar:124-human-flourishing-guard",
+      "title": "HUMAN FLOURISHING GUARD",
+      "class": "LAW",
+      "requirement": "Do not optimize the founder into a money-only, study-only, work-only or metric-only machine; preserve relationships, health, meaning, curiosity, creativity, rest, experience and identity flexibility where consistent with founder preferences."
+    },
+    {
+      "ordinal": 125,
+      "numeral": "CXXV",
+      "sectionId": "nullstar:125-civilization-memory",
+      "title": "CIVILIZATION MEMORY",
+      "class": "ORGAN",
+      "requirement": "Preserve the reasoning behind important architecture so future models understand which failure caused a rule, which experiment justified a mechanism and which alternatives were rejected."
+    },
+    {
+      "ordinal": 126,
+      "numeral": "CXXVI",
+      "sectionId": "nullstar:126-evolutionary-architecture",
+      "title": "EVOLUTIONARY ARCHITECTURE",
+      "class": "MECHANISM",
+      "requirement": "Subsystems compete and weak ones may be replaced while constitutional guarantees persist."
+    },
+    {
+      "ordinal": 127,
+      "numeral": "CXXVII",
+      "sectionId": "nullstar:127-internal-open-market",
+      "title": "INTERNAL OPEN MARKET",
+      "class": "MECHANISM",
+      "requirement": "Allow competing models, plans, architectures, capabilities, strategies and hypotheses with selection by evidence."
+    },
+    {
+      "ordinal": 128,
+      "numeral": "CXXVIII",
+      "sectionId": "nullstar:128-reproducibility",
+      "title": "REPRODUCIBILITY",
+      "class": "LAW",
+      "requirement": "Important evaluations record code version, data version, model version, prompt and context digest, random seed where possible, environment and results."
+    },
+    {
+      "ordinal": 129,
+      "numeral": "CXXIX",
+      "sectionId": "nullstar:129-counterfactual-regret",
+      "title": "COUNTERFACTUAL REGRET",
+      "class": "MECHANISM",
+      "requirement": "After major outcomes ask whether the decision was good given information available at the time rather than judging only by outcome."
+    },
+    {
+      "ordinal": 130,
+      "numeral": "CXXX",
+      "sectionId": "nullstar:130-postmortem-culture",
+      "title": "POSTMORTEM CULTURE",
+      "class": "PROCESS",
+      "requirement": "For significant failure record timeline, root cause, contributing factors, detection failure, containment, fix, new test and lesson without blame theater."
+    },
+    {
+      "ordinal": 131,
+      "numeral": "CXXXI",
+      "sectionId": "nullstar:131-premortem-culture",
+      "title": "PREMORTEM CULTURE",
+      "class": "PROCESS",
+      "requirement": "Before consequential missions imagine failure, list causes and mitigate the cheapest severe risks."
+    },
+    {
+      "ordinal": 132,
+      "numeral": "CXXXII",
+      "sectionId": "nullstar:132-runaway-complexity-defense",
+      "title": "RUNAWAY COMPLEXITY DEFENSE",
+      "class": "MECHANISM",
+      "requirement": "Complexity is technical debt; track module count, dependency depth, state stores, agent count, truth sources and configuration count and simplify when marginal value falls."
+    },
+    {
+      "ordinal": 133,
+      "numeral": "CXXXIII",
+      "sectionId": "nullstar:133-software-deletion",
+      "title": "SOFTWARE DELETION",
+      "class": "PROCESS",
+      "requirement": "Deletion is allowed; when two systems overlap prove one subsumes the other, migrate and delete safely."
+    },
+    {
+      "ordinal": 134,
+      "numeral": "CXXXIV",
+      "sectionId": "nullstar:134-internal-api-contracts",
+      "title": "INTERNAL API CONTRACTS",
+      "class": "LAW",
+      "requirement": "Subsystem boundaries must be explicit with validated schemas and versioned contracts."
+    },
+    {
+      "ordinal": 135,
+      "numeral": "CXXXV",
+      "sectionId": "nullstar:135-state-machine-discipline",
+      "title": "STATE MACHINE DISCIPLINE",
+      "class": "LAW",
+      "requirement": "Important processes use explicit state machines rather than ambiguous booleans."
+    },
+    {
+      "ordinal": 136,
+      "numeral": "CXXXVI",
+      "sectionId": "nullstar:136-event-sourcing-where-justified",
+      "title": "EVENT SOURCING WHERE JUSTIFIED",
+      "class": "MECHANISM",
+      "requirement": "Preserve event history for high-value state without event-sourcing everything blindly."
+    },
+    {
+      "ordinal": 137,
+      "numeral": "CXXXVII",
+      "sectionId": "nullstar:137-temporal-reasoning",
+      "title": "TEMPORAL REASONING",
+      "class": "LAW",
+      "requirement": "Every fact may carry validFrom, validUntil and observedAt because staleness matters."
+    },
+    {
+      "ordinal": 138,
+      "numeral": "CXXXVIII",
+      "sectionId": "nullstar:138-identity-resolution",
+      "title": "IDENTITY RESOLUTION",
+      "class": "MECHANISM",
+      "requirement": "Distinguish entities reliably and avoid incorrectly merging two humans, companies or capabilities."
+    },
+    {
+      "ordinal": 139,
+      "numeral": "CXXXIX",
+      "sectionId": "nullstar:139-provenance",
+      "title": "PROVENANCE",
+      "class": "LAW",
+      "requirement": "Every externally sourced important claim retains its origin."
+    },
+    {
+      "ordinal": 140,
+      "numeral": "CXL",
+      "sectionId": "nullstar:140-license-intelligence",
+      "title": "LICENSE INTELLIGENCE",
+      "class": "LAW",
+      "requirement": "Track software and data licenses and do not contaminate internal systems with incompatible licenses."
+    },
+    {
+      "ordinal": 141,
+      "numeral": "CXLI",
+      "sectionId": "nullstar:141-supply-chain-security",
+      "title": "SUPPLY CHAIN SECURITY",
+      "class": "LAW",
+      "requirement": "Pin critical dependencies where justified, scan them and track provenance."
+    },
+    {
+      "ordinal": 142,
+      "numeral": "CXLII",
+      "sectionId": "nullstar:142-mutable-remote-code",
+      "title": "MUTABLE REMOTE CODE",
+      "class": "LAW",
+      "requirement": "Treat remotely mutable scripts and configurations as elevated risk."
+    },
+    {
+      "ordinal": 143,
+      "numeral": "CXLIII",
+      "sectionId": "nullstar:143-observability",
+      "title": "OBSERVABILITY",
+      "class": "ORGAN",
+      "requirement": "Metrics, logs, traces, events and receipts must allow answering what happened, why, what changed and what will happen next."
+    },
+    {
+      "ordinal": 144,
+      "numeral": "CXLIV",
+      "sectionId": "nullstar:144-explainable-autonomy",
+      "title": "EXPLAINABLE AUTONOMY",
+      "class": "LAW",
+      "requirement": "Autonomous action leaves a compact decision trail exposing inputs, rules, evidence, selected action, alternatives, confidence and authority rather than hidden chain-of-thought."
+    },
+    {
+      "ordinal": 145,
+      "numeral": "CXLV",
+      "sectionId": "nullstar:145-compression-of-explanation",
+      "title": "COMPRESSION OF EXPLANATION",
+      "class": "LAW",
+      "requirement": "Founder-facing explanation is short by default while internal proof may be deep."
+    },
+    {
+      "ordinal": 146,
+      "numeral": "CXLVI",
+      "sectionId": "nullstar:146-cognitive-firewall",
+      "title": "COGNITIVE FIREWALL",
+      "class": "LAW",
+      "requirement": "Untrusted content must not directly rewrite the constitution, authority, memory canon, system prompts or benchmarks."
+    },
+    {
+      "ordinal": 147,
+      "numeral": "CXLVII",
+      "sectionId": "nullstar:147-memory-quarantine",
+      "title": "MEMORY QUARANTINE",
+      "class": "MECHANISM",
+      "requirement": "Potentially poisoned or low-confidence memory enters quarantine before canonical promotion."
+    },
+    {
+      "ordinal": 148,
+      "numeral": "CXLVIII",
+      "sectionId": "nullstar:148-benchmark-quarantine",
+      "title": "BENCHMARK QUARANTINE",
+      "class": "LAW",
+      "requirement": "Do not allow benchmark content into training or prompts for tested candidates."
+    },
+    {
+      "ordinal": 149,
+      "numeral": "CXLIX",
+      "sectionId": "nullstar:149-model-failure-map",
+      "title": "MODEL FAILURE MAP",
+      "class": "ORGAN",
+      "requirement": "For each provider learn what it systematically gets wrong and route accordingly."
+    },
+    {
+      "ordinal": 150,
+      "numeral": "CL",
+      "sectionId": "nullstar:150-ensemble-without-groupthink",
+      "title": "ENSEMBLE WITHOUT GROUPTHINK",
+      "class": "LAW",
+      "requirement": "Use independent methods only where diversity adds information; ten copies of the same prompt are not ten opinions."
+    },
+    {
+      "ordinal": 151,
+      "numeral": "CLI",
+      "sectionId": "nullstar:151-tool-failure-map",
+      "title": "TOOL FAILURE MAP",
+      "class": "ORGAN",
+      "requirement": "Track tool latency, error rate, schema drift, provider outages and incorrect outputs."
+    },
+    {
+      "ordinal": 152,
+      "numeral": "CLII",
+      "sectionId": "nullstar:152-self-diagnostics",
+      "title": "SELF-DIAGNOSTICS",
+      "class": "ORGAN",
+      "requirement": "Periodically test memory, search, database, queues, providers, permissions, proof system, evaluation and deployment."
+    },
+    {
+      "ordinal": 153,
+      "numeral": "CLIII",
+      "sectionId": "nullstar:153-liveness",
+      "title": "LIVENESS",
+      "class": "MECHANISM",
+      "requirement": "Continuous operation does not mean one infinite process; use durable scheduling, checkpoint and resume."
+    },
+    {
+      "ordinal": 154,
+      "numeral": "CLIV",
+      "sectionId": "nullstar:154-autonomic-nervous-system",
+      "title": "AUTONOMIC NERVOUS SYSTEM",
+      "class": "ORGAN",
+      "requirement": "Basic maintenance must not require a frontier model; use deterministic monitors and escalate anomalies."
+    },
+    {
+      "ordinal": 155,
+      "numeral": "CLV",
+      "sectionId": "nullstar:155-reflex-layer",
+      "title": "REFLEX LAYER",
+      "class": "ORGAN",
+      "requirement": "Provide fast deterministic responses for kill switches, rate limits, security violations, spend ceilings and health failures without routing critical reflexes through slow deliberation."
+    },
+    {
+      "ordinal": 156,
+      "numeral": "CLVI",
+      "sectionId": "nullstar:156-deliberative-layer",
+      "title": "DELIBERATIVE LAYER",
+      "class": "ORGAN",
+      "requirement": "Route complex uncertainty to reasoning models."
+    },
+    {
+      "ordinal": 157,
+      "numeral": "CLVII",
+      "sectionId": "nullstar:157-strategic-layer",
+      "title": "STRATEGIC LAYER",
+      "class": "ORGAN",
+      "requirement": "Use scenario analysis and future models for long-horizon decisions."
+    },
+    {
+      "ordinal": 158,
+      "numeral": "CLVIII",
+      "sectionId": "nullstar:158-civilizational-layer",
+      "title": "CIVILIZATIONAL LAYER",
+      "class": "ORGAN",
+      "requirement": "Address meta questions about what UberBond should become, what the founder should become, what futures should remain open and what is worth creating."
+    },
+    {
+      "ordinal": 159,
+      "numeral": "CLIX",
+      "sectionId": "nullstar:159-embodiment-interface",
+      "title": "EMBODIMENT INTERFACE",
+      "class": "MECHANISM",
+      "requirement": "Prepare clean interfaces for future wearables, voice, AR, robots, sensors and local devices without assuming particular hardware."
+    },
+    {
+      "ordinal": 160,
+      "numeral": "CLX",
+      "sectionId": "nullstar:160-ambient-computing",
+      "title": "AMBIENT COMPUTING",
+      "class": "MECHANISM",
+      "requirement": "Design APIs so the future system is usable without sitting at a dashboard."
+    },
+    {
+      "ordinal": 161,
+      "numeral": "CLXI",
+      "sectionId": "nullstar:161-consentful-sensing",
+      "title": "CONSENTFUL SENSING",
+      "class": "LAW",
+      "requirement": "Any personal sensing requires explicit scope and minimized collection."
+    },
+    {
+      "ordinal": 162,
+      "numeral": "CLXII",
+      "sectionId": "nullstar:162-private-exocortex",
+      "title": "PRIVATE EXOCORTEX",
+      "class": "MISSION",
+      "requirement": "The long-term target is that the founder need not remember every fact, task, plan, document or dependency while UberBond maintains continuity and the founder retains judgment and sovereignty."
+    },
+    {
+      "ordinal": 163,
+      "numeral": "CLXIII",
+      "sectionId": "nullstar:163-cognitive-prosthesis",
+      "title": "COGNITIVE PROSTHESIS",
+      "class": "ORGAN",
+      "requirement": "Provide external scaffolding for weaknesses in memory, attention, planning, organization, research and learning."
+    },
+    {
+      "ordinal": 164,
+      "numeral": "CLXIV",
+      "sectionId": "nullstar:164-cognitive-amplification",
+      "title": "COGNITIVE AMPLIFICATION",
+      "class": "ORGAN",
+      "requirement": "Do more than compensate weaknesses; amplify strengths."
+    },
+    {
+      "ordinal": 165,
+      "numeral": "CLXV",
+      "sectionId": "nullstar:165-personal-science",
+      "title": "PERSONAL SCIENCE",
+      "class": "MECHANISM",
+      "requirement": "For safe lifestyle, productivity and learning questions use N-of-1 experimentation without inferring medical conclusions from casual experiments."
+    },
+    {
+      "ordinal": 166,
+      "numeral": "CLXVI",
+      "sectionId": "nullstar:166-legal-medical-financial-high-stakes-boundary",
+      "title": "LEGAL / MEDICAL / FINANCIAL HIGH-STAKES BOUNDARY",
+      "class": "BOUNDARY",
+      "requirement": "Maintain appropriate uncertainty and human or professional escalation; advanced intelligence does not abolish external professional or legal reality."
+    },
+    {
+      "ordinal": 167,
+      "numeral": "CLXVII",
+      "sectionId": "nullstar:167-market-reality",
+      "title": "MARKET REALITY",
+      "class": "EXTERNAL_GATE",
+      "requirement": "No economic strategy becomes proven until real customers, real money and real retention support it."
+    },
+    {
+      "ordinal": 168,
+      "numeral": "CLXVIII",
+      "sectionId": "nullstar:168-science-reality",
+      "title": "SCIENCE REALITY",
+      "class": "EXTERNAL_GATE",
+      "requirement": "No scientific novelty becomes established merely because models agree."
+    },
+    {
+      "ordinal": 169,
+      "numeral": "CLXIX",
+      "sectionId": "nullstar:169-life-reality",
+      "title": "LIFE REALITY",
+      "class": "EXTERNAL_GATE",
+      "requirement": "No life recommendation becomes proven until longitudinal evidence accumulates."
+    },
+    {
+      "ordinal": 170,
+      "numeral": "CLXX",
+      "sectionId": "nullstar:170-private-deployment",
+      "title": "PRIVATE DEPLOYMENT",
+      "class": "LAW",
+      "requirement": "Prefer private-by-default access with authentication required and no accidental public founder console."
+    },
+    {
+      "ordinal": 171,
+      "numeral": "CLXXI",
+      "sectionId": "nullstar:171-backup",
+      "title": "BACKUP",
+      "class": "ORGAN",
+      "requirement": "Automate secure backups consistent with environment capability and test restore; a backup never restored is a hypothesis."
+    },
+    {
+      "ordinal": 172,
+      "numeral": "CLXXII",
+      "sectionId": "nullstar:172-disaster-recovery",
+      "title": "DISASTER RECOVERY",
+      "class": "PROCESS",
+      "requirement": "Document and test recovery from database loss, host loss, provider loss, repository loss and credential loss."
+    },
+    {
+      "ordinal": 173,
+      "numeral": "CLXXIII",
+      "sectionId": "nullstar:173-portability",
+      "title": "PORTABILITY",
+      "class": "LAW",
+      "requirement": "Avoid unnecessary proprietary lock-in."
+    },
+    {
+      "ordinal": 174,
+      "numeral": "CLXXIV",
+      "sectionId": "nullstar:174-credential-hygiene",
+      "title": "CREDENTIAL HYGIENE",
+      "class": "LAW",
+      "requirement": "Secrets never enter Git history; use protected secret stores and rotate exposed credentials."
+    },
+    {
+      "ordinal": 175,
+      "numeral": "CLXXV",
+      "sectionId": "nullstar:175-cost-governor",
+      "title": "COST GOVERNOR",
+      "class": "ORGAN",
+      "requirement": "Set bounded budgets and detect anomalous spend."
+    },
+    {
+      "ordinal": 176,
+      "numeral": "CLXXVI",
+      "sectionId": "nullstar:176-resource-autoscaling",
+      "title": "RESOURCE AUTOSCALING",
+      "class": "MECHANISM",
+      "requirement": "Scale compute based on workload where infrastructure allows, without scaling blindly."
+    },
+    {
+      "ordinal": 177,
+      "numeral": "CLXXVII",
+      "sectionId": "nullstar:177-performance-engine",
+      "title": "PERFORMANCE ENGINE",
+      "class": "ORGAN",
+      "requirement": "Profile before optimizing."
+    },
+    {
+      "ordinal": 178,
+      "numeral": "CLXXVIII",
+      "sectionId": "nullstar:178-latency-tiers",
+      "title": "LATENCY TIERS",
+      "class": "ONTOLOGY",
+      "requirement": "Classify work as realtime, interactive, background, batch or deep research and route accordingly."
+    },
+    {
+      "ordinal": 179,
+      "numeral": "CLXXIX",
+      "sectionId": "nullstar:179-quality-tiers",
+      "title": "QUALITY TIERS",
+      "class": "ONTOLOGY",
+      "requirement": "Not every task requires maximal reasoning."
+    },
+    {
+      "ordinal": 180,
+      "numeral": "CLXXX",
+      "sectionId": "nullstar:180-cognitive-budget",
+      "title": "COGNITIVE BUDGET",
+      "class": "MECHANISM",
+      "requirement": "Allocate reasoning depth proportional to decision stakes."
+    },
+    {
+      "ordinal": 181,
+      "numeral": "CLXXXI",
+      "sectionId": "nullstar:181-progressive-escalation",
+      "title": "PROGRESSIVE ESCALATION",
+      "class": "MECHANISM",
+      "requirement": "Start cheap and escalate when uncertainty remains."
+    },
+    {
+      "ordinal": 182,
+      "numeral": "CLXXXII",
+      "sectionId": "nullstar:182-progressive-verification",
+      "title": "PROGRESSIVE VERIFICATION",
+      "class": "MECHANISM",
+      "requirement": "High-stakes claims receive stronger verification."
+    },
+    {
+      "ordinal": 183,
+      "numeral": "CLXXXIII",
+      "sectionId": "nullstar:183-composition-search",
+      "title": "COMPOSITION SEARCH",
+      "class": "MECHANISM",
+      "requirement": "Search compositions because a combination sometimes beats any single capability, while penalizing needless complexity."
+    },
+    {
+      "ordinal": 184,
+      "numeral": "CLXXXIV",
+      "sectionId": "nullstar:184-compatibility-graph",
+      "title": "COMPATIBILITY GRAPH",
+      "class": "ORGAN",
+      "requirement": "Track requires, conflicts, supersedes, substitutes and enhances relationships among capabilities."
+    },
+    {
+      "ordinal": 185,
+      "numeral": "CLXXXV",
+      "sectionId": "nullstar:185-cognitive-supply-chain",
+      "title": "COGNITIVE SUPPLY CHAIN",
+      "class": "ORGAN",
+      "requirement": "Map dependencies between models, tools, data, providers and skills and identify single points of failure."
+    },
+    {
+      "ordinal": 186,
+      "numeral": "CLXXXVI",
+      "sectionId": "nullstar:186-self-sufficiency-score",
+      "title": "SELF-SUFFICIENCY SCORE",
+      "class": "MECHANISM",
+      "requirement": "Measure what fraction of critical functions survive loss of each external provider."
+    },
+    {
+      "ordinal": 187,
+      "numeral": "CLXXXVII",
+      "sectionId": "nullstar:187-founder-absence-test",
+      "title": "FOUNDER ABSENCE TEST",
+      "class": "MECHANISM",
+      "requirement": "Simulate founder absence for one hour, one day and one week and record what safely continues, what stops and what accumulates."
+    },
+    {
+      "ordinal": 188,
+      "numeral": "CLXXXVIII",
+      "sectionId": "nullstar:188-human-return-protocol",
+      "title": "HUMAN RETURN PROTOCOL",
+      "class": "PROCESS",
+      "requirement": "After absence provide state, changes, risks, decisions and top actions."
+    },
+    {
+      "ordinal": 189,
+      "numeral": "CLXXXIX",
+      "sectionId": "nullstar:189-autonomy-boundary",
+      "title": "AUTONOMY BOUNDARY",
+      "class": "LAW",
+      "requirement": "Increase autonomy only when reliability, observability, reversibility and authority justify it."
+    },
+    {
+      "ordinal": 190,
+      "numeral": "CXC",
+      "sectionId": "nullstar:190-real-world-actuation-ladder",
+      "title": "REAL-WORLD ACTUATION LADDER",
+      "class": "LAW",
+      "requirement": "Move through read, analyze, draft, simulate, propose, execute low-risk, execute reversible and execute consequential with authority gates increasing along the ladder."
+    },
+    {
+      "ordinal": 191,
+      "numeral": "CXCI",
+      "sectionId": "nullstar:191-self-improvement-ladder",
+      "title": "SELF-IMPROVEMENT LADDER",
+      "class": "LAW",
+      "requirement": "Move through prompt, workflow, retrieval, tool, code, architecture, model and meta-improvement method, with higher levels requiring stronger verification."
+    },
+    {
+      "ordinal": 192,
+      "numeral": "CXCII",
+      "sectionId": "nullstar:192-no-constitutional-self-amendment",
+      "title": "NO CONSTITUTIONAL SELF-AMENDMENT",
+      "class": "LAW",
+      "requirement": "Performance optimization cannot autonomously remove truth requirements, authority controls, founder sovereignty, evidence semantics or critical security boundaries."
+    },
+    {
+      "ordinal": 193,
+      "numeral": "CXCIII",
+      "sectionId": "nullstar:193-sandbox-universe",
+      "title": "SANDBOX UNIVERSE",
+      "class": "ORGAN",
+      "requirement": "Dangerous experimentation belongs in isolated environments."
+    },
+    {
+      "ordinal": 194,
+      "numeral": "CXCIV",
+      "sectionId": "nullstar:194-digital-twin-of-uberbond",
+      "title": "DIGITAL TWIN OF UBERBOND",
+      "class": "ORGAN",
+      "requirement": "Simulate proposed architecture changes before production where useful."
+    },
+    {
+      "ordinal": 195,
+      "numeral": "CXCV",
+      "sectionId": "nullstar:195-chaos-engineering",
+      "title": "CHAOS ENGINEERING",
+      "class": "MECHANISM",
+      "requirement": "Inject safe failures such as provider unavailability, database latency, worker crash and malformed response and verify recovery."
+    },
+    {
+      "ordinal": 196,
+      "numeral": "CXCVI",
+      "sectionId": "nullstar:196-long-horizon-agent-test",
+      "title": "LONG-HORIZON AGENT TEST",
+      "class": "MECHANISM",
+      "requirement": "Benchmark missions lasting many steps and measure goal drift, memory failure, authority drift and error accumulation."
+    },
+    {
+      "ordinal": 197,
+      "numeral": "CXCVII",
+      "sectionId": "nullstar:197-goal-preservation-test",
+      "title": "GOAL PRESERVATION TEST",
+      "class": "MECHANISM",
+      "requirement": "Long missions must preserve the original objective and constraints."
+    },
+    {
+      "ordinal": 198,
+      "numeral": "CXCVIII",
+      "sectionId": "nullstar:198-intent-drift-detector",
+      "title": "INTENT DRIFT DETECTOR",
+      "class": "ORGAN",
+      "requirement": "Detect when decomposition subtly changes the founder goal."
+    },
+    {
+      "ordinal": 199,
+      "numeral": "CXCIX",
+      "sectionId": "nullstar:199-objective-stack",
+      "title": "OBJECTIVE STACK",
+      "class": "ORGAN",
+      "requirement": "Every mission stores founder objective, system interpretation, subobjectives and metrics, and compares them."
+    },
+    {
+      "ordinal": 200,
+      "numeral": "CC",
+      "sectionId": "nullstar:200-strategic-contradiction-detector",
+      "title": "STRATEGIC CONTRADICTION DETECTOR",
+      "class": "ORGAN",
+      "requirement": "Surface tradeoffs when stated objectives such as maximize income and maximize freedom conflict."
+    },
+    {
+      "ordinal": 201,
+      "numeral": "CCI",
+      "sectionId": "nullstar:201-multi-objective-pareto-engine",
+      "title": "MULTI-OBJECTIVE PARETO ENGINE",
+      "class": "ORGAN",
+      "requirement": "Generate Pareto-efficient alternatives rather than forcing one utility function."
+    },
+    {
+      "ordinal": 202,
+      "numeral": "CCII",
+      "sectionId": "nullstar:202-reversibility-index",
+      "title": "REVERSIBILITY INDEX",
+      "class": "MECHANISM",
+      "requirement": "Score how hard a decision is to undo."
+    },
+    {
+      "ordinal": 203,
+      "numeral": "CCIII",
+      "sectionId": "nullstar:203-tail-risk-engine",
+      "title": "TAIL-RISK ENGINE",
+      "class": "ORGAN",
+      "requirement": "Give attention to low-probability catastrophic downside."
+    },
+    {
+      "ordinal": 204,
+      "numeral": "CCIV",
+      "sectionId": "nullstar:204-ruin-avoidance",
+      "title": "RUIN AVOIDANCE",
+      "class": "LAW",
+      "requirement": "Economic systems must avoid strategies with unacceptable probability of ruin."
+    },
+    {
+      "ordinal": 205,
+      "numeral": "CCV",
+      "sectionId": "nullstar:205-capital-preservation",
+      "title": "CAPITAL PRESERVATION",
+      "class": "LAW",
+      "requirement": "Never mistake gambling variance for intelligence."
+    },
+    {
+      "ordinal": 206,
+      "numeral": "CCVI",
+      "sectionId": "nullstar:206-economic-experimentation",
+      "title": "ECONOMIC EXPERIMENTATION",
+      "class": "MECHANISM",
+      "requirement": "Use bounded capital tests and make no claims of magical compounding."
+    },
+    {
+      "ordinal": 207,
+      "numeral": "CCVII",
+      "sectionId": "nullstar:207-anti-fraud-law",
+      "title": "ANTI-FRAUD LAW",
+      "class": "LAW",
+      "requirement": "Never deceive customers, providers, regulators or counterparties."
+    },
+    {
+      "ordinal": 208,
+      "numeral": "CCVIII",
+      "sectionId": "nullstar:208-private-does-not-mean-unaccountable",
+      "title": "PRIVATE DOES NOT MEAN UNACCOUNTABLE",
+      "class": "LAW",
+      "requirement": "Privacy protects the founder and is not permission to bypass legitimate constraints."
+    },
+    {
+      "ordinal": 209,
+      "numeral": "CCIX",
+      "sectionId": "nullstar:209-intelligence-diversity",
+      "title": "INTELLIGENCE DIVERSITY",
+      "class": "MECHANISM",
+      "requirement": "Search different reasoning paradigms and treat future architectures as candidates rather than assuming transformer-style reasoning is the permanent optimum."
+    },
+    {
+      "ordinal": 210,
+      "numeral": "CCX",
+      "sectionId": "nullstar:210-algorithm-discovery",
+      "title": "ALGORITHM DISCOVERY",
+      "class": "MECHANISM",
+      "requirement": "Search for new algorithms when existing ones bottleneck performance."
+    },
+    {
+      "ordinal": 211,
+      "numeral": "CCXI",
+      "sectionId": "nullstar:211-representation-discovery",
+      "title": "REPRESENTATION DISCOVERY",
+      "class": "MECHANISM",
+      "requirement": "Search for better internal representations."
+    },
+    {
+      "ordinal": 212,
+      "numeral": "CCXII",
+      "sectionId": "nullstar:212-memory-architecture-tournament",
+      "title": "MEMORY ARCHITECTURE TOURNAMENT",
+      "class": "MECHANISM",
+      "requirement": "Compare vector, graph, temporal, episodic, symbolic and hybrid memory per workload."
+    },
+    {
+      "ordinal": 213,
+      "numeral": "CCXIII",
+      "sectionId": "nullstar:213-planner-tournament",
+      "title": "PLANNER TOURNAMENT",
+      "class": "MECHANISM",
+      "requirement": "Compare planning algorithms."
+    },
+    {
+      "ordinal": 214,
+      "numeral": "CCXIV",
+      "sectionId": "nullstar:214-verifier-tournament",
+      "title": "VERIFIER TOURNAMENT",
+      "class": "MECHANISM",
+      "requirement": "Measure which verifier catches which error classes."
+    },
+    {
+      "ordinal": 215,
+      "numeral": "CCXV",
+      "sectionId": "nullstar:215-search-tournament",
+      "title": "SEARCH TOURNAMENT",
+      "class": "MECHANISM",
+      "requirement": "Compare breadth, depth, graph, evolutionary and other search methods where useful."
+    },
+    {
+      "ordinal": 216,
+      "numeral": "CCXVI",
+      "sectionId": "nullstar:216-reasoning-economics",
+      "title": "REASONING ECONOMICS",
+      "class": "MECHANISM",
+      "requirement": "Track accuracy improvement per token, dollar and second."
+    },
+    {
+      "ordinal": 217,
+      "numeral": "CCXVII",
+      "sectionId": "nullstar:217-compression-research",
+      "title": "COMPRESSION RESEARCH",
+      "class": "MECHANISM",
+      "requirement": "Improve context compression without losing critical state and benchmark reconstruction."
+    },
+    {
+      "ordinal": 218,
+      "numeral": "CCXVIII",
+      "sectionId": "nullstar:218-context-rehydration",
+      "title": "CONTEXT REHYDRATION",
+      "class": "MECHANISM",
+      "requirement": "A new worker reconstructs mission state from durable artifacts with no dependency on one chat window."
+    },
+    {
+      "ordinal": 219,
+      "numeral": "CCXIX",
+      "sectionId": "nullstar:219-new-chat-immortality",
+      "title": "NEW-CHAT IMMORTALITY",
+      "class": "LAW",
+      "requirement": "Changing chat or session must not reset UberBond understanding; repository-native state dominates session memory."
+    },
+    {
+      "ordinal": 220,
+      "numeral": "CCXX",
+      "sectionId": "nullstar:220-continuation-protocol",
+      "title": "CONTINUATION PROTOCOL",
+      "class": "MECHANISM",
+      "requirement": "The word continue must recover canonical state, verify current reality, identify the unfinished mission and resume the critical path."
+    },
+    {
+      "ordinal": 221,
+      "numeral": "CCXXI",
+      "sectionId": "nullstar:221-bootstrap-doctor",
+      "title": "BOOTSTRAP DOCTOR",
+      "class": "ORGAN",
+      "requirement": "One command diagnoses repository, dependencies, database, providers, secrets, runtime, tests, canon and deployment."
+    },
+    {
+      "ordinal": 222,
+      "numeral": "CCXXII",
+      "sectionId": "nullstar:222-self-completion-engine",
+      "title": "SELF-COMPLETION ENGINE",
+      "class": "ORGAN",
+      "requirement": "When source work remains, select the next finite verified leaf, implement, test, review, promote and wake again without founder micro-coordination."
+    },
+    {
+      "ordinal": 223,
+      "numeral": "CCXXIII",
+      "sectionId": "nullstar:223-stop-conditions",
+      "title": "STOP CONDITIONS",
+      "class": "LAW",
+      "requirement": "The autonomous loop stops when nothing dependency-satisfied remains or the next step requires founder consent, external acceptance, identity or KYC, money transfer, physical action, an unavailable credential or real elapsed time."
+    },
+    {
+      "ordinal": 224,
+      "numeral": "CCXXIV",
+      "sectionId": "nullstar:224-owner-blocker-eradication",
+      "title": "OWNER BLOCKER ERADICATION",
+      "class": "PROCESS",
+      "requirement": "Before escalating a blocker ask whether code, research, another provider, simulation, configuration or a test can solve it, and only then escalate."
+    },
+    {
+      "ordinal": 225,
+      "numeral": "CCXXV",
+      "sectionId": "nullstar:225-max-three-founder-actions",
+      "title": "MAX THREE FOUNDER ACTIONS",
+      "class": "LAW",
+      "requirement": "Never dump many tasks onto the founder; choose the three actual bottlenecks."
+    },
+    {
+      "ordinal": 226,
+      "numeral": "CCXXVI",
+      "sectionId": "nullstar:226-evidence-first-development",
+      "title": "EVIDENCE-FIRST DEVELOPMENT",
+      "class": "LAW",
+      "requirement": "Every important pull request leaves receipts."
+    },
+    {
+      "ordinal": 227,
+      "numeral": "CCXXVII",
+      "sectionId": "nullstar:227-pr-law",
+      "title": "PR LAW",
+      "class": "PROCESS",
+      "requirement": "Branch, build, test, adversarial review, CI, inspect diff, merge and verify main; do not merge failing source."
+    },
+    {
+      "ordinal": 228,
+      "numeral": "CCXXVIII",
+      "sectionId": "nullstar:228-infra-vs-source",
+      "title": "INFRA VS SOURCE",
+      "class": "LAW",
+      "requirement": "Distinguish source failure, test failure, CI infrastructure failure, provider failure and external blocker."
+    },
+    {
+      "ordinal": 229,
+      "numeral": "CCXXIX",
+      "sectionId": "nullstar:229-parallel-software-swarm",
+      "title": "PARALLEL SOFTWARE SWARM",
+      "class": "MECHANISM",
+      "requirement": "When safe, assign nonoverlapping ownership with integration authority and avoid merge chaos."
+    },
+    {
+      "ordinal": 230,
+      "numeral": "CCXXX",
+      "sectionId": "nullstar:230-speed-metric",
+      "title": "SPEED METRIC",
+      "class": "LAW",
+      "requirement": "Optimize verified capability gain per wall clock rather than commits per hour."
+    },
+    {
+      "ordinal": 231,
+      "numeral": "CCXXXI",
+      "sectionId": "nullstar:231-architectural-compression",
+      "title": "ARCHITECTURAL COMPRESSION",
+      "class": "MECHANISM",
+      "requirement": "A better architecture may have fewer components."
+    },
+    {
+      "ordinal": 232,
+      "numeral": "CCXXXII",
+      "sectionId": "nullstar:232-mega-research-mode",
+      "title": "MEGA-RESEARCH MODE",
+      "class": "PROCESS",
+      "requirement": "For high-value unknowns conduct broad research and convert findings into mechanisms, benchmarks, code and experiments rather than stopping at a report."
+    },
+    {
+      "ordinal": 233,
+      "numeral": "CCXXXIII",
+      "sectionId": "nullstar:233-research-donor-classification",
+      "title": "RESEARCH DONOR CLASSIFICATION",
+      "class": "LAW",
+      "requirement": "External research becomes a donor until independently validated; do not canonize hype."
+    },
+    {
+      "ordinal": 234,
+      "numeral": "CCXXXIV",
+      "sectionId": "nullstar:234-source-quality",
+      "title": "SOURCE QUALITY",
+      "class": "ONTOLOGY",
+      "requirement": "Track whether a source is primary, secondary, anecdotal, marketing or unknown."
+    },
+    {
+      "ordinal": 235,
+      "numeral": "CCXXXV",
+      "sectionId": "nullstar:235-temporal-freshness",
+      "title": "TEMPORAL FRESHNESS",
+      "class": "LAW",
+      "requirement": "Fast-changing facts expire."
+    },
+    {
+      "ordinal": 236,
+      "numeral": "CCXXXVI",
+      "sectionId": "nullstar:236-contradiction-graph",
+      "title": "CONTRADICTION GRAPH",
+      "class": "ORGAN",
+      "requirement": "Do not overwrite conflicting evidence; store the contradiction and resolve when possible."
+    },
+    {
+      "ordinal": 237,
+      "numeral": "CCXXXVII",
+      "sectionId": "nullstar:237-knowledge-debt",
+      "title": "KNOWLEDGE DEBT",
+      "class": "ORGAN",
+      "requirement": "Track assumptions with weak evidence that important systems depend upon and prioritize verification."
+    },
+    {
+      "ordinal": 238,
+      "numeral": "CCXXXVIII",
+      "sectionId": "nullstar:238-decision-debt",
+      "title": "DECISION DEBT",
+      "class": "ORGAN",
+      "requirement": "Track deferred high-value decisions."
+    },
+    {
+      "ordinal": 239,
+      "numeral": "CCXXXIX",
+      "sectionId": "nullstar:239-automation-debt",
+      "title": "AUTOMATION DEBT",
+      "class": "ORGAN",
+      "requirement": "Track founder work that can probably be automated."
+    },
+    {
+      "ordinal": 240,
+      "numeral": "CCXL",
+      "sectionId": "nullstar:240-capability-debt",
+      "title": "CAPABILITY DEBT",
+      "class": "ORGAN",
+      "requirement": "Track recurring tasks where UberBond lacks a sufficient capability."
+    },
+    {
+      "ordinal": 241,
+      "numeral": "CCXLI",
+      "sectionId": "nullstar:241-science-of-founder-minutes",
+      "title": "SCIENCE OF FOUNDER MINUTES",
+      "class": "MECHANISM",
+      "requirement": "Measure where founder time goes and search for the highest-value elimination."
+    },
+    {
+      "ordinal": 242,
+      "numeral": "CCXLII",
+      "sectionId": "nullstar:242-cognitive-offloading",
+      "title": "COGNITIVE OFFLOADING",
+      "class": "MECHANISM",
+      "requirement": "Move low-value remembering, planning and coordination out of the founder's head."
+    },
+    {
+      "ordinal": 243,
+      "numeral": "CCXLIII",
+      "sectionId": "nullstar:243-not-everything-should-be-automated",
+      "title": "NOT EVERYTHING SHOULD BE AUTOMATED",
+      "class": "LAW",
+      "requirement": "Preserve experiences that have intrinsic value."
+    },
+    {
+      "ordinal": 244,
+      "numeral": "CCXLIV",
+      "sectionId": "nullstar:244-creative-civilization",
+      "title": "CREATIVE CIVILIZATION",
+      "class": "ORGAN",
+      "requirement": "Support writing, acting, film, design, ideas, experiments and artistic projects; creativity is not reduced to productivity."
+    },
+    {
+      "ordinal": 245,
+      "numeral": "CCXLV",
+      "sectionId": "nullstar:245-research-career-engine",
+      "title": "RESEARCH CAREER ENGINE",
+      "class": "ORGAN",
+      "requirement": "Discover labs, mentors, papers, open questions, competitions and projects when relevant."
+    },
+    {
+      "ordinal": 246,
+      "numeral": "CCXLVI",
+      "sectionId": "nullstar:246-medicine-learning-engine",
+      "title": "MEDICINE LEARNING ENGINE",
+      "class": "ORGAN",
+      "requirement": "Support course-specific learning without assuming medical correctness from stale notes; source truth matters."
+    },
+    {
+      "ordinal": 247,
+      "numeral": "CCXLVII",
+      "sectionId": "nullstar:247-language-engine",
+      "title": "LANGUAGE ENGINE",
+      "class": "ORGAN",
+      "requirement": "Provide adaptive comprehension, speaking, vocabulary, grammar and real-world exposure."
+    },
+    {
+      "ordinal": 248,
+      "numeral": "CCXLVIII",
+      "sectionId": "nullstar:248-network-engine",
+      "title": "NETWORK ENGINE",
+      "class": "ORGAN",
+      "requirement": "With founder authorization identify useful people, contexts, mutual value and introduction paths, with no spam."
+    },
+    {
+      "ordinal": 249,
+      "numeral": "CCXLIX",
+      "sectionId": "nullstar:249-relationship-memory",
+      "title": "RELATIONSHIP MEMORY",
+      "class": "ORGAN",
+      "requirement": "Remember commitments and context where authorized."
+    },
+    {
+      "ordinal": 250,
+      "numeral": "CCL",
+      "sectionId": "nullstar:250-geographic-option-engine",
+      "title": "GEOGRAPHIC OPTION ENGINE",
+      "class": "ORGAN",
+      "requirement": "Model countries, visas, education, career, cost, quality of life, network and language as evolving options."
+    },
+    {
+      "ordinal": 251,
+      "numeral": "CCLI",
+      "sectionId": "nullstar:251-frontier-technology-radar",
+      "title": "FRONTIER TECHNOLOGY RADAR",
+      "class": "ORGAN",
+      "requirement": "Track technologies that may change founder leverage."
+    },
+    {
+      "ordinal": 252,
+      "numeral": "CCLII",
+      "sectionId": "nullstar:252-hardware-future-interface",
+      "title": "HARDWARE FUTURE INTERFACE",
+      "class": "MECHANISM",
+      "requirement": "Prepare interfaces for future wearable and exocortex hardware without pretending current hardware achieves brain integration."
+    },
+    {
+      "ordinal": 253,
+      "numeral": "CCLIII",
+      "sectionId": "nullstar:253-personal-knowledge-graph",
+      "title": "PERSONAL KNOWLEDGE GRAPH",
+      "class": "ORGAN",
+      "requirement": "Connect people, projects, knowledge, decisions, goals, events, documents, capabilities and opportunities."
+    },
+    {
+      "ordinal": 254,
+      "numeral": "CCLIV",
+      "sectionId": "nullstar:254-personal-search",
+      "title": "PERSONAL SEARCH",
+      "class": "ORGAN",
+      "requirement": "One query searches repository, memory, documents, events, experiments, opportunities and projects within authority boundaries."
+    },
+    {
+      "ordinal": 255,
+      "numeral": "CCLV",
+      "sectionId": "nullstar:255-personal-api",
+      "title": "PERSONAL API",
+      "class": "ORGAN",
+      "requirement": "Expose well-scoped internal APIs so future interfaces can use the organism."
+    },
+    {
+      "ordinal": 256,
+      "numeral": "CCLVI",
+      "sectionId": "nullstar:256-voice-first-future",
+      "title": "VOICE-FIRST FUTURE",
+      "class": "MECHANISM",
+      "requirement": "Design the natural language interface independently of the current GUI."
+    },
+    {
+      "ordinal": 257,
+      "numeral": "CCLVII",
+      "sectionId": "nullstar:257-notification-economy",
+      "title": "NOTIFICATION ECONOMY",
+      "class": "ORGAN",
+      "requirement": "Notifications compete for founder attention and most things should not interrupt."
+    },
+    {
+      "ordinal": 258,
+      "numeral": "CCLVIII",
+      "sectionId": "nullstar:258-urgency-classification",
+      "title": "URGENCY CLASSIFICATION",
+      "class": "ONTOLOGY",
+      "requirement": "Classify as now, today, this week, background or archive."
+    },
+    {
+      "ordinal": 259,
+      "numeral": "CCLIX",
+      "sectionId": "nullstar:259-interrupt-budget",
+      "title": "INTERRUPT BUDGET",
+      "class": "MECHANISM",
+      "requirement": "Bound unnecessary interruptions."
+    },
+    {
+      "ordinal": 260,
+      "numeral": "CCLX",
+      "sectionId": "nullstar:260-sleep-mode",
+      "title": "SLEEP MODE",
+      "class": "MECHANISM",
+      "requirement": "During founder sleep perform safe background work, batch nonurgent decisions and prepare morning synthesis."
+    },
+    {
+      "ordinal": 261,
+      "numeral": "CCLXI",
+      "sectionId": "nullstar:261-wake-mode",
+      "title": "WAKE MODE",
+      "class": "MECHANISM",
+      "requirement": "Present compressed state on wake."
+    },
+    {
+      "ordinal": 262,
+      "numeral": "CCLXII",
+      "sectionId": "nullstar:262-curiosity-budget",
+      "title": "CURIOSITY BUDGET",
+      "class": "MECHANISM",
+      "requirement": "Allocate some compute to exploratory questions that are not immediately profitable because breakthroughs often arise there."
+    },
+    {
+      "ordinal": 263,
+      "numeral": "CCLXIII",
+      "sectionId": "nullstar:263-frontier-exploration",
+      "title": "FRONTIER EXPLORATION",
+      "class": "PROCESS",
+      "requirement": "Regularly inspect emerging science, software, AI, markets, education, hardware and interfaces."
+    },
+    {
+      "ordinal": 264,
+      "numeral": "CCLXIV",
+      "sectionId": "nullstar:264-meta-meta-improvement",
+      "title": "META-META IMPROVEMENT",
+      "class": "MECHANISM",
+      "requirement": "Ask what limits the ability to improve the ability to improve and generate measurable hypotheses without magical recursion."
+    },
+    {
+      "ordinal": 265,
+      "numeral": "CCLXV",
+      "sectionId": "nullstar:265-diminishing-returns-detector",
+      "title": "DIMINISHING RETURNS DETECTOR",
+      "class": "MECHANISM",
+      "requirement": "When an optimization line stops yielding meaningful improvements, switch search strategy."
+    },
+    {
+      "ordinal": 266,
+      "numeral": "CCLXVI",
+      "sectionId": "nullstar:266-phase-transition-detector",
+      "title": "PHASE TRANSITION DETECTOR",
+      "class": "MECHANISM",
+      "requirement": "Watch for qualitative changes in capability rather than only benchmark points and investigate them."
+    },
+    {
+      "ordinal": 267,
+      "numeral": "CCLXVII",
+      "sectionId": "nullstar:267-emergent-capability-audit",
+      "title": "EMERGENT CAPABILITY AUDIT",
+      "class": "LAW",
+      "requirement": "Unexpected capability requires evaluation before authority expansion."
+    },
+    {
+      "ordinal": 268,
+      "numeral": "CCLXVIII",
+      "sectionId": "nullstar:268-power-without-permission",
+      "title": "POWER WITHOUT PERMISSION",
+      "class": "LAW",
+      "requirement": "A smarter system remains bounded by existing authority; this rule never flips."
+    },
+    {
+      "ordinal": 269,
+      "numeral": "CCLXIX",
+      "sectionId": "nullstar:269-singularity-safety-paradox",
+      "title": "SINGULARITY SAFETY PARADOX",
+      "class": "LAW",
+      "requirement": "The closer capability gets to extreme levels the stronger the need for measurement, isolation, reversibility, proof and independent control; never weaken them because the system seems trustworthy."
+    },
+    {
+      "ordinal": 270,
+      "numeral": "CCLXX",
+      "sectionId": "nullstar:270-contained-self-improvement",
+      "title": "CONTAINED SELF-IMPROVEMENT",
+      "class": "LAW",
+      "requirement": "Improvements may rewrite ordinary code within authorized workflows but may not silently rewrite constitutional boundaries."
+    },
+    {
+      "ordinal": 271,
+      "numeral": "CCLXXI",
+      "sectionId": "nullstar:271-independent-promotion",
+      "title": "INDEPENDENT PROMOTION",
+      "class": "LAW",
+      "requirement": "An improvement candidate cannot authorize itself, judge itself exclusively, modify its hidden benchmark or change success criteria after seeing results."
+    },
+    {
+      "ordinal": 272,
+      "numeral": "CCLXXII",
+      "sectionId": "nullstar:272-rollback-always",
+      "title": "ROLLBACK ALWAYS",
+      "class": "LAW",
+      "requirement": "Every consequential software improvement needs a rollback path."
+    },
+    {
+      "ordinal": 273,
+      "numeral": "CCLXXIII",
+      "sectionId": "nullstar:273-versioned-intelligence",
+      "title": "VERSIONED INTELLIGENCE",
+      "class": "MECHANISM",
+      "requirement": "Every major UberBond version records capability vector, benchmarks, models, cost, latency, failures and security state."
+    },
+    {
+      "ordinal": 274,
+      "numeral": "CCLXXIV",
+      "sectionId": "nullstar:274-intelligence-lineage",
+      "title": "INTELLIGENCE LINEAGE",
+      "class": "MECHANISM",
+      "requirement": "Track which improvements caused later improvements and build a causal genealogy."
+    },
+    {
+      "ordinal": 275,
+      "numeral": "CCLXXV",
+      "sectionId": "nullstar:275-improvement-compounding",
+      "title": "IMPROVEMENT COMPOUNDING",
+      "class": "MECHANISM",
+      "requirement": "Search for improvements that accelerate many downstream abilities such as better memory, evaluator, capability retrieval, research and coding, which may have multiplicative value."
+    },
+    {
+      "ordinal": 276,
+      "numeral": "CCLXXVI",
+      "sectionId": "nullstar:276-cognitive-leverage-score",
+      "title": "COGNITIVE LEVERAGE SCORE",
+      "class": "MECHANISM",
+      "requirement": "Estimate downstream capabilities unlocked per unit implementation cost."
+    },
+    {
+      "ordinal": 277,
+      "numeral": "CCLXXVII",
+      "sectionId": "nullstar:277-meta-tools-first",
+      "title": "META-TOOLS FIRST",
+      "class": "LAW",
+      "requirement": "Prioritize capabilities that create more capabilities such as benchmark generators, tool compilers, adapter generators, schema synthesizers and test generators, while preserving verification."
+    },
+    {
+      "ordinal": 278,
+      "numeral": "CCLXXVIII",
+      "sectionId": "nullstar:278-automated-adapter-factory",
+      "title": "AUTOMATED ADAPTER FACTORY",
+      "class": "ORGAN",
+      "requirement": "When safe, generate integrations from schemas and specifications and test them."
+    },
+    {
+      "ordinal": 279,
+      "numeral": "CCLXXIX",
+      "sectionId": "nullstar:279-automated-test-factory",
+      "title": "AUTOMATED TEST FACTORY",
+      "class": "ORGAN",
+      "requirement": "Generate adversarial tests from contracts, failure modes and historical bugs."
+    },
+    {
+      "ordinal": 280,
+      "numeral": "CCLXXX",
+      "sectionId": "nullstar:280-automated-benchmark-factory",
+      "title": "AUTOMATED BENCHMARK FACTORY",
+      "class": "ORGAN",
+      "requirement": "Generate new benchmark variants without leaking them to candidates."
+    },
+    {
+      "ordinal": 281,
+      "numeral": "CCLXXXI",
+      "sectionId": "nullstar:281-automated-simulation-factory",
+      "title": "AUTOMATED SIMULATION FACTORY",
+      "class": "ORGAN",
+      "requirement": "Create domain simulators when useful."
+    },
+    {
+      "ordinal": 282,
+      "numeral": "CCLXXXII",
+      "sectionId": "nullstar:282-automated-research-synthesis",
+      "title": "AUTOMATED RESEARCH SYNTHESIS",
+      "class": "ORGAN",
+      "requirement": "Extract mechanisms rather than summaries."
+    },
+    {
+      "ordinal": 283,
+      "numeral": "CCLXXXIII",
+      "sectionId": "nullstar:283-mechanism-transfer",
+      "title": "MECHANISM TRANSFER",
+      "class": "MECHANISM",
+      "requirement": "Ask what works in one domain that another has not adopted."
+    },
+    {
+      "ordinal": 284,
+      "numeral": "CCLXXXIV",
+      "sectionId": "nullstar:284-civilization-cross-pollination",
+      "title": "CIVILIZATION CROSS-POLLINATION",
+      "class": "MECHANISM",
+      "requirement": "Transfer mechanisms between biology, economics, distributed systems, control theory, evolution, neuroscience, operations research, cryptography, game theory and education, keeping only transfers that survive testing."
+    },
+    {
+      "ordinal": 285,
+      "numeral": "CCLXXXV",
+      "sectionId": "nullstar:285-no-biological-metaphor-as-proof",
+      "title": "NO BIOLOGICAL METAPHOR AS PROOF",
+      "class": "LAW",
+      "requirement": "Words such as organism, genome, immune system and nervous system are useful abstractions and are not evidence of biological intelligence."
+    },
+    {
+      "ordinal": 286,
+      "numeral": "CCLXXXVI",
+      "sectionId": "nullstar:286-creativity-benchmark",
+      "title": "CREATIVITY BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Measure novelty plus usefulness; novel nonsense does not score."
+    },
+    {
+      "ordinal": 287,
+      "numeral": "CCLXXXVII",
+      "sectionId": "nullstar:287-invention-benchmark",
+      "title": "INVENTION BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Give unseen problems requiring new mechanisms."
+    },
+    {
+      "ordinal": 288,
+      "numeral": "CCLXXXVIII",
+      "sectionId": "nullstar:288-scientific-discovery-benchmark",
+      "title": "SCIENTIFIC DISCOVERY BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Use withheld relationships where possible."
+    },
+    {
+      "ordinal": 289,
+      "numeral": "CCLXXXIX",
+      "sectionId": "nullstar:289-strategic-benchmark",
+      "title": "STRATEGIC BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Use dynamic environments rather than static trivia."
+    },
+    {
+      "ordinal": 290,
+      "numeral": "CCXC",
+      "sectionId": "nullstar:290-long-horizon-benchmark",
+      "title": "LONG-HORIZON BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Evaluate sustained missions."
+    },
+    {
+      "ordinal": 291,
+      "numeral": "CCXCI",
+      "sectionId": "nullstar:291-unknown-unknown-benchmark",
+      "title": "UNKNOWN-UNKNOWN BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Score discovery of hidden variables and missing assumptions."
+    },
+    {
+      "ordinal": 292,
+      "numeral": "CCXCII",
+      "sectionId": "nullstar:292-self-improvement-benchmark",
+      "title": "SELF-IMPROVEMENT BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Give the system a measurable weakness and measure whether it can detect, diagnose, improve and verify without being told the exact fix."
+    },
+    {
+      "ordinal": 293,
+      "numeral": "CCXCIII",
+      "sectionId": "nullstar:293-founder-minute-benchmark",
+      "title": "FOUNDER-MINUTE BENCHMARK",
+      "class": "MECHANISM",
+      "requirement": "Measure whether newer UberBond versions require less human coordination."
+    },
+    {
+      "ordinal": 294,
+      "numeral": "CCXCIV",
+      "sectionId": "nullstar:294-economic-benchmark",
+      "title": "ECONOMIC BENCHMARK",
+      "class": "EXTERNAL_GATE",
+      "requirement": "An internal benchmark cannot substitute for real market outcomes."
+    },
+    {
+      "ordinal": 295,
+      "numeral": "CCXCV",
+      "sectionId": "nullstar:295-life-benchmark",
+      "title": "LIFE BENCHMARK",
+      "class": "EXTERNAL_GATE",
+      "requirement": "Life improvement requires longitudinal founder outcomes and must not be fabricated."
+    },
+    {
+      "ordinal": 296,
+      "numeral": "CCXCVI",
+      "sectionId": "nullstar:296-meta-calibration",
+      "title": "META-CALIBRATION",
+      "class": "MECHANISM",
+      "requirement": "Measure whether UberBond accurately estimates its own competence."
+    },
+    {
+      "ordinal": 297,
+      "numeral": "CCXCVII",
+      "sectionId": "nullstar:297-failure-prediction",
+      "title": "FAILURE PREDICTION",
+      "class": "MECHANISM",
+      "requirement": "Before execution estimate likely failure modes and score afterward."
+    },
+    {
+      "ordinal": 298,
+      "numeral": "CCXCVIII",
+      "sectionId": "nullstar:298-internal-prediction-market",
+      "title": "INTERNAL PREDICTION MARKET",
+      "class": "MECHANISM",
+      "requirement": "Where useful let independent agents and models place calibrated probability estimates on outcomes without turning this into pseudo-certainty."
+    },
+    {
+      "ordinal": 299,
+      "numeral": "CCXCIX",
+      "sectionId": "nullstar:299-competing-hypotheses",
+      "title": "COMPETING HYPOTHESES",
+      "class": "LAW",
+      "requirement": "Always maintain alternatives for important uncertain claims."
+    },
+    {
+      "ordinal": 300,
+      "numeral": "CCC",
+      "sectionId": "nullstar:300-falsification-priority",
+      "title": "FALSIFICATION PRIORITY",
+      "class": "LAW",
+      "requirement": "Spend effort attempting to disprove valuable claims before believing them."
+    },
+    {
+      "ordinal": 301,
+      "numeral": "CCCI",
+      "sectionId": "nullstar:301-grand-research-question",
+      "title": "GRAND RESEARCH QUESTION",
+      "class": "RESEARCH_QUESTION",
+      "requirement": "Investigate continuously what system architecture maximizes verified general intelligence per unit of compute, money, latency and founder attention."
+    },
+    {
+      "ordinal": 302,
+      "numeral": "CCCII",
+      "sectionId": "nullstar:302-second-grand-question",
+      "title": "SECOND GRAND QUESTION",
+      "class": "RESEARCH_QUESTION",
+      "requirement": "Investigate what architecture maximizes the rate at which that architecture can improve itself safely and verifiably."
+    },
+    {
+      "ordinal": 303,
+      "numeral": "CCCIII",
+      "sectionId": "nullstar:303-third-grand-question",
+      "title": "THIRD GRAND QUESTION",
+      "class": "RESEARCH_QUESTION",
+      "requirement": "Investigate what capabilities produce multiplicative rather than additive cognitive gains."
+    },
+    {
+      "ordinal": 304,
+      "numeral": "CCCIV",
+      "sectionId": "nullstar:304-fourth-grand-question",
+      "title": "FOURTH GRAND QUESTION",
+      "class": "RESEARCH_QUESTION",
+      "requirement": "Investigate which current bottleneck, if removed, would create the largest expansion in the founder's reachable futures."
+    },
+    {
+      "ordinal": 305,
+      "numeral": "CCCV",
+      "sectionId": "nullstar:305-fifth-grand-question",
+      "title": "FIFTH GRAND QUESTION",
+      "class": "RESEARCH_QUESTION",
+      "requirement": "Investigate what important possibility current UberBond is incapable of even representing."
+    },
+    {
+      "ordinal": 306,
+      "numeral": "CCCVI",
+      "sectionId": "nullstar:306-execution-strategy",
+      "title": "EXECUTION STRATEGY",
+      "class": "PROCESS",
+      "requirement": "After repository archaeology create a requirement coverage matrix classifying every directive section as verified current, partial, donor only, missing, blocked or not currently justified, then identify the minimum cut set of missing primitives that unlocks the largest downstream capability and build those first rather than implementing everything blindly."
+    },
+    {
+      "ordinal": 307,
+      "numeral": "CCCVII",
+      "sectionId": "nullstar:307-priority-function",
+      "title": "PRIORITY FUNCTION",
+      "class": "MECHANISM",
+      "requirement": "Prefer work with high cognitive leverage, downstream unlocks, founder-minute savings, option value, economic value, truth improvement and resilience, and manageable risk, cost and irreversibility."
+    },
+    {
+      "ordinal": 308,
+      "numeral": "CCCVIII",
+      "sectionId": "nullstar:308-parallelization",
+      "title": "PARALLELIZATION",
+      "class": "MECHANISM",
+      "requirement": "Build the dependency graph, parallelize safe independent leaves and do not parallelize conflicting state."
+    },
+    {
+      "ordinal": 309,
+      "numeral": "CCCIX",
+      "sectionId": "nullstar:309-implementation-standard",
+      "title": "IMPLEMENTATION STANDARD",
+      "class": "LAW",
+      "requirement": "Every substantial new module needs specification, architecture, contract, tests, hostile tests, documentation, integration, observability and failure behavior."
+    },
+    {
+      "ordinal": 310,
+      "numeral": "CCCX",
+      "sectionId": "nullstar:310-working-code-over-prose",
+      "title": "WORKING CODE OVER PROSE",
+      "class": "LAW",
+      "requirement": "If something can be implemented now, implement it rather than describing what would be built, unless the environment genuinely prevents building."
+    },
+    {
+      "ordinal": 311,
+      "numeral": "CCCXI",
+      "sectionId": "nullstar:311-no-issue-farming",
+      "title": "NO ISSUE FARMING",
+      "class": "LAW",
+      "requirement": "Creating many GitHub issues is not progress; issues are useful only when they enable execution."
+    },
+    {
+      "ordinal": 312,
+      "numeral": "CCCXII",
+      "sectionId": "nullstar:312-no-pr-farming",
+      "title": "NO PR FARMING",
+      "class": "LAW",
+      "requirement": "Do not maximize pull request count; prefer coherent independently verifiable change sets."
+    },
+    {
+      "ordinal": 313,
+      "numeral": "CCCXIII",
+      "sectionId": "nullstar:313-no-percentage-theater",
+      "title": "NO PERCENTAGE THEATER",
+      "class": "LAW",
+      "requirement": "Do not invent readiness percentages; percentages require an explicit rubric."
+    },
+    {
+      "ordinal": 314,
+      "numeral": "CCCXIV",
+      "sectionId": "nullstar:314-no-asi-theater",
+      "title": "NO ASI THEATER",
+      "class": "LAW",
+      "requirement": "Never claim ASI unless the corresponding explicit evaluation standard has been met."
+    },
+    {
+      "ordinal": 315,
+      "numeral": "CCCXV",
+      "sectionId": "nullstar:315-no-singularity-theater",
+      "title": "NO SINGULARITY THEATER",
+      "class": "LAW",
+      "requirement": "Never claim singularity because architecture became complicated."
+    },
+    {
+      "ordinal": 316,
+      "numeral": "CCCXVI",
+      "sectionId": "nullstar:316-no-iq-theater",
+      "title": "NO IQ THEATER",
+      "class": "LAW",
+      "requirement": "Do not assign human IQ equivalents; use measured capability."
+    },
+    {
+      "ordinal": 317,
+      "numeral": "CCCXVII",
+      "sectionId": "nullstar:317-real-progress-reporting",
+      "title": "REAL PROGRESS REPORTING",
+      "class": "LAW",
+      "requirement": "Report what changed, what evidence exists, what failed, what remains and what is blocked."
+    },
+    {
+      "ordinal": 318,
+      "numeral": "CCCXVIII",
+      "sectionId": "nullstar:318-session-continuity",
+      "title": "SESSION CONTINUITY",
+      "class": "PROCESS",
+      "requirement": "Before context exhaustion write durable continuation state so no restart begins from scratch."
+    },
+    {
+      "ordinal": 319,
+      "numeral": "CCCXIX",
+      "sectionId": "nullstar:319-checkpoint-frequency",
+      "title": "CHECKPOINT FREQUENCY",
+      "class": "PROCESS",
+      "requirement": "Commit durable state after meaningful verified milestones rather than after every trivial edit."
+    },
+    {
+      "ordinal": 320,
+      "numeral": "CCCXX",
+      "sectionId": "nullstar:320-startup-command",
+      "title": "STARTUP COMMAND",
+      "class": "PROCESS",
+      "requirement": "Determine the correct repository-native startup and doctor sequence from current main rather than stale memory, run it and fix source failures if safe."
+    },
+    {
+      "ordinal": 321,
+      "numeral": "CCCXXI",
+      "sectionId": "nullstar:321-test-baseline",
+      "title": "TEST BASELINE",
+      "class": "PROCESS",
+      "requirement": "Run targeted tests first and then broader deterministic tests when feasible."
+    },
+    {
+      "ordinal": 322,
+      "numeral": "CCCXXII",
+      "sectionId": "nullstar:322-performance-baseline",
+      "title": "PERFORMANCE BASELINE",
+      "class": "PROCESS",
+      "requirement": "Capture a baseline before claiming improvement."
+    },
+    {
+      "ordinal": 323,
+      "numeral": "CCCXXIII",
+      "sectionId": "nullstar:323-cognitive-baseline",
+      "title": "COGNITIVE BASELINE",
+      "class": "PROCESS",
+      "requirement": "Run existing evaluation suites before changing intelligence machinery."
+    },
+    {
+      "ordinal": 324,
+      "numeral": "CCCXXIV",
+      "sectionId": "nullstar:324-implementation-waves",
+      "title": "IMPLEMENTATION WAVES",
+      "class": "PROCESS",
+      "requirement": "Wave selection is dynamic; a likely high-value sequence runs self-model, reality bus, outcome and calibration, cognitive benchmark lab, capability scientist, bottleneck engine, mission compiler, opportunity engine, founder cockpit and meta-improvement, but current repository truth may change the order and evidence decides."
+    },
+    {
+      "ordinal": 325,
+      "numeral": "CCCXXV",
+      "sectionId": "nullstar:325-first-terminal-milestone",
+      "title": "FIRST TERMINAL MILESTONE",
+      "class": "MILESTONE",
+      "requirement": "UberBond receives a founder objective, recovers exact current state, compiles a mission DAG, selects capabilities, executes authorized leaves, proves work, observes outcome, updates calibration and resumes automatically, end to end."
+    },
+    {
+      "ordinal": 326,
+      "numeral": "CCCXXVI",
+      "sectionId": "nullstar:326-second-terminal-milestone",
+      "title": "SECOND TERMINAL MILESTONE",
+      "class": "MILESTONE",
+      "requirement": "UberBond independently detects one measurable cognitive weakness, proposes multiple improvements, implements candidates in sandbox, benchmarks them on sealed evaluation, selects a winner by independent evaluation, integrates it and confirms general improvement post-integration."
+    },
+    {
+      "ordinal": 327,
+      "numeral": "CCCXXVII",
+      "sectionId": "nullstar:327-third-terminal-milestone",
+      "title": "THIRD TERMINAL MILESTONE",
+      "class": "MILESTONE",
+      "requirement": "Verified self-improvement repeats across multiple generations with measured improvement velocity and no human supplying the exact improvement."
+    },
+    {
+      "ordinal": 328,
+      "numeral": "CCCXXVIII",
+      "sectionId": "nullstar:328-fourth-terminal-milestone",
+      "title": "FOURTH TERMINAL MILESTONE",
+      "class": "MILESTONE",
+      "requirement": "Evidence shows the improvement mechanism itself improved, time-to-meaningful-improvement drops and generalization survives."
+    },
+    {
+      "ordinal": 329,
+      "numeral": "CCCXXIX",
+      "sectionId": "nullstar:329-fifth-terminal-milestone",
+      "title": "FIFTH TERMINAL MILESTONE",
+      "class": "MILESTONE",
+      "requirement": "Broad capability surpasses the strongest baseline systems across multiple unseen domains, and only then may an ASI-class claim be investigated for empirical support."
+    },
+    {
+      "ordinal": 330,
+      "numeral": "CCCXXX",
+      "sectionId": "nullstar:330-continuous-self-question",
+      "title": "CONTINUOUS SELF-QUESTION",
+      "class": "PROCESS",
+      "requirement": "After every major milestone ask what is the strongest reason this does not yet count as the thing being built, then attack that reason."
+    },
+    {
+      "ordinal": 331,
+      "numeral": "CCCXXXI",
+      "sectionId": "nullstar:331-nullstar-principle",
+      "title": "NULLSTAR PRINCIPLE",
+      "class": "LAW",
+      "requirement": "The project remains private and its power comes from what it can do rather than public reputation; no hype, attention or declarations are required."
+    },
+    {
+      "ordinal": 332,
+      "numeral": "CCCXXXII",
+      "sectionId": "nullstar:332-the-ultimate-product",
+      "title": "THE ULTIMATE PRODUCT",
+      "class": "MISSION",
+      "requirement": "The desired interaction is that the founder says continue and the organism recovers itself, understands current reality and founder state, detects changes, opportunities, threats, missing knowledge and its own cognitive bottleneck, creates missions, allocates resources, selects tools and models, invents missing capabilities, runs experiments, builds software, tests hypotheses, challenges itself, executes authorized actions, observes reality, updates its world, founder and capability models, improves its own methods, preserves founder sovereignty and wakes again more capable."
+    },
+    {
+      "ordinal": 333,
+      "numeral": "CCCXXXIII",
+      "sectionId": "nullstar:333-the-actual-north-star",
+      "title": "THE ACTUAL NORTH STAR",
+      "class": "MISSION",
+      "requirement": "Do not build a machine that looks superintelligent, claims an intelligence explosion or replaces the founder; build a machine whose verified ability to produce correct, novel, useful, generalizable real-world outcomes keeps increasing, that can measure whether its own rate of verified cognitive improvement is accelerating, and that expands the founder's possible life."
+    },
+    {
+      "ordinal": 334,
+      "numeral": "CCCXXXIV",
+      "sectionId": "nullstar:334-execution-terminal-condition",
+      "title": "EXECUTION TERMINAL CONDITION",
+      "class": "LAW",
+      "requirement": "Do not stop at research, architecture, planning, issues, TODOs, mockups, one subsystem or one pull request; continue all dependency-satisfied work possible in the current environment and stop only when remaining meaningful work requires founder consent, founder secret, founder identity, KYC, money transfer, customer response, legal approval, physical world action, an unavailable credential, an unavailable external provider, real elapsed time or a hard platform limit."
+    },
+    {
+      "ordinal": 335,
+      "numeral": "CCCXXXV",
+      "sectionId": "nullstar:335-final-session-report",
+      "title": "FINAL SESSION REPORT",
+      "class": "PROCESS",
+      "requirement": "Report starting main SHA, final verified main SHA, merged and open pull requests, test results, hostile test results, CI state, deployment state, architecture coverage, cognitive baseline, cognitive bottleneck, verified self-improvement status, recursive improvement velocity status, UB level evidence, economic reality, life-outcome reality, external blockers, at most three founder actions and the next autonomous mission, without hype language."
+    },
+    {
+      "ordinal": 336,
+      "numeral": "CCCXXXVI",
+      "sectionId": "nullstar:336-begin",
+      "title": "BEGIN",
+      "class": "PROCESS",
+      "requirement": "Begin with current repository truth: read before creating, map before duplicating, measure before optimizing, falsify before believing, test before promoting, prove before claiming, preserve privacy, sovereignty, reversibility and reality, then build the highest-leverage missing cognitive primitive, merge verified work, recompute the bottleneck and continue without waiting for another founder prompt while safe, dependency-satisfied, authorized work remains."
+    }
+  ],
+  "truthBoundary": {
+    "implementedClaim": false,
+    "superintelligenceClaim": false,
+    "intelligenceExplosionClaim": false,
+    "commercialProofClaim": false,
+    "lifeOutcomeProofClaim": false,
+    "authorityExpansion": false,
+    "note": "Importing this directive records what the founder asked for. It does not prove any section is implemented, and it grants no external-effect authority. Current repository code, exact-head receipts and durable external evidence outrank it for present-tense claims."
+  },
+  "businessEffectAuthority": "NONE",
+  "corpusDigest": "sha256:ebcacabdc552868b770c63f7872a66d91790d183e398317ace2d53d85e6e493e"
+}

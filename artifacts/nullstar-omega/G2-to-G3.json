@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-generation.v1",
+  "status": "INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE",
+  "from": "G2",
+  "to": "G3",
+  "previousSuiteVersion": "omega-capability-probe-suite-1.0.0",
+  "currentSuiteVersion": "omega-outcome-measured-suite-1.0.0",
+  "deltas": {
+    "reasoning": 0,
+    "mathematics": 0,
+    "crossDomain": -0.6667,
+    "unknownUnknown": 0,
+    "longHorizon": 0,
+    "selfDiagnosis": -1,
+    "calibration": -0.39875,
+    "robustness": 0,
+    "resourceEfficiency": 0
+  },
+  "incomparableDimensions": [
+    "science",
+    "software",
+    "research",
+    "forecasting",
+    "causality",
+    "planning",
+    "toolUse",
+    "invention"
+  ],
+  "counts": {
+    "comparable": 9,
+    "improved": null,
+    "regressed": null,
+    "incomparable": 8
+  },
+  "netDelta": null,
+  "regressedDimensions": [],
+  "note": "The deltas are reported because they say what the new instrument reads, but neither improvement nor regression can be claimed across a suite change. Re-measuring the previous generation on the new suite is what would make them comparable.",
+  "businessEffectAuthority": "NONE"
+}

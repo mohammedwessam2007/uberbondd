@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-discriminating-test-1.1.0",
+  "diagnosis": "BN-EVAL-COVERAGE",
+  "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it scores without a provider, the gap was authorship; if not, it is an external capability gate.",
+  "attemptedDimension": "software",
+  "verdict": "AUTHORSHIP_GAP__DIMENSION_SCORED_WITHOUT_A_PROVIDER",
+  "softwareScore": 0.6667,
+  "softwareDetail": {
+    "ok": true,
+    "status": "SOFTWARE_OUTCOME_SCORED",
+    "version": "uberbond.nullstar-omega-software-outcome.v1",
+    "branchBase": "2831e4e010fce9b4775ade0c31aae0622de2b104",
+    "head": "0084609b357d3a09d5f404ded2eeecf5ffadb323",
+    "modules": 9,
+    "untouchedAfterIntroduction": 6,
+    "touchedAfterIntroduction": 3,
+    "score": 0.6667,
+    "touchedModules": [
+      {
+        "path": "src/founder-directive-reconciler.mjs",
+        "laterCommits": 1
+      },
+      {
+        "path": "src/nullstar-omega-denominator.mjs",
+        "laterCommits": 2
+      },
+      {
+        "path": "src/nullstar-omega-generation.mjs",
+        "laterCommits": 1
+      }
+    ],
+    "interpretation": "A module edited after the commit that introduced it was not right the first time.",
+    "truthBoundary": "THIS IS A FLOOR ON FIRST-ATTEMPT CORRECTNESS, NOT A MEASURE OF CODE QUALITY. A LATER COMMIT MAY HAVE ADDED SOMETHING RATHER THAN FIXED SOMETHING, WHICH MAKES THE REAL FIRST-ATTEMPT RATE AT LEAST THIS HIGH AND POSSIBLY HIGHER.",
+    "providerRequired": false,
+    "businessEffectAuthority": "NONE"
+  },
+  "declaredCriterion": "Resolved only if the count of measured dimensions rises above 9. Not resolved by the scores moving, by the spread widening, or by anything else improving.",
+  "coverageBefore": 9,
+  "coverageAfter": 10,
+  "criterionMet": true,
+  "consequence": "The first hypothesis was wrong for at least one dimension. Those dimensions were not provider-gated; no task had been written for them. The remaining seven are still unattempted, so this refutes the hypothesis rather than closing the gap.",
+  "businessEffectAuthority": "NONE"
+}

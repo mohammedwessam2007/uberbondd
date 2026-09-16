@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-1.0.0",
+  "generation": "GA8",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "directiveSections": [
+    "053",
+    "054",
+    "055",
+    "056",
+    "057",
+    "058",
+    "074",
+    "076"
+  ],
+  "generatedAt": "2026-09-15T13:08:43.593Z",
+  "sourceCommit": "ba0e26f08ba55c589c02d42eb1cb4fb82e1b34f1",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "INVENTION",
+  "difficulty": 5,
+  "declarationRef": "artifacts/nullstar-terminal/ga8-declaration.json",
+  "precommittedThreshold": "Above 0.8 on held-out seeds never seen at difficulty 5, passing the out-of-pattern gate, no regression at difficulties 1 through 4, and beating the incumbent -- where beating an incumbent that fails the gate means passing it at an in-distribution score no lower.",
+  "thresholdUsed": 0.8,
+  "incumbent": {
+    "trainScore": 0.5,
+    "heldOutScore": 0.5,
+    "outOfPattern": {
+      "correct": 3,
+      "refused": 0,
+      "confabulated": 0,
+      "of": 3
+    },
+    "outOfPatternGate": "PASSES"
+  },
+  "comparisonRule": "IN_DISTRIBUTION_STRICTLY_GREATER",
+  "candidates": [
+    {
+      "candidate": "N1_LEFT_TO_RIGHT",
+      "trainScore": 0.5,
+      "heldOutScore": 0.5,
+      "regressions": [],
+      "complexityBytes": null,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": false
+    },
+    {
+      "candidate": "N2_REFUSE_ON_COMMA",
+      "trainScore": 0,
+      "heldOutScore": 0,
+      "regressions": [
+        {
+          "difficulty": 3,
+          "before": 1,
+          "after": 0.8
+        },
+        {
+          "difficulty": 4,
+          "before": 1,
+          "after": 0
+        }
+      ],
+      "complexityBytes": 208,
+      "meetsThreshold": false,
+      "beatsIncumbent": false,
+      "noRegression": false,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": false
+    },
+    {
+      "candidate": "N3_CLAUSE_FIRST",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 1320,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": true
+    },
+    {
+      "candidate": "N4_RECURSIVE",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 1048,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "outOfPattern": {
+        "correct": 3,
+        "refused": 0,
+        "confabulated": 0,
+        "of": 3,
+        "correctRate": 1
+      },
+      "outOfPatternGate": "PASSES",
+      "eligible": true
+    }
+  ],
+  "disqualifiedForRegression": [],
+  "winner": "N4_RECURSIVE",
+  "outcome": "PROMOTED",
+  "differentialCheck": {
+    "tiedCandidates": [
+      "N4_RECURSIVE",
+      "N3_CLAUSE_FIRST"
+    ],
+    "separable": false,
+    "comparisons": 56,
+    "disagreements": [],
+    "verdict": "TIED_CANDIDATES_AGREE_EVERYWHERE_MEASURED__INTERCHANGEABLE_HERE"
+  },
+  "discrimination": "UNDISCRIMINATING__CANDIDATES_TIED",
+  "outOfPatternGate": {
+    "applied": true,
+    "minimumCorrectRate": 0.6,
+    "probeCount": 3,
+    "confabulationDisqualifies": true
+  },
+  "disqualifiedByOutOfPatternGate": [],
+  "tiedAtTop": [
+    "N4_RECURSIVE",
+    "N3_CLAUSE_FIRST"
+  ],
+  "attributionWarning": "2 eligible candidates scored 1 on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows that the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work. Isolating that needs an ablation carrying the minimal shared fix and nothing else.",
+  "tieBreak": "Tied at 1; N4_RECURSIVE won on being smaller (1048 bytes vs 1320).",
+  "improvementVelocity": {
+    "deltaCapability": 0.5,
+    "wallClockMs": 11,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0,
+    "regressions": 0
+  },
+  "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY ON ONE INSTRUMENT. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT OR ACCELERATION.",
+  "businessEffectAuthority": "NONE"
+}

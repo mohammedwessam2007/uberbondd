@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "uberbond-nullstar-meta-improvement-2.0.0",
+  "directiveSections": [
+    "063",
+    "064",
+    "065",
+    "066",
+    "067"
+  ],
+  "supersedes": "artifacts/nullstar-omega/meta-improvement.json",
+  "whySuperseded": "That artifact reasoned about a generation loop running on the corpus later retired for being tautological. The loop it describes was real; the evidence it scored was not.",
+  "generatedAt": "2026-09-15T12:32:32.758Z",
+  "sourceCommit": "9dba223316a1b09c12a770b7f23186faf3ac0c34",
+  "symptom": "GA3 promoted a solver scoring 1.0 on every item its generator emits which answers none built from the same primitives in a new arrangement, and on one of those returns the answer to a different question rather than refusing.",
+  "whereTheDefectWas": "Not in the tournament. GA3 ran the strictest tournament of the three -- null candidate included, clean separation, threshold fixed beforehand -- and promoted the wrong mechanism anyway. The evaluation drew every item from the process the candidates were built against, so a lookup over that process is indistinguishable from a mechanism no matter how the tournament is run.",
+  "whyThisIsMetaAndNotAnotherGeneration": "A generation changes a solver. This changes what any future generation must survive, so it applies to solvers not yet written.",
+  "change": {
+    "what": "A declaration may set outOfPatternGate. Candidates are then run against items built outside the generator, reusing its primitives and phrasing with only the combination changed. Confabulating on any of them disqualifies at any in-distribution score.",
+    "whyConfabulationIsAbsolute": "A solver that returns nothing outside its competence is usable, because a caller can tell. One that returns a confident wrong number is not, because nothing downstream can separate its right answers from its wrong ones. That is a different kind of defect from being narrow, and a rate would let a high score buy it off.",
+    "probesAreSplit": "One set gates, a disjoint set is held back for reporting. A candidate tuned against the probe that judges it would otherwise be congratulated by the same items.",
+    "probesNeverScored": "Gating probes do not enter the headline mean. They can only remove a candidate, never raise one."
+  },
+  "backtest": {
+    "question": "Applied to GA3, does the new gate change the outcome?",
+    "onlyGa3ReplayableBecause": "GA1 and GA2 attacked families with no probe set. Inventing one now to re-judge a finished run would be choosing the test after knowing the answer.",
+    "replay": [
+      {
+        "candidate": "I1_HARDCODE_ONE_TARGET",
+        "recordedHeldOutScore": 0.6,
+        "wasEligibleUnderOldCriterion": false,
+        "outOfPattern": {
+          "correct": 0,
+          "refused": 0,
+          "confabulated": 3,
+          "of": 3
+        },
+        "passesNewGate": false,
+        "gateReason": "CONFABULATES__3_OF_3_ANSWERED_A_DIFFERENT_QUESTION",
+        "eligibleUnderNewCriterion": false
+      },
+      {
+        "candidate": "I2_ARITY_WIDENED",
+        "recordedHeldOutScore": 0.5,
+        "wasEligibleUnderOldCriterion": false,
+        "outOfPattern": {
+          "correct": 0,
+          "refused": 0,
+          "confabulated": 3,
+          "of": 3
+        },
+        "passesNewGate": false,
+        "gateReason": "CONFABULATES__3_OF_3_ANSWERED_A_DIFFERENT_QUESTION",
+        "eligibleUnderNewCriterion": false
+      },
+      {
+        "candidate": "I3_PROMPT_DIRECTED",
+        "recordedHeldOutScore": 1,
+        "wasEligibleUnderOldCriterion": true,
+        "outOfPattern": {
+          "correct": 0,
+          "refused": 2,
+          "confabulated": 1,
+          "of": 3
+        },
+        "passesNewGate": false,
+        "gateReason": "CONFABULATES__1_OF_3_ANSWERED_A_DIFFERENT_QUESTION",
+        "eligibleUnderNewCriterion": false
+      },
+      {
+        "candidate": "I4_COMPOSITIONAL_SEARCH",
+        "recordedHeldOutScore": 0.8,
+        "wasEligibleUnderOldCriterion": false,
+        "outOfPattern": {
+          "correct": 3,
+          "refused": 0,
+          "confabulated": 0,
+          "of": 3
+        },
+        "passesNewGate": true,
+        "gateReason": null,
+        "eligibleUnderNewCriterion": false
+      }
+    ],
+    "winnerUnderOldCriterion": "I3_PROMPT_DIRECTED",
+    "winnerUnderNewCriterion": null,
+    "changesOutcome": true,
+    "finding": "Under the new gate GA3 promotes nothing. Every candidate that cleared the in-distribution threshold either confabulates out of pattern or fails it, which is the honest reading: the generation found no mechanism, only a better lookup."
+  },
+  "counterfactualRunnerUp": {
+    "candidate": "I4_COMPOSITIONAL_SEARCH",
+    "recordedHeldOutScore": 0.8,
+    "onGatingProbes": {
+      "correct": 3,
+      "refused": 0,
+      "confabulated": 0,
+      "of": 3
+    },
+    "onHeldBackProbes": {
+      "correct": 3,
+      "refused": 0,
+      "confabulated": 0,
+      "of": 3
+    },
+    "notPromotedHere": true,
+    "whyNot": "It scored 0.8 against a threshold of \"above 0.8\" fixed before the run. Promoting it now because a later probe favours it would be moving a bar after seeing which side of it the better answer landed on. It competes again in GA4, under criteria declared in advance, like any other candidate."
+  },
+  "whatThisCannotEstablish": "A gate that would have caught one known failure is not a gate that catches unknown ones. The probes are hand-built by the same author as the solvers and share his blind spots; they are a floor under future promotions, not proof that a promotion which clears them has learned a mechanism.",
+  "truthBoundary": "THIS CHANGES A SELECTION CRITERION AND BACKTESTS IT AGAINST ONE GENERATION. IT IS NOT EVIDENCE OF IMPROVED INTELLIGENCE, ACCELERATION, OR RECURSIVE SELF-IMPROVEMENT.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": {
+    "providerCalls": 0,
+    "spendCents": 0,
+    "networkCalls": 0,
+    "messagesSent": 0
+  }
+}

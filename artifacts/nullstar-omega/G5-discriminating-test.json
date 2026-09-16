@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-discriminating-test-1.1.0",
+  "diagnosis": "BN-EVAL-COVERAGE",
+  "attemptedDimensions": [
+    "forecasting",
+    "causality"
+  ],
+  "predictionUnderTest": "The guard will refuse at least one dimension I would otherwise have scored.",
+  "admission": {
+    "ok": true,
+    "status": "SOME_DIMENSIONS_REFUSED_AS_EVIDENCE_REUSE",
+    "version": "uberbond.nullstar-omega-evidence-reuse.v1",
+    "maxOverlapRatio": 0.5,
+    "admitted": [
+      {
+        "dimension": "calibration",
+        "evidenceCount": 3,
+        "overlappingCount": 0,
+        "overlapRatio": 0
+      },
+      {
+        "dimension": "selfDiagnosis",
+        "evidenceCount": 5,
+        "overlappingCount": 0,
+        "overlapRatio": 0
+      },
+      {
+        "dimension": "crossDomain",
+        "evidenceCount": 3,
+        "overlappingCount": 0,
+        "overlapRatio": 0
+      },
+      {
+        "dimension": "software",
+        "evidenceCount": 9,
+        "overlappingCount": 0,
+        "overlapRatio": 0
+      }
+    ],
+    "refused": [
+      {
+        "dimension": "forecasting",
+        "evidenceCount": 3,
+        "overlappingCount": 3,
+        "overlapRatio": 1,
+        "alreadyScoring": [
+          "calibration"
+        ],
+        "why": "3 of 3 observations are already scoring another dimension. Counting this would raise coverage without observing anything new."
+      },
+      {
+        "dimension": "causality",
+        "evidenceCount": 5,
+        "overlappingCount": 5,
+        "overlapRatio": 1,
+        "alreadyScoring": [
+          "selfDiagnosis"
+        ],
+        "why": "5 of 5 observations are already scoring another dimension. Counting this would raise coverage without observing anything new."
+      }
+    ],
+    "admittedDimensions": [
+      "calibration",
+      "selfDiagnosis",
+      "crossDomain",
+      "software"
+    ],
+    "refusedDimensions": [
+      "forecasting",
+      "causality"
+    ],
+    "distinctObservations": 20,
+    "settlementOrder": [
+      "calibration",
+      "selfDiagnosis",
+      "crossDomain",
+      "software",
+      "forecasting",
+      "causality"
+    ],
+    "truthBoundary": "THIS CHECKS THAT TWO DIMENSIONS ARE NOT READING THE SAME OBSERVATION. IT DOES NOT CHECK THAT EITHER DIMENSION IS MEASURING WHAT ITS NAME SAYS.",
+    "businessEffectAuthority": "NONE"
+  },
+  "predictionHeld": true,
+  "declaredCriterion": "Resolved only if the count of measured dimensions rises above 10.",
+  "coverageBefore": 10,
+  "coverageAfter": 10,
+  "criterionMet": false,
+  "finding": "The guard refused forecasting and causality. Both were cut from observations already scoring another dimension, so counting them would have raised coverage without observing anything new.",
+  "consequence": "Coverage did not rise. This repository does not yet generate independent evidence for the remaining dimensions, and the answer is to make the system do something new rather than to measure the same thing again.",
+  "businessEffectAuthority": "NONE"
+}

@@ -1,0 +1,92 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-generation.v1",
+  "status": "NULLSTAR_OMEGA_GENERATION_RECORDED",
+  "generationId": "G0",
+  "sourceCommit": "01cda737dee044735f581de45743af440426b07f",
+  "suiteVersion": "omega-local-evidence-suite-1.0.0",
+  "corpusDigest": "e90ed2b89f6063083958db2e7a988a4a0e41f6021205a1478bca72882471e6c0",
+  "generatedAt": "2026-09-14T22:03:50.496Z",
+  "vector": {
+    "reasoning": 1,
+    "mathematics": null,
+    "science": null,
+    "software": null,
+    "research": null,
+    "forecasting": null,
+    "causality": null,
+    "planning": null,
+    "toolUse": null,
+    "invention": null,
+    "crossDomain": null,
+    "unknownUnknown": null,
+    "longHorizon": null,
+    "selfDiagnosis": 1,
+    "calibration": 1,
+    "robustness": 1,
+    "resourceEfficiency": null
+  },
+  "coverage": {
+    "measured": 4,
+    "unmeasured": 13,
+    "unmeasuredDimensions": [
+      "mathematics",
+      "science",
+      "software",
+      "research",
+      "forecasting",
+      "causality",
+      "planning",
+      "toolUse",
+      "invention",
+      "crossDomain",
+      "unknownUnknown",
+      "longHorizon",
+      "resourceEfficiency"
+    ]
+  },
+  "meanMeasuredScore": 1,
+  "baselines": {
+    "B0": {
+      "description": "Deterministic repository evidence read directly from artifacts. This is the anchor G0 measures."
+    },
+    "B1": null,
+    "B2": null,
+    "B3": null,
+    "B4": {
+      "description": "No prior generation exists. G0 is the first."
+    },
+    "B5": {
+      "description": "Current UberBond at this exact commit."
+    }
+  },
+  "declaredBaselines": [
+    "B0",
+    "B4",
+    "B5"
+  ],
+  "cost": {
+    "usdCents": 0,
+    "wallClockMs": null,
+    "founderMinutes": 0
+  },
+  "environment": {
+    "node": "v22.22.2",
+    "providerModelsConfigured": false,
+    "note": "No model provider is configured in this environment, so model-dependent dimensions are unmeasured rather than estimated."
+  },
+  "failures": [],
+  "generationDigest": "cb9c745c7ed074bbc107060642bf3117cac8899c0863e4ef46af416e676fd4ad",
+  "truthBoundary": "A_GENERATION_RECORDS_WHAT_WAS_MEASURED_AT_ONE_COMMIT_AGAINST_ONE_SUITE. AN_UNMEASURED_DIMENSION_IS_NULL_AND_NEVER_ZERO. IT_DOES_NOT_PROVE_IMPROVEMENT_GENERALIZATION_SELF_IMPROVEMENT_OR_ASI.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  }
+}

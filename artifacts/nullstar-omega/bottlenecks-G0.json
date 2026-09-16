@@ -1,0 +1,81 @@
+{
+  "ok": true,
+  "version": "uberbond.nullstar-omega-bottleneck.v1",
+  "status": "NULLSTAR_OMEGA_BOTTLENECKS_RANKED",
+  "sourceCommit": "01cda737dee044735f581de45743af440426b07f",
+  "generatedAt": "2026-09-14T22:04:31.981Z",
+  "counts": {
+    "bottlenecks": 2,
+    "strongEvidence": 2,
+    "weakEvidence": 0
+  },
+  "ranked": [
+    {
+      "ok": true,
+      "id": "BN-EVAL-SATURATED",
+      "dimension": "evaluation",
+      "symptom": "All 4 measured dimensions score 1.0 at G0. A saturated instrument cannot register improvement or regression.",
+      "evidenceClass": "SEALED_HOLDOUT_FAILURE",
+      "evidenceRef": "artifacts/nullstar-omega/generations/G0.json",
+      "rootCauseHypotheses": [
+        "The corpus tasks are too easy: each is a direct read of a value the repository already computes, so passing requires no capability under test.",
+        "The corpus is correct but the scoring collapses partial credit to pass/fail, hiding variance that exists.",
+        "The measured families happen to be the system strengths and a wider family set would separate them."
+      ],
+      "discriminatingTest": "Add tasks whose answers require deriving a value no artifact states directly. If scores fall below 1.0, difficulty was the cause; if they stay at 1.0, the scorer or family selection is.",
+      "estimatedCost": 1,
+      "weakEvidence": false,
+      "downstreamUnlocks": 17,
+      "leverage": 18
+    },
+    {
+      "ok": true,
+      "id": "BN-EVAL-COVERAGE",
+      "dimension": "evaluation",
+      "symptom": "13 of 17 capability dimensions are unmeasured at G0: mathematics, science, software, research, forecasting, causality...",
+      "evidenceClass": "DENOMINATOR_GAP",
+      "evidenceRef": "artifacts/nullstar-omega/generations/G0.json",
+      "rootCauseHypotheses": [
+        "Those dimensions need a configured model provider, which this environment does not have.",
+        "Those dimensions could be measured from local deterministic evidence but no task was written for them."
+      ],
+      "discriminatingTest": "Attempt a local-evidence task for one unmeasured dimension. If it can be scored without a provider, the gap was authorship; if not, it is an external capability gate.",
+      "estimatedCost": 2,
+      "weakEvidence": false,
+      "downstreamUnlocks": 17,
+      "leverage": 9
+    }
+  ],
+  "selected": {
+    "ok": true,
+    "id": "BN-EVAL-SATURATED",
+    "dimension": "evaluation",
+    "symptom": "All 4 measured dimensions score 1.0 at G0. A saturated instrument cannot register improvement or regression.",
+    "evidenceClass": "SEALED_HOLDOUT_FAILURE",
+    "evidenceRef": "artifacts/nullstar-omega/generations/G0.json",
+    "rootCauseHypotheses": [
+      "The corpus tasks are too easy: each is a direct read of a value the repository already computes, so passing requires no capability under test.",
+      "The corpus is correct but the scoring collapses partial credit to pass/fail, hiding variance that exists.",
+      "The measured families happen to be the system strengths and a wider family set would separate them."
+    ],
+    "discriminatingTest": "Add tasks whose answers require deriving a value no artifact states directly. If scores fall below 1.0, difficulty was the cause; if they stay at 1.0, the scorer or family selection is.",
+    "estimatedCost": 1,
+    "weakEvidence": false,
+    "downstreamUnlocks": 17,
+    "leverage": 18
+  },
+  "selectionLaw": "The top strong-evidence finding by downstream unlocks per unit cost. A weak-evidence finding is a lead and may never be selected first.",
+  "truthBoundary": "A_RANKING_IS_A_PRIORITISATION_OF_DIAGNOSES_AND_NOT_A_PROOF_OF_CAUSE. EVERY_ENTRY_CARRIES_COMPETING_HYPOTHESES_AND_A_DISCRIMINATING_TEST_BECAUSE_THE_CAUSE_IS_NOT_YET_ESTABLISHED.",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "deployments": 0,
+    "dnsChanges": 0,
+    "credentialChanges": 0,
+    "paymentMutations": 0,
+    "productionMutations": 0
+  },
+  "diagnosedGeneration": "G0"
+}

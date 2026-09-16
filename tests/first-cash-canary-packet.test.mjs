@@ -11,6 +11,7 @@ import {
   deriveCanContact
 } from '../src/first-cash-canary-packet.mjs';
 import { containsSecretValue } from '../src/secret-patterns.mjs';
+import { LEAD_PATH_SPRINT_SKU } from '../src/lead-path-sprint-fulfillment.mjs';
 
 const AT = new Date('2026-09-02T00:00:00.000Z');
 const providers = JSON.parse(readFileSync('artifacts/outreach/free-first-provider-registry-2026-09-01.json', 'utf8')).providers;
@@ -74,6 +75,16 @@ test('the offer is the champion at its hypothesised price, stated as a hypothesi
   assert.equal(FIRST_CASH_OFFER.currency, 'USD');
   const report = packet();
   assert.equal(report.offer.priceCents, 45000);
+});
+
+test('the offer stays bound to the canonical Lead-Path SKU', () => {
+  // This SKU is not decoration. It becomes `requiresExactSku` on the PayPal
+  // order the buyer approves, so an offer whose SKU drifts away from the
+  // fulfilment constant produces a payment bound to something nobody agreed to
+  // deliver. Nothing asserted it: a mutation replacing the SKU with a literal
+  // survived every declared suite.
+  assert.equal(FIRST_CASH_OFFER.sku, LEAD_PATH_SPRINT_SKU);
+  assert.equal(packet().offer.sku, LEAD_PATH_SPRINT_SKU);
 });
 
 test('commercial truth is zero and the packet cannot move it', () => {

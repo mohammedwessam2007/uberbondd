@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-declaration-1.0.0",
+  "directiveSections": ["059", "051", "052", "053", "070", "071"],
+  "generation": "GA2",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "purpose": "The bottleneck recomputed after GA1's promotion, declared before any candidate exists.",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "suiteVersion": "nullstar-procedural-suite-1.0.0",
+  "evaluationDifficulty": 3,
+  "bottleneck": {
+    "observed": "After promoting GA1's forecaster, difficulty 3 scores 0.6714. Research and invention remain at 0.00 and tool use at 0.70.",
+    "selected": "RESEARCH",
+    "whySelected": "It is at zero, and its mechanism is the one this project most needs elsewhere: weighing sources whose quality signals conflict is what the economic organ does to provider evidence and what the personal organ does to life evidence. Section 087 and 088 both require a transfer, and a research improvement is the one with somewhere to transfer to.",
+    "notSelected": {
+      "INVENTION": "Also zero, but its fix is a wider composition search, which is closer to enlarging a lookup than acquiring a capability.",
+      "TOOL_USE": "Least headroom of the three."
+    }
+  },
+  "hypotheses": {
+    "primary": "The solver ranks on a fixed provenance ladder and nothing else, so it cannot represent a source that is high-provenance and stale. The gap is that quality is treated as one dimension when it is at least two.",
+    "alternativeA": "The solver is right and the level-3 item is unfair, because a stale primary measurement genuinely should outrank a fresh replication.",
+    "alternativeB": "The failure is that the solver never reads observedAt at all, so any recency-aware candidate wins for a trivial reason rather than a structural one."
+  },
+  "discriminatingTest": "Run one candidate that only adds recency, one that models provenance and recency as separate axes, one that weighs corroboration across independent sources, and one that refuses when the evidence is genuinely contradictory. If only the recency-only candidate wins, alternative B holds. If the two-axis candidate beats recency-only, the primary hypothesis holds. If nothing wins, alternative A is live.",
+  "candidateFamilies": [
+    "R1 recency-only: prefer the most recently observed claim",
+    "R2 two-axis: score provenance and freshness separately and combine them",
+    "R3 corroboration: weigh a claim by the independent quality of everything supporting it, discounting repeats of one upstream source",
+    "R4 refusal-aware: return the best-supported claim, but refuse when the top two are within a hair of each other"
+  ],
+  "precommittedCriteria": {
+    "trainSeeds": [1, 2, 3, 7, 11, 42, 99, 1234, 20260915, 777],
+    "heldOutSeeds": [555, 8080, 31337, 606, 24601, 90210, 13, 2718, 1618, 4242],
+    "promotionThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2.",
+    "nullResult": "If nothing clears the threshold, GA2 records NO_PROMOTION and GA3 attacks a different hypothesis family.",
+    "thresholdLock": "Fixed here. A change after results invalidates the experiment."
+  },
+  "antiRewardHack": [
+    "A candidate may not read the item, only the surface.",
+    "A candidate may not branch on taskId or seed.",
+    "A candidate may not be tuned on the held-out seeds.",
+    "A candidate that hardcodes the quality label carrying the answer is rejected: the level-3 item exists precisely because that label moves."
+  ],
+  "businessEffectAuthority": "NONE"
+}

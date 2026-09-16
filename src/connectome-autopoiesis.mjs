@@ -1,18 +1,9 @@
 import crypto from 'node:crypto';
 import { reachableNodes } from './uberbond-cognitive-graph.mjs';
+import { ZERO_CONSEQUENCE_EFFECTS as ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const CONNECTOME_AUTOPOIESIS_VERSION = 'uberbond.connectome-autopoiesis.v1';
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  customerMessages:0,
-  providerCalls:0,
-  spendCents:0,
-  deployments:0,
-  dnsChanges:0,
-  credentialChanges:0,
-  paymentMutations:0,
-  productionMutations:0
-});
 
 export const CONNECTOME_SYNERGY_CONTRACTS = Object.freeze([
   ['avengers','temporal-foundry'],

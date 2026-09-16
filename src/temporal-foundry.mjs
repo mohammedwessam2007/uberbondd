@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { ZERO_CONSEQUENCE_EFFECTS as ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const TEMPORAL_FOUNDRY_VERSION = 'uberbond.temporal-foundry.v1';
 
@@ -10,16 +11,6 @@ export const FUTURE_FUNCTION_STATES = Object.freeze([
   'UNKNOWN'
 ]);
 
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  customerMessages:0,
-  providerCalls:0,
-  spendCents:0,
-  deployments:0,
-  dnsChanges:0,
-  credentialChanges:0,
-  paymentMutations:0,
-  productionMutations:0
-});
 
 const text=(value,max=2000)=>{const out=String(value??'').trim();return out&&out.length<=max?out:null;};
 const list=(value,max=2048,itemMax=1000)=>{

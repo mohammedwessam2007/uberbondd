@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "uberbond-nullstar-capability-generation-1.0.0",
+  "generation": "GA3",
+  "kind": "ACTUAL_CAPABILITY_FOCUSED",
+  "directiveSections": [
+    "053",
+    "054",
+    "055",
+    "056",
+    "057",
+    "058",
+    "074",
+    "076"
+  ],
+  "generatedAt": "2026-09-15T12:18:15.573Z",
+  "sourceCommit": "021f0028621d2b2662e5c13e05b9db2f3683eb90",
+  "evaluationEpoch": "EPOCH_2__PROCEDURAL_GENERATED",
+  "family": "INVENTION",
+  "difficulty": 3,
+  "declarationRef": "artifacts/nullstar-terminal/ga3-declaration.json",
+  "precommittedThreshold": "Above 0.8 on held-out seeds never seen, beating the incumbent on those seeds, with no regression at difficulty 1 or 2.",
+  "thresholdUsed": 0.8,
+  "incumbent": {
+    "trainScore": 0,
+    "heldOutScore": 0
+  },
+  "candidates": [
+    {
+      "candidate": "I1_HARDCODE_ONE_TARGET",
+      "trainScore": 0.6,
+      "heldOutScore": 0.6,
+      "regressions": [
+        {
+          "difficulty": 1,
+          "before": 1,
+          "after": 0.5
+        },
+        {
+          "difficulty": 2,
+          "before": 1,
+          "after": 0.5
+        }
+      ],
+      "complexityBytes": 231,
+      "meetsThreshold": false,
+      "beatsIncumbent": true,
+      "noRegression": false,
+      "eligible": false
+    },
+    {
+      "candidate": "I2_ARITY_WIDENED",
+      "trainScore": 0.5,
+      "heldOutScore": 0.5,
+      "regressions": [
+        {
+          "difficulty": 1,
+          "before": 1,
+          "after": 0.5
+        },
+        {
+          "difficulty": 2,
+          "before": 1,
+          "after": 0.5
+        }
+      ],
+      "complexityBytes": 383,
+      "meetsThreshold": false,
+      "beatsIncumbent": true,
+      "noRegression": false,
+      "eligible": false
+    },
+    {
+      "candidate": "I3_PROMPT_DIRECTED",
+      "trainScore": 1,
+      "heldOutScore": 1,
+      "regressions": [],
+      "complexityBytes": 602,
+      "meetsThreshold": true,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": true
+    },
+    {
+      "candidate": "I4_COMPOSITIONAL_SEARCH",
+      "trainScore": 0.8,
+      "heldOutScore": 0.8,
+      "regressions": [],
+      "complexityBytes": 1736,
+      "meetsThreshold": false,
+      "beatsIncumbent": true,
+      "noRegression": true,
+      "eligible": false
+    }
+  ],
+  "disqualifiedForRegression": [],
+  "winner": "I3_PROMPT_DIRECTED",
+  "outcome": "PROMOTED",
+  "discrimination": "SEPARATED",
+  "tiedAtTop": [
+    "I3_PROMPT_DIRECTED"
+  ],
+  "attributionWarning": null,
+  "tieBreak": null,
+  "improvementVelocity": {
+    "deltaCapability": 1,
+    "wallClockMs": 6,
+    "providerCalls": 0,
+    "spendCents": 0,
+    "founderMinutes": 0,
+    "regressions": 0
+  },
+  "truthBoundary": "A CANDIDATE THAT BEATS AN INCUMBENT ON HELD-OUT SEEDS HAS IMPROVED ONE MEASURED CAPABILITY ON ONE INSTRUMENT. IT HAS NOT ESTABLISHED GENERAL IMPROVEMENT OR ACCELERATION.",
+  "businessEffectAuthority": "NONE"
+}

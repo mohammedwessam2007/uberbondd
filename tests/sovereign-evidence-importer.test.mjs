@@ -115,7 +115,8 @@ test('authoring install and doctor make importer part of the canonical bootstrap
   assert.match(installer,/import-sovereign-evidence\.sh/);
   assert.match(installer,/UBERBOND_SOVEREIGN_EVIDENCE_ROOT=\/var\/lib\/uberbond-evidence/);
   assert.match(installer,/UBERBOND_PROMOTION_DIR=\/var\/lib\/uberbond-promotion/);
-  assert.match(installer,/UBERBOND_GIT_EXECUTABLE=\$\(command -v git\)/);
+  assert.match(installer,/GIT="\$\(realpath "\$\(command -v git\)"\)"/);
+  assert.match(installer,/UBERBOND_GIT_EXECUTABLE=\$GIT/);
   assert.match(installer,/\brunuser\b/);
   assert.match(installer,/shares?.*promotion.*lock/is);
   assert.match(installer,/root-only/);

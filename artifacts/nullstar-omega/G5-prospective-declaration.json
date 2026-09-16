@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-prospective-declaration-1.0.0",
+  "directiveSection": "310",
+  "purpose": "The fourth prospective episode, and an attack on this session's own headline number. Committed before any G6 code exists.",
+  "generation": "G5",
+  "successorGeneration": "G6",
+  "bottleneckId": "BN-STALE-READINGS-CARRIED-ACROSS-A-SUITE-CHANGE",
+  "symptom": "Six of the ten dimensions G5 reports as measured are 1.0 readings taken on omega-capability-probe-suite-1.0.0, the saturated instrument: reasoning, mathematics, unknownUnknown, longHorizon, robustness and resourceEfficiency. G3 changed the suite version to omega-outcome-measured-suite-1.0.0 and carried those values forward unchanged. The instrument comparison already refuses to subtract a score taken on one suite from a score taken on another, and then the generation record quietly does exactly that inside a single vector.",
+  "symptomKind": "INSTRUMENT_SATURATED",
+  "whyThisMattersMoreThanTheOtherFindings": "G5's mean of 0.810125 is mostly ceiling carried over from the instrument that was replaced for being saturated. The separation reported at G3 is real for the four dimensions actually re-measured and is diluted by six that were not. Every claim this session made about the mean rising from G3 to G5 is a claim about stale numbers moving.",
+  "resolutionCriterion": "Resolved only if the reported mean is computed from dimensions actually measured under the recording suite, and carried-forward readings are excluded from it rather than counted. Not resolved by relabelling, by adding a note, or by the mean happening to move.",
+  "prediction": {
+    "claim": "The honest mean over only the dimensions measured under the outcome suite will be materially lower than 0.810125.",
+    "estimate": "The four genuinely measured dimensions are software 0.6667, crossDomain 0.3333, selfDiagnosis 0.5 and calibration 0.60125, so the honest mean should land near 0.53.",
+    "confidence": "High on the arithmetic, which is checkable. What I do not know is whether recordGeneration can be made to refuse a carried-forward reading without invalidating the G0 through G5 records already written."
+  },
+  "whatWouldFalsifyTheConcern": "The six carried-forward dimensions turning out to have been re-measured under the outcome suite after all, which would make them current rather than stale.",
+  "businessEffectAuthority": "NONE"
+}

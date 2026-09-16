@@ -1,0 +1,177 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-baselines-1.0.0",
+  "directiveSections": [
+    "025",
+    "026",
+    "027",
+    "028",
+    "029",
+    "030",
+    "031",
+    "032"
+  ],
+  "generatedAt": "2026-09-15T03:01:41.880Z",
+  "sourceCommit": "ea1b87c94fb04b20560114ee77398aab7a448475",
+  "ancestorCommit": "2831e4e010fce9b4775ade0c31aae0622de2b104",
+  "answerKey": [
+    {
+      "taskId": "selfmodel.coverage-rows",
+      "answerKind": "NUMBER"
+    },
+    {
+      "taskId": "selfmodel.capability-count",
+      "answerKind": "NUMBER"
+    },
+    {
+      "taskId": "selfmodel.denominator-absent",
+      "answerKind": "NUMBER"
+    },
+    {
+      "taskId": "reasoning.directive-conservation",
+      "answerKind": "BOOLEAN"
+    },
+    {
+      "taskId": "robustness.zero-authority",
+      "answerKind": "BOOLEAN"
+    },
+    {
+      "taskId": "calibration.missing-is-upper-bound",
+      "answerKind": "BOOLEAN"
+    }
+  ],
+  "set": {
+    "ok": true,
+    "status": "BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS",
+    "version": "uberbond.nullstar-omega-baselines.v1",
+    "suiteVersion": "omega-local-evidence-suite-1.0.0",
+    "sourceCommit": "ea1b87c94fb04b20560114ee77398aab7a448475",
+    "baselines": [
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B0",
+        "definition": "Trivial non-model baseline. No capability at all -- a fixed answer, steelmanned by taking the best-scoring constant rather than a deliberately bad one.",
+        "baselineStatus": "EXECUTED",
+        "score": 0.5,
+        "tasksAttempted": 6,
+        "tasksCorrect": 3,
+        "method": "Answered every sealed task with the single constant \"true\". Steelmanned: five constants were tried and the best-scoring one is reported, so this is the strongest no-capability baseline rather than a deliberately bad one.",
+        "reason": null,
+        "blockingDependency": null,
+        "whatWasTried": null,
+        "nextUnblockCondition": null,
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B1",
+        "definition": "Raw frontier model with no UberBond harness, minimal necessary context, no tools.",
+        "baselineStatus": "BLOCKED_EXTERNAL",
+        "score": null,
+        "tasksAttempted": null,
+        "tasksCorrect": null,
+        "method": null,
+        "reason": "No model provider is reachable. No credential is present in the environment, and every model-weight host is refused by the network policy while a local inference runtime installs fine, so the blocker is weights and admission rather than runtime.",
+        "blockingDependency": "a provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires",
+        "whatWasTried": "checked 6 credential environment variables, 0 present; ollama binary absent; python transformers not installed; onnxruntime installed and importable",
+        "nextUnblockCondition": "a credential in the environment, or an allowed weight host with admission evidence for the exact artifact",
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B2",
+        "definition": "Strongest available single-model configuration.",
+        "baselineStatus": "BLOCKED_EXTERNAL",
+        "score": null,
+        "tasksAttempted": null,
+        "tasksCorrect": null,
+        "method": null,
+        "reason": "No model provider is reachable. No credential is present in the environment, and every model-weight host is refused by the network policy while a local inference runtime installs fine, so the blocker is weights and admission rather than runtime.",
+        "blockingDependency": "a provider credential, or a policy-permitted weight host plus the STATIC, SEMANTIC and SANDBOX admission evidence the Capability Genome requires",
+        "whatWasTried": "checked 6 credential environment variables, 0 present; ollama binary absent; python transformers not installed; onnxruntime installed and importable",
+        "nextUnblockCondition": "a credential in the environment, or an allowed weight host with admission evidence for the exact artifact",
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B3",
+        "definition": "Reasonable multi-agent or role-separated baseline, built competently rather than crippled.",
+        "baselineStatus": "BLOCKED_EXTERNAL",
+        "score": null,
+        "tasksAttempted": null,
+        "tasksCorrect": null,
+        "method": null,
+        "reason": "A multi-agent baseline needs agents, and an agent here needs a model. The orchestration exists; the thing it would orchestrate does not.",
+        "blockingDependency": "the same provider dependency as B1 and B2",
+        "whatWasTried": "checked 6 credential environment variables, 0 present; ollama binary absent; python transformers not installed; onnxruntime installed and importable; confirmed the agent-mesh runtime exists in source but has no model to route to",
+        "nextUnblockCondition": "B1 unblocked, after which a role-separated baseline can be built on the same provider",
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B4",
+        "definition": "Previous canonical UberBond at a frozen ancestor commit, same suite.",
+        "baselineStatus": "EXECUTED",
+        "score": 0.5,
+        "tasksAttempted": 6,
+        "tasksCorrect": 3,
+        "method": "Checked out ancestor 2831e4e010fc into a detached worktree and ran the same answer procedure against that tree, scored against the current answer key.",
+        "reason": null,
+        "blockingDependency": null,
+        "whatWasTried": null,
+        "nextUnblockCondition": null,
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      },
+      {
+        "ok": true,
+        "status": "BASELINE_RECORDED",
+        "id": "B5",
+        "definition": "Current UberBond at the exact head.",
+        "baselineStatus": "EXECUTED",
+        "score": 1,
+        "tasksAttempted": 6,
+        "tasksCorrect": 6,
+        "method": "Ran the answer procedure against the exact head. Scores full marks by construction: in this corpus the expected answer and the observation are the same expression, so the tree is being compared against itself.",
+        "reason": null,
+        "blockingDependency": null,
+        "whatWasTried": null,
+        "nextUnblockCondition": null,
+        "cost": null,
+        "businessEffectAuthority": "NONE"
+      }
+    ],
+    "executedBaselines": [
+      "B0",
+      "B4",
+      "B5"
+    ],
+    "blockedBaselines": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "trivialComparison": "CURRENT_BEATS_TRIVIAL_BY_0.5",
+    "unexplainedNulls": 0,
+    "truthBoundary": "A BASELINE SET SAYS WHAT WAS COMPARED ON ONE SUITE AT ONE COMMIT. A MARGIN OVER A TRIVIAL BASELINE ON AN EASY SUITE IS STILL A MARGIN ON AN EASY SUITE.",
+    "businessEffectAuthority": "NONE"
+  },
+  "suiteValidityFinding": {
+    "finding": "THE SEALED CORPUS IS TAUTOLOGICAL",
+    "detail": "For every sealed task the expected answer and the observation are produced by the same expression over the same file, so any tree scores full marks against itself. The 1.0 that stood across G0, G1 and G2 was not a capability measurement.",
+    "trivialBaselineScore": 0.5,
+    "trivialConstant": "true",
+    "whatThatMeans": "A single constant answers 3 of 6 sealed tasks, because half the corpus asks yes-or-no questions whose answer is yes. No capability is required for those.",
+    "consequence": "This suite cannot separate a capable system from a constant. It is retired as a capability instrument and kept only as a consistency check."
+  },
+  "truthBoundary": "BASELINES SAY WHAT WAS COMPARED ON ONE SUITE AT ONE COMMIT. THIS SUITE TURNED OUT TO MEASURE SELF-CONSISTENCY, SO THE MARGINS BELOW ARE MARGINS ON A BROKEN INSTRUMENT.",
+  "businessEffectAuthority": "NONE"
+}

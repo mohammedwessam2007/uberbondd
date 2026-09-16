@@ -193,3 +193,66 @@ test('command center remains read-only and carries zero business effect authorit
   assert.deepEqual(await store.list('messages'), before.messages);
   assert.deepEqual(await store.list('leads'), before.leads);
 });
+
+test('the money claim now carries a sealed forecast that a provider receipt will settle', async () => {
+  const store = await tempStore();
+  const result = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+  assert.equal(result.ok, true);
+
+  const economic = result.realityBoundForecasts.economic;
+  assert.ok(economic.forecastId, 'the first-cash claim must carry a sealed forecast');
+  assert.ok(economic.seal);
+  // The decider has to be outside this process. A CRM row or an invoice status
+  // would let the same party that made the claim also settle it.
+  assert.match(economic.decidedBy, /PROVIDER_ORIGIN_RECEIPT/);
+  assert.match(economic.decidedBy, /reconciled provider-origin settlement/);
+
+  // With no contact authority the forecast must be lopsided against clearing,
+  // and it must still leave room to be wrong.
+  assert.ok(economic.probabilities.CLEARED < 0.1);
+  assert.ok(economic.probabilities.CLEARED > 0);
+  assert.equal(
+    Number((economic.probabilities.CLEARED + economic.probabilities.NOT_CLEARED).toFixed(6)),
+    1
+  );
+});
+
+test('the founder-facing gate forecast is settled by elapsed time, not by anyone here', async () => {
+  const store = await tempStore();
+  const result = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+
+  const founder = result.realityBoundForecasts.founderDecision;
+  assert.ok(founder.forecastId);
+  assert.match(founder.decidedBy, /ELAPSED_TIME/);
+  assert.equal(Object.keys(founder.probabilities).length, 3);
+  assert.equal(
+    Number(Object.values(founder.probabilities).reduce((sum, p) => sum + p, 0).toFixed(6)),
+    1
+  );
+});
+
+test('the same reference date produces the same seal, so the forecast is a fixed claim', async () => {
+  const store = await tempStore();
+  const first = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+  const second = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+  assert.equal(
+    first.realityBoundForecasts.economic.seal,
+    second.realityBoundForecasts.economic.seal
+  );
+  assert.equal(
+    first.realityBoundForecasts.economic.forecastId,
+    second.realityBoundForecasts.economic.forecastId
+  );
+});
+
+test('a later reference date is a different claim, not a silently reused one', async () => {
+  const store = await tempStore();
+  const first = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
+  const later = await buildFounderCommandCenter({
+    store, cfg: cfg(), date: new Date('2026-07-20T10:00:00.000Z')
+  });
+  assert.notEqual(
+    first.realityBoundForecasts.economic.forecastId,
+    later.realityBoundForecasts.economic.forecastId
+  );
+});

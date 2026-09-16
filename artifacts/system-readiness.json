@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-08T06:10:26.378Z",
+  "generatedAt": "2026-09-16T13:36:57.941Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "19c6109641bd515a9526821355113caf85c34234",
-    "branch": "claude/uberbond-sovereign-build-fyge0k",
-    "sourceModules": 416,
-    "testSuites": 519,
-    "workingTreeClean": false
+    "head": "67b58743d13636755e1923eb8d40bbb9f4c36829",
+    "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+    "sourceModules": 813,
+    "testSuites": 988,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,14 +70,20 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 416,
-      "reachableFromProduction": 169,
-      "reachableFromOperatorScriptsOnly": 115,
-      "noEntryPointAtAll": 132,
+      "srcModules": 813,
+      "reachableFromProduction": 245,
+      "reachableFromUnattendedOperatorScriptsOnly": 390,
+      "reachableFromFounderInteractiveOnly": 7,
+      "reachableFromOperatorScriptsOnly": 390,
+      "noEntryPointAtAll": 171,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],
-      "staleClassifications": []
+      "staleClassifications": [],
+      "founderInteractiveClassificationViolations": [],
+      "founderInteractiveEntryPoints": [
+        "scripts/personal-civilization-private.mjs"
+      ]
     }
   },
   "capabilities": [

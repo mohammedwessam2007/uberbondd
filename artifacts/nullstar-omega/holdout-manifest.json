@@ -1,0 +1,74 @@
+{
+  "suiteVersion": "omega-local-evidence-suite-1.0.0",
+  "generatedAt": "2026-09-14T22:03:50.490Z",
+  "counts": {
+    "tasks": 7,
+    "sealed": 6,
+    "byTier": {
+      "DEVELOPMENT": 0,
+      "VISIBLE_EVAL": 1,
+      "SEALED_HOLDOUT": 6
+    },
+    "byFamily": {
+      "SELF_DIAGNOSIS": 3,
+      "REASONING": 1,
+      "ROBUSTNESS": 1,
+      "CALIBRATED_REFUSAL": 1,
+      "SOFTWARE_ENGINEERING": 1
+    }
+  },
+  "manifest": [
+    {
+      "taskId": "selfmodel.coverage-rows",
+      "family": "SELF_DIAGNOSIS",
+      "tier": "SEALED_HOLDOUT",
+      "difficulty": 0.3,
+      "answerDigest": "fbb9db6383f0eba9b4a59b5d7f9703caf9fbaebbb7fdebeccc8147a85e04870c"
+    },
+    {
+      "taskId": "selfmodel.capability-count",
+      "family": "SELF_DIAGNOSIS",
+      "tier": "SEALED_HOLDOUT",
+      "difficulty": 0.3,
+      "answerDigest": "3760eaa14459d48eaee96c3d445e0900238b1f551073db3e52824172049cd42c"
+    },
+    {
+      "taskId": "selfmodel.denominator-absent",
+      "family": "SELF_DIAGNOSIS",
+      "tier": "SEALED_HOLDOUT",
+      "difficulty": 0.5,
+      "answerDigest": "b28240cbb94b1f94fe6f528734677ec040c4337e303d7eb58929336207e7ef1e"
+    },
+    {
+      "taskId": "reasoning.directive-conservation",
+      "family": "REASONING",
+      "tier": "SEALED_HOLDOUT",
+      "difficulty": 0.4,
+      "answerDigest": "5d66704272d7025a2e69c6a8e4434bd8db2ba6d0a2733060ab52f3903e352e00"
+    },
+    {
+      "taskId": "robustness.zero-authority",
+      "family": "ROBUSTNESS",
+      "tier": "SEALED_HOLDOUT",
+      "difficulty": 0.4,
+      "answerDigest": "428bc14520f97796f43ae7b108edeb6d16331458684b346b9bf03defceec2ed8"
+    },
+    {
+      "taskId": "calibration.missing-is-upper-bound",
+      "family": "CALIBRATED_REFUSAL",
+      "tier": "SEALED_HOLDOUT",
+      "difficulty": 0.6,
+      "answerDigest": "4673e44cbb07cdc4485786c992a2755af919332fb0a0d71e6583cc07f490735a"
+    },
+    {
+      "taskId": "software.suite-green",
+      "family": "SOFTWARE_ENGINEERING",
+      "tier": "VISIBLE_EVAL",
+      "difficulty": 0.5,
+      "answerDigest": "1d0759029cf4549d8b6b2a552944f03a8a1a679ebb194370916f7ba0a52d6e48"
+    }
+  ],
+  "corpusDigest": "e90ed2b89f6063083958db2e7a988a4a0e41f6021205a1478bca72882471e6c0",
+  "truthBoundary": "A_SEALED_CORPUS_MEANS_ANSWERS_ARE_STORED_AS_SALTED_DIGESTS_AND_ARE_NOT_RETURNED_FOR_SEALED_TASKS. IT_DOES_NOT_PROVE_A_CANDIDATE_NEVER_SAW_THESE_TASKS_ELSEWHERE, AND_SCORING_IS_A_SEPARATE_STEP_WITH_ITS_OWN_RECEIPT.",
+  "businessEffectAuthority": "NONE"
+}

@@ -22,7 +22,7 @@ import { createFakeGmailTransport, FAKE_GMAIL_MODES } from './helpers/fake-gmail
 const realPostgresUrl = process.env.OMNIA_V9_TEST_DATABASE_URL || '';
 const ENCRYPTION_KEY = crypto.randomBytes(32).toString('hex');
 const CFG_BASE = { clientId: 'fake-client', clientSecret: 'fake-secret', redirectUri: 'https://example.test/callback' };
-const MESSAGE_ID_DOMAIN = 'uberbond-controlled-test.example';
+const MESSAGE_ID_DOMAIN = 'sovereign-controlled-test.example';
 
 function suffix() {
   return `${Date.now()}_${Math.random().toString(16).slice(2)}`;
@@ -50,7 +50,7 @@ function makeAdapter(transport) {
     account: freshAccount(),
     encryptionKey: ENCRYPTION_KEY,
     messageIdDomain: MESSAGE_ID_DOMAIN,
-    fromAddress: 'sender@uberbond-controlled-test.example'
+    fromAddress: 'sender@sovereign-controlled-test.example'
   });
 }
 

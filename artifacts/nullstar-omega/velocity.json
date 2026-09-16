@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "uberbond-nullstar-omega-velocity-1.0.0",
+  "generatedAt": "2026-09-15T01:16:34.015Z",
+  "generations": [
+    {
+      "id": "G0",
+      "commit": "01cda737dee044735f581de45743af440426b07f",
+      "measured": 4,
+      "mean": 1
+    },
+    {
+      "id": "G1",
+      "commit": "01cda737dee044735f581de45743af440426b07f",
+      "measured": 9,
+      "mean": 1
+    },
+    {
+      "id": "G2",
+      "commit": "b6c9aaf7a13bc5a1410e0e51854015d497352068",
+      "measured": 9,
+      "mean": 1
+    },
+    {
+      "id": "G3",
+      "commit": "0084609b357d3a09d5f404ded2eeecf5ffadb323",
+      "measured": 9,
+      "mean": 0.770506
+    },
+    {
+      "id": "G4",
+      "commit": "0084609b357d3a09d5f404ded2eeecf5ffadb323",
+      "measured": 10,
+      "mean": 0.793455
+    },
+    {
+      "id": "G5",
+      "commit": "65b5c41196fa19fb71eca40535999264511bc9cb",
+      "measured": 10,
+      "mean": 0.810125
+    },
+    {
+      "id": "G6",
+      "commit": "28bc66330b2a2f556c3be629bfd8de643a81f428",
+      "measured": 10,
+      "mean": 0.525313
+    }
+  ],
+  "pairwise": [
+    {
+      "from": "G0",
+      "to": "G1",
+      "comparable": 4,
+      "incomparable": 13,
+      "netDelta": null,
+      "regressed": []
+    },
+    {
+      "from": "G1",
+      "to": "G2",
+      "comparable": 9,
+      "incomparable": 8,
+      "netDelta": null,
+      "regressed": []
+    },
+    {
+      "from": "G2",
+      "to": "G3",
+      "comparable": 9,
+      "incomparable": 8,
+      "netDelta": null,
+      "regressed": []
+    },
+    {
+      "from": "G3",
+      "to": "G4",
+      "comparable": 9,
+      "incomparable": 8,
+      "netDelta": 0.3333,
+      "regressed": []
+    },
+    {
+      "from": "G4",
+      "to": "G5",
+      "comparable": 10,
+      "incomparable": 7,
+      "netDelta": 0.1667,
+      "regressed": []
+    },
+    {
+      "from": "G5",
+      "to": "G6",
+      "comparable": 10,
+      "incomparable": 7,
+      "netDelta": 0,
+      "regressed": []
+    }
+  ],
+  "trend": {
+    "ok": true,
+    "trend": "INSTRUMENT_CHANGED",
+    "generations": 7,
+    "suiteChanges": [
+      {
+        "from": "G0",
+        "to": "G1",
+        "fromSuite": "omega-local-evidence-suite-1.0.0",
+        "toSuite": "omega-local-evidence-suite-2.0.0-derived"
+      },
+      {
+        "from": "G1",
+        "to": "G2",
+        "fromSuite": "omega-local-evidence-suite-2.0.0-derived",
+        "toSuite": "omega-capability-probe-suite-1.0.0"
+      },
+      {
+        "from": "G2",
+        "to": "G3",
+        "fromSuite": "omega-capability-probe-suite-1.0.0",
+        "toSuite": "omega-outcome-measured-suite-1.0.0"
+      }
+    ],
+    "reason": "The measuring suite changed inside this series, so the score movement describes the instrument rather than the system.",
+    "accelerationClaim": "NOT_ESTABLISHED_BY_SCORE_SERIES_ALONE",
+    "businessEffectAuthority": "NONE"
+  },
+  "accelerationClaim": "NOT_ESTABLISHED",
+  "accelerationLaw": "Acceleration requires repeated evidence that capability gain persists, generalizes, and arrives faster or larger, with controlled cost and no loss of security. A score series alone cannot establish it.",
+  "truthBoundary": "VELOCITY_IS_COMPUTED_FROM_RECORDED_GENERATIONS_ONLY. INSUFFICIENT_DATA_IS_A_RESULT_AND_NOT_A_FAILURE_TO_RUN.",
+  "businessEffectAuthority": "NONE"
+}

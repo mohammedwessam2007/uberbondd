@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "uberbond-free-runtime-mesh",
+  "main": "cloudflare-worker.mjs",
+  "compatibility_date": "2026-09-13",
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "UBERBOND_COORDINATOR",
+        "class_name": "UberBondFreeCoordinator"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["UberBondFreeCoordinator"]
+    }
+  ],
+  "vars": {
+    "GITHUB_REPOSITORY": "mohammedwessam2007/uberbondd"
+  }
+}

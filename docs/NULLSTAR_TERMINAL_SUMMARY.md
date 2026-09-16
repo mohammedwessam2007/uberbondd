@@ -6,14 +6,28 @@ typed in.
 
 ## The verdict
 
-`SOFTWARE_SIDE_COMPLETE`. Zero software items open, two external items open.
+`NOT_DONE__SOFTWARE_WORK_REMAINS`. Three software items open, two external.
+
+This said `SOFTWARE_SIDE_COMPLETE` and that zero was understated rather than
+wrong in detail: the ledger did not represent branch debt at all. EVENT HORIZON
+section 009 counts unique commits off main, open integration PRs and diverged
+branches in `softwareOpen`, and once they are measured, three items open.
+
+- Nine diverged branches carry source main does not have, including UBER/OS
+  Generation-0, a free runtime mesh, a founder console and an owned-target
+  security verifier.
+- PR 891 targets an older main and is unverified against the current head.
+- Ninety-eight stranded pre-rewrite modules have not been checked against a
+  successor in main. Three of three sampled were superseded; that is a pattern,
+  not a proof for a hundred.
 
 The two external ones are not code problems and no amount of code closes them:
 no provider credential exists and every model-weight host is refused by the
 network policy, and revenue, customers and cleared payment remain zero.
 
-"Software side complete" means no writable work remains that the completion
-ledger has identified. It does not mean the system is capable.
+"Software side complete", when it is eventually true, will mean no writable work
+remains that the completion ledger has identified. It will not mean the system
+is capable.
 
 ## The central finding
 
@@ -156,7 +170,23 @@ Not a production change to any organ.
 ## Reproducing it
 
 ```
-npm run test:deterministic          # 7422 tests
+npm run test:deterministic          # 7551 tests on the merged tree
 node scripts/mutation-war.mjs       # 441 mutations, 441 killed
+npm run nullstar:branch-debt
+npm run nullstar:completion-debt
 npm run nullstar:final-report
 ```
+
+## What changed after the merge to main
+
+The NULLSTAR lineage is on main as of `755e00a2`, and merging it took main from
+red to green: `UBEROCEAN` had been added to the sovereign layer registry without
+being added to the orchestration dependency graph or phase list, so the topology
+could not resolve and six tests failed, plus two reachability failures. Those
+were failing on main before this branch touched it.
+
+Hosted CI reported eight failures on the merged head. Every one had `runner_id 0`,
+no runner name, no executed steps, a four-second duration and a 404 on log
+download. No runner was ever assigned, so that is infrastructure non-evidence
+rather than a source failure, and it is recorded as such rather than claimed as
+a pass.

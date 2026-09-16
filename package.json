@@ -143,7 +143,8 @@
     "nullstar:generalization": "node scripts/nullstar-generalization-v2.mjs",
     "nullstar:attribution": "node scripts/nullstar-attribution-audit.mjs",
     "nullstar:probe-saturation": "node scripts/nullstar-probe-saturation.mjs",
-    "nullstar:meta-improvement": "node scripts/nullstar-meta-improvement-v2.mjs"
+    "nullstar:meta-improvement": "node scripts/nullstar-meta-improvement-v2.mjs",
+    "nullstar:branch-debt": "node scripts/nullstar-branch-debt.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

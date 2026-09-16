@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "uberos.machine-manifest.v1",
+  "identity": {
+    "name": "UBER/OS",
+    "generation": "0",
+    "terminalRole": "SOVEREIGN_COMPUTE_SUBSTRATE"
+  },
+  "authorityRoot": {
+    "authorityId": "uberos-root",
+    "epoch": 1,
+    "scopes": ["boot", "inspect", "verify", "prepare-update"],
+    "effects": ["read-local-state"],
+    "provenanceRef": "docs/UBER_OS_CANON.md"
+  },
+  "packages": [
+    {
+      "name": "buildroot-bootstrap",
+      "version": "2026.08",
+      "source": "https://buildroot.org/downloads/buildroot-2026.08.tar.xz",
+      "sourceDigest": "sha256:87aaca4164ea9d5c8085854953018263f7963f07c22e73a2a2185cc98c581c34",
+      "license": "GPL-2.0",
+      "buildRecipeDigest": "sha256:4c0a05f39455d629eef05bcda571f4fdeb81715e4a56e525c69e4241495380c4",
+      "buildInputs": ["uberos/scripts/build-gen0.sh", "uberos/buildroot"],
+      "capabilities": ["toolchain", "root-filesystem", "kernel-build", "qemu-image"],
+      "permissions": ["build-local-files"],
+      "networkDestinations": ["buildroot.org"],
+      "runtimeMutable": false,
+      "privileged": false
+    }
+  ],
+  "kernelAdapters": [
+    {
+      "id": "linux-buildroot-qemu",
+      "kernelClass": "LINUX",
+      "sourceRef": "Buildroot 2026.08 qemu defconfig upstream kernel",
+      "revision": "CAPTURE_EXACT_VERSION_IN_BUILD_RECEIPT",
+      "license": "GPL-2.0",
+      "abi": "linux-syscall",
+      "capabilities": ["process", "memory", "filesystem", "network", "device", "virtualization"]
+    }
+  ],
+  "requiredKernelCapabilities": ["process", "memory", "filesystem", "device"],
+  "preferredKernelClass": "LINUX",
+  "updatePolicy": {
+    "strategy": "CANDIDATE_SANDBOX_VERIFY_ATOMIC_PROMOTE_ROLLBACK",
+    "automaticConsequenceAuthorityExpansion": false
+  },
+  "aiPolicy": {
+    "bootRequiresModel": false,
+    "deterministicRecoveryPathRequired": true,
+    "modelMayProposeChanges": true,
+    "modelMaySelfGrantAuthority": false
+  }
+}

@@ -1,0 +1,6 @@
+NAME=UBER/OS
+GENERATION=0
+IDENTITY=sovereign-compute-bootstrap
+BOOT_MODEL_DEPENDENCY=none
+AUTHORITY_LAW=capability-never-creates-authority
+UPDATE_LAW=verify-before-promote

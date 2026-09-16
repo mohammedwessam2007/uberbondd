@@ -1,0 +1,17 @@
+{
+  "observedAt": "2026-09-16",
+  "branch": "feat/uber-every-remaining-outreach-blocker-20260916",
+  "base": "2925f74573f24dcccb8cb888a7bd6820abec16b1",
+  "verification": {
+    "freshClone": true,
+    "focusedTests": {"pass": 4, "fail": 0},
+    "syntheticPortfolio": {"total": 2000, "laneCounts": {"UBERREPLY_01": 500, "UBERREPLY_02": 500, "UBERREPLY_03": 500, "UBERREPLY_04": 500}}
+  },
+  "externalEffects": {
+    "messagesSent": 0,
+    "dnsMutations": 0,
+    "purchases": 0,
+    "deployments": 0
+  },
+  "truthBoundary": "Source-level verification only. No live DNS, physical address, mail cell, prospect inventory, provider tolerance, deliverability or customer sends are claimed."
+}

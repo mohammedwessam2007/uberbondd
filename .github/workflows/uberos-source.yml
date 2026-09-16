@@ -1,0 +1,43 @@
+name: UBEROS Source Verification
+
+on:
+  pull_request:
+    paths:
+      - 'src/uberos/**'
+      - 'scripts/uberos-doctor.mjs'
+      - 'tests/uberos-system.test.mjs'
+      - 'uberos/**'
+      - 'artifacts/uberos/**'
+      - 'schemas/uberos-machine-manifest.schema.json'
+      - 'docs/UBER_OS_CANON.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Syntax
+        run: |
+          node --check src/uberos/authority.mjs
+          node --check src/uberos/package-provenance.mjs
+          node --check src/uberos/state-engine.mjs
+          node --check src/uberos/kernel-adapter.mjs
+          node --check src/uberos/unknown-unknown-lab.mjs
+          node --check src/uberos/system-compiler.mjs
+          node --check scripts/uberos-doctor.mjs
+      - name: UBEROS focused tests
+        run: node --test tests/uberos-system.test.mjs
+      - name: Manifest doctor
+        run: node scripts/uberos-doctor.mjs
+      - name: Shell syntax
+        run: |
+          bash -n uberos/scripts/build-gen0.sh
+          bash -n uberos/scripts/run-qemu.sh
+          sh -n uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health

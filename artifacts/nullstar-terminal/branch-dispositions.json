@@ -1,0 +1,243 @@
+{
+  "schemaVersion": "uberbond-nullstar-branch-dispositions-1.0.0",
+  "directiveSections": [
+    "010",
+    "151",
+    "152",
+    "183"
+  ],
+  "terminalClasses": [
+    "ARCHIVED_DONOR",
+    "EXTERNAL_BLOCKED",
+    "MERGED",
+    "REJECTED_WITH_EVIDENCE",
+    "SUPERSEDED"
+  ],
+  "note": "MERGE_CANDIDATE is deliberately not a terminal class. Section 010 makes canonicalConvergence true only when every valuable unique contribution reaches one of the five terminal classes, so a branch parked here keeps softwareOpen above zero. That is the point: it records that work is wanted without letting wanting it count as having done it.",
+  "dispositions": {
+    "origin/feat/zero-barrier-outreach-fabric-20260916": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Every file it adds is present in main; its remaining commits are test hardening against a version main has since moved past.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-wealth-runtime-liveness": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-institutional-harness-astra-donor": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/uberlit-runtime-doctor": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/uberlit-runtime-doctor-current": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Duplicate of feat/uberlit-runtime-doctor; added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/uberreach-objective-substitution-20260916": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-24x7-smoke-current": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-heart-current-20260913": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Modifies three files main carries and has advanced independently. Its intent -- unconditional UberLit recovery -- needs re-deriving against current source rather than replaying a three-commit diff.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/feat/sovereign-self-beating-heart": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Near-duplicate of feat/sovereign-heart-current-20260913, same three files.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/feat/uberreach-scale-frontier": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Modifies three files main carries; the autonomy wake contract it aligns to has moved.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/evidence/observed-2": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A single evidence admission against a file main has changed.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/reality/admit-owned-security-runtime-20260913": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A single evidence admission; the security runtime it witnesses is itself a merge candidate on another branch.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/fix/uber-sovereign-stack-count-20260915": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Fixed the UBEROCEAN layer-count drift by deleting two assertions from the test. That greens one test while leaving the orchestration topology unresolvable and the other five failures untouched. Main now carries the fix that wires UBEROCEAN into the dependency graph and phases, and asserts registry/graph/phase agreement instead of a literal.",
+      "evidence": "commit 7d069a1d: tests/uber-sovereign-stack.test.mjs, 2 deletions, 0 insertions"
+    },
+    "origin/fix/reachability-lineage-reconciliation-final-20260916": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its substance is on main. The RESEARCH_ONLY category and the NO_ADMITTED_UBEROCEAN_HOSTS gate, including its owner-authorization language, were taken from this branch rather than re-invented. What was not taken is its retention of four classifications that had become false, which is why this branch is still red on the reachable-conflict test.",
+      "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
+    },
+    "origin/fix/reachability-lineage-reconciliation-20260916": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its substance is on main. The RESEARCH_ONLY category and the NO_ADMITTED_UBEROCEAN_HOSTS gate, including its owner-authorization language, were taken from this branch rather than re-invented. What was not taken is its retention of four classifications that had become false, which is why this branch is still red on the reachable-conflict test.",
+      "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
+    },
+    "origin/fix/reachability-lineage-reconciliation-20260916-copy": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its substance is on main. The RESEARCH_ONLY category and the NO_ADMITTED_UBEROCEAN_HOSTS gate, including its owner-authorization language, were taken from this branch rather than re-invented. What was not taken is its retention of four classifications that had become false, which is why this branch is still red on the reachable-conflict test.",
+      "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
+    },
+    "origin/astra/uberos-gen0-sovereign-os-20260915": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged into the reconciled tree with zero conflicts. All 21 files present, its own suite green at 11/11, and src/uberos/state-engine.mjs classified against NO_BUILT_UBEROS_IMAGE -- the manifest is a build recipe whose kernel revision is still a placeholder, so no image exists and no machine runs it.",
+      "constitutionSections": "059,060,062,063 compute sovereignty and hardware research"
+    },
+    "origin/feat/free-runtime-mesh-20260913": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. free-runtime-mesh gated on NO_PROVISIONED_FREE_RUNTIME_MESH; it already refuses to treat a dispatch as a business effect, and there is no provisioned worker to dispatch to.",
+      "constitutionSections": "059,066 compute sovereignty and failure-domain diversity"
+    },
+    "origin/feat/founder-big-button-outreach": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Merged clean. Reachable through scripts/sovereign-outreach-big-button.mjs.",
+      "constitutionSections": "094,095 founder cockpit and the three-action limit",
+      "blockedOn": "Merging it makes an outbound send path unattended-reachable. sovereign-outreach-big-button imports the OMNIA v9 postal effect adapter, pressUberLaunchButton mints a dispatchAuthorization and postal.dispatch actually sends, and the chain from an operator script pulls the whole external-effect island out from behind NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION. The gates themselves are well built -- an authenticated founder press, short-lived authority bound to one capsule, campaign and recipient, an unmounted API route that refuses without an ADMIN_TOKEN bearer and an explicit PRESS_UBERLAUNCH confirmation, and businessEffectAuthority NONE at module level. The objection is not to the design. It is that deleting the classifications to make the ratchet green would be autonomously removing an authority constraint, which section 118 forbids, and the ratchet says in its own comment: remove the unattended path, do not reclassify the module to make this pass. Whether an outbound send path may be unattended-reachable is a founder decision under section 196, not an integration decision. Merged, verified green, then reverted for that reason alone.",
+      "verifiedBeforeRevert": "Merged clean, own tests 28 of 28, full suite green. The revert is about authority surface, not correctness."
+    },
+    "origin/feat/command-center-big-button": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Merged clean. Reachable through api/uberlaunch.mjs. It shares no path with feat/founder-big-button-outreach, so the two consoles coexist rather than collide -- which is worth revisiting, because two founder buttons is one more than section 095 wants.",
+      "blockedOn": "Merging it makes an outbound send path unattended-reachable. sovereign-outreach-big-button imports the OMNIA v9 postal effect adapter, pressUberLaunchButton mints a dispatchAuthorization and postal.dispatch actually sends, and the chain from an operator script pulls the whole external-effect island out from behind NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION. The gates themselves are well built -- an authenticated founder press, short-lived authority bound to one capsule, campaign and recipient, an unmounted API route that refuses without an ADMIN_TOKEN bearer and an explicit PRESS_UBERLAUNCH confirmation, and businessEffectAuthority NONE at module level. The objection is not to the design. It is that deleting the classifications to make the ratchet green would be autonomously removing an authority constraint, which section 118 forbids, and the ratchet says in its own comment: remove the unattended path, do not reclassify the module to make this pass. Whether an outbound send path may be unattended-reachable is a founder decision under section 196, not an integration decision. Merged, verified green, then reverted for that reason alone.",
+      "verifiedBeforeRevert": "Merged clean, own tests 28 of 28, full suite green. The revert is about authority surface, not correctness."
+    },
+    "origin/feat/native-live-research-security-20260913": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean, 14 of 14 on its own tests. owned-target-security-verifier gated on NO_AUTHORIZED_SECURITY_TARGET -- its target classes are OWNED_LOCAL and OWNED_PREVIEW and neither is registered, and reaching a scanner before a target is authorized is how an authorized tool becomes an unauthorized scan. public-research-adapter-mesh gated on NO_CONFIGURED_EGRESS_ROUTES.",
+      "constitutionSections": "096,121 research and security"
+    },
+    "origin/feat/auto-materialize-money-routes": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. commercial-execution-path-materializer classified against NO_CUSTOMER: it labels its own routes MATERIALIZED_UNPROVEN until route-outcome evidence exists, and with no customer there is no such evidence.",
+      "constitutionSections": "070 economic mechanism universe"
+    },
+    "origin/feat/contabo-preflight-operator-20260913": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. Reachable through scripts/contabo-mail-cell-preflight.mjs, so no classification was needed.",
+      "constitutionSections": "059 compute"
+    },
+    "origin/feat/outreach-100k-certified-launch-20260915": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. An outreach runtime and admin router main lacks.",
+      "blockedOn": "Five add/add conflicts against main in server.mjs, the 100K launch contract, the packet corpus and their tests. Main has advanced the same files independently, so this needs semantic resolution rather than a replay, and it is the one candidate not taken in this pass."
+    },
+    "origin/feat/free-event-runtime-mesh-20260913": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. Adds a workflow and a witness script, no new src module."
+    },
+    "origin/feat/free-runtime-mesh-current2": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Duplicate of feat/free-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant. feat/free-runtime-mesh-20260913 is now merged, so this duplicate is settled.",
+      "evidence": "same added paths"
+    },
+    "origin/feat/free-event-runtime-mesh-current-20260913": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Duplicate of feat/free-event-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant. feat/free-event-runtime-mesh-20260913 is now merged, so this duplicate is settled.",
+      "evidence": "same added paths"
+    },
+    "origin/intellectuality-renaissance": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A standalone holiday HTML page and deployment note. No source, no test, no organ. Kept as a donor rather than merged."
+    },
+    "origin/intellectuality-renaissance-deploy": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Duplicate of intellectuality-renaissance, minus the deploy note."
+    },
+    "origin/launch/uberos-final-20260915": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A staged base64 courier chunk, not source. It is transport for the UBER/OS work whose real branch is astra/uberos-gen0-sovereign-os-20260915. Its payload's real branch is now merged, so the courier chunk has nothing left to transport."
+    },
+    "origin/evidence/deployment-cutover-20260913": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A dated evidence artifact. Evidence about a cutover that has not been reproduced against current main is not evidence about current main."
+    }
+  },
+  "openPullRequests": {
+    "891": {
+      "title": "UBER/OS Generation-0 sovereign operating-system substrate",
+      "head": "astra/uberos-gen0-sovereign-os-20260915",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its head branch is merged into the reconciled tree. The PR itself still targets an older main and should be closed once the reconciled tree lands.",
+      "blockedOn": null
+    },
+    "889": {
+      "title": "NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main",
+      "head": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged at 755e00a2 after exact-head verification. Took main from red to green: it carried the fix for eight tests already failing on main.",
+      "ciNote": "Hosted CI reported eight failures on the merged head. Every one had runner_id 0, no runner name, no executed steps, a four-second duration and a 404 on log download. No runner was assigned. Recorded as infrastructure non-evidence, not as a pass."
+    }
+  },
+  "counts": {
+    "SUPERSEDED": 10,
+    "ARCHIVED_DONOR": 9,
+    "MERGED": 9,
+    "MERGE_CANDIDATE": 3
+  },
+  "terminalCount": 28,
+  "nonTerminalCount": 3,
+  "businessEffectAuthority": "NONE",
+  "founderDecisionRequired": [
+    {
+      "id": "FD001-OUTBOUND-PATH-UNATTENDED-REACHABILITY",
+      "question": "May an outbound send path be reachable from an unattended operator script, given that the press itself is founder-authenticated and short-lived?",
+      "branches": [
+        "origin/feat/founder-big-button-outreach",
+        "origin/feat/command-center-big-button"
+      ],
+      "ifYes": "Both merge; the four NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION classifications on the reached island become stale and are removed.",
+      "ifNo": "They stay unmerged, or land only once the operator script is replaced by a founder-interactive entry the ratchet already recognises as an exception.",
+      "whyNotDecidedHere": "Section 196 lists consent and messaging as founder escalations, and the canon's external-effect charter names customer messages explicitly. Capability never creates authority."
+    }
+  ]
+}

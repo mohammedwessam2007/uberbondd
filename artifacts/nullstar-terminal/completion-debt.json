@@ -6,12 +6,23 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-15T13:36:01.757Z",
-  "sourceCommit": "9f669c3900559f489b8a6664d0d1568b9abe74ce",
+  "generatedAt": "2026-09-16T13:48:21.899Z",
+  "sourceCommit": "33879b8e105a9e910f74dca06e2daad6e295307a",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 0,
+  "softwareOpen": 3,
   "externalOpen": 2,
-  "totalOpen": 2,
+  "totalOpen": 5,
+  "branchDebt": {
+    "measuredAgainstMain": "755e00a21be47f6f032b27298df404472682bd2d",
+    "populations": {
+      "PRE_REWRITE_LINEAGE": 735,
+      "DIVERGED": 31,
+      "CONTAINED_IN_MAIN": 88
+    },
+    "divergedReconcilable": 31,
+    "strandedFiles": 367,
+    "note": "Section 009 counts branch debt in softwareOpen. It is measured here rather than assumed zero, which is what the previous ledger did by not representing it at all."
+  },
   "items": [
     {
       "id": "CD001-TOOL-USE-VOCABULARY-GAP",
@@ -77,6 +88,30 @@
       "whyNotDone": "A transfer measurement needs a task in the receiving organ whose answer is not already computed by the code being tested, and none has been built. Claiming transfer from an architectural argument is what the truth boundaries in every artifact here forbid.",
       "open": false,
       "evidence": "artifacts/nullstar-terminal/cross-organ-transfer.json does not exist"
+    },
+    {
+      "id": "CD011-DIVERGED-BRANCHES-UNCLASSIFIED",
+      "class": "SOFTWARE",
+      "what": "Branches that share an ancestor with main and carry commits beyond it, with no recorded disposition. EVENT HORIZON section 009 counts these in softwareOpen and section 183 makes completion invalid while valuable unique commits sit off main.",
+      "whyNotDone": "Each needs MERGED, SUPERSEDED, ARCHIVED_DONOR, REJECTED_WITH_EVIDENCE or EXTERNAL_BLOCKED, decided on what the branch actually contains rather than on its name. Two clusters are already settled by evidence and recorded in the branch-debt artifact; the rest are not.",
+      "open": true,
+      "evidence": "31 of 31 diverged branches have no recorded disposition"
+    },
+    {
+      "id": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",
+      "class": "SOFTWARE",
+      "what": "Source modules that exist only on the pre-rewrite lineage and were never in main's history. Sampled ones turn out to be superseded by differently-named modules in main, but most have not been checked.",
+      "whyNotDone": "Ancestry cannot settle this -- those commits will never be ancestors of main and rebasing a rewritten history is not the remedy. The only question is whether any concept they carry is absent from main, and that is per-module archaeology. Rounding the residual down because three of three sampled were superseded would be exactly the inference this ledger exists to refuse.",
+      "open": true,
+      "evidence": "3 of 101 stranded src modules verified against a successor in main"
+    },
+    {
+      "id": "CD013-OPEN-INTEGRATION-PR",
+      "class": "SOFTWARE",
+      "what": "An open pull request against main other than this session's own, carrying work that is neither merged nor classified.",
+      "whyNotDone": "PR 891 targets an older main than the current head. Whether its content is still wanted, already superseded, or blocked is not recorded anywhere, and section 152 requires every open PR to be classified.",
+      "open": true,
+      "evidence": "no open pull request has been classified"
     },
     {
       "id": "CD006-PROVIDER-EVALUATION-BLOCKED",
@@ -167,8 +202,8 @@
       "narrowedBy": "Nothing. It is stated in every generation artifact rather than narrowed."
     }
   ],
-  "doneVerdict": "SOFTWARE_SIDE_COMPLETE",
-  "whyNotDone": null,
+  "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
+  "whyNotDone": "3 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
   "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",

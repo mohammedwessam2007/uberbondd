@@ -203,6 +203,64 @@ const ITEMS = [
     })
   },
   {
+    id: 'CD011-DIVERGED-BRANCHES-UNCLASSIFIED',
+    class: 'SOFTWARE',
+    what: 'Branches that share an ancestor with main and carry commits beyond it, with no recorded disposition. EVENT HORIZON section 009 counts these in softwareOpen and section 183 makes completion invalid while valuable unique commits sit off main.',
+    whyNotDone: 'Each needs MERGED, SUPERSEDED, ARCHIVED_DONOR, REJECTED_WITH_EVIDENCE or EXTERNAL_BLOCKED, decided on what the branch actually contains rather than on its name. Two clusters are already settled by evidence and recorded in the branch-debt artifact; the rest are not.',
+    check: () => {
+      if (!has('artifacts/nullstar-terminal/branch-debt.json')) {
+        return { open: true, evidence: 'no branch-debt measurement exists' };
+      }
+      const debt = readJson('artifacts/nullstar-terminal/branch-debt.json');
+      const dispositions = readJson('artifacts/nullstar-terminal/branch-dispositions.json');
+      const decided = new Set(Object.keys(dispositions.dispositions ?? {}));
+      const undecided = debt.divergedBranches.filter(row => !decided.has(row.branch));
+      return {
+        open: undecided.length > 0,
+        evidence: undecided.length
+          ? `${undecided.length} of ${debt.divergedBranches.length} diverged branches have no recorded disposition`
+          : `all ${debt.divergedBranches.length} diverged branches carry a disposition`
+      };
+    }
+  },
+  {
+    id: 'CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED',
+    class: 'SOFTWARE',
+    what: 'Source modules that exist only on the pre-rewrite lineage and were never in main\'s history. Sampled ones turn out to be superseded by differently-named modules in main, but most have not been checked.',
+    whyNotDone: 'Ancestry cannot settle this -- those commits will never be ancestors of main and rebasing a rewritten history is not the remedy. The only question is whether any concept they carry is absent from main, and that is per-module archaeology. Rounding the residual down because three of three sampled were superseded would be exactly the inference this ledger exists to refuse.',
+    check: () => {
+      if (!has('artifacts/nullstar-terminal/branch-debt.json')) {
+        return { open: true, evidence: 'no branch-debt measurement exists' };
+      }
+      const debt = readJson('artifacts/nullstar-terminal/branch-debt.json');
+      const checked = debt.supersessionEvidence.verified.length;
+      const total = debt.preRewriteLineage.strandedSrcModules;
+      return {
+        open: checked < total,
+        evidence: `${checked} of ${total} stranded src modules verified against a successor in main`
+      };
+    }
+  },
+  {
+    id: 'CD013-OPEN-INTEGRATION-PR',
+    class: 'SOFTWARE',
+    what: 'An open pull request against main other than this session\'s own, carrying work that is neither merged nor classified.',
+    whyNotDone: 'PR 891 targets an older main than the current head. Whether its content is still wanted, already superseded, or blocked is not recorded anywhere, and section 152 requires every open PR to be classified.',
+    check: () => {
+      const dispositions = has('artifacts/nullstar-terminal/branch-dispositions.json')
+        ? readJson('artifacts/nullstar-terminal/branch-dispositions.json')
+        : { openPullRequests: {} };
+      const prs = dispositions.openPullRequests ?? {};
+      const undecided = Object.entries(prs).filter(([, value]) => !value.disposition);
+      return {
+        open: Object.keys(prs).length === 0 || undecided.length > 0,
+        evidence: Object.keys(prs).length === 0
+          ? 'no open pull request has been classified'
+          : `${undecided.length} of ${Object.keys(prs).length} open pull requests lack a disposition`
+      };
+    }
+  },
+  {
     id: 'CD006-PROVIDER-EVALUATION-BLOCKED',
     class: 'EXTERNAL',
     what: 'Per-dimension capability evidence against anything other than deterministic solvers requires a model. No provider credential is configured and every model-weight host is refused by the network policy, while a local inference runtime installs and imports cleanly.',
@@ -247,6 +305,18 @@ const artifact = {
   softwareOpen,
   externalOpen,
   totalOpen: softwareOpen + externalOpen,
+  branchDebt: has('artifacts/nullstar-terminal/branch-debt.json')
+    ? (() => {
+        const debt = readJson('artifacts/nullstar-terminal/branch-debt.json');
+        return {
+          measuredAgainstMain: debt.mainSha,
+          populations: debt.populations,
+          divergedReconcilable: debt.divergedBranches.length,
+          strandedFiles: debt.preRewriteLineage.strandedFileCount,
+          note: 'Section 009 counts branch debt in softwareOpen. It is measured here rather than assumed zero, which is what the previous ledger did by not representing it at all.'
+        };
+      })()
+    : { measured: false, note: 'branch debt not measured; softwareOpen is understated' },
   items: evaluated,
 
   openFailureDebt: openFailures.map(row => ({ id: row.id, failureClass: row.failureClass, severity: row.severity })),

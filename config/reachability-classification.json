@@ -6,7 +6,8 @@
     "SUPERSEDED": "Replaced by another module. Kept only until its history is no longer useful.",
     "UNREACHABLE_BUG": "Should be reachable and is not. This is a defect, not a decision.",
     "NEEDS_TRIAGE": "Nobody has decided yet. Honest placeholder, not a resting state: an entry may sit here while archaeology is pending, but it may not be moved to AWAITING_ACTIVATION without a registered gate that states what would release it.",
-    "DELIBERATELY_UNREACHABLE": "Unreachability is the safety property, not a stage before wiring. An entry point reaching this module would itself be the harm, so there is no gate that releases it and no future session should 'finish the job' by connecting it. It is invoked only by an operator command carrying an explicit owner authorization on the call."
+    "DELIBERATELY_UNREACHABLE": "Unreachability is the safety property, not a stage before wiring. An entry point reaching this module would itself be the harm, so there is no gate that releases it and no future session should 'finish the job' by connecting it. It is invoked only by an operator command carrying an explicit owner authorization on the call.",
+    "RESEARCH_ONLY": "Intentional research/library surface; not expected to be production-reachable unless a later explicit promotion mission changes its truth class."
   },
   "gates": {
     "SANDBOX_PROVISIONER_EXTERNAL_BLOCK": {
@@ -121,13 +122,9 @@
       "description": "The life-side engines model the founder's skills, locations, relationships and long-horizon institutions. Each needs founder-supplied data that does not exist in this repository, and inventing it would produce a model of nobody. Import-graph trace on 2026-09-15 found no importer for any of them.",
       "releasedBy": "Founder-supplied and consented life data for the specific domain, plus a founder-facing surface that asks for it rather than inferring it."
     },
-    "NO_PRIVATE_LAB_CONSUMPTION_DECISION": {
-      "description": "The Omega private-evidence lab is a set of deterministic evaluation instruments -- benchmark generators, policy meta-learners, transfer and lawspace canaries, an irreducible-work ledger. They run under test and produce evidence about candidate mechanisms. Nothing in production consumes that evidence, so there is no entry point, and wiring one today would mean a production organ acting on measurements nobody has decided to trust.",
-      "releasedBy": "A decision that a named production organ consumes a named lab output, plus evidence that the lab's measurement is independent of the thing it would be used to judge. Until then these stay test-only by design rather than by neglect."
-    },
-    "NO_ADMITTED_COMPUTE_HOSTS": {
-      "description": "UberOcean supplies physical Linux hosts and admits them into the compute fabric; the UberCel bridge compiles admitted hosts into a deployment plan. Both are tested against constructed hosts. No real host has been observed and admitted, and the bridge refuses to compile a plan without independent failure domains, so there is nothing for a production entry point to deploy onto.",
-      "releasedBy": "At least two observed hosts in independent failure domains with a verified mesh receipt, recorded as durable admission evidence. UBEROCEAN carries runtimeProof in the sovereign registry, so this gate is the runtime evidence that registry entry is waiting for."
+    "NO_ADMITTED_UBEROCEAN_HOSTS": {
+      "description": "UberOcean needs owner-authorized reachable Linux hosts; source cannot manufacture physical host availability or fresh reachability evidence.",
+      "releasedBy": "At least one owner-authorized Linux host with fresh identity, reachability, resources and failure-domain evidence admitted by UberOcean. The UberCel bridge additionally refuses to compile a deployment plan without two independent failure domains, so a single admitted host releases admission but not deployment."
     }
   },
   "modules": {
@@ -910,108 +907,108 @@
       "reason": "Final orchestrator over the APOTHEOSIS graph. Tested, but trace found no importer, and its own continuation doc names native P00/P08 reconciliation as the activation gate."
     },
     "src/omega-contract-lattice-core.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The lattice the controlled-intent evidence module builds on. Reached only through that module, which is itself test-only."
     },
     "src/omega-controlled-intent-evidence.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Builds evidence that an intent was controlled rather than merely stated. Consumed by nothing in production."
     },
     "src/omega-controlled-semantic-compiler.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Compiles a controlled semantic form for the lab. No production caller."
     },
     "src/omega-goal-adjoint.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Derives the adjoint of a goal for lab search. No production caller."
     },
     "src/omega-independent-csp-verifier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "An independent constraint verifier used to check lab results without reusing the solver that produced them. Reached from the v3 lab test only."
     },
     "src/omega-intent-superposition.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Represents competing intents before collapse. Lab-only."
     },
     "src/omega-irreducible-work-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Accounts for work that cannot be compressed away. Lab-only."
     },
     "src/omega-lawspace-canary.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "A canary over the lawspace, exercised by the cross-domain test. No production caller."
     },
     "src/omega-operator-crystallizer.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Crystallizes a repeated operator out of lab traces. This is the mechanism that would turn repeated expensive reasoning into a cheaper reusable form, and nothing yet routes to it."
     },
     "src/omega-policy-meta-learner-v3.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The current policy meta-learner. Reached from the v3 lab test only."
     },
     "src/omega-policy-meta-learner.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The prior meta-learner, still imported by v3 and by the evidence test. Kept because v3 depends on it, not as a separate live path."
     },
     "src/omega-private-benchmark-generators.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Generates private benchmark items so the lab does not score against anything a candidate author could have seen. Test-only, which is the point: a production entry point reading these would widen who can see them."
     },
     "src/omega-private-evidence-gate.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Decides whether lab evidence is admissible. No production consumer to gate."
     },
     "src/omega-private-evidence-lab.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The lab surface itself. Exercised by its smoke test and by the semantic-compiler test."
     },
     "src/omega-private-lab-core.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "Core lab machinery, imported by the protocol, the meta-learner and the intent-evidence module. Unreachable from production because all three are."
     },
     "src/omega-private-lab-protocol.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The protocol a lab run follows. Reached from the evidence test only."
     },
     "src/omega-sovereign-execution-fabric.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "An execution fabric for lab missions. No production caller, and reaching it would give lab missions an execution path nobody authorized."
     },
     "src/omega-structural-transfer-canary-v2.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The current structural-transfer canary, reached through the v1 test file."
     },
     "src/omega-structural-transfer-canary.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PRIVATE_LAB_CONSUMPTION_DECISION",
+      "category": "RESEARCH_ONLY",
+      "gate": null,
       "reason": "The original transfer canary. Kept alongside v2 so a regression between them stays visible."
     },
     "src/uberocean-compute-fabric.mjs": {
       "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ADMITTED_COMPUTE_HOSTS",
+      "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
       "reason": "Admits physical Linux hosts into the compute fabric and scores them on cost, reliability, privacy and failure domain. Tested against constructed hosts; no real host has been admitted."
     },
     "src/uberocean-ubercel-bridge.mjs": {
       "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ADMITTED_COMPUTE_HOSTS",
+      "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
       "reason": "Compiles admitted hosts into an UberCel deployment plan and refuses without two independent failure domains. With no admitted hosts there is nothing to compile, and the refusal is the tested behaviour."
     }
   }

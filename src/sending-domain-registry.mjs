@@ -11,6 +11,7 @@
 // a registrar, and never accepts or stores a credential. It only records
 // and folds the caller's own already-verified facts.
 import crypto from 'node:crypto';
+import { assertNotReservedOutsideSimulation } from './reserved-domains.mjs';
 
 export const SENDING_DOMAIN_REGISTRY_POLICY_VERSION = 'sending-domain-registry-1.0.0';
 
@@ -54,7 +55,7 @@ function failed(reasonCodes, timestamp) {
 // supplies, defaulting to the conservative UNVERIFIED.
 export function registerSendingDomain({
   store, domainId, workspaceId, domain, registrar = '', ownershipStatus = 'UNVERIFIED',
-  purpose = 'outreach', provider = '', date = new Date()
+  purpose = 'outreach', provider = '', simulation = false, date = new Date()
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -63,6 +64,12 @@ export function registerSendingDomain({
   if (!text(workspaceId)) reasons.push('workspace-id-required');
   if (!isValidDomainName(domain)) reasons.push('domain-name-invalid-or-missing');
   if (!OWNERSHIP_STATUSES.includes(ownershipStatus)) reasons.push('ownership-status-invalid');
+  // An RFC 2606 domain is unownable, so registering one as a real sending
+  // domain is always a fixture leaking into production rather than a choice.
+  // Declaring `simulation: true` is the only way through, and it has to be
+  // that literal -- see reserved-domains.mjs.
+  const reserved = assertNotReservedOutsideSimulation(domain, { simulation });
+  if (!reserved.ok) reasons.push(reserved.reason);
   if (reasons.length) return failed(reasons, timestamp);
 
   const detail = {
@@ -74,6 +81,9 @@ export function registerSendingDomain({
     ownershipStatus,
     purpose: text(purpose, 80),
     provider: text(provider, 80),
+    // Persisted so a simulation fixture stays identifiable in the event log
+    // rather than becoming indistinguishable from a real registration.
+    simulationOnly: reserved.simulationOnly === true,
     policyVersion: SENDING_DOMAIN_REGISTRY_POLICY_VERSION,
     timestamp
   };

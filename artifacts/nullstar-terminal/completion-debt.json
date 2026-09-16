@@ -6,12 +6,12 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-16T14:28:52.915Z",
-  "sourceCommit": "4879577303783a254fc3af625d1cfb102014b4f1",
+  "generatedAt": "2026-09-16T23:14:08.200Z",
+  "sourceCommit": "a378cf7fd365dd96c4abd9178744c6d248d37806",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
-  "softwareOpen": 2,
+  "softwareOpen": 1,
   "externalOpen": 2,
-  "totalOpen": 4,
+  "totalOpen": 3,
   "branchDebt": {
     "measuredAgainstMain": "29014d43e18724515b669fc4905b387d123c7815",
     "populations": {
@@ -103,8 +103,8 @@
       "class": "SOFTWARE",
       "what": "Source modules that exist only on the pre-rewrite lineage and were never in main's history. Sampled ones turn out to be superseded by differently-named modules in main, but most have not been checked.",
       "whyNotDone": "Ancestry cannot settle this -- those commits will never be ancestors of main and rebasing a rewritten history is not the remedy. The only question is whether any concept they carry is absent from main, and that is per-module archaeology. Rounding the residual down because three of three sampled were superseded would be exactly the inference this ledger exists to refuse.",
-      "open": true,
-      "evidence": "3 of 101 stranded src modules verified against a successor in main"
+      "open": false,
+      "evidence": "101 stranded src modules resolved: 89 placed automatically, 12 read individually"
     },
     {
       "id": "CD013-OPEN-INTEGRATION-PR",
@@ -204,7 +204,7 @@
     }
   ],
   "doneVerdict": "NOT_DONE__SOFTWARE_WORK_REMAINS",
-  "whyNotDone": "2 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
+  "whyNotDone": "1 software-side items are open. Section 244 forbids reporting DONE while any of them is, and section 191 forbids answering them by finding easier work elsewhere.",
   "doneVerdictDoesNotMean": "Reaching zero software items would mean no writable work remains that this ledger has identified. It would not mean the system is capable, that the permanent limitations above have gone away, or that the external items have.",
   "truthBoundary": "THIS LEDGER COUNTS WORK, NOT CAPABILITY. A SHORT LIST HERE WOULD NOT MEAN THE SYSTEM IS INTELLIGENT, AND EXTERNAL ITEMS DO NOT BECOME CLOSED BY BEING INCONVENIENT.",
   "businessEffectAuthority": "NONE",

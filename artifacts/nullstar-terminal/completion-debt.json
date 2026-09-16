@@ -6,8 +6,8 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-16T14:01:25.393Z",
-  "sourceCommit": "10544bd0abfaf26addacf2a1282583dce30a974a",
+  "generatedAt": "2026-09-16T14:13:27.433Z",
+  "sourceCommit": "fe7b9401a69e10958f731fc49603067ea82a2529",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
   "softwareOpen": 2,
   "externalOpen": 2,
@@ -95,7 +95,7 @@
       "what": "Branches that share an ancestor with main and carry commits beyond it, with no recorded disposition. EVENT HORIZON section 009 counts these in softwareOpen and section 183 makes completion invalid while valuable unique commits sit off main.",
       "whyNotDone": "Each needs MERGED, SUPERSEDED, ARCHIVED_DONOR, REJECTED_WITH_EVIDENCE or EXTERNAL_BLOCKED, decided on what the branch actually contains rather than on its name. Two clusters are already settled by evidence and recorded in the branch-debt artifact; the rest are not.",
       "open": true,
-      "evidence": "9 of 32 diverged branches carry no terminal disposition: feat/outreach-100k-certified-launch-20260915, feat/command-center-big-button, feat/free-runtime-mesh-20260913, feat/founder-big-button-outreach, ..."
+      "evidence": "4 of 32 diverged branches carry no terminal disposition: feat/outreach-100k-certified-launch-20260915, feat/command-center-big-button, feat/founder-big-button-outreach, claude/uberbond-bootstrap-archaeology-zmqw8l"
     },
     {
       "id": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",

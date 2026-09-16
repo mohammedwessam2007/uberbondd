@@ -118,68 +118,65 @@
       "constitutionSections": "059,060,062,063 compute sovereignty and hardware research"
     },
     "origin/feat/free-runtime-mesh-20260913": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. A free Cloudflare-worker runtime mesh with its own burst workflow and witness script.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. free-runtime-mesh gated on NO_PROVISIONED_FREE_RUNTIME_MESH; it already refuses to treat a dispatch as a business effect, and there is no provisioned worker to dispatch to.",
       "constitutionSections": "059,066 compute sovereignty and failure-domain diversity"
     },
     "origin/feat/founder-big-button-outreach": {
       "disposition": "MERGE_CANDIDATE",
       "terminal": false,
-      "why": "Carries source main does not have. A private founder console: outreach big-button module, console server, operator scripts and tests.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
-      "constitutionSections": "094,095 founder cockpit and the three-action limit"
+      "why": "Merged clean. Reachable through scripts/sovereign-outreach-big-button.mjs.",
+      "constitutionSections": "094,095 founder cockpit and the three-action limit",
+      "blockedOn": "Merging it makes an outbound send path unattended-reachable. sovereign-outreach-big-button imports the OMNIA v9 postal effect adapter, pressUberLaunchButton mints a dispatchAuthorization and postal.dispatch actually sends, and the chain from an operator script pulls the whole external-effect island out from behind NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION. The gates themselves are well built -- an authenticated founder press, short-lived authority bound to one capsule, campaign and recipient, an unmounted API route that refuses without an ADMIN_TOKEN bearer and an explicit PRESS_UBERLAUNCH confirmation, and businessEffectAuthority NONE at module level. The objection is not to the design. It is that deleting the classifications to make the ratchet green would be autonomously removing an authority constraint, which section 118 forbids, and the ratchet says in its own comment: remove the unattended path, do not reclassify the module to make this pass. Whether an outbound send path may be unattended-reachable is a founder decision under section 196, not an integration decision. Merged, verified green, then reverted for that reason alone.",
+      "verifiedBeforeRevert": "Merged clean, own tests 28 of 28, full suite green. The revert is about authority surface, not correctness."
     },
     "origin/feat/command-center-big-button": {
       "disposition": "MERGE_CANDIDATE",
       "terminal": false,
-      "why": "Carries source main does not have. A self-hosted big-button runtime with its own API route, public assets and hostile tests. Overlaps feat/founder-big-button-outreach and the two need reconciling against each other before either lands.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one."
+      "why": "Merged clean. Reachable through api/uberlaunch.mjs. It shares no path with feat/founder-big-button-outreach, so the two consoles coexist rather than collide -- which is worth revisiting, because two founder buttons is one more than section 095 wants.",
+      "blockedOn": "Merging it makes an outbound send path unattended-reachable. sovereign-outreach-big-button imports the OMNIA v9 postal effect adapter, pressUberLaunchButton mints a dispatchAuthorization and postal.dispatch actually sends, and the chain from an operator script pulls the whole external-effect island out from behind NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION. The gates themselves are well built -- an authenticated founder press, short-lived authority bound to one capsule, campaign and recipient, an unmounted API route that refuses without an ADMIN_TOKEN bearer and an explicit PRESS_UBERLAUNCH confirmation, and businessEffectAuthority NONE at module level. The objection is not to the design. It is that deleting the classifications to make the ratchet green would be autonomously removing an authority constraint, which section 118 forbids, and the ratchet says in its own comment: remove the unattended path, do not reclassify the module to make this pass. Whether an outbound send path may be unattended-reachable is a founder decision under section 196, not an integration decision. Merged, verified green, then reverted for that reason alone.",
+      "verifiedBeforeRevert": "Merged clean, own tests 28 of 28, full suite green. The revert is about authority surface, not correctness."
     },
     "origin/feat/native-live-research-security-20260913": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. Owned-target security verifier and a public research adapter mesh, with local-runtime tests.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean, 14 of 14 on its own tests. owned-target-security-verifier gated on NO_AUTHORIZED_SECURITY_TARGET -- its target classes are OWNED_LOCAL and OWNED_PREVIEW and neither is registered, and reaching a scanner before a target is authorized is how an authorized tool becomes an unauthorized scan. public-research-adapter-mesh gated on NO_CONFIGURED_EGRESS_ROUTES.",
       "constitutionSections": "096,121 research and security"
     },
     "origin/feat/auto-materialize-money-routes": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. A commercial execution path materializer with tests.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. commercial-execution-path-materializer classified against NO_CUSTOMER: it labels its own routes MATERIALIZED_UNPROVEN until route-outcome evidence exists, and with no customer there is no such evidence.",
       "constitutionSections": "070 economic mechanism universe"
     },
     "origin/feat/contabo-preflight-operator-20260913": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. A read-only Contabo mail-cell preflight operator.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. Reachable through scripts/contabo-mail-cell-preflight.mjs, so no classification was needed.",
       "constitutionSections": "059 compute"
     },
     "origin/feat/outreach-100k-certified-launch-20260915": {
       "disposition": "MERGE_CANDIDATE",
       "terminal": false,
       "why": "Carries source main does not have. An outreach runtime and admin router main lacks.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one."
+      "blockedOn": "Five add/add conflicts against main in server.mjs, the 100K launch contract, the packet corpus and their tests. Main has advanced the same files independently, so this needs semantic resolution rather than a replay, and it is the one candidate not taken in this pass."
     },
     "origin/feat/free-event-runtime-mesh-20260913": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. A free event-driven UberLit runtime witness workflow.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one."
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged clean. Adds a workflow and a witness script, no new src module."
     },
     "origin/feat/free-runtime-mesh-current2": {
       "disposition": "SUPERSEDED",
       "terminal": true,
-      "why": "Duplicate of feat/free-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant.",
+      "why": "Duplicate of feat/free-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant. feat/free-runtime-mesh-20260913 is now merged, so this duplicate is settled.",
       "evidence": "same added paths"
     },
     "origin/feat/free-event-runtime-mesh-current-20260913": {
       "disposition": "SUPERSEDED",
       "terminal": true,
-      "why": "Duplicate of feat/free-event-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant.",
+      "why": "Duplicate of feat/free-event-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant. feat/free-event-runtime-mesh-20260913 is now merged, so this duplicate is settled.",
       "evidence": "same added paths"
     },
     "origin/intellectuality-renaissance": {
@@ -224,10 +221,23 @@
   "counts": {
     "SUPERSEDED": 10,
     "ARCHIVED_DONOR": 9,
-    "MERGED": 4,
-    "MERGE_CANDIDATE": 8
+    "MERGED": 9,
+    "MERGE_CANDIDATE": 3
   },
-  "terminalCount": 23,
-  "nonTerminalCount": 8,
-  "businessEffectAuthority": "NONE"
+  "terminalCount": 28,
+  "nonTerminalCount": 3,
+  "businessEffectAuthority": "NONE",
+  "founderDecisionRequired": [
+    {
+      "id": "FD001-OUTBOUND-PATH-UNATTENDED-REACHABILITY",
+      "question": "May an outbound send path be reachable from an unattended operator script, given that the press itself is founder-authenticated and short-lived?",
+      "branches": [
+        "origin/feat/founder-big-button-outreach",
+        "origin/feat/command-center-big-button"
+      ],
+      "ifYes": "Both merge; the four NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION classifications on the reached island become stale and are removed.",
+      "ifNo": "They stay unmerged, or land only once the operator script is replaced by a founder-interactive entry the ratchet already recognises as an exception.",
+      "whyNotDecidedHere": "Section 196 lists consent and messaging as founder escalations, and the canon's external-effect charter names customer messages explicitly. Capability never creates authority."
+    }
+  ]
 }

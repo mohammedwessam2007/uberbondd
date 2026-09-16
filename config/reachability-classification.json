@@ -129,6 +129,14 @@
     "NO_BUILT_UBEROS_IMAGE": {
       "description": "UBER/OS Generation-0 ships a buildroot external tree, a build script and a machine manifest, but the manifest is a recipe rather than a receipt -- its kernel revision is the literal placeholder CAPTURE_EXACT_VERSION_IN_BUILD_RECEIPT. No image has been built and no machine runs it, so a transactional state-transition compiler has no state to transition.",
       "releasedBy": "A completed Generation-0 build producing an image whose kernel revision, package digests and build-recipe digest are recorded as a real receipt, and a machine observed running it. Building requires a buildroot toolchain that is not present here."
+    },
+    "NO_AUTHORIZED_SECURITY_TARGET": {
+      "description": "The owned-target security verifier checks headers, cookie flags, CSP, HSTS and CORS against a target it is told is owned. Its target classes are OWNED_LOCAL and OWNED_PREVIEW, and it is the target classification -- not the verifier -- that decides whether a scan is authorized. No owned local or preview target is registered as a durable authorization, so an entry point would be reaching a scanner with nothing it is allowed to scan.",
+      "releasedBy": "A registered owned local or preview target with durable authorization evidence. A production target additionally needs explicit owner authority, which this gate does not grant."
+    },
+    "NO_PROVISIONED_FREE_RUNTIME_MESH": {
+      "description": "The free runtime mesh schedules one-second burst work across a Cloudflare worker deployment and hibernates with a recovery alarm when there is none. It is deployed by a workflow and a wrangler config that exist in the tree; no worker has been provisioned and no burst has run, so an entry point would be scheduling against a mesh that is not there.",
+      "releasedBy": "A provisioned worker reachable at a recorded endpoint, plus one observed burst cycle with its own receipt. The module's own ledger already refuses to treat dispatch as a business effect, so provisioning releases scheduling and nothing more."
     }
   },
   "modules": {
@@ -426,11 +434,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
       "reason": "Classifies a shadow decision against what the legacy path actually did. The wired hook imports it dynamically and only in compare mode, which nothing currently selects, so static analysis correctly reports no entry point."
-    },
-    "src/omnia-v9/integrations/external-effect-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The adapter contract an effect provider must satisfy."
     },
     "src/omnia-v9/integrations/external-effect-dispatcher.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -1019,6 +1022,31 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_BUILT_UBEROS_IMAGE",
       "reason": "Compiles a candidate state transition with its checks and rollback receipt, and refuses a transition that cannot be rolled back. Reached only from the UBER/OS test; the doctor reaches the system compiler, which does not use it. It is the piece that would make an OS update atomic, and there is no OS to update yet."
+    },
+    "src/commercial-execution-path-materializer.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "Materializes candidate commercial routes from an offer set and an execution-rail registry, and labels the result MATERIALIZED_UNPROVEN until route-outcome evidence exists. With no customer there is no outcome evidence, so every route it could produce would carry the unproven label and nothing downstream could act on it."
+    },
+    "src/owned-target-security-verifier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_AUTHORIZED_SECURITY_TARGET",
+      "reason": "Verifies CSP, HSTS, cookie flags and CORS on a target classified OWNED_LOCAL or OWNED_PREVIEW. No such target is registered, and reaching a scanner from production before a target is authorized is how an authorized tool becomes an unauthorized scan."
+    },
+    "src/public-research-adapter-mesh.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
+      "reason": "A read-only public research adapter mesh. Its own class is READ_ONLY_NETWORK, so it needs egress to do anything at all, and no egress route is configured. It degrades to MESH_INSUFFICIENT rather than failing, which would be a quiet nothing if something in production depended on it."
+    },
+    "src/free-runtime-mesh.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVISIONED_FREE_RUNTIME_MESH",
+      "reason": "Reached only by scripts/free-runtime-burst.mjs and its test. It states outright that a dispatch is internal compute intent and not a real-world business effect, which is the right boundary, and there is still no provisioned worker for it to dispatch to."
+    },
+    "src/omnia-v9/integrations/external-effect-adapter.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
+      "reason": "The adapter contract an effect provider must satisfy. Briefly reachable when the big-button branches were merged, which is what made an outbound send path unattended-reachable; those merges were reverted and this is gated again."
     }
   }
 }

@@ -82,3 +82,33 @@ test('completion counts unique provider-confirmed receipts only', () => {
   assert.equal(r.providerConfirmedUniqueSends, 100000);
   assert.equal(r.uncertainOutcomeCount, 1);
 });
+
+test('unknown numeric evidence cannot coerce into zero usage', () => {
+  const cases = [
+    input => { delete input.mailboxes[0].usedToday; },
+    input => { delete input.egressRoutes[0].usedToday; },
+    input => { delete input.recipientProviders[0].usedToday; },
+    input => { delete input.campaign.usedToday; }
+  ];
+  for (const mutate of cases) {
+    const input = readyInput(); mutate(input);
+    const r = compileOutreach100kLaunchCertificate(input);
+    assert.equal(r.oneButton100kPressAvailable, false);
+  }
+});
+
+test('dry-run and global resume states must be explicit', () => {
+  const input = readyInput();
+  delete input.outbound.dryRun; delete input.outbound.globalPaused;
+  const r = compileOutreach100kLaunchCertificate(input);
+  assert.equal(r.state, 'WAIT_EXTERNAL_EVIDENCE');
+  assert.ok(r.waitReasonCodes.includes('dry-run-must-be-explicitly-disabled'));
+  assert.ok(r.waitReasonCodes.includes('global-outbound-must-be-explicitly-resumed'));
+});
+
+test('campaign authorization must have a future expiry', () => {
+  const input = readyInput(); delete input.campaign.expiresAt;
+  const r = compileOutreach100kLaunchCertificate(input);
+  assert.equal(r.state, 'WAIT_EXTERNAL_EVIDENCE');
+  assert.ok(r.waitReasonCodes.includes('campaign-authorization-expiry-required'));
+});

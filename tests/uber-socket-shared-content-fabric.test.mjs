@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createProjectMesh } from '../src/uber-socket-project-mesh.mjs';
+import { createSharedContentFabric } from '../src/uber-socket-shared-content-fabric.mjs';
+
+test('all project chats share content and compile council monster prompts', async()=>{
+ const calls=[];
+ const modelAdapter={async respond({conversationId,input}){calls.push({conversationId,input});return {text:`REPLY:${conversationId}:${input.slice(0,220)}`,responseId:`r${calls.length}`}}};
+ const mesh=createProjectMesh({modelAdapter});
+ for(let i=1;i<=12;i++) mesh.registerChat({peerId:`chat-${i}`,conversationId:`conv-${i}`,projectId:'uberbond',title:`UberBond ${i}`,tags:[i%2?'research':'runtime','uberbond']});
+ const fabric=createSharedContentFabric({mesh,modelAdapter});
+ fabric.ingest({peerId:'chat-1',docId:'doc-1',title:'Runtime law',text:'UberCel remains deployment authority. Providers are replaceable substrate. Never depend on Vercel.'});
+ fabric.ingest({peerId:'chat-2',docId:'doc-2',title:'Truth law',text:'Live external evidence outranks source, canon, memory and recollection. Unknown stays unknown.'});
+ fabric.ingest({peerId:'chat-3',docId:'doc-3',title:'No amputation',text:'Never silently delete unique useful capability, goals, failures, provenance, contradictions, or reasons.'});
+ fabric.ingest({peerId:'chat-4',docId:'doc-4',title:'Economics',text:'Optimize risk-adjusted cleared contribution profit per founder minute without sacrificing truth, safety or legality.'});
+ const hits=fabric.retrieve({query:'deployment authority provider Vercel truth evidence',limit:10});
+ assert.ok(hits.some(x=>x.docId==='doc-1'));
+ assert.ok(hits.some(x=>x.docId==='doc-2'));
+ const answered=await fabric.askWithSharedContext({fromPeer:'chat-5',toPeer:'chat-6',question:'What rules govern deployment and truth?'});
+ assert.equal(answered.ok,true);
+ assert.ok(answered.sharedDocIds.includes('doc-1'));
+ const monster=await fabric.compileMonsterPrompt({request:'Finish UberBond aggressively without amputating capability and verify reality.',peerIds:Array.from({length:8},(_,i)=>`chat-${i+1}`),councilSize:8});
+ assert.equal(monster.ok,true);
+ assert.equal(monster.councilPeers.length,8);
+ assert.equal(monster.externalEffectsAuthorized,false);
+ assert.ok(monster.sharedDocIds.includes('doc-3'));
+ assert.ok(monster.prompt.length>0);
+ assert.equal(monster.replies.length,8);
+ assert.ok(calls.length>=10);
+});

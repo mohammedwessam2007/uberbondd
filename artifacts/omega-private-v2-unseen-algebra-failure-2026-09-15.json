@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "uberbond.omega-private-negative-evidence.v1",
+  "experimentVersion": "OMEGA_META_TRANSFER_V2",
+  "sourceFreezeCommit": "50dc95b336e9b9ad94c3402fbcbdfe4852e01528",
+  "status": "NEGATIVE_TRANSFER_ON_UNSEEN_ALGEBRA",
+  "promotionImpact": "META_GENERALIZATION_REMAINS_RED",
+  "taskFamily": "EQUALITY_ONLY_STAR",
+  "familySeenDuringTraining": false,
+  "taskCount": 20,
+  "selectedTransferredPolicy": "LOW_DEGREE",
+  "coldWork": 93354,
+  "transferredWork": 1383960,
+  "excessWork": 1290606,
+  "relativeToCold": 14.824857,
+  "improvedTasks": 0,
+  "worsenedTasks": 20,
+  "finding": "The frozen v2 nearest-neighbor selector transferred confidently outside its learned structural support and caused catastrophic negative transfer. Strong in-distribution sealed performance does not imply unseen-algebra meta-generalization.",
+  "requiredSuccessorMechanism": "CALIBRATED_STRUCTURAL_ABSTENTION",
+  "law": "This failure may not be erased or reclassified by later success. Any successor must be evaluated on fresh post-freeze unseen-algebra holdouts.",
+  "truthBoundary": "The failure concerns this bounded finite-CSP meta-selector. It does not imply that structural transfer is impossible in general."
+}

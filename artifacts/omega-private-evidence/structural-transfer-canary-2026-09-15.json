@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "uberbond.omega-private-evidence-receipt.v1",
+  "date": "2026-09-15",
+  "visibility": "FOUNDER_PRIVATE_RESEARCH",
+  "truthClass": "LOCAL_ISOLATED_REPRODUCTION_RECEIPT_NOT_FULL_REPO_CI",
+  "sourceBranch": "sol/omega-lawspace-canary-20260915",
+  "sourceHeadAtExperimentDesign": "ac710bca4eaa0f1e2ff537f00b99d990fec53431",
+  "module": "src/omega-structural-transfer-canary-v2.mjs",
+  "test": "tests/omega-structural-transfer-canary.test.mjs",
+  "runtime": "node-v22.16.0-isolated-reproduction",
+  "sourceDomain": "MAP_COLORING",
+  "targetDomain": "RADIO_CHANNEL_ASSIGNMENT",
+  "learnedPolicy": "HIGH_DEGREE_FIRST",
+  "sourceWork": {
+    "LEXICAL": 58,
+    "HIGH_DEGREE_FIRST": 26,
+    "LOW_DEGREE_FIRST": 106
+  },
+  "targetWork": {
+    "coldLexical": 24,
+    "transferred": 16,
+    "verifiedWorkReduction": 8,
+    "verifiedReductionFraction": 0.3333333333333333
+  },
+  "tests": {
+    "executed": 3,
+    "passed": 3,
+    "failed": 0
+  },
+  "controls": {
+    "targetDomainAbsentFromTrainingDomainList": true,
+    "crystalContainsAnswers": false,
+    "crystalContainsTargetProblems": false,
+    "independentTargetAssignmentVerifier": true,
+    "targetProblemHashesCheckedAgainstTrainingProblemHashes": true
+  },
+  "evidenceInterpretation": "NARROW_POSITIVE_SIGNAL",
+  "doesNotEstablish": [
+    "broad-cross-domain-semantic-transfer",
+    "natural-language-semantic-compilation",
+    "sealed-holdout-independence-from-the-experiment-author",
+    "full-cost-accounting",
+    "replication-on-independent-host",
+    "frontier-model-equivalence",
+    "recursive-self-improvement",
+    "ASI",
+    "singularity"
+  ],
+  "ciState": "GITHUB_HOSTED_RUNNERS_PREVIOUSLY_OBSERVED_FAILING_BEFORE_STEP_EXECUTION; THIS_RECEIPT_DOES_NOT SUBSTITUTE_FOR_FULL_EXACT_HEAD_CI",
+  "promotion": "DO_NOT_PROMOTE_TO_E6_FROM_THIS_RECEIPT_ALONE"
+}

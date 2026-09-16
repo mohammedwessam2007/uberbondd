@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "uberbond.omega-private-evidence-receipt.v1",
+  "experimentVersion": "OMEGA_META_TRANSFER_V1",
+  "sourceFreezeCommit": "d2b25aced7f042fa45688f9480307aa6f316f8b0",
+  "holdoutCommitmentCommit": "ab91e590bf4f063e4a3454985e0ecc2b3cfe879a",
+  "status": "NUMERICALLY_POSITIVE_BUT_PROMOTION_DISQUALIFIED",
+  "promotionAllowed": false,
+  "disqualification": "LEXICAL policy remained in the candidate portfolio while source identifiers such as t0/t1 encoded structural roles. Name-based shortcut risk violates leakage resistance.",
+  "trainingWork": 94525,
+  "sealedRuns": [
+    {"id":"private-1","tasks":40,"coldWork":141297,"transferWork":5889,"reductionFraction":0.9583218327353022,"improved":26,"worsened":3,"tied":11},
+    {"id":"private-2","tasks":40,"coldWork":311633,"transferWork":4953,"reductionFraction":0.9841063045312917,"improved":28,"worsened":3,"tied":9},
+    {"id":"private-3","tasks":40,"coldWork":292260,"transferWork":4474,"reductionFraction":0.9846917128584137,"improved":26,"worsened":4,"tied":10}
+  ],
+  "fullCostTrajectory": {
+    "tasks": 120,
+    "coldWork": 745190,
+    "trainingPlusTransferWork": 109841,
+    "netMeasuredWorkSaved": 635349,
+    "breakEvenReached": true
+  },
+  "law": "Positive metrics do not override a leakage-shaped validity defect. These runs remain lineage evidence only and cannot promote the private evidence grade.",
+  "truthBoundary": "This receipt does not establish clean transfer. V2 must remove identifier-dependent transferable policies and use fresh post-freeze holdouts."
+}

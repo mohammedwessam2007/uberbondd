@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font:13px system-ui;margin:0;padding:14px;width:330px;background:#111;color:#f5f5f5}h1{font-size:16px;margin:0 0 10px}.row{display:flex;gap:8px;margin:8px 0}.row>*{flex:1}label{display:block;font-size:11px;color:#aaa;margin:9px 0 4px}input,select,textarea,button{box-sizing:border-box;width:100%;border:1px solid #444;border-radius:8px;background:#1b1b1b;color:#fff;padding:8px;font:inherit}textarea{resize:vertical;min-height:58px}button{cursor:pointer;background:#292929}button.primary{background:#fff;color:#111;font-weight:650}.tiny{font-size:11px;color:#999;line-height:1.35}.status{margin-top:10px;padding:8px;border-radius:8px;background:#181818;min-height:16px}.check{display:flex;align-items:center;gap:7px}.check input{width:auto}.check span{flex:1}code{font-size:10px;color:#bbb}
+</style>
+</head>
+<body>
+<h1>UberSocket 🧠↔🧠</h1>
+<div class="tiny">Pair two ChatGPT tabs through an end-to-end encrypted UberBond socket.</div>
+<label>Pair code</label>
+<textarea id="pair" placeholder="Create a pair or paste the same code in both tabs"></textarea>
+<div class="row"><button id="create">Create pair</button><button id="copy">Copy pair</button></div>
+<div class="row">
+  <div><label>Role</label><select id="role"><option value="A">Chat A</option><option value="B">Chat B</option></select></div>
+  <div><label>Max turns</label><input id="turns" type="number" min="1" max="20" value="6"></div>
+</div>
+<label class="check"><input id="auto" type="checkbox" checked><span>Continue peer dialogue automatically</span></label>
+<label class="check"><input id="armed" type="checkbox"><span>Arm this ChatGPT tab</span></label>
+<button id="apply" class="primary">Apply to current tab</button>
+<label>Start a conversation</label>
+<textarea id="prompt" placeholder="Prompt the other ChatGPT conversation..."></textarea>
+<button id="send">Send encrypted prompt</button>
+<div id="status" class="status">Not configured</div>
+<p class="tiny">Peer messages are marked as untrusted input and never count as founder authorization. The shared pair key stays in your browser extension process.</p>
+<script src="popup.js"></script>
+</body>
+</html>

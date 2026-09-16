@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "uberbond.omega-private-holdout-commitments.v3",
+  "createdAt": "2026-09-15",
+  "sourceFreezeCommit": "851f288faafc02c08014df1bc48e96a8a7cdb8b0",
+  "learnerVersion": "uberbond.omega-policy-meta-learner.v3.1",
+  "referenceEvaluation": "INDEPENDENT_PYTHON_REIMPLEMENTATION_AFTER_COMMITMENT",
+  "rawHoldoutsStoredInRepository": false,
+  "learnerAccessBeforeEvaluation": false,
+  "runs": [
+    {"id":"v3-id-1","class":"IN_SUPPORT_MULTI_ALGEBRA","commitment":"85f2dd7c1c70a78a6a8603054243e297db406123be9f14067a4df7e451cc55a9","taskCount":40,"taskHashesDigest":"084d2fc46fd585f9b6073403bfd3617ed0b0c81054f23646f59a1303c40058dc","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v3-id-2","class":"IN_SUPPORT_MULTI_ALGEBRA","commitment":"dd5a3010b27a3bffa986b1ba632c2fae5d6f992376d7bc00fc87a391439b2adb","taskCount":40,"taskHashesDigest":"1291e61eb919f0a51151c09385128fcbcd5ef785181ad46e6acc1aa377e0e1e0","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v3-id-3","class":"IN_SUPPORT_MULTI_ALGEBRA","commitment":"3aa728b3302c557a7bcd7ff03dcae2cd4da1fbfd1f3b51b971da5e0db9b0fb77","taskCount":40,"taskHashesDigest":"978cecb5f7382e8832b3234add6ee6efad3874e8f418066b05cc1ac4a9f711c2","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v3-meta-1","class":"UNSEEN_EQUALITY_ALGEBRA","commitment":"6ecffffd60d4abdf99c659e77ba95f54628b41feb7c0c3f747df227cdeef8027","taskCount":20,"taskHashesDigest":"e4806dfb28ffdde66e443e4d0c0ce2527f4d02f8b3939806af0782ed9adf5e1d","status":"SEALED_NOT_EVALUATED"},
+    {"id":"v3-meta-2","class":"UNSEEN_EQUALITY_ALGEBRA","commitment":"afd31969ee1287a0005d1154b24106493ff2a6d9a491263b7f49a67cfe7b097d","taskCount":20,"taskHashesDigest":"cb438e96a51125d2ed1fac537541c8c44e93042170083cc4ac8f92846b06fb56","status":"SEALED_NOT_EVALUATED"}
+  ],
+  "law": "These commitments were written after source freeze and before evaluation. Raw seeds, salts, and task payloads remain outside the learner and repository. Any algorithm change after this commit requires fresh v4 holdouts for promotion evidence.",
+  "truthBoundary": "The post-commit evaluation is an independent reference reimplementation because hosted exact-head CI failed before step execution. It is algorithm-level replication, not an exact-JavaScript runtime receipt."
+}

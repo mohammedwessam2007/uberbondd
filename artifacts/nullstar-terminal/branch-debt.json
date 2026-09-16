@@ -7,13 +7,14 @@
     "151",
     "183"
   ],
-  "generatedAt": "2026-09-16T14:13:27.005Z",
-  "sourceCommit": "fe7b9401a69e10958f731fc49603067ea82a2529",
-  "mainSha": "755e00a21be47f6f032b27298df404472682bd2d",
+  "generatedAt": "2026-09-16T14:28:46.698Z",
+  "sourceCommit": "4879577303783a254fc3af625d1cfb102014b4f1",
+  "mainSha": "29014d43e18724515b669fc4905b387d123c7815",
   "populations": {
     "PRE_REWRITE_LINEAGE": 735,
-    "DIVERGED": 32,
-    "CONTAINED_IN_MAIN": 87
+    "CONTAINED_IN_MAIN": 94,
+    "DIVERGED": 23,
+    "MERGED_THEN_REVERTED": 2
   },
   "totalRemoteBranches": 854,
   "divergedBranches": [
@@ -28,32 +29,12 @@
       "uniqueCommits": 16
     },
     {
-      "branch": "origin/feat/command-center-big-button",
-      "population": "DIVERGED",
-      "uniqueCommits": 8
-    },
-    {
-      "branch": "origin/feat/free-runtime-mesh-20260913",
-      "population": "DIVERGED",
-      "uniqueCommits": 7
-    },
-    {
       "branch": "origin/feat/sovereign-wealth-runtime-liveness",
       "population": "DIVERGED",
       "uniqueCommits": 7
     },
     {
-      "branch": "origin/feat/founder-big-button-outreach",
-      "population": "DIVERGED",
-      "uniqueCommits": 6
-    },
-    {
       "branch": "origin/feat/free-runtime-mesh-current2",
-      "population": "DIVERGED",
-      "uniqueCommits": 6
-    },
-    {
-      "branch": "origin/feat/native-live-research-security-20260913",
       "population": "DIVERGED",
       "uniqueCommits": 6
     },
@@ -71,11 +52,6 @@
       "branch": "origin/feat/sovereign-institutional-harness-astra-donor",
       "population": "DIVERGED",
       "uniqueCommits": 4
-    },
-    {
-      "branch": "origin/claude/uberbond-bootstrap-archaeology-zmqw8l",
-      "population": "DIVERGED",
-      "uniqueCommits": 3
     },
     {
       "branch": "origin/feat/free-event-runtime-mesh-current-20260913",
@@ -123,27 +99,7 @@
       "uniqueCommits": 3
     },
     {
-      "branch": "origin/astra/uberos-gen0-sovereign-os-20260915",
-      "population": "DIVERGED",
-      "uniqueCommits": 2
-    },
-    {
       "branch": "origin/evidence/deployment-cutover-20260913",
-      "population": "DIVERGED",
-      "uniqueCommits": 2
-    },
-    {
-      "branch": "origin/feat/auto-materialize-money-routes",
-      "population": "DIVERGED",
-      "uniqueCommits": 2
-    },
-    {
-      "branch": "origin/feat/contabo-preflight-operator-20260913",
-      "population": "DIVERGED",
-      "uniqueCommits": 2
-    },
-    {
-      "branch": "origin/feat/free-event-runtime-mesh-20260913",
       "population": "DIVERGED",
       "uniqueCommits": 2
     },
@@ -176,6 +132,54 @@
       "branch": "origin/reality/admit-owned-security-runtime-20260913",
       "population": "DIVERGED",
       "uniqueCommits": 1
+    },
+    {
+      "branch": "origin/feat/command-center-big-button",
+      "population": "MERGED_THEN_REVERTED",
+      "uniqueCommits": 0,
+      "missingFromMain": [
+        "api/uberlaunch.mjs",
+        "src/uberlaunch-runtime.mjs",
+        "tests/uberlaunch-runtime.test.mjs"
+      ],
+      "note": "An ancestor of main whose added files are not in main. Its content was merged and then taken back out, so ancestry says contained and the tree says otherwise. This is debt, not convergence."
+    },
+    {
+      "branch": "origin/feat/founder-big-button-outreach",
+      "population": "MERGED_THEN_REVERTED",
+      "uniqueCommits": 0,
+      "missingFromMain": [
+        "scripts/sovereign-outreach-big-button.mjs",
+        "scripts/sovereign-outreach-console-server.mjs",
+        "src/sovereign-outreach-big-button.mjs",
+        "tests/sovereign-outreach-big-button.test.mjs"
+      ],
+      "note": "An ancestor of main whose added files are not in main. Its content was merged and then taken back out, so ancestry says contained and the tree says otherwise. This is debt, not convergence."
+    }
+  ],
+  "mergedThenReverted": [
+    {
+      "branch": "origin/feat/command-center-big-button",
+      "population": "MERGED_THEN_REVERTED",
+      "uniqueCommits": 0,
+      "missingFromMain": [
+        "api/uberlaunch.mjs",
+        "src/uberlaunch-runtime.mjs",
+        "tests/uberlaunch-runtime.test.mjs"
+      ],
+      "note": "An ancestor of main whose added files are not in main. Its content was merged and then taken back out, so ancestry says contained and the tree says otherwise. This is debt, not convergence."
+    },
+    {
+      "branch": "origin/feat/founder-big-button-outreach",
+      "population": "MERGED_THEN_REVERTED",
+      "uniqueCommits": 0,
+      "missingFromMain": [
+        "scripts/sovereign-outreach-big-button.mjs",
+        "scripts/sovereign-outreach-console-server.mjs",
+        "src/sovereign-outreach-big-button.mjs",
+        "tests/sovereign-outreach-big-button.test.mjs"
+      ],
+      "note": "An ancestor of main whose added files are not in main. Its content was merged and then taken back out, so ancestry says contained and the tree says otherwise. This is debt, not convergence."
     }
   ],
   "preRewriteLineage": {

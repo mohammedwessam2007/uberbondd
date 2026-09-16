@@ -33,8 +33,46 @@ const mainSha = git('rev-parse', 'origin/main');
 const branches = git('for-each-ref', '--format=%(refname:short)', 'refs/remotes/origin')
   .split('\n').filter(b => b && b !== 'origin/HEAD' && b !== 'origin/main');
 
+/**
+ * Whether a branch's own added files survive in main.
+ *
+ * Ancestry alone gets this wrong in one specific and load-bearing way. Merging
+ * a branch and then reverting it leaves the branch tip an ancestor of main
+ * while none of its content is there, so it reads as CONTAINED_IN_MAIN and
+ * drops out of the debt count entirely. That happened here: the two big-button
+ * branches were merged, reverted on an authority boundary, and immediately
+ * stopped being counted as debt -- the exact branches whose content was
+ * deliberately kept out.
+ *
+ * So a branch is only contained if its files are actually present.
+ */
+function addedFilesPresentInMain(branch) {
+  // The branch's own tree, not a three-dot diff. For a branch that is already
+  // an ancestor of main, `origin/main...branch` resolves its merge-base to the
+  // branch itself and comes back empty, so the first version of this check
+  // silently passed everything it was written to catch.
+  let files = [];
+  try {
+    files = git('ls-tree', '-r', '--name-only', branch, '--', 'src/', 'scripts/', 'tests/', 'api/').split('\n').filter(Boolean);
+  } catch { return { checked: false, missing: [] }; }
+  const missing = files.filter(file => !mainFileSet.has(file));
+  return { checked: true, missing, total: files.length };
+}
+
+const mainFileSet = new Set(git('ls-tree', '-r', '--name-only', 'origin/main').split('\n'));
+
 const classified = branches.map(branch => {
   if (gitOk('merge-base', '--is-ancestor', branch, 'origin/main')) {
+    const content = addedFilesPresentInMain(branch);
+    if (content.checked && content.missing.length) {
+      return {
+        branch,
+        population: 'MERGED_THEN_REVERTED',
+        uniqueCommits: 0,
+        missingFromMain: content.missing,
+        note: 'An ancestor of main whose added files are not in main. Its content was merged and then taken back out, so ancestry says contained and the tree says otherwise. This is debt, not convergence.'
+      };
+    }
     return { branch, population: 'CONTAINED_IN_MAIN', uniqueCommits: 0 };
   }
   if (gitOk('merge-base', 'origin/main', branch)) {
@@ -48,7 +86,7 @@ const counts = classified.reduce((acc, row) => { acc[row.population] = (acc[row.
 // File-level measurement of the pre-rewrite population. A commit that is not an
 // ancestor of main can still carry content main has, so ancestry alone cannot
 // say whether anything is stranded.
-const mainFiles = new Set(git('ls-tree', '-r', '--name-only', 'origin/main').split('\n'));
+const mainFiles = mainFileSet;
 const strandedByBranch = [];
 const strandedFiles = new Set();
 
@@ -87,8 +125,12 @@ const artifact = {
   populations: counts,
   totalRemoteBranches: branches.length,
 
-  divergedBranches: classified.filter(r => r.population === 'DIVERGED')
+  // Reverted branches are debt and belong in the same list the ledger counts,
+  // or the count silently excludes exactly the work that was held back.
+  divergedBranches: classified.filter(r => r.population === 'DIVERGED' || r.population === 'MERGED_THEN_REVERTED')
     .sort((a, b) => b.uniqueCommits - a.uniqueCommits),
+
+  mergedThenReverted: classified.filter(r => r.population === 'MERGED_THEN_REVERTED'),
 
   preRewriteLineage: {
     branches: counts.PRE_REWRITE_LINEAGE ?? 0,

@@ -13,8 +13,8 @@ function readyInput() {
       { ...fresh, domainId: 'uberbond.cloud', ownerAuthorized: true, dnsAuthenticated: true, reputationHealthy: true }
     ],
     mailboxes: [
-      { ...fresh, mailboxId: 'm1', domainId: 'uberbond.agency', egressRouteId: 'r1', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 },
-      { ...fresh, mailboxId: 'm2', domainId: 'uberbond.cloud', egressRouteId: 'r2', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 }
+      { ...fresh, mailboxId: 'm1', address: 'outreach@uberbond.agency', domainId: 'uberbond.agency', egressRouteId: 'r1', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 },
+      { ...fresh, mailboxId: 'm2', address: 'outreach@uberbond.cloud', domainId: 'uberbond.cloud', egressRouteId: 'r2', authenticated: true, warmupState: 'HOLD', observedColdDailyCap: 50000, observedColdHourlyCap: 10000, usedToday: 0 }
     ],
     egressRoutes: [
       { ...fresh, routeId: 'r1', ready: true, authorized: true, termsCompatible: true, observedColdDailyCap: 50000, usedToday: 0 },
@@ -111,4 +111,42 @@ test('campaign authorization must have a future expiry', () => {
   const r = compileOutreach100kLaunchCertificate(input);
   assert.equal(r.state, 'WAIT_EXTERNAL_EVIDENCE');
   assert.ok(r.waitReasonCodes.includes('campaign-authorization-expiry-required'));
+});
+
+// CD011 recovery from feat/outreach-100k-certified-launch-20260915.
+test('a mailbox cannot certify against a verified domain its sending address does not belong to', () => {
+  const input = readyInput();
+  // Every other signal says this mailbox is ready: the domain is DNS
+  // authenticated, the mailbox is authenticated and warm. Only the address
+  // gives it away, and before this check the address was read solely as a
+  // fallback for domainId, so an explicit domainId simply won.
+  input.mailboxes[0] = { ...input.mailboxes[0], address: 'outreach@unverified-elsewhere.com', domainId: 'uberbond.agency' };
+  const certificate = compileOutreach100kLaunchCertificate(input);
+
+  const mailbox = certificate.mailboxFleet.find(row => row.mailboxId === 'm1');
+  assert.equal(mailbox.ready, false);
+  assert.ok(mailbox.reasonCodes.includes('mailbox-authenticated-address-required'));
+  assert.notEqual(certificate.state, 'CERTIFIED_100K_READY');
+});
+
+test('a mailbox with no address at all does not certify to send a hundred thousand messages', () => {
+  const input = readyInput();
+  const { address, ...withoutAddress } = input.mailboxes[0];
+  input.mailboxes[0] = withoutAddress;
+  const certificate = compileOutreach100kLaunchCertificate(input);
+
+  const mailbox = certificate.mailboxFleet.find(row => row.mailboxId === 'm1');
+  assert.equal(mailbox.ready, false);
+  assert.ok(mailbox.reasonCodes.includes('mailbox-authenticated-address-required'));
+});
+
+test('a subdomain address does not pass as its parent domain', () => {
+  const input = readyInput();
+  // endsWith on a bare domain would accept "outreach@evil-uberbond.agency".
+  input.mailboxes[0] = { ...input.mailboxes[0], address: 'outreach@evil-uberbond.agency', domainId: 'uberbond.agency' };
+  const certificate = compileOutreach100kLaunchCertificate(input);
+
+  const mailbox = certificate.mailboxFleet.find(row => row.mailboxId === 'm1');
+  assert.equal(mailbox.ready, false);
+  assert.ok(mailbox.reasonCodes.includes('mailbox-authenticated-address-required'));
 });

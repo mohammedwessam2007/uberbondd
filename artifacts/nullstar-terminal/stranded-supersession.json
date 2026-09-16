@@ -1,0 +1,3116 @@
+{
+  "schemaVersion": "uberbond-nullstar-stranded-supersession-1.0.0",
+  "debtItem": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",
+  "generatedAt": "2026-09-16T23:30:55.640Z",
+  "mainSha": "a378cf7fd365dd96c4abd9178744c6d248d37806",
+  "method": "Export-name identity first, distinctive filename token second, ABSENT when neither. Computed from the branch tree and main tree, not asserted.",
+  "totalStrandedSrc": 101,
+  "counts": {
+    "SUPERSEDED__EXPORT_LEVEL": 21,
+    "SUPERSEDED__CONCEPT_LEVEL": 68,
+    "ABSENT__NO_SUCCESSOR_FOUND": 12
+  },
+  "evidenceClasses": {
+    "SUPERSEDED__EXPORT_LEVEL": "A named export of the stranded module is defined in main. Same name, same domain: this is identity evidence.",
+    "SUPERSEDED__CONCEPT_LEVEL": "No export survives, but a distinctive filename token names a module in main. Correspondence inferred from naming, which is weaker and is not claimed as equivalence.",
+    "ABSENT__NO_SUCCESSOR_FOUND": "Neither. Requires reading the module before any disposition.",
+    "UNREADABLE__NO_BRANCH_HOLDS_IT": "Listed as stranded but no surviving branch carries the path."
+  },
+  "truthBoundary": "A name match shows a concept was re-implemented under that name. It does not show the successor is behaviourally equivalent, as good, or tested. This closes the question \"was anything dropped\", not \"is main at least as capable\".",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": [],
+  "modules": [
+    {
+      "module": "src/agent-sandbox-provisioner.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "detectSandboxIsolation",
+        "resetSandboxIsolationCache",
+        "compileNamespacedInvocation",
+        "createNamespacedVerificationRunner",
+        "createEphemeralSandbox",
+        "enterVerificationNetworkDisabledMode",
+        "destroyEphemeralSandbox",
+        "createSandboxProvisioner",
+        "AGENT_SANDBOX_PROVISIONER_POLICY_VERSION",
+        "SANDBOX_PROVISIONER_EXTERNAL_BLOCK"
+      ],
+      "matchedExports": [
+        "createSandboxProvisioner"
+      ],
+      "matchRatio": 0.1,
+      "successors": [
+        "src/claude-code-sandbox-provisioner.mjs"
+      ],
+      "evidence": "1 of 10 named exports are defined in main"
+    },
+    {
+      "module": "src/attribution-chain.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "reconstructAttributionChain"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/causal-attribution-spine.mjs"
+      ],
+      "conceptTokens": [
+        "attribution"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/automation/apify-import.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "mapApifyItem",
+        "parseApifyExport",
+        "importApifyExport",
+        "pollApifyTask",
+        "defaultApifyFetcher",
+        "ApifyImportError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/capability-genome-body-import.mjs",
+        "src/chatgpt-project-importer.mjs",
+        "src/json-import.mjs",
+        "src/prospect-import.mjs",
+        "src/uberoutbound-research-import.mjs"
+      ],
+      "conceptTokens": [
+        "import"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/automation/campaign-policy.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "signCampaignPolicy",
+        "verifyCampaignPolicy",
+        "isCampaignPolicyActive",
+        "CampaignPolicyError",
+        "CampaignConfigError",
+        "POLICY_FIELDS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/literal-asi-external-campaign.mjs",
+        "src/command-center-client-policy.mjs",
+        "src/free-mission-clock-policy.mjs",
+        "src/omega-policy-meta-learner-v3.mjs",
+        "src/omega-policy-meta-learner.mjs",
+        "src/omnia-v9/policy-bundle.mjs",
+        "src/overnight/distribution/policy.mjs",
+        "src/self-maintainer-continuation-policy.mjs",
+        "src/uberdoso-delivery-policy.mjs",
+        "src/uberoutbound-policy-registry.mjs"
+      ],
+      "conceptTokens": [
+        "campaign",
+        "policy"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/automation/digest.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "buildDailyDigest",
+        "buildWeeklyHealthReport"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/execution-leaf-graph-receipt-digest.mjs",
+        "src/sovereign-coverage-content-digest.mjs"
+      ],
+      "conceptTokens": [
+        "digest"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/automation/exceptions.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "buildExceptionQueue",
+        "exceptionQueueSummary"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/automation/fulfillment.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "selectFulfillmentLane",
+        "createFulfillmentTask",
+        "updateFulfillmentTask",
+        "isFulfillmentTaskOverdue",
+        "FULFILLMENT_LANES",
+        "FulfillmentError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/first-cash-fulfillment-runtime.mjs",
+        "src/lead-path-sprint-fulfillment.mjs",
+        "src/programmatic-fulfillment-router.mjs",
+        "src/service-fulfillment.mjs"
+      ],
+      "conceptTokens": [
+        "fulfillment"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/automation/job-handlers.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "createAutomationJobHandlers"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/automation/mode.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "automationStatus",
+        "evaluateAutomationGate",
+        "assertAutomationGate",
+        "isShadowOnly",
+        "AUTOMATION_MODES",
+        "AutomationGateError"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/automation/monitoring.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "assertMonitoringConsent",
+        "cancelMonitoringSubscription",
+        "handleMonitoringPaymentFailure",
+        "buildMonitoringEnrollmentRecord",
+        "MonitoringError"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/automation/outbound-adapter.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "assertAdapterContract",
+        "createFakeOutboundProvider",
+        "OUTBOUND_ADAPTER_CONTRACT",
+        "OutboundAdapterError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/omnia-v9/integrations/outbound-admission.mjs",
+        "src/omnia-v9/integrations/outbound-consequence-gate.mjs",
+        "src/omnia-v9/outbound-shadow.mjs",
+        "src/outbound-operator-summary.mjs",
+        "src/uberoutbound-genome.mjs",
+        "src/uberoutbound-policy-registry.mjs",
+        "src/uberoutbound-promotion-gate.mjs",
+        "src/uberoutbound-research-import.mjs"
+      ],
+      "conceptTokens": [
+        "outbound"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/automation/state-machine.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "isValidState",
+        "isTerminalState",
+        "allowedTransitions",
+        "canTransition",
+        "assertTransition",
+        "projectLifecycleState",
+        "LIFECYCLE_STATES",
+        "TERMINAL_STATES",
+        "ALL_STATES",
+        "StateMachineError"
+      ],
+      "matchedExports": [
+        "TERMINAL_STATES",
+        "ALL_STATES"
+      ],
+      "matchRatio": 0.2,
+      "successors": [
+        "src/omnia-v9/integrations/external-effect-state-machine.mjs"
+      ],
+      "evidence": "2 of 10 named exports are defined in main"
+    },
+    {
+      "module": "src/autonomic-circulation-config.mjs",
+      "heldBy": "origin/feat/autonomic-circulation-spine-20260913",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "autonomicCirculationConfigFromEnv",
+        "AUTONOMIC_CIRCULATION_CONFIG_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/autonomic-circulation-job-handlers.mjs",
+      "heldBy": "origin/feat/autonomic-circulation-spine-20260913",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "attachAutonomicCirculationJobHandlers",
+        "AUTONOMIC_CIRCULATION_JOB_HANDLERS_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/autonomic-circulation.mjs",
+      "heldBy": "origin/feat/autonomic-circulation-spine-20260913",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "compileAutonomicCirculationPlan",
+        "compileAutonomicFeedback",
+        "AUTONOMIC_CIRCULATION_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/autonomic-prometheus-receipt-bridge.mjs",
+      "heldBy": "origin/feat/autonomic-circulation-spine-20260913",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "attachAutonomicPrometheusReceiptBridge",
+        "AUTONOMIC_PROMETHEUS_RECEIPT_BRIDGE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/prometheus-control-tower.mjs",
+        "src/prometheus-economic-spine.mjs",
+        "src/agent-autonomy-receipt-ledger.mjs",
+        "src/agent-mesh-cycle-receipts.mjs",
+        "src/capability-receipt-loader.mjs",
+        "src/deploy-restart-recovery-receipt.mjs",
+        "src/execution-leaf-graph-receipt-digest.mjs",
+        "src/omnia-v9/authorization-bound-receipt-store.mjs",
+        "src/omnia-v9/authorization-bound-receipt.mjs",
+        "src/omnia-v9/execution-receipt-shadow.mjs",
+        "src/omnia-v9/execution-receipt-store.mjs",
+        "src/omnia-v9/integrations/canary-receipt-store.mjs",
+        "src/postgres-backup-restore-receipt.mjs",
+        "src/provider-activation-receipt.mjs",
+        "src/provider-receipt-redaction.mjs",
+        "src/runtime-transition-receipts.mjs",
+        "src/self-maintenance-receipt-provenance.mjs",
+        "src/source-repository-host-receipt.mjs",
+        "src/web-runtime-host-receipt.mjs"
+      ],
+      "conceptTokens": [
+        "prometheus",
+        "receipt"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/autonomous-cycle.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "scheduleCanonCycle",
+        "createCanonCycleHandlers",
+        "CANON_JOB_TYPES",
+        "STAGE_ORDER",
+        "nextStageOf",
+        "runOpportunityHunt",
+        "runProspectDiscovery",
+        "runSendPlanning",
+        "runDispatch",
+        "runReplySweep",
+        "runAttribution",
+        "runCheckpoint"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/autonomous-frontier-intelligence.mjs",
+        "src/agent-mesh-cycle-receipts.mjs",
+        "src/uberbond-synaptic-cycle-binding.mjs",
+        "src/uberbond-ultimate-graph-cycle-binding.mjs"
+      ],
+      "conceptTokens": [
+        "autonomous",
+        "cycle"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/autonomy-cycle.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "redactText",
+        "assertExactDigestKeys",
+        "runAutonomyCycle",
+        "STAGES"
+      ],
+      "matchedExports": [
+        "STAGES"
+      ],
+      "matchRatio": 0.25,
+      "successors": [
+        "src/model-foundry-control-plane.mjs"
+      ],
+      "evidence": "1 of 4 named exports are defined in main"
+    },
+    {
+      "module": "src/autonomy-sovereign-release-phase.mjs",
+      "heldBy": "origin/sol/command-center-release-runtime-phase-20260910",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "summarizeAutonomySovereignReleasePhase",
+        "AUTONOMY_SOVEREIGN_RELEASE_PHASE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/agent-autonomy-job.mjs",
+        "src/agent-autonomy-loop.mjs",
+        "src/agent-autonomy-occurrence.mjs",
+        "src/agent-autonomy-pump.mjs",
+        "src/agent-autonomy-receipt-ledger.mjs",
+        "src/agent-autonomy-relay-adapter.mjs",
+        "src/agent-autonomy-scheduled-run.mjs",
+        "src/agent-autonomy-scheduler.mjs",
+        "src/agent-autonomy-store.mjs",
+        "src/autonomy-command-center-control.mjs",
+        "src/autonomy-command-center-status.mjs",
+        "src/compute-sovereignty-capacity.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/institutional-financial-sovereignty.mjs",
+        "src/inter-sovereign.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/sovereign-bootstrap-readiness.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/sovereign-cut-set-audit.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/sovereign-expansion-kernel.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/sovereign-institutional-harness-hardening.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/sovereign-local-promotion.mjs",
+        "src/sovereign-money-machine-proof.mjs",
+        "src/sovereign-native-local-worker.mjs",
+        "src/sovereign-privacy-firewall.mjs",
+        "src/sovereign-release-handoff.mjs",
+        "src/sovereign-revenue-runtime.mjs",
+        "src/sovereign-root-recovery.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/uber-sovereign-stack.mjs",
+        "src/uber-sovereign-substrate.mjs",
+        "src/ubercloud-sovereign-fabric.mjs"
+      ],
+      "conceptTokens": [
+        "autonomy",
+        "sovereign",
+        "release"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/campaign-activation.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "computeCohortHash",
+        "buildCampaignActivationApproval",
+        "persistCampaignActivationApproval",
+        "assertCampaignActivation",
+        "claimCohortSeat",
+        "releaseCohortSeat",
+        "markCohortSeatTouched",
+        "CampaignActivationError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/literal-asi-external-campaign.mjs",
+        "src/agent-mesh-activation-evidence.mjs",
+        "src/agent-mesh-activation-gate.mjs",
+        "src/live-activation-gate.mjs",
+        "src/provider-activation-receipt.mjs",
+        "src/uberbond-genesis-reactivation.mjs",
+        "src/uberdoso-activation.mjs"
+      ],
+      "conceptTokens": [
+        "campaign",
+        "activation"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/campaign-config.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "validateCampaignConfig",
+        "createCampaignRecord",
+        "CAMPAIGN_CONFIG_SCHEMA",
+        "CampaignConfigError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/literal-asi-external-campaign.mjs"
+      ],
+      "conceptTokens": [
+        "campaign"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/canon-registries.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "isPendingRevalidation",
+        "__resetCanonRegistryCache",
+        "loadOfferPortfolio",
+        "loadExperimentRegistry",
+        "loadGateRegistry",
+        "loadMessageVariantRegistry",
+        "loadAttributionContract",
+        "loadRevalidationQueue",
+        "loadResearchSeedCorpus"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/canonical-execution-leaf-graph.mjs",
+        "src/canonical-execution-leaf-materializer.mjs",
+        "src/omnia-v9/canonical.mjs"
+      ],
+      "conceptTokens": [
+        "canon"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/causal-intervention-ladder.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "assessCausalEvidence",
+        "compileNOf1Experiment",
+        "nOf1Evidence",
+        "CAUSAL_INTERVENTION_LADDER_VERSION",
+        "CAUSAL_RUNGS"
+      ],
+      "matchedExports": [
+        "CAUSAL_RUNGS"
+      ],
+      "matchRatio": 0.2,
+      "successors": [
+        "src/epistemic-immune-system.mjs"
+      ],
+      "evidence": "1 of 5 named exports are defined in main"
+    },
+    {
+      "module": "src/cloud-wake-transport.mjs",
+      "heldBy": "origin/gpt/cloud-cache-ephemeral-fabric-20260905",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileCloudWakePublishBatch",
+        "publishCloudWakeBatch",
+        "ingestCloudWakeDelivery",
+        "CLOUD_WAKE_TRANSPORT_POLICY_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/cloud-agent-relay.mjs",
+        "src/cloud-inspect-deployment.mjs",
+        "src/ubercloud-contabo-cell-actuator.mjs",
+        "src/ubercloud-contabo-cell-preflight.mjs",
+        "src/ubercloud-contabo-preflight-operator.mjs",
+        "src/ubercloud-sovereign-fabric.mjs",
+        "src/delivery-transport-contract.mjs",
+        "src/operator-escalation-transport.mjs",
+        "src/uberreach-universal-transport.mjs"
+      ],
+      "conceptTokens": [
+        "cloud",
+        "transport"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/cockpit.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "deriveAcquisitionStatus",
+        "buildCockpitSnapshot",
+        "cockpitExportRows",
+        "evaluateDraftApproval",
+        "approvedDraftPatch",
+        "rejectedDraftPatch",
+        "ACQUISITION_STATUSES"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/cognitive-journal-segment-store.mjs",
+      "heldBy": "origin/feat/context-operational-closure-20260911",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "cognitiveJournalSegmentFilename",
+        "verifyCognitiveJournalSegmentSnapshot",
+        "writeCognitiveJournalSegmentSnapshot",
+        "COGNITIVE_JOURNAL_SEGMENT_STORE_POLICY_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/cognitive-event-journal.mjs",
+        "src/cognitive-journal-layered-store.mjs",
+        "src/cognitive-journal-segments.mjs",
+        "src/event-horizon-cognitive-adapter.mjs",
+        "src/frontier-cognitive-admission.mjs",
+        "src/frontier-cognitive-fabric.mjs",
+        "src/genesis-cognitive-adapters.mjs",
+        "src/neural-exocortex-cognitive-binding.mjs",
+        "src/nullstar-cognitive-solvers.mjs",
+        "src/nullstar-cognitive-tasks.mjs",
+        "src/uber-socket-cognitive-backplane.mjs",
+        "src/uberbond-cognitive-adapters.mjs",
+        "src/uberbond-cognitive-bus.mjs",
+        "src/uberbond-cognitive-graph.mjs",
+        "src/uberbond-metacognitive-synthesis.mjs",
+        "src/ubermind-cognitive-exchange.mjs",
+        "src/wallbreaker-cognitive-reflex.mjs",
+        "src/whole-brain-cognitive-adapters.mjs",
+        "src/context-journal-runtime.mjs"
+      ],
+      "conceptTokens": [
+        "cognitive",
+        "journal",
+        "segment"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/command-center-autonomy-control-plane.mjs",
+      "heldBy": "origin/sol/bootstrap-autonomy-command-center-20260909",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileCommandCenterAutonomyControlPlane",
+        "COMMAND_CENTER_AUTONOMY_CONTROL_PLANE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/autonomy-command-center-control.mjs",
+        "src/autonomy-command-center-status.mjs",
+        "src/command-center-client-policy.mjs",
+        "src/command-center-ui-evolution.mjs",
+        "src/founder-command-center.mjs",
+        "src/uberbond-command-center-normalizer.mjs",
+        "src/uberbond-command-center-status.mjs",
+        "src/domain-mailbox-control-center.mjs",
+        "src/agent-autonomy-job.mjs",
+        "src/agent-autonomy-loop.mjs",
+        "src/agent-autonomy-occurrence.mjs",
+        "src/agent-autonomy-pump.mjs",
+        "src/agent-autonomy-receipt-ledger.mjs",
+        "src/agent-autonomy-relay-adapter.mjs",
+        "src/agent-autonomy-scheduled-run.mjs",
+        "src/agent-autonomy-scheduler.mjs",
+        "src/agent-autonomy-store.mjs",
+        "src/agent-mesh-control-plane.mjs",
+        "src/distribution-control-plane.mjs",
+        "src/economic-reliability-control-loop.mjs",
+        "src/external-capability-control-plane.mjs",
+        "src/mailhub-control-plane.mjs",
+        "src/model-foundry-control-plane.mjs",
+        "src/omega-controlled-intent-evidence.mjs",
+        "src/omega-controlled-semantic-compiler.mjs",
+        "src/outreach-100k-runtime-control.mjs",
+        "src/prometheus-control-tower.mjs",
+        "src/uber-orchestration-control-plane.mjs",
+        "src/ubercel-deployment-control-plane.mjs",
+        "src/uberdns-control-plane.mjs",
+        "src/uberreach-control-plane.mjs",
+        "src/uber-socket-cognitive-backplane.mjs"
+      ],
+      "conceptTokens": [
+        "command",
+        "center",
+        "autonomy",
+        "control",
+        "plane"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/commercial-intelligence-import.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "validateCommercialIntelligenceRecord",
+        "parseCommercialIntelligenceJsonl",
+        "parseCommercialIntelligenceCsv",
+        "isEvidenceFresh",
+        "listQueueableOpportunities",
+        "importCommercialIntelligenceBatch",
+        "RECORD_TYPES",
+        "CommercialIntelligenceImportError",
+        "CANONICAL_AUDIT_EVENTS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/commercial-execution-path-materializer.mjs",
+        "src/commercial-experiment.mjs",
+        "src/commercial-first-payment-packet.mjs",
+        "src/commercial-learning.mjs",
+        "src/commercial-memory.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/commercial-outcome.mjs",
+        "src/commercial-reconciliation.mjs",
+        "src/commercial-signature-contract.mjs",
+        "src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs",
+        "src/autonomous-frontier-intelligence.mjs",
+        "src/compound-intelligence-evaluation.mjs",
+        "src/frontier-intelligence-foundry.mjs",
+        "src/frontier-intelligence-neural-bridge.mjs",
+        "src/lead-intelligence-v3.mjs",
+        "src/world-intelligence.mjs",
+        "src/capability-genome-body-import.mjs",
+        "src/chatgpt-project-importer.mjs",
+        "src/json-import.mjs",
+        "src/prospect-import.mjs",
+        "src/uberoutbound-research-import.mjs"
+      ],
+      "conceptTokens": [
+        "commercial",
+        "intelligence",
+        "import"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/contabo-mail-cell.mjs",
+      "heldBy": "origin/feat/contabo-mail-cell-20260913",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileContaboMailCellCandidate",
+        "compileContaboPurchasePlan",
+        "compileContaboCreateInstanceRequest",
+        "compileObservedContaboMailCell",
+        "CONTABO_MAIL_CELL_VERSION",
+        "CONTABO_MAIL_PRODUCT"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/ubercloud-contabo-cell-actuator.mjs",
+        "src/ubercloud-contabo-cell-preflight.mjs",
+        "src/ubercloud-contabo-preflight-operator.mjs"
+      ],
+      "conceptTokens": [
+        "contabo"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/contact-routes.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "normalizeContactRoute",
+        "isEmailSendable",
+        "CONTACT_ROUTE_TYPES",
+        "EMAIL_SENDABLE_ROUTE_TYPE",
+        "ContactRouteError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/contact-validate-email.mjs",
+        "src/contacts.mjs",
+        "src/uberverify-contact-hygiene.mjs"
+      ],
+      "conceptTokens": [
+        "contact"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/contact-verification.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "normalizeContactVerification",
+        "resolveContactVerification",
+        "evaluateSendEligibilityForRoute",
+        "CONTACT_VERIFICATION_POLICY_VERSION",
+        "VERIFICATION_STATES",
+        "SUPPRESSION_REASONS"
+      ],
+      "matchedExports": [
+        "normalizeContactVerification",
+        "VERIFICATION_STATES"
+      ],
+      "matchRatio": 0.333,
+      "successors": [
+        "src/prospect-evidence-reconciliation.mjs",
+        "src/market-signal.mjs"
+      ],
+      "evidence": "2 of 6 named exports are defined in main"
+    },
+    {
+      "module": "src/context-journal-runtime-state.mjs",
+      "heldBy": "origin/feat/context-operational-closure-20260911",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "verifyContextJournalRuntimeState",
+        "compileContextJournalRuntimeState",
+        "CONTEXT_JOURNAL_RUNTIME_STATE_POLICY_VERSION",
+        "CONTEXT_JOURNAL_RUNTIME_STATE_SCHEMA"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/context-compress-reversible.mjs",
+        "src/context-history-retrieval.mjs",
+        "src/context-journal-runtime.mjs",
+        "src/context-privacy.mjs",
+        "src/context-projection.mjs",
+        "src/context-replication-bundle.mjs",
+        "src/context-schema-compatibility-verify.mjs",
+        "src/context-schema-compatibility.mjs",
+        "src/context-source-ancestry.mjs",
+        "src/context-task-binding.mjs",
+        "src/frontier-context-spine.mjs",
+        "src/lifetime-context-memory.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/uberbond-brain-context.mjs",
+        "src/web-context-extraction-contract.mjs",
+        "src/cognitive-event-journal.mjs",
+        "src/cognitive-journal-layered-store.mjs",
+        "src/cognitive-journal-segments.mjs"
+      ],
+      "conceptTokens": [
+        "context",
+        "journal"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/continuation-graph-runtime.mjs",
+      "heldBy": "origin/gpt/genesis-mechanism-assimilation-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileContinuationGraph",
+        "recordContinuationResult",
+        "buildContinuationCheckpoint",
+        "resumeContinuationGraph",
+        "continuationCapabilityAtom",
+        "CONTINUATION_GRAPH_SCHEMA",
+        "CONTINUATION_GRAPH_POLICY_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/execution-leaf-continuation.mjs",
+        "src/self-maintainer-continuation-policy.mjs",
+        "src/canonical-execution-leaf-graph.mjs",
+        "src/capability-graph.mjs",
+        "src/execution-leaf-graph-receipt-digest.mjs",
+        "src/execution-leaf-graph.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/knowledge-labyrinth-ubergraph.mjs",
+        "src/life-knowledge-graph.mjs",
+        "src/personal-civilization-model-graph.mjs",
+        "src/recursive-revocation-graph.mjs",
+        "src/relationship-opportunity-graph.mjs",
+        "src/uberbond-cognitive-graph.mjs",
+        "src/uberbond-ultimate-graph-cycle-binding.mjs",
+        "src/uberbond-ultimate-graph.mjs"
+      ],
+      "conceptTokens": [
+        "continuation",
+        "graph"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/coverage-enforcement-test-admission.mjs",
+      "heldBy": "origin/sol/coverage-enforcement-test-admission-20260910",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "verifyEnforcementTestAdmission",
+        "COVERAGE_ENFORCEMENT_TEST_ADMISSION_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/coverage-state-evidence-integrity.mjs",
+        "src/frontier-source-coverage.mjs",
+        "src/open-model-source-coverage.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/semantic-enforcement-evidence.mjs",
+        "src/ai-employee-relay-result-admission.mjs",
+        "src/capability-genome-admission.mjs",
+        "src/capability-genome-execution-admission.mjs",
+        "src/frontier-cognitive-admission.mjs",
+        "src/frontier-model-admission-proof.mjs",
+        "src/model-adaptation-admission.mjs",
+        "src/neural-exocortex-admission.mjs",
+        "src/omnia-v9/final-admission-shadow.mjs",
+        "src/omnia-v9/integrations/outbound-admission.mjs",
+        "src/omnia-v9/integrations/outreach-consequence-admission.mjs",
+        "src/omnia-v9/persistent-admission.mjs",
+        "src/operational-world-resource-admission.mjs",
+        "src/sandwich-descendant-admission.mjs",
+        "src/self-improvement-causal-admission.mjs"
+      ],
+      "conceptTokens": [
+        "coverage",
+        "enforcement",
+        "admission"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/decision-information-theory.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "valueOfInformation",
+        "predictionHalfLife",
+        "decisionShelfLife",
+        "compileDecisionInformation",
+        "DECISION_INFORMATION_THEORY_VERSION"
+      ],
+      "matchedExports": [
+        "valueOfInformation",
+        "predictionHalfLife",
+        "decisionShelfLife"
+      ],
+      "matchRatio": 0.6,
+      "successors": [
+        "src/forecast-decision-boundary.mjs",
+        "src/forecast-stack.mjs"
+      ],
+      "evidence": "3 of 5 named exports are defined in main"
+    },
+    {
+      "module": "src/delivery-acceptance-truth.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "createDeliveryRecord",
+        "transitionDelivery",
+        "summarizeDeliveryTruth",
+        "DELIVERY_ACCEPTANCE_POLICY_VERSION",
+        "DELIVERY_STATES",
+        "DELIVERY_ZERO_EFFECTS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/delivery-transport-contract.mjs",
+        "src/uberdoso-delivery-policy.mjs",
+        "src/proposal-acceptance-engine.mjs",
+        "src/provider-neutral-runtime-acceptance.mjs",
+        "src/agent-worker-result-truth.mjs",
+        "src/current-truth-reference-integrity.mjs",
+        "src/current-truth-regeneration.mjs",
+        "src/memory-truth-boundary.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/paypal-payment-truth-core.mjs",
+        "src/paypal-payment-truth.mjs"
+      ],
+      "conceptTokens": [
+        "delivery",
+        "acceptance",
+        "truth"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/delivery.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "createDeliveryRecord",
+        "updateDeliveryRecord",
+        "reconcileDeliveryPayment",
+        "deliverySummary",
+        "DELIVERY_STATES",
+        "REVISION_STATES",
+        "DeliveryError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/delivery-transport-contract.mjs",
+        "src/uberdoso-delivery-policy.mjs"
+      ],
+      "conceptTokens": [
+        "delivery"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/dispatch-adapter.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "dispatchReservation",
+        "CANONICAL_DISPATCH_AUDIT_EVENTS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/governed-outreach-dispatch.mjs",
+        "src/north-star-initiative-dispatch.mjs",
+        "src/omnia-v9/integrations/external-effect-dispatcher.mjs",
+        "src/payment-provider-verifier-dispatch.mjs"
+      ],
+      "conceptTokens": [
+        "dispatch"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/distribution-os.mjs",
+      "heldBy": "origin/gpt/uberbond-brain-distribution-os-20260828",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "compileDistributionPortfolio",
+        "compareDistributionOutcomes",
+        "DISTRIBUTION_OS_POLICY_VERSION",
+        "DISTRIBUTION_CHANNELS",
+        "TRUSTED_ECONOMIC_RECEIPT_CLASSES"
+      ],
+      "matchedExports": [
+        "compileDistributionPortfolio"
+      ],
+      "matchRatio": 0.2,
+      "successors": [
+        "src/distribution-control-plane.mjs"
+      ],
+      "evidence": "1 of 5 named exports are defined in main"
+    },
+    {
+      "module": "src/economic-repair-dispatcher.mjs",
+      "heldBy": "origin/feat/eight-hour-economic-overdetermination",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileEconomicRepairDispatch",
+        "ECONOMIC_REPAIR_DISPATCH_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/economic-feedback-allocator.mjs",
+        "src/economic-inevitability-engine.mjs",
+        "src/economic-metabolism.mjs",
+        "src/economic-reliability-autoprep.mjs",
+        "src/economic-reliability-control-loop.mjs",
+        "src/economic-reliability-engine.mjs",
+        "src/economic-reliability-expansion-planner.mjs",
+        "src/economic-reliability-input-builder.mjs",
+        "src/economic-reliability-preparation-memory.mjs",
+        "src/economic-reliability-wealth-bridge.mjs",
+        "src/economic-repair-job-handler.mjs",
+        "src/economic-route-calibration.mjs",
+        "src/economic-route-dependency.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/prometheus-economic-spine.mjs",
+        "src/omnia-v9/integrations/external-effect-dispatcher.mjs"
+      ],
+      "conceptTokens": [
+        "economic",
+        "repair",
+        "dispatcher"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/economic-saturation-self-repair.mjs",
+      "heldBy": "origin/feat/economic-saturation-self-repair",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileEconomicSaturationPlan",
+        "compileEconomicRepairQueuePlan",
+        "ECONOMIC_SATURATION_SELF_REPAIR_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/economic-feedback-allocator.mjs",
+        "src/economic-inevitability-engine.mjs",
+        "src/economic-metabolism.mjs",
+        "src/economic-reliability-autoprep.mjs",
+        "src/economic-reliability-control-loop.mjs",
+        "src/economic-reliability-engine.mjs",
+        "src/economic-reliability-expansion-planner.mjs",
+        "src/economic-reliability-input-builder.mjs",
+        "src/economic-reliability-preparation-memory.mjs",
+        "src/economic-reliability-wealth-bridge.mjs",
+        "src/economic-repair-job-handler.mjs",
+        "src/economic-route-calibration.mjs",
+        "src/economic-route-dependency.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/prometheus-economic-spine.mjs"
+      ],
+      "conceptTokens": [
+        "economic",
+        "repair"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/economic-wealth-repair-job-handler.mjs",
+      "heldBy": "origin/feat/economic-saturation-self-repair",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileEconomicRepairDispatch",
+        "compileEconomicSaturationDispatch",
+        "runEconomicWealthRepairJob",
+        "runEconomicWealthSaturationJob",
+        "ECONOMIC_WEALTH_REPAIR_JOB_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/economic-feedback-allocator.mjs",
+        "src/economic-inevitability-engine.mjs",
+        "src/economic-metabolism.mjs",
+        "src/economic-reliability-autoprep.mjs",
+        "src/economic-reliability-control-loop.mjs",
+        "src/economic-reliability-engine.mjs",
+        "src/economic-reliability-expansion-planner.mjs",
+        "src/economic-reliability-input-builder.mjs",
+        "src/economic-reliability-preparation-memory.mjs",
+        "src/economic-reliability-wealth-bridge.mjs",
+        "src/economic-repair-job-handler.mjs",
+        "src/economic-route-calibration.mjs",
+        "src/economic-route-dependency.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/prometheus-economic-spine.mjs",
+        "src/eight-hour-wealth-universe-simulator.mjs",
+        "src/synthetic-eight-hour-wealth-priors.mjs",
+        "src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs",
+        "src/universal-wealth-engine.mjs",
+        "src/universal-wealth-job-handler.mjs",
+        "src/universal-wealth-overdetermination-job-handler.mjs"
+      ],
+      "conceptTokens": [
+        "economic",
+        "wealth",
+        "repair"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/economic-wealth-resident-supervisor.mjs",
+      "heldBy": "origin/feat/economic-saturation-self-repair",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "runEconomicWealthResidentSupervisor",
+        "ECONOMIC_WEALTH_RESIDENT_SUPERVISOR_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/economic-feedback-allocator.mjs",
+        "src/economic-inevitability-engine.mjs",
+        "src/economic-metabolism.mjs",
+        "src/economic-reliability-autoprep.mjs",
+        "src/economic-reliability-control-loop.mjs",
+        "src/economic-reliability-engine.mjs",
+        "src/economic-reliability-expansion-planner.mjs",
+        "src/economic-reliability-input-builder.mjs",
+        "src/economic-reliability-preparation-memory.mjs",
+        "src/economic-reliability-wealth-bridge.mjs",
+        "src/economic-repair-job-handler.mjs",
+        "src/economic-route-calibration.mjs",
+        "src/economic-route-dependency.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/prometheus-economic-spine.mjs",
+        "src/eight-hour-wealth-universe-simulator.mjs",
+        "src/synthetic-eight-hour-wealth-priors.mjs",
+        "src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs",
+        "src/universal-wealth-engine.mjs",
+        "src/universal-wealth-job-handler.mjs",
+        "src/universal-wealth-overdetermination-job-handler.mjs",
+        "src/founder-outcome-mission-supervisor.mjs"
+      ],
+      "conceptTokens": [
+        "economic",
+        "wealth",
+        "supervisor"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/effect-ledger.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "isLedgerField",
+        "isLedgerShaped",
+        "isZeroLedger",
+        "hasUnknownLedgerKey",
+        "ZERO_EXTERNAL_EFFECTS",
+        "ZERO_BUSINESS_EFFECTS",
+        "LEDGER_FIELDS"
+      ],
+      "matchedExports": [
+        "ZERO_EXTERNAL_EFFECTS",
+        "ZERO_BUSINESS_EFFECTS"
+      ],
+      "matchRatio": 0.286,
+      "successors": [
+        "src/agent-mesh-cron-boundary.mjs",
+        "src/effect-ledgers.mjs",
+        "src/overnight/control/overnight-upgrade-manifest.mjs"
+      ],
+      "evidence": "2 of 7 named exports are defined in main"
+    },
+    {
+      "module": "src/eight-hour-economic-overdetermination.mjs",
+      "heldBy": "origin/feat/eight-hour-economic-overdetermination",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "normalizeMoneyRoute",
+        "compileEightHourOverdetermination",
+        "ECONOMIC_OVERDETERMINATION_VERSION"
+      ],
+      "matchedExports": [
+        "compileEightHourOverdetermination"
+      ],
+      "matchRatio": 0.333,
+      "successors": [
+        "src/eight-hour-overdetermination-engine.mjs"
+      ],
+      "evidence": "1 of 3 named exports are defined in main"
+    },
+    {
+      "module": "src/enforcement-manifest-admission.mjs",
+      "heldBy": "origin/sol/enforcement-manifest-fail-closed-20260910",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "verifyEnforcementManifestAdmission"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/semantic-enforcement-evidence.mjs",
+        "src/overnight/control/overnight-upgrade-manifest.mjs",
+        "src/ai-employee-relay-result-admission.mjs",
+        "src/capability-genome-admission.mjs",
+        "src/capability-genome-execution-admission.mjs",
+        "src/frontier-cognitive-admission.mjs",
+        "src/frontier-model-admission-proof.mjs",
+        "src/model-adaptation-admission.mjs",
+        "src/neural-exocortex-admission.mjs",
+        "src/omnia-v9/final-admission-shadow.mjs",
+        "src/omnia-v9/integrations/outbound-admission.mjs",
+        "src/omnia-v9/integrations/outreach-consequence-admission.mjs",
+        "src/omnia-v9/persistent-admission.mjs",
+        "src/operational-world-resource-admission.mjs",
+        "src/sandwich-descendant-admission.mjs",
+        "src/self-improvement-causal-admission.mjs"
+      ],
+      "conceptTokens": [
+        "enforcement",
+        "manifest",
+        "admission"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/evidence-independence.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "independentSourceFamilies",
+        "assessEvidenceIndependence"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/agent-mesh-activation-evidence.mjs",
+        "src/benchmark-evidence-ledger.mjs",
+        "src/c21-dimension-evidence-producer.mjs",
+        "src/c21-evidence-factory.mjs",
+        "src/cost-aware-public-evidence-tier.mjs",
+        "src/coverage-state-evidence-integrity.mjs",
+        "src/evidence-reference-integrity.mjs",
+        "src/evidence-to-content-compiler.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-final-frontier-evidence.mjs",
+        "src/genesis-frontier-deepening-evidence.mjs",
+        "src/genesis-implementation-evidence-v2.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/genesis-sensing-cognition-evidence.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/kilimanjaro-evidence.mjs",
+        "src/model-provider-runtime-evidence.mjs",
+        "src/nullstar-omega-evidence-reuse.mjs",
+        "src/omega-controlled-intent-evidence.mjs",
+        "src/omega-private-evidence-gate.mjs",
+        "src/omega-private-evidence-lab.mjs",
+        "src/omnia-v9/integrations/external-effect-evidence-store.mjs",
+        "src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs",
+        "src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs",
+        "src/prospect-evidence-reconciliation.mjs",
+        "src/provider-cut-evidence-overlay.mjs",
+        "src/remaining-cut-evidence-overlay.mjs",
+        "src/remaining-cut-evidence.mjs",
+        "src/runtime-cut-evidence-overlay.mjs",
+        "src/runtime-evidence-attestation.mjs",
+        "src/sandwich-evidence-binding.mjs",
+        "src/semantic-enforcement-evidence.mjs",
+        "src/semantic-test-title-evidence.mjs",
+        "src/system-level-asi-evidence.mjs",
+        "src/uberlaunch-runtime-evidence.mjs"
+      ],
+      "conceptTokens": [
+        "evidence"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/first-cash-payment-destination.mjs",
+      "heldBy": "origin/work/night-payment-distribution-20260903",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileFirstCashPaymentDestination",
+        "paymentDestinationCanUnlockFulfillment",
+        "FIRST_CASH_PAYMENT_DESTINATION_VERSION",
+        "FIRST_CASH_PAYPAL_ME_URL",
+        "FIRST_CASH_PAYMENT_DESTINATION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/commercial-first-payment-packet.mjs",
+        "src/first-cash-canary-guard.mjs",
+        "src/first-cash-canary-packet-core.mjs",
+        "src/first-cash-canary-packet.mjs",
+        "src/first-cash-fulfillment-runtime.mjs",
+        "src/first-cash-prospect-completion.mjs",
+        "src/free-first-outreach-router.mjs",
+        "src/payment-operator-attention.mjs",
+        "src/payment-provider-verifier-dispatch.mjs",
+        "src/payment-rail-doctor-core.mjs",
+        "src/payment-rail-doctor.mjs",
+        "src/payment-reconciliation-watchdog.mjs",
+        "src/payment-reconciliation-worker.mjs",
+        "src/payment-renewal-truth.mjs",
+        "src/payment-verify-cleared.mjs",
+        "src/payments.mjs",
+        "src/paypal-payment-truth-core.mjs",
+        "src/paypal-payment-truth.mjs"
+      ],
+      "conceptTokens": [
+        "first",
+        "payment"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/founder-absence-blocker-doctor-core.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "deriveEnvironmentPresence",
+        "classifyFounderAbsenceBlocker",
+        "evaluateElapsedEvidence",
+        "evaluateFounderAbsenceBlockers",
+        "classifyFounderAbsenceBlockers",
+        "FOUNDER_ABSENCE_BLOCKER_POLICY_VERSION",
+        "BLOCKER_CLASSES",
+        "BLOCKING_CLASS_ORDER",
+        "BLOCKER_SUBJECT_CLASS",
+        "BLOCKER_REMOVABILITY",
+        "DEFINITION_OF_DONE_STATUSES",
+        "PROHIBITED_BLOCKER_STATUSES",
+        "ENVIRONMENT_PRESENCE_GROUPS",
+        "RAGNAROK_BLOCKER_LEDGER"
+      ],
+      "matchedExports": [
+        "deriveEnvironmentPresence",
+        "classifyFounderAbsenceBlocker",
+        "evaluateElapsedEvidence",
+        "evaluateFounderAbsenceBlockers",
+        "classifyFounderAbsenceBlockers",
+        "FOUNDER_ABSENCE_BLOCKER_POLICY_VERSION",
+        "BLOCKER_CLASSES",
+        "BLOCKING_CLASS_ORDER",
+        "BLOCKER_SUBJECT_CLASS",
+        "BLOCKER_REMOVABILITY",
+        "DEFINITION_OF_DONE_STATUSES",
+        "PROHIBITED_BLOCKER_STATUSES",
+        "ENVIRONMENT_PRESENCE_GROUPS",
+        "RAGNAROK_BLOCKER_LEDGER"
+      ],
+      "matchRatio": 1,
+      "successors": [
+        "src/founder-absence-blocker-doctor.mjs"
+      ],
+      "evidence": "14 of 14 named exports are defined in main"
+    },
+    {
+      "module": "src/founder-outcome-runtime.mjs",
+      "heldBy": "origin/sol/outcome-spinal-cord-closure-20260911",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "hydrateFounderOutcomeMission",
+        "readFounderOutcomeRuntimeTruth",
+        "superviseFounderOutcomeMissions",
+        "createFounderOutcomeRuntimeHandlers",
+        "FOUNDER_OUTCOME_RUNTIME_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/founder-absence-blocker-doctor.mjs",
+        "src/founder-absence-readiness.mjs",
+        "src/founder-command-center.mjs",
+        "src/founder-directive-reconciler.mjs",
+        "src/founder-exception-market.mjs",
+        "src/founder-minute-priority.mjs",
+        "src/founder-ops-runtime-probe.mjs",
+        "src/founder-ops-view.mjs",
+        "src/founder-outcome-job-handlers.mjs",
+        "src/founder-outcome-mission-supervisor.mjs",
+        "src/founder-outcome-mission.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/commercial-outcome.mjs",
+        "src/nullstar-omega-software-outcome.mjs"
+      ],
+      "conceptTokens": [
+        "founder",
+        "outcome"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/free-first-email-adapter-contract.mjs",
+      "heldBy": "origin/gpt/free-first-outreach-proof-20260901",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "validateFreeFirstEmailAdapter",
+        "createUnconfiguredFreeEmailAdapter",
+        "resolveFreeFirstEmailAdapter",
+        "planFreeFirstEmailDispatch",
+        "FREE_FIRST_EMAIL_ADAPTER_CONTRACT_VERSION",
+        "FREE_FIRST_EMAIL_CAPABILITIES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/commercial-first-payment-packet.mjs",
+        "src/first-cash-canary-guard.mjs",
+        "src/first-cash-canary-packet-core.mjs",
+        "src/first-cash-canary-packet.mjs",
+        "src/first-cash-fulfillment-runtime.mjs",
+        "src/first-cash-prospect-completion.mjs",
+        "src/free-first-outreach-router.mjs",
+        "src/contact-validate-email.mjs",
+        "src/messaging-send-authorized-email.mjs",
+        "src/omnia-v9/integrations/providers/email-effect-primitives.mjs"
+      ],
+      "conceptTokens": [
+        "first",
+        "email"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/gamechanger-integration-bridge.mjs",
+      "heldBy": "origin/gpt/gamechanger-all-ideas-current-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "normalizeManualGamechangerSeed",
+        "buildGamechangerIntegrationQueue",
+        "GAMECHANGER_INTEGRATION_BRIDGE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gamechanger-for-life.mjs",
+        "src/gamechanger-frontier-learning-adapter.mjs",
+        "src/gamechanger-genesis-adapter.mjs",
+        "src/gamechanger-mesh.mjs",
+        "src/gamechanger-search-adapters.mjs",
+        "src/agent-model-routing-integration.mjs"
+      ],
+      "conceptTokens": [
+        "gamechanger",
+        "integration"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/gamechanger-integration-cognitive.mjs",
+      "heldBy": "origin/gpt/gamechanger-integration-bridge-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "augmentCognitiveReceiptWithGamechangerIntegration",
+        "GAMECHANGER_INTEGRATION_COGNITIVE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gamechanger-for-life.mjs",
+        "src/gamechanger-frontier-learning-adapter.mjs",
+        "src/gamechanger-genesis-adapter.mjs",
+        "src/gamechanger-mesh.mjs",
+        "src/gamechanger-search-adapters.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "src/cognitive-event-journal.mjs",
+        "src/cognitive-journal-layered-store.mjs",
+        "src/cognitive-journal-segments.mjs",
+        "src/event-horizon-cognitive-adapter.mjs",
+        "src/frontier-cognitive-admission.mjs",
+        "src/frontier-cognitive-fabric.mjs",
+        "src/genesis-cognitive-adapters.mjs",
+        "src/neural-exocortex-cognitive-binding.mjs",
+        "src/nullstar-cognitive-solvers.mjs",
+        "src/nullstar-cognitive-tasks.mjs",
+        "src/uber-socket-cognitive-backplane.mjs",
+        "src/uberbond-cognitive-adapters.mjs",
+        "src/uberbond-cognitive-bus.mjs",
+        "src/uberbond-cognitive-graph.mjs",
+        "src/uberbond-metacognitive-synthesis.mjs",
+        "src/ubermind-cognitive-exchange.mjs",
+        "src/wallbreaker-cognitive-reflex.mjs",
+        "src/whole-brain-cognitive-adapters.mjs"
+      ],
+      "conceptTokens": [
+        "gamechanger",
+        "integration",
+        "cognitive"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/gamechanger-mechanism-cognitive.mjs",
+      "heldBy": "origin/gpt/gamechanger-all-ideas-current-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "augmentCognitiveReceiptWithGamechangerMechanisms",
+        "GAMECHANGER_MECHANISM_COGNITIVE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gamechanger-for-life.mjs",
+        "src/gamechanger-frontier-learning-adapter.mjs",
+        "src/gamechanger-genesis-adapter.mjs",
+        "src/gamechanger-mesh.mjs",
+        "src/gamechanger-search-adapters.mjs",
+        "src/capability-mechanism-identity.mjs",
+        "src/frontier-mechanism-catalog.mjs",
+        "src/genesis-mechanism-compiler-core.mjs",
+        "src/genesis-mechanism-compiler.mjs",
+        "src/mechanism-lab.mjs",
+        "src/cognitive-event-journal.mjs",
+        "src/cognitive-journal-layered-store.mjs",
+        "src/cognitive-journal-segments.mjs",
+        "src/event-horizon-cognitive-adapter.mjs",
+        "src/frontier-cognitive-admission.mjs",
+        "src/frontier-cognitive-fabric.mjs",
+        "src/genesis-cognitive-adapters.mjs",
+        "src/neural-exocortex-cognitive-binding.mjs",
+        "src/nullstar-cognitive-solvers.mjs",
+        "src/nullstar-cognitive-tasks.mjs",
+        "src/uber-socket-cognitive-backplane.mjs",
+        "src/uberbond-cognitive-adapters.mjs",
+        "src/uberbond-cognitive-bus.mjs",
+        "src/uberbond-cognitive-graph.mjs",
+        "src/uberbond-metacognitive-synthesis.mjs",
+        "src/ubermind-cognitive-exchange.mjs",
+        "src/wallbreaker-cognitive-reflex.mjs",
+        "src/whole-brain-cognitive-adapters.mjs"
+      ],
+      "conceptTokens": [
+        "gamechanger",
+        "mechanism",
+        "cognitive"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/gamechanger-mechanism-pack.mjs",
+      "heldBy": "origin/gpt/gamechanger-all-ideas-current-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileGamechangerMechanismPack",
+        "GAMECHANGER_MECHANISM_PACK_VERSION",
+        "GAMECHANGER_MECHANISM_BINDINGS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gamechanger-for-life.mjs",
+        "src/gamechanger-frontier-learning-adapter.mjs",
+        "src/gamechanger-genesis-adapter.mjs",
+        "src/gamechanger-mesh.mjs",
+        "src/gamechanger-search-adapters.mjs",
+        "src/capability-mechanism-identity.mjs",
+        "src/frontier-mechanism-catalog.mjs",
+        "src/genesis-mechanism-compiler-core.mjs",
+        "src/genesis-mechanism-compiler.mjs",
+        "src/mechanism-lab.mjs"
+      ],
+      "conceptTokens": [
+        "gamechanger",
+        "mechanism"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/gamechanger-mechanism-runtime.mjs",
+      "heldBy": "origin/gpt/gamechanger-all-ideas-current-20260906",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "distillCapabilityProcedures",
+        "replayAuthorityEvents",
+        "evaluateSkillPolicyIntegrity",
+        "normalizeWorkspaceMetadata",
+        "authorizeSemanticEffect",
+        "advanceLatchedSafetyState",
+        "updateTrajectoryArchive",
+        "retrieveCapabilities",
+        "discoverAuthorizedCapabilities",
+        "mintEphemeralCredentialGrant",
+        "evaluateStagedReleaseGate",
+        "routeBrowserTask",
+        "planActiveMediaInspection",
+        "acceptSpeculativeExecution",
+        "routePurposeDeclaredSource",
+        "advanceContinualDevelopmentLoop",
+        "compileCommitmentPolicy",
+        "compileIncidentClock",
+        "authorizePurchaseIntent",
+        "calculateOutcomeBilling",
+        "reconcileExpectedUniverse",
+        "validateDomainAgentAdapter",
+        "updateCustomerSafetyState",
+        "deriveModelRiskEnvelope",
+        "decideEscalationEconomics",
+        "executeGamechangerMechanism",
+        "GAMECHANGER_MECHANISM_RUNTIME_VERSION",
+        "GAMECHANGER_MECHANISM_PRIMITIVES"
+      ],
+      "matchedExports": [
+        "retrieveCapabilities"
+      ],
+      "matchRatio": 0.036,
+      "successors": [
+        "src/capability-genome-runtime.mjs"
+      ],
+      "evidence": "1 of 28 named exports are defined in main"
+    },
+    {
+      "module": "src/genesis-mechanism-assimilation.mjs",
+      "heldBy": "origin/gpt/genesis-mechanism-assimilation-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "assimilateFrontierMechanism",
+        "buildMechanismAssimilationBatch",
+        "mechanismCandidatesFromGamechanger",
+        "GENESIS_MECHANISM_ASSIMILATION_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gamechanger-genesis-adapter.mjs",
+        "src/genesis-boundary-experiment.mjs",
+        "src/genesis-cognitive-adapters.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/genesis-evolution-deepening.mjs",
+        "src/genesis-evolution-engine.mjs",
+        "src/genesis-experiment-feasibility.mjs",
+        "src/genesis-final-frontier-evidence.mjs",
+        "src/genesis-final-frontier.mjs",
+        "src/genesis-for-life.mjs",
+        "src/genesis-frontier-deepening-evidence.mjs",
+        "src/genesis-implementation-evidence-v2.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/genesis-mechanism-compiler-core.mjs",
+        "src/genesis-mechanism-compiler.mjs",
+        "src/genesis-metabolism.mjs",
+        "src/genesis-ontology-deepening.mjs",
+        "src/genesis-ontology.mjs",
+        "src/genesis-scientist-deepening.mjs",
+        "src/genesis-scientist.mjs",
+        "src/genesis-self-improvement-bridge.mjs",
+        "src/genesis-sensing-cognition-evidence.mjs",
+        "src/genesis-sensing-cognition.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/genesis-world-resilience.mjs",
+        "src/perpetual-frontier-genesis.mjs",
+        "src/source-genesis.mjs",
+        "src/uber-genesis-foundry.mjs",
+        "src/uber-genesis-orchestrator.mjs",
+        "src/uberbond-genesis-reactivation.mjs",
+        "src/capability-mechanism-identity.mjs",
+        "src/frontier-mechanism-catalog.mjs",
+        "src/mechanism-lab.mjs",
+        "src/frontier-assimilation-tournament.mjs"
+      ],
+      "conceptTokens": [
+        "genesis",
+        "mechanism",
+        "assimilation"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/genesis-mechanism-donor-registry.mjs",
+      "heldBy": "origin/gpt/genesis-mechanism-assimilation-20260906",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "genesisMechanismDonors",
+        "genesisMechanismDonorRegistry",
+        "GENESIS_MECHANISM_DONOR_REGISTRY_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gamechanger-genesis-adapter.mjs",
+        "src/genesis-boundary-experiment.mjs",
+        "src/genesis-cognitive-adapters.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-economic-physics.mjs",
+        "src/genesis-evolution-deepening.mjs",
+        "src/genesis-evolution-engine.mjs",
+        "src/genesis-experiment-feasibility.mjs",
+        "src/genesis-final-frontier-evidence.mjs",
+        "src/genesis-final-frontier.mjs",
+        "src/genesis-for-life.mjs",
+        "src/genesis-frontier-deepening-evidence.mjs",
+        "src/genesis-implementation-evidence-v2.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/genesis-mechanism-compiler-core.mjs",
+        "src/genesis-mechanism-compiler.mjs",
+        "src/genesis-metabolism.mjs",
+        "src/genesis-ontology-deepening.mjs",
+        "src/genesis-ontology.mjs",
+        "src/genesis-scientist-deepening.mjs",
+        "src/genesis-scientist.mjs",
+        "src/genesis-self-improvement-bridge.mjs",
+        "src/genesis-sensing-cognition-evidence.mjs",
+        "src/genesis-sensing-cognition.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/genesis-venture-organism.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/genesis-world-resilience.mjs",
+        "src/perpetual-frontier-genesis.mjs",
+        "src/source-genesis.mjs",
+        "src/uber-genesis-foundry.mjs",
+        "src/uber-genesis-orchestrator.mjs",
+        "src/uberbond-genesis-reactivation.mjs",
+        "src/capability-mechanism-identity.mjs",
+        "src/frontier-mechanism-catalog.mjs",
+        "src/mechanism-lab.mjs",
+        "src/ai-access-opportunity-registry.mjs",
+        "src/market-signal-registry.mjs",
+        "src/open-model-registry-crawler.mjs",
+        "src/opportunity-registry.mjs",
+        "src/overnight/control/market-capability-registry.mjs",
+        "src/sending-domain-registry.mjs",
+        "src/sending-mailbox-registry.mjs",
+        "src/ubergrant-zero-cost-registry.mjs",
+        "src/uberoutbound-policy-registry.mjs",
+        "src/uberskills-registry.mjs"
+      ],
+      "conceptTokens": [
+        "genesis",
+        "mechanism",
+        "registry"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/inbound-runtime.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "createInboundOnlyRuntime"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/gmail-inbound.mjs",
+        "src/inbound-classify.mjs",
+        "src/inbound-feedback-kernel.mjs"
+      ],
+      "conceptTokens": [
+        "inbound"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/learning.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "buildAcquisitionLearning",
+        "createExperimentRecord",
+        "evaluateExperimentRecord",
+        "recordExperimentDecision",
+        "LEARNING_DIMENSIONS",
+        "LEARNING_METRICS",
+        "LearningError",
+        "LearningEngine"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/commercial-learning.mjs",
+        "src/frontier-learning-autopilot.mjs",
+        "src/frontier-learning-job-handler.mjs",
+        "src/frontier-learning-runtime.mjs",
+        "src/gamechanger-frontier-learning-adapter.mjs"
+      ],
+      "conceptTokens": [
+        "learning"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/life-sensorium.mjs",
+      "heldBy": "origin/sol/life-sensorium-current-20260911",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "normalizeSensorSignal",
+        "fuseLifeState",
+        "reconstructLifeTimeline",
+        "buildSensoriumCorrection",
+        "measureSensoriumCoverage",
+        "LIFE_SENSORIUM_VERSION",
+        "SENSOR_KINDS",
+        "DEFAULT_LIFE_STATE_PROTOTYPES"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/meta-volition-engine.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileMetaVolition",
+        "compareMetaVolition",
+        "META_VOLITION_ENGINE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/volitional-integrity.mjs"
+      ],
+      "conceptTokens": [
+        "volition"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/million-wormhole-early-exit-prior.mjs",
+      "heldBy": "origin/million-wormhole-tier2-v2",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "compileEarlyExitMillionWormholePriors",
+        "MILLION_WORMHOLE_EARLY_EXIT_PRIOR_VERSION"
+      ],
+      "matchedExports": [
+        "MILLION_WORMHOLE_EARLY_EXIT_PRIOR_VERSION"
+      ],
+      "matchRatio": 0.5,
+      "successors": [
+        "src/million-wormhole-compiled-prior.mjs"
+      ],
+      "evidence": "1 of 2 named exports are defined in main"
+    },
+    {
+      "module": "src/model-adaptation-lifecycle.mjs",
+      "heldBy": "origin/sol/c16-model-adaptation-lifecycle-20260909",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileModelAdaptationPlan",
+        "evaluateAdaptedServingArtifact",
+        "MODEL_ADAPTATION_LIFECYCLE_VERSION",
+        "MODEL_ADAPTATION_METHODS",
+        "ADAPTATION_PRIOR_STAGES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/agent-model-executor-factory.mjs",
+        "src/agent-model-failover.mjs",
+        "src/agent-model-router.mjs",
+        "src/agent-model-routing-config.mjs",
+        "src/agent-model-routing-integration.mjs",
+        "src/business-model-fitness.mjs",
+        "src/frontier-model-admission-proof.mjs",
+        "src/frontier-model-team.mjs",
+        "src/living-self-model.mjs",
+        "src/model-adaptation-admission.mjs",
+        "src/model-failure-map.mjs",
+        "src/model-foundry-control-plane.mjs",
+        "src/model-provider-doctor.mjs",
+        "src/model-provider-runtime-evidence.mjs",
+        "src/model-route-request.mjs",
+        "src/open-model-foundry.mjs",
+        "src/open-model-registry-crawler.mjs",
+        "src/open-model-runtime-executor.mjs",
+        "src/open-model-source-coverage.mjs",
+        "src/open-model-universe.mjs",
+        "src/openai-conversation-model-adapter.mjs",
+        "src/personal-civilization-model-graph.mjs"
+      ],
+      "conceptTokens": [
+        "model",
+        "adaptation"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/ontological-crisis-protocol.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "traceOntologicalCrisis",
+        "compileOntologyRebuild",
+        "ONTOLOGICAL_CRISIS_PROTOCOL_VERSION",
+        "CRISIS_NODE_TYPES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/omega-private-lab-protocol.mjs",
+        "src/uberattention-protocol.mjs"
+      ],
+      "conceptTokens": [
+        "protocol"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/opportunity-hunter.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "createOpportunityAdapters",
+        "huntOpportunitySignals",
+        "buildCommercialIntelligenceRecord",
+        "assessActivation",
+        "OPPORTUNITY_ADAPTER_KINDS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/ai-access-opportunity-registry.mjs",
+        "src/commercial-opportunity-catalog.mjs",
+        "src/opportunity-factory.mjs",
+        "src/opportunity-registry.mjs",
+        "src/opportunity-tournament.mjs",
+        "src/relationship-opportunity-graph.mjs",
+        "src/thread-opportunity-universe.mjs"
+      ],
+      "conceptTokens": [
+        "opportunity"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/personal-civilization-organs.mjs",
+      "heldBy": "origin/gpt/personal-civilization-kernel-20260907",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compilePersonalCounterfactualUniverse",
+        "compileOsteogenesisPlan",
+        "compilePersonalTimeTelescope",
+        "compileIdentityEvolutionHypothesis",
+        "compileSerendipityPortfolio",
+        "compileLifeGamechangerSignal",
+        "compileLifeGenesisPopulation",
+        "compileLifeCompressionModel",
+        "PERSONAL_CIVILIZATION_ORGANS_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/n-of-1-personal-science.mjs",
+        "src/personal-civilization-capture.mjs",
+        "src/personal-civilization-core.mjs",
+        "src/personal-civilization-decision-loop.mjs",
+        "src/personal-civilization-job-handler.mjs",
+        "src/personal-civilization-kernel.mjs",
+        "src/personal-civilization-model-graph.mjs",
+        "src/personal-civilization-possibility.mjs",
+        "src/personal-civilization-private-operator.mjs",
+        "src/personal-civilization-scientific-experiment.mjs",
+        "src/temporal-civilization.mjs"
+      ],
+      "conceptTokens": [
+        "personal",
+        "civilization"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/policy-reason-codes.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "isCanonicalReasonCode",
+        "assertCanonicalReasonCode",
+        "canonicalizeContactReason",
+        "POLICY_REASON_CODES_VERSION",
+        "REASON_CODES",
+        "UnknownReasonCodeError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/command-center-client-policy.mjs",
+        "src/free-mission-clock-policy.mjs",
+        "src/omega-policy-meta-learner-v3.mjs",
+        "src/omega-policy-meta-learner.mjs",
+        "src/omnia-v9/policy-bundle.mjs",
+        "src/overnight/distribution/policy.mjs",
+        "src/self-maintainer-continuation-policy.mjs",
+        "src/uberdoso-delivery-policy.mjs",
+        "src/uberoutbound-policy-registry.mjs",
+        "src/frontier-reasoning-runtime.mjs"
+      ],
+      "conceptTokens": [
+        "policy",
+        "reason"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/portfolio-allocator.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "portfolioScore",
+        "isLaneProven",
+        "allocatePortfolio",
+        "buildMonthlyCapacityPlan"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/capital-allocator.mjs",
+        "src/economic-feedback-allocator.mjs"
+      ],
+      "conceptTokens": [
+        "allocator"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/postgres-backup-restore-verifier.mjs",
+      "heldBy": "origin/sol/c17-runtime-transition-current-main-20260909",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "postgresBackupRestoreVerificationPreimage",
+        "verifyIndependentPostgresBackupRestoreReceiptIntegrity",
+        "independentlyVerifyPostgresBackupRestoreReceipt",
+        "POSTGRES_BACKUP_RESTORE_VERIFIER_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/database-query-postgres.mjs",
+        "src/postgres-backup-restore-pg-adapter.mjs",
+        "src/postgres-backup-restore-receipt.mjs",
+        "src/postgres-backup-restore-runner.mjs",
+        "src/agent-sandbox-verifier.mjs",
+        "src/frontier-artifact-verifier.mjs",
+        "src/github-actions-oidc-verifier.mjs",
+        "src/omega-independent-csp-verifier.mjs",
+        "src/owned-target-security-verifier.mjs",
+        "src/payment-provider-verifier-dispatch.mjs"
+      ],
+      "conceptTokens": [
+        "postgres",
+        "backup",
+        "restore",
+        "verifier"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/preference-provenance.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "recordPreference",
+        "tracePreferenceLineage",
+        "presentPreferencePrecedence",
+        "PREFERENCE_PROVENANCE_VERSION",
+        "PREFERENCE_ORIGINS"
+      ],
+      "matchedExports": [
+        "PREFERENCE_ORIGINS"
+      ],
+      "matchRatio": 0.2,
+      "successors": [
+        "src/living-self-model.mjs"
+      ],
+      "evidence": "1 of 5 named exports are defined in main"
+    },
+    {
+      "module": "src/project-continuity-contract.mjs",
+      "heldBy": "origin/gpt/uberbond-brain-distribution-os-20260828",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "validateProjectBrain",
+        "buildContinuationPacket",
+        "reconcileProjectCheckpoint",
+        "PROJECT_BRAIN_SCHEMA_VERSION",
+        "CANONICAL_OBJECTIVE",
+        "OPTIMIZATION_TARGET"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/chatgpt-project-importer.mjs",
+        "src/context-projection.mjs",
+        "src/uber-socket-project-mesh.mjs",
+        "src/century-grade-continuity.mjs",
+        "src/wessam-continuity.mjs"
+      ],
+      "conceptTokens": [
+        "project",
+        "continuity"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/prospect-evidence.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "evidenceStrength",
+        "isKnownEvidenceClass",
+        "isSendableEvidenceClass",
+        "cappedConfidence",
+        "PROSPECT_EVIDENCE_POLICY_VERSION",
+        "EVIDENCE_STRENGTH",
+        "NEVER_SENDABLE_EVIDENCE",
+        "CONFIDENCE_CEILING"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/first-cash-prospect-completion.mjs",
+        "src/prospect-enrichment-budget-gate.mjs",
+        "src/prospect-enrichment-planner.mjs",
+        "src/prospect-evidence-reconciliation.mjs",
+        "src/prospect-identity-ledger.mjs",
+        "src/prospect-identity-repository.mjs",
+        "src/prospect-import.mjs",
+        "src/prospect-qualification-gate.mjs",
+        "src/prospect-qualification-pipeline.mjs",
+        "src/prospect-qualification.mjs",
+        "src/uberprospect-forge.mjs",
+        "src/agent-mesh-activation-evidence.mjs",
+        "src/benchmark-evidence-ledger.mjs",
+        "src/c21-dimension-evidence-producer.mjs",
+        "src/c21-evidence-factory.mjs",
+        "src/cost-aware-public-evidence-tier.mjs",
+        "src/coverage-state-evidence-integrity.mjs",
+        "src/evidence-reference-integrity.mjs",
+        "src/evidence-to-content-compiler.mjs",
+        "src/genesis-economic-physics-evidence.mjs",
+        "src/genesis-final-frontier-evidence.mjs",
+        "src/genesis-frontier-deepening-evidence.mjs",
+        "src/genesis-implementation-evidence-v2.mjs",
+        "src/genesis-implementation-evidence.mjs",
+        "src/genesis-sensing-cognition-evidence.mjs",
+        "src/genesis-venture-organism-evidence.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/kilimanjaro-evidence.mjs",
+        "src/model-provider-runtime-evidence.mjs",
+        "src/nullstar-omega-evidence-reuse.mjs",
+        "src/omega-controlled-intent-evidence.mjs",
+        "src/omega-private-evidence-gate.mjs",
+        "src/omega-private-evidence-lab.mjs",
+        "src/omnia-v9/integrations/external-effect-evidence-store.mjs",
+        "src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs",
+        "src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs",
+        "src/provider-cut-evidence-overlay.mjs",
+        "src/remaining-cut-evidence-overlay.mjs",
+        "src/remaining-cut-evidence.mjs",
+        "src/runtime-cut-evidence-overlay.mjs",
+        "src/runtime-evidence-attestation.mjs",
+        "src/sandwich-evidence-binding.mjs",
+        "src/semantic-enforcement-evidence.mjs",
+        "src/semantic-test-title-evidence.mjs",
+        "src/system-level-asi-evidence.mjs",
+        "src/uberlaunch-runtime-evidence.mjs"
+      ],
+      "conceptTokens": [
+        "prospect",
+        "evidence"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/prospect-intelligence.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "cappedEvidenceClass",
+        "compileProspectAdapter",
+        "compileCompanyCandidate",
+        "compilePersonCandidate",
+        "compileEnrichmentObservation",
+        "reconcileEnrichmentField",
+        "planEnrichmentWaterfall",
+        "buildProspectEvidenceBundle",
+        "PROSPECT_INTELLIGENCE_POLICY_VERSION",
+        "PROSPECT_SOURCE_TYPES",
+        "PERSON_FIELDS",
+        "COMPANY_FIELDS",
+        "SOURCE_EVIDENCE_CEILING",
+        "ADAPTER_KINDS"
+      ],
+      "matchedExports": [
+        "planEnrichmentWaterfall",
+        "buildProspectEvidenceBundle",
+        "PROSPECT_SOURCE_TYPES"
+      ],
+      "matchRatio": 0.214,
+      "successors": [
+        "src/prospect-enrichment-planner.mjs",
+        "src/prospect-evidence-reconciliation.mjs"
+      ],
+      "evidence": "3 of 14 named exports are defined in main"
+    },
+    {
+      "module": "src/prospect-supply.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "validateProspectCandidate",
+        "replenishProspectQueue",
+        "nextSupplyMilestone",
+        "PROSPECT_SUPPLY_MILESTONES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/first-cash-prospect-completion.mjs",
+        "src/prospect-enrichment-budget-gate.mjs",
+        "src/prospect-enrichment-planner.mjs",
+        "src/prospect-evidence-reconciliation.mjs",
+        "src/prospect-identity-ledger.mjs",
+        "src/prospect-identity-repository.mjs",
+        "src/prospect-import.mjs",
+        "src/prospect-qualification-gate.mjs",
+        "src/prospect-qualification-pipeline.mjs",
+        "src/prospect-qualification.mjs",
+        "src/uberprospect-forge.mjs"
+      ],
+      "conceptTokens": [
+        "prospect"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/qualification.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "classifyCrawlFailure",
+        "crawlErrorRecord",
+        "assessCrawlQuality",
+        "validateFindingEvidence",
+        "validateAuditEvidence",
+        "noUsableCrawlError",
+        "CrawlProcessingError"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/prospect-qualification-gate.mjs",
+        "src/prospect-qualification-pipeline.mjs",
+        "src/prospect-qualification.mjs"
+      ],
+      "conceptTokens": [
+        "qualification"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/recursive-governance-lineage.mjs",
+      "heldBy": "origin/sol/c26-capability-scaled-security-20260909",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "verifyRecursiveGovernanceLineage",
+        "RECURSIVE_GOVERNANCE_LINEAGE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/recursive-governance-principals.mjs",
+        "src/recursive-governance-security.mjs",
+        "src/recursive-improvement-retention.mjs",
+        "src/recursive-revocation-graph.mjs",
+        "src/constitutional-governance.mjs",
+        "src/outreach-governance.mjs"
+      ],
+      "conceptTokens": [
+        "recursive",
+        "governance"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/reflexivity-engine.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "assessReflexivity",
+        "compileReflexiveScenarios",
+        "forecastReflexivityGate",
+        "REFLEXIVITY_ENGINE_VERSION",
+        "REFLEXIVITY_CLASSES"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/replies.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "visibleReplyText",
+        "classifyReplyDeterministic",
+        "classifyReplyWithFallback",
+        "extractMailbox",
+        "matchReplyToProspect",
+        "responseDraftFor",
+        "validateResponseDraft",
+        "suppressionPolicy",
+        "prospectReplyPatch",
+        "REPLY_LABELS"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/reply-classifier.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "classifyCanonReply",
+        "cancelsFollowups",
+        "applyReplyClassification",
+        "CANONICAL_REPLY_CLASSES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/uberreply-four-offer-genome.mjs",
+        "src/uberreply-tournament.mjs"
+      ],
+      "conceptTokens": [
+        "reply"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/research-seed.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "validateResearchPackage",
+        "listResearchSeedActivationStatus"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/native-research-security-adapters.mjs",
+        "src/pre-future-research.mjs",
+        "src/public-research-adapter-mesh.mjs",
+        "src/uberoutbound-research-import.mjs"
+      ],
+      "conceptTokens": [
+        "research"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/reserved-domains.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "ABSENT__NO_SUCCESSOR_FOUND",
+      "exports": [
+        "isReservedDomain",
+        "assertNotReservedOutsideSimulation"
+      ],
+      "matchedExports": [],
+      "successors": [],
+      "evidence": "no named export and no distinctive filename token appears in main src"
+    },
+    {
+      "module": "src/revenue-os.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "opportunityIdempotencyKey",
+        "scoreOpportunity",
+        "assignExperimentVariant",
+        "evaluateOpportunityPolicy",
+        "buildOwnerGate",
+        "tenOfTenReadiness",
+        "REVENUE_OS_POLICY_VERSION",
+        "REVENUE_OS_SCORE_VERSION",
+        "SUPPORTED_SERVICE_LANES",
+        "OWNER_GATE_TYPES",
+        "OWNER_GATE_MIN_EXPECTED_VALUE_CENTS",
+        "OWNER_GATE_MAX_OWNER_MINUTES",
+        "OwnerGatePolicyError"
+      ],
+      "matchedExports": [
+        "scoreOpportunity"
+      ],
+      "matchRatio": 0.077,
+      "successors": [
+        "src/opportunity-registry.mjs"
+      ],
+      "evidence": "1 of 13 named exports are defined in main"
+    },
+    {
+      "module": "src/scheduled-workers.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "scheduledWorkerPlan",
+        "scheduledWorkerPreflight",
+        "safeWorkerLogger",
+        "runScheduledWorker",
+        "SCHEDULED_WORKER_MODES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/agent-autonomy-scheduled-run.mjs"
+      ],
+      "conceptTokens": [
+        "scheduled"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/self-completion-attractor.mjs",
+      "heldBy": "origin/sol/sovereign-expansion-kernel-20260910",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "compileSelfCompletionAttractor",
+        "compareSelfCompletionStates",
+        "SELF_COMPLETION_ATTRACTOR_VERSION",
+        "GAP_STATES",
+        "CLOSURE_CLASSES"
+      ],
+      "matchedExports": [
+        "CLOSURE_CLASSES"
+      ],
+      "matchRatio": 0.2,
+      "successors": [
+        "src/frontier-capability-closure-router.mjs"
+      ],
+      "evidence": "1 of 5 named exports are defined in main"
+    },
+    {
+      "module": "src/send-eligibility.mjs",
+      "heldBy": "origin/claude/canon-v3-commercial-activation",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "evaluateCanonSendEligibility",
+        "resolveCanonSendCandidate"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/relay-deployment-eligibility.mjs"
+      ],
+      "conceptTokens": [
+        "eligibility"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/service-sku-compiler.mjs",
+      "heldBy": "origin/claude/uberbond-kilimanjaro-closure-o43pyu",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "compileServiceSku",
+        "compileServicePortfolio",
+        "SERVICE_SKU_POLICY_VERSION",
+        "SERVICE_SKU_ZERO_EFFECTS"
+      ],
+      "matchedExports": [
+        "compileServiceSku",
+        "SERVICE_SKU_POLICY_VERSION"
+      ],
+      "matchRatio": 0.5,
+      "successors": [
+        "src/service-sku.mjs"
+      ],
+      "evidence": "2 of 4 named exports are defined in main"
+    },
+    {
+      "module": "src/sovereign-autonomy-forge.mjs",
+      "heldBy": "origin/sol/sovereign-autonomy-forge-20260909",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "selectSovereignForgeProvider",
+        "parseRuntimeReleaseReceipt",
+        "compilePendingForgeDecision",
+        "buildLocalMergeAdmissionEnvelope",
+        "newPendingForgeState",
+        "SOVEREIGN_AUTONOMY_FORGE_POLICY_VERSION",
+        "RUNTIME_RELEASE_RECEIPT_SCHEMA",
+        "FORGE_STATE_SCHEMA"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/compute-sovereignty-capacity.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/institutional-financial-sovereignty.mjs",
+        "src/inter-sovereign.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/sovereign-bootstrap-readiness.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/sovereign-cut-set-audit.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/sovereign-expansion-kernel.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/sovereign-institutional-harness-hardening.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/sovereign-local-promotion.mjs",
+        "src/sovereign-money-machine-proof.mjs",
+        "src/sovereign-native-local-worker.mjs",
+        "src/sovereign-privacy-firewall.mjs",
+        "src/sovereign-release-handoff.mjs",
+        "src/sovereign-revenue-runtime.mjs",
+        "src/sovereign-root-recovery.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/uber-sovereign-stack.mjs",
+        "src/uber-sovereign-substrate.mjs",
+        "src/ubercloud-sovereign-fabric.mjs",
+        "src/agent-autonomy-job.mjs",
+        "src/agent-autonomy-loop.mjs",
+        "src/agent-autonomy-occurrence.mjs",
+        "src/agent-autonomy-pump.mjs",
+        "src/agent-autonomy-receipt-ledger.mjs",
+        "src/agent-autonomy-relay-adapter.mjs",
+        "src/agent-autonomy-scheduled-run.mjs",
+        "src/agent-autonomy-scheduler.mjs",
+        "src/agent-autonomy-store.mjs",
+        "src/autonomy-command-center-control.mjs",
+        "src/autonomy-command-center-status.mjs",
+        "src/uberprospect-forge.mjs"
+      ],
+      "conceptTokens": [
+        "sovereign",
+        "autonomy",
+        "forge"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/sovereign-continuum-frontier.mjs",
+      "heldBy": "origin/feat/sovereign-continuum-frontier-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileSovereignContinuumFrontierDirective",
+        "compileSovereignContinuumFrontierTask",
+        "SOVEREIGN_CONTINUUM_FRONTIER_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/compute-sovereignty-capacity.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/institutional-financial-sovereignty.mjs",
+        "src/inter-sovereign.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/sovereign-bootstrap-readiness.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/sovereign-cut-set-audit.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/sovereign-expansion-kernel.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/sovereign-institutional-harness-hardening.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/sovereign-local-promotion.mjs",
+        "src/sovereign-money-machine-proof.mjs",
+        "src/sovereign-native-local-worker.mjs",
+        "src/sovereign-privacy-firewall.mjs",
+        "src/sovereign-release-handoff.mjs",
+        "src/sovereign-revenue-runtime.mjs",
+        "src/sovereign-root-recovery.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/uber-sovereign-stack.mjs",
+        "src/uber-sovereign-substrate.mjs",
+        "src/ubercloud-sovereign-fabric.mjs",
+        "src/autonomous-frontier-intelligence.mjs",
+        "src/frontier-absorption-engine.mjs",
+        "src/frontier-absorption-proof.mjs",
+        "src/frontier-artifact-verifier.mjs",
+        "src/frontier-assimilation-tournament.mjs",
+        "src/frontier-callability-provenance.mjs",
+        "src/frontier-capability-closure-router.mjs",
+        "src/frontier-capability-fusion.mjs",
+        "src/frontier-capability-harvest.mjs",
+        "src/frontier-cognitive-admission.mjs",
+        "src/frontier-cognitive-fabric.mjs",
+        "src/frontier-context-spine.mjs",
+        "src/frontier-council-runtime.mjs",
+        "src/frontier-intelligence-foundry.mjs",
+        "src/frontier-intelligence-neural-bridge.mjs",
+        "src/frontier-learning-autopilot.mjs",
+        "src/frontier-learning-job-handler.mjs",
+        "src/frontier-learning-runtime.mjs",
+        "src/frontier-loop-proof.mjs",
+        "src/frontier-mechanism-catalog.mjs",
+        "src/frontier-model-admission-proof.mjs",
+        "src/frontier-model-team.mjs",
+        "src/frontier-operator.mjs",
+        "src/frontier-reasoning-runtime.mjs",
+        "src/frontier-replacement-tournament-proof.mjs",
+        "src/frontier-routing-revalidation-proof.mjs",
+        "src/frontier-simulation-executor.mjs",
+        "src/frontier-source-coverage.mjs",
+        "src/frontier-task-tournament.mjs",
+        "src/frontier-worker-compiler.mjs",
+        "src/gamechanger-frontier-learning-adapter.mjs",
+        "src/genesis-final-frontier-evidence.mjs",
+        "src/genesis-final-frontier.mjs",
+        "src/genesis-frontier-deepening-evidence.mjs",
+        "src/native-frontier-capability-market.mjs",
+        "src/orchestration-frontier.mjs",
+        "src/overnight/control/automation-acquisition-frontier.mjs",
+        "src/perpetual-frontier-genesis.mjs",
+        "src/uberreach-scale-frontier.mjs",
+        "src/zero-day-frontier-radar.mjs"
+      ],
+      "conceptTokens": [
+        "sovereign",
+        "frontier"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/sovereign-coverage-matrix-base.mjs",
+      "heldBy": "origin/sol/coverage-enforcement-test-admission-20260910",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "canonicalConceptId",
+        "slugify",
+        "evidenceTokens",
+        "evidencePhrases",
+        "locateEvidence",
+        "verifyImplementationManifest",
+        "mergeDeclaredEvidence",
+        "classifyTerminalState",
+        "classifyState",
+        "compileCoverageMatrix",
+        "COVERAGE_MATRIX_VERSION",
+        "COVERAGE_STATES",
+        "ALIAS_CLASSES",
+        "EXTERNAL_GATES",
+        "STRUCTURAL_CLASSES",
+        "FIELD_CLASSES",
+        "DONOR_CLASSES",
+        "REFERENCE_CLASSES",
+        "LAW_CLASSES",
+        "AUTHORITY_CLASSES",
+        "PRIVACY_CLASSES"
+      ],
+      "matchedExports": [
+        "canonicalConceptId",
+        "slugify",
+        "evidenceTokens",
+        "evidencePhrases",
+        "locateEvidence",
+        "verifyImplementationManifest",
+        "mergeDeclaredEvidence",
+        "classifyTerminalState",
+        "classifyState",
+        "compileCoverageMatrix",
+        "COVERAGE_MATRIX_VERSION",
+        "COVERAGE_STATES",
+        "ALIAS_CLASSES",
+        "EXTERNAL_GATES",
+        "STRUCTURAL_CLASSES",
+        "FIELD_CLASSES",
+        "DONOR_CLASSES",
+        "REFERENCE_CLASSES",
+        "LAW_CLASSES",
+        "AUTHORITY_CLASSES",
+        "PRIVACY_CLASSES"
+      ],
+      "matchRatio": 1,
+      "successors": [
+        "src/sovereign-coverage-matrix.mjs",
+        "src/personal-civilization-core.mjs"
+      ],
+      "evidence": "21 of 21 named exports are defined in main"
+    },
+    {
+      "module": "src/sovereign-runtime-graduation.mjs",
+      "heldBy": "origin/work/sovereign-graduation-observer-20260910",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "exactOfflineSignerReceipt",
+        "exactReleaseCourierReceipt",
+        "compileSovereignRuntimeGraduation",
+        "exactSovereignRuntimeGraduationReceipt",
+        "SOVEREIGN_RUNTIME_GRADUATION_VERSION",
+        "SOVEREIGN_RUNTIME_REHEARSAL_STATUS"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/compute-sovereignty-capacity.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/institutional-financial-sovereignty.mjs",
+        "src/inter-sovereign.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/sovereign-bootstrap-readiness.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/sovereign-cut-set-audit.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/sovereign-expansion-kernel.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/sovereign-institutional-harness-hardening.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/sovereign-local-promotion.mjs",
+        "src/sovereign-money-machine-proof.mjs",
+        "src/sovereign-native-local-worker.mjs",
+        "src/sovereign-privacy-firewall.mjs",
+        "src/sovereign-release-handoff.mjs",
+        "src/sovereign-revenue-runtime.mjs",
+        "src/sovereign-root-recovery.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/uber-sovereign-stack.mjs",
+        "src/uber-sovereign-substrate.mjs",
+        "src/ubercloud-sovereign-fabric.mjs"
+      ],
+      "conceptTokens": [
+        "sovereign"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/sovereign-salience-router.mjs",
+      "heldBy": "origin/sol/salience-router-current-20260911",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "routeSalience",
+        "routeSalienceBatch",
+        "SOVEREIGN_SALIENCE_ROUTER_VERSION",
+        "INTERVENTION_MODES",
+        "FOUNDER_SALIENCE_RULES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/compute-sovereignty-capacity.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/institutional-financial-sovereignty.mjs",
+        "src/inter-sovereign.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/sovereign-bootstrap-readiness.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/sovereign-cut-set-audit.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/sovereign-expansion-kernel.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/sovereign-institutional-harness-hardening.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/sovereign-local-promotion.mjs",
+        "src/sovereign-money-machine-proof.mjs",
+        "src/sovereign-native-local-worker.mjs",
+        "src/sovereign-privacy-firewall.mjs",
+        "src/sovereign-release-handoff.mjs",
+        "src/sovereign-revenue-runtime.mjs",
+        "src/sovereign-root-recovery.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/uber-sovereign-stack.mjs",
+        "src/uber-sovereign-substrate.mjs",
+        "src/ubercloud-sovereign-fabric.mjs",
+        "src/agent-model-router.mjs",
+        "src/external-proof-router.mjs",
+        "src/free-first-outreach-router.mjs",
+        "src/frontier-capability-closure-router.mjs",
+        "src/programmatic-fulfillment-router.mjs",
+        "src/uber-socket-app-peer-router.mjs"
+      ],
+      "conceptTokens": [
+        "sovereign",
+        "salience",
+        "router"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/strategic-reality-engine.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "compileStrategicReality",
+        "assessStrategicPlan",
+        "strategicBlindspotProbes",
+        "STRATEGIC_REALITY_ENGINE_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/current-reality-freeze.mjs",
+        "src/embodied-reality.mjs",
+        "src/external-capability-reality-safe.mjs",
+        "src/external-reality-action-law.mjs",
+        "src/nullstar-omega-reality-connection.mjs",
+        "src/omnia-v9/integrations/reality-shadow-cedar.mjs",
+        "src/omnia-v9/integrations/reality-shadow-dataset.mjs",
+        "src/omnia-v9/integrations/reality-shadow-evaluator.mjs",
+        "src/reality-calibration-ledger.mjs"
+      ],
+      "conceptTokens": [
+        "reality"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/substrate-liberation.mjs",
+      "heldBy": "origin/sol/sovereign-expansion-kernel-20260910",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "definePhysicalFunction",
+        "evaluateSubstrateCandidate",
+        "buildSubstrateTournament",
+        "buildSubstrateMigrationPlan",
+        "SUBSTRATE_LIBERATION_VERSION",
+        "SUBSTRATE_CLASSES",
+        "SUBSTRATE_EVIDENCE_STATES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/uber-sovereign-substrate.mjs"
+      ],
+      "conceptTokens": [
+        "substrate"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/uber-orchestration-singularity.mjs",
+      "heldBy": "origin/feat/uber-orchestration-singularity-20260911",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "compileUberOrchestrationPlan",
+        "inspectUberOrchestrationIntegrity",
+        "UBER_ORCHESTRATION_SINGULARITY_VERSION",
+        "UBER_ORCHESTRATION_DEPENDENCIES",
+        "UBER_ORCHESTRATION_PHASES"
+      ],
+      "matchedExports": [
+        "compileUberOrchestrationPlan",
+        "inspectUberOrchestrationIntegrity",
+        "UBER_ORCHESTRATION_DEPENDENCIES",
+        "UBER_ORCHESTRATION_PHASES"
+      ],
+      "matchRatio": 0.8,
+      "successors": [
+        "src/uber-orchestration-control-plane.mjs"
+      ],
+      "evidence": "4 of 5 named exports are defined in main"
+    },
+    {
+      "module": "src/uberbond-repository-deep-atlas-bounded.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "buildUberBondRepositoryDeepAtlas",
+        "UBERBOND_REPOSITORY_DEEP_ATLAS_BOUNDED_POLICY_VERSION"
+      ],
+      "matchedExports": [
+        "buildUberBondRepositoryDeepAtlas"
+      ],
+      "matchRatio": 0.5,
+      "successors": [
+        "src/uberbond-repository-deep-atlas.mjs"
+      ],
+      "evidence": "1 of 2 named exports are defined in main"
+    },
+    {
+      "module": "src/ubercel-sovereign-release-adapter.mjs",
+      "heldBy": "origin/feat/ubercel-signed-release-runtime-20260912",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "createUbercelSovereignReleaseExecutor",
+        "UBERCEL_SOVEREIGN_RELEASE_ADAPTER_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/ubercel-deployment-actuator.mjs",
+        "src/ubercel-deployment-control-plane.mjs",
+        "src/ubercel-uberlit-linux-adapter.mjs",
+        "src/uberocean-ubercel-bridge.mjs",
+        "src/compute-sovereignty-capacity.mjs",
+        "src/compute-sovereignty.mjs",
+        "src/geographic-sovereignty-engine.mjs",
+        "src/institutional-financial-sovereignty.mjs",
+        "src/inter-sovereign.mjs",
+        "src/memory-sovereignty.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/salience-sovereignty.mjs",
+        "src/sovereign-bootstrap-readiness.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/sovereign-coverage-content-digest.mjs",
+        "src/sovereign-coverage-denominator.mjs",
+        "src/sovereign-coverage-matrix.mjs",
+        "src/sovereign-cut-set-audit.mjs",
+        "src/sovereign-decision-packet.mjs",
+        "src/sovereign-expansion-kernel.mjs",
+        "src/sovereign-founder-console.mjs",
+        "src/sovereign-founder-private-gateway.mjs",
+        "src/sovereign-institutional-harness-hardening.mjs",
+        "src/sovereign-institutional-harness.mjs",
+        "src/sovereign-local-promotion.mjs",
+        "src/sovereign-money-machine-proof.mjs",
+        "src/sovereign-native-local-worker.mjs",
+        "src/sovereign-privacy-firewall.mjs",
+        "src/sovereign-release-handoff.mjs",
+        "src/sovereign-revenue-runtime.mjs",
+        "src/sovereign-root-recovery.mjs",
+        "src/sovereignty-type-system.mjs",
+        "src/uber-sovereign-stack.mjs",
+        "src/uber-sovereign-substrate.mjs",
+        "src/ubercloud-sovereign-fabric.mjs"
+      ],
+      "conceptTokens": [
+        "ubercel",
+        "sovereign",
+        "release"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/universal-ignorance-map.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "buildIgnoranceMap",
+        "mineUnknownUnknownProbes",
+        "prioritizeIgnoranceProbes",
+        "UNIVERSAL_IGNORANCE_MAP_VERSION"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/uberreach-universal-transport.mjs",
+        "src/universal-wealth-engine.mjs",
+        "src/universal-wealth-job-handler.mjs",
+        "src/universal-wealth-overdetermination-job-handler.mjs"
+      ],
+      "conceptTokens": [
+        "universal"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/verified-payments.mjs",
+      "heldBy": "origin/automation/full-commercial-loop",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "listVerifiedSignals"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/payments.mjs"
+      ],
+      "conceptTokens": [
+        "payments"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    },
+    {
+      "module": "src/volitional-integrity-engine.mjs",
+      "heldBy": "origin/claude/issue-463-forecast-adversarial-ensemble",
+      "verdict": "SUPERSEDED__EXPORT_LEVEL",
+      "exports": [
+        "assessVolitionalIntegrity",
+        "detectPreferenceFeedbackLoop",
+        "presentWillVeto",
+        "VOLITIONAL_INTEGRITY_ENGINE_VERSION"
+      ],
+      "matchedExports": [
+        "assessVolitionalIntegrity",
+        "detectPreferenceFeedbackLoop"
+      ],
+      "matchRatio": 0.5,
+      "successors": [
+        "src/volitional-integrity.mjs"
+      ],
+      "evidence": "2 of 4 named exports are defined in main"
+    },
+    {
+      "module": "src/world-resource-fabric.mjs",
+      "heldBy": "origin/sol/c15-world-resource-fabric-20260909",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "exports": [
+        "normalizeWorldResource",
+        "projectWorldResourceToCapability",
+        "admitWorldResource",
+        "chooseWorldResourceSubstitutes",
+        "WORLD_RESOURCE_FABRIC_VERSION",
+        "WORLD_RESOURCE_TYPES",
+        "EXECUTABLE_RESOURCE_TYPES",
+        "HUMAN_RESOURCE_TYPES"
+      ],
+      "matchedExports": [],
+      "successors": [
+        "src/capability-world-harvester.mjs",
+        "src/genesis-world-resilience-evidence.mjs",
+        "src/genesis-world-resilience.mjs",
+        "src/operational-world-resource-admission.mjs",
+        "src/world-brain-field-mission.mjs",
+        "src/world-intelligence.mjs",
+        "src/world-resource-observed-value.mjs",
+        "src/resource-efficiency.mjs",
+        "src/frontier-cognitive-fabric.mjs",
+        "src/omega-sovereign-execution-fabric.mjs",
+        "src/outreach-zero-barrier-fabric.mjs",
+        "src/sovereign-compute-cell-fabric.mjs",
+        "src/sovereign-context-fabric.mjs",
+        "src/uber-socket-shared-content-fabric.mjs",
+        "src/ubercloud-sovereign-fabric.mjs",
+        "src/uberocean-compute-fabric.mjs",
+        "src/uberswarm-edge-fabric.mjs"
+      ],
+      "conceptTokens": [
+        "world",
+        "resource",
+        "fabric"
+      ],
+      "evidence": "no export name survives; a distinctive filename token names a module in main",
+      "evidenceStrength": "WEAKER_THAN_EXPORT_MATCH__NAME_CORRESPONDENCE_ONLY"
+    }
+  ]
+}

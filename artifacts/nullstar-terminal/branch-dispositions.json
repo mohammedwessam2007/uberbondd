@@ -124,21 +124,22 @@
       "constitutionSections": "059,066 compute sovereignty and failure-domain diversity"
     },
     "origin/feat/founder-big-button-outreach": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Merged clean. Reachable through scripts/sovereign-outreach-big-button.mjs.",
-      "constitutionSections": "094,095 founder cockpit and the three-action limit",
-      "blockedOn": "Merging it makes an outbound send path unattended-reachable. sovereign-outreach-big-button imports the OMNIA v9 postal effect adapter, pressUberLaunchButton mints a dispatchAuthorization and postal.dispatch actually sends, and the chain from an operator script pulls the whole external-effect island out from behind NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION. The gates themselves are well built -- an authenticated founder press, short-lived authority bound to one capsule, campaign and recipient, an unmounted API route that refuses without an ADMIN_TOKEN bearer and an explicit PRESS_UBERLAUNCH confirmation, and businessEffectAuthority NONE at module level. The objection is not to the design. It is that deleting the classifications to make the ratchet green would be autonomously removing an authority constraint, which section 118 forbids, and the ratchet says in its own comment: remove the unattended path, do not reclassify the module to make this pass. Whether an outbound send path may be unattended-reachable is a founder decision under section 196, not an integration decision. Merged, verified green, then reverted for that reason alone.",
-      "verifiedBeforeRevert": "Merged clean, own tests 28 of 28, full suite green. The revert is about authority surface, not correctness.",
-      "ancestryNote": "Its tip is an ancestor of main because the merge commit is in main's history, and its content is not. Ancestry alone therefore reads it as contained and stops counting it as debt, which is what happened the moment it was reverted. The branch-debt measurement now checks whether a branch's files are actually present, and classifies this as MERGED_THEN_REVERTED."
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "The capability -- a founder press that launches certified outreach -- is in main as brokerOutreach100kStart in server.mjs, reached only by an authenticated HTTP request. That is the founder-interactive entry FD001's ifNo branch named as acceptable. What was rejected was this branch's entry point, an unattended operator script, not the button.",
+      "evidence": "Read main's press path against src/sovereign-outreach-big-button.mjs. Main requires admin authentication, an explicit confirmExactTarget of 100000, the durable PostgreSQL backend, CERTIFIED_100K_READY, and equality between the artifacts' recipientSetDigest and the prepared corpus digest before anything is enqueued. The press receipt binds certificateId, recipientSetDigest, press time and a digest of the authorization header; the job enqueues with maxAttempts 1, recoveryPolicy reconcile, a dedupeKey on the certificate, and automaticRetryAuthorized false.",
+      "notMerged": "scripts/sovereign-outreach-big-button.mjs, scripts/sovereign-outreach-console-server.mjs, src/sovereign-outreach-big-button.mjs stay out. Merging them is what made the outbound island reachable from an unattended script, and the ratchet's own instruction is to remove the unattended path rather than reclassify the module to make the check pass.",
+      "residual": "One hardening property is on the branch and not in main: a press nonce, HMAC'd over the packet digest and an expiry and compared with timingSafeEqual, which binds a press to one prepared packet inside a time window. Main's press is authentication plus an explicit target confirmation, with digest stability checked between preparation and certification and a dedupeKey preventing a second enqueue for the same certificate, but no expiring nonce. Adding one changes the endpoint's contract for its callers, so it is recorded here as a named follow-up rather than taken unilaterally.",
+      "ancestryWarning": "Both are ancestors of main with their content reverted, so a three-dot diff against main is empty and ancestry alone reads them as contained. scripts/nullstar-branch-debt.mjs classifies them MERGED_THEN_REVERTED by reading the branch tree instead."
     },
     "origin/feat/command-center-big-button": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Merged clean. Reachable through api/uberlaunch.mjs. It shares no path with feat/founder-big-button-outreach, so the two consoles coexist rather than collide -- which is worth revisiting, because two founder buttons is one more than section 095 wants.",
-      "blockedOn": "Merging it makes an outbound send path unattended-reachable. sovereign-outreach-big-button imports the OMNIA v9 postal effect adapter, pressUberLaunchButton mints a dispatchAuthorization and postal.dispatch actually sends, and the chain from an operator script pulls the whole external-effect island out from behind NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION. The gates themselves are well built -- an authenticated founder press, short-lived authority bound to one capsule, campaign and recipient, an unmounted API route that refuses without an ADMIN_TOKEN bearer and an explicit PRESS_UBERLAUNCH confirmation, and businessEffectAuthority NONE at module level. The objection is not to the design. It is that deleting the classifications to make the ratchet green would be autonomously removing an authority constraint, which section 118 forbids, and the ratchet says in its own comment: remove the unattended path, do not reclassify the module to make this pass. Whether an outbound send path may be unattended-reachable is a founder decision under section 196, not an integration decision. Merged, verified green, then reverted for that reason alone.",
-      "verifiedBeforeRevert": "Merged clean, own tests 28 of 28, full suite green. The revert is about authority surface, not correctness.",
-      "ancestryNote": "Its tip is an ancestor of main because the merge commit is in main's history, and its content is not. Ancestry alone therefore reads it as contained and stops counting it as debt, which is what happened the moment it was reverted. The branch-debt measurement now checks whether a branch's files are actually present, and classifies this as MERGED_THEN_REVERTED."
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "The capability -- a founder press that launches certified outreach -- is in main as brokerOutreach100kStart in server.mjs, reached only by an authenticated HTTP request. That is the founder-interactive entry FD001's ifNo branch named as acceptable. What was rejected was this branch's entry point, an unattended operator script, not the button.",
+      "evidence": "Read main's press path against src/uberlaunch-runtime.mjs. Main requires admin authentication, an explicit confirmExactTarget of 100000, the durable PostgreSQL backend, CERTIFIED_100K_READY, and equality between the artifacts' recipientSetDigest and the prepared corpus digest before anything is enqueued. The press receipt binds certificateId, recipientSetDigest, press time and a digest of the authorization header; the job enqueues with maxAttempts 1, recoveryPolicy reconcile, a dedupeKey on the certificate, and automaticRetryAuthorized false.",
+      "notMerged": "api/uberlaunch.mjs, src/uberlaunch-runtime.mjs stay out. Merging them is what made the outbound island reachable from an unattended script, and the ratchet's own instruction is to remove the unattended path rather than reclassify the module to make the check pass.",
+      "residual": "One hardening property is on the branch and not in main: a press nonce, HMAC'd over the packet digest and an expiry and compared with timingSafeEqual, which binds a press to one prepared packet inside a time window. Main's press is authentication plus an explicit target confirmation, with digest stability checked between preparation and certification and a dedupeKey preventing a second enqueue for the same certificate, but no expiring nonce. Adding one changes the endpoint's contract for its callers, so it is recorded here as a named follow-up rather than taken unilaterally.",
+      "ancestryWarning": "Both are ancestors of main with their content reverted, so a three-dot diff against main is empty and ancestry alone reads them as contained. scripts/nullstar-branch-debt.mjs classifies them MERGED_THEN_REVERTED by reading the branch tree instead."
     },
     "origin/feat/native-live-research-security-20260913": {
       "disposition": "MERGED",
@@ -159,10 +160,12 @@
       "constitutionSections": "059 compute"
     },
     "origin/feat/outreach-100k-certified-launch-20260915": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. An outreach runtime and admin router main lacks.",
-      "blockedOn": "Five add/add conflicts against main in server.mjs, the 100K launch contract, the packet corpus and their tests. Main has advanced the same files independently, so this needs semantic resolution rather than a replay, and it is the one candidate not taken in this pass."
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Main carries an evolved superset of this branch. ubersmtp-submission-adapter.mjs is byte-identical; launch-contract and packet-corpus have the same exports with main's versions further along; the branch's outreach-100k-runtime.mjs and admin-router.mjs correspond to main's runtime-control, runtime-bundle, artifact-preparer, packet-compiler and the /api/outreach/100k endpoints in server.mjs.",
+      "evidence": "Checked the authorization guarantee rather than the file list. The branch derives a child per-recipient authorization from a parent founder press (deriveRecipientAuthorization). Main validates the same binding at corpus certification -- packet-N:exact-dispatch-authorization-required requires auth.recipientEmail to equal the recipient and auth.campaignId to equal the campaign, and dispatch-authorization-must-cover-scheduled-send requires the expiry to cover the scheduled send -- then pins the whole corpus by recipientSetDigest and re-checks that digest in both the bundle and the job payload. Main additionally enforces suppression preclearance, legal evidence, recipient verification evidence, business window, mailbox cadence and per-mailbox daily/hourly caps, none of which the branch had.",
+      "recoveredIntoMain": "One check existed on the branch and nowhere in main: mailbox-authenticated-address-required. Without it `address` was read only as a fallback for domainId, so an explicitly supplied domainId won and a mailbox could certify against a DNS-verified, warmed, authenticated domain while its actual sending address belonged to a different one. Ported into src/outreach-100k-launch-contract.mjs with three tests and two mutation anchors.",
+      "residual": "None known. The 34 contract checks and 6 corpus checks on the branch are now all present in main."
     },
     "origin/feat/free-event-runtime-mesh-20260913": {
       "disposition": "MERGED",
@@ -221,13 +224,12 @@
     }
   },
   "counts": {
-    "SUPERSEDED": 10,
+    "SUPERSEDED": 13,
     "ARCHIVED_DONOR": 9,
-    "MERGED": 9,
-    "MERGE_CANDIDATE": 3
+    "MERGED": 9
   },
-  "terminalCount": 28,
-  "nonTerminalCount": 3,
+  "terminalCount": 31,
+  "nonTerminalCount": 0,
   "businessEffectAuthority": "NONE",
   "founderDecisionRequired": [
     {
@@ -239,7 +241,9 @@
       ],
       "ifYes": "Both merge; the four NO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION classifications on the reached island become stale and are removed.",
       "ifNo": "They stay unmerged, or land only once the operator script is replaced by a founder-interactive entry the ratchet already recognises as an exception.",
-      "whyNotDecidedHere": "Section 196 lists consent and messaging as founder escalations, and the canon's external-effect charter names customer messages explicitly. Capability never creates authority."
+      "whyNotDecidedHere": "Section 196 lists consent and messaging as founder escalations, and the canon's external-effect charter names customer messages explicitly. Capability never creates authority.",
+      "status": "NO_LONGER_GATES_A_BRANCH",
+      "resolution": "Both branches are SUPERSEDED: main already implements the founder press as an authenticated HTTP entry, which is the ifNo path. The question itself is not answered and is not mine to answer -- it stays recorded as a standing policy question, and no outbound module was reclassified to close it."
     }
   ]
 }

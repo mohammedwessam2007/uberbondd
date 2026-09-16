@@ -6,13 +6,13 @@
     "222",
     "244"
   ],
-  "generatedAt": "2026-09-16T14:29:34.871Z",
-  "sourceCommit": "4879577303783a254fc3af625d1cfb102014b4f1",
+  "generatedAt": "2026-09-16T23:30:55.866Z",
+  "sourceCommit": "0e35067393010e6ef6d9020f7f16d455fd40c01a",
   "everyFigureComputed": "Generation rows are read from their own result files, capability is measured live at report time, and the verdict is the completion ledger's own count. Nothing here is a remembered number.",
   "verdict": {
-    "softwareOpen": 2,
+    "softwareOpen": 0,
     "externalOpen": 2,
-    "done": "NOT_DONE__SOFTWARE_WORK_REMAINS",
+    "done": "SOFTWARE_SIDE_COMPLETE",
     "whatDoneMeans": "No writable work remains that the completion ledger has identified. It does not mean the system is capable, that the permanent limitations have gone away, or that the external blockers have.",
     "externalBlockers": [
       {
@@ -122,7 +122,7 @@
     ]
   },
   "capabilityNow": {
-    "measuredAt": "4879577303783a254fc3af625d1cfb102014b4f1",
+    "measuredAt": "0e35067393010e6ef6d9020f7f16d455fd40c01a",
     "seeds": "50000..50029",
     "families": [
       {

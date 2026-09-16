@@ -173,14 +173,14 @@ test('domain registry: missing/unknown domain name is rejected cleanly', () => {
 });
 
 test('domain registry: unverified ownership keeps state at OWNERSHIP_UNVERIFIED regardless of later DNS success', () => {
-  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'UNVERIFIED', date: monday }).event;
+  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'UNVERIFIED', simulation: true, date: monday }).event;
   const dnsGreen = { kind: 'DNS_VERIFIED', domainId: 'd1', overallStatus: 'GREEN', reasonCodes: [], timestamp: monday.toISOString() };
   const state = computeSendingDomainState([registered, dnsGreen], { date: monday });
   assert.equal(state.state, 'OWNERSHIP_UNVERIFIED');
 });
 
 test('domain registry: DNS_INCOMPLETE before any DNS verification, DNS_CONTRADICTORY on duplicate-SPF evidence', () => {
-  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', date: monday }).event;
+  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', simulation: true, date: monday }).event;
   const incomplete = computeSendingDomainState([registered], { date: monday });
   assert.equal(incomplete.state, 'DNS_INCOMPLETE');
 
@@ -190,7 +190,7 @@ test('domain registry: DNS_INCOMPLETE before any DNS verification, DNS_CONTRADIC
 });
 
 test('domain registry: MAILBOX_UNVERIFIED -> WARMUP_NOT_STARTED -> WARMING -> READY_FOR_DRY_RUN -> READY_FOR_LIMITED_OUTREACH', () => {
-  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', date: monday }).event;
+  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', simulation: true, date: monday }).event;
   const dnsGreen = { kind: 'DNS_VERIFIED', domainId: 'd1', overallStatus: 'GREEN', reasonCodes: [], timestamp: monday.toISOString() };
 
   const noMailbox = computeSendingDomainState([registered, dnsGreen], { date: monday });
@@ -217,7 +217,7 @@ test('domain registry: MAILBOX_UNVERIFIED -> WARMUP_NOT_STARTED -> WARMING -> RE
 });
 
 test('domain registry: PAUSED and RETIRED override every other computed state', () => {
-  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', date: monday }).event;
+  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', simulation: true, date: monday }).event;
   const paused = { kind: 'PAUSED', domainId: 'd1', reasonCodes: ['spf-fails'], scope: 'DOMAIN', timestamp: monday.toISOString() };
   const pausedState = computeSendingDomainState([registered, paused], { date: monday });
   assert.equal(pausedState.state, 'PAUSED');
@@ -232,7 +232,7 @@ test('domain registry: PAUSED and RETIRED override every other computed state', 
 });
 
 test('domain registry: stale DNS evidence becomes UNCERTAIN, never trusted as still GREEN', () => {
-  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', date: monday }).event;
+  const registered = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', simulation: true, date: monday }).event;
   const dnsGreen = { kind: 'DNS_VERIFIED', domainId: 'd1', overallStatus: 'GREEN', reasonCodes: [], timestamp: monday.toISOString() };
   const muchLater = new Date(monday.getTime() + 48 * 3_600_000);
   const state = computeSendingDomainState([registered, dnsGreen], { date: muchLater, maxDnsEvidenceAgeHours: 24 });
@@ -242,7 +242,7 @@ test('domain registry: stale DNS evidence becomes UNCERTAIN, never trusted as st
 
 test('domain registry + store: register/verify/list round-trips through real auditLog receipts', async () => {
   const store = await tempStore();
-  const reg = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', date: monday });
+  const reg = registerSendingDomain({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', simulation: true, date: monday });
   await logSendingDomainEvent(store, reg.event);
   const dnsResult = await verifySendingDomainDns({ domain: 'example.test', resolver: fakeResolver(), expectedRecords: { spfIncludes: [] } });
   const dnsEvent = recordDomainDnsVerification({ store, domainId: 'd1', dnsResult, date: monday });
@@ -717,7 +717,7 @@ test('job handlers: register domain -> verify DNS -> register mailbox -> evaluat
   const cfg = { providers: { instantly: { configured: false }, googleWorkspace: { configured: false }, microsoft365: { configured: false } }, domainMailbox: { minWarmupDays: 14 } };
   const handlers = createJobHandlers({ store, cfg });
 
-  const domainResult = await handlers['domainMailbox.domain.register']({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', date: monday });
+  const domainResult = await handlers['domainMailbox.domain.register']({ domainId: 'd1', workspaceId: 'w1', domain: 'example.test', ownershipStatus: 'OWNER_CONFIRMED', simulation: true, date: monday });
   assert.equal(domainResult.ok, true);
 
   const dnsResult = await handlers['domainMailbox.dns.verify']({ domain: 'example.test', domainId: 'd1', resolver: fakeResolver(), expectedRecords: { spfIncludes: [] }, date: monday });

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "uberbond-nullstar-stranded-absent-determinations-1.0.0",
+  "debtItem": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",
+  "method": "The twelve modules the automated check could not place were read individually and main was searched for the concept by symbol and by body, not by filename. A verdict here is a reading, and it says which.",
+  "whyThisFileExists": "The automated check classifies on export identity and filename tokens. Both are cheap and both are blind to a concept that survived under a different vocabulary inside another module. Twelve came back ABSENT and a count is not an answer for any of them.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": [],
+  "determinations": [
+    {
+      "module": "src/automation/exceptions.mjs",
+      "exports": "buildExceptionQueue, exceptionQueueSummary",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/founder-exception-market.mjs, src/operator-escalation.mjs, src/payment-operator-attention.mjs, src/founder-minute-priority.mjs",
+      "evidence": "An operator exception queue is the concern, and main carries it across four modules that each own a slice: the market prices exceptions, escalation routes them, payment-operator-attention decides which pending states deserve a human, founder-minute-priority orders them.",
+      "residual": "The stranded module had one queue; main has four owners. No concept is missing, but there is no single summary surface."
+    },
+    {
+      "module": "src/automation/job-handlers.mjs",
+      "exports": "createAutomationJobHandlers",
+      "verdict": "SUPERSEDED__EXPORT_EQUIVALENT",
+      "successorInMain": "src/job-handlers.mjs",
+      "evidence": "Same concern under the un-namespaced path. Main's job-handlers.mjs is the registry every job type attaches to, including the domainMailbox handlers this session touched.",
+      "residual": "None. The automated check missed it only because 'job' and 'handlers' are both on the generic-token list."
+    },
+    {
+      "module": "src/automation/mode.mjs",
+      "exports": "automationStatus, evaluateAutomationGate, assertAutomationGate, isShadowOnly, AUTOMATION_MODES, AutomationGateError",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/config.mjs (autopilot), src/relay-shadow-binding.mjs, src/omnia-v9/integrations/shadow-approval.mjs",
+      "evidence": "config.mjs:44 carries the autopilot flag with a second gate layered on top of it, and shadow-only execution exists as its own binding and approval path.",
+      "residual": "Main spreads the gate across config and per-surface checks rather than one assertAutomationGate. That is a shape difference, not an absence."
+    },
+    {
+      "module": "src/automation/monitoring.mjs",
+      "exports": "assertMonitoringConsent, cancelMonitoringSubscription, handleMonitoringPaymentFailure, buildMonitoringEnrollmentRecord, MonitoringError",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/offer-compiler.mjs, src/revenue.mjs, src/operator-escalation.mjs, src/store.mjs",
+      "evidence": "Recurring-monitoring enrollment, consent, cancellation and payment-failure handling all appear in main's offer and revenue modules.",
+      "residual": "Recurring monitoring is a product the master memory says should emerge from repeated paid delivery. With no paid delivery, none of it is exercised on either side."
+    },
+    {
+      "module": "src/autonomic-circulation.mjs",
+      "exports": "compileAutonomicCirculationPlan, compileAutonomicFeedback, AUTONOMIC_CIRCULATION_VERSION",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/economic-repair-job-handler.mjs, src/self-upgrade.mjs, src/scheduler.mjs",
+      "evidence": "Read in full: it compiles repair jobs from receipts that have gone stale past a threshold, deduping by type and key. compileEconomicRepairProblem and runEconomicRepairJob do the same job in main, and dedupe is in the scheduler.",
+      "residual": "The stranded version emitted onto the cognitive bus. Main's repair path does not, so the feedback edge is narrower."
+    },
+    {
+      "module": "src/autonomic-circulation-config.mjs",
+      "exports": "autonomicCirculationConfigFromEnv, AUTONOMIC_CIRCULATION_CONFIG_VERSION",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/config.mjs",
+      "evidence": "Env-derived thresholds for the module above. Main reads its equivalents through config.mjs."
+    },
+    {
+      "module": "src/autonomic-circulation-job-handlers.mjs",
+      "exports": "attachAutonomicCirculationJobHandlers, AUTONOMIC_CIRCULATION_JOB_HANDLERS_VERSION",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/job-handlers.mjs, src/economic-repair-job-handler.mjs",
+      "evidence": "The attach-to-registry half of the same spine."
+    },
+    {
+      "module": "src/cockpit.mjs",
+      "exports": "deriveAcquisitionStatus, buildCockpitSnapshot, cockpitExportRows, evaluateDraftApproval, approvedDraftPatch, rejectedDraftPatch, ACQUISITION_STATUSES",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/founder-command-center.mjs, src/prometheus-control-tower.mjs, src/outbound-operator-summary.mjs",
+      "evidence": "An operator snapshot plus draft approve/reject. Main's command center and control tower are the successors, and the operator summary carries the export rows.",
+      "residual": "Draft approval in main is per-surface rather than one evaluateDraftApproval."
+    },
+    {
+      "module": "src/life-sensorium.mjs",
+      "exports": "normalizeSensorSignal, fuseLifeState, reconstructLifeTimeline, buildSensoriumCorrection, measureSensoriumCoverage, SENSOR_KINDS, DEFAULT_LIFE_STATE_PROTOTYPES",
+      "verdict": "ABSENT__NO_SUCCESSOR_IN_MAIN",
+      "successorInMain": null,
+      "evidence": "Searched main for SENSOR_KIND, fuseLife, sensorSignal and lifeState: no hits. The three files matching the word 'sensorium' use it in prose about cognition, not as sensor fusion. Main has no multi-sensor fusion, no life-state prototypes and no timeline reconstruction.",
+      "concept": "Embodied Reality Model / Phenomenology Bridge input layer. A Personal Civilization Engine organ named in the terminal North Star sections 89 and 90.",
+      "disposition": "ARCHIVED_DONOR",
+      "dispositionReason": "Genuinely absent and deliberately not ported. It consumes LOCATION, HEALTH, WEARABLE, EMG and EEG signals and there is no sensor source configured, so porting it adds an unreachable module that would need a named gate and would still measure nothing. The concept gap is recorded rather than papered over with an import.",
+      "resurrectionCondition": "A real sensor source exists and founder consent for that data class is explicit. The module is recoverable at origin/sol/life-sensorium-current-20260911.",
+      "terminal": true
+    },
+    {
+      "module": "src/reflexivity-engine.mjs",
+      "exports": "assessReflexivity, compileReflexiveScenarios, forecastReflexivityGate, REFLEXIVITY_CLASSES",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/epistemic-immune-system.mjs",
+      "evidence": "main's epistemic-immune-system.mjs:268 exports reflexivity({ forecast, revealedTo, couldChangeBehaviour }) and returns FORECAST_IS_REFLEXIVE or NO_REFLEXIVE_PATH_IDENTIFIED. The concept named in terminal North Star section 39 is implemented.",
+      "residual": "Main's version is a binary verdict. The stranded one classified across six named classes and compiled scenarios. That is a capability difference and it is real, but the organ is not missing.",
+      "terminal": true
+    },
+    {
+      "module": "src/replies.mjs",
+      "exports": "visibleReplyText, classifyReplyDeterministic, classifyReplyWithFallback, extractMailbox, matchReplyToProspect, responseDraftFor, validateResponseDraft, suppressionPolicy, prospectReplyPatch, REPLY_LABELS",
+      "verdict": "SUPERSEDED__CONCEPT_LEVEL",
+      "successorInMain": "src/uberoutbound-genome.mjs, src/ai.mjs, src/pipeline.mjs, src/uberreply-tournament.mjs, src/uberreply-four-offer-genome.mjs",
+      "evidence": "Reply classification, quote stripping, prospect matching and suppression on opt-out all appear in main across the uberreply and pipeline modules. Suppression in particular is enforced in main's send path independently of this module.",
+      "residual": "The deterministic-then-fallback ordering is not a single named function in main."
+    },
+    {
+      "module": "src/reserved-domains.mjs",
+      "exports": "isReservedDomain, assertNotReservedOutsideSimulation",
+      "verdict": "WAS_ABSENT__NOW_PORTED",
+      "successorInMain": "src/reserved-domains.mjs",
+      "evidence": "Genuinely absent: no RFC 2606 guard existed anywhere in main, and tests/domain-mailbox-readiness.test.mjs registered example.test as an OWNER_CONFIRMED outreach sending domain. registerSendingDomain is reachable from src/job-handlers.mjs:483 and src/uberdoso-job-handler.mjs:31, so a fixture domain could become a real send target.",
+      "action": "Ported and wired into registerSendingDomain, failing closed unless the caller declares simulation: true literally. Seven existing fixtures now declare themselves and the event records simulationOnly so a fixture stays identifiable in the log.",
+      "defectFoundWhilePorting": "The recovered original matched only the bare second-level reserved name, so mail.example.org passed straight through it. A test written against RFC 2606 rather than against the code caught it; subdomains of a reserved name are now reserved too.",
+      "terminal": true
+    }
+  ],
+  "truthBoundary": "Eleven of twelve are superseded and one was a real gap that is now closed. This settles whether a concept was dropped. It does not claim main's successor is behaviourally equivalent to the stranded module, and two determinations record explicitly that it is narrower."
+}

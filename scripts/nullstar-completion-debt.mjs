@@ -235,15 +235,34 @@ const ITEMS = [
     what: 'Source modules that exist only on the pre-rewrite lineage and were never in main\'s history. Sampled ones turn out to be superseded by differently-named modules in main, but most have not been checked.',
     whyNotDone: 'Ancestry cannot settle this -- those commits will never be ancestors of main and rebasing a rewritten history is not the remedy. The only question is whether any concept they carry is absent from main, and that is per-module archaeology. Rounding the residual down because three of three sampled were superseded would be exactly the inference this ledger exists to refuse.',
     check: () => {
-      if (!has('artifacts/nullstar-terminal/branch-debt.json')) {
-        return { open: true, evidence: 'no branch-debt measurement exists' };
+      if (!has('artifacts/nullstar-terminal/stranded-supersession.json')) {
+        return { open: true, evidence: 'no per-module supersession measurement exists' };
       }
-      const debt = readJson('artifacts/nullstar-terminal/branch-debt.json');
-      const checked = debt.supersessionEvidence.verified.length;
-      const total = debt.preRewriteLineage.strandedSrcModules;
+      const survey = readJson('artifacts/nullstar-terminal/stranded-supersession.json');
+      const total = survey.totalStrandedSrc;
+      // The automated pass places a module by export identity or by a
+      // distinctive filename token. Anything it could not place is ABSENT and
+      // has to be read, so the survey alone does not close this: every ABSENT
+      // row must also carry a written determination.
+      const unplaced = survey.modules
+        .filter(row => !row.verdict.startsWith('SUPERSEDED'))
+        .map(row => row.module);
+      if (unplaced.length === 0) {
+        return { open: false, evidence: `${total} of ${total} stranded src modules placed by the automated pass` };
+      }
+      if (!has('artifacts/nullstar-terminal/stranded-absent-determinations.json')) {
+        return { open: true, evidence: `${unplaced.length} of ${total} unplaced and no determinations recorded` };
+      }
+      const determined = new Set(
+        readJson('artifacts/nullstar-terminal/stranded-absent-determinations.json')
+          .determinations.filter(row => row.verdict).map(row => row.module)
+      );
+      const missing = unplaced.filter(module => !determined.has(module));
       return {
-        open: checked < total,
-        evidence: `${checked} of ${total} stranded src modules verified against a successor in main`
+        open: missing.length > 0,
+        evidence: missing.length
+          ? `${missing.length} unplaced modules carry no written determination: ${missing.join(', ')}`
+          : `${total} stranded src modules resolved: ${total - unplaced.length} placed automatically, ${unplaced.length} read individually`
       };
     }
   },

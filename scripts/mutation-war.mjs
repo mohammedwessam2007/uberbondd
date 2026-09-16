@@ -3207,6 +3207,48 @@ export const MUTATIONS = [
     suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
   },
   {
+    id: 'RESERVED-01', guard: 'A reserved RFC 2606 domain cannot be registered as a real sending domain',
+    file: 'src/reserved-domains.mjs',
+    find: '  if (!isReservedDomain(domain)) return { ok: true };',
+    replace: '  return { ok: true };',
+    suites: ['tests/reserved-domains.test.mjs']
+  },
+  {
+    id: 'RESERVED-02', guard: 'Only a literal true is simulation consent, so a truthy fixture value cannot become a real registration',
+    file: 'src/reserved-domains.mjs',
+    find: '  if (simulation === true) return { ok: true, simulationOnly: true };',
+    replace: '  if (simulation) return { ok: true, simulationOnly: true };',
+    suites: ['tests/reserved-domains.test.mjs']
+  },
+  {
+    id: 'RESERVED-03', guard: 'A subdomain of a reserved name is reserved too',
+    file: 'src/reserved-domains.mjs',
+    find: '  if (RESERVED_EXACT.some(name => value === name || value.endsWith(`.${name}`))) return true;',
+    replace: '  if (RESERVED_EXACT.includes(value)) return true;',
+    suites: ['tests/reserved-domains.test.mjs']
+  },
+  {
+    id: 'RESERVED-04', guard: 'The sending domain registry actually consults the reserved-domain guard',
+    file: 'src/sending-domain-registry.mjs',
+    find: '  if (!reserved.ok) reasons.push(reserved.reason);',
+    replace: '  if (false) reasons.push(reserved.reason);',
+    suites: ['tests/reserved-domains.test.mjs']
+  },
+  {
+    id: 'MBXADDR-01', guard: 'A mailbox cannot certify against a verified domain its sending address does not belong to',
+    file: 'src/outreach-100k-launch-contract.mjs',
+    find: "    if (!address || !address.endsWith(`@${domainId}`)) reasons.push('mailbox-authenticated-address-required');",
+    replace: "    if (false) reasons.push('mailbox-authenticated-address-required');",
+    suites: ['tests/outreach-100k-launch-contract.test.mjs']
+  },
+  {
+    id: 'MBXADDR-02', guard: 'An explicitly supplied domainId cannot override the domain the address actually carries',
+    file: 'src/outreach-100k-launch-contract.mjs',
+    find: "    const domainId = clean(raw?.domainId || address.split('@')[1], 253).toLowerCase();",
+    replace: "    const domainId = clean(address.split('@')[1] || raw?.domainId, 253).toLowerCase();",
+    suites: ['tests/outreach-100k-launch-contract.test.mjs']
+  },
+  {
     id: 'OOPGATE-05', guard: 'The incumbent is measured against the gate rather than assumed to pass it',
     file: 'scripts/nullstar-generation.mjs',
     find: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;',

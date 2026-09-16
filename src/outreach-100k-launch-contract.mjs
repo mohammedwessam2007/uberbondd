@@ -65,7 +65,8 @@ function compileMailboxes(mailboxes, domainReady, options) {
   const rows = [];
   for (const raw of Array.isArray(mailboxes) ? mailboxes : []) {
     const mailboxId = clean(raw?.mailboxId, 240);
-    const domainId = clean(raw?.domainId || String(raw?.address || '').split('@')[1], 253).toLowerCase();
+    const address = clean(raw?.address, 320).toLowerCase();
+    const domainId = clean(raw?.domainId || address.split('@')[1], 253).toLowerCase();
     const routeId = clean(raw?.egressRouteId || raw?.routeId, 240);
     const evidence = freshEvidence(raw, { ...options, prefix: `mailbox:${mailboxId || 'unknown'}` });
     const reasons = [...evidence.reasons];
@@ -74,6 +75,13 @@ function compileMailboxes(mailboxes, domainReady, options) {
     const usedToday = positiveInt(raw?.usedToday);
     const capRemaining = remaining(observedDailyCap, usedToday);
     if (!mailboxId) reasons.push('mailbox-id-required');
+    // Recovered from feat/outreach-100k-certified-launch-20260915 during CD011
+    // archaeology. Without it `address` is read only as a fallback for
+    // domainId, so an explicitly supplied domainId wins and a mailbox can
+    // certify against a verified domain while its actual sending address
+    // belongs to a different one -- a From-domain that was never DNS-verified,
+    // warmed or authenticated, certified to send a hundred thousand messages.
+    if (!address || !address.endsWith(`@${domainId}`)) reasons.push('mailbox-authenticated-address-required');
     if (!domainId || !domainReady.has(domainId)) reasons.push('mailbox-ready-domain-required');
     if (!routeId) reasons.push('mailbox-egress-route-required');
     if (raw?.authenticated !== true && raw?.authenticationStatus !== 'AUTHENTICATED') reasons.push('mailbox-authentication-required');

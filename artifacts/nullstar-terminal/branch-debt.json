@@ -7,13 +7,13 @@
     "151",
     "183"
   ],
-  "generatedAt": "2026-09-16T13:47:50.991Z",
-  "sourceCommit": "33879b8e105a9e910f74dca06e2daad6e295307a",
+  "generatedAt": "2026-09-16T14:01:25.186Z",
+  "sourceCommit": "10544bd0abfaf26addacf2a1282583dce30a974a",
   "mainSha": "755e00a21be47f6f032b27298df404472682bd2d",
   "populations": {
     "PRE_REWRITE_LINEAGE": 735,
-    "DIVERGED": 31,
-    "CONTAINED_IN_MAIN": 88
+    "DIVERGED": 32,
+    "CONTAINED_IN_MAIN": 87
   },
   "totalRemoteBranches": 854,
   "divergedBranches": [
@@ -71,6 +71,11 @@
       "branch": "origin/feat/sovereign-institutional-harness-astra-donor",
       "population": "DIVERGED",
       "uniqueCommits": 4
+    },
+    {
+      "branch": "origin/claude/uberbond-bootstrap-archaeology-zmqw8l",
+      "population": "DIVERGED",
+      "uniqueCommits": 3
     },
     {
       "branch": "origin/feat/free-event-runtime-mesh-current-20260913",

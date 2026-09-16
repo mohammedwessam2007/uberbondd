@@ -112,10 +112,9 @@
       "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
     },
     "origin/astra/uberos-gen0-sovereign-os-20260915": {
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "Carries source main does not have. UBER/OS Generation-0: buildroot external tree, kernel adapter, system compiler, package provenance, state engine, QEMU runner, machine manifest schema and doctor. 21 files main lacks entirely.",
-      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged into the reconciled tree with zero conflicts. All 21 files present, its own suite green at 11/11, and src/uberos/state-engine.mjs classified against NO_BUILT_UBEROS_IMAGE -- the manifest is a build recipe whose kernel revision is still a placeholder, so no image exists and no machine runs it.",
       "constitutionSections": "059,060,062,063 compute sovereignty and hardware research"
     },
     "origin/feat/free-runtime-mesh-20260913": {
@@ -196,7 +195,7 @@
     "origin/launch/uberos-final-20260915": {
       "disposition": "ARCHIVED_DONOR",
       "terminal": true,
-      "why": "A staged base64 courier chunk, not source. It is transport for the UBER/OS work whose real branch is astra/uberos-gen0-sovereign-os-20260915."
+      "why": "A staged base64 courier chunk, not source. It is transport for the UBER/OS work whose real branch is astra/uberos-gen0-sovereign-os-20260915. Its payload's real branch is now merged, so the courier chunk has nothing left to transport."
     },
     "origin/evidence/deployment-cutover-20260913": {
       "disposition": "ARCHIVED_DONOR",
@@ -208,10 +207,10 @@
     "891": {
       "title": "UBER/OS Generation-0 sovereign operating-system substrate",
       "head": "astra/uberos-gen0-sovereign-os-20260915",
-      "disposition": "MERGE_CANDIDATE",
-      "terminal": false,
-      "why": "The largest piece of genuinely unique stranded work: 21 files main lacks, implementing compute sovereignty and hardware research the constitution names directly in sections 059 through 063.",
-      "blockedOn": "Its base is an older main than the current head, and it has not been verified on a merged tree. It needs main merged into it, the full gate run, and its six new src modules classified or wired before it can land."
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its head branch is merged into the reconciled tree. The PR itself still targets an older main and should be closed once the reconciled tree lands.",
+      "blockedOn": null
     },
     "889": {
       "title": "NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main",
@@ -225,10 +224,10 @@
   "counts": {
     "SUPERSEDED": 10,
     "ARCHIVED_DONOR": 9,
-    "MERGED": 3,
-    "MERGE_CANDIDATE": 9
+    "MERGED": 4,
+    "MERGE_CANDIDATE": 8
   },
-  "terminalCount": 22,
-  "nonTerminalCount": 9,
+  "terminalCount": 23,
+  "nonTerminalCount": 8,
   "businessEffectAuthority": "NONE"
 }

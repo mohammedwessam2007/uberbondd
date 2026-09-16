@@ -6,8 +6,8 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-16T13:48:21.899Z",
-  "sourceCommit": "33879b8e105a9e910f74dca06e2daad6e295307a",
+  "generatedAt": "2026-09-16T13:51:49.338Z",
+  "sourceCommit": "61e7f0cd62e829e6eb68c0102da26949860bf3fa",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
   "softwareOpen": 3,
   "externalOpen": 2,
@@ -95,7 +95,7 @@
       "what": "Branches that share an ancestor with main and carry commits beyond it, with no recorded disposition. EVENT HORIZON section 009 counts these in softwareOpen and section 183 makes completion invalid while valuable unique commits sit off main.",
       "whyNotDone": "Each needs MERGED, SUPERSEDED, ARCHIVED_DONOR, REJECTED_WITH_EVIDENCE or EXTERNAL_BLOCKED, decided on what the branch actually contains rather than on its name. Two clusters are already settled by evidence and recorded in the branch-debt artifact; the rest are not.",
       "open": true,
-      "evidence": "31 of 31 diverged branches have no recorded disposition"
+      "evidence": "9 of 31 diverged branches carry no terminal disposition: feat/outreach-100k-certified-launch-20260915, feat/command-center-big-button, feat/free-runtime-mesh-20260913, feat/founder-big-button-outreach, ..."
     },
     {
       "id": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",
@@ -111,7 +111,7 @@
       "what": "An open pull request against main other than this session's own, carrying work that is neither merged nor classified.",
       "whyNotDone": "PR 891 targets an older main than the current head. Whether its content is still wanted, already superseded, or blocked is not recorded anywhere, and section 152 requires every open PR to be classified.",
       "open": true,
-      "evidence": "no open pull request has been classified"
+      "evidence": "1 of 2 classified pull requests carry no terminal disposition: #891"
     },
     {
       "id": "CD006-PROVIDER-EVALUATION-BLOCKED",

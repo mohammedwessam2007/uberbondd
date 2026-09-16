@@ -213,13 +213,19 @@ const ITEMS = [
       }
       const debt = readJson('artifacts/nullstar-terminal/branch-debt.json');
       const dispositions = readJson('artifacts/nullstar-terminal/branch-dispositions.json');
-      const decided = new Set(Object.keys(dispositions.dispositions ?? {}));
-      const undecided = debt.divergedBranches.filter(row => !decided.has(row.branch));
+      const table = dispositions.dispositions ?? {};
+      // Terminal, not merely present. The first version of this check asked
+      // whether a branch had a disposition at all, which nine MERGE_CANDIDATE
+      // entries satisfied -- and MERGE_CANDIDATE means the work is wanted and
+      // has not landed. Section 010 makes convergence true only at one of the
+      // five terminal classes, so a check that accepts any label lets the
+      // ledger close on the word rather than on the work.
+      const unresolved = debt.divergedBranches.filter(row => !table[row.branch]?.terminal);
       return {
-        open: undecided.length > 0,
-        evidence: undecided.length
-          ? `${undecided.length} of ${debt.divergedBranches.length} diverged branches have no recorded disposition`
-          : `all ${debt.divergedBranches.length} diverged branches carry a disposition`
+        open: unresolved.length > 0,
+        evidence: unresolved.length
+          ? `${unresolved.length} of ${debt.divergedBranches.length} diverged branches carry no terminal disposition: ${unresolved.slice(0, 4).map(row => row.branch.replace('origin/', '')).join(', ')}${unresolved.length > 4 ? ', ...' : ''}`
+          : `all ${debt.divergedBranches.length} diverged branches reached a terminal class`
       };
     }
   },
@@ -251,12 +257,12 @@ const ITEMS = [
         ? readJson('artifacts/nullstar-terminal/branch-dispositions.json')
         : { openPullRequests: {} };
       const prs = dispositions.openPullRequests ?? {};
-      const undecided = Object.entries(prs).filter(([, value]) => !value.disposition);
+      const unresolved = Object.entries(prs).filter(([, value]) => !value.terminal);
       return {
-        open: Object.keys(prs).length === 0 || undecided.length > 0,
+        open: Object.keys(prs).length === 0 || unresolved.length > 0,
         evidence: Object.keys(prs).length === 0
           ? 'no open pull request has been classified'
-          : `${undecided.length} of ${Object.keys(prs).length} open pull requests lack a disposition`
+          : `${unresolved.length} of ${Object.keys(prs).length} classified pull requests carry no terminal disposition: ${unresolved.map(([num]) => `#${num}`).join(', ') || 'none'}`
       };
     }
   },

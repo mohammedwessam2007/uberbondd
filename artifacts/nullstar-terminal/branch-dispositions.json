@@ -1,1 +1,234 @@
-{"schemaVersion":"uberbond-nullstar-branch-dispositions-1.0.0","dispositions":{},"openPullRequests":{}}
+{
+  "schemaVersion": "uberbond-nullstar-branch-dispositions-1.0.0",
+  "directiveSections": [
+    "010",
+    "151",
+    "152",
+    "183"
+  ],
+  "terminalClasses": [
+    "ARCHIVED_DONOR",
+    "EXTERNAL_BLOCKED",
+    "MERGED",
+    "REJECTED_WITH_EVIDENCE",
+    "SUPERSEDED"
+  ],
+  "note": "MERGE_CANDIDATE is deliberately not a terminal class. Section 010 makes canonicalConvergence true only when every valuable unique contribution reaches one of the five terminal classes, so a branch parked here keeps softwareOpen above zero. That is the point: it records that work is wanted without letting wanting it count as having done it.",
+  "dispositions": {
+    "origin/feat/zero-barrier-outreach-fabric-20260916": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Every file it adds is present in main; its remaining commits are test hardening against a version main has since moved past.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-wealth-runtime-liveness": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-institutional-harness-astra-donor": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/uberlit-runtime-doctor": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/uberlit-runtime-doctor-current": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Duplicate of feat/uberlit-runtime-doctor; added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/uberreach-objective-substitution-20260916": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-24x7-smoke-current": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Added files all present in main.",
+      "evidence": "three-dot diff against main: every added path resolves in origin/main"
+    },
+    "origin/feat/sovereign-heart-current-20260913": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Modifies three files main carries and has advanced independently. Its intent -- unconditional UberLit recovery -- needs re-deriving against current source rather than replaying a three-commit diff.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/feat/sovereign-self-beating-heart": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Near-duplicate of feat/sovereign-heart-current-20260913, same three files.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/feat/uberreach-scale-frontier": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Modifies three files main carries; the autonomy wake contract it aligns to has moved.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/evidence/observed-2": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A single evidence admission against a file main has changed.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/reality/admit-owned-security-runtime-20260913": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A single evidence admission; the security runtime it witnesses is itself a merge candidate on another branch.",
+      "evidence": "three-dot diff adds no file; modifies only paths main already carries"
+    },
+    "origin/fix/uber-sovereign-stack-count-20260915": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Fixed the UBEROCEAN layer-count drift by deleting two assertions from the test. That greens one test while leaving the orchestration topology unresolvable and the other five failures untouched. Main now carries the fix that wires UBEROCEAN into the dependency graph and phases, and asserts registry/graph/phase agreement instead of a literal.",
+      "evidence": "commit 7d069a1d: tests/uber-sovereign-stack.test.mjs, 2 deletions, 0 insertions"
+    },
+    "origin/fix/reachability-lineage-reconciliation-final-20260916": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its substance is on main. The RESEARCH_ONLY category and the NO_ADMITTED_UBEROCEAN_HOSTS gate, including its owner-authorization language, were taken from this branch rather than re-invented. What was not taken is its retention of four classifications that had become false, which is why this branch is still red on the reachable-conflict test.",
+      "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
+    },
+    "origin/fix/reachability-lineage-reconciliation-20260916": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its substance is on main. The RESEARCH_ONLY category and the NO_ADMITTED_UBEROCEAN_HOSTS gate, including its owner-authorization language, were taken from this branch rather than re-invented. What was not taken is its retention of four classifications that had become false, which is why this branch is still red on the reachable-conflict test.",
+      "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
+    },
+    "origin/fix/reachability-lineage-reconciliation-20260916-copy": {
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Its substance is on main. The RESEARCH_ONLY category and the NO_ADMITTED_UBEROCEAN_HOSTS gate, including its owner-authorization language, were taken from this branch rather than re-invented. What was not taken is its retention of four classifications that had become false, which is why this branch is still red on the reachable-conflict test.",
+      "evidence": "config/reachability-classification.json on main carries RESEARCH_ONLY and NO_ADMITTED_UBEROCEAN_HOSTS"
+    },
+    "origin/astra/uberos-gen0-sovereign-os-20260915": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. UBER/OS Generation-0: buildroot external tree, kernel adapter, system compiler, package provenance, state engine, QEMU runner, machine manifest schema and doctor. 21 files main lacks entirely.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "constitutionSections": "059,060,062,063 compute sovereignty and hardware research"
+    },
+    "origin/feat/free-runtime-mesh-20260913": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. A free Cloudflare-worker runtime mesh with its own burst workflow and witness script.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "constitutionSections": "059,066 compute sovereignty and failure-domain diversity"
+    },
+    "origin/feat/founder-big-button-outreach": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. A private founder console: outreach big-button module, console server, operator scripts and tests.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "constitutionSections": "094,095 founder cockpit and the three-action limit"
+    },
+    "origin/feat/command-center-big-button": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. A self-hosted big-button runtime with its own API route, public assets and hostile tests. Overlaps feat/founder-big-button-outreach and the two need reconciling against each other before either lands.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one."
+    },
+    "origin/feat/native-live-research-security-20260913": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. Owned-target security verifier and a public research adapter mesh, with local-runtime tests.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "constitutionSections": "096,121 research and security"
+    },
+    "origin/feat/auto-materialize-money-routes": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. A commercial execution path materializer with tests.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "constitutionSections": "070 economic mechanism universe"
+    },
+    "origin/feat/contabo-preflight-operator-20260913": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. A read-only Contabo mail-cell preflight operator.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one.",
+      "constitutionSections": "059 compute"
+    },
+    "origin/feat/outreach-100k-certified-launch-20260915": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. An outreach runtime and admin router main lacks.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one."
+    },
+    "origin/feat/free-event-runtime-mesh-20260913": {
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "Carries source main does not have. A free event-driven UberLit runtime witness workflow.",
+      "blockedOn": "Verification against current main. None of these has been run through the deterministic suite, reachability ratchet or mutation registry on a merged tree, and merging unverified source into a main that is currently green would trade a known state for an unknown one."
+    },
+    "origin/feat/free-runtime-mesh-current2": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Duplicate of feat/free-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant.",
+      "evidence": "same added paths"
+    },
+    "origin/feat/free-event-runtime-mesh-current-20260913": {
+      "disposition": "SUPERSEDED",
+      "terminal": true,
+      "why": "Duplicate of feat/free-event-runtime-mesh-20260913; identical added-file set. Whichever of the pair lands, this one is redundant.",
+      "evidence": "same added paths"
+    },
+    "origin/intellectuality-renaissance": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A standalone holiday HTML page and deployment note. No source, no test, no organ. Kept as a donor rather than merged."
+    },
+    "origin/intellectuality-renaissance-deploy": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "Duplicate of intellectuality-renaissance, minus the deploy note."
+    },
+    "origin/launch/uberos-final-20260915": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A staged base64 courier chunk, not source. It is transport for the UBER/OS work whose real branch is astra/uberos-gen0-sovereign-os-20260915."
+    },
+    "origin/evidence/deployment-cutover-20260913": {
+      "disposition": "ARCHIVED_DONOR",
+      "terminal": true,
+      "why": "A dated evidence artifact. Evidence about a cutover that has not been reproduced against current main is not evidence about current main."
+    }
+  },
+  "openPullRequests": {
+    "891": {
+      "title": "UBER/OS Generation-0 sovereign operating-system substrate",
+      "head": "astra/uberos-gen0-sovereign-os-20260915",
+      "disposition": "MERGE_CANDIDATE",
+      "terminal": false,
+      "why": "The largest piece of genuinely unique stranded work: 21 files main lacks, implementing compute sovereignty and hardware research the constitution names directly in sections 059 through 063.",
+      "blockedOn": "Its base is an older main than the current head, and it has not been verified on a merged tree. It needs main merged into it, the full gate run, and its six new src modules classified or wired before it can land."
+    },
+    "889": {
+      "title": "NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main",
+      "head": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+      "disposition": "MERGED",
+      "terminal": true,
+      "why": "Merged at 755e00a2 after exact-head verification. Took main from red to green: it carried the fix for eight tests already failing on main.",
+      "ciNote": "Hosted CI reported eight failures on the merged head. Every one had runner_id 0, no runner name, no executed steps, a four-second duration and a 404 on log download. No runner was assigned. Recorded as infrastructure non-evidence, not as a pass."
+    }
+  },
+  "counts": {
+    "SUPERSEDED": 10,
+    "ARCHIVED_DONOR": 9,
+    "MERGED": 3,
+    "MERGE_CANDIDATE": 9
+  },
+  "terminalCount": 22,
+  "nonTerminalCount": 9,
+  "businessEffectAuthority": "NONE"
+}

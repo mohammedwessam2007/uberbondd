@@ -62,64 +62,6 @@ handlers['outreach.100k.process'] = async payload => {
   });
 };
 const stopScheduler = startScheduler(queue, config, console);
-const autoResumeOnBoot = String(process.env.WORKER_AUTO_RESUME_ON_BOOT || '').toLowerCase() === 'true';
-if (autoResumeOnBoot) {
-  // Recover stale leases before taking the snapshot so an interrupted run can
-  // be requeued in this same boot, rather than waiting for another restart.
-  await queue.quarantineUncertainStaleJobs(config.queue.lockTimeoutMs);
-  await store.recoverStaleJobs(config.queue.lockTimeoutMs);
-  const pauseState = await queue.pausedState();
-  if (pauseState.paused) await queue.setPaused(false, 'startup-recovery');
-  const [jobs, prospects] = await Promise.all([store.list('jobs'), store.list('prospects')]);
-  let target = prospects.find(item => item.id === 'pros_3e2eb90c-c6c0-48de-8850-9a55865490bb');
-  const targetJobExists = jobs.some(item =>
-    item.type === 'research.batch' &&
-    ['queued', 'retry', 'active'].includes(item.status) &&
-    item.payload?.prospectId === target?.id
-  );
-  let recoveryJobId = '';
-  const snapshotRetryNeeded = target?.status === 'error'
-    && String(target.error || '') === 'No usable pages crawled: page-snapshot-timeout'
-    && !target.boundedSnapshotRetryAt;
-  const navigationRetryNeeded = target?.status === 'error'
-    && String(target.error || '').startsWith('No usable pages crawled: page.goto: Timeout')
-    && !target.boundedNavigationRetryAt;
-  const htmlOnlyRetryNeeded = target?.status === 'error'
-    && String(target.error || '').startsWith('No usable pages crawled: mobile-set-content-timeout')
-    && !target.boundedHtmlOnlyRetryAt;
-  if ((target?.status === 'crawling' || snapshotRetryNeeded || navigationRetryNeeded || htmlOnlyRetryNeeded) && !targetJobExists) {
-    target = await store.patch('prospects', target.id, {
-      status: 'retry',
-      error: snapshotRetryNeeded
-        ? 'Retrying once after widening the bounded DOM snapshot budget'
-        : navigationRetryNeeded
-          ? 'Retrying once after switching navigation readiness to commit'
-          : htmlOnlyRetryNeeded
-            ? 'Retrying once with deterministic HTML-only crawler mode'
-            : 'Recovered orphaned crawling prospect before a clean research retry',
-      ...(snapshotRetryNeeded
-        ? { boundedSnapshotRetryAt: new Date().toISOString() }
-        : navigationRetryNeeded
-          ? { boundedNavigationRetryAt: new Date().toISOString() }
-          : htmlOnlyRetryNeeded
-            ? { boundedHtmlOnlyRetryAt: new Date().toISOString() }
-            : { recoveredAt: new Date().toISOString() })
-    });
-    const recoveryJob = await enqueueResearch({
-      limit: 1, reason: 'prospect-recovery', prospectId: target.id
-    });
-    recoveryJobId = recoveryJob.id;
-  }
-  const jobCounts = Object.fromEntries([...new Set(jobs.map(item => item.status))].map(status => [
-    status, jobs.filter(item => item.status === status).length
-  ]));
-  const activeResearch = jobs.filter(item => item.status === 'active' && item.type === 'research.batch').length;
-  const researchJobs = jobs.filter(item => item.type === 'research.batch').map(item => ({
-    id: item.id, status: item.status, attempts: item.attempts,
-    lastError: String(item.lastError || '').slice(0, 240)
-  }));
-  console.log(`UberBond startup recovery snapshot: paused=${Boolean((await queue.pausedState()).paused)} activeResearch=${activeResearch} jobCounts=${JSON.stringify(jobCounts)} targetStatus=${target?.status || 'missing'} targetError=${String(target?.error || '').slice(0, 240)} recoveryJobId=${recoveryJobId || 'none'} researchJobs=${JSON.stringify(researchJobs)}`);
-}
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 
 console.log(`UberBond worker ${queue.workerId} started using ${config.storeBackend}`);

@@ -43,7 +43,13 @@ export async function assertPublicUrl(input, {allowLocal=false} = {}) {
   if (allowLocal && ['localhost','127.0.0.1','::1'].includes(host)) return url;
   if (host === 'localhost' || host.endsWith('.local')) throw new Error('Local addresses are blocked');
   if (net.isIP(host) && isPrivateIp(host)) throw new Error('Private and reserved IP addresses are blocked');
-  const records = await dns.lookup(host,{all:true,verbatim:true});
+  let lookupTimer;
+  const records = await Promise.race([
+    dns.lookup(host,{all:true,verbatim:true}),
+    new Promise((_, reject) => {
+      lookupTimer = setTimeout(() => reject(new Error('Hostname lookup timed out')), 5000);
+    })
+  ]).finally(() => clearTimeout(lookupTimer));
   if (!records.length) throw new Error('Hostname did not resolve');
   if (records.some(r => isPrivateIp(r.address))) throw new Error('Hostname resolves to a private or reserved IP');
   return url;

@@ -64,6 +64,10 @@ handlers['outreach.100k.process'] = async payload => {
 const stopScheduler = startScheduler(queue, config, console);
 const autoResumeOnBoot = String(process.env.WORKER_AUTO_RESUME_ON_BOOT || '').toLowerCase() === 'true';
 if (autoResumeOnBoot) {
+  // Recover stale leases before taking the snapshot so an interrupted run can
+  // be requeued in this same boot, rather than waiting for another restart.
+  await queue.quarantineUncertainStaleJobs(config.queue.lockTimeoutMs);
+  await store.recoverStaleJobs(config.queue.lockTimeoutMs);
   const pauseState = await queue.pausedState();
   if (pauseState.paused) await queue.setPaused(false, 'startup-recovery');
   const [jobs, prospects] = await Promise.all([store.list('jobs'), store.list('prospects')]);

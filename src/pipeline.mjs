@@ -14,6 +14,7 @@ import { evaluateConsequenceBoundary, buildOutboundActionIntent } from './conseq
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
+import { compileUberReplyCampaignDecision } from './uberreply-four-offer-genome.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -160,7 +161,29 @@ export class Pipeline {
     const score = scoreProspect(prospect, audit, contact);
     const issue = chooseIssue(audit);
     const inbox = routeInbox(prospect, audit);
-    const researchQualified = Boolean(issue && score.total >= campaign.minScore);
+    const offerDecision = campaign.offerId
+      ? compileUberReplyCampaignDecision({
+          offerId: campaign.offerId,
+          prospect: {
+            ...prospect,
+            industry: prospect.industry || prospect.niche,
+            tags: [...(Array.isArray(prospect.tags) ? prospect.tags : []), prospect.niche, issue?.service],
+            sourceCount: audit.length,
+            sourceFreshness: 1,
+            problemEvidenceScore: Math.min(1, score.total / 100),
+            fitEvidenceConfidence: issue?.confidence || Math.min(1, score.total / 100)
+          },
+          research: {
+            accountValueScore: Math.min(1, score.total / 100),
+            signalStrength: issue?.confidence || 0,
+            artifactFeasibility: issue ? 1 : 0,
+            evidenceDensity: Math.min(1, audit.length / 3),
+            estimatedResearchMinutes: Math.max(1, crawl.pages.length * 2 + audit.length)
+          },
+          sequencePosition: 1
+        })
+      : null;
+    const researchQualified = Boolean(issue && score.total >= campaign.minScore && (!campaign.offerId || offerDecision?.ok));
     const suppressed = contact?.email ? await this.isSuppressed(prospect, contact.email) : false;
     const sendEligible = Boolean(
       researchQualified && contact?.email &&
@@ -169,11 +192,11 @@ export class Pipeline {
     );
     const optoutUrl = contact?.email ? unsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const oneClickOptoutUrl = contact?.email ? oneClickUnsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
-    const draft = researchQualified ? buildMessage({ prospect, issue, contact, sender: this.cfg.sender, unsubscribeUrl: optoutUrl }) : '';
-    const subject = researchQualified ? buildSubject(prospect, issue) : '';
+    const draft = researchQualified ? buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }) : '';
+    const subject = researchQualified ? buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName) : '';
     const status = researchQualified ? (sendEligible ? 'ready' : 'research-complete') : 'rejected';
     const dossier = buildDossier({ prospect, crawl, audit, contact, score, issue, inbox, subject, draft, aiMeta });
-    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, draft, subject, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
+    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision, draft, subject, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
 
     await this.store.patch('prospects', prospect.id, patch);
     if (this.hooks.onProspectComplete) await this.hooks.onProspectComplete({ ...prospect, ...patch });
@@ -590,8 +613,8 @@ export class Pipeline {
         await this.store.patch('prospects', prospect.id, { status: 'suppressed', nextFollowupAt: null });
         continue;
       }
-      const body = buildMessage({ prospect, issue: prospect.issue, contact: prospect.contact, sender: this.cfg.sender, followup, unsubscribeUrl: prospect.unsubscribeUrl });
-      const subject = buildSubject(prospect, prospect.issue, followup);
+      const body = buildMessage({ prospect, issue: prospect.issue, contact: prospect.contact, sender: this.cfg.sender, offerName: prospect.offerDecision?.offer?.publicName, followup, unsubscribeUrl: prospect.unsubscribeUrl });
+      const subject = buildSubject(prospect, prospect.issue, followup, prospect.offerDecision?.offer?.publicName);
       const result = await this.maybeSend(prospect, campaign, { followup, body, subject });
       if (result?.sent) processed += 1;
     }

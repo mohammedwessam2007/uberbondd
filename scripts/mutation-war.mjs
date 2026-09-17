@@ -3607,6 +3607,36 @@ export const MUTATIONS = [
     replace: "    state = authoritative.some(row => row.serving) ? 'SERVING__AUTHENTICATED' : 'NOT_SERVING__AUTHENTICATED';",
     suites: ['tests/ubercel-deployment-doctor.test.mjs']
   },
+  // The V9 carrier verifier. CLAUDE_START_V9.md requires LOSSLESS_VERIFIED and
+  // an exact SHA before canonical V9 may be treated as canonical, and the
+  // carrier in this repository cannot produce it: seed part 16 is short 6,433
+  // bytes that exist in no git object. The pressure to close that by loosening
+  // the verifier instead of supplying the bytes is exactly what these guard.
+  {
+    id: 'V9CARRIER-01', guard: 'A truncated part is never classified as newline-repairable',
+    file: 'scripts/materialize-inevitability-v9.py',
+    find: '        elif sha(enc + NEWLINE) == p[\'encodedSha256\']:',
+    replace: '        elif True:',
+    suites: ['tests/inevitability-v9-carrier.test.mjs']
+  },
+  {
+    // Admitting a broken part is how a partial carrier reaches the generator
+    // and a hash-locked artifact acquires content nobody authored.
+    id: 'V9CARRIER-02', guard: 'A carrier with an unrecoverable part does not proceed to generation',
+    file: 'scripts/materialize-inevitability-v9.py',
+    find: "    broken = [p for p in parts if p['state'] not in ('OK', 'REPAIRABLE_TRAILING_NEWLINE')]",
+    replace: '    broken = []',
+    suites: ['tests/inevitability-v9-carrier.test.mjs']
+  },
+  {
+    // The refusal has to stay legible. Reporting one part when sixteen were
+    // checked is what turned "part 16 is short" into a session of archaeology.
+    id: 'V9CARRIER-03', guard: 'The refusal reports every part, not the first fault',
+    file: 'scripts/materialize-inevitability-v9.py',
+    find: "        'partsVerified': len(recovered),",
+    replace: "        'partsVerified': 0,",
+    suites: ['tests/inevitability-v9-carrier.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.
@@ -3742,7 +3772,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         record(mutation, applied.reason === 'anchor-ambiguous' ? 'ANCHOR_AMBIGUOUS' : 'ANCHOR_NOT_FOUND');
         continue;
       }
-      const syntax = spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
+      // The checker follows the language, not the runtime running the harness.
+      // This was always `node --check`, so a mutation of any .py file in the
+      // repository reported MUTANT_DID_NOT_PARSE no matter how well-formed it
+      // was -- which reads as a malformed mutation when the truth is that the
+      // checker could not read the file at all. The V9 carrier materializer is
+      // Python, and it is the one script standing between a partial carrier and
+      // a hash-locked artifact, so "unguardable" was not an acceptable answer.
+      const syntax = mutation.file.endsWith('.py')
+        ? spawnSync('python3', ['-c', 'import ast,sys;ast.parse(open(sys.argv[1]).read(),sys.argv[1])', join(root, mutation.file)], { encoding: 'utf8' })
+        : spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
       if (syntax.status !== 0) {
         record(mutation, 'MUTANT_DID_NOT_PARSE');
         continue;

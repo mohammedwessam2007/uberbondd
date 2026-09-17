@@ -103,7 +103,15 @@ export async function crawlSiteBrowser(input, options={}) {
   };
   const screenshotDir=path.resolve(options.screenshotDir||'./data/screenshots');
   await fs.mkdir(screenshotDir,{recursive:true});
-  const robots=await getRobots(start);
+  const robots=await getRobots(start, options.robotsFetcher || fetch);
+  if (robots.available === false) {
+    return {
+      startUrl: start, domain, robots, pages: [],
+      errors: [{url: start, error: robots.error || 'robots-unavailable', status: robots.status || 0}],
+      emails: [], combinedText: '', completedAt: new Date().toISOString(), engine: 'playwright',
+      summary: {pagesVisited: 0, errors: 1, desktopScreenshots: 0, mobileScreenshots: 0}
+    };
+  }
   // Fall back to whatever Chromium is actually installed.
   //
   // CHROMIUM_PATH is how this repository names a browser and nothing sets it, so

@@ -95,6 +95,22 @@ const parseBody = async req => {
   }
   return parsed;
 };
+const idempotencyKey = value => {
+  const key = String(value ?? '').trim();
+  if (!key || key.length > 200 || /[\u0000-\u001f\u007f]/.test(key)) return '';
+  return key;
+};
+const digestCampaignRequest = campaign => crypto.createHash('sha256').update(JSON.stringify({
+  name: campaign.name,
+  niche: campaign.niche,
+  offer: campaign.offer,
+  allowedCountries: campaign.allowedCountries,
+  minScore: campaign.minScore,
+  dailyCaps: campaign.dailyCaps,
+  maxFollowups: campaign.maxFollowups,
+  autoSend: campaign.autoSend,
+  approved: campaign.approved
+})).digest('hex');
 const safeEqual = (a, b) => {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
   const ba = Buffer.from(a);
@@ -789,6 +805,8 @@ export const requestHandler = async (req, res) => {
 
     if (method === 'POST' && url.pathname === '/api/campaigns') {
       const input = await parseBody(req);
+      const requestKey = idempotencyKey(req.headers['idempotency-key'] || input.idempotencyKey);
+      if (!requestKey) throw new HttpError(400, 'Idempotency-Key header is required for campaign creation');
       const campaign = {
         id: id('camp'), name: input.name || 'Untitled campaign', niche: input.niche || '', offer: input.offer || '',
         allowedCountries: normalizeCountryList(Array.isArray(input.allowedCountries) ? input.allowedCountries : String(input.allowedCountries || '').split(',')),
@@ -800,9 +818,32 @@ export const requestHandler = async (req, res) => {
         maxFollowups: Math.min(1, Math.max(0, Number(input.maxFollowups ?? 0))),
         autoSend: parseStrictBoolean(input.autoSend, 'autoSend', false),
         approved: parseStrictBoolean(input.approved, 'approved', false),
+        idempotencyKey: requestKey,
         createdAt: now()
       };
-      await store.add('campaigns', campaign);
+      campaign.idempotencyDigest = digestCampaignRequest(campaign);
+      const existing = await store.findOne('campaigns', { idempotencyKey: requestKey });
+      if (existing) {
+        if (existing.idempotencyDigest !== campaign.idempotencyDigest) {
+          throw new HttpError(409, 'Idempotency-Key was already used for a different campaign request');
+        }
+        return json(res, 200, { ...existing, idempotentReplay: true });
+      }
+      try {
+        await store.add('campaigns', campaign);
+      } catch (error) {
+        // Two browser retries can race between the read above and the insert.
+        // PostgreSQL's unique index is the final arbiter; converge the loser
+        // onto the same durable campaign instead of creating or reporting a
+        // duplicate.
+        if (!(error instanceof ConflictError)) throw error;
+        const raced = await store.findOne('campaigns', { idempotencyKey: requestKey });
+        if (!raced) throw error;
+        if (raced.idempotencyDigest !== campaign.idempotencyDigest) {
+          throw new HttpError(409, 'Idempotency-Key was already used for a different campaign request');
+        }
+        return json(res, 200, { ...raced, idempotentReplay: true });
+      }
       return json(res, 201, campaign);
     }
     if (method === 'POST' && url.pathname === '/api/prospects/import') {

@@ -29,7 +29,11 @@ export async function getRobots(startUrl, fetcher = fetch) {
   const url = absoluteUrl('/robots.txt', startUrl);
   try {
     const res = await fetcher(url, {headers: {'user-agent': 'UberBondSignal/2.0 (+research; contact via configured sender)'}});
-    if (!res.ok) return {allow: [], disallow: [], crawlDelay: 0};
-    return parseRobots(await res.text());
-  } catch { return {allow: [], disallow: [], crawlDelay: 0}; }
+    // A missing robots file is an observable absence of directives. A denied,
+    // failed or malformed fetch is different: permission is unknown, so public
+    // crawling must stop rather than silently treating the site as open.
+    if (res.status === 404) return {available: true, status: 404, allow: [], disallow: [], crawlDelay: 0};
+    if (!res.ok) return {available: false, status: Number(res.status || 0), error: 'robots-unavailable', allow: [], disallow: [], crawlDelay: 0};
+    return {available: true, status: Number(res.status || 200), ...parseRobots(await res.text())};
+  } catch { return {available: false, status: 0, error: 'robots-fetch-failed', allow: [], disallow: [], crawlDelay: 0}; }
 }

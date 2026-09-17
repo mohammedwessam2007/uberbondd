@@ -35,7 +35,7 @@ const MAP = {
   },
   campaigns: {
     table: 'campaigns',
-    columns: { systemKey: 'system_key', approved: 'approved', autoSend: 'auto_send', createdAt: 'created_at', updatedAt: 'updated_at' }
+    columns: { systemKey: 'system_key', idempotencyKey: 'idempotency_key', approved: 'approved', autoSend: 'auto_send', createdAt: 'created_at', updatedAt: 'updated_at' }
   },
   jobs: {
     table: 'jobs',
@@ -344,6 +344,7 @@ export class JsonStore {
     if (key === 'accounts' && other(item => item.slot === record.slot)) throw new ConflictError(`Duplicate account slot: ${record.slot}`);
     if (key === 'orders' && record.providerEventId && other(item => item.providerEventId === record.providerEventId)) throw new ConflictError(`Duplicate payment event: ${record.providerEventId}`);
     if (key === 'revenueEvents' && record.providerEventId && other(item => item.providerEventId === record.providerEventId)) throw new ConflictError(`Duplicate revenue event: ${record.providerEventId}`);
+    if (key === 'campaigns' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate campaign idempotency key: ${record.idempotencyKey}`);
     if (key === 'jobs' && record.dedupeKey && other(item => item.dedupeKey === record.dedupeKey)) throw new ConflictError(`Duplicate job dedupe key: ${record.dedupeKey}`);
     if (key === 'jobs' && record.singletonKey && ['queued', 'retry', 'active'].includes(record.status) && other(item => item.singletonKey === record.singletonKey && ['queued', 'retry', 'active'].includes(item.status))) throw new ConflictError(`Active singleton job already exists: ${record.singletonKey}`);
     if (key === 'outboundReservations' && record.idempotencyKey && other(item => item.idempotencyKey === record.idempotencyKey)) throw new ConflictError(`Duplicate outbound idempotency key: ${record.idempotencyKey}`);

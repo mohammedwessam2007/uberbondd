@@ -149,6 +149,33 @@ test('a non-object JSON body is refused, not coerced into a default', async () =
     'a refused body must not have created a campaign on the way through');
 });
 
+test('campaign creation converges on one record after a browser timeout', async () => {
+  const body = JSON.stringify({
+    name: 'Idempotent test campaign', niche: 'HVAC agencies', offer: 'Lead-path evidence sprint',
+    allowedCountries: 'United Kingdom', minScore: 60, maxFollowups: 0, approved: true, autoSend: false
+  });
+  const headers = { 'idempotency-key': 'campaign-timeout-retry-1' };
+  const before = (json(await call('/api/campaigns', { token: ADMIN_TOKEN })) || []).length;
+  const first = await call('/api/campaigns', { method: 'POST', token: ADMIN_TOKEN, body, headers });
+  assert.equal(first.status, 201);
+  const replay = await call('/api/campaigns', { method: 'POST', token: ADMIN_TOKEN, body, headers });
+  assert.equal(replay.status, 200);
+  assert.equal(json(replay).id, json(first).id);
+  assert.equal(json(replay).idempotentReplay, true);
+  const after = (json(await call('/api/campaigns', { token: ADMIN_TOKEN })) || []).length;
+  assert.equal(after, before + 1);
+
+  const changed = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ name: 'Different campaign', approved: true }), headers
+  });
+  assert.equal(changed.status, 409);
+
+  const missingKey = await call('/api/campaigns', { method: 'POST', token: ADMIN_TOKEN, body });
+  assert.equal(missingKey.status, 400);
+  assert.match(missingKey.body, /Idempotency-Key/);
+});
+
 test('an error response never carries a stack trace, an internal path, or the token', async () => {
   const leaks = [];
   for (const [route, options] of [

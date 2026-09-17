@@ -44,7 +44,7 @@ async function waitForJob(jobId,{timeoutMs=15000}={}){
 }
 try{
   for(let i=0;i<40;i++){try{await api('/api/health');break}catch{await wait(100)}}
-  const campaign=await api('/api/campaigns',{method:'POST',body:JSON.stringify({name:'Discovery smoke',niche:'clinics',offer:'audit',minScore:60,maxFollowups:0,approved:true,autoSend:false})});
+  const campaign=await api('/api/campaigns',{method:'POST',headers:{'Idempotency-Key':`discovery-smoke-${Date.now()}`},body:JSON.stringify({name:'Discovery smoke',niche:'clinics',offer:'audit',minScore:60,maxFollowups:0,approved:true,autoSend:false})});
   const previewQueued=await api('/api/discovery/run',{method:'POST',body:JSON.stringify({campaignId:campaign.id,bbox:'51.4,-0.3,51.7,0.1',categories:['clinic','dentist'],country:'United Kingdom',city:'London',limit:10,dryRun:true})});
   const preview=await waitForJob(previewQueued.jobId);
   if(preview.discoveredCount!==2||preview.importedCount!==0)throw new Error(`Unexpected preview: ${JSON.stringify(preview)}`);

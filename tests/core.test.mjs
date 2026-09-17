@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parseRobots,isAllowed} from '../src/robots.mjs';
+import {getRobots,parseRobots,isAllowed} from '../src/robots.mjs';
 import {deterministicAudit,scoreProspect,chooseIssue} from '../src/audit-rules.mjs';
 import {buildMessage,routeInbox} from '../src/copy.mjs';
 import {encryptJson,decryptJson} from '../src/crypto.mjs';
@@ -8,6 +8,16 @@ import {parseCsv} from '../src/csv.mjs';
 import {isPrivateIp,assertPublicUrl} from '../src/security.mjs';
 
 test('robots longest matching directive wins',()=>{const r=parseRobots('User-agent: *\nDisallow: /private\nAllow: /private/public');assert.equal(isAllowed('https://x.com/private/no',r),false);assert.equal(isAllowed('https://x.com/private/public/a',r),true)});
+test('robots availability fails closed when access is denied or unavailable', async () => {
+  const missing = await getRobots('https://x.example', async () => ({ status: 404, ok: false, text: async () => '' }));
+  assert.equal(missing.available, true);
+  const denied = await getRobots('https://x.example', async () => ({ status: 403, ok: false, text: async () => '' }));
+  assert.equal(denied.available, false);
+  assert.equal(isAllowed('https://x.example/', denied), true,
+    'the low-level matcher remains pure; the crawler owns the unavailable-resource refusal');
+  const failed = await getRobots('https://x.example', async () => { throw new Error('network'); });
+  assert.equal(failed.available, false);
+});
 
 test('audit detects no CTA and weak contact path',()=>{
   const page={url:'https://x.test',title:'Example Company',description:'',h1Count:1,visibleH1:['Welcome'],headings:[{level:'h1',text:'Welcome'}],ctas:[],controls:[],images:[],forms:[],bodyText:'A company in Cairo',lang:'en',contactSignals:0,mobile:{horizontalOverflow:false,controls:[],document:{width:390},viewport:{width:390}},screenshots:{desktop:'/x.png',mobile:'/m.png'},brokenLinks:[]};

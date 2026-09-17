@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS schema_migrations (
 CREATE TABLE IF NOT EXISTS campaigns (
   id text PRIMARY KEY,
   system_key text UNIQUE,
+  idempotency_key text UNIQUE,
   approved boolean NOT NULL DEFAULT false,
   auto_send boolean NOT NULL DEFAULT false,
   created_at timestamptz,

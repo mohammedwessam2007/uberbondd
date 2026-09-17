@@ -67,7 +67,7 @@ async function withApp(env,fn,preSeed=null){
     await fn(api,()=>logs,port);
   }finally{child.kill('SIGTERM');await wait(150);await fs.rm(dir,{recursive:true,force:true});}
 }
-const mkCampaign=async(api,extra={})=>(await api('/api/campaigns',{method:'POST',body:JSON.stringify({name:'Probe',niche:'clinics',offer:'audit',minScore:50,maxFollowups:0,approved:true,autoSend:false,...extra})})).data;
+const mkCampaign=async(api,extra={})=>(await api('/api/campaigns',{method:'POST',headers:{'Idempotency-Key':`review-probe-${Date.now()}-${Math.random().toString(16).slice(2)}`},body:JSON.stringify({name:'Probe',niche:'clinics',offer:'audit',minScore:50,maxFollowups:0,approved:true,autoSend:false,...extra})})).data;
 
 async function awaitQueued(api,response,{timeoutMs=20000}={}){
   if(response.status!==202||!response.data?.jobId)return response;

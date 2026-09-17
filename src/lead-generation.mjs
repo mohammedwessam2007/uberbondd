@@ -14,7 +14,7 @@ export const LEAD_SIGNAL_TYPES = Object.freeze([
 
 export const LEAD_SOURCE_TYPES = Object.freeze([
   'local_prospect', 'owner_import', 'public_website', 'csv_import',
-  'provider_api', 'licensed_export', 'first_party_export'
+  'provider_api', 'licensed_export', 'first_party_export', 'openstreetmap'
 ]);
 
 export const ENRICHMENT_FIELDS = Object.freeze([
@@ -47,7 +47,7 @@ const SIGNAL_WEIGHTS = Object.freeze({
 });
 const SOURCE_TRUST = Object.freeze({
   first_party_export: 1, owner_import: 1, licensed_export: 0.95,
-  provider_api: 0.85, public_website: 0.8, csv_import: 0.7, local_prospect: 0.65
+  provider_api: 0.85, public_website: 0.8, openstreetmap: 0.75, csv_import: 0.7, local_prospect: 0.65
 });
 
 function text(value, max = MAX_TEXT) { return String(value ?? '').trim().slice(0, max); }

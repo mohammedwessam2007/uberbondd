@@ -2,7 +2,7 @@ const $=s=>document.querySelector(s);
 let token=''; let cache={prospects:[],campaigns:[]};
 $('#token').value='';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers,cache:'no-store'});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok)throw new Error(data.error||data||'Request failed');return data;};
+const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers,cache:'no-store'});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok){const error=new Error(data.error||data||'Request failed');error.status=res.status;throw error;}return data;};
 const pill=s=>`<span class="pill ${esc(s)}">${esc(s)}</span>`;
 function metric(label,value,sub=''){return `<div class="metric"><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div>`}
 function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(v||0))}
@@ -95,7 +95,14 @@ async function openDossier(id){
 }
 $('#close-modal').onclick=()=>{$('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true')};$('#modal').onclick=e=>{if(e.target===$('#modal'))$('#close-modal').click()};
 $('#save-token').onclick=()=>{token=$('#token').value.trim();if(token)load();};
-$('#campaign-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const x=Object.fromEntries(f);x.approved=f.has('approved');x.autoSend=f.has('autoSend');try{const c=await api('/api/campaigns',{method:'POST',body:JSON.stringify(x)});alert(`Campaign created: ${c.name}`);load();}catch(e){alert(e.message)}};
+const campaignKey=async x=>{
+  // Derive the retry identity from the request itself. This survives a browser
+  // timeout or refresh without persisting the admin bearer or any form data.
+  const material=JSON.stringify({name:x.name||'',niche:x.niche||'',offer:x.offer||'',allowedCountries:x.allowedCountries||'',minScore:x.minScore||'',dailyCaps:x.dailyCaps||'',maxFollowups:x.maxFollowups||'',autoSend:Boolean(x.autoSend),approved:Boolean(x.approved)});
+  if(globalThis.crypto?.subtle){const bytes=new TextEncoder().encode(material);const digest=await crypto.subtle.digest('SHA-256',bytes);return `campaign-form-${Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('')}`;}
+  let hash=2166136261;for(const char of material){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return `campaign-form-${(hash>>>0).toString(16)}-${material.length}`;
+};
+$('#campaign-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const x=Object.fromEntries(f);x.approved=f.has('approved');x.autoSend=f.has('autoSend');try{const c=await api('/api/campaigns',{method:'POST',headers:{'Idempotency-Key':await campaignKey(x)},body:JSON.stringify(x)});alert(`${c.idempotentReplay?'Campaign already existed':'Campaign created'}: ${c.name}`);load();}catch(e){alert(e.message)}};
 $('#csv-file').onchange=e=>$('#file-name').textContent=e.target.files[0]?.name||'No file selected';
 $('#import-csv').onclick=async()=>{const file=$('#csv-file').files[0];if(!file)return alert('Choose a CSV file first.');const campaignId=$('#campaign-select').value;if(!campaignId)return alert('Create a campaign first.');try{const r=await api(`/api/prospects/import-csv?campaignId=${encodeURIComponent(campaignId)}`,{method:'POST',body:await file.text(),headers:{'content-type':'text/csv'}});alert(`Imported ${r.added}. Skipped ${r.skipped}.`);load();}catch(e){alert(e.message)}};
 $('#import-json-btn').onclick=async()=>{try{const prospects=JSON.parse($('#import-json').value).map(x=>({...x,campaignId:$('#campaign-select').value}));const r=await api('/api/prospects/import',{method:'POST',body:JSON.stringify({prospects})});alert(`Imported ${r.added}. Skipped ${r.skipped}.`);load();}catch(e){alert(e.message)}};

@@ -31,6 +31,7 @@ const SOURCE_TRUST = Object.freeze({
   licensed_export: 0.95,
   provider_api: 0.85,
   public_website: 0.8,
+  openstreetmap: 0.75,
   csv_import: 0.7,
   local_prospect: 0.65,
   owner: 1,
@@ -114,7 +115,7 @@ function isVerified(contact) { return ['valid', 'verified', 'deliverable'].inclu
 function isOwned(prospect) {
   return Boolean(prospect?.priorContacted || prospect?.contactedAt || prospect?.repliedAt || ['sent', 'replied', 'send-uncertain', 'suppressed'].includes(String(prospect?.status || '').toLowerCase()));
 }
-function suppressionValues(suppressions = []) { return new Set((suppressions || []).map(item => text(item?.value, 320).toLowerCase()).filter(Boolean)); }
+function suppressionValues(suppressions = []) { return new Set((suppressions || []).map(item => text(typeof item === 'string' ? item : item?.value, 320).toLowerCase()).filter(Boolean)); }
 function suppressed(prospect, suppressions) {
   const email = emailOf(prospect);
   const domain = domainOf(prospect);
@@ -424,4 +425,3 @@ export function buildLeadControlTower({ prospects = [], signals = [], suppressio
     stats: { searches: searches.length, enrichmentRuns: enrichmentRuns.length, savedProfiles: records.length }, policy: LEAD_OPERATIONS_POLICY, providerCalls: 0, externalEffects: 0
   };
 }
-

@@ -8,6 +8,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const commandCenter = readFileSync(join(root, 'public/uberbond.js'), 'utf8');
 const graphClient = readFileSync(join(root, 'public/uberbond-graph.js'), 'utf8');
 const html = readFileSync(join(root, 'public/uberbond.html'), 'utf8');
+const legacyConnected = readFileSync(join(root, 'public/uberbond-connected.html'), 'utf8');
 const combined = `${commandCenter}\n${graphClient}`;
 
 const persistentBearerPatterns = [
@@ -38,6 +39,11 @@ test('Ultimate Graph requests do not put owner authority in the URL', () => {
 test('owner token field does not opt into browser autofill persistence', () => {
   assert.match(html, /id="owner-token"[^>]*type="password"/);
   assert.doesNotMatch(html, /id="owner-token"[^>]*autocomplete="(?:username|email)"/i);
+});
+
+test('legacy connected path cannot persist or collect an admin bearer', () => {
+  assert.doesNotMatch(legacyConnected, /localStorage|sessionStorage|ADMIN_TOKEN|authorization|Bearer/i);
+  assert.match(legacyConnected, /uberbond-connected-safe\.html/);
 });
 
 test('deployment-protected mode is explicit and cannot silently grant consequence authority', () => {

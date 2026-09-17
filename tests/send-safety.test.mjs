@@ -35,6 +35,19 @@ test('send gate accepts a domain-matched email published on the company website'
   assert.equal(result.contactMode, 'published');
 });
 
+test('send gate accepts an exact owner-recorded recipient only when its authorization evidence is present', () => {
+  const ownerProspect = {
+    ...prospect,
+    sourceMetadata: { authorization: { status: 'owner-evidence-recorded' } },
+    contact: { email: 'owner@clinic.example', source: 'owner_import', verified: 'unknown' }
+  };
+  const result = evaluateSendEligibility({ prospect: ownerProspect, campaign, cfg, date: monday });
+  assert.equal(result.ok, true);
+  assert.equal(result.contactMode, 'owner-authorized');
+  assert.equal(contactEligibility(ownerProspect.contact, prospect).ok, false,
+    'the owner authorization flag must be bound to the same prospect evidence, not a copied contact object');
+});
+
 test('send gate rejects unverified enrichment, free mail, mismatched domains, missing allowlists, and off-hours', () => {
   assert.equal(contactEligibility({ email: 'owner@clinic.example', source: 'hunter', verified: 'unknown' }, prospect).reason, 'contact-not-published-or-verified');
   assert.equal(contactEligibility({ email: 'clinic@gmail.com', source: 'website' }, prospect).reason, 'free-mail-contact');

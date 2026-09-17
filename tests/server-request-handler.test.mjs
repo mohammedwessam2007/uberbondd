@@ -176,6 +176,61 @@ test('campaign creation converges on one record after a browser timeout', async 
   assert.match(missingKey.body, /Idempotency-Key/);
 });
 
+test('protected owner setup records identity and one exact recipient without external effects', async () => {
+  const identity = await call('/api/owner/business-identity', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      legalName: 'UberBond Evidence Studio', senderName: 'Mohamed Wessam', company: 'UberBond',
+      postalAddress: '12 Evidence Street, Cairo, 11511, Egypt'
+    })
+  });
+  assert.equal(identity.status, 200);
+  assert.equal(json(identity).identity.postalAddress, '12 Evidence Street, Cairo, 11511, Egypt');
+
+  const campaignBody = JSON.stringify({
+    name: 'Owner canary intake campaign', niche: 'HVAC agencies', offer: 'Lead-path evidence sprint',
+    allowedCountries: 'United Kingdom', minScore: 60, maxFollowups: 0, approved: true, autoSend: true
+  });
+  const campaign = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN, body: campaignBody,
+    headers: { 'idempotency-key': 'owner-canary-campaign-1' }
+  });
+  assert.equal(campaign.status, 201);
+  const campaignId = json(campaign).id;
+  const recipientBody = {
+    campaignId,
+    company: 'Evidence Intake Example', website: 'https://intake.example',
+    email: 'owner@intake.example', name: 'Owner Contact', title: 'Operations Director',
+    country: 'United Kingdom', city: 'London', niche: 'HVAC',
+    authorizationBasis: 'requested_information', authorizationUrl: 'https://intake.example/request',
+    evidenceNote: 'The contact directly requested the audit information.', jurisdiction: 'GB',
+    observedAt: new Date().toISOString()
+  };
+  const first = await call('/api/owner/recipient', {
+    method: 'POST', token: ADMIN_TOKEN, body: JSON.stringify(recipientBody)
+  });
+  assert.equal(first.status, 201);
+  const firstJson = json(first);
+  assert.equal(firstJson.prospect.contact.source, 'owner_import');
+  assert.equal(firstJson.prospect.sourceMetadata.authorization.status, 'owner-evidence-recorded');
+  assert.equal(firstJson.providerCalls, 0);
+  assert.equal(firstJson.externalEffects, 0);
+
+  const replay = await call('/api/owner/recipient', {
+    method: 'POST', token: ADMIN_TOKEN, body: JSON.stringify(recipientBody)
+  });
+  assert.equal(replay.status, 200);
+  assert.equal(json(replay).idempotentReplay, true);
+  assert.equal(json(replay).prospect.id, firstJson.prospect.id);
+
+  const setup = await call('/api/owner/setup', { token: ADMIN_TOKEN });
+  assert.equal(setup.status, 200);
+  assert.equal(json(setup).recipientEvidence.total, 1);
+  const canary = await call('/api/outbound/canary/status', { token: ADMIN_TOKEN });
+  assert.equal(canary.status, 200);
+  assert.equal(json(canary).prerequisites.senderIdentityConfigured, true);
+});
+
 test('an error response never carries a stack trace, an internal path, or the token', async () => {
   const leaks = [];
   for (const [route, options] of [

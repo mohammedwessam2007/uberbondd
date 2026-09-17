@@ -71,8 +71,10 @@ export function contactEligibility(contact = {}, prospect = {}) {
   if (!(domain === prospectDomain || domain.endsWith(`.${prospectDomain}`))) return { ok: false, reason: 'contact-domain-mismatch' };
   const published = contact.source === 'website';
   const positivelyVerified = String(contact.verified || '').toLowerCase() === 'valid';
-  if (!published && !positivelyVerified) return { ok: false, reason: 'contact-not-published-or-verified' };
-  return { ok: true, mode: published ? 'published' : 'verified', email, domain };
+  const ownerRecorded = contact.source === 'owner_import'
+    && prospect.sourceMetadata?.authorization?.status === 'owner-evidence-recorded';
+  if (!published && !positivelyVerified && !ownerRecorded) return { ok: false, reason: 'contact-not-published-or-verified' };
+  return { ok: true, mode: published ? 'published' : ownerRecorded ? 'owner-authorized' : 'verified', email, domain };
 }
 
 export function evidenceEligibility(prospect = {}, campaign = {}, cfg = {}) {

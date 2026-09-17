@@ -43,6 +43,22 @@ export class Pipeline {
     this.outboundFinalAdmissionShadowFn = hooks.outboundFinalAdmissionShadow || null;
   }
 
+  async refreshOwnerSender() {
+    if (typeof this.store.getSettings !== 'function') return this.cfg.sender;
+    const settings = await this.store.getSettings();
+    const identity = settings?.businessIdentity;
+    if (!identity || typeof identity !== 'object' || Array.isArray(identity)) return this.cfg.sender;
+    const address = String(identity.postalAddress || '').trim();
+    if (!address) return this.cfg.sender;
+    this.cfg.sender = {
+      ...this.cfg.sender,
+      name: String(identity.senderName || this.cfg.sender?.name || '').trim(),
+      company: String(identity.company || identity.legalName || this.cfg.sender?.company || '').trim(),
+      address
+    };
+    return this.cfg.sender;
+  }
+
   async isSuppressed(prospect, email = '') {
     const result = await suppressionLookup(this.store, { website: prospect.website, email });
     return result.suppressed;
@@ -53,6 +69,7 @@ export class Pipeline {
   }
 
   async processProspect(prospect) {
+    await this.refreshOwnerSender();
     const campaign = await this.campaignFor(prospect);
     if (!campaign || !campaign.approved) throw new Error('Campaign is not approved');
     if (await this.isSuppressed(prospect)) {
@@ -113,9 +130,21 @@ export class Pipeline {
       await this.store.log('ai_audit_failed', { prospectId: prospect.id, error: error.message });
     }
 
-    const contacts = await discoverContacts(prospect, crawl, this.cfg.hunterKey);
+    const ownerRecordedContact = prospect.sourceMetadata?.authorization?.status === 'owner-evidence-recorded'
+      && prospect.contact?.email
+      ? { ...prospect.contact }
+      : null;
+    const discoveredContacts = await discoverContacts(prospect, crawl, ownerRecordedContact ? '' : this.cfg.hunterKey);
+    const contacts = ownerRecordedContact
+      ? {
+          ...discoveredContacts,
+          candidates: [ownerRecordedContact, ...(discoveredContacts.candidates || []).filter(item => item.email !== ownerRecordedContact.email)],
+          selected: ownerRecordedContact,
+          selectionReason: 'owner-recorded-exact-recipient'
+        }
+      : discoveredContacts;
     let contact = contacts.selected;
-    if (contact?.email && this.cfg.hunterKey && contact.verified === 'unverified') {
+    if (contact?.email && !ownerRecordedContact && this.cfg.hunterKey && contact.verified === 'unverified') {
       try {
         const verification = await verifyEmail(contact.email, this.cfg.hunterKey);
         contact = { ...contact, verified: verification.status, verificationScore: verification.score };
@@ -193,6 +222,7 @@ export class Pipeline {
   }
 
   async maybeSend(prospect, campaign, options = {}) {
+    await this.refreshOwnerSender();
     const followup = Number(options.followup || 0);
     const body = options.body || prospect?.draft;
     const subject = options.subject || prospect?.subject;
@@ -538,6 +568,7 @@ export class Pipeline {
   resume() { this.paused = false; }
 
   async processFollowups() {
+    await this.refreshOwnerSender();
     let processed = 0;
     const due = (await this.store.list('prospects')).filter(prospect =>
       prospect.status === 'sent' && prospect.nextFollowupAt &&

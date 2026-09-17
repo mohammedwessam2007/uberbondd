@@ -51,6 +51,54 @@
 </section>
 <section class="grid two">
   <article>
+    <div class="kicker">OWNER SETUP · PROTECTED</div>
+    <h2>Make one canary possible</h2>
+    <p class="hint">These forms store owner-provided evidence only. They do not scrape a list, call a provider, or send a message.</p>
+    <form id="owner-identity-form">
+      <label>Legal or business name<input name="legalName" autocomplete="organization" required></label>
+      <div class="row"><label>Sender name<input name="senderName" autocomplete="name" placeholder="Mohamed Wessam"></label><label>Company shown in footer<input name="company" autocomplete="organization"></label></div>
+      <label>Complete physical postal address<textarea name="postalAddress" rows="3" autocomplete="street-address" required placeholder="Street, city, postal code, country"></textarea></label>
+      <button class="gold">Save business identity</button>
+      <small id="identity-status" class="hint">No protected identity saved yet.</small>
+    </form>
+    <hr>
+    <h3>Record one authorized recipient</h3>
+    <p class="hint">Use a warm referral, explicit consent, or a direct request for information. Do not paste a scraped or purchased list.</p>
+    <form id="recipient-form">
+      <label>Approved auto-send campaign<select id="recipient-campaign-select" name="campaignId" required></select></label>
+      <div class="row"><label>Company<input name="company" required></label><label>Website<input name="website" type="url" placeholder="https://example.com" required></label></div>
+      <div class="row"><label>Exact business email<input name="email" type="email" required></label><label>Role/title<input name="title"></label></div>
+      <div class="row"><label>Contact name<input name="name"></label><label>Country<input name="country" value="United Kingdom" required></label></div>
+      <div class="row"><label>City<input name="city"></label><label>Niche<input name="niche" value="HVAC, plumbing, or electrical"></label></div>
+      <label>Authorization basis<select name="authorizationBasis" required><option value="requested_information">They directly requested information</option><option value="explicit_consent">They gave explicit consent</option></select></label>
+      <label>Authorization evidence URL<input name="authorizationUrl" type="url" placeholder="https://..." required></label>
+      <div class="row"><label>Jurisdiction<input name="jurisdiction" value="GB" maxlength="2" required></label><label>Evidence observed at<input name="observedAt" type="datetime-local" required></label></div>
+      <label>What proves the authorization?<textarea name="evidenceNote" rows="2" minlength="8" required placeholder="Short factual description of the request or consent"></textarea></label>
+      <button class="gold">Record recipient for research</button>
+      <small id="recipient-status" class="hint">No owner-recorded recipient yet.</small>
+    </form>
+  </article>
+  <article>
+    <div class="kicker">CANARY APPROVAL · EXACT PAYLOAD</div>
+    <h2>Approve one message</h2>
+    <p class="hint">Select a researched prospect, inspect the stored subject/body, and attach the authorization evidence. Approval is tamper-resistant and makes zero provider calls.</p>
+    <form id="canary-approval-form">
+      <label>Researched prospect<select id="canary-prospect-select" name="prospectId" required><option value="">Research a recipient first</option></select></label>
+      <div id="canary-preview" class="mini-card"><small>Select a researched prospect to see the exact stored payload.</small></div>
+      <label>Route type<select name="routeType" required><option value="REQUESTED_INFORMATION">Requested information</option><option value="EXPLICIT_CONSENT">Explicit consent</option></select></label>
+      <label>Authorization source URL<input name="sourceUrl" type="url" placeholder="https://..." required></label>
+      <label>Exact evidence excerpt<textarea name="sourceExcerpt" rows="3" minlength="8" required placeholder="Paste the short relevant request or consent excerpt"></textarea></label>
+      <div class="row"><label>Jurisdiction<input name="jurisdiction" value="GB" maxlength="2" required></label><label>Evidence observed at<input name="sourceObservedAt" type="datetime-local" required></label></div>
+      <label>Evidence note<textarea name="evidenceNote" rows="2" minlength="8" required placeholder="Why this route authorizes this recipient and role"></textarea></label>
+      <label class="check"><input name="relevantToRecipientRole" type="checkbox" checked> Evidence is relevant to this recipient’s role</label>
+      <label class="check"><input name="noUnsolicitedStatementPresent" type="checkbox"> Confirm the source has no “do not contact” or unsolicited-message restriction</label>
+      <button class="gold">Approve exact canary</button>
+      <small id="approval-status" class="hint">No canary approval stored.</small>
+    </form>
+  </article>
+</section>
+<section class="grid two">
+  <article>
     <div class="kicker">01 · CONTRACT</div>
     <h2>Create a campaign</h2>
     <p class="hint">Define the market and minimum quality once. Nightshift will operate only inside this contract.</p>

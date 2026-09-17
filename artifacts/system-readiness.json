@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T22:51:18.418Z",
+  "generatedAt": "2026-09-17T23:27:44.298Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "3145242bd5e4ec288bd858f9b48ffb955654f88a",
-    "branch": "codex/uberlit-build-fix-20260917",
+    "head": "14208a796e95738bcff03dc5e9dca6cbfc86af5a",
+    "branch": "codex/cold-email-sender-readiness-20260917",
     "sourceModules": 834,
-    "testSuites": 1010,
+    "testSuites": 1011,
     "workingTreeClean": true
   },
   "measurements": {

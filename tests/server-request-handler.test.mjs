@@ -253,6 +253,123 @@ test('protected owner setup records identity and one exact recipient without ext
   assert.equal(json(canary).prerequisites.senderIdentityConfigured, true);
 });
 
+test('native lead-ops routes compile, replay, export and plan without external effects', async () => {
+  const profile = await call('/api/leadgen/target-profiles', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      name: 'Native HVAC lane',
+      profile: { query: { industries: ['HVAC'], minScore: 0, minEvidenceScore: 0, requireEvidence: false, requireContact: false, skipOwned: false } }
+    })
+  });
+  assert.equal(profile.status, 201);
+  assert.equal(json(profile).kind, 'target-profile');
+  const profileReplay = await call('/api/leadgen/target-profiles', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      name: 'Native HVAC lane',
+      profile: { query: { industries: ['HVAC'], minScore: 0, minEvidenceScore: 0, requireEvidence: false, requireContact: false, skipOwned: false } }
+    })
+  });
+  assert.equal(profileReplay.status, 200);
+  assert.equal(json(profileReplay).idempotentReplay, true);
+
+  const listBody = JSON.stringify({
+    name: 'Native HVAC lead list',
+    profile: { query: { industries: ['HVAC'], minScore: 0, minEvidenceScore: 0, requireEvidence: false, requireContact: false, skipOwned: false } },
+    limit: 25
+  });
+  const list = await call('/api/leadgen/lists', {
+    method: 'POST', token: ADMIN_TOKEN, body: listBody,
+    headers: { 'idempotency-key': 'native-list-route-1' }
+  });
+  assert.equal(list.status, 201);
+  assert.equal(json(list).handoff.send, 'NOT_AUTHORIZED');
+  assert.equal(json(list).providerCalls, 0);
+  const replay = await call('/api/leadgen/lists', {
+    method: 'POST', token: ADMIN_TOKEN, body: listBody,
+    headers: { 'idempotency-key': 'native-list-route-1' }
+  });
+  assert.equal(replay.status, 200);
+  assert.equal(json(replay).idempotentReplay, true);
+
+  const listId = json(list).id;
+  const listCsv = await call(`/api/leadgen/lists/${listId}.csv`, { token: ADMIN_TOKEN });
+  assert.equal(listCsv.status, 200);
+  assert.match(listCsv.body, /prospect_id,account_key,company/);
+
+  const prospects = json(await call('/api/prospects', { token: ADMIN_TOKEN }));
+  const prospectId = prospects[prospects.length - 1]?.id;
+  assert.ok(prospectId);
+  const enrichment = await call('/api/leadgen/enrichment/local', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ prospectId, fields: ['company_profile', 'website_evidence'] })
+  });
+  assert.equal(enrichment.status, 201);
+  assert.equal(json(enrichment).providerCalls, 0);
+  assert.equal(json(enrichment).externalEffects, 0);
+
+  const tower = await call('/api/leadgen/control-tower', { token: ADMIN_TOKEN });
+  assert.equal(tower.status, 200);
+  assert.ok(Array.isArray(json(tower).nativeLists));
+  const providers = await call('/api/leadgen/providers', { token: ADMIN_TOKEN });
+  assert.equal(providers.status, 200);
+  assert.ok(json(providers).providers.some(provider => provider.id === 'apollo'));
+  assert.equal(json(providers).providerCalls, 0);
+
+  const localPreflight = await call('/api/leadgen/provider-preflight', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ fields: ['website_evidence'], providers: ['local-evidence'], volume: 10 })
+  });
+  assert.equal(localPreflight.status, 200);
+  assert.equal(json(localPreflight).safeToRun, true);
+  assert.equal(json(localPreflight).externalEffects, 0);
+
+  const blockedPreflight = await call('/api/leadgen/provider-preflight', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ fields: ['work_email'], providers: ['apollo'], volume: 10 })
+  });
+  assert.equal(blockedPreflight.status, 200);
+  assert.equal(json(blockedPreflight).safeToRun, false);
+  assert.match(json(blockedPreflight).blockingReasons.join(' '), /BYOK/);
+
+  const coverage = await call('/api/leadgen/coverage', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ name: 'Native HVAC lane', query: { industries: ['HVAC'] } })
+  });
+  assert.equal(coverage.status, 200);
+  assert.ok(json(coverage).totals);
+  assert.equal(json(coverage).providerCalls, 0);
+
+  const buyingGroup = await call('/api/leadgen/buying-group', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ requiredRoles: ['Founder', 'Marketing Director'] })
+  });
+  assert.equal(buyingGroup.status, 200);
+  assert.ok(json(buyingGroup).summary);
+  assert.equal(json(buyingGroup).externalEffects, 0);
+
+  const lookalike = await call('/api/leadgen/lookalike', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ seedIds: [prospectId], limit: 10 })
+  });
+  assert.equal(lookalike.status, 200);
+  assert.equal(json(lookalike).status, 'ready');
+  assert.equal(json(lookalike).providerCalls, 0);
+
+  const ledger = await call(`/api/leadgen/prospects/${encodeURIComponent(prospectId)}/ledger`, { token: ADMIN_TOKEN });
+  assert.equal(ledger.status, 200);
+  assert.equal(json(ledger).prospectId, prospectId);
+  assert.equal(json(ledger).externalEffects, 0);
+
+  const capacity = await call('/api/leadgen/capacity-plan', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ monthlyMessages: 100000, activeDaysPerMonth: 30, senderCells: [] })
+  });
+  assert.equal(capacity.status, 200);
+  assert.equal(json(capacity).requiredDailyMessages, 3334);
+  assert.equal(json(capacity).state, 'CAPACITY_PLAN_ONLY');
+});
+
 test('an error response never carries a stack trace, an internal path, or the token', async () => {
   const leaks = [];
   for (const [route, options] of [

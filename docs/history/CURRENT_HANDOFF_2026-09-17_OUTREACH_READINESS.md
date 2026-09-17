@@ -25,19 +25,23 @@ The bridge adds an exact campaign `offerId`, includes it in campaign idempotency
 ## Lead generator and data policy
 
 - Live lead-generation surfaces are durable, read-only intelligence and handoff routes backed by `lead_lists`, `lead_searches`, `lead_signals`, and `lead_enrichment_runs`.
+- A clean-room native lead-operations layer is now implemented in the current working branch. It provides reusable target profiles, deterministic local list compilation, domain-first deduplication, suppression precedence, local-only enrichment plans/results, safe CSV export, and a mobile control-panel path. It clones the operator jobs and durable state boundaries of lead-gen/enrichment/list/campaign tools; it does not copy protected code, data, private network access, or provider controls.
+- Native list compilation is explicitly `OWNER_PLAN_READY_NOT_AUTHORIZED` or blocked until unresolved evidence is supplied. It never enrolls a campaign, sends a message, creates a provider contact, or asserts consent. Replaying the same list request with the same idempotency key converges on one list.
+- The native enrichment surface is local-only until a separately authorized adapter is configured. The 100,000-message planner calculates daily arithmetic, supplied-cell gap, reply/win scenarios, and blockers, but remains `CAPACITY_PLAN_ONLY`; it is not a sender-capacity certificate, deliverability proof, or revenue claim.
 - Allowed inputs are public, owner-provided, first-party, or licensed records with provenance. Provider calls remain off in the verified configuration.
 - Discovery is public OpenStreetMap website-bearing business research in preview mode; it is not permission to send. LinkedIn, Google Maps, private data, CAPTCHA bypass, and block evasion remain out of scope.
 - Suppression and deduplication controls exist and are tested.
 - A real governed recipient inventory is not evidenced. The synthetic 2,000-record portfolio is not a recipient corpus and cannot authorize contact.
-- ICP/account filters, multi-provider enrichment waterfalls, evidence-bound personalization enforcement, unified reply taxonomy, and per-stage economic instrumentation remain partial or unimplemented.
+- ICP/account filters, multi-provider enrichment waterfalls, evidence-bound personalization enforcement, unified reply taxonomy, and per-stage economic instrumentation remain partial or unimplemented; the native enrichment waterfall is currently a provider-free plan boundary, not an active provider integration.
 
 ## Runtime and safety receipts
 
 - Historical focused suites after the bridge: 103 pass, 0 fail.
 - Current-main rebased checkpoint suite: 64 pass, 0 fail, including server, leadgen, canary, governance, four-offer, canonical freshness, constitution freshness, and worker-context checks.
-- Repository syntax sweep: 2,178 files parse.
+- Repository syntax sweep: 2,183 files parse.
 - Relay safety suite: 150 pass, 0 fail.
-- Full deterministic suite: 7,642 pass, 54 skipped, 1 pre-existing `nullstar-branch-debt` failure. The remote `feat/command-center-big-button` branch exists but is not an ancestor of current `main`; this was preserved as a red repository-history fixture rather than masked.
+- Native lead-ops and server-route focused suite: 21 pass, 0 fail; reachability ratchet: 13 pass, 0 fail.
+- Full deterministic suite: 7,659 pass, 54 skipped, 2 failures. The failures are pre-existing repository truth: `nullstar-branch-debt` because remote `feat/command-center-big-button` is not an ancestor of current `main`, and `worker-context-admission` because the isolated-worker fixture still lacks the expected Context Projection reason code. Neither was deleted, masked, or weakened.
 - Live outbound remained disabled/dry-run; no provider call, recipient message, DNS mutation, payment action, customer contact, cleared payment, or revenue receipt was created by this checkpoint.
 
 ## Campaign and canary truth

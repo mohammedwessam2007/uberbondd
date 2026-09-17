@@ -6,6 +6,22 @@ const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,.
 const pill=s=>`<span class="pill ${esc(s)}">${esc(s)}</span>`;
 function metric(label,value,sub=''){return `<div class="metric"><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div>`}
 function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(v||0))}
+function renderNativeOps(tower, lookalike=null){
+  const coverage=tower?.coverage?.totals||{};
+  const buying=tower?.buyingGroups?.summary||{};
+  const preflight=tower?.providerPreflight||{};
+  const bottlenecks=tower?.coverage?.bottlenecks||[];
+  $('#native-ops-tower').innerHTML=tower
+    ? `<div class="metrics">${metric('Accounts',coverage.accounts||0,`${coverage.accountCoveragePercent||0}% target coverage`)}${metric('Eligible leads',coverage.eligible||0,`${coverage.leadCoveragePercent||0}% target coverage`)}${metric('Evidence gaps',bottlenecks.find(x=>x.key==='missing_evidence')?.count||0)}${metric('Buying-group coverage',buying.averageCoveragePercent||0,'% average')}</div><div class="mini-card"><b>${esc(preflight.safeToRun?'Local/provider plan is runnable':'Provider plan needs closure')}</b><small>${esc(preflight.blockingReasons?.slice(0,2).join(' · ')||'No blocking provider-plan reason')}</small><p>${esc(bottlenecks.slice(0,3).map(x=>x.label+': '+x.count).join(' · ')||'No current bottlenecks')}</p></div>${lookalike?`<div class="mini-card"><b>Lookalike plan · ${esc(lookalike.results?.length||0)} candidates</b><small>Seed: ${esc(lookalike.seeds?.[0]?.company||'selected account')} · no send</small></div>`:''}`
+    : '<div class="mini-card"><small>Quality control tower unavailable.</small></div>';
+  const report={
+    coverage:{totals:coverage,bottlenecks:bottlenecks.slice(0,6)},
+    buyingGroups:buying,
+    providerPreflight:{safeToRun:preflight.safeToRun,blockingReasons:preflight.blockingReasons,estimate:preflight.estimate},
+    lookalike:lookalike?{status:lookalike.status,results:(lookalike.results||[]).slice(0,10)}:null
+  };
+  $('#native-ops-report').textContent=JSON.stringify(report,null,2);
+}
 async function download(url){
   const res=await fetch(url,{headers:{authorization:`Bearer ${token}`},cache:'no-store'});
   if(!res.ok){const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();throw new Error(data?.error||data||'Download failed');}
@@ -46,8 +62,8 @@ function renderCanaryPreview(){
 
 async function load(){
   try{
-    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary,leadgen,ownerSetup]=await Promise.all([
-      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null),api('/api/leadgen/intelligence').catch(()=>null),api('/api/owner/setup').catch(()=>null)
+    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary,leadgen,ownerSetup,nativeLists,controlTower]=await Promise.all([
+      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null),api('/api/leadgen/intelligence').catch(()=>null),api('/api/owner/setup').catch(()=>null),api('/api/leadgen/lists').catch(()=>[]),api('/api/leadgen/control-tower').catch(()=>null)
     ]);
     cache={prospects:pros,campaigns:camps};
     $('#mode').textContent=`${sum.paused?'PAUSED':sum.running?'WORKING':sum.workerOnline?'WORKER ONLINE':'WORKER OFFLINE'} · ${sum.autopilot?'AUTOPILOT ON':'MANUAL MODE'}`;
@@ -72,6 +88,10 @@ async function load(){
     $('#leadgen-policy').innerHTML=leadgen
       ? '<div class="mini-card"><b>Live source · '+esc(leadgen.liveSource||'durable-prospects')+'</b><small>'+esc(leadgen.runtime?.prospectRecords||0)+' prospect records · '+esc(leadgen.runtime?.suppressionRecords||0)+' suppression records</small><p>Provider calls: '+esc(leadgen.runtime?.providerCalls||0)+' · external effects: '+esc(leadgen.runtime?.externalEffects||0)+' · handoff is read-only until certification.</p></div>'
       : '<div class="mini-card"><small>Lead intelligence route unavailable.</small></div>';
+    $('#native-lists').innerHTML=Array.isArray(nativeLists)&&nativeLists.length
+      ? nativeLists.slice(0,6).map(list=>`<div class="mini-card"><b>${esc(list.name||list.id)}</b><small>${esc(list.stats?.selected||0)} selected · ${esc(list.stats?.eligible||0)} owner-plan ready · ${esc(list.stats?.blocked||0)} blocked</small><p>${esc(list.handoff?.send||'NOT_AUTHORIZED')} · <a href="#" class="download-native-list" data-id="${esc(list.id)}">Download CSV</a></p></div>`).join('')
+      : '<div class="mini-card"><small>No native lead lists yet.</small></div>';
+    renderNativeOps(controlTower);
     const campaignOptions=camps.length?camps.filter(c=>!c.systemKey).map(c=>`<option value="${esc(c.id)}">${esc(c.name)} · min ${c.minScore}</option>`).join(''):'<option value="">Create a campaign first</option>';
     $('#campaign-select').innerHTML=campaignOptions;
     $('#discovery-campaign-select').innerHTML=campaignOptions;
@@ -98,6 +118,7 @@ async function load(){
     $('#notifications').innerHTML=notes.filter(n=>n.status!=='read').length?notes.filter(n=>n.status!=='read').slice(0,10).map(n=>`<div class="mini-card"><b>${esc(n.title)}</b><small>${esc(n.createdAt||'')}</small><button class="small mark-read" data-id="${esc(n.id)}">Mark read</button></div>`).join(''):'<div class="empty">Nothing needs attention.</div>';
     document.querySelectorAll('.mark-read').forEach(b=>b.onclick=async()=>{await api('/api/notifications/read',{method:'POST',body:JSON.stringify({id:b.dataset.id})});load();});
     document.querySelectorAll('.retry-job').forEach(b=>b.onclick=async()=>{await api(`/api/jobs/${b.dataset.id}/retry`,{method:'POST'});load();});
+    document.querySelectorAll('.download-native-list').forEach(b=>b.onclick=async event=>{event.preventDefault();try{await download(`/api/leadgen/lists/${encodeURIComponent(b.dataset.id)}.csv`);}catch(error){alert(error.message);}});
     $('#replies').innerHTML=replies.length?replies.slice(0,12).map(r=>`<div class="mini-card"><b>${esc(r.classification?.label||'reply')} · ${esc(r.from)}</b><small>${esc(r.subject)}</small><p>${esc((r.body||'').slice(0,220))}</p></div>`).join(''):'<div class="empty">No matched replies.</div>';
     $('#social').innerHTML=social.length?social.slice(0,12).map(t=>`<div class="mini-card"><b>${esc(t.channel)} · ${esc(t.company||'prospect')}</b><small>${esc(t.draft)}</small></div>`).join(''):'<div class="empty">No social tasks yet.</div>';
   }catch(e){$('#mode').textContent=e.message;}
@@ -135,6 +156,16 @@ const finalOfferPresets=Object.freeze({
   BILINGUAL_BOOKING_LEAK_AUDIT:{name:'Arabic + English Booking Leak Audit · founding lane',niche:'UAE and KSA clinics, medspas, dental groups, and appointment businesses',offer:'Arabic + English Booking Leak Audit — $750 founding pilot'}
 });
 $('#campaign-offer-id').onchange=e=>{const preset=finalOfferPresets[e.currentTarget.value];if(!preset)return;for(const [field,value] of Object.entries(preset)){const input=e.currentTarget.form.elements.namedItem(field);if(input)input.value=value;}};
+const splitField=value=>String(value||'').split(',').map(item=>item.trim()).filter(Boolean);
+const nativeListKey=async x=>{
+  const material=JSON.stringify(x);
+  if(globalThis.crypto?.subtle){const bytes=new TextEncoder().encode(material);const digest=await crypto.subtle.digest('SHA-256',bytes);return `native-list-${Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('')}`;}
+  let hash=2166136261;for(const char of material){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return `native-list-${(hash>>>0).toString(16)}-${material.length}`;
+};
+$('#native-list-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const profile={name:String(f.get('name')||''),query:{prompt:String(f.get('prompt')||''),industries:splitField(f.get('industries')),countries:splitField(f.get('countries')),cities:splitField(f.get('cities')),roles:splitField(f.get('roles')),minScore:Number(f.get('minScore')||55),requireEvidence:f.has('requireEvidence'),requireContact:f.has('requireContact'),skipOwned:true,limit:Number(f.get('limit')||50)}};const x={name:profile.name,profile,limit:profile.query.limit};try{const key=await nativeListKey(x);const result=await api('/api/leadgen/lists',{method:'POST',headers:{'Idempotency-Key':key},body:JSON.stringify({...x,idempotencyKey:key})});$('#native-list-status').textContent=`${result.idempotentReplay?'Replayed':'Compiled'} ${result.name} · ${result.stats?.selected||0} selected · ${result.stats?.eligible||0} owner-plan ready · no send.`;load();}catch(error){$('#native-list-status').textContent=error.message;}};
+$('#capacity-plan-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const input={monthlyMessages:Number(f.get('monthlyMessages')||100000),activeDaysPerMonth:Number(f.get('activeDaysPerMonth')||30),averagePriceUsd:Number(f.get('averagePriceUsd')||450),targetReplyRate:Number(f.get('targetReplyRate')||0.02),targetCloseRate:Number(f.get('targetCloseRate')||0.05),senderCells:[]};try{const plan=await api('/api/leadgen/capacity-plan',{method:'POST',body:JSON.stringify(input)});$('#capacity-status').textContent=`${plan.state} · ${plan.requiredDailyMessages} messages/day · ${plan.providerCalls||0} provider calls.`;$('#capacity-plan').textContent=JSON.stringify({requiredDailyMessages:plan.requiredDailyMessages,suppliedDailyCapacity:plan.suppliedDailyCapacity,capacityGap:plan.capacityGap,projectedReplies:plan.projectedReplies,projectedWins:plan.projectedWins,projectedGrossRevenueUsd:plan.projectedGrossRevenueUsd,blockers:plan.blockers},null,2);}catch(error){$('#capacity-status').textContent=error.message;}};
+$('#provider-preflight-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const input={fields:splitField(f.get('fields')),providers:splitField(f.get('providers')),volume:Number(f.get('volume')||25),maxProviderCalls:Number(f.get('maxProviderCalls')||0)};try{const plan=await api('/api/leadgen/provider-preflight',{method:'POST',body:JSON.stringify(input)});$('#provider-preflight-status').textContent=`${plan.safeToRun?'Plan is runnable':'Plan blocked'} · ${plan.estimate?.worstCaseAttempts||0} worst-case attempts · no provider calls.`;$('#provider-preflight-report').textContent=JSON.stringify({safeToRun:plan.safeToRun,blockingReasons:plan.blockingReasons,routes:plan.routes,estimate:plan.estimate},null,2);}catch(error){$('#provider-preflight-status').textContent=error.message;}};
+$('#native-ops-run').onclick=async()=>{const button=$('#native-ops-run');button.disabled=true;$('#native-ops-status').textContent='Refreshing local coverage, buying-group, and lookalike maps…';try{const tower=await api('/api/leadgen/control-tower');const seed=cache.prospects.find(row=>['ready','research-complete'].includes(row.status))||cache.prospects[0];const lookalike=seed?await api('/api/leadgen/lookalike',{method:'POST',body:JSON.stringify({seedIds:[seed.id],limit:10})}):null;renderNativeOps(tower,lookalike);$('#native-ops-status').textContent=`Refreshed ${tower.coverage?.totals?.records||0} records · ${lookalike?.results?.length||0} local lookalike candidates · no calls or sends.`;}catch(error){$('#native-ops-status').textContent=error.message;}finally{button.disabled=false;}};
 $('#campaign-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const x=Object.fromEntries(f);x.approved=f.has('approved');x.autoSend=f.has('autoSend');try{const c=await api('/api/campaigns',{method:'POST',headers:{'Idempotency-Key':await campaignKey(x)},body:JSON.stringify(x)});alert(`${c.idempotentReplay?'Campaign already existed':'Campaign created'}: ${c.name}`);load();}catch(e){alert(e.message)}};
 $('#owner-identity-form').onsubmit=async e=>{e.preventDefault();const x=Object.fromEntries(new FormData(e.currentTarget));try{const result=await api('/api/owner/business-identity',{method:'POST',body:JSON.stringify(x)});$('#identity-status').textContent=`Saved ${result.identity.legalName} · no provider call made.`;load();}catch(error){$('#identity-status').textContent=error.message;}};
 $('#recipient-form').onsubmit=async e=>{e.preventDefault();const form=e.currentTarget;const x=Object.fromEntries(new FormData(form));try{x.observedAt=new Date(x.observedAt).toISOString();const result=await api('/api/owner/recipient',{method:'POST',body:JSON.stringify(x)});$('#recipient-status').textContent=`${result.idempotentReplay?'Already recorded':'Recorded'} ${result.prospect.company} · queued for local research only.`;form.reset();form.elements.namedItem('country').value='United Kingdom';form.elements.namedItem('niche').value='HVAC, plumbing, or electrical';form.elements.namedItem('authorizationBasis').value='requested_information';form.elements.namedItem('jurisdiction').value='GB';load();}catch(error){$('#recipient-status').textContent=error.message;}};

@@ -66,6 +66,13 @@ const autoResumeOnBoot = String(process.env.WORKER_AUTO_RESUME_ON_BOOT || '').to
 if (autoResumeOnBoot) {
   const pauseState = await queue.pausedState();
   if (pauseState.paused) await queue.setPaused(false, 'startup-recovery');
+  const [jobs, prospects] = await Promise.all([store.list('jobs'), store.list('prospects')]);
+  const target = prospects.find(item => item.id === 'pros_3e2eb90c-c6c0-48de-8850-9a55865490bb');
+  const jobCounts = Object.fromEntries([...new Set(jobs.map(item => item.status))].map(status => [
+    status, jobs.filter(item => item.status === status).length
+  ]));
+  const activeResearch = jobs.filter(item => item.status === 'active' && item.type === 'research.batch').length;
+  console.log(`UberBond startup recovery snapshot: paused=${Boolean((await queue.pausedState()).paused)} activeResearch=${activeResearch} jobCounts=${JSON.stringify(jobCounts)} targetStatus=${target?.status || 'missing'}`);
 }
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 

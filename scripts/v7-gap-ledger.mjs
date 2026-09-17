@@ -237,14 +237,29 @@ const GAPS = [
       }
       const index = readJson('artifacts/v7/artifact-index.json');
       const absent = (index.rows || []).filter(row => row.state === 'ABSENT');
+      // An absence nobody classified is a defect in the index rather than a
+      // property of the artifact, and it hides how much of the remainder is
+      // actually waiting on software.
+      const unclassified = absent.filter(row => row.absenceReason === 'UNCLASSIFIED');
+      const computableNow = absent.filter(row => row.absenceReason === 'COMPUTABLE_NOW');
       const broken = (index.rows || []).filter(row => row.state === 'COVER_DECLARED_BUT_MISSING' || row.state === 'GENERATOR_DECLARED_NOT_YET_RUN');
       if (!absent.length && !broken.length) {
         return { status: 'CLOSED', closureEvidence: 'every artifact the contract names is generated or covered by existing source' };
       }
       return {
         status: 'OPEN',
-        sourceEvidence: [`${absent.length} of ${index.rows.length} contract artifacts absent`, ...(broken.length ? [`${broken.length} declared but not produced`] : [])],
-        measured: { absent: absent.map(row => row.artifact), declaredButMissing: broken.map(row => row.artifact) }
+        sourceEvidence: [
+          `${absent.length} of ${index.rows.length} contract artifacts absent`,
+          `${computableNow.length} are computable now; the rest wait on repeated observation, elapsed time, an absent runtime, or external reality`,
+          ...(unclassified.length ? [`${unclassified.length} absences carry no reason, which is a defect in the index`] : []),
+          ...(broken.length ? [`${broken.length} declared but not produced`] : [])
+        ],
+        measured: {
+          computableNow: computableNow.map(row => row.artifact),
+          unclassified: unclassified.map(row => row.artifact),
+          byReason: absent.reduce((acc, row) => ({ ...acc, [row.absenceReason]: (acc[row.absenceReason] || 0) + 1 }), {}),
+          declaredButMissing: broken.map(row => row.artifact)
+        }
       };
     }
   }

@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "uberbond.v7-claim-evidence-registry.v1",
+  "generatedAt": "2026-09-17T17:40:49.738Z",
+  "sourceSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+  "generator": "scripts/v7-claim-evidence-registry.mjs",
+  "freshnessPolicy": "Each claim is compared against the current head at run time. STALE_AGAINST_CURRENT_HEAD means the artifact asserting it described a different tree.",
+  "counts": {
+    "EXACT_HEAD": 7,
+    "NOT_HEAD_BOUND": 1
+  },
+  "boundary": "This records what backs a claim and how fresh it is. It does not re-derive the claim, so a wrong measurement recorded at the exact head still reads EXACT_HEAD.",
+  "uncertainty": "NOT_HEAD_BOUND is common and correct for time-based evidence such as a health probe. It is not a failure.",
+  "rows": [
+    {
+      "id": "CLM-SOFTWARE-OPEN",
+      "claim": "Open software gaps remaining in the V7 ledger",
+      "artifact": "artifacts/v7/gap-ledger.json",
+      "value": 1,
+      "evidenceClass": "COMPUTED_BY_CHECKS",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": "Every gap ran a check. The number is a measurement, not a label."
+    },
+    {
+      "id": "CLM-SOURCE-SIDE-COMPLETE",
+      "claim": "Whether the V7 completion law is satisfied on the source side",
+      "artifact": "artifacts/v7/gap-ledger.json",
+      "value": false,
+      "evidenceClass": "COMPUTED_BY_CHECKS",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": null
+    },
+    {
+      "id": "CLM-MUTATION-ANCHORS",
+      "claim": "Mutation guards registered in the harness",
+      "artifact": "artifacts/constitution/directives.json",
+      "value": 496,
+      "evidenceClass": "COMPUTED_FROM_SOURCE",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": "Registered, not killed. A registered guard that was never run proves nothing."
+    },
+    {
+      "id": "CLM-GUARD-BACKED-DIRECTIVES",
+      "claim": "Constitutional directives backed by a mutation-killed guard",
+      "artifact": "artifacts/constitution/directives.json",
+      "value": 84,
+      "evidenceClass": "VOCABULARY_LINKAGE_TO_A_KILLED_GUARD",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": "The linkage is term overlap between a directive and a guard description. It shows a guard exists on the same subject, not that it enforces this sentence."
+    },
+    {
+      "id": "CLM-PROOF-DEBT",
+      "claim": "Rules that could be settled by code and are not",
+      "artifact": "artifacts/v7/proof-obligations.json",
+      "value": 14,
+      "evidenceClass": "COMPUTED_FROM_SOURCE",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": null
+    },
+    {
+      "id": "CLM-DEPLOYMENT-STATE",
+      "claim": "UberBond deployment state",
+      "artifact": "artifacts/ubercel/deployment-signals.json",
+      "value": "CONTRACT_BOUND_EVIDENCE_EXISTS",
+      "evidenceClass": "OBSERVED_BY_A_THIRD_PARTY",
+      "producedAtSha": null,
+      "freshness": "NOT_HEAD_BOUND",
+      "note": "The recorded probe was observed by the deployment session, not by any session that wrote this registry. Its freshness is time-based, not head-based."
+    },
+    {
+      "id": "CLM-CANONICAL-V9",
+      "claim": "Whether canonical V9 can be reconstructed from the carrier",
+      "artifact": "artifacts/v7/gap-ledger.json",
+      "value": "EXTERNAL_BLOCKED",
+      "evidenceClass": "REPRODUCIBLE_BY_RUNNING_THE_MATERIALIZER",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": "The ledger check runs scripts/materialize-inevitability-v9.py at the head it reports. The narrative record lives at artifacts/v9/canonical-v9-materialization-blocker.json."
+    },
+    {
+      "id": "CLM-EXTERNAL-ECONOMIC-EVIDENCE",
+      "claim": "Cleared payments and accepted deliveries",
+      "artifact": "artifacts/nullstar-terminal/completion-debt.json",
+      "value": "NONE",
+      "evidenceClass": "ABSENCE_OF_EXTERNAL_RECEIPTS",
+      "producedAtSha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "freshness": "EXACT_HEAD",
+      "note": "An absence claim. It can be falsified by one real receipt and cannot be strengthened by any amount of internal work."
+    }
+  ],
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE"
+}

@@ -30,29 +30,29 @@ const CONTRACT = {
   'artifacts/v7/conflict-graph.json': { covers: 'artifacts/constitution/directives.json', note: 'conflictGraph, with precedence resolvability per candidate.' },
   'artifacts/v7/supersession-graph.json': { covers: 'artifacts/constitution/directives.json', note: 'precedence ranks and the declared terminal-source exclusion. Supersession edges between individual directives are uncomputed.' },
   'artifacts/v7/coverage-graph.json': { covers: 'artifacts/constitution/directives.json', note: 'coverageBySource: directives, guarded, external-effect and guarded-external-effect per canon file.' },
-  'artifacts/v7/proof-obligations.json': { absent: true, note: 'No artifact enumerates what each directive would require as proof.' },
-  'artifacts/v7/claim-evidence-registry.json': { absent: true },
+  'artifacts/v7/proof-obligations.json': { generator: 'scripts/v7-proof-obligations.mjs' },
+  'artifacts/v7/claim-evidence-registry.json': { generator: 'scripts/v7-claim-evidence-registry.mjs' },
   'artifacts/v7/proof-debt.json': { covers: 'artifacts/constitution/reviewed-linkage-findings.json', note: 'Directives reported unguarded, each read and classified, with residuals named per entry.' },
-  'artifacts/v7/mission-dag.json': { absent: true },
-  'artifacts/v7/resource-allocation.json': { absent: true },
-  'artifacts/v7/evaluation-epoch.json': { absent: true },
-  'artifacts/v7/baselines.json': { absent: true },
-  'artifacts/v7/world-frontier.json': { absent: true },
-  'artifacts/v7/global-dominance-graph.json': { absent: true },
-  'artifacts/v7/singularity-barrier-graph.json': { absent: true },
-  'artifacts/v7/quadrillion-runtime-status.json': { absent: true, note: 'No quadrillion lattice runtime exists. The V6 annex warns the matrix exists to widen search coverage, not to create chores.' },
-  'artifacts/v7/improvement-generations.jsonl': { absent: true },
-  'artifacts/v7/meta-improvement-generations.jsonl': { absent: true },
-  'artifacts/v7/transfer-ledger.jsonl': { absent: true },
+  'artifacts/v7/mission-dag.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Missions are derivable from the gap ledger plus the execution order. Nothing external is missing.' },
+  'artifacts/v7/resource-allocation.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Allocation across open gaps is computable once the mission DAG exists.' },
+  'artifacts/v7/evaluation-epoch.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'An epoch is a labelled measurement boundary over gates that already run.' },
+  'artifacts/v7/baselines.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Baselines over existing gate outputs: test counts, mutation kills, coverage.' },
+  'artifacts/v7/world-frontier.json': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Live world-frontier sensing requires authorized external research this session has no authority to perform.' },
+  'artifacts/v7/global-dominance-graph.json': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'A comparison against external systems requires measuring them. Unavailable comparators stay unmeasured rather than becoming imagined scores.' },
+  'artifacts/v7/singularity-barrier-graph.json': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Barriers are defined against measured capability, which needs the comparators above.' },
+  'artifacts/v7/quadrillion-runtime-status.json': { absent: true, absenceReason: 'NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST', note: 'There is no lattice search runtime to report the status of. The doctrine warns against confusing a quadrillion-cell spec with an implemented search engine, and an artifact reporting the status of nothing would be that confusion in file form.' },
+  'artifacts/v7/improvement-generations.jsonl': { absent: true, absenceReason: 'NEEDS_REPEATED_OBSERVATION', note: 'A generation ledger needs more than one measured generation. One entry is not a series, and fitting a trend to it would be the error the doctrine names.' },
+  'artifacts/v7/meta-improvement-generations.jsonl': { absent: true, absenceReason: 'NEEDS_REPEATED_OBSERVATION', note: 'Same, one level up: improving the improver needs improvements to compare.' },
+  'artifacts/v7/transfer-ledger.jsonl': { absent: true, absenceReason: 'NEEDS_REPEATED_OBSERVATION', note: 'Cross-organ transfer needs a measured transfer to record.' },
   'artifacts/v7/deployment-evidence.json': { covers: 'artifacts/ubercel/deployment-signals.json', note: 'Deployment signals with evidence class per signal; provider badges recorded as establishing nothing.' },
-  'artifacts/v7/runtime-endurance.json': { absent: true },
-  'artifacts/v7/science-ledger.jsonl': { absent: true },
-  'artifacts/v7/life-delta-ledger.jsonl': { absent: true },
-  'artifacts/v7/economic-delta-ledger.jsonl': { absent: true },
+  'artifacts/v7/runtime-endurance.json': { absent: true, absenceReason: 'NEEDS_ELAPSED_TIME', note: 'Endurance is elapsed unattended operation. It cannot be computed, only waited for and observed.' },
+  'artifacts/v7/science-ledger.jsonl': { absent: true, absenceReason: 'NEEDS_REPEATED_OBSERVATION', note: 'Requires experiments that have actually run.' },
+  'artifacts/v7/life-delta-ledger.jsonl': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Life outcomes are observed in the founder\u2019s life, not computed from a repository.' },
+  'artifacts/v7/economic-delta-ledger.jsonl': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Requires the cleared payment that V7G006 is blocked on.' },
   'artifacts/v7/reality-debt.json': { covers: 'artifacts/nullstar-terminal/completion-debt.json', note: 'CD001-CD013 with computed open/closed status; CD006 and CD007 remain the external economic gates.' },
   'artifacts/v7/founder-authority-ledger.json': { covers: 'artifacts/constitution/open-founder-decisions.json', note: 'FD002: the operative canon carries no authored precedence.' },
-  'artifacts/v7/frontier-checkpoint.json': { absent: true },
-  'artifacts/v7/final-frontier-state.json': { absent: true }
+  'artifacts/v7/frontier-checkpoint.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'A checkpoint over artifacts that already exist.' },
+  'artifacts/v7/final-frontier-state.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Terminal state summary over the gap ledger and the frontier checkpoint.' }
 };
 
 function main() {
@@ -77,10 +77,19 @@ function main() {
         note: spec.note ?? null
       };
     }
-    return { artifact: name, state: 'ABSENT', coveredBy: null, note: spec.note ?? null };
+    return {
+      artifact: name, state: 'ABSENT', coveredBy: null,
+      // A count of absent artifacts is not actionable; the reason one is absent
+      // is. COMPUTABLE_NOW is work waiting to be done. The rest are waiting on
+      // something no amount of writing produces.
+      absenceReason: spec.absenceReason ?? 'UNCLASSIFIED',
+      note: spec.note ?? null
+    };
   });
 
   const counts = rows.reduce((acc, row) => ({ ...acc, [row.state]: (acc[row.state] || 0) + 1 }), {});
+  const absenceReasons = rows.filter(row => row.state === 'ABSENT')
+    .reduce((acc, row) => ({ ...acc, [row.absenceReason]: (acc[row.absenceReason] || 0) + 1 }), {});
   const artifact = {
     schemaVersion: 'uberbond.v7-artifact-index.v1',
     generatedAt: new Date().toISOString(),
@@ -89,7 +98,9 @@ function main() {
     freshnessPolicy: 'Recomputed from the filesystem on every run. A state here is a statSync result, not a claim.',
     contractSource: 'MANDATORY MACHINE-READABLE V7 ARTIFACTS, from the recoverable V7 ancestor',
     counts,
+    absenceReasons,
     honesty: 'ABSENT is a real answer and is counted. Generating an empty file to move a name out of that column would satisfy the list and lose the information.',
+    unclassifiedAbsences: rows.filter(row => row.state === 'ABSENT' && row.absenceReason === 'UNCLASSIFIED').map(row => row.artifact),
     rows,
     uncertainty: 'COVERED_BY_EXISTING_ARTIFACT means an existing artifact carries this content, not that it carries it in the shape the contract names. Each cover states what it actually holds.',
     externalEffects: [],
@@ -101,6 +112,9 @@ function main() {
   console.log(`v7 artifact index @ ${sourceSha.slice(0, 8)}  (${rows.length} named by the contract)`);
   for (const [state, count] of Object.entries(counts).sort((a, b) => b[1] - a[1])) {
     console.log(`  ${String(count).padStart(3)} ${state}`);
+  }
+  for (const [reason, count] of Object.entries(absenceReasons).sort((a, b) => b[1] - a[1])) {
+    console.log(`      ${String(count).padStart(3)} absent: ${reason}`);
   }
 }
 

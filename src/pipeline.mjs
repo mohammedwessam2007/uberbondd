@@ -134,7 +134,11 @@ export class Pipeline {
       && prospect.contact?.email
       ? { ...prospect.contact }
       : null;
-    const discoveredContacts = await discoverContacts(prospect, crawl, ownerRecordedContact ? '' : this.cfg.hunterKey);
+    const providerEnrichmentEnabled = Boolean(
+      this.cfg.leadGeneration?.providerCallsEnabled && this.cfg.leadGeneration?.hunterEnabled
+    );
+    const hunterKey = ownerRecordedContact || !providerEnrichmentEnabled ? '' : this.cfg.hunterKey;
+    const discoveredContacts = await discoverContacts(prospect, crawl, hunterKey);
     const contacts = ownerRecordedContact
       ? {
           ...discoveredContacts,
@@ -144,7 +148,7 @@ export class Pipeline {
         }
       : discoveredContacts;
     let contact = contacts.selected;
-    if (contact?.email && !ownerRecordedContact && this.cfg.hunterKey && contact.verified === 'unverified') {
+    if (contact?.email && !ownerRecordedContact && providerEnrichmentEnabled && this.cfg.hunterKey && contact.verified === 'unverified') {
       try {
         const verification = await verifyEmail(contact.email, this.cfg.hunterKey);
         contact = { ...contact, verified: verification.status, verificationScore: verification.score };

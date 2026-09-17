@@ -133,6 +133,13 @@ with `OUTBOUND_DRY_RUN=false` additionally requires `BUSINESS_ADDRESS`,
 | `OPENAI_MODEL` | `gpt-5-mini` | OpenAI model id. |
 | `HUNTER_API_KEY` | — | Optional contact enrichment. |
 
+Third-party lead enrichment is separately gated. A Hunter key is never used by
+the worker merely because it exists: both switches below must be explicitly
+enabled before a Hunter lookup or verification call can occur.
+
+| `LEAD_PROVIDER_CALLS_ENABLED` | `false` | Master switch for third-party lead-enrichment calls. |
+| `HUNTER_ENRICHMENT_ENABLED` | `false` | Enables the Hunter adapter only when the master switch and `HUNTER_API_KEY` are present. |
+
 ## Storage, artifacts & misc
 
 | Variable | Default | Notes |

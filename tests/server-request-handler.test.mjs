@@ -271,6 +271,13 @@ test('the public surface stays reachable without a token', async () => {
     const res = await call(route);
     assert.equal(res.status, 200, `${route} must answer anonymously`);
   }
+  const config = json(await call('/api/public/config'));
+  assert.equal(config.offerCatalog.filter(item => item.kind === 'paid').length, 4);
+  const interest = await call('/api/public/offer-interest', {
+    method: 'POST',
+    body: JSON.stringify({ token: 'not-a-real-report-token', product: 'full' })
+  });
+  assert.equal(interest.status, 404);
 });
 
 // An unknown route under an authenticated prefix must not become a 200 by

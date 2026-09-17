@@ -72,8 +72,8 @@ async function pageSnapshot(page) {
   }, {CTA_SOURCE:CTA.source,CONTACT_SOURCE:CONTACT.source});
 }
 
-async function checkBrokenLinks(links, origin, max=12, allowLocal=false) {
-  const targets=uniq(links.filter(x=>{try{const u=new URL(x.url);return u.origin===origin&&!SKIP.test(u.pathname);}catch{return false;}}).map(x=>x.url)).slice(0,max);
+async function checkBrokenLinks(links, origin, max=12, allowLocal=false, robots={allow:[],disallow:[]}) {
+  const targets=uniq(links.filter(x=>{try{const u=new URL(x.url);return u.origin===origin&&!SKIP.test(u.pathname)&&isAllowed(x.url,robots);}catch{return false;}}).map(x=>x.url)).slice(0,max);
   const results=[];
   for(const url of targets){
     try{
@@ -206,7 +206,7 @@ export async function crawlSiteBrowser(input, options={}) {
         await mobile.screenshot({path:path.join(screenshotDir,mobileName),fullPage:true,animations:'disabled'});
         await mobile.close();
         await emitProgress('checking_links_and_conversion_paths');
-        const brokenLinks=pages.length===0?await checkBrokenLinks(data.links,origin,12,allowLocal):[];
+        const brokenLinks=pages.length===0?await checkBrokenLinks(data.links,origin,12,allowLocal,robots):[];
         const record={url:finalUrl,requestedUrl:item.url,status,responseHeaders,depth:item.depth,redirected:finalUrl!==item.url,...data,mobile:mobileData,brokenLinks,screenshots:{desktop:`/screenshots/${desktopName}`,mobile:`/screenshots/${mobileName}`}};
         pages.push(record);
         for(const link of data.links){

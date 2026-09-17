@@ -30,6 +30,7 @@ import {
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
+import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -174,7 +175,7 @@ const relayRateLimited = req => {
   return count > Math.max(1, Number(config.agentRelay?.rateLimitPerMinute || 120));
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
-const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
+const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/api/public/offer-interest' || pathname === '/webhooks/lemonsqueezy';
 const clientIp = req => {
   const hops = Number(config.trustProxyHops) || 0;
   const socketAddress = String(req.socket?.remoteAddress || 'unknown');
@@ -886,7 +887,8 @@ export const requestHandler = async (req, res) => {
       return json(res, 200, {
         brand: 'UberBond', publicAuditEnabled: config.revenue.publicIntake,
         prices: { full: config.revenue.fullAuditPrice, strategy: config.revenue.strategyAuditPrice, monitoring: config.revenue.monitoringPrice, implementationFrom: config.revenue.implementationFrom },
-        bookingUrl: config.revenue.bookingUrl
+        bookingUrl: config.revenue.bookingUrl,
+        offerCatalog: buildRevenueOfferCatalog(config.revenue)
       });
     }
     if (method === 'POST' && url.pathname === '/api/public/audit') {
@@ -917,6 +919,11 @@ export const requestHandler = async (req, res) => {
       if (!lead) return json(res, 404, { error: 'Report not found' });
       const checkout = revenue.checkoutFor(lead, String(input.product || 'full'));
       return checkout.configured ? json(res, 200, checkout) : json(res, 503, { error: 'Checkout is not configured yet', checkout });
+    }
+    if (method === 'POST' && url.pathname === '/api/public/offer-interest') {
+      const input = await parseBody(req);
+      const result = await revenue.registerOfferInterest(input.token, input.product);
+      return json(res, result.status || (result.ok ? 200 : 400), result);
     }
     if (method === 'POST' && url.pathname === '/webhooks/lemonsqueezy') {
       const raw = await bodyText(req);

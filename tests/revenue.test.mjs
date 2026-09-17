@@ -30,3 +30,19 @@ test('public report shows one free finding then unlocks full report',async()=>{
   await engine.unlockLead(lead.id,'full',{provider:'test',eventId:'evt_1',amountCents:4900});
   const paid=await engine.publicReport(created.accessToken);assert.equal(paid.report.observations.length,2);assert.equal(paid.report.hiddenFindings,0);assert.equal(paid.report.fullAccess,true);assert.equal((await engine.summary()).grossRevenue,49);
 });
+
+test('a selected paid offer and a missing checkout become durable interest without inventing payment', async () => {
+  const dir=await fs.mkdtemp(path.join(os.tmpdir(),'revenue-interest-'));const store=new Store(dir);await store.init();
+  const pipeline={running:true,paused:false,runBatch:async()=>{}};const engine=new RevenueEngine(store,cfg(dir),pipeline);
+  const created=await engine.createLead({company:'Offer Interest',website:'https://interest.example',email:'buyer@interest.example',industry:'SaaS',consent:true,requestedOffer:'implementation'},'1.2.3.4');
+  const lead=await store.get('leads',created.leadId);
+  assert.equal(lead.requestedOffer,'implementation');
+  const first=await engine.registerOfferInterest(created.accessToken,'implementation');
+  assert.equal(first.ok,true);assert.equal(first.route,'request');assert.equal(first.providerCalls,0);
+  const second=await engine.registerOfferInterest(created.accessToken,'implementation');
+  assert.equal(second.duplicate,true);
+  const notifications=await store.list('notifications');
+  assert.equal(notifications.filter(item=>item.type==='offer_interest').length,1);
+  const updated=await store.get('leads',created.leadId);
+  assert.equal(updated.paymentStatus,'unpaid');assert.equal(updated.plan,'free');
+});

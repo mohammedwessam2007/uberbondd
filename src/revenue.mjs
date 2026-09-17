@@ -4,6 +4,7 @@ import { checkoutUrl, normalizeLemonEvent, verifyLemonSignature, classifyPayment
 import { sendEmail, sealTokens } from './gmail.mjs';
 import { encryptJson, decryptJson } from './crypto.mjs';
 import { ConflictError } from './store.mjs';
+import { buildRevenueOfferCatalog, getRevenueOffer, isRevenueOfferId } from './revenue-offers.mjs';
 
 const DAY = 86400000;
 const sha = value => crypto.createHash('sha256').update(String(value)).digest('hex');
@@ -104,11 +105,15 @@ export class RevenueEngine {
 
     const campaign = await this.ensureInboundCampaign();
     const accessToken = crypto.randomBytes(24).toString('base64url');
+    const requestedOffer = isRevenueOfferId(input.requestedOffer, { paidOnly: true })
+      ? String(input.requestedOffer).trim().toLowerCase()
+      : 'snapshot';
     const lead = {
       id: id('lead'), company, website, email, domain,
       industry: cleanText(input.industry, 120), country: cleanText(input.country, 80),
       language: cleanText(input.language, 30) || 'English', source: cleanText(input.source, 80) || 'public-audit',
       status: 'queued', plan: 'free', paymentStatus: 'unpaid', consent: Boolean(input.consent),
+      requestedOffer, requestedOfferAt: requestedOffer === 'snapshot' ? null : now(),
       accessTokenHash: sha(accessToken), accessTokenSecret: protectToken(accessToken, this.cfg.encryptionKey), createdAt: now()
     };
     const prospect = {
@@ -125,7 +130,8 @@ export class RevenueEngine {
       await tx.add('prospects', prospect);
       await tx.add('notifications', {
         id: id('note'), type: 'new_lead', leadId: lead.id, prospectId: prospect.id,
-        title: `New audit request: ${company}`, status: 'unread', createdAt: now()
+        title: `New audit request: ${company}${requestedOffer !== 'snapshot' ? ` · ${getRevenueOffer(requestedOffer, this.cfg.revenue)?.name || requestedOffer}` : ''}`,
+        requestedOffer, status: 'unread', createdAt: now()
       });
     });
     setTimeout(() => {
@@ -155,6 +161,39 @@ export class RevenueEngine {
     return { product, price: entry.price, currency: 'USD', configured: Boolean(url), url };
   }
 
+  async registerOfferInterest(token, product) {
+    const lead = await this.leadByToken(token);
+    if (!lead) return { ok: false, status: 404, error: 'Report not found' };
+    const offer = getRevenueOffer(product, this.cfg.revenue);
+    if (!offer || offer.kind !== 'paid') return { ok: false, status: 400, error: 'Unknown paid offer' };
+
+    const timestamp = this.clock().toISOString();
+    const notificationId = `offer-interest:${lead.id}:${offer.id}`;
+    const existing = await this.store.get('notifications', notificationId);
+    const history = Array.isArray(lead.offerInterestHistory) ? lead.offerInterestHistory : [];
+    const nextHistory = existing
+      ? history
+      : [...history, { product: offer.id, requestedAt: timestamp, route: offer.route }].slice(-12);
+    await this.store.patch('leads', lead.id, {
+      requestedOffer: offer.id,
+      requestedOfferAt: lead.requestedOfferAt || timestamp,
+      offerInterestHistory: nextHistory
+    });
+    if (!existing) {
+      await this.store.add('notifications', {
+        id: notificationId,
+        type: 'offer_interest', leadId: lead.id, prospectId: lead.prospectId,
+        product: offer.id, title: `Offer interest: ${lead.company} · ${offer.name}`,
+        status: 'unread', createdAt: timestamp
+      });
+    }
+    return {
+      ok: true, product: offer.id, offer: offer.name, duplicate: Boolean(existing),
+      route: offer.route, price: offer.price, providerCalls: 0, externalEffects: 0,
+      truthBoundary: 'The lead explicitly requested an offer route. No payment, booking, email, or customer acceptance was fabricated.'
+    };
+  }
+
   async publicReport(token) {
     const lead = await this.leadByToken(token);
     if (!lead) return null;
@@ -167,7 +206,8 @@ export class RevenueEngine {
     return {
       lead: {
         id: lead.id, company: lead.company, website: lead.website, email: lead.email,
-        status: lead.status, plan: lead.plan, paymentStatus: lead.paymentStatus, createdAt: lead.createdAt
+        status: lead.status, plan: lead.plan, paymentStatus: lead.paymentStatus,
+        requestedOffer: lead.requestedOffer || 'snapshot', createdAt: lead.createdAt
       },
       report: {
         ready: ['ready', 'research-complete', 'rejected', 'sent', 'replied'].includes(prospect.status),
@@ -179,7 +219,8 @@ export class RevenueEngine {
       offers: {
         full: this.checkoutFor(lead, 'full'), strategy: this.checkoutFor(lead, 'strategy'),
         monitoring: this.checkoutFor(lead, 'monitoring'),
-        implementation: { priceFrom: this.cfg.revenue.implementationFrom, bookingUrl: this.cfg.revenue.bookingUrl }
+        implementation: { priceFrom: this.cfg.revenue.implementationFrom, bookingUrl: this.cfg.revenue.bookingUrl, route: this.cfg.revenue.bookingUrl ? 'booking' : 'request' },
+        catalog: buildRevenueOfferCatalog(this.cfg.revenue)
       }
     };
   }

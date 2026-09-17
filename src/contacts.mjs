@@ -1,4 +1,4 @@
-import { isEmail, normalizeDomain, uniq } from './utils.mjs';
+import { isEmail, normalizeDomain } from './utils.mjs';
 
 const generic = /^(info|contact|hello|admin|office|support|sales|marketing|team|enquiries|inquiries)@/i;
 function rank(email, position='') {
@@ -16,11 +16,24 @@ async function hunter(path, params, key) {
 }
 export async function discoverContacts(prospect, crawl, hunterKey='') {
   const domain = normalizeDomain(prospect.website || crawl.startUrl);
-  const found = uniq(crawl.emails || []).filter(isEmail).filter(e => e.endsWith(`@${domain}`)).map(email => ({email,source:'website',personal:!generic.test(email),position:'',confidence:generic.test(email)?45:68,verified:'unverified'}));
+  const pageEmailRecords = (Array.isArray(crawl.pages) ? crawl.pages : [])
+    .flatMap(page => (Array.isArray(page?.emails) ? page.emails : []).map(email => ({ email, sourceUrl: page.url || '' })));
+  const fallbackEmailRecords = pageEmailRecords.length
+    ? pageEmailRecords
+    : (crawl.emails || []).map(email => ({ email, sourceUrl: crawl.startUrl || prospect.website || '' }));
+  const publicByEmail = new Map();
+  for (const record of fallbackEmailRecords) {
+    const email = String(record.email || '').trim().toLowerCase();
+    if (isEmail(email) && email.endsWith(`@${domain}`) && !publicByEmail.has(email)) publicByEmail.set(email, record.sourceUrl || '');
+  }
+  const found = [...publicByEmail.entries()].map(([email, sourceUrl]) => ({
+    email, source:'website', sourceUrl, observedAt: crawl.completedAt || '', exact:true, inferred:false,
+    personal:!generic.test(email), position:'', confidence:generic.test(email)?45:68, verified:'unverified'
+  }));
   if (hunterKey) {
     try {
       const result = await hunter('domain-search',{domain,limit:20},hunterKey);
-      for (const x of result.data?.emails || []) found.push({email:x.value,firstName:x.first_name||'',lastName:x.last_name||'',position:x.position||'',source:'hunter',personal:x.type==='personal',confidence:x.confidence||rank(x.value,x.position),verified:x.verification?.status||'unknown',sources:x.sources||[]});
+      for (const x of result.data?.emails || []) found.push({email:x.value,firstName:x.first_name||'',lastName:x.last_name||'',position:x.position||'',source:'hunter',sourceUrl:x.sources?.[0]?.uri||x.sources?.[0]?.url||'',personal:x.type==='personal',confidence:x.confidence||rank(x.value,x.position),verified:x.verification?.status||'unknown',sources:x.sources||[],exact:true,inferred:false});
     } catch (error) { found.push({error:error.message,source:'hunter'}); }
   }
   const valid = found.filter(x => x.email && isEmail(x.email));

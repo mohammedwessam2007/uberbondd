@@ -3,9 +3,27 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(n||0));
 const confidence=n=>`${Math.round(Number(n||0)*100)}%`;
 function finding(x){return `<article class="public-finding"><div class="finding-head"><span>${esc(x.category||'Opportunity')}</span><b>${x.severity}/5 impact · ${confidence(x.confidence)} confidence</b></div><h3>${esc(x.title)}</h3><p>${esc(x.implication)}</p><div class="evidence"><strong>Evidence</strong><p>${esc(x.evidenceExcerpt)}</p><a href="${esc(x.evidenceUrl)}" target="_blank" rel="noopener">Open source page</a></div><div class="service-line">Recommended response: <strong>${esc(x.service)}</strong></div></article>`}
+function offerStatus(message, kind='success'){
+  const node=$('#offer-interest-status');if(!node)return;
+  node.className=`form-status active ${kind}`;node.textContent=message;
+}
+async function requestOfferInterest(product){
+  const buttons=document.querySelectorAll(`[data-product="${product}"],[data-interest="${product}"]`);buttons.forEach(b=>b.disabled=true);
+  try{
+    const res=await fetch('/api/public/offer-interest',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token,product})});
+    const data=await res.json();if(!res.ok)throw new Error(data.error||'Could not record the request');
+    offerStatus(`${data.offer} request recorded. UberBond has preserved this report and the requested route.`, 'success');
+  }catch(error){offerStatus(error.message,'error');buttons.forEach(b=>b.disabled=false);}
+}
 async function checkout(product){
   const buttons=document.querySelectorAll(`[data-product="${product}"]`);buttons.forEach(b=>b.disabled=true);
-  try{const res=await fetch('/api/public/checkout',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token,product})});const data=await res.json();if(!res.ok)throw new Error(data.error||'Checkout unavailable');location.href=data.url;}catch(e){alert(`${e.message}. The owner still needs to connect the hosted checkout link.`);buttons.forEach(b=>b.disabled=false);}
+  try{
+    const res=await fetch('/api/public/checkout',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({token,product})});
+    const data=await res.json();
+    if(!res.ok){if(data.checkout?.configured===false)return requestOfferInterest(product);throw new Error(data.error||'Checkout unavailable');}
+    if(!data.url)return requestOfferInterest(product);
+    location.href=data.url;
+  }catch(error){offerStatus(error.message,'error');buttons.forEach(b=>b.disabled=false);}
 }
 function render(data){
   const {lead,report,offers}=data;document.title=`${lead.company} Opportunity Report · UberBond`;
@@ -22,9 +40,9 @@ function render(data){
     <article><span>01</span><h3>Full Digital Audit</h3><p>Unlock the complete automated report and printable evidence map.</p><button class="button" data-product="full">${money(offers.full.price)}</button></article>
     <article><span>02</span><h3>Strategy Audit</h3><p>Add human review, prioritization, and an implementation roadmap.</p><button class="button" data-product="strategy">${money(offers.strategy.price)}</button></article>
     <article><span>03</span><h3>UberBond Watch</h3><p>Schedule recurring scans and preserve a change history over time.</p><button class="button" data-product="monitoring">${money(offers.monitoring.price)}/mo</button></article>
-    <article><span>04</span><h3>Implementation Sprint</h3><p>Have UberBond design and build the highest-impact fix.</p>${offers.implementation.bookingUrl?`<a class="button gold" href="${esc(offers.implementation.bookingUrl)}" target="_blank">Book a conversation</a>`:`<a class="button gold" href="mailto:uberbond.co@gmail.com?subject=${encodeURIComponent(lead.company+' implementation sprint')}">Discuss implementation</a>`}</article>
-  </div></section>`;
-  $('#report-loading').hidden=true;$('#report-content').hidden=false;document.querySelectorAll('[data-product]').forEach(b=>b.onclick=()=>checkout(b.dataset.product));
+    <article><span>04</span><h3>Implementation Sprint</h3><p>Have UberBond design and build the highest-impact fix.</p>${offers.implementation.bookingUrl?`<a class="button gold" href="${esc(offers.implementation.bookingUrl)}" target="_blank">Book a conversation</a>`:`<button class="button gold" data-interest="implementation">Request a proposal</button>`}</article>
+  </div><div id="offer-interest-status" class="form-status" role="status"></div></section>`;
+  $('#report-loading').hidden=true;$('#report-content').hidden=false;document.querySelectorAll('[data-product]').forEach(b=>b.onclick=()=>checkout(b.dataset.product));document.querySelectorAll('[data-interest]').forEach(b=>b.onclick=()=>requestOfferInterest(b.dataset.interest));
 }
 async function load(){
   if(!token){$('#report-loading').innerHTML='<h1>Missing private report token.</h1><p>Return to the audit form and submit your website again.</p>';return;}

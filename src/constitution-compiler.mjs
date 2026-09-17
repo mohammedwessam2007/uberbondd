@@ -15,7 +15,17 @@ import crypto from 'node:crypto';
 
 export const CONSTITUTION_COMPILER_VERSION = 'uberbond.constitution-compiler.v1';
 
-/** Canon files, in precedence order. NORTH_STAR.md and the precedence file define that order. */
+/**
+ * The OPERATIVE canon: files whose statements bind what an agent may do in this
+ * repository right now.
+ *
+ * This is not the precedence order, and an earlier version of this comment said
+ * it was. docs/NORTH_STAR_PRECEDENCE.md ranks ten files and exactly one of them
+ * -- NORTH_STAR.md -- is in this list. The other nine are the terminal North
+ * Star layer and are deliberately not compiled; see TERMINAL_SOURCES below for
+ * why, and for the counts, because a scope decision that leaves 886 normative
+ * sentences out has to be visible rather than inferred from an absence.
+ */
 export const CANON_SOURCES = Object.freeze([
   'NORTH_STAR.md',
   'AGENTS.md',
@@ -27,6 +37,105 @@ export const CANON_SOURCES = Object.freeze([
   'docs/CAPABILITY_GENOME_CANON.md',
   'docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md'
 ]);
+
+/**
+ * The terminal North Star layer: ranked highest by docs/NORTH_STAR_PRECEDENCE.md
+ * and deliberately NOT compiled into Directive Objects.
+ *
+ * Not an oversight and not an amputation. NORTH_STAR.md states its own status:
+ * "This file and every North Star artifact are direction and search-space canon,
+ * not implementation proof." A Directive Object carries
+ * evidenceRequirements: REPOSITORY_TEST_OR_EXECUTABLE_CHECK, so compiling these
+ * would assert the opposite of what they say about themselves -- 886 normative
+ * sentences describing a system that is explicitly not built yet, each one
+ * arriving as a rule awaiting a guard, and the 48 external-effect rules that do
+ * bind behaviour today would be a rounding error beside them.
+ *
+ * They remain canon. They are read at startup, they outrank everything here on
+ * objective, and the no-drop law protects them. What they are not is a checklist
+ * of enforcement debt.
+ */
+export const TERMINAL_SOURCES = Object.freeze([
+  'docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md',
+  'artifacts/sovereign-cognitive-continuum-total-north-star.json',
+  'docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md',
+  'artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json',
+  'docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md',
+  'artifacts/sovereign-cognitive-continuum-north-star.json',
+  'docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md',
+  'artifacts/sovereign-option-outcome-forecast-engine.json',
+  'artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json'
+]);
+
+/**
+ * Reads the authored precedence order out of docs/NORTH_STAR_PRECEDENCE.md.
+ *
+ * Parsed rather than transcribed, so the ranks cannot drift from the file that
+ * defines them: editing the list there changes the ranks here, and a rank this
+ * code invents is a rank the founder did not author.
+ */
+export function precedenceOrder(markdown = '') {
+  const ranks = new Map();
+  const pattern = /^(\d+)\.\s+`([^`]+)`/gm;
+  let match;
+  while ((match = pattern.exec(markdown))) {
+    const rank = Number(match[1]);
+    const file = match[2];
+    // First mention wins. A file listed twice is a defect in the precedence
+    // file, and silently taking the later rank would hide it.
+    if (!ranks.has(file)) ranks.set(file, rank);
+  }
+  return ranks;
+}
+
+/**
+ * A directive's precedence, or an explicit statement that it has none.
+ *
+ * Eight of the nine operative sources are unranked by the precedence file.
+ * Returning 0 for those -- which is what the old `priority: 0` did for all 262
+ * directives -- reads as "lowest precedence" when the truth is "no precedence
+ * was ever assigned". Those are different facts and only one of them is true.
+ */
+export function precedenceFor(source, ranks) {
+  const rank = ranks.get(source);
+  return Number.isInteger(rank)
+    ? { precedenceRank: rank, precedenceState: 'RANKED_BY_PRECEDENCE_FILE' }
+    : { precedenceRank: null, precedenceState: 'UNRANKED__NO_AUTHORED_PRECEDENCE' };
+}
+
+/**
+ * Whether the authored precedence order can settle a conflict candidate.
+ *
+ * Where both sides are ranked, the lower rank wins and the conflict has an
+ * answer. Where either side is unranked there is no answer to give, and
+ * inventing one would be amending the constitution: deciding that AGENTS.md
+ * outranks CLAUDE.md is a founder's act, not a compiler's.
+ */
+export function resolveByPrecedence(candidate, directivesById, ranks) {
+  const a = directivesById.get(candidate.prohibition);
+  const b = directivesById.get(candidate.obligation);
+  const rankA = a ? ranks.get(a.provenance) : undefined;
+  const rankB = b ? ranks.get(b.provenance) : undefined;
+  if (!Number.isInteger(rankA) || !Number.isInteger(rankB)) {
+    return {
+      precedenceResolvable: false,
+      reason: 'AT_LEAST_ONE_SIDE_UNRANKED',
+      unranked: [
+        Number.isInteger(rankA) ? null : a?.provenance,
+        Number.isInteger(rankB) ? null : b?.provenance
+      ].filter(Boolean)
+    };
+  }
+  if (rankA === rankB) {
+    return { precedenceResolvable: false, reason: 'SAME_SOURCE_SAME_RANK', unranked: [] };
+  }
+  return {
+    precedenceResolvable: true,
+    reason: 'LOWER_RANK_WINS',
+    winner: rankA < rankB ? candidate.prohibition : candidate.obligation,
+    unranked: []
+  };
+}
 
 // Ordered: the first match wins, and prohibitions are tested before
 // obligations because "must never" is a prohibition, not an obligation.
@@ -142,7 +251,7 @@ export function linkMutationGuards(terms, guardIndex, { minimumTerms = 2 } = {})
   return scored.sort((a, b) => b.shared - a.shared).slice(0, 3);
 }
 
-export function compileDirective({ source, text, sourceSha, testIndex = new Map(), guardIndex = [], precedence = 0 }) {
+export function compileDirective({ source, text, sourceSha, testIndex = new Map(), guardIndex = [], precedence = 0, precedenceRanks = new Map() }) {
   const directiveClass = classify(text);
   if (!directiveClass) return null;
   const terms = distinctiveTerms(text);
@@ -155,6 +264,7 @@ export function compileDirective({ source, text, sourceSha, testIndex = new Map(
     class: directiveClass,
     // Precedence is the canon's own file order, not an importance judgement.
     priority: precedence,
+    ...precedenceFor(source, precedenceRanks),
     dependencies: [],
     conflicts: [],
     supersedes: [],

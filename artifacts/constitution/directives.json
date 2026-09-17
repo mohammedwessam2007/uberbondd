@@ -5,8 +5,8 @@
     "A001",
     "A021"
   ],
-  "generatedAt": "2026-09-17T01:29:55.017Z",
-  "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4",
+  "generatedAt": "2026-09-17T02:18:04.599Z",
+  "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6",
   "method": "Normative sentences from the canon files in precedence order, classified as prohibition, obligation or permission, tagged by whether they govern an external effect, and linked to tests by distinctive-vocabulary overlap.",
   "counts": {
     "directives": 262,
@@ -31,6 +31,294 @@
     "reviewed": 22,
     "unreviewed": 0,
     "holesFound": 4
+  },
+  "precedence": {
+    "ranksParsedFrom": "docs/NORTH_STAR_PRECEDENCE.md",
+    "ranked": [
+      {
+        "file": "NORTH_STAR.md",
+        "rank": 1
+      },
+      {
+        "file": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+        "rank": 2
+      },
+      {
+        "file": "artifacts/sovereign-cognitive-continuum-total-north-star.json",
+        "rank": 3
+      },
+      {
+        "file": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md",
+        "rank": 4
+      },
+      {
+        "file": "artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json",
+        "rank": 5
+      },
+      {
+        "file": "docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md",
+        "rank": 6
+      },
+      {
+        "file": "artifacts/sovereign-cognitive-continuum-north-star.json",
+        "rank": 7
+      },
+      {
+        "file": "docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md",
+        "rank": 8
+      },
+      {
+        "file": "artifacts/sovereign-option-outcome-forecast-engine.json",
+        "rank": 9
+      },
+      {
+        "file": "artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json",
+        "rank": 10
+      }
+    ],
+    "operativeSourcesRanked": [
+      "NORTH_STAR.md"
+    ],
+    "operativeSourcesUnranked": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "UBERBOND_CANON.md",
+      "AI_START_HERE.md",
+      "docs/NORTH_STAR_PRECEDENCE.md",
+      "docs/WALLBREAKER_CANON.md",
+      "docs/CAPABILITY_GENOME_CANON.md",
+      "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md"
+    ],
+    "boundary": "A rank this tool did not read out of the precedence file is a rank the founder did not author. Unranked means unranked, not lowest."
+  },
+  "terminalSourcesNotCompiled": {
+    "files": [
+      "docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md",
+      "artifacts/sovereign-cognitive-continuum-total-north-star.json",
+      "docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md",
+      "artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json",
+      "docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md",
+      "artifacts/sovereign-cognitive-continuum-north-star.json",
+      "docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md",
+      "artifacts/sovereign-option-outcome-forecast-engine.json",
+      "artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json"
+    ],
+    "reason": "Ranked highest by the precedence file and deliberately not compiled. NORTH_STAR.md states their status: direction and search-space canon, not implementation proof. A Directive Object asserts REPOSITORY_TEST_OR_EXECUTABLE_CHECK, which is the opposite claim.",
+    "normativeSentencesNotCompiled": 886,
+    "notAnAmputation": "These remain canon, are read at startup, and outrank every compiled directive on objective. What they are not is enforcement debt."
+  },
+  "conflictGraph": [
+    {
+      "prohibition": "AGENTS-837953c8",
+      "obligation": "NORTH-STAR-df9f1eab",
+      "sharedTerms": [
+        "personal",
+        "civilization",
+        "engine",
+        "north",
+        "star"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "AGENTS.md"
+      ]
+    },
+    {
+      "prohibition": "AGENTS-837953c8",
+      "obligation": "NORTH-STAR-PRECEDENCE-99b9c3d9",
+      "sharedTerms": [
+        "personal",
+        "civilization",
+        "engine",
+        "north",
+        "star"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "AGENTS.md",
+        "docs/NORTH_STAR_PRECEDENCE.md"
+      ]
+    },
+    {
+      "prohibition": "WALLBREAKER-CANON-6bede997",
+      "obligation": "CLAUDE-aea5f8cf",
+      "sharedTerms": [
+        "provider",
+        "model",
+        "legitimately",
+        "configured",
+        "another"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "docs/WALLBREAKER_CANON.md",
+        "CLAUDE.md"
+      ]
+    },
+    {
+      "prohibition": "AGENTS-5c0c9f2a",
+      "obligation": "UBERBOND-CANON-c524933b",
+      "sharedTerms": [
+        "superseded",
+        "implementation",
+        "goal",
+        "mechanism"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "AGENTS.md",
+        "UBERBOND_CANON.md"
+      ]
+    },
+    {
+      "prohibition": "AGENTS-37ce08d1",
+      "obligation": "UBERBOND-CANON-ef408498",
+      "sharedTerms": [
+        "terminal",
+        "north",
+        "star",
+        "narrowing"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "AGENTS.md",
+        "UBERBOND_CANON.md"
+      ]
+    },
+    {
+      "prohibition": "CLAUDE-4802dde1",
+      "obligation": "UBERBOND-CANON-ef408498",
+      "sharedTerms": [
+        "terminal",
+        "north",
+        "star",
+        "current"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "CLAUDE.md",
+        "UBERBOND_CANON.md"
+      ]
+    },
+    {
+      "prohibition": "CLAUDE-4802dde1",
+      "obligation": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e60a7282",
+      "sharedTerms": [
+        "json",
+        "current",
+        "state",
+        "readiness"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "CLAUDE.md",
+        "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md"
+      ]
+    },
+    {
+      "prohibition": "UBERBOND-CANON-c56ba762",
+      "obligation": "AGENTS-7530556e",
+      "sharedTerms": [
+        "distribution",
+        "evidence",
+        "authority",
+        "consent"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "UBERBOND_CANON.md",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "prohibition": "UBERBOND-CANON-764ca423",
+      "obligation": "UBERBOND-CANON-b5b66085",
+      "sharedTerms": [
+        "personal",
+        "civilization",
+        "engine",
+        "create"
+      ],
+      "note": "Candidate only. A conditional pair -- never X without authority, must X when authorized -- shares vocabulary and does not contradict.",
+      "precedenceResolvable": false,
+      "reason": "AT_LEAST_ONE_SIDE_UNRANKED",
+      "unranked": [
+        "UBERBOND_CANON.md",
+        "UBERBOND_CANON.md"
+      ]
+    }
+  ],
+  "coverageBySource": {
+    "NORTH_STAR.md": {
+      "directives": 26,
+      "withMutationGuard": 4,
+      "externalEffect": 1,
+      "externalEffectWithMutationGuard": 0
+    },
+    "AGENTS.md": {
+      "directives": 40,
+      "withMutationGuard": 12,
+      "externalEffect": 6,
+      "externalEffectWithMutationGuard": 4
+    },
+    "CLAUDE.md": {
+      "directives": 28,
+      "withMutationGuard": 13,
+      "externalEffect": 9,
+      "externalEffectWithMutationGuard": 6
+    },
+    "UBERBOND_CANON.md": {
+      "directives": 54,
+      "withMutationGuard": 18,
+      "externalEffect": 10,
+      "externalEffectWithMutationGuard": 6
+    },
+    "AI_START_HERE.md": {
+      "directives": 7,
+      "withMutationGuard": 1,
+      "externalEffect": 2,
+      "externalEffectWithMutationGuard": 1
+    },
+    "docs/NORTH_STAR_PRECEDENCE.md": {
+      "directives": 4,
+      "withMutationGuard": 2,
+      "externalEffect": 1,
+      "externalEffectWithMutationGuard": 1
+    },
+    "docs/WALLBREAKER_CANON.md": {
+      "directives": 19,
+      "withMutationGuard": 8,
+      "externalEffect": 6,
+      "externalEffectWithMutationGuard": 4
+    },
+    "docs/CAPABILITY_GENOME_CANON.md": {
+      "directives": 33,
+      "withMutationGuard": 10,
+      "externalEffect": 5,
+      "externalEffectWithMutationGuard": 3
+    },
+    "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md": {
+      "directives": 51,
+      "withMutationGuard": 12,
+      "externalEffect": 8,
+      "externalEffectWithMutationGuard": 4
+    }
   },
   "perSource": {
     "NORTH_STAR.md": {
@@ -211,6 +499,8 @@
       "text": "Everything capable of becoming useful intelligence may eventually become a subordinate organ of UberBond.",
       "class": "PERMISSION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -275,13 +565,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-4d830df0",
       "text": "Every human or AI evaluating, modifying, rating, resuming, or extending UberBond must read these before reducing UberBond to a company, revenue engine, SaaS, website-audit product, agent swarm, productivity system, life optimizer, second brain, digital twin, or personal assistant:",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -357,13 +649,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-c39a73a5",
       "text": "A newer concept may replace a mechanism, but it must not silently delete the unique purpose that mechanism contributed.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -428,13 +722,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-df9f1eab",
       "text": "Any older wording anywhere in the repository that calls the **Personal Civilization Engine** the \"highest-level North Star\", \"highest-level destination\", or equivalent is historical donor wording and must now be interpreted as referring to the highest **contained life-system layer** beneath the Sovereign Cognitive Continuum.",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -522,13 +818,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-6770f698",
       "text": "UberBond must not collapse a material decision into one recommendation when materially different causal options exist.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -602,13 +900,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-dfc09225",
       "text": "For important decisions it should:",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -633,13 +933,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-cbd1a9b2",
       "text": "seek the highest-value information or reversible experiment when additional evidence can materially improve the decision;",
       "class": "PERMISSION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -711,13 +1013,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-621eb7e2",
       "text": "When those are insufficient, UberBond must widen the range or say `UNKNOWN` rather than manufacture precision.",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -782,13 +1086,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-7845688d",
       "text": "Prediction never creates sovereignty.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -814,13 +1120,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-d657fb41",
       "text": "UberBond must reason about which form of cognition deserves trust for the current question.",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -888,13 +1196,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-d36b916d",
       "text": "Internal coherence and model consensus never outrank reality.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -955,13 +1265,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-682cbb81",
       "text": "Capability does not create authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1031,13 +1343,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-336eb488",
       "text": "Intelligence does not create authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1063,13 +1377,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-badb7a6f",
       "text": "Prediction does not create authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1117,13 +1433,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-453000e8",
       "text": "Economic value does not create authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1184,13 +1502,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-7534cbf8",
       "text": "Social consensus does not create authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1239,13 +1559,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-b75d5d24",
       "text": "Past preference does not create present authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1305,13 +1627,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-4ad912d4",
       "text": "UberBond does not become sovereign over Mohamed by becoming more capable.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1374,13 +1698,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-7c087db9",
       "text": "Capitalism, corporate logic, medicine, career, productivity, prestige, status, social norms, happiness, optimization, or any other worldview may be modeled as a useful reality, lens, or instrument, but none is automatically the meaning of Mohamed's existence.",
       "class": "PERMISSION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1454,13 +1780,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-d1efa9ab",
       "text": "UberBond must remain open under future invention.",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1520,13 +1848,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-d1bbb863",
       "text": "If a radically new form of intelligence, computation, perception, knowledge, creativity, simulation, forecasting, embodiment, consciousness theory, or capability becomes physically possible later, the architecture should be able to absorb or model it without changing the sovereignty relation.",
       "class": "OBLIGATION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1599,13 +1929,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-736ce10f",
       "text": "If future reality reveals a phenomenon that cannot be represented without distortion by the current ontology, **Ontogenesis must create a new category and the architecture must be willing to rebuild around the discovery**.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1712,13 +2044,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-fd4462ba",
       "text": "Presence in canon does not prove superintelligence, omniscience, an IQ-equivalent number, perfect prediction, commercial success, consciousness, or life-outcome improvement.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1788,13 +2122,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-fcd984dd",
       "text": "Build a sovereign cognitive civilization whose compound intelligence can continually discover, acquire, invent, test and retain capabilities until its effective problem-solving performance becomes broadly superhuman, while remaining reality-calibrated, corrigible, self-deployable, provider-independent and subordinate to Mohamed's will.",
       "class": "PERMISSION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1872,13 +2208,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-7e594548",
       "text": "ASI is a research/engineering North Star, never a self-declared status.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -1940,13 +2278,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-d0fab623",
       "text": "Capability never creates authority.",
       "class": "PROHIBITION",
       "priority": 0,
+      "precedenceRank": 1,
+      "precedenceState": "RANKED_BY_PRECEDENCE_FILE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2016,13 +2356,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-03e2bce2",
       "text": "do not rely on a remembered SHA.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2047,13 +2389,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-dc4ac593",
       "text": "They do not supersede the Sovereign Cognitive Continuum.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2112,13 +2456,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-03c8caba",
       "text": "A short-term handoff must never erase the long-horizon memory.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2146,13 +2492,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-837953c8",
       "text": "Search the total North Star, Total Brain, all overlays, Personal Civilization Engine canon, Perpetual Frontier/GENESIS, `namedInitiatives`, lineage/reconciliation artifacts and unresolved names before concluding that an older program, feature, offer family, architecture, Singularity, Kilimanjaro/Ragnarok/Night mission, crawler, idea generator, clone/cannibal mechanism or model capability never existed.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2240,13 +2588,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-527f65b2",
       "text": "it never overrides current code, exact-head receipts, or durable external evidence.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2349,13 +2699,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-4cd12240",
       "text": "Never auto-select a website audit, lead-path sprint, or commercial wedge merely because old root documentation or the public UI describes it.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2425,13 +2777,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-7b0e4e74",
       "text": "Do not ask the owner to retell the project merely because prior conversation context is unavailable.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2495,13 +2849,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-5c0c9f2a",
       "text": "Superseded implementation does not erase the goal/mechanism/capability it donated.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2566,13 +2922,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-37ce08d1",
       "text": "The Sovereign Cognitive Continuum is the terminal North Star and may not be amputated by narrowing UberBond back into a revenue tool, website-audit product, SaaS, agent swarm, life optimizer, software factory, autonomous company, or even only the Personal Civilization Engine.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2648,13 +3006,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-0ea0fcca",
       "text": "The Personal Civilization Engine remains the highest contained life-system organism and may not be amputated by narrowing UberBond to economic machinery.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2726,13 +3086,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-362dd881",
       "text": "do not silently drop a purpose because a stronger mechanism subsumes it.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2783,13 +3145,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-3e344863",
       "text": "Within that hierarchy, optimize the economic supporting organ for **risk-adjusted cleared contribution profit per founder minute** while moving toward a founder-light, globally distributed, cloud-runnable economic operating system that can continuously assimilate future technology, invent new opportunity/business/institution forms, improve its own search/evaluation/ontology mechanisms, and preserve founder freedom.",
       "class": "PERMISSION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2865,13 +3229,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-04d7a211",
       "text": "Do not optimize code volume, agent count, send volume, impressions, lead count, vanity dashboards, architecture complexity, historical corpus size, synthetic test-count scale, synthetic revenue, or a single numerical definition of a good life.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -2949,13 +3315,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-ea4af4cf",
       "text": "Exactly one active commercial experiment may be a good capital-allocation rule without redefining the company into one service.",
       "class": "PERMISSION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3045,13 +3413,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-8ebd497c",
       "text": "Do not mistake historical counts such as opportunity IDs, offer rows, combinations, company rows, partner rows, generated OMNIA spaces or the 275 Perpetual Frontier ideas for current customers, active SKUs, revenue, or capability maturity.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3141,13 +3511,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-70c7c684",
       "text": "Dormant/rejected opportunities should preserve explicit blockers and resurrection conditions where useful.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3212,13 +3584,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-ebf84bc9",
       "text": "UberBond must seek the earliest lawful public signals of emerging capability, extract the actual changed primitive, minimize frontier latency, propagate material changes through Capability Genome and the opportunity universe, challenge current architectures through N+1/Anti-UberBond mechanisms, preserve evaluator/adversary evolution, and translate newly possible capabilities into bounded economic hypotheses.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3294,13 +3668,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-2969726e",
       "text": "At the life level, frontier sensing may also identify changes that materially expand or contract founder capability, learning, geographic freedom, creative possibility, communities, experiences or long-horizon options.",
       "class": "PERMISSION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3388,13 +3764,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-0326f150",
       "text": "Such signals remain hypotheses until grounded and never override human choice.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3457,13 +3835,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-117167da",
       "text": "At the terminal level, Ontogenesis must be willing to create a new category if future reality cannot be represented without distortion by the current twelve-domain ontology.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3570,13 +3950,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-d0fab623",
       "text": "Capability never creates authority.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3646,13 +4028,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-27838f8f",
       "text": "Artificial Imagination may generate distant, low-similarity and counterfactual hypotheses internally.",
       "class": "PERMISSION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3695,13 +4079,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-273f5c0d",
       "text": "Internal code, model output, tests, documents, simulations, vendor claims, opens, clicks, CRM observations, historical research counts, remembered chat text, generated opportunities, frontier signals or synthetic worlds cannot manufacture customer acceptance, cleared payment, legal clearance, provider state, market success, renewal, life-outcome proof, psychological certainty, superintelligence proof, perfect-prediction proof, consciousness proof, or founder-absence duration.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3814,13 +4200,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-a72989ad",
       "text": "Without explicit consequence authority, do not perform customer messages/calls, provider/model calls, spend/purchases, public publishing, deployments, DNS/credential changes, KYC/payment-account changes, money movement, physical-device actions, or production/customer mutations.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -3920,13 +4308,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-91551c1b",
       "text": "Do not infer private contact information, bypass CAPTCHA/platform controls, evade provider policy, or weaken suppression/consent/safety gates.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4008,13 +4398,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-f330902b",
       "text": "Never create a replacement UberBond app.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4052,13 +4444,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-2a79a631",
       "text": "Keep `lite/` untouched unless a separately justified mission explicitly requires it.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4136,13 +4530,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-ed9f3e1e",
       "text": "Self-improvement must remain proof-carrying, bounded, reversible where possible, and unable to widen consequence authority by itself.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4214,13 +4610,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-3227a372",
       "text": "Terminal North Star canon changes must not be misreported as implementation of the life organs they describe.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4290,13 +4688,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-7530556e",
       "text": "Every distribution motion must eventually bind opportunity/offer, audience/source evidence, eligibility, authority/consent/suppression, provider adapter, experiment identity, cost/capacity, provider receipt, attribution, cleared payment, accepted delivery, renewal, and learning.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4409,13 +4809,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-86c33452",
       "text": "Measured exploitation may use only trusted commercial receipts.",
       "class": "PERMISSION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4475,13 +4877,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-5cf48b45",
       "text": "Unproven channels may be explored only as bounded preparation and never be labelled economically proven.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4547,13 +4951,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-e3b1b127",
       "text": "Paid media requires separate budget authority and measured positive economics.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4624,13 +5030,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-2b9a05b6",
       "text": "A high predicted score never overrides safety.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4690,13 +5098,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-9821cb9d",
       "text": "Another runtime may be unable to open it.",
       "class": "PERMISSION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4745,13 +5155,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-48b0137c",
       "text": "Do not dump raw secrets/private data into the repository.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4824,13 +5236,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-a3a75200",
       "text": "The handoff must state verified completion, unresolved blockers, external-proof gates, unresolved historical names when relevant, and the next highest-value mission.",
       "class": "OBLIGATION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4906,13 +5320,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-f4c74950",
       "text": "Never turn a blocker into a success label to make a progress number look better.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -4977,13 +5393,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-82b0302a",
       "text": "A stale handoff may never override the terminal North Star or redefine UberBond as one historical offer.",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5053,13 +5471,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AGENTS-3b06956f",
       "text": "Do not launch implementation merely because a packet exists",
       "class": "PROHIBITION",
       "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5109,13 +5529,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-fefb064e",
       "text": "Refresh current `main` and never trust a remembered SHA.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5175,13 +5597,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-67baedf0",
       "text": "Do not auto-select a website audit, lead-path sprint, Revenue Engine task, or current public-UI feature merely because historical documentation or the live site exposes it.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5267,13 +5691,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-4802dde1",
       "text": "Read current state/readiness and `docs/CURRENT_HANDOFF.json`, but never let a stale handoff override the terminal North Star.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5349,13 +5775,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-324b10b7",
       "text": "Do not invent observations to satisfy a quota.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5384,13 +5812,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-1ffff73d",
       "text": "Never reduce the larger life objective to money, productivity, status, one scalar score, or a single current commercial wedge.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5478,13 +5908,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-3cb4bbcb",
       "text": "No simulated future self, agent, model, score, optimizer, forecast, or economic calculation may silently create irreversible life authority.",
       "class": "PERMISSION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5582,13 +6014,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-c21e209d",
       "text": "Prediction quality is a required North Star organ, not permission to fake certainty.",
       "class": "OBLIGATION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5652,13 +6086,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-8cdd10a7",
       "text": "Do not run every tool merely because it exists.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5684,13 +6120,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-04e03894",
       "text": "turn friction into an observation and candidate patch, never a silent production rewrite.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5756,13 +6194,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-221a2464",
       "text": "Revoked capabilities are never selectable.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5788,13 +6228,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-223d0806",
       "text": "Use it when a high-value mission is stuck, an implementation/verifier/provider path repeatedly fails, an assumption has been falsified, an explicit capability gap blocks progress, or multiple materially different strategy families should be tournamented.",
       "class": "OBLIGATION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5884,13 +6326,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-8ff2cfee",
       "text": "Never blind-retry an unchanged failed mechanism when the external outcome is uncertain.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -5968,13 +6412,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-f5e720f0",
       "text": "Never weaken a verifier merely to get green output.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6014,13 +6460,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-767c6e63",
       "text": "Atom IDs must be explicit or separately verified",
       "class": "OBLIGATION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6080,13 +6528,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-1b458e39",
       "text": "Discovery, installation, registry presence, or a human label never becomes fake availability.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6152,13 +6602,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-03633ced",
       "text": "Provider/model quota exhaustion is a legitimate routing/fallback signal, never permission to evade quotas or rotate unauthorized identities.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6268,13 +6720,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-21ee8a49",
       "text": "Authority blocks lead to lawful substitute, dependency redesign, or explicit escalation, never circumvention.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6342,13 +6796,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-0557d36b",
       "text": "Wallbreaker compute tier may influence model routing/research depth but cannot widen budget, data, security scope, or consequence authority.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6456,13 +6912,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-131abcf3",
       "text": "Do not create a parallel opportunity registry.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6521,13 +6979,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-05cf0881",
       "text": "Capability never creates contact, production, payment, filing, tax, legal, or certification authority.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6624,13 +7084,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-503fd466",
       "text": "A historical website-audit or lead-path offer is never the project identity merely because it is the current economic experiment.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6721,13 +7183,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-aea5f8cf",
       "text": "Once OmniRoute and one or more provider/model connections are legitimately configured on the host, model failover is pre-authorized and should not ask the owner for another approval merely because a model/provider reaches a usage limit, quota, rate limit, temporary outage, capacity ceiling, or becomes unavailable.",
       "class": "OBLIGATION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6838,13 +7302,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-d8ba57ae",
       "text": "Cross-provider and cross-model-family fallback is allowed.",
       "class": "PERMISSION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6873,13 +7339,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-8ae87611",
       "text": "A real host may run `npm run capabilities:bootstrap:apply` when host package mutation is intended.",
       "class": "PERMISSION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -6958,13 +7426,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-14254fb5",
       "text": "That script installs packages only: it does not configure LLM/provider credentials, start OmniRoute, run Strix scans, enable Agent Reach `--system`/private channels, spend money or contact anyone.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7058,13 +7528,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-e766f128",
       "text": "Never claim a host runtime is installed/configured/healthy until `npm run capabilities:doctor` plus runtime-specific evidence proves it.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7140,13 +7612,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-d0fab623",
       "text": "Capability never creates authority.",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7216,13 +7690,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CLAUDE-3b06956f",
       "text": "Do not launch implementation merely because a packet exists",
       "class": "PROHIBITION",
       "priority": 2,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7272,13 +7748,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-ef408498",
       "text": "A new ChatGPT/Claude/Codex session must reconstruct the terminal North Star **before** narrowing the project to a current UI, website-audit wedge, economic experiment, implementation wave, or stale handoff.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7354,13 +7832,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-2492498b",
       "text": "Capitalism, corporate logic, medicine, career, productivity, prestige, status, social norms, happiness, optimization or any other worldview may be modeled as useful realities, lenses or instruments, but none automatically defines the meaning of Mohamed's existence.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7434,13 +7914,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-c9a1eceb",
       "text": "It does not replace the larger purpose.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7466,13 +7948,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-c7a66262",
       "text": "A newer mechanism may replace an implementation or subsume a concept, but the unique purpose and literal lineage remain discoverable until explicitly superseded by the founder.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7545,13 +8029,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-5ef24d5e",
       "text": "Do not optimize code volume, agent count, impressions, messages, leads, architecture complexity, skill/model count, historical corpus size, synthetic test-count scale, synthetic revenue, or a single numerical definition of a good life.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7629,13 +8115,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-41cb188a",
       "text": "REALITY -> EXPERIENCE -> MOHAMED -> WILL -> VALUE GENESIS -> META-VOLITION -> ATTENTION -> KNOWLEDGE -> META-RATIONAL INTELLIGENCE -> GENESIS / ONTOGENESIS -> OPTION UNIVERSE -> OUTCOME DISTRIBUTIONS -> CAUSAL ANALYSIS -> ADVERSARIAL FALSIFICATION -> UNKNOWN-UNKNOWN SEARCH -> VALUE OF INFORMATION -> RUIN / REVERSIBILITY / REGRET / RECOVERY -> DECISION BOUNDARY -> MOHAMED CHOOSES -> INTENT COMPILER -> ACTION -> REALITY -> CONSEQUENCES -> EXPERIENCE -> MOHAMED CHANGES -> VALUES MAY CHANGE -> NEW WILL -> NEW POSSIBILITIES -> repeat",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7743,13 +8231,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-d0fab623",
       "text": "Capability never creates authority.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7819,13 +8309,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-d75e34af",
       "text": "Intelligence does not create sovereignty.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7851,13 +8343,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-ba9fe73f",
       "text": "Prediction does not create sovereignty.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7883,13 +8377,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-b5a5e71a",
       "text": "A newer mission does not erase an older mission.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -7948,13 +8444,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-c524933b",
       "text": "A superseded implementation may be removed, but its unique goal, mechanism, constraint, experiment, failure lesson, opportunity asset or capability donation must remain discoverable until deliberately reconciled.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8030,13 +8528,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-e1ec38fe",
       "text": "The Sovereign Cognitive Continuum may not be amputated by narrowing UberBond back into a revenue tool, website-audit product, SaaS, agent swarm, study app, software factory, autonomous company, economic optimizer, life optimizer or only the Personal Civilization Engine.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8112,13 +8612,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-2e285a31",
       "text": "The Personal Civilization Engine may not be amputated by narrowing UberBond to economic machinery.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8186,13 +8688,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-2cfbe539",
       "text": "Before saying a feature/program never existed, search North Star, the total no-drop pair, chat-completeness aliases, Total Brain and overlays, Personal Civilization Engine artifacts, Perpetual Frontier/GENESIS, Master Memory, memory reconciliation, historical lineage, open/draft/closed/merged PRs, branches/issues, imported chat/artifact sources and relevant code/docs.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8290,13 +8794,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-1b241fb9",
       "text": "Current repository/external truth always outranks superset memory for present-tense claims.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8390,13 +8896,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-4716b859",
       "text": "Conversation exports and summaries are historical evidence and may be incomplete.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8457,13 +8965,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-09f6fe0c",
       "text": "Every fresh session must:",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8488,13 +8998,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-f90b358e",
       "text": "refresh `main` and never assume an old SHA;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8520,13 +9032,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-c7af713f",
       "text": "never auto-select a website audit, lead-path sprint or current public-UI feature merely because historical product documentation exposed it.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8609,13 +9123,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-44c6a188",
       "text": "UberBond should behave as one machine rather than a pile of SaaS clones.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8656,13 +9172,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-9d782dff",
       "text": "Their presence does not imply implementation.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8688,13 +9206,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-f1ab9df8",
       "text": "explicit external-proof router when code cannot establish market/customer/provider truth;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8800,13 +9320,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-cea054df",
       "text": "allow Ontogenesis to create a new terminal category if future reality cannot be represented without distortion by today's ontology;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8902,13 +9424,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-bc54e518",
       "text": "It validates the registry, compiles frontier shockwave plans, identifies dormant opportunities whose explicit blockers may warrant revalidation, builds unknown-unknown/anomaly agendas and accounts for frontier latency.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -8980,13 +9504,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-6e8ef15b",
       "text": "It cannot self-promote a capability, contact customers, spend, deploy, move money, mutate credentials, operate physical devices or manufacture external proof.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9091,13 +9617,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-38f61e6b",
       "text": "UberBond should provide a provider-neutral distribution control plane over existing acquisition, enrichment, outbound, CRM, inbound, booking, delivery and learning modules.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9174,13 +9702,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-c56ba762",
       "text": "Distribution breadth must never bypass law, consent, suppression, platform terms, provider policy, authority, budget or evidence gates.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9260,13 +9790,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-1c90c6ec",
       "text": "treat Apollo/Clay/Instantly/etc. as mechanism reference surfaces, never proprietary-code sources;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9331,13 +9863,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-993a537f",
       "text": "It must not be confused with software Capability Genome, and it must not silently convert temporary states or skill gaps into fixed identity claims.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9411,13 +9945,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-eb08baf6",
       "text": "public/open weights never imply free, trusted, approved or executable authority.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9485,13 +10021,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-10a60da3",
       "text": "every accepted delivery should create reusable rules/templates/retests/monitoring/exception taxonomies or other privacy-safe compounding assets.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9558,13 +10096,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-8052dffd",
       "text": "self-improvement from trusted measured outcomes, never worker prose or synthetic business evidence;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9632,13 +10172,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-dc8e3cb7",
       "text": "authors do not self-certify important work;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9665,13 +10207,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-d17667b4",
       "text": "founder-absence readiness proven by observed durable operation, never asserted from architecture;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9749,13 +10293,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-48ac7bd8",
       "text": "long-horizon portfolio allocation should increase founder time sovereignty, geographic freedom, financial independence, artistic/intellectual freedom and reversible optionality rather than maximize money by turning the founder into a permanent operator;",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9831,13 +10377,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-b5b66085",
       "text": "the Personal Civilization Engine should create more life rather than more time spent operating an optimization dashboard;",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9906,13 +10454,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-543ce2de",
       "text": "meaningful rest, joy, relationships, creativity and experience remain legitimate ends and may not be treated merely as productivity inputs;",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -9986,13 +10536,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-cf7cb9d7",
       "text": "the Sovereign Cognitive Continuum should disappear into the background when attention cost exceeds intervention value and must never totalize Mohamed's life.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10066,13 +10618,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-6e3dc4bd",
       "text": "For every distribution action, the canonical decision object should be able to bind:",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10138,13 +10692,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-82c061c3",
       "text": "The allocator may narrow authorized actions.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10171,13 +10727,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-6a89e8f4",
       "text": "It may never manufacture permission, resurrect suppressed recipients, infer private contact data, bypass CAPTCHA/platform controls, or convert intent into a claimed external effect.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10278,13 +10836,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-a75b6bab",
       "text": "No customer/revenue/ROI claim is promoted without the required evidence chain.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10366,13 +10926,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-bdcdb06f",
       "text": "No life-improvement claim is promoted merely because a simulation, model, plan or self-report prediction says it should work.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10458,13 +11020,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-40b8d327",
       "text": "Without explicit owner authorization, do not perform customer messages/outbound, provider/model calls, spend/purchases, deployments, DNS/credential changes, KYC/payment-account changes, money movement, public publishing, physical-device actions or production/customer mutations.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10565,13 +11129,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-764ca423",
       "text": "Perpetual Frontier discovery, GENESIS intelligence, Sovereign Continuum reasoning and Personal Civilization Engine reasoning never create consequence authority merely because a new capability, forecast or life path appears promising.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10669,13 +11235,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-8bc30d7d",
       "text": "No simulated future self, model, agent, score, forecast or optimizer may make irreversible life commitments on Mohamed's behalf without explicit authority.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10763,13 +11331,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-2aa70902",
       "text": "Private life data must be minimized and protected",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10843,13 +11413,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-570e2328",
       "text": "public repository canon should preserve architecture without leaking sensitive personal details.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -10915,13 +11487,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-aabdbabd",
       "text": "Health-related reasoning requires appropriate evidence and caution and must be distinguished from personal medical care.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11000,13 +11574,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-c538de8e",
       "text": "Under uncertainty, prefer reversible options when they preserve valuable futures, while recognizing that commitment can rationally close options for depth, love, loyalty, mastery or meaning.",
       "class": "PERMISSION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11081,13 +11657,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-484da119",
       "text": "UberBond should minimize its own operational burden and create more time for actual life.",
       "class": "OBLIGATION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11153,13 +11731,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-e1a821c2",
       "text": "Unless current canonical receipts prove otherwise, do not infer verified customers, cleared revenue, accepted deliveries or retained customers from code, screenshots, vendor claims, research catalogs, payment links, sandbox events, model output, generated opportunities, frontier signals or simulations.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11270,13 +11850,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-438867a4",
       "text": "never call externally gated proof internally complete.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11339,13 +11921,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "UBERBOND-CANON-81521381",
       "text": "Do not ask the owner to restate the project merely because the previous conversation ended.",
       "class": "PROHIBITION",
       "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11387,13 +11971,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-1fb61511",
       "text": "If you are an AI, coding agent, research agent, IDE assistant, terminal agent, or fresh chat opening this repository, **do not infer UberBond from the newest file, PR, offer, UI, issue, or active mission**.",
       "class": "PROHIBITION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11469,13 +12055,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-23a38df4",
       "text": "Never silently delete, forget, narrow away, or redefine an older UberBond goal, program, mechanism, donor, capability, offer family, life-system objective, research lineage, runtime architecture, or named initiative merely because a newer mechanism exists.",
       "class": "PROHIBITION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11551,13 +12139,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-5c32f227",
       "text": "Resident context should be small",
       "class": "OBLIGATION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11583,13 +12173,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-d1093291",
       "text": "retrievable context should be complete.",
       "class": "OBLIGATION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11615,13 +12207,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-5308fd42",
       "text": "Do not try to stuff the whole repository, historical corpus, chats, logs, archives, and provider state into one prompt.",
       "class": "PROHIBITION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11715,13 +12309,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-774f8655",
       "text": "never promote memory, simulation, documentation, or an old handoff into external proof.",
       "class": "PROHIBITION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11786,13 +12382,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-START-HERE-6df4f98d",
       "text": "It does not override newer exact source or provider/customer/payment reality.",
       "class": "PROHIBITION",
       "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11865,13 +12463,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-99b9c3d9",
       "text": "Any older repository wording that calls the **Personal Civilization Engine** the \"highest-level North Star\", \"highest-level destination\", or equivalent must be interpreted as historical wording for the highest **contained life-system layer** beneath the Sovereign Cognitive Continuum.",
       "class": "OBLIGATION",
       "priority": 5,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -11959,13 +12559,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-b6e306d3",
       "text": "It does not supersede the terminal North Star.",
       "class": "PROHIBITION",
       "priority": 5,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12014,13 +12616,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-09e20e04",
       "text": "Those systems remain valid subordinate economic organs but do not define UberBond's terminal identity or default fresh-chat mission.",
       "class": "PROHIBITION",
       "priority": 5,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12093,13 +12697,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-6821f6b7",
       "text": "Current repository/external truth always outranks conceptual canon for present-tense implementation, runtime, provider, customer, commercial, prediction-performance, and life-outcome claims.",
       "class": "OBLIGATION",
       "priority": 5,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12210,13 +12816,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-865e57fa",
       "text": "Wallbreaker always carries:",
       "class": "OBLIGATION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12241,13 +12849,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-711b2a59",
       "text": "It may recommend a path, lawful substitute, provider fallback, capability acquisition, deeper verification, or escalation.",
       "class": "PERMISSION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12322,13 +12932,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-1e604adc",
       "text": "It may not send, spend, deploy, move money, access credentials, bypass consent, evade provider limits, impersonate authority, or create production mutation authority.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12413,13 +13025,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-93414335",
       "text": "Capability never creates authority.** A better plan still passes UberBond's existing OMNIA, policy, evidence, budget, consent, and consequence gates.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12529,13 +13143,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-17a9738b",
       "text": "A known-safe retryable provider or stochastic failure may remain eligible only when the prior outcome is known not to have caused an ambiguous effect.",
       "class": "PERMISSION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12644,13 +13260,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-f74ade1b",
       "text": "Reclassification may not silently turn an uncertain external effect back into an identical-retry permission.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12719,13 +13337,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-b3df0b68",
       "text": "They never produce circumvention instructions.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12751,13 +13371,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-6bede997",
       "text": "Wallbreaker may select another legitimately configured provider/model, but it may not defeat quotas, rotate unauthorized identities, conceal provider identity, or violate provider terms.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12866,13 +13488,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-2410e7f8",
       "text": "Two namespaces must remain separate:",
       "class": "OBLIGATION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12898,13 +13522,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-a36e03cb",
       "text": "Wallbreaker must never silently promote a human label into a Genome atom ID.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -12972,13 +13598,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-877918ac",
       "text": "Atom IDs must be supplied explicitly or produced by a separately verified mapping process.",
       "class": "OBLIGATION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13055,13 +13683,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-318f42de",
       "text": "It can report `CAPABILITY_BUNDLE_READY` only when approved/active, security-admitted, authority-compatible capability records actually satisfy the required atoms and dependencies.",
       "class": "OBLIGATION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13169,13 +13799,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-baf1e144",
       "text": "That gap may trigger bounded acquisition/discovery planning",
       "class": "PERMISSION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13235,13 +13867,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-3a9c2e59",
       "text": "it is never converted into fake availability.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13267,13 +13901,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-9f4a0ff4",
       "text": "It remains a resolution rejection that must be repaired or reconciled before execution readiness can be claimed.",
       "class": "OBLIGATION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13339,13 +13975,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-60abde2b",
       "text": "This signal can inform model routing and research depth.",
       "class": "PERMISSION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13418,13 +14056,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-a7a1ecbd",
       "text": "It does not widen data access, budget, security scope, or consequence authority.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13504,13 +14144,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-8f4a3ca5",
       "text": "Never weaken a guardrail merely to obtain green output.",
       "class": "PROHIBITION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13551,13 +14193,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "WALLBREAKER-CANON-dfe891ba",
       "text": "No internal completion claim may promote UberBond's commercial truth above observed customer/payment/delivery/retention evidence.",
       "class": "PERMISSION",
       "priority": 6,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13669,13 +14313,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-621b71a3",
       "text": "It does not optimize installed skill count.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13714,13 +14360,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-ff9e96cd",
       "text": "Public GitHub execution requires explicit host opt-in plus an external corpus directory, and scaled corpus bodies are refused inside the Git repository.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13808,13 +14456,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-f1059c0e",
       "text": "Large raw records, bodies, embeddings, sandbox traces, and runtime telemetry do not belong in repository canon.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13881,13 +14531,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-8af00be4",
       "text": "A scaled deployment should place normalized metadata and graph edges in Postgres, bodies and raw evidence in immutable object storage, vector/lexical indexes in rebuildable search infrastructure, short-lived retrievals in cache, and signed promotion/revocation receipts in an append-only evidence log.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -13965,13 +14617,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-3c5a7986",
       "text": "it does not duplicate or promote Claude-Mem, Headroom, OmniRoute, Strix, Agent Reach, Find Skills, Task Observer, or Claude Code Setup.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14047,13 +14701,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-af56354e",
       "text": "The harvest pipeline must preserve separate counters for repository candidates, imported skill/artifact bodies, normalized capability records, approved capabilities, and active capabilities.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14161,13 +14817,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-48fe24b2",
       "text": "UberBond therefore partitions searches by bounded date windows and must refine any partition whose reported total exceeds the observable cap or whose API marks results incomplete.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14255,13 +14913,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1d4ab5b5",
       "text": "It must never call a capped result set complete.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14320,13 +14980,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-359a58b2",
       "text": "It does not rotate identities or accounts to defeat limits.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14354,13 +15016,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-2dd8138d",
       "text": "Scaled corpus persistence must live outside Git.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14410,13 +15074,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-4eb14081",
       "text": "it never converts a claim into a capability UberBond can act on.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14475,13 +15141,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-710b6c3c",
       "text": "Four things a body may never decide:",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14508,13 +15176,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-c562567a",
       "text": "A body claiming `messaging.send-authorized-email` cannot present itself to admission as `NONE`.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14621,13 +15291,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-f83d901d",
       "text": "admitCapability` requires `STATIC`, `SEMANTIC` and `SANDBOX`, so a single regex pass cannot make a body eligible.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14734,13 +15406,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-99f32486",
       "text": "a quarantined body is still recorded, because knowing a dangerous skill exists is worth more than pretending it does not.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14823,13 +15497,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-5188ce0c",
       "text": "Prose cannot be selected on, so a gap can never be mistaken for a retrievable capability.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -14893,13 +15569,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-39f7ca8f",
       "text": "A candidate cannot become eligible without independent `STATIC`, `SEMANTIC`, and `SANDBOX` evidence linked to the exact immutable artifact.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15007,13 +15685,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-34361fba",
       "text": "Registry presence, stars, signatures, maintainer identity, SLSA provenance, and benchmark scores do not prove safety.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15085,13 +15765,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-4d27d32e",
       "text": "Scanners that may execute an MCP configuration must themselves run in isolation.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15131,13 +15813,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-d0fab623",
       "text": "Capability never creates authority.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15207,13 +15891,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e06c450f",
       "text": "Admission must independently resolve:",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15239,13 +15925,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-061e4bed",
       "text": "Public discovery never authorizes CAPTCHA bypass, private sessions, cookie harvesting, contact inference, provider-limit evasion, unauthorized security testing, customer mutation, messaging, deployment, or money movement.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15328,13 +16016,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-05388af0",
       "text": "Do not inject the world catalog into a model context.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15374,13 +16064,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1376773d",
       "text": "mission -> required atoms -> cheap metadata/hash/lexical filter -> semantic/graph retrieval -> full-body retrieval -> policy gate -> deep rerank -> compatibility-aware minimum bundle",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15456,13 +16148,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-a63c391e",
       "text": "Selection considers `requires`, `conflicts`, `supersedes`, `substitutes`, redundancy, context burden, dependency burden, cost, latency, security, reliability, and observed outcomes.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15538,13 +16232,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e43cf92e",
       "text": "Revoked records are never selectable.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15570,13 +16266,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e9bd96df",
       "text": "Attribution links do not establish sole causation.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15604,13 +16302,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-95ef824a",
       "text": "No execution trace or plugin memory may silently rewrite an active capability.",
       "class": "PERMISSION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15678,13 +16378,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-bb70be0d",
       "text": "Automatic promotion may eventually be enabled only for an explicitly pre-authorized class such as project-local, read-only, no-credential, no-network, no-external-side-effect, permissively licensed, immutable, independently scanned, hostile-sandboxed, and hidden-regression-clean capabilities.",
       "class": "PERMISSION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15769,13 +16471,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-6a94dfa7",
       "text": "The current implementation can now perform bounded public repository-metadata discovery and persist measured corpus batches externally",
       "class": "PERMISSION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15848,13 +16552,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1b1a3439",
       "text": "it still does not auto-install, vendor, execute, or promote world artifacts.",
       "class": "PROHIBITION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -15905,13 +16611,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-d8df159b",
       "text": "A durable external corpus store, scheduled authorized adapter execution, body extraction, sandbox fleet, provider configuration, and elapsed unattended evidence remain required before claiming continuous world refresh or 24/7 capability autonomy.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16022,13 +16730,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-87a01718",
       "text": "Capability work must return to the commercial frontier after its foundation earns utility.",
       "class": "OBLIGATION",
       "priority": 7,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16094,13 +16804,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6edce379",
       "text": "UberBond may learn from and use external agent skills, Claude Code plugins, MCP servers, model gateways, memory systems, context compressors, security agents, browser/research tools, and similar capability packages.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16176,13 +16888,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f40f2ca8",
       "text": "They are suppliers beneath UberBond, never replacement brains and never new canonical truth systems.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16246,13 +16960,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a4674f47",
       "text": "This canon exists so GPT-5.6 Sol, Claude Code / Opus Max, Mission Control, and bounded UberBond AI employees can share one durable policy for discovering, evaluating, installing, invoking, learning from, and retiring external capabilities.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16328,13 +17044,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6ef4b9e0",
       "text": "External capability never creates authority.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16408,13 +17126,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-123a9c73",
       "text": "A plugin, skill, model gateway, memory engine, security scanner, web-research CLI, hook, MCP server, or autonomous agent may increase what a worker can do.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16487,13 +17207,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ffa5455b",
       "text": "It may not grant itself permission to contact customers, scrape prohibited surfaces, bypass access controls, use private cookies, spend money, alter credentials/DNS, deploy production, move money, submit KYC, mutate customer systems, or promote synthetic output into commercial truth.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16614,13 +17336,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e56d298d",
       "text": "Do not vendor an entire external platform merely because it is popular.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16649,13 +17373,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-282ad157",
       "text": "A methodology or read-only skill that can be adopted directly as a working discipline.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16685,13 +17411,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-3246563c",
       "text": "It does not become a truth source.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16749,13 +17477,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0a62e5dc",
       "text": "A skill package that may be installed project-locally and invoked by eligible workers.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16808,13 +17538,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fef52a3b",
       "text": "It must remain replaceable, isolated, measurable, and reversible.",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16842,13 +17574,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-d9f1acb0",
       "text": "A provider/tool integration that should sit behind an UberBond contract rather than become an internal truth store.",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -16921,13 +17655,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-32ff8717",
       "text": "Use it when a worker identifies a missing capability or specialized task that may already exist in the open skills ecosystem.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17000,13 +17736,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f36c33af",
       "text": "it never authorizes installation by popularity alone.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17033,13 +17771,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-820e37c3",
       "text": "It must not be treated as permission to add a second workflow engine, second CRM, second memory truth system, or uncontrolled hook.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17119,13 +17859,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11af01a4",
       "text": "cross-cutting principles that should raise the skill quality floor.",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17154,13 +17896,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1ed46dab",
       "text": "UberBond preserves that property: observations may generate proposed skill updates, but canonical skills/prompts are changed only through normal diff/review/test/merge evidence.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17236,13 +17980,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4c7a100c",
       "text": "Never log secrets, raw private customer data, credentials, or unnecessary PII.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17319,13 +18065,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-46fe12f9",
       "text": "Claude-Mem can preserve/compress context across Claude Code sessions.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17390,13 +18138,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e60a7282",
       "text": "npm run brain`, `UBERBOND_BOOTSTRAP.json`, Master Memory, current state/readiness, durable handoffs, current `main`, and external receipts always outrank it;",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17494,13 +18244,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-51718ae7",
       "text": "no Claude-Mem summary may silently change commercial truth or historical canon;",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17602,13 +18354,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-aaa931a8",
       "text": "contradictory memory must be surfaced, not auto-resolved in favor of the plugin;",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17659,13 +18413,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-9d1709f1",
       "text": "secrets/private data must not be promoted into committed repository memory.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17742,13 +18498,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-c23f99a0",
       "text": "Headroom may compress large tool outputs, logs, JSON, search results, and other high-volume context.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17817,13 +18575,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f7cbddff",
       "text": "Never allow lossy compression to become the sole evidence copy for:",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17897,13 +18657,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-bd571341",
       "text": "UberBond already has model-routing and provider-admission concepts, so OmniRoute must not become a second policy brain.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -17974,13 +18736,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-cb93444a",
       "text": "provider/model identity must remain observable in receipts;",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18049,13 +18813,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6340a090",
       "text": "routing changes may not widen tool/business authority;",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18128,13 +18894,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4e81efb3",
       "text": "fallback may not silently downgrade evidence, privacy, safety, or model capability requirements;",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18204,13 +18972,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-8473d37c",
       "text": "This can materially strengthen Prometheus/world sensing, competitor research, buyer-language research, software scouting, and opportunity discovery.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18278,13 +19048,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-212e87ff",
       "text": "no CAPTCHA bypass, fingerprint spoofing, access-block evasion, or prohibited scraping;",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18355,13 +19127,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-347066dd",
       "text": "Prefer read/search modes that do not require authentication.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18413,13 +19187,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-874c6921",
       "text": "Before using an external capability, a worker must determine:",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18478,13 +19254,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-db10c10f",
       "text": "why the canonical UberBond stack cannot already satisfy the task more safely/cheaply;",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18566,13 +19344,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fd073312",
       "text": "If these cannot be resolved, use `REVIEW_REQUIRED` or `REFERENCE_ONLY` rather than installing/activating blindly.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18638,13 +19418,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e0b0f379",
       "text": "UberBond should improve its skills continuously, but never by silent self-editing.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18673,13 +19455,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ae2b7888",
       "text": "A correction may be task-specific.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18704,13 +19488,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-77330145",
       "text": "The observer must separate local preference, project invariant, safety rule, and general reusable technique.",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18777,13 +19563,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f1a1bd0e",
       "text": "External memory systems can accelerate recall but may never override higher layers.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18846,13 +19634,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-5def0131",
       "text": "Do not make a compressed summary the only surviving representation of receipts, canon, source code needed for exact review, legal evidence, payment truth, or customer acceptance.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -18963,13 +19753,15 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dd81dd32",
       "text": "Any live target requires explicit ownership/authorization and a bounded test plan.",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19042,13 +19834,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a757dd0f",
       "text": "A tool that can reach a source is not automatically allowed to use it.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19108,13 +19902,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-40bfc2bc",
       "text": "Do not commit secrets or cookies.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19140,13 +19936,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11cc88f8",
       "text": "Do not auto-start paid providers.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19172,13 +19970,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-56321e42",
       "text": "Do not make a plugin required for core UberBond truth unless the company has a tested fallback and migration path.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19250,13 +20050,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dce153cc",
       "text": "A live Claude Code environment may install the approved project skills/plugins/runtimes from this registry after verifying current upstream installation instructions and dependency/security posture.",
       "class": "PERMISSION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19332,13 +20134,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ef0c13a9",
       "text": "Installation itself does not authorize network consequences beyond obtaining the package and its documented dependencies.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19403,13 +20207,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-af2de41e",
       "text": "never recommend a tool merely for novelty;",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19436,13 +20242,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6e015714",
       "text": "do not let plugin hooks bypass UberBond consequence controls.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19494,13 +20302,15 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0ecb54d0",
       "text": "The owner-provided set is valuable, but not as eight always-on gods inside the machine.",
       "class": "OBLIGATION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19530,13 +20340,15 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1118ebd6",
       "text": "Never allow any of them to replace:** UberBond canon, payment truth, authority/consent/suppression, distribution attribution, delivery/acceptance truth, or repository-native company memory.",
       "class": "PROHIBITION",
       "priority": 8,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
       "dependencies": [],
       "conflicts": [],
       "supersedes": [],
@@ -19638,7 +20450,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4"
+      "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6"
     }
   ]
 }

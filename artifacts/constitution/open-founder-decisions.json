@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "uberbond-constitution-open-founder-decisions-1.0.0",
+  "purpose": "Constitutional questions the compiler surfaced and deliberately did not answer. Assigning precedence among canon documents is an amendment, not an inference, and F003 states that founder sovereignty rules are not autonomously modifiable.",
+  "recordedAt": "2026-09-17",
+  "sourceSha": "23008c03348a499df5fd8df3777262f38a0cf5d6",
+  "decisions": [
+    {
+      "id": "FD002-OPERATIVE-CANON-HAS-NO-AUTHORED-PRECEDENCE",
+      "question": "What is the precedence order among the operative canon files when two of them conflict?",
+      "computedEvidence": {
+        "precedenceFileRanks": 10,
+        "operativeSourcesCompiled": 9,
+        "inBoth": ["NORTH_STAR.md"],
+        "operativeSourcesUnranked": [
+          "AGENTS.md",
+          "CLAUDE.md",
+          "UBERBOND_CANON.md",
+          "AI_START_HERE.md",
+          "docs/NORTH_STAR_PRECEDENCE.md",
+          "docs/WALLBREAKER_CANON.md",
+          "docs/CAPABILITY_GENOME_CANON.md",
+          "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md"
+        ],
+        "contradictionCandidates": 9,
+        "resolvableByAuthoredPrecedence": 0
+      },
+      "whyItMatters": "docs/NORTH_STAR_PRECEDENCE.md establishes a precedence law and ranks ten files, nine of which are the terminal North Star layer. The operative canon -- the files that actually bind an agent's behaviour -- carries no relative rank anywhere in the repository. So the precedence law cannot settle any of the nine conflict candidates the compiler detects between operative rules, including a live one between the Wallbreaker canon's prohibition on evading provider limits and CLAUDE.md's automatic model-failover permission.",
+      "whyNotAnswered": "Deciding that AGENTS.md outranks CLAUDE.md, or that a docs/*_CANON.md file yields to UBERBOND_CANON.md, changes which rule wins in a real conflict. That is an amendment to the constitution and belongs to the founder. A compiler that picked an order would be legislating, and the order it picked would look authored to every later reader.",
+      "whatWasBuiltInstead": "precedenceFor() returns precedenceRank: null with state UNRANKED__NO_AUTHORED_PRECEDENCE rather than the old priority: 0, which read as highest precedence. resolveByPrecedence() refuses any pair with an unranked side and names which source needs a rank. Both refusals are mutation-guarded (CONSTPREC-01, CONSTPREC-02).",
+      "optionsForTheFounder": [
+        "Rank the operative canon in docs/NORTH_STAR_PRECEDENCE.md alongside the terminal files, after which the conflict graph resolves automatically with no code change -- the ranks are parsed from that file, not transcribed.",
+        "Rank only the pairs that actually conflict, leaving the rest unranked and visibly so.",
+        "Decide that operative conflicts are resolved case by case rather than by document order, in which case this entry should be closed as answered rather than left open."
+      ],
+      "blockerClass": "OWNER_DECISION",
+      "isRoutineEngineering": false
+    }
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffects": []
+}

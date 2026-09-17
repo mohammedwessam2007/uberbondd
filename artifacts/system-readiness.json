@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T17:07:42.416Z",
+  "generatedAt": "2026-09-17T17:39:11.598Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "dd5be9991847d5c337685c268012e8250ffc544c",
-    "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+    "head": "ee55437a6ad8e35b3af7fcb20d87e5b69f965021",
+    "branch": "codex/final-four-offer-campaign-20260917",
     "sourceModules": 832,
     "testSuites": 1007,
     "workingTreeClean": false
@@ -71,10 +71,10 @@
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
       "srcModules": 832,
-      "reachableFromProduction": 250,
-      "reachableFromUnattendedOperatorScriptsOnly": 399,
+      "reachableFromProduction": 253,
+      "reachableFromUnattendedOperatorScriptsOnly": 396,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 399,
+      "reachableFromOperatorScriptsOnly": 396,
       "noEntryPointAtAll": 176,
       "partitionExact": true,
       "allClassified": true,

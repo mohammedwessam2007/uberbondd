@@ -48,6 +48,10 @@ export const config = {
   outbound: {
     enabled: bool(env.OUTBOUND_ENABLED, false),
     dryRun: bool(env.OUTBOUND_DRY_RUN, true),
+    // A live sender must be explicitly linked to the canonical sending-domain
+    // and sending-mailbox registries. This stays on by default so a provider
+    // OAuth connection alone can never turn into cold-email authority.
+    domainMailboxGateRequired: bool(env.DOMAIN_MAILBOX_GATE_REQUIRED, true),
     allowedCountries: (env.OUTBOUND_ALLOWED_COUNTRIES || '').split(',').map(value => value.trim()).filter(Boolean),
     hourlyCaps: { A: num(env.OUTBOUND_HOURLY_CAP_A, 5), B: num(env.OUTBOUND_HOURLY_CAP_B, 5) },
     minGapSeconds: num(env.OUTBOUND_MIN_GAP_SECONDS, 90),

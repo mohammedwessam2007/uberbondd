@@ -85,12 +85,28 @@ export class Pipeline {
       screenshotDir: this.cfg.screenshotDir,
       allowLocal: this.cfg.allowLocalFixtures,
       executablePath: this.cfg.chromiumPath,
-      htmlFetcher: this.cfg.allowLocalFixtures
-        ? async url => {
-            const response = await fetch(url, { headers: { 'user-agent': 'UberBondRevenueEngine/1.3' } });
-            return { status: response.status, finalUrl: response.url, html: await response.text() };
-          }
-        : null
+      // Render's free web instance can recycle while a browser waits on a
+      // third-party document. Fetch the public HTML with an explicit wall-clock
+      // bound, then let Playwright parse the same document for DOM and screenshots.
+      // This keeps research read-only and makes the network boundary finite.
+      htmlFetcher: async url => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), Math.max(5000, Math.min(10000, Number(this.cfg.crawl.timeoutMs || 10000))));
+        try {
+          const response = await fetch(url, {
+            headers: { 'user-agent': 'UberBondRevenueEngine/1.3' },
+            signal: controller.signal
+          });
+          return {
+            status: response.status,
+            finalUrl: response.url,
+            headers: response.headers,
+            html: await response.text()
+          };
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
     });
     if (!crawl.pages.length) {
       throw new Error(`No usable pages crawled: ${crawl.errors.map(item => item.error || item.status).join(', ')}`);

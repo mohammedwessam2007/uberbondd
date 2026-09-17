@@ -1,0 +1,49 @@
+{
+  "schema": "uberbond.v9.lossless-generator-carrier.5.0.0",
+  "canonical": {
+    "name": "UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+    "bytes": 146566257,
+    "lines": 232406,
+    "sha256": "8ad73f53116107acea824f6847aa6f29845e263b3ec01d241b90aae5719fe55d"
+  },
+  "v8": {
+    "bytes": 36358210,
+    "lines": 98534,
+    "sha256": "8115def9882ae32b33586b9da48a2498c8571f8657ac15791676412cc0092479"
+  },
+  "v7": {
+    "bytes": 1916551,
+    "lines": 27601,
+    "sha256": "de93cca36a4c72411ff283d865be1c97cf7680abeb73146dfa48523da0e21921"
+  },
+  "seed": {
+    "kind": "V7_XZ_SEED",
+    "compression": "xz",
+    "parts": [
+      {"index":1,"file":"part-0001.xz.b64","binaryBytes":19419,"binarySha256":"dc0d80896436eea2ea021a3b08013738080995a5e6c805b9fcfb9741cec330f8"},
+      {"index":2,"file":"part-0002.xz.b64","binaryBytes":19419,"binarySha256":"00c0c66604c4e875d7951f00ec1cbef05df90bf717f246a076ee673711147278"},
+      {"index":3,"file":"part-0003.xz.b64","binaryBytes":19419,"binarySha256":"9909f3f0e6c5f6b9f42b0855610d3d36b5a65a97062d6b1278a26d0137135208"},
+      {"index":4,"file":"part-0004.xz.b64","binaryBytes":19419,"binarySha256":"c41ad2d81ca539d58acde31648e0a687ec4877442c4979b152fe1bea1931d1d9"},
+      {"index":5,"file":"part-0005.xz.b64","binaryBytes":19419,"binarySha256":"2d88d23a3d920400d6397747b34e456661646127b964543372741d831e3a81d2"},
+      {"index":6,"file":"part-0006.xz.b64","binaryBytes":19419,"binarySha256":"6913f91dc01ada6087b421b11c3ea4d49829a1520747de82b37e744028645883"},
+      {"index":7,"file":"part-0007.xz.b64","binaryBytes":19419,"binarySha256":"7dab47220dcc9b939bc94aea7a5091c9750e82bb5ce8b229aa1b171633f239ba"},
+      {"index":8,"file":"part-0008.xz.b64","binaryBytes":19415,"binarySha256":"ce9091d564c26dddd4358128904a0d2bae070a0e22f26289ff67888fe342f0a4"}
+    ],
+    "binaryBytes":155348,
+    "binarySha256":"0388e5ddcda8ede45bf1ba6316576a0987f9d7bc0c3f2a25987709bcf502b3fc",
+    "sourceBytes":1916551,
+    "sourceSha256":"de93cca36a4c72411ff283d865be1c97cf7680abeb73146dfa48523da0e21921"
+  },
+  "generator": {
+    "kind":"GENERATOR_XZ",
+    "compression":"xz",
+    "parts":[{"index":1,"file":"part-0001.py.xz.b64","binaryBytes":15516,"binarySha256":"2700a9631a404aa7d9b009bb84a0a10b057ac8c5074dd045b8b92241425c2731"}],
+    "binaryBytes":15516,
+    "binarySha256":"2700a9631a404aa7d9b009bb84a0a10b057ac8c5074dd045b8b92241425c2731",
+    "sourceBytes":58548,
+    "sourceSha256":"2c1b882c217d92474a48882d52960f3ade2bafdb2b402ed774bb6cd3c9a4ccae"
+  },
+  "materializedPath":".uberbond/v9/immutable/UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+  "noAmputation":true,
+  "invariant":"Exact reconstruction. Base64 whitespace is transport-only; decoded bytes, XZ streams, source bytes, final bytes, line counts and SHA-256 are authoritative."
+}

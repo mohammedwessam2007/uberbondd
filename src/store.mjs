@@ -633,10 +633,14 @@ export class JsonStore {
 }
 
 export class PostgresStore {
-  constructor({ databaseUrl, ssl = true, pool } = {}) {
+  constructor({ databaseUrl, ssl = true, pool, transactionClient = false } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
+    // A scoped store inside transaction() is backed by one already-connected
+    // pg Client. Nested store helpers (patch/failJob/etc.) must reuse that
+    // client instead of calling client.connect() a second time.
+    this.transactionClient = Boolean(transactionClient);
   }
 
   async init() { await this.migrate(); }
@@ -671,10 +675,11 @@ export class PostgresStore {
   }
 
   async transaction(fn) {
+    if (this.transactionClient) return fn(this);
     const client = await this.pool.connect();
     try {
       await client.query('BEGIN');
-      const scoped = new PostgresStore({ pool: client });
+      const scoped = new PostgresStore({ pool: client, transactionClient: true });
       scoped.ownsPool = false;
       const result = await fn(scoped);
       await client.query('COMMIT');

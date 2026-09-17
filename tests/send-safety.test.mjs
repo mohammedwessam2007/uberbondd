@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { evaluateSendEligibility, contactEligibility, sendIdempotencyKey, classifyDeliverySignal } from '../src/send-safety.mjs';
+import { evaluateSendEligibility, contactEligibility, sendIdempotencyKey, classifyDeliverySignal, normalizeCountryList, resolveRecipientTimeZone } from '../src/send-safety.mjs';
 import { Store } from '../src/store.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
 import { createUnsubscribeToken, verifyUnsubscribeToken } from '../src/unsubscribe.mjs';
@@ -62,6 +62,12 @@ test('multi-timezone countries require an explicit prospect timezone', () => {
   const usCfg = { ...cfg, outbound: { ...cfg.outbound, allowedCountries: ['US'] } };
   assert.equal(evaluateSendEligibility({ prospect: us, campaign: usCampaign, cfg: usCfg, date: monday }).reason, 'recipient-timezone-missing');
   assert.equal(evaluateSendEligibility({ prospect: { ...us, timeZone: 'America/New_York' }, campaign: usCampaign, cfg: usCfg, date: new Date('2026-07-13T14:00:00Z') }).ok, true);
+});
+
+test('Egypt and GCC country labels normalize to governed codes and time zones', () => {
+  assert.deepEqual(normalizeCountryList(['Egypt', 'UAE', 'Saudi Arabia']), ['EG', 'AE', 'SA']);
+  assert.equal(resolveRecipientTimeZone({ country: 'Egypt' }), 'Africa/Cairo');
+  assert.equal(resolveRecipientTimeZone({ country: 'UAE' }), 'Asia/Dubai');
 });
 
 

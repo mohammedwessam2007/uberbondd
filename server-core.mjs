@@ -30,8 +30,27 @@ import {
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
+import { buildLeadAccountIntelligence } from './src/lead-generation.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
 import { getUberReplyOffer } from './src/uberreply-four-offer-genome.mjs';
+import {
+  LEAD_OPERATIONS_POLICY,
+  LEAD_PROVIDER_CATALOG,
+  buildBuyingGroupPlan,
+  buildLeadControlTower,
+  buildLeadCoverageMap,
+  buildLeadFieldLedger,
+  buildLookalikePlan,
+  buildProviderPreflight
+} from './src/lead-operations.mjs';
+import {
+  buildNativeCapacityPlan,
+  buildNativeTargetProfileRecord,
+  compileNativeEnrichmentPlan,
+  compileNativeLeadList,
+  compileNativeLocalEnrichment,
+  nativeLeadListCsv
+} from './src/uberbond-native-lead-ops.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -146,6 +165,13 @@ const digestCampaignRequest = campaign => crypto.createHash('sha256').update(JSO
   autoSend: campaign.autoSend,
   approved: campaign.approved
 })).digest('hex');
+const digestNativeLeadRequest = input => crypto.createHash('sha256').update(JSON.stringify({
+  name: String(input?.name || '').trim(),
+  profile: input?.profile && typeof input.profile === 'object' ? input.profile : {},
+  campaignId: String(input?.campaignId || '').trim(),
+  limit: Number(input?.limit || 0),
+  idempotencyKey: String(input?.idempotencyKey || '').trim()
+})).digest('hex');
 const safeEqual = (a, b) => {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
   const ba = Buffer.from(a);
@@ -239,6 +265,54 @@ async function summary() {
       reservedToday: outboundReservations.filter(item => String(item.reservedAt || '').startsWith(today) && ['reserved','dispatching','sent','uncertain'].includes(item.status)).length,
       uncertain: outboundReservations.filter(item => item.status === 'uncertain').length
     }
+  };
+}
+
+async function nativeLeadSources() {
+  const [prospects, suppressions, leadLists, leadSearches, leadSignals, leadEnrichmentRuns] = await Promise.all([
+    store.list('prospects'), store.list('suppressions'), store.list('leadLists'),
+    store.list('leadSearches'), store.list('leadSignals'), store.list('leadEnrichmentRuns')
+  ]);
+  return {
+    prospects: Array.isArray(prospects) ? prospects : [],
+    suppressions: Array.isArray(suppressions) ? suppressions : [],
+    leadLists: Array.isArray(leadLists) ? leadLists : [],
+    leadSearches: Array.isArray(leadSearches) ? leadSearches : [],
+    leadSignals: Array.isArray(leadSignals) ? leadSignals : [],
+    leadEnrichmentRuns: Array.isArray(leadEnrichmentRuns) ? leadEnrichmentRuns : []
+  };
+}
+
+function nativeLeadProfileInput(input = {}) {
+  if (input?.profile && typeof input.profile === 'object' && !Array.isArray(input.profile)) return input.profile;
+  return input && typeof input === 'object' && !Array.isArray(input) ? input : {};
+}
+
+function nativeLeadArrayInput(value) {
+  if (Array.isArray(value)) return value;
+  return String(value || '').split(',').map(item => item.trim()).filter(Boolean);
+}
+
+function publicNativeLeadList(list = {}) {
+  return {
+    id: list.id,
+    name: list.name,
+    kind: list.kind,
+    status: list.status,
+    campaignId: list.campaignId || null,
+    profile: list.profile,
+    query: list.query,
+    prospectIds: list.prospectIds || [],
+    rows: list.rows || [],
+    stats: list.stats || {},
+    exclusions: list.exclusions || {},
+    sourceAuthority: list.sourceAuthority,
+    handoff: list.handoff,
+    providerCalls: 0,
+    externalEffects: 0,
+    businessEffectAuthority: 'NONE',
+    createdAt: list.createdAt,
+    updatedAt: list.updatedAt
   };
 }
 
@@ -1020,6 +1094,236 @@ export const requestHandler = async (req, res) => {
       return json(res, result.idempotentReplay ? 200 : 201, result);
     }
 
+    if (method === 'GET' && url.pathname === '/api/leadgen/control-tower') {
+      const sources = await nativeLeadSources();
+      const tower = buildLeadControlTower({
+        prospects: sources.prospects,
+        signals: sources.leadSignals,
+        suppressions: sources.suppressions,
+        searches: sources.leadSearches,
+        enrichmentRuns: sources.leadEnrichmentRuns,
+        targetProfiles: sources.leadSearches.filter(row => row.kind === 'target-profile')
+      });
+      return json(res, 200, {
+        ...tower,
+        nativeLists: sources.leadLists.slice(0, 30).map(publicNativeLeadList),
+        runtime: {
+          persisted: true,
+          leadLists: sources.leadLists.length,
+          providerCalls: 0,
+          externalEffects: 0
+        }
+      });
+    }
+
+    if (method === 'GET' && url.pathname === '/api/leadgen/providers') {
+      return json(res, 200, {
+        version: 'uberbond.native-provider-catalog.v1',
+        providers: LEAD_PROVIDER_CATALOG.map(provider => ({ ...provider, fields: [...provider.fields] })),
+        policy: LEAD_OPERATIONS_POLICY,
+        providerCalls: 0,
+        externalEffects: 0,
+        businessEffectAuthority: 'NONE'
+      });
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/provider-preflight') {
+      const input = await parseBody(req);
+      const plan = buildProviderPreflight({
+        fields: nativeLeadArrayInput(input.fields),
+        providers: nativeLeadArrayInput(input.providers),
+        configuredProviders: nativeLeadArrayInput(input.configuredProviders),
+        volume: input.volume,
+        maxProviderCalls: input.maxProviderCalls
+      });
+      return json(res, 200, plan);
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/coverage') {
+      const input = await parseBody(req);
+      const sources = await nativeLeadSources();
+      return json(res, 200, buildLeadCoverageMap({
+        prospects: sources.prospects,
+        signals: sources.leadSignals,
+        suppressions: sources.suppressions,
+        profile: nativeLeadProfileInput(input),
+        now: new Date()
+      }));
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/buying-group') {
+      const input = await parseBody(req);
+      const sources = await nativeLeadSources();
+      const profile = nativeLeadProfileInput(input);
+      const accountIntelligence = buildLeadAccountIntelligence({
+        prospects: sources.prospects,
+        signals: sources.leadSignals,
+        suppressions: sources.suppressions,
+        query: { ...(profile.query || input.query || {}), minScore: 0, minEvidenceScore: 0, requireEvidence: false, requireContact: false, skipOwned: false },
+        limit: 100,
+        now: new Date()
+      });
+      return json(res, 200, buildBuyingGroupPlan({
+        accounts: accountIntelligence.accounts,
+        requiredRoles: nativeLeadArrayInput(input.requiredRoles || profile.requiredPersonas),
+        now: new Date()
+      }));
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/lookalike') {
+      const input = await parseBody(req);
+      const seedIds = nativeLeadArrayInput(input.seedIds || input.seeds);
+      if (!seedIds.length) throw new HttpError(400, 'At least one seed prospect ID is required');
+      const sources = await nativeLeadSources();
+      const prospectsById = new Map(sources.prospects.map(prospect => [String(prospect.id), prospect]));
+      const missing = seedIds.filter(seedId => !prospectsById.has(seedId));
+      if (missing.length) throw new HttpError(404, `Seed prospect not found: ${missing.slice(0, 5).join(', ')}`);
+      return json(res, 200, buildLookalikePlan({
+        seeds: seedIds.map(seedId => prospectsById.get(seedId)),
+        candidates: sources.prospects,
+        signals: sources.leadSignals,
+        suppressions: sources.suppressions,
+        query: input.query && typeof input.query === 'object' ? input.query : {},
+        limit: input.limit,
+        now: new Date()
+      }));
+    }
+
+    const leadLedgerMatch = url.pathname.match(/^\/api\/leadgen\/prospects\/([^/]+)\/ledger$/);
+    if (method === 'GET' && leadLedgerMatch) {
+      const prospect = await store.get('prospects', decodeURIComponent(leadLedgerMatch[1]));
+      if (!prospect) return json(res, 404, { error: 'Prospect not found' });
+      const sources = await nativeLeadSources();
+      const requestedFreshness = Number(url.searchParams.get('freshWithinDays'));
+      const freshWithinDays = Number.isFinite(requestedFreshness) && requestedFreshness > 0 ? Math.min(3650, Math.round(requestedFreshness)) : 180;
+      return json(res, 200, buildLeadFieldLedger({ prospect, signals: sources.leadSignals, freshWithinDays, now: new Date() }));
+    }
+
+    if (method === 'GET' && url.pathname === '/api/leadgen/target-profiles') {
+      const sources = await nativeLeadSources();
+      return json(res, 200, sources.leadSearches.filter(row => row.kind === 'target-profile').slice(0, 100));
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/target-profiles') {
+      const input = await parseBody(req);
+      const record = buildNativeTargetProfileRecord({
+        name: input.name || input.profile?.name || '',
+        profile: nativeLeadProfileInput(input),
+        owner: input.owner || 'owner',
+        now: new Date()
+      });
+      const existing = (await store.list('leadSearches')).find(row => row.kind === 'target-profile' && row.digest === record.digest);
+      if (existing) return json(res, 200, { ...existing, idempotentReplay: true });
+      await store.add('leadSearches', record);
+      return json(res, 201, record);
+    }
+
+    if (method === 'GET' && url.pathname === '/api/leadgen/lists') {
+      const sources = await nativeLeadSources();
+      return json(res, 200, sources.leadLists.slice(0, 100).map(publicNativeLeadList));
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/lists') {
+      const input = await parseBody(req);
+      const requestKey = idempotencyKey(req.headers['idempotency-key'] || input.idempotencyKey);
+      if (!requestKey) throw new HttpError(400, 'Idempotency-Key header is required for lead-list compilation');
+      const campaignId = String(input.campaignId || '').trim();
+      if (campaignId && !(await store.get('campaigns', campaignId))) throw new HttpError(404, 'Campaign not found');
+      const requestDigest = digestNativeLeadRequest({ ...input, idempotencyKey: requestKey });
+      const existing = (await store.list('leadLists')).find(row => row.idempotencyKey === requestKey);
+      if (existing) {
+        if (existing.requestDigest !== requestDigest) throw new HttpError(409, 'Idempotency-Key was already used for a different lead-list request');
+        return json(res, 200, { ...publicNativeLeadList(existing), idempotentReplay: true });
+      }
+      const sources = await nativeLeadSources();
+      const list = compileNativeLeadList({
+        name: input.name || '',
+        profile: nativeLeadProfileInput(input),
+        prospects: sources.prospects,
+        signals: sources.leadSignals,
+        suppressions: sources.suppressions,
+        campaignId,
+        limit: input.limit,
+        idempotencyKey: requestKey,
+        now: new Date()
+      });
+      list.requestDigest = requestDigest;
+      await store.add('leadLists', list);
+      await store.log('lead-list-compiled', { listId: list.id, selected: list.stats.selected, eligible: list.stats.eligible, providerCalls: 0, externalEffects: 0 });
+      return json(res, 201, publicNativeLeadList(list));
+    }
+
+    const nativeListMatch = url.pathname.match(/^\/api\/leadgen\/lists\/([^/.]+)(?:\.(csv|json))?$/);
+    if (method === 'GET' && nativeListMatch) {
+      const list = await store.get('leadLists', decodeURIComponent(nativeListMatch[1]));
+      if (!list) return json(res, 404, { error: 'Lead list not found' });
+      if (nativeListMatch[2] === 'csv') {
+        return text(res, 200, nativeLeadListCsv(list), 'text/csv; charset=utf-8', { 'content-disposition': `attachment; filename="${list.id}.csv"` });
+      }
+      return json(res, 200, publicNativeLeadList(list));
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/enrichment/plan') {
+      const input = await parseBody(req);
+      const prospectId = String(input.prospectId || '').trim();
+      if (!prospectId) throw new HttpError(400, 'prospectId is required');
+      const prospect = await store.get('prospects', prospectId);
+      if (!prospect) throw new HttpError(404, 'Prospect not found');
+      const plan = compileNativeEnrichmentPlan({ prospect, fields: input.fields, providers: input.providers, now: new Date() });
+      const existing = (await store.list('leadEnrichmentRuns')).find(row => row.prospectId === prospectId && row.planId === plan.planId);
+      if (existing) return json(res, 200, { ...existing.result, idempotentReplay: true });
+      const record = { id: `enrichplan_${plan.planId.slice(-24)}`, prospectId, planId: plan.planId, provider: 'plan-only', status: 'planned', result: plan, createdAt: now(), updatedAt: now(), providerCalls: 0, externalEffects: 0 };
+      await store.add('leadEnrichmentRuns', record);
+      return json(res, 201, plan);
+    }
+
+    if (method === 'POST' && url.pathname === '/api/leadgen/enrichment/local') {
+      const input = await parseBody(req);
+      const prospectId = String(input.prospectId || '').trim();
+      if (!prospectId) throw new HttpError(400, 'prospectId is required');
+      const prospect = await store.get('prospects', prospectId);
+      if (!prospect) throw new HttpError(404, 'Prospect not found');
+      const sources = await nativeLeadSources();
+      const result = compileNativeLocalEnrichment({ prospect, fields: input.fields, signals: sources.leadSignals, now: new Date() });
+      const existing = sources.leadEnrichmentRuns.find(row => row.id === result.id || row.planId === result.planId);
+      if (existing) return json(res, 200, { ...result, idempotentReplay: true, storedRun: existing });
+      await store.add('leadEnrichmentRuns', {
+        id: result.id,
+        prospectId: result.prospectId,
+        planId: result.planId,
+        provider: result.provider,
+        status: result.status,
+        result: result.result,
+        ledger: result.ledger,
+        digest: result.digest,
+        createdAt: result.createdAt,
+        updatedAt: result.updatedAt,
+        providerCalls: 0,
+        externalEffects: 0
+      });
+      for (const fieldResult of result.fieldResults) await store.upsert('leadFieldResults', fieldResult);
+      return json(res, 201, result);
+    }
+
+    const capacityRoute = method === 'GET' && url.pathname === '/api/leadgen/capacity-plan'
+      ? Object.fromEntries(url.searchParams.entries()) : method === 'POST' && url.pathname === '/api/leadgen/capacity-plan' ? await parseBody(req) : null;
+    if (capacityRoute) {
+      let senderCells = capacityRoute.senderCells || [];
+      if (typeof senderCells === 'string') {
+        try { senderCells = JSON.parse(senderCells); } catch { throw new HttpError(400, 'senderCells must be valid JSON'); }
+      }
+      const plan = buildNativeCapacityPlan({
+        monthlyMessages: capacityRoute.monthlyMessages,
+        activeDaysPerMonth: capacityRoute.activeDaysPerMonth,
+        senderCells,
+        targetReplyRate: capacityRoute.targetReplyRate,
+        targetCloseRate: capacityRoute.targetCloseRate,
+        averagePriceUsd: capacityRoute.averagePriceUsd,
+        now: new Date()
+      });
+      return json(res, 200, plan);
+    }
+
     if (method === 'GET' && url.pathname === '/api/leadgen/intelligence') {
       return json(res, 200, await buildLiveLeadGenerationSnapshot({ store }));
     }
@@ -1236,10 +1540,11 @@ export const requestHandler = async (req, res) => {
       return text(res, 200, [columns, ...rows].map(row => row.map(csvEscape).join(',')).join('\n'), 'text/csv; charset=utf-8', { 'content-disposition': 'attachment; filename="uberbond-opportunities.csv"' });
     }
     if (method === 'GET' && url.pathname === '/api/export.json') {
-      const [prospects, campaigns, leads, orders, subscriptions] = await Promise.all([
-        store.list('prospects'), store.list('campaigns'), store.list('leads'), store.list('orders'), store.list('subscriptions')
+      const [prospects, campaigns, leads, orders, subscriptions, leadLists, leadSearches, leadSignals, leadEnrichmentRuns, leadFieldResults, leadTasks] = await Promise.all([
+        store.list('prospects'), store.list('campaigns'), store.list('leads'), store.list('orders'), store.list('subscriptions'),
+        store.list('leadLists'), store.list('leadSearches'), store.list('leadSignals'), store.list('leadEnrichmentRuns'), store.list('leadFieldResults'), store.list('leadTasks')
       ]);
-      return text(res, 200, JSON.stringify({ exportedAt: now(), prospects, campaigns, leads, orders, subscriptions }, null, 2), 'application/json; charset=utf-8', { 'content-disposition': 'attachment; filename="uberbond-revenue-engine.json"' });
+      return text(res, 200, JSON.stringify({ exportedAt: now(), prospects, campaigns, leads, orders, subscriptions, leadLists, leadSearches, leadSignals, leadEnrichmentRuns, leadFieldResults, leadTasks }, null, 2), 'application/json; charset=utf-8', { 'content-disposition': 'attachment; filename="uberbond-revenue-engine.json"' });
     }
 
     if (method === 'GET' && url.pathname === '/oauth/google/start') {

@@ -13,14 +13,17 @@ const COUNTRY_ALIASES = new Map(Object.entries({
   pt:'PT',portugal:'PT',it:'IT',italy:'IT',se:'SE',sweden:'SE',no:'NO',norway:'NO',
   dk:'DK',denmark:'DK',fi:'FI',finland:'FI',nz:'NZ','new zealand':'NZ',sg:'SG',singapore:'SG',
   us:'US',usa:'US','united states':'US','united states of america':'US',ca:'CA',canada:'CA',
-  au:'AU',australia:'AU'
+  au:'AU',australia:'AU',eg:'EG',egypt:'EG',ae:'AE',uae:'AE','united arab emirates':'AE',
+  sa:'SA','saudi arabia':'SA',qa:'QA',qatar:'QA',kw:'KW',kuwait:'KW',bh:'BH',bahrain:'BH',
+  om:'OM',oman:'OM'
 }));
 
 const DEFAULT_TIMEZONES = new Map(Object.entries({
   GB:'Europe/London', IE:'Europe/Dublin', DE:'Europe/Berlin', FR:'Europe/Paris', NL:'Europe/Amsterdam',
   BE:'Europe/Brussels', CH:'Europe/Zurich', AT:'Europe/Vienna', ES:'Europe/Madrid', PT:'Europe/Lisbon',
   IT:'Europe/Rome', SE:'Europe/Stockholm', NO:'Europe/Oslo', DK:'Europe/Copenhagen', FI:'Europe/Helsinki',
-  NZ:'Pacific/Auckland', SG:'Asia/Singapore'
+  NZ:'Pacific/Auckland', SG:'Asia/Singapore', EG:'Africa/Cairo', AE:'Asia/Dubai', SA:'Asia/Riyadh',
+  QA:'Asia/Qatar', KW:'Asia/Kuwait', BH:'Asia/Bahrain', OM:'Asia/Muscat'
 }));
 
 export function normalizeCountry(value = '') {

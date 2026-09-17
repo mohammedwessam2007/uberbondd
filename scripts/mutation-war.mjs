@@ -3537,6 +3537,33 @@ export const MUTATIONS = [
     replace: 'export const TERMINAL_SOURCES = Object.freeze([',
     suites: ['tests/constitution-precedence.test.mjs']
   },
+  // Freshness of the committed constitution. It merged stale once, counting 464
+  // mutation anchors against a tree holding 469, and nothing noticed.
+  {
+    id: 'CONSTFRESH-01', guard: 'A committed constitution that differs from the tree is not reported as current',
+    file: 'src/constitution-artifact-freshness.mjs',
+    find: '  const documentsMatch = stableForComparison(committed) === stableForComparison(fresh);',
+    replace: '  const documentsMatch = true;',
+    suites: ['tests/constitution-artifact-freshness.test.mjs']
+  },
+  {
+    // Widening the provenance set is how a freshness check stops checking:
+    // strip enough fields and any two artifacts compare equal.
+    id: 'CONSTFRESH-02', guard: 'The provenance exemption stays two keys wide',
+    file: 'src/constitution-artifact-freshness.mjs',
+    find: "export const PROVENANCE_KEYS = Object.freeze(['sourceSha', 'generatedAt']);",
+    replace: "export const PROVENANCE_KEYS = Object.freeze(['sourceSha', 'generatedAt', 'counts']);",
+    suites: ['tests/constitution-artifact-freshness.test.mjs']
+  },
+  {
+    // The headline counts are what make a failure readable. Emptying the list
+    // leaves a passing-looking check that reports nothing useful when it fails.
+    id: 'CONSTFRESH-03', guard: 'The readable count comparison is not emptied into a bare document diff',
+    file: 'src/constitution-artifact-freshness.mjs',
+    find: "  ['mutationAnchorsAvailable', 'the artifact counts a different number of mutation anchors than the tree has'],",
+    replace: '',
+    suites: ['tests/constitution-artifact-freshness.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

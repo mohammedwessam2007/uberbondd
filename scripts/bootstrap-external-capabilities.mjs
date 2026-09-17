@@ -1,60 +1,11 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
+import { BOOTSTRAP_STEPS, auditBootstrapPlan } from '../src/external-capability-bootstrap-plan.mjs';
 
 const APPLY = process.argv.includes('--apply');
 
-const steps = [
-  {
-    id: 'claude-mem',
-    description: 'Install Claude-Mem into the current Claude Code host',
-    command: 'npx',
-    args: ['claude-mem', 'install'],
-    hostMutation: true,
-    externalProviderCallExpected: false
-  },
-  {
-    id: 'headroom',
-    description: 'Install Headroom CLI/runtime in an isolated uv tool environment',
-    command: 'uv',
-    args: ['tool', 'install', '--python', '3.13', 'headroom-ai[all]'],
-    hostMutation: true,
-    externalProviderCallExpected: false
-  },
-  {
-    id: 'omniroute',
-    description: 'Install OmniRoute CLI; do not start it or connect providers',
-    command: 'npm',
-    args: ['install', '-g', 'omniroute'],
-    hostMutation: true,
-    externalProviderCallExpected: false
-  },
-  {
-    id: 'strix',
-    description: 'Install Strix CLI; do not configure an LLM or start a scan',
-    command: 'pipx',
-    args: ['install', 'strix-agent'],
-    hostMutation: true,
-    externalProviderCallExpected: false
-  },
-  {
-    id: 'agent-reach-package',
-    description: 'Install Agent Reach package from its canonical GitHub archive',
-    command: 'pipx',
-    args: ['install', 'https://github.com/Panniantong/agent-reach/archive/main.zip'],
-    hostMutation: true,
-    externalProviderCallExpected: false
-  },
-  {
-    id: 'agent-reach-safe-check',
-    description: 'Run Agent Reach default check-only installer; no --system and no private/login channels',
-    command: 'agent-reach',
-    args: ['install', '--env=auto'],
-    hostMutation: false,
-    externalProviderCallExpected: false,
-    dependsOn: 'agent-reach-package'
-  }
-];
+const steps = BOOTSTRAP_STEPS;
 
 function runStep(step) {
   const startedAt = new Date().toISOString();
@@ -86,6 +37,14 @@ if (!APPLY) {
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   }, null, 2)}\n`);
   process.exit(0);
+}
+
+// Checked before the first spawn, not after. A plan that has grown a
+// credential-configuring or service-starting step must not reach the host.
+const planAudit = auditBootstrapPlan(steps);
+if (!planAudit.ok) {
+  process.stdout.write(`${JSON.stringify({ ok: false, status: planAudit.status, findings: planAudit.findings, businessEffectAuthority: 'NONE', externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS } }, null, 2)}\n`);
+  process.exit(1);
 }
 
 const receipts = [];

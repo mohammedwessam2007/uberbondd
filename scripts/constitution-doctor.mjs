@@ -17,6 +17,31 @@ import { MUTATIONS } from './mutation-war.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = process.env.CONSTITUTION_DOCTOR_OUT || 'artifacts/constitution/directives.json';
+const REVIEW = 'artifacts/constitution/reviewed-linkage-findings.json';
+
+// The unguarded count is a queue, not a defect count: a compound sentence, a
+// keyword false positive and a real hole all land in it identically. Printing it
+// alone invites reading it as damage. Printing it next to how many entries have
+// been read keeps both facts visible, and the reviewed number can only move by
+// someone writing down what they found.
+function reviewState() {
+  try {
+    const record = JSON.parse(readFileSync(resolve(root, REVIEW), 'utf8'));
+    const findings = Array.isArray(record.findings) ? record.findings : [];
+    return {
+      available: true,
+      entries: findings.length,
+      reviewed: findings.filter(row => row.reviewClass && row.reviewClass !== 'UNREVIEWED').length,
+      unreviewed: findings.filter(row => row.reviewClass === 'UNREVIEWED').length,
+      // Counted from the record rather than from CLOSED_BY_NEW_GUARD entries,
+      // because one hole can close two entries: the CAPTCHA/evasion rule is
+      // written twice in the canon and both copies point at the same code.
+      holesFound: Number(record.queueState?.genuineHolesFound ?? 0)
+    };
+  } catch {
+    return { available: false, reviewed: 0, unreviewed: 0, holesClosed: 0 };
+  }
+}
 
 function testIndex() {
   const dir = resolve(root, 'tests');
@@ -89,6 +114,7 @@ function main() {
       mutationAnchorsAvailable: MUTATIONS.length,
       contradictionCandidates: contradictions.length
     },
+    reviewQueue: reviewState(),
     perSource,
     linkageBoundary: 'A test link is vocabulary overlap. It shows a test discusses the same subject and says nothing about whether that test would fail if the rule were broken -- only a mutation that removes the rule can show that. The reliable direction is the negative: a directive no test mentions is very unlikely to be enforced.',
     contradictionBoundary: 'Candidates for reading, not findings. The canon repeatedly pairs a prohibition with a conditional obligation on the same subject, and that is not a contradiction.',
@@ -107,6 +133,15 @@ function main() {
   console.log(`  ${Object.entries(byClass).map(([k, v]) => `${k.toLowerCase()} ${v}`).join(', ')}`);
   console.log(`  external-effect: ${external.length}, of which ${externalUnmentioned.length} are mentioned by no test`);
   console.log(`  backed by a mutation-killed guard: ${guarded.length} directives, ${guardedProhibitions.length} of ${prohibitions.length} prohibitions, ${externalGuarded.length} of ${external.length} external-effect`);
+  const review = reviewState();
+  const externalUnguarded = external.length - externalGuarded.length;
+  // Two different denominators, deliberately printed apart: the matcher's count
+  // moves whenever a guard is added, while the review record tracks entries that
+  // were read. An entry stays read after its rule becomes guarded.
+  console.log(`  unguarded external-effect by the matcher: ${externalUnguarded}`);
+  console.log(review.available
+    ? `  review record: ${review.entries} entries, ${review.unreviewed} unread, ${review.holesFound} real holes found and closed`
+    : '  review record: missing');
   console.log(`  contradiction candidates: ${contradictions.length}`);
 }
 

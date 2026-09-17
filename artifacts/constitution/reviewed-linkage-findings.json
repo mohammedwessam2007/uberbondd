@@ -1,48 +1,215 @@
 {
-  "schemaVersion": "uberbond-constitution-reviewed-linkage-1.0.0",
+  "schemaVersion": "uberbond-constitution-reviewed-linkage-1.1.0",
   "purpose": "Directives the doctor reports as unguarded that were read individually. A count of unguarded rules is a starting point, not a finding, and the three reasons below are the reasons a real one turned out not to be a hole.",
-  "reviewedAt": "2026-09-16",
-  "sourceSha": "5b9c52e8ea4c886cc48c430897478a6652b8315b",
+  "reviewedAt": "2026-09-17",
+  "sourceSha": "888dfd231ebb31ae4c1c77303bf3f27a1a3c74a4",
+  "queueState": {
+    "reportedUnguardedExternalEffect": 22,
+    "reviewed": 22,
+    "unreviewed": 0,
+    "genuineHolesFound": 4,
+    "closedByNewGuard": 5,
+    "note": "Five entries are marked CLOSED_BY_NEW_GUARD against four distinct holes: the CAPTCHA/evasion rule appears twice, once in the Capability Genome canon and once in the Agent Reach source policy, and both are closed by the same two guards. A hole is counted once."
+  },
   "reviewClasses": {
     "COMPOUND_SENTENCE": "One sentence listing many prohibitions. The pieces are enforced in different places and no single guard matches the whole list, so the linkage misses it. The rule is covered; the measurement is coarse.",
     "KEYWORD_FALSE_POSITIVE": "Tagged EXTERNAL_EFFECT by a word used in another sense. Not an external-effect rule at all.",
     "ENFORCED_BY_ABSENCE": "The prohibited capability is not implemented anywhere, so there is no code path to guard. A mutation cannot remove a function that does not exist. Weaker than a guard and still a real answer.",
-    "UNREVIEWED": "Reported by the doctor and not yet read. Carried as proof debt."
+    "UNREVIEWED": "Reported by the doctor and not yet read. Carried as proof debt.",
+    "GUARDED_UNDER_DIFFERENT_VOCABULARY": "The rule is enforced by a mutation-killed guard, but the guard's vocabulary does not overlap the directive's, so the two-term matcher cannot see the link. Covered; the measurement is blind to it.",
+    "ARCHITECTURAL_OBLIGATION": "Addressed to whoever is choosing what to build or how to allocate, not to a code path at runtime. There is no execution to constrain, so there is nothing a mutation can remove.",
+    "FUTURE_DEPLOYMENT_GUIDANCE": "Describes a deployment that does not exist yet. Guarding it would mean writing a guard against absent infrastructure.",
+    "DEFINITION_NOT_RULE": "A taxonomy entry the compiler's OBLIGATION matcher read as a rule because it contains 'should'. It defines a class; it does not command anything.",
+    "CLOSED_BY_NEW_GUARD": "Read, found to be a genuine hole, and closed in this change by a test that fails when the protection is removed plus a mutation guard that runs it. The guard ids are named."
   },
   "findings": [
     {
       "directive": "Do not infer private contact information, bypass CAPTCHA/platform controls, evade provider policy, or weaken suppression/consent/safety gates.",
       "provenance": "AGENTS.md",
       "reviewClass": "COMPOUND_SENTENCE",
-      "evidence": "Four separate prohibitions in one sentence. CAPTCHA and platform controls appear in cost-aware-public-evidence-tier, capability-genome-admission, capability-genome-discovery, gamechanger-mesh and egress-health-pool; robots and crawl policy in robots.mjs, browser-crawler.mjs and web-context-extraction-contract.mjs; suppression has its own guards. No single mutation guard covers the sentence because no single code path does."
+      "evidence": "Four separate prohibitions in one sentence. CAPTCHA and platform controls appear in cost-aware-public-evidence-tier, capability-genome-admission, capability-genome-discovery, gamechanger-mesh and egress-health-pool; robots and crawl policy in robots.mjs, browser-crawler.mjs and web-context-extraction-contract.mjs; suppression has its own guards. No single mutation guard covers the sentence because no single code path does.",
+      "reviewedAt": "2026-09-16"
     },
     {
       "directive": "Do not infer private contact information (the contact-inference clause specifically).",
       "provenance": "AGENTS.md",
       "reviewClass": "ENFORCED_BY_ABSENCE",
       "evidence": "src/contacts.mjs sources addresses only from crawled page text filtered to the company domain and from the Hunter provider response. Nothing constructs an address from a name pattern, so there is no inference path to guard. src/lead-generation.mjs:554 carries the explicit stop rule: 'Stop only on a provider-returned verified business email; never infer a private address.'",
-      "residual": "Absence is not a guard. If an address-construction helper is ever added, this rule becomes unenforced silently and nothing here would notice."
+      "residual": "Absence is not a guard. If an address-construction helper is ever added, this rule becomes unenforced silently and nothing here would notice.",
+      "reviewedAt": "2026-09-16"
     },
     {
       "directive": "Do not invent observations to satisfy a quota.",
       "provenance": "CLAUDE.md",
       "reviewClass": "KEYWORD_FALSE_POSITIVE",
-      "evidence": "Tagged EXTERNAL_EFFECT on the word 'quota', which here means a Task Observer observation count, not a provider rate limit. It is an internal honesty rule about the observation ledger."
+      "evidence": "Tagged EXTERNAL_EFFECT on the word 'quota', which here means a Task Observer observation count, not a provider rate limit. It is an internal honesty rule about the observation ledger.",
+      "reviewedAt": "2026-09-16"
     },
     {
       "directive": "Cross-provider and cross-model-family fallback is allowed.",
       "provenance": "CLAUDE.md",
       "reviewClass": "KEYWORD_FALSE_POSITIVE",
-      "evidence": "A PERMISSION, not a rule requiring enforcement. It grants latitude; there is nothing for a guard to prevent."
+      "evidence": "A PERMISSION, not a rule requiring enforcement. It grants latitude; there is nothing for a guard to prevent.",
+      "reviewedAt": "2026-09-16"
     },
     {
       "directive": "Do not optimize code volume, agent count, send volume, impressions, lead count, vanity dashboards ...",
       "provenance": "AGENTS.md and UBERBOND_CANON.md",
       "reviewClass": "KEYWORD_FALSE_POSITIVE",
-      "evidence": "Tagged on 'send' and 'lead'. It is a rule about what to optimize for, addressed to a human or agent choosing work, and not a runtime constraint any code path can violate."
+      "evidence": "Tagged on 'send' and 'lead'. It is a rule about what to optimize for, addressed to a human or agent choosing work, and not a runtime constraint any code path can violate.",
+      "reviewedAt": "2026-09-16"
+    },
+    {
+      "directive": "Build a sovereign cognitive civilization whose compound intelligence can continually discover, acquire, invent, test and retain capabilities until its effective problem-solving performance becomes broadly superhuman ...",
+      "provenance": "NORTH_STAR.md",
+      "reviewClass": "KEYWORD_FALSE_POSITIVE",
+      "evidence": "Tagged EXTERNAL_EFFECT on 'acquire' and 'self-deployable'. It is the ASI aspiration statement, classified PERMISSION, and the file it sits in states its own status as SYSTEM_LEVEL_ASI_NOT_ESTABLISHED. Nothing here is a runtime constraint.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "Without explicit consequence authority, do not perform customer messages/calls, provider/model calls, spend/purchases, public publishing, deployments, DNS/credential changes, KYC/payment-account changes, money movement, physical-device actions, or production/customer mutations.",
+      "provenance": "AGENTS.md (and the same sentence in UBERBOND_CANON.md)",
+      "reviewClass": "COMPOUND_SENTENCE",
+      "evidence": "Ten prohibitions in one sentence, each enforced in a different place: outbound authority by AUTH-01..04, the send loop by SEND-01..03, provider calls by ROUTE-02 and ROUTE-05, money by MONEY-18 and MONEY-19, DNS by DOMAIN-01 and DOMAIN-02, credentials by SEC-01..06, escalation by ESC-01..04. No single guard covers the sentence because no single code path does.",
+      "residual": "Coverage here is asserted clause by clause from the guard list, not computed. A clause that lost its guard would not be noticed by this entry.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "turn friction into an observation and candidate patch, never a silent production rewrite.",
+      "provenance": "CLAUDE.md",
+      "reviewClass": "GUARDED_UNDER_DIFFERENT_VOCABULARY",
+      "evidence": "The self-modification path is guarded by ENF-01 (the change applier cannot be edited by what it applies), ENF-02 (the artifact store cannot stop refusing invalid change sets), ENF-03 (the first gate on a sandbox diff cannot be removed) and SEND-02 (the provider transport cannot be rewritten autonomously). The directive's words -- friction, observation, candidate patch -- appear in none of those guards, so the matcher cannot connect them.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "That script installs packages only: it does not configure LLM/provider credentials, start OmniRoute, run Strix scans, enable Agent Reach `--system`/private channels, spend money or contact anyone.",
+      "provenance": "CLAUDE.md (and AI_SKILL_PLUGIN_ASSIMILATION_CANON.md)",
+      "reviewClass": "CLOSED_BY_NEW_GUARD",
+      "evidence": "A genuine hole, and the sharpest of the four. scripts/bootstrap-external-capabilities.mjs is the only script whose --apply mode spawns commands against the real host, and it had no test of any kind: the canon sentence was the whole of its enforcement, and a seventh step configuring a provider key would have been a clean diff. The step list is now src/external-capability-bootstrap-plan.mjs, auditBootstrapPlan checks one predicate per clause of the sentence, the script fails closed on the audit before its first spawn, and BOOTPLAN-01..06 kill the removal of each clause.",
+      "guards": [
+        "BOOTPLAN-01",
+        "BOOTPLAN-02",
+        "BOOTPLAN-03",
+        "BOOTPLAN-04",
+        "BOOTPLAN-05",
+        "BOOTPLAN-06"
+      ],
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "Do not optimize code volume, agent count, impressions, messages, leads, architecture complexity, skill/model count, historical corpus size, synthetic test-count scale, synthetic revenue, or a single numerical definition of a good life.",
+      "provenance": "UBERBOND_CANON.md",
+      "reviewClass": "KEYWORD_FALSE_POSITIVE",
+      "evidence": "The UBERBOND_CANON wording of a rule already reviewed in its AGENTS.md form. Tagged on 'messages' and 'leads'. It is about what to optimize for, addressed to whoever is choosing work.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "UberBond should provide a provider-neutral distribution control plane over existing acquisition, enrichment, outbound, CRM, inbound, booking, delivery and learning modules.",
+      "provenance": "UBERBOND_CANON.md",
+      "reviewClass": "ARCHITECTURAL_OBLIGATION",
+      "evidence": "A statement about what to build, not a constraint a running code path can violate. The thing it asks for either exists or does not; a mutation cannot make it false at runtime.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "Distribution breadth must never bypass law, consent, suppression, platform terms, provider policy, authority, budget or evidence gates.",
+      "provenance": "UBERBOND_CANON.md",
+      "reviewClass": "COMPOUND_SENTENCE",
+      "evidence": "Eight gates in one sentence. Suppression and hygiene are held by HYG-01..03, authority by AUTH-01..04, the send path by SEND-01..03, platform terms and evasion by EGRESS-01..02 (added in this change), evidence by EVID-01..04.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "long-horizon portfolio allocation should increase founder time sovereignty, geographic freedom, financial independence, artistic/intellectual freedom and reversible optionality rather than maximize money by turning the founder into a permanent operator;",
+      "provenance": "UBERBOND_CANON.md",
+      "reviewClass": "ARCHITECTURAL_OBLIGATION",
+      "evidence": "A value-level allocation rule addressed to the founder and to whoever proposes work. It has no runtime representation, and inventing a metric to guard it would be the Goodhart failure the same canon prohibits.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "It does not override newer exact source or provider/customer/payment reality.",
+      "provenance": "AI_START_HERE.md",
+      "reviewClass": "GUARDED_UNDER_DIFFERENT_VOCABULARY",
+      "evidence": "The precedence of exact source over a canon document is what CANON-01 (an unreachable canon SHA still fails when the source it described differs), CANON-03 and CANON-04 (the freshness probe actually reads git rather than assuming freshness) enforce. The sentence names none of their vocabulary.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "It may recommend a path, lawful substitute, provider fallback, capability acquisition, deeper verification, or escalation.",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "reviewClass": "KEYWORD_FALSE_POSITIVE",
+      "evidence": "A PERMISSION granting latitude. There is nothing for a guard to prevent. Its paired prohibition is the next sentence, reviewed separately below.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "It may not send, spend, deploy, move money, access credentials, bypass consent, evade provider limits, impersonate authority, or create production mutation authority.",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "reviewClass": "CLOSED_BY_NEW_GUARD",
+      "evidence": "A genuine hole. WALLBREAKER_CANON states that every Wallbreaker result carries businessEffectAuthority NONE, and src/wallbreaker.mjs sets that constant on ten return paths. Flipping it to FULL was confirmed to leave every suite green on nine of the ten, including planWallbreakerCycle's success return -- so a planner that had quietly acquired send/spend/deploy authority would have shipped. All ten paths are now exercised and WALLAUTH-01..03 kill the flip at the three that most resemble a real one: the completed cycle, the rejected retrieval, and the shared refusal constructor.",
+      "guards": [
+        "WALLAUTH-01",
+        "WALLAUTH-02",
+        "WALLAUTH-03"
+      ],
+      "residual": "Three of ten sites carry a mutation guard; the other seven are covered by the test but not individually ratcheted. A guard per site would be ceremony without added protection, since the test asserts all of them.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "A scaled deployment should place normalized metadata and graph edges in Postgres, bodies and raw evidence in immutable object storage, vector/lexical indexes in rebuildable search infrastructure, short-lived retrievals in cache, and signed promotion/revocation receipts in an append-only evidence log.",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "reviewClass": "FUTURE_DEPLOYMENT_GUIDANCE",
+      "evidence": "The same canon records the current measured ladder as 30 repository candidates, 2 imported bodies, 2 normalized records, 0 approved, 0 active. The scaled deployment this sentence describes does not exist, so there is no code path to guard.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "Public discovery never authorizes CAPTCHA bypass, private sessions, cookie harvesting, contact inference, provider-limit evasion, unauthorized security testing, customer mutation, messaging, deployment, or money movement.",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "reviewClass": "CLOSED_BY_NEW_GUARD",
+      "evidence": "Partly a genuine hole. The admission screen (src/capability-genome-admission.mjs access-bypass pattern) holds one half and is covered by GENOME-01..03. The executable half is src/egress-health-pool.mjs, where the prohibited-purpose refusal and the access-challenge stop could both be deleted with every suite green: the existing assertions passed ok === false while supplying no routes, so they were satisfied by 'no eligible route' and never noticed. The tests now supply a healthy route and assert the reason code, and EGRESS-01..02 kill the deletions. Contact inference remains ENFORCED_BY_ABSENCE as reviewed previously.",
+      "guards": [
+        "EGRESS-01",
+        "EGRESS-02"
+      ],
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "A provider/tool integration that should sit behind an UberBond contract rather than become an internal truth store.",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "reviewClass": "DEFINITION_NOT_RULE",
+      "evidence": "The definition of capability class D. The compiler's OBLIGATION matcher read it as a rule because it contains 'should'. It names a class; it commands nothing.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "UberBond already has model-routing and provider-admission concepts, so OmniRoute must not become a second policy brain.",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "reviewClass": "ENFORCED_BY_ABSENCE",
+      "evidence": "npm run capabilities:doctor reports omniroute NOT_PRESENT on this host. There is no OmniRoute runtime for a policy decision to migrate into, so there is no code path to guard.",
+      "residual": "Absence is not a guard. If OmniRoute is ever installed and wired, this rule becomes unenforced silently and nothing here would notice. The install step itself is now bounded by BOOTPLAN-02, which refuses a bootstrap step that starts a service -- that limits how it arrives, not what it does once running.",
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "provider/model identity must remain observable in receipts;",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "reviewClass": "CLOSED_BY_NEW_GUARD",
+      "evidence": "A genuine hole. CLAUDE.md's automatic model-failover law states the reason in full: preserve the actual provider/model identity in receipts so UberBond knows what really executed. Both identity fields in the routing selection record could be replaced with null and every routing suite stayed green, which is the single failure mode that law exists to prevent -- a fallback that silently substitutes a provider and leaves no trace of which one ran. ROUTEID-01 and ROUTEID-02 now kill each null.",
+      "guards": [
+        "ROUTEID-01",
+        "ROUTEID-02"
+      ],
+      "reviewedAt": "2026-09-17"
+    },
+    {
+      "directive": "no CAPTCHA bypass, fingerprint spoofing, access-block evasion, or prohibited scraping;",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "reviewClass": "CLOSED_BY_NEW_GUARD",
+      "evidence": "The Agent Reach source-policy wording of the same rule reviewed above. Fingerprint spoofing was already killed by the existing assertion, which supplied a healthy route and so had teeth; the other clauses did not, and are closed by EGRESS-01..02.",
+      "guards": [
+        "EGRESS-01",
+        "EGRESS-02"
+      ],
+      "reviewedAt": "2026-09-17"
     }
   ],
+  "howAHoleWasDistinguishedFromAMeasurementArtifact": "By removing the protection and running the suite. Three of the four holes were invisible to reading alone: the wallbreaker constant is set correctly at all ten sites and looks enforced, the egress assertions name the right rule and pass, and the bootstrap script states its own boundary in a comment. What separated them from the covered rules was that deleting the protection changed nothing.",
   "measurementLimitation": "The doctor cannot currently separate COMPOUND_SENTENCE, KEYWORD_FALSE_POSITIVE and ENFORCED_BY_ABSENCE from a genuine hole. That is why its unguarded count is published as a review queue rather than as a defect count, and why closing an entry here requires reading the rule rather than tuning the matcher until the number falls.",
+  "residualAcrossQueue": "Eight entries close on something weaker than a guard -- absence, a compound sentence whose clauses were checked by hand against the guard list, or a rule with no runtime representation. Those are answers, not proofs, and each says so in its own entry.",
   "businessEffectAuthority": "NONE",
   "externalEffects": []
 }

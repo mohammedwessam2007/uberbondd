@@ -176,6 +176,28 @@ test('campaign creation converges on one record after a browser timeout', async 
   assert.match(missingKey.body, /Idempotency-Key/);
 });
 
+test('campaign creation binds one of the four final offer lanes and rejects unknown lanes', async () => {
+  const selected = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      name: 'Final offer lane test', niche: 'AI agencies',
+      offerId: 'AI_AGENT_RELEASE_GATE', approved: true, autoSend: false
+    }),
+    headers: { 'idempotency-key': 'final-offer-lane-test-1' }
+  });
+  assert.equal(selected.status, 201);
+  assert.equal(json(selected).offerId, 'AI_AGENT_RELEASE_GATE');
+  assert.match(json(selected).offer, /AI Agent Release Gate/);
+
+  const unknown = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({ name: 'Unknown lane', offerId: 'NOT_A_REAL_OFFER' }),
+    headers: { 'idempotency-key': 'final-offer-lane-test-2' }
+  });
+  assert.equal(unknown.status, 400);
+  assert.match(unknown.body, /four final UberReply offers/);
+});
+
 test('protected owner setup records identity and one exact recipient without external effects', async () => {
   const identity = await call('/api/owner/business-identity', {
     method: 'POST', token: ADMIN_TOKEN,

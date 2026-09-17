@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond.ubercel-deployment-signals.v1",
-  "note": "Deployment-state evidence, as collected. A provider badge belongs here and is admitted, but the doctor records that it establishes nothing about UberBond. Contract-bound authenticated health evidence is what would change the verdict, and nothing in this repository collects it yet.",
+  "note": "Deployment-state evidence, as collected. Provider badges are admitted but do not establish UberBond service state. The contract-bound authenticated health signal below is the current serving evidence; it grants no deployment or business-effect authority.",
   "serviceId": "uberbondd",
   "healthContract": {
-    "authenticatedHealthRef": "https://uberbondd.onrender.com/api/health",
+    "authenticatedHealthRef": "https://uberbond-control-plane.onrender.com/api/health",
     "expectedStatus": 200
   },
-  "healthContractNote": "No authenticated health contract is declared for a live UberBond service. Until one is, an AUTHENTICATED_HEALTH signal cannot be contract-bound and the doctor will not treat it as authoritative.",
+  "healthContractNote": "The declared authenticated health contract is the live Render control-plane endpoint. A signal counts only when its URL and status match this contract; this evidence grants no deployment or business-effect authority.",
   "signals": [
     {
       "evidenceClass": "PROVIDER_BADGE",
@@ -37,6 +37,36 @@
       "healthRef": "https://uberbondd.onrender.com/api/health",
       "status": 200,
       "bodyDigest": null,
+      "contractBound": true,
+      "unboundReason": null,
+      "deploymentAuthority": "NONE"
+    },
+    {
+      "evidenceClass": "AUTHENTICATED_HEALTH",
+      "adapterType": "OTHER_REPLACEABLE",
+      "provider": "render",
+      "serving": true,
+      "observedAt": "2026-09-17T22:20:40.111Z",
+      "sourceRef": "render:deployment:dep-dam6cl7a9cic73db24ig:health:2026-09-17T22:20:40.111Z",
+      "observedBy": "codex.render-monitor",
+      "healthRef": "https://uberbond-control-plane.onrender.com/api/health",
+      "status": 200,
+      "bodyDigest": "sha256:1aacd6725a8d24f0aadd5e34c756415318784a909460a071b3975de0a5e7d1e8",
+      "contractBound": true,
+      "unboundReason": null,
+      "deploymentAuthority": "NONE"
+    },
+    {
+      "evidenceClass": "AUTHENTICATED_HEALTH",
+      "adapterType": "OTHER_REPLACEABLE",
+      "provider": "render",
+      "serving": true,
+      "observedAt": "2026-09-17T22:56:04.095Z",
+      "sourceRef": "render:deployment:dep-dam6uqfa9cic73dbfcr0:health:2026-09-17T22:56:04.095Z",
+      "observedBy": "codex.render-monitor",
+      "healthRef": "https://uberbond-control-plane.onrender.com/api/health",
+      "status": 200,
+      "bodyDigest": "sha256:517c0dc703a3aa3959c52542b1933ecda66e7fc6d860bb7328275baddbe4a767",
       "contractBound": true,
       "unboundReason": null,
       "deploymentAuthority": "NONE"

@@ -4,10 +4,10 @@ Last reconciled: 2026-09-17 UTC. This file separates deployed software from owne
 
 - Canonical version: 1.4.0
 - GitHub repository: LIVE — `mohammedwessam2007/uberbondd`
-- Main commit at last runtime observation: `1e48af922364e9e633dac865ac3340f56ed822b8`
-- Render service: LIVE — `uberbond-control-plane` on the Frankfurt free instance; deployment `dep-dam7hqqjnfac73e3m5k0`
+- Main commit at last runtime observation: `c80434daba5c0c5c7007c46c36d52fd06a836464`
+- Render service: LIVE — `uberbond-control-plane` on the Frankfurt free instance; deployment `dep-dam7jc942hec738jh1kg`
 - Public Web URL: https://uberbond-control-plane.onrender.com
-- PostgreSQL: HEALTH CHECK 200 at `2026-09-17T23:35:32.199Z`; Postgres-backed runtime observed
+- PostgreSQL: HEALTH CHECK 200 at `2026-09-17T23:38:44.087Z`; Postgres-backed runtime observed
 - Worker service: ONLINE; worker heartbeat observed; protected outreach status returns 401 without owner auth
 - Deterministic verification: 7,676 passed; 54 intentional skips; 0 failures
 - Browser verification: BLOCKED in this runner because Playwright Chromium could not be downloaded

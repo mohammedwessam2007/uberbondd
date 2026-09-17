@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond.ubercel-deployment-signals.v1",
-  "note": "Deployment-state evidence, as collected. A provider badge belongs here and is admitted, but the doctor records that it establishes nothing about UberBond. Contract-bound authenticated health evidence is what would change the verdict, and nothing in this repository collects it yet.",
+  "note": "Deployment-state evidence, as collected. Provider badges are admitted but do not establish UberBond service state. The contract-bound authenticated health signal below is the current serving evidence; it grants no deployment or business-effect authority.",
   "serviceId": "uberbondd",
   "healthContract": {
     "authenticatedHealthRef": "https://uberbond-control-plane.onrender.com/api/health",
     "expectedStatus": 200
   },
-  "healthContractNote": "No authenticated health contract is declared for a live UberBond service. Until one is, an AUTHENTICATED_HEALTH signal cannot be contract-bound and the doctor will not treat it as authoritative.",
+  "healthContractNote": "The declared authenticated health contract is the live Render control-plane endpoint. A signal counts only when its URL and status match this contract; this evidence grants no deployment or business-effect authority.",
   "signals": [
     {
       "evidenceClass": "PROVIDER_BADGE",

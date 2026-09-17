@@ -106,6 +106,14 @@
       <label>Campaign name<input name="name" value="Global Digital Opportunity Scan"></label>
       <label>Target market<input name="niche" value="SaaS, hospitality, premium brands, agencies, medical and scientific organizations"></label>
       <label>Offer<input name="offer" value="Evidence-backed digital opportunity audit"></label>
+      <label>Final offer lane (optional)<select name="offerId" id="campaign-offer-id">
+        <option value="">Choose one of the four final offers</option>
+        <option value="LEAD_TO_BOOKING_LEAK_AUDIT">A · White-Label Lead-to-Booking Leak Audit · $450 founding pilot</option>
+        <option value="AI_AGENT_RELEASE_GATE">B · AI Agent Release Gate · $900 founding pilot</option>
+        <option value="CLIENT_ROI_PROOF_SPRINT">C · Client ROI Proof Sprint · $950 founding pilot</option>
+        <option value="BILINGUAL_BOOKING_LEAK_AUDIT">D · Arabic + English Booking Leak Audit · $750 founding pilot</option>
+      </select></label>
+      <small class="hint">This lane is separate from the older public inbound catalog. Selecting it pins the final offer in research and draft preparation; it does not authorize sending or create a payment.</small>
       <label>Allowed countries<input name="allowedCountries" placeholder="United Kingdom, Germany"></label>
       <small class="hint">Sending remains blocked unless each country is also present in the server OUTBOUND_ALLOWED_COUNTRIES setting.</small>
       <div class="row"><label>Minimum score<input name="minScore" type="number" value="60" min="50" max="95"></label><label>Follow-ups<input name="maxFollowups" type="number" value="0" min="0" max="1"></label></div>

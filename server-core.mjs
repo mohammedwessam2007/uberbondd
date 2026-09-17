@@ -31,6 +31,7 @@ import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
+import { getUberReplyOffer } from './src/uberreply-four-offer-genome.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -137,6 +138,7 @@ const digestCampaignRequest = campaign => crypto.createHash('sha256').update(JSO
   name: campaign.name,
   niche: campaign.niche,
   offer: campaign.offer,
+  offerId: campaign.offerId || undefined,
   allowedCountries: campaign.allowedCountries,
   minScore: campaign.minScore,
   dailyCaps: campaign.dailyCaps,
@@ -647,7 +649,7 @@ async function ownerSetupStatus() {
     },
     campaigns: campaigns
       .filter(campaign => !campaign.systemKey)
-      .map(campaign => ({ id: campaign.id, name: campaign.name, approved: campaign.approved === true, autoSend: campaign.autoSend === true }))
+      .map(campaign => ({ id: campaign.id, name: campaign.name, offerId: campaign.offerId || null, approved: campaign.approved === true, autoSend: campaign.autoSend === true }))
   };
 }
 
@@ -1089,8 +1091,11 @@ export const requestHandler = async (req, res) => {
       const input = await parseBody(req);
       const requestKey = idempotencyKey(req.headers['idempotency-key'] || input.idempotencyKey);
       if (!requestKey) throw new HttpError(400, 'Idempotency-Key header is required for campaign creation');
+      const offerId = String(input.offerId || '').trim().toUpperCase();
+      const selectedOffer = offerId ? getUberReplyOffer(offerId) : null;
+      if (offerId && !selectedOffer) throw new HttpError(400, 'offerId must be one of the four final UberReply offers');
       const campaign = {
-        id: id('camp'), name: input.name || 'Untitled campaign', niche: input.niche || '', offer: input.offer || '',
+        id: id('camp'), name: input.name || 'Untitled campaign', niche: input.niche || '', offer: input.offer || selectedOffer?.publicName || '', offerId: offerId || undefined,
         allowedCountries: normalizeCountryList(Array.isArray(input.allowedCountries) ? input.allowedCountries : String(input.allowedCountries || '').split(',')),
         minScore: Math.max(50, Math.min(95, Number(input.minScore || 60))),
         dailyCaps: {

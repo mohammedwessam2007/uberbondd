@@ -3607,6 +3607,71 @@ export const MUTATIONS = [
     replace: "    state = authoritative.some(row => row.serving) ? 'SERVING__AUTHENTICATED' : 'NOT_SERVING__AUTHENTICATED';",
     suites: ['tests/ubercel-deployment-doctor.test.mjs']
   },
+  // The V9 carrier verifier. CLAUDE_START_V9.md requires LOSSLESS_VERIFIED and
+  // an exact SHA before canonical V9 may be treated as canonical, and the
+  // carrier in this repository cannot produce it: seed part 16 is short 6,433
+  // bytes that exist in no git object. The pressure to close that by loosening
+  // the verifier instead of supplying the bytes is exactly what these guard.
+  {
+    id: 'V9CARRIER-01', guard: 'A truncated part is never classified as newline-repairable',
+    file: 'scripts/materialize-inevitability-v9.py',
+    find: '        elif sha(enc + NEWLINE) == p[\'encodedSha256\']:',
+    replace: '        elif True:',
+    suites: ['tests/inevitability-v9-carrier.test.mjs']
+  },
+  {
+    // Admitting a broken part is how a partial carrier reaches the generator
+    // and a hash-locked artifact acquires content nobody authored.
+    id: 'V9CARRIER-02', guard: 'A carrier with an unrecoverable part does not proceed to generation',
+    file: 'scripts/materialize-inevitability-v9.py',
+    find: "    broken = [p for p in parts if p['state'] not in ('OK', 'REPAIRABLE_TRAILING_NEWLINE')]",
+    replace: '    broken = []',
+    suites: ['tests/inevitability-v9-carrier.test.mjs']
+  },
+  {
+    // The refusal has to stay legible. Reporting one part when sixteen were
+    // checked is what turned "part 16 is short" into a session of archaeology.
+    id: 'V9CARRIER-03', guard: 'The refusal reports every part, not the first fault',
+    file: 'scripts/materialize-inevitability-v9.py',
+    find: "        'partsVerified': len(recovered),",
+    replace: "        'partsVerified': 0,",
+    suites: ['tests/inevitability-v9-carrier.test.mjs']
+  },
+  // The V7 gap ledger. Its contract is three sentences -- a label never closes a
+  // gap, a stale artifact never closes a gap, a self-authored claim never closes
+  // an external gap -- and these are the three ways to break them.
+  {
+    id: 'V7GAP-01', guard: 'A written status never overrides what the check measured',
+    file: 'src/v7-gap-ledger.mjs',
+    find: '    status: verdict.status,\n    checkState: \'MEASURED\',',
+    replace: '    status: definition.status || verdict.status,\n    checkState: \'MEASURED\',',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // Collapsing an unmeasurable gap into a real status is how a reader loses
+    // the difference between "we looked" and "we could not look".
+    id: 'V7GAP-02', guard: 'A check that throws is recorded as unmeasured, not as an answer',
+    file: 'src/v7-gap-ledger.mjs',
+    find: "      checkState: 'CHECK_FAILED',",
+    replace: "      checkState: 'MEASURED',",
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // "EXTERNAL_BLOCKED, reason: pending" is the label this contract forbids.
+    id: 'V7GAP-03', guard: 'An external claim must name what would unblock it',
+    file: 'src/v7-gap-ledger.mjs',
+    find: '  if (EXTERNAL_CLASSES.includes(verdict.status) && !verdict.unblockCondition && !base.unblockCondition) {',
+    replace: '  if (false) {',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // A broken check would otherwise become a way to finish the program.
+    id: 'V7GAP-04', guard: 'An unmeasured gap blocks source-side completion',
+    file: 'src/v7-gap-ledger.mjs',
+    find: '    sourceSideComplete: softwareOpen === 0 && unmeasured === 0',
+    replace: '    sourceSideComplete: softwareOpen === 0',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.
@@ -3742,7 +3807,16 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         record(mutation, applied.reason === 'anchor-ambiguous' ? 'ANCHOR_AMBIGUOUS' : 'ANCHOR_NOT_FOUND');
         continue;
       }
-      const syntax = spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
+      // The checker follows the language, not the runtime running the harness.
+      // This was always `node --check`, so a mutation of any .py file in the
+      // repository reported MUTANT_DID_NOT_PARSE no matter how well-formed it
+      // was -- which reads as a malformed mutation when the truth is that the
+      // checker could not read the file at all. The V9 carrier materializer is
+      // Python, and it is the one script standing between a partial carrier and
+      // a hash-locked artifact, so "unguardable" was not an acceptable answer.
+      const syntax = mutation.file.endsWith('.py')
+        ? spawnSync('python3', ['-c', 'import ast,sys;ast.parse(open(sys.argv[1]).read(),sys.argv[1])', join(root, mutation.file)], { encoding: 'utf8' })
+        : spawnSync(process.execPath, ['--check', join(root, mutation.file)], { encoding: 'utf8' });
       if (syntax.status !== 0) {
         record(mutation, 'MUTANT_DID_NOT_PARSE');
         continue;

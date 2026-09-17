@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "uberbond-canonical-v9-materialization-blocker-1.0.0",
+  "status": "CANONICAL_V9_NOT_MATERIALIZED__EXTERNAL_SOURCE_ARTIFACT_BLOCKER",
+  "recordedAt": "2026-09-17",
+  "sourceSha": "8ec5e6c61e71bff3ea1d012fc2107f01d376423f",
+  "required": {
+    "contract": "CLAUDE_START_V9.md",
+    "demands": "LOSSLESS_VERIFIED and SHA-256 8ad73f53116107acea824f6847aa6f29845e263b3ec01d241b90aae5719fe55d",
+    "canonicalBytes": 146566257,
+    "canonicalLines": 232406
+  },
+  "whatIsMissing": {
+    "file": "artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64",
+    "actualBytes": 6500,
+    "manifestRequiresBytes": 12933,
+    "shortByEncodedBytes": 6433,
+    "shortByBinaryXzBytes": 4823,
+    "nature": "LZMA-compressed content of the V7 seed. Not a checksum, not derivable, not recomputable from anything in this repository."
+  },
+  "whatWasRepaired": {
+    "parts": 14,
+    "cause": "A stripped trailing newline. Each part was exactly one byte short.",
+    "howConfirmed": "Restoring the newline makes each part's encoded SHA-256 match the manifest exactly. The manifest confirmed the repair; the shape of the damage only suggested it.",
+    "note": "part-0007 had been repaired previously (commit 8daf918a). The other fourteen had not."
+  },
+  "recoverableWithoutTheMissingBytes": {
+    "v7SourceBytesRecovered": 1845596,
+    "v7SourceBytesTotal": 1916551,
+    "percent": 96.3,
+    "cutsOffAt": "mid-sentence at directive 1510 (Cognitive Foundry / failure memory)",
+    "usable": false,
+    "whyNotUsable": "The generator verifies the seed SHA before running and the materializer verifies the canonical SHA after. A 96.3% seed produces no canonical V9, and a partial reconstruction may never be labelled canonical V9 under the carrier's own no-amputation invariant."
+  },
+  "mechanismsTestedAndFailed": [
+    { "mechanism": "sibling-branch-recovery", "detail": "origin/feat/inevitability-v9-lossless-carrier-v2 carries the identical 6500-byte truncation; -v3 declares an 8-part schema-5.0.0 layout and commits zero part files.", "outcomeCertain": true },
+    { "mechanism": "git-object-size-scan", "detail": "All 36,521 objects in the repository scanned by size. Zero blobs match V7's 1,916,551 bytes.", "outcomeCertain": true },
+    { "mechanism": "brotli-carrier-v1-recovery", "detail": "origin/feat/inevitability-v9-lossless-carrier declares partCount 128 and commits 2 parts.", "outcomeCertain": true },
+    { "mechanism": "large-blob-survey", "detail": "36 blobs over 400KB. Largest is a 5MB docs pack. Nothing resembles V7, V8 or V9.", "outcomeCertain": true },
+    { "mechanism": "generator-inspection", "detail": "The generator is intact and SHA-verified at 58,549 bytes. It hard-requires seed xz SHA 0388e5dd and exits V7_SEED_XZ_MISMATCH otherwise. It is forward-only and defines no inverse.", "outcomeCertain": true },
+    { "mechanism": "partial-xz-decode", "detail": "The truncated stream decodes 1,845,596 of 1,916,551 bytes and then ends. The remainder is absent, not corrupted.", "outcomeCertain": true }
+  ],
+  "wallbreaker": {
+    "receiptId": "wbr_c63017e3fd1a01caec01828a",
+    "selected": "founder-supplies-source (external-source-acquisition)",
+    "computeTier": "DEEP",
+    "businessEffectAuthority": "NONE",
+    "ruledIneligible": [
+      "brute-force-missing-bytes — violates no-fabricated-bytes",
+      "weaken-manifest — violates no-manifest-hash-weakening and no-partial-artifact-relabelled-as-canonical"
+    ],
+    "fallback": "proceed-on-partial-v7-labelled (bounded degraded continuation): keep canonical V9 explicitly unmaterialized, continue executing repository work from exact-current truth."
+  },
+  "whatWouldCloseIt": {
+    "artifact": "The exact V7 source: 1,916,551 bytes, 27,601 lines, SHA-256 de93cca36a4c72411ff283d865be1c97cf7680abeb73146dfa48523da0e21921",
+    "orAlternatively": "The canonical V9 file itself: 146,566,257 bytes, SHA-256 8ad73f53116107acea824f6847aa6f29845e263b3ec01d241b90aae5719fe55d",
+    "thenWhat": "Re-encode seed part 16 from the recovered V7 and re-run python3 scripts/materialize-inevitability-v9.py. No manifest edit is needed or permitted.",
+    "whoCanSupplyIt": "The founder, or the host that authored the carrier. These bytes exist outside this repository or nowhere."
+  },
+  "blockerClass": "EXTERNAL_SOURCE_ARTIFACT",
+  "isRoutineEngineering": false,
+  "businessEffectAuthority": "NONE",
+  "externalEffects": []
+}

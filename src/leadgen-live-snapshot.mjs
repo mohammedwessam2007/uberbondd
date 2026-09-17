@@ -4,13 +4,21 @@ export const LIVE_LEAD_GENERATION_VERSION = 'uberbond.lead-generation-live.v1';
 
 async function loadDurableLeadSources(store) {
   if (!store || typeof store.list !== 'function') throw new TypeError('A durable store is required');
-  const [prospects, suppressions] = await Promise.all([
+  const [prospects, suppressions, leadLists, leadSearches, leadSignals, leadEnrichmentRuns] = await Promise.all([
     store.list('prospects'),
-    store.list('suppressions')
+    store.list('suppressions'),
+    store.list('leadLists'),
+    store.list('leadSearches'),
+    store.list('leadSignals'),
+    store.list('leadEnrichmentRuns')
   ]);
   return {
     prospects: Array.isArray(prospects) ? prospects : [],
-    suppressions: Array.isArray(suppressions) ? suppressions : []
+    suppressions: Array.isArray(suppressions) ? suppressions : [],
+    leadLists: Array.isArray(leadLists) ? leadLists : [],
+    searches: Array.isArray(leadSearches) ? leadSearches : [],
+    signals: Array.isArray(leadSignals) ? leadSignals : [],
+    enrichmentRuns: Array.isArray(leadEnrichmentRuns) ? leadEnrichmentRuns : []
   };
 }
 
@@ -26,6 +34,9 @@ export async function buildLiveLeadGenerationSnapshot({ store, now = new Date() 
       persisted: true,
       prospectRecords: sources.prospects.length,
       suppressionRecords: sources.suppressions.length,
+      savedSearches: sources.searches.length,
+      sourceSignals: sources.signals.length,
+      enrichmentRuns: sources.enrichmentRuns.length,
       providerCalls: 0,
       externalEffects: 0
     },

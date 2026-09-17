@@ -139,3 +139,35 @@ test('a campaign is carried into the handoff rows', async () => {
   assert.ok(handoff.rows.length > 0, 'a campaign test needs at least one row to carry it');
   for (const row of handoff.rows) assert.equal(row.campaignId, 'c1');
 });
+
+// --- Merged in from main, which added these collections to the module and
+// covered them independently while this branch was open. Kept whole rather than
+// rewritten: they assert the counts main's change introduced, which nothing
+// above touches. The two suites cover different halves -- suppression and the
+// store contract here, the new durable collections below.
+
+const mainRows = {
+  prospects: [{ id: 'p1', company: 'Example', website: 'https://example.com', source: 'owner_import' }],
+  suppressions: [{ value: 'blocked@example.com' }],
+  leadLists: [{ id: 'list1' }],
+  leadSearches: [{ id: 'search1', updatedAt: '2026-09-17T00:00:00Z' }],
+  leadSignals: [{ id: 'signal1', prospectId: 'p1', type: 'news', title: 'News', excerpt: 'A public update.', sourceType: 'public_website', observedAt: '2026-09-17T00:00:00Z', expiresAt: '2026-10-17T00:00:00Z' }],
+  leadEnrichmentRuns: [{ id: 'run1', createdAt: '2026-09-17T00:00:00Z' }]
+};
+const mainStore = { list: async collection => mainRows[collection] || [] };
+
+test('live lead generation reads durable searches, signals and enrichment runs', async () => {
+  const snapshot = await buildLiveLeadGenerationSnapshot({ store: mainStore, now: new Date('2026-09-17T01:00:00Z') });
+  assert.equal(snapshot.stats.savedSearches, 1);
+  assert.equal(snapshot.stats.activeSignals, 1);
+  assert.equal(snapshot.stats.enrichmentRuns, 1);
+  assert.equal(snapshot.runtime.sourceSignals, 1);
+});
+
+test('live handoff uses durable signal records without mutation', async () => {
+  const handoff = await buildLiveLeadHandoff({ store: mainStore, query: { requireEvidence: false, requireContact: false, skipOwned: false, minScore: 0 } });
+  assert.equal(handoff.liveSource, 'durable-prospects');
+  assert.equal(handoff.mutatesRecords, false);
+  assert.equal(handoff.providerCalls, 0);
+  assert.equal(handoff.externalEffects, 0);
+});

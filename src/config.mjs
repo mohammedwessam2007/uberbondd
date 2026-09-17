@@ -148,6 +148,13 @@ export const config = {
     maxBboxSpan: num(env.DISCOVERY_MAX_BBOX_SPAN, 5),
     userAgent: env.DISCOVERY_USER_AGENT || 'UberBondRevenueEngine/1.3'
   },
+  // Public/local lead generation is the default. Provider enrichment is a
+  // separate, explicit switch so an accidentally present BYOK key cannot turn
+  // a read-only research job into paid third-party calls.
+  leadGeneration: {
+    providerCallsEnabled: bool(env.LEAD_PROVIDER_CALLS_ENABLED, false),
+    hunterEnabled: bool(env.HUNTER_ENRICHMENT_ENABLED, false)
+  },
   ai: {
     provider: env.AI_PROVIDER || 'rules',
     anthropicKey: env.ANTHROPIC_API_KEY || '',

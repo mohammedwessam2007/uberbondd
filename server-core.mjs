@@ -7,7 +7,7 @@ import { config, validateStartupConfig } from './src/config.mjs';
 import { createStore, ConflictError, StoreError } from './src/store.mjs';
 import { Pipeline } from './src/pipeline.mjs';
 import { RevenueEngine } from './src/revenue.mjs';
-import { id, now, csvEscape } from './src/utils.mjs';
+import { id, now, csvEscape, isEmail, normalizeDomain } from './src/utils.mjs';
 import { parseCsv } from './src/csv.mjs';
 import { googleAuthUrl, exchangeCode, sealTokens, getProfile } from './src/gmail.mjs';
 import { startScheduler } from './src/scheduler.mjs';
@@ -30,6 +30,7 @@ import {
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
+import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -100,6 +101,38 @@ const idempotencyKey = value => {
   if (!key || key.length > 200 || /[\u0000-\u001f\u007f]/.test(key)) return '';
   return key;
 };
+const OWNER_AUTHORIZATION_BASES = new Map([
+  ['explicit_consent', 'EXPLICIT_CONSENT'],
+  ['requested_information', 'REQUESTED_INFORMATION']
+]);
+const ownerBusinessIdentity = settings => {
+  const value = settings?.businessIdentity;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  const legalName = String(value.legalName || '').trim();
+  const postalAddress = String(value.postalAddress || '').trim();
+  if (!legalName || !postalAddress) return null;
+  return {
+    legalName,
+    senderName: String(value.senderName || '').trim(),
+    company: String(value.company || '').trim(),
+    postalAddress,
+    updatedAt: String(value.updatedAt || '').trim(),
+    source: 'owner-protected-settings'
+  };
+};
+const configWithOwnerIdentity = settings => {
+  const identity = ownerBusinessIdentity(settings);
+  if (!identity) return config;
+  return {
+    ...config,
+    sender: {
+      ...config.sender,
+      name: identity.senderName || config.sender.name,
+      company: identity.company || identity.legalName || config.sender.company,
+      address: identity.postalAddress
+    }
+  };
+};
 const digestCampaignRequest = campaign => crypto.createHash('sha256').update(JSON.stringify({
   name: campaign.name,
   niche: campaign.niche,
@@ -142,7 +175,7 @@ const relayRateLimited = req => {
   return count > Math.max(1, Number(config.agentRelay?.rateLimitPerMinute || 120));
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
-const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/webhooks/lemonsqueezy';
+const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/api/public/offer-interest' || pathname === '/webhooks/lemonsqueezy';
 const clientIp = req => {
   const hops = Number(config.trustProxyHops) || 0;
   const socketAddress = String(req.socket?.remoteAddress || 'unknown');
@@ -228,18 +261,18 @@ function countReasons(rows) {
   return counts;
 }
 
-function canaryPrerequisites() {
-  const outbound = config.outbound || {};
+function canaryPrerequisites(runtimeConfig = config) {
+  const outbound = runtimeConfig.outbound || {};
   return {
     launchPhaseCanary: outbound.launchPhase === 'canary',
     approvedProvider: outbound.provider === 'gmail-api',
     approvalSecretConfigured: String(outbound.approvalSecret || '').length >= 32,
     approverConfigured: Boolean(String(outbound.approverId || '').trim()),
-    senderIdentityConfigured: Boolean(String(config.sender?.address || '').trim()),
+    senderIdentityConfigured: Boolean(String(runtimeConfig.sender?.address || '').trim()),
     allowedCountriesConfigured: normalizeCountryList(outbound.allowedCountries || []).length > 0,
-    googleOAuthConfigured: Boolean(config.google?.clientId && config.google?.clientSecret),
-    encryptionConfigured: /^[a-f0-9]{64}$/i.test(String(config.encryptionKey || '')),
-    unsubscribeConfigured: String(config.unsubscribeSecret || '').length >= 32,
+    googleOAuthConfigured: Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
+    encryptionConfigured: /^[a-f0-9]{64}$/i.test(String(runtimeConfig.encryptionKey || '')),
+    unsubscribeConfigured: String(runtimeConfig.unsubscribeSecret || '').length >= 32,
     outboundEnabled: outbound.enabled === true,
     dryRun: outbound.dryRun === true
   };
@@ -250,6 +283,7 @@ async function outreachCanaryStatus() {
     store.list('prospects'), store.list('campaigns'), store.list('accounts'), store.list('senderHealth'),
     store.list('suppressions'), store.list('outboundReservations'), store.getSettings()
   ]);
+  const runtimeConfig = configWithOwnerIdentity(settings);
   const campaignsById = new Map(campaigns.map(campaign => [String(campaign.id), campaign]));
   const candidates = prospects.filter(prospect => {
     const campaign = campaignsById.get(String(prospect.campaignId || ''));
@@ -261,7 +295,7 @@ async function outreachCanaryStatus() {
   const evaluations = candidates.map(prospect => evaluateOutreachGovernance({
     prospect,
     campaign: campaignsById.get(String(prospect.campaignId || '')),
-    cfg: config,
+    cfg: runtimeConfig,
     subject: prospect.subject,
     body: prospect.draft,
     followup: 0,
@@ -271,7 +305,7 @@ async function outreachCanaryStatus() {
   const readyProspectIds = candidates
     .filter((_, index) => evaluations[index]?.ok)
     .map(prospect => prospect.id);
-  const prerequisites = canaryPrerequisites();
+  const prerequisites = canaryPrerequisites(runtimeConfig);
   const connectedSlots = new Set(accounts.filter(account => account.connected === true).map(account => String(account.slot || '')));
   const pausedSlots = new Set(senderHealth.filter(row => row.paused === true).map(row => String(row.inbox || '')));
   const dryRunBlockers = [];
@@ -307,17 +341,17 @@ async function outreachCanaryStatus() {
     ok: true,
     version: 'uberbond.outreach-canary-runtime.v1',
     state,
-    provider: config.outbound.provider,
-    launchPhase: config.outbound.launchPhase,
+    provider: runtimeConfig.outbound.provider,
+    launchPhase: runtimeConfig.outbound.launchPhase,
     mode: {
-      outboundEnabled: config.outbound.enabled,
-      dryRun: config.outbound.dryRun,
+      outboundEnabled: runtimeConfig.outbound.enabled,
+      dryRun: runtimeConfig.outbound.dryRun,
       globalPaused: settings?.outboundPaused === true
     },
     canary: {
-      dailyCap: config.outbound.canaryDailyCap,
-      hourlyCap: config.outbound.canaryHourlyCap,
-      minGapSeconds: config.outbound.canaryMinGapSeconds,
+      dailyCap: runtimeConfig.outbound.canaryDailyCap,
+      hourlyCap: runtimeConfig.outbound.canaryHourlyCap,
+      minGapSeconds: runtimeConfig.outbound.canaryMinGapSeconds,
       readyProspectId: readyProspectIds.length === 1 ? readyProspectIds[0] : null
     },
     counts: {
@@ -380,8 +414,8 @@ async function startOutreachCanary(input = {}) {
   };
 }
 
-function exactCanaryPayload(prospect, campaign, { subject, body, followup = 0 } = {}) {
-  const provider = String(config.outbound.provider || '').toLowerCase();
+function exactCanaryPayload(prospect, campaign, { subject, body, followup = 0, provider = config.outbound.provider } = {}) {
+  provider = String(provider || '').toLowerCase();
   return {
     provider,
     prospectId: prospect.id,
@@ -400,11 +434,14 @@ function exactCanaryPayload(prospect, campaign, { subject, body, followup = 0 } 
 async function approveOutreachCanary(input = {}) {
   const prospectId = String(input.prospectId || '').trim();
   if (!prospectId) throw new HttpError(400, 'prospectId is required');
+  const requestKey = idempotencyKey(input.idempotencyKey);
+  if (!requestKey) throw new HttpError(400, 'Idempotency-Key header is required for canary approval');
   if (Number(input.followup || 0) !== 0) throw new HttpError(400, 'Only the initial canary step can be approved here');
-  if (config.outbound.launchPhase !== 'canary') throw new HttpError(409, 'Set the bounded canary launch phase before approving a canary');
-  if (String(config.outbound.provider || '').toLowerCase() !== 'gmail-api') throw new HttpError(409, 'The live canary provider is not approved');
-  if (String(config.outbound.approvalSecret || '').length < 32) throw new HttpError(503, 'The canary approval secret is not configured');
-  if (!String(config.outbound.approverId || '').trim()) throw new HttpError(503, 'The canary approver identity is not configured');
+  const runtimeConfig = configWithOwnerIdentity(await store.getSettings());
+  if (runtimeConfig.outbound.launchPhase !== 'canary') throw new HttpError(409, 'Set the bounded canary launch phase before approving a canary');
+  if (String(runtimeConfig.outbound.provider || '').toLowerCase() !== 'gmail-api') throw new HttpError(409, 'The live canary provider is not approved');
+  if (String(runtimeConfig.outbound.approvalSecret || '').length < 32) throw new HttpError(503, 'The canary approval secret is not configured');
+  if (!String(runtimeConfig.outbound.approverId || '').trim()) throw new HttpError(503, 'The canary approver identity is not configured');
 
   const prospect = await store.get('prospects', prospectId);
   if (!prospect) throw new HttpError(404, 'Prospect not found');
@@ -423,43 +460,87 @@ async function approveOutreachCanary(input = {}) {
   if (!String(prospect.oneClickUnsubscribeUrl || '').startsWith('https://')) throw new HttpError(409, 'The prospect needs a signed HTTPS unsubscribe URL');
   const routeInput = input.routeEvidence;
   if (!routeInput || typeof routeInput !== 'object' || Array.isArray(routeInput)) throw new HttpError(400, 'routeEvidence is required');
+  if (!String(routeInput.sourceObservedAt || '').trim()) throw new HttpError(400, 'routeEvidence.sourceObservedAt is required for retry-safe approval');
 
   const approvedAt = new Date();
   let route;
   try {
+    const observedAt = new Date(String(routeInput.sourceObservedAt));
+    const sourceExpiresAt = String(routeInput.sourceExpiresAt || '').trim()
+      || (Number.isFinite(observedAt.getTime())
+        ? new Date(observedAt.getTime() + Math.max(1, Number(runtimeConfig.outbound.routeEvidenceMaxAgeDays || 7)) * 86400000).toISOString()
+        : '');
     route = createOutreachRouteEvidence({
       ...routeInput,
       recipientEmail: prospect.contact.email,
-      provider: config.outbound.provider
+      sourceExpiresAt,
+      provider: runtimeConfig.outbound.provider
     }, approvedAt);
   } catch (error) {
     throw new HttpError(400, error.message || 'Route evidence is invalid');
   }
-  const payload = exactCanaryPayload(prospect, campaign, { subject, body });
+  const payload = exactCanaryPayload(prospect, campaign, { subject, body, provider: runtimeConfig.outbound.provider });
   const messageDigest = outreachMessageDigest(payload);
   const effectPayloadDigest = outreachEffectPayloadDigest(payload);
+  const requestDigest = crypto.createHash('sha256').update(JSON.stringify({
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    routeDigest: route.routeDigest,
+    messageDigest,
+    effectPayloadDigest
+  })).digest('hex');
+  const existingApproval = prospect.outreachApproval;
+  if (existingApproval && !prospect.outreachApprovalRevokedAt) {
+    const existingExpiry = Date.parse(existingApproval.expiresAt || '');
+    if (prospect.outreachApprovalIdempotencyKey === requestKey && prospect.outreachApprovalRequestDigest === requestDigest) {
+      return {
+        ok: true,
+        state: 'CANARY_APPROVAL_REPLAY',
+        idempotentReplay: true,
+        prospectId: prospect.id,
+        campaignId: campaign.id,
+        approvalId: existingApproval.approvalId,
+        routeDigest: existingApproval.routeDigest,
+        messageDigest: existingApproval.messageDigest,
+        effectPayloadDigest: existingApproval.effectPayloadDigest,
+        expiresAt: existingApproval.expiresAt,
+        providerCalls: 0,
+        messagesSent: 0,
+        automaticRetryAuthorized: false,
+        businessEffectAuthority: 'NONE',
+        externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+        truthBoundary: 'The exact canary approval request was replayed idempotently. It did not contact the provider or recipient.'
+      };
+    }
+    if (Number.isFinite(existingExpiry) && existingExpiry > Date.now()) {
+      throw new HttpError(409, 'An active canary approval already exists; revoke it before creating a different approval');
+    }
+  }
   const approval = createOutreachApproval({
     approvalId: `outreach-${crypto.randomUUID()}`,
     prospectId: prospect.id,
     campaignId: campaign.id,
     recipientEmail: prospect.contact.email,
-    provider: config.outbound.provider,
+    provider: runtimeConfig.outbound.provider,
     inbox: prospect.inbox,
     followup: 0,
     routeDigest: route.routeDigest,
     messageDigest,
     effectPayloadDigest,
-    approvedBy: config.outbound.approverId,
+    approvedBy: runtimeConfig.outbound.approverId,
     approvedAt: approvedAt.toISOString(),
     expiresAt: new Date(approvedAt.getTime() + 24 * 60 * 60 * 1000).toISOString()
-  }, config.outbound.approvalSecret);
+  }, runtimeConfig.outbound.approvalSecret);
   const candidate = { ...prospect, outreachRoute: route, outreachApproval: approval };
-  const governance = evaluateOutreachGovernance({ prospect: candidate, campaign, cfg: config, subject, body, date: approvedAt });
+  const governance = evaluateOutreachGovernance({ prospect: candidate, campaign, cfg: runtimeConfig, subject, body, date: approvedAt });
   if (!governance.ok) throw new HttpError(409, `Canary approval refused: ${governance.reason}`);
 
   await store.patch('prospects', prospect.id, {
     outreachRoute: route,
     outreachApproval: approval,
+    outreachApprovalIdempotencyKey: requestKey,
+    outreachApprovalRequestDigest: requestDigest,
+    outreachApprovalRevokedAt: null,
     externalActionAuthorized: false,
     outreachApprovalCreatedAt: approvedAt.toISOString()
   });
@@ -470,9 +551,10 @@ async function approveOutreachCanary(input = {}) {
     routeDigest: route.routeDigest,
     messageDigest,
     effectPayloadDigest,
-    provider: config.outbound.provider,
+    idempotencyKey: requestKey,
+    provider: runtimeConfig.outbound.provider,
     inbox: prospect.inbox,
-    approvedBy: config.outbound.approverId,
+    approvedBy: runtimeConfig.outbound.approverId,
     providerCalls: 0
   });
   return {
@@ -520,6 +602,187 @@ async function revokeOutreachCanary(input = {}) {
     messagesSent: 0,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
+  };
+}
+
+function validHttpsUrl(value) {
+  try {
+    const parsed = new URL(String(value || '').trim());
+    return parsed.protocol === 'https:' && !parsed.username && !parsed.password;
+  } catch {
+    return false;
+  }
+}
+
+function suppressionMatchesEmail(row, email, domain) {
+  const value = String(row?.value || '').trim().toLowerCase();
+  if (!value) return false;
+  return value === email || value === domain || email.endsWith(`@${value.replace(/^@/, '')}`);
+}
+
+async function ownerSetupStatus() {
+  const [settings, accounts, prospects, suppressions, campaigns] = await Promise.all([
+    store.getSettings(), store.list('accounts'), store.list('prospects'), store.list('suppressions'), store.list('campaigns')
+  ]);
+  const runtimeConfig = configWithOwnerIdentity(settings);
+  const evidenceProspects = prospects.filter(prospect => prospect.sourceMetadata?.authorization?.status === 'owner-evidence-recorded');
+  return {
+    ok: true,
+    identity: ownerBusinessIdentity(settings),
+    sender: {
+      configured: Boolean(String(runtimeConfig.sender?.address || '').trim()),
+      googleOAuthConfigured: Boolean(config.google?.clientId && config.google?.clientSecret),
+      connectedSenders: accounts
+        .filter(account => account.connected === true)
+        .map(account => ({ slot: account.slot, email: account.email }))
+    },
+    recipientEvidence: {
+      total: evidenceProspects.length,
+      suppressionRecords: suppressions.length,
+      byBasis: evidenceProspects.reduce((counts, prospect) => {
+        const basis = String(prospect.sourceMetadata?.authorization?.basis || 'UNKNOWN');
+        counts[basis] = (counts[basis] || 0) + 1;
+        return counts;
+      }, {})
+    },
+    campaigns: campaigns
+      .filter(campaign => !campaign.systemKey)
+      .map(campaign => ({ id: campaign.id, name: campaign.name, approved: campaign.approved === true, autoSend: campaign.autoSend === true }))
+  };
+}
+
+async function saveOwnerBusinessIdentity(input = {}) {
+  const legalName = String(input.legalName || '').trim();
+  const senderName = String(input.senderName || '').trim();
+  const company = String(input.company || '').trim();
+  const postalAddress = String(input.postalAddress || '').trim();
+  if (legalName.length < 2) throw new HttpError(400, 'A legal or business name is required');
+  if (postalAddress.length < 12) throw new HttpError(400, 'A complete physical postal address is required');
+  const identity = {
+    legalName: legalName.slice(0, 180),
+    senderName: senderName.slice(0, 120),
+    company: (company || legalName).slice(0, 180),
+    postalAddress: postalAddress.slice(0, 500),
+    updatedAt: now(),
+    source: 'owner-protected-settings'
+  };
+  await store.setSetting('businessIdentity', identity);
+  await store.log('owner_business_identity_saved', {
+    legalName: identity.legalName,
+    company: identity.company,
+    source: identity.source,
+    providerCalls: 0,
+    externalEffects: 0
+  });
+  return {
+    ok: true,
+    identity,
+    providerCalls: 0,
+    messagesSent: 0,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+    truthBoundary: 'The protected business identity was stored locally. It did not contact a provider or recipient.'
+  };
+}
+
+async function recordOwnerRecipient(input = {}) {
+  const campaignId = String(input.campaignId || '').trim();
+  if (!campaignId) throw new HttpError(400, 'campaignId is required');
+  const campaign = await store.get('campaigns', campaignId);
+  if (!campaign) throw new HttpError(404, 'Campaign not found');
+  if (campaign.approved !== true || campaign.autoSend !== true) {
+    throw new HttpError(409, 'The recipient must be attached to an approved auto-send campaign before canary preparation');
+  }
+
+  const company = String(input.company || '').trim();
+  const website = String(input.website || '').trim();
+  const email = String(input.email || '').trim().toLowerCase();
+  const authorizationBasis = String(input.authorizationBasis || '').trim().toLowerCase();
+  const authorizationUrl = String(input.authorizationUrl || '').trim();
+  const evidenceNote = String(input.evidenceNote || input.authorizationNote || '').trim();
+  const jurisdiction = String(input.jurisdiction || '').trim().toUpperCase();
+  const observedAt = new Date(String(input.observedAt || ''));
+  const supportedCountry = normalizeCountryList([input.country])[0] || '';
+  if (company.length < 2) throw new HttpError(400, 'Company name is required');
+  if (!validHttpsUrl(website)) throw new HttpError(400, 'Website must be an HTTPS URL');
+  if (!isEmail(email)) throw new HttpError(400, 'A valid exact business email is required');
+  if (!OWNER_AUTHORIZATION_BASES.has(authorizationBasis)) {
+    throw new HttpError(400, 'Authorization basis must be explicit consent or a direct information request');
+  }
+  if (!validHttpsUrl(authorizationUrl)) throw new HttpError(400, 'Authorization evidence URL must be HTTPS');
+  if (evidenceNote.length < 8) throw new HttpError(400, 'Describe the authorization evidence in at least eight characters');
+  if (!/^[A-Z]{2}$/.test(jurisdiction)) throw new HttpError(400, 'Jurisdiction must be a two-letter country code');
+  if (!Number.isFinite(observedAt.getTime())) throw new HttpError(400, 'observedAt must be a valid timestamp');
+  if (observedAt.getTime() > Date.now() + 5 * 60 * 1000) throw new HttpError(400, 'observedAt cannot be in the future');
+  if (!supportedCountry) throw new HttpError(400, 'Country must be a supported country name or two-letter code');
+
+  const domain = normalizeDomain(website);
+  const prospects = await store.list('prospects');
+  const sameEmail = prospects.find(prospect => String(prospect.contact?.email || '').toLowerCase() === email);
+  if (sameEmail) {
+    return {
+      ok: true,
+      idempotentReplay: true,
+      prospect: sameEmail,
+      providerCalls: 0,
+      externalEffects: 0,
+      truthBoundary: 'This exact recipient already exists in the durable prospect store. No provider or recipient was contacted.'
+    };
+  }
+  const sameDomain = prospects.find(prospect => String(prospect.domain || normalizeDomain(prospect.website)) === domain);
+  if (sameDomain) throw new HttpError(409, 'A prospect for this website domain already exists; reuse it instead of creating a duplicate');
+
+  const suppressions = await store.list('suppressions');
+  if (suppressions.some(row => suppressionMatchesEmail(row, email, domain))) {
+    throw new HttpError(409, 'This recipient or domain is already suppressed');
+  }
+
+  const sourceRecordId = `owner-recipient-${crypto.createHash('sha256').update(`${email}|${website}|${campaignId}`).digest('hex').slice(0, 24)}`;
+  const raw = {
+    company: company.slice(0, 180),
+    website,
+    country: supportedCountry,
+    city: String(input.city || '').trim().slice(0, 80),
+    niche: String(input.niche || '').trim().slice(0, 120),
+    campaignId,
+    source: 'owner_import',
+    sourceUrl: website,
+    sourceRecordId,
+    sourceMetadata: {
+      intakeVersion: 'uberbond.owner-recipient-intake.v1',
+      authorization: {
+        status: 'owner-evidence-recorded',
+        basis: OWNER_AUTHORIZATION_BASES.get(authorizationBasis),
+        sourceUrl: authorizationUrl.slice(0, 600),
+        evidenceNote: evidenceNote.slice(0, 1000),
+        observedAt: observedAt.toISOString(),
+        jurisdiction
+      },
+      suppression: { status: 'clear', checkedAt: now() }
+    },
+    contact: {
+      email,
+      name: String(input.name || '').trim().slice(0, 160),
+      title: String(input.title || '').trim().slice(0, 160),
+      source: 'owner_import',
+      sourceUrl: authorizationUrl.slice(0, 600),
+      observedAt: observedAt.toISOString(),
+      verified: 'unknown'
+    }
+  };
+  const result = await importProspects(store, config, [raw], campaignId);
+  if (!result.added.length) throw new HttpError(409, result.skipped[0]?.reason || 'Recipient was not accepted');
+  const prospect = result.added[0];
+  await enqueueResearch({ limit: 1, reason: 'owner-recipient', leadId: prospect.id });
+  return {
+    ok: true,
+    created: true,
+    prospect,
+    providerCalls: 0,
+    externalEffects: 0,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+    truthBoundary: 'One exact owner-recorded recipient was stored and queued for local research. No scraping, provider call, or message send occurred.'
   };
 }
 
@@ -624,7 +887,8 @@ export const requestHandler = async (req, res) => {
       return json(res, 200, {
         brand: 'UberBond', publicAuditEnabled: config.revenue.publicIntake,
         prices: { full: config.revenue.fullAuditPrice, strategy: config.revenue.strategyAuditPrice, monitoring: config.revenue.monitoringPrice, implementationFrom: config.revenue.implementationFrom },
-        bookingUrl: config.revenue.bookingUrl
+        bookingUrl: config.revenue.bookingUrl,
+        offerCatalog: buildRevenueOfferCatalog(config.revenue)
       });
     }
     if (method === 'POST' && url.pathname === '/api/public/audit') {
@@ -655,6 +919,11 @@ export const requestHandler = async (req, res) => {
       if (!lead) return json(res, 404, { error: 'Report not found' });
       const checkout = revenue.checkoutFor(lead, String(input.product || 'full'));
       return checkout.configured ? json(res, 200, checkout) : json(res, 503, { error: 'Checkout is not configured yet', checkout });
+    }
+    if (method === 'POST' && url.pathname === '/api/public/offer-interest') {
+      const input = await parseBody(req);
+      const result = await revenue.registerOfferInterest(input.token, input.product);
+      return json(res, result.status || (result.ok ? 200 : 400), result);
     }
     if (method === 'POST' && url.pathname === '/webhooks/lemonsqueezy') {
       const raw = await bodyText(req);
@@ -738,6 +1007,17 @@ export const requestHandler = async (req, res) => {
 
     if (method === 'GET' && url.pathname === '/api/summary') return json(res, 200, await summary());
 
+    if (method === 'GET' && url.pathname === '/api/owner/setup') {
+      return json(res, 200, await ownerSetupStatus());
+    }
+    if (method === 'POST' && url.pathname === '/api/owner/business-identity') {
+      return json(res, 200, await saveOwnerBusinessIdentity(await parseBody(req)));
+    }
+    if (method === 'POST' && url.pathname === '/api/owner/recipient') {
+      const result = await recordOwnerRecipient(await parseBody(req));
+      return json(res, result.idempotentReplay ? 200 : 201, result);
+    }
+
     if (method === 'GET' && url.pathname === '/api/leadgen/intelligence') {
       return json(res, 200, await buildLiveLeadGenerationSnapshot({ store }));
     }
@@ -777,7 +1057,9 @@ export const requestHandler = async (req, res) => {
       return json(res, 200, await outreachCanaryStatus());
     }
     if (method === 'POST' && url.pathname === '/api/outbound/approve-prospect') {
-      return json(res, 200, await approveOutreachCanary(await parseBody(req)));
+      const input = await parseBody(req);
+      input.idempotencyKey = idempotencyKey(req.headers['idempotency-key'] || input.idempotencyKey);
+      return json(res, 200, await approveOutreachCanary(input));
     }
     if (method === 'POST' && url.pathname === '/api/outbound/canary/start') {
       return json(res, 202, await startOutreachCanary(await parseBody(req)));

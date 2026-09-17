@@ -1,6 +1,10 @@
 const $=s=>document.querySelector(s);
 const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(n||0));
-async function loadConfig(){try{const r=await fetch('/api/public/config');const c=await r.json();$('#price-full').textContent=money(c.prices.full);$('#price-strategy').textContent=money(c.prices.strategy);$('#price-monitoring').textContent=money(c.prices.monitoring);}catch{}}
+async function loadConfig(){try{const r=await fetch('/api/public/config');const c=await r.json();$('#price-full').textContent=money(c.prices.full);$('#price-strategy').textContent=money(c.prices.strategy);$('#price-monitoring').textContent=money(c.prices.monitoring);$('#price-implementation').textContent=`from ${money(c.prices.implementationFrom)}`;}catch{}}
+document.querySelectorAll('[data-offer]').forEach(link=>link.addEventListener('click',()=>{
+  const select=document.querySelector('select[name="requestedOffer"]');
+  if(select) select.value=link.dataset.offer;
+}));
 $('#audit-form').addEventListener('submit',async e=>{
   e.preventDefault();const button=$('.submit-audit'),status=$('#form-status');button.disabled=true;status.className='form-status active';status.textContent='The engine is accepting your website…';
   try{

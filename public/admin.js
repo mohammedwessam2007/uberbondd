@@ -29,11 +29,25 @@ async function startGoogle(slot){
 }
 function clearProtectedState(){token='';cache={prospects:[],campaigns:[]};const field=$('#token');if(field)field.value='';}
 window.addEventListener('pagehide',clearProtectedState);
+const localDateTime=()=>{const d=new Date();const pad=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;};
+const setIfBlank=(form,name,value)=>{const field=form?.elements?.namedItem(name);if(field&&!field.value&&value)field.value=value;};
+const approvalKey=x=>{const material=JSON.stringify(x);let hash=2166136261;for(const char of material){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return `canary-approval-${(hash>>>0).toString(16)}-${material.length}`;};
+function renderCanaryPreview(){
+  const id=$('#canary-prospect-select')?.value;const p=cache.prospects.find(row=>row.id===id);const preview=$('#canary-preview');
+  if(!preview){return;}
+  if(!p){preview.innerHTML='<small>Select a researched prospect to see the exact stored payload.</small>';return;}
+  const authorization=p.sourceMetadata?.authorization||{};
+  const approvalForm=$('#canary-approval-form');
+  setIfBlank(approvalForm,'sourceUrl',authorization.sourceUrl||p.contact?.sourceUrl||'');
+  setIfBlank(approvalForm,'jurisdiction',authorization.jurisdiction||'');
+  preview.innerHTML=`<b>${esc(p.company)} · ${esc(p.contact?.email||'no exact email')}</b><small>Status ${esc(p.status)} · sender ${esc(p.inbox||'not routed')}</small><div><strong>Subject:</strong> ${esc(p.subject||'No stored subject')}</div><pre>${esc(p.draft||'No stored body')}</pre>`;
+  const status=$('#approval-status');if(status)status.textContent=p.outreachApproval?`Existing approval ${esc(p.outreachApproval.approvalId)} · expires ${esc(p.outreachApproval.expiresAt||'')}`:'No canary approval stored for this prospect.';
+}
 
 async function load(){
   try{
-    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary,leadgen]=await Promise.all([
-      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null),api('/api/leadgen/intelligence').catch(()=>null)
+    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary,leadgen,ownerSetup]=await Promise.all([
+      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null),api('/api/leadgen/intelligence').catch(()=>null),api('/api/owner/setup').catch(()=>null)
     ]);
     cache={prospects:pros,campaigns:camps};
     $('#mode').textContent=`${sum.paused?'PAUSED':sum.running?'WORKING':sum.workerOnline?'WORKER ONLINE':'WORKER OFFLINE'} · ${sum.autopilot?'AUTOPILOT ON':'MANUAL MODE'}`;
@@ -61,6 +75,18 @@ async function load(){
     const campaignOptions=camps.length?camps.filter(c=>!c.systemKey).map(c=>`<option value="${esc(c.id)}">${esc(c.name)} · min ${c.minScore}</option>`).join(''):'<option value="">Create a campaign first</option>';
     $('#campaign-select').innerHTML=campaignOptions;
     $('#discovery-campaign-select').innerHTML=campaignOptions;
+    $('#recipient-campaign-select').innerHTML=camps.filter(c=>!c.systemKey&&c.approved&&c.autoSend).map(c=>`<option value="${esc(c.id)}">${esc(c.name)} · approved auto-send</option>`).join('')||'<option value="">Create an approved auto-send campaign first</option>';
+    const identityForm=$('#owner-identity-form');
+    if(ownerSetup?.identity){
+      setIfBlank(identityForm,'legalName',ownerSetup.identity.legalName);setIfBlank(identityForm,'senderName',ownerSetup.identity.senderName);setIfBlank(identityForm,'company',ownerSetup.identity.company);setIfBlank(identityForm,'postalAddress',ownerSetup.identity.postalAddress);
+      $('#identity-status').textContent=`Saved ${ownerSetup.identity.updatedAt||'identity'} · sender address gate is configured locally.`;
+    }else $('#identity-status').textContent='No protected identity saved yet.';
+    const recipientEvidence=ownerSetup?.recipientEvidence;
+    $('#recipient-status').textContent=recipientEvidence?`${recipientEvidence.total||0} owner-recorded recipient(s) · ${recipientEvidence.suppressionRecords||0} suppression record(s) checked.`:'Recipient evidence status unavailable.';
+    const campaignById=Object.fromEntries(camps.map(c=>[c.id,c]));
+    const canaryCandidates=pros.filter(p=>['ready','research-complete'].includes(p.status)&&p.contact?.email&&campaignById[p.campaignId]?.approved===true&&campaignById[p.campaignId]?.autoSend===true);
+    $('#canary-prospect-select').innerHTML=canaryCandidates.length?canaryCandidates.map(p=>`<option value="${esc(p.id)}">${esc(p.company)} · ${esc(p.contact.email)} · ${esc(p.status)}</option>`).join(''):'<option value="">Research an approved recipient first</option>';
+    renderCanaryPreview();
     const healthBySlot=Object.fromEntries((outbound.senderHealth||[]).map(h=>[h.inbox,h]));
     $('#accounts').innerHTML=sum.accounts.length?sum.accounts.map(a=>{const h=healthBySlot[a.slot]||{};return `<div class="mini-card"><b>Email ${a.slot} · ${h.paused?'PAUSED':'healthy'}</b><small>${esc(a.email||'Disconnected')} · bounces ${h.hardBouncesToday||0} · complaints ${h.complaintsToday||0}</small></div>`}).join(''):'<div class="mini-card"><small>No Gmail accounts connected.</small></div>';
     $('#jobs').innerHTML=jobs.length?jobs.slice(0,8).map(j=>`<div class="mini-card"><b>${esc(j.status)} · ${esc(j.type||j.queue||'job')}</b><small>Attempt ${j.attempts||0}/${j.maxAttempts||1} · ${esc((j.runAt||j.startedAt||j.createdAt||'').replace('T',' ').slice(0,16))}</small>${j.lastError?`<p>${esc(j.lastError.slice(0,180))}</p>`:''}${j.status==='dead-letter'?`<button class="small retry-job" data-id="${esc(j.id)}">Retry job</button>`:''}</div>`).join(''):'<div class="mini-card"><small>No jobs yet.</small></div>';
@@ -103,6 +129,10 @@ const campaignKey=async x=>{
   let hash=2166136261;for(const char of material){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return `campaign-form-${(hash>>>0).toString(16)}-${material.length}`;
 };
 $('#campaign-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const x=Object.fromEntries(f);x.approved=f.has('approved');x.autoSend=f.has('autoSend');try{const c=await api('/api/campaigns',{method:'POST',headers:{'Idempotency-Key':await campaignKey(x)},body:JSON.stringify(x)});alert(`${c.idempotentReplay?'Campaign already existed':'Campaign created'}: ${c.name}`);load();}catch(e){alert(e.message)}};
+$('#owner-identity-form').onsubmit=async e=>{e.preventDefault();const x=Object.fromEntries(new FormData(e.currentTarget));try{const result=await api('/api/owner/business-identity',{method:'POST',body:JSON.stringify(x)});$('#identity-status').textContent=`Saved ${result.identity.legalName} · no provider call made.`;load();}catch(error){$('#identity-status').textContent=error.message;}};
+$('#recipient-form').onsubmit=async e=>{e.preventDefault();const form=e.currentTarget;const x=Object.fromEntries(new FormData(form));try{x.observedAt=new Date(x.observedAt).toISOString();const result=await api('/api/owner/recipient',{method:'POST',body:JSON.stringify(x)});$('#recipient-status').textContent=`${result.idempotentReplay?'Already recorded':'Recorded'} ${result.prospect.company} · queued for local research only.`;form.reset();form.elements.namedItem('country').value='United Kingdom';form.elements.namedItem('niche').value='HVAC, plumbing, or electrical';form.elements.namedItem('authorizationBasis').value='requested_information';form.elements.namedItem('jurisdiction').value='GB';load();}catch(error){$('#recipient-status').textContent=error.message;}};
+$('#canary-prospect-select').onchange=renderCanaryPreview;
+$('#canary-approval-form').onsubmit=async e=>{e.preventDefault();const f=new FormData(e.currentTarget);const prospectId=String(f.get('prospectId')||'');const sourceObservedAt=new Date(String(f.get('sourceObservedAt')||'')).toISOString();const routeEvidence={routeType:String(f.get('routeType')||''),sourceUrl:String(f.get('sourceUrl')||''),sourceExcerpt:String(f.get('sourceExcerpt')||''),sourceObservedAt,jurisdiction:String(f.get('jurisdiction')||''),permissionScope:'COMMERCIAL_OUTREACH',relevantToRecipientRole:f.has('relevantToRecipientRole'),noUnsolicitedStatementPresent:f.has('noUnsolicitedStatementPresent'),evidenceNote:String(f.get('evidenceNote')||'')};const key=approvalKey({prospectId,routeEvidence});try{const result=await api('/api/outbound/approve-prospect',{method:'POST',headers:{'Idempotency-Key':key},body:JSON.stringify({prospectId,routeEvidence,idempotencyKey:key})});$('#approval-status').textContent=`${result.idempotentReplay?'Replayed':'Approved'} exact canary ${result.approvalId} · provider calls: ${result.providerCalls||0}.`;load();}catch(error){$('#approval-status').textContent=error.message;}};
 $('#csv-file').onchange=e=>$('#file-name').textContent=e.target.files[0]?.name||'No file selected';
 $('#import-csv').onclick=async()=>{const file=$('#csv-file').files[0];if(!file)return alert('Choose a CSV file first.');const campaignId=$('#campaign-select').value;if(!campaignId)return alert('Create a campaign first.');try{const r=await api(`/api/prospects/import-csv?campaignId=${encodeURIComponent(campaignId)}`,{method:'POST',body:await file.text(),headers:{'content-type':'text/csv'}});alert(`Imported ${r.added}. Skipped ${r.skipped}.`);load();}catch(e){alert(e.message)}};
 $('#import-json-btn').onclick=async()=>{try{const prospects=JSON.parse($('#import-json').value).map(x=>({...x,campaignId:$('#campaign-select').value}));const r=await api('/api/prospects/import',{method:'POST',body:JSON.stringify({prospects})});alert(`Imported ${r.added}. Skipped ${r.skipped}.`);load();}catch(e){alert(e.message)}};
@@ -113,4 +143,5 @@ $('#pause-outbound').onclick=async()=>{await api('/api/outbound/pause',{method:'
 $('#resume-outbound').onclick=async()=>{if(confirm('Resume unattended outbound sending?')){await api('/api/outbound/resume',{method:'POST'});load()}};
 $('#refresh').onclick=()=>{if(token)load()};$('#status-filter').onchange=renderProspects;$('#export-csv').onclick=async e=>{e.preventDefault();try{await download('/api/export.csv')}catch(error){alert(error.message)}};$('#export-json').onclick=async e=>{e.preventDefault();try{await download('/api/export.json')}catch(error){alert(error.message)}};
 $('#gmail-a').onclick=async e=>{e.preventDefault();try{await startGoogle('A')}catch(error){alert(error.message)}};$('#gmail-b').onclick=async e=>{e.preventDefault();try{await startGoogle('B')}catch(error){alert(error.message)}};
+setIfBlank($('#recipient-form'),'observedAt',localDateTime());setIfBlank($('#canary-approval-form'),'sourceObservedAt',localDateTime());
 setInterval(()=>{if(token)load()},12000);

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "uberbond.v7-live-truth.v1",
+  "generatedAt": "2026-09-17T16:51:00.478Z",
+  "sourceSha": "e7a312e81936b6ea5e7e36d3a96acd66118f75d8",
+  "generator": "scripts/v7-live-truth.mjs",
+  "freshnessPolicy": "Every field is measured at run time. This artifact is stale the moment main moves, and says so rather than being trusted.",
+  "staleByDefault": true,
+  "git": {
+    "head": "e7a312e81936b6ea5e7e36d3a96acd66118f75d8",
+    "originMain": "066aa0db1ce5a653f144479c085f80c435f8bf39",
+    "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+    "workingTreeClean": false,
+    "uncommittedPaths": 7,
+    "commitsAheadOfMain": 6,
+    "commitsBehindMain": 0,
+    "remoteBranches": 859
+  },
+  "canon": {
+    "readinessPresent": true,
+    "readinessDescribesSha": "UNOBSERVED",
+    "constitution": {
+      "directives": 262,
+      "withMutationGuard": 84,
+      "externalEffect": 48,
+      "externalEffectWithMutationGuard": 31,
+      "mutationAnchorsAvailable": 480,
+      "operativeSourcesUnranked": 8,
+      "conflictCandidates": 9,
+      "conflictsResolvableByPrecedence": 0
+    }
+  },
+  "deployment": {
+    "state": "UNKNOWN__ONLY_PROVIDER_BADGES",
+    "contractBoundAuthoritativeSignals": 0,
+    "providerBadgesEstablish": "NOTHING_ABOUT_UBERBOND_DEPLOYMENT_STATE"
+  },
+  "canonicalV9": {
+    "status": "CARRIER_INCOMPLETE__CANONICAL_V9_NOT_MATERIALIZED",
+    "partsVerified": 15,
+    "partsUnrecoverable": 1,
+    "missingEncodedBytes": 6433,
+    "executedFrom": "PARTIAL_V7_ANCESTOR__EXPLICITLY_NOT_CANONICAL_V9"
+  },
+  "notMeasuredHere": [
+    "open pull requests (requires a GitHub call, which this generator does not make)",
+    "model/provider availability (no provider is configured on this host)",
+    "external reality: customers, payments, deliveries"
+  ],
+  "uncertainty": "A field reading UNOBSERVED was not measurable by this generator. It is not a zero and not a pass.",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE"
+}

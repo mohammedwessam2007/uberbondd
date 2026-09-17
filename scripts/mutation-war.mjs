@@ -3637,6 +3637,41 @@ export const MUTATIONS = [
     replace: "        'partsVerified': 0,",
     suites: ['tests/inevitability-v9-carrier.test.mjs']
   },
+  // The V7 gap ledger. Its contract is three sentences -- a label never closes a
+  // gap, a stale artifact never closes a gap, a self-authored claim never closes
+  // an external gap -- and these are the three ways to break them.
+  {
+    id: 'V7GAP-01', guard: 'A written status never overrides what the check measured',
+    file: 'src/v7-gap-ledger.mjs',
+    find: '    status: verdict.status,\n    checkState: \'MEASURED\',',
+    replace: '    status: definition.status || verdict.status,\n    checkState: \'MEASURED\',',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // Collapsing an unmeasurable gap into a real status is how a reader loses
+    // the difference between "we looked" and "we could not look".
+    id: 'V7GAP-02', guard: 'A check that throws is recorded as unmeasured, not as an answer',
+    file: 'src/v7-gap-ledger.mjs',
+    find: "      checkState: 'CHECK_FAILED',",
+    replace: "      checkState: 'MEASURED',",
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // "EXTERNAL_BLOCKED, reason: pending" is the label this contract forbids.
+    id: 'V7GAP-03', guard: 'An external claim must name what would unblock it',
+    file: 'src/v7-gap-ledger.mjs',
+    find: '  if (EXTERNAL_CLASSES.includes(verdict.status) && !verdict.unblockCondition && !base.unblockCondition) {',
+    replace: '  if (false) {',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // A broken check would otherwise become a way to finish the program.
+    id: 'V7GAP-04', guard: 'An unmeasured gap blocks source-side completion',
+    file: 'src/v7-gap-ledger.mjs',
+    find: '    sourceSideComplete: softwareOpen === 0 && unmeasured === 0',
+    replace: '    sourceSideComplete: softwareOpen === 0',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

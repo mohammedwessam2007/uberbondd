@@ -67,7 +67,24 @@ if (autoResumeOnBoot) {
   const pauseState = await queue.pausedState();
   if (pauseState.paused) await queue.setPaused(false, 'startup-recovery');
   const [jobs, prospects] = await Promise.all([store.list('jobs'), store.list('prospects')]);
-  const target = prospects.find(item => item.id === 'pros_3e2eb90c-c6c0-48de-8850-9a55865490bb');
+  let target = prospects.find(item => item.id === 'pros_3e2eb90c-c6c0-48de-8850-9a55865490bb');
+  const targetJobExists = jobs.some(item =>
+    item.type === 'research.batch' &&
+    ['queued', 'retry', 'active'].includes(item.status) &&
+    item.payload?.prospectId === target?.id
+  );
+  let recoveryJobId = '';
+  if (target?.status === 'crawling' && !targetJobExists) {
+    target = await store.patch('prospects', target.id, {
+      status: 'retry',
+      error: 'Recovered orphaned crawling prospect before a clean research retry',
+      recoveredAt: new Date().toISOString()
+    });
+    const recoveryJob = await enqueueResearch({
+      limit: 1, reason: 'prospect-recovery', prospectId: target.id
+    });
+    recoveryJobId = recoveryJob.id;
+  }
   const jobCounts = Object.fromEntries([...new Set(jobs.map(item => item.status))].map(status => [
     status, jobs.filter(item => item.status === status).length
   ]));
@@ -76,7 +93,7 @@ if (autoResumeOnBoot) {
     id: item.id, status: item.status, attempts: item.attempts,
     lastError: String(item.lastError || '').slice(0, 240)
   }));
-  console.log(`UberBond startup recovery snapshot: paused=${Boolean((await queue.pausedState()).paused)} activeResearch=${activeResearch} jobCounts=${JSON.stringify(jobCounts)} targetStatus=${target?.status || 'missing'} targetError=${String(target?.error || '').slice(0, 240)} researchJobs=${JSON.stringify(researchJobs)}`);
+  console.log(`UberBond startup recovery snapshot: paused=${Boolean((await queue.pausedState()).paused)} activeResearch=${activeResearch} jobCounts=${JSON.stringify(jobCounts)} targetStatus=${target?.status || 'missing'} targetError=${String(target?.error || '').slice(0, 240)} recoveryJobId=${recoveryJobId || 'none'} researchJobs=${JSON.stringify(researchJobs)}`);
 }
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 

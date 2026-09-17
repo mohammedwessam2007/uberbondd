@@ -1,11 +1,11 @@
 {
   "schemaVersion": "uberbond.v7-proof-obligations.v1",
-  "generatedAt": "2026-09-17T17:51:21.494Z",
-  "sourceSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
+  "generatedAt": "2026-09-17T18:25:33.673Z",
+  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
   "generator": "scripts/v7-proof-obligations.mjs",
   "constitutionVersion": "uberbond-constitution-directives-1.0.0",
   "inputHashes": {
-    "constitution": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3"
+    "constitution": "20435e1c2c778f8a64aec3f1413c92117ce198d0"
   },
   "freshnessPolicy": "Recomputed from artifacts/constitution/directives.json, which has its own freshness gate. A stale constitution makes this stale too.",
   "counts": {
@@ -19,8 +19,8 @@
       },
       "INTERNAL_TEST": {
         "total": 177,
-        "discharged": 143,
-        "outstanding": 34,
+        "discharged": 144,
+        "outstanding": 33,
         "notApplicable": 0
       },
       "MUTATION_GUARD": {
@@ -2375,9 +2375,9 @@
       "authorityClass": "INTERNAL",
       "obligationKind": "INTERNAL_TEST",
       "dischargeableBy": "An ordinary test over the module the rule governs.",
-      "discharged": false,
+      "discharged": true,
       "mutationGuards": [],
-      "testsMentioning": 0
+      "testsMentioning": 1
     },
     {
       "id": "CAPABILITY-GENOME-CANON-c562567a",

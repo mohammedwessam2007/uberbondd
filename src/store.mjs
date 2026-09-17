@@ -637,6 +637,10 @@ export class PostgresStore {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
+    // A scoped store wraps the client already checked out by transaction().
+    // Nested transaction helpers must reuse that client instead of calling
+    // client.connect() a second time.
+    this.boundClient = Boolean(pool && typeof pool.release === 'function');
   }
 
   async init() { await this.migrate(); }
@@ -671,6 +675,7 @@ export class PostgresStore {
   }
 
   async transaction(fn) {
+    if (this.boundClient) return fn(this);
     const client = await this.pool.connect();
     try {
       await client.query('BEGIN');

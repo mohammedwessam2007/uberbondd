@@ -3672,6 +3672,57 @@ export const MUTATIONS = [
     replace: '    sourceSideComplete: softwareOpen === 0',
     suites: ['tests/v7-gap-ledger.test.mjs']
   },
+  // The bridge between a probe and Ubercel's evidence. A real probe sat in a
+  // handoff document as a sentence while the doctor reported it had nothing, so
+  // the bridge is worth having -- and worth guarding against turning a probe
+  // into more than it is.
+  {
+    id: 'UBERHEALTH-01', guard: 'A probe against an undeclared URL does not bind to the contract',
+    file: 'src/ubercel-health-evidence.mjs',
+    find: '    && ref === contract.authenticatedHealthRef',
+    replace: '    && true',
+    suites: ['tests/ubercel-health-evidence.test.mjs']
+  },
+  {
+    id: 'UBERHEALTH-02', guard: 'A probe returning the wrong status does not bind to the contract',
+    file: 'src/ubercel-health-evidence.mjs',
+    find: '    && status === contract.expectedStatus;',
+    replace: '    && true;',
+    suites: ['tests/ubercel-health-evidence.test.mjs']
+  },
+  {
+    // An unbound success must not smuggle a SERVING verdict into the doctor.
+    id: 'UBERHEALTH-03', guard: 'An unbound probe is never recorded as serving',
+    file: 'src/ubercel-health-evidence.mjs',
+    find: '    serving: contractBound && status === contract.expectedStatus,',
+    replace: '    serving: status === 200,',
+    suites: ['tests/ubercel-health-evidence.test.mjs']
+  },
+  {
+    // A probe nobody timed can never be aged, so it could never be known stale.
+    id: 'UBERHEALTH-04', guard: 'An observation with no readable time is refused',
+    file: 'src/ubercel-health-evidence.mjs',
+    find: "  if (!when || !Number.isFinite(Date.parse(when))) reasons.push('observation-time-required');",
+    replace: '',
+    suites: ['tests/ubercel-health-evidence.test.mjs']
+  },
+  {
+    // Without an observer a recorded probe cannot be told apart later from one
+    // this repository invented.
+    id: 'UBERHEALTH-05', guard: 'An observation with no observer is refused',
+    file: 'src/ubercel-health-evidence.mjs',
+    find: "  if (!by) reasons.push('observer-identity-required');",
+    replace: '',
+    suites: ['tests/ubercel-health-evidence.test.mjs']
+  },
+  {
+    // Returning zero would make an unreadable observation look brand new.
+    id: 'UBERHEALTH-06', guard: 'An unreadable observation time reports unknown age, not zero',
+    file: 'src/ubercel-health-evidence.mjs',
+    find: '  if (!Number.isFinite(observed)) return { known: false, ageMs: null };',
+    replace: '  if (!Number.isFinite(observed)) return { known: true, ageMs: 0 };',
+    suites: ['tests/ubercel-health-evidence.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

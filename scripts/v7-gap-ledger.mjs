@@ -75,22 +75,35 @@ const GAPS = [
   },
   {
     id: 'V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE',
-    title: 'Nothing in the repository collects authenticated deployment health evidence',
-    family: 'SOFTWARE',
-    statement: 'Ubercel reports UNKNOWN because the only signals available are provider badges, which establish nothing about UberBond. No health contract is declared for a live service.',
-    whyItMatters: 'Without it, deployment truth is whatever a vendor badge says, which is the confusion that produced a wrong report earlier in this program.',
-    implementationPath: 'Declare an authenticated health contract for a live service and collect contract-bound probe evidence into the signal file.',
-    externalEvidenceRequired: 'A reachable live service with an authenticated health endpoint.',
-    authorityRequired: 'Deployment authority to stand up or point at a live service.',
-    unblockCondition: 'A declared healthContract plus at least one contract-bound AUTHENTICATED_HEALTH signal, after which the doctor reports SERVING or NOT_SERVING instead of UNKNOWN.',
-    nextExperiment: 'Point the health contract at an owned uberlit runtime and record one probe.',
+    title: 'Deployment state rests on evidence that has expired',
+    family: 'EXTERNAL',
+    statement: 'A health contract is declared and one contract-bound probe is recorded, so Ubercel now reports UNKNOWN__EVIDENCE_STALE rather than UNKNOWN__ONLY_PROVIDER_BADGES. Establishing the present state needs a fresh probe.',
+    whyItMatters: 'The difference between "we have no way to know" and "we knew, and the knowledge expired" is the whole point of this doctor. Only the second is a waiting problem.',
+    implementationPath: 'Done. src/ubercel-health-evidence.mjs converts a probe into a contract-bound signal and scripts/ubercel-record-health.mjs writes it. Neither makes a network call, so running them cannot manufacture the evidence.',
+    externalEvidenceRequired: 'A fresh probe of the declared health ref by something with network authority.',
+    authorityRequired: 'Network/deployment authority to call the live service. This session has no authority to probe an external host.',
+    unblockCondition: 'Any authorized caller records a contract-bound probe younger than the doctor freshness window, after which the state becomes SERVING or NOT_SERVING.',
+    nextExperiment: 'A scheduled probe job, or one authorized manual probe piped into scripts/ubercel-record-health.mjs.',
     check: () => {
       const out = sh('node', [resolve(root, 'scripts/ubercel-doctor.mjs')]);
       const state = (out.match(/state:\s*(\S+)/) || [])[1] || 'UNREADABLE';
       if (state.startsWith('SERVING') || state.startsWith('NOT_SERVING')) {
         return { status: 'CLOSED', closureEvidence: `ubercel reports ${state} from contract-bound evidence` };
       }
-      return { status: 'OPEN', sourceEvidence: [`ubercel state: ${state}`], measured: { state } };
+      // Three unknowns that are not the same problem. Only the stale one is
+      // waiting on time; the other two are waiting on software that now exists.
+      if (state === 'UNKNOWN__EVIDENCE_STALE') {
+        return {
+          status: 'EXTERNAL_BLOCKED',
+          sourceEvidence: ['a contract-bound probe exists and has aged out of the freshness window'],
+          measured: { state }
+        };
+      }
+      return {
+        status: 'OPEN',
+        sourceEvidence: [`ubercel state: ${state}`, 'no contract-bound probe has ever been recorded'],
+        measured: { state }
+      };
     }
   },
   {
@@ -205,6 +218,34 @@ const GAPS = [
       const count = failed ? Number(failed[1]) : null;
       if (count === 0) return { status: 'CLOSED', closureEvidence: 'production-coverage ratchet passes at this head' };
       return { status: 'OPEN', sourceEvidence: [`production-coverage ratchet reports ${count ?? 'an unreadable number of'} failures`], measured: { failures: count } };
+    }
+  },
+  {
+    id: 'V7G009-CONTRACT-ARTIFACTS-ABSENT',
+    title: 'Artifacts the V7 contract names that do not exist',
+    family: 'SOFTWARE',
+    statement: 'The contract names 29 machine-readable artifacts. The index resolves each to GENERATED, COVERED_BY_EXISTING_ARTIFACT, or ABSENT, and the absent ones are unwritten software.',
+    whyItMatters: 'Without this gap the ledger reads sourceSideComplete while nineteen named artifacts do not exist, which is exactly the false completion the contract forbids. An absent artifact is not a rounding error just because the ledger did not have a row for it.',
+    implementationPath: 'Build each absent artifact where it would carry real measurement, or record a cover if existing source already holds the content. Empty files do not count: the index reads statSync, not intent.',
+    externalEvidenceRequired: null,
+    authorityRequired: null,
+    unblockCondition: null,
+    nextExperiment: 'Take the highest-value absent artifact next. Proof obligations and the claim-evidence registry sit earliest in the execution order.',
+    check: () => {
+      if (!has('artifacts/v7/artifact-index.json')) {
+        return { status: 'OPEN', sourceEvidence: ['no artifact index to read'] };
+      }
+      const index = readJson('artifacts/v7/artifact-index.json');
+      const absent = (index.rows || []).filter(row => row.state === 'ABSENT');
+      const broken = (index.rows || []).filter(row => row.state === 'COVER_DECLARED_BUT_MISSING' || row.state === 'GENERATOR_DECLARED_NOT_YET_RUN');
+      if (!absent.length && !broken.length) {
+        return { status: 'CLOSED', closureEvidence: 'every artifact the contract names is generated or covered by existing source' };
+      }
+      return {
+        status: 'OPEN',
+        sourceEvidence: [`${absent.length} of ${index.rows.length} contract artifacts absent`, ...(broken.length ? [`${broken.length} declared but not produced`] : [])],
+        measured: { absent: absent.map(row => row.artifact), declaredButMissing: broken.map(row => row.artifact) }
+      };
     }
   }
 ];

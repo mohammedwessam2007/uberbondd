@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T17:07:42.416Z",
+  "generatedAt": "2026-09-17T17:18:51.326Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "dd5be9991847d5c337685c268012e8250ffc544c",
+    "head": "8b20b5e8c1569cff232c5c50919067cb8500a6e4",
     "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
-    "sourceModules": 832,
-    "testSuites": 1007,
-    "workingTreeClean": false
+    "sourceModules": 833,
+    "testSuites": 1008,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 832,
+      "srcModules": 833,
       "reachableFromProduction": 250,
-      "reachableFromUnattendedOperatorScriptsOnly": 399,
+      "reachableFromUnattendedOperatorScriptsOnly": 400,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 399,
+      "reachableFromOperatorScriptsOnly": 400,
       "noEntryPointAtAll": 176,
       "partitionExact": true,
       "allClassified": true,

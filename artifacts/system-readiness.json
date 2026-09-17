@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T02:48:37.129Z",
+  "generatedAt": "2026-09-17T02:59:31.510Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "8441a4226bf908532662bf6fa1b197af03aeb195",
+    "head": "2db14f67b7f337b585be126f469d66c7460635a9",
     "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
     "sourceModules": 828,
     "testSuites": 1000,
@@ -72,15 +72,13 @@
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
       "srcModules": 828,
       "reachableFromProduction": 247,
-      "reachableFromUnattendedOperatorScriptsOnly": 397,
+      "reachableFromUnattendedOperatorScriptsOnly": 398,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 397,
-      "noEntryPointAtAll": 177,
+      "reachableFromOperatorScriptsOnly": 398,
+      "noEntryPointAtAll": 176,
       "partitionExact": true,
-      "allClassified": false,
-      "unclassified": [
-        "src/constitution-artifact-freshness.mjs"
-      ],
+      "allClassified": true,
+      "unclassified": [],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

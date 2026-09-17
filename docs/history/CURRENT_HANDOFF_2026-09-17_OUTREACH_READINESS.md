@@ -4,10 +4,10 @@ This is a current checkpoint, not a claim of launch, delivery, demand, payment, 
 
 ## Source and deployment identity
 
-- Current GitHub `main` is `3d0f1502b3a23942a06cee8138ba8b283e7a95bb`. The tested local source frontier is `d7ce32e250e2d9128fbd1c4568e55cc7410f2820`; its equivalent published tree is PR #929, head `fb45588a40b84d227aa0db9f38dc6f64e895ad0c`, awaiting hosted checks/merge.
+- Current GitHub `main` is the merged PR #929 commit `af316019dcf2adf2237625b7bf492ddfb5374025`. The tested local source frontier was `e882c509a2e6ac7f8fcc6444a3bf4c5c343c4ed3`; its tree is identical to the merged main tree.
 - Offer-bridge source was based on `93a78ae34fa273d762935652dd3bb0b352d1d772` and verified locally at `27789b0d`; the promoted merge contains the same tested tree plus the durable checkpoint.
-- Live Render service is `uberbond-control-plane`, deployment `dep-dam2h465vjqs73bgs9k0`, application commit `8760c338d96b42db8e861043ffc898d87e4d0ae2`, status `live`, auto-deploy disabled. The later `b42a47fd` main commit is documentation-only and has not changed runtime behavior.
-- Fresh public health receipt at `2026-09-17T17:52:25.604Z`: HTTP 200, `storeBackend=postgres`, worker online, paused false, active jobs 0, heartbeat current. Render logs show Postgres worker/service startup, `OMNIA V9 outbound integration mode: off`, and no send/provider event in the inspected interval.
+- Live Render service is `uberbond-control-plane`, deployment `dep-dam3tiuk1f9s73echfs0`, application commit `af316019dcf2adf2237625b7bf492ddfb5374025`, status `live`, auto-deploy disabled. The deployment cloned `main`, built successfully, and reported zero package vulnerabilities.
+- Fresh public health receipt at `2026-09-17T19:27:11.408Z`: HTTP 200, `storeBackend=postgres`, worker online, paused false, active jobs 0, heartbeat current. Render logs at `2026-09-17T19:26:39Z` show the merged commit starting with Postgres and `OMNIA V9 outbound integration mode: off`; the last 15-minute error-log query returned zero entries. The protected native lead-gen routes return 401 without admin authentication, confirming route presence without exposing protected data.
 
 ## Four final offer lanes
 
@@ -41,7 +41,7 @@ The bridge adds an exact campaign `offerId`, includes it in campaign idempotency
 - Full deterministic suite: 7,672 pass, 54 declared skips, 0 fail.
 - Relay safety suite: 150 pass, 0 fail.
 - The branch-debt receipt was regenerated from the current fetched remote history, and the worker-context fixture passes from a clean worktree. No failing check was deleted, masked, or weakened.
-- The live Render deployment remains the older application commit below until PR #929 is merged and manually redeployed.
+- The live Render deployment is now the merged PR #929 application commit above; auto-deploy remains disabled and future production changes require an explicit deploy receipt.
 - Live outbound remained disabled/dry-run; no provider call, recipient message, DNS mutation, payment action, customer contact, cleared payment, or revenue receipt was created by this checkpoint.
 
 ## Campaign and canary truth

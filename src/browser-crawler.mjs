@@ -75,12 +75,16 @@ async function pageSnapshot(page) {
 async function checkBrokenLinks(links, origin, max=12, allowLocal=false, robots={allow:[],disallow:[]}) {
   const targets=uniq(links.filter(x=>{try{const u=new URL(x.url);return u.origin===origin&&!SKIP.test(u.pathname)&&isAllowed(x.url,robots);}catch{return false;}}).map(x=>x.url)).slice(0,max);
   const results=[];
+  const linkTimeoutMs=5000;
   for(const url of targets){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),linkTimeoutMs);
     try{
       await assertPublicUrl(url,{allowLocal});
-      const res=await fetch(url,{method:'HEAD',redirect:'manual',headers:{'user-agent':'UberBondNightshift/1.0'}});
+      const res=await fetch(url,{method:'HEAD',redirect:'manual',headers:{'user-agent':'UberBondNightshift/1.0'},signal:controller.signal});
       if(res.status>=400) results.push({url,status:res.status});
     }catch(error){results.push({url,error:error.message});}
+    finally{clearTimeout(timer);}
   }
   return results;
 }

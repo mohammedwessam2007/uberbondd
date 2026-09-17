@@ -29,6 +29,7 @@ import {
 } from './src/outreach-governance.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -720,6 +721,20 @@ export const requestHandler = async (req, res) => {
     }
 
     if (method === 'GET' && url.pathname === '/api/summary') return json(res, 200, await summary());
+
+    if (method === 'GET' && url.pathname === '/api/leadgen/intelligence') {
+      return json(res, 200, await buildLiveLeadGenerationSnapshot({ store }));
+    }
+    if (method === 'POST' && url.pathname === '/api/leadgen/handoff') {
+      const input = await parseBody(req) || {};
+      const campaign = input.campaignId ? await store.get('campaigns', input.campaignId) : null;
+      if (input.campaignId && !campaign) return json(res, 404, { error: 'Campaign not found' });
+      return json(res, 200, await buildLiveLeadHandoff({
+        store,
+        campaign,
+        query: input.query && typeof input.query === 'object' ? input.query : {},
+      }));
+    }
     const listRoutes = new Map([
       ['/api/prospects', 'prospects'], ['/api/leads', 'leads'], ['/api/orders', 'orders'],
       ['/api/subscriptions', 'subscriptions'], ['/api/monitoring-runs', 'monitoringRuns'],

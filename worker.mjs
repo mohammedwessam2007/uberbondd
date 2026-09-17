@@ -84,19 +84,26 @@ if (autoResumeOnBoot) {
   const navigationRetryNeeded = target?.status === 'error'
     && String(target.error || '').startsWith('No usable pages crawled: page.goto: Timeout')
     && !target.boundedNavigationRetryAt;
-  if ((target?.status === 'crawling' || snapshotRetryNeeded || navigationRetryNeeded) && !targetJobExists) {
+  const htmlOnlyRetryNeeded = target?.status === 'error'
+    && String(target.error || '').startsWith('No usable pages crawled: mobile-set-content-timeout')
+    && !target.boundedHtmlOnlyRetryAt;
+  if ((target?.status === 'crawling' || snapshotRetryNeeded || navigationRetryNeeded || htmlOnlyRetryNeeded) && !targetJobExists) {
     target = await store.patch('prospects', target.id, {
       status: 'retry',
       error: snapshotRetryNeeded
         ? 'Retrying once after widening the bounded DOM snapshot budget'
         : navigationRetryNeeded
           ? 'Retrying once after switching navigation readiness to commit'
-          : 'Recovered orphaned crawling prospect before a clean research retry',
+          : htmlOnlyRetryNeeded
+            ? 'Retrying once with deterministic HTML-only crawler mode'
+            : 'Recovered orphaned crawling prospect before a clean research retry',
       ...(snapshotRetryNeeded
         ? { boundedSnapshotRetryAt: new Date().toISOString() }
         : navigationRetryNeeded
           ? { boundedNavigationRetryAt: new Date().toISOString() }
-          : { recoveredAt: new Date().toISOString() })
+          : htmlOnlyRetryNeeded
+            ? { boundedHtmlOnlyRetryAt: new Date().toISOString() }
+            : { recoveredAt: new Date().toISOString() })
     });
     const recoveryJob = await enqueueResearch({
       limit: 1, reason: 'prospect-recovery', prospectId: target.id

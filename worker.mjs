@@ -77,15 +77,22 @@ if (autoResumeOnBoot) {
   const snapshotRetryNeeded = target?.status === 'error'
     && String(target.error || '') === 'No usable pages crawled: page-snapshot-timeout'
     && !target.boundedSnapshotRetryAt;
-  if ((target?.status === 'crawling' || snapshotRetryNeeded) && !targetJobExists) {
+  const navigationRetryNeeded = target?.status === 'error'
+    && String(target.error || '').startsWith('No usable pages crawled: page.goto: Timeout')
+    && !target.boundedNavigationRetryAt;
+  if ((target?.status === 'crawling' || snapshotRetryNeeded || navigationRetryNeeded) && !targetJobExists) {
     target = await store.patch('prospects', target.id, {
       status: 'retry',
       error: snapshotRetryNeeded
         ? 'Retrying once after widening the bounded DOM snapshot budget'
-        : 'Recovered orphaned crawling prospect before a clean research retry',
+        : navigationRetryNeeded
+          ? 'Retrying once after switching navigation readiness to commit'
+          : 'Recovered orphaned crawling prospect before a clean research retry',
       ...(snapshotRetryNeeded
         ? { boundedSnapshotRetryAt: new Date().toISOString() }
-        : { recoveredAt: new Date().toISOString() })
+        : navigationRetryNeeded
+          ? { boundedNavigationRetryAt: new Date().toISOString() }
+          : { recoveredAt: new Date().toISOString() })
     });
     const recoveryJob = await enqueueResearch({
       limit: 1, reason: 'prospect-recovery', prospectId: target.id

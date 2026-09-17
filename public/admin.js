@@ -32,13 +32,15 @@ window.addEventListener('pagehide',clearProtectedState);
 
 async function load(){
   try{
-    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns]=await Promise.all([
-      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs')
+    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary]=await Promise.all([
+      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null)
     ]);
     cache={prospects:pros,campaigns:camps};
     $('#mode').textContent=`${sum.paused?'PAUSED':sum.running?'WORKING':sum.workerOnline?'WORKER ONLINE':'WORKER OFFLINE'} · ${sum.autopilot?'AUTOPILOT ON':'MANUAL MODE'}`;
     const outbound=sum.outbound||{};
     $('#outbound-status').textContent=`Outbound: ${outbound.enabled?(outbound.dryRun?'DRY RUN':outbound.globalPaused?'EMERGENCY STOPPED':'ARMED'):'DISABLED'} · ${outbound.reservedToday||0} reserved today · ${outbound.uncertain||0} uncertain`;
+    const canaryReasons=(canary?.reasonCodes||[]).slice(0,4).join(' · ');
+    $('#canary-status').textContent=canary?`First canary: ${canary.state.replaceAll('_',' ')} · ${canary.counts?.governedReady||0} exact approved · ${canaryReasons||'press is available'}`:'First canary status unavailable';
     $('#pause-outbound').disabled=outbound.globalPaused; $('#resume-outbound').disabled=!outbound.globalPaused;
     const r=sum.revenue||{};
     $('#revenue-metrics').innerHTML=[metric('Today',money(r.todayRevenue),`${r.targetProgress||0}% of $200 target`),metric('Gross revenue',money(r.grossRevenue)),metric('MRR',money(r.mrr)),metric('Paid customers',r.paidCustomers||0),metric('Active subscriptions',r.activeSubscriptions||0),metric('Inbound leads',r.leads||0),metric('Reports ready',r.reportReady||0)].join('');

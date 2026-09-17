@@ -20,6 +20,13 @@ import { createJobHandlers } from './src/job-handlers.mjs';
 import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, relayHealthSummary, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
+import {
+  createOutreachApproval,
+  createOutreachRouteEvidence,
+  evaluateOutreachGovernance,
+  outreachEffectPayloadDigest,
+  outreachMessageDigest
+} from './src/outreach-governance.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 
@@ -180,6 +187,322 @@ async function summary() {
       reservedToday: outboundReservations.filter(item => String(item.reservedAt || '').startsWith(today) && ['reserved','dispatching','sent','uncertain'].includes(item.status)).length,
       uncertain: outboundReservations.filter(item => item.status === 'uncertain').length
     }
+  };
+}
+
+const CANARY_PROSPECT_STATUSES = new Set(['ready', 'research-complete']);
+const ZERO_EXTERNAL_EFFECTS = Object.freeze({
+  customerMessages: 0,
+  providerCalls: 0,
+  spendCents: 0,
+  deployments: 0,
+  dnsChanges: 0,
+  credentialChanges: 0,
+  paymentMutations: 0,
+  productionMutations: 0
+});
+
+function countReasons(rows) {
+  const counts = {};
+  for (const row of rows) {
+    const reason = String(row?.reason || '').trim();
+    if (reason) counts[reason] = (counts[reason] || 0) + 1;
+  }
+  return counts;
+}
+
+function canaryPrerequisites() {
+  const outbound = config.outbound || {};
+  return {
+    launchPhaseCanary: outbound.launchPhase === 'canary',
+    approvedProvider: outbound.provider === 'gmail-api',
+    approvalSecretConfigured: String(outbound.approvalSecret || '').length >= 32,
+    approverConfigured: Boolean(String(outbound.approverId || '').trim()),
+    senderIdentityConfigured: Boolean(String(config.sender?.address || '').trim()),
+    allowedCountriesConfigured: normalizeCountryList(outbound.allowedCountries || []).length > 0,
+    googleOAuthConfigured: Boolean(config.google?.clientId && config.google?.clientSecret),
+    encryptionConfigured: /^[a-f0-9]{64}$/i.test(String(config.encryptionKey || '')),
+    unsubscribeConfigured: String(config.unsubscribeSecret || '').length >= 32,
+    outboundEnabled: outbound.enabled === true,
+    dryRun: outbound.dryRun === true
+  };
+}
+
+async function outreachCanaryStatus() {
+  const [prospects, campaigns, accounts, senderHealth, suppressions, reservations, settings] = await Promise.all([
+    store.list('prospects'), store.list('campaigns'), store.list('accounts'), store.list('senderHealth'),
+    store.list('suppressions'), store.list('outboundReservations'), store.getSettings()
+  ]);
+  const campaignsById = new Map(campaigns.map(campaign => [String(campaign.id), campaign]));
+  const candidates = prospects.filter(prospect => {
+    const campaign = campaignsById.get(String(prospect.campaignId || ''));
+    return CANARY_PROSPECT_STATUSES.has(prospect.status)
+      && Boolean(prospect.contact?.email)
+      && campaign?.approved === true
+      && campaign?.autoSend === true;
+  });
+  const evaluations = candidates.map(prospect => evaluateOutreachGovernance({
+    prospect,
+    campaign: campaignsById.get(String(prospect.campaignId || '')),
+    cfg: config,
+    subject: prospect.subject,
+    body: prospect.draft,
+    followup: 0,
+    date: new Date()
+  }));
+  const governedReady = evaluations.filter(result => result.ok);
+  const readyProspectIds = candidates
+    .filter((_, index) => evaluations[index]?.ok)
+    .map(prospect => prospect.id);
+  const prerequisites = canaryPrerequisites();
+  const connectedSlots = new Set(accounts.filter(account => account.connected === true).map(account => String(account.slot || '')));
+  const pausedSlots = new Set(senderHealth.filter(row => row.paused === true).map(row => String(row.inbox || '')));
+  const dryRunBlockers = [];
+  if (!prerequisites.launchPhaseCanary) dryRunBlockers.push('launch-phase-must-be-canary');
+  if (!prerequisites.approvedProvider) dryRunBlockers.push('provider-not-approved');
+  if (!prerequisites.approvalSecretConfigured) dryRunBlockers.push('approval-secret-missing');
+  if (!prerequisites.approverConfigured) dryRunBlockers.push('approver-id-missing');
+  if (!campaigns.some(campaign => campaign.approved === true && campaign.autoSend === true)) dryRunBlockers.push('approved-auto-send-campaign-missing');
+  if (!candidates.length) dryRunBlockers.push('no-researched-canary-candidate');
+  if (!governedReady.length) dryRunBlockers.push('no-approved-route-and-payload');
+  if (!connectedSlots.size) dryRunBlockers.push('no-connected-sender');
+  if (connectedSlots.size && [...connectedSlots].every(slot => pausedSlots.has(slot))) dryRunBlockers.push('all-senders-paused');
+  if (settings?.outboundPaused === true) dryRunBlockers.push('global-outbound-paused');
+  if (governedReady.length > 1) dryRunBlockers.push('canary-must-have-one-eligible-prospect');
+
+  const liveBlockers = [...dryRunBlockers];
+  if (!prerequisites.outboundEnabled) liveBlockers.push('outbound-disabled');
+  if (prerequisites.dryRun) liveBlockers.push('outbound-dry-run');
+  if (!prerequisites.senderIdentityConfigured) liveBlockers.push('business-address-missing');
+  if (!prerequisites.allowedCountriesConfigured) liveBlockers.push('allowed-countries-missing');
+  if (!prerequisites.googleOAuthConfigured) liveBlockers.push('google-oauth-missing');
+  if (!prerequisites.encryptionConfigured) liveBlockers.push('token-encryption-key-missing');
+  if (!prerequisites.unsubscribeConfigured) liveBlockers.push('unsubscribe-secret-missing');
+
+  const uniqueDryRunBlockers = [...new Set(dryRunBlockers)];
+  const uniqueLiveBlockers = [...new Set(liveBlockers)];
+  const state = uniqueDryRunBlockers.length
+    ? 'CANARY_BLOCKED'
+    : uniqueLiveBlockers.length
+      ? 'CANARY_DRY_RUN_READY'
+      : 'CANARY_READY_TO_SEND';
+  return {
+    ok: true,
+    version: 'uberbond.outreach-canary-runtime.v1',
+    state,
+    provider: config.outbound.provider,
+    launchPhase: config.outbound.launchPhase,
+    mode: {
+      outboundEnabled: config.outbound.enabled,
+      dryRun: config.outbound.dryRun,
+      globalPaused: settings?.outboundPaused === true
+    },
+    canary: {
+      dailyCap: config.outbound.canaryDailyCap,
+      hourlyCap: config.outbound.canaryHourlyCap,
+      minGapSeconds: config.outbound.canaryMinGapSeconds,
+      readyProspectId: readyProspectIds.length === 1 ? readyProspectIds[0] : null
+    },
+    counts: {
+      prospects: prospects.length,
+      campaigns: campaigns.length,
+      approvedAutoSendCampaigns: campaigns.filter(campaign => campaign.approved === true && campaign.autoSend === true).length,
+      candidates: candidates.length,
+      governedReady: governedReady.length,
+      connectedSenders: connectedSlots.size,
+      suppressions: suppressions.length,
+      activeReservations: reservations.filter(row => ['reserved', 'dispatching', 'sent', 'uncertain'].includes(row.status)).length
+    },
+    prerequisites,
+    reasonCodes: uniqueLiveBlockers,
+    dryRunReasonCodes: uniqueDryRunBlockers,
+    governanceReasonCounts: countReasons(evaluations.filter(result => !result.ok)),
+    readyForDryRun: uniqueDryRunBlockers.length === 0,
+    readyForLiveSend: state === 'CANARY_READY_TO_SEND',
+    pressable: state === 'CANARY_READY_TO_SEND',
+    providerCalls: 0,
+    messagesSent: 0,
+    automaticRetryAuthorized: false,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+    truthBoundary: 'This is a live read-only canary readiness snapshot. It proves only local configuration and durable-record state; it never proves recipient consent, inbox placement, revenue, or a provider send.'
+  };
+}
+
+async function startOutreachCanary(input = {}) {
+  if (input.confirmCanary !== true) throw new HttpError(400, 'confirmCanary must be true');
+  const readiness = await outreachCanaryStatus();
+  if (!readiness.readyForDryRun && !readiness.readyForLiveSend) {
+    throw new HttpError(409, `Canary is not ready: ${readiness.reasonCodes.join(', ')}`);
+  }
+  const prospectId = readiness.canary?.readyProspectId;
+  if (!prospectId) throw new HttpError(409, 'Exactly one governed canary prospect is required');
+  const job = await queue.enqueue('outbound.process', {
+    limit: 1,
+    prospectId,
+    canary: true
+  }, {
+    maxAttempts: 1,
+    recoveryPolicy: 'reconcile',
+    dedupeKey: `outreach:canary:${prospectId}`
+  });
+  const dryRun = readiness.mode.dryRun === true;
+  return {
+    ok: true,
+    state: dryRun ? 'CANARY_DRY_RUN_ENQUEUED' : 'CANARY_JOB_ENQUEUED',
+    jobId: job.id,
+    prospectId,
+    providerCalls: 0,
+    messagesSent: 0,
+    automaticRetryAuthorized: false,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+    truthBoundary: dryRun
+      ? 'The founder press queued one exact canary prospect in dry-run mode. The worker will make zero provider calls.'
+      : 'The founder press queued one exact canary prospect after a fresh governed readiness check. The worker performs its own final safety checks before any provider call.'
+  };
+}
+
+function exactCanaryPayload(prospect, campaign, { subject, body, followup = 0 } = {}) {
+  const provider = String(config.outbound.provider || '').toLowerCase();
+  return {
+    provider,
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    recipientEmail: prospect.contact?.email,
+    subject: String(subject ?? prospect.subject ?? ''),
+    body: String(body ?? prospect.draft ?? ''),
+    inbox: String(prospect.inbox || ''),
+    followup: Number(followup || 0),
+    threadId: Number(followup || 0) ? String(prospect.threadId || '') : '',
+    replyToId: Number(followup || 0) ? String(prospect.rfcMessageId || '') : '',
+    listUnsubscribe: String(prospect.oneClickUnsubscribeUrl || '')
+  };
+}
+
+async function approveOutreachCanary(input = {}) {
+  const prospectId = String(input.prospectId || '').trim();
+  if (!prospectId) throw new HttpError(400, 'prospectId is required');
+  if (Number(input.followup || 0) !== 0) throw new HttpError(400, 'Only the initial canary step can be approved here');
+  if (config.outbound.launchPhase !== 'canary') throw new HttpError(409, 'Set the bounded canary launch phase before approving a canary');
+  if (String(config.outbound.provider || '').toLowerCase() !== 'gmail-api') throw new HttpError(409, 'The live canary provider is not approved');
+  if (String(config.outbound.approvalSecret || '').length < 32) throw new HttpError(503, 'The canary approval secret is not configured');
+  if (!String(config.outbound.approverId || '').trim()) throw new HttpError(503, 'The canary approver identity is not configured');
+
+  const prospect = await store.get('prospects', prospectId);
+  if (!prospect) throw new HttpError(404, 'Prospect not found');
+  const campaign = await store.get('campaigns', prospect.campaignId);
+  if (!campaign) throw new HttpError(404, 'Campaign not found');
+  if (campaign.approved !== true || campaign.autoSend !== true) throw new HttpError(409, 'The campaign must be approved and auto-send enabled before canary approval');
+  if (!CANARY_PROSPECT_STATUSES.has(prospect.status)) throw new HttpError(409, 'The prospect must finish research before canary approval');
+  if (!prospect.contact?.email) throw new HttpError(409, 'The prospect has no selected recipient email');
+  if (!prospect.inbox || !['A', 'B'].includes(String(prospect.inbox))) throw new HttpError(409, 'The prospect needs sender slot A or B');
+
+  const subject = String(input.subject ?? prospect.subject ?? '');
+  const body = String(input.body ?? prospect.draft ?? '');
+  if (!subject.trim() || !body.trim()) throw new HttpError(409, 'The exact subject and body must exist before approval');
+  if (input.subject !== undefined && subject !== String(prospect.subject || '')) throw new HttpError(409, 'Subject must match the stored rendered draft exactly');
+  if (input.body !== undefined && body !== String(prospect.draft || '')) throw new HttpError(409, 'Body must match the stored rendered draft exactly');
+  if (!String(prospect.oneClickUnsubscribeUrl || '').startsWith('https://')) throw new HttpError(409, 'The prospect needs a signed HTTPS unsubscribe URL');
+  const routeInput = input.routeEvidence;
+  if (!routeInput || typeof routeInput !== 'object' || Array.isArray(routeInput)) throw new HttpError(400, 'routeEvidence is required');
+
+  const approvedAt = new Date();
+  let route;
+  try {
+    route = createOutreachRouteEvidence({
+      ...routeInput,
+      recipientEmail: prospect.contact.email,
+      provider: config.outbound.provider
+    }, approvedAt);
+  } catch (error) {
+    throw new HttpError(400, error.message || 'Route evidence is invalid');
+  }
+  const payload = exactCanaryPayload(prospect, campaign, { subject, body });
+  const messageDigest = outreachMessageDigest(payload);
+  const effectPayloadDigest = outreachEffectPayloadDigest(payload);
+  const approval = createOutreachApproval({
+    approvalId: `outreach-${crypto.randomUUID()}`,
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    recipientEmail: prospect.contact.email,
+    provider: config.outbound.provider,
+    inbox: prospect.inbox,
+    followup: 0,
+    routeDigest: route.routeDigest,
+    messageDigest,
+    effectPayloadDigest,
+    approvedBy: config.outbound.approverId,
+    approvedAt: approvedAt.toISOString(),
+    expiresAt: new Date(approvedAt.getTime() + 24 * 60 * 60 * 1000).toISOString()
+  }, config.outbound.approvalSecret);
+  const candidate = { ...prospect, outreachRoute: route, outreachApproval: approval };
+  const governance = evaluateOutreachGovernance({ prospect: candidate, campaign, cfg: config, subject, body, date: approvedAt });
+  if (!governance.ok) throw new HttpError(409, `Canary approval refused: ${governance.reason}`);
+
+  await store.patch('prospects', prospect.id, {
+    outreachRoute: route,
+    outreachApproval: approval,
+    externalActionAuthorized: false,
+    outreachApprovalCreatedAt: approvedAt.toISOString()
+  });
+  await store.log('outreach_canary_approval_created', {
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    approvalId: approval.approvalId,
+    routeDigest: route.routeDigest,
+    messageDigest,
+    effectPayloadDigest,
+    provider: config.outbound.provider,
+    inbox: prospect.inbox,
+    approvedBy: config.outbound.approverId,
+    providerCalls: 0
+  });
+  return {
+    ok: true,
+    state: 'CANARY_APPROVED_NO_PROVIDER_CALL',
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    approvalId: approval.approvalId,
+    routeDigest: route.routeDigest,
+    messageDigest,
+    effectPayloadDigest,
+    expiresAt: approval.expiresAt,
+    providerCalls: 0,
+    messagesSent: 0,
+    automaticRetryAuthorized: false,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+    truthBoundary: 'This action stored one short-lived exact approval and route digest. It did not contact the provider or recipient.'
+  };
+}
+
+async function revokeOutreachCanary(input = {}) {
+  const prospectId = String(input.prospectId || '').trim();
+  if (!prospectId) throw new HttpError(400, 'prospectId is required');
+  if (Number(input.followup || 0) !== 0) throw new HttpError(400, 'Only the initial canary step is supported here');
+  const prospect = await store.get('prospects', prospectId);
+  if (!prospect) throw new HttpError(404, 'Prospect not found');
+  const revokedAt = now();
+  await store.patch('prospects', prospect.id, {
+    outreachRoute: null,
+    outreachApproval: null,
+    outreachApprovalRevokedAt: revokedAt,
+    externalActionAuthorized: false
+  });
+  await store.log('outreach_canary_approval_revoked', {
+    prospectId,
+    reason: String(input.reason || 'owner-revoked').slice(0, 240),
+    providerCalls: 0
+  });
+  return {
+    ok: true,
+    state: 'CANARY_APPROVAL_REVOKED',
+    prospectId,
+    providerCalls: 0,
+    messagesSent: 0,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
@@ -417,6 +740,19 @@ export const requestHandler = async (req, res) => {
         bbox: config.discovery.bbox, categories: config.discovery.categories, country: config.discovery.country,
         city: config.discovery.city, supportedCategories: Object.keys(DISCOVERY_CATEGORIES)
       });
+    }
+
+    if (method === 'GET' && url.pathname === '/api/outbound/canary/status') {
+      return json(res, 200, await outreachCanaryStatus());
+    }
+    if (method === 'POST' && url.pathname === '/api/outbound/approve-prospect') {
+      return json(res, 200, await approveOutreachCanary(await parseBody(req)));
+    }
+    if (method === 'POST' && url.pathname === '/api/outbound/canary/start') {
+      return json(res, 202, await startOutreachCanary(await parseBody(req)));
+    }
+    if (method === 'POST' && url.pathname === '/api/outbound/revoke-prospect-approval') {
+      return json(res, 200, await revokeOutreachCanary(await parseBody(req)));
     }
 
     if (method === 'POST' && url.pathname === '/api/outbound/pause') {

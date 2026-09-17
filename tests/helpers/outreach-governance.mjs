@@ -1,7 +1,7 @@
-import { sha256 } from '../../src/omnia-v9/canonical.mjs';
 import {
   createOutreachApproval,
   createOutreachRouteEvidence,
+  outreachEffectPayloadDigest,
   outreachMessageDigest
 } from '../../src/outreach-governance.mjs';
 
@@ -15,7 +15,7 @@ export function approveProspectForTest({
   jurisdiction = 'GB',
   routeType = 'SOLICITED_APPLICATION',
   permissionScope = 'CONTRACTOR_APPLICATION',
-  effectPayloadDigest = sha256('fixture-effect')
+  effectPayloadDigest = null
 } = {}) {
   const provider = cfg.outbound.provider;
   const route = createOutreachRouteEvidence({
@@ -41,6 +41,17 @@ export function approveProspectForTest({
     followup: 0,
     listUnsubscribe: prospect.oneClickUnsubscribeUrl
   });
+  const exactEffectPayloadDigest = effectPayloadDigest || outreachEffectPayloadDigest({
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    recipientEmail: prospect.contact.email,
+    subject: prospect.subject,
+    body: prospect.draft,
+    provider,
+    inbox: prospect.inbox,
+    followup: 0,
+    listUnsubscribe: prospect.oneClickUnsubscribeUrl
+  });
   const approval = createOutreachApproval({
     approvalId: `approval-${prospect.id}`,
     prospectId: prospect.id,
@@ -51,7 +62,7 @@ export function approveProspectForTest({
     followup: 0,
     routeDigest: route.routeDigest,
     messageDigest,
-    effectPayloadDigest,
+    effectPayloadDigest: exactEffectPayloadDigest,
     approvedBy: 'mohamed',
     approvedAt: date.toISOString(),
     expiresAt: new Date(date.getTime() + 24 * 3600000).toISOString()

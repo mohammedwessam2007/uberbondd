@@ -136,7 +136,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
   return {
     'research.batch': async payload => pipeline.runBatch(payload.limit, payload || {}),
     'replies.poll': async () => ({ accountsProcessed: await pipeline.pollReplies() || 0 }),
-    'outbound.process': async payload => pipeline.processOutboundQueue(payload?.limit),
+    'outbound.process': async payload => pipeline.processOutboundQueue(payload?.limit, payload),
     'followups.process': async () => ({ processed: await pipeline.processFollowups() || 0 }),
     'monitoring.process': async () => ({ processed: await revenue.processMonitoring() || 0 }),
     'discovery.run': async payload => discoveryRunner.run(payload || {}),

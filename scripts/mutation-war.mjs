@@ -3723,6 +3723,62 @@ export const MUTATIONS = [
     replace: '  if (!Number.isFinite(observed)) return { known: true, ageMs: 0 };',
     suites: ['tests/ubercel-health-evidence.test.mjs']
   },
+  // Proof obligations and claim freshness. Both exist to stop a number meaning
+  // less than it looks like.
+  {
+    // A permission has no failure state for a guard to catch. Counting one as
+    // unguarded inflates the debt figure with rules nobody could ever close.
+    id: 'V7PROOF-01', guard: 'A permission is never counted as outstanding proof debt',
+    file: 'scripts/v7-proof-obligations.mjs',
+    find: "          : obligation.kind === 'NOT_DISCHARGEABLE_BY_CODE' ? null",
+    replace: "          : obligation.kind === 'NOT_DISCHARGEABLE_BY_CODE' ? false",
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
+  {
+    // An external-effect prohibition also matches INTERNAL_TEST. Filing it there
+    // would let a test that merely mentions the subject discharge it.
+    id: 'V7PROOF-02', guard: 'The most demanding obligation is matched first',
+    file: 'scripts/v7-proof-obligations.mjs',
+    find: "    applies: row => row.authorityClass === 'EXTERNAL_EFFECT' && row.class === 'PROHIBITION'",
+    replace: '    applies: () => false',
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
+  {
+    // A mention is not enforcement. This is the linkage strength the whole
+    // constitution work turns on.
+    id: 'V7PROOF-03', guard: 'A mutation-guard obligation is not discharged by a test mention',
+    file: 'scripts/v7-proof-obligations.mjs',
+    find: "    const discharged = obligation.kind === 'MUTATION_GUARD' ? guarded",
+    replace: "    const discharged = obligation.kind === 'MUTATION_GUARD' ? (guarded || mentioned)",
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
+  {
+    // The failure this catches has already happened twice here: an artifact
+    // describing a tree that had since changed, read as current.
+    id: 'V7CLAIM-01', guard: 'A claim produced at another head reads stale',
+    file: 'scripts/v7-claim-evidence-registry.mjs',
+    find: "      : changed.length === 0 ? 'EXACT_HEAD'",
+    replace: "      : true ? 'EXACT_HEAD'",
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
+  {
+    // Time-based evidence has no head. Reading it as exact-head would make an
+    // observation from hours ago look like it was taken at this commit.
+    id: 'V7CLAIM-02', guard: 'Evidence with no head is not-head-bound, not fresh',
+    file: 'scripts/v7-claim-evidence-registry.mjs',
+    find: "    const freshness = sha == null ? 'NOT_HEAD_BOUND'",
+    replace: "    const freshness = sha == null ? 'EXACT_HEAD'",
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
+  {
+    // An unclassified absence hides how much of the remainder is waiting on
+    // software rather than on reality.
+    id: 'V7INDEX-01', guard: 'An absent artifact with no reason is reported as a defect',
+    file: 'scripts/v7-artifact-index.mjs',
+    find: "      absenceReason: spec.absenceReason ?? 'UNCLASSIFIED',",
+    replace: "      absenceReason: spec.absenceReason ?? 'COMPUTABLE_NOW',",
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

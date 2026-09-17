@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-gap-ledger.v1",
-  "generatedAt": "2026-09-17T17:18:49.246Z",
-  "sourceSha": "c06509c5831d6cdd34194691065450d119fc7e55",
+  "generatedAt": "2026-09-17T18:25:32.780Z",
+  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
   "generator": "scripts/v7-gap-ledger.mjs",
   "freshnessPolicy": "Recomputed from source on every run. A status in this file was produced by a check, never written.",
   "statusesAreComputed": "Editing this artifact closes nothing. Each gap runs a check that reads the filesystem, a doctor, or git.",
@@ -10,10 +10,10 @@
     "byStatus": {
       "EXTERNAL_BLOCKED": 4,
       "FOUNDER_ONLY": 1,
-      "CLOSED": 3,
-      "OPEN": 1
+      "CLOSED": 2,
+      "OPEN": 2
     },
-    "softwareOpen": 1,
+    "softwareOpen": 2,
     "externalOpen": 5,
     "unmeasured": 0,
     "sourceSideComplete": false
@@ -47,8 +47,8 @@
         "partsVerified": 15,
         "partsUnrecoverable": 1
       },
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -86,8 +86,8 @@
         ],
         "unresolvedConflicts": 9
       },
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -114,8 +114,8 @@
       "measured": {
         "state": "UNKNOWN__EVIDENCE_STALE"
       },
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -142,8 +142,8 @@
         "reviewed": 22,
         "unreviewed": 0
       },
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -153,7 +153,7 @@
       "externalEvidenceRequired": null,
       "authorityRequired": null,
       "nextExperiment": "Re-measure after each merge.",
-      "closureEvidence": "the working branch carries nothing main does not have",
+      "closureEvidence": null,
       "owner": "UBERBOND_SOFTWARE_FACTORY",
       "id": "V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
       "title": "Verified work sitting on a branch and not in main",
@@ -162,15 +162,17 @@
       "whyItMatters": "Work that exists only on a branch is work the next session will not find and may rebuild.",
       "implementationPath": "Merge or explicitly classify every branch carrying content not in main.",
       "unblockCondition": null,
-      "status": "CLOSED",
+      "status": "OPEN",
       "checkState": "MEASURED",
-      "sourceEvidence": [],
+      "sourceEvidence": [
+        "7 commits on this branch are not in main"
+      ],
       "measured": {
-        "ahead": 0,
+        "ahead": 7,
         "behind": 0
       },
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -195,8 +197,8 @@
         "CD007 open in the completion-debt ledger"
       ],
       "measured": null,
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -221,8 +223,8 @@
         "CD006 open in the completion-debt ledger"
       ],
       "measured": null,
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -245,8 +247,8 @@
       "checkState": "MEASURED",
       "sourceEvidence": [],
       "measured": null,
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     },
     {
       "dependencies": [],
@@ -268,34 +270,30 @@
       "status": "OPEN",
       "checkState": "MEASURED",
       "sourceEvidence": [
-        "19 of 29 contract artifacts absent"
+        "17 of 29 contract artifacts absent",
+        "6 are computable now; the rest wait on repeated observation, elapsed time, an absent runtime, or external reality"
       ],
       "measured": {
-        "absent": [
-          "artifacts/v7/proof-obligations.json",
-          "artifacts/v7/claim-evidence-registry.json",
+        "computableNow": [
           "artifacts/v7/mission-dag.json",
           "artifacts/v7/resource-allocation.json",
           "artifacts/v7/evaluation-epoch.json",
           "artifacts/v7/baselines.json",
-          "artifacts/v7/world-frontier.json",
-          "artifacts/v7/global-dominance-graph.json",
-          "artifacts/v7/singularity-barrier-graph.json",
-          "artifacts/v7/quadrillion-runtime-status.json",
-          "artifacts/v7/improvement-generations.jsonl",
-          "artifacts/v7/meta-improvement-generations.jsonl",
-          "artifacts/v7/transfer-ledger.jsonl",
-          "artifacts/v7/runtime-endurance.json",
-          "artifacts/v7/science-ledger.jsonl",
-          "artifacts/v7/life-delta-ledger.jsonl",
-          "artifacts/v7/economic-delta-ledger.jsonl",
           "artifacts/v7/frontier-checkpoint.json",
           "artifacts/v7/final-frontier-state.json"
         ],
+        "unclassified": [],
+        "byReason": {
+          "COMPUTABLE_NOW": 6,
+          "NEEDS_EXTERNAL_REALITY": 5,
+          "NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST": 1,
+          "NEEDS_REPEATED_OBSERVATION": 4,
+          "NEEDS_ELAPSED_TIME": 1
+        },
         "declaredButMissing": []
       },
-      "lastVerifiedSha": "c06509c5831d6cdd34194691065450d119fc7e55",
-      "lastVerifiedAt": "2026-09-17T17:18:49.246Z"
+      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
     }
   ],
   "uncertainty": "A check measures what it reads. A CLOSED software gap means the check passed at this exact head, not that the underlying capability is externally proven.",

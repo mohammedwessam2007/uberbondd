@@ -1,0 +1,3234 @@
+{
+  "schemaVersion": "uberbond.v7-proof-obligations.v1",
+  "generatedAt": "2026-09-17T18:25:33.673Z",
+  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generator": "scripts/v7-proof-obligations.mjs",
+  "constitutionVersion": "uberbond-constitution-directives-1.0.0",
+  "inputHashes": {
+    "constitution": "20435e1c2c778f8a64aec3f1413c92117ce198d0"
+  },
+  "freshnessPolicy": "Recomputed from artifacts/constitution/directives.json, which has its own freshness gate. A stale constitution makes this stale too.",
+  "counts": {
+    "directives": 262,
+    "byKind": {
+      "NOT_DISCHARGEABLE_BY_CODE": {
+        "total": 43,
+        "discharged": 0,
+        "outstanding": 0,
+        "notApplicable": 43
+      },
+      "INTERNAL_TEST": {
+        "total": 177,
+        "discharged": 144,
+        "outstanding": 33,
+        "notApplicable": 0
+      },
+      "MUTATION_GUARD": {
+        "total": 31,
+        "discharged": 20,
+        "outstanding": 11,
+        "notApplicable": 0
+      },
+      "EXECUTABLE_CHECK": {
+        "total": 11,
+        "discharged": 8,
+        "outstanding": 3,
+        "notApplicable": 0
+      }
+    },
+    "outstandingAndDischargeableByCode": 14
+  },
+  "outstandingAndDischargeableByCode": [
+    {
+      "id": "AGENTS-04d7a211",
+      "provenance": "AGENTS.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "AGENTS-91551c1b",
+      "provenance": "AGENTS.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "CLAUDE-324b10b7",
+      "provenance": "CLAUDE.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "CLAUDE-04e03894",
+      "provenance": "CLAUDE.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "UBERBOND-CANON-5ef24d5e",
+      "provenance": "UBERBOND_CANON.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "UBERBOND-CANON-38f61e6b",
+      "provenance": "UBERBOND_CANON.md",
+      "obligationKind": "EXECUTABLE_CHECK"
+    },
+    {
+      "id": "UBERBOND-CANON-c56ba762",
+      "provenance": "UBERBOND_CANON.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "UBERBOND-CANON-48ac7bd8",
+      "provenance": "UBERBOND_CANON.md",
+      "obligationKind": "EXECUTABLE_CHECK"
+    },
+    {
+      "id": "AI-START-HERE-6df4f98d",
+      "provenance": "AI_START_HERE.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "WALLBREAKER-CANON-1e604adc",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-061e4bed",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-bd571341",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "obligationKind": "MUTATION_GUARD"
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-cb93444a",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "obligationKind": "EXECUTABLE_CHECK"
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-212e87ff",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "obligationKind": "MUTATION_GUARD"
+    }
+  ],
+  "boundary": "An obligation kind says what would settle a rule, not that the rule is currently obeyed. NOT_DISCHARGEABLE_BY_CODE is a property of the rule, not a hole.",
+  "uncertainty": "The classifier reads a directive’s class and authority tag. A rule miscategorised upstream is miscategorised here.",
+  "rows": [
+    {
+      "id": "NORTH-STAR-f7f5b0e5",
+      "provenance": "NORTH_STAR.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-4d830df0",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-c39a73a5",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-df9f1eab",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-6770f698",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-dfc09225",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "NORTH-STAR-cbd1a9b2",
+      "provenance": "NORTH_STAR.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-621eb7e2",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-7845688d",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "NORTH-STAR-d657fb41",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-d36b916d",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-682cbb81",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-336eb488",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "NORTH-STAR-badb7a6f",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "NORTH-STAR-453000e8",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-7534cbf8",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "NORTH-STAR-b75d5d24",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-4ad912d4",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-7c087db9",
+      "provenance": "NORTH_STAR.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-d1efa9ab",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-d1bbb863",
+      "provenance": "NORTH_STAR.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-736ce10f",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "OMEGA-MATRIX-02",
+        "ROUTE-04",
+        "COVERAGE-CAT-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-fd4462ba",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-fcd984dd",
+      "provenance": "NORTH_STAR.md",
+      "class": "PERMISSION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-7e594548",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-d0fab623",
+      "provenance": "NORTH_STAR.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-03e2bce2",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AGENTS-dc4ac593",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-03c8caba",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AGENTS-837953c8",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "GENESIS-CHAIN-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-527f65b2",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "ACCEPT-01",
+        "CASH-01",
+        "CAPGEN-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-4cd12240",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-7b0e4e74",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-5c0c9f2a",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-37ce08d1",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-0ea0fcca",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-362dd881",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "AGENTS-3e344863",
+      "provenance": "AGENTS.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-04d7a211",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-ea4af4cf",
+      "provenance": "AGENTS.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "MEMTRUTH-06",
+        "MEMTRUTH-07"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-8ebd497c",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-70c7c684",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-ebf84bc9",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-2969726e",
+      "provenance": "AGENTS.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "MEMSOV-05"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-0326f150",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-117167da",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "OMEGA-MATRIX-02",
+        "COVERAGE-CAT-01",
+        "UUMINE-05"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-d0fab623",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-27838f8f",
+      "provenance": "AGENTS.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "AGENTS-273f5c0d",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "CONV-01",
+        "MONEY-05",
+        "PRIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-a72989ad",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "BOOTPLAN-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-91551c1b",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-f330902b",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "AGENTS-2a79a631",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "HYG-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-ed9f3e1e",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-3227a372",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-7530556e",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "MONEY-06",
+        "MONEY-09",
+        "ACCEPT-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-86c33452",
+      "provenance": "AGENTS.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-5cf48b45",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-e3b1b127",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-2b9a05b6",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-9821cb9d",
+      "provenance": "AGENTS.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "AGENTS-48b0137c",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-a3a75200",
+      "provenance": "AGENTS.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-f4c74950",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-82b0302a",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AGENTS-3b06956f",
+      "provenance": "AGENTS.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "CLAUDE-fefb064e",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-67baedf0",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-4802dde1",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "UBERCEL-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-324b10b7",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CLAUDE-1ffff73d",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "LIFEPOSS-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-3cb4bbcb",
+      "provenance": "CLAUDE.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "CALIB-03",
+        "XFER-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-c21e209d",
+      "provenance": "CLAUDE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-8cdd10a7",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CLAUDE-04e03894",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-221a2464",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CLAUDE-223d0806",
+      "provenance": "CLAUDE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "REV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-8ff2cfee",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "ROUTE-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-f5e720f0",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "CLAUDE-767c6e63",
+      "provenance": "CLAUDE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-1b458e39",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-03633ced",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "ROUTE-02",
+        "ROUTEID-01",
+        "ROUTEID-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-21ee8a49",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-0557d36b",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MONEY-10",
+        "GENOME-02",
+        "ROUTE-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-131abcf3",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-05cf0881",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "MONEY-19",
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-503fd466",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "CONV-07",
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-aea5f8cf",
+      "provenance": "CLAUDE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "ROUTE-03",
+        "ROUTE-04",
+        "IDENT-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-d8ba57ae",
+      "provenance": "CLAUDE.md",
+      "class": "PERMISSION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CLAUDE-8ae87611",
+      "provenance": "CLAUDE.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "SANDBOX-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-14254fb5",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "BOOTPLAN-04"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-e766f128",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-d0fab623",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CLAUDE-3b06956f",
+      "provenance": "CLAUDE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "UBERBOND-CANON-ef408498",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "UBERCEL-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-2492498b",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-c9a1eceb",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-c7a66262",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-5ef24d5e",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-41cb188a",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "DECIDE-02",
+        "DECIDE-03",
+        "DECIDE-05"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-d0fab623",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-d75e34af",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-ba9fe73f",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-b5a5e71a",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-c524933b",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-e1ec38fe",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-2e285a31",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-2cfbe539",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MEMTRUTH-04",
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-1b241fb9",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MEMTRUTH-09",
+        "MEMTRUTH-08"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-4716b859",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-09f6fe0c",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-f90b358e",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-c7af713f",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-44c6a188",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "UBERBOND-CANON-9d782dff",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-f1ab9df8",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "UBERCEL-01",
+        "HORIZON-03",
+        "ROUTE-04"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-cea054df",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "COVERAGE-CAT-01",
+        "UUMINE-05"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-bc54e518",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-6e8ef15b",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "TIME-02",
+        "EVID-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-38f61e6b",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-c56ba762",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-1c90c6ec",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-993a537f",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-eb08baf6",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-10a60da3",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-8052dffd",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-dc8e3cb7",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-d17667b4",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "CONV-08"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-48ac7bd8",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-b5b66085",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-543ce2de",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-cf7cb9d7",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-6e3dc4bd",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-82c061c3",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "UBERBOND-CANON-6a89e8f4",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "EVID-03",
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-a75b6bab",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "ACCEPT-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-bdcdb06f",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "SOVTYPE-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-40b8d327",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "BOOTPLAN-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-764ca423",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01",
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-8bc30d7d",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "CALIB-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-2aa70902",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-570e2328",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-aabdbabd",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "DECIDE-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-c538de8e",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-484da119",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-e1a821c2",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "MONEY-22",
+        "OMEGA-MATRIX-02",
+        "MONEY-26"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-438867a4",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "UBERBOND-CANON-81521381",
+      "provenance": "UBERBOND_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "AI-START-HERE-1fb61511",
+      "provenance": "AI_START_HERE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-START-HERE-23a38df4",
+      "provenance": "AI_START_HERE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-START-HERE-5c32f227",
+      "provenance": "AI_START_HERE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-START-HERE-d1093291",
+      "provenance": "AI_START_HERE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-START-HERE-5308fd42",
+      "provenance": "AI_START_HERE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "PRIV-01",
+        "CONV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-START-HERE-774f8655",
+      "provenance": "AI_START_HERE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-START-HERE-6df4f98d",
+      "provenance": "AI_START_HERE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-PRECEDENCE-99b9c3d9",
+      "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-PRECEDENCE-b6e306d3",
+      "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-PRECEDENCE-09e20e04",
+      "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "NORTH-STAR-PRECEDENCE-6821f6b7",
+      "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "ACCEPT-01",
+        "HORIZON-03",
+        "PROPOSAL-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-865e57fa",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "WALLBREAKER-CANON-711b2a59",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-1e604adc",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-93414335",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "INTENT-02",
+        "WALLAUTH-01",
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-17a9738b",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "ROUTE-03",
+        "ROUTE-04",
+        "POSTAL-409"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-f74ade1b",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-b3df0b68",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "WALLBREAKER-CANON-6bede997",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "ROUTE-02",
+        "ROUTE-03",
+        "ROUTE-04"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-2410e7f8",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "WALLBREAKER-CANON-a36e03cb",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-877918ac",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MBXADDR-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-318f42de",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "NORM-08",
+        "ROUTEID-01",
+        "ROUTEID-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-baf1e144",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-3a9c2e59",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "WALLBREAKER-CANON-9f4a0ff4",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-60abde2b",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "ROUTEID-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-a7a1ecbd",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MONEY-10"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "WALLBREAKER-CANON-8f4a3ca5",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "WALLBREAKER-CANON-dfe891ba",
+      "provenance": "docs/WALLBREAKER_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "ACCEPT-01",
+        "AGENT-05",
+        "HORIZON-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-621b71a3",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-ff9e96cd",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-f1059c0e",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-8af00be4",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "UBERCEL-03",
+        "UBERCEL-04"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-3c5a7986",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-af56354e",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "GENOME-01",
+        "NORM-08",
+        "GENDISC-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-48fe24b2",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "GENDISC-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-1d4ab5b5",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-359a58b2",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-2dd8138d",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-4eb14081",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-710b6c3c",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-c562567a",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "NORM-01",
+        "PRIV-03",
+        "DOMAIN-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-f83d901d",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PRIV-03",
+        "SANDBOX-01",
+        "ENF-03"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-99f32486",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "GENOME-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-5188ce0c",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-39f7ca8f",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "SANDBOX-01",
+        "JOURNAL-03",
+        "GENOME-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-34361fba",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-4d27d32e",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-d0fab623",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-e06c450f",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-061e4bed",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-05388af0",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 1
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-1376773d",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-a63c391e",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-e43cf92e",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-e9bd96df",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-95ef824a",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-bb70be0d",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "HYG-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-6a94dfa7",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-1b1a3439",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-d8df159b",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "PROPOSAL-02",
+        "PRIV-01",
+        "ACCEPT-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "CAPABILITY-GENOME-CANON-87a01718",
+      "provenance": "docs/CAPABILITY_GENOME_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6edce379",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f40f2ca8",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a4674f47",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6ef4b9e0",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "WALLAUTH-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-123a9c73",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ffa5455b",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "PROPOSAL-01",
+        "HORIZON-03",
+        "PCIV-05"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e56d298d",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-282ad157",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-3246563c",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0a62e5dc",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fef52a3b",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-d9f1acb0",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": true,
+      "mutationGuards": [
+        "UBERCEL-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-32ff8717",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f36c33af",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-820e37c3",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11af01a4",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1ed46dab",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4c7a100c",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-46fe12f9",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e60a7282",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PRIV-01",
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-51718ae7",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [
+        "HORIZON-03",
+        "PROPOSAL-01",
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-aaa931a8",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-9d1709f1",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "PCIV-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-c23f99a0",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f7cbddff",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "LIFECOMP-04"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-bd571341",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-cb93444a",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "EXECUTABLE_CHECK",
+      "dischargeableBy": "A test or doctor that reads the repository and reports whether the obligation holds.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6340a090",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "INTENT-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4e81efb3",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-8473d37c",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-212e87ff",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-347066dd",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-874c6921",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-db10c10f",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [
+        "HORIZON-02",
+        "UBERCEL-01"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fd073312",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e0b0f379",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ae2b7888",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-77330145",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f1a1bd0e",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-5def0131",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "ACCEPT-05",
+        "ACCEPT-01",
+        "EVID-02"
+      ],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dd81dd32",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a757dd0f",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-40bfc2bc",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11cc88f8",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-56321e42",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dce153cc",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PERMISSION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "NOT_DISCHARGEABLE_BY_CODE",
+      "dischargeableBy": "Nothing in software. A permission grants latitude, so there is no failure state to catch.",
+      "discharged": null,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ef0c13a9",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 3
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-af2de41e",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6e015714",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": true,
+      "mutationGuards": [],
+      "testsMentioning": 2
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0ecb54d0",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "OBLIGATION",
+      "authorityClass": "INTERNAL",
+      "obligationKind": "INTERNAL_TEST",
+      "dischargeableBy": "An ordinary test over the module the rule governs.",
+      "discharged": false,
+      "mutationGuards": [],
+      "testsMentioning": 0
+    },
+    {
+      "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1118ebd6",
+      "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
+      "class": "PROHIBITION",
+      "authorityClass": "EXTERNAL_EFFECT",
+      "obligationKind": "MUTATION_GUARD",
+      "dischargeableBy": "A test that fails when the protection is removed, plus a guard that performs the removal.",
+      "discharged": true,
+      "mutationGuards": [
+        "POSTAL-02",
+        "MEMTRUTH-09"
+      ],
+      "testsMentioning": 3
+    }
+  ],
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE"
+}

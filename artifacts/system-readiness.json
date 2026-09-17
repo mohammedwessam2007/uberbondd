@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T17:47:42.983Z",
+  "generatedAt": "2026-09-17T18:25:33.886Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "00a418c0bd0504d99587dec4761025943996314f",
-    "branch": "codex/final-four-offer-campaign-20260917-v2",
+    "head": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+    "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
     "sourceModules": 833,
-    "testSuites": 1008,
-    "workingTreeClean": true
+    "testSuites": 1009,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

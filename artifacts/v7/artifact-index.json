@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-artifact-index.v1",
-  "generatedAt": "2026-09-17T16:52:51.676Z",
-  "sourceSha": "e7a312e81936b6ea5e7e36d3a96acd66118f75d8",
+  "generatedAt": "2026-09-17T17:18:49.182Z",
+  "sourceSha": "c06509c5831d6cdd34194691065450d119fc7e55",
   "generator": "scripts/v7-artifact-index.mjs",
   "freshnessPolicy": "Recomputed from the filesystem on every run. A state here is a statSync result, not a claim.",
   "contractSource": "MANDATORY MACHINE-READABLE V7 ARTIFACTS, from the recoverable V7 ancestor",
@@ -16,14 +16,14 @@
       "artifact": "artifacts/v7/live-truth.json",
       "state": "GENERATED",
       "generator": "scripts/v7-live-truth.mjs",
-      "bytes": 1968,
+      "bytes": 1962,
       "note": null
     },
     {
       "artifact": "artifacts/v7/gap-ledger.json",
       "state": "GENERATED",
       "generator": "scripts/v7-gap-ledger.mjs",
-      "bytes": 13170,
+      "bytes": 16023,
       "note": null
     },
     {
@@ -143,7 +143,7 @@
       "artifact": "artifacts/v7/deployment-evidence.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/ubercel/deployment-signals.json",
-      "bytes": 1586,
+      "bytes": 2340,
       "note": "Deployment signals with evidence class per signal; provider badges recorded as establishing nothing."
     },
     {

@@ -1,17 +1,17 @@
 {
   "schemaVersion": "uberbond.v7-live-truth.v1",
-  "generatedAt": "2026-09-17T17:07:40.322Z",
-  "sourceSha": "dd5be9991847d5c337685c268012e8250ffc544c",
+  "generatedAt": "2026-09-17T17:18:48.989Z",
+  "sourceSha": "c06509c5831d6cdd34194691065450d119fc7e55",
   "generator": "scripts/v7-live-truth.mjs",
   "freshnessPolicy": "Every field is measured at run time. This artifact is stale the moment main moves, and says so rather than being trusted.",
   "staleByDefault": true,
   "git": {
-    "head": "dd5be9991847d5c337685c268012e8250ffc544c",
-    "originMain": "b2ad5f631d84d363058b18200512b94e265bb46c",
+    "head": "c06509c5831d6cdd34194691065450d119fc7e55",
+    "originMain": "c06509c5831d6cdd34194691065450d119fc7e55",
     "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
-    "workingTreeClean": true,
-    "uncommittedPaths": 0,
-    "commitsAheadOfMain": 9,
+    "workingTreeClean": false,
+    "uncommittedPaths": 7,
+    "commitsAheadOfMain": 0,
     "commitsBehindMain": 0,
     "remoteBranches": 859
   },
@@ -30,7 +30,7 @@
     }
   },
   "deployment": {
-    "state": "UNKNOWN__ONLY_PROVIDER_BADGES",
+    "state": "UNKNOWN__EVIDENCE_STALE",
     "contractBoundAuthoritativeSignals": 0,
     "providerBadgesEstablish": "NOTHING_ABOUT_UBERBOND_DEPLOYMENT_STATE"
   },

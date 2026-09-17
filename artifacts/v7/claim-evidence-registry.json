@@ -1,12 +1,11 @@
 {
   "schemaVersion": "uberbond.v7-claim-evidence-registry.v1",
-  "generatedAt": "2026-09-17T18:01:05.917Z",
-  "sourceSha": "b9255b2221c43d1df72f5d2a0bb63b996a9febb9",
+  "generatedAt": "2026-09-17T18:10:17.630Z",
+  "sourceSha": "5f52f64f9aa7734372222b10e9c1974c69fcc946",
   "generator": "scripts/v7-claim-evidence-registry.mjs",
   "freshnessPolicy": "A claim is stale when source it depends on changed after it was measured, not merely when the head moved. Committing a regenerated artifact changes the head and falsifies nothing.",
   "counts": {
-    "STALE_AGAINST_CURRENT_HEAD": 5,
-    "EXACT_HEAD": 2,
+    "STALE_AGAINST_CURRENT_HEAD": 7,
     "NOT_HEAD_BOUND": 1
   },
   "boundary": "This records what backs a claim and how fresh it is. It does not re-derive the claim, so a wrong measurement recorded at the exact head still reads EXACT_HEAD.",
@@ -21,6 +20,7 @@
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
       "freshness": "STALE_AGAINST_CURRENT_HEAD",
       "sourceChangedSince": [
+        "scripts/mutation-war.mjs",
         "scripts/v7-claim-evidence-registry.mjs",
         "tests/v7-proof-and-claims.test.mjs"
       ],
@@ -35,6 +35,7 @@
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
       "freshness": "STALE_AGAINST_CURRENT_HEAD",
       "sourceChangedSince": [
+        "scripts/mutation-war.mjs",
         "scripts/v7-claim-evidence-registry.mjs",
         "tests/v7-proof-and-claims.test.mjs"
       ],
@@ -47,8 +48,10 @@
       "value": 496,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
       "producedAtSha": "b9255b2221c43d1df72f5d2a0bb63b996a9febb9",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/mutation-war.mjs"
+      ],
       "note": "Registered, not killed. A registered guard that was never run proves nothing."
     },
     {
@@ -58,8 +61,10 @@
       "value": 84,
       "evidenceClass": "VOCABULARY_LINKAGE_TO_A_KILLED_GUARD",
       "producedAtSha": "b9255b2221c43d1df72f5d2a0bb63b996a9febb9",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/mutation-war.mjs"
+      ],
       "note": "The linkage is term overlap between a directive and a guard description. It shows a guard exists on the same subject, not that it enforces this sentence."
     },
     {
@@ -71,6 +76,7 @@
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
       "freshness": "STALE_AGAINST_CURRENT_HEAD",
       "sourceChangedSince": [
+        "scripts/mutation-war.mjs",
         "scripts/v7-claim-evidence-registry.mjs",
         "tests/v7-proof-and-claims.test.mjs"
       ],
@@ -96,6 +102,7 @@
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
       "freshness": "STALE_AGAINST_CURRENT_HEAD",
       "sourceChangedSince": [
+        "scripts/mutation-war.mjs",
         "scripts/v7-claim-evidence-registry.mjs",
         "tests/v7-proof-and-claims.test.mjs"
       ],
@@ -110,6 +117,7 @@
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
       "freshness": "STALE_AGAINST_CURRENT_HEAD",
       "sourceChangedSince": [
+        "scripts/mutation-war.mjs",
         "scripts/v7-claim-evidence-registry.mjs",
         "tests/v7-proof-and-claims.test.mjs"
       ],

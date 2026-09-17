@@ -250,7 +250,7 @@ export async function crawlSiteBrowser(input, options={}) {
           await mobile.screenshot({path:path.join(screenshotDir,mobileName),fullPage:true,animations:'disabled',timeout:Math.min(timeoutMs,10000)});
           mobileScreenshot = true;
         } catch {}
-        await mobile.close();
+        await boundedAction(() => mobile.close(), 5000, 'mobile-close-timeout').catch(() => {});
         await emitProgress('checking_links_and_conversion_paths');
         const brokenLinks=pages.length===0?await checkBrokenLinks(data.links,origin,12,allowLocal,robots):[];
         const record={url:finalUrl,requestedUrl:item.url,status,responseHeaders,depth:item.depth,redirected:finalUrl!==item.url,...data,mobile:mobileData,brokenLinks,screenshots:{desktop:desktopScreenshot?`/screenshots/${desktopName}`:'',mobile:mobileScreenshot?`/screenshots/${mobileName}`:''}};
@@ -263,9 +263,9 @@ export async function crawlSiteBrowser(input, options={}) {
           }catch{}
         }
       }catch(error){errors.push({url:item.url,error:error.message});}
-      finally{await page.close();}
+      finally{await boundedAction(() => page.close(), 5000, 'page-close-timeout').catch(() => {});}
       await sleep(Math.max(delayMs,(robots.crawlDelay||0)*1000));
     }
-  } finally { await runtimeLease.release(); }
+  } finally { await boundedAction(() => runtimeLease.release(), 5000, 'browser-runtime-release-timeout').catch(() => {}); }
   return {startUrl:start,domain,robots,pages,errors,emails:uniq(pages.flatMap(p=>p.emails)),combinedText:pages.map(p=>`[${p.url}]\n${p.title}\n${(p.headings||[]).map(h=>h.text).join(' | ')}\n${p.bodyText||''}`).join('\n\n').slice(0,120000),completedAt:new Date().toISOString(),engine:'playwright',summary:{pagesVisited:pages.length,errors:errors.length,desktopScreenshots:pages.filter(p=>p.screenshots?.desktop).length,mobileScreenshots:pages.filter(p=>p.screenshots?.mobile).length}};
 }

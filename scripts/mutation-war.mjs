@@ -3564,6 +3564,49 @@ export const MUTATIONS = [
     replace: '',
     suites: ['tests/constitution-artifact-freshness.test.mjs']
   },
+  // Ubercel deployment state. The control plane's plan-time law is
+  // NO_PROVIDER_IS_THE_CONTROL_PLANE; these hold the same line at read time,
+  // where a session already crossed it once by reporting a red Vercel badge as
+  // UberBond's deployment truth.
+  {
+    id: 'UBERCEL-01', guard: 'A provider badge cannot establish that UberBond is serving',
+    file: 'src/ubercel-deployment-doctor.mjs',
+    find: '  PROVIDER_BADGE: { establishesServing: false, establishesNotServing: false },',
+    replace: '  PROVIDER_BADGE: { establishesServing: true, establishesNotServing: true },',
+    suites: ['tests/ubercel-deployment-doctor.test.mjs']
+  },
+  {
+    // Unbound from the declared contract, a 200 is a 200 from somewhere else.
+    id: 'UBERCEL-02', guard: 'An authenticated probe counts only against the declared health contract',
+    file: 'src/ubercel-deployment-doctor.mjs',
+    find: "  if (evidenceClass === 'AUTHENTICATED_HEALTH') {",
+    replace: '  if (false) {',
+    suites: ['tests/ubercel-deployment-doctor.test.mjs']
+  },
+  {
+    // Future-dated evidence is a clock problem or a fabricated one, and stale
+    // evidence describes a deployment that has since changed.
+    id: 'UBERCEL-03', guard: 'Stale and future-dated deployment evidence stop counting as current',
+    file: 'src/ubercel-deployment-doctor.mjs',
+    find: '  const stale = ageMs > maxAgeMs || ageMs < 0;',
+    replace: '  const stale = false;',
+    suites: ['tests/ubercel-deployment-doctor.test.mjs']
+  },
+  {
+    id: 'UBERCEL-04', guard: 'An adapter cannot promote its own deployment evidence',
+    file: 'src/ubercel-deployment-doctor.mjs',
+    find: "  if (raw.deploymentAuthority === true || raw.authoritative === true) reasons.push('adapter-must-not-claim-deployment-authority');",
+    replace: '',
+    suites: ['tests/ubercel-deployment-doctor.test.mjs']
+  },
+  {
+    // Majority vote would turn a real outage into a rounding error.
+    id: 'UBERCEL-05', guard: 'One authenticated not-serving outranks any number of healthy ones',
+    file: 'src/ubercel-deployment-doctor.mjs',
+    find: "    state = authoritative.every(row => row.serving) ? 'SERVING__AUTHENTICATED' : 'NOT_SERVING__AUTHENTICATED';",
+    replace: "    state = authoritative.some(row => row.serving) ? 'SERVING__AUTHENTICATED' : 'NOT_SERVING__AUTHENTICATED';",
+    suites: ['tests/ubercel-deployment-doctor.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

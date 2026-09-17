@@ -95,6 +95,7 @@
     "world-brain:doctor": "node scripts/world-brain-field-mission-doctor.mjs",
     "test:world-brain": "node --test tests/world-brain-field-mission.test.mjs",
     "capabilities:doctor": "node scripts/external-capability-doctor.mjs",
+    "ubercel:doctor": "node scripts/ubercel-doctor.mjs",
     "capabilities:genome:doctor": "node scripts/capability-genome-doctor.mjs",
     "capabilities:genome:harvest": "node scripts/capability-genome-harvest.mjs",
     "capabilities:genome:body-import": "node scripts/capability-genome-body-import.mjs",

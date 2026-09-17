@@ -32,8 +32,8 @@ window.addEventListener('pagehide',clearProtectedState);
 
 async function load(){
   try{
-    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary]=await Promise.all([
-      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null)
+    const [sum,pros,camps,replies,social,jobs,leads,orders,subs,notes,discoveryRuns,canary,leadgen]=await Promise.all([
+      api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null),api('/api/leadgen/intelligence').catch(()=>null)
     ]);
     cache={prospects:pros,campaigns:camps};
     $('#mode').textContent=`${sum.paused?'PAUSED':sum.running?'WORKING':sum.workerOnline?'WORKER ONLINE':'WORKER OFFLINE'} · ${sum.autopilot?'AUTOPILOT ON':'MANUAL MODE'}`;
@@ -45,6 +45,19 @@ async function load(){
     const r=sum.revenue||{};
     $('#revenue-metrics').innerHTML=[metric('Today',money(r.todayRevenue),`${r.targetProgress||0}% of $200 target`),metric('Gross revenue',money(r.grossRevenue)),metric('MRR',money(r.mrr)),metric('Paid customers',r.paidCustomers||0),metric('Active subscriptions',r.activeSubscriptions||0),metric('Inbound leads',r.leads||0),metric('Reports ready',r.reportReady||0)].join('');
     $('#metrics').innerHTML=[metric('Prospects',sum.prospects),metric('Queued',sum.queued),metric('Completed',sum.completed),metric('Qualified',sum.qualified,`${sum.qualificationRate}% rate`),metric('Ready',sum.ready),metric('Replies',sum.replied),metric('Positive',sum.positive)].join('');
+    const leadStats=leadgen?.stats||{};
+    $('#leadgen-metrics').innerHTML=[
+      metric('Lead records',leadStats.totalRecords||0),
+      metric('Eligible',leadStats.eligibleRecords||0),
+      metric('Business email',leadStats.withBusinessEmail||0),
+      metric('Accounts',leadStats.accountCount||0)
+    ].join('');
+    $('#leadgen-top').innerHTML=leadgen?.topLeads?.length
+      ? leadgen.topLeads.slice(0,6).map(lead => '<div class="mini-card"><b>'+esc(lead.company||'Unnamed account')+'</b><small>'+esc(lead.website||lead.domain||'No website')+' · score '+esc(lead.score?.total||0)+' · '+esc(lead.source||'local_prospect')+'</small><p>'+esc(lead.nextAction||'Owner review required')+'</p></div>').join('')
+      : '<div class="mini-card"><small>No durable prospect records yet. Import authorized leads to populate the workspace.</small></div>';
+    $('#leadgen-policy').innerHTML=leadgen
+      ? '<div class="mini-card"><b>Live source · '+esc(leadgen.liveSource||'durable-prospects')+'</b><small>'+esc(leadgen.runtime?.prospectRecords||0)+' prospect records · '+esc(leadgen.runtime?.suppressionRecords||0)+' suppression records</small><p>Provider calls: '+esc(leadgen.runtime?.providerCalls||0)+' · external effects: '+esc(leadgen.runtime?.externalEffects||0)+' · handoff is read-only until certification.</p></div>'
+      : '<div class="mini-card"><small>Lead intelligence route unavailable.</small></div>';
     const campaignOptions=camps.length?camps.filter(c=>!c.systemKey).map(c=>`<option value="${esc(c.id)}">${esc(c.name)} · min ${c.minScore}</option>`).join(''):'<option value="">Create a campaign first</option>';
     $('#campaign-select').innerHTML=campaignOptions;
     $('#discovery-campaign-select').innerHTML=campaignOptions;

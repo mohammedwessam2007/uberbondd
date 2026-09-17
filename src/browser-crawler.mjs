@@ -196,7 +196,11 @@ export async function crawlSiteBrowser(input, options={}) {
         const data=await pageSnapshot(page);
         const pageId=`${slug(domain)}-${pages.length+1}-${crypto.createHash('sha1').update(finalUrl).digest('hex').slice(0,8)}`;
         const desktopName=`${pageId}-desktop.png`;
-        await page.screenshot({path:path.join(screenshotDir,desktopName),fullPage:true,animations:'disabled'});
+        let desktopScreenshot = false;
+        try {
+          await page.screenshot({path:path.join(screenshotDir,desktopName),fullPage:true,animations:'disabled',timeout:Math.min(timeoutMs,10000)});
+          desktopScreenshot = true;
+        } catch {}
         const mobile=await context.newPage();
         await mobile.setViewportSize({width:390,height:844});
         await emitProgress('testing_mobile_experience');
@@ -211,11 +215,15 @@ export async function crawlSiteBrowser(input, options={}) {
         await mobile.waitForTimeout(Math.min(1200,Math.max(200,delayMs)));
         const mobileData=await pageSnapshot(mobile);
         const mobileName=`${pageId}-mobile.png`;
-        await mobile.screenshot({path:path.join(screenshotDir,mobileName),fullPage:true,animations:'disabled'});
+        let mobileScreenshot = false;
+        try {
+          await mobile.screenshot({path:path.join(screenshotDir,mobileName),fullPage:true,animations:'disabled',timeout:Math.min(timeoutMs,10000)});
+          mobileScreenshot = true;
+        } catch {}
         await mobile.close();
         await emitProgress('checking_links_and_conversion_paths');
         const brokenLinks=pages.length===0?await checkBrokenLinks(data.links,origin,12,allowLocal,robots):[];
-        const record={url:finalUrl,requestedUrl:item.url,status,responseHeaders,depth:item.depth,redirected:finalUrl!==item.url,...data,mobile:mobileData,brokenLinks,screenshots:{desktop:`/screenshots/${desktopName}`,mobile:`/screenshots/${mobileName}`}};
+        const record={url:finalUrl,requestedUrl:item.url,status,responseHeaders,depth:item.depth,redirected:finalUrl!==item.url,...data,mobile:mobileData,brokenLinks,screenshots:{desktop:desktopScreenshot?`/screenshots/${desktopName}`:'',mobile:mobileScreenshot?`/screenshots/${mobileName}`:''}};
         pages.push(record);
         for(const link of data.links){
           try{

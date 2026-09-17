@@ -6,6 +6,7 @@ import {
   UBERREPLY_DAILY_LANE_TARGET,
   compileUberReplyPortfolioAllocation,
   selectUberReplyOffer,
+  compileUberReplyCampaignDecision,
   compileUberReplyMessagePolicy,
   validateUberReplyRenderedMessage,
   compareUberReplyFitness,
@@ -81,6 +82,23 @@ test('first touch compiles UBERREPLY signal tension gift tiny-ask genotype', () 
   assert.equal(policy.messageCandidate.problemBeforeProduct, true);
   assert.equal(policy.messageCandidate.ctaType, 'SEND_ASSET');
   assert.equal(policy.constraints.directMeetingAskFirstTouchAllowed, false);
+});
+
+test('a pinned final offer lane compiles only when the researched prospect fits it', () => {
+  const ready = compileUberReplyCampaignDecision({
+    offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT',
+    prospect: evidenceProspect({ industry: 'HOME_SERVICES', tags: ['agency', 'HVAC', 'booking'] }),
+    research: { accountValueScore: 0.8, signalStrength: 0.9, artifactFeasibility: 1, evidenceDensity: 0.8, estimatedResearchMinutes: 8 }
+  });
+  assert.equal(ready.ok, true);
+  assert.equal(ready.offer.offerId, 'LEAD_TO_BOOKING_LEAK_AUDIT');
+  const refused = compileUberReplyCampaignDecision({
+    offerId: 'AI_AGENT_RELEASE_GATE',
+    prospect: evidenceProspect({ tags: ['unrelated'], fitEvidenceConfidence: 0.1 }),
+    research: { accountValueScore: 0.2, signalStrength: 0.2, artifactFeasibility: 0.2, evidenceDensity: 0.2 }
+  });
+  assert.equal(refused.ok, false);
+  assert.ok(refused.reasonCodes.includes('pinned-offer-fit-below-threshold'));
 });
 
 test('render validator refuses meeting asks, fake artifact claims and generic bump language', () => {

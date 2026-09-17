@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond-constitution-reviewed-linkage-1.0.0",
+  "purpose": "Directives the doctor reports as unguarded that were read individually. A count of unguarded rules is a starting point, not a finding, and the three reasons below are the reasons a real one turned out not to be a hole.",
+  "reviewedAt": "2026-09-16",
+  "sourceSha": "5b9c52e8ea4c886cc48c430897478a6652b8315b",
+  "reviewClasses": {
+    "COMPOUND_SENTENCE": "One sentence listing many prohibitions. The pieces are enforced in different places and no single guard matches the whole list, so the linkage misses it. The rule is covered; the measurement is coarse.",
+    "KEYWORD_FALSE_POSITIVE": "Tagged EXTERNAL_EFFECT by a word used in another sense. Not an external-effect rule at all.",
+    "ENFORCED_BY_ABSENCE": "The prohibited capability is not implemented anywhere, so there is no code path to guard. A mutation cannot remove a function that does not exist. Weaker than a guard and still a real answer.",
+    "UNREVIEWED": "Reported by the doctor and not yet read. Carried as proof debt."
+  },
+  "findings": [
+    {
+      "directive": "Do not infer private contact information, bypass CAPTCHA/platform controls, evade provider policy, or weaken suppression/consent/safety gates.",
+      "provenance": "AGENTS.md",
+      "reviewClass": "COMPOUND_SENTENCE",
+      "evidence": "Four separate prohibitions in one sentence. CAPTCHA and platform controls appear in cost-aware-public-evidence-tier, capability-genome-admission, capability-genome-discovery, gamechanger-mesh and egress-health-pool; robots and crawl policy in robots.mjs, browser-crawler.mjs and web-context-extraction-contract.mjs; suppression has its own guards. No single mutation guard covers the sentence because no single code path does."
+    },
+    {
+      "directive": "Do not infer private contact information (the contact-inference clause specifically).",
+      "provenance": "AGENTS.md",
+      "reviewClass": "ENFORCED_BY_ABSENCE",
+      "evidence": "src/contacts.mjs sources addresses only from crawled page text filtered to the company domain and from the Hunter provider response. Nothing constructs an address from a name pattern, so there is no inference path to guard. src/lead-generation.mjs:554 carries the explicit stop rule: 'Stop only on a provider-returned verified business email; never infer a private address.'",
+      "residual": "Absence is not a guard. If an address-construction helper is ever added, this rule becomes unenforced silently and nothing here would notice."
+    },
+    {
+      "directive": "Do not invent observations to satisfy a quota.",
+      "provenance": "CLAUDE.md",
+      "reviewClass": "KEYWORD_FALSE_POSITIVE",
+      "evidence": "Tagged EXTERNAL_EFFECT on the word 'quota', which here means a Task Observer observation count, not a provider rate limit. It is an internal honesty rule about the observation ledger."
+    },
+    {
+      "directive": "Cross-provider and cross-model-family fallback is allowed.",
+      "provenance": "CLAUDE.md",
+      "reviewClass": "KEYWORD_FALSE_POSITIVE",
+      "evidence": "A PERMISSION, not a rule requiring enforcement. It grants latitude; there is nothing for a guard to prevent."
+    },
+    {
+      "directive": "Do not optimize code volume, agent count, send volume, impressions, lead count, vanity dashboards ...",
+      "provenance": "AGENTS.md and UBERBOND_CANON.md",
+      "reviewClass": "KEYWORD_FALSE_POSITIVE",
+      "evidence": "Tagged on 'send' and 'lead'. It is a rule about what to optimize for, addressed to a human or agent choosing work, and not a runtime constraint any code path can violate."
+    }
+  ],
+  "measurementLimitation": "The doctor cannot currently separate COMPOUND_SENTENCE, KEYWORD_FALSE_POSITIVE and ENFORCED_BY_ABSENCE from a genuine hole. That is why its unguarded count is published as a review queue rather than as a defect count, and why closing an entry here requires reading the rule rather than tuning the matcher until the number falls.",
+  "businessEffectAuthority": "NONE",
+  "externalEffects": []
+}

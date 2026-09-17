@@ -4,9 +4,9 @@ This is a current checkpoint, not a claim of launch, delivery, demand, payment, 
 
 ## Source and deployment identity
 
-- Current GitHub `main` after promotion: `8760c338d96b42db8e861043ffc898d87e4d0ae2` (PR #925 was merged after current-main verification).
+- Application promotion commit: `8760c338d96b42db8e861043ffc898d87e4d0ae2` (PR #925). Current GitHub `main` is `b42a47fd9cfd9c491a961a9c7a9f534773998648` after the documentation-only receipt merge (PR #926).
 - Offer-bridge source was based on `93a78ae34fa273d762935652dd3bb0b352d1d772` and verified locally at `27789b0d`; the promoted merge contains the same tested tree plus the durable checkpoint.
-- Live Render service is `uberbond-control-plane`, deployment `dep-dam2h465vjqs73bgs9k0`, commit `8760c338d96b42db8e861043ffc898d87e4d0ae2`, status `live`, auto-deploy disabled.
+- Live Render service is `uberbond-control-plane`, deployment `dep-dam2h465vjqs73bgs9k0`, application commit `8760c338d96b42db8e861043ffc898d87e4d0ae2`, status `live`, auto-deploy disabled. The later `b42a47fd` main commit is documentation-only and has not changed runtime behavior.
 - Fresh public health receipt at `2026-09-17T17:52:25.604Z`: HTTP 200, `storeBackend=postgres`, worker online, paused false, active jobs 0, heartbeat current. Render logs show Postgres worker/service startup, `OMNIA V9 outbound integration mode: off`, and no send/provider event in the inspected interval.
 
 ## Four final offer lanes

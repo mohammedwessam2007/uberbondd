@@ -14,6 +14,7 @@ import {
   normativeSentences, compileDirective, contradictionCandidates, distinctiveTerms,
   precedenceOrder, resolveByPrecedence
 } from '../src/constitution-compiler.mjs';
+import { compareConstitutionArtifacts } from '../src/constitution-artifact-freshness.mjs';
 import { MUTATIONS } from './mutation-war.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -163,6 +164,19 @@ function main() {
     directives
   };
 
+  // Read what is about to be replaced, and say whether it was current. The
+  // doctor regenerating a stale artifact silently is how a stale one gets
+  // committed in the first place: the numbers come out right and nobody learns
+  // that the file in git had been describing a different tree.
+  let staleness = null;
+  try {
+    const existing = JSON.parse(readFileSync(resolve(root, OUT), 'utf8'));
+    const comparison = compareConstitutionArtifacts(existing, artifact);
+    if (!comparison.fresh) staleness = comparison.differences;
+  } catch {
+    // No previous artifact, or an unreadable one. Nothing to compare against.
+  }
+
   mkdirSync(resolve(root, dirname(OUT)), { recursive: true });
   writeFileSync(resolve(root, OUT), `${JSON.stringify(artifact, null, 2)}\n`);
 
@@ -186,6 +200,12 @@ function main() {
   const unranked = CANON_SOURCES.filter(source => !precedenceRanks.has(source)).length;
   console.log(`  contradiction candidates: ${contradictions.length}, of which precedence can settle ${resolvable}`);
   console.log(`  precedence: ${CANON_SOURCES.length - unranked} of ${CANON_SOURCES.length} operative sources ranked; ${TERMINAL_SOURCES.length} terminal sources ranked but deliberately not compiled`);
+  if (staleness) {
+    console.log(`  the artifact just replaced was stale, and had been describing a different tree:`);
+    for (const row of staleness) {
+      console.log(`    ${row.field}: committed ${JSON.stringify(row.committed)}, actual ${JSON.stringify(row.fresh)}`);
+    }
+  }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();

@@ -3367,6 +3367,130 @@ export const MUTATIONS = [
     replace: '',
     suites: ['tests/nullstar-omega-generation.test.mjs']
   },
+  // Seven guards for rules the Constitution Doctor listed as unguarded. Each
+  // one was confirmed by making exactly this edit and watching every suite stay
+  // green, so these are not restatements of protections that were already
+  // ratcheted -- they are the ratchet arriving late.
+  //
+  // WALLBREAKER_CANON: "Every Wallbreaker result carries
+  // businessEffectAuthority: NONE." Ten return paths set it; three were
+  // asserted. The constant is what stops a planner from being read as an
+  // execution authority, and seven copies of it were load-bearing in name only.
+  {
+    id: 'WALLAUTH-01', guard: 'A completed wallbreaker cycle is a plan, not an execution authority',
+    file: 'src/wallbreaker.mjs',
+    find: "    wallbreakerReceiptId: `wbr_${digest(receiptCore).slice(0, 24)}`,\n    businessEffectAuthority: 'NONE',",
+    replace: "    wallbreakerReceiptId: `wbr_${digest(receiptCore).slice(0, 24)}`,\n    businessEffectAuthority: 'FULL',",
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    // The rejected-retrieval path is the one that most resembles a real gap, and
+    // the canon separates them deliberately: a rejection must be repaired, not
+    // routed around. Neither reading grants authority.
+    id: 'WALLAUTH-02', guard: 'A rejected capability retrieval grants no authority either',
+    file: 'src/wallbreaker.mjs',
+    find: "    reasonCodes: retrieval.reasonCodes || ['capability-genome-retrieval-rejected'],\n    businessEffectAuthority: 'NONE',",
+    replace: "    reasonCodes: retrieval.reasonCodes || ['capability-genome-retrieval-rejected'],\n    businessEffectAuthority: 'FULL',",
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    // The shared refusal constructor. A refused problem is when a planner is
+    // most tempted to hand back something permissive.
+    id: 'WALLAUTH-03', guard: 'A refused wall problem returns no authority with its refusal',
+    file: 'src/wallbreaker.mjs',
+    find: "    reasonCodes: [...new Set(reasonCodes.filter(Boolean))],\n    businessEffectAuthority: 'NONE',",
+    replace: "    reasonCodes: [...new Set(reasonCodes.filter(Boolean))],\n    businessEffectAuthority: 'FULL',",
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  // AGENTS.md: "Do not infer private contact information, bypass CAPTCHA/
+  // platform controls, evade provider policy." The egress pool is where that
+  // sentence becomes executable. Its test asserted ok === false while supplying
+  // no routes, so it was satisfied by "no eligible route" and stayed green with
+  // the policy refusal deleted.
+  {
+    id: 'EGRESS-01', guard: 'An evasion purpose is refused for being evasion, not for lack of a route',
+    file: 'src/egress-health-pool.mjs',
+    find: "  if (PROHIBITED_PURPOSES.has(purpose)) reasons.push('prohibited-evasion-purpose');",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    // Rotating around a challenge is the specific behaviour the canon names.
+    id: 'EGRESS-02', guard: 'A target already challenging access stops instead of being routed around',
+    file: 'src/egress-health-pool.mjs',
+    find: "  if (['CAPTCHA','BLOCKED','ACCESS_DENIED','AUTH_REQUIRED'].includes(targetAccessState)) reasons.push('target-access-challenge-requires-stop-and-review');",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  // CLAUDE.md automatic model-failover law: "Preserve the actual provider/model
+  // identity in receipts so UberBond knows what really executed." Both fields
+  // could be nulled with every routing suite green, which is the single failure
+  // mode that law exists to prevent.
+  {
+    id: 'ROUTEID-01', guard: 'A routing selection records which provider actually ran',
+    file: 'src/agent-model-routing-integration.mjs',
+    find: '      provider: result.selected?.provider || null,',
+    replace: '      provider: null,',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    id: 'ROUTEID-02', guard: 'A routing selection records which model actually ran',
+    file: 'src/agent-model-routing-integration.mjs',
+    find: '      model: result.selected?.model || null,',
+    replace: '      model: null,',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  // The install-only boundary on the one script that spawns commands against the
+  // real host. It had no test of any kind, so the canon sentence was the whole
+  // of its enforcement.
+  {
+    id: 'BOOTPLAN-01', guard: 'A bootstrap step that configures a provider credential is refused',
+    file: 'src/external-capability-bootstrap-plan.mjs',
+    find: "  ['configures-credentials', /(?:^|\\s)--?(?:api[-_]?key|token|secret|auth|credential|password)\\b|(?:^|\\s)(?:configure|config|auth|login|signin|connect)(?:\\s|$)/i],",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    // Installing OmniRoute and starting it are different acts, and the canon
+    // separates them by name.
+    id: 'BOOTPLAN-02', guard: 'A bootstrap step that starts a service is refused',
+    file: 'src/external-capability-bootstrap-plan.mjs',
+    find: "  ['starts-a-service', /(?:^|\\s)(?:start|serve|server|daemon|up|launch)(?:\\s|$)/i],",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    id: 'BOOTPLAN-03', guard: 'A bootstrap step that runs a security scan is refused',
+    file: 'src/external-capability-bootstrap-plan.mjs',
+    find: "  ['runs-a-scan', /(?:^|\\s)(?:scan|pentest|exploit|attack)(?:\\s|$)/i],",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    id: 'BOOTPLAN-04', guard: 'A bootstrap step enabling --system or a private channel is refused',
+    file: 'src/external-capability-bootstrap-plan.mjs',
+    find: "  ['enables-system-or-private-channel', /(?:^|\\s)--(?:system|private|login|cookies?|session)\\b/i],",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    // A shell turns one audited command into whatever the string says, which
+    // makes every other clause above unenforceable.
+    id: 'BOOTPLAN-05', guard: 'A bootstrap step invoking a shell is refused',
+    file: 'src/external-capability-bootstrap-plan.mjs',
+    find: "    if (step?.shell === true) findings.push({ step: id, violation: 'shell-invocation', argv });",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
+  {
+    // An empty list passes a loop-based predicate. That would turn "the steps
+    // were deleted" into "the boundary holds".
+    id: 'BOOTPLAN-06', guard: 'An empty bootstrap plan is a finding, not a clean pass',
+    file: 'src/external-capability-bootstrap-plan.mjs',
+    find: "  if (!list.length) findings.push({ step: null, violation: 'empty-plan' });",
+    replace: '',
+    suites: ['tests/constitution-unguarded-external-effect.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

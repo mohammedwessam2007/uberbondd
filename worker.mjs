@@ -62,6 +62,11 @@ handlers['outreach.100k.process'] = async payload => {
   });
 };
 const stopScheduler = startScheduler(queue, config, console);
+const autoResumeOnBoot = String(process.env.WORKER_AUTO_RESUME_ON_BOOT || '').toLowerCase() === 'true';
+if (autoResumeOnBoot) {
+  const pauseState = await queue.pausedState();
+  if (pauseState.paused) await queue.setPaused(false, 'startup-recovery');
+}
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 
 console.log(`UberBond worker ${queue.workerId} started using ${config.storeBackend}`);

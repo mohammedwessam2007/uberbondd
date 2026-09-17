@@ -384,6 +384,14 @@ async function outreachCanaryStatus() {
   const prerequisites = canaryPrerequisites(runtimeConfig);
   const connectedSlots = new Set(accounts.filter(account => account.connected === true).map(account => String(account.slot || '')));
   const pausedSlots = new Set(senderHealth.filter(row => row.paused === true).map(row => String(row.inbox || '')));
+  const domainMailboxChecks = await Promise.all(governedReady.map(async prospect => {
+    const account = accounts.find(row => String(row.slot || '') === String(prospect.inbox || '')) || null;
+    const gate = await pipeline.evaluateDomainMailboxSendGate({ account, inbox: prospect.inbox, date: new Date() });
+    return { prospectId: prospect.id, gate };
+  }));
+  const liveDomainMailboxBlockers = domainMailboxChecks
+    .filter(item => item.gate && item.gate.decision !== 'NOT_BLOCKED_BY_DOMAIN_MAILBOX_GATE')
+    .flatMap(item => (item.gate.reasonCodes || []).map(reason => `domain-mailbox:${reason}`));
   const dryRunBlockers = [];
   if (!prerequisites.launchPhaseCanary) dryRunBlockers.push('launch-phase-must-be-canary');
   if (!prerequisites.approvedProvider) dryRunBlockers.push('provider-not-approved');
@@ -405,6 +413,7 @@ async function outreachCanaryStatus() {
   if (!prerequisites.googleOAuthConfigured) liveBlockers.push('google-oauth-missing');
   if (!prerequisites.encryptionConfigured) liveBlockers.push('token-encryption-key-missing');
   if (!prerequisites.unsubscribeConfigured) liveBlockers.push('unsubscribe-secret-missing');
+  liveBlockers.push(...liveDomainMailboxBlockers);
 
   const uniqueDryRunBlockers = [...new Set(dryRunBlockers)];
   const uniqueLiveBlockers = [...new Set(liveBlockers)];
@@ -429,6 +438,14 @@ async function outreachCanaryStatus() {
       hourlyCap: runtimeConfig.outbound.canaryHourlyCap,
       minGapSeconds: runtimeConfig.outbound.canaryMinGapSeconds,
       readyProspectId: readyProspectIds.length === 1 ? readyProspectIds[0] : null
+    },
+    domainMailbox: {
+      required: runtimeConfig.outbound.domainMailboxGateRequired === true,
+      checks: domainMailboxChecks.map(item => ({
+        prospectId: item.prospectId,
+        decision: item.gate?.decision || 'NOT_REQUIRED',
+        reasonCodes: item.gate?.reasonCodes || []
+      }))
     },
     counts: {
       prospects: prospects.length,
@@ -459,7 +476,8 @@ async function outreachCanaryStatus() {
 async function startOutreachCanary(input = {}) {
   if (input.confirmCanary !== true) throw new HttpError(400, 'confirmCanary must be true');
   const readiness = await outreachCanaryStatus();
-  if (!readiness.readyForDryRun && !readiness.readyForLiveSend) {
+  const canQueue = readiness.mode.dryRun === true ? readiness.readyForDryRun : readiness.readyForLiveSend;
+  if (!canQueue) {
     throw new HttpError(409, `Canary is not ready: ${readiness.reasonCodes.join(', ')}`);
   }
   const prospectId = readiness.canary?.readyProspectId;

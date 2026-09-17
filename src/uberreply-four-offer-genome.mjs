@@ -519,3 +519,49 @@ export function compileUberReplyPortfolioDecision({ prospect = {}, research = {}
     truthBoundary: 'Portfolio selection and message strategy compilation are decision support only. Recipient eligibility, legal/suppression state, sender health, and dispatch authority remain binding downstream.'
   };
 }
+
+// A campaign may pin one of the four final commercial lanes. Pinning is
+// deliberately stricter than automatic portfolio selection: the campaign
+// owner has chosen the lane, but the researched prospect still has to fit it.
+// This compiles preparation metadata only; it never creates contact or send
+// authority.
+export function compileUberReplyCampaignDecision({ offerId, prospect = {}, research = {}, sequencePosition = 1, minimumFit = 0.55 } = {}) {
+  const offer = getUberReplyOffer(offerId);
+  if (!offer) {
+    return {
+      ok: false,
+      state: 'UBERREPLY_CAMPAIGN_DECISION_REFUSED',
+      reasonCodes: ['known-offer-required'],
+      externalEffectAuthority: 'NONE',
+      businessEffectAuthority: 'NONE',
+      version: UBERREPLY_FOUR_OFFER_GENOME_VERSION
+    };
+  }
+  const fit = scoreUberReplyOfferFit(offer, prospect);
+  if (fit.score < minimumFit) {
+    return {
+      ok: false,
+      state: 'UBERREPLY_CAMPAIGN_DECISION_REFUSED',
+      reasonCodes: ['pinned-offer-fit-below-threshold'],
+      offer,
+      fit,
+      externalEffectAuthority: 'NONE',
+      businessEffectAuthority: 'NONE',
+      version: UBERREPLY_FOUR_OFFER_GENOME_VERSION,
+      truthBoundary: 'A pinned offer lane never overrides weak prospect evidence. Fit is not consent, intent, willingness to pay, or permission to contact.'
+    };
+  }
+  const policy = compileUberReplyMessagePolicy({ offerId: offer.offerId, prospect, research, sequencePosition });
+  return {
+    ok: policy.ok,
+    state: policy.ok ? 'UBERREPLY_CAMPAIGN_DECISION_READY' : 'UBERREPLY_CAMPAIGN_DECISION_REFUSED',
+    reasonCodes: policy.ok ? [] : ['message-policy-refused'],
+    offer,
+    fit,
+    policy,
+    externalEffectAuthority: 'NONE',
+    businessEffectAuthority: 'NONE',
+    version: UBERREPLY_FOUR_OFFER_GENOME_VERSION,
+    truthBoundary: 'This binds a selected commercial lane to preparation output only. Recipient eligibility, authorization, suppression, sender health, and dispatch governance remain binding downstream.'
+  };
+}

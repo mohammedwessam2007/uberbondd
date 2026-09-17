@@ -1,0 +1,33 @@
+{
+  "schema": "uberbond.v9.repo-carrier.4.0.0",
+  "canonicalFile": "UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+  "canonicalBytes": 146566257,
+  "canonicalLines": 232406,
+  "canonicalSha256": "8ad73f53116107acea824f6847aa6f29845e263b3ec01d241b90aae5719fe55d",
+  "compression": "brotli-q11",
+  "carrierEncoding": "base64-text-per-part",
+  "compressedBytes": 1074194,
+  "compressedSha256": "0f8d1b231852b7b11637d27ea7774c42990714924dd50d0c05c43081731b94fb",
+  "partCount": 16,
+  "partPattern": "parts/part-%04d.brpart.b64",
+  "materializedPath": ".uberbond/v9/immutable/UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+  "noAmputation": true,
+  "parts": [
+    {"index":1,"file":"part-0001.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"2f1503411162186ca8432c57a7331aa022e7ac7c4627837f67bc3e8ab23c2e1f","encodedSha256":"987d5534a08bd37fc4130ffa2479788f334ffdd143f621cddca7442c60deba66"},
+    {"index":2,"file":"part-0002.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"c3237220306c5f9498ef039b5b5d2d0369df4f7566f81c189b90ebb655b4c859","encodedSha256":"119be783e406a5b415b74d1318094ef5b2236ddfd6a129b9b08127f0f7ee96d1"},
+    {"index":3,"file":"part-0003.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"8ea2aa8baa2adbb9f1afaaae0a3a0671234478411760d877cc43eb3c2915fb06","encodedSha256":"bf50727e62588fa4d183852c441834b3ce13612ba42a8069430f4d6e761e2974"},
+    {"index":4,"file":"part-0004.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"f3c8c5866ec8bf6b7283837b3e6fe4d1221ca85739f3b55c72ace8a3a7c9e3c8","encodedSha256":"3e1127d3a609a44ed0b2adb36ae6f2e41b8671f956c47a1f9f34408ddbce0cab"},
+    {"index":5,"file":"part-0005.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"6c7159774c21dce2ea5ee522e0e7787ed09dfeb9dad315881ffd22546ea714f2","encodedSha256":"091b7eb86d8099dcb8a0a44e15b703f375c92b8238b68040877d17801a1931c8"},
+    {"index":6,"file":"part-0006.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"50178d442b56f8da9d751bf9dba1915410e5d3e16b63aa4d7e7a8d66a2c9b8b2","encodedSha256":"267f9b317729f26ea3c9038ff170a19e8ce6fea2410b035bfb61f6fdc8c7cb83"},
+    {"index":7,"file":"part-0007.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"a2cebf59d55d7461867b885310e7828606f8e5c984cbbde3c0cd96b6a1f0d301","encodedSha256":"282dfc54235fabff5e391bf564a408090f09fcfab192f1fa6c98302d3e9adfc2"},
+    {"index":8,"file":"part-0008.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"0c7a0c3598ee60f595c3a5b166e8fbeaa3f71c63ced615a5bd0c821a01e48594","encodedSha256":"e42cdd1a35d2edfac461f0c3a9f532aad42111d7d326af88a94ab97fdfea33b1"},
+    {"index":9,"file":"part-0009.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"04958727da5d873badb84125d6f77afab156d06689636fe9e8311541443ed77b","encodedSha256":"164599fab560e710169e3e883edf24a2fa5ad212f8e57f447a25ade0238a4da6"},
+    {"index":10,"file":"part-0010.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"99eb3d6c573df1c08d4e7f658dea0a80499cd9b81ce0d90303c3491869361b76","encodedSha256":"08e41311a3ce9e30d0f73c743e93a6b409c66f19bcb0423f5bf782fbd2021294"},
+    {"index":11,"file":"part-0011.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"fca0a8f66706fbf3d33b32c5605646f2b71cd4a5bd8b5235e05038c1ab738870","encodedSha256":"f55120f99e8cf1532c3eb8e32ab4552d13cec36bac93d93efa2678476c7f7a50"},
+    {"index":12,"file":"part-0012.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"e07534ed88f7ea2bc974eea6df9311c1ffc27bdd8afe183c315d984e97199b81","encodedSha256":"642a469f05391aea658b857e512e2d00fbbf2a55e415a002cca114072f817eef"},
+    {"index":13,"file":"part-0013.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"f182136f3232ae7c3ac7eb88501d33815b57c0f30adebef0ecedd4cf71645c9b","encodedSha256":"abe8ad8e8c6d3ed35d3e9e7befa60b1c47a207d4ea7cce56b3e2356281c23d29"},
+    {"index":14,"file":"part-0014.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"91ee9c220500b0d7dff4c9cb8be697a1d54a0af71b13f14193b0ad8a54363366","encodedSha256":"c3222d280d9b005eeaeec843d2602eb27c972f114ebe76173e28e5ae7f83dcc4"},
+    {"index":15,"file":"part-0015.brpart.b64","compressedBytes":67138,"encodedBytes":89521,"compressedSha256":"d38f0c2b6f64b0950d5be272d69332f09df583ba4dab5519f740519740573136","encodedSha256":"12b1ef6fcc822d3f77671c2d6d4ce75486f411584ce493fb1a3fad010420e3f2"},
+    {"index":16,"file":"part-0016.brpart.b64","compressedBytes":67124,"encodedBytes":89501,"compressedSha256":"324f2e1318966e7bac7b7100e952ae24c9e3239e9d39a50777711110747a9600","encodedSha256":"e8a16b96e364fee7681bd78dfa221b731e422c60402d5fc3b97b703d755d44ba"}
+  ]
+}

@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T22:07:23.677Z",
+  "generatedAt": "2026-09-17T22:51:18.418Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "4d586f1257edb9565a183a4b18639636927d42d3",
-    "branch": "codex/outreach-receipt-final-20260917",
+    "head": "3145242bd5e4ec288bd858f9b48ffb955654f88a",
+    "branch": "codex/uberlit-build-fix-20260917",
     "sourceModules": 834,
     "testSuites": 1010,
     "workingTreeClean": true

@@ -147,7 +147,7 @@
     "nullstar:probe-saturation": "node scripts/nullstar-probe-saturation.mjs",
     "nullstar:meta-improvement": "node scripts/nullstar-meta-improvement-v2.mjs",
     "nullstar:branch-debt": "node scripts/nullstar-branch-debt.mjs",
-    "postinstall": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium"
+    "postinstall": "PLAYWRIGHT_BROWSERS_PATH=0 node node_modules/playwright/cli.js install chromium"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

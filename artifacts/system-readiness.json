@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T23:27:44.298Z",
+  "generatedAt": "2026-09-17T23:31:30.492Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "14208a796e95738bcff03dc5e9dca6cbfc86af5a",
+    "head": "3f87618100057e80ebfd7e8d16203fc4295f64a8",
     "branch": "codex/cold-email-sender-readiness-20260917",
     "sourceModules": 834,
     "testSuites": 1011,

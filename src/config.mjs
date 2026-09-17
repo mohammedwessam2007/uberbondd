@@ -114,6 +114,7 @@ export const config = {
     schedulingEnabled: bool(env.PROMETHEUS_SCHEDULING_ENABLED, false)
   },
   crawl: {
+    htmlOnly: bool(env.CRAWL_HTML_ONLY, false),
     concurrency: num(env.CRAWL_CONCURRENCY, 2),
     delayMs: num(env.CRAWL_DELAY_MS, 500),
     maxPages: num(env.MAX_PAGES_PER_SITE, 5),

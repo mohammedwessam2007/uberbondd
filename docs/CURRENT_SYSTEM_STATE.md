@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-17**
 Branch: `codex/cold-email-sender-readiness-20260917`
-Reconciled from current head: `14208a796e95738bcff03dc5e9dca6cbfc86af5a`
+Reconciled from current head: `3f87618100057e80ebfd7e8d16203fc4295f64a8`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

@@ -726,7 +726,7 @@ export const requestHandler = async (req, res) => {
       return json(res, 200, await buildLiveLeadGenerationSnapshot({ store }));
     }
     if (method === 'POST' && url.pathname === '/api/leadgen/handoff') {
-      const input = await parseBody(req);
+      const input = await parseBody(req) || {};
       const campaign = input.campaignId ? await store.get('campaigns', input.campaignId) : null;
       if (input.campaignId && !campaign) return json(res, 404, { error: 'Campaign not found' });
       return json(res, 200, await buildLiveLeadHandoff({

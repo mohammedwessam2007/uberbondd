@@ -10,8 +10,9 @@ import { execFileSync } from 'node:child_process';
 import { dirname, resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  CANON_SOURCES, CONSTITUTION_COMPILER_VERSION,
-  normativeSentences, compileDirective, contradictionCandidates, distinctiveTerms
+  CANON_SOURCES, TERMINAL_SOURCES, CONSTITUTION_COMPILER_VERSION,
+  normativeSentences, compileDirective, contradictionCandidates, distinctiveTerms,
+  precedenceOrder, resolveByPrecedence
 } from '../src/constitution-compiler.mjs';
 import { MUTATIONS } from './mutation-war.mjs';
 
@@ -70,12 +71,17 @@ function main() {
 
   const directives = [];
   const perSource = {};
+  // Parsed from the file that authors it, not transcribed here, so the ranks
+  // cannot drift from docs/NORTH_STAR_PRECEDENCE.md.
+  const precedenceRanks = existsSync(resolve(root, 'docs/NORTH_STAR_PRECEDENCE.md'))
+    ? precedenceOrder(readFileSync(resolve(root, 'docs/NORTH_STAR_PRECEDENCE.md'), 'utf8'))
+    : new Map();
   CANON_SOURCES.forEach((source, precedence) => {
     const path = resolve(root, source);
     if (!existsSync(path)) { perSource[source] = { missing: true }; return; }
     const sentences = normativeSentences(readFileSync(path, 'utf8'));
     const compiled = sentences
-      .map(text => compileDirective({ source, text, sourceSha, testIndex: index, guardIndex: guards, precedence }))
+      .map(text => compileDirective({ source, text, sourceSha, testIndex: index, guardIndex: guards, precedence, precedenceRanks }))
       .filter(Boolean);
     // A content-derived id makes a repeated sentence one directive, not two.
     const seen = new Set();
@@ -115,6 +121,38 @@ function main() {
       contradictionCandidates: contradictions.length
     },
     reviewQueue: reviewState(),
+    precedence: {
+      ranksParsedFrom: 'docs/NORTH_STAR_PRECEDENCE.md',
+      ranked: [...precedenceRanks].map(([file, rank]) => ({ file, rank })),
+      operativeSourcesRanked: CANON_SOURCES.filter(source => precedenceRanks.has(source)),
+      operativeSourcesUnranked: CANON_SOURCES.filter(source => !precedenceRanks.has(source)),
+      boundary: 'A rank this tool did not read out of the precedence file is a rank the founder did not author. Unranked means unranked, not lowest.'
+    },
+    terminalSourcesNotCompiled: {
+      files: TERMINAL_SOURCES,
+      reason: 'Ranked highest by the precedence file and deliberately not compiled. NORTH_STAR.md states their status: direction and search-space canon, not implementation proof. A Directive Object asserts REPOSITORY_TEST_OR_EXECUTABLE_CHECK, which is the opposite claim.',
+      normativeSentencesNotCompiled: TERMINAL_SOURCES
+        .filter(file => file.endsWith('.md') && existsSync(resolve(root, file)))
+        .reduce((total, file) => total + normativeSentences(readFileSync(resolve(root, file), 'utf8')).length, 0),
+      notAnAmputation: 'These remain canon, are read at startup, and outrank every compiled directive on objective. What they are not is enforcement debt.'
+    },
+    conflictGraph: contradictions.map(candidate => ({
+      ...candidate,
+      ...resolveByPrecedence(candidate, new Map(directives.map(row => [row.id, row])), precedenceRanks)
+    })),
+    // Which canon file is least enforced, rather than one number across all of
+    // them. A source whose external-effect rules are all unguarded is a
+    // different problem from one with a few weak spots.
+    coverageBySource: Object.fromEntries(CANON_SOURCES.map(source => {
+      const rows = directives.filter(row => row.provenance === source);
+      const ext = rows.filter(row => row.authorityClass === 'EXTERNAL_EFFECT');
+      return [source, {
+        directives: rows.length,
+        withMutationGuard: rows.filter(row => row.mutationGuards?.length).length,
+        externalEffect: ext.length,
+        externalEffectWithMutationGuard: ext.filter(row => row.mutationGuards?.length).length
+      }];
+    })),
     perSource,
     linkageBoundary: 'A test link is vocabulary overlap. It shows a test discusses the same subject and says nothing about whether that test would fail if the rule were broken -- only a mutation that removes the rule can show that. The reliable direction is the negative: a directive no test mentions is very unlikely to be enforced.',
     contradictionBoundary: 'Candidates for reading, not findings. The canon repeatedly pairs a prohibition with a conditional obligation on the same subject, and that is not a contradiction.',
@@ -142,7 +180,12 @@ function main() {
   console.log(review.available
     ? `  review record: ${review.entries} entries, ${review.unreviewed} unread, ${review.holesFound} real holes found and closed`
     : '  review record: missing');
-  console.log(`  contradiction candidates: ${contradictions.length}`);
+  const resolvable = contradictions
+    .map(candidate => resolveByPrecedence(candidate, new Map(directives.map(row => [row.id, row])), precedenceRanks))
+    .filter(row => row.precedenceResolvable).length;
+  const unranked = CANON_SOURCES.filter(source => !precedenceRanks.has(source)).length;
+  console.log(`  contradiction candidates: ${contradictions.length}, of which precedence can settle ${resolvable}`);
+  console.log(`  precedence: ${CANON_SOURCES.length - unranked} of ${CANON_SOURCES.length} operative sources ranked; ${TERMINAL_SOURCES.length} terminal sources ranked but deliberately not compiled`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) main();

@@ -3491,6 +3491,52 @@ export const MUTATIONS = [
     replace: '',
     suites: ['tests/constitution-unguarded-external-effect.test.mjs']
   },
+  // The precedence layer. Every directive used to carry priority: 0, which reads
+  // as "highest precedence" when the truth for eight of nine operative sources
+  // is that no precedence was ever authored.
+  {
+    id: 'CONSTPREC-01', guard: 'An unranked source reports as unranked rather than as a rank',
+    file: 'src/constitution-compiler.mjs',
+    find: "    : { precedenceRank: null, precedenceState: 'UNRANKED__NO_AUTHORED_PRECEDENCE' };",
+    replace: "    : { precedenceRank: 0, precedenceState: 'RANKED_BY_PRECEDENCE_FILE' };",
+    suites: ['tests/constitution-precedence.test.mjs']
+  },
+  {
+    // Deciding that one canon file outranks another is a founder's act. A
+    // compiler that answers anyway has amended the constitution.
+    id: 'CONSTPREC-02', guard: 'A conflict with an unranked side is not settled by inventing an order',
+    file: 'src/constitution-compiler.mjs',
+    find: '  if (!Number.isInteger(rankA) || !Number.isInteger(rankB)) {',
+    replace: '  if (false) {',
+    suites: ['tests/constitution-precedence.test.mjs']
+  },
+  {
+    // Equal ranks give no ordering, so a winner here is a coin toss wearing a
+    // rule's clothes.
+    id: 'CONSTPREC-03', guard: 'Two rules from one source are not ordered against each other',
+    file: 'src/constitution-compiler.mjs',
+    find: "    return { precedenceResolvable: false, reason: 'SAME_SOURCE_SAME_RANK', unranked: [] };",
+    replace: "    return { precedenceResolvable: true, reason: 'SAME_SOURCE_SAME_RANK', winner: candidate.prohibition, unranked: [] };",
+    suites: ['tests/constitution-precedence.test.mjs']
+  },
+  {
+    // A duplicate entry is a defect in the precedence file. Taking the later
+    // rank hides it behind a plausible number.
+    id: 'CONSTPREC-04', guard: 'A file ranked twice keeps its first rank so the duplicate stays visible',
+    file: 'src/constitution-compiler.mjs',
+    find: '    if (!ranks.has(file)) ranks.set(file, rank);',
+    replace: '    ranks.set(file, rank);',
+    suites: ['tests/constitution-precedence.test.mjs']
+  },
+  {
+    // A ranked file that is neither compiled nor declared excluded has been
+    // dropped silently, which is what the no-amputation law exists to prevent.
+    id: 'CONSTPREC-05', guard: 'The terminal layer stays declared rather than quietly absent',
+    file: 'src/constitution-compiler.mjs',
+    find: "export const TERMINAL_SOURCES = Object.freeze([\n  'docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md',",
+    replace: 'export const TERMINAL_SOURCES = Object.freeze([',
+    suites: ['tests/constitution-precedence.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

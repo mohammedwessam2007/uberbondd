@@ -15,6 +15,9 @@ import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyCampaignDecision } from './uberreply-four-offer-genome.mjs';
+import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
+import { loadSendingDomain } from './sending-domain-registry.mjs';
+import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -264,6 +267,108 @@ export class Pipeline {
     });
   }
 
+  async countOutboundSendsToday(inbox, date = this.clock()) {
+    if (!this.store || typeof this.store.list !== 'function') return null;
+    const at = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date(date);
+    if (Number.isNaN(at.getTime())) return null;
+    let events;
+    try {
+      events = await this.store.list('outboundEvents');
+    } catch {
+      return null;
+    }
+    if (!Array.isArray(events)) return null;
+    const day = at.toISOString().slice(0, 10);
+    return events.filter(event => event?.inbox === inbox
+      && event?.eventType === 'sent'
+      && String(event.occurredAt || event.createdAt || '').slice(0, 10) === day).length;
+  }
+
+  async evaluateDomainMailboxSendGate({ account, inbox, date = this.clock() } = {}) {
+    if (this.cfg.outbound?.domainMailboxGateRequired !== true) return null;
+
+    const at = date instanceof Date && !Number.isNaN(date.getTime()) ? date : new Date(date);
+    const timestamp = Number.isNaN(at.getTime()) ? new Date().toISOString() : at.toISOString();
+    const domainId = String(account?.sendingDomainId || account?.domainId || '').trim();
+    const mailboxId = String(account?.sendingMailboxId || account?.mailboxId || '').trim();
+    const workspaceId = String(account?.sendingWorkspaceId || account?.workspaceId || this.cfg.outbound?.workspaceId || this.cfg.workspaceId || '').trim();
+    if (!domainId || !mailboxId || !workspaceId) {
+      return {
+        decision: 'DENY',
+        policyVersion: DOMAIN_MAILBOX_GATE_POLICY_VERSION,
+        reasonCodes: [
+          ...(!domainId || !mailboxId ? ['domain-mailbox-registry-linkage-required'] : []),
+          ...(!workspaceId ? ['sending-workspace-linkage-required'] : [])
+        ],
+        timestamp
+      };
+    }
+
+    const registryConfig = this.cfg.domainMailbox || {};
+    const minWarmupDays = Number.isFinite(Number(registryConfig.minWarmupDays))
+      ? Number(registryConfig.minWarmupDays) : 14;
+    const maxDnsEvidenceAgeHours = Number.isFinite(Number(registryConfig.maxDnsEvidenceAgeHours))
+      ? Number(registryConfig.maxDnsEvidenceAgeHours) : 24;
+    const [domainState, mailboxState, sentToday] = await Promise.all([
+      loadSendingDomain(this.store, domainId, {
+        date: at,
+        minWarmupDays,
+        maxDnsEvidenceAgeHours
+      }),
+      loadSendingMailbox(this.store, mailboxId, { date: at }),
+      this.countOutboundSendsToday(inbox, at)
+    ]);
+    if (sentToday == null) {
+      return {
+        decision: 'DENY',
+        policyVersion: DOMAIN_MAILBOX_GATE_POLICY_VERSION,
+        reasonCodes: ['outbound-volume-observation-required'],
+        timestamp,
+        domainState,
+        mailboxState
+      };
+    }
+
+    const gate = evaluateDomainMailboxGate({
+      domainState,
+      mailboxState,
+      workspaceId,
+      minWarmupDays,
+      volumeCeiling: { dailyCap: mailboxState?.currentDailyCap, sentToday },
+      date: at
+    });
+    return { ...gate, domainState, mailboxState, sentToday, domainId, mailboxId, workspaceId };
+  }
+
+  async logDomainMailboxGateDecision(gate, { prospect, campaign } = {}) {
+    return this.store.log('domain_mailbox_gate_decision', {
+      decision: gate.decision,
+      policyVersion: gate.policyVersion,
+      reasonCodes: gate.reasonCodes || [],
+      prospectId: prospect?.id || null,
+      campaignId: campaign?.id || null,
+      inbox: prospect?.inbox || null,
+      sendingDomainId: gate.domainId || null,
+      sendingMailboxId: gate.mailboxId || null,
+      workspaceId: gate.workspaceId || null,
+      sentToday: gate.sentToday ?? null,
+      domainState: gate.domainState ? {
+        state: gate.domainState.state,
+        dnsStatus: gate.domainState.dnsState?.status || null,
+        evidenceFreshness: gate.domainState.evidenceFreshness || null,
+        outreachState: gate.domainState.outreachState || null
+      } : null,
+      mailboxState: gate.mailboxState ? {
+        authenticationStatus: gate.mailboxState.authenticationStatus || null,
+        warmupStatus: gate.mailboxState.warmupStatus || null,
+        warmupAgeDays: gate.mailboxState.warmupAgeDays ?? null,
+        currentDailyCap: gate.mailboxState.currentDailyCap ?? null,
+        paused: Boolean(gate.mailboxState.paused)
+      } : null,
+      checkedAt: gate.timestamp
+    });
+  }
+
   async maybeSend(prospect, campaign, options = {}) {
     await this.refreshOwnerSender();
     const followup = Number(options.followup || 0);
@@ -319,6 +424,22 @@ export class Pipeline {
     const eligibility = evaluateSendEligibility({ prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup });
     if (!eligibility.ok) return this.markSendSafety(prospect, { sent: false, ...eligibility });
 
+    const account = await this.store.findOne('accounts', { slot: prospect.inbox });
+    if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-gmail' });
+
+    const domainMailboxGate = await this.evaluateDomainMailboxSendGate({ account, inbox: prospect.inbox, date: this.clock() });
+    if (domainMailboxGate) {
+      await this.logDomainMailboxGateDecision(domainMailboxGate, { prospect, campaign });
+      if (domainMailboxGate.decision !== 'NOT_BLOCKED_BY_DOMAIN_MAILBOX_GATE') {
+        return this.markSendSafety(prospect, {
+          sent: false,
+          reason: 'domain-mailbox-gate-denied',
+          decision: domainMailboxGate.decision,
+          reasonCodes: domainMailboxGate.reasonCodes
+        });
+      }
+    }
+
     // The bounded canary is the only live launch phase currently supported by
     // the route-authorization layer. It is intentionally an additional gate:
     // the legacy eligibility, suppression, cap, cooldown and final-recheck
@@ -355,9 +476,6 @@ export class Pipeline {
         });
       }
     }
-
-    const account = await this.store.findOne('accounts', { slot: prospect.inbox });
-    if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-gmail' });
 
     const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? 0);
     const campaignDaily = Number(campaign.dailyCaps?.[prospect.inbox] ?? configuredDaily);

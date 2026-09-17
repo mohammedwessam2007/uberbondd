@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond.ubercel-deployment-signals.v1",
+  "note": "Deployment-state evidence, as collected. A provider badge belongs here and is admitted, but the doctor records that it establishes nothing about UberBond. Contract-bound authenticated health evidence is what would change the verdict, and nothing in this repository collects it yet.",
+  "serviceId": "uberbondd",
+  "healthContract": null,
+  "healthContractNote": "No authenticated health contract is declared for a live UberBond service. Until one is, an AUTHENTICATED_HEALTH signal cannot be contract-bound and the doctor will not treat it as authoritative.",
+  "signals": [
+    {
+      "evidenceClass": "PROVIDER_BADGE",
+      "adapterType": "VERCEL",
+      "provider": "vercel",
+      "serving": false,
+      "observedAt": "2026-09-17T01:56:26.000Z",
+      "sourceRef": "github-commit-status:Vercel – uberbondd @ f19c52c7",
+      "observedNote": "Red on this branch and on main at 6f3bd9af, 5b9c52e8 and a378cf7f. The build log is unreadable from the session that recorded this: the Vercel credential returns 403 for prj_RWUPf14w1xIz9NK92AbNW5z7qDCg."
+    },
+    {
+      "evidenceClass": "PROVIDER_BADGE",
+      "adapterType": "VERCEL",
+      "provider": "vercel-lite-private",
+      "serving": false,
+      "observedAt": "2026-09-17T01:56:03.000Z",
+      "sourceRef": "github-commit-status:Vercel – uberbondd-lite-private @ f19c52c7",
+      "observedNote": "Builds the lite/ root directory, which this work did not touch."
+    }
+  ],
+  "businessEffectAuthority": "NONE",
+  "deploymentAuthority": "NONE"
+}

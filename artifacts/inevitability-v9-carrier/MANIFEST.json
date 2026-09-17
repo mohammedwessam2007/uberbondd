@@ -1,0 +1,15 @@
+{
+  "schema": "uberbond.v9.repo-carrier.3.0.0",
+  "canonicalFile": "UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+  "canonicalBytes": 146566257,
+  "canonicalLines": 232406,
+  "canonicalSha256": "8ad73f53116107acea824f6847aa6f29845e263b3ec01d241b90aae5719fe55d",
+  "compression": "brotli-q11",
+  "carrierEncoding": "base64-text-per-part",
+  "compressedBytes": 1074194,
+  "compressedSha256": "0f8d1b231852b7b11637d27ea7774c42990714924dd50d0c05c43081731b94fb",
+  "partCount": 128,
+  "partPattern": "parts/part-%04d.brpart.b64",
+  "materializedPath": ".uberbond/v9/immutable/UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+  "noAmputation": true
+}

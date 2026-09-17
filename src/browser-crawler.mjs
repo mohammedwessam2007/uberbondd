@@ -130,8 +130,11 @@ function decodeHtml(value = '') {
 }
 
 function htmlAttr(attrs = '', name = '') {
-  const match = String(attrs).match(new RegExp(name + '\\s*=\\s*(?:"([^"]*)"|\\'([^\\']*)\\'|([^\\s>]+))', 'i'));
-  return decodeHtml(match?.[1] ?? match?.[2] ?? match?.[3] ?? '');
+  const source = String(attrs);
+  const match = source.match(new RegExp(name + "\\s*=\\s*\"([^\"]*)\"", "i"))
+    || source.match(new RegExp(name + "\\s*=\\s*'([^']*)'", "i"))
+    || source.match(new RegExp(name + "\\s*=\\s*([^\\s>]+)", "i"));
+  return decodeHtml(match?.[1] || '');
 }
 
 function htmlText(raw = '') {

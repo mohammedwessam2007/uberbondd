@@ -1,11 +1,12 @@
 {
   "schemaVersion": "uberbond.v7-claim-evidence-registry.v1",
-  "generatedAt": "2026-09-17T17:51:21.576Z",
-  "sourceSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
+  "generatedAt": "2026-09-17T18:01:05.917Z",
+  "sourceSha": "b9255b2221c43d1df72f5d2a0bb63b996a9febb9",
   "generator": "scripts/v7-claim-evidence-registry.mjs",
   "freshnessPolicy": "A claim is stale when source it depends on changed after it was measured, not merely when the head moved. Committing a regenerated artifact changes the head and falsifies nothing.",
   "counts": {
-    "EXACT_HEAD": 7,
+    "STALE_AGAINST_CURRENT_HEAD": 5,
+    "EXACT_HEAD": 2,
     "NOT_HEAD_BOUND": 1
   },
   "boundary": "This records what backs a claim and how fresh it is. It does not re-derive the claim, so a wrong measurement recorded at the exact head still reads EXACT_HEAD.",
@@ -18,8 +19,11 @@
       "value": 2,
       "evidenceClass": "COMPUTED_BY_CHECKS",
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/v7-claim-evidence-registry.mjs",
+        "tests/v7-proof-and-claims.test.mjs"
+      ],
       "note": "Every gap ran a check. The number is a measurement, not a label."
     },
     {
@@ -29,8 +33,11 @@
       "value": false,
       "evidenceClass": "COMPUTED_BY_CHECKS",
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/v7-claim-evidence-registry.mjs",
+        "tests/v7-proof-and-claims.test.mjs"
+      ],
       "note": null
     },
     {
@@ -39,7 +46,7 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 496,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
+      "producedAtSha": "b9255b2221c43d1df72f5d2a0bb63b996a9febb9",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "Registered, not killed. A registered guard that was never run proves nothing."
@@ -50,7 +57,7 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 84,
       "evidenceClass": "VOCABULARY_LINKAGE_TO_A_KILLED_GUARD",
-      "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
+      "producedAtSha": "b9255b2221c43d1df72f5d2a0bb63b996a9febb9",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "The linkage is term overlap between a directive and a guard description. It shows a guard exists on the same subject, not that it enforces this sentence."
@@ -62,8 +69,11 @@
       "value": 14,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/v7-claim-evidence-registry.mjs",
+        "tests/v7-proof-and-claims.test.mjs"
+      ],
       "note": null
     },
     {
@@ -84,8 +94,11 @@
       "value": "EXTERNAL_BLOCKED",
       "evidenceClass": "REPRODUCIBLE_BY_RUNNING_THE_MATERIALIZER",
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/v7-claim-evidence-registry.mjs",
+        "tests/v7-proof-and-claims.test.mjs"
+      ],
       "note": "The ledger check runs scripts/materialize-inevitability-v9.py at the head it reports. The narrative record lives at artifacts/v9/canonical-v9-materialization-blocker.json."
     },
     {
@@ -95,8 +108,11 @@
       "value": "NONE",
       "evidenceClass": "ABSENCE_OF_EXTERNAL_RECEIPTS",
       "producedAtSha": "7e44cfe049dfc83896adeb2fe36e36ec2726e2d3",
-      "freshness": "EXACT_HEAD",
-      "sourceChangedSince": [],
+      "freshness": "STALE_AGAINST_CURRENT_HEAD",
+      "sourceChangedSince": [
+        "scripts/v7-claim-evidence-registry.mjs",
+        "tests/v7-proof-and-claims.test.mjs"
+      ],
       "note": "An absence claim. It can be falsified by one real receipt and cannot be strengthened by any amount of internal work."
     }
   ],

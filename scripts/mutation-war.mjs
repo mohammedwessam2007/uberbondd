@@ -3757,7 +3757,7 @@ export const MUTATIONS = [
     // describing a tree that had since changed, read as current.
     id: 'V7CLAIM-01', guard: 'A claim produced at another head reads stale',
     file: 'scripts/v7-claim-evidence-registry.mjs',
-    find: "      : sha === head ? 'EXACT_HEAD'",
+    find: "      : changed.length === 0 ? 'EXACT_HEAD'",
     replace: "      : true ? 'EXACT_HEAD'",
     suites: ['tests/v7-proof-and-claims.test.mjs']
   },

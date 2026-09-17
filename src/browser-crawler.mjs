@@ -28,7 +28,7 @@ function normalizeHeaders(headers = {}) {
   return Object.fromEntries(Object.entries(headers || {}).map(([key, value]) => [String(key).toLowerCase(), String(value)]));
 }
 
-async function pageSnapshot(page, timeoutMs = 5000) {
+async function pageSnapshot(page, timeoutMs = 20000) {
   let timer;
   try {
     return await Promise.race([
@@ -74,7 +74,7 @@ async function pageSnapshot(page, timeoutMs = 5000) {
     function uniqLocal(a){return [...new Set(a.map(x=>String(x).toLowerCase()))]}
   }, {CTA_SOURCE:CTA.source,CONTACT_SOURCE:CONTACT.source}),
       new Promise((_, reject) => {
-        timer = setTimeout(() => reject(new Error('page-snapshot-timeout')), Math.max(1000, Number(timeoutMs || 5000)));
+        timer = setTimeout(() => reject(new Error('page-snapshot-timeout')), Math.max(1000, Number(timeoutMs || 20000)));
       })
     ]);
   } finally {
@@ -192,7 +192,10 @@ export async function crawlSiteBrowser(input, options={}) {
           const withBase=/<head[\s>]/i.test(raw)?raw.replace(/<head([^>]*)>/i,`<head$1><base href="${finalUrl}">`):`<base href="${finalUrl}">${raw}`;
           await page.setContent(withBase,{waitUntil:'domcontentloaded',timeout:timeoutMs});
         } else {
-          const response=await page.goto(item.url,{waitUntil:'domcontentloaded',timeout:timeoutMs});
+          const response=await page.goto(item.url,{waitUntil:'commit',timeout:timeoutMs});
+          if (typeof page.waitForLoadState === 'function') {
+            await page.waitForLoadState('domcontentloaded',{timeout:Math.min(timeoutMs,10000)}).catch(()=>{});
+          }
           finalUrl=page.url(); status=response?.status()||0;
           responseHeaders=normalizeHeaders(response?.allHeaders?await response.allHeaders():response?.headers?.()||{});
           if(status>=400){errors.push({url:item.url,status});continue;}
@@ -203,7 +206,7 @@ export async function crawlSiteBrowser(input, options={}) {
         if(pages.length===0)origin=new URL(finalUrl).origin;
         else if(new URL(finalUrl).origin!==origin){errors.push({url:item.url,finalUrl,error:'cross_origin_redirect'});continue;}
         await emitProgress('testing_desktop_experience');
-        const data=await pageSnapshot(page,Math.min(timeoutMs,5000));
+        const data=await pageSnapshot(page,Math.min(timeoutMs,20000));
         const pageId=`${slug(domain)}-${pages.length+1}-${crypto.createHash('sha1').update(finalUrl).digest('hex').slice(0,8)}`;
         const desktopName=`${pageId}-desktop.png`;
         let desktopScreenshot = false;
@@ -220,10 +223,13 @@ export async function crawlSiteBrowser(input, options={}) {
           const withBase=/<head[\s>]/i.test(raw)?raw.replace(/<head([^>]*)>/i,`<head$1><base href="${finalUrl}">`):`<base href="${finalUrl}">${raw}`;
           await mobile.setContent(withBase,{waitUntil:'domcontentloaded',timeout:timeoutMs});
         } else {
-          await mobile.goto(finalUrl,{waitUntil:'domcontentloaded',timeout:timeoutMs});
+          await mobile.goto(finalUrl,{waitUntil:'commit',timeout:timeoutMs});
+          if (typeof mobile.waitForLoadState === 'function') {
+            await mobile.waitForLoadState('domcontentloaded',{timeout:Math.min(timeoutMs,10000)}).catch(()=>{});
+          }
         }
         await mobile.waitForTimeout(Math.min(1200,Math.max(200,delayMs)));
-        const mobileData=await pageSnapshot(mobile,Math.min(timeoutMs,5000));
+        const mobileData=await pageSnapshot(mobile,Math.min(timeoutMs,20000));
         const mobileName=`${pageId}-mobile.png`;
         let mobileScreenshot = false;
         try {

@@ -1,5 +1,5 @@
 {
-  "schema": "uberbond.v9.lossless-generator-carrier.2.1.0",
+  "schema": "uberbond.v9.lossless-generator-carrier.3.0.0",
   "canonical": {
     "name": "UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
     "bytes": 146566257,
@@ -20,28 +20,41 @@
     "kind": "V7_XZ_SEED",
     "compression": "xz",
     "parts": [
-      {"index":1,"file":"part-0001.xz.b64","binaryBytes":38837,"binarySha256":"693cef4456da8de49cee8f56ab81cb2de1428e40603cdc457dfe544463e4e00e","encodedBytes":51785,"encodedSha256":"f0adad7cf5066e7315ef0020d2c3305c94828a623584e128065f2388ea921477"},
-      {"index":2,"file":"part-0002.xz.b64","binaryBytes":38837,"binarySha256":"bd16ba49f89ca373dc6890e70d7bfc82b44af244e049c7aa6835700eb01a9b57","encodedBytes":51785,"encodedSha256":"f69f892f540b831780fc6fc5d3c8ec552f6982505e4525431244c554a6230094"},
-      {"index":3,"file":"part-0003.xz.b64","binaryBytes":38837,"binarySha256":"d682d41b3f64af0307bd3267a38b14502d7bea9f04c1f1f02efcefead4cfacae","encodedBytes":51785,"encodedSha256":"c53094c061bd4cbdc01675f72d08bcc3936c87b199882ae41cb0c7ab657409f8"},
-      {"index":4,"file":"part-0004.xz.b64","binaryBytes":38837,"binarySha256":"eb510e7ced8fc76c3b5c020f58558266dc8e9bf7c73af87a7163f43a12c92041","encodedBytes":51785,"encodedSha256":"3c34eaac15db831e5c69dba9dde13e0b758d6543fd2c5405d569439214119445"}
+      {"index":1,"file":"part-0001.xz.b64","binaryBytes":9710,"binarySha256":"8c76ec9228405e809b8e96e51dd58270a576873cf5d67db800229616fb4031b3","encodedBytes":12949,"encodedSha256":"115854ef7e8e4d941140e2a7a1f6f98b2da2703208541dcba062e65475637208"},
+      {"index":2,"file":"part-0002.xz.b64","binaryBytes":9710,"binarySha256":"a59e374bc9c404282da38d8bbceacd198d6e926d47c5c5c387c8c0d914dbccf0","encodedBytes":12949,"encodedSha256":"40009e2b74c75c0ee3b5309c00c302c8356e03b13c1b1c15745fefa9d879842f"},
+      {"index":3,"file":"part-0003.xz.b64","binaryBytes":9710,"binarySha256":"a80bc6a294e88d71430ade3797fc6f6216bee35178ff11881f690f2b6723068a","encodedBytes":12949,"encodedSha256":"e0a95179b97f6db02185b9583d3551b2bc853ed1b669aa4dc63965ef0aa124a0"},
+      {"index":4,"file":"part-0004.xz.b64","binaryBytes":9710,"binarySha256":"eafca574390ae2d3e0b1987170432b5c1d991d151ad4f80b3e1bdb3b00e8186e","encodedBytes":12949,"encodedSha256":"184e5a34a6f4fd042323848fb3efab1a71e9f51e70cce6bcbb6f1fecf476ab3a"},
+      {"index":5,"file":"part-0005.xz.b64","binaryBytes":9710,"binarySha256":"df53485159ed8d975f94ed3db4cfa8f9fe5c140b905692d2a1c3ca3826b9b3a9","encodedBytes":12949,"encodedSha256":"b1e318e3def90bc0e3e7f360e2762ab647b933cc56d113690273f15ac26c3bb8"},
+      {"index":6,"file":"part-0006.xz.b64","binaryBytes":9710,"binarySha256":"8eee60dbcfed168c4ffb3ffc6f990782e291ca0965dbc3bd94eb7f9997ab5779","encodedBytes":12949,"encodedSha256":"da55ca0c53b091c6baecea5e630d1776e07e6f9b33b16ba19df8b982073d5f83"},
+      {"index":7,"file":"part-0007.xz.b64","binaryBytes":9710,"binarySha256":"d238b4d8aa65be8ebdcb7a538832495e76f73f7de0cfb5b0366690a5b3c9e86f","encodedBytes":12949,"encodedSha256":"cfe2495ac09d939842e10517bb81b227f9556350771de86b19c64fa98a18ada4"},
+      {"index":8,"file":"part-0008.xz.b64","binaryBytes":9710,"binarySha256":"600d2df8d2b331e7372b40eb02e0f9a495a6d89fbf49c597da87a299390aee5d","encodedBytes":12949,"encodedSha256":"fae06ad4b6e718140e50c67b36181c0f64351861ebdb03a9e0d9f7322e1f80c4"},
+      {"index":9,"file":"part-0009.xz.b64","binaryBytes":9710,"binarySha256":"2de0a80b5a2ae1893ece03c7d4ab5424bb3749cea375b4ba1d2968a3c8201828","encodedBytes":12949,"encodedSha256":"c97d7ff9bd69f46a9a8054044fbe2bb4b3f8e3ce6a878053dfeccaab1c531ea8"},
+      {"index":10,"file":"part-0010.xz.b64","binaryBytes":9710,"binarySha256":"c8c8bed0d735d7d2a41f779223555d2a5ad28d23b83f15f72ffef0ce95d3225c","encodedBytes":12949,"encodedSha256":"6b6a70f0d0a71457fe4a19e19193f272f2435665e5933ffecc9afbf8d8f5b9bd"},
+      {"index":11,"file":"part-0011.xz.b64","binaryBytes":9710,"binarySha256":"e138160367d75afcccce2a91c5cc5086cbe17472f134776d49e27b8dbd9fb58a","encodedBytes":12949,"encodedSha256":"31c81d8eacd213b5aac2424783d9075bfa27a38abca17da82347d24b9fd1e691"},
+      {"index":12,"file":"part-0012.xz.b64","binaryBytes":9710,"binarySha256":"8dd07c68d416547284a6575956e4befa79c19f23ecc620613714ae50e44bb484","encodedBytes":12949,"encodedSha256":"c756d5bfce60e14b0581eb9fabf48606af6bb54ad62360424f9d68eb6b3e8f31"},
+      {"index":13,"file":"part-0013.xz.b64","binaryBytes":9710,"binarySha256":"113d606970bfd8abb41a501e7337e7c476a4d627f0a7d3a83116268bfa6c0f51","encodedBytes":12949,"encodedSha256":"ac18a7d4873a8e0eed97a8e60c7003a9be4080f709f557dfc898cc521cb8d5d7"},
+      {"index":14,"file":"part-0014.xz.b64","binaryBytes":9710,"binarySha256":"81da7e009cf66bc748317f11781989b1feb4fe0eb914203c22f34a51d2d91da8","encodedBytes":12949,"encodedSha256":"6ee96362f08e40dfcbf87aae093c233a7fd559be50bc4dbef467ce06c00619c7"},
+      {"index":15,"file":"part-0015.xz.b64","binaryBytes":9710,"binarySha256":"6d22596d62918fcd7dfd199cb1b3ed7faab7de1cfaef1f87a988d1d3acea6831","encodedBytes":12949,"encodedSha256":"bb44841ad04484367b56ac2b43c684b3e84d8a427ed0bf1031ca6e75215917b7"},
+      {"index":16,"file":"part-0016.xz.b64","binaryBytes":9698,"binarySha256":"57ade6aa23cf45d641e49c24a764eb7f6822a1798b957fc7cea145a6275489a3","encodedBytes":12933,"encodedSha256":"83ddd88595df9a032026168392b0ce02af20380150f5fc74fb664af32f2346cb"}
     ],
-    "binaryBytes": 155348,
-    "binarySha256": "0388e5ddcda8ede45bf1ba6316576a0987f9d7bc0c3f2a25987709bcf502b3fc",
-    "sourceBytes": 1916551,
-    "sourceSha256": "de93cca36a4c72411ff283d865be1c97cf7680abeb73146dfa48523da0e21921"
+    "binaryBytes":155348,
+    "binarySha256":"0388e5ddcda8ede45bf1ba6316576a0987f9d7bc0c3f2a25987709bcf502b3fc",
+    "sourceBytes":1916551,
+    "sourceSha256":"de93cca36a4c72411ff283d865be1c97cf7680abeb73146dfa48523da0e21921"
   },
   "generator": {
-    "kind": "GENERATOR_XZ",
-    "compression": "xz-9e",
-    "parts": [
-      {"index":1,"file":"part-0001.py.xz.b64","binaryBytes":15516,"binarySha256":"1bfdbf95e3b066af68151f4e39cd8f9a4806ca3f9e87fb61c7bb8b723a799011","encodedBytes":20689,"encodedSha256":"042984b8a3a6c5c5253ccdf4f518f3df19d5d16d5e7f24b148a131adf32af021"}
+    "kind":"GENERATOR_XZ",
+    "compression":"xz",
+    "parts":[
+      {"index":1,"file":"part-0001.py.xz.b64","binaryBytes":7766,"binarySha256":"6a0a453a8898c4ff307ea55875426093401cc92abe1f0ad4c4366dd718cf6382","encodedBytes":10357,"encodedSha256":"6feab3facb7e9609af5dda8a8c1f9674832c1587d9fc960344f6a60c4392f69f"},
+      {"index":2,"file":"part-0002.py.xz.b64","binaryBytes":7766,"binarySha256":"1f6358a3671cfdeebfc1af88b3935a43ebabf74b841584b51c9389952f2cabda","encodedBytes":10357,"encodedSha256":"0c11a99d45b5fac0292125cabeb14f7113598afe305b05c985fb2ce7498909b3"}
     ],
-    "binaryBytes": 15516,
-    "binarySha256": "1bfdbf95e3b066af68151f4e39cd8f9a4806ca3f9e87fb61c7bb8b723a799011",
-    "sourceBytes": 58548,
-    "sourceSha256": "67800e82725305d2cd444577f61cf3cece21fdc624934e5ac49407c1363c41ea"
+    "binaryBytes":15532,
+    "binarySha256":"d69f2cd81e56bbff070241c2435998412eeb165acae36e6258dda55aa205f725",
+    "sourceBytes":58549,
+    "sourceSha256":"c62ea45c2cb482b407c8966cfe9285dc2d1eef76aeee89893e47358707646a35"
   },
-  "materializedPath": ".uberbond/v9/immutable/UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
-  "noAmputation": true,
-  "invariant": "This carrier must reconstruct the exact 146,566,257 canonical bytes and fail on any integrity mismatch."
+  "materializedPath":".uberbond/v9/immutable/UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt",
+  "noAmputation":true,
+  "invariant":"This carrier must reconstruct the exact 146,566,257 canonical bytes and fail on any encoded-part, binary-part, compressed-stream, source, size, line-count, or SHA-256 mismatch."
 }

@@ -6,28 +6,67 @@ typed in.
 
 ## The verdict
 
-`NOT_DONE__SOFTWARE_WORK_REMAINS`. Three software items open, two external.
+`SOFTWARE_SIDE_COMPLETE` for this ledger. Zero software items open, two
+external.
 
-This said `SOFTWARE_SIDE_COMPLETE` and that zero was understated rather than
-wrong in detail: the ledger did not represent branch debt at all. EVENT HORIZON
-section 009 counts unique commits off main, open integration PRs and diverged
-branches in `softwareOpen`, and once they are measured, three items open.
+Read that narrowly. It means the thirteen items CD001-CD013 are closed, each by
+a check that computes its own status from artifacts and the filesystem rather
+than from a label in a file. It does not mean UberBond is finished, and it is
+not a completion claim for the V3 program, whose constitution compiler is the
+only part of it that exists yet.
 
-- Nine diverged branches carry source main does not have, including UBER/OS
-  Generation-0, a free runtime mesh, a founder console and an owned-target
-  security verifier.
-- PR 891 targets an older main and is unverified against the current head.
-- Ninety-eight stranded pre-rewrite modules have not been checked against a
-  successor in main. Three of three sampled were superseded; that is a pattern,
-  not a proof for a hundred.
+The zero moved twice, and both moves are the point:
 
-The two external ones are not code problems and no amount of code closes them:
-no provider credential exists and every model-weight host is refused by the
-network policy, and revenue, customers and cleared payment remain zero.
+- It read `SOFTWARE_SIDE_COMPLETE` once before while branch debt was not
+  represented in the ledger at all. EVENT HORIZON section 009 counts unique
+  commits off main, open integration PRs and diverged branches in
+  `softwareOpen`; measuring them reopened three items.
+- Those three were then closed by reading branches and modules rather than by
+  labelling them, and the reading found two guards main did not have.
 
-"Software side complete", when it is eventually true, will mean no writable work
-remains that the completion ledger has identified. It will not mean the system
-is capable.
+What the last two items cost, and what they returned:
+
+- **CD012** had checked 3 of 101 stranded pre-rewrite modules. All 101 are now
+  placed: 89 by export identity or filename token, 12 read individually because
+  the automated pass could not place them. Eleven were superseded. One,
+  `src/reserved-domains.mjs`, was a real gap: nothing in main guarded RFC 2606
+  domains and `registerSendingDomain` accepted `example.test` as an
+  OWNER_CONFIRMED outreach sending domain, reachable from two production job
+  handlers.
+- **CD011** had three diverged branches with no terminal class. All three are
+  SUPERSEDED, decided on content. The 100K branch carried one check main never
+  had -- `mailbox-authenticated-address-required` -- without which a mailbox
+  could certify against a DNS-verified, warmed, authenticated domain while its
+  real sending address belonged to a different one.
+
+Both guards only narrow: neither can permit a send that was previously refused.
+Nine fixtures now declare what they are rather than the guards being loosened
+to let them through.
+
+FD001 no longer gates a branch, because main already implements the founder
+press as an authenticated HTTP entry. The policy question it asks is still
+unanswered and is not mine to answer.
+
+CD006 and CD007 remain external. Neither is code: one needs a model provider,
+the other needs a buyer.
+
+## What the constitution doctor found
+
+`npm run constitution:doctor` compiles the nine canon files into 262 Directive
+Objects -- 155 prohibitions, 64 obligations, 43 permissions -- and asks which
+of them anything actually enforces.
+
+The honest answer is a coverage number and a precision problem. 69 directives
+link to a mutation-killed guard, including 26 of the 48 that govern an external
+effect. The other 22 are a review queue, not a defect count: reading five of
+them found one compound sentence whose pieces are enforced in different places,
+three keyword false positives, and one rule enforced by absence -- nothing in
+`contacts.mjs` constructs an email address, so there is no inference path to
+guard. Those readings are in `artifacts/constitution/reviewed-linkage-findings.json`.
+
+The doctor cannot yet tell those three apart from a genuine hole. That is why
+its number is published as a queue, and why an entry closes by being read
+rather than by tuning the matcher until the count falls.
 
 ## The central finding
 

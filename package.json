@@ -28,6 +28,7 @@
     "db:migrate": "node scripts/migrate.mjs",
     "db:import-json": "node scripts/import-json.mjs",
     "check": "npm run check:syntax && npm run test:deterministic && npm run check:relay-api-request && npm run check:relay-api-executor && npm run test:relay-safety",
+    "constitution:doctor": "node scripts/constitution-doctor.mjs",
     "check:syntax": "node scripts/check-syntax.mjs",
     "check:full": "npm run check && npm run test:browser",
     "smoke": "node scripts/integration-smoke.mjs",

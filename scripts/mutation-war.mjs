@@ -3249,6 +3249,34 @@ export const MUTATIONS = [
     suites: ['tests/outreach-100k-launch-contract.test.mjs']
   },
   {
+    id: 'CONST-01', guard: 'A prohibition phrased "must never" is compiled as a prohibition, not an obligation',
+    file: 'src/constitution-compiler.mjs',
+    find: "  { class: 'PROHIBITION', pattern: /\\b(never|must not|may not|shall not|cannot|do not|does not|is not permitted|forbidden|prohibited|no\\s+\\w+\\s+may)\\b/i },\n  { class: 'OBLIGATION', pattern: /\\b(must|shall|required|requires|always|should)\\b/i },",
+    replace: "  { class: 'OBLIGATION', pattern: /\\b(must|shall|required|requires|always|should)\\b/i },\n  { class: 'PROHIBITION', pattern: /\\b(never|must not|may not|shall not|cannot|do not|does not|is not permitted|forbidden|prohibited|no\\s+\\w+\\s+may)\\b/i },",
+    suites: ['tests/constitution-compiler.test.mjs']
+  },
+  {
+    id: 'CONST-02', guard: 'A vague directive with too few distinctive terms does not link to every test in the repository',
+    file: 'src/constitution-compiler.mjs',
+    find: '  if (terms.length < minimumTerms) return [];\n  const scored = [];\n  for (const [file, fileTerms] of testIndex) {',
+    replace: '  const scored = [];\n  for (const [file, fileTerms] of testIndex) {',
+    suites: ['tests/constitution-compiler.test.mjs']
+  },
+  {
+    id: 'CONST-03', guard: 'A mutation-guarded directive outranks one that is merely mentioned by a test',
+    file: 'src/constitution-compiler.mjs',
+    find: "    status: guards.length\n      ? 'COMPILED_WITH_MUTATION_GUARD'\n      : tests.length ? 'COMPILED_WITH_CANDIDATE_TESTS' : 'COMPILED_NO_TEST_MENTIONS_IT',",
+    replace: "    status: tests.length ? 'COMPILED_WITH_CANDIDATE_TESTS' : 'COMPILED_NO_TEST_MENTIONS_IT',",
+    suites: ['tests/constitution-compiler.test.mjs']
+  },
+  {
+    id: 'CONST-04', guard: 'A fenced code block is not mined for constitutional directives',
+    file: 'src/constitution-compiler.mjs',
+    find: "  const withoutFences = markdown.replace(/```[\\s\\S]*?```/g, '\\n');",
+    replace: '  const withoutFences = markdown;',
+    suites: ['tests/constitution-compiler.test.mjs']
+  },
+  {
     id: 'OOPGATE-05', guard: 'The incumbent is measured against the gate rather than assumed to pass it',
     file: 'scripts/nullstar-generation.mjs',
     find: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;',

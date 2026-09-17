@@ -137,9 +137,9 @@ function htmlAttr(attrs = '', name = '') {
 function htmlText(raw = '') {
   return decodeHtml(String(raw || '')
     .replace(/<!--[\s\S]*?-->/g, ' ')
-    .replace(/<(script|style|noscript|template|svg)\\b[\\s\\S]*?<\\/\\1>/gi, ' ')
+    .replace(/<(script|style|noscript|template|svg)\b[\s\S]*?<\/\1>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim());
 }
 
@@ -154,18 +154,18 @@ function absoluteHtmlUrl(value, baseUrl) {
 
 function parseHtmlSnapshot(raw, finalUrl, viewport = { width: 1440, height: 900 }) {
   const html = String(raw || '');
-  const title = htmlText((html.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i) || [])[1] || '');
-  const metaTags = [...html.matchAll(/<meta\\b([^>]*)>/gi)].map(match => match[1] || '');
+  const title = htmlText((html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '');
+  const metaTags = [...html.matchAll(/<meta\b([^>]*)>/gi)].map(match => match[1] || '');
   const description = htmlAttr(
     metaTags.find(attrs => /^description$/i.test(htmlAttr(attrs, 'name'))) || '',
     'content'
   );
-  const lang = htmlAttr((html.match(/<html\\b([^>]*)>/i) || [])[1] || '', 'lang');
-  const headings = [...html.matchAll(/<(h[1-3])\\b[^>]*>([\\s\\S]*?)<\\/\\1>/gi)]
+  const lang = htmlAttr((html.match(/<html\b([^>]*)>/i) || [])[1] || '', 'lang');
+  const headings = [...html.matchAll(/<(h[1-3])\b[^>]*>([\s\S]*?)<\/\1>/gi)]
     .map(match => ({ level: match[1].toLowerCase(), text: htmlText(match[2]).slice(0, 300) }))
     .filter(item => item.text)
     .slice(0, 60);
-  const links = [...html.matchAll(/<a\\b([^>]*)>([\\s\\S]*?)<\\/a>/gi)]
+  const links = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)]
     .map(match => ({
       url: absoluteHtmlUrl(htmlAttr(match[1], 'href'), finalUrl),
       text: htmlText(match[2]).slice(0, 180)
@@ -173,7 +173,7 @@ function parseHtmlSnapshot(raw, finalUrl, viewport = { width: 1440, height: 900 
     .filter(item => item.url)
     .filter((item, index, all) => all.findIndex(other => other.url === item.url && other.text === item.text) === index)
     .slice(0, 400);
-  const images = [...html.matchAll(/<img\\b([^>]*)>/gi)]
+  const images = [...html.matchAll(/<img\b([^>]*)>/gi)]
     .map(match => ({
       src: absoluteHtmlUrl(htmlAttr(match[1], 'src') || htmlAttr(match[1], 'data-src'), finalUrl),
       alt: htmlAttr(match[1], 'alt'),
@@ -183,7 +183,7 @@ function parseHtmlSnapshot(raw, finalUrl, viewport = { width: 1440, height: 900 
     }))
     .filter(item => item.src)
     .slice(0, 120);
-  const buttons = [...html.matchAll(/<(button|input)\\b([^>]*)>/gi)]
+  const buttons = [...html.matchAll(/<(button|input)\b([^>]*)>/gi)]
     .map(match => ({
       tag: match[1].toLowerCase(),
       text: htmlText(htmlAttr(match[2], 'value') || htmlAttr(match[2], 'aria-label') || htmlAttr(match[2], 'placeholder')),
@@ -197,27 +197,27 @@ function parseHtmlSnapshot(raw, finalUrl, viewport = { width: 1440, height: 900 
   ].slice(0, 100);
   const ctaRx = new RegExp(CTA.source, 'i');
   const ctas = controls.filter(item => ctaRx.test(item.text + ' ' + item.href));
-  const forms = [...html.matchAll(/<form\\b([^>]*)>([\\s\\S]*?)<\\/form>/gi)]
+  const forms = [...html.matchAll(/<form\b([^>]*)>([\s\S]*?)<\/form>/gi)]
     .map(match => ({
       action: absoluteHtmlUrl(htmlAttr(match[1], 'action') || finalUrl, finalUrl),
       method: htmlAttr(match[1], 'method') || 'get',
       text: htmlText(match[2]).slice(0, 500),
-      fields: [...match[2].matchAll(/<(input|select|textarea)\\b([^>]*)>/gi)].map(field => ({
+      fields: [...match[2].matchAll(/<(input|select|textarea)\b([^>]*)>/gi)].map(field => ({
         name: htmlAttr(field[2], 'name'),
         type: htmlAttr(field[2], 'type') || field[1].toLowerCase(),
         label: htmlAttr(field[2], 'aria-label') || htmlAttr(field[2], 'placeholder')
       }))
     }));
   const bodyText = htmlText(html).slice(0, 70000);
-  const emails = [...new Set((html.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi) || []).map(value => value.toLowerCase()))].slice(0, 40);
+  const emails = [...new Set((html.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || []).map(value => value.toLowerCase()))].slice(0, 40);
   const mailtoLinks = links.filter(item => item.url.startsWith('mailto:'));
   const phoneLinks = links.filter(item => item.url.startsWith('tel:'));
-  const whatsappLinks = links.filter(item => /wa\\.me|whatsapp/i.test(item.url));
+  const whatsappLinks = links.filter(item => /wa\.me|whatsapp/i.test(item.url));
   const contactRx = new RegExp(CONTACT.source, 'i');
   const contactLinks = links.filter(item => contactRx.test(item.text + ' ' + item.url));
   const contactForms = forms.filter(form => contactRx.test(form.action + ' ' + form.text + ' ' + form.fields.map(field => field.name + ' ' + field.type + ' ' + field.label).join(' ')));
-  const socialLinks = links.filter(item => /linkedin|instagram|facebook|threads\\.net|x\\.com|twitter|youtube|tiktok/i.test(item.url));
-  const jsonLd = [...html.matchAll(/<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)]
+  const socialLinks = links.filter(item => /linkedin|instagram|facebook|threads\.net|x\.com|twitter|youtube|tiktok/i.test(item.url));
+  const jsonLd = [...html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
     .map(match => match[1])
     .filter(Boolean)
     .slice(0, 10);
@@ -225,7 +225,7 @@ function parseHtmlSnapshot(raw, finalUrl, viewport = { width: 1440, height: 900 
     .map(attrs => ({ name: htmlAttr(attrs, 'name').toLowerCase(), content: htmlAttr(attrs, 'content').slice(0, 500) }))
     .filter(item => /^(robots|googlebot|bingbot)$/.test(item.name) && item.content);
   const visibleH1 = headings.filter(item => item.level === 'h1').map(item => item.text);
-  const genericHero = /\\b(welcome|innovative solutions|quality service|your trusted partner|excellence|we are passionate|transforming possibilities|where excellence meets)\\b/i.test((visibleH1[0] || '') + ' ' + bodyText.slice(0, 800));
+  const genericHero = /\b(welcome|innovative solutions|quality service|your trusted partner|excellence|we are passionate|transforming possibilities|where excellence meets)\b/i.test((visibleH1[0] || '') + ' ' + bodyText.slice(0, 800));
   return {
     title, description, lang, headings, links, images, controls, ctas, forms, bodyText,
     emails, mailtoLinks, phoneLinks, whatsappLinks, contactLinks, contactForms, socialLinks,
@@ -332,7 +332,7 @@ async function crawlSiteHtml(input, options = {}) {
   return {
     startUrl: start, domain, robots, pages,
     errors, emails: uniq(pages.flatMap(page => page.emails)),
-    combinedText: pages.map(page => '[' + page.url + ']\\n' + page.title + '\\n' + page.headings.map(item => item.text).join(' | ') + '\\n' + page.bodyText).join('\\n\\n').slice(0, 120000),
+    combinedText: pages.map(page => '[' + page.url + ']\n' + page.title + '\n' + page.headings.map(item => item.text).join(' | ') + '\n' + page.bodyText).join('\n\n').slice(0, 120000),
     completedAt: new Date().toISOString(), engine: 'html-fetch',
     summary: {
       pagesVisited: pages.length, errors: errors.length, desktopScreenshots: 0, mobileScreenshots: 0

@@ -88,6 +88,7 @@ export class Pipeline {
       screenshotDir: this.cfg.screenshotDir,
       allowLocal: this.cfg.allowLocalFixtures,
       executablePath: this.cfg.chromiumPath,
+      htmlOnly: Boolean(this.cfg.crawl.htmlOnly),
       // Render's free web instance can recycle while a browser waits on a
       // third-party document. Fetch the public HTML with an explicit wall-clock
       // bound, then let Playwright parse the same document for DOM and screenshots.

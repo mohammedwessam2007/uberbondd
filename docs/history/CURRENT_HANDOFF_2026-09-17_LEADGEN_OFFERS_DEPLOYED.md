@@ -28,14 +28,16 @@ The catalog is versioned in `src/revenue-offers.mjs`. The live public configurat
 
 ## Source and live deployment receipt
 
-- Local verified tree: `d850cac1150fba0b61f3da269bea8237bd83a222`.
-- GitHub `main` and deployed source: `066aa0db1ce5a653f144479c085f80c435f8bf39`.
+- Local code checkpoint before this handoff receipt: `d850cac1150fba0b61f3da269bea8237bd83a222`.
+- GitHub `main` code commit and primary code deployment source: `066aa0db1ce5a653f144479c085f80c435f8bf39`.
 - Render service: `uberbond-control-plane` (`srv-dali9vijnfac739m4vcg`).
-- Render deployment: `dep-dam1fkek1f9s73e4i8j0`.
+- Primary code deployment: `dep-dam1fkek1f9s73e4i8j0`.
 - Render deployment status: `live`; finished `2026-09-17T16:40:31.511931Z`.
 - Public health at verification: HTTP 200; Postgres backend; web process healthy; foreground worker online with heartbeat; version `revenue-engine-1.4.0`.
 - Render build logs checked out `066aa0db1ce5a653f144479c085f80c435f8bf39`, installed dependencies successfully, and started the web and worker processes using Postgres.
 - `OMNIA V9 outbound integration mode: off` was present in the live deployment logs. No message was sent by this checkpoint.
+- This handoff receipt was then published on GitHub `main` as `9df093b237f02c40a182075fdebd48b0dbcdd2f4` and deployed as the receipt-only Render deployment `dep-dam1i5qjnfac73cvif80`; that deployment checked out the receipt commit, built successfully, and started the same runtime.
+- Final live probe after the receipt-only deployment: `/api/health` HTTP 200 at `2026-09-17T16:46:59.098Z`; Postgres backend and worker heartbeat online. The bare `/health` path is not a route and returned 404, as expected.
 
 ## Verification receipt
 
@@ -54,4 +56,3 @@ The catalog is versioned in `src/revenue-offers.mjs`. The live public configurat
 ## Next controlled frontier
 
 Use the live Opportunity Snapshot to qualify permitted opportunities and route interested prospects into the four-offer ladder. Preserve provenance, deduplication, suppression, and idempotency on every subsequent record. Treat provider receipts, accepted delivery, cleared payment, and contribution margin as separate evidence classes.
-

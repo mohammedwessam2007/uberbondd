@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-17T17:18:51.326Z",
+  "generatedAt": "2026-09-17T17:41:12.699Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "8b20b5e8c1569cff232c5c50919067cb8500a6e4",
+    "head": "4721d9dcb4047989570df5e1396e74517a69bc1c",
     "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
     "sourceModules": 833,
-    "testSuites": 1008,
+    "testSuites": 1009,
     "workingTreeClean": true
   },
   "measurements": {

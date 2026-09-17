@@ -72,16 +72,20 @@ async function pageSnapshot(page) {
   }, {CTA_SOURCE:CTA.source,CONTACT_SOURCE:CONTACT.source});
 }
 
-async function checkBrokenLinks(links, origin, max=12, allowLocal=false, robots={allow:[],disallow:[]}) {
-  const targets=uniq(links.filter(x=>{try{const u=new URL(x.url);return u.origin===origin&&!SKIP.test(u.pathname)&&isAllowed(x.url,robots);}catch{return false;}}).map(x=>x.url)).slice(0,max);
+async function checkBrokenLinks(links, origin, max=4, allowLocal=false, robots={allow:[],disallow:[]}) {
+  const targets=uniq(links.filter(x=>{try{const u=new URL(x.url);return u.origin===origin&&!SKIP.test(u.pathname)&&isAllowed(x.url,robots);}catch{return false;}}).map(x=>x.url)).slice(0,Math.min(4,max));
   const results=[];
   const linkTimeoutMs=5000;
   for(const url of targets){
     const controller=new AbortController();
     const timer=setTimeout(()=>controller.abort(),linkTimeoutMs);
+    const wallClockTimeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('head-request-timeout')),linkTimeoutMs));
     try{
       await assertPublicUrl(url,{allowLocal});
-      const res=await fetch(url,{method:'HEAD',redirect:'manual',headers:{'user-agent':'UberBondNightshift/1.0'},signal:controller.signal});
+      const res=await Promise.race([
+        fetch(url,{method:'HEAD',redirect:'manual',headers:{'user-agent':'UberBondNightshift/1.0'},signal:controller.signal}),
+        wallClockTimeout
+      ]);
       if(res.status>=400) results.push({url,status:res.status});
     }catch(error){results.push({url,error:error.message});}
     finally{clearTimeout(timer);}

@@ -13,6 +13,7 @@ import { evaluateDeliverabilityGuard } from './deliverability-guard.mjs';
 import { evaluateConsequenceBoundary, buildOutboundActionIntent } from './consequence-boundary.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
+import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -245,6 +246,43 @@ export class Pipeline {
     const eligibility = evaluateSendEligibility({ prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup });
     if (!eligibility.ok) return this.markSendSafety(prospect, { sent: false, ...eligibility });
 
+    // The bounded canary is the only live launch phase currently supported by
+    // the route-authorization layer. It is intentionally an additional gate:
+    // the legacy eligibility, suppression, cap, cooldown and final-recheck
+    // controls above and below remain authoritative. In every other phase the
+    // existing behavior is preserved, including local dry-run preparation.
+    if (this.cfg.outbound?.launchPhase === 'canary') {
+      const governance = evaluateOutreachGovernance({
+        prospect: candidate,
+        campaign,
+        cfg: this.cfg,
+        subject,
+        body,
+        followup,
+        date: this.clock()
+      });
+      await this.store.log('outreach_governance_decision', {
+        decision: governance.ok ? 'ALLOW' : 'DENY',
+        reason: governance.reason || 'bounded-outreach-canary-authorized',
+        prospectId: prospect?.id || null,
+        campaignId: campaign?.id || null,
+        followup,
+        routeDigest: governance.routeDigest || null,
+        approvalId: governance.approvalId || null,
+        approvalDigest: governance.approvalDigest || null,
+        messageDigest: governance.messageDigest || null,
+        effectPayloadDigest: governance.effectPayloadDigest || null,
+        checkedAt: this.clock().toISOString()
+      });
+      if (!governance.ok) {
+        return this.markSendSafety(prospect, {
+          sent: false,
+          reason: 'outreach-governance-denied',
+          reasonCodes: [governance.reason || 'outreach-governance-denied']
+        });
+      }
+    }
+
     const account = await this.store.findOne('accounts', { slot: prospect.inbox });
     if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-gmail' });
 
@@ -412,11 +450,14 @@ export class Pipeline {
     return { sent: true, message, reservation };
   }
 
-  async processOutboundQueue(limit = this.cfg.outbound?.processBatchSize || 10) {
+  async processOutboundQueue(limit = this.cfg.outbound?.processBatchSize || 10, options = {}) {
     let attempted = 0;
     let sent = 0;
+    const targetProspectId = String(options?.prospectId || '').trim();
     const candidates = (await this.store.list('prospects'))
-      .filter(prospect => ['ready', 'research-complete'].includes(prospect.status) && !prospect.repliedAt)
+      .filter(prospect => ['ready', 'research-complete'].includes(prospect.status)
+        && !prospect.repliedAt
+        && (!targetProspectId || prospect.id === targetProspectId))
       .slice(0, Math.max(1, Number(limit || 10)));
     for (const prospect of candidates) {
       const campaign = await this.campaignFor(prospect);

@@ -79,6 +79,27 @@ async function startOutreach() {
       return;
     }
 
+    // The 100K certificate is a scale gate, not a prerequisite for the first
+    // governed message. If exactly one bounded canary is ready, the same
+    // founder button can exercise that path. Dry-run mode never reaches a
+    // provider; live mode asks for a second explicit confirmation.
+    const canary = await request('/api/outbound/canary/status').catch(() => null);
+    if (canary?.readyForDryRun || canary?.readyForLiveSend) {
+      const live = canary.readyForLiveSend === true;
+      if (live && !window.confirm('Send exactly one owner-approved canary message now?')) {
+        setStatus('CANARY NOT STARTED · waiting for your confirmation', 'idle');
+        return;
+      }
+      const run = await request('/api/outbound/canary/start', {
+        method: 'POST',
+        body: { confirmCanary: true }
+      });
+      button.textContent = live ? 'CANARY QUEUED' : 'CANARY DRY RUN QUEUED';
+      setStatus(`${run.state} · one exact prospect · ${live ? 'provider call remains behind the worker final recheck' : 'zero provider calls'}`, 'started');
+      setTimeout(() => document.querySelector('#refresh')?.click(), 750);
+      return;
+    }
+
     const council = await request('/api/admin/uber-socket/outreach-100k-council', {
       method: 'POST',
       body: { fromPeer: 'founder-button', maxResponders: 12 }

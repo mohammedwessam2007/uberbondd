@@ -205,6 +205,30 @@ export function outreachMessageDigest({ recipientEmail, subject, body, provider,
   });
 }
 
+// The message digest identifies the rendered text. The effect digest binds the
+// same text to the exact owner-scoped action (prospect, campaign, sender slot,
+// and follow-up context), so an approval cannot be replayed against a different
+// recipient or payload.
+export function outreachEffectPayloadDigest({
+  prospectId, campaignId, recipientEmail, subject, body, provider, inbox,
+  followup = 0, threadId = '', replyToId = '', listUnsubscribe = ''
+} = {}) {
+  return sha256({
+    schemaVersion: 'uberbond.outreach-effect-payload.v1',
+    prospectId: text(prospectId),
+    campaignId: text(campaignId),
+    recipientEmail: normalizeOutreachEmail(recipientEmail),
+    subject: String(subject || ''),
+    body: String(body || ''),
+    provider: text(provider).toLowerCase(),
+    inbox: text(inbox),
+    followup: Number(followup || 0),
+    threadId: text(threadId),
+    replyToId: text(replyToId),
+    listUnsubscribe: text(listUnsubscribe)
+  });
+}
+
 export function createOutreachApproval(input = {}, secret) {
   const base = {
     schemaVersion: 'uberbond.outreach-approval.v1',
@@ -310,6 +334,19 @@ export function evaluateOutreachGovernance({ prospect = {}, campaign = {}, cfg =
     replyToId: followupNumber ? prospect.rfcMessageId : '',
     listUnsubscribe: prospect.oneClickUnsubscribeUrl
   });
+  const effectPayloadDigest = outreachEffectPayloadDigest({
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    recipientEmail: prospect.contact?.email,
+    subject,
+    body,
+    provider,
+    inbox: prospect.inbox,
+    followup: followupNumber,
+    threadId: followupNumber ? prospect.threadId : '',
+    replyToId: followupNumber ? prospect.rfcMessageId : '',
+    listUnsubscribe: prospect.oneClickUnsubscribeUrl
+  });
   const approval = selectOutreachApproval(prospect, followupNumber);
   if (!approval) return { ok: false, reason: 'outreach-approval-missing' };
   const approvalCheck = verifyOutreachApproval({
@@ -323,6 +360,7 @@ export function evaluateOutreachGovernance({ prospect = {}, campaign = {}, cfg =
     followup: followupNumber,
     routeDigest: route.routeDigest,
     messageDigest,
+    effectPayloadDigest,
     now: date
   });
   if (!approvalCheck.ok) return approvalCheck;
@@ -333,7 +371,8 @@ export function evaluateOutreachGovernance({ prospect = {}, campaign = {}, cfg =
     routeDigest: route.routeDigest,
     approvalId: approval.approvalId,
     approvalDigest: approval.approvalDigest,
-    messageDigest
+    messageDigest,
+    effectPayloadDigest
   };
 }
 

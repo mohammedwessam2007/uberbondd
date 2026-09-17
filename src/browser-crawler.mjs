@@ -117,7 +117,231 @@ async function checkBrokenLinks(links, origin, max=4, allowLocal=false, robots={
   return results;
 }
 
+function decodeHtml(value = '') {
+  return String(value || '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Math.min(0x10ffff, Number(code))))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(Math.min(0x10ffff, Number.parseInt(code, 16))));
+}
+
+function htmlAttr(attrs = '', name = '') {
+  const match = String(attrs).match(new RegExp(name + '\\s*=\\s*(?:"([^"]*)"|\\'([^\\']*)\\'|([^\\s>]+))', 'i'));
+  return decodeHtml(match?.[1] ?? match?.[2] ?? match?.[3] ?? '');
+}
+
+function htmlText(raw = '') {
+  return decodeHtml(String(raw || '')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<(script|style|noscript|template|svg)\\b[\\s\\S]*?<\\/\\1>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\\s+/g, ' ')
+    .trim());
+}
+
+function absoluteHtmlUrl(value, baseUrl) {
+  try {
+    const url = new URL(String(value || '').trim(), baseUrl);
+    return /^https?:$/i.test(url.protocol) ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
+function parseHtmlSnapshot(raw, finalUrl, viewport = { width: 1440, height: 900 }) {
+  const html = String(raw || '');
+  const title = htmlText((html.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i) || [])[1] || '');
+  const metaTags = [...html.matchAll(/<meta\\b([^>]*)>/gi)].map(match => match[1] || '');
+  const description = htmlAttr(
+    metaTags.find(attrs => /^description$/i.test(htmlAttr(attrs, 'name'))) || '',
+    'content'
+  );
+  const lang = htmlAttr((html.match(/<html\\b([^>]*)>/i) || [])[1] || '', 'lang');
+  const headings = [...html.matchAll(/<(h[1-3])\\b[^>]*>([\\s\\S]*?)<\\/\\1>/gi)]
+    .map(match => ({ level: match[1].toLowerCase(), text: htmlText(match[2]).slice(0, 300) }))
+    .filter(item => item.text)
+    .slice(0, 60);
+  const links = [...html.matchAll(/<a\\b([^>]*)>([\\s\\S]*?)<\\/a>/gi)]
+    .map(match => ({
+      url: absoluteHtmlUrl(htmlAttr(match[1], 'href'), finalUrl),
+      text: htmlText(match[2]).slice(0, 180)
+    }))
+    .filter(item => item.url)
+    .filter((item, index, all) => all.findIndex(other => other.url === item.url && other.text === item.text) === index)
+    .slice(0, 400);
+  const images = [...html.matchAll(/<img\\b([^>]*)>/gi)]
+    .map(match => ({
+      src: absoluteHtmlUrl(htmlAttr(match[1], 'src') || htmlAttr(match[1], 'data-src'), finalUrl),
+      alt: htmlAttr(match[1], 'alt'),
+      width: Number(htmlAttr(match[1], 'width') || 0),
+      height: Number(htmlAttr(match[1], 'height') || 0),
+      visible: true
+    }))
+    .filter(item => item.src)
+    .slice(0, 120);
+  const buttons = [...html.matchAll(/<(button|input)\\b([^>]*)>/gi)]
+    .map(match => ({
+      tag: match[1].toLowerCase(),
+      text: htmlText(htmlAttr(match[2], 'value') || htmlAttr(match[2], 'aria-label') || htmlAttr(match[2], 'placeholder')),
+      href: '',
+      x: 0, y: 0, width: 0, height: 0, aboveFold: true
+    }))
+    .filter(item => item.text);
+  const controls = [
+    ...links.map(item => ({ tag: 'a', text: item.text, href: item.url, x: 0, y: 0, width: 0, height: 0, aboveFold: true })),
+    ...buttons
+  ].slice(0, 100);
+  const ctaRx = new RegExp(CTA.source, 'i');
+  const ctas = controls.filter(item => ctaRx.test(item.text + ' ' + item.href));
+  const forms = [...html.matchAll(/<form\\b([^>]*)>([\\s\\S]*?)<\\/form>/gi)]
+    .map(match => ({
+      action: absoluteHtmlUrl(htmlAttr(match[1], 'action') || finalUrl, finalUrl),
+      method: htmlAttr(match[1], 'method') || 'get',
+      text: htmlText(match[2]).slice(0, 500),
+      fields: [...match[2].matchAll(/<(input|select|textarea)\\b([^>]*)>/gi)].map(field => ({
+        name: htmlAttr(field[2], 'name'),
+        type: htmlAttr(field[2], 'type') || field[1].toLowerCase(),
+        label: htmlAttr(field[2], 'aria-label') || htmlAttr(field[2], 'placeholder')
+      }))
+    }));
+  const bodyText = htmlText(html).slice(0, 70000);
+  const emails = [...new Set((html.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi) || []).map(value => value.toLowerCase()))].slice(0, 40);
+  const mailtoLinks = links.filter(item => item.url.startsWith('mailto:'));
+  const phoneLinks = links.filter(item => item.url.startsWith('tel:'));
+  const whatsappLinks = links.filter(item => /wa\\.me|whatsapp/i.test(item.url));
+  const contactRx = new RegExp(CONTACT.source, 'i');
+  const contactLinks = links.filter(item => contactRx.test(item.text + ' ' + item.url));
+  const contactForms = forms.filter(form => contactRx.test(form.action + ' ' + form.text + ' ' + form.fields.map(field => field.name + ' ' + field.type + ' ' + field.label).join(' ')));
+  const socialLinks = links.filter(item => /linkedin|instagram|facebook|threads\\.net|x\\.com|twitter|youtube|tiktok/i.test(item.url));
+  const jsonLd = [...html.matchAll(/<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)]
+    .map(match => match[1])
+    .filter(Boolean)
+    .slice(0, 10);
+  const robotsMeta = metaTags
+    .map(attrs => ({ name: htmlAttr(attrs, 'name').toLowerCase(), content: htmlAttr(attrs, 'content').slice(0, 500) }))
+    .filter(item => /^(robots|googlebot|bingbot)$/.test(item.name) && item.content);
+  const visibleH1 = headings.filter(item => item.level === 'h1').map(item => item.text);
+  const genericHero = /\\b(welcome|innovative solutions|quality service|your trusted partner|excellence|we are passionate|transforming possibilities|where excellence meets)\\b/i.test((visibleH1[0] || '') + ' ' + bodyText.slice(0, 800));
+  return {
+    title, description, lang, headings, links, images, controls, ctas, forms, bodyText,
+    emails, mailtoLinks, phoneLinks, whatsappLinks, contactLinks, contactForms, socialLinks,
+    jsonLd, robotsMeta, h1Count: visibleH1.length, visibleH1,
+    viewport,
+    document: { width: viewport.width, height: Math.max(viewport.height, Math.ceil(bodyText.length / 2)) },
+    horizontalOverflow: false,
+    genericHero,
+    contactSignals: emails.length + mailtoLinks.length + phoneLinks.length + whatsappLinks.length + contactLinks.length + contactForms.length,
+    performance: { navigation: null, resources: 0 }
+  };
+}
+
+async function fetchHtmlBounded(url, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), Math.max(1000, Number(timeoutMs || 10000)));
+  try {
+    const response = await fetch(url, { headers: { 'user-agent': 'UberBondNightshift/1.0 (+public website quality research)' }, signal: controller.signal });
+    return {
+      status: response.status,
+      finalUrl: response.url,
+      headers: response.headers,
+      html: await response.text()
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function crawlSiteHtml(input, options = {}) {
+  const allowLocal = Boolean(options.allowLocal);
+  const start = (await assertPublicUrl(input, { allowLocal })).href;
+  let origin = new URL(start).origin;
+  const domain = normalizeDomain(start);
+  const maxPages = Math.max(1, Math.min(12, Number(options.maxPages || 1)));
+  const delayMs = Math.max(0, Number(options.delayMs || 500));
+  const timeoutMs = Math.max(5000, Number(options.timeoutMs || 10000));
+  const htmlFetcher = typeof options.htmlFetcher === 'function' ? options.htmlFetcher : fetchHtmlBounded;
+  const robots = await getRobots(start, options.robotsFetcher || fetch);
+  if (robots.available === false) {
+    return {
+      startUrl: start, domain, robots, pages: [],
+      errors: [{ url: start, error: robots.error || 'robots-unavailable', status: robots.status || 0 }],
+      emails: [], combinedText: '', completedAt: new Date().toISOString(), engine: 'html-fetch',
+      summary: { pagesVisited: 0, errors: 1, desktopScreenshots: 0, mobileScreenshots: 0 }
+    };
+  }
+  const queue = [{ url: start, depth: 0, score: 100 }];
+  const seen = new Set();
+  const pages = [];
+  const errors = [];
+  while (queue.length && pages.length < maxPages) {
+    queue.sort((a, b) => b.score - a.score);
+    const item = queue.shift();
+    if (!item || seen.has(item.url)) continue;
+    seen.add(item.url);
+    if (!isAllowed(item.url, robots)) {
+      errors.push({ url: item.url, error: 'blocked_by_robots' });
+      continue;
+    }
+    try {
+      const fetched = htmlFetcher === fetchHtmlBounded
+        ? await fetchHtmlBounded(item.url, timeoutMs)
+        : await htmlFetcher(item.url);
+      const status = Number(fetched?.status || 200);
+      const finalUrl = fetched?.finalUrl || item.url;
+      if (status >= 400) {
+        errors.push({ url: item.url, status });
+        continue;
+      }
+      await assertPublicUrl(finalUrl, { allowLocal });
+      if (normalizeDomain(finalUrl) !== domain) {
+        errors.push({ url: item.url, finalUrl, error: 'cross_site_redirect' });
+        continue;
+      }
+      if (pages.length === 0) origin = new URL(finalUrl).origin;
+      else if (new URL(finalUrl).origin !== origin) {
+        errors.push({ url: item.url, finalUrl, error: 'cross_origin_redirect' });
+        continue;
+      }
+      const data = parseHtmlSnapshot(fetched?.html || '', finalUrl, { width: 1440, height: 900 });
+      const mobileData = parseHtmlSnapshot(fetched?.html || '', finalUrl, { width: 390, height: 844 });
+      const brokenLinks = pages.length === 0 ? await checkBrokenLinks(data.links, origin, 12, allowLocal, robots) : [];
+      pages.push({
+        url: finalUrl, requestedUrl: item.url, status,
+        responseHeaders: normalizeHeaders(fetched?.headers || {}),
+        depth: item.depth, redirected: finalUrl !== item.url,
+        ...data, mobile: mobileData, brokenLinks,
+        screenshots: { desktop: '', mobile: '' }
+      });
+      for (const link of data.links) {
+        try {
+          const u = new URL(link.url);
+          u.hash = '';
+          if (u.origin !== origin || seen.has(u.href) || SKIP.test(u.pathname) || item.depth >= 2) continue;
+          queue.push({ url: u.href, depth: item.depth + 1, score: scoreLink(u.href, link.text) - item.depth });
+        } catch {}
+      }
+    } catch (error) {
+      errors.push({ url: item.url, error: error.message });
+    }
+    await sleep(Math.max(delayMs, (robots.crawlDelay || 0) * 1000));
+  }
+  return {
+    startUrl: start, domain, robots, pages,
+    errors, emails: uniq(pages.flatMap(page => page.emails)),
+    combinedText: pages.map(page => '[' + page.url + ']\\n' + page.title + '\\n' + page.headings.map(item => item.text).join(' | ') + '\\n' + page.bodyText).join('\\n\\n').slice(0, 120000),
+    completedAt: new Date().toISOString(), engine: 'html-fetch',
+    summary: {
+      pagesVisited: pages.length, errors: errors.length, desktopScreenshots: 0, mobileScreenshots: 0
+    }
+  };
+}
+
 export async function crawlSiteBrowser(input, options={}) {
+  if (options.htmlOnly) return crawlSiteHtml(input, options);
   const allowLocal=Boolean(options.allowLocal);
   const start=(await assertPublicUrl(input,{allowLocal})).href;
   let origin=new URL(start).origin;

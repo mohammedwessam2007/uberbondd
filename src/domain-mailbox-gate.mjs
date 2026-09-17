@@ -31,7 +31,8 @@ function deny(reasonCodes, timestamp, extra = {}) {
 // volumeCeiling: { dailyCap, sentToday } -- read from the mailbox's own
 // provider-confirmed cap, never invented here.
 export function evaluateDomainMailboxGate({
-  domainState = null, mailboxState = null, workspaceId = null, volumeCeiling = null, date = new Date()
+  domainState = null, mailboxState = null, workspaceId = null, volumeCeiling = null,
+  minWarmupDays = null, date = new Date()
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -43,10 +44,31 @@ export function evaluateDomainMailboxGate({
   if (workspaceId && (domainState.workspaceId !== workspaceId || mailboxState.workspaceId !== workspaceId)) {
     return deny(['workspace-isolation-violation'], timestamp);
   }
+  if (domainState.domainId && mailboxState.sendingDomainId && domainState.domainId !== mailboxState.sendingDomainId) {
+    deny_.push('domain-mailbox-linkage-mismatch');
+  }
+  if (Array.isArray(domainState.mailboxState?.linkedMailboxIds)
+    && mailboxState.mailboxId
+    && !domainState.mailboxState.linkedMailboxIds.includes(mailboxState.mailboxId)) {
+    deny_.push('mailbox-not-linked-to-domain');
+  }
 
   if (domainState.state === 'PAUSED' || domainState.state === 'BLOCKED' || domainState.state === 'RETIRED') deny_.push(`domain-state:${domainState.state}`);
   if (mailboxState.paused) deny_.push('mailbox-paused');
+  if (mailboxState.providerRateLimited) deny_.push('mailbox-provider-rate-limited');
   if (mailboxState.authenticationStatus !== 'AUTHENTICATED') deny_.push('mailbox-authentication-not-confirmed');
+  for (const field of ['spfStatus', 'dkimStatus', 'dmarcStatus', 'alignmentStatus']) {
+    if (mailboxState[field] != null && !['GREEN', 'YELLOW'].includes(String(mailboxState[field]).toUpperCase())) {
+      deny_.push(`mailbox-${field.replace(/Status$/, '').toLowerCase()}-not-verified:${mailboxState[field] || 'UNKNOWN'}`);
+    }
+  }
+  if (mailboxState.warmupStatus != null && mailboxState.warmupStatus !== 'WARMUP_COMPLETE') {
+    deny_.push(`mailbox-warmup-not-complete:${mailboxState.warmupStatus || 'UNKNOWN'}`);
+  }
+  if (minWarmupDays != null && mailboxState.warmupStatus === 'WARMUP_COMPLETE') {
+    const age = Number(mailboxState.warmupAgeDays);
+    if (!Number.isFinite(age) || age < Number(minWarmupDays)) deny_.push('mailbox-minimum-warmup-period-not-observed');
+  }
   if (!['GREEN', 'YELLOW'].includes(domainState.dnsState?.status)) deny_.push(`domain-dns-not-verified:${domainState.dnsState?.status || 'UNKNOWN'}`);
   if (domainState.evidenceFreshness === 'NONE') deny_.push('domain-dns-never-verified');
   else if (domainState.evidenceFreshness === 'STALE') review.push('domain-dns-evidence-stale');
@@ -60,7 +82,8 @@ export function evaluateDomainMailboxGate({
     const cap = Number(volumeCeiling.dailyCap);
     const sent = Number(volumeCeiling.sentToday);
     if (!Number.isFinite(cap) || cap <= 0) deny_.push('volume-ceiling-unknown-or-zero');
-    else if (Number.isFinite(sent) && sent >= cap) deny_.push('volume-ceiling-exceeded');
+    else if (!Number.isFinite(sent) || sent < 0) deny_.push('volume-sent-count-unknown');
+    else if (sent >= cap) deny_.push('volume-ceiling-exceeded');
   } else {
     deny_.push('volume-ceiling-not-supplied');
   }

@@ -58,5 +58,5 @@ test('production supervisor owns local Postgres and stable local credentials wit
 });
 
 test('UberBond build seals dependencies instead of trusting symlink targets',()=>{
-  const build=read('scripts/uberlit-build-uberbond.mjs');assert.match(build,/--bin-links=false/);assert.match(build,/--include=dev/);assert.match(build,/uberlit-build-symlink-escape-refused/);assert.match(build,/flattenSymlinks/);
+  const build=read('scripts/uberlit-build-uberbond.mjs');assert.match(build,/--ignore-scripts/);assert.match(build,/--bin-links=false/);assert.match(build,/--include=dev/);assert.match(build,/uberlit-build-symlink-escape-refused/);assert.match(build,/flattenSymlinks/);
 });

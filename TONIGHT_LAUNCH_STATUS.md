@@ -4,11 +4,13 @@ Last reconciled: 2026-09-17 UTC. This file separates deployed software from owne
 
 - Canonical version: 1.4.0
 - GitHub repository: LIVE — `mohammedwessam2007/uberbondd`
-- Main commit at last runtime observation: `64f36a4cb8f2b5867499945449e72ef39cbc43ac`
-- Render service: LIVE — `uberbond-control-plane` on the Frankfurt free instance
+- Main commit at last runtime observation: `1e48af922364e9e633dac865ac3340f56ed822b8`
+- Render service: LIVE — `uberbond-control-plane` on the Frankfurt free instance; deployment `dep-dam7hqqjnfac73e3m5k0`
 - Public Web URL: https://uberbond-control-plane.onrender.com
-- PostgreSQL: HEALTH CHECK 200; Postgres-backed runtime observed
-- Worker service: ONLINE; worker heartbeat observed
+- PostgreSQL: HEALTH CHECK 200 at `2026-09-17T23:35:32.199Z`; Postgres-backed runtime observed
+- Worker service: ONLINE; worker heartbeat observed; protected outreach status returns 401 without owner auth
+- Deterministic verification: 7,676 passed; 54 intentional skips; 0 failures
+- Browser verification: BLOCKED in this runner because Playwright Chromium could not be downloaded
 - Vercel/Ubercel deployment lane: serving receipt recorded; Vercel deploy quota is a provider limit, not a source failure
 - Cold-email send-path gate: WIRED; production default requires canonical domain/mailbox/workspace readiness before reservation or provider dispatch
 - Gmail OAuth: NOT CONNECTED/NOT VERIFIED in this session

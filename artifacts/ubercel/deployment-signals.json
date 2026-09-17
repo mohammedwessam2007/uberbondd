@@ -70,6 +70,21 @@
       "contractBound": true,
       "unboundReason": null,
       "deploymentAuthority": "NONE"
+    },
+    {
+      "evidenceClass": "AUTHENTICATED_HEALTH",
+      "adapterType": "OTHER_REPLACEABLE",
+      "provider": "render",
+      "serving": true,
+      "observedAt": "2026-09-17T23:35:32.199Z",
+      "sourceRef": "render:deployment:dep-dam7hqqjnfac73e3m5k0:health:2026-09-17T23:35:32.199Z",
+      "observedBy": "codex.render-deployment-verification",
+      "healthRef": "https://uberbond-control-plane.onrender.com/api/health",
+      "status": 200,
+      "bodyDigest": "sha256:4ac9db055af72b301a71c6d8a70cd53cea305911b1b067370e8e27028cb27269",
+      "contractBound": true,
+      "unboundReason": null,
+      "deploymentAuthority": "NONE"
     }
   ],
   "businessEffectAuthority": "NONE",

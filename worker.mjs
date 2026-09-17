@@ -72,7 +72,11 @@ if (autoResumeOnBoot) {
     status, jobs.filter(item => item.status === status).length
   ]));
   const activeResearch = jobs.filter(item => item.status === 'active' && item.type === 'research.batch').length;
-  console.log(`UberBond startup recovery snapshot: paused=${Boolean((await queue.pausedState()).paused)} activeResearch=${activeResearch} jobCounts=${JSON.stringify(jobCounts)} targetStatus=${target?.status || 'missing'}`);
+  const researchJobs = jobs.filter(item => item.type === 'research.batch').map(item => ({
+    id: item.id, status: item.status, attempts: item.attempts,
+    lastError: String(item.lastError || '').slice(0, 240)
+  }));
+  console.log(`UberBond startup recovery snapshot: paused=${Boolean((await queue.pausedState()).paused)} activeResearch=${activeResearch} jobCounts=${JSON.stringify(jobCounts)} targetStatus=${target?.status || 'missing'} targetError=${String(target?.error || '').slice(0, 240)} researchJobs=${JSON.stringify(researchJobs)}`);
 }
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 

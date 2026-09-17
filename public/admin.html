@@ -158,10 +158,57 @@
     <div id="discovery-runs" class="stack"></div>
   </article>
 </section>
+<section class="grid two">
+  <article>
+    <div class="kicker">05 · NATIVE LEAD OPS</div>
+    <h2>Compile a governed lead list</h2>
+    <p class="hint">Apollo-style targeting, canonical-domain dedupe, suppression checks, evidence scoring, and campaign handoff in one local control. It prepares a list; it never authorizes contact.</p>
+    <form id="native-list-form">
+      <label>List name<input name="name" value="Founding lane · evidence-backed accounts"></label>
+      <label>ICP prompt<input name="prompt" value="agencies with a visible booking, attribution, or release-quality problem"></label>
+      <div class="row"><label>Industries<input name="industries" placeholder="HVAC agency, performance marketing"></label><label>Countries<input name="countries" placeholder="United Kingdom, UAE, Saudi Arabia"></label></div>
+      <div class="row"><label>Cities<input name="cities" placeholder="London, Dubai, Riyadh"></label><label>Roles<input name="roles" placeholder="Founder, marketing director"></label></div>
+      <div class="row"><label>Minimum score<input name="minScore" type="number" value="55" min="0" max="100"></label><label>Maximum records<input name="limit" type="number" value="50" min="1" max="250"></label></div>
+      <label class="check"><input name="requireEvidence" type="checkbox" checked> Require source-backed evidence</label>
+      <label class="check"><input name="requireContact" type="checkbox" checked> Require an exact business contact</label>
+      <button class="gold">Compile list · no send</button>
+      <small id="native-list-status" class="hint">No native list compiled in this session.</small>
+    </form>
+    <div id="native-lists" class="stack"></div>
+    <div class="stack" id="native-ops-tower"><div class="mini-card"><small>Quality control tower will load after authentication.</small></div></div>
+    <button type="button" id="native-ops-run">Refresh quality maps · no calls</button>
+    <small id="native-ops-status" class="hint">Coverage, buying-group gaps, and lookalike planning stay local and read-only.</small>
+    <pre id="native-ops-report" class="mini-card">No quality map run yet.</pre>
+  </article>
+  <article>
+    <div class="kicker">CAPACITY PLANNING</div>
+    <h2>100K/month arithmetic</h2>
+    <p class="hint">This models the operating requirement without pretending that a sender, provider, domain, permissioned corpus, deliverability, or revenue already exists.</p>
+    <form id="capacity-plan-form">
+      <div class="row"><label>Monthly messages<input name="monthlyMessages" type="number" value="100000" min="1"></label><label>Active days<input name="activeDaysPerMonth" type="number" value="30" min="1" max="31"></label></div>
+      <div class="row"><label>Average offer USD<input name="averagePriceUsd" type="number" value="450" min="0"></label><label>Target reply rate<input name="targetReplyRate" type="number" value="0.02" min="0" max="1" step="0.001"></label></div>
+      <label>Target close rate after reply<input name="targetCloseRate" type="number" value="0.05" min="0" max="1" step="0.001"></label>
+      <button>Calculate plan · no send</button>
+      <small id="capacity-status" class="hint">Planning only. No provider calls or external effects.</small>
+    </form>
+    <pre id="capacity-plan" class="mini-card">Run the planner to see daily volume, capacity gap, and evidence blockers.</pre>
+    <div class="kicker">PROVIDER PREFLIGHT</div>
+    <h3>Plan enrichment routes</h3>
+    <p class="hint">This identifies local fallbacks, BYOK gaps, and worst-case attempts. It never spends credits or calls a provider.</p>
+    <form id="provider-preflight-form">
+      <label>Fields<input name="fields" value="company_profile, website_evidence, work_email, email_verification"></label>
+      <label>Provider order<input name="providers" value="local-evidence, owner-import, apollo, hunter, zerobounce"></label>
+      <div class="row"><label>Records<input name="volume" type="number" value="25" min="1" max="100000"></label><label>Owner call cap<input name="maxProviderCalls" type="number" value="0" min="0" max="1000000"></label></div>
+      <button>Run preflight · no calls</button>
+      <small id="provider-preflight-status" class="hint">No provider route preflight run yet.</small>
+    </form>
+    <pre id="provider-preflight-report" class="mini-card">The plan will show which routes are safe, local, or waiting for a BYOK connection.</pre>
+  </article>
+</section>
 <section class="grid three">
-  <article><div class="kicker">05 · OUTPUT</div><h2>Exports</h2><p class="hint">Take the prospect vault anywhere.</p><div class="stack"><a class="action" id="export-csv" href="#">Download CSV</a><a class="action" id="export-json" href="#">Download JSON</a></div></article>
-  <article><div class="kicker">06 · GMAIL</div><h2>Optional inboxes</h2><p class="hint">Connect later. Research and dossiers work without Gmail.</p><div class="stack"><a class="action" id="gmail-a" href="#">Connect Email A</a><a class="action" id="gmail-b" href="#">Connect Email B</a><div id="accounts"></div></div></article>
-  <article><div class="kicker">07 · NIGHT LOG</div><h2>Latest jobs</h2><div id="jobs" class="stack"></div></article>
+  <article><div class="kicker">06 · OUTPUT</div><h2>Exports</h2><p class="hint">Take the prospect vault anywhere.</p><div class="stack"><a class="action" id="export-csv" href="#">Download CSV</a><a class="action" id="export-json" href="#">Download JSON</a></div></article>
+  <article><div class="kicker">07 · GMAIL</div><h2>Optional inboxes</h2><p class="hint">Connect later. Research and dossiers work without Gmail.</p><div class="stack"><a class="action" id="gmail-a" href="#">Connect Email A</a><a class="action" id="gmail-b" href="#">Connect Email B</a><div id="accounts"></div></div></article>
+  <article><div class="kicker">08 · NIGHT LOG</div><h2>Latest jobs</h2><div id="jobs" class="stack"></div></article>
 </section>
 <section class="pipeline-section">
   <div class="section-head"><div><div class="kicker">LIVE PIPELINE</div><h2>Opportunity vault</h2><p class="hint">Open any completed prospect to inspect evidence, screenshots, score logic, and the generated draft.</p></div><div class="filters"><select id="status-filter"><option value="">All statuses</option><option>queued</option><option>crawling</option><option>ready</option><option>research-complete</option><option>rejected</option><option>error</option><option>send-uncertain</option><option>bounce</option><option>complaint</option><option>suppressed</option></select><button id="refresh">Refresh</button></div></div>

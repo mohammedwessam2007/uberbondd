@@ -4,7 +4,7 @@ This is a current checkpoint, not a claim of launch, delivery, demand, payment, 
 
 ## Source and deployment identity
 
-- Application promotion commit: `8760c338d96b42db8e861043ffc898d87e4d0ae2` (PR #925). Current GitHub `main` is `b42a47fd9cfd9c491a961a9c7a9f534773998648` after the documentation-only receipt merge (PR #926).
+- Current GitHub `main` is `3d0f1502b3a23942a06cee8138ba8b283e7a95bb`. The tested local source frontier is `d7ce32e250e2d9128fbd1c4568e55cc7410f2820`; its equivalent published tree is PR #929, head `fb45588a40b84d227aa0db9f38dc6f64e895ad0c`, awaiting hosted checks/merge.
 - Offer-bridge source was based on `93a78ae34fa273d762935652dd3bb0b352d1d772` and verified locally at `27789b0d`; the promoted merge contains the same tested tree plus the durable checkpoint.
 - Live Render service is `uberbond-control-plane`, deployment `dep-dam2h465vjqs73bgs9k0`, application commit `8760c338d96b42db8e861043ffc898d87e4d0ae2`, status `live`, auto-deploy disabled. The later `b42a47fd` main commit is documentation-only and has not changed runtime behavior.
 - Fresh public health receipt at `2026-09-17T17:52:25.604Z`: HTTP 200, `storeBackend=postgres`, worker online, paused false, active jobs 0, heartbeat current. Render logs show Postgres worker/service startup, `OMNIA V9 outbound integration mode: off`, and no send/provider event in the inspected interval.
@@ -25,19 +25,23 @@ The bridge adds an exact campaign `offerId`, includes it in campaign idempotency
 ## Lead generator and data policy
 
 - Live lead-generation surfaces are durable, read-only intelligence and handoff routes backed by `lead_lists`, `lead_searches`, `lead_signals`, and `lead_enrichment_runs`.
+- A clean-room native lead-operations layer is now implemented and published for review. It provides reusable target profiles, deterministic local list compilation, domain-first deduplication, suppression precedence, local-only enrichment plans/results, safe CSV export, and a mobile control-panel path. It also exposes the existing advanced coverage map, field ledger, buying-group plan, lookalike plan, provider catalog, and provider preflight through protected owner routes and the control panel. It clones the operator jobs and durable state boundaries of lead-gen/enrichment/list/campaign tools; it does not copy protected code, data, private network access, or provider controls.
+- Native list compilation is explicitly `OWNER_PLAN_READY_NOT_AUTHORIZED` or blocked until unresolved evidence is supplied. It never enrolls a campaign, sends a message, creates a provider contact, or asserts consent. Replaying the same list request with the same idempotency key converges on one list.
+- The native enrichment surface is local-only until a separately authorized adapter is configured. The 100,000-message planner calculates daily arithmetic, supplied-cell gap, reply/win scenarios, and blockers, but remains `CAPACITY_PLAN_ONLY`; it is not a sender-capacity certificate, deliverability proof, or revenue claim.
 - Allowed inputs are public, owner-provided, first-party, or licensed records with provenance. Provider calls remain off in the verified configuration.
 - Discovery is public OpenStreetMap website-bearing business research in preview mode; it is not permission to send. LinkedIn, Google Maps, private data, CAPTCHA bypass, and block evasion remain out of scope.
 - Suppression and deduplication controls exist and are tested.
 - A real governed recipient inventory is not evidenced. The synthetic 2,000-record portfolio is not a recipient corpus and cannot authorize contact.
-- ICP/account filters, multi-provider enrichment waterfalls, evidence-bound personalization enforcement, unified reply taxonomy, and per-stage economic instrumentation remain partial or unimplemented.
+- Multi-provider enrichment waterfalls, evidence-bound personalization enforcement, unified reply taxonomy, and per-stage economic instrumentation remain partial; the native enrichment waterfall is a provider-free plan boundary, not an active provider integration. Provider preflight now makes those exact gaps visible without pretending a BYOK connection exists.
 
 ## Runtime and safety receipts
 
-- Historical focused suites after the bridge: 103 pass, 0 fail.
-- Current-main rebased checkpoint suite: 64 pass, 0 fail, including server, leadgen, canary, governance, four-offer, canonical freshness, constitution freshness, and worker-context checks.
-- Repository syntax sweep: 2,178 files parse.
+- Native lead-ops and server-route focused suite: 42 pass, 0 fail; reachability ratchet: 13 pass, 0 fail.
+- Repository syntax sweep: 2,186 files parse.
+- Full deterministic suite: 7,672 pass, 54 declared skips, 0 fail.
 - Relay safety suite: 150 pass, 0 fail.
-- Full deterministic suite: 7,642 pass, 54 skipped, 1 pre-existing `nullstar-branch-debt` failure. The remote `feat/command-center-big-button` branch exists but is not an ancestor of current `main`; this was preserved as a red repository-history fixture rather than masked.
+- The branch-debt receipt was regenerated from the current fetched remote history, and the worker-context fixture passes from a clean worktree. No failing check was deleted, masked, or weakened.
+- The live Render deployment remains the older application commit below until PR #929 is merged and manually redeployed.
 - Live outbound remained disabled/dry-run; no provider call, recipient message, DNS mutation, payment action, customer contact, cleared payment, or revenue receipt was created by this checkpoint.
 
 ## Campaign and canary truth

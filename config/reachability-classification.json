@@ -365,16 +365,6 @@
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Benchmarks the lead scorer; analysis only."
     },
-    "src/lead-intelligence-v3.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Lead intake, enrichment and action queue for the same unauthorised outbound chain."
-    },
-    "src/lead-operations.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Operational surface over lead state, feeding the same unauthorised outbound chain."
-    },
     "src/neural-exocortex-admission.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_APPROVED_GENOME_CAPABILITY",

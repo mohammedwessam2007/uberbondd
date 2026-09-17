@@ -82,6 +82,20 @@ async function pageSnapshot(page, timeoutMs = 20000) {
   }
 }
 
+async function boundedAction(operation, timeoutMs = 20000, code = 'bounded-operation-timeout') {
+  let timer;
+  try {
+    return await Promise.race([
+      Promise.resolve().then(operation),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(code)), Math.max(1000, Number(timeoutMs || 20000)));
+      })
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function checkBrokenLinks(links, origin, max=4, allowLocal=false, robots={allow:[],disallow:[]}) {
   const targets=uniq(links.filter(x=>{try{const u=new URL(x.url);return u.origin===origin&&!SKIP.test(u.pathname)&&isAllowed(x.url,robots);}catch{return false;}}).map(x=>x.url)).slice(0,Math.min(4,max));
   const results=[];
@@ -190,7 +204,7 @@ export async function crawlSiteBrowser(input, options={}) {
           if(status>=400){errors.push({url:item.url,status});continue;}
           const raw=String(fetched?.html||'');
           const withBase=/<head[\s>]/i.test(raw)?raw.replace(/<head([^>]*)>/i,`<head$1><base href="${finalUrl}">`):`<base href="${finalUrl}">${raw}`;
-          await page.setContent(withBase,{waitUntil:'domcontentloaded',timeout:timeoutMs});
+          await boundedAction(() => page.setContent(withBase,{waitUntil:'domcontentloaded',timeout:timeoutMs}), timeoutMs, 'page-set-content-timeout');
         } else {
           const response=await page.goto(item.url,{waitUntil:'commit',timeout:timeoutMs});
           if (typeof page.waitForLoadState === 'function') {
@@ -221,7 +235,7 @@ export async function crawlSiteBrowser(input, options={}) {
           const fetched=await htmlFetcher(finalUrl);
           const raw=String(fetched?.html||'');
           const withBase=/<head[\s>]/i.test(raw)?raw.replace(/<head([^>]*)>/i,`<head$1><base href="${finalUrl}">`):`<base href="${finalUrl}">${raw}`;
-          await mobile.setContent(withBase,{waitUntil:'domcontentloaded',timeout:timeoutMs});
+          await boundedAction(() => mobile.setContent(withBase,{waitUntil:'domcontentloaded',timeout:timeoutMs}), timeoutMs, 'mobile-set-content-timeout');
         } else {
           await mobile.goto(finalUrl,{waitUntil:'commit',timeout:timeoutMs});
           if (typeof mobile.waitForLoadState === 'function') {

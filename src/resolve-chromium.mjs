@@ -36,23 +36,34 @@ export function resolveChromium(env = process.env) {
   const declared = String(env.CHROMIUM_PATH || '').trim();
   if (declared) return isExecutableFile(declared) ? declared : '';
 
-  // Playwright installs land as <root>/chromium-<build>/chrome-linux/chrome.
-  // Full builds are preferred over headless shells: the shell is enough for the
-  // crawler, but where both exist the one the crawler was written against wins.
-  //
-  // A declared install root is the declared install root. Also falling back to
-  // the conventional one would mean an operator who points this somewhere
-  // deliberately still gets whatever happens to be in /opt, which is the same
-  // class of mistake as ignoring CHROMIUM_PATH.
-  const root = String(env.PLAYWRIGHT_BROWSERS_PATH || '').trim() || '/opt/pw-browsers';
-  let entries = [];
-  try { entries = readdirSync(root); } catch { entries = []; }
+  // Render's native Node runtime installs Playwright browsers in its cache.
+  // When no root is declared, search the repository's local convention plus
+  // the two standard Playwright container/native locations. If an operator
+  // declares PLAYWRIGHT_BROWSERS_PATH, keep that root authoritative.
+  const configuredRoot = String(env.PLAYWRIGHT_BROWSERS_PATH || '').trim();
+  const roots = configuredRoot
+    ? [configuredRoot]
+    : ['/opt/pw-browsers', '/opt/render/.cache/ms-playwright', '/ms-playwright'];
 
   const chromeBuilds = [];
   const headlessShells = [];
-  for (const entry of entries.filter(name => name.startsWith('chromium')).sort()) {
-    chromeBuilds.push(join(root, entry, 'chrome-linux', 'chrome'));
-    headlessShells.push(join(root, entry, 'chrome-linux', 'headless_shell'));
+  for (const root of roots) {
+    let entries = [];
+    try { entries = readdirSync(root); } catch { continue; }
+    for (const entry of entries.filter(name => name.startsWith('chromium')).sort()) {
+      const base = join(root, entry);
+      // Playwright's current Chrome-for-Testing layout.
+      chromeBuilds.push(
+        join(base, 'chrome-linux64', 'chrome'),
+        join(base, 'chrome-linux', 'chrome')
+      );
+      // Older/full and headless-shell layouts.
+      headlessShells.push(
+        join(base, 'chrome-headless-shell-linux64', 'chrome-headless-shell'),
+        join(base, 'chrome-headless-shell-linux64', 'headless_shell'),
+        join(base, 'chrome-linux', 'headless_shell')
+      );
+    }
   }
 
   return [

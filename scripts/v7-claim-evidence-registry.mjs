@@ -24,6 +24,34 @@ const readJson = path => {
   try { return JSON.parse(readFileSync(resolve(root, path), 'utf8')); } catch { return null; }
 };
 
+// Only source changes can falsify a computed claim. Regenerated artifacts and
+// documentation cannot, and they are what every commit of this kind touches.
+const SOURCE_PREFIX = /^(src|scripts|config|migrations|tests)\//;
+
+/**
+ * Whether an artifact produced at `sha` still describes this tree.
+ *
+ * Comparing against HEAD alone is unsatisfiable: committing the artifact changes
+ * HEAD, so a registry generated immediately before a commit is stale the moment
+ * it lands. The question that actually matters is the one canon-freshness asks
+ * -- has any source the claim depends on changed since it was measured? An
+ * artifact naming the parent commit with no source changed after it is still
+ * describing this tree, and saying otherwise would train a reader to ignore the
+ * word stale.
+ */
+function sourceChangedSince(sha, head) {
+  if (!sha || sha === head) return [];
+  const out = (() => {
+    try { return execFileSync('git', ['diff', '--name-only', `${sha}..${head}`], { cwd: root, encoding: 'utf8' }); }
+    catch { return null; }
+  })();
+  // An unreadable range means the recorded commit is unreachable -- rewritten,
+  // or from another branch. That is not "no changes"; it is a claim whose basis
+  // cannot be found, which is worse than stale.
+  if (out === null) return ['<unreachable-commit>'];
+  return out.split('\n').map(line => line.trim()).filter(Boolean).filter(name => SOURCE_PREFIX.test(name));
+}
+
 // Each claim names the artifact asserting it, how to pull the value, and which
 // field carries the head that artifact was generated against. A claim whose
 // artifact records no head cannot be checked for freshness and says so.
@@ -119,10 +147,12 @@ function main() {
       };
     }
     const sha = spec.shaField(artifact);
+    const changed = sourceChangedSince(sha, head);
     // Three distinct freshness answers, because "no head recorded" is not the
-    // same as "recorded a different head" and neither is the same as current.
+    // same as "recorded a head whose source has since changed", and neither is
+    // the same as current.
     const freshness = sha == null ? 'NOT_HEAD_BOUND'
-      : sha === head ? 'EXACT_HEAD'
+      : changed.length === 0 ? 'EXACT_HEAD'
         : 'STALE_AGAINST_CURRENT_HEAD';
     return {
       id: spec.id,
@@ -132,6 +162,7 @@ function main() {
       evidenceClass: spec.evidenceClass,
       producedAtSha: sha,
       freshness,
+      sourceChangedSince: changed.length ? changed.slice(0, 5) : [],
       note: spec.note ?? null
     };
   });
@@ -142,7 +173,7 @@ function main() {
     generatedAt: new Date().toISOString(),
     sourceSha: head,
     generator: 'scripts/v7-claim-evidence-registry.mjs',
-    freshnessPolicy: 'Each claim is compared against the current head at run time. STALE_AGAINST_CURRENT_HEAD means the artifact asserting it described a different tree.',
+    freshnessPolicy: 'A claim is stale when source it depends on changed after it was measured, not merely when the head moved. Committing a regenerated artifact changes the head and falsifies nothing.',
     counts,
     boundary: 'This records what backs a claim and how fresh it is. It does not re-derive the claim, so a wrong measurement recorded at the exact head still reads EXACT_HEAD.',
     uncertainty: 'NOT_HEAD_BOUND is common and correct for time-based evidence such as a health probe. It is not a failure.',

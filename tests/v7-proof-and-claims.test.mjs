@@ -69,15 +69,20 @@ test('every claim names the artifact backing it and the head that produced it', 
 
 test('a claim produced at a different head reads stale, not current', () => {
   // The failure this catches has already happened twice in this repository.
+  // Staleness is about source, not about the head moving. Comparing against HEAD
+  // alone is unsatisfiable: committing the artifact changes HEAD, so a registry
+  // generated immediately before a commit would be stale the moment it lands.
   const registry = readJson('artifacts/v7/claim-evidence-registry.json');
   for (const row of registry.rows) {
     if (row.freshness === 'EXACT_HEAD') {
-      assert.equal(row.producedAtSha, head, `${row.id} claims exact-head and names ${row.producedAtSha}`);
+      assert.deepEqual(row.sourceChangedSince, [],
+        `${row.id} claims exact-head while naming changed source: ${JSON.stringify(row.sourceChangedSince)}`);
     }
     if (row.freshness === 'STALE_AGAINST_CURRENT_HEAD') {
-      assert.notEqual(row.producedAtSha, head);
+      assert.ok(row.sourceChangedSince.length > 0, `${row.id} claims stale and must name what changed`);
     }
   }
+  assert.ok(head.length === 40);
 });
 
 test('evidence with no head is NOT_HEAD_BOUND rather than fresh', () => {

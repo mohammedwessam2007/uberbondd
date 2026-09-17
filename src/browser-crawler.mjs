@@ -28,8 +28,11 @@ function normalizeHeaders(headers = {}) {
   return Object.fromEntries(Object.entries(headers || {}).map(([key, value]) => [String(key).toLowerCase(), String(value)]));
 }
 
-async function pageSnapshot(page) {
-  return page.evaluate(({CTA_SOURCE,CONTACT_SOURCE}) => {
+async function pageSnapshot(page, timeoutMs = 5000) {
+  let timer;
+  try {
+    return await Promise.race([
+      page.evaluate(({CTA_SOURCE,CONTACT_SOURCE}) => {
     const visible = el => {
       const s=getComputedStyle(el), r=el.getBoundingClientRect();
       return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)!==0&&r.width>2&&r.height>2;
@@ -69,7 +72,14 @@ async function pageSnapshot(page) {
       performance:{navigation:performance.getEntriesByType('navigation')[0]?.toJSON?.()||null,resources:performance.getEntriesByType('resource').length}
     };
     function uniqLocal(a){return [...new Set(a.map(x=>String(x).toLowerCase()))]}
-  }, {CTA_SOURCE:CTA.source,CONTACT_SOURCE:CONTACT.source});
+  }, {CTA_SOURCE:CTA.source,CONTACT_SOURCE:CONTACT.source}),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error('page-snapshot-timeout')), Math.max(1000, Number(timeoutMs || 5000)));
+      })
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function checkBrokenLinks(links, origin, max=4, allowLocal=false, robots={allow:[],disallow:[]}) {
@@ -193,7 +203,7 @@ export async function crawlSiteBrowser(input, options={}) {
         if(pages.length===0)origin=new URL(finalUrl).origin;
         else if(new URL(finalUrl).origin!==origin){errors.push({url:item.url,finalUrl,error:'cross_origin_redirect'});continue;}
         await emitProgress('testing_desktop_experience');
-        const data=await pageSnapshot(page);
+        const data=await pageSnapshot(page,Math.min(timeoutMs,5000));
         const pageId=`${slug(domain)}-${pages.length+1}-${crypto.createHash('sha1').update(finalUrl).digest('hex').slice(0,8)}`;
         const desktopName=`${pageId}-desktop.png`;
         let desktopScreenshot = false;
@@ -213,7 +223,7 @@ export async function crawlSiteBrowser(input, options={}) {
           await mobile.goto(finalUrl,{waitUntil:'domcontentloaded',timeout:timeoutMs});
         }
         await mobile.waitForTimeout(Math.min(1200,Math.max(200,delayMs)));
-        const mobileData=await pageSnapshot(mobile);
+        const mobileData=await pageSnapshot(mobile,Math.min(timeoutMs,5000));
         const mobileName=`${pageId}-mobile.png`;
         let mobileScreenshot = false;
         try {

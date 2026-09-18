@@ -122,6 +122,25 @@ test('the committed ledger was produced by measurement, not by hand', () => {
   }
 });
 
+test('stranded work counts uncommitted source, not the artifacts the run regenerates', () => {
+  // A fixed point that had to be broken. Running the generators dirties the
+  // artifacts they write, so counting those made the stranded-work gap
+  // unclosable by construction: the ledger recording completion would itself be
+  // the uncommitted work preventing it. Source is work that exists nowhere else;
+  // a regenerated artifact is the act of measuring.
+  const ledger = JSON.parse(readFileSync(resolve(root, 'artifacts/v7/gap-ledger.json'), 'utf8'));
+  const stranded = ledger.gaps.find(row => row.id === 'V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN');
+  assert.ok(stranded, 'the stranded-work gap must exist');
+  assert.ok(Object.hasOwn(stranded.measured ?? {}, 'uncommittedSource'),
+    'the gap must count source separately from artifacts');
+  if (stranded.status === 'CLOSED') {
+    assert.equal(stranded.measured.uncommittedSource, 0);
+  } else {
+    assert.ok(stranded.measured.uncommittedSource > 0 || stranded.measured.ahead > 0,
+      'an open stranded-work gap must name uncommitted source or unmerged commits, not regenerated artifacts');
+  }
+});
+
 test('the ledger reports its own incompleteness rather than rounding it away', () => {
   const ledger = JSON.parse(readFileSync(resolve(root, 'artifacts/v7/gap-ledger.json'), 'utf8'));
   const openSoftware = ledger.gaps.filter(row => row.family === 'SOFTWARE' && row.status === 'OPEN');

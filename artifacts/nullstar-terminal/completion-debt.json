@@ -6,22 +6,20 @@
     "191",
     "244"
   ],
-  "generatedAt": "2026-09-17T18:25:32.396Z",
-  "sourceCommit": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generatedAt": "2026-09-18T14:34:12.568Z",
+  "sourceCommit": "7bef816617d1c806d7092568b4332fdf2e75c4da",
   "countsAreComputed": "Every item runs a check that decides its own status. Editing this file does not close anything; the checks read artifacts, the failure-debt ledger and the filesystem.",
   "softwareOpen": 0,
   "externalOpen": 2,
   "totalOpen": 2,
   "branchDebt": {
-    "measuredAgainstMain": "a378cf7fd365dd96c4abd9178744c6d248d37806",
+    "measuredAgainstMain": "af316019dcf2adf2237625b7bf492ddfb5374025",
     "populations": {
-      "PRE_REWRITE_LINEAGE": 735,
-      "CONTAINED_IN_MAIN": 94,
-      "DIVERGED": 23,
-      "MERGED_THEN_REVERTED": 2
+      "CONTAINED_IN_MAIN": 1,
+      "PRE_REWRITE_LINEAGE": 1
     },
-    "divergedReconcilable": 25,
-    "strandedFiles": 367,
+    "divergedReconcilable": 0,
+    "strandedFiles": 2,
     "note": "Section 009 counts branch debt in softwareOpen. It is measured here rather than assumed zero, which is what the previous ledger did by not representing it at all."
   },
   "items": [
@@ -96,7 +94,7 @@
       "what": "Branches that share an ancestor with main and carry commits beyond it, with no recorded disposition. EVENT HORIZON section 009 counts these in softwareOpen and section 183 makes completion invalid while valuable unique commits sit off main.",
       "whyNotDone": "Each needs MERGED, SUPERSEDED, ARCHIVED_DONOR, REJECTED_WITH_EVIDENCE or EXTERNAL_BLOCKED, decided on what the branch actually contains rather than on its name. Two clusters are already settled by evidence and recorded in the branch-debt artifact; the rest are not.",
       "open": false,
-      "evidence": "all 25 diverged branches reached a terminal class"
+      "evidence": "all 0 diverged branches reached a terminal class"
     },
     {
       "id": "CD012-STRANDED-PRE-REWRITE-MODULES-UNVERIFIED",

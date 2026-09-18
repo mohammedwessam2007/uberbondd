@@ -1,14 +1,14 @@
 {
   "schemaVersion": "uberbond.v7-frontier-checkpoint.v1",
-  "generatedAt": "2026-09-18T14:21:45.428Z",
-  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+  "generatedAt": "2026-09-18T14:37:44.781Z",
+  "sourceSha": "7bef816617d1c806d7092568b4332fdf2e75c4da",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
   "businessEffectAuthority": "NONE",
   "freshnessPolicy": "A checkpoint describes the head it names. Resume by re-running the generators, not by trusting this file.",
   "resumeFrom": {
-    "head": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+    "head": "7bef816617d1c806d7092568b4332fdf2e75c4da",
     "firstCommand": "node scripts/v7-gap-ledger.mjs",
     "nextActionable": [
       {

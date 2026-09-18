@@ -74,11 +74,16 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
     const checkedAt = new Date(context.checkedAt);
     if (!Number.isFinite(checkedAt.getTime())) return deny(context, 'outreach-consequence-checked-at-invalid');
 
-    const [prospect, campaign] = await Promise.all([
+    const [prospect, campaign, account] = await Promise.all([
       store.get('prospects', action.prospectId),
-      store.get('campaigns', action.campaignId)
+      store.get('campaigns', action.campaignId),
+      store.findOne?.('accounts', { slot: action.inbox })
     ]);
     if (!prospect || !campaign) return deny(context, 'outreach-consequence-record-not-found');
+    if (!account?.connected || !account?.email) return deny(context, 'outreach-consequence-sender-not-connected');
+    if (String(account.email).trim().toLowerCase() !== String(action.senderEmail || '').trim().toLowerCase()) {
+      return deny(context, 'outreach-consequence-sender-mismatch');
+    }
     if (campaign.approved !== true || campaign.autoSend !== true) return deny(context, 'outreach-consequence-campaign-not-enabled');
     if (String(prospect.campaignId || '') !== String(campaign.id || '')) return deny(context, 'outreach-consequence-campaign-binding-mismatch');
     if (String(prospect.contact?.email || '').trim().toLowerCase() !== String(action.recipientEmail || '').trim().toLowerCase()) {
@@ -109,7 +114,7 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
       followup,
       routeDigest: prospect.outreachRoute.routeDigest,
       messageDigest: approval.messageDigest,
-      effectPayloadDigest: context.effectPayloadDigest,
+      effectPayloadDigest: context.authorizationPayloadDigest,
       now: checkedAt
     });
     if (!approvalCheck.ok) return deny(context, approvalCheck.reason);
@@ -123,6 +128,7 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
       reservationId: context.reservation.id,
       actionIntentDigest: context.actionIntentDigest,
       effectPayloadDigest: context.effectPayloadDigest,
+      authorizationPayloadDigest: context.authorizationPayloadDigest,
       authorizationDigest: approval.approvalDigest,
       policyDigest: OUTREACH_CONSEQUENCE_POLICY_DIGEST,
       constitutionDigest: OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST,

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "uberbond.v7-resource-allocation.v1",
+  "generatedAt": "2026-09-18T14:21:45.427Z",
+  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+  "generator": "scripts/v7-frontier-artifacts.mjs",
+  "stateVersion": "uberbond.v7-frontier-state.v1",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE",
+  "freshnessPolicy": "Derived from the mission DAG in this run.",
+  "evidencePointers": [
+    "artifacts/v7/mission-dag.json"
+  ],
+  "basis": "ACTIONABILITY_ONLY",
+  "whyNotExpectedValue": "No economic prior exists for these missions. Ranking them by an invented expected contribution would be a guess wearing arithmetic.",
+  "allocated": [
+    {
+      "missionId": "M-V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
+      "gapId": "V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
+      "title": "Verified work sitting on a branch and not in main",
+      "share": 100,
+      "nextExperiment": "Re-measure after each merge."
+    }
+  ],
+  "waiting": [
+    {
+      "missionId": "M-V7G001-CANONICAL-V9-NOT-MATERIALIZED",
+      "gapId": "V7G001-CANONICAL-V9-NOT-MATERIALIZED",
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "The founder supplies the V7 or V9 file; part 16 is re-encoded from it and the materializer prints LOSSLESS_VERIFIED against the unmodified manifest."
+    },
+    {
+      "missionId": "M-V7G002-OPERATIVE-CANON-UNRANKED",
+      "gapId": "V7G002-OPERATIVE-CANON-UNRANKED",
+      "blockedReason": "external: FOUNDER_ONLY",
+      "unblockCondition": "The founder ranks the operative canon in docs/NORTH_STAR_PRECEDENCE.md. The ranks are parsed from that file, so the conflict graph resolves with no code change."
+    },
+    {
+      "missionId": "M-V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE",
+      "gapId": "V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE",
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "Any authorized caller records a contract-bound probe younger than the doctor freshness window, after which the state becomes SERVING or NOT_SERVING."
+    },
+    {
+      "missionId": "M-V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "gapId": "V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "One cleared payment witnessed by a provider reaches durable storage."
+    },
+    {
+      "missionId": "M-V7G007-PROVIDER-EVALUATION-BLOCKED",
+      "gapId": "V7G007-PROVIDER-EVALUATION-BLOCKED",
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "A configured provider appears in capabilities:doctor and one real routed call leaves a receipt naming the provider and model."
+    },
+    {
+      "missionId": "M-V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+      "gapId": "V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "Each artifact unblocks when its own named condition is met. The index carries the reason per artifact and the gap closes when none is left waiting."
+    }
+  ],
+  "counts": {
+    "allocated": 1,
+    "waiting": 6
+  },
+  "uncertainty": "An equal share across actionable missions is a statement that nothing here justifies ranking them, not a claim they are equally valuable."
+}

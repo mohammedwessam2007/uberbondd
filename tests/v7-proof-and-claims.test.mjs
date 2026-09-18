@@ -117,8 +117,19 @@ test('the absence reasons separate software work from waiting', () => {
   const reasons = index.absenceReasons;
   const total = Object.values(reasons).reduce((a, b) => a + b, 0);
   assert.equal(total, index.counts.ABSENT);
-  assert.ok(reasons.COMPUTABLE_NOW > 0, 'some absent artifacts are ordinary work and should say so');
-  // The ones that are not computable must not be counted as if they were.
-  const waiting = total - (reasons.COMPUTABLE_NOW || 0);
-  assert.ok(waiting > 0);
+  // Written when six absences were ordinary work waiting to be done. They have
+  // since been built, so zero COMPUTABLE_NOW is the success state rather than a
+  // failure -- but it only counts as success if the remainder is still
+  // classified, which is what the assertions below actually defend.
+  const computable = reasons.COMPUTABLE_NOW || 0;
+  const waiting = total - computable;
+  assert.ok(waiting > 0, 'the remaining absences wait on something no writing produces');
+  assert.equal(reasons.UNCLASSIFIED ?? 0, 0, 'an absence with no reason hides whether it is work or waiting');
+  // Every remaining reason must be one that genuinely cannot be closed by
+  // writing code, or this test would pass while real work hid behind a label.
+  const nonSoftware = ['NEEDS_EXTERNAL_REALITY', 'NEEDS_REPEATED_OBSERVATION', 'NEEDS_ELAPSED_TIME', 'NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST'];
+  for (const [reason, count] of Object.entries(reasons)) {
+    if (reason === 'COMPUTABLE_NOW') continue;
+    assert.ok(nonSoftware.includes(reason), `${reason} (${count}) is not a recognised waiting reason`);
+  }
 });

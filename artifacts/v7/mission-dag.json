@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "uberbond.v7-mission-dag.v1",
+  "generatedAt": "2026-09-18T14:21:45.427Z",
+  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+  "generator": "scripts/v7-frontier-artifacts.mjs",
+  "stateVersion": "uberbond.v7-frontier-state.v1",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE",
+  "freshnessPolicy": "Derived from the gap ledger in this run. A mission exists because a gap is open, not because anyone listed it.",
+  "evidencePointers": [
+    "artifacts/v7/gap-ledger.json"
+  ],
+  "nodes": [
+    {
+      "missionId": "M-V7G001-CANONICAL-V9-NOT-MATERIALIZED",
+      "gapId": "V7G001-CANONICAL-V9-NOT-MATERIALIZED",
+      "title": "Canonical V9 cannot be reconstructed from the carrier in this repository",
+      "family": "EXTERNAL",
+      "gapStatus": "EXTERNAL_BLOCKED",
+      "blockedBy": [],
+      "actionable": false,
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "The founder supplies the V7 or V9 file; part 16 is re-encoded from it and the materializer prints LOSSLESS_VERIFIED against the unmodified manifest.",
+      "nextExperiment": "None available in-repository. Six recovery mechanisms were tested with certain outcomes."
+    },
+    {
+      "missionId": "M-V7G002-OPERATIVE-CANON-UNRANKED",
+      "gapId": "V7G002-OPERATIVE-CANON-UNRANKED",
+      "title": "The precedence law cannot settle any conflict between operative rules",
+      "family": "FOUNDER",
+      "gapStatus": "FOUNDER_ONLY",
+      "blockedBy": [],
+      "actionable": false,
+      "blockedReason": "external: FOUNDER_ONLY",
+      "unblockCondition": "The founder ranks the operative canon in docs/NORTH_STAR_PRECEDENCE.md. The ranks are parsed from that file, so the conflict graph resolves with no code change.",
+      "nextExperiment": "None. Inventing an order would be legislating."
+    },
+    {
+      "missionId": "M-V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE",
+      "gapId": "V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE",
+      "title": "Deployment state rests on evidence that has expired",
+      "family": "EXTERNAL",
+      "gapStatus": "EXTERNAL_BLOCKED",
+      "blockedBy": [],
+      "actionable": false,
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "Any authorized caller records a contract-bound probe younger than the doctor freshness window, after which the state becomes SERVING or NOT_SERVING.",
+      "nextExperiment": "A scheduled probe job, or one authorized manual probe piped into scripts/ubercel-record-health.mjs."
+    },
+    {
+      "missionId": "M-V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
+      "gapId": "V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
+      "title": "Verified work sitting on a branch and not in main",
+      "family": "SOFTWARE",
+      "gapStatus": "OPEN",
+      "blockedBy": [],
+      "actionable": true,
+      "blockedReason": null,
+      "unblockCondition": null,
+      "nextExperiment": "Re-measure after each merge."
+    },
+    {
+      "missionId": "M-V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "gapId": "V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "title": "No cleared payment, accepted delivery, or customer response exists",
+      "family": "EXTERNAL",
+      "gapStatus": "EXTERNAL_BLOCKED",
+      "blockedBy": [],
+      "actionable": false,
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "One cleared payment witnessed by a provider reaches durable storage.",
+      "nextExperiment": "Owner-authorized activation of the prepared canary."
+    },
+    {
+      "missionId": "M-V7G007-PROVIDER-EVALUATION-BLOCKED",
+      "gapId": "V7G007-PROVIDER-EVALUATION-BLOCKED",
+      "title": "No configured model provider to evaluate routing against",
+      "family": "EXTERNAL",
+      "gapStatus": "EXTERNAL_BLOCKED",
+      "blockedBy": [],
+      "actionable": false,
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "A configured provider appears in capabilities:doctor and one real routed call leaves a receipt naming the provider and model.",
+      "nextExperiment": "Founder configures one provider; re-run capabilities:doctor."
+    },
+    {
+      "missionId": "M-V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+      "gapId": "V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+      "title": "Artifacts that cannot be written until something outside the repository happens",
+      "family": "EXTERNAL",
+      "gapStatus": "EXTERNAL_BLOCKED",
+      "blockedBy": [],
+      "actionable": false,
+      "blockedReason": "external: EXTERNAL_BLOCKED",
+      "unblockCondition": "Each artifact unblocks when its own named condition is met. The index carries the reason per artifact and the gap closes when none is left waiting.",
+      "nextExperiment": "None available in software. The nearest is a measured second improvement generation, which needs a first one to have been measured."
+    }
+  ],
+  "edges": [],
+  "counts": {
+    "total": 7,
+    "actionable": 1,
+    "externallyBlocked": 6,
+    "dependencyBlocked": 0
+  },
+  "uncertainty": "Actionability is computed from gap status. A gap misclassified upstream produces a mission misclassified here."
+}

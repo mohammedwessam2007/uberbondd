@@ -147,15 +147,22 @@ const GAPS = [
     check: () => {
       const head = sh('git', ['rev-parse', 'HEAD']);
       const mainSha = sh('git', ['rev-parse', 'origin/main']);
-      const ahead = sh('git', ['rev-list', '--count', `${mainSha}..${head}`]);
-      const behind = sh('git', ['rev-list', '--count', `${head}..${mainSha}`]);
-      if (ahead === '0') {
-        return { status: 'CLOSED', closureEvidence: 'the working branch carries nothing main does not have', measured: { ahead: 0, behind: Number(behind) } };
+      const ahead = Number(sh('git', ['rev-list', '--count', `${mainSha}..${head}`]) ?? 0);
+      const behind = Number(sh('git', ['rev-list', '--count', `${head}..${mainSha}`]) ?? 0);
+      // Uncommitted work is stranded in the most literal sense: it exists on one
+      // disk and nowhere else. Counting only commits ahead reported "nothing
+      // stranded" while this very check sat unsaved in the working tree.
+      const dirty = (sh('git', ['status', '--porcelain']) ?? '').split('\n').filter(Boolean);
+      if (ahead === 0 && dirty.length === 0) {
+        return { status: 'CLOSED', closureEvidence: 'the working branch carries nothing main does not have, and the tree is clean', measured: { ahead: 0, behind, uncommitted: 0 } };
       }
       return {
         status: 'OPEN',
-        sourceEvidence: [`${ahead} commits on this branch are not in main`],
-        measured: { ahead: Number(ahead), behind: Number(behind) }
+        sourceEvidence: [
+          ...(ahead ? [`${ahead} commits on this branch are not in main`] : []),
+          ...(dirty.length ? [`${dirty.length} uncommitted path(s) exist only on this disk`] : [])
+        ],
+        measured: { ahead, behind, uncommitted: dirty.length, firstUncommitted: dirty[0]?.slice(3) ?? null }
       };
     }
   },
@@ -221,8 +228,31 @@ const GAPS = [
     }
   },
   {
+    id: 'V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY',
+    title: 'Artifacts that cannot be written until something outside the repository happens',
+    family: 'EXTERNAL',
+    statement: 'Eleven artifacts the contract names wait on external reality, repeated observation, elapsed unattended time, or a lattice runtime that does not exist.',
+    whyItMatters: 'Writing them anyway would produce files describing nothing. A status report for a runtime that does not exist is the confusion the doctrine names, in file form.',
+    implementationPath: 'None. Each names what it waits on in artifacts/v7/artifact-index.json.',
+    externalEvidenceRequired: 'Measured comparators, real experiments, cleared payment, elapsed unattended operation, or a built lattice runtime.',
+    authorityRequired: 'Varies per artifact: research authority, spend authority, or a founder decision to build the runtime.',
+    unblockCondition: 'Each artifact unblocks when its own named condition is met. The index carries the reason per artifact and the gap closes when none is left waiting.',
+    nextExperiment: 'None available in software. The nearest is a measured second improvement generation, which needs a first one to have been measured.',
+    check: () => {
+      if (!has('artifacts/v7/artifact-index.json')) return { status: 'OPEN', sourceEvidence: ['no artifact index to read'] };
+      const index = readJson('artifacts/v7/artifact-index.json');
+      const waiting = (index.rows || []).filter(row => row.state === 'ABSENT' && row.absenceReason !== 'COMPUTABLE_NOW' && row.absenceReason !== 'UNCLASSIFIED');
+      if (!waiting.length) return { status: 'CLOSED', closureEvidence: 'no contract artifact is waiting on external reality' };
+      return {
+        status: 'EXTERNAL_BLOCKED',
+        sourceEvidence: [`${waiting.length} contract artifacts wait on something no amount of writing produces`],
+        measured: { byReason: waiting.reduce((acc, row) => ({ ...acc, [row.absenceReason]: (acc[row.absenceReason] || 0) + 1 }), {}) }
+      };
+    }
+  },
+  {
     id: 'V7G009-CONTRACT-ARTIFACTS-ABSENT',
-    title: 'Artifacts the V7 contract names that do not exist',
+    title: 'Artifacts the V7 contract names that could be written and have not been',
     family: 'SOFTWARE',
     statement: 'The contract names 29 machine-readable artifacts. The index resolves each to GENERATED, COVERED_BY_EXISTING_ARTIFACT, or ABSENT, and the absent ones are unwritten software.',
     whyItMatters: 'Without this gap the ledger reads sourceSideComplete while nineteen named artifacts do not exist, which is exactly the false completion the contract forbids. An absent artifact is not a rounding error just because the ledger did not have a row for it.',
@@ -243,8 +273,17 @@ const GAPS = [
       const unclassified = absent.filter(row => row.absenceReason === 'UNCLASSIFIED');
       const computableNow = absent.filter(row => row.absenceReason === 'COMPUTABLE_NOW');
       const broken = (index.rows || []).filter(row => row.state === 'COVER_DECLARED_BUT_MISSING' || row.state === 'GENERATOR_DECLARED_NOT_YET_RUN');
-      if (!absent.length && !broken.length) {
-        return { status: 'CLOSED', closureEvidence: 'every artifact the contract names is generated or covered by existing source' };
+      // Closes on computable work, not on total absence. An artifact waiting on
+      // a runtime that does not exist is not unwritten software, and counting it
+      // here would make this gap permanently open for a reason no code can fix.
+      // The reasons were classified before any of these were built, and the
+      // remainder is carried by V7G010 rather than dropped.
+      if (!computableNow.length && !broken.length && !unclassified.length) {
+        return {
+          status: 'CLOSED',
+          closureEvidence: `no absent contract artifact is computable now; ${absent.length} remain and each names what it waits on`,
+          measured: { absentAwaitingReality: absent.length, byReason: absent.reduce((acc, row) => ({ ...acc, [row.absenceReason]: (acc[row.absenceReason] || 0) + 1 }), {}) }
+        };
       }
       return {
         status: 'OPEN',

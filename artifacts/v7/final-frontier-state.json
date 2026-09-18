@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "uberbond.v7-final-frontier-state.v1",
+  "generatedAt": "2026-09-18T14:21:45.428Z",
+  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+  "generator": "scripts/v7-frontier-artifacts.mjs",
+  "stateVersion": "uberbond.v7-frontier-state.v1",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE",
+  "freshnessPolicy": "Recomputed from the ledger and the index on every run. This file asserts nothing it did not read.",
+  "completionLaw": {
+    "softwareOpen": 1,
+    "unmeasured": 0,
+    "sourceSideComplete": false,
+    "contractArtifactsAbsent": 11,
+    "contractArtifactsComputableNow": 0
+  },
+  "remainingBlockers": [
+    {
+      "gapId": "V7G001-CANONICAL-V9-NOT-MATERIALIZED",
+      "class": "EXTERNAL_BLOCKED",
+      "unblockCondition": "The founder supplies the V7 or V9 file; part 16 is re-encoded from it and the materializer prints LOSSLESS_VERIFIED against the unmodified manifest.",
+      "authorityRequired": "Founder or the host that authored the carrier."
+    },
+    {
+      "gapId": "V7G002-OPERATIVE-CANON-UNRANKED",
+      "class": "FOUNDER_ONLY",
+      "unblockCondition": "The founder ranks the operative canon in docs/NORTH_STAR_PRECEDENCE.md. The ranks are parsed from that file, so the conflict graph resolves with no code change.",
+      "authorityRequired": "Founder. Ranking one canon file above another is a constitutional amendment (F003)."
+    },
+    {
+      "gapId": "V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE",
+      "class": "EXTERNAL_BLOCKED",
+      "unblockCondition": "Any authorized caller records a contract-bound probe younger than the doctor freshness window, after which the state becomes SERVING or NOT_SERVING.",
+      "authorityRequired": "Network/deployment authority to call the live service. This session has no authority to probe an external host."
+    },
+    {
+      "gapId": "V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+      "class": "EXTERNAL_BLOCKED",
+      "unblockCondition": "One cleared payment witnessed by a provider reaches durable storage.",
+      "authorityRequired": "Founder spend/contact authority and a real buyer."
+    },
+    {
+      "gapId": "V7G007-PROVIDER-EVALUATION-BLOCKED",
+      "class": "EXTERNAL_BLOCKED",
+      "unblockCondition": "A configured provider appears in capabilities:doctor and one real routed call leaves a receipt naming the provider and model.",
+      "authorityRequired": "Founder provider credentials and spend authority."
+    },
+    {
+      "gapId": "V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+      "class": "EXTERNAL_BLOCKED",
+      "unblockCondition": "Each artifact unblocks when its own named condition is met. The index carries the reason per artifact and the gap closes when none is left waiting.",
+      "authorityRequired": "Varies per artifact: research authority, spend authority, or a founder decision to build the runtime."
+    }
+  ],
+  "mode": "EXECUTING__SOURCE_SIDE_WORK_REMAINS",
+  "terminationLaw": "The program does not terminate on source-side completion. Entering Perpetual Frontier is a mode change, and only the founder ends it.",
+  "notClaimed": [
+    "That the remaining blockers will resolve.",
+    "That source-side completion means the system works, only that no open software gap was measured.",
+    "Superintelligence, perfect prediction, commercial success, or life-outcome improvement."
+  ],
+  "uncertainty": "This state is only as complete as the gap ledger is. A gap nobody wrote is a gap this file cannot report."
+}

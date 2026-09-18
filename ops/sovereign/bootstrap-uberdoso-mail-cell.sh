@@ -28,7 +28,7 @@ if ! $SKIP_PACKAGES; then
   command -v apt-get >/dev/null 2>&1 || { echo 'REFUSED: automatic package installation supports Ubuntu/Debian only.' >&2; exit 2; }
   export DEBIAN_FRONTEND=noninteractive
   apt-get update
-  apt-get install -y git curl jq openssl ca-certificates docker.io docker-compose-v2 dnsutils netcat-openbsd
+  apt-get install -y git curl jq openssl ca-certificates docker.io docker-compose-v2 dnsutils netcat-openbsd nodejs
   systemctl enable --now docker
 fi
 for cmd in git curl jq openssl docker node; do command -v "$cmd" >/dev/null 2>&1 || { echo "Missing prerequisite: $cmd" >&2; exit 2; }; done

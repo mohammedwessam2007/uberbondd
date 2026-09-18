@@ -8,7 +8,10 @@ import {
 export const OUTREACH_CONSEQUENCE_POLICY_DIGEST = sha256({
   version: 'uberbond.outreach-consequence-policy.v1',
   launchPhase: 'canary-only',
-  gmailApiRouteTypes: ['EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'SOLICITED_APPLICATION'],
+  providerRouteTypes: {
+    'gmail-api': ['EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'SOLICITED_APPLICATION'],
+    postal: ['EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'SOLICITED_APPLICATION']
+  },
   approval: 'exact-hmac-bound-single-use',
   effectPayload: 'sha256-bound',
   missingOrUncertain: 'deny',
@@ -18,7 +21,7 @@ export const OUTREACH_CONSEQUENCE_POLICY_DIGEST = sha256({
 export const OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST = sha256({
   version: 'uberbond.outreach-consequence-constitution.v1',
   invariants: [
-    'no-unsolicited-commercial-mail-through-gmail-api',
+    'no-unsolicited-commercial-mail-through-bounded-canary-providers',
     'one-verified-recipient-per-message',
     'exact-owner-approved-payload-only',
     'current-route-evidence-required',
@@ -43,8 +46,8 @@ function deny(context, reason) {
 /**
  * Deterministic, V9-compatible final consequence gate for the first bounded
  * outreach canary. It intentionally does not pretend that a public email
- * address is consent. Gmail API execution is limited to a solicited
- * application, explicit consent, or requested information, and every effect
+ * address is consent. Gmail API and owned Postal execution are both limited to
+ * a solicited application, explicit consent, or requested information, and every effect
  * must match a short-lived HMAC approval over the exact payload digest.
  *
  * The existing durable outbound reservation is the single-use authority
@@ -57,7 +60,8 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
   return async function authoritativeOutreachConsequenceGate(context) {
     if (!store || typeof store.get !== 'function') return deny(context, 'outreach-consequence-store-unavailable');
     if (cfg?.outbound?.launchPhase !== 'canary') return deny(context, 'outreach-consequence-launch-phase-not-canary');
-    if (String(cfg?.outbound?.provider || '').toLowerCase() !== 'gmail-api') {
+    const provider = String(cfg?.outbound?.provider || '').toLowerCase();
+    if (!['gmail-api', 'postal'].includes(provider)) {
       return deny(context, 'outreach-consequence-provider-not-approved');
     }
     const action = context?.actionIntent || {};

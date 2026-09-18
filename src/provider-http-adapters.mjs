@@ -240,11 +240,11 @@ function providerDnsExpectedRecords({ provider, data }) {
 
 function normalizeMailboxList(result) {
   const data = dataOf(result);
-  const items = arrayOf(data, ['mailboxes', 'items', 'results']);
+  const items = arrayOf(data, ['mailboxes', 'inboxes', 'items', 'results']);
   return {
     ...result,
     mailboxes: items.map(item => ({
-      id: text(item?.id || item?.mailbox_id || item?.mailboxId, 160),
+      id: text(item?.id || item?.mailbox_id || item?.mailboxId || item?.inbox_id || item?.inboxId, 160),
       address: text(item?.email || item?.username || item?.address, 254).toLowerCase(),
       domainId: text(item?.domain_id || item?.domainId, 160),
       status: normalizeProviderStatus(item?.status),
@@ -322,7 +322,9 @@ export function createProviderHttpAdapter({
   sleep = ms => new Promise(resolve => setTimeout(resolve, ms)),
   now = () => new Date(),
   timeoutMs = PROVIDER_HTTP_DEFAULT_TIMEOUT_MS,
-  maxReadAttempts = MAX_READ_ATTEMPTS
+  maxReadAttempts = MAX_READ_ATTEMPTS,
+  authPrefix = '',
+  extensions = null
 } = {}) {
   const provider = text(providerName, 80).toLowerCase() || 'unknown';
   const baseUrl = safeBaseUrl(suppliedBaseUrl);
@@ -353,7 +355,7 @@ export function createProviderHttpAdapter({
 
     const headers = {
       Accept: 'application/json',
-      [authHeader]: apiKey
+      [authHeader]: `${String(authPrefix || '')}${apiKey}`
     };
     if (body != null) headers['Content-Type'] = 'application/json';
     if (mutation) headers['Idempotency-Key'] = text(idempotencyKey, 200);
@@ -531,6 +533,26 @@ export function createProviderHttpAdapter({
     },
     webhookEvents: async () => ({ ok: true, provider, status: 'WEBHOOK_INGESTION_IS_UBERBOND_OWNED', authentication: 'provider-specific-signature-required-before-persistence' })
   };
+
+  if (typeof extensions === 'function') {
+    const extra = extensions({
+      requestJson,
+      provider,
+      config,
+      routes,
+      dataOf,
+      normalizeMailboxList,
+      normalizeDomainList,
+      normalizeStatus,
+      providerError,
+      successfulResult,
+      unsupported,
+      nowTimestamp: () => nowDate(now()).toISOString(),
+      text,
+      safeMailboxId
+    });
+    if (extra && typeof extra === 'object') Object.assign(adapter, extra);
+  }
 
   return adapter;
 }

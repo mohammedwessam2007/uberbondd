@@ -86,7 +86,7 @@ function pageResult(result, key, context) {
     ...result,
     [key]: items,
     count: Number.isFinite(count) ? count : items.length,
-    nextPageToken: text(data.next_page_token, 500) || null
+    nextPageToken: text(data.next_page_token || result.nextPageToken, 500) || null
   };
 }
 

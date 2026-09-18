@@ -1,16 +1,22 @@
 {
   "schemaVersion": "uberbond.v7-frontier-checkpoint.v1",
-  "generatedAt": "2026-09-18T15:27:22.358Z",
-  "sourceSha": "59009296d86a3c26ee0d207c91f84f00e2ac102b",
+  "generatedAt": "2026-09-18T15:33:28.654Z",
+  "sourceSha": "1632e9661ce3394db028e0391721b2767afc5f20",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
   "businessEffectAuthority": "NONE",
   "freshnessPolicy": "A checkpoint describes the head it names. Resume by re-running the generators, not by trusting this file.",
   "resumeFrom": {
-    "head": "59009296d86a3c26ee0d207c91f84f00e2ac102b",
+    "head": "1632e9661ce3394db028e0391721b2767afc5f20",
     "firstCommand": "node scripts/v7-gap-ledger.mjs",
-    "nextActionable": [],
+    "nextActionable": [
+      {
+        "missionId": "M-V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
+        "title": "Verified work sitting on a branch and not in main",
+        "nextExperiment": "Re-measure after each merge."
+      }
+    ],
     "cannotBeDoneInSoftware": [
       {
         "gapId": "V7G001-CANONICAL-V9-NOT-MATERIALIZED",
@@ -49,16 +55,17 @@
     "byStatus": {
       "EXTERNAL_BLOCKED": 5,
       "FOUNDER_ONLY": 1,
-      "CLOSED": 4
+      "CLOSED": 3,
+      "OPEN": 1
     },
-    "softwareOpen": 0,
+    "softwareOpen": 1,
     "externalOpen": 6,
     "unmeasured": 0,
-    "sourceSideComplete": true
+    "sourceSideComplete": false
   },
   "missionCounts": {
-    "total": 6,
-    "actionable": 0,
+    "total": 7,
+    "actionable": 1,
     "externallyBlocked": 6,
     "dependencyBlocked": 0
   },

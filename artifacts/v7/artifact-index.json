@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-artifact-index.v1",
-  "generatedAt": "2026-09-18T14:34:12.809Z",
-  "sourceSha": "7bef816617d1c806d7092568b4332fdf2e75c4da",
+  "generatedAt": "2026-09-18T14:52:59.853Z",
+  "sourceSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
   "generator": "scripts/v7-artifact-index.mjs",
   "freshnessPolicy": "Recomputed from the filesystem on every run. A state here is a statSync result, not a claim.",
   "contractSource": "MANDATORY MACHINE-READABLE V7 ARTIFACTS, from the recoverable V7 ancestor",
@@ -30,7 +30,7 @@
       "artifact": "artifacts/v7/gap-ledger.json",
       "state": "GENERATED",
       "generator": "scripts/v7-gap-ledger.mjs",
-      "bytes": 17307,
+      "bytes": 17355,
       "note": null
     },
     {
@@ -72,7 +72,7 @@
       "artifact": "artifacts/v7/claim-evidence-registry.json",
       "state": "GENERATED",
       "generator": "scripts/v7-claim-evidence-registry.mjs",
-      "bytes": 5057,
+      "bytes": 4951,
       "note": null
     },
     {

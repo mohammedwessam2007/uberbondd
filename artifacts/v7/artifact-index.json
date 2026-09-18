@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-artifact-index.v1",
-  "generatedAt": "2026-09-18T15:12:08.486Z",
-  "sourceSha": "c527d5d655ece60c646133a87cbbc9e172781bed",
+  "generatedAt": "2026-09-18T15:26:20.748Z",
+  "sourceSha": "59009296d86a3c26ee0d207c91f84f00e2ac102b",
   "generator": "scripts/v7-artifact-index.mjs",
   "freshnessPolicy": "Recomputed from the filesystem on every run. A state here is a statSync result, not a claim.",
   "contractSource": "MANDATORY MACHINE-READABLE V7 ARTIFACTS, from the recoverable V7 ancestor",
@@ -23,14 +23,14 @@
       "artifact": "artifacts/v7/live-truth.json",
       "state": "GENERATED",
       "generator": "scripts/v7-live-truth.mjs",
-      "bytes": 1962,
+      "bytes": 1961,
       "note": null
     },
     {
       "artifact": "artifacts/v7/gap-ledger.json",
       "state": "GENERATED",
       "generator": "scripts/v7-gap-ledger.mjs",
-      "bytes": 17391,
+      "bytes": 17353,
       "note": null
     },
     {
@@ -72,7 +72,7 @@
       "artifact": "artifacts/v7/claim-evidence-registry.json",
       "state": "GENERATED",
       "generator": "scripts/v7-claim-evidence-registry.mjs",
-      "bytes": 4950,
+      "bytes": 4951,
       "note": null
     },
     {
@@ -86,21 +86,21 @@
       "artifact": "artifacts/v7/mission-dag.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 4735,
+      "bytes": 5156,
       "note": null
     },
     {
       "artifact": "artifacts/v7/resource-allocation.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 2999,
+      "bytes": 3277,
       "note": null
     },
     {
       "artifact": "artifacts/v7/evaluation-epoch.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 1546,
+      "bytes": 1684,
       "note": null
     },
     {
@@ -212,14 +212,14 @@
       "artifact": "artifacts/v7/frontier-checkpoint.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 4064,
+      "bytes": 4295,
       "note": null
     },
     {
       "artifact": "artifacts/v7/final-frontier-state.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 3492,
+      "bytes": 3488,
       "note": null
     }
   ],

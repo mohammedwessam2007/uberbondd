@@ -8,6 +8,7 @@ import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
 import { getUberSocketRuntime } from './src/uber-socket-runtime.mjs';
 import { restoreUberSocketState, persistUberSocketState } from './src/uber-socket-durable-state.mjs';
+import { createUberMailRuntime } from './src/ubermail-runtime.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -18,6 +19,7 @@ const wrapperIsEntryPoint = originalArgv1 === wrapperPath;
 let createdHardenedHandler = null;
 let uberSocketRestorePromise = null;
 let uberSocketRestoreReceipt = null;
+let uberMailRuntime = null;
 
 const publicCapabilityPath = pathname => pathname === '/unsubscribe'
   || pathname === '/api/public/unsubscribe'
@@ -64,6 +66,64 @@ async function readSmallJsonBody(req, maxBytes = 64 * 1024) {
   const parsed = JSON.parse(content);
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('JSON body must be an object');
   return parsed;
+}
+
+function getUberMailRuntime() {
+  if (!uberMailRuntime) {
+    uberMailRuntime = createUberMailRuntime({
+      webhookMasterSecret: process.env.UBERMAIL_WEBHOOK_MASTER_SECRET || ''
+    });
+  }
+  return uberMailRuntime;
+}
+
+async function brokerUberMailStatus(coreHandler, req, res) {
+  if (!(await requireAdmin(coreHandler, req, res))) return;
+  try { return sendJson(res, 200, await getUberMailRuntime().status()); }
+  catch (error) { return sendJson(res, 503, { ok: false, error: String(error?.message || error) }); }
+}
+
+async function brokerUberMailBootstrap(coreHandler, req, res) {
+  if (!(await requireAdmin(coreHandler, req, res))) return;
+  let body = {};
+  try { body = await readSmallJsonBody(req); } catch (error) { return sendJson(res, 400, { error: error.message }); }
+  try {
+    const root = await getUberMailRuntime().bootstrapRootKey({
+      name: String(body.name || 'UberMail Root').slice(0, 200),
+      permissions: body.permissions,
+      expiresAt: body.expires_at || null
+    });
+    return sendJson(res, 201, {
+      ...root,
+      oneTimeSecret: true,
+      truthBoundary: 'This authenticated admin response is the only bootstrap display of the root UberMail API key. Store it in protected runtime configuration; it is not recoverable from UberMail state.'
+    });
+  } catch (error) {
+    const message = String(error?.code || error?.message || error);
+    return sendJson(res, /already-exists/.test(message) ? 409 : 500, { ok: false, error: message });
+  }
+}
+
+async function brokerUberMail(req, res, url) {
+  let body = {};
+  if (!['GET', 'HEAD', 'DELETE'].includes(String(req.method || 'GET').toUpperCase())) {
+    try { body = await readSmallJsonBody(req, 8 * 1024 * 1024); }
+    catch (error) { return sendJson(res, 400, { error: error.message }); }
+  }
+  try {
+    const result = await getUberMailRuntime().http({
+      method: req.method,
+      path: url.pathname + url.search,
+      headers: req.headers,
+      body,
+      // External-effect approval is deliberately NOT sourced from client
+      // headers/body. A trusted UberBond authority integration must inject it.
+      effectApproval: null
+    });
+    return sendJson(res, Number(result?.status || 500), result?.body || {});
+  } catch (error) {
+    return sendJson(res, 500, { ok: false, error: String(error?.message || error) });
+  }
 }
 
 async function adminSummary(coreHandler, req) {
@@ -233,6 +293,9 @@ function harden(coreHandler) {
     if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') return brokerGoogleOAuthStart(coreHandler, req, res, url);
+    if (req.method === 'GET' && url.pathname === '/api/admin/ubermail/status') return brokerUberMailStatus(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
+    if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
     if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
     return coreHandler(req, res);
   };

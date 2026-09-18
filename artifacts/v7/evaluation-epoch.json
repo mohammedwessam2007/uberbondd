@@ -1,13 +1,13 @@
 {
   "schemaVersion": "uberbond.v7-evaluation-epoch.v1",
-  "generatedAt": "2026-09-18T14:37:44.780Z",
-  "sourceSha": "7bef816617d1c806d7092568b4332fdf2e75c4da",
+  "generatedAt": "2026-09-18T14:40:27.592Z",
+  "sourceSha": "6f2933db5be51e2a77cfeab47aa3782485437a0d",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
   "businessEffectAuthority": "NONE",
-  "epochId": "epoch-7bef816617d1",
-  "previousEpochId": "epoch-7bef816617d1",
+  "epochId": "epoch-6f2933db5be5",
+  "previousEpochId": "epoch-6f2933db5be5",
   "freshnessPolicy": "An epoch is closed at the head it names. Comparing two epochs is only meaningful when both were measured the same way.",
   "metrics": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "metric": "mutationAnchorsRegistered",
-      "value": 502,
+      "value": 503,
       "mode": "LIVE"
     },
     {

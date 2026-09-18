@@ -29,7 +29,7 @@ export function buildOutboundConsequenceContext({
   }
   const normalizedPayload = normalizeOutboundEffectPayload(effectPayload);
   const effectPayloadDigest = sha256(normalizedPayload);
-  const authorizationPayloadDigest = outreachEffectPayloadDigest({
+  const authorizationPayloadDigest = provider ? outreachEffectPayloadDigest({
     prospectId: prospect.id,
     campaignId: campaign.id,
     recipientEmail: normalizedPayload.to,
@@ -41,7 +41,7 @@ export function buildOutboundConsequenceContext({
     threadId: normalizedPayload.threadId,
     replyToId: normalizedPayload.replyToId,
     listUnsubscribe: normalizedPayload.listUnsubscribe
-  });
+  }) : '';
   const actionIntent = {
     operation: 'OUTBOUND_EMAIL_SEND',
     consequenceClass: 'COMMUNICATE_EXTERNAL',

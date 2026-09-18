@@ -3842,6 +3842,16 @@ export const MUTATIONS = [
     replace: '      const dirtySource = dirtyAll;',
     suites: ['tests/v7-gap-ledger.test.mjs']
   },
+  {
+    // A counter that counts the generator's own side effects changes on every
+    // invocation, so the artifact never settles and a reader cannot tell a real
+    // change from the act of measuring.
+    id: 'V7STRAND-03', guard: 'The ledger records no count of the artifacts its own run dirtied',
+    file: 'scripts/v7-gap-ledger.mjs',
+    find: '          measured: { ahead: 0, behind, uncommittedSource: 0 }',
+    replace: '          measured: { ahead: 0, behind, uncommittedSource: 0, uncommittedArtifacts: dirtyAll.length }',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

@@ -133,6 +133,11 @@ test('stranded work counts uncommitted source, not the artifacts the run regener
   assert.ok(stranded, 'the stranded-work gap must exist');
   assert.ok(Object.hasOwn(stranded.measured ?? {}, 'uncommittedSource'),
     'the gap must count source separately from artifacts');
+  // A field counting the generator's own side effects changes on every
+  // invocation, so the artifact would never settle and a reader could not tell a
+  // real change from the act of measuring.
+  assert.ok(!Object.hasOwn(stranded.measured, 'uncommittedArtifacts'),
+    'the ledger must not record a count of the artifacts its own run dirtied');
   if (stranded.status === 'CLOSED') {
     assert.equal(stranded.measured.uncommittedSource, 0);
   } else {

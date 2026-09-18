@@ -8,6 +8,7 @@ import { createMissionAwareJobHandlers } from './src/founder-outcome-job-handler
 import { startScheduler } from './src/scheduler.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integrations/outreach-consequence-admission.mjs';
 import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
@@ -35,7 +36,8 @@ const pipeline = new Pipeline(store, config, {
   // first-cash sprint is instead advanced through deterministic QA to
   // DELIVERY_READY and never enters generic report auto-email delivery.
   onProspectComplete: prospect => routeProspectCompletion({ store, revenue, prospect }),
-  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store }),
+  outboundConsequenceGate: createAuthoritativeOutreachConsequenceGate({ store, cfg: config })
 });
 const enqueueJob = (type, payload, options = {}) => queue.enqueue(type, payload, type === 'outreach.100k.process'
   ? { ...options, maxAttempts: 1, recoveryPolicy: 'reconcile' }

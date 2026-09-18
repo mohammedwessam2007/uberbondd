@@ -118,7 +118,8 @@ function messagePayload({
   labels,
   attachments,
   headers,
-  trackOpens
+  trackOpens,
+  replyAll
 } = {}) {
   return stripUndefined({
     to: valuesOf(to).length ? to : undefined,
@@ -131,7 +132,8 @@ function messagePayload({
     labels: Array.isArray(labels) ? labels.map(item => text(item, 80)).filter(Boolean) : undefined,
     attachments: Array.isArray(attachments) ? attachments : undefined,
     headers: plainObject(headers) ? headers : undefined,
-    track_opens: trackOpens === undefined ? undefined : Boolean(trackOpens)
+    track_opens: trackOpens === undefined ? undefined : Boolean(trackOpens),
+    reply_all: replyAll === undefined ? undefined : Boolean(replyAll)
   });
 }
 

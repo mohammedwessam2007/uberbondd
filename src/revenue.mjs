@@ -5,6 +5,7 @@ import { sendEmail, sealTokens } from './gmail.mjs';
 import { encryptJson, decryptJson } from './crypto.mjs';
 import { ConflictError } from './store.mjs';
 import { buildRevenueOfferCatalog, getRevenueOffer, isRevenueOfferId } from './revenue-offers.mjs';
+import { InputError } from './input.mjs';
 
 const DAY = 86400000;
 const sha = value => crypto.createHash('sha256').update(String(value)).digest('hex');
@@ -96,12 +97,13 @@ export class RevenueEngine {
   async createLead(input, ip = 'unknown') {
     if (!this.cfg.revenue.publicIntake) throw new Error('Public audit intake is disabled');
     if (!this.rateLimit(ip)) throw new Error('Too many audit requests. Please try again later.');
+    if (!input || typeof input !== 'object' || Array.isArray(input)) throw new InputError('A JSON object is required');
     const company = cleanText(input.company, 180);
     const website = cleanText(input.website, 500);
     const email = cleanText(input.email, 240).toLowerCase();
-    if (!company || !website || !isEmail(email)) throw new Error('Company, website, and a valid email are required');
+    if (!company || !website || !isEmail(email)) throw new InputError('Company, website, and a valid email are required');
     const domain = normalizeDomain(website);
-    if (!domain) throw new Error('Enter a valid public website');
+    if (!domain) throw new InputError('Enter a valid public website');
 
     const campaign = await this.ensureInboundCampaign();
     const accessToken = crypto.randomBytes(24).toString('base64url');

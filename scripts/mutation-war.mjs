@@ -3852,6 +3852,15 @@ export const MUTATIONS = [
     replace: '          measured: { ahead: 0, behind, uncommittedSource: 0, uncommittedArtifacts: dirtyAll.length }',
     suites: ['tests/v7-gap-ledger.test.mjs']
   },
+  {
+    // An empty file must not count as a generated artifact, which is the whole
+    // reason the index reads the filesystem instead of trusting the declaration.
+    id: 'V7INDEX-02', guard: 'An empty file is not recorded as a generated artifact',
+    file: 'scripts/v7-artifact-index.mjs',
+    find: '        nonEmpty: present ? statSync(resolve(root, name)).size > 0 : false,',
+    replace: '        nonEmpty: present,',
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

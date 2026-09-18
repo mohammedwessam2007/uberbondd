@@ -101,6 +101,20 @@ test('the V9 claim cites the thing that re-measures it, not the thing that descr
     'the ledger re-runs the materializer; the blocker document is a written record that goes stale by design');
 });
 
+test('a generated artifact is recorded as non-empty rather than by size', () => {
+  // The claim that has to hold is that an empty file does not count as
+  // generated. A byte count measures files the same batch of generators just
+  // rewrote, so the index changed on every run and never settled -- churn for no
+  // added information.
+  const index = readJson('artifacts/v7/artifact-index.json');
+  for (const row of index.rows) {
+    assert.ok(!Object.hasOwn(row, 'bytes'), `${row.artifact} must not record a byte count`);
+    if (row.state === 'GENERATED' || row.state === 'COVERED_BY_EXISTING_ARTIFACT') {
+      assert.equal(row.nonEmpty, true, `${row.artifact} claims to exist and must be non-empty`);
+    }
+  }
+});
+
 test('every absent contract artifact carries a reason', () => {
   // An unclassified absence hides how much of the remainder is actually waiting
   // on software rather than on reality.

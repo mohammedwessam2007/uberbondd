@@ -63,7 +63,11 @@ function main() {
       return {
         artifact: name, state: present ? 'GENERATED' : 'GENERATOR_DECLARED_NOT_YET_RUN',
         generator: spec.generator,
-        bytes: present ? statSync(resolve(root, name)).size : 0,
+        // Non-emptiness rather than a byte count. The claim this has to support
+        // is that an empty file does not count as generated, and a size measures
+        // files that this same batch of generators just rewrote -- so the index
+        // changed on every run and never settled, for no added information.
+        nonEmpty: present ? statSync(resolve(root, name)).size > 0 : false,
         note: spec.note ?? null
       };
     }
@@ -73,7 +77,7 @@ function main() {
         artifact: name,
         state: present ? 'COVERED_BY_EXISTING_ARTIFACT' : 'COVER_DECLARED_BUT_MISSING',
         coveredBy: spec.covers,
-        bytes: present ? statSync(resolve(root, spec.covers)).size : 0,
+        nonEmpty: present ? statSync(resolve(root, spec.covers)).size > 0 : false,
         note: spec.note ?? null
       };
     }

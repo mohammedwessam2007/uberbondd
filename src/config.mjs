@@ -219,6 +219,15 @@ export const config = {
       workspaceId: env.MAILFORGE_WORKSPACE_ID || '',
       configured: Boolean(env.MAILFORGE_API_KEY)
     },
+    // AgentMail is an API-first inbox provider. The target plan is a
+    // non-authoritative ceiling used for bounded planning only; it does not
+    // prove billing, domain verification, mailbox inventory, or send authority.
+    agentmail: {
+      apiKey: env.AGENTMAIL_API_KEY || '',
+      baseUrl: env.AGENTMAIL_BASE_URL || 'https://api.agentmail.to/v0',
+      targetPlan: String(env.AGENTMAIL_TARGET_PLAN || 'startup').trim().toLowerCase(),
+      configured: Boolean(env.AGENTMAIL_API_KEY)
+    },
     paypal: {
       clientId: env.PAYPAL_SANDBOX_CLIENT_ID || '',
       clientSecret: env.PAYPAL_SANDBOX_CLIENT_SECRET || '',

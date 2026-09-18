@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberdoso.source-lock.v1",
-  "capturedAt": "2026-09-13T00:00:00Z",
+  "capturedAt": "2026-09-19T00:00:00Z",
   "policy": {
     "managedSaasDependencyAllowed": false,
     "floatingTagsAllowed": false,
@@ -14,7 +14,9 @@
     "gitRepository": "https://github.com/postalserver/postal",
     "gitCommit": "d038eaa8c763d3cafa797ccd6f773d53470bd336",
     "containerRepository": "ghcr.io/postalserver/postal",
-    "runtimeImageDigest": null,
+    "runtimeImage": "ghcr.io/postalserver/postal:3.3.7",
+    "runtimeImageDigest": "sha256:72390f0d48c3b36b79b8a4aa460efdf14c67803e9d98f1ba0761a08575d67762",
+    "runtimePlatform": "linux/amd64",
     "upgradeMode": "explicit-source-review-benchmark-then-promote"
   },
   "postalInstallHelper": {
@@ -27,9 +29,10 @@
   "mariaDb": {
     "role": "owned-mail-state-database",
     "minimumVersion": "10.6",
-    "runtimeImage": null,
-    "runtimeImageDigest": null,
+    "runtimeImage": "docker.io/library/mariadb:10.11.19",
+    "runtimeImageDigest": "sha256:07c0aaff7396b74cb7975cba78257178d188e30f531a5db2b617c48beef13c41",
+    "runtimePlatform": "linux/amd64",
     "activationRule": "digest-pinned-image-or-owned-host-package-required"
   },
-  "truthBoundary": "This lock records reviewed source identities only. It does not prove a running mail node, an available public IP, port-25 permission, PTR, DNS publication, DKIM publication, sender reputation, or outreach authority."
+  "truthBoundary": "This lock records reviewed source and immutable runtime image identities only. It does not prove a running mail node, an available public IP, port-25 permission, PTR, DNS publication, DKIM publication, sender reputation, provider-policy compatibility, or outreach authority."
 }

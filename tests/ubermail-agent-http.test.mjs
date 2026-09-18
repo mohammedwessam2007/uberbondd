@@ -53,3 +53,24 @@ test('durable repository survives API recreation and raw secrets remain absent',
   const disk=await fs.readFile(f.repo.filePath,'utf8');
   const rawToken=f.headers.authorization.slice('Bearer '.length);assert.equal(disk.includes(rawToken),false);assert.equal(disk.includes('secretHash'),true);
 });
+
+test('HTTP scoped resource routes and reply-draft routes stay inside pod/inbox boundaries',async t=>{
+  const f=await setup();t.after(()=>fs.rm(f.dir,{recursive:true,force:true}));
+  const p1=await f.api.createPod({auth:{apiKey:f.headers.authorization.slice(7)},name:'One',idempotencyKey:'nested:p1'});
+  const p2=await f.api.createPod({auth:{apiKey:f.headers.authorization.slice(7)},name:'Two',idempotencyKey:'nested:p2'});
+  const d1=await f.api.createDomain({auth:{apiKey:f.headers.authorization.slice(7)},domain:'nested.example',podId:p1.pod_id,subdomainsEnabled:true,idempotencyKey:'nested:d1'});
+  await f.api.verifyDomain({auth:{apiKey:f.headers.authorization.slice(7)},domainId:d1.domain_id,idempotencyKey:'nested:v1'});
+  const i1=await f.api.createInbox({auth:{apiKey:f.headers.authorization.slice(7)},username:'mohamed',domain:'sub.nested.example',podId:p1.pod_id,idempotencyKey:'nested:i1'});
+  const d2=await f.api.createDomain({auth:{apiKey:f.headers.authorization.slice(7)},domain:'other.example',podId:p2.pod_id,idempotencyKey:'nested:d2'});
+  await f.api.verifyDomain({auth:{apiKey:f.headers.authorization.slice(7)},domainId:d2.domain_id,idempotencyKey:'nested:v2'});
+  await f.api.createInbox({auth:{apiKey:f.headers.authorization.slice(7)},username:'other',domain:'other.example',podId:p2.pod_id,idempotencyKey:'nested:i2'});
+  let r=await f.http({method:'GET',path:`/v0/pods/${p1.pod_id}/inboxes`,headers:f.headers});
+  assert.equal(r.body.count,1);assert.equal(r.body.inboxes[0].inbox_id,i1.inbox_id);
+  r=await f.http({method:'POST',path:`/v0/pods/${p1.pod_id}/webhooks`,headers:{...f.headers,'idempotency-key':'nested:hook'},body:{url:'https://hooks.example.test/nested',event_types:['message.received'],headers:{Authorization:'secret'}}});
+  assert.equal(r.status,201);assert.equal('headers' in r.body,false);
+  r=await f.http({method:'POST',path:`/v0/inboxes/${i1.inbox_id}/api-keys`,headers:{...f.headers,'idempotency-key':'nested:key'},body:{name:'Inbox scoped'}});
+  assert.equal(r.status,201);assert.equal(r.body.inbox_id,i1.inbox_id);
+  const incoming=await f.api.ingestReceivedMessage({auth:{system:true},inboxId:i1.inbox_id,from:'buyer@example.com',subject:'Question',text:'Hello'});
+  r=await f.http({method:'POST',path:`/v0/inboxes/${i1.inbox_id}/messages/${incoming.message_id}/reply-draft`,headers:{...f.headers,'idempotency-key':'nested:reply-draft'},body:{text:'Draft'}});
+  assert.equal(r.status,201);assert.equal(r.body.in_reply_to,incoming.message_id);
+});

@@ -1,13 +1,13 @@
 {
   "schemaVersion": "uberbond.v7-claim-evidence-registry.v1",
-  "generatedAt": "2026-09-18T14:05:16.271Z",
-  "sourceSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
+  "generatedAt": "2026-09-18T14:21:46.582Z",
+  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
   "generator": "scripts/v7-claim-evidence-registry.mjs",
   "freshnessPolicy": "A claim is stale when source it depends on changed after it was measured, not merely when the head moved. Committing a regenerated artifact changes the head and falsifies nothing.",
   "counts": {
-    "EXACT_HEAD": 3,
-    "STALE_AGAINST_CURRENT_HEAD": 4,
-    "NOT_HEAD_BOUND": 1
+    "EXACT_HEAD": 6,
+    "NOT_HEAD_BOUND": 1,
+    "STALE_AGAINST_CURRENT_HEAD": 1
   },
   "boundary": "This records what backs a claim and how fresh it is. It does not re-derive the claim, so a wrong measurement recorded at the exact head still reads EXACT_HEAD.",
   "uncertainty": "NOT_HEAD_BOUND is common and correct for time-based evidence such as a health probe. It is not a failure.",
@@ -18,7 +18,7 @@
       "artifact": "artifacts/v7/gap-ledger.json",
       "value": 1,
       "evidenceClass": "COMPUTED_BY_CHECKS",
-      "producedAtSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
+      "producedAtSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "Every gap ran a check. The number is a measurement, not a label."
@@ -29,7 +29,7 @@
       "artifact": "artifacts/v7/gap-ledger.json",
       "value": false,
       "evidenceClass": "COMPUTED_BY_CHECKS",
-      "producedAtSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
+      "producedAtSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": null
@@ -40,15 +40,9 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 502,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
-      "freshness": "STALE_AGAINST_CURRENT_HEAD",
-      "sourceChangedSince": [
-        "scripts/mutation-war.mjs",
-        "scripts/v7-artifact-index.mjs",
-        "scripts/v7-frontier-artifacts.mjs",
-        "scripts/v7-gap-ledger.mjs",
-        "src/v7-frontier-state.mjs"
-      ],
+      "producedAtSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+      "freshness": "EXACT_HEAD",
+      "sourceChangedSince": [],
       "note": "Registered, not killed. A registered guard that was never run proves nothing."
     },
     {
@@ -57,15 +51,9 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 84,
       "evidenceClass": "VOCABULARY_LINKAGE_TO_A_KILLED_GUARD",
-      "producedAtSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
-      "freshness": "STALE_AGAINST_CURRENT_HEAD",
-      "sourceChangedSince": [
-        "scripts/mutation-war.mjs",
-        "scripts/v7-artifact-index.mjs",
-        "scripts/v7-frontier-artifacts.mjs",
-        "scripts/v7-gap-ledger.mjs",
-        "src/v7-frontier-state.mjs"
-      ],
+      "producedAtSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+      "freshness": "EXACT_HEAD",
+      "sourceChangedSince": [],
       "note": "The linkage is term overlap between a directive and a guard description. It shows a guard exists on the same subject, not that it enforces this sentence."
     },
     {
@@ -74,15 +62,9 @@
       "artifact": "artifacts/v7/proof-obligations.json",
       "value": 14,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
-      "freshness": "STALE_AGAINST_CURRENT_HEAD",
-      "sourceChangedSince": [
-        "scripts/mutation-war.mjs",
-        "scripts/v7-artifact-index.mjs",
-        "scripts/v7-frontier-artifacts.mjs",
-        "scripts/v7-gap-ledger.mjs",
-        "src/v7-frontier-state.mjs"
-      ],
+      "producedAtSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+      "freshness": "EXACT_HEAD",
+      "sourceChangedSince": [],
       "note": null
     },
     {
@@ -102,7 +84,7 @@
       "artifact": "artifacts/v7/gap-ledger.json",
       "value": "EXTERNAL_BLOCKED",
       "evidenceClass": "REPRODUCIBLE_BY_RUNNING_THE_MATERIALIZER",
-      "producedAtSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
+      "producedAtSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "The ledger check runs scripts/materialize-inevitability-v9.py at the head it reports. The narrative record lives at artifacts/v9/canonical-v9-materialization-blocker.json."

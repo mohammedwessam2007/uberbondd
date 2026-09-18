@@ -5,8 +5,8 @@
     "A001",
     "A021"
   ],
-  "generatedAt": "2026-09-18T14:02:50.805Z",
-  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+  "generatedAt": "2026-09-18T14:20:41.967Z",
+  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
   "method": "Normative sentences from the canon files in precedence order, classified as prohibition, obligation or permission, tagged by whether they govern an external effect, and linked to tests by distinctive-vocabulary overlap.",
   "counts": {
     "directives": 262,
@@ -565,7 +565,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-4d830df0",
@@ -649,7 +649,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-c39a73a5",
@@ -722,7 +722,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-df9f1eab",
@@ -818,7 +818,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-6770f698",
@@ -900,7 +900,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-dfc09225",
@@ -933,7 +933,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-cbd1a9b2",
@@ -1013,7 +1013,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-621eb7e2",
@@ -1086,7 +1086,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-7845688d",
@@ -1120,7 +1120,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-d657fb41",
@@ -1196,7 +1196,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-d36b916d",
@@ -1265,7 +1265,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-682cbb81",
@@ -1343,7 +1343,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-336eb488",
@@ -1377,7 +1377,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-badb7a6f",
@@ -1433,7 +1433,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-453000e8",
@@ -1502,7 +1502,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-7534cbf8",
@@ -1559,7 +1559,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-b75d5d24",
@@ -1627,7 +1627,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-4ad912d4",
@@ -1698,7 +1698,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-7c087db9",
@@ -1780,7 +1780,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-d1efa9ab",
@@ -1848,7 +1848,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-d1bbb863",
@@ -1929,7 +1929,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-736ce10f",
@@ -2044,7 +2044,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-fd4462ba",
@@ -2122,7 +2122,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-fcd984dd",
@@ -2208,7 +2208,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-7e594548",
@@ -2278,7 +2278,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-d0fab623",
@@ -2356,7 +2356,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-03e2bce2",
@@ -2389,7 +2389,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-dc4ac593",
@@ -2456,7 +2456,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-03c8caba",
@@ -2492,7 +2492,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-837953c8",
@@ -2588,7 +2588,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-527f65b2",
@@ -2699,7 +2699,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-4cd12240",
@@ -2779,7 +2779,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-7b0e4e74",
@@ -2851,7 +2851,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-5c0c9f2a",
@@ -2924,7 +2924,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-37ce08d1",
@@ -3008,7 +3008,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-0ea0fcca",
@@ -3088,7 +3088,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-362dd881",
@@ -3147,7 +3147,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-3e344863",
@@ -3231,7 +3231,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-04d7a211",
@@ -3317,7 +3317,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-ea4af4cf",
@@ -3415,7 +3415,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-8ebd497c",
@@ -3513,7 +3513,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-70c7c684",
@@ -3586,7 +3586,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-ebf84bc9",
@@ -3670,7 +3670,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-2969726e",
@@ -3766,7 +3766,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-0326f150",
@@ -3837,7 +3837,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-117167da",
@@ -3952,7 +3952,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-d0fab623",
@@ -4030,7 +4030,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-27838f8f",
@@ -4081,7 +4081,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-273f5c0d",
@@ -4202,7 +4202,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-a72989ad",
@@ -4310,7 +4310,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-91551c1b",
@@ -4400,7 +4400,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-f330902b",
@@ -4446,7 +4446,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-2a79a631",
@@ -4532,7 +4532,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-ed9f3e1e",
@@ -4612,7 +4612,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-3227a372",
@@ -4692,7 +4692,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-7530556e",
@@ -4813,7 +4813,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-86c33452",
@@ -4881,7 +4881,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-5cf48b45",
@@ -4955,7 +4955,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-e3b1b127",
@@ -5034,7 +5034,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-2b9a05b6",
@@ -5102,7 +5102,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-9821cb9d",
@@ -5159,7 +5159,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-48b0137c",
@@ -5240,7 +5240,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-a3a75200",
@@ -5324,7 +5324,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-f4c74950",
@@ -5352,13 +5352,24 @@
         "better"
       ],
       "tests": [
+        "tests/v7-proof-and-claims.test.mjs",
         "tests/life-possibility-engine.test.mjs",
-        "tests/sovereign-coverage-matrix.test.mjs",
-        "tests/agent-model-failover.test.mjs"
+        "tests/sovereign-coverage-matrix.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/v7-proof-and-claims.test.mjs",
+            "shared": 5,
+            "terms": [
+              "blocker",
+              "success",
+              "label",
+              "number",
+              "look"
+            ]
+          },
           {
             "file": "tests/life-possibility-engine.test.mjs",
             "shared": 4,
@@ -5378,15 +5389,6 @@
               "number",
               "look"
             ]
-          },
-          {
-            "file": "tests/agent-model-failover.test.mjs",
-            "shared": 3,
-            "terms": [
-              "label",
-              "look",
-              "better"
-            ]
           }
         ]
       },
@@ -5397,7 +5399,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-82b0302a",
@@ -5475,7 +5477,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AGENTS-3b06956f",
@@ -5533,7 +5535,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-fefb064e",
@@ -5601,7 +5603,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-67baedf0",
@@ -5695,7 +5697,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-4802dde1",
@@ -5791,7 +5793,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-324b10b7",
@@ -5828,7 +5830,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-1ffff73d",
@@ -5924,7 +5926,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-3cb4bbcb",
@@ -6030,7 +6032,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-c21e209d",
@@ -6102,7 +6104,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-8cdd10a7",
@@ -6136,7 +6138,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-04e03894",
@@ -6210,7 +6212,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-221a2464",
@@ -6244,7 +6246,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-223d0806",
@@ -6342,7 +6344,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-8ff2cfee",
@@ -6428,7 +6430,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-f5e720f0",
@@ -6486,7 +6488,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-767c6e63",
@@ -6554,7 +6556,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-1b458e39",
@@ -6628,7 +6630,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-03633ced",
@@ -6746,7 +6748,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-21ee8a49",
@@ -6822,7 +6824,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-0557d36b",
@@ -6938,7 +6940,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-131abcf3",
@@ -7005,7 +7007,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-05cf0881",
@@ -7110,7 +7112,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-503fd466",
@@ -7209,7 +7211,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-aea5f8cf",
@@ -7328,7 +7330,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-d8ba57ae",
@@ -7365,7 +7367,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-8ae87611",
@@ -7452,7 +7454,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-14254fb5",
@@ -7554,7 +7556,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-e766f128",
@@ -7638,7 +7640,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-d0fab623",
@@ -7716,7 +7718,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CLAUDE-3b06956f",
@@ -7774,7 +7776,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-ef408498",
@@ -7870,7 +7872,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-2492498b",
@@ -7952,7 +7954,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-c9a1eceb",
@@ -7986,7 +7988,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-c7a66262",
@@ -8067,7 +8069,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-5ef24d5e",
@@ -8153,7 +8155,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-41cb188a",
@@ -8269,7 +8271,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-d0fab623",
@@ -8347,7 +8349,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-d75e34af",
@@ -8381,7 +8383,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-ba9fe73f",
@@ -8415,7 +8417,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-b5a5e71a",
@@ -8482,7 +8484,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-c524933b",
@@ -8566,7 +8568,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-e1ec38fe",
@@ -8650,7 +8652,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-2e285a31",
@@ -8726,7 +8728,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-2cfbe539",
@@ -8832,7 +8834,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-1b241fb9",
@@ -8934,7 +8936,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-4716b859",
@@ -9003,7 +9005,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-09f6fe0c",
@@ -9036,7 +9038,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-f90b358e",
@@ -9070,7 +9072,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-c7af713f",
@@ -9162,7 +9164,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-44c6a188",
@@ -9211,7 +9213,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-9d782dff",
@@ -9245,7 +9247,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-f1ab9df8",
@@ -9360,7 +9362,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-cea054df",
@@ -9464,7 +9466,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-bc54e518",
@@ -9544,7 +9546,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-6e8ef15b",
@@ -9657,7 +9659,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-38f61e6b",
@@ -9742,7 +9744,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-c56ba762",
@@ -9830,7 +9832,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-1c90c6ec",
@@ -9903,7 +9905,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-993a537f",
@@ -9985,7 +9987,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-eb08baf6",
@@ -10061,7 +10063,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-10a60da3",
@@ -10136,7 +10138,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-8052dffd",
@@ -10212,7 +10214,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-dc8e3cb7",
@@ -10247,7 +10249,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-d17667b4",
@@ -10333,7 +10335,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-48ac7bd8",
@@ -10417,7 +10419,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-b5b66085",
@@ -10494,7 +10496,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-543ce2de",
@@ -10576,7 +10578,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-cf7cb9d7",
@@ -10658,7 +10660,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-6e3dc4bd",
@@ -10732,7 +10734,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-82c061c3",
@@ -10767,7 +10769,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-6a89e8f4",
@@ -10876,7 +10878,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-a75b6bab",
@@ -10966,7 +10968,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-bdcdb06f",
@@ -11060,7 +11062,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-40b8d327",
@@ -11169,7 +11171,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-764ca423",
@@ -11275,7 +11277,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-8bc30d7d",
@@ -11371,7 +11373,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-2aa70902",
@@ -11453,7 +11455,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-570e2328",
@@ -11527,7 +11529,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-aabdbabd",
@@ -11614,7 +11616,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-c538de8e",
@@ -11697,7 +11699,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-484da119",
@@ -11771,7 +11773,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-e1a821c2",
@@ -11890,7 +11892,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-438867a4",
@@ -11961,7 +11963,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "UBERBOND-CANON-81521381",
@@ -12011,7 +12013,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-1fb61511",
@@ -12095,7 +12097,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-23a38df4",
@@ -12179,7 +12181,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-5c32f227",
@@ -12213,7 +12215,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-d1093291",
@@ -12247,7 +12249,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-5308fd42",
@@ -12349,7 +12351,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-774f8655",
@@ -12422,7 +12424,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-START-HERE-6df4f98d",
@@ -12503,7 +12505,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-99b9c3d9",
@@ -12599,7 +12601,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-b6e306d3",
@@ -12666,7 +12668,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-09e20e04",
@@ -12747,7 +12749,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-6821f6b7",
@@ -12866,7 +12868,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-865e57fa",
@@ -12899,7 +12901,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-711b2a59",
@@ -12982,7 +12984,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-1e604adc",
@@ -13075,7 +13077,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-93414335",
@@ -13193,7 +13195,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-17a9738b",
@@ -13310,7 +13312,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-f74ade1b",
@@ -13387,7 +13389,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-b3df0b68",
@@ -13421,7 +13423,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-6bede997",
@@ -13538,7 +13540,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-2410e7f8",
@@ -13572,7 +13574,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-a36e03cb",
@@ -13648,7 +13650,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-877918ac",
@@ -13733,7 +13735,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-318f42de",
@@ -13849,7 +13851,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-baf1e144",
@@ -13917,7 +13919,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-3a9c2e59",
@@ -13951,7 +13953,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-9f4a0ff4",
@@ -14025,7 +14027,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-60abde2b",
@@ -14106,7 +14108,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-a7a1ecbd",
@@ -14194,7 +14196,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-8f4a3ca5",
@@ -14243,7 +14245,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "WALLBREAKER-CANON-dfe891ba",
@@ -14363,7 +14365,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-621b71a3",
@@ -14410,7 +14412,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-ff9e96cd",
@@ -14506,7 +14508,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-f1059c0e",
@@ -14581,7 +14583,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-8af00be4",
@@ -14689,7 +14691,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-3c5a7986",
@@ -14773,7 +14775,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-af56354e",
@@ -14889,7 +14891,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-48fe24b2",
@@ -14985,7 +14987,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1d4ab5b5",
@@ -15052,7 +15054,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-359a58b2",
@@ -15088,7 +15090,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-2dd8138d",
@@ -15146,7 +15148,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-4eb14081",
@@ -15213,7 +15215,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-710b6c3c",
@@ -15260,7 +15262,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-c562567a",
@@ -15375,7 +15377,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-f83d901d",
@@ -15490,7 +15492,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-99f32486",
@@ -15581,7 +15583,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-5188ce0c",
@@ -15653,7 +15655,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-39f7ca8f",
@@ -15769,7 +15771,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-34361fba",
@@ -15849,7 +15851,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-4d27d32e",
@@ -15897,7 +15899,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-d0fab623",
@@ -15975,7 +15977,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e06c450f",
@@ -16009,7 +16011,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-061e4bed",
@@ -16100,7 +16102,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-05388af0",
@@ -16148,7 +16150,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1376773d",
@@ -16232,7 +16234,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-a63c391e",
@@ -16316,7 +16318,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e43cf92e",
@@ -16350,7 +16352,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e9bd96df",
@@ -16386,7 +16388,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-95ef824a",
@@ -16462,7 +16464,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-bb70be0d",
@@ -16555,7 +16557,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-6a94dfa7",
@@ -16636,7 +16638,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1b1a3439",
@@ -16695,7 +16697,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-d8df159b",
@@ -16814,7 +16816,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-87a01718",
@@ -16888,7 +16890,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6edce379",
@@ -16972,7 +16974,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f40f2ca8",
@@ -17044,7 +17046,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a4674f47",
@@ -17128,7 +17130,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6ef4b9e0",
@@ -17210,7 +17212,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-123a9c73",
@@ -17291,7 +17293,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ffa5455b",
@@ -17420,7 +17422,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e56d298d",
@@ -17457,7 +17459,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-282ad157",
@@ -17495,7 +17497,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-3246563c",
@@ -17561,7 +17563,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0a62e5dc",
@@ -17622,7 +17624,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fef52a3b",
@@ -17658,7 +17660,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-d9f1acb0",
@@ -17752,7 +17754,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-32ff8717",
@@ -17833,7 +17835,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f36c33af",
@@ -17868,7 +17870,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-820e37c3",
@@ -17956,7 +17958,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11af01a4",
@@ -17993,7 +17995,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1ed46dab",
@@ -18077,7 +18079,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4c7a100c",
@@ -18162,7 +18164,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-46fe12f9",
@@ -18235,7 +18237,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e60a7282",
@@ -18341,7 +18343,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-51718ae7",
@@ -18451,7 +18453,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-aaa931a8",
@@ -18510,7 +18512,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-9d1709f1",
@@ -18595,7 +18597,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-c23f99a0",
@@ -18672,7 +18674,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f7cbddff",
@@ -18754,7 +18756,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-bd571341",
@@ -18833,7 +18835,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-cb93444a",
@@ -18910,7 +18912,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6340a090",
@@ -18991,7 +18993,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4e81efb3",
@@ -19069,7 +19071,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-8473d37c",
@@ -19145,7 +19147,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-212e87ff",
@@ -19224,7 +19226,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-347066dd",
@@ -19284,7 +19286,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-874c6921",
@@ -19351,7 +19353,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-db10c10f",
@@ -19451,7 +19453,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fd073312",
@@ -19525,7 +19527,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e0b0f379",
@@ -19562,7 +19564,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ae2b7888",
@@ -19595,7 +19597,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-77330145",
@@ -19670,7 +19672,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f1a1bd0e",
@@ -19741,7 +19743,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-5def0131",
@@ -19860,7 +19862,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dd81dd32",
@@ -19941,7 +19943,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a757dd0f",
@@ -20009,7 +20011,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-40bfc2bc",
@@ -20043,7 +20045,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11cc88f8",
@@ -20077,7 +20079,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-56321e42",
@@ -20157,7 +20159,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dce153cc",
@@ -20241,7 +20243,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ef0c13a9",
@@ -20314,7 +20316,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-af2de41e",
@@ -20349,7 +20351,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6e015714",
@@ -20409,7 +20411,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0ecb54d0",
@@ -20447,7 +20449,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1118ebd6",
@@ -20557,7 +20559,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
+      "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b"
     }
   ]
 }

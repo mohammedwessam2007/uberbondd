@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-resource-allocation.v1",
-  "generatedAt": "2026-09-18T14:05:15.560Z",
-  "sourceSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
+  "generatedAt": "2026-09-18T14:21:45.427Z",
+  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],

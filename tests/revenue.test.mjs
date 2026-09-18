@@ -7,6 +7,7 @@ import crypto from 'node:crypto';
 import {Store} from '../src/store.mjs';
 import {RevenueEngine} from '../src/revenue.mjs';
 import {checkoutUrl,verifyLemonSignature} from '../src/payments.mjs';
+import {InputError} from '../src/input.mjs';
 
 const cfg=dir=>({
   baseUrl:'https://audit.test',dataDir:dir,encryptionKey:'a'.repeat(64),
@@ -17,6 +18,15 @@ const cfg=dir=>({
 test('checkout custom data is encoded into hosted link',()=>{const u=new URL(checkoutUrl('https://shop.test/buy/abc',{lead_id:'lead 1',product:'full'}));assert.equal(u.searchParams.get('checkout[custom][lead_id]'),'lead 1');assert.equal(u.searchParams.get('checkout[custom][product]'),'full')});
 
 test('Lemon Squeezy signature verification uses raw body HMAC',()=>{const raw='{"hello":"world"}',secret='secret';const sig=crypto.createHmac('sha256',secret).update(raw).digest('hex');assert.equal(verifyLemonSignature(raw,sig,secret),true);assert.equal(verifyLemonSignature(raw,'bad',secret),false)});
+
+test('public intake rejects malformed submissions as input errors instead of server failures', async () => {
+  const dir=await fs.mkdtemp(path.join(os.tmpdir(),'revenue-invalid-input-'));const store=new Store(dir);await store.init();
+  const pipeline={running:true,paused:false,runBatch:async()=>{}};const engine=new RevenueEngine(store,cfg(dir),pipeline);
+  await assert.rejects(() => engine.createLead({},'1.2.3.4'), error => error instanceof InputError && error.status === 400 && error.message === 'Company, website, and a valid email are required');
+  await assert.rejects(() => engine.createLead(null,'1.2.3.4'), error => error instanceof InputError && error.status === 400 && error.message === 'A JSON object is required');
+  assert.equal((await store.list('leads')).length,0);
+  await store.close();
+});
 
 test('public report shows one free finding then unlocks full report',async()=>{
   const dir=await fs.mkdtemp(path.join(os.tmpdir(),'revenue-store-'));const store=new Store(dir);await store.init();

@@ -23,11 +23,10 @@ await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
 const queue = new DurableQueue(store, config, console);
 let revenue;
-// OMNIA_V9_MODE defaults to 'off' (resolveOmniaV9Mode never escalates without an
-// explicit env value from this allowlist). The resolved hook only ever feeds the
-// non-authoritative shadow observer (src/omnia-v9/final-admission-shadow.mjs) --
-// it cannot block or alter a send. The AUTHORITATIVE outbound-consequence-gate.mjs
-// is deliberately NOT wired here -- see docs/INSTANTLY_RECONCILIATION.md Sub-wave B.
+// OMNIA_V9_MODE still controls only the non-authoritative shadow observer.
+// Real effect-adapter sends have a separate authoritative consequence gate
+// below; legacy Gmail behavior remains unchanged unless OUTBOUND_USE_EFFECT_ADAPTER
+// is explicitly enabled.
 const omniaV9Mode = resolveOmniaV9Mode(process.env);
 console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
 const pipeline = new Pipeline(store, config, {

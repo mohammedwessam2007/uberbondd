@@ -103,7 +103,16 @@ test('crawler and worker use the shared runtime lifecycle', async () => {
   const worker = await readFile(new URL('../worker.mjs', import.meta.url), 'utf8');
   assert.match(crawler, /getSharedBrowserRuntime/);
   assert.match(crawler, /const runtimeLease=await runtime\.acquire/);
-  assert.match(crawler, /finally \{ await runtimeLease\.release\(\); \}/);
+  // Asserted as a property rather than one spelling. This pinned the exact text
+  // `finally { await runtimeLease.release(); }` and went red when the release was
+  // improved to run under a bounded timeout -- a strictly better version of the
+  // same guarantee. What matters is that the lease is released and that it
+  // happens in a finally, so a throw mid-crawl cannot leak a browser context.
+  const finallyBlocks = crawler.match(/\}\s*finally\s*\{[\s\S]*?\}/g) ?? [];
+  assert.ok(
+    finallyBlocks.some(block => /runtimeLease\.release\(\)/.test(block)),
+    'the crawler must release its runtime lease from a finally block'
+  );
   assert.doesNotMatch(crawler, /const browser=await chromium\.launch/);
   assert.doesNotMatch(crawler, /await context\.close\(\); await browser\.close\(\)/);
   assert.match(worker, /closeSharedBrowserRuntimes/);

@@ -3,6 +3,7 @@
 // src/provider-http-adapters.mjs. A configured API key makes an adapter
 // available; it does not authorize spending, DNS mutation, mailbox creation or
 // live outreach. Those operations remain individually approval-gated.
+import { createAgentMailAdapter } from './agentmail-adapter.mjs';
 import { createIcemailAdapter, createMailforgeAdapter } from './provider-http-adapters.mjs';
 
 export const PROVIDER_ADAPTER_CONTRACT_POLICY_VERSION = 'provider-adapter-contract-2.0.0';
@@ -21,11 +22,12 @@ export const PROVIDER_CAPABILITIES = Object.freeze([
   'exportMailboxes', 'prewarmPurchase', 'operationStatus', 'webhookEvents'
 ]);
 
-export const KNOWN_PROVIDERS = Object.freeze(['instantly', 'googleWorkspace', 'microsoft365', 'icemail', 'mailforge']);
+export const KNOWN_PROVIDERS = Object.freeze(['instantly', 'googleWorkspace', 'microsoft365', 'icemail', 'mailforge', 'agentmail']);
 
 const PROVIDER_FACTORIES = Object.freeze({
   icemail: createIcemailAdapter,
-  mailforge: createMailforgeAdapter
+  mailforge: createMailforgeAdapter,
+  agentmail: createAgentMailAdapter
 });
 
 function unconfiguredResult(providerName, capability) {

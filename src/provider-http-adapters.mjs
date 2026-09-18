@@ -154,6 +154,7 @@ function successfulResult({ provider, capability, httpStatus, payload, timestamp
     operationId: operation,
     providerRequestId: headerValue(headers, 'x-request-id') || headerValue(headers, 'x-correlation-id') || null,
     retryAfterSeconds: retryAfterSeconds(headers),
+    nextPageToken: text(payload?.next_page_token || payload?.nextPageToken, 500) || null,
     data: redactProviderReceipt(payload)
   };
 }

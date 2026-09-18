@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-baselines.v1",
-  "generatedAt": "2026-09-18T14:03:53.603Z",
-  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+  "generatedAt": "2026-09-18T14:05:15.559Z",
+  "sourceSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
@@ -60,7 +60,7 @@
     },
     {
       "metric": "srcModules",
-      "value": 834,
+      "value": 835,
       "mode": "LIVE",
       "ranAt": null,
       "ageDays": null,
@@ -69,7 +69,7 @@
     },
     {
       "metric": "testSuites",
-      "value": 1011,
+      "value": 1012,
       "mode": "LIVE",
       "ranAt": null,
       "ageDays": null,

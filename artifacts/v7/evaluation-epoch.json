@@ -1,12 +1,12 @@
 {
   "schemaVersion": "uberbond.v7-evaluation-epoch.v1",
-  "generatedAt": "2026-09-18T14:03:53.603Z",
-  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+  "generatedAt": "2026-09-18T14:05:15.560Z",
+  "sourceSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
   "businessEffectAuthority": "NONE",
-  "epochId": "epoch-c16cdcf0fea6",
+  "epochId": "epoch-74bf4336204b",
   "previousEpochId": "epoch-c16cdcf0fea6",
   "freshnessPolicy": "An epoch is closed at the head it names. Comparing two epochs is only meaningful when both were measured the same way.",
   "metrics": [
@@ -32,12 +32,12 @@
     },
     {
       "metric": "srcModules",
-      "value": 834,
+      "value": 835,
       "mode": "LIVE"
     },
     {
       "metric": "testSuites",
-      "value": 1011,
+      "value": 1012,
       "mode": "LIVE"
     },
     {
@@ -48,16 +48,16 @@
   ],
   "deltasFromPreviousEpoch": [
     {
-      "metric": "checkSyntaxFilesParsed",
-      "from": 2189,
-      "to": 2190,
+      "metric": "srcModules",
+      "from": 834,
+      "to": 835,
       "delta": 1
     },
     {
-      "metric": "mutationAnchorsRegistered",
-      "from": 496,
-      "to": 502,
-      "delta": 6
+      "metric": "testSuites",
+      "from": 1011,
+      "to": 1012,
+      "delta": 1
     }
   ],
   "growthClass": "CHANGE_MEASURED__TOO_FEW_EPOCHS_FOR_A_TREND",

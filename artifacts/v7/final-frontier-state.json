@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-final-frontier-state.v1",
-  "generatedAt": "2026-09-18T14:03:53.605Z",
-  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+  "generatedAt": "2026-09-18T14:05:15.561Z",
+  "sourceSha": "74bf4336204b1ba31bd1cc67ba55088ef79c7908",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],

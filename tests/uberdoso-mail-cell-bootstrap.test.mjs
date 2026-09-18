@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const bootstrap = new URL('../ops/sovereign/bootstrap-uberdoso-mail-cell.sh', import.meta.url);
 const verify = new URL('../ops/sovereign/verify-uberdoso-mail-cell.sh', import.meta.url);
 const lock = JSON.parse(fs.readFileSync(new URL('../config/uberdoso-source-lock.json', import.meta.url), 'utf8'));
 
 function syntax(path) {
-  const result = spawnSync('bash', ['-n', path], { encoding: 'utf8' });
+  const result = spawnSync('bash', ['-n', fileURLToPath(path)], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
 }
 

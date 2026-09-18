@@ -592,7 +592,8 @@ export class Pipeline {
     if (this.cfg.outbound?.useEffectAdapter === true) {
       const consequenceContext = buildOutboundConsequenceContext({
         reservation, prospect, campaign, account, effectPayload, followup, idempotencyKey,
-        checkedAt: this.clock().toISOString()
+        checkedAt: this.clock().toISOString(),
+        provider: outboundProvider
       });
       const consequenceAdmission = await enforceOutboundConsequence({
         hook: this.outboundConsequenceGateFn,

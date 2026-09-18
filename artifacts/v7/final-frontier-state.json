@@ -1,16 +1,16 @@
 {
   "schemaVersion": "uberbond.v7-final-frontier-state.v1",
-  "generatedAt": "2026-09-18T15:33:28.654Z",
-  "sourceSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+  "generatedAt": "2026-09-18T15:48:39.515Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
   "businessEffectAuthority": "NONE",
   "freshnessPolicy": "Recomputed from the ledger and the index on every run. This file asserts nothing it did not read.",
   "completionLaw": {
-    "softwareOpen": 1,
+    "softwareOpen": 0,
     "unmeasured": 0,
-    "sourceSideComplete": false,
+    "sourceSideComplete": true,
     "contractArtifactsAbsent": 11,
     "contractArtifactsComputableNow": 0
   },
@@ -52,7 +52,7 @@
       "authorityRequired": "Varies per artifact: research authority, spend authority, or a founder decision to build the runtime."
     }
   ],
-  "mode": "EXECUTING__SOURCE_SIDE_WORK_REMAINS",
+  "mode": "PERPETUAL_FRONTIER__SOURCE_SIDE_COMPLETE",
   "terminationLaw": "The program does not terminate on source-side completion. Entering Perpetual Frontier is a mode change, and only the founder ends it.",
   "notClaimed": [
     "That the remaining blockers will resolve.",

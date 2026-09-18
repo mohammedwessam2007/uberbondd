@@ -1,13 +1,12 @@
 {
   "schemaVersion": "uberbond.v7-claim-evidence-registry.v1",
-  "generatedAt": "2026-09-18T15:33:29.584Z",
-  "sourceSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+  "generatedAt": "2026-09-18T15:48:52.012Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-claim-evidence-registry.mjs",
   "freshnessPolicy": "A claim is stale when source it depends on changed after it was measured, not merely when the head moved. Committing a regenerated artifact changes the head and falsifies nothing.",
   "counts": {
-    "EXACT_HEAD": 6,
-    "NOT_HEAD_BOUND": 1,
-    "STALE_AGAINST_CURRENT_HEAD": 1
+    "EXACT_HEAD": 7,
+    "NOT_HEAD_BOUND": 1
   },
   "boundary": "This records what backs a claim and how fresh it is. It does not re-derive the claim, so a wrong measurement recorded at the exact head still reads EXACT_HEAD.",
   "uncertainty": "NOT_HEAD_BOUND is common and correct for time-based evidence such as a health probe. It is not a failure.",
@@ -16,9 +15,9 @@
       "id": "CLM-SOFTWARE-OPEN",
       "claim": "Open software gaps remaining in the V7 ledger",
       "artifact": "artifacts/v7/gap-ledger.json",
-      "value": 1,
+      "value": 0,
       "evidenceClass": "COMPUTED_BY_CHECKS",
-      "producedAtSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "Every gap ran a check. The number is a measurement, not a label."
@@ -27,9 +26,9 @@
       "id": "CLM-SOURCE-SIDE-COMPLETE",
       "claim": "Whether the V7 completion law is satisfied on the source side",
       "artifact": "artifacts/v7/gap-ledger.json",
-      "value": false,
+      "value": true,
       "evidenceClass": "COMPUTED_BY_CHECKS",
-      "producedAtSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": null
@@ -40,7 +39,7 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 505,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "Registered, not killed. A registered guard that was never run proves nothing."
@@ -51,7 +50,7 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 84,
       "evidenceClass": "VOCABULARY_LINKAGE_TO_A_KILLED_GUARD",
-      "producedAtSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "The linkage is term overlap between a directive and a guard description. It shows a guard exists on the same subject, not that it enforces this sentence."
@@ -62,7 +61,7 @@
       "artifact": "artifacts/v7/proof-obligations.json",
       "value": 14,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": null
@@ -84,7 +83,7 @@
       "artifact": "artifacts/v7/gap-ledger.json",
       "value": "EXTERNAL_BLOCKED",
       "evidenceClass": "REPRODUCIBLE_BY_RUNNING_THE_MATERIALIZER",
-      "producedAtSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "The ledger check runs scripts/materialize-inevitability-v9.py at the head it reports. The narrative record lives at artifacts/v9/canonical-v9-materialization-blocker.json."
@@ -95,15 +94,9 @@
       "artifact": "artifacts/nullstar-terminal/completion-debt.json",
       "value": "NONE",
       "evidenceClass": "ABSENCE_OF_EXTERNAL_RECEIPTS",
-      "producedAtSha": "7bef816617d1c806d7092568b4332fdf2e75c4da",
-      "freshness": "STALE_AGAINST_CURRENT_HEAD",
-      "sourceChangedSince": [
-        "scripts/mutation-war.mjs",
-        "scripts/v7-artifact-index.mjs",
-        "scripts/v7-gap-ledger.mjs",
-        "tests/v7-gap-ledger.test.mjs",
-        "tests/v7-proof-and-claims.test.mjs"
-      ],
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
+      "freshness": "EXACT_HEAD",
+      "sourceChangedSince": [],
       "note": "An absence claim. It can be falsified by one real receipt and cannot be strengthened by any amount of internal work."
     }
   ],

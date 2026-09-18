@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-baselines.v1",
-  "generatedAt": "2026-09-18T15:33:28.652Z",
-  "sourceSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+  "generatedAt": "2026-09-18T15:48:39.513Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
@@ -27,13 +27,13 @@
       "value": 871,
       "mode": "RECORDED",
       "ranAt": "2026-09-05T12:00:33Z",
-      "ageDays": 13.1,
+      "ageDays": 13.2,
       "stale": true,
       "staleReason": "older than 1d"
     },
     {
       "metric": "mutationAnchorsRegistered",
-      "value": 504,
+      "value": 505,
       "mode": "LIVE",
       "ranAt": null,
       "ageDays": null,
@@ -81,7 +81,7 @@
       "value": 3683,
       "mode": "RECORDED",
       "ranAt": "2026-09-05T12:00:08Z",
-      "ageDays": 13.1,
+      "ageDays": 13.2,
       "stale": true,
       "staleReason": "older than 1d"
     },
@@ -90,7 +90,7 @@
       "value": 3,
       "mode": "RECORDED",
       "ranAt": "2026-09-05T12:00:08Z",
-      "ageDays": 13.1,
+      "ageDays": 13.2,
       "stale": true,
       "staleReason": "older than 1d"
     },

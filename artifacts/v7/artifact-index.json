@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-artifact-index.v1",
-  "generatedAt": "2026-09-18T14:52:59.853Z",
-  "sourceSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
+  "generatedAt": "2026-09-18T15:07:27.665Z",
+  "sourceSha": "d231abfd97aac71aaf04984575dfc8441956c026",
   "generator": "scripts/v7-artifact-index.mjs",
   "freshnessPolicy": "Recomputed from the filesystem on every run. A state here is a statSync result, not a claim.",
   "contractSource": "MANDATORY MACHINE-READABLE V7 ARTIFACTS, from the recoverable V7 ancestor",
@@ -72,7 +72,7 @@
       "artifact": "artifacts/v7/claim-evidence-registry.json",
       "state": "GENERATED",
       "generator": "scripts/v7-claim-evidence-registry.mjs",
-      "bytes": 4951,
+      "bytes": 4950,
       "note": null
     },
     {
@@ -86,14 +86,14 @@
       "artifact": "artifacts/v7/mission-dag.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 5156,
+      "bytes": 4735,
       "note": null
     },
     {
       "artifact": "artifacts/v7/resource-allocation.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 3277,
+      "bytes": 2999,
       "note": null
     },
     {
@@ -212,14 +212,14 @@
       "artifact": "artifacts/v7/frontier-checkpoint.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 4295,
+      "bytes": 4064,
       "note": null
     },
     {
       "artifact": "artifacts/v7/final-frontier-state.json",
       "state": "GENERATED",
       "generator": "scripts/v7-frontier-artifacts.mjs",
-      "bytes": 3488,
+      "bytes": 3492,
       "note": null
     }
   ],

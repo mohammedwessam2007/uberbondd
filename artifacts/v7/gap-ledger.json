@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-gap-ledger.v1",
-  "generatedAt": "2026-09-18T14:52:59.906Z",
-  "sourceSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
+  "generatedAt": "2026-09-18T15:08:11.373Z",
+  "sourceSha": "d231abfd97aac71aaf04984575dfc8441956c026",
   "generator": "scripts/v7-gap-ledger.mjs",
   "freshnessPolicy": "Recomputed from source on every run. A status in this file was produced by a check, never written.",
   "statusesAreComputed": "Editing this artifact closes nothing. Each gap runs a check that reads the filesystem, a doctor, or git.",
@@ -46,8 +46,8 @@
         "partsVerified": 15,
         "partsUnrecoverable": 1
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -85,8 +85,8 @@
         ],
         "unresolvedConflicts": 9
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -113,8 +113,8 @@
       "measured": {
         "state": "UNKNOWN__EVIDENCE_STALE"
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -141,8 +141,8 @@
         "reviewed": 22,
         "unreviewed": 0
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -168,10 +168,10 @@
         "ahead": 0,
         "behind": 0,
         "uncommittedSource": 0,
-        "uncommittedArtifacts": 3
+        "uncommittedArtifacts": 2
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -196,8 +196,8 @@
         "CD007 open in the completion-debt ledger"
       ],
       "measured": null,
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -222,8 +222,8 @@
         "CD006 open in the completion-debt ledger"
       ],
       "measured": null,
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -246,8 +246,8 @@
       "checkState": "MEASURED",
       "sourceEvidence": [],
       "measured": null,
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -279,8 +279,8 @@
           "NEEDS_ELAPSED_TIME": 1
         }
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     },
     {
       "dependencies": [],
@@ -311,8 +311,8 @@
           "NEEDS_ELAPSED_TIME": 1
         }
       },
-      "lastVerifiedSha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
-      "lastVerifiedAt": "2026-09-18T14:52:59.906Z"
+      "lastVerifiedSha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "lastVerifiedAt": "2026-09-18T15:08:11.373Z"
     }
   ],
   "uncertainty": "A check measures what it reads. A CLOSED software gap means the check passed at this exact head, not that the underlying capability is externally proven.",

@@ -1,17 +1,16 @@
 {
   "schemaVersion": "uberbond.v7-artifact-index.v1",
-  "generatedAt": "2026-09-17T18:25:32.708Z",
-  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generatedAt": "2026-09-18T15:46:34.470Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-artifact-index.mjs",
   "freshnessPolicy": "Recomputed from the filesystem on every run. A state here is a statSync result, not a claim.",
   "contractSource": "MANDATORY MACHINE-READABLE V7 ARTIFACTS, from the recoverable V7 ancestor",
   "counts": {
-    "GENERATED": 4,
+    "GENERATED": 10,
     "COVERED_BY_EXISTING_ARTIFACT": 8,
-    "ABSENT": 17
+    "ABSENT": 11
   },
   "absenceReasons": {
-    "COMPUTABLE_NOW": 6,
     "NEEDS_EXTERNAL_REALITY": 5,
     "NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST": 1,
     "NEEDS_REPEATED_OBSERVATION": 4,
@@ -24,92 +23,92 @@
       "artifact": "artifacts/v7/live-truth.json",
       "state": "GENERATED",
       "generator": "scripts/v7-live-truth.mjs",
-      "bytes": 1962,
+      "nonEmpty": true,
       "note": null
     },
     {
       "artifact": "artifacts/v7/gap-ledger.json",
       "state": "GENERATED",
       "generator": "scripts/v7-gap-ledger.mjs",
-      "bytes": 15736,
+      "nonEmpty": true,
       "note": null
     },
     {
       "artifact": "artifacts/v7/directive-dag.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/constitution/directives.json",
-      "bytes": 578954,
+      "nonEmpty": true,
       "note": "Directive objects with dependencies/conflicts/supersedes fields. The DAG edges themselves are still uncomputed."
     },
     {
       "artifact": "artifacts/v7/conflict-graph.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/constitution/directives.json",
-      "bytes": 578954,
+      "nonEmpty": true,
       "note": "conflictGraph, with precedence resolvability per candidate."
     },
     {
       "artifact": "artifacts/v7/supersession-graph.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/constitution/directives.json",
-      "bytes": 578954,
+      "nonEmpty": true,
       "note": "precedence ranks and the declared terminal-source exclusion. Supersession edges between individual directives are uncomputed."
     },
     {
       "artifact": "artifacts/v7/coverage-graph.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/constitution/directives.json",
-      "bytes": 578954,
+      "nonEmpty": true,
       "note": "coverageBySource: directives, guarded, external-effect and guarded-external-effect per canon file."
     },
     {
       "artifact": "artifacts/v7/proof-obligations.json",
       "state": "GENERATED",
       "generator": "scripts/v7-proof-obligations.mjs",
-      "bytes": 107746,
+      "nonEmpty": true,
       "note": null
     },
     {
       "artifact": "artifacts/v7/claim-evidence-registry.json",
       "state": "GENERATED",
       "generator": "scripts/v7-claim-evidence-registry.mjs",
-      "bytes": 5681,
+      "nonEmpty": true,
       "note": null
     },
     {
       "artifact": "artifacts/v7/proof-debt.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/constitution/reviewed-linkage-findings.json",
-      "bytes": 19041,
+      "nonEmpty": true,
       "note": "Directives reported unguarded, each read and classified, with residuals named per entry."
     },
     {
       "artifact": "artifacts/v7/mission-dag.json",
-      "state": "ABSENT",
-      "coveredBy": null,
-      "absenceReason": "COMPUTABLE_NOW",
-      "note": "Missions are derivable from the gap ledger plus the execution order. Nothing external is missing."
+      "state": "GENERATED",
+      "generator": "scripts/v7-frontier-artifacts.mjs",
+      "nonEmpty": true,
+      "note": null
     },
     {
       "artifact": "artifacts/v7/resource-allocation.json",
-      "state": "ABSENT",
-      "coveredBy": null,
-      "absenceReason": "COMPUTABLE_NOW",
-      "note": "Allocation across open gaps is computable once the mission DAG exists."
+      "state": "GENERATED",
+      "generator": "scripts/v7-frontier-artifacts.mjs",
+      "nonEmpty": true,
+      "note": null
     },
     {
       "artifact": "artifacts/v7/evaluation-epoch.json",
-      "state": "ABSENT",
-      "coveredBy": null,
-      "absenceReason": "COMPUTABLE_NOW",
-      "note": "An epoch is a labelled measurement boundary over gates that already run."
+      "state": "GENERATED",
+      "generator": "scripts/v7-frontier-artifacts.mjs",
+      "nonEmpty": true,
+      "note": null
     },
     {
       "artifact": "artifacts/v7/baselines.json",
-      "state": "ABSENT",
-      "coveredBy": null,
-      "absenceReason": "COMPUTABLE_NOW",
-      "note": "Baselines over existing gate outputs: test counts, mutation kills, coverage."
+      "state": "GENERATED",
+      "generator": "scripts/v7-frontier-artifacts.mjs",
+      "nonEmpty": true,
+      "note": null
     },
     {
       "artifact": "artifacts/v7/world-frontier.json",
@@ -164,7 +163,7 @@
       "artifact": "artifacts/v7/deployment-evidence.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/ubercel/deployment-signals.json",
-      "bytes": 2340,
+      "nonEmpty": true,
       "note": "Deployment signals with evidence class per signal; provider badges recorded as establishing nothing."
     },
     {
@@ -199,29 +198,29 @@
       "artifact": "artifacts/v7/reality-debt.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/nullstar-terminal/completion-debt.json",
-      "bytes": 13893,
+      "nonEmpty": true,
       "note": "CD001-CD013 with computed open/closed status; CD006 and CD007 remain the external economic gates."
     },
     {
       "artifact": "artifacts/v7/founder-authority-ledger.json",
       "state": "COVERED_BY_EXISTING_ARTIFACT",
       "coveredBy": "artifacts/constitution/open-founder-decisions.json",
-      "bytes": 3138,
+      "nonEmpty": true,
       "note": "FD002: the operative canon carries no authored precedence."
     },
     {
       "artifact": "artifacts/v7/frontier-checkpoint.json",
-      "state": "ABSENT",
-      "coveredBy": null,
-      "absenceReason": "COMPUTABLE_NOW",
-      "note": "A checkpoint over artifacts that already exist."
+      "state": "GENERATED",
+      "generator": "scripts/v7-frontier-artifacts.mjs",
+      "nonEmpty": true,
+      "note": null
     },
     {
       "artifact": "artifacts/v7/final-frontier-state.json",
-      "state": "ABSENT",
-      "coveredBy": null,
-      "absenceReason": "COMPUTABLE_NOW",
-      "note": "Terminal state summary over the gap ledger and the frontier checkpoint."
+      "state": "GENERATED",
+      "generator": "scripts/v7-frontier-artifacts.mjs",
+      "nonEmpty": true,
+      "note": null
     }
   ],
   "uncertainty": "COVERED_BY_EXISTING_ARTIFACT means an existing artifact carries this content, not that it carries it in the shape the contract names. Each cover states what it actually holds.",

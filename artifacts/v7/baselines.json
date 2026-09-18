@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "uberbond.v7-baselines.v1",
+  "generatedAt": "2026-09-18T15:48:39.513Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
+  "generator": "scripts/v7-frontier-artifacts.mjs",
+  "stateVersion": "uberbond.v7-frontier-state.v1",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE",
+  "freshnessPolicy": "LIVE entries are measured by this run. RECORDED entries are copied from artifacts/system-readiness.json and carry the age of that record.",
+  "evidencePointers": [
+    "artifacts/system-readiness.json",
+    "artifacts/constitution/directives.json",
+    "npm run check:syntax"
+  ],
+  "entries": [
+    {
+      "metric": "checkSyntaxFilesParsed",
+      "value": 2190,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    },
+    {
+      "metric": "checkSyntaxFilesParsed",
+      "value": 871,
+      "mode": "RECORDED",
+      "ranAt": "2026-09-05T12:00:33Z",
+      "ageDays": 13.2,
+      "stale": true,
+      "staleReason": "older than 1d"
+    },
+    {
+      "metric": "mutationAnchorsRegistered",
+      "value": 505,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    },
+    {
+      "metric": "constitutionDirectives",
+      "value": 262,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    },
+    {
+      "metric": "directivesWithMutationGuard",
+      "value": 84,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    },
+    {
+      "metric": "srcModules",
+      "value": 835,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    },
+    {
+      "metric": "testSuites",
+      "value": 1012,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    },
+    {
+      "metric": "deterministicTests",
+      "value": 3683,
+      "mode": "RECORDED",
+      "ranAt": "2026-09-05T12:00:08Z",
+      "ageDays": 13.2,
+      "stale": true,
+      "staleReason": "older than 1d"
+    },
+    {
+      "metric": "deterministicFailures",
+      "value": 3,
+      "mode": "RECORDED",
+      "ranAt": "2026-09-05T12:00:08Z",
+      "ageDays": 13.2,
+      "stale": true,
+      "staleReason": "older than 1d"
+    },
+    {
+      "metric": "mutationsKilled",
+      "value": 168,
+      "mode": "RECORDED",
+      "ranAt": "2026-09-04T16:30:00Z",
+      "ageDays": 14,
+      "stale": true,
+      "staleReason": "older than 1d"
+    },
+    {
+      "metric": "productionReachableModules",
+      "value": 256,
+      "mode": "LIVE",
+      "ranAt": null,
+      "ageDays": null,
+      "stale": false,
+      "staleReason": null
+    }
+  ],
+  "contradictions": [
+    {
+      "metric": "checkSyntaxFilesParsed",
+      "live": 2190,
+      "recorded": 871,
+      "recordedAt": "2026-09-05T12:00:33Z",
+      "resolution": "The live measurement describes this tree. The record is preserved as evidence that it drifted, not corrected in place."
+    }
+  ],
+  "uncertainty": "A RECORDED baseline describes whatever tree it was measured on. Where it disagrees with a LIVE one, the disagreement is listed rather than resolved: overwriting the record would destroy the evidence that it drifted.",
+  "boundary": "A baseline is a starting point for comparison. Recording one demonstrates no improvement."
+}

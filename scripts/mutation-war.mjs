@@ -3779,6 +3779,88 @@ export const MUTATIONS = [
     replace: "      absenceReason: spec.absenceReason ?? 'COMPUTABLE_NOW',",
     suites: ['tests/v7-proof-and-claims.test.mjs']
   },
+  // Baselines, missions and allocation. A number's provenance is part of the
+  // number, and this repository already carries a record saying 871 files parse
+  // where 2,189 do.
+  {
+    // Defaulting an untimestamped record to fresh would make the least
+    // trustworthy figure in the file look like the best one.
+    id: 'V7BASE-01', guard: 'A recorded number with no timestamp is stale, not fresh',
+    file: 'src/v7-frontier-state.mjs',
+    find: '    : ageMs === null ? true',
+    replace: '    : ageMs === null ? false',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // Silence here is how a stale record keeps passing for a measurement.
+    id: 'V7BASE-02', guard: 'A live and recorded value that disagree are reported',
+    file: 'src/v7-frontier-state.mjs',
+    find: '    if (live && recorded && live.value !== recorded.value) {',
+    replace: '    if (false) {',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // A dependency is ours to clear; an external blocker is not. Conflating them
+    // turns a waiting list into a to-do list nobody can finish.
+    id: 'V7MISSION-01', guard: 'An externally blocked mission is never actionable',
+    file: 'src/v7-frontier-state.mjs',
+    find: '        actionable: !externallyBlocked && blockedBy.length === 0,',
+    replace: '        actionable: blockedBy.length === 0,',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    id: 'V7MISSION-02', guard: 'A mission waiting on an open dependency is not actionable',
+    file: 'src/v7-frontier-state.mjs',
+    find: '        return dep && dep.status !== \'CLOSED\';',
+    replace: '        return false;',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // Allocating to a blocked mission would put effort behind work that cannot
+    // move, which is the one thing an allocator must never do.
+    id: 'V7ALLOC-01', guard: 'Allocation covers actionable missions only',
+    file: 'src/v7-frontier-state.mjs',
+    find: '  const actionable = missionDag.nodes.filter(node => node.actionable);',
+    replace: '  const actionable = missionDag.nodes;',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // Uncommitted work exists on one disk and nowhere else. Counting only
+    // commits reported "nothing stranded" while the check itself sat unsaved.
+    id: 'V7STRAND-01', guard: 'Uncommitted work counts as stranded',
+    file: 'scripts/v7-gap-ledger.mjs',
+    find: '      if (ahead === 0 && dirtySource.length === 0) {',
+    replace: '      if (ahead === 0) {',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // Widening the filter back to every path restores the fixed point: the
+    // ledger recording completion becomes the uncommitted work preventing it.
+    id: 'V7STRAND-02', guard: 'Regenerated artifacts are not counted as stranded source',
+    file: 'scripts/v7-gap-ledger.mjs',
+    find: "      const dirtySource = dirtyAll.filter(line => /^..\\s+(src|scripts|config|migrations|tests|api)\\//.test(line));",
+    replace: '      const dirtySource = dirtyAll;',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // A counter that counts the generator's own side effects changes on every
+    // invocation, so the artifact never settles and a reader cannot tell a real
+    // change from the act of measuring.
+    id: 'V7STRAND-03', guard: 'The ledger records no count of the artifacts its own run dirtied',
+    file: 'scripts/v7-gap-ledger.mjs',
+    find: '          measured: { ahead: 0, behind, uncommittedSource: 0 }',
+    replace: '          measured: { ahead: 0, behind, uncommittedSource: 0, uncommittedArtifacts: dirtyAll.length }',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // An empty file must not count as a generated artifact, which is the whole
+    // reason the index reads the filesystem instead of trusting the declaration.
+    id: 'V7INDEX-02', guard: 'An empty file is not recorded as a generated artifact',
+    file: 'scripts/v7-artifact-index.mjs',
+    find: '        nonEmpty: present ? statSync(resolve(root, name)).size > 0 : false,',
+    replace: '        nonEmpty: present,',
+    suites: ['tests/v7-proof-and-claims.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

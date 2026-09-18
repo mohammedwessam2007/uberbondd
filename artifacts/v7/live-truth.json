@@ -1,19 +1,19 @@
 {
   "schemaVersion": "uberbond.v7-live-truth.v1",
-  "generatedAt": "2026-09-17T18:25:32.507Z",
-  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generatedAt": "2026-09-18T15:46:34.318Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-live-truth.mjs",
   "freshnessPolicy": "Every field is measured at run time. This artifact is stale the moment main moves, and says so rather than being trusted.",
   "staleByDefault": true,
   "git": {
-    "head": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-    "originMain": "35cfc3dd7d5b0761fdd1c7a953dba0a88636b9a2",
+    "head": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
+    "originMain": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
     "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
-    "workingTreeClean": false,
-    "uncommittedPaths": 2,
-    "commitsAheadOfMain": 7,
+    "workingTreeClean": true,
+    "uncommittedPaths": 0,
+    "commitsAheadOfMain": 0,
     "commitsBehindMain": 0,
-    "remoteBranches": 859
+    "remoteBranches": 873
   },
   "canon": {
     "readinessPresent": true,
@@ -23,7 +23,7 @@
       "withMutationGuard": 84,
       "externalEffect": 48,
       "externalEffectWithMutationGuard": 31,
-      "mutationAnchorsAvailable": 496,
+      "mutationAnchorsAvailable": 505,
       "operativeSourcesUnranked": 8,
       "conflictCandidates": 9,
       "conflictsResolvableByPrecedence": 0

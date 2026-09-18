@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "uberbond.v7-evaluation-epoch.v1",
+  "generatedAt": "2026-09-18T15:48:39.514Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
+  "generator": "scripts/v7-frontier-artifacts.mjs",
+  "stateVersion": "uberbond.v7-frontier-state.v1",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE",
+  "epochId": "epoch-0cc3185adbbd",
+  "previousEpochId": "epoch-0cc3185adbbd",
+  "freshnessPolicy": "An epoch is closed at the head it names. Comparing two epochs is only meaningful when both were measured the same way.",
+  "metrics": [
+    {
+      "metric": "checkSyntaxFilesParsed",
+      "value": 2190,
+      "mode": "LIVE"
+    },
+    {
+      "metric": "mutationAnchorsRegistered",
+      "value": 505,
+      "mode": "LIVE"
+    },
+    {
+      "metric": "constitutionDirectives",
+      "value": 262,
+      "mode": "LIVE"
+    },
+    {
+      "metric": "directivesWithMutationGuard",
+      "value": 84,
+      "mode": "LIVE"
+    },
+    {
+      "metric": "srcModules",
+      "value": 835,
+      "mode": "LIVE"
+    },
+    {
+      "metric": "testSuites",
+      "value": 1012,
+      "mode": "LIVE"
+    },
+    {
+      "metric": "productionReachableModules",
+      "value": 256,
+      "mode": "LIVE"
+    }
+  ],
+  "deltasFromPreviousEpoch": [],
+  "growthClass": "NO_MEASURED_CHANGE",
+  "uncertainty": "A delta between two epochs is a difference, not a direction. Fitting a growth curve to it would be the error the doctrine names.",
+  "boundary": "An epoch records what was measured. It does not claim the measurements improved."
+}

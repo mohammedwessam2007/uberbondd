@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-claim-evidence-registry.v1",
-  "generatedAt": "2026-09-17T18:25:34.058Z",
-  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generatedAt": "2026-09-18T15:48:52.012Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-claim-evidence-registry.mjs",
   "freshnessPolicy": "A claim is stale when source it depends on changed after it was measured, not merely when the head moved. Committing a regenerated artifact changes the head and falsifies nothing.",
   "counts": {
@@ -15,9 +15,9 @@
       "id": "CLM-SOFTWARE-OPEN",
       "claim": "Open software gaps remaining in the V7 ledger",
       "artifact": "artifacts/v7/gap-ledger.json",
-      "value": 2,
+      "value": 0,
       "evidenceClass": "COMPUTED_BY_CHECKS",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "Every gap ran a check. The number is a measurement, not a label."
@@ -26,9 +26,9 @@
       "id": "CLM-SOURCE-SIDE-COMPLETE",
       "claim": "Whether the V7 completion law is satisfied on the source side",
       "artifact": "artifacts/v7/gap-ledger.json",
-      "value": false,
+      "value": true,
       "evidenceClass": "COMPUTED_BY_CHECKS",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": null
@@ -37,9 +37,9 @@
       "id": "CLM-MUTATION-ANCHORS",
       "claim": "Mutation guards registered in the harness",
       "artifact": "artifacts/constitution/directives.json",
-      "value": 496,
+      "value": 505,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "Registered, not killed. A registered guard that was never run proves nothing."
@@ -50,7 +50,7 @@
       "artifact": "artifacts/constitution/directives.json",
       "value": 84,
       "evidenceClass": "VOCABULARY_LINKAGE_TO_A_KILLED_GUARD",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "The linkage is term overlap between a directive and a guard description. It shows a guard exists on the same subject, not that it enforces this sentence."
@@ -61,7 +61,7 @@
       "artifact": "artifacts/v7/proof-obligations.json",
       "value": 14,
       "evidenceClass": "COMPUTED_FROM_SOURCE",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": null
@@ -83,7 +83,7 @@
       "artifact": "artifacts/v7/gap-ledger.json",
       "value": "EXTERNAL_BLOCKED",
       "evidenceClass": "REPRODUCIBLE_BY_RUNNING_THE_MATERIALIZER",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "The ledger check runs scripts/materialize-inevitability-v9.py at the head it reports. The narrative record lives at artifacts/v9/canonical-v9-materialization-blocker.json."
@@ -94,7 +94,7 @@
       "artifact": "artifacts/nullstar-terminal/completion-debt.json",
       "value": "NONE",
       "evidenceClass": "ABSENCE_OF_EXTERNAL_RECEIPTS",
-      "producedAtSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+      "producedAtSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
       "freshness": "EXACT_HEAD",
       "sourceChangedSince": [],
       "note": "An absence claim. It can be falsified by one real receipt and cannot be strengthened by any amount of internal work."

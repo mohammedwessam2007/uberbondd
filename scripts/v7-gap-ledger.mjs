@@ -165,7 +165,11 @@ const GAPS = [
         return {
           status: 'CLOSED',
           closureEvidence: 'the working branch carries nothing main does not have, and no source is uncommitted',
-          measured: { ahead: 0, behind, uncommittedSource: 0, uncommittedArtifacts: dirtyAll.length }
+          // Artifacts dirtied by this very run are deliberately not counted here.
+          // A field counting the generator's own side effects changes on every
+          // invocation, so the artifact never settles and a reader cannot tell a
+          // real change from the act of measuring.
+          measured: { ahead: 0, behind, uncommittedSource: 0 }
         };
       }
       return {
@@ -177,7 +181,6 @@ const GAPS = [
         measured: {
           ahead, behind,
           uncommittedSource: dirtySource.length,
-          uncommittedArtifacts: dirtyAll.length - dirtySource.length,
           firstUncommittedSource: dirtySource[0]?.slice(3) ?? null
         }
       };

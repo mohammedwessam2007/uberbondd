@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-mission-dag.v1",
-  "generatedAt": "2026-09-18T15:33:28.653Z",
-  "sourceSha": "1632e9661ce3394db028e0391721b2767afc5f20",
+  "generatedAt": "2026-09-18T15:48:39.514Z",
+  "sourceSha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
@@ -48,18 +48,6 @@
       "nextExperiment": "A scheduled probe job, or one authorized manual probe piped into scripts/ubercel-record-health.mjs."
     },
     {
-      "missionId": "M-V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
-      "gapId": "V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
-      "title": "Verified work sitting on a branch and not in main",
-      "family": "SOFTWARE",
-      "gapStatus": "OPEN",
-      "blockedBy": [],
-      "actionable": true,
-      "blockedReason": null,
-      "unblockCondition": null,
-      "nextExperiment": "Re-measure after each merge."
-    },
-    {
       "missionId": "M-V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
       "gapId": "V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
       "title": "No cleared payment, accepted delivery, or customer response exists",
@@ -98,8 +86,8 @@
   ],
   "edges": [],
   "counts": {
-    "total": 7,
-    "actionable": 1,
+    "total": 6,
+    "actionable": 0,
     "externallyBlocked": 6,
     "dependencyBlocked": 0
   },

@@ -57,3 +57,17 @@ Before any live campaign use, UberBond still needs authenticated provider
 inventory, custom-domain DNS verification, mailbox health/warm-up evidence,
 suppression and complaint handling, route authorization, and the existing
 campaign/effect gates.
+
+
+## Owned UberMail private clone
+
+The external AgentMail adapter above remains useful as an interoperability donor and benchmark, but UberBond no longer needs AgentMail as the owner-only mailbox control plane.
+
+The owned implementation is documented in `docs/UBERMAIL_AGENT_API.md` and consists of:
+
+- `src/ubermail-agent-api.mjs` — private inbox/message/thread/draft/webhook/domain/pod/key/list/event state machine;
+- `src/ubermail-agent-http.mjs` — AgentMail-shaped `/v0` compatibility facade;
+- `src/ubermail-file-repository.mjs` — atomic single-writer UberLit persistence;
+- `src/ubermail-uberdoso-bridge.mjs` — authority-preserving bridge to an existing governed UberDoso dispatcher.
+
+This is a clean-room capability implementation for UberBond's private use. It does not copy AgentMail source or branding, and it does not create provider credentials, DNS authority, a physical mail host, reputation or send permission. Live external sending remains fail-closed until the existing UberDoso/UberBond effect gates produce authoritative runtime evidence.

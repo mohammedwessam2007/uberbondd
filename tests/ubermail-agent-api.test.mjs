@@ -164,3 +164,95 @@ test('relationship policy refuses unsanctioned classes', async()=>{
   const {api,auth}=await fixture(); const {inbox}=await provision(api,auth);
   await assert.rejects(()=>api.sendMessage({auth,inboxId:inbox.inbox_id,to:'a@example.com',subject:'x',text:'x',relationship:'COLD_BLAST',approval:approval(),idempotencyKey:'cold'}),e=>e.code==='relationship-not-permitted');
 });
+
+test('pod-scoped keys are confined on list, direct lookup, creation, metrics and events', async()=>{
+  const {api,auth}=await fixture();
+  const p1=await api.createPod({auth,name:'One',idempotencyKey:'scope:p1'});
+  const p2=await api.createPod({auth,name:'Two',idempotencyKey:'scope:p2'});
+  for (const [pod,domainName] of [[p1,'one.example'],[p2,'two.example']]) {
+    const d=await api.createDomain({auth,domain:domainName,podId:pod.pod_id,idempotencyKey:'scope:d:'+domainName});
+    await api.verifyDomain({auth,domainId:d.domain_id,idempotencyKey:'scope:v:'+domainName});
+    await api.createInbox({auth,username:'owner',domain:domainName,podId:pod.pod_id,idempotencyKey:'scope:i:'+domainName});
+  }
+  const key=await api.createApiKey({auth,name:'Pod one',podId:p1.pod_id,idempotencyKey:'scope:key'});
+  const scoped={apiKey:key.api_key};
+  const visible=await api.listInboxes({auth:scoped});
+  assert.equal(visible.count,1);
+  assert.equal(visible.inboxes[0].pod_id,p1.pod_id);
+  const foreign=(await api.listInboxes({auth,podId:p2.pod_id})).inboxes[0];
+  await assert.rejects(()=>api.getInbox({auth:scoped,inboxId:foreign.inbox_id}), error=>error.code==='api-key-pod-scope-mismatch');
+  const created=await api.createInbox({auth:scoped,username:'second',domain:'one.example',idempotencyKey:'scope:second'});
+  assert.equal(created.pod_id,p1.pod_id);
+  const metrics=await api.metrics({auth:scoped});
+  assert.equal(metrics.scope,'pod');
+  assert.equal(metrics.inboxes,2);
+  const events=await api.pollEvents({auth:scoped,cursor:0,limit:500});
+  assert.equal(events.events.every(event=>!event.data?.pod_id||event.data.pod_id===p1.pod_id||!event.data?.inbox_id||visible.inboxes.some(i=>i.inbox_id===event.data.inbox_id)||event.data.inbox_id===created.inbox_id),true);
+});
+
+test('verified domains may explicitly authorize subdomain inboxes but never implicitly', async()=>{
+  const {api,auth}=await fixture();
+  const parent=await api.createDomain({auth,domain:'parent.example',subdomainsEnabled:true,idempotencyKey:'sub:d1'});
+  await api.verifyDomain({auth,domainId:parent.domain_id,idempotencyKey:'sub:v1'});
+  const inbox=await api.createInbox({auth,username:'mohamed',domain:'team.parent.example',idempotencyKey:'sub:i1'});
+  assert.equal(inbox.email,'mohamed@team.parent.example');
+  assert.equal(inbox.domain_id,parent.domain_id);
+  const strict=await api.createDomain({auth,domain:'strict.example',subdomainsEnabled:false,idempotencyKey:'sub:d2'});
+  await api.verifyDomain({auth,domainId:strict.domain_id,idempotencyKey:'sub:v2'});
+  await assert.rejects(()=>api.createInbox({auth,username:'mohamed',domain:'team.strict.example',idempotencyKey:'sub:i2'}), error=>error.code==='verified-domain-required');
+});
+
+test('webhook custom-header values are write-only while trusted dispatcher receives them', async()=>{
+  const dispatches=[];
+  const {api,auth}=await fixture({webhookDispatcher:async call=>dispatches.push(call)});
+  const hook=await api.createWebhook({auth,url:'https://hooks.example.test/mail',eventTypes:['inbox.created'],headers:{Authorization:'Bearer super-secret','X-Correlation':'abc'},idempotencyKey:'hook:privacy'});
+  assert.equal('headers' in hook,false);
+  assert.deepEqual(hook.header_names,['Authorization','X-Correlation']);
+  const domain=await api.createDomain({auth,domain:'headers.example',idempotencyKey:'hook:d'});
+  await api.verifyDomain({auth,domainId:domain.domain_id,idempotencyKey:'hook:v'});
+  await api.createInbox({auth,username:'mohamed',domain:'headers.example',idempotencyKey:'hook:i'});
+  assert.equal(dispatches.length,1);
+  assert.equal(dispatches[0].webhook.headers.Authorization,'Bearer super-secret');
+  const listed=await api.listWebhooks({auth});
+  assert.equal('headers' in listed.webhooks[0],false);
+  assert.deepEqual(listed.webhooks[0].header_names,['Authorization','X-Correlation']);
+  const snap=await api.snapshot({auth});
+  assert.equal('headers' in Object.values(snap.webhooks)[0],false);
+});
+
+test('reply and forward draft constructors preserve thread intent without sending', async()=>{
+  const {api,auth,transportCalls}=await fixture();
+  const {inbox}=await provision(api,auth);
+  const incoming=await api.ingestReceivedMessage({auth:{system:true},inboxId:inbox.inbox_id,from:'buyer@example.com',subject:'Question',text:'Hello',attachments:[{filename:'brief.txt',contentBase64:Buffer.from('brief').toString('base64')}]});
+  const reply=await api.createReplyDraft({auth,inboxId:inbox.inbox_id,messageId:incoming.message_id,text:'Draft answer',idempotencyKey:'draft:reply'});
+  assert.equal(reply.in_reply_to,incoming.message_id);
+  assert.deepEqual(reply.to,['buyer@example.com']);
+  const forward=await api.createForwardDraft({auth,inboxId:inbox.inbox_id,messageId:incoming.message_id,to:['partner@example.com'],idempotencyKey:'draft:forward'});
+  assert.equal(forward.forward_of,incoming.message_id);
+  assert.equal(forward.attachments.length,1);
+  assert.equal(transportCalls.length,0);
+});
+
+test('realtime event stream advances past invisible scoped events and aborts cleanly', async()=>{
+  const {api,auth}=await fixture();
+  const p1=await api.createPod({auth,name:'One',idempotencyKey:'rt:p1'});
+  await api.createPod({auth,name:'Two',idempotencyKey:'rt:p2'});
+  const key=await api.createApiKey({auth,podId:p1.pod_id,idempotencyKey:'rt:key'});
+  const scoped={apiKey:key.api_key};
+  const domain=await api.createDomain({auth,domain:'rt.example',podId:p1.pod_id,idempotencyKey:'rt:d'});
+  await api.verifyDomain({auth,domainId:domain.domain_id,idempotencyKey:'rt:v'});
+  await api.createInbox({auth,username:'mohamed',domain:'rt.example',podId:p1.pod_id,idempotencyKey:'rt:i'});
+  const controller=new AbortController();
+  const stream=api.streamEvents({auth:scoped,cursor:0,pollIntervalMs:10,signal:controller.signal});
+  const first=await stream.next();
+  assert.equal(first.done,false);
+  assert.ok(first.value.type);
+  controller.abort();
+  const done=await stream.next();
+  assert.equal(done.done,true);
+});
+
+test('provider public-key credentials are not falsely emulated as bearer secrets', async()=>{
+  const {api,auth}=await fixture();
+  await assert.rejects(()=>api.createApiKey({auth,type:'public_key',name:'not-faked'}), error=>error.code==='api-key-type-unsupported');
+});

@@ -1,4 +1,5 @@
 import { sha256 } from '../canonical.mjs';
+import { outreachEffectPayloadDigest } from '../../outreach-governance.mjs';
 
 const DIGEST_RE = /^[a-f0-9]{64}$/;
 
@@ -21,13 +22,26 @@ function validDigest(value) {
  */
 export function buildOutboundConsequenceContext({
   reservation, prospect, campaign, account, effectPayload, followup = 0,
-  idempotencyKey, checkedAt
+  idempotencyKey, checkedAt, provider = ''
 }) {
   if (!reservation?.id || !prospect?.id || !campaign?.id || !account?.email) {
     throw new TypeError('outbound consequence context is incomplete');
   }
   const normalizedPayload = normalizeOutboundEffectPayload(effectPayload);
   const effectPayloadDigest = sha256(normalizedPayload);
+  const authorizationPayloadDigest = outreachEffectPayloadDigest({
+    prospectId: prospect.id,
+    campaignId: campaign.id,
+    recipientEmail: normalizedPayload.to,
+    subject: normalizedPayload.subject,
+    body: normalizedPayload.body,
+    provider,
+    inbox: prospect.inbox || reservation.inbox,
+    followup,
+    threadId: normalizedPayload.threadId,
+    replyToId: normalizedPayload.replyToId,
+    listUnsubscribe: normalizedPayload.listUnsubscribe
+  });
   const actionIntent = {
     operation: 'OUTBOUND_EMAIL_SEND',
     consequenceClass: 'COMMUNICATE_EXTERNAL',
@@ -39,7 +53,8 @@ export function buildOutboundConsequenceContext({
     senderEmail: normalizeMailbox(account.email),
     recipientEmail: normalizedPayload.to,
     followup: Number(followup || 0),
-    effectPayloadDigest
+    effectPayloadDigest,
+    authorizationPayloadDigest
   };
   return {
     schemaVersion: 'omnia.v9.outbound-consequence-gate.v1',
@@ -52,7 +67,8 @@ export function buildOutboundConsequenceContext({
     },
     actionIntent,
     actionIntentDigest: sha256(actionIntent),
-    effectPayloadDigest
+    effectPayloadDigest,
+    authorizationPayloadDigest
   };
 }
 
@@ -86,7 +102,8 @@ export async function enforceOutboundConsequence({ hook, context }) {
     reservationId: context?.reservation?.id || '',
     contextDigest,
     actionIntentDigest: context?.actionIntentDigest || '',
-    effectPayloadDigest: context?.effectPayloadDigest || ''
+    effectPayloadDigest: context?.effectPayloadDigest || '',
+    authorizationPayloadDigest: context?.authorizationPayloadDigest || ''
   };
 
   if (typeof hook !== 'function') {
@@ -112,7 +129,8 @@ export async function enforceOutboundConsequence({ hook, context }) {
     ['contextDigest', contextDigest],
     ['reservationId', context.reservation.id],
     ['actionIntentDigest', context.actionIntentDigest],
-    ['effectPayloadDigest', context.effectPayloadDigest]
+    ['effectPayloadDigest', context.effectPayloadDigest],
+    ['authorizationPayloadDigest', context.authorizationPayloadDigest]
   ];
   for (const [field, expected] of exactBindings) {
     if (text(result?.[field]) !== text(expected)) {

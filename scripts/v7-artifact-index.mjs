@@ -33,10 +33,10 @@ const CONTRACT = {
   'artifacts/v7/proof-obligations.json': { generator: 'scripts/v7-proof-obligations.mjs' },
   'artifacts/v7/claim-evidence-registry.json': { generator: 'scripts/v7-claim-evidence-registry.mjs' },
   'artifacts/v7/proof-debt.json': { covers: 'artifacts/constitution/reviewed-linkage-findings.json', note: 'Directives reported unguarded, each read and classified, with residuals named per entry.' },
-  'artifacts/v7/mission-dag.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Missions are derivable from the gap ledger plus the execution order. Nothing external is missing.' },
-  'artifacts/v7/resource-allocation.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Allocation across open gaps is computable once the mission DAG exists.' },
-  'artifacts/v7/evaluation-epoch.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'An epoch is a labelled measurement boundary over gates that already run.' },
-  'artifacts/v7/baselines.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Baselines over existing gate outputs: test counts, mutation kills, coverage.' },
+  'artifacts/v7/mission-dag.json': { generator: 'scripts/v7-frontier-artifacts.mjs' },
+  'artifacts/v7/resource-allocation.json': { generator: 'scripts/v7-frontier-artifacts.mjs' },
+  'artifacts/v7/evaluation-epoch.json': { generator: 'scripts/v7-frontier-artifacts.mjs' },
+  'artifacts/v7/baselines.json': { generator: 'scripts/v7-frontier-artifacts.mjs' },
   'artifacts/v7/world-frontier.json': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Live world-frontier sensing requires authorized external research this session has no authority to perform.' },
   'artifacts/v7/global-dominance-graph.json': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'A comparison against external systems requires measuring them. Unavailable comparators stay unmeasured rather than becoming imagined scores.' },
   'artifacts/v7/singularity-barrier-graph.json': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Barriers are defined against measured capability, which needs the comparators above.' },
@@ -51,8 +51,8 @@ const CONTRACT = {
   'artifacts/v7/economic-delta-ledger.jsonl': { absent: true, absenceReason: 'NEEDS_EXTERNAL_REALITY', note: 'Requires the cleared payment that V7G006 is blocked on.' },
   'artifacts/v7/reality-debt.json': { covers: 'artifacts/nullstar-terminal/completion-debt.json', note: 'CD001-CD013 with computed open/closed status; CD006 and CD007 remain the external economic gates.' },
   'artifacts/v7/founder-authority-ledger.json': { covers: 'artifacts/constitution/open-founder-decisions.json', note: 'FD002: the operative canon carries no authored precedence.' },
-  'artifacts/v7/frontier-checkpoint.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'A checkpoint over artifacts that already exist.' },
-  'artifacts/v7/final-frontier-state.json': { absent: true, absenceReason: 'COMPUTABLE_NOW', note: 'Terminal state summary over the gap ledger and the frontier checkpoint.' }
+  'artifacts/v7/frontier-checkpoint.json': { generator: 'scripts/v7-frontier-artifacts.mjs' },
+  'artifacts/v7/final-frontier-state.json': { generator: 'scripts/v7-frontier-artifacts.mjs' }
 };
 
 function main() {

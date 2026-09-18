@@ -1,20 +1,20 @@
 {
   "schemaVersion": "uberbond.v7-gap-ledger.v1",
-  "generatedAt": "2026-09-17T18:25:32.780Z",
-  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generatedAt": "2026-09-18T14:02:51.126Z",
+  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
   "generator": "scripts/v7-gap-ledger.mjs",
   "freshnessPolicy": "Recomputed from source on every run. A status in this file was produced by a check, never written.",
   "statusesAreComputed": "Editing this artifact closes nothing. Each gap runs a check that reads the filesystem, a doctor, or git.",
   "summary": {
-    "total": 9,
+    "total": 10,
     "byStatus": {
-      "EXTERNAL_BLOCKED": 4,
+      "EXTERNAL_BLOCKED": 5,
       "FOUNDER_ONLY": 1,
-      "CLOSED": 2,
-      "OPEN": 2
+      "CLOSED": 3,
+      "OPEN": 1
     },
-    "softwareOpen": 2,
-    "externalOpen": 5,
+    "softwareOpen": 1,
+    "externalOpen": 6,
     "unmeasured": 0,
     "sourceSideComplete": false
   },
@@ -47,8 +47,8 @@
         "partsVerified": 15,
         "partsUnrecoverable": 1
       },
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -86,8 +86,8 @@
         ],
         "unresolvedConflicts": 9
       },
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -114,8 +114,8 @@
       "measured": {
         "state": "UNKNOWN__EVIDENCE_STALE"
       },
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -142,8 +142,8 @@
         "reviewed": 22,
         "unreviewed": 0
       },
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -165,14 +165,16 @@
       "status": "OPEN",
       "checkState": "MEASURED",
       "sourceEvidence": [
-        "7 commits on this branch are not in main"
+        "16 uncommitted path(s) exist only on this disk"
       ],
       "measured": {
-        "ahead": 7,
-        "behind": 0
+        "ahead": 0,
+        "behind": 0,
+        "uncommitted": 16,
+        "firstUncommitted": "rtifacts/constitution/directives.json"
       },
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -197,8 +199,8 @@
         "CD007 open in the completion-debt ledger"
       ],
       "measured": null,
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -223,8 +225,8 @@
         "CD006 open in the completion-debt ledger"
       ],
       "measured": null,
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -247,8 +249,41 @@
       "checkState": "MEASURED",
       "sourceEvidence": [],
       "measured": null,
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
+    },
+    {
+      "dependencies": [],
+      "conflicts": [],
+      "counterEvidence": [],
+      "testsRequired": [],
+      "externalEvidenceRequired": "Measured comparators, real experiments, cleared payment, elapsed unattended operation, or a built lattice runtime.",
+      "authorityRequired": "Varies per artifact: research authority, spend authority, or a founder decision to build the runtime.",
+      "nextExperiment": "None available in software. The nearest is a measured second improvement generation, which needs a first one to have been measured.",
+      "closureEvidence": null,
+      "owner": "UBERBOND_SOFTWARE_FACTORY",
+      "id": "V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+      "title": "Artifacts that cannot be written until something outside the repository happens",
+      "family": "EXTERNAL",
+      "statement": "Eleven artifacts the contract names wait on external reality, repeated observation, elapsed unattended time, or a lattice runtime that does not exist.",
+      "whyItMatters": "Writing them anyway would produce files describing nothing. A status report for a runtime that does not exist is the confusion the doctrine names, in file form.",
+      "implementationPath": "None. Each names what it waits on in artifacts/v7/artifact-index.json.",
+      "unblockCondition": "Each artifact unblocks when its own named condition is met. The index carries the reason per artifact and the gap closes when none is left waiting.",
+      "status": "EXTERNAL_BLOCKED",
+      "checkState": "MEASURED",
+      "sourceEvidence": [
+        "11 contract artifacts wait on something no amount of writing produces"
+      ],
+      "measured": {
+        "byReason": {
+          "NEEDS_EXTERNAL_REALITY": 5,
+          "NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST": 1,
+          "NEEDS_REPEATED_OBSERVATION": 4,
+          "NEEDS_ELAPSED_TIME": 1
+        }
+      },
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     },
     {
       "dependencies": [],
@@ -258,42 +293,29 @@
       "externalEvidenceRequired": null,
       "authorityRequired": null,
       "nextExperiment": "Take the highest-value absent artifact next. Proof obligations and the claim-evidence registry sit earliest in the execution order.",
-      "closureEvidence": null,
+      "closureEvidence": "no absent contract artifact is computable now; 11 remain and each names what it waits on",
       "owner": "UBERBOND_SOFTWARE_FACTORY",
       "id": "V7G009-CONTRACT-ARTIFACTS-ABSENT",
-      "title": "Artifacts the V7 contract names that do not exist",
+      "title": "Artifacts the V7 contract names that could be written and have not been",
       "family": "SOFTWARE",
       "statement": "The contract names 29 machine-readable artifacts. The index resolves each to GENERATED, COVERED_BY_EXISTING_ARTIFACT, or ABSENT, and the absent ones are unwritten software.",
       "whyItMatters": "Without this gap the ledger reads sourceSideComplete while nineteen named artifacts do not exist, which is exactly the false completion the contract forbids. An absent artifact is not a rounding error just because the ledger did not have a row for it.",
       "implementationPath": "Build each absent artifact where it would carry real measurement, or record a cover if existing source already holds the content. Empty files do not count: the index reads statSync, not intent.",
       "unblockCondition": null,
-      "status": "OPEN",
+      "status": "CLOSED",
       "checkState": "MEASURED",
-      "sourceEvidence": [
-        "17 of 29 contract artifacts absent",
-        "6 are computable now; the rest wait on repeated observation, elapsed time, an absent runtime, or external reality"
-      ],
+      "sourceEvidence": [],
       "measured": {
-        "computableNow": [
-          "artifacts/v7/mission-dag.json",
-          "artifacts/v7/resource-allocation.json",
-          "artifacts/v7/evaluation-epoch.json",
-          "artifacts/v7/baselines.json",
-          "artifacts/v7/frontier-checkpoint.json",
-          "artifacts/v7/final-frontier-state.json"
-        ],
-        "unclassified": [],
+        "absentAwaitingReality": 11,
         "byReason": {
-          "COMPUTABLE_NOW": 6,
           "NEEDS_EXTERNAL_REALITY": 5,
           "NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST": 1,
           "NEEDS_REPEATED_OBSERVATION": 4,
           "NEEDS_ELAPSED_TIME": 1
-        },
-        "declaredButMissing": []
+        }
       },
-      "lastVerifiedSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
-      "lastVerifiedAt": "2026-09-17T18:25:32.780Z"
+      "lastVerifiedSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "lastVerifiedAt": "2026-09-18T14:02:51.126Z"
     }
   ],
   "uncertainty": "A check measures what it reads. A CLOSED software gap means the check passed at this exact head, not that the underlying capability is externally proven.",

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "uberbond.v7-frontier-checkpoint.v1",
+  "generatedAt": "2026-09-18T14:03:53.605Z",
+  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+  "generator": "scripts/v7-frontier-artifacts.mjs",
+  "stateVersion": "uberbond.v7-frontier-state.v1",
+  "externalEffects": [],
+  "businessEffectAuthority": "NONE",
+  "freshnessPolicy": "A checkpoint describes the head it names. Resume by re-running the generators, not by trusting this file.",
+  "resumeFrom": {
+    "head": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+    "firstCommand": "node scripts/v7-gap-ledger.mjs",
+    "nextActionable": [
+      {
+        "missionId": "M-V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
+        "title": "Verified work sitting on a branch and not in main",
+        "nextExperiment": "Re-measure after each merge."
+      }
+    ],
+    "cannotBeDoneInSoftware": [
+      {
+        "gapId": "V7G001-CANONICAL-V9-NOT-MATERIALIZED",
+        "status": "EXTERNAL_BLOCKED",
+        "unblockCondition": "The founder supplies the V7 or V9 file; part 16 is re-encoded from it and the materializer prints LOSSLESS_VERIFIED against the unmodified manifest."
+      },
+      {
+        "gapId": "V7G002-OPERATIVE-CANON-UNRANKED",
+        "status": "FOUNDER_ONLY",
+        "unblockCondition": "The founder ranks the operative canon in docs/NORTH_STAR_PRECEDENCE.md. The ranks are parsed from that file, so the conflict graph resolves with no code change."
+      },
+      {
+        "gapId": "V7G003-DEPLOYMENT-HAS-NO-CONTRACT-BOUND-HEALTH-EVIDENCE",
+        "status": "EXTERNAL_BLOCKED",
+        "unblockCondition": "Any authorized caller records a contract-bound probe younger than the doctor freshness window, after which the state becomes SERVING or NOT_SERVING."
+      },
+      {
+        "gapId": "V7G006-NO-EXTERNAL-ECONOMIC-EVIDENCE",
+        "status": "EXTERNAL_BLOCKED",
+        "unblockCondition": "One cleared payment witnessed by a provider reaches durable storage."
+      },
+      {
+        "gapId": "V7G007-PROVIDER-EVALUATION-BLOCKED",
+        "status": "EXTERNAL_BLOCKED",
+        "unblockCondition": "A configured provider appears in capabilities:doctor and one real routed call leaves a receipt naming the provider and model."
+      },
+      {
+        "gapId": "V7G010-CONTRACT-ARTIFACTS-AWAITING-REALITY",
+        "status": "EXTERNAL_BLOCKED",
+        "unblockCondition": "Each artifact unblocks when its own named condition is met. The index carries the reason per artifact and the gap closes when none is left waiting."
+      }
+    ]
+  },
+  "gapSummary": {
+    "total": 10,
+    "byStatus": {
+      "EXTERNAL_BLOCKED": 5,
+      "FOUNDER_ONLY": 1,
+      "CLOSED": 3,
+      "OPEN": 1
+    },
+    "softwareOpen": 1,
+    "externalOpen": 6,
+    "unmeasured": 0,
+    "sourceSideComplete": false
+  },
+  "missionCounts": {
+    "total": 7,
+    "actionable": 1,
+    "externallyBlocked": 6,
+    "dependencyBlocked": 0
+  },
+  "contractArtifacts": {
+    "GENERATED": 10,
+    "COVERED_BY_EXISTING_ARTIFACT": 8,
+    "ABSENT": 11
+  },
+  "absenceReasons": {
+    "NEEDS_EXTERNAL_REALITY": 5,
+    "NEEDS_A_RUNTIME_THAT_DOES_NOT_EXIST": 1,
+    "NEEDS_REPEATED_OBSERVATION": 4,
+    "NEEDS_ELAPSED_TIME": 1
+  },
+  "canonicalV9": {
+    "status": "CARRIER_INCOMPLETE__CANONICAL_V9_NOT_MATERIALIZED",
+    "partsVerified": 15,
+    "partsUnrecoverable": 1,
+    "missingEncodedBytes": 6433,
+    "executedFrom": "PARTIAL_V7_ANCESTOR__EXPLICITLY_NOT_CANONICAL_V9"
+  },
+  "deployment": {
+    "state": "UNKNOWN__EVIDENCE_STALE",
+    "contractBoundAuthoritativeSignals": 0,
+    "providerBadgesEstablish": "NOTHING_ABOUT_UBERBOND_DEPLOYMENT_STATE"
+  },
+  "baselineContradictions": [
+    {
+      "metric": "checkSyntaxFilesParsed",
+      "live": 2190,
+      "recorded": 871,
+      "recordedAt": "2026-09-05T12:00:33Z",
+      "resolution": "The live measurement describes this tree. The record is preserved as evidence that it drifted, not corrected in place."
+    }
+  ],
+  "evidencePointers": [
+    "artifacts/v7/gap-ledger.json",
+    "artifacts/v7/mission-dag.json",
+    "artifacts/v7/baselines.json",
+    "artifacts/v7/artifact-index.json",
+    "artifacts/v7/live-truth.json"
+  ],
+  "uncertainty": "Every number here was copied from an artifact generated in the same run. None of it is independent confirmation of those artifacts."
+}

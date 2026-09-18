@@ -1,11 +1,11 @@
 {
   "schemaVersion": "uberbond.v7-proof-obligations.v1",
-  "generatedAt": "2026-09-17T18:25:33.673Z",
-  "sourceSha": "20435e1c2c778f8a64aec3f1413c92117ce198d0",
+  "generatedAt": "2026-09-18T14:02:51.780Z",
+  "sourceSha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
   "generator": "scripts/v7-proof-obligations.mjs",
   "constitutionVersion": "uberbond-constitution-directives-1.0.0",
   "inputHashes": {
-    "constitution": "20435e1c2c778f8a64aec3f1413c92117ce198d0"
+    "constitution": "c16cdcf0fea6a4a641f752474ae0054da9f076e7"
   },
   "freshnessPolicy": "Recomputed from artifacts/constitution/directives.json, which has its own freshness gate. A stale constitution makes this stale too.",
   "counts": {

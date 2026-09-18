@@ -3779,6 +3779,60 @@ export const MUTATIONS = [
     replace: "      absenceReason: spec.absenceReason ?? 'COMPUTABLE_NOW',",
     suites: ['tests/v7-proof-and-claims.test.mjs']
   },
+  // Baselines, missions and allocation. A number's provenance is part of the
+  // number, and this repository already carries a record saying 871 files parse
+  // where 2,189 do.
+  {
+    // Defaulting an untimestamped record to fresh would make the least
+    // trustworthy figure in the file look like the best one.
+    id: 'V7BASE-01', guard: 'A recorded number with no timestamp is stale, not fresh',
+    file: 'src/v7-frontier-state.mjs',
+    find: '    : ageMs === null ? true',
+    replace: '    : ageMs === null ? false',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // Silence here is how a stale record keeps passing for a measurement.
+    id: 'V7BASE-02', guard: 'A live and recorded value that disagree are reported',
+    file: 'src/v7-frontier-state.mjs',
+    find: '    if (live && recorded && live.value !== recorded.value) {',
+    replace: '    if (false) {',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // A dependency is ours to clear; an external blocker is not. Conflating them
+    // turns a waiting list into a to-do list nobody can finish.
+    id: 'V7MISSION-01', guard: 'An externally blocked mission is never actionable',
+    file: 'src/v7-frontier-state.mjs',
+    find: '        actionable: !externallyBlocked && blockedBy.length === 0,',
+    replace: '        actionable: blockedBy.length === 0,',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    id: 'V7MISSION-02', guard: 'A mission waiting on an open dependency is not actionable',
+    file: 'src/v7-frontier-state.mjs',
+    find: '        return dep && dep.status !== \'CLOSED\';',
+    replace: '        return false;',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // Allocating to a blocked mission would put effort behind work that cannot
+    // move, which is the one thing an allocator must never do.
+    id: 'V7ALLOC-01', guard: 'Allocation covers actionable missions only',
+    file: 'src/v7-frontier-state.mjs',
+    find: '  const actionable = missionDag.nodes.filter(node => node.actionable);',
+    replace: '  const actionable = missionDag.nodes;',
+    suites: ['tests/v7-frontier-state.test.mjs']
+  },
+  {
+    // Uncommitted work exists on one disk and nowhere else. Counting only
+    // commits reported "nothing stranded" while the check itself sat unsaved.
+    id: 'V7STRAND-01', guard: 'Uncommitted work counts as stranded',
+    file: 'scripts/v7-gap-ledger.mjs',
+    find: '      if (ahead === 0 && dirty.length === 0) {',
+    replace: '      if (ahead === 0) {',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

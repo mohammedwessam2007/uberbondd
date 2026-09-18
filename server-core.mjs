@@ -29,6 +29,7 @@ import {
 } from './src/outreach-governance.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integrations/outreach-consequence-admission.mjs';
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
 import { buildLeadAccountIntelligence } from './src/lead-generation.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
@@ -65,7 +66,8 @@ let revenue;
 const omniaV9Mode = resolveOmniaV9Mode(process.env);
 const pipeline = new Pipeline(store, config, {
   onProspectComplete: async prospect => revenue?.onProspectComplete(prospect),
-  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store }),
+  outboundConsequenceGate: createAuthoritativeOutreachConsequenceGate({ store, cfg: config })
 });
 const enqueueResearch = payload => queue.enqueue('research.batch', payload, {
   maxAttempts: 3,
@@ -341,12 +343,14 @@ function canaryPrerequisites(runtimeConfig = config) {
   const outbound = runtimeConfig.outbound || {};
   return {
     launchPhaseCanary: outbound.launchPhase === 'canary',
-    approvedProvider: outbound.provider === 'gmail-api',
+    approvedProvider: ['gmail-api', 'postal'].includes(String(outbound.provider || '').toLowerCase()),
     approvalSecretConfigured: String(outbound.approvalSecret || '').length >= 32,
     approverConfigured: Boolean(String(outbound.approverId || '').trim()),
     senderIdentityConfigured: Boolean(String(runtimeConfig.sender?.address || '').trim()),
     allowedCountriesConfigured: normalizeCountryList(outbound.allowedCountries || []).length > 0,
-    googleOAuthConfigured: Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
+    providerCredentialConfigured: String(outbound.provider || '').toLowerCase() === 'postal'
+      ? Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true)
+      : Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
     encryptionConfigured: /^[a-f0-9]{64}$/i.test(String(runtimeConfig.encryptionKey || '')),
     unsubscribeConfigured: String(runtimeConfig.unsubscribeSecret || '').length >= 32,
     outboundEnabled: outbound.enabled === true,
@@ -410,7 +414,11 @@ async function outreachCanaryStatus() {
   if (prerequisites.dryRun) liveBlockers.push('outbound-dry-run');
   if (!prerequisites.senderIdentityConfigured) liveBlockers.push('business-address-missing');
   if (!prerequisites.allowedCountriesConfigured) liveBlockers.push('allowed-countries-missing');
-  if (!prerequisites.googleOAuthConfigured) liveBlockers.push('google-oauth-missing');
+  if (!prerequisites.providerCredentialConfigured) liveBlockers.push(
+    String(runtimeConfig.outbound.provider || '').toLowerCase() === 'postal'
+      ? 'postal-runtime-credential-missing'
+      : 'google-oauth-missing'
+  );
   if (!prerequisites.encryptionConfigured) liveBlockers.push('token-encryption-key-missing');
   if (!prerequisites.unsubscribeConfigured) liveBlockers.push('unsubscribe-secret-missing');
   liveBlockers.push(...liveDomainMailboxBlockers);
@@ -533,7 +541,7 @@ async function approveOutreachCanary(input = {}) {
   if (Number(input.followup || 0) !== 0) throw new HttpError(400, 'Only the initial canary step can be approved here');
   const runtimeConfig = configWithOwnerIdentity(await store.getSettings());
   if (runtimeConfig.outbound.launchPhase !== 'canary') throw new HttpError(409, 'Set the bounded canary launch phase before approving a canary');
-  if (String(runtimeConfig.outbound.provider || '').toLowerCase() !== 'gmail-api') throw new HttpError(409, 'The live canary provider is not approved');
+  if (!['gmail-api', 'postal'].includes(String(runtimeConfig.outbound.provider || '').toLowerCase())) throw new HttpError(409, 'The live canary provider is not approved');
   if (String(runtimeConfig.outbound.approvalSecret || '').length < 32) throw new HttpError(503, 'The canary approval secret is not configured');
   if (!String(runtimeConfig.outbound.approverId || '').trim()) throw new HttpError(503, 'The canary approver identity is not configured');
 

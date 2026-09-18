@@ -37,19 +37,28 @@ export function createUberMailAgentHttp({api}={}){
         if(parts.length===2&&method==='POST')return created(await api.createPod({auth,name:body.name,clientId:body.client_id,idempotencyKey}));
         if(parts.length===3&&method==='GET')return ok(await api.getPod({auth,podId:parts[2]}));
         if(parts.length===3&&method==='DELETE')return gone(await api.deletePod({auth,podId:parts[2]}));
+        const podId=parts[2];
+        if(parts.length===4&&parts[3]==='inboxes'&&method==='GET')return ok(await api.listInboxes({auth,podId,limit:q.limit,pageToken:q.page_token,ascending:bool(q.ascending)}));
+        if(parts.length===4&&parts[3]==='domains'&&method==='GET')return ok(await api.listDomains({auth,podId,limit:q.limit,pageToken:q.page_token,ascending:bool(q.ascending)}));
+        if(parts.length===4&&parts[3]==='threads'&&method==='GET')return ok(await api.listThreads({auth,podId,limit:q.limit,pageToken:q.page_token,before:q.before,after:q.after}));
+        if(parts.length===4&&parts[3]==='drafts'&&method==='GET')return ok(await api.listDrafts({auth,podId,limit:q.limit,pageToken:q.page_token}));
+        if(parts.length===4&&parts[3]==='webhooks'&&method==='GET')return ok(await api.listWebhooks({auth,podId,limit:q.limit,pageToken:q.page_token}));
+        if(parts.length===4&&parts[3]==='webhooks'&&method==='POST')return created(await api.createWebhook({auth,url:body.url,eventTypes:body.event_types,inboxIds:body.inbox_ids,podIds:[podId],headers:body.headers,clientId:body.client_id,idempotencyKey}));
+        if(parts.length===4&&parts[3]==='api-keys'&&method==='GET')return ok(await api.listApiKeys({auth,type:q.type,limit:q.limit,pageToken:q.page_token}));
+        if(parts.length===4&&parts[3]==='api-keys'&&method==='POST')return created(await api.createApiKey({auth,name:body.name,type:body.type,permissions:body.permissions,podId,expiresAt:body.expires_at,idempotencyKey}));
       }
 
       if(parts[1]==='domains'){
-        if(parts.length===2&&method==='GET')return ok(await api.listDomains({auth,limit:q.limit,pageToken:q.page_token,ascending:bool(q.ascending)}));
-        if(parts.length===2&&method==='POST')return created(await api.createDomain({auth,domain:body.domain,podId:body.pod_id,clientId:body.client_id,metadata:body.metadata,idempotencyKey}));
+        if(parts.length===2&&method==='GET')return ok(await api.listDomains({auth,podId:q.pod_id,limit:q.limit,pageToken:q.page_token,ascending:bool(q.ascending)}));
+        if(parts.length===2&&method==='POST')return created(await api.createDomain({auth,domain:body.domain,podId:body.pod_id,clientId:body.client_id,metadata:body.metadata,subdomainsEnabled:body.subdomains_enabled,idempotencyKey}));
         if(parts.length===3&&method==='GET')return ok(await api.getDomain({auth,domainId:parts[2]}));
-        if(parts.length===3&&method==='PATCH')return ok(await api.updateDomain({auth,domainId:parts[2],metadata:body.metadata}));
+        if(parts.length===3&&method==='PATCH')return ok(await api.updateDomain({auth,domainId:parts[2],metadata:body.metadata,subdomainsEnabled:body.subdomains_enabled}));
         if(parts.length===3&&method==='DELETE')return gone(await api.deleteDomain({auth,domainId:parts[2]}));
         if(parts.length===4&&parts[3]==='verify'&&method==='POST')return ok(await api.verifyDomain({auth,domainId:parts[2],idempotencyKey}));
       }
 
-      if(parts[1]==='messages'&&parts[2]==='search'&&method==='GET')return ok(await api.searchMessages({auth,q:q.q||q.query,limit:q.limit,pageToken:q.page_token,inboxId:q.inbox_id,before:q.before,after:q.after}));
-      if(parts[1]==='inboxes'&&parts[2]==='search'&&method==='GET')return ok(await api.searchInboxes({auth,q:q.q||q.query,limit:q.limit,pageToken:q.page_token}));
+      if(parts[1]==='messages'&&parts[2]==='search'&&method==='GET')return ok(await api.searchMessages({auth,q:q.q||q.query,limit:q.limit,pageToken:q.page_token,inboxId:q.inbox_id,podId:q.pod_id,before:q.before,after:q.after}));
+      if(parts[1]==='inboxes'&&parts[2]==='search'&&method==='GET')return ok(await api.searchInboxes({auth,q:q.q||q.query,podId:q.pod_id,limit:q.limit,pageToken:q.page_token}));
       if(parts[1]==='inboxes'){
         if(parts.length===2&&method==='GET')return ok(await api.listInboxes({auth,limit:q.limit,pageToken:q.page_token,ascending:bool(q.ascending),podId:q.pod_id}));
         if(parts.length===2&&method==='POST')return created(await api.createInbox({auth,username:body.username,domain:body.domain,displayName:body.display_name,clientId:body.client_id,metadata:body.metadata,podId:body.pod_id,idempotencyKey}));
@@ -57,6 +66,10 @@ export function createUberMailAgentHttp({api}={}){
         if(parts.length===3&&method==='GET')return ok(await api.getInbox({auth,inboxId}));
         if(parts.length===3&&method==='PATCH')return ok(await api.updateInbox({auth,inboxId,displayName:body.display_name,metadata:body.metadata,paused:body.paused}));
         if(parts.length===3&&method==='DELETE')return gone(await api.deleteInbox({auth,inboxId}));
+        if(parts.length===4&&parts[3]==='webhooks'&&method==='GET')return ok(await api.listWebhooks({auth,inboxId,limit:q.limit,pageToken:q.page_token}));
+        if(parts.length===4&&parts[3]==='webhooks'&&method==='POST')return created(await api.createWebhook({auth,url:body.url,eventTypes:body.event_types,inboxIds:[inboxId],podIds:body.pod_ids,headers:body.headers,clientId:body.client_id,idempotencyKey}));
+        if(parts.length===4&&parts[3]==='api-keys'&&method==='GET')return ok(await api.listApiKeys({auth,type:q.type,limit:q.limit,pageToken:q.page_token}));
+        if(parts.length===4&&parts[3]==='api-keys'&&method==='POST')return created(await api.createApiKey({auth,name:body.name,type:body.type,permissions:body.permissions,inboxId,expiresAt:body.expires_at,idempotencyKey}));
 
         if(parts[3]==='messages'){
           if(parts.length===4&&method==='GET')return ok(await api.listMessages({auth,inboxId,limit:q.limit,pageToken:q.page_token,labels:q.label?arr(q.label):[],before:q.before,after:q.after,from:q.from,to:q.to,subject:q.subject}));
@@ -67,6 +80,8 @@ export function createUberMailAgentHttp({api}={}){
           if(parts.length===5&&method==='DELETE')return gone(await api.deleteMessage({auth,inboxId,messageId}));
           if(parts.length===6&&parts[5]==='reply'&&method==='POST')return created(await api.replyToMessage({auth,inboxId,messageId,to:body.to,cc:body.cc,bcc:body.bcc,replyTo:body.reply_to,text:body.text,html:body.html,labels:body.labels,attachments:body.attachments,headers:body.headers,replyAll:Boolean(body.reply_all),relationship,approval:effectApproval,idempotencyKey}));
           if(parts.length===6&&parts[5]==='forward'&&method==='POST')return created(await api.forwardMessage({auth,inboxId,messageId,to:body.to,cc:body.cc,bcc:body.bcc,replyTo:body.reply_to,text:body.text,html:body.html,labels:body.labels,attachments:body.attachments,headers:body.headers,relationship,approval:effectApproval,idempotencyKey}));
+          if(parts.length===6&&parts[5]==='reply-draft'&&method==='POST')return created(await api.createReplyDraft({auth,inboxId,messageId,to:body.to,cc:body.cc,bcc:body.bcc,replyTo:body.reply_to,text:body.text,html:body.html,labels:body.labels,attachments:body.attachments,replyAll:Boolean(body.reply_all),sendAt:body.send_at,clientId:body.client_id,idempotencyKey}));
+          if(parts.length===6&&parts[5]==='forward-draft'&&method==='POST')return created(await api.createForwardDraft({auth,inboxId,messageId,to:body.to,cc:body.cc,bcc:body.bcc,replyTo:body.reply_to,text:body.text,html:body.html,labels:body.labels,attachments:body.attachments,sendAt:body.send_at,clientId:body.client_id,idempotencyKey}));
           if(parts.length===7&&parts[5]==='attachments'&&method==='GET')return ok(await api.getMessageAttachment({auth,inboxId,messageId,attachmentId:parts[6]}));
         }
 
@@ -91,7 +106,7 @@ export function createUberMailAgentHttp({api}={}){
         }
       }
 
-      if(parts[1]==='threads'&&parts[2]==='search'&&method==='GET')return ok(await api.searchThreads({auth,q:q.q||q.query,limit:q.limit,pageToken:q.page_token,before:q.before,after:q.after}));
+      if(parts[1]==='threads'&&parts[2]==='search'&&method==='GET')return ok(await api.searchThreads({auth,q:q.q||q.query,podId:q.pod_id,limit:q.limit,pageToken:q.page_token,before:q.before,after:q.after}));
 
       if(parts[1]==='webhooks'){
         if(parts.length===2&&method==='GET')return ok(await api.listWebhooks({auth,limit:q.limit,pageToken:q.page_token}));

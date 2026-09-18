@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-resource-allocation.v1",
-  "generatedAt": "2026-09-18T15:13:10.560Z",
-  "sourceSha": "c527d5d655ece60c646133a87cbbc9e172781bed",
+  "generatedAt": "2026-09-18T15:27:22.357Z",
+  "sourceSha": "59009296d86a3c26ee0d207c91f84f00e2ac102b",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
@@ -12,15 +12,7 @@
   ],
   "basis": "ACTIONABILITY_ONLY",
   "whyNotExpectedValue": "No economic prior exists for these missions. Ranking them by an invented expected contribution would be a guess wearing arithmetic.",
-  "allocated": [
-    {
-      "missionId": "M-V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
-      "gapId": "V7G005-VERIFIED-WORK-STRANDED-OFF-MAIN",
-      "title": "Verified work sitting on a branch and not in main",
-      "share": 100,
-      "nextExperiment": "Re-measure after each merge."
-    }
-  ],
+  "allocated": [],
   "waiting": [
     {
       "missionId": "M-V7G001-CANONICAL-V9-NOT-MATERIALIZED",
@@ -60,7 +52,7 @@
     }
   ],
   "counts": {
-    "allocated": 1,
+    "allocated": 0,
     "waiting": 6
   },
   "uncertainty": "An equal share across actionable missions is a statement that nothing here justifies ranking them, not a claim they are equally valuable."

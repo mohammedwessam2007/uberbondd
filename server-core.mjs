@@ -348,6 +348,8 @@ function canaryPrerequisites(runtimeConfig = config) {
     approverConfigured: Boolean(String(outbound.approverId || '').trim()),
     senderIdentityConfigured: Boolean(String(runtimeConfig.sender?.address || '').trim()),
     allowedCountriesConfigured: normalizeCountryList(outbound.allowedCountries || []).length > 0,
+    googleOAuthConfigured: Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
+    postalConfigured: Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true),
     providerCredentialConfigured: String(outbound.provider || '').toLowerCase() === 'postal'
       ? Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true)
       : Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),

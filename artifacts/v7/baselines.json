@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.v7-baselines.v1",
-  "generatedAt": "2026-09-18T14:21:45.426Z",
-  "sourceSha": "d55d196339a6a4e5f5ad4e968012f1b63dbc630b",
+  "generatedAt": "2026-09-18T14:40:27.591Z",
+  "sourceSha": "6f2933db5be51e2a77cfeab47aa3782485437a0d",
   "generator": "scripts/v7-frontier-artifacts.mjs",
   "stateVersion": "uberbond.v7-frontier-state.v1",
   "externalEffects": [],
@@ -33,7 +33,7 @@
     },
     {
       "metric": "mutationAnchorsRegistered",
-      "value": 502,
+      "value": 503,
       "mode": "LIVE",
       "ranAt": null,
       "ageDays": null,

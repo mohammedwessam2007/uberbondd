@@ -3829,8 +3829,17 @@ export const MUTATIONS = [
     // commits reported "nothing stranded" while the check itself sat unsaved.
     id: 'V7STRAND-01', guard: 'Uncommitted work counts as stranded',
     file: 'scripts/v7-gap-ledger.mjs',
-    find: '      if (ahead === 0 && dirty.length === 0) {',
+    find: '      if (ahead === 0 && dirtySource.length === 0) {',
     replace: '      if (ahead === 0) {',
+    suites: ['tests/v7-gap-ledger.test.mjs']
+  },
+  {
+    // Widening the filter back to every path restores the fixed point: the
+    // ledger recording completion becomes the uncommitted work preventing it.
+    id: 'V7STRAND-02', guard: 'Regenerated artifacts are not counted as stranded source',
+    file: 'scripts/v7-gap-ledger.mjs',
+    find: "      const dirtySource = dirtyAll.filter(line => /^..\\s+(src|scripts|config|migrations|tests|api)\\//.test(line));",
+    replace: '      const dirtySource = dirtyAll;',
     suites: ['tests/v7-gap-ledger.test.mjs']
   },
 ];

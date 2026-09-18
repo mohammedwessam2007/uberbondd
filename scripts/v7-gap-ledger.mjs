@@ -152,17 +152,34 @@ const GAPS = [
       // Uncommitted work is stranded in the most literal sense: it exists on one
       // disk and nowhere else. Counting only commits ahead reported "nothing
       // stranded" while this very check sat unsaved in the working tree.
-      const dirty = (sh('git', ['status', '--porcelain']) ?? '').split('\n').filter(Boolean);
-      if (ahead === 0 && dirty.length === 0) {
-        return { status: 'CLOSED', closureEvidence: 'the working branch carries nothing main does not have, and the tree is clean', measured: { ahead: 0, behind, uncommitted: 0 } };
+      //
+      // Source only, though. Running the generators dirties the artifacts they
+      // write, so counting those made this gap unclosable by construction: the
+      // ledger recording completion would itself be the uncommitted work
+      // preventing it. A regenerated artifact is the act of measuring; changed
+      // source is work that exists nowhere else. The same split the claim
+      // registry uses for staleness.
+      const dirtyAll = (sh('git', ['status', '--porcelain']) ?? '').split('\n').filter(Boolean);
+      const dirtySource = dirtyAll.filter(line => /^..\s+(src|scripts|config|migrations|tests|api)\//.test(line));
+      if (ahead === 0 && dirtySource.length === 0) {
+        return {
+          status: 'CLOSED',
+          closureEvidence: 'the working branch carries nothing main does not have, and no source is uncommitted',
+          measured: { ahead: 0, behind, uncommittedSource: 0, uncommittedArtifacts: dirtyAll.length }
+        };
       }
       return {
         status: 'OPEN',
         sourceEvidence: [
           ...(ahead ? [`${ahead} commits on this branch are not in main`] : []),
-          ...(dirty.length ? [`${dirty.length} uncommitted path(s) exist only on this disk`] : [])
+          ...(dirtySource.length ? [`${dirtySource.length} uncommitted source path(s) exist only on this disk`] : [])
         ],
-        measured: { ahead, behind, uncommitted: dirty.length, firstUncommitted: dirty[0]?.slice(3) ?? null }
+        measured: {
+          ahead, behind,
+          uncommittedSource: dirtySource.length,
+          uncommittedArtifacts: dirtyAll.length - dirtySource.length,
+          firstUncommittedSource: dirtySource[0]?.slice(3) ?? null
+        }
       };
     }
   },

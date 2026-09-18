@@ -13,6 +13,8 @@ import { evaluateDeliverabilityGuard } from './deliverability-guard.mjs';
 import { evaluateConsequenceBoundary, buildOutboundActionIntent } from './consequence-boundary.mjs';
 import { unsubscribeUrl, oneClickUnsubscribeUrl } from './unsubscribe.mjs';
 import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omnia-v9/final-admission-shadow.mjs';
+import { buildOutboundConsequenceContext, enforceOutboundConsequence } from './omnia-v9/integrations/outbound-consequence-gate.mjs';
+import { dispatchPostalCanary } from './postal-live-send.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyCampaignDecision } from './uberreply-four-offer-genome.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
@@ -45,6 +47,10 @@ export class Pipeline {
     // behavior change. Absent by default (this.outboundFinalAdmissionShadowFn
     // stays null) until an owner wires a real shadow policy hook.
     this.outboundFinalAdmissionShadowFn = hooks.outboundFinalAdmissionShadow || null;
+    // Authoritative consequence gate recovered from UberBond's V9 lineage.
+    // Unlike the shadow observer above, this gate may block a real provider call.
+    this.outboundConsequenceGateFn = hooks.outboundConsequenceGate || null;
+    this.postalSendFn = hooks.postalSend || dispatchPostalCanary;
   }
 
   async refreshOwnerSender() {
@@ -569,25 +575,98 @@ export class Pipeline {
       }
     }
 
-    let result;
-    try {
-      result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, {
-        from: `${this.cfg.sender.name} <${account.email}>`, to: prospect.contact.email, subject, body,
-        threadId: followup ? prospect.threadId : undefined,
-        replyToId: followup ? prospect.rfcMessageId : undefined,
-        listUnsubscribe: prospect.oneClickUnsubscribeUrl
+    const outboundProvider = String(this.cfg.outbound?.provider || 'gmail-api').toLowerCase();
+    const effectPayload = {
+      from: outboundProvider === 'postal' ? account.email : `${this.cfg.sender.name} <${account.email}>`,
+      to: prospect.contact.email,
+      subject,
+      body,
+      threadId: followup ? prospect.threadId : undefined,
+      replyToId: followup ? prospect.rfcMessageId : undefined,
+      listUnsubscribe: prospect.oneClickUnsubscribeUrl
+    };
+
+    // The provider-neutral/effect-adapter path is stricter than legacy Gmail:
+    // it requires a fresh authoritative consequence decision bound to the exact
+    // reservation and exact payload after all other final checks.
+    if (this.cfg.outbound?.useEffectAdapter === true) {
+      const consequenceContext = buildOutboundConsequenceContext({
+        reservation, prospect, campaign, account, effectPayload, followup, idempotencyKey,
+        checkedAt: this.clock().toISOString(),
+        provider: outboundProvider
       });
+      const consequenceAdmission = await enforceOutboundConsequence({
+        hook: this.outboundConsequenceGateFn,
+        context: consequenceContext
+      });
+      await this.store.log('omnia_v9_outbound_consequence_admission', {
+        prospectId: prospect.id,
+        campaignId: campaign.id,
+        reservationId: reservation.id,
+        provider: outboundProvider,
+        ...consequenceAdmission
+      });
+      if (!consequenceAdmission.allowed) {
+        await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+          cancelReason: consequenceAdmission.reason,
+          consequenceAdmission
+        });
+        return this.markSendSafety(prospect, {
+          sent: false,
+          reason: 'v9-authoritative-consequence-admission-required',
+          detail: consequenceAdmission.reason,
+          reservationId: reservation.id
+        });
+      }
+    }
+
+    let result;
+    let providerMeta = null;
+    try {
+      if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
+        providerMeta = await this.postalSendFn({
+          cfg: this.cfg, account, reservation, effectPayload, followup, now: this.clock
+        });
+        if (providerMeta?.classification === 'REJECTED') {
+          await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+            cancelReason: 'postal-provider-rejected',
+            providerReasonCodes: providerMeta.reasonCodes || [],
+            providerEvidence: providerMeta.evidence || null
+          });
+          await this.store.recordOutboundEvent({
+            inbox: prospect.inbox, eventType: 'send_failure', prospectId: prospect.id,
+            recipientEmail: prospect.contact.email,
+            detail: { reservationId: reservation.id, provider: 'postal', reasonCodes: providerMeta.reasonCodes || [] }
+          }, this.outboundThresholds());
+          return this.markSendSafety(prospect, {
+            sent: false, reason: 'provider-rejected', reservationId: reservation.id,
+            reasonCodes: providerMeta.reasonCodes || []
+          });
+        }
+        if (providerMeta?.classification !== 'ACCEPTED' || !providerMeta?.providerReferenceId) {
+          const uncertain = new Error(providerMeta?.dispatchError || 'postal-provider-result-uncertain');
+          uncertain.providerMeta = providerMeta;
+          throw uncertain;
+        }
+        result = { data: { id: providerMeta.providerReferenceId, threadId: '' } };
+      } else {
+        result = await this.sendEmailFn(this.cfg.google, account, this.cfg.encryptionKey, effectPayload);
+      }
     } catch (error) {
-      await this.store.markOutboundReservation(reservation.id, 'uncertain', { error: String(error.message || error).slice(0, 1000) });
+      await this.store.markOutboundReservation(reservation.id, 'uncertain', {
+        error: String(error.message || error).slice(0, 1000),
+        provider: outboundProvider,
+        providerEvidence: error?.providerMeta?.evidence || null
+      });
       const health = await this.store.recordOutboundEvent({
         inbox: prospect.inbox, eventType: 'send_uncertain', prospectId: prospect.id,
-        recipientEmail: prospect.contact.email, detail: { reservationId: reservation.id, error: error.message }
+        recipientEmail: prospect.contact.email, detail: { reservationId: reservation.id, provider: outboundProvider, error: error.message }
       }, this.outboundThresholds());
       await this.store.patch('prospects', prospect.id, {
         status: 'send-uncertain', nextFollowupAt: null,
         sendSafety: { sent: false, reason: 'provider-result-uncertain', reservationId: reservation.id, senderPaused: Boolean(health?.paused), checkedAt: now() }
       });
-      await this.store.log('outbound_send_uncertain', { prospectId: prospect.id, reservationId: reservation.id, error: error.message });
+      await this.store.log('outbound_send_uncertain', { prospectId: prospect.id, reservationId: reservation.id, provider: outboundProvider, error: error.message });
       return { sent: false, uncertain: true, reservation, health };
     }
 
@@ -596,24 +675,30 @@ export class Pipeline {
       await this.store.upsert('accounts', account);
     }
 
-    let rfcMessageId = '';
-    try {
-      const sent = await this.getMessageFn(this.cfg.google, account, this.cfg.encryptionKey, result.data.id);
-      rfcMessageId = this.parseMessageFn(sent.data).messageId;
-      if (sent.tokens) {
-        account.tokens = sealTokens(sent.tokens, this.cfg.encryptionKey);
-        await this.store.upsert('accounts', account);
+    let rfcMessageId = providerMeta?.messageId || '';
+    if (outboundProvider !== 'postal') {
+      try {
+        const sent = await this.getMessageFn(this.cfg.google, account, this.cfg.encryptionKey, result.data.id);
+        rfcMessageId = this.parseMessageFn(sent.data).messageId;
+        if (sent.tokens) {
+          account.tokens = sealTokens(sent.tokens, this.cfg.encryptionKey);
+          await this.store.upsert('accounts', account);
+        }
+      } catch (error) {
+        // Best-effort metadata enrichment only: the message is already sent and
+        // recorded above, so this must never fail the send.
+        console.warn('[pipeline] could not fetch RFC message-id after send:', error?.message || error);
       }
-    } catch (error) {
-      // Best-effort metadata enrichment only: the message is already sent and
-      // recorded above, so this must never fail the send. Log for visibility in
-      // case it starts failing consistently (e.g. a token or scope problem).
-      console.warn('[pipeline] could not fetch RFC message-id after send:', error?.message || error);
     }
 
     const sentAt = now();
     await this.store.markOutboundReservation(reservation.id, 'sent', {
-      sentAt, gmailId: result.data.id, threadId: result.data.threadId, rfcMessageId
+      sentAt,
+      provider: outboundProvider,
+      providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
+      gmailId: outboundProvider === 'postal' ? null : result.data.id,
+      threadId: result.data.threadId || '',
+      rfcMessageId
     });
     await this.store.recordOutboundEvent({
       inbox: prospect.inbox, eventType: 'sent', prospectId: prospect.id,
@@ -622,7 +707,11 @@ export class Pipeline {
 
     const message = {
       id: `msg_${reservation.id}`, prospectId: prospect.id, campaignId: campaign.id, inbox: prospect.inbox,
-      to: prospect.contact.email, subject, gmailId: result.data.id, threadId: result.data.threadId,
+      to: prospect.contact.email, subject,
+      provider: outboundProvider,
+      providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
+      gmailId: outboundProvider === 'postal' ? null : result.data.id,
+      threadId: result.data.threadId || '',
       rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey
     };
     try { await this.store.add('messages', message); }

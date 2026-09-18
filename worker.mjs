@@ -8,6 +8,7 @@ import { createMissionAwareJobHandlers } from './src/founder-outcome-job-handler
 import { startScheduler } from './src/scheduler.mjs';
 import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
+import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integrations/outreach-consequence-admission.mjs';
 import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
@@ -22,11 +23,10 @@ await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
 const queue = new DurableQueue(store, config, console);
 let revenue;
-// OMNIA_V9_MODE defaults to 'off' (resolveOmniaV9Mode never escalates without an
-// explicit env value from this allowlist). The resolved hook only ever feeds the
-// non-authoritative shadow observer (src/omnia-v9/final-admission-shadow.mjs) --
-// it cannot block or alter a send. The AUTHORITATIVE outbound-consequence-gate.mjs
-// is deliberately NOT wired here -- see docs/INSTANTLY_RECONCILIATION.md Sub-wave B.
+// OMNIA_V9_MODE still controls only the non-authoritative shadow observer.
+// Real effect-adapter sends have a separate authoritative consequence gate
+// below; legacy Gmail behavior remains unchanged unless OUTBOUND_USE_EFFECT_ADAPTER
+// is explicitly enabled.
 const omniaV9Mode = resolveOmniaV9Mode(process.env);
 console.log(`OMNIA V9 outbound integration mode: ${omniaV9Mode}`);
 const pipeline = new Pipeline(store, config, {
@@ -35,7 +35,8 @@ const pipeline = new Pipeline(store, config, {
   // first-cash sprint is instead advanced through deterministic QA to
   // DELIVERY_READY and never enters generic report auto-email delivery.
   onProspectComplete: prospect => routeProspectCompletion({ store, revenue, prospect }),
-  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store })
+  outboundFinalAdmissionShadow: resolveOutboundFinalAdmissionHook({ mode: omniaV9Mode, store }),
+  outboundConsequenceGate: createAuthoritativeOutreachConsequenceGate({ store, cfg: config })
 });
 const enqueueJob = (type, payload, options = {}) => queue.enqueue(type, payload, type === 'outreach.100k.process'
   ? { ...options, maxAttempts: 1, recoveryPolicy: 'reconcile' }

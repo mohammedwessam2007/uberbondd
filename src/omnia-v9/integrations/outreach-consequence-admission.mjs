@@ -8,7 +8,10 @@ import {
 export const OUTREACH_CONSEQUENCE_POLICY_DIGEST = sha256({
   version: 'uberbond.outreach-consequence-policy.v1',
   launchPhase: 'canary-only',
-  gmailApiRouteTypes: ['EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'SOLICITED_APPLICATION'],
+  providerRouteTypes: {
+    'gmail-api': ['EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'SOLICITED_APPLICATION'],
+    postal: ['EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'SOLICITED_APPLICATION']
+  },
   approval: 'exact-hmac-bound-single-use',
   effectPayload: 'sha256-bound',
   missingOrUncertain: 'deny',
@@ -18,7 +21,7 @@ export const OUTREACH_CONSEQUENCE_POLICY_DIGEST = sha256({
 export const OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST = sha256({
   version: 'uberbond.outreach-consequence-constitution.v1',
   invariants: [
-    'no-unsolicited-commercial-mail-through-gmail-api',
+    'no-unsolicited-commercial-mail-through-bounded-canary-providers',
     'one-verified-recipient-per-message',
     'exact-owner-approved-payload-only',
     'current-route-evidence-required',
@@ -43,8 +46,8 @@ function deny(context, reason) {
 /**
  * Deterministic, V9-compatible final consequence gate for the first bounded
  * outreach canary. It intentionally does not pretend that a public email
- * address is consent. Gmail API execution is limited to a solicited
- * application, explicit consent, or requested information, and every effect
+ * address is consent. Gmail API and owned Postal execution are both limited to
+ * a solicited application, explicit consent, or requested information, and every effect
  * must match a short-lived HMAC approval over the exact payload digest.
  *
  * The existing durable outbound reservation is the single-use authority
@@ -57,7 +60,8 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
   return async function authoritativeOutreachConsequenceGate(context) {
     if (!store || typeof store.get !== 'function') return deny(context, 'outreach-consequence-store-unavailable');
     if (cfg?.outbound?.launchPhase !== 'canary') return deny(context, 'outreach-consequence-launch-phase-not-canary');
-    if (String(cfg?.outbound?.provider || '').toLowerCase() !== 'gmail-api') {
+    const provider = String(cfg?.outbound?.provider || '').toLowerCase();
+    if (!['gmail-api', 'postal'].includes(provider)) {
       return deny(context, 'outreach-consequence-provider-not-approved');
     }
     const action = context?.actionIntent || {};
@@ -70,11 +74,16 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
     const checkedAt = new Date(context.checkedAt);
     if (!Number.isFinite(checkedAt.getTime())) return deny(context, 'outreach-consequence-checked-at-invalid');
 
-    const [prospect, campaign] = await Promise.all([
+    const [prospect, campaign, account] = await Promise.all([
       store.get('prospects', action.prospectId),
-      store.get('campaigns', action.campaignId)
+      store.get('campaigns', action.campaignId),
+      store.findOne?.('accounts', { slot: action.inbox })
     ]);
     if (!prospect || !campaign) return deny(context, 'outreach-consequence-record-not-found');
+    if (!account?.connected || !account?.email) return deny(context, 'outreach-consequence-sender-not-connected');
+    if (String(account.email).trim().toLowerCase() !== String(action.senderEmail || '').trim().toLowerCase()) {
+      return deny(context, 'outreach-consequence-sender-mismatch');
+    }
     if (campaign.approved !== true || campaign.autoSend !== true) return deny(context, 'outreach-consequence-campaign-not-enabled');
     if (String(prospect.campaignId || '') !== String(campaign.id || '')) return deny(context, 'outreach-consequence-campaign-binding-mismatch');
     if (String(prospect.contact?.email || '').trim().toLowerCase() !== String(action.recipientEmail || '').trim().toLowerCase()) {
@@ -105,7 +114,7 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
       followup,
       routeDigest: prospect.outreachRoute.routeDigest,
       messageDigest: approval.messageDigest,
-      effectPayloadDigest: context.effectPayloadDigest,
+      effectPayloadDigest: context.authorizationPayloadDigest,
       now: checkedAt
     });
     if (!approvalCheck.ok) return deny(context, approvalCheck.reason);
@@ -119,6 +128,7 @@ export function createAuthoritativeOutreachConsequenceGate({ store, cfg } = {}) 
       reservationId: context.reservation.id,
       actionIntentDigest: context.actionIntentDigest,
       effectPayloadDigest: context.effectPayloadDigest,
+      authorizationPayloadDigest: context.authorizationPayloadDigest,
       authorizationDigest: approval.approvalDigest,
       policyDigest: OUTREACH_CONSEQUENCE_POLICY_DIGEST,
       constitutionDigest: OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST,

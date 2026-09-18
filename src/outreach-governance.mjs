@@ -31,6 +31,14 @@ const GMAIL_API_ALLOWED_ROUTE_TYPES = new Set([
   'EXPLICIT_CONSENT',
   'REQUESTED_INFORMATION'
 ]);
+// Owning the transport does not create permission to contact somebody.
+// The first Postal canary deliberately inherits the same narrow
+// solicited/consented/requested-information boundary as Gmail.
+const POSTAL_CANARY_ALLOWED_ROUTE_TYPES = new Set([
+  'SOLICITED_APPLICATION',
+  'EXPLICIT_CONSENT',
+  'REQUESTED_INFORMATION'
+]);
 
 const ROUTE_FIELDS = new Set([
   'schemaVersion', 'routeType', 'recipientEmail', 'sourceUrl', 'sourceExcerptDigest',
@@ -106,6 +114,11 @@ export function providerRoutePolicy(provider, routeType) {
     return GMAIL_API_ALLOWED_ROUTE_TYPES.has(routeType)
       ? { ok: true, reason: 'gmail-api-solicited-or-consented-route' }
       : { ok: false, reason: 'gmail-api-prohibits-unsolicited-commercial-mail' };
+  }
+  if (normalizedProvider === 'postal') {
+    return POSTAL_CANARY_ALLOWED_ROUTE_TYPES.has(routeType)
+      ? { ok: true, reason: 'postal-canary-solicited-or-consented-route' }
+      : { ok: false, reason: 'postal-canary-route-not-authorized' };
   }
   if (normalizedProvider === 'fixture') {
     return ['UNKNOWN', 'PUBLIC_BUSINESS_CONTACT'].includes(routeType)

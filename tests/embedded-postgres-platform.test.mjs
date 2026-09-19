@@ -48,3 +48,18 @@ test('ARM64 fixture path uses the same fail-closed executable preparation contra
     fs.rmSync(root,{recursive:true,force:true});
   }
 });
+
+
+test('lockfile and UberLit supervisor remain architecture-aware',()=>{
+  const lock=JSON.parse(fs.readFileSync(new URL('../package-lock.json',import.meta.url),'utf8'));
+  const arm=lock.packages['node_modules/@embedded-postgres/linux-arm64'];
+  const x64=lock.packages['node_modules/@embedded-postgres/linux-x64'];
+  assert.equal(arm?.version,'18.4.0-beta.17');
+  assert.deepEqual(arm?.cpu,['arm64']);
+  assert.deepEqual(arm?.os,['linux']);
+  assert.equal(x64?.version,'18.4.0-beta.17');
+  const supervisor=fs.readFileSync(new URL('../scripts/uberlit-supervisor.mjs',import.meta.url),'utf8');
+  assert.match(supervisor,/resolveEmbeddedPostgresPlatform/);
+  assert.doesNotMatch(supervisor,/node_modules','@embedded-postgres','linux-x64'/);
+  assert.match(supervisor,/embeddedPostgresPackage:postgresPlatform\.packageName/);
+});

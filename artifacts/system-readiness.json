@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-18T17:13:06.428Z",
+  "generatedAt": "2026-09-19T15:32:29.620Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "48a2e541bd1afc80554a3dc00699c593b6a45a75",
-    "branch": "codex/agentmail-clean-room-adapter-20260918",
-    "sourceModules": 836,
-    "testSuites": 1013,
-    "workingTreeClean": false
+    "head": "c6e162926795c2de37c67d33b7191bf080b9d1ec",
+    "branch": "main",
+    "sourceModules": 849,
+    "testSuites": 1027,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,16 +70,22 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 836,
-      "reachableFromProduction": 257,
-      "reachableFromUnattendedOperatorScriptsOnly": 398,
+      "srcModules": 849,
+      "reachableFromProduction": 267,
+      "reachableFromUnattendedOperatorScriptsOnly": 406,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 398,
-      "noEntryPointAtAll": 174,
+      "reachableFromOperatorScriptsOnly": 406,
+      "noEntryPointAtAll": 169,
       "partitionExact": true,
-      "allClassified": true,
+      "allClassified": false,
       "unclassified": [],
-      "staleClassifications": [],
+      "staleClassifications": [
+        "src/omnia-v9/integrations/outbound-consequence-gate.mjs",
+        "src/omnia-v9/integrations/outreach-consequence-admission.mjs",
+        "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs",
+        "src/uberocean-compute-fabric.mjs",
+        "src/omnia-v9/integrations/external-effect-adapter.mjs"
+      ],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [
         "scripts/personal-civilization-private.mjs"

@@ -221,3 +221,34 @@ Truth boundary at this checkpoint:
 - real Jev task-class calibration: **0 observed outcomes**.
 
 Do not reopen the Jev source architecture on a fresh chat unless exact-current evidence shows a defect. The next Jev frontier is real activation: admit a no-new-spend persistent Linux substrate under UberCel/UberLit, install the owner-custodied TypeSafe key into the UberLit protected secret, enable the lane, execute one bounded synthetic canary, then begin read-only shadow calibration.
+
+
+## Oracle Always Free ARM64 activation frontier — 2026-09-19
+
+A zero-new-spend resident-host route is now source-prepared on branch `feature/oracle-free-uberlit-arm64-jev-20260919` above main `ee481f0909f9353cf1ee9eeb0fc490b3e5133c0f`.
+
+The existing Oracle Always Free Air-node bootstrap was upgraded rather than duplicated.
+
+New source truth:
+- reviewed embedded-Postgres runtime selection supports exactly Linux x64 and Linux ARM64;
+- both remain pinned to `18.4.0-beta.17`;
+- UberLit supervisor no longer hard-codes the x64 native-library path;
+- Oracle Ampere A1 bootstrap now installs canonical UberLit, requires local HTTPS health, and compiles a Jev PLAN_ONLY receipt before declaring readiness;
+- TypeSafe credentials remain absent from Git/argv and live Jev remains separately credential-gated;
+- the Oracle substrate is replaceable infrastructure; UberCel remains deployment/control authority and UberLit remains the runtime.
+
+Focused local verification from exact changed source:
+- ARM/platform + Oracle bootstrap tests: **12/12 PASS**;
+- platform helper syntax: PASS;
+- fixture-preparation syntax: PASS;
+- Oracle bootstrap `bash -n`: PASS.
+
+Truth boundary:
+- no Oracle account/session was available to ChatGPT;
+- no Oracle VM was created;
+- no live ARM64 UberLit boot is yet evidenced;
+- no Tailscale owner authorization is yet evidenced;
+- no TypeSafe credential or live Jev call is evidenced;
+- no external spend was incurred.
+
+Do not reopen the ARM portability architecture unless current source proves a regression. The next cut is owner-side Oracle account/Always Free VM creation, then run the prepared bootstrap and approve Tailscale. After the host is live, install the owner-custodied TypeSafe key into UberLit and run the existing bounded Jev canary.

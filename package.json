@@ -154,7 +154,10 @@
     "jev:uberlit:canary": "node scripts/uberlit-jev-shadow-canary.mjs",
     "jev:shadow:route": "node scripts/jev-shadow-route.mjs",
     "jev:calibration": "node scripts/jev-calibration-doctor.mjs",
-    "test:oracle-free": "node --test tests/embedded-postgres-platform.test.mjs tests/sovereign-oracle-always-free-bootstrap.test.mjs"
+    "test:oracle-free": "node --test tests/embedded-postgres-platform.test.mjs tests/sovereign-oracle-always-free-bootstrap.test.mjs",
+    "oracle:record-free-evidence": "node scripts/record-oracle-free-owner-evidence.mjs",
+    "uberocean:admit:oracle": "node scripts/uberocean-admit-oracle-host.mjs",
+    "test:cowork-jev-live": "node --test tests/cowork-jev-live-activation.test.mjs tests/oracle-free-host-admission.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

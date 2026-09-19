@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-15T03:30:00.000Z",
-  "sourceCommit": "e12ca43c2a3b5f0dcfd425add769c36524f1f690",
+  "checkpointedAt": "2026-09-19T13:51:49.000Z",
+  "sourceCommit": "2634979fee3c0c7cb21540038726429ad4afcdf4",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
   "containedNorthStar": "Personal Civilization Engine",
@@ -15,8 +15,8 @@
   "activeMission": "PROJECT NULLSTAR OMEGA ABSOLUTE (406 sections, 2026-09-15). Two lineages were reconciled here: the APOTHEOSIS orchestration and one-button outreach work that advanced on main, and the NULLSTAR OMEGA cognitive-measurement spine that advanced on this branch while it was 121 commits behind. Neither is the organism on its own. Operate from the five-cut external/owner frontier without reopening completed finite engineering or manufacturing graph work. Preserve the resident Context Fabric and exact-source runtime proofs; close a remaining cut only when its cut-specific real-world receipt is observed. In parallel, activate the first owned or authorized persistent founder host when physical compute and owner-controlled model artifacts are available, so resident compute and resident cognition coexist continuously.",
   "currentTruth": {
     "repository": {
-      "checkpointSourceAncestor": "f8f3d579c04a565882ba62342d9c94a104eab73a",
-      "latestMainRequiresRefreshBeforeNewClaims": true,
+      "checkpointSourceAncestor": "2634979fee3c0c7cb21540038726429ad4afcdf4",
+      "latestMainRequiresRefreshBeforeNewClaims": false,
       "finiteEngineeringClosure": "100_PERCENT_OF_DECLARED_FINITE_ENGINEERING_SCOPE",
       "finiteOpenRequirements": 0,
       "semanticRequirements": 1040,
@@ -57,6 +57,41 @@
         "receiptDigest": "sha256:8d293f99169903130274fb9b881e6df693c13173aff1eb63cf0484ed794de308"
       },
       "remainingRuntimeCuts": []
+    },
+    "jevUberLitActivation": {
+      "status": "SOURCE_READY_EXTERNAL_GATES_BLOCKED",
+      "sourceCommit": "2634979fee3c0c7cb21540038726429ad4afcdf4",
+      "localVerification": {
+        "brain": "PASS",
+        "capabilitiesDoctor": "PASS",
+        "capabilityGenomeDoctor": "PASS",
+        "genesisDoctor": "PASS",
+        "oracleFreeTests": "13/13 PASS",
+        "jevTests": "17/17 PASS",
+        "coworkLiveTests": "7/7 PASS",
+        "shellSyntax": "PASS",
+        "planOnlyCanary": "PASS",
+        "shadowRoutePlanOnly": "PASS",
+        "calibration": "NO_CALIBRATED_OUTCOMES",
+        "typesafeSecretStatus": "UBERLIT_TYPESAFE_KEY_ABSENT"
+      },
+      "externalTruth": {
+        "oracleAccountAccess": "NOT_OBSERVED",
+        "oracleVmCreated": false,
+        "tailscaleAuthorization": "NOT_OBSERVED",
+        "typesafeCredential": "NOT_OBSERVED",
+        "liveJevCall": "NOT_OBSERVED",
+        "browserControl": "TIMED_OUT_AND_RESET",
+        "externalSpendUsd": 0
+      },
+      "terminalCondition": "ORACLE_FREE_HOST_LIVE -> UBERLIT_HEALTHY -> TYPESAFE_SECRET_PRESENT -> JEV_LIVE_SHADOW_READY",
+      "ownerGates": [
+        "Oracle authentication, account terms, 2FA or verification if presented",
+        "Tailscale device authorization",
+        "TypeSafe account authentication/terms and hidden terminal key entry",
+        "Explicit approval for up to 0.001 USD only if the canary is not covered by free or prepaid credit"
+      ],
+      "nextAction": "Use the prepared Cowork/browser mission on an available authenticated browser session; do not claim live readiness from source-only evidence."
     },
     "remainingSovereignCuts": {
       "externalProvider": [
@@ -193,6 +228,7 @@
     "CREDENTIAL_CUSTODY: requires observed founder enrollment with threshold >=2, at least two factor types and at least two custody domains, with no secret material in the receipt. This cannot be inferred from configured accounts.",
     "SOVEREIGN_IDENTITY: requires owner-consented liveness and same-identity recovery rehearsal bound to an authority epoch with successorAuthority NONE. Repository or model assertions cannot supply identity/liveness.",
     "PERSISTENT PHYSICAL FOUNDER HOST: source and runtime rehearsals are strong, but an always-on owner-controlled Linux founder node is not currently observed. No existing DigitalOcean droplet was present when checked, and no new paid host may be provisioned without owner approval.",
+    "JEV/UBERLIT LIVE ACTIVATION: local source, plan-only, shadow-routing and hostile guardrails pass on current main, but no Oracle account/VM, Tailscale authorization, protected TypeSafe key, resident UberLit health receipt or live Jev provider-call receipt is observed. The available browser-control session timed out and reset before authentication could be reached.",
     "EXTERNAL/COMMERCIAL/ELAPSED REALITY: customer demand, cleared payment, accepted delivery, retention, sustained unattended duration, longitudinal life outcomes and literal ASI require their own observations.",
     "AUTONOMY WAKE HAS NO SCHEDULE: .github/workflows/uberbond-autonomy-wake.yml is workflow_dispatch-only on this source and no cron appears in its accessible history. Enabling one is a recurring spend of the founder's Actions minutes and is a founder decision, not an engineering one.",
     "NULLSTAR ALIAS RECONCILIATION: 244 sections read MISSING, an upper bound rather than a count of unbuilt organs. A name-similarity pass over all 247 found a >=50% word match for 137 of them, and verification killed almost all of those: ADVERSARIAL COUNCIL matched forecast-adversarial-ensemble, which is about source independence and not red-team critique roles, and PARALLEL GRAPH EXECUTION matched execution-leaf-graph, which does not measure wall-clock reduction. Two survived verification and both reached VERIFIED_CURRENT through the evidence gate. Mass-aliasing on a shared word would make the matrix look better while being less true, which is the failure this row exists to prevent. Each remaining section needs its requirement read against the candidate module.",

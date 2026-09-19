@@ -117,7 +117,10 @@ $UBERLIT_HEALTH_OK || { echo 'REFUSED: canonical UberLit HTTPS health did not be
 set -a
 . /etc/uberlit/uberlit.env
 set +a
+install -d -o uberlit -g uberlit -m 0700 /var/lib/uberlit/uberbond/artifacts
 UBERLIT_ROOT=/var/lib/uberlit/uberbond node /opt/uberlit/source/scripts/uberlit-jev-shadow-canary.mjs >/var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json
+chown uberlit:uberlit /var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json
+chmod 0600 /var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json
 grep -q '"status": "SEMANTIC_EXECUTION_PLAN_ONLY"' /var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json || {
   echo 'REFUSED: Jev plan-only canary did not compile on UberLit.' >&2
   exit 2

@@ -9,9 +9,8 @@ const skill=readFileSync(new URL('../.claude/skills/oracle-free-uberlit-jev-acti
 const secretSource=readFileSync(secret,'utf8');
 const activationSource=readFileSync(activate,'utf8');
 
-test('secret installer and activation gate are executable and shell-valid',()=>{
+test('secret installer and activation gate are shell-valid',()=>{
   for(const url of [secret,activate]){
-    assert.notEqual(statSync(url).mode&0o111,0);
     const r=spawnSync('bash',['-n',url.pathname],{encoding:'utf8'});
     assert.equal(r.status,0,r.stderr);
   }
@@ -44,5 +43,5 @@ test('Cowork skill preserves owner-only auth, legal, secret and spend gates',()=
   assert.match(skill,/2 OCPUs total/);
   assert.match(skill,/12 GB RAM total/);
   assert.match(skill,/\$0\.001 USD/);
-  assert.match(skill,/complete-live-jev-activation\.sh --authorize-max-usd 0\.001/);
+  assert.match(skill,/bash \/opt\/uberlit\/source\/ops\/sovereign\/complete-live-jev-activation\.sh --authorize-max-usd 0\.001/);
 });

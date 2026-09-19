@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,statSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 
 const secret=new URL('../ops/sovereign/store-typesafe-key-interactive.sh',import.meta.url);

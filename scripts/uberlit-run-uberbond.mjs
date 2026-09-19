@@ -16,7 +16,7 @@ const manifest=compileUberLitRelease({
   buildArgv:['npm','ci','--bin-links=false'],
   startArgv:['node','server.mjs'],
   healthPath:'/api/health',
-  envAllowlist:['ADMIN_TOKEN','APP_BASE_URL','DATABASE_URL','DISCOVERY_ENABLED','OUTBOUND_ENABLED','STORE_BACKEND'],
+  envAllowlist:['ADMIN_TOKEN','APP_BASE_URL','DATABASE_URL','DISCOVERY_ENABLED','OUTBOUND_ENABLED','STORE_BACKEND','TYPESAFE_BASE_URL','TYPESAFE_DEFAULT_MODEL','TYPESAFE_JEV_ENABLED','TYPESAFE_INPUT_USD_PER_MILLION','TYPESAFE_OUTPUT_USD_PER_MILLION','TYPESAFE_PRICING_SOURCE','TYPESAFE_PRICING_VERIFIED_AT','TYPESAFE_MAX_COST_USD_PER_CALL'],
   processRole:'web'
 });
 const staged=stageUberLitRelease({rootDir:runtimeRoot,repoDir:root,manifest});

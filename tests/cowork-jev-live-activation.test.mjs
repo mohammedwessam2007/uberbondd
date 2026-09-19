@@ -27,6 +27,7 @@ test('live activation keeps one-mill ceiling, recent pricing evidence, and failu
   assert.match(activationSource,/--authorize-max-usd 0\.001/);
   assert.match(activationSource,/n>0\.001/);
   assert.match(activationSource,/30\*24\*60\*60\*1000/);
+  assert.match(activationSource,/ORACLE_FREE_UBEROCEAN_HOST_ADMITTED/);
   assert.match(activationSource,/rollback_enable/);
   assert.match(activationSource,/ensure_env_value TYPESAFE_JEV_ENABLED false/);
   assert.match(activationSource,/uberlit-jev-shadow-canary\.mjs" --execute/);

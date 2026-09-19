@@ -45,7 +45,8 @@ test('shadow mechanism routing records only digests and normalized registers',as
     runtimeRoot,
     execute:true,
     providerCallAuthorized:true,
-    spendCeilingUsd:0.001
+    spendCeilingUsd:0.001,
+    dataClass:'INTERNAL_NON_SENSITIVE'
   });
   assert.equal(result.ok,true);
   assert.equal(result.shadowRecommendation,'systemOne');

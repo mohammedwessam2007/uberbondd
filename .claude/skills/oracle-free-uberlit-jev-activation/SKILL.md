@@ -113,7 +113,7 @@ The founder personally handles login/2FA/terms and creates the API key.
 
 On the UberLit host run:
 
-`sudo /opt/uberlit/source/ops/sovereign/store-typesafe-key-interactive.sh`
+`sudo bash /opt/uberlit/source/ops/sovereign/store-typesafe-key-interactive.sh`
 
 Tell the founder to paste the key only into that hidden terminal prompt. The input must not echo.
 
@@ -123,7 +123,7 @@ Before a billed provider call, verify whether the account has free/prepaid credi
 
 Then run:
 
-`sudo /opt/uberlit/source/ops/sovereign/complete-live-jev-activation.sh --authorize-max-usd 0.001`
+`sudo bash /opt/uberlit/source/ops/sovereign/complete-live-jev-activation.sh --authorize-max-usd 0.001`
 
 The script must prove:
 - protected TypeSafe key present;

@@ -85,7 +85,7 @@ export function recordSemanticOutcome({
     observationId,
     observedAt:when.toISOString(),
     correct,
-    realizedValue:realizedValue==null?null:String(realizedValue).slice(0,240),
+    realizedValueDigest:realizedValue==null?null:hash(String(realizedValue).slice(0,2000)),
     evidenceRefs:Array.isArray(evidenceRefs)?[...new Set(evidenceRefs.map(x=>String(x).slice(0,500)).filter(Boolean))].slice(0,20):[],
     businessEffectAuthority:'NONE',
     externalEffectAuthority:'NONE'

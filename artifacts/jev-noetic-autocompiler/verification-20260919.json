@@ -1,0 +1,61 @@
+{
+  "schema": "uberbond.jev-noetic-autocompiler.verification.v1",
+  "observedAt": "2026-09-19T00:25:00Z",
+  "sourceUnderTest": "721ab89a12ce74557638203c8064d87c3d6d5cbb",
+  "baseMain": "3c02c47facdba1b902f19aa7a39ad0b8d5b0776f",
+  "pullRequest": 951,
+  "focusedVerification": {
+    "environment": "isolated Node 20-compatible harness using exact changed source/test contents",
+    "command": "node --test tests/system-one-decision-adapter.test.mjs tests/noetic-autocompiler.test.mjs",
+    "tests": 13,
+    "passed": 13,
+    "failed": 0,
+    "scope": "new Jev/System-One adapter and Noetic Autocompiler only"
+  },
+  "externalProvider": {
+    "liveJevCallExecuted": false,
+    "credentialObserved": false,
+    "spendObservedUsd": 0,
+    "truth": "Direct live provider call remains unproven until an owner-controlled protected TYPESAFE_API_KEY and bounded activation evidence exist."
+  },
+  "hostedVerification": {
+    "githubActions": {
+      "runId": 35409082384,
+      "jobs": [
+        "core-verification",
+        "browser-verification",
+        "postgres-verification"
+      ],
+      "observedStepsPerJob": 0,
+      "classification": "ZERO_STEP_INFRASTRUCTURE_NON_EVIDENCE",
+      "sourcePassClaimed": false,
+      "sourceFailureClaimed": false
+    },
+    "vercel": {
+      "status": "DEPLOYMENT_RATE_LIMITED",
+      "classification": "PROVIDER_CAPACITY_NON_EVIDENCE",
+      "sourcePassClaimed": false,
+      "sourceFailureClaimed": false
+    }
+  },
+  "unproven": {
+    "fullRepositoryDeterministicSuite": "NOT_EXECUTED_ON_THIS_BRANCH",
+    "fullReachabilityRatchet": "NOT_EXECUTED_ON_THIS_BRANCH",
+    "liveProviderCall": "NOT_EXECUTED",
+    "taskClassCalibration": "NO_REAL_OUTCOMES_YET"
+  },
+  "activationBlockers": [
+    "protected TYPESAFE_API_KEY",
+    "current official pricing evidence",
+    "positive TYPESAFE_MAX_COST_USD_PER_CALL",
+    "TYPESAFE_JEV_ENABLED=true",
+    "per-call providerCallAuthorized=true",
+    "approved external data class",
+    "per-call spendCeilingUsd within configured maximum"
+  ],
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "automaticCodeMutationAuthorized": false,
+    "consequenceAuthorityFromJev": false
+  }
+}

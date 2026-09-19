@@ -43,8 +43,10 @@ test('plan-only execution makes no provider call', async () => {
 
 test('shadow execution creates registers and escalates low-confidence semantics', async () => {
   const decisionAdapter = {
-    evaluate: async ({ providerCallAuthorized }) => {
+    evaluate: async ({ providerCallAuthorized, dataClass, spendCeilingUsd }) => {
       assert.equal(providerCallAuthorized, true);
+      assert.equal(dataClass, 'INTERNAL_NON_SENSITIVE');
+      assert.equal(spendCeilingUsd, 0.001);
       return {
         ok: true,
         provider: 'typesafe-direct', requestedModel: 'jev-latest', observedModel: 'jev-1.13', requestDigest: 'sha256:req', latencyMs: 100,
@@ -59,7 +61,7 @@ test('shadow execution creates registers and escalates low-confidence semantics'
       };
     }
   };
-  const result = await executeSemanticProgram({ program: program(), state: { lead: 1 }, decisionAdapter, mode: 'SHADOW', providerCallAuthorized: true });
+  const result = await executeSemanticProgram({ program: program(), state: { lead: 1 }, decisionAdapter, mode: 'SHADOW', providerCallAuthorized: true, dataClass: 'INTERNAL_NON_SENSITIVE', spendCeilingUsd: 0.001 });
   assert.equal(result.ok, true);
   assert.equal(result.status, 'SEMANTIC_SHADOW_OBSERVED__FRONTIER_REVIEW_REQUIRED');
   assert.equal(result.registers.route.value, 'jev');

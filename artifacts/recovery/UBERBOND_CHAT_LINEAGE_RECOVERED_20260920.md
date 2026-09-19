@@ -426,3 +426,78 @@ This anchor supersedes old main SHAs as current truth while preserving those old
 13. Preserve provenance, purpose, contradiction, supersession and recoverability.
 14. Physicalization must preserve revocation, safe states and authority attenuation.
 15. After material work, promote chat-only context into durable canon/memory/handoff instead of leaving it trapped in chat.
+
+
+---
+
+## Second-pass cross-chat donor recovery — 2026-09-20
+
+This section captures additional unique material recovered from cross-chat context after the first lineage promotion. It remains **semantic lineage, not a byte-exact transcript export**.
+
+### July contradictions and first-cash wedge
+
+- Historical P0.1 acceptance law was unusually exact: replacement package had to contain `P0_1_ACCEPTANCE_REPAIR_REPORT.md` and `tests/lite-p0.test.mjs`, and produce exactly **91 passed / 0 failed**; a 71-pass state required stopping without commit.
+- A historical local workspace report said only an empty/invalid launch archive was present and the required P0.1 markers were absent.
+- A prior assistant output from the same period nevertheless claimed a real P0.1 ZIP was ready for direct push to main. Preserve this as a **historical assistant contradiction / unverified overclaim**, never as source truth.
+- A July first-cash decision fixed on **Phoenix-metro owner-led residential HVAC** with a **$500 HVAC Lead-Leak Repair Sprint**. One historical review classified **24/100 evidence-qualified** and **76 rejected**, with verdict **READY WITH CONDITIONS**; no outreach had occurred.
+
+### Personal Civilization phenomenon donors
+
+Recovered named donors that must remain reachable even when later merged into broader organs:
+
+- **Civilization DNA** — long-lived path dependence and inherited structure across the personal civilization.
+- **Destiny Market** — competing future-self trajectories/options rather than a single ordained path.
+- **Reachable-Future Geometry** — model the shape, distance, constraints and option value of future states.
+- **Reality Compiler** — translate models/plans into reality-bounded experiments/actions and observed feedback.
+- **Serendipity Reactor / experience manufacturing** — deliberately increase exposure to useful transforming encounters without collapsing into random noise.
+- **Personal Synthetic Society** — persistent internal institutions/roles/markets for deliberation, critique and option generation, while preserving founder sovereignty.
+- **Internal economy / institutions** — resource/attention/allocation mechanisms inside the personal civilization, subordinate to will and rights.
+- **Human Capability Foundry** — manufacture/grow human capabilities, not merely software capabilities.
+- **Observatory / temporal sovereignty / counterfactual lives / culture** — preserve longitudinal observation, time-horizon agency, alternative lives and emergent personal-civilization culture.
+- **Meta-GENESIS** — invent new generators of possibilities, not only possibilities.
+- **Unknown-Unknown Engine** — deliberately search outside the current ontology.
+- **Great Life Experiment** — treat life-path hypotheses as revisable experiments with evidence, not permanent identity commitments.
+
+### Symbiosis / embodiment ladder
+
+Historical endgame donor:
+**external tool -> ambient exocortex -> wearable exocortex -> shared perception -> memory/intent interfaces -> potentially neural interfaces**.
+
+The governing objective is not “implant at any cost”; it is deeper cognitive integration while preserving:
+- agency;
+- privacy;
+- reversibility;
+- identity continuity;
+- safe-state / revocation;
+- reality-grounded evidence.
+
+### Economic-simulation donor
+
+A historical Universal Wealth Engine experiment used an open-world economic grammar reported as **654,136,560 combinations/domain-context** with an unknown-mechanism frontier and explicit reality-grounded vs synthetic modes.
+
+One historical synthetic run used **512 mechanisms / 64 parallel / zero-capital** assumptions and produced synthetic P50 net outcomes approximately:
+- Conservative: **-$0.01**
+- Base: **-$5.79**
+- Aggressive: **$332**
+
+These were simulations, **not revenue proof**.
+
+### Paid-pilot / external-market lineage
+
+- September outreach repeatedly positioned UberBond for bounded paid technical pilots around Node.js/TypeScript/PostgreSQL orchestration, durable queues/state, APIs/webhooks, retries/idempotency, evidence, monitoring, deployment and operational handoff.
+- Common historical commercial framing included **$30/hour** or tightly scoped fixed-price pilots, payment after accepted delivery, then possible recurring/retainer/revenue-share work.
+- White-label delivery proposals included webhook repair, lead routing, n8n/Make automation, PostgreSQL-backed state/reconciliation and AI-process automation.
+- **Matterhaul declined** one AI-native ERP engineering application on **2026-09-14**. Preserve this failed path as demand/distribution evidence rather than deleting it.
+- Public LinkedIn-era positioning described Mohamed Wessam as UberBond's **Managing Partner**, with an older service-era description around copywriting, web design and retention systems. This is historical public positioning, not the terminal identity of UberBond.
+
+### Reliability doctrine recovered from external outreach context
+
+A September reliability correction documented that founder-absence escalation could occur before canonical provider receipts. The queue/evidence boundary was corrected against exact-source receipt contracts and tested.
+
+Preserve the resulting doctrine:
+- model output is separate from observed effects;
+- failure evidence is durable;
+- deterministic/adversarial acceptance prevents self-promotion of claims;
+- external deployment or provider claims require provider/external receipts;
+- outreach copy about architecture is distribution evidence, not independent proof the architecture operated in production.
+

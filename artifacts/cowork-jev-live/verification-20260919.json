@@ -1,0 +1,69 @@
+{
+  "schema": "uberbond.cowork-jev-live-activation.verification.v1",
+  "observedAt": "2026-09-19T02:20:00Z",
+  "baseMain": "d2362e9371d1c16692e6c9f1079253dcf202c36f",
+  "branch": "feature/claude-cowork-live-jev-activation-20260919",
+  "scope": "Claude Cowork execution package for Oracle Always Free -> UberOcean/UberCel -> UberLit -> live Jev shadow activation",
+  "implemented": [
+    "Cowork project skill with explicit Oracle/Tailscale/TypeSafe owner gates",
+    "one-paste Cowork mission",
+    "hidden-TTY TypeSafe key custody",
+    "explicit maximum $0.001 live-canary authorization token",
+    "automatic TYPESAFE_JEV_ENABLED rollback on failed activation",
+    "fresh Oracle Always Free browser evidence recorder",
+    "Oracle IMDSv2 + Tailscale + UberLit health host-admission probe",
+    "UberOcean single-host admission without fabricating full UberCel redundancy",
+    "live Jev activation requires a fresh zero-cost UberOcean admission receipt",
+    "live receipt captures provider/model/latency/cost and leaves canonical routing unchanged"
+  ],
+  "focusedVerification": {
+    "cowOrchestrationGuardrails": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    "oracleHostAdmission": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "shellSyntax": {
+      "ops/sovereign/store-typesafe-key-interactive.sh": "PASS",
+      "ops/sovereign/complete-live-jev-activation.sh": "PASS"
+    },
+    "admissionCompilerSyntax": "PASS",
+    "executionNote": "Cowork guardrail tests used exact changed skill and shell files. Oracle host-admission functional tests exercised the exact changed admission logic and current UberOcean compiler contract in an isolated harness; the full repository suite is separately subject to hosted/local repository runners."
+  },
+  "authority": {
+    "oracleLegalTerms": "OWNER_ONLY",
+    "oracleAuthentication2FAKycPaymentVerification": "OWNER_ONLY",
+    "tailscaleAccountApproval": "OWNER_ONLY",
+    "typeSafeTermsAndAuthentication": "OWNER_ONLY",
+    "typeSafeSecretEntry": "OWNER_HIDDEN_TTY_ONLY",
+    "newPaidOracleResource": false,
+    "canarySpendCeilingUsd": 0.001,
+    "canonicalRoutingMutationFromJev": false,
+    "consequenceAuthorityFromJev": "NONE"
+  },
+  "truthBoundary": {
+    "coworkSessionInvokedFromThisChat": false,
+    "oracleAccountSessionObserved": false,
+    "oracleVmCreated": false,
+    "liveOracleImdsObserved": false,
+    "tailscaleAuthorizationObserved": false,
+    "typeSafeCredentialObserved": false,
+    "liveJevCallObserved": false,
+    "externalSpendUsd": 0,
+    "sourceReadyForCoworkExecution": true
+  },
+  "completionCondition": [
+    "Cowork opens the UberBond working folder and invokes oracle-free-uberlit-jev-activation",
+    "founder completes Oracle authentication/legal gates when presented",
+    "Cowork creates only the $0 Always Free A1 configuration if available",
+    "founder approves Tailscale device",
+    "Cowork records $0 Oracle console evidence and admits the host into UberOcean",
+    "founder creates TypeSafe key and pastes it only into the hidden host terminal prompt",
+    "founder approves at most $0.001 canary spend if it is not covered by free/prepaid credit",
+    "complete-live-jev-activation.sh emits UBERBOND_JEV_LIVE_SHADOW_READY"
+  ]
+}

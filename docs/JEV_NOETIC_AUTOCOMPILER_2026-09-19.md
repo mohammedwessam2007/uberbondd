@@ -66,11 +66,14 @@ TYPESAFE_INPUT_USD_PER_MILLION=<current verified value>
 TYPESAFE_OUTPUT_USD_PER_MILLION=<current verified value>
 TYPESAFE_PRICING_SOURCE=<official source URL/reference>
 TYPESAFE_PRICING_VERIFIED_AT=<ISO-8601 timestamp>
+TYPESAFE_MAX_COST_USD_PER_CALL=<small positive ceiling>
 ```
 
 Do not commit the API key. Do not paste it into chat. Secret creation/custody remains an owner/provider boundary.
 
-`TYPESAFE_JEV_ENABLED=true` does **not** itself cause calls. Every call still requires `providerCallAuthorized: true` from the invoking mission.
+`TYPESAFE_JEV_ENABLED=true` does **not** itself cause calls. Every call still requires `providerCallAuthorized: true`, an approved external `dataClass`, and a positive `spendCeilingUsd` within the adapter's configured per-call maximum.
+
+The direct external lane accepts only `PUBLIC`, `INTERNAL_NON_SENSITIVE`, or `CUSTOMER_AUTHORIZED_NON_SENSITIVE` state. `UNCLASSIFIED` and private/sensitive classes are refused. Secret-like state keys (credentials, tokens, passwords, cookies, private keys) are refused before network I/O.
 
 ## Promotion ladder
 

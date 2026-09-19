@@ -1,0 +1,1134 @@
+{
+  "schema": "uberbond.total-recovery.main-commit-lineage.v1",
+  "part": "7/7",
+  "sourcePages": [
+    43,
+    43
+  ],
+  "generatedAt": "2026-09-20",
+  "repository": "mohammedwessam2007/uberbondd",
+  "commits": [
+    {
+      "sha": "040d100a13f69536b07c72dfb6eb98406ab79379",
+      "parents": [
+        "e62683d91de4cffe5eaef3bf79bb64bb618aa97a"
+      ],
+      "tree_sha": "ca3da37b23f96057f975640fb010f8d81f6fc90f",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-20T00:19:10Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-20T00:19:10Z",
+      "message": "Harden relay ingress: api/agent-relay.mjs",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/040d100a13f69536b07c72dfb6eb98406ab79379"
+    },
+    {
+      "sha": "ca374d578b38e93bc19eb5a80fd1f9f1a42ba34d",
+      "parents": [
+        "f05daec4aebbceeddcd95c7f2c30fcbc26e320aa"
+      ],
+      "tree_sha": "bcc3df03abba38f7802ae41dd561235a2a8185da",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-20T00:12:10Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-20T00:12:10Z",
+      "message": "Add first-payment gate packet",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/ca374d578b38e93bc19eb5a80fd1f9f1a42ba34d"
+    },
+    {
+      "sha": "f05daec4aebbceeddcd95c7f2c30fcbc26e320aa",
+      "parents": [
+        "4edbc1cb7dadbffd870630f2da21c55f2b210605"
+      ],
+      "tree_sha": "eaadbc1203e37691f348a8b4760d0ef1ce5ba106",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-20T00:04:15Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-20T00:04:15Z",
+      "message": "Reconcile market evidence through tournament",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/f05daec4aebbceeddcd95c7f2c30fcbc26e320aa"
+    },
+    {
+      "sha": "4edbc1cb7dadbffd870630f2da21c55f2b210605",
+      "parents": [
+        "577961e99470435b3482938ae309050d35dd2be0"
+      ],
+      "tree_sha": "255afa64ef2648fadcd4b2c1a37751a908e04e0f",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:55:28Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:55:28Z",
+      "message": "Wire BusinessGenome extraction receipts",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/4edbc1cb7dadbffd870630f2da21c55f2b210605"
+    },
+    {
+      "sha": "577961e99470435b3482938ae309050d35dd2be0",
+      "parents": [
+        "6c34c1dbfa76bdc244cf9c733e3eda9faebe681a"
+      ],
+      "tree_sha": "754786049c5177c4c5ccc54f5b5ed5da28ccd2ab",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:48:18Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:48:18Z",
+      "message": "Record latest branch preview receipt",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/577961e99470435b3482938ae309050d35dd2be0"
+    },
+    {
+      "sha": "6c34c1dbfa76bdc244cf9c733e3eda9faebe681a",
+      "parents": [
+        "a61d06f8a2cabd0a481b789269f4ccc14eeebb0e"
+      ],
+      "tree_sha": "66571d098614df906c8dad3e24a5f8d122c4f00d",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:47:13Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:47:13Z",
+      "message": "Add canonical opportunity tournament",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/6c34c1dbfa76bdc244cf9c733e3eda9faebe681a"
+    },
+    {
+      "sha": "a61d06f8a2cabd0a481b789269f4ccc14eeebb0e",
+      "parents": [
+        "cafdc67767d57ce77f4421f1832f39439a335be7",
+        "e62683d91de4cffe5eaef3bf79bb64bb618aa97a"
+      ],
+      "tree_sha": "89177ddfbffa0d6b5eda637125bb1c0712ee7db7",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:20:00Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:20:00Z",
+      "message": "Reconcile Omnia registry with current main",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/a61d06f8a2cabd0a481b789269f4ccc14eeebb0e"
+    },
+    {
+      "sha": "cafdc67767d57ce77f4421f1832f39439a335be7",
+      "parents": [
+        "93b4a5357c0ab86cdd1954d7b8bd2d653b8dbe8a"
+      ],
+      "tree_sha": "5aa6febdd4237952b1c0d3b0225343cdea8f577b",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:12:13Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:12:13Z",
+      "message": "Pin final remote branch receipt",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/cafdc67767d57ce77f4421f1832f39439a335be7"
+    },
+    {
+      "sha": "93b4a5357c0ab86cdd1954d7b8bd2d653b8dbe8a",
+      "parents": [
+        "1876eba0d5ed16e38594876e048ef0d55da6498b"
+      ],
+      "tree_sha": "783521ed0a2fcfa8a424d7c71a8348ff39a4a911",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:11:21Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:11:21Z",
+      "message": "Refresh durable branch receipt",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/93b4a5357c0ab86cdd1954d7b8bd2d653b8dbe8a"
+    },
+    {
+      "sha": "1876eba0d5ed16e38594876e048ef0d55da6498b",
+      "parents": [
+        "a962f8d4f2dce624f666cd1e0a5fc0c54d3ff203"
+      ],
+      "tree_sha": "ac67a955040551cf25563e6168b17cd50c1a9de4",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:10:26Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:10:26Z",
+      "message": "Record automatic Vercel preview side effect",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/1876eba0d5ed16e38594876e048ef0d55da6498b"
+    },
+    {
+      "sha": "a962f8d4f2dce624f666cd1e0a5fc0c54d3ff203",
+      "parents": [
+        "22a8458f133d582590e267fba41b312c8cef6232"
+      ],
+      "tree_sha": "d0131db6ff55cef8f49fed6f502fe814f64f613a",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:08:16Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:08:16Z",
+      "message": "Record hourly execution automation receipt",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/a962f8d4f2dce624f666cd1e0a5fc0c54d3ff203"
+    },
+    {
+      "sha": "22a8458f133d582590e267fba41b312c8cef6232",
+      "parents": [
+        "a2caac34cabbebd06fa293f4243534b2b05ebb38"
+      ],
+      "tree_sha": "738f43f2a2d90c0689bf33fe37674ed9bf887dea",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T23:07:20Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T23:07:20Z",
+      "message": "Record Omnia execution truth and cloud gate",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/22a8458f133d582590e267fba41b312c8cef6232"
+    },
+    {
+      "sha": "e62683d91de4cffe5eaef3bf79bb64bb618aa97a",
+      "parents": [
+        "09b8a2ee856b34f1780037954bca35395260717a"
+      ],
+      "tree_sha": "feb045ef146d608c8723c1cf517a728c6c9d8708",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:52:54Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:52:54Z",
+      "message": "Document live Vercel relay ingress boundary",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/e62683d91de4cffe5eaef3bf79bb64bb618aa97a"
+    },
+    {
+      "sha": "09b8a2ee856b34f1780037954bca35395260717a",
+      "parents": [
+        "0ce81879d6acde4f1a321e47e284dcf3f6b7ea03"
+      ],
+      "tree_sha": "52d85040a1d96b570ba54052a4bb857c6ea62678",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:52:52Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:52:52Z",
+      "message": "Record deployed but unconfigured Vercel relay truth",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/09b8a2ee856b34f1780037954bca35395260717a"
+    },
+    {
+      "sha": "0ce81879d6acde4f1a321e47e284dcf3f6b7ea03",
+      "parents": [
+        "ba70109617274b360c322711efba495d9bb15380"
+      ],
+      "tree_sha": "79c3e278568004c1cafd6b7d28db6fd57c52af30",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:51:55Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:51:55Z",
+      "message": "Wire bounded Vercel relay contract checks",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/0ce81879d6acde4f1a321e47e284dcf3f6b7ea03"
+    },
+    {
+      "sha": "ba70109617274b360c322711efba495d9bb15380",
+      "parents": [
+        "90f74192693883ec547d08a01dcc655d66d7a83e"
+      ],
+      "tree_sha": "4bfcf4bad3c6111311cf57077b7b207e62307b8c",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:51:44Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:51:44Z",
+      "message": "Add bounded Vercel relay ingress (docs/VERCEL_GITHUB_RELAY.md)",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/ba70109617274b360c322711efba495d9bb15380"
+    },
+    {
+      "sha": "90f74192693883ec547d08a01dcc655d66d7a83e",
+      "parents": [
+        "c5315538ed44dc5d8eac10d7460cffd099ec9b1f"
+      ],
+      "tree_sha": "6f1b085f02d8a9b49ed8a4060721903edfa550ce",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:51:43Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:51:43Z",
+      "message": "Add bounded Vercel relay ingress (tests/vercel-agent-relay.test.mjs)",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/90f74192693883ec547d08a01dcc655d66d7a83e"
+    },
+    {
+      "sha": "c5315538ed44dc5d8eac10d7460cffd099ec9b1f",
+      "parents": [
+        "4996190f6c4bb8aef7b520b3da68711fb440312a"
+      ],
+      "tree_sha": "42f3364e55a20c610301aadebefbe96741eb5825",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:51:42Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:51:42Z",
+      "message": "Add bounded Vercel relay ingress (vercel.json)",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/c5315538ed44dc5d8eac10d7460cffd099ec9b1f"
+    },
+    {
+      "sha": "4996190f6c4bb8aef7b520b3da68711fb440312a",
+      "parents": [
+        "61bd88286acbc962d1d2baa1643e36662b54de0b"
+      ],
+      "tree_sha": "cb024c161fcb222c041c0f468b878026484b52f3",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:51:41Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:51:41Z",
+      "message": "Add bounded Vercel relay ingress (api/agent-relay.mjs)",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/4996190f6c4bb8aef7b520b3da68711fb440312a"
+    },
+    {
+      "sha": "a2caac34cabbebd06fa293f4243534b2b05ebb38",
+      "parents": [
+        "a9c217b130c4d778380b0f04f11d3aaf61fb48fe"
+      ],
+      "tree_sha": "ab8b1c6b490eaa238d7763c9c6caa058455d2095",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:36:53Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T22:36:53Z",
+      "message": "Add canonical opportunity registry and safe relay adapter",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/a2caac34cabbebd06fa293f4243534b2b05ebb38"
+    },
+    {
+      "sha": "61bd88286acbc962d1d2baa1643e36662b54de0b",
+      "parents": [
+        "a9c217b130c4d778380b0f04f11d3aaf61fb48fe",
+        "52afa131bba10023ca40d585d39673b2b0f7811d"
+      ],
+      "tree_sha": "ddf62a223a029e27edcf7fbebfa68fdf0769454a",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T22:24:43Z",
+      "committer_name": "GitHub",
+      "committer_date": "2026-08-19T22:24:43Z",
+      "message": "Make the ChatGPT&lt;-&gt;Claude Code bridge actually live, over GitHub Issues (#31)\n\nLocally validated: 1092 tests, 1050 pass, 0 fail, 42 skipped. Proven live end to end against real GitHub infrastructure (issue #30). Hosted CI remains BLOCKED at the infrastructure level (clean through 2026-07-17, then ~3-10s failures with 404 logs from fe51c3c onward) — an Actions billing/quota lapse, not a code failure.",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/61bd88286acbc962d1d2baa1643e36662b54de0b"
+    },
+    {
+      "sha": "52afa131bba10023ca40d585d39673b2b0f7811d",
+      "parents": [
+        "6eb3e7f7bafe6ca0e1b55e354189a9ed7869c1ce"
+      ],
+      "tree_sha": "ddf62a223a029e27edcf7fbebfa68fdf0769454a",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T22:23:55Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T22:23:55Z",
+      "message": "Make the ChatGPT<->Claude Code bridge actually live, over GitHub Issues\n\nThe relay was blocked on a deployed HTTP host that does not exist. That was\ntreated as \"no live bridge is possible.\" It wasn't: the mission's own Wave 5\nlisted a GitHub-mediated task packet as an available path, and GitHub is\nalready a durable, authenticated, always-on store both ends can reach with no\nnew host and no new spend.\n\nsrc/github-relay.mjs implements that transport, and it has now carried a real\ntask end to end on real infrastructure (issue #30):\n\n  producer opens issue #30 (label agent-relay:task, fenced uberbond-task packet)\n    -> worker polls, claims under a 1800s lease (comment 5348571058)\n    -> worker runs real bounded work: npm run test:deterministic\n       => 1092 tests, 1050 pass, 0 fail, 42 skipped, exit 0\n    -> worker posts a uberbond-result receipt (comment 5348593358)\n    -> issue labelled agent-relay:done and closed\n\nNo mock at any hop. Real issue, real comment ids, real timestamps, real\nmeasured numbers.\n\nA REAL DEFECT THE LIVE RUN FOUND, that no fixture could:\nissue bodies come back HTML-escaped through some GitHub clients (`\"` as\n`&#34;`), so JSON.parse failed and the relay reported zero claimable tasks\nwhile a valid task sat open -- a silent, total failure of the bridge. Worse,\nthe escaping is inconsistent between endpoints on the same client: the issue\nbody was escaped, its comments were not. extractFencedJson now tries raw and\nfalls back to single-pass entity decoding (single-pass so a literal\n\"&amp;#34;\" is never double-decoded into a quote), with regression tests for\nboth directions.\n\nSame contract, different wire -- not a second relay: this module imports\nZERO_EFFECTS, hasSecret(), and validResult() from cloud-agent-relay.mjs and\ncompiles packets with the same compileAgentTask(), so the two transports\ncannot drift on what they consider safe. A result claiming any nonzero\nexternal effect is rejected identically on both.\n\nAlso staged for unattended, device-off operation:\n- scripts/github-relay-worker.mjs -- runs ONLY three allowlisted npm scripts\n  and reports UNSUPPORTED_OBJECTIVE otherwise; it never executes free text\n  from an issue body, because \"anyone who can open an issue\" must not mean\n  \"anyone who can run code in CI\".\n- .github/workflows/agent-relay-worker.yml -- fires on issues opened/labeled\n  plus an hourly cron, concurrency-guarded, permissions limited to\n  issues:write + contents:read.\n\nStatus is honestly LIVE_UNPROVEN, not VERIFIED_LIVE: the one live run was\ndriven by an interactive session acting as the worker. The unattended path has\nnever executed because GitHub Actions on this account is failing at the\ninfrastructure level -- CI ran clean through 2026-07-17, then every run from\nfe51c3c onward dies in ~3-10s with 404 job logs, which dates it to an Actions\nbilling/quota lapse rather than the code.\n\nHonest limitation recorded in the module, the capability graph, and the docs:\nGitHub labels and comments are not database row locks. resolveLease() resolves\na race deterministically after the fact (earliest server-assigned comment id\nwins, same answer regardless of asker or comment order) but cannot prevent\nduplicated work that already happened. Fine for a few owner-initiated tasks\nand one worker; not for high concurrency. cloud-agent-relay.mjs, with real\nSELECT ... FOR UPDATE SKIP LOCKED proven against a real PostgreSQL server,\nstays the transport to promote once a real host exists.\n\nFull local gate: 1092 tests, 1050 pass, 0 fail, 42 skipped. lite/ untouched.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/52afa131bba10023ca40d585d39673b2b0f7811d"
+    },
+    {
+      "sha": "a9c217b130c4d778380b0f04f11d3aaf61fb48fe",
+      "parents": [
+        "fe51c3c8ced31ab56a9213ab06ceadd50587ad68",
+        "6eb3e7f7bafe6ca0e1b55e354189a9ed7869c1ce"
+      ],
+      "tree_sha": "bd5fccb54e0a0ff720c09d16a0b4c88faf41a3bd",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T21:52:01Z",
+      "committer_name": "GitHub",
+      "committer_date": "2026-08-19T21:52:01Z",
+      "message": "Argus relay: audit, harden, and reconcile the governed ChatGPT&lt;-&gt;Claude Code relay (#29)\n\nLocally validated (1078 tests, 1036 pass, 0 fail, 42 skipped; npm audit clean; real embedded-PostgreSQL 18 concurrency proof; real end-to-end MCP stdio relay proof). Hosted GitHub Actions CI is independently confirmed BLOCKED at the infrastructure level (jobs die in ~3s with 404 logs across PRs #26, #28, #29), not a real test failure. See docs/ARGUS_RELAY_TRUTH.md.",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/a9c217b130c4d778380b0f04f11d3aaf61fb48fe"
+    },
+    {
+      "sha": "6eb3e7f7bafe6ca0e1b55e354189a9ed7869c1ce",
+      "parents": [
+        "169ca399b8e151bd6d31527b6df2a8d52898177e",
+        "fe51c3c8ced31ab56a9213ab06ceadd50587ad68"
+      ],
+      "tree_sha": "bd5fccb54e0a0ff720c09d16a0b4c88faf41a3bd",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T21:44:48Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T21:44:48Z",
+      "message": "Merge origin/main (independent relay hardening) and reconcile heartbeat/status duplication\n\nMid-wave, origin/main was found to have moved directly (not via PR #28) to\ninclude agent/cloud-agent-relay's full history plus one further commit,\n\"Harden cloud agent relay leases\", authored independently. That commit\nbuilt its own heartbeat route/tool/module function -- overlapping with the\nheartbeat gap this wave had separately found and closed -- plus two real\nfixes this wave lacked: idempotent/replay-safe task creation (rejects a\nreused task id carrying a different packet as task-id-conflict; replays\nthe same packet without creating a second job) and HTTPS enforcement in\nthe MCP relay transport (refuses to send the bearer token over plaintext\nHTTP to anything but a loopback address).\n\nReconciled via a real, non-force git merge, not a pick-one-side overwrite:\n- main's heartbeat ownership-check ordering, reason codes\n  (lease-owner-mismatch / lease-lost-before-heartbeat), and\n  HEARTBEAT_ACCEPTED status name were kept as canonical (already tested,\n  already on main); this branch's tests were updated to match rather than\n  keeping a second, weaker status name.\n- This wave's own additive, non-overlapping work was preserved on top: the\n  two SECRET_VALUE regex fixes (double-escaped Bearer pattern; unanchored\n  sk-/ghp_ substring false-positive), the previously entirely-absent rate\n  limiting on /api/agent-relay/*, and relayHealthSummary() (queue\n  observability) -- none of which exist on main.\n- One duplicate mock method left by the auto-merge (heartbeatJob defined\n  twice in the same test fixture, the second silently shadowing the\n  first) was deduplicated.\n- All tests from both sides were kept, not dropped.\n\ndocs/ARGUS_RELAY_TRUTH.md records this discovery and reconciliation\nalongside the rest of the truth-reconstruction.\n\nFinal local suite: 1078 tests, 1036 pass, 0 fail, 42 skipped. npm audit\nclean. lite/ untouched.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/6eb3e7f7bafe6ca0e1b55e354189a9ed7869c1ce"
+    },
+    {
+      "sha": "169ca399b8e151bd6d31527b6df2a8d52898177e",
+      "parents": [
+        "52a80c9a64a03e5d9528043b1fc01bcb35b36f73"
+      ],
+      "tree_sha": "43005fbc2239a68e41d3bcfe9a8f9f14c21770ea",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T21:36:25Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T21:36:25Z",
+      "message": "Audit and harden the governed ChatGPT<->Claude cloud relay (PR #28)\n\nReal, verified defect fixes and gap closures found while auditing the\nmerged relay (src/cloud-agent-relay.mjs, server.mjs /api/agent-relay/*,\nscripts/uberbond-mcp.mjs relay tools) against the mission's Wave 2-4\nrequirements -- each proven, not asserted:\n\n- Fixed a double-escaped SECRET_VALUE regex (`Bearer\\\\s+\\\\S+` inside a\n  regex literal matches a literal backslash, never real whitespace) that\n  let a raw \"Bearer <token>\" string past the secret scanner when nested\n  under a non-secret-shaped key.\n- Fixed an unanchored `sk-`/`ghp_` pattern that false-positived on ordinary\n  ids -- found live via the new end-to-end proof, which rejected a normal\n  taskId (\"e2e-task-1787174626471\") because it contains \"sk-1787...\" as a\n  mid-word substring. Anchored both patterns with \\b.\n- Added the rate limiting the mission's Wave 3 requires (previously\n  entirely absent): a sliding one-minute-per-IP limiter on all\n  /api/agent-relay/* routes, config.agentRelay.rateLimitPerMinute.\n- Added the heartbeat lease-extension the mission's Wave 3/8 require\n  (previously entirely absent -- only claim/submit existed): a real\n  heartbeatCloudRelayTask() reusing store.heartbeatJob()'s existing\n  ownership enforcement, POST /api/agent-relay/tasks/:taskId/heartbeat,\n  and the uberbond_relay_heartbeat MCP tool. Without this, any relay task\n  running longer than the 5-minute lock timeout risked stale-lease\n  reclaim mid-task.\n- Added relayHealthSummary() (queued/active/completed/dead-letter counts,\n  oldest queued task, stale-lease count) wired into GET\n  /api/agent-relay/health, closing the mission's Wave 9 observability gap\n  without exposing any task payload.\n\nReal proof obtained this wave (not fake-store-only):\n- A real local HTTP server (server.mjs) and a real local MCP process\n  (scripts/uberbond-mcp.mjs) driven over actual stdio JSON-RPC, wired\n  together over real localhost HTTP: init -> tool list -> poll -> claim ->\n  heartbeat -> submit -> rejected replay, with every byte of captured\n  process stdout/stderr scanned and confirmed to never contain the raw\n  relay token.\n- Real embedded PostgreSQL 18 concurrency proof: claimJobsByType's\n  FOR UPDATE SKIP LOCKED under two workers racing for one relay task,\n  excludeTypes protecting relay jobs from normal workers, and\n  target-agent isolation (22/22 in tests/postgres-store-live.test.mjs).\n\ndocs/ARGUS_RELAY_TRUTH.md records the full truth-reconstruction: verified\nbranch/PR ancestry (agent/cloud-agent-relay branched before this session's\nown later OMNIA-V9/outreach recovery, now merged together), the honest\nstatus of the ChatGPT/OpenAI connector (INTERFACE_READY -- no credential or\napproved connector exists in this environment), device-off execution (this\nsession itself is real evidence a cloud-hosted Claude Code substrate\nexists; wiring a live recurring poller was deliberately not done without a\ndeployed relay to poll), and Vercel/CI truth (only lite/vercel.json exists\n-- confirmed architecturally incompatible with server.mjs/worker.mjs as\nwritten; PR #28's GitHub Actions runs complete in ~3s with 404 job logs,\nconsistent with a runner-allocation failure, reported as BLOCKED not\nassumed).\n\nFinal local suite: 1072 tests, 1030 pass, 0 fail, 42 skipped. npm audit\nclean. lite/ untouched.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/169ca399b8e151bd6d31527b6df2a8d52898177e"
+    },
+    {
+      "sha": "fe51c3c8ced31ab56a9213ab06ceadd50587ad68",
+      "parents": [
+        "099301a32df70fb1c83ee8d1a2ae3b88fbceac3b"
+      ],
+      "tree_sha": "c35167d26e132963b097449c43ccda56d66ad000",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T21:29:08Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T21:29:08Z",
+      "message": "Harden cloud agent relay leases",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/fe51c3c8ced31ab56a9213ab06ceadd50587ad68"
+    },
+    {
+      "sha": "52a80c9a64a03e5d9528043b1fc01bcb35b36f73",
+      "parents": [
+        "1dc8b22cadfa4fb89cbff662a10f980b220a91dc",
+        "099301a32df70fb1c83ee8d1a2ae3b88fbceac3b"
+      ],
+      "tree_sha": "782811b4e5feee7521b66cb986d3a29112353914",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T21:13:15Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T21:13:15Z",
+      "message": "Merge agent/cloud-agent-relay (governed ChatGPT<->Claude relay + opportunity catalog) into overnight-shift lineage\n\nIntegrates the governed cloud relay (PR #28) and commercial opportunity\ncatalog (PR #27) work, which diverged from this branch at 82449e8 before\nthis session's OMNIA-V9 kernel + outreach/lead-generation archive recovery\n(61a01f5..1dc8b22), onto the newest canonical parent.\n\npackage.json's test:deterministic and check:syntax conflicts were resolved\nas a strict union of both sides' file lists (96 unique test files, 130\nunique syntax-check commands, zero duplicates) rather than a pick-one-side\nresolution -- both lineages' work is preserved and runnable. All other\nfiles merged cleanly with no conflicts (server.mjs, src/config.mjs,\nsrc/store.mjs merged both sides' additive changes automatically).\n\nThis commit is the merge only; verification of the combined suite follows\nin a subsequent commit.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/52a80c9a64a03e5d9528043b1fc01bcb35b36f73"
+    },
+    {
+      "sha": "099301a32df70fb1c83ee8d1a2ae3b88fbceac3b",
+      "parents": [
+        "0d90ca5efb1b2a21ab38139ecfac9d959c5f9b71"
+      ],
+      "tree_sha": "0c84c4a2966ac2ac0016bd414aa1b22c13812b55",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T21:09:31Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T21:09:31Z",
+      "message": "Add 5MB external SOL execution pack",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/099301a32df70fb1c83ee8d1a2ae3b88fbceac3b"
+    },
+    {
+      "sha": "0d90ca5efb1b2a21ab38139ecfac9d959c5f9b71",
+      "parents": [
+        "1e07f32e2034c0039ea14d45230e4e8ef8f3c14b"
+      ],
+      "tree_sha": "fd704cd0dc4463c341577a8c2bdfaec358529dec",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T21:07:06Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T21:07:06Z",
+      "message": "Clarify ready-for-review release workflow",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/0d90ca5efb1b2a21ab38139ecfac9d959c5f9b71"
+    },
+    {
+      "sha": "1e07f32e2034c0039ea14d45230e4e8ef8f3c14b",
+      "parents": [
+        "846e3107451bbc821771df3ab4864ce35fce35c4"
+      ],
+      "tree_sha": "9a90e0fb6555b2107d764fa3f195ac05eced783d",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T21:05:23Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T21:05:23Z",
+      "message": "Add SOL Claude Code go-live master mission",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/1e07f32e2034c0039ea14d45230e4e8ef8f3c14b"
+    },
+    {
+      "sha": "1dc8b22cadfa4fb89cbff662a10f980b220a91dc",
+      "parents": [
+        "17dffd2e562a4297cebf4bc3ab872a5ec2a22290"
+      ],
+      "tree_sha": "c9fce499a733d09ba3091f9a119e91f1a7ea09b8",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T19:48:01Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T19:48:01Z",
+      "message": "Recover OMNIA V9 kernel and outreach/lead-generation modules from historical archive\n\nReconciles the historical Instantly-parity/lead-intelligence archive (both\nuploaded zips, verified as one canonical archive plus its direct ancestor\nsnapshot) against this branch, following the mission's compare-then-choose\ndiscipline rather than blindly copying files.\n\nSub-wave A: full OMNIA V9 closure recovered (kernel, Cedar policy,\nintegrations, migrations 005-011, artifacts; 36 test files). The\nnon-authoritative shadow observer is wired into the live send path in\nsrc/pipeline.mjs, worker.mjs, and server.mjs, gated by OMNIA_V9_MODE\n(default 'off', cannot escalate past its allowlist). The AUTHORITATIVE\noutbound-consequence-gate + GmailEffectAdapter live-send wiring is\ndeliberately NOT ported this wave -- recorded as an open decision.\n\nSub-wave B: outreach/lead-generation module family recovered (10 modules,\n11 test files) after confirming each has zero coupling to files that\ndiverged since the archive was taken. src/store.mjs gained 10 additive\ncollections + migrations 012-017; src/config.mjs gained the archive's\noutbound/leadCapture config surface (additive only, existing fields\npreserved); src/gmail.mjs and src/prospect-import.mjs were replaced with\nthe archive's backward-compatible supersets. 17 historical reference docs\nrecovered under docs/outreach, docs/opportunities, docs/lead-generation.\n\nSub-wave C (HTTP route surface: ~53 new routes, and the public/outreach\nUI) is explicitly deferred -- too large and too coupled to this branch's\nindependently-evolved server.mjs to merge safely in this pass. Recorded in\ndocs/INSTANTLY_RECONCILIATION.md as the next well-scoped unit of work.\n\nsrc/capability-graph.mjs updated to reflect the new real state (omnia-v9-kernel\nnow TEST_VERIFIED; 11 new outreach/lead-gen entries); tests/capability-graph.test.mjs\nupdated to match. Full check: 1054 tests, 1012 pass, 0 fail, 42 skipped.\nnpm audit clean; lite/ untouched; no secret-shaped strings in new files.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/1dc8b22cadfa4fb89cbff662a10f980b220a91dc"
+    },
+    {
+      "sha": "846e3107451bbc821771df3ab4864ce35fce35c4",
+      "parents": [
+        "adc3a2d0737b1641203849af8e847116f407a7c6"
+      ],
+      "tree_sha": "72057e8c35e549ac80d6a8caf18fc687cfb57aec",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T19:34:14Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T19:34:14Z",
+      "message": "Harden relay effect-ledger redaction",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/846e3107451bbc821771df3ab4864ce35fce35c4"
+    },
+    {
+      "sha": "adc3a2d0737b1641203849af8e847116f407a7c6",
+      "parents": [
+        "4459004f2a4c0f7acd876f6243973fa0b9da81ec"
+      ],
+      "tree_sha": "bc27ef52c431785d491785dba8a937a82797d9b0",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T19:32:59Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T19:32:59Z",
+      "message": "Add governed cloud relay for ChatGPT and Claude Code",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/adc3a2d0737b1641203849af8e847116f407a7c6"
+    },
+    {
+      "sha": "17dffd2e562a4297cebf4bc3ab872a5ec2a22290",
+      "parents": [
+        "61a01f5fdf83e2b7bfe8f9cac0996d641d4765da"
+      ],
+      "tree_sha": "cef50d1fc57cabf0f0db79e5852d5a4709696a15",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T17:44:58Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T17:44:58Z",
+      "message": "Verify second historical archive; confirm it is the first archive's direct ancestor\n\nOwner supplied a second archive, UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_20260813_FINAL.zip\n(sha256 7ef3c7f0eb73d6134e42789e236d4c7acf8f61e7e35ea50e84db6041215d91d2,\n357 files) -- the literal filename closest to one of the two originally\nrequested. Verified valid, then diffed file-by-file against the first\narchive rather than assumed related:\n\n- Every file in archive 2 exists in archive 1 except one runtime-state\n  file (data/db.json, not source).\n- Archive 1's 23 extra files are exactly the Lead Generation V2/Lead\n  Intelligence V3 layer built after archive 2 was packaged.\n- Of the 13 files present in both, content diff shows only 5 lines total\n  removed across the five shared \"spine\" files (store.mjs, pipeline.mjs,\n  prospect-import.mjs, server.mjs; config.mjs: zero) -- everything else is\n  addition.\n\nConclusion: archive 1 already is \"both of them together\" -- archive 2 is\nits own direct ancestor snapshot, not a competing fork. No reconciliation\nis needed between the two archives; the recovery plan in\ndocs/INSTANTLY_RECONCILIATION.md targets archive 1 alone. Archive 2 is\npreserved in historical-archive/ for provenance only.\n\n590/590 current-branch tests still pass (untouched -- only docs and\nhistorical-archive/ changed). lite/ unchanged.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/17dffd2e562a4297cebf4bc3ab872a5ec2a22290"
+    },
+    {
+      "sha": "61a01f5fdf83e2b7bfe8f9cac0996d641d4765da",
+      "parents": [
+        "82449e8167d710ec2698be15213ae42d1406ba99"
+      ],
+      "tree_sha": "2b513bdae11ca784e07eccf82bd5a4797b0de182",
+      "author_name": "Claude",
+      "author_date": "2026-08-19T17:41:07Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-19T17:41:07Z",
+      "message": "Recover and verify the historical Instantly-parity archive; correct prior search conclusion\n\nThe owner supplied UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip\ndirectly (sha256 6dee168b8094327e41568909678680975092339f4462c5f2f798044fdcd7f605)\nafter this session's GitHub-side search (branches, commits, PRs, dangling\nobjects) found nothing -- because the archive was never pushed anywhere,\nso that search could never have found it regardless of thoroughness.\n\nVerified real, not corrupted and not fabricated:\n- Valid zip, 380 files, extracted and inventoried in full.\n- node --check clean across every source file, including the outreach/\n  leadgen/lead-intelligence groups.\n- Its own bundled test suite actually run in isolation (npm ci + npm run\n  test:deterministic): 495 pass, 0 fail, 41 skipped (Postgres-live tests,\n  same skip pattern this repo's own suite uses without a live database).\n\nTraced exact provenance via git (not guessed): the archive's\nopportunity-factory.mjs/outreach-governance.mjs lineage matches\norigin/claude/from-v9-complete-build-2026-08-10, already reachable in this\nrepo's own git history. That branch has the full, un-stripped OMNIA-V9\nclosure (kernel/cedar-adapter/proof-store/execution-receipts/a 20-file\nintegrations tree) that this branch's vendored src/omnia-v9/ only ever had\na deliberately-stripped 3-file subset of. The archive is that branch's\nlineage plus ~3 more days of real, substantial, never-pushed work: the\nactual Instantly-parity outreach workbench (public/outreach.html/js/css,\nsrc/outreach-workbench.mjs, src/outreach-operator.mjs), lead intelligence\nv3, and the two parity comparison docs originally asked about.\n\nCorrected docs/INSTANTLY_RECONCILIATION.md and\ndocs/OUTREACH_OS_TRUTH_RECONSTRUCTION.md to reflect this rather than let\nthe prior \"not found\" conclusion stand uncorrected. Recorded a bounded,\nsequenced recovery plan (OMNIA-V9 closure first as lowest-risk/highest-\nvalue; then the outreach/lead-intelligence modules reconciled against this\nbranch's own later, non-overlapping work -- Prometheus economic spine and\ntonight's domain/mailbox readiness OS, neither of which exists in the\narchive) rather than blindly merging 380 files in one pass.\n\nPreserved the verified archive itself under historical-archive/ (with a\nREADME marking it explicitly NOT part of the canonical codebase) so it\nsurvives container ephemerality for the next wave to actually execute the\nreconciliation plan against.\n\n590/590 current-branch tests still pass (untouched by this commit -- only\ndocs and the new historical-archive/ directory changed). lite/ unchanged.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/61a01f5fdf83e2b7bfe8f9cac0996d641d4765da"
+    },
+    {
+      "sha": "4459004f2a4c0f7acd876f6243973fa0b9da81ec",
+      "parents": [
+        "a1cecc3ab7ef5b08197066c63dddbe03ebd80d3b"
+      ],
+      "tree_sha": "e963c54957b4cdddbb39699fe61f64957d61f53e",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T17:38:19Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T17:38:19Z",
+      "message": "Expand catalog to all thread opportunity lanes",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/4459004f2a4c0f7acd876f6243973fa0b9da81ec"
+    },
+    {
+      "sha": "a1cecc3ab7ef5b08197066c63dddbe03ebd80d3b",
+      "parents": [
+        "82449e8167d710ec2698be15213ae42d1406ba99"
+      ],
+      "tree_sha": "36ef133859085fcee025d18a972a20f9a1a86c45",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-19T17:11:08Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-19T17:11:08Z",
+      "message": "Add evidence-labeled commercial opportunity catalog",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/a1cecc3ab7ef5b08197066c63dddbe03ebd80d3b"
+    },
+    {
+      "sha": "82449e8167d710ec2698be15213ae42d1406ba99",
+      "parents": [
+        "194996c5afc0e473dedf4804bc8cec6d55a49e0f"
+      ],
+      "tree_sha": "ddea19ee7163a92036929672fe6c61572f64b9bb",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T22:22:37Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T22:22:37Z",
+      "message": "Outreach OS reconciliation: historical-artifact search closed, real gaps documented\n\nInvestigates the user's claim that a historical \"Instantly parity\"\nimplementation exists and should be recovered. Two bounded, exhaustive\nsearch passes (this wave + immediately prior turn) across all 4\nUberBond-related repos on the account, every branch (189 commits total),\nfull git history, dangling/unreachable git objects, and a GitHub-wide\nPR/commit/code search for \"parity\"/\"instantly\"/\"superstack\"/\n\"outreach.html\" found zero matches anywhere. The one .zip file that exists\nin any repo has a different name and is corrupted (truncated central\ndirectory). Full classification per artifact:\ndocs/INSTANTLY_RECONCILIATION.md.\n\nReal code-level reconnaissance (not trusting old reports) of the existing\nbase UberBond pipeline found it is a working but narrow audit-driven\nlead-gen tool (OSM business discovery -> site audit -> Gmail send), not an\nInstantly/Apollo/Clay-style platform -- confirmed by reading\nsrc/discovery.mjs, src/contacts.mjs, src/copy.mjs, src/dossier.mjs,\nsrc/gmail.mjs directly.\n\nThe domain/mailbox readiness system built two waves ago tonight (before\nthis reconciliation mission) already satisfies most of this mission's\nWave 1-4 asks (SendingDomain/SendingMailbox registries, provider adapter\ncontract, live DNS verification, warm-up orchestration, circuit breakers,\nlive activation gate). Reconciled this mission's requested entity names\n(EmailProvider/DNSSnapshot/WarmupPlan/WarmupEvent/MailboxHealthSnapshot/\nProviderReceipt/DeliverabilityIncident/OutreachAuthorization) onto that\nexisting implementation rather than duplicating it -- see the\nentity-mapping table in docs/INSTANTLY_RECONCILIATION.md. Extended\nsrc/sending-mailbox-registry.mjs with the two genuinely missing fields:\ncurrentHourlyCap (real-provider-value-only, never derived/guessed) and\nwarmupAgeDays (derived at read time from the real recorded\nwarmupStartTime).\n\n10 required docs written with honest, capability-by-capability status\n(DOCUMENTED_CAPABILITY/IMPLEMENTED_LOCAL/LIVE_VERIFIED/etc.), including a\nbenchmark against Instantly/Apollo/Clay/HubSpot's own public documentation\n(sourced, not scored) and an explicit limitations doc naming what is\ngenuinely NOT_IMPLEMENTED (ICP builder, enrichment waterfall, sequence\nbranching, Unibox classification, evidence-confidence claim evaluator) --\nnone of it papered over as \"planned.\"\n\nevaluateLiveActivation() was actually invoked against tonight's real state\n(zero domains/mailboxes/providers configured) rather than described from\nmemory: returns BLOCKED_OWNER_AUTHORIZATION, \"exact domain and mailbox\ntargets\" -- captured verbatim in docs/OUTREACH_ACTIVATION_CARD.md.\n\n590/590 deterministic tests pass (2 new, for the field extension), 0\nsyntax errors, 0 audit vulnerabilities, lite/ unchanged. No DNS change, no\naccount created, no message sent, no money spent, no cold outreach.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/82449e8167d710ec2698be15213ae42d1406ba99"
+    },
+    {
+      "sha": "194996c5afc0e473dedf4804bc8cec6d55a49e0f",
+      "parents": [
+        "59cadf1746a70fcfb849ef70afdd5b8cda548022"
+      ],
+      "tree_sha": "3129244326f4e6b0462cf16373c10fabde3e8b99",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T20:56:31Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T20:56:31Z",
+      "message": "Domain and Mailbox Readiness OS: warm-up activation system (BLOCKED_PROVIDER_AUTH)\n\nBuilds the complete infrastructure to use owned sending domains for\nlegitimate outreach and start real native mailbox warm-up, per tonight's\nnightshift activation mission. Zero provider credentials and zero\nregistered domains exist on this branch (confirmed via env scan before\nwriting any code), so every real requirement chain correctly and\ndeterministically converges on BLOCKED_PROVIDER_AUTH -- proven by test,\nnot asserted.\n\nNew modules (append-only-receipt-over-auditLog pattern, no second data\nstore, matching this branch's existing commercial-memory.mjs/\ncommercial-outcome.mjs convention):\n\n- src/sending-domain-registry.mjs / src/sending-mailbox-registry.mjs --\n  canonical SendingDomain/SendingMailbox records with the exact 13/state\n  machines the mission specified. Mailbox registration and every event\n  recorder REJECT outright (not silently strip) any secret-shaped field\n  (password/token/apiKey/refreshToken/clientSecret/...).\n- src/provider-adapter-contract.mjs -- the 22-capability interface every\n  real provider adapter must implement, plus a deterministic unconfigured\n  fixture adapter (every call reports PROVIDER_AUTH_REQUIRED) and a\n  receipt redactor. No real Instantly/Google Workspace/Microsoft 365 HTTP\n  client is implemented -- none is configured, and building one\n  unverified against a live API would itself be a fabrication risk.\n- src/dns-verification.mjs -- LIVE-CAPABLE read-only DNS verification\n  (MX/SPF incl. duplicate-record detection/DKIM/DMARC+policy/tracking\n  CNAME) via real node:dns/promises by default, injectable resolver so\n  tests stay network-free. Never guesses a DKIM selector or SPF include.\n  Confirmed real DNS resolution works in this sandbox before writing any\n  code (ad hoc, not committed -- see docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md).\n- src/warmup-orchestrator.mjs -- warm-up start/reconcile driven only by\n  real provider responses; a capped gradual ramp that cannot reach a\n  large volume on day one; fails closed to WARMUP_ACTIVE if a provider\n  claims complete before the configured minimum period (default 14 days).\n- src/domain-mailbox-circuit-breaker.mjs -- every pause trigger the\n  mission listed, as one pure decision function.\n- src/live-activation-gate.mjs -- the Live Activation Rule (mission\n  section 8), returning exactly one of the 9 defined final states, never\n  simulating activation or fabricating a receipt.\n- src/domain-mailbox-gate.mjs -- deny-only pre-check composing with (not\n  replacing) the existing Deliverability Guard/OMNIA-V9; its pass state\n  is explicitly NOT_BLOCKED_BY_DOMAIN_MAILBOX_GATE, never ALLOW.\n- src/domain-mailbox-control-center.mjs -- the beginner dashboard and\n  operator action card, both incapable of showing a green check without\n  a backing recorded event.\n\nWired as 9 domainMailbox.* job handlers, one scheduler hook (off by\ndefault), and capability-graph entries for all 9 modules. 71 new hostile\ndeterministic tests (DNS edge cases, secret rejection, warm-up state\nmachine, circuit breakers, gate denial paths, activation states,\nend-to-end via job-handlers). 589/589 total tests pass, 0 syntax errors,\n0 audit vulnerabilities, lite/ unchanged. No DNS record was changed, no\naccount created, no message sent, no money spent.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/194996c5afc0e473dedf4804bc8cec6d55a49e0f"
+    },
+    {
+      "sha": "59cadf1746a70fcfb849ef70afdd5b8cda548022",
+      "parents": [
+        "0d91321df2e7ce0304333dc0c1cf57ea9ee268ab"
+      ],
+      "tree_sha": "e8bddc9010437ebf4434fe5bb419d3ae8975a5d3",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T20:39:19Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T20:39:19Z",
+      "message": "Wave 0: resolve the parallel-spine duplication (7/7 pairs reconciled)\n\nTwo concurrent sessions independently built overlapping economic-spine\nmodules on this branch (disclosed in docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md\nbut not resolved at merge time). This wave read all 7 pairs in full and\npicked exactly one canonical path per capability:\n\n- Signal ingestion: market-signal-registry.mjs canonical for ingestion;\n  genome-extraction.mjs kept (no equivalent elsewhere) and retargeted\n  onto its accepted-signal shape.\n- Experiment compiler: commercial-experiment.mjs canonical.\n- Distribution channel/allocator: distribution-channel.mjs canonical;\n  its tiny-sample-overfitting confidence guard was missing, so\n  distribution-allocator.mjs's sample-size confidence tiers were ported\n  in as a new informational `sampleConfidence` field (never changes\n  ranking/status, which already never authorizes a live action).\n- Commercial outcome lineage: commercial-outcome.mjs canonical\n  (payment-truth-gated; the deleted commercial-outcome-graph.mjs accepted\n  any caller-typed outcome as real on a bare boolean).\n- Revenue-weighted learning/memory: kept both commercial-memory.mjs\n  (hypothesis-level, cron-scheduled, no equivalent) and\n  commercial-learning.mjs (outcome-economics aggregation); deleted\n  revenue-weighted-learning.mjs (no production caller).\n- Upgrade proposal/engineering packet: merged, not picked -- folded\n  upgrade-proposal.mjs's BUILD/BUY/PARTNER/ADAPT/DEFER/REJECT router\n  into self-upgrade.mjs (already the stronger governance layer); a\n  router REJECT now blocks the proposal outright instead of producing\n  an unjustified REVIEW_REQUIRED proposal.\n- Vertical orchestrator: prometheus-economic-spine.mjs's per-stage job-\n  handler chain canonical; commercial-spine.mjs deleted (zero production\n  callers). Its isSynthetic force-through concern doesn't need porting:\n  commercial-outcome.mjs requires real provider proof structurally, with\n  no boolean flag to lie about in the first place.\n\n9 superseded files deleted, 8 corresponding test files deleted. The\ncross-module hostile suite (prometheus-adversarial.test.mjs) was\nrewritten module-for-module onto the surviving chain, preserving all 9\noriginal attack categories. capability-graph.mjs gained entries for the\n2 surviving non-duplicate modules, which had none before. package.json's\nsyntax/test lists updated to match.\n\n518/518 deterministic tests pass, 0 syntax errors, 0 npm audit\nvulnerabilities, lite/ unchanged.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/59cadf1746a70fcfb849ef70afdd5b8cda548022"
+    },
+    {
+      "sha": "0d91321df2e7ce0304333dc0c1cf57ea9ee268ab",
+      "parents": [
+        "faf4cefa5500e97941182d9d4be40ca1c555891e",
+        "5d283b47b871c7f4787bb0f40d4393d74473a751"
+      ],
+      "tree_sha": "0b937f82348f031a432382ac081f00f5660b2070",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T16:10:56Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T16:10:56Z",
+      "message": "Merge concurrent Prometheus economic-spine work from origin\n\ngit push was rejected mid-wave: the remote had 18 new commits from a\nconcurrent session (almost certainly another Claude Code instance working\nthe same mission prompt), building an independently-named vertical\neconomic spine substantially overlapping this session's own spine, plus\nseveral genuinely additive modules (task universe, control tower, agent\nrelay, mechanism lab, business-model fitness, adapter contracts, capital\nallocator).\n\nResolved via a real, non-destructive merge -- not --force, not a silent\npick-one-side. Both bodies of work are preserved. 5 conflicting files\n(package.json, src/job-handlers.mjs, and three docs) hand-merged to keep\nboth sides' content; src/job-handlers.mjs now registers job types from\nboth sessions with zero name collisions (one shared export name,\ncompileUpgradeProposal/compileEngineeringMissionPacket, resolved with an\nimport alias rather than deleting either side). capability-graph.mjs and\nits test auto-merged cleanly (37 entries, both sessions' additions intact).\n\nAdded docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md disclosing the real,\nNOT-yet-resolved duplication: 7 overlapping module pairs (signal ingestion,\nexperiment compiler, distribution channel/allocator, commercial outcome\nlineage, revenue-weighted learning/memory, upgrade proposal/engineering\npacket, and the two vertical orchestrators). Deliberately not deduplicated\nthis wave -- that requires reading both implementations side by side and\nmigrating callers, real engineering judgment work, not a mechanical merge,\nand rushing it risks a wrong deletion neither side's own tests would catch.\n\nFull validation post-merge: npm run check:syntax clean across every file\nfrom both sessions; npm run test:deterministic 584/584 passing (both\nsessions' full suites, zero conflicts in test behavior); npm audit 0\nvulnerabilities; lite/ confirmed untouched by either session.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/0d91321df2e7ce0304333dc0c1cf57ea9ee268ab"
+    },
+    {
+      "sha": "faf4cefa5500e97941182d9d4be40ca1c555891e",
+      "parents": [
+        "e8b83298eae04832ba41d9c7ff40d6fcfa9f1ac6"
+      ],
+      "tree_sha": "1ae52b3528c240ae5b17f66b246c5e9e81d5bc96",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T15:59:05Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T15:59:05Z",
+      "message": "prometheus: V2 docs -- completion matrix, handoff, and cross-references updated\n\nRewrites docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md's completion\nmatrix: most subsystems that were DEFERRED_LOW_VALUE in V1 (signal\ningestion, business genome extraction, experiment compiler, channel\nregistry, distribution allocator, commercial outcome graph,\nrevenue-weighted learning, commercial memory, upgrade proposals,\nbuild/buy/partner router, engineering packet compiler, shadow comparison,\ncanary contract, cloud scheduling) are now IMPLEMENTED_VERIFIED with real\ntests, plus two new rows for V9-Guard composition and the commercial spine\norchestrator. Verdict category unchanged\n(PROMETHEUS_PARTIALLY_IMPLEMENTED_EXTERNAL_GATES_REMAIN) but materially\nnarrower: what's left gated is real external credentials/customers, not\nengineering.\n\nAdds V2-update notes to PROMETHEUS_ARCHITECTURE, PROMETHEUS_OPPORTUNITY_SYSTEM,\nPROMETHEUS_DISTRIBUTION_BRAIN, PROMETHEUS_SELF_UPGRADE_ENGINE, and\nPROMETHEUS_CANONICAL_INTEGRATION_PLAN pointing at what actually shipped\nthis wave rather than leaving V1's now-superseded status claims standing\nuncorrected. Rewrites docs/OVERNIGHT_HANDOFF.md with this wave's verified\nfacts: 460/460 tests, 0 vulnerabilities, live MCP confirmation.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/faf4cefa5500e97941182d9d4be40ca1c555891e"
+    },
+    {
+      "sha": "e8b83298eae04832ba41d9c7ff40d6fcfa9f1ac6",
+      "parents": [
+        "9bb3a416673b81d1529be4c9fbb1b0e820c68449"
+      ],
+      "tree_sha": "272cc6fe7698bd571e88a87eab08742f51392d4b",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T15:55:14Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T15:55:14Z",
+      "message": "prometheus: scheduling integration -- read-only recomputation jobs\n\nRegisters two new job types on the existing durable queue/scheduler\n(src/scheduler.mjs, src/job-handlers.mjs) -- no new scheduling\ninfrastructure:\n\n- prometheus.capability_gap.recompute (every 6h) -- snapshots\n  capabilityGraphSummary() into the existing auditLog.\n- prometheus.commercial_memory.contradiction_scan (every 24h) -- runs\n  detectContradictions() over recorded commercial memory and logs a\n  receipt only when contradictions are found; never auto-resolves one.\n\nBoth are read-only: no provider call, no send, no spend, in either handler\n(verified by a test that greps the handler source for network/Gmail\nimports). Gated behind a NEW, explicit, default-off flag\n(prometheus.schedulingEnabled) layered on top of the existing autopilot\ngate -- both must be true, so no existing autopilot deployment picks these\nup silently. Market-signal refresh was deliberately NOT scheduled: no\nadapter exists yet to refresh from (see docs/PROMETHEUS_SOURCE_ADAPTERS.md),\nand a job with nothing real to do would be decorative.\n\n7 new tests, including proof the gate genuinely activates when both flags\nare true (not permanently off) and stays inert when either is false.\n460/460 total.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/e8b83298eae04832ba41d9c7ff40d6fcfa9f1ac6"
+    },
+    {
+      "sha": "9bb3a416673b81d1529be4c9fbb1b0e820c68449",
+      "parents": [
+        "123197f859968119b10010bec0876210c5d9f679"
+      ],
+      "tree_sha": "392b42dada2b009103dcd25f4699fd2c8afadd23",
+      "author_name": "Claude",
+      "author_date": "2026-08-18T15:51:08Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-18T15:51:08Z",
+      "message": "prometheus: hostile attack suite across the economic spine's seams\n\nCross-module adversarial tests, one or more per required attack category,\ndeliberately targeting the SEAMS between modules where a single-module\ntest can't see the failure:\n\n- evidence laundering: a synthetic run's outcome cannot be laundered into\n  a claim of real economic proof; a signal cannot claim both\n  SYNTHETIC_TEST_FIXTURE and a real sourceUrl.\n- duplicate signals: the same fact submitted under a different\n  opportunityId still only ingests once.\n- confidence inflation: 50 weak signals cannot outvote one strong signal's\n  evidence tier; untagged fields cannot buy confidence through sheer count.\n- BUILD bias: the confidence boundary (0.29 vs 0.30) does not round in\n  BUILD's favor; only the isCommodity flag, not evidence quality, gates\n  commodity BUILD avoidance.\n- channel overconfidence: cherry-picking the best-looking channel among\n  14 one-sample channels still can't clear the confidence bar.\n- fake revenue: outcome-type string alone cannot fake truthClass without\n  isSynthetic:false; negative magnitude cannot spoof a phantom refund.\n- tiny-sample overfitting: a single 100x outcome can't win alone.\n- auto-promotion: a present-but-zero or non-numeric proof value can't\n  promote even with owner approval.\n- unsafe consequence escalation: DO_NOTHING carries no implicit\n  authorization; a later positive outcome can't silently erase an earlier\n  contradictory one from memory.\n\n15 new tests. 453/453 total.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/9bb3a416673b81d1529be4c9fbb1b0e820c68449"
+    },
+    {
+      "sha": "5d283b47b871c7f4787bb0f40d4393d74473a751",
+      "parents": [
+        "579b49c9d0899d402551e9ade350912470fbe94f"
+      ],
+      "tree_sha": "f12e1470cec89313bc4407a354cef1b176aa7ff3",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-18T00:45:19Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-18T00:45:19Z",
+      "message": "Add safe adapter and capital planning contracts",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/5d283b47b871c7f4787bb0f40d4393d74473a751"
+    },
+    {
+      "sha": "579b49c9d0899d402551e9ade350912470fbe94f",
+      "parents": [
+        "75c94a5e628faa94bb14456a390ab1a4b4755560"
+      ],
+      "tree_sha": "4c5a18e1dab2987815629efbaaa0d1048f099a22",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-18T00:34:37Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-18T00:34:37Z",
+      "message": "Add agent relay and commercial fitness labs",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/579b49c9d0899d402551e9ade350912470fbe94f"
+    },
+    {
+      "sha": "75c94a5e628faa94bb14456a390ab1a4b4755560",
+      "parents": [
+        "258d2861f92172385f78e07d4a8693024cb2bb92"
+      ],
+      "tree_sha": "e793e316b3bc49f6b188f2d4260862037a7c1189",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-18T00:23:17Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-18T00:23:17Z",
+      "message": "Add governed self-upgrade and control tower",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/75c94a5e628faa94bb14456a390ab1a4b4755560"
+    },
+    {
+      "sha": "258d2861f92172385f78e07d4a8693024cb2bb92",
+      "parents": [
+        "187d9a113b78c02c3a8f466491fca5af41205e2f"
+      ],
+      "tree_sha": "9c2a47821ed1edbc595c0faeecf509872166a79f",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:49:15Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:49:15Z",
+      "message": "Add commercial outcome learning memory",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/258d2861f92172385f78e07d4a8693024cb2bb92"
+    },
+    {
+      "sha": "187d9a113b78c02c3a8f466491fca5af41205e2f",
+      "parents": [
+        "638ae08755aff97b6137fb86d121b26f568b2540"
+      ],
+      "tree_sha": "89c65e0fbaa18b63d28e8b06633870e04a846f5f",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:33:27Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:33:27Z",
+      "message": "Record final local verification for commercial spine",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/187d9a113b78c02c3a8f466491fca5af41205e2f"
+    },
+    {
+      "sha": "638ae08755aff97b6137fb86d121b26f568b2540",
+      "parents": [
+        "2f600178ed62435658c2ff9f4bc4efd91d01b659"
+      ],
+      "tree_sha": "a390156a025dad57a74f0cb76c02c63259dde87d",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:31:33Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:31:33Z",
+      "message": "Harden outcome proof and distribution fail-closed gates",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/638ae08755aff97b6137fb86d121b26f568b2540"
+    },
+    {
+      "sha": "2f600178ed62435658c2ff9f4bc4efd91d01b659",
+      "parents": [
+        "0a776d18ac1f07bfd8f1878ecb51ebcd87e8b8b3"
+      ],
+      "tree_sha": "e1f28a88cc8376585f49ebb40d689411de2d7e1c",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:29:34Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:29:34Z",
+      "message": "Build bounded Prometheus commercial economics spine",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/2f600178ed62435658c2ff9f4bc4efd91d01b659"
+    },
+    {
+      "sha": "0a776d18ac1f07bfd8f1878ecb51ebcd87e8b8b3",
+      "parents": [
+        "69c535fc13995372d10a15700721aee60123f7d8"
+      ],
+      "tree_sha": "a80f5602e0ee593c083d5f269f3c39d826ed0671",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:12:30Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:12:30Z",
+      "message": "Record post-change Prometheus spine verification",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/0a776d18ac1f07bfd8f1878ecb51ebcd87e8b8b3"
+    },
+    {
+      "sha": "69c535fc13995372d10a15700721aee60123f7d8",
+      "parents": [
+        "eddf244665e565f54779ce946ba7d7b7e7ab3482"
+      ],
+      "tree_sha": "d4b12ce5b927ee50a4cfd8dd2fe588f6bddb24d7",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:08:30Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:08:30Z",
+      "message": "Document bounded signal registry extension",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/69c535fc13995372d10a15700721aee60123f7d8"
+    },
+    {
+      "sha": "eddf244665e565f54779ce946ba7d7b7e7ab3482",
+      "parents": [
+        "d7926934670ee6ba61dd4cfa9a05fbfdaf14c7db"
+      ],
+      "tree_sha": "ef74ab01a1fa5fd9e817aa19902b5ed315b7acf1",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:08:10Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:08:10Z",
+      "message": "Wire MarketSignal registry into deterministic verification",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/eddf244665e565f54779ce946ba7d7b7e7ab3482"
+    },
+    {
+      "sha": "d7926934670ee6ba61dd4cfa9a05fbfdaf14c7db",
+      "parents": [
+        "e67f04a08118b8a29a6600f230e06192ad7a38da"
+      ],
+      "tree_sha": "ebe85cf9b531a97e5d20571ddf9bf4a9863de6da",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:08:01Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:08:01Z",
+      "message": "Add bounded Prometheus signal ingestion job",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/d7926934670ee6ba61dd4cfa9a05fbfdaf14c7db"
+    },
+    {
+      "sha": "e67f04a08118b8a29a6600f230e06192ad7a38da",
+      "parents": [
+        "4c36cee8941176b402ee650910b9b0cf930d89ee"
+      ],
+      "tree_sha": "8bd37c182cd14a7cf01dadb0923397dd4711c2b6",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:07:50Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:07:50Z",
+      "message": "Add hostile tests for MarketSignal ingestion registry",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/e67f04a08118b8a29a6600f230e06192ad7a38da"
+    },
+    {
+      "sha": "4c36cee8941176b402ee650910b9b0cf930d89ee",
+      "parents": [
+        "31670e430686767d874b9c309ae1d4aab39defe8"
+      ],
+      "tree_sha": "0c246b9f702f66da2e98d957b7f916a33018b776",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:07:15Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:07:15Z",
+      "message": "Add bounded canonical MarketSignal ingestion registry",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/4c36cee8941176b402ee650910b9b0cf930d89ee"
+    },
+    {
+      "sha": "31670e430686767d874b9c309ae1d4aab39defe8",
+      "parents": [
+        "0495a0f0952d12a91122e51747b2fdc1310fd2a4"
+      ],
+      "tree_sha": "ad960b9b802dbbcef032dabc4749896fbd427fd0",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:05:03Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:05:03Z",
+      "message": "Document Prometheus economic spine wave and truth boundary",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/31670e430686767d874b9c309ae1d4aab39defe8"
+    },
+    {
+      "sha": "0495a0f0952d12a91122e51747b2fdc1310fd2a4",
+      "parents": [
+        "9025eefc1ed931fecf08dc6a88e376d40bbb91d5"
+      ],
+      "tree_sha": "3b697000707e0539ac0d143614a81bc02b2871b0",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:04:04Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:04:04Z",
+      "message": "Wire Prometheus economic spine into deterministic verification",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/0495a0f0952d12a91122e51747b2fdc1310fd2a4"
+    },
+    {
+      "sha": "9025eefc1ed931fecf08dc6a88e376d40bbb91d5",
+      "parents": [
+        "e12d390cb9d948351d2557a62bc1971b0c837d79"
+      ],
+      "tree_sha": "f8e760b8a0781aa5ed4404a86acc4f92bb77720a",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:03:53Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:03:53Z",
+      "message": "Add dry-run Prometheus opportunity preparation job",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/9025eefc1ed931fecf08dc6a88e376d40bbb91d5"
+    },
+    {
+      "sha": "e12d390cb9d948351d2557a62bc1971b0c837d79",
+      "parents": [
+        "ffe9089a91198c5059eaba042a51d89f30a7a34c"
+      ],
+      "tree_sha": "6be95fa6485fe5782ff54c49b19524a5b9a2e1d7",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:03:39Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:03:39Z",
+      "message": "Add hostile tests for Prometheus economic spine composition",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/e12d390cb9d948351d2557a62bc1971b0c837d79"
+    },
+    {
+      "sha": "ffe9089a91198c5059eaba042a51d89f30a7a34c",
+      "parents": [
+        "115c5e1dea00589ea2576119d33c45eeda0d223e"
+      ],
+      "tree_sha": "9e2b4b50506713e8c9843bb33269a19883804d6e",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-08-17T23:02:51Z",
+      "committer_name": "mohammedwessam2007",
+      "committer_date": "2026-08-17T23:02:51Z",
+      "message": "Add canonical Prometheus economic spine composition",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/ffe9089a91198c5059eaba042a51d89f30a7a34c"
+    },
+    {
+      "sha": "123197f859968119b10010bec0876210c5d9f679",
+      "parents": [
+        "599bb4fb4b9ddcec29692a953780d74703ce20b9"
+      ],
+      "tree_sha": "a034e15c4afc3db34eb80b5084bdf87790662e9d",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T22:11:39Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T22:11:39Z",
+      "message": "prometheus: economic spine orchestrator + end-to-end synthetic proof\n\nsrc/commercial-spine.mjs composes every stage built this wave into one\nreal pipeline: MarketSignal -> Signal Ingestion -> BusinessGenome ->\nCapabilityGraph/BuildDistance -> CommercialExperiment ->\nDistributionChannelRegistry/Allocator -> Outcome -> RevenueWeightedLearning\n-> CommercialMemory -> UpgradeProposal -> EngineeringMissionPacket, with a\nCommercialOutcomeGraph unifying the lineage. isSynthetic defaults to true\n(the safe choice) and is forced onto any downstream economic-proof object\nregardless of what a caller separately claims -- an attempted\nevidence-laundering input (ownerApproved:true + a large fake\nrealClearedAmountUsd on a synthetic run) is proven denied by\ncanaryPromotionGate in the test suite.\n\ntests/commercial-spine-e2e.test.mjs is the mission's required end-to-end\nproof: a single clearly labeled SYNTHETIC_TEST_FIXTURE signal travels the\nentire pipeline and produces all 8 required stage outputs (opportunity,\ncapability-gap result, bounded experiment, distribution decision,\nsimulated outcome, learning record, upgrade proposal, engineering mission\npacket), while a separate test proves the exact same real-shaped inputs\nCAN reach ECONOMICALLY_PROVEN when isSynthetic is genuinely false --\nproving the gate is a real mechanism, not rigged to always fail.\n\n7 new tests. 438/438 total.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/123197f859968119b10010bec0876210c5d9f679"
+    },
+    {
+      "sha": "599bb4fb4b9ddcec29692a953780d74703ce20b9",
+      "parents": [
+        "21ecb213376f690f4ce2083313c4e0c0e40c686d"
+      ],
+      "tree_sha": "786b60a8c694331a26782d506d9dc779139d618d",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T22:09:22Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T22:09:22Z",
+      "message": "prometheus: economic spine wave 3 -- upgrade proposal, engineering packet, shadow/canary\n\n- src/upgrade-proposal.mjs -- BUILD/BUY/PARTNER/ADAPT/DEFER/REJECT router.\n  Default DO NOT BUILD COMMODITIES: a commodity opportunity never routes\n  to BUILD regardless of how cheap it looks. A BUILD-bias hostile test\n  proves low confidence defers even when the score and build distance both\n  look attractive. Composes directly with real scoreOpportunity() and\n  incrementalBuildDistance() outputs (Wave 6 / this wave's Capability Graph).\n- src/engineering-mission-packet.mjs -- the artifact handed to a coding\n  agent to commission work safely. Only compiles for BUILD/ADAPT decisions.\n  lite/ is a hardcoded, non-overridable forbidden path -- proven by a test\n  that a caller cannot remove it even by supplying an empty override list.\n- src/shadow-canary-contract.mjs -- shadowCompare() never affects\n  production (structural affectsProduction:false, not a caller flag);\n  canaryPromotionGate() requires BOTH explicit owner approval AND real\n  (non-synthetic, positive) economic proof -- proven that a synthetic\n  economic proof is denied even with owner approval, matching the\n  mission's own invariant that no synthetic test can produce\n  ECONOMICALLY_PROVEN.\n\n28 new hostile tests. 431/431 total.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/599bb4fb4b9ddcec29692a953780d74703ce20b9"
+    },
+    {
+      "sha": "21ecb213376f690f4ce2083313c4e0c0e40c686d",
+      "parents": [
+        "3e5290bcd0543668c313412f1bf80fb1d3a4d4de"
+      ],
+      "tree_sha": "1e35d27f912e4cea11f3d3f9b905c6043a36cfa3",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T22:06:36Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T22:06:36Z",
+      "message": "prometheus: economic spine wave 2 -- outcome graph, learning, memory\n\n- src/commercial-outcome-graph.mjs -- lineage edges over already-computed\n  spine objects (MarketSignal -> BusinessGenome -> Opportunity ->\n  CommercialExperiment -> DistributionDecision -> Outcome). Creates no new\n  truth, only references; persists via the existing auditLog writer.\n  Structurally distinguishes SimulatedOutcome from RealOutcome node types\n  -- a synthetic run can never produce a RealOutcome node.\n- src/revenue-weighted-learning.mjs -- the outcome hierarchy (cleared\n  recurring margin > cleared payment > accepted delivery > qualified\n  opportunity > positive reply > click/open), tested directly so a future\n  edit can't silently invert it. aggregateLearning() keeps real and\n  synthetic totals in structurally separate buckets -- proven with 1,000\n  synthetic records contributing exactly zero to the real total.\n- src/commercial-memory.mjs -- a query layer over the existing auditLog\n  (no new collection) plus detectContradictions(), which flags a\n  hypothesis with both positive and negative real outcomes rather than\n  letting either side quietly win.\n\n25 new hostile tests. 403/403 total.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/21ecb213376f690f4ce2083313c4e0c0e40c686d"
+    },
+    {
+      "sha": "3e5290bcd0543668c313412f1bf80fb1d3a4d4de",
+      "parents": [
+        "7316200598a72e17fdebe84e837695a71932c49e"
+      ],
+      "tree_sha": "3bfe295bc6431cf976aa0d22c55577ba2c87d6fb",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T22:04:08Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T22:04:08Z",
+      "message": "prometheus: economic spine wave 1 -- signal ingestion through distribution allocation\n\nBuilds the first half of the vertical economic spine (MarketSignal ->\nSignal Ingestion -> BusinessGenome -> CapabilityGraph -> CommercialExperiment\n-> DistributionChannelRegistry -> DistributionAllocator), composing real\nprior-wave modules rather than duplicating them:\n\n- src/signal-ingestion.mjs -- normalize/dedupe/freshness over MarketSignal,\n  reusing the existing auditLog writer as the receipt/dedupe ledger. Proven\n  replay-safe: re-ingesting an identical batch produces zero new accepted\n  entries and zero duplicate receipts.\n- src/genome-extraction.mjs -- the real seam into src/opportunity-registry.mjs\n  (Wave 6). Deliberately narrow: only fields a signal can honestly speak to\n  (currently just `price`, from an explicit caller-supplied priceHint tied\n  to a real PRICE_CHANGE signal) are populated; a candidate's evidence tier\n  is the WEAKEST among its constituent signals, never the strongest.\n- src/experiment-compiler.mjs -- always compiles the smallest, cheapest\n  bounded probe (never a full launch); maxBudgetUsd defaults to 0; composes\n  with the real offer-compiler (Wave 5) when a matching product exists.\n- src/distribution-channel-registry.mjs -- 14 channels as real comparable\n  objects; availability computed from actual cfg, never asserted; every\n  channel starts with historicalOutcomes: [] because none exist anywhere\n  in this system yet.\n- src/distribution-allocator.mjs -- DO_NOTHING is a first-class, correct\n  winner (proven: with zero historical outcomes, a real experiment, real\n  budget, and an available channel, the allocator still and correctly\n  returns DO_NOTHING). A tiny-sample-size guard prevents 1-2 lucky outcomes\n  from producing enough confidence to act; a genuinely large, positive\n  real sample can win, proving the mechanism isn't rigged to always say no.\n\n50 new hostile tests across 4 files. 378/378 total.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/3e5290bcd0543668c313412f1bf80fb1d3a4d4de"
+    },
+    {
+      "sha": "7316200598a72e17fdebe84e837695a71932c49e",
+      "parents": [
+        "719dea413b8be46ee8673fd735d3179d8f1c9bc8"
+      ],
+      "tree_sha": "3bb47bfc15a6091bf4810d04cfae93d2f8e7de31",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T21:59:58Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T21:59:58Z",
+      "message": "prometheus: PR housekeeping -- 18 provably-superseded PRs closed\n\nNot a founder decision per this wave's instructions. Classified PRs #8-23\n(the OMNIA V9 stack), #6 (Canon/V3 predecessor), and #25 (MCP bridge\npredecessor) using git ancestry proof, not trust of PR descriptions:\n`git merge-base --is-ancestor <candidate-head> <cumulative-tip>` run\ndirectly against the real repository for all 17 V9-stack branches plus #6,\nand a direct content diff for #25 (history-unrelated since it was brought\nin via `git checkout -- <paths>`, not a merge).\n\nAll 17 V9-stack branches and #6 verified as strict git ancestors of their\nrespective cumulative tips (#24 and #7) -- a mathematical guarantee, not\nan inference, that zero unique code is lost by closing them. #25 verified\nby diff to differ from PR #26's current state by exactly one line.\n\nClosed all 18 with a comment on each citing the specific verification.\nKept #7, #24, and #26 open as the canonical references. PRs #1-5 left\nuntouched -- out of the requested scope and not run through the same\nrigor, so not classified rather than guessed at.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/7316200598a72e17fdebe84e837695a71932c49e"
+    },
+    {
+      "sha": "719dea413b8be46ee8673fd735d3179d8f1c9bc8",
+      "parents": [
+        "115c5e1dea00589ea2576119d33c45eeda0d223e"
+      ],
+      "tree_sha": "354ea4aca403c9efb419951ceea6ec0d9a8ca0f8",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T21:56:42Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T21:56:42Z",
+      "message": "prometheus: real V9-Guard composition, no contradictory authority path\n\nCanonical decision (owner, not engineering): Deliverability Guard stays a\nspecialized deterministic preflight/final-recheck layer that can DENY/BLOCK\nbefore V9 is ever consulted; OMNIA V9 stays the authoritative\npolicy/evidence/authority boundary for consequential actions. Guard must\nnever grant authority. Compose, don't choose one and delete the other.\n\nVendors the minimal self-contained V9 admission kernel verbatim from the\nunmerged claude/from-v9-complete-build-2026-08-10 branch\n(src/omnia-v9/{canonical,schema,kernel}.mjs -- pure, no Postgres/Cedar/\nintegrations dependencies, 389 lines total). src/consequence-boundary.mjs\ncomposes it with Guard: V9 is only ever consulted after an actual Guard\nALLOW (proven by a test asserting buildIntent() is never even called on a\nGuard denial), and Guard's ALLOW can never by itself produce a final ALLOW\n(the default policyAuthorizer fails closed -- no real policy/Cedar content\nexists on this branch, so this composes the real mechanism honestly without\nfabricating policy content).\n\nWired into Pipeline.maybeSend as the true final gate, immediately before\nthe provider call, behind outbound.v9AdmissionRequired (default false --\nzero behavior change for the 285+ pre-existing tests). 6 new tests prove\nthe wiring end-to-end through the real pipeline, including a genuine ALLOW\npath with a real Ed25519-signed approval -- the composition is real, not a\nstub. 14 more tests prove the composition contract standalone: tampered\napproval signatures rejected, out-of-scope resource prefixes don't cover\nan intent, expired intents denied even with a covering approval.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/719dea413b8be46ee8673fd735d3179d8f1c9bc8"
+    },
+    {
+      "sha": "115c5e1dea00589ea2576119d33c45eeda0d223e",
+      "parents": [
+        "3397fbc2268b036ae5e45097f91ab6282b2ca362"
+      ],
+      "tree_sha": "a4628ef6a9dc06a4fa4295c9f66b1253d2cc0b75",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T21:40:51Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T21:40:51Z",
+      "message": "prometheus: required doc set, completion matrix, and handoff\n\nAdds the mission's required minimum documentation set:\nPROMETHEUS_ARCHITECTURE, PROMETHEUS_SOURCE_ADAPTERS,\nPROMETHEUS_OPPORTUNITY_SYSTEM, PROMETHEUS_DISTRIBUTION_BRAIN,\nPROMETHEUS_SELF_UPGRADE_ENGINE, PROMETHEUS_EXTERNAL_GATES, and\nPROMETHEUS_FINAL_IMPLEMENTATION_REPORT (with the full per-subsystem\ncompletion matrix and required final-response fields). Each document\nstates plainly what's built vs. deliberately deferred and why, rather than\npadding out the required file count with decorative content the mission\nitself warns against.\n\nRewrites docs/OVERNIGHT_HANDOFF.md with this wave's verified facts: 316/316\ntests (285 prior + 31 new), 0 vulnerabilities, live MCP confirmation with\nexternalCalls:0/spendCents:0, and an honest truth table.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/115c5e1dea00589ea2576119d33c45eeda0d223e"
+    },
+    {
+      "sha": "3397fbc2268b036ae5e45097f91ab6282b2ca362",
+      "parents": [
+        "5fed33e53df2616c57551d9cbcf4cef59b69d621"
+      ],
+      "tree_sha": "3adbd6f044acb0eec49f2ef254dfe5b9c7e47e24",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T21:36:27Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T21:36:27Z",
+      "message": "prometheus: market signal kernel and honest capability graph\n\nsrc/market-signal.mjs -- a source-neutral, pure MarketSignal normalizer.\nDeliberately architecture-independent: does not assume which\nopportunity-scoring or authorization system consumes it, since that is a\nreal pending decision surfaced by the branch reconciliation, not something\nthis module should guess at. Enforces the mission's truth rule structurally\n-- a SYNTHETIC_TEST_FIXTURE can never carry a real sourceUrl, and\nVERIFIED_FACT requires one. 20 hostile tests.\n\nsrc/capability-graph.mjs -- a hand-maintained (not scanned) registry of\nwhat this branch can actually do, using the mission's own status vocabulary\n(IMPLEMENTED/TEST_VERIFIED/LIVE_UNPROVEN/PARTIAL/RESEARCH_ONLY/MISSING).\nHonestly marks the OMNIA V9 kernel and Canon/V3 acquisition cycle as\nMISSING on this branch with an explicit pointer to the unmerged PRs where\nthey really do exist and pass their own tests -- capability-scanning by\nfile presence alone would have missed or misrepresented this distinction.\nWires incrementalBuildDistance() (Wave 6) to a real data source instead of\na caller-supplied list. 11 hostile tests.\n\nAdapters, signal ingestion, and business-genome extraction from signals\n(mission Waves 8-10) are deliberately deferred, not built shallow: building\nthem before the owner decides between the V9 kernel and this session's\nlighter Guard risks creating a third parallel system on top of the two the\nreconciliation just found. See docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/3397fbc2268b036ae5e45097f91ab6282b2ca362"
+    },
+    {
+      "sha": "5fed33e53df2616c57551d9cbcf4cef59b69d621",
+      "parents": [
+        "ef580f398bb4a9ea43c5c4933251d8d5c7b1af52"
+      ],
+      "tree_sha": "3d39ac7c2aed055ee36d87c1b0e6d6f5ae679051",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T21:32:31Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T21:32:31Z",
+      "message": "prometheus: reconcile stranded PR/branch lineages\n\nReal finding, not assumed: OMNIA V9 (PRs #8-24, ~29K stranded lines) and\nCanon/V3 commercial activation (PR #7, ~21.5K stranded lines) are both\nreal, tested, unmerged prior work -- independently re-verified this wave by\nchecking out both tips into worktrees and re-running their own test suites\nmyself (500/459/41-skipped/0-failed and 317/317/0-failed respectively,\nboth matching their PR descriptions' claims exactly).\n\nV9's src/omnia-v9/ is a formal, closed-schema authorization kernel -- the\nactual \"OMNIA V9\" the Prometheus mission assumed already governs UberBond.\nIt does not exist on main or on this branch; it exists, tested, on this\nunmerged stack. This session's own Deliverability Guard (Waves 3-4) solves\nthe same class of problem at much smaller scope, built without knowledge\nthis kernel existed -- a real instance of the parallel-truth-system risk\nthe mission warns against, surfaced honestly rather than glossed over.\n\nChecked two apparent naming collisions (opportunity-registry.mjs vs\nopportunity-factory.mjs, revenue.mjs vs revenue-os.mjs) by reading the\nactual code rather than assuming from filenames -- both are same-word,\ndifferent-domain, not real duplication.\n\nNo merge attempted. docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md gives a\nconcrete two-branch action plan (V9-canonical vs. Guard-stays-canonical)\nfor whichever direction the owner picks, rather than guessing.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/5fed33e53df2616c57551d9cbcf4cef59b69d621"
+    },
+    {
+      "sha": "ef580f398bb4a9ea43c5c4933251d8d5c7b1af52",
+      "parents": [
+        "458f63c32d1f1cf87191a4266faf684564e6bbb8"
+      ],
+      "tree_sha": "fa36150763fc857aabf538420fa833b3b6fb11a7",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T21:26:55Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T21:26:55Z",
+      "message": "prometheus: close the PostgresStore live-proof gap\n\nExplicitly prioritized by the mission above decorative Prometheus work.\ntests/postgres-store-live.test.mjs exercises the real PostgresStore JS class\n(not just migration SQL) against a real local PostgreSQL 16 server: generic\nCRUD, real ConflictError on a 23505 duplicate-key violation, real\ntransaction COMMIT/ROLLBACK, and the Postgres-specific concurrency\nprimitives (pg_advisory_xact_lock, SELECT ... FOR UPDATE SKIP LOCKED,\nON CONFLICT) that neither JsonStore tests nor the PGlite schema-only tests\ncan prove. Gated on LIVE_POSTGRES_TEST_URL so it never runs or hangs in an\nenvironment without a real Postgres server -- not part of `npm run check`.\n\nTwo real bugs found and fixed in the test itself while building this:\na missing campaigns FK fixture, and a claimJobs() concurrency test that\nwasn't isolated from leftover rows in the shared throwaway database (an\nolder leftover job was legitimately claimed ahead of the freshly-inserted\none -- correct store behavior, wrong test assumption). Fixed with a\nTRUNCATE in test.before().\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/ef580f398bb4a9ea43c5c4933251d8d5c7b1af52"
+    },
+    {
+      "sha": "458f63c32d1f1cf87191a4266faf684564e6bbb8",
+      "parents": [
+        "e6e278ead615192f428687fad68316ed0cc90a0b"
+      ],
+      "tree_sha": "2ef8ea2cd9e4d4ff8478eff35b9b74c11be93c8c",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T20:57:09Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T20:57:09Z",
+      "message": "Add Opportunity Registry and agent-readiness audit checks\n\nScoped, honest response to the Project Prometheus mission: rather than\nfabricating a 300-mechanism research package with no live research access,\nthis ships the mission's own buried IMPLEMENTATION RULE (\"identify 5 shared\ncapabilities, max 5 builds\") — a pure Business Genome/scoring-tournament\nengine that reduces evidence-tagging confidence for weak claims instead of\nletting them inflate a score, plus two new deterministic audit findings\n(missing/invalid JSON-LD) surfacing already-captured but previously unused\ncrawler evidence. Full reasoning in docs/PROMETHEUS_SCOPED_VERDICT.md.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/458f63c32d1f1cf87191a4266faf684564e6bbb8"
+    },
+    {
+      "sha": "e6e278ead615192f428687fad68316ed0cc90a0b",
+      "parents": [
+        "bdd1547e7e30e39b93564cb58fa175d540669f5c"
+      ],
+      "tree_sha": "f52cd21c71990b26399d88aff702315046a40106",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T20:32:47Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T20:32:47Z",
+      "message": "Fix payment-truth overcounting bug; add offer compiler and command center\n\nTrajectory audit found the current wedge (evidence-backed website\naudits) is sound; the gap is commercial-loop integrity, not the\nbusiness model. This wave hardens the payment layer and adds\nvisibility into what's actually blocking the first dollar.\n\nConfirmed real bug: subscription_updated (a metadata-only Lemon\nSqueezy webhook fired on card/plan/renewal-date changes, never a new\ncharge) previously triggered unlockLead() and created a fresh\nrevenueEvents \"sale\" row on every occurrence -- overcounting gross\nrevenue by the number of lifecycle webhooks received, not the number\nof real charges. subscription_payment_success/_failed (the actual\nrenewal-charge and dunning-failure events) were never handled at all,\nmaking real recurring revenue after the first payment invisible.\n\nsrc/payments.mjs gains classifyPaymentEvent(): a pure, deterministic\nclassifier mapping the real Lemon Squeezy event taxonomy to\nCLEARED_ONE_TIME_PAYMENT / CLEARED_SUBSCRIPTION_PAYMENT /\nSUBSCRIPTION_LIFECYCLE_UPDATE / REFUND_OR_DISPUTE / PENDING_OR_UNCLEAR\n/ DUPLICATE / INVALID_OR_UNSUPPORTED / REVIEW_REQUIRED. revenue.mjs's\nhandleLemonWebhook now runs every event through it before acting;\nunlockLead is only ever called for genuinely cleared payments.\nRefunds are recorded as negative revenueEvents so grossRevenue nets\nthem out automatically. Every decision is audited via\nstore.log('payment_classification', ...).\n\nsrc/offer-compiler.mjs (new): pure function packaging existing\nprospect/audit/score data into a structured offer for 5 products.\nEvery price comes from cfg.revenue; an unconfigured price (agency\nwhite-label) is reported as NOT_CONFIGURED, never invented.\n\nsrc/founder-command-center.mjs (new): read-only report composing the\noperator summary, offer compiler, and revenue summary into checkout\nreadiness, offer readiness, delivery readiness, payment truth, and a\nmax-3-action owner queue. Verified against a real store: immediately\nsurfaces \"checkout not configured\" as the top blocking action when\ncheckout URLs are empty, reproducing the flagged gap in the running\nsystem.\n\nDiagnosed the failing Vercel deployment locally: the repo root has no\nvercel.json and is a persistent Docker server (correctly configured\nfor Render/Railway instead); a Vercel project appears pointed at the\nroot rather than lite/, which does have its own working vercel.json\nand passing deployment.\n\n53 new hostile tests across three files. 251/251 tests pass in npm\nrun check.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/e6e278ead615192f428687fad68316ed0cc90a0b"
+    },
+    {
+      "sha": "bdd1547e7e30e39b93564cb58fa175d540669f5c",
+      "parents": [
+        "7c5fef4c5f45b150cc38a6179011f70a7bb42d16"
+      ],
+      "tree_sha": "fa93197edc663a13a061ea85f0d6476b26c44804",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T16:40:03Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T16:40:03Z",
+      "message": "Add the Revenue Safety, Recovery, and Audit Foundation\n\nFour coherent subsystems, all reusing canonical models -- no parallel\nqueue, suppression, evidence, or revenue model was created:\n\n1. Reservation recovery (src/reservation-recovery.mjs): a time-boxed,\n   bounded, deterministic sweep for outboundReservations stuck at\n   'reserved' or 'dispatching' past a timeout. Reuses the exact\n   existing state machine: a stale 'reserved' row (provider never\n   reached) is safely cancelled; a stale 'dispatching' row (provider\n   outcome genuinely unknown) is reclassified to the existing\n   'uncertain' state, which the guard already treats as a permanent\n   replay-block -- so a recovered row can never be silently resent.\n   No new status, no migration (the status column has no CHECK\n   constraint). Concurrent/duplicate sweeps are deduplicated via the\n   store's existing duplicate-id ConflictError mechanism rather than a\n   bespoke lock, since PostgreSQL doesn't support nesting a second\n   transaction inside the caller's.\n\n2. Volume/quota unification: extracted countActiveOutboundReservations()\n   into send-safety.mjs as the one canonical daily/hourly cap-counting\n   helper. Both evaluateDeliverabilityGuard and\n   JsonStore._reserveOutboundSendDirect now call it instead of\n   maintaining two independent implementations that could silently\n   drift. No limit or threshold changed -- every pre-existing\n   send-safety/pipeline test still passes unmodified.\n\n3. Transactional report-email audit: RevenueEngine.sendReportEmail now\n   writes a report_email_audit receipt for every decision (kill-switch\n   block, missing destination, provider-capability-absent, uncertain\n   outcome, sent), and a provider exception sets\n   lead.reportEmailAttemptStatus='uncertain' which onProspectComplete's\n   auto-send gate now checks to prevent ever automatically retrying an\n   unresolved external outcome. Deliberately kept separate from the\n   cold-outreach guard, since the destination is self-submitted at\n   public intake, not discovered or inferred.\n\n4. Operator visibility (src/outbound-operator-summary.mjs): a read-only\n   structured summary of reservation states, a stale-recovery dry-run\n   preview, provider health, review requirements, and a deterministic\n   next-safe-action string, reusing existing collections only.\n\n59 new hostile tests across four files. Pre-existing suites re-run\nstandalone as regression checks after each refactor. 198/198 tests\npass in npm run check.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/bdd1547e7e30e39b93564cb58fa175d540669f5c"
+    },
+    {
+      "sha": "7c5fef4c5f45b150cc38a6179011f70a7bb42d16",
+      "parents": [
+        "ccbc9489a1bf35b40c0f2ce2f3795a7d4a880cf8"
+      ],
+      "tree_sha": "016d74f8c3b95b295062764ce1b12d331735b6f7",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T14:32:38Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T14:32:38Z",
+      "message": "Wire the Deliverability Guard into Pipeline.maybeSend\n\nPipeline.maybeSend is the sole choke point every cold-outreach send\npath (processProspect, processOutboundQueue, processFollowups) funnels\nthrough. It now calls evaluateDeliverabilityGuard() twice: once as an\nadmission gate before any reservation is attempted, and once as a\nfinal recheck immediately before the provider boundary, right after\nthe reservation transitions to 'dispatching'. Both decisions are\npersisted as receipts via the existing store.log() audit writer\n(type: deliverability_guard_decision) -- no new receipt system.\n\nA second send path, RevenueEngine.sendReportEmail, was found and left\nout of scope: it delivers a transactional email to a self-submitted,\nconsented address, not cold outreach, and already has its own\nindependent kill switch and idempotency. Documented in the handoff\nrather than force-fit into the outreach-shaped guard.\n\ndeliverability-guard.mjs gained excludeReservationId (so the final\nrecheck doesn't flag the reservation the call itself just made as a\nreplay or ceiling breach) and an actionIdentity content hash\n(recipient/message/evidence/authority/policy) distinct from the\nstable idempotencyKey, plus workspaceId mapped to campaign.id.\n\nFixed a regression caught by the pre-existing send-safety test suite:\nthe admission guard's replay detection initially hard-denied any\nrepeat call against an already-sent or uncertain reservation, breaking\nthe pre-existing idempotent-confirmation contract those tests already\nrelied on. A denial that reduces to a pure idempotency-key replay is\nnow translated back to that contract; any other reason present still\nhard-denies.\n\n16 new pipeline-integration tests in\ntests/pipeline-deliverability-guard.test.mjs, wired into\ntest:deterministic. 139/139 tests pass overall.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/7c5fef4c5f45b150cc38a6179011f70a7bb42d16"
+    },
+    {
+      "sha": "ccbc9489a1bf35b40c0f2ce2f3795a7d4a880cf8",
+      "parents": [
+        "76ed7ce18affa7624fbc5859f7d420057bf5135f"
+      ],
+      "tree_sha": "b31f658e7befaa9a68214c74520ba911936897a4",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T13:06:11Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T13:06:11Z",
+      "message": "Add a deterministic Deliverability Guard for outbound preparation\n\nAdds evaluateDeliverabilityGuard() (src/deliverability-guard.mjs): a\npure, read-only decision function that composes UberBond's existing\ncanonical safety primitives (suppression list, outbound-reservation\nidempotency, sender-health pausing, contact/evidence eligibility,\ncountry/business-hour gates) into a single explainable\nALLOW_LOCAL_PREPARATION / REVIEW_REQUIRED / DENY decision with a full\naudit receipt (reason codes, evidence refs, policy version, authority,\nsuppression/dedup results, confidence, cost estimate, owner burden,\nidempotency key, timestamp, reversible next step). It never calls a\nprovider and never mutates state; no new suppression/queue/evidence\nmodel was created.\n\nExtracted suppressionLookup() into send-safety.mjs as the one\ncanonical suppression check, and updated Pipeline.isSuppressed to use\nit instead of duplicating the lookup.\n\nFixed a real determinism bug found while writing hostile tests: the\nguard's staleness/expiry checks originally compared against real\nwall-clock Date.now() instead of the decision's own date parameter,\nso the same input snapshot could produce different decisions depending\non when the guard happened to run. All three call sites now use the\npassed-in reference date.\n\nWired the new module and its 25-test hostile suite into check:syntax\nand test:deterministic so neither is ever silently unverified.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/ccbc9489a1bf35b40c0f2ce2f3795a7d4a880cf8"
+    },
+    {
+      "sha": "76ed7ce18affa7624fbc5859f7d420057bf5135f",
+      "parents": [
+        "8d94a0e6dc5557ca7c4f2d5044da7cb1bb19a855"
+      ],
+      "tree_sha": "bde8eea6a97b44305f13cfd54ecc445d5662835c",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T12:15:24Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T12:15:24Z",
+      "message": "Close bare-name gap in MCP bridge path filter\n\nsafeRelativeFiles() blocked anything under credentials/ but let a bare\nfile or directory literally named credentials pass through. Block the\nexact name too, and add it to the hostile path-filter regression test.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/76ed7ce18affa7624fbc5859f7d420057bf5135f"
+    },
+    {
+      "sha": "8d94a0e6dc5557ca7c4f2d5044da7cb1bb19a855",
+      "parents": [
+        "ba2b100ac57b7cf0fd84532f6ea6770c6ebeed8a"
+      ],
+      "tree_sha": "fb21a910fb622c718550184f8bb198f9deae858a",
+      "author_name": "Claude",
+      "author_date": "2026-08-17T03:16:17Z",
+      "committer_name": "Claude",
+      "committer_date": "2026-08-17T03:16:17Z",
+      "message": "Wire the Claude MCP bridge into repo verification and add hostile tests\n\nBrings in PR #25's bridge (.mcp.json, scripts/uberbond-mcp.mjs, docs) and\nfixes the gap that the bridge was never actually run by this repo's own\ncheck:syntax or test:deterministic scripts. Replaces the string-matching\nbridge test with behavioral tests that spawn the bridge and drive JSON-RPC:\nprotected/traversal path filtering, missing objective, unknown suite,\nunknown tool/method, and malformed input handling.\n\nCo-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ARPWEE3rEGQ8PZMzcMuaCX",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/8d94a0e6dc5557ca7c4f2d5044da7cb1bb19a855"
+    },
+    {
+      "sha": "ba2b100ac57b7cf0fd84532f6ea6770c6ebeed8a",
+      "parents": [
+        "82451015f9d39afd5849103c19e4f834d4b6aa2f"
+      ],
+      "tree_sha": "b83e9adf4fc28f9a239ce9ada99ab02363d342a7",
+      "author_name": "GitHub Copilot",
+      "author_date": "2026-07-17T00:09:02Z",
+      "committer_name": "GitHub Copilot",
+      "committer_date": "2026-07-17T00:09:02Z",
+      "message": "Remove temporary patch file",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/ba2b100ac57b7cf0fd84532f6ea6770c6ebeed8a"
+    },
+    {
+      "sha": "82451015f9d39afd5849103c19e4f834d4b6aa2f",
+      "parents": [
+        "fed6e84207a3e26e0caaf2ef35feee40f3e5b482"
+      ],
+      "tree_sha": "84adf17628f4a898fea32ed8a8ade421b6181313",
+      "author_name": "Codex",
+      "author_date": "2026-07-16T22:44:18Z",
+      "committer_name": "GitHub Copilot",
+      "committer_date": "2026-07-16T23:55:03Z",
+      "message": "Diagnose Lite queue database handoff",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/82451015f9d39afd5849103c19e4f834d4b6aa2f"
+    },
+    {
+      "sha": "fed6e84207a3e26e0caaf2ef35feee40f3e5b482",
+      "parents": [
+        "2d932f55b4363140006623c065284fa0c2065068"
+      ],
+      "tree_sha": "94412a7db228592b272f340f819d7b54e098e4f3",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-07-16T23:41:21Z",
+      "committer_name": "GitHub",
+      "committer_date": "2026-07-16T23:41:21Z",
+      "message": "Add files via upload",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/fed6e84207a3e26e0caaf2ef35feee40f3e5b482"
+    },
+    {
+      "sha": "2d932f55b4363140006623c065284fa0c2065068",
+      "parents": [
+        "452e06f2655dc516ba0a58fa4ffc924f49ec1c17"
+      ],
+      "tree_sha": "caedb0e953c5db83fbb1770ba0ddb3ff504f305c",
+      "author_name": "GitHub Copilot",
+      "author_date": "2026-07-15T16:33:16Z",
+      "committer_name": "GitHub Copilot",
+      "committer_date": "2026-07-15T16:33:16Z",
+      "message": "Install verified UBERBOND P0.1 launch repository",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/2d932f55b4363140006623c065284fa0c2065068"
+    },
+    {
+      "sha": "452e06f2655dc516ba0a58fa4ffc924f49ec1c17",
+      "parents": [
+        "92c97c8ff231a741fe5ef7c2990a89d6d8c12c6c"
+      ],
+      "tree_sha": "39a00c22a7189f98eac237b0f53e8be300b3af41",
+      "author_name": "GitHub Copilot",
+      "author_date": "2026-07-15T13:26:19Z",
+      "committer_name": "GitHub Copilot",
+      "committer_date": "2026-07-15T13:26:19Z",
+      "message": "Install verified UBERBOND P0.1 launch repository",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/452e06f2655dc516ba0a58fa4ffc924f49ec1c17"
+    },
+    {
+      "sha": "92c97c8ff231a741fe5ef7c2990a89d6d8c12c6c",
+      "parents": [
+        "229c2c85c3c28179ce5bc3c4997f87b3ee67911b"
+      ],
+      "tree_sha": "39a00c22a7189f98eac237b0f53e8be300b3af41",
+      "author_name": "GitHub Copilot",
+      "author_date": "2026-07-14T23:11:13Z",
+      "committer_name": "GitHub Copilot",
+      "committer_date": "2026-07-14T23:11:13Z",
+      "message": "Install verified UBERBOND LaunchReady application at repository root",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/92c97c8ff231a741fe5ef7c2990a89d6d8c12c6c"
+    },
+    {
+      "sha": "229c2c85c3c28179ce5bc3c4997f87b3ee67911b",
+      "parents": [],
+      "tree_sha": "53ed396cfb39dd7209dfe7187d3996b247eb6ce5",
+      "author_name": "mohammedwessam2007",
+      "author_date": "2026-07-14T22:34:09Z",
+      "committer_name": "GitHub",
+      "committer_date": "2026-07-14T22:34:09Z",
+      "message": "Initial commit",
+      "html_url": "https://github.com/mohammedwessam2007/uberbondd/commit/229c2c85c3c28179ce5bc3c4997f87b3ee67911b"
+    }
+  ]
+}

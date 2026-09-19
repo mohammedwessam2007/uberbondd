@@ -1,0 +1,3549 @@
+{
+  "schema": "uberbond.total-recovery.branch-lineage.v1",
+  "generatedAt": "2026-09-20",
+  "repository": "mohammedwessam2007/uberbondd",
+  "paginationExhausted": true,
+  "counts": {
+    "branches": 884,
+    "pages": 10
+  },
+  "truthBoundary": "Branch names are lineage and donor evidence, not current truth. main remains authoritative unless a branch contribution is reconciled and admitted.",
+  "branches": [
+    {
+      "branch": "agent/argus-relay-integration",
+      "sha": null
+    },
+    {
+      "branch": "agent/claude-uberbond-bridge",
+      "sha": null
+    },
+    {
+      "branch": "agent/cloud-agent-relay",
+      "sha": null
+    },
+    {
+      "branch": "agent/commercial-opportunity-catalog",
+      "sha": null
+    },
+    {
+      "branch": "agent/gpt-autonomous-roundtrip-20260820",
+      "sha": null
+    },
+    {
+      "branch": "agent/hourly-wave-20260820-0308",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-registry-relay",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-admission-kernel",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-authority-transition-ledger",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-authorization-bound-receipts",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-canonical-constitution",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-cedar-policy",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-closure",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-execution-receipts",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-outbound-final-shadow",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-pre-effect-authority-reconciliation",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-proof-store",
+      "sha": null
+    },
+    {
+      "branch": "agent/omnia-v9-receipt-uniqueness",
+      "sha": null
+    },
+    {
+      "branch": "agent/relay-reconciliation-gate-20260820",
+      "sha": null
+    },
+    {
+      "branch": "asi/c13-c21-real-seam-20260911",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-breadth-13-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-breadth-thirteen-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-critical-six-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-critical-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-critical-wave1",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-d1-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi/c21-whole-system-self-improvement-20260911",
+      "sha": null
+    },
+    {
+      "branch": "asi/literal-asi-claim-gate-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi/literal-asi-external-campaign-v1",
+      "sha": null
+    },
+    {
+      "branch": "asi-wormhole-search-v1",
+      "sha": null
+    },
+    {
+      "branch": "astra/adversarial-gap-closure-c26-20260908",
+      "sha": null
+    },
+    {
+      "branch": "astra/terminal-proof-20260909",
+      "sha": null
+    },
+    {
+      "branch": "astra/tp-refresh-20260909",
+      "sha": null
+    },
+    {
+      "branch": "astra/uberos-gen0-sovereign-os-20260915",
+      "sha": null
+    },
+    {
+      "branch": "automation/c21-evidence-revalidation-20260911-1727z",
+      "sha": null
+    },
+    {
+      "branch": "automation/full-commercial-loop",
+      "sha": null
+    },
+    {
+      "branch": "backup/uberbond-checkpoint-20260830",
+      "sha": null
+    },
+    {
+      "branch": "backup/uberbond-main-20260830-final",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-canon",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-everything",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-main",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-master-manifest",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-merge-base",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-pre-tls-merge-main",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-runtime-proof",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-terminal-green",
+      "sha": null
+    },
+    {
+      "branch": "backup/2026-09-12-1633-uberlit-tls",
+      "sha": null
+    },
+    {
+      "branch": "benchmark/c13-invariant-cognition-v1",
+      "sha": null
+    },
+    {
+      "branch": "benchmark/c13-invariant-cognition-v2-exact-main",
+      "sha": null
+    },
+    {
+      "branch": "benchmark/rc1-c13-critical-v1",
+      "sha": null
+    },
+    {
+      "branch": "benchmark-calibrated-ignorance-v1",
+      "sha": null
+    },
+    {
+      "branch": "benchmark-calibrated-ignorance-v2",
+      "sha": null
+    },
+    {
+      "branch": "benchmark-calibrated-ignorance-v3",
+      "sha": null
+    },
+    {
+      "branch": "benchmark-evidence-ledger-v1",
+      "sha": null
+    },
+    {
+      "branch": "c21-evidence-factory-v1",
+      "sha": null
+    },
+    {
+      "branch": "chatgpt/canonical-brain-distribution-os",
+      "sha": null
+    },
+    {
+      "branch": "chatgpt/nightfall-zero-external-io-canary-20260829",
+      "sha": null
+    },
+    {
+      "branch": "chore/final-current-context-checkpoint-20260912",
+      "sha": null
+    },
+    {
+      "branch": "chore/generated-truth-bundle-20260912",
+      "sha": null
+    },
+    {
+      "branch": "chore/generated-truth-refresh-20260912",
+      "sha": null
+    },
+    {
+      "branch": "chore/pr-queue-reconciliation",
+      "sha": null
+    },
+    {
+      "branch": "claude/canon-v3-commercial-activation",
+      "sha": null
+    },
+    {
+      "branch": "claude/final",
+      "sha": null
+    },
+    {
+      "branch": "claude/from-v9-complete-build-2026-08-10",
+      "sha": null
+    },
+    {
+      "branch": "claude/genome-body-import",
+      "sha": null
+    },
+    {
+      "branch": "claude/genome-body-security",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-forecast-adversarial-ensemble",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-forecast-decision-boundary",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-forecast-parent-organ",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-genesis-boundary-experiment",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-genesis-mechanism-compiler",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-pce-decision-loop",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-pce-model-graph",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-pce-possibility",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-pce-private-capture",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-reachability-classification",
+      "sha": null
+    },
+    {
+      "branch": "claude/issue-463-repair-coverage-matrix",
+      "sha": null
+    },
+    {
+      "branch": "claude/next",
+      "sha": null
+    },
+    {
+      "branch": "claude/offline-revenue-factory-v1-s28c75",
+      "sha": null
+    },
+    {
+      "branch": "claude/omnia-v9-closure-verify-1iuar2",
+      "sha": null
+    },
+    {
+      "branch": "claude/sept1",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-bootstrap-archaeology-zmqw8l",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-c01-c06-build-af89s7",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-full-automation-841k2f",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-kilimanjaro-closure-hha0oo",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-kilimanjaro-closure-o43pyu",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-overnight-shift-o73nrs",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-p2-2-setup-c29k84",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-pr4-max-score-2vmv60",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-ragnarok-closure-pek0g6",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-sovereign-build-fyge0k",
+      "sha": null
+    },
+    {
+      "branch": "claude/uberbond-v4-v5-validation-rkabw0",
+      "sha": null
+    },
+    {
+      "branch": "closure/frontier-proof-current-main-20260903",
+      "sha": null
+    },
+    {
+      "branch": "codex/agentmail-clean-room-adapter-20260918",
+      "sha": null
+    },
+    {
+      "branch": "codex/ai-access-credits-20260821",
+      "sha": null
+    },
+    {
+      "branch": "codex/cold-email-sender-readiness-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/deployment-receipt-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/final-four-offer-campaign-20260917-v2",
+      "sha": null
+    },
+    {
+      "branch": "codex/final-four-offer-campaign-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/final-render-health-receipt-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/leadgen-live-surface-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/omega-independent-review-20260821",
+      "sha": null
+    },
+    {
+      "branch": "codex/outreach-native-lead-ops-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/outreach-readiness-receipt-refresh-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/outreach-receipt-final-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/postal-authoritative-live-bridge-20260919",
+      "sha": null
+    },
+    {
+      "branch": "codex/postdeploy-receipt-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/public-intake-validation-20260918",
+      "sha": null
+    },
+    {
+      "branch": "codex/render-deploy-receipt-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/ubercel-health-receipt-20260917",
+      "sha": null
+    },
+    {
+      "branch": "codex/uberdoso-bootstrap-nodejs-fix-20260919",
+      "sha": null
+    },
+    {
+      "branch": "codex/uberdoso-host-bootstrap-20260919",
+      "sha": null
+    },
+    {
+      "branch": "codex/uberdoso-one-command-first-boot-20260919",
+      "sha": null
+    },
+    {
+      "branch": "codex/uberdoso-onepaste-bootstrap-20260919",
+      "sha": null
+    },
+    {
+      "branch": "codex/uberdoso-runtime-digests-20260919",
+      "sha": null
+    },
+    {
+      "branch": "codex/uberlit-build-fix-20260917",
+      "sha": null
+    },
+    {
+      "branch": "docs/apotheosis-continuation-20260915",
+      "sha": null
+    },
+    {
+      "branch": "docs/apotheosis-gate4-handoff-20260915",
+      "sha": null
+    },
+    {
+      "branch": "docs/astra-orchestration-checkpoints-20260912",
+      "sha": null
+    },
+    {
+      "branch": "docs/current-wormhole-20260913",
+      "sha": null
+    },
+    {
+      "branch": "docs/personal-civilization-north-star-20260907",
+      "sha": null
+    },
+    {
+      "branch": "docs/reconcile-existing-assets-20260913",
+      "sha": null
+    },
+    {
+      "branch": "docs/sovereign-cognitive-continuum-north-star-20260907",
+      "sha": null
+    },
+    {
+      "branch": "docs/sovereign-total-north-star-20260907",
+      "sha": null
+    },
+    {
+      "branch": "docs/wormhole-after-777-20260912",
+      "sha": null
+    },
+    {
+      "branch": "docs/wormhole-shared-context-20260912",
+      "sha": null
+    },
+    {
+      "branch": "eval/c408-private-verification-20260912",
+      "sha": null
+    },
+    {
+      "branch": "eval/private-terminal-cell-20260912",
+      "sha": null
+    },
+    {
+      "branch": "evidence/c13-autonomous-recovery-e0e5",
+      "sha": null
+    },
+    {
+      "branch": "evidence/c21-2864ad1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "evidence/c21-status-refresh-20260911",
+      "sha": null
+    },
+    {
+      "branch": "evidence/deployment-cutover-20260913",
+      "sha": null
+    },
+    {
+      "branch": "evidence/gate4-b47-exact",
+      "sha": null
+    },
+    {
+      "branch": "evidence/observed-2",
+      "sha": null
+    },
+    {
+      "branch": "evidence/rc1",
+      "sha": null
+    },
+    {
+      "branch": "evidence/security-runtime-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/absolute-sensorium-ceiling",
+      "sha": null
+    },
+    {
+      "branch": "feat/adaptive-source-ceiling-governor",
+      "sha": null
+    },
+    {
+      "branch": "feat/agent-native-revenue-desk",
+      "sha": null
+    },
+    {
+      "branch": "feat/ai-creator-revenue-cell",
+      "sha": null
+    },
+    {
+      "branch": "feat/apollo-one-button-fusion",
+      "sha": null
+    },
+    {
+      "branch": "feat/apotheosis-final-source-closure-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/apotheosis-native-activation-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/apotheosis-runtime-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/apotheosis-runtime-wave1-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/auto-materialize-money-routes",
+      "sha": null
+    },
+    {
+      "branch": "feat/autonomic-circulation-spine-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/c21-raw-packet-current-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/c21-raw-receipt-producer",
+      "sha": null
+    },
+    {
+      "branch": "feat/capability-genome-money-world-harvest",
+      "sha": null
+    },
+    {
+      "branch": "feat/capability-reality-receipt-loader-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/capability-truth-convergence-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/cloudflare-free-mission-clock-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/command-center-big-button",
+      "sha": null
+    },
+    {
+      "branch": "feat/contabo-mail-cell-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/contabo-preflight-operator-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-active-layered-journal-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-cognitive-journal-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-founder-dialogue-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-internal-closure-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-journal-segments-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-mount-founder-runtime-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-mount-recovery-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-operational-closure-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-privacy-suppression-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-query-cli-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-query-v2-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-replication-bundle-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-service-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-sovereignty-fabric-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-terminal-closure-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/context-worker-projection-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-inevitability-layer",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-inevitability-layer-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-11-nines",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-autoprep",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-control-loop",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-diversified-autoprep",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-expansion-planner",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-preparation-memory",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-reliability-truth-hardening",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-route-calibration",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-saturation-self-repair",
+      "sha": null
+    },
+    {
+      "branch": "feat/economic-saturation-self-repair-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/eight-hour-economic-overdetermination",
+      "sha": null
+    },
+    {
+      "branch": "feat/eight-hour-economic-overdetermination-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/eight-hour-economic-overdetermination-current3",
+      "sha": null
+    },
+    {
+      "branch": "feat/eight-hour-economic-overdetermination-v2",
+      "sha": null
+    },
+    {
+      "branch": "feat/eight-hour-wealth-universe-simulator",
+      "sha": null
+    },
+    {
+      "branch": "feat/external-capability-reality-admission-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/founder-big-button-outreach",
+      "sha": null
+    },
+    {
+      "branch": "feat/founder-press-now-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/free-event-runtime-mesh-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/free-event-runtime-mesh-current-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/free-runtime-mesh-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/free-runtime-mesh-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/free-runtime-mesh-current2",
+      "sha": null
+    },
+    {
+      "branch": "feat/frontier-assimilation-autopilot",
+      "sha": null
+    },
+    {
+      "branch": "feat/frontier-capability-fusion",
+      "sha": null
+    },
+    {
+      "branch": "feat/frontier-depth-closure-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/harness-assurance-v3",
+      "sha": null
+    },
+    {
+      "branch": "feat/inevitability-v9-lossless-carrier",
+      "sha": null
+    },
+    {
+      "branch": "feat/inevitability-v9-lossless-carrier-v2",
+      "sha": null
+    },
+    {
+      "branch": "feat/inevitability-v9-lossless-carrier-v3",
+      "sha": null
+    },
+    {
+      "branch": "feat/million-repo-neural-continuum",
+      "sha": null
+    },
+    {
+      "branch": "feat/model-provider-reality-cut-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/money-machine-autonomous-closure",
+      "sha": null
+    },
+    {
+      "branch": "feat/native-live-research-security-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/neural-exocortex-million-genome",
+      "sha": null
+    },
+    {
+      "branch": "feat/north-star-initiative-runtime-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/north-star-ubercel-consequence-bridge-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/omnia-v7-internal-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/one-button-outreach-activation-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/one-button-runtime-evidence-fusion",
+      "sha": null
+    },
+    {
+      "branch": "feat/one-button-sovereign-launch",
+      "sha": null
+    },
+    {
+      "branch": "feat/one-command-money-activation",
+      "sha": null
+    },
+    {
+      "branch": "feat/one-second-wealth-heartbeat",
+      "sha": null
+    },
+    {
+      "branch": "feat/outreach-100k-certified-current-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/outreach-100k-certified-launch-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/outreach-100k-monthly-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/outreach-100k-runtime-wiring-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/outreach-launch-closure",
+      "sha": null
+    },
+    {
+      "branch": "feat/outreach-reality-doctor-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/per-minute-wealth-heartbeat",
+      "sha": null
+    },
+    {
+      "branch": "feat/personal-civilization-kernel",
+      "sha": null
+    },
+    {
+      "branch": "feat/public-intelligence-harvester",
+      "sha": null
+    },
+    {
+      "branch": "feat/remaining-cut-evidence-admission-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/remaining-cut-evidence-admission-v2-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/resurrect-supporting-organs-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/revenue-method-exchange",
+      "sha": null
+    },
+    {
+      "branch": "feat/runtime-bootstrap",
+      "sha": null
+    },
+    {
+      "branch": "feat/runtime-host-reality-cuts-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/runtime-reality-ingestion-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/runtime-reality-ingestion-current-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/runtime-smoke-current2",
+      "sha": null
+    },
+    {
+      "branch": "feat/security-runtime-reality-admission-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-24x7-smoke-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-24x7-smoke-acceptance",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-24x7-smoke-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-continuum-frontier-loop",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-forever-mission-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-harness-hardening-v2",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-heart-current-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-heart-final-20260914",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-institutional-harness-astra-donor",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-money-machine-proof-gate",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-revenue-runtime-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-self-beating-heart",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-wealth-runtime-liveness",
+      "sha": null
+    },
+    {
+      "branch": "feat/sovereign-wealth-runtime-liveness-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/ten-second-wealth-heartbeat",
+      "sha": null
+    },
+    {
+      "branch": "feat/terminal-convergence-engine-20260912-v2",
+      "sha": null
+    },
+    {
+      "branch": "feat/terminal-convergence-engine-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/tier2-early-exit-current-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/tier2-search-policy-current-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uber-every-remaining-outreach-blocker-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/uber-orchestration-control-plane-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/uber-orchestration-singularity-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/uber-sovereign-substrate-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberbox-one-shot-bootstrap",
+      "sha": null
+    },
+    {
+      "branch": "feat/ubercel-economic-acceptance",
+      "sha": null
+    },
+    {
+      "branch": "feat/ubercel-live-actuator-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/ubercel-signed-release-runtime-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/ubercel-uberlit-linux-cell-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdns-godaddy-adapter-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-cell-acquisition-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-cell-preflight-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-cloud-init-handoff-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-contabo-preflight-operator-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-current-main-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-rebased2-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-rebased-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberdoso-sovereign-mail-20260913",
+      "sha": null
+    },
+    {
+      "branch": "feat/ubergenesis-future-foundry-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-resident-open-model-v1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-resident-worker-v1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-runtime-acceptance",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-runtime-doctor",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-runtime-doctor-current",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-runtime-doctor-current2",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-runtime-evidence-v1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-runtime-evidence-v2-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-sovereign-runtime-v1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberlit-tls-edge-v1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberocean-compute-fabric-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberreach-industrial-mesh",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberreach-objective-substitution-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberreach-objective-substitution-current-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberreach-scale-frontier",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberreply-four-offer-genome-20260915",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberskills-capability-fabric-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/uberstatic-v1-20260912",
+      "sha": null
+    },
+    {
+      "branch": "feat/ultimate-sovereign-closure-20260911",
+      "sha": null
+    },
+    {
+      "branch": "feat/unattended-relay-worker",
+      "sha": null
+    },
+    {
+      "branch": "feat/universal-context-os",
+      "sha": null
+    },
+    {
+      "branch": "feat/universal-wealth-engine",
+      "sha": null
+    },
+    {
+      "branch": "feat/zero-barrier-outreach-current-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feat/zero-barrier-outreach-fabric-20260916",
+      "sha": null
+    },
+    {
+      "branch": "feature/claude-cowork-live-jev-activation-20260919",
+      "sha": null
+    },
+    {
+      "branch": "feature/jev-noetic-autocompiler-20260919",
+      "sha": null
+    },
+    {
+      "branch": "feature/oracle-free-uberlit-arm64-jev-20260919",
+      "sha": null
+    },
+    {
+      "branch": "feature/uberlit-jev-sovereign-activation-20260919",
+      "sha": null
+    },
+    {
+      "branch": "fix/brain-source-root-identity-20260913",
+      "sha": null
+    },
+    {
+      "branch": "fix/c21-bind-real-head",
+      "sha": null
+    },
+    {
+      "branch": "fix/c21-bind-real-head-v2",
+      "sha": null
+    },
+    {
+      "branch": "fix/c21-reachability-closure-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/command-center-dynamic-node-count-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/command-center-runner-fallback-20260915",
+      "sha": null
+    },
+    {
+      "branch": "fix/connect-zero-effect-planning-organs-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/context-fabric-cognitive-bus-unification-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/context-fabric-terminal-overlay-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/coverage-reference-unknowns-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/coverage-short-reference-surfaces-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/current-system-state-c458-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/current-truth-reachability-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/embedded-postgres-libpq-soname-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/embedded-postgres-symlink-self-hydration-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/founder-absence-canonical-evidence-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/founder-outcome-handler-coverage-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/founder-outcome-handler-coverage-v2-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/lite-postgres-hydration-order-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/lite-postgres-hydration-order-current-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/million-branch-compat-current-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/payment-webhook-recovery-20260824",
+      "sha": null
+    },
+    {
+      "branch": "fix/paypal-live-provider-config-20260913",
+      "sha": null
+    },
+    {
+      "branch": "fix/postgres-restore-receipt-environment-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/private-asi-revenue-mission-pointer-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/reachability-lineage-reconciliation-20260916-copy",
+      "sha": null
+    },
+    {
+      "branch": "fix/reachability-lineage-reconciliation-20260916",
+      "sha": null
+    },
+    {
+      "branch": "fix/reachability-lineage-reconciliation-final-20260916",
+      "sha": null
+    },
+    {
+      "branch": "fix/reality-bridge-whitespace-proof-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/regression-contract-cleanup-20260915",
+      "sha": null
+    },
+    {
+      "branch": "fix/semantic-denominator-domains-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/semantic-denominator-types-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/semantic-recovery-evidence-20260913",
+      "sha": null
+    },
+    {
+      "branch": "fix/semantic-supplier-life-gates-20260911",
+      "sha": null
+    },
+    {
+      "branch": "fix/source-ceiling-24-7-contract-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/source-ceiling-24-7-contract-current-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/sovereign-founder-bootstrap-installer-contract",
+      "sha": null
+    },
+    {
+      "branch": "fix/sovereign-privacy-firewall",
+      "sha": null
+    },
+    {
+      "branch": "fix/sovereign-registry-runtime-evidence-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/terminal-reachability-asi-evidence-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/total-commercial-genome-coverage-20260913",
+      "sha": null
+    },
+    {
+      "branch": "fix/total-commercial-genome-current-main-20260913",
+      "sha": null
+    },
+    {
+      "branch": "fix/uber-sovereign-stack-count-20260915",
+      "sha": null
+    },
+    {
+      "branch": "fix/ubercloud-failure-domain-attestation-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/uberlit-self-contained-runtime-evidence-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/uberlit-worker-release-source-20260915",
+      "sha": null
+    },
+    {
+      "branch": "fix/uberprospect-canonical-offer-ids-20260916",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-mutation-postgres-exec-20260907",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-postgres-child-uid-20260907-trigger",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-postgres-child-uid-20260907",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-postgres-consumer-boundary-20260907",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-postgres-locale-20260912",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-postgres-noexec-mirror-20260907",
+      "sha": null
+    },
+    {
+      "branch": "fix/vercel-postgres-uid-traversal-20260907",
+      "sha": null
+    },
+    {
+      "branch": "fix-evidence-identity-fields",
+      "sha": null
+    },
+    {
+      "branch": "fix-million-branch-compat",
+      "sha": null
+    },
+    {
+      "branch": "gpt/admin-ephemeral-core-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/aggressive-self-improvement-100-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/always-allow-model-failover-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/automation-capability-acquisition-loop-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/autonomous-proposal-generation-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/autonomy-ops-hardening-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/autonomy-ops-hardening-final-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/autonomy-ops-hardening-squashed-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/autonomy-paged-snapshot-history-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/autonomy-reliability-wave-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/avengers-arsenal-runtime-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/avengers-current-main-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/avengers-current-main-executable-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/avengers-current-main-runtime-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/avengers-lite-verifier-2-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/avengers-verifier-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/canon-freshness-repair-20260827",
+      "sha": null
+    },
+    {
+      "branch": "gpt/canonical-effect-ledger-bridge-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/capability-genome-body-import-v1-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/capability-genome-skill-body-import-v1-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/capability-genome-world-harvest-v1-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/causal-attribution-spine-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/ci-postgres-proof-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/closure-checkpoint-1810-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/cloud-cache-ephemeral-fabric-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/command-center-2-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/cost-stage-fulfill-learn-spine-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/durable-mesh-cycle-receipts-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/effect-ledger-hardening-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/enrichment-cost-tier-composer-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/enterprise-orchestrator-sender-mesh-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/event-horizon-economic-genome-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/event-horizon-readiness-canon-20260901",
+      "sha": null
+    },
+    {
+      "branch": "gpt/evidence-model-routing-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/evidence-model-routing-main-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/exact-c708-macos-verifier",
+      "sha": null
+    },
+    {
+      "branch": "gpt/exact-c708-verifier-20260907",
+      "sha": null
+    },
+    {
+      "branch": "gpt/executable-brain-distribution-control-plane-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/fable-orchestrator-assimilation-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/final-agent-evolution-entrypoint-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/final-handoff-distribution-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/final-integration-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/final-local-closure-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/first-money-partner-canary-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/fix-payment-truth-store-envelope",
+      "sha": null
+    },
+    {
+      "branch": "gpt/founder-absence-duration-proof-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/free-first-outreach-proof-20260901",
+      "sha": null
+    },
+    {
+      "branch": "gpt/free-first-outreach-router-20260901",
+      "sha": null
+    },
+    {
+      "branch": "gpt/frontier-cognitive-fabric-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/frontier-council-max-clean-closure-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/fulfillment-retention-kernel-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/fulfillment-time-truth-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/fulfillment-truth-kernel-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/full-ai-capability-pack-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/gamechanger-all-ideas-current-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/gamechanger-all-ideas-integration-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/gamechanger-integration-bridge-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/genesis-clean-reconcile-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/genesis-evolution-engine-20260903",
+      "sha": null
+    },
+    {
+      "branch": "gpt/genesis-mechanism-assimilation-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/growth-graph-frontier-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/growth-graph-handoff-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/handoff-autonomy-ops-hardening-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/handoff-cost-stage-fulfill-learn-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/handoff-nightfall-max-live-state-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/handoff-paid-enrichment-admission-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/handoff-role-bound-production-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/handoff-role-gate-merged-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/inbound-feedback-reconcile-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/kilimanjaro-ai-automation-bundle-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/kilimanjaro-commercial-evidence-closure-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/lead-contact-integrity-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/load-bearing-model-routing-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/monotonic-constraint-inheritance-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/mutation-payment-witness-integrity-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nervous-system-integration-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/night409-command-center-hostile-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/night409-hostile-repair-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-cloud-organism-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-cloud-organism-current-main-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-direct-relay-admission-d3a0b73-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-direct-relay-admission-main-8aa0e5f-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-direct-relay-admission-main-704913-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-direct-relay-role-admission-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-direct-relay-role-admission-current-main-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-max-go-live-prompts-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-partner-distribution-activation-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-pr188-current-main-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-preserve-role-cloud-relay-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-relay-admission-e3c2f666-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-role-bound-ai-employees-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-role-bound-ai-employees-current-main-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-role-bound-origin-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-role-gated-worker-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-sol-research-singularity-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-terminal-role-identity-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/nightfall-trinity-coordination-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/operator-escalation-kernel-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/operator-escalation-rebased-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/orchestration-no-evaporation-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/partner-distribution-reconcile-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-doctor-provider-neutral-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-operator-attention-20260830",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-provider-dispatch-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-reconciliation-leases-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-reconciliation-leases-main-refresh-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-renewal-truth-boundary",
+      "sha": null
+    },
+    {
+      "branch": "gpt/payment-witness-binding-summit-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/paypal-lite-verifier-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/paypal-lite-verifier-pr-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/paypal-live-truth-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/perpetual-frontier-genesis-20260903",
+      "sha": null
+    },
+    {
+      "branch": "gpt/personal-civilization-kernel-20260907",
+      "sha": null
+    },
+    {
+      "branch": "gpt/post-169-canon-reachability-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/post-merge-continuity-handoff-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/pr40-worker-scope-hardening-20260821",
+      "sha": null
+    },
+    {
+      "branch": "gpt/pr388-readiness-artifact-runner-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/pr388-readiness-artifact-runner-pr-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/pr388-readiness-artifact-runner-trigger-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/pr388-readiness-preview-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/preactivation-evidence-sovereignty-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/privacy-fulfillment-intake-secrets-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/prospect-evidence-reconciliation-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/provider-payment-identity-20260830",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reachability-count-refresh-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reachability-diagnostic-20260903",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reality-outreach-activation-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/receipt-derived-founder-absence-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reconcile-93-onto-92-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reconcile-live-vercel-truth-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reconcile-reachability-triage-107",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-payment-completion-aware-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-payment-current-main-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-payment-main-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-payment-object-state-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-payment-partial-webhook-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-payment-webhook-resume-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-race-outbound-reservation-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-race-reconciled-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-reconcile-117-current",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-report-email-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-report-email-black-sky-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-report-email-current-main-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-report-email-current-main-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-report-email-main-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-report-email-post-acceptance-crash-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-same-occurrence-abandonment-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-same-occurrence-abandonment-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-same-occurrence-current-main-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-same-occurrence-main-20260825",
+      "sha": null
+    },
+    {
+      "branch": "gpt/recovery-webhook-early-dedupe-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/relay-result-auth-20260821",
+      "sha": null
+    },
+    {
+      "branch": "gpt/repository-brain-reconcile-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/reversal-witness-symmetry-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/runtime-resilience-storage-payment-20260829",
+      "sha": null
+    },
+    {
+      "branch": "gpt/scheduled-occurrence-identity-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/scheduler-fairness-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/security-outreach-provider-minimization-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/security-provider-payload-minimization-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/security-provider-payload-minimization-main-20260823",
+      "sha": null
+    },
+    {
+      "branch": "gpt/security-sovereignty-fulfillment-black-sky-20260824",
+      "sha": null
+    },
+    {
+      "branch": "gpt/shared-verification-unblock-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/strict-worker-result-terminal-truth-20260822",
+      "sha": null
+    },
+    {
+      "branch": "gpt/terminal-furnace-c708",
+      "sha": null
+    },
+    {
+      "branch": "gpt/terminal-furnace-exact-c708",
+      "sha": null
+    },
+    {
+      "branch": "gpt/today-closure-memory-refresh-20260904",
+      "sha": null
+    },
+    {
+      "branch": "gpt/trinity-canonical-ai-employee-prompts-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-battery-ignition-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-brain-distribution-os-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-brain-handoff-freshness-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-brain-v2-lineage-correction-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-continuation-20260830",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-repository-brain-v2-20260828",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-self-maintainer-20260905",
+      "sha": null
+    },
+    {
+      "branch": "gpt/uberbond-total-brain-20260903",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wallbreaker-continuity-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wallbreaker-genome-integration-20260831-copy",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wallbreaker-genome-integration-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wallbreaker-genome-verification-marker-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wallbreaker-kernel-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wallbreaker-verified-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wessam-lifetime-context-clean-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/wessam-lifetime-context-foundation-20260906",
+      "sha": null
+    },
+    {
+      "branch": "gpt/world-brain-field-mission-20260901",
+      "sha": null
+    },
+    {
+      "branch": "gpt/world-capability-genome-continuity-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt/world-capability-genome-foundation-20260831",
+      "sha": null
+    },
+    {
+      "branch": "gpt-work/459-reuse-compression-20260907",
+      "sha": null
+    },
+    {
+      "branch": "handoff/uberbond-full-progress-20260903-1352",
+      "sha": null
+    },
+    {
+      "branch": "historical/genesis-342-pre-reconcile-20260904",
+      "sha": null
+    },
+    {
+      "branch": "historical/night-runtime-donor-20260904",
+      "sha": null
+    },
+    {
+      "branch": "historical/night-verification-donor-20260904",
+      "sha": null
+    },
+    {
+      "branch": "impl/terminal-realization-20260909",
+      "sha": null
+    },
+    {
+      "branch": "integration/nightfall-hardening-20260829",
+      "sha": null
+    },
+    {
+      "branch": "intellectuality-renaissance",
+      "sha": null
+    },
+    {
+      "branch": "intellectuality-renaissance-deploy",
+      "sha": null
+    },
+    {
+      "branch": "launch/uberos-final-20260915",
+      "sha": null
+    },
+    {
+      "branch": "main",
+      "sha": null
+    },
+    {
+      "branch": "memory/uberbond-owner-goals-20260902",
+      "sha": null
+    },
+    {
+      "branch": "million-wormhole-tier2-v1",
+      "sha": null
+    },
+    {
+      "branch": "million-wormhole-tier2-v2",
+      "sha": null
+    },
+    {
+      "branch": "million-wormhole-v1",
+      "sha": null
+    },
+    {
+      "branch": "night/life-change-8h-20260907",
+      "sha": null
+    },
+    {
+      "branch": "night-shift/dry-run-safe",
+      "sha": null
+    },
+    {
+      "branch": "nightfall/artifact-storage-boundary-20260829",
+      "sha": null
+    },
+    {
+      "branch": "nightfall/final-reconcile-20260830",
+      "sha": null
+    },
+    {
+      "branch": "nightfall/overpass-resilience-20260829-v1",
+      "sha": null
+    },
+    {
+      "branch": "nightfall/vercel-default-export-hotfix-20260830",
+      "sha": null
+    },
+    {
+      "branch": "nightfall/vercel-live-scope-correction-20260830",
+      "sha": null
+    },
+    {
+      "branch": "noop",
+      "sha": null
+    },
+    {
+      "branch": "noop2",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-checkpoint-20260907b",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-checkpoint-20260907c",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-checkpoint-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-checkpoint-final-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-checkpoint-live-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-paypal-spine-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/cash-first-total-readiness-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/full-system-total-readiness-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/full-system-total-readiness-v2-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/full-system-total-readiness-v3-20260907",
+      "sha": null
+    },
+    {
+      "branch": "omega/night-convergence-20260907",
+      "sha": null
+    },
+    {
+      "branch": "ops/production-activation-20260907",
+      "sha": null
+    },
+    {
+      "branch": "overnight/first-payment-revenue-os",
+      "sha": null
+    },
+    {
+      "branch": "overnight/market-capability-upgrade-20260825",
+      "sha": null
+    },
+    {
+      "branch": "p2/stale-recovery-ci",
+      "sha": null
+    },
+    {
+      "branch": "p2.1/autonomous-reply-sync",
+      "sha": null
+    },
+    {
+      "branch": "portable/backend-pr458",
+      "sha": null
+    },
+    {
+      "branch": "product/omnia-v9-external-effect-recovery",
+      "sha": null
+    },
+    {
+      "branch": "product/omnia-v9-gmail-preflight",
+      "sha": null
+    },
+    {
+      "branch": "product/omnia-v9-real-integration",
+      "sha": null
+    },
+    {
+      "branch": "product/omnia-v9-reality-shadow",
+      "sha": null
+    },
+    {
+      "branch": "product/omnia-v9-zero-consequence-canary",
+      "sha": null
+    },
+    {
+      "branch": "provider-callability-canary-v1",
+      "sha": null
+    },
+    {
+      "branch": "provider-callability-runtime-canary",
+      "sha": null
+    },
+    {
+      "branch": "reality/admit-live-public-research-20260913",
+      "sha": null
+    },
+    {
+      "branch": "reality/admit-messaging-proof-20260913",
+      "sha": null
+    },
+    {
+      "branch": "reality/admit-owned-security-runtime-20260913",
+      "sha": null
+    },
+    {
+      "branch": "recovery/total-uberbond-corpus-20260920",
+      "sha": null
+    },
+    {
+      "branch": "semantic/no-model-evidence-binding",
+      "sha": null
+    },
+    {
+      "branch": "semantic/short-parented-field-coverage",
+      "sha": null
+    },
+    {
+      "branch": "setup/fable-fraction-v4",
+      "sha": null
+    },
+    {
+      "branch": "sol/ai-gateway-cache-evidence-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/air-fabric-continuity-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/air-model-gateway-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/air-node-tailnet-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/authoring-source-custody-git-identity-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/auto05-missing-capability-build-path-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/autonomy-cockpit-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/autonomy-command-center-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/autonomy-wake-truth-first-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/bootstrap-autonomy-command-center-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/browser-runtime-pool-20260829",
+      "sha": null
+    },
+    {
+      "branch": "sol/c03-bounded-experiment-feasibility-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c03-causal-identity-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c03-experiment-feasibility-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c03-transfer-evaluation-governor-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c03-transfer-voi-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c04-goal-bottleneck-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c06-durable-scheduler-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-alias-denominator-conservation-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-coverage-content-binding-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-denominator-conservation-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-evidence-reference-integrity-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-lite-truth-tribunal-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-recompute-leaf-digests-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-semantic-reference-digest-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-c12-vercel-diagnostic-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-coverage-generator-integrity-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-coverage-state-evidence-integrity-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-current-reality-freeze-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-founder-reachability-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-governance-organ-reachability-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-governance-reachability-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-reachability-conservation-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-root-build-firstcash-schema-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-test-helper-evidence-class-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11-truth-input-cleanliness-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c11b-truth-regeneration-tribunal-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c12-materialized-zero-orphan-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c12-zero-orphan-leaf-graph-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c13-compound-intelligence-tribunal-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c14-forecast-decision-quality-seal-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c14-private-reality-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c14-private-reality-cycle-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c14-private-reality-cycle-current-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c14-private-reality-cycle-reconciled-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c15-c16-genesis-causal-provenance-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c15-operational-world-resource-admission-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c15-world-resource-fabric-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c15-world-resource-observed-value-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c16-causal-admission-canonical-mutation-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c16-causal-improvement-admission-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c16-model-adaptation-admission-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c16-model-adaptation-lifecycle-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c16-retention-governance-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-c23-runtime-acceptance-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-complete-attestation-followup-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-control-plane-receipt-integrity-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-control-plane-runtime-probe-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-nonminting-runtime-evidence-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-postgres-restore-producer-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-runtime-transition-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-runtime-transition-receipts-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c17-strict-canonical-evidence-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c21-normalized-verifier-independence-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c21-system-level-asi-evidence-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c23-century-continuity-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c25-institutional-financial-sovereignty-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c26-capability-scaled-security-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/c26-recursive-lineage-hardening-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/cash-artery-main-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/chatgpt-project-continuity-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/command-center-control-live-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/command-center-release-runtime-phase-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/communication-center-auto-private-access-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/communication-center-handoff-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/communication-center-one-command-activation-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/composed-effect-marker-current-main-20260909b",
+      "sha": null
+    },
+    {
+      "branch": "sol/composed-effect-marker-exact-current-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/connectome-autopoiesis-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/connectome-handoff-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/constraint-mutation-current-main-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/constraint-mutation-main-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/constraint-mutation-mechanism-receipt-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/coverage-enforcement-test-admission-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/coverage-enforcement-test-admission-v2-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/current-handoff-refresh-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/current-handoff-refresh-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/current-handoff-resident-continuum-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/current-handoff-terminal-closure-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/current-handoff-verification-reconcile-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/current-truth-reconciliation-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/deep-atlas-first-cash-roi-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/delivery-07-silence-semantics-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/delivery-transport-truth-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/deploy06-restart-recovery-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/deploy-01-portable-main-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/durable-scheduler-wake-pulse-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/enforcement-manifest-fail-closed-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/exact-current-terminal-vercel-proof-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/execution-leaf-continuation-state-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/experiment-policy-consolidation-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/finite-denominator-truth-repair-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/first-cash-schema-contract-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/fix-semantic-marker-test-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/founder-console-private-configurator-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/founder-console-private-network-auth-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/founder-intent-autowake-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/founder-life-public-isolation-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/founder-outcome-live-worker-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/founder-private-gateway-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/frontier-convergence-open-model-20260903",
+      "sha": null
+    },
+    {
+      "branch": "sol/frontier-operator-open-model-automation-harvest-20260903",
+      "sha": null
+    },
+    {
+      "branch": "sol/gamechanger-genesis-current-adapter-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/gamechanger-mesh-24x7-20260903",
+      "sha": null
+    },
+    {
+      "branch": "sol/gamechanger-mesh-runtime-v2-20260903",
+      "sha": null
+    },
+    {
+      "branch": "sol/handoff-through-evidence-importer-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/handoff-through-runtime-witness-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/interstellar-wormhole-mechanisms-20260915",
+      "sha": null
+    },
+    {
+      "branch": "sol/ipad-control-surface-20260908-v2",
+      "sha": null
+    },
+    {
+      "branch": "sol/ipad-control-surface-20260908-v3",
+      "sha": null
+    },
+    {
+      "branch": "sol/ipad-control-surface-20260908-v4",
+      "sha": null
+    },
+    {
+      "branch": "sol/ipad-control-surface-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/lawspace-computing-20260915",
+      "sha": null
+    },
+    {
+      "branch": "sol/life-altering-frontier-gap-20260915",
+      "sha": null
+    },
+    {
+      "branch": "sol/life-sensorium-current-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/lite-owner-bearer-ephemeral-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/memory-law-enforcement-identity-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/million-branch-ideation-genome-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/multidimensional-velocity-audit-20260915",
+      "sha": null
+    },
+    {
+      "branch": "sol/night-constraint-mutation-20260907-copy",
+      "sha": null
+    },
+    {
+      "branch": "sol/night-constraint-mutation-20260907",
+      "sha": null
+    },
+    {
+      "branch": "sol/night-constraint-mutation-final",
+      "sha": null
+    },
+    {
+      "branch": "sol/night-constraint-mutation-pr-base-check",
+      "sha": null
+    },
+    {
+      "branch": "sol/night-convergence-runtime-harvest-20260902",
+      "sha": null
+    },
+    {
+      "branch": "sol/offline-local-model-runtime-seed-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/offline-model-pre-realpath-identity-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/omega-evidence-closure-20260915",
+      "sha": null
+    },
+    {
+      "branch": "sol/omega-lawspace-canary-20260915",
+      "sha": null
+    },
+    {
+      "branch": "sol/omega-truth-integration-20260907",
+      "sha": null
+    },
+    {
+      "branch": "sol/oracle-always-free-air-bootstrap-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spinal-cord-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-candidate",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-final",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-final2",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-merge",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-pr",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-ready",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911-submit",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-execution-spine-hardening-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/outcome-spinal-cord-closure-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/partner-public-corroboration-20260829",
+      "sha": null
+    },
+    {
+      "branch": "sol/partner-public-evidence-20260829",
+      "sha": null
+    },
+    {
+      "branch": "sol/pce-private-founder-entry-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/pce-scientific-founder-reachability-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/pce-scientific-reality-loop-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/pce-volitional-integrity-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/portable-backend-cash-stack-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/precustomer-payment-readiness-truth-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/proposal-acceptance-engine-20260902",
+      "sha": null
+    },
+    {
+      "branch": "sol/ragnarok-final-closure-20260902",
+      "sha": null
+    },
+    {
+      "branch": "sol/ragnarok-final-closure-current-main-20260902",
+      "sha": null
+    },
+    {
+      "branch": "sol/reachability-realization-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/reachability-realization-repair-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/real-founder-center-server-backed-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/reconcile-salience-owner-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/reconcile-short-parent-field-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/roi-convergence-main-20260908",
+      "sha": null
+    },
+    {
+      "branch": "sol/salience-non-surfacing-current-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/salience-router-current-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sandwich-autocatalytic-loop-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sandwich-autocatalytic-loop-v2-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sandwich-post-finite-governor-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sandwich-self-completion-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sandwich-topology-admission-gate-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/self-maintainer-verification-monotonicity-20260910-admission",
+      "sha": null
+    },
+    {
+      "branch": "sol/self-maintainer-verification-monotonicity-20260910-pr",
+      "sha": null
+    },
+    {
+      "branch": "sol/self-maintainer-verification-monotonicity-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-concrete-recovery-surfaces-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-enforcement-evidence-bind-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-persist-token-boundary-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-recovery-runtime-evidence-boundary-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-recovery-sql-boundary-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-recovery-surface-current-main-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-sql-transaction-current-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-triad-structural-boundary-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-triad-structural-boundary-current-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-triad-structural-current-20260910b",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-tribunal-diagnostics-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/semantic-tribunal-diagnostics-current-main-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/short-field-parent-coverage-current-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-air-cockpit-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-autonomy-authoring-node-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-autonomy-forge-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-bootstrap-readiness-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-communication-center-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-current-main-transplant-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-evidence-importer-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-expansion-kernel-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-expansion-kernel-current-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-expansion-kernel-current-v2-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-founder-console-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-founder-console-current-main-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-founder-first-boot-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-local-promotion-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-minute-continuum-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-minute-heartbeat-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-minute-heartbeat-v2-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-native-local-worker-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-offline-signer-drop-pipeline-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-release-courier-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-release-evidence-readiness-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-release-handoff-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-root-recovery-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-runtime-rehearsal-witness-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-self-host-terminal-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-single-heartbeat-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/sovereign-single-heartbeat-v2-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/temporal-foundry-future-raid-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/temporal-foundry-handoff-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/terminal-realization-current-main-transplant-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/terminal-semantic-repair-handoff-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/terminal-truth-diagnostics-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/timeline-topology-wormhole-engine-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/tp03-conflict-safe-execution-graph-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/tp03-continuation-digest-reconcile-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/tp05-evidence-bound-continuation-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/ubermesh-owned-cloud-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sol/vercel-postgres-child-identity-current-main-20260909",
+      "sha": null
+    },
+    {
+      "branch": "sol/verified-law-semantic-evidence-binding-20260910",
+      "sha": null
+    },
+    {
+      "branch": "sol/8h-revenue-singularity-20260911",
+      "sha": null
+    },
+    {
+      "branch": "sprint/private-asi-runtime-20260912",
+      "sha": null
+    },
+    {
+      "branch": "system-evidence-campaign-v1",
+      "sha": null
+    },
+    {
+      "branch": "tmp/noop-check",
+      "sha": null
+    },
+    {
+      "branch": "tmp-noop",
+      "sha": null
+    },
+    {
+      "branch": "uberbond/recursive-million-wormhole-explosion",
+      "sha": null
+    },
+    {
+      "branch": "verify/avengers-self-closure-20260904",
+      "sha": null
+    },
+    {
+      "branch": "verify/c708-night10-ubuntu2204",
+      "sha": null
+    },
+    {
+      "branch": "verify/frontier-council-max-8afd6294",
+      "sha": null
+    },
+    {
+      "branch": "verify/full-ai-capability-pack-894174d",
+      "sha": null
+    },
+    {
+      "branch": "verify/genesis-342-exact-34318b25",
+      "sha": null
+    },
+    {
+      "branch": "verify/paypal-core-d523-20260904",
+      "sha": null
+    },
+    {
+      "branch": "verify/personal-civilization-wave1-20260907",
+      "sha": null
+    },
+    {
+      "branch": "verify/sandwich-661-exact-20260910",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c02-closure-orchestration-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c03-transfer-orchestration-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c04-life-options-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c05-final-continuation-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c06-self-hosting-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c07-capability-convergence-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c08-c10-closure-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c11-c20-final-realization-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-c21-asi-north-star-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-orchestrator-current-main-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-swarm-reconciliation-20260908",
+      "sha": null
+    },
+    {
+      "branch": "work/astra-terminal-orchestration-20260912",
+      "sha": null
+    },
+    {
+      "branch": "work/c21-current-evidence-20260912",
+      "sha": null
+    },
+    {
+      "branch": "work/external-evaluator-harness-20260912",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-aggressive",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-auto-08-founder-minute-delete",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-burst",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-deploy-07-exit-drill-proof",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-deploy-runtime-durability",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-deploy-runtime-durability-v2",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-final-sprint",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-queue-drain",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-real-sprint",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-runtime-verification",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-sprint-checkpoint",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-sprint-runtime",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-sprint-truth-reset",
+      "sha": null
+    },
+    {
+      "branch": "work/issue-465-swarm-finish",
+      "sha": null
+    },
+    {
+      "branch": "work/night-capability-frontier-20260907",
+      "sha": null
+    },
+    {
+      "branch": "work/night-frontier-20260903",
+      "sha": null
+    },
+    {
+      "branch": "work/night-genome-20260902",
+      "sha": null
+    },
+    {
+      "branch": "work/night-integration-20260903",
+      "sha": null
+    },
+    {
+      "branch": "work/night-payment-20260902",
+      "sha": null
+    },
+    {
+      "branch": "work/night-payment-distribution-20260903",
+      "sha": null
+    },
+    {
+      "branch": "work/night-postal-20260902",
+      "sha": null
+    },
+    {
+      "branch": "work/night-runtime-20260903",
+      "sha": null
+    },
+    {
+      "branch": "work/night-verification-20260902",
+      "sha": null
+    },
+    {
+      "branch": "work/night-verification-20260903",
+      "sha": null
+    },
+    {
+      "branch": "work/pc-universe-20260912",
+      "sha": null
+    },
+    {
+      "branch": "work/sovereign-continuum-execution-20260907",
+      "sha": null
+    },
+    {
+      "branch": "work/sovereign-graduation-observer-20260910",
+      "sha": null
+    },
+    {
+      "branch": "work/wessam-context-rebase-20260906",
+      "sha": null
+    }
+  ]
+}

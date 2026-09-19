@@ -1,0 +1,66 @@
+{
+  "schema": "uberbond.total-recovery.project-files.v1",
+  "generatedAt": "2026-09-20",
+  "counts": {
+    "files": 7
+  },
+  "truthBoundary": "These are Project-backed files visible to this conversation. They preserve chat/transcript donor evidence outside the Git repository.",
+  "files": [
+    {
+      "file_id": "file_00000000557081f4b46400eb51703504",
+      "name": "Branch · Branch · Branch · Recurring Revenue Hunter.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file0"
+    },
+    {
+      "file_id": "file_000000001ab481f489616db13b1e390c",
+      "name": "Claude Code and ChatGPT.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file1"
+    },
+    {
+      "file_id": "file_00000000dff4820aa2fd0dafb913feee",
+      "name": "Branch · Branch · Branch · Branch · Branch · Recurring Revenue Hunter.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file2"
+    },
+    {
+      "file_id": "file_0000000014fc8246b62cc2544574187d",
+      "name": "UberBond Lead OS MVP.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file3"
+    },
+    {
+      "file_id": "file_00000000d73881f48893d1721326c9cc",
+      "name": "Branch · UberBond Night Shift.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file4"
+    },
+    {
+      "file_id": "file_00000000b2d4824383a68f97845b3845",
+      "name": "Free Outreach Capacity.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file5"
+    },
+    {
+      "file_id": "file_00000000c15481f595daeff043df3562",
+      "name": "Add System Ideas.txt",
+      "mime_type": "text/plain",
+      "source_kind": "project",
+      "uploaded_at": "2026-09-19T21:43:16.574765+00:00",
+      "citation_marker": "fileciteturn229file6"
+    }
+  ]
+}

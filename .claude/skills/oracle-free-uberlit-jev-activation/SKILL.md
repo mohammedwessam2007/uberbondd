@@ -123,7 +123,7 @@ Before a billed provider call, verify whether the account has free/prepaid credi
 
 Then run:
 
-`sudo /opt/uberlit/source/ops/sovereign/complete-live-jev-activation.sh`
+`sudo /opt/uberlit/source/ops/sovereign/complete-live-jev-activation.sh --authorize-max-usd 0.001`
 
 The script must prove:
 - protected TypeSafe key present;

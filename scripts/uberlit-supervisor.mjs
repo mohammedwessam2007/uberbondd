@@ -5,6 +5,7 @@ import path from 'node:path';
 import { spawnSync, execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { pathToFileURL, fileURLToPath } from 'node:url';
+import { resolveEmbeddedPostgresPlatform } from '../src/embedded-postgres-platform.mjs';
 import {
   buildUberLitRelease,
   compileUberLitRelease,
@@ -29,7 +30,7 @@ const manifest=compileUberLitRelease({
   buildArgv:['node','scripts/uberlit-build-uberbond.mjs'],
   startArgv:['node','server.mjs'],
   healthPath:'/api/health',
-  envAllowlist:['ADMIN_TOKEN','APP_BASE_URL','DATABASE_SSL','DATABASE_URL','DISCOVERY_ENABLED','OUTBOUND_ENABLED','STORE_BACKEND','TRUST_PROXY_HOPS'],
+  envAllowlist:['ADMIN_TOKEN','APP_BASE_URL','DATABASE_SSL','DATABASE_URL','DISCOVERY_ENABLED','OUTBOUND_ENABLED','STORE_BACKEND','TRUST_PROXY_HOPS','TYPESAFE_BASE_URL','TYPESAFE_DEFAULT_MODEL','TYPESAFE_JEV_ENABLED','TYPESAFE_INPUT_USD_PER_MILLION','TYPESAFE_OUTPUT_USD_PER_MILLION','TYPESAFE_PRICING_SOURCE','TYPESAFE_PRICING_VERIFIED_AT','TYPESAFE_MAX_COST_USD_PER_CALL'],
   processRole:'web'
 });
 const staged=stageUberLitRelease({rootDir:runtimeRoot,repoDir:repoRoot,manifest});
@@ -55,7 +56,9 @@ const password=loadOrCreateSecret(path.join(secretDir,'postgres.json'),'password
 const persistedAdminToken=loadOrCreateSecret(path.join(secretDir,'admin.json'),'token',32);
 
 const pgRoot=path.join(runtimeRoot,'postgres');const databaseDir=path.join(pgRoot,'data');fs.mkdirSync(databaseDir,{recursive:true,mode:0o700});
-const pgLib=path.join(releaseSource,'node_modules','@embedded-postgres','linux-x64','native','lib');
+const postgresPlatform=resolveEmbeddedPostgresPlatform({cwd:releaseSource});
+if(!postgresPlatform.supported)throw new Error(`uberlit-embedded-postgres-platform-unreviewed:${process.platform}:${process.arch}`);
+const pgLib=postgresPlatform.nativeLibDir;
 process.env.LANG='C';process.env.LC_ALL='C';process.env.LC_CTYPE='C';process.env.LC_MESSAGES='C';process.env.LC_COLLATE='C';
 if(fs.existsSync(pgLib))process.env.LD_LIBRARY_PATH=[pgLib,process.env.LD_LIBRARY_PATH||''].filter(Boolean).join(':');
 const runningAsRoot=typeof process.getuid==='function'&&process.getuid()===0;
@@ -79,7 +82,7 @@ try{
   const migration=spawnSync(process.execPath,['scripts/migrate.mjs'],{cwd:releaseSource,env:runtimeEnv,encoding:'utf8',maxBuffer:16*1024*1024});
   if((migration.status??1)!==0)throw new Error(`uberlit-migration-failed:${String(migration.stderr||migration.stdout||'').slice(0,1000)}`);
   const promoted=await promoteUberLitRelease({rootDir:runtimeRoot,releaseId:manifest.releaseId,port:webPort,env:runtimeEnv,healthTimeoutMs:Number(arg('timeout')||30_000)});webPromoted=true;
-  const receipt={ok:true,status:'UBERLIT_PRODUCTION_RUNTIME_READY',sourceCommit,releaseId:manifest.releaseId,runtimeRoot,webPort,dbPort,storeBackend:'postgres',postgresPersistent:true,adminCredentialPersistent:!process.env.ADMIN_TOKEN,stagedStatus:staged.status,buildReceiptDigest:built.receipt.receiptDigest,health:promoted.health,externalEffectsDisabled:runtimeEnv.OUTBOUND_ENABLED!=='true'&&runtimeEnv.DISCOVERY_ENABLED!=='true',businessEffectAuthority:'LOCAL_RUNTIME_ONLY'};
+  const receipt={ok:true,status:'UBERLIT_PRODUCTION_RUNTIME_READY',sourceCommit,releaseId:manifest.releaseId,runtimeRoot,webPort,dbPort,storeBackend:'postgres',postgresPersistent:true,embeddedPostgresPackage:postgresPlatform.packageName,architecture:process.arch,adminCredentialPersistent:!process.env.ADMIN_TOKEN,stagedStatus:staged.status,buildReceiptDigest:built.receipt.receiptDigest,health:promoted.health,externalEffectsDisabled:runtimeEnv.OUTBOUND_ENABLED!=='true'&&runtimeEnv.DISCOVERY_ENABLED!=='true',businessEffectAuthority:'LOCAL_RUNTIME_ONLY'};
   process.stdout.write(`${JSON.stringify(receipt,null,2)}\n`);
   if(flag('keep-running'))await new Promise(resolve=>{const done=()=>resolve();process.once('SIGTERM',done);process.once('SIGINT',done);});
 }finally{

@@ -1,0 +1,3007 @@
+{
+  "source": "main",
+  "pages": "1-5",
+  "count": 500,
+  "commits": [
+    {
+      "sha": "0e58328778b17dae8a0eaac5c069f87367e1c83e",
+      "date": "2026-09-19T23:04:23Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge final live-head recovery anchor\n\nFinalize recovery-only re-anchor after PR #955. No production/runtime behavior changes."
+    },
+    {
+      "sha": "dff6b22faa5deedcde21d512ebe80adff22a0372",
+      "date": "2026-09-19T23:04:04Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: re-anchor total recovery to merged live head"
+    },
+    {
+      "sha": "107341d0baddc39837290f1f62b4eb9ea1c3dbe0",
+      "date": "2026-09-19T23:02:41Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge total UberBond recovery corpus and lineage\n\nAdmit recovery-only anti-amputation corpus and lineage. No production source/runtime behavior changed."
+    },
+    {
+      "sha": "95d7e2a16eb2446b57d4294a721cdb1a13301d62",
+      "date": "2026-09-19T23:02:24Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 109-113"
+    },
+    {
+      "sha": "8538da1a821a33bc86a71f29476bcb83b6825121",
+      "date": "2026-09-19T23:02:09Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-05"
+    },
+    {
+      "sha": "025d9c13f68d977f06115501679138b05107164a",
+      "date": "2026-09-19T23:02:03Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 100-108"
+    },
+    {
+      "sha": "8663b784f04c00663953160812a5bbf1c63401d5",
+      "date": "2026-09-19T23:01:45Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-06"
+    },
+    {
+      "sha": "0ee5b8c0853b586483a8b70a1831ca4c105b635e",
+      "date": "2026-09-19T23:01:37Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: record terminal exposed-surface closure"
+    },
+    {
+      "sha": "aebd27e67d9e27d769b9a6945b4f3a06f7ea0ce6",
+      "date": "2026-09-19T23:01:30Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 91-99"
+    },
+    {
+      "sha": "247c8e2a326d72ce87dc58f0d184857ff2900700",
+      "date": "2026-09-19T23:01:23Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-07"
+    },
+    {
+      "sha": "8d6d2fbb47ecd48632527007042f115f2b8c447d",
+      "date": "2026-09-19T23:01:08Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-08"
+    },
+    {
+      "sha": "b6e020ee08b00758cde195bac11ce2bdf41bdca6",
+      "date": "2026-09-19T23:00:59Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 82-90"
+    },
+    {
+      "sha": "f5e2b6bc6e494285e8b1110c329d38268550659d",
+      "date": "2026-09-19T23:00:46Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-09"
+    },
+    {
+      "sha": "cdaec5b4a3e08164c37f34a737b8e2f29a31da19",
+      "date": "2026-09-19T23:00:30Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 73-81"
+    },
+    {
+      "sha": "d5c617205f44b96b947406871584a6319d64bead",
+      "date": "2026-09-19T23:00:04Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-10_PM"
+    },
+    {
+      "sha": "13b279705b32a22538d994f2e482c4ddba75dd2e",
+      "date": "2026-09-19T23:00:00Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 64-72"
+    },
+    {
+      "sha": "7255271e77af96c435e93191286d8780720a9438",
+      "date": "2026-09-19T22:59:31Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-10_AM"
+    },
+    {
+      "sha": "decaca9c2118c8566aea46127c1a998ec391f6a9",
+      "date": "2026-09-19T22:59:29Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 55-63"
+    },
+    {
+      "sha": "3c03a1437a43633c4efbb8edb55df6ca2d34a983",
+      "date": "2026-09-19T22:59:20Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve actions runs 00001-00800"
+    },
+    {
+      "sha": "0a6ae1507aec32e3e053329d36c9ffe5d2bcc9b9",
+      "date": "2026-09-19T22:58:58Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 46-54"
+    },
+    {
+      "sha": "35e5e2b5c0d988e2152114710d98f673a734ea91",
+      "date": "2026-09-19T22:58:27Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: close commit PR and issue history denominators"
+    },
+    {
+      "sha": "c7dedeb22b4f2101b0343f5b837f90c360463ca2",
+      "date": "2026-09-19T22:58:14Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 37-45"
+    },
+    {
+      "sha": "c6cfb60de6eea8928c52fbf7dddaf8c1a368f5c7",
+      "date": "2026-09-19T22:58:05Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: add second-pass cross-chat donor lineage"
+    },
+    {
+      "sha": "e0bb0e62dc50b929740f50f83169f6fff37397ac",
+      "date": "2026-09-19T22:58:02Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-11"
+    },
+    {
+      "sha": "61a36d43806f7abb08b5e93224776bda312461c2",
+      "date": "2026-09-19T22:57:42Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 28-36"
+    },
+    {
+      "sha": "53de78ec20adaead477ebc8a40a472b72fe7bcd6",
+      "date": "2026-09-19T22:57:37Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-12"
+    },
+    {
+      "sha": "9a01f940cfd1964ca40981a95fb860366386569f",
+      "date": "2026-09-19T22:57:16Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-13"
+    },
+    {
+      "sha": "b4f2f08461f48434f750ab32bd03565c1da0953a",
+      "date": "2026-09-19T22:57:09Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 19-27"
+    },
+    {
+      "sha": "d2c47aa0988b463cd8998c28db50ef03918c98fe",
+      "date": "2026-09-19T22:56:54Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-14"
+    },
+    {
+      "sha": "570ef2ab0c913b141abb42be9f1c29e120e76290",
+      "date": "2026-09-19T22:56:43Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index remaining issue comments without duplicating sensitive payloads"
+    },
+    {
+      "sha": "4fd5ba05caabdbb7cfd3e651f6a66abcc796bc22",
+      "date": "2026-09-19T22:56:37Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 10-18"
+    },
+    {
+      "sha": "92671b63f8d9d934f173c14d7a0d4315cdd7bc6a",
+      "date": "2026-09-19T22:56:19Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-15"
+    },
+    {
+      "sha": "72e1dd5e4a1763811dde3406dbf355f9a57eac14",
+      "date": "2026-09-19T22:56:05Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 1-9"
+    },
+    {
+      "sha": "a807d61f8232aa56d13570bbd59afec3f2417ff4",
+      "date": "2026-09-19T22:55:50Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-16"
+    },
+    {
+      "sha": "5331e767f53dc29b890e28dfcd2f47f27fd74c99",
+      "date": "2026-09-19T22:55:48Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue comments 1001-1500"
+    },
+    {
+      "sha": "19f8d703c7b2532a34bacfe7a8ad26358e393983",
+      "date": "2026-09-19T22:55:36Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-17"
+    },
+    {
+      "sha": "caff03fece4cd6f5d669553e399e18b2fd1196bc",
+      "date": "2026-09-19T22:55:25Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-18"
+    },
+    {
+      "sha": "42a592927489a899a23883432f65f0b82338ccd2",
+      "date": "2026-09-19T22:55:11Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue comments 0501-1000"
+    },
+    {
+      "sha": "ce35c30e71fd2e5c223a950dcddfb3be6d9507b0",
+      "date": "2026-09-19T22:55:06Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index anchored Actions runs 2026-09-19"
+    },
+    {
+      "sha": "3b4b1f88c8988bf3689cdc4e7afa01b0c7867123",
+      "date": "2026-09-19T22:54:49Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: replace racing Sep 19 Actions manifest"
+    },
+    {
+      "sha": "6600341c658288fdcc7988eb5977659e7b810699",
+      "date": "2026-09-19T22:54:31Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs 2026-09-19"
+    },
+    {
+      "sha": "0899a8fb1e8d2a585bd57d0c8d5f6b2c02e9234e",
+      "date": "2026-09-19T22:54:29Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue comments 0001-0500"
+    },
+    {
+      "sha": "2ace4fe4c8c1adefe9a15ef046150e86a6e616b5",
+      "date": "2026-09-19T22:54:27Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 8"
+    },
+    {
+      "sha": "0ec0bc1b8a797b2f212089dd192078173435dca6",
+      "date": "2026-09-19T22:54:04Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: remove capped empty Actions chunk"
+    },
+    {
+      "sha": "ed37603bf0aaa6f678746803a43e1e0c119321b6",
+      "date": "2026-09-19T22:53:47Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs pages 11-15"
+    },
+    {
+      "sha": "c3c5e5203cdc0226f02125feb3eb111a593ca8cc",
+      "date": "2026-09-19T22:53:35Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs pages 6-10"
+    },
+    {
+      "sha": "762c85dd8c97573ad32b731a291d296ca872713c",
+      "date": "2026-09-19T22:53:33Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 7"
+    },
+    {
+      "sha": "460bfe1939708a3e47de8b4ca50ff47a61d3bc12",
+      "date": "2026-09-19T22:53:29Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 8001-8800"
+    },
+    {
+      "sha": "ed8a4959b16adb16ce98217822afa91d7059443f",
+      "date": "2026-09-19T22:52:55Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: index Actions runs pages 1-5"
+    },
+    {
+      "sha": "43a9c1cf0fcbd49cfeddc0f27db80d81ccf3cdcb",
+      "date": "2026-09-19T22:52:43Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 7201-8000"
+    },
+    {
+      "sha": "8048cb0fdb54dcdfd51296d479e81bbad30c65bb",
+      "date": "2026-09-19T22:52:34Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue history part 2"
+    },
+    {
+      "sha": "b7203aacfdb5d561707bbb7ece12f1d1b1432d7d",
+      "date": "2026-09-19T22:52:22Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 6"
+    },
+    {
+      "sha": "0f7e0185e3f369aa12c40103243cb2beacf43f87",
+      "date": "2026-09-19T22:52:16Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue history part 1"
+    },
+    {
+      "sha": "85526a3468fca78f91a1c92d22a06e53529a71d1",
+      "date": "2026-09-19T22:51:55Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 6401-7200"
+    },
+    {
+      "sha": "d53ead82b3f62a6de7db6f741d58542035da861a",
+      "date": "2026-09-19T22:51:51Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve complete pull request history"
+    },
+    {
+      "sha": "55be3e3b39b3a91b0392ebffa68d60ad1a2cebc3",
+      "date": "2026-09-19T22:51:24Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 5"
+    },
+    {
+      "sha": "c1bff0a8a71e2c4ca3c765d7ed8bc30158116694",
+      "date": "2026-09-19T22:51:23Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit history 4001-4286"
+    },
+    {
+      "sha": "8430de075e26a9d08677a0bf009da11b6488ab1a",
+      "date": "2026-09-19T22:51:09Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 5601-6400"
+    },
+    {
+      "sha": "db8f343f0b4bb84eae98835738cad5dfca5142f9",
+      "date": "2026-09-19T22:51:06Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit history 3201-4000"
+    },
+    {
+      "sha": "ff7f2ba5d7736a59fa210b388b44bddd434e8260",
+      "date": "2026-09-19T22:50:53Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit history 2401-3200"
+    },
+    {
+      "sha": "bd76d1347a22d0bb5192bed44c65c56a756c3626",
+      "date": "2026-09-19T22:50:29Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit history 1601-2400"
+    },
+    {
+      "sha": "79c2a68859d5a6fe9c52ef6af8c66568ad5e6f9c",
+      "date": "2026-09-19T22:50:22Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 4"
+    },
+    {
+      "sha": "050458888b49cb49c81fe31457c7b698de901164",
+      "date": "2026-09-19T22:50:19Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 4801-5600"
+    },
+    {
+      "sha": "d4fccdf979fe7e3c33cce48956efa1c4858f7d8e",
+      "date": "2026-09-19T22:50:16Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit history 0801-1600"
+    },
+    {
+      "sha": "4e25b2fcf94b3abd9202a5d75e97c534899e00ff",
+      "date": "2026-09-19T22:50:00Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit history 0001-0800"
+    },
+    {
+      "sha": "0ff29d14795c29b063eb1dc406c2ab43df09a858",
+      "date": "2026-09-19T22:49:34Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 4001-4800"
+    },
+    {
+      "sha": "23edd1be15e59a9c2d5802d952bf010b7b504460",
+      "date": "2026-09-19T22:49:18Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 3"
+    },
+    {
+      "sha": "e59ab03165637278e078b77e933e0f46920bb0bd",
+      "date": "2026-09-19T22:48:47Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 3201-4000"
+    },
+    {
+      "sha": "1d1d1976f77bc2a65e48d73caf0be8a6124141c4",
+      "date": "2026-09-19T22:47:59Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 2401-3200"
+    },
+    {
+      "sha": "f4eefce20f22e70665d199f30b829a3da332cbfc",
+      "date": "2026-09-19T22:47:43Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 2"
+    },
+    {
+      "sha": "addfa87b8a33a21fb57314d81787066671a529bf",
+      "date": "2026-09-19T22:47:17Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 1601-2400"
+    },
+    {
+      "sha": "51582dba994c9c8d48607b4aae30b5c5b92754ab",
+      "date": "2026-09-19T22:46:32Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 801-1600"
+    },
+    {
+      "sha": "670c3b8b48f2ee4927b5132aa97a74c3d6c5c0f0",
+      "date": "2026-09-19T22:46:24Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions run metadata part 1"
+    },
+    {
+      "sha": "d210451a857df6c13fa97a6c7e3731b4d54b773d",
+      "date": "2026-09-19T22:45:45Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve action runs 1-800"
+    },
+    {
+      "sha": "c48992cd99201e7bcdb81b0351d8083517ccb54d",
+      "date": "2026-09-19T22:44:39Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue lineage pages 6-10"
+    },
+    {
+      "sha": "e0faa5a1df2405b3b0bcc8658bf78b519a440f14",
+      "date": "2026-09-19T22:44:25Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind issue/PR comments part 3"
+    },
+    {
+      "sha": "85f63f4ab8ce60e4d24892288a92de7e52fd9eec",
+      "date": "2026-09-19T22:44:24Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue lineage pages 1-5"
+    },
+    {
+      "sha": "4d6d314350673ece4b566cc8307fb1e03a0217e8",
+      "date": "2026-09-19T22:44:06Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve Actions runs Aug 18-22"
+    },
+    {
+      "sha": "51549d37850d4dab608f96c6073c07d03859415e",
+      "date": "2026-09-19T22:44:05Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind issue/PR comments part 2"
+    },
+    {
+      "sha": "6ec5f7f4e8c975f479a0c70c07ffab4084f07657",
+      "date": "2026-09-19T22:43:39Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-14"
+    },
+    {
+      "sha": "aafdcd65012796419aeea29c0de2bc6e04d1eb5f",
+      "date": "2026-09-19T22:43:33Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind issue/PR comments part 1"
+    },
+    {
+      "sha": "0ab5231ae194075263985f8260988a479c907e02",
+      "date": "2026-09-19T22:43:18Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-13"
+    },
+    {
+      "sha": "5e858b63b2e94f84a6bdc4ee4802c02fbac54de2",
+      "date": "2026-09-19T22:43:16Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve Actions runs Jul 14 through Aug 17"
+    },
+    {
+      "sha": "8fbfd4d4076712cef8744c9fed190187fe79bc8f",
+      "date": "2026-09-19T22:42:56Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-12"
+    },
+    {
+      "sha": "9dec286b2307ca622c525a98ec40069f74473284",
+      "date": "2026-09-19T22:42:49Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 7"
+    },
+    {
+      "sha": "ef3cbf8afbc6916ee290e818d1aa46e9a6db2e27",
+      "date": "2026-09-19T22:42:35Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 6"
+    },
+    {
+      "sha": "406ee93299737b057a79a7ec236dc8e7772cc32c",
+      "date": "2026-09-19T22:42:34Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-11"
+    },
+    {
+      "sha": "e5a77e4d8b671fafd38d51ddf54cb8248a9862f4",
+      "date": "2026-09-19T22:42:14Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 5"
+    },
+    {
+      "sha": "8e209dd1c578b931a0efb52b1b6033ccd8ac1bd3",
+      "date": "2026-09-19T22:42:10Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-10"
+    },
+    {
+      "sha": "f007340c4745c4f55b5ef848dc2acce2de5f9ec1",
+      "date": "2026-09-19T22:41:55Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 4"
+    },
+    {
+      "sha": "f205c88254ce7c1905683f9e408dc80ea2f02d16",
+      "date": "2026-09-19T22:41:36Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 3"
+    },
+    {
+      "sha": "0df56bafdab7cc52a9d95c20b7bdfc541a54bb15",
+      "date": "2026-09-19T22:41:24Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-09"
+    },
+    {
+      "sha": "3d0900627dbd4576acf1a041eb191132a235d246",
+      "date": "2026-09-19T22:41:20Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: remove empty Actions pagination-cap artifact"
+    },
+    {
+      "sha": "ea4651d27d00af31d2590c19e9c679940ff1681b",
+      "date": "2026-09-19T22:41:03Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-08"
+    },
+    {
+      "sha": "68571cf76ef2ab725889973a4c96337e9f0d762b",
+      "date": "2026-09-19T22:41:00Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve workflow runs pages 11-15"
+    },
+    {
+      "sha": "49ede599bd5c62a4b90250c7e1dbc575205b7ef2",
+      "date": "2026-09-19T22:40:41Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 2"
+    },
+    {
+      "sha": "e75f5d07e7e7e226c3d6d56a54169f86996a5c79",
+      "date": "2026-09-19T22:40:34Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-07"
+    },
+    {
+      "sha": "d99fefa636ba4ce087e1a7f8b6f1d8704a7b1592",
+      "date": "2026-09-19T22:40:22Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve workflow runs pages 6-10"
+    },
+    {
+      "sha": "0da6d3108f198c9f92cd39c3c2b0b4a7b4db3a08",
+      "date": "2026-09-19T22:40:17Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit lineage part 1"
+    },
+    {
+      "sha": "ac10753a5926265ad4fbdf88fa4d92f4cc293bcf",
+      "date": "2026-09-19T22:40:15Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-06"
+    },
+    {
+      "sha": "c8b5bfe1b99dc5197ac65ff9603dfdd364bc21aa",
+      "date": "2026-09-19T22:39:57Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-05"
+    },
+    {
+      "sha": "6aa031ed687a2728fdf0efe2ddde2a406a1a62dd",
+      "date": "2026-09-19T22:39:48Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve workflow runs pages 1-5"
+    },
+    {
+      "sha": "396d6759b8f1f9b5f9c1dd03dfcf41ed862cbace",
+      "date": "2026-09-19T22:39:46Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind issue lineage part 2"
+    },
+    {
+      "sha": "d2043f960cb792872de9a5f3b5c65c92559e7fac",
+      "date": "2026-09-19T22:39:37Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-04"
+    },
+    {
+      "sha": "aaa91cfc09b3d918a82ede31f2aa79af18bb1f7c",
+      "date": "2026-09-19T22:39:29Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind issue lineage part 1"
+    },
+    {
+      "sha": "012b9b2ffbd8a8b001bf92352cb618eeb564bdf6",
+      "date": "2026-09-19T22:39:16Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-09-01 through 2026-09-03"
+    },
+    {
+      "sha": "135acf5de676ad8a72e1b024f15929ad81004aba",
+      "date": "2026-09-19T22:38:30Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-08-25 through 2026-08-31"
+    },
+    {
+      "sha": "c20015cd17f5fd2667773b1c4d9ba485d559009e",
+      "date": "2026-09-19T22:38:10Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 2026-08-18 through 2026-08-24"
+    },
+    {
+      "sha": "1149d433d587c2cdc5cde5a23044572aa2153112",
+      "date": "2026-09-19T22:37:49Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs through 2026-08-17"
+    },
+    {
+      "sha": "f42a47490ea28a9e690c6a2c54ba584edf5f5cb8",
+      "date": "2026-09-19T22:37:06Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: remove empty filtered-actions tranche"
+    },
+    {
+      "sha": "e57001178bf3c4d1fcf82fc227aae4c3015ef81d",
+      "date": "2026-09-19T22:36:46Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve final issue and PR comments pages 19-20"
+    },
+    {
+      "sha": "52610cfb5a6937ff1b8778c5b5f9f005b5800aed",
+      "date": "2026-09-19T22:36:44Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind frozen action runs 1001-2000"
+    },
+    {
+      "sha": "3ae3caa3d72bdbee22b4ced4001c09f1a4c9f39a",
+      "date": "2026-09-19T22:36:30Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind frozen action runs 1-1000"
+    },
+    {
+      "sha": "172eb872f05f67c9d5bac50c120ab0e795ca6b28",
+      "date": "2026-09-19T22:36:29Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 17-18"
+    },
+    {
+      "sha": "95bcc1a0fb7841b2b34f5fc6fdabafddb3da62f0",
+      "date": "2026-09-19T22:36:18Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: remove moving-denominator action tranche"
+    },
+    {
+      "sha": "7dded4a09cf7500a1411c32f01d1f2b29bc4e7cb",
+      "date": "2026-09-19T22:36:14Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 15-16"
+    },
+    {
+      "sha": "c6d6af72357d6cde317bab6e0de7f12937745c79",
+      "date": "2026-09-19T22:35:59Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 13-14"
+    },
+    {
+      "sha": "23a33d70114a05ad9b2b1db7d4277ee16dd7a421",
+      "date": "2026-09-19T22:35:47Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind action runs 1-1000"
+    },
+    {
+      "sha": "0e78c9417eec59f84d920f8360dd8ad632eea7c1",
+      "date": "2026-09-19T22:35:42Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 11-12"
+    },
+    {
+      "sha": "eb6410372ec11ef8b5c47bcaed08fa21e7175e0a",
+      "date": "2026-09-19T22:35:28Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 9-10"
+    },
+    {
+      "sha": "13327889370fe4a1009865e4e6f57226135a76d3",
+      "date": "2026-09-19T22:35:12Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 7-8"
+    },
+    {
+      "sha": "ae1d87d8db3962e6fd74e8676d88c00dba6d33c0",
+      "date": "2026-09-19T22:34:56Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 5-6"
+    },
+    {
+      "sha": "7bdc5c233c84eb60070af2dd0e6b6937fa8d6cf5",
+      "date": "2026-09-19T22:34:30Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Sep 5"
+    },
+    {
+      "sha": "8c99638be93c576cf553e6cefdbcef040e2961ef",
+      "date": "2026-09-19T22:34:26Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 3-4"
+    },
+    {
+      "sha": "109dc4b16552807e1239437c814858aeaed13904",
+      "date": "2026-09-19T22:34:25Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete issue lineage"
+    },
+    {
+      "sha": "15b55526d9152f799358d69954e1cca669978966",
+      "date": "2026-09-19T22:33:58Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Sep 4"
+    },
+    {
+      "sha": "e0358fabf46d5fc15985b92608825b1a52007500",
+      "date": "2026-09-19T22:33:58Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete pull request lineage"
+    },
+    {
+      "sha": "02edda72025af073b5ef1e8ad4334fa32ad1cafb",
+      "date": "2026-09-19T22:33:51Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve issue and PR comments pages 1-2"
+    },
+    {
+      "sha": "26db9c7ac47d61c8887cb91872994f8356b7870f",
+      "date": "2026-09-19T22:33:25Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Sep 3"
+    },
+    {
+      "sha": "e5872d1281bdd6dc3b79bc92ddd258b8aaecf009",
+      "date": "2026-09-19T22:32:59Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Aug 31-Sep 2"
+    },
+    {
+      "sha": "0738c1d926098369f25d6bc990a55e111d8e35e6",
+      "date": "2026-09-19T22:32:35Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve complete issue and mission lineage"
+    },
+    {
+      "sha": "e01ea91ee50139734754900b6c5b87e32cf4454b",
+      "date": "2026-09-19T22:32:34Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Aug 25-30"
+    },
+    {
+      "sha": "b1254362771102d7d73d7616933d8a2f9d6ec7c0",
+      "date": "2026-09-19T22:32:08Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Aug 19-24"
+    },
+    {
+      "sha": "fdc622d1cbd4feb2579eb7cd6b6c28678f4d6243",
+      "date": "2026-09-19T22:32:03Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve pull-request lineage pages 5-8"
+    },
+    {
+      "sha": "826c6b54c34a0c0027bebab285dc7df402ede4ff",
+      "date": "2026-09-19T22:31:41Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve pull-request lineage pages 1-4"
+    },
+    {
+      "sha": "8f9ddece682021805b1b8c0742cea2c2b5161bc3",
+      "date": "2026-09-19T22:31:31Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Aug 7-18"
+    },
+    {
+      "sha": "3b69978b9311341a0cc193567bd5fe4d08e3c24b",
+      "date": "2026-09-19T22:31:11Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve final main commit lineage pages 41-43"
+    },
+    {
+      "sha": "9506b5e00327384fdb3ac2a2414cc293ac489357",
+      "date": "2026-09-19T22:31:09Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Actions Jul 14-Aug 6"
+    },
+    {
+      "sha": "0056ab4205667d5c279f6f6bcfc1f3258aa4c9bc",
+      "date": "2026-09-19T22:30:57Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 36-40"
+    },
+    {
+      "sha": "d042018252613e241710c413182c6b22f7357ca5",
+      "date": "2026-09-19T22:30:42Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 31-35"
+    },
+    {
+      "sha": "23684b8f12b361a0c9ac36303e20cc7d4331368b",
+      "date": "2026-09-19T22:30:27Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 26-30"
+    },
+    {
+      "sha": "971824863a104769d9adbecff1aa7a14fb737830",
+      "date": "2026-09-19T22:30:14Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 21-25"
+    },
+    {
+      "sha": "32ef2c538ae5e0354640a115380a8e3437a88995",
+      "date": "2026-09-19T22:29:59Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 16-20"
+    },
+    {
+      "sha": "0473b5a0e8b68f6424c42bfee1223f9caca8e728",
+      "date": "2026-09-19T22:29:44Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 11-15"
+    },
+    {
+      "sha": "b9e3474094f5624701c34a36acbe813074db3f39",
+      "date": "2026-09-19T22:29:31Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 6-10"
+    },
+    {
+      "sha": "179db66811f6af399485f87b6e7de62b696d8364",
+      "date": "2026-09-19T22:29:18Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve main commit lineage pages 1-5"
+    },
+    {
+      "sha": "270d6db47e58f91fcf0b22b3eed4e387e19da0df",
+      "date": "2026-09-19T22:28:28Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: snapshot workflow runs pages 11-20"
+    },
+    {
+      "sha": "322966203cb15b8f1f0e5920ecc247dd4ad32fbe",
+      "date": "2026-09-19T22:28:05Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: snapshot workflow runs pages 1-10"
+    },
+    {
+      "sha": "6dc14906178d7cdc06b040590efa8ac611a338c5",
+      "date": "2026-09-19T22:27:18Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow runs pages 1-10"
+    },
+    {
+      "sha": "1ad0743ae24e894abc6e0b737937a8ebdb3e5480",
+      "date": "2026-09-19T22:26:43Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind workflow definitions"
+    },
+    {
+      "sha": "502bdd2f135860204a3715e81696d1c7d723d235",
+      "date": "2026-09-19T22:26:02Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete issue history"
+    },
+    {
+      "sha": "8e72a300906f2d98e019c0aba996956d77afb7a3",
+      "date": "2026-09-19T22:25:42Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete pull request history"
+    },
+    {
+      "sha": "576fa6334ca062994e2b7af17264eebce9cb1df3",
+      "date": "2026-09-19T22:25:15Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind terminal main commit history pages 41-44"
+    },
+    {
+      "sha": "371f7e2e2b643405d755ef086934a07ab019b45f",
+      "date": "2026-09-19T22:24:59Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit history pages 31-40"
+    },
+    {
+      "sha": "b09645e7361f668de620de149709395a0bfbe8f2",
+      "date": "2026-09-19T22:24:39Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit history pages 21-30"
+    },
+    {
+      "sha": "497bc4799f8b6b302d662c1f416a309601e07fcf",
+      "date": "2026-09-19T22:24:22Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit history pages 11-20"
+    },
+    {
+      "sha": "fbdafcea2e677d8ccccff7a482305da57c9a021f",
+      "date": "2026-09-19T22:23:55Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind main commit history pages 1-10"
+    },
+    {
+      "sha": "37d711ebae975f495806cb74c8081170df3881c3",
+      "date": "2026-09-19T22:16:35Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: add total UberBond recovery index"
+    },
+    {
+      "sha": "9a9ebd53caa91ed4d94a44d226142eaa5805596e",
+      "date": "2026-09-19T22:15:51Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: remove invalid exact-text receipt"
+    },
+    {
+      "sha": "9ed093f3cb25b2358c39269becf6b08f50a0054e",
+      "date": "2026-09-19T22:15:35Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve exact Project-backed UberBond text"
+    },
+    {
+      "sha": "8af3588c23058fae4b9b9437adcaa114e7b65e1b",
+      "date": "2026-09-19T22:14:15Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: preserve recovered chat-only UberBond lineage"
+    },
+    {
+      "sha": "c6b17342e311c4bac42a1a5aa0aa36f24a6f8433",
+      "date": "2026-09-19T22:12:20Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind Project-backed UberBond source files"
+    },
+    {
+      "sha": "c7d1cb35bb1cf0b159db50c19cf3cc2a4a637018",
+      "date": "2026-09-19T22:12:09Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete branch lineage"
+    },
+    {
+      "sha": "1fd74d07e749e4fa9ca2b3b9d7c3c8c88a7dbdbf",
+      "date": "2026-09-19T22:11:55Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete UberBond Library corpus"
+    },
+    {
+      "sha": "6b1b29bac4829ce8739b20c3b5a37f2a0e040dda",
+      "date": "2026-09-19T22:11:20Z",
+      "author": "mohammedwessam2007",
+      "message": "recovery: bind complete anchored repository tree"
+    },
+    {
+      "sha": "73ee6e2481db2e175de98ccc32a2a3142dfa8b28",
+      "date": "2026-09-19T15:36:16Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record reconciled reachability state"
+    },
+    {
+      "sha": "11a6e1143b38248327d537490c6f30a392ddb188",
+      "date": "2026-09-19T15:36:15Z",
+      "author": "mohammedwessam2007",
+      "message": "chore: refresh readiness after reachability repair"
+    },
+    {
+      "sha": "2efab3b7c4b32e2f12533be334ef8ebd7df8bbe5",
+      "date": "2026-09-19T15:36:13Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: reconcile live reachability classifications"
+    },
+    {
+      "sha": "1880ddacea7f757b8037e90839158fc02da0cb5a",
+      "date": "2026-09-19T15:34:21Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: refresh current system state checkpoint"
+    },
+    {
+      "sha": "385fbfebaf86450611637a79b5afa6bb7f823d48",
+      "date": "2026-09-19T15:34:19Z",
+      "author": "mohammedwessam2007",
+      "message": "chore: refresh generated readiness artifact"
+    },
+    {
+      "sha": "c6e162926795c2de37c67d33b7191bf080b9d1ec",
+      "date": "2026-09-19T15:05:37Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record current live control plane"
+    },
+    {
+      "sha": "d4ce726b3d197a2b2816c22136de5b1365cfbf1c",
+      "date": "2026-09-19T14:31:46Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record fresh Oracle browser failure"
+    },
+    {
+      "sha": "9a3a7afc1f12b38e51ce66c9ecf78348d3a7a8df",
+      "date": "2026-09-19T14:06:43Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record Oracle alternate sign-in probe"
+    },
+    {
+      "sha": "d6f2c5ecb4de1a465dee5bb11063041d70eb0945",
+      "date": "2026-09-19T14:00:59Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record Oracle console availability blocker"
+    },
+    {
+      "sha": "36baa89fcb28320105e3dcf05990eb24cb6a0ca6",
+      "date": "2026-09-19T13:59:23Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: checkpoint Jev activation reality"
+    },
+    {
+      "sha": "3fab434f1e0bf0818daf0b63aa9d5f99f9576c3d",
+      "date": "2026-09-19T13:59:22Z",
+      "author": "mohammedwessam2007",
+      "message": "chore(jev): anchor pricing evidence to official source"
+    },
+    {
+      "sha": "8f3eca6a866e90eeb9e7a6b8659547db7bbe4a60",
+      "date": "2026-09-19T01:31:33Z",
+      "author": "mohammedwessam2007",
+      "message": "Add Claude Cowork end-to-end Jev live activation lane (#954)\n\nMerge the governed Cowork execution lane, Oracle Always Free evidence and UberOcean host admission, hidden TypeSafe key custody, bounded live Jev activation/rollback gate, focused tests, verification receipt and durable handoff. No authenticated Oracle/TypeSafe session or live Jev call is claimed."
+    },
+    {
+      "sha": "d2362e9371d1c16692e6c9f1079253dcf202c36f",
+      "date": "2026-09-19T01:01:59Z",
+      "author": "mohammedwessam2007",
+      "message": "Make UberLit + Jev Oracle Always Free ARM64 ready (#953)\n\nMerge the zero-new-spend Oracle Ampere A1 path: reviewed ARM64 embedded-Postgres support, architecture-aware UberLit runtime, canonical UberLit bootstrap + health gate + Jev PLAN_ONLY canary, focused tests, verification receipt, and durable handoff. No live Oracle resource or Jev credential is claimed."
+    },
+    {
+      "sha": "ee481f0909f9353cf1ee9eeb0fc490b3e5133c0f",
+      "date": "2026-09-19T00:50:39Z",
+      "author": "mohammedwessam2007",
+      "message": "Activate Jev on sovereign UberCel / UberLit runtime (#952)\n\nMerge protected TypeSafe secret custody, UberLit Jev shadow canary, non-secret runtime defaults, System-One readiness doctor, shadow mechanism routing, privacy-preserving calibration ledger, operator commands, runbook, verification receipt, and durable handoff. No live provider call or consequence authority is claimed."
+    },
+    {
+      "sha": "ab3ef49ee1e4964a912f43d5124f7a0c87f54101",
+      "date": "2026-09-19T00:26:18Z",
+      "author": "mohammedwessam2007",
+      "message": "Add Jev System-One semantic layer and Noetic Autocompiler (#951)\n\nMerge the default-off provider-neutral Jev/System-One semantic decision layer, Noetic Autocompiler, fail-closed egress/spend gates, focused tests, doctor, doctrine, and scoped verification receipt. No live provider call or consequence authority is introduced."
+    },
+    {
+      "sha": "3c02c47facdba1b902f19aa7a39ad0b8d5b0776f",
+      "date": "2026-09-18T22:30:07Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire owned Postal through authoritative canary dispatch\n\nMerge the default-off Postal live bridge behind existing deliverability, domain/mailbox, canary governance and authoritative consequence gates. No provider credential, DNS change, host purchase or message send is performed by this merge."
+    },
+    {
+      "sha": "6d0e4f088da9787c49a73285566a53ef86faa116",
+      "date": "2026-09-18T22:29:31Z",
+      "author": "mohammedwessam2007",
+      "message": "Fix fresh-host UberDoso bootstrap dependency\n\nInstall nodejs before the bootstrap's source-lock checks on clean Ubuntu/Debian hosts."
+    },
+    {
+      "sha": "ac206f8683737cf90c73abef4ce4051a4e914c0a",
+      "date": "2026-09-18T22:29:15Z",
+      "author": "mohammedwessam2007",
+      "message": "Install Node in fresh UberDoso bootstrap"
+    },
+    {
+      "sha": "a41b82b4ff171465b1fca9cab31a0acc03d67217",
+      "date": "2026-09-18T22:29:14Z",
+      "author": "mohammedwessam2007",
+      "message": "Document owned Postal live canary configuration"
+    },
+    {
+      "sha": "a8a2328a3d13b6cd18c04801f9980e52b331d24f",
+      "date": "2026-09-18T22:28:57Z",
+      "author": "mohammedwessam2007",
+      "message": "Preserve legacy consequence context compatibility"
+    },
+    {
+      "sha": "456071a351c84d1e3d6ef76ba981078f3471d7a5",
+      "date": "2026-09-18T22:28:16Z",
+      "author": "mohammedwessam2007",
+      "message": "Update outbound authority wiring truth comment"
+    },
+    {
+      "sha": "03200a15629fd1a2e220416d7e75a8c5d1b0b295",
+      "date": "2026-09-18T22:28:03Z",
+      "author": "mohammedwessam2007",
+      "message": "Test authoritative Postal canary dispatch and refusal boundaries"
+    },
+    {
+      "sha": "4bc6121a3e90a5e98f8cf1af29b37eab657ec48e",
+      "date": "2026-09-18T22:27:38Z",
+      "author": "mohammedwessam2007",
+      "message": "Preserve canary readiness compatibility fields"
+    },
+    {
+      "sha": "48a92d7e80bd795d3ad5fe3c1266527aeaadda95",
+      "date": "2026-09-18T22:27:20Z",
+      "author": "mohammedwessam2007",
+      "message": "Make canary control plane provider-neutral for Postal"
+    },
+    {
+      "sha": "f210e75908a0acc2cc1f65fa8862734363a8da9b",
+      "date": "2026-09-18T22:27:06Z",
+      "author": "mohammedwessam2007",
+      "message": "Bind provider into authoritative outbound consequence context"
+    },
+    {
+      "sha": "434e339f17293dd67733c1cd32d590e2dc979740",
+      "date": "2026-09-18T22:26:57Z",
+      "author": "mohammedwessam2007",
+      "message": "Bind authoritative consequence gate to current approval and sender"
+    },
+    {
+      "sha": "870b0afa02bb6dfabdb40f3d0c4d3b2b8bfaaa02",
+      "date": "2026-09-18T22:26:48Z",
+      "author": "mohammedwessam2007",
+      "message": "Bind current canary approval digest into V9 consequence context"
+    },
+    {
+      "sha": "e4c618b0b011df3062b7d51ca7343de47373c96e",
+      "date": "2026-09-18T22:26:02Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire authoritative outbound consequence gate in worker"
+    },
+    {
+      "sha": "2c2972e741cd97d823188b6df18480b47014a283",
+      "date": "2026-09-18T22:25:53Z",
+      "author": "mohammedwessam2007",
+      "message": "Add one-paste UberDoso mail-cell bootstrap\n\nMerge the fail-closed sovereign mail-cell bootstrap and verifier. Focused local regression: 3/3 green; no external host, DNS, or send effects."
+    },
+    {
+      "sha": "ab235bcf1208a8ad8c214849995702fcfbf98861",
+      "date": "2026-09-18T22:25:50Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire authoritative Postal canary dispatch through Pipeline"
+    },
+    {
+      "sha": "725b7f779d46724bd606eaea62287ec35cd376dd",
+      "date": "2026-09-18T22:25:33Z",
+      "author": "mohammedwessam2007",
+      "message": "Fix UberDoso bootstrap syntax test path handling"
+    },
+    {
+      "sha": "b19aa1197ff0757efc61afba52ac2312fce89d8d",
+      "date": "2026-09-18T22:25:19Z",
+      "author": "mohammedwessam2007",
+      "message": "Add governed Postal canary send bridge"
+    },
+    {
+      "sha": "4a9ffd247fc57e0238f7a291f3b515c14817901d",
+      "date": "2026-09-18T22:25:07Z",
+      "author": "mohammedwessam2007",
+      "message": "Test UberDoso one-paste mail-cell bootstrap boundary"
+    },
+    {
+      "sha": "47df82be1e9e07bdf0a485e84e1622dffae14c46",
+      "date": "2026-09-18T22:25:06Z",
+      "author": "mohammedwessam2007",
+      "message": "Add fail-closed Postal live outbound configuration"
+    },
+    {
+      "sha": "d136fbdde6af82b9b4b66326a51b3ed31449f61c",
+      "date": "2026-09-18T22:24:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Add UberDoso physical mail-cell verifier"
+    },
+    {
+      "sha": "d7dc85f3d1f2fddd6efaa67346ee141ec8c6e920",
+      "date": "2026-09-18T22:24:50Z",
+      "author": "mohammedwessam2007",
+      "message": "Extend authoritative canary gate to owned Postal transport"
+    },
+    {
+      "sha": "601951808109b1363ce834966a3a697427c6ce38",
+      "date": "2026-09-18T22:24:48Z",
+      "author": "mohammedwessam2007",
+      "message": "Authorize only narrow consented Postal canary routes"
+    },
+    {
+      "sha": "8c109ab153dafb1df57533f41bebe200604bab2e",
+      "date": "2026-09-18T22:24:45Z",
+      "author": "mohammedwessam2007",
+      "message": "Add one-paste UberDoso mail-cell bootstrap"
+    },
+    {
+      "sha": "ae6750eca5b556747fda5d83ca67b8f8e708b9c0",
+      "date": "2026-09-18T22:13:56Z",
+      "author": "mohammedwessam2007",
+      "message": "Pin UberDoso runtime image digests\n\nPin Postal 3.3.7 and MariaDB 10.11.19 runtime images to immutable sha256 identities and add a regression guard."
+    },
+    {
+      "sha": "80c7f37ed673e5c4e399764dc1de74e8337d9ad9",
+      "date": "2026-09-18T22:13:23Z",
+      "author": "mohammedwessam2007",
+      "message": "Test immutable UberDoso runtime image pins"
+    },
+    {
+      "sha": "e49ae016d675ad8d240d128eb60772b4a31e52b9",
+      "date": "2026-09-18T22:13:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Pin UberDoso Postal and MariaDB runtime images"
+    },
+    {
+      "sha": "a5083a4568b740970bc62fa834e231342ecd38eb",
+      "date": "2026-09-18T22:10:19Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge UberMail private AgentMail-equivalent control plane\n\nMerge the clean-room AgentMail adapter plus owned UberMail /v0 control plane, UberLit persistence/runtime wiring, and governed UberDoso bridge. Hosted CI runners failed before executing steps; dedicated exact-head UberMail/UberLit tests were green and external effects remain fail-closed."
+    },
+    {
+      "sha": "16d913187ed0089286561be11952ff2a286da86b",
+      "date": "2026-09-18T21:46:36Z",
+      "author": "mohammedwessam2007",
+      "message": "Mount owned UberMail API on UberLit server"
+    },
+    {
+      "sha": "dfbfc25b587b0772eef49e490a9df2c33191d961",
+      "date": "2026-09-18T21:46:11Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire UberMail into UberLit runtime: tests/ubermail-runtime.test.mjs"
+    },
+    {
+      "sha": "d36f7e9ee878c626787921baf88e752dcf33fc7e",
+      "date": "2026-09-18T21:46:09Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire UberMail into UberLit runtime: src/ubermail-runtime.mjs"
+    },
+    {
+      "sha": "585a62df625b95585a2530c0af07285129cde9ed",
+      "date": "2026-09-18T21:43:55Z",
+      "author": "mohammedwessam2007",
+      "message": "Reconcile UberMail Foundry and scoped parity into capability graph"
+    },
+    {
+      "sha": "392fb35bb396773da8bb59b1d6c9da66e1ea1d8b",
+      "date": "2026-09-18T21:43:42Z",
+      "author": "mohammedwessam2007",
+      "message": "Harden owned UberMail parity: docs/UBERMAIL_AGENT_API.md"
+    },
+    {
+      "sha": "27b3c0b9aa0e4079e4975e2c7cc3c0ebce8d514f",
+      "date": "2026-09-18T21:43:38Z",
+      "author": "mohammedwessam2007",
+      "message": "Harden owned UberMail parity: tests/ubermail-agent-http.test.mjs"
+    },
+    {
+      "sha": "b7b14f987a7977dbe10b344ed84ada2a08113a80",
+      "date": "2026-09-18T21:43:34Z",
+      "author": "mohammedwessam2007",
+      "message": "Harden owned UberMail parity: tests/ubermail-agent-api.test.mjs"
+    },
+    {
+      "sha": "059195734eb73a3b50e609cd18a6991a56ab0651",
+      "date": "2026-09-18T21:43:30Z",
+      "author": "mohammedwessam2007",
+      "message": "Harden owned UberMail parity: src/ubermail-agent-http.mjs"
+    },
+    {
+      "sha": "0f8ba00766b47ca6cd521599bfa74ae6a7323e18",
+      "date": "2026-09-18T21:43:27Z",
+      "author": "mohammedwessam2007",
+      "message": "Harden owned UberMail parity: src/ubermail-agent-api.mjs"
+    },
+    {
+      "sha": "a921a12a69c40a2f1a81a1020fc95acb39ab44e0",
+      "date": "2026-09-18T21:35:43Z",
+      "author": "mohammedwessam2007",
+      "message": "Document owned UberMail private clone"
+    },
+    {
+      "sha": "c6bfed001cf616702696ddb4a1a35e87fab225f6",
+      "date": "2026-09-18T21:35:39Z",
+      "author": "mohammedwessam2007",
+      "message": "Register owned UberMail Agent API capability"
+    },
+    {
+      "sha": "9800e921db349ebbd3bbcb3f4cb52a910d02f3e5",
+      "date": "2026-09-18T21:34:59Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: docs/UBERMAIL_AGENT_API.md"
+    },
+    {
+      "sha": "b31b349b1e9d9aeb72afbe3902c0858e281a4c58",
+      "date": "2026-09-18T21:34:55Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: tests/ubermail-uberdoso-bridge.test.mjs"
+    },
+    {
+      "sha": "eb4b4cf3caa9e950135f6de16f7f7b81a0212ece",
+      "date": "2026-09-18T21:34:53Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: tests/ubermail-agent-http.test.mjs"
+    },
+    {
+      "sha": "72eee7e12c72856fefa8c505b2236d6a431e12f4",
+      "date": "2026-09-18T21:34:50Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: tests/ubermail-agent-api.test.mjs"
+    },
+    {
+      "sha": "bced1af6382c53126779490f51c218d473ee48cc",
+      "date": "2026-09-18T21:34:47Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: src/ubermail-uberdoso-bridge.mjs"
+    },
+    {
+      "sha": "0aa086a3cfc9abe20b33ba7b9cfb7c33e91eaceb",
+      "date": "2026-09-18T21:34:44Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: src/ubermail-file-repository.mjs"
+    },
+    {
+      "sha": "a637ceced8a80026e1bc34daa056d1235b54c3ff",
+      "date": "2026-09-18T21:34:41Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: src/ubermail-agent-http.mjs"
+    },
+    {
+      "sha": "028416ddab8e64bcde8a8e475e2a207ccc4d5b94",
+      "date": "2026-09-18T21:34:37Z",
+      "author": "mohammedwessam2007",
+      "message": "Add owned UberMail Agent API: src/ubermail-agent-api.mjs"
+    },
+    {
+      "sha": "9fda6c9eee9aba46ea2138b1b923b477b8f38f02",
+      "date": "2026-09-18T17:13:20Z",
+      "author": "mohammedwessam2007",
+      "message": "Refresh canonical readiness for AgentMail branch"
+    },
+    {
+      "sha": "48a2e541bd1afc80554a3dc00699c593b6a45a75",
+      "date": "2026-09-18T17:12:19Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge main and publish AgentMail clean-room adapter"
+    },
+    {
+      "sha": "59e9157272771535c65bd2828b5b736a93cea97c",
+      "date": "2026-09-18T15:49:10Z",
+      "author": "mohammedwessam2007",
+      "message": "Regenerate the V7 artifacts at merged main (#945)\n\nArtifacts committed in a pull request describe the tree before that request\nmerged, so main's copies were one merge behind: 504 registered guards against\n505, softwareOpen 1 against 0. This regeneration carries no source change, so\nrunning the generators after it lands reproduces it -- only timestamps and\nbaselines.ageDays move, and ageDays moves because it is an age.\n\n\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "0cc3185adbbd8f7874b95ac6c94e446a40b0d104",
+      "date": "2026-09-18T15:45:05Z",
+      "author": "mohammedwessam2007",
+      "message": "Record artifact non-emptiness instead of a byte count (#944)\n\n* Record artifact non-emptiness instead of a byte count\n\nThe index recorded the size of every artifact it covers -- files the same batch\nof generators had just rewritten -- so it changed on every run and never\nsettled. The claim that actually has to hold is narrower: an empty file does not\ncount as generated, which is why the index reads the filesystem rather than\ntrusting the declaration. A boolean carries that and nothing else.\n\nThird instance of the same shape in this ledger. uncommittedArtifacts counted\nthe run's own dirty files, bytes measured files the run had just written, and\nboth looked like data while being noise about the act of measuring.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate artifacts without the byte counts\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "114ffcd2448b0ad76c54bd479c6e49c4a873a2ca",
+      "date": "2026-09-18T15:29:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Correct the committed V7 artifacts to their merged-main values (#943)\n\nEvery V7 artifact on main recorded branch-time values: generated while one\ncommit was unmerged and the tree was dirty, so they say softwareOpen 1,\nsourceSideComplete false, workingTreeClean false. Regenerating on clean merged\nmain produces the true readings.\n\nThis is a one-time correction rather than an oscillation. Re-running the\ngenerators after this changes only timestamps and baselines.ageDays, which\nadvances because it is an age and is supposed to.\n\nMeasured here: softwareOpen 0, externalOpen 6, unmeasured 0,\nsourceSideComplete true, mode PERPETUAL_FRONTIER__SOURCE_SIDE_COMPLETE.\n\n\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "59009296d86a3c26ee0d207c91f84f00e2ac102b",
+      "date": "2026-09-18T15:24:53Z",
+      "author": "mohammedwessam2007",
+      "message": "Stop the ledger counting the artifacts its own run dirtied (#942)\n\n* Stop the ledger counting the artifacts its own run dirtied\n\nuncommittedArtifacts counted the generator's own side effects, so the ledger\nchanged on every invocation and never settled: running it twice on an unchanged\ntree produced a diff, and a reader could not tell a real change from the act of\nmeasuring.\n\nIt informed no decision either. The gap's status is decided by uncommittedSource,\nwhich is the number that distinguishes work existing nowhere else from an\nartifact being rewritten. Anyone wanting the artifact count has git status, which\ndoes not change by being read.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate artifacts without the self-counting field\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "08dc429a960287273c16a6e5dba1c8c78f4780be",
+      "date": "2026-09-18T15:10:05Z",
+      "author": "mohammedwessam2007",
+      "message": "Re-stamp the V7 index and ledger at the merged head (#941)\n\nBoth were generated while three artifacts were still uncommitted, so they\nrecorded the covered-artifact sizes and the uncommitted count from that moment.\nThe tree is clean now and the numbers are simply current.\n\n\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "d231abfd97aac71aaf04984575dfc8441956c026",
+      "date": "2026-09-18T15:07:15Z",
+      "author": "mohammedwessam2007",
+      "message": "Record source-side completion in the artifacts that report it (#940)\n\nThe ledger reads softwareOpen 0 and sourceSideComplete true on a clean merged\nmain, so the artifacts now say so rather than carrying a generation-time\nsnapshot from before the merge that unblocked it.\n\nThe mode changes to PERPETUAL_FRONTIER__SOURCE_SIDE_COMPLETE, and the artifact\nstates in the same breath what that does not mean: not that the remaining\nblockers will resolve, not that the system works -- only that no open software\ngap was measured. Six gaps remain and every one of them is external, each naming\nwhat would unblock it.\n\nThe program does not terminate here. Entering Perpetual Frontier is a mode\nchange, and only the founder ends it.\n\n\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "b4efd3a8874414ef407ecb364353b4e7c8ded120",
+      "date": "2026-09-18T14:52:40Z",
+      "author": "mohammedwessam2007",
+      "message": "Count uncommitted source as stranded, not the artifacts the run regenerates (#939)\n\n* Count uncommitted source as stranded, not the artifacts the run regenerates\n\nA fixed point that had to be broken. Running the generators dirties the\nartifacts they write, so counting every uncommitted path made the stranded-work\ngap unclosable by construction: the ledger recording source-side completion\nwould itself be the uncommitted work preventing it, and the committed\nfinal-frontier-state could never report anything but incomplete.\n\nSource is work that exists nowhere else. A regenerated artifact is the act of\nmeasuring. That is the same split the claim-evidence registry already uses to\ndecide whether a claim has gone stale, applied to the same question from the\nother side.\n\nGuarded twice: removing the source check entirely, and widening the filter back\nto every path, which is what restores the fixed point.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate artifacts at the stranded-work-split head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "7bef816617d1c806d7092568b4332fdf2e75c4da",
+      "date": "2026-09-18T14:33:45Z",
+      "author": "mohammedwessam2007",
+      "message": "Build the six computable frontier artifacts, and split what is left from them (#938)\n\n* Build the six computable frontier artifacts, and split what is left from them\n\nFinishes every contract artifact this repository can honestly produce: baselines,\nevaluation epoch, mission DAG, resource allocation, frontier checkpoint, final\nfrontier state. They are one generator because they are one computation read six\nways -- the checkpoint is the DAG plus the baselines, the allocation is the DAG\nfiltered, the final state is all of it plus the completion law. Six generators\nwould mean six reads of the same inputs and six chances to disagree about which\nhead they describe.\n\nThe baselines found something on their first run. artifacts/system-readiness.json\nrecords 871 files parsed; the tree parses 2,189. It records 3,683 deterministic\ntests with 3 failures; the tree runs over 7,700 with none, and 168 mutations\nagainst 502 registered guards. Every one of those was written down in good faith\nat a moment when it was true. What makes them dangerous is that they read\nexactly like a measurement taken now.\n\nSo a number's provenance travels with the number. LIVE was measured by the run\nthat produced the artifact; RECORDED was copied from something somebody else\nwrote down, and carries its age. A recorded figure with no timestamp is stale\nrather than fresh, because currency can never be established for it at all --\ndefaulting it to fresh would make the least trustworthy figure in the file look\nlike the best one. Where a live and a recorded value disagree, the disagreement\nis listed and neither is edited: overwriting the record destroys the evidence\nthat it drifted, and averaging them produces a number describing no tree.\n\nThe allocator deliberately does not rank by expected value. No economic prior\nexists for any of this work and inventing one would dress a guess as arithmetic.\nIt allocates across missions that are actionable now and lists the rest with what\nthey wait on, because a dependency is ours to clear and an external blocker is\nnot -- conflating them turns a waiting list into a to-do list nobody can finish.\n\nThe epoch refuses to claim a trend. One epoch is FIRST_EPOCH__NO_COMPARISON_\nPOSSIBLE and two are CHANGE_MEASURED__TOO_FEW_EPOCHS_FOR_A_TREND, because a\ndelta between two points is a difference, not a direction.\n\nWith those six written, no absent contract artifact is computable any more, so\nV7G009 closes on computable work rather than on total absence, and the eleven\nthat remain move to V7G010 as external. That is the same split already applied\nto the deployment gap, and the absence reasons it rests on were classified before\nany of these were built.\n\nAlso repairs V7G005. It counted commits ahead of main and reported \"nothing\nstranded\" while this very check sat uncommitted in the working tree. Uncommitted\nwork is stranded in the most literal sense: it exists on one disk and nowhere\nelse.\n\n11 tests. 6 mutation guards, all killed.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate canon and frontier artifacts at the six-artifact head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Repair two assertions that broke on improvements rather than on regressions\n\nThe browser test pinned the exact text `finally { await runtimeLease.release(); }`\nand went red when main improved the release to run under a bounded timeout --\na strictly better version of the same guarantee. It now asserts the property:\nthe lease is released, from a finally block, so a throw mid-crawl cannot leak a\nbrowser context. Verified it still catches both real failure modes: removing the\nrelease entirely, and moving it out of finally.\n\nThe absence test asserted that some artifacts are ordinary work waiting to be\ndone. That was true when written and is no longer, because they were built. Zero\ncomputable-now is the success state -- but only if the remainder is still\nclassified, so the assertions now defend that instead: no unclassified absence,\nand every remaining reason one that genuinely cannot be closed by writing code.\nOtherwise this would pass while real work hid behind a label.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate computed artifacts after the assertion repairs\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "39795a9c65944e486bf336659e6931f3c970b747",
+      "date": "2026-09-18T01:32:26Z",
+      "author": "mohammedwessam2007",
+      "message": "Record AgentMail capability in canonical graph"
+    },
+    {
+      "sha": "c18af532e94c81ff55cf22ae99a43813b79caac8",
+      "date": "2026-09-18T01:32:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Document AgentMail adapter and activation boundary"
+    },
+    {
+      "sha": "a9caf26ebc75c96801ad0682bf1d20472f615a5d",
+      "date": "2026-09-18T01:31:56Z",
+      "author": "mohammedwessam2007",
+      "message": "Preserve bounded provider pagination cursor"
+    },
+    {
+      "sha": "d22cd63388c4b8b15913b97eaa97c9127137cff2",
+      "date": "2026-09-18T01:31:55Z",
+      "author": "mohammedwessam2007",
+      "message": "Preserve bounded provider pagination cursor"
+    },
+    {
+      "sha": "c0d203c6fe9f24efee508c2474e0abfbe620ee20",
+      "date": "2026-09-18T01:30:34Z",
+      "author": "mohammedwessam2007",
+      "message": "Preserve AgentMail reply-all flag"
+    },
+    {
+      "sha": "553909cfc06411a7246893d166096fd8e691948c",
+      "date": "2026-09-18T01:30:28Z",
+      "author": "mohammedwessam2007",
+      "message": "Test AgentMail adapter safety and documented routes"
+    },
+    {
+      "sha": "e2e969e93e188ed507e1332643f67e3114e35c7a",
+      "date": "2026-09-18T01:29:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Add AgentMail environment configuration"
+    },
+    {
+      "sha": "8784fbc3eb52ed1b9c88de7e6d9c16ad8f85a3fa",
+      "date": "2026-09-18T01:29:44Z",
+      "author": "mohammedwessam2007",
+      "message": "Register AgentMail in provider dispatch"
+    },
+    {
+      "sha": "06d8693159175a487144c83bc5af8d6517d19284",
+      "date": "2026-09-18T01:29:35Z",
+      "author": "mohammedwessam2007",
+      "message": "Add clean-room AgentMail inbox adapter"
+    },
+    {
+      "sha": "b5fb9857be68554ef50d2030b618ce254bda5ccc",
+      "date": "2026-09-18T01:28:05Z",
+      "author": "mohammedwessam2007",
+      "message": "Extend generic provider adapter hooks for AgentMail"
+    },
+    {
+      "sha": "c16cdcf0fea6a4a641f752474ae0054da9f076e7",
+      "date": "2026-09-18T00:12:28Z",
+      "author": "mohammedwessam2007",
+      "message": "Return public intake validation errors as HTTP 400\n\n* Return public intake validation errors as HTTP 400\n\n* Cover malformed public intake submissions"
+    },
+    {
+      "sha": "58324fe5a8a5392f1df2f3c8088d36a367fe8cb5",
+      "date": "2026-09-17T23:57:33Z",
+      "author": "mohammedwessam2007",
+      "message": "Remove temporary target recovery instrumentation"
+    },
+    {
+      "sha": "2070bf8e1e545341bd3a24e331dcfcb2e2983dd7",
+      "date": "2026-09-17T23:51:22Z",
+      "author": "mohammedwessam2007",
+      "message": "Retry crawler in deterministic HTML-only mode"
+    },
+    {
+      "sha": "18167a0f6ecfe5b69f5648f596cacca6b3ce4d19",
+      "date": "2026-09-17T23:49:00Z",
+      "author": "mohammedwessam2007",
+      "message": "Fix HTML attribute parser syntax"
+    },
+    {
+      "sha": "53e7121fc234db14a1dce09fc5aeffa184a55acb",
+      "date": "2026-09-17T23:46:38Z",
+      "author": "mohammedwessam2007",
+      "message": "Enable configured HTML-only crawler mode"
+    },
+    {
+      "sha": "5d2b60a7abb3651c767584d4712d2c91fd216839",
+      "date": "2026-09-17T23:46:29Z",
+      "author": "mohammedwessam2007",
+      "message": "Configure deterministic HTML crawl mode"
+    },
+    {
+      "sha": "c025babe5a6a17a343646f4db1b10fc42acd654b",
+      "date": "2026-09-17T23:46:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Correct HTML parser regex escaping"
+    },
+    {
+      "sha": "df23001a872a99c58375d013af8de7bc2c2c86b5",
+      "date": "2026-09-17T23:45:35Z",
+      "author": "mohammedwessam2007",
+      "message": "Add bounded HTML-only research fallback"
+    },
+    {
+      "sha": "22258922e4979bc71b6563369f88eef26dbc8b74",
+      "date": "2026-09-17T23:39:31Z",
+      "author": "mohammedwessam2007",
+      "message": "Record final Render rollout health receipt\n\nRecord final Render rollout health receipt"
+    },
+    {
+      "sha": "756392e49b9f321b7340480e1c28400a62012326",
+      "date": "2026-09-17T23:39:20Z",
+      "author": "mohammedwessam2007",
+      "message": "Record final live health receipt: TONIGHT_LAUNCH_STATUS.md"
+    },
+    {
+      "sha": "ee668b0d22fd717300558b320f7af241d934429e",
+      "date": "2026-09-17T23:39:19Z",
+      "author": "mohammedwessam2007",
+      "message": "Record final live health receipt: artifacts/ubercel/deployment-signals.json"
+    },
+    {
+      "sha": "c80434daba5c0c5c7007c46c36d52fd06a836464",
+      "date": "2026-09-17T23:36:44Z",
+      "author": "mohammedwessam2007",
+      "message": "Record live Render deployment receipt\n\nRecord live Render deployment receipt"
+    },
+    {
+      "sha": "d43d0fa1d3a3e96964368f9557f1856940a0e21b",
+      "date": "2026-09-17T23:36:32Z",
+      "author": "mohammedwessam2007",
+      "message": "Record live Render receipt: TONIGHT_LAUNCH_STATUS.md"
+    },
+    {
+      "sha": "325a64b9b9d00e0648febd575e26c8122da66d7c",
+      "date": "2026-09-17T23:36:31Z",
+      "author": "mohammedwessam2007",
+      "message": "Record live Render receipt: artifacts/ubercel/deployment-signals.json"
+    },
+    {
+      "sha": "77886a7bb48b90705e4f5fb9d2aa16be93edbe01",
+      "date": "2026-09-17T23:35:24Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound browser cleanup during research"
+    },
+    {
+      "sha": "1e48af922364e9e633dac865ac3340f56ed822b8",
+      "date": "2026-09-17T23:33:54Z",
+      "author": "mohammedwessam2007",
+      "message": "Gate cold-email dispatch on observed sender readiness\n\nGate cold-email dispatch on observed sender readiness"
+    },
+    {
+      "sha": "8baa87b520aca2bd849ff567cf9a9588a7c105e7",
+      "date": "2026-09-17T23:33:41Z",
+      "author": "mohammedwessam2007",
+      "message": "Reconcile latest main and readiness: docs/CURRENT_SYSTEM_STATE.md"
+    },
+    {
+      "sha": "4f0f0eb612d292cec3a1e9c86f981d4cea9e71f4",
+      "date": "2026-09-17T23:33:40Z",
+      "author": "mohammedwessam2007",
+      "message": "Reconcile latest main and readiness: artifacts/system-readiness.json"
+    },
+    {
+      "sha": "344bb1eef965a1a7831084edc6a1e44924f424bc",
+      "date": "2026-09-17T23:33:39Z",
+      "author": "mohammedwessam2007",
+      "message": "Reconcile latest main and readiness: src/browser-crawler.mjs"
+    },
+    {
+      "sha": "d4a5b79b9b221b38c8fa9bb5b57fe1a72107e71f",
+      "date": "2026-09-17T23:30:54Z",
+      "author": "mohammedwessam2007",
+      "message": "Add sender readiness regression coverage"
+    },
+    {
+      "sha": "0703ef9027b19a120119133210790759ab2859b6",
+      "date": "2026-09-17T23:30:54Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: src/pipeline.mjs"
+    },
+    {
+      "sha": "8d1dce2f9c9d74f56c332d0c830b11a3a775499b",
+      "date": "2026-09-17T23:30:53Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: src/domain-mailbox-gate.mjs"
+    },
+    {
+      "sha": "aaf9d797ca135de89b80691365fdfcac1a2f889d",
+      "date": "2026-09-17T23:30:52Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: src/config.mjs"
+    },
+    {
+      "sha": "ed097094c5f24af34c841f28c79b355dd7b2d99a",
+      "date": "2026-09-17T23:30:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: src/capability-graph.mjs"
+    },
+    {
+      "sha": "d4747314f40587a8fa6f9c4ce006fa1246a19bb9",
+      "date": "2026-09-17T23:30:49Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: server-core.mjs"
+    },
+    {
+      "sha": "231c29dc5c02e464af2737881269787b6968c966",
+      "date": "2026-09-17T23:30:48Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: docs/CURRENT_SYSTEM_STATE.md"
+    },
+    {
+      "sha": "414dc7496cc1efada0d5b917556ef82e866c450c",
+      "date": "2026-09-17T23:30:48Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: artifacts/system-readiness.json"
+    },
+    {
+      "sha": "3103df041ffdac79a535e4ee139ba1dd1b1f99c3",
+      "date": "2026-09-17T23:30:46Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: TONIGHT_LAUNCH_STATUS.md"
+    },
+    {
+      "sha": "d37d7907866dfb6f151e5ecf28a7210efd18031e",
+      "date": "2026-09-17T23:30:46Z",
+      "author": "mohammedwessam2007",
+      "message": "Apply sender readiness changes: .env.example"
+    },
+    {
+      "sha": "44873782f6a33a86dc85ebc6a2b4f6fac6c140a9",
+      "date": "2026-09-17T23:28:13Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound HTML document parsing time"
+    },
+    {
+      "sha": "1b0d10a3f81f564ba8682b9a41936b543b7f2bbf",
+      "date": "2026-09-17T23:26:21Z",
+      "author": "mohammedwessam2007",
+      "message": "Recover stale research leases before boot requeue"
+    },
+    {
+      "sha": "6f6e45696172869d6a5e035780c1533f6e81abbe",
+      "date": "2026-09-17T23:15:28Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound website fetches before browser parsing"
+    },
+    {
+      "sha": "64f36a4cb8f2b5867499945449e72ef39cbc43ac",
+      "date": "2026-09-17T22:57:19Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge final Ubercel health receipt\n\nPersist the observed Render health contract signal"
+    },
+    {
+      "sha": "3498e51b7c726eea0fe3436391636bed7bf8cb90",
+      "date": "2026-09-17T22:57:02Z",
+      "author": "mohammedwessam2007",
+      "message": "Clarify Ubercel contract-bound health ledger"
+    },
+    {
+      "sha": "975fa14078dc2f35e70c5226dbba4bb7f2a70413",
+      "date": "2026-09-17T22:56:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Record final Render health receipt in Ubercel ledger"
+    },
+    {
+      "sha": "0f729f4aa4deed3b768ae3339d1f8f494dadb03d",
+      "date": "2026-09-17T22:52:13Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge UberLit clean-room build fix\n\nPromote offline, symlink-safe UberLit release builds"
+    },
+    {
+      "sha": "ee1d3c3c9cd2ed7fa52c4db73e2532e76b0c7e8e",
+      "date": "2026-09-17T22:51:27Z",
+      "author": "mohammedwessam2007",
+      "message": "Refresh current state for latest-main-reconciled UberLit branch"
+    },
+    {
+      "sha": "9cbc86838855a1fd0c7db5fdf8af3f57a7a93ef7",
+      "date": "2026-09-17T22:51:25Z",
+      "author": "mohammedwessam2007",
+      "message": "Refresh readiness for latest-main-reconciled UberLit branch"
+    },
+    {
+      "sha": "3145242bd5e4ec288bd858f9b48ffb955654f88a",
+      "date": "2026-09-17T22:50:55Z",
+      "author": "mohammedwessam2007",
+      "message": "Reconcile UberLit fix branch with latest main worker bounds"
+    },
+    {
+      "sha": "c310621b530ce41f53ec8dcb47f08ac2dfd99352",
+      "date": "2026-09-17T22:50:53Z",
+      "author": "mohammedwessam2007",
+      "message": "Reconcile UberLit fix branch with latest main browser bounds"
+    },
+    {
+      "sha": "f5aeda96c32f25a1a4a83e02b7dea6a45f0e62f2",
+      "date": "2026-09-17T22:49:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Retry one bounded navigation timeout"
+    },
+    {
+      "sha": "9bcb432dcd12499a2baf900c065cd5091033bcd6",
+      "date": "2026-09-17T22:49:50Z",
+      "author": "mohammedwessam2007",
+      "message": "Use bounded commit navigation for slow public pages"
+    },
+    {
+      "sha": "8f8627e680602e01da8bd14a67e99450b6fefcf5",
+      "date": "2026-09-17T22:47:39Z",
+      "author": "mohammedwessam2007",
+      "message": "Publish generated current-state receipt for exact UberLit branch head"
+    },
+    {
+      "sha": "7c943f2e8d897564bb86c4e09ee10db18892b3d9",
+      "date": "2026-09-17T22:47:37Z",
+      "author": "mohammedwessam2007",
+      "message": "Publish generated readiness receipt for exact UberLit branch head"
+    },
+    {
+      "sha": "c3b9f55c6c43c8c00514009645784e3d0c5e94b3",
+      "date": "2026-09-17T22:44:44Z",
+      "author": "mohammedwessam2007",
+      "message": "Refresh current system state after publishing the UberLit build fix"
+    },
+    {
+      "sha": "38a729b15c032d8d93021a090de7b6b2f24c82a8",
+      "date": "2026-09-17T22:44:42Z",
+      "author": "mohammedwessam2007",
+      "message": "Refresh readiness after publishing the UberLit build fix"
+    },
+    {
+      "sha": "72d08582c940d48f906babb3d92bdc812dea377d",
+      "date": "2026-09-17T22:43:28Z",
+      "author": "mohammedwessam2007",
+      "message": "Guard UberLit clean-room builds against lifecycle downloads"
+    },
+    {
+      "sha": "babe4d6ee67cc837e5fef0965c13be3e4a0b2270",
+      "date": "2026-09-17T22:43:27Z",
+      "author": "mohammedwessam2007",
+      "message": "Make UberLit release builds offline and symlink-safe"
+    },
+    {
+      "sha": "46531fbfca49520ca96e09f1f76cbe0a4fc82289",
+      "date": "2026-09-17T22:43:25Z",
+      "author": "mohammedwessam2007",
+      "message": "Make UberLit postinstall compatible with bin-link-free builds"
+    },
+    {
+      "sha": "ddbd4c8e4e9e4f354733a1d065cb67dcb6207dc1",
+      "date": "2026-09-17T22:43:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Retry one bounded DOM snapshot failure"
+    },
+    {
+      "sha": "236f6758abd62c015bf532af924824395a66b64a",
+      "date": "2026-09-17T22:43:16Z",
+      "author": "mohammedwessam2007",
+      "message": "Allow bounded DOM snapshots for heavy public pages"
+    },
+    {
+      "sha": "0642cc9e66894804c0eed1350c249e53e1f9061a",
+      "date": "2026-09-17T22:35:23Z",
+      "author": "mohammedwessam2007",
+      "message": "Recover orphaned research target once on worker boot"
+    },
+    {
+      "sha": "d80bda62c626c870cd70cadeb19c62fb816af5e2",
+      "date": "2026-09-17T22:33:13Z",
+      "author": "mohammedwessam2007",
+      "message": "Include bounded research failure receipt in startup logs"
+    },
+    {
+      "sha": "e1e1a5fce05a3e7bf458e6a740e757ac6dcaf275",
+      "date": "2026-09-17T22:31:07Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound DOM snapshot during browser research"
+    },
+    {
+      "sha": "704cbc1d14988ba7c6ca6a5e2f8f0ea3091596b2",
+      "date": "2026-09-17T22:30:46Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound public hostname validation lookup"
+    },
+    {
+      "sha": "bf41e30580be97e2069f9176272232844248ad40",
+      "date": "2026-09-17T22:30:37Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound robots fetch during public research"
+    },
+    {
+      "sha": "8ce55665c4e73a282e2f6ec4cb8c8173e3732a36",
+      "date": "2026-09-17T22:27:24Z",
+      "author": "mohammedwessam2007",
+      "message": "Log bounded startup recovery snapshot"
+    },
+    {
+      "sha": "dd12d34b090ed03e75541011487bdb0988c98b3f",
+      "date": "2026-09-17T22:19:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Allow controlled worker resume after stale lease recovery"
+    },
+    {
+      "sha": "a8ea625e615c0463ce9cfe863b247843963e10c1",
+      "date": "2026-09-17T22:10:15Z",
+      "author": "mohammedwessam2007",
+      "message": "Promote verified outreach runtime fix and readiness receipts\n\nMerge the verified six-file outreach runtime delta. Local verification: 2,186 syntax files parse; deterministic suite 7,727 tests with 7,673 pass, 54 skipped, 0 fail; focused lead/discovery/canary 51/51; relay safety 150/150; outbound probes 22/22. No outbound or payment effects enabled."
+    },
+    {
+      "sha": "791b90f2cdce6c0530c414c1660f6831330b5013",
+      "date": "2026-09-17T22:03:11Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound full-page screenshots during browser research"
+    },
+    {
+      "sha": "17ef1b3da94752d28ab5edcc42cde387b76f4554",
+      "date": "2026-09-17T21:58:18Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound browser link probes with wall-clock timeouts"
+    },
+    {
+      "sha": "96c66d5e77441d1b17a32a91165386421e799b38",
+      "date": "2026-09-17T21:45:54Z",
+      "author": "mohammedwessam2007",
+      "message": "Bound same-site link checks during browser research"
+    },
+    {
+      "sha": "5f730b169375b93fbc88d06eb7656d5709cf84d1",
+      "date": "2026-09-17T21:29:37Z",
+      "author": "mohammedwessam2007",
+      "message": "Reuse scoped PostgreSQL clients in nested transactions"
+    },
+    {
+      "sha": "29c5285af9af56c74737260fddc4a4fe4acd7c5c",
+      "date": "2026-09-17T21:23:29Z",
+      "author": "mohammedwessam2007",
+      "message": "Keep Playwright Chromium inside the deploy artifact"
+    },
+    {
+      "sha": "e4d7184ac6667065956590f210ca9acbda0c6a75",
+      "date": "2026-09-17T21:20:29Z",
+      "author": "mohammedwessam2007",
+      "message": "Resolve Chromium from Render Playwright cache"
+    },
+    {
+      "sha": "02c278c89dc85e3f261992910a9c01090922009b",
+      "date": "2026-09-17T21:16:02Z",
+      "author": "mohammedwessam2007",
+      "message": "Install Playwright Chromium in native Render builds"
+    },
+    {
+      "sha": "2ff63e43e0da5d9d46db7f209c42e45efafa8fbc",
+      "date": "2026-09-17T19:40:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Record merged native lead operations deployment receipt (#930)\n\nPersist the exact Render deployment, live health, zero-error-log, and full repository verification receipt. No external outreach or payment effects are enabled."
+    },
+    {
+      "sha": "af316019dcf2adf2237625b7bf492ddfb5374025",
+      "date": "2026-09-17T19:25:49Z",
+      "author": "mohammedwessam2007",
+      "message": "Expose native lead quality control surfaces (#929)\n\nMerge the tested native lead-generation quality-control surfaces. Vercel preview checks are infrastructure-rate-limited; Render remains the production deployment path."
+    },
+    {
+      "sha": "3d0f1502b3a23942a06cee8138ba8b283e7a95bb",
+      "date": "2026-09-17T18:43:11Z",
+      "author": "mohammedwessam2007",
+      "message": "Separate proof debt from rules no guard can settle, and bind claims to heads (#928)\n\n* Separate proof debt from rules no guard can settle, and bind claims to heads\n\nPHASE 3. Both artifacts exist to stop a number meaning less than it looks like.\n\nThe doctor's \"unguarded external-effect directives\" mixed two things. A\nprohibition on an external effect can be settled by removing the protection and\nwatching a test go red. A permission cannot be settled that way by anyone,\nbecause granting latitude has no failure state to catch. Counting them together\nproduced a review queue that read as a defect list, and reading all 22 by hand\nwas the only way to tell which was which.\n\nNow it is computed. Of 262 directives: 43 are not dischargeable by code at all,\n177 want an ordinary test, 31 want a mutation guard, 11 want an executable\ncheck. The number worth acting on is 14 -- rules code could settle that it has\nnot. That is a smaller and truer figure than 19 unguarded, and it is the first\none that is actually a work queue.\n\nThe obligation kinds are ordered most-demanding-first, because an external-effect\nprohibition also matches the weaker INTERNAL_TEST rule and filing it there would\nlet a test that merely mentions the subject discharge it. A mention is not\nenforcement; that distinction is what the whole constitution effort turns on.\n\nThe claim-evidence registry asks a different question: this repository asserts\nthings about itself -- softwareOpen is 1, 490 mutations killed, canonical V9 not\nmaterialized -- and each was true of some tree at some moment. Nothing checked\nwhether that moment is this one. It has already gone wrong twice here: a\nconstitution artifact merged claiming 464 anchors against a tree holding 469,\nand a readiness artifact described a commit whose source had since changed.\n\nRunning it immediately flagged four stale claims from artifacts generated before\nthe last squash merge. Regenerating cleared them, which is the check working\nrather than a coincidence. Evidence with no head reads NOT_HEAD_BOUND rather\nthan fresh, because a health probe is timed and not committed, and reading it as\nexact-head would make an observation from hours ago look like it was taken at\nthis commit.\n\nOne finding from building it: the canonical-V9 claim originally cited the blocker\ndocument, which records one investigation and goes stale by design. It now cites\nthe gap ledger, which re-runs the materializer at whatever head it reports. A\nclaim should point at the thing that re-measures it.\n\nAlso classifies the remaining absent artifacts. Seventeen absent was not\nactionable; the reason each is absent is. Six are COMPUTABLE_NOW -- ordinary\nwork waiting to be done. Eleven wait on something no amount of writing produces:\nrepeated observation, elapsed time, external reality, or a lattice runtime that\ndoes not exist. Writing a status file for a runtime that does not exist would be\nprecisely the confusion the doctrine names. An absence with no reason is now\nreported as a defect in the index, which is how the last one was caught.\n\n11 tests. 6 mutation guards, all killed.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the PHASE 3 head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Make claim staleness about source, not about the head moving\n\nMy own test caught this one. Comparing a claim's recorded head against current\nHEAD is unsatisfiable: committing the artifact changes HEAD, so a registry\ngenerated immediately before a commit is stale the moment it lands. Every commit\nwould have produced a red gate, and a staleness signal that fires on everything\ntrains a reader to ignore the word.\n\nThe question that actually matters is the one canon-freshness already asks: has\nany source the claim depends on changed since it was measured? An artifact\nnaming the parent commit with nothing but regenerated artifacts after it is\nstill describing this tree. So the range is diffed and filtered to\nsrc/scripts/config/migrations/tests, and a stale claim now names the files that\nfalsified it rather than only asserting it is old.\n\nAn unreadable commit range is handled separately and is worse than stale: a\nrecorded head that cannot be found is a claim whose basis has been rewritten or\nlives on another branch, and reporting that as \"no changes\" would be the exact\ninversion.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the claim-freshness head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Repair the V7CLAIM-01 anchor after the freshness rewrite\n\nThe anchor-integrity gate caught it: the guard pointed at a line the freshness\nfix had replaced, and a mutation whose anchor is gone verifies nothing.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the anchor-repair head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate computed artifacts at the merged head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "35cfc3dd7d5b0761fdd1c7a953dba0a88636b9a2",
+      "date": "2026-09-17T17:56:09Z",
+      "author": "mohammedwessam2007",
+      "message": "Disambiguate application and documentation receipts\n\nKeep the durable outreach handoff exact after the documentation-only receipt merge."
+    },
+    {
+      "sha": "b42a47fd9cfd9c491a961a9c7a9f534773998648",
+      "date": "2026-09-17T17:54:52Z",
+      "author": "mohammedwessam2007",
+      "message": "Record the live outreach readiness receipt\n\nPersist the current Render deployment, health, worker, and outbound-boundary receipt in the durable outreach handoff."
+    },
+    {
+      "sha": "8760c338d96b42db8e861043ffc898d87e4d0ae2",
+      "date": "2026-09-17T17:51:03Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire final four offers into governed campaign preparation\n\nPromote the four final offer lanes into idempotent campaign preparation, fit-gated drafts, and the owner UI. Preserve all outbound, consent, suppression, sender, and payment gates."
+    },
+    {
+      "sha": "93a78ae34fa273d762935652dd3bb0b352d1d772",
+      "date": "2026-09-17T17:35:15Z",
+      "author": "mohammedwessam2007",
+      "message": "Turn a real health probe into evidence, and stop the ledger reading complete (#923)\n\n* Turn a real health probe into evidence, and stop the ledger reading complete\n\nTwo ends existed and nothing joined them. waitForUberLitHealth probes a running\nservice and returns a status; the Ubercel doctor reads contract-bound\nAUTHENTICATED_HEALTH signals and reports SERVING or NOT_SERVING from them.\nBetween the two there was nothing -- so a real probe, /api/health returning 200\nagainst the live Render deployment, was written into a handoff document as a\nsentence, and the doctor went on reporting UNKNOWN__ONLY_PROVIDER_BADGES.\nProse is not a signal.\n\nThat probe is now recorded with its actual provenance: observed at\n2026-09-17T16:46:59.098Z by the deployment session that landed 9df093b2, not by\nthis one. The doctor consequently reports UNKNOWN__EVIDENCE_STALE. That is the\nhonest answer and the point of the distinction: we knew the service was healthy\nat 16:46, and we do not know it now. \"We have no way to know\" and \"we knew, and\nthe knowledge expired\" are different problems, and only the second is waiting on\ntime.\n\nWhat the bridge refuses matters as much as what it does. It never probes, so\nrunning it cannot manufacture the evidence it records -- a test replaces global\nfetch with a throw to hold that. A 200 from a URL nobody declared is recorded\nand binds to nothing. The right URL with the wrong status does not bind either.\nAn observation with no observer is refused, because a probe with no observer\ncannot later be told apart from one this repository invented; an observation\nwith no readable time is refused, because it could never be aged and so could\nnever be known stale.\n\nClosing V7G003's software half moved softwareOpen to 0 and the ledger to\nsourceSideComplete: true -- which was false. Nineteen artifacts the contract\nnames do not exist, and a ledger with no row for them is not a ledger that\nfound nothing. V7G009 counts them from the index, which reads statSync rather\nthan intent, so an empty file cannot close it. softwareOpen is 1 again and\nsourceSideComplete is false, which is the true state.\n\nThe five external gaps are genuinely external: canonical V9's missing bytes, the\nfounder precedence decision, a fresh authorized probe, no cleared payment, no\nconfigured provider.\n\n11 tests. 6 mutation guards, all killed.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the health-evidence head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "c06509c5831d6cdd34194691065450d119fc7e55",
+      "date": "2026-09-17T17:13:16Z",
+      "author": "mohammedwessam2007",
+      "message": "V9 carrier repair, and the V7 gap ledger computed from source (#922)\n\n* Repair 14 V9 seed parts, and name the one byte-range nobody has\n\nCLAUDE_START_V9.md requires LOSSLESS_VERIFIED and SHA-256 8ad73f53...e55d\nbefore canonical V9 may be treated as canonical. The carrier in this repository\ncannot produce it, and this establishes exactly why rather than leaving the next\nsession to rediscover it.\n\nThe materializer reported SEED_ENCODED_PART_MISMATCH:part-0001.xz.b64 and\nstopped. That reads as total corruption. It was not. Fifteen of sixteen seed\nparts were each exactly one byte short -- a stripped trailing newline -- and\nrestoring it makes every one of their encoded SHA-256 hashes match the manifest\nexactly. Fourteen are repaired here; part 7 had been repaired already in\n8daf918a, which is why it alone verified.\n\nPart 16 is different. It is 6,500 bytes where the manifest requires 12,933,\nshort 4,823 binary bytes of LZMA-compressed V7 content. That is not a checksum\nand nothing in this repository can recompute it. Six mechanisms were tested and\nall failed with certain outcomes: both sibling carrier branches carry the same\ntruncation or commit no parts at all; all 36,521 git objects were scanned by\nsize and none matches V7's 1,916,551 bytes; the alternate Brotli carrier\ndeclares 128 parts and holds 2; no large blob resembles V7, V8 or V9; and the\ngenerator is intact but forward-only and refuses any seed whose xz hash differs.\nThe truncated stream still decodes 96.3% of V7 before simply ending, mid-sentence\nat directive 1510 -- the remainder is absent, not damaged.\n\nWallbreaker receipt wbr_c63017e3fd1a01caec01828a selected external-source\nacquisition and ruled two candidates ineligible by hard constraint:\nbrute-forcing the missing bytes (no-fabricated-bytes) and editing the manifest\nso the short carrier passes (no-manifest-hash-weakening). Those are the two\nshapes this failure invites, and both are refused in code, not just in prose.\n\nThe verifier is unweakened. LOSSLESS_VERIFIED still requires every hash. What\nchanged is the failure path: it now checks all sixteen parts before reporting,\nseparates a part repairable without any source from one that is not, and names\nthe artifact and hash that would close it. A verifier that stops at the first\nsymptom hides the shape of the damage, and the shape is the part a human can act\non.\n\nAlso repairs the harness that was supposed to guard this. Mutation-war validated\nevery mutant with `node --check`, so a mutation of any .py file reported\nMUTANT_DID_NOT_PARSE however well-formed it was -- meaning no Python in this\nrepository could ever be guarded, including the one script standing between a\npartial carrier and a hash-locked artifact. The checker now follows the\nlanguage. Verified not to regress JS mutants.\n\n7 tests. 3 mutation guards, all killed: a truncated part classified as\nnewline-repairable, a broken carrier proceeding to generation, and the refusal\nreporting one part when sixteen were checked.\n\nCanonical V9 remains unmaterialized. The blocker is recorded at\nartifacts/v9/canonical-v9-materialization-blocker.json with the exact bytes\nrequired and who can supply them.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the V9 carrier repair head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Gate the live lead snapshot, and refresh the constitution artifact\n\nTwo gates went red at this head. Neither was caused by the V9 work; both are\nworth closing rather than carrying.\n\nsrc/leadgen-live-snapshot.mjs arrived on main with the Apollo lead-generation\nwiring (1069c360) and the production-coverage ratchet found it reachable from a\nproduction entry point with nothing running it. Verified red on main itself, so\nthis is inherited rather than introduced -- and a red repository gate blocks\neverything behind it, so it is closed here.\n\nThe module is the read path between durable storage and a lead handoff, which\nmakes one invariant matter more than the rest: suppression records have to\nsurvive the trip. If loadDurableLeadSources ever stopped passing them through,\nsuppressed people would enter a handoff and every check in this repository would\nstay green, because an empty suppression list looks exactly like nobody having\nasked to be left alone.\n\nThe first draft of the test asserted a suppressed prospect appears marked\nblocked. It does not, and the real behaviour is stronger: searchLocalLeadCorpus\ndrops a suppressed candidate before it becomes a row, so there is nothing for a\nlater caller to misread as actionable. The tests now assert that, and the next\none proves the suppression record is the only difference between the two runs --\notherwise the first would pass against a build dropping p2 for an unrelated\nreason. Bare-string and domain-level suppression are covered too, since\nsuppression lists arrive in both shapes and a silently empty set is the worst\nfailure mode this path has.\n\nThe second red gate was the constitution freshness check added last session,\ndoing exactly what it was built for: the committed artifact said 477 mutation\nanchors while the tree had 480. The doctor's drift reporter announced it on the\nnext run rather than regenerating in silence. Regenerated.\n\n9 tests.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the lead-snapshot gate head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate computed artifacts at the merged head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Compute the V7 gap ledger, and map the contract's artifacts to what exists\n\nPHASE 0 and PHASE 1 of the execution order, from the recoverable V7 ancestor.\nCanonical V9 is still unmaterialized, so this executes from V7 and every\nartifact says so in the field rather than in a footnote: executedFrom reads\nPARTIAL_V7_ANCESTOR__EXPLICITLY_NOT_CANONICAL_V9.\n\nThe gap ledger's contract is three sentences and all three are about the same\nfailure: a label never closes a gap, a stale artifact never closes a gap, a\nself-authored claim never closes an external gap. So no gap here carries a\nwritable status. Each owns a check that runs the materializer, a doctor, a\nratchet, or git, and the status is whatever that check returned at the head it\nran against. Editing the artifact closes nothing.\n\nThree refusals fall out of that and each is guarded. A check that throws records\nCHECK_FAILED rather than collapsing into OPEN or CLOSED, because \"we looked and\nit is fine\" and \"we could not look\" are different facts. A gap claiming an\nexternal blocker without naming what would unblock it falls back to OPEN --\n\"EXTERNAL_BLOCKED, reason: pending\" is precisely the label the contract forbids.\nAnd source-side completion requires zero unmeasured gaps as well as zero open\nones, or a broken check becomes a way to finish.\n\nCurrent measured state: 8 gaps, 2 software-open, 4 external, 0 unmeasured.\nThe two open are the deployment health contract and this branch's own unmerged\ncommits. The four external are canonical V9's missing bytes, no cleared payment,\nno configured provider, and the founder precedence decision.\n\nThe artifact index resolves the tension in the contract's own wording: it names\n29 machine-readable artifacts and also says to reuse existing source where\nequivalent capability exists. Generating 29 files would produce mostly stubs and\nbury the few carrying real measurement; generating some would silently drop the\nrest. So each name resolves to GENERATED, COVERED_BY_EXISTING_ARTIFACT with what\nthat cover actually holds, or ABSENT -- and ABSENT stays counted. Nineteen are\nabsent. An artifact nobody has is a gap, and it is worth more visible than\npapered over with an empty file. Verified against the contract text: 29\ndeclared, 29 mapped, none dropped.\n\nAlso fixes a bug found by running it: the live-truth generator discarded the V9\nmaterializer's report because the materializer exits non-zero by design, so the\nfield read UNOBSERVED when the script had just taken the trouble to explain\nitself.\n\n10 tests. 4 mutation guards, all killed.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the V7 ledger head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate computed artifacts at the merged head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "b2ad5f631d84d363058b18200512b94e265bb46c",
+      "date": "2026-09-17T16:48:01Z",
+      "author": "mohammedwessam2007",
+      "message": "Clarify final live deployment receipt"
+    },
+    {
+      "sha": "9df093b237f02c40a182075fdebd48b0dbcdd2f4",
+      "date": "2026-09-17T16:44:55Z",
+      "author": "mohammedwessam2007",
+      "message": "Record live leadgen and offer checkpoint"
+    },
+    {
+      "sha": "066aa0db1ce5a653f144479c085f80c435f8bf39",
+      "date": "2026-09-17T16:39:04Z",
+      "author": "mohammedwessam2007",
+      "message": "Close four-offer monetization, lead provenance, and schema gaps"
+    },
+    {
+      "sha": "4b086f1ad6fe85daa2b3396c8b4b7c8466d35aaf",
+      "date": "2026-09-17T16:05:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Close protected owner canary onboarding"
+    },
+    {
+      "sha": "8ec5e6c61e71bff3ea1d012fc2107f01d376423f",
+      "date": "2026-09-17T15:40:54Z",
+      "author": "mohammedwessam2007",
+      "message": "Land lossless Inevitability Engine V9 carrier\n\nPreserve the full 146,566,257-byte V9 source through a hash-locked V7 seed plus deterministic V8/V9 generator. Materialization fails closed unless bytes, line count, and SHA-256 exactly match canonical V9. Hosted workflow failures on this PR had null steps/logs and therefore provided no executed source evidence; local carrier reconstruction verified LOSSLESS_VERIFIED."
+    },
+    {
+      "sha": "676183ce95dec1c832e595277933c5f0dea055ff",
+      "date": "2026-09-17T15:39:31Z",
+      "author": "mohammedwessam2007",
+      "message": "Add Claude Code V9 startup contract"
+    },
+    {
+      "sha": "8daf918a6614e71ed0ce8fda2132a39370bae9f4",
+      "date": "2026-09-17T15:39:24Z",
+      "author": "mohammedwessam2007",
+      "message": "Repair corrupted V9 lossless seed part 7/16"
+    },
+    {
+      "sha": "67f307973e66a2e3da54c041c9deaa5b8165effa",
+      "date": "2026-09-17T15:39:07Z",
+      "author": "mohammedwessam2007",
+      "message": "Harden governed lead intake and campaign retries"
+    },
+    {
+      "sha": "347069628e53a649e8eac2a888b53951eb623a77",
+      "date": "2026-09-17T15:37:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless generator part 2/2"
+    },
+    {
+      "sha": "69cda10889579353524d2b2ddfa2316b05adf572",
+      "date": "2026-09-17T15:36:41Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless generator part 1/2"
+    },
+    {
+      "sha": "ac457f90c0c24240afdd3106042907f678f18733",
+      "date": "2026-09-17T15:33:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 16/16"
+    },
+    {
+      "sha": "eaf1475266eb2622b36e7b1369049ac9ec9bb7c7",
+      "date": "2026-09-17T15:32:55Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 15/16"
+    },
+    {
+      "sha": "eeb35c711cdde8bcdbe23a1ba8f432657fdce66d",
+      "date": "2026-09-17T15:31:19Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 14/16"
+    },
+    {
+      "sha": "99e44f9fbc6d44f6a183c5b1ded49ab0fada9a57",
+      "date": "2026-09-17T15:29:42Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 13/16"
+    },
+    {
+      "sha": "73fe60fa4582fcd10d376a9378c1cfc2818789a8",
+      "date": "2026-09-17T15:27:27Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 12/16"
+    },
+    {
+      "sha": "4f1625a8cdf8c7bde4280eca3d40b4a5bf314e23",
+      "date": "2026-09-17T15:23:40Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 11/16"
+    },
+    {
+      "sha": "247b00e18796f22a18c477468f622d1f1fa1f866",
+      "date": "2026-09-17T15:22:14Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 10/16"
+    },
+    {
+      "sha": "797d7d35bd72452e62c8f838c62d8342d1825bbf",
+      "date": "2026-09-17T15:13:33Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 9/16"
+    },
+    {
+      "sha": "d3c0fc593d44df588ece794deafbc93f71769fca",
+      "date": "2026-09-17T15:11:54Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 8/16"
+    },
+    {
+      "sha": "6aaae7fb41c35ab6dd4e5df392c9a23c24d2cef5",
+      "date": "2026-09-17T15:09:52Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless seed part 7/16"
+    },
+    {
+      "sha": "388f369415fcb0da0c29f61882c6b63d4898cb09",
+      "date": "2026-09-17T15:04:13Z",
+      "author": "mohammedwessam2007",
+      "message": "Use compact verified 16+2 V9 carrier layout"
+    },
+    {
+      "sha": "2d70354e4cb0d3b12ff8fa4267d286188c8d37b8",
+      "date": "2026-09-17T15:03:53Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V7 seed carrier part 6/16"
+    },
+    {
+      "sha": "863bf8e8b27d0af7be620e5ba99d0cec0000ab19",
+      "date": "2026-09-17T15:02:22Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V7 seed carrier part 5/16"
+    },
+    {
+      "sha": "3e0524db6c9a4fe3c014d6f19c6d748596b944fe",
+      "date": "2026-09-17T15:01:36Z",
+      "author": "mohammedwessam2007",
+      "message": "Remove superseded Brotli V9 materializer"
+    },
+    {
+      "sha": "15ed4f2eaca91ae9a7c417e9061adb5999c12518",
+      "date": "2026-09-17T15:01:29Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V9 generator materializer"
+    },
+    {
+      "sha": "8713f97ce32398c43a5f44496e9962897b93ec4c",
+      "date": "2026-09-17T15:01:17Z",
+      "author": "mohammedwessam2007",
+      "message": "Replace V9 carrier manifest with exact generator carrier"
+    },
+    {
+      "sha": "132c1917dd3aa435d34dc72aa09161e64222e5a1",
+      "date": "2026-09-17T15:00:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Switch V9 carrier to exact generative representation"
+    },
+    {
+      "sha": "62f52dc8ed2a9955ebfff5b528eb55321170ad50",
+      "date": "2026-09-17T15:00:51Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V7 seed carrier part 4/16"
+    },
+    {
+      "sha": "cf2163197440a83c6185c777546af23accbb9103",
+      "date": "2026-09-17T14:58:29Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V7 seed carrier part 3/16"
+    },
+    {
+      "sha": "09e0b9ecf760739a9a0e38df85fb9a19abe58967",
+      "date": "2026-09-17T14:58:00Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 exact materializer"
+    },
+    {
+      "sha": "bf3bddf599dad350103254ddc3a6f6f2ecbdd571",
+      "date": "2026-09-17T14:57:49Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless carrier manifest"
+    },
+    {
+      "sha": "28d479470b302e3b9f3583c87d3b55df95b7e567",
+      "date": "2026-09-17T14:57:18Z",
+      "author": "mohammedwessam2007",
+      "message": "Add V9 lossless carrier README"
+    },
+    {
+      "sha": "8d8878701767dfbe0f965d7c322ae3a6d40e49ff",
+      "date": "2026-09-17T14:56:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V7 seed carrier part 2/16"
+    },
+    {
+      "sha": "d1d9bb8afab02a328ca79463bb87d00ce4e6d0e9",
+      "date": "2026-09-17T14:53:01Z",
+      "author": "mohammedwessam2007",
+      "message": "Add exact V7 seed carrier part 1/16"
+    },
+    {
+      "sha": "1069c360f309bb5a879a2c8ef84443c3250fc806",
+      "date": "2026-09-17T13:12:35Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire Apollo-style lead generation into the live control plane\n\nExpose durable lead intelligence and governed handoff routes without enabling provider calls or outbound effects."
+    },
+    {
+      "sha": "5642edeaf0e42031f8d6462a07aebf0ef777c517",
+      "date": "2026-09-17T11:04:04Z",
+      "author": "mohammedwessam2007",
+      "message": "Read deployment state through Ubercel instead of off a vendor's badge (#919)\n\n* Read deployment state through Ubercel instead of off a vendor's badge\n\nUbercel already existed, and I misreported it. src/ubercel-deployment-control-plane.mjs\ntreats VERCEL as one of five replaceable adapter types, refuses any adapter that\ndeclares deploymentAuthority, and carries the law NO_PROVIDER_IS_THE_CONTROL_PLANE.\nA session then read a red Vercel commit status and reported it as UberBond's\ndeployment truth, in a PR comment and twice in a PR body.\n\nThe law was enforced at plan time and nowhere at read time, because nothing\nanswered \"what is our deployment state?\" at all. Ubercel could compile a plan\nand a failover; it could not be asked what was true now. So the only readable\nthing was a vendor badge, and that is what got read.\n\nThe distinction this adds: a provider badge is a fact about the provider. It\nbecomes a fact about UberBond only if UberBond serves from it, which is a\nquestion the badge cannot answer about itself. Only a probe bound to the health\ncontract UberBond declared, or liveness from a runtime UberBond owns, describes\nUberBond.\n\nSo a red badge alone reports UNKNOWN__ONLY_PROVIDER_BADGES rather than\nNOT_SERVING -- a vendor build failing may be a surface we do not serve from --\nand a green badge alone reports the same, which is the more dangerous error in\nthe other direction and the one a passing build invites.\n\nnpm run ubercel:doctor, against the signals as actually observed:\n\n  state: UNKNOWN__ONLY_PROVIDER_BADGES\n  contract-bound authoritative signals: 0\n  provider badges (each establishes nothing about UberBond):\n    vercel [VERCEL] serving=false\n    vercel-lite-private [VERCEL] serving=false\n\nThat is the honest current state. Nothing in this repository collects\ncontract-bound health evidence yet, and the doctor says so rather than letting\nan absence read as health.\n\nThe module is wired to a script rather than classified in the reachability\nconfig, for the reason that config gives: a module reachable only from tests is\nnot reachable.\n\n13 tests. 5 mutation guards, all killed: a badge establishing serving state, an\nauthenticated probe counting while unbound from the declared contract, stale and\nfuture-dated evidence counting as current, an adapter promoting its own\nevidence, and one authenticated not-serving being outvoted by healthy ones.\n\nOn the other named layers: uberagents, uberdistribution, ubereconomy, ubermodels,\nuberpay and ubervault have no uber-named module, but each has substantial\ncapability under its existing name -- 21, 8, 16, 10, 14 and 3 modules\nrespectively. Those are naming gaps, not capability gaps, and creating uber-named\nduplicates of agent-mesh-*, distribution-*, economic-*, agent-model-*, billing-*\nand secret-* would be the capability sprawl the canon prohibits. Left alone\ndeliberately.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the Ubercel doctor head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "d4a41e369cfedccc5a1fd509c3578f42fa93a06b",
+      "date": "2026-09-17T03:14:07Z",
+      "author": "mohammedwessam2007",
+      "message": "Stop a stale constitution from describing a tree that has since changed (#918)\n\n* Stop a stale constitution from describing a tree that has since changed\n\nartifacts/constitution/directives.json is what the Constitution Doctor prints\nits headline numbers from and what the review record is read against, and\nnothing verified it was current.\n\nIt had already merged stale. The artifact committed alongside the precedence\nwork was generated before that same change added its test file and its five\nguards, so it recorded 464 mutation anchors against a tree holding 469 and named\na test file that no longer existed. The doctor then reported those numbers in\nthe present tense. Nothing failed, because nothing was looking.\n\nA stale artifact here is not merely old. It answers \"which rules are enforced?\"\nabout a tree that has moved on, confidently.\n\nThe comparison lives in src/constitution-artifact-freshness.mjs rather than\ninside the test, because a comparison only a test performs is one no mutation\ncan be pointed at. Headline counts are checked before the whole-document\ncompare, since \"469 !== 464\" is a usable failure message and a diff of 262\ndirective objects is not.\n\nVerified against the real thing rather than a synthetic case: run against the\nartifact as it actually merged at 90dc631c, the test fails and reports\ncounts.mutationAnchorsAvailable committed 464, fresh 469.\n\n3 mutation guards, all killed: a differing artifact reported as current, the\nprovenance exemption widened until any two artifacts compare equal, and the\nreadable count comparison emptied into a bare document diff.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the freshness head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Make the doctor say when the artifact it replaced was stale\n\nThe freshness module was reachable only from its test, and the reachability\nconfig is explicit that this does not count: \"A module reachable only from tests\nis not reachable: the suite proves it behaves and proves nothing about whether\nanything can call it.\" Classifying it under RESEARCH_ONLY would have been a way\nof agreeing with the ratchet while ignoring it.\n\nWiring it is also the more useful answer. The doctor regenerating a stale\nartifact in silence is how a stale one gets committed: the numbers come out\nright and nobody learns that the file in git had been describing a different\ntree. It now reads what it is about to replace and reports the drift:\n\n  the artifact just replaced was stale, and had been describing a different tree:\n    counts.mutationAnchorsAvailable: committed 464, actual 472\n\nA missing or unreadable previous artifact is not drift, so a first run is quiet.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon after wiring the freshness reporter\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "90dc631cd9f6296a3abdfb880728985d82df0d00",
+      "date": "2026-09-17T02:44:35Z",
+      "author": "mohammedwessam2007",
+      "message": "Make the constitution's precedence real, and say where it runs out (#917)\n\n* Make the constitution's precedence real, and say where it runs out\n\nThe compiler's source list carried the comment \"Canon files, in precedence\norder. NORTH_STAR.md and the precedence file define that order.\" That was false\ntwice over: docs/NORTH_STAR_PRECEDENCE.md ranks ten files and exactly one of\nthem is in the list, and every compiled directive carried priority: 0, so no\norder was applied even within it.\n\nFixing it turned up two facts worth having.\n\nThe precedence law cannot settle any conflict between operative rules. It ranks\nten files, nine of which are the terminal North Star layer. The files that\nactually bind an agent -- AGENTS.md, CLAUDE.md, UBERBOND_CANON.md and the\ndocs/*_CANON.md set -- carry no relative rank anywhere, so 0 of the 9 detected\nconflict candidates have an authored answer. One of them is live: the Wallbreaker\ncanon prohibits evading provider limits while CLAUDE.md permits automatic\nfailover, and nothing in the repository says which governs.\n\nThat is not mine to answer. Ranking one canon file above another decides which\nrule wins in a real conflict, which is an amendment, and F003 says founder\nsovereignty rules are not autonomously modifiable. So precedenceFor returns\nprecedenceRank: null with state UNRANKED__NO_AUTHORED_PRECEDENCE -- the old\npriority: 0 read as *highest* precedence, which is the opposite of the truth --\nand resolveByPrecedence refuses any pair with an unranked side and names the\nsource that needs a rank. The question is recorded as FD002 in\nartifacts/constitution/open-founder-decisions.json with the three options and\nthe note that ranking the operative canon in the precedence file resolves the\ngraph with no code change, because the ranks are parsed from that file rather\nthan transcribed.\n\nThe terminal layer's absence is now declared rather than merely true. Those nine\nfiles hold 886 normative sentences and compiling them would take the constitution\nfrom 262 directives to about 1148, nearly all of them arriving as rules awaiting\na guard. NORTH_STAR.md states their status plainly -- \"direction and search-space\ncanon, not implementation proof\" -- and a Directive Object asserts\nREPOSITORY_TEST_OR_EXECUTABLE_CHECK, so compiling them would make the opposite\nclaim about all 886 and bury the 48 external-effect rules that bind behaviour\ntoday. TERMINAL_SOURCES names them with that reason, and a test fails if a\nranked file is ever neither compiled nor declared excluded, which is the\nsilent-drop case the no-amputation law exists to prevent.\n\nAlso adds a coverage rollup per source, so \"which canon file is least enforced\"\nis answerable instead of one number spread across nine files. The answer today\nis the assimilation canon and UBERBOND_CANON.md, 4 unguarded external-effect\nrules each.\n\n9 tests. 5 mutation guards, all killed: an unranked source reporting as a rank,\na conflict settled by inventing an order, two rules from one source ordered\nagainst each other, a duplicate entry hidden by taking the later rank, and the\nterminal layer going quietly absent.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the precedence head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "23008c03348a499df5fd8df3777262f38a0cf5d6",
+      "date": "2026-09-17T02:14:36Z",
+      "author": "mohammedwessam2007",
+      "message": "Close the constitution review queue, and the four holes it found (#916)\n\n* Re-stamp the computed artifacts at the merged head\n\nBoth ledgers embed the commit they were computed against, so running them after\nthe squash merge moved sourceCommit and sourceSha from the pre-merge SHA to\n6f3bd9af. Provenance only: the diff contains nothing but those fields, and\nsoftwareOpen stays 0 with the same 262 directives and the same 69 backed by a\nmutation-killed guard.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Close the constitution review queue, and the four holes it found\n\nThe Constitution Doctor reported 22 external-effect rules with no mutation\nguard behind them. That number was published as a review queue rather than a\ndefect count, because a compound sentence, a keyword false positive and a real\nhole all land in it identically and only reading tells them apart. Five had\nbeen read. This reads the other seventeen.\n\nFour were real. Three of them were invisible to reading alone -- the code looks\ncorrect in each case -- and only showed up by deleting the protection and\nwatching every suite stay green:\n\n- src/wallbreaker.mjs sets businessEffectAuthority: 'NONE' on ten return paths\n  and three were asserted. Flipping the other seven to 'FULL' changed nothing,\n  planWallbreakerCycle's success return among them, so a planner that had\n  quietly acquired send/spend/deploy authority would have shipped.\n\n- src/egress-health-pool.mjs is where \"do not bypass CAPTCHA/platform controls\"\n  becomes executable. Its test asserted ok === false while supplying no routes,\n  so it was satisfied by \"no eligible route\" and stayed green with the policy\n  refusal and the access-challenge stop both deleted. The tests now supply a\n  healthy route and assert the reason code, which is what makes the refusal\n  attributable to the policy rather than to an empty pool.\n\n- The provider and model fields in a routing selection could both be replaced\n  with null with every routing suite green. That is the single failure mode the\n  automatic model-failover law exists to prevent: a fallback that substitutes a\n  provider and leaves no trace of which one ran.\n\n- scripts/bootstrap-external-capabilities.mjs is the only script whose --apply\n  mode spawns commands against the real host, and it had no test of any kind.\n  The canon sentence naming what it may not do was the whole of its\n  enforcement. Its step list moves to src/external-capability-bootstrap-plan.mjs\n  with one predicate per clause of that sentence, and the script now fails\n  closed on the audit before its first spawn.\n\nThirteen mutation guards, all confirmed killed by the real harness: WALLAUTH-01\nto 03, EGRESS-01 and 02, ROUTEID-01 and 02, BOOTPLAN-01 to 06. Guard-backed\ndirectives 69 -> 80, guarded prohibitions 40 -> 50.\n\nThe other thirteen entries close on something weaker than a guard -- absence, a\ncompound sentence checked clause by clause against the guard list, or a rule\nwith no runtime representation at all. Each says which, and says so in its own\nentry rather than in a summary.\n\nThe doctor now prints the matcher's count and the review record's count as two\nseparate lines. They have different denominators: the matcher's number moves\nwhenever a guard is added, while an entry stays read after its rule becomes\nguarded. Printing them as one number would let the queue look shorter without\nanyone having read anything.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the reviewed head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon after merging the outreach canary\n\nThe two conflicts in this merge were both generated files. Resolved by\nregenerating with npm run readiness at the merged head rather than by editing\neither side, which is the only resolution that can be right: a hand-merged\nreadiness artifact describes a tree that never existed.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "906a05c0c25aa8c8e4feedd3946e710301d97f1e",
+      "date": "2026-09-17T01:29:36Z",
+      "author": "mohammedwessam2007",
+      "message": "Refresh current truth after outreach canary wiring"
+    },
+    {
+      "sha": "48ef15e4d368e6df9f736ae8550a43970ded4afc",
+      "date": "2026-09-17T01:14:35Z",
+      "author": "mohammedwessam2007",
+      "message": "Wire bounded outreach canary into the control plane"
+    },
+    {
+      "sha": "6f3bd9afc7a66c8208e674a0f764b70ed5570c4a",
+      "date": "2026-09-17T00:14:51Z",
+      "author": "mohammedwessam2007",
+      "message": "V3 A001/A021: compile the constitution so its rules can be asked about (#915)\n\n* Compile the constitution so its rules can be asked about\n\nV3 A001 and A021. The canon is prose and prose cannot be checked. Nine files\ncarry a few hundred normative statements and nothing in the repository knew\nwhich of them any test enforces.\n\nThat gap was not theoretical. The reserved-domain guard and the mailbox-address\nguard recovered this week were both constitutional rules -- no unauthorized\nexternal effects, authority may narrow but never widen -- with nothing\nenforcing them, and both were found by accident during unrelated branch\narchaeology rather than by asking.\n\nsrc/constitution-compiler.mjs turns the canon into 262 Directive Objects: 155\nprohibitions, 64 obligations, 43 permissions, each with a content-derived id so\nan edited rule becomes a new one needing re-review, tagged by whether it\ngoverns an external effect, and linked to evidence.\n\nThe linkage is two-tier and the tiers are not the same claim. Vocabulary\noverlap with a test file shows a test discusses the subject and says nothing\nabout whether it would fail if the rule were broken. A mutation anchor is\ndifferent: a protection that was deliberately removed and a test that went red\nbecause of it. So the number worth reporting is the second one -- 69 directives\nbacked by a mutation-killed guard, 26 of the 48 that touch the outside world.\n\nThe other 22 are published as a review queue, not a defect count, because the\ndoctor cannot yet tell a genuine hole from a compound sentence whose pieces are\nenforced separately, a keyword false positive, or a rule enforced by absence.\nReading five of them found one of each and no hole: nothing in contacts.mjs\nconstructs an email address, so the prohibition on inferring private contact\ninformation has no code path to guard. Those readings are recorded with their\nreasons, and an entry closes by being read rather than by tuning the matcher\nuntil the count falls.\n\n17 tests. 4 mutation anchors, all killed, including one that reorders the\nclassifier so \"must never\" reads as an obligation and one that removes the\ncode-fence filter so a hierarchy diagram becomes a rule.\n\nAlso corrects the terminal summary. The ledger reads SOFTWARE_SIDE_COMPLETE\nagain, and it now says plainly that this covers CD001-CD013 and is not a\ncompletion claim for the V3 program.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the reconciled head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "5b9c52e8ea4c886cc48c430897478a6652b8315b",
+      "date": "2026-09-16T23:49:32Z",
+      "author": "mohammedwessam2007",
+      "message": "EVENT HORIZON: close CD011 and CD012 by archaeology, recovering two outbound guards (#914)\n\n* Close CD012 by reading the stranded lineage instead of sampling it\n\nCD012 had checked 3 of 101 stranded pre-rewrite src modules and refused to\nround the rest down. That refusal was right and it was not an answer.\n\nscripts/nullstar-stranded-supersession.mjs places each module against main by\nexport identity first, distinctive filename token second, and ABSENT when\nneither. 89 placed automatically; 12 came back ABSENT, which is the point --\na checker that cannot return ABSENT is a rubber stamp. Those 12 were read\nindividually and recorded in stranded-absent-determinations.json with the\nsuccessor named per module, including two that say plainly that main's\nsuccessor is narrower than what was stranded.\n\nEleven were superseded. One was a real gap.\n\nsrc/reserved-domains.mjs was genuinely absent from main. Nothing anywhere\nguarded RFC 2606 domains, and registerSendingDomain accepted example.test as\nan OWNER_CONFIRMED outreach sending domain -- reachable from job-handlers.mjs\nand uberdoso-job-handler.mjs, so a fixture domain could become a real send\ntarget. Ported and wired at that boundary, failing closed unless the caller\ndeclares simulation: true literally, because a truthy value is how a fixture\nbecomes real by accident. The event records simulationOnly so a declared\nfixture stays identifiable in the log.\n\nA test written against the RFC rather than against the code caught a defect in\nthe recovered original: it matched only the bare second-level name, so\nmail.example.org passed straight through. Subdomains are reserved now too.\n\nThe guard only ever narrows: it can refuse a registration, never permit one.\nSeven existing fixtures now declare themselves rather than the guard being\nloosened to accommodate them.\n\n4 mutation anchors, all killed. 7509 tests green.\n\nsoftwareOpen 2 -> 1.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Close CD011 by reading three branches instead of labelling them\n\nThree diverged branches carried no terminal disposition. Section 010 makes\nconvergence true only at a terminal class and section 0076 forbids getting\nthere from ancestry, so each was decided on what it actually contains.\n\nfeat/outreach-100k-certified-launch-20260915 -> SUPERSEDED. Main carries an\nevolved superset: the branch derives a child per-recipient authorization from\na parent founder press, and main validates the same binding at corpus\ncertification, pins the corpus by recipientSetDigest, re-checks that digest in\nboth bundle and job payload, and adds suppression preclearance, legal\nevidence, business window, mailbox cadence and per-mailbox caps the branch\nnever had.\n\nBut one check was on the branch and nowhere in main, and it matters:\nmailbox-authenticated-address-required. Main read `address` only as a fallback\nfor domainId, so an explicitly supplied domainId won and a mailbox could\ncertify against a DNS-verified, warmed, authenticated domain while its real\nsending address belonged to a different one -- a From-domain nothing had ever\nverified, certified to send a hundred thousand messages. Ported with three\ntests, including the substring case where endsWith alone would accept\nevil-uberbond.agency. Two mutation anchors, both killed. Two fixtures that\ncarried a domainId and no address now carry one, because a mailbox whose\naddress is unknown should not certify.\n\nfeat/founder-big-button-outreach and feat/command-center-big-button ->\nSUPERSEDED. The capability is in main as brokerOutreach100kStart, reached only\nby an authenticated HTTP request -- which is the founder-interactive entry\nFD001's ifNo branch named. What was rejected was the operator-script entry,\nnot the button, and those scripts stay out. FD001 is recorded as no longer\ngating a branch; the policy question is not answered and is not mine to\nanswer, and no outbound module was reclassified to close it.\n\nTheir residual is named rather than dropped: main's press has no expiring\nnonce bound to the packet digest. Adding one changes the endpoint's contract\nfor its callers, so it is a follow-up, not something to take unilaterally.\n\nsoftwareOpen 1 -> 0. CD006 and CD007 remain external and neither is code.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n* Regenerate readiness canon at the reconciled head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>"
+    },
+    {
+      "sha": "a378cf7fd365dd96c4abd9178744c6d248d37806",
+      "date": "2026-09-16T14:36:33Z",
+      "author": "mohammedwessam2007",
+      "message": "Stop ancestry from laundering a reverted branch into convergence (#913)\n\nBranch containment is now verified against content rather than ancestry. Merging a branch and reverting it leaves its tip an ancestor of main while its content is absent, which made the two branches held back in #912 stop counting as debt the moment they were reverted.\n\nVerified at 00107b3e: 7588 tests, 7534 pass, 0 fail. Six new tests cover the revert case from both sides.\n\nsoftwareOpen stays 2 and FD001 stays open. No external authority created or widened."
+    },
+    {
+      "sha": "00107b3e9fe959b8a15856990a7a0c858569dc7a",
+      "date": "2026-09-16T14:32:52Z",
+      "author": "Claude",
+      "message": "Regenerate readiness canon\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "4dc500a0b758561c475a62f826c1bd05cb4ea345",
+      "date": "2026-09-16T14:29:35Z",
+      "author": "Claude",
+      "message": "Stop ancestry from laundering a reverted branch into convergence\n\nThe branch-debt measurement classified any ancestor of main as CONTAINED_IN_MAIN.\nMerging a branch and reverting it leaves its tip an ancestor while none of its\ncontent is there, so the two big-button branches went from diverged to contained\nthe moment they were reverted and dropped out of the debt count entirely -- the\nexact two whose content was deliberately held back over an authority boundary.\n\nAn instrument built an hour ago, producing a false zero in the one case it most\nneeded to be right about. It is the same failure as the disposition check that\naccepted any label instead of a terminal class, one layer down: the count closed\non the shape of the history rather than on the state of the tree.\n\nContainment is now verified against content. A branch is contained only if its\nown src, scripts, tests and api files are present in main; otherwise it is\nMERGED_THEN_REVERTED and stays in the list the completion ledger counts, with\nthe absent files named.\n\nThe first attempt at this check did not fire either. It used a three-dot diff,\nand for a branch that is already an ancestor that resolves the merge-base to the\nbranch itself and returns nothing, so it silently passed everything it was\nwritten to catch. It reads the branch's own tree now.\n\n854 branches: 735 pre-rewrite, 94 contained, 23 diverged, 2 merged-then-reverted.\nSix tests hold it, including that a branch recorded as reverted really is an\nancestor whose files really are absent -- both halves, since either alone is the\ncondition that fooled the first version.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "29014d43e18724515b669fc4905b387d123c7815",
+      "date": "2026-09-16T14:25:19Z",
+      "author": "mohammedwessam2007",
+      "message": "EVENT HORIZON: branch-debt convergence and UBER/OS integration (#912)\n\nMeasures branch debt, integrates seven stranded branches including UBER/OS Generation-0, and reverts two that would make an outbound send path unattended-reachable.\n\nVerified at 48795773: 7582 tests with 0 failures, 441 of 441 mutations killed, reachability fully classified, canon fresh.\n\nsoftwareOpen is 2, not 0. Three branches lack a terminal class and 98 stranded pre-rewrite modules are unchecked. FD001 asks whether an outbound send path may be reachable from an unattended operator script; until answered, the two big-button branches stay out.\n\nNo external authority created or widened. Revenue, customers and cleared payment remain zero. ASI, intelligence-explosion and singularity status remain NOT_ESTABLISHED."
+    },
+    {
+      "sha": "4879577303783a254fc3af625d1cfb102014b4f1",
+      "date": "2026-09-16T14:24:12Z",
+      "author": "Claude",
+      "message": "Regenerate readiness canon at the reconciled head\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "31f8897f1dd52bd22e4d2230250c7974a8d89374",
+      "date": "2026-09-16T14:17:08Z",
+      "author": "Claude",
+      "message": "Merge seven stranded branches, and revert the two that wire an outbound send path\n\nNine branches carried source main lacks. Seven are now integrated and verified:\n\n  auto-materialize-money-routes        commercial execution path materializer\n  contabo-preflight-operator           read-only mail-cell preflight\n  native-live-research-security        owned-target security verifier, research mesh\n  free-runtime-mesh                    Cloudflare worker burst mesh\n  free-event-runtime-mesh              event-driven runtime witness\n  uberos-gen0-sovereign-os             UBER/OS Generation-0, 21 files\n  reachability-lineage-reconciliation  RESEARCH_ONLY category and gate\n\nEach new module carries a gate that names what would actually release it, not a\nshared label: NO_CUSTOMER for a materializer that marks its own routes unproven\nwithout outcome evidence; NO_AUTHORIZED_SECURITY_TARGET for a verifier whose\ntarget classes are OWNED_LOCAL and OWNED_PREVIEW with neither registered;\nNO_CONFIGURED_EGRESS_ROUTES for a read-only research mesh with no egress;\nNO_PROVISIONED_FREE_RUNTIME_MESH for a scheduler with no worker;\nNO_BUILT_UBEROS_IMAGE for a state engine whose OS manifest is still a recipe.\n\nThe two big-button branches merged clean and passed 28 of 28 of their own tests\nand the full suite. They are reverted anyway.\n\nsovereign-outreach-big-button imports the OMNIA v9 postal effect adapter.\npressUberLaunchButton mints a dispatchAuthorization and postal.dispatch sends.\nMerging it pulls the whole external-effect island out from behind\nNO_OUTBOUND_AUTHORIZATION and NO_EXTERNAL_EFFECT_AUTHORIZATION, reachable from\nan unattended operator script, and the reachability ratchet said so immediately\nby failing on a cascade of four classifications that had become false.\n\nThe gates on that path are well built: an authenticated founder press,\nshort-lived authority bound to one capsule, campaign and recipient, an API route\nthat is not mounted in server.mjs and refuses without an ADMIN_TOKEN bearer and\nan explicit PRESS_UBERLAUNCH confirmation, businessEffectAuthority NONE at module\nlevel. The objection is not to the design.\n\nIt is that the obvious way to make the ratchet green is to delete the four\nclassifications, and that is autonomously removing an authority constraint,\nwhich section 118 forbids. The ratchet anticipates the temptation in its own\ncomment: remove the unattended path, do not reclassify the module to make this\npass. Whether an outbound send path may be unattended-reachable is a founder\ndecision under section 196, where consent and messaging are named escalations,\nand the external-effect charter names customer messages explicitly.\n\nRecorded as FD001 with both answers written out, so the decision is a yes or a\nno rather than a research task. Capability never creates authority, including\nwhen the capability is good and the tests are green.\n\nTwo software items open: three branches without a terminal class, and\nninety-eight stranded pre-rewrite modules unchecked.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "fe7b9401a69e10958f731fc49603067ea82a2529",
+      "date": "2026-09-16T14:09:02Z",
+      "author": "Claude",
+      "message": "Revert \"Merge remote-tracking branch 'origin/feat/founder-big-button-outreach' into claude/uberbond-bootstrap-archaeology-zmqw8l\"\n\nThis reverts commit 084569479cb13c419056a1afb6ce8efcf2988400, reversing\nchanges made to dd60d6b8af1ac94d4ae36387b42e58553a6fe02a."
+    },
+    {
+      "sha": "f0e553246b7bfde96eea1a60de4da0353abdbba6",
+      "date": "2026-09-16T14:09:02Z",
+      "author": "Claude",
+      "message": "Revert \"Merge remote-tracking branch 'origin/feat/command-center-big-button' into claude/uberbond-bootstrap-archaeology-zmqw8l\"\n\nThis reverts commit d52320e8228a3876ee10dd1930db9cce1eb884a2, reversing\nchanges made to 084569479cb13c419056a1afb6ce8efcf2988400."
+    },
+    {
+      "sha": "d52320e8228a3876ee10dd1930db9cce1eb884a2",
+      "date": "2026-09-16T14:02:37Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/command-center-big-button' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "084569479cb13c419056a1afb6ce8efcf2988400",
+      "date": "2026-09-16T14:02:37Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/founder-big-button-outreach' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "dd60d6b8af1ac94d4ae36387b42e58553a6fe02a",
+      "date": "2026-09-16T14:02:27Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/free-event-runtime-mesh-20260913' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "be3ce124dd9365e9d3ad6e81ddc7f709d6a6b85d",
+      "date": "2026-09-16T14:02:27Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/free-runtime-mesh-20260913' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "eedbcafc40e53d91951d141fbaf2826b47613a9e",
+      "date": "2026-09-16T14:01:43Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/native-live-research-security-20260913' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "72f137c71f02de4fd0d37c7d1a252260f35bb74e",
+      "date": "2026-09-16T14:01:43Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/contabo-preflight-operator-20260913' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "6b8fe08e7b6533a55c56f91b7e627badd7eba55f",
+      "date": "2026-09-16T14:01:43Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/feat/auto-materialize-money-routes' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "e3073aae10c81ed32621819e9b05ae759b4abf75",
+      "date": "2026-09-16T14:01:43Z",
+      "author": "Claude",
+      "message": "Record UBER/OS as merged and refresh canon\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "10544bd0abfaf26addacf2a1282583dce30a974a",
+      "date": "2026-09-16T14:00:50Z",
+      "author": "Claude",
+      "message": "Integrate UBER/OS Generation-0, the largest piece of stranded unique work\n\nPR 891 and the branch behind it carried 21 files main does not have: a buildroot\nexternal tree, a kernel adapter, a system compiler, package provenance, a\ntransactional state engine, an unknown-unknown lab, a machine manifest schema, a\ndoctor, and QEMU build/run scripts. Sections 059 through 063 name compute\nsovereignty and hardware research directly, and this is the only branch that\nimplements them.\n\nMerged into the reconciled tree with zero conflicts. Its own suite passes 11 of\n11, and the full deterministic suite goes 7551 to 7562 with nothing broken.\n\nOne module needed classifying. Five of the six uberos modules are reachable\nthrough the doctor by way of the system compiler; src/uberos/state-engine.mjs is\nnot, because the system compiler does not use it. It compiles a candidate state\ntransition with its checks and its rollback receipt and refuses a transition that\ncannot be rolled back -- the piece that would make an OS update atomic.\n\nIts gate is that there is no OS to update. The manifest is a recipe rather than\na receipt: its kernel revision is the literal placeholder\nCAPTURE_EXACT_VERSION_IN_BUILD_RECEIPT, no image has been built, and building\nneeds a buildroot toolchain that is not present here. NO_BUILT_UBEROS_IMAGE says\nexactly that and names what would release it.\n\nThis does not claim UBER/OS runs. It claims its source is now on the reconciled\ntree instead of stranded on a branch pointed at an older main, and that the\nmachine it describes has not been built.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "5b0feb47c15888589b099f0fe16f0f270bc6aca5",
+      "date": "2026-09-16T13:56:28Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/astra/uberos-gen0-sovereign-os-20260915' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "e53faf5c225c60c22c2c1e1e757762f7c196cf31",
+      "date": "2026-09-16T13:52:46Z",
+      "author": "Claude",
+      "message": "Regenerate the report and summary against the reopened ledger\n\nThe report said SOFTWARE_SIDE_COMPLETE while the ledger said three items open.\nThe test that asserts the report cannot disagree with the ledger caught it, which\nis the one job that test has.\n\nThe human summary carried the same stale verdict and now states what reopened it\nand why the earlier zero was understated rather than wrong in detail: the ledger\ndid not represent branch debt at all.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "ca8d63baf83541c7a20eb89d213bf0f86bb69af3",
+      "date": "2026-09-16T13:52:08Z",
+      "author": "Claude",
+      "message": "Classify all 31 diverged branches, and require a terminal class rather than a label\n\nSection 010 lists five terminal classes and section 152 requires every open PR\nclassified. Thirty-one diverged branches now carry a disposition decided on what\neach contains rather than on its name:\n\n  10 SUPERSEDED       every file they add already resolves in main\n   9 ARCHIVED_DONOR   modifications only, against files main has since advanced\n   3 MERGED           the reachability trio, whose substance main now carries\n   9 MERGE_CANDIDATE  real source main does not have\n\nMERGE_CANDIDATE is deliberately not terminal. The nine include UBER/OS\nGeneration-0 with its buildroot tree, kernel adapter and system compiler; a free\nCloudflare-worker runtime mesh; a founder console; an owned-target security\nverifier; and a commercial execution-path materializer. Sections 059 to 063,\n066, 094, 095, 096, 121 and 070 name every one of those concerns directly. They\nare wanted and they have not been verified against current main, and recording\nthem as wanted must not be allowed to count as having done them.\n\nWhich is what the first version of the checks did. CD011 asked whether a branch\nhad a disposition at all, and nine MERGE_CANDIDATE entries satisfied it, so the\nledger went green on branch debt while nine branches of unmerged source sat\nthere. CD013 had the same hole for pull requests. Both now require a terminal\nclass, and both reopened when the hole closed -- which is the ledger working\nrather than failing.\n\nThree software items open: nine unresolved diverged branches, PR 891, and\nninety-eight stranded pre-rewrite modules not yet checked against a successor.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "61e7f0cd62e829e6eb68c0102da26949860bf3fa",
+      "date": "2026-09-16T13:48:46Z",
+      "author": "Claude",
+      "message": "Measure branch debt, and integrate a rival reachability fix rather than overwrite it\n\nEVENT HORIZON section 009 counts branch debt in softwareOpen. The previous\nledger reported zero software items open and did not represent branch debt at\nall, so that zero was understated rather than wrong-in-detail. It is measured\nnow.\n\n854 remote branches: 88 contained in main, 31 genuinely diverged, 735 rooted in\na lineage that shares no ancestor with main at all. Main was rebuilt on a new\nroot and carries more than one, so it has absorbed unrelated histories before.\nCounting commits unreachable from main gives figures above 1700 for a single\nbranch, which is the whole branch rather than 1700 pieces of work, and the raw\n767 \"branches with unique commits\" is almost entirely that artifact.\n\nAncestry cannot settle whether anything is stranded, so it is measured at file\nlevel: 152 pre-rewrite branches carry a file main lacks, 367 distinct files\nacross them, 101 of them src modules, and none of those 101 was ever in main's\nhistory -- they were not deleted, they never crossed the rewrite.\n\nThree that map to named constitution organs were checked against main.\ncausal-intervention-ladder is superseded by epistemic-immune-system's causalClaim\nover Pearl rungs; decision-information-theory by forecast-stack, which exports\nvalueOfInformation and predictionHalfLife under the same names; attribution-chain\nby causal-attribution-spine, inferred from domain rather than matching exports.\nThe rewrite re-implemented concepts under new names. Three of a hundred and one\nis a pattern, not a proof, and the residual is carried as CD012 rather than\nrounded down.\n\nSeparately, fix/reachability-lineage-reconciliation had solved the same problem\nI had just solved, better in one respect and worse in another. Their RESEARCH_ONLY\ncategory is more truthful than my AWAITING_ACTIVATION gate: a research instrument\nis not waiting on anything external, and saying it is would be a false reason.\nTheir per-module reasons were one boilerplate string repeated nineteen times,\nwhich cannot tell anyone which module to look at. Their UberOcean gate names the\nowner-authorization requirement mine left implicit.\n\nSo their category, their gate name, their authorization language, my per-module\nreasons, and my removal of the four classifications that had become false -- their\nversion is still red on that test because it keeps them. Two independent efforts\nconverged to nearly the same answer and each had something the other lacked;\ntaking only mine would have been amputation by default.\n\nfix/uber-sovereign-stack-count fixed the same UBEROCEAN drift by deleting two\nassertions from the test. That makes one test green while leaving the topology\nunresolvable and the other five failures untouched. Recorded as superseded, and\nworth recording as the failure mode it is.\n\nThree software items now open, all of it branch debt. Not done.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "755e00a21be47f6f032b27298df404472682bd2d",
+      "date": "2026-09-16T13:41:47Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge NULLSTAR cognitive-measurement lineage and repair main's red tests (#889)\n\nConverges the NULLSTAR OMEGA cognitive-measurement spine onto main and repairs eight tests that were already failing on main before this branch touched them.\n\nMain was red: UBEROCEAN had been added to UBER_SOVEREIGN_LAYERS without being added to the orchestration dependency graph or the phase list, so the topology could not resolve and six tests failed; two reachability tests failed on twenty-one unclassified modules and four classifications that had become false. This branch fixes all of them, so the merge takes main from red to green.\n\nExact-head verification at 33879b8e: 7551 tests, 7497 pass, 0 fail, 54 skipped. Local runs.\n\nHosted CI on this head reports eight failures, every one of which has runner_id 0, an empty runner_name, no executed steps, a four-second duration and a 404 on log download. No runner was ever assigned. That is infrastructure non-evidence, not a source failure, and it is recorded as such rather than claimed as a pass.\n\nNo external authority is created or widened. Revenue, customers and cleared payment remain zero. ASI, intelligence-explosion and singularity status all remain NOT_ESTABLISHED."
+    },
+    {
+      "sha": "33879b8e105a9e910f74dca06e2daad6e295307a",
+      "date": "2026-09-16T13:36:58Z",
+      "author": "Claude",
+      "message": "Regenerate readiness canon after the main merge\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "67b58743d13636755e1923eb8d40bbb9f4c36829",
+      "date": "2026-09-16T13:36:57Z",
+      "author": "Claude",
+      "message": "Merge main, and repair the eight failures that were already red there\n\nPHASE 1 and 2 of EVENT HORIZON. Main had advanced 183 commits while this branch\nworked; the merge itself was clean, with zero conflicts. The merged tree then\nshowed nine failures, so I checked them against pure origin/main in a worktree\nbefore assuming the merge caused them. Eight fail on main with none of this\nbranch's work present.\n\nUBEROCEAN was added to UBER_SOVEREIGN_LAYERS and to neither the orchestration\ndependency graph nor the phase list. Registry 29, graph 28, phases 28, and the\ntopology could not resolve at all -- order came back empty, which is why six\ntests went red rather than one. UberOcean supplies the physical Linux hosts\nUberCel deploys onto, and the UberOcean/UberCel bridge will not compile a plan\nwithout an identity to trust the host and a mesh receipt to reach it, so it\ndepends on UBERIDENTITY and UBERMESH and UBERCEL now depends on it. Placed in\nEXECUTION_SUBSTRATE ahead of the layer that consumes it.\n\nThe tests that caught this asserted a literal 28. That number was incidental --\nthe invariant is that the registry, the graph and the phases agree -- and a\nliteral turns drift into \"someone must remember to bump a number\". They now\nassert agreement with UBER_SOVEREIGN_LAYERS.length and an empty\nmissingFromGraph/missingFromPhases, and the sovereign-stack test derives its\ncount from its own named list so adding a layer without naming it fails with\nthe name rather than with an arithmetic mismatch.\n\nReachability had two separate faults. Twenty-one modules carried no\nclassification: nineteen from the Omega private-evidence lab and the two\nUberOcean modules. All are deterministic, tested, and imported by nothing in\nproduction. Two new gates say what would actually release them --\nNO_PRIVATE_LAB_CONSUMPTION_DECISION, which is a decision that a named\nproduction organ consumes a named lab output, and NO_ADMITTED_COMPUTE_HOSTS,\nwhich is two observed hosts in independent failure domains with a verified mesh\nreceipt. Each module carries its own reason rather than sharing a generic one.\n\nFour other classifications had become false. src/uberlaunch-runtime-evidence.mjs\nsaid in as many words \"Trace found no importer\", and scripts/outreach-reality-\ndoctor.mjs -- new on main -- imports it, which makes the whole launch island\noperator-reachable. Removing the three leaf entries exposed that root, which is\nthe ratchet working: it would not let me delete the symptom and keep the cause.\n\n7551 tests, 7495 pass. The two remaining failures are both artifacts of an\nuncommitted tree -- canon freshness, and the native worker that refuses to run\non dirty source.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01X8YufFGKd43XT6LZGRX6nY"
+    },
+    {
+      "sha": "85b32a122d846ad80e0b623edff2aa6e60732ba0",
+      "date": "2026-09-16T13:25:14Z",
+      "author": "Claude",
+      "message": "Merge remote-tracking branch 'origin/main' into claude/uberbond-bootstrap-archaeology-zmqw8l"
+    },
+    {
+      "sha": "4683a1e51ccc06c55e0d2f8283b49d2b7494306a",
+      "date": "2026-09-16T02:35:40Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge canonical UberReply lane alignment\n\nPromote canonical four-offer IDs into UberProspect after fresh-clone 6/6 focused verification."
+    },
+    {
+      "sha": "536eab74e8b1f79f9d9dfe3c59adac97ec0306d9",
+      "date": "2026-09-16T02:35:08Z",
+      "author": "mohammedwessam2007",
+      "message": "test: pin canonical UberReply lane ids"
+    },
+    {
+      "sha": "63ab586e2a71deb08991e2e69d2d2b353a8d907a",
+      "date": "2026-09-16T02:34:53Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: align UberProspect with canonical UberReply offers"
+    },
+    {
+      "sha": "cfcc35af3a98256d1c31ac20a8f32782b5547e36",
+      "date": "2026-09-16T02:31:18Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge UberDNS GoDaddy adapter\n\nPromote the current GoDaddy v3 DNS donor adapter behind UberDNS. Focused verification is green and the branch adds no reachability regression over main."
+    },
+    {
+      "sha": "2bc887f27053efc620e74cc134abca337109ccfa",
+      "date": "2026-09-16T02:30:44Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: expose UberDNS GoDaddy adapter in closure doctor"
+    },
+    {
+      "sha": "7e6b8b190c5e890606ed2cbd0d73cebd9f9d139a",
+      "date": "2026-09-16T02:30:15Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify UberDNS GoDaddy adapter"
+    },
+    {
+      "sha": "22a009498843615551b9dfb4dc9aa67d78611883",
+      "date": "2026-09-16T02:30:04Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add GoDaddy v3 adapter for UberDNS"
+    },
+    {
+      "sha": "b76d2a23c1ec32be10042712d1339803fe44c4f8",
+      "date": "2026-09-16T02:29:40Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record GoDaddy DNS donor interface research"
+    },
+    {
+      "sha": "ccfa42268c175f4156e62c9f157f189f25e3f739",
+      "date": "2026-09-16T02:29:09Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge Uber outreach external-closure organs\n\nPromote UberDNS, UberPostal, UberProspect and UberLaunch closure with fresh-clone focused verification. The new organs add no new reachability regression over main and preserve external-reality, spend, legal, suppression and provider gates."
+    },
+    {
+      "sha": "3bdbd1d40ee60f420c9e488e2728acb5cc4f802c",
+      "date": "2026-09-16T02:28:10Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: wire Uber closure organs into operator doctor"
+    },
+    {
+      "sha": "2a44e2237b9be2fcc0db26aa9c9be6d10f8b1c00",
+      "date": "2026-09-16T02:26:11Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: add closure status pointer"
+    },
+    {
+      "sha": "47b5c3947db0e709d27ed7f3e7451164bd09cb7c",
+      "date": "2026-09-16T02:26:00Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: add merge note for Uber closure"
+    },
+    {
+      "sha": "bcd3370c545dfb4edd042f3b4794c501ec720b44",
+      "date": "2026-09-16T02:25:41Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: index Uber closure organs"
+    },
+    {
+      "sha": "11b76776e4d855a96b0a72128a5a26d9a54f3b84",
+      "date": "2026-09-16T02:25:34Z",
+      "author": "mohammedwessam2007",
+      "message": "chore: record Uber closure source verification"
+    },
+    {
+      "sha": "930257fc42f16a9670555193f00b900f82f2ee4e",
+      "date": "2026-09-16T02:25:20Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: add outreach closure handoff"
+    },
+    {
+      "sha": "91dc36f20b0617497ecb550960d0df5760ebe034",
+      "date": "2026-09-16T02:25:11Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberLaunch closure doctor"
+    },
+    {
+      "sha": "7359645fb5c39d41557ec3d61ffb8e289e654c28",
+      "date": "2026-09-16T02:25:04Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: preserve Uber outreach closure doctrine"
+    },
+    {
+      "sha": "7495a35965026263bc7b1e8163e2417972171cd1",
+      "date": "2026-09-16T02:24:37Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify Uber launch closure organs"
+    },
+    {
+      "sha": "4c7116db55a94dc0045f7b90e95a6420c1eb74bc",
+      "date": "2026-09-16T02:24:07Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberLaunch closure compiler"
+    },
+    {
+      "sha": "45168d3d21bcac43d73ca05eb9974156afac31bc",
+      "date": "2026-09-16T02:23:33Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberProspect governed four-lane corpus compiler"
+    },
+    {
+      "sha": "5364ab1c608001c372a68c99b939a159748236bc",
+      "date": "2026-09-16T02:23:19Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberPostal founder-authorized identity compiler"
+    },
+    {
+      "sha": "724e3fdeaf2177534c5e26130ee1d1fba4cc0d9d",
+      "date": "2026-09-16T02:23:08Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberDNS provider-neutral control plane"
+    },
+    {
+      "sha": "2925f74573f24dcccb8cb888a7bd6820abec16b1",
+      "date": "2026-09-15T22:32:06Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge founder press-now outreach control\n\nMake the admin button useful before SMTP certification by invoking the existing UberSocket outreach council and cognitive cycle, while preserving the exact certified 100K send gate."
+    },
+    {
+      "sha": "2ef39295e9d27ac6b0ee4e1e79c48aa871b19d98",
+      "date": "2026-09-15T22:31:24Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify press-now council fallback"
+    },
+    {
+      "sha": "33ee09f6f70bd3a6fe02afc287ae5f84c04b5428",
+      "date": "2026-09-15T22:31:15Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: make founder outreach button useful before certification"
+    },
+    {
+      "sha": "96bbe2b0775f0e87fbba5daf8414c8ec35255e6c",
+      "date": "2026-09-15T22:19:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge live outreach reality doctor\n\nAdd a read-only reality reconciliation command over public DNS, local 100K artifacts, runtime evidence, and UberDoso physical-host prerequisites."
+    },
+    {
+      "sha": "94c85fcc7ffb6ae037d210e0e314b7e837e29c40",
+      "date": "2026-09-15T22:19:29Z",
+      "author": "mohammedwessam2007",
+      "message": "test: pin outreach reality doctor fail-closed behavior"
+    },
+    {
+      "sha": "4747da625d46ba98ef49e40ce1684ce7ec03994c",
+      "date": "2026-09-15T22:19:22Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add live outreach reality doctor"
+    },
+    {
+      "sha": "17415fdca3f2e40190ed8eddb1ec096242095588",
+      "date": "2026-09-15T22:04:31Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge lawful 100K reach objective substitution\n\nAdd a fail-closed objective-substitution layer that counts unique recipients with fresh public-or-authorized, terms-compatible reachable endpoints across supported channels. Preserve SMTP certificate truth and grant no automatic contact or send authority."
+    },
+    {
+      "sha": "ca46cae3d0b01c2bcc91bc4a618efd606238b2fd",
+      "date": "2026-09-15T22:03:58Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: expose objective substitution through doctor"
+    },
+    {
+      "sha": "08eb93da874041abc79e80432aaeb508284d6f79",
+      "date": "2026-09-15T22:03:47Z",
+      "author": "mohammedwessam2007",
+      "message": "test: prove objective substitution stays fail-closed"
+    },
+    {
+      "sha": "420685101d71200d7102d9b78a54fe1d5bb1ebf7",
+      "date": "2026-09-15T22:03:38Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add lawful reach objective substitution"
+    },
+    {
+      "sha": "bc6d606b5f7c620891eaac22de0f0b082fbc1b85",
+      "date": "2026-09-15T22:02:56Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify one-button 100k artifact preparation"
+    },
+    {
+      "sha": "3056ede8d9e0f0c2c3bc1a5080b1f74d247cbb1d",
+      "date": "2026-09-15T22:02:37Z",
+      "author": "mohammedwessam2007",
+      "message": "test: require one-button artifact preparation before 100k enqueue"
+    },
+    {
+      "sha": "27a7934565fb1d067aac9b64b69a257cfa672475",
+      "date": "2026-09-15T22:02:16Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: make 100k start prepare governed artifacts"
+    },
+    {
+      "sha": "f254c4b5ce6d90e7789f52776125edb547147e87",
+      "date": "2026-09-15T21:58:58Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: prepare one-button 100k outreach artifacts"
+    },
+    {
+      "sha": "aad1386a0bb1984b81448f44a516a8497362cd3e",
+      "date": "2026-09-15T21:58:11Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify 100k runtime bundle compiler"
+    },
+    {
+      "sha": "9a3a73a17ce7035bf2d091469872465af30d71f4",
+      "date": "2026-09-15T21:57:49Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: compile canonical 100k runtime bundle"
+    },
+    {
+      "sha": "65fed2d7574c58a80c94b5966b24a6dd93b0b3aa",
+      "date": "2026-09-15T21:56:20Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify 100k packet compiler"
+    },
+    {
+      "sha": "c3ad11ed429bdbdd1f8f9fb899b43795cc9a4d4d",
+      "date": "2026-09-15T21:56:01Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: compile precleared outreach packets"
+    },
+    {
+      "sha": "8c819869dba1834eb0e74ff33fba45d13d7a6a0c",
+      "date": "2026-09-15T21:53:41Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify governed 100k corpus materializer"
+    },
+    {
+      "sha": "0341084a3d78aa2597c0c962f46554ef58963292",
+      "date": "2026-09-15T21:53:23Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: materialize governed 100k outreach corpus"
+    },
+    {
+      "sha": "f83c6891c89cfc3e06be40988bdb4552e533f390",
+      "date": "2026-09-15T21:52:06Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge zero-barrier outreach fabric and canonical 100K hardening\n\nTransplant additive zero-barrier outreach organs onto current main and harden the canonical 100K launch certificate against duplicate capacity evidence, unknown usage, ambiguous outbound state, and missing campaign expiry. Focused changed-surface verification passed; GitHub Actions runner infrastructure failed before executing any steps, documented in PR."
+    },
+    {
+      "sha": "1209684588dfda86d2b03c8ca2ec0016abb58a27",
+      "date": "2026-09-15T21:51:39Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: record final zero-barrier evidence hardening"
+    },
+    {
+      "sha": "32b389f8469e7c8c23292bf9f895f484af20cffc",
+      "date": "2026-09-15T21:49:35Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: expose UberAttention through zero-barrier doctor"
+    },
+    {
+      "sha": "2f2721806f0ff5c5eedba8b966ee65f67ecd2223",
+      "date": "2026-09-15T21:49:15Z",
+      "author": "mohammedwessam2007",
+      "message": "test: prove unknown launch evidence stays fail-closed"
+    },
+    {
+      "sha": "b6f45e0079078c02f91a53b725f2ba6c1b0c2eea",
+      "date": "2026-09-15T21:48:50Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: reject unknown launch evidence and implicit live state"
+    },
+    {
+      "sha": "b85344a705fd7499995d15c8b1109340b143fcdf",
+      "date": "2026-09-15T21:43:30Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: harden canonical 100k certificate against duplicate capacity and unknown usage"
+    },
+    {
+      "sha": "0c553f666ce277dae779258a129838fe140ab48a",
+      "date": "2026-09-15T21:41:44Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: transplant zero-barrier outreach donor organs onto current main"
+    },
+    {
+      "sha": "1b6fe205640d73acb1ed0dea93b0d4d0fe838812",
+      "date": "2026-09-15T21:40:11Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add zero-barrier outreach composition"
+    },
+    {
+      "sha": "e3e07e777c376e893cf58eef99c5ced98cf58603",
+      "date": "2026-09-15T21:33:49Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: load UberSocket OpenAI key from protected UberLit runtime secret"
+    },
+    {
+      "sha": "123f64107a02cf685d228a3bc092dd844e6b6289",
+      "date": "2026-09-15T21:33:20Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add protected UberSocket OpenAI secret store"
+    },
+    {
+      "sha": "60c699fa5840e77f7f233c4e173d1b179b63fbf2",
+      "date": "2026-09-15T21:25:46Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: restore and persist UberSocket whole-brain state through UberBond durable store"
+    },
+    {
+      "sha": "5488b5cdb0a8f2ee09569ccdbb811f2adf470250",
+      "date": "2026-09-15T21:25:04Z",
+      "author": "mohammedwessam2007",
+      "message": "test: prove UberSocket shared brain survives restart through durable state"
+    },
+    {
+      "sha": "a42f9e46423db72e7c6b5c172d3cf1fba2f6323a",
+      "date": "2026-09-15T21:24:50Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: persist and restore UberSocket shared brain through existing durable settings store"
+    },
+    {
+      "sha": "df51c7844ffde3f9e229a9ad27aaca616b434152",
+      "date": "2026-09-15T21:23:33Z",
+      "author": "mohammedwessam2007",
+      "message": "test: fix archival-peer assertion in ChatGPT importer acceptance"
+    },
+    {
+      "sha": "aed33de6734063e7f187c51caf27a710c11b7823",
+      "date": "2026-09-15T21:23:10Z",
+      "author": "mohammedwessam2007",
+      "message": "test: prove ChatGPT project import, filtering, provenance, and archival fail-closed behavior"
+    },
+    {
+      "sha": "1b9f4375ac8c252fd013a02f70625f4ac9686cfd",
+      "date": "2026-09-15T21:22:52Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: expose bounded ChatGPT project bulk import through hardened UberSocket API"
+    },
+    {
+      "sha": "d02542d0b0029c143544084085365c9e9998a107",
+      "date": "2026-09-15T21:22:16Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: wire ChatGPT project bulk importer into unified UberSocket runtime"
+    },
+    {
+      "sha": "7e708396914756299c7ea3cb9cb6ed76c2c37f77",
+      "date": "2026-09-15T21:21:44Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add bulk ChatGPT project export importer into UberSocket shared brain"
+    },
+    {
+      "sha": "a5d8266c62aa44e874a93a12810316bde7364060",
+      "date": "2026-09-15T21:21:26Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: make archival chat peers fail closed until rebound to a live model conversation"
+    },
+    {
+      "sha": "fbe7316fae8e250ac2547499290b0b5add6a45f5",
+      "date": "2026-09-15T21:20:26Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: make UberSocket activation doctor certify the whole canonical connectome"
+    },
+    {
+      "sha": "d1357e9aa27cd5e23d62dfb9e12781271a2b7622",
+      "date": "2026-09-15T21:20:08Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: expose whole-brain and connectome operations through hardened UberSocket API"
+    },
+    {
+      "sha": "c22480cc36b05924acf7b6cb9d1df354906f7690",
+      "date": "2026-09-15T21:18:55Z",
+      "author": "mohammedwessam2007",
+      "message": "test: bind connectome model-call assertion to discovered peers"
+    },
+    {
+      "sha": "b08731417bfc4556a02b996519e68cbf3f9edbde",
+      "date": "2026-09-15T21:18:01Z",
+      "author": "mohammedwessam2007",
+      "message": "test: prove UberSocket connectome cold-load and whole-organism fanout"
+    },
+    {
+      "sha": "ccc80453add3384ead63147f6de57f54834096ce",
+      "date": "2026-09-15T21:17:45Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: import crypto and attach canonical connectome runtime to UberSocket"
+    },
+    {
+      "sha": "30d1d78e2b15b6d6b4b5d0ddc57d969a0d5c61ed",
+      "date": "2026-09-15T21:17:20Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberSocket whole-organism connectome doctor and mission fanout"
+    },
+    {
+      "sha": "dfc27370e13cd89043115b1996647970d9edf332",
+      "date": "2026-09-15T21:14:49Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: expose UberMind whole-brain mission orchestration through UberSocket runtime"
+    },
+    {
+      "sha": "ea61a76f6e5ea7c1dc01ac501f7d06c498bb410a",
+      "date": "2026-09-15T21:14:26Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: connect UberSocket project mesh to UberMind whole-brain planning"
+    },
+    {
+      "sha": "b39083c1be1a8c68a35535b93a41aa0ca8182272",
+      "date": "2026-09-15T21:13:10Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify UberSocket whole-brain cognitive integration"
+    },
+    {
+      "sha": "484b2628241ac21a82de3e4782fef4b1c9b503a4",
+      "date": "2026-09-15T21:12:57Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: route UberSocket through canonical cognitive backplane"
+    },
+    {
+      "sha": "b835e86a4bc8ef0ed28ce45da3c89f516540d4e1",
+      "date": "2026-09-15T21:12:31Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: connect UberSocket to canonical cognitive bus"
+    },
+    {
+      "sha": "2798a5612aef985ba3aedd7b6737169a4d6b2750",
+      "date": "2026-09-15T20:49:06Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberSocket activation doctor"
+    },
+    {
+      "sha": "6fc1fb8738fba8f4800956ffc4bd91a97375a134",
+      "date": "2026-09-15T20:48:24Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: activate UberSocket project brain endpoints"
+    },
+    {
+      "sha": "5462b9b8b73a3e59f98545b3a9fffbc6d05b2518",
+      "date": "2026-09-15T20:47:46Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add activated UberSocket project runtime"
+    },
+    {
+      "sha": "82f1d30791afb077ef48f01b20c8a461b9288b25",
+      "date": "2026-09-15T20:44:25Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: use current project mesh contract in shared content test"
+    },
+    {
+      "sha": "dfcfe2e107c4d9eb2563b99c0da8265bba20d150",
+      "date": "2026-09-15T20:44:07Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: align shared content fabric with project mesh API"
+    },
+    {
+      "sha": "0fa180bfd5dfc995af323083133808921f11d461",
+      "date": "2026-09-15T20:43:19Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify shared chat cognition and monster prompt compiler"
+    },
+    {
+      "sha": "7053a455e496d635fd4a99fc865ae261f6eb3437",
+      "date": "2026-09-15T20:42:58Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add shared-content and monster-prompt fabric"
+    },
+    {
+      "sha": "fff2be6f937d570f8405af384aa198b1f9962593",
+      "date": "2026-09-15T20:39:52Z",
+      "author": "mohammedwessam2007",
+      "message": "test: stress project-wide UberSocket mesh"
+    },
+    {
+      "sha": "0c28f39eea802d0d675e17ffe3b72ea8976eabcb",
+      "date": "2026-09-15T20:39:36Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add project-wide UberSocket chat mesh"
+    },
+    {
+      "sha": "44a3387be320364e0f0a89553a8c3ade4d955519",
+      "date": "2026-09-15T20:32:31Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify OpenAI persistent conversation adapter"
+    },
+    {
+      "sha": "dcd5c39c43fe600af6baee14fb466c1bbf32c169",
+      "date": "2026-09-15T20:32:17Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add OpenAI conversation model adapter"
+    },
+    {
+      "sha": "92aa0ecbe6ddc5a21c7681fce214dabbabca4995",
+      "date": "2026-09-15T20:25:09Z",
+      "author": "mohammedwessam2007",
+      "message": "test: verify in-app UberSocket peer routing"
+    },
+    {
+      "sha": "036ebc58400db021df7a0f46a06c31f2b94c11e7",
+      "date": "2026-09-15T20:24:57Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add in-app UberSocket peer router"
+    },
+    {
+      "sha": "183d15e66c43ac889739ac7d5384112704fbb7dc",
+      "date": "2026-09-15T18:47:48Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: wait for ChatGPT send button readiness"
+    },
+    {
+      "sha": "74f6340cd7cffac895e601803ddaddfd9ce0525b",
+      "date": "2026-09-15T18:45:54Z",
+      "author": "mohammedwessam2007",
+      "message": "docs: add UberSocket exact-tab setup and boundaries"
+    },
+    {
+      "sha": "555d624fa70a44f66115b40310129173cf53114e",
+      "date": "2026-09-15T18:45:22Z",
+      "author": "mohammedwessam2007",
+      "message": "test: lock ChatGPT peer envelope authority boundary"
+    },
+    {
+      "sha": "4d56cb8d8f0f937fe220fc827c40c9e752a6c326",
+      "date": "2026-09-15T18:44:40Z",
+      "author": "mohammedwessam2007",
+      "message": "fix: echo encrypted broadcasts for same-browser peer tabs"
+    },
+    {
+      "sha": "8416cefc2263a8929b04cff22689680d89deaedf",
+      "date": "2026-09-15T18:43:13Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: continue bounded peer responses through ChatGPT tabs"
+    },
+    {
+      "sha": "be0d13abed25a56e775d2f3bab8e31e54e6a276e",
+      "date": "2026-09-15T18:42:49Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: bound autonomous ChatGPT peer dialogue"
+    },
+    {
+      "sha": "fa820d13af12c8ded4adaccf0f2bc7522c3de9c1",
+      "date": "2026-09-15T18:42:13Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberSocket pair and arm controls"
+    },
+    {
+      "sha": "fc2beb362795d2c7d0c83139c6e33f6de98516bc",
+      "date": "2026-09-15T18:41:59Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberSocket tab pairing UI"
+    },
+    {
+      "sha": "8e9648283272d44f45c19e89a5731721fb20a99e",
+      "date": "2026-09-15T18:41:26Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add ChatGPT tab prompt-response adapter"
+    },
+    {
+      "sha": "d0013451fd2edfe1e94b88ace5438b01834a673c",
+      "date": "2026-09-15T18:41:04Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add encrypted UberSocket background transport"
+    },
+    {
+      "sha": "c51f26e226c089cc143d101a7383a68ac38502ca",
+      "date": "2026-09-15T18:40:26Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add UberSocket ChatGPT tab adapter manifest"
+    },
+    {
+      "sha": "24303d4dcb0761ec656831a45206ad50f4fe5a33",
+      "date": "2026-09-15T18:28:13Z",
+      "author": "mohammedwessam2007",
+      "message": "feat: add bounded ChatGPT peer envelope"
+    },
+    {
+      "sha": "ba89f633898d701e236c1b8fe021d3deff547962",
+      "date": "2026-09-15T18:26:25Z",
+      "author": "mohammedwessam2007",
+      "message": "Merge pull request #901 from mohammedwessam2007/sol/omega-evidence-closure-20260915\n\nOmega private evidence closure and calibrated transfer"
+    },
+    {
+      "sha": "d622e80d36c7b52e7dd49f8a680796cf56ad37e3",
+      "date": "2026-09-15T18:24:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Promote bounded Omega evidence program to earned E8"
+    },
+    {
+      "sha": "b4332ce5d1e3424ca591642efea9d37cb289ddca",
+      "date": "2026-09-15T18:24:41Z",
+      "author": "mohammedwessam2007",
+      "message": "Record Omega v4 calibrated evidence"
+    },
+    {
+      "sha": "125cdf7cc7d7579c1a155d2a5a122f09c6e25e94",
+      "date": "2026-09-15T18:17:15Z",
+      "author": "mohammedwessam2007",
+      "message": "Seal fresh Omega v4 holdouts"
+    },
+    {
+      "sha": "b82ca12ec20f95e86e819db4997a7ed9ab229a35",
+      "date": "2026-09-15T18:14:08Z",
+      "author": "mohammedwessam2007",
+      "message": "Preserve failed Omega transfer experiment"
+    },
+    {
+      "sha": "9540a7ac773ccdd5cb837c924a1982ff15117517",
+      "date": "2026-09-15T18:13:58Z",
+      "author": "mohammedwessam2007",
+      "message": "Promote Omega private evidence to earned E4"
+    },
+    {
+      "sha": "846266de7814212f71ae81d02cb3dbaaf7aece2c",
+      "date": "2026-09-15T18:13:42Z",
+      "author": "mohammedwessam2007",
+      "message": "Add Omega private evidence lab smoke tests"
+    },
+    {
+      "sha": "81771acec2655e9aa57f92edaa2f429646d42ecd",
+      "date": "2026-09-15T18:13:22Z",
+      "author": "mohammedwessam2007",
+      "message": "Test bounded semantic compilation"
+    },
+    {
+      "sha": "2d9be858690f6e1e4a9ffc211f2aac5ddad485a5",
+      "date": "2026-09-15T18:13:14Z",
+      "author": "mohammedwessam2007",
+      "message": "Add bounded semantic compiler for Omega evidence lab"
+    },
+    {
+      "sha": "b9e9254a6204a846613c48a79f789018db267a61",
+      "date": "2026-09-15T18:12:21Z",
+      "author": "mohammedwessam2007",
+      "message": "Record replicated sealed Omega transfer evidence"
+    },
+    {
+      "sha": "2b6f23b71182bb7a4d0fa110670d07f740060b83",
+      "date": "2026-09-15T18:11:43Z",
+      "author": "mohammedwessam2007",
+      "message": "Seal Omega holdouts before discovery"
+    },
+    {
+      "sha": "29dd09520aec2481c8dec00b84274b248e3e59bd",
+      "date": "2026-09-15T18:10:42Z",
+      "author": "mohammedwessam2007",
+      "message": "Add sealed private evidence lab"
+    },
+    {
+      "sha": "9fbd6068c7d1746a036c3e6b375b7e4979250b54",
+      "date": "2026-09-15T18:03:24Z",
+      "author": "mohammedwessam2007",
+      "message": "Void unopened Omega v3 commitments after pre evaluation source fix"
+    },
+    {
+      "sha": "3174522424d0e8fec35eed88fa6eb96888f2ed3d",
+      "date": "2026-09-15T18:03:09Z",
+      "author": "mohammedwessam2007",
+      "message": "Fix Omega structural feature syntax"
+    },
+    {
+      "sha": "f94118fe0f67744535d81941cd65808405f66920",
+      "date": "2026-09-15T18:02:41Z",
+      "author": "mohammedwessam2007",
+      "message": "Allow fully charged source baseline to finish"
+    }
+  ]
+}

@@ -115,3 +115,37 @@ test('malformed provider answers are refused rather than guessed', async () => {
   assert.equal(result.status, 'SYSTEM_ONE_PROVIDER_RESPONSE_REFUSED');
   assert.ok(result.reasonCodes.includes('invalid-answer:decision'));
 });
+
+
+test('external System-One egress refuses private or secret-bearing state before fetch', async () => {
+  let calls = 0;
+  const adapter = createSystemOneDecisionAdapter({
+    apiKey: 'secret-value', pricing, enabled: true, maxCostUsdPerCall: 0.01,
+    fetchImpl: async () => { calls++; throw new Error('must not run'); }
+  });
+  const privateResult = await adapter.evaluate({
+    state: { note: 'private life note' }, questions: { relevant: noul('Relevant?') },
+    providerCallAuthorized: true, dataClass: 'FOUNDER_PRIVATE', spendCeilingUsd: 0.001
+  });
+  assert.equal(privateResult.status, 'SYSTEM_ONE_DATA_EGRESS_REFUSED');
+  const secretResult = await adapter.evaluate({
+    state: { apiKey: 'never-send-me' }, questions: { relevant: noul('Relevant?') },
+    providerCallAuthorized: true, dataClass: 'INTERNAL_NON_SENSITIVE', spendCeilingUsd: 0.001
+  });
+  assert.equal(secretResult.status, 'SYSTEM_ONE_DATA_EGRESS_REFUSED');
+  assert.equal(calls, 0);
+});
+
+test('external System-One call refuses spend ceilings above adapter limit', async () => {
+  let calls = 0;
+  const adapter = createSystemOneDecisionAdapter({
+    apiKey: 'secret-value', pricing, enabled: true, maxCostUsdPerCall: 0.001,
+    fetchImpl: async () => { calls++; throw new Error('must not run'); }
+  });
+  const result = await adapter.evaluate({
+    state: { x: 1 }, questions: { relevant: noul('Relevant?') },
+    providerCallAuthorized: true, dataClass: 'INTERNAL_NON_SENSITIVE', spendCeilingUsd: 0.01
+  });
+  assert.equal(result.status, 'SYSTEM_ONE_SPEND_REFUSED');
+  assert.equal(calls, 0);
+});

@@ -7,12 +7,23 @@ SOURCE=/opt/uberlit/source
 ROOT=/var/lib/uberlit/uberbond
 ENV_FILE=/etc/uberlit/uberlit.env
 ARTIFACTS="$ROOT/artifacts/system-one"
+HOST_ADMISSION="$ROOT/artifacts/uberocean-oracle-host-admission.json"
 AUTHORIZED_MAX=""
 if [[ "${1:-}" == "--authorize-max-usd" ]]; then AUTHORIZED_MAX="${2:-}"; shift 2; fi
 [[ $# -eq 0 ]] || { echo 'usage: complete-live-jev-activation.sh --authorize-max-usd 0.001' >&2; exit 2; }
 [[ "$AUTHORIZED_MAX" == "0.001" ]] || { echo 'REFUSED: explicit --authorize-max-usd 0.001 required for the live canary.' >&2; exit 2; }
 [[ -d "$SOURCE/.git" ]] || { echo 'REFUSED: canonical UberLit Git source missing.' >&2; exit 2; }
 [[ -f "$ENV_FILE" ]] || { echo 'REFUSED: UberLit environment file missing.' >&2; exit 2; }
+[[ -f "$HOST_ADMISSION" && ! -L "$HOST_ADMISSION" ]] || { echo 'REFUSED: fresh UberOcean Oracle host admission receipt required.' >&2; exit 2; }
+node --input-type=module - "$HOST_ADMISSION" <<'NODE'
+import fs from 'node:fs';
+const j=JSON.parse(fs.readFileSync(process.argv[2],'utf8'));
+const t=Date.parse(String(j?.observedAt||''));
+if(j?.ok!==true||j?.status!=='ORACLE_FREE_UBEROCEAN_HOST_ADMITTED')process.exit(2);
+if(j?.host?.provider!=='oracle-free'||Number(j?.host?.costCents)!==0)process.exit(2);
+if(j?.localHealth?.uberlitHttps!==true||j?.localHealth?.tailscalePrivateReachable!==true)process.exit(2);
+if(!Number.isFinite(t)||Date.now()-t<0||Date.now()-t>30*60*1000)process.exit(2);
+NODE
 for cmd in node systemctl curl grep sed install find chown chmod seq; do command -v "$cmd" >/dev/null || { echo "REFUSED: missing $cmd" >&2; exit 2; }; done
 
 node "$SOURCE/scripts/uberlit-typesafe-secret.mjs" status --root "$ROOT" |

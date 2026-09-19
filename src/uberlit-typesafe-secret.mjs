@@ -45,9 +45,11 @@ export function storeUberLitTypeSafeKey({apiKey,runtimeRoot}={}){
   const file=secretPath(runtimeRoot);
   fs.mkdirSync(path.dirname(file),{recursive:true,mode:0o700});
   fs.chmodSync(path.dirname(file),0o700);
+  const secretDirStat=fs.statSync(path.dirname(file));
   const tmp=`${file}.${process.pid}.${crypto.randomUUID()}.tmp`;
   fs.writeFileSync(tmp,`${key}\n`,{encoding:'utf8',mode:0o600,flag:'wx'});
   fs.chmodSync(tmp,0o600);
+  if(typeof process.getuid==='function'&&process.getuid()===0) fs.chownSync(tmp,secretDirStat.uid,secretDirStat.gid);
   fs.renameSync(tmp,file);
   fs.chmodSync(file,0o600);
   const digest=crypto.createHash('sha256').update(key).digest('hex');

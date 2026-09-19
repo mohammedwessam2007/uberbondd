@@ -189,3 +189,35 @@ This file is the hot execution overlay. `docs/UBERBOND_MASTER_MEMORY.md` preserv
 ## Truth boundary
 
 This file preserves context, goals, execution method and checkpointed evidence. It does not prove customers, revenue, accepted delivery, live provider callability, owner identity/liveness, persistent owned-host runtime, longitudinal life outcomes or literal ASI. Those require their own evidence.
+
+
+## Jev / System-One sovereign activation — 2026-09-19
+
+Current source frontier is PR #952 on top of merged PR #951.
+
+The Jev / Noetic Autocompiler source path now uses **UberCel + UberLit** as the sovereign deployment/runtime architecture:
+
+`frontier cognition -> semantic program -> bounded System-One shadow -> outcome calibration -> reflex candidate -> deterministic compilation candidate -> decompile on drift`.
+
+Merged foundation #951 supplied the provider-neutral TypeSafe/Jev adapter, typed Noul/Choice/Score semantic programs, explicit egress/data/spend gates and no-consequence-authority law.
+
+#952 adds the sovereign runtime layer:
+- UberLit protected TypeSafe secret custody under `/var/lib/uberlit/uberbond/secrets/typesafe-api-key`;
+- stdin-only key installation, no key in argv/Git/receipts;
+- UberLit Jev shadow canary;
+- non-secret Jev defaults in the UberLit installer without resetting operator configuration on upgrade;
+- UberLit doctor visibility for System-One readiness;
+- shadow mechanism routing among deterministic/System-One/frontier without changing canonical routing;
+- privacy-preserving semantic observation and real-outcome calibration ledgers;
+- explicit UNCLASSIFIED default for generic external semantic routing;
+- zero automatic production promotion or consequence authority.
+
+Truth boundary at this checkpoint:
+- source/software activation: implemented;
+- hosted GitHub source checks: infrastructure non-evidence because inspected jobs received no runner and executed zero steps;
+- persistent live UberLit host: **NOT YET PROVEN**;
+- owner-custodied TypeSafe key: **NOT YET PROVEN**;
+- live Jev provider call: **NOT YET PROVEN**;
+- real Jev task-class calibration: **0 observed outcomes**.
+
+Do not reopen the Jev source architecture on a fresh chat unless exact-current evidence shows a defect. The next Jev frontier is real activation: admit a no-new-spend persistent Linux substrate under UberCel/UberLit, install the owner-custodied TypeSafe key into the UberLit protected secret, enable the lane, execute one bounded synthetic canary, then begin read-only shadow calibration.

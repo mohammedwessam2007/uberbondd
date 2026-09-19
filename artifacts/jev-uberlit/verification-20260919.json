@@ -1,0 +1,79 @@
+{
+  "schema": "uberbond.jev-uberlit-sovereign-activation.verification.v1",
+  "observedAt": "2026-09-19T00:50:00Z",
+  "pullRequest": 952,
+  "sourceHead": "247c65b3eae6513ebb66cb1bf736a2b62243061a",
+  "baseMain": "ab3ef49ee1e4964a912f43d5124f7a0c87f54101",
+  "scope": "Jev sovereign activation on UberCel/UberLit",
+  "sourceReview": {
+    "exactGitHubSourceInspected": true,
+    "installerBlockInspected": true,
+    "secretCustodyInspected": true,
+    "shadowRouterInspected": true,
+    "calibrationLedgerInspected": true,
+    "operatorScriptsInspected": true,
+    "claims": [
+      "generic live semantic routing defaults to UNCLASSIFIED and therefore refuses external egress until explicitly classified",
+      "shadow routing has routingAuthority NONE and does not change canonical routing",
+      "semantic observation ledger stores state digest rather than raw state",
+      "optional realized outcome values are digested rather than stored raw",
+      "TypeSafe secret receipts never return key material",
+      "canonical UberLit installer precreates the secret directory owned by the uberlit service user",
+      "installer adds Jev non-secret settings only when absent and does not reset operator changes on upgrade",
+      "live provider calls remain explicit and spend-bounded"
+    ]
+  },
+  "hostedVerification": {
+    "githubActions": {
+      "status": "RUNNER_INFRASTRUCTURE_NON_EVIDENCE",
+      "inspectedRuns": [
+        35410315586,
+        35410315689,
+        35410315604
+      ],
+      "observedPattern": {
+        "stepsPerInspectedJob": 0,
+        "runnerId": 0,
+        "runnerName": "",
+        "sourceCheckoutObserved": false,
+        "sourceExecutionObserved": false
+      },
+      "sourcePassClaimed": false,
+      "sourceFailureClaimed": false
+    },
+    "vercelBadges": {
+      "status": "IRRELEVANT_PROVIDER_QUOTA_NON_EVIDENCE",
+      "architecturePath": "UberCel/UberLit",
+      "usedForActivation": false
+    },
+    "isolatedContainer": {
+      "status": "UNAVAILABLE",
+      "reason": "execution container could not resolve github.com; no source test pass is claimed from it"
+    }
+  },
+  "focusedTests": {
+    "command": "npm run test:jev",
+    "executedOnThisHead": false,
+    "passClaimed": false,
+    "reason": "GitHub hosted runners acquired no runner and local execution container had no network path to materialize exact branch source"
+  },
+  "externalReality": {
+    "liveUberLitResidentHostProven": false,
+    "liveTypeSafeCredentialProven": false,
+    "liveJevProviderCallProven": false,
+    "realCalibrationOutcomes": 0
+  },
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "routingAuthorityFromJev": "NONE",
+    "automaticPromotion": false,
+    "automaticCodeMutation": false
+  },
+  "remainingBlockers": [
+    "admit and run a persistent Linux substrate under UberCel/UberLit without unapproved new spend",
+    "owner creates/custodies a TypeSafe API key",
+    "store the key in the protected UberLit runtime secret",
+    "enable the Jev lane and execute one bounded synthetic shadow canary",
+    "observe provider model, usage, latency and cost receipt"
+  ]
+}

@@ -5,6 +5,8 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { readUberLitPointer } from '../src/uberlit-runtime.mjs';
 import { diagnoseUberLitRuntime } from '../src/uberlit-runtime-doctor.mjs';
+import { inspectUberLitTypeSafeKey, readUberLitTypeSafeKey } from '../src/uberlit-typesafe-secret.mjs';
+import { inspectSystemOneReadiness } from '../src/system-one-decision-adapter.mjs';
 
 const repoRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const arg=name=>{const i=process.argv.indexOf(`--${name}`);return i>=0?String(process.argv[i+1]||''):'';};
@@ -24,5 +26,20 @@ const verdict=diagnoseUberLitRuntime({
   maxLivenessAgeMs:Number(process.env.UBERLIT_DOCTOR_LIVENESS_MAX_AGE_MS||30_000),
   maxWealthAgeMs:Number(process.env.UBERLIT_DOCTOR_WEALTH_MAX_AGE_MS||300_000)
 });
-process.stdout.write(`${JSON.stringify(verdict)}\n`);
+const keyState=inspectUberLitTypeSafeKey({runtimeRoot});
+const systemOne=inspectSystemOneReadiness({
+  apiKey:readUberLitTypeSafeKey({runtimeRoot})||'',
+  enabled:process.env.TYPESAFE_JEV_ENABLED==='true',
+  pricing:{
+    inputUsdPerMillion:Number(process.env.TYPESAFE_INPUT_USD_PER_MILLION||0.042),
+    outputUsdPerMillion:Number(process.env.TYPESAFE_OUTPUT_USD_PER_MILLION||0),
+    sourceRef:process.env.TYPESAFE_PRICING_SOURCE||'https://typesafe.ai/',
+    verifiedAt:process.env.TYPESAFE_PRICING_VERIFIED_AT||'2026-09-19T00:00:00.000Z'
+  },
+  baseUrl:process.env.TYPESAFE_BASE_URL||'https://api.typesafe.ai',
+  model:process.env.TYPESAFE_DEFAULT_MODEL||'jev-latest',
+  maxCostUsdPerCall:Number(process.env.TYPESAFE_MAX_COST_USD_PER_CALL||0.001)
+});
+const output={...verdict,systemOne:{keyState,readiness:systemOne,liveCallProven:false}};
+process.stdout.write(`${JSON.stringify(output)}\n`);
 if(!verdict.ok)process.exitCode=2;

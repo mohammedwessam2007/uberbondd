@@ -95,6 +95,20 @@ The founder completes account authentication/approval.
 
 Rerun the same bootstrap. Do not replace the private tailnet with a public tunnel merely to avoid this gate.
 
+## Admit the physical node into UberOcean
+
+After UberLit health and Tailscale are live, while the Oracle Console still shows the instance as Always Free eligible / zero incremental cost:
+
+1. Record that fresh browser observation on the host:
+   `node /opt/uberlit/source/scripts/record-oracle-free-owner-evidence.mjs --always-free --incremental-cost-cents 0 --source-ref oracle-console:instance-details:always-free`
+2. Admit the host using Oracle IMDSv2 + Tailscale + live UberLit health:
+   `sudo -u uberlit UBERLIT_ROOT=/var/lib/uberlit/uberbond node /opt/uberlit/source/scripts/uberocean-admit-oracle-host.mjs`
+3. Require receipt:
+   `/var/lib/uberlit/uberbond/artifacts/uberocean-oracle-host-admission.json`
+   with status `ORACLE_FREE_UBEROCEAN_HOST_ADMITTED`.
+
+This admits one zero-cost physical host for UberLit/Jev. It does **not** fabricate UberCel production redundancy. The receipt must keep `ubercelSovereignDeploymentReady:false` until an independent failure-domain fallback is genuinely observed.
+
 ## TypeSafe/Jev activation
 
 Before account creation or live use:
@@ -147,6 +161,7 @@ Collect:
 - `systemctl is-active uberlit.service uberlit-tls-edge.service uberlit-worker.service`;
 - local HTTPS `/api/health`;
 - current source commit;
+- UberOcean Oracle host-admission receipt;
 - Oracle instance shape / RAM / persistent disk / Always Free evidence;
 - Tailscale private reachability evidence.
 

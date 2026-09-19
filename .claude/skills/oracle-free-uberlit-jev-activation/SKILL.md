@@ -100,9 +100,9 @@ Rerun the same bootstrap. Do not replace the private tailnet with a public tunne
 After UberLit health and Tailscale are live, while the Oracle Console still shows the instance as Always Free eligible / zero incremental cost:
 
 1. Record that fresh browser observation on the host:
-   `node /opt/uberlit/source/scripts/record-oracle-free-owner-evidence.mjs --always-free --incremental-cost-cents 0 --source-ref oracle-console:instance-details:always-free`
+   `sudo node /opt/uberlit/source/scripts/record-oracle-free-owner-evidence.mjs --always-free --incremental-cost-cents 0 --source-ref oracle-console:instance-details:always-free`
 2. Admit the host using Oracle IMDSv2 + Tailscale + live UberLit health:
-   `sudo -u uberlit UBERLIT_ROOT=/var/lib/uberlit/uberbond node /opt/uberlit/source/scripts/uberocean-admit-oracle-host.mjs`
+   `sudo UBERLIT_ROOT=/var/lib/uberlit/uberbond node /opt/uberlit/source/scripts/uberocean-admit-oracle-host.mjs`
 3. Require receipt:
    `/var/lib/uberlit/uberbond/artifacts/uberocean-oracle-host-admission.json`
    with status `ORACLE_FREE_UBEROCEAN_HOST_ADMITTED`.

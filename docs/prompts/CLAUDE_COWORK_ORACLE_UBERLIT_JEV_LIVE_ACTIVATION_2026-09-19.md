@@ -17,6 +17,6 @@ Everything else is Cowork's job.
 
 The live canary command is intentionally impossible to run without the explicit spend ceiling token:
 
-`sudo /opt/uberlit/source/ops/sovereign/complete-live-jev-activation.sh --authorize-max-usd 0.001`
+`sudo bash /opt/uberlit/source/ops/sovereign/complete-live-jev-activation.sh --authorize-max-usd 0.001`
 
 Do not run that command until the spend gate in the project skill is satisfied.

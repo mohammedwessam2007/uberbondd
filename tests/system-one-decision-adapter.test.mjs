@@ -35,8 +35,9 @@ test('compiles TypeSafe-compatible Noul, Choice and Score questions without gran
 test('readiness is fail-closed on credential, pricing and explicit enablement', () => {
   const none = inspectSystemOneReadiness({});
   assert.equal(none.ok, false);
-  assert.deepEqual(new Set(none.blockers), new Set(['credential-absent', 'pricing-evidence-absent', 'explicitly-disabled']));
-  const ready = inspectSystemOneReadiness({ apiKey: 'secret-value', pricing, enabled: true });
+  assert.deepEqual(new Set(none.blockers), new Set(['credential-absent', 'pricing-evidence-absent', 'explicitly-disabled', 'per-call-cost-ceiling-absent']));
+  assert.ok(none.blockers.includes('per-call-cost-ceiling-absent'));
+  const ready = inspectSystemOneReadiness({ apiKey: 'secret-value', pricing, enabled: true, maxCostUsdPerCall: 0.01 });
   assert.equal(ready.ok, true);
   assert.equal(ready.credentialPresent, true);
   assert.equal('apiKey' in ready, false);
@@ -45,7 +46,7 @@ test('readiness is fail-closed on credential, pricing and explicit enablement', 
 test('adapter refuses a real provider call without per-call authorization', async () => {
   let calls = 0;
   const adapter = createSystemOneDecisionAdapter({
-    apiKey: 'secret-value', pricing, enabled: true,
+    apiKey: 'secret-value', pricing, enabled: true, maxCostUsdPerCall: 0.01,
     fetchImpl: async () => { calls++; throw new Error('should not run'); }
   });
   const result = await adapter.evaluate({ state: { x: 1 }, questions: { relevant: noul('Relevant?') } });
@@ -57,7 +58,7 @@ test('adapter refuses a real provider call without per-call authorization', asyn
 test('direct TypeSafe transport uses documented endpoint and normalizes typed answers', async () => {
   let request = null;
   const adapter = createSystemOneDecisionAdapter({
-    apiKey: 'secret-value', pricing, enabled: true,
+    apiKey: 'secret-value', pricing, enabled: true, maxCostUsdPerCall: 0.01,
     fetchImpl: async (url, init) => {
       request = { url, init };
       return new Response(JSON.stringify({
@@ -78,7 +79,7 @@ test('direct TypeSafe transport uses documented endpoint and normalizes typed an
       intent: choice('Intent?', { refund: null, support: null }),
       frustration: score('Frustration?', ['calm', 'concerned', 'angry'])
     },
-    providerCallAuthorized: true
+    providerCallAuthorized: true, dataClass: 'INTERNAL_NON_SENSITIVE', spendCeilingUsd: 0.001
   });
   assert.equal(result.ok, true);
   assert.equal(request.url, 'https://api.typesafe.ai/v1/systemone');
@@ -98,7 +99,7 @@ test('direct TypeSafe transport uses documented endpoint and normalizes typed an
 
 test('malformed provider answers are refused rather than guessed', async () => {
   const adapter = createSystemOneDecisionAdapter({
-    apiKey: 'secret-value', pricing, enabled: true,
+    apiKey: 'secret-value', pricing, enabled: true, maxCostUsdPerCall: 0.01,
     fetchImpl: async () => new Response(JSON.stringify({
       model: 'jev-1.13',
       answers: { decision: { type: 'choice', choice: 'invented', confidence: 0.99, probabilities: { yes: 0.5, no: 0.5 } } },
@@ -108,7 +109,7 @@ test('malformed provider answers are refused rather than guessed', async () => {
   const result = await adapter.evaluate({
     state: 'x',
     questions: { decision: choice('Choose', { yes: null, no: null }) },
-    providerCallAuthorized: true
+    providerCallAuthorized: true, dataClass: 'INTERNAL_NON_SENSITIVE', spendCeilingUsd: 0.001
   });
   assert.equal(result.ok, false);
   assert.equal(result.status, 'SYSTEM_ONE_PROVIDER_RESPONSE_REFUSED');

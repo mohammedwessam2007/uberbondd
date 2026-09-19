@@ -29,7 +29,7 @@ rm -rf /opt/uberlit/source.old
 mv /opt/uberlit/source.new /opt/uberlit/source
 chown -R root:root /opt/uberlit/source
 chmod -R go-w /opt/uberlit/source
-install -d -o uberlit -g uberlit -m 0700 /var/lib/uberlit /var/lib/uberlit/uberbond
+install -d -o uberlit -g uberlit -m 0700 /var/lib/uberlit /var/lib/uberlit/uberbond /var/lib/uberlit/uberbond/secrets
 install -d -o root -g uberlit -m 0750 /etc/uberlit
 if [[ ! -f /etc/uberlit/uberlit.env ]]; then
   cat > /etc/uberlit/uberlit.env <<'ENV'
@@ -44,22 +44,20 @@ OUTBOUND_ENABLED=false
 DISCOVERY_ENABLED=false
 ENV
 fi
-ensure_env() {
+ensure_env_default() {
   local key="$1" value="$2"
-  if grep -q "^${key}=" /etc/uberlit/uberlit.env; then
-    sed -i "s|^${key}=.*|${key}=${value}|" /etc/uberlit/uberlit.env
-  else
-    printf '%s=%s\\n' "$key" "$value" >> /etc/uberlit/uberlit.env
+  if ! grep -q "^${key}=" /etc/uberlit/uberlit.env; then
+    printf '%s=%s\n' "$key" "$value" >> /etc/uberlit/uberlit.env
   fi
 }
-ensure_env TYPESAFE_BASE_URL https://api.typesafe.ai
-ensure_env TYPESAFE_DEFAULT_MODEL jev-latest
-ensure_env TYPESAFE_JEV_ENABLED false
-ensure_env TYPESAFE_INPUT_USD_PER_MILLION 0.042
-ensure_env TYPESAFE_OUTPUT_USD_PER_MILLION 0
-ensure_env TYPESAFE_PRICING_SOURCE https://typesafe.ai/
-ensure_env TYPESAFE_PRICING_VERIFIED_AT 2026-09-19T00:00:00.000Z
-ensure_env TYPESAFE_MAX_COST_USD_PER_CALL 0.001
+ensure_env_default TYPESAFE_BASE_URL https://api.typesafe.ai
+ensure_env_default TYPESAFE_DEFAULT_MODEL jev-latest
+ensure_env_default TYPESAFE_JEV_ENABLED false
+ensure_env_default TYPESAFE_INPUT_USD_PER_MILLION 0.042
+ensure_env_default TYPESAFE_OUTPUT_USD_PER_MILLION 0
+ensure_env_default TYPESAFE_PRICING_SOURCE https://typesafe.ai/
+ensure_env_default TYPESAFE_PRICING_VERIFIED_AT 2026-09-19T00:00:00.000Z
+ensure_env_default TYPESAFE_MAX_COST_USD_PER_CALL 0.001
 chown root:uberlit /etc/uberlit/uberlit.env
 chmod 0640 /etc/uberlit/uberlit.env
 install -m 0644 /opt/uberlit/source/ops/sovereign/uberlit.service /etc/systemd/system/uberlit.service

@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-19T15:32:29.620Z",
+  "generatedAt": "2026-09-19T15:35:56.245Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "c6e162926795c2de37c67d33b7191bf080b9d1ec",
+    "head": "1880ddacea7f757b8037e90839158fc02da0cb5a",
     "branch": "main",
     "sourceModules": 849,
     "testSuites": 1027,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -77,15 +77,9 @@
       "reachableFromOperatorScriptsOnly": 406,
       "noEntryPointAtAll": 169,
       "partitionExact": true,
-      "allClassified": false,
+      "allClassified": true,
       "unclassified": [],
-      "staleClassifications": [
-        "src/omnia-v9/integrations/outbound-consequence-gate.mjs",
-        "src/omnia-v9/integrations/outreach-consequence-admission.mjs",
-        "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs",
-        "src/uberocean-compute-fabric.mjs",
-        "src/omnia-v9/integrations/external-effect-adapter.mjs"
-      ],
+      "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [
         "scripts/personal-civilization-private.mjs"

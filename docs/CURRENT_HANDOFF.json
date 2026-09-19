@@ -89,6 +89,15 @@
           "title": "Site Unavailable",
           "visibleText": "Unable to access this site."
         },
+        "renderControlPlane": {
+          "status": "LIVE_CURRENT_MAIN",
+          "service": "uberbond-control-plane",
+          "url": "https://uberbond-control-plane.onrender.com/",
+          "commit": "d4ce726b3d197a2b2816c22136de5b1365cfbf1c",
+          "deploy": "dep-dana8f942hec73dq9gkg",
+          "observedAt": "2026-09-19T15:04:25.000Z",
+          "evidence": "Render build successful; service live; browser rendered UberBond Opportunity Audit"
+        },
         "localAccessProbes": {
           "ociCli": "ABSENT",
           "tailscaleCli": "ABSENT",

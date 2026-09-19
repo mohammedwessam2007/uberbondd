@@ -16,6 +16,7 @@ export const SYSTEM_ONE_MAX_QUESTIONS = 256;
 export const SYSTEM_ONE_MAX_INPUT_BYTES = 512_000;
 export const SYSTEM_ONE_MAX_RESPONSE_BYTES = 2_000_000;
 export const SYSTEM_ONE_DEFAULT_TIMEOUT_MS = 10_000;
+export const SYSTEM_ONE_ALLOWED_EXTERNAL_DATA_CLASSES = Object.freeze(['PUBLIC', 'INTERNAL_NON_SENSITIVE', 'CUSTOMER_AUTHORIZED_NON_SENSITIVE']);
 
 const QUESTION_TYPES = new Set(['noul', 'choice', 'score']);
 const ZERO_EFFECTS = Object.freeze({
@@ -32,6 +33,18 @@ const ZERO_EFFECTS = Object.freeze({
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const finite = value => Number.isFinite(Number(value)) ? Number(value) : null;
+const SECRET_KEY_PATTERN = /password|passwd|secret|token|api[_-]?key|authorization|cookie|private[_-]?key|credential/i;
+
+function secretKeyPaths(value, path = '', depth = 0) {
+  if (depth > 12 || value == null || typeof value !== 'object') return [];
+  const hits = [];
+  for (const [key, child] of Object.entries(value)) {
+    const at = path ? `${path}.${key}` : key;
+    if (SECRET_KEY_PATTERN.test(key)) hits.push(at);
+    if (child && typeof child === 'object') hits.push(...secretKeyPaths(child, at, depth + 1));
+  }
+  return hits;
+}
 
 function fail(status, reasonCodes, extra = {}) {
   return {
@@ -184,7 +197,7 @@ function normalizeAnswer(question, answer) {
 
 export function inspectSystemOneReadiness({
   provider = 'typesafe-direct', apiKey = '', enabled = false, pricing = null,
-  baseUrl = TYPESAFE_DEFAULT_BASE_URL, model = TYPESAFE_DEFAULT_MODEL
+  baseUrl = TYPESAFE_DEFAULT_BASE_URL, model = TYPESAFE_DEFAULT_MODEL, maxCostUsdPerCall = null
 } = {}) {
   const blockers = [];
   if (provider !== 'typesafe-direct') blockers.push('unsupported-provider');
@@ -193,6 +206,8 @@ export function inspectSystemOneReadiness({
   if (enabled !== true) blockers.push('explicitly-disabled');
   if (!safeBaseUrl(baseUrl)) blockers.push('invalid-base-url');
   if (!text(model, 160)) blockers.push('model-identity-absent');
+  const costCeiling = finite(maxCostUsdPerCall);
+  if (costCeiling == null || costCeiling <= 0) blockers.push('per-call-cost-ceiling-absent');
   return {
     ok: blockers.length === 0,
     policyVersion: SYSTEM_ONE_DECISION_ADAPTER_VERSION,
@@ -202,6 +217,7 @@ export function inspectSystemOneReadiness({
     credentialPresent: Boolean(text(apiKey, 10)),
     pricingEvidencePresent: Boolean(pricingEvidence(pricing || {})),
     enabled: enabled === true,
+    maxCostUsdPerCall: costCeiling != null && costCeiling > 0 ? costCeiling : null,
     blockers,
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
@@ -216,19 +232,28 @@ export function createSystemOneDecisionAdapter({
   model = TYPESAFE_DEFAULT_MODEL,
   enabled = false,
   pricing = null,
+  maxCostUsdPerCall = null,
   fetchImpl = globalThis.fetch,
   timeoutMs = SYSTEM_ONE_DEFAULT_TIMEOUT_MS
 } = {}) {
   const resolvedBaseUrl = safeBaseUrl(baseUrl);
   const resolvedPricing = pricingEvidence(pricing || {});
-  const readiness = () => inspectSystemOneReadiness({ provider, apiKey, enabled, pricing, baseUrl, model });
+  const readiness = () => inspectSystemOneReadiness({ provider, apiKey, enabled, pricing, baseUrl, model, maxCostUsdPerCall });
 
-  async function evaluate({ state, questions, providerCallAuthorized = false, signal = null } = {}) {
+  async function evaluate({ state, questions, providerCallAuthorized = false, dataClass = 'UNCLASSIFIED', spendCeilingUsd = null, signal = null } = {}) {
     const compiled = compileSystemOneRequest({ state, questions, model });
     if (!compiled.ok) return compiled;
     const ready = readiness();
     if (!ready.ok) return fail('SYSTEM_ONE_PROVIDER_NOT_READY', ready.blockers, { provider, model: text(model, 160) || null, requestDigest: compiled.requestDigest });
     if (providerCallAuthorized !== true) return fail('SYSTEM_ONE_PROVIDER_CALL_NOT_AUTHORIZED', ['explicit-provider-call-authorization-required'], { provider, model, requestDigest: compiled.requestDigest });
+    const normalizedDataClass = text(dataClass, 80).toUpperCase();
+    if (!SYSTEM_ONE_ALLOWED_EXTERNAL_DATA_CLASSES.includes(normalizedDataClass)) return fail('SYSTEM_ONE_DATA_EGRESS_REFUSED', ['approved-external-data-class-required'], { provider, model, requestDigest: compiled.requestDigest, dataClass: normalizedDataClass || 'UNCLASSIFIED' });
+    const secretPaths = secretKeyPaths(state);
+    if (secretPaths.length) return fail('SYSTEM_ONE_DATA_EGRESS_REFUSED', ['secret-like-state-keys-detected'], { provider, model, requestDigest: compiled.requestDigest, secretKeyPaths: secretPaths.slice(0, 20) });
+    const requestedCeiling = finite(spendCeilingUsd);
+    if (requestedCeiling == null || requestedCeiling <= 0 || requestedCeiling > Number(maxCostUsdPerCall)) return fail('SYSTEM_ONE_SPEND_REFUSED', ['valid-spend-ceiling-within-adapter-limit-required'], { provider, model, requestDigest: compiled.requestDigest, adapterMaxCostUsdPerCall: Number(maxCostUsdPerCall) });
+    const conservativeCostUsd = (compiled.inputBytes * resolvedPricing.inputUsdPerMillion + SYSTEM_ONE_MAX_RESPONSE_BYTES * resolvedPricing.outputUsdPerMillion) / 1_000_000;
+    if (conservativeCostUsd > requestedCeiling) return fail('SYSTEM_ONE_SPEND_REFUSED', ['conservative-request-cost-exceeds-spend-ceiling'], { provider, model, requestDigest: compiled.requestDigest, conservativeCostUsd, spendCeilingUsd: requestedCeiling });
     if (typeof fetchImpl !== 'function') return fail('SYSTEM_ONE_TRANSPORT_UNAVAILABLE', ['fetch-implementation-required']);
 
     const controller = new AbortController();
@@ -305,6 +330,8 @@ export function createSystemOneDecisionAdapter({
       observedModel,
       requestDigest: compiled.requestDigest,
       questionCount: compiled.questionCount,
+      dataClass: normalizedDataClass,
+      spendCeilingUsd: requestedCeiling,
       latencyMs: Date.now() - startedAt,
       answers,
       usage,

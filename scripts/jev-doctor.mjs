@@ -17,7 +17,8 @@ const readiness = inspectSystemOneReadiness({
   enabled: process.env.TYPESAFE_JEV_ENABLED === 'true',
   pricing: pricingFromEnv(),
   baseUrl: process.env.TYPESAFE_BASE_URL || 'https://api.typesafe.ai',
-  model: process.env.TYPESAFE_DEFAULT_MODEL || 'jev-latest'
+  model: process.env.TYPESAFE_DEFAULT_MODEL || 'jev-latest',
+  maxCostUsdPerCall: Number(process.env.TYPESAFE_MAX_COST_USD_PER_CALL)
 });
 
 const canary = compileSemanticProgram({
@@ -32,6 +33,7 @@ const canary = compileSemanticProgram({
 const ownerActions = [];
 if (!readiness.credentialPresent) ownerActions.push({ id: 'ADD_TYPESAFE_KEY', action: 'Create a TypeSafe API key and set TYPESAFE_API_KEY in the protected runtime. Never paste the key into chat or Git.', costUsd: 0 });
 if (!readiness.pricingEvidencePresent) ownerActions.push({ id: 'RECORD_TYPESAFE_PRICING', action: 'Set TYPESAFE_INPUT_USD_PER_MILLION, TYPESAFE_OUTPUT_USD_PER_MILLION, TYPESAFE_PRICING_SOURCE and TYPESAFE_PRICING_VERIFIED_AT from a current official TypeSafe source.', costUsd: 0 });
+if (!readiness.maxCostUsdPerCall) ownerActions.push({ id: 'SET_JEV_COST_CEILING', action: 'Set TYPESAFE_MAX_COST_USD_PER_CALL to a small positive ceiling for each semantic call.', costUsd: 0 });
 if (!readiness.enabled) ownerActions.push({ id: 'ENABLE_JEV_SHADOW', action: 'After the key and pricing evidence exist, set TYPESAFE_JEV_ENABLED=true to permit explicitly authorized shadow calls.', costUsd: 0 });
 
 console.log(JSON.stringify({

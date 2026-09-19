@@ -35,7 +35,7 @@ function releaseConfig(){
     buildArgv:flag('no-build')?[]:['npm','ci'],
     startArgv:['node','server.mjs'],
     healthPath:value('health')||'/api/health',
-    envAllowlist:(value('env-allow')||'ADMIN_TOKEN,OUTBOUND_ENABLED,DISCOVERY_ENABLED,APP_BASE_URL,DATABASE_URL').split(',').map(x=>x.trim()).filter(Boolean),
+    envAllowlist:(value('env-allow')||'ADMIN_TOKEN,OUTBOUND_ENABLED,DISCOVERY_ENABLED,APP_BASE_URL,DATABASE_URL,TYPESAFE_BASE_URL,TYPESAFE_DEFAULT_MODEL,TYPESAFE_JEV_ENABLED,TYPESAFE_INPUT_USD_PER_MILLION,TYPESAFE_OUTPUT_USD_PER_MILLION,TYPESAFE_PRICING_SOURCE,TYPESAFE_PRICING_VERIFIED_AT,TYPESAFE_MAX_COST_USD_PER_CALL').split(',').map(x=>x.trim()).filter(Boolean),
     processRole:value('role')||'web'
   });
 }

@@ -153,7 +153,8 @@
     "jev:uberlit:secret": "node scripts/uberlit-typesafe-secret.mjs status",
     "jev:uberlit:canary": "node scripts/uberlit-jev-shadow-canary.mjs",
     "jev:shadow:route": "node scripts/jev-shadow-route.mjs",
-    "jev:calibration": "node scripts/jev-calibration-doctor.mjs"
+    "jev:calibration": "node scripts/jev-calibration-doctor.mjs",
+    "test:oracle-free": "node --test tests/embedded-postgres-platform.test.mjs tests/sovereign-oracle-always-free-bootstrap.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

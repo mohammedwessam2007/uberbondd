@@ -14,3 +14,19 @@ test('UberBond source resolves to one exact commit and delegates to existing har
 test('Air Node activation composes the economic founder bootstrap so the resident money heartbeat is part of zero-cost activation',()=>{assert.match(airSource,/bootstrap-economic-founder-node\.sh/);assert.doesNotMatch(airSource,/BOOTSTRAP=.*bootstrap-founder-node\.sh/);assert.match(airSource,/Economic heartbeat:/);});
 test('Tailscale account authorization is an explicit owner gate, never fabricated by automation',()=>{assert.match(source,/ONE OWNER ACTION REQUIRED/);assert.match(source,/tailscale up/);assert.match(source,/exit 3/);assert.doesNotMatch(source,/authkey|TS_AUTHKEY|tailscale funnel/i);});
 test('bootstrap contains no purchase or paid-provider model path',()=>{assert.doesNotMatch(source,/stripe|paypal|credit card|upgrade.*paid|gpu.*purchase|AI_GATEWAY_API_KEY|OPENAI_API_KEY|ANTHROPIC_API_KEY/i);assert.match(source,/Model cost: \$0/);assert.match(source,/Tailscale Personal \$0/);});
+
+
+test('Oracle free bootstrap must activate canonical UberCel/UberLit before declaring the Air Node ready',()=>{
+  assert.match(source,/install-uberlit\.sh/);
+  assert.match(source,/--start/);
+  assert.match(source,/https:\/\/127\.0\.0\.1:32443\/api\/health/);
+  assert.match(source,/uberlit-jev-shadow-canary\.mjs/);
+  assert.match(source,/SEMANTIC_EXECUTION_PLAN_ONLY/);
+  assert.match(source,/Jev readiness: PLAN_ONLY canary compiled/);
+});
+
+test('Oracle free bootstrap never embeds or requests the TypeSafe credential on the command line',()=>{
+  assert.doesNotMatch(source,/TYPESAFE_API_KEY=/);
+  assert.doesNotMatch(source,/--api-key|typesafe.*key.*argv/i);
+  assert.match(source,/Jev readiness: PLAN_ONLY canary compiled; live call remains credential-gated/);
+});

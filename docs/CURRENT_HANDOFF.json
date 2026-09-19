@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-19T13:51:49.000Z",
+  "checkpointedAt": "2026-09-19T14:06:07.000Z",
   "sourceCommit": "3fab434f1e0bf0818daf0b63aa9d5f99f9576c3d",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
@@ -82,6 +82,13 @@
         "typesafeCredential": "NOT_OBSERVED",
         "liveJevCall": "NOT_OBSERVED",
         "browserControl": "ORACLE_CONSOLE_SITE_UNAVAILABLE_IN_CLOUD_BROWSER",
+        "officialSignInEntryPoint": "PUBLIC_PAGE_REACHABLE_VIA_WEB; CONTROLLED_BROWSER_NAVIGATION_TIMED_OUT_AND_RESET",
+        "localAccessProbes": {
+          "ociCli": "ABSENT",
+          "tailscaleCli": "ABSENT",
+          "typesafeCredentialEnvironment": "ABSENT",
+          "shellNetwork": "PROXY_CONNECT_TIMEOUT"
+        },
         "externalSpendUsd": 0
       },
       "terminalCondition": "ORACLE_FREE_HOST_LIVE -> UBERLIT_HEALTHY -> TYPESAFE_SECRET_PRESENT -> JEV_LIVE_SHADOW_READY",
@@ -91,7 +98,7 @@
         "TypeSafe account authentication/terms and hidden terminal key entry",
         "Explicit approval for up to 0.001 USD only if the canary is not covered by free or prepaid credit"
       ],
-      "nextAction": "Use the prepared Cowork/browser mission on an available authenticated browser session; do not claim live readiness from source-only evidence."
+      "nextAction": "Restore an available authenticated Oracle browser session or provide the owner-controlled host path; then run the prepared Cowork mission. Do not claim live readiness from source-only evidence."
     },
     "remainingSovereignCuts": {
       "externalProvider": [

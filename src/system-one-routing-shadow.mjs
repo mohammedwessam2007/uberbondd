@@ -46,6 +46,7 @@ export async function shadowRouteMechanism({
   runtimeRoot,
   providerCallAuthorized=false,
   spendCeilingUsd=0.001,
+  dataClass='UNCLASSIFIED',
   execute=false
 }={}){
   const program=compileMechanismRoutingProgram({taskClass});
@@ -63,7 +64,7 @@ export async function shadowRouteMechanism({
     decisionAdapter,
     mode:execute?'SHADOW':'PLAN_ONLY',
     providerCallAuthorized:execute&&providerCallAuthorized,
-    dataClass:'INTERNAL_NON_SENSITIVE',
+    dataClass,
     spendCeilingUsd
   });
   if(!result?.ok||!execute)return{...result,shadowOnly:true,routingAuthority:'NONE'};

@@ -6,9 +6,11 @@ import path from 'node:path';
 import process from 'node:process';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import {
+  APPROVED_EMBEDDED_POSTGRES_VERSION,
+  resolveEmbeddedPostgresPlatform
+} from '../src/embedded-postgres-platform.mjs';
 
-const APPROVED_VERSION = '18.4.0-beta.17';
-const PACKAGE_ROOT = path.resolve('node_modules/@embedded-postgres/linux-x64');
 const REQUIRED_EXECUTABLES = Object.freeze(['initdb', 'pg_ctl', 'postgres']);
 const REQUIRED_RUNTIME_SONAMES = Object.freeze([
   Object.freeze({ soname: 'libpq.so.5', payload: 'libpq.so.5.18' }),
@@ -179,23 +181,27 @@ async function mirrorNativeTree({ packageRoot, mirrorBaseDir }) {
 }
 
 export async function prepareEmbeddedPostgresFixture({
-  packageRoot = PACKAGE_ROOT,
+  packageRoot = null,
   mirrorBaseDir = os.tmpdir(),
   forceMirror = false,
-  probeIdentity = undefined
+  probeIdentity = undefined,
+  platform = process.platform,
+  arch = process.arch
 } = {}) {
-  if (process.platform !== 'linux' || process.arch !== 'x64') {
-    return Object.freeze({ status: 'NOT_APPLICABLE', platform: process.platform, arch: process.arch });
+  const resolvedPlatform = resolveEmbeddedPostgresPlatform({ platform, arch });
+  if (!resolvedPlatform.supported) {
+    return Object.freeze({ status: 'NOT_APPLICABLE', platform, arch, reason: resolvedPlatform.reason });
   }
+  const resolvedPackageRoot = packageRoot ? path.resolve(packageRoot) : resolvedPlatform.packageRoot;
 
-  const packageJsonPath = path.join(packageRoot, 'package.json');
+  const packageJsonPath = path.join(resolvedPackageRoot, 'package.json');
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
-  if (packageJson.version !== APPROVED_VERSION) {
-    throw new Error(`embedded Postgres fixture version drift: expected ${APPROVED_VERSION}, observed ${String(packageJson.version)}`);
+  if (packageJson.version !== APPROVED_EMBEDDED_POSTGRES_VERSION) {
+    throw new Error(`embedded Postgres fixture version drift: expected ${APPROVED_EMBEDDED_POSTGRES_VERSION}, observed ${String(packageJson.version)}`);
   }
 
-  let binDir = path.join(packageRoot, 'native', 'bin');
-  const nativeDir = path.join(packageRoot, 'native');
+  let binDir = path.join(resolvedPackageRoot, 'native', 'bin');
+  const nativeDir = path.join(resolvedPackageRoot, 'native');
   await makeNativeTreeChildReadable(nativeDir);
   let runtimeSonames = await ensureRuntimeSonames(nativeDir);
   let runtimeLibraryPath = runtimeSonames.length ? prependRuntimeLibraryPath(path.join(nativeDir, 'lib')) : '';
@@ -210,11 +216,11 @@ export async function prepareEmbeddedPostgresFixture({
   let executionMode = 'PACKAGE_NATIVE';
 
   if (forceMirror || (!probe.ok && probe.code === 'EACCES')) {
-    await mirrorNativeTree({ packageRoot, mirrorBaseDir });
-    binDir = path.join(packageRoot, 'native', 'bin');
+    await mirrorNativeTree({ packageRoot: resolvedPackageRoot, mirrorBaseDir });
+    binDir = path.join(resolvedPackageRoot, 'native', 'bin');
     executionMode = 'TMP_NATIVE_SYMLINK';
-    runtimeSonames = await ensureRuntimeSonames(path.join(packageRoot, 'native'));
-    runtimeLibraryPath = runtimeSonames.length ? prependRuntimeLibraryPath(path.join(packageRoot, 'native', 'lib')) : '';
+    runtimeSonames = await ensureRuntimeSonames(path.join(resolvedPackageRoot, 'native'));
+    runtimeLibraryPath = runtimeSonames.length ? prependRuntimeLibraryPath(path.join(resolvedPackageRoot, 'native', 'lib')) : '';
     probe = probeBinDir(binDir, identity || null, runtimeLibraryPath);
   }
 
@@ -224,8 +230,10 @@ export async function prepareEmbeddedPostgresFixture({
 
   return Object.freeze({
     status: 'READY',
-    package: '@embedded-postgres/linux-x64',
-    version: APPROVED_VERSION,
+    package: resolvedPlatform.packageName,
+    version: APPROVED_EMBEDDED_POSTGRES_VERSION,
+    platform,
+    arch,
     requiredExecutables: [...REQUIRED_EXECUTABLES],
     runtimeSonames,
     runtimeLibraryPathConfigured: Boolean(runtimeLibraryPath),

@@ -97,6 +97,35 @@ if ! tailscale status --json | node --input-type=module -e "let s='';for await(c
   exit 3
 fi
 
+# Canonical UberCel/UberLit resident runtime comes online on the same zero-cost
+# Oracle substrate before the legacy Air-node/local-model layer is admitted.
+# This preserves one deployment/runtime truth instead of treating Oracle itself
+# as the control plane.
+"$WORK/uberbondd/ops/sovereign/install-uberlit.sh" "$WORK/uberbondd" --start
+
+UBERLIT_HEALTH_OK=false
+for _ in $(seq 1 60); do
+  if curl --silent --show-error --fail --insecure --max-time 2 \
+    https://127.0.0.1:32443/api/health >/dev/null 2>&1; then
+    UBERLIT_HEALTH_OK=true
+    break
+  fi
+  sleep 1
+done
+$UBERLIT_HEALTH_OK || { echo 'REFUSED: canonical UberLit HTTPS health did not become ready.' >&2; exit 2; }
+
+set -a
+. /etc/uberlit/uberlit.env
+set +a
+install -d -o uberlit -g uberlit -m 0700 /var/lib/uberlit/uberbond/artifacts
+UBERLIT_ROOT=/var/lib/uberlit/uberbond node /opt/uberlit/source/scripts/uberlit-jev-shadow-canary.mjs >/var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json
+chown uberlit:uberlit /var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json
+chmod 0600 /var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json
+grep -q '"status": "SEMANTIC_EXECUTION_PLAN_ONLY"' /var/lib/uberlit/uberbond/artifacts/jev-plan-only-canary.json || {
+  echo 'REFUSED: Jev plan-only canary did not compile on UberLit.' >&2
+  exit 2
+}
+
 "$WORK/uberbondd/ops/sovereign/activate-air-node.sh" \
   "$LLAMA_SERVER" "$MODEL_FILE" 'Qwen2.5-Coder-1.5B-Instruct-Q4_K_M'
 
@@ -104,6 +133,8 @@ cat <<EOF
 UBERBOND ZERO-COST AIR BOOTSTRAP COMPLETE
 Source commit: $RESOLVED
 Host class: Oracle Always Free Ampere A1 ARM64
+Runtime: UberCel control + UberLit resident Linux runtime
+Jev readiness: PLAN_ONLY canary compiled; live call remains credential-gated
 Local model: Qwen2.5-Coder-1.5B-Instruct Q4_K_M (Apache-2.0)
 Model cost: $0
 Tunnel plan: Tailscale Personal $0

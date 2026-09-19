@@ -1,0 +1,59 @@
+{
+  "schema": "uberbond.oracle-free-uberlit-arm64-jev.verification.v1",
+  "observedAt": "2026-09-19T01:05:00Z",
+  "baseMain": "ee481f0909f9353cf1ee9eeb0fc490b3e5133c0f",
+  "branch": "feature/oracle-free-uberlit-arm64-jev-20260919",
+  "scope": "Zero-new-spend Oracle Always Free ARM64 substrate for UberCel/UberLit + Jev plan-only readiness",
+  "sourceChanges": {
+    "reviewedEmbeddedPostgresPlatforms": [
+      "linux-x64",
+      "linux-arm64"
+    ],
+    "embeddedPostgresVersion": "18.4.0-beta.17",
+    "uberLitSupervisorArchitectureAware": true,
+    "oracleBootstrapInstallsCanonicalUberLit": true,
+    "oracleBootstrapRequiresLocalHttpsHealth": true,
+    "oracleBootstrapCompilesJevPlanOnlyCanary": true,
+    "typeSafeCredentialEmbedded": false,
+    "paidProviderPurchasePathAdded": false
+  },
+  "localFocusedVerification": {
+    "environment": "isolated Node/bash execution using exact changed source materialized from GitHub connector",
+    "command": "node --test tests/embedded-postgres-platform.test.mjs tests/sovereign-oracle-always-free-bootstrap.test.mjs",
+    "tests": 12,
+    "passed": 12,
+    "failed": 0,
+    "additional": [
+      "node --check src/embedded-postgres-platform.mjs PASS",
+      "node --check scripts/prepare-embedded-postgres-fixture.mjs PASS",
+      "bash -n ops/sovereign/bootstrap-oracle-always-free-air-node.sh PASS"
+    ],
+    "note": "A transient 11/12 local result was caused by an incomplete temporary copy that omitted an existing source comment; rerun after exact materialization passed 12/12."
+  },
+  "exactSourceInspection": {
+    "packageLockArm64Package": "@embedded-postgres/linux-arm64@18.4.0-beta.17",
+    "packageLockArm64Cpu": [
+      "arm64"
+    ],
+    "packageLockArm64Os": [
+      "linux"
+    ],
+    "supervisorHardcodedLinuxX64PathRemoved": true
+  },
+  "truthBoundary": {
+    "oracleAccountAccess": false,
+    "oracleVmCreated": false,
+    "oracleCapacityObserved": false,
+    "liveArm64UberLitBootProven": false,
+    "tailscaleAuthorizationProven": false,
+    "typeSafeCredentialProven": false,
+    "liveJevCallProven": false,
+    "externalSpendUsd": 0
+  },
+  "remainingOwnerReality": [
+    "Create or access an Oracle Cloud account.",
+    "Create an Always Free eligible Ampere A1 Ubuntu ARM64 VM with about 12 GB RAM and persistent boot storage, subject to current Oracle capacity and eligibility.",
+    "Run the existing bootstrap on that VM and approve the one-time Tailscale device authorization.",
+    "Create/custody a TypeSafe API key on the UberLit host, then execute the already-built live Jev canary."
+  ]
+}

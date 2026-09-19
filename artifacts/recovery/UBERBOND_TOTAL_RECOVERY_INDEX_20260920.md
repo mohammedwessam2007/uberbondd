@@ -211,3 +211,77 @@ A surface is marked complete only when one of these is true:
 4. a stable object index is fully enumerated.
 
 Anything else remains explicitly partial or API-unavailable.
+
+
+## Terminal exposed-surface closure — 2026-09-20
+
+### GitHub Actions
+
+A fixed snapshot cutoff was established at **2026-09-19T22:26:48Z**.
+
+GitHub reports exactly **10,705 workflow runs** at-or-before that cutoff.
+
+The recovery date-slice archives contain **11,146** runs through 2026-09-19T22:52:46Z. Direct timestamp partitioning of the September 19 archive proves:
+- at-or-before cutoff: **198** Sep-19 runs
+- after cutoff: **441** Sep-19 runs
+- total date-slice runs at-or-before cutoff: **10,705**
+
+Therefore the frozen Actions snapshot denominator is fully reconciled.
+
+Current workflow definitions recovered from `.github/workflows`: **16**.
+
+### Conversation comments
+
+The repository issue-comment collection was paginated to exhaustion:
+- pages 1–19: 100 comments each
+- page 20: 79 comments
+- page 21: 0 comments
+- exact issue/PR conversation-comment total: **1,979**
+
+The final 479 comments are preserved as an addressability index when wholesale body copying was deliberately avoided; exact bodies remain authoritative at their GitHub comment IDs/URLs.
+
+### Inline pull-request review comments
+
+The repository PR-review-comment collection returned:
+- page 1: **0**
+- exact inline review-comment total: **0**
+
+### Recovery branch body
+
+At terminal reconciliation before merge:
+- recovery branch files under `artifacts/recovery/`: **131**
+- recovery artifact bytes: **71,357,043**
+- recovery branch was **145 commits ahead / 0 behind** anchored main at verification time
+- all compared changes were additions under `artifacts/recovery/`
+- no production `src/`, test, runtime, workflow, deployment, secret, DNS, payment, customer, or messaging file was modified by the recovery PR
+
+### Terminal recovery verdict
+
+For every durable surface exposed by the available interfaces, the recovery has either:
+1. a complete exhausted denominator;
+2. a complete non-truncated content-addressed tree;
+3. a stable object/address index;
+4. or an explicit API/access boundary.
+
+Closed exposed surfaces:
+- current repository tree: **100%**
+- current source-module disposition: **100%**
+- canonical semantic requirements: **100%**
+- current-main commit history: **100%**
+- pull-request history: **100%**
+- issue history: **100%**
+- issue/PR conversation comments: **100%**
+- inline PR review comments: **100%**
+- branch namespace snapshot: **100%**
+- fixed-cutoff Actions run snapshot: **100%**
+- current workflow-definition inventory: **100%**
+- `/Uberbond` Library object inventory: **100%**
+- Project-file identity inventory visible to this Project: **100%**
+
+Non-claim boundaries that remain:
+- raw byte-for-byte exports of all historical ChatGPT conversations are not exposed by the available memory interface;
+- not every multi-gigabyte Library object's contents were streamed into one model context;
+- tags/releases collections were not exposed through the tested connector route and are therefore **API_UNAVAILABLE**, not asserted absent;
+- external runtime/customer/payment/personal-life/ASI claims remain governed by their own evidence and are not implied by recovery completeness.
+
+This is the terminal **ZERO-SILENT-LOSS RECOVERY SNAPSHOT** for the exposed durable UberBond corpus at the stated anchors and cutoff.

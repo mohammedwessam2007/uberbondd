@@ -1,0 +1,54 @@
+{
+  "schema": "uberbond.total-recovery.project-file-exact-text.v1",
+  "generatedAt": "2026-09-20",
+  "counts": {
+    "files": 7,
+    "totalLines": 0,
+    "totalCharacters": 462
+  },
+  "truthBoundary": "The exact_text fields are copied from full Project-file reads returned in this recovery session. JSON escaping is representation-only; decoded strings preserve the returned text exactly.",
+  "files": [
+    {
+      "file_id": "file_00000000557081f4b46400eb51703504",
+      "name": "Branch · Branch · Branch · Recurring Revenue Hunter.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    },
+    {
+      "file_id": "file_000000001ab481f489616db13b1e390c",
+      "name": "Claude Code and ChatGPT.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    },
+    {
+      "file_id": "file_00000000dff4820aa2fd0dafb913feee",
+      "name": "Branch · Branch · Branch · Branch · Branch · Recurring Revenue Hunter.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    },
+    {
+      "file_id": "file_0000000014fc8246b62cc2544574187d",
+      "name": "UberBond Lead OS MVP.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    },
+    {
+      "file_id": "file_00000000d73881f48893d1721326c9cc",
+      "name": "Branch · UberBond Night Shift.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    },
+    {
+      "file_id": "file_00000000b2d4824383a68f97845b3845",
+      "name": "Free Outreach Capacity.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    },
+    {
+      "file_id": "file_00000000c15481f595daeff043df3562",
+      "name": "Add System Ideas.txt",
+      "total_lines": 0,
+      "exact_text": "No readable content was found in this file for the requested mode."
+    }
+  ]
+}

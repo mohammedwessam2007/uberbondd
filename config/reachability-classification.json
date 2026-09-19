@@ -465,16 +465,6 @@
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
       "reason": "An effect sink that deliberately performs no effect, used to exercise the dispatch sequence end to end without touching anything real. It is only meaningful once there is a real sink to contrast it with, and there is none."
     },
-    "src/omnia-v9/integrations/outbound-consequence-gate.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The consequence gate for an outbound send. The pipeline accepts it as an injected hook; nothing wires the real one."
-    },
-    "src/omnia-v9/integrations/outreach-consequence-admission.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Admission for an outreach consequence."
-    },
     "src/omnia-v9/integrations/owner-review.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
@@ -489,11 +479,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "The Gmail effect adapter. Its meaningful path sends mail to a real person, which is the one thing no lane may release. The wired send path is src/gmail.mjs behind src/pipeline.mjs; both are inside the sovereignty boundary."
-    },
-    "src/omnia-v9/integrations/providers/postal-effect-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "A real external-effect adapter for a self-hosted mail server, deliberately unregistered in every dispatcher until outbound SMTP permission, PTR/rDNS, SPF/DKIM/DMARC/TLS alignment and seed placement are proven."
     },
     "src/omnia-v9/integrations/reality-shadow-cedar.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -998,11 +983,6 @@
       "gate": null,
       "reason": "The original transfer canary. Kept alongside v2 so a regression between them stays visible."
     },
-    "src/uberocean-compute-fabric.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
-      "reason": "Admits physical Linux hosts into the compute fabric and scores them on cost, reliability, privacy and failure domain. Tested against constructed hosts; no real host has been admitted."
-    },
     "src/uberocean-ubercel-bridge.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
@@ -1032,11 +1012,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVISIONED_FREE_RUNTIME_MESH",
       "reason": "Reached only by scripts/free-runtime-burst.mjs and its test. It states outright that a dispatch is internal compute intent and not a real-world business effect, which is the right boundary, and there is still no provisioned worker for it to dispatch to."
-    },
-    "src/omnia-v9/integrations/external-effect-adapter.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "The adapter contract an effect provider must satisfy. Briefly reachable when the big-button branches were merged, which is what made an outbound send path unattended-reachable; those merges were reverted and this is gated again."
     }
   }
 }

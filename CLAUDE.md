@@ -141,6 +141,7 @@ Commercial allocation remains subordinate to the terminal North Star. A historic
 - Provider/model resilience/cost-routing problem -> **OmniRoute** with observable provider/model identity.
 - Security verification -> **Strix** only for owned local/test/preview by default; production needs explicit authority.
 - Public market/buyer/software research -> **Agent Reach** when it adds coverage and the source is public/authorized; no private-session or bypass behavior.
+- Oracle/UberLit/Jev live activation -> **oracle-free-uberlit-jev-activation**. Cowork may execute routine browser/workspace/terminal setup under that skill; Oracle login/2FA/terms/KYC/payment verification, Tailscale account approval, TypeSafe account/terms, hidden secret entry, and any non-zero spend remain owner gates.
 
 ### Automatic model-failover law
 

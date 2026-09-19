@@ -26,8 +26,9 @@ test('terminal gate narrowly approves and prepares the pinned embedded Postgres 
   const fixture = readFileSync('scripts/prepare-embedded-postgres-fixture.mjs', 'utf8');
 
   assert.deepEqual(packageJson.allowScripts, {
-    '@embedded-postgres/linux-x64@18.4.0-beta.17': true
-  }, 'project install-script authority must be exactly one reviewed, version-pinned platform fixture');
+    '@embedded-postgres/linux-x64@18.4.0-beta.17': true,
+    '@embedded-postgres/linux-arm64@18.4.0-beta.17': true
+  }, 'project install-script authority must stay limited to the reviewed, version-pinned Linux x64 and ARM64 platform fixtures');
   assert.equal(existsSync('.npmrc'), false,
     'do not carry an ambiguous project .npmrc allow-scripts escape hatch alongside canonical allowScripts policy');
   assert.doesNotMatch(JSON.stringify(packageJson), /dangerously-allow-all-scripts/i);

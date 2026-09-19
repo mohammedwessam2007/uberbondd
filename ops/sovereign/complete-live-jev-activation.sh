@@ -7,9 +7,13 @@ SOURCE=/opt/uberlit/source
 ROOT=/var/lib/uberlit/uberbond
 ENV_FILE=/etc/uberlit/uberlit.env
 ARTIFACTS="$ROOT/artifacts/system-one"
+AUTHORIZED_MAX=""
+if [[ "${1:-}" == "--authorize-max-usd" ]]; then AUTHORIZED_MAX="${2:-}"; shift 2; fi
+[[ $# -eq 0 ]] || { echo 'usage: complete-live-jev-activation.sh --authorize-max-usd 0.001' >&2; exit 2; }
+[[ "$AUTHORIZED_MAX" == "0.001" ]] || { echo 'REFUSED: explicit --authorize-max-usd 0.001 required for the live canary.' >&2; exit 2; }
 [[ -d "$SOURCE/.git" ]] || { echo 'REFUSED: canonical UberLit Git source missing.' >&2; exit 2; }
 [[ -f "$ENV_FILE" ]] || { echo 'REFUSED: UberLit environment file missing.' >&2; exit 2; }
-for cmd in node systemctl curl grep sed install; do command -v "$cmd" >/dev/null || { echo "REFUSED: missing $cmd" >&2; exit 2; }; done
+for cmd in node systemctl curl grep sed install find chown chmod seq; do command -v "$cmd" >/dev/null || { echo "REFUSED: missing $cmd" >&2; exit 2; }; done
 
 node "$SOURCE/scripts/uberlit-typesafe-secret.mjs" status --root "$ROOT" |
   node --input-type=module -e "let s='';for await(const c of process.stdin)s+=c;const j=JSON.parse(s);if(j?.ok!==true||j?.keyReturned!==false)process.exit(2)" ||
@@ -23,6 +27,17 @@ ensure_env_value() {
     printf '%s=%s\n' "$key" "$value" >> "$ENV_FILE"
   fi
 }
+ACTIVATION_DONE=false
+rollback_enable() {
+  if [[ "$ACTIVATION_DONE" != "true" ]]; then
+    ensure_env_value TYPESAFE_JEV_ENABLED false || true
+    chown root:uberlit "$ENV_FILE" 2>/dev/null || true
+    chmod 0640 "$ENV_FILE" 2>/dev/null || true
+    systemctl restart uberlit.service uberlit-tls-edge.service uberlit-worker.service >/dev/null 2>&1 || true
+  fi
+}
+trap rollback_enable EXIT
+
 ensure_env_value TYPESAFE_JEV_ENABLED true
 chown root:uberlit "$ENV_FILE"
 chmod 0640 "$ENV_FILE"
@@ -111,5 +126,6 @@ chown -R uberlit:uberlit "$ARTIFACTS"
 find "$ARTIFACTS" -type d -exec chmod 0700 {} +
 find "$ARTIFACTS" -type f -exec chmod 0600 {} +
 
+ACTIVATION_DONE=true
 cat "$FINAL"
 echo 'UBERBOND_JEV_LIVE_SHADOW_READY'

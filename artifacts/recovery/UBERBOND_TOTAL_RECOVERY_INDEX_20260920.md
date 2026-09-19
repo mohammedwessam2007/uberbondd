@@ -148,3 +148,66 @@ Every future recovery should begin by refreshing live `main`, then use this inde
 2. **Every byte has been simultaneously streamed through one model context.** This is neither established nor desirable. The Library alone is ~2.50 GiB. A sovereign memory architecture should retrieve exact evidence on demand rather than lossy-compressing gigabytes into a model prompt.
 
 The durable objective is therefore **zero silent loss + exact source retrieval + provenance + current-truth reconciliation**, not theatrical context stuffing.
+
+
+## Historical control-surface closure — resumed 2026-09-20
+
+### Main-branch commit history
+
+The complete commit history reachable from current `main` was paginated backward with 100 commits/page until exhaustion:
+- pages 1–42: 100 commits each
+- page 43: 86 commits
+- page 44: 0 commits
+- exact total reachable commits: **4,286**
+- newest: `73ee6e2481db2e175de98ccc32a2a3142dfa8b28` (2026-09-19)
+- oldest: `229c2c85c3c28179ce5bc3c4997f87b3ee67911b` — **Initial commit** (2026-07-14)
+
+This closes the current-main commit-history denominator.
+
+### Pull-request history
+
+The GitHub pull-request collection was paginated to exhaustion:
+- pages 1–7: 100 PRs each
+- page 8: 78 PRs
+- exact total PRs: **778**
+- merged: **594**
+- closed-unmerged: **183**
+- open: **1**
+- current open PR: **#955**, this recovery PR
+
+Oldest recovered PR:
+- #1 — `Dry-run-safe acquisition checkpoint`
+
+Newest recovered PR:
+- #955 — `recovery: bind total UberBond corpus and lineage`
+
+### Issue history
+
+The GitHub issue endpoint, which contains both issues and PRs, was paginated to exhaustion:
+- numbered objects through #955: **955**
+- PR objects: **778**
+- true issues: **177**
+- closed true issues: **132**
+- open true issues: **45**
+
+Oldest true issue recovered:
+- #30 — relay/Claude deterministic verification mission
+
+Newest true issue recovered:
+- #908 — `Launch 100K/month outreach mode now`
+
+### API-unavailable metadata boundary
+
+The connected GitHub interface did not permit direct enumeration of tags/releases/workflow-definition collections through the tested public collection endpoints. This recovery therefore records those collections as **API_UNAVAILABLE_IN_THIS_SESSION**, not as absent and not as zero.
+
+Workflow runs tied to exact current head were previously observed through supported routes, but a complete all-time Actions-run denominator is not claimed here without a supported exhaustive endpoint.
+
+### Recovery rule
+
+A surface is marked complete only when one of these is true:
+1. pagination exhausts to an empty/short terminal page;
+2. a complete non-truncated Git tree proves the denominator;
+3. an authoritative generated source map proves the denominator;
+4. a stable object index is fully enumerated.
+
+Anything else remains explicitly partial or API-unavailable.

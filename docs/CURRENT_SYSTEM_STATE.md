@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-19**
 Branch: `main`
-Reconciled from current head: `c6e162926795c2de37c67d33b7191bf080b9d1ec`
+Reconciled from current head: `1880ddacea7f757b8037e90839158fc02da0cb5a`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

@@ -252,3 +252,37 @@ Truth boundary:
 - no external spend was incurred.
 
 Do not reopen the ARM portability architecture unless current source proves a regression. The next cut is owner-side Oracle account/Always Free VM creation, then run the prepared bootstrap and approve Tailscale. After the host is live, install the owner-custodied TypeSafe key into UberLit and run the existing bounded Jev canary.
+
+
+## Claude Cowork live Jev activation frontier — 2026-09-19
+
+The remaining Oracle/UberLit/Jev setup has been packaged as a governed **Claude Cowork execution mission** rather than a manual founder terminal procedure.
+
+Project skill:
+`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`
+
+One-paste mission:
+`docs/prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md`
+
+Cowork is authorized for routine reversible browser/workspace/terminal setup. Owner-only boundaries remain Oracle authentication/2FA/terms/KYC/payment-card verification, Tailscale account approval, TypeSafe authentication/terms, hidden TypeSafe secret entry, and any real non-zero spend.
+
+New live path:
+`Oracle Always Free evidence -> Oracle IMDSv2 + Tailscale + UberLit health -> UberOcean host admission -> protected TypeSafe key -> explicit <=$0.001 Jev canary -> live shadow route -> calibration receipt`.
+
+Important truth split:
+- one fresh zero-cost Oracle A1 host can be admitted into UberOcean and used by UberLit/Jev;
+- this does **not** prove full UberCel sovereign production redundancy;
+- `ubercelSovereignDeploymentReady` remains false until an independent failure-domain fallback is genuinely observed;
+- Jev remains shadow-only with canonical routing unchanged and consequence authority NONE.
+
+Focused verification for the Cowork package:
+- Cowork guardrail suite: 4/4 PASS;
+- Oracle host-admission suite: 3/3 PASS;
+- hidden-secret and live-activation shell syntax: PASS;
+- live activation requires a fresh `ORACLE_FREE_UBEROCEAN_HOST_ADMITTED` receipt and explicit `--authorize-max-usd 0.001`;
+- failed live activation rolls `TYPESAFE_JEV_ENABLED` back to false.
+
+Durable receipt:
+`artifacts/cowork-jev-live/verification-20260919.json`
+
+This chat cannot truthfully claim the final live receipts until an authenticated Cowork/browser session crosses the owner account gates and the real Oracle host/TypeSafe provider respond. Future sessions must continue from this Cowork-ready frontier instead of reimplementing the source path.

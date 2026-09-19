@@ -37,3 +37,19 @@ competitor code, datasets, designs, or proprietary workflows.
 Return: outcome, changed artifacts, tests actually run, truth table, external
 effect ledger, benchmark pulse, unresolved risks, next highest-leverage wave, and
 PROCEED / REPAIR / STOP decision.
+
+## Claude Cowork live activation lane
+
+When the founder explicitly requests live setup of the Oracle Always Free -> UberCel -> UberLit -> Jev path, Cowork may act as a governed execution surface rather than research-only.
+
+Use project skill:
+
+`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`
+
+This lane may operate the selected workspace, browser and terminal for reversible setup and verification. It may not accept legal terms, enter owner authentication/2FA/payment details, create paid resources, expose secrets to model context, bypass provider restrictions, or widen Jev consequence authority.
+
+The canonical completion evidence is the UberLit-host receipt:
+
+`/var/lib/uberlit/uberbond/artifacts/system-one/jev-live-activation.json`
+
+with status `JEV_LIVE_SHADOW_READY`. Source readiness or a Cowork statement alone is not live proof.

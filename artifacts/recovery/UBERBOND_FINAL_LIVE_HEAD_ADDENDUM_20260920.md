@@ -64,3 +64,51 @@ For every exposed durable surface, UberBond now has one of:
 This is the correct meaning of **zero silent loss**. It does not mean all historical ChatGPT transcript bytes are exposed, nor that multi-gigabyte Library objects were all streamed through one model context.
 
 Current live-source recovery status at this anchor: **100% of exposed repository objects addressable**.
+
+
+---
+
+## Post-recovery live-head closure — 2026-09-20
+
+After the original recovery corpus was merged, live `main` advanced again.
+
+### Current live main
+- main commit: `0e58328778b17dae8a0eaac5c069f87367e1c83e`
+- commit title: `Merge final live-head recovery anchor`
+- root tree: `c619cfb8aa8773b79adb403b16cf19cec478f654`
+- recursive tree: `truncated:false`
+- tree entries: **3,476**
+- tree objects/directories: **164**
+- tracked blobs: **3,312**
+- tracked blob bytes: **111,809,894**
+
+The earlier `107341d0...` anchor remains valid historical evidence for the first recovery merge but is no longer the current live head.
+
+### Main-history reconciliation
+The durable pre-recovery snapshot contained **4,286** reachable commits through its fixed anchor.
+Current live main is exactly **165 commits ahead / 0 behind** the earlier `73ee6e2...` source anchor.
+Therefore current reachable main lineage at this closure is **4,451 commits**.
+
+### Pull-request reconciliation
+Direct pull pagination exhausted:
+- first 500 PRs recovered in pages 1–5;
+- next 279 PRs recovered in pages 6–8;
+- pages 9–10 empty;
+- exact current PR total at this snapshot: **779**.
+
+PR #955 merged the total-recovery corpus.
+PR #956 merged the live-head finalization.
+
+### Tags and releases
+The lower-level supported Git ref namespace was queried directly:
+- `git/matching-refs/tags/` → **[]**
+- current Git tag refs: **0**
+
+Supported releases query:
+- Releases → **[]**
+- current GitHub Releases: **0**
+
+The higher-level `/tags` list route remains connector-restricted, but the Git ref namespace itself is empty at this snapshot.
+
+### Recovery interpretation
+These updates change only recovery metadata and lineage accounting. They do not imply production, deployment, customer, payment, personal-life, or intelligence-capability changes.

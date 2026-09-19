@@ -16,6 +16,7 @@ if(inputPath){
   input=JSON.parse(fs.readFileSync(inputPath,'utf8'));
 }
 const execute=flag('execute');
+const dataClass=arg('data-class')||'UNCLASSIFIED';
 const maxCost=Number(process.env.TYPESAFE_MAX_COST_USD_PER_CALL||0.001);
 const adapter=createSystemOneDecisionAdapter({
   apiKey:readUberLitTypeSafeKey({runtimeRoot})||'',
@@ -38,7 +39,8 @@ const result=await shadowRouteMechanism({
   runtimeRoot,
   execute,
   providerCallAuthorized:execute,
-  spendCeilingUsd:maxCost
+  spendCeilingUsd:maxCost,
+  dataClass
 });
 process.stdout.write(`${JSON.stringify(result,null,2)}\n`);
 if(execute&&!result.ok)process.exitCode=2;

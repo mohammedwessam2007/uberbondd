@@ -129,13 +129,13 @@ export function planSemanticExecution({ program, state, mode = 'PLAN_ONLY' } = {
 }
 
 export async function executeSemanticProgram({
-  program, state, decisionAdapter, mode = 'PLAN_ONLY', providerCallAuthorized = false
+  program, state, decisionAdapter, mode = 'PLAN_ONLY', providerCallAuthorized = false, dataClass = 'UNCLASSIFIED', spendCeilingUsd = null
 } = {}) {
   const plan = planSemanticExecution({ program, state, mode });
   if (!plan.ok) return plan;
   if (plan.mode === 'PLAN_ONLY') return { ...plan, status: 'SEMANTIC_EXECUTION_PLAN_ONLY' };
   if (!decisionAdapter || typeof decisionAdapter.evaluate !== 'function') return fail('SEMANTIC_EXECUTION_REFUSED', ['decision-adapter-required'], { programId: program.programId });
-  const observed = await decisionAdapter.evaluate({ state: plan.state, questions: plan.questions, providerCallAuthorized });
+  const observed = await decisionAdapter.evaluate({ state: plan.state, questions: plan.questions, providerCallAuthorized, dataClass, spendCeilingUsd });
   if (!observed?.ok) return { ...observed, programId: program.programId, programDigest: program.programDigest, mode: plan.mode };
   const registers = normalizedRegisters(program, observed);
   if (!registers) return fail('SEMANTIC_EXECUTION_RESPONSE_REFUSED', ['complete-register-file-required'], { programId: program.programId });

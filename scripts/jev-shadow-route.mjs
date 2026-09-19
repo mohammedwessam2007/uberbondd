@@ -26,7 +26,7 @@ const adapter=createSystemOneDecisionAdapter({
   pricing:{
     inputUsdPerMillion:Number(process.env.TYPESAFE_INPUT_USD_PER_MILLION||0.042),
     outputUsdPerMillion:Number(process.env.TYPESAFE_OUTPUT_USD_PER_MILLION||0),
-    sourceRef:process.env.TYPESAFE_PRICING_SOURCE||'https://typesafe.ai/',
+    sourceRef:process.env.TYPESAFE_PRICING_SOURCE||'https://typesafe.ai/blog/introducing-system-one-models-and-jev',
     verifiedAt:process.env.TYPESAFE_PRICING_VERIFIED_AT||'2026-09-19T00:00:00.000Z'
   },
   maxCostUsdPerCall:maxCost

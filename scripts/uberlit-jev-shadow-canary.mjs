@@ -17,7 +17,7 @@ const maxCost=Number(process.env.TYPESAFE_MAX_COST_USD_PER_CALL||0.001);
 const pricing={
   inputUsdPerMillion:priceInput,
   outputUsdPerMillion:priceOutput,
-  sourceRef:process.env.TYPESAFE_PRICING_SOURCE||'https://typesafe.ai/',
+  sourceRef:process.env.TYPESAFE_PRICING_SOURCE||'https://typesafe.ai/blog/introducing-system-one-models-and-jev',
   verifiedAt:process.env.TYPESAFE_PRICING_VERIFIED_AT||'2026-09-19T00:00:00.000Z'
 };
 

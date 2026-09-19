@@ -55,7 +55,7 @@ ensure_env_default TYPESAFE_DEFAULT_MODEL jev-latest
 ensure_env_default TYPESAFE_JEV_ENABLED false
 ensure_env_default TYPESAFE_INPUT_USD_PER_MILLION 0.042
 ensure_env_default TYPESAFE_OUTPUT_USD_PER_MILLION 0
-ensure_env_default TYPESAFE_PRICING_SOURCE https://typesafe.ai/
+ensure_env_default TYPESAFE_PRICING_SOURCE https://typesafe.ai/blog/introducing-system-one-models-and-jev
 ensure_env_default TYPESAFE_PRICING_VERIFIED_AT 2026-09-19T00:00:00.000Z
 ensure_env_default TYPESAFE_MAX_COST_USD_PER_CALL 0.001
 chown root:uberlit /etc/uberlit/uberlit.env

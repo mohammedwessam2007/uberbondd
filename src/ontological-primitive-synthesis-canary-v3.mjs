@@ -168,7 +168,7 @@ const DISCOVERY_TASK = Object.freeze({
 const TRANSFER_TASKS = Object.freeze([
   {
     id: 'TRANSFER_XOR_BIT3',
-    label: x => hiddenPrimitive(x) !== (((x >> 3) & 1) === 1) ? 1 : 0
+    label: x => hiddenPrimitive(x) !== ((x >> 3) & 1) ? 1 : 0
   },
   {
     id: 'TRANSFER_AND_NOT_BIT2',

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "uberbond.moonshot-reality-canaries.v1",
+  "date": "2026-09-20",
+  "truthClass": "SPECULATIVE_CANARIES_NOT_IMPLEMENTATION_PROOF",
+  "purpose": "Exercise the Moonshot Reality Compiler across distinct evidence regimes before scaling to the full founder moonshot corpus.",
+  "canaries": [
+    {
+      "id": "ontological-computing",
+      "literalName": "ONTOLOGICAL COMPUTING",
+      "lane": "A_FORMAL_MATHEMATICAL",
+      "realityState": "IMAGINED",
+      "firstClaim": "A learned or generated representation can make at least one held-out problem family materially easier than strong baseline representations without leakage.",
+      "nearestPrecursor": "REPRESENTATION_SEARCH_BENCHMARK",
+      "firstProbe": "Construct several fixed problem families, hide held-outs, generate competing representations, and measure verified resource/correctness deltas.",
+      "promotionBlocker": "NO_HELD_OUT_ADVANTAGE_YET"
+    },
+    {
+      "id": "cognitive-periodic-table",
+      "literalName": "THE COGNITIVE PERIODIC TABLE",
+      "lane": "B_COMPUTATIONAL",
+      "realityState": "IMAGINED",
+      "firstClaim": "Reusable reasoning operators can be isolated such that composing them yields predictable transfer gains across more than one task family.",
+      "nearestPrecursor": "COGNITIVE_OPERATOR_ABLATION_LAB",
+      "firstProbe": "Define a small operator vocabulary and run ablations/compositions under fixed model and token budgets.",
+      "promotionBlocker": "NO_OPERATOR_INDEPENDENCE_OR_TRANSFER_PROOF_YET"
+    },
+    {
+      "id": "reality-api",
+      "literalName": "THE REALITY API",
+      "lane": "G_INFRASTRUCTURE_CIVILIZATION",
+      "realityState": "IMAGINED",
+      "firstClaim": "Two heterogeneous real-world capability providers can expose one stable semantic contract without erasing authority, provenance or result semantics.",
+      "nearestPrecursor": "TWO_PROVIDER_CONTRACT_CANARY",
+      "firstProbe": "Use non-consequential sandbox providers first and verify identical intent/result contracts and explicit provider-specific limits.",
+      "promotionBlocker": "NO_CROSS_PROVIDER_CONTRACT_EVIDENCE_YET"
+    },
+    {
+      "id": "programmable-matter-primitive",
+      "literalName": "THE PROGRAMMABLE MATTER PRIMITIVE",
+      "lane": "C_PHYSICAL_MATERIAL_ENERGY",
+      "realityState": "IMAGINED",
+      "firstClaim": "A bounded physical unit or material architecture can reversibly change at least two useful macroscopic configurations under external control with quantified energy/reliability.",
+      "nearestPrecursor": "LITERATURE_AND_SIMULATION_CONSTRAINT_MAP",
+      "firstProbe": "Map existing reconfigurable-material mechanisms and identify one measurable gap before any hardware spend.",
+      "promotionBlocker": "PHYSICAL_EXPERIMENT_AND_HARDWARE_NOT_YET_AUTHORIZED_OR_PROVEN"
+    },
+    {
+      "id": "new-sense-factory",
+      "literalName": "THE NEW SENSE FACTORY",
+      "lane": "E_COGNITIVE_HUMAN",
+      "realityState": "IMAGINED",
+      "firstClaim": "Humans can learn a stable intuitive mapping from a non-native data stream to decisions that transfers beyond memorized training examples.",
+      "nearestPrecursor": "SAFE_NONINVASIVE_SENSORY_SUBSTITUTION_TASK",
+      "firstProbe": "Use a noninvasive synthetic signal and compare trained performance, transfer and retention against ordinary visualization.",
+      "promotionBlocker": "NO_PREREGISTERED_HUMAN_EVIDENCE_YET"
+    },
+    {
+      "id": "trust-compiler",
+      "literalName": "THE TRUST COMPILER",
+      "lane": "F_INSTITUTIONAL_ECONOMIC",
+      "realityState": "IMAGINED",
+      "firstClaim": "A machine-readable bundle of provenance, evidence, authority and accountability can reduce coordination failure in a bounded multi-agent task versus an unstructured baseline.",
+      "nearestPrecursor": "SIMULATED_MULTI_AGENT_TRUST_CANARY",
+      "firstProbe": "Run adversarial simulations with and without the trust bundle, then measure fraud acceptance, false rejection and completion quality.",
+      "promotionBlocker": "NO_REAL_PARTICIPANT_OUTCOME_EVIDENCE_YET"
+    },
+    {
+      "id": "universal-seed",
+      "literalName": "THE UNIVERSAL SEED",
+      "lane": "G_INFRASTRUCTURE_CIVILIZATION",
+      "realityState": "IMAGINED",
+      "firstClaim": "A compact bootstrapping package can recursively expand the set of tools it can produce under a bounded simulated resource environment.",
+      "nearestPrecursor": "MINIMUM_INDUSTRIAL_DEPENDENCY_GRAPH",
+      "firstProbe": "Model a tiny software/manufacturing toy world and minimize the seed set that can regenerate all target capabilities.",
+      "promotionBlocker": "NO_PHYSICAL_BOOTSTRAP_EVIDENCE"
+    },
+    {
+      "id": "possibility-substrate",
+      "literalName": "THE POSSIBILITY SUBSTRATE",
+      "lane": "H_DEEP_SPECULATIVE",
+      "realityState": "IMAGINED",
+      "firstClaim": "A new substrate should count as possibility-expanding only if it supports a demonstrably new family of composable artifacts rather than one isolated trick.",
+      "nearestPrecursor": "HISTORICAL_SUBSTRATE_BRANCHING_BENCHMARK",
+      "firstProbe": "Build a retrospective dataset for writing, electricity, digital computation, networking and AI; test metrics that distinguish platforms from isolated inventions.",
+      "promotionBlocker": "DEFINITION_AND_METRIC_NOT_YET_VALIDATED"
+    }
+  ],
+  "law": "CANARIES_VALIDATE_THE_REALIZATION_MACHINE__THEY_DO_NOT_CERTIFY_THE_GRAND_MOONSHOTS"
+}

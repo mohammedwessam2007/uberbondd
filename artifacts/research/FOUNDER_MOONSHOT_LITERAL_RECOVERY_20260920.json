@@ -1,28 +1,59 @@
 {
-  "schemaVersion": "uberbond.founder-moonshot-literal-recovery-receipt.v1",
+  "schemaVersion": "uberbond.founder-moonshot-literal-recovery-receipt.v2",
   "date": "2026-09-20",
   "branch": "research/moonshot-reality-compiler-20260920",
   "pullRequest": 967,
-  "truthClass": "RECOVERY_BOUNDARY_RECEIPT",
-  "exactRecoveredOrdinals": [
-    1,
-    2,
-    3,
-    4
+  "truthClass": "DIRECT_SOURCE_EXACT_LITERAL_RECOVERY_COMPLETE",
+  "source": {
+    "file": "Branch · Branch · New chat.txt",
+    "sha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+    "bytes": 189166,
+    "renderedLineCount": 3679
+  },
+  "result": "EXACT_890_OF_890_LITERAL_RECOVERY",
+  "counts": {
+    "expected": 890,
+    "recovered": 890,
+    "unresolved": 0,
+    "contiguousOrdinals": true,
+    "duplicateOrdinals": 0,
+    "duplicateLiteralTitles": 1,
+    "missingIq": 0,
+    "emptyBodies": 0
+  },
+  "duplicateTitleEvidence": [
+    {
+      "title": "THE ONTOLOGICAL SINGULARITY",
+      "ordinals": [
+        625,
+        683
+      ],
+      "decision": "PRESERVE_BOTH"
+    }
   ],
-  "unresolvedRange": "5-890",
-  "exactRecoveredCount": 4,
-  "expectedCount": 890,
-  "searchesPerformed": [
-    "prior-conversation exact chunk retrieval",
-    "prior-conversation ordinal-specific retrieval",
-    "Project and Library exact-title search"
+  "corpus": {
+    "manifest": "artifacts/research/founder-moonshot-literal-corpus/manifest.json",
+    "shardCount": 10,
+    "entriesPerShard": 89,
+    "canonicalEntriesSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0"
+  },
+  "supersedesReceiptState": {
+    "previousResult": "PARTIAL_RECOVERY_ONLY",
+    "previousExactRecoveredCount": 4,
+    "previousUnresolvedRange": "5-890",
+    "whySuperseded": "A direct mounted Project transcript became available after the earlier recovery boundary was recorded.",
+    "deletionPolicy": "DO_NOT_ERASE_THE_HISTORICAL_FAILURE_REASON"
+  },
+  "claimsMade": [
+    "890_OF_890_LITERAL_SOURCE_ENTRIES_ARE_NOW_DURABLY_BOUND",
+    "RAW_SOURCE_IS_PRESERVED_IN_REPOSITORY",
+    "EVERY_ENTRY_HAS_ORDINAL_TITLE_HYPOTHETICAL_IQ_BODY_AND_SOURCE_LINE_RANGE"
   ],
-  "result": "PARTIAL_RECOVERY_ONLY",
   "claimsNotMade": [
-    "NO_890_OF_890_LITERAL_RECOVERY_CLAIM",
-    "NO_REGENERATED_ENTRY_IS_CALLED_ORIGINAL",
-    "NO_COMPRESSED_MEMORY_ANCHOR_IS_PROMOTED_OVER_EXACT_RETRIEVAL"
+    "NO_890_OF_890_IMPLEMENTATION_CLAIM",
+    "NO_890_OF_890_SCIENTIFIC_FEASIBILITY_CLAIM",
+    "NO_FICTIONAL_IQ_IS_TREATED_AS_PSYCHOMETRICS_OR_EVIDENCE",
+    "NO_SEMANTIC_DUPLICATE_IS_AUTO_DELETED"
   ],
-  "externalBlocker": "RAW_CHATGPT_TRANSCRIPT_BYTES_OR_EQUIVALENT_DIRECT_SOURCE_NOT_AVAILABLE_IN_CURRENT_TOOL_SURFACE"
+  "nextStage": "CLAIM_ATOMIZATION_CONSTRAINT_MAPPING_SHARED_ANCESTOR_COMPILATION_AND_REALITY_GATES"
 }

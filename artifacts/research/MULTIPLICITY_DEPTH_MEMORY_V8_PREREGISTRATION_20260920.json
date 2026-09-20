@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "uberbond.multiplicity-depth-memory-v8-preregistration.v1",
+  "date": "2026-09-20",
+  "parentFailure": "artifacts/research/CUBEFREE_EXTERNAL_V7_RESULT_20260920.json",
+  "parentConcept": "MULTIPLICITY_SENSITIVE_STRUCTURAL_MEMORY",
+  "truthClass": "PREREGISTERED_POST_FAILURE_GENERIC_MULTIPLICITY_DEPTH_HYPOTHESIS_NOT_RESULT",
+  "hypothesis": "Replacing the one-bit repeatSeen signal with a generic saturating multiplicity-depth state, while retaining an independent accumulator, can represent exponent-threshold structure such as the V7 cubefree failure without target-specific named primitives.",
+  "frozenState": {
+    "accumulator": "one Boolean accumulator with the V6 generic update vocabulary",
+    "multiplicityDepth": "global maximum per-divisor exponent class saturated to 0,1,2,3 where 3 means three-or-more",
+    "divisorSweepOrders": [
+      "ASCENDING_2_TO_DYNAMIC_SQRT",
+      "DESCENDING_FROM_ORIGINAL_SQRT"
+    ],
+    "divisionPolicies": [
+      "SINGLE_IF_DIVISIBLE",
+      "REPEAT_WHILE_DIVISIBLE"
+    ],
+    "leftoverHandling": [
+      "IGNORE_LEFTOVER",
+      "TOGGLE_IF_WORKING_GT_1",
+      "SET_ONE_IF_WORKING_GT_1"
+    ],
+    "outputs": [
+      "ACCUMULATOR",
+      "NOT_ACCUMULATOR",
+      "DEPTH_GE_1",
+      "DEPTH_GE_2",
+      "DEPTH_GE_3",
+      "DEPTH_LT_1",
+      "DEPTH_LT_2",
+      "DEPTH_LT_3",
+      "ACCUMULATOR_AND_DEPTH_LT_2",
+      "ACCUMULATOR_AND_DEPTH_LT_3",
+      "NOT_ACCUMULATOR_AND_DEPTH_LT_2",
+      "NOT_ACCUMULATOR_AND_DEPTH_LT_3",
+      "ACCUMULATOR_XOR_DEPTH_GE_2",
+      "ACCUMULATOR_XOR_DEPTH_GE_3"
+    ],
+    "antiLeakage": "No CUBEFREE, SQUAREFREE, MOBIUS, OEIS identifier, target name, or target-specific shortcut is permitted."
+  },
+  "confirmatoryTargets": [
+    "A212793_CUBEFREE_INDICATOR from V7",
+    "A008966_SQUAREFREE regression",
+    "A008683_MOBIUS_POSITIVE regression",
+    "A001221_DISTINCT_PRIME_PARITY regression"
+  ],
+  "metrics": {
+    "cubefreePrimary": "BALANCED_ACCURACY",
+    "cubefreeHeldoutBalancedAccuracyMinimum": 0.95,
+    "cubefreePositiveRecallMinimum": 0.9,
+    "cubefreeNegativeRecallMinimum": 0.9,
+    "cubefreeImprovementOverFrozenBaseMinimum": 0.08,
+    "priorTargetMinimumAccuracy": 0.99,
+    "hashNegativeBalancedAccuracyMaximum": 0.65
+  },
+  "falsifier": [
+    "Cubefree misses any frozen V7 success threshold.",
+    "Any V6 public target regresses below 0.99 held-out accuracy.",
+    "Hash negative control exceeds balanced accuracy 0.65.",
+    "Held-out labels influence program selection.",
+    "Grammar or metric changes after observing V8 result."
+  ],
+  "interpretationBoundary": "Because V8 is designed after V7 failure, success is confirmatory mechanism evidence only. It cannot establish unseen-order generalization.",
+  "nextRequiredGate": "UNSEEN_PUBLIC_TARGET_REQUIRING_MULTIPLICITY_ORDER_NOT_USED_TO_DERIVE_DEPTH_MEMORY",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

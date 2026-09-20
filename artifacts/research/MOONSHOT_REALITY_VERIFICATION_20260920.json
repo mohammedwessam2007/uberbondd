@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "uberbond.moonshot-reality-verification.v1",
+  "date": "2026-09-20",
+  "pullRequest": 967,
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "verifiedSourceHead": "421b81e56195f9eeaf27cea5627d3e9c7797bd74",
+  "truthClass": "EXECUTED_INTERNAL_LOGIC_EVIDENCE__HOSTED_CI_INFRASTRUCTURE_NON_EVIDENCE",
+  "verification": {
+    "exactBranchSourceExecution": {
+      "environment": "connected JavaScript V8 verifier",
+      "method": [
+        "fetched exact UTF-8 source from PR branch via GitHub connector",
+        "removed ESM import/export syntax only for in-memory evaluation",
+        "injected deterministic crypto-hash fixture where exact digest value was not under test",
+        "injected zero-effect-ledger fixture",
+        "supplied structuredClone equivalent in verifier environment"
+      ],
+      "caveat": "This executes the branch logic but is not the repository native Node test runner and does not prove deployment or external outcomes.",
+      "checks": {
+        "coreCompiler": {
+          "passed": 10,
+          "failed": 0,
+          "subjects": [
+            "compile moonshot",
+            "constraint genome",
+            "dependency frontier",
+            "feasibility conflict",
+            "minimum probe",
+            "external authority denial",
+            "contiguous promotion",
+            "state-skip denial",
+            "reality leverage",
+            "descendant preservation"
+          ]
+        },
+        "portfolioCompiler": {
+          "passed": 3,
+          "failed": 0,
+          "subjects": [
+            "shared future ancestors",
+            "experiment frontier",
+            "research packets grant no effect authority"
+          ]
+        },
+        "corpusCompiler": {
+          "passed": 5,
+          "failed": 0,
+          "subjects": [
+            "literal provenance",
+            "duplicate identity refusal",
+            "review-only near-duplicate detection",
+            "shared ancestor frontier prioritization",
+            "resurrection index"
+          ]
+        },
+        "programDoctor": {
+          "passed": 1,
+          "failed": 0,
+          "subjects": [
+            "canonical 14 reality states",
+            "7 holding/terminal states",
+            "8 canary contracts",
+            "13 registry hard-truth rules",
+            "zero errors",
+            "zero warnings"
+          ]
+        }
+      },
+      "totalPassed": 19,
+      "totalFailed": 0
+    },
+    "githubActions": {
+      "latestObservedRuns": [
+        {
+          "runId": 35488287849,
+          "name": "UberOutbound Exact Head",
+          "conclusion": "failure",
+          "executedStepCount": 0
+        },
+        {
+          "runId": 35488287847,
+          "name": "CI",
+          "conclusion": "failure",
+          "executedStepCount": 0
+        },
+        {
+          "runId": 35488287861,
+          "name": "Night Verification War",
+          "conclusion": "failure",
+          "executedStepCount": 0
+        },
+        {
+          "runId": 35488287880,
+          "name": "Night Postal Focused Verification",
+          "conclusion": "failure",
+          "executedStepCount": 0
+        }
+      ],
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE__ZERO_EXECUTED_STEPS"
+    },
+    "vercel": [
+      {
+        "project": "uberbondd",
+        "status": "failure",
+        "reason": "build-rate-limit"
+      },
+      {
+        "project": "uberbondd-lite-private",
+        "status": "failure",
+        "reason": "build-rate-limit"
+      }
+    ]
+  },
+  "sourceCapabilitiesVerifiedInternally": [
+    "MOONSHOT_CLAIM_ATOMIZATION",
+    "CONSTRAINT_GENOME",
+    "DEPENDENCY_DAG_AND_NEAREST_EXPERIMENT_FRONTIER",
+    "EVIDENCE_BOUND_FEASIBILITY_CLASSIFICATION",
+    "MINIMUM_REALITY_PROBE_SELECTION",
+    "EXTERNAL_EXPERIMENT_AUTHORITY_GATE",
+    "CONTIGUOUS_EVIDENCE_GATED_PROMOTION",
+    "REALITY_LEVERAGE_HEURISTIC",
+    "FAILURE_WITHOUT_DESCENDANT_AMPUTATION",
+    "SHARED_FUTURE_ANCESTOR_DISCOVERY",
+    "PORTFOLIO_RESEARCH_PACKET_COMPILATION",
+    "LITERAL_CORPUS_PROVENANCE",
+    "REVIEW_ONLY_NEAR_DUPLICATE_DETECTION",
+    "RESURRECTION_INDEX",
+    "PROGRAM_CONTRACT_DOCTOR"
+  ],
+  "claimsNotMade": [
+    "NO_NATIVE_NODE_TEST_RUN_IS_CLAIMED",
+    "NO_HOSTED_CI_PASS_IS_CLAIMED",
+    "NO_DEPLOYMENT_SUCCESS_IS_CLAIMED",
+    "NO_SPECULATIVE_MOONSHOT_IS_CLAIMED_PHYSICALLY_POSSIBLE",
+    "NO_MOONSHOT_IS_CLAIMED_EXTERNALLY_IMPLEMENTED",
+    "NO_CIVILIZATION_SCALE_IMPACT_IS_CLAIMED",
+    "NO_LITERAL_890_IDEA_IMPORT_IS_CLAIMED_COMPLETE"
+  ],
+  "remainingGates": [
+    "native Node test execution when runner infrastructure is available",
+    "literal no-drop import of founder moonshot wave with exact provenance",
+    "compile imported corpus into prerequisite graph",
+    "select experimentally reachable shared ancestors",
+    "run only separately authorized bounded experiments",
+    "external replication and real-world evidence for any promoted primitive"
+  ],
+  "terminalLaw": "EVERY_MOONSHOT_GETS_A_REAL_FATE__SUCCESS_FALSIFICATION_BOUNDARY_OR_RESURRECTION_CONDITION__REALITY_RETAINS_FINAL_VETO"
+}

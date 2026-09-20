@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v2-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_PREREGISTRATION_20260920.json",
+  "source": "src/ontological-representation-canary-v2.mjs",
+  "truthClass": "EXECUTED_SYNTHETIC_SOFTWARE_REPLICATION_CHALLENGE__NOT_GRAND_MOONSHOT_PROOF",
+  "heldOutUsedForSelection": false,
+  "frozenGrammar": {
+    "atomCount": 38,
+    "literalCount": 76,
+    "expressionCount": 8626,
+    "maxCompositionDepth": 2
+  },
+  "outcome": {
+    "status": "V2_NARROW_REPRESENTATION_DISCOVERY_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "supportedRepresentableTaskCount": 3,
+    "requiredSupportedRepresentableTaskCount": 3,
+    "negativeControlPassed": true
+  },
+  "tasks": [
+    {
+      "id": "XOR_BITS_1_3",
+      "heldOutAccuracy": 1,
+      "bestGenericBaseline": 0.5,
+      "improvement": 0.5,
+      "selected": "XOR(BIT(1),BIT(3))",
+      "criterionPassed": true
+    },
+    {
+      "id": "BIT2_AND_NOT_BIT5",
+      "heldOutAccuracy": 1,
+      "bestGenericBaseline": 0.75,
+      "improvement": 0.25,
+      "selected": "AND(BIT(2),NOT(BIT(5)))",
+      "criterionPassed": true
+    },
+    {
+      "id": "NOT_BIT4_OR_MOD7_EQ3",
+      "heldOutAccuracy": 1,
+      "bestGenericBaseline": 0.921875,
+      "improvement": 0.078125,
+      "selected": "INVERT(AND(BIT(4),NOT(RESIDUE_EQ(7,3))))",
+      "criterionPassed": false
+    },
+    {
+      "id": "XOR_MOD3_EQ2_BIT0",
+      "heldOutAccuracy": 1,
+      "bestGenericBaseline": 0.671875,
+      "improvement": 0.328125,
+      "selected": "XOR(BIT(0),RESIDUE_EQ(3,2))",
+      "criterionPassed": true
+    },
+    {
+      "id": "NEGATIVE_HASH_CONTROL",
+      "heldOutAccuracy": 0.453125,
+      "bestGenericBaseline": 0.546875,
+      "improvement": -0.09375,
+      "selected": "INVERT(XOR(BIT(4),POPCOUNT_GE(4)))",
+      "criterionPassed": "NEGATIVE_CONTROL_PASSED"
+    }
+  ],
+  "searchAccounting": {
+    "totalCandidateExpressionsEvaluated": 86260,
+    "totalAtomicBaselineExpressionsEvaluated": 380,
+    "totalRawThresholdEvaluations": 1290
+  },
+  "supportedClaim": "In this preregistered deterministic synthetic regime, a frozen task-agnostic depth-2 Boolean/arithmetic representation grammar discovered compositional representations that materially beat four generic baselines on three of four representable held-out task families while not spuriously solving the negative control.",
+  "unsupportedClaims": [
+    "NO_AUTONOMOUS_NEW_MATHEMATICS_DISCOVERY",
+    "NO_NEW_SCIENTIFIC_ONTOLOGY_DISCOVERY",
+    "NO_OPEN_WORLD_REPRESENTATION_DISCOVERY",
+    "NO_REAL_WORLD_OR_PHYSICAL_GENERALIZATION",
+    "NO_GENERAL_INTELLIGENCE_OR_ASI_CLAIM",
+    "NO_GRAND_MOONSHOT_PROMOTION"
+  ],
+  "promotionCandidate": {
+    "scope": "GENERIC_COMPOSITIONAL_REPRESENTATION_SEARCH_IN_SYNTHETIC_REGIME_ONLY",
+    "from": "SIMULATION_READY",
+    "to": "SOFTWARE_DEMONSTRATED",
+    "authority": "REVIEW_REQUIRED__NO_SELF_PROMOTION"
+  }
+}

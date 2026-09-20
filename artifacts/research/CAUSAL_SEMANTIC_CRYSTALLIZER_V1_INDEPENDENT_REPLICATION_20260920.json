@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "uberbond.causal-semantic-crystallizer-v1-independent-replication.v1",
+  "date": "2026-09-20",
+  "target": "src/causal-semantic-crystallizer-v1.mjs",
+  "preregistration": "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json",
+  "truthClass": "INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION",
+  "implementation": {
+    "language": "Python",
+    "relationshipToPrimary": "INDEPENDENT_REIMPLEMENTATION_FROM_FROZEN_CAUSAL_AND_TRUTH_TABLE_CONTRACT",
+    "importedPrimaryAlgorithmCode": false,
+    "executionEnvironment": "local Python analysis runtime"
+  },
+  "outcome": {
+    "semanticCrystals": {
+      "AND2": "2:0001",
+      "XOR2": "2:0110",
+      "OR2": "2:0111"
+    },
+    "heldOutCaseCount": 36,
+    "exactMinimumInterventionCardinalityAgreement": 36,
+    "correctnessAgreementRate": 1,
+    "allHeldOutMotifsMatchedCrystal": true,
+    "medianSymbolicExpansionReductionFraction": 0.5358851674641147,
+    "minimumSymbolicExpansionReductionFraction": 0.36363636363636365,
+    "maximumSymbolicExpansionReductionFraction": 0.5714285714285714,
+    "negativeControls": [
+      {
+        "id": "NAND2",
+        "signature": "2:1110",
+        "falseMatch": false
+      },
+      {
+        "id": "XNOR2",
+        "signature": "2:1001",
+        "falseMatch": false
+      },
+      {
+        "id": "MAJORITY3",
+        "signature": "3:00010111",
+        "falseMatch": false
+      }
+    ]
+  },
+  "interpretation": "The frozen semantic-crystal mechanism is reproduced by an independently written Python implementation on the same preregistered 36 held-out causal graphs and negative functions.",
+  "boundaries": [
+    "SECOND_IMPLEMENTATION_REPLICATION_IS_STILL_SYNTHETIC_SOFTWARE_EVIDENCE",
+    "FINITE_DETERMINISTIC_BOOLEAN_BOUNDARIES_ONLY",
+    "NO_CAUSAL_DISCOVERY",
+    "NO_REAL_WORLD_INTERVENTION_PROOF"
+  ],
+  "promotionReview": {
+    "childMechanism": "SEMANTICALLY_VERIFIED_CAUSAL_SUBGRAPH_CRYSTALLIZATION",
+    "state": "REPRODUCED",
+    "authority": "NO_EXTERNAL_ACTION_AUTHORITY"
+  }
+}

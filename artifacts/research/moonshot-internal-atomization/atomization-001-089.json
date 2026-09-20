@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "uberbond.internal-moonshot-atomization-shard.v1",
+  "date": "2026-09-20",
+  "sourceOrdinalStart": 1,
+  "sourceOrdinalEnd": 89,
+  "atomizedCount": 11,
+  "sourceAtomCount": 29,
+  "derivedClaimCount": 0,
+  "packets": [
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0001",
+      "ordinal": 1,
+      "literalTitle": "THE CAUSAL COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "PHYSICAL_OR_BIOLOGICAL_TECHNOLOGY",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Instead of programming machines, program **cause-and-effect chains**.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Give it an end state and it discovers the minimum chain of interventions that would make that state emerge across physical, biological, economic, and computational systems.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "Programming graduates from `instructions → output` to **`desired reality → causal architecture → reality`**.",
+          "kind": "FORMAL_OR_RELATIONAL_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0002",
+      "ordinal": 2,
+      "literalTitle": "THE NEW CONSTANT HUNTER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search huge bodies of observation for quantities that appear invariant but have never been recognized as fundamental.",
+          "kind": "CONSTRAINT_OR_INVARIANT_SOURCE_UNIT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Discovering a genuinely new conservation law, scaling relation, or invariant could open an entire science the way conservation of energy did.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 2,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0006",
+      "ordinal": 6,
+      "literalTitle": "THE AXIOM MUTATOR",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Instead of finding theorems from fixed axioms, mutate the axioms themselves.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Search mathematical universes for systems whose structure unexpectedly maps onto reality.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "This could discover mathematics that no human would have considered worth inventing.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0008",
+      "ordinal": 8,
+      "literalTitle": "THE REPRESENTATION SINGULARITY",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Many hard problems are hard because we encode them badly.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "This system searches representations themselves until impossible-looking problems become trivial.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "Instead of faster algorithms, you get **new ways reality can be represented**.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0021",
+      "ordinal": 21,
+      "literalTitle": "THE ADJACENT-POSSIBLE RADAR",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Continuously map everything that has become newly feasible because of the latest discoveries.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "A paper published this morning might make an invention possible that was impossible yesterday.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "UberBond notices immediately.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0025",
+      "ordinal": 25,
+      "literalTitle": "THE SCIENCE COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Input: an unexplained phenomenon.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Output: candidate mathematics, experiments, instrumentation, terminology, datasets, benchmarks, falsification tests, and engineering applications.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "It attempts to turn **mystery into a scientific field**.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0045",
+      "ordinal": 45,
+      "literalTitle": "THE INTELLIGENCE CHEMISTRY",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "HUMAN_CAPABILITY_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Treat cognitive operations as reactants.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Combine memory, abstraction, analogy, proof, imagination, simulation, skepticism, and novel reasoning atoms into new cognitive compounds.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "Intelligence architecture becomes chemistry.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0048",
+      "ordinal": 48,
+      "literalTitle": "THE THOUGHT LASER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Lasers turn incoherent photons into coherent light.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "This would turn thousands of partially aligned reasoning processes into a tightly coherent intellectual beam capable of attacking one problem without collapsing into groupthink.",
+          "kind": "CONSTRAINT_OR_INVARIANT_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 2,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0051",
+      "ordinal": 51,
+      "literalTitle": "THE MIND COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "HUMAN_CAPABILITY_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Input a cognitive capability specification such as “invent mathematics useful for unknown physics.” Compile the required memory systems, reasoning primitives, tools, agents, training environments, critics, and experimental loops.",
+          "kind": "CONSTRAINT_OR_INVARIANT_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0067",
+      "ordinal": 67,
+      "literalTitle": "THE TRUST COMPILER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Trust is currently social and fuzzy.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Compile it into provenance, cryptographic evidence, behavioral history, verified outcomes, rights, accountability, and reversibility.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "Large-scale cooperation becomes possible among actors who never met.",
+          "kind": "CONSTRAINT_OR_INVARIANT_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0077",
+      "ordinal": 77,
+      "literalTitle": "THE WISDOM COMPILER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Knowledge transfer is common.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Wisdom transfer is not.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-003",
+          "literal": "Extract decision principles from decades of lived outcomes while preserving context and uncertainty, then build accelerated experiential curricula around them.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 3,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    }
+  ]
+}

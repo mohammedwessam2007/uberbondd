@@ -329,5 +329,51 @@
       "tests/economic-reliability-autoprep.test.mjs: a tolerant regex against a strict one. Source emits 'NEVER prove independence' exactly, so the strict assertion describes the behaviour and the tolerant one would also pass a string this module never produces.",
       "docs/CURRENT_HANDOFF.json: merged structurally. Main's seven blockers were verified byte-present among this branch's thirteen before taking the superset."
     ]
+  },
+  "updatedAt": "2026-09-20T19:20:00+03:00",
+  "moonshotRealityClosure": {
+    "status": "INTERNAL_REALIZATION_ARCHITECTURE_CLOSED__EXTERNAL_REALITY_REMAINS",
+    "branch": "research/moonshot-reality-compiler-20260920",
+    "pullRequest": 968,
+    "exactHead": "6ac9cea9ca8aed447ad183734267dd1cb31493dc",
+    "literalCorpus": {
+      "expected": 890,
+      "recovered": 890
+    },
+    "routing": {
+      "packets": 890,
+      "internalExecution": 193,
+      "externalReality": 697,
+      "internalSharedBlockers": 0,
+      "ancestorFrontier": 0
+    },
+    "implementedSharedAncestors": [
+      "moonshot-reality-object",
+      "constraint-genome",
+      "future-ancestor-graph",
+      "representation-ontology-search",
+      "experiment-compiler",
+      "simulation-ecology",
+      "causal-mechanism-atoms",
+      "replication-network",
+      "technology-tree-compiler",
+      "truth-evidence-substrate",
+      "adversarial-tribunal",
+      "sovereignty-governor",
+      "epoch-branching-evaluator"
+    ],
+    "externalGate": "physical-reality-bridge and per-moonshot explicit external authority/measurement/physical evidence",
+    "evidenceRefs": [
+      "artifacts/research/MOONSHOT_890_REALITY_CLOSURE_STATE_20260920.json",
+      "artifacts/research/MOONSHOT_INTERNAL_ANCESTOR_VERIFICATION_20260920.json",
+      "artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json",
+      "artifacts/research/MOONSHOT_PR968_VERIFICATION_20260920.json"
+    ],
+    "ci": {
+      "status": "ZERO_STEP_INFRA_FAILURE",
+      "note": "PR #968 GitHub jobs failed with empty step arrays; no source command executed."
+    },
+    "nextFrontier": "Execute evidence-grade atomization and experiments for 193 internal packets; for 697 external packets advance simulation/formalization/measurement until a lawful authorized reality probe exists. Reality, not software labels, must close those parents.",
+    "truthBoundary": "This is 890/890 internal routing closure, not 890/890 physical or scientific realization."
   }
 }

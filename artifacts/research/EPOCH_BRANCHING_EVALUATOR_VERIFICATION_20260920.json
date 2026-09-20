@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond.epoch-branching-evaluator-verification.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "truthClass": "EXECUTED_COUNTERFACTUAL_REACHABILITY_EVALUATOR__NOT_REAL_WORLD_CAUSAL_PROOF",
+  "source": "src/epoch-branching-evaluator.mjs",
+  "actual890TreeCounterfactual": {
+    "before": {
+      "internalReady": 107,
+      "externalPrecursorsReady": 544,
+      "blockedMissing": 239,
+      "blockedUnverified": 0
+    },
+    "afterIfAncestorReady": {
+      "internalReady": 193,
+      "externalPrecursorsReady": 697,
+      "blockedMissing": 0,
+      "blockedUnverified": 0
+    },
+    "delta": {
+      "internalReady": 86,
+      "externalPrecursorsReady": 153,
+      "blockedMissing": 239,
+      "changedMoonshots": 239,
+      "openedSurfaceCount": 7,
+      "openedIdeaKindCount": 6
+    },
+    "epochBranchingScore": 2013,
+    "promotionAuthority": "NONE"
+  },
+  "ablationLaw": "Dependency ablation measures model sensitivity, not historical causal proof.",
+  "claimsNotMade": [
+    "NO_REAL_WORLD_EPOCH_CREATED",
+    "NO_CIVILIZATION_IMPACT_PROVEN",
+    "NO_COUNTERFACTUAL_SCORE_CREATES_EVIDENCE",
+    "NO_AUTOMATIC_PROMOTION_AUTHORITY"
+  ]
+}

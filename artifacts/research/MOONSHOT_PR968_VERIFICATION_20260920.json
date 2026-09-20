@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "uberbond.moonshot-pr968-verification-receipt.v1",
+  "date": "2026-09-20",
+  "pullRequest": 968,
+  "exactHead": "2aa4dbd27c80e29006d3474af1c75f233bdf09f1",
+  "truthClass": "EXACT_HEAD_CONNECTOR_EXECUTION_PLUS_ZERO_STEP_CI_INFRA_FAILURE",
+  "sourceVerification": {
+    "literalCorpus": "890_OF_890_EXACT",
+    "realizationClosureStatus": "MOONSHOT_890_INTERNAL_REALIZATION_ARCHITECTURE_CLOSED__EXTERNAL_REALITY_REMAINS",
+    "packets": 890,
+    "internalExecution": 193,
+    "externalReality": 697,
+    "internalSharedBlockers": 0,
+    "ancestorFrontier": 0
+  },
+  "executedConnectorChecks": [
+    "possibility civilization kernel authority refusal and possibility delta",
+    "recursion genome/evolution/meta-recursion/governor/control-plane probes",
+    "truth/evidence hostile synthetic-contamination rejection",
+    "adversarial tribunal correlated-source discount and dissent preservation",
+    "sovereignty authority-widening/delegation-widening/refocation probes",
+    "epoch branching actual-890 counterfactual and ancestor ablations",
+    "realization closure over literal corpus + ledger + spine + overlay"
+  ],
+  "githubActions": {
+    "classification": "ZERO_STEP_RUNNER_OR_WORKFLOW_INFRA_FAILURE__NO_SOURCE_COMMAND_EXECUTED",
+    "runs": [
+      {
+        "runId": 35522823591,
+        "jobs": [
+          "deterministic",
+          "postgres",
+          "browser"
+        ],
+        "allStepCountsZero": true
+      },
+      {
+        "runId": 35522823560,
+        "jobs": [
+          "browser-verification",
+          "postgres-verification",
+          "core-verification"
+        ],
+        "allStepCountsZero": true
+      },
+      {
+        "runId": 35522823578,
+        "jobs": [
+          "exact-head"
+        ],
+        "allStepCountsZero": true
+      },
+      {
+        "runId": 35522823567,
+        "jobs": [
+          "postal-focused"
+        ],
+        "allStepCountsZero": true
+      }
+    ],
+    "interpretation": "A failed job with an empty steps array provides no executed test evidence for or against the source."
+  },
+  "mergePolicyBoundary": "Merge may proceed only if repository policy permits treating zero-step infrastructure failures separately from executed source failures.",
+  "claimsNotMade": [
+    "NO_NATIVE_GITHUB_ACTION_TEST_EXECUTION_OCCURRED",
+    "NO_697_EXTERNAL_REALITY_PROGRAMS_ARE_DECLARED_REALIZED",
+    "NO_PHYSICAL_OR_SCIENTIFIC_PARENT_COMPLETION"
+  ]
+}

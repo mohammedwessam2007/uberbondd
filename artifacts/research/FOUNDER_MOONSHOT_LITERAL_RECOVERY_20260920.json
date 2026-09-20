@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-recovery-receipt.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "pullRequest": 967,
+  "truthClass": "RECOVERY_BOUNDARY_RECEIPT",
+  "exactRecoveredOrdinals": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "unresolvedRange": "5-890",
+  "exactRecoveredCount": 4,
+  "expectedCount": 890,
+  "searchesPerformed": [
+    "prior-conversation exact chunk retrieval",
+    "prior-conversation ordinal-specific retrieval",
+    "Project and Library exact-title search"
+  ],
+  "result": "PARTIAL_RECOVERY_ONLY",
+  "claimsNotMade": [
+    "NO_890_OF_890_LITERAL_RECOVERY_CLAIM",
+    "NO_REGENERATED_ENTRY_IS_CALLED_ORIGINAL",
+    "NO_COMPRESSED_MEMORY_ANCHOR_IS_PROMOTED_OVER_EXACT_RETRIEVAL"
+  ],
+  "externalBlocker": "RAW_CHATGPT_TRANSCRIPT_BYTES_OR_EQUIVALENT_DIRECT_SOURCE_NOT_AVAILABLE_IN_CURRENT_TOOL_SURFACE"
+}

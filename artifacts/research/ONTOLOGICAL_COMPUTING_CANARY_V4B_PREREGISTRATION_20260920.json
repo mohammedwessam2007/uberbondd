@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v4b-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": "ontological-computing",
+  "predecessors": [
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_RESULT_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_ADVERSARIAL_REVIEW_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json"
+  ],
+  "truthClass": "PREREGISTERED_TARGET_BLIND_STRUCTURAL_PROGRAM_SYNTHESIS_CHALLENGE_NOT_RESULT",
+  "objective": "Test whether UberBond can synthesize a behaviorally missing reusable representation primitive from a target-blind integer-structure state-machine grammar, freeze it, and transfer it to distinct tasks.",
+  "hiddenTarget": {
+    "id": "OMEGA_MULTIPLICITY_PARITY",
+    "description": "Parity of the total number of prime factors with multiplicity.",
+    "forbiddenInSearch": [
+      "OMEGA",
+      "LIOUVILLE",
+      "PRIME_FACTOR_COUNT",
+      "PRIME_FACTOR_MULTIPLICITY",
+      "TARGET_NAME_OR_DIRECT_FORMULA"
+    ]
+  },
+  "noveltyAdmission": {
+    "source": "artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json",
+    "fixture": "integers 2..1023",
+    "baseCandidateCount": 8626,
+    "exactEquivalentFound": false,
+    "nearestMismatchRate": 0.4295499,
+    "minimumRequiredMismatchRate": 0.1
+  },
+  "structuralProgramGrammar": {
+    "concept": "Generic divisor-sweep state machines over a mutable working integer.",
+    "divisorOrders": [
+      "ASCENDING_2_TO_DYNAMIC_SQRT",
+      "DESCENDING_FROM_ORIGINAL_SQRT"
+    ],
+    "divisionPolicies": [
+      "SINGLE_IF_DIVISIBLE",
+      "REPEAT_WHILE_DIVISIBLE"
+    ],
+    "stateUpdates": [
+      "TOGGLE_PER_DIVISION_EVENT",
+      "TOGGLE_ON_DIVISOR_HIT",
+      "SET_ONE_ON_EVENT",
+      "SET_ZERO_ON_EVENT"
+    ],
+    "leftoverPolicies": [
+      "IGNORE_LEFTOVER",
+      "TOGGLE_IF_WORKING_GT_1",
+      "SET_ONE_IF_WORKING_GT_1"
+    ],
+    "initialStates": [
+      0,
+      1
+    ],
+    "selector": "Discovery train accuracy, then discovery validation accuracy, then lower program-description cost, then lexical program ID.",
+    "restriction": "The grammar exposes only generic loops, divisibility tests, division, one-bit state updates, and leftover handling. It contains no target-named arithmetic primitive."
+  },
+  "universe": "integers 2..2049",
+  "split": {
+    "hash": "32-bit deterministic mix: +0x9e3779b9; xor>>16; *0x85ebca6b; xor>>13; *0xc2b2ae35; xor>>16; unsigned; mod 5",
+    "bucketCounts": {
+      "0": 403,
+      "1": 391,
+      "2": 403,
+      "3": 438,
+      "4": 413
+    },
+    "trainBuckets": [
+      0,
+      1
+    ],
+    "validationBucket": 2,
+    "discoveryHeldOutBucket": 3,
+    "transferHeldOutBucket": 4,
+    "discoveryHeldOutClassCounts": {
+      "0": 217,
+      "1": 221
+    },
+    "transferHeldOutClassCounts": {
+      "OMEGA_XOR_BIT3": {
+        "0": 197,
+        "1": 216
+      },
+      "OMEGA_XOR_MOD5_EQ2": {
+        "0": 204,
+        "1": 209
+      },
+      "OMEGA_AND_NOT_BIT2": {
+        "0": 308,
+        "1": 105
+      }
+    },
+    "law": "Discovery primitive selection may use only training and validation labels. The primitive is frozen before discovery-held-out and all transfer scoring."
+  },
+  "discoveryBaselines": [
+    "BEST_8626_BASE_BOOLEAN_GRAMMAR_FEATURE",
+    "RAW_THRESHOLD",
+    "KNN_RAW_K3",
+    "MAJORITY_CLASS",
+    "DIVISOR_COUNT_PARITY",
+    "PRIME_INDICATOR"
+  ],
+  "transferTasks": [
+    {
+      "id": "OMEGA_XOR_BIT3",
+      "rule": "FROZEN_PRIMITIVE XOR BIT(3)"
+    },
+    {
+      "id": "OMEGA_XOR_MOD5_EQ2",
+      "rule": "FROZEN_PRIMITIVE XOR RESIDUE_EQ(5,2)"
+    },
+    {
+      "id": "OMEGA_AND_NOT_BIT2",
+      "rule": "FROZEN_PRIMITIVE AND NOT(BIT(2))"
+    }
+  ],
+  "negativeControl": {
+    "id": "NEGATIVE_HASH_CONTROL_V4B",
+    "rule": "Independent deterministic hash-derived Boolean label.",
+    "maximumHeldOutAccuracy": 0.85
+  },
+  "successCriteria": {
+    "discoveryMinimumHeldOutAccuracy": 0.95,
+    "discoveryMinimumImprovementOverBestBaseline": 0.2,
+    "requiredSuccessfulTransferTasks": 2,
+    "transferMinimumHeldOutAccuracy": 0.95,
+    "transferMinimumImprovementOverBestBaselineWithoutSynthesizedPrimitive": 0.15,
+    "negativeControlMaximumHeldOutAccuracy": 0.85
+  },
+  "falsifier": [
+    "Selected program violates the target-blind grammar or embeds a forbidden target primitive.",
+    "Discovery fails either held-out threshold.",
+    "Fewer than two transfer tasks pass both transfer thresholds.",
+    "Negative control exceeds 0.85.",
+    "Held-out or transfer labels influence primitive synthesis.",
+    "Search candidate count, selected description cost, or baseline burden is omitted.",
+    "Semantic novelty admission is invalidated by an exact base-ontology equivalent."
+  ],
+  "promotionBoundary": "A pass supports only a deterministic finite synthetic claim that a target-blind structural grammar synthesized and reused a behaviorally missing primitive. It does not establish open-ended ontology invention, autonomous mathematics, scientific discovery, physical discovery, or general intelligence.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

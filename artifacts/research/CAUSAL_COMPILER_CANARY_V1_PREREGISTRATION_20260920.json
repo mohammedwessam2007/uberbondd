@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-canary-v1-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": {
+    "stableId": "founder-moonshot-0001",
+    "ordinal": 1,
+    "literalTitle": "THE CAUSAL COMPILER",
+    "sourceLines": [
+      2,
+      5
+    ],
+    "sourceClaim": "Instead of programming machines, program cause-and-effect chains. Give it an end state and it discovers the minimum chain of interventions that would make that state emerge across physical, biological, economic, and computational systems."
+  },
+  "truthClass": "PREREGISTERED_NARROW_SOFTWARE_PRIMITIVE_NOT_RESULT",
+  "narrowClaim": "For known deterministic acyclic Boolean structural causal models, backward causal relevance pruning can preserve the globally minimum intervention cardinality while reducing exhaustive intervention evaluations relative to searching all controllable variables.",
+  "explicitNonClaims": [
+    "NO_CAUSAL_STRUCTURE_DISCOVERY",
+    "NO_UNKNOWN_MECHANISM_DISCOVERY",
+    "NO_CONTINUOUS_OR_STOCHASTIC_SCM_GENERALIZATION",
+    "NO_PHYSICAL_BIOLOGICAL_OR_ECONOMIC_REAL_WORLD_INTERVENTION",
+    "NO_SEQUENTIAL_CONTROL_OPTIMALITY",
+    "NO_GRAND_CAUSAL_COMPILER_PROMOTION"
+  ],
+  "model": {
+    "substrate": "deterministic acyclic Boolean structural causal models",
+    "interventions": "do-style overrides on declared controllable Boolean input nodes",
+    "objective": "satisfy declared Boolean target assignments with minimum intervention cardinality",
+    "candidateCompiler": "restrict intervention search to controllable ancestors of target nodes",
+    "comparator": "exhaustive search over all controllable nodes",
+    "tieRule": "minimum cardinality first, then lexicographic intervention variable set and assignment"
+  },
+  "benchmark": {
+    "frozenFamilies": [
+      "AND",
+      "OR",
+      "XOR",
+      "NESTED_AND_OR",
+      "NESTED_XOR_AND"
+    ],
+    "relevantControlCounts": [
+      2,
+      3,
+      4
+    ],
+    "distractorControlCounts": [
+      4,
+      6,
+      8
+    ],
+    "goalStates": [
+      0,
+      1
+    ],
+    "negativeControl": "cases with zero distractor controls, where pruning should not manufacture a gain",
+    "impossibleControl": "constant target with no controllable ancestors and unreachable desired state",
+    "generatedCaseCountMinimum": 24
+  },
+  "successCriteria": {
+    "minimumCorrectnessAgreementWithExhaustive": 1,
+    "minimumDistractorCaseMedianEvaluationReductionFactor": 10,
+    "maximumNegativeControlEvaluationRatio": 1.05,
+    "impossibleCaseAgreementRequired": true
+  },
+  "falsifier": [
+    "Any benchmark case changes minimum intervention cardinality versus exhaustive search.",
+    "Any satisfiable case is called unsatisfiable or vice versa.",
+    "Median evaluation reduction on distractor cases is below 10x.",
+    "Negative-control cases show a manufactured gain larger than 5%.",
+    "Target or held-out outcome information is used to mutate the pruning rule after result execution."
+  ],
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE",
+  "promotionBoundary": "A pass may support SOFTWARE_DEMONSTRATED for the narrow known-SCM intervention-pruning primitive only. It does not establish the full founder moonshot."
+}

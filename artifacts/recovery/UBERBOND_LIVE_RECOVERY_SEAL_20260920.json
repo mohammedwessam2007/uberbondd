@@ -1,0 +1,76 @@
+{
+  "schema": "uberbond.recovery.live-seal.v1",
+  "generatedAt": "2026-09-20",
+  "baseMainCommit": "89e9e406ab31e08c7f5de98ac64ca8070ea8fee0",
+  "baseRootTree": "dbaed7f76bcef8666a8b0dcc5bf0ddd3f08f1815",
+  "repository": {
+    "recursiveTreeTruncated": false,
+    "entries": 3484,
+    "trees": 164,
+    "blobs": 3320,
+    "trackedBlobBytes": 112173355,
+    "srcModules": 849,
+    "tests": 1043,
+    "sourceDisposition": {
+      "production": 274,
+      "operatorOnly": 406,
+      "noEntryPoint": 169,
+      "total": 849,
+      "unclassified": 0
+    },
+    "semanticRequirements": 1040,
+    "semanticOrphans": 0
+  },
+  "history": {
+    "reachableMainCommits": 4464,
+    "terminalInitialCommit": "229c2c85c3c28179ce5bc3c4997f87b3ee67911b",
+    "pullRequests": 783,
+    "mergedPullRequests": 600,
+    "closedUnmergedPullRequests": 183,
+    "openPullRequests": 0,
+    "trueIssues": 177,
+    "openIssues": 45,
+    "closedIssues": 132,
+    "branches": 891,
+    "branchPaginationExhausted": true,
+    "releases": 0,
+    "tags": 0
+  },
+  "actions": {
+    "workflowRuns": 11409,
+    "newestObservedRun": {
+      "id": 35478656871,
+      "name": "CI",
+      "conclusion": "failure",
+      "headSha": "89e9e406ab31e08c7f5de98ac64ca8070ea8fee0",
+      "createdAt": "2026-09-20T00:23:44Z"
+    },
+    "truthBoundary": "Workflow-run enumeration is a control-plane history fact, not proof of runtime health. The newest observed CI run failed."
+  },
+  "library": {
+    "currentFiles": 841,
+    "currentBytes": 2625778402,
+    "paginationExhausted": true,
+    "originalCorpusFiles": 836,
+    "originalCorpusBytes": 2625444097,
+    "rawMaterializationAttemptedOriginalCorpus": 836,
+    "rawSha256VerifiedFiles": 93,
+    "rawSha256VerifiedBytes": 44001793,
+    "explicitRawExportBoundaryFiles": 743,
+    "unattemptedOriginalCorpus": 0,
+    "silentUnknownOriginalCorpus": 0
+  },
+  "recoveryEvidence": {
+    "recoveryArtifactsAtBase": 156,
+    "recoveryArtifactBytesAtBase": 78545018,
+    "projectFileIdentities": 7,
+    "chatLineage": "SEMANTIC_RECOVERY_COMPLETE_TO_CURRENTLY_EXPOSED_CONTEXT__BYTE_EXACT_HISTORICAL_TRANSCRIPT_EXPORT_UNAVAILABLE"
+  },
+  "truthBoundary": [
+    "Zero silent loss means every exposed surface is either exhaustively recovered/addressed or has an explicit access boundary.",
+    "It does not mean every multi-gigabyte byte sequence has been streamed through one model context.",
+    "Repository recovery does not prove deployment, external usage, demand, cleared payment, accepted delivery, personal-life outcome, AGI/ASI, singularity, or longitudinal calibration.",
+    "Historical branches, stale artifacts, failed experiments, negative evidence, and superseded programs remain donors/lineage unless explicitly reconciled into current truth."
+  ],
+  "verdict": "LIVE_RECOVERY_FRONTIER_SEALED__ZERO_SILENT_LOSS_ACROSS_EXPOSED_SURFACES"
+}

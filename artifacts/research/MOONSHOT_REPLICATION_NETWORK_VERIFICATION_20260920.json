@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "uberbond.moonshot-replication-network-verification.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "pullRequest": 967,
+  "truthClass": "EXECUTED_REPLICATION_CONTROL_SUBSTRATE__NO_PROMOTION_AUTHORITY",
+  "source": "src/moonshot-replication-network.mjs",
+  "checks": {
+    "protocolCompilation": true,
+    "independentExactMatchStatus": "EXPERIMENT_REPRODUCED",
+    "independentExactMatchCount": 1,
+    "sameLineageExcludedFromIndependentCount": true,
+    "contradictionPreservedAsConflict": true,
+    "highDownstreamFrontierPrioritization": true,
+    "externalEffectAuthority": "NONE",
+    "promotionAuthority": "NONE"
+  },
+  "law": "REPLICATION_COUNTS_IMPLEMENTATION_INDEPENDENCE_AND_PRESERVES_CONTRADICTIONS",
+  "claimsNotMade": [
+    "NO_REPLICATION_RESULT_GENERALIZES_BEYOND_ITS_FROZEN_PROTOCOL",
+    "NO_REPLICATION_OBJECT_SELF_PROMOTES",
+    "NO_EXTERNAL_EFFECT_AUTHORITY"
+  ]
+}

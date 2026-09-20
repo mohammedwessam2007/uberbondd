@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-manifest.v1",
+  "date": "2026-09-20",
+  "source": {
+    "fileName": "Branch · Branch · New chat.txt",
+    "sha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+    "bytes": 189166,
+    "renderedLineCount": 3679,
+    "sourcePreamble": "The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: **if an idea could merely become a big company, it does not qualify. It should be capable, in principle, of creating whole descendants of science, technology, or civilization.**",
+    "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_MOUNTED_SOURCE"
+  },
+  "corpus": {
+    "expectedCount": 890,
+    "recoveredCount": 890,
+    "ordinalStart": 1,
+    "ordinalEnd": 890,
+    "contiguous": true,
+    "missingOrdinals": [],
+    "duplicateOrdinals": [],
+    "duplicateLiteralTitles": {
+      "THE ONTOLOGICAL SINGULARITY": 2
+    },
+    "missingIqCount": 0,
+    "emptyBodyCount": 0,
+    "canonicalEntriesSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+    "completionFraction": 1.0,
+    "truthClass": "EXACT_LITERAL_890_OF_890_RECOVERY_FROM_DIRECT_PROJECT_TRANSCRIPT"
+  },
+  "shards": [
+    {
+      "path": "founder-moonshots-001-089.json",
+      "ordinalStart": 1,
+      "ordinalEnd": 89,
+      "entryCount": 89,
+      "sha256": "81ebd266622cbe5ebc9bb35d25b3821d9f51eee3916ff5d40779a7421fc982eb",
+      "bytes": 44933
+    },
+    {
+      "path": "founder-moonshots-090-178.json",
+      "ordinalStart": 90,
+      "ordinalEnd": 178,
+      "entryCount": 89,
+      "sha256": "8ce8fab3d5a432fe390cfbdd56a2856fad8da3a6d4d90931d8fe1b9215a9cf61",
+      "bytes": 39119
+    },
+    {
+      "path": "founder-moonshots-179-267.json",
+      "ordinalStart": 179,
+      "ordinalEnd": 267,
+      "entryCount": 89,
+      "sha256": "898dd33d06bde320df975bf55a1278ba9a7805f029c4c283dfcd8d1c022d98e2",
+      "bytes": 37803
+    },
+    {
+      "path": "founder-moonshots-268-356.json",
+      "ordinalStart": 268,
+      "ordinalEnd": 356,
+      "entryCount": 89,
+      "sha256": "8d5a00232d10aaad591efbcb7076442aa415ea5a09e3b1c81e45b4ddfd48a0b8",
+      "bytes": 38153
+    },
+    {
+      "path": "founder-moonshots-357-445.json",
+      "ordinalStart": 357,
+      "ordinalEnd": 445,
+      "entryCount": 89,
+      "sha256": "9eafb0763f6ae26860e4b19edf1beeef8195314fba078fcdc1144810dc5dbbec",
+      "bytes": 35928
+    },
+    {
+      "path": "founder-moonshots-446-534.json",
+      "ordinalStart": 446,
+      "ordinalEnd": 534,
+      "entryCount": 89,
+      "sha256": "b169e3ea7c5cb2050f35447d47b86a8f638788ed2f8e87880868cf079350a55c",
+      "bytes": 35957
+    },
+    {
+      "path": "founder-moonshots-535-623.json",
+      "ordinalStart": 535,
+      "ordinalEnd": 623,
+      "entryCount": 89,
+      "sha256": "402725636d00f23bb50205d7809d259a40f32f22bf39d475c0bde2992a0ffdfd",
+      "bytes": 35350
+    },
+    {
+      "path": "founder-moonshots-624-712.json",
+      "ordinalStart": 624,
+      "ordinalEnd": 712,
+      "entryCount": 89,
+      "sha256": "196273f682ad8d176ed6109e9395fc4020760f8402067b19c52560aba73ffc1b",
+      "bytes": 34821
+    },
+    {
+      "path": "founder-moonshots-713-801.json",
+      "ordinalStart": 713,
+      "ordinalEnd": 801,
+      "entryCount": 89,
+      "sha256": "bd33d87c4436c3991d43321afcc33cfa181b7509edf7d132c88d7fa33ebb3ba9",
+      "bytes": 35059
+    },
+    {
+      "path": "founder-moonshots-802-890.json",
+      "ordinalStart": 802,
+      "ordinalEnd": 890,
+      "entryCount": 89,
+      "sha256": "fc796fe9bbabd64a0bf23b8082f21edd9408b9764fe01b717df709b97c41d7d9",
+      "bytes": 37332
+    }
+  ],
+  "supersedes": {
+    "config": "config/founder-moonshot-literal-recovery.json",
+    "receipt": "artifacts/research/FOUNDER_MOONSHOT_LITERAL_RECOVERY_20260920.json",
+    "law": "SUPERSEDE_PARTIAL_BOUNDARY_WITH_DIRECT_SOURCE__DO_NOT_DELETE_HISTORICAL_RECOVERY_FAILURE"
+  },
+  "noDropLaw": "EVERY_ORDINAL_TITLE_IQ_BODY_AND_SOURCE_LINE_RANGE_IS_PRESERVED__SEMANTIC_DEDUPE_MAY_ONLY_PROPOSE_LINKS_NOT_ERASE_UNIQUE_SOURCE_ENTRIES"
+}

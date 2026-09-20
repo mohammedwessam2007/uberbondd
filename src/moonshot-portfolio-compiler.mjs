@@ -36,9 +36,13 @@ const fail = (status, reasonCodes, extra = {}) => envelope({
   ...extra
 });
 
+// Canonical executable states come from moonshot-reality-compiler.v1.
+// Older recovered design artifacts used several richer labels. They remain
+// accepted aliases so donor lineage is not amputated, but they do not create a
+// second promotion machine.
 const MATURE_STATES = new Set([
-  'SOFTWARE_DEMONSTRATED','EXPERIMENTED','REPRODUCED','ENGINEERABLE',
-  'DEPLOYABLE','FIELD_PROVEN','PLATFORM_PRIMITIVE','EPOCH_CANDIDATE'
+  'DEMONSTRATED','REPRODUCED','ENGINEERABLE','DEPLOYABLE','CIVILIZATION_RELEVANT',
+  'SOFTWARE_DEMONSTRATED','EXPERIMENTED','FIELD_PROVEN','PLATFORM_PRIMITIVE','EPOCH_CANDIDATE'
 ]);
 
 function compileNodeMap(nodes) {

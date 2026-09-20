@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "uberbond.cubefree-external-v7-preregistration.v1",
+  "date": "2026-09-20",
+  "parentConceptCandidate": "MULTIPLICITY_SENSITIVE_STRUCTURAL_MEMORY",
+  "truthClass": "PREREGISTERED_UNSEEN_PUBLIC_MULTIPLICITY_THRESHOLD_CHALLENGE_NOT_RESULT",
+  "target": {
+    "id": "A212793_CUBEFREE_INDICATOR",
+    "source": "OEIS A212793 / A004709",
+    "definition": "1 iff n is cubefree; equivalently n is not divisible by any cube greater than 1.",
+    "role": "UNSEEN_PUBLIC_MULTIPLICITY_THRESHOLD_TARGET"
+  },
+  "frozenGrammar": {
+    "sourceLineage": "V6 864-program multiplicity-sensitive memory grammar",
+    "candidateCount": 864,
+    "mutationAfterPreregistration": "PROHIBITED",
+    "memory": "one accumulator bit plus one repeatSeen bit set on second-or-later same-divisor event",
+    "outputs": 9
+  },
+  "split": "same deterministic hash split over integers 2..4097",
+  "selectionMetric": {
+    "primary": "TRAIN_BALANCED_ACCURACY",
+    "tieBreakers": [
+      "VALIDATION_BALANCED_ACCURACY",
+      "LOWER_DESCRIPTION_COST",
+      "LEXICAL_PROGRAM_ID"
+    ],
+    "heldoutLabelsUsedForSelection": false
+  },
+  "frozenBaseComparator": {
+    "source": "artifacts/research/CUBEFREE_EXTERNAL_V7_PREFLIGHT_20260920.json",
+    "feature": "OR(BIT(2),NOT(RESIDUE_EQ(4,0)))",
+    "heldoutBalancedAccuracy": 0.8614864864864865
+  },
+  "successCriteria": {
+    "heldoutBalancedAccuracyMinimum": 0.95,
+    "heldoutPositiveRecallMinimum": 0.9,
+    "heldoutNegativeRecallMinimum": 0.9,
+    "balancedAccuracyImprovementOverFrozenBaseMinimum": 0.08
+  },
+  "negativeControl": {
+    "target": "independent deterministic hash Boolean label",
+    "heldoutBalancedAccuracyMaximum": 0.65
+  },
+  "falsifier": [
+    "Any success threshold is missed.",
+    "The 864-program grammar is changed before result.",
+    "Held-out labels influence candidate selection.",
+    "The hash control exceeds balanced accuracy 0.65.",
+    "Raw accuracy is substituted for the preregistered balanced metrics."
+  ],
+  "ontogenesisTrigger": "Failure with evidence that exponent-2 and exponent-3 multiplicity are collapsed by repeatSeen should generate a candidate multiplicity-depth state, not an automatic grammar patch.",
+  "promotionBoundary": "V7 is a generalization test for the V6 concept candidate. Passing would still require evidence review; failing preserves the exact next missing mechanism.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

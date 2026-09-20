@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond.causal-semantic-crystallizer-v1-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION",
+  "verdict": "NARROW_SEMANTIC_CAUSAL_CRYSTALLIZATION_SUPPORTED__GENERAL_CAUSAL_ABSTRACTION_OPEN",
+  "strengths": [
+    "GENERATED_FROM_EXECUTED_EVIDENCE_BOUND_DONOR_MARKET",
+    "PREREGISTRATION_PRECEDED_IMPLEMENTATION_RESULT",
+    "CRYSTALS_REQUIRED_TWO_DISTINCT_TRAINING_SYNTAXES",
+    "HELDOUT_USE_REQUIRED_EXACT_COMPLETE_BOUNDARY_TRUTH_TABLE_MATCH",
+    "36_OF_36_HELDOUT_CASES_PRESERVED_EXHAUSTIVE_MINIMUM_INTERVENTIONS",
+    "THREE_NEGATIVE_FUNCTIONS_PRODUCED_ZERO_FALSE_MATCHES",
+    "MEDIAN_SYMBOLIC_EXPANSION_FELL_53_6_PERCENT",
+    "INVALID_INTERIM_RUN_WAS_DISCARDED_AND_RECORDED"
+  ],
+  "limitations": [
+    {
+      "severity": "MAJOR",
+      "code": "FINITE_BOOLEAN_BOUNDARY",
+      "detail": "Exact equivalence is established only for finite deterministic Boolean boundary behavior. Truth-table enumeration scales exponentially with boundary arity."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "HAND_DESIGNED_FUNCTION_FAMILIES",
+      "detail": "AND, OR and XOR motifs and held-out rewrites were designed inside the same research program."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "NO_HIDDEN_CONTEXT",
+      "detail": "The experiment assumes the declared motif boundary contains all behavior relevant to replacement. Latent variables and temporal state are absent."
+    },
+    {
+      "severity": "MODERATE",
+      "code": "SAME_PRIMARY_IMPLEMENTATION_LINEAGE",
+      "detail": "The result still needs independent implementation or a native test runner reproduction."
+    }
+  ],
+  "nextGates": [
+    "independent second implementation from frozen preregistration",
+    "larger boundary arities with symbolic equivalence rather than full truth tables",
+    "probabilistic causal macro equivalence",
+    "stateful and temporal causal motifs",
+    "automatic motif mining from larger causal graphs",
+    "held-out graph families generated independently of the training syntax designer"
+  ],
+  "law": "A_CAUSAL_MACRO_IS_REUSABLE_ONLY_INSIDE_THE_SCOPE_WHERE_ITS_SEMANTIC_BOUNDARY_WAS_VERIFIED"
+}

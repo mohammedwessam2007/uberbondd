@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-atomization-queue.v1",
+  "date": "2026-09-20",
+  "sourceCorpus": "artifacts/research/founder-moonshot-literal-corpus/manifest.json",
+  "sourceCount": 890,
+  "stableIdPattern": "founder-moonshot-NNNN",
+  "batchSize": 25,
+  "batchCount": 36,
+  "batches": [
+    {
+      "batch": 1,
+      "ordinalStart": 1,
+      "ordinalEnd": 25,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0001",
+      "stableIdEnd": "founder-moonshot-0025",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 2,
+      "ordinalStart": 26,
+      "ordinalEnd": 50,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0026",
+      "stableIdEnd": "founder-moonshot-0050",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 3,
+      "ordinalStart": 51,
+      "ordinalEnd": 75,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0051",
+      "stableIdEnd": "founder-moonshot-0075",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 4,
+      "ordinalStart": 76,
+      "ordinalEnd": 100,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0076",
+      "stableIdEnd": "founder-moonshot-0100",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 5,
+      "ordinalStart": 101,
+      "ordinalEnd": 125,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0101",
+      "stableIdEnd": "founder-moonshot-0125",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 6,
+      "ordinalStart": 126,
+      "ordinalEnd": 150,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0126",
+      "stableIdEnd": "founder-moonshot-0150",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 7,
+      "ordinalStart": 151,
+      "ordinalEnd": 175,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0151",
+      "stableIdEnd": "founder-moonshot-0175",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 8,
+      "ordinalStart": 176,
+      "ordinalEnd": 200,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0176",
+      "stableIdEnd": "founder-moonshot-0200",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 9,
+      "ordinalStart": 201,
+      "ordinalEnd": 225,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0201",
+      "stableIdEnd": "founder-moonshot-0225",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 10,
+      "ordinalStart": 226,
+      "ordinalEnd": 250,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0226",
+      "stableIdEnd": "founder-moonshot-0250",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 11,
+      "ordinalStart": 251,
+      "ordinalEnd": 275,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0251",
+      "stableIdEnd": "founder-moonshot-0275",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 12,
+      "ordinalStart": 276,
+      "ordinalEnd": 300,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0276",
+      "stableIdEnd": "founder-moonshot-0300",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 13,
+      "ordinalStart": 301,
+      "ordinalEnd": 325,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0301",
+      "stableIdEnd": "founder-moonshot-0325",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 14,
+      "ordinalStart": 326,
+      "ordinalEnd": 350,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0326",
+      "stableIdEnd": "founder-moonshot-0350",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 15,
+      "ordinalStart": 351,
+      "ordinalEnd": 375,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0351",
+      "stableIdEnd": "founder-moonshot-0375",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 16,
+      "ordinalStart": 376,
+      "ordinalEnd": 400,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0376",
+      "stableIdEnd": "founder-moonshot-0400",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 17,
+      "ordinalStart": 401,
+      "ordinalEnd": 425,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0401",
+      "stableIdEnd": "founder-moonshot-0425",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 18,
+      "ordinalStart": 426,
+      "ordinalEnd": 450,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0426",
+      "stableIdEnd": "founder-moonshot-0450",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 19,
+      "ordinalStart": 451,
+      "ordinalEnd": 475,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0451",
+      "stableIdEnd": "founder-moonshot-0475",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 20,
+      "ordinalStart": 476,
+      "ordinalEnd": 500,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0476",
+      "stableIdEnd": "founder-moonshot-0500",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 21,
+      "ordinalStart": 501,
+      "ordinalEnd": 525,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0501",
+      "stableIdEnd": "founder-moonshot-0525",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 22,
+      "ordinalStart": 526,
+      "ordinalEnd": 550,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0526",
+      "stableIdEnd": "founder-moonshot-0550",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 23,
+      "ordinalStart": 551,
+      "ordinalEnd": 575,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0551",
+      "stableIdEnd": "founder-moonshot-0575",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 24,
+      "ordinalStart": 576,
+      "ordinalEnd": 600,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0576",
+      "stableIdEnd": "founder-moonshot-0600",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 25,
+      "ordinalStart": 601,
+      "ordinalEnd": 625,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0601",
+      "stableIdEnd": "founder-moonshot-0625",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 26,
+      "ordinalStart": 626,
+      "ordinalEnd": 650,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0626",
+      "stableIdEnd": "founder-moonshot-0650",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 27,
+      "ordinalStart": 651,
+      "ordinalEnd": 675,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0651",
+      "stableIdEnd": "founder-moonshot-0675",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 28,
+      "ordinalStart": 676,
+      "ordinalEnd": 700,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0676",
+      "stableIdEnd": "founder-moonshot-0700",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 29,
+      "ordinalStart": 701,
+      "ordinalEnd": 725,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0701",
+      "stableIdEnd": "founder-moonshot-0725",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 30,
+      "ordinalStart": 726,
+      "ordinalEnd": 750,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0726",
+      "stableIdEnd": "founder-moonshot-0750",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 31,
+      "ordinalStart": 751,
+      "ordinalEnd": 775,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0751",
+      "stableIdEnd": "founder-moonshot-0775",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 32,
+      "ordinalStart": 776,
+      "ordinalEnd": 800,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0776",
+      "stableIdEnd": "founder-moonshot-0800",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 33,
+      "ordinalStart": 801,
+      "ordinalEnd": 825,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0801",
+      "stableIdEnd": "founder-moonshot-0825",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 34,
+      "ordinalStart": 826,
+      "ordinalEnd": 850,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0826",
+      "stableIdEnd": "founder-moonshot-0850",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 35,
+      "ordinalStart": 851,
+      "ordinalEnd": 875,
+      "count": 25,
+      "stableIdStart": "founder-moonshot-0851",
+      "stableIdEnd": "founder-moonshot-0875",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    },
+    {
+      "batch": 36,
+      "ordinalStart": 876,
+      "ordinalEnd": 890,
+      "count": 15,
+      "stableIdStart": "founder-moonshot-0876",
+      "stableIdEnd": "founder-moonshot-0890",
+      "status": "SOURCE_READY_FOR_CLAIM_ATOMIZATION"
+    }
+  ],
+  "transformationBoundary": "LITERAL_SOURCE_TEXT_IS_IMMUTABLE__CLAIMS_CONSTRAINTS_DEPENDENCIES_AND_EXPERIMENTS_ARE_DERIVED_OBJECTS_WITH_SEPARATE_PROVENANCE",
+  "noDropLaw": "EVERY_SOURCE_ORDINAL_MUST_REMAIN_ADDRESSABLE_AFTER_ATOMIZATION",
+  "nextState": "CLAIM_ATOMIZATION_PENDING"
+}

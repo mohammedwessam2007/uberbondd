@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "uberbond.external-arithmetic-family-v5-preflight.v1",
+  "date": "2026-09-20",
+  "truthClass": "PRE_EXECUTION_EXTERNAL_TARGET_ADMISSION__NOT_RESULT",
+  "externalSources": [
+    {
+      "id": "A008966",
+      "url": "https://oeis.org/A008966",
+      "target": "SQUAREFREE_INDICATOR",
+      "sourceDefinition": "a(n)=1 if n is squarefree, otherwise 0."
+    },
+    {
+      "id": "A001221",
+      "url": "https://oeis.org/A001221",
+      "target": "DISTINCT_PRIME_COUNT_PARITY",
+      "sourceDefinition": "Number of distinct primes dividing n."
+    },
+    {
+      "id": "A008683",
+      "url": "https://oeis.org/A008683",
+      "target": "MOBIUS_POSITIVE_INDICATOR",
+      "sourceDefinition": "mu(n)=(-1)^k for a product of k different primes; otherwise 0."
+    }
+  ],
+  "baseOntology": {
+    "fixture": "integers 2..1023",
+    "candidateCount": 8626,
+    "targets": [
+      {
+        "id": "A008966_SQUAREFREE",
+        "exactEquivalentFound": false,
+        "nearest": "AND(NOT(RESIDUE_EQ(4,0)),POPCOUNT_GE(1))",
+        "nearestMismatchRate": 0.1409002
+      },
+      {
+        "id": "A001221_DISTINCT_PRIME_PARITY",
+        "exactEquivalentFound": false,
+        "nearest": "XOR(BIT(0),RESIDUE_EQ(3,0))",
+        "nearestMismatchRate": 0.35420744
+      },
+      {
+        "id": "A008683_MOBIUS_POSITIVE",
+        "exactEquivalentFound": false,
+        "nearest": "AND(NOT(RESIDUE_EQ(3,0)),RESIDUE_EQ(4,2))",
+        "nearestMismatchRate": 0.27984344
+      }
+    ]
+  },
+  "split": {
+    "universe": "integers 2..4097",
+    "hash": "same deterministic 32-bit mix used by V4B, mod 5",
+    "bucketCounts": [
+      786,
+      826,
+      810,
+      834,
+      840
+    ],
+    "trainBuckets": [
+      0,
+      1
+    ],
+    "validationBucket": 2,
+    "heldoutBucket": 3,
+    "reserveBucket": 4,
+    "classCounts": {
+      "A008966_SQUAREFREE": {
+        "train": {
+          "0": 645,
+          "1": 967
+        },
+        "validation": {
+          "0": 310,
+          "1": 500
+        },
+        "heldout": {
+          "0": 331,
+          "1": 503
+        }
+      },
+      "A001221_DISTINCT_PRIME_PARITY": {
+        "train": {
+          "0": 826,
+          "1": 786
+        },
+        "validation": {
+          "0": 412,
+          "1": 398
+        },
+        "heldout": {
+          "0": 410,
+          "1": 424
+        }
+      },
+      "A008683_MOBIUS_POSITIVE": {
+        "train": {
+          "0": 1122,
+          "1": 490
+        },
+        "validation": {
+          "0": 559,
+          "1": 251
+        },
+        "heldout": {
+          "0": 601,
+          "1": 233
+        }
+      }
+    }
+  },
+  "admissionDecision": "ADMIT_ALL_THREE",
+  "law": "EXTERNAL_TARGET_DEFINITION_AND_SEMANTIC_NOVELTY_ARE_FIXED_BEFORE_THE_FROZEN_STRUCTURAL_GRAMMAR_IS_EXECUTED"
+}

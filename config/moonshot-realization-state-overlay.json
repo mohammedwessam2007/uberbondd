@@ -4,8 +4,8 @@
   "entries": {
     "founder-moonshot-0001": {
       "literalTitle": "THE CAUSAL COMPILER",
-      "parentRealityState": "FORMALIZED",
-      "parentClaimBoundary": "The full cross-domain founder moonshot remains unproven.",
+      "parentRealityState": "CONSTRAINT_MAPPED",
+      "parentClaimBoundary": "The full cross-domain founder moonshot remains unproven. Formalization and constraint mapping are complete; reproduced evidence exists only for narrow deterministic software descendants.",
       "verifiedDescendants": [
         {
           "id": "known-boolean-scm-goal-directed-minimum-intervention-compiler",
@@ -15,6 +15,16 @@
             "artifacts/research/CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json"
           ],
           "scope": "Known finite deterministic tree-like Boolean SCMs with exact fallback on unsupported/shared structures",
+          "externalAuthority": "NONE"
+        },
+        {
+          "id": "semantic-causal-subgraph-crystallizer-v1",
+          "state": "REPRODUCED",
+          "evidence": [
+            "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json",
+            "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json"
+          ],
+          "scope": "Exact finite deterministic Boolean causal-boundary equivalence and held-out macro reuse",
           "externalAuthority": "NONE"
         }
       ],

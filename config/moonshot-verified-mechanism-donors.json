@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "uberbond.moonshot-verified-mechanism-donors.v1",
+  "date": "2026-09-20",
+  "truthClass": "EVIDENCE_BOUND_DONOR_POOL__GENERATED_COMBINATIONS_REMAIN_HYPOTHESES",
+  "donors": [
+    {
+      "mechanismId": "goal-directed-causal-compiler-v2",
+      "domain": "computational-causal-models",
+      "does": "compiles desired Boolean target states backward through known causal gate semantics to synthesize minimum input interventions, with exact search fallback on shared upstream structures",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+      "preconditions": [
+        "the causal graph and equations are supplied",
+        "the direct path is tree-like or the exact fallback is used"
+      ],
+      "effects": [
+        "minimum intervention cardinality is preserved on the preregistered benchmark",
+        "median full-model evaluations fall relative to exhaustive search"
+      ],
+      "assumptions": [
+        "declared Boolean SCM semantics match the tested system",
+        "declared controllable inputs are the complete action set"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:CAUSAL_COMPILER_CANARY_V2",
+        "observedAt": "2026-09-20T05:03:23.000Z"
+      }
+    },
+    {
+      "mechanismId": "semantic-novelty-preflight-v1",
+      "domain": "ontology-and-representation",
+      "does": "compares a proposed primitive's behavior against an existing finite ontology before admitting a novelty challenge",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty",
+      "preconditions": [
+        "a declared fixture universe exists",
+        "candidate behaviors are executable on the same fixtures"
+      ],
+      "effects": [
+        "exact behavioral equivalents are identified before experiment admission",
+        "nearest existing behavior and mismatch rate remain visible"
+      ],
+      "assumptions": [
+        "finite fixture behavior is useful evidence for local equivalence screening",
+        "finite non-equivalence is not universal novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:ONTOLOGICAL_COMPUTING_CANARY_V3_RETROSPECTIVE_PREFLIGHT",
+        "observedAt": "2026-09-20T04:35:00.000Z"
+      }
+    },
+    {
+      "mechanismId": "novelty-gated-primitive-admission-v4",
+      "domain": "representation-search",
+      "does": "selects a candidate primitive from a declared meta-family, rejects exact old-ontology equivalents on a finite fixture, and freezes the selected primitive before transfer evaluation",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates",
+      "preconditions": [
+        "the meta-family is frozen before held-out results",
+        "the target passes semantic novelty preflight against the old ontology"
+      ],
+      "effects": [
+        "a finite-fixture behaviorally distinct primitive can be admitted",
+        "the frozen primitive can be reused across separately held-out tasks"
+      ],
+      "assumptions": [
+        "the declared meta-family contains useful candidate primitives",
+        "synthetic transfer predicts only the narrow tested software mechanism"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:ONTOLOGICAL_COMPUTING_CANARY_V4",
+        "observedAt": "2026-09-20T04:38:00.000Z"
+      }
+    },
+    {
+      "mechanismId": "divisor-sweep-structural-program-v5",
+      "domain": "arithmetic-program-synthesis",
+      "does": "searches a frozen divisor-sweep program grammar and transfers one learned structural program exactly to parity of distinct-prime count on a public external sequence target",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels",
+      "preconditions": [
+        "the structural grammar is frozen before result",
+        "public target definitions are fixed independently of search"
+      ],
+      "effects": [
+        "distinct-prime parity reaches exact held-out transfer",
+        "squarefree and Mobius-positive failures expose missing multiplicity memory"
+      ],
+      "assumptions": [
+        "the public sequence implementation matches the cited definition",
+        "the frozen grammar meaningfully represents the tested structural family"
+      ],
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:EXTERNAL_ARITHMETIC_FAMILY_V5",
+        "observedAt": "2026-09-20T04:45:09.000Z"
+      }
+    },
+    {
+      "mechanismId": "moonshot-experiment-compiler-v1",
+      "domain": "research-orchestration",
+      "does": "selects a bounded minimum-reality probe, compiles a preregistration, routes it through canonical experiment feasibility policy, and preserves authority separation",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission",
+      "preconditions": [
+        "a falsifiable claim and competing predicted outcomes exist",
+        "candidate probes declare cost time reversibility measurement and decision rule"
+      ],
+      "effects": [
+        "zero-effect experiments can become runnable without external authority",
+        "effectful probes remain blocked when required authority is absent",
+        "replication contracts cannot self-promote"
+      ],
+      "assumptions": [
+        "declared probe costs and effects are truthful",
+        "observed evidence is reconciled separately from preregistration"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "artifact:MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920",
+        "observedAt": "2026-09-20T05:05:00.000Z"
+      }
+    }
+  ],
+  "noLaunderingLaw": "A_GENERATED_RECOMBINATION_IS_A_HYPOTHESIS_EVEN_WHEN_ITS_DONOR_PRIMITIVES_HAVE_STRONG_EVIDENCE"
+}

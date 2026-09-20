@@ -157,6 +157,16 @@ function grammar(){
   }
   return out;
 }
+
+export function multiplicityDepthProgramsV8() {
+  return grammar().map(program => ({
+    id: program.id,
+    descriptionCost: program.descriptionCost,
+    spec: structuredClone(program.spec),
+    evaluate: program.evaluate
+  }));
+}
+
 function scoreFor(target,m){return target.metric==='BALANCED'?m.balancedAccuracy:m.accuracy;}
 function select(target,split){
   const programs=grammar();let best=null;

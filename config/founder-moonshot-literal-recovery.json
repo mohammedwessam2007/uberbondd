@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-recovery.v1",
+  "date": "2026-09-20",
+  "sourceConversation": {
+    "observedAssistantTimestamp": "2026-09-20T03:43:26Z",
+    "intendedOrdinalRange": {
+      "start": 1,
+      "end": 890
+    },
+    "retrievalClass": "PRIOR_CONVERSATION_CONTEXT",
+    "exactRawTranscriptExportAvailable": false
+  },
+  "truthClass": "PARTIAL_LITERAL_RECOVERY__GAPS_EXPLICIT__NO_REGENERATION",
+  "recoveredEntries": [
+    {
+      "ordinal": 1,
+      "literalTitle": "THE CAUSAL COMPILER",
+      "hypotheticalIq": "10³⁴",
+      "literalDescription": "program cause-and-effect chains from desired end states.",
+      "evidenceClass": "PRIOR_ASSISTANT_OUTPUT_EXACT_RETRIEVAL"
+    },
+    {
+      "ordinal": 2,
+      "literalTitle": "THE NEW CONSTANT HUNTER",
+      "hypotheticalIq": "3 × 10³⁴",
+      "literalDescription": "search observations for unrecognized fundamental invariants.",
+      "evidenceClass": "PRIOR_ASSISTANT_OUTPUT_EXACT_RETRIEVAL"
+    },
+    {
+      "ordinal": 3,
+      "literalTitle": "THE MECHANISM TELESCOPE",
+      "hypotheticalIq": "10³⁵",
+      "literalDescription": "decompose phenomena into universal mechanism fragments.",
+      "evidenceClass": "PRIOR_ASSISTANT_OUTPUT_EXACT_RETRIEVAL"
+    },
+    {
+      "ordinal": 4,
+      "literalTitle": "THE COUNTERFACTUAL MICROSCOPE",
+      "hypotheticalIq": "3 × 10³⁵",
+      "literalDescription": "reveal what would have existed under minimally different histories.",
+      "evidenceClass": "PRIOR_ASSISTANT_OUTPUT_EXACT_RETRIEVAL"
+    }
+  ],
+  "unresolvedOrdinalRanges": [
+    {
+      "start": 5,
+      "end": 890,
+      "count": 886,
+      "reason": "PRIOR_CONVERSATION_RETRIEVER_DID_NOT_EXPOSE_LITERAL_ADJACENT_ENTRIES"
+    }
+  ],
+  "recoveryCounts": {
+    "expected": 890,
+    "literallyRecovered": 4,
+    "unresolved": 886,
+    "completionFraction": 0.00449438202247191
+  },
+  "rejectedAsLiteralEvidence": [
+    {
+      "source": "COMPRESSED_PROJECT_MEMORY",
+      "reason": "Earlier compressed anchors assign different titles/ordinals than the exact 03:43:26 retrieval. They may refer to another generated wave or lossy summary and are therefore not imported into the literal registry."
+    },
+    {
+      "source": "MODEL_REGENERATION",
+      "reason": "A regenerated list would not prove identity with the original founder-visible output."
+    },
+    {
+      "source": "PROJECT_LIBRARY_SEARCH",
+      "reason": "Searches for the exact recovered titles and known later anchors did not locate the September 20 ordered wave in Project/Library files."
+    }
+  ],
+  "nextRecoveryCondition": [
+    "RAW_CHATGPT_TRANSCRIPT_EXPORT_OR_DIRECT_CONVERSATION_SOURCE_BECOMES_AVAILABLE",
+    "PRIOR_CONVERSATION_RETRIEVER_EXPOSES_ADDITIONAL_LITERAL_ORDINALS"
+  ],
+  "noDropLaw": "UNKNOWN_TEXT_STAYS_UNKNOWN__RECOVERY_FAILURE_NEVER_BECOMES_PERMISSION_TO_REGENERATE_AND_CALL_IT_ORIGINAL",
+  "corpusAdmissionLaw": "ONLY_LITERAL_RECOVERED_ENTRIES_MAY_ENTER_THE_NO_DROP_SOURCE_REGISTRY__COMPRESSED_ANCHORS_MAY_REMAIN_SEPARATE_LINEAGE_HINTS"
+}

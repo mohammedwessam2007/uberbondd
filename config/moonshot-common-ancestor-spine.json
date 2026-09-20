@@ -59,7 +59,12 @@
         "ECONOMICS",
         "INSTITUTIONS"
       ],
-      "status": "PARTIAL_EXISTING_DONORS_PRESENT"
+      "status": "EVIDENCE_BOUND_DONOR_COMPILER_EXECUTED_IN_PR_967",
+      "evidenceRefs": [
+        "src/genesis-mechanism-compiler.mjs",
+        "src/moonshot-mechanism-market.mjs",
+        "artifacts/research/MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json"
+      ]
     },
     {
       "id": "experiment-compiler",

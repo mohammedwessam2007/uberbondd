@@ -1,0 +1,1073 @@
+{
+  "schemaVersion": "uberbond.moonshot-mechanism-market-result.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "truthClass": "EXECUTED_MECHANISM_RECOMBINATION__ALL_DESCENDANTS_REMAIN_HYPOTHESES",
+  "donorCount": 5,
+  "primitiveCount": 31,
+  "variantCount": 30,
+  "candidateCount": 100,
+  "primitiveEvidenceCounts": {
+    "STRONG_EVIDENCE": 25,
+    "SUPPORTED_INFERENCE": 6
+  },
+  "allCandidateStatuses": [
+    "HYPOTHESIS"
+  ],
+  "donors": [
+    {
+      "mechanismId": "goal-directed-causal-compiler-v2",
+      "domain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:CAUSAL_COMPILER_CANARY_V2",
+        "observedAt": "2026-09-20T05:03:23.000Z"
+      }
+    },
+    {
+      "mechanismId": "semantic-novelty-preflight-v1",
+      "domain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:ONTOLOGICAL_COMPUTING_CANARY_V3_RETROSPECTIVE_PREFLIGHT",
+        "observedAt": "2026-09-20T04:35:00.000Z"
+      }
+    },
+    {
+      "mechanismId": "novelty-gated-primitive-admission-v4",
+      "domain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:ONTOLOGICAL_COMPUTING_CANARY_V4",
+        "observedAt": "2026-09-20T04:38:00.000Z"
+      }
+    },
+    {
+      "mechanismId": "divisor-sweep-structural-program-v5",
+      "domain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "experiment:EXTERNAL_ARITHMETIC_FAMILY_V5",
+        "observedAt": "2026-09-20T04:45:09.000Z"
+      }
+    },
+    {
+      "mechanismId": "moonshot-experiment-compiler-v1",
+      "domain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "artifact:MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920",
+        "observedAt": "2026-09-20T05:05:00.000Z"
+      }
+    }
+  ],
+  "primitives": [
+    {
+      "primitiveId": "primitive_e9b8294ae1263bc2e9b8294a",
+      "role": "CONSTRAINT",
+      "statement": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+      "donorId": "goal-directed-causal-compiler-v2",
+      "donorDomain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary"
+    },
+    {
+      "primitiveId": "primitive_1060f3016af010cf1060f301",
+      "role": "ACTION",
+      "statement": "compiles desired Boolean target states backward through known causal gate semantics to synthesize minimum input interventions, with exact search fallback on shared upstream structures",
+      "donorId": "goal-directed-causal-compiler-v2",
+      "donorDomain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary"
+    },
+    {
+      "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+      "role": "PRECONDITION",
+      "statement": "the causal graph and equations are supplied",
+      "donorId": "goal-directed-causal-compiler-v2",
+      "donorDomain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary"
+    },
+    {
+      "primitiveId": "primitive_d366c58e184d5892d366c58e",
+      "role": "PRECONDITION",
+      "statement": "the direct path is tree-like or the exact fallback is used",
+      "donorId": "goal-directed-causal-compiler-v2",
+      "donorDomain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary"
+    },
+    {
+      "primitiveId": "primitive_f19eb9a602d5380ef19eb9a6",
+      "role": "EFFECT",
+      "statement": "minimum intervention cardinality is preserved on the preregistered benchmark",
+      "donorId": "goal-directed-causal-compiler-v2",
+      "donorDomain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary"
+    },
+    {
+      "primitiveId": "primitive_6e4802335af160c66e480233",
+      "role": "EFFECT",
+      "statement": "median full-model evaluations fall relative to exhaustive search",
+      "donorId": "goal-directed-causal-compiler-v2",
+      "donorDomain": "computational-causal-models",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary"
+    },
+    {
+      "primitiveId": "primitive_fc141c5c4bd86a80fc141c5c",
+      "role": "CONSTRAINT",
+      "statement": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty",
+      "donorId": "semantic-novelty-preflight-v1",
+      "donorDomain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    },
+    {
+      "primitiveId": "primitive_9966d5741ba833839966d574",
+      "role": "ACTION",
+      "statement": "compares a proposed primitive's behavior against an existing finite ontology before admitting a novelty challenge",
+      "donorId": "semantic-novelty-preflight-v1",
+      "donorDomain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    },
+    {
+      "primitiveId": "primitive_9490247b3f2677449490247b",
+      "role": "PRECONDITION",
+      "statement": "a declared fixture universe exists",
+      "donorId": "semantic-novelty-preflight-v1",
+      "donorDomain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    },
+    {
+      "primitiveId": "primitive_d2d728392484e7b7d2d72839",
+      "role": "PRECONDITION",
+      "statement": "candidate behaviors are executable on the same fixtures",
+      "donorId": "semantic-novelty-preflight-v1",
+      "donorDomain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    },
+    {
+      "primitiveId": "primitive_280f7eb0c9910653280f7eb0",
+      "role": "EFFECT",
+      "statement": "exact behavioral equivalents are identified before experiment admission",
+      "donorId": "semantic-novelty-preflight-v1",
+      "donorDomain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    },
+    {
+      "primitiveId": "primitive_6f73c73f80d0e91f6f73c73f",
+      "role": "EFFECT",
+      "statement": "nearest existing behavior and mismatch rate remain visible",
+      "donorId": "semantic-novelty-preflight-v1",
+      "donorDomain": "ontology-and-representation",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    },
+    {
+      "primitiveId": "primitive_cf29ea6945294246cf29ea69",
+      "role": "CONSTRAINT",
+      "statement": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates",
+      "donorId": "novelty-gated-primitive-admission-v4",
+      "donorDomain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+    },
+    {
+      "primitiveId": "primitive_8c959f458da778ad8c959f45",
+      "role": "ACTION",
+      "statement": "selects a candidate primitive from a declared meta-family, rejects exact old-ontology equivalents on a finite fixture, and freezes the selected primitive before transfer evaluation",
+      "donorId": "novelty-gated-primitive-admission-v4",
+      "donorDomain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+    },
+    {
+      "primitiveId": "primitive_385e7b199f784ac5385e7b19",
+      "role": "PRECONDITION",
+      "statement": "the meta-family is frozen before held-out results",
+      "donorId": "novelty-gated-primitive-admission-v4",
+      "donorDomain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+    },
+    {
+      "primitiveId": "primitive_1c5cded994ade3d31c5cded9",
+      "role": "PRECONDITION",
+      "statement": "the target passes semantic novelty preflight against the old ontology",
+      "donorId": "novelty-gated-primitive-admission-v4",
+      "donorDomain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+    },
+    {
+      "primitiveId": "primitive_d78b62fdd656fca3d78b62fd",
+      "role": "EFFECT",
+      "statement": "a finite-fixture behaviorally distinct primitive can be admitted",
+      "donorId": "novelty-gated-primitive-admission-v4",
+      "donorDomain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+    },
+    {
+      "primitiveId": "primitive_47746e2fb96e5bc847746e2f",
+      "role": "EFFECT",
+      "statement": "the frozen primitive can be reused across separately held-out tasks",
+      "donorId": "novelty-gated-primitive-admission-v4",
+      "donorDomain": "representation-search",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+    },
+    {
+      "primitiveId": "primitive_72ea5f04a715338472ea5f04",
+      "role": "CONSTRAINT",
+      "statement": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels",
+      "donorId": "divisor-sweep-structural-program-v5",
+      "donorDomain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels"
+    },
+    {
+      "primitiveId": "primitive_4d8f6001df1f3b154d8f6001",
+      "role": "ACTION",
+      "statement": "searches a frozen divisor-sweep program grammar and transfers one learned structural program exactly to parity of distinct-prime count on a public external sequence target",
+      "donorId": "divisor-sweep-structural-program-v5",
+      "donorDomain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels"
+    },
+    {
+      "primitiveId": "primitive_0ed21edad66df8be0ed21eda",
+      "role": "PRECONDITION",
+      "statement": "the structural grammar is frozen before result",
+      "donorId": "divisor-sweep-structural-program-v5",
+      "donorDomain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels"
+    },
+    {
+      "primitiveId": "primitive_fc780bd33d13510bfc780bd3",
+      "role": "PRECONDITION",
+      "statement": "public target definitions are fixed independently of search",
+      "donorId": "divisor-sweep-structural-program-v5",
+      "donorDomain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels"
+    },
+    {
+      "primitiveId": "primitive_f0904b53305321e6f0904b53",
+      "role": "EFFECT",
+      "statement": "distinct-prime parity reaches exact held-out transfer",
+      "donorId": "divisor-sweep-structural-program-v5",
+      "donorDomain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels"
+    },
+    {
+      "primitiveId": "primitive_a597cf03c2521f1da597cf03",
+      "role": "EFFECT",
+      "statement": "squarefree and Mobius-positive failures expose missing multiplicity memory",
+      "donorId": "divisor-sweep-structural-program-v5",
+      "donorDomain": "arithmetic-program-synthesis",
+      "evidenceClass": "SUPPORTED_INFERENCE",
+      "exploits": "arithmetic properties can sometimes be represented as compact state updates over factorization events rather than memorized labels"
+    },
+    {
+      "primitiveId": "primitive_b7f278d3068e1886b7f278d3",
+      "role": "CONSTRAINT",
+      "statement": "many research failures come from confusing a plan with an experiment or feasibility with permission",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    },
+    {
+      "primitiveId": "primitive_3bfc817160ba27203bfc8171",
+      "role": "ACTION",
+      "statement": "selects a bounded minimum-reality probe, compiles a preregistration, routes it through canonical experiment feasibility policy, and preserves authority separation",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    },
+    {
+      "primitiveId": "primitive_1e2f1a0317ac0a681e2f1a03",
+      "role": "PRECONDITION",
+      "statement": "a falsifiable claim and competing predicted outcomes exist",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    },
+    {
+      "primitiveId": "primitive_d218820ad7579b95d218820a",
+      "role": "PRECONDITION",
+      "statement": "candidate probes declare cost time reversibility measurement and decision rule",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    },
+    {
+      "primitiveId": "primitive_bc0c500dd98ad2b7bc0c500d",
+      "role": "EFFECT",
+      "statement": "zero-effect experiments can become runnable without external authority",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    },
+    {
+      "primitiveId": "primitive_1a33cb5203a1dfe31a33cb52",
+      "role": "EFFECT",
+      "statement": "effectful probes remain blocked when required authority is absent",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    },
+    {
+      "primitiveId": "primitive_fae5d7ee4bf482f9fae5d7ee",
+      "role": "EFFECT",
+      "statement": "replication contracts cannot self-promote",
+      "donorId": "moonshot-experiment-compiler-v1",
+      "donorDomain": "research-orchestration",
+      "evidenceClass": "STRONG_EVIDENCE",
+      "exploits": "many research failures come from confusing a plan with an experiment or feasibility with permission"
+    }
+  ],
+  "frontier": [
+    {
+      "candidateId": "candidate_00971d9416179e5400971d94",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_1a33cb5203a1dfe31a33cb52",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_1a33cb5203a1dfe31a33cb52",
+          "role": "EFFECT",
+          "statement": "effectful probes remain blocked when required authority is absent",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_036507b42cdcd5aa036507b4",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_e9b8294ae1263bc2e9b8294a",
+        "primitive_fae5d7ee4bf482f9fae5d7ee"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_e9b8294ae1263bc2e9b8294a",
+          "role": "CONSTRAINT",
+          "statement": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+          "donorId": "goal-directed-causal-compiler-v2"
+        },
+        {
+          "primitiveId": "primitive_fae5d7ee4bf482f9fae5d7ee",
+          "role": "EFFECT",
+          "statement": "replication contracts cannot self-promote",
+          "donorId": "moonshot-experiment-compiler-v1"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_0d1b08893c71b04d0d1b0889",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_b7f278d3068e1886b7f278d3",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_b7f278d3068e1886b7f278d3",
+          "role": "CONSTRAINT",
+          "statement": "many research failures come from confusing a plan with an experiment or feasibility with permission",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_157e7f6555b2471b157e7f65",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_1060f3016af010cf1060f301",
+        "primitive_bc0c500dd98ad2b7bc0c500d"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_1060f3016af010cf1060f301",
+          "role": "ACTION",
+          "statement": "compiles desired Boolean target states backward through known causal gate semantics to synthesize minimum input interventions, with exact search fallback on shared upstream structures",
+          "donorId": "goal-directed-causal-compiler-v2"
+        },
+        {
+          "primitiveId": "primitive_bc0c500dd98ad2b7bc0c500d",
+          "role": "EFFECT",
+          "statement": "zero-effect experiments can become runnable without external authority",
+          "donorId": "moonshot-experiment-compiler-v1"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_18d9b4c1036401fe18d9b4c1",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_e9b8294ae1263bc2e9b8294a",
+        "primitive_fc141c5c4bd86a80fc141c5c"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_e9b8294ae1263bc2e9b8294a",
+          "role": "CONSTRAINT",
+          "statement": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+          "donorId": "goal-directed-causal-compiler-v2"
+        },
+        {
+          "primitiveId": "primitive_fc141c5c4bd86a80fc141c5c",
+          "role": "CONSTRAINT",
+          "statement": "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty",
+          "donorId": "semantic-novelty-preflight-v1"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_1df7133f483ea2271df7133f",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_d218820ad7579b95d218820a",
+        "primitive_e9b8294ae1263bc2e9b8294a"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_d218820ad7579b95d218820a",
+          "role": "PRECONDITION",
+          "statement": "candidate probes declare cost time reversibility measurement and decision rule",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_e9b8294ae1263bc2e9b8294a",
+          "role": "CONSTRAINT",
+          "statement": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_1f756ca82dc037951f756ca8",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_9490247b3f2677449490247b",
+        "primitive_d366c58e184d5892d366c58e"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_9490247b3f2677449490247b",
+          "role": "PRECONDITION",
+          "statement": "a declared fixture universe exists",
+          "donorId": "semantic-novelty-preflight-v1"
+        },
+        {
+          "primitiveId": "primitive_d366c58e184d5892d366c58e",
+          "role": "PRECONDITION",
+          "statement": "the direct path is tree-like or the exact fallback is used",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_20aea45f8d7d7bc620aea45f",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_9490247b3f2677449490247b",
+        "primitive_e9b8294ae1263bc2e9b8294a"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_9490247b3f2677449490247b",
+          "role": "PRECONDITION",
+          "statement": "a declared fixture universe exists",
+          "donorId": "semantic-novelty-preflight-v1"
+        },
+        {
+          "primitiveId": "primitive_e9b8294ae1263bc2e9b8294a",
+          "role": "CONSTRAINT",
+          "statement": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_242d67ede39a1c64242d67ed",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_6f73c73f80d0e91f6f73c73f",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_6f73c73f80d0e91f6f73c73f",
+          "role": "EFFECT",
+          "statement": "nearest existing behavior and mismatch rate remain visible",
+          "donorId": "semantic-novelty-preflight-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_24b937f940f2822e24b937f9",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_d2d728392484e7b7d2d72839",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_d2d728392484e7b7d2d72839",
+          "role": "PRECONDITION",
+          "statement": "candidate behaviors are executable on the same fixtures",
+          "donorId": "semantic-novelty-preflight-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_2efe23b671f72bd02efe23b6",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "novelty-gated-primitive-admission-v4"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "representation-search"
+      ],
+      "primitiveIds": [
+        "primitive_1060f3016af010cf1060f301",
+        "primitive_d78b62fdd656fca3d78b62fd"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_1060f3016af010cf1060f301",
+          "role": "ACTION",
+          "statement": "compiles desired Boolean target states backward through known causal gate semantics to synthesize minimum input interventions, with exact search fallback on shared upstream structures",
+          "donorId": "goal-directed-causal-compiler-v2"
+        },
+        {
+          "primitiveId": "primitive_d78b62fdd656fca3d78b62fd",
+          "role": "EFFECT",
+          "statement": "a finite-fixture behaviorally distinct primitive can be admitted",
+          "donorId": "novelty-gated-primitive-admission-v4"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_2f490ea70977dd262f490ea7",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_280f7eb0c9910653280f7eb0",
+        "primitive_d366c58e184d5892d366c58e"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_280f7eb0c9910653280f7eb0",
+          "role": "EFFECT",
+          "statement": "exact behavioral equivalents are identified before experiment admission",
+          "donorId": "semantic-novelty-preflight-v1"
+        },
+        {
+          "primitiveId": "primitive_d366c58e184d5892d366c58e",
+          "role": "PRECONDITION",
+          "statement": "the direct path is tree-like or the exact fallback is used",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_2fca7bf963bc2a0b2fca7bf9",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_3bfc817160ba27203bfc8171",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_3bfc817160ba27203bfc8171",
+          "role": "ACTION",
+          "statement": "selects a bounded minimum-reality probe, compiles a preregistration, routes it through canonical experiment feasibility policy, and preserves authority separation",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_312883466d68d9d631288346",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "novelty-gated-primitive-admission-v4"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "representation-search"
+      ],
+      "primitiveIds": [
+        "primitive_d366c58e184d5892d366c58e",
+        "primitive_d78b62fdd656fca3d78b62fd"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_d366c58e184d5892d366c58e",
+          "role": "PRECONDITION",
+          "statement": "the direct path is tree-like or the exact fallback is used",
+          "donorId": "goal-directed-causal-compiler-v2"
+        },
+        {
+          "primitiveId": "primitive_d78b62fdd656fca3d78b62fd",
+          "role": "EFFECT",
+          "statement": "a finite-fixture behaviorally distinct primitive can be admitted",
+          "donorId": "novelty-gated-primitive-admission-v4"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_321b868d544b4729321b868d",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_1e2f1a0317ac0a681e2f1a03",
+        "primitive_d366c58e184d5892d366c58e"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_1e2f1a0317ac0a681e2f1a03",
+          "role": "PRECONDITION",
+          "statement": "a falsifiable claim and competing predicted outcomes exist",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_d366c58e184d5892d366c58e",
+          "role": "PRECONDITION",
+          "statement": "the direct path is tree-like or the exact fallback is used",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_34ed5779a8ec6b9734ed5779",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "novelty-gated-primitive-admission-v4"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "representation-search"
+      ],
+      "primitiveIds": [
+        "primitive_d78b62fdd656fca3d78b62fd",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_d78b62fdd656fca3d78b62fd",
+          "role": "EFFECT",
+          "statement": "a finite-fixture behaviorally distinct primitive can be admitted",
+          "donorId": "novelty-gated-primitive-admission-v4"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_372cda64e2753a14372cda64",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_1e2f1a0317ac0a681e2f1a03",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_1e2f1a0317ac0a681e2f1a03",
+          "role": "PRECONDITION",
+          "statement": "a falsifiable claim and competing predicted outcomes exist",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_3af4f5a526cd8e8b3af4f5a5",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "moonshot-experiment-compiler-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "research-orchestration"
+      ],
+      "primitiveIds": [
+        "primitive_3bfc817160ba27203bfc8171",
+        "primitive_e9b8294ae1263bc2e9b8294a"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "many research failures come from confusing a plan with an experiment or feasibility with permission"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_3bfc817160ba27203bfc8171",
+          "role": "ACTION",
+          "statement": "selects a bounded minimum-reality probe, compiles a preregistration, routes it through canonical experiment feasibility policy, and preserves authority separation",
+          "donorId": "moonshot-experiment-compiler-v1"
+        },
+        {
+          "primitiveId": "primitive_e9b8294ae1263bc2e9b8294a",
+          "role": "CONSTRAINT",
+          "statement": "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_44469bf5654abbc644469bf5",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "semantic-novelty-preflight-v1"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "ontology-and-representation"
+      ],
+      "primitiveIds": [
+        "primitive_9966d5741ba833839966d574",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_9966d5741ba833839966d574",
+          "role": "ACTION",
+          "statement": "compares a proposed primitive's behavior against an existing finite ontology before admitting a novelty challenge",
+          "donorId": "semantic-novelty-preflight-v1"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    },
+    {
+      "candidateId": "candidate_44dc62ba723e6f4044dc62ba",
+      "donorIds": [
+        "goal-directed-causal-compiler-v2",
+        "novelty-gated-primitive-admission-v4"
+      ],
+      "donorDomains": [
+        "computational-causal-models",
+        "representation-search"
+      ],
+      "primitiveIds": [
+        "primitive_385e7b199f784ac5385e7b19",
+        "primitive_fe48e8bc7d07df0ffe48e8bc"
+      ],
+      "exploits": [
+        "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+        "a representation absent from the old ontology can become a reusable feature if admitted through held-out evidence and semantic novelty gates"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "truthBoundary": "HYPOTHESIS__NOT_DEMAND__NOT_VALIDATED__NOT_REVENUE",
+      "nextAction": "ATOMIZE_HYPOTHESIS_AND_COMPILE_MINIMUM_REALITY_PROBE",
+      "primitiveStatements": [
+        {
+          "primitiveId": "primitive_385e7b199f784ac5385e7b19",
+          "role": "PRECONDITION",
+          "statement": "the meta-family is frozen before held-out results",
+          "donorId": "novelty-gated-primitive-admission-v4"
+        },
+        {
+          "primitiveId": "primitive_fe48e8bc7d07df0ffe48e8bc",
+          "role": "PRECONDITION",
+          "statement": "the causal graph and equations are supplied",
+          "donorId": "goal-directed-causal-compiler-v2"
+        }
+      ]
+    }
+  ],
+  "boundary": "VERIFIED_DONOR_EVIDENCE_IS_PROVENANCE_FOR_COMPONENTS__RECOMBINATION_DOES_NOT_INHERIT_VALIDATION"
+}

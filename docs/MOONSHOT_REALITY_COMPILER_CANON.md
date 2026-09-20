@@ -1,169 +1,69 @@
 # UberBond Moonshot Reality Compiler
 
-Status: **CANONICAL RESEARCH EXECUTION CONTRACT / NOT PROOF THAT ANY MOONSHOT IS FEASIBLE OR IMPLEMENTED**
+Status: **COMPATIBILITY / EXECUTION BRIDGE TO THE POSSIBILITY CIVILIZATION REALIZATION CANON**
 
 Date: 2026-09-20
 
-## Why this exists
+The authoritative realization architecture for the founder's civilization-scale moonshot wave is:
 
-The founder generated a large wave of civilization-scale ideas: Reality API, possibility-space generators, new senses, new sciences, causal periodic tables, civilization bootloaders, new computation substrates, ontology engines, recursive civilization machinery, and many other descendants.
+- `docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`
+- `config/possibility-civilization-program.json`
+- `src/moonshot-reality-compiler.mjs`
+- `src/moonshot-portfolio-compiler.mjs`
+- `src/moonshot-corpus-compiler.mjs`
 
-The correct response is not to build hundreds of disconnected speculative modules and not to label imaginative concepts as achieved.
+This file preserves the shorter **Moonshot Reality Compiler** name and the central rule:
 
-The correct response is one universal mechanism that can take **any** idea, preserve it, decompose it, identify exactly what prevents it from existing, and turn the unknown parts into progressively more concrete research programs.
+> **Every moonshot gets a real fate, not a guaranteed success label.**
 
-The canonical law is:
+## Canonical executable reality states
 
-> **Every moonshot receives a path to reality-contact, not a promise of success.**
+`IMAGINED -> FORMALIZED -> CONSTRAINT_MAPPED -> PLAUSIBILITY_BOUNDED -> SIMULATION_READY -> SOFTWARE_DEMONSTRATED -> EXPERIMENT_READY -> EXPERIMENTED -> REPRODUCED -> ENGINEERABLE -> DEPLOYABLE -> FIELD_PROVEN -> PLATFORM_PRIMITIVE -> EPOCH_CANDIDATE`
 
-A moonshot may end as a civilization-changing primitive. It may also be falsified, blocked by current physics or mathematics, reduced to a nearby realizable functional equivalent, archived until prerequisites change, or split into valuable precursor programs.
+Holding or terminal states:
 
-All of those outcomes are progress because they replace fantasy with information.
-
-## Relationship to existing UberBond
-
-This is a higher-order execution layer over existing organs, not a replacement.
-
-- **GENESIS / GENESIS²** create candidates.
-- **Unknown-Unknown Mining** finds questions current vocabulary misses.
-- **Ontogenesis** creates candidate concepts when the ontology distorts reality.
-- **Million Wormhole Universe** supplies large combinatorial hypothesis spaces.
-- **Capability Genome** supplies and evaluates implementation capabilities.
-- **Lawspace Experiment Registry** supplies the precedent for falsifiers, held-outs, physical-proxy stages and hard-truth boundaries.
-- **Reality Compiler** connects hypotheses to bounded reality-facing action.
-- **Sovereign Cognitive Continuum** remains the terminal identity and authority hierarchy.
-
-## Universal truth state machine
-
-Every moonshot begins as:
-
-`IMAGINED`
-
-It can then advance only one evidence gate at a time:
-
-`IMAGINED -> FORMALIZED -> PHYSICS_SCREENED -> PHYSICALLY_PLAUSIBLE -> EXPERIMENT_DESIGNED -> EXPERIMENTABLE -> DEMONSTRATED -> REPRODUCED -> ENGINEERABLE -> DEPLOYABLE -> CIVILIZATION_RELEVANT`
-
-Terminal or blocking states include:
-
+- `UNKNOWN`
+- `EXTERNALLY_BLOCKED`
+- `FORMALLY_INCONSISTENT`
+- `PHYSICALLY_PROHIBITED_UNDER_CURRENT_EVIDENCE`
 - `FALSIFIED`
-- `BLOCKED_BY_CURRENT_PHYSICS`
-- `BLOCKED_BY_MATHEMATICS`
-- `BLOCKED_BY_MISSING_KNOWLEDGE`
-- `BLOCKED_BY_MISSING_MEASUREMENT`
-- `BLOCKED_BY_MISSING_CAPABILITY`
-- `BLOCKED_BY_AUTHORITY`
-- `ARCHIVED`
+- `ETHICALLY_OR_LEGALLY_INADMISSIBLE`
+- `ARCHIVED_WITH_RESURRECTION_CONDITION`
 
-The ladder cannot be skipped by enthusiasm, fictional IQ, simulation scale, agent count, internal consensus, benchmarks, or documentation.
+These names supersede the shorter post-crash draft aliases such as `PHYSICS_SCREENED`, `EXPERIMENTABLE`, `DEMONSTRATED`, and `CIVILIZATION_RELEVANT`. The draft aliases remain recoverable in the registry as lineage only; they are **not** a second state machine.
 
-## The ten gates
+## Universal realization loop
 
-### G0 — Formalize
-Turn the idea into claims, dependencies, assumptions, constraints and explicit falsifiers.
+`literal idea + provenance -> falsifiable claim atoms -> constraint genome -> feasibility class -> dependency DAG -> shared future ancestors -> minimum reality probe -> admitted experiment -> observed evidence -> replication -> engineering -> field proof -> reusable primitive -> descendant branching -> epoch candidacy`
 
-### G1 — Contradiction screen
-Ask what known mathematics, physics, rights, laws, or explicit constraints contradict the claim.
+No transition may be manufactured by:
 
-A contradiction does not justify deleting the idea. The compiler either kills the impossible claim or searches for the nearest functional equivalent that obeys reality.
+- fictional IQ;
+- number of agents;
+- model consensus;
+- simulation scale;
+- source-code presence;
+- documentation;
+- benchmark gaming.
 
-### G2 — Plausibility
-Require at least one coherent mechanism compatible with current evidence.
+## Corpus law
 
-### G3 — Proxy
-Design the cheapest theorem, simulation, benchmark, model, or controlled proxy that separates competing hypotheses.
+The 2026-09-20 founder moonshot wave must be imported with literal name, source locator and unique purpose. Near-duplicate detection is advisory only. It may suggest merges, but **never silently merge away a unique purpose**.
 
-### G4 — Minimum Reality Probe
-Choose the smallest reversible experiment with useful information gain.
+## Portfolio law
 
-No external effect occurs merely because the probe was planned. Authority remains separate from capability.
+Do not give every moonshot its own army.
 
-### G5 — Demonstration
-Require observed effects and raw receipts under the preregistered protocol.
+Compile the entire corpus into shared prerequisites and work first on experimentally reachable ancestors that unlock many moonshots across many domains. When a primitive becomes better evidenced, recompile the whole corpus because previously impossible descendants may become newly reachable.
 
-### G6 — Replication
-Require independent or adversarial reproduction.
+## Failure law
 
-### G7 — Engineering
-Measure reliability, controllability, total cost, manufacturing or operational constraints, and failure modes.
+A failed parent claim does not delete useful descendants.
 
-### G8 — Deployment
-Require actual authority, safety, monitoring, rollback, and lawful operation.
+A physically prohibited literal interpretation can still donate nearby lawful research programs, new instruments, mathematical questions, engineering primitives, or resurrection conditions.
 
-### G9 — Epoch branching
-A civilization-scale claim requires evidence that the primitive creates a reproducible **family of descendant capabilities**, not just one impressive demonstration.
+## Truth boundary
 
-## Barrier-to-child-program compiler
+This compiler is research infrastructure. It is not proof that any speculative moonshot is physically possible, implemented, deployable, commercially useful, medically safe, or civilization-changing.
 
-A blocked moonshot is not a dead end.
-
-- Missing physics understanding -> physics boundary program.
-- Mathematical uncertainty -> existence/impossibility theorem program.
-- Missing measurement -> instrument/observability program.
-- Missing computation -> representation/computation program.
-- Missing engineering -> enabling primitive program.
-- Missing biology -> biological mechanism program.
-- Economic infeasibility -> cost/market mechanism program.
-- Institutional infeasibility -> institution/mechanism design program.
-- Missing authority -> explicit owner/external gate.
-- Missing knowledge -> evidence acquisition program.
-- Unknown barrier -> Unknown-Unknown Mining + Ontogenesis.
-
-This recursively turns enormous ideas into ancestor technologies.
-
-## The actual strategy for making the entire moonshot corpus real
-
-Do **not** allocate one team per idea.
-
-1. Compile every idea into the same machine-readable contract.
-2. Build claim graphs and deduplicate shared prerequisites.
-3. Collapse thousands of ideas onto a much smaller set of **common ancestor bottlenecks**.
-4. Rank those ancestors by branching potential, information gain, tractability, reversibility, evidence quality, founder leverage, cost burden, and irreversibility risk.
-5. Run cheap theory/simulation/proxy work first.
-6. Run minimum reversible reality probes only after prerequisite gates pass.
-7. Promote only independently reproduced effects.
-8. Convert reliable effects into Capability Genome entries.
-9. Re-run the entire moonshot corpus because one new primitive may unblock hundreds of descendants.
-10. Preserve failed ideas with exact blockers and resurrection conditions.
-
-The key compounding mechanism is:
-
-`MOONSHOTS -> CLAIMS -> SHARED BLOCKERS -> ANCESTOR PROGRAMS -> EXPERIMENTS -> VERIFIED PRIMITIVES -> CAPABILITY GENOME -> RECOMPILE ALL MOONSHOTS -> NEWLY FEASIBLE DESCENDANTS`
-
-This is how hundreds or thousands of ideas can become one executable research civilization rather than disconnected fantasies.
-
-## Million-agent interpretation
-
-Literal agent count is not an objective.
-
-Existing UberBond already has a deterministic 1,048,576-candidate Million Wormhole space. The Moonshot Reality Compiler can use large generative candidate spaces, but every useful candidate still has to pass the same evidence gates.
-
-The scalable architecture is:
-
-- many cheap generators;
-- aggressive semantic deduplication;
-- small numbers of strong adversarial evaluators;
-- common-ancestor extraction;
-- minimal sufficient specialist bundles;
-- reality probes;
-- independent replication;
-- durable evidence.
-
-One million agents repeating the same conceptual mistake is weaker than one experiment that falsifies it.
-
-## Fictional IQ
-
-The enormous IQ values attached to the founder's idea wave are narrative intensity labels only.
-
-They never influence physical plausibility, truth state, authority, promotion, deployment, or scientific confidence.
-
-## Definition of success
-
-This program is successful if, over time, it causes some moonshots to move upward through real evidence gates and causes others to die or transform **earlier and more truthfully**.
-
-The strongest possible result is not "all ideas became real."
-
-The strongest possible result is:
-
-> **Every idea was preserved, every assumption became inspectable, every shared bottleneck became visible, every feasible frontier received the cheapest valid experiment, impossible claims were killed without killing nearby useful descendants, and every genuine new primitive recursively reopened the entire possibility universe.**
-
-That is how UberBond tries to make impossible-scale imagination productive without confusing imagination with reality.
+Reality retains final veto.

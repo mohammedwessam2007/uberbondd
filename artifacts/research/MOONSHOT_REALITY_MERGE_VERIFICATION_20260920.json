@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "uberbond.moonshot-reality-merge-verification.v1",
+  "date": "2026-09-20",
+  "pullRequest": 967,
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "verifiedSourceHead": "6907be72e41190ca376654fc64f65e2cf34da0c8",
+  "truthClass": "EXECUTED_SOURCE_EVIDENCE_WITH_HOSTED_RUNNER_INFRASTRUCTURE_FAILURES_SEPARATED",
+  "sourceEvidence": {
+    "literalCorpus": {
+      "recovered": 890,
+      "expected": 890,
+      "contiguous": true,
+      "rawSourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+      "stableIds": 890,
+      "duplicateSourceTitlesPreserved": true
+    },
+    "realizationFactory": {
+      "routed": 890,
+      "rejected": 0,
+      "internalFirst": 211,
+      "eventuallyExternalAuthority": 679
+    },
+    "experimentCompiler": {
+      "zeroEffectIntegration": "MOONSHOT_ZERO_EFFECT_EXPERIMENT_READY",
+      "runnable": true,
+      "executionAuthority": "NONE",
+      "replicationContractPromotionAuthority": "NONE"
+    },
+    "causalCompiler": {
+      "v1": "FALSIFIED_10X_EFFICIENCY_THRESHOLD__CORRECTNESS_PRESERVED",
+      "v2": {
+        "benchmarkCases": 64,
+        "exactAgreementRate": 1,
+        "medianFullModelEvaluationReduction": 18,
+        "independentSecondImplementation": "MATCH"
+      },
+      "semanticCrystallizer": {
+        "heldOutCases": 36,
+        "exactMinimumAgreementRate": 1,
+        "falseCrystalMatchRate": 0,
+        "medianSymbolicExpansionReductionFraction": 0.535886,
+        "independentSecondImplementation": "MATCH"
+      }
+    },
+    "representationOntologyResearch": {
+      "v7Cubefree": "FALSIFIED_ONE_BIT_REPEAT_MEMORY",
+      "v8Depth3": "POST_FAILURE_CONFIRMATORY_PASS",
+      "v9FourthPowerFree": "PREDICTIVE_PASS_BUT_SEMANTIC_PROXY__NOT_PROMOTED",
+      "v10ParameterizedDepth": {
+        "deterministicTargetsExactHeldOutAccuracy": 1,
+        "targetCount": 5,
+        "grammarPrograms": 2592
+      },
+      "v11UnseenFifthPowerFree": {
+        "selectedThreshold": 5,
+        "trainAccuracy": 1,
+        "validationAccuracy": 1,
+        "heldOutAccuracy": 1,
+        "independentSecondImplementation": "MATCH"
+      }
+    },
+    "simulationEcology": {
+      "deterministicReplay": true,
+      "worldCount": 4,
+      "policyCount": 2,
+      "runCount": 8,
+      "networkCalls": 0,
+      "executionAuthority": "NONE",
+      "invalidUnknownActionFailsClosed": true,
+      "counterexamplesPreserved": true
+    },
+    "replicationNetwork": {
+      "independentExactMatch": "EXPERIMENT_REPRODUCED",
+      "sameLineageExcluded": true,
+      "independentConflictPreserved": true,
+      "promotionAuthority": "NONE",
+      "externalEffectAuthority": "NONE"
+    },
+    "technologyTree": {
+      "sourceMoonshots": 890,
+      "stateCounts": {
+        "INTERNAL_REALIZATION_FRONTIER_READY": 54,
+        "BLOCKED_BY_UNVERIFIED_EXISTING_ANCESTOR": 459,
+        "INTERNAL_PRECURSORS_READY__EXTERNAL_REALITY_GATE_REMAINS": 138,
+        "BLOCKED_BY_MISSING_SHARED_ANCESTOR": 239
+      },
+      "internalFrontierCount": 54,
+      "externalFrontierCount": 138,
+      "unlockDelta": {
+        "previousInternalFrontierCount": 0,
+        "previousMissingSharedAncestorBlocks": 644,
+        "currentInternalFrontierCount": 54,
+        "currentMissingSharedAncestorBlocks": 239
+      }
+    }
+  },
+  "focusedTestWiring": {
+    "script": "npm run test:moonshots",
+    "includes": [
+      "reality compiler",
+      "portfolio compiler",
+      "corpus compiler",
+      "program doctor",
+      "canary compiler",
+      "semantic novelty preflight",
+      "ontological canaries",
+      "literal 890 corpus",
+      "realization factory",
+      "moonshot experiment compiler",
+      "causal compiler v1/v2",
+      "causal semantic crystallizer",
+      "cubefree v7",
+      "multiplicity depth v8",
+      "fourth-power-free v9",
+      "parameterized depth v10",
+      "fifth-power-free v11",
+      "technology tree compiler",
+      "simulation ecology",
+      "replication network"
+    ],
+    "nativeNodeExecutionClaimed": false,
+    "note": "Hosted GitHub Actions did not execute steps, so no native hosted Node pass is claimed."
+  },
+  "hostedInfrastructure": {
+    "githubActions": {
+      "runs": [
+        {
+          "id": 35491529741,
+          "name": "UberOutbound Exact Head",
+          "jobCount": 1,
+          "executedStepCount": 0,
+          "conclusion": "failure"
+        },
+        {
+          "id": 35491529733,
+          "name": "Night Postal Focused Verification",
+          "jobCount": 1,
+          "executedStepCount": 0,
+          "conclusion": "failure"
+        },
+        {
+          "id": 35491529718,
+          "name": "Night Verification War",
+          "jobCount": 3,
+          "executedStepCount": 0,
+          "conclusion": "failure"
+        },
+        {
+          "id": 35491529707,
+          "name": "CI",
+          "jobCount": 3,
+          "executedStepCount": 0,
+          "conclusion": "failure"
+        }
+      ],
+      "totalJobs": 8,
+      "executedStepCount": 0,
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE__NO_SOURCE_STEP_EXECUTED"
+    },
+    "vercel": [
+      {
+        "project": "uberbondd",
+        "state": "failure",
+        "reason": "build-rate-limit"
+      },
+      {
+        "project": "uberbondd-lite-private",
+        "state": "failure",
+        "reason": "build-rate-limit"
+      }
+    ]
+  },
+  "claimsNotMade": [
+    "NO_NATIVE_HOSTED_NODE_TEST_PASS_IS_CLAIMED",
+    "NO_HOSTED_CI_PASS_IS_CLAIMED",
+    "NO_VERCEL_DEPLOYMENT_SUCCESS_IS_CLAIMED",
+    "NO_890_OF_890_IMPLEMENTATION_IS_CLAIMED",
+    "NO_PHYSICAL_BIOLOGICAL_HUMAN_OR_INSTITUTIONAL_MOONSHOT_IS_CLAIMED_REALIZED_WITHOUT_EXTERNAL_EVIDENCE",
+    "NO_GRAND_CAUSAL_COMPILER_OR_OPEN_ENDED_MATHEMATICS_DISCOVERY_IS_CLAIMED",
+    "NO_FICTIONAL_IQ_VALUE_IS_TREATED_AS_EVIDENCE"
+  ],
+  "mergeDecision": "SOURCE_EVIDENCE_APPROPRIATE_FOR_MERGE__HOSTED_ZERO_STEP_INFRASTRUCTURE_FAILURES_DO_NOT_CONTRADICT_SOURCE",
+  "postMergeFrontier": [
+    "VERIFY_EXISTING_ADVERSARIAL_TRIBUNAL",
+    "VERIFY_EXISTING_SOVEREIGNTY_GOVERNOR",
+    "VERIFY_EXISTING_TRUTH_EVIDENCE_SUBSTRATE",
+    "BUILD_EPOCH_BRANCHING_EVALUATOR",
+    "RECOMPILE_890_TECHNOLOGY_TREE_AFTER_EACH_ANCESTOR_CHANGE"
+  ],
+  "law": "MERGE_SOURCE_WITH_TRUTHFUL_BOUNDARIES__DO_NOT_CONVERT_ARCHITECTURE_SIMULATION_OR_SOFTWARE_EVIDENCE_INTO_EXTERNAL_REALITY_CLAIMS"
+}

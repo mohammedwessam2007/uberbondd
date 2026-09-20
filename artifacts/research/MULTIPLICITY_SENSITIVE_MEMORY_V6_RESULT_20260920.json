@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "uberbond.multiplicity-sensitive-memory-v6-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json",
+  "correction": "artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json",
+  "source": "src/multiplicity-sensitive-memory-canary-v6.mjs",
+  "truthClass": "EXECUTED_CONFIRMATORY_SOFTWARE_EVIDENCE_FOR_POST_FAILURE_MECHANISM_HYPOTHESIS",
+  "outcome": {
+    "status": "V6_MULTIPLICITY_SENSITIVE_MEMORY_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "candidateCount": 864,
+    "heldOutUsedForSelection": false,
+    "targetSpecificNamedPrimitivePresent": false
+  },
+  "targets": [
+    {
+      "id": "A008966_SQUAREFREE",
+      "heldOutAccuracy": 1,
+      "v5BestAccuracy": 0.8597122302158273,
+      "improvement": 0.140288,
+      "outputMode": "NOT_REPEAT_SEEN",
+      "criterionPassed": true
+    },
+    {
+      "id": "A008683_MOBIUS_POSITIVE",
+      "heldOutAccuracy": 1,
+      "v5BestAccuracy": 0.8117505995203836,
+      "improvement": 0.188249,
+      "outputMode": "ACCUMULATOR_AND_NOT_REPEAT_SEEN",
+      "criterionPassed": true
+    },
+    {
+      "id": "A001221_DISTINCT_PRIME_PARITY",
+      "heldOutAccuracy": 1,
+      "v5BestAccuracy": 1,
+      "improvement": 0,
+      "outputMode": "ACCUMULATOR",
+      "criterionPassed": true
+    }
+  ],
+  "negativeControl": {
+    "heldOutAccuracy": 0.5239808153477218,
+    "passed": true
+  },
+  "supportedHypothesis": "A generic repeated-local-event memory bit, independent of an accumulator bit, is sufficient to represent the two V5 multiplicity-sensitive failures while preserving the prior external transfer.",
+  "caveat": "The extension was hypothesized after inspecting V5 failures; V6 is confirmatory, not an unbiased discovery test.",
+  "nextGates": [
+    "INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION",
+    "NEW_PUBLIC_MULTIPLICITY_SENSITIVE_TARGET_NOT_USED_TO_DERIVE_REPEAT_MEMORY"
+  ]
+}

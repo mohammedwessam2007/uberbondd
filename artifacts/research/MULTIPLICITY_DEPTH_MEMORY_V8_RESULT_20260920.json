@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond.multiplicity-depth-memory-v8-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json",
+  "source": "src/multiplicity-depth-memory-v8.mjs",
+  "truthClass": "POST_FAILURE_CONFIRMATORY_SOFTWARE_EVIDENCE",
+  "outcome": {
+    "status": "V8_MULTIPLICITY_DEPTH_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "candidateCount": 1344,
+    "heldOutUsedForSelection": false,
+    "targetSpecificNamedPrimitivePresent": false
+  },
+  "cubefree": {
+    "heldOutBalancedAccuracy": 1,
+    "positiveRecall": 1,
+    "negativeRecall": 1,
+    "improvementOverFrozenBase": 0.138514,
+    "selectedOutput": "DEPTH_LT_3"
+  },
+  "regressions": [
+    {
+      "id": "A008966_SQUAREFREE",
+      "heldOutAccuracy": 1,
+      "selectedOutput": "DEPTH_LT_2"
+    },
+    {
+      "id": "A008683_MOBIUS_POSITIVE",
+      "heldOutAccuracy": 1,
+      "selectedOutput": "ACCUMULATOR_AND_DEPTH_LT_2"
+    },
+    {
+      "id": "A001221_DISTINCT_PRIME_PARITY",
+      "heldOutAccuracy": 1,
+      "selectedOutput": "ACCUMULATOR"
+    }
+  ],
+  "negativeControl": {
+    "heldOutBalancedAccuracy": 0.5153768242714424,
+    "passed": true
+  },
+  "supportedHypothesis": "A generic saturating multiplicity-depth state through exponent class 3, independent of an accumulator, repairs the V7 cubefree failure while preserving the three earlier public arithmetic tasks.",
+  "caveat": "V8 was derived after V7 failure and is confirmatory on the same cubefree target.",
+  "promotionDecision": "DENY_BROAD_GENERALIZATION_PENDING_UNSEEN_MULTIPLICITY_ORDER_TARGET"
+}

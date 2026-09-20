@@ -98,7 +98,12 @@
         "COMPUTATION",
         "SCIENCE"
       ],
-      "status": "EXISTING_DONORS_PRESENT"
+      "status": "DECLARATIVE_SIMULATION_SUBSTRATE_IMPLEMENTED_AND_CONNECTOR_EXECUTED",
+      "evidenceRefs": [
+        "src/moonshot-simulation-ecology.mjs",
+        "tests/moonshot-simulation-ecology.test.mjs",
+        "artifacts/research/MOONSHOT_SIMULATION_ECOLOGY_VERIFICATION_20260920.json"
+      ]
     },
     {
       "id": "adversarial-tribunal",

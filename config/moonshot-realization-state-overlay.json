@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.moonshot-realization-state-overlay.v1",
+  "date": "2026-09-20",
+  "entries": {
+    "founder-moonshot-0001": {
+      "literalTitle": "THE CAUSAL COMPILER",
+      "parentRealityState": "FORMALIZED",
+      "parentClaimBoundary": "The full cross-domain founder moonshot remains unproven.",
+      "verifiedDescendants": [
+        {
+          "id": "known-boolean-scm-goal-directed-minimum-intervention-compiler",
+          "state": "REPRODUCED",
+          "evidence": [
+            "artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json",
+            "artifacts/research/CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json"
+          ],
+          "scope": "Known finite deterministic tree-like Boolean SCMs with exact fallback on unsupported/shared structures",
+          "externalAuthority": "NONE"
+        }
+      ],
+      "nextFrontier": [
+        "held-out SCM topologies not used by V1/V2 benchmark design",
+        "multi-target goals",
+        "stochastic SCMs",
+        "causal-graph discovery separated from intervention compilation",
+        "real software-system intervention experiment before any physical/human domain"
+      ]
+    }
+  },
+  "law": "DESCENDANT_EVIDENCE_COMPOUNDS_WITHOUT_PROMOTING_THE_PARENT_BEYOND_ITS_EVIDENCE"
+}

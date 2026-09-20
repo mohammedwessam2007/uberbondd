@@ -10,7 +10,7 @@
       "domains": [
         "ALL"
       ],
-      "status": "CALLABLE_PROOF_ANCESTRY_SUBSTRATE_HOSTILE_PROBE_VERIFIED",
+      "status": "CALLABLE_PROOF_ANCESTRY_SUBSTRATE_HOSTILE_PROBE_EXECUTED_AND_VERIFIED",
       "evidenceRefs": [
         "src/content-addressed-proof-dag.mjs",
         "src/moonshot-ancestor-verification.mjs",
@@ -116,7 +116,7 @@
       "domains": [
         "ALL"
       ],
-      "status": "CALLABLE_ADVERSARIAL_DONORS_HOSTILE_PROBE_VERIFIED",
+      "status": "CALLABLE_ADVERSARIAL_DONORS_HOSTILE_PROBE_EXECUTED_AND_VERIFIED",
       "evidenceRefs": [
         "src/forecast-adversarial-ensemble.mjs",
         "src/moonshot-ancestor-verification.mjs",
@@ -183,7 +183,7 @@
       "domains": [
         "ALL"
       ],
-      "status": "CALLABLE_AUTHORITY_ATTENUATION_REVOCATION_HOSTILE_PROBE_VERIFIED",
+      "status": "CALLABLE_AUTHORITY_ATTENUATION_REVOCATION_HOSTILE_PROBE_EXECUTED_AND_VERIFIED",
       "evidenceRefs": [
         "src/recursive-revocation-graph.mjs",
         "src/possibility-civilization-kernel.mjs",

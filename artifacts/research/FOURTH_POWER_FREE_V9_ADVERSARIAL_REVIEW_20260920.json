@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "uberbond.fourth-power-free-v9-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/FOURTH_POWER_FREE_V9_RESULT_20260920.json",
+  "verdict": "PREDICTIVE_GATE_PASSED__MECHANISTIC_GATE_FAILED",
+  "findings": [
+    "The frozen success thresholds were honestly satisfied.",
+    "The selected rule was DEPTH_LT_3, not an exponent-4-sensitive rule.",
+    "The result has zero false positives on held-out but 72 false negatives, corresponding to fourth-power-free numbers rejected because they are not cubefree.",
+    "Balanced accuracy alone was insufficient to require exact symbolic semantics for a deterministic characteristic function."
+  ],
+  "protocolImprovement": {
+    "law": "For deterministic finite symbolic targets where an exact characteristic function is claimed, exact held-out semantics must be a promotion gate in addition to predictive metrics.",
+    "nextHypothesis": "PARAMETERIZED_MULTIPLICITY_DEPTH",
+    "minimumForm": "Track generic maximum prime exponent to a declared cap and expose generic threshold predicates DEPTH_LT_K / DEPTH_GE_K over multiple K values.",
+    "antiLeakage": "Threshold family must be declared generically before the result and must not contain target names."
+  }
+}

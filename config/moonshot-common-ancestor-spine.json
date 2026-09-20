@@ -62,7 +62,11 @@
       "domains": [
         "ALL"
       ],
-      "status": "SOURCE_PARTIAL__PROBE_CONTRACT_PRESENT"
+      "status": "SOURCE_IMPLEMENTED_AND_CONNECTOR_EXECUTED_IN_PR_967",
+      "evidenceRefs": [
+        "test:moonshot-experiment-compiler",
+        "artifact:MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920"
+      ]
     },
     {
       "id": "simulation-ecology",

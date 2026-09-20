@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "uberbond.cubefree-external-v7-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/CUBEFREE_EXTERNAL_V7_RESULT_20260920.json",
+  "verdict": "UNSEEN_TARGET_FALSIFIED_ONE_BIT_REPEAT_MEMORY_AS_GENERAL_MULTIPLICITY_MODEL",
+  "evidence": [
+    "PUBLIC_TARGET_WAS_FROZEN_BEFORE_EXECUTION",
+    "BALANCED_METRICS_WERE_FROZEN_BEFORE_EXECUTION",
+    "V6_GRAMMAR_WAS_REUSED_WITHOUT_SEMANTIC_MUTATION",
+    "NEGATIVE_CONTROL_REMAINED_UNSOLVED",
+    "FAILURE_WAS_NOT_RELABELED_AS_SUCCESS"
+  ],
+  "mechanismInference": {
+    "candidate": "MULTIPLICITY_DEPTH_STATE",
+    "status": "POST_FAILURE_HYPOTHESIS_NOT_PROMOTED",
+    "minimalForm": "For each divisor sweep, track a generic saturating multiplicity class so exponent-1, exponent-2 and exponent-3-or-more events are distinguishable, while preserving an independent accumulator.",
+    "antiLeakage": "No CUBEFREE, SQUAREFREE, MOBIUS, OEIS identifier, or target-specific primitive may appear in the grammar."
+  },
+  "law": "UNSEEN_FAILURE_CAN_CREATE_A_NEW_MECHANISM_HYPOTHESIS__IT_CANNOT_CERTIFY_THAT_HYPOTHESIS"
+}

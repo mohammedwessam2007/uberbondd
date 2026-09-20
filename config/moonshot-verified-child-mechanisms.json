@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "uberbond.moonshot-verified-child-mechanisms.v1",
+  "date": "2026-09-20",
+  "truthClass": "EVIDENCE_BOUND_CHILD_MECHANISMS__PARENT_MOONSHOTS_INDEPENDENT",
+  "entries": [
+    {
+      "id": "ontological-computing/target-blind-structural-representation-synthesis-v1",
+      "parentMoonshotId": "ontological-computing",
+      "name": "Target-Blind Structural Representation Synthesis",
+      "truthState": "SOFTWARE_DEMONSTRATED",
+      "parentTruthStateAtPromotion": "IMAGINED",
+      "parentPromotionIndependent": true,
+      "scope": "Finite deterministic software synthesis of a behaviorally missing structural representation from a target-blind divisor-sweep state-machine grammar, with frozen-primitive transfer.",
+      "evidenceRefs": [
+        "experiment:ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920",
+        "replication:ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920",
+        "audit:ONTOLOGICAL_COMPUTING_CANARY_V4B_ADVERSARIAL_REVIEW_20260920",
+        "audit:ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920"
+      ],
+      "promotionHistory": [
+        {
+          "from": "IMAGINED",
+          "to": "FORMALIZED",
+          "evidenceKind": "FORMAL_SPEC",
+          "evidenceRef": "doc:ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920"
+        },
+        {
+          "from": "FORMALIZED",
+          "to": "CONSTRAINT_MAPPED",
+          "evidenceKind": "CONSTRAINT_MAP",
+          "evidenceRef": "audit:ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920"
+        },
+        {
+          "from": "CONSTRAINT_MAPPED",
+          "to": "PLAUSIBILITY_BOUNDED",
+          "evidenceKind": "FEASIBILITY_ASSESSMENT",
+          "evidenceRef": "audit:ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920"
+        },
+        {
+          "from": "PLAUSIBILITY_BOUNDED",
+          "to": "SIMULATION_READY",
+          "evidenceKind": "SIMULATION_PROTOCOL",
+          "evidenceRef": "doc:ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920"
+        },
+        {
+          "from": "SIMULATION_READY",
+          "to": "SOFTWARE_DEMONSTRATED",
+          "evidenceKind": "SOFTWARE_RECEIPT",
+          "evidenceRef": "replication:ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920"
+        }
+      ],
+      "replication": {
+        "status": "MATCHED",
+        "implementationCount": 2,
+        "secondImplementationImportsPrimary": false,
+        "mismatches": 0
+      },
+      "externalEffectAuthority": "NONE",
+      "revocationState": {
+        "revoked": false,
+        "reasonCodes": []
+      },
+      "nextGate": "HELD_OUT_STRUCTURAL_FAMILY_TRANSFER_AND_EXTERNALLY_SOURCED_PROBLEM_FAMILY"
+    }
+  ],
+  "law": "A_CHILD_MECHANISM_STATE_NEVER_AUTO_PROMOTES_ITS_PARENT_MOONSHOT"
+}

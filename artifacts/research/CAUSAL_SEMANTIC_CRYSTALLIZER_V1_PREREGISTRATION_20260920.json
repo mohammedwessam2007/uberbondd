@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "uberbond.causal-semantic-crystallizer-v1-preregistration.v1",
+  "date": "2026-09-20",
+  "lineage": {
+    "mechanismMarket": "artifacts/research/MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json",
+    "generatedCandidateId": "candidate_18d9b4c1036401fe18d9b4c1",
+    "donorMechanisms": [
+      "goal-directed-causal-compiler-v2",
+      "semantic-novelty-preflight-v1"
+    ],
+    "donorPrimitiveClaims": [
+      "known causal ancestry and operator semantics make much of uninformed intervention enumeration unnecessary",
+      "different names or formulas can denote behaviorally equivalent mechanisms and would otherwise create false novelty"
+    ]
+  },
+  "truthClass": "PREREGISTERED_RECOMBINED_HYPOTHESIS_NOT_RESULT",
+  "hypothesis": "Behaviorally equivalent causal subgraphs with different syntax can be crystallized into one reusable semantic operator, and using that operator during backward causal compilation can reduce symbolic goal expansion on held-out syntactic variants without changing exact minimum interventions.",
+  "mechanism": {
+    "training": "Compute exact Boolean boundary truth tables for multiple syntactically distinct implementations of the same causal function and crystallize only signatures observed in at least two distinct graph structures.",
+    "admission": "A held-out causal subgraph may use a crystal only when its complete declared Boolean boundary truth table exactly matches the crystal signature.",
+    "use": "Backward goal compilation may solve the crystal truth table over boundary inputs instead of recursively expanding the internal subgraph.",
+    "fallback": "If no exact semantic crystal matches or safe tree-like applicability conditions fail, use the existing exact causal compiler."
+  },
+  "frozenTrainingFamilies": [
+    {
+      "semanticFunction": "XOR2",
+      "trainingSyntaxes": [
+        "XOR(A,B)",
+        "OR(AND(A,NOT(B)),AND(NOT(A),B))"
+      ]
+    },
+    {
+      "semanticFunction": "AND2",
+      "trainingSyntaxes": [
+        "AND(A,B)",
+        "NOT(OR(NOT(A),NOT(B)))"
+      ]
+    },
+    {
+      "semanticFunction": "OR2",
+      "trainingSyntaxes": [
+        "OR(A,B)",
+        "NOT(AND(NOT(A),NOT(B)))"
+      ]
+    }
+  ],
+  "heldOutSyntaxes": [
+    "NOT(XNOR(A,B)) implemented as NOT(NOT(XOR(A,B))) for XOR2",
+    "NOT(OR(NOT(A),NOT(B))) wrapped through COPY for AND2",
+    "NOT(AND(NOT(A),NOT(B))) wrapped through COPY for OR2",
+    "nested target graphs where a held-out semantic motif feeds AND/OR/XOR with additional controllable leaves"
+  ],
+  "negativeControls": [
+    "NAND2 must not match AND2",
+    "XNOR2 must not match XOR2",
+    "a unique 3-input majority function must not be admitted as a 2-input crystal"
+  ],
+  "benchmark": {
+    "minimumHeldOutCases": 24,
+    "exhaustiveComparator": "EXHAUSTIVE_ALL_CONTROLS",
+    "baselineCompiler": "CAUSAL_COMPILER_V2_WITHOUT_CRYSTALS",
+    "candidateCompiler": "CAUSAL_COMPILER_WITH_EXACT_SEMANTIC_CRYSTALS",
+    "workMetrics": [
+      "minimum intervention cardinality agreement",
+      "satisfiability agreement",
+      "symbolic goal states expanded",
+      "full-model verification evaluations",
+      "crystal matches",
+      "fallbacks"
+    ]
+  },
+  "successCriteria": {
+    "exactMinimumInterventionAgreement": 1,
+    "satisfiabilityAgreement": 1,
+    "minimumCrystalPrecision": 1,
+    "maximumNegativeControlFalseMatchRate": 0,
+    "minimumMedianSymbolicExpansionReductionFraction": 0.3,
+    "maximumAdditionalFullModelVerificationEvaluationsPerDirectCase": 1
+  },
+  "falsifier": [
+    "Any crystal maps two different declared truth tables to one semantic identity.",
+    "Any held-out case changes satisfiability or minimum intervention cardinality versus exhaustive search.",
+    "Any negative control is admitted to the wrong crystal.",
+    "Median symbolic goal-state expansion reduction is below 30 percent.",
+    "A crystal is admitted from syntax alone without exact boundary behavior verification."
+  ],
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE",
+  "promotionBoundary": "A pass supports only a narrow semantic-causal-macro child mechanism. It does not prove general causal abstraction, causal discovery, or transfer beyond declared Boolean SCMs."
+}

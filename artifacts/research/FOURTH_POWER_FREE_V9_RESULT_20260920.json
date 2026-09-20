@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "uberbond.fourth-power-free-v9-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/FOURTH_POWER_FREE_V9_PREREGISTRATION_20260920.json",
+  "preflight": "artifacts/research/FOURTH_POWER_FREE_V9_PREFLIGHT_20260920.json",
+  "source": "src/fourth-power-free-v9.mjs",
+  "truthClass": "PREREGISTERED_UNSEEN_ORDER_THRESHOLD_PASS_WITH_SEMANTIC_APPROXIMATION",
+  "outcome": {
+    "status": "V9_UNSEEN_FOURTH_POWER_FREE_GENERALIZATION_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "grammarCandidateCount": 1344,
+    "heldOutBalancedAccuracy": 0.9525065963060686,
+    "heldOutPositiveRecall": 0.9050131926121372,
+    "heldOutNegativeRecall": 1,
+    "improvementOverFrozenComparator": 0.071674,
+    "negativeControlBalancedAccuracy": 0.5240853658536586
+  },
+  "selectedProgram": {
+    "output": "DEPTH_LT_3",
+    "meaning": "Classify cubefree numbers as positive.",
+    "semanticMismatch": "Fourth-power-free additionally includes numbers with a prime exponent exactly 3, so DEPTH_LT_3 is a strict subset proxy rather than the exact target."
+  },
+  "interpretation": "V9 passed the frozen predictive thresholds but did not discover exponent-4 discrimination. It is evidence of useful transfer, not exact semantic generalization.",
+  "promotionDecision": "DENY_GENERAL_MULTIPLICITY_THRESHOLD_PROMOTION",
+  "nextGate": "EXACT_CHARACTERISTIC_FUNCTION_REQUIRED_FOR_PARAMETERIZED_MULTIPLICITY_DEPTH"
+}

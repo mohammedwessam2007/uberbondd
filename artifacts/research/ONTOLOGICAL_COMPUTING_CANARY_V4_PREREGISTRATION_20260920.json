@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v4-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": "ontological-computing",
+  "truthClass": "PREREGISTERED_SEMANTIC_NOVELTY_GATED_ONTOLOGY_EXTENSION_CHALLENGE_NOT_RESULT",
+  "objective": "Test whether a generic arithmetic meta-family can select a behaviorally novel representation primitive absent from the existing 8,626-feature base ontology, then transfer the frozen primitive to distinct tasks.",
+  "preAdmissionEvidence": "artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json",
+  "baseOntology": "The V2/V3 8,626-feature Boolean grammar built from BIT, small residue predicates, popcount thresholds, negation and depth-2 AND/OR/XOR.",
+  "targetBehavior": "Parity of prime-factor count with multiplicity.",
+  "metaPrimitiveFamilies": [
+    "PRIME_FACTOR_COUNT_MULTIPLICITY_MOD(k,r), k=2..5",
+    "DISTINCT_PRIME_FACTOR_COUNT_MOD(k,r), k=2..5",
+    "DIVISOR_COUNT_MOD(k,r), k=2..5",
+    "DIGIT_SUM_BASE(b)_MOD(k,r), b=2..10 and k=2..5",
+    "FLOOR_SQRT_MOD(k,r), k=2..5"
+  ],
+  "selector": "Discovery train accuracy, discovery validation accuracy, lower declared complexity, lexical ID.",
+  "split": {
+    "universe": "x=2..2049",
+    "assignment": "deterministic hash(x) mod 5",
+    "trainBuckets": [
+      0,
+      1
+    ],
+    "validationBucket": 2,
+    "discoveryHeldOutBucket": 3,
+    "transferHeldOutBucket": 4,
+    "law": "Transfer labels and all held-out labels are excluded from primitive selection."
+  },
+  "discoverySuccess": {
+    "minimumHeldOutAccuracy": 0.95,
+    "minimumImprovementOverBestGenericBaseline": 0.3,
+    "semanticNoveltyRequired": true,
+    "minimumNearestBaseMismatchRateOnPreflightFixture": 0.1
+  },
+  "transferTasks": [
+    "OMEGA_PARITY XOR BIT(3)",
+    "OMEGA_PARITY XOR RESIDUE_EQ(5,2)",
+    "OMEGA_PARITY AND NOT(BIT(2))"
+  ],
+  "transferSuccess": {
+    "requiredTasks": 2,
+    "minimumHeldOutAccuracy": 0.9,
+    "minimumImprovementOverBestBaselineWithoutNewPrimitive": 0.15
+  },
+  "negativeControl": {
+    "type": "deterministic hash-derived Boolean label",
+    "maximumHeldOutAccuracy": 0.85
+  },
+  "falsifier": [
+    "Selected primitive has an exact equivalent in the base ontology on the declared preflight fixture.",
+    "Discovery fails accuracy or improvement threshold.",
+    "Fewer than two transfers meet both transfer thresholds.",
+    "Negative control exceeds 0.85.",
+    "Held-out or transfer labels influence primitive selection.",
+    "Search burden is omitted."
+  ],
+  "promotionBoundary": "A pass supports a narrow software claim: UberBond can admit and reuse a finite-fixture behaviorally novel primitive selected from a declared meta-family. It does not prove open-ended ontology invention, autonomous mathematics, scientific discovery, or general intelligence.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

@@ -35,3 +35,10 @@ test('v3 remains a narrow synthetic claim regardless of outcome', () => {
   assert.match(result.claimBoundary, /FIXED_META_GRAMMAR/);
   assert.equal(result.externalEffectAuthority, 'NONE');
 });
+
+
+test('v3 transfer benchmark is nondegenerate after numeric XOR normalization', () => {
+  const result = runOntologicalPrimitiveSynthesisCanaryV3();
+  const xor = result.transfers.find(row => row.taskId === 'TRANSFER_XOR_BIT3');
+  assert.ok(xor.baselineScores.MAJORITY_CLASS < 0.90);
+});

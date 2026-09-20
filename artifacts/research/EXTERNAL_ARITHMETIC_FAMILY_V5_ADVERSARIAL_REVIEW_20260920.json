@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "uberbond.external-arithmetic-family-v5-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW__FAILURES_PRESERVED",
+  "verdict": "REAL_EXTERNAL_TRANSFER_EXISTS__FROZEN_ONE_BIT_GRAMMAR_HAS_A_MULTIPLICITY_MEMORY_BOUNDARY",
+  "evidenceFor": [
+    "TARGETS_WERE_DEFINED_BY_PUBLIC_OEIS_SOURCES_BEFORE_EXECUTION",
+    "ALL_THREE_TARGETS_WERE_SEMANTICALLY_ABSENT_FROM_THE_8626_FEATURE_BASE_ON_THE_PREFLIGHT_FIXTURE",
+    "THE_96_PROGRAM_GRAMMAR_WAS_FROZEN_BEFORE_RESULT",
+    "DISTINCT_PRIME_PARITY_REACHED_1_0_HELDOUT_ACCURACY_AND_PLUS_0_290168_OVER_STRONGEST_BASELINE",
+    "SQUAREFREE_AND_MOBIUS_POSITIVE_FAILURES_WERE_NOT_REDEFINED_AS_SUCCESS"
+  ],
+  "failureAnalysis": [
+    {
+      "target": "A008966_SQUAREFREE",
+      "observed": "Best structural program 0.735012 versus base ontology 0.859712.",
+      "mechanismHypothesis": "Squarefreeness depends on detecting whether any divisor repeats. The one-bit V4B state can react to division events or divisor hits but does not retain a generic repeated-hit flag independently of another state."
+    },
+    {
+      "target": "A008683_MOBIUS_POSITIVE",
+      "observed": "Best structural program 0.799760 versus strongest baseline 0.811751.",
+      "mechanismHypothesis": "Möbius-positive requires both absence of repeated prime factors and even parity of distinct prime factors. One bit is insufficient to preserve both predicates simultaneously under the frozen update vocabulary."
+    }
+  ],
+  "ontogenesisCandidate": {
+    "name": "MULTIPLICITY_SENSITIVE_STRUCTURAL_MEMORY",
+    "status": "CANDIDATE_NOT_PROMOTED",
+    "thesis": "A generic structural program should be able to retain at least two independent pieces of divisor-sweep state, including whether repeated hits occurred and a second learned accumulator.",
+    "minimumGeneralForm": "Two-bit or finite-state register with event predicates FIRST_DIVISION_FOR_DIVISOR, REPEAT_DIVISION_FOR_SAME_DIVISOR, DIVISOR_COMPLETED, and LEFTOVER_PRESENT; output expression chosen from generic Boolean combinations of state bits.",
+    "antiLeakage": "No SQUAREFREE, MOBIUS, OMEGA, or target-specific named primitive may be included in the grammar."
+  },
+  "nextGate": "PREREGISTER_MULTIPLICITY_SENSITIVE_GRAMMAR_EXTENSION_BEFORE_ANY_RESULT",
+  "law": "A_FAILURE_THAT_IDENTIFIES_A_MISSING_MECHANISM_IS_RESEARCH_PROGRESS__BUT_THE_MISSING_MECHANISM_REMAINS_A_HYPOTHESIS_UNTIL_A_NEW_PREREGISTERED_TEST"
+}

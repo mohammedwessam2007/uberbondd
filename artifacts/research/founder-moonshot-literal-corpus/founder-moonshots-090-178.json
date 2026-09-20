@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 2,
+  "ordinalStart": 90,
+  "ordinalEnd": 178,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 90,
+      "literalTitle": "THE BIOLOGICAL COMPILER",
+      "hypotheticalIq": "3 × 10⁷⁸",
+      "literalBodyMarkdown": "Input a safe desired biological function. Compile toward molecular mechanisms, cells, tissues, experiments, and manufacturing pathways. Biology begins to resemble programmable engineering.",
+      "sourceLineStart": 358,
+      "sourceLineEnd": 361,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 91,
+      "literalTitle": "THE CELL OPERATING SYSTEM",
+      "hypotheticalIq": "10⁷⁹",
+      "literalBodyMarkdown": "Discover the smallest programmable control layer capable of orchestrating cellular behavior across many cell types. A universal interface to living machinery would produce an enormous biotechnology tree.",
+      "sourceLineStart": 362,
+      "sourceLineEnd": 365,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 92,
+      "literalTitle": "THE ORGANISM COMPILER",
+      "hypotheticalIq": "3 × 10⁷⁹",
+      "literalBodyMarkdown": "Instead of modifying existing organisms gene by gene, design living systems from functional specifications, constrained by safety and biology.",
+      "sourceLineStart": 366,
+      "sourceLineEnd": 369,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 93,
+      "literalTitle": "THE DEVELOPMENTAL PROGRAMMER",
+      "hypotheticalIq": "10⁸⁰",
+      "literalBodyMarkdown": "Organisms self-assemble from developmental rules. Learn to program those rules rather than micromanaging final structure. Manufacturing could become **growth**.",
+      "sourceLineStart": 370,
+      "sourceLineEnd": 373,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 94,
+      "literalTitle": "THE MORPHOGENESIS ENGINE",
+      "hypotheticalIq": "3 × 10⁸⁰",
+      "literalBodyMarkdown": "Discover universal principles through which simple local rules generate complex stable form. Apply them across biology, robotics, materials, architecture, and computation.",
+      "sourceLineStart": 374,
+      "sourceLineEnd": 377,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 95,
+      "literalTitle": "THE SELF-ASSEMBLING FACTORY",
+      "hypotheticalIq": "10⁸¹",
+      "literalBodyMarkdown": "Factories currently assemble products. Build production systems where products increasingly assemble themselves from local interactions.",
+      "sourceLineStart": 378,
+      "sourceLineEnd": 381,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 96,
+      "literalTitle": "THE GROWABLE MACHINE",
+      "hypotheticalIq": "3 × 10⁸¹",
+      "literalBodyMarkdown": "Machines are manufactured to completion. Invent machines whose architecture grows, adapts, repairs, and reorganizes itself after deployment.",
+      "sourceLineStart": 382,
+      "sourceLineEnd": 385,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 97,
+      "literalTitle": "THE REGENERATIVE TECHNOLOGY CLASS",
+      "hypotheticalIq": "10⁸²",
+      "literalBodyMarkdown": "Create technologies designed around continuous regeneration rather than maintenance. Buildings, machines, infrastructures, and networks that heal damage before failure.",
+      "sourceLineStart": 386,
+      "sourceLineEnd": 389,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 98,
+      "literalTitle": "THE IMMUNE SYSTEM FOR MACHINES",
+      "hypotheticalIq": "3 × 10⁸²",
+      "literalBodyMarkdown": "Give complex technology distributed anomaly detection, memory, adaptive response, and learned defense inspired by biological immunity.",
+      "sourceLineStart": 390,
+      "sourceLineEnd": 393,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 99,
+      "literalTitle": "THE TECHNOLOGICAL METABOLISM",
+      "hypotheticalIq": "10⁸³",
+      "literalBodyMarkdown": "Organisms continuously exchange matter and energy with their environment. Design machines and cities that dynamically recycle, repair, allocate, and renew resources instead of consuming and discarding them.",
+      "sourceLineStart": 394,
+      "sourceLineEnd": 397,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 100,
+      "literalTitle": "THE LIVING CITY",
+      "hypotheticalIq": "3 × 10⁸³",
+      "literalBodyMarkdown": "A city becomes an adaptive organism whose transportation, energy, buildings, services, water, waste, production, and governance continuously respond to conditions.",
+      "sourceLineStart": 398,
+      "sourceLineEnd": 401,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 101,
+      "literalTitle": "THE SELF-EVOLVING INFRASTRUCTURE",
+      "hypotheticalIq": "10⁸⁴",
+      "literalBodyMarkdown": "Roads, grids, networks, factories, and logistics systems propose and test their own improvements under human constitutional constraints.",
+      "sourceLineStart": 402,
+      "sourceLineEnd": 405,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 102,
+      "literalTitle": "THE PLANETARY NERVOUS SYSTEM",
+      "hypotheticalIq": "3 × 10⁸⁴",
+      "literalBodyMarkdown": "Create a planet-scale observational fabric measuring ecological, industrial, energetic, infrastructural, and scientific state with sufficient fidelity for coordinated stewardship.",
+      "sourceLineStart": 406,
+      "sourceLineEnd": 409,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 103,
+      "literalTitle": "THE EARTH DIGITAL ORGANISM",
+      "hypotheticalIq": "10⁸⁵",
+      "literalBodyMarkdown": "Fuse models of climate, ecology, resources, infrastructure, population, economics, and technology into an evolving, falsifiable model of planetary systems.",
+      "sourceLineStart": 410,
+      "sourceLineEnd": 413,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 104,
+      "literalTitle": "THE PLANETARY DEBUGGER",
+      "hypotheticalIq": "3 × 10⁸⁵",
+      "literalBodyMarkdown": "Detect cascading planetary risks and identify leverage points before interventions become expensive or irreversible.",
+      "sourceLineStart": 414,
+      "sourceLineEnd": 417,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 105,
+      "literalTitle": "THE RESOURCE COMPILER",
+      "hypotheticalIq": "10⁸⁶",
+      "literalBodyMarkdown": "Given any abundant raw input, find processes turning it into the useful materials civilization needs. The objective is to make **resource scarcity increasingly substrate-independent**.",
+      "sourceLineStart": 418,
+      "sourceLineEnd": 421,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 106,
+      "literalTitle": "THE UNIVERSAL RECYCLER",
+      "hypotheticalIq": "3 × 10⁸⁶",
+      "literalBodyMarkdown": "Design economically viable pathways for decomposing complex waste back into reusable elemental or molecular building blocks.",
+      "sourceLineStart": 422,
+      "sourceLineEnd": 425,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 107,
+      "literalTitle": "THE MATTER ROUTER",
+      "hypotheticalIq": "10⁸⁷",
+      "literalBodyMarkdown": "Treat physical matter the way networks treat packets. Materials are characterized, transformed, and routed dynamically to whatever production process values them most.",
+      "sourceLineStart": 426,
+      "sourceLineEnd": 429,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 108,
+      "literalTitle": "THE MATERIALS SEARCH ENGINE",
+      "hypotheticalIq": "3 × 10⁸⁷",
+      "literalBodyMarkdown": "Search chemical and structural possibility space directly for target behaviors rather than searching known materials catalogs.",
+      "sourceLineStart": 430,
+      "sourceLineEnd": 433,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 109,
+      "literalTitle": "THE MATERIAL COMPILER",
+      "hypotheticalIq": "10⁸⁸",
+      "literalBodyMarkdown": "Input desired macroscopic properties. Compile candidate molecular compositions, microstructures, fabrication methods, and experiments.",
+      "sourceLineStart": 434,
+      "sourceLineEnd": 437,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 110,
+      "literalTitle": "THE PROPERTY INVENTOR",
+      "hypotheticalIq": "3 × 10⁸⁸",
+      "literalBodyMarkdown": "Instead of searching for materials with known useful properties, search for **material properties nobody has thought to request**.",
+      "sourceLineStart": 438,
+      "sourceLineEnd": 441,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 111,
+      "literalTitle": "THE METAMATERIAL CIVILIZATION",
+      "hypotheticalIq": "10⁸⁹",
+      "literalBodyMarkdown": "Design matter whose function comes primarily from geometry and organization rather than chemistry. Eventually architecture itself becomes a programmable material property.",
+      "sourceLineStart": 442,
+      "sourceLineEnd": 445,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 112,
+      "literalTitle": "THE PROGRAMMABLE MATTER PRIMITIVE",
+      "hypotheticalIq": "3 × 10⁸⁹",
+      "literalBodyMarkdown": "Discover a manufacturable unit of matter that can reversibly reorganize into many forms under computation. Physical objects start behaving like software.",
+      "sourceLineStart": 446,
+      "sourceLineEnd": 449,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 113,
+      "literalTitle": "THE MATTER INTERNET",
+      "hypotheticalIq": "10⁹⁰",
+      "literalBodyMarkdown": "Network programmable matter units so physical structure becomes distributed, addressable, updateable, and reconfigurable.",
+      "sourceLineStart": 450,
+      "sourceLineEnd": 453,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 114,
+      "literalTitle": "THE PHYSICAL CLOUD",
+      "hypotheticalIq": "3 × 10⁹⁰",
+      "literalBodyMarkdown": "Today computation is rented from clouds. Imagine requesting temporary physical capability: fabrication, laboratory work, robotics, materials, energy, logistics, instrumentation, all behind APIs.",
+      "sourceLineStart": 454,
+      "sourceLineEnd": 457,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 115,
+      "literalTitle": "THE MANUFACTURING INTERNET",
+      "hypotheticalIq": "10⁹¹",
+      "literalBodyMarkdown": "Every compatible machine tool, lab, robot, and fabrication system can dynamically join a global manufacturing fabric. Designs route themselves to available production capacity.",
+      "sourceLineStart": 458,
+      "sourceLineEnd": 461,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 116,
+      "literalTitle": "THE FACTORY COMPILER",
+      "hypotheticalIq": "3 × 10⁹¹",
+      "literalBodyMarkdown": "Input a product specification. Output not merely the product design but the factory architecture required to produce it economically.",
+      "sourceLineStart": 462,
+      "sourceLineEnd": 465,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 117,
+      "literalTitle": "THE FACTORY THAT BUILDS FACTORIES",
+      "hypotheticalIq": "10⁹²",
+      "literalBodyMarkdown": "A generalized manufacturing seed capable of producing increasingly sophisticated manufacturing equipment. Industrial capacity becomes recursively expandable.",
+      "sourceLineStart": 466,
+      "sourceLineEnd": 469,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 118,
+      "literalTitle": "THE INDUSTRIAL BOOTLOADER",
+      "hypotheticalIq": "3 × 10⁹²",
+      "literalBodyMarkdown": "Determine the minimum machine set required to bootstrap progressively larger portions of modern industry from raw materials.",
+      "sourceLineStart": 470,
+      "sourceLineEnd": 473,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 119,
+      "literalTitle": "THE CIVILIZATION BOOTLOADER",
+      "hypotheticalIq": "10⁹³",
+      "literalBodyMarkdown": "Generalize that to energy, manufacturing, agriculture, medicine, computation, communication, and education. A compact seed capable of building upward toward technological civilization.",
+      "sourceLineStart": 474,
+      "sourceLineEnd": 477,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 120,
+      "literalTitle": "THE SELF-REPLICATING INDUSTRIAL ECOLOGY",
+      "hypotheticalIq": "3 × 10⁹³",
+      "literalBodyMarkdown": "Not one self-replicating robot. A cooperative ecosystem of machines where different units mine, refine, fabricate, maintain, transport, and reproduce one another's components.",
+      "sourceLineStart": 478,
+      "sourceLineEnd": 481,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 121,
+      "literalTitle": "THE ENERGY DISCOVERY ENGINE",
+      "hypotheticalIq": "10⁹⁴",
+      "literalBodyMarkdown": "Search every physically plausible conversion mechanism for energy-generation pathways humanity has overlooked.",
+      "sourceLineStart": 482,
+      "sourceLineEnd": 485,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 122,
+      "literalTitle": "THE ENERGY MATERIAL COMPILER",
+      "hypotheticalIq": "3 × 10⁹⁴",
+      "literalBodyMarkdown": "Search for matter architectures optimized specifically for energy capture, storage, conversion, transmission, and dissipation.",
+      "sourceLineStart": 486,
+      "sourceLineEnd": 489,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 123,
+      "literalTitle": "THE ENERGY INTERNET",
+      "hypotheticalIq": "10⁹⁵",
+      "literalBodyMarkdown": "Make energy generation, storage, trading, routing, and consumption dynamically interoperable at extremely fine granularity.",
+      "sourceLineStart": 490,
+      "sourceLineEnd": 493,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 124,
+      "literalTitle": "THE EXERGY ENGINE",
+      "hypotheticalIq": "3 × 10⁹⁵",
+      "literalBodyMarkdown": "Civilization wastes enormous quantities of usable energy gradients. Build systems that continuously discover and harvest otherwise lost exergy throughout industrial processes.",
+      "sourceLineStart": 494,
+      "sourceLineEnd": 497,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 125,
+      "literalTitle": "THE THERMODYNAMIC COMPILER",
+      "hypotheticalIq": "10⁹⁶",
+      "literalBodyMarkdown": "Give it desired transformation X → Y. It searches for physically possible pathways minimizing entropy production, waste, energy cost, and material complexity.",
+      "sourceLineStart": 498,
+      "sourceLineEnd": 501,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 126,
+      "literalTitle": "THE WASTE-HEAT CIVILIZATION",
+      "hypotheticalIq": "3 × 10⁹⁶",
+      "literalBodyMarkdown": "Design infrastructure where waste heat from one process becomes input energy for another until industrial ecosystems approach closed energetic symbiosis.",
+      "sourceLineStart": 502,
+      "sourceLineEnd": 505,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 127,
+      "literalTitle": "THE COMPUTATION DISCOVERY ENGINE",
+      "hypotheticalIq": "10⁹⁷",
+      "literalBodyMarkdown": "Search nature for unexplored information-processing phenomena rather than assuming computation means silicon logic gates.",
+      "sourceLineStart": 506,
+      "sourceLineEnd": 509,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 128,
+      "literalTitle": "THE PHYSICS COMPUTER",
+      "hypotheticalIq": "3 × 10⁹⁷",
+      "literalBodyMarkdown": "Instead of simulating a physical process digitally, engineer the physical process itself to solve the corresponding mathematical problem.",
+      "sourceLineStart": 510,
+      "sourceLineEnd": 513,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 129,
+      "literalTitle": "THE UNIVERSAL ANALOG COMPILER",
+      "hypotheticalIq": "10⁹⁸",
+      "literalBodyMarkdown": "Compile mathematical problems into physical systems whose natural evolution computes the solution.",
+      "sourceLineStart": 514,
+      "sourceLineEnd": 517,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 130,
+      "literalTitle": "THE COMPUTATIONAL METAMATERIAL",
+      "hypotheticalIq": "3 × 10⁹⁸",
+      "literalBodyMarkdown": "A material whose geometry causes it to perform useful computation while interacting with its environment.",
+      "sourceLineStart": 518,
+      "sourceLineEnd": 521,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 131,
+      "literalTitle": "THE COMPUTING SUBSTRATE EVOLUTION ENGINE",
+      "hypotheticalIq": "10⁹⁹",
+      "literalBodyMarkdown": "Let optical, chemical, mechanical, biological, quantum, topological, and unknown substrates compete on classes of problems. Computing becomes an evolutionary ecosystem of physical mechanisms.",
+      "sourceLineStart": 522,
+      "sourceLineEnd": 525,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 132,
+      "literalTitle": "THE ALGORITHM PHYSICS BRIDGE",
+      "hypotheticalIq": "3 × 10⁹⁹",
+      "literalBodyMarkdown": "Search for deep correspondences between algorithmic operations and naturally occurring physical transformations. Entire classes of computations might be obtainable “for free” from properly arranged physics.",
+      "sourceLineStart": 526,
+      "sourceLineEnd": 529,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 133,
+      "literalTitle": "THE INFORMATION ENERGY EXCHANGE THEORY",
+      "hypotheticalIq": "10¹⁰⁰",
+      "literalBodyMarkdown": "Seek deeper operational laws connecting information processing and physical energy. If new exploitable relationships exist, they could reshape computing architecture.",
+      "sourceLineStart": 530,
+      "sourceLineEnd": 533,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 134,
+      "literalTitle": "THE COMPUTATIONAL PERIODIC TABLE",
+      "hypotheticalIq": "3 × 10¹⁰⁰",
+      "literalBodyMarkdown": "Identify fundamental computational primitives independent of implementation substrate, then map which physical systems instantiate each primitive most efficiently.",
+      "sourceLineStart": 534,
+      "sourceLineEnd": 537,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 135,
+      "literalTitle": "THE ALGORITHM INVENTOR",
+      "hypotheticalIq": "10¹⁰¹",
+      "literalBodyMarkdown": "Search not merely implementations but fundamentally new algorithmic paradigms comparable to recursion, dynamic programming, Fourier methods, backpropagation, or Monte Carlo.",
+      "sourceLineStart": 538,
+      "sourceLineEnd": 541,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 136,
+      "literalTitle": "THE COMPLEXITY CLASS EXPLORER",
+      "hypotheticalIq": "3 × 10¹⁰¹",
+      "literalBodyMarkdown": "Search mathematical structure around computational complexity for overlooked distinctions or exploitable problem classes.",
+      "sourceLineStart": 542,
+      "sourceLineEnd": 545,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 137,
+      "literalTitle": "THE PROBLEM TRANSFORMER",
+      "hypotheticalIq": "10¹⁰²",
+      "literalBodyMarkdown": "Instead of solving hard problems directly, invent transformations that map them into completely different domains where they become easy.",
+      "sourceLineStart": 546,
+      "sourceLineEnd": 549,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 138,
+      "literalTitle": "THE COMPUTATIONAL WORMHOLE",
+      "hypotheticalIq": "3 × 10¹⁰²",
+      "literalBodyMarkdown": "Discover representations allowing a problem requiring astronomical work in one space to collapse into modest work in another.",
+      "sourceLineStart": 550,
+      "sourceLineEnd": 553,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 139,
+      "literalTitle": "THE LATENCY ERASER",
+      "hypotheticalIq": "10¹⁰³",
+      "literalBodyMarkdown": "Identify operations civilization performs sequentially only because history built them that way. Re-architect entire workflows so dependencies collapse and time-to-result shrinks by orders of magnitude.",
+      "sourceLineStart": 554,
+      "sourceLineEnd": 557,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 140,
+      "literalTitle": "THE CLOCKLESS COMPUTER",
+      "hypotheticalIq": "3 × 10¹⁰³",
+      "literalBodyMarkdown": "Search architectures where computation emerges asynchronously from local interactions rather than centralized timing assumptions.",
+      "sourceLineStart": 558,
+      "sourceLineEnd": 561,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 141,
+      "literalTitle": "THE MEMORYLESS COMPUTER",
+      "hypotheticalIq": "10¹⁰⁴",
+      "literalBodyMarkdown": "Ask whether some tasks can be performed by dynamics where information is encoded entirely in current state trajectories rather than stored representations.",
+      "sourceLineStart": 562,
+      "sourceLineEnd": 565,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 142,
+      "literalTitle": "THE COMPUTELESS COMPUTER",
+      "hypotheticalIq": "3 × 10¹⁰⁴",
+      "literalBodyMarkdown": "Find problems whose answers can be obtained by constructing the correct physical boundary conditions and letting reality settle into the solution.",
+      "sourceLineStart": 566,
+      "sourceLineEnd": 569,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 143,
+      "literalTitle": "THE COMMUNICATION COMPILER",
+      "hypotheticalIq": "10¹⁰⁵",
+      "literalBodyMarkdown": "Input semantic intent. Determine the minimum signal necessary for another intelligence to reconstruct the intended meaning.",
+      "sourceLineStart": 570,
+      "sourceLineEnd": 573,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 144,
+      "literalTitle": "THE MEANING CODEC",
+      "hypotheticalIq": "3 × 10¹⁰⁵",
+      "literalBodyMarkdown": "Compress not strings or video but **conceptual state**. If sufficiently powerful, education, collaboration, and human-machine communication transform.",
+      "sourceLineStart": 574,
+      "sourceLineEnd": 577,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 145,
+      "literalTitle": "THE SEMANTIC INTERNET",
+      "hypotheticalIq": "10¹⁰⁶",
+      "literalBodyMarkdown": "Networked systems exchange machine-verifiable meaning, causality, provenance, uncertainty, rights, and consequences rather than mostly documents and packets.",
+      "sourceLineStart": 578,
+      "sourceLineEnd": 581,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 146,
+      "literalTitle": "THE KNOWLEDGE PACKET",
+      "hypotheticalIq": "3 × 10¹⁰⁶",
+      "literalBodyMarkdown": "Define a primitive capable of carrying a claim plus evidence, provenance, assumptions, uncertainty, dependencies, applicability, falsifiers, and update history.",
+      "sourceLineStart": 582,
+      "sourceLineEnd": 585,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 147,
+      "literalTitle": "THE KNOWLEDGE TCP/IP",
+      "hypotheticalIq": "10¹⁰⁷",
+      "literalBodyMarkdown": "A universal protocol for moving structured knowledge between humans, machines, labs, institutions, and software without losing meaning or provenance.",
+      "sourceLineStart": 586,
+      "sourceLineEnd": 589,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 148,
+      "literalTitle": "THE KNOWLEDGE ROUTER",
+      "hypotheticalIq": "3 × 10¹⁰⁷",
+      "literalBodyMarkdown": "Every new fact automatically reaches the systems whose beliefs, plans, or designs depend on it.",
+      "sourceLineStart": 590,
+      "sourceLineEnd": 593,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 149,
+      "literalTitle": "THE KNOWLEDGE RECOMPILER",
+      "hypotheticalIq": "10¹⁰⁸",
+      "literalBodyMarkdown": "When an important fact changes, every dependent model, explanation, plan, curriculum, simulation, and policy can be identified and reconsidered.",
+      "sourceLineStart": 594,
+      "sourceLineEnd": 597,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 150,
+      "literalTitle": "THE ZERO-LATENCY SCIENCE NETWORK",
+      "hypotheticalIq": "3 × 10¹⁰⁸",
+      "literalBodyMarkdown": "Validated discoveries instantly propagate into relevant models, experiments, engineering systems, and research agendas worldwide.",
+      "sourceLineStart": 598,
+      "sourceLineEnd": 601,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 151,
+      "literalTitle": "THE REPLICATION INTERNET",
+      "hypotheticalIq": "10¹⁰⁹",
+      "literalBodyMarkdown": "Experiments are represented in machine-executable protocols so independent laboratories can automatically reproduce important results.",
+      "sourceLineStart": 602,
+      "sourceLineEnd": 605,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 152,
+      "literalTitle": "THE GLOBAL LABORATORY",
+      "hypotheticalIq": "3 × 10¹⁰⁹",
+      "literalBodyMarkdown": "Robotic laboratories worldwide become addressable nodes in one experimental network. Science gains planetary experimental parallelism.",
+      "sourceLineStart": 606,
+      "sourceLineEnd": 609,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 153,
+      "literalTitle": "THE EXPERIMENT CLOUD",
+      "hypotheticalIq": "10¹¹⁰",
+      "literalBodyMarkdown": "Researchers submit hypotheses as easily as developers submit cloud jobs. Automated infrastructure chooses labs, performs experiments, validates results, and returns evidence.",
+      "sourceLineStart": 610,
+      "sourceLineEnd": 613,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 154,
+      "literalTitle": "THE SCIENCE API",
+      "hypotheticalIq": "3 × 10¹¹⁰",
+      "literalBodyMarkdown": "`test(hypothesis)` becomes an actual programmable interface backed by models, simulations, literature, robotics, laboratories, replication, and statistical inference.",
+      "sourceLineStart": 614,
+      "sourceLineEnd": 617,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 155,
+      "literalTitle": "THE INVENTION API",
+      "hypotheticalIq": "10¹¹¹",
+      "literalBodyMarkdown": "`invent(specification)` orchestrates mathematics, science, engineering, fabrication, simulation, testing, economics, and iteration.",
+      "sourceLineStart": 618,
+      "sourceLineEnd": 621,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 156,
+      "literalTitle": "THE CIVILIZATION API",
+      "hypotheticalIq": "3 × 10¹¹¹",
+      "literalBodyMarkdown": "A standardized interface to safely compose institutions, infrastructure, production, learning, scientific discovery, and governance mechanisms.",
+      "sourceLineStart": 622,
+      "sourceLineEnd": 625,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 157,
+      "literalTitle": "THE VALUE COMPILER",
+      "hypotheticalIq": "10¹¹²",
+      "literalBodyMarkdown": "Translate abstract human values into measurable constraints, institutional mechanisms, reversible experiments, and explicit unresolved ambiguities without pretending values reduce to a single number.",
+      "sourceLineStart": 626,
+      "sourceLineEnd": 629,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 158,
+      "literalTitle": "THE ETHICAL COUNTERFACTUAL ENGINE",
+      "hypotheticalIq": "3 × 10¹¹²",
+      "literalBodyMarkdown": "Before consequential interventions, simulate effects on many stakeholders, assumptions, and future states, exposing hidden trade-offs rather than collapsing ethics into one metric.",
+      "sourceLineStart": 630,
+      "sourceLineEnd": 633,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 159,
+      "literalTitle": "THE RIGHTS COMPILER",
+      "hypotheticalIq": "10¹¹³",
+      "literalBodyMarkdown": "Convert abstract rights into enforceable constraints across software, markets, institutions, AI agents, robots, and data systems.",
+      "sourceLineStart": 634,
+      "sourceLineEnd": 637,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 160,
+      "literalTitle": "THE AUTHORITY PHYSICS",
+      "hypotheticalIq": "3 × 10¹¹³",
+      "literalBodyMarkdown": "Develop a formal science describing how permission, delegation, revocation, consent, and responsibility propagate through complex human-machine systems.",
+      "sourceLineStart": 638,
+      "sourceLineEnd": 641,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 161,
+      "literalTitle": "THE CONSENT PROTOCOL",
+      "hypotheticalIq": "10¹¹⁴",
+      "literalBodyMarkdown": "A universal machine-readable way for systems to understand what actions are authorized, by whom, for how long, over what data, with what revocation conditions.",
+      "sourceLineStart": 642,
+      "sourceLineEnd": 645,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 162,
+      "literalTitle": "THE DELEGATION COMPILER",
+      "hypotheticalIq": "3 × 10¹¹⁴",
+      "literalBodyMarkdown": "Given a complex mission, construct the safest possible authority graph such that every agent receives only the minimum permissions required.",
+      "sourceLineStart": 646,
+      "sourceLineEnd": 649,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 163,
+      "literalTitle": "THE CIVILIZATION IMMUNE SYSTEM",
+      "hypotheticalIq": "10¹¹⁵",
+      "literalBodyMarkdown": "Detect cascading systemic failures, malicious capture, epistemic poisoning, infrastructure fragility, and runaway mechanisms across society before they metastasize.",
+      "sourceLineStart": 650,
+      "sourceLineEnd": 653,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 164,
+      "literalTitle": "THE RESILIENCE COMPILER",
+      "hypotheticalIq": "3 × 10¹¹⁵",
+      "literalBodyMarkdown": "Input a system and threat model. Generate redundancy, graceful degradation, fallback paths, recovery procedures, diversity, and antifragile learning.",
+      "sourceLineStart": 654,
+      "sourceLineEnd": 657,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 165,
+      "literalTitle": "THE CATASTROPHE SANDBOX",
+      "hypotheticalIq": "10¹¹⁶",
+      "literalBodyMarkdown": "Simulate severe failure scenarios across interconnected systems to identify surprisingly cheap interventions that prevent cascading collapse.",
+      "sourceLineStart": 658,
+      "sourceLineEnd": 661,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 166,
+      "literalTitle": "THE BLACK-SWAN FACTORY",
+      "hypotheticalIq": "3 × 10¹¹⁶",
+      "literalBodyMarkdown": "Deliberately generate plausible events outside conventional forecasting distributions. The goal is not accurate prediction but making systems less surprised by entire classes of surprise.",
+      "sourceLineStart": 662,
+      "sourceLineEnd": 665,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 167,
+      "literalTitle": "THE UNKNOWN-UNKNOWN OBSERVATORY",
+      "hypotheticalIq": "10¹¹⁷",
+      "literalBodyMarkdown": "Integrate anomaly mining, assumption auditing, cross-domain contradictions, outlier detection, and open-ended simulation into a permanent institution devoted solely to finding what civilization does not know it does not know.",
+      "sourceLineStart": 666,
+      "sourceLineEnd": 669,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 168,
+      "literalTitle": "THE IGNORANCE MAP",
+      "hypotheticalIq": "3 × 10¹¹⁷",
+      "literalBodyMarkdown": "Instead of mapping knowledge, map the shape of missing knowledge. Distinguish unexplored regions, contradictory regions, unmeasurable regions, conceptually inaccessible regions, and falsely settled regions.",
+      "sourceLineStart": 670,
+      "sourceLineEnd": 673,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 169,
+      "literalTitle": "THE DARK KNOWLEDGE TELESCOPE",
+      "hypotheticalIq": "10¹¹⁸",
+      "literalBodyMarkdown": "Infer the existence of unknown concepts indirectly from patterns of unexplained failures, just as dark matter was inferred from gravitational effects.",
+      "sourceLineStart": 674,
+      "sourceLineEnd": 677,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 170,
+      "literalTitle": "THE SHADOW THEORY ENGINE",
+      "hypotheticalIq": "3 × 10¹¹⁸",
+      "literalBodyMarkdown": "When many theories fail in correlated ways, infer the invisible structure that could explain their shared error.",
+      "sourceLineStart": 678,
+      "sourceLineEnd": 681,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 171,
+      "literalTitle": "THE MISSING-VARIABLE DETECTOR",
+      "hypotheticalIq": "10¹¹⁹",
+      "literalBodyMarkdown": "Search for phenomena where current models repeatedly need arbitrary corrections. Hypothesize latent variables that make those corrections disappear.",
+      "sourceLineStart": 682,
+      "sourceLineEnd": 685,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 172,
+      "literalTitle": "THE MISSING-DISCIPLINE DETECTOR",
+      "hypotheticalIq": "3 × 10¹¹⁹",
+      "literalBodyMarkdown": "Find sets of problems scattered across established fields that become coherent if treated as one new science.",
+      "sourceLineStart": 686,
+      "sourceLineEnd": 689,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 173,
+      "literalTitle": "THE MISSING-INSTRUMENT DETECTOR",
+      "hypotheticalIq": "10¹²⁰",
+      "literalBodyMarkdown": "Find scientific questions whose main limitation is not theory but inability to measure the relevant state.",
+      "sourceLineStart": 690,
+      "sourceLineEnd": 693,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 174,
+      "literalTitle": "THE MISSING-MATHEMATICS DETECTOR",
+      "hypotheticalIq": "3 × 10¹²⁰",
+      "literalBodyMarkdown": "Identify domains where empirical regularities appear too complicated because humanity lacks the mathematical language in which they simplify.",
+      "sourceLineStart": 694,
+      "sourceLineEnd": 697,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 175,
+      "literalTitle": "THE MISSING-SENSE DETECTOR",
+      "hypotheticalIq": "10¹²¹",
+      "literalBodyMarkdown": "Identify data structures humans repeatedly misunderstand because our perceptual systems cannot intuit them, then invent an artificial sense optimized for that structure.",
+      "sourceLineStart": 698,
+      "sourceLineEnd": 701,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 176,
+      "literalTitle": "THE MISSING-COGNITION DETECTOR",
+      "hypotheticalIq": "3 × 10¹²¹",
+      "literalBodyMarkdown": "Observe systematic reasoning failures across humans and AIs and infer that an entire reasoning primitive may be absent.",
+      "sourceLineStart": 702,
+      "sourceLineEnd": 705,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 177,
+      "literalTitle": "THE MISSING-INSTITUTION DETECTOR",
+      "hypotheticalIq": "10¹²²",
+      "literalBodyMarkdown": "Detect valuable exchanges or collaborations that repeatedly fail because no mechanism exists to coordinate them. Then invent the missing institution.",
+      "sourceLineStart": 706,
+      "sourceLineEnd": 709,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 178,
+      "literalTitle": "THE MISSING-MARKET DETECTOR",
+      "hypotheticalIq": "3 × 10¹²²",
+      "literalBodyMarkdown": "Find latent supply and demand that cannot meet because trust, pricing, measurement, transaction costs, or rights are unresolved.",
+      "sourceLineStart": 710,
+      "sourceLineEnd": 713,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

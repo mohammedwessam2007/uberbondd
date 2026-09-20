@@ -1,0 +1,75 @@
+{
+  "schema": "uberbond.total-recovery.terminal.v1",
+  "generatedAt": "2026-09-20",
+  "frozenSnapshot": {
+    "mainCommit": "7566094f6ae1566e9c89e2f31250350a18018c01",
+    "rootTree": "303d93aaa1df1164e988cc6aeb48c2c1b841d1e8",
+    "recursiveTreeTruncated": false,
+    "treeEntries": 3483,
+    "treeObjects": 164,
+    "blobs": 3319,
+    "trackedBlobBytes": 112170579,
+    "reachableMainCommits": 4462
+  },
+  "repository": {
+    "sourceModules": 849,
+    "tests": 1043,
+    "sourceDisposition": {
+      "production": 274,
+      "operatorOnly": 406,
+      "noEntryPoint": 169,
+      "total": 849,
+      "unclassified": 0
+    },
+    "semanticRequirements": 1040,
+    "semanticOrphans": 0
+  },
+  "history": {
+    "pullRequests": 782,
+    "pullRequestTerminalPageEmpty": true,
+    "trueIssues": 177,
+    "issueComments": 1979,
+    "inlineReviewComments": 0,
+    "releases": 0,
+    "tags": 0
+  },
+  "actions": {
+    "fixedCutoff": "2026-09-20T00:22:36Z",
+    "runsAtOrBeforeCutoff": 11400,
+    "priorDurableRuns": 11373,
+    "reconciledTailRuns": 27,
+    "reconciled": true
+  },
+  "library": {
+    "originalCorpusFiles": 836,
+    "originalCorpusBytes": 2625444097,
+    "paginationExhausted": true,
+    "rawMaterializationAttempted": 836,
+    "rawMaterializationUnattempted": 0,
+    "rawSha256VerifiedFiles": 93,
+    "rawSha256VerifiedBytes": 44001793,
+    "explicitRawExportBoundaryFiles": 743,
+    "silentUnknownFiles": 0
+  },
+  "projectFiles": {
+    "indexedIdentities": 7,
+    "byteExactSecondPassAvailable": false,
+    "boundary": "Stable Project file identities are preserved. Backend did not expose reliable raw-byte export for all Project-backed files during recovery."
+  },
+  "chatLineage": {
+    "materialSemanticRecovery": "COMPLETE_TO_CURRENTLY_EXPOSED_PERSONAL_CONTEXT",
+    "byteExactHistoricalTranscriptExport": false,
+    "founderIntentFinalDeltaMergedInPR": 959,
+    "preservedFinalAtoms": [
+      "one real stranger actually paying for accepted value",
+      "path-dependent historically irreproducible Personal Civilization / Civilization DNA"
+    ]
+  },
+  "truthBoundary": [
+    "Zero silent loss means every exposed surface is either exhaustively recovered/addressed or has an explicit access boundary.",
+    "It does not mean every multi-gigabyte byte sequence has been streamed into one model context.",
+    "It does not convert code, tests, simulation, architecture, workflow runs, or recovery metadata into deployment, usage, demand, cleared payment, accepted delivery, personal-life outcome, AGI/ASI, singularity, or longitudinal calibration evidence.",
+    "Future sessions must refresh live main first, then reconcile against this fixed snapshot."
+  ],
+  "verdict": "ZERO_SILENT_LOSS_RECOVERY_COMPLETE_AT_FIXED_SNAPSHOT__RAW_EXPORT_BOUNDARIES_EXPLICIT"
+}

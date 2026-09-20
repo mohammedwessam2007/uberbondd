@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "uberbond.cubefree-external-v7-preflight.v1",
+  "date": "2026-09-20",
+  "truthClass": "PRE_EXECUTION_EXTERNAL_TARGET_AND_METRIC_ADMISSION__NOT_RESULT",
+  "externalSource": {
+    "characteristicSequence": "OEIS A212793",
+    "characteristicUrl": "https://oeis.org/A212793",
+    "underlyingSequence": "OEIS A004709",
+    "underlyingUrl": "https://oeis.org/A004709",
+    "definition": "Characteristic function of cubefree numbers; cubefree integers are not divisible by any cube > 1."
+  },
+  "target": "A212793_CUBEFREE_INDICATOR",
+  "semanticNovelty": {
+    "fixture": "integers 2..1023",
+    "baseCandidateCount": 8626,
+    "exactEquivalentFound": false,
+    "nearestOverallAccuracyCandidate": "OR(BIT(2),NOT(RESIDUE_EQ(4,0)))",
+    "nearestOverallMismatchRate": 0.04109589
+  },
+  "imbalanceFinding": {
+    "universe": "integers 2..4097",
+    "splitBucketCounts": [
+      786,
+      826,
+      810,
+      834,
+      840
+    ],
+    "train": {
+      "nonCubefree": 287,
+      "cubefree": 1325
+    },
+    "validation": {
+      "nonCubefree": 119,
+      "cubefree": 691
+    },
+    "heldout": {
+      "nonCubefree": 148,
+      "cubefree": 686
+    },
+    "decision": "RAW_ACCURACY_REJECTED_AS_PRIMARY_METRIC"
+  },
+  "balancedBaseSearch": {
+    "metric": "BALANCED_ACCURACY",
+    "candidateCount": 8626,
+    "selectedFeature": "OR(BIT(2),NOT(RESIDUE_EQ(4,0)))",
+    "train": {
+      "balancedAccuracy": 0.8850174216027875,
+      "positiveRecall": 1,
+      "negativeRecall": 0.7700348432055749,
+      "accuracy": 0.9590570719602978
+    },
+    "validation": {
+      "balancedAccuracy": 0.865546218487395,
+      "positiveRecall": 1,
+      "negativeRecall": 0.7310924369747899,
+      "accuracy": 0.9604938271604938
+    },
+    "heldout": {
+      "balancedAccuracy": 0.8614864864864865,
+      "positiveRecall": 1,
+      "negativeRecall": 0.722972972972973,
+      "accuracy": 0.9508393285371702
+    }
+  },
+  "admissionDecision": "ADMIT_WITH_BALANCED_METRICS",
+  "law": "METRIC_SELECTION_IS_FROZEN_BEFORE_THE_864_PROGRAM_V6_GRAMMAR_IS_EVALUATED_ON_CUBEFREE"
+}

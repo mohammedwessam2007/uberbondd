@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "uberbond.fourth-power-free-v9-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMechanism": "GENERIC_SATURATING_MULTIPLICITY_DEPTH_MEMORY",
+  "frozenGrammar": {
+    "source": "src/multiplicity-depth-memory-v8.mjs",
+    "semanticVersion": "uberbond.multiplicity-depth-memory.v8",
+    "candidateCount": 1344,
+    "multiplicityDepthSaturation": 3,
+    "mutationAfterPreregistration": "PROHIBITED_EXCEPT_EXPORT_ONLY_VISIBILITY_CHANGE"
+  },
+  "target": {
+    "id": "EXTERNAL_4TH_POWER_FREE_INDICATOR",
+    "definition": "1 iff n is not divisible by any fourth power greater than 1.",
+    "role": "UNSEEN_MULTIPLICITY_ORDER_TARGET"
+  },
+  "selectionMetric": {
+    "primary": "TRAIN_BALANCED_ACCURACY",
+    "tieBreakers": [
+      "VALIDATION_BALANCED_ACCURACY",
+      "LOWER_DESCRIPTION_COST",
+      "LEXICAL_PROGRAM_ID"
+    ],
+    "heldOutLabelsUsedForSelection": false
+  },
+  "frozenComparator": {
+    "source": "artifacts/research/FOURTH_POWER_FREE_V9_PREFLIGHT_20260920.json",
+    "heldOutBalancedAccuracy": 0.8808325232606582
+  },
+  "successCriteria": {
+    "heldOutBalancedAccuracyMinimum": 0.95,
+    "heldOutPositiveRecallMinimum": 0.9,
+    "heldOutNegativeRecallMinimum": 0.9,
+    "balancedAccuracyImprovementOverFrozenComparatorMinimum": 0.06,
+    "hashNegativeBalancedAccuracyMaximum": 0.65
+  },
+  "falsifier": [
+    "Any success threshold is missed.",
+    "The V8 grammar semantics are changed before result.",
+    "Held-out labels influence candidate selection.",
+    "Raw accuracy replaces the preregistered balanced metrics.",
+    "Hash negative control exceeds balanced accuracy 0.65."
+  ],
+  "interpretationBoundary": "V9 tests whether a depth state that saturates at exponent class 3 truly generalizes to an unseen exponent-4 threshold.",
+  "ontogenesisTrigger": "Failure with exponent-3/exponent-4 collapse should generate an unbounded or parameterized multiplicity-depth representation hypothesis, not an automatic patch.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

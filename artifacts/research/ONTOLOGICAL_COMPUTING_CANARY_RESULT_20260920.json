@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_PREREGISTRATION_20260920.json",
+  "source": "src/ontological-representation-canary.mjs",
+  "truthClass": "EXECUTED_SYNTHETIC_SOFTWARE_CANARY__NOT_GRAND_MOONSHOT_PROOF",
+  "executionEnvironment": "connected JavaScript V8 verifier using exact PR branch source with zero-effect dependency fixture",
+  "heldOutUsedForSelection": false,
+  "result": {
+    "status": "SOFTWARE_DEMONSTRATION_SUPPORTED__EXTERNAL_REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "supportedFamilyCount": 4,
+    "requiredSupportedFamilyCount": 3,
+    "tasks": [
+      {
+        "id": "EVENNESS",
+        "selectedRepresentation": "PARITY",
+        "selectedHeldOutAccuracy": 1,
+        "rawHeldOutAccuracy": 0.5,
+        "absoluteImprovement": 0.5
+      },
+      {
+        "id": "MOD3_EQUALS_ONE",
+        "selectedRepresentation": "MOD3_EQUALS_ONE",
+        "selectedHeldOutAccuracy": 1,
+        "rawHeldOutAccuracy": 0.65625,
+        "absoluteImprovement": 0.34375
+      },
+      {
+        "id": "BIT2_SET",
+        "selectedRepresentation": "BIT2",
+        "selectedHeldOutAccuracy": 1,
+        "rawHeldOutAccuracy": 0.5,
+        "absoluteImprovement": 0.5
+      },
+      {
+        "id": "BIT4_SET",
+        "selectedRepresentation": "BIT4",
+        "selectedHeldOutAccuracy": 1,
+        "rawHeldOutAccuracy": 0.5,
+        "absoluteImprovement": 0.5
+      }
+    ],
+    "resourceAccounting": {
+      "representationCandidatesPerTask": 7,
+      "totalSearchThresholdModels": 680,
+      "totalBaselineThresholdModels": 392,
+      "explicitSearchOverheadThresholdModels": 288
+    }
+  },
+  "supportedClaim": "Within the preregistered synthetic task set, searching a small representation family allowed the same simple threshold learner to generalize substantially better than the raw-scalar representation on held-out inputs.",
+  "unsupportedClaims": [
+    "DOES_NOT_PROVE_A_NEW_MATHEMATICAL_ONTOLOGY",
+    "DOES_NOT_PROVE_GENERAL_CROSS_DOMAIN_REPRESENTATION_DISCOVERY",
+    "DOES_NOT_BEAT_ALL_STRONG_REPRESENTATION_BASELINES",
+    "DOES_NOT_PROVE_PHYSICAL_OR_SCIENTIFIC_DISCOVERY",
+    "DOES_NOT_PROMOTE_THE_GRAND_ONTOLOGICAL_COMPUTING_MOONSHOT"
+  ],
+  "reviewStatus": "PENDING_INDEPENDENT_ADVERSARIAL_REVIEW",
+  "promotionCandidate": {
+    "scope": "NARROW_REPRESENTATION_SEARCH_MECHANISM_ONLY",
+    "from": "SIMULATION_READY",
+    "to": "SOFTWARE_DEMONSTRATED",
+    "requiredEvidenceKind": "SOFTWARE_RECEIPT",
+    "authority": "REVIEW_REQUIRED__NO_SELF_PROMOTION"
+  },
+  "nextChallenge": "Preregister a stronger-baseline and compositional-representation replication before any promotion review."
+}

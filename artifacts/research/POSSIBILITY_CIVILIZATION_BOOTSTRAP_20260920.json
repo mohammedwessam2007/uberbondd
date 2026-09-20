@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "uberbond.possibility-civilization-bootstrap-receipt.v1",
+  "date": "2026-09-20",
+  "baseMain": "47f61951e875be13088b672a3cd3bf89402dc926",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "pullRequest": 967,
+  "headAtReceipt": "72ca303d4628d715916b92445ccec09c01c3d19a",
+  "truthClass": "SOURCE_IMPLEMENTATION_PRESENT__EXECUTION_VERIFICATION_BLOCKED_BY_CI_INFRASTRUCTURE",
+  "implemented": [
+    "docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md",
+    "config/possibility-civilization-program.json",
+    "config/moonshot-reality-canaries.json",
+    "src/moonshot-reality-compiler.mjs",
+    "src/moonshot-portfolio-compiler.mjs",
+    "tests/moonshot-reality-compiler.test.mjs",
+    "tests/moonshot-portfolio-compiler.test.mjs"
+  ],
+  "capabilitiesAddedInSource": [
+    "MOONSHOT_CLAIM_ATOMIZATION",
+    "CONSTRAINT_GENOME",
+    "DEPENDENCY_DAG_AND_EXPERIMENT_FRONTIER",
+    "EVIDENCE_BOUND_FEASIBILITY_CLASSIFICATION",
+    "MINIMUM_REALITY_PROBE_SELECTION",
+    "EXTERNAL_EXPERIMENT_AUTHORITY_GATE",
+    "CONTIGUOUS_EVIDENCE_GATED_PROMOTION",
+    "REALITY_LEVERAGE_HEURISTIC",
+    "FAILURE_WITHOUT_DESCENDANT_AMPUTATION",
+    "SHARED_FUTURE_ANCESTOR_DISCOVERY",
+    "PORTFOLIO_RESEARCH_PACKET_COMPILATION",
+    "EIGHT_CROSS_DOMAIN_CANARY_PROGRAMS"
+  ],
+  "verification": {
+    "githubActions": {
+      "ciRunId": 35488220882,
+      "jobs": [
+        {"id": 106018380753, "name": "deterministic", "conclusion": "failure", "executedStepCount": 0, "logFetch": "BlobNotFound"},
+        {"id": 106018380849, "name": "postgres", "conclusion": "failure", "executedStepCount": 0, "logFetch": "BlobNotFound"},
+        {"id": 106018380914, "name": "browser", "conclusion": "failure", "executedStepCount": 0, "logFetch": "BlobNotFound"}
+      ],
+      "classification": "INFRASTRUCTURE_NON_EVIDENCE__NO_SOURCE_TEST_EXECUTION_OBSERVED"
+    },
+    "vercelStatuses": [
+      {"project": "uberbondd", "state": "failure", "reason": "build-rate-limit"},
+      {"project": "uberbondd-lite-private", "state": "failure", "reason": "build-rate-limit"}
+    ]
+  },
+  "claimsNotMade": [
+    "NO_SPECULATIVE_MOONSHOT_IS_CLAIMED_PHYSICALLY_POSSIBLE",
+    "NO_MOONSHOT_IS_CLAIMED_IMPLEMENTED_BY_THIS_PR",
+    "NO_TEST_PASS_IS_CLAIMED",
+    "NO_DEPLOYMENT_SUCCESS_IS_CLAIMED",
+    "NO_CIVILIZATION_SCALE_IMPACT_IS_CLAIMED"
+  ],
+  "nextDependencySatisfiedWork": [
+    "OBTAIN_EXECUTED_SOURCE_TEST_EVIDENCE_FOR_PR_967",
+    "IMPORT_LITERAL_FOUNDER_MOONSHOT_WAVE_WITH_PROVENANCE_AND_SEMANTIC_DEDUPE",
+    "COMPILE_ALL_IMPORTED_MOONSHOTS_INTO_REALITY_OBJECTS",
+    "RUN_SHARED_FUTURE_ANCESTOR_ANALYSIS",
+    "SELECT_CROSS_DOMAIN_CANARIES_BY_INFORMATION_VALUE_AND_SHARED_PREREQUISITE_CENTRALITY",
+    "RUN_ONLY_AUTHORIZED_BOUNDED_EXPERIMENTS"
+  ],
+  "terminalLaw": "EVERY_MOONSHOT_GETS_A_REAL_FATE__SUCCESS_FALSIFICATION_BOUNDARY_OR_RESURRECTION_CONDITION__NEVER_FANTASY_AS_PROOF"
+}

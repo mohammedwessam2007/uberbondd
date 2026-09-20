@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v4b-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json",
+  "supersededPreregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json",
+  "correction": "artifacts/research/ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json",
+  "source": "src/ontological-structural-synthesis-canary-v4b.mjs",
+  "truthClass": "EXECUTED_FINITE_SYNTHETIC_TARGET_BLIND_PROGRAM_SYNTHESIS_EVIDENCE__NOT_GRAND_MOONSHOT_PROOF",
+  "executionEnvironment": "connected JavaScript V8 verifier using exact PR branch source with zero-effect dependency fixture",
+  "sourceRepairBeforeExecution": {
+    "bug": "Serialized template-literal escaping made the first committed V4B source unparsable.",
+    "resultObservationBeforeRepair": false,
+    "repairCommit": "f4a056690222584aa74ee174f975a52bcd0be4d5",
+    "law": "Parser failure occurred before experiment logic; no benchmark result existed before the syntax-only repair."
+  },
+  "outcome": {
+    "status": "V4B_TARGET_BLIND_STRUCTURAL_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "heldOutUsedForPrimitiveSelection": false,
+    "transferLabelsUsedForPrimitiveSelection": false
+  },
+  "semanticNovelty": {
+    "fixture": "integers 2..1023",
+    "baseCandidatesCompared": 8626,
+    "exactEquivalentFound": false,
+    "nearestBaseCandidate": "XOR(NOT(RESIDUE_EQ(3,0)),RESIDUE_EQ(4,2))",
+    "nearestMismatchRate": 0.4295499,
+    "boundary": "Finite-fixture non-equivalence is not universal ontological novelty."
+  },
+  "selectedProgram": {
+    "id": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_PER_DIVISION_EVENT__TOGGLE_IF_WORKING_GT_1__INIT_0",
+    "descriptionCost": 6,
+    "candidateCount": 96,
+    "containsForbiddenTargetPrimitive": false
+  },
+  "discovery": {
+    "trainAccuracy": 1,
+    "validationAccuracy": 1,
+    "heldOutAccuracy": 1,
+    "strongestBaseline": "PRIME_INDICATOR",
+    "strongestBaselineAccuracy": 0.6255707762557078,
+    "absoluteImprovement": 0.374429,
+    "criterionPassed": true
+  },
+  "transfers": [
+    {
+      "id": "OMEGA_XOR_BIT3",
+      "heldOutAccuracy": 1,
+      "bestBaselineAccuracy": 0.5472154963680388,
+      "improvement": 0.452785,
+      "criterionPassed": true
+    },
+    {
+      "id": "OMEGA_XOR_MOD5_EQ2",
+      "heldOutAccuracy": 1,
+      "bestBaselineAccuracy": 0.5786924939467313,
+      "improvement": 0.421308,
+      "criterionPassed": true
+    },
+    {
+      "id": "OMEGA_AND_NOT_BIT2",
+      "heldOutAccuracy": 1,
+      "bestBaselineAccuracy": 0.7675544794188862,
+      "improvement": 0.232446,
+      "criterionPassed": true
+    }
+  ],
+  "negativeControl": {
+    "id": "NEGATIVE_HASH_CONTROL_V4B",
+    "heldOutAccuracy": 0.4745762711864407,
+    "bestBaselineAccuracy": 0.5230024213075061,
+    "passed": true
+  },
+  "searchAccounting": {
+    "semanticNoveltyFeatureFixtureEvaluations": 8815772,
+    "baseSelectionRowEvaluations": 51626610,
+    "structuralProgramCandidates": 96,
+    "transferCandidateCount": 458,
+    "totalTransferCandidateSelections": 1832,
+    "rawThresholdEvaluationBurden": 6360
+  },
+  "supportedClaim": "On the preregistered finite synthetic benchmark, a target-blind generic divisor-sweep state-machine grammar selected a behaviorally missing program that exactly represented the hidden discovery behavior and transferred to all three declared descendant tasks while an unrelated negative control remained unsolved.",
+  "unsupportedClaims": [
+    "NO_OPEN_ENDED_ONTOLOGY_INVENTION",
+    "NO_AUTONOMOUS_NEW_MATHEMATICS_DISCOVERY",
+    "NO_NATURAL_SCIENTIFIC_DISCOVERY",
+    "NO_PHYSICAL_WORLD_DISCOVERY",
+    "NO_GENERAL_INTELLIGENCE_OR_ASI_CLAIM",
+    "NO_GRAND_ONTOLOGICAL_COMPUTING_PROMOTION",
+    "NO_NATIVE_NODE_CI_PASS_CLAIM"
+  ],
+  "narrowPromotionStatus": "PENDING_INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION",
+  "promotionCandidate": {
+    "scope": "FINITE_SYNTHETIC_TARGET_BLIND_STRUCTURAL_PRIMITIVE_SYNTHESIS_AND_TRANSFER",
+    "from": "SIMULATION_READY",
+    "to": "SOFTWARE_DEMONSTRATED",
+    "authority": "REVIEW_REQUIRED__NO_SELF_PROMOTION"
+  }
+}

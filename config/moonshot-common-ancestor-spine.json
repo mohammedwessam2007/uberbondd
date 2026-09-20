@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "uberbond.moonshot-common-ancestor-spine.v1",
+  "date": "2026-09-20",
+  "truthClass": "RESEARCH_DEPENDENCY_HYPOTHESES_NOT_CAUSAL_PROOF",
+  "law": "BUILD_SHARED_PRECURSORS_THAT_UNLOCK_MANY_MOONSHOTS__RECOMPILE_THE_CORPUS_AFTER_EVERY_VERIFIED_PRIMITIVE",
+  "ancestors": [
+    {
+      "id": "truth-evidence-substrate",
+      "name": "Truth & Evidence Substrate",
+      "domains": [
+        "ALL"
+      ],
+      "status": "EXISTING_DONOR__VERIFY_CURRENT_CALLABILITY"
+    },
+    {
+      "id": "moonshot-reality-object",
+      "name": "Moonshot Reality Object",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-reality-compiler.mjs",
+        "artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json"
+      ]
+    },
+    {
+      "id": "constraint-genome",
+      "name": "Constraint Genome",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-reality-compiler.mjs#mapConstraintGenome",
+        "artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json"
+      ]
+    },
+    {
+      "id": "future-ancestor-graph",
+      "name": "Future-Ancestor Dependency Graph",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-portfolio-compiler.mjs",
+        "src/moonshot-corpus-compiler.mjs",
+        "artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json"
+      ]
+    },
+    {
+      "id": "representation-ontology-search",
+      "name": "Representation & Ontology Search",
+      "domains": [
+        "MATHEMATICS",
+        "COMPUTATION",
+        "SCIENCE"
+      ],
+      "status": "REPRODUCIBLE_SOFTWARE_EVIDENCE_AND_EXTERNAL_ARITHMETIC_EVIDENCE_PRESENT",
+      "evidenceRefs": [
+        "src/semantic-novelty-preflight.mjs",
+        "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json",
+        "artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json"
+      ]
+    },
+    {
+      "id": "causal-mechanism-atoms",
+      "name": "Causal & Mechanism Atoms",
+      "domains": [
+        "SCIENCE",
+        "ECONOMICS",
+        "INSTITUTIONS"
+      ],
+      "status": "EVIDENCE_BOUND_DONOR_COMPILER_EXECUTED_IN_PR_967",
+      "evidenceRefs": [
+        "src/genesis-mechanism-compiler.mjs",
+        "src/moonshot-mechanism-market.mjs",
+        "artifacts/research/MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json"
+      ]
+    },
+    {
+      "id": "experiment-compiler",
+      "name": "Experiment Compiler",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_IMPLEMENTED_AND_CONNECTOR_EXECUTED_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-experiment-compiler.mjs",
+        "artifacts/research/MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920.json"
+      ]
+    },
+    {
+      "id": "simulation-ecology",
+      "name": "Simulation Ecology",
+      "domains": [
+        "COMPUTATION",
+        "SCIENCE"
+      ],
+      "status": "DECLARATIVE_SIMULATION_SUBSTRATE_IMPLEMENTED_AND_CONNECTOR_EXECUTED",
+      "evidenceRefs": [
+        "src/moonshot-simulation-ecology.mjs",
+        "tests/moonshot-simulation-ecology.test.mjs",
+        "artifacts/research/MOONSHOT_SIMULATION_ECOLOGY_VERIFICATION_20260920.json"
+      ]
+    },
+    {
+      "id": "adversarial-tribunal",
+      "name": "Independent Adversarial Tribunal",
+      "domains": [
+        "ALL"
+      ],
+      "status": "EXISTING_DONORS_PRESENT"
+    },
+    {
+      "id": "physical-reality-bridge",
+      "name": "Physical Reality Bridge",
+      "domains": [
+        "PHYSICS",
+        "BIOLOGY",
+        "MATERIALS",
+        "HUMANS"
+      ],
+      "status": "EXTERNAL_CAPABILITY_AND_AUTHORITY_DEPENDENT"
+    },
+    {
+      "id": "replication-network",
+      "name": "Replication Network",
+      "domains": [
+        "SCIENCE"
+      ],
+      "status": "REPLICATION_CONTROL_SUBSTRATE_IMPLEMENTED_AND_CONNECTOR_EXECUTED",
+      "evidenceRefs": [
+        "src/moonshot-replication-network.mjs",
+        "tests/moonshot-replication-network.test.mjs",
+        "artifacts/research/MOONSHOT_REPLICATION_NETWORK_VERIFICATION_20260920.json"
+      ]
+    },
+    {
+      "id": "primitive-promotion",
+      "name": "Primitive Promotion System",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_PARTIAL__TRUTH_GATES_PRESENT"
+    },
+    {
+      "id": "technology-tree-compiler",
+      "name": "Technology Tree Compiler",
+      "domains": [
+        "TECHNOLOGY",
+        "CIVILIZATION"
+      ],
+      "status": "SOURCE_IMPLEMENTED_AND_CONNECTOR_EXECUTED_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-technology-tree-compiler.mjs",
+        "tests/moonshot-technology-tree-compiler.test.mjs",
+        "artifact:MOONSHOT_TECHNOLOGY_TREE_STATE_20260920"
+      ]
+    },
+    {
+      "id": "epoch-branching-evaluator",
+      "name": "Epoch Branching Evaluator",
+      "domains": [
+        "CIVILIZATION"
+      ],
+      "status": "RESEARCH_PROGRAM"
+    },
+    {
+      "id": "sovereignty-governor",
+      "name": "Sovereignty Governor",
+      "domains": [
+        "ALL"
+      ],
+      "status": "EXISTING_CANON_AND_POLICY_DONOR"
+    }
+  ],
+  "nextRule": "VERIFY_AND_BUILD_THE_LOWEST_UNVERIFIED_SHARED_ANCESTOR_WITH_THE_HIGHEST_CROSS_MOONSHOT_INFORMATION_VALUE",
+  "lastReconciledAt": "2026-09-20",
+  "reconciliationLaw": "STATUS_REQUIRES_EVIDENCE_POINTERS__CANONICAL_NAME_ALONE_DOES_NOT_MAKE_A_RUNTIME_CAPABILITY"
+}

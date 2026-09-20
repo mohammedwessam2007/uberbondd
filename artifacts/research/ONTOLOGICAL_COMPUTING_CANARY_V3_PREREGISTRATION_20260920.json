@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v3-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": "ontological-computing",
+  "truthClass": "PREREGISTERED_PRIMITIVE_SYNTHESIS_AND_TRANSFER_CHALLENGE_NOT_RESULT",
+  "objective": "Test whether UberBond can synthesize a useful representation primitive absent from the base representation vocabulary and whether that frozen primitive transfers to distinct task families.",
+  "baseRepresentationVocabulary": [
+    "BIT(b) for b=0..5",
+    "RESIDUE_EQ(k,r) for k=2..7",
+    "POPCOUNT_GE(t) for t=1..5",
+    "NOT(base literal)",
+    "depth-2 AND/OR/XOR composition of base literals"
+  ],
+  "synthesisMetaGrammar": {
+    "numericExpressionFamily": [
+      "X",
+      "X_PLUS_C for integer C in [-3,3]",
+      "X_TIMES_C for integer C in [2,8]",
+      "FLOOR_DIV(X,K) for K in [2,8]",
+      "FLOOR_DIV(X_TIMES_X,K) for K in [2,8]",
+      "FLOOR_DIV(X_TIMES_(X_PLUS_C),K) for integer C in [-3,3] and K in [2,8]"
+    ],
+    "booleanExtractors": [
+      "PARITY(expr)",
+      "BIT(expr,b) for b in [0,4]",
+      "RESIDUE_EQ(expr,k,r) for k in [2,5]"
+    ],
+    "selection": "Discovery train accuracy, then discovery validation accuracy, then shorter description length, then lexical expression ID.",
+    "restriction": "The hidden target expression name and formula are not supplied to the synthesis selector as a candidate label. The selector receives only the fixed generic meta-grammar above."
+  },
+  "discoveryTask": {
+    "id": "DISCOVER_HIDDEN_PRIMITIVE",
+    "hiddenGenerator": "PARITY(FLOOR_DIV(X_TIMES_(X_PLUS_1),2))",
+    "baseVocabularyContainsExactPrimitive": false
+  },
+  "transferTasks": [
+    {
+      "id": "TRANSFER_XOR_BIT3",
+      "hiddenRule": "DISCOVERED_PRIMITIVE XOR BIT(3)"
+    },
+    {
+      "id": "TRANSFER_AND_NOT_BIT2",
+      "hiddenRule": "DISCOVERED_PRIMITIVE AND NOT(BIT(2))"
+    }
+  ],
+  "negativeControl": {
+    "id": "NEGATIVE_HASH_CONTROL_V3",
+    "hiddenRule": "deterministic hash-derived label outside the declared shallow synthesis/transfer families"
+  },
+  "split": {
+    "universe": "x=0..511",
+    "discoveryTrain": "x mod 5 in {0,1}",
+    "discoveryValidation": "x mod 5 == 2",
+    "discoveryHeldOut": "x mod 5 == 3",
+    "transferHeldOut": "x mod 5 == 4",
+    "law": "The synthesized primitive is frozen before transfer-task outcomes are scored. Held-out partitions never participate in primitive selection."
+  },
+  "genericBaselines": [
+    "BEST_BASE_VOCABULARY_BOOLEAN_FEATURE",
+    "RAW_THRESHOLD",
+    "KNN_RAW_K3",
+    "MAJORITY_CLASS"
+  ],
+  "successCriteria": {
+    "discoveryMinimumHeldOutAccuracy": 0.9,
+    "discoveryMinimumImprovementOverBestBaseVocabulary": 0.2,
+    "requiredSuccessfulTransferTasks": 2,
+    "transferMinimumHeldOutAccuracy": 0.9,
+    "transferMinimumImprovementOverBestBaselineWithoutSynthesizedPrimitive": 0.15,
+    "negativeControlMaximumHeldOutAccuracy": 0.85
+  },
+  "falsifier": [
+    "Discovery primitive fails either discovery threshold.",
+    "Fewer than two transfer tasks pass both transfer thresholds.",
+    "Negative control is spuriously solved above 0.85.",
+    "Transfer labels influence primitive synthesis.",
+    "Search candidate count or description-length burden is omitted."
+  ],
+  "promotionBoundary": "A pass establishes only a deterministic synthetic primitive-synthesis-and-transfer mechanism. It does not prove open-ended ontology invention, new mathematics, scientific discovery, or general intelligence.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

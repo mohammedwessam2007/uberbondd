@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-canary-v1-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json",
+  "verdict": "CORRECT_PRUNING_PRIMITIVE_SUPPORTED__EFFICIENCY_CLAIM_FALSIFIED",
+  "whyFailureMatters": [
+    "The graph-theoretic relevance rule is useful but insufficient to deserve the stronger causal-compiler interpretation.",
+    "Many one-intervention goals remain cheap even for exhaustive search, limiting the benefit from ancestry pruning.",
+    "A true compiler should exploit gate semantics and desired state, not merely delete disconnected variables."
+  ],
+  "v2Requirement": [
+    "Compile desired outputs backward through supported Boolean causal operators.",
+    "Produce minimum input interventions directly for tree-like relevant subgraphs.",
+    "Fall back to exact relevance-pruned search when structural conditions for direct compilation are not met.",
+    "Preserve exact cardinality agreement with exhaustive search.",
+    "Count compiler work separately from simulation-search work."
+  ],
+  "law": "FAILED_EFFICIENCY_THRESHOLD_IS_NOT_RENAMED_AS_SUCCESS__THE_FAILURE_DEFINES_THE_NEXT_MECHANISM"
+}

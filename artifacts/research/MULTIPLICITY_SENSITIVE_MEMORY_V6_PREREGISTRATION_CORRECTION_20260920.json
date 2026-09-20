@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "uberbond.multiplicity-sensitive-memory-v6-preregistration-correction.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json",
+  "truthClass": "PRE_EXECUTION_ARITHMETIC_CORRECTION__NO_V6_RESULT_EXISTED",
+  "defect": {
+    "field": "grammarExtension.expectedCandidateCount",
+    "declared": 432,
+    "correct": 864,
+    "derivation": "2 divisor orders × 2 division policies × 4 accumulator update modes × 3 leftover policies × 2 accumulator initial states × 9 output expressions = 864"
+  },
+  "algorithmChanged": false,
+  "thresholdsChanged": false,
+  "targetSetChanged": false,
+  "resultObservedBeforeCorrection": false,
+  "disposition": "CORRECT_COUNT_ONLY",
+  "law": "A_PRE_EXECUTION_COUNTING_ERROR_MUST_BE_CORRECTED_EXPLICITLY_WITHOUT_CHANGING_THE_TEST"
+}

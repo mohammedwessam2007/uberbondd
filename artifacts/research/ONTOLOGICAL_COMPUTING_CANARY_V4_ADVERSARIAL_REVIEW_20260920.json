@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v4-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW__NOT_EXTERNAL_REPLICATION",
+  "verdict": "NARROW_ONTOLOGY_EXTENSION_SELECTION_SUPPORTED__GENERATION_NOT_YET_ESTABLISHED",
+  "strengths": [
+    "TARGET_PASSED_PREEXECUTION_SEMANTIC_NOVELTY_CHECK_AGAINST_ALL_8626_BASE_FEATURES",
+    "HASH_SPLITS_PASSED_PREEXECUTION_DEGENERACY_DIAGNOSTICS",
+    "PREREGISTRATION_PRECEDED_RESULT",
+    "HELD_OUT_AND_TRANSFER_LABELS_DID_NOT_SELECT_THE_PRIMITIVE",
+    "THREE_DISTINCT_TRANSFER_TASKS_PASSED",
+    "NEGATIVE_CONTROL_FAILED_TO_SHOW_SPURIOUS_DISCOVERY",
+    "SEARCH_AND_BASELINE BURDENS_WERE_RECORDED",
+    "V3_FAILURE_CHANGED_THE_PROTOCOL_INSTEAD_OF_BEING_ERASED"
+  ],
+  "limitations": [
+    {
+      "severity": "MAJOR",
+      "code": "META_FAMILY_SUPPLIED",
+      "detail": "The selected prime-factor-count family was present in the declared meta-library. V4 proves ontology extension selection and reuse, not invention of the algorithmic family from lower-level primitives."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "FINITE_SEMANTIC_FIXTURE",
+      "detail": "Non-equivalence was established only over integers 2..1023 against the declared finite base grammar."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "SYNTHETIC_DOMAIN",
+      "detail": "All tasks are deterministic synthetic number-theory tasks; no natural scientific or engineering transfer is established."
+    },
+    {
+      "severity": "MODERATE",
+      "code": "NO_SECOND_IMPLEMENTATION",
+      "detail": "The exact branch source was executed through the connector V8 harness because hosted CI still fails before executing steps."
+    }
+  ],
+  "promotionRecommendation": {
+    "grandMoonshot": "DENY",
+    "narrowMechanism": "ELIGIBLE_FOR_SOFTWARE_DEMONSTRATED_REVIEW_AFTER_NATIVE_OR_SECOND_IMPLEMENTATION_REPLICATION",
+    "nextResearchGate": "V5_PROGRAM_SYNTHESIS_OF_A_PRIMITIVE_FROM_LOWER_LEVEL_OPERATORS"
+  },
+  "nextPrinciple": "SELECTION_FROM_A_META_ONTOLOGY_IS_ONE_LEVEL_BELOW_INVENTING_THE_META_ONTOLOGY"
+}

@@ -1,0 +1,1174 @@
+{
+  "schemaVersion": "uberbond.moonshot-realization-portfolio.v1",
+  "date": "2026-09-20",
+  "sourceCount": 890,
+  "internalFirstCount": 211,
+  "externalAuthorityRequiredCount": 679,
+  "topAncestorDemand": [
+    {
+      "ancestorId": "constraint-genome",
+      "name": "Constraint Genome",
+      "currentStatus": "SOURCE_IMPLEMENTED_IN_PR_967",
+      "moonshotCount": 890,
+      "crossSurfaceCount": 8,
+      "leverageScore": 7120
+    },
+    {
+      "ancestorId": "future-ancestor-graph",
+      "name": "Future-Ancestor Dependency Graph",
+      "currentStatus": "SOURCE_IMPLEMENTED_IN_PR_967",
+      "moonshotCount": 890,
+      "crossSurfaceCount": 8,
+      "leverageScore": 7120
+    },
+    {
+      "ancestorId": "moonshot-reality-object",
+      "name": "Moonshot Reality Object",
+      "currentStatus": "SOURCE_IMPLEMENTED_IN_PR_967",
+      "moonshotCount": 890,
+      "crossSurfaceCount": 8,
+      "leverageScore": 7120
+    },
+    {
+      "ancestorId": "experiment-compiler",
+      "name": "Experiment Compiler",
+      "currentStatus": "SOURCE_PARTIAL__PROBE_CONTRACT_PRESENT",
+      "moonshotCount": 648,
+      "crossSurfaceCount": 8,
+      "leverageScore": 5184
+    },
+    {
+      "ancestorId": "causal-mechanism-atoms",
+      "name": "Causal & Mechanism Atoms",
+      "currentStatus": "PARTIAL_EXISTING_DONORS_PRESENT",
+      "moonshotCount": 616,
+      "crossSurfaceCount": 8,
+      "leverageScore": 4928
+    },
+    {
+      "ancestorId": "simulation-ecology",
+      "name": "Simulation Ecology",
+      "currentStatus": "EXISTING_DONORS_PRESENT",
+      "moonshotCount": 611,
+      "crossSurfaceCount": 8,
+      "leverageScore": 4888
+    },
+    {
+      "ancestorId": "representation-ontology-search",
+      "name": "Representation & Ontology Search",
+      "currentStatus": "EXISTING_DONORS_PRESENT",
+      "moonshotCount": 640,
+      "crossSurfaceCount": 7,
+      "leverageScore": 4480
+    },
+    {
+      "ancestorId": "replication-network",
+      "name": "Replication Network",
+      "currentStatus": "RESEARCH_PROGRAM",
+      "moonshotCount": 544,
+      "crossSurfaceCount": 8,
+      "leverageScore": 4352
+    },
+    {
+      "ancestorId": "sovereignty-governor",
+      "name": "Sovereignty Governor",
+      "currentStatus": "EXISTING_CANON_AND_POLICY_DONOR",
+      "moonshotCount": 460,
+      "crossSurfaceCount": 8,
+      "leverageScore": 3680
+    },
+    {
+      "ancestorId": "technology-tree-compiler",
+      "name": "Technology Tree Compiler",
+      "currentStatus": "RESEARCH_PROGRAM",
+      "moonshotCount": 330,
+      "crossSurfaceCount": 8,
+      "leverageScore": 2640
+    },
+    {
+      "ancestorId": "adversarial-tribunal",
+      "name": "Independent Adversarial Tribunal",
+      "currentStatus": "EXISTING_DONORS_PRESENT",
+      "moonshotCount": 284,
+      "crossSurfaceCount": 8,
+      "leverageScore": 2272
+    },
+    {
+      "ancestorId": "physical-reality-bridge",
+      "name": "Physical Reality Bridge",
+      "currentStatus": "EXTERNAL_CAPABILITY_AND_AUTHORITY_DEPENDENT",
+      "moonshotCount": 499,
+      "crossSurfaceCount": 4,
+      "leverageScore": 1996
+    },
+    {
+      "ancestorId": "epoch-branching-evaluator",
+      "name": "Epoch Branching Evaluator",
+      "currentStatus": "RESEARCH_PROGRAM",
+      "moonshotCount": 239,
+      "crossSurfaceCount": 7,
+      "leverageScore": 1673
+    },
+    {
+      "ancestorId": "truth-evidence-substrate",
+      "name": "Truth & Evidence Substrate",
+      "currentStatus": "EXISTING_DONOR__VERIFY_CURRENT_CALLABILITY",
+      "moonshotCount": 135,
+      "crossSurfaceCount": 7,
+      "leverageScore": 945
+    }
+  ],
+  "internalFrontier": [
+    {
+      "stableId": "founder-moonshot-0019",
+      "ordinal": 19,
+      "literalTitle": "THE IMPOSSIBILITY CLASSIFIER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "simulation-ecology",
+        "sovereignty-governor",
+        "technology-tree-compiler",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "physical-reality-bridge",
+        "causal-mechanism-atoms",
+        "truth-evidence-substrate",
+        "adversarial-tribunal"
+      ],
+      "heuristicPriority": 85.75,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0400",
+      "ordinal": 400,
+      "literalTitle": "THE UNIVERSAL CAPABILITY COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "PHYSICAL_OR_BIOLOGICAL_TECHNOLOGY",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 85.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0024",
+      "ordinal": 24,
+      "literalTitle": "THE TECHNOLOGY COMPILER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "physical-reality-bridge",
+        "causal-mechanism-atoms",
+        "replication-network",
+        "sovereignty-governor",
+        "technology-tree-compiler"
+      ],
+      "heuristicPriority": 81.75,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0094",
+      "ordinal": 94,
+      "literalTitle": "THE MORPHOGENESIS ENGINE",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "physical-reality-bridge",
+        "replication-network",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 81.25,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0537",
+      "ordinal": 537,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "technology-tree-compiler",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 79.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0143",
+      "ordinal": 143,
+      "literalTitle": "THE COMMUNICATION COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "adversarial-tribunal",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 78.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0001",
+      "ordinal": 1,
+      "literalTitle": "THE CAUSAL COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "PHYSICAL_OR_BIOLOGICAL_TECHNOLOGY",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 76.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0161",
+      "ordinal": 161,
+      "literalTitle": "THE CONSENT PROTOCOL",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 74,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0562",
+      "ordinal": 562,
+      "literalTitle": "THE POSSIBILITY DIMENSION ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network"
+      ],
+      "heuristicPriority": 73.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0025",
+      "ordinal": 25,
+      "literalTitle": "THE SCIENCE COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network",
+        "representation-ontology-search",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 73.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0283",
+      "ordinal": 283,
+      "literalTitle": "THE SELF-UNKNOWN-UNKNOWN ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "replication-network",
+        "adversarial-tribunal",
+        "sovereignty-governor"
+      ],
+      "heuristicPriority": 73,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0604",
+      "ordinal": 604,
+      "literalTitle": "THE FRONTIER COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network",
+        "representation-ontology-search",
+        "simulation-ecology",
+        "technology-tree-compiler",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 73,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0555",
+      "ordinal": 555,
+      "literalTitle": "THE POSSIBILITY BIG BANG ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 71.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0580",
+      "ordinal": 580,
+      "literalTitle": "THE POSSIBILITY SEARCH ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 71.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0634",
+      "ordinal": 634,
+      "literalTitle": "THE UNIVERSAL ANALOGY ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 71.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0162",
+      "ordinal": 162,
+      "literalTitle": "THE DELEGATION COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 71.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0065",
+      "ordinal": 65,
+      "literalTitle": "THE CONSTITUTION EVOLUTION ENGINE",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "simulation-ecology",
+        "sovereignty-governor",
+        "physical-reality-bridge",
+        "replication-network",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "truth-evidence-substrate",
+        "adversarial-tribunal"
+      ],
+      "heuristicPriority": 71,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0601",
+      "ordinal": 601,
+      "literalTitle": "THE UNKNOWN-CREATION ENGINE",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "physical-reality-bridge",
+        "replication-network",
+        "experiment-compiler",
+        "simulation-ecology",
+        "technology-tree-compiler",
+        "truth-evidence-substrate",
+        "adversarial-tribunal"
+      ],
+      "heuristicPriority": 71,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0761",
+      "ordinal": 761,
+      "literalTitle": "THE CENTURY COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "causal-mechanism-atoms",
+        "replication-network",
+        "adversarial-tribunal",
+        "sovereignty-governor"
+      ],
+      "heuristicPriority": 70.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0067",
+      "ordinal": 67,
+      "literalTitle": "THE TRUST COMPILER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "simulation-ecology",
+        "sovereignty-governor",
+        "representation-ontology-search",
+        "experiment-compiler"
+      ],
+      "heuristicPriority": 70.5,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0159",
+      "ordinal": 159,
+      "literalTitle": "THE RIGHTS COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "PHYSICAL_OR_BIOLOGICAL_TECHNOLOGY",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 70,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0622",
+      "ordinal": 622,
+      "literalTitle": "THE ONTOLOGY COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "adversarial-tribunal",
+        "simulation-ecology",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "replication-network"
+      ],
+      "heuristicPriority": 69.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0536",
+      "ordinal": 536,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 69,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0051",
+      "ordinal": 51,
+      "literalTitle": "THE MIND COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "HUMAN_CAPABILITY_PROGRAM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "adversarial-tribunal",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 68.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0209",
+      "ordinal": 209,
+      "literalTitle": "THE BREAKTHROUGH CASCADE ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network"
+      ],
+      "heuristicPriority": 68.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0240",
+      "ordinal": 240,
+      "literalTitle": "THE POSSIBILITY ISLAND DISCOVERER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "adversarial-tribunal",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "replication-network"
+      ],
+      "heuristicPriority": 68.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0509",
+      "ordinal": 509,
+      "literalTitle": "THE NEW MEDIUM ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "technology-tree-compiler"
+      ],
+      "heuristicPriority": 68.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0002",
+      "ordinal": 2,
+      "literalTitle": "THE NEW CONSTANT HUNTER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network",
+        "representation-ontology-search",
+        "truth-evidence-substrate",
+        "adversarial-tribunal"
+      ],
+      "heuristicPriority": 68.25,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0354",
+      "ordinal": 354,
+      "literalTitle": "THE SELF-REDESIGNING CIVILIZATION",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "simulation-ecology",
+        "sovereignty-governor",
+        "technology-tree-compiler",
+        "experiment-compiler",
+        "physical-reality-bridge",
+        "causal-mechanism-atoms",
+        "replication-network"
+      ],
+      "heuristicPriority": 68.25,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0127",
+      "ordinal": 127,
+      "literalTitle": "THE COMPUTATION DISCOVERY ENGINE",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network",
+        "representation-ontology-search",
+        "truth-evidence-substrate",
+        "adversarial-tribunal",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 67.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0540",
+      "ordinal": 540,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE RECURSION",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "experiment-compiler",
+        "simulation-ecology",
+        "technology-tree-compiler",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 67.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0587",
+      "ordinal": 587,
+      "literalTitle": "THE POSSIBILITY LIQUIDITY ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network"
+      ],
+      "heuristicPriority": 67.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0874",
+      "ordinal": 874,
+      "literalTitle": "THE FLYWHEEL COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 67.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0478",
+      "ordinal": 478,
+      "literalTitle": "THE ANTI-FRAGILE DISCOVERY ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 67,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0149",
+      "ordinal": 149,
+      "literalTitle": "THE KNOWLEDGE RECOMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 66.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0171",
+      "ordinal": 171,
+      "literalTitle": "THE MISSING-VARIABLE DETECTOR",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "causal-mechanism-atoms",
+        "replication-network"
+      ],
+      "heuristicPriority": 66.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0242",
+      "ordinal": 242,
+      "literalTitle": "THE PHASE-TRANSITION ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 66.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0415",
+      "ordinal": 415,
+      "literalTitle": "THE RECURSION STABILITY ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 66.25,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0014",
+      "ordinal": 14,
+      "literalTitle": "THE MEASUREMENT COMPILER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "physical-reality-bridge",
+        "replication-network",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "adversarial-tribunal",
+        "sovereignty-governor"
+      ],
+      "heuristicPriority": 66,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0146",
+      "ordinal": 146,
+      "literalTitle": "THE KNOWLEDGE PACKET",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 65,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0484",
+      "ordinal": 484,
+      "literalTitle": "THE TRUTH COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology"
+      ],
+      "heuristicPriority": 65,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0593",
+      "ordinal": 593,
+      "literalTitle": "THE POSSIBILITY CONSTITUTION",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "simulation-ecology",
+        "sovereignty-governor",
+        "technology-tree-compiler",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "physical-reality-bridge",
+        "causal-mechanism-atoms",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 65,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0446",
+      "ordinal": 446,
+      "literalTitle": "THE REALITY OPTIMIZER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "technology-tree-compiler"
+      ],
+      "heuristicPriority": 64.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0584",
+      "ordinal": 584,
+      "literalTitle": "THE POSSIBILITY HEDGE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "truth-evidence-substrate",
+        "adversarial-tribunal",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 64.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0614",
+      "ordinal": 614,
+      "literalTitle": "THE COGNITIVE CAMBRIAN EXPLOSION",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "adversarial-tribunal",
+        "causal-mechanism-atoms",
+        "replication-network"
+      ],
+      "heuristicPriority": 64.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0617",
+      "ordinal": 617,
+      "literalTitle": "THE NOVELTY BIG BANG",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network"
+      ],
+      "heuristicPriority": 64.75,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0239",
+      "ordinal": 239,
+      "literalTitle": "THE POSSIBILITY BRIDGE BUILDER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator"
+      ],
+      "heuristicPriority": 64,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0417",
+      "ordinal": 417,
+      "literalTitle": "THE GENERATOR OF RECURSIONS",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "causal-mechanism-atoms",
+        "physical-reality-bridge",
+        "replication-network",
+        "simulation-ecology",
+        "sovereignty-governor",
+        "technology-tree-compiler"
+      ],
+      "heuristicPriority": 64,
+      "nextAction": "COMPILE_INTO_MACHINE_CHECKABLE_INVARIANT_OR_DECISION_TEST",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0461",
+      "ordinal": 461,
+      "literalTitle": "THE REALITY VIRTUAL MACHINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "experiment-compiler",
+        "simulation-ecology",
+        "technology-tree-compiler"
+      ],
+      "heuristicPriority": 63.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    },
+    {
+      "stableId": "founder-moonshot-0533",
+      "ordinal": 533,
+      "literalTitle": "THE NEW RESEARCH PARADIGM",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "ancestorIds": [
+        "moonshot-reality-object",
+        "constraint-genome",
+        "future-ancestor-graph",
+        "representation-ontology-search",
+        "epoch-branching-evaluator",
+        "causal-mechanism-atoms",
+        "experiment-compiler",
+        "replication-network"
+      ],
+      "heuristicPriority": 63.5,
+      "nextAction": "EVIDENCE_GRADE_ATOMIZATION_THEN_MINIMUM_REALITY_PROBE",
+      "claimAtomizationState": "PENDING_EVIDENCE_GRADE_ATOMIZATION",
+      "truthBoundary": "FRONTIER_RANKING_SELECTS_WHAT_TO_FORMALIZE_NEXT__IT_DOES_NOT_RANK_IDEA_TRUTH_OR_CIVILIZATIONAL_IMPORTANCE"
+    }
+  ],
+  "decisionLaw": "BUILD_OR_VERIFY_SHARED_ANCESTORS_BEFORE_GRAND_DESCENDANTS__RECOMPILE_ALL_890_AFTER_EACH_VERIFIED_PRIMITIVE",
+  "truthBoundary": "HEURISTIC_FRONTIER_IS_WORK_SELECTION_NOT_IDEA_TRUTH_RANKING"
+}

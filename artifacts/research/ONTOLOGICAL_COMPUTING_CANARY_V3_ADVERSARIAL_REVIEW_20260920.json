@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v3-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_RESULT_20260920.json",
+  "verdict": "FALSIFICATION_ACCEPTED__BENCHMARK_DESIGN_LEARNED_FROM",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW",
+  "whyThisFailureMatters": [
+    "It demonstrates that name-level novelty is not semantic novelty.",
+    "It shows the experiment pipeline can preserve an unfavorable preregistered result instead of moving goalposts.",
+    "It exposed and corrected an implementation bug before receipt promotion.",
+    "It generated a reusable requirement for all future ontology/primitive claims."
+  ],
+  "mandatoryNextGate": {
+    "id": "SEMANTIC_NOVELTY_PREFLIGHT",
+    "rule": "Before a target may be called missing from an existing finite representation system, compare its behavior against the existing candidate family over a declared fixture universe and report exact equivalence plus nearest distance.",
+    "boundary": "Passing a finite preflight establishes non-equivalence only on the declared fixtures, not universal novelty."
+  },
+  "v4DesignConstraints": [
+    "TARGET_MUST_PASS_SEMANTIC_NOVELTY_PREFLIGHT_AGAINST_BASE_GRAMMAR",
+    "SPLITS_MUST_BE_CHECKED_FOR_CLASS_AND_BASELINE_DEGENERACY_BEFORE_RESULT_EXECUTION",
+    "PRIMITIVE_SYNTHESIS_MUST_FREEZE_BEFORE_TRANSFER_LABELS_ARE_USED",
+    "AT_LEAST_TWO_TRANSFER_FAMILIES_REQUIRED",
+    "NEGATIVE_CONTROL_REQUIRED",
+    "FAILED_PREREGISTERED_THRESHOLDS_REMAIN_FAILURES"
+  ]
+}

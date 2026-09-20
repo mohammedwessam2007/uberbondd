@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "uberbond.external-arithmetic-family-v5-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREREGISTRATION_20260920.json",
+  "preflight": "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREFLIGHT_20260920.json",
+  "source": "src/external-arithmetic-family-canary-v5.mjs",
+  "truthClass": "EXECUTED_EXTERNALLY_DEFINED_FINITE_SOFTWARE_CHALLENGE__PARTIAL_TRANSFER",
+  "executionEnvironment": "connected JavaScript V8 verifier using exact PR branch source with zero-effect dependency fixture",
+  "outcome": {
+    "status": "V5_PARTIAL_EXTERNAL_FAMILY_TRANSFER_WITH_BOUNDARIES",
+    "passingTargetCount": 1,
+    "totalTargets": 3,
+    "heldOutUsedForSelection": false,
+    "grammarMutatedAfterPreregistration": false
+  },
+  "targets": [
+    {
+      "id": "A008966_SQUAREFREE",
+      "sourceUrl": "https://oeis.org/A008966",
+      "selectedProgram": "DESCENDING_FROM_ORIGINAL_SQRT__REPEAT_WHILE_DIVISIBLE__SET_ZERO_ON_EVENT__SET_ONE_IF_WORKING_GT_1__INIT_0",
+      "heldOutAccuracy": 0.7350119904076738,
+      "bestBaselineAccuracy": 0.8597122302158273,
+      "improvement": -0.1247,
+      "criterionPassed": false
+    },
+    {
+      "id": "A001221_DISTINCT_PRIME_PARITY",
+      "sourceUrl": "https://oeis.org/A001221",
+      "selectedProgram": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_ON_DIVISOR_HIT__TOGGLE_IF_WORKING_GT_1__INIT_0",
+      "heldOutAccuracy": 1,
+      "bestBaselineAccuracy": 0.709832134292566,
+      "improvement": 0.290168,
+      "criterionPassed": true
+    },
+    {
+      "id": "A008683_MOBIUS_POSITIVE",
+      "sourceUrl": "https://oeis.org/A008683",
+      "selectedProgram": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_PER_DIVISION_EVENT__IGNORE_LEFTOVER__INIT_0",
+      "heldOutAccuracy": 0.7997601918465228,
+      "bestBaselineAccuracy": 0.8117505995203836,
+      "improvement": -0.01199,
+      "criterionPassed": false
+    }
+  ],
+  "searchAccountingPerTarget": {
+    "structuralProgramsEvaluated": 96,
+    "baseFeaturesEvaluated": 8626,
+    "rawThresholdModelsEvaluated": 3226
+  },
+  "ontogenesisTriggers": [
+    "A008966_SQUAREFREE",
+    "A008683_MOBIUS_POSITIVE"
+  ],
+  "supportedClaim": "The frozen V4B divisor-sweep grammar transfers exactly to the externally defined parity of distinct-prime count, demonstrating one genuine held-out structural-family success beyond the original multiplicity-parity benchmark.",
+  "unsupportedClaims": [
+    "FROZEN_GRAMMAR_DOES_NOT_SOLVE_SQUAREFREENESS",
+    "FROZEN_GRAMMAR_DOES_NOT_SOLVE_MOBIUS_POSITIVE",
+    "NO_OPEN_ENDED_STRUCTURAL_GENERALIZATION",
+    "NO_NEW_MATHEMATICS",
+    "NO_PARENT_MOONSHOT_PROMOTION"
+  ],
+  "parentMechanismState": "SOFTWARE_DEMONSTRATED",
+  "parentMechanismStateChange": "NONE"
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "uberbond.moonshot-realization-evidence-registry.v1",
+  "date": "2026-09-20",
+  "law": "CHILD_MECHANISM_EVIDENCE_ACCUMULATES_UNDER_A_PARENT_WITHOUT_AUTOMATICALLY_PROMOTING_THE_PARENT",
+  "events": [
+    {
+      "eventId": "moonshot-0001-formalized",
+      "targetType": "MOONSHOT",
+      "targetId": "founder-moonshot-0001",
+      "eventType": "PARENT_STATE_EVIDENCE",
+      "state": "FORMALIZED",
+      "evidenceRefs": [
+        "doc:FOUNDER_MOONSHOT_0001_FORMALIZATION"
+      ]
+    },
+    {
+      "eventId": "moonshot-0001-constraint-mapped",
+      "targetType": "MOONSHOT",
+      "targetId": "founder-moonshot-0001",
+      "eventType": "PARENT_STATE_EVIDENCE",
+      "state": "CONSTRAINT_MAPPED",
+      "evidenceRefs": [
+        "doc:FOUNDER_MOONSHOT_0001_FORMALIZATION"
+      ]
+    },
+    {
+      "eventId": "causal-v1-falsified",
+      "targetType": "MOONSHOT",
+      "targetId": "founder-moonshot-0001",
+      "eventType": "CHILD_MECHANISM_FALSIFIED",
+      "childMechanismId": "causal-relevance-pruning-v1",
+      "evidenceRefs": [
+        "experiment:CAUSAL_COMPILER_CANARY_V1"
+      ]
+    },
+    {
+      "eventId": "causal-v2-demonstrated-candidate",
+      "targetType": "MOONSHOT",
+      "targetId": "founder-moonshot-0001",
+      "eventType": "CHILD_MECHANISM_EVIDENCE",
+      "childMechanismId": "goal-directed-boolean-causal-compiler-v2",
+      "childState": "SOFTWARE_DEMONSTRATED",
+      "reviewStatus": "INTERNAL_ADVERSARIAL_REVIEWED",
+      "evidenceRefs": [
+        "experiment:CAUSAL_COMPILER_CANARY_V2"
+      ]
+    },
+    {
+      "eventId": "experiment-compiler-source-implemented",
+      "targetType": "ANCESTOR",
+      "targetId": "experiment-compiler",
+      "eventType": "ANCESTOR_SOURCE_IMPLEMENTED",
+      "state": "SOURCE_IMPLEMENTED_IN_PR_967",
+      "evidenceRefs": [
+        "test:moonshot-experiment-compiler"
+      ]
+    },
+    {
+      "eventId": "ontology-v4-narrow-child",
+      "targetType": "ANCESTOR",
+      "targetId": "representation-ontology-search",
+      "eventType": "CHILD_MECHANISM_EVIDENCE",
+      "childMechanismId": "finite-fixture-semantic-novelty-gated-primitive-admission-v4",
+      "childState": "SOFTWARE_DEMONSTRATED",
+      "reviewStatus": "INTERNAL_ADVERSARIAL_REVIEWED",
+      "evidenceRefs": [
+        "experiment:ONTOLOGICAL_COMPUTING_CANARY_V4"
+      ]
+    },
+    {
+      "eventId": "external-arithmetic-v5-transfer",
+      "targetType": "ANCESTOR",
+      "targetId": "representation-ontology-search",
+      "eventType": "CHILD_MECHANISM_EVIDENCE",
+      "childMechanismId": "frozen-divisor-sweep-structural-program-v5",
+      "childState": "SOFTWARE_DEMONSTRATED_PARTIAL_EXTERNAL_TRANSFER",
+      "reviewStatus": "INTERNAL_ADVERSARIAL_REVIEWED",
+      "evidenceRefs": [
+        "experiment:EXTERNAL_ARITHMETIC_FAMILY_V5"
+      ]
+    }
+  ],
+  "truthBoundary": "ANCESTOR_OR_CHILD_EVIDENCE_DOES_NOT_PROMOTE_890_PARENT_MOONSHOTS_WITHOUT_PARENT_SCOPED_EVIDENCE"
+}

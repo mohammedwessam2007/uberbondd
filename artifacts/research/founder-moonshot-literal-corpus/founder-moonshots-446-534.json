@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 6,
+  "ordinalStart": 446,
+  "ordinalEnd": 534,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 446,
+      "literalTitle": "THE REALITY OPTIMIZER",
+      "hypotheticalIq": "3 × 10²⁵⁶",
+      "literalBodyMarkdown": "Search interventions across multiple substrates instead of optimizing within one domain.",
+      "sourceLineStart": 1795,
+      "sourceLineEnd": 1798,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 447,
+      "literalTitle": "THE REALITY COMPILER",
+      "hypotheticalIq": "10²⁵⁷",
+      "literalBodyMarkdown": "High-level intent → verified causal design → bounded intervention → physical result.",
+      "sourceLineStart": 1799,
+      "sourceLineEnd": 1802,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 448,
+      "literalTitle": "THE REALITY RUNTIME",
+      "hypotheticalIq": "3 × 10²⁵⁷",
+      "literalBodyMarkdown": "Continuously observe whether a compiled intervention behaves as predicted and halt or adapt when reality diverges.",
+      "sourceLineStart": 1803,
+      "sourceLineEnd": 1806,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 449,
+      "literalTitle": "THE REALITY TYPE SYSTEM",
+      "hypotheticalIq": "10²⁵⁸",
+      "literalBodyMarkdown": "Prevent category errors by formally distinguishing predictions, observations, simulations, hypotheses, permissions, assumptions, and verified facts.",
+      "sourceLineStart": 1807,
+      "sourceLineEnd": 1810,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 450,
+      "literalTitle": "THE REALITY EXCEPTION HANDLER",
+      "hypotheticalIq": "3 × 10²⁵⁸",
+      "literalBodyMarkdown": "When the world behaves outside expected bounds, stop pretending. Promote the anomaly into a first-class discovery event.",
+      "sourceLineStart": 1811,
+      "sourceLineEnd": 1814,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 451,
+      "literalTitle": "THE REALITY TEST SUITE",
+      "hypotheticalIq": "10²⁵⁹",
+      "literalBodyMarkdown": "Every important system carries explicit tests specifying what observable evidence would falsify its assumptions.",
+      "sourceLineStart": 1815,
+      "sourceLineEnd": 1818,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 452,
+      "literalTitle": "THE REALITY CI/CD",
+      "hypotheticalIq": "3 × 10²⁵⁹",
+      "literalBodyMarkdown": "New mechanisms move from simulation → sandbox → small controlled deployment → monitored production → expansion only after evidence.",
+      "sourceLineStart": 1819,
+      "sourceLineEnd": 1822,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 453,
+      "literalTitle": "THE REALITY PACKAGE MANAGER",
+      "hypotheticalIq": "10²⁶⁰",
+      "literalBodyMarkdown": "Reusable verified mechanisms can be installed into new systems with documented dependencies, incompatibilities, side effects, and evidence.",
+      "sourceLineStart": 1823,
+      "sourceLineEnd": 1826,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 454,
+      "literalTitle": "THE REALITY LIBRARY",
+      "hypotheticalIq": "3 × 10²⁶⁰",
+      "literalBodyMarkdown": "A canonical corpus of reproducible causal mechanisms across physics, biology, computation, economics, institutions, and cognition.",
+      "sourceLineStart": 1827,
+      "sourceLineEnd": 1830,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 455,
+      "literalTitle": "THE REALITY STANDARD LIBRARY",
+      "hypotheticalIq": "10²⁶¹",
+      "literalBodyMarkdown": "Civilization accumulates a core collection of extremely trusted mechanisms useful across enormous numbers of problems.",
+      "sourceLineStart": 1831,
+      "sourceLineEnd": 1834,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 456,
+      "literalTitle": "THE REALITY KERNEL",
+      "hypotheticalIq": "3 × 10²⁶¹",
+      "literalBodyMarkdown": "Identify the smallest set of causal primitives from which huge classes of engineered systems can be composed.",
+      "sourceLineStart": 1835,
+      "sourceLineEnd": 1838,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 457,
+      "literalTitle": "THE REALITY INSTRUCTION SET",
+      "hypotheticalIq": "10²⁶²",
+      "literalBodyMarkdown": "A universal taxonomy of primitive interventions capable of manipulating systems across substrates.",
+      "sourceLineStart": 1839,
+      "sourceLineEnd": 1842,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 458,
+      "literalTitle": "THE REALITY ASSEMBLY LANGUAGE",
+      "hypotheticalIq": "3 × 10²⁶²",
+      "literalBodyMarkdown": "A low-level formalism for composing causal mechanisms directly.",
+      "sourceLineStart": 1843,
+      "sourceLineEnd": 1846,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 459,
+      "literalTitle": "THE REALITY HIGH-LEVEL LANGUAGE",
+      "hypotheticalIq": "10²⁶³",
+      "literalBodyMarkdown": "Humans specify desired properties and constraints while compilers determine implementation.",
+      "sourceLineStart": 1847,
+      "sourceLineEnd": 1850,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 460,
+      "literalTitle": "THE REALITY OPERATING SYSTEM",
+      "hypotheticalIq": "3 × 10²⁶³",
+      "literalBodyMarkdown": "Coordinate physical resources, computation, intelligence, laboratories, humans, institutions, permissions, and evidence under one programmable architecture.",
+      "sourceLineStart": 1851,
+      "sourceLineEnd": 1854,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 461,
+      "literalTitle": "THE REALITY VIRTUAL MACHINE",
+      "hypotheticalIq": "10²⁶⁴",
+      "literalBodyMarkdown": "Create an abstract execution layer allowing a causal program to target different implementation substrates.",
+      "sourceLineStart": 1855,
+      "sourceLineEnd": 1858,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 462,
+      "literalTitle": "THE REALITY CONTAINER",
+      "hypotheticalIq": "3 × 10²⁶⁴",
+      "literalBodyMarkdown": "Isolate experiments so they can run without uncontrolled effects beyond explicit boundaries.",
+      "sourceLineStart": 1859,
+      "sourceLineEnd": 1862,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 463,
+      "literalTitle": "THE REALITY SANDBOX",
+      "hypotheticalIq": "10²⁶⁵",
+      "literalBodyMarkdown": "A standardized bounded environment for testing interventions before exposing larger systems.",
+      "sourceLineStart": 1863,
+      "sourceLineEnd": 1866,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 464,
+      "literalTitle": "THE REALITY PERMISSION SYSTEM",
+      "hypotheticalIq": "3 × 10²⁶⁵",
+      "literalBodyMarkdown": "Actions specify exactly what may be changed, where, for how long, with what authority and rollback.",
+      "sourceLineStart": 1867,
+      "sourceLineEnd": 1870,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 465,
+      "literalTitle": "THE REALITY PROOF SYSTEM",
+      "hypotheticalIq": "10²⁶⁶",
+      "literalBodyMarkdown": "Every claimed result carries machine-readable evidence connecting intervention, observation, uncertainty, and causal interpretation.",
+      "sourceLineStart": 1871,
+      "sourceLineEnd": 1874,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 466,
+      "literalTitle": "THE REALITY LEDGER",
+      "hypotheticalIq": "3 × 10²⁶⁶",
+      "literalBodyMarkdown": "Preserve every consequential experiment, outcome, contradiction, rollback, and lesson.",
+      "sourceLineStart": 1875,
+      "sourceLineEnd": 1878,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 467,
+      "literalTitle": "THE REALITY MEMORY",
+      "hypotheticalIq": "10²⁶⁷",
+      "literalBodyMarkdown": "Civilization can remember not only what happened, but **why it believed it happened** and how confidence evolved.",
+      "sourceLineStart": 1879,
+      "sourceLineEnd": 1882,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 468,
+      "literalTitle": "THE REALITY LEARNING LOOP",
+      "hypotheticalIq": "3 × 10²⁶⁷",
+      "literalBodyMarkdown": "Every intervention updates the causal world model.",
+      "sourceLineStart": 1883,
+      "sourceLineEnd": 1886,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 469,
+      "literalTitle": "THE REALITY SELF-MODEL",
+      "hypotheticalIq": "10²⁶⁸",
+      "literalBodyMarkdown": "A continuously falsified representation of the systems civilization can actually influence.",
+      "sourceLineStart": 1887,
+      "sourceLineEnd": 1890,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 470,
+      "literalTitle": "THE REALITY FRONTIER",
+      "hypotheticalIq": "3 × 10²⁶⁸",
+      "literalBodyMarkdown": "Maintain the boundary between what we know how to cause and what remains uncontrollable.",
+      "sourceLineStart": 1891,
+      "sourceLineEnd": 1894,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 471,
+      "literalTitle": "THE CAUSAL FRONTIER EXPANDER",
+      "hypotheticalIq": "10²⁶⁹",
+      "literalBodyMarkdown": "Civilization deliberately expands the set of outcomes it can reliably cause.",
+      "sourceLineStart": 1895,
+      "sourceLineEnd": 1898,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 472,
+      "literalTitle": "THE CONTROLLABILITY MAP",
+      "hypotheticalIq": "3 × 10²⁶⁹",
+      "literalBodyMarkdown": "Map which dimensions of physical, biological, computational, and social systems are controllable at what precision and cost.",
+      "sourceLineStart": 1899,
+      "sourceLineEnd": 1902,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 473,
+      "literalTitle": "THE CONTROLLABILITY COMPILER",
+      "hypotheticalIq": "10²⁷⁰",
+      "literalBodyMarkdown": "Input an uncontrollable variable. Determine what new measurements, actuators, models, or intermediate variables would make it controllable.",
+      "sourceLineStart": 1903,
+      "sourceLineEnd": 1906,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 474,
+      "literalTitle": "THE ACTUATOR INVENTOR",
+      "hypotheticalIq": "3 × 10²⁷⁰",
+      "literalBodyMarkdown": "Invent new ways of exerting precise influence over systems humans can currently only observe.",
+      "sourceLineStart": 1907,
+      "sourceLineEnd": 1910,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 475,
+      "literalTitle": "THE SENSOR-ACTUATOR LOOP GENERATOR",
+      "hypotheticalIq": "10²⁷¹",
+      "literalBodyMarkdown": "Every newly measurable variable immediately triggers search for ways to control it, and every new actuator triggers better measurement.",
+      "sourceLineStart": 1911,
+      "sourceLineEnd": 1914,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 476,
+      "literalTitle": "THE CONTROL THEORY OF CIVILIZATION",
+      "hypotheticalIq": "3 × 10²⁷¹",
+      "literalBodyMarkdown": "Develop formal ways to reason about steering gigantic interconnected adaptive systems without pretending they are simple machines.",
+      "sourceLineStart": 1915,
+      "sourceLineEnd": 1918,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 477,
+      "literalTitle": "THE ROBUSTNESS FIRST PRINCIPLE",
+      "hypotheticalIq": "10²⁷²",
+      "literalBodyMarkdown": "Optimize systems for remaining useful under model error rather than only maximizing performance when predictions are correct.",
+      "sourceLineStart": 1919,
+      "sourceLineEnd": 1922,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 478,
+      "literalTitle": "THE ANTI-FRAGILE DISCOVERY ENGINE",
+      "hypotheticalIq": "3 × 10²⁷²",
+      "literalBodyMarkdown": "Design research systems that become better when experiments fail unexpectedly.",
+      "sourceLineStart": 1923,
+      "sourceLineEnd": 1926,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 479,
+      "literalTitle": "THE ANTI-FRAGILE TECHNOLOGY TREE",
+      "hypotheticalIq": "10²⁷³",
+      "literalBodyMarkdown": "Prefer technological architectures where local failures generate information rather than catastrophic collapse.",
+      "sourceLineStart": 1927,
+      "sourceLineEnd": 1930,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 480,
+      "literalTitle": "THE SELF-HEALING KNOWLEDGE GRAPH",
+      "hypotheticalIq": "3 × 10²⁷³",
+      "literalBodyMarkdown": "Contradictions trigger reevaluation of dependent claims instead of remaining buried indefinitely.",
+      "sourceLineStart": 1931,
+      "sourceLineEnd": 1934,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 481,
+      "literalTitle": "THE EPISTEMIC IMMUNE SYSTEM",
+      "hypotheticalIq": "10²⁷⁴",
+      "literalBodyMarkdown": "Detect misinformation, corrupted evidence, circular citation, fabricated consensus, stale models, and adversarial epistemic attacks.",
+      "sourceLineStart": 1935,
+      "sourceLineEnd": 1938,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 482,
+      "literalTitle": "THE KNOWLEDGE QUARANTINE SYSTEM",
+      "hypotheticalIq": "3 × 10²⁷⁴",
+      "literalBodyMarkdown": "Suspicious claims remain usable as hypotheses without contaminating trusted knowledge.",
+      "sourceLineStart": 1939,
+      "sourceLineEnd": 1942,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 483,
+      "literalTitle": "THE TRUST GRADIENT",
+      "hypotheticalIq": "10²⁷⁵",
+      "literalBodyMarkdown": "Replace binary true/false knowledge states with explicit graded evidence across provenance, replication, causal support, recency, and applicability.",
+      "sourceLineStart": 1943,
+      "sourceLineEnd": 1946,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 484,
+      "literalTitle": "THE TRUTH COMPILER",
+      "hypotheticalIq": "3 × 10²⁷⁵",
+      "literalBodyMarkdown": "Combine evidence streams into operational beliefs while preserving disagreement and uncertainty rather than flattening them.",
+      "sourceLineStart": 1947,
+      "sourceLineEnd": 1950,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 485,
+      "literalTitle": "THE REALITY COURT",
+      "hypotheticalIq": "10²⁷⁶",
+      "literalBodyMarkdown": "Competing models present predictions and evidence before an automated adversarial tribunal whose final judge is subsequent observation.",
+      "sourceLineStart": 1951,
+      "sourceLineEnd": 1954,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 486,
+      "literalTitle": "THE THEORY COURT OF APPEALS",
+      "hypotheticalIq": "3 × 10²⁷⁶",
+      "literalBodyMarkdown": "Previously rejected theories can return when new evidence or measurement technology changes the case.",
+      "sourceLineStart": 1955,
+      "sourceLineEnd": 1958,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 487,
+      "literalTitle": "THE SCIENTIFIC MEMORY OF DISSENT",
+      "hypotheticalIq": "10²⁷⁷",
+      "literalBodyMarkdown": "Preserve serious minority hypotheses without granting them false equivalence, allowing later evidence to revive them if warranted.",
+      "sourceLineStart": 1959,
+      "sourceLineEnd": 1962,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 488,
+      "literalTitle": "THE CONTRADICTION ENGINE",
+      "hypotheticalIq": "3 × 10²⁷⁷",
+      "literalBodyMarkdown": "Search aggressively for places where simultaneously trusted claims cannot all be true.",
+      "sourceLineStart": 1963,
+      "sourceLineEnd": 1966,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 489,
+      "literalTitle": "THE CONTRADICTION REACTOR",
+      "hypotheticalIq": "10²⁷⁸",
+      "literalBodyMarkdown": "Treat contradictions as fuel for generating deeper theories.",
+      "sourceLineStart": 1967,
+      "sourceLineEnd": 1970,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 490,
+      "literalTitle": "THE PARADOX MINER",
+      "hypotheticalIq": "3 × 10²⁷⁸",
+      "literalBodyMarkdown": "Search for observations that become paradoxical under existing conceptual frameworks. Historically, those are sometimes portals to new physics or mathematics.",
+      "sourceLineStart": 1971,
+      "sourceLineEnd": 1974,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 491,
+      "literalTitle": "THE PARADOX COMPILER",
+      "hypotheticalIq": "10²⁷⁹",
+      "literalBodyMarkdown": "Convert a paradox into the minimum set of assumptions whose modification could dissolve it.",
+      "sourceLineStart": 1975,
+      "sourceLineEnd": 1978,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 492,
+      "literalTitle": "THE CONCEPTUAL EARTHQUAKE DETECTOR",
+      "hypotheticalIq": "3 × 10²⁷⁹",
+      "literalBodyMarkdown": "Detect when accumulating anomalies suggest an entire paradigm is close to collapse.",
+      "sourceLineStart": 1979,
+      "sourceLineEnd": 1982,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 493,
+      "literalTitle": "THE PARADIGM TRANSITION ENGINE",
+      "hypotheticalIq": "10²⁸⁰",
+      "literalBodyMarkdown": "During scientific revolutions, preserve everything the old paradigm explained while searching for a broader replacement.",
+      "sourceLineStart": 1983,
+      "sourceLineEnd": 1986,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 494,
+      "literalTitle": "THE THEORY SUPERSET GENERATOR",
+      "hypotheticalIq": "3 × 10²⁸⁰",
+      "literalBodyMarkdown": "Search for theories that reduce to existing models in known regimes but explain anomalies outside them.",
+      "sourceLineStart": 1987,
+      "sourceLineEnd": 1990,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 495,
+      "literalTitle": "THE UNIFICATION ENGINE",
+      "hypotheticalIq": "10²⁸¹",
+      "literalBodyMarkdown": "Continuously search for shared structure across independently successful theories.",
+      "sourceLineStart": 1991,
+      "sourceLineEnd": 1994,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 496,
+      "literalTitle": "THE UNIFICATION OF UNIFICATIONS",
+      "hypotheticalIq": "3 × 10²⁸¹",
+      "literalBodyMarkdown": "Search for principles explaining why successful unifications take the forms they do.",
+      "sourceLineStart": 1995,
+      "sourceLineEnd": 1998,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 497,
+      "literalTitle": "THE META-LAW ENGINE",
+      "hypotheticalIq": "10²⁸²",
+      "literalBodyMarkdown": "Study regularities across scientific laws themselves.",
+      "sourceLineStart": 1999,
+      "sourceLineEnd": 2002,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 498,
+      "literalTitle": "THE GENERATIVE LAW ENGINE",
+      "hypotheticalIq": "3 × 10²⁸²",
+      "literalBodyMarkdown": "Instead of fitting laws to data, search for compact generative processes capable of producing whole families of observed laws.",
+      "sourceLineStart": 2003,
+      "sourceLineEnd": 2006,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 499,
+      "literalTitle": "THE REALITY COMPRESSION ENGINE",
+      "hypotheticalIq": "10²⁸³",
+      "literalBodyMarkdown": "Search for the shortest executable explanation capable of reproducing broad domains of observed reality.",
+      "sourceLineStart": 2007,
+      "sourceLineEnd": 2010,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 500,
+      "literalTitle": "THE GREAT COMPRESSION",
+      "hypotheticalIq": "3 × 10²⁸³",
+      "literalBodyMarkdown": "Ask whether apparently independent fields can be generated from much smaller underlying structures.",
+      "sourceLineStart": 2011,
+      "sourceLineEnd": 2014,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 501,
+      "literalTitle": "THE UNIVERSAL GENERATOR SEARCH",
+      "hypotheticalIq": "10²⁸⁴",
+      "literalBodyMarkdown": "Search for processes capable of generating many classes of complex systems from simple rules.",
+      "sourceLineStart": 2015,
+      "sourceLineEnd": 2018,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 502,
+      "literalTitle": "THE GENERATOR PERIODIC TABLE",
+      "hypotheticalIq": "3 × 10²⁸⁴",
+      "literalBodyMarkdown": "Catalog generative processes underlying evolution, markets, computation, morphogenesis, intelligence, and self-organization.",
+      "sourceLineStart": 2019,
+      "sourceLineEnd": 2022,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 503,
+      "literalTitle": "THE GENERATOR CHEMISTRY",
+      "hypotheticalIq": "10²⁸⁵",
+      "literalBodyMarkdown": "Combine generative principles and observe what classes of systems emerge.",
+      "sourceLineStart": 2023,
+      "sourceLineEnd": 2026,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 504,
+      "literalTitle": "THE GENERATOR COMPILER",
+      "hypotheticalIq": "3 × 10²⁸⁵",
+      "literalBodyMarkdown": "Given desired emergent properties, synthesize a generative process likely to produce them.",
+      "sourceLineStart": 2027,
+      "sourceLineEnd": 2030,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 505,
+      "literalTitle": "THE GENERATOR OF GENERATORS",
+      "hypotheticalIq": "10²⁸⁶",
+      "literalBodyMarkdown": "Construct systems that invent new generative processes.",
+      "sourceLineStart": 2031,
+      "sourceLineEnd": 2034,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 506,
+      "literalTitle": "THE GENERATOR EVOLUTION",
+      "hypotheticalIq": "3 × 10²⁸⁶",
+      "literalBodyMarkdown": "Let different novelty-producing processes compete based on what useful spaces they open.",
+      "sourceLineStart": 2035,
+      "sourceLineEnd": 2038,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 507,
+      "literalTitle": "THE GENERATIVE SINGULARITY",
+      "hypotheticalIq": "10²⁸⁷",
+      "literalBodyMarkdown": "The system becomes increasingly capable not merely of producing artifacts but of inventing **new classes of processes that produce classes of artifacts**.",
+      "sourceLineStart": 2039,
+      "sourceLineEnd": 2042,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 508,
+      "literalTitle": "THE POSSIBILITY-SUBSTRATE HUNTER",
+      "hypotheticalIq": "3 × 10²⁸⁷",
+      "literalBodyMarkdown": "Search for substrates analogous to digital computation that create entirely new spaces of possible artifacts.",
+      "sourceLineStart": 2043,
+      "sourceLineEnd": 2046,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 509,
+      "literalTitle": "THE NEW MEDIUM ENGINE",
+      "hypotheticalIq": "10²⁸⁸",
+      "literalBodyMarkdown": "Historically transformative technologies often create new media: writing, print, radio, software, networks. Search for a medium with no current analogue.",
+      "sourceLineStart": 2047,
+      "sourceLineEnd": 2050,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 510,
+      "literalTitle": "THE NEW REALITY LAYER",
+      "hypotheticalIq": "3 × 10²⁸⁸",
+      "literalBodyMarkdown": "Discover or engineer a layer of interaction in which entirely new entities can exist, the way cyberspace allowed software economies.",
+      "sourceLineStart": 2051,
+      "sourceLineEnd": 2054,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 511,
+      "literalTitle": "THE NEW OBJECT CLASS GENERATOR",
+      "hypotheticalIq": "10²⁸⁹",
+      "literalBodyMarkdown": "Search explicitly for kinds of objects that currently do not have a coherent category: hybrid computational-biological-institutional entities, for instance.",
+      "sourceLineStart": 2055,
+      "sourceLineEnd": 2058,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 512,
+      "literalTitle": "THE NEW AGENT CLASS GENERATOR",
+      "hypotheticalIq": "3 × 10²⁸⁹",
+      "literalBodyMarkdown": "Humans, corporations, governments, software agents, and organisms are existing agent types. Search for fundamentally new kinds of persistent actors.",
+      "sourceLineStart": 2059,
+      "sourceLineEnd": 2062,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 513,
+      "literalTitle": "THE NEW MARKET CLASS GENERATOR",
+      "hypotheticalIq": "10²⁹⁰",
+      "literalBodyMarkdown": "Invent exchange mechanisms for things currently impossible to price, verify, transfer, or own.",
+      "sourceLineStart": 2063,
+      "sourceLineEnd": 2066,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 514,
+      "literalTitle": "THE NEW SCIENCE CLASS GENERATOR",
+      "hypotheticalIq": "3 × 10²⁹⁰",
+      "literalBodyMarkdown": "Search for scientific questions that do not fit any existing methodological category.",
+      "sourceLineStart": 2067,
+      "sourceLineEnd": 2070,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 515,
+      "literalTitle": "THE NEW MATHEMATICAL OBJECT GENERATOR",
+      "hypotheticalIq": "10²⁹¹",
+      "literalBodyMarkdown": "Invent mathematical entities whose behavior creates previously inaccessible proof strategies or modeling capabilities.",
+      "sourceLineStart": 2071,
+      "sourceLineEnd": 2074,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 516,
+      "literalTitle": "THE NEW COMPUTATIONAL OBJECT GENERATOR",
+      "hypotheticalIq": "3 × 10²⁹¹",
+      "literalBodyMarkdown": "Search beyond programs, models, agents, and databases for new basic forms of computational entity.",
+      "sourceLineStart": 2075,
+      "sourceLineEnd": 2078,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 517,
+      "literalTitle": "THE NEW ECONOMIC OBJECT GENERATOR",
+      "hypotheticalIq": "10²⁹²",
+      "literalBodyMarkdown": "Invent financial or contractual primitives capable of representing value relationships that existing assets cannot express.",
+      "sourceLineStart": 2079,
+      "sourceLineEnd": 2082,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 518,
+      "literalTitle": "THE NEW ORGANIZATIONAL OBJECT GENERATOR",
+      "hypotheticalIq": "3 × 10²⁹²",
+      "literalBodyMarkdown": "Search beyond firms, states, nonprofits, DAOs, cooperatives, and markets for new stable organizational forms.",
+      "sourceLineStart": 2083,
+      "sourceLineEnd": 2086,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 519,
+      "literalTitle": "THE NEW COGNITIVE OBJECT GENERATOR",
+      "hypotheticalIq": "10²⁹³",
+      "literalBodyMarkdown": "Generate persistent external thought structures richer than documents, conversations, models, or databases.",
+      "sourceLineStart": 2087,
+      "sourceLineEnd": 2090,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 520,
+      "literalTitle": "THE NEW KNOWLEDGE OBJECT GENERATOR",
+      "hypotheticalIq": "3 × 10²⁹³",
+      "literalBodyMarkdown": "Create knowledge artifacts that are executable, testable, updateable, provenance-carrying, and causally connected to reality.",
+      "sourceLineStart": 2091,
+      "sourceLineEnd": 2094,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 521,
+      "literalTitle": "THE NEW LIFEFORM CLASS GENERATOR",
+      "hypotheticalIq": "10²⁹⁴",
+      "literalBodyMarkdown": "Search conceptual territory between organism, machine, institution, and software for entirely new forms of adaptive entity.",
+      "sourceLineStart": 2095,
+      "sourceLineEnd": 2098,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 522,
+      "literalTitle": "THE NEW MATERIAL CLASS GENERATOR",
+      "hypotheticalIq": "3 × 10²⁹⁴",
+      "literalBodyMarkdown": "Search beyond conventional divisions such as metals, ceramics, polymers, semiconductors, metamaterials, and biological materials.",
+      "sourceLineStart": 2099,
+      "sourceLineEnd": 2102,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 523,
+      "literalTitle": "THE NEW ENERGY-CARRIER GENERATOR",
+      "hypotheticalIq": "10²⁹⁵",
+      "literalBodyMarkdown": "Search for systems capable of storing and transmitting usable energy in ways that combine unusual advantages.",
+      "sourceLineStart": 2103,
+      "sourceLineEnd": 2106,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 524,
+      "literalTitle": "THE NEW COMPUTATION-CARRIER GENERATOR",
+      "hypotheticalIq": "3 × 10²⁹⁵",
+      "literalBodyMarkdown": "Search physical systems for new carriers of state and transformation beyond familiar electronic, photonic, molecular, and quantum approaches.",
+      "sourceLineStart": 2107,
+      "sourceLineEnd": 2110,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 525,
+      "literalTitle": "THE NEW MEMORY SUBSTRATE GENERATOR",
+      "hypotheticalIq": "10²⁹⁶",
+      "literalBodyMarkdown": "Search matter and dynamics for radically denser, longer-lived, safer, or more energy-efficient ways to preserve information.",
+      "sourceLineStart": 2111,
+      "sourceLineEnd": 2114,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 526,
+      "literalTitle": "THE NEW SENSORIUM",
+      "hypotheticalIq": "3 × 10²⁹⁶",
+      "literalBodyMarkdown": "Create integrated sensing architectures that reveal aspects of reality invisible to human perception and conventional instrumentation.",
+      "sourceLineStart": 2115,
+      "sourceLineEnd": 2118,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 527,
+      "literalTitle": "THE NEW ACTUATION SUBSTRATE",
+      "hypotheticalIq": "10²⁹⁷",
+      "literalBodyMarkdown": "Discover mechanisms allowing precise manipulation of matter or biology at scales currently difficult to control.",
+      "sourceLineStart": 2119,
+      "sourceLineEnd": 2122,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 528,
+      "literalTitle": "THE NEW MANUFACTURING PARADIGM",
+      "hypotheticalIq": "3 × 10²⁹⁷",
+      "literalBodyMarkdown": "Search for production methods as different from today's factories as printing was from handwriting.",
+      "sourceLineStart": 2123,
+      "sourceLineEnd": 2126,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 529,
+      "literalTitle": "THE NEW TRANSPORT PARADIGM",
+      "hypotheticalIq": "10²⁹⁸",
+      "literalBodyMarkdown": "Instead of improving cars, planes, trains, or rockets, search the physics and infrastructure space for fundamentally different movement systems.",
+      "sourceLineStart": 2127,
+      "sourceLineEnd": 2130,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 530,
+      "literalTitle": "THE NEW COMMUNICATION PARADIGM",
+      "hypotheticalIq": "3 × 10²⁹⁸",
+      "literalBodyMarkdown": "Search beyond faster bandwidth toward entirely different ways intelligent systems share internal structure.",
+      "sourceLineStart": 2131,
+      "sourceLineEnd": 2134,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 531,
+      "literalTitle": "THE NEW EDUCATION PARADIGM",
+      "hypotheticalIq": "10²⁹⁹",
+      "literalBodyMarkdown": "Education stops delivering content and begins engineering verified capability through personalized environments and real-world tasks.",
+      "sourceLineStart": 2135,
+      "sourceLineEnd": 2138,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 532,
+      "literalTitle": "THE NEW HEALTH PARADIGM",
+      "hypotheticalIq": "3 × 10²⁹⁹",
+      "literalBodyMarkdown": "Move from episodic disease treatment toward continuous prediction, prevention, repair, and individualized biological understanding.",
+      "sourceLineStart": 2139,
+      "sourceLineEnd": 2142,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 533,
+      "literalTitle": "THE NEW RESEARCH PARADIGM",
+      "hypotheticalIq": "10³⁰⁰",
+      "literalBodyMarkdown": "Science becomes a continuously operating autonomous evidence engine rather than a sequence of isolated studies.",
+      "sourceLineStart": 2143,
+      "sourceLineEnd": 2146,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 534,
+      "literalTitle": "THE NEW INNOVATION PARADIGM",
+      "hypotheticalIq": "3 × 10³⁰⁰",
+      "literalBodyMarkdown": "Innovation becomes systematic exploration of mechanism and possibility spaces rather than occasional human inspiration.",
+      "sourceLineStart": 2147,
+      "sourceLineEnd": 2150,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

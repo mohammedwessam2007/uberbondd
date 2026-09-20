@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "uberbond.multiplicity-depth-memory-v8-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json",
+  "verdict": "POST_FAILURE_MECHANISM_CONFIRMED__UNSEEN_ORDER_GENERALIZATION_STILL_OPEN",
+  "strengths": [
+    "FROZEN_GENERIC_GRAMMAR_BEFORE_RESULT",
+    "NO_TARGET_SPECIFIC_NAMES_IN_GRAMMAR",
+    "CUBEFREE_REACHED_1_0_BALANCED_ACCURACY",
+    "ALL_PRIOR_PUBLIC_TARGETS_REMAINED_1_0",
+    "HASH_CONTROL_REMAINED_NEAR_CHANCE"
+  ],
+  "limitations": [
+    "CUBEFREE_WAS_THE_FAILURE_THAT_MOTIVATED_DEPTH_MEMORY",
+    "STATE_SATURATES_AT_3_SO_EXPONENT_4_OR_HIGHER_IS_UNTESTED",
+    "SAME_IMPLEMENTATION_LINEAGE"
+  ],
+  "nextGate": {
+    "target": "EXTERNALLY_DEFINED_4TH_POWER_FREE_INDICATOR",
+    "purpose": "Test an unseen multiplicity threshold requiring exponent-4 discrimination.",
+    "sourceEvidence": [
+      "OEIS k-power-free definition",
+      "OEIS A215267 comment that 1/zeta(4) is the asymptotic probability a random integer is 4-free"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond.cubefree-external-v7-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/CUBEFREE_EXTERNAL_V7_PREREGISTRATION_20260920.json",
+  "preflight": "artifacts/research/CUBEFREE_EXTERNAL_V7_PREFLIGHT_20260920.json",
+  "source": "src/cubefree-external-v7.mjs",
+  "truthClass": "PREREGISTERED_UNSEEN_PUBLIC_GENERALIZATION_FALSIFICATION",
+  "outcome": {
+    "status": "V7_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED",
+    "falsifierTriggered": true,
+    "grammarCandidateCount": 864,
+    "heldOutUsedForSelection": false,
+    "grammarMutationAfterPreregistration": false,
+    "heldOutBalancedAccuracy": 0.8666180758017492,
+    "heldOutPositiveRecall": 0.7332361516034985,
+    "heldOutNegativeRecall": 1,
+    "heldOutAccuracy": 0.7805755395683454,
+    "frozenBaseHeldOutBalancedAccuracy": 0.8614864864864865,
+    "improvementOverFrozenBase": 0.005132,
+    "requiredImprovement": 0.08,
+    "negativeControlBalancedAccuracy": 0.463623053911199,
+    "negativeControlPassed": true
+  },
+  "selectedProgram": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_ON_DIVISOR_HIT__IGNORE_LEFTOVER__ACC_INIT_0__REPEAT_MEMORY__NOT_REPEAT_SEEN",
+  "diagnosis": "The repeatSeen bit perfectly detects numbers containing at least one squared prime factor, but cannot distinguish exponent two from exponent three-or-more. Cubefree requires that extra multiplicity depth.",
+  "promotionDecision": "DENY_V6_CONCEPT_PROMOTION_ON_UNSEEN_MULTIPLICITY_ORDER",
+  "ontogenesisTrigger": "MULTIPLICITY_DEPTH_STATE_CANDIDATE",
+  "nextGate": "PREREGISTER_GENERIC_MULTIPLICITY_DEPTH_MEMORY_EXTENSION"
+}

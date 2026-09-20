@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v4-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json",
+  "designPreflight": "artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json",
+  "source": "src/ontological-novelty-gated-canary-v4.mjs",
+  "truthClass": "EXECUTED_SYNTHETIC_SOFTWARE_EVIDENCE__NARROW_MECHANISM_ONLY",
+  "outcome": {
+    "status": "V4_NOVEL_PRIMITIVE_ADMISSION_AND_TRANSFER_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "selectedPrimitive": "NOT(OMEGA_MULTIPLICITY_MOD(2,0))",
+    "discovery": {
+      "trainAccuracy": 1,
+      "validationAccuracy": 1,
+      "heldOutAccuracy": 1,
+      "bestOldOntologyBaseline": 0.5251141552511416,
+      "absoluteImprovement": 0.474886,
+      "metaPrimitiveCandidates": 182,
+      "metaCandidateEvaluationsIncludingInversion": 364
+    },
+    "semanticNovelty": {
+      "fixture": "integers 2..1023",
+      "baseOntologyCandidatesCompared": 8626,
+      "exactEquivalentIds": [],
+      "nearestOldRepresentation": "XOR(NOT(RESIDUE_EQ(3,0)),RESIDUE_EQ(4,2))",
+      "nearestMismatchRate": 0.4295499,
+      "finiteFixtureNovelty": true
+    },
+    "transfers": [
+      {
+        "id": "OMEGA_XOR_BIT3",
+        "heldOutAccuracy": 1,
+        "bestBaseline": 0.5186046511627908,
+        "absoluteImprovement": 0.481395,
+        "passed": true
+      },
+      {
+        "id": "OMEGA_XOR_MOD5_EQ2",
+        "heldOutAccuracy": 1,
+        "bestBaseline": 0.5348837209302325,
+        "absoluteImprovement": 0.465116,
+        "passed": true
+      },
+      {
+        "id": "OMEGA_AND_NOT_BIT2",
+        "heldOutAccuracy": 1,
+        "bestBaseline": 0.7697674418604651,
+        "absoluteImprovement": 0.230233,
+        "passed": true
+      }
+    ],
+    "negativeControl": {
+      "heldOutAccuracy": 0.4255813953488372,
+      "bestBaseline": 0.4883720930232558,
+      "passed": true
+    }
+  },
+  "supportedClaim": "Within the preregistered deterministic synthetic number-theory regime, UberBond selected a representation primitive from a declared generic meta-family that was behaviorally non-equivalent to all 8,626 old-ontology features on the finite novelty fixture, materially improved held-out prediction, and transferred to three separate tasks.",
+  "unsupportedClaims": [
+    "NO_OPEN_ENDED_PRIMITIVE_INVENTION",
+    "NO_AUTONOMOUS_NEW_MATHEMATICS",
+    "NO_NATURAL_SCIENCE_DISCOVERY",
+    "NO_UNIVERSAL_ONTOLOGICAL_NOVELTY",
+    "NO_GENERAL_INTELLIGENCE_OR_ASI_CLAIM",
+    "NO_GRAND_ONTOLOGICAL_COMPUTING_PROMOTION"
+  ],
+  "promotionCandidate": {
+    "scope": "FINITE_FIXTURE_SEMANTIC_NOVELTY_GATED_PRIMITIVE_ADMISSION_AND_REUSE",
+    "from": "SIMULATION_READY",
+    "to": "SOFTWARE_DEMONSTRATED",
+    "authority": "REVIEW_REQUIRED__NO_SELF_PROMOTION"
+  }
+}

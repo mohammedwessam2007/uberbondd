@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "uberbond.parameterized-multiplicity-depth-v10-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_PREREGISTRATION_20260920.json",
+  "source": "src/parameterized-multiplicity-depth-v10.mjs",
+  "truthClass": "POST_REVIEW_CONFIRMATORY_EXACT_SYMBOLIC_SOFTWARE_EVIDENCE",
+  "outcome": {
+    "status": "V10_PARAMETERIZED_MULTIPLICITY_DEPTH_EXACT_SEMANTICS_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "candidateCount": 2592,
+    "heldOutUsedForSelection": false,
+    "targetSpecificNamedPrimitivePresent": false
+  },
+  "exactTargets": [
+    {
+      "id": "FOURTH_POWER_FREE",
+      "heldOutAccuracy": 1,
+      "selectedThreshold": 4
+    },
+    {
+      "id": "CUBEFREE",
+      "heldOutAccuracy": 1,
+      "selectedThreshold": 3
+    },
+    {
+      "id": "SQUAREFREE",
+      "heldOutAccuracy": 1,
+      "selectedThreshold": 2
+    },
+    {
+      "id": "MOBIUS_POSITIVE",
+      "heldOutAccuracy": 1,
+      "selectedThreshold": 2
+    },
+    {
+      "id": "DISTINCT_PRIME_PARITY",
+      "heldOutAccuracy": 1,
+      "selectedThreshold": null
+    }
+  ],
+  "negativeControl": {
+    "heldOutBalancedAccuracy": 0.49773701009287746,
+    "passed": true
+  },
+  "supportedHypothesis": "A generic parameterized maximum-prime-exponent representation can exactly express multiple power-free thresholds and compose with a parity accumulator on the declared finite arithmetic regime.",
+  "caveat": "V10 was designed after V9 exposed the need for exact exponent-4 semantics.",
+  "nextGate": "UNSEEN_FIFTH_POWER_FREE_WITH_FROZEN_V10_GRAMMAR"
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-canary-v1-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/CAUSAL_COMPILER_CANARY_V1_PREREGISTRATION_20260920.json",
+  "source": "src/causal-compiler-canary-v1.mjs",
+  "truthClass": "PREREGISTERED_SOFTWARE_FALSIFICATION_WITH_PARTIAL_MECHANISM_SUPPORT",
+  "executionEnvironment": "connected JavaScript V8 verifier using exact PR branch source and zero-effect fixture",
+  "outcome": {
+    "status": "CAUSAL_COMPILER_V1_PREREGISTERED_FALSIFIER_TRIGGERED",
+    "falsifierTriggered": true,
+    "benchmarkCaseCount": 61,
+    "distractorCaseCount": 45,
+    "negativeControlCount": 15,
+    "correctnessAgreementRate": 1,
+    "medianDistractorEvaluationReductionFactor": 5,
+    "requiredMedianReductionFactor": 10,
+    "maximumNegativeControlEvaluationRatio": 1,
+    "impossibleCaseAgreement": true
+  },
+  "supportedClaims": [
+    "Backward graph ancestry pruning preserved exhaustive minimum-intervention cardinality on all 61 declared Boolean SCM cases.",
+    "Irrelevant controllable variables can be removed safely when they are not ancestors of any target in the declared SCM.",
+    "Negative controls with no irrelevant controls showed no manufactured gain.",
+    "Unreachable goals remained unreachable."
+  ],
+  "failedClaim": "Causal ancestry pruning alone did not reach the preregistered 10x median evaluation reduction.",
+  "promotionDecision": "DENY",
+  "nextMechanismCandidate": "GOAL_DIRECTED_BACKWARD_CAUSAL_PROGRAM_SYNTHESIS_WITH_SAFE_EXACT_SEARCH_FALLBACK"
+}

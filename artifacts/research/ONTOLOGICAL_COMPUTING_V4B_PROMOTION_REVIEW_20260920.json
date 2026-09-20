@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "uberbond.moonshot-mechanism-promotion-review.v1",
+  "date": "2026-09-20",
+  "mechanismId": "ontological-computing/target-blind-structural-representation-synthesis-v1",
+  "parentMoonshotId": "ontological-computing",
+  "reviewClass": "PROJECT_EVIDENCE_REVIEW",
+  "truthClass": "NARROW_INTERNAL_SOFTWARE_DEMONSTRATION__NOT_PARENT_MOONSHOT_PROOF",
+  "decision": "PROMOTE_CHILD_MECHANISM_TO_SOFTWARE_DEMONSTRATED",
+  "parentMoonshotDecision": "NO_PROMOTION__REMAINS_IMAGINED",
+  "evidenceReviewed": [
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_ADVERSARIAL_REVIEW_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_PREREGISTRATION_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json",
+    "artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json"
+  ],
+  "compilerGate": {
+    "sequence": [
+      "IMAGINED->FORMALIZED",
+      "FORMALIZED->CONSTRAINT_MAPPED",
+      "CONSTRAINT_MAPPED->PLAUSIBILITY_BOUNDED",
+      "PLAUSIBILITY_BOUNDED->SIMULATION_READY",
+      "SIMULATION_READY->SOFTWARE_DEMONSTRATED"
+    ],
+    "everyStep": "PROMOTION_ELIGIBLE_FOR_EXTERNAL_REVIEW",
+    "missingEvidenceKinds": 0,
+    "skippedStates": 0
+  },
+  "decisiveEvidence": {
+    "primaryResult": "V4B_TARGET_BLIND_STRUCTURAL_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED",
+    "replicationResult": "V4B_INDEPENDENT_REPLICATION_MATCHED",
+    "replicationMismatches": 0,
+    "negativeControlPassed": true,
+    "semanticExactEquivalentInBaseOntology": false,
+    "targetSpecificPrimitiveInSelectedProgram": false
+  },
+  "promotedScope": "A finite deterministic software mechanism can search a target-blind divisor-sweep state-machine family, select a behaviorally missing structural representation against an 8,626-feature base ontology, freeze it, and reuse it on declared descendant tasks.",
+  "explicitlyNotPromoted": [
+    "OPEN_ENDED_ONTOLOGY_INVENTION",
+    "AUTONOMOUS_NEW_MATHEMATICS",
+    "NATURAL_SCIENTIFIC_DISCOVERY",
+    "PHYSICAL_DISCOVERY",
+    "GENERAL_INTELLIGENCE",
+    "ASI",
+    "ONTOLOGICAL_COMPUTING_PARENT_MOONSHOT",
+    "PLATFORM_PRIMITIVE",
+    "EPOCH_CANDIDATE"
+  ],
+  "nextRequiredGate": "HELD_OUT_STRUCTURAL_FAMILY_TRANSFER_AND_EXTERNALLY_SOURCED_PROBLEM_FAMILY_BEFORE_ANY_BROADER_STATE_CLAIM",
+  "externalEffectAuthority": "NONE"
+}

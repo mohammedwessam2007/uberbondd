@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-v4b-independent-replication-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_PREREGISTRATION_20260920.json",
+  "primaryResult": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json",
+  "source": "src/ontological-v4b-independent-replication.mjs",
+  "truthClass": "INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION__SYNTHETIC_SOFTWARE_EVIDENCE",
+  "executionEnvironment": "connected JavaScript V8 verifier using exact PR branch source with zero-effect dependency fixture",
+  "implementationIndependence": {
+    "importsPrimaryV4BModule": false,
+    "targetLabels": "SMALLEST_PRIME_FACTOR_SIEVE",
+    "baseOntology": "BOOLEAN_VECTOR_SIGNATURES",
+    "structuralSearch": "INDEPENDENT_STATE_MACHINE_INTERPRETER"
+  },
+  "outcome": {
+    "status": "V4B_INDEPENDENT_REPLICATION_MATCHED",
+    "allMatch": true,
+    "mismatches": []
+  },
+  "matchedMetrics": [
+    "BASE_ONTOLOGY_FEATURE_COUNT_8626",
+    "SEMANTIC_NOVELTY_NEAREST_ID",
+    "SEMANTIC_NOVELTY_MISMATCH_RATE",
+    "SELECTED_STRUCTURAL_PROGRAM",
+    "96_STRUCTURAL_CANDIDATES",
+    "ALL_SPLIT_COUNTS",
+    "DISCOVERY_HELD_OUT_ACCURACY",
+    "DISCOVERY_STRONGEST_BASELINE",
+    "DISCOVERY_IMPROVEMENT",
+    "ALL_THREE_TRANSFER_HELD_OUT_ACCURACIES",
+    "ALL_THREE_TRANSFER_BASELINES",
+    "ALL_THREE_TRANSFER_IMPROVEMENTS",
+    "NEGATIVE_CONTROL_HELD_OUT_ACCURACY"
+  ],
+  "promotionBoundary": "This replication can support review of the narrow finite synthetic mechanism for SOFTWARE_DEMONSTRATED only. It does not promote the grand Ontological Computing moonshot or create external scientific evidence."
+}

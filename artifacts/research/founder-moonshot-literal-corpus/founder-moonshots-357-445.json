@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 5,
+  "ordinalStart": 357,
+  "ordinalEnd": 445,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 357,
+      "literalTitle": "THE POSSIBILITY-PRESERVING CIVILIZATION",
+      "hypotheticalIq": "10²¹²",
+      "literalBodyMarkdown": "Optimize not one utopian endpoint but the durability of many valuable future options under uncertainty.",
+      "sourceLineStart": 1434,
+      "sourceLineEnd": 1437,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 358,
+      "literalTitle": "THE CIVILIZATION ANTI-LOCK-IN ENGINE",
+      "hypotheticalIq": "3 × 10²¹²",
+      "literalBodyMarkdown": "Detect when infrastructures, institutions, technologies, or incentives are making alternative futures unnecessarily impossible.",
+      "sourceLineStart": 1438,
+      "sourceLineEnd": 1441,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 359,
+      "literalTitle": "THE CIVILIZATION OPTION PORTFOLIO",
+      "hypotheticalIq": "10²¹³",
+      "literalBodyMarkdown": "Maintain multiple technological and institutional approaches to important problems rather than prematurely converging on one path.",
+      "sourceLineStart": 1442,
+      "sourceLineEnd": 1445,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 360,
+      "literalTitle": "THE HUMAN FUTURE PORTFOLIO",
+      "hypotheticalIq": "3 × 10²¹³",
+      "literalBodyMarkdown": "Preserve diverse ways for humans to live, work, create, relate, explore, and organize rather than assuming technological progress has one destination.",
+      "sourceLineStart": 1446,
+      "sourceLineEnd": 1449,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 361,
+      "literalTitle": "THE FUTURE GENERATOR",
+      "hypotheticalIq": "10²¹⁴",
+      "literalBodyMarkdown": "Generate coherent future worlds not as stories but as internally consistent technology, economics, science, infrastructure, culture, and institutional systems.",
+      "sourceLineStart": 1450,
+      "sourceLineEnd": 1453,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 362,
+      "literalTitle": "THE FUTURE FALSIFIER",
+      "hypotheticalIq": "3 × 10²¹⁴",
+      "literalBodyMarkdown": "Attack future scenarios until impossible assumptions are exposed. What survives becomes more useful than ordinary futurism.",
+      "sourceLineStart": 1454,
+      "sourceLineEnd": 1457,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 363,
+      "literalTitle": "THE FUTURE COMPILER",
+      "hypotheticalIq": "10²¹⁵",
+      "literalBodyMarkdown": "Input a desirable future state. Compute prerequisite discoveries, institutions, infrastructure, capabilities, experiments, and intermediate milestones.",
+      "sourceLineStart": 1458,
+      "sourceLineEnd": 1461,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 364,
+      "literalTitle": "THE FUTURE DECOMPILER",
+      "hypotheticalIq": "3 × 10²¹⁵",
+      "literalBodyMarkdown": "Start with a hypothetical future artifact and reconstruct the hidden technological civilization that produced it.",
+      "sourceLineStart": 1462,
+      "sourceLineEnd": 1465,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 365,
+      "literalTitle": "THE FUTURE DEBUGGER",
+      "hypotheticalIq": "10²¹⁶",
+      "literalBodyMarkdown": "Find exactly which assumptions prevent a desirable future from becoming physically, economically, institutionally, or ethically coherent.",
+      "sourceLineStart": 1466,
+      "sourceLineEnd": 1469,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 366,
+      "literalTitle": "THE FUTURE LINKER",
+      "hypotheticalIq": "3 × 10²¹⁶",
+      "literalBodyMarkdown": "Combine independently attractive future technologies and detect whether their interactions create contradictions or unexpected synergies.",
+      "sourceLineStart": 1470,
+      "sourceLineEnd": 1473,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 367,
+      "literalTitle": "THE FUTURE RUNTIME",
+      "hypotheticalIq": "10²¹⁷",
+      "literalBodyMarkdown": "Simulate a candidate future as a living environment with agents, economics, infrastructure, constraints, shocks, and technological feedback.",
+      "sourceLineStart": 1474,
+      "sourceLineEnd": 1477,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 368,
+      "literalTitle": "THE FUTURE TEST SUITE",
+      "hypotheticalIq": "3 × 10²¹⁷",
+      "literalBodyMarkdown": "Test futuristic systems against adversaries, resource constraints, human behavior, failures, unintended incentives, and long horizons.",
+      "sourceLineStart": 1478,
+      "sourceLineEnd": 1481,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 369,
+      "literalTitle": "THE FUTURE SANDBOX",
+      "hypotheticalIq": "10²¹⁸",
+      "literalBodyMarkdown": "Run thousands of potential futures against identical shocks and compare resilience.",
+      "sourceLineStart": 1482,
+      "sourceLineEnd": 1485,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 370,
+      "literalTitle": "THE FUTURE EVOLUTION ENGINE",
+      "hypotheticalIq": "3 × 10²¹⁸",
+      "literalBodyMarkdown": "Future worlds reproduce, mutate, and compete. Entire possible civilizations become evolutionary objects.",
+      "sourceLineStart": 1486,
+      "sourceLineEnd": 1489,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 371,
+      "literalTitle": "THE FUTURE NATURAL SELECTION",
+      "hypotheticalIq": "10²¹⁹",
+      "literalBodyMarkdown": "Candidate worlds survive if they remain valuable and robust across uncertainty rather than merely looking attractive under one forecast.",
+      "sourceLineStart": 1490,
+      "sourceLineEnd": 1493,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 372,
+      "literalTitle": "THE FUTURE SPECIATION ENGINE",
+      "hypotheticalIq": "3 × 10²¹⁹",
+      "literalBodyMarkdown": "Maintain multiple radically different futures rather than forcing one canonical technological trajectory.",
+      "sourceLineStart": 1494,
+      "sourceLineEnd": 1497,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 373,
+      "literalTitle": "THE WORLDLINE GENOME",
+      "hypotheticalIq": "10²²⁰",
+      "literalBodyMarkdown": "Represent futures as inheritable bundles of technologies, institutions, capabilities, assumptions, and values.",
+      "sourceLineStart": 1498,
+      "sourceLineEnd": 1501,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 374,
+      "literalTitle": "THE WORLDLINE CROSSOVER ENGINE",
+      "hypotheticalIq": "3 × 10²²⁰",
+      "literalBodyMarkdown": "Recombine the strongest components of different futures into novel worldlines.",
+      "sourceLineStart": 1502,
+      "sourceLineEnd": 1505,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 375,
+      "literalTitle": "THE WORLDLINE MUTATION ENGINE",
+      "hypotheticalIq": "10²²¹",
+      "literalBodyMarkdown": "Deliberately introduce weird variations to escape local optima in future-space.",
+      "sourceLineStart": 1506,
+      "sourceLineEnd": 1509,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 376,
+      "literalTitle": "THE WORLDLINE SELECTION ENGINE",
+      "hypotheticalIq": "3 × 10²²¹",
+      "literalBodyMarkdown": "Select not the predicted future, but the most promising futures worth making easier to reach.",
+      "sourceLineStart": 1510,
+      "sourceLineEnd": 1513,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 377,
+      "literalTitle": "THE WORLDLINE BRIDGE",
+      "hypotheticalIq": "10²²²",
+      "literalBodyMarkdown": "Identify the minimal technology or institution required to move from our current worldline into another desirable basin.",
+      "sourceLineStart": 1514,
+      "sourceLineEnd": 1517,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 378,
+      "literalTitle": "THE WORLDLINE WORMHOLE",
+      "hypotheticalIq": "3 × 10²²²",
+      "literalBodyMarkdown": "Search for shortcuts allowing civilization to skip intermediate development stages.",
+      "sourceLineStart": 1518,
+      "sourceLineEnd": 1521,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 379,
+      "literalTitle": "THE WORLDLINE COMPRESSOR",
+      "hypotheticalIq": "10²²³",
+      "literalBodyMarkdown": "Reduce a century-long plausible technology sequence into a shorter path by identifying steps that can be parallelized, replaced, or bypassed.",
+      "sourceLineStart": 1522,
+      "sourceLineEnd": 1525,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 380,
+      "literalTitle": "THE FUTURE LATENCY DESTROYER",
+      "hypotheticalIq": "3 × 10²²³",
+      "literalBodyMarkdown": "Ask which delays between invention and civilization-scale use are structural versus historical inefficiencies, then eliminate the avoidable ones.",
+      "sourceLineStart": 1526,
+      "sourceLineEnd": 1529,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 381,
+      "literalTitle": "THE CIVILIZATION FAST-FORWARD",
+      "hypotheticalIq": "10²²⁴",
+      "literalBodyMarkdown": "Accelerate safe technology-tree traversal by parallelizing research, instrumentation, manufacturing, and institutional preparation.",
+      "sourceLineStart": 1530,
+      "sourceLineEnd": 1533,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 382,
+      "literalTitle": "THE SAFE ACCELERATION COMPILER",
+      "hypotheticalIq": "3 × 10²²⁴",
+      "literalBodyMarkdown": "Determine which portions of progress can be accelerated safely and which require slow evidence accumulation.",
+      "sourceLineStart": 1534,
+      "sourceLineEnd": 1537,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 383,
+      "literalTitle": "THE PROGRESS BRAKE",
+      "hypotheticalIq": "10²²⁵",
+      "literalBodyMarkdown": "Sometimes intelligence means slowing down. Detect technological trajectories whose uncertainty, irreversibility, or downside grows faster than their verified benefit.",
+      "sourceLineStart": 1538,
+      "sourceLineEnd": 1541,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 384,
+      "literalTitle": "THE REVERSIBILITY ENGINE",
+      "hypotheticalIq": "3 × 10²²⁵",
+      "literalBodyMarkdown": "Redesign experiments, deployments, institutions, and technologies so consequential changes remain reversible longer.",
+      "sourceLineStart": 1542,
+      "sourceLineEnd": 1545,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 385,
+      "literalTitle": "THE OPTIONALITY ENGINE",
+      "hypotheticalIq": "10²²⁶",
+      "literalBodyMarkdown": "Make reversibility, diversity, fallback paths, and unused future potential explicit optimization targets.",
+      "sourceLineStart": 1546,
+      "sourceLineEnd": 1549,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 386,
+      "literalTitle": "THE IRREVERSIBILITY DETECTOR",
+      "hypotheticalIq": "3 × 10²²⁶",
+      "literalBodyMarkdown": "Identify decisions whose true cost is not money but permanent destruction of future branches.",
+      "sourceLineStart": 1550,
+      "sourceLineEnd": 1553,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 387,
+      "literalTitle": "THE ONE-WAY-DOOR RADAR",
+      "hypotheticalIq": "10²²⁷",
+      "literalBodyMarkdown": "Detect hidden points where a system silently crosses from reversible experimentation into irreversible dependence.",
+      "sourceLineStart": 1554,
+      "sourceLineEnd": 1557,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 388,
+      "literalTitle": "THE LAST-EXIT ENGINE",
+      "hypotheticalIq": "3 × 10²²⁷",
+      "literalBodyMarkdown": "Continuously determine the latest safe point at which dangerous or undesirable trajectories can still be reversed.",
+      "sourceLineStart": 1558,
+      "sourceLineEnd": 1561,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 389,
+      "literalTitle": "THE CIVILIZATION FAILSAFE",
+      "hypotheticalIq": "10²²⁸",
+      "literalBodyMarkdown": "A cross-system mechanism capable of stopping or isolating technological processes that exceed explicitly authorized boundaries.",
+      "sourceLineStart": 1562,
+      "sourceLineEnd": 1565,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 390,
+      "literalTitle": "THE CAPABILITY-AUTHORITY SEPARATION LAW",
+      "hypotheticalIq": "3 × 10²²⁸",
+      "literalBodyMarkdown": "Make it architecturally impossible for gaining intelligence or capability to automatically grant additional authority.",
+      "sourceLineStart": 1566,
+      "sourceLineEnd": 1569,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 391,
+      "literalTitle": "THE SOVEREIGN INTELLIGENCE PRIMITIVE",
+      "hypotheticalIq": "10²²⁹",
+      "literalBodyMarkdown": "An intelligence architecture structurally owned, auditable, exportable, replaceable, and revocable by the human or institution it serves.",
+      "sourceLineStart": 1570,
+      "sourceLineEnd": 1573,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 392,
+      "literalTitle": "THE INTELLIGENCE RIGHT-TO-EXIT",
+      "hypotheticalIq": "3 × 10²²⁹",
+      "literalBodyMarkdown": "Every dependency has a migration path. Models, providers, databases, clouds, agents, and protocols cannot become permanent invisible rulers.",
+      "sourceLineStart": 1574,
+      "sourceLineEnd": 1577,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 393,
+      "literalTitle": "THE COMPUTATIONAL SOVEREIGNTY LAYER",
+      "hypotheticalIq": "10²³⁰",
+      "literalBodyMarkdown": "Applications describe capabilities they need, while a sovereign routing layer chooses among local or external suppliers dynamically.",
+      "sourceLineStart": 1578,
+      "sourceLineEnd": 1581,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 394,
+      "literalTitle": "THE UNIVERSAL CAPABILITY MARKET",
+      "hypotheticalIq": "3 × 10²³⁰",
+      "literalBodyMarkdown": "Humans, models, programs, laboratories, machines, APIs, and institutions become interchangeable suppliers of formally described capabilities.",
+      "sourceLineStart": 1582,
+      "sourceLineEnd": 1585,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 395,
+      "literalTitle": "THE CAPABILITY ATOM",
+      "hypotheticalIq": "10²³¹",
+      "literalBodyMarkdown": "Discover the smallest useful unit in which a capability can be described independent of its provider.",
+      "sourceLineStart": 1586,
+      "sourceLineEnd": 1589,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 396,
+      "literalTitle": "THE CAPABILITY PERIODIC TABLE",
+      "hypotheticalIq": "3 × 10²³¹",
+      "literalBodyMarkdown": "Organize capability atoms into families with known composition rules.",
+      "sourceLineStart": 1590,
+      "sourceLineEnd": 1593,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 397,
+      "literalTitle": "THE CAPABILITY CHEMISTRY",
+      "hypotheticalIq": "10²³²",
+      "literalBodyMarkdown": "Predict emergent abilities when capability atoms are composed.",
+      "sourceLineStart": 1594,
+      "sourceLineEnd": 1597,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 398,
+      "literalTitle": "THE CAPABILITY METAMATERIAL",
+      "hypotheticalIq": "3 × 10²³²",
+      "literalBodyMarkdown": "Compose ordinary capabilities into an architecture exhibiting abilities none possesses independently.",
+      "sourceLineStart": 1598,
+      "sourceLineEnd": 1601,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 399,
+      "literalTitle": "THE CAPABILITY EVOLUTION ENGINE",
+      "hypotheticalIq": "10²³³",
+      "literalBodyMarkdown": "Capabilities reproduce according to demonstrated usefulness, reliability, cost, safety, and novelty.",
+      "sourceLineStart": 1602,
+      "sourceLineEnd": 1605,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 400,
+      "literalTitle": "THE UNIVERSAL CAPABILITY COMPILER",
+      "hypotheticalIq": "3 × 10²³³",
+      "literalBodyMarkdown": "Input a mission. Generate the minimum combination of human, machine, software, data, experiment, and institutional capabilities necessary to accomplish it.",
+      "sourceLineStart": 1606,
+      "sourceLineEnd": 1609,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 401,
+      "literalTitle": "THE CAPABILITY SELF-INVENTOR",
+      "hypotheticalIq": "10²³⁴",
+      "literalBodyMarkdown": "When no existing capability can perform a mission, treat the missing capability itself as an invention target.",
+      "sourceLineStart": 1610,
+      "sourceLineEnd": 1613,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 402,
+      "literalTitle": "THE CAPABILITY BOOTSTRAPPER",
+      "hypotheticalIq": "3 × 10²³⁴",
+      "literalBodyMarkdown": "Use available capabilities to create new ones, then use those to create still more powerful ones.",
+      "sourceLineStart": 1614,
+      "sourceLineEnd": 1617,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 403,
+      "literalTitle": "THE CAPABILITY RECURSION",
+      "hypotheticalIq": "10²³⁵",
+      "literalBodyMarkdown": "Optimization target:\n     \\[\n     C_{t+1}=C_t+\\text{capabilities created using }C_t\n     \\]\n     Intelligence becomes a capability-expansion process.",
+      "sourceLineStart": 1618,
+      "sourceLineEnd": 1625,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 404,
+      "literalTitle": "THE POSSIBILITY RECURSION",
+      "hypotheticalIq": "3 × 10²³⁵",
+      "literalBodyMarkdown": "Every new capability enlarges the searchable space of subsequent capabilities.",
+      "sourceLineStart": 1626,
+      "sourceLineEnd": 1629,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 405,
+      "literalTitle": "THE ONTOLOGICAL RECURSION",
+      "hypotheticalIq": "10²³⁶",
+      "literalBodyMarkdown": "New discoveries create concepts that allow detection of previously invisible discoveries, which create still newer concepts.",
+      "sourceLineStart": 1630,
+      "sourceLineEnd": 1633,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 406,
+      "literalTitle": "THE SCIENCE RECURSION",
+      "hypotheticalIq": "3 × 10²³⁶",
+      "literalBodyMarkdown": "Science invents instruments that reveal phenomena that demand new sciences that invent new instruments.",
+      "sourceLineStart": 1634,
+      "sourceLineEnd": 1637,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 407,
+      "literalTitle": "THE MATHEMATICS RECURSION",
+      "hypotheticalIq": "10²³⁷",
+      "literalBodyMarkdown": "New mathematical languages expose structures whose existence motivates still deeper mathematics.",
+      "sourceLineStart": 1638,
+      "sourceLineEnd": 1641,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 408,
+      "literalTitle": "THE COMPUTATION RECURSION",
+      "hypotheticalIq": "3 × 10²³⁷",
+      "literalBodyMarkdown": "Better computation discovers better computation substrates, which accelerate the discovery of better computation.",
+      "sourceLineStart": 1642,
+      "sourceLineEnd": 1645,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 409,
+      "literalTitle": "THE ENERGY RECURSION",
+      "hypotheticalIq": "10²³⁸",
+      "literalBodyMarkdown": "Better energy enables experiments and fabrication that produce better energy technologies.",
+      "sourceLineStart": 1646,
+      "sourceLineEnd": 1649,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 410,
+      "literalTitle": "THE MANUFACTURING RECURSION",
+      "hypotheticalIq": "3 × 10²³⁸",
+      "literalBodyMarkdown": "Better factories manufacture the equipment required for better factories.",
+      "sourceLineStart": 1650,
+      "sourceLineEnd": 1653,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 411,
+      "literalTitle": "THE INSTRUMENT RECURSION",
+      "hypotheticalIq": "10²³⁹",
+      "literalBodyMarkdown": "Better instruments discover phenomena enabling still better instruments.",
+      "sourceLineStart": 1654,
+      "sourceLineEnd": 1657,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 412,
+      "literalTitle": "THE INTELLIGENCE RECURSION",
+      "hypotheticalIq": "3 × 10²³⁹",
+      "literalBodyMarkdown": "Better cognitive systems design better cognitive systems, but under explicit human authority and empirical evaluation.",
+      "sourceLineStart": 1658,
+      "sourceLineEnd": 1661,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 413,
+      "literalTitle": "THE CIVILIZATION RECURSION",
+      "hypotheticalIq": "10²⁴⁰",
+      "literalBodyMarkdown": "Unite all recursive loops:\n     **energy ↔ computation ↔ intelligence ↔ science ↔ manufacturing ↔ institutions ↔ education ↔ capital**.",
+      "sourceLineStart": 1662,
+      "sourceLineEnd": 1666,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 414,
+      "literalTitle": "THE RECURSION ORCHESTRATOR",
+      "hypotheticalIq": "3 × 10²⁴⁰",
+      "literalBodyMarkdown": "Determine which recursive loop currently has the greatest leverage and feed resources into it.",
+      "sourceLineStart": 1667,
+      "sourceLineEnd": 1670,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 415,
+      "literalTitle": "THE RECURSION STABILITY ENGINE",
+      "hypotheticalIq": "10²⁴¹",
+      "literalBodyMarkdown": "Positive feedback can explode destructively. This system measures when self-improvement loops approach unsafe regimes and regulates them.",
+      "sourceLineStart": 1671,
+      "sourceLineEnd": 1674,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 416,
+      "literalTitle": "THE RECURSION GOVERNOR",
+      "hypotheticalIq": "3 × 10²⁴¹",
+      "literalBodyMarkdown": "A constitutional control layer that limits speed, authority, expenditure, replication, deployment, or scope independently of system intelligence.",
+      "sourceLineStart": 1675,
+      "sourceLineEnd": 1678,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 417,
+      "literalTitle": "THE GENERATOR OF RECURSIONS",
+      "hypotheticalIq": "10²⁴²",
+      "literalBodyMarkdown": "Search for entirely new positive-feedback loops civilization has never exploited.",
+      "sourceLineStart": 1679,
+      "sourceLineEnd": 1682,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 418,
+      "literalTitle": "THE RECURSION DISCOVERY ENGINE",
+      "hypotheticalIq": "3 × 10²⁴²",
+      "literalBodyMarkdown": "Analyze systems for latent relationships of the form “improving X makes improving X easier.”",
+      "sourceLineStart": 1683,
+      "sourceLineEnd": 1686,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 419,
+      "literalTitle": "THE SELF-CATALYZING KNOWLEDGE SYSTEM",
+      "hypotheticalIq": "10²⁴³",
+      "literalBodyMarkdown": "Knowledge is structured so every discovery automatically improves the tools used to discover subsequent knowledge.",
+      "sourceLineStart": 1687,
+      "sourceLineEnd": 1690,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 420,
+      "literalTitle": "THE SELF-CATALYZING INVENTION SYSTEM",
+      "hypotheticalIq": "3 × 10²⁴³",
+      "literalBodyMarkdown": "Every invention leaves behind reusable capabilities making the next invention cheaper.",
+      "sourceLineStart": 1691,
+      "sourceLineEnd": 1694,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 421,
+      "literalTitle": "THE SELF-CATALYZING EXPERIMENT SYSTEM",
+      "hypotheticalIq": "10²⁴⁴",
+      "literalBodyMarkdown": "Experiments generate not only results but better experimental infrastructure.",
+      "sourceLineStart": 1695,
+      "sourceLineEnd": 1698,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 422,
+      "literalTitle": "THE SELF-CATALYZING CIVILIZATION",
+      "hypotheticalIq": "3 × 10²⁴⁴",
+      "literalBodyMarkdown": "Civilization increasingly converts its outputs into machinery for producing superior outputs.",
+      "sourceLineStart": 1699,
+      "sourceLineEnd": 1702,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 423,
+      "literalTitle": "THE NOVELTY REACTOR",
+      "hypotheticalIq": "10²⁴⁵",
+      "literalBodyMarkdown": "Generate new structure faster than entropy, redundancy, and institutional decay destroy useful novelty.",
+      "sourceLineStart": 1703,
+      "sourceLineEnd": 1706,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 424,
+      "literalTitle": "THE POSSIBILITY REACTOR",
+      "hypotheticalIq": "3 × 10²⁴⁵",
+      "literalBodyMarkdown": "Convert knowledge + energy + computation + experimentation into expanding accessible possibility-space.",
+      "sourceLineStart": 1707,
+      "sourceLineEnd": 1710,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 425,
+      "literalTitle": "THE DISCOVERY REACTOR",
+      "hypotheticalIq": "10²⁴⁶",
+      "literalBodyMarkdown": "Maintain a sustained chain reaction in which discoveries continuously generate the conditions for additional discoveries.",
+      "sourceLineStart": 1711,
+      "sourceLineEnd": 1714,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 426,
+      "literalTitle": "THE CIVILIZATION REACTOR",
+      "hypotheticalIq": "3 × 10²⁴⁶",
+      "literalBodyMarkdown": "Entire scientific, industrial, educational, and economic systems become coupled into a bounded positive-feedback engine.",
+      "sourceLineStart": 1715,
+      "sourceLineEnd": 1718,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 427,
+      "literalTitle": "THE POSSIBILITY POWER PLANT",
+      "hypotheticalIq": "10²⁴⁷",
+      "literalBodyMarkdown": "Treat capability creation as a civilization-scale utility, the way electricity became infrastructure.",
+      "sourceLineStart": 1719,
+      "sourceLineEnd": 1722,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 428,
+      "literalTitle": "THE DISCOVERY GRID",
+      "hypotheticalIq": "3 × 10²⁴⁷",
+      "literalBodyMarkdown": "Laboratories, models, humans, compute, databases, fabrication, and instruments connect into a shared discovery infrastructure.",
+      "sourceLineStart": 1723,
+      "sourceLineEnd": 1726,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 429,
+      "literalTitle": "THE INTELLIGENCE GRID",
+      "hypotheticalIq": "10²⁴⁸",
+      "literalBodyMarkdown": "Cognition becomes routable infrastructure. Different reasoning systems provide specialized intellectual services under common protocols.",
+      "sourceLineStart": 1727,
+      "sourceLineEnd": 1730,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 430,
+      "literalTitle": "THE EXPERIMENT GRID",
+      "hypotheticalIq": "3 × 10²⁴⁸",
+      "literalBodyMarkdown": "Experimental capacity becomes dynamically schedulable worldwide.",
+      "sourceLineStart": 1731,
+      "sourceLineEnd": 1734,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 431,
+      "literalTitle": "THE FABRICATION GRID",
+      "hypotheticalIq": "10²⁴⁹",
+      "literalBodyMarkdown": "Manufacturing capability becomes schedulable infrastructure.",
+      "sourceLineStart": 1735,
+      "sourceLineEnd": 1738,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 432,
+      "literalTitle": "THE CAPABILITY GRID",
+      "hypotheticalIq": "3 × 10²⁴⁹",
+      "literalBodyMarkdown": "Any formalized capability can be discovered, composed, acquired, rented, reproduced, or synthesized.",
+      "sourceLineStart": 1739,
+      "sourceLineEnd": 1742,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 433,
+      "literalTitle": "THE POSSIBILITY GRID",
+      "hypotheticalIq": "10²⁵⁰",
+      "literalBodyMarkdown": "Connect intelligence, experiments, fabrication, markets, institutions, and humans into infrastructure whose native output is **new possibility**.",
+      "sourceLineStart": 1743,
+      "sourceLineEnd": 1746,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 434,
+      "literalTitle": "THE WORLD ENGINE",
+      "hypotheticalIq": "3 × 10²⁵⁰",
+      "literalBodyMarkdown": "Input: constraints + values + desired emergent properties. Output: candidate worlds composed of technologies, institutions, economies, environments, and capabilities.",
+      "sourceLineStart": 1747,
+      "sourceLineEnd": 1750,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 435,
+      "literalTitle": "THE WORLD COMPILER",
+      "hypotheticalIq": "10²⁵¹",
+      "literalBodyMarkdown": "Compile an imagined world down to its minimum required physical and institutional primitives.",
+      "sourceLineStart": 1751,
+      "sourceLineEnd": 1754,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 436,
+      "literalTitle": "THE WORLD DECOMPILER",
+      "hypotheticalIq": "3 × 10²⁵¹",
+      "literalBodyMarkdown": "Observe a civilization and infer the hidden generative rules producing its behavior.",
+      "sourceLineStart": 1755,
+      "sourceLineEnd": 1758,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 437,
+      "literalTitle": "THE WORLD DEBUGGER",
+      "hypotheticalIq": "10²⁵²",
+      "literalBodyMarkdown": "Trace systemic failures across technological, economic, cognitive, ecological, and institutional layers.",
+      "sourceLineStart": 1759,
+      "sourceLineEnd": 1762,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 438,
+      "literalTitle": "THE WORLD REFACTORER",
+      "hypotheticalIq": "3 × 10²⁵²",
+      "literalBodyMarkdown": "Preserve valuable functionality while replacing obsolete structures underneath it.",
+      "sourceLineStart": 1763,
+      "sourceLineEnd": 1766,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 439,
+      "literalTitle": "THE WORLD FORK",
+      "hypotheticalIq": "10²⁵³",
+      "literalBodyMarkdown": "Safely experiment with radically different institutional/technological structures in bounded environments.",
+      "sourceLineStart": 1767,
+      "sourceLineEnd": 1770,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 440,
+      "literalTitle": "THE WORLD MERGE",
+      "hypotheticalIq": "3 × 10²⁵³",
+      "literalBodyMarkdown": "Combine proven mechanisms from divergent experimental worlds.",
+      "sourceLineStart": 1771,
+      "sourceLineEnd": 1774,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 441,
+      "literalTitle": "THE WORLD VERSION CONTROL SYSTEM",
+      "hypotheticalIq": "10²⁵⁴",
+      "literalBodyMarkdown": "Track how major technological and institutional structures evolved, what changed, why, and with what consequences.",
+      "sourceLineStart": 1775,
+      "sourceLineEnd": 1778,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 442,
+      "literalTitle": "THE WORLD REPL",
+      "hypotheticalIq": "3 × 10²⁵⁴",
+      "literalBodyMarkdown": "A safe interactive environment where hypotheses about complex systems can be tested quickly against rich models and controlled experiments.",
+      "sourceLineStart": 1779,
+      "sourceLineEnd": 1782,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 443,
+      "literalTitle": "THE REALITY IDE",
+      "hypotheticalIq": "10²⁵⁵",
+      "literalBodyMarkdown": "The ultimate scientific workbench: models, causal graphs, simulations, experimental design, laboratories, fabrication, economics, proof, deployment, monitoring.",
+      "sourceLineStart": 1783,
+      "sourceLineEnd": 1786,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 444,
+      "literalTitle": "THE REALITY DEBUGGER",
+      "hypotheticalIq": "3 × 10²⁵⁵",
+      "literalBodyMarkdown": "Given an outcome nobody understands, trace the causal architecture behind it across scales.",
+      "sourceLineStart": 1787,
+      "sourceLineEnd": 1790,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 445,
+      "literalTitle": "THE REALITY PROFILER",
+      "hypotheticalIq": "10²⁵⁶",
+      "literalBodyMarkdown": "Measure where energy, information, matter, time, attention, capital, and causal leverage are actually being consumed inside a system.",
+      "sourceLineStart": 1791,
+      "sourceLineEnd": 1794,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

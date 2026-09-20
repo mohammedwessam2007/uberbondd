@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "uberbond.causal-semantic-crystallizer-v1-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json",
+  "source": "src/causal-semantic-crystallizer-v1.mjs",
+  "lineage": {
+    "generatedCandidateId": "candidate_18d9b4c1036401fe18d9b4c1",
+    "mechanismMarket": "artifacts/research/MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json",
+    "donorMechanisms": [
+      "goal-directed-causal-compiler-v2",
+      "semantic-novelty-preflight-v1"
+    ]
+  },
+  "truthClass": "EXECUTED_SYNTHETIC_SOFTWARE_CHILD_MECHANISM_EVIDENCE",
+  "implementationCorrection": {
+    "interimRunInvalidated": true,
+    "defect": "The held-out OR motif used internal node id D0, colliding with distractor input D0 and invalidating that graph family before metric evaluation.",
+    "fixCommit": "8224a3e56672508d707f74e241d85dd550a1a290",
+    "regressionTestCommit": "507fdcee8a67e1785351836ee255661a4bb07a44",
+    "law": "INVALID_BENCHMARK_CONSTRUCTION_OUTPUT_IS_NOT_RESULT_EVIDENCE"
+  },
+  "correctedOutcome": {
+    "status": "CAUSAL_SEMANTIC_CRYSTALLIZER_V1_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "trainingMotifCount": 6,
+    "crystalCount": 3,
+    "heldOutCaseCount": 36,
+    "exactMinimumAgreementRate": 1,
+    "crystalMatchRate": 1,
+    "negativeControlFalseMatchRate": 0,
+    "medianSymbolicExpansionReductionFraction": 0.535886,
+    "minimumCaseReductionFraction": 0.363636,
+    "maximumCaseReductionFraction": 0.571429,
+    "maximumAdditionalFullModelVerificationEvaluations": 0
+  },
+  "semanticCrystals": [
+    {
+      "function": "AND2",
+      "signature": "2:0001"
+    },
+    {
+      "function": "XOR2",
+      "signature": "2:0110"
+    },
+    {
+      "function": "OR2",
+      "signature": "2:0111"
+    }
+  ],
+  "negativeControls": [
+    {
+      "id": "NAND2",
+      "signature": "2:1110",
+      "wrongCrystalMatched": false
+    },
+    {
+      "id": "XNOR2",
+      "signature": "2:1001",
+      "wrongCrystalMatched": false
+    },
+    {
+      "id": "MAJORITY3",
+      "signature": "3:00010111",
+      "wrongCrystalMatched": false
+    }
+  ],
+  "supportedClaim": "Within the preregistered finite deterministic Boolean SCM regime, exact boundary-behavior equivalence can identify reusable causal subgraph operators across different syntax and reduce backward symbolic intervention compilation work while preserving exhaustive minimum-intervention results.",
+  "unsupportedClaims": [
+    "NO_CAUSAL_STRUCTURE_DISCOVERY",
+    "NO_PROBABILISTIC_OR_CONTINUOUS_EQUIVALENCE",
+    "NO_CONTEXT_FREE_EQUIVALENCE_BEYOND_DECLARED_BOUNDARIES",
+    "NO_OPEN_ENDED_CAUSAL_ABSTRACTION",
+    "NO_REAL_WORLD_INTERVENTION_PROOF"
+  ],
+  "promotionCandidate": {
+    "childMechanism": "SEMANTICALLY_VERIFIED_CAUSAL_SUBGRAPH_CRYSTALLIZATION",
+    "state": "SOFTWARE_DEMONSTRATED",
+    "authority": "REVIEW_REQUIRED__NO_SELF_PROMOTION"
+  }
+}

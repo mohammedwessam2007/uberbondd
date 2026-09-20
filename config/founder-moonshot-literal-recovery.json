@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-recovery.v2",
+  "date": "2026-09-20",
+  "currentTruthClass": "EXACT_LITERAL_RECOVERY_890_OF_890_FROM_DIRECT_PROJECT_TRANSCRIPT",
+  "sourceConversation": {
+    "sourceFile": "Branch · Branch · New chat.txt",
+    "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+    "sourceBytes": 189166,
+    "renderedLineCount": 3679,
+    "intendedOrdinalRange": {
+      "start": 1,
+      "end": 890
+    },
+    "retrievalClass": "DIRECT_PROJECT_TRANSCRIPT_MOUNTED_SOURCE"
+  },
+  "corpus": {
+    "directory": "artifacts/research/founder-moonshot-literal-corpus",
+    "manifest": "artifacts/research/founder-moonshot-literal-corpus/manifest.json",
+    "rawSource": "artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt",
+    "shardCount": 10,
+    "shardSize": 89,
+    "canonicalEntriesSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0"
+  },
+  "recoveryCounts": {
+    "expected": 890,
+    "literallyRecovered": 890,
+    "unresolved": 0,
+    "completionFraction": 1
+  },
+  "integrity": {
+    "ordinalsContiguous": true,
+    "missingOrdinals": [],
+    "duplicateOrdinals": [],
+    "missingIqCount": 0,
+    "emptyBodyCount": 0,
+    "duplicateLiteralTitles": [
+      {
+        "literalTitle": "THE ONTOLOGICAL SINGULARITY",
+        "ordinals": [
+          625,
+          683
+        ],
+        "treatment": "PRESERVE_BOTH_SOURCE_ENTRIES"
+      }
+    ]
+  },
+  "historicalPartialRecovery": {
+    "schemaVersion": "uberbond.founder-moonshot-literal-recovery.v1",
+    "truthClass": "PARTIAL_LITERAL_RECOVERY__GAPS_EXPLICIT__NO_REGENERATION",
+    "literallyRecovered": 4,
+    "unresolvedRange": {
+      "start": 5,
+      "end": 890,
+      "count": 886
+    },
+    "reason": "At that earlier point the prior-conversation and Project/Library retrieval surfaces did not expose the direct transcript bytes.",
+    "law": "THIS_LIMITATION_REMAINS_HISTORICAL_EVIDENCE_OF_TOOL_SURFACE_ACCESS__IT_DOES_NOT_OVERRIDE_THE_LATER_DIRECT_SOURCE"
+  },
+  "supersessionLaw": "DIRECT_SOURCE_SUPERSEDES_PARTIAL_RETRIEVAL_FOR_CORPUS_CONTENT__PARTIAL_FAILURE_RECEIPT_REMAINS_PRESERVED_AS_LINEAGE",
+  "noDropLaw": "EVERY_LITERAL_ENTRY_REMAINS_RECOVERABLE_BY_ORDINAL__SEMANTIC_DEDUPE_MAY_PROPOSE_RELATIONSHIPS_BUT_CANNOT_DELETE_UNIQUE_SOURCE_TEXT",
+  "atomizationBoundary": "890_OF_890_LITERAL_SOURCE_IMPORT_COMPLETE__CLAIM_ATOMIZATION_AND_REALIZATION_ARE_SEPARATE_STAGES"
+}

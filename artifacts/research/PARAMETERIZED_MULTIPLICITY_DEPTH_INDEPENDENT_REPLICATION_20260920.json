@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond.parameterized-multiplicity-depth-independent-replication.v1",
+  "date": "2026-09-20",
+  "targets": [
+    "V10_PARAMETERIZED_MULTIPLICITY_DEPTH",
+    "V11_FIFTH_POWER_FREE"
+  ],
+  "truthClass": "INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION",
+  "implementation": {
+    "language": "Python",
+    "primaryImplementationImported": false,
+    "method": "Independent factor-sweep state machine and independent exhaustive search of the frozen 2,592-program grammar.",
+    "grammarProgramCount": 2592
+  },
+  "fifthPowerFree": {
+    "selectedProgram": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_ON_DIVISOR_HIT__IGNORE_LEFTOVER__ACC_INIT_0__MAX_EXPONENT_SAT8__DEPTH_LT__K_5",
+    "selectedThreshold": 5,
+    "trainAccuracy": 1,
+    "validationAccuracy": 1,
+    "heldOutAccuracy": 1,
+    "matchesPrimarySelection": true
+  },
+  "promotionReview": {
+    "concept": "PARAMETERIZED_MULTIPLICITY_DEPTH",
+    "evidenceState": "REPRODUCED_ON_FRESH_UNSEEN_K_ORDER_WITHIN_FINITE_ARITHMETIC_FAMILY",
+    "authority": "NONE",
+    "boundary": "REPRODUCED_SOFTWARE_PRIMITIVE_IS_NOT_GENERAL_MATHEMATICAL_DISCOVERY"
+  }
+}

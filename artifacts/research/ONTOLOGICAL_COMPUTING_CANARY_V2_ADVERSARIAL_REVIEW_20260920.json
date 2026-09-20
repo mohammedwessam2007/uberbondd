@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v2-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_RESULT_20260920.json",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW__NOT_EXTERNAL_REPLICATION",
+  "verdict": "NARROW_MECHANISM_SUPPORTED__OPEN_WORLD_DISCOVERY_NOT_ESTABLISHED",
+  "evidenceFor": [
+    "PREREGISTERED_BEFORE_IMPLEMENTATION_RESULT",
+    "FROZEN_GENERIC_GRAMMAR",
+    "TASKS_NOT_PRESENT_AS_NAMED_CANDIDATE_FEATURES",
+    "MULTIPLE_GENERIC_BASELINES",
+    "HELD_OUT_LABELS_EXCLUDED_FROM_SELECTION",
+    "SEARCH_COMPLEXITY_RECORDED",
+    "NEGATIVE_CONTROL_NOT_SOLVED",
+    "ONE_REPRESENTABLE_TASK_FAILED_THE_PREDECLARED_MARGIN_AND_WAS_NOT_REDEFINED_AS_SUCCESS"
+  ],
+  "remainingThreats": [
+    {
+      "severity": "MAJOR",
+      "code": "GRAMMAR_CONTAINS_TASK_GENERATING_PRIMITIVES",
+      "detail": "Although the exact compositional answers were not named candidates, all four positive tasks were deliberately generated from primitives known to exist in the frozen grammar. This establishes compositional search within a closed hypothesis language, not discovery of a missing primitive."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "SYNTHETIC_DISTRIBUTION",
+      "detail": "The task distribution was created by the experiment designer. Transfer to natural scientific, mathematical or engineering problems remains untested."
+    },
+    {
+      "severity": "MODERATE",
+      "code": "MULTIPLE_HYPOTHESIS_SEARCH",
+      "detail": "The grammar evaluates 17,252 candidate/inversion combinations per task. Search burden is recorded, but statistical correction and scaling behavior need a larger task family."
+    },
+    {
+      "severity": "MODERATE",
+      "code": "NO_INDEPENDENT_RUNTIME",
+      "detail": "Result was executed through the connector V8 exact-source harness; native Node CI remains unavailable due zero-step infrastructure failures."
+    }
+  ],
+  "promotionRecommendation": {
+    "grandMoonshot": "DENY",
+    "narrowMechanism": "ELIGIBLE_FOR_SOFTWARE_DEMONSTRATED_REVIEW_AFTER_NATIVE_OR_SECOND_IMPLEMENTATION_REPLICATION",
+    "nextGate": "V3_OPEN_WORLD_REPRESENTATION_DISCOVERY_CHALLENGE"
+  },
+  "v3Requirements": [
+    "DERIVE_TASKS_FROM_A_GENERATOR_HIDDEN_FROM_THE_REPRESENTATION_SEARCH_GRAMMAR",
+    "ALLOW_GRAMMAR_EXTENSION_PROPOSALS_RATHER_THAN_ONLY_COMPOSITION",
+    "HOLD_OUT_ENTIRE_TASK_FAMILIES_NOT_JUST_EXAMPLES",
+    "INCLUDE_DESCRIPTION_LENGTH_OR_SEARCH_COST_PENALTY",
+    "COMPARE_AGAINST_GENERIC_PROGRAM_SYNTHESIS_OR_TREE_BASELINE",
+    "REQUIRE_DISCOVERED_PRIMITIVE_TO_TRANSFER_TO_A_SECOND_TASK_FAMILY"
+  ]
+}

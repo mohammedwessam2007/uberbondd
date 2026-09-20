@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 4,
+  "ordinalStart": 268,
+  "ordinalEnd": 356,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 268,
+      "literalTitle": "THE EXPERIENCE ECONOMY 2.0",
+      "hypotheticalIq": "3 × 10¹⁶⁷",
+      "literalBodyMarkdown": "If physical goods become cheap, entirely new industries may center on experiences that alter capability, perspective, relationships, identity, and understanding.",
+      "sourceLineStart": 1078,
+      "sourceLineEnd": 1081,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 269,
+      "literalTitle": "THE REALITY DESIGN PROFESSION",
+      "hypotheticalIq": "10¹⁶⁸",
+      "literalBodyMarkdown": "A new profession emerges: designing physical, digital, social, educational, and cognitive environments to produce desirable emergent outcomes.",
+      "sourceLineStart": 1082,
+      "sourceLineEnd": 1085,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 270,
+      "literalTitle": "THE PERSONAL CIVILIZATION",
+      "hypotheticalIq": "3 × 10¹⁶⁸",
+      "literalBodyMarkdown": "Every person gains infrastructure once available only to institutions: research, planning, memory, simulation, markets, education, health intelligence, fabrication, and scientific experimentation.",
+      "sourceLineStart": 1086,
+      "sourceLineEnd": 1089,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 271,
+      "literalTitle": "THE ONE-PERSON RENAISSANCE",
+      "hypotheticalIq": "10¹⁶⁹",
+      "literalBodyMarkdown": "Compress enough institutional capability around one human that an individual can operate across scientific, artistic, entrepreneurial, and intellectual domains previously requiring organizations.",
+      "sourceLineStart": 1090,
+      "sourceLineEnd": 1093,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 272,
+      "literalTitle": "THE ONE-PERSON UNIVERSITY",
+      "hypotheticalIq": "3 × 10¹⁶⁹",
+      "literalBodyMarkdown": "A personalized institution that continuously generates curriculum, experiments, teachers, assessments, projects, and research challenges around one learner.",
+      "sourceLineStart": 1094,
+      "sourceLineEnd": 1097,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 273,
+      "literalTitle": "THE ONE-PERSON LABORATORY",
+      "hypotheticalIq": "10¹⁷⁰",
+      "literalBodyMarkdown": "Give individuals access to scientific capability through robotic labs, simulation, literature intelligence, experiment design, and remote instrumentation.",
+      "sourceLineStart": 1098,
+      "sourceLineEnd": 1101,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 274,
+      "literalTitle": "THE ONE-PERSON INDUSTRIAL BASE",
+      "hypotheticalIq": "3 × 10¹⁷⁰",
+      "literalBodyMarkdown": "A person can invoke manufacturing, logistics, design, testing, and fulfillment as programmable infrastructure.",
+      "sourceLineStart": 1102,
+      "sourceLineEnd": 1105,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 275,
+      "literalTitle": "THE ONE-PERSON RESEARCH CIVILIZATION",
+      "hypotheticalIq": "10¹⁷¹",
+      "literalBodyMarkdown": "One human becomes the constitutional center of a giant network of temporary intelligences, experiments, machines, and institutions.",
+      "sourceLineStart": 1106,
+      "sourceLineEnd": 1109,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 276,
+      "literalTitle": "THE HUMAN-AI ORGANISM",
+      "hypotheticalIq": "3 × 10¹⁷¹",
+      "literalBodyMarkdown": "Stop conceptualizing AI as a tool beside a human. Design a persistent division of cognition where human agency and machine intelligence form one coordinated organism without erasing human control.",
+      "sourceLineStart": 1110,
+      "sourceLineEnd": 1113,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 277,
+      "literalTitle": "THE EXOCORTEX PROTOCOL",
+      "hypotheticalIq": "10¹⁷²",
+      "literalBodyMarkdown": "A universal architecture for external memory, reasoning, simulation, retrieval, verification, and action that stays continuously aligned with its human owner.",
+      "sourceLineStart": 1114,
+      "sourceLineEnd": 1117,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 278,
+      "literalTitle": "THE COGNITIVE CONTINUUM",
+      "hypotheticalIq": "3 × 10¹⁷²",
+      "literalBodyMarkdown": "Human thought no longer resets between conversations, devices, tools, projects, and decades. Context becomes one continuous, recoverable cognitive stream.",
+      "sourceLineStart": 1118,
+      "sourceLineEnd": 1121,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 279,
+      "literalTitle": "THE THOUGHT OPERATING SYSTEM",
+      "hypotheticalIq": "10¹⁷³",
+      "literalBodyMarkdown": "Memory, reasoning, attention, research, decisions, goals, experiences, models, tools, and experiments become interoperable components under one architecture.",
+      "sourceLineStart": 1122,
+      "sourceLineEnd": 1125,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 280,
+      "literalTitle": "THE EXTERNALIZED METACOGNITION",
+      "hypotheticalIq": "3 × 10¹⁷³",
+      "literalBodyMarkdown": "A person's reasoning patterns become observable enough that recurring blind spots, contradictions, biases, and unexamined assumptions can be detected over years.",
+      "sourceLineStart": 1126,
+      "sourceLineEnd": 1129,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 281,
+      "literalTitle": "THE PERSONAL SCIENTIFIC METHOD",
+      "hypotheticalIq": "10¹⁷⁴",
+      "literalBodyMarkdown": "Instead of living mainly through intuition, test consequential assumptions about yourself and your environment with bounded real-world experiments.",
+      "sourceLineStart": 1130,
+      "sourceLineEnd": 1133,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 282,
+      "literalTitle": "THE LONGITUDINAL SELF-MODEL",
+      "hypotheticalIq": "3 × 10¹⁷⁴",
+      "literalBodyMarkdown": "A continuously falsified model of how your preferences, abilities, relationships, environment, cognition, and values actually change over decades.",
+      "sourceLineStart": 1134,
+      "sourceLineEnd": 1137,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 283,
+      "literalTitle": "THE SELF-UNKNOWN-UNKNOWN ENGINE",
+      "hypotheticalIq": "10¹⁷⁵",
+      "literalBodyMarkdown": "Search for aspects of yourself you don't know to question: hidden capabilities, environmental sensitivities, preferences, recurring failure mechanisms, unexplored identities.",
+      "sourceLineStart": 1138,
+      "sourceLineEnd": 1141,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 284,
+      "literalTitle": "THE LIFE PHASE-TRANSITION DETECTOR",
+      "hypotheticalIq": "3 × 10¹⁷⁵",
+      "literalBodyMarkdown": "Identify moments where a relatively small change in environment, capability, relationship, or opportunity could move an entire life into a different basin.",
+      "sourceLineStart": 1142,
+      "sourceLineEnd": 1145,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 285,
+      "literalTitle": "THE PERSONAL BREAKTHROUGH ENGINE",
+      "hypotheticalIq": "10¹⁷⁶",
+      "literalBodyMarkdown": "Hunt for changes that transform not one metric but a whole cluster of life dimensions simultaneously.",
+      "sourceLineStart": 1146,
+      "sourceLineEnd": 1149,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 286,
+      "literalTitle": "THE COMPOUNDING-LIFE ENGINE",
+      "hypotheticalIq": "3 × 10¹⁷⁶",
+      "literalBodyMarkdown": "Prefer decisions that make future learning, opportunity, health, freedom, relationships, and capability easier to acquire.",
+      "sourceLineStart": 1150,
+      "sourceLineEnd": 1153,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 287,
+      "literalTitle": "THE LIFE TECHNOLOGY TREE",
+      "hypotheticalIq": "10¹⁷⁷",
+      "literalBodyMarkdown": "Represent capabilities and experiences as dependencies. A language enables a country; a skill enables a profession; a relationship enables a network; capital enables experimentation.",
+      "sourceLineStart": 1154,
+      "sourceLineEnd": 1157,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 288,
+      "literalTitle": "THE LIFE GRANDCHILD OPTIMIZER",
+      "hypotheticalIq": "3 × 10¹⁷⁷",
+      "literalBodyMarkdown": "Judge today's actions partly by what kinds of actions become possible two, three, ten steps later.",
+      "sourceLineStart": 1158,
+      "sourceLineEnd": 1161,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 289,
+      "literalTitle": "THE POSSIBILITY-PRESERVING LIFE COMPILER",
+      "hypotheticalIq": "10¹⁷⁸",
+      "literalBodyMarkdown": "Find trajectories that simultaneously open several extraordinary futures before forcing irreversible specialization.",
+      "sourceLineStart": 1162,
+      "sourceLineEnd": 1165,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 290,
+      "literalTitle": "THE MULTI-LIFE SYNTHESIS",
+      "hypotheticalIq": "3 × 10¹⁷⁸",
+      "literalBodyMarkdown": "Discover ways to combine life paths previously considered mutually exclusive through sequencing, leverage, delegation, geographic strategy, or technology.",
+      "sourceLineStart": 1166,
+      "sourceLineEnd": 1169,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 291,
+      "literalTitle": "THE IMPOSSIBLE-LIFE COMPILER",
+      "hypotheticalIq": "10¹⁷⁹",
+      "literalBodyMarkdown": "Input a life combination that currently looks impossible. Decompose exactly why it is impossible and search for inventions or structures that remove those constraints.",
+      "sourceLineStart": 1170,
+      "sourceLineEnd": 1173,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 292,
+      "literalTitle": "THE PERSONAL CIVILIZATION BOOTSTRAPPER",
+      "hypotheticalIq": "3 × 10¹⁷⁹",
+      "literalBodyMarkdown": "Starting with one person's limited time and resources, recursively acquire capabilities that increase the person's ability to acquire further capabilities.",
+      "sourceLineStart": 1174,
+      "sourceLineEnd": 1177,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 293,
+      "literalTitle": "THE LIFE RECURSION",
+      "hypotheticalIq": "10¹⁸⁰",
+      "literalBodyMarkdown": "Each improvement in the person or their infrastructure increases the rate at which subsequent improvements can occur.",
+      "sourceLineStart": 1178,
+      "sourceLineEnd": 1181,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 294,
+      "literalTitle": "THE HUMAN EVOLUTION ENGINE",
+      "hypotheticalIq": "3 × 10¹⁸⁰",
+      "literalBodyMarkdown": "Not genetic “optimization.” Create safe cultural, cognitive, technological, educational, and environmental processes through which human capabilities can continuously expand.",
+      "sourceLineStart": 1182,
+      "sourceLineEnd": 1185,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 295,
+      "literalTitle": "THE CAPABILITY SPECIES",
+      "hypotheticalIq": "10¹⁸¹",
+      "literalBodyMarkdown": "Skills become modular, recombinable units that can form new capability organisms. Entire professions could be synthesized from unusual combinations.",
+      "sourceLineStart": 1186,
+      "sourceLineEnd": 1189,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 296,
+      "literalTitle": "THE HUMAN-CAPABILITY PERIODIC TABLE",
+      "hypotheticalIq": "3 × 10¹⁸¹",
+      "literalBodyMarkdown": "Search for fundamental human capability atoms underlying thousands of named skills.",
+      "sourceLineStart": 1190,
+      "sourceLineEnd": 1193,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 297,
+      "literalTitle": "THE HUMAN-CAPABILITY EMPTY CELLS",
+      "hypotheticalIq": "10¹⁸²",
+      "literalBodyMarkdown": "Identify combinations in the capability table no person has historically occupied, then test whether they are achievable.",
+      "sourceLineStart": 1194,
+      "sourceLineEnd": 1197,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 298,
+      "literalTitle": "THE NEW PROFESSION GENERATOR",
+      "hypotheticalIq": "3 × 10¹⁸²",
+      "literalBodyMarkdown": "Combine emerging capabilities into professions that do not yet exist but become economically valuable after technological shifts.",
+      "sourceLineStart": 1198,
+      "sourceLineEnd": 1201,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 299,
+      "literalTitle": "THE NEW HUMAN ARCHETYPE GENERATOR",
+      "hypotheticalIq": "10¹⁸³",
+      "literalBodyMarkdown": "Discover coherent combinations of abilities and lifestyles that history rarely produced because institutional structures prevented them.",
+      "sourceLineStart": 1202,
+      "sourceLineEnd": 1205,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 300,
+      "literalTitle": "THE NEW CIVILIZATIONAL ROLE GENERATOR",
+      "hypotheticalIq": "3 × 10¹⁸³",
+      "literalBodyMarkdown": "As technology changes, identify genuinely new roles humans might play that are neither traditional labor nor passive consumption.",
+      "sourceLineStart": 1206,
+      "sourceLineEnd": 1209,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 301,
+      "literalTitle": "THE POST-LABOR HUMAN CAPABILITY ENGINE",
+      "hypotheticalIq": "10¹⁸⁴",
+      "literalBodyMarkdown": "If automation dramatically reduces compulsory labor, invent institutions and experiences that turn liberated time into capability, creativity, connection, exploration, and meaning.",
+      "sourceLineStart": 1210,
+      "sourceLineEnd": 1213,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 302,
+      "literalTitle": "THE HUMAN FRONTIER ECONOMY",
+      "hypotheticalIq": "3 × 10¹⁸⁴",
+      "literalBodyMarkdown": "Economic activity shifts toward expanding what humans can experience, understand, create, and become.",
+      "sourceLineStart": 1214,
+      "sourceLineEnd": 1217,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 303,
+      "literalTitle": "THE POSSIBILITY ECONOMY",
+      "hypotheticalIq": "10¹⁸⁵",
+      "literalBodyMarkdown": "Value increasingly comes from creating new options, capabilities, worlds, experiences, and reachable futures.",
+      "sourceLineStart": 1218,
+      "sourceLineEnd": 1221,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 304,
+      "literalTitle": "THE REALITY MARKETPLACE",
+      "hypotheticalIq": "3 × 10¹⁸⁵",
+      "literalBodyMarkdown": "People request outcomes, while competing systems propose validated causal pathways to produce them.",
+      "sourceLineStart": 1222,
+      "sourceLineEnd": 1225,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 305,
+      "literalTitle": "THE OUTCOME ECONOMY",
+      "hypotheticalIq": "10¹⁸⁶",
+      "literalBodyMarkdown": "Shift economic organization away from paying mainly for activity or access toward verified beneficial outcomes where measurement permits.",
+      "sourceLineStart": 1226,
+      "sourceLineEnd": 1229,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 306,
+      "literalTitle": "THE PROOF-OF-VALUE PRIMITIVE",
+      "hypotheticalIq": "3 × 10¹⁸⁶",
+      "literalBodyMarkdown": "Develop a standard way of binding an intervention to verifiable evidence of what value it actually created.",
+      "sourceLineStart": 1230,
+      "sourceLineEnd": 1233,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 307,
+      "literalTitle": "THE CONTRIBUTION LEDGER",
+      "hypotheticalIq": "10¹⁸⁷",
+      "literalBodyMarkdown": "Trace how ideas, labor, capital, tools, data, and coordination actually contributed to an outcome, enabling radically different value-sharing models.",
+      "sourceLineStart": 1234,
+      "sourceLineEnd": 1237,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 308,
+      "literalTitle": "THE VALUE CAUSAL GRAPH",
+      "hypotheticalIq": "3 × 10¹⁸⁷",
+      "literalBodyMarkdown": "Replace crude attribution with causal estimates of which interventions created which outcomes.",
+      "sourceLineStart": 1238,
+      "sourceLineEnd": 1241,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 309,
+      "literalTitle": "THE AUTOCATALYTIC ECONOMY",
+      "hypotheticalIq": "10¹⁸⁸",
+      "literalBodyMarkdown": "Value creation automatically funds the mechanisms most responsible for producing additional value.",
+      "sourceLineStart": 1242,
+      "sourceLineEnd": 1245,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 310,
+      "literalTitle": "THE SELF-IMPROVING MARKET",
+      "hypotheticalIq": "3 × 10¹⁸⁸",
+      "literalBodyMarkdown": "Market rules themselves are continuously tested and improved rather than treated as fixed.",
+      "sourceLineStart": 1246,
+      "sourceLineEnd": 1249,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 311,
+      "literalTitle": "THE MARKET EVOLUTION ENGINE",
+      "hypotheticalIq": "10¹⁸⁹",
+      "literalBodyMarkdown": "Competing auction structures, reputation systems, contracts, and matching mechanisms evolve under realistic simulations and bounded deployment.",
+      "sourceLineStart": 1250,
+      "sourceLineEnd": 1253,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 312,
+      "literalTitle": "THE ECONOMIC OPERATING SYSTEM",
+      "hypotheticalIq": "3 × 10¹⁸⁹",
+      "literalBodyMarkdown": "A programmable substrate where new market mechanisms can be instantiated safely like software applications.",
+      "sourceLineStart": 1254,
+      "sourceLineEnd": 1257,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 313,
+      "literalTitle": "THE INSTITUTION APP STORE",
+      "hypotheticalIq": "10¹⁹⁰",
+      "literalBodyMarkdown": "Verified institutional mechanisms become reusable modules. Need a research consortium, insurance pool, reputation market, cooperative, or public-goods mechanism? Compose rather than reinvent.",
+      "sourceLineStart": 1258,
+      "sourceLineEnd": 1261,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 314,
+      "literalTitle": "THE GOVERNANCE COMPILER",
+      "hypotheticalIq": "3 × 10¹⁹⁰",
+      "literalBodyMarkdown": "Given rights, constraints, and desired emergent properties, generate candidate governance mechanisms and adversarially test them before deployment.",
+      "sourceLineStart": 1262,
+      "sourceLineEnd": 1265,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 315,
+      "literalTitle": "THE GOVERNANCE SANDBOX",
+      "hypotheticalIq": "10¹⁹¹",
+      "literalBodyMarkdown": "Test institutional changes in high-fidelity simulations and limited pilots instead of experimenting blindly on entire populations.",
+      "sourceLineStart": 1266,
+      "sourceLineEnd": 1269,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 316,
+      "literalTitle": "THE POLICY DIGITAL TWIN",
+      "hypotheticalIq": "3 × 10¹⁹¹",
+      "literalBodyMarkdown": "Maintain living causal models of policy environments that explicitly track uncertainty and are updated against outcomes.",
+      "sourceLineStart": 1270,
+      "sourceLineEnd": 1273,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 317,
+      "literalTitle": "THE MECHANISM PERIODIC TABLE",
+      "hypotheticalIq": "10¹⁹²",
+      "literalBodyMarkdown": "Catalog fundamental coordination mechanisms from biology, markets, games, distributed systems, governance, and computation.",
+      "sourceLineStart": 1274,
+      "sourceLineEnd": 1277,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 318,
+      "literalTitle": "THE SYNTHETIC INSTITUTION SPECIES",
+      "hypotheticalIq": "3 × 10¹⁹²",
+      "literalBodyMarkdown": "Generate organizational forms unlike companies, nonprofits, governments, cooperatives, or markets.",
+      "sourceLineStart": 1278,
+      "sourceLineEnd": 1281,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 319,
+      "literalTitle": "THE TEMPORARY NATION",
+      "hypotheticalIq": "10¹⁹³",
+      "literalBodyMarkdown": "A bounded virtual institution forms around a mission, has explicit rights and constitution, performs work, distributes value, and dissolves when complete.",
+      "sourceLineStart": 1282,
+      "sourceLineEnd": 1285,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 320,
+      "literalTitle": "THE MISSION CIVILIZATION",
+      "hypotheticalIq": "3 × 10¹⁹³",
+      "literalBodyMarkdown": "For sufficiently important problems, spin up an entire temporary ecosystem of laboratories, markets, agents, institutions, infrastructure, and governance.",
+      "sourceLineStart": 1286,
+      "sourceLineEnd": 1289,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 321,
+      "literalTitle": "THE PROBLEM-SPECIFIC CIVILIZATION",
+      "hypotheticalIq": "10¹⁹⁴",
+      "literalBodyMarkdown": "Cancer, fusion, aging, climate adaptation, or space exploration could each receive a custom civilization optimized around solving that problem.",
+      "sourceLineStart": 1290,
+      "sourceLineEnd": 1293,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 322,
+      "literalTitle": "THE MICRO-CIVILIZATION COMPILER",
+      "hypotheticalIq": "3 × 10¹⁹⁴",
+      "literalBodyMarkdown": "Automatically design the smallest self-sustaining research/economic/institutional ecology necessary to conquer a particular frontier.",
+      "sourceLineStart": 1294,
+      "sourceLineEnd": 1297,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 323,
+      "literalTitle": "THE FRONTIER COLONY",
+      "hypotheticalIq": "10¹⁹⁵",
+      "literalBodyMarkdown": "Create self-contained research ecosystems that explore one region of scientific possibility for years with minimal external coordination.",
+      "sourceLineStart": 1298,
+      "sourceLineEnd": 1301,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 324,
+      "literalTitle": "THE CIVILIZATION SWARM",
+      "hypotheticalIq": "3 × 10¹⁹⁵",
+      "literalBodyMarkdown": "Thousands of distinct micro-civilizations explore different approaches simultaneously and exchange discoveries.",
+      "sourceLineStart": 1302,
+      "sourceLineEnd": 1305,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 325,
+      "literalTitle": "THE CIVILIZATION CROSSOVER ENGINE",
+      "hypotheticalIq": "10¹⁹⁶",
+      "literalBodyMarkdown": "Successful institutional, technological, and scientific mechanisms migrate between experimental civilizations.",
+      "sourceLineStart": 1306,
+      "sourceLineEnd": 1309,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 326,
+      "literalTitle": "THE CIVILIZATION NATURAL SELECTION",
+      "hypotheticalIq": "3 × 10¹⁹⁶",
+      "literalBodyMarkdown": "Entire systems of science, markets, governance, education, and technology compete in simulation and bounded environments.",
+      "sourceLineStart": 1310,
+      "sourceLineEnd": 1313,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 327,
+      "literalTitle": "THE CIVILIZATION SPECIATION ENGINE",
+      "hypotheticalIq": "10¹⁹⁷",
+      "literalBodyMarkdown": "Rather than assuming one optimal structure, deliberately create diverse civilization architectures adapted to different environments and purposes.",
+      "sourceLineStart": 1314,
+      "sourceLineEnd": 1317,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 328,
+      "literalTitle": "THE CIVILIZATION ECOSYSTEM",
+      "hypotheticalIq": "3 × 10¹⁹⁷",
+      "literalBodyMarkdown": "Different institutional civilizations coexist, trade capabilities, specialize, and constrain one another's failure modes.",
+      "sourceLineStart": 1318,
+      "sourceLineEnd": 1321,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 329,
+      "literalTitle": "THE META-CIVILIZATION MARKET",
+      "hypotheticalIq": "10¹⁹⁸",
+      "literalBodyMarkdown": "Civilizational mechanisms compete on measurable outcomes while rights and safety remain constitutional constraints.",
+      "sourceLineStart": 1322,
+      "sourceLineEnd": 1325,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 330,
+      "literalTitle": "THE CIVILIZATION GENOME",
+      "hypotheticalIq": "3 × 10¹⁹⁸",
+      "literalBodyMarkdown": "Extract reusable functional genes underlying successful scientific, economic, educational, and governance structures.",
+      "sourceLineStart": 1326,
+      "sourceLineEnd": 1329,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 331,
+      "literalTitle": "THE CIVILIZATION GENETIC ENGINEERING",
+      "hypotheticalIq": "10¹⁹⁹",
+      "literalBodyMarkdown": "Recombine institutional genes to deliberately design new civilization architectures.",
+      "sourceLineStart": 1330,
+      "sourceLineEnd": 1333,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 332,
+      "literalTitle": "THE CIVILIZATION PHENOTYPE MAP",
+      "hypotheticalIq": "3 × 10¹⁹⁹",
+      "literalBodyMarkdown": "Understand how combinations of rules, technologies, environments, and values produce emergent societal behavior.",
+      "sourceLineStart": 1334,
+      "sourceLineEnd": 1337,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 333,
+      "literalTitle": "THE CIVILIZATION DEVELOPMENTAL BIOLOGY",
+      "hypotheticalIq": "10²⁰⁰",
+      "literalBodyMarkdown": "Study how simple founding conditions grow into mature institutional structures, identifying developmental stages and irreversible path dependencies.",
+      "sourceLineStart": 1338,
+      "sourceLineEnd": 1341,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 334,
+      "literalTitle": "THE CIVILIZATION EMBRYO",
+      "hypotheticalIq": "3 × 10²⁰⁰",
+      "literalBodyMarkdown": "Search for a minimal seed constitution and capability set from which complex useful institutions can safely self-develop.",
+      "sourceLineStart": 1342,
+      "sourceLineEnd": 1345,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 335,
+      "literalTitle": "THE CIVILIZATION STEM CELL",
+      "hypotheticalIq": "10²⁰¹",
+      "literalBodyMarkdown": "A general-purpose institutional seed capable of differentiating into a lab, company, school, market, cooperative, or other organization depending on environmental signals.",
+      "sourceLineStart": 1346,
+      "sourceLineEnd": 1349,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 336,
+      "literalTitle": "THE CIVILIZATION REGENERATION ENGINE",
+      "hypotheticalIq": "3 × 10²⁰¹",
+      "literalBodyMarkdown": "Preserve enough structural knowledge that failed institutions can be reconstructed without repeating their entire historical learning process.",
+      "sourceLineStart": 1350,
+      "sourceLineEnd": 1353,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 337,
+      "literalTitle": "THE TECHNOLOGICAL DNA",
+      "hypotheticalIq": "10²⁰²",
+      "literalBodyMarkdown": "Encode not merely blueprints but generative rules capable of reconstructing technologies across different environments and manufacturing substrates.",
+      "sourceLineStart": 1354,
+      "sourceLineEnd": 1357,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 338,
+      "literalTitle": "THE KNOWLEDGE DNA",
+      "hypotheticalIq": "3 × 10²⁰²",
+      "literalBodyMarkdown": "Find minimal generative representations from which large domains of knowledge can be reconstructed.",
+      "sourceLineStart": 1358,
+      "sourceLineEnd": 1361,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 339,
+      "literalTitle": "THE SCIENCE DNA",
+      "hypotheticalIq": "10²⁰³",
+      "literalBodyMarkdown": "Identify the compact structure containing a field's fundamental assumptions, methods, core observations, equations, instruments, and falsifiers.",
+      "sourceLineStart": 1362,
+      "sourceLineEnd": 1365,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 340,
+      "literalTitle": "THE CIVILIZATION DNA",
+      "hypotheticalIq": "3 × 10²⁰³",
+      "literalBodyMarkdown": "Find the smallest information package required to reconstruct critical scientific and technological capacity after catastrophic knowledge loss.",
+      "sourceLineStart": 1366,
+      "sourceLineEnd": 1369,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 341,
+      "literalTitle": "THE CIVILIZATION BACKUP",
+      "hypotheticalIq": "10²⁰⁴",
+      "literalBodyMarkdown": "A robust, distributed, comprehensible archive containing enough theory, tools, procedures, and manufacturing paths to reboot advanced capability.",
+      "sourceLineStart": 1370,
+      "sourceLineEnd": 1373,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 342,
+      "literalTitle": "THE CIVILIZATION RESTORE BUTTON",
+      "hypotheticalIq": "3 × 10²⁰⁴",
+      "literalBodyMarkdown": "Not literally one button. A tested recovery architecture capable of rebuilding essential systems from degraded conditions.",
+      "sourceLineStart": 1374,
+      "sourceLineEnd": 1377,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 343,
+      "literalTitle": "THE CIVILIZATION CHECKPOINT",
+      "hypotheticalIq": "10²⁰⁵",
+      "literalBodyMarkdown": "Periodically capture the minimum sufficient state required for civilization's critical knowledge and capabilities to remain recoverable.",
+      "sourceLineStart": 1378,
+      "sourceLineEnd": 1381,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 344,
+      "literalTitle": "THE CIVILIZATION BRANCH",
+      "hypotheticalIq": "3 × 10²⁰⁵",
+      "literalBodyMarkdown": "Experimental societies could branch different institutional architectures without forcing one global experiment.",
+      "sourceLineStart": 1382,
+      "sourceLineEnd": 1385,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 345,
+      "literalTitle": "THE CIVILIZATION MERGE",
+      "hypotheticalIq": "10²⁰⁶",
+      "literalBodyMarkdown": "Harvest proven mechanisms from different institutional branches while retaining provenance and avoiding blind adoption.",
+      "sourceLineStart": 1386,
+      "sourceLineEnd": 1389,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 346,
+      "literalTitle": "THE CIVILIZATION ROLLBACK",
+      "hypotheticalIq": "3 × 10²⁰⁶",
+      "literalBodyMarkdown": "Design systems so harmful institutional changes remain reversible rather than becoming entrenched through irreversible dependency.",
+      "sourceLineStart": 1390,
+      "sourceLineEnd": 1393,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 347,
+      "literalTitle": "THE CIVILIZATION CI/CD",
+      "hypotheticalIq": "10²⁰⁷",
+      "literalBodyMarkdown": "Proposed structural changes face simulation, adversarial testing, controlled trials, monitoring, and rollback before broad adoption.",
+      "sourceLineStart": 1394,
+      "sourceLineEnd": 1397,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 348,
+      "literalTitle": "THE CIVILIZATION TEST SUITE",
+      "hypotheticalIq": "3 × 10²⁰⁷",
+      "literalBodyMarkdown": "Every major governance or economic mechanism is tested against corruption, capture, inequality, gaming, shocks, information asymmetry, and adversarial behavior.",
+      "sourceLineStart": 1398,
+      "sourceLineEnd": 1401,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 349,
+      "literalTitle": "THE CIVILIZATION FORMAL VERIFICATION LAYER",
+      "hypotheticalIq": "10²⁰⁸",
+      "literalBodyMarkdown": "Certain critical institutional invariants become machine-checkable where mathematically representable.",
+      "sourceLineStart": 1402,
+      "sourceLineEnd": 1405,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 350,
+      "literalTitle": "THE RIGHTS-PRESERVING SELF-IMPROVEMENT ENGINE",
+      "hypotheticalIq": "3 × 10²⁰⁸",
+      "literalBodyMarkdown": "Systems may adapt their mechanisms but cannot silently rewrite foundational human rights or authority constraints.",
+      "sourceLineStart": 1406,
+      "sourceLineEnd": 1409,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 351,
+      "literalTitle": "THE SELF-IMPROVING CIVILIZATION",
+      "hypotheticalIq": "10²⁰⁹",
+      "literalBodyMarkdown": "Scientific methods improve science. Education improves learning. Institutions improve governance. Industry improves manufacturing. All loops feed one another deliberately.",
+      "sourceLineStart": 1410,
+      "sourceLineEnd": 1413,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 352,
+      "literalTitle": "THE SELF-UNDERSTANDING CIVILIZATION",
+      "hypotheticalIq": "3 × 10²⁰⁹",
+      "literalBodyMarkdown": "Civilization continuously measures whether its self-model matches reality.",
+      "sourceLineStart": 1414,
+      "sourceLineEnd": 1417,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 353,
+      "literalTitle": "THE SELF-QUESTIONING CIVILIZATION",
+      "hypotheticalIq": "10²¹⁰",
+      "literalBodyMarkdown": "Institutions automatically generate challenges to their deepest assumptions rather than defending them indefinitely.",
+      "sourceLineStart": 1418,
+      "sourceLineEnd": 1421,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 354,
+      "literalTitle": "THE SELF-REDESIGNING CIVILIZATION",
+      "hypotheticalIq": "3 × 10²¹⁰",
+      "literalBodyMarkdown": "Civilization can alter subordinate structures when evidence suggests better designs, while preserving constitutional human control.",
+      "sourceLineStart": 1422,
+      "sourceLineEnd": 1425,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 355,
+      "literalTitle": "THE SELF-INVENTING CIVILIZATION",
+      "hypotheticalIq": "10²¹¹",
+      "literalBodyMarkdown": "Society does not merely adopt inventions. Its structure actively generates new scientific fields, technologies, institutions, and capabilities.",
+      "sourceLineStart": 1426,
+      "sourceLineEnd": 1429,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 356,
+      "literalTitle": "THE SELF-EXPANDING CIVILIZATION",
+      "hypotheticalIq": "3 × 10²¹¹",
+      "literalBodyMarkdown": "Every generation intentionally expands the range of futures accessible to the next.",
+      "sourceLineStart": 1430,
+      "sourceLineEnd": 1433,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

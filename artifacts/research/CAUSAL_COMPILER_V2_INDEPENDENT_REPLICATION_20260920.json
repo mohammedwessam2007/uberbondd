@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-v2-independent-replication.v1",
+  "date": "2026-09-20",
+  "target": "src/causal-compiler-canary-v2.mjs",
+  "preregistration": "artifacts/research/CAUSAL_COMPILER_CANARY_V2_PREREGISTRATION_20260920.json",
+  "truthClass": "INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION",
+  "implementation": {
+    "language": "Python",
+    "relationshipToPrimary": "INDEPENDENT_REIMPLEMENTATION_FROM_FROZEN_BENCHMARK_CONTRACT",
+    "importedPrimaryAlgorithmCode": false,
+    "executionEnvironment": "local Python analysis runtime",
+    "benchmarkCaseCount": 64
+  },
+  "outcome": {
+    "exactSatisfiabilityAndMinimumCardinalityAgreementWithExhaustive": 64,
+    "totalCases": 64,
+    "correctnessAgreementRate": 1,
+    "medianDistractorFullModelEvaluationReductionFactor": 18,
+    "sharedSubgraphCases": 3,
+    "sharedFallbackCasesObserved": 3
+  },
+  "replicatedPrimaryReceipt": "artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json",
+  "interpretation": "The frozen V2 benchmark result is reproduced by a second implementation: exact minimum intervention cardinality on all 64 cases with 18x median full-model evaluation reduction on distractor cases.",
+  "boundaries": [
+    "SECOND_IMPLEMENTATION_REPLICATION_IS_STILL_SYNTHETIC_SOFTWARE_EVIDENCE",
+    "NO_CAUSAL_GRAPH_DISCOVERY",
+    "NO_REAL_WORLD_INTERVENTION_PROOF",
+    "NO_GRAND_MOONSHOT_PROMOTION"
+  ],
+  "promotionReview": {
+    "childMechanism": "KNOWN_TREE_LIKE_BOOLEAN_SCM_GOAL_DIRECTED_MINIMUM_INTERVENTION_COMPILER_WITH_EXACT_FALLBACK",
+    "state": "REPRODUCED",
+    "parentMoonshot": "founder-moonshot-0001",
+    "parentState": "FORMALIZED_WITH_REPRODUCED_NARROW_DESCENDANT",
+    "authority": "NO_EXTERNAL_ACTION_AUTHORITY"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "uberbond.moonshot-realization-state-overlay.v1",
+  "date": "2026-09-20",
+  "entries": {
+    "founder-moonshot-0001": {
+      "literalTitle": "THE CAUSAL COMPILER",
+      "parentRealityState": "CONSTRAINT_MAPPED",
+      "parentClaimBoundary": "The full cross-domain founder moonshot remains unproven. Formalization and constraint mapping are complete; reproduced evidence exists only for narrow deterministic software descendants.",
+      "verifiedDescendants": [
+        {
+          "id": "known-boolean-scm-goal-directed-minimum-intervention-compiler",
+          "state": "REPRODUCED",
+          "evidence": [
+            "artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json",
+            "artifacts/research/CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json"
+          ],
+          "scope": "Known finite deterministic tree-like Boolean SCMs with exact fallback on unsupported/shared structures",
+          "externalAuthority": "NONE"
+        },
+        {
+          "id": "semantic-causal-subgraph-crystallizer-v1",
+          "state": "REPRODUCED",
+          "evidence": [
+            "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json",
+            "artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json"
+          ],
+          "scope": "Exact finite deterministic Boolean causal-boundary equivalence and held-out macro reuse",
+          "externalAuthority": "NONE"
+        }
+      ],
+      "nextFrontier": [
+        "held-out SCM topologies not used by V1/V2 benchmark design",
+        "multi-target goals",
+        "stochastic SCMs",
+        "causal-graph discovery separated from intervention compilation",
+        "real software-system intervention experiment before any physical/human domain"
+      ]
+    }
+  },
+  "law": "DESCENDANT_EVIDENCE_COMPOUNDS_WITHOUT_PROMOTING_THE_PARENT_BEYOND_ITS_EVIDENCE",
+  "sharedPrimitives": {
+    "parameterized-multiplicity-depth": {
+      "state": "REPRODUCED",
+      "scope": "Finite integer factorization representation with generic prime-exponent thresholds K=2..6 and parity composition.",
+      "evidence": [
+        "artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_RESULT_20260920.json",
+        "artifacts/research/FIFTH_POWER_FREE_V11_RESULT_20260920.json",
+        "artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_INDEPENDENT_REPLICATION_20260920.json"
+      ],
+      "boundary": "No general mathematics or open-ended ontology invention claim."
+    }
+  }
+}

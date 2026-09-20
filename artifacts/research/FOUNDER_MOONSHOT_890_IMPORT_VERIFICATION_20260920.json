@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-890-import-verification.v1",
+  "date": "2026-09-20",
+  "pullRequest": 967,
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "verifiedSourceHead": "1d33e1b8a38261d63a91b637f9940a3a964f2a0e",
+  "truthClass": "EXACT_LITERAL_SOURCE_IMPORT_VERIFIED__REALIZATION_SEPARATE",
+  "directSource": {
+    "fileName": "Branch · Branch · New chat.txt",
+    "sha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+    "bytes": 189166,
+    "renderedLineCount": 3679
+  },
+  "corpus": {
+    "manifest": "artifacts/research/founder-moonshot-literal-corpus/manifest.json",
+    "rawSource": "artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt",
+    "shardCount": 10,
+    "entriesPerFullShard": 89,
+    "expected": 890,
+    "recovered": 890,
+    "canonicalEntriesSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0"
+  },
+  "exactBridgeVerification": {
+    "filesCompared": 12,
+    "exactByteForByteMatches": 12,
+    "mismatches": 0,
+    "meaning": "The committed manifest, ten corpus shards, and raw source exactly matched the container-to-file-service bridge used for the direct source extraction."
+  },
+  "doctor": {
+    "status": "FOUNDER_MOONSHOT_CORPUS_EXACT_890_OF_890",
+    "errors": [],
+    "warnings": [
+      "duplicate-literal-titles-preserved-as-distinct-source-entries"
+    ],
+    "counts": {
+      "expected": 890,
+      "recovered": 890,
+      "shards": 10,
+      "missingIq": 0,
+      "emptyBodies": 0,
+      "duplicateOrdinals": 0,
+      "duplicateLiteralTitles": 1
+    },
+    "duplicateTitle": {
+      "title": "THE ONTOLOGICAL SINGULARITY",
+      "ordinals": [
+        625,
+        683
+      ],
+      "bodiesDistinct": true,
+      "decision": "PRESERVE_BOTH"
+    }
+  },
+  "atomizationQueue": {
+    "status": "FOUNDER_MOONSHOT_ATOMIZATION_QUEUE_READY",
+    "sourceEntryCount": 890,
+    "batchSize": 25,
+    "batchCount": 36,
+    "uniqueStableIds": 890,
+    "firstOrdinal": 1,
+    "lastOrdinal": 890
+  },
+  "historicalSupersession": {
+    "priorRecovery": "4_OF_890_LITERAL_ENTRIES",
+    "currentRecovery": "890_OF_890_LITERAL_ENTRIES",
+    "reason": "Direct mounted Project transcript became available after the earlier retrieval-only boundary.",
+    "deletionPolicy": "PRESERVE_PRIOR_FAILURE_REASON_AS_LINEAGE"
+  },
+  "claimsMade": [
+    "ALL_890_LITERAL_SOURCE_IDEAS_ARE_NOW_IN_THE_REPOSITORY",
+    "RAW_TRANSCRIPT_SOURCE_IS_PRESERVED",
+    "EVERY_SOURCE_IDEA_HAS_STABLE_ID_ORDINAL_TITLE_IQ_BODY_AND_LINE_RANGE",
+    "ATOMIZATION_QUEUE_COVERS_ALL_890_EXACTLY_ONCE"
+  ],
+  "claimsNotMade": [
+    "NO_890_OF_890_CLAIM_ATOMIZATION_COMPLETION",
+    "NO_890_OF_890_IMPLEMENTATION",
+    "NO_890_OF_890_PHYSICAL_FEASIBILITY",
+    "NO_890_OF_890_EXTERNAL_PROOF",
+    "FICTIONAL_IQ_IS_NOT_EVIDENCE"
+  ],
+  "terminalLaw": "SOURCE_IMPORT_COMPLETE__REALITY_COMPILATION_CONTINUES_WITHOUT_MUTATING_LITERAL_PROVENANCE"
+}

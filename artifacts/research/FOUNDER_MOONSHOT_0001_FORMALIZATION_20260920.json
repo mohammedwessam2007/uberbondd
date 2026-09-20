@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-formalization.v1",
+  "date": "2026-09-20",
+  "sourceStableId": "founder-moonshot-0001",
+  "sourceOrdinal": 1,
+  "literalTitle": "THE CAUSAL COMPILER",
+  "sourceLines": [
+    2,
+    5
+  ],
+  "sourceRef": "artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-001-089.json#ordinal-1",
+  "truthClass": "DERIVED_FORMALIZATION__SOURCE_TEXT_IMMUTABLE",
+  "thesis": "Compile desired end states into explicit causal intervention architectures, beginning with bounded known causal models and expanding only as evidence supports broader substrates.",
+  "domains": [
+    "COMPUTATIONAL",
+    "PHYSICAL",
+    "BIOLOGICAL",
+    "ECONOMIC",
+    "META_RESEARCH"
+  ],
+  "claims": [
+    {
+      "claimId": "known-model-minimum-intervention",
+      "type": "COMPUTATIONAL",
+      "statement": "Given a correct finite causal model, a desired target state and declared controllable variables, an algorithm can compile interventions whose cardinality is globally minimum within that declared model.",
+      "falsifier": "A preregistered case exists where the compiler returns the wrong satisfiability status or an intervention set larger than the exhaustive global minimum.",
+      "feasibility": "KNOWN_POSSIBLE",
+      "assumptions": [
+        "The supplied causal model and equations are correct for the tested system.",
+        "Declared controllable variables are the only allowed interventions."
+      ],
+      "requiredEvidence": [
+        "Independent correctness comparison against exhaustive or formally verified minima.",
+        "Adversarial graph structures including shared upstream causes."
+      ],
+      "evidenceRefs": [
+        "experiment:CAUSAL_COMPILER_CANARY_V2"
+      ]
+    },
+    {
+      "claimId": "causal-compilation-efficiency",
+      "type": "COMPUTATIONAL",
+      "statement": "Causal structure and desired-state semantics can reduce intervention-search work relative to uninformed enumeration without changing the exact minimum.",
+      "falsifier": "Under preregistered matched benchmarks, the compiler fails to reduce computational work or changes the correct minimum intervention.",
+      "feasibility": "KNOWN_POSSIBLE",
+      "assumptions": [
+        "The causal graph exposes exploitable structure."
+      ],
+      "requiredEvidence": [
+        "Held-out efficiency comparison with full accounting.",
+        "Failure cases preserved."
+      ],
+      "evidenceRefs": [
+        "experiment:CAUSAL_COMPILER_CANARY_V1",
+        "experiment:CAUSAL_COMPILER_CANARY_V2"
+      ]
+    },
+    {
+      "claimId": "cross-substrate-causal-compiler",
+      "type": "HYBRID",
+      "statement": "A sufficiently general causal compiler could transfer the desired-state-to-intervention pattern across computational, physical, biological and economic systems.",
+      "falsifier": "After representation, measurement and authority constraints are satisfied, the common causal interface repeatedly fails to preserve intervention semantics across independently tested substrate classes.",
+      "feasibility": "INSUFFICIENT_INFORMATION",
+      "assumptions": [
+        "Cross-domain causal descriptions can share a useful intermediate representation.",
+        "Relevant causal structure can be identified at actionable fidelity."
+      ],
+      "requiredEvidence": [
+        "At least two non-synthetic substrate demonstrations.",
+        "Independent replication.",
+        "Measurement and intervention provenance."
+      ],
+      "evidenceRefs": []
+    }
+  ],
+  "constraints": [
+    {
+      "class": "INFORMATION",
+      "description": "The compiler cannot be more correct than the causal structure and equations supplied or discovered.",
+      "evidenceRefs": [
+        "experiment:CAUSAL_COMPILER_CANARY_V2"
+      ]
+    },
+    {
+      "class": "COMPUTATION",
+      "description": "Exact intervention optimization may become combinatorial for general causal graphs and action spaces.",
+      "evidenceRefs": [
+        "experiment:CAUSAL_COMPILER_CANARY_V1"
+      ]
+    },
+    {
+      "class": "MEASUREMENT",
+      "description": "Physical, biological and economic use requires measurable state variables and outcome observability.",
+      "evidenceRefs": []
+    },
+    {
+      "class": "AUTHORITY",
+      "description": "Real interventions on external systems require explicit authority independent of capability.",
+      "evidenceRefs": [
+        "doc:AGENTS.md"
+      ]
+    },
+    {
+      "class": "SAFETY",
+      "description": "Interventions can create side effects outside the modeled target and require containment and reconciliation.",
+      "evidenceRefs": []
+    },
+    {
+      "class": "LAW",
+      "description": "Real-world interventions must remain within applicable law, consent and rights constraints.",
+      "evidenceRefs": []
+    }
+  ],
+  "unknowns": [
+    "causal structure discovery from incomplete observations",
+    "stochastic and continuous models",
+    "multi-target and temporal policy compilation",
+    "shared-DAG exact scaling",
+    "robustness to model misspecification",
+    "cross-substrate causal intermediate representation",
+    "safe real-world intervention measurement"
+  ],
+  "currentParentRealityState": "CONSTRAINT_MAPPED",
+  "currentParentStateReason": "The moonshot has a formal claim decomposition and explicit constraint map. Only a narrow computational child mechanism has software evidence; the cross-substrate thesis remains uncertain.",
+  "demonstratedChildren": [
+    {
+      "id": "causal-relevance-pruning-v1",
+      "state": "FALSIFIED_FOR_PREREGISTERED_EFFICIENCY_THRESHOLD_WITH_CORRECTNESS_PRESERVED",
+      "evidenceRef": "artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json"
+    },
+    {
+      "id": "goal-directed-boolean-causal-compiler-v2",
+      "state": "SOFTWARE_DEMONSTRATED_CANDIDATE_PENDING_NATIVE_OR_SECOND_IMPLEMENTATION_REPLICATION",
+      "evidenceRef": "artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json"
+    }
+  ],
+  "nextGates": [
+    "independent or native replication of V2",
+    "shared-DAG exact dynamic programming",
+    "multi-target compilation",
+    "causal discovery child program",
+    "stochastic/continuous SCM support",
+    "authorized non-synthetic proxy only after prior gates"
+  ]
+}

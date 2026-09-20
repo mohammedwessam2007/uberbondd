@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "uberbond.parameterized-multiplicity-depth-v10-preregistration.v1",
+  "date": "2026-09-20",
+  "parentReview": "artifacts/research/FOURTH_POWER_FREE_V9_ADVERSARIAL_REVIEW_20260920.json",
+  "truthClass": "PREREGISTERED_POST_REVIEW_EXACT_SEMANTIC_MECHANISM_NOT_RESULT",
+  "hypothesis": "A generic maximum-prime-exponent state with parameterized threshold predicates can represent exact k-power-free characteristic functions for multiple k values while preserving the independent parity accumulator.",
+  "frozenState": {
+    "accumulator": "one Boolean accumulator with generic divisor-event update vocabulary",
+    "maxPrimeExponent": "global maximum exact exponent observed per divisor, saturated only at 8",
+    "thresholdFamily": [
+      "DEPTH_LT_2",
+      "DEPTH_LT_3",
+      "DEPTH_LT_4",
+      "DEPTH_LT_5",
+      "DEPTH_LT_6",
+      "DEPTH_GE_2",
+      "DEPTH_GE_3",
+      "DEPTH_GE_4",
+      "DEPTH_GE_5",
+      "DEPTH_GE_6"
+    ],
+    "compositions": [
+      "ACCUMULATOR",
+      "NOT_ACCUMULATOR",
+      "ACCUMULATOR_AND_DEPTH_LT_K",
+      "NOT_ACCUMULATOR_AND_DEPTH_LT_K",
+      "ACCUMULATOR_XOR_DEPTH_GE_K"
+    ],
+    "antiLeakage": "No squarefree, cubefree, fourth-power-free, Möbius, OEIS identifier, or target name appears in program identifiers."
+  },
+  "confirmatoryTargets": [
+    "FOURTH_POWER_FREE_INDICATOR",
+    "A212793_CUBEFREE_INDICATOR",
+    "A008966_SQUAREFREE",
+    "A008683_MOBIUS_POSITIVE",
+    "A001221_DISTINCT_PRIME_PARITY"
+  ],
+  "exactSuccessCriteria": {
+    "fourthPowerFreeTrainAccuracy": 1,
+    "fourthPowerFreeValidationAccuracy": 1,
+    "fourthPowerFreeHeldOutAccuracy": 1,
+    "cubefreeHeldOutAccuracy": 1,
+    "squarefreeHeldOutAccuracy": 1,
+    "mobiusPositiveHeldOutAccuracy": 1,
+    "distinctPrimeParityHeldOutAccuracy": 1,
+    "hashNegativeBalancedAccuracyMaximum": 0.65
+  },
+  "falsifier": [
+    "Any deterministic symbolic target misses exact 1.0 held-out accuracy.",
+    "Held-out labels influence program selection.",
+    "Hash negative control exceeds balanced accuracy 0.65.",
+    "Grammar semantics change after result."
+  ],
+  "interpretationBoundary": "V10 is confirmatory on fourth-power-free because it was designed after the V9 semantic review. Broad generalization requires a fresh unseen k-power-free order.",
+  "nextRequiredGate": "FROZEN_V10_GRAMMAR_ON_UNSEEN_FIFTH_POWER_FREE_TARGET",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-v4b-independent-replication-preregistration.v1",
+  "date": "2026-09-20",
+  "targetResult": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json",
+  "truthClass": "PREREGISTERED_INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION_NOT_RESULT",
+  "purpose": "Reproduce the V4B finite synthetic result through an independently coded computational path before narrow SOFTWARE_DEMONSTRATED review.",
+  "independenceRequirements": [
+    "MUST_NOT_IMPORT_SRC_ONTOLOGICAL_STRUCTURAL_SYNTHESIS_CANARY_V4B",
+    "GENERATE_TARGET_LABELS_VIA_SMALLEST_PRIME_FACTOR_SIEVE_NOT_TRIAL_DIVISION",
+    "EVALUATE_BASE_ONTOLOGY_AS_BOOLEAN_VECTORS_NOT_CALLBACK_FEATURE_FUNCTIONS",
+    "REIMPLEMENT_STRUCTURAL_PROGRAM_INTERPRETER_AND_SELECTION",
+    "REIMPLEMENT_SPLIT_HASH_AND_BASELINES",
+    "COMPARE_TO_FROZEN_PRIMARY_RESULT_WITH_DECLARED_TOLERANCE"
+  ],
+  "expectedPrimaryMetrics": {
+    "semanticNovelty": {
+      "exactEquivalentFound": false,
+      "nearestId": "XOR(NOT(RESIDUE_EQ(3,0)),RESIDUE_EQ(4,2))",
+      "nearestMismatchRate": 0.4295499
+    },
+    "selectedProgramId": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_PER_DIVISION_EVENT__TOGGLE_IF_WORKING_GT_1__INIT_0",
+    "candidateCount": 96,
+    "splitCounts": {
+      "train": 794,
+      "validation": 403,
+      "discoveryHeldOut": 438,
+      "transferHeldOut": 413
+    },
+    "discovery": {
+      "heldOutAccuracy": 1,
+      "bestBaselineAccuracy": 0.6255707762557078,
+      "improvement": 0.374429
+    },
+    "transfers": {
+      "OMEGA_XOR_BIT3": {
+        "heldOutAccuracy": 1,
+        "bestBaselineAccuracy": 0.5472154963680388,
+        "improvement": 0.452785
+      },
+      "OMEGA_XOR_MOD5_EQ2": {
+        "heldOutAccuracy": 1,
+        "bestBaselineAccuracy": 0.5786924939467313,
+        "improvement": 0.421308
+      },
+      "OMEGA_AND_NOT_BIT2": {
+        "heldOutAccuracy": 1,
+        "bestBaselineAccuracy": 0.7675544794188862,
+        "improvement": 0.232446
+      }
+    },
+    "negativeControl": {
+      "heldOutAccuracy": 0.4745762711864407
+    }
+  },
+  "comparisonTolerance": {
+    "accuracyAbsolute": 1e-12,
+    "roundedImprovementAbsolute": 0.000001,
+    "noveltyMismatchAbsolute": 1e-8
+  },
+  "falsifier": [
+    "Independent implementation selects a different structural program.",
+    "Semantic-novelty nearest behavior differs beyond tolerance.",
+    "Any discovery, transfer or negative-control metric differs beyond tolerance.",
+    "The replication source imports or copies runtime helpers from the primary V4B module.",
+    "Replication omits its own search and baseline burden."
+  ],
+  "promotionBoundary": "Matching replication can support review of the narrow finite synthetic mechanism only. It cannot promote the grand Ontological Computing moonshot or create external scientific evidence.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

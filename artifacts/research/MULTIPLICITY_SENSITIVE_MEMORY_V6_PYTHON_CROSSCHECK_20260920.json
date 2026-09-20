@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "uberbond.multiplicity-sensitive-memory-v6-python-crosscheck.v1",
+  "date": "2026-09-20",
+  "primaryResult": "artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json",
+  "truthClass": "INDEPENDENT_CROSS_LANGUAGE_REPRODUCTION__NOT_PREREGISTERED_REPLICATION",
+  "executionEnvironment": "Python with NumPy in isolated analysis runtime",
+  "independence": {
+    "importedPrimaryV6Module": false,
+    "importedPrimaryV5Module": false,
+    "targetGeneration": "SMALLEST_PRIME_FACTOR_SIEVE_AND_INDEPENDENT_FACTORIZATION",
+    "baseOntology": "VECTORIZED_8626_BOOLEAN_FEATURE_MATRIX",
+    "v5Grammar": "INDEPENDENT_PYTHON_ONE_BIT_STATE_MACHINE",
+    "v6Grammar": "INDEPENDENT_PYTHON_TWO_BIT_STATE_MACHINE"
+  },
+  "matched": {
+    "splitCounts": {
+      "train": 1612,
+      "validation": 810,
+      "heldout": 834,
+      "reserve": 840
+    },
+    "v5BaselineMetrics": true,
+    "candidateCount": 864,
+    "targets": [
+      {
+        "id": "A008966_SQUAREFREE",
+        "selectedProgramId": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_ON_DIVISOR_HIT__IGNORE_LEFTOVER__ACC_INIT_0__REPEAT_MEMORY__NOT_REPEAT_SEEN",
+        "heldOutAccuracy": 1,
+        "v5BestAccuracy": 0.8597122302158273,
+        "improvement": 0.140288
+      },
+      {
+        "id": "A008683_MOBIUS_POSITIVE",
+        "selectedProgramId": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_ON_DIVISOR_HIT__IGNORE_LEFTOVER__ACC_INIT_0__REPEAT_MEMORY__ACCUMULATOR_AND_NOT_REPEAT_SEEN",
+        "heldOutAccuracy": 1,
+        "v5BestAccuracy": 0.8117505995203836,
+        "improvement": 0.188249
+      },
+      {
+        "id": "A001221_DISTINCT_PRIME_PARITY",
+        "selectedProgramId": "ASCENDING_2_TO_DYNAMIC_SQRT__REPEAT_WHILE_DIVISIBLE__TOGGLE_ON_DIVISOR_HIT__TOGGLE_IF_WORKING_GT_1__ACC_INIT_0__REPEAT_MEMORY__ACCUMULATOR",
+        "heldOutAccuracy": 1,
+        "v5BestAccuracy": 1,
+        "improvement": 0
+      }
+    ],
+    "negativeControlHeldOutAccuracy": 0.5239808153477218
+  },
+  "mismatchCount": 0,
+  "limitation": "The cross-language run occurred before a dedicated replication preregistration was written, so it is supporting reproduction evidence rather than a preregistered replication gate.",
+  "promotionUse": "SUPPORTING_ONLY__DO_NOT_PROMOTE_CONCEPT_FROM_THIS_CROSSCHECK_ALONE"
+}

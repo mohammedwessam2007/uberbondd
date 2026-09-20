@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 9,
+  "ordinalStart": 713,
+  "ordinalEnd": 801,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 713,
+      "literalTitle": "THE POSSIBILITY FOUNTAIN",
+      "hypotheticalIq": "10³⁹⁰",
+      "literalBodyMarkdown": "A system whose ordinary operation continuously creates more opportunity than it consumes.",
+      "sourceLineStart": 2875,
+      "sourceLineEnd": 2878,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 714,
+      "literalTitle": "THE POSSIBILITY TREE",
+      "hypotheticalIq": "3 × 10³⁹⁰",
+      "literalBodyMarkdown": "Every verified discovery sprouts multiple experimental descendants, creating an ever-growing graph of reachable worlds.",
+      "sourceLineStart": 2879,
+      "sourceLineEnd": 2882,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 715,
+      "literalTitle": "THE POSSIBILITY FOREST",
+      "hypotheticalIq": "10³⁹¹",
+      "literalBodyMarkdown": "Maintain many technology trees simultaneously to avoid monoculture.",
+      "sourceLineStart": 2883,
+      "sourceLineEnd": 2886,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 716,
+      "literalTitle": "THE POSSIBILITY BIOSPHERE",
+      "hypotheticalIq": "3 × 10³⁹¹",
+      "literalBodyMarkdown": "Technology trees exchange mechanisms and co-evolve.",
+      "sourceLineStart": 2887,
+      "sourceLineEnd": 2890,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 717,
+      "literalTitle": "THE POSSIBILITY PLANET",
+      "hypotheticalIq": "10³⁹²",
+      "literalBodyMarkdown": "Entire ecosystems of sciences, technologies, institutions, and experiences form coherent self-sustaining worlds.",
+      "sourceLineStart": 2891,
+      "sourceLineEnd": 2894,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 718,
+      "literalTitle": "THE POSSIBILITY UNIVERSE",
+      "hypotheticalIq": "3 × 10³⁹²",
+      "literalBodyMarkdown": "All reachable civilization states are treated as a structured search space.",
+      "sourceLineStart": 2895,
+      "sourceLineEnd": 2898,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 719,
+      "literalTitle": "THE POSSIBILITY MULTIVERSE",
+      "hypotheticalIq": "10³⁹³",
+      "literalBodyMarkdown": "Maintain many mutually incompatible future models rather than forcing premature convergence.",
+      "sourceLineStart": 2899,
+      "sourceLineEnd": 2902,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 720,
+      "literalTitle": "THE POSSIBILITY META-VERSE",
+      "hypotheticalIq": "3 × 10³⁹³",
+      "literalBodyMarkdown": "Search not merely possible worlds but different rules for generating worlds.",
+      "sourceLineStart": 2903,
+      "sourceLineEnd": 2906,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 721,
+      "literalTitle": "THE POSSIBILITY RULE GENERATOR",
+      "hypotheticalIq": "10³⁹⁴",
+      "literalBodyMarkdown": "Generate new design grammars from which completely different artifact families emerge.",
+      "sourceLineStart": 2907,
+      "sourceLineEnd": 2910,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 722,
+      "literalTitle": "THE POSSIBILITY GRAMMAR",
+      "hypotheticalIq": "3 × 10³⁹⁴",
+      "literalBodyMarkdown": "Identify the generative syntax governing a class of possible systems.",
+      "sourceLineStart": 2911,
+      "sourceLineEnd": 2914,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 723,
+      "literalTitle": "THE POSSIBILITY LANGUAGE GENERATOR",
+      "hypotheticalIq": "10³⁹⁵",
+      "literalBodyMarkdown": "Invent languages whose programs describe previously inaccessible systems.",
+      "sourceLineStart": 2915,
+      "sourceLineEnd": 2918,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 724,
+      "literalTitle": "THE POSSIBILITY LANGUAGE EVOLUTION",
+      "hypotheticalIq": "3 × 10³⁹⁵",
+      "literalBodyMarkdown": "Languages mutate to expose increasingly powerful abstractions.",
+      "sourceLineStart": 2919,
+      "sourceLineEnd": 2922,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 725,
+      "literalTitle": "THE POSSIBILITY LANGUAGE SINGULARITY",
+      "hypotheticalIq": "10³⁹⁶",
+      "literalBodyMarkdown": "New representational languages accelerate creation of further languages and worlds.",
+      "sourceLineStart": 2923,
+      "sourceLineEnd": 2926,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 726,
+      "literalTitle": "THE WORLD-GENERATING LANGUAGE",
+      "hypotheticalIq": "3 × 10³⁹⁶",
+      "literalBodyMarkdown": "A formalism capable of specifying not objects but entire ecosystems of rules, actors, resources, and emergence.",
+      "sourceLineStart": 2927,
+      "sourceLineEnd": 2930,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 727,
+      "literalTitle": "THE UNIVERSE-GENERATING LANGUAGE",
+      "hypotheticalIq": "10³⁹⁷",
+      "literalBodyMarkdown": "Search over internally consistent rule systems to study which kinds of complexity, computation, intelligence, and life emerge.",
+      "sourceLineStart": 2931,
+      "sourceLineEnd": 2934,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 728,
+      "literalTitle": "THE SYNTHETIC COSMOLOGY LAB",
+      "hypotheticalIq": "3 × 10³⁹⁷",
+      "literalBodyMarkdown": "Explore hypothetical law systems computationally, not claiming they are physically real, but using them to discover mathematical and computational phenomena transferable to our world.",
+      "sourceLineStart": 2935,
+      "sourceLineEnd": 2938,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 729,
+      "literalTitle": "THE LAW-SPACE EXPLORER",
+      "hypotheticalIq": "10³⁹⁸",
+      "literalBodyMarkdown": "Search spaces of internally consistent rules for useful structures.",
+      "sourceLineStart": 2939,
+      "sourceLineEnd": 2942,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 730,
+      "literalTitle": "THE LAW-SPACE EVOLUTION ENGINE",
+      "hypotheticalIq": "3 × 10³⁹⁸",
+      "literalBodyMarkdown": "Rule systems mutate and compete according to complexity, richness, computational power, and transfer value.",
+      "sourceLineStart": 2943,
+      "sourceLineEnd": 2946,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 731,
+      "literalTitle": "THE PHYSICS-INVENTION SANDBOX",
+      "hypotheticalIq": "10³⁹⁹",
+      "literalBodyMarkdown": "Explore hypothetical physical-rule systems to discover new mathematics or engineering analogues, while clearly separating simulation from claims about real physics.",
+      "sourceLineStart": 2947,
+      "sourceLineEnd": 2950,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 732,
+      "literalTitle": "THE MATHEMATICAL UNIVERSE FARM",
+      "hypotheticalIq": "3 × 10³⁹⁹",
+      "literalBodyMarkdown": "Generate enormous families of formal universes and observe which produce interesting stable structures.",
+      "sourceLineStart": 2951,
+      "sourceLineEnd": 2954,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 733,
+      "literalTitle": "THE COMPUTATIONAL UNIVERSE FARM",
+      "hypotheticalIq": "10⁴⁰⁰",
+      "literalBodyMarkdown": "Generate rule systems and search them for unexpected computational capabilities.",
+      "sourceLineStart": 2955,
+      "sourceLineEnd": 2958,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 734,
+      "literalTitle": "THE ARTIFICIAL PHYSICS FARM",
+      "hypotheticalIq": "3 × 10⁴⁰⁰",
+      "literalBodyMarkdown": "Simulated worlds become laboratories for mechanism discovery.",
+      "sourceLineStart": 2959,
+      "sourceLineEnd": 2962,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 735,
+      "literalTitle": "THE CROSS-UNIVERSE MECHANISM MINER",
+      "hypotheticalIq": "10⁴⁰¹",
+      "literalBodyMarkdown": "Discover mechanisms appearing across many synthetic rule systems, suggesting deep mathematical generality.",
+      "sourceLineStart": 2963,
+      "sourceLineEnd": 2966,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 736,
+      "literalTitle": "THE CROSS-UNIVERSE TECHNOLOGY TRANSFER ENGINE",
+      "hypotheticalIq": "3 × 10⁴⁰¹",
+      "literalBodyMarkdown": "Take useful mechanisms found in synthetic worlds and ask whether analogous structures can be instantiated under real physics.",
+      "sourceLineStart": 2967,
+      "sourceLineEnd": 2970,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 737,
+      "literalTitle": "THE ARTIFICIAL NATURAL LAW MARKET",
+      "hypotheticalIq": "10⁴⁰²",
+      "literalBodyMarkdown": "Competing formal universes are valued according to how much transferable mathematics and mechanism they yield.",
+      "sourceLineStart": 2971,
+      "sourceLineEnd": 2974,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 738,
+      "literalTitle": "THE SYNTHETIC REALITY MINER",
+      "hypotheticalIq": "3 × 10⁴⁰²",
+      "literalBodyMarkdown": "Treat simulated law-space as an enormous source of possible mechanisms.",
+      "sourceLineStart": 2975,
+      "sourceLineEnd": 2978,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 739,
+      "literalTitle": "THE IMPOSSIBLE WORLD MINER",
+      "hypotheticalIq": "10⁴⁰³",
+      "literalBodyMarkdown": "Even physically impossible worlds may contain mathematical ideas that inspire physically possible analogues.",
+      "sourceLineStart": 2979,
+      "sourceLineEnd": 2982,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 740,
+      "literalTitle": "THE FICTION-TO-PHYSICS ENGINE",
+      "hypotheticalIq": "3 × 10⁴⁰³",
+      "literalBodyMarkdown": "Take impossible fictional technologies, decompose which properties violate physics, and search for the closest physically realizable substitute.",
+      "sourceLineStart": 2983,
+      "sourceLineEnd": 2986,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 741,
+      "literalTitle": "THE DREAM DECOMPILER",
+      "hypotheticalIq": "10⁴⁰⁴",
+      "literalBodyMarkdown": "Human fantasies become constraint specifications. “Teleportation” might decompile into instant information transfer, remote fabrication, identity preservation, or other realizable subgoals.",
+      "sourceLineStart": 2987,
+      "sourceLineEnd": 2990,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 742,
+      "literalTitle": "THE MAGIC COMPILER",
+      "hypotheticalIq": "3 × 10⁴⁰⁴",
+      "literalBodyMarkdown": "Take something people would call magic and determine what combination of real technologies could approximate its functional effects.",
+      "sourceLineStart": 2991,
+      "sourceLineEnd": 2994,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 743,
+      "literalTitle": "THE SCIENCE-FICTION MINER",
+      "hypotheticalIq": "10⁴⁰⁵",
+      "literalBodyMarkdown": "Mine centuries of imagined technology not as predictions but as high-level functional specifications.",
+      "sourceLineStart": 2995,
+      "sourceLineEnd": 2998,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 744,
+      "literalTitle": "THE MYTH-TO-MECHANISM ENGINE",
+      "hypotheticalIq": "3 × 10⁴⁰⁵",
+      "literalBodyMarkdown": "Translate ancient impossible desires, flight, omniscience, immortality, distant communication, abundance, into decomposed scientific and engineering subproblems.",
+      "sourceLineStart": 2999,
+      "sourceLineEnd": 3002,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 745,
+      "literalTitle": "THE ANCIENT-DREAM COMPLETION ENGINE",
+      "hypotheticalIq": "10⁴⁰⁶",
+      "literalBodyMarkdown": "Search which persistent human dreams are finally becoming technologically approachable because multiple enabling technologies have converged.",
+      "sourceLineStart": 3003,
+      "sourceLineEnd": 3006,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 746,
+      "literalTitle": "THE HUMAN-WISH KNOWLEDGE GRAPH",
+      "hypotheticalIq": "3 × 10⁴⁰⁶",
+      "literalBodyMarkdown": "Map recurring human aspirations across cultures and centuries to their technological bottlenecks.",
+      "sourceLineStart": 3007,
+      "sourceLineEnd": 3010,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 747,
+      "literalTitle": "THE DREAM TECHNOLOGY TREE",
+      "hypotheticalIq": "10⁴⁰⁷",
+      "literalBodyMarkdown": "Convert long-standing human aspirations into dependency graphs of scientific and technological prerequisites.",
+      "sourceLineStart": 3011,
+      "sourceLineEnd": 3014,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 748,
+      "literalTitle": "THE DREAM FRONTIER ENGINE",
+      "hypotheticalIq": "3 × 10⁴⁰⁷",
+      "literalBodyMarkdown": "Continuously reassess old impossible goals as technology changes.",
+      "sourceLineStart": 3015,
+      "sourceLineEnd": 3018,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 749,
+      "literalTitle": "THE CIVILIZATION WISH ENGINE",
+      "hypotheticalIq": "10⁴⁰⁸",
+      "literalBodyMarkdown": "Collect large-scale human aspirations and search for technological primitives satisfying many simultaneously.",
+      "sourceLineStart": 3019,
+      "sourceLineEnd": 3022,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 750,
+      "literalTitle": "THE GREAT HUMAN UNSOLVED LIST",
+      "hypotheticalIq": "3 × 10⁴⁰⁸",
+      "literalBodyMarkdown": "Not merely diseases and engineering problems, but every major limitation humans repeatedly encounter across time, knowledge, body, coordination, energy, environment, communication, and meaning.",
+      "sourceLineStart": 3023,
+      "sourceLineEnd": 3026,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 751,
+      "literalTitle": "THE HUMAN LIMITATION GENOME",
+      "hypotheticalIq": "10⁴⁰⁹",
+      "literalBodyMarkdown": "Decompose limitations into reusable causal atoms.",
+      "sourceLineStart": 3027,
+      "sourceLineEnd": 3030,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 752,
+      "literalTitle": "THE LIMITATION PERIODIC TABLE",
+      "hypotheticalIq": "3 × 10⁴⁰⁹",
+      "literalBodyMarkdown": "Some apparently unrelated limitations may arise from the same bottleneck class.",
+      "sourceLineStart": 3031,
+      "sourceLineEnd": 3034,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 753,
+      "literalTitle": "THE LIMITATION COMPILER",
+      "hypotheticalIq": "10⁴¹⁰",
+      "literalBodyMarkdown": "Given a limitation, identify its physical, biological, cognitive, institutional, and economic causes.",
+      "sourceLineStart": 3035,
+      "sourceLineEnd": 3038,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 754,
+      "literalTitle": "THE LIMITATION ERASER",
+      "hypotheticalIq": "3 × 10⁴¹⁰",
+      "literalBodyMarkdown": "Search technologies capable of eliminating whole classes of human constraint at once.",
+      "sourceLineStart": 3039,
+      "sourceLineEnd": 3042,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 755,
+      "literalTitle": "THE LIMITATION CASCADE",
+      "hypotheticalIq": "10⁴¹¹",
+      "literalBodyMarkdown": "Remove one limitation, see which deeper limitation becomes visible next, repeat.",
+      "sourceLineStart": 3043,
+      "sourceLineEnd": 3046,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 756,
+      "literalTitle": "THE HUMAN POSSIBILITY EXPANDER",
+      "hypotheticalIq": "3 × 10⁴¹¹",
+      "literalBodyMarkdown": "The system's deepest metric becomes:\n     \\[\n     \\Delta(\\text{valuable things humans can actually do})\n     \\]",
+      "sourceLineStart": 3047,
+      "sourceLineEnd": 3053,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 757,
+      "literalTitle": "THE CIVILIZATION POSSIBILITY EXPANDER",
+      "hypotheticalIq": "10⁴¹²",
+      "literalBodyMarkdown": "Same concept at civilization scale.",
+      "sourceLineStart": 3054,
+      "sourceLineEnd": 3057,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 758,
+      "literalTitle": "THE SPECIES POSSIBILITY EXPANDER",
+      "hypotheticalIq": "3 × 10⁴¹²",
+      "literalBodyMarkdown": "Ask what humanity could become capable of over generations while preserving plural human choice.",
+      "sourceLineStart": 3058,
+      "sourceLineEnd": 3061,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 759,
+      "literalTitle": "THE SPECIES OPTION ENGINE",
+      "hypotheticalIq": "10⁴¹³",
+      "literalBodyMarkdown": "Preserve multiple viable long-term trajectories rather than committing humanity irreversibly to one architecture.",
+      "sourceLineStart": 3062,
+      "sourceLineEnd": 3065,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 760,
+      "literalTitle": "THE DEEP-TIME PLANNER",
+      "hypotheticalIq": "3 × 10⁴¹³",
+      "literalBodyMarkdown": "Evaluate decisions across centuries without pretending long-range forecasts are certain.",
+      "sourceLineStart": 3066,
+      "sourceLineEnd": 3069,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 761,
+      "literalTitle": "THE CENTURY COMPILER",
+      "hypotheticalIq": "10⁴¹⁴",
+      "literalBodyMarkdown": "Input a century-scale aspiration. Produce resilient near-term experiments that preserve multiple ways of approaching it.",
+      "sourceLineStart": 3070,
+      "sourceLineEnd": 3073,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 762,
+      "literalTitle": "THE MILLENNIUM OPTION ENGINE",
+      "hypotheticalIq": "3 × 10⁴¹⁴",
+      "literalBodyMarkdown": "Identify capabilities worth preserving because future generations may need them in ways we cannot predict.",
+      "sourceLineStart": 3074,
+      "sourceLineEnd": 3077,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 763,
+      "literalTitle": "THE DEEP-TIME MEMORY",
+      "hypotheticalIq": "10⁴¹⁵",
+      "literalBodyMarkdown": "Develop knowledge preservation systems intended to remain interpretable across massive technological and cultural change.",
+      "sourceLineStart": 3078,
+      "sourceLineEnd": 3081,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 764,
+      "literalTitle": "THE FUTURE-TRANSLATION PROTOCOL",
+      "hypotheticalIq": "3 × 10⁴¹⁵",
+      "literalBodyMarkdown": "Encode critical knowledge in layered forms so future intelligences with different tools can reconstruct it.",
+      "sourceLineStart": 3082,
+      "sourceLineEnd": 3085,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 765,
+      "literalTitle": "THE DEEP-TIME KNOWLEDGE SEED",
+      "hypotheticalIq": "10⁴¹⁶",
+      "literalBodyMarkdown": "A compact package from which a future civilization can reconstruct much larger scientific knowledge.",
+      "sourceLineStart": 3086,
+      "sourceLineEnd": 3089,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 766,
+      "literalTitle": "THE DEEP-TIME CIVILIZATION SEED",
+      "hypotheticalIq": "3 × 10⁴¹⁶",
+      "literalBodyMarkdown": "Extend the seed to practical technological reconstruction.",
+      "sourceLineStart": 3090,
+      "sourceLineEnd": 3093,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 767,
+      "literalTitle": "THE CIVILIZATION SEED EVOLUTION ENGINE",
+      "hypotheticalIq": "10⁴¹⁷",
+      "literalBodyMarkdown": "Continuously reduce the minimal information and machinery required to reboot advanced capability.",
+      "sourceLineStart": 3094,
+      "sourceLineEnd": 3097,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 768,
+      "literalTitle": "THE MINIMUM CIVILIZATION THEOREM",
+      "hypotheticalIq": "3 × 10⁴¹⁷",
+      "literalBodyMarkdown": "Search for the theoretical minimum resources, knowledge, and machine diversity required to bootstrap advanced civilization.",
+      "sourceLineStart": 3098,
+      "sourceLineEnd": 3101,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 769,
+      "literalTitle": "THE MINIMUM INDUSTRY THEOREM",
+      "hypotheticalIq": "10⁴¹⁸",
+      "literalBodyMarkdown": "Find the smallest industrial ecosystem capable of recursively producing broader industry.",
+      "sourceLineStart": 3102,
+      "sourceLineEnd": 3105,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 770,
+      "literalTitle": "THE MINIMUM SCIENCE THEOREM",
+      "hypotheticalIq": "3 × 10⁴¹⁸",
+      "literalBodyMarkdown": "What minimum instruments and epistemic machinery allow a society to rediscover advanced science efficiently?",
+      "sourceLineStart": 3106,
+      "sourceLineEnd": 3109,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 771,
+      "literalTitle": "THE MINIMUM INTELLIGENCE INFRASTRUCTURE",
+      "hypotheticalIq": "10⁴¹⁹",
+      "literalBodyMarkdown": "Find the smallest system capable of preserving and regenerating advanced cognitive capability.",
+      "sourceLineStart": 3110,
+      "sourceLineEnd": 3113,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 772,
+      "literalTitle": "THE MINIMUM POSSIBILITY MACHINE",
+      "hypotheticalIq": "3 × 10⁴¹⁹",
+      "literalBodyMarkdown": "Search for the smallest seed capable of recursively expanding its own design space.",
+      "sourceLineStart": 3114,
+      "sourceLineEnd": 3117,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 773,
+      "literalTitle": "THE UNIVERSAL SEED",
+      "hypotheticalIq": "10⁴²⁰",
+      "literalBodyMarkdown": "A compact combination of knowledge, computation, fabrication, energy, and intelligence capable of bootstrapping broad technological ecosystems.",
+      "sourceLineStart": 3118,
+      "sourceLineEnd": 3121,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 774,
+      "literalTitle": "THE SEED COMPILER",
+      "hypotheticalIq": "3 × 10⁴²⁰",
+      "literalBodyMarkdown": "Given an environment's resources, generate the minimum bootstrap package required to build upward from them.",
+      "sourceLineStart": 3122,
+      "sourceLineEnd": 3125,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 775,
+      "literalTitle": "THE SEED OF SEEDS",
+      "hypotheticalIq": "10⁴²¹",
+      "literalBodyMarkdown": "A bootstrap system capable of creating specialized civilization seeds for different environments.",
+      "sourceLineStart": 3126,
+      "sourceLineEnd": 3129,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 776,
+      "literalTitle": "THE RECURSIVE CIVILIZATION SEED",
+      "hypotheticalIq": "3 × 10⁴²¹",
+      "literalBodyMarkdown": "Each generation of the seed can construct a more capable generation.",
+      "sourceLineStart": 3130,
+      "sourceLineEnd": 3133,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 777,
+      "literalTitle": "THE CIVILIZATION ZYGOTE",
+      "hypotheticalIq": "10⁴²²",
+      "literalBodyMarkdown": "Not a finished civilization. A minimal generative package whose internal developmental process creates one.",
+      "sourceLineStart": 3134,
+      "sourceLineEnd": 3137,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 778,
+      "literalTitle": "THE TECHNOLOGICAL EMBRYOGENESIS ENGINE",
+      "hypotheticalIq": "3 × 10⁴²²",
+      "literalBodyMarkdown": "Study how a tiny technological seed can differentiate into energy, manufacturing, computation, science, and institutions.",
+      "sourceLineStart": 3138,
+      "sourceLineEnd": 3141,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 779,
+      "literalTitle": "THE CIVILIZATION MORPHOGENESIS ENGINE",
+      "hypotheticalIq": "10⁴²³",
+      "literalBodyMarkdown": "Learn local developmental rules producing stable large-scale technological structures.",
+      "sourceLineStart": 3142,
+      "sourceLineEnd": 3145,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 780,
+      "literalTitle": "THE SELF-GROWING CIVILIZATION",
+      "hypotheticalIq": "3 × 10⁴²³",
+      "literalBodyMarkdown": "Infrastructure increasingly builds the capabilities required for its own expansion.",
+      "sourceLineStart": 3146,
+      "sourceLineEnd": 3149,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 781,
+      "literalTitle": "THE SELF-REPAIRING CIVILIZATION",
+      "hypotheticalIq": "10⁴²⁴",
+      "literalBodyMarkdown": "Knowledge, industry, institutions, and infrastructure detect degradation and reconstruct missing functionality.",
+      "sourceLineStart": 3150,
+      "sourceLineEnd": 3153,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 782,
+      "literalTitle": "THE SELF-HEALING TECHNOLOGY TREE",
+      "hypotheticalIq": "3 × 10⁴²⁴",
+      "literalBodyMarkdown": "When one technological branch fails, adjacent capabilities automatically generate substitutes.",
+      "sourceLineStart": 3154,
+      "sourceLineEnd": 3157,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 783,
+      "literalTitle": "THE SELF-HEALING POSSIBILITY SPACE",
+      "hypotheticalIq": "10⁴²⁵",
+      "literalBodyMarkdown": "Valuable futures remain reachable despite loss of individual technologies.",
+      "sourceLineStart": 3158,
+      "sourceLineEnd": 3161,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 784,
+      "literalTitle": "THE REDUNDANT CIVILIZATION",
+      "hypotheticalIq": "3 × 10⁴²⁵",
+      "literalBodyMarkdown": "Critical capabilities have multiple independent technological implementations, avoiding monoculture collapse.",
+      "sourceLineStart": 3162,
+      "sourceLineEnd": 3165,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 785,
+      "literalTitle": "THE DIVERSE CIVILIZATION ENGINE",
+      "hypotheticalIq": "10⁴²⁶",
+      "literalBodyMarkdown": "Preserve diversity of mechanisms explicitly as a resilience asset.",
+      "sourceLineStart": 3166,
+      "sourceLineEnd": 3169,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 786,
+      "literalTitle": "THE TECHNOLOGICAL BIODIVERSITY INDEX",
+      "hypotheticalIq": "3 × 10⁴²⁶",
+      "literalBodyMarkdown": "Measure how dependent civilization has become on single technological lineages.",
+      "sourceLineStart": 3170,
+      "sourceLineEnd": 3173,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 787,
+      "literalTitle": "THE INSTITUTIONAL BIODIVERSITY INDEX",
+      "hypotheticalIq": "10⁴²⁷",
+      "literalBodyMarkdown": "Measure diversity of organizational approaches.",
+      "sourceLineStart": 3174,
+      "sourceLineEnd": 3177,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 788,
+      "literalTitle": "THE COGNITIVE BIODIVERSITY INDEX",
+      "hypotheticalIq": "3 × 10⁴²⁷",
+      "literalBodyMarkdown": "Measure diversity of reasoning architectures to reduce systemic blind spots.",
+      "sourceLineStart": 3178,
+      "sourceLineEnd": 3181,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 789,
+      "literalTitle": "THE EPISTEMIC BIODIVERSITY INDEX",
+      "hypotheticalIq": "10⁴²⁸",
+      "literalBodyMarkdown": "Preserve independent methods of reaching knowledge rather than allowing one methodology to monopolize truth production.",
+      "sourceLineStart": 3182,
+      "sourceLineEnd": 3185,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 790,
+      "literalTitle": "THE CIVILIZATION MONOCULTURE DETECTOR",
+      "hypotheticalIq": "3 × 10⁴²⁸",
+      "literalBodyMarkdown": "Detect when too much critical infrastructure depends on one vendor, one algorithm, one model, one theory, one supply chain, or one institution.",
+      "sourceLineStart": 3186,
+      "sourceLineEnd": 3189,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 791,
+      "literalTitle": "THE MONOCULTURE BREAKER",
+      "hypotheticalIq": "10⁴²⁹",
+      "literalBodyMarkdown": "Generate credible alternatives before fragility becomes catastrophic.",
+      "sourceLineStart": 3190,
+      "sourceLineEnd": 3193,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 792,
+      "literalTitle": "THE ALTERNATIVE GENERATOR",
+      "hypotheticalIq": "3 × 10⁴²⁹",
+      "literalBodyMarkdown": "For every important mechanism, maintain at least one independently derived substitute.",
+      "sourceLineStart": 3194,
+      "sourceLineEnd": 3197,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 793,
+      "literalTitle": "THE SUBSTITUTE INVENTOR",
+      "hypotheticalIq": "10⁴³⁰",
+      "literalBodyMarkdown": "If a critical component has no substitute, invent one deliberately.",
+      "sourceLineStart": 3198,
+      "sourceLineEnd": 3201,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 794,
+      "literalTitle": "THE DEPENDENCY DESTROYER",
+      "hypotheticalIq": "3 × 10⁴³⁰",
+      "literalBodyMarkdown": "Search for architectural transformations that remove entire dependency classes.",
+      "sourceLineStart": 3202,
+      "sourceLineEnd": 3205,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 795,
+      "literalTitle": "THE SOVEREIGNTY COMPILER",
+      "hypotheticalIq": "10⁴³¹",
+      "literalBodyMarkdown": "Input a capability currently dependent on external systems. Generate lawful internal alternatives, fallback paths, and migration architectures.",
+      "sourceLineStart": 3206,
+      "sourceLineEnd": 3209,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 796,
+      "literalTitle": "THE CIVILIZATION SOVEREIGNTY ENGINE",
+      "hypotheticalIq": "3 × 10⁴³¹",
+      "literalBodyMarkdown": "Maintain critical capability without becoming hostage to fragile single points of control.",
+      "sourceLineStart": 3210,
+      "sourceLineEnd": 3213,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 797,
+      "literalTitle": "THE RESILIENCE SINGULARITY",
+      "hypotheticalIq": "10⁴³²",
+      "literalBodyMarkdown": "Better systems generate better recovery tools until catastrophic fragility decreases faster than system complexity grows.",
+      "sourceLineStart": 3214,
+      "sourceLineEnd": 3217,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 798,
+      "literalTitle": "THE RECOVERY RECURSION",
+      "hypotheticalIq": "3 × 10⁴³²",
+      "literalBodyMarkdown": "Every failure improves the architecture's ability to recover from future failures.",
+      "sourceLineStart": 3218,
+      "sourceLineEnd": 3221,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 799,
+      "literalTitle": "THE FAILURE-TO-CAPABILITY COMPILER",
+      "hypotheticalIq": "10⁴³³",
+      "literalBodyMarkdown": "Convert each important failure into a new permanent capability.",
+      "sourceLineStart": 3222,
+      "sourceLineEnd": 3225,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 800,
+      "literalTitle": "THE ADVERSITY REACTOR",
+      "hypotheticalIq": "3 × 10⁴³³",
+      "literalBodyMarkdown": "Controlled stress generates information, resilience, and innovation rather than merely damage.",
+      "sourceLineStart": 3226,
+      "sourceLineEnd": 3229,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 801,
+      "literalTitle": "THE FAILURE CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "10⁴³⁴",
+      "literalBodyMarkdown": "Large-scale adversarial testing reveals entire families of missing capabilities.",
+      "sourceLineStart": 3230,
+      "sourceLineEnd": 3233,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

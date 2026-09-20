@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_RESULT_20260920.json",
+  "reviewedSource": "src/ontological-representation-canary.mjs",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_EXTERNAL_REPLICATION",
+  "strengths": [
+    "PREREGISTRATION_EXISTED_BEFORE_RESULT_EXECUTION",
+    "HELD_OUT_RANGE_WAS_NOT_USED_FOR_MODEL_SELECTION",
+    "SEARCH_OVERHEAD_WAS_EXPLICITLY_RECORDED",
+    "FOUR_PREDECLARED_TASK_FAMILIES_MET_THE_NARROW_SUCCESS_CRITERION",
+    "RESULT_RECEIPT_EXPLICITLY_REFUSED_GRAND_MOONSHOT_PROMOTION"
+  ],
+  "defects": [
+    {
+      "severity": "MAJOR",
+      "code": "TARGET_ALIGNED_REPRESENTATION_LIBRARY",
+      "detail": "The candidate library contains PARITY, MOD3_EQUALS_ONE, BIT2 and BIT4, directly matching the four benchmark-generating mechanisms. This is not held-out-label leakage, but it gives the search an oracle-like vocabulary tailored to the benchmark."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "WEAK_BASELINE",
+      "detail": "The primary comparator is a raw scalar one-dimensional threshold classifier. It is structurally incapable of representing periodic and bitwise concepts, so large gains do not yet show superiority over strong generic feature learning or tree/kernel baselines."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "CLOSED_WORLD_TASK_DESIGN",
+      "detail": "Every task belongs to the same small hand-designed family represented explicitly by a candidate transform. The result demonstrates feature selection when the correct feature is supplied, not discovery of an unseen representation."
+    },
+    {
+      "severity": "MODERATE",
+      "code": "NO_INDEPENDENT_IMPLEMENTATION",
+      "detail": "The canary was executed through an exact-source connector harness, not a second implementation or native Node runner."
+    }
+  ],
+  "revisedInterpretation": {
+    "retainResult": true,
+    "narrowClaim": "The current plumbing can preregister a representation-search experiment, preserve held-out selection discipline, count search overhead and identify a supplied useful representation.",
+    "promotionDecision": "DO_NOT_PROMOTE_TO_SOFTWARE_DEMONSTRATED_YET",
+    "state": "SIMULATION_READY_WITH_POSITIVE_PLUMBING_EVIDENCE",
+    "reason": "Target-aligned representation vocabulary and weak baseline leave the key discovery claim unresolved."
+  },
+  "requiredV2": [
+    "FREEZE_A_GENERIC_REPRESENTATION_GRAMMAR_BEFORE_RESULT_EXECUTION",
+    "USE_COMPOSITIONAL_TASKS_NOT_PRESENT_AS_NAMED_CANDIDATES",
+    "INCLUDE_AT_LEAST_ONE_NEGATIVE_CONTROL_OUTSIDE_THE_GRAMMAR",
+    "COMPARE_WITH_MULTIPLE_GENERIC_BASELINES",
+    "ACCOUNT_FOR_SEARCH_COMPLEXITY_AND_MULTIPLE_HYPOTHESIS_BURDEN",
+    "KEEP_HELD_OUT_TEST_LABELS_OUT_OF_SELECTION",
+    "ALLOW_THE_PREREGISTERED_FALSIFIER_TO_WIN"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "uberbond.multiplicity-sensitive-memory-v6-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json",
+  "truthClass": "ADVERSARIAL_INTERNAL_REVIEW__CONFIRMATORY_EVIDENCE",
+  "verdict": "POST_FAILURE_HYPOTHESIS_SUPPORTED__CANONICAL_CONCEPT_PROMOTION_STILL_BLOCKED",
+  "strengths": [
+    "GRAMMAR_AND_THRESHOLDS_FROZEN_BEFORE_RESULT",
+    "PRE_EXECUTION_CANDIDATE_COUNT_ERROR_CORRECTED_WITHOUT_ALGORITHM_CHANGE",
+    "BOTH_PREVIOUSLY_FAILED_PUBLIC_TARGETS_REACHED_1_0_HELDOUT_ACCURACY",
+    "PREVIOUSLY_SOLVED_PUBLIC_TARGET_REMAINED_AT_1_0",
+    "HASH_CONTROL_REMAINED_NEAR_CHANCE",
+    "NO_TARGET_SPECIFIC_NAMED_PRIMITIVE_IN_GRAMMAR"
+  ],
+  "remainingThreats": [
+    {
+      "severity": "MAJOR",
+      "code": "POST_HOC_HYPOTHESIS_ORIGIN",
+      "detail": "The repeat-memory primitive was intentionally invented after analyzing squarefree and Möbius-positive failures. Success on those same targets confirms the diagnosis but cannot establish broad utility."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "SAME_IMPLEMENTATION_LINEAGE",
+      "detail": "The result currently has one implementation path and must be independently reproduced."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "UNSEEN_MULTIPLICITY_ORDER_UNTESTED",
+      "detail": "repeatSeen distinguishes one versus at least two occurrences, but no public target requiring a different multiplicity threshold has been tested."
+    }
+  ],
+  "decision": {
+    "ontogenesisConcept": "MULTIPLICITY_SENSITIVE_STRUCTURAL_MEMORY",
+    "canonicalStatus": "CANDIDATE",
+    "promotion": "DENIED_PENDING_REPLICATION_AND_NEW_PUBLIC_TARGET"
+  },
+  "nextRule": "REPLICATION_PLUS_UNSEEN_PUBLIC_MULTIPLICITY_TARGET_BEFORE_ACTIVE_ONTOLOGY_PROMOTION"
+}

@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 3,
+  "ordinalStart": 179,
+  "ordinalEnd": 267,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 179,
+      "literalTitle": "THE MISSING-PROPERTY DETECTOR",
+      "hypotheticalIq": "10¹²³",
+      "literalBodyMarkdown": "Search for technological bottlenecks that vanish if a hypothetical material property exists, then search matter-space specifically for that property.",
+      "sourceLineStart": 714,
+      "sourceLineEnd": 717,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 180,
+      "literalTitle": "THE MISSING-LAW DETECTOR",
+      "hypotheticalIq": "3 × 10¹²³",
+      "literalBodyMarkdown": "Find sets of observations that strongly suggest a deeper invariance not captured by current theory.",
+      "sourceLineStart": 718,
+      "sourceLineEnd": 721,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 181,
+      "literalTitle": "THE MISSING-PHYSICS DETECTOR",
+      "hypotheticalIq": "10¹²⁴",
+      "literalBodyMarkdown": "Search experimental anomalies for patterns consistent with genuinely incomplete physical models, while aggressively rejecting instrumentation error and statistical artifacts.",
+      "sourceLineStart": 722,
+      "sourceLineEnd": 725,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 182,
+      "literalTitle": "THE LAWS-OF-LAWS ENGINE",
+      "hypotheticalIq": "3 × 10¹²⁴",
+      "literalBodyMarkdown": "Ask whether physical laws themselves exhibit deeper regularities. Not inventing physics by fantasy, but searching for meta-structure across successful theories.",
+      "sourceLineStart": 726,
+      "sourceLineEnd": 729,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 183,
+      "literalTitle": "THE THEORY GENERATOR OF THEORY GENERATORS",
+      "hypotheticalIq": "10¹²⁵",
+      "literalBodyMarkdown": "Instead of proposing theories, evolve architectures whose specialty is generating classes of theories.",
+      "sourceLineStart": 730,
+      "sourceLineEnd": 733,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 184,
+      "literalTitle": "THE SCIENTIST GENERATOR",
+      "hypotheticalIq": "3 × 10¹²⁵",
+      "literalBodyMarkdown": "Generate specialized AI scientist architectures optimized for different epistemic environments, rather than one universal science agent.",
+      "sourceLineStart": 734,
+      "sourceLineEnd": 737,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 185,
+      "literalTitle": "THE INVENTOR GENERATOR",
+      "hypotheticalIq": "10¹²⁶",
+      "literalBodyMarkdown": "Construct invention processes tailored to the domain, constraints, maturity, data regime, and available experimental tools.",
+      "sourceLineStart": 738,
+      "sourceLineEnd": 741,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 186,
+      "literalTitle": "THE GENERATOR EVOLUTION ENGINE",
+      "hypotheticalIq": "3 × 10¹²⁶",
+      "literalBodyMarkdown": "Compete the systems that create inventors, scientists, algorithms, institutions, and experiments. Selection moves one meta-level upward.",
+      "sourceLineStart": 742,
+      "sourceLineEnd": 745,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 187,
+      "literalTitle": "THE META-EVOLUTION",
+      "hypotheticalIq": "10¹²⁷",
+      "literalBodyMarkdown": "Don't evolve solutions. Evolve **ways of evolving solutions**.",
+      "sourceLineStart": 746,
+      "sourceLineEnd": 749,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 188,
+      "literalTitle": "THE META-SCIENCE EVOLUTION",
+      "hypotheticalIq": "3 × 10¹²⁷",
+      "literalBodyMarkdown": "Compete different scientific methods against one another on synthetic and real discovery environments.",
+      "sourceLineStart": 750,
+      "sourceLineEnd": 753,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 189,
+      "literalTitle": "THE META-MATHEMATICS EVOLUTION",
+      "hypotheticalIq": "10¹²⁸",
+      "literalBodyMarkdown": "Evolve formal systems according to their explanatory and computational usefulness.",
+      "sourceLineStart": 754,
+      "sourceLineEnd": 757,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 190,
+      "literalTitle": "THE META-COGNITION EVOLUTION",
+      "hypotheticalIq": "3 × 10¹²⁸",
+      "literalBodyMarkdown": "Evolve architectures that decide which reasoning architectures should be created next.",
+      "sourceLineStart": 758,
+      "sourceLineEnd": 761,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 191,
+      "literalTitle": "THE META-INSTITUTION EVOLUTION",
+      "hypotheticalIq": "10¹²⁹",
+      "literalBodyMarkdown": "Institutions evolve not only their policies but the mechanisms by which policies themselves evolve.",
+      "sourceLineStart": 762,
+      "sourceLineEnd": 765,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 192,
+      "literalTitle": "THE META-CIVILIZATION",
+      "hypotheticalIq": "3 × 10¹²⁹",
+      "literalBodyMarkdown": "A civilization that explicitly optimizes its ability to redesign its own scientific, economic, educational, technological, and governance machinery.",
+      "sourceLineStart": 766,
+      "sourceLineEnd": 769,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 193,
+      "literalTitle": "THE CIVILIZATION SELF-MODEL",
+      "hypotheticalIq": "10¹³⁰",
+      "literalBodyMarkdown": "Give civilization a continuously updated model of itself: capabilities, dependencies, ignorance, fragilities, resources, technologies, knowledge, and reachable futures.",
+      "sourceLineStart": 770,
+      "sourceLineEnd": 773,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 194,
+      "literalTitle": "THE CIVILIZATION SELF-AWARENESS LOOP",
+      "hypotheticalIq": "3 × 10¹³⁰",
+      "literalBodyMarkdown": "When the model discovers a mismatch between what civilization believes it can do and what evidence shows, automatically surface the discrepancy and its consequences.",
+      "sourceLineStart": 774,
+      "sourceLineEnd": 777,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 195,
+      "literalTitle": "THE CIVILIZATION COUNTERFACTUAL ENGINE",
+      "hypotheticalIq": "10¹³¹",
+      "literalBodyMarkdown": "Explore alternative scientific priorities, infrastructure investments, educational systems, technological pathways, and institutional mechanisms before committing generations.",
+      "sourceLineStart": 778,
+      "sourceLineEnd": 781,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 196,
+      "literalTitle": "THE CIVILIZATION OPTION ENGINE",
+      "hypotheticalIq": "3 × 10¹³¹",
+      "literalBodyMarkdown": "Measure not GDP or productivity alone but the number and quality of future civilization states that remain reachable.",
+      "sourceLineStart": 782,
+      "sourceLineEnd": 785,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 197,
+      "literalTitle": "THE CIVILIZATION POSSIBILITY RESERVE",
+      "hypotheticalIq": "10¹³²",
+      "literalBodyMarkdown": "Protect capabilities, knowledge, biodiversity, manufacturing skills, scientific expertise, and technologies whose disappearance would permanently close valuable future branches.",
+      "sourceLineStart": 786,
+      "sourceLineEnd": 789,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 198,
+      "literalTitle": "THE EXTINCTION OF DEAD ENDS",
+      "hypotheticalIq": "3 × 10¹³²",
+      "literalBodyMarkdown": "Systematically identify technological and institutional pathways that consume enormous resources while shrinking long-term possibility space.",
+      "sourceLineStart": 790,
+      "sourceLineEnd": 793,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 199,
+      "literalTitle": "THE FUTURE CAPITAL SYSTEM",
+      "hypotheticalIq": "10¹³³",
+      "literalBodyMarkdown": "Capital allocation incorporates the option value of technologies that unlock entire future technology trees, not merely expected near-term profit.",
+      "sourceLineStart": 794,
+      "sourceLineEnd": 797,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 200,
+      "literalTitle": "THE DISCOVERY CAPITAL MARKET",
+      "hypotheticalIq": "3 × 10¹³³",
+      "literalBodyMarkdown": "Allocate resources dynamically to experiments based on expected information gain × transformative branching potential × reproducibility.",
+      "sourceLineStart": 798,
+      "sourceLineEnd": 801,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 201,
+      "literalTitle": "THE POSSIBILITY MARKET",
+      "hypotheticalIq": "10¹³⁴",
+      "literalBodyMarkdown": "Markets trade not just assets but contingent claims on technological pathways. Information about which futures are becoming feasible becomes economically legible.",
+      "sourceLineStart": 802,
+      "sourceLineEnd": 805,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 202,
+      "literalTitle": "THE TECHNOLOGY TREE EXCHANGE",
+      "hypotheticalIq": "3 × 10¹³⁴",
+      "literalBodyMarkdown": "Represent emerging technology trees and their dependencies so funding can target enabling nodes instead of fashionable endpoints.",
+      "sourceLineStart": 806,
+      "sourceLineEnd": 809,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 203,
+      "literalTitle": "THE CIVILIZATION LEVERAGE INDEX",
+      "hypotheticalIq": "10¹³⁵",
+      "literalBodyMarkdown": "Rank interventions by how many future capabilities they unlock rather than just direct output.",
+      "sourceLineStart": 810,
+      "sourceLineEnd": 813,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 204,
+      "literalTitle": "THE BRANCHING FACTOR ECONOMY",
+      "hypotheticalIq": "3 × 10¹³⁵",
+      "literalBodyMarkdown": "Reward inventions partly according to the number of valuable subsequent inventions they make possible.",
+      "sourceLineStart": 814,
+      "sourceLineEnd": 817,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 205,
+      "literalTitle": "THE CIVILIZATION DERIVATIVE",
+      "hypotheticalIq": "10¹³⁶",
+      "literalBodyMarkdown": "Measure:\n     \\[\n     \\frac{d(\\text{future discovery capacity})}{d(\\text{new technology})}\n     \\]\n     Technologies with enormous derivative values become strategic priorities.",
+      "sourceLineStart": 818,
+      "sourceLineEnd": 825,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 206,
+      "literalTitle": "THE SECOND DERIVATIVE OF CIVILIZATION",
+      "hypotheticalIq": "3 × 10¹³⁶",
+      "literalBodyMarkdown": "Go further:\n     \\[\n     \\frac{d^2(\\text{discovery capacity})}{dt^2}\n     \\]\n     Optimize technologies that accelerate the rate at which the rate of invention grows.",
+      "sourceLineStart": 826,
+      "sourceLineEnd": 833,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 207,
+      "literalTitle": "THE CIVILIZATION FLYWHEEL COMPILER",
+      "hypotheticalIq": "10¹³⁷",
+      "literalBodyMarkdown": "Discover positive loops linking education, science, capital, computation, manufacturing, energy, and institutional quality, then deliberately strengthen them.",
+      "sourceLineStart": 834,
+      "sourceLineEnd": 837,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 208,
+      "literalTitle": "THE DISCOVERY FUSION REACTOR",
+      "hypotheticalIq": "3 × 10¹³⁷",
+      "literalBodyMarkdown": "When different discoveries enter the system, automatically search for combinations whose joint consequences exceed the sum of the parts.",
+      "sourceLineStart": 838,
+      "sourceLineEnd": 841,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 209,
+      "literalTitle": "THE BREAKTHROUGH CASCADE ENGINE",
+      "hypotheticalIq": "10¹³⁸",
+      "literalBodyMarkdown": "A discovery triggers search for its first-order applications, whose existence triggers second-order discoveries, continuing recursively until the tree is exhausted.",
+      "sourceLineStart": 842,
+      "sourceLineEnd": 845,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 210,
+      "literalTitle": "THE AFTERSHOCK ENGINE",
+      "hypotheticalIq": "3 × 10¹³⁸",
+      "literalBodyMarkdown": "Humanity routinely underestimates consequences of major inventions. Simulate technological aftershocks decades deep and identify surprising descendant industries.",
+      "sourceLineStart": 846,
+      "sourceLineEnd": 849,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 211,
+      "literalTitle": "THE INVENTION GENEALOGY",
+      "hypotheticalIq": "10¹³⁹",
+      "literalBodyMarkdown": "Build a graph showing which historical inventions made which later inventions possible. Learn the structural patterns preceding civilization-changing breakthroughs.",
+      "sourceLineStart": 850,
+      "sourceLineEnd": 853,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 212,
+      "literalTitle": "THE FUTURE GENEALOGY GENERATOR",
+      "hypotheticalIq": "3 × 10¹³⁹",
+      "literalBodyMarkdown": "Generate hypothetical future invention family trees and search backward for the earliest root technology we can build now.",
+      "sourceLineStart": 854,
+      "sourceLineEnd": 857,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 213,
+      "literalTitle": "THE GRANDCHILD TECHNOLOGY SEARCH",
+      "hypotheticalIq": "10¹⁴⁰",
+      "literalBodyMarkdown": "Don't judge a technology by what it does. Judge it by what its descendants could do.",
+      "sourceLineStart": 858,
+      "sourceLineEnd": 861,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 214,
+      "literalTitle": "THE GREAT-GRANDCHILD TECHNOLOGY SEARCH",
+      "hypotheticalIq": "3 × 10¹⁴⁰",
+      "literalBodyMarkdown": "Extend evaluation multiple generations. A boring primitive might hide behind it an extraordinary technological civilization.",
+      "sourceLineStart": 862,
+      "sourceLineEnd": 865,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 215,
+      "literalTitle": "THE TECHNOLOGICAL ANCESTOR HUNTER",
+      "hypotheticalIq": "10¹⁴¹",
+      "literalBodyMarkdown": "Start from a fantastical future capability and infer what early primitive would have to be its ancestor.",
+      "sourceLineStart": 866,
+      "sourceLineEnd": 869,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 216,
+      "literalTitle": "THE FUTURE FOSSIL ENGINE",
+      "hypotheticalIq": "3 × 10¹⁴¹",
+      "literalBodyMarkdown": "Invent hypothetical artifacts from advanced civilizations and reconstruct the minimum technology tree required to produce them.",
+      "sourceLineStart": 870,
+      "sourceLineEnd": 873,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 217,
+      "literalTitle": "THE FUTURE PATENT OFFICE",
+      "hypotheticalIq": "10¹⁴²",
+      "literalBodyMarkdown": "Populate a database of inventions that cannot yet be built but become feasible after specified dependencies are solved.",
+      "sourceLineStart": 874,
+      "sourceLineEnd": 877,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 218,
+      "literalTitle": "THE DEFERRED INVENTION VAULT",
+      "hypotheticalIq": "3 × 10¹⁴²",
+      "literalBodyMarkdown": "Preserve technically sound ideas whose enabling technology does not yet exist and automatically resurrect them when prerequisites arrive.",
+      "sourceLineStart": 878,
+      "sourceLineEnd": 881,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 219,
+      "literalTitle": "THE TECHNOLOGY NECROMANCER",
+      "hypotheticalIq": "10¹⁴³",
+      "literalBodyMarkdown": "Revisit inventions that failed historically because they were premature. Some dead ideas become brilliant once materials, computation, or economics change.",
+      "sourceLineStart": 882,
+      "sourceLineEnd": 885,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 220,
+      "literalTitle": "THE LOST-FUTURES ARCHIVE",
+      "hypotheticalIq": "3 × 10¹⁴³",
+      "literalBodyMarkdown": "Search abandoned research programs, extinct industries, forgotten patents, failed scientific theories, and unrealized infrastructure plans for branches civilization prematurely pruned.",
+      "sourceLineStart": 886,
+      "sourceLineEnd": 889,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 221,
+      "literalTitle": "THE ALTERNATIVE INDUSTRIAL REVOLUTION ENGINE",
+      "hypotheticalIq": "10¹⁴⁴",
+      "literalBodyMarkdown": "Ask what industrial revolution could have happened instead of steam → electricity → electronics. Maybe other viable technological trees were historically missed.",
+      "sourceLineStart": 890,
+      "sourceLineEnd": 893,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 222,
+      "literalTitle": "THE PARALLEL TECHNOLOGY HISTORY GENERATOR",
+      "hypotheticalIq": "3 × 10¹⁴⁴",
+      "literalBodyMarkdown": "Simulate worlds where key discoveries arrived in different orders and harvest technologies that emerge only under alternate sequences.",
+      "sourceLineStart": 894,
+      "sourceLineEnd": 897,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 223,
+      "literalTitle": "THE TECHNOLOGY ORDERING THEOREM",
+      "hypotheticalIq": "10¹⁴⁵",
+      "literalBodyMarkdown": "Some discoveries may be much more powerful if developed before others. Search for optimal sequencing of civilization's technology tree.",
+      "sourceLineStart": 898,
+      "sourceLineEnd": 901,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 224,
+      "literalTitle": "THE DISCOVERY SCHEDULER",
+      "hypotheticalIq": "3 × 10¹⁴⁵",
+      "literalBodyMarkdown": "Decide which discoveries to pursue now because they maximize the speed of all downstream discovery.",
+      "sourceLineStart": 902,
+      "sourceLineEnd": 905,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 225,
+      "literalTitle": "THE KNOWLEDGE COMPOUND-INTEREST ENGINE",
+      "hypotheticalIq": "10¹⁴⁶",
+      "literalBodyMarkdown": "Prioritize knowledge that increases the productivity of future knowledge acquisition. Knowledge becomes recursive capital.",
+      "sourceLineStart": 906,
+      "sourceLineEnd": 909,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 226,
+      "literalTitle": "THE INTELLIGENCE COMPOUND-INTEREST ENGINE",
+      "hypotheticalIq": "3 × 10¹⁴⁶",
+      "literalBodyMarkdown": "Invest compute, education, experiments, and tools where each improvement increases the rate of acquiring the next improvement.",
+      "sourceLineStart": 910,
+      "sourceLineEnd": 913,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 227,
+      "literalTitle": "THE CAPABILITY COMPOUND-INTEREST ENGINE",
+      "hypotheticalIq": "10¹⁴⁷",
+      "literalBodyMarkdown": "Prefer capabilities that unlock many other capabilities. Tool-making ability dominates isolated tools.",
+      "sourceLineStart": 914,
+      "sourceLineEnd": 917,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 228,
+      "literalTitle": "THE OPTIONALITY COMPOUND-INTEREST ENGINE",
+      "hypotheticalIq": "3 × 10¹⁴⁷",
+      "literalBodyMarkdown": "Prefer actions that increase the number of future actions available rather than consuming optionality.",
+      "sourceLineStart": 918,
+      "sourceLineEnd": 921,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 229,
+      "literalTitle": "THE DISCOVERY OF UNIVERSAL LEVERAGE",
+      "hypotheticalIq": "10¹⁴⁸",
+      "literalBodyMarkdown": "Search for interventions that improve many unrelated systems because they touch a shared bottleneck: energy, trust, computation, measurement, cognition, manufacturing, or something unknown.",
+      "sourceLineStart": 922,
+      "sourceLineEnd": 925,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 230,
+      "literalTitle": "THE MASTER BOTTLENECK HUNTER",
+      "hypotheticalIq": "3 × 10¹⁴⁸",
+      "literalBodyMarkdown": "Determine which single missing capability most constrains civilization's next thousand advances.",
+      "sourceLineStart": 926,
+      "sourceLineEnd": 929,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 231,
+      "literalTitle": "THE BOTTLENECK CASCADE",
+      "hypotheticalIq": "10¹⁴⁹",
+      "literalBodyMarkdown": "Remove the current bottleneck, immediately identify the next emergent bottleneck, repeat.",
+      "sourceLineStart": 930,
+      "sourceLineEnd": 933,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 232,
+      "literalTitle": "THE CIVILIZATION GRADIENT DESCENT",
+      "hypotheticalIq": "3 × 10¹⁴⁹",
+      "literalBodyMarkdown": "Treat civilization as a vast adaptive system and estimate which interventions most steeply improve long-term reachable states.",
+      "sourceLineStart": 934,
+      "sourceLineEnd": 937,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 233,
+      "literalTitle": "THE CIVILIZATION GRADIENT ASCENT",
+      "hypotheticalIq": "10¹⁵⁰",
+      "literalBodyMarkdown": "Rather than minimizing problems, maximize emergence of new useful capability.",
+      "sourceLineStart": 938,
+      "sourceLineEnd": 941,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 234,
+      "literalTitle": "THE POSSIBILITY GRADIENT",
+      "hypotheticalIq": "3 × 10¹⁵⁰",
+      "literalBodyMarkdown": "Estimate which direction in technology-space expands reachable possibility fastest.",
+      "sourceLineStart": 942,
+      "sourceLineEnd": 945,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 235,
+      "literalTitle": "THE POSSIBILITY COMPASS",
+      "hypotheticalIq": "10¹⁵¹",
+      "literalBodyMarkdown": "Civilization receives an orientation system pointing not north, but toward regions of maximum unexplored constructive possibility.",
+      "sourceLineStart": 946,
+      "sourceLineEnd": 949,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 236,
+      "literalTitle": "THE CIVILIZATION MAP OF THE UNKNOWN",
+      "hypotheticalIq": "3 × 10¹⁵¹",
+      "literalBodyMarkdown": "A dynamic atlas where known sciences form continents and unexplained structures define coastlines leading into intellectual oceans.",
+      "sourceLineStart": 950,
+      "sourceLineEnd": 953,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 237,
+      "literalTitle": "THE POSSIBILITY GEOGRAPHY",
+      "hypotheticalIq": "10¹⁵²",
+      "literalBodyMarkdown": "Treat invention space geometrically. Identify dense clusters, bridges, isolated islands, unexplored basins, and high-dimensional shortcuts.",
+      "sourceLineStart": 954,
+      "sourceLineEnd": 957,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 238,
+      "literalTitle": "THE INVENTION WORMHOLE FINDER",
+      "hypotheticalIq": "3 × 10¹⁵²",
+      "literalBodyMarkdown": "Discover surprising short paths between distant technological regions. A result in fungal biology might unexpectedly unlock spacecraft materials.",
+      "sourceLineStart": 958,
+      "sourceLineEnd": 961,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 239,
+      "literalTitle": "THE POSSIBILITY BRIDGE BUILDER",
+      "hypotheticalIq": "10¹⁵³",
+      "literalBodyMarkdown": "When two valuable regions of possibility cannot connect because one intermediate capability is missing, invent the bridge.",
+      "sourceLineStart": 962,
+      "sourceLineEnd": 965,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 240,
+      "literalTitle": "THE POSSIBILITY ISLAND DISCOVERER",
+      "hypotheticalIq": "3 × 10¹⁵³",
+      "literalBodyMarkdown": "Search for technology families that are unreachable through obvious incremental improvement but accessible through a discontinuous conceptual jump.",
+      "sourceLineStart": 966,
+      "sourceLineEnd": 969,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 241,
+      "literalTitle": "THE DISCONTINUITY HUNTER",
+      "hypotheticalIq": "10¹⁵⁴",
+      "literalBodyMarkdown": "Specifically hunt inventions whose value jumps discontinuously once one threshold is crossed: superconductivity, controlled fusion, general-purpose robotics, molecular manufacturing, etc.",
+      "sourceLineStart": 970,
+      "sourceLineEnd": 973,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 242,
+      "literalTitle": "THE PHASE-TRANSITION ENGINE",
+      "hypotheticalIq": "3 × 10¹⁵⁴",
+      "literalBodyMarkdown": "Find systems where gradual investment suddenly triggers qualitatively new behavior and optimize for crossing those boundaries.",
+      "sourceLineStart": 974,
+      "sourceLineEnd": 977,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 243,
+      "literalTitle": "THE CIVILIZATION PHASE DIAGRAM",
+      "hypotheticalIq": "10¹⁵⁵",
+      "literalBodyMarkdown": "Map combinations of energy, computation, coordination, intelligence, manufacturing, and knowledge that create qualitatively different civilization regimes.",
+      "sourceLineStart": 978,
+      "sourceLineEnd": 981,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 244,
+      "literalTitle": "THE TECHNOLOGICAL CRITICALITY ENGINE",
+      "hypotheticalIq": "3 × 10¹⁵⁵",
+      "literalBodyMarkdown": "Identify civilization parameters that sit near critical points where tiny improvements unlock huge systemic transitions.",
+      "sourceLineStart": 982,
+      "sourceLineEnd": 985,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 245,
+      "literalTitle": "THE CASCADE TRIGGER",
+      "hypotheticalIq": "10¹⁵⁶",
+      "literalBodyMarkdown": "Search for tiny interventions capable of initiating enormous positive technological cascades.",
+      "sourceLineStart": 986,
+      "sourceLineEnd": 989,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 246,
+      "literalTitle": "THE GREAT UNLOCK",
+      "hypotheticalIq": "3 × 10¹⁵⁶",
+      "literalBodyMarkdown": "The mission is to discover the next technological primitive whose existence makes a previously impossible world suddenly obvious.",
+      "sourceLineStart": 990,
+      "sourceLineEnd": 993,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 247,
+      "literalTitle": "THE NEXT FIRE",
+      "hypotheticalIq": "10¹⁵⁷",
+      "literalBodyMarkdown": "Fire wasn't merely energy. It transformed food, materials, protection, culture, migration, and eventually industry. Search deliberately for technologies with similarly broad primitive leverage.",
+      "sourceLineStart": 994,
+      "sourceLineEnd": 997,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 248,
+      "literalTitle": "THE NEXT WRITING",
+      "hypotheticalIq": "3 × 10¹⁵⁷",
+      "literalBodyMarkdown": "Writing externalized memory. Find the next technology that externalizes a fundamental cognitive function humanity currently keeps trapped inside individuals.",
+      "sourceLineStart": 998,
+      "sourceLineEnd": 1001,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 249,
+      "literalTitle": "THE NEXT PRINTING PRESS",
+      "hypotheticalIq": "10¹⁵⁸",
+      "literalBodyMarkdown": "Search for something that reduces the replication cost of another valuable entity by many orders of magnitude.",
+      "sourceLineStart": 1002,
+      "sourceLineEnd": 1005,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 250,
+      "literalTitle": "THE NEXT STEAM ENGINE",
+      "hypotheticalIq": "3 × 10¹⁵⁸",
+      "literalBodyMarkdown": "Search for a mechanism that makes a previously scarce form of usable work abundant.",
+      "sourceLineStart": 1006,
+      "sourceLineEnd": 1009,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 251,
+      "literalTitle": "THE NEXT ELECTRICITY",
+      "hypotheticalIq": "10¹⁵⁹",
+      "literalBodyMarkdown": "Search for a universal carrier analogous to electricity: easily generated, transmitted, transformed, and consumed across countless applications.",
+      "sourceLineStart": 1010,
+      "sourceLineEnd": 1013,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 252,
+      "literalTitle": "THE NEXT TRANSISTOR",
+      "hypotheticalIq": "3 × 10¹⁵⁹",
+      "literalBodyMarkdown": "Search for a tiny, manufacturable primitive whose composition yields arbitrarily complex systems.",
+      "sourceLineStart": 1014,
+      "sourceLineEnd": 1017,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 253,
+      "literalTitle": "THE NEXT INTERNET",
+      "hypotheticalIq": "10¹⁶⁰",
+      "literalBodyMarkdown": "Search for something whose value grows explosively when heterogeneous entities become interoperably connected.",
+      "sourceLineStart": 1018,
+      "sourceLineEnd": 1021,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 254,
+      "literalTitle": "THE NEXT AI",
+      "hypotheticalIq": "3 × 10¹⁶⁰",
+      "literalBodyMarkdown": "Search for another previously human-exclusive function that could become technologically scalable, just as AI scales cognition.",
+      "sourceLineStart": 1022,
+      "sourceLineEnd": 1025,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 255,
+      "literalTitle": "THE TECHNOLOGY AFTER AI",
+      "hypotheticalIq": "10¹⁶¹",
+      "literalBodyMarkdown": "Explicitly search for the category that becomes possible only once intelligence itself becomes abundant.",
+      "sourceLineStart": 1026,
+      "sourceLineEnd": 1029,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 256,
+      "literalTitle": "THE TECHNOLOGY AFTER THE TECHNOLOGY AFTER AI",
+      "hypotheticalIq": "3 × 10¹⁶¹",
+      "literalBodyMarkdown": "Don't stop at the immediate successor. Model generations of post-AI primitives and work backward toward their present-day roots.",
+      "sourceLineStart": 1030,
+      "sourceLineEnd": 1033,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 257,
+      "literalTitle": "THE POST-INTELLIGENCE ECONOMY",
+      "hypotheticalIq": "10¹⁶²",
+      "literalBodyMarkdown": "Ask what becomes scarce after cognition becomes cheap. Perhaps experiments, energy, trust, physical action, unique experiences, rights, attention, or something entirely new.",
+      "sourceLineStart": 1034,
+      "sourceLineEnd": 1037,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 258,
+      "literalTitle": "THE SCARCITY SUCCESSOR ENGINE",
+      "hypotheticalIq": "3 × 10¹⁶²",
+      "literalBodyMarkdown": "Every time technology eliminates one scarcity, predict the next binding constraint and attack it early.",
+      "sourceLineStart": 1038,
+      "sourceLineEnd": 1041,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 259,
+      "literalTitle": "THE SCARCITY EXTINCTION CASCADE",
+      "hypotheticalIq": "10¹⁶³",
+      "literalBodyMarkdown": "Systematically remove major scarcity classes in an order where solving one makes solving the next cheaper.",
+      "sourceLineStart": 1042,
+      "sourceLineEnd": 1045,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 260,
+      "literalTitle": "THE ABUNDANCE COMPILER",
+      "hypotheticalIq": "3 × 10¹⁶³",
+      "literalBodyMarkdown": "Input a scarce capability. Output the technology tree necessary to make it abundant.",
+      "sourceLineStart": 1046,
+      "sourceLineEnd": 1049,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 261,
+      "literalTitle": "THE ABUNDANCE CASCADE",
+      "hypotheticalIq": "10¹⁶⁴",
+      "literalBodyMarkdown": "Cheap energy enables cheap computation. Cheap computation enables cheap intelligence. Cheap intelligence accelerates materials science. Better materials improve energy. Recursive abundance.",
+      "sourceLineStart": 1050,
+      "sourceLineEnd": 1053,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 262,
+      "literalTitle": "THE ABUNDANCE FLYWHEEL",
+      "hypotheticalIq": "3 × 10¹⁶⁴",
+      "literalBodyMarkdown": "Search for loops where abundance in one domain creates abundance in another until multiple scarcity barriers collapse together.",
+      "sourceLineStart": 1054,
+      "sourceLineEnd": 1057,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 263,
+      "literalTitle": "THE POST-SCARCITY TRANSITION MAP",
+      "hypotheticalIq": "10¹⁶⁵",
+      "literalBodyMarkdown": "Determine which constraints remain even if energy, intelligence, and manufacturing become extremely cheap.",
+      "sourceLineStart": 1058,
+      "sourceLineEnd": 1061,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 264,
+      "literalTitle": "THE VALUE-AFTER-ABUNDANCE ENGINE",
+      "hypotheticalIq": "3 × 10¹⁶⁵",
+      "literalBodyMarkdown": "If many goods become cheap, identify what humans actually value when material scarcity weakens: meaning, novelty, authenticity, relationships, status, experiences, agency, time.",
+      "sourceLineStart": 1062,
+      "sourceLineEnd": 1065,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 265,
+      "literalTitle": "THE MEANING TECHNOLOGY",
+      "hypotheticalIq": "10¹⁶⁶",
+      "literalBodyMarkdown": "Treat meaning not as a commodity to manufacture but as a phenomenon whose conditions can be scientifically understood, allowing environments that better support purpose and flourishing.",
+      "sourceLineStart": 1066,
+      "sourceLineEnd": 1069,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 266,
+      "literalTitle": "THE HUMAN FLOURISHING SCIENCE",
+      "hypotheticalIq": "3 × 10¹⁶⁶",
+      "literalBodyMarkdown": "Build a rigorous multidimensional science of what makes lives genuinely worth living without collapsing human value into one simplistic metric.",
+      "sourceLineStart": 1070,
+      "sourceLineEnd": 1073,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 267,
+      "literalTitle": "THE FLOURISHING COMPILER",
+      "hypotheticalIq": "10¹⁶⁷",
+      "literalBodyMarkdown": "Translate an individual's values and constraints into experimentally testable life architectures while preserving autonomy and uncertainty.",
+      "sourceLineStart": 1074,
+      "sourceLineEnd": 1077,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

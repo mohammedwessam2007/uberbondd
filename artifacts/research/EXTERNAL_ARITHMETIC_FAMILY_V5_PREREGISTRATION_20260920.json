@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "uberbond.external-arithmetic-family-v5-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMechanism": "ontological-computing/target-blind-structural-representation-synthesis-v1",
+  "truthClass": "PREREGISTERED_EXTERNALLY_SOURCED_HELD_OUT_STRUCTURAL_FAMILY_CHALLENGE_NOT_RESULT",
+  "purpose": "Test the already frozen V4B 96-program target-blind divisor-sweep grammar on public arithmetic targets defined outside UberBond, without adding any new state primitive after seeing performance.",
+  "sourcePreflight": "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREFLIGHT_20260920.json",
+  "frozenGrammar": {
+    "sourceLineage": "V4B structural grammar",
+    "candidateCount": 96,
+    "divisorOrders": [
+      "ASCENDING_2_TO_DYNAMIC_SQRT",
+      "DESCENDING_FROM_ORIGINAL_SQRT"
+    ],
+    "divisionPolicies": [
+      "SINGLE_IF_DIVISIBLE",
+      "REPEAT_WHILE_DIVISIBLE"
+    ],
+    "stateUpdates": [
+      "TOGGLE_PER_DIVISION_EVENT",
+      "TOGGLE_ON_DIVISOR_HIT",
+      "SET_ONE_ON_EVENT",
+      "SET_ZERO_ON_EVENT"
+    ],
+    "leftoverPolicies": [
+      "IGNORE_LEFTOVER",
+      "TOGGLE_IF_WORKING_GT_1",
+      "SET_ONE_IF_WORKING_GT_1"
+    ],
+    "initialStates": [
+      0,
+      1
+    ],
+    "mutationBeforeResult": "PROHIBITED"
+  },
+  "externalTargets": [
+    {
+      "id": "A008966_SQUAREFREE",
+      "source": "OEIS A008966",
+      "expectedMeaning": "1 iff n is squarefree",
+      "role": "MISSING_STATE_PRIMITIVE_CHALLENGE"
+    },
+    {
+      "id": "A001221_DISTINCT_PRIME_PARITY",
+      "source": "OEIS A001221",
+      "expectedMeaning": "parity of the number of distinct prime factors",
+      "role": "HELD_OUT_RELATED_STRUCTURAL_TRANSFER"
+    },
+    {
+      "id": "A008683_MOBIUS_POSITIVE",
+      "source": "OEIS A008683",
+      "expectedMeaning": "1 iff Möbius mu(n)=+1",
+      "role": "COMPOSITIONAL_EXTERNAL_TARGET"
+    }
+  ],
+  "selection": "For each target independently choose among the same 96 structural programs by train accuracy, validation accuracy, lower description cost, then lexical ID. Held-out labels are forbidden during selection.",
+  "baselines": [
+    "BEST_8626_BASE_BOOLEAN_GRAMMAR_FEATURE",
+    "RAW_THRESHOLD",
+    "KNN_RAW_K3",
+    "MAJORITY_CLASS",
+    "PRIME_INDICATOR",
+    "V4B_OMEGA_MULTIPLICITY_PARITY_PRIMITIVE"
+  ],
+  "perTargetSuccess": {
+    "minimumHeldoutAccuracy": 0.95,
+    "minimumImprovementOverBestBaseline": 0.1
+  },
+  "familyInterpretation": {
+    "zeroPass": "FROZEN_GRAMMAR_DOES_NOT_TRANSFER_TO_THE_EXTERNAL_FAMILY",
+    "oneOrTwoPass": "PARTIAL_EXTERNAL_FAMILY_TRANSFER_WITH_EXPLICIT_BOUNDARIES",
+    "threePass": "STRONG_FINITE_EXTERNAL_FAMILY_TRANSFER__STILL_NOT_OPEN_ENDED_ONTOLOGY_INVENTION"
+  },
+  "falsifier": [
+    "Held-out labels influence structural program selection.",
+    "The frozen 96-program grammar is changed after preregistration.",
+    "A target is claimed solved below either success threshold.",
+    "Base ontology or baseline burden is omitted.",
+    "External source definitions are silently altered."
+  ],
+  "ontogenesisTrigger": "For any admitted target that fails, convert the error pattern into a missing-mechanism hypothesis. No grammar extension may be tested until a separate post-failure preregistration.",
+  "promotionBoundary": "V5 can broaden only the child mechanism's evidence scope. It cannot promote the Ontological Computing parent above IMAGINED and cannot establish new mathematics or external scientific discovery.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

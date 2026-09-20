@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 8,
+  "ordinalStart": 624,
+  "ordinalEnd": 712,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 624,
+      "literalTitle": "THE ONTOLOGY RECURSION",
+      "hypotheticalIq": "3 × 10³⁴⁵",
+      "literalBodyMarkdown": "New ontologies expose phenomena demanding still richer ontologies.",
+      "sourceLineStart": 2509,
+      "sourceLineEnd": 2512,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 625,
+      "literalTitle": "THE ONTOLOGICAL SINGULARITY",
+      "hypotheticalIq": "10³⁴⁶",
+      "literalBodyMarkdown": "The rate at which intelligence acquires fundamentally new conceptual vocabularies accelerates.",
+      "sourceLineStart": 2513,
+      "sourceLineEnd": 2516,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 626,
+      "literalTitle": "THE CONCEPT HORIZON BREAKER",
+      "hypotheticalIq": "3 × 10³⁴⁶",
+      "literalBodyMarkdown": "Detect when a problem cannot be solved with the concepts currently available and force invention of new conceptual primitives.",
+      "sourceLineStart": 2517,
+      "sourceLineEnd": 2520,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 627,
+      "literalTitle": "THE UNTHINKABLE DETECTOR",
+      "hypotheticalIq": "10³⁴⁷",
+      "literalBodyMarkdown": "Search for regions where current representation systems cannot even formulate useful hypotheses.",
+      "sourceLineStart": 2521,
+      "sourceLineEnd": 2524,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 628,
+      "literalTitle": "THE UNTHINKABLE COMPILER",
+      "hypotheticalIq": "3 × 10³⁴⁷",
+      "literalBodyMarkdown": "Construct intermediate concepts that make previously unformulable ideas thinkable.",
+      "sourceLineStart": 2525,
+      "sourceLineEnd": 2528,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 629,
+      "literalTitle": "THE CONCEPTUAL LADDER",
+      "hypotheticalIq": "10³⁴⁸",
+      "literalBodyMarkdown": "Build sequences of abstractions where each rung makes the next previously incomprehensible concept accessible.",
+      "sourceLineStart": 2529,
+      "sourceLineEnd": 2532,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 630,
+      "literalTitle": "THE CONCEPTUAL SPACE ELEVATOR",
+      "hypotheticalIq": "3 × 10³⁴⁸",
+      "literalBodyMarkdown": "Compress entire ladders so humans or AIs can reach very high abstractions without traversing every historical intermediate step.",
+      "sourceLineStart": 2533,
+      "sourceLineEnd": 2536,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 631,
+      "literalTitle": "THE ABSTRACTION COMPRESSOR",
+      "hypotheticalIq": "10³⁴⁹",
+      "literalBodyMarkdown": "Find concise abstractions that preserve decision-relevant structure across gigantic information spaces.",
+      "sourceLineStart": 2537,
+      "sourceLineEnd": 2540,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 632,
+      "literalTitle": "THE ABSTRACTION EXPANDER",
+      "hypotheticalIq": "3 × 10³⁴⁹",
+      "literalBodyMarkdown": "Take one deep abstraction and generate all concrete domains where it applies.",
+      "sourceLineStart": 2541,
+      "sourceLineEnd": 2544,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 633,
+      "literalTitle": "THE ABSTRACTION BRIDGE",
+      "hypotheticalIq": "10³⁵⁰",
+      "literalBodyMarkdown": "Translate useful structures between fields without losing their causal meaning.",
+      "sourceLineStart": 2545,
+      "sourceLineEnd": 2548,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 634,
+      "literalTitle": "THE UNIVERSAL ANALOGY ENGINE",
+      "hypotheticalIq": "3 × 10³⁵⁰",
+      "literalBodyMarkdown": "Search every known system for deep structural correspondences, not superficial resemblance.",
+      "sourceLineStart": 2549,
+      "sourceLineEnd": 2552,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 635,
+      "literalTitle": "THE ANALOGY FALSIFIER",
+      "hypotheticalIq": "10³⁵¹",
+      "literalBodyMarkdown": "Determine where cross-domain analogies break before they become pseudoscience.",
+      "sourceLineStart": 2553,
+      "sourceLineEnd": 2556,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 636,
+      "literalTitle": "THE STRUCTURAL HOMOLOGY ENGINE",
+      "hypotheticalIq": "3 × 10³⁵¹",
+      "literalBodyMarkdown": "Discover when two unrelated systems share genuinely equivalent causal architecture.",
+      "sourceLineStart": 2557,
+      "sourceLineEnd": 2560,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 637,
+      "literalTitle": "THE UNIVERSAL PATTERN LIBRARY",
+      "hypotheticalIq": "10³⁵²",
+      "literalBodyMarkdown": "A catalog of recurring generative structures across physical, biological, cognitive, technological, and social systems.",
+      "sourceLineStart": 2561,
+      "sourceLineEnd": 2564,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 638,
+      "literalTitle": "THE PATTERN SYNTHESIZER",
+      "hypotheticalIq": "3 × 10³⁵²",
+      "literalBodyMarkdown": "Compose universal patterns to generate new systems with predictable emergent behavior.",
+      "sourceLineStart": 2565,
+      "sourceLineEnd": 2568,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 639,
+      "literalTitle": "THE EMERGENCE COMPILER",
+      "hypotheticalIq": "10³⁵³",
+      "literalBodyMarkdown": "Input desired emergent behavior. Search local rules capable of producing it.",
+      "sourceLineStart": 2569,
+      "sourceLineEnd": 2572,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 640,
+      "literalTitle": "THE EMERGENCE DEBUGGER",
+      "hypotheticalIq": "3 × 10³⁵³",
+      "literalBodyMarkdown": "When unwanted emergent behavior appears, identify which local interactions create it.",
+      "sourceLineStart": 2573,
+      "sourceLineEnd": 2576,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 641,
+      "literalTitle": "THE EMERGENCE PROGRAMMING LANGUAGE",
+      "hypotheticalIq": "10³⁵⁴",
+      "literalBodyMarkdown": "A language for specifying local interactions such that global behavior emerges without centralized control.",
+      "sourceLineStart": 2577,
+      "sourceLineEnd": 2580,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 642,
+      "literalTitle": "THE SELF-ORGANIZATION COMPILER",
+      "hypotheticalIq": "3 × 10³⁵⁴",
+      "literalBodyMarkdown": "Design systems that assemble, coordinate, repair, and optimize themselves from simple local rules.",
+      "sourceLineStart": 2581,
+      "sourceLineEnd": 2584,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 643,
+      "literalTitle": "THE ORDER-FROM-NOISE ENGINE",
+      "hypotheticalIq": "10³⁵⁵",
+      "literalBodyMarkdown": "Search for mechanisms that exploit randomness and environmental variability rather than merely resisting them.",
+      "sourceLineStart": 2585,
+      "sourceLineEnd": 2588,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 644,
+      "literalTitle": "THE NOISE COMPUTATION ENGINE",
+      "hypotheticalIq": "3 × 10³⁵⁵",
+      "literalBodyMarkdown": "Use stochasticity as a computational resource.",
+      "sourceLineStart": 2589,
+      "sourceLineEnd": 2592,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 645,
+      "literalTitle": "THE CHAOS COMPILER",
+      "hypotheticalIq": "10³⁵⁶",
+      "literalBodyMarkdown": "Harness chaotic dynamics for useful exploration, computation, sensing, or adaptation.",
+      "sourceLineStart": 2593,
+      "sourceLineEnd": 2596,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 646,
+      "literalTitle": "THE COMPLEXITY FOUNDRY",
+      "hypotheticalIq": "3 × 10³⁵⁶",
+      "literalBodyMarkdown": "Deliberately generate complex adaptive systems with target macroscopic properties.",
+      "sourceLineStart": 2597,
+      "sourceLineEnd": 2600,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 647,
+      "literalTitle": "THE COMPLEXITY PERIODIC TABLE",
+      "hypotheticalIq": "10³⁵⁷",
+      "literalBodyMarkdown": "Identify recurring primitives underlying complex adaptive behavior.",
+      "sourceLineStart": 2601,
+      "sourceLineEnd": 2604,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 648,
+      "literalTitle": "THE COMPLEXITY CHEMISTRY",
+      "hypotheticalIq": "3 × 10³⁵⁷",
+      "literalBodyMarkdown": "Study what happens when feedback, memory, competition, cooperation, adaptation, and replication are combined in different proportions.",
+      "sourceLineStart": 2605,
+      "sourceLineEnd": 2608,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 649,
+      "literalTitle": "THE COMPLEXITY COMPILER",
+      "hypotheticalIq": "10³⁵⁸",
+      "literalBodyMarkdown": "Desired macroscopic behavior → local adaptive mechanism.",
+      "sourceLineStart": 2609,
+      "sourceLineEnd": 2612,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 650,
+      "literalTitle": "THE SELF-CREATING SYSTEM",
+      "hypotheticalIq": "3 × 10³⁵⁸",
+      "literalBodyMarkdown": "A system capable of constructing new structural components not explicitly specified at design time.",
+      "sourceLineStart": 2613,
+      "sourceLineEnd": 2616,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 651,
+      "literalTitle": "THE SELF-DESCRIBING SYSTEM",
+      "hypotheticalIq": "10³⁵⁹",
+      "literalBodyMarkdown": "Complex systems automatically maintain machine-readable explanations of their current architecture and history.",
+      "sourceLineStart": 2617,
+      "sourceLineEnd": 2620,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 652,
+      "literalTitle": "THE SELF-MODELING SYSTEM",
+      "hypotheticalIq": "3 × 10³⁵⁹",
+      "literalBodyMarkdown": "Systems maintain internal models of their own behavior and limitations.",
+      "sourceLineStart": 2621,
+      "sourceLineEnd": 2624,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 653,
+      "literalTitle": "THE SELF-FALSIFYING SYSTEM",
+      "hypotheticalIq": "10³⁶⁰",
+      "literalBodyMarkdown": "Every important internal model actively searches for evidence that would prove itself wrong.",
+      "sourceLineStart": 2625,
+      "sourceLineEnd": 2628,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 654,
+      "literalTitle": "THE SELF-REPAIRING SYSTEM",
+      "hypotheticalIq": "3 × 10³⁶⁰",
+      "literalBodyMarkdown": "Detect faults, infer causes, restore function, and preserve evidence for later redesign.",
+      "sourceLineStart": 2629,
+      "sourceLineEnd": 2632,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 655,
+      "literalTitle": "THE SELF-REDESIGNING SYSTEM",
+      "hypotheticalIq": "10³⁶¹",
+      "literalBodyMarkdown": "Propose architecture changes based on accumulated evidence, subject to external authority and tests.",
+      "sourceLineStart": 2633,
+      "sourceLineEnd": 2636,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 656,
+      "literalTitle": "THE SELF-EVOLVING SYSTEM",
+      "hypotheticalIq": "3 × 10³⁶¹",
+      "literalBodyMarkdown": "Multiple internal variants compete while failures remain contained.",
+      "sourceLineStart": 2637,
+      "sourceLineEnd": 2640,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 657,
+      "literalTitle": "THE SELF-TRANSCENDING SYSTEM",
+      "hypotheticalIq": "10³⁶²",
+      "literalBodyMarkdown": "When its current ontology or architecture reaches a hard ceiling, it searches for successor forms rather than merely tuning itself.",
+      "sourceLineStart": 2641,
+      "sourceLineEnd": 2644,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 658,
+      "literalTitle": "THE SUCCESSOR GENERATOR",
+      "hypotheticalIq": "3 × 10³⁶²",
+      "literalBodyMarkdown": "Every mature system continuously creates candidate architectures intended to replace it.",
+      "sourceLineStart": 2645,
+      "sourceLineEnd": 2648,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 659,
+      "literalTitle": "THE SUCCESSOR CIVILIZATION ENGINE",
+      "hypotheticalIq": "10³⁶³",
+      "literalBodyMarkdown": "Civilization deliberately imagines and tests successor structures before its existing institutions become irreparably obsolete.",
+      "sourceLineStart": 2649,
+      "sourceLineEnd": 2652,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 660,
+      "literalTitle": "THE SUCCESSOR SCIENCE ENGINE",
+      "hypotheticalIq": "3 × 10³⁶³",
+      "literalBodyMarkdown": "Mature scientific paradigms maintain active programs devoted to inventing their replacements.",
+      "sourceLineStart": 2653,
+      "sourceLineEnd": 2656,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 661,
+      "literalTitle": "THE SUCCESSOR MATHEMATICS ENGINE",
+      "hypotheticalIq": "10³⁶⁴",
+      "literalBodyMarkdown": "Every mathematical framework searches for questions it cannot naturally express, then generates successors.",
+      "sourceLineStart": 2657,
+      "sourceLineEnd": 2660,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 662,
+      "literalTitle": "THE SUCCESSOR COMPUTATION ENGINE",
+      "hypotheticalIq": "3 × 10³⁶⁴",
+      "literalBodyMarkdown": "Every computing substrate funds research into architectures that could obsolete it.",
+      "sourceLineStart": 2661,
+      "sourceLineEnd": 2664,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 663,
+      "literalTitle": "THE SUCCESSOR INTELLIGENCE ENGINE",
+      "hypotheticalIq": "10³⁶⁵",
+      "literalBodyMarkdown": "Cognitive systems design fundamentally different cognitive systems rather than merely larger versions of themselves.",
+      "sourceLineStart": 2665,
+      "sourceLineEnd": 2668,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 664,
+      "literalTitle": "THE SUCCESSOR POSSIBILITY ENGINE",
+      "hypotheticalIq": "3 × 10³⁶⁵",
+      "literalBodyMarkdown": "Every possibility space searches for a richer space that contains it as a special case.",
+      "sourceLineStart": 2669,
+      "sourceLineEnd": 2672,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 665,
+      "literalTitle": "THE TRANSCENDENCE LADDER",
+      "hypotheticalIq": "10³⁶⁶",
+      "literalBodyMarkdown": "Technology repeatedly moves from object → platform → substrate → generator → generator-of-generators.",
+      "sourceLineStart": 2673,
+      "sourceLineEnd": 2676,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 666,
+      "literalTitle": "THE GENERATIVE LADDER",
+      "hypotheticalIq": "3 × 10³⁶⁶",
+      "literalBodyMarkdown": "Explicitly climb abstraction levels:\n     artifact → method → compiler → ecosystem → substrate → possibility space.",
+      "sourceLineStart": 2677,
+      "sourceLineEnd": 2681,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 667,
+      "literalTitle": "THE META-PRIMITIVE HUNTER",
+      "hypotheticalIq": "10³⁶⁷",
+      "literalBodyMarkdown": "Search for primitives capable of generating entirely different primitive families.",
+      "sourceLineStart": 2682,
+      "sourceLineEnd": 2685,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 668,
+      "literalTitle": "THE UR-PRIMITIVE",
+      "hypotheticalIq": "3 × 10³⁶⁷",
+      "literalBodyMarkdown": "Hypothetical smallest generative principle from which numerous forms of organization, computation, adaptation, and intelligence can emerge.",
+      "sourceLineStart": 2686,
+      "sourceLineEnd": 2689,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 669,
+      "literalTitle": "THE UR-GENERATOR",
+      "hypotheticalIq": "10³⁶⁸",
+      "literalBodyMarkdown": "Search for generalized processes that repeatedly generate useful structure from simple initial conditions.",
+      "sourceLineStart": 2690,
+      "sourceLineEnd": 2693,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 670,
+      "literalTitle": "THE ORIGIN MACHINE",
+      "hypotheticalIq": "3 × 10³⁶⁸",
+      "literalBodyMarkdown": "Study the deep commonality between origins: life, intelligence, language, mathematics, institutions, technology, and scientific paradigms.",
+      "sourceLineStart": 2694,
+      "sourceLineEnd": 2697,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 671,
+      "literalTitle": "THE ORIGIN SCIENCE",
+      "hypotheticalIq": "10³⁶⁹",
+      "literalBodyMarkdown": "A field devoted to understanding how qualitatively new organizational regimes come into existence.",
+      "sourceLineStart": 2698,
+      "sourceLineEnd": 2701,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 672,
+      "literalTitle": "THE ORIGIN COMPILER",
+      "hypotheticalIq": "3 × 10³⁶⁹",
+      "literalBodyMarkdown": "Given desired properties of a new regime, search for initial conditions and generative rules capable of causing its emergence.",
+      "sourceLineStart": 2702,
+      "sourceLineEnd": 2705,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 673,
+      "literalTitle": "THE GENESIS ENGINE",
+      "hypotheticalIq": "10³⁷⁰",
+      "literalBodyMarkdown": "Produce new systems whose categories did not exist in the design vocabulary beforehand.",
+      "sourceLineStart": 2706,
+      "sourceLineEnd": 2709,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 674,
+      "literalTitle": "THE GENESIS² ENGINE",
+      "hypotheticalIq": "3 × 10³⁷⁰",
+      "literalBodyMarkdown": "Generate processes that themselves generate novel systems.",
+      "sourceLineStart": 2710,
+      "sourceLineEnd": 2713,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 675,
+      "literalTitle": "THE GENESIS³ ENGINE",
+      "hypotheticalIq": "10³⁷¹",
+      "literalBodyMarkdown": "Generate families of generator-generators and evolve them.",
+      "sourceLineStart": 2714,
+      "sourceLineEnd": 2717,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 676,
+      "literalTitle": "THE ONTOGENESIS ENGINE",
+      "hypotheticalIq": "3 × 10³⁷¹",
+      "literalBodyMarkdown": "Not merely create artifacts. Create **new kinds of thing**.",
+      "sourceLineStart": 2718,
+      "sourceLineEnd": 2721,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 677,
+      "literalTitle": "THE ONTOGENESIS² ENGINE",
+      "hypotheticalIq": "10³⁷²",
+      "literalBodyMarkdown": "Create new ways by which new kinds of thing can arise.",
+      "sourceLineStart": 2722,
+      "sourceLineEnd": 2725,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 678,
+      "literalTitle": "THE ONTOGENESIS RECURSION",
+      "hypotheticalIq": "3 × 10³⁷²",
+      "literalBodyMarkdown": "Each newly created ontology expands the system's ability to create further ontologies.",
+      "sourceLineStart": 2726,
+      "sourceLineEnd": 2729,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 679,
+      "literalTitle": "THE CATEGORY EXPLOSION",
+      "hypotheticalIq": "10³⁷³",
+      "literalBodyMarkdown": "Optimize for increasing the number of fundamentally distinct useful categories civilization can instantiate.",
+      "sourceLineStart": 2730,
+      "sourceLineEnd": 2733,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 680,
+      "literalTitle": "THE ONTOLOGICAL CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "3 × 10³⁷³",
+      "literalBodyMarkdown": "Generate whole ecosystems of previously nonexistent categories.",
+      "sourceLineStart": 2734,
+      "sourceLineEnd": 2737,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 681,
+      "literalTitle": "THE ONTOLOGICAL ECOLOGY",
+      "hypotheticalIq": "10³⁷⁴",
+      "literalBodyMarkdown": "New categories interact, compete, symbiose, and give rise to higher-order categories.",
+      "sourceLineStart": 2738,
+      "sourceLineEnd": 2741,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 682,
+      "literalTitle": "THE ONTOLOGICAL EVOLUTION",
+      "hypotheticalIq": "3 × 10³⁷⁴",
+      "literalBodyMarkdown": "Systems of possible entities evolve according to usefulness and generativity.",
+      "sourceLineStart": 2742,
+      "sourceLineEnd": 2745,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 683,
+      "literalTitle": "THE ONTOLOGICAL SINGULARITY",
+      "hypotheticalIq": "10³⁷⁵",
+      "literalBodyMarkdown": "The rate at which genuinely new categories of entities become constructible begins accelerating.",
+      "sourceLineStart": 2746,
+      "sourceLineEnd": 2749,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 684,
+      "literalTitle": "THE POSSIBILITY SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁷⁵",
+      "literalBodyMarkdown": "The number of meaningful reachable futures begins expanding superlinearly because new possibilities create tools for discovering even more possibilities.",
+      "sourceLineStart": 2750,
+      "sourceLineEnd": 2753,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 685,
+      "literalTitle": "THE DISCOVERY SINGULARITY",
+      "hypotheticalIq": "10³⁷⁶",
+      "literalBodyMarkdown": "Discovery improves the machinery of discovery rapidly enough that scientific throughput grows recursively.",
+      "sourceLineStart": 2754,
+      "sourceLineEnd": 2757,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 686,
+      "literalTitle": "THE SCIENCE SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁷⁶",
+      "literalBodyMarkdown": "New science produces instruments and mathematics that generate new science faster than conventional institutions can delimit fields.",
+      "sourceLineStart": 2758,
+      "sourceLineEnd": 2761,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 687,
+      "literalTitle": "THE INVENTION SINGULARITY",
+      "hypotheticalIq": "10³⁷⁷",
+      "literalBodyMarkdown": "New inventions primarily serve as platforms for generating enormous families of successor inventions.",
+      "sourceLineStart": 2762,
+      "sourceLineEnd": 2765,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 688,
+      "literalTitle": "THE CAPABILITY SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁷⁷",
+      "literalBodyMarkdown": "New capabilities increasingly produce more capability-creation capacity than they consume.",
+      "sourceLineStart": 2766,
+      "sourceLineEnd": 2769,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 689,
+      "literalTitle": "THE CIVILIZATION SINGULARITY",
+      "hypotheticalIq": "10³⁷⁸",
+      "literalBodyMarkdown": "Not “AI becomes infinitely smart.” Civilization's complete innovation substrate begins recursively improving across multiple interacting dimensions.",
+      "sourceLineStart": 2770,
+      "sourceLineEnd": 2773,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 690,
+      "literalTitle": "THE OPTION SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁷⁸",
+      "literalBodyMarkdown": "The number of valuable futures available to humans accelerates faster than irreversible choices eliminate them.",
+      "sourceLineStart": 2774,
+      "sourceLineEnd": 2777,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 691,
+      "literalTitle": "THE HUMAN POSSIBILITY SINGULARITY",
+      "hypotheticalIq": "10³⁷⁹",
+      "literalBodyMarkdown": "Technology creates radically more ways a human life can be meaningfully lived.",
+      "sourceLineStart": 2778,
+      "sourceLineEnd": 2781,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 692,
+      "literalTitle": "THE HUMAN CAPABILITY SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁷⁹",
+      "literalBodyMarkdown": "New tools make it increasingly easy for humans to acquire capabilities that themselves accelerate later capability acquisition.",
+      "sourceLineStart": 2782,
+      "sourceLineEnd": 2785,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 693,
+      "literalTitle": "THE RENAISSANCE SINGULARITY",
+      "hypotheticalIq": "10³⁸⁰",
+      "literalBodyMarkdown": "The tradeoff between breadth and depth weakens enough that radically multidimensional human lives become feasible.",
+      "sourceLineStart": 2786,
+      "sourceLineEnd": 2789,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 694,
+      "literalTitle": "THE EXPERIENCE SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁸⁰",
+      "literalBodyMarkdown": "Civilization becomes capable of creating meaningful forms of human experience that have never existed before.",
+      "sourceLineStart": 2790,
+      "sourceLineEnd": 2793,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 695,
+      "literalTitle": "THE FRONTIER SINGULARITY",
+      "hypotheticalIq": "10³⁸¹",
+      "literalBodyMarkdown": "New frontiers are generated faster than old frontiers can be exhausted.",
+      "sourceLineStart": 2794,
+      "sourceLineEnd": 2797,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 696,
+      "literalTitle": "THE MYSTERY SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁸¹",
+      "literalBodyMarkdown": "Intelligence creates new deep questions faster than it answers existing ones.",
+      "sourceLineStart": 2798,
+      "sourceLineEnd": 2801,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 697,
+      "literalTitle": "THE NOVELTY SINGULARITY",
+      "hypotheticalIq": "10³⁸²",
+      "literalBodyMarkdown": "New categories of useful novelty begin generating further novelty recursively.",
+      "sourceLineStart": 2802,
+      "sourceLineEnd": 2805,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 698,
+      "literalTitle": "THE GENERATOR SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁸²",
+      "literalBodyMarkdown": "Generator-generators improve their ability to produce still better generator-generators.",
+      "sourceLineStart": 2806,
+      "sourceLineEnd": 2809,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 699,
+      "literalTitle": "THE META-SINGULARITY",
+      "hypotheticalIq": "10³⁸³",
+      "literalBodyMarkdown": "Multiple recursive explosions become coupled:\n     intelligence,\n     science,\n     computation,\n     manufacturing,\n     knowledge,\n     energy,\n     institutions,\n     capability,\n     possibility.",
+      "sourceLineStart": 2810,
+      "sourceLineEnd": 2822,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 700,
+      "literalTitle": "THE SINGULARITY ORCHESTRATOR",
+      "hypotheticalIq": "3 × 10³⁸³",
+      "literalBodyMarkdown": "Instead of maximizing any single recursive loop, control their interactions so one domain does not outrun the evidence, authority, safety, or infrastructure of others.",
+      "sourceLineStart": 2823,
+      "sourceLineEnd": 2826,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 701,
+      "literalTitle": "THE SINGULARITY BRAKE",
+      "hypotheticalIq": "10³⁸⁴",
+      "literalBodyMarkdown": "A civilization capable of extreme acceleration also requires the ability to stop. Build braking systems as fundamental infrastructure, not afterthoughts.",
+      "sourceLineStart": 2827,
+      "sourceLineEnd": 2830,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 702,
+      "literalTitle": "THE SINGULARITY STEERING SYSTEM",
+      "hypotheticalIq": "3 × 10³⁸⁴",
+      "literalBodyMarkdown": "Human choice remains structurally upstream of which recursive capability loops receive resources.",
+      "sourceLineStart": 2831,
+      "sourceLineEnd": 2834,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 703,
+      "literalTitle": "THE SINGULARITY CONSTITUTION",
+      "hypotheticalIq": "10³⁸⁵",
+      "literalBodyMarkdown": "Recursive capability growth cannot alter its own ultimate authority rules.",
+      "sourceLineStart": 2835,
+      "sourceLineEnd": 2838,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 704,
+      "literalTitle": "THE HUMAN-IN-THE-LOOP CIVILIZATION",
+      "hypotheticalIq": "3 × 10³⁸⁵",
+      "literalBodyMarkdown": "Intelligence may operate at enormous scale while consequential direction remains human-governed.",
+      "sourceLineStart": 2839,
+      "sourceLineEnd": 2842,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 705,
+      "literalTitle": "THE SOVEREIGN SINGULARITY",
+      "hypotheticalIq": "10³⁸⁶",
+      "literalBodyMarkdown": "Recursive progress expands human agency rather than replacing it.",
+      "sourceLineStart": 2843,
+      "sourceLineEnd": 2846,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 706,
+      "literalTitle": "THE POSSIBILITY-FIRST SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁸⁶",
+      "literalBodyMarkdown": "The objective becomes not maximal speed, wealth, computation, or intelligence but **maximal safe expansion of valuable possibility**.",
+      "sourceLineStart": 2847,
+      "sourceLineEnd": 2850,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 707,
+      "literalTitle": "THE HUMAN-CHOICE PRESERVATION ENGINE",
+      "hypotheticalIq": "10³⁸⁷",
+      "literalBodyMarkdown": "Future systems are evaluated partly according to whether they leave people with meaningful alternatives.",
+      "sourceLineStart": 2851,
+      "sourceLineEnd": 2854,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 708,
+      "literalTitle": "THE FREEDOM COMPOUNDER",
+      "hypotheticalIq": "3 × 10³⁸⁷",
+      "literalBodyMarkdown": "Search for capabilities that increase a person's future decision latitude.",
+      "sourceLineStart": 2855,
+      "sourceLineEnd": 2858,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 709,
+      "literalTitle": "THE AGENCY COMPILER",
+      "hypotheticalIq": "10³⁸⁸",
+      "literalBodyMarkdown": "Identify the concrete capabilities, resources, knowledge, rights, and environments required for a person to have meaningful control over a goal.",
+      "sourceLineStart": 2859,
+      "sourceLineEnd": 2862,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 710,
+      "literalTitle": "THE CIVILIZATION OF AGENCY",
+      "hypotheticalIq": "3 × 10³⁸⁸",
+      "literalBodyMarkdown": "Technology is evaluated not only by output but by how much competent human agency it enables.",
+      "sourceLineStart": 2863,
+      "sourceLineEnd": 2866,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 711,
+      "literalTitle": "THE CIVILIZATION OF CAPABILITY",
+      "hypotheticalIq": "10³⁸⁹",
+      "literalBodyMarkdown": "The foundational societal metric becomes what people are actually capable of doing and becoming.",
+      "sourceLineStart": 2867,
+      "sourceLineEnd": 2870,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 712,
+      "literalTitle": "THE CIVILIZATION OF POSSIBILITY",
+      "hypotheticalIq": "3 × 10³⁸⁹",
+      "literalBodyMarkdown": "Society's deepest infrastructure continually widens the set of valuable, voluntary futures available to individuals.",
+      "sourceLineStart": 2871,
+      "sourceLineEnd": 2874,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

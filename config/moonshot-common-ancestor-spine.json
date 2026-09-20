@@ -130,7 +130,12 @@
       "domains": [
         "SCIENCE"
       ],
-      "status": "RESEARCH_PROGRAM"
+      "status": "REPLICATION_CONTROL_SUBSTRATE_IMPLEMENTED_AND_CONNECTOR_EXECUTED",
+      "evidenceRefs": [
+        "src/moonshot-replication-network.mjs",
+        "tests/moonshot-replication-network.test.mjs",
+        "artifacts/research/MOONSHOT_REPLICATION_NETWORK_VERIFICATION_20260920.json"
+      ]
     },
     {
       "id": "primitive-promotion",

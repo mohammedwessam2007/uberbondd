@@ -19,7 +19,7 @@ test('canary wave ranks by bounded information value rather than fictional IQ', 
   assert.equal(result.ok, true);
   assert.equal(result.compiledCount, 8);
   assert.equal(result.rejectedCount, 0);
-  assert.equal(result.nextCandidate.id, 'possibility-substrate');
+  assert.equal(result.nextCandidate.id, 'ontological-computing');
   assert.match(result.law, /NOT_GRANDNESS_OR_FICTIONAL_IQ/);
 });
 

@@ -1,0 +1,78 @@
+{
+  "schema": "uberbond.live-outreach-activation-observation.v1",
+  "observedAt": "2026-09-20T20:02:18+02:00",
+  "repository": {
+    "fullName": "mohammedwessam2007/uberbondd",
+    "liveMain": "d72e85c5ee0661855619d17d2fbeaf110df34618",
+    "recoveryPr955": {
+      "state": "MERGED",
+      "head": "95d7e2a16eb2446b57d4294a721cdb1a13301d62",
+      "mergeCommit": "107341d0baddc39837290f1f62b4eb9ea1c3dbe0"
+    }
+  },
+  "externalObservations": [
+    {
+      "id": "godaddy-portfolio-20260920",
+      "provider": "GoDaddy",
+      "surface": "Domain Portfolio",
+      "observedUrl": "https://dcc.godaddy.com/control/portfolio?plid=",
+      "observedState": "1-2 of 2 domains",
+      "domainsVisible": ["uberbond.agency", "uberbond.cloud"],
+      "proves": [
+        "The connected GoDaddy portfolio currently exposes exactly two domains.",
+        "The two canonical roots are visible in the authenticated portfolio surface."
+      ],
+      "doesNotProve": [
+        "It does not prove that thirty additional domains were purchased elsewhere, under another account, or in an unreflected order.",
+        "It does not justify inventing or registering a thirty-domain outreach fleet."
+      ]
+    },
+    {
+      "id": "netcup-vps-lite-1-cart-20260920",
+      "provider": "netcup",
+      "surface": "Public product page and shopping cart",
+      "observedProduct": "VPS Lite 1 G12s iv 6M",
+      "configuration": {
+        "networking": "IPv4 + IPv6 Connectivity",
+        "vCores": 2,
+        "ramGb": 4,
+        "storageGb": 80
+      },
+      "pricing": {
+        "displayedMonthly": "€4.10",
+        "displayedVat": "0%",
+        "setupFee": "€0.00",
+        "billingPeriod": "every 6 months",
+        "minimumContractPeriod": "at least 6 months"
+      },
+      "cartState": "ADDED_TO_CART_NOT_PURCHASED",
+      "proves": [
+        "The desired public-IPv4 configuration is selectable and is currently in the cart.",
+        "The current checkout representation is a six-month billing/contract commitment, not €4.88 for one month."
+      ],
+      "doesNotProve": [
+        "It does not prove an account exists, payment was authorized, a server was provisioned, or SMTP/PTR access will be granted."
+      ]
+    },
+    {
+      "id": "netcup-ccp-login-20260920",
+      "provider": "netcup",
+      "surface": "Customer Control Panel",
+      "state": "OWNER_AUTHENTICATION_REQUIRED",
+      "visibleFields": ["Customer number", "Password"],
+      "browserAuthOutcome": "user_took_over; login state remains unverified",
+      "proves": ["The order cannot proceed to address/order confirmation without Netcup account authentication or registration."],
+      "doesNotProve": ["It does not prove login failure or success; the visible page remains the login form."]
+    }
+  ],
+  "repositoryDoctorObservations": {
+    "readiness": "33 capabilities; 0 capped for want of external evidence",
+    "freeFirstOutreach": "FREE_FIRST_ROUTER_PLAN_ONLY__NO_ACTIVATED_PROVIDER; liveUsableCapacity30d=0; coldCapableTransportProven=false",
+    "domainPlan": "owned roots are uberbond.agency and uberbond.cloud; domainsPurchased=0; dnsRecordsChanged=0",
+    "firstCash": "NO_CONTACT_PERMITTED; six launch gates unsatisfied",
+    "payment": "LIVE_CREDENTIAL_MISSING; sandbox/configuration is not live settlement evidence"
+  },
+  "activationState": "BLOCKED_OWNER_AUTHENTICATION_AND_UNRESOLVED_DOMAIN_INVENTORY",
+  "nextOwnerAction": "Authenticate to the already-open Netcup Customer Control Panel without sharing credentials in chat; after a verified return to the order, review the exact six-month total and request explicit purchase approval before any final order submission.",
+  "truthBoundary": "No server purchase, public IPv4, TCP/25, PTR, Stalwart runtime, DNS authentication, sender identity, lawful commercial send, customer reply, live payment, cleared revenue, or thirty-domain ownership is externally proven by this receipt."
+}

@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-canary-v2-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": "founder-moonshot-0001",
+  "parentFailure": "artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json",
+  "truthClass": "PREREGISTERED_GOAL_DIRECTED_CAUSAL_PROGRAM_SYNTHESIS_NOT_RESULT",
+  "hypothesis": "For tree-like deterministic Boolean causal subgraphs, backward goal compilation through gate semantics can synthesize an exact minimum intervention without enumerating intervention assignments; unsupported/shared structures must fall back to the exact V1 relevance-pruned search.",
+  "frozenMechanism": {
+    "directOperators": [
+      "INPUT",
+      "CONST0",
+      "CONST1",
+      "COPY",
+      "NOT",
+      "AND",
+      "OR",
+      "XOR"
+    ],
+    "directEligibility": "single-target relevant subgraph with no shared upstream node used by multiple relevant children",
+    "fallback": "V1_CAUSAL_RELEVANCE_PRUNED_EXACT_SEARCH",
+    "verification": "Every directly synthesized plan must be forward-simulated once before acceptance.",
+    "optimization": "minimum intervention cardinality; lexical plan tie-break"
+  },
+  "benchmark": {
+    "reuseV1Families": [
+      "AND",
+      "OR",
+      "XOR",
+      "NESTED_AND_OR",
+      "NESTED_XOR_AND"
+    ],
+    "relevantControlCounts": [
+      2,
+      3,
+      4
+    ],
+    "distractorControlCounts": [
+      4,
+      6,
+      8
+    ],
+    "noDistractorControls": true,
+    "impossibleControl": true,
+    "sharedSubgraphFallbackCasesMinimum": 3,
+    "frozenV1DistractorBaselineMedianFullModelEvaluations": 18
+  },
+  "successCriteria": {
+    "exhaustiveCardinalityAgreement": 1,
+    "satisfiabilityAgreement": 1,
+    "medianDistractorFullModelEvaluationReductionFactorMinimum": 10,
+    "directPlanForwardVerificationRequired": true,
+    "sharedSubgraphFallbackAgreementRequired": true,
+    "impossibleCaseAgreementRequired": true
+  },
+  "workAccounting": {
+    "fullModelEvaluations": "count forward SCM simulations",
+    "symbolicWork": "report backward goal-state expansions and candidate plan merges separately",
+    "law": "Do not equate symbolic work units with full-model evaluations; report both."
+  },
+  "falsifier": [
+    "Any case changes satisfiability or minimum intervention cardinality versus exhaustive search.",
+    "Any direct plan fails forward verification.",
+    "Median distractor full-model evaluation reduction is below 10x.",
+    "Shared-subgraph fallback disagrees with exhaustive search.",
+    "The mechanism is mutated after observing V2 result."
+  ],
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE",
+  "promotionBoundary": "A pass supports a narrow SOFTWARE_DEMONSTRATED candidate for known Boolean SCM intervention compilation only; it does not establish causal discovery or real-world intervention planning."
+}

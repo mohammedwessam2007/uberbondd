@@ -7,7 +7,8 @@
     "currentMainCommit": "d489e8e05f18d12624664e428eeb646d60aa1d2a",
     "refresh": "Live main ref was refreshed before inspection.",
     "recoveryOnly": true,
-    "noRuntimeOrExternalEffects": true
+    "noProductionRuntimeOrExternalEffectsAuthorized": true,
+    "observedAutomation": "Vercel preview automation attempted on PR creation and was quota-blocked; no successful deployment was observed."
   },
   "originalRecoveryAnchor": {
     "mainCommit": "73ee6e2481db2e175de98ccc32a2a3142dfa8b28",
@@ -85,6 +86,7 @@
     "tags": {"total": 0},
     "releases": {"total": 0},
     "actionsRuns": {"currentTotalCount": 11419, "newRunsSinceLiveSeal": 10, "rawLogStatus": "GitHub log blob requests returned BlobNotFound; no log pass is claimed."},
+    "vercelAutomation": {"pr962PreviewAttempt": "quota-blocked", "observedMessage": "Resource is limited - try again in 24 hours (more than 100, code: api-deployments-free-per-day).", "successfulDeploymentObserved": false},
     "trackedWorkflowPaths": {"total": 27, "workflowYamlDefinitions": 16, "workflowRuntimeHelpers": 11}
   },
   "library": {
@@ -136,7 +138,7 @@
     "743 of the prior 836 Library objects remain interface-bound rather than byte-hashed; identities are retained.",
     "Actions run counts are enumerated, but requested raw job log blobs were unavailable.",
     "Persistent owner-controlled compute, live JEV inference, real sensors/data/actions, external outcomes, customer demand, payment, accepted delivery, retention, and longitudinal life outcomes require external reality receipts.",
-    "No claim of capability, authority, deployment, usage, demand, payment, AGI, ASI, intelligence explosion, or singularity is created by this receipt."
+    "No claim of capability, authority, successful deployment, usage, demand, payment, AGI, ASI, intelligence explosion, or singularity is created by this receipt."
   ],
   "noAmputation": true
 }

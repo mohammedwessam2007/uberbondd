@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.live-outreach-activation-observation.v1",
-  "observedAt": "2026-09-20T20:02:18+02:00",
+  "observedAt": "2026-09-20T20:11:21.860Z",
   "repository": {
     "fullName": "mohammedwessam2007/uberbondd",
-    "liveMain": "d72e85c5ee0661855619d17d2fbeaf110df34618",
+    "liveMain": "2458d34331ef6ce4727a06891fee00189d46444e",
     "recoveryPr955": {
       "state": "MERGED",
       "head": "95d7e2a16eb2446b57d4294a721cdb1a13301d62",
@@ -14,17 +14,90 @@
     {
       "id": "godaddy-portfolio-20260920",
       "provider": "GoDaddy",
-      "surface": "Domain Portfolio",
-      "observedUrl": "https://dcc.godaddy.com/control/portfolio?plid=",
-      "observedState": "1-2 of 2 domains",
-      "domainsVisible": ["uberbond.agency", "uberbond.cloud"],
+      "surface": "Authenticated Domain Portfolio",
+      "observedUrl": "https://dcc.godaddy.com/control/portfolio",
+      "observedState": "1-30 of 30 domains",
+      "extraction": "Virtualized table reconciled across visible scroll windows",
+      "totalDomainsObserved": 30,
+      "canonicalRootDomains": [
+        "uberbond.agency",
+        "uberbond.cloud"
+      ],
+      "outreachFleetDomains": [
+        "uberbond.site",
+        "uberbondai.shop",
+        "uberbondapp.site",
+        "uberbondcloud.shop",
+        "uberbondconnect.online",
+        "uberbondcore.space",
+        "uberbondengine.website",
+        "uberbondflow.space",
+        "uberbondforge.space",
+        "uberbondglobal.website",
+        "uberbondgrid.space",
+        "uberbondgroup.site",
+        "uberbondgrowth.online",
+        "uberbondhq.site",
+        "uberbondinfo.site",
+        "uberbondlabs.site",
+        "uberbondlaunch.website",
+        "uberbondlink.shop",
+        "uberbondops.website",
+        "uberbondpartners.online",
+        "uberbondpilot.website",
+        "uberbondpro.shop",
+        "uberbondpro.website",
+        "uberbondreach.online",
+        "uberbondsmail.site",
+        "uberbondstack.website",
+        "uberbondworks.site",
+        "uberbondworks.website"
+      ],
+      "allDomainsVisible": [
+        "uberbond.agency",
+        "uberbond.cloud",
+        "uberbond.site",
+        "uberbondai.shop",
+        "uberbondapp.site",
+        "uberbondcloud.shop",
+        "uberbondconnect.online",
+        "uberbondcore.space",
+        "uberbondengine.website",
+        "uberbondflow.space",
+        "uberbondforge.space",
+        "uberbondglobal.website",
+        "uberbondgrid.space",
+        "uberbondgroup.site",
+        "uberbondgrowth.online",
+        "uberbondhq.site",
+        "uberbondinfo.site",
+        "uberbondlabs.site",
+        "uberbondlaunch.website",
+        "uberbondlink.shop",
+        "uberbondops.website",
+        "uberbondpartners.online",
+        "uberbondpilot.website",
+        "uberbondpro.shop",
+        "uberbondpro.website",
+        "uberbondreach.online",
+        "uberbondsmail.site",
+        "uberbondstack.website",
+        "uberbondworks.site",
+        "uberbondworks.website"
+      ],
+      "ownershipDateObserved": {
+        "canonicalRoots": "2026-08-15",
+        "outreachFleet": "2026-09-20",
+        "purchaseTimestampObserved": null
+      },
       "proves": [
-        "The connected GoDaddy portfolio currently exposes exactly two domains.",
-        "The two canonical roots are visible in the authenticated portfolio surface."
+        "The connected authenticated GoDaddy portfolio currently exposes thirty exact domain names.",
+        "uberbond.agency and uberbond.cloud remain the original canonical UberBond roots.",
+        "Twenty-eight additional exact names are now proven as current GoDaddy portfolio inventory and are classified as the OUTREACH FLEET."
       ],
       "doesNotProve": [
-        "It does not prove that thirty additional domains were purchased elsewhere, under another account, or in an unreflected order.",
-        "It does not justify inventing or registering a thirty-domain outreach fleet."
+        "It does not prove DNS, SPF, DKIM, DMARC, MX, PTR, TLS, mailbox identity, reputation, suppression, legal eligibility, campaign approval, or send authority.",
+        "It does not authorize activating all thirty domains simultaneously or sending at volume."
       ]
     },
     {
@@ -48,7 +121,7 @@
       "cartState": "ADDED_TO_CART_NOT_PURCHASED",
       "proves": [
         "The desired public-IPv4 configuration is selectable and is currently in the cart.",
-        "The current checkout representation is a six-month billing/contract commitment, not €4.88 for one month."
+        "The current checkout representation is a six-month billing/contract commitment, not a one-month purchase."
       ],
       "doesNotProve": [
         "It does not prove an account exists, payment was authorized, a server was provisioned, or SMTP/PTR access will be granted."
@@ -59,20 +132,27 @@
       "provider": "netcup",
       "surface": "Customer Control Panel",
       "state": "OWNER_AUTHENTICATION_REQUIRED",
-      "visibleFields": ["Customer number", "Password"],
+      "visibleFields": [
+        "Customer number",
+        "Password"
+      ],
       "browserAuthOutcome": "user_took_over; login state remains unverified",
-      "proves": ["The order cannot proceed to address/order confirmation without Netcup account authentication or registration."],
-      "doesNotProve": ["It does not prove login failure or success; the visible page remains the login form."]
+      "proves": [
+        "The order cannot proceed to address/order confirmation without Netcup account authentication or registration."
+      ],
+      "doesNotProve": [
+        "It does not prove login failure or success; the visible page remains the login form."
+      ]
     }
   ],
   "repositoryDoctorObservations": {
     "readiness": "33 capabilities; 0 capped for want of external evidence",
     "freeFirstOutreach": "FREE_FIRST_ROUTER_PLAN_ONLY__NO_ACTIVATED_PROVIDER; liveUsableCapacity30d=0; coldCapableTransportProven=false",
-    "domainPlan": "owned roots are uberbond.agency and uberbond.cloud; domainsPurchased=0; dnsRecordsChanged=0",
+    "domainPlan": "canonical roots remain uberbond.agency and uberbond.cloud; separate fleet registry reports 28 observed outreach domains; dnsRecordsChanged=0",
     "firstCash": "NO_CONTACT_PERMITTED; six launch gates unsatisfied",
     "payment": "LIVE_CREDENTIAL_MISSING; sandbox/configuration is not live settlement evidence"
   },
-  "activationState": "BLOCKED_OWNER_AUTHENTICATION_AND_UNRESOLVED_DOMAIN_INVENTORY",
+  "activationState": "BLOCKED_OWNER_AUTHENTICATION_AND_RUNTIME_SETUP",
   "nextOwnerAction": "Authenticate to the already-open Netcup Customer Control Panel without sharing credentials in chat; after a verified return to the order, review the exact six-month total and request explicit purchase approval before any final order submission.",
-  "truthBoundary": "No server purchase, public IPv4, TCP/25, PTR, Stalwart runtime, DNS authentication, sender identity, lawful commercial send, customer reply, live payment, cleared revenue, or thirty-domain ownership is externally proven by this receipt."
+  "truthBoundary": "Thirty-domain ownership is now externally proven by the authenticated GoDaddy portfolio observation. No server purchase, public IPv4, TCP/25, PTR, Stalwart runtime, DNS authentication, sender identity, lawful commercial send, customer reply, live payment, or cleared revenue is proven by this receipt."
 }

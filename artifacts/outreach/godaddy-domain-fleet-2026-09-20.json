@@ -1,0 +1,1084 @@
+{
+  "schema": "uberbond.outreach-domain-fleet.v1",
+  "observedAt": "2026-09-20T20:11:21.860Z",
+  "source": {
+    "registrar": "GoDaddy",
+    "surface": "Authenticated Domain Portfolio",
+    "observedUrl": "https://dcc.godaddy.com/control/portfolio",
+    "portfolioCountLabel": "1-30 of 30 domains",
+    "extraction": "Virtualized table reconciled across visible scroll windows",
+    "ownershipDateObservation": "The two canonical roots display 2026-08-15; the 28 additional fleet domains display 2026-09-20.",
+    "purchaseTimestampObserved": null
+  },
+  "totals": {
+    "physicalDomainsObserved": 30,
+    "canonicalRootDomains": 2,
+    "outreachFleetDomains": 28,
+    "configuredDomains": 0,
+    "authVerifiedDomains": 0,
+    "campaignEligibleDomains": 0
+  },
+  "canonicalRoots": [
+    "uberbond.agency",
+    "uberbond.cloud"
+  ],
+  "outreachFleetDomains": [
+    "uberbond.site",
+    "uberbondai.shop",
+    "uberbondapp.site",
+    "uberbondcloud.shop",
+    "uberbondconnect.online",
+    "uberbondcore.space",
+    "uberbondengine.website",
+    "uberbondflow.space",
+    "uberbondforge.space",
+    "uberbondglobal.website",
+    "uberbondgrid.space",
+    "uberbondgroup.site",
+    "uberbondgrowth.online",
+    "uberbondhq.site",
+    "uberbondinfo.site",
+    "uberbondlabs.site",
+    "uberbondlaunch.website",
+    "uberbondlink.shop",
+    "uberbondops.website",
+    "uberbondpartners.online",
+    "uberbondpilot.website",
+    "uberbondpro.shop",
+    "uberbondpro.website",
+    "uberbondreach.online",
+    "uberbondsmail.site",
+    "uberbondstack.website",
+    "uberbondworks.site",
+    "uberbondworks.website"
+  ],
+  "domains": [
+    {
+      "domain": "uberbond.agency",
+      "registrar": "GoDaddy",
+      "classification": "CANONICAL_UBERBOND_ROOT",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-08-15",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "CANONICAL_INFRASTRUCTURE_AND_ORIGINAL_OUTREACH_ROOT",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbond.cloud",
+      "registrar": "GoDaddy",
+      "classification": "CANONICAL_UBERBOND_ROOT",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-08-15",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "CANONICAL_INFRASTRUCTURE_AND_ORIGINAL_OUTREACH_ROOT",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbond.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondai.shop",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondapp.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondcloud.shop",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondconnect.online",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondcore.space",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondengine.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondflow.space",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondforge.space",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondglobal.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondgrid.space",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondgroup.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondgrowth.online",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondhq.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondinfo.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondlabs.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondlaunch.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondlink.shop",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondops.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondpartners.online",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondpilot.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondpro.shop",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondpro.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondreach.online",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondsmail.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondstack.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondworks.site",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    },
+    {
+      "domain": "uberbondworks.website",
+      "registrar": "GoDaddy",
+      "classification": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "ownershipEvidence": {
+        "status": "VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION",
+        "observedAt": "2026-09-20T20:11:21.860Z",
+        "ownershipDateObserved": "2026-09-20",
+        "purchaseTimestampObserved": null,
+        "source": "https://dcc.godaddy.com/control/portfolio",
+        "evidencePointer": "godaddy-portfolio-20260920"
+      },
+      "intendedPurpose": "OUTREACH_FLEET_SENDER_DOMAIN",
+      "assignedMailCell": null,
+      "senderIdentityAllocation": {
+        "plannedPersistentIdentitiesPerDomain": 3,
+        "allocated": 0,
+        "state": "NOT_ALLOCATED"
+      },
+      "dnsState": "UNKNOWN_NOT_CONFIGURED_OR_NOT_VERIFIED",
+      "spfState": "UNKNOWN_NOT_VERIFIED",
+      "dkimState": "UNKNOWN_SELECTOR_AND_KEY_NOT_OBSERVED",
+      "dmarcState": "UNKNOWN_NOT_VERIFIED",
+      "mxState": "UNKNOWN_NOT_VERIFIED",
+      "ptrDependency": "DEPENDENT_ON_MAIL_HOST_EVIDENCE",
+      "tlsState": "UNKNOWN_NOT_VERIFIED",
+      "reputationState": "UNKNOWN_NO_SENDING_EVIDENCE",
+      "campaignEligibility": "BLOCKED_UNTIL_DNS_MAILBOX_REPUTATION_LEGAL_AND_OWNER_GATES",
+      "promotionState": "UNCONFIGURED",
+      "pauseRevocationState": "NOT_ACTIVATED",
+      "evidencePointers": [
+        "godaddy-portfolio-20260920"
+      ]
+    }
+  ],
+  "safety": {
+    "canonicalRootsRemainSeparate": true,
+    "fleetMembershipDoesNotGrantDnsMailboxReputationOrSendAuthority": true,
+    "unknownDkimSelectorsRemainUnknown": true,
+    "noDomainWasInvented": true
+  },
+  "truthBoundary": "This receipt proves current visibility of these 30 domains in the authenticated GoDaddy portfolio. It does not prove DNS, SPF, DKIM, DMARC, MX, PTR, TLS, mailbox identity, sender reputation, legal eligibility, suppression readiness, campaign approval, or send authority."
+}

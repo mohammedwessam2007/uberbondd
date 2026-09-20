@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "uberbond.v5-ontogenesis-receipt.v1",
+  "date": "2026-09-20",
+  "inputEvidence": [
+    "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json",
+    "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ADVERSARIAL_REVIEW_20260920.json"
+  ],
+  "engine": "src/genesis-ontology.mjs#buildOntogenesisCycle",
+  "executionStatus": "ONTOGENESIS_CYCLE_READY",
+  "engineBoundary": "ONTOGENESIS_CREATES_CANDIDATE_VOCABULARY_AND_RESEARCH_STRUCTURE_NOT_NEW_EXTERNAL_FACTS",
+  "promotionAuthority": "NONE",
+  "observedContradiction": "The frozen one-bit divisor grammar exactly solves distinct-prime parity but fails squarefree and Möbius-positive external targets.",
+  "preciseMechanismHypothesis": {
+    "id": "multiplicity-sensitive-structural-memory",
+    "name": "Multiplicity-Sensitive Structural Memory",
+    "status": "CANDIDATE_NOT_PROMOTED",
+    "definition": "A structural sweep retains an independent accumulator plus a generic bit indicating that the same structural event repeated within the current local unit, allowing the program to preserve multiplicity information without target-specific concepts.",
+    "antiLeakage": "No SQUAREFREE, MOBIUS, OMEGA, or target-specific output primitive is admitted."
+  },
+  "nextRule": "TEST_THE_MINIMUM_GENERIC_MEMORY_EXTENSION_UNDER_A_NEW_PREREGISTRATION_BEFORE_ANY_CANONICAL_PROMOTION"
+}

@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 1,
+  "ordinalStart": 1,
+  "ordinalEnd": 89,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 1,
+      "literalTitle": "THE CAUSAL COMPILER",
+      "hypotheticalIq": "10³⁴",
+      "literalBodyMarkdown": "Instead of programming machines, program **cause-and-effect chains**. Give it an end state and it discovers the minimum chain of interventions that would make that state emerge across physical, biological, economic, and computational systems. Programming graduates from `instructions → output` to **`desired reality → causal architecture → reality`**.",
+      "sourceLineStart": 2,
+      "sourceLineEnd": 5,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 2,
+      "literalTitle": "THE NEW CONSTANT HUNTER",
+      "hypotheticalIq": "3 × 10³⁴",
+      "literalBodyMarkdown": "Search huge bodies of observation for quantities that appear invariant but have never been recognized as fundamental. Discovering a genuinely new conservation law, scaling relation, or invariant could open an entire science the way conservation of energy did.",
+      "sourceLineStart": 6,
+      "sourceLineEnd": 9,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 3,
+      "literalTitle": "THE MECHANISM TELESCOPE",
+      "hypotheticalIq": "10³⁵",
+      "literalBodyMarkdown": "Current science sees phenomena and tries to infer mechanisms. This system decomposes every observed process into universal mechanism fragments and searches for the hidden machinery connecting them. Eventually humanity might possess a **periodic table of mechanisms**.",
+      "sourceLineStart": 10,
+      "sourceLineEnd": 13,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 4,
+      "literalTitle": "THE COUNTERFACTUAL MICROSCOPE",
+      "hypotheticalIq": "3 × 10³⁵",
+      "literalBodyMarkdown": "A microscope reveals what exists at smaller scales. This reveals what **would have existed under minimally different histories**. For every event it maps the nearby alternate causal universes, allowing science to investigate causation almost as concretely as structure.",
+      "sourceLineStart": 14,
+      "sourceLineEnd": 17,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 5,
+      "literalTitle": "THE THEORY BREEDER",
+      "hypotheticalIq": "10³⁶",
+      "literalBodyMarkdown": "Scientific theories become evolving organisms. They reproduce, mutate assumptions, exchange mathematical structures, face adversarial experiments, and die when predictions fail. Science becomes an **evolutionary ecosystem of explanations** rather than a sequence of papers.",
+      "sourceLineStart": 18,
+      "sourceLineEnd": 21,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 6,
+      "literalTitle": "THE AXIOM MUTATOR",
+      "hypotheticalIq": "3 × 10³⁶",
+      "literalBodyMarkdown": "Instead of finding theorems from fixed axioms, mutate the axioms themselves. Search mathematical universes for systems whose structure unexpectedly maps onto reality. This could discover mathematics that no human would have considered worth inventing.",
+      "sourceLineStart": 22,
+      "sourceLineEnd": 25,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 7,
+      "literalTitle": "THE MATHEMATICAL PARTICLE ACCELERATOR",
+      "hypotheticalIq": "10³⁷",
+      "literalBodyMarkdown": "Smash distant mathematical structures together and examine what survives the collision. Category theory × topology × probability × dynamical systems × unknown generated formal systems. Most combinations die. A few might produce entirely new mathematical matter.",
+      "sourceLineStart": 26,
+      "sourceLineEnd": 29,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 8,
+      "literalTitle": "THE REPRESENTATION SINGULARITY",
+      "hypotheticalIq": "3 × 10³⁷",
+      "literalBodyMarkdown": "Many hard problems are hard because we encode them badly. This system searches representations themselves until impossible-looking problems become trivial. Instead of faster algorithms, you get **new ways reality can be represented**.",
+      "sourceLineStart": 30,
+      "sourceLineEnd": 33,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 9,
+      "literalTitle": "THE DIMENSION INVENTOR",
+      "hypotheticalIq": "10³⁸",
+      "literalBodyMarkdown": "Search for useful abstract dimensions that humans have not conceived. Not spatial dimensions necessarily, but measurable axes along which systems become simple. A hidden dimension might unify diseases, markets, minds, or materials that currently look unrelated.",
+      "sourceLineStart": 34,
+      "sourceLineEnd": 37,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 10,
+      "literalTitle": "THE QUESTION GENERATOR",
+      "hypotheticalIq": "3 × 10³⁸",
+      "literalBodyMarkdown": "Civilization has enormous machinery for answering questions but almost none for systematically discovering **the questions whose answers would reorganize civilization**. This engine optimizes question selection itself. One extraordinary question could be worth more than a million competent answers.",
+      "sourceLineStart": 38,
+      "sourceLineEnd": 41,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 11,
+      "literalTitle": "THE EXPERIMENT GENERATOR",
+      "hypotheticalIq": "10³⁹",
+      "literalBodyMarkdown": "Instead of humans designing experiments, continuously generate the experiment that maximally separates competing models of reality. Science becomes an automated dialogue where every experiment is selected for maximum epistemic destruction.",
+      "sourceLineStart": 42,
+      "sourceLineEnd": 45,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 12,
+      "literalTitle": "THE INSTRUMENT INVENTOR",
+      "hypotheticalIq": "3 × 10³⁹",
+      "literalBodyMarkdown": "Entire sciences often appear after a new instrument: telescope, microscope, particle accelerator, sequencer. This engine asks what phenomena humanity cannot discover because **the necessary instrument does not yet exist**, then invents that instrument first.",
+      "sourceLineStart": 46,
+      "sourceLineEnd": 49,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 13,
+      "literalTitle": "THE OBSERVABILITY ENGINE",
+      "hypotheticalIq": "10⁴⁰",
+      "literalBodyMarkdown": "Some phenomena may remain mysterious simply because the variables that matter cannot be observed. This system searches for ways to convert hidden state into measurable state. Its product is not knowledge, but **making previously unknowable things knowable**.",
+      "sourceLineStart": 50,
+      "sourceLineEnd": 53,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 14,
+      "literalTitle": "THE MEASUREMENT COMPILER",
+      "hypotheticalIq": "3 × 10⁴⁰",
+      "literalBodyMarkdown": "Give it a concept such as consciousness, organizational resilience, cellular aging, or scientific creativity. It attempts to construct valid operational measurements from first principles rather than relying on crude proxies. Whole domains could become scientific once their central quantities become measurable.",
+      "sourceLineStart": 54,
+      "sourceLineEnd": 57,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 15,
+      "literalTitle": "THE UNCERTAINTY ENGINE",
+      "hypotheticalIq": "10⁴¹",
+      "literalBodyMarkdown": "Instead of merely estimating uncertainty, treat uncertainty itself as a resource map. It finds where one bit of new information would unlock the largest cascade of decisions. Civilization starts spending experiments where ignorance is most expensive.",
+      "sourceLineStart": 58,
+      "sourceLineEnd": 61,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 16,
+      "literalTitle": "THE ANOMALY CIVILIZATION",
+      "hypotheticalIq": "3 × 10⁴¹",
+      "literalBodyMarkdown": "Build an entire scientific institution around anomalies rather than established disciplines. Every unexplained residual, failed replication, strange outlier, contradictory experiment, and “impossible” measurement becomes a first-class research target. Revolutions often begin in the leftovers.",
+      "sourceLineStart": 62,
+      "sourceLineEnd": 65,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 17,
+      "literalTitle": "THE FAILURE MINE",
+      "hypotheticalIq": "10⁴²",
+      "literalBodyMarkdown": "Humanity throws away astonishing quantities of failed research. This system treats failure as structured information and searches billions of unsuccessful attempts for hidden regularities. The graveyard of ideas becomes a new scientific dataset.",
+      "sourceLineStart": 66,
+      "sourceLineEnd": 69,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 18,
+      "literalTitle": "THE NEGATIVE KNOWLEDGE GRAPH",
+      "hypotheticalIq": "3 × 10⁴²",
+      "literalBodyMarkdown": "Record not merely what works, but precisely **what cannot work under which assumptions and why**. Over centuries this could stop civilization from repeatedly rediscovering the same dead ends and reveal the boundaries surrounding unexplored territory.",
+      "sourceLineStart": 70,
+      "sourceLineEnd": 73,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 19,
+      "literalTitle": "THE IMPOSSIBILITY CLASSIFIER",
+      "hypotheticalIq": "10⁴³",
+      "literalBodyMarkdown": "Every “impossible” goal is decomposed into: forbidden by physics, forbidden by mathematics, limited by engineering, limited by cost, limited by knowledge, limited by coordination, or merely never tried. Humanity gains a map separating **true impossibility from temporary ignorance**.",
+      "sourceLineStart": 74,
+      "sourceLineEnd": 77,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 20,
+      "literalTitle": "THE BARRIER DESTROYER",
+      "hypotheticalIq": "3 × 10⁴³",
+      "literalBodyMarkdown": "Instead of attacking goals directly, identify the smallest bottleneck whose removal unlocks thousands of downstream technologies. The steam engine attacked mechanical power. Transistors attacked switching. This engine hunts the next civilization-scale bottleneck.",
+      "sourceLineStart": 78,
+      "sourceLineEnd": 81,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 21,
+      "literalTitle": "THE ADJACENT-POSSIBLE RADAR",
+      "hypotheticalIq": "10⁴⁴",
+      "literalBodyMarkdown": "Continuously map everything that has become newly feasible because of the latest discoveries. A paper published this morning might make an invention possible that was impossible yesterday. UberBond notices immediately.",
+      "sourceLineStart": 82,
+      "sourceLineEnd": 85,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 22,
+      "literalTitle": "THE POSSIBILITY SUPPLY CHAIN",
+      "hypotheticalIq": "3 × 10⁴⁴",
+      "literalBodyMarkdown": "Technologies depend on hidden chains of precursor discoveries. Model possibility as a dependency graph, then deliberately manufacture missing precursors. Civilization stops waiting randomly for the right sequence of inventions.",
+      "sourceLineStart": 86,
+      "sourceLineEnd": 89,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 23,
+      "literalTitle": "THE DISCOVERY ROUTER",
+      "hypotheticalIq": "10⁴⁵",
+      "literalBodyMarkdown": "When a problem appears, determine whether the missing breakthrough lies in mathematics, physics, instrumentation, computation, manufacturing, incentives, regulation, biology, or some unnamed domain. Route discovery effort to the layer where the real bottleneck lives.",
+      "sourceLineStart": 90,
+      "sourceLineEnd": 93,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 24,
+      "literalTitle": "THE TECHNOLOGY COMPILER",
+      "hypotheticalIq": "3 × 10⁴⁵",
+      "literalBodyMarkdown": "Input: a proven physical principle. Output: the complete stack required to turn it into civilization-scale infrastructure. Science → engineering → manufacturing → economics → standards → distribution → maintenance.",
+      "sourceLineStart": 94,
+      "sourceLineEnd": 97,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 25,
+      "literalTitle": "THE SCIENCE COMPILER",
+      "hypotheticalIq": "10⁴⁶",
+      "literalBodyMarkdown": "Input: an unexplained phenomenon. Output: candidate mathematics, experiments, instrumentation, terminology, datasets, benchmarks, falsification tests, and engineering applications. It attempts to turn **mystery into a scientific field**.",
+      "sourceLineStart": 98,
+      "sourceLineEnd": 101,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 26,
+      "literalTitle": "THE DISCIPLINE DESTROYER",
+      "hypotheticalIq": "3 × 10⁴⁶",
+      "literalBodyMarkdown": "Academic disciplines are historical partitions, not laws of nature. This system continuously asks whether current boundaries hide deeper unification. Biology, economics, cognition, and computation might share structures we miss because specialists rarely share abstractions.",
+      "sourceLineStart": 102,
+      "sourceLineEnd": 105,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 27,
+      "literalTitle": "THE DISCIPLINE GENERATOR",
+      "hypotheticalIq": "10⁴⁷",
+      "literalBodyMarkdown": "The opposite process. Detect clusters of unexplained phenomena that deserve their own intellectual machinery and spin up entirely new sciences around them.",
+      "sourceLineStart": 106,
+      "sourceLineEnd": 109,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 28,
+      "literalTitle": "THE SEMANTIC PARTICLE PHYSICS OF IDEAS",
+      "hypotheticalIq": "3 × 10⁴⁷",
+      "literalBodyMarkdown": "Search for the smallest meaningful components from which concepts are assembled. If ideas have compositional atoms, then new concepts might be synthesized systematically rather than merely imagined.",
+      "sourceLineStart": 110,
+      "sourceLineEnd": 113,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 29,
+      "literalTitle": "THE LANGUAGE OF EVERYTHING WE CAN BUILD",
+      "hypotheticalIq": "10⁴⁸",
+      "literalBodyMarkdown": "Create a universal descriptive language capable of representing machines, organisms, institutions, algorithms, markets, materials, and hybrid systems within the same formalism. Once everything is describable together, **cross-domain invention becomes native**.",
+      "sourceLineStart": 114,
+      "sourceLineEnd": 117,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 30,
+      "literalTitle": "THE UNIVERSAL DESIGN SPACE",
+      "hypotheticalIq": "3 × 10⁴⁸",
+      "literalBodyMarkdown": "Construct a searchable space containing possible organizations of matter, computation, information, incentives, and intelligence. Engineering becomes navigation through a universal design manifold.",
+      "sourceLineStart": 118,
+      "sourceLineEnd": 121,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 31,
+      "literalTitle": "THE ARTIFICIAL NATURAL SELECTION ENGINE",
+      "hypotheticalIq": "10⁴⁹",
+      "literalBodyMarkdown": "Let designs exist in simulated ecologies instead of benchmark tables. They compete for energy, users, reliability, resources, and survival. Technologies evolve under rich environments rather than isolated optimization targets.",
+      "sourceLineStart": 122,
+      "sourceLineEnd": 125,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 32,
+      "literalTitle": "THE EVOLUTIONARY CROSSOVER OF SCIENCES",
+      "hypotheticalIq": "3 × 10⁴⁹",
+      "literalBodyMarkdown": "Transfer evolutionary “genes” between domains. A mechanism evolved in immune systems might mutate into cybersecurity. A mechanism from ecological succession might become a resilient supply-chain architecture.",
+      "sourceLineStart": 126,
+      "sourceLineEnd": 129,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 33,
+      "literalTitle": "THE OPEN-ENDED MACHINE",
+      "hypotheticalIq": "10⁵⁰",
+      "literalBodyMarkdown": "Most optimization has a target. Open-ended evolution does not. Build a system whose explicit objective is to keep producing **qualitatively new forms of complexity forever**, while preserving safety and external validation.",
+      "sourceLineStart": 130,
+      "sourceLineEnd": 133,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 34,
+      "literalTitle": "THE NOVELTY METRIC",
+      "hypotheticalIq": "3 × 10⁵⁰",
+      "literalBodyMarkdown": "Humanity has no rigorous universal measurement of “this invention created a genuinely new category.” Develop one. Then optimize discovery for **category creation**, not incremental performance.",
+      "sourceLineStart": 134,
+      "sourceLineEnd": 137,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 35,
+      "literalTitle": "THE SURPRISE ENGINE",
+      "hypotheticalIq": "10⁵¹",
+      "literalBodyMarkdown": "Reward outcomes that force the world model to reorganize itself. Instead of minimizing prediction error, deliberately search for experiments likely to create maximally informative surprise.",
+      "sourceLineStart": 138,
+      "sourceLineEnd": 141,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 36,
+      "literalTitle": "THE PARADIGM BREAKER",
+      "hypotheticalIq": "3 × 10⁵¹",
+      "literalBodyMarkdown": "Every mature field accumulates assumptions nobody remembers choosing. Automatically identify assumptions whose removal creates radically larger solution spaces. Scientific revolutions often begin exactly there.",
+      "sourceLineStart": 142,
+      "sourceLineEnd": 145,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 37,
+      "literalTitle": "THE ASSUMPTION LEDGER OF CIVILIZATION",
+      "hypotheticalIq": "10⁵²",
+      "literalBodyMarkdown": "Maintain every major assumption underlying science, economics, engineering, medicine, government, and technology, along with evidence and dependencies. Then continuously ask: **which assumption, if false, changes the most?**",
+      "sourceLineStart": 146,
+      "sourceLineEnd": 149,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 38,
+      "literalTitle": "THE CIVILIZATION RED TEAM",
+      "hypotheticalIq": "3 × 10⁵²",
+      "literalBodyMarkdown": "Attack humanity's current worldview itself. Search for systematic blind spots, fragile dependencies, measurement errors, historical accidents, and false necessities. A red team for civilization's ontology.",
+      "sourceLineStart": 150,
+      "sourceLineEnd": 153,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 39,
+      "literalTitle": "THE ALTERNATIVE-CIVILIZATION SIMULATOR",
+      "hypotheticalIq": "10⁵³",
+      "literalBodyMarkdown": "Simulate civilizations that developed different scientific traditions, economic institutions, mathematical languages, or technological priorities. Search their hypothetical histories for inventions our path caused us to miss.",
+      "sourceLineStart": 154,
+      "sourceLineEnd": 157,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 40,
+      "literalTitle": "THE ALIEN SCIENCE GENERATOR",
+      "hypotheticalIq": "3 × 10⁵³",
+      "literalBodyMarkdown": "Ask what science might look like if discovered by minds with entirely different sensory systems and cognitive architectures. They may carve reality at joints humans cannot perceive.",
+      "sourceLineStart": 158,
+      "sourceLineEnd": 161,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 41,
+      "literalTitle": "THE NONHUMAN MATHEMATICIAN",
+      "hypotheticalIq": "10⁵⁴",
+      "literalBodyMarkdown": "Deliberately create mathematical reasoning architectures with no obligation to be intuitive to humans. Let them develop representations optimized solely for discovering structure. Translation to humans happens afterward.",
+      "sourceLineStart": 162,
+      "sourceLineEnd": 165,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 42,
+      "literalTitle": "THE NONHUMAN ENGINEER",
+      "hypotheticalIq": "3 × 10⁵⁴",
+      "literalBodyMarkdown": "Current engineering is restricted by what people can mentally visualize. Search structures that are manufacturable but almost impossible to conceptualize intuitively, much as generative design already hints at today, but across whole systems.",
+      "sourceLineStart": 166,
+      "sourceLineEnd": 169,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 43,
+      "literalTitle": "THE NONHUMAN SCIENTIFIC METHOD",
+      "hypotheticalIq": "10⁵⁵",
+      "literalBodyMarkdown": "Ask whether hypothesis → experiment → theory is merely one possible discovery architecture. Search for fundamentally different epistemic processes that extract truth more efficiently.",
+      "sourceLineStart": 170,
+      "sourceLineEnd": 173,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 44,
+      "literalTitle": "THE NONHUMAN LOGIC FOUNDRY",
+      "hypotheticalIq": "3 × 10⁵⁵",
+      "literalBodyMarkdown": "Classical, modal, probabilistic, intuitionistic, and quantum logics are only some formal systems. Search for logical calculi optimized for domains humanity hasn't formalized yet.",
+      "sourceLineStart": 174,
+      "sourceLineEnd": 177,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 45,
+      "literalTitle": "THE INTELLIGENCE CHEMISTRY",
+      "hypotheticalIq": "10⁵⁶",
+      "literalBodyMarkdown": "Treat cognitive operations as reactants. Combine memory, abstraction, analogy, proof, imagination, simulation, skepticism, and novel reasoning atoms into new cognitive compounds. Intelligence architecture becomes chemistry.",
+      "sourceLineStart": 178,
+      "sourceLineEnd": 181,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 46,
+      "literalTitle": "THE COGNITIVE MATERIALS SCIENCE",
+      "hypotheticalIq": "3 × 10⁵⁶",
+      "literalBodyMarkdown": "Some cognitive structures could be brittle, elastic, conductive, self-healing, or phase-changing in an informational sense. Develop a materials science for minds.",
+      "sourceLineStart": 182,
+      "sourceLineEnd": 185,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 47,
+      "literalTitle": "THE COGNITIVE METAMATERIAL",
+      "hypotheticalIq": "10⁵⁷",
+      "literalBodyMarkdown": "Physical metamaterials gain properties their components don't individually possess. Construct cognitive assemblies whose emergent reasoning abilities do not exist in any constituent model.",
+      "sourceLineStart": 186,
+      "sourceLineEnd": 189,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 48,
+      "literalTitle": "THE THOUGHT LASER",
+      "hypotheticalIq": "3 × 10⁵⁷",
+      "literalBodyMarkdown": "Lasers turn incoherent photons into coherent light. This would turn thousands of partially aligned reasoning processes into a tightly coherent intellectual beam capable of attacking one problem without collapsing into groupthink.",
+      "sourceLineStart": 190,
+      "sourceLineEnd": 193,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 49,
+      "literalTitle": "THE THOUGHT INTERFEROMETER",
+      "hypotheticalIq": "10⁵⁸",
+      "literalBodyMarkdown": "Run radically independent reasoning systems and examine their disagreement patterns rather than averaging outputs. The interference pattern reveals hidden assumptions, just as physical interferometers expose otherwise invisible structure.",
+      "sourceLineStart": 194,
+      "sourceLineEnd": 197,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 50,
+      "literalTitle": "THE INTELLIGENCE PARTICLE ACCELERATOR",
+      "hypotheticalIq": "3 × 10⁵⁸",
+      "literalBodyMarkdown": "Smash incompatible world models together at extreme conceptual energy. Search specifically for intellectual fragments produced by the collision that neither framework could generate alone.",
+      "sourceLineStart": 198,
+      "sourceLineEnd": 201,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 51,
+      "literalTitle": "THE MIND COMPILER",
+      "hypotheticalIq": "10⁵⁹",
+      "literalBodyMarkdown": "Input a cognitive capability specification such as “invent mathematics useful for unknown physics.” Compile the required memory systems, reasoning primitives, tools, agents, training environments, critics, and experimental loops.",
+      "sourceLineStart": 202,
+      "sourceLineEnd": 205,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 52,
+      "literalTitle": "THE PURPOSE-BUILT INTELLIGENCE GENERATOR",
+      "hypotheticalIq": "3 × 10⁵⁹",
+      "literalBodyMarkdown": "Stop using one general model for everything. Generate temporary intelligences architected specifically around one scientific problem, then dissolve them after harvesting the result.",
+      "sourceLineStart": 206,
+      "sourceLineEnd": 209,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 53,
+      "literalTitle": "THE EPHEMERAL GENIUS FACTORY",
+      "hypotheticalIq": "10⁶⁰",
+      "literalBodyMarkdown": "Create millions of narrowly superhuman, short-lived cognitive organisms. Each exists only long enough to explore one strange region of possibility space. Evolution retains the useful discoveries, not the agent.",
+      "sourceLineStart": 210,
+      "sourceLineEnd": 213,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 54,
+      "literalTitle": "THE IDEA IMMUNE SYSTEM",
+      "hypotheticalIq": "3 × 10⁶⁰",
+      "literalBodyMarkdown": "Revolutionary systems need protection against seductive nonsense. Every major idea faces adversarial falsification, alternative explanations, independent replication, economic reality, and physical constraints before receiving resources.",
+      "sourceLineStart": 214,
+      "sourceLineEnd": 217,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 55,
+      "literalTitle": "THE TRUTH MARKET",
+      "hypotheticalIq": "10⁶¹",
+      "literalBodyMarkdown": "Hypotheses compete for scarce experimental resources based on evidence, predictive performance, novelty, and information value. Scientific attention itself becomes dynamically allocated.",
+      "sourceLineStart": 218,
+      "sourceLineEnd": 221,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 56,
+      "literalTitle": "THE HYPOTHESIS ECONOMY",
+      "hypotheticalIq": "3 × 10⁶¹",
+      "literalBodyMarkdown": "Hypotheses earn computational capital when they make correct predictions and lose it when falsified. Entire research programs become self-correcting economic organisms.",
+      "sourceLineStart": 222,
+      "sourceLineEnd": 225,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 57,
+      "literalTitle": "THE PROOF ECONOMY",
+      "hypotheticalIq": "10⁶²",
+      "literalBodyMarkdown": "Verified facts, reproducible experiments, mathematical proofs, and reliable datasets become machine-addressable productive assets. Civilization gains an economy where **epistemic reliability carries direct value**.",
+      "sourceLineStart": 226,
+      "sourceLineEnd": 229,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 58,
+      "literalTitle": "THE ERROR ECONOMY",
+      "hypotheticalIq": "3 × 10⁶²",
+      "literalBodyMarkdown": "Reward people and systems for finding important errors before those errors become expensive. Error discovery becomes economically valuable rather than socially embarrassing.",
+      "sourceLineStart": 230,
+      "sourceLineEnd": 233,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 59,
+      "literalTitle": "THE PREDICTION ACCOUNTING SYSTEM",
+      "hypotheticalIq": "10⁶³",
+      "literalBodyMarkdown": "Every consequential belief gets a timestamped prediction and later reconciliation against reality. Individuals, models, institutions, and scientific theories acquire calibration ledgers.",
+      "sourceLineStart": 234,
+      "sourceLineEnd": 237,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 60,
+      "literalTitle": "THE CIVILIZATIONAL MEMORY",
+      "hypotheticalIq": "3 × 10⁶³",
+      "literalBodyMarkdown": "Humanity forgets enormous amounts. Build a loss-resistant memory organism that preserves decisions, reasons, failures, provenance, contradictions, and obsolete theories without drowning future users in noise.",
+      "sourceLineStart": 238,
+      "sourceLineEnd": 241,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 61,
+      "literalTitle": "THE CIVILIZATION GIT",
+      "hypotheticalIq": "10⁶⁴",
+      "literalBodyMarkdown": "Imagine version control for institutions, scientific paradigms, laws, standards, infrastructure, and cultural systems. Branch civilization-level policies, simulate them, compare outcomes, merge useful changes, revert catastrophic ones.",
+      "sourceLineStart": 242,
+      "sourceLineEnd": 245,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 62,
+      "literalTitle": "THE CIVILIZATION DEBUGGER",
+      "hypotheticalIq": "3 × 10⁶⁴",
+      "literalBodyMarkdown": "Treat persistent social failures as bugs in mechanisms rather than simply bad actors. Trace incentive paths, feedback loops, hidden dependencies, and emergent failure modes until the structural bug becomes visible.",
+      "sourceLineStart": 246,
+      "sourceLineEnd": 249,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 63,
+      "literalTitle": "THE INSTITUTION COMPILER",
+      "hypotheticalIq": "10⁶⁵",
+      "literalBodyMarkdown": "Input: desired societal behavior. Output: incentives, governance, verification, rights, markets, feedback systems, enforcement mechanisms, and failure recovery needed to make that behavior stable.",
+      "sourceLineStart": 250,
+      "sourceLineEnd": 253,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 64,
+      "literalTitle": "THE SELF-REPAIRING INSTITUTION",
+      "hypotheticalIq": "3 × 10⁶⁵",
+      "literalBodyMarkdown": "Institutions normally degrade. Build governance structures that detect corruption, inefficiency, mission drift, capture, and obsolete rules and can safely repair themselves while preserving human authority.",
+      "sourceLineStart": 254,
+      "sourceLineEnd": 257,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 65,
+      "literalTitle": "THE CONSTITUTION EVOLUTION ENGINE",
+      "hypotheticalIq": "10⁶⁶",
+      "literalBodyMarkdown": "Instead of static governance documents, maintain constitutional invariants while allowing subordinate mechanisms to evolve through evidence. Stable values, adaptive machinery.",
+      "sourceLineStart": 258,
+      "sourceLineEnd": 261,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 66,
+      "literalTitle": "THE MECHANISM GENOME",
+      "hypotheticalIq": "3 × 10⁶⁶",
+      "literalBodyMarkdown": "Extract reusable incentive structures from markets, games, institutions, biology, and networks. Recombine them to create entirely new mechanisms for coordination.",
+      "sourceLineStart": 262,
+      "sourceLineEnd": 265,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 67,
+      "literalTitle": "THE TRUST COMPILER",
+      "hypotheticalIq": "10⁶⁷",
+      "literalBodyMarkdown": "Trust is currently social and fuzzy. Compile it into provenance, cryptographic evidence, behavioral history, verified outcomes, rights, accountability, and reversibility. Large-scale cooperation becomes possible among actors who never met.",
+      "sourceLineStart": 266,
+      "sourceLineEnd": 269,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 68,
+      "literalTitle": "THE COORDINATION SUPERCONDUCTOR",
+      "hypotheticalIq": "3 × 10⁶⁷",
+      "literalBodyMarkdown": "Reduce the friction preventing humans, AIs, companies, labs, machines, and capital from forming temporary high-performance organizations around useful goals.",
+      "sourceLineStart": 270,
+      "sourceLineEnd": 273,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 69,
+      "literalTitle": "THE INSTANT INSTITUTION",
+      "hypotheticalIq": "10⁶⁸",
+      "literalBodyMarkdown": "A new problem appears. Within minutes, a temporary institution forms with appropriate experts, machines, funding rules, authority boundaries, metrics, evidence requirements, and dissolution conditions.",
+      "sourceLineStart": 274,
+      "sourceLineEnd": 277,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 70,
+      "literalTitle": "THE FLASH CIVILIZATION",
+      "hypotheticalIq": "3 × 10⁶⁸",
+      "literalBodyMarkdown": "Extend that concept enormously: spin up a temporary miniature civilization around a research challenge, let its agents invent science, markets and institutions internally, harvest discoveries, then shut it down.",
+      "sourceLineStart": 278,
+      "sourceLineEnd": 281,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 71,
+      "literalTitle": "THE BILLION-CIVILIZATION TOURNAMENT",
+      "hypotheticalIq": "10⁶⁹",
+      "literalBodyMarkdown": "Simulate huge families of civilizations with different foundational assumptions. Let them develop technologies independently. Compare what each discovers that our civilization missed.",
+      "sourceLineStart": 282,
+      "sourceLineEnd": 285,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 72,
+      "literalTitle": "THE CULTURAL EVOLUTION COMPILER",
+      "hypotheticalIq": "3 × 10⁶⁹",
+      "literalBodyMarkdown": "Culture itself becomes experimentally understood as a technology for coordinating minds. Discover cultural mechanisms that improve curiosity, truth-seeking, resilience, creativity, or cooperation without coercion.",
+      "sourceLineStart": 286,
+      "sourceLineEnd": 289,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 73,
+      "literalTitle": "THE EDUCATION OPERATING SYSTEM",
+      "hypotheticalIq": "10⁷⁰",
+      "literalBodyMarkdown": "Stop organizing education around courses and degrees. Build an adaptive system whose unit is **capability acquisition**, continuously measuring actual competence and compiling the shortest route to desired human abilities.",
+      "sourceLineStart": 290,
+      "sourceLineEnd": 293,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 74,
+      "literalTitle": "THE HUMAN CAPABILITY COMPILER",
+      "hypotheticalIq": "3 × 10⁷⁰",
+      "literalBodyMarkdown": "Input: “become capable of X.” Output: experiences, teachers, environments, exercises, feedback, tools, cognitive scaffolding, and real-world tests required to produce that capability.",
+      "sourceLineStart": 294,
+      "sourceLineEnd": 297,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 75,
+      "literalTitle": "THE SKILL TELEPORTER",
+      "hypotheticalIq": "10⁷¹",
+      "literalBodyMarkdown": "Not literal instant uploading. Search for representations allowing enormous expert knowledge structures to transfer with radically less training than traditional education.",
+      "sourceLineStart": 298,
+      "sourceLineEnd": 301,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 76,
+      "literalTitle": "THE EXPERIENCE COMPRESSOR",
+      "hypotheticalIq": "3 × 10⁷¹",
+      "literalBodyMarkdown": "Experts gain intuition from thousands of experiences. Find ways to identify the minimal set of experiences producing almost the same internal structure.",
+      "sourceLineStart": 302,
+      "sourceLineEnd": 305,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 77,
+      "literalTitle": "THE WISDOM COMPILER",
+      "hypotheticalIq": "10⁷²",
+      "literalBodyMarkdown": "Knowledge transfer is common. Wisdom transfer is not. Extract decision principles from decades of lived outcomes while preserving context and uncertainty, then build accelerated experiential curricula around them.",
+      "sourceLineStart": 306,
+      "sourceLineEnd": 309,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 78,
+      "literalTitle": "THE CONSEQUENCE SIMULATOR",
+      "hypotheticalIq": "3 × 10⁷²",
+      "literalBodyMarkdown": "Humans learn painfully because consequences arrive late. Simulate long-term consequences of decisions quickly enough that judgment can improve before reality charges tuition.",
+      "sourceLineStart": 310,
+      "sourceLineEnd": 313,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 79,
+      "literalTitle": "THE LIFE LABORATORY",
+      "hypotheticalIq": "10⁷³",
+      "literalBodyMarkdown": "Treat a life as a longitudinal N-of-1 scientific program without reducing the person to metrics. Test environments, routines, skills, careers, places, collaborations, and experiences with explicit causal uncertainty.",
+      "sourceLineStart": 314,
+      "sourceLineEnd": 317,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 80,
+      "literalTitle": "THE IDENTITY COMPILER",
+      "hypotheticalIq": "3 × 10⁷³",
+      "literalBodyMarkdown": "Instead of asking “Who am I?”, ask “What stable patterns of action, environment, capability, relationship, and experience would make identity X emerge?” Identity becomes partially engineerable while preserving choice.",
+      "sourceLineStart": 318,
+      "sourceLineEnd": 321,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 81,
+      "literalTitle": "THE FUTURE-SELF PARLIAMENT",
+      "hypotheticalIq": "10⁷⁴",
+      "literalBodyMarkdown": "Model many plausible future versions of a person and make major decisions answer to all of them. Avoid maximizing the preference of today's self at the expense of every later self.",
+      "sourceLineStart": 322,
+      "sourceLineEnd": 325,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 82,
+      "literalTitle": "THE REGRET MINIMIZER",
+      "hypotheticalIq": "3 × 10⁷⁴",
+      "literalBodyMarkdown": "Search for decisions that preserve the largest number of valuable future branches while cheaply resolving uncertainty. Optimize not for one forecasted life but for **robust optionality**.",
+      "sourceLineStart": 326,
+      "sourceLineEnd": 329,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 83,
+      "literalTitle": "THE POSSIBILITY INSURANCE ENGINE",
+      "hypotheticalIq": "10⁷⁵",
+      "literalBodyMarkdown": "Detect valuable futures that could disappear because of one irreversible decision and construct safeguards that keep them reachable.",
+      "sourceLineStart": 330,
+      "sourceLineEnd": 333,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 84,
+      "literalTitle": "THE SERENDIPITY MACHINE",
+      "hypotheticalIq": "3 × 10⁷⁵",
+      "literalBodyMarkdown": "Chance encounters, books, cities, people, and ideas can transform lives. Model the environmental conditions that increase high-value unexpected encounters without knowing in advance what the encounter will be.",
+      "sourceLineStart": 334,
+      "sourceLineEnd": 337,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 85,
+      "literalTitle": "THE DESTINY SEARCH ENGINE",
+      "hypotheticalIq": "10⁷⁶",
+      "literalBodyMarkdown": "Not mystical destiny. Search the space of plausible lives for combinations of ability, meaning, relationships, contribution, environment, and experience that the present person would never think to search for.",
+      "sourceLineStart": 338,
+      "sourceLineEnd": 341,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 86,
+      "literalTitle": "THE EXPERIENCE GENERATOR",
+      "hypotheticalIq": "3 × 10⁷⁶",
+      "literalBodyMarkdown": "Invent experiences rather than products. New forms of travel, learning, collaboration, performance, social interaction, contemplation, physical challenge, artistic creation, and human connection.",
+      "sourceLineStart": 342,
+      "sourceLineEnd": 345,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 87,
+      "literalTitle": "THE HUMAN POSSIBILITY MAP",
+      "hypotheticalIq": "10⁷⁷",
+      "literalBodyMarkdown": "Map what combinations of human capabilities have ever existed and identify the enormous empty regions between them. Then ask which previously nonexistent combinations are physically achievable.",
+      "sourceLineStart": 346,
+      "sourceLineEnd": 349,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 88,
+      "literalTitle": "THE RENAISSANCE COMPILER",
+      "hypotheticalIq": "3 × 10⁷⁷",
+      "literalBodyMarkdown": "Modern specialization assumes mastery of many fields is impossible. Search for shared conceptual structures and curricula that make extreme multidomain capability economically and cognitively feasible again.",
+      "sourceLineStart": 350,
+      "sourceLineEnd": 353,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 89,
+      "literalTitle": "THE HUMAN METACAPABILITY",
+      "hypotheticalIq": "10⁷⁸",
+      "literalBodyMarkdown": "Instead of teaching individual skills, optimize the ability to **acquire arbitrary new capabilities**. Improve learning itself until human adaptability becomes the central skill.",
+      "sourceLineStart": 354,
+      "sourceLineEnd": 357,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

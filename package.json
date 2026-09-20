@@ -161,7 +161,8 @@
     "moonshots:doctor": "node src/moonshot-reality-doctor.mjs",
     "moonshots:plan": "node scripts/moonshot-reality-plan.mjs",
     "moonshots:ontological-canary": "node scripts/ontological-representation-canary.mjs",
-    "test:moonshots": "node --test tests/moonshot-reality-compiler.test.mjs tests/moonshot-portfolio-compiler.test.mjs tests/moonshot-corpus-compiler.test.mjs tests/moonshot-reality-doctor.test.mjs tests/moonshot-canary-compiler.test.mjs tests/ontological-representation-canary.test.mjs"
+    "test:moonshots": "node --test tests/moonshot-reality-compiler.test.mjs tests/moonshot-portfolio-compiler.test.mjs tests/moonshot-corpus-compiler.test.mjs tests/moonshot-reality-doctor.test.mjs tests/moonshot-canary-compiler.test.mjs tests/ontological-representation-canary.test.mjs tests/ontological-representation-canary-v2.test.mjs",
+    "moonshots:ontological-canary-v2": "node -e \"import('./src/ontological-representation-canary-v2.mjs').then(m=>console.log(JSON.stringify(m.runOntologicalRepresentationCanaryV2(),null,2)))\""
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

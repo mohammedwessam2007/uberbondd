@@ -219,6 +219,16 @@ function extendedGrammar() {
   return programs;
 }
 
+
+export function multiplicitySensitiveMemoryProgramsV6() {
+  return extendedGrammar().map(program => ({
+    id: program.id,
+    descriptionCost: program.descriptionCost,
+    spec: structuredClone(program.spec),
+    evaluate: program.evaluate
+  }));
+}
+
 function selectProgram(split) {
   const programs = extendedGrammar();
   let best = null;

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v2-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": "ontological-computing",
+  "truthClass": "PREREGISTERED_SOFTWARE_REPLICATION_CHALLENGE_NOT_RESULT",
+  "objective": "Test whether a task-agnostic compositional feature grammar can discover useful representations for unseen Boolean/arithmetic concepts rather than merely select exact task-named features.",
+  "frozenSearchGrammar": {
+    "atomicFamilies": [
+      "BIT(b) for b=0..5",
+      "RESIDUE_EQ(k,r) for k=2..7 and r=0..k-1",
+      "POPCOUNT_GE(t) for t=1..5"
+    ],
+    "unary": [
+      "NOT"
+    ],
+    "binary": [
+      "AND",
+      "OR",
+      "XOR"
+    ],
+    "maximumCompositionDepth": 2,
+    "restriction": "No feature may be named after, generated from, or parameterized by a benchmark label function beyond the generic grammar above."
+  },
+  "taskFamilies": [
+    {
+      "id": "XOR_BITS_1_3",
+      "hiddenRule": "BIT(1) XOR BIT(3)",
+      "representableByGrammar": true
+    },
+    {
+      "id": "BIT2_AND_MOD5_EQ1",
+      "hiddenRule": "BIT(2) AND RESIDUE_EQ(5,1)",
+      "representableByGrammar": true
+    },
+    {
+      "id": "NOT_BIT4_OR_MOD7_EQ3",
+      "hiddenRule": "NOT(BIT(4)) OR RESIDUE_EQ(7,3)",
+      "representableByGrammar": true
+    },
+    {
+      "id": "XOR_MOD3_EQ2_BIT0",
+      "hiddenRule": "RESIDUE_EQ(3,2) XOR BIT(0)",
+      "representableByGrammar": true
+    },
+    {
+      "id": "NEGATIVE_HASH_CONTROL",
+      "hiddenRule": "deterministic nonlinear hash-derived label intentionally outside the frozen depth-2 grammar",
+      "representableByGrammar": false
+    }
+  ],
+  "split": {
+    "train": "deterministic interleaved values x=0..255 where x mod 4 in {0,1}",
+    "validation": "x=0..255 where x mod 4 == 2",
+    "heldOutTest": "x=0..255 where x mod 4 == 3",
+    "selectionRule": "Candidate representation is selected using train then validation only. Held-out labels are read only after selection is frozen."
+  },
+  "downstreamLearner": "A single Boolean feature prediction, with optional inversion learned on train only.",
+  "genericBaselines": [
+    "MAJORITY_CLASS",
+    "RAW_THRESHOLD",
+    "ONE_LEVEL_DECISION_STUMP_OVER_GENERIC_ATOMIC_FEATURES",
+    "KNN_ON_RAW_SCALAR_K3"
+  ],
+  "successCriteria": {
+    "representableTasksRequired": 3,
+    "minimumHeldOutAccuracy": 0.9,
+    "minimumImprovementOverBestGenericBaseline": 0.1,
+    "negativeControlRequirement": "NEGATIVE_HASH_CONTROL must not be falsely reported as solved at >=0.90 held-out accuracy."
+  },
+  "falsifier": [
+    "Fewer than three representable tasks satisfy both held-out thresholds.",
+    "The negative control is spuriously reported as solved at >=0.90.",
+    "Held-out labels influence representation selection.",
+    "Search complexity or candidate count is omitted from the receipt."
+  ],
+  "promotionBoundary": "A pass supports only a narrow claim that generic compositional representation search can discover useful task representations in this deterministic synthetic regime. It does not establish autonomous mathematical invention, scientific ontology discovery, or cross-domain general intelligence.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

@@ -12,7 +12,23 @@
       "firstClaim": "A learned or generated representation can make at least one held-out problem family materially easier than strong baseline representations without leakage.",
       "nearestPrecursor": "REPRESENTATION_SEARCH_BENCHMARK",
       "firstProbe": "Construct several fixed problem families, hide held-outs, generate competing representations, and measure verified resource/correctness deltas.",
-      "promotionBlocker": "NO_HELD_OUT_ADVANTAGE_YET"
+      "promotionBlocker": "NO_HELD_OUT_ADVANTAGE_YET",
+      "claimType": "COMPUTATIONAL",
+      "firstFalsifier": "No held-out problem family gains verified correctness/resource efficiency over strong representation baselines after representation-search overhead is counted.",
+      "measurement": "Held-out verified success rate, total compute, representation-search overhead and transfer delta.",
+      "requiredEvidence": [
+        "HELD_OUT_BENCHMARK",
+        "REPRESENTATION_ABLATION",
+        "FULL_RESOURCE_ACCOUNTING"
+      ],
+      "probeEconomics": {
+        "informationGain": 88,
+        "cost": 8,
+        "risk": 2,
+        "irreversibility": 0,
+        "delay": 10,
+        "authorityReady": true
+      }
     },
     {
       "id": "cognitive-periodic-table",
@@ -22,7 +38,23 @@
       "firstClaim": "Reusable reasoning operators can be isolated such that composing them yields predictable transfer gains across more than one task family.",
       "nearestPrecursor": "COGNITIVE_OPERATOR_ABLATION_LAB",
       "firstProbe": "Define a small operator vocabulary and run ablations/compositions under fixed model and token budgets.",
-      "promotionBlocker": "NO_OPERATOR_INDEPENDENCE_OR_TRANSFER_PROOF_YET"
+      "promotionBlocker": "NO_OPERATOR_INDEPENDENCE_OR_TRANSFER_PROOF_YET",
+      "claimType": "COMPUTATIONAL",
+      "firstFalsifier": "No reasoning operator or composition shows reproducible transfer across at least two task families at matched model and token budgets.",
+      "measurement": "Held-out transfer gain, operator ablation delta, token/compute cost and regression rate.",
+      "requiredEvidence": [
+        "OPERATOR_ABLATION",
+        "CROSS_TASK_TRANSFER",
+        "MATCHED_BUDGET_BASELINE"
+      ],
+      "probeEconomics": {
+        "informationGain": 90,
+        "cost": 10,
+        "risk": 2,
+        "irreversibility": 0,
+        "delay": 12,
+        "authorityReady": true
+      }
     },
     {
       "id": "reality-api",
@@ -32,7 +64,23 @@
       "firstClaim": "Two heterogeneous real-world capability providers can expose one stable semantic contract without erasing authority, provenance or result semantics.",
       "nearestPrecursor": "TWO_PROVIDER_CONTRACT_CANARY",
       "firstProbe": "Use non-consequential sandbox providers first and verify identical intent/result contracts and explicit provider-specific limits.",
-      "promotionBlocker": "NO_CROSS_PROVIDER_CONTRACT_EVIDENCE_YET"
+      "promotionBlocker": "NO_CROSS_PROVIDER_CONTRACT_EVIDENCE_YET",
+      "claimType": "INFRASTRUCTURE",
+      "firstFalsifier": "Two heterogeneous sandbox capability providers cannot preserve one declared intent/result contract without hiding provider-specific semantics or widening authority.",
+      "measurement": "Contract conformance, semantic-loss cases, provenance preservation, authority denials and reconciliation behavior.",
+      "requiredEvidence": [
+        "TWO_PROVIDER_CONTRACT_TEST",
+        "AUTHORITY_TEST",
+        "PROVENANCE_TEST"
+      ],
+      "probeEconomics": {
+        "informationGain": 82,
+        "cost": 8,
+        "risk": 3,
+        "irreversibility": 0,
+        "delay": 8,
+        "authorityReady": true
+      }
     },
     {
       "id": "programmable-matter-primitive",
@@ -42,7 +90,23 @@
       "firstClaim": "A bounded physical unit or material architecture can reversibly change at least two useful macroscopic configurations under external control with quantified energy/reliability.",
       "nearestPrecursor": "LITERATURE_AND_SIMULATION_CONSTRAINT_MAP",
       "firstProbe": "Map existing reconfigurable-material mechanisms and identify one measurable gap before any hardware spend.",
-      "promotionBlocker": "PHYSICAL_EXPERIMENT_AND_HARDWARE_NOT_YET_AUTHORIZED_OR_PROVEN"
+      "promotionBlocker": "PHYSICAL_EXPERIMENT_AND_HARDWARE_NOT_YET_AUTHORIZED_OR_PROVEN",
+      "claimType": "PHYSICAL",
+      "firstFalsifier": "Current evidence yields no physically plausible candidate mechanism for reversible useful macroscopic reconfiguration under bounded energy and reliability constraints.",
+      "measurement": "Constraint map over candidate mechanisms, demonstrated state count, energy per transition, reliability and reversibility.",
+      "requiredEvidence": [
+        "LITERATURE_CONSTRAINT_MAP",
+        "PHYSICAL_MEASUREMENT_BEFORE_PROMOTION",
+        "INDEPENDENT_REPLICATION_BEFORE_ENGINEERING"
+      ],
+      "probeEconomics": {
+        "informationGain": 75,
+        "cost": 15,
+        "risk": 10,
+        "irreversibility": 2,
+        "delay": 25,
+        "authorityReady": true
+      }
     },
     {
       "id": "new-sense-factory",
@@ -52,7 +116,24 @@
       "firstClaim": "Humans can learn a stable intuitive mapping from a non-native data stream to decisions that transfers beyond memorized training examples.",
       "nearestPrecursor": "SAFE_NONINVASIVE_SENSORY_SUBSTITUTION_TASK",
       "firstProbe": "Use a noninvasive synthetic signal and compare trained performance, transfer and retention against ordinary visualization.",
-      "promotionBlocker": "NO_PREREGISTERED_HUMAN_EVIDENCE_YET"
+      "promotionBlocker": "NO_PREREGISTERED_HUMAN_EVIDENCE_YET",
+      "claimType": "COGNITIVE",
+      "firstFalsifier": "Training on a non-native signal produces no transfer or delayed-retention advantage over an ordinary visualization/control condition.",
+      "measurement": "Task accuracy, transfer to held-out examples, delayed retention, learning curve and participant-reported usability.",
+      "requiredEvidence": [
+        "PREREGISTERED_HUMAN_TASK",
+        "CONTROL_CONDITION",
+        "TRANSFER_TEST",
+        "DELAYED_RETENTION"
+      ],
+      "probeEconomics": {
+        "informationGain": 78,
+        "cost": 15,
+        "risk": 8,
+        "irreversibility": 1,
+        "delay": 20,
+        "authorityReady": false
+      }
     },
     {
       "id": "trust-compiler",
@@ -62,7 +143,23 @@
       "firstClaim": "A machine-readable bundle of provenance, evidence, authority and accountability can reduce coordination failure in a bounded multi-agent task versus an unstructured baseline.",
       "nearestPrecursor": "SIMULATED_MULTI_AGENT_TRUST_CANARY",
       "firstProbe": "Run adversarial simulations with and without the trust bundle, then measure fraud acceptance, false rejection and completion quality.",
-      "promotionBlocker": "NO_REAL_PARTICIPANT_OUTCOME_EVIDENCE_YET"
+      "promotionBlocker": "NO_REAL_PARTICIPANT_OUTCOME_EVIDENCE_YET",
+      "claimType": "INSTITUTIONAL",
+      "firstFalsifier": "A structured provenance/evidence/authority bundle does not reduce fraud acceptance or coordination failure versus an unstructured baseline in adversarial simulation.",
+      "measurement": "Fraud acceptance, false rejection, completion quality, coordination cost and exploit rate.",
+      "requiredEvidence": [
+        "ADVERSARIAL_SIMULATION",
+        "BASELINE_COMPARISON",
+        "GAMING_ANALYSIS"
+      ],
+      "probeEconomics": {
+        "informationGain": 82,
+        "cost": 8,
+        "risk": 3,
+        "irreversibility": 0,
+        "delay": 10,
+        "authorityReady": true
+      }
     },
     {
       "id": "universal-seed",
@@ -72,7 +169,23 @@
       "firstClaim": "A compact bootstrapping package can recursively expand the set of tools it can produce under a bounded simulated resource environment.",
       "nearestPrecursor": "MINIMUM_INDUSTRIAL_DEPENDENCY_GRAPH",
       "firstProbe": "Model a tiny software/manufacturing toy world and minimize the seed set that can regenerate all target capabilities.",
-      "promotionBlocker": "NO_PHYSICAL_BOOTSTRAP_EVIDENCE"
+      "promotionBlocker": "NO_PHYSICAL_BOOTSTRAP_EVIDENCE",
+      "claimType": "INFRASTRUCTURE",
+      "firstFalsifier": "No bounded toy environment admits a compact seed set that recursively regenerates the declared target capability set under explicit resource constraints.",
+      "measurement": "Seed size, regenerated capability coverage, dependency depth, resource consumption and failure recovery.",
+      "requiredEvidence": [
+        "DEPENDENCY_GRAPH",
+        "TOY_WORLD_BOOTSTRAP",
+        "RESOURCE_ACCOUNTING"
+      ],
+      "probeEconomics": {
+        "informationGain": 85,
+        "cost": 10,
+        "risk": 2,
+        "irreversibility": 0,
+        "delay": 15,
+        "authorityReady": true
+      }
     },
     {
       "id": "possibility-substrate",
@@ -82,8 +195,24 @@
       "firstClaim": "A new substrate should count as possibility-expanding only if it supports a demonstrably new family of composable artifacts rather than one isolated trick.",
       "nearestPrecursor": "HISTORICAL_SUBSTRATE_BRANCHING_BENCHMARK",
       "firstProbe": "Build a retrospective dataset for writing, electricity, digital computation, networking and AI; test metrics that distinguish platforms from isolated inventions.",
-      "promotionBlocker": "DEFINITION_AND_METRIC_NOT_YET_VALIDATED"
+      "promotionBlocker": "DEFINITION_AND_METRIC_NOT_YET_VALIDATED",
+      "claimType": "META_RESEARCH",
+      "firstFalsifier": "The proposed branching metric cannot distinguish historically platform-like substrates from isolated inventions or fails held-out retrospective prediction.",
+      "measurement": "Descendant-category count, cross-domain reuse, persistence, composability and held-out retrospective discrimination.",
+      "requiredEvidence": [
+        "HISTORICAL_DATASET",
+        "HELD_OUT_RETROSPECTIVE_TEST",
+        "METRIC_ABLATION"
+      ],
+      "probeEconomics": {
+        "informationGain": 92,
+        "cost": 12,
+        "risk": 2,
+        "irreversibility": 0,
+        "delay": 15,
+        "authorityReady": true
+      }
     }
   ],
-  "law": "CANARIES_VALIDATE_THE_REALIZATION_MACHINE__THEY_DO_NOT_CERTIFY_THE_GRAND_MOONSHOTS"
+  "law": "CANARIES_ARE_EXECUTABLE_RESEARCH_PACKETS__THEY_VALIDATE_THE_REALIZATION_MACHINE__THEY_DO_NOT_CERTIFY_THE_GRAND_MOONSHOTS"
 }

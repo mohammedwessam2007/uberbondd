@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   admitNoveltyChallenge,
   compareBehavioralSignatures,
+  compareBehavioralEvaluators,
   inspectSplitDegeneracy
 } from '../src/semantic-novelty-preflight.mjs';
 
@@ -64,4 +65,22 @@ test('novelty challenge denies exact equivalents and degenerate splits', () => {
   const result = admitNoveltyChallenge({ semanticPreflight: semantic, splitPreflights: [split] });
   assert.equal(result.admitted, false);
   assert.ok(result.reasonCodes.includes('exact-semantic-equivalent-already-exists'));
+});
+
+
+test('evaluator preflight streams across candidate behavior without materialized matrices', () => {
+  const result = compareBehavioralEvaluators({
+    targetId: 'xor',
+    fixtureId: 'x-0-31',
+    fixtureDescription: '32 integer fixtures',
+    fixtures: Array.from({ length: 32 }, (_, i) => i),
+    targetEvaluator: x => ((x & 1) !== ((x >> 1) & 1)) ? 1 : 0,
+    candidates: [
+      { id: 'xor-existing', evaluate: x => ((x & 1) !== ((x >> 1) & 1)) ? 1 : 0 },
+      { id: 'parity', evaluate: x => x & 1 }
+    ]
+  });
+  assert.equal(result.status, 'SEMANTIC_EQUIVALENT_FOUND');
+  assert.equal(result.candidatesCompared, 2);
+  assert.deepEqual(result.exactEquivalentIds, ['xor-existing']);
 });

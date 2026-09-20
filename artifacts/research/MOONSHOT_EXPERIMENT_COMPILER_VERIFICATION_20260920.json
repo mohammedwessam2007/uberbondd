@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond.moonshot-experiment-compiler-verification.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "pullRequest": 967,
+  "truthClass": "EXECUTED_SOURCE_CAPABILITY__NOT_EXTERNAL_EXPERIMENT_PROOF",
+  "executedChecks": [
+    {
+      "case": "ZERO_EFFECT_SOFTWARE",
+      "result": "MOONSHOT_ZERO_EFFECT_EXPERIMENT_READY",
+      "boundedStatus": "FEASIBLE_EXPERIMENT_COMPILED",
+      "runnable": true,
+      "executionAuthority": "NONE"
+    },
+    {
+      "case": "EXTERNAL_PROVIDER_EFFECT",
+      "result": "MOONSHOT_EXPERIMENT_COMPILED_WITH_AUTHORITY_GATE",
+      "boundedStatus": "FEASIBLE_EXPERIMENT_REQUIRES_EXPLICIT_AUTHORITY",
+      "effectAuthorityGranted": false
+    },
+    {
+      "case": "REPLICATION",
+      "result": "REPLICATION_CONTRACT_READY",
+      "promotionAuthority": "NONE",
+      "minimumReplications": 2
+    }
+  ],
+  "composedDonors": [
+    "src/moonshot-reality-compiler.mjs#chooseMinimumRealityProbe",
+    "src/genesis-experiment-feasibility.mjs#compileFeasibleBoundedExperiment",
+    "src/bounded-experiment-compiler.mjs",
+    "src/intent-compiler.mjs"
+  ],
+  "claimsNotMade": [
+    "NO_EXTERNAL_EXPERIMENT_EXECUTED",
+    "NO_REALITY_OUTCOME_CLAIM",
+    "NO_AUTHORITY_SELF_GRANTED",
+    "NO_ALL_648_ROUTED_MOONSHOTS_ARE_NOW_EXPERIMENT_READY"
+  ]
+}

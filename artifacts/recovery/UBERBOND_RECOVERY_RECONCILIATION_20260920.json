@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "uberbond.recovery-reconciliation.v1",
+  "generatedOn": "2026-09-20",
+  "repository": "mohammedwessam2007/uberbondd",
+  "authority": {
+    "currentSource": "main",
+    "currentMainCommit": "d489e8e05f18d12624664e428eeb646d60aa1d2a",
+    "refresh": "Live main ref was refreshed before inspection.",
+    "recoveryOnly": true,
+    "noProductionRuntimeOrExternalEffectsAuthorized": true,
+    "observedAutomation": "Vercel preview automation attempted on PR creation and was quota-blocked; no successful deployment was observed."
+  },
+  "originalRecoveryAnchor": {
+    "mainCommit": "73ee6e2481db2e175de98ccc32a2a3142dfa8b28",
+    "rootTree": "5dcd1f652f5096c9e4fc5f9c301e15fcfaee9347",
+    "trackedBlobs": 3164,
+    "trackedRepoBytes": 33628337,
+    "srcModules": 849,
+    "semanticRequirements": 1040,
+    "semanticOrphans": 0
+  },
+  "pr955": {
+    "number": 955,
+    "title": "recovery: bind total UberBond corpus, history, and lineage",
+    "state": "closed",
+    "merged": true,
+    "recoveryBranch": "recovery/total-uberbond-corpus-20260920",
+    "head": "95d7e2a16eb2446b57d4294a721cdb1a13301d62",
+    "mergeCommit": "107341d0baddc39837290f1f62b4eb9ea1c3dbe0",
+    "changedFiles": 147,
+    "recoveryArtifactsOnly": true
+  },
+  "currentMain": {
+    "recursiveTreeEntries": 3485,
+    "trackedFiles": 3321,
+    "trackedBytes": 112176201,
+    "srcModules": 849,
+    "tests": 1043,
+    "semanticRequirements": 1040,
+    "semanticOrphans": 0,
+    "sourceDisposition": {
+      "production": 274,
+      "operatorOnly": 406,
+      "noEntryPoint": 169
+    }
+  },
+  "mainHistory": {
+    "currentReachableCommitCount": 4466,
+    "pages": {
+      "pageSize": 100,
+      "fullPages": 44,
+      "terminalShortPage": {
+        "page": 45,
+        "count": 66,
+        "first": "61bd88286acbc962d1d2baa1643e36662b54de0b",
+        "last": "229c2c85c3c28179ce5bc3c4997f87b3ee67911b"
+      },
+      "emptyPage": 46
+    },
+    "requestedPages31to40": [
+      {"page": 31, "count": 100, "first": "ba0e4c1383543e33c9a9892869a3b7d6e22d329c", "last": "5e84cf74f52b75c22982c272d96330bb34104fd9"},
+      {"page": 32, "count": 100, "first": "3cbb6f851ecacad99b6558efe978e9fb17ff8e71", "last": "21c969abd6af17cded51ecfc6f421f35ff960422"},
+      {"page": 33, "count": 100, "first": "0366cbe033de6d05f577fda319b253c389ed82ba", "last": "170c1ebeb5ef8d03a5078ed44e340da211c1820c"},
+      {"page": 34, "count": 100, "first": "4503430dd08bd32d64881e6a3395e6a14753305e", "last": "16da9214e374fea351ea7d0b10983bf4cc120a37"},
+      {"page": 35, "count": 100, "first": "f8d7a3648b7bac363c67e840222106b842656e38", "last": "de04f0a84c659b6a2ae123704fd8b63dc41dd89e"},
+      {"page": 36, "count": 100, "first": "c36f093e8532efbc6f436c6db647718850f0e2c", "last": "635cc067839ad650c3f3fb73023a7218eec8a83d"},
+      {"page": 37, "count": 100, "first": "4289b44bc67cae16c48e286aa4e1f9b0b395bf0e", "last": "5def45b80de7be865f577f55005ac02a9de0e9bc"},
+      {"page": 38, "count": 100, "first": "c7a42d3200f3ceeb8215e8e68426d3d22cdcda0d", "last": "5492c2caca96a8fba78a2ae323f45f4c5c1acb72"},
+      {"page": 39, "count": 100, "first": "8babf08d51c201d688021ebbb3a85edc45382db4", "last": "943fe5b4760185c0ee1d2575e48c50535cbe58aa"},
+      {"page": 40, "count": 100, "first": "47ebe84aaf676f45f393a1323a913a8beb92aeb7", "last": "51d9e775d19364fda501b71759f4f195a13597ae"
+      }
+    ],
+    "terminalCommit": "229c2c85c3c28179ce5bc3c4997f87b3ee67911b",
+    "staleManifestReconciliation": {
+      "oldManifestSourceHead": "73ee6e2481db2e175de98ccc32a2a3142dfa8b28",
+      "oldPage31First": "f9e2dc20",
+      "currentPage31First": "ba0e4c1383543e33c9a9892869a3b7d6e22d329c",
+      "action": "Revalidated pages1to30 after detecting the source-head mismatch; pages31to46 were crawled on current main."
+    }
+  },
+  "controlSurfaces": {
+    "pullRequests": {"total": 785, "open": 1, "merged": 601, "closedUnmerged": 183},
+    "trueIssues": {"total": 177, "open": 45, "closed": 132},
+    "conversationComments": {"total": 1990, "inlineReviewComments": 0},
+    "branches": {"total": 893},
+    "tags": {"total": 0},
+    "releases": {"total": 0},
+    "actionsRuns": {"currentTotalCount": 11432, "newRunsSinceLiveSeal": 23, "rawLogStatus": "GitHub log blob requests returned BlobNotFound; no log pass is claimed."},
+    "vercelAutomation": {"pr962PreviewAttempt": "quota-blocked", "observedMessage": "Resource is limited - try again in 24 hours (more than 100, code: api-deployments-free-per-day).", "successfulDeploymentObserved": false},
+    "trackedWorkflowPaths": {"total": 27, "workflowYamlDefinitions": 16, "workflowRuntimeHelpers": 11}
+  },
+  "library": {
+    "path": "/UberBond",
+    "currentInventory": {"files": 921, "bytes": 3033944705, "paginationExhausted": true},
+    "priorRecoveryInventory": {"files": 836, "bytes": 2625444097, "paginationExhausted": true},
+    "deltaAfterPathNormalization": {"addedFiles": 85, "addedBytes": 408500608, "removedFiles": 0, "changedPriorFiles": 0},
+    "priorRawMaterialization": {
+      "attemptedFiles": 836,
+      "sha256VerifiedFiles": 93,
+      "sha256VerifiedBytes": 44001793,
+      "explicitInterfaceBoundaryFiles": 743,
+      "unattemptedFiles": 0,
+      "silentUnknownFiles": 0
+    },
+    "truth": "Library identities and metadata are current and addressable; 743 prior objects were attempted but the authorized Library interface did not expose raw bytes, so they are not falsely marked hashed."
+  },
+  "historicalLineageRetrieval": [
+    {"family": "OMNIA", "repositoryMatchingFiles": 279, "status": "preserved and searchable", "evidence": ["artifacts/omnia-v9", "tests/omnia-v9-*", "docs"]},
+    {"family": "Prometheus / Cognitive Bus", "repositoryMatchingFiles": 166, "status": "preserved and searchable", "evidence": ["docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md", "docs/PROMETHEUS_DISTRIBUTION_BRAIN.md", "tests/prometheus-*"]},
+    {"family": "Lead OS / outreach / UberMail", "repositoryMatchingFiles": 458, "status": "preserved and searchable", "evidence": ["src/outreach-*", "src/ubermail-*", "artifacts/outreach", "docs"]},
+    {"family": "Personal Civilization / Sovereign Cognitive Continuum", "repositoryMatchingFiles": 106, "status": "preserved and canonicalized", "evidence": ["artifacts/sovereign-cognitive-continuum-*", "src/personal-civilization-*", "docs/NORTH_STAR*"]},
+    {"family": "C0-C26", "repositoryMatchingFiles": 435, "status": "preserved and searchable; individual cut states remain evidence-scoped", "evidence": ["scripts/c21-*", "tests/c13-c21-*", "artifacts/c21-*"]},
+    {"family": "APOTHEOSIS", "repositoryMatchingFiles": 43, "status": "preserved as orchestration/specification and runtime evidence", "evidence": ["artifacts/work/apotheosis-*", "docs/APOTHEOSIS*"]},
+    {"family": "NULLSTAR / Omega", "repositoryMatchingFiles": 305, "status": "preserved with negative and falsification evidence", "evidence": ["artifacts/nullstar-omega-absolute/final-report.json", "artifacts/omega-negative-transfer-receipt-2026-09-15.json", "artifacts/nullstar/directive-reconciliation.json"]},
+    {"family": "Capability Genome", "repositoryMatchingFiles": 239, "status": "foundation healthy; no approved or active world capability", "evidence": ["artifacts/capability-genome/foundation-receipt.json", "artifacts/capability-genome", "scripts/capability-genome-*"]},
+    {"family": "GENESIS / GENESIS2 / Ontogenesis", "repositoryMatchingFiles": 340, "status": "preserved; zero-effect authority boundary remains", "evidence": ["docs/PERPETUAL_FRONTIER_GENESIS_CANON.md", "artifacts/perpetual-frontier-genesis.json", "scripts/genesis-*"]},
+    {"family": "Perpetual Frontier", "repositoryMatchingFiles": 340, "status": "canonical and executable as bounded proposal/evidence machinery", "evidence": ["docs/PERPETUAL_FRONTIER_GENESIS_CANON.md", "artifacts/perpetual-frontier-implementation-ledger.json"]},
+    {"family": "JEV / System-One / Noetic Autocompiler", "repositoryMatchingFiles": 68, "status": "source-ready, live provider and persistent host unproven", "evidence": ["artifacts/jev-noetic-autocompiler/verification-20260919.json", "artifacts/jev-uberlit/verification-20260919.json", "artifacts/cowork-jev-live/verification-20260919.json"]},
+    {"family": "UberOcean / UberCel / UberLit", "repositoryMatchingFiles": 171, "status": "physicalization path preserved; owner-host and provider receipts absent", "evidence": ["artifacts/oracle-free-uberlit/verification-20260919.json", "artifacts/ubercel/deployment-signals.json", "tests/uberocean-compute-fabric.test.mjs"]},
+    {"family": "Donors, failed experiments, superseded designs, unresolved hypotheses", "repositoryMatchingFiles": 319, "status": "preserved; negative evidence is non-destructive", "evidence": ["artifacts/omega-negative-transfer-receipt-2026-09-15.json", "artifacts/nullstar-omega-absolute/final-report.json", "docs/UBERBOND_TOTAL_BRAIN.md"]}
+  ],
+  "negativeAndExternalTruth": {
+    "ASI": "NOT_ESTABLISHED",
+    "intelligenceExplosion": "NOT_ESTABLISHED",
+    "singularity": "NOT_ESTABLISHED",
+    "customers": 0,
+    "clearedRevenue": 0,
+    "acceptedPaidDeliveries": 0,
+    "retention": 0,
+    "businessEffectAuthority": "NONE",
+    "JEVAuthority": "NONE",
+    "OMNIAPromotion": "SHADOW / COMPARE eligible; enforcement and production deployment absent",
+    "C21": "Repository evidence compiled within defined scope; literal system-level ASI not established",
+    "omega": "Generalization did not generalize; meta-improvement not established; instrument changed; no instrument currently separates the system from a constant; negative transfer retained"
+  },
+  "remainingBoundaries": [
+    "Historical ChatGPT transcript raw bytes are not exposed through the current authorized sources.",
+    "743 of the prior 836 Library objects remain interface-bound rather than byte-hashed; identities are retained.",
+    "Actions run counts are enumerated, but requested raw job log blobs were unavailable.",
+    "Persistent owner-controlled compute, live JEV inference, real sensors/data/actions, external outcomes, customer demand, payment, accepted delivery, retention, and longitudinal life outcomes require external reality receipts.",
+    "No claim of capability, authority, successful deployment, usage, demand, payment, AGI, ASI, intelligence explosion, or singularity is created by this receipt."
+  ],
+  "noAmputation": true
+}

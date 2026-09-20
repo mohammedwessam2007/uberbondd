@@ -11,12 +11,21 @@ import {
 const idea = (id, name, extra = {}) => ({
   id,
   literalName: name,
-  claim: `${name} can create a new capability under bounded conditions.`,
-  desiredTransform: `Turn ${name} from a concept into a falsifiable research program.`,
-  substrates: ['software'],
-  assumptions: ['a measurable proxy exists'],
-  constraints: ['truth', 'authority'],
-  falsifiers: ['no measurable advantage over baseline'],
+  thesis: `${name} should be treated as a falsifiable research program.`,
+  domains: ['META_RESEARCH'],
+  claims: [{
+    claimId: 'primary',
+    statement: `${name} can create a measurable new capability under bounded conditions.`,
+    type: 'META_RESEARCH',
+    falsifier: 'No measurable advantage over baseline under a preregistered test.',
+    feasibility: 'INSUFFICIENT_INFORMATION',
+    assumptions: ['A measurable proxy exists.'],
+    requiredEvidence: ['Held-out comparison.'],
+    evidenceRefs: []
+  }],
+  constraints: [],
+  dependencies: [],
+  unknowns: ['Whether the effect transfers.'],
   ...extra
 });
 
@@ -33,6 +42,7 @@ test('literal corpus preserves source identity and ordinal provenance', () => {
   assert.equal(result.compiledCount, 2);
   assert.equal(result.programs[0].literalName, 'THE REALITY API');
   assert.equal(result.programs[0].provenance.ordinal, 1);
+  assert.equal(result.programs[0].realityState, 'IMAGINED');
   assert.match(result.noDropBoundary, /PRESERVES_LITERAL_SOURCE_IDENTITY/);
 });
 
@@ -54,20 +64,17 @@ test('near duplicate detection proposes review only', () => {
     sourceDate: '2026-09-20',
     ideas: [
       idea('a', 'Reality Programming Language', {
-        claim: 'A reality programming language compiles desired outcomes into causal programs.',
-        desiredTransform: 'Compile desired outcomes into causal programs.'
+        thesis: 'Compile desired outcomes into causal programs.'
       }),
       idea('b', 'Reality Language', {
-        claim: 'A reality language compiles desired outcomes into causal programs.',
-        desiredTransform: 'Compile desired outcomes into causal programs.'
+        thesis: 'Compile desired outcomes into causal programs.'
       }),
       idea('c', 'Biological Compiler', {
-        claim: 'A biological compiler maps functions into cellular mechanisms.',
-        desiredTransform: 'Compile biological functions.'
+        thesis: 'Compile biological functions into cellular mechanisms.'
       })
     ]
   });
-  const result = proposeNearDuplicateMoonshots({ programs: corpus.programs, threshold: 0.5 });
+  const result = proposeNearDuplicateMoonshots({ programs: corpus.programs, threshold: 0.45 });
   assert.equal(result.ok, true);
   assert.ok(result.candidatePairs.some(pair => pair.aId === 'a' && pair.bId === 'b'));
   assert.ok(result.candidatePairs.every(pair => pair.decision === 'REVIEW_ONLY__DO_NOT_AUTO_MERGE'));
@@ -76,8 +83,8 @@ test('near duplicate detection proposes review only', () => {
 
 test('shared ancestor frontier prioritizes experimentally reachable common prerequisites', () => {
   const prerequisiteNodes = [
-    { id: 'truth', name: 'Truth substrate', realityState: 'DEPLOYABLE', requires: [] },
-    { id: 'experiment-compiler', name: 'Experiment compiler', realityState: 'DEMONSTRATED', requires: ['truth'] },
+    { id: 'truth', name: 'Truth substrate', realityState: 'FIELD_PROVEN', requires: [] },
+    { id: 'experiment-compiler', name: 'Experiment compiler', realityState: 'SOFTWARE_DEMONSTRATED', requires: ['truth'] },
     { id: 'new-instrument', name: 'New instrument', realityState: 'IMAGINED', requires: ['experiment-compiler'], experimentallyReachable: true },
     { id: 'matter', name: 'Programmable matter', realityState: 'IMAGINED', requires: ['new-instrument'] },
     { id: 'sense', name: 'New sense', realityState: 'IMAGINED', requires: ['new-instrument'] }
@@ -93,11 +100,11 @@ test('shared ancestor frontier prioritizes experimentally reachable common prere
   assert.match(result.law, /SHARED_ANCESTORS/);
 });
 
-test('resurrection index preserves blocked programs instead of deleting them', () => {
+test('resurrection index preserves terminal programs instead of deleting them', () => {
   const result = buildResurrectionIndex({
     programs: [
-      { id: 'x', truthState: 'BLOCKED_BY_MISSING_MEASUREMENT', resurrectionConditions: ['instrument resolution improves'] },
-      { id: 'y', truthState: 'CIVILIZATION_RELEVANT' }
+      { id: 'x', realityState: 'EXTERNALLY_BLOCKED', resurrectionConditions: ['instrument resolution improves'] },
+      { id: 'y', realityState: 'FIELD_PROVEN' }
     ]
   });
   assert.equal(result.ok, true);

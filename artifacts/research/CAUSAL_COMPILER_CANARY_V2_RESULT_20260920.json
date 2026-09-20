@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-canary-v2-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/CAUSAL_COMPILER_CANARY_V2_PREREGISTRATION_20260920.json",
+  "source": "src/causal-compiler-canary-v2.mjs",
+  "parentFailure": "artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json",
+  "truthClass": "EXECUTED_NARROW_SOFTWARE_PRIMITIVE_EVIDENCE__NOT_GRAND_MOONSHOT_PROOF",
+  "executionEnvironment": "connected JavaScript V8 verifier using exact PR branch source with V1 exact-search dependency injected",
+  "outcome": {
+    "status": "CAUSAL_COMPILER_V2_GOAL_DIRECTED_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "benchmarkCaseCount": 64,
+    "correctnessAgreementRate": 1,
+    "medianDistractorFullModelEvaluationReductionFactor": 18,
+    "directCaseCount": 61,
+    "fallbackCaseCount": 3,
+    "sharedFallbackAgreement": true,
+    "impossibleCaseAgreement": true,
+    "directVerificationFailureCount": 0
+  },
+  "supportedClaim": "For the preregistered known deterministic Boolean SCM benchmark, backward goal compilation through Boolean gate semantics produced the same minimum intervention cardinality as exhaustive search on every case, while reducing median full-model evaluations by 18x on distractor cases and safely falling back on shared upstream structures.",
+  "unsupportedClaims": [
+    "NO_CAUSAL_GRAPH_DISCOVERY",
+    "NO_STOCHASTIC_OR_CONTINUOUS_CAUSAL_GENERALIZATION",
+    "NO_REAL_WORLD_PHYSICAL_BIOLOGICAL_ECONOMIC_INTERVENTION",
+    "NO_SEQUENTIAL_CONTROL_OPTIMALITY",
+    "NO_FULL_FOUNDER_MOONSHOT_PROMOTION"
+  ],
+  "promotionCandidate": {
+    "parentMoonshot": "founder-moonshot-0001",
+    "childMechanism": "KNOWN_TREE_LIKE_BOOLEAN_SCM_GOAL_DIRECTED_MINIMUM_INTERVENTION_COMPILER",
+    "from": "SIMULATION_READY",
+    "to": "SOFTWARE_DEMONSTRATED",
+    "authority": "REVIEW_REQUIRED__NO_SELF_PROMOTION"
+  }
+}

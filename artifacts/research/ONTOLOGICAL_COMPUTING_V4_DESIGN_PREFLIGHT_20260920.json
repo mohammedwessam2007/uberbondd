@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-v4-design-preflight.v1",
+  "date": "2026-09-20",
+  "truthClass": "BENCHMARK_DESIGN_EVIDENCE_NOT_RESULT",
+  "targetCandidate": "PRIME_FACTOR_COUNT_WITH_MULTIPLICITY_PARITY",
+  "semanticNoveltyPreflight": {
+    "fixture": "all integers 2..1023",
+    "baseCandidateCount": 8626,
+    "exactEquivalentFound": false,
+    "nearestBaseCandidate": "XOR(NOT(RESIDUE_EQ(3,0)),RESIDUE_EQ(4,2))",
+    "nearestMismatchRate": 0.4295499,
+    "boundary": "Finite-fixture non-equivalence is not universal ontological novelty."
+  },
+  "deterministicHashSplit": {
+    "universe": "integers 2..2049",
+    "trainCount": 793,
+    "validationCount": 387,
+    "discoveryHeldOutCount": 438,
+    "transferHeldOutCount": 430,
+    "discoveryClassCounts": {
+      "0": 219,
+      "1": 219
+    },
+    "transferTargetDiagnostics": [
+      {
+        "id": "OMEGA_XOR_BIT3",
+        "classCounts": {
+          "0": 213,
+          "1": 217
+        },
+        "bestObservedGenericBaseline": 0.5186046511627908
+      },
+      {
+        "id": "OMEGA_XOR_MOD5_EQ2",
+        "classCounts": {
+          "0": 220,
+          "1": 210
+        },
+        "bestObservedGenericBaseline": 0.5348837209302325
+      },
+      {
+        "id": "OMEGA_AND_NOT_BIT2",
+        "classCounts": {
+          "0": 331,
+          "1": 99
+        },
+        "bestObservedGenericBaseline": 0.7697674418604651
+      }
+    ],
+    "conclusion": "NO_OBVIOUS_CLASS_OR_BASELINE_CEILING_DEGENERACY"
+  },
+  "nextAction": "PREREGISTER_V4_BEFORE_IMPLEMENTATION_RESULT"
+}

@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "uberbond.moonshot-common-ancestor-spine.v1",
+  "date": "2026-09-20",
+  "truthClass": "RESEARCH_DEPENDENCY_HYPOTHESES_NOT_CAUSAL_PROOF",
+  "law": "BUILD_SHARED_PRECURSORS_THAT_UNLOCK_MANY_MOONSHOTS__RECOMPILE_THE_CORPUS_AFTER_EVERY_VERIFIED_PRIMITIVE",
+  "ancestors": [
+    {
+      "id": "truth-evidence-substrate",
+      "name": "Truth & Evidence Substrate",
+      "domains": [
+        "ALL"
+      ],
+      "status": "EXISTING_DONOR__VERIFY_CURRENT_CALLABILITY"
+    },
+    {
+      "id": "moonshot-reality-object",
+      "name": "Moonshot Reality Object",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_IMPLEMENTED_IN_PR_967"
+    },
+    {
+      "id": "constraint-genome",
+      "name": "Constraint Genome",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_IMPLEMENTED_IN_PR_967"
+    },
+    {
+      "id": "future-ancestor-graph",
+      "name": "Future-Ancestor Dependency Graph",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_IMPLEMENTED_IN_PR_967"
+    },
+    {
+      "id": "representation-ontology-search",
+      "name": "Representation & Ontology Search",
+      "domains": [
+        "MATHEMATICS",
+        "COMPUTATION",
+        "SCIENCE"
+      ],
+      "status": "EXISTING_DONORS_PRESENT"
+    },
+    {
+      "id": "causal-mechanism-atoms",
+      "name": "Causal & Mechanism Atoms",
+      "domains": [
+        "SCIENCE",
+        "ECONOMICS",
+        "INSTITUTIONS"
+      ],
+      "status": "PARTIAL_EXISTING_DONORS_PRESENT"
+    },
+    {
+      "id": "experiment-compiler",
+      "name": "Experiment Compiler",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_PARTIAL__PROBE_CONTRACT_PRESENT"
+    },
+    {
+      "id": "simulation-ecology",
+      "name": "Simulation Ecology",
+      "domains": [
+        "COMPUTATION",
+        "SCIENCE"
+      ],
+      "status": "EXISTING_DONORS_PRESENT"
+    },
+    {
+      "id": "adversarial-tribunal",
+      "name": "Independent Adversarial Tribunal",
+      "domains": [
+        "ALL"
+      ],
+      "status": "EXISTING_DONORS_PRESENT"
+    },
+    {
+      "id": "physical-reality-bridge",
+      "name": "Physical Reality Bridge",
+      "domains": [
+        "PHYSICS",
+        "BIOLOGY",
+        "MATERIALS",
+        "HUMANS"
+      ],
+      "status": "EXTERNAL_CAPABILITY_AND_AUTHORITY_DEPENDENT"
+    },
+    {
+      "id": "replication-network",
+      "name": "Replication Network",
+      "domains": [
+        "SCIENCE"
+      ],
+      "status": "RESEARCH_PROGRAM"
+    },
+    {
+      "id": "primitive-promotion",
+      "name": "Primitive Promotion System",
+      "domains": [
+        "ALL"
+      ],
+      "status": "SOURCE_PARTIAL__TRUTH_GATES_PRESENT"
+    },
+    {
+      "id": "technology-tree-compiler",
+      "name": "Technology Tree Compiler",
+      "domains": [
+        "TECHNOLOGY",
+        "CIVILIZATION"
+      ],
+      "status": "RESEARCH_PROGRAM"
+    },
+    {
+      "id": "epoch-branching-evaluator",
+      "name": "Epoch Branching Evaluator",
+      "domains": [
+        "CIVILIZATION"
+      ],
+      "status": "RESEARCH_PROGRAM"
+    },
+    {
+      "id": "sovereignty-governor",
+      "name": "Sovereignty Governor",
+      "domains": [
+        "ALL"
+      ],
+      "status": "EXISTING_CANON_AND_POLICY_DONOR"
+    }
+  ],
+  "nextRule": "VERIFY_AND_BUILD_THE_LOWEST_UNVERIFIED_SHARED_ANCESTOR_WITH_THE_HIGHEST_CROSS_MOONSHOT_INFORMATION_VALUE"
+}

@@ -1,96 +1,161 @@
 {
-  "schemaVersion": "uberbond.moonshot-reality-verification.v1",
+  "schemaVersion": "uberbond.moonshot-reality-verification.v2",
   "date": "2026-09-20",
   "pullRequest": 967,
   "branch": "research/moonshot-reality-compiler-20260920",
-  "verifiedSourceHead": "421b81e56195f9eeaf27cea5627d3e9c7797bd74",
-  "truthClass": "EXECUTED_INTERNAL_LOGIC_EVIDENCE__HOSTED_CI_INFRASTRUCTURE_NON_EVIDENCE",
-  "verification": {
-    "exactBranchSourceExecution": {
-      "environment": "connected JavaScript V8 verifier",
-      "method": [
-        "fetched exact UTF-8 source from PR branch via GitHub connector",
-        "removed ESM import/export syntax only for in-memory evaluation",
-        "injected deterministic crypto-hash fixture where exact digest value was not under test",
-        "injected zero-effect-ledger fixture",
-        "supplied structuredClone equivalent in verifier environment"
-      ],
-      "caveat": "This executes the branch logic but is not the repository native Node test runner and does not prove deployment or external outcomes.",
-      "checks": {
-        "coreCompiler": {
-          "passed": 10,
-          "failed": 0,
-          "subjects": [
-            "compile moonshot",
-            "constraint genome",
-            "dependency frontier",
-            "feasibility conflict",
-            "minimum probe",
-            "external authority denial",
-            "contiguous promotion",
-            "state-skip denial",
-            "reality leverage",
-            "descendant preservation"
-          ]
-        },
-        "portfolioCompiler": {
-          "passed": 3,
-          "failed": 0,
-          "subjects": [
-            "shared future ancestors",
-            "experiment frontier",
-            "research packets grant no effect authority"
-          ]
-        },
-        "corpusCompiler": {
-          "passed": 5,
-          "failed": 0,
-          "subjects": [
-            "literal provenance",
-            "duplicate identity refusal",
-            "review-only near-duplicate detection",
-            "shared ancestor frontier prioritization",
-            "resurrection index"
-          ]
-        },
-        "programDoctor": {
-          "passed": 1,
-          "failed": 0,
-          "subjects": [
-            "canonical 14 reality states",
-            "7 holding/terminal states",
-            "8 canary contracts",
-            "13 registry hard-truth rules",
-            "zero errors",
-            "zero warnings"
-          ]
-        }
-      },
-      "totalPassed": 19,
-      "totalFailed": 0
+  "baseMain": "47f61951e875be13088b672a3cd3bf89402dc926",
+  "verifiedSourceHead": "ab31bca0dbec3a3755d540ebe5cb1877d7d9d2e3",
+  "truthClass": "EXECUTED_EXACT_SOURCE_LOGIC_EVIDENCE__HOSTED_NATIVE_RUNNERS_ZERO_STEP_NON_EVIDENCE",
+  "architecture": {
+    "program": "POSSIBILITY_CIVILIZATION_REALIZATION_STACK",
+    "executableCore": "MOONSHOT_REALITY_COMPILER",
+    "canonicalRealityStates": 14,
+    "canonicalHoldingOrTerminalStates": 7,
+    "grandCanaries": 8,
+    "verifiedChildMechanisms": 1,
+    "verifiedChildMechanismStates": {
+      "SOFTWARE_DEMONSTRATED": 1
     },
+    "parentMoonshotPromotionFromChildEvidence": "PROHIBITED"
+  },
+  "exactSourceExecution": {
+    "environment": "connected JavaScript V8 verifier",
+    "method": [
+      "fetch exact UTF-8 source from the PR branch through the GitHub connector",
+      "remove only ESM import/export syntax for in-memory evaluation",
+      "inject zero-effect-ledger fixture",
+      "supply structuredClone equivalent where the verifier lacks it",
+      "use deterministic hash fixture only where digest identity itself is not under test"
+    ],
+    "caveat": "This executes committed branch logic but is not the repository native Node test runner and does not prove deployment or external outcomes.",
+    "coreCompiler": {
+      "passed": 10,
+      "failed": 0,
+      "subjects": [
+        "moonshot compilation",
+        "constraint genome",
+        "dependency frontier",
+        "feasibility conflict",
+        "minimum reality probe",
+        "external authority denial",
+        "contiguous promotion",
+        "state-skip denial",
+        "reality leverage",
+        "failure descendant preservation"
+      ]
+    },
+    "portfolioCompiler": {
+      "passed": 3,
+      "failed": 0,
+      "subjects": [
+        "shared future ancestors",
+        "experiment frontier",
+        "zero-authority research packets"
+      ]
+    },
+    "corpusCompiler": {
+      "passed": 5,
+      "failed": 0,
+      "subjects": [
+        "literal provenance",
+        "duplicate refusal",
+        "review-only near-duplicate detection",
+        "shared-ancestor frontier",
+        "resurrection index"
+      ]
+    },
+    "programDoctor": {
+      "status": "MOONSHOT_REALITY_DOCTOR_OK",
+      "errors": 0,
+      "warnings": 0,
+      "grandCanaries": 8,
+      "verifiedChildMechanisms": 1
+    },
+    "canaryWave": {
+      "compiled": 8,
+      "rejected": 0,
+      "topRankedByBoundedProbeHeuristic": "ontological-computing",
+      "allExecutionAuthority": "NONE"
+    }
+  },
+  "experimentLineage": {
+    "v1": {
+      "status": "NARROW_POSITIVE_PLUMBING_RESULT",
+      "laterAdversarialDisposition": "SCIENTIFIC_WEIGHT_DOWNGRADED",
+      "defect": "TARGET_ALIGNED_REPRESENTATION_LIBRARY"
+    },
+    "v2": {
+      "status": "NARROW_REPRESENTATION_DISCOVERY_SUPPORTED__REVIEW_REQUIRED",
+      "representableTasksPassing": 3,
+      "negativeControlPassed": true,
+      "remainingBoundary": "CLOSED_SYNTHETIC_GRAMMAR"
+    },
+    "v3": {
+      "status": "V3_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED",
+      "falsifierTriggered": true,
+      "discoveryImprovement": 0,
+      "passingTransferCount": 1,
+      "negativeControlPassed": true,
+      "learnedInvariant": "NAME_LEVEL_NOVELTY_IS_NOT_SEMANTIC_NOVELTY"
+    },
+    "v4Original": {
+      "status": "SUPERSEDED_BEFORE_EXECUTION",
+      "reason": "TARGET_SPECIFIC_META_FAMILY_LEAKAGE",
+      "resultObservedBeforeSupersession": false
+    },
+    "v4b": {
+      "status": "V4B_TARGET_BLIND_STRUCTURAL_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED",
+      "semanticBaseCandidatesCompared": 8626,
+      "exactSemanticEquivalentFound": false,
+      "nearestBaseMismatchRate": 0.4295499,
+      "structuralProgramCandidates": 96,
+      "discoveryHeldOutAccuracy": 1,
+      "strongestDiscoveryBaselineAccuracy": 0.6255707762557078,
+      "discoveryImprovement": 0.374429,
+      "transferTasksPassing": 3,
+      "negativeControlHeldOutAccuracy": 0.4745762711864407
+    },
+    "v4bIndependentReplication": {
+      "status": "V4B_INDEPENDENT_REPLICATION_MATCHED",
+      "implementationPath": "SMALLEST_PRIME_FACTOR_SIEVE_PLUS_BOOLEAN_VECTOR_ONTOLOGY_PLUS_INDEPENDENT_STATE_MACHINE_INTERPRETER",
+      "importsPrimaryImplementation": false,
+      "mismatches": 0
+    }
+  },
+  "childMechanismPromotion": {
+    "mechanismId": "ontological-computing/target-blind-structural-representation-synthesis-v1",
+    "truthState": "SOFTWARE_DEMONSTRATED",
+    "parentMoonshotId": "ontological-computing",
+    "parentTruthState": "IMAGINED",
+    "contiguousEligibleTransitions": 5,
+    "skippedTransitions": 0,
+    "independentSecondImplementation": true,
+    "externalEffectAuthority": "NONE"
+  },
+  "hostedVerification": {
     "githubActions": {
-      "latestObservedRuns": [
+      "commit": "ab31bca0dbec3a3755d540ebe5cb1877d7d9d2e3",
+      "runs": [
         {
-          "runId": 35488287849,
+          "runId": 35489585024,
           "name": "UberOutbound Exact Head",
           "conclusion": "failure",
           "executedStepCount": 0
         },
         {
-          "runId": 35488287847,
+          "runId": 35489585014,
           "name": "CI",
           "conclusion": "failure",
           "executedStepCount": 0
         },
         {
-          "runId": 35488287861,
+          "runId": 35489585053,
           "name": "Night Verification War",
           "conclusion": "failure",
           "executedStepCount": 0
         },
         {
-          "runId": 35488287880,
+          "runId": 35489585043,
           "name": "Night Postal Focused Verification",
           "conclusion": "failure",
           "executedStepCount": 0
@@ -98,52 +163,45 @@
       ],
       "classification": "INFRASTRUCTURE_NON_EVIDENCE__ZERO_EXECUTED_STEPS"
     },
-    "vercel": [
-      {
-        "project": "uberbondd",
-        "status": "failure",
+    "vercel": {
+      "uberbondd": {
+        "state": "failure",
         "reason": "build-rate-limit"
       },
-      {
-        "project": "uberbondd-lite-private",
-        "status": "failure",
+      "uberbonddLitePrivate": {
+        "state": "failure",
         "reason": "build-rate-limit"
-      }
-    ]
+      },
+      "classification": "HOSTED_BUILD_QUOTA_BLOCKER__NOT_SOURCE_VERDICT"
+    }
   },
-  "sourceCapabilitiesVerifiedInternally": [
-    "MOONSHOT_CLAIM_ATOMIZATION",
-    "CONSTRAINT_GENOME",
-    "DEPENDENCY_DAG_AND_NEAREST_EXPERIMENT_FRONTIER",
-    "EVIDENCE_BOUND_FEASIBILITY_CLASSIFICATION",
-    "MINIMUM_REALITY_PROBE_SELECTION",
-    "EXTERNAL_EXPERIMENT_AUTHORITY_GATE",
-    "CONTIGUOUS_EVIDENCE_GATED_PROMOTION",
-    "REALITY_LEVERAGE_HEURISTIC",
-    "FAILURE_WITHOUT_DESCENDANT_AMPUTATION",
-    "SHARED_FUTURE_ANCESTOR_DISCOVERY",
-    "PORTFOLIO_RESEARCH_PACKET_COMPILATION",
-    "LITERAL_CORPUS_PROVENANCE",
-    "REVIEW_ONLY_NEAR_DUPLICATE_DETECTION",
-    "RESURRECTION_INDEX",
-    "PROGRAM_CONTRACT_DOCTOR"
+  "sourceRepairReceipts": [
+    {
+      "component": "V4B source serialization",
+      "failure": "escaped template literals made source unparsable",
+      "resultObservedBeforeRepair": false,
+      "repairCommit": "f4a056690222584aa74ee174f975a52bcd0be4d5",
+      "classification": "PRE_EXECUTION_SOURCE_REPAIR"
+    }
   ],
   "claimsNotMade": [
-    "NO_NATIVE_NODE_TEST_RUN_IS_CLAIMED",
+    "NO_NATIVE_NODE_TEST_PASS_IS_CLAIMED",
     "NO_HOSTED_CI_PASS_IS_CLAIMED",
     "NO_DEPLOYMENT_SUCCESS_IS_CLAIMED",
-    "NO_SPECULATIVE_MOONSHOT_IS_CLAIMED_PHYSICALLY_POSSIBLE",
-    "NO_MOONSHOT_IS_CLAIMED_EXTERNALLY_IMPLEMENTED",
-    "NO_CIVILIZATION_SCALE_IMPACT_IS_CLAIMED",
-    "NO_LITERAL_890_IDEA_IMPORT_IS_CLAIMED_COMPLETE"
+    "NO_SPECULATIVE_GRAND_MOONSHOT_IS_CLAIMED_PHYSICALLY_POSSIBLE",
+    "NO_PARENT_ONTOLOGICAL_COMPUTING_PROMOTION_IS_CLAIMED",
+    "NO_OPEN_ENDED_ONTOLOGY_INVENTION_IS_CLAIMED",
+    "NO_NEW_MATHEMATICS_OR_SCIENTIFIC_DISCOVERY_IS_CLAIMED",
+    "NO_GENERAL_INTELLIGENCE_OR_ASI_CLAIM_IS_MADE",
+    "NO_LITERAL_890_IDEA_CORPUS_IMPORT_IS_CLAIMED_COMPLETE"
   ],
-  "remainingGates": [
-    "native Node test execution when runner infrastructure is available",
-    "literal no-drop import of founder moonshot wave with exact provenance",
-    "compile imported corpus into prerequisite graph",
-    "select experimentally reachable shared ancestors",
-    "run only separately authorized bounded experiments",
-    "external replication and real-world evidence for any promoted primitive"
+  "remainingFrontiers": [
+    "LITERAL_NO_DROP_IMPORT_OF_FOUNDER_MOONSHOT_WAVE_WITH_PROVENANCE",
+    "COMPILE_IMPORTED_CORPUS_INTO_SHARED_PREREQUISITE_GRAPH",
+    "HELD_OUT_STRUCTURAL_FAMILY_TRANSFER_FOR_THE_VERIFIED_CHILD_MECHANISM",
+    "EXTERNALLY_SOURCED_PROBLEM_FAMILY_BEFORE_BROADER_GENERALIZATION",
+    "NATIVE_NODE_TEST_EXECUTION_WHEN_RUNNER_INFRASTRUCTURE_RECOVERS",
+    "HOSTED_BUILD_VERIFICATION_WHEN_VERCEL_QUOTA_ALLOWS"
   ],
   "terminalLaw": "EVERY_MOONSHOT_GETS_A_REAL_FATE__SUCCESS_FALSIFICATION_BOUNDARY_OR_RESURRECTION_CONDITION__REALITY_RETAINS_FINAL_VETO"
 }

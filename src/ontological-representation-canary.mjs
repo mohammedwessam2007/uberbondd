@@ -177,4 +177,4 @@ export function runOntologicalRepresentationCanary() {
 }
 
 export const ONTOLOGICAL_REPRESENTATION_CANARY_TASKS = Object.freeze(TASKS.map(row => row.id));
-export const ONTOLOGICAL_REPRESENTATION_CANDIDATES = Object.freeze(REPRESENTATIONS.map(row => row.id));
+export const ONTOLOGICAL_REPRESENTATION_CANARY_CANDIDATES = Object.freeze(REPRESENTATIONS.map(row => row.id));

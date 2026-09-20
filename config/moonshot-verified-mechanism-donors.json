@@ -123,6 +123,32 @@
         "ref": "artifact:MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920",
         "observedAt": "2026-09-20T05:05:00.000Z"
       }
+    },
+    {
+      "mechanismId": "semantic-causal-subgraph-crystallizer-v1",
+      "domain": "causal-abstraction",
+      "does": "recognizes exact finite Boolean boundary-equivalent causal subgraphs across different syntax and reuses one verified semantic operator during backward intervention compilation",
+      "exploits": "syntactically different causal subgraphs can implement identical boundary behavior and repeated recursive expansion then wastes symbolic search",
+      "preconditions": [
+        "complete declared finite Boolean boundary behavior is executable",
+        "at least two structurally distinct training motifs share the exact semantic signature",
+        "held-out use passes exact semantic signature matching"
+      ],
+      "effects": [
+        "held-out minimum interventions remain exact",
+        "symbolic goal expansion falls on repeated equivalent causal motifs",
+        "non-equivalent negative functions remain separate"
+      ],
+      "assumptions": [
+        "declared boundary variables capture all behavior relevant to replacement",
+        "finite Boolean equivalence is not generalized beyond its verified scope"
+      ],
+      "evidenceClass": "STRONG_EVIDENCE",
+      "source": {
+        "kind": "MEASURED_RECORD",
+        "ref": "artifact:CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920",
+        "observedAt": "2026-09-20T05:15:00.000Z"
+      }
     }
   ],
   "noLaunderingLaw": "A_GENERATED_RECOMBINATION_IS_A_HYPOTHESIS_EVEN_WHEN_ITS_DONOR_PRIMITIVES_HAVE_STRONG_EVIDENCE"

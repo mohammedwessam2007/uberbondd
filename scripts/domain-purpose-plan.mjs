@@ -9,6 +9,7 @@
 // -- only an observation can, because expecting a record and having one are
 // different facts.
 import { buildDomainPurposePlan, observationsFromDnsVerification, OWNED_ROOT_DOMAINS } from '../src/domain-purpose-plan.mjs';
+import { outreachFleetPlan } from '../src/outreach-domain-fleet.mjs';
 import { verifySendingDomainDns, defaultDnsResolver } from '../src/dns-verification.mjs';
 
 export async function buildDomainPlanReport({ live = false, resolver = defaultDnsResolver, now = new Date() } = {}) {
@@ -28,5 +29,10 @@ export async function buildDomainPlanReport({ live = false, resolver = defaultDn
 if (import.meta.url === `file://${process.argv[1]}`) {
   const live = process.argv.includes('--live');
   const report = await buildDomainPlanReport({ live });
-  process.stdout.write(`${JSON.stringify({ ownedRootDomains: [...OWNED_ROOT_DOMAINS], live, ...report }, null, 2)}\n`);
+  process.stdout.write(`${JSON.stringify({
+    ownedRootDomains: [...OWNED_ROOT_DOMAINS],
+    outreachFleet: outreachFleetPlan(),
+    live,
+    ...report
+  }, null, 2)}\n`);
 }

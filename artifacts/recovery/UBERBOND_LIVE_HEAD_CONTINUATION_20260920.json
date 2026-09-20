@@ -151,5 +151,74 @@
   },
   "status": "EXPOSED_SURFACES_ENUMERATED__EXTERNAL_REALITY_BOUNDARIES_PRESERVED",
   "noAmputation": true,
-  "noRuntimeOrCommercialClaim": true
+  "noRuntimeOrCommercialClaim": true,
+  "terminalRefresh": {
+    "observedAfterRecoveryMerges": true,
+    "observedMainCommit": "86013f33c905b6c05b99f91e21a34648d9ddeb9a",
+    "observedMainTree": "8829bec957d4db863af898b80e294db301de887a0",
+    "repositoryTree": {
+      "recursiveTruncated": false,
+      "entries": 3487,
+      "trees": 164,
+      "blobs": 3323,
+      "trackedBlobBytes": 112192173
+    },
+    "gitHistory": {
+      "reachableMainCommits": 4472,
+      "pagination": {
+        "pages1Through44": 4400,
+        "page45": 72,
+        "page46": 0
+      }
+    },
+    "branches": {
+      "total": 894,
+      "unique": 894,
+      "terminalCursor": null
+    },
+    "pullRequests": {
+      "total": 786,
+      "merged": 603,
+      "closedUnmerged": 183,
+      "open": 0
+    },
+    "trueIssues": {
+      "total": 177,
+      "open": 45,
+      "closed": 132
+    },
+    "comments": {
+      "issueAndPullRequestTimelineComments": 1991,
+      "inlineReviewComments": 0
+    },
+    "actions": {
+      "workflowRuns": 11447,
+      "pagination": "page115=47, page116=0",
+      "rawLogBoundaryPreserved": true
+    },
+    "workflowDefinitions": {
+      "yamlDefinitions": 17,
+      "runtimeHelperScripts": 11
+    },
+    "releasesAndTags": {
+      "releases": 0,
+      "tagRefs": 0
+    },
+    "library": {
+      "currentObjects": 921,
+      "currentBytes": 3033944705,
+      "paginationExhausted": true,
+      "rawByteBoundaryPreserved": true
+    },
+    "projectAndChatLineage": {
+      "projectBackedFileIdentities": 7,
+      "rawChatTranscriptBytes": "not exposed"
+    },
+    "semanticCanon": {
+      "resolved": 1040,
+      "denominator": 1040,
+      "orphans": 0
+    },
+    "progressStatement": "100% of recoverable exposed surfaces enumerated and durably reconciled; inaccessible raw transcripts, incomplete Library byte export, unavailable Action logs, and external-reality gates remain explicit."
+  }
 }

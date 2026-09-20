@@ -18,7 +18,11 @@
       "domains": [
         "ALL"
       ],
-      "status": "SOURCE_IMPLEMENTED_IN_PR_967"
+      "status": "SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-reality-compiler.mjs",
+        "artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json"
+      ]
     },
     {
       "id": "constraint-genome",
@@ -26,7 +30,11 @@
       "domains": [
         "ALL"
       ],
-      "status": "SOURCE_IMPLEMENTED_IN_PR_967"
+      "status": "SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-reality-compiler.mjs#mapConstraintGenome",
+        "artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json"
+      ]
     },
     {
       "id": "future-ancestor-graph",
@@ -34,7 +42,12 @@
       "domains": [
         "ALL"
       ],
-      "status": "SOURCE_IMPLEMENTED_IN_PR_967"
+      "status": "SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-portfolio-compiler.mjs",
+        "src/moonshot-corpus-compiler.mjs",
+        "artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json"
+      ]
     },
     {
       "id": "representation-ontology-search",
@@ -44,11 +57,11 @@
         "COMPUTATION",
         "SCIENCE"
       ],
-      "status": "SOFTWARE_EVIDENCE_PRESENT__SEMANTIC_NOVELTY_AND_EXTERNAL_ARITHMETIC_CANARIES",
+      "status": "REPRODUCIBLE_SOFTWARE_EVIDENCE_AND_EXTERNAL_ARITHMETIC_EVIDENCE_PRESENT",
       "evidenceRefs": [
         "src/semantic-novelty-preflight.mjs",
         "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json",
-        "artifacts/research/CUBEFREE_EXTERNAL_V7_RESULT_20260920.json"
+        "artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json"
       ]
     },
     {
@@ -72,10 +85,10 @@
       "domains": [
         "ALL"
       ],
-      "status": "SOURCE_IMPLEMENTED_IN_PR_967__BOUNDED_POLICY_COMPOSED",
+      "status": "SOURCE_IMPLEMENTED_AND_CONNECTOR_EXECUTED_IN_PR_967",
       "evidenceRefs": [
         "src/moonshot-experiment-compiler.mjs",
-        "tests/moonshot-experiment-compiler.test.mjs"
+        "artifacts/research/MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920.json"
       ]
     },
     {
@@ -148,5 +161,7 @@
       "status": "EXISTING_CANON_AND_POLICY_DONOR"
     }
   ],
-  "nextRule": "VERIFY_AND_BUILD_THE_LOWEST_UNVERIFIED_SHARED_ANCESTOR_WITH_THE_HIGHEST_CROSS_MOONSHOT_INFORMATION_VALUE"
+  "nextRule": "VERIFY_AND_BUILD_THE_LOWEST_UNVERIFIED_SHARED_ANCESTOR_WITH_THE_HIGHEST_CROSS_MOONSHOT_INFORMATION_VALUE",
+  "lastReconciledAt": "2026-09-20",
+  "reconciliationLaw": "STATUS_REQUIRES_EVIDENCE_POINTERS__CANONICAL_NAME_ALONE_DOES_NOT_MAKE_A_RUNTIME_CAPABILITY"
 }

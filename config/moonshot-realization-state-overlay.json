@@ -37,5 +37,17 @@
       ]
     }
   },
-  "law": "DESCENDANT_EVIDENCE_COMPOUNDS_WITHOUT_PROMOTING_THE_PARENT_BEYOND_ITS_EVIDENCE"
+  "law": "DESCENDANT_EVIDENCE_COMPOUNDS_WITHOUT_PROMOTING_THE_PARENT_BEYOND_ITS_EVIDENCE",
+  "sharedPrimitives": {
+    "parameterized-multiplicity-depth": {
+      "state": "REPRODUCED",
+      "scope": "Finite integer factorization representation with generic prime-exponent thresholds K=2..6 and parity composition.",
+      "evidence": [
+        "artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_RESULT_20260920.json",
+        "artifacts/research/FIFTH_POWER_FREE_V11_RESULT_20260920.json",
+        "artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_INDEPENDENT_REPLICATION_20260920.json"
+      ],
+      "boundary": "No general mathematics or open-ended ontology invention claim."
+    }
+  }
 }

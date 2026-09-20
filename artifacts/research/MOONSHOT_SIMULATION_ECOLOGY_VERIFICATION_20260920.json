@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond.moonshot-simulation-ecology-verification.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "pullRequest": 967,
+  "truthClass": "EXECUTED_DECLARATIVE_SIMULATION_SUBSTRATE__NOT_REALITY_EVIDENCE",
+  "source": "src/moonshot-simulation-ecology.mjs",
+  "checks": {
+    "deterministicReplay": true,
+    "worldCount": 4,
+    "policyCount": 2,
+    "runCount": 8,
+    "networkCalls": 0,
+    "executionAuthority": "NONE",
+    "invalidUnknownActionFailsClosed": true,
+    "preservesCounterexamples": true
+  },
+  "syntheticOutcomeSummary": {
+    "adaptive": {
+      "wins": 1,
+      "ties": 1,
+      "losses": 2,
+      "meanOutput": 14
+    },
+    "harvest": {
+      "wins": 2,
+      "ties": 1,
+      "losses": 1,
+      "meanOutput": 13.5
+    }
+  },
+  "interpretation": "The substrate can compare bounded declarative policies across multiple explicit synthetic worlds while preserving heterogeneity and counterexamples.",
+  "claimsNotMade": [
+    "NO_SIMULATED_POLICY_IS_REAL_WORLD_RECOMMENDATION",
+    "NO_SYNTHETIC_OUTCOME_IS_FORECAST",
+    "NO_ARBITRARY_CALLBACK_OR_NETWORK_EXECUTION",
+    "NO_EXTERNAL_EFFECT_AUTHORITY"
+  ]
+}

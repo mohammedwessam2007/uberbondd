@@ -157,7 +157,11 @@
     "test:oracle-free": "node --test tests/embedded-postgres-platform.test.mjs tests/sovereign-oracle-always-free-bootstrap.test.mjs",
     "oracle:record-free-evidence": "node scripts/record-oracle-free-owner-evidence.mjs",
     "uberocean:admit:oracle": "node scripts/uberocean-admit-oracle-host.mjs",
-    "test:cowork-jev-live": "node --test tests/cowork-jev-live-activation.test.mjs tests/oracle-free-host-admission.test.mjs"
+    "test:cowork-jev-live": "node --test tests/cowork-jev-live-activation.test.mjs tests/oracle-free-host-admission.test.mjs",
+    "moonshots:doctor": "node src/moonshot-reality-doctor.mjs",
+    "moonshots:plan": "node scripts/moonshot-reality-plan.mjs",
+    "moonshots:ontological-canary": "node scripts/ontological-representation-canary.mjs",
+    "test:moonshots": "node --test tests/moonshot-reality-compiler.test.mjs tests/moonshot-portfolio-compiler.test.mjs tests/moonshot-corpus-compiler.test.mjs tests/moonshot-reality-doctor.test.mjs tests/moonshot-canary-compiler.test.mjs tests/ontological-representation-canary.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

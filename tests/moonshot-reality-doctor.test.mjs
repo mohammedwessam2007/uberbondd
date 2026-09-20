@@ -1,18 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { inspectMoonshotRealityProgram } from '../src/moonshot-reality-doctor.mjs';
-import { MOONSHOT_TRUTH_STATES } from '../src/moonshot-reality-compiler.mjs';
+import { REALITY_STATES, HOLDING_OR_TERMINAL_STATES } from '../src/moonshot-reality-compiler.mjs';
 
 function fixture() {
   return {
     program: {
       executableCore: 'MOONSHOT_REALITY_COMPILER',
+      realityStates: [...REALITY_STATES],
+      holdingOrTerminalStates: [...HOLDING_OR_TERMINAL_STATES],
       hardTruth: ['SIMULATION_IS_NOT_PHYSICAL_PROOF'],
       coverageContract: { exactTranscriptImportRequiredForLiteralNoDropRegistry: true }
     },
     registry: {
       program: 'MOONSHOT_REALITY_COMPILER',
-      truthStates: [...MOONSHOT_TRUTH_STATES],
+      realityStates: [...REALITY_STATES],
+      holdingOrTerminalStates: [...HOLDING_OR_TERMINAL_STATES],
       hardTruth: ['REALITY_RETAINS_FINAL_VETO']
     },
     canaries: {
@@ -37,7 +40,7 @@ test('doctor accepts coherent compiler program while refusing to call it proof',
 test('doctor catches missing final veto and promoted canary warnings', () => {
   const x = fixture();
   x.registry.hardTruth = [];
-  x.canaries.canaries[0].realityState = 'DEMONSTRATED';
+  x.canaries.canaries[0].realityState = 'SOFTWARE_DEMONSTRATED';
   const result = inspectMoonshotRealityProgram(x);
   assert.equal(result.ok, false);
   assert.ok(result.errors.includes('reality-final-veto-missing'));

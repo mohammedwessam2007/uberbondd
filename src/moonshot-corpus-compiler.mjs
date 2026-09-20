@@ -1,9 +1,9 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
-import { compileMoonshotSpec } from './moonshot-reality-compiler.mjs';
+import { compileMoonshot, HOLDING_OR_TERMINAL_STATES } from './moonshot-reality-compiler.mjs';
 import { deriveSharedFutureAncestors, findExperimentFrontier, compileResearchPackets } from './moonshot-portfolio-compiler.mjs';
 
-export const MOONSHOT_CORPUS_COMPILER_VERSION = 'uberbond.moonshot-corpus-compiler.v1';
+export const MOONSHOT_CORPUS_COMPILER_VERSION = 'uberbond.moonshot-corpus-compiler.v2';
 
 const envelope = extra => ({
   businessEffectAuthority: 'NONE',
@@ -56,6 +56,43 @@ function jaccard(a, b) {
   return intersection / (a.size + b.size - intersection || 1);
 }
 
+function normalizeLiteralIdea(raw, source, sourceLocator, literalName) {
+  const directClaims = Array.isArray(raw?.claims) ? raw.claims : null;
+  const fallbackStatement = text(raw?.claim, 2400);
+  const fallbackFalsifier = text(raw?.falsifier, 1800);
+  const claims = directClaims || (
+    fallbackStatement && fallbackFalsifier
+      ? [{
+          claimId: text(raw?.claimId, 160) || 'primary-claim',
+          statement: fallbackStatement,
+          type: text(raw?.claimType, 64)?.toUpperCase() || 'META_RESEARCH',
+          falsifier: fallbackFalsifier,
+          feasibility: text(raw?.feasibility, 80)?.toUpperCase() || 'INSUFFICIENT_INFORMATION',
+          assumptions: Array.isArray(raw?.assumptions) ? raw.assumptions : [],
+          requiredEvidence: Array.isArray(raw?.requiredEvidence) ? raw.requiredEvidence : [],
+          evidenceRefs: Array.isArray(raw?.evidenceRefs) ? raw.evidenceRefs : []
+        }]
+      : null
+  );
+
+  return {
+    id: raw?.id,
+    name: literalName,
+    source: `${source}::${sourceLocator}`,
+    thesis: raw?.thesis || raw?.desiredTransform || raw?.claim,
+    aliases: raw?.aliases || [],
+    domains: raw?.domains || [],
+    dependencies: raw?.dependencies || [],
+    unknowns: raw?.unknowns || [],
+    constraints: Array.isArray(raw?.constraints) ? raw.constraints : [],
+    claims,
+    resurrectionConditions: raw?.resurrectionConditions || [],
+    irreversibleRisks: raw?.irreversibleRisks || [],
+    authorityRequirements: raw?.authorityRequirements || [],
+    createdAt: raw?.createdAt || null
+  };
+}
+
 export function compileLiteralMoonshotCorpus({
   ideas = [],
   sourceId,
@@ -84,33 +121,28 @@ export function compileLiteralMoonshotCorpus({
       continue;
     }
 
-    const compiled = compileMoonshotSpec({
-      ...raw,
-      name: literalName,
-      source: source,
-      evidenceRefs: raw.evidenceRefs || []
-    });
+    const compiled = compileMoonshot(normalizeLiteralIdea(raw, source, sourceLocator, literalName));
     if (!compiled.ok) {
       rejected.push({ index, id: raw.id || null, reasonCodes: compiled.reasonCodes });
       continue;
     }
-    if (seenIds.has(compiled.spec.id)) {
-      rejected.push({ index, id: compiled.spec.id, reasonCodes: ['duplicate-id'] });
+    if (seenIds.has(compiled.moonshot.id)) {
+      rejected.push({ index, id: compiled.moonshot.id, reasonCodes: ['duplicate-id'] });
       continue;
     }
 
     const normalizedLiteral = literalName.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
     if (seenLiteralNames.has(normalizedLiteral)) {
-      rejected.push({ index, id: compiled.spec.id, reasonCodes: ['duplicate-literal-name'] });
+      rejected.push({ index, id: compiled.moonshot.id, reasonCodes: ['duplicate-literal-name'] });
       continue;
     }
 
-    seenIds.add(compiled.spec.id);
+    seenIds.add(compiled.moonshot.id);
     seenLiteralNames.add(normalizedLiteral);
     programs.push({
-      ...compiled.spec,
+      ...compiled.moonshot,
       literalName,
-      aliases,
+      sourceAliases: aliases,
       provenance: {
         sourceId: source,
         sourceDate: date,
@@ -125,8 +157,8 @@ export function compileLiteralMoonshotCorpus({
     id: item.id,
     literalName: item.literalName,
     sourceLocator: item.provenance.sourceLocator,
-    claim: item.claim,
-    desiredTransform: item.desiredTransform
+    thesis: item.thesis,
+    claims: item.claims.map(claim => claim.statement)
   })));
 
   return envelope({
@@ -159,7 +191,7 @@ export function proposeNearDuplicateMoonshots({
   const rows = programs.map(item => ({
     id: text(item?.id, 160),
     literalName: text(item?.literalName || item?.name, 500),
-    words: normalizedWords(`${item?.literalName || item?.name || ''} ${item?.claim || ''} ${item?.desiredTransform || ''}`)
+    words: normalizedWords(`${item?.literalName || item?.name || ''} ${item?.thesis || ''} ${(item?.claims || []).map(c => c?.statement || '').join(' ')}`)
   }));
 
   if (rows.some(row => !row.id || !row.literalName)) {
@@ -179,9 +211,7 @@ export function proposeNearDuplicateMoonshots({
     if (indexes.length > 100) continue;
     for (let i = 0; i < indexes.length; i += 1) {
       for (let j = i + 1; j < indexes.length; j += 1) {
-        const a = Math.min(indexes[i], indexes[j]);
-        const b = Math.max(indexes[i], indexes[j]);
-        pairKeys.add(`${a}:${b}`);
+        pairKeys.add(`${Math.min(indexes[i], indexes[j])}:${Math.max(indexes[i], indexes[j])}`);
         if (pairKeys.size >= maxPairs) break;
       }
       if (pairKeys.size >= maxPairs) break;
@@ -263,24 +293,16 @@ export function buildResurrectionIndex({ programs = [] } = {}) {
     return fail('RESURRECTION_INDEX_INVALID', ['bounded-programs-required']);
   }
 
+  const terminal = new Set(HOLDING_OR_TERMINAL_STATES);
   const rows = [];
   for (const program of programs) {
-    const state = text(program?.truthState, 80)?.toUpperCase();
-    if (!state || ![
-      'FALSIFIED',
-      'BLOCKED_BY_CURRENT_PHYSICS',
-      'BLOCKED_BY_MATHEMATICS',
-      'BLOCKED_BY_MISSING_KNOWLEDGE',
-      'BLOCKED_BY_MISSING_MEASUREMENT',
-      'BLOCKED_BY_MISSING_CAPABILITY',
-      'BLOCKED_BY_AUTHORITY',
-      'ARCHIVED'
-    ].includes(state)) continue;
+    const state = text(program?.realityState, 80)?.toUpperCase();
+    if (!state || !terminal.has(state)) continue;
 
     const conditions = list(program?.resurrectionConditions || [], 128, 1200) || [];
     rows.push({
       id: text(program?.id, 160),
-      truthState: state,
+      realityState: state,
       resurrectionConditions: conditions,
       reviewTrigger: conditions.length ? 'WHEN_ANY_CONDITION_MAY_HAVE_CHANGED' : 'MANUAL_OR_FRONTIER_SIGNAL_ONLY'
     });

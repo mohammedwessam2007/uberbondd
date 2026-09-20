@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "uberbond.multiplicity-sensitive-memory-v6-preregistration.v1",
+  "date": "2026-09-20",
+  "parentFailure": "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json",
+  "ontogenesis": "artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json",
+  "truthClass": "PREREGISTERED_POST_FAILURE_GENERIC_GRAMMAR_EXTENSION_NOT_RESULT",
+  "hypothesis": "Adding a generic repeated-hit memory bit alongside the existing accumulator is sufficient to recover multiplicity-sensitive structural distinctions that the V5 one-bit grammar could not express.",
+  "grammarExtension": {
+    "preservedFromV5": [
+      "two divisor orders",
+      "two division policies",
+      "four accumulator update modes",
+      "three leftover accumulator policies",
+      "two accumulator initial states"
+    ],
+    "newGenericState": {
+      "bit": "repeatSeen",
+      "initialState": 0,
+      "update": "SET_TO_1_ON_SECOND_OR_LATER_DIVISION_EVENT_FOR_THE_SAME_DIVISOR",
+      "reset": "NEVER_WITHIN_ONE_INTEGER_EVALUATION",
+      "targetSpecificNamesProhibited": true
+    },
+    "outputVocabulary": [
+      "ACCUMULATOR",
+      "NOT_ACCUMULATOR",
+      "REPEAT_SEEN",
+      "NOT_REPEAT_SEEN",
+      "ACCUMULATOR_AND_REPEAT_SEEN",
+      "ACCUMULATOR_AND_NOT_REPEAT_SEEN",
+      "NOT_ACCUMULATOR_AND_REPEAT_SEEN",
+      "NOT_ACCUMULATOR_AND_NOT_REPEAT_SEEN",
+      "ACCUMULATOR_XOR_REPEAT_SEEN"
+    ],
+    "expectedCandidateCount": 432,
+    "selection": "train accuracy, validation accuracy, lower description cost, lexical program ID"
+  },
+  "targets": [
+    {
+      "id": "A008966_SQUAREFREE",
+      "source": "OEIS A008966",
+      "role": "PRIMARY_FAILED_TARGET"
+    },
+    {
+      "id": "A008683_MOBIUS_POSITIVE",
+      "source": "OEIS A008683",
+      "role": "COMPOSITIONAL_FAILED_TARGET"
+    },
+    {
+      "id": "A001221_DISTINCT_PRIME_PARITY",
+      "source": "OEIS A001221",
+      "role": "REGRESSION_TARGET_MUST_REMAIN_SOLVED"
+    }
+  ],
+  "split": "identical 2..4097 deterministic hash split from V5",
+  "baselines": [
+    "V5_FROZEN_96_PROGRAM_GRAMMAR",
+    "BEST_8626_BASE_BOOLEAN_GRAMMAR_FEATURE",
+    "RAW_THRESHOLD",
+    "KNN_RAW_K3",
+    "MAJORITY_CLASS",
+    "PRIME_INDICATOR",
+    "V4B_OMEGA_MULTIPLICITY_PARITY_PRIMITIVE"
+  ],
+  "successCriteria": {
+    "A008966_SQUAREFREE": {
+      "minimumHeldoutAccuracy": 0.95,
+      "minimumImprovementOverBestV5OrOtherBaseline": 0.1
+    },
+    "A008683_MOBIUS_POSITIVE": {
+      "minimumHeldoutAccuracy": 0.95,
+      "minimumImprovementOverBestV5OrOtherBaseline": 0.1
+    },
+    "A001221_DISTINCT_PRIME_PARITY": {
+      "minimumHeldoutAccuracy": 0.99,
+      "regressionTolerance": 0.01
+    }
+  },
+  "negativeControl": {
+    "id": "HASH_CONTROL_V6",
+    "maximumHeldoutAccuracy": 0.85
+  },
+  "falsifier": [
+    "Either previously failed external target misses its two thresholds.",
+    "The A001221 regression target falls below 0.99.",
+    "The hash control exceeds 0.85.",
+    "The implementation includes a target-specific named primitive.",
+    "Held-out labels influence candidate selection.",
+    "Candidate count or description-length burden is omitted."
+  ],
+  "promotionBoundary": "A pass validates the multiplicity-sensitive memory hypothesis only in this finite external arithmetic family. It is not evidence of open-ended ontology invention or new mathematics.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

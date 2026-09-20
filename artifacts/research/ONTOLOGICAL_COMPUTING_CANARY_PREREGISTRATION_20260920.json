@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-preregistration.v1",
+  "date": "2026-09-20",
+  "parentMoonshot": "ontological-computing",
+  "sourceCanary": "config/moonshot-reality-canaries.json#ontological-computing",
+  "truthClass": "PREREGISTERED_SOFTWARE_CANARY_NOT_RESULT",
+  "claim": "A searched representation can make held-out synthetic problem families materially easier for a fixed simple downstream learner than the raw representation, after representation-search overhead is explicitly counted.",
+  "scopeBoundary": [
+    "synthetic deterministic task families only",
+    "software representation search only",
+    "does not establish a new mathematics or ontology",
+    "does not establish cross-domain scientific usefulness",
+    "does not establish physical-world effects"
+  ],
+  "baselines": [
+    "RAW_SCALAR_REPRESENTATION_PLUS_SAME_THRESHOLD_LEARNER"
+  ],
+  "candidateRepresentationFamily": [
+    "RAW_SCALAR",
+    "PARITY",
+    "MOD3_EQUALS_ONE",
+    "BIT2",
+    "BIT4",
+    "POPCOUNT",
+    "LOW_NIBBLE"
+  ],
+  "taskFamilies": [
+    "EVENNESS",
+    "MOD3_EQUALS_ONE",
+    "BIT2_SET",
+    "BIT4_SET"
+  ],
+  "split": {
+    "train": "x=0..47",
+    "validation": "x=48..63",
+    "heldOutTest": "x=64..127",
+    "selectionRule": "Choose representation/model by validation accuracy, then lower evaluation burden, then lexical representation id. Held-out test is never used for selection."
+  },
+  "learner": "ONE_DIMENSIONAL_THRESHOLD_CLASSIFIER_WITH_DIRECTION_SEARCH",
+  "successCriteria": {
+    "minimumSupportedFamilies": 3,
+    "minimumCandidateHeldOutAccuracy": 0.95,
+    "minimumHeldOutImprovementOverRaw": 0.2
+  },
+  "falsifier": "Fewer than three preregistered task families achieve both >=0.95 held-out accuracy and >=0.20 absolute held-out accuracy improvement over the raw baseline, or the search accidentally uses held-out labels for selection.",
+  "resourceAccounting": [
+    "threshold candidates evaluated",
+    "representation candidates evaluated",
+    "baseline threshold evaluations",
+    "search overhead evaluations"
+  ],
+  "promotionBoundary": "A pass may support SOFTWARE_DEMONSTRATED for this narrow representation-search mechanism only after review; it cannot promote the grand Ontological Computing moonshot by itself.",
+  "authority": "NONE__PURE_LOCAL_DETERMINISTIC_SOFTWARE"
+}

@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "uberbond.moonshot-execution-program-manifest.v1",
+  "date": "2026-09-20",
+  "sourceClosure": "artifacts/research/MOONSHOT_890_REALITY_CLOSURE_STATE_20260920.json",
+  "sourceClosureBlobSha": "3e87d958179456de0a8479027d7c890a177dcc30",
+  "status": "MOONSHOT_890_EXECUTION_PROGRAM_LAYER_READY",
+  "counts": {
+    "total": 890,
+    "internal": 193,
+    "external": 697,
+    "consentRequired": 260,
+    "specialistProtocolRequired": 395,
+    "authorityRequired": 697
+  },
+  "adapterCounts": {
+    "MIXED_REALITY_PROGRAM": 24,
+    "PHYSICAL_LAB": 182,
+    "BIOLOGICAL_LAB": 213,
+    "SOFTWARE_RUNTIME": 18,
+    "LONGITUDINAL_OBSERVATION": 98,
+    "HUMAN_STUDY": 86,
+    "INSTITUTIONAL_PILOT": 76
+  },
+  "shards": [
+    {
+      "path": "programs-001-089.json",
+      "ordinalStart": 1,
+      "ordinalEnd": 89,
+      "programCount": 89,
+      "chars": 265087
+    },
+    {
+      "path": "programs-090-178.json",
+      "ordinalStart": 90,
+      "ordinalEnd": 178,
+      "programCount": 89,
+      "chars": 244060
+    },
+    {
+      "path": "programs-179-267.json",
+      "ordinalStart": 179,
+      "ordinalEnd": 267,
+      "programCount": 89,
+      "chars": 258436
+    },
+    {
+      "path": "programs-268-356.json",
+      "ordinalStart": 268,
+      "ordinalEnd": 356,
+      "programCount": 89,
+      "chars": 268048
+    },
+    {
+      "path": "programs-357-445.json",
+      "ordinalStart": 357,
+      "ordinalEnd": 445,
+      "programCount": 89,
+      "chars": 260328
+    },
+    {
+      "path": "programs-446-534.json",
+      "ordinalStart": 446,
+      "ordinalEnd": 534,
+      "programCount": 89,
+      "chars": 240733
+    },
+    {
+      "path": "programs-535-623.json",
+      "ordinalStart": 535,
+      "ordinalEnd": 623,
+      "programCount": 89,
+      "chars": 240325
+    },
+    {
+      "path": "programs-624-712.json",
+      "ordinalStart": 624,
+      "ordinalEnd": 712,
+      "programCount": 89,
+      "chars": 229958
+    },
+    {
+      "path": "programs-713-801.json",
+      "ordinalStart": 713,
+      "ordinalEnd": 801,
+      "programCount": 89,
+      "chars": 264253
+    },
+    {
+      "path": "programs-802-890.json",
+      "ordinalStart": 802,
+      "ordinalEnd": 890,
+      "programCount": 89,
+      "chars": 256114
+    }
+  ],
+  "noInventedInternalHypotheses": true,
+  "law": "EVERY_MOONSHOT_HAS_ONE_EXECUTION_PROGRAM_SHELL__SHELLS_PRESERVE_UNKNOWN_DOMAIN_DETAILS_INSTEAD_OF_HALLUCINATING_THEM",
+  "completionBoundary": "PROGRAM_LAYER_COMPLETE_DOES_NOT_MEAN_EXPERIMENTS_RUN_OR_PARENTS_REALIZED"
+}

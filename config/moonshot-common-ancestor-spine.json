@@ -175,7 +175,12 @@
       "domains": [
         "CIVILIZATION"
       ],
-      "status": "RESEARCH_PROGRAM"
+      "status": "SOURCE_IMPLEMENTED_AND_CONNECTOR_EXECUTED",
+      "evidenceRefs": [
+        "src/epoch-branching-evaluator.mjs",
+        "tests/epoch-branching-evaluator.test.mjs",
+        "artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json"
+      ]
     },
     {
       "id": "sovereignty-governor",

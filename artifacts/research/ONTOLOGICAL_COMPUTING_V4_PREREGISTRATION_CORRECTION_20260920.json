@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-v4-preregistration-correction.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json",
+  "truthClass": "PRE_EXECUTION_BENCHMARK_CORRECTION__NO_V4_RESULT_EXISTED",
+  "defect": {
+    "code": "TARGET_SPECIFIC_META_FAMILY_LEAKAGE",
+    "severity": "DISQUALIFYING_FOR_STRONG_DISCOVERY_CLAIM",
+    "detail": "The original V4 preregistration included PRIME_FACTOR_COUNT_MULTIPLICITY_MOD(k,r) as a selectable primitive family while the hidden target is parity of prime-factor count with multiplicity. That repeats the target-aligned-vocabulary defect discovered in V1."
+  },
+  "evidenceOfNoContamination": [
+    "No V4 implementation source existed when the defect was identified.",
+    "No V4 result receipt existed when the defect was identified.",
+    "The correction therefore tightens the benchmark before result observation rather than moving a goalpost after failure."
+  ],
+  "disposition": "SUPERSEDED_BEFORE_EXECUTION",
+  "successor": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json",
+  "law": "A preregistration can be superseded before execution when its benchmark is invalid, but the invalid preregistration remains preserved as lineage."
+}

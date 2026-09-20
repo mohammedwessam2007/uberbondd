@@ -1,0 +1,814 @@
+{
+  "schemaVersion": "uberbond.founder-moonshot-literal-corpus-shard.v1",
+  "date": "2026-09-20",
+  "sourceFile": "Branch · Branch · New chat.txt",
+  "sourceSha256": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+  "corpusCanonicalSha256": "23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0",
+  "shard": 7,
+  "ordinalStart": 535,
+  "ordinalEnd": 623,
+  "entryCount": 89,
+  "entries": [
+    {
+      "ordinal": 535,
+      "literalTitle": "THE NEW PROGRESS PARADIGM",
+      "hypotheticalIq": "10³⁰¹",
+      "literalBodyMarkdown": "Progress is measured as expansion of safe human capability and reachable future states rather than output alone.",
+      "sourceLineStart": 2151,
+      "sourceLineEnd": 2154,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 536,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE",
+      "hypotheticalIq": "3 × 10³⁰¹",
+      "literalBodyMarkdown": "Invent a medium whose existence creates an enormous new design space, analogous to how programmable computers created software.",
+      "sourceLineStart": 2155,
+      "sourceLineEnd": 2158,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 537,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE COMPILER",
+      "hypotheticalIq": "10³⁰²",
+      "literalBodyMarkdown": "Search deliberately for such media by asking what latent dimensions of reality are controllable but insufficiently programmable.",
+      "sourceLineStart": 2159,
+      "sourceLineEnd": 2162,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 538,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE EVOLUTION ENGINE",
+      "hypotheticalIq": "3 × 10³⁰²",
+      "literalBodyMarkdown": "Compete candidate new media on how many useful classes of artifacts they make possible.",
+      "sourceLineStart": 2163,
+      "sourceLineEnd": 2166,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 539,
+      "literalTitle": "THE POSSIBILITY-SUBSTRATE STACK",
+      "hypotheticalIq": "10³⁰³",
+      "literalBodyMarkdown": "Stack multiple generative media together so one substrate's outputs become another's primitives.",
+      "sourceLineStart": 2167,
+      "sourceLineEnd": 2170,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 540,
+      "literalTitle": "THE POSSIBILITY SUBSTRATE RECURSION",
+      "hypotheticalIq": "3 × 10³⁰³",
+      "literalBodyMarkdown": "Use one newly created possibility substrate to invent another.",
+      "sourceLineStart": 2171,
+      "sourceLineEnd": 2174,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 541,
+      "literalTitle": "THE POSSIBILITY SPACE GENERATOR",
+      "hypotheticalIq": "10³⁰⁴",
+      "literalBodyMarkdown": "Output isn't an invention. Output is an entire **new space within which inventions can exist**.",
+      "sourceLineStart": 2175,
+      "sourceLineEnd": 2178,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 542,
+      "literalTitle": "THE POSSIBILITY SPACE COMPILER",
+      "hypotheticalIq": "3 × 10³⁰⁴",
+      "literalBodyMarkdown": "Input desired properties of an invention ecosystem. Generate the substrate, language, rules, and primitives required to make that ecosystem possible.",
+      "sourceLineStart": 2179,
+      "sourceLineEnd": 2182,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 543,
+      "literalTitle": "THE POSSIBILITY SPACE CROSSOVER ENGINE",
+      "hypotheticalIq": "10³⁰⁵",
+      "literalBodyMarkdown": "Combine two generative media and search the hybrid space for artifact classes impossible in either alone.",
+      "sourceLineStart": 2183,
+      "sourceLineEnd": 2186,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 544,
+      "literalTitle": "THE POSSIBILITY SPACE PHASE TRANSITION",
+      "hypotheticalIq": "3 × 10³⁰⁵",
+      "literalBodyMarkdown": "Search for thresholds after which a technology stops being one tool and starts becoming an ecosystem.",
+      "sourceLineStart": 2187,
+      "sourceLineEnd": 2190,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 545,
+      "literalTitle": "THE POSSIBILITY SPACE METRIC",
+      "hypotheticalIq": "10³⁰⁶",
+      "literalBodyMarkdown": "Quantify how much genuinely new design space a primitive opens.",
+      "sourceLineStart": 2191,
+      "sourceLineEnd": 2194,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 546,
+      "literalTitle": "THE POSSIBILITY SPACE DERIVATIVE",
+      "hypotheticalIq": "3 × 10³⁰⁶",
+      "literalBodyMarkdown": "Measure how quickly a new substrate causes further substrates to become possible.",
+      "sourceLineStart": 2195,
+      "sourceLineEnd": 2198,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 547,
+      "literalTitle": "THE POSSIBILITY SPACE ACCELERATOR",
+      "hypotheticalIq": "10³⁰⁷",
+      "literalBodyMarkdown": "Optimize technologies whose descendants disproportionately increase future design-space volume.",
+      "sourceLineStart": 2199,
+      "sourceLineEnd": 2202,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 548,
+      "literalTitle": "THE POSSIBILITY SPACE REACTOR",
+      "hypotheticalIq": "3 × 10³⁰⁷",
+      "literalBodyMarkdown": "Sustain recursive generation of new possibility spaces.",
+      "sourceLineStart": 2203,
+      "sourceLineEnd": 2206,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 549,
+      "literalTitle": "THE POSSIBILITY SPACE ECOLOGY",
+      "hypotheticalIq": "10³⁰⁸",
+      "literalBodyMarkdown": "Multiple technological universes interact, exchange primitives, and create hybrid ecosystems.",
+      "sourceLineStart": 2207,
+      "sourceLineEnd": 2210,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 550,
+      "literalTitle": "THE POSSIBILITY SPACE EVOLUTION",
+      "hypotheticalIq": "3 × 10³⁰⁸",
+      "literalBodyMarkdown": "Entire design spaces compete and evolve according to how much useful novelty they support.",
+      "sourceLineStart": 2211,
+      "sourceLineEnd": 2214,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 551,
+      "literalTitle": "THE POSSIBILITY SPACE NATURAL SELECTION",
+      "hypotheticalIq": "10³⁰⁹",
+      "literalBodyMarkdown": "Generative environments survive based on robustness, usefulness, safety, and capacity for continued novelty.",
+      "sourceLineStart": 2215,
+      "sourceLineEnd": 2218,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 552,
+      "literalTitle": "THE POSSIBILITY SPACE SPECIATION",
+      "hypotheticalIq": "3 × 10³⁰⁹",
+      "literalBodyMarkdown": "Rather than one technological future, many distinct possibility ecosystems evolve.",
+      "sourceLineStart": 2219,
+      "sourceLineEnd": 2222,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 553,
+      "literalTitle": "THE POSSIBILITY COSMOS",
+      "hypotheticalIq": "10³¹⁰",
+      "literalBodyMarkdown": "Treat the set of all generative technological spaces as a larger meta-space to explore.",
+      "sourceLineStart": 2223,
+      "sourceLineEnd": 2226,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 554,
+      "literalTitle": "THE POSSIBILITY COSMOLOGY",
+      "hypotheticalIq": "3 × 10³¹⁰",
+      "literalBodyMarkdown": "Study structural laws governing how possibility spaces are born, expand, interact, mature, and die.",
+      "sourceLineStart": 2227,
+      "sourceLineEnd": 2230,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 555,
+      "literalTitle": "THE POSSIBILITY BIG BANG ENGINE",
+      "hypotheticalIq": "10³¹¹",
+      "literalBodyMarkdown": "Search specifically for tiny primitives capable of producing explosive downstream invention diversity.",
+      "sourceLineStart": 2231,
+      "sourceLineEnd": 2234,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 556,
+      "literalTitle": "THE POSSIBILITY INFLATION ENGINE",
+      "hypotheticalIq": "3 × 10³¹¹",
+      "literalBodyMarkdown": "Once a fertile new substrate appears, aggressively expand it by generating languages, tools, infrastructure, markets, and applications around it.",
+      "sourceLineStart": 2235,
+      "sourceLineEnd": 2238,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 557,
+      "literalTitle": "THE POSSIBILITY DARK MATTER ENGINE",
+      "hypotheticalIq": "10³¹²",
+      "literalBodyMarkdown": "Infer unseen possibility spaces from unexplained gaps between known capabilities.",
+      "sourceLineStart": 2239,
+      "sourceLineEnd": 2242,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 558,
+      "literalTitle": "THE POSSIBILITY GRAVITY ENGINE",
+      "hypotheticalIq": "3 × 10³¹²",
+      "literalBodyMarkdown": "Identify ideas so generative that surrounding technologies, capital, people, and discoveries naturally accumulate around them.",
+      "sourceLineStart": 2243,
+      "sourceLineEnd": 2246,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 559,
+      "literalTitle": "THE POSSIBILITY EVENT HORIZON",
+      "hypotheticalIq": "10³¹³",
+      "literalBodyMarkdown": "Detect technologies whose downstream consequences become too combinatorially vast for straightforward forecasting.",
+      "sourceLineStart": 2247,
+      "sourceLineEnd": 2250,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 560,
+      "literalTitle": "THE POSSIBILITY HORIZON TELESCOPE",
+      "hypotheticalIq": "3 × 10³¹³",
+      "literalBodyMarkdown": "Use recursive hypothetical descendants to see beyond immediate technological forecasting.",
+      "sourceLineStart": 2251,
+      "sourceLineEnd": 2254,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 561,
+      "literalTitle": "THE POSSIBILITY WORMHOLE",
+      "hypotheticalIq": "10³¹⁴",
+      "literalBodyMarkdown": "Find minimal precursor inventions that connect current civilization to extremely distant regions of design space.",
+      "sourceLineStart": 2255,
+      "sourceLineEnd": 2258,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 562,
+      "literalTitle": "THE POSSIBILITY DIMENSION ENGINE",
+      "hypotheticalIq": "3 × 10³¹⁴",
+      "literalBodyMarkdown": "Discover entirely new dimensions along which technologies can vary.",
+      "sourceLineStart": 2259,
+      "sourceLineEnd": 2262,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 563,
+      "literalTitle": "THE POSSIBILITY DIMENSION GENERATOR",
+      "hypotheticalIq": "10³¹⁵",
+      "literalBodyMarkdown": "Invent new controllable variables themselves.",
+      "sourceLineStart": 2263,
+      "sourceLineEnd": 2266,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 564,
+      "literalTitle": "THE POSSIBILITY TOPOLOGY ENGINE",
+      "hypotheticalIq": "3 × 10³¹⁵",
+      "literalBodyMarkdown": "Understand which future states are connected by feasible paths and where discontinuities require genuine breakthroughs.",
+      "sourceLineStart": 2267,
+      "sourceLineEnd": 2270,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 565,
+      "literalTitle": "THE POSSIBILITY GEODESIC",
+      "hypotheticalIq": "10³¹⁶",
+      "literalBodyMarkdown": "Find the shortest viable path through technology-space between current reality and an extraordinary target future.",
+      "sourceLineStart": 2271,
+      "sourceLineEnd": 2274,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 566,
+      "literalTitle": "THE POSSIBILITY GEOMETRY",
+      "hypotheticalIq": "3 × 10³¹⁶",
+      "literalBodyMarkdown": "Develop formal mathematics for distances, neighborhoods, curvature, and bottlenecks in invention space.",
+      "sourceLineStart": 2275,
+      "sourceLineEnd": 2278,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 567,
+      "literalTitle": "THE POSSIBILITY PHYSICS",
+      "hypotheticalIq": "10³¹⁷",
+      "literalBodyMarkdown": "Search for general laws describing how capabilities generate, constrain, or transform possibilities.",
+      "sourceLineStart": 2279,
+      "sourceLineEnd": 2282,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 568,
+      "literalTitle": "THE POSSIBILITY THERMODYNAMICS",
+      "hypotheticalIq": "3 × 10³¹⁷",
+      "literalBodyMarkdown": "Study how useful design freedom grows or collapses under resource, information, and irreversibility constraints.",
+      "sourceLineStart": 2283,
+      "sourceLineEnd": 2286,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 569,
+      "literalTitle": "THE POSSIBILITY INFORMATION THEORY",
+      "hypotheticalIq": "10³¹⁸",
+      "literalBodyMarkdown": "Quantify how much genuinely new capability is encoded in a discovery.",
+      "sourceLineStart": 2287,
+      "sourceLineEnd": 2290,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 570,
+      "literalTitle": "THE POSSIBILITY COMPUTATION THEORY",
+      "hypotheticalIq": "3 × 10³¹⁸",
+      "literalBodyMarkdown": "Determine which future states are reachable with finite computation and experimentation.",
+      "sourceLineStart": 2291,
+      "sourceLineEnd": 2294,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 571,
+      "literalTitle": "THE POSSIBILITY COMPLEXITY THEORY",
+      "hypotheticalIq": "10³¹⁹",
+      "literalBodyMarkdown": "Classify inventions according to the difficulty of discovering, verifying, manufacturing, and deploying them.",
+      "sourceLineStart": 2295,
+      "sourceLineEnd": 2298,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 572,
+      "literalTitle": "THE POSSIBILITY ALGORITHM",
+      "hypotheticalIq": "3 × 10³¹⁹",
+      "literalBodyMarkdown": "An algorithm whose output is not an answer but a sequence of interventions increasing the space of future answers.",
+      "sourceLineStart": 2299,
+      "sourceLineEnd": 2302,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 573,
+      "literalTitle": "THE POSSIBILITY COMPUTER",
+      "hypotheticalIq": "10³²⁰",
+      "literalBodyMarkdown": "A computational architecture optimized specifically for searching over possible mechanisms, theories, technologies, institutions, and futures.",
+      "sourceLineStart": 2303,
+      "sourceLineEnd": 2306,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 574,
+      "literalTitle": "THE POSSIBILITY PROCESSOR",
+      "hypotheticalIq": "3 × 10³²⁰",
+      "literalBodyMarkdown": "Hardware/software stack optimized for massively parallel counterfactual and generative search.",
+      "sourceLineStart": 2307,
+      "sourceLineEnd": 2310,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 575,
+      "literalTitle": "THE POSSIBILITY MEMORY",
+      "hypotheticalIq": "10³²¹",
+      "literalBodyMarkdown": "Store not just what exists, but what was tried, what could exist, what dependencies are missing, and why possibilities were rejected.",
+      "sourceLineStart": 2311,
+      "sourceLineEnd": 2314,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 576,
+      "literalTitle": "THE POSSIBILITY CACHE",
+      "hypotheticalIq": "3 × 10³²¹",
+      "literalBodyMarkdown": "Preserve expensive partial discoveries so future breakthroughs can instantly reactivate them.",
+      "sourceLineStart": 2315,
+      "sourceLineEnd": 2318,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 577,
+      "literalTitle": "THE POSSIBILITY DATABASE",
+      "hypotheticalIq": "10³²²",
+      "literalBodyMarkdown": "A structured corpus of known, hypothetical, impossible, contingent, and unresolved technologies.",
+      "sourceLineStart": 2319,
+      "sourceLineEnd": 2322,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 578,
+      "literalTitle": "THE POSSIBILITY GRAPH",
+      "hypotheticalIq": "3 × 10³²²",
+      "literalBodyMarkdown": "Nodes are capabilities. Edges encode enables, requires, conflicts, supersedes, amplifies, and transforms.",
+      "sourceLineStart": 2323,
+      "sourceLineEnd": 2326,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 579,
+      "literalTitle": "THE POSSIBILITY KNOWLEDGE GRAPH OF CIVILIZATION",
+      "hypotheticalIq": "10³²³",
+      "literalBodyMarkdown": "Join the entire history of human knowledge with future dependency graphs.",
+      "sourceLineStart": 2327,
+      "sourceLineEnd": 2330,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 580,
+      "literalTitle": "THE POSSIBILITY SEARCH ENGINE",
+      "hypotheticalIq": "3 × 10³²³",
+      "literalBodyMarkdown": "Query:\n     > “What can become possible if X is solved?”",
+      "sourceLineStart": 2331,
+      "sourceLineEnd": 2335,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 581,
+      "literalTitle": "THE POSSIBILITY RECOMMENDER",
+      "hypotheticalIq": "10³²⁴",
+      "literalBodyMarkdown": "Continuously recommend which future-enabling discovery deserves attention next.",
+      "sourceLineStart": 2336,
+      "sourceLineEnd": 2339,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 582,
+      "literalTitle": "THE POSSIBILITY INDEX",
+      "hypotheticalIq": "3 × 10³²⁴",
+      "literalBodyMarkdown": "Measure how many high-value futures a technology keeps open.",
+      "sourceLineStart": 2340,
+      "sourceLineEnd": 2343,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 583,
+      "literalTitle": "THE POSSIBILITY PORTFOLIO",
+      "hypotheticalIq": "10³²⁵",
+      "literalBodyMarkdown": "Manage a diversified portfolio of future-enabling technologies rather than betting civilization on one forecast.",
+      "sourceLineStart": 2344,
+      "sourceLineEnd": 2347,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 584,
+      "literalTitle": "THE POSSIBILITY HEDGE",
+      "hypotheticalIq": "3 × 10³²⁵",
+      "literalBodyMarkdown": "Develop alternate pathways when one technological route fails.",
+      "sourceLineStart": 2348,
+      "sourceLineEnd": 2351,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 585,
+      "literalTitle": "THE POSSIBILITY ARBITRAGE ENGINE",
+      "hypotheticalIq": "10³²⁶",
+      "literalBodyMarkdown": "Detect places where two distant fields imply a capability neither field has recognized.",
+      "sourceLineStart": 2352,
+      "sourceLineEnd": 2355,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 586,
+      "literalTitle": "THE POSSIBILITY MARKET MAKER",
+      "hypotheticalIq": "3 × 10³²⁶",
+      "literalBodyMarkdown": "Connect stranded discoveries with missing engineering, funding, manufacturing, or users.",
+      "sourceLineStart": 2356,
+      "sourceLineEnd": 2359,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 587,
+      "literalTitle": "THE POSSIBILITY LIQUIDITY ENGINE",
+      "hypotheticalIq": "10³²⁷",
+      "literalBodyMarkdown": "Reduce friction preventing useful ideas from turning into experiments.",
+      "sourceLineStart": 2360,
+      "sourceLineEnd": 2363,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 588,
+      "literalTitle": "THE POSSIBILITY CAPITAL SYSTEM",
+      "hypotheticalIq": "3 × 10³²⁷",
+      "literalBodyMarkdown": "Capital flows according to future branching value and evidence, not hype alone.",
+      "sourceLineStart": 2364,
+      "sourceLineEnd": 2367,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 589,
+      "literalTitle": "THE POSSIBILITY BANK",
+      "hypotheticalIq": "10³²⁸",
+      "literalBodyMarkdown": "Store latent technologies whose dependencies are incomplete and reactivate them when feasibility changes.",
+      "sourceLineStart": 2368,
+      "sourceLineEnd": 2371,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 590,
+      "literalTitle": "THE POSSIBILITY INSURANCE",
+      "hypotheticalIq": "3 × 10³²⁸",
+      "literalBodyMarkdown": "Protect civilization against permanent closure of important future branches.",
+      "sourceLineStart": 2372,
+      "sourceLineEnd": 2375,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 591,
+      "literalTitle": "THE POSSIBILITY RESERVE",
+      "hypotheticalIq": "10³²⁹",
+      "literalBodyMarkdown": "Maintain spare scientific, industrial, computational, biological, and institutional capabilities for uncertain futures.",
+      "sourceLineStart": 2376,
+      "sourceLineEnd": 2379,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 592,
+      "literalTitle": "THE POSSIBILITY TREASURY",
+      "hypotheticalIq": "3 × 10³²⁹",
+      "literalBodyMarkdown": "A civilization explicitly invests in long-horizon option creation.",
+      "sourceLineStart": 2380,
+      "sourceLineEnd": 2383,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 593,
+      "literalTitle": "THE POSSIBILITY CONSTITUTION",
+      "hypotheticalIq": "10³³⁰",
+      "literalBodyMarkdown": "Declare preservation of valuable human future options a core constraint on self-improving systems.",
+      "sourceLineStart": 2384,
+      "sourceLineEnd": 2387,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 594,
+      "literalTitle": "THE POSSIBILITY RIGHTS",
+      "hypotheticalIq": "3 × 10³³⁰",
+      "literalBodyMarkdown": "Formalize certain rights around human agency, reversibility, choice, and protection from coercive narrowing of possible lives.",
+      "sourceLineStart": 2388,
+      "sourceLineEnd": 2391,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 595,
+      "literalTitle": "THE POSSIBILITY GOVERNOR",
+      "hypotheticalIq": "10³³¹",
+      "literalBodyMarkdown": "Self-improvement may accelerate only if option destruction stays within explicitly authorized limits.",
+      "sourceLineStart": 2392,
+      "sourceLineEnd": 2395,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 596,
+      "literalTitle": "THE POSSIBILITY SOVEREIGNTY ENGINE",
+      "hypotheticalIq": "3 × 10³³¹",
+      "literalBodyMarkdown": "Ensure intelligence expands human choice rather than silently choosing humanity's future.",
+      "sourceLineStart": 2396,
+      "sourceLineEnd": 2399,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 597,
+      "literalTitle": "THE POSSIBILITY DEMOCRACY",
+      "hypotheticalIq": "10³³²",
+      "literalBodyMarkdown": "Not a political recommendation, but a theoretical mechanism class: methods for incorporating plural human values into decisions about irreversible technological pathways without pretending one utility function represents everyone.",
+      "sourceLineStart": 2400,
+      "sourceLineEnd": 2403,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 598,
+      "literalTitle": "THE POSSIBILITY PLURALISM ENGINE",
+      "hypotheticalIq": "3 × 10³³²",
+      "literalBodyMarkdown": "Maintain multiple valuable conceptions of human flourishing rather than optimizing civilization toward one imposed endpoint.",
+      "sourceLineStart": 2404,
+      "sourceLineEnd": 2407,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 599,
+      "literalTitle": "THE POSSIBILITY ETHICS ENGINE",
+      "hypotheticalIq": "10³³³",
+      "literalBodyMarkdown": "Evaluate technologies partly by what agency, capability, reversibility, and future diversity they create or destroy.",
+      "sourceLineStart": 2408,
+      "sourceLineEnd": 2411,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 600,
+      "literalTitle": "THE POSSIBILITY CIVILIZATION",
+      "hypotheticalIq": "3 × 10³³³",
+      "literalBodyMarkdown": "A civilization whose central long-term product is neither GDP nor territory nor even knowledge alone, but **ever-expanding, safely navigable possibility for its people**.",
+      "sourceLineStart": 2412,
+      "sourceLineEnd": 2415,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 601,
+      "literalTitle": "THE UNKNOWN-CREATION ENGINE",
+      "hypotheticalIq": "10³³⁴",
+      "literalBodyMarkdown": "Most research converts unknowns to knowns. This deliberately creates new unknowns by generating new phenomena, substrates, mathematical systems, and artifacts whose behavior must then be explored.",
+      "sourceLineStart": 2416,
+      "sourceLineEnd": 2419,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 602,
+      "literalTitle": "THE MYSTERY FACTORY",
+      "hypotheticalIq": "3 × 10³³⁴",
+      "literalBodyMarkdown": "Civilization becomes capable of manufacturing productive mysteries faster than it solves old ones.",
+      "sourceLineStart": 2420,
+      "sourceLineEnd": 2423,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 603,
+      "literalTitle": "THE FRONTIER FACTORY",
+      "hypotheticalIq": "10³³⁵",
+      "literalBodyMarkdown": "Rather than discovering frontiers geographically or scientifically, create new frontiers deliberately.",
+      "sourceLineStart": 2424,
+      "sourceLineEnd": 2427,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 604,
+      "literalTitle": "THE FRONTIER COMPILER",
+      "hypotheticalIq": "3 × 10³³⁵",
+      "literalBodyMarkdown": "Input: “create a new scientific frontier.” Output: new substrate + instruments + open questions + experimental methods + applications.",
+      "sourceLineStart": 2428,
+      "sourceLineEnd": 2431,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 605,
+      "literalTitle": "THE FRONTIER RECURSION",
+      "hypotheticalIq": "10³³⁶",
+      "literalBodyMarkdown": "Every explored frontier produces tools for opening a larger frontier.",
+      "sourceLineStart": 2432,
+      "sourceLineEnd": 2435,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 606,
+      "literalTitle": "THE PERPETUAL FRONTIER MACHINE",
+      "hypotheticalIq": "3 × 10³³⁶",
+      "literalBodyMarkdown": "Civilization never runs out of meaningful discovery because it gains the ability to create new domains of exploration.",
+      "sourceLineStart": 2436,
+      "sourceLineEnd": 2439,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 607,
+      "literalTitle": "THE NOVELTY CONSERVATION BREAKER",
+      "hypotheticalIq": "10³³⁷",
+      "literalBodyMarkdown": "If a system begins converging toward repetitive ideas, deliberately alter representations, incentives, substrates, and generative mechanisms until qualitative novelty returns.",
+      "sourceLineStart": 2440,
+      "sourceLineEnd": 2443,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 608,
+      "literalTitle": "THE CONCEPTUAL MUTATION RADIATION",
+      "hypotheticalIq": "3 × 10³³⁷",
+      "literalBodyMarkdown": "Subject mature ideas to extreme controlled conceptual mutations and keep rare useful variants.",
+      "sourceLineStart": 2444,
+      "sourceLineEnd": 2447,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 609,
+      "literalTitle": "THE IDEA SPECIATION ENGINE",
+      "hypotheticalIq": "10³³⁸",
+      "literalBodyMarkdown": "Isolate conceptual populations long enough that they evolve radically different structures before recombination.",
+      "sourceLineStart": 2448,
+      "sourceLineEnd": 2451,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 610,
+      "literalTitle": "THE MEMETIC GALÁPAGOS",
+      "hypotheticalIq": "3 × 10³³⁸",
+      "literalBodyMarkdown": "Thousands of isolated intellectual ecosystems evolve different scientific and technological assumptions.",
+      "sourceLineStart": 2452,
+      "sourceLineEnd": 2455,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 611,
+      "literalTitle": "THE CONCEPTUAL CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "10³³⁹",
+      "literalBodyMarkdown": "Create conditions where entirely new families of concepts emerge rapidly rather than optimizing existing ideas.",
+      "sourceLineStart": 2456,
+      "sourceLineEnd": 2459,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 612,
+      "literalTitle": "THE TECHNOLOGICAL CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "3 × 10³³⁹",
+      "literalBodyMarkdown": "A new universal substrate unleashes massive diversification of machines and applications, analogous to biological explosion after enabling conditions changed.",
+      "sourceLineStart": 2460,
+      "sourceLineEnd": 2463,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 613,
+      "literalTitle": "THE SCIENTIFIC CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "10³⁴⁰",
+      "literalBodyMarkdown": "New instruments and representations simultaneously reveal dozens of previously inaccessible sciences.",
+      "sourceLineStart": 2464,
+      "sourceLineEnd": 2467,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 614,
+      "literalTitle": "THE COGNITIVE CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "3 × 10³⁴⁰",
+      "literalBodyMarkdown": "Discover enough cognitive primitives that thousands of new reasoning architectures suddenly become possible.",
+      "sourceLineStart": 2468,
+      "sourceLineEnd": 2471,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 615,
+      "literalTitle": "THE CIVILIZATIONAL CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "10³⁴¹",
+      "literalBodyMarkdown": "New institutional substrates permit thousands of stable societal organization forms beyond today's narrow menu.",
+      "sourceLineStart": 2472,
+      "sourceLineEnd": 2475,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 616,
+      "literalTitle": "THE POSSIBILITY CAMBRIAN EXPLOSION",
+      "hypotheticalIq": "3 × 10³⁴¹",
+      "literalBodyMarkdown": "A new meta-substrate suddenly produces enormous diversity across science, technology, cognition, economics, and institutions simultaneously.",
+      "sourceLineStart": 2476,
+      "sourceLineEnd": 2479,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 617,
+      "literalTitle": "THE NOVELTY BIG BANG",
+      "hypotheticalIq": "10³⁴²",
+      "literalBodyMarkdown": "Search for a primitive whose discovery causes an explosive birth of previously nonexistent categories.",
+      "sourceLineStart": 2480,
+      "sourceLineEnd": 2483,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 618,
+      "literalTitle": "THE CATEGORY CREATOR",
+      "hypotheticalIq": "3 × 10³⁴²",
+      "literalBodyMarkdown": "The objective is explicitly:\n     > produce a category that did not exist yesterday.",
+      "sourceLineStart": 2484,
+      "sourceLineEnd": 2488,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 619,
+      "literalTitle": "THE CATEGORY GENERATOR",
+      "hypotheticalIq": "10³⁴³",
+      "literalBodyMarkdown": "Generate entire classes rather than instances.",
+      "sourceLineStart": 2489,
+      "sourceLineEnd": 2492,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 620,
+      "literalTitle": "THE CATEGORY-OF-CATEGORIES GENERATOR",
+      "hypotheticalIq": "3 × 10³⁴³",
+      "literalBodyMarkdown": "Create frameworks that themselves permit many novel categories.",
+      "sourceLineStart": 2493,
+      "sourceLineEnd": 2496,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 621,
+      "literalTitle": "THE ONTOLOGY GENERATOR",
+      "hypotheticalIq": "10³⁴⁴",
+      "literalBodyMarkdown": "Create new systems of concepts capable of organizing phenomena conventional ontologies cannot express.",
+      "sourceLineStart": 2497,
+      "sourceLineEnd": 2500,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 622,
+      "literalTitle": "THE ONTOLOGY COMPILER",
+      "hypotheticalIq": "3 × 10³⁴⁴",
+      "literalBodyMarkdown": "Given unresolved observations, synthesize candidate concept systems that make them simple.",
+      "sourceLineStart": 2501,
+      "sourceLineEnd": 2504,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    },
+    {
+      "ordinal": 623,
+      "literalTitle": "THE ONTOLOGY EVOLUTION ENGINE",
+      "hypotheticalIq": "10³⁴⁵",
+      "literalBodyMarkdown": "Conceptual systems compete according to explanatory compression, prediction, transfer, and invention generation.",
+      "sourceLineStart": 2505,
+      "sourceLineEnd": 2508,
+      "evidenceClass": "DIRECT_PROJECT_TRANSCRIPT_EXACT_EXTRACTION"
+    }
+  ]
+}

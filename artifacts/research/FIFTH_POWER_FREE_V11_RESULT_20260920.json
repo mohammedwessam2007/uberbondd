@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "uberbond.fifth-power-free-v11-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/FIFTH_POWER_FREE_V11_PREREGISTRATION_20260920.json",
+  "source": "src/fifth-power-free-v11.mjs",
+  "truthClass": "FRESH_UNSEEN_K_ORDER_EXACT_SOFTWARE_TRANSFER",
+  "outcome": {
+    "status": "V11_UNSEEN_FIFTH_POWER_FREE_EXACT_GENERALIZATION_SUPPORTED__REVIEW_REQUIRED",
+    "falsifierTriggered": false,
+    "grammarCandidateCount": 2592,
+    "selectedThreshold": 5,
+    "trainAccuracy": 1,
+    "validationAccuracy": 1,
+    "heldOutAccuracy": 1,
+    "heldOutPositiveRecall": 1,
+    "heldOutNegativeRecall": 1,
+    "negativeControlBalancedAccuracy": 0.5130875576036866
+  },
+  "supportedClaim": "The frozen V10 parameterized multiplicity-depth grammar exactly generalized to a fresh fifth-power-free threshold without semantic mutation.",
+  "boundaries": [
+    "FINITE_ARITHMETIC_FAMILY_ONLY",
+    "NO_GENERAL_MATHEMATICAL_DISCOVERY",
+    "NO_OPEN_ENDED_ONTOLOGY_INVENTION"
+  ]
+}

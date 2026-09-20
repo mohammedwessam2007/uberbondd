@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "uberbond-vercel-live-state-receipt-2026-09-20",
+  "generatedOn": "2026-09-20",
+  "observedMainCommit": "aae307af8efb74644865777a486271ef9a5acd6f",
+  "authority": {
+    "source": "connected Vercel live project/deployment reads plus GitHub-linked deployment metadata",
+    "teamId": "team_A9LnjIuS5PU0rNetsHMu1N0r",
+    "accountProjectAccess": "resolved through the connected Vercel account profile"
+  },
+  "projects": {
+    "full": {
+      "id": "prj_RWUPf14w1xIz9NK92AbNW5z7qDCg",
+      "name": "uberbondd",
+      "framework": "node",
+      "nodeVersion": "24.x",
+      "live": false,
+      "ssoProtection": {
+        "enabled": true,
+        "deploymentType": "all_except_custom_domains"
+      },
+      "productionDomains": [
+        "uberbondd-mohammedwessam2007s-projects.vercel.app",
+        "uberbondd-git-main-mohammedwessam2007s-projects.vercel.app"
+      ],
+      "latestProduction": {
+        "id": "dpl_CTrk3GK5owPfPNgazuSRn7XrmZWw",
+        "state": "ERROR",
+        "readyState": "ERROR",
+        "ref": "main",
+        "commit": "aae307af8efb74644865777a486271ef9a5acd6f",
+        "errorCode": "BUILD_UTILS_SPAWN_2",
+        "errorMessage": "Command \"node scripts/vercel-command-center-build.mjs\" exited with 2",
+        "errorStep": "buildStep"
+      }
+    },
+    "lite": {
+      "id": "prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz",
+      "name": "uberbondd-lite-private",
+      "framework": null,
+      "nodeVersion": "24.x",
+      "live": false,
+      "ssoProtection": {
+        "enabled": true,
+        "deploymentType": "all_except_custom_domains"
+      },
+      "productionDomains": [
+        "uberbondd-lite-private-mohammedwessam2007s-projects.vercel.app",
+        "uberbondd-lite-private-git-main-mohammedwessam2007s-projects.vercel.app"
+      ],
+      "latestProduction": {
+        "id": "dpl_FcaqQSrVEFvTjanT67ZFmcs1XGiJ",
+        "state": "ERROR",
+        "readyState": "ERROR",
+        "ref": "main",
+        "commit": "aae307af8efb74644865777a486271ef9a5acd6f",
+        "errorCode": "BUILD_UTILS_SPAWN_2",
+        "errorMessage": "Command \"node scripts/build-visual-cortex.mjs\" exited with 2",
+        "errorStep": "buildStep"
+      }
+    }
+  },
+  "buildConfiguration": {
+    "fullCommand": "node scripts/vercel-command-center-build.mjs",
+    "liteCommand": "node scripts/build-visual-cortex.mjs",
+    "fullConfigPath": "vercel.json",
+    "liteConfigPath": "lite/vercel.json"
+  },
+  "previewEvidence": {
+    "fullPreview": {
+      "id": "dpl_G1pKfKp6qfbHJ43RCtQij2rHnx3y",
+      "ref": "recovery/library-materialization-complete-20260920",
+      "state": "ERROR",
+      "errorMessage": "Command \"node scripts/vercel-command-center-build.mjs\" exited with 2"
+    },
+    "litePreview": {
+      "id": "dpl_AeHc2oBscTGh5BSQs2TwTXEby6CC",
+      "ref": "recovery/library-materialization-complete-20260920",
+      "state": "ERROR",
+      "errorMessage": "Command \"node scripts/build-visual-cortex.mjs\" exited with 2"
+    }
+  },
+  "logBoundary": {
+    "deploymentDetailsAvailable": true,
+    "buildLogToolAvailable": false,
+    "publicDeploymentPage": "Deployment has failed",
+    "innerChildCommandOutput": "unavailable",
+    "noRootCauseClaim": true
+  },
+  "interpretation": {
+    "sourceChangeInDiagnostic": "none",
+    "vercelGitHubCheckMeaning": "The Vercel GitHub check posted a status comment; it is not deployment success.",
+    "productionLiveness": "NOT_ESTABLISHED",
+    "safeNextAction": "A Vercel-accessible build-log read or owner-authorized local reproduction is required before any source/config change."
+  },
+  "truthBoundaries": {
+    "deployment": "Both current production targets are externally observed ERROR.",
+    "customerOrPayment": "not observed",
+    "credentialsAndProviderAuthority": "not granted by this receipt",
+    "unattendedOperation": "not observed",
+    "ASI": "NOT_ESTABLISHED",
+    "singularity": "NOT_ESTABLISHED"
+  },
+  "noAmputation": true,
+  "noGateWeakening": true
+}

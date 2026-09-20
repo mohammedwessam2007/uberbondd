@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.fourth-power-free-v9-preflight.v1",
+  "date": "2026-09-20",
+  "truthClass": "PRE_EXECUTION_EXTERNAL_TARGET_AND_COMPARATOR_ADMISSION__NOT_RESULT",
+  "externalDefinition": {
+    "target": "FOURTH_POWER_FREE_INDICATOR",
+    "definition": "1 iff n is not divisible by any fourth power greater than 1.",
+    "sourceEvidence": [
+      "OEIS general k-power-free definition",
+      "OEIS A215267 comment: asymptotic probability that a random integer is 4-free equals 1/zeta(4)"
+    ]
+  },
+  "split": {
+    "universe": "integers 2..4097",
+    "assignment": "same deterministic V6/V7 hash split",
+    "trainCount": 1612,
+    "validationCount": 810,
+    "heldOutCount": 834,
+    "reserveCount": 840,
+    "heldOutClassCounts": {
+      "0": 76,
+      "1": 758
+    },
+    "decision": "USE_BALANCED_ACCURACY_AS_PRIMARY_METRIC_DUE_CLASS_IMBALANCE"
+  },
+  "frozenOldOntologyComparator": {
+    "featureCount": 8626,
+    "selectionMetric": "TRAIN_BALANCED_ACCURACY_THEN_VALIDATION_BALANCED_ACCURACY",
+    "selectedFeature": "NOT(AND(NOT(BIT(3)),RESIDUE_EQ(4,0)))",
+    "heldOutBalancedAccuracy": 0.8808325232606582,
+    "heldOutPositiveRecall": 0.9327176781002638,
+    "heldOutNegativeRecall": 0.8289473684210527,
+    "heldOutRawAccuracy": 0.9232613908872902
+  },
+  "admissionDecision": "ADMIT_UNSEEN_MULTIPLICITY_ORDER_CHALLENGE"
+}

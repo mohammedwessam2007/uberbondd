@@ -71,12 +71,12 @@ function splitBucket(x) {
 function baseAtoms() {
   const atoms = [];
   for (let bit = 0; bit <= 5; bit += 1) {
-    atoms.push({ id: \`BIT(\${bit})\`, complexity: 1, evaluate: x => (x >> bit) & 1 });
+    atoms.push({ id: `BIT(${bit})`, complexity: 1, evaluate: x => (x >> bit) & 1 });
   }
   for (let k = 2; k <= 7; k += 1) {
     for (let residue = 0; residue < k; residue += 1) {
       atoms.push({
-        id: \`RESIDUE_EQ(\${k},\${residue})\`,
+        id: `RESIDUE_EQ(${k},${residue})`,
         complexity: 2,
         evaluate: x => x % k === residue ? 1 : 0
       });
@@ -84,7 +84,7 @@ function baseAtoms() {
   }
   for (let threshold = 1; threshold <= 5; threshold += 1) {
     atoms.push({
-      id: \`POPCOUNT_GE(\${threshold})\`,
+      id: `POPCOUNT_GE(${threshold})`,
       complexity: 3,
       evaluate: x => popcount(x) >= threshold ? 1 : 0
     });
@@ -97,7 +97,7 @@ function baseLiterals(atoms) {
   for (const atom of atoms) {
     literals.push(atom);
     literals.push({
-      id: \`NOT(\${atom.id})\`,
+      id: `NOT(${atom.id})`,
       complexity: atom.complexity + 1,
       evaluate: x => atom.evaluate(x) ? 0 : 1
     });
@@ -120,7 +120,7 @@ function baseGrammar() {
       const right = literals[j];
       for (const [op, combine] of operators) {
         features.push({
-          id: \`\${op}(\${left.id},\${right.id})\`,
+          id: `${op}(${left.id},${right.id})`,
           complexity: left.complexity + right.complexity + 1,
           evaluate: x => combine(left.evaluate(x), right.evaluate(x))
         });
@@ -199,7 +199,7 @@ function structuralProgramGrammar() {
               divisionPolicy,
               stateUpdate,
               leftoverPolicy,
-              \`INIT_\${initialState}\`
+              `INIT_${initialState}`
             ].join('__');
             rows.push({
               id,
@@ -409,8 +409,8 @@ function baselineBundle(taskId, split, selectedBase, heldOutKey) {
 }
 
 function transferFeatures(primitive, baseLiterals) {
-  const p = { id: \`SYNTH(\${primitive.id})\`, complexity: primitive.descriptionCost, evaluate: primitive.evaluate };
-  const notP = { id: \`NOT(\${p.id})\`, complexity: p.complexity + 1, evaluate: x => p.evaluate(x) ? 0 : 1 };
+  const p = { id: `SYNTH(${primitive.id})`, complexity: primitive.descriptionCost, evaluate: primitive.evaluate };
+  const notP = { id: `NOT(${p.id})`, complexity: p.complexity + 1, evaluate: x => p.evaluate(x) ? 0 : 1 };
   const primaries = [p, notP];
   const rows = [...primaries];
   const operators = [
@@ -422,7 +422,7 @@ function transferFeatures(primitive, baseLiterals) {
     for (const base of baseLiterals) {
       for (const [op, combine] of operators) {
         rows.push({
-          id: \`\${op}(\${primary.id},\${base.id})\`,
+          id: `${op}(${primary.id},${base.id})`,
           complexity: primary.complexity + base.complexity + 1,
           evaluate: x => combine(primary.evaluate(x), base.evaluate(x))
         });

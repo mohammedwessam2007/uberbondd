@@ -31,7 +31,7 @@
       "NOT_ACCUMULATOR_AND_NOT_REPEAT_SEEN",
       "ACCUMULATOR_XOR_REPEAT_SEEN"
     ],
-    "expectedCandidateCount": 432,
+    "expectedCandidateCount": 864,
     "selection": "train accuracy, validation accuracy, lower description cost, lexical program ID"
   },
   "targets": [
@@ -88,5 +88,6 @@
     "Candidate count or description-length burden is omitted."
   ],
   "promotionBoundary": "A pass validates the multiplicity-sensitive memory hypothesis only in this finite external arithmetic family. It is not evidence of open-ended ontology invention or new mathematics.",
-  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE",
+  "preExecutionCorrection": "artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json"
 }

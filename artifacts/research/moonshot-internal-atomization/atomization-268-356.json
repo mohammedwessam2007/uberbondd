@@ -1,0 +1,422 @@
+{
+  "schemaVersion": "uberbond.internal-moonshot-atomization-shard.v1",
+  "date": "2026-09-20",
+  "sourceOrdinalStart": 268,
+  "sourceOrdinalEnd": 356,
+  "atomizedCount": 9,
+  "sourceAtomCount": 10,
+  "derivedClaimCount": 0,
+  "packets": [
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0276",
+      "ordinal": 276,
+      "literalTitle": "THE HUMAN-AI ORGANISM",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "HUMAN_CAPABILITY_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Stop conceptualizing AI as a tool beside a human.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Design a persistent division of cognition where human agency and machine intelligence form one coordinated organism without erasing human control.",
+          "kind": "CONSTRAINT_OR_INVARIANT_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 2,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0279",
+      "ordinal": 279,
+      "literalTitle": "THE THOUGHT OPERATING SYSTEM",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "HUMAN_CAPABILITY_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Memory, reasoning, attention, research, decisions, goals, experiences, models, tools, and experiments become interoperable components under one architecture.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0283",
+      "ordinal": 283,
+      "literalTitle": "THE SELF-UNKNOWN-UNKNOWN ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search for aspects of yourself you don't know to question: hidden capabilities, environmental sensitivities, preferences, recurring failure mechanisms, unexplored identities.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0316",
+      "ordinal": 316,
+      "literalTitle": "THE POLICY DIGITAL TWIN",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Maintain living causal models of policy environments that explicitly track uncertainty and are updated against outcomes.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0319",
+      "ordinal": 319,
+      "literalTitle": "THE TEMPORARY NATION",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "A bounded virtual institution forms around a mission, has explicit rights and constitution, performs work, distributes value, and dissolves when complete.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0323",
+      "ordinal": 323,
+      "literalTitle": "THE FRONTIER COLONY",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "RESEARCH_PROGRAM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Create self-contained research ecosystems that explore one region of scientific possibility for years with minimal external coordination.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0329",
+      "ordinal": 329,
+      "literalTitle": "THE META-CIVILIZATION MARKET",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Civilizational mechanisms compete on measurable outcomes while rights and safety remain constitutional constraints.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0334",
+      "ordinal": 334,
+      "literalTitle": "THE CIVILIZATION EMBRYO",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search for a minimal seed constitution and capability set from which complex useful institutions can safely self-develop.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0349",
+      "ordinal": 349,
+      "literalTitle": "THE CIVILIZATION FORMAL VERIFICATION LAYER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "DOCTRINE_OR_INVARIANT",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Certain critical institutional invariants become machine-checkable where mathematically representable.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    }
+  ]
+}

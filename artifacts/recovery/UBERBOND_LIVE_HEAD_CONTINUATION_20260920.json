@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "uberbond-live-head-continuation-2026-09-20",
+  "generatedAt": "2026-09-20T00:00:00Z",
+  "generatedBy": "Codex recovery continuation",
+  "repository": {
+    "fullName": "mohammedwessam2007/uberbondd",
+    "defaultBranch": "main",
+    "observedMainCommit": "d489e8e05f18d12624664e428eeb646d60aa1d2a",
+    "observedMainTree": "4efd2bd749bbf94bffa36192af776a54dd5f6119",
+    "commitMessage": "Merge live UberBond recovery frontier seal",
+    "snapshotBasis": "direct GitHub API reads against live main"
+  },
+  "repositoryTree": {
+    "recursiveTruncated": false,
+    "entries": 3485,
+    "trees": 164,
+    "blobs": 3321,
+    "trackedBlobBytes": 112176201,
+    "directories": {
+      "src": {
+        "entries": 858,
+        "trees": 9,
+        "blobs": 849,
+        "bytes": 7854028
+      },
+      "tests": {
+        "entries": 1048,
+        "trees": 5,
+        "blobs": 1043,
+        "bytes": 6067867
+      },
+      "docs": {
+        "entries": 311,
+        "trees": 15,
+        "blobs": 296,
+        "bytes": 8343618
+      },
+      "artifacts": {
+        "entries": 531,
+        "trees": 54,
+        "blobs": 477,
+        "bytes": 83798370
+      },
+      "artifacts/recovery": {
+        "entries": 165,
+        "trees": 8,
+        "blobs": 157,
+        "bytes": 78547864
+      }
+    },
+    "sourceModules": 849,
+    "semanticRequirements": 1040,
+    "semanticOrphans": 0
+  },
+  "gitHistory": {
+    "reachableMainCommits": 4466,
+    "pagination": {
+      "pages1Through44": 4400,
+      "page45": 66,
+      "page46": 0,
+      "terminalPage": 46,
+      "perPage": 100
+    },
+    "initialCommit": "229c2c85c3c28179ce5bc3c4997f87b3ee67911b",
+    "statement": "Current main commit pagination was exhausted; this is a history-count receipt, not a claim that inaccessible external chat bytes are present."
+  },
+  "pullRequests": {
+    "total": 784,
+    "merged": 601,
+    "closedUnmerged": 183,
+    "open": 0,
+    "pagination": "pages 1-7=100, page8=84, page9=0"
+  },
+  "trueIssues": {
+    "total": 177,
+    "open": 45,
+    "closed": 132,
+    "sourceEndpointObjects": 961,
+    "pagination": "pages 1-9=100, page10=61, page11=0; 784 PR objects excluded"
+  },
+  "comments": {
+    "issueAndPullRequestTimelineComments": 1987,
+    "inlineReviewComments": 0,
+    "issueCommentsPagination": "pages 1-19=100, page20=87, page21=0",
+    "inlinePagination": "pages 1-3=0"
+  },
+  "branches": {
+    "total": 892,
+    "unique": 892,
+    "pageSize": 100,
+    "pagination": "pages 1-8=100, page9=92, page10=0",
+    "terminalCursor": null
+  },
+  "actions": {
+    "workflowRuns": 11419,
+    "pagination": "page114=100, page115=19, page116=0",
+    "newestObservedRunIds": [
+      35478656871
+    ],
+    "truthBoundary": "Run enumeration is control-plane history; failed or skipped runs do not prove runtime health or customer outcomes."
+  },
+  "workflowDefinitions": {
+    "yamlDefinitions": 17,
+    "runtimeHelperScripts": 11,
+    "directory": ".github/workflows",
+    "truthBoundary": "Definition inventory is not evidence that schedules, credentials, providers, or unattended execution are live."
+  },
+  "releasesAndTags": {
+    "releases": 0,
+    "tagRefs": 0,
+    "observedBy": "direct live API reads"
+  },
+  "library": {
+    "currentObjects": 921,
+    "currentBytes": 3033944705,
+    "sourceKinds": {
+      "uploaded": 353,
+      "generated": 568
+    },
+    "pagination": "pages 1-4=200, page5=121, terminal cursor=null",
+    "truthBoundary": "All currently exposed Library objects are addressable; the interface did not provide a complete raw-byte export or full semantic traversal in this continuation.",
+    "priorRawVerificationContext": {
+      "priorOriginalInventory": 836,
+      "priorSha256Verified": 93,
+      "priorVerifiedBytes": 44001793,
+      "priorExplicitRawExportBoundary": 743
+    }
+  },
+  "projectAndChatLineage": {
+    "projectBackedFileIdentities": 7,
+    "projectIdentityCoverage": "7/7 exposed identities enumerated",
+    "semanticChatAndFounderLineage": "Recovered to the exposed context and canonical source boundary.",
+    "rawChatTranscriptBytes": "Not exposed by the available interface; no byte-exact completeness claim."
+  },
+  "semanticCanon": {
+    "finiteDeclaredRequirementDenominator": 1040,
+    "resolved": 1040,
+    "orphans": 0,
+    "canonicalStartupStackRead": true,
+    "truthBoundary": "Finite source/canon closure is not external reality proof; deployment, provider credentials, payment, customers, accepted delivery, retained value, sustained unattended operation, ASI, intelligence explosion, and singularity remain unproven unless separately observed."
+  },
+  "recoveryProgress": {
+    "repository": "100% addressable: 3485/3485 recursive tree entries; 3321/3321 blobs",
+    "gitHistory": "100% enumerated: 4466/4466 reachable main commits; page46 empty",
+    "branchLineage": "100% enumerated: 892/892 branches; cursor exhausted",
+    "controlPlane": "100% enumerated at observed snapshot: 784 PRs, 177 true issues, 1987 comments, 0 inline comments, 11419 Actions runs, 17 workflow definitions",
+    "libraryInventory": "100% addressable at observed snapshot: 921/921 objects",
+    "chatFounderLineage": "100% of exposed semantic sources; raw transcript export unavailable",
+    "semanticCanon": "100% of finite declared source denominator: 1040/1040, 0 orphans",
+    "totalRecoverableExposedSurfaces": "100% of enumerated and addressable exposed surfaces; not a claim of raw-materialized inaccessible transcript bytes or external reality"
+  },
+  "status": "EXPOSED_SURFACES_ENUMERATED__EXTERNAL_REALITY_BOUNDARIES_PRESERVED",
+  "noAmputation": true,
+  "noRuntimeOrCommercialClaim": true
+}

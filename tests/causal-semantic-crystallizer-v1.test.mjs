@@ -40,3 +40,11 @@ test('positive result never becomes causal discovery',()=>{
   assert.match(result.claimBoundary,/FINITE_BOOLEAN/);
   assert.equal(result.externalEffectAuthority,'NONE');
 });
+
+
+test('heldout OR semantic motif remains valid when distractor controls use D-prefixed ids',()=>{
+  const result=runCausalSemanticCrystallizerV1();
+  const orRows=result.rows.filter(row=>row.motifKind==='OR');
+  assert.equal(orRows.length,12);
+  assert.ok(orRows.every(row=>row.exact));
+});

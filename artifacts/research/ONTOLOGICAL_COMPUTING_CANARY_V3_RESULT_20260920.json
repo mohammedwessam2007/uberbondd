@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "uberbond.ontological-computing-canary-v3-result.v1",
+  "date": "2026-09-20",
+  "preregistration": "artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_PREREGISTRATION_20260920.json",
+  "source": "src/ontological-primitive-synthesis-canary-v3.mjs",
+  "truthClass": "PREREGISTERED_FALSIFICATION__SYNTHETIC_SOFTWARE_EVIDENCE",
+  "implementationCorrection": {
+    "interimRunDiscarded": true,
+    "bug": "Numeric 0/1 was compared by strict inequality to a Boolean in TRANSFER_XOR_BIT3, making the label constant true.",
+    "fixCommit": "871d59997f2dc8c0d518dedc6eecac3d4800f061",
+    "regressionTestCommit": "9a0374ecadd9caa3887988bc572469c28680c5f6",
+    "law": "INTERIM_OUTPUT_BEFORE_FIX_IS_INVALID_AND_NOT_EVIDENCE"
+  },
+  "correctedOutcome": {
+    "status": "V3_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED",
+    "falsifierTriggered": true,
+    "synthesizedPrimitive": "NOT(BIT(ADD(X,-1),1))",
+    "discovery": {
+      "heldOutAccuracy": 1,
+      "bestBaseVocabularyAccuracy": 1,
+      "improvement": 0,
+      "discoveryPassed": false
+    },
+    "transfers": [
+      {
+        "id": "TRANSFER_XOR_BIT3",
+        "heldOutAccuracy": 1,
+        "bestBaselineAccuracy": 0.7450980392156863,
+        "improvement": 0.254902,
+        "criterionPassed": true
+      },
+      {
+        "id": "TRANSFER_AND_NOT_BIT2",
+        "heldOutAccuracy": 1,
+        "bestBaselineAccuracy": 0.8725490196078431,
+        "improvement": 0.127451,
+        "criterionPassed": false
+      }
+    ],
+    "negativeControl": {
+      "heldOutAccuracy": 0.5196078431372549,
+      "bestBaselineAccuracy": 0.5098039215686274,
+      "negativeControlPassed": true
+    }
+  },
+  "diagnosis": [
+    "The hidden triangular-parity generator is semantically reducible to the existing base vocabulary over the tested universe, despite being syntactically absent by name.",
+    "Therefore the discovery task did not test creation of a genuinely missing representation primitive.",
+    "The corrected transfer benchmark is nondegenerate; its first transfer shows useful composition while its second misses the preregistered margin.",
+    "The negative control remained unsolved."
+  ],
+  "promotionDecision": "DENY",
+  "learnedInvariant": "NOVELTY_MUST_BE_TESTED_BEHAVIORALLY_AGAINST_EXISTING_ONTOLOGY_BEFORE_A_NEW_PRIMITIVE_CHALLENGE_IS_ADMITTED",
+  "nextProgram": "SEMANTIC_NOVELTY_PREFLIGHT_THEN_V4"
+}

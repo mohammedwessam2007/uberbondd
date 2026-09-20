@@ -142,7 +142,12 @@
         "TECHNOLOGY",
         "CIVILIZATION"
       ],
-      "status": "RESEARCH_PROGRAM"
+      "status": "SOURCE_IMPLEMENTED_AND_CONNECTOR_EXECUTED_IN_PR_967",
+      "evidenceRefs": [
+        "src/moonshot-technology-tree-compiler.mjs",
+        "tests/moonshot-technology-tree-compiler.test.mjs",
+        "artifact:MOONSHOT_TECHNOLOGY_TREE_STATE_20260920"
+      ]
     },
     {
       "id": "epoch-branching-evaluator",

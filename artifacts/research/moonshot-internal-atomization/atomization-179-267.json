@@ -1,0 +1,839 @@
+{
+  "schemaVersion": "uberbond.internal-moonshot-atomization-shard.v1",
+  "date": "2026-09-20",
+  "sourceOrdinalStart": 179,
+  "sourceOrdinalEnd": 267,
+  "atomizedCount": 18,
+  "sourceAtomCount": 21,
+  "derivedClaimCount": 0,
+  "packets": [
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0202",
+      "ordinal": 202,
+      "literalTitle": "THE TECHNOLOGY TREE EXCHANGE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Represent emerging technology trees and their dependencies so funding can target enabling nodes instead of fashionable endpoints.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0204",
+      "ordinal": 204,
+      "literalTitle": "THE BRANCHING FACTOR ECONOMY",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Reward inventions partly according to the number of valuable subsequent inventions they make possible.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0208",
+      "ordinal": 208,
+      "literalTitle": "THE DISCOVERY FUSION REACTOR",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "When different discoveries enter the system, automatically search for combinations whose joint consequences exceed the sum of the parts.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0209",
+      "ordinal": 209,
+      "literalTitle": "THE BREAKTHROUGH CASCADE ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "A discovery triggers search for its first-order applications, whose existence triggers second-order discoveries, continuing recursively until the tree is exhausted.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0213",
+      "ordinal": 213,
+      "literalTitle": "THE GRANDCHILD TECHNOLOGY SEARCH",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Don't judge a technology by what it does.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Judge it by what its descendants could do.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 2,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0218",
+      "ordinal": 218,
+      "literalTitle": "THE DEFERRED INVENTION VAULT",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Preserve technically sound ideas whose enabling technology does not yet exist and automatically resurrect them when prerequisites arrive.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0224",
+      "ordinal": 224,
+      "literalTitle": "THE DISCOVERY SCHEDULER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Decide which discoveries to pursue now because they maximize the speed of all downstream discovery.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0227",
+      "ordinal": 227,
+      "literalTitle": "THE CAPABILITY COMPOUND-INTEREST ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Prefer capabilities that unlock many other capabilities.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Tool-making ability dominates isolated tools.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 2,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0231",
+      "ordinal": 231,
+      "literalTitle": "THE BOTTLENECK CASCADE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Remove the current bottleneck, immediately identify the next emergent bottleneck, repeat.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0239",
+      "ordinal": 239,
+      "literalTitle": "THE POSSIBILITY BRIDGE BUILDER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "When two valuable regions of possibility cannot connect because one intermediate capability is missing, invent the bridge.",
+          "kind": "CONSTRAINT_OR_INVARIANT_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0240",
+      "ordinal": 240,
+      "literalTitle": "THE POSSIBILITY ISLAND DISCOVERER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search for technology families that are unreachable through obvious incremental improvement but accessible through a discontinuous conceptual jump.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0242",
+      "ordinal": 242,
+      "literalTitle": "THE PHASE-TRANSITION ENGINE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Find systems where gradual investment suddenly triggers qualitatively new behavior and optimize for crossing those boundaries.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0245",
+      "ordinal": 245,
+      "literalTitle": "THE CASCADE TRIGGER",
+      "realizationSurface": "FORMAL",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search for tiny interventions capable of initiating enormous positive technological cascades.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "FORMAL_PROOF_OR_COUNTERMODEL",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0249",
+      "ordinal": 249,
+      "literalTitle": "THE NEXT PRINTING PRESS",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search for something that reduces the replication cost of another valuable entity by many orders of magnitude.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0255",
+      "ordinal": 255,
+      "literalTitle": "THE TECHNOLOGY AFTER AI",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Explicitly search for the category that becomes possible only once intelligence itself becomes abundant.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0259",
+      "ordinal": 259,
+      "literalTitle": "THE SCARCITY EXTINCTION CASCADE",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Systematically remove major scarcity classes in an order where solving one makes solving the next cheaper.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0260",
+      "ordinal": 260,
+      "literalTitle": "THE ABUNDANCE COMPILER",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Input a scarce capability.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        },
+        {
+          "atomId": "source-atom-002",
+          "literal": "Output the technology tree necessary to make it abundant.",
+          "kind": "SOURCE_STATEMENT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 2,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    },
+    {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "spendCents": 0,
+        "messagesSent": 0,
+        "deployments": 0
+      },
+      "ok": true,
+      "status": "MOONSHOT_LITERAL_SOURCE_ATOMIZED",
+      "stableId": "founder-moonshot-0262",
+      "ordinal": 262,
+      "literalTitle": "THE ABUNDANCE FLYWHEEL",
+      "realizationSurface": "SOFTWARE",
+      "ideaKind": "CAPABILITY_SYSTEM",
+      "sourceAtoms": [
+        {
+          "atomId": "source-atom-001",
+          "literal": "Search for loops where abundance in one domain creates abundance in another until multiple scarcity barriers collapse together.",
+          "kind": "OBJECTIVE_SOURCE_UNIT",
+          "sourceExact": true
+        }
+      ],
+      "atomCount": 1,
+      "derivedClaimState": "NOT_YET_DERIVED",
+      "derivedHypothesis": null,
+      "rivalHypothesis": null,
+      "falsifier": null,
+      "baseline": null,
+      "measurement": null,
+      "defaultTestFamily": "HELDOUT_SOFTWARE_BENCHMARK",
+      "claimAdmissionContract": {
+        "sourceBindingRequired": true,
+        "exactSourceAtomIdsRequired": true,
+        "novelAssumptionsMustBeDeclared": true,
+        "rivalHypothesisRequired": true,
+        "falsifierRequired": true,
+        "baselineRequired": true,
+        "heldOutOrCounterexampleRequired": true,
+        "evidenceCannotBeInheritedFromParentOrDonor": true
+      },
+      "nextAction": "DERIVE_ONE_OR_MORE_EXPLICIT_FALSIFIABLE_CLAIMS_WITH_SOURCE_ATOM_BINDINGS",
+      "law": "ATOMIZATION_PRESERVES_LITERAL_SOURCE_UNITS__IT_DOES_NOT_TURN_AMBITION_INTO_A_CLAIM",
+      "truthBoundary": "NO_DERIVED_HYPOTHESIS_EXISTS_UNTIL_A_SEPARATE_EVIDENCE_GRADE_DERIVATION_IS_ADMITTED"
+    }
+  ]
+}

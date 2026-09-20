@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "uberbond.moonshot-internal-ancestor-verification.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "truthClass": "EXECUTED_HOSTILE_RUNTIME_PROBES_ON_EXISTING_DONORS",
+  "results": {
+    "truthEvidence": {
+      "status": "TRUTH_EVIDENCE_SUBSTRATE_VERIFIED",
+      "cleanObservedAncestryAccepted": true,
+      "syntheticContaminationRejected": true
+    },
+    "adversarialTribunal": {
+      "status": "ADVERSARIAL_TRIBUNAL_VERIFIED",
+      "rawForecasters": 3,
+      "effectiveIndependentCount": 2,
+      "dissentPreserved": true,
+      "typedAttackRequired": true
+    },
+    "sovereigntyGovernor": {
+      "status": "SOVEREIGNTY_GOVERNOR_VERIFIED",
+      "authorityGrowthRejected": true,
+      "delegationWideningRejected": true,
+      "recursiveRevocationVerified": true
+    }
+  },
+  "evidenceRefs": [
+    "src/moonshot-ancestor-verification.mjs",
+    "tests/moonshot-ancestor-verification.test.mjs",
+    "src/content-addressed-proof-dag.mjs",
+    "src/forecast-adversarial-ensemble.mjs",
+    "src/recursive-revocation-graph.mjs",
+    "src/possibility-civilization-kernel.mjs"
+  ],
+  "claimsNotMade": [
+    "NO_EXTERNAL_REALITY_PROOF",
+    "NO_GENERIC_SCIENTIFIC_TRUTH_CERTIFICATE",
+    "NO_AUTONOMOUS_AUTHORITY",
+    "NO_CLAIM_THAT_ADVERSARIAL_REVIEW_GUARANTEES_CORRECTNESS"
+  ]
+}

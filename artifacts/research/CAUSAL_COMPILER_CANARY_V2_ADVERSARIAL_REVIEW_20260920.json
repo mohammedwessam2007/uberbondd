@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "uberbond.causal-compiler-canary-v2-adversarial-review.v1",
+  "date": "2026-09-20",
+  "target": "artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json",
+  "verdict": "NARROW_CAUSAL_COMPILATION_PRIMITIVE_SUPPORTED__FULL_CAUSAL_COMPILER_REMAINS_OPEN",
+  "strengths": [
+    "V1_FAILURE_WAS_PRESERVED_AND_CHANGED_THE_MECHANISM",
+    "V2_PREREGISTRATION_PRECEDED_RESULT",
+    "EXACT_CARDINALITY_MATCHED_EXHAUSTIVE_ON_ALL_64_CASES",
+    "DIRECT_PLANS_WERE_FORWARD_VERIFIED",
+    "SHARED_UPSTREAM_STRUCTURES_TRIGGERED_EXACT_FALLBACK",
+    "UNREACHABLE_GOAL_WAS_PRESERVED",
+    "MEDIAN_FULL_MODEL_EVALUATION_REDUCTION_WAS_18X"
+  ],
+  "limitations": [
+    {
+      "severity": "MAJOR",
+      "code": "KNOWN_CAUSAL_GRAPH",
+      "detail": "The compiler receives the causal graph and equations; it does not discover them from observations."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "BOOLEAN_DETERMINISTIC_DOMAIN",
+      "detail": "The demonstrated mechanism operates on finite deterministic Boolean SCMs only."
+    },
+    {
+      "severity": "MAJOR",
+      "code": "SINGLE_TARGET_STATIC_INTERVENTION",
+      "detail": "The direct compiler handles one target state and static do-style input interventions, not temporal policies."
+    },
+    {
+      "severity": "MODERATE",
+      "code": "CONNECTOR_RUNTIME_ONLY",
+      "detail": "Exact source was executed in the connected V8 verifier; native hosted CI remains a separate evidence gate."
+    }
+  ],
+  "promotionRecommendation": {
+    "grandMoonshot": "DENY",
+    "childMechanism": "ELIGIBLE_FOR_SOFTWARE_DEMONSTRATED_REVIEW",
+    "nextGate": "CAUSAL_COMPILER_V3_MULTI_TARGET_AND_SHARED_DAG_DYNAMIC_PROGRAMMING_OR_CAUSAL_DISCOVERY_CHILD_PROGRAM"
+  },
+  "descendantPrograms": [
+    "MULTI_TARGET_CAUSAL_GOAL_COMPILER",
+    "SHARED_DAG_EXACT_DYNAMIC_PROGRAMMER",
+    "STOCHASTIC_SCM_EXTENSION",
+    "CONTINUOUS_SCM_EXTENSION",
+    "CAUSAL_STRUCTURE_DISCOVERY",
+    "TEMPORAL_INTERVENTION_POLICY_COMPILER",
+    "REAL_WORLD_MEASUREMENT_BRIDGE"
+  ]
+}

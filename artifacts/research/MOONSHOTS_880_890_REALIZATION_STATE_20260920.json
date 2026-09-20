@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "uberbond.moonshots-880-890-realization-state.v1",
+  "date": "2026-09-20",
+  "branch": "research/moonshot-reality-compiler-20260920",
+  "truthClass": "SOFTWARE_REALIZATION_FRONTIER__CIVILIZATION_SCALE_PARENTS_REMAIN_EVIDENCE_GATED",
+  "moonshots": [
+    {
+      "ordinal": 880,
+      "id": "founder-moonshot-0880",
+      "title": "THE RECURSION GENOME",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "extractRecursionGenome",
+      "evidence": [
+        "src/recursion-civilization-stack.mjs"
+      ],
+      "next": [
+        "mine real multi-generation improvement lineages",
+        "independent motif replication",
+        "cross-domain recursion motif transfer"
+      ]
+    },
+    {
+      "ordinal": 881,
+      "id": "founder-moonshot-0881",
+      "title": "THE RECURSION EVOLUTION ENGINE",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "evolveRecursionMechanisms",
+      "evidence": [
+        "src/recursion-civilization-stack.mjs"
+      ],
+      "next": [
+        "benchmark bounded mutation families",
+        "evolve search/evaluator strategies without governance weakening"
+      ]
+    },
+    {
+      "ordinal": 882,
+      "id": "founder-moonshot-0882",
+      "title": "THE META-RECURSION ENGINE",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "evaluateMetaRecursionDesign",
+      "evidence": [
+        "src/recursion-civilization-stack.mjs"
+      ],
+      "next": [
+        "compare recursion architectures on held-out tasks",
+        "optimize evaluator independence and rollback quality"
+      ]
+    },
+    {
+      "ordinal": 883,
+      "id": "founder-moonshot-0883",
+      "title": "THE RECURSION SINGULARITY GOVERNOR",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "governRecursionLoops",
+      "evidence": [
+        "src/recursion-civilization-stack.mjs"
+      ],
+      "next": [
+        "coupled-loop stress tests",
+        "production telemetry bridge",
+        "independent safety evaluator"
+      ]
+    },
+    {
+      "ordinal": 884,
+      "id": "founder-moonshot-0884",
+      "title": "THE CIVILIZATION CONTROL PLANE",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "compileCivilizationControlPlane",
+      "evidence": [
+        "src/recursion-civilization-stack.mjs"
+      ],
+      "next": [
+        "bind critical-system telemetry",
+        "aggregate only authorized non-private signals",
+        "no ordinary-life command plane"
+      ]
+    },
+    {
+      "ordinal": 885,
+      "id": "founder-moonshot-0885",
+      "title": "THE HUMAN AUTHORITY KERNEL",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "enforceHumanAuthorityKernel",
+      "evidence": [
+        "src/possibility-civilization-kernel.mjs"
+      ],
+      "next": [
+        "bind to all effectful adapters",
+        "formal authority-delta audit"
+      ]
+    },
+    {
+      "ordinal": 886,
+      "id": "founder-moonshot-0886",
+      "title": "THE SOVEREIGN FUTURE KERNEL",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "evaluateSovereignFutureKernel",
+      "evidence": [
+        "src/possibility-civilization-kernel.mjs"
+      ],
+      "next": [
+        "model consented commitments separately from coercive closures",
+        "calibrate reachability evidence"
+      ]
+    },
+    {
+      "ordinal": 887,
+      "id": "founder-moonshot-0887",
+      "title": "THE POSSIBILITY CONSTITUTION OF UBERBOND",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "evaluatePossibilityConstitution",
+      "evidence": [
+        "src/possibility-civilization-kernel.mjs"
+      ],
+      "next": [
+        "bind constitution to mission selection",
+        "refuse optimizing gains that violate authority or agency"
+      ]
+    },
+    {
+      "ordinal": 888,
+      "id": "founder-moonshot-0888",
+      "title": "THE CIVILIZATIONAL INVARIANT",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "evaluateCivilizationalInvariant",
+      "evidence": [
+        "src/possibility-civilization-kernel.mjs"
+      ],
+      "next": [
+        "adversarial closure tests",
+        "formalize chooser-capacity preservation"
+      ]
+    },
+    {
+      "ordinal": 889,
+      "id": "founder-moonshot-0889",
+      "title": "THE POSSIBILITY NORTH STAR",
+      "parentState": "CONSTRAINT_MAPPED",
+      "implementedDescendant": "measurePossibilityNorthStar",
+      "evidence": [
+        "src/possibility-civilization-kernel.mjs"
+      ],
+      "next": [
+        "replace declared future sets with graph-derived future geometry",
+        "calibrate value/reachability/truth dimensions",
+        "test against empowerment/AUP-style baselines"
+      ]
+    },
+    {
+      "ordinal": 890,
+      "id": "founder-moonshot-0890",
+      "title": "THE MYTHIC VERSION OF UBERBOND",
+      "parentState": "FORMALIZED",
+      "implementedDescendant": "evaluateMythicCivilizationCycle",
+      "evidence": [
+        "src/possibility-civilization-kernel.mjs"
+      ],
+      "next": [
+        "evidence every one of 14 stages on at least one closed cycle",
+        "connect automated science and self-driving experiments",
+        "prove transfer across scientific domains",
+        "repeat cycle without collapsing truth or authority"
+      ]
+    }
+  ],
+  "invariant": "SOFTWARE_DESCENDANT_IMPLEMENTATION_DOES_NOT_EQUAL_PARENT_CIVILIZATION_REALIZATION",
+  "endgame": "890_OF_890_SOURCE_IDEAS_REMAIN_IN_THE_REALIZATION_GRAPH_UNTIL_EVIDENCE_RESOLVES_THEM"
+}

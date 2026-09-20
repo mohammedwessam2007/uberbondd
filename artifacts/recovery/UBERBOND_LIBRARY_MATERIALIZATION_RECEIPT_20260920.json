@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "uberbond-library-materialization-receipt-2026-09-20",
+  "generatedOn": "2026-09-20",
+  "purpose": "Record successful byte materialization and local hashing of the complete currently exposed /UberBond Library inventory.",
+  "authority": {
+    "source": "ChatGPT Library /UberBond",
+    "inventoryRequest": {
+      "libraryPath": "/UberBond",
+      "recursive": true,
+      "includeFolders": false,
+      "includeGenerated": true,
+      "limit": 200,
+      "sort": "name",
+      "sortOrder": "asc"
+    },
+    "pagination": "pages 1-4=200, page5=121, terminal cursor=null"
+  },
+  "inventory": {
+    "currentObjects": 921,
+    "sourceKinds": {
+      "uploaded": 353,
+      "generated": 568
+    },
+    "expectedBytes": 3033944705
+  },
+  "materialization": {
+    "route": "authorized Library list-result materialization helper",
+    "canonicalFilesMaterialized": 921,
+    "canonicalFilesExpected": 921,
+    "exactSizeMatches": 921,
+    "exactSizeDenominator": 921,
+    "canonicalBytes": 3033944705,
+    "missingFiles": 0,
+    "sizeMismatches": 0,
+    "localSha256Files": 921,
+    "localSha256Aggregate": "c004890e252578bda1ed13560ecfa712e78ec96d4436e384a77a02259b469ce4",
+    "aggregateDefinition": "SHA-256 of canonical JSON sorted by Library path containing each canonical path, local byte size, and local SHA-256; this is a local materialization-run digest, not an invented provider root hash."
+  },
+  "priorEvidenceReconciliation": {
+    "priorSourceHashReceiptRecords": 93,
+    "priorRecordsMatched": 93,
+    "priorHashMismatches": 0,
+    "priorSizeMismatches": 0,
+    "priorMissing": 0,
+    "priorFailureReceiptRecords": 743,
+    "statement": "The 743 objects previously recorded as interface-bound were successfully materialized in this run; their prior failure receipt is historical evidence, not a current coverage gap."
+  },
+  "transferDiagnostics": {
+    "canonicalOutputsVerifiedBySize": 921,
+    "partialTransferRemnantsExcludedFromCanonicalSet": 102,
+    "statement": "The helper left partial transfer remnants in scratch during batch retrieval; they are not counted as Library objects or canonical outputs and do not affect the 921/921 exact-size result."
+  },
+  "truthBoundaries": {
+    "libraryBytes": "CURRENT_EXPOSED_LIBRARY_BYTES_MATERIALIZED_AND_HASHED_921_OF_921",
+    "providerIndependentHashes": "Only 93 provider/source hash records were available for cross-check; the remaining 828 files have local content hashes and exact source-reported sizes.",
+    "rawChatGPTTranscriptBytes": "Still not exposed by the authorized interfaces.",
+    "externalReality": "This receipt does not prove deployment, credentials, providers, customers, payments, accepted delivery, retention, unattended operation, ASI, intelligence explosion, or singularity."
+  },
+  "noAmputation": true,
+  "observedMainBeforeReceiptMerge": "bb52467d4de6948d849740716752471997d7fd00"
+}

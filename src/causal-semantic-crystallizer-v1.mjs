@@ -396,7 +396,7 @@ function appendHeldOutMotif(nodes,kind){
   }else if(kind==='AND'){
     nodes.push({id:'NA',type:'NOT',parents:['A1']},{id:'NB',type:'NOT',parents:['B1']},{id:'O0',type:'OR',parents:['NA','NB']},{id:'N0',type:'NOT',parents:['O0']},{id:'M',type:'COPY',parents:['N0']});
   }else{
-    nodes.push({id:'NA',type:'NOT',parents:['A1']},{id:'NB',type:'NOT',parents:['B1']},{id:'D0',type:'AND',parents:['NA','NB']},{id:'N0',type:'NOT',parents:['D0']},{id:'M',type:'COPY',parents:['N0']});
+    nodes.push({id:'NA',type:'NOT',parents:['A1']},{id:'NB',type:'NOT',parents:['B1']},{id:'G0',type:'AND',parents:['NA','NB']},{id:'N0',type:'NOT',parents:['G0']},{id:'M',type:'COPY',parents:['N0']});
   }
 }
 

@@ -1,0 +1,176 @@
+{
+  "schema": "uberbond.godaddy-dns-observation.v1",
+  "observedAt": "2026-09-20T20:33:52Z",
+  "provider": "GoDaddy",
+  "surface": "Authenticated DNS Management UI",
+  "observedUrl": "https://dcc.godaddy.com/control/dnsmanagement",
+  "operation": "READ_ONLY",
+  "externalEffects": 0,
+  "observations": {
+    "uberbond.agency": {
+      "recordCount": 10,
+      "nameservers": [
+        "ns75.domaincontrol.com.",
+        "ns76.domaincontrol.com."
+      ],
+      "records": [
+        {
+          "type": "A",
+          "name": "@",
+          "data": "162.159.143.30",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "A",
+          "name": "@",
+          "data": "172.66.3.26",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "NS",
+          "name": "@",
+          "data": "ns75.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "NS",
+          "name": "@",
+          "data": "ns76.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "CNAME",
+          "name": "www",
+          "data": "uberbond.agency.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "CNAME",
+          "name": "_domainconnect",
+          "data": "_domainconnect.gd.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "SOA",
+          "name": "@",
+          "data": "Primary nameserver: ns75.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "TXT",
+          "name": "_cf-custom-hostname",
+          "data": "0486ebf4-a3ed-4db1-8ce4-83cebaf19622",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "TXT",
+          "name": "_dmarc",
+          "data": "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "TXT",
+          "name": "_openai-site-verification",
+          "data": "openai-site-verification=ybxdEdg-hR3vjGoAZ-_PFDEKVLIkHh6NTRXpsX8Q5tU",
+          "ttl": "1 Hour"
+        }
+      ],
+      "mailRecordsObserved": {
+        "mx": false,
+        "spf": false,
+        "dkim": false,
+        "dmarc": true
+      }
+    },
+    "uberbond.cloud": {
+      "recordCount": 11,
+      "nameservers": [
+        "ns05.domaincontrol.com.",
+        "ns06.domaincontrol.com."
+      ],
+      "records": [
+        {
+          "type": "A",
+          "name": "@",
+          "data": "162.159.143.30",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "A",
+          "name": "@",
+          "data": "172.66.3.26",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "A",
+          "name": "@",
+          "data": "Parked",
+          "ttl": "600 seconds"
+        },
+        {
+          "type": "NS",
+          "name": "@",
+          "data": "ns05.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "NS",
+          "name": "@",
+          "data": "ns06.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "CNAME",
+          "name": "www",
+          "data": "uberbond.cloud.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "CNAME",
+          "name": "_domainconnect",
+          "data": "_domainconnect.gd.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "SOA",
+          "name": "@",
+          "data": "Primary nameserver: ns05.domaincontrol.com.",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "TXT",
+          "name": "_cf-custom-hostname",
+          "data": "61fc0b7b-7882-4bc0-bb8a-15f448124ff1",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "TXT",
+          "name": "_dmarc",
+          "data": "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;",
+          "ttl": "1 Hour"
+        },
+        {
+          "type": "TXT",
+          "name": "_openai-site-verification",
+          "data": "openai-site-verification=inVy26xr-K25gGd_8pr-UJEYVwwY7qHFYIuRP-y_iIw",
+          "ttl": "1 Hour"
+        }
+      ],
+      "mailRecordsObserved": {
+        "mx": false,
+        "spf": false,
+        "dkim": false,
+        "dmarc": true
+      }
+    }
+  },
+  "runtimeReadiness": {
+    "mailHost": "mta.uberbond.cloud",
+    "publicIpv4": "UNKNOWN_SERVER_NOT_PURCHASED",
+    "ptr": "UNKNOWN_SERVER_NOT_PURCHASED",
+    "stalwart": "NOT_RUNNING_OR_NOT_OBSERVED",
+    "dkim": "UNKNOWN_STALWART_KEY_NOT_GENERATED",
+    "dnsMutation": "NOT_PERFORMED"
+  },
+  "truthBoundary": "This receipt proves the current GoDaddy UI record state for the two canonical roots. It is not independent public-DNS propagation proof and does not prove a server, IP, PTR, Stalwart, DKIM, mailbox, reputation, campaign, or send state."
+}

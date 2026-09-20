@@ -101,6 +101,83 @@ export function compareBehavioralSignatures({
   });
 }
 
+
+export function compareBehavioralEvaluators({
+  targetId,
+  targetEvaluator,
+  candidates = [],
+  fixtures = [],
+  fixtureId,
+  fixtureDescription
+} = {}) {
+  const id = text(targetId, 160);
+  const fixture = text(fixtureId, 160);
+  const description = text(fixtureDescription, 1600);
+  if (!id || typeof targetEvaluator !== 'function' || !fixture || !description ||
+      !Array.isArray(candidates) || candidates.length === 0 || candidates.length > 50000 ||
+      !Array.isArray(fixtures) || fixtures.length === 0 || fixtures.length > 100000) {
+    return fail('SEMANTIC_NOVELTY_EVALUATOR_PREFLIGHT_INVALID', ['target-evaluator-candidates-and-fixtures-required']);
+  }
+
+  let targetOutputs;
+  try {
+    targetOutputs = fixtures.map(fixtureValue => targetEvaluator(fixtureValue));
+  } catch {
+    return fail('SEMANTIC_NOVELTY_EVALUATOR_PREFLIGHT_INVALID', ['target-evaluator-threw']);
+  }
+  if (!targetOutputs.every(scalar)) {
+    return fail('SEMANTIC_NOVELTY_EVALUATOR_PREFLIGHT_INVALID', ['target-evaluator-must-return-scalars']);
+  }
+
+  const seen = new Set();
+  const rows = [];
+  for (const [index, candidate] of candidates.entries()) {
+    const candidateId = text(candidate?.id, 240);
+    if (!candidateId || typeof candidate?.evaluate !== 'function' || seen.has(candidateId)) {
+      return fail('SEMANTIC_NOVELTY_EVALUATOR_PREFLIGHT_INVALID', [`candidate-${index}-identity-or-evaluator-invalid`]);
+    }
+    seen.add(candidateId);
+    let mismatches = 0;
+    let outputs;
+    try {
+      outputs = fixtures.map(fixtureValue => candidate.evaluate(fixtureValue));
+    } catch {
+      return fail('SEMANTIC_NOVELTY_EVALUATOR_PREFLIGHT_INVALID', [`candidate-${index}-evaluator-threw`]);
+    }
+    if (!outputs.every(scalar)) {
+      return fail('SEMANTIC_NOVELTY_EVALUATOR_PREFLIGHT_INVALID', [`candidate-${index}-must-return-scalars`]);
+    }
+    for (let i = 0; i < targetOutputs.length; i += 1) {
+      if (!Object.is(targetOutputs[i], outputs[i])) mismatches += 1;
+    }
+    const rate = mismatches / targetOutputs.length;
+    rows.push({
+      id: candidateId,
+      mismatchRate: Number(rate.toFixed(8)),
+      exactEquivalent: mismatches === 0,
+      outputDigest: digest(outputs)
+    });
+  }
+
+  rows.sort((a,b) => a.mismatchRate - b.mismatchRate || a.id.localeCompare(b.id));
+  const equivalents = rows.filter(row => row.exactEquivalent).map(row => row.id);
+  return envelope({
+    ok: true,
+    status: equivalents.length ? 'SEMANTIC_EQUIVALENT_FOUND' : 'NO_EXACT_EQUIVALENT_ON_DECLARED_FIXTURE',
+    targetId: id,
+    fixtureId: fixture,
+    fixtureDescription: description,
+    fixtureSize: fixtures.length,
+    targetDigest: digest(targetOutputs),
+    exactEquivalentIds: equivalents,
+    nearest: rows[0],
+    nearestCandidates: rows.slice(0, 10),
+    candidatesCompared: rows.length,
+    noveltyOnFixture: equivalents.length === 0,
+    claimBoundary: 'FINITE_FIXTURE_EVALUATOR_NON_EQUIVALENCE_IS_NOT_UNIVERSAL_ONTOLOGICAL_NOVELTY'
+  });
+}
+
 export function inspectSplitDegeneracy({
   splitId,
   labels,

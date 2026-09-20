@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "uberbond.fifth-power-free-v11-preregistration.v1",
+  "date": "2026-09-20",
+  "truthClass": "PREREGISTERED_FRESH_UNSEEN_K_ORDER_GENERALIZATION_NOT_RESULT",
+  "externalDefinition": {
+    "target": "FIFTH_POWER_FREE_INDICATOR",
+    "definition": "1 iff n is not divisible by any fifth power greater than 1.",
+    "sourceBasis": "OEIS general k-power-free definition"
+  },
+  "frozenGrammar": {
+    "source": "src/parameterized-multiplicity-depth-v10.mjs",
+    "semanticVersion": "uberbond.parameterized-multiplicity-depth.v10",
+    "candidateCount": 2592,
+    "thresholdFamily": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "mutationAfterPreregistration": "PROHIBITED_EXCEPT_VISIBILITY_EXPORT_ALREADY_PRESENT"
+  },
+  "split": "same deterministic hash split over integers 2..4097",
+  "selection": "TRAIN_ACCURACY_THEN_VALIDATION_ACCURACY_THEN_DESCRIPTION_COST_THEN_LEXICAL_ID",
+  "exactSuccessCriteria": {
+    "trainAccuracy": 1,
+    "validationAccuracy": 1,
+    "heldOutAccuracy": 1,
+    "selectedThreshold": 5,
+    "hashNegativeBalancedAccuracyMaximum": 0.65
+  },
+  "falsifier": [
+    "Any exact target split misses 1.0 accuracy.",
+    "Selected threshold is not 5.",
+    "Held-out labels influence selection.",
+    "Frozen V10 grammar semantics change.",
+    "Hash negative control exceeds balanced accuracy 0.65."
+  ],
+  "interpretationBoundary": "Passing supports unseen-order transfer of the parameterized multiplicity-depth mechanism on this finite arithmetic family, not general mathematics discovery.",
+  "authority": "NONE__PURE_DETERMINISTIC_SOFTWARE"
+}

@@ -12,7 +12,6 @@ export const UBERWORM_ACTIONS = Object.freeze({
   pull_model: { class: "bounded-write", maxSeconds: 3600 },
   benchmark: { class: "compute", maxSeconds: 3600 },
   local_prompt: { class: "compute", maxSeconds: 600 },
-  install_rustdesk_for_owner: { class: "bounded-write", maxSeconds: 900 },
   disable_agent: { class: "control", maxSeconds: 5 }
 });
 

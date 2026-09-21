@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { normalizeComputeOffer } from './compute-sovereignty.mjs';
 
 export const UBERWATT_SCHEMA = 'uberbond.uberwatt.v0.1.0';
 export const DEFAULT_JOULES_PER_OUTPUT_TOKEN = Object.freeze({ conservative: 0.40, efficient: 0.15 });
@@ -215,6 +216,131 @@ export function compileContinuousPowerBudget({ savedKwh, periodHours } = {}) {
     periodHours: hours,
     equivalentContinuousWatts: energy * 1000 / hours,
     truthBoundary: 'THIS IS AN ENERGY BUDGET EQUIVALENCE. IT DOES NOT GUARANTEE HARDWARE AVAILABILITY, UPTIME, MODEL SPEED, OR TOKEN OUTPUT.',
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: zeroEffects()
+  };
+}
+
+
+export function compileComparableBaseline({ intervals = [], minimumIntervals = 3 } = {}) {
+  const minimum = Number(minimumIntervals);
+  if (!Number.isSafeInteger(minimum) || minimum < 3 || minimum > 30) {
+    return fail(['baseline-minimum-must-be-integer-3-to-30'], 'UBERWATT_BASELINE_REJECTED');
+  }
+  if (!Array.isArray(intervals) || intervals.length < minimum) {
+    return fail(['at-least-3-observed-intervals-required'], 'UBERWATT_BASELINE_INSUFFICIENT', {
+      observedIntervals: Array.isArray(intervals) ? intervals.length : 0,
+      requiredIntervals: minimum
+    });
+  }
+
+  const valid = intervals.filter(item => item?.ok === true && item?.status === 'UBERWATT_INTERVAL_OBSERVED');
+  if (valid.length < minimum) {
+    return fail(['enough-valid-observed-intervals-required'], 'UBERWATT_BASELINE_INSUFFICIENT', {
+      validIntervals: valid.length,
+      requiredIntervals: minimum
+    });
+  }
+
+  const periods = [...new Set(valid.map(item => item.periodClass))];
+  const occupants = [...new Set(valid.map(item => item.occupants).filter(value => value != null))];
+  if (periods.length !== 1) return fail(['baseline-period-classes-must-match'], 'UBERWATT_BASELINE_NOT_COMPARABLE');
+  if (occupants.length > 1) return fail(['baseline-occupancy-must-match'], 'UBERWATT_BASELINE_NOT_COMPARABLE');
+
+  const values = valid.map(item => item.consumedKwh).sort((a, b) => a - b);
+  const middle = Math.floor(values.length / 2);
+  const median = values.length % 2
+    ? values[middle]
+    : (values[middle - 1] + values[middle]) / 2;
+  const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+  const core = {
+    intervalIds: valid.map(item => item.observationId),
+    sourceRefs: [...new Set(valid.map(item => item.sourceRef))],
+    intervalCount: valid.length,
+    periodClass: periods[0],
+    occupants: occupants.length ? occupants[0] : null,
+    baselineKwh: median,
+    meanKwh: mean,
+    method: 'MEDIAN_OF_COMPARABLE_OBSERVED_INTERVALS'
+  };
+
+  return {
+    ok: true,
+    schemaVersion: UBERWATT_SCHEMA,
+    status: 'UBERWATT_COMPARABLE_BASELINE_COMPILED',
+    baselineId: `uberwatt_baseline_${digest(core).slice(0, 24)}`,
+    baselineRef: `uberwatt:baseline:${digest(core).slice(0, 32)}`,
+    ...core,
+    truthBoundary: 'THIS BASELINE IS A ROBUST COMPARISON REFERENCE, NOT CAUSAL PROOF OF SAVINGS. WEATHER, OCCUPANCY DETAIL AND BEHAVIOR CAN STILL CONFOUND THE DELTA.',
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: zeroEffects()
+  };
+}
+
+export function compileEnergyBackedLocalComputeOffer({
+  energyEquivalent,
+  benchmark,
+  taskClasses = ['general'],
+  contextTokens = 4096,
+  quality = 0.5,
+  reliability = 0.5,
+  latencyScore = 0.5,
+  estimatedIncrementalCostCents = 0
+} = {}) {
+  if (energyEquivalent?.ok !== true || energyEquivalent?.status !== 'UBERWATT_ENERGY_EQUIVALENCE_COMPILED' || !(energyEquivalent.savedKwh > 0)) {
+    return fail(['positive-energy-equivalent-budget-required'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
+  }
+  if (benchmark?.ok !== true || benchmark?.status !== 'UBERWATT_LOCAL_INFERENCE_MEASURED') {
+    return fail(['measured-local-inference-benchmark-required'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
+  }
+
+  const tokensPerKwh = benchmark.outputTokens / benchmark.energyKwh;
+  if (!Number.isFinite(tokensPerKwh) || tokensPerKwh <= 0) {
+    return fail(['valid-measured-output-tokens-per-kwh-required'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
+  }
+  const usableTokens = Math.floor(tokensPerKwh * energyEquivalent.savedKwh);
+  if (usableTokens < 1) {
+    return fail(['energy-budget-implies-zero-token-capacity'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
+  }
+
+  const normalized = normalizeComputeOffer({
+    provider: 'local',
+    model: benchmark.model,
+    revision: benchmark.revision,
+    rightsClass: 'LOCAL_OWNED',
+    acquisitionMode: 'LOCAL_OWNED',
+    sourceRef: benchmark.sourceRef,
+    verifiedAt: new Date().toISOString(),
+    contextTokens,
+    usableTokens,
+    costCents: estimatedIncrementalCostCents,
+    quality,
+    reliability,
+    latencyScore,
+    taskClasses
+  });
+
+  if (!normalized.ok) {
+    return fail(normalized.reasonCodes || ['compute-sovereignty-offer-rejected'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN', {
+      computeSovereignty: normalized
+    });
+  }
+
+  return {
+    ok: true,
+    schemaVersion: UBERWATT_SCHEMA,
+    status: 'UBERWATT_LOCAL_COMPUTE_CAPACITY_ESTIMATED',
+    energyEvidenceRef: energyEquivalent.evidenceRef,
+    savedKwh: energyEquivalent.savedKwh,
+    benchmarkRef: benchmark.sourceRef,
+    benchmarkModel: benchmark.model,
+    benchmarkRevision: benchmark.revision,
+    benchmarkOutputTokens: benchmark.outputTokens,
+    benchmarkEnergyKwh: benchmark.energyKwh,
+    measuredOutputTokensPerKwh: tokensPerKwh,
+    estimatedUsableTokens: usableTokens,
+    computeOffer: normalized,
+    truthBoundary: 'THIS IS AN ENERGY-BOUNDED CAPACITY ESTIMATE FROM A REAL LOCAL INFERENCE BENCHMARK. TOKENS ARE NOT PRE-GENERATED. HARDWARE AMORTIZATION, THERMALS, CONTEXT, SETTINGS AND OTHER SYSTEM COSTS MAY CHANGE REAL CAPACITY AND TOTAL COST.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };

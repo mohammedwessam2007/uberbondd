@@ -1,7 +1,6 @@
 export const UBERWORM_PROTOCOL = "uberbond.uberworm.command.v1";
 export const UBERWORM_NODE = "hp-local";
 export const UBERWORM_TRUSTED_OWNER = "mohammedwessam2007";
-export const UBERWORM_CONTROL_ISSUE = 978;
 export const UBERWORM_APPROVED_MODELS = Object.freeze(["qwen3:0.6b","qwen3:1.7b","qwen3:4b"]);
 export const UBERWORM_ACTIONS = Object.freeze({
   ping: { class: "read", maxSeconds: 5 },

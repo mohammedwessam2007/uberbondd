@@ -285,13 +285,18 @@ export function compileEnergyBackedLocalComputeOffer({
   quality = 0.5,
   reliability = 0.5,
   latencyScore = 0.5,
-  estimatedIncrementalCostCents = 0
+  estimatedIncrementalCostCents = 0,
+  verifiedAt = null
 } = {}) {
   if (energyEquivalent?.ok !== true || energyEquivalent?.status !== 'UBERWATT_ENERGY_EQUIVALENCE_COMPILED' || !(energyEquivalent.savedKwh > 0)) {
     return fail(['positive-energy-equivalent-budget-required'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
   }
   if (benchmark?.ok !== true || benchmark?.status !== 'UBERWATT_LOCAL_INFERENCE_MEASURED') {
     return fail(['measured-local-inference-benchmark-required'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
+  }
+  const verifiedMs = Date.parse(String(verifiedAt || ''));
+  if (!Number.isFinite(verifiedMs)) {
+    return fail(['benchmark-verification-time-required'], 'UBERWATT_LOCAL_COMPUTE_CAPACITY_NOT_PROVEN');
   }
 
   const tokensPerKwh = benchmark.outputTokens / benchmark.energyKwh;
@@ -310,7 +315,7 @@ export function compileEnergyBackedLocalComputeOffer({
     rightsClass: 'LOCAL_OWNED',
     acquisitionMode: 'LOCAL_OWNED',
     sourceRef: benchmark.sourceRef,
-    verifiedAt: new Date().toISOString(),
+    verifiedAt: new Date(verifiedMs).toISOString(),
     contextTokens,
     usableTokens,
     costCents: estimatedIncrementalCostCents,

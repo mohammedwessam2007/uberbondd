@@ -167,6 +167,8 @@ export function compileMeasuredLocalInference({
   inputTokens = 0,
   energyKwh,
   durationSeconds,
+  peakWallWatts = null,
+  peakHardwareTempC = null,
   sourceRef
 } = {}) {
   const m = text(model, 200);
@@ -175,6 +177,8 @@ export function compileMeasuredLocalInference({
   const input = Number(inputTokens);
   const energy = finite(energyKwh, 0.000001, 1_000_000);
   const duration = finite(durationSeconds, 0.001, 365 * 24 * 3600);
+  const peakPower = peakWallWatts == null ? null : finite(peakWallWatts, 0.001, 100_000);
+  const peakTemp = peakHardwareTempC == null ? null : finite(peakHardwareTempC, -40, 200);
   const ref = text(sourceRef, 1500);
   const reasons = [];
   if (!m || !rev) reasons.push('model-and-revision-required');
@@ -197,6 +201,8 @@ export function compileMeasuredLocalInference({
     outputTokensPerSecond: out / duration,
     joulesPerOutputToken: joules / out,
     averageWatts: joules / duration,
+    peakWallWatts: peakPower,
+    peakHardwareTempC: peakTemp,
     sourceRef: ref,
     truthBoundary: 'ACTUAL LOCAL TOKENS REQUIRE RUNTIME COUNTERS PLUS MEASURED ENERGY. ESTIMATES MUST NOT BE PROMOTED INTO THIS RECEIPT.',
     businessEffectAuthority: 'NONE',
@@ -346,6 +352,241 @@ export function compileEnergyBackedLocalComputeOffer({
     estimatedUsableTokens: usableTokens,
     computeOffer: normalized,
     truthBoundary: 'THIS IS AN ENERGY-BOUNDED CAPACITY ESTIMATE FROM A REAL LOCAL INFERENCE BENCHMARK. TOKENS ARE NOT PRE-GENERATED. HARDWARE AMORTIZATION, THERMALS, CONTEXT, SETTINGS AND OTHER SYSTEM COSTS MAY CHANGE REAL CAPACITY AND TOTAL COST.',
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: zeroEffects()
+  };
+}
+
+
+export function compileMaxSafeTokenPlan({
+  energyEquivalent,
+  candidates = [],
+  windowHours = 720,
+  energyReserveFraction = 0.20,
+  taskClass = 'general',
+  minimumQuality = 0,
+  minimumReliability = 0,
+  safetyProfile = {}
+} = {}) {
+  if (energyEquivalent?.ok !== true || energyEquivalent?.status !== 'UBERWATT_ENERGY_EQUIVALENCE_COMPILED' || !(energyEquivalent.savedKwh > 0)) {
+    return fail(['positive-energy-equivalent-budget-required'], 'UBERWATT_MAX_SAFE_TOKENS_BLOCKED');
+  }
+
+  const hours = finite(windowHours, 0.01, 365 * 24);
+  const reserve = finite(energyReserveFraction, 0.05, 0.80);
+  const klass = text(taskClass, 100)?.toLowerCase();
+  const minQuality = finite(minimumQuality, 0, 1);
+  const minReliability = finite(minimumReliability, 0, 1);
+  const powerCeilingWatts = finite(safetyProfile?.powerCeilingWatts, 1, 100_000);
+  const thermalStopC = finite(safetyProfile?.thermalStopC, 1, 150);
+  const powerEvidenceRef = text(safetyProfile?.powerEvidenceRef, 1500);
+  const thermalEvidenceRef = text(safetyProfile?.thermalEvidenceRef, 1500);
+
+  const reasons = [];
+  if (hours == null || reserve == null || !klass || minQuality == null || minReliability == null) reasons.push('valid-max-safe-token-plan-parameters-required');
+  if (powerCeilingWatts == null || !powerEvidenceRef) reasons.push('sourced-power-ceiling-required');
+  if (thermalStopC == null || !thermalEvidenceRef) reasons.push('sourced-thermal-stop-required');
+  if (!Array.isArray(candidates) || !candidates.length || candidates.length > 256) reasons.push('bounded-benchmark-candidate-list-required');
+  if (reasons.length) return fail(reasons, 'UBERWATT_MAX_SAFE_TOKENS_BLOCKED');
+
+  const grossEnergyKwh = energyEquivalent.savedKwh;
+  const reserveEnergyKwh = grossEnergyKwh * reserve;
+  const spendableEnergyKwh = grossEnergyKwh - reserveEnergyKwh;
+
+  const evaluated = [];
+  for (const candidate of candidates) {
+    const benchmark = candidate?.benchmark;
+    const rejection = [];
+    if (benchmark?.ok !== true || benchmark?.status !== 'UBERWATT_LOCAL_INFERENCE_MEASURED') {
+      rejection.push('measured-local-inference-benchmark-required');
+    }
+
+    const quality = finite(candidate?.quality ?? 0, 0, 1);
+    const reliability = finite(candidate?.reliability ?? 0, 0, 1);
+    const taskClasses = Array.isArray(candidate?.taskClasses)
+      ? [...new Set(candidate.taskClasses.map(value => text(value, 100)?.toLowerCase()).filter(Boolean))]
+      : [];
+    const verifiedAtMs = Date.parse(String(candidate?.verifiedAt || ''));
+
+    if (quality == null || quality < minQuality) rejection.push('minimum-quality-not-met');
+    if (reliability == null || reliability < minReliability) rejection.push('minimum-reliability-not-met');
+    if (!taskClasses.includes(klass)) rejection.push('task-class-not-supported');
+    if (!Number.isFinite(verifiedAtMs)) rejection.push('benchmark-verification-time-required');
+
+    if (benchmark?.ok === true) {
+      if (benchmark.peakWallWatts == null) rejection.push('measured-peak-wall-power-required');
+      else if (benchmark.peakWallWatts > powerCeilingWatts) rejection.push('candidate-exceeds-power-ceiling');
+
+      if (benchmark.peakHardwareTempC == null) rejection.push('measured-peak-hardware-temperature-required');
+      else if (benchmark.peakHardwareTempC >= thermalStopC) rejection.push('candidate-reaches-thermal-stop');
+
+      if (!(benchmark.energyKwh > 0) || !(benchmark.outputTokens > 0) || !(benchmark.durationSeconds > 0)) {
+        rejection.push('valid-energy-token-duration-benchmark-required');
+      }
+    }
+
+    if (rejection.length) {
+      evaluated.push({
+        model: benchmark?.model ?? null,
+        revision: benchmark?.revision ?? null,
+        eligible: false,
+        reasonCodes: [...new Set(rejection)]
+      });
+      continue;
+    }
+
+    const tokensPerKwh = benchmark.outputTokens / benchmark.energyKwh;
+    const candidateRuntimeHoursPerBenchmarkHour = hours / (benchmark.durationSeconds / 3600);
+    const candidateWindowEnergyKwh = benchmark.energyKwh * candidateRuntimeHoursPerBenchmarkHour;
+    const plannedEnergyKwh = Math.min(spendableEnergyKwh, candidateWindowEnergyKwh);
+    const plannedOutputTokens = Math.floor(tokensPerKwh * plannedEnergyKwh);
+    const plannedRuntimeHours = plannedEnergyKwh / (benchmark.averageWatts / 1000);
+
+    evaluated.push({
+      eligible: true,
+      model: benchmark.model,
+      revision: benchmark.revision,
+      sourceRef: benchmark.sourceRef,
+      verifiedAt: new Date(verifiedAtMs).toISOString(),
+      quality,
+      reliability,
+      taskClasses,
+      contextTokens: Number(candidate?.contextTokens ?? 4096),
+      tokensPerKwh,
+      measuredAverageWatts: benchmark.averageWatts,
+      measuredPeakWallWatts: benchmark.peakWallWatts,
+      measuredPeakHardwareTempC: benchmark.peakHardwareTempC,
+      plannedEnergyKwh,
+      plannedRuntimeHours,
+      plannedOutputTokens
+    });
+  }
+
+  const eligible = evaluated
+    .filter(candidate => candidate.eligible)
+    .sort((a, b) =>
+      b.plannedOutputTokens - a.plannedOutputTokens
+      || b.tokensPerKwh - a.tokensPerKwh
+      || b.quality - a.quality
+      || b.reliability - a.reliability
+      || a.model.localeCompare(b.model));
+
+  if (!eligible.length) {
+    return fail(['no-benchmark-candidate-clears-safety-and-quality-gates'], 'UBERWATT_MAX_SAFE_TOKENS_BLOCKED', {
+      grossEnergyKwh,
+      reserveEnergyKwh,
+      spendableEnergyKwh,
+      evaluatedCandidates: evaluated
+    });
+  }
+
+  const selected = eligible[0];
+  const computeOffer = normalizeComputeOffer({
+    provider: 'local',
+    model: selected.model,
+    revision: selected.revision,
+    rightsClass: 'LOCAL_OWNED',
+    acquisitionMode: 'LOCAL_OWNED',
+    sourceRef: selected.sourceRef,
+    verifiedAt: selected.verifiedAt,
+    contextTokens: selected.contextTokens,
+    usableTokens: selected.plannedOutputTokens,
+    costCents: 0,
+    quality: selected.quality,
+    reliability: selected.reliability,
+    latencyScore: 1,
+    taskClasses: selected.taskClasses
+  });
+
+  if (!computeOffer.ok) {
+    return fail(computeOffer.reasonCodes || ['compute-sovereignty-offer-rejected'], 'UBERWATT_MAX_SAFE_TOKENS_BLOCKED', {
+      computeSovereignty: computeOffer
+    });
+  }
+
+  return {
+    ok: true,
+    schemaVersion: UBERWATT_SCHEMA,
+    status: 'UBERWATT_MAX_SAFE_TOKENS_PLAN_READY',
+    mode: 'MAX_SAFE_TOKENS',
+    grossEnergyKwh,
+    reserveFraction: reserve,
+    reserveEnergyKwh,
+    spendableEnergyKwh,
+    windowHours: hours,
+    taskClass: klass,
+    safetyProfile: {
+      powerCeilingWatts,
+      thermalStopC,
+      powerEvidenceRef,
+      thermalEvidenceRef
+    },
+    selected,
+    computeOffer,
+    evaluatedCandidates: evaluated,
+    failClosedTriggers: [
+      'missing-or-stale-power-telemetry',
+      'missing-or-stale-temperature-telemetry',
+      'observed-power-at-or-above-ceiling',
+      'observed-temperature-at-or-above-stop',
+      'spendable-energy-budget-exhausted'
+    ],
+    automaticMainsControl: false,
+    truthBoundary: 'MAX_SAFE_TOKENS MAXIMIZES MEASURED OUTPUT-TOKEN CAPACITY INSIDE A SOURCED POWER/THERMAL ENVELOPE AND A RESERVED ENERGY BUDGET. IT NEVER DISCOVERS CIRCUIT LIMITS BY OVERLOADING THEM, NEVER CONTROLS MAINS WIRING, AND DOES NOT GUARANTEE THE SAME HOUSEHOLD BILL.',
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: zeroEffects()
+  };
+}
+
+export function evaluateMaxSafeTokenRuntime({
+  plan,
+  observedWallWatts,
+  observedHardwareTempC,
+  spentEnergyKwh = 0,
+  telemetryAt,
+  nowAt,
+  maxTelemetryAgeSeconds = 120
+} = {}) {
+  if (plan?.ok !== true || plan?.status !== 'UBERWATT_MAX_SAFE_TOKENS_PLAN_READY') {
+    return fail(['valid-max-safe-token-plan-required'], 'UBERWATT_COMPUTE_STOP');
+  }
+
+  const watts = finite(observedWallWatts, 0, 100_000);
+  const temp = finite(observedHardwareTempC, -40, 200);
+  const spent = finite(spentEnergyKwh, 0, 1_000_000);
+  const telemetryMs = Date.parse(String(telemetryAt || ''));
+  const nowMs = Date.parse(String(nowAt || ''));
+  const freshness = finite(maxTelemetryAgeSeconds, 1, 3600);
+  const reasonCodes = [];
+
+  if (watts == null) reasonCodes.push('power-telemetry-missing');
+  if (temp == null) reasonCodes.push('temperature-telemetry-missing');
+  if (spent == null) reasonCodes.push('energy-ledger-invalid');
+  if (!Number.isFinite(telemetryMs) || !Number.isFinite(nowMs) || freshness == null || nowMs < telemetryMs) {
+    reasonCodes.push('telemetry-time-invalid');
+  } else if ((nowMs - telemetryMs) / 1000 > freshness) {
+    reasonCodes.push('telemetry-stale');
+  }
+
+  if (watts != null && watts >= plan.safetyProfile.powerCeilingWatts) reasonCodes.push('power-ceiling-reached');
+  if (temp != null && temp >= plan.safetyProfile.thermalStopC) reasonCodes.push('thermal-stop-reached');
+  if (spent != null && spent >= plan.spendableEnergyKwh) reasonCodes.push('energy-budget-exhausted');
+
+  const stop = reasonCodes.length > 0;
+  return {
+    ok: true,
+    schemaVersion: UBERWATT_SCHEMA,
+    status: stop ? 'UBERWATT_COMPUTE_STOP' : 'UBERWATT_COMPUTE_RUN',
+    action: stop ? 'STOP_COMPUTE' : 'RUN_WITHIN_PLAN',
+    reasonCodes,
+    observedWallWatts: watts,
+    observedHardwareTempC: temp,
+    spentEnergyKwh: spent,
+    remainingEnergyKwh: spent == null ? null : Math.max(0, plan.spendableEnergyKwh - spent),
+    powerCeilingWatts: plan.safetyProfile.powerCeilingWatts,
+    thermalStopC: plan.safetyProfile.thermalStopC,
+    automaticMainsControl: false,
+    truthBoundary: 'THIS IS A FAIL-CLOSED COMPUTE POLICY SIGNAL, NOT A MAINS SWITCH. LOSS OF REQUIRED TELEMETRY STOPS COMPUTE AUTHORIZATION.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };

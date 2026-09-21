@@ -59,3 +59,29 @@ Those receipts can then inform Compute Sovereignty routing and capacity economic
 ## Founder-facing v0 surface
 
 The private Google Sheet `UberWatt v0 — Home Energy to Compute Ledger` is the zero-hardware capture surface for the first measurements. Repository code remains the truth-preserving calculation kernel.
+
+
+## Comparable-baseline compiler
+
+Repository v0 now includes `compileComparableBaseline`.
+
+It refuses to establish a baseline until at least three valid observed intervals exist. The intervals must share the same period class and, when occupancy is recorded, the same occupant count. The compiler uses the median measured kWh so one abnormal night cannot dominate the reference.
+
+The resulting `baselineKwh` and `baselineRef` can be passed to `compileVerifiedSavings`.
+
+This remains a baseline-relative counterfactual, not causal proof. Weather and unrecorded household behavior can still explain part of a delta.
+
+## Energy-backed local compute bridge
+
+`compileEnergyBackedLocalComputeOffer` connects UberWatt to the existing Compute Sovereignty allocator without converting theoretical token-energy equivalents into fictional runtime capacity.
+
+Admission requires all of the following:
+
+1. a positive `compileEnergyEquivalentCompute` result;
+2. a real `compileMeasuredLocalInference` receipt from the exact local model/hardware path;
+3. a supplied benchmark verification timestamp;
+4. task classes, context capacity, quality and reliability sufficient for `normalizeComputeOffer`.
+
+The bridge calculates measured output-tokens-per-kWh from the local benchmark and applies that rate to the energy envelope. It then emits a `LOCAL_OWNED` Compute Sovereignty offer.
+
+The offer is still an estimate of executable capacity, not pre-generated tokens. Hardware amortization, model settings, context length, thermal throttling and other system costs remain outside the simple energy envelope unless separately measured.

@@ -92,6 +92,7 @@ test('reliability regression triggers the candidate falsifier',()=>{
  assert.equal(r.status,'CAPABILITY_CHIMERA_FALSIFIER_TRIGGERED');
  assert.equal(r.hypothesisSupported,false);
  assert.equal(r.benchmark.record.nonRegressing,false);
+ assert.ok(r.falsifierReasonCodes.includes('benchmark-non-regression-failed'));
 });
 
 test('higher monetary cost triggers the falsifier even when quality improves',()=>{

@@ -1,0 +1,5327 @@
+{
+  "schemaVersion": "uberbond.external-repository-git-object-manifest.v1",
+  "recordedAt": "2026-09-22",
+  "donor": {
+    "repository": "totec448-spec/chat-on-steroids",
+    "exactCommit": "7777e517603289696bb5febddb9bbf51cdde9aea",
+    "rootTreeSha": "0638dbc098b20fc41ff494673f957ab5ce0371df",
+    "commitParents": [
+      "fbf2944c79c50b105f202a97799087729e7e0a1c",
+      "1eed5abbffb375163ada6200b711df312450037e"
+    ],
+    "authorDate": "2026-09-20T20:25:14Z",
+    "committerDate": "2026-09-20T20:25:14Z"
+  },
+  "closure": {
+    "recursiveTreeTruncated": false,
+    "trackedBlobCount": 848,
+    "trackedTreeCount": 42,
+    "trackedBlobBytes": 92279414,
+    "gitObjectIdentity": "COMPLETE",
+    "independentSha256EveryBlob": "UNAVAILABLE_FOR_BINARY_BLOBS_IN_CURRENT_EXECUTION_ENVIRONMENT",
+    "limitation": "GitHub connector rejects non-UTF-8 binary blob bodies and the local shell has no outbound DNS. Every tracked blob is nevertheless byte-identified by its exact Git object SHA, mode, path and size under the pinned root tree.",
+    "noLfsOrSubmoduleClaim": "NOT_INFERRED_HERE; manifest records tracked Git objects exactly and does not promote absent observations into claims."
+  },
+  "blobs": [
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "sha": "bdc117d8b706c2a445fa189f2d51485ee50fbc22",
+      "size": 469
+    },
+    {
+      "path": ".githooks/commit-msg",
+      "mode": "100755",
+      "sha": "93a45867e0e233313ec863828f1aba17e2b9c2b4",
+      "size": 69
+    },
+    {
+      "path": ".githooks/pre-commit",
+      "mode": "100755",
+      "sha": "8de230a0f468193bd3a6d9d98f17ca700b9255a4",
+      "size": 63
+    },
+    {
+      "path": ".githooks/pre-push",
+      "mode": "100755",
+      "sha": "ac6d2c49f43533951d88da839c795d770eef976a",
+      "size": 54
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "mode": "100644",
+      "sha": "0b9467ee2497edc340039727fbd358938fdb7393",
+      "size": 2739
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "mode": "100644",
+      "sha": "3f3e9dac566061474be2c1908f0ba9197462d6df",
+      "size": 246
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+      "mode": "100644",
+      "sha": "49a6b3e32012da49b677dd94e529c1d31df7afd4",
+      "size": 935
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "mode": "100644",
+      "sha": "2b739734c1b0a1818933c3db7d5bd946f78ef2b0",
+      "size": 604
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "mode": "100644",
+      "sha": "5386b19e75ed3f914bd8f375f2a5c1a9b9d2d12a",
+      "size": 1538
+    },
+    {
+      "path": ".github/workflows/publish.yml",
+      "mode": "100644",
+      "sha": "4d338912abdc382e15e95e62d68953e97185038d",
+      "size": 6914
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "mode": "100644",
+      "sha": "218edf5d0360c733cf64cfb9ea2898b9e67350c6",
+      "size": 18905
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "sha": "8e1df091a2e51c9881f1483041ccdc99f80fdcf8",
+      "size": 1034
+    },
+    {
+      "path": "AGENTS.md",
+      "mode": "100644",
+      "sha": "c15c7fdb9708e3c56695d9d2068c455d2a7daacd",
+      "size": 267262
+    },
+    {
+      "path": "artwork/app-icon-source.png",
+      "mode": "100644",
+      "sha": "6f998e3ae9d37f0fde7ec5990fdb65e3a8ef9f9f",
+      "size": 462639
+    },
+    {
+      "path": "artwork/README.md",
+      "mode": "100644",
+      "sha": "4ef3a51634da9c253adbf6ca0f946c6fea18a731",
+      "size": 1631
+    },
+    {
+      "path": "CHANGELOG.md",
+      "mode": "100644",
+      "sha": "0b664a6b2fa7e8fc4141810698b3b0591d98bf93",
+      "size": 122504
+    },
+    {
+      "path": "CLAUDE.md",
+      "mode": "100644",
+      "sha": "59ef2db7cca920802f031810ef50546243a29556",
+      "size": 1189
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "mode": "100644",
+      "sha": "16dccd8e40b6a61aef218178c65371099af12329",
+      "size": 3697
+    },
+    {
+      "path": "CONTRIBUTORS.md",
+      "mode": "100644",
+      "sha": "a5977e10457dbeb508fe1b322dcfd047c53cc13e",
+      "size": 25850
+    },
+    {
+      "path": "docs/astra-goal-loop-2026-09-20.md",
+      "mode": "100644",
+      "sha": "92f1dbd92772e57e86b1946c22e93888e6d86518",
+      "size": 2940
+    },
+    {
+      "path": "docs/bug-audit-2026-08-23.md",
+      "mode": "100644",
+      "sha": "5cb20b8e72d26a99cd4a229b6e37e9beb70d18f2",
+      "size": 9997
+    },
+    {
+      "path": "docs/bug-audit-2026-08-24.md",
+      "mode": "100644",
+      "sha": "2f7da475df6f20432d0d099b30221cae7105f853",
+      "size": 39834
+    },
+    {
+      "path": "docs/bug-audit-2026-08-31.md",
+      "mode": "100644",
+      "sha": "69e59c58c67ba68c7f8a4e0d317d878dfd6f50d0",
+      "size": 26706
+    },
+    {
+      "path": "docs/bug-audit-2026-09-02.md",
+      "mode": "100644",
+      "sha": "6a7c623acdcbe7ff68ca88845068502ba15d1298",
+      "size": 9292
+    },
+    {
+      "path": "docs/bughunt-2026-08-25.md",
+      "mode": "100644",
+      "sha": "25191a64037a6c9700a7e36d8e5631bebe66f037",
+      "size": 30127
+    },
+    {
+      "path": "docs/bughunt-follow-up-2026-08-24.md",
+      "mode": "100644",
+      "sha": "fb2b0fbba326ded50c25d61af97f5086893b04ba",
+      "size": 9108
+    },
+    {
+      "path": "docs/chatgpt-turn-signals.md",
+      "mode": "100644",
+      "sha": "b8c482927ee2269468b31ad27764e81c2e1f35bd",
+      "size": 29401
+    },
+    {
+      "path": "docs/codex-desktop-bridge.md",
+      "mode": "100644",
+      "sha": "80cf095cc62843a1dd625705106854cdb777bbc0",
+      "size": 9579
+    },
+    {
+      "path": "docs/computer-use-overhaul-implementation.md",
+      "mode": "100644",
+      "sha": "e5ae333ef4002d54647bee10d804230da4c89177",
+      "size": 3817
+    },
+    {
+      "path": "docs/computer-use-overhaul-plan.md",
+      "mode": "100644",
+      "sha": "3b3cde6fef996e1400bab26b8533cbdcf1afd609",
+      "size": 40122
+    },
+    {
+      "path": "docs/images/anthropic-support-reply-2026-09.png",
+      "mode": "100644",
+      "sha": "e7bfbc8b7cc2d3a3810b744df15810991d05fa33",
+      "size": 554974
+    },
+    {
+      "path": "docs/images/app-chat.jpg",
+      "mode": "100644",
+      "sha": "880e4b8d55aad3b04a8cf538bace8fd0dd639552",
+      "size": 183580
+    },
+    {
+      "path": "docs/images/app-home.jpg",
+      "mode": "100644",
+      "sha": "3e25ca25aba4c8404c7be94ee128065943d92a42",
+      "size": 120978
+    },
+    {
+      "path": "docs/images/composer-sheet.png",
+      "mode": "100644",
+      "sha": "508b69c0d7c305f900f7880f6405a8665aae8fd4",
+      "size": 27674
+    },
+    {
+      "path": "docs/images/demo.gif",
+      "mode": "100644",
+      "sha": "0f9fbe5f8f81080aafa7e68fa3afb811e6e25077",
+      "size": 4641432
+    },
+    {
+      "path": "docs/images/demo.mp4",
+      "mode": "100644",
+      "sha": "f89753ed5b91bb42049e1b26f14372dd2f0ad9c3",
+      "size": 4341126
+    },
+    {
+      "path": "docs/images/download-linux.svg",
+      "mode": "100644",
+      "sha": "7fd4d7bf96bbf7d443b7518f25d5ca8cd42891a7",
+      "size": 761
+    },
+    {
+      "path": "docs/images/download-macos.svg",
+      "mode": "100644",
+      "sha": "fea0e68fb8d370bc434ed7e094a3c41012b824e7",
+      "size": 751
+    },
+    {
+      "path": "docs/images/download-windows.svg",
+      "mode": "100644",
+      "sha": "d9edd5ede47763ffccf19279cff219ab1a8b1e7c",
+      "size": 671
+    },
+    {
+      "path": "docs/images/extension-popup.jpg",
+      "mode": "100644",
+      "sha": "3812ffb9e2f6884d45739663e695c0f70926a697",
+      "size": 39672
+    },
+    {
+      "path": "docs/images/model-picker.png",
+      "mode": "100644",
+      "sha": "2077476ff4620e2c6b8deb4785210b4450326379",
+      "size": 33788
+    },
+    {
+      "path": "docs/images/openai-account-warning-2026-09.png",
+      "mode": "100644",
+      "sha": "1bc5376c25aa70b6a4a8bedd778519e52a05ffdb",
+      "size": 33481
+    },
+    {
+      "path": "docs/images/openai-chatgpt-warning-2026-09.png",
+      "mode": "100644",
+      "sha": "00531fc784d762596f5b4b9668772869283b4a4b",
+      "size": 33518
+    },
+    {
+      "path": "docs/images/readme-hero.svg",
+      "mode": "100644",
+      "sha": "2f3526bb4a363566e120fad4e0fdd4dd568996bb",
+      "size": 1480
+    },
+    {
+      "path": "docs/images/settings.png",
+      "mode": "100644",
+      "sha": "f9017e504f17849660e3b471b63f16a9a2ebebc5",
+      "size": 132720
+    },
+    {
+      "path": "docs/images/workspace.png",
+      "mode": "100644",
+      "sha": "f8f8a422ac4fca206996b3068f63d84f6d47b8fb",
+      "size": 103502
+    },
+    {
+      "path": "docs/interim-preambles-2026-09-20.md",
+      "mode": "100644",
+      "sha": "38a3d88c57c64d3b850f0106d55ecdf48b09ba11",
+      "size": 3286
+    },
+    {
+      "path": "docs/licenses/codex/LICENSE",
+      "mode": "100644",
+      "sha": "4606e72e042564097e8780d66c1d4dcb611869bd",
+      "size": 10926
+    },
+    {
+      "path": "docs/licenses/codex/NOTICE",
+      "mode": "100644",
+      "sha": "2805899d56d0332d175cfc613c67d45d6f006db7",
+      "size": 242
+    },
+    {
+      "path": "docs/licenses/codex/README.md",
+      "mode": "100644",
+      "sha": "edfb27650391d3d856acba6d97d905574079f482",
+      "size": 794
+    },
+    {
+      "path": "docs/licenses/flora-colossus-LICENSE",
+      "mode": "100644",
+      "sha": "13e78af35785cbd87628bfd8a1c83e92d5b15f5e",
+      "size": 1079
+    },
+    {
+      "path": "docs/licenses/napi-rs-canvas-LICENSE",
+      "mode": "100644",
+      "sha": "e0024071be828a07166aef9825c50a1912f652ac",
+      "size": 1075
+    },
+    {
+      "path": "docs/licenses/native/COMPONENT-NOTICES.txt",
+      "mode": "100644",
+      "sha": "8475dd117f2d6093c0075e09c23dbea8a28b2f6e",
+      "size": 10046785
+    },
+    {
+      "path": "docs/licenses/native/GPL-3.0.txt",
+      "mode": "100644",
+      "sha": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "size": 35149
+    },
+    {
+      "path": "docs/licenses/native/LGPL-3.0.txt",
+      "mode": "100644",
+      "sha": "0a041280bd00a9d068f503b8ee7ce35214bd24a1",
+      "size": 7652
+    },
+    {
+      "path": "docs/licenses/native/MPL-2.0.txt",
+      "mode": "100644",
+      "sha": "14e2f777f6c395e7e04ab4aa306bbcc4b0c1120e",
+      "size": 16726
+    },
+    {
+      "path": "docs/licenses/native/README.md",
+      "mode": "100644",
+      "sha": "a261e8e5a97ae693ffd76c560db6eb33a0eb5cdb",
+      "size": 2681
+    },
+    {
+      "path": "docs/licenses/native/SOURCE-BUILD.md",
+      "mode": "100644",
+      "sha": "5f66a807fa56c4fa675d6aea7e6292640ae27aad",
+      "size": 6816
+    },
+    {
+      "path": "docs/licenses/native/sources.json",
+      "mode": "100644",
+      "sha": "f910b8e449188fb757680114646f4563c260686b",
+      "size": 319803
+    },
+    {
+      "path": "docs/licenses/plugins/blender-LICENSE",
+      "mode": "100644",
+      "sha": "82e98f0ee1ef20d31f852ad43c91020cc51f82ea",
+      "size": 1071
+    },
+    {
+      "path": "docs/licenses/plugins/fetch-LICENSE",
+      "mode": "100644",
+      "sha": "596ffeee6699eaa9760900bc18ca53ae82dc6278",
+      "size": 1059
+    },
+    {
+      "path": "docs/licenses/plugins/heygen-SERVICE-NOTICE",
+      "mode": "100644",
+      "sha": "d023c71eb1ac94d8f72c9615cf27786d73f568dc",
+      "size": 560
+    },
+    {
+      "path": "docs/licenses/plugins/inventory.json",
+      "mode": "100644",
+      "sha": "2787046ba47e63cd1b6d61b15a3c1ab4f0c9cf42",
+      "size": 4785
+    },
+    {
+      "path": "docs/licenses/plugins/memory-LICENSE",
+      "mode": "100644",
+      "sha": "4a93985763241755401a10678395303de4e720ba",
+      "size": 12227
+    },
+    {
+      "path": "docs/licenses/plugins/playwright-LICENSE",
+      "mode": "100644",
+      "sha": "cefe596afef12e19a8e5e923f1a04c7da3188760",
+      "size": 11552
+    },
+    {
+      "path": "docs/licenses/plugins/README.md",
+      "mode": "100644",
+      "sha": "f30a5f8b8f4aa9c24c2e9d012e361250ecdbf5c5",
+      "size": 2049
+    },
+    {
+      "path": "docs/licenses/plugins/recraft-SERVICE-NOTICE",
+      "mode": "100644",
+      "sha": "7c68808800a558771aa64ffcdc221131bc7658c6",
+      "size": 577
+    },
+    {
+      "path": "docs/licenses/plugins/unity-LICENSE",
+      "mode": "100644",
+      "sha": "e7f878d1da6b4d9488058157ce6b48cb584460b1",
+      "size": 1066
+    },
+    {
+      "path": "docs/licenses/README.md",
+      "mode": "100644",
+      "sha": "8db1d8d735d77a5dae9c244c8b099a1f48ee3582",
+      "size": 1096
+    },
+    {
+      "path": "docs/model-picker-hotfix-2.1.12.md",
+      "mode": "100644",
+      "sha": "f20f466d0368165d85692033a6210aa8c1a6e1de",
+      "size": 1879
+    },
+    {
+      "path": "docs/pet/ACCEPTANCE.md",
+      "mode": "100644",
+      "sha": "25fc8d10fe1716576574dfdda49dd33fd6891b71",
+      "size": 5566
+    },
+    {
+      "path": "docs/pet/approved-base.png",
+      "mode": "100644",
+      "sha": "f7b63bebbb852028b775df1e313f0e82c0b33e41",
+      "size": 1224111
+    },
+    {
+      "path": "docs/pet/atlas-validation.json",
+      "mode": "100644",
+      "sha": "47c8f05a42317f092f9a3171b8781a24979e4464",
+      "size": 32581
+    },
+    {
+      "path": "docs/pet/batches/batch-00.png",
+      "mode": "100644",
+      "sha": "7a0de28d1c402a7aadeac4340c4534eaad2d0617",
+      "size": 1445381
+    },
+    {
+      "path": "docs/pet/batches/batch-01.png",
+      "mode": "100644",
+      "sha": "9b5326ef1631fae9f0051000200f47f1f333bc6f",
+      "size": 1449853
+    },
+    {
+      "path": "docs/pet/batches/batch-02.png",
+      "mode": "100644",
+      "sha": "7d1625c5ca0cf12de0667ef8fa9a25d5a43ea321",
+      "size": 1489161
+    },
+    {
+      "path": "docs/pet/batches/batch-03.png",
+      "mode": "100644",
+      "sha": "2a3b6aa307811c4b1b5bfc9b6dc3f51f8c7c69a0",
+      "size": 1444710
+    },
+    {
+      "path": "docs/pet/batches/batch-04.png",
+      "mode": "100644",
+      "sha": "dd8b5be19e7ddd71eed31912faf54f3a4200002e",
+      "size": 1496413
+    },
+    {
+      "path": "docs/pet/batches/batch-05.png",
+      "mode": "100644",
+      "sha": "aebd008d365c7b7edb9dac5e20792f9a3701215b",
+      "size": 1487471
+    },
+    {
+      "path": "docs/pet/batches/batch-06.png",
+      "mode": "100644",
+      "sha": "f41ebae4060d1f828d9499be8c63f754a4580848",
+      "size": 1538467
+    },
+    {
+      "path": "docs/pet/batches/batch-07.png",
+      "mode": "100644",
+      "sha": "99748ca2732b06d3425e16472b5981981da768e7",
+      "size": 1574860
+    },
+    {
+      "path": "docs/pet/batches/batch-08.png",
+      "mode": "100644",
+      "sha": "55d59046a1c99938b1879c053cc2c06d5ac48284",
+      "size": 1558371
+    },
+    {
+      "path": "docs/pet/batches/batch-09.png",
+      "mode": "100644",
+      "sha": "cfc25b3bd5950b539424060e6dd42b6fd2314dcd",
+      "size": 1514158
+    },
+    {
+      "path": "docs/pet/batches/batch-10.png",
+      "mode": "100644",
+      "sha": "4cdea9c68c4853dd0ab7569ae2fa93bb27dcb3ca",
+      "size": 1486629
+    },
+    {
+      "path": "docs/pet/batches/batch-11.png",
+      "mode": "100644",
+      "sha": "63c1c524b0fc6ab25ef21fa66c6b01e88fb130f7",
+      "size": 1568878
+    },
+    {
+      "path": "docs/pet/batches/batch-12.png",
+      "mode": "100644",
+      "sha": "3173c275f98cf0e0cb955007d8aec9e26cb777e3",
+      "size": 1530040
+    },
+    {
+      "path": "docs/pet/batches/batch-13.png",
+      "mode": "100644",
+      "sha": "aed53a59798f5b53b4550f8445837b87dd79d2db",
+      "size": 1568176
+    },
+    {
+      "path": "docs/pet/batches/batch-14.png",
+      "mode": "100644",
+      "sha": "ee83304be479bb54cd036fee30e6a58500538451",
+      "size": 1628104
+    },
+    {
+      "path": "docs/pet/batches/batch-15.png",
+      "mode": "100644",
+      "sha": "edece4f8a58a33a4316c95aea564687571cec849",
+      "size": 1510052
+    },
+    {
+      "path": "docs/pet/batches/repair-003.png",
+      "mode": "100644",
+      "sha": "1e8c90438134df16c5490843997289739f4cf099",
+      "size": 1418363
+    },
+    {
+      "path": "docs/pet/contact-sheet.png",
+      "mode": "100644",
+      "sha": "ed4f048384f9cb0701ef6bd8092d4515a716d8ea",
+      "size": 700716
+    },
+    {
+      "path": "docs/pet/frames/frame-000.png",
+      "mode": "100644",
+      "sha": "05a7430b646140625c4ff9d9138f3c42b944329f",
+      "size": 156532
+    },
+    {
+      "path": "docs/pet/frames/frame-001.png",
+      "mode": "100644",
+      "sha": "24b45ae2f17c9ce252b2dc4aea4a0a99c37a3f99",
+      "size": 152505
+    },
+    {
+      "path": "docs/pet/frames/frame-002.png",
+      "mode": "100644",
+      "sha": "ef52df91c0517b1453eb15ce5403b481b1f73577",
+      "size": 151601
+    },
+    {
+      "path": "docs/pet/frames/frame-003.png",
+      "mode": "100644",
+      "sha": "b420ec074825ad1a6e0bd67428bb8946ad8dfe31",
+      "size": 147901
+    },
+    {
+      "path": "docs/pet/frames/frame-004.png",
+      "mode": "100644",
+      "sha": "f4ac404cca3f56bbf3436dc3406875dd426b368d",
+      "size": 148550
+    },
+    {
+      "path": "docs/pet/frames/frame-005.png",
+      "mode": "100644",
+      "sha": "3a5982c1deeb03b3b6860afc68677803105d2b89",
+      "size": 147968
+    },
+    {
+      "path": "docs/pet/frames/frame-006.png",
+      "mode": "100644",
+      "sha": "ae118919e75596c578040e556c96d2f69e964ad0",
+      "size": 146190
+    },
+    {
+      "path": "docs/pet/frames/frame-007.png",
+      "mode": "100644",
+      "sha": "d9524ff91fdc66db468c27f95bea4e91fc5bc0a0",
+      "size": 147131
+    },
+    {
+      "path": "docs/pet/frames/frame-008.png",
+      "mode": "100644",
+      "sha": "c7212bf9b40f48529b3ca680256056d201b34da9",
+      "size": 148851
+    },
+    {
+      "path": "docs/pet/frames/frame-009.png",
+      "mode": "100644",
+      "sha": "382974a32a290ca816893a0d3625976731eca9a3",
+      "size": 154534
+    },
+    {
+      "path": "docs/pet/frames/frame-010.png",
+      "mode": "100644",
+      "sha": "67ff25eece50657d2cb9560463e932326209c942",
+      "size": 153664
+    },
+    {
+      "path": "docs/pet/frames/frame-011.png",
+      "mode": "100644",
+      "sha": "0297d3a69272f4969eb622497ba51f74bd587507",
+      "size": 158297
+    },
+    {
+      "path": "docs/pet/frames/frame-012.png",
+      "mode": "100644",
+      "sha": "3e0165d4c881d061e929368997088e229cc282aa",
+      "size": 159230
+    },
+    {
+      "path": "docs/pet/frames/frame-013.png",
+      "mode": "100644",
+      "sha": "096a6b554168a63ae3d8bc7591bb3c47c018babe",
+      "size": 151423
+    },
+    {
+      "path": "docs/pet/frames/frame-014.png",
+      "mode": "100644",
+      "sha": "641bcfd7a95e130c7776d8ad5b4bebe6e2f02c0f",
+      "size": 153848
+    },
+    {
+      "path": "docs/pet/frames/frame-015.png",
+      "mode": "100644",
+      "sha": "7f23cc1a4057c90d2a0dcdccd38aeeb4558853ff",
+      "size": 158771
+    },
+    {
+      "path": "docs/pet/frames/frame-016.png",
+      "mode": "100644",
+      "sha": "f83cc39602eb71ded4541a0272513eaf8ee5fa26",
+      "size": 162747
+    },
+    {
+      "path": "docs/pet/frames/frame-017.png",
+      "mode": "100644",
+      "sha": "505e3ce9470a32882869583af3d49a20e356fc37",
+      "size": 151291
+    },
+    {
+      "path": "docs/pet/frames/frame-018.png",
+      "mode": "100644",
+      "sha": "6470be517bfeb79f4b0d13db2b326a4d5cd32808",
+      "size": 146379
+    },
+    {
+      "path": "docs/pet/frames/frame-019.png",
+      "mode": "100644",
+      "sha": "b73c4428de407b779e49634b2332fa4eb1522272",
+      "size": 150585
+    },
+    {
+      "path": "docs/pet/frames/frame-020.png",
+      "mode": "100644",
+      "sha": "fcf8477a6d5eaae051500b46697d6b25830e29ca",
+      "size": 147071
+    },
+    {
+      "path": "docs/pet/frames/frame-021.png",
+      "mode": "100644",
+      "sha": "17394dfd1ace111f45115910c82f5c7a4c4af3b1",
+      "size": 149379
+    },
+    {
+      "path": "docs/pet/frames/frame-022.png",
+      "mode": "100644",
+      "sha": "ac9151eed6b5e1493039b34720231dc404e37fdb",
+      "size": 137359
+    },
+    {
+      "path": "docs/pet/frames/frame-023.png",
+      "mode": "100644",
+      "sha": "1fbaf36840efe5905018230604afa8fd17f8dccd",
+      "size": 132712
+    },
+    {
+      "path": "docs/pet/frames/frame-024.png",
+      "mode": "100644",
+      "sha": "7985956f3616edf2d4ca89b4e6597dc902d4fdc0",
+      "size": 148849
+    },
+    {
+      "path": "docs/pet/frames/frame-025.png",
+      "mode": "100644",
+      "sha": "7f60c18534b05a116692a6e2e3b744b028f24751",
+      "size": 152398
+    },
+    {
+      "path": "docs/pet/frames/frame-026.png",
+      "mode": "100644",
+      "sha": "19c102bc2718cb2c2dff4b2a482f8db36414228c",
+      "size": 151817
+    },
+    {
+      "path": "docs/pet/frames/frame-027.png",
+      "mode": "100644",
+      "sha": "084327960615888f4a8fe25b53a0a82013a3d5ac",
+      "size": 145494
+    },
+    {
+      "path": "docs/pet/frames/frame-028.png",
+      "mode": "100644",
+      "sha": "39c4dcff14b832946eae4bf0a2c7a6dd1a925105",
+      "size": 171389
+    },
+    {
+      "path": "docs/pet/frames/frame-029.png",
+      "mode": "100644",
+      "sha": "d92d8623c89ecb5c618914099129b27bb1d0556b",
+      "size": 156429
+    },
+    {
+      "path": "docs/pet/frames/frame-030.png",
+      "mode": "100644",
+      "sha": "2119eb6574fd0a57f8b1821a68292b37f0c91d7f",
+      "size": 155681
+    },
+    {
+      "path": "docs/pet/frames/frame-031.png",
+      "mode": "100644",
+      "sha": "000b613c15267a408c1de2b7f59e9b6babd69221",
+      "size": 160440
+    },
+    {
+      "path": "docs/pet/frames/frame-032.png",
+      "mode": "100644",
+      "sha": "0332532fb47e927e0c5e760fa8ef61f17e3ddfa8",
+      "size": 153645
+    },
+    {
+      "path": "docs/pet/frames/frame-033.png",
+      "mode": "100644",
+      "sha": "3dbf503f520c56994f6d952d790dcef3dd0512c4",
+      "size": 155585
+    },
+    {
+      "path": "docs/pet/frames/frame-034.png",
+      "mode": "100644",
+      "sha": "2338a05456b9204de16992595b968e952038e968",
+      "size": 149292
+    },
+    {
+      "path": "docs/pet/frames/frame-035.png",
+      "mode": "100644",
+      "sha": "f11d98bbbc11a005517c60f29b3133d7e90fc846",
+      "size": 169498
+    },
+    {
+      "path": "docs/pet/frames/frame-036.png",
+      "mode": "100644",
+      "sha": "aa810b698c3963d8d399b2e5cb17fc49d5486372",
+      "size": 152021
+    },
+    {
+      "path": "docs/pet/frames/frame-037.png",
+      "mode": "100644",
+      "sha": "f3e8e85768074d507586f9cc34e7cab119a0a583",
+      "size": 146783
+    },
+    {
+      "path": "docs/pet/frames/frame-038.png",
+      "mode": "100644",
+      "sha": "6293078c8d19d1e35d9c6d02195d0ec8f07a5296",
+      "size": 159715
+    },
+    {
+      "path": "docs/pet/frames/frame-039.png",
+      "mode": "100644",
+      "sha": "c7ab6ec081448523e820071c8db5f5a9ab16bf9b",
+      "size": 156901
+    },
+    {
+      "path": "docs/pet/frames/frame-040.png",
+      "mode": "100644",
+      "sha": "1e3149fb36d003f7c406a05493f3d017288f15c8",
+      "size": 147258
+    },
+    {
+      "path": "docs/pet/frames/frame-041.png",
+      "mode": "100644",
+      "sha": "cd9fc7bffc96e5e5e279c579074bf52408ad1bb8",
+      "size": 159813
+    },
+    {
+      "path": "docs/pet/frames/frame-042.png",
+      "mode": "100644",
+      "sha": "081b4444f1d85a702997c22cf3319a0bd54b2a49",
+      "size": 149501
+    },
+    {
+      "path": "docs/pet/frames/frame-043.png",
+      "mode": "100644",
+      "sha": "100fc47e7c85749d0c75ea8a649f86235174ec21",
+      "size": 147203
+    },
+    {
+      "path": "docs/pet/frames/frame-044.png",
+      "mode": "100644",
+      "sha": "538c31ad5e68a79176acd431aa7866534b6b5704",
+      "size": 140543
+    },
+    {
+      "path": "docs/pet/frames/frame-045.png",
+      "mode": "100644",
+      "sha": "02f517933a6ae0ec1ccb6138d02f9c0901c895a0",
+      "size": 147751
+    },
+    {
+      "path": "docs/pet/frames/frame-046.png",
+      "mode": "100644",
+      "sha": "c652fdcf5b40a567c80c07a8107a74340c8854aa",
+      "size": 151109
+    },
+    {
+      "path": "docs/pet/frames/frame-047.png",
+      "mode": "100644",
+      "sha": "111b2ef7800fe42a418f3524b515baf2a508d44c",
+      "size": 151427
+    },
+    {
+      "path": "docs/pet/frames/frame-048.png",
+      "mode": "100644",
+      "sha": "56b4f86d895cb8b1ee0f815aac176d46f077a730",
+      "size": 155731
+    },
+    {
+      "path": "docs/pet/frames/frame-049.png",
+      "mode": "100644",
+      "sha": "673907e374ff78e11d4e5a140de6be0c04a46f18",
+      "size": 153230
+    },
+    {
+      "path": "docs/pet/frames/frame-050.png",
+      "mode": "100644",
+      "sha": "66c648618326c86d00d70a4a1bd600b430bd1077",
+      "size": 159748
+    },
+    {
+      "path": "docs/pet/frames/frame-051.png",
+      "mode": "100644",
+      "sha": "6176f87b9200f16b128e9a28259131d49741499f",
+      "size": 152032
+    },
+    {
+      "path": "docs/pet/frames/frame-052.png",
+      "mode": "100644",
+      "sha": "23b7cae7c28f8b211951de3e87c30d05c5d7f184",
+      "size": 153991
+    },
+    {
+      "path": "docs/pet/frames/frame-053.png",
+      "mode": "100644",
+      "sha": "bea237667b524ba96233667623575ee9f10e22b3",
+      "size": 152124
+    },
+    {
+      "path": "docs/pet/frames/frame-054.png",
+      "mode": "100644",
+      "sha": "0011f7522779c1e3d1fb726329970ac2c2112875",
+      "size": 141705
+    },
+    {
+      "path": "docs/pet/frames/frame-055.png",
+      "mode": "100644",
+      "sha": "021220f13a52e6c2032cfb050939c4529e38cd59",
+      "size": 142979
+    },
+    {
+      "path": "docs/pet/frames/frame-056.png",
+      "mode": "100644",
+      "sha": "cb55749d7c8487a19f0a386022f8acf033817f25",
+      "size": 140519
+    },
+    {
+      "path": "docs/pet/frames/frame-057.png",
+      "mode": "100644",
+      "sha": "91537b58e9b4e3402fb2ed67a055252609375e1a",
+      "size": 149133
+    },
+    {
+      "path": "docs/pet/frames/frame-058.png",
+      "mode": "100644",
+      "sha": "3f194df539031f841e23568b58884d3650dd4e2f",
+      "size": 156535
+    },
+    {
+      "path": "docs/pet/frames/frame-059.png",
+      "mode": "100644",
+      "sha": "11242bb270db998a33afe14d3bbe0548f6b5799a",
+      "size": 151781
+    },
+    {
+      "path": "docs/pet/frames/frame-060.png",
+      "mode": "100644",
+      "sha": "5c79105aabe582801a38433cd81b404ccbb988b9",
+      "size": 128679
+    },
+    {
+      "path": "docs/pet/frames/frame-061.png",
+      "mode": "100644",
+      "sha": "efa65469abd1a255ad945f39f920097f67c16ecd",
+      "size": 129741
+    },
+    {
+      "path": "docs/pet/frames/frame-062.png",
+      "mode": "100644",
+      "sha": "52d5a7a7b1be119dd80925b7be298df402b8265c",
+      "size": 127554
+    },
+    {
+      "path": "docs/pet/frames/frame-063.png",
+      "mode": "100644",
+      "sha": "772bb37c108f55b839e1708d1f8b5d07595ec0f1",
+      "size": 131906
+    },
+    {
+      "path": "docs/pet/frames/frame-064.png",
+      "mode": "100644",
+      "sha": "be39713a7d1e1958a47790929e03551440c605ff",
+      "size": 134294
+    },
+    {
+      "path": "docs/pet/frames/frame-065.png",
+      "mode": "100644",
+      "sha": "999c99ef05b6a2ebe3528ef69bfa0089e098d9d2",
+      "size": 129254
+    },
+    {
+      "path": "docs/pet/frames/frame-066.png",
+      "mode": "100644",
+      "sha": "0a44b19f22c0b3f447d53ccf5afdd645b8262af4",
+      "size": 173698
+    },
+    {
+      "path": "docs/pet/frames/frame-067.png",
+      "mode": "100644",
+      "sha": "df013d18066d3429587ccd82dc4569bc9c3b9238",
+      "size": 178726
+    },
+    {
+      "path": "docs/pet/frames/frame-068.png",
+      "mode": "100644",
+      "sha": "4fdab323c1634ae66fb11678a93f4e8df2387d28",
+      "size": 181932
+    },
+    {
+      "path": "docs/pet/frames/frame-069.png",
+      "mode": "100644",
+      "sha": "00e12bd59f05ca30f8c6d4ec7cc2b8cfd090a483",
+      "size": 168108
+    },
+    {
+      "path": "docs/pet/frames/frame-070.png",
+      "mode": "100644",
+      "sha": "ddbdef3835f91c0a38280f29858f54200171a90b",
+      "size": 174958
+    },
+    {
+      "path": "docs/pet/frames/frame-071.png",
+      "mode": "100644",
+      "sha": "878102f01b3e111dd35f8e62af3fded44211a006",
+      "size": 170840
+    },
+    {
+      "path": "docs/pet/frames/frame-072.png",
+      "mode": "100644",
+      "sha": "750f1d094bbfb840b2e6bc44ac44b97b875eb647",
+      "size": 157673
+    },
+    {
+      "path": "docs/pet/frames/frame-073.png",
+      "mode": "100644",
+      "sha": "6c884b730ee5989509d3587f50b61077ab2bdada",
+      "size": 151984
+    },
+    {
+      "path": "docs/pet/frames/frame-074.png",
+      "mode": "100644",
+      "sha": "59fc1125852fa3df1a1461703e96aa0ae556d728",
+      "size": 151762
+    },
+    {
+      "path": "docs/pet/frames/frame-075.png",
+      "mode": "100644",
+      "sha": "9e2ae3d77a2050c9faa465b7abe0684187381176",
+      "size": 155811
+    },
+    {
+      "path": "docs/pet/frames/frame-076.png",
+      "mode": "100644",
+      "sha": "320c8fa7e41ae1018bd06cd7da417387b1d0bfa6",
+      "size": 159064
+    },
+    {
+      "path": "docs/pet/frames/frame-077.png",
+      "mode": "100644",
+      "sha": "ae5c7ea7b1a785037fb978758e216b1c54edd286",
+      "size": 155570
+    },
+    {
+      "path": "docs/pet/frames/frame-078.png",
+      "mode": "100644",
+      "sha": "8e09ab5bbccdd3b31915a111ca29bd0095392cd4",
+      "size": 157855
+    },
+    {
+      "path": "docs/pet/frames/frame-079.png",
+      "mode": "100644",
+      "sha": "4e700e4e4d354b1b314ddaa3156ee62ad464a76a",
+      "size": 157675
+    },
+    {
+      "path": "docs/pet/frames/frame-080.png",
+      "mode": "100644",
+      "sha": "f2faebf549c9024094f79c2342e941f500aa51b1",
+      "size": 156764
+    },
+    {
+      "path": "docs/pet/frames/frame-081.png",
+      "mode": "100644",
+      "sha": "dd997ca84931cda321e05cc75996d9048e589868",
+      "size": 165951
+    },
+    {
+      "path": "docs/pet/frames/frame-082.png",
+      "mode": "100644",
+      "sha": "24976d6022b7276471cce276f0327deb76a56090",
+      "size": 166134
+    },
+    {
+      "path": "docs/pet/frames/frame-083.png",
+      "mode": "100644",
+      "sha": "4fe08510bfd5d506ea4d8b2b532fb320e4848d97",
+      "size": 174685
+    },
+    {
+      "path": "docs/pet/frames/frame-084.png",
+      "mode": "100644",
+      "sha": "bcce941fbf01851e71e39b79ad2d225792999027",
+      "size": 188968
+    },
+    {
+      "path": "docs/pet/frames/frame-085.png",
+      "mode": "100644",
+      "sha": "28f0f6c6e720da2e7c8d16d990a684320281e866",
+      "size": 193151
+    },
+    {
+      "path": "docs/pet/frames/frame-086.png",
+      "mode": "100644",
+      "sha": "469540814de7c95c7c1ed815d849ad37eb4fd760",
+      "size": 168815
+    },
+    {
+      "path": "docs/pet/frames/frame-087.png",
+      "mode": "100644",
+      "sha": "d317cfc35dec3555aba2f12d8632adad22d8ebc4",
+      "size": 170329
+    },
+    {
+      "path": "docs/pet/frames/frame-088.png",
+      "mode": "100644",
+      "sha": "7cfbc84306e90a65db1065b0fb91fecd77bb4231",
+      "size": 174534
+    },
+    {
+      "path": "docs/pet/frames/frame-089.png",
+      "mode": "100644",
+      "sha": "49c95a8b2f076c12ed978625e608cd19f8c319e4",
+      "size": 178168
+    },
+    {
+      "path": "docs/pet/frames/frame-090.png",
+      "mode": "100644",
+      "sha": "9d9ece297c8a1d2b9c398fd466ac7d562ffec899",
+      "size": 155895
+    },
+    {
+      "path": "docs/pet/frames/frame-091.png",
+      "mode": "100644",
+      "sha": "4bc10365f461dde3e1b36b8d0839c687d90af178",
+      "size": 157907
+    },
+    {
+      "path": "docs/pet/frames/frame-092.png",
+      "mode": "100644",
+      "sha": "ec216f345742c3b5f30743627e2cca189adf5fb6",
+      "size": 152858
+    },
+    {
+      "path": "docs/pet/frames/frame-093.png",
+      "mode": "100644",
+      "sha": "3bb417dc66165af98c929ab4b4b89bbf98413fc3",
+      "size": 151291
+    },
+    {
+      "path": "docs/pet/frames/frame-094.png",
+      "mode": "100644",
+      "sha": "dcf6b2f23fa2433556a9fc7b653fffaec0beee8b",
+      "size": 146110
+    },
+    {
+      "path": "docs/pet/frames/frame-095.png",
+      "mode": "100644",
+      "sha": "86a656dc3115b2ef7ea5ae4f344f5f9b43552b5c",
+      "size": 144091
+    },
+    {
+      "path": "docs/pet/previews/angry.gif",
+      "mode": "100644",
+      "sha": "d42240457f8c1672cfe4c8dee21ae943b388806e",
+      "size": 38187
+    },
+    {
+      "path": "docs/pet/previews/anthropic-live.gif",
+      "mode": "100644",
+      "sha": "3c1c9bf764e79664ac4de4373dbf7d2da8b2b024",
+      "size": 318242
+    },
+    {
+      "path": "docs/pet/previews/carry.gif",
+      "mode": "100644",
+      "sha": "ade425010d95cb1aa460b5d857430f43c16b93d0",
+      "size": 50123
+    },
+    {
+      "path": "docs/pet/previews/celebrate.gif",
+      "mode": "100644",
+      "sha": "08cb7f3b09f34844d91fd670ace354cc94609dc8",
+      "size": 50208
+    },
+    {
+      "path": "docs/pet/previews/chronological.gif",
+      "mode": "100644",
+      "sha": "b9c021569b5fea650e9e0d0d04b212bc4b0e039f",
+      "size": 589096
+    },
+    {
+      "path": "docs/pet/previews/grab.gif",
+      "mode": "100644",
+      "sha": "38e82019a4e455d98f9c4fcf86cead416a2fa4b0",
+      "size": 41322
+    },
+    {
+      "path": "docs/pet/previews/heavy.gif",
+      "mode": "100644",
+      "sha": "ae133f12f0276f9b871068fb13e42c9b6cde5120",
+      "size": 54968
+    },
+    {
+      "path": "docs/pet/previews/held.gif",
+      "mode": "100644",
+      "sha": "c21faf1f2dab4bc36d8fee5bc973d3c58138c423",
+      "size": 23090
+    },
+    {
+      "path": "docs/pet/previews/idle.gif",
+      "mode": "100644",
+      "sha": "55561333e3c0973a9d2a498afc9c5f52f97ac65d",
+      "size": 25366
+    },
+    {
+      "path": "docs/pet/previews/landing.gif",
+      "mode": "100644",
+      "sha": "dd2332ac133c54e67e8551f5f4a5d7ec3e0aa4fc",
+      "size": 25225
+    },
+    {
+      "path": "docs/pet/previews/look.gif",
+      "mode": "100644",
+      "sha": "d00a48995ffedd5ecf9a958d0d177e332f62e58f",
+      "size": 25883
+    },
+    {
+      "path": "docs/pet/previews/openai-live.gif",
+      "mode": "100644",
+      "sha": "a45ad0f0ba9a1f215da3c5e9005347bf5f653bd7",
+      "size": 273607
+    },
+    {
+      "path": "docs/pet/previews/poke.gif",
+      "mode": "100644",
+      "sha": "dcfc469c8421fea7b2ee751fe0dccf010019f5b2",
+      "size": 26532
+    },
+    {
+      "path": "docs/pet/previews/punch.gif",
+      "mode": "100644",
+      "sha": "b7d4f331d0084e356d80cca7b1abf80e1a0c9838",
+      "size": 107745
+    },
+    {
+      "path": "docs/pet/previews/spawn.gif",
+      "mode": "100644",
+      "sha": "5ef7caa30f935951d1d448585006768b5e966363",
+      "size": 24208
+    },
+    {
+      "path": "docs/pet/previews/throw.gif",
+      "mode": "100644",
+      "sha": "0680dcca70e87c86fea1e3e1fbaffd512ceeb015",
+      "size": 56471
+    },
+    {
+      "path": "docs/pet/previews/walk.gif",
+      "mode": "100644",
+      "sha": "014fa5371dd2b4f063df43674f9ff24755c1eca2",
+      "size": 51986
+    },
+    {
+      "path": "docs/pet/PRODUCTION.md",
+      "mode": "100644",
+      "sha": "c5b5919dcb0d2ebaf1cedfb2f9163dd51173a198",
+      "size": 9817
+    },
+    {
+      "path": "docs/pet/props.png",
+      "mode": "100644",
+      "sha": "d541383a1e595d7a4e7eab9ff8a158bd0da0e7a8",
+      "size": 1216623
+    },
+    {
+      "path": "docs/plugin-licenses.md",
+      "mode": "100644",
+      "sha": "209a0374e0ed0c1367000bc0adeff718fce27127",
+      "size": 1449
+    },
+    {
+      "path": "docs/plugin-notice-audit.md",
+      "mode": "100644",
+      "sha": "5f1f2a64a5785d6e24e84cd2d245d0a3e17dbeaa",
+      "size": 10179
+    },
+    {
+      "path": "docs/plugins.md",
+      "mode": "100644",
+      "sha": "3df99369bc42ee7cb650e44deaf75c2e93d56832",
+      "size": 7430
+    },
+    {
+      "path": "docs/public-history-privacy-incident-2026-08-24.md",
+      "mode": "100644",
+      "sha": "9d1be62bcad34c9a56d65fe58ab2f6651cf792e3",
+      "size": 3213
+    },
+    {
+      "path": "docs/recovery-usage-2026-09-12.md",
+      "mode": "100644",
+      "sha": "9227999a8efb28be456d8b875deeeaf102f3e610",
+      "size": 1697
+    },
+    {
+      "path": "docs/release-notes/v2.0.0.md",
+      "mode": "100644",
+      "sha": "37b52938f03a858ff5486ddc22e293b135978b5e",
+      "size": 5896
+    },
+    {
+      "path": "docs/release-notes/v2.0.1.md",
+      "mode": "100644",
+      "sha": "e95d363e7d6da03c8f87d9ad0f94598b1b0f506f",
+      "size": 3924
+    },
+    {
+      "path": "docs/release-notes/v2.0.2.md",
+      "mode": "100644",
+      "sha": "4eb2075b06e2323003e086366c3f4e00f44a17b6",
+      "size": 4987
+    },
+    {
+      "path": "docs/release-notes/v2.0.3.md",
+      "mode": "100644",
+      "sha": "3e3965d706c69522a55153a778fd91c9deb3c600",
+      "size": 1967
+    },
+    {
+      "path": "docs/release-notes/v2.0.4.md",
+      "mode": "100644",
+      "sha": "8b6ad8c7c13628b5b80611c7eb26bed878414258",
+      "size": 1151
+    },
+    {
+      "path": "docs/release-notes/v2.0.5.md",
+      "mode": "100644",
+      "sha": "d4e6b27353441a0a794392bf1c1e19df2e530a6d",
+      "size": 2049
+    },
+    {
+      "path": "docs/release-notes/v2.0.6.md",
+      "mode": "100644",
+      "sha": "01ab1aa0c2662ba0d22c41f5b4ee3dcfc8e9420d",
+      "size": 2357
+    },
+    {
+      "path": "docs/release-notes/v2.0.7.md",
+      "mode": "100644",
+      "sha": "52a172fd43f2a65d8c358983110d7a8018edec5f",
+      "size": 4634
+    },
+    {
+      "path": "docs/release-notes/v2.0.8.md",
+      "mode": "100644",
+      "sha": "728f8865dd0be7e808e3cd0c13609fa45622069f",
+      "size": 3917
+    },
+    {
+      "path": "docs/release-notes/v2.0.9.md",
+      "mode": "100644",
+      "sha": "ce983eab31a49b780f18828192851832e9b8c024",
+      "size": 2229
+    },
+    {
+      "path": "docs/release-notes/v2.1.0.md",
+      "mode": "100644",
+      "sha": "00a6cfa76ff3a0e75e0f652c3b48121f7bda20f7",
+      "size": 1226
+    },
+    {
+      "path": "docs/release-notes/v2.1.11.md",
+      "mode": "100644",
+      "sha": "be638a94713e509bc1beef85dfb10d2b4cdc1437",
+      "size": 1447
+    },
+    {
+      "path": "docs/release-notes/v2.1.12.md",
+      "mode": "100644",
+      "sha": "8093ff185f6919e9ccf49269cd4cdc2fa45e0714",
+      "size": 1480
+    },
+    {
+      "path": "docs/release-notes/v2.1.13.md",
+      "mode": "100644",
+      "sha": "0842c095c622c0de02fb92396a188d188e70fc8a",
+      "size": 595
+    },
+    {
+      "path": "docs/release-notes/v2.1.14-validation.md",
+      "mode": "100644",
+      "sha": "412b5b4c32ba5638fa6f565a86ba5c918737e19e",
+      "size": 1476
+    },
+    {
+      "path": "docs/release-notes/v2.1.14.md",
+      "mode": "100644",
+      "sha": "c66a97d30b32f58bbcd4ca3ac3b0c9dcb67d89d8",
+      "size": 823
+    },
+    {
+      "path": "docs/setup-and-recovery-refinement.md",
+      "mode": "100644",
+      "sha": "1b3ce0a51ea56c0b5fdb1c7bb0d81953d9cb5537",
+      "size": 4736
+    },
+    {
+      "path": "docs/setup.md",
+      "mode": "100644",
+      "sha": "5a03866fab89c949045b13926c9a42f6427f1b6b",
+      "size": 9615
+    },
+    {
+      "path": "docs/tool-error-rate-2026-08-23.md",
+      "mode": "100644",
+      "sha": "21a4202c6d10d2145391c34baa0186fb2ad288c2",
+      "size": 11581
+    },
+    {
+      "path": "docs/tool-error-rate-2026-08-24.md",
+      "mode": "100644",
+      "sha": "cc07f20172103a8fa480f51d7ff8b6cd4776bff6",
+      "size": 4191
+    },
+    {
+      "path": "docs/tool-surface.md",
+      "mode": "100644",
+      "sha": "c9d11267e34f5475855d2567c2126f62a39601ae",
+      "size": 10362
+    },
+    {
+      "path": "docs/usage-model-attribution.md",
+      "mode": "100644",
+      "sha": "d6fd95d60a3d69d45d9cf8b3e0578e0a2e8ac862",
+      "size": 8214
+    },
+    {
+      "path": "docs/worklog-2026-09-16-pr-bugfix-review.md",
+      "mode": "100644",
+      "sha": "cc3f3636e2c6a1c07645d1f71aa048152cf693b6",
+      "size": 9886
+    },
+    {
+      "path": "docs/worklog-2026-09-18-completed-request-order.md",
+      "mode": "100644",
+      "sha": "ce97d104cda51ad249640b1edd3b78817d6675c6",
+      "size": 4196
+    },
+    {
+      "path": "docs/worklog-2026-09-18-continue-dock-audit.md",
+      "mode": "100644",
+      "sha": "3298c36dafacd051cdea2b1ddf679040c37f3d35",
+      "size": 4937
+    },
+    {
+      "path": "docs/worklog-2026-09-18-current-tree-merge-install.md",
+      "mode": "100644",
+      "sha": "d2aee2828d54656e09bf1b827f0d575f23019231",
+      "size": 3159
+    },
+    {
+      "path": "docs/worklog-2026-09-18-dirty-tree-pr-merge.md",
+      "mode": "100644",
+      "sha": "db43e8556ad48c8e64ce60f37ffddb4fd05ea9c3",
+      "size": 2200
+    },
+    {
+      "path": "docs/worklog-2026-09-18-history-handoff.md",
+      "mode": "100644",
+      "sha": "7570f9fc9565232f4c2f3b9f9ac6bc5be7c779ba",
+      "size": 5017
+    },
+    {
+      "path": "docs/worklog-2026-09-18-manual-close-activity.md",
+      "mode": "100644",
+      "sha": "1deb40938d63067cb4ef79b097e0dcfa77d2c266",
+      "size": 6120
+    },
+    {
+      "path": "docs/worklog-2026-09-18-maxim-pr-followup.md",
+      "mode": "100644",
+      "sha": "7ea9baa00bfde7a0f2da675967e06681e0323ecc",
+      "size": 24905
+    },
+    {
+      "path": "docs/worklog-2026-09-18-maxim-pr-review.md",
+      "mode": "100644",
+      "sha": "026b132af6cbf6db0567b012cd5a7fcb0fad138e",
+      "size": 7377
+    },
+    {
+      "path": "docs/worklog-2026-09-18-message-send-queue.md",
+      "mode": "100644",
+      "sha": "14035c70ac810340795b54e412f03a35371df520",
+      "size": 4807
+    },
+    {
+      "path": "docs/worklog-2026-09-18-overwrite-native-status.md",
+      "mode": "100644",
+      "sha": "6e5698a8c8890e0831c86891fa05a632dfcca341",
+      "size": 3287
+    },
+    {
+      "path": "docs/worklog-2026-09-18-pet-cpu.md",
+      "mode": "100644",
+      "sha": "da1640e13ae25a827294dfc821abc5e7780e62db",
+      "size": 4720
+    },
+    {
+      "path": "docs/worklog-2026-09-18-plugin-ci-scheduling.md",
+      "mode": "100644",
+      "sha": "954e68164f8c32c1e17dad53bc8602db9d1d3721",
+      "size": 1265
+    },
+    {
+      "path": "docs/worklog-2026-09-18-recovery-boundary-and-close.md",
+      "mode": "100644",
+      "sha": "5d5a5552c36db73ae603cf1e07a2efd0f877806c",
+      "size": 3207
+    },
+    {
+      "path": "docs/worklog-2026-09-18-recovery-timing-audit.md",
+      "mode": "100644",
+      "sha": "9e760a506520260a95192c8a32846609eaba646c",
+      "size": 8215
+    },
+    {
+      "path": "docs/worklog-2026-09-18-response-identity-recovery.md",
+      "mode": "100644",
+      "sha": "e83c3dfc4126cc41d9c91cb6c409f48b0dab9703",
+      "size": 7575
+    },
+    {
+      "path": "docs/worklog-2026-09-18-unattributed-request-ownership.md",
+      "mode": "100644",
+      "sha": "d5125b086296791051366d89b5f776ba948d3d6a",
+      "size": 7554
+    },
+    {
+      "path": "docs/worklog-2026-09-19-background-input-preparation.md",
+      "mode": "100644",
+      "sha": "b6fb89a906b01a4e975f1c90cada63093b33c838",
+      "size": 4826
+    },
+    {
+      "path": "docs/worklog-2026-09-19-backlog-triage.md",
+      "mode": "100644",
+      "sha": "bee7d7acc574922cca3bd351e43440dfe7f6140b",
+      "size": 43378
+    },
+    {
+      "path": "docs/worklog-2026-09-19-browser-use-audit.md",
+      "mode": "100644",
+      "sha": "6694a55b2e863ed7ecb7614604533c00aebf268d",
+      "size": 6616
+    },
+    {
+      "path": "docs/worklog-2026-09-19-commit-merge-install.md",
+      "mode": "100644",
+      "sha": "09cf667741e1bb51ab0e602da7941f4fdc506942",
+      "size": 3784
+    },
+    {
+      "path": "docs/worklog-2026-09-19-computer-use-audit.md",
+      "mode": "100644",
+      "sha": "773f751bcefc8c7f66a9f1c0c62a40c859b33724",
+      "size": 8536
+    },
+    {
+      "path": "docs/worklog-2026-09-19-finished-turn-generating.md",
+      "mode": "100644",
+      "sha": "e73fad7fbc39f10a6b65329ae775c45be4360df9",
+      "size": 4867
+    },
+    {
+      "path": "docs/worklog-2026-09-19-followup-final-capture.md",
+      "mode": "100644",
+      "sha": "ed085ba157e948d90047e7a95e0a239ee4086747",
+      "size": 4959
+    },
+    {
+      "path": "docs/worklog-2026-09-19-interim-order.md",
+      "mode": "100644",
+      "sha": "2adb2be44125184b7c925fa73f4f104194fa25af",
+      "size": 3350
+    },
+    {
+      "path": "docs/worklog-2026-09-19-model-discovery-311.md",
+      "mode": "100644",
+      "sha": "69df4f298b21acdba9d98c05faa67601643bd39d",
+      "size": 5478
+    },
+    {
+      "path": "docs/worklog-2026-09-19-overnight-recovery-audit.md",
+      "mode": "100644",
+      "sha": "8e9d03a9388438f040c133c9add4b1be60c5e0fe",
+      "size": 8297
+    },
+    {
+      "path": "docs/worklog-2026-09-19-pr-review.md",
+      "mode": "100644",
+      "sha": "30744ef9beb4c0c64b75bf12cd910bc4f41af9c6",
+      "size": 8863
+    },
+    {
+      "path": "docs/worklog-2026-09-19-release-handoff-receipts.md",
+      "mode": "100644",
+      "sha": "2840efb36ad6eb6425e10171768fad8a9a911cbe",
+      "size": 4459
+    },
+    {
+      "path": "docs/worklog-2026-09-19-reload-activity.md",
+      "mode": "100644",
+      "sha": "e6220c46ab1ff60667d2dc5299fe33f988e787e2",
+      "size": 2837
+    },
+    {
+      "path": "docs/worklog-2026-09-19-shell-compatibility.md",
+      "mode": "100644",
+      "sha": "84e685c1731251a5c3e0f7fd9c33ce43472f7b8c",
+      "size": 5720
+    },
+    {
+      "path": "docs/worklog-2026-09-19-shell-followup.md",
+      "mode": "100644",
+      "sha": "60402a4f6de59790b214f94e663c04a62fe4db32",
+      "size": 3856
+    },
+    {
+      "path": "docs/worklog-2026-09-19-shell-project-workers.md",
+      "mode": "100644",
+      "sha": "5d0b459d2dd5467d56e50eb2b25d2a0193274c1d",
+      "size": 4663
+    },
+    {
+      "path": "docs/worklog-2026-09-19-tool-efficiency-audit.md",
+      "mode": "100644",
+      "sha": "a0322ec76eb38a286fa9354530b42cb6f81d63ad",
+      "size": 9867
+    },
+    {
+      "path": "docs/worklog-2026-09-20-browser-bridge-port.md",
+      "mode": "100644",
+      "sha": "c5eeef22bc5c1753033f2e67d3aba358daa87610",
+      "size": 5236
+    },
+    {
+      "path": "docs/worklog-2026-09-20-combined-shell-install.md",
+      "mode": "100644",
+      "sha": "8a697672e8e9463c09666320c174feb819b5e464",
+      "size": 4139
+    },
+    {
+      "path": "docs/worklog-2026-09-20-commit-merge-install.md",
+      "mode": "100644",
+      "sha": "0514995f2cedbf717c02e73cd232942e3c6e5e56",
+      "size": 2636
+    },
+    {
+      "path": "docs/worklog-2026-09-20-compaction-hydration.md",
+      "mode": "100644",
+      "sha": "95011eb3031bc1152186b13823fb437ac81d9451",
+      "size": 3472
+    },
+    {
+      "path": "docs/worklog-2026-09-20-delayed-final-queue.md",
+      "mode": "100644",
+      "sha": "813a07c45feb5ab8516557d524afa5f7d732e617",
+      "size": 4205
+    },
+    {
+      "path": "docs/worklog-2026-09-20-issues-323-330.md",
+      "mode": "100644",
+      "sha": "b122179565468795e91fba2258d855be5c50bb01",
+      "size": 9170
+    },
+    {
+      "path": "docs/worklog-2026-09-20-pairing-skills-review.md",
+      "mode": "100644",
+      "sha": "89532c9c56a857b3cd0e55f32f8c241212e47ca0",
+      "size": 7249
+    },
+    {
+      "path": "docs/worklog-2026-09-20-selective-pr-review.md",
+      "mode": "100644",
+      "sha": "a5e5c5c685079b3e6db02b848d34c3ee1f15c7d7",
+      "size": 5501
+    },
+    {
+      "path": "docs/worklog-2026-09-20-shell-agent-attribution.md",
+      "mode": "100644",
+      "sha": "51e94237f79c4babcf0467b021d92f6e39bf8b2f",
+      "size": 6380
+    },
+    {
+      "path": "docs/worklog-2026-09-20-shell-live-runtime.md",
+      "mode": "100644",
+      "sha": "47c39d50917c813d22ace9742e1a5a6af05a689b",
+      "size": 6350
+    },
+    {
+      "path": "docs/worklog-2026-09-20-stop-activity.md",
+      "mode": "100644",
+      "sha": "39874aea9fa1aeff04f4caa6c26436abfe3584c7",
+      "size": 4696
+    },
+    {
+      "path": "docs/worklog-2026-09-20-unattributed-parity-audit.md",
+      "mode": "100644",
+      "sha": "c6f03a56d5e042180c4159caca94cddadf772cba",
+      "size": 7058
+    },
+    {
+      "path": "docs/worklog-2026-09-20-usage-week.md",
+      "mode": "100644",
+      "sha": "8f0dfa4366aa843ac19a6867fb6e60ba50a0fb58",
+      "size": 2729
+    },
+    {
+      "path": "docs/workspace-integration-2026-09-12.md",
+      "mode": "100644",
+      "sha": "84220e86b6b4c12c2047cc72d0fe527b655db237",
+      "size": 1496
+    },
+    {
+      "path": "docs/workspace-recovery-dependencies-2026-09-13.md",
+      "mode": "100644",
+      "sha": "764d3906dbf070d5421f220632f86004e38f3620",
+      "size": 2298
+    },
+    {
+      "path": "electron-builder.yml",
+      "mode": "100644",
+      "sha": "7194c2d22fda2e413db81b4ac940ca47da277329",
+      "size": 6481
+    },
+    {
+      "path": "electron.vite.config.ts",
+      "mode": "100644",
+      "sha": "6051691262b11842d65a3d22af6604d3eedea767",
+      "size": 730
+    },
+    {
+      "path": "extension/active-tabs.js",
+      "mode": "100644",
+      "sha": "efe6091242a9c9263c8aac8ad9485b0495f43f54",
+      "size": 5840
+    },
+    {
+      "path": "extension/background.js",
+      "mode": "100644",
+      "sha": "139b80c8b50179d06727c2d0ac7f5b6287e2f1b9",
+      "size": 221101
+    },
+    {
+      "path": "extension/browser-control-page.js",
+      "mode": "100644",
+      "sha": "4fdfc1b7530e2c53988981fedcdad397c25ba0e2",
+      "size": 18106
+    },
+    {
+      "path": "extension/browser-control.js",
+      "mode": "100644",
+      "sha": "15a8dff5d6702a8b9d9035046997fd486ee942d0",
+      "size": 45343
+    },
+    {
+      "path": "extension/chatgpt-dom.js",
+      "mode": "100644",
+      "sha": "40ed630d4522ad24461ae0746e72f5448f15abd9",
+      "size": 140046
+    },
+    {
+      "path": "extension/content.js",
+      "mode": "100644",
+      "sha": "8c1c539df82de3aa1b578c95e7c4bcc443ba910d",
+      "size": 622535
+    },
+    {
+      "path": "extension/fiber.js",
+      "mode": "100644",
+      "sha": "ebbf0f6c56b12a093ff40f808dafb7f72346ff6a",
+      "size": 122802
+    },
+    {
+      "path": "extension/icons/icon128.png",
+      "mode": "100644",
+      "sha": "ef470873f30f2389ced187028e8b5679527278f5",
+      "size": 4008
+    },
+    {
+      "path": "extension/icons/icon16.png",
+      "mode": "100644",
+      "sha": "aaeae082bb94b8808db4beeaea78b891cca87856",
+      "size": 547
+    },
+    {
+      "path": "extension/icons/icon32.png",
+      "mode": "100644",
+      "sha": "17ec97609a29a96213395c33ecd16d1d5ecb8c0d",
+      "size": 984
+    },
+    {
+      "path": "extension/icons/icon48.png",
+      "mode": "100644",
+      "sha": "2808df40c62c84ec4c132b19f69b3519710fa6e0",
+      "size": 1523
+    },
+    {
+      "path": "extension/manifest.json",
+      "mode": "100644",
+      "sha": "a3cd238e06446846f9f6deb993e4d5be7b7c8869",
+      "size": 1823
+    },
+    {
+      "path": "extension/overlay.css",
+      "mode": "100644",
+      "sha": "ba9cb64fe83e1e0f03e3ff261d4f09a361978512",
+      "size": 39608
+    },
+    {
+      "path": "extension/popup.css",
+      "mode": "100644",
+      "sha": "c73be2767fdb9aff2ef50470468acff80303a541",
+      "size": 12765
+    },
+    {
+      "path": "extension/popup.html",
+      "mode": "100644",
+      "sha": "e12c3cfa7699bb7b51841c636254e95054276001",
+      "size": 4760
+    },
+    {
+      "path": "extension/popup.js",
+      "mode": "100644",
+      "sha": "f8570c28a2e21a5c25b8701fea0e9a39dc9d3183",
+      "size": 17227
+    },
+    {
+      "path": "extension/usage.js",
+      "mode": "100644",
+      "sha": "54a7e2a40da1216c47fcda889fa62b93ced7835e",
+      "size": 19253
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "sha": "4863f21719abdc21a635c77b9230c9e734a419a1",
+      "size": 1086
+    },
+    {
+      "path": "native/macos-desktop-addon/addon.cc",
+      "mode": "100644",
+      "sha": "c5f0ab16e70ebe8d720728876e1315bd8f876566",
+      "size": 3068
+    },
+    {
+      "path": "native/macos-desktop-addon/binding.gyp",
+      "mode": "100644",
+      "sha": "190f3871c626d53832fcb8827d1c2ba597b5c312",
+      "size": 270
+    },
+    {
+      "path": "native/macos-desktop-helper/main.swift",
+      "mode": "100644",
+      "sha": "0c665291550335106c2fcef152813c0dd64f9104",
+      "size": 74784
+    },
+    {
+      "path": "package-lock.json",
+      "mode": "100644",
+      "sha": "a735b200daed2824f3ca51b080b70d521a8a9dce",
+      "size": 319032
+    },
+    {
+      "path": "package.json",
+      "mode": "100644",
+      "sha": "dbefcdad8c13325138249d119e700effb758052f",
+      "size": 4440
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "sha": "0c5daccf63e9fbc2fd2ad27dafc191acaf4f03ab",
+      "size": 7376
+    },
+    {
+      "path": "scripts/afterpack-macos-adhoc-seal.mjs",
+      "mode": "100644",
+      "sha": "670d321575f409645410db59c38cba0c70dae1d0",
+      "size": 5540
+    },
+    {
+      "path": "scripts/analyze-pro-silence.mjs",
+      "mode": "100644",
+      "sha": "24738fae0f5c5a3f16d920063a4f951cbdbb2c0d",
+      "size": 5071
+    },
+    {
+      "path": "scripts/benchmark-mcp-latency.mjs",
+      "mode": "100644",
+      "sha": "67e0f17f1ba589523869825e054821f837a42efc",
+      "size": 9486
+    },
+    {
+      "path": "scripts/build-pet-atlas.mjs",
+      "mode": "100644",
+      "sha": "ce90947797e9e64aba4ac2600261a3abc6961854",
+      "size": 5168
+    },
+    {
+      "path": "scripts/build-pet-live-previews.mjs",
+      "mode": "100644",
+      "sha": "0828c310c2a3e134be8f9f20dfc8779b52dda15f",
+      "size": 807
+    },
+    {
+      "path": "scripts/build-pet-props.mjs",
+      "mode": "100644",
+      "sha": "d12e67e48210059e9cfb07bfd4b93ffe23fffe5d",
+      "size": 1300
+    },
+    {
+      "path": "scripts/check-release-absent.mjs",
+      "mode": "100644",
+      "sha": "baf7a6f1c100b0ebbad086e43c2e875f45b084f7",
+      "size": 1737
+    },
+    {
+      "path": "scripts/fetch-ripgrep.mjs",
+      "mode": "100644",
+      "sha": "4be98e46483e293fc312ea2ba14156bd8da9a48d",
+      "size": 4138
+    },
+    {
+      "path": "scripts/fetch-tunnel-client.mjs",
+      "mode": "100644",
+      "sha": "94f47af898fa734c2e55f9270332dea1565ddd05",
+      "size": 4386
+    },
+    {
+      "path": "scripts/fixtures/browser-bridge-port.ts",
+      "mode": "100644",
+      "sha": "e345a26c09153aca7db31d5beefe2e781bb74b6c",
+      "size": 11150
+    },
+    {
+      "path": "scripts/fixtures/shell-react-runtime.js",
+      "mode": "100644",
+      "sha": "acb61d0ada80c48c6b9d1c955a3dbf8d258ad428",
+      "size": 6252
+    },
+    {
+      "path": "scripts/generate-third-party-notices.mjs",
+      "mode": "100644",
+      "sha": "db88a187455d1bd4eac5b16aeb43bd54ba66641e",
+      "size": 6720
+    },
+    {
+      "path": "scripts/ingest-pet-batch.mjs",
+      "mode": "100644",
+      "sha": "beed39038e81574df873f8a4b1008cd774c99ed5",
+      "size": 3069
+    },
+    {
+      "path": "scripts/install-git-hooks.mjs",
+      "mode": "100644",
+      "sha": "8ca310a86f1f0f27b0ccc6df2722212029590299",
+      "size": 434
+    },
+    {
+      "path": "scripts/kill-stray-vitest.mjs",
+      "mode": "100644",
+      "sha": "bf48906f83aa8af552fb3539e6b5a531ec8d77da",
+      "size": 2317
+    },
+    {
+      "path": "scripts/macos-audit-utils.mjs",
+      "mode": "100644",
+      "sha": "fdebf746d26aae9921dc3eacf892f52b3f7f308f",
+      "size": 5534
+    },
+    {
+      "path": "scripts/make-icon.mjs",
+      "mode": "100644",
+      "sha": "eb77c79e17ce068947d04e27638a7cc702746dd3",
+      "size": 12435
+    },
+    {
+      "path": "scripts/package-native-sources.mjs",
+      "mode": "100644",
+      "sha": "1f50518b3602d1fbca8525ce0ae14742a43b53bd",
+      "size": 4500
+    },
+    {
+      "path": "scripts/package.mjs",
+      "mode": "100644",
+      "sha": "b55bc3ea28407bc0f51b60eefefe9c48f1f8a015",
+      "size": 1921
+    },
+    {
+      "path": "scripts/packaging-targets.mjs",
+      "mode": "100644",
+      "sha": "a4d17b246d72efd0c6a16f42cf8313e385025860",
+      "size": 3043
+    },
+    {
+      "path": "scripts/packaging-versions.mjs",
+      "mode": "100644",
+      "sha": "e6b4d54a59456e3ebb2247019cd31caf2ae6b751",
+      "size": 2388
+    },
+    {
+      "path": "scripts/pet-plan.mjs",
+      "mode": "100644",
+      "sha": "1a7ad72e03498bbe20743d1f4d937f9bcce3a8cd",
+      "size": 1353
+    },
+    {
+      "path": "scripts/prepare-macos-desktop-helper.mjs",
+      "mode": "100644",
+      "sha": "481c176c225822635af77f37b6629c14536e792f",
+      "size": 4390
+    },
+    {
+      "path": "scripts/prepare-packaging-native.mjs",
+      "mode": "100644",
+      "sha": "73cbfb0b9fe3ce8043ab40a71817603c1a315b71",
+      "size": 8549
+    },
+    {
+      "path": "scripts/smoke-macos-bundle.mjs",
+      "mode": "100644",
+      "sha": "2f6b39079e61d9570edab8daeeb6d9556e4b3afc",
+      "size": 9070
+    },
+    {
+      "path": "scripts/smoke-macos-gui.mjs",
+      "mode": "100644",
+      "sha": "e8692a7f776af9862bfa30f7f25eb8e05c1f28ad",
+      "size": 3877
+    },
+    {
+      "path": "scripts/smoke-packaged-runtime.mjs",
+      "mode": "100644",
+      "sha": "6b647b18fbe411b4bf86445470e169de00302ee6",
+      "size": 12142
+    },
+    {
+      "path": "scripts/smoke-windows-desktop.mjs",
+      "mode": "100644",
+      "sha": "fcac667a5f4d36a7eb57322c061da7370e6e0ccc",
+      "size": 18313
+    },
+    {
+      "path": "scripts/verify-active-tabs.mjs",
+      "mode": "100644",
+      "sha": "9459b734c864c6bacdc64d222dfff5b88f2a6f63",
+      "size": 13484
+    },
+    {
+      "path": "scripts/verify-appearance.cjs",
+      "mode": "100644",
+      "sha": "462c98e56607747dc07e8b62a99ecad4cf538e52",
+      "size": 12901
+    },
+    {
+      "path": "scripts/verify-browser-bridge-port.mjs",
+      "mode": "100644",
+      "sha": "a0fcc9e05f2f6e6185d4d316cda73a985ca34c0b",
+      "size": 1188
+    },
+    {
+      "path": "scripts/verify-browser-control-entry.mjs",
+      "mode": "100644",
+      "sha": "60ea869461f2364bec485d69ac7bfefd44110763",
+      "size": 10287
+    },
+    {
+      "path": "scripts/verify-browser-control.mjs",
+      "mode": "100644",
+      "sha": "567c3388b6a99063d2335f6b6d4e8acfadc3a762",
+      "size": 32873
+    },
+    {
+      "path": "scripts/verify-chat-opening-scroll.cjs",
+      "mode": "100644",
+      "sha": "0b022f0e09e5f167ae2380ac954712a9f1281645",
+      "size": 6837
+    },
+    {
+      "path": "scripts/verify-chat-switch.cjs",
+      "mode": "100644",
+      "sha": "6db682ef18be71b635614bd146a5de355b5c1e02",
+      "size": 8321
+    },
+    {
+      "path": "scripts/verify-chat-width.cjs",
+      "mode": "100644",
+      "sha": "6854027c45bfdd455bf57e6161e8ef86ff1f289a",
+      "size": 4456
+    },
+    {
+      "path": "scripts/verify-composer-context.cjs",
+      "mode": "100644",
+      "sha": "0f40ca8ea95a3334d19aaa2a2cb5378e0d672ade",
+      "size": 3482
+    },
+    {
+      "path": "scripts/verify-composer-layout.cjs",
+      "mode": "100644",
+      "sha": "03ec69be3a3ec9f0fdb219cd6484ca9ee37d0de4",
+      "size": 2958
+    },
+    {
+      "path": "scripts/verify-connection-compact.cjs",
+      "mode": "100644",
+      "sha": "fea706e939df89b0efa8d4c1ca3fa589ea7ad8ad",
+      "size": 5655
+    },
+    {
+      "path": "scripts/verify-connection-layer.cjs",
+      "mode": "100644",
+      "sha": "65c3ab9096c98c5985715bea50119903e443ba6b",
+      "size": 3079
+    },
+    {
+      "path": "scripts/verify-current-tunnel.mjs",
+      "mode": "100644",
+      "sha": "1aaadfc77f871743424dc53625d31583ef5a3e8e",
+      "size": 2227
+    },
+    {
+      "path": "scripts/verify-disconnect-ui.cjs",
+      "mode": "100644",
+      "sha": "f0e5cb2607c4ef21ebeb1bf7044d27c010cfafb9",
+      "size": 6081
+    },
+    {
+      "path": "scripts/verify-dropdown-layout.cjs",
+      "mode": "100644",
+      "sha": "f59bcb20db3135e9439d5e91d907cdb96a457a51",
+      "size": 7950
+    },
+    {
+      "path": "scripts/verify-goal-progress.cjs",
+      "mode": "100644",
+      "sha": "d04e641d66be0ddfaaf99d19c0b9bd0b4b25c119",
+      "size": 4826
+    },
+    {
+      "path": "scripts/verify-goal-status-layout.cjs",
+      "mode": "100644",
+      "sha": "da8a4c6bacc6294092a33975cc561cfa66b46b32",
+      "size": 2586
+    },
+    {
+      "path": "scripts/verify-history-scroll.cjs",
+      "mode": "100644",
+      "sha": "bb33f90803d785023c06dbd99ad9c38c34c0f3ff",
+      "size": 28343
+    },
+    {
+      "path": "scripts/verify-input-queue.cjs",
+      "mode": "100644",
+      "sha": "6e3990acda2855b433d48acf93d977b337218cad",
+      "size": 17981
+    },
+    {
+      "path": "scripts/verify-macos-window-matching.mjs",
+      "mode": "100644",
+      "sha": "4c76dde9bd9ac9348650aeb0a0723c710d8270b3",
+      "size": 1651
+    },
+    {
+      "path": "scripts/verify-markdown-tables.cjs",
+      "mode": "100644",
+      "sha": "c36e52e1bac9ea28c3da80f527a1801570d1f1b4",
+      "size": 2936
+    },
+    {
+      "path": "scripts/verify-message-reactions.cjs",
+      "mode": "100644",
+      "sha": "22ae7276d562c99c7be33b7cba2bf47d8ecfeb3b",
+      "size": 7150
+    },
+    {
+      "path": "scripts/verify-overwrite-layout.cjs",
+      "mode": "100644",
+      "sha": "f12da65551bed45faf67345021e9d1105d6720f4",
+      "size": 10217
+    },
+    {
+      "path": "scripts/verify-pet-electron.cjs",
+      "mode": "100644",
+      "sha": "74ee6171fb0284c3924884ab0cf743dc78f764fb",
+      "size": 10389
+    },
+    {
+      "path": "scripts/verify-pet-performance.cjs",
+      "mode": "100644",
+      "sha": "35efba3da39751563c17b23469b9d2392eded8a9",
+      "size": 8220
+    },
+    {
+      "path": "scripts/verify-plan-collapse.cjs",
+      "mode": "100644",
+      "sha": "40b7ec1584cb7b981f1f13625c78aca3d1ab0c9a",
+      "size": 4150
+    },
+    {
+      "path": "scripts/verify-pr-workspace.cjs",
+      "mode": "100644",
+      "sha": "f8350e585b071b2979fe4acf324bf37d09125b24",
+      "size": 21819
+    },
+    {
+      "path": "scripts/verify-public-history.mjs",
+      "mode": "100644",
+      "sha": "44823c7956c179e0dc9689e5cea4f3260cdce43f",
+      "size": 9017
+    },
+    {
+      "path": "scripts/verify-recovery-layout.cjs",
+      "mode": "100644",
+      "sha": "4b35b2b7586edfadf7bf5a85c5aa5403c674fd9a",
+      "size": 6618
+    },
+    {
+      "path": "scripts/verify-renderer-label-memory.cjs",
+      "mode": "100644",
+      "sha": "f4b4a7474fd325f5ed688582b35ee1896e2f682a",
+      "size": 4394
+    },
+    {
+      "path": "scripts/verify-settings-focus.cjs",
+      "mode": "100644",
+      "sha": "86a6edd831734b9606875255ecc3e83d102f08ba",
+      "size": 4799
+    },
+    {
+      "path": "scripts/verify-setup-guide.cjs",
+      "mode": "100644",
+      "sha": "eeba964aff43fd25f637f90c3174f452b8edff0e",
+      "size": 12763
+    },
+    {
+      "path": "scripts/verify-shell-runtime.cjs",
+      "mode": "100644",
+      "sha": "6c565a2d6c366df613d9f524a867c23f5494533d",
+      "size": 21263
+    },
+    {
+      "path": "scripts/verify-sidebar-setup.cjs",
+      "mode": "100644",
+      "sha": "3f0273b6aa4282b78bd929ffdfb3f9f22921fb92",
+      "size": 17339
+    },
+    {
+      "path": "scripts/verify-tool-scroll.cjs",
+      "mode": "100644",
+      "sha": "1e850dc064db45416b58dfcc1cd5676443e5fc14",
+      "size": 9278
+    },
+    {
+      "path": "scripts/verify-usage-week.cjs",
+      "mode": "100644",
+      "sha": "c51b26280984595125f45509293de3a5c32bd72a",
+      "size": 6402
+    },
+    {
+      "path": "scripts/verify-windows-capture-border.mjs",
+      "mode": "100644",
+      "sha": "a05e3822dd56cd2407365d0674e4956fdb2e0163",
+      "size": 4844
+    },
+    {
+      "path": "scripts/verify-workspace-terminal.cjs",
+      "mode": "100644",
+      "sha": "79829f484f80473be5288c04c5672e19c3ed7c2a",
+      "size": 8954
+    },
+    {
+      "path": "scripts/windows-installer-acl.nsh",
+      "mode": "100644",
+      "sha": "6abb938dc0ce279799f9b7ee9a5b6bbb4a50c00a",
+      "size": 847
+    },
+    {
+      "path": "SECURITY.md",
+      "mode": "100644",
+      "sha": "935619a358158e24b01dd2e6c1de418571900464",
+      "size": 5180
+    },
+    {
+      "path": "src/main/agents.ts",
+      "mode": "100644",
+      "sha": "b27404e934581235d7e6230c284bf80b042d0b8d",
+      "size": 207157
+    },
+    {
+      "path": "src/main/appearance-schema.ts",
+      "mode": "100644",
+      "sha": "e45c3118f7c1df19309822377036674d8c89117e",
+      "size": 540
+    },
+    {
+      "path": "src/main/bridge-ports.ts",
+      "mode": "100644",
+      "sha": "29394830578bc2f21e33e3d761b58b1ba09ca836",
+      "size": 678
+    },
+    {
+      "path": "src/main/bridge.ts",
+      "mode": "100644",
+      "sha": "773624d642289d7d72ba2cab8943284e05b43a6f",
+      "size": 490033
+    },
+    {
+      "path": "src/main/browser-control.ts",
+      "mode": "100644",
+      "sha": "0fbed9f6ac0600ad22bb7bea21ba329f036f9fe3",
+      "size": 6648
+    },
+    {
+      "path": "src/main/browser-preferences.ts",
+      "mode": "100644",
+      "sha": "733a0fa2831be6e8767b2779737d71b8df0490d9",
+      "size": 2413
+    },
+    {
+      "path": "src/main/browser-startup.ts",
+      "mode": "100644",
+      "sha": "3fae6767d0febfae01ce6247f6eb5df4ec5ffd84",
+      "size": 2481
+    },
+    {
+      "path": "src/main/browser-wake.ts",
+      "mode": "100644",
+      "sha": "ff7bcc79a926fdf85aa0977db4092a847428d675",
+      "size": 3575
+    },
+    {
+      "path": "src/main/browser-window-layout.ts",
+      "mode": "100644",
+      "sha": "6fb49814076ece7de7f8bf28b69f684f87b7e261",
+      "size": 1098
+    },
+    {
+      "path": "src/main/browser.ts",
+      "mode": "100644",
+      "sha": "e4ed82d1fa162c31e3fe1c35f6a8597e25342292",
+      "size": 13091
+    },
+    {
+      "path": "src/main/chat-models.ts",
+      "mode": "100644",
+      "sha": "836f226714fabdde6d75dc9799a6353a2239b7d8",
+      "size": 9646
+    },
+    {
+      "path": "src/main/codex/apply-patch/errors.ts",
+      "mode": "100644",
+      "sha": "2bb4030e01d69c4dea387a87a559122dcabab299",
+      "size": 3564
+    },
+    {
+      "path": "src/main/codex/apply-patch/file-update.ts",
+      "mode": "100644",
+      "sha": "cc3e75c124e05ebf53a630195546b52451abc620",
+      "size": 9870
+    },
+    {
+      "path": "src/main/codex/apply-patch/hunk.ts",
+      "mode": "100644",
+      "sha": "9bfee2c6bde4627ec447a2fadd36e92f492066f6",
+      "size": 4058
+    },
+    {
+      "path": "src/main/codex/apply-patch/index.ts",
+      "mode": "100644",
+      "sha": "8d4698ad09f3d7f1e3d73bc4b6a9cf8b53f1c5be",
+      "size": 24931
+    },
+    {
+      "path": "src/main/codex/apply-patch/invocation.ts",
+      "mode": "100644",
+      "sha": "b3743241598886afaaaf0a3819609d920aa67f71",
+      "size": 7555
+    },
+    {
+      "path": "src/main/codex/apply-patch/mode.ts",
+      "mode": "100644",
+      "sha": "f81f5bda86b88385f91127d8ab8f14ead6ec25a8",
+      "size": 606
+    },
+    {
+      "path": "src/main/codex/apply-patch/parser.ts",
+      "mode": "100644",
+      "sha": "2a503d8512dab6fa4ff1ad376931b72eb7adc892",
+      "size": 4955
+    },
+    {
+      "path": "src/main/codex/apply-patch/seek-sequence.ts",
+      "mode": "100644",
+      "sha": "a2798e14c41acb0f03b4a1c5af0742398ebdd49c",
+      "size": 3887
+    },
+    {
+      "path": "src/main/codex/apply-patch/streaming-parser.ts",
+      "mode": "100644",
+      "sha": "5fe2a16ff77f626a4821ef11df7b81921f54c82b",
+      "size": 11296
+    },
+    {
+      "path": "src/main/codex/apply-patch/text-file.ts",
+      "mode": "100644",
+      "sha": "1a4ae4ac4afb872d3e8655ac9e9fdbb1f074636f",
+      "size": 3939
+    },
+    {
+      "path": "src/main/codex/command-batch.ts",
+      "mode": "100644",
+      "sha": "1eb8182a28701580bbb0fc367607efbca521b7b5",
+      "size": 7806
+    },
+    {
+      "path": "src/main/codex/exec-output.ts",
+      "mode": "100644",
+      "sha": "76799cd82003abe5426980d399d3137d921124c8",
+      "size": 2812
+    },
+    {
+      "path": "src/main/codex/filesystem.ts",
+      "mode": "100644",
+      "sha": "b056b8a86046613a71a56c7136639cea7b445fc1",
+      "size": 16609
+    },
+    {
+      "path": "src/main/codex/head-tail-buffer.ts",
+      "mode": "100644",
+      "sha": "23e42dcb915a915cf56d38afb4fdda744f75c4e2",
+      "size": 3617
+    },
+    {
+      "path": "src/main/codex/manager.ts",
+      "mode": "100644",
+      "sha": "2af220ca7b45ddb3140f58d95acf3466e3fd62c5",
+      "size": 2667
+    },
+    {
+      "path": "src/main/codex/ownership.ts",
+      "mode": "100644",
+      "sha": "8169d37e89587024fd3fa8b551d8f83b379171eb",
+      "size": 12443
+    },
+    {
+      "path": "src/main/codex/read-backend.ts",
+      "mode": "100644",
+      "sha": "db32cf852d73370e38850ef794153e936de65f4a",
+      "size": 13981
+    },
+    {
+      "path": "src/main/codex/shell.ts",
+      "mode": "100644",
+      "sha": "a246aca9f7e8ce5a046fbb657c8d5a0a0dce1a68",
+      "size": 14398
+    },
+    {
+      "path": "src/main/codex/tool-specs.ts",
+      "mode": "100644",
+      "sha": "ca2aca7c8fe03ca1769d07d8c9044599d6cc40d2",
+      "size": 9145
+    },
+    {
+      "path": "src/main/codex/truncate.ts",
+      "mode": "100644",
+      "sha": "b0edc398da145b9f81ea5920c1367db3e023efc5",
+      "size": 6255
+    },
+    {
+      "path": "src/main/codex/unified-exec-constants.ts",
+      "mode": "100644",
+      "sha": "6d97b7e8c360f20f6801e52038d13f2240eaadcc",
+      "size": 3238
+    },
+    {
+      "path": "src/main/codex/unified-exec.ts",
+      "mode": "100644",
+      "sha": "fb0e6372add5fa20b6d9c717abe0c24e0e69312c",
+      "size": 50432
+    },
+    {
+      "path": "src/main/codex/view-image.ts",
+      "mode": "100644",
+      "sha": "d43e28b16f54b762b37dad4fc02a00c53566d4cf",
+      "size": 9468
+    },
+    {
+      "path": "src/main/computer/browser-chords.ts",
+      "mode": "100644",
+      "sha": "a03652abdb3c39610629c287f7d0794f70fd91df",
+      "size": 3546
+    },
+    {
+      "path": "src/main/computer/helper.ts",
+      "mode": "100644",
+      "sha": "46742048fcb813d00f990a818254d3a31aaed724",
+      "size": 63345
+    },
+    {
+      "path": "src/main/computer/index.ts",
+      "mode": "100644",
+      "sha": "183efb6366ee055c8f80f0b15ebb5e565204b157",
+      "size": 86382
+    },
+    {
+      "path": "src/main/computer/windows-api.ts",
+      "mode": "100644",
+      "sha": "c116a880e4e8c8c73fd0d5635971c3fb2c137304",
+      "size": 16268
+    },
+    {
+      "path": "src/main/computer/windows-apps.ts",
+      "mode": "100644",
+      "sha": "3e0b07735bb9932e2e50365255aaa394d9b7dde0",
+      "size": 10030
+    },
+    {
+      "path": "src/main/computer/windows-capture.ts",
+      "mode": "100644",
+      "sha": "1f4d4c175faf27c565375403d32e1f5258f25598",
+      "size": 11191
+    },
+    {
+      "path": "src/main/computer/windows-keys.ts",
+      "mode": "100644",
+      "sha": "36f4d6eabf904f36f09f17af0ca23daf49ca7752",
+      "size": 7064
+    },
+    {
+      "path": "src/main/config.ts",
+      "mode": "100644",
+      "sha": "06d23024133845958b60a6a40b1036385020a7d6",
+      "size": 32167
+    },
+    {
+      "path": "src/main/connection.ts",
+      "mode": "100644",
+      "sha": "27bcd681c146e86f05ab684fa647deae0ba79dab",
+      "size": 25045
+    },
+    {
+      "path": "src/main/diagnostics.ts",
+      "mode": "100644",
+      "sha": "8840aad931e8505d669e456356d883f322b23571",
+      "size": 15509
+    },
+    {
+      "path": "src/main/diffstat.ts",
+      "mode": "100644",
+      "sha": "5201a8e98d42bd67790a8d8312b8df422d86b044",
+      "size": 5366
+    },
+    {
+      "path": "src/main/durable.ts",
+      "mode": "100644",
+      "sha": "999075f973694c2cab989df01fd29ae41df7a233",
+      "size": 7973
+    },
+    {
+      "path": "src/main/edit-context-menu.ts",
+      "mode": "100644",
+      "sha": "8efbc38c570db8d27119b8a154a517a5bfddb5c0",
+      "size": 682
+    },
+    {
+      "path": "src/main/env.ts",
+      "mode": "100644",
+      "sha": "9196d5f77fdd4aaa951505a2dd03069dd5441833",
+      "size": 7368
+    },
+    {
+      "path": "src/main/exec-hints.ts",
+      "mode": "100644",
+      "sha": "ffa33f2321a5c46b68cd958430b16eb1f8c3a56a",
+      "size": 77462
+    },
+    {
+      "path": "src/main/exec.ts",
+      "mode": "100644",
+      "sha": "2cac7b9d59fec1a5854762cdb040304db8c03745",
+      "size": 22431
+    },
+    {
+      "path": "src/main/extension-path.ts",
+      "mode": "100644",
+      "sha": "45db08009a31185217134bb172c49de16cd9b411",
+      "size": 7947
+    },
+    {
+      "path": "src/main/fsops.ts",
+      "mode": "100644",
+      "sha": "cce1f016c65e8bb8746667d94681059078c43688",
+      "size": 26908
+    },
+    {
+      "path": "src/main/goal.ts",
+      "mode": "100644",
+      "sha": "4b1e08218a2fe78f482ece37bf799556ecbd7796",
+      "size": 139953
+    },
+    {
+      "path": "src/main/index.ts",
+      "mode": "100644",
+      "sha": "1b987fe2d6a424344d944c768c5fc83e5bc5227d",
+      "size": 25781
+    },
+    {
+      "path": "src/main/ipc.ts",
+      "mode": "100644",
+      "sha": "16aa13f524d5bc1809b4030e0289bf4fb8be1794",
+      "size": 66929
+    },
+    {
+      "path": "src/main/logger.ts",
+      "mode": "100644",
+      "sha": "563a8938759534e758bc7fbb82be2f0ce8258d0e",
+      "size": 9412
+    },
+    {
+      "path": "src/main/mcp/call-context.ts",
+      "mode": "100644",
+      "sha": "1ad68e320c8bd8ea25a99e62e9eb9800b7276298",
+      "size": 13205
+    },
+    {
+      "path": "src/main/mcp/code-mode-runtime.ts",
+      "mode": "100644",
+      "sha": "040324442ebca498012653d924318062a9ec744d",
+      "size": 10253
+    },
+    {
+      "path": "src/main/mcp/code-mode-tool.ts",
+      "mode": "100644",
+      "sha": "a956bc3a7dc6f34fb75626116434a93d33d2d081",
+      "size": 6213
+    },
+    {
+      "path": "src/main/mcp/code-mode-worker.ts",
+      "mode": "100644",
+      "sha": "be51454cf9b471f92578379bb37d765f2cdfec4a",
+      "size": 6170
+    },
+    {
+      "path": "src/main/mcp/coding-instructions.ts",
+      "mode": "100644",
+      "sha": "2d9965016ef5554e4a28ae06fb6dcd0ab25c1a5e",
+      "size": 13777
+    },
+    {
+      "path": "src/main/mcp/inbound.ts",
+      "mode": "100644",
+      "sha": "8a338bc6bc9413e620e25c5327748d7ca09ce2bc",
+      "size": 4427
+    },
+    {
+      "path": "src/main/mcp/instructions.ts",
+      "mode": "100644",
+      "sha": "2252a6ffc615dff9e6e8c16328a77c23cb287545",
+      "size": 25214
+    },
+    {
+      "path": "src/main/mcp/kernel.ts",
+      "mode": "100644",
+      "sha": "adba6972d5a8f9fceb5092c216fa842721e24212",
+      "size": 75060
+    },
+    {
+      "path": "src/main/mcp/plan-tool.ts",
+      "mode": "100644",
+      "sha": "bd03efe3244febe39793daf7f880b2891e503cf4",
+      "size": 3082
+    },
+    {
+      "path": "src/main/mcp/server.ts",
+      "mode": "100644",
+      "sha": "28e11934166583a40b63395e824c5787229e2bac",
+      "size": 22981
+    },
+    {
+      "path": "src/main/mcp/surfaces.ts",
+      "mode": "100644",
+      "sha": "6438d0a833c258b2c2363987b48afe26accbae21",
+      "size": 10028
+    },
+    {
+      "path": "src/main/mcp/tool-declarations.ts",
+      "mode": "100644",
+      "sha": "6e9c805b8c0e8146812de8226077be68d87032a5",
+      "size": 2255
+    },
+    {
+      "path": "src/main/mcp/tools-browser.ts",
+      "mode": "100644",
+      "sha": "ed6a9fed6dd21f82df4c5f58f849bc0912b89dbf",
+      "size": 12668
+    },
+    {
+      "path": "src/main/mcp/tools-core.ts",
+      "mode": "100644",
+      "sha": "bc08401abfeda2d1f09cf4c8ba66ba6643efedc6",
+      "size": 114384
+    },
+    {
+      "path": "src/main/mcp/tools-desktop-macos.ts",
+      "mode": "100644",
+      "sha": "3af1eb0d7690bfbb1ce0e7304772afc6f4fe3990",
+      "size": 31342
+    },
+    {
+      "path": "src/main/mcp/tools-desktop-windows.ts",
+      "mode": "100644",
+      "sha": "90cff202923a414a75a6a3c45bfe1cee2705f75c",
+      "size": 13753
+    },
+    {
+      "path": "src/main/mcp/tools-desktop.ts",
+      "mode": "100644",
+      "sha": "4d5f6377f3f7065e2d52334f088408bd16803b95",
+      "size": 655
+    },
+    {
+      "path": "src/main/mcp/tools-plugins.ts",
+      "mode": "100644",
+      "sha": "4be29d535d185ce2811bbd5495160642fd3cbf81",
+      "size": 3127
+    },
+    {
+      "path": "src/main/mcp/tools.ts",
+      "mode": "100644",
+      "sha": "0bd13ed095c23a4587c4f605550ac81db4b48796",
+      "size": 4382
+    },
+    {
+      "path": "src/main/platform.ts",
+      "mode": "100644",
+      "sha": "b0aeefeef53aff2daea2946a9705af3991fa6d2a",
+      "size": 2275
+    },
+    {
+      "path": "src/main/plugin-refresh.ts",
+      "mode": "100644",
+      "sha": "c5d212ac361c7f9587b581d0082ccb42a0c9c907",
+      "size": 13842
+    },
+    {
+      "path": "src/main/plugins-ipc.ts",
+      "mode": "100644",
+      "sha": "d19a3d73591ac270cee929dc8c5da67538576b4b",
+      "size": 3513
+    },
+    {
+      "path": "src/main/plugins/catalog.ts",
+      "mode": "100644",
+      "sha": "235ebbba2214bb3db6e562145967517737de97d4",
+      "size": 6212
+    },
+    {
+      "path": "src/main/plugins/exposure.ts",
+      "mode": "100644",
+      "sha": "eea5e658d3943b7f79553d7bfd2209e85419e99e",
+      "size": 2531
+    },
+    {
+      "path": "src/main/plugins/installer.ts",
+      "mode": "100644",
+      "sha": "48bf82a4beac4e06e28abf1e18cd2905aa5aae16",
+      "size": 13376
+    },
+    {
+      "path": "src/main/plugins/manager.ts",
+      "mode": "100644",
+      "sha": "8ae171c6ae7135c6d6761b91d0df467dfd449777",
+      "size": 43938
+    },
+    {
+      "path": "src/main/plugins/oauth.ts",
+      "mode": "100644",
+      "sha": "9cf69d514ece857154eb8ae80c8fb3df55d0cf15",
+      "size": 11973
+    },
+    {
+      "path": "src/main/project-file-watcher.ts",
+      "mode": "100644",
+      "sha": "455d77558e4cb176bb393bf0954ae17a7990be55",
+      "size": 4421
+    },
+    {
+      "path": "src/main/project-files.ts",
+      "mode": "100644",
+      "sha": "f1dcc3c628a0a12b19d08a53849fba07b4207f4a",
+      "size": 20759
+    },
+    {
+      "path": "src/main/projects.ts",
+      "mode": "100644",
+      "sha": "ea5f8c8e0df9082528d0a202e6cc389638b0ab33",
+      "size": 5243
+    },
+    {
+      "path": "src/main/rawfs.ts",
+      "mode": "100644",
+      "sha": "2933d4bd87f94f5f0d16fb6948b0839d22a66ad5",
+      "size": 1947
+    },
+    {
+      "path": "src/main/redaction.ts",
+      "mode": "100644",
+      "sha": "ceb6947488486f56239135b7e704468319d13fe2",
+      "size": 450
+    },
+    {
+      "path": "src/main/ripgrep.ts",
+      "mode": "100644",
+      "sha": "5de3bf1b5af6512e7576a99cb1514f1f450688df",
+      "size": 1881
+    },
+    {
+      "path": "src/main/sandbox.ts",
+      "mode": "100644",
+      "sha": "cfedd5909062071853d77b7b72739962ab871d3d",
+      "size": 22831
+    },
+    {
+      "path": "src/main/search.ts",
+      "mode": "100644",
+      "sha": "51e57cfdb42e5a74cbc2ef7361395a983bc2aff9",
+      "size": 20468
+    },
+    {
+      "path": "src/main/secrets.ts",
+      "mode": "100644",
+      "sha": "229ee1173b6d41fa0fa5219ba38e4032e5fdd0e5",
+      "size": 14576
+    },
+    {
+      "path": "src/main/session/blocked-chats.ts",
+      "mode": "100644",
+      "sha": "cca70fafa37018f2f7c162d941fceb48c421a286",
+      "size": 6880
+    },
+    {
+      "path": "src/main/session/continuation.ts",
+      "mode": "100644",
+      "sha": "4e83e4ec832e6fa2691913471ea043f02461f3f5",
+      "size": 81179
+    },
+    {
+      "path": "src/main/session/correlation.ts",
+      "mode": "100644",
+      "sha": "b601fa701afac9fecfda66c9936d0dc3b716cea0",
+      "size": 17154
+    },
+    {
+      "path": "src/main/session/finish.ts",
+      "mode": "100644",
+      "sha": "e574042e2925f106292c579724a7f497da89cfc4",
+      "size": 20284
+    },
+    {
+      "path": "src/main/session/handoff-prompt.ts",
+      "mode": "100644",
+      "sha": "f3df2cab33387c5cec7cb9c4fd28dc27719aae7a",
+      "size": 8114
+    },
+    {
+      "path": "src/main/session/handoff.ts",
+      "mode": "100644",
+      "sha": "032822454b2288dd1f5e6e084a020fe9939b709a",
+      "size": 9950
+    },
+    {
+      "path": "src/main/session/input-attachments.ts",
+      "mode": "100644",
+      "sha": "f9a455208c33dc1ba48de4aa37d44eac87de965c",
+      "size": 8796
+    },
+    {
+      "path": "src/main/session/input-history.ts",
+      "mode": "100644",
+      "sha": "325f34f44c20bb6c6d586d00fb2af8464719759a",
+      "size": 4635
+    },
+    {
+      "path": "src/main/session/input-images.ts",
+      "mode": "100644",
+      "sha": "fcae1fbeeb18f8d826400b288e8efb5fab45b1d0",
+      "size": 2595
+    },
+    {
+      "path": "src/main/session/input.ts",
+      "mode": "100644",
+      "sha": "ae370793ef822b9f6a35c4d42945b297d17a6358",
+      "size": 115768
+    },
+    {
+      "path": "src/main/session/progress.ts",
+      "mode": "100644",
+      "sha": "b317abaa3ab6b2ae5595505ddfc7284416be0e7a",
+      "size": 1191
+    },
+    {
+      "path": "src/main/session/prompt.ts",
+      "mode": "100644",
+      "sha": "6cbe72e45ca7f8e327c075dbd7f2c7790541bd2e",
+      "size": 8927
+    },
+    {
+      "path": "src/main/session/recorder.ts",
+      "mode": "100644",
+      "sha": "e76d526534f6216cfb8120e0035cf66376fff010",
+      "size": 127732
+    },
+    {
+      "path": "src/main/session/request-plans.ts",
+      "mode": "100644",
+      "sha": "8f8acf4c62063bfdfcf28d4e4a0d8a94ff6f8d27",
+      "size": 5041
+    },
+    {
+      "path": "src/main/session/resume-gate.ts",
+      "mode": "100644",
+      "sha": "8a5a0d110175d0ffad4c47b188ac49ecd9870409",
+      "size": 3721
+    },
+    {
+      "path": "src/main/session/skill-prompt.ts",
+      "mode": "100644",
+      "sha": "a0b4bfd37433566ea5b9bdeae7aa08084ababcf0",
+      "size": 917
+    },
+    {
+      "path": "src/main/session/start-input.ts",
+      "mode": "100644",
+      "sha": "b5210d3a5dc97141367f2ecda76c9dd8f9be5981",
+      "size": 5917
+    },
+    {
+      "path": "src/main/session/store.ts",
+      "mode": "100644",
+      "sha": "39540f77eb5dc8a264da0c4bf0f46d2a84678782",
+      "size": 171251
+    },
+    {
+      "path": "src/main/session/summarize.ts",
+      "mode": "100644",
+      "sha": "b49b4b89bd0b5d91bef637c37a96b3d0d2fd9573",
+      "size": 20734
+    },
+    {
+      "path": "src/main/session/title.ts",
+      "mode": "100644",
+      "sha": "69a22db9b962dbc67267fe23603fee9c54e220c5",
+      "size": 2566
+    },
+    {
+      "path": "src/main/session/usage.ts",
+      "mode": "100644",
+      "sha": "642c5ab801aede8feb6aba14e78b6619a666ea89",
+      "size": 10845
+    },
+    {
+      "path": "src/main/setup-profiles.ts",
+      "mode": "100644",
+      "sha": "0d8edb554c02fc5d99aacfa493bdb694551b3374",
+      "size": 2352
+    },
+    {
+      "path": "src/main/shutdown.ts",
+      "mode": "100644",
+      "sha": "e46baaf58848828fece62ad927cd39bbdf77aa8a",
+      "size": 5593
+    },
+    {
+      "path": "src/main/skill-access.ts",
+      "mode": "100644",
+      "sha": "513ad1d7c49f4f2a6978c20fa5d89f7ed9a639ff",
+      "size": 5524
+    },
+    {
+      "path": "src/main/skill-library.ts",
+      "mode": "100644",
+      "sha": "05a43365ad272d2e516ac5cabdf60c2f4d7cf8f7",
+      "size": 16257
+    },
+    {
+      "path": "src/main/skill-links.ts",
+      "mode": "100644",
+      "sha": "08e70166bbea2e8ccfa3a057624151f4629ec533",
+      "size": 3615
+    },
+    {
+      "path": "src/main/skill-metadata.ts",
+      "mode": "100644",
+      "sha": "905aab21764bfc0baa2833b5c2d4029b7322f38a",
+      "size": 5548
+    },
+    {
+      "path": "src/main/skill-package.ts",
+      "mode": "100644",
+      "sha": "be7ee85782874b9df2f263eb68962aafa34fecf5",
+      "size": 6023
+    },
+    {
+      "path": "src/main/skills.ts",
+      "mode": "100644",
+      "sha": "324e0cb23db12605d037eb2cdf360710a13d50b0",
+      "size": 21664
+    },
+    {
+      "path": "src/main/task-request.ts",
+      "mode": "100644",
+      "sha": "88491af0ff6d763c618c732c98855dddc721bd31",
+      "size": 3667
+    },
+    {
+      "path": "src/main/text-match.ts",
+      "mode": "100644",
+      "sha": "bd02758c3b2d9fe3e4ac56649a94ce9a6397777e",
+      "size": 13206
+    },
+    {
+      "path": "src/main/toolchain.ts",
+      "mode": "100644",
+      "sha": "407ee52e8e4f08122a285728b6af40a11cad9071",
+      "size": 10764
+    },
+    {
+      "path": "src/main/tray-image.ts",
+      "mode": "100644",
+      "sha": "7aae85029a391c82d8257f6aef43bd064d131cab",
+      "size": 5049
+    },
+    {
+      "path": "src/main/tunnel/health.ts",
+      "mode": "100644",
+      "sha": "0c2df5297e0a80213da731f0e67a5f241bab5485",
+      "size": 6044
+    },
+    {
+      "path": "src/main/tunnel/index.ts",
+      "mode": "100644",
+      "sha": "24d25891bb6cadd18ff47bf1d0aa6cf752be8b23",
+      "size": 32221
+    },
+    {
+      "path": "src/main/tunnel/locate.ts",
+      "mode": "100644",
+      "sha": "2845552957d51a902efabebd3f5edccf979e9065",
+      "size": 6612
+    },
+    {
+      "path": "src/main/update.ts",
+      "mode": "100644",
+      "sha": "bdadadfac4164b566ee330eaea065d7620f6240a",
+      "size": 20212
+    },
+    {
+      "path": "src/main/version.ts",
+      "mode": "100644",
+      "sha": "735ba59211d7f98e477f1feced060019f2111b6a",
+      "size": 4962
+    },
+    {
+      "path": "src/main/window-icon.ts",
+      "mode": "100644",
+      "sha": "600ca4898ef89d973f8bbcb8ec52f6cc75e6ed10",
+      "size": 617
+    },
+    {
+      "path": "src/main/window-layout.ts",
+      "mode": "100644",
+      "sha": "fae673bec1537785f7704ef6c44b1786cf971278",
+      "size": 1996
+    },
+    {
+      "path": "src/main/window-lifecycle.ts",
+      "mode": "100644",
+      "sha": "0cf054b80f9a9476dc30363eb867247fad60c97d",
+      "size": 4018
+    },
+    {
+      "path": "src/main/workspace-terminal-ipc.ts",
+      "mode": "100644",
+      "sha": "e0b7cff2d9884156edf4e75104b63c7125360136",
+      "size": 2529
+    },
+    {
+      "path": "src/main/workspace-terminal.ts",
+      "mode": "100644",
+      "sha": "3b75204c1d6f7b92625deb9b65ed4187fa229d0b",
+      "size": 3781
+    },
+    {
+      "path": "src/main/workspace.ts",
+      "mode": "100644",
+      "sha": "0f053a5482b54651b193cd61abbbe76dc8a8e871",
+      "size": 15285
+    },
+    {
+      "path": "src/preload/index.ts",
+      "mode": "100644",
+      "sha": "2270b2da8d54f47a2af83a8a2377b935ce4bd2d8",
+      "size": 18225
+    },
+    {
+      "path": "src/renderer/agent-communication.ts",
+      "mode": "100644",
+      "sha": "42174c10b1cd1b77361b17bd4835556bca2b14bd",
+      "size": 2256
+    },
+    {
+      "path": "src/renderer/agent-panel.ts",
+      "mode": "100644",
+      "sha": "9a94a579b897c437711de2875cc83fa481c5de3a",
+      "size": 4577
+    },
+    {
+      "path": "src/renderer/agent-plan.ts",
+      "mode": "100644",
+      "sha": "4c8f618ad8ac3284dd51ab3fd74525562cf11034",
+      "size": 4426
+    },
+    {
+      "path": "src/renderer/appearance.ts",
+      "mode": "100644",
+      "sha": "b6dedae9733103f74f6734428d474baefecdeba5",
+      "size": 6049
+    },
+    {
+      "path": "src/renderer/assets.d.ts",
+      "mode": "100644",
+      "sha": "bc995e36159cf491b383bec00ff42bf3bc875c1f",
+      "size": 95
+    },
+    {
+      "path": "src/renderer/browser-preferences.ts",
+      "mode": "100644",
+      "sha": "662fbd76fb139f3fbfc04430dad7b18ccc1ef2c8",
+      "size": 1742
+    },
+    {
+      "path": "src/renderer/chat-error.ts",
+      "mode": "100644",
+      "sha": "c6b2d91806b7467f9844fd9bb2c877d0f6fb4dd6",
+      "size": 6529
+    },
+    {
+      "path": "src/renderer/chat-models.ts",
+      "mode": "100644",
+      "sha": "7bf2e20f898a5ff5a4ced539b96c62001e61c466",
+      "size": 17234
+    },
+    {
+      "path": "src/renderer/chat.ts",
+      "mode": "100644",
+      "sha": "9001bd57edb2250cd2bfeda60d5897490723a07d",
+      "size": 235918
+    },
+    {
+      "path": "src/renderer/connection-popover.ts",
+      "mode": "100644",
+      "sha": "b72b7430b4a7a510670761e6e51d9feb4c473b82",
+      "size": 17370
+    },
+    {
+      "path": "src/renderer/context-meter.ts",
+      "mode": "100644",
+      "sha": "4d1138eb0f217e471cd2b10a87350cf08aea4579",
+      "size": 2648
+    },
+    {
+      "path": "src/renderer/dom.ts",
+      "mode": "100644",
+      "sha": "d87fa244ac0d2469b6625f5915887fb648afea0d",
+      "size": 3885
+    },
+    {
+      "path": "src/renderer/file-code-editor.ts",
+      "mode": "100644",
+      "sha": "6bf7488955dc9f7c87f37a32f85da1d3a986bcd5",
+      "size": 4811
+    },
+    {
+      "path": "src/renderer/file-panel.ts",
+      "mode": "100644",
+      "sha": "bf76f9d0333b9b715785d162f6e1c391b2a3a283",
+      "size": 49006
+    },
+    {
+      "path": "src/renderer/file-pdf-viewer.ts",
+      "mode": "100644",
+      "sha": "04c6aa49ad63bdfe35bdae9b2d68084681a1886f",
+      "size": 10489
+    },
+    {
+      "path": "src/renderer/goal-reasoning.ts",
+      "mode": "100644",
+      "sha": "6d424a56a01818037bf22dc7f2d506fde76ba92a",
+      "size": 1830
+    },
+    {
+      "path": "src/renderer/i18n.ts",
+      "mode": "100644",
+      "sha": "87ba7c15202dd18b61bed8257fd3c8269b72fd65",
+      "size": 5624
+    },
+    {
+      "path": "src/renderer/image-storage.ts",
+      "mode": "100644",
+      "sha": "bc915f38b9ed686f3088bf7f2c4b0f8dbafb7918",
+      "size": 4075
+    },
+    {
+      "path": "src/renderer/index.html",
+      "mode": "100644",
+      "sha": "1964e7b7f2a5b902a6a474ed18911e04b01d5cdb",
+      "size": 81960
+    },
+    {
+      "path": "src/renderer/locales/es.json",
+      "mode": "100644",
+      "sha": "7b416ec508e8e676712b1be71722ff86e3738059",
+      "size": 121665
+    },
+    {
+      "path": "src/renderer/locales/ja.json",
+      "mode": "100644",
+      "sha": "45e976757ca1cdc6336d8dab7e99877d1b93c656",
+      "size": 143369
+    },
+    {
+      "path": "src/renderer/locales/zh-CN.json",
+      "mode": "100644",
+      "sha": "a8e687ea82106e0d2980c9b8f3f20bf72f138662",
+      "size": 108234
+    },
+    {
+      "path": "src/renderer/locales/zh-TW.json",
+      "mode": "100644",
+      "sha": "42c23b0fc9e3d54a936f14d4e5422a991d062420",
+      "size": 114505
+    },
+    {
+      "path": "src/renderer/main.ts",
+      "mode": "100644",
+      "sha": "dbd2d8c15312a75427d7d2dca80cabf9737be783",
+      "size": 84355
+    },
+    {
+      "path": "src/renderer/pet-assets/animations.json",
+      "mode": "100644",
+      "sha": "d501fab41708feabfa94731f099f4b4944bfdc02",
+      "size": 4617
+    },
+    {
+      "path": "src/renderer/pet-assets/atlas.png",
+      "mode": "100644",
+      "sha": "fe33fca14c9068e39463730a2f681ea88981de06",
+      "size": 229721
+    },
+    {
+      "path": "src/renderer/pet-assets/bat.png",
+      "mode": "100644",
+      "sha": "278b44e2a90f9baf31a6a94a7a11116c6f245bdb",
+      "size": 1334
+    },
+    {
+      "path": "src/renderer/pet-assets/bin-hit.png",
+      "mode": "100644",
+      "sha": "28075cdacbf3afd7ec76d806ccd46a20eb00d6bd",
+      "size": 1791
+    },
+    {
+      "path": "src/renderer/pet-assets/bin-open.png",
+      "mode": "100644",
+      "sha": "8e6d1b45a295c4ee79059fd45e2cc748440651c7",
+      "size": 1881
+    },
+    {
+      "path": "src/renderer/pet-assets/bin.png",
+      "mode": "100644",
+      "sha": "ec399117d09c9ee4d8642a2cd936a850bcc6b3f2",
+      "size": 1709
+    },
+    {
+      "path": "src/renderer/pet-assets/hit-heavy.png",
+      "mode": "100644",
+      "sha": "631d143d86c328233853de5a81750e995d86d412",
+      "size": 1355
+    },
+    {
+      "path": "src/renderer/pet-assets/hit.png",
+      "mode": "100644",
+      "sha": "498d3dd9a410443bc7c04ba829d45e7d05059413",
+      "size": 1264
+    },
+    {
+      "path": "src/renderer/pet-assets/launcher.png",
+      "mode": "100644",
+      "sha": "d0d3a661fb3b26ed246661ba0d2fe2889003aa57",
+      "size": 1165
+    },
+    {
+      "path": "src/renderer/pet-choreography.ts",
+      "mode": "100644",
+      "sha": "4bc697d42f40684a4100c4f36e2746ece3c7afee",
+      "size": 1988
+    },
+    {
+      "path": "src/renderer/pet-machine.ts",
+      "mode": "100644",
+      "sha": "2e8b3a5e24d2e84e87055218b6acbdc78a926b2a",
+      "size": 10322
+    },
+    {
+      "path": "src/renderer/pet.css",
+      "mode": "100644",
+      "sha": "2d594e8d0ab7d488b5fccbf8953862b17c44e7f1",
+      "size": 2714
+    },
+    {
+      "path": "src/renderer/pet.ts",
+      "mode": "100644",
+      "sha": "87d589d0d178780c4eb36c91b1843821adc016b3",
+      "size": 12589
+    },
+    {
+      "path": "src/renderer/plugin-icons/blender.svg",
+      "mode": "100644",
+      "sha": "a2fb5f338d64112a53b26b62d647ea2278533165",
+      "size": 387
+    },
+    {
+      "path": "src/renderer/plugin-icons/custom.svg",
+      "mode": "100644",
+      "sha": "8d569e79eb0260f9187cacf1328304d76498a520",
+      "size": 280
+    },
+    {
+      "path": "src/renderer/plugin-icons/fetch.svg",
+      "mode": "100644",
+      "sha": "d53f797934283d93e72c2c20bdf164ef632bfb99",
+      "size": 400
+    },
+    {
+      "path": "src/renderer/plugin-icons/filesystem.svg",
+      "mode": "100644",
+      "sha": "61fdec4e1a8fcabc9a76c49283f5f85a6b561a03",
+      "size": 328
+    },
+    {
+      "path": "src/renderer/plugin-icons/git.svg",
+      "mode": "100644",
+      "sha": "6020aecea5d0ed8edfad778a5c65c99c8d6c35aa",
+      "size": 348
+    },
+    {
+      "path": "src/renderer/plugin-icons/heygen.svg",
+      "mode": "100644",
+      "sha": "8109721f63aeb09f97724b4bc781c0a7d47f3e18",
+      "size": 316
+    },
+    {
+      "path": "src/renderer/plugin-icons/memory.svg",
+      "mode": "100644",
+      "sha": "59d6656911e5c9fab5a1f7cd0231fe043186a8c0",
+      "size": 501
+    },
+    {
+      "path": "src/renderer/plugin-icons/playwright.svg",
+      "mode": "100644",
+      "sha": "07d79a37ffe1360c40e42461762f1148f0fa88d6",
+      "size": 408
+    },
+    {
+      "path": "src/renderer/plugin-icons/recraft.svg",
+      "mode": "100644",
+      "sha": "2476c183844cd1b99904d4e33b620a3f72771401",
+      "size": 356
+    },
+    {
+      "path": "src/renderer/plugin-icons/thinking.svg",
+      "mode": "100644",
+      "sha": "e1768cb34585be70d57fcf4571d27c49011d0c92",
+      "size": 382
+    },
+    {
+      "path": "src/renderer/plugin-icons/time.svg",
+      "mode": "100644",
+      "sha": "49c7d808dbfa5ed8b09176a18c2a147a0642d5a1",
+      "size": 327
+    },
+    {
+      "path": "src/renderer/plugin-icons/unity.svg",
+      "mode": "100644",
+      "sha": "0e85621ce955666cf9b7abef387b65e4996a4115",
+      "size": 333
+    },
+    {
+      "path": "src/renderer/plugin-refresh-reminder.ts",
+      "mode": "100644",
+      "sha": "75dc951e91d0645f42c5ca32799590ad779e671f",
+      "size": 1051
+    },
+    {
+      "path": "src/renderer/plugins.ts",
+      "mode": "100644",
+      "sha": "1bcfe7c5d429e7ee62065e03fe2ce31c4d2c6194",
+      "size": 27555
+    },
+    {
+      "path": "src/renderer/recovery.ts",
+      "mode": "100644",
+      "sha": "c871a3cb25f512c12aacffe110d8ea2b0f9d57b3",
+      "size": 4301
+    },
+    {
+      "path": "src/renderer/setup-guide.ts",
+      "mode": "100644",
+      "sha": "3676c0b59608317ebfab7cd3ab901d9c60658a71",
+      "size": 6000
+    },
+    {
+      "path": "src/renderer/setup-images/api-key.png",
+      "mode": "100644",
+      "sha": "4153ac31b47f3871bb22502808c5968f25dde7df",
+      "size": 68765
+    },
+    {
+      "path": "src/renderer/setup-images/developer-mode.png",
+      "mode": "100644",
+      "sha": "03a1e97112ff43194205da93f840df46ade3c9f2",
+      "size": 45901
+    },
+    {
+      "path": "src/renderer/setup-images/new-plugin.png",
+      "mode": "100644",
+      "sha": "0ac7b52e5c03c4e145828db5779d829e8b6163c9",
+      "size": 87599
+    },
+    {
+      "path": "src/renderer/setup-images/plugins-page.png",
+      "mode": "100644",
+      "sha": "fd2fc17f4dd81515a4c12260e510c01f5901ab27",
+      "size": 26502
+    },
+    {
+      "path": "src/renderer/setup-images/tool-approval.jpg",
+      "mode": "100644",
+      "sha": "7cdf38f0d6bb370c5b1a7892d81214ec4fcb49e5",
+      "size": 32535
+    },
+    {
+      "path": "src/renderer/setup-images/workspace.png",
+      "mode": "100644",
+      "sha": "06e5b00b00e7ebaffa1bdd1096f1f74e935c740b",
+      "size": 1053415
+    },
+    {
+      "path": "src/renderer/sidebar-order.ts",
+      "mode": "100644",
+      "sha": "1c2c421da2cf3e18466406f8630218f613627e33",
+      "size": 7274
+    },
+    {
+      "path": "src/renderer/sidebar-resize.ts",
+      "mode": "100644",
+      "sha": "f75dfc268e0c6ed2dd5099a2fcb6424e9c9fae24",
+      "size": 4320
+    },
+    {
+      "path": "src/renderer/skills.ts",
+      "mode": "100644",
+      "sha": "998e356e19c024f780772b93c7a544a8ba2029be",
+      "size": 13450
+    },
+    {
+      "path": "src/renderer/styles.css",
+      "mode": "100644",
+      "sha": "2ba3e9a2b2994b94e3a5288a335f7cbf6895af94",
+      "size": 159759
+    },
+    {
+      "path": "src/renderer/timeline-scroll.ts",
+      "mode": "100644",
+      "sha": "1e7eec7651da37c9da541880432578f843f4a971",
+      "size": 3065
+    },
+    {
+      "path": "src/renderer/tool-approval.ts",
+      "mode": "100644",
+      "sha": "297c154bd4b6154eaadd55a18381dc8670e86125",
+      "size": 2033
+    },
+    {
+      "path": "src/renderer/tool-result.ts",
+      "mode": "100644",
+      "sha": "888ff6c0fa17b5666a0a85b10ab9776297eaadb5",
+      "size": 1020
+    },
+    {
+      "path": "src/renderer/usage.ts",
+      "mode": "100644",
+      "sha": "ab1187caa7a6fe0b017b188062a52dcdea797b0d",
+      "size": 13689
+    },
+    {
+      "path": "src/renderer/work-panel-resize.ts",
+      "mode": "100644",
+      "sha": "75713257fa8e1502e6358795bbd495eb889b0391",
+      "size": 4525
+    },
+    {
+      "path": "src/renderer/workspace-terminal.ts",
+      "mode": "100644",
+      "sha": "c74b47edbb9e6cb71dbaf8d79d6bc5e42e788af4",
+      "size": 9227
+    },
+    {
+      "path": "src/shared/agent-plan.ts",
+      "mode": "100644",
+      "sha": "f80bf594b5d08c44f3d3e47331c2f31d3ed349ac",
+      "size": 1408
+    },
+    {
+      "path": "src/shared/appearance.ts",
+      "mode": "100644",
+      "sha": "05859be71b929bbbccd72d8b681083984f57d738",
+      "size": 4951
+    },
+    {
+      "path": "src/shared/browser-bridge.ts",
+      "mode": "100644",
+      "sha": "d9ba3b6e1dc997c7a3f03324e0ba05edd894342a",
+      "size": 247
+    },
+    {
+      "path": "src/shared/browser-control.ts",
+      "mode": "100644",
+      "sha": "c23ed691895fda33f95e37e486ae47a7e507d9a9",
+      "size": 1435
+    },
+    {
+      "path": "src/shared/browser-preferences.ts",
+      "mode": "100644",
+      "sha": "56b309557031253833b684b4c7b3fb566ce45e5d",
+      "size": 157
+    },
+    {
+      "path": "src/shared/capabilities.ts",
+      "mode": "100644",
+      "sha": "4a00098afc3628e0ab27995ce7db4a290b074513",
+      "size": 1091
+    },
+    {
+      "path": "src/shared/chat-error.ts",
+      "mode": "100644",
+      "sha": "2bea59a193b75d9d516e1a6a98626cb82b1463d9",
+      "size": 455
+    },
+    {
+      "path": "src/shared/chat-models.ts",
+      "mode": "100644",
+      "sha": "d8c9145052b8303c0dae4895651c5da5249b6913",
+      "size": 1625
+    },
+    {
+      "path": "src/shared/chronology.ts",
+      "mode": "100644",
+      "sha": "86effdefdfb7ee0ea3814ded3d30dd120ff73164",
+      "size": 19105
+    },
+    {
+      "path": "src/shared/external-link.ts",
+      "mode": "100644",
+      "sha": "65411ca57aba7d3777869b756989b29123e77b68",
+      "size": 598
+    },
+    {
+      "path": "src/shared/finish.ts",
+      "mode": "100644",
+      "sha": "2cfd43d126cf1c896dad0a8d173e99ad6adf1812",
+      "size": 1014
+    },
+    {
+      "path": "src/shared/goal-errors.ts",
+      "mode": "100644",
+      "sha": "ad40db77ba6035fab772ee91e8efa7558fe1cdc8",
+      "size": 6557
+    },
+    {
+      "path": "src/shared/goal-prompt-history.ts",
+      "mode": "100644",
+      "sha": "2e70bb62d1ead82d04aa16007090151b0d7a2a2b",
+      "size": 30958
+    },
+    {
+      "path": "src/shared/goal-reasoning.ts",
+      "mode": "100644",
+      "sha": "8c35029440aa6eae22c087fb4f299b35769c6c2d",
+      "size": 1690
+    },
+    {
+      "path": "src/shared/goal-templates.ts",
+      "mode": "100644",
+      "sha": "02f108984fb2e5fd3e5ed7a0c84357610ecd1846",
+      "size": 19701
+    },
+    {
+      "path": "src/shared/goal.ts",
+      "mode": "100644",
+      "sha": "94363ebc2be78fe1763383e79efc0ddac92f7ddd",
+      "size": 6141
+    },
+    {
+      "path": "src/shared/input.ts",
+      "mode": "100644",
+      "sha": "9f5f6bb3ae24388b7e14cebd299727b07f1788da",
+      "size": 2212
+    },
+    {
+      "path": "src/shared/message-reaction.ts",
+      "mode": "100644",
+      "sha": "ca7aa3187629cfaf271dbe203ae355df7fc7986c",
+      "size": 1282
+    },
+    {
+      "path": "src/shared/plugin-refresh.ts",
+      "mode": "100644",
+      "sha": "b52566f929b98c8c623598f4742c539cc33c8dea",
+      "size": 505
+    },
+    {
+      "path": "src/shared/plugins.ts",
+      "mode": "100644",
+      "sha": "a58a931890df2c21f82138adb41d607040bd7d0c",
+      "size": 1943
+    },
+    {
+      "path": "src/shared/project-files.ts",
+      "mode": "100644",
+      "sha": "bc2d204199c6b3a003887fdfbf21461b883e9aef",
+      "size": 1606
+    },
+    {
+      "path": "src/shared/projects.ts",
+      "mode": "100644",
+      "sha": "277c6d9e08721dc767b61a271b913e42ca7dceaf",
+      "size": 301
+    },
+    {
+      "path": "src/shared/recovery.ts",
+      "mode": "100644",
+      "sha": "a27ee5d88c19ddf110347503941c8beb9379c524",
+      "size": 4540
+    },
+    {
+      "path": "src/shared/session-activity.ts",
+      "mode": "100644",
+      "sha": "506b926b09f48af463a83d3e8063951d93e3ecdd",
+      "size": 1211
+    },
+    {
+      "path": "src/shared/session.ts",
+      "mode": "100644",
+      "sha": "890c23fcfb20b51ab7c441e0eb70c6c205a44430",
+      "size": 48300
+    },
+    {
+      "path": "src/shared/setup-profile.ts",
+      "mode": "100644",
+      "sha": "d1d185f6b23d5a1de00d1a5119e32088bc701cfa",
+      "size": 258
+    },
+    {
+      "path": "src/shared/skill-invocation.ts",
+      "mode": "100644",
+      "sha": "6bd488beb6955de0ee0985ef5a65ea6d79e063b3",
+      "size": 1238
+    },
+    {
+      "path": "src/shared/skills.ts",
+      "mode": "100644",
+      "sha": "6450a54940174f98b50ef54636dfad0e4ee79d69",
+      "size": 1512
+    },
+    {
+      "path": "src/shared/task-progress.ts",
+      "mode": "100644",
+      "sha": "72021d27166b736c19de9062fed01f0c482d64b5",
+      "size": 3523
+    },
+    {
+      "path": "src/shared/types.ts",
+      "mode": "100644",
+      "sha": "2faaea65faa77de494c48a0a6562699521372baf",
+      "size": 29852
+    },
+    {
+      "path": "src/shared/usage.ts",
+      "mode": "100644",
+      "sha": "bcbdefb3b570b5ac3687d68e9df83540ce1269a7",
+      "size": 5597
+    },
+    {
+      "path": "src/shared/user-prompt.ts",
+      "mode": "100644",
+      "sha": "d656560f77ed63927207ad36efeb9ea6a037c385",
+      "size": 1147
+    },
+    {
+      "path": "src/shared/windows-computer.ts",
+      "mode": "100644",
+      "sha": "1ad5412fd6e25936e4e007fac186a24ab26d23e5",
+      "size": 793
+    },
+    {
+      "path": "src/shared/workspace-terminal.ts",
+      "mode": "100644",
+      "sha": "f2d97c185436ecd4c21c626e8e31ab57f3fa070d",
+      "size": 218
+    },
+    {
+      "path": "test/active-tabs.test.ts",
+      "mode": "100644",
+      "sha": "835b6de28066c7e5732d7a2f2ff6b6f945744ac3",
+      "size": 7375
+    },
+    {
+      "path": "test/agent-communication.test.ts",
+      "mode": "100644",
+      "sha": "0fa7a295289383c3e07e5b4d35c2b8193a3bab8b",
+      "size": 2026
+    },
+    {
+      "path": "test/agent-plan.test.ts",
+      "mode": "100644",
+      "sha": "ee5862606d2bfbaf9188e0505e0868fbf5a4fe95",
+      "size": 10360
+    },
+    {
+      "path": "test/agents.test.ts",
+      "mode": "100644",
+      "sha": "0fdc42063e1f5399e0adab1736a20cda93c3b21f",
+      "size": 169754
+    },
+    {
+      "path": "test/appearance.test.ts",
+      "mode": "100644",
+      "sha": "e407978972741b5900d109be74dc03c8915dd94b",
+      "size": 3268
+    },
+    {
+      "path": "test/attribution-repair.test.ts",
+      "mode": "100644",
+      "sha": "fbb45f2b4c0dc4ed9c1f646ff03d97d93e8c6956",
+      "size": 7645
+    },
+    {
+      "path": "test/backend-recording.test.ts",
+      "mode": "100644",
+      "sha": "0ba4fa643e06802c060a00747ac73a8df12bbf37",
+      "size": 11090
+    },
+    {
+      "path": "test/background-window.test.ts",
+      "mode": "100644",
+      "sha": "7fd4ddcf96f5758d9615207ae7b0590e5da40189",
+      "size": 7436
+    },
+    {
+      "path": "test/blocked-chats.test.ts",
+      "mode": "100644",
+      "sha": "43768091a45401f9b13e2f2ee46545d7eeb269d4",
+      "size": 3994
+    },
+    {
+      "path": "test/bridge-done-repair-silence.test.ts",
+      "mode": "100644",
+      "sha": "fb5d7411ea3c4fad0e8cecbc2d5f78cc1ef278e6",
+      "size": 8267
+    },
+    {
+      "path": "test/bridge-port-lifecycle.test.ts",
+      "mode": "100644",
+      "sha": "d1e92c766c4985468323a2c75818485fbd632213",
+      "size": 8884
+    },
+    {
+      "path": "test/bridge-ports.test.ts",
+      "mode": "100644",
+      "sha": "c0125b0f74f31a086386851e1262f8aeeee6e57d",
+      "size": 1107
+    },
+    {
+      "path": "test/bridge.test.ts",
+      "mode": "100644",
+      "sha": "5db23460c532f55d233654d897272fe094faf63c",
+      "size": 655658
+    },
+    {
+      "path": "test/browser-control-extension.test.ts",
+      "mode": "100644",
+      "sha": "4339a1cb7314de9faf08f6cbe968f36c9e201650",
+      "size": 7849
+    },
+    {
+      "path": "test/browser-control-navigation.test.ts",
+      "mode": "100644",
+      "sha": "2628a7667617e26d856a92ad2b8ca6add0ca1f98",
+      "size": 9156
+    },
+    {
+      "path": "test/browser-control-page.test.ts",
+      "mode": "100644",
+      "sha": "8a784cc5adb6b4ea2e1806b8fd3ef512ec5abb7b",
+      "size": 11431
+    },
+    {
+      "path": "test/browser-control.test.ts",
+      "mode": "100644",
+      "sha": "9b62696ac6d7d95cda148aaf7fe728cbffc7d39e",
+      "size": 5832
+    },
+    {
+      "path": "test/browser-preferences.test.ts",
+      "mode": "100644",
+      "sha": "0e66d01ac5c90c178940e2b12f38909b8e6a9258",
+      "size": 1760
+    },
+    {
+      "path": "test/browser-selection.test.ts",
+      "mode": "100644",
+      "sha": "0bafede223a72b6d3e9e0550b60e974eb64e820f",
+      "size": 4351
+    },
+    {
+      "path": "test/browser-startup.test.ts",
+      "mode": "100644",
+      "sha": "fd7fd1829c72a6a668eab6ff307e058f4de527cb",
+      "size": 8360
+    },
+    {
+      "path": "test/browser-wake.test.ts",
+      "mode": "100644",
+      "sha": "0b090ff0b9d40ce2980d00b1507433c927d9c37f",
+      "size": 3171
+    },
+    {
+      "path": "test/browser-window-layout.test.ts",
+      "mode": "100644",
+      "sha": "deb26d5e89d8b7ed00c7ab0f060374c3d925bf18",
+      "size": 1643
+    },
+    {
+      "path": "test/browser.test.ts",
+      "mode": "100644",
+      "sha": "676d9b9d814f3248a75fed5bae6c08f3f9a2561d",
+      "size": 15962
+    },
+    {
+      "path": "test/call-context.test.ts",
+      "mode": "100644",
+      "sha": "a0060e2138c2b9269bf4611223ec58a72a4bc9cc",
+      "size": 3486
+    },
+    {
+      "path": "test/chat-error-presentation.test.ts",
+      "mode": "100644",
+      "sha": "71a10646c2fe766fa3619222ead5bac39765938f",
+      "size": 8927
+    },
+    {
+      "path": "test/chat-model-policy.test.ts",
+      "mode": "100644",
+      "sha": "1211bf24447280cd4f29444be850983077442998",
+      "size": 1203
+    },
+    {
+      "path": "test/chat-models.test.ts",
+      "mode": "100644",
+      "sha": "180c9f3e54184731bd674dc9385a67cad7b4e55a",
+      "size": 11775
+    },
+    {
+      "path": "test/chatgpt-dom-input.test.ts",
+      "mode": "100644",
+      "sha": "ac7c9e982fc671f72f7a1d2d34e32239b62db569",
+      "size": 39824
+    },
+    {
+      "path": "test/chronology.test.ts",
+      "mode": "100644",
+      "sha": "a1f7297fd93625aac1a4d6e9b6f27cf9a6e21bd7",
+      "size": 11151
+    },
+    {
+      "path": "test/code-mode-mcp.test.ts",
+      "mode": "100644",
+      "sha": "a0d35b9d090116111a50516e389dc65ec778e06c",
+      "size": 34794
+    },
+    {
+      "path": "test/code-mode-runtime.test.ts",
+      "mode": "100644",
+      "sha": "0a89c8b32c17edab72097d99213426cfdc1440dd",
+      "size": 12259
+    },
+    {
+      "path": "test/codex-apply-patch-invocation-parity.test.ts",
+      "mode": "100644",
+      "sha": "82083ae2ad5f4c81bb0087569f11a1ba1fcd48d1",
+      "size": 2881
+    },
+    {
+      "path": "test/codex-apply-patch-move-rollback.test.ts",
+      "mode": "100644",
+      "sha": "8757bd37929e67c9b0ed62bff6cbae3f3695c870",
+      "size": 3484
+    },
+    {
+      "path": "test/codex-apply-patch-parity.test.ts",
+      "mode": "100644",
+      "sha": "75e464d321f1f3a5107afd20bf2172fa7fdcbce7",
+      "size": 13329
+    },
+    {
+      "path": "test/codex-patch-diagnostics.test.ts",
+      "mode": "100644",
+      "sha": "3a899c511c0dad696384bad503ebed8421f2636e",
+      "size": 5727
+    },
+    {
+      "path": "test/codex-runtime-parity.test.ts",
+      "mode": "100644",
+      "sha": "60a5dc97d426fe2d30de2005494a5f446036005f",
+      "size": 21107
+    },
+    {
+      "path": "test/codex-view-image-parity.test.ts",
+      "mode": "100644",
+      "sha": "3af010654338924a717db7b43f74f75d50e05261",
+      "size": 13606
+    },
+    {
+      "path": "test/command-batch-display.test.ts",
+      "mode": "100644",
+      "sha": "970173d59a878075cacb3e48f650540e3a0ac972",
+      "size": 4336
+    },
+    {
+      "path": "test/completion-input-integration.test.ts",
+      "mode": "100644",
+      "sha": "67b0ef103c12c6aeafea8eabc9407b74d44733c5",
+      "size": 12030
+    },
+    {
+      "path": "test/computer-browser-chords.test.ts",
+      "mode": "100644",
+      "sha": "6c571174e0ef67f24ed66ce3589af25cb05ce9ca",
+      "size": 3617
+    },
+    {
+      "path": "test/computer-browser-uia.test.ts",
+      "mode": "100644",
+      "sha": "01ff5a7c2ccf83f96ccfe4c87399fb6362962255",
+      "size": 5049
+    },
+    {
+      "path": "test/computer-focus.test.ts",
+      "mode": "100644",
+      "sha": "1800e65e5c86783762c77cdf39cbe98d5601003b",
+      "size": 5735
+    },
+    {
+      "path": "test/computer-frame-bounds.test.ts",
+      "mode": "100644",
+      "sha": "dae03c91284ee6e74308b740bee3127791bc9464",
+      "size": 994
+    },
+    {
+      "path": "test/computer-generation.test.ts",
+      "mode": "100644",
+      "sha": "ba198edc73b313c87081d814682eaaf9ba5e84b9",
+      "size": 19545
+    },
+    {
+      "path": "test/computer-helper-protocol.test.ts",
+      "mode": "100644",
+      "sha": "bb8456c67874efce953b9d7bdd9ac39e368d0a21",
+      "size": 3281
+    },
+    {
+      "path": "test/computer-helper-retirement.test.ts",
+      "mode": "100644",
+      "sha": "7852f127efe14c80855cd42dc46dc5bb80cf0e7e",
+      "size": 7504
+    },
+    {
+      "path": "test/computer-local-actions.test.ts",
+      "mode": "100644",
+      "sha": "3d8479bb28d8cbbb7d8f30106c077964fb836c56",
+      "size": 1526
+    },
+    {
+      "path": "test/computer-overhaul-contract.test.ts",
+      "mode": "100644",
+      "sha": "c670ebb7f0a802890b066331df17f8d43855225f",
+      "size": 1472
+    },
+    {
+      "path": "test/computer-partial-batch.test.ts",
+      "mode": "100644",
+      "sha": "5ff91ddfa0b7799fddabf8ddf21410beaba72ab2",
+      "size": 3840
+    },
+    {
+      "path": "test/computer-stale-ref.test.ts",
+      "mode": "100644",
+      "sha": "520e6657484bb59efa67d94589112947973b53cb",
+      "size": 6254
+    },
+    {
+      "path": "test/computer-swapped-buttons.test.ts",
+      "mode": "100644",
+      "sha": "c05ce2d3f15c0c349aa39c3488c0681a3c4ea709",
+      "size": 4463
+    },
+    {
+      "path": "test/computer-windows-accessibility.test.ts",
+      "mode": "100644",
+      "sha": "21600c3d6808f70d4a99adf8c1cfc22d09e1c18f",
+      "size": 19754
+    },
+    {
+      "path": "test/computer-windows-input.test.ts",
+      "mode": "100644",
+      "sha": "ee8381c92b58cbb1202c091e7c1db12347c19ce0",
+      "size": 9164
+    },
+    {
+      "path": "test/computer.test.ts",
+      "mode": "100644",
+      "sha": "45bc23d8d51d337bf712713cd33a4d5bae66fff4",
+      "size": 14256
+    },
+    {
+      "path": "test/config.test.ts",
+      "mode": "100644",
+      "sha": "64212a402266d6f30601155a380b4192d5ef5686",
+      "size": 36728
+    },
+    {
+      "path": "test/connection.test.ts",
+      "mode": "100644",
+      "sha": "7f87523f47ea0ab2f884fd3f6589d4933d44cbfa",
+      "size": 24010
+    },
+    {
+      "path": "test/content-script.test.ts",
+      "mode": "100644",
+      "sha": "6f1fa4eb4c8d1e1f3df1261d2fb206254fee6f8e",
+      "size": 938699
+    },
+    {
+      "path": "test/context-meter.test.ts",
+      "mode": "100644",
+      "sha": "c3cfe988adc17827d0b70e63915b634ac1727ef7",
+      "size": 1956
+    },
+    {
+      "path": "test/continuation-marker.test.ts",
+      "mode": "100644",
+      "sha": "34852c7a73f8e49ce8ab091a2f5523a3cce0c8e9",
+      "size": 2051
+    },
+    {
+      "path": "test/continuation.test.ts",
+      "mode": "100644",
+      "sha": "63b0ad2a2b851700ba6cc27e674ec00729131276",
+      "size": 83217
+    },
+    {
+      "path": "test/correlation.test.ts",
+      "mode": "100644",
+      "sha": "d14a0c1263a5a3859b1c645b26e3a65e3a126350",
+      "size": 17501
+    },
+    {
+      "path": "test/desktop-input-maintenance.test.ts",
+      "mode": "100644",
+      "sha": "b27a005abbaaf6c93cb5d486c48c6326ae355f80",
+      "size": 106701
+    },
+    {
+      "path": "test/durable.test.ts",
+      "mode": "100644",
+      "sha": "db04ad503d14a09de8a44ceedacc6e22cb0a62f9",
+      "size": 6678
+    },
+    {
+      "path": "test/edit-context-menu.test.ts",
+      "mode": "100644",
+      "sha": "e2dffa6910a7ffe81dac2f4c824c00ca3959fafa",
+      "size": 2884
+    },
+    {
+      "path": "test/env.test.ts",
+      "mode": "100644",
+      "sha": "9eb71084728df1a44392378521aa24e38410e643",
+      "size": 17971
+    },
+    {
+      "path": "test/exec-completed-results.test.ts",
+      "mode": "100644",
+      "sha": "46c4073db295c8ab0827224a7babcd2a583b280c",
+      "size": 6963
+    },
+    {
+      "path": "test/exec-hints.test.ts",
+      "mode": "100644",
+      "sha": "8d3574c5f3d3b29d236255e5ec699e9394ea28a8",
+      "size": 71013
+    },
+    {
+      "path": "test/exec-notices.test.ts",
+      "mode": "100644",
+      "sha": "f401570fe885b421f8b9ef44cd15a3fab7a6f853",
+      "size": 2779
+    },
+    {
+      "path": "test/exec-output-budget-mcp.test.ts",
+      "mode": "100644",
+      "sha": "a912b3de586234824466d55700e2ddb356279329",
+      "size": 6218
+    },
+    {
+      "path": "test/exec-output-budget.test.ts",
+      "mode": "100644",
+      "sha": "1c859b9a407bdcbc786b7c9395b086eb0f091695",
+      "size": 7443
+    },
+    {
+      "path": "test/exec-result-delivery.test.ts",
+      "mode": "100644",
+      "sha": "0a516ec06fa369553a5987dd45e95e2c8005395f",
+      "size": 4520
+    },
+    {
+      "path": "test/exec-shell-regressions.test.ts",
+      "mode": "100644",
+      "sha": "360dec539943556a0facc2a50dc8136551f1323e",
+      "size": 6031
+    },
+    {
+      "path": "test/exec.test.ts",
+      "mode": "100644",
+      "sha": "64b94ea99c0f817dfcd9f2792c7fad4b593d8994",
+      "size": 16978
+    },
+    {
+      "path": "test/extension-path.test.ts",
+      "mode": "100644",
+      "sha": "a6c6ec0cb3d6988b165e214d929e70cb6a7aad10",
+      "size": 6986
+    },
+    {
+      "path": "test/extension-popup.test.ts",
+      "mode": "100644",
+      "sha": "342987344964e191c8f4ffe3f014b5f2ed503cca",
+      "size": 4765
+    },
+    {
+      "path": "test/extension.test.ts",
+      "mode": "100644",
+      "sha": "4894f6cb54a2179c45119c2c4472c4c172c01017",
+      "size": 218852
+    },
+    {
+      "path": "test/feature-parity.test.ts",
+      "mode": "100644",
+      "sha": "b377a0392fdf93ef367063ababda1f08d104b5b7",
+      "size": 3622
+    },
+    {
+      "path": "test/fiber.test.ts",
+      "mode": "100644",
+      "sha": "9098ef21c275596325d6025e0d7340bfb7742f99",
+      "size": 75249
+    },
+    {
+      "path": "test/file-code-editor.test.ts",
+      "mode": "100644",
+      "sha": "31c4ce7240c6825ee113ba15e831e1a541ed6a0e",
+      "size": 3695
+    },
+    {
+      "path": "test/file-pdf-viewer.test.ts",
+      "mode": "100644",
+      "sha": "6b39be905646021755a3fb5c1976dcdf62ff2017",
+      "size": 9001
+    },
+    {
+      "path": "test/finish-active-input.test.ts",
+      "mode": "100644",
+      "sha": "656fe301f42d060470ca6146dffeb61fb5d0d9fb",
+      "size": 8603
+    },
+    {
+      "path": "test/finish-input-integration.test.ts",
+      "mode": "100644",
+      "sha": "af66d8da65e654fce8c9e7d7558670091f8cc666",
+      "size": 5327
+    },
+    {
+      "path": "test/fixtures/macos-window-matching.swift",
+      "mode": "100644",
+      "sha": "5bcde3a4f32a316a9fa922dc876d0cc549a33ab9",
+      "size": 2666
+    },
+    {
+      "path": "test/fixtures/windows-desktop/capture.cs",
+      "mode": "100644",
+      "sha": "498c73d04f5585d45ccd030e01e954fb0a375c0a",
+      "size": 9462
+    },
+    {
+      "path": "test/fsops.test.ts",
+      "mode": "100644",
+      "sha": "488b52c03edbdc071211e570d81f0aa02e2a4038",
+      "size": 16325
+    },
+    {
+      "path": "test/goal-backends.test.ts",
+      "mode": "100644",
+      "sha": "f8bb5f35c4392dcbff9e1272a481b65279b62d51",
+      "size": 34159
+    },
+    {
+      "path": "test/goal-errors.test.ts",
+      "mode": "100644",
+      "sha": "e3973846b630823f62c8ed39f1444ef1042c47cc",
+      "size": 3219
+    },
+    {
+      "path": "test/goal-mcp-proof.ts",
+      "mode": "100644",
+      "sha": "e4a1eef42de1b063c65782fde6ae182ebba21f81",
+      "size": 899
+    },
+    {
+      "path": "test/goal-reasoning.test.ts",
+      "mode": "100644",
+      "sha": "ad94d278dd7e1e2400bee3541c1ce400172a1373",
+      "size": 3220
+    },
+    {
+      "path": "test/goal-resume-handoff.test.ts",
+      "mode": "100644",
+      "sha": "cbb282a36b77245fc5844147a06725aef20bda85",
+      "size": 19494
+    },
+    {
+      "path": "test/goal.test.ts",
+      "mode": "100644",
+      "sha": "d4a2cb254484f2a42d59849157cb11935a8b73a6",
+      "size": 135902
+    },
+    {
+      "path": "test/helpers.ts",
+      "mode": "100644",
+      "sha": "fbc3f2e4f66b4e386569403807134b3b8c53b0d9",
+      "size": 3983
+    },
+    {
+      "path": "test/image-recording.test.ts",
+      "mode": "100644",
+      "sha": "cf62d89f8a5c60d25e787ccf6677ca95573d14c8",
+      "size": 4282
+    },
+    {
+      "path": "test/image-storage-ui.test.ts",
+      "mode": "100644",
+      "sha": "4c204dc710517e86dd9c099bb55e943765c91b94",
+      "size": 5055
+    },
+    {
+      "path": "test/image-storage.test.ts",
+      "mode": "100644",
+      "sha": "875e6b4208105d21a81d21071a5db54b1573c540",
+      "size": 9656
+    },
+    {
+      "path": "test/input-delivery-integration.test.ts",
+      "mode": "100644",
+      "sha": "5b4d28115824d4aa2864499dc8fb1b5b5a89d246",
+      "size": 186037
+    },
+    {
+      "path": "test/input-startup.test.ts",
+      "mode": "100644",
+      "sha": "d579aa648fe4392ece6dd605f78bfe58143dc860",
+      "size": 10368
+    },
+    {
+      "path": "test/ipc.test.ts",
+      "mode": "100644",
+      "sha": "2f1998c407b290a6168dab676f7ca1ff22b9d892",
+      "size": 70538
+    },
+    {
+      "path": "test/kernel-desktop-identity.test.ts",
+      "mode": "100644",
+      "sha": "b4aae2341921545b2a937caf641dec8aec9bbe5b",
+      "size": 2108
+    },
+    {
+      "path": "test/kernel-identity-recovery.test.ts",
+      "mode": "100644",
+      "sha": "6eba2dc8b06b4d4f53017b2ee6000671f12198bb",
+      "size": 7074
+    },
+    {
+      "path": "test/kernel-project-workspace.test.ts",
+      "mode": "100644",
+      "sha": "8cc73b377a36977566d5a10ec7d2340e10f7ef82",
+      "size": 3648
+    },
+    {
+      "path": "test/kernel-run-inbox.test.ts",
+      "mode": "100644",
+      "sha": "9711d1dfbedd9eeba6cb289706174b9a2e3fc051",
+      "size": 5683
+    },
+    {
+      "path": "test/kernel-tool-disabled-message.test.ts",
+      "mode": "100644",
+      "sha": "3acdc29ca2c0578c4aab68d8bd88da7fe2f02ef6",
+      "size": 1960
+    },
+    {
+      "path": "test/logger.test.ts",
+      "mode": "100644",
+      "sha": "ae9d2e6203d2a068ba4e32e53ba2f3e285dc7f05",
+      "size": 5386
+    },
+    {
+      "path": "test/macos-adhoc-seal.test.ts",
+      "mode": "100644",
+      "sha": "e31626057cf619fc98611edaf6a3a55fe0dd7876",
+      "size": 4808
+    },
+    {
+      "path": "test/macos-computer-live.test.ts",
+      "mode": "100644",
+      "sha": "02bfe8f44b751d70d5427778e1cbafd0c7d4a654",
+      "size": 3720
+    },
+    {
+      "path": "test/macos-desktop-hardening.test.ts",
+      "mode": "100644",
+      "sha": "14ac0672ec52183aa5a5d5746fae1d5d127549b4",
+      "size": 9708
+    },
+    {
+      "path": "test/macos-window-matching.test.ts",
+      "mode": "100644",
+      "sha": "bb7c78ff86f1dea6761d1c48f304ede08fa466b3",
+      "size": 642
+    },
+    {
+      "path": "test/mcp-inbound.test.ts",
+      "mode": "100644",
+      "sha": "8e8cc29f85e25608e012b6f88e9d0bc22c45f09b",
+      "size": 1413
+    },
+    {
+      "path": "test/mcp-inflight.test.ts",
+      "mode": "100644",
+      "sha": "f2e7ee531db3c56aae799532fe2b963556d48a51",
+      "size": 7009
+    },
+    {
+      "path": "test/mcp-input-images.test.ts",
+      "mode": "100644",
+      "sha": "bd84247f2af21006f6ae0373642639f53e920187",
+      "size": 8948
+    },
+    {
+      "path": "test/mcp-latency-benchmark.test.ts",
+      "mode": "100644",
+      "sha": "e88c8dff90f8b24fd8bf38ffbd2db67a8533e601",
+      "size": 6470
+    },
+    {
+      "path": "test/mcp-shutdown.test.ts",
+      "mode": "100644",
+      "sha": "a87540913d5a550e3cc68813971220e39e8b48ce",
+      "size": 6334
+    },
+    {
+      "path": "test/mcp-timing.test.ts",
+      "mode": "100644",
+      "sha": "504b539f9aa62162e14c011126bd91f0bdf32ea6",
+      "size": 1979
+    },
+    {
+      "path": "test/mcp-tool-declarations.test.ts",
+      "mode": "100644",
+      "sha": "4851dee1df7c18b1b2e282af916ad2629b701386",
+      "size": 5914
+    },
+    {
+      "path": "test/mcp-user-instructions.test.ts",
+      "mode": "100644",
+      "sha": "55fcd57c09dfc86a0e11c69cab7c36b8fc509bf8",
+      "size": 9044
+    },
+    {
+      "path": "test/mcp.test.ts",
+      "mode": "100644",
+      "sha": "01defa16e3a0cf3acfed49ec5bb980f24bcf568f",
+      "size": 174577
+    },
+    {
+      "path": "test/message-reaction.test.ts",
+      "mode": "100644",
+      "sha": "80b239953442bfa62aca5f506202d959d903051d",
+      "size": 1175
+    },
+    {
+      "path": "test/model-catalog-workflow.test.ts",
+      "mode": "100644",
+      "sha": "f268b80e15bed739c0287753cc8ecd84e3dd59c0",
+      "size": 9824
+    },
+    {
+      "path": "test/model-picker-state.test.ts",
+      "mode": "100644",
+      "sha": "cacbb0542638e18f0df83452193034f927fc412e",
+      "size": 36235
+    },
+    {
+      "path": "test/model-startup-wake.test.ts",
+      "mode": "100644",
+      "sha": "c7c5cbbca22a6fc332629a901492218993a22036",
+      "size": 2543
+    },
+    {
+      "path": "test/opening-input.test.ts",
+      "mode": "100644",
+      "sha": "ca54f3746a949a0a0cc15ad5f7f14ea0ed05ce3b",
+      "size": 22254
+    },
+    {
+      "path": "test/packaging.test.ts",
+      "mode": "100644",
+      "sha": "5b3d515bfd140ede29407ca581a938cd11e8b9b1",
+      "size": 37954
+    },
+    {
+      "path": "test/pet-atlas.test.ts",
+      "mode": "100644",
+      "sha": "25fbe38df072adcf341f501931006d19696340b2",
+      "size": 1919
+    },
+    {
+      "path": "test/pet-choreography.test.ts",
+      "mode": "100644",
+      "sha": "b3987b912e139012d1e49468e94d7838dabb5ce8",
+      "size": 1031
+    },
+    {
+      "path": "test/pet-dom.test.ts",
+      "mode": "100644",
+      "sha": "64d73b60e0c01ad37832efdfc70901d7ca2f44f8",
+      "size": 6805
+    },
+    {
+      "path": "test/pet.test.ts",
+      "mode": "100644",
+      "sha": "dff29c88be5bd44edcb197fb4d2422b203f8f4af",
+      "size": 8025
+    },
+    {
+      "path": "test/platform.test.ts",
+      "mode": "100644",
+      "sha": "9ab053b1f353d7b20ceae1e3e7f241d2d0a6c693",
+      "size": 5670
+    },
+    {
+      "path": "test/plugin-refresh-browser-creation.test.ts",
+      "mode": "100644",
+      "sha": "796c0faa4c0087f610111b0dbf930922c169633a",
+      "size": 3889
+    },
+    {
+      "path": "test/plugin-refresh-dom.test.ts",
+      "mode": "100644",
+      "sha": "dad413a282241115a021c40c4306df2c73420694",
+      "size": 7290
+    },
+    {
+      "path": "test/plugin-refresh-reminder.test.ts",
+      "mode": "100644",
+      "sha": "7db7f9a7c1b6ab0e7fff9dd520236df8e84cf511",
+      "size": 1925
+    },
+    {
+      "path": "test/plugin-refresh-workflow.test.ts",
+      "mode": "100644",
+      "sha": "a2a6e9b0b7b7dd2fb359abd397a9f98e2bdfe996",
+      "size": 9709
+    },
+    {
+      "path": "test/plugin-refresh.test.ts",
+      "mode": "100644",
+      "sha": "64bc6c986e19f2b2e81dfbe5003f32f7a7acf59e",
+      "size": 16469
+    },
+    {
+      "path": "test/plugins-catalog-live.test.ts",
+      "mode": "100644",
+      "sha": "4d96fa145c21d1163e587665e0ff391cb59e64a8",
+      "size": 3484
+    },
+    {
+      "path": "test/plugins-catalog.test.ts",
+      "mode": "100644",
+      "sha": "4def281e3f10e0b92cb307d574cc9d15147f446f",
+      "size": 3236
+    },
+    {
+      "path": "test/plugins-environment.test.ts",
+      "mode": "100644",
+      "sha": "010d36050aa91e304b1c05c8bbbb7c5b2cf8d155",
+      "size": 1978
+    },
+    {
+      "path": "test/plugins-exposure.test.ts",
+      "mode": "100644",
+      "sha": "779dbac727c9beb52d1990af6fa0a4f68e80f46c",
+      "size": 4672
+    },
+    {
+      "path": "test/plugins-installer.test.ts",
+      "mode": "100644",
+      "sha": "18e0f6385d9ad615deb60837e9f561e126da74d3",
+      "size": 5988
+    },
+    {
+      "path": "test/plugins-live-proxy.test.ts",
+      "mode": "100644",
+      "sha": "e8634136ade4c042404fcea2abd597f6ae04756e",
+      "size": 3787
+    },
+    {
+      "path": "test/plugins-manager.test.ts",
+      "mode": "100644",
+      "sha": "6c5885448cf5eb8ed74994fcda3da9f0cedda05e",
+      "size": 54537
+    },
+    {
+      "path": "test/plugins-oauth.test.ts",
+      "mode": "100644",
+      "sha": "94c96fb9f6532ad79820747fe7e0927310545cda",
+      "size": 9042
+    },
+    {
+      "path": "test/plugins-python-live.test.ts",
+      "mode": "100644",
+      "sha": "593bda2ffeec9e79112c32e597c196361b5788db",
+      "size": 2950
+    },
+    {
+      "path": "test/plugins-surface.test.ts",
+      "mode": "100644",
+      "sha": "a7faede2a30d78f4894221b2a35ffdc5a4580412",
+      "size": 14605
+    },
+    {
+      "path": "test/plugins-ui.test.ts",
+      "mode": "100644",
+      "sha": "a1d5202a6164c810ad19bc2ccab419f72aa08741",
+      "size": 13654
+    },
+    {
+      "path": "test/preload-images.test.ts",
+      "mode": "100644",
+      "sha": "d1e35eb03e4aec415726bf23289aadc54c3b5eb1",
+      "size": 1336
+    },
+    {
+      "path": "test/process-history.test.ts",
+      "mode": "100644",
+      "sha": "2a65e318877bca65fb12b028ec087e2bd96cbcb3",
+      "size": 12879
+    },
+    {
+      "path": "test/progress-context.test.ts",
+      "mode": "100644",
+      "sha": "98b8409de3ab0b5613078ff0a90b74bcc14ff343",
+      "size": 1048
+    },
+    {
+      "path": "test/project-files.test.ts",
+      "mode": "100644",
+      "sha": "570585485a9709adb5c582db60cc886528c2b6df",
+      "size": 15693
+    },
+    {
+      "path": "test/project-successor.test.ts",
+      "mode": "100644",
+      "sha": "5d3ea1c88789cd6aed87e1d5b627e44de925ddc5",
+      "size": 16123
+    },
+    {
+      "path": "test/projects.test.ts",
+      "mode": "100644",
+      "sha": "1019c5930de8e1b7d5bb8c871539d670dc6008c9",
+      "size": 8374
+    },
+    {
+      "path": "test/public-history-privacy.test.ts",
+      "mode": "100644",
+      "sha": "04768c8f9ddea6afaa6a1797881545cbbac65c15",
+      "size": 12529
+    },
+    {
+      "path": "test/read-backend.test.ts",
+      "mode": "100644",
+      "sha": "a86397158257d3a19d6f97551f04f9b73e2b4719",
+      "size": 9258
+    },
+    {
+      "path": "test/recorder-final-identity.test.ts",
+      "mode": "100644",
+      "sha": "323b048f9270444059efe9b777899c4c5d219ad2",
+      "size": 26151
+    },
+    {
+      "path": "test/renderer-agent-panel.test.ts",
+      "mode": "100644",
+      "sha": "d8d879b6e8d44fe6f051ee75d1d4154cdfacd7ce",
+      "size": 3948
+    },
+    {
+      "path": "test/renderer-agent-plan.test.ts",
+      "mode": "100644",
+      "sha": "c81d6989e4e64adf0555dc8cf99c18d7759de284",
+      "size": 4046
+    },
+    {
+      "path": "test/renderer-chat-models.test.ts",
+      "mode": "100644",
+      "sha": "4c6faeae0b7051d4917d341e36bf980159d3daee",
+      "size": 30646
+    },
+    {
+      "path": "test/renderer-file-panel.test.ts",
+      "mode": "100644",
+      "sha": "5006cfe71c0847a31819ba39a409e61d43524ff8",
+      "size": 40531
+    },
+    {
+      "path": "test/renderer-html.test.ts",
+      "mode": "100644",
+      "sha": "9d5bec9b5e0b60656ae8f15428a288513af22ff7",
+      "size": 16561
+    },
+    {
+      "path": "test/renderer-i18n-es.test.ts",
+      "mode": "100644",
+      "sha": "b59fd1cc0bf0e9562b451301ae3eafe354690559",
+      "size": 6241
+    },
+    {
+      "path": "test/renderer-i18n-ja.test.ts",
+      "mode": "100644",
+      "sha": "c8e46a77be16a157fcac3799b4343c3ec394138a",
+      "size": 8049
+    },
+    {
+      "path": "test/renderer-i18n-tw.test.ts",
+      "mode": "100644",
+      "sha": "ece3fb8c1d18dbb4323d04a42f25a2e23490384a",
+      "size": 2882
+    },
+    {
+      "path": "test/renderer-i18n.test.ts",
+      "mode": "100644",
+      "sha": "5d6c1c1044ea056e251d4e60386b97bb2dfe92fe",
+      "size": 10899
+    },
+    {
+      "path": "test/renderer-layout.test.ts",
+      "mode": "100644",
+      "sha": "6fb3dbdd09ffa35b7aa4558a2271ad42395e63d5",
+      "size": 29832
+    },
+    {
+      "path": "test/renderer-recovery.test.ts",
+      "mode": "100644",
+      "sha": "af51ab0b518f75d2645f9259afc0e3cb17a184dd",
+      "size": 7463
+    },
+    {
+      "path": "test/renderer-skills.test.ts",
+      "mode": "100644",
+      "sha": "d8f614a609f67855841430e35a3037e940b7e775",
+      "size": 8317
+    },
+    {
+      "path": "test/renderer-state.test.ts",
+      "mode": "100644",
+      "sha": "0ede47250d5065097d1c39f74a3f0d1704af83ef",
+      "size": 87394
+    },
+    {
+      "path": "test/renderer-timeline.test.ts",
+      "mode": "100644",
+      "sha": "e560f7a24a161676089c5e896bef132930b29cfe",
+      "size": 219960
+    },
+    {
+      "path": "test/renderer-usage.test.ts",
+      "mode": "100644",
+      "sha": "74a309362ac75e13682ec51b6fa42dda91be42a4",
+      "size": 14353
+    },
+    {
+      "path": "test/request-agent-ownership.test.ts",
+      "mode": "100644",
+      "sha": "c4cbb30ad38dcd4dd87782ff58dd7ffd2515e614",
+      "size": 28925
+    },
+    {
+      "path": "test/resume.test.ts",
+      "mode": "100644",
+      "sha": "df1c27814eef344e0fc33c45de361a42b6ea0f59",
+      "size": 34233
+    },
+    {
+      "path": "test/runtime-enable-and-extension.test.ts",
+      "mode": "100644",
+      "sha": "743a2e6739b01380d552df7a3f86c80b7739f4c6",
+      "size": 2471
+    },
+    {
+      "path": "test/sandbox.test.ts",
+      "mode": "100644",
+      "sha": "9bf1cf20f00b54c6efa845f94fa62b9a2382028d",
+      "size": 21724
+    },
+    {
+      "path": "test/search.test.ts",
+      "mode": "100644",
+      "sha": "b10d6f5f92e5f57e0db0131af4d6c4af6d5dfb90",
+      "size": 14426
+    },
+    {
+      "path": "test/secrets.test.ts",
+      "mode": "100644",
+      "sha": "915b694f97ff573a50423a903637fb6278d5dcc5",
+      "size": 16463
+    },
+    {
+      "path": "test/session-completion-order.test.ts",
+      "mode": "100644",
+      "sha": "66ae78027851e5414ca4022c19c7161c6d60a290",
+      "size": 7679
+    },
+    {
+      "path": "test/session-finish.test.ts",
+      "mode": "100644",
+      "sha": "677c68c244f33944065eabc8d3432e3f6e919ae4",
+      "size": 34176
+    },
+    {
+      "path": "test/session-input-attachments-audit.test.ts",
+      "mode": "100644",
+      "sha": "8016045d32c91a7b2e15e4657a6bc5555de78e4e",
+      "size": 1706
+    },
+    {
+      "path": "test/session-input-attachments.test.ts",
+      "mode": "100644",
+      "sha": "3ae64c153fc332065226fd587c9972daf78d501e",
+      "size": 4303
+    },
+    {
+      "path": "test/session-input-history.test.ts",
+      "mode": "100644",
+      "sha": "8c322d47a8e084ccd8b154029f2106deb6f99858",
+      "size": 21539
+    },
+    {
+      "path": "test/session-input-images.test.ts",
+      "mode": "100644",
+      "sha": "b933d38e068747164da7e77ee6c6238deb1e30c8",
+      "size": 3878
+    },
+    {
+      "path": "test/session-input-retention.test.ts",
+      "mode": "100644",
+      "sha": "230ba81e54d177f6e10a1c7098fad4929388aad7",
+      "size": 6640
+    },
+    {
+      "path": "test/session-input.test.ts",
+      "mode": "100644",
+      "sha": "2d1b4097bbac1c9a149b4af23599134951147f8c",
+      "size": 126239
+    },
+    {
+      "path": "test/session-list-refresh.test.ts",
+      "mode": "100644",
+      "sha": "d4b5acb79b9b3290486536713feb948f4babb11e",
+      "size": 17548
+    },
+    {
+      "path": "test/session-prompt.test.ts",
+      "mode": "100644",
+      "sha": "d0ea8d80bbb00a0509572cd140d2a8323b9f55a5",
+      "size": 9568
+    },
+    {
+      "path": "test/session-response-identity.test.ts",
+      "mode": "100644",
+      "sha": "dc887b7a6cc6dbb83e73043bfabecf0348b09ca3",
+      "size": 9032
+    },
+    {
+      "path": "test/session-retention.test.ts",
+      "mode": "100644",
+      "sha": "9214b9e950a115fe033ae187601b6ce291e17dee",
+      "size": 531
+    },
+    {
+      "path": "test/session-usage.test.ts",
+      "mode": "100644",
+      "sha": "b6a794e1527901d59b4dfcd51807cb99bff6fa52",
+      "size": 33061
+    },
+    {
+      "path": "test/session.test.ts",
+      "mode": "100644",
+      "sha": "870682a580cf2c9feb3c6a14d97d4e780bb664d8",
+      "size": 176689
+    },
+    {
+      "path": "test/shell-agent-roundtrip.test.ts",
+      "mode": "100644",
+      "sha": "7c597477c070814d99a46d8f72dec32e7304f02b",
+      "size": 15332
+    },
+    {
+      "path": "test/shell-compat.test.ts",
+      "mode": "100644",
+      "sha": "b7e42d3fe0411fc186aeefeae5cd4bb6d53a5807",
+      "size": 68398
+    },
+    {
+      "path": "test/shutdown.test.ts",
+      "mode": "100644",
+      "sha": "e3f0b33265f6d04c8142fbf951b6c1d36b4ed24c",
+      "size": 12264
+    },
+    {
+      "path": "test/sidebar-order.test.ts",
+      "mode": "100644",
+      "sha": "6837a241a645486162f315f79ddd95708420b614",
+      "size": 5104
+    },
+    {
+      "path": "test/sidebar-resize.test.ts",
+      "mode": "100644",
+      "sha": "f352ae4c8bdb7ad2f5a88ca9fe2bd8d7d68469a8",
+      "size": 2803
+    },
+    {
+      "path": "test/skill-library.test.ts",
+      "mode": "100644",
+      "sha": "7a55f7ba413e9d96c98e6e94b0937506ac59ecc4",
+      "size": 6782
+    },
+    {
+      "path": "test/skill-metadata.test.ts",
+      "mode": "100644",
+      "sha": "12e6f540e4b05d019120c8db76f1c1a34219e4d4",
+      "size": 1702
+    },
+    {
+      "path": "test/skills-integration.test.ts",
+      "mode": "100644",
+      "sha": "04e1b6bf244e311ea925aa960632377f10dd33d7",
+      "size": 14766
+    },
+    {
+      "path": "test/skills.test.ts",
+      "mode": "100644",
+      "sha": "b7f1f4ee504a9aaad587fa75af0ae338ec349231",
+      "size": 13652
+    },
+    {
+      "path": "test/swarm.test.ts",
+      "mode": "100644",
+      "sha": "fa97ed4b8518f06cc7b42c1ea8866bcbabf81b99",
+      "size": 11459
+    },
+    {
+      "path": "test/task-progress.test.ts",
+      "mode": "100644",
+      "sha": "099cf8f83f8788a9c6422dfa2e7afb1c375c0b1f",
+      "size": 2560
+    },
+    {
+      "path": "test/task-request.test.ts",
+      "mode": "100644",
+      "sha": "b07a6c87dbd05675ee951c6928b5b62785214fae",
+      "size": 4616
+    },
+    {
+      "path": "test/text-match.test.ts",
+      "mode": "100644",
+      "sha": "8379df7e21e9b8baae0d02d8b48b3c55e86cea54",
+      "size": 5661
+    },
+    {
+      "path": "test/third-party-notices.test.ts",
+      "mode": "100644",
+      "sha": "5789aabb3fd05679cef479e577ee2e0c27b1a9a4",
+      "size": 4126
+    },
+    {
+      "path": "test/timeline-scroll.test.ts",
+      "mode": "100644",
+      "sha": "e9a3067e31901987da11ca6a1116b253a62a6628",
+      "size": 4859
+    },
+    {
+      "path": "test/tool-approval-notice.test.ts",
+      "mode": "100644",
+      "sha": "fa9d45806df09a8e28bf5ddc318563ac9c9e5207",
+      "size": 2924
+    },
+    {
+      "path": "test/tool-result.test.ts",
+      "mode": "100644",
+      "sha": "dbd1de3249933c8fb97276cccb3d5f721ec4cfdd",
+      "size": 1000
+    },
+    {
+      "path": "test/tools-browser.test.ts",
+      "mode": "100644",
+      "sha": "33e6674a472de941eaf582adb9e6fc0b97f1cad7",
+      "size": 7855
+    },
+    {
+      "path": "test/tools-desktop-permissions.test.ts",
+      "mode": "100644",
+      "sha": "667368aa2701811eedefe084fb0ac1e47d5366f5",
+      "size": 5165
+    },
+    {
+      "path": "test/tools-desktop-runtime.test.ts",
+      "mode": "100644",
+      "sha": "eb41d4a30a261cc66e7454cec7fb8214553afa3a",
+      "size": 7855
+    },
+    {
+      "path": "test/tools-desktop-windows.test.ts",
+      "mode": "100644",
+      "sha": "db00cf8ff5a3f574c51630c68d6446338faf5eed",
+      "size": 12756
+    },
+    {
+      "path": "test/transcript-window.test.ts",
+      "mode": "100644",
+      "sha": "947dac1e3dff9cd9fedb4b77c5f3202ef2e33ae4",
+      "size": 7884
+    },
+    {
+      "path": "test/tray-image.test.ts",
+      "mode": "100644",
+      "sha": "e15fb17603d8dac45ea5c2f6fcb64c60e646e2d9",
+      "size": 2717
+    },
+    {
+      "path": "test/tunnel-lifecycle.test.ts",
+      "mode": "100644",
+      "sha": "86fd036c863c9a86264cd8b5a20152f2470f5f98",
+      "size": 16226
+    },
+    {
+      "path": "test/tunnel-locate.test.ts",
+      "mode": "100644",
+      "sha": "7de15828b18a7ce73f2e9c7fde7f0c332cea647e",
+      "size": 4448
+    },
+    {
+      "path": "test/tunnel.test.ts",
+      "mode": "100644",
+      "sha": "89a59fd7c58d670886f515d2dc13141a6cad49c8",
+      "size": 16307
+    },
+    {
+      "path": "test/unified-exec-mutex.test.ts",
+      "mode": "100644",
+      "sha": "5d4b3b14e144483d12ce2ca6e77134baf17a3cab",
+      "size": 4109
+    },
+    {
+      "path": "test/update.test.ts",
+      "mode": "100644",
+      "sha": "2825046e6dd9c6c317676a21e8789e1824fd67a2",
+      "size": 20784
+    },
+    {
+      "path": "test/usage-observer.test.ts",
+      "mode": "100644",
+      "sha": "75295cf8ede7c898869958e423e58ca190ec72da",
+      "size": 27254
+    },
+    {
+      "path": "test/usage-week.test.ts",
+      "mode": "100644",
+      "sha": "8b0eae805cb241f57041537984ac620b569644de",
+      "size": 1901
+    },
+    {
+      "path": "test/user-prompt.test.ts",
+      "mode": "100644",
+      "sha": "51180d5f7367c86da5da8fef29951d96ac2a5cfc",
+      "size": 7940
+    },
+    {
+      "path": "test/window-icon.test.ts",
+      "mode": "100644",
+      "sha": "9501cc80de570cae1ef4f15a2edd1c79956ea373",
+      "size": 812
+    },
+    {
+      "path": "test/window-layout.test.ts",
+      "mode": "100644",
+      "sha": "32fa61e227a625ff9e1bfc639a6f2100e246318c",
+      "size": 1268
+    },
+    {
+      "path": "test/window-lifecycle.test.ts",
+      "mode": "100644",
+      "sha": "015e7bbfd089b205ac5d5ca794a4e1ec74fabffc",
+      "size": 9777
+    },
+    {
+      "path": "test/windows-api.test.ts",
+      "mode": "100644",
+      "sha": "c5eda16c7bceb3aeae460e13e77ed01a637b0497",
+      "size": 14664
+    },
+    {
+      "path": "test/windows-apps.test.ts",
+      "mode": "100644",
+      "sha": "ff867e2f754dd7a8c2d5299d2deb96ab7ac0ed45",
+      "size": 7226
+    },
+    {
+      "path": "test/windows-capture.test.ts",
+      "mode": "100644",
+      "sha": "321cad94c521161e6dc1728f06305a5c7e47ac4e",
+      "size": 1656
+    },
+    {
+      "path": "test/windows-desktop-recording.test.ts",
+      "mode": "100644",
+      "sha": "c11f2ee1f34eb2c66baad458fb87db528bccb088",
+      "size": 4325
+    },
+    {
+      "path": "test/windows-keys.test.ts",
+      "mode": "100644",
+      "sha": "65f59623532268fa029a44c4f0d639e93b090578",
+      "size": 2781
+    },
+    {
+      "path": "test/workspace-terminal.test.ts",
+      "mode": "100644",
+      "sha": "6ac74c9f46c7d98a93431d9876efaac13c4c82b9",
+      "size": 3358
+    },
+    {
+      "path": "test/workspace.test.ts",
+      "mode": "100644",
+      "sha": "b07ee5295c81706871d80b8d5ec6bbfc0735f0b5",
+      "size": 22116
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "mode": "100644",
+      "sha": "d4a8e987d20fde2202c298d202784ef461f48252",
+      "size": 10539348
+    },
+    {
+      "path": "tsconfig.json",
+      "mode": "100644",
+      "sha": "e096ad4fd47c8dc5ce2217ef3ca155b5117653fe",
+      "size": 661
+    },
+    {
+      "path": "vitest.config.ts",
+      "mode": "100644",
+      "sha": "de1de021d4fd6d654913e4f3a193879475e1f43f",
+      "size": 919
+    }
+  ],
+  "trees": [
+    {
+      "path": ".githooks",
+      "mode": "040000",
+      "sha": "15ffba5e6731a197bc6943a969877dc4b3491a53"
+    },
+    {
+      "path": ".github",
+      "mode": "040000",
+      "sha": "e19d3a86e31f71b548ad78c78f77657285c5610b"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE",
+      "mode": "040000",
+      "sha": "19e36fcb21dea8e28476ab12ff6cc04ce5c43328"
+    },
+    {
+      "path": ".github/workflows",
+      "mode": "040000",
+      "sha": "a035798580164c363ce32fa5133b324e3cf5dd1c"
+    },
+    {
+      "path": "artwork",
+      "mode": "040000",
+      "sha": "3de0111c6716152d08a1c8ff1c83aa06d0c47beb"
+    },
+    {
+      "path": "docs",
+      "mode": "040000",
+      "sha": "23a2f4e3feac2e57ed513f8b954b4a485955e3ce"
+    },
+    {
+      "path": "docs/images",
+      "mode": "040000",
+      "sha": "0c12551026ba1b24a632f784d2d0a32d7b3df9f0"
+    },
+    {
+      "path": "docs/licenses",
+      "mode": "040000",
+      "sha": "6195580d82c0aeb299425c427ca0a045ecbab3f0"
+    },
+    {
+      "path": "docs/licenses/codex",
+      "mode": "040000",
+      "sha": "9d2128e1304dd085507cdfe41dcdb161921dfb7c"
+    },
+    {
+      "path": "docs/licenses/native",
+      "mode": "040000",
+      "sha": "e482a1da9f666513b50bd19ba9b04a4609e1b8ae"
+    },
+    {
+      "path": "docs/licenses/plugins",
+      "mode": "040000",
+      "sha": "449bc3328c52e4acb4f08e2d3716c6949e4208e0"
+    },
+    {
+      "path": "docs/pet",
+      "mode": "040000",
+      "sha": "434415b54cd580eb3cf9b8d354a97d8df37843e6"
+    },
+    {
+      "path": "docs/pet/batches",
+      "mode": "040000",
+      "sha": "a02c51a2cc7c33012cde172c7b0446010986eb5c"
+    },
+    {
+      "path": "docs/pet/frames",
+      "mode": "040000",
+      "sha": "09ec50b48b326336ec1fc9f2f4bbccdb38e0a6c2"
+    },
+    {
+      "path": "docs/pet/previews",
+      "mode": "040000",
+      "sha": "76a5789074ea366877dc8de96f7f7f8cde18eeb9"
+    },
+    {
+      "path": "docs/release-notes",
+      "mode": "040000",
+      "sha": "32807ad76ddc503d28e0da3329708b024ed041c4"
+    },
+    {
+      "path": "extension",
+      "mode": "040000",
+      "sha": "a9c4e1cb35c038e9f3459ad22646f6de909c5b91"
+    },
+    {
+      "path": "extension/icons",
+      "mode": "040000",
+      "sha": "84f4ee66c42dd5a6cafebef2cdc7b7c0d81b402f"
+    },
+    {
+      "path": "native",
+      "mode": "040000",
+      "sha": "1d7688c55f0e898529e666392e664d5de2ea167b"
+    },
+    {
+      "path": "native/macos-desktop-addon",
+      "mode": "040000",
+      "sha": "686f301eb4f75faece3c55e3b5b3a16be4e82cc0"
+    },
+    {
+      "path": "native/macos-desktop-helper",
+      "mode": "040000",
+      "sha": "5dcbc279990ab02247e49cb622218753b46e18ef"
+    },
+    {
+      "path": "scripts",
+      "mode": "040000",
+      "sha": "30cd3da282a6e85e62384a32a03133d3621814bf"
+    },
+    {
+      "path": "scripts/fixtures",
+      "mode": "040000",
+      "sha": "ab397742ac4ceb493fd8ab83e80fd6d83fb38d44"
+    },
+    {
+      "path": "src",
+      "mode": "040000",
+      "sha": "833ef2fabdd0c5c894281bd748c4705af5fe66f4"
+    },
+    {
+      "path": "src/main",
+      "mode": "040000",
+      "sha": "8a2c6a27266b1007fce89daa6789a8c3f58e7077"
+    },
+    {
+      "path": "src/main/codex",
+      "mode": "040000",
+      "sha": "30832dc6bd726cb42a2ecf62f609ef5cb125b8d8"
+    },
+    {
+      "path": "src/main/codex/apply-patch",
+      "mode": "040000",
+      "sha": "ef4ddffcddee33490227d508395a865b9b73be85"
+    },
+    {
+      "path": "src/main/computer",
+      "mode": "040000",
+      "sha": "b2c23fd8e7ee263fe63c635c751fb0f5b13a3770"
+    },
+    {
+      "path": "src/main/mcp",
+      "mode": "040000",
+      "sha": "9b130bbec504384a3337d3ecac13167513a92546"
+    },
+    {
+      "path": "src/main/plugins",
+      "mode": "040000",
+      "sha": "0d82fa4b54348ecb8d582358d99951fea6e66be0"
+    },
+    {
+      "path": "src/main/session",
+      "mode": "040000",
+      "sha": "d292c68634ff8fa136f3b07cdc418bfcb97eb04c"
+    },
+    {
+      "path": "src/main/tunnel",
+      "mode": "040000",
+      "sha": "650e3a225cb08978df14e8818f9f3d8239b4095f"
+    },
+    {
+      "path": "src/preload",
+      "mode": "040000",
+      "sha": "1777669f07719c49af3becef7952fe1dc8d06638"
+    },
+    {
+      "path": "src/renderer",
+      "mode": "040000",
+      "sha": "07859a9ae229764ef99d8088fd598a4c52659a61"
+    },
+    {
+      "path": "src/renderer/locales",
+      "mode": "040000",
+      "sha": "0d46f2c163932a913e16d918a67da392d9b9a200"
+    },
+    {
+      "path": "src/renderer/pet-assets",
+      "mode": "040000",
+      "sha": "51aed6eee59e4ff9717e2781f9fe3148ef8e24cd"
+    },
+    {
+      "path": "src/renderer/plugin-icons",
+      "mode": "040000",
+      "sha": "49b698ab58f3f49aaffebe47753db2323da96165"
+    },
+    {
+      "path": "src/renderer/setup-images",
+      "mode": "040000",
+      "sha": "a35973ffbf18882a61ce03f00c84405353a75817"
+    },
+    {
+      "path": "src/shared",
+      "mode": "040000",
+      "sha": "df1b5fae57fb76d98bd92809e5a1df7ec1d0aba1"
+    },
+    {
+      "path": "test",
+      "mode": "040000",
+      "sha": "c410ae1b90e989e67b74b7bd8647d0fe6eee37d6"
+    },
+    {
+      "path": "test/fixtures",
+      "mode": "040000",
+      "sha": "3f4d3925afa3ef8fb1234471d041d8283dff4a83"
+    },
+    {
+      "path": "test/fixtures/windows-desktop",
+      "mode": "040000",
+      "sha": "4fc11dec92580cbb7eee96cb198ae56263bc2fc3"
+    }
+  ]
+}

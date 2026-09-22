@@ -1,31 +1,32 @@
 import fs from 'node:fs';
+import { loadFounderMoonshotLiteralCorpus, validateFounderMoonshotLiteralCorpus } from '../src/founder-moonshot-literal-corpus.mjs';
 import { buildMoonshotRealizationLedger } from '../src/moonshot-realization-factory.mjs';
 import { compileMoonshotTechnologyTree } from '../src/moonshot-technology-tree-compiler.mjs';
 import { compileMoonshotSubstrateMesh } from '../src/moonshot-substrate-mesh.mjs';
 
 const readJson=p=>JSON.parse(fs.readFileSync(p,'utf8'));
-const corpus=readJson('./artifacts/research/FOUNDER_MOONSHOT_LITERAL_CORPUS_890.json');
+const corpus=await loadFounderMoonshotLiteralCorpus({});
+const validation=validateFounderMoonshotLiteralCorpus(corpus);
 const spine=readJson('./config/moonshot-common-ancestor-spine.json');
 const overlay=readJson('./config/moonshot-realization-state-overlay.json');
 
-const entries=Array.isArray(corpus)?corpus:(corpus.entries||[]);
-const ledger=buildMoonshotRealizationLedger({entries});
-if(!ledger.ok){
-  process.stdout.write(JSON.stringify(ledger,null,2)+'\n');
+if(!validation.ok){
+  process.stdout.write(JSON.stringify(validation,null,2)+'\n');
   process.exitCode=1;
 }else{
-  const tree=compileMoonshotTechnologyTree({
+  const ledger=buildMoonshotRealizationLedger({entries:corpus.entries});
+  const tree=ledger.ok?compileMoonshotTechnologyTree({
     moonshots:ledger.rows,
     ancestorSpine:spine.ancestors||[],
     overlayEntries:overlay.entries||{}
-  });
-  const mesh=compileMoonshotSubstrateMesh({
+  }):ledger;
+  const mesh=tree.ok?compileMoonshotSubstrateMesh({
     moonshots:ledger.rows,
     technologyTree:tree,
     energyEquivalent:null,
     localCells:[],
     modelSuppliers:[]
-  });
+  }):tree;
   process.stdout.write(JSON.stringify({
     schema:'uberbond.moonshot-substrate-mesh-doctor.v1',
     ok:mesh.ok,

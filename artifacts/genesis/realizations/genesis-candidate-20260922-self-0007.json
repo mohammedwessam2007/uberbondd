@@ -5,10 +5,12 @@
   "realizationState": "SOURCE_IMPLEMENTED_HYPOTHESIS_UNVALIDATED",
   "generatedAt": "2026-09-22T19:24:00Z",
   "sourcePaths": [
-    "src/failure-to-patch-reflex.mjs"
+    "src/failure-to-patch-reflex.mjs",
+    "src/self-maintainer-continuation-policy.mjs"
   ],
   "testPaths": [
-    "tests/failure-to-patch-reflex.test.mjs"
+    "tests/failure-to-patch-reflex.test.mjs",
+    "tests/self-maintainer-continuation-policy.test.mjs"
   ],
   "documentationPaths": [
     "docs/GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md"
@@ -28,5 +30,14 @@
     "externalEffectAuthority": "NONE"
   },
   "hypothesisGenerallyProven": false,
-  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_FIXED_REPLAY_DO_NOT_PROVE_REAL_PATCH_ACCEPTANCE_REGRESSION_RATE_OR_FRONTIER_SAVINGS."
+  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_FIXED_REPLAY_DO_NOT_PROVE_REAL_PATCH_ACCEPTANCE_REGRESSION_RATE_OR_FRONTIER_SAVINGS.",
+  "focusedVerification": {
+    "executed": true,
+    "corePassed": 7,
+    "integrationPassed": 2,
+    "totalPassed": 9,
+    "failed": 0,
+    "runner": "local-node-v22.16.0",
+    "dependencyBoundary": "unchanged constraint-mutation/effect dependencies stubbed at public contract because sandbox cannot clone GitHub"
+  }
 }

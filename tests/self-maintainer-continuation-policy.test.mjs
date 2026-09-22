@@ -19,3 +19,27 @@ test('new main SHA reopens a local waiting attempt without duplicate-same-base s
 test('authority block never recommends circumvention',()=>{const r=task('PROMOTION_BLOCKED');assert.ok(r.mutationPlan.mutationFamilies.includes('find-lawful-substitute'));assert.ok(!r.mutationPlan.mutationFamilies.some(x=>/circumvent|evad|bypass/i.test(x)));});
 test('successful primary result follows primary result',()=>{const r=task('VERIFIED_CHANGESET_PROMOTED_TO_REVIEW');assert.equal(r.status,'CONTINUATION_NOT_REQUIRED');});
 test('exact base identity mandatory',()=>{const r=decideSelfMaintainerContinuation({taskId:'x',baseRevision:'not-a-sha',relayStatus:'WORKER_REPAIR_REQUIRED'});assert.equal(r.ok,false);});
+
+test('known rejected candidate exposes bounded failure reflex without bypassing mutation policy',()=>{
+  const r=decideSelfMaintainerContinuation({
+    taskId:TASK_ID,baseRevision:BASE,relayStatus:'CANDIDATE_REJECTED',
+    reasonCodes:['candidate-required-verification-missing:node --test tests/repair.test.mjs'],
+    evidenceRefs:['test:repair']
+  });
+  assert.equal(r.status,'STRATEGY_MUTATION_REQUIRED');
+  assert.equal(r.failureReflexStatus,'FAILURE_REFLEX_PROPOSAL_READY');
+  assert.equal(r.failureReflex.recipeId,'restore-required-verification');
+  assert.equal(r.failureReflex.autoApply,false);
+  assert.equal(r.failureReflex.autoMerge,false);
+  assert.equal(r.failureReflex.patchAuthority,'NONE');
+});
+
+test('unknown rejected candidate preserves escalation rather than inventing patch recipe',()=>{
+  const r=decideSelfMaintainerContinuation({
+    taskId:TASK_ID,baseRevision:BASE,relayStatus:'CANDIDATE_REJECTED',
+    reasonCodes:['novel-unclassified-failure'],evidenceRefs:['test:unknown']
+  });
+  assert.equal(r.status,'STRATEGY_MUTATION_REQUIRED');
+  assert.equal(r.failureReflexStatus,'FAILURE_REFLEX_ESCALATION_REQUIRED');
+  assert.equal(r.failureReflex.autoPatchEligible,false);
+});

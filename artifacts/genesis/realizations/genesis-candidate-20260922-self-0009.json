@@ -21,5 +21,19 @@
     "powerControlAuthority": "NONE"
   },
   "hypothesisGenerallyProven": false,
-  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_SIMULATED_FAULT_REPLAY_DO_NOT_PROVE_REAL_POWER_NETWORK_STORAGE_OR_HARDWARE_RELIABILITY."
+  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_SIGNED_SIMULATED_FAULT_REPLAY_DO_NOT_PROVE_REAL_POWER_NETWORK_STORAGE_OR_HARDWARE_RELIABILITY.",
+  "focusedVerification": {
+    "executed": true,
+    "passed": 8,
+    "failed": 0,
+    "runner": "local-node-v22.16.0",
+    "continuationContract": "uberbond.execution-leaf-continuation.v1.2",
+    "proofBoundary": "current continuation and graph-digest contracts exercised; only ZERO_EXTERNAL_EFFECTS constant was stubbed at its public shape because sandbox cannot clone GitHub"
+  },
+  "systemOneEvidence": {
+    "cognitionReceiptId": "9159765b-0502-4d1c-b120-8acb52bae9b6",
+    "zeroCostPrefilter": true,
+    "tribunalDecision": "IMPLEMENT_NOW",
+    "tribunalScore": 0.9344
+  }
 }

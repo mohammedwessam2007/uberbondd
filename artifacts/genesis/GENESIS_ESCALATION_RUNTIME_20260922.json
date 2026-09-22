@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "uberbond.genesis-escalation-runtime.v1",
+  "observedAt": "2026-09-22T20:58:00Z",
+  "observedMain": "2c17086da71840f2b4ac3650e7a0a9ade15f4c5a",
+  "runtime": {
+    "platform": "Supabase",
+    "escalationFunction": {
+      "slug": "genesis-escalation",
+      "version": 4,
+      "status": "ACTIVE"
+    },
+    "schedule": {
+      "jobName": "genesis-escalation-tribunal",
+      "cron": "*/5 * * * *",
+      "active": true
+    },
+    "paidProviderEnabled": false,
+    "maxDailyCognitionCostMicrousd": 0
+  },
+  "observedDecisionCounts": {
+    "ALREADY_IMPLEMENTED": 1,
+    "HOLD": 2,
+    "IMPLEMENT_NOW": 7,
+    "WAIT_PAID_SEMANTIC_AUTHORITY": 14,
+    "WAIT_REALITY_EVIDENCE": 11
+  },
+  "realizationQueue": {
+    "claimedCandidateId": "genesis-candidate-20260922-self-0009",
+    "claimedTitle": "Blackout-First Compute Planner",
+    "claimedPriority": 0.9344,
+    "sourceOnly": true,
+    "maxFiles": 6,
+    "maxChangedLines": 900
+  },
+  "hardening": [
+    "unresolved supplier/model quality uncertainty becomes semantic debt even without explicit MODEL_* substrate tags",
+    "decision downgrades block stale realization queue rows",
+    "CLAIMED rows are preserved across recurring tribunal reconciliation",
+    "paid semantic escalation remains unavailable while paid-provider authority is false"
+  ],
+  "externalEffectAuthority": "NONE",
+  "businessEffectAuthority": "NONE",
+  "truthBoundary": "THE_LIVE_TRIBUNAL_PRIORITIZES_BOUNDED_INTERNAL_SOURCE_REALIZATIONS_AND_BLOCKS_REALITY_OR_SEMANTIC_DEBT. IT_DOES_NOT_PROVE_FEASIBILITY_OR_AUTHORIZE_SPEND_OR_EXTERNAL_ACTION."
+}

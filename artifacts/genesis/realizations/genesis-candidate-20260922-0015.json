@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.genesis-realization-receipt.v1",
+  "candidateId": "genesis-candidate-20260922-0015",
+  "title": "Capability Chimera Compiler",
+  "realizationState": "SOURCE_IMPLEMENTED_HYPOTHESIS_UNVALIDATED",
+  "generatedAt": "2026-09-22T21:12:00Z",
+  "sourcePaths": [
+    "src/capability-chimera-compiler.mjs",
+    "src/capability-genome-runtime.mjs"
+  ],
+  "testPaths": [
+    "tests/capability-chimera-compiler.test.mjs",
+    "tests/capability-genome-dependency-graph.test.mjs"
+  ],
+  "documentationPaths": [
+    "docs/GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md"
+  ],
+  "systemOneEvidence": {
+    "cognitionReceiptId": "2da8299f-56fa-40c1-b8bc-c5384b4a2a2b",
+    "zeroCostPrefilter": true,
+    "tribunalDecision": "IMPLEMENT_NOW",
+    "tribunalScore": 0.9067
+  },
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "externalEffectAuthority": "NONE",
+    "activationAuthority": "NONE"
+  },
+  "hypothesisGenerallyProven": false,
+  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_SYNTHETIC_HELD_OUT_FIXTURES_DO_NOT_PROVE_REAL_COMPOSITION_SUPERIORITY_OR_ECONOMIC_VALUE."
+}

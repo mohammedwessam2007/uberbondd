@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "uberbond.genesis-realization-receipt.v1",
+  "candidateId": "genesis-candidate-20260922-self-0007",
+  "title": "Autonomous Failure-to-Patch Reflex",
+  "realizationState": "SOURCE_IMPLEMENTED_HYPOTHESIS_UNVALIDATED",
+  "generatedAt": "2026-09-22T19:24:00Z",
+  "sourcePaths": [
+    "src/failure-to-patch-reflex.mjs"
+  ],
+  "testPaths": [
+    "tests/failure-to-patch-reflex.test.mjs"
+  ],
+  "documentationPaths": [
+    "docs/GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md"
+  ],
+  "systemOneEvidence": {
+    "cognitionJobCompleted": true,
+    "supplierId": "supplier:jev-system-one",
+    "costMicrousd": 0,
+    "unresolved": [
+      "Whether the stated mechanism causes the claimed benefit on a fixed held-out task population."
+    ]
+  },
+  "authority": {
+    "autoApply": false,
+    "autoMerge": false,
+    "businessEffectAuthority": "NONE",
+    "externalEffectAuthority": "NONE"
+  },
+  "hypothesisGenerallyProven": false,
+  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_FIXED_REPLAY_DO_NOT_PROVE_REAL_PATCH_ACCEPTANCE_REGRESSION_RATE_OR_FRONTIER_SAVINGS."
+}

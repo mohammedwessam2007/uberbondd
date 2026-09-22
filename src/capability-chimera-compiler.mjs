@@ -182,8 +182,12 @@ export function evaluateCapabilityChimeraTournament({
   const costNonRegressing=chimeraCost<=incumbentCost;
   const benchmarkEligible=benchmark?.status==='BENCHMARK_ELIGIBLE';
   const supported=benchmarkEligible&&costNonRegressing;
+  const benchmarkFailureReasons=benchmarkEligible?[]:[
+    ...(benchmark?.record?.reasonCodes||[]),
+    ...(benchmark?.record?.nonRegressing===false?['benchmark-non-regression-failed']:[])
+  ];
   const falsifierReasons=[
-    ...(!benchmarkEligible?(benchmark?.record?.reasonCodes||['benchmark-regression']):[]),
+    ...benchmarkFailureReasons,
     ...(!costNonRegressing?['chimera-more-expensive-than-incumbent']:[])
   ];
   return envelope({

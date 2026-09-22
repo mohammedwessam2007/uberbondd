@@ -21,5 +21,12 @@
   "automaticPromotion": false,
   "externalEffectAuthority": "NONE",
   "persistentSchedulerState": "NOT_PROVEN_ON_A_WORKING_RUNTIME",
-  "truthBoundary": "ACTIVE_MEANS_THE_SOURCE_PATH_AND_FIRST_BURST_ARE_EXECUTABLE_AND_VERIFIED_ON_DEMAND; IT_DOES_NOT CLAIM_A_CONTINUOUS_BACKGROUND_RUNNER."
+  "truthBoundary": "ACTIVE_MEANS_THE_SOURCE_PATH_AND_FIRST_BURST_ARE_EXECUTABLE_AND_VERIFIED_ON_DEMAND; IT_DOES_NOT CLAIM_A_CONTINUOUS_BACKGROUND_RUNNER.",
+  "substrateBridge": {
+    "module": "src/genesis-candidate-substrate-bridge.mjs",
+    "doctor": "scripts/genesis-candidate-substrate-doctor.mjs",
+    "mode": "INHERIT_ROUTING_NOT_AUTHORITY",
+    "parentGraph": "MOONSHOT_890_SUBSTRATE_MESH",
+    "houseEnergyPolicy": "FAIL_CLOSED_WHEN_A_PROBE_REQUIRES_VERIFIED_HOUSE_ENERGY"
+  }
 }

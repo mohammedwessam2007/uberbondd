@@ -22,3 +22,23 @@ The activation selects 12 of the 1,000 generator operators and opens 600 first-g
 - Candidate generation creates no deployment, purchase, provider call, physical action, customer action or authority.
 - A model release is evidence for changed capability supply, not proof that a generated idea works.
 - Persistent autonomous recurrence remains a separate runtime claim. Current activation is executable on demand and the first burst is preserved as a durable receipt.
+
+
+## Candidate-to-substrate inheritance
+
+New GENESIS candidates do not become a disconnected idea list after the immutable 890 source corpus.
+
+`src/genesis-candidate-substrate-bridge.mjs` resolves every candidate's `moonshotAffinity` IDs against the canonical 890 substrate mesh and inherits only routing context:
+
+- internal work classes;
+- the cheapest-sufficient cognitive ladder;
+- admitted local-compute cell identities;
+- replaceable model-supplier identities;
+- current UberWatt house-energy state;
+- ancestor reality gates.
+
+The child never inherits external-effect authority. Its initial executable state remains `INTERNAL_HYPOTHESIS_FALSIFICATION_AND_PROBE`.
+
+A missing or nonexistent moonshot ancestor blocks compilation rather than silently creating an orphan candidate. A probe wave that explicitly requires household energy also fails closed until UberWatt has verified positive saved/shifted kWh evidence.
+
+Operator doctor: `npm run genesis:candidate-mesh:doctor`.

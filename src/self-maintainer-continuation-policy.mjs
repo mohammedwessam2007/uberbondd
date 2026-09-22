@@ -1,7 +1,8 @@
 import { compileConstraintMutationPlan } from './constraint-mutation-engine.mjs';
+import { compileFailureToPatchReflex } from './failure-to-patch-reflex.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.3.1';
+export const SELF_MAINTAINER_CONTINUATION_POLICY_VERSION = 'self-maintainer-continuation-policy-1.4.0';
 
 const zeroEffects = () => structuredClone(ZERO_EXTERNAL_EFFECTS);
 const text = (value, max = 500) => String(value ?? '').trim().slice(0, max);
@@ -102,6 +103,16 @@ export function decideSelfMaintainerContinuation({
   const mutation = compileConstraintMutationPlan({ currentAttempt, history: sameMechanismPrior });
   if (!mutation.ok) return envelope({ ok: false, status: 'CONTINUATION_REFUSED', reasonCodes: mutation.reasonCodes || ['constraint-mutation-failed'] });
 
+  const failureReflex = ['WORKER_REPAIR_REQUIRED', 'CANDIDATE_REJECTED'].includes(normalizedStatus)
+    ? compileFailureToPatchReflex({
+        taskId: objectiveId,
+        baseRevision: base,
+        relayStatus: normalizedStatus,
+        reasonCodes: Array.isArray(reasonCodes) ? reasonCodes : [],
+        evidenceRefs: Array.isArray(evidenceRefs) ? evidenceRefs : []
+      })
+    : null;
+
   return envelope({
     ok: true,
     status: 'STRATEGY_MUTATION_REQUIRED',
@@ -109,6 +120,8 @@ export function decideSelfMaintainerContinuation({
     taskId: objectiveId,
     blockedStatus: normalizedStatus,
     mutationPlan: mutation,
+    failureReflex: failureReflex?.ok ? failureReflex : null,
+    failureReflexStatus: failureReflex?.status || null,
     nextMechanismMustDiffer: true,
     requiresNewEvidenceOrNewMechanism: true,
     truthBoundary: 'A TIMER OR MANUAL REENTRY MAY REOBSERVE STATE; IT MAY NOT TURN THE SAME FAILED STRATEGY INTO A NEW ATTEMPT OR CLAIM PROGRESS'

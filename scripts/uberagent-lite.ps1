@@ -21,14 +21,14 @@ function Write-UberLog {
 
 function Get-NodeToken {
   if (-not (Test-Path $TokenFile)) { throw "node-token-file-missing" }
-  $encrypted = Get-Content -Raw -Path $TokenFile
-  $secure = ConvertTo-SecureString $encrypted
-  $ptr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secure)
-  try {
-    return [Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr)
-  } finally {
-    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ptr)
-  }
+  $encoded = (Get-Content -Raw -Path $TokenFile).Trim()
+  $protected = [Convert]::FromBase64String($encoded)
+  $plain = [Security.Cryptography.ProtectedData]::Unprotect(
+    $protected,
+    $null,
+    [Security.Cryptography.DataProtectionScope]::CurrentUser
+  )
+  return [Text.Encoding]::UTF8.GetString($plain)
 }
 
 function Invoke-UberApi {

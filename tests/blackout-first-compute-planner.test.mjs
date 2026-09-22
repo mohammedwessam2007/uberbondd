@@ -14,7 +14,7 @@ const NOW=Date.parse('2026-09-22T20:00:00Z');
 const EXP='2026-09-22T21:00:00.000Z';
 const {publicKey,privateKey}=crypto.generateKeyPairSync('ed25519');
 const PUB=publicKey.export({type:'spki',format:'pem'});
-const FINGERPRINT=crypto.createHash('sha256').update(publicKey.export({type:'spki',format:'der'})).digest('hex');
+const FINGERPRINT=crypto.createHash('sha256').update(JSON.stringify(publicKey.export({type:'spki',format:'der'}))).digest('hex');
 const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 
 function graph(){

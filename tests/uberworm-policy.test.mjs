@@ -47,5 +47,7 @@ test("remote capability surface contains no arbitrary shell action", () => {
   assert.equal(Object.hasOwn(UBERWORM_ACTIONS, "shell"), false);
   assert.equal(Object.hasOwn(UBERWORM_ACTIONS, "powershell"), false);
   assert.equal(Object.hasOwn(UBERWORM_ACTIONS, "cmd"), false);
+  assert.equal(Object.hasOwn(UBERWORM_ACTIONS, "install_ollama"), true);
+  assert.equal(Object.hasOwn(UBERWORM_ACTIONS, "self_update_agent"), true);
   assert.deepEqual(UBERWORM_APPROVED_MODELS, ["qwen3:0.6b","qwen3:1.7b","qwen3:4b"]);
 });

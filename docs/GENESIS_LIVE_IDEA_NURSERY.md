@@ -42,3 +42,14 @@ The child never inherits external-effect authority. Its initial executable state
 A missing or nonexistent moonshot ancestor blocks compilation rather than silently creating an orphan candidate. A probe wave that explicitly requires household energy also fails closed until UberWatt has verified positive saved/shifted kWh evidence.
 
 Operator doctor: `npm run genesis:candidate-mesh:doctor`.
+
+
+## Recursive burst history
+
+GENESIS does not overwrite a single `latest` nursery. Every materialized generation is preserved through `artifacts/genesis/GENESIS_BURST_INDEX.json`.
+
+The registry validates each burst against the same idea-burst compiler, recomputes its deterministic generator lineage, and enforces globally unique candidate IDs across generations.
+
+The second preserved burst is intentionally recursive: current verified UberBond source changes from PRs #983–#985 are themselves treated as a new evidence-bound signal. This produced a different 12-generator activation and 12 additional hypotheses around household energy, heterogeneous hardware, failure recovery, invisible compute, option preservation and thermodynamic scheduling.
+
+This demonstrates **context-sensitive recursive generation**, not autonomous proof of self-improvement. A new idea remains a hypothesis until its falsifier and probe produce evidence.

@@ -36,6 +36,8 @@ export function compileGenesisEscalationDecision({
   const confidence=unit(cognitionReceipt.result.confidence) ?? 0;
   const realityBlockers=substrateNeeds.filter(x=>REALITY_NEEDS.has(x));
   const semanticNeeds=substrateNeeds.filter(x=>SEMANTIC_NEEDS.has(x));
+  const unresolvedSemantic=unresolved.some(x=>/supplier quality|semantic uncertainty|model quality|model supplier|coordination overhead/i.test(x));
+  if(unresolvedSemantic && !semanticNeeds.includes('UNRESOLVED_SEMANTIC_SUPPLIER')) semanticNeeds.push('UNRESOLVED_SEMANTIC_SUPPLIER');
   const supplierClasses=new Set((Array.isArray(callableSuppliers)?callableSuppliers:[])
     .filter(s=>s?.callable===true).map(s=>String(s.supplierClass||s.supplier_class||'').toUpperCase()));
   const localSemanticCallable=supplierClasses.has('LOCAL');

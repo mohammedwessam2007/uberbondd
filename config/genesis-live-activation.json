@@ -28,5 +28,12 @@
     "mode": "INHERIT_ROUTING_NOT_AUTHORITY",
     "parentGraph": "MOONSHOT_890_SUBSTRATE_MESH",
     "houseEnergyPolicy": "FAIL_CLOSED_WHEN_A_PROBE_REQUIRES_VERIFIED_HOUSE_ENERGY"
+  },
+  "burstRegistry": {
+    "index": "artifacts/genesis/GENESIS_BURST_INDEX.json",
+    "compiler": "src/genesis-burst-registry.mjs",
+    "doctor": "scripts/genesis-burst-index-doctor.mjs",
+    "appendOnly": true,
+    "globalCandidateIdentity": "REQUIRED_UNIQUE"
   }
 }

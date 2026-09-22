@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "uberbond.genesis-live-nursery.v1",
+  "burstId": "genesis-burst-20260922-self-capability",
+  "generatedAt": "2026-09-22T14:24:00Z",
+  "signal": {
+    "id": "uberbond-self-capability-2026-09-22",
+    "summary": "UberBond main now binds all 890 founder moonshots to a governed energy-compute-model-reality substrate mesh, activates a live GENESIS nursery, and routes new candidates through their moonshot ancestors.",
+    "evidenceRefs": [
+      "https://github.com/mohammedwessam2007/uberbondd/commit/97ba15e896d84628870cfb3e774aafc204e3ba7d",
+      "https://github.com/mohammedwessam2007/uberbondd/commit/7b097ba83006997f6146fa86015a02378332e098",
+      "https://github.com/mohammedwessam2007/uberbondd/commit/b3bc0b0b40759f0d0843c82f3f2f3cff03d4a7e4"
+    ],
+    "observedAt": "2026-09-22T14:24:00Z",
+    "truthClass": "CURRENT_EXACT_SOURCE_SIGNAL"
+  },
+  "affectedDomains": [
+    "Substrates Energy & Environment",
+    "Hardware & UberBond Forge",
+    "Software Agents & Intelligence",
+    "Science & Discovery",
+    "Identity Futures & Personal Civilization"
+  ],
+  "activationPolicy": {
+    "maxGenerators": 12,
+    "candidateBudgetPerGenerator": 50
+  },
+  "activatedGeneratorKeys": [
+    "identity-futures-personal-civilization::constraint-deletion",
+    "science-discovery::constraint-deletion",
+    "substrates-energy-environment::option-value-maximization",
+    "science-discovery::market-analogy",
+    "identity-futures-personal-civilization::option-value-maximization",
+    "hardware-uberbond-forge::constraint-deletion",
+    "software-agents-intelligence::self-repair",
+    "hardware-uberbond-forge::zero-interface",
+    "substrates-energy-environment::edge-case-first",
+    "hardware-uberbond-forge::personal-digital-twin",
+    "identity-futures-personal-civilization::autonomy-flip",
+    "hardware-uberbond-forge::physics-analogy"
+  ],
+  "selectedGeneratorCount": 12,
+  "selectedFirstGenerationCapacity": 600,
+  "materializedCandidateCount": 12,
+  "candidates": [
+    {
+      "id": "genesis-candidate-20260922-self-0001",
+      "title": "Option-Constraint Eraser",
+      "hypothesis": "UberBond can identify constraints that reduce future options and distinguish removable friction from genuinely necessary boundaries.",
+      "mechanism": "A constraint graph labels each limit by evidence, reversibility, external authority and downstream option loss, then proposes only internal or reversible removals.",
+      "falsifier": "Proposed removals fail to expand measured option value or increase hidden risk/irreversibility.",
+      "nextProbe": "Replay ten historical bottlenecks and compare proposed removals with actual later outcomes.",
+      "generatorKey": "identity-futures-personal-civilization::constraint-deletion",
+      "moonshotAffinity": [
+        "founder-moonshot-0574",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "OPTION_ENGINE",
+        "CONSTRAINT_GRAPH",
+        "HUMAN_APPROVAL"
+      ],
+      "novelty": 0.9,
+      "leverage": 0.93,
+      "testability": 0.84,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0002",
+      "title": "Laboratory Without Lab",
+      "hypothesis": "A meaningful fraction of early scientific work can be moved into reproducible dry-lab simulation before scarce physical experiments are needed.",
+      "mechanism": "The discovery grid compiles hypotheses into literature checks, formal models, simulations and computational falsifiers, escalating to wet-lab work only when uncertainty remains material.",
+      "falsifier": "Dry-lab screening fails to eliminate low-value hypotheses better than a simple literature-only baseline.",
+      "nextProbe": "Take five computationally tractable hypotheses and compare simulation-first versus literature-only filtering.",
+      "generatorKey": "science-discovery::constraint-deletion",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0773"
+      ],
+      "substrateNeeds": [
+        "DISCOVERY_GRID",
+        "SIMULATION",
+        "EVIDENCE_LEDGER"
+      ],
+      "novelty": 0.91,
+      "leverage": 0.91,
+      "testability": 0.92,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0003",
+      "title": "Compute Option Reservoir",
+      "hypothesis": "Verified saved or shifted household energy can be treated as an option reserve that can be spent later on whichever local workload has the highest measured marginal value.",
+      "mechanism": "UberWatt keeps energy as an unspent ledger asset until model/task benchmarks reveal the best verified progress per kWh.",
+      "falsifier": "Immediate always-on compute produces equal or better long-run accepted progress than holding energy for higher-value jobs.",
+      "nextProbe": "Compare a simulated reserve policy against always-run scheduling using measured task values and energy traces.",
+      "generatorKey": "substrates-energy-environment::option-value-maximization",
+      "moonshotAffinity": [
+        "founder-moonshot-0123",
+        "founder-moonshot-0261",
+        "founder-moonshot-0409"
+      ],
+      "substrateNeeds": [
+        "UBERWATT",
+        "RESOURCE_MARKET",
+        "SCHEDULER"
+      ],
+      "novelty": 0.88,
+      "leverage": 0.95,
+      "testability": 0.9,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0004",
+      "title": "Experiment Market",
+      "hypothesis": "Competing experiments can bid for scarce compute and review budget using expected information gain rather than queue order.",
+      "mechanism": "Each experiment exposes falsifier, cost, expected uncertainty reduction and descendant unlocks; an internal market allocates a bounded research budget.",
+      "falsifier": "Market-selected experiments reduce uncertainty no faster than FIFO or simple heuristic selection.",
+      "nextProbe": "Backtest on a synthetic hypothesis graph with known answers, then shadow-run on internal research tasks.",
+      "generatorKey": "science-discovery::market-analogy",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0699"
+      ],
+      "substrateNeeds": [
+        "EXPERIMENT_MARKET",
+        "INFORMATION_GAIN",
+        "PORTFOLIO_OPTIMIZER"
+      ],
+      "novelty": 0.92,
+      "leverage": 0.94,
+      "testability": 0.88,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0005",
+      "title": "Future Portfolio Treasury",
+      "hypothesis": "UberBond can preserve a diversified portfolio of possible futures instead of overcommitting compute, money or attention to one path.",
+      "mechanism": "A portfolio layer tracks dependency concentration, reversibility and future-option coverage across active programs.",
+      "falsifier": "Portfolio diversification lowers realized capability growth without meaningfully improving reversibility or option preservation.",
+      "nextProbe": "Backtest on historical project branches and simulate concentration limits against realized downstream reuse.",
+      "generatorKey": "identity-futures-personal-civilization::option-value-maximization",
+      "moonshotAffinity": [
+        "founder-moonshot-0574",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "OPTION_ENGINE",
+        "PORTFOLIO_OPTIMIZER",
+        "COUNTERFACTUAL_SIMULATION"
+      ],
+      "novelty": 0.89,
+      "leverage": 0.92,
+      "testability": 0.86,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0006",
+      "title": "Dusty Silicon Federation",
+      "hypothesis": "Heterogeneous old laptops can contribute useful work by being treated as specialized cells rather than forced into one uniform cluster.",
+      "mechanism": "A capability-aware scheduler benchmarks each node and assigns task classes where its marginal throughput per watt and reliability are competitive.",
+      "falsifier": "The three-node federation yields no accepted-work throughput gain over using only the strongest HP after accounting for coordination cost.",
+      "nextProbe": "Inventory both Lenovos, then benchmark three independent-worker modes against HP-only on identical bounded workloads.",
+      "generatorKey": "hardware-uberbond-forge::constraint-deletion",
+      "moonshotAffinity": [
+        "founder-moonshot-0261",
+        "founder-moonshot-0773",
+        "founder-moonshot-0821"
+      ],
+      "substrateNeeds": [
+        "SOVEREIGN_COMPUTE",
+        "NODE_BENCHMARKS",
+        "UBERWATT"
+      ],
+      "novelty": 0.91,
+      "leverage": 0.96,
+      "testability": 0.96,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0007",
+      "title": "Autonomous Failure-to-Patch Reflex",
+      "hypothesis": "Repeated internal failures can be converted into bounded self-repair proposals before requiring a frontier model every time.",
+      "mechanism": "Failure signatures map to known repair patterns, sandbox patches and regression tests; unknown patterns escalate instead of improvising.",
+      "falsifier": "Automatic proposals create more regressions or frontier escalations than the existing manual repair path.",
+      "nextProbe": "Replay a corpus of known repository failures with held-out variants and compare repair acceptance and regression rates.",
+      "generatorKey": "software-agents-intelligence::self-repair",
+      "moonshotAffinity": [
+        "founder-moonshot-0460",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "FAILURE_MEMORY",
+        "SELF_MAINTAINER",
+        "HOSTILE_TESTS"
+      ],
+      "novelty": 0.93,
+      "leverage": 0.97,
+      "testability": 0.94,
+      "reversibility": 0.96
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0008",
+      "title": "Invisible Compute Fabric",
+      "hypothesis": "Local compute can behave as a background utility without requiring the founder to manually select devices, models or queues.",
+      "mechanism": "A zero-interface scheduler observes admitted node capabilities, task requirements and budgets, then routes only bounded internal jobs automatically.",
+      "falsifier": "Automatic routing requires frequent manual correction or causes lower accepted throughput than explicit selection.",
+      "nextProbe": "Run a week-equivalent replay from historical internal jobs and count manual intervention equivalents.",
+      "generatorKey": "hardware-uberbond-forge::zero-interface",
+      "moonshotAffinity": [
+        "founder-moonshot-0123",
+        "founder-moonshot-0460",
+        "founder-moonshot-0773"
+      ],
+      "substrateNeeds": [
+        "SOVEREIGN_COMPUTE",
+        "ROUTER",
+        "RESOURCE_MARKET"
+      ],
+      "novelty": 0.9,
+      "leverage": 0.95,
+      "testability": 0.91,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0009",
+      "title": "Blackout-First Compute Planner",
+      "hypothesis": "The home compute mesh can be designed from failure states first so loss of power, network or a node never corrupts canonical work.",
+      "mechanism": "Jobs are idempotent, checkpointed and independently receipted; graceful degradation preserves state and requeues unfinished work.",
+      "falsifier": "Forced interruption causes duplicate effects, lost accepted work or unrecoverable state.",
+      "nextProbe": "Fault-inject simulated power/network/node loss into a zero-effect job queue and verify exact replay behavior.",
+      "generatorKey": "substrates-energy-environment::edge-case-first",
+      "moonshotAffinity": [
+        "founder-moonshot-0123",
+        "founder-moonshot-0773",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "RECOVERY",
+        "QUEUE",
+        "CHECKPOINTING"
+      ],
+      "novelty": 0.87,
+      "leverage": 0.94,
+      "testability": 0.98,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0010",
+      "title": "Home Compute Digital Twin",
+      "hypothesis": "A digital twin of each laptop and the household compute envelope can forecast task runtime, heat, energy and reliability before scheduling.",
+      "mechanism": "Measured node profiles feed a predictive model updated from benchmark receipts and external energy readings.",
+      "falsifier": "Predictions remain too inaccurate to improve routing decisions compared with static benchmarks.",
+      "nextProbe": "Collect repeated benchmark receipts and compare forecast error against simple rolling averages.",
+      "generatorKey": "hardware-uberbond-forge::personal-digital-twin",
+      "moonshotAffinity": [
+        "founder-moonshot-0123",
+        "founder-moonshot-0261",
+        "founder-moonshot-0460"
+      ],
+      "substrateNeeds": [
+        "DIGITAL_TWIN",
+        "UBERWATT",
+        "TELEMETRY"
+      ],
+      "novelty": 0.89,
+      "leverage": 0.93,
+      "testability": 0.9,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0011",
+      "title": "Founder-Choice Amplifier",
+      "hypothesis": "Automation should increase the number and quality of meaningful choices surfaced to the founder while decreasing tactical burden.",
+      "mechanism": "UberBond handles bounded execution and presents only consequential forks, uncertainty and reversible options at decision points.",
+      "falsifier": "Automation reduces tactical work but also hides meaningful alternatives or increases irreversible commitments.",
+      "nextProbe": "Replay major past decisions and compare information preserved by current versus choice-amplifying handoffs.",
+      "generatorKey": "identity-futures-personal-civilization::autonomy-flip",
+      "moonshotAffinity": [
+        "founder-moonshot-0574",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "OPTION_ENGINE",
+        "HUMAN_APPROVAL",
+        "DECISION_INTERFACE"
+      ],
+      "novelty": 0.9,
+      "leverage": 0.96,
+      "testability": 0.87,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-self-0012",
+      "title": "Thermodynamic Compute Scheduler",
+      "hypothesis": "Compute scheduling can use measured energy and heat as first-class resource constraints rather than treating hardware throughput as the only objective.",
+      "mechanism": "Jobs are routed using measured joules per accepted output, thermal headroom and latency, while safety ceilings remain externally sourced and fail closed.",
+      "falsifier": "Energy-aware scheduling does not improve accepted progress per kWh or causes more throttling and instability.",
+      "nextProbe": "Benchmark multiple bounded workloads with external energy measurement and compare throughput-only versus energy-aware schedules.",
+      "generatorKey": "hardware-uberbond-forge::physics-analogy",
+      "moonshotAffinity": [
+        "founder-moonshot-0123",
+        "founder-moonshot-0261",
+        "founder-moonshot-0409"
+      ],
+      "substrateNeeds": [
+        "UBERWATT",
+        "THERMAL_TELEMETRY",
+        "SCHEDULER"
+      ],
+      "novelty": 0.91,
+      "leverage": 0.97,
+      "testability": 0.95,
+      "reversibility": 0.99
+    }
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THIS SELF-CAPABILITY BURST IS A SET OF GENERATED HYPOTHESES DERIVED_FROM_CURRENT_SOURCE_TRUTH__NOT_PROOF_THAT_ANY_CANDIDATE_IS_IMPLEMENTED_OR_USEFUL."
+}

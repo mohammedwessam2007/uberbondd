@@ -173,7 +173,7 @@ function Update-UberAgent {
   }
 
   try {
-    $url = "https://raw.githubusercontent.com/mohammedwessam2007/uberbondd/$commit/scripts/uberagent-legacy.ps1"
+    $url = "https://raw.githubusercontent.com/mohammedwessam2007/uberbondd/$commit/scripts/uberagent-autonomy-v2.ps1"
     $temp = Join-Path $env:TEMP "uberagent-update.ps1"
     $wc = New-Object Net.WebClient
     $wc.DownloadFile($url, $temp)

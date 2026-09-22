@@ -62,7 +62,7 @@
     "genesis:metabolize": "node scripts/genesis-metabolism-tick.mjs",
     "frontier:tick": "npm run gamechanger:tick && npm run genesis:tick && npm run genesis:evolve && npm run genesis:scientist && npm run genesis:ontology && npm run genesis:metabolize",
     "frontier:plan": "npm run gamechanger:plan && node scripts/perpetual-frontier-genesis-tick.mjs --dry-run",
-    "test:genesis": "node --test tests/perpetual-frontier-genesis*.test.mjs tests/genesis-*.test.mjs tests/genesis-idea-burst.test.mjs tests/genesis-candidate-substrate-bridge.test.mjs tests/genesis-burst-registry.test.mjs tests/autonomy-compression-ratio.test.mjs tests/genesis-cognition-exchange.test.mjs tests/genesis-system-one-critic.test.mjs tests/failure-to-patch-reflex.test.mjs",
+    "test:genesis": "node --test tests/perpetual-frontier-genesis*.test.mjs tests/genesis-*.test.mjs tests/genesis-idea-burst.test.mjs tests/genesis-candidate-substrate-bridge.test.mjs tests/genesis-burst-registry.test.mjs tests/autonomy-compression-ratio.test.mjs tests/genesis-cognition-exchange.test.mjs tests/genesis-system-one-critic.test.mjs tests/failure-to-patch-reflex.test.mjs tests/genesis-escalation-tribunal.test.mjs tests/blackout-first-compute-planner.test.mjs",
     "overnight:plan": "node scripts/overnight-upgrade-plan.mjs",
     "manifest:kilimanjaro": "node scripts/kilimanjaro-manifest.mjs",
     "start:all": "PROCESS_ROLE=all node server.mjs",
@@ -190,7 +190,11 @@
     "genesis:system-one:doctor": "node scripts/genesis-system-one-doctor.mjs",
     "test:genesis:system-one": "node --test tests/genesis-system-one-critic.test.mjs",
     "genesis:failure-reflex:doctor": "node scripts/genesis-failure-to-patch-doctor.mjs",
-    "test:genesis:failure-reflex": "node --test tests/failure-to-patch-reflex.test.mjs tests/self-maintainer-continuation-policy.test.mjs"
+    "test:genesis:failure-reflex": "node --test tests/failure-to-patch-reflex.test.mjs tests/self-maintainer-continuation-policy.test.mjs",
+    "genesis:escalation:doctor": "node scripts/genesis-escalation-tribunal-doctor.mjs",
+    "test:genesis:escalation": "node --test tests/genesis-escalation-tribunal.test.mjs",
+    "genesis:blackout:doctor": "node scripts/genesis-blackout-first-doctor.mjs",
+    "test:genesis:blackout": "node --test tests/blackout-first-compute-planner.test.mjs tests/execution-leaf-continuation.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

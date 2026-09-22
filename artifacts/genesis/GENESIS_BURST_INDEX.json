@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "uberbond.genesis-burst-index.v1",
+  "generatedAt": "2026-09-22T14:24:00Z",
+  "appendOnly": true,
+  "bursts": [
+    {
+      "burstId": "genesis-burst-20260922-mimo-v2-6",
+      "artifactRef": "artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json",
+      "signalId": "mimo-v2.6-2026-09-22",
+      "materializedCandidateCount": 24,
+      "selectedFirstGenerationCapacity": 600
+    },
+    {
+      "burstId": "genesis-burst-20260922-self-capability",
+      "artifactRef": "artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json",
+      "signalId": "uberbond-self-capability-2026-09-22",
+      "materializedCandidateCount": 12,
+      "selectedFirstGenerationCapacity": 600
+    }
+  ],
+  "truthBoundary": "INDEXED_BURSTS_ARE_GENERATION_RECEIPTS_NOT_DISCOVERY_OR_IMPLEMENTATION_PROOF."
+}

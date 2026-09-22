@@ -109,7 +109,8 @@
       "npm run test:genesis",
       "npm run genesis:tick",
       "npm run frontier:tick",
-      "npm run genesis:idea-burst:doctor"
+      "npm run genesis:idea-burst:doctor",
+      "npm run genesis:candidate-mesh:doctor"
     ],
     "capabilities": [
       "registry validation",
@@ -123,7 +124,8 @@
       "deterministic 20 x 50 million-branch ideation genome",
       "bounded context-specific generator activation",
       "recursive idea search-space projection without synthetic execution claims",
-      "evidence-bound live idea nursery with generator lineage, falsifiers, probes and immutable 890-source preservation"
+      "evidence-bound live idea nursery with generator lineage, falsifiers, probes and immutable 890-source preservation",
+      "GENESIS child-to-890 substrate inheritance with fail-closed energy and authority gates"
     ]
   },
   "liveIdeaNursery": {
@@ -139,6 +141,9 @@
     "originalFounderMoonshotCorpusMutation": false,
     "automaticPromotion": false,
     "persistentSchedulerState": "NOT_PROVEN_ON_A_WORKING_RUNTIME",
-    "truthBoundary": "LIVE_NURSERY_CANDIDATES_ARE_GENERATED_HYPOTHESES_WITH_FALSIFIERS_AND_PROBES_NOT_DISCOVERIES_IMPLEMENTATIONS_MARKET_PROOF_OR_AUTHORITY"
+    "truthBoundary": "LIVE_NURSERY_CANDIDATES_ARE_GENERATED_HYPOTHESES_WITH_FALSIFIERS_AND_PROBES_NOT_DISCOVERIES_IMPLEMENTATIONS_MARKET_PROOF_OR_AUTHORITY",
+    "candidateSubstrateBridge": "src/genesis-candidate-substrate-bridge.mjs",
+    "candidateSubstrateDoctor": "scripts/genesis-candidate-substrate-doctor.mjs",
+    "substrateInheritanceLaw": "GENESIS_CHILDREN_INHERIT_ROUTING_AND_BLOCKERS_FROM_890_ANCESTORS__NEVER_EXTERNAL_AUTHORITY"
   }
 }

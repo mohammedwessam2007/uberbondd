@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "uberbond.genesis-realization-receipt.v1",
+  "candidateId": "genesis-candidate-20260922-0021",
+  "title": "Autonomy Compression Ratio",
+  "realizationState": "SOURCE_IMPLEMENTED_HYPOTHESIS_UNVALIDATED",
+  "generatedAt": "2026-09-22T15:15:00Z",
+  "sourcePaths": [
+    "src/autonomy-compression-ratio.mjs"
+  ],
+  "testPaths": [
+    "tests/autonomy-compression-ratio.test.mjs"
+  ],
+  "documentationPaths": [
+    "docs/GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md"
+  ],
+  "focusedVerification": {
+    "executed": true,
+    "passed": 6,
+    "failed": 0,
+    "runner": "local-node-v22.16.0"
+  },
+  "falsifier": {
+    "implemented": true,
+    "gamingRiskTriggers": [
+      "defect-rate-increase",
+      "hidden-frontier-intervention-increase",
+      "acceptance-drop",
+      "accepted-quality-loss"
+    ],
+    "sameTaskPopulationRequired": true
+  },
+  "externalEffectAuthority": "NONE",
+  "businessEffectAuthority": "NONE",
+  "hypothesisGenerallyProven": false,
+  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_SYNTHETIC_FIXED_REPLAY_DO_NOT_PROVE_REAL_WORLD_AUTONOMY_COMPRESSION. REAL TASK RECEIPTS ARE REQUIRED."
+}

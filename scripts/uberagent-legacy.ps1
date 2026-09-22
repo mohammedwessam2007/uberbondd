@@ -2,7 +2,8 @@ $ErrorActionPreference = "Continue"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $InstallRoot = Join-Path $env:LOCALAPPDATA "UberBondNode"
-$TokenFile = Join-Path $InstallRoot "node.token"
+$TokenFile = Join-Path $InstallRoot "uberworm-token.dpapi"
+$LegacyTokenFile = Join-Path $InstallRoot "node.token"
 $DisableFile = Join-Path $InstallRoot "uberagent.disabled"
 $LogFile = Join-Path $InstallRoot "uberagent.log"
 $Endpoint = "https://lslifasfebpjbtqmkitm.supabase.co/functions/v1/uberworm-node"
@@ -16,9 +17,55 @@ function Write-LogLine {
   Add-Content -Path $LogFile -Value $line -ErrorAction SilentlyContinue
 }
 
+function Protect-NodeToken {
+  param([Parameter(Mandatory=$true)][string]$Plain)
+  $bytes = [Text.Encoding]::UTF8.GetBytes($Plain)
+  $protected = [Security.Cryptography.ProtectedData]::Protect(
+    $bytes,
+    $null,
+    [Security.Cryptography.DataProtectionScope]::CurrentUser
+  )
+  return [Convert]::ToBase64String($protected)
+}
+
+function Unprotect-NodeToken {
+  param([Parameter(Mandatory=$true)][string]$Encoded)
+  $protected = [Convert]::FromBase64String($Encoded.Trim())
+  $plain = [Security.Cryptography.ProtectedData]::Unprotect(
+    $protected,
+    $null,
+    [Security.Cryptography.DataProtectionScope]::CurrentUser
+  )
+  return [Text.Encoding]::UTF8.GetString($plain)
+}
+
 function Get-NodeToken {
-  if (-not (Test-Path $TokenFile)) { throw "node-token-file-missing" }
-  return (Get-Content -Raw -Path $TokenFile).Trim()
+  if (Test-Path $TokenFile) {
+    $encoded = (Get-Content -Raw -Path $TokenFile).Trim()
+    if ([string]::IsNullOrWhiteSpace($encoded)) { throw "node-token-file-empty" }
+    return Unprotect-NodeToken -Encoded $encoded
+  }
+
+  if (Test-Path $LegacyTokenFile) {
+    $plain = (Get-Content -Raw -Path $LegacyTokenFile).Trim()
+    if ([string]::IsNullOrWhiteSpace($plain)) { throw "legacy-node-token-empty" }
+
+    $encoded = Protect-NodeToken -Plain $plain
+    $tmp = "$TokenFile.tmp"
+    Set-Content -Path $tmp -Value $encoded -NoNewline
+    Move-Item -Force -Path $tmp -Destination $TokenFile
+
+    $verified = Unprotect-NodeToken -Encoded ((Get-Content -Raw -Path $TokenFile).Trim())
+    if ($verified -ne $plain) {
+      Remove-Item -Force -Path $TokenFile -ErrorAction SilentlyContinue
+      throw "node-token-migration-verification-failed"
+    }
+
+    Remove-Item -Force -Path $LegacyTokenFile
+    return $plain
+  }
+
+  throw "node-token-file-missing"
 }
 
 function Invoke-ControlPlane {

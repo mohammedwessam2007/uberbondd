@@ -62,7 +62,7 @@
     "genesis:metabolize": "node scripts/genesis-metabolism-tick.mjs",
     "frontier:tick": "npm run gamechanger:tick && npm run genesis:tick && npm run genesis:evolve && npm run genesis:scientist && npm run genesis:ontology && npm run genesis:metabolize",
     "frontier:plan": "npm run gamechanger:plan && node scripts/perpetual-frontier-genesis-tick.mjs --dry-run",
-    "test:genesis": "node --test tests/perpetual-frontier-genesis*.test.mjs tests/genesis-*.test.mjs tests/genesis-idea-burst.test.mjs tests/genesis-candidate-substrate-bridge.test.mjs tests/genesis-burst-registry.test.mjs tests/autonomy-compression-ratio.test.mjs",
+    "test:genesis": "node --test tests/perpetual-frontier-genesis*.test.mjs tests/genesis-*.test.mjs tests/genesis-idea-burst.test.mjs tests/genesis-candidate-substrate-bridge.test.mjs tests/genesis-burst-registry.test.mjs tests/autonomy-compression-ratio.test.mjs tests/genesis-cognition-exchange.test.mjs",
     "overnight:plan": "node scripts/overnight-upgrade-plan.mjs",
     "manifest:kilimanjaro": "node scripts/kilimanjaro-manifest.mjs",
     "start:all": "PROCESS_ROLE=all node server.mjs",
@@ -184,7 +184,9 @@
     "test:genesis:candidate-mesh": "node --test tests/genesis-candidate-substrate-bridge.test.mjs",
     "genesis:bursts:doctor": "node scripts/genesis-burst-index-doctor.mjs",
     "test:genesis:bursts": "node --test tests/genesis-burst-registry.test.mjs",
-    "test:genesis:autonomy-compression": "node --test tests/autonomy-compression-ratio.test.mjs"
+    "test:genesis:autonomy-compression": "node --test tests/autonomy-compression-ratio.test.mjs",
+    "genesis:cognition:doctor": "node scripts/genesis-cognition-exchange-doctor.mjs",
+    "test:genesis:cognition": "node --test tests/genesis-cognition-exchange.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

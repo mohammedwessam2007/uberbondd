@@ -435,3 +435,22 @@ It may not autonomously claim a technological change is true, promote a capabili
 The 275 ideas are not a final architecture. The decisive long-horizon target is that UberBond eventually generates valuable idea 276+ and entirely new categories without Mohamed or a static 2026 prompt supplying the ontology.
 
 Today's UberBond is an ancestor, not a constitutionally protected implementation.
+
+
+## Live evidence-bound idea nursery
+
+As of 2026-09-22, the million-branch ideation genome has a durable on-demand materialization path:
+
+`evidence-bound frontier signal -> deterministic generator activation -> materialized candidate -> falsifier -> next probe -> 890 affinity -> substrate needs -> tournament / archive / promotion review`
+
+Canonical live paths:
+- `config/genesis-live-activation.json`
+- `src/genesis-idea-burst.mjs`
+- `scripts/genesis-idea-burst-doctor.mjs`
+- `artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json`
+
+The first ignition used the public primary-source MiMo-V2.6 release signal. Twelve of the one thousand generators were deterministically activated, opening 600 bounded first-generation candidate slots; 24 candidates were materially compiled into the first nursery receipt.
+
+The original 890 founder-moonshot corpus remains immutable source history. New GENESIS ideas use separate `genesis-candidate-...` identities and may point back to one or more founder moonshots as affinities or ancestors. They do not renumber or silently amend the 890.
+
+Live activation is **on demand and source-verified**, not a claim that a persistent background runner is continuously operating. Candidate generation remains zero-external-effect and proposal-only until separate evidence and authority gates pass.

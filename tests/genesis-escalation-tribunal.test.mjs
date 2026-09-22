@@ -36,3 +36,10 @@ test('portfolio puts implement-now candidates first and remains bounded',()=>{
  const p=compileGenesisEscalationPortfolio({rows:[b,a],limit:1});
  assert.equal(p.ok,true); assert.equal(p.selectedCount,1); assert.equal(p.selected[0].decision,'IMPLEMENT_NOW');
 });
+
+test('unresolved supplier-quality uncertainty blocks direct implementation even without a model substrate tag',()=>{
+ const semanticReceipt={ok:true,result:{...receipt.result,unresolved:['Supplier quality, latency, and coordination overhead must be measured on the actual runtime.']}};
+ const r=compileGenesisEscalationDecision({candidate:base,cognitionReceipt:semanticReceipt,paidProviderEnabled:false});
+ assert.equal(r.decision,'WAIT_PAID_SEMANTIC_AUTHORITY');
+ assert.ok(r.semanticNeeds.includes('UNRESOLVED_SEMANTIC_SUPPLIER'));
+});

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond.genesis-system-one-runtime.v1",
+  "observedAt": "2026-09-22T19:12:19.829Z",
+  "observedMain": "5f5dc6655654c8a31bfc503e1c90040dbf3592a7",
+  "supplier": {
+    "supplierId": "supplier:jev-system-one",
+    "supplierClass": "DETERMINISTIC",
+    "provider": "uberbond",
+    "model": "jev-system-one-v1",
+    "callabilityState": "PROVEN",
+    "costMicrousdPerJob": 0,
+    "modelTokensPerJob": 0,
+    "callabilityEvidence": {
+      "canaryJobId": "3dbce5c4-8797-4613-a363-1702f51caaef",
+      "canaryCandidateId": "genesis-candidate-20260922-self-0012",
+      "canaryReceiptId": "9682a087-48bc-47a5-aa1a-2d5d68919271",
+      "httpStatus": 200,
+      "receiptLatencyMs": 1468
+    }
+  },
+  "runtime": {
+    "cognitionNode": {
+      "slug": "genesis-cognition-node",
+      "version": 3,
+      "status": "ACTIVE",
+      "atomicClaim": "FOR UPDATE SKIP LOCKED"
+    },
+    "systemOneWorker": {
+      "slug": "genesis-system-one-worker",
+      "version": 1,
+      "status": "ACTIVE"
+    },
+    "realityHeartbeat": {
+      "jobName": "genesis-reality-heartbeat",
+      "schedule": "*/10 * * * *",
+      "active": true
+    },
+    "systemOneHeartbeat": {
+      "jobName": "genesis-system-one-worker",
+      "schedule": "*/2 * * * *",
+      "active": true
+    }
+  },
+  "observedState": {
+    "realityTickCount": 30,
+    "candidateCount": 36,
+    "implementedCount": 1,
+    "probeReadyCount": 23,
+    "cognitionCompletedCount": 12,
+    "cognitionPendingCount": 23,
+    "callableCognitionSupplierCount": 1
+  },
+  "concurrencyEvidence": {
+    "parallelRequests": 6,
+    "completedDistinctJobs": 6,
+    "leaseRaceLosses": 0,
+    "duplicateReceipts": 0,
+    "totalCostMicrousd": 0
+  },
+  "paidProviderEnabled": false,
+  "maxDailyCostMicrousd": 0,
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "SYSTEM_ONE_IS_A_PROVEN_ZERO_COST_DETERMINISTIC_PREFILTER. THIS DOES_NOT_PROVE_FRONTIER_MODEL_INFERENCE_OR_GENERAL_INTELLIGENCE."
+}

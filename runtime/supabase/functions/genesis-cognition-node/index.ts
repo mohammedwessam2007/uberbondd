@@ -43,7 +43,8 @@ Deno.serve(async(req:Request)=>{
   const sr=await db.from("genesis_cognition_suppliers").select("*").eq("supplier_id",supplierId).maybeSingle();
   if(sr.error) return json({ok:false,error:"supplier-auth-query-failed"},500);
   const supplier=sr.data;
-  if(!supplier?.enabled||!supplier?.callable||!supplier?.token_hash) return json({ok:false,error:"supplier-not-callable"},401);
+  const bootstrapCanary=supplier?.callability_state==="BOOTSTRAP_CANARY";
+  if(!supplier?.enabled||(!supplier?.callable&&!bootstrapCanary)||!supplier?.token_hash) return json({ok:false,error:"supplier-not-callable"},401);
   if(await sha256Hex(token)!==supplier.token_hash) return json({ok:false,error:"supplier-token-rejected"},401);
 
   const now=new Date().toISOString();
@@ -60,27 +61,23 @@ Deno.serve(async(req:Request)=>{
     await db.from("genesis_cognition_jobs").update({status:"PENDING",supplier_id:null,lease_expires_at:null,updated_at:now})
       .eq("status","LEASED").lte("lease_expires_at",now).gt("expires_at",now);
 
-    const pending=await db.from("genesis_cognition_jobs").select("*")
-      .eq("status","PENDING").gt("expires_at",now).order("priority",{ascending:false}).order("created_at",{ascending:true}).limit(32);
-    if(pending.error) return json({ok:false,error:"job-query-failed"},500);
-
     const supplierCaps=Array.isArray(supplier.capabilities)?supplier.capabilities.map(String):[];
-    const eligible=(pending.data||[]).find((job:any)=>{
-      const reqs=job.requirements||{};
-      return classes(reqs).includes(String(supplier.supplier_class))
-        &&caps(reqs).every(c=>supplierCaps.includes(c))
-        &&Number(supplier.max_observed_cost_microusd_per_job)<=Number(job.max_cost_microusd);
+    const claimed=await db.rpc("claim_genesis_cognition_job",{
+      p_supplier_id:supplierId,
+      p_supplier_class:String(supplier.supplier_class),
+      p_supplier_capabilities:supplierCaps,
+      p_max_observed_cost_microusd:Number(supplier.max_observed_cost_microusd_per_job),
+      p_lease_seconds:300
     });
-    if(!eligible) return json({ok:true,job:null,status:"NO_ELIGIBLE_JOB"});
-
-    const leaseUntil=new Date(Date.now()+5*60*1000).toISOString();
-    const claimed=await db.from("genesis_cognition_jobs")
-      .update({status:"LEASED",supplier_id:supplierId,lease_expires_at:leaseUntil,attempt_count:Number(eligible.attempt_count||0)+1,updated_at:now})
-      .eq("id",eligible.id).eq("status","PENDING")
-      .select("id,candidate_id,kind,revision,priority,prompt,requirements,max_input_tokens,max_output_tokens,max_cost_microusd,lease_expires_at,expires_at")
-      .maybeSingle();
     if(claimed.error) return json({ok:false,error:"job-claim-failed"},500);
-    return json({ok:true,status:claimed.data?"JOB_LEASED":"LEASE_RACE_LOST",job:claimed.data||null,externalEffectAuthority:"NONE"});
+    const job=Array.isArray(claimed.data)&&claimed.data.length?claimed.data[0]:null;
+    if(!job) return json({ok:true,job:null,status:"NO_ELIGIBLE_JOB"});
+    return json({ok:true,status:"JOB_LEASED",job:{
+      id:job.id,candidate_id:job.candidate_id,kind:job.kind,revision:job.revision,priority:job.priority,
+      prompt:job.prompt,requirements:job.requirements,max_input_tokens:job.max_input_tokens,
+      max_output_tokens:job.max_output_tokens,max_cost_microusd:job.max_cost_microusd,
+      lease_expires_at:job.lease_expires_at,expires_at:job.expires_at
+    },externalEffectAuthority:"NONE"});
   }
 
   if(op==="receipt"){

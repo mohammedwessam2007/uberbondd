@@ -6,6 +6,8 @@ export const UBERWORM_ACTIONS = Object.freeze({
   ping: { class: "read", maxSeconds: 5 },
   inventory: { class: "read", maxSeconds: 120 },
   ollama_status: { class: "read", maxSeconds: 15 },
+  install_ollama: { class: "bounded-write", maxSeconds: 1800 },
+  self_update_agent: { class: "bounded-write", maxSeconds: 180 },
   repo_status: { class: "read", maxSeconds: 30 },
   repo_sync_main: { class: "bounded-write", maxSeconds: 120 },
   pull_model: { class: "bounded-write", maxSeconds: 3600 },

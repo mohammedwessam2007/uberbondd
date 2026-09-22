@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "uberbond.genesis-cognition-runtime.v1",
+  "observedAt": "2026-09-22T15:31:00Z",
+  "sourceMain": "d21acc1aef6e8de57ca3e2a7ac912dfde32a5556",
+  "runtime": {
+    "platform": "Supabase",
+    "project": "uberbond-continuity",
+    "realityFunction": {
+      "slug": "genesis-reality",
+      "version": 4,
+      "status": "ACTIVE"
+    },
+    "supplierFunction": {
+      "slug": "genesis-cognition-node",
+      "version": 1,
+      "status": "ACTIVE"
+    },
+    "schedule": {
+      "jobName": "genesis-reality-heartbeat",
+      "cron": "*/10 * * * *",
+      "active": true
+    },
+    "policy": {
+      "paidProviderEnabled": false,
+      "maxDailyCostMicrousd": 0,
+      "maxJobsPerTick": 4,
+      "maxPendingJobs": 32
+    }
+  },
+  "observedState": {
+    "candidateCount": 36,
+    "implementedCount": 1,
+    "probeReadyCount": 35,
+    "cognitionPendingCount": 4,
+    "cognitionCompletedCount": 0,
+    "callableSupplierCount": 0
+  },
+  "supplierTruth": [
+    {
+      "supplierId": "supplier:hp-local",
+      "supplierClass": "LOCAL",
+      "callable": false,
+      "reason": "Legacy agent last observed; Ollama unreachable; autonomy-only actions were not implemented by the observed agent."
+    },
+    {
+      "supplierId": "supplier:openai-platform",
+      "supplierClass": "FRONTIER",
+      "callable": false,
+      "reason": "An API-key creation target exists, but no runtime credential or spend authority is configured."
+    }
+  ],
+  "firstQueuedCandidateIds": [
+    "genesis-candidate-20260922-self-0012",
+    "genesis-candidate-20260922-self-0006",
+    "genesis-candidate-20260922-self-0007",
+    "genesis-candidate-20260922-self-0009"
+  ],
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THE_RUNTIME_IS_PERSISTENTLY_QUEUING_ZERO_SPEND_COGNITION_JOBS__NO_SEMANTIC_MODEL_SUPPLIER_IS_CURRENTLY_CALLABLE_SO_NO_AUTONOMOUS_MODEL_GENERATION_IS_CLAIMED."
+}

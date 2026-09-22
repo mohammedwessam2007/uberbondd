@@ -1,0 +1,509 @@
+{
+  "schemaVersion": "uberbond.external-capability-forensic-donor.v2",
+  "recordedAt": "2026-09-22",
+  "supersedes": {
+    "branch": "research/chat-on-steroids-forensic-autopsy-20260921",
+    "doc": "docs/research/CHAT_ON_STEROIDS_FORENSIC_AUTOPSY_2026-09-21.md",
+    "artifact": "artifacts/research/chat-on-steroids-capability-donor-matrix-2026-09-21.json",
+    "reason": "The earlier audit predated exact recursive-tree closure, the Sep 22 UberAgent lineage, and live Supabase inspection."
+  },
+  "donor": {
+    "repository": "totec448-spec/chat-on-steroids",
+    "exactCommit": "7777e517603289696bb5febddb9bbf51cdde9aea",
+    "rootTreeSha": "0638dbc098b20fc41ff494673f957ab5ce0371df",
+    "packageVersion": "2.1.14",
+    "license": "MIT",
+    "trackedBlobCount": 848,
+    "trackedTreeCount": 42,
+    "trackedBlobBytes": 92279414,
+    "currentMainVerifiedAt": "2026-09-22",
+    "currentMainStillExactCommit": true,
+    "manifest": "artifacts/research/chat-on-steroids-git-object-manifest-2026-09-22.json"
+  },
+  "auditClosure": {
+    "status": "GIT_OBJECT_BYTE_IDENTITY_COMPLETE__BEHAVIORAL_TEXT_CORPUS_TRAVERSED__INDEPENDENT_BINARY_SHA256_BLOCKED_BY_EXECUTION_ENVIRONMENT",
+    "exactCounts": {
+      "srcFiles": 240,
+      "srcBytes": 6131449,
+      "testFiles": 229,
+      "testBytes": 5596069,
+      "scriptFiles": 67,
+      "extensionFiles": 17,
+      "nativeSourceFiles": 3,
+      "docsFiles": 263
+    },
+    "traversed": [
+      "all src/main behavior-bearing blobs",
+      "all src/shared blobs",
+      "all renderer/preload behavior-bearing text",
+      "all extension text",
+      "all native source",
+      "all scripts",
+      "all 229 test blobs",
+      "root package/build/security/license/config",
+      "design docs, bug audits, release notes and worklogs",
+      "current open issue surface and selected architecture-relevant issues"
+    ],
+    "binaryClosure": {
+      "gitObjectIdentity": "COMPLETE",
+      "independentSha256": "UNAVAILABLE",
+      "why": [
+        "GitHub connector refuses non-UTF-8 binary bodies",
+        "local shell has no outbound DNS",
+        "codeload/archive materialization therefore could not be independently hashed"
+      ],
+      "truthBoundary": "No independent whole-archive SHA-256 claim is made. Every tracked blob is nevertheless bound by exact Git object SHA/path/mode/size under the pinned root tree."
+    }
+  },
+  "currentUberBond": {
+    "repository": "mohammedwessam2007/uberbondd",
+    "main": "e834c8ee230c52b72a61cd4b8121ab3ab0f5b6ea",
+    "recentLocalNodeLineage": [
+      "578cb44b7edee164b9e42ffbbfcce4397556b0d5",
+      "b6e71d5313b38f148723379f9026c4c4624adccf",
+      "a92ed8c10b9dd663fa9ae83525d83a242a28ef51",
+      "e834c8ee230c52b72a61cd4b8121ab3ab0f5b6ea"
+    ],
+    "existingOwners": [
+      "src/agent-worker-runtime.mjs",
+      "src/agent-autonomy-loop.mjs",
+      "src/agent-autonomy-receipt-ledger.mjs",
+      "src/uber-orchestration-control-plane.mjs",
+      "src/capability-genome-schema.mjs",
+      "src/capability-graph.mjs",
+      "src/external-capability-control-plane.mjs",
+      "src/omnia-v9/integrations/external-effect-state-machine.mjs",
+      "src/omnia-v9/pre-effect-authority-reconciler.mjs",
+      "src/uberworm-policy.mjs"
+    ]
+  },
+  "liveUberAgentEvidence": {
+    "provider": "Supabase",
+    "project": "uberbond-continuity",
+    "edgeFunction": {
+      "slug": "uberworm-node",
+      "version": 1,
+      "ezbrSha256": "953c5b2df21035054f2f7a950303ce8770d72d5b7740147230fc78778f469052"
+    },
+    "sourceSnapshot": "ops/supabase/uberworm-node/live-v1/index.ts",
+    "providerSnapshot": "artifacts/provider-snapshots/uberagent-supabase-control-plane-2026-09-22.json",
+    "observedNode": {
+      "id": "hp-local",
+      "enabled": true,
+      "reportedAgent": "uberagent-legacy-ps-v1"
+    },
+    "observedQueueSummary": {
+      "total": 10,
+      "done": 4,
+      "failed": 5,
+      "cancelled": 1,
+      "runningObserved": 0,
+      "pendingObserved": 0
+    },
+    "currentControlPlaneFacts": [
+      "poll atomically moves pending to running",
+      "one unique receipt per command is database-index enforced",
+      "there is no running-command lease_expires_at",
+      "there is no claim token/claim epoch",
+      "there is no attempt counter",
+      "there is no stale-running reclaim/reconcile state",
+      "live edge function source and UberAgent DDL were not tracked on main before this branch"
+    ],
+    "currentSecurityContradiction": {
+      "documentationClaim": "node token encrypted with Windows DPAPI",
+      "liveReportedRuntime": "uberagent-legacy-ps-v1",
+      "affectedSource": [
+        "scripts/uberagent-legacy.ps1",
+        "scripts/uberagent-autonomy-v2.ps1"
+      ],
+      "observedProblem": "both read plaintext node.token on main",
+      "branchRepair": "one-time plaintext-to-DPAPI migration with readback verification and legacy-file deletion",
+      "liveNodeUpdated": false
+    }
+  },
+  "capabilityDonors": [
+    {
+      "id": "cos.identity.request-conversation-session",
+      "priority": "P0",
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_PROVIDER_NEUTRAL_JOIN",
+      "donor": [
+        "src/main/session/correlation.ts",
+        "src/main/mcp/inbound.ts"
+      ],
+      "atoms": [
+        "request-id-proof",
+        "conversation-binding",
+        "durable-session-epoch",
+        "first-proof-wins",
+        "late-proof",
+        "conflict-refusal"
+      ]
+    },
+    {
+      "id": "cos.continuation.transaction",
+      "priority": "P0",
+      "uberBondState": "PARTIAL",
+      "action": "MERGE_WITH_CONTEXT_FABRIC",
+      "donor": [
+        "src/main/session/continuation.ts",
+        "src/main/session/handoff.ts",
+        "src/main/session/resume-gate.ts"
+      ],
+      "atoms": [
+        "source-authoritative-until-commit",
+        "single-claim",
+        "preflight-freeze",
+        "durable-rebind",
+        "publish-after-durable",
+        "abort-without-authority-loss"
+      ]
+    },
+    {
+      "id": "cos.effect.semantic-send-checkpoints",
+      "priority": "P0",
+      "uberBondState": "CORE_STRONG__PROVIDER_ADAPTER_PARTIAL",
+      "action": "ADAPT_TO_PROVIDER_BRIDGES",
+      "donor": [
+        "src/main/session/continuation.ts",
+        "extension/background.js"
+      ],
+      "atoms": [
+        "not-attempted",
+        "attempted-unresolved",
+        "dispatched-unresolved",
+        "sent",
+        "ambiguous-dispatch-quarantine",
+        "durable-ack-custody"
+      ]
+    },
+    {
+      "id": "cos.browser.dual-observation",
+      "priority": "P1",
+      "uberBondState": "MISSING_FOR_CHATGPT_UI",
+      "action": "OPTIONAL_REPLACEABLE_ADAPTER",
+      "donor": [
+        "extension/chatgpt-dom.js",
+        "extension/fiber.js",
+        "extension/content.js"
+      ],
+      "atoms": [
+        "dom-sensor",
+        "fiber-request-sensor",
+        "journal-reconciliation",
+        "document-epoch",
+        "spa-navigation-epoch"
+      ]
+    },
+    {
+      "id": "cos.browser.journal-custody",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_PATTERN",
+      "donor": [
+        "extension/background.js"
+      ],
+      "atoms": [
+        "bounded-journal",
+        "exact-document-owner",
+        "ack-outbox",
+        "crash-replay",
+        "retired-document-fence"
+      ]
+    },
+    {
+      "id": "cos.worker.family-incarnation",
+      "priority": "P1",
+      "uberBondState": "PARTIAL_TO_STRONG",
+      "action": "MERGE_NOT_DUPLICATE",
+      "donor": [
+        "src/main/agents.ts"
+      ],
+      "atoms": [
+        "family-owner",
+        "run-incarnation",
+        "same-name-is-not-identity",
+        "sleep-history",
+        "bounded-wake",
+        "durable-critical-barrier"
+      ]
+    },
+    {
+      "id": "cos.workspace.session-ownership",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_IF_LOCAL_IDE_SURFACE_ADDED",
+      "donor": [
+        "src/main/workspace.ts"
+      ],
+      "atoms": [
+        "chat-scoped-cwd",
+        "request-provisional-cwd",
+        "no-cross-chat-borrow",
+        "continuation-transfer"
+      ]
+    },
+    {
+      "id": "cos.mcp.surface-permission",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "MERGE_WITH_CAPABILITY_CONTROL_PLANE",
+      "donor": [
+        "src/main/mcp/surfaces.ts",
+        "src/main/mcp/kernel.ts"
+      ],
+      "atoms": [
+        "surface-separation",
+        "live-permission-recheck",
+        "cached-schema-safe-disable",
+        "identity-before-effect"
+      ]
+    },
+    {
+      "id": "cos.code.bounded-composition",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "BENCHMARK_PATTERN",
+      "donor": [
+        "src/main/mcp/code-mode-runtime.ts",
+        "src/main/mcp/code-mode-worker.ts"
+      ],
+      "atoms": [
+        "fresh-interpreter",
+        "tool-allowlist",
+        "cpu-wall-call-byte-bounds",
+        "concurrency-bound",
+        "no-rollback-fiction"
+      ]
+    },
+    {
+      "id": "cos.plugins.generation-rollback",
+      "priority": "P1",
+      "uberBondState": "CONCEPT_STRONG__RUNTIME_PARTIAL",
+      "action": "MERGE_WITH_CAPABILITY_GENOME",
+      "donor": [
+        "src/main/plugins/manager.ts",
+        "src/main/plugins/exposure.ts",
+        "src/main/plugins/oauth.ts"
+      ],
+      "atoms": [
+        "installation-generation",
+        "failed-update-rollback",
+        "name-conflict-refusal",
+        "disabled-name-reservation",
+        "schema-budget",
+        "secret-separation",
+        "oauth-state-pkce"
+      ]
+    },
+    {
+      "id": "cos.desktop.frame-authority",
+      "priority": "P2",
+      "uberBondState": "NOT_PRESENT_IN_UBERAGENT_BY_DESIGN",
+      "action": "FUTURE_COMPUTER_USE_ADAPTER_ONLY",
+      "donor": [
+        "src/main/computer/index.ts",
+        "src/main/computer/helper.ts"
+      ],
+      "atoms": [
+        "frame-id",
+        "snapshot-ref",
+        "helper-generation",
+        "geometry-revalidation",
+        "serialized-input",
+        "partial-batch-receipt"
+      ]
+    },
+    {
+      "id": "cos.filesystem.canonical-root",
+      "priority": "P2",
+      "uberBondState": "UBERAGENT_STRONGER_BY_OMISSION",
+      "action": "USE_ONLY_IF_FILE_SURFACE_IS_ADDED",
+      "donor": [
+        "src/main/sandbox.ts"
+      ],
+      "atoms": [
+        "realpath-canonicalization",
+        "symlink-junction-containment",
+        "segment-validation"
+      ]
+    },
+    {
+      "id": "cos.connection.generation-fence",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_IN_LONG_LIVED_CONNECTORS",
+      "donor": [
+        "src/main/connection.ts"
+      ],
+      "atoms": [
+        "connection-generation",
+        "stale-callback-fence",
+        "admission-close-before-drain",
+        "bounded-shutdown"
+      ]
+    },
+    {
+      "id": "cos.process.exact-custody",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "MERGE_WITH_WORKER_RUNTIME",
+      "donor": [
+        "src/main/codex/ownership.ts",
+        "src/main/codex/unified-exec.ts"
+      ],
+      "atoms": [
+        "principal-owned-process",
+        "unattended-obligation",
+        "completed-result-replay",
+        "no-name-based-custody"
+      ]
+    },
+    {
+      "id": "cos.desktop.generation-retirement",
+      "priority": "P2",
+      "uberBondState": "MISSING",
+      "action": "FUTURE_NATIVE_CONTROL_ONLY",
+      "donor": [
+        "src/main/computer/index.ts"
+      ],
+      "atoms": [
+        "helper-generation",
+        "retire-before-successor",
+        "stale-ref-rejection"
+      ]
+    },
+    {
+      "id": "cos.privacy.public-history-gates",
+      "priority": "P1",
+      "uberBondState": "PARTIAL",
+      "action": "ADOPT_PREVENTION_STACK",
+      "donor": [
+        "scripts/verify-public-history.mjs",
+        ".githooks",
+        ".github/workflows"
+      ],
+      "atoms": [
+        "author-identity-gate",
+        "session-url-gate",
+        "private-path-gate",
+        "precommit-ci-release-defense"
+      ]
+    },
+    {
+      "id": "cos.evidence.proof-level-taxonomy",
+      "priority": "P0",
+      "uberBondState": "STRONG_AND_COMPATIBLE",
+      "action": "FORMALIZE_SHARED_VOCABULARY",
+      "donor": [
+        "docs/worklog-*",
+        "docs/release-notes/*"
+      ],
+      "atoms": [
+        "source-proof",
+        "fixture-proof",
+        "installed-runtime-proof",
+        "live-provider-proof",
+        "do-not-promote-across-levels"
+      ]
+    },
+    {
+      "id": "cos.failure-history-as-design-provenance",
+      "priority": "P0",
+      "uberBondState": "STRONG_CANON__APPLY_TO_CAPABILITY_DONORS",
+      "action": "INTERNALIZE_METHOD",
+      "donor": [
+        "docs/bug-audit-*",
+        "docs/worklog-*"
+      ],
+      "atoms": [
+        "defect",
+        "root-cause",
+        "failed-fix",
+        "final-mechanism",
+        "regression-test",
+        "remaining-uncertainty"
+      ]
+    },
+    {
+      "id": "cos.local-command.lease-recovery",
+      "priority": "P0",
+      "uberBondState": "GAP_CONFIRMED_LIVE",
+      "action": "INTERNALIZE_CLEAN_ROOM",
+      "donor": [
+        "continuation/lease patterns",
+        "worker ownership patterns"
+      ],
+      "atoms": [
+        "immutable-command-digest",
+        "claim-lease",
+        "attempt-epoch",
+        "safe-read-reclaim",
+        "effectful-reconcile-required",
+        "receipt-fences-execution"
+      ],
+      "branchImplementation": [
+        "src/uberagent-command-recovery.mjs",
+        "tests/uberagent-command-recovery.test.mjs"
+      ]
+    },
+    {
+      "id": "cos.secret.durable-encrypted-state",
+      "priority": "P0",
+      "uberBondState": "DOCUMENTED_BUT_DRIFTED_IN_LIVE_AGENT_LINEAGE",
+      "action": "REPAIR",
+      "donor": [
+        "src/main/secrets.ts"
+      ],
+      "atoms": [
+        "encrypted-at-rest",
+        "publish-after-durable",
+        "no-stale-resurrection"
+      ],
+      "branchImplementation": [
+        "scripts/uberagent-legacy.ps1",
+        "scripts/uberagent-autonomy-v2.ps1",
+        "tests/uberagent-token-storage.test.mjs"
+      ]
+    }
+  ],
+  "rejectOrIsolate": [
+    "broad logged-in-user shell authority",
+    "provider-private DOM/Fiber logic in sovereign core",
+    "broad debugger/host permissions by default",
+    "unencrypted detailed local conversation history as universal default",
+    "unsigned/unnotarized distribution as a trust strategy",
+    "app-level approved roots described as kernel isolation",
+    "provider safety/access bypass",
+    "automatic retry of ambiguous effectful commands"
+  ],
+  "branchPromotions": {
+    "branch": "research/chat-on-steroids-byte-closure-20260922",
+    "files": [
+      "artifacts/research/chat-on-steroids-git-object-manifest-2026-09-22.json",
+      "ops/supabase/uberworm-node/live-v1/index.ts",
+      "artifacts/provider-snapshots/uberagent-supabase-control-plane-2026-09-22.json",
+      "src/uberagent-command-recovery.mjs",
+      "tests/uberagent-command-recovery.test.mjs",
+      "scripts/uberagent-legacy.ps1",
+      "scripts/uberagent-autonomy-v2.ps1",
+      "tests/uberagent-token-storage.test.mjs"
+    ],
+    "localFocusedVerification": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0
+    },
+    "liveProviderMutated": false,
+    "liveNodeMutated": false
+  },
+  "remainingFrontier": [
+    "Track an explicit schema reconstruction snapshot for current UberAgent tables without falsifying historical migration provenance.",
+    "Implement claim_token, attempt_count, lease_expires_at and reconcile_required semantics in provider source and hostile tests.",
+    "Teach each local agent lineage to persist command claim/digest/receipt outbox locally before provider acknowledgement.",
+    "Deploy only after exact source, migration and restart tests pass; then verify a deliberate crash-between-claim-and-receipt can neither duplicate an effect nor strand forever.",
+    "Build provider-neutral request/conversation/session identity only if UberBond elects to own ChatGPT UI continuity directly; keep ChatGPT DOM/Fiber code replaceable.",
+    "Do not add arbitrary shell or desktop control merely because CoS has it."
+  ],
+  "truthBoundary": "This audit establishes complete Git-object identity and deep semantic traversal of behavior-bearing source/tests/docs at the pinned donor commit. It does not claim an independent SHA-256 over binary blobs, does not claim CoS is defect-free, and does not claim branch fixes are deployed."
+}

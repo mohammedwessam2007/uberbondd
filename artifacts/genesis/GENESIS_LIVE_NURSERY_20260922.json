@@ -1,0 +1,596 @@
+{
+  "schemaVersion": "uberbond.genesis-live-nursery.v1",
+  "generatedAt": "2026-09-22T13:42:00Z",
+  "signal": {
+    "id": "mimo-v2.6-2026-09-22",
+    "summary": "Xiaomi released MiMo V2.6 Pro and Flash with tool use, long context and open RL task environments.",
+    "evidenceRefs": [
+      "https://mimo.mi.com/docs/en-US/news/latest/v2-6"
+    ],
+    "observedAt": "2026-09-22T13:42:00Z",
+    "truthClass": "PUBLIC_PRIMARY_SOURCE_SIGNAL"
+  },
+  "affectedDomains": [
+    "Cognition & Reasoning",
+    "Software Agents & Intelligence",
+    "Science & Discovery"
+  ],
+  "activationPolicy": {
+    "maxGenerators": 12,
+    "candidateBudgetPerGenerator": 50
+  },
+  "activatedGeneratorKeys": [
+    "software-agents-intelligence::1000x-scaling",
+    "software-agents-intelligence::serendipity-engineering",
+    "science-discovery::new-actuator",
+    "science-discovery::forgetting-first",
+    "software-agents-intelligence::market-analogy",
+    "software-agents-intelligence::instrument-invention",
+    "science-discovery::founder-personalization",
+    "software-agents-intelligence::capability-recombination",
+    "science-discovery::metric-invention",
+    "cognition-reasoning::personal-digital-twin",
+    "software-agents-intelligence::metric-invention",
+    "science-discovery::intergenerational-thinking"
+  ],
+  "selectedGeneratorCount": 12,
+  "selectedFirstGenerationCapacity": 600,
+  "materializedCandidateCount": 24,
+  "candidates": [
+    {
+      "id": "genesis-candidate-20260922-0001",
+      "title": "Capability Gap Closure Compiler",
+      "hypothesis": "Translate a detected missing UberBond capability into hundreds of bounded implementation, test, benchmark and integration microtasks that cheap workers can execute in parallel.",
+      "mechanism": "Frontier models specify the missing capability and acceptance contract; JEV/local workers fan it into dependency-aware microtasks and compile repeated successful paths into deterministic code.",
+      "falsifier": "On held-out capability gaps, accepted completion rate or founder-minute savings fails to improve over the current implementation workflow.",
+      "nextProbe": "Shadow-run on three recent missing-capability tasks and compare accepted completion, retries, cost and founder minutes.",
+      "generatorKey": "software-agents-intelligence::1000x-scaling",
+      "moonshotAffinity": [
+        "founder-moonshot-0460",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "JEV_SYSTEM_ONE",
+        "SOVEREIGN_COMPUTE",
+        "FRONTIER_REVIEW"
+      ],
+      "novelty": 0.86,
+      "leverage": 0.96,
+      "testability": 0.91,
+      "reversibility": 0.94
+    },
+    {
+      "id": "genesis-candidate-20260922-0002",
+      "title": "Million-Microtask Factory",
+      "hypothesis": "Large frontier-authored missions can be converted into very large populations of tiny verifiable jobs without proportionally increasing frontier-token use.",
+      "mechanism": "A typed task compiler emits idempotent jobs with evidence contracts, allowing local and cheap-cloud workers to execute only minimum-sufficient context.",
+      "falsifier": "Total mission cost or defect rate grows linearly with microtask count and shows no advantage over monolithic execution.",
+      "nextProbe": "Compile one repo mission into 1,000 synthetic zero-effect tasks and measure orchestration overhead and verification quality.",
+      "generatorKey": "software-agents-intelligence::1000x-scaling",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "TASK_GRAPH",
+        "LOCAL_COMPUTE",
+        "JEV_SYSTEM_ONE"
+      ],
+      "novelty": 0.83,
+      "leverage": 0.93,
+      "testability": 0.88,
+      "reversibility": 0.96
+    },
+    {
+      "id": "genesis-candidate-20260922-0003",
+      "title": "Cross-Model Serendipity Market",
+      "hypothesis": "Unexpectedly useful ideas can be found by deliberately crossing outputs from models that disagree or specialize differently.",
+      "mechanism": "A broker pairs distant candidate concepts from frontier, MiMo and local-model outputs, then tests only combinations with measurable complementarity.",
+      "falsifier": "Cross-model recombination yields no higher novelty-adjusted testability than same-model recombination on a blinded sample.",
+      "nextProbe": "Generate 100 pairings from heterogeneous and homogeneous pools and blind-score novelty, feasibility and downstream testability.",
+      "generatorKey": "software-agents-intelligence::serendipity-engineering",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "MODEL_MARKET",
+        "IDEA_PHYLOGENY",
+        "EVALUATION"
+      ],
+      "novelty": 0.91,
+      "leverage": 0.86,
+      "testability": 0.82,
+      "reversibility": 0.97
+    },
+    {
+      "id": "genesis-candidate-20260922-0004",
+      "title": "Autonomous Model-Release Assimilator",
+      "hypothesis": "A major model release can automatically create new capability hypotheses, benchmarks, routing experiments and implementation candidates without redesigning UberBond.",
+      "mechanism": "Gamechanger evidence triggers GENESIS, Capability Genome deltas, a model tournament and candidate downstream architecture mutations under zero-effect gates.",
+      "falsifier": "A release produces no actionable capability delta or the generated experiments fail to distinguish the new model from incumbents.",
+      "nextProbe": "Use MiMo-V2.6 as the first replay and compare generated capability deltas against a manual expert review.",
+      "generatorKey": "software-agents-intelligence::serendipity-engineering",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "GAMECHANGER",
+        "CAPABILITY_GENOME",
+        "MODEL_TOURNAMENT"
+      ],
+      "novelty": 0.94,
+      "leverage": 0.95,
+      "testability": 0.9,
+      "reversibility": 0.95
+    },
+    {
+      "id": "genesis-candidate-20260922-0005",
+      "title": "Hypothesis-to-Replication Conveyor",
+      "hypothesis": "Scientific hypotheses can be compiled directly into reproducible computational experiments and replication packets.",
+      "mechanism": "A science actuator maps claim, falsifier and evidence requirements into simulation, code, datasets, controls and independent replay steps.",
+      "falsifier": "Independent replay cannot reproduce results or the compiler systematically omits necessary controls.",
+      "nextProbe": "Compile five repository-safe computational hypotheses into double-blind replay packets and measure reproducibility.",
+      "generatorKey": "science-discovery::new-actuator",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "EXPERIMENT_COMPILER",
+        "LOCAL_COMPUTE",
+        "EVIDENCE_LEDGER"
+      ],
+      "novelty": 0.89,
+      "leverage": 0.91,
+      "testability": 0.92,
+      "reversibility": 0.96
+    },
+    {
+      "id": "genesis-candidate-20260922-0006",
+      "title": "Research-to-Tool Fabricator",
+      "hypothesis": "When a research paper reveals a useful mechanism, UberBond can automatically create a bounded instrument that tests that mechanism against its own workloads.",
+      "mechanism": "A paper-to-instrument pipeline extracts mechanism, implementation constraints, license boundaries and a falsifiable local benchmark before any promotion.",
+      "falsifier": "Generated tools fail the benchmark or cannot preserve provenance/license boundaries better than manual implementation.",
+      "nextProbe": "Select three open research mechanisms and attempt clean-room bounded instrument builds with exact evidence lineage.",
+      "generatorKey": "science-discovery::new-actuator",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0821",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "RESEARCH_INGEST",
+        "CAPABILITY_LAB",
+        "CODE_GENERATION"
+      ],
+      "novelty": 0.88,
+      "leverage": 0.9,
+      "testability": 0.86,
+      "reversibility": 0.94
+    },
+    {
+      "id": "genesis-candidate-20260922-0007",
+      "title": "Scientific Forgetting Engine",
+      "hypothesis": "UberBond can improve discovery by actively retiring stale assumptions, duplicated hypotheses and obsolete experiment paths while preserving their lineage.",
+      "mechanism": "A decay engine tracks prediction failures, superseding evidence and dependency use, archiving low-value scientific beliefs without deleting provenance.",
+      "falsifier": "Archive decisions remove a belief later required for a successful prediction more often than a conservative baseline.",
+      "nextProbe": "Replay historical hypothesis evolution and measure false-retirement rate before enabling any automatic archive proposals.",
+      "generatorKey": "science-discovery::forgetting-first",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0699"
+      ],
+      "substrateNeeds": [
+        "CAUSAL_MEMORY",
+        "ONTOGENESIS",
+        "EVIDENCE_GRAPH"
+      ],
+      "novelty": 0.82,
+      "leverage": 0.87,
+      "testability": 0.91,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-0008",
+      "title": "Stale-Theory Garbage Collector",
+      "hypothesis": "Repeated failed predictions can be converted into explicit pressure against theories that continue consuming search budget.",
+      "mechanism": "Prediction receipts update theory utility and divert compute toward alternatives when a falsification threshold is crossed.",
+      "falsifier": "Compute reallocation reduces discovery quality or retires theories before sufficient evidence exists.",
+      "nextProbe": "Simulate theory portfolios with known ground truth and compare conservative versus aggressive retirement thresholds.",
+      "generatorKey": "science-discovery::forgetting-first",
+      "moonshotAffinity": [
+        "founder-moonshot-0409",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "PREDICTION_LEDGER",
+        "SIMULATION",
+        "JEV_SYSTEM_ONE"
+      ],
+      "novelty": 0.79,
+      "leverage": 0.84,
+      "testability": 0.94,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-0009",
+      "title": "Model Labor Exchange",
+      "hypothesis": "Models and local compute cells can compete for typed cognitive jobs as suppliers in an internal market rather than being statically assigned.",
+      "mechanism": "Each task publishes capability, privacy, latency, cost and evidence requirements; suppliers bid with measured fitness and the router chooses the minimum sufficient bundle.",
+      "falsifier": "Market routing costs more or performs worse than a fixed best-model policy across a held-out workload.",
+      "nextProbe": "Run a shadow exchange over recorded tasks using measured model prices, latency and acceptance outcomes.",
+      "generatorKey": "software-agents-intelligence::market-analogy",
+      "moonshotAffinity": [
+        "founder-moonshot-0261",
+        "founder-moonshot-0427",
+        "founder-moonshot-0460"
+      ],
+      "substrateNeeds": [
+        "MODEL_MARKET",
+        "SOVEREIGN_COMPUTE",
+        "ECONOMIC_MEMORY"
+      ],
+      "novelty": 0.9,
+      "leverage": 0.96,
+      "testability": 0.9,
+      "reversibility": 0.95
+    },
+    {
+      "id": "genesis-candidate-20260922-0010",
+      "title": "Capability Futures Market",
+      "hypothesis": "UberBond can allocate research attention using internal prediction markets on which emerging capabilities will become valuable.",
+      "mechanism": "Agents submit calibrated probability and value estimates tied to falsifiable future observations; scoring rewards calibration rather than confidence.",
+      "falsifier": "The market fails to outperform simple equal-weight forecasting on Brier score and realized utility ranking.",
+      "nextProbe": "Backtest on historical model/tool releases with time-sliced evidence and compare against simple baselines.",
+      "generatorKey": "software-agents-intelligence::market-analogy",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "PREDICTION_MARKET",
+        "GAMECHANGER",
+        "EVALUATOR"
+      ],
+      "novelty": 0.92,
+      "leverage": 0.88,
+      "testability": 0.86,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-0011",
+      "title": "Agent Instrument Forge",
+      "hypothesis": "GENESIS can invent new measurement tools when existing metrics cannot discriminate between candidate agent architectures.",
+      "mechanism": "A meta-instrument generator derives observable variables from the competing hypotheses, creates probes and validates measurement reliability before use.",
+      "falsifier": "Invented instruments have low test-retest reliability or do not change architecture selection compared with existing metrics.",
+      "nextProbe": "Choose three ambiguous agent comparisons and generate candidate instruments, then measure reliability and decision value.",
+      "generatorKey": "software-agents-intelligence::instrument-invention",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0821"
+      ],
+      "substrateNeeds": [
+        "INSTRUMENT_FORGE",
+        "EVAL_LAB",
+        "LOCAL_COMPUTE"
+      ],
+      "novelty": 0.91,
+      "leverage": 0.89,
+      "testability": 0.87,
+      "reversibility": 0.96
+    },
+    {
+      "id": "genesis-candidate-20260922-0012",
+      "title": "Autonomous Benchmark Synthesizer",
+      "hypothesis": "UberBond can generate fresh anti-gaming benchmarks from real failure traces instead of relying only on static public suites.",
+      "mechanism": "Failure receipts are transformed into minimal reproducible tasks with hidden variants, contamination checks and independent scoring.",
+      "falsifier": "Generated benchmarks correlate poorly with real production failures or are easily overfit by candidate models.",
+      "nextProbe": "Create a hidden benchmark from 20 historical repo defects and compare model rankings with subsequent real-task performance.",
+      "generatorKey": "software-agents-intelligence::instrument-invention",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "BENCHMARK_FACTORY",
+        "FAILURE_MEMORY",
+        "MODEL_TOURNAMENT"
+      ],
+      "novelty": 0.93,
+      "leverage": 0.95,
+      "testability": 0.88,
+      "reversibility": 0.94
+    },
+    {
+      "id": "genesis-candidate-20260922-0013",
+      "title": "Personal Research Frontier Compiler",
+      "hypothesis": "The discovery engine can prioritize research paths by how much they expand Mohamed's reachable future options without hard-coding one life trajectory.",
+      "mechanism": "Candidate research programs are scored on option creation, reversibility, learning value and evidence, with human choice retained at commitment points.",
+      "falsifier": "The ranking fails to identify higher-option outcomes on retrospective blinded cases or becomes unstable to small preference changes.",
+      "nextProbe": "Run only on explicit non-sensitive preference dimensions and compare against equal-weight and novelty-only baselines.",
+      "generatorKey": "science-discovery::founder-personalization",
+      "moonshotAffinity": [
+        "founder-moonshot-0574",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "OPTION_ENGINE",
+        "RESEARCH_GRAPH",
+        "HUMAN_APPROVAL"
+      ],
+      "novelty": 0.88,
+      "leverage": 0.9,
+      "testability": 0.79,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-0014",
+      "title": "Founder-Curiosity Telescope",
+      "hypothesis": "UberBond can surface distant but potentially transformative research directions that would not appear in ordinary goal-directed search.",
+      "mechanism": "A bounded curiosity budget samples low-similarity areas, maps them to current capability gaps and requires a falsifiable reason for retaining each branch.",
+      "falsifier": "Low-similarity sampling produces no more high-value survivors than random exploration after controlling for review budget.",
+      "nextProbe": "Compare structured distant-search, random-search and nearest-neighbor search over the same evaluation budget.",
+      "generatorKey": "science-discovery::founder-personalization",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "SERENDIPITY_ENGINE",
+        "RESEARCH_SEARCH",
+        "EVALUATION"
+      ],
+      "novelty": 0.95,
+      "leverage": 0.84,
+      "testability": 0.83,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-0015",
+      "title": "Capability Chimera Compiler",
+      "hypothesis": "Existing small capabilities can be recombined into novel higher-order tools before building or buying a new monolithic capability.",
+      "mechanism": "A compatibility graph searches compositions, simulates permissions and dependencies, then benchmarks the minimum sufficient bundle.",
+      "falsifier": "Composed bundles are less reliable or more expensive than single-purpose incumbent tools across matched tasks.",
+      "nextProbe": "Search the current capability graph for ten unmet tasks and tournament compositions against incumbent routes.",
+      "generatorKey": "software-agents-intelligence::capability-recombination",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "CAPABILITY_GENOME",
+        "COMPOSITION_SEARCH",
+        "CAPABILITY_LAB"
+      ],
+      "novelty": 0.94,
+      "leverage": 0.96,
+      "testability": 0.91,
+      "reversibility": 0.96
+    },
+    {
+      "id": "genesis-candidate-20260922-0016",
+      "title": "Missing-Organ Auto-Builder",
+      "hypothesis": "When the 890-tree identifies a shared missing ancestor, UberBond can propose and build the smallest reusable internal primitive that unlocks the largest downstream region.",
+      "mechanism": "Technology-tree leverage scores feed a primitive synthesizer; generated code must pass provenance, security, hostile tests and exact downstream callability checks.",
+      "falsifier": "Built primitives do not unlock predicted descendants or increase maintenance burden more than their measured reuse value.",
+      "nextProbe": "Select the highest-leverage internal ancestor blocker and build one zero-external-effect prototype under a throwaway branch.",
+      "generatorKey": "software-agents-intelligence::capability-recombination",
+      "moonshotAffinity": [
+        "founder-moonshot-0460",
+        "founder-moonshot-0773",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "MOONSHOT_TREE",
+        "CODE_GENERATION",
+        "HOSTILE_TESTS"
+      ],
+      "novelty": 0.96,
+      "leverage": 0.98,
+      "testability": 0.88,
+      "reversibility": 0.94
+    },
+    {
+      "id": "genesis-candidate-20260922-0017",
+      "title": "Possibility Yield Metric",
+      "hypothesis": "Compute allocation can be optimized for verified increase in reachable options rather than raw token throughput.",
+      "mechanism": "A metric combines validated capability gain, uncertainty reduction, reversibility and downstream dependency unlocks per unit compute.",
+      "falsifier": "The metric has no predictive relationship with later accepted capability gains and performs no better than cost or token count alone.",
+      "nextProbe": "Backtest candidate formulas against historical accepted/rejected UberBond changes and preregister a prospective version.",
+      "generatorKey": "science-discovery::metric-invention",
+      "moonshotAffinity": [
+        "founder-moonshot-0261",
+        "founder-moonshot-0427",
+        "founder-moonshot-0574"
+      ],
+      "substrateNeeds": [
+        "METRIC_LAB",
+        "ECONOMIC_MEMORY",
+        "UBERWATT"
+      ],
+      "novelty": 0.92,
+      "leverage": 0.95,
+      "testability": 0.84,
+      "reversibility": 0.97
+    },
+    {
+      "id": "genesis-candidate-20260922-0018",
+      "title": "Discovery Joules Ledger",
+      "hypothesis": "Local scientific and ideation workloads can be compared by verified discovery progress per measured joule rather than energy-equivalent token estimates.",
+      "mechanism": "UberWatt measured kWh is joined with accepted hypothesis, benchmark and capability outcomes to compute an evidence-bound discovery-energy ratio.",
+      "falsifier": "Outcome attribution is too noisy or the metric rewards trivial micro-results instead of meaningful discovery.",
+      "nextProbe": "Instrument one local worker with external energy measurement and compare several task classes without changing household electrical hardware.",
+      "generatorKey": "science-discovery::metric-invention",
+      "moonshotAffinity": [
+        "founder-moonshot-0123",
+        "founder-moonshot-0261",
+        "founder-moonshot-0409"
+      ],
+      "substrateNeeds": [
+        "UBERWATT",
+        "OUTCOME_LEDGER",
+        "LOCAL_COMPUTE"
+      ],
+      "novelty": 0.9,
+      "leverage": 0.93,
+      "testability": 0.87,
+      "reversibility": 0.98
+    },
+    {
+      "id": "genesis-candidate-20260922-0019",
+      "title": "Counterfactual Founder Twin",
+      "hypothesis": "A bounded digital twin can simulate decision consequences without being granted authority to choose on Mohamed's behalf.",
+      "mechanism": "The twin holds explicit assumptions and uncertainty distributions, runs counterfactual branches and exposes sensitivity to preference changes.",
+      "falsifier": "Its forecasts are poorly calibrated on outcomes with available retrospective data or recommendations change wildly under tiny assumption perturbations.",
+      "nextProbe": "Build a sandbox twin from explicitly supplied non-sensitive variables and score calibration on historical reversible decisions.",
+      "generatorKey": "cognition-reasoning::personal-digital-twin",
+      "moonshotAffinity": [
+        "founder-moonshot-0574",
+        "founder-moonshot-0699",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "COUNTERFACTUAL_ENGINE",
+        "CALIBRATION",
+        "HUMAN_APPROVAL"
+      ],
+      "novelty": 0.91,
+      "leverage": 0.88,
+      "testability": 0.75,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-0020",
+      "title": "Decision Doppelganger Laboratory",
+      "hypothesis": "Multiple alternative decision models can compete as transparent simulated advisers rather than collapsing uncertainty into one recommendation.",
+      "mechanism": "Each adviser embodies a declared objective/assumption set; disagreements trigger evidence collection instead of forced consensus.",
+      "falsifier": "Ensembling does not improve calibration or exposes no useful disagreement compared with a single baseline model.",
+      "nextProbe": "Create three transparent advisers for one reversible low-stakes planning problem and score forecast diversity and calibration.",
+      "generatorKey": "cognition-reasoning::personal-digital-twin",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "MULTI_WORLD_MODEL",
+        "CALIBRATION",
+        "EVIDENCE_SEARCH"
+      ],
+      "novelty": 0.87,
+      "leverage": 0.82,
+      "testability": 0.9,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-0021",
+      "title": "Autonomy Compression Ratio",
+      "hypothesis": "UberBond can measure how much frontier reasoning has been safely compiled downward into deterministic or cheap cognition.",
+      "mechanism": "Track accepted task-equivalent work completed by deterministic/JEV/local layers versus frontier calls, weighted by quality and exception rate.",
+      "falsifier": "The ratio rises while defect rate or hidden frontier intervention also rises, showing the metric is gameable.",
+      "nextProbe": "Replay a fixed task suite while progressively compiling repeated decisions and measure quality-adjusted frontier-token displacement.",
+      "generatorKey": "software-agents-intelligence::metric-invention",
+      "moonshotAffinity": [
+        "founder-moonshot-0261",
+        "founder-moonshot-0460",
+        "founder-moonshot-0699"
+      ],
+      "substrateNeeds": [
+        "JEV_SYSTEM_ONE",
+        "MODEL_ROUTER",
+        "METRIC_LAB"
+      ],
+      "novelty": 0.88,
+      "leverage": 0.97,
+      "testability": 0.94,
+      "reversibility": 0.96
+    },
+    {
+      "id": "genesis-candidate-20260922-0022",
+      "title": "Verified Progress Exchange Rate",
+      "hypothesis": "Every compute supplier can be priced in a common unit of accepted verified progress per dollar, kWh and founder minute.",
+      "mechanism": "Normalize task outcomes into evidence-backed acceptance units and estimate marginal progress rates for local models, APIs and deterministic code.",
+      "falsifier": "The common unit fails stability tests across task classes or induces routing choices that lower real acceptance.",
+      "nextProbe": "Construct a held-out mixed workload and compare routing by progress exchange rate against token-cost and intelligence-score baselines.",
+      "generatorKey": "software-agents-intelligence::metric-invention",
+      "moonshotAffinity": [
+        "founder-moonshot-0261",
+        "founder-moonshot-0427",
+        "founder-moonshot-0460"
+      ],
+      "substrateNeeds": [
+        "MODEL_MARKET",
+        "UBERWATT",
+        "ECONOMIC_MEMORY"
+      ],
+      "novelty": 0.89,
+      "leverage": 0.96,
+      "testability": 0.86,
+      "reversibility": 0.95
+    },
+    {
+      "id": "genesis-candidate-20260922-0023",
+      "title": "Centennial Option Preserver",
+      "hypothesis": "Long-horizon technology choices can be screened for irreversible lock-in that destroys future capability paths.",
+      "mechanism": "A horizon scanner maps dependencies, switching costs and option loss, then adds an explicit reversibility penalty before major architecture commitments.",
+      "falsifier": "The penalty consistently blocks beneficial commitments without predicting meaningful future lock-in risk.",
+      "nextProbe": "Backtest on historical technology choices with known migration outcomes and compare against cost-only selection.",
+      "generatorKey": "science-discovery::intergenerational-thinking",
+      "moonshotAffinity": [
+        "founder-moonshot-0699",
+        "founder-moonshot-0773",
+        "founder-moonshot-0890"
+      ],
+      "substrateNeeds": [
+        "OPTION_ENGINE",
+        "TECHNOLOGY_TREE",
+        "COUNTERFACTUAL_SIMULATION"
+      ],
+      "novelty": 0.9,
+      "leverage": 0.86,
+      "testability": 0.84,
+      "reversibility": 0.99
+    },
+    {
+      "id": "genesis-candidate-20260922-0024",
+      "title": "Future-Ancestor Research Portfolio",
+      "hypothesis": "Research can be selected partly by the number and diversity of future capabilities it could become an ancestor of.",
+      "mechanism": "Technology-tree simulations estimate downstream descendant unlocks under uncertainty, while a portfolio constraint prevents one speculative lineage from consuming the budget.",
+      "falsifier": "Predicted ancestor leverage does not correlate with later realized descendant reuse or crowds out nearer evidence-backed work.",
+      "nextProbe": "Backtest ancestor-leverage scores on existing UberBond primitives and then run a small shadow allocation portfolio.",
+      "generatorKey": "science-discovery::intergenerational-thinking",
+      "moonshotAffinity": [
+        "founder-moonshot-0428",
+        "founder-moonshot-0574",
+        "founder-moonshot-0773"
+      ],
+      "substrateNeeds": [
+        "MOONSHOT_TREE",
+        "PORTFOLIO_OPTIMIZER",
+        "SIMULATION"
+      ],
+      "novelty": 0.93,
+      "leverage": 0.94,
+      "testability": 0.87,
+      "reversibility": 0.98
+    }
+  ],
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "THIS NURSERY CONTAINS GENERATED HYPOTHESES WITH FALSIFIERS AND PROBES. IT IS NOT PROOF OF DISCOVERY, FEASIBILITY, IMPLEMENTATION, MARKET VALUE OR EXTERNAL EFFECT."
+}

@@ -1,14 +1,30 @@
 {
   "schemaVersion": "uberbond-perpetual-frontier-genesis-1.1.0",
-  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_AND_MILLION_BRANCH_IDEATION",
-  "generatedAt": "2026-09-10T20:30:00+03:00",
+  "status": "CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY",
+  "generatedAt": "2026-09-22T13:42:00Z",
   "canonicalDoc": "docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
   "ideaCount": 275,
   "ideaRanges": [
-    {"start": 1, "end": 30, "label": "open-ended economic imagination and meta-improvement"},
-    {"start": 31, "end": 75, "label": "science-to-market, economic dark matter and company evolution"},
-    {"start": 76, "end": 175, "label": "sensors, cognition, market physics, simulations, agent economies and resilience"},
-    {"start": 176, "end": 275, "label": "reality theory, measurement, institution compilers, founder freedom and ontogenesis"}
+    {
+      "start": 1,
+      "end": 30,
+      "label": "open-ended economic imagination and meta-improvement"
+    },
+    {
+      "start": 31,
+      "end": 75,
+      "label": "science-to-market, economic dark matter and company evolution"
+    },
+    {
+      "start": 76,
+      "end": 175,
+      "label": "sensors, cognition, market physics, simulations, agent economies and resilience"
+    },
+    {
+      "start": 176,
+      "end": 275,
+      "label": "reality theory, measurement, institution compilers, founder freedom and ontogenesis"
+    }
   ],
   "frontierMechanisms": [
     "Zero-Day Frontier Radar",
@@ -92,7 +108,8 @@
       "npm run genesis:doctor",
       "npm run test:genesis",
       "npm run genesis:tick",
-      "npm run frontier:tick"
+      "npm run frontier:tick",
+      "npm run genesis:idea-burst:doctor"
     ],
     "capabilities": [
       "registry validation",
@@ -105,7 +122,23 @@
       "hourly public-frontier sensing to GENESIS receipt path when the GitHub Actions runner actually executes",
       "deterministic 20 x 50 million-branch ideation genome",
       "bounded context-specific generator activation",
-      "recursive idea search-space projection without synthetic execution claims"
+      "recursive idea search-space projection without synthetic execution claims",
+      "evidence-bound live idea nursery with generator lineage, falsifiers, probes and immutable 890-source preservation"
     ]
+  },
+  "liveIdeaNursery": {
+    "status": "ACTIVE_ON_DEMAND_EVIDENCE_BOUND",
+    "activationConfig": "config/genesis-live-activation.json",
+    "compiler": "src/genesis-idea-burst.mjs",
+    "doctor": "scripts/genesis-idea-burst-doctor.mjs",
+    "artifact": "artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json",
+    "firstSignalId": "mimo-v2.6-2026-09-22",
+    "selectedGeneratorCount": 12,
+    "selectedFirstGenerationCapacity": 600,
+    "materializedCandidateCount": 24,
+    "originalFounderMoonshotCorpusMutation": false,
+    "automaticPromotion": false,
+    "persistentSchedulerState": "NOT_PROVEN_ON_A_WORKING_RUNTIME",
+    "truthBoundary": "LIVE_NURSERY_CANDIDATES_ARE_GENERATED_HYPOTHESES_WITH_FALSIFIERS_AND_PROBES_NOT_DISCOVERIES_IMPLEMENTATIONS_MARKET_PROOF_OR_AUTHORITY"
   }
 }

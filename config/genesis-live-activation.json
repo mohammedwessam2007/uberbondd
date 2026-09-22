@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "uberbond.genesis-live-activation.v1",
+  "enabled": true,
+  "activationState": "SOURCE_ACTIVE_RUNTIME_ON_DEMAND",
+  "activationMode": "EVIDENCE_BOUND_SIGNAL_DRIVEN",
+  "nurseryRef": "artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json",
+  "generatorGenome": {
+    "domainCount": 20,
+    "operatorCount": 50,
+    "generatorCount": 1000,
+    "maxGeneratorsPerSignal": 12,
+    "candidateBudgetPerGenerator": 50,
+    "selectedFirstGenerationCapacityPerSignal": 600
+  },
+  "triggers": [
+    "GAMECHANGER_FRONTIER_SIGNAL",
+    "EVIDENCE_BOUND_OWNER_IGNITION",
+    "MODEL_OR_CAPABILITY_RELEASE"
+  ],
+  "candidateState": "GENERATED_HYPOTHESIS",
+  "automaticPromotion": false,
+  "externalEffectAuthority": "NONE",
+  "persistentSchedulerState": "NOT_PROVEN_ON_A_WORKING_RUNTIME",
+  "truthBoundary": "ACTIVE_MEANS_THE_SOURCE_PATH_AND_FIRST_BURST_ARE_EXECUTABLE_AND_VERIFIED_ON_DEMAND; IT_DOES_NOT CLAIM_A_CONTINUOUS_BACKGROUND_RUNNER."
+}

@@ -27,5 +27,13 @@
     "activationAuthority": "NONE"
   },
   "hypothesisGenerallyProven": false,
-  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_SYNTHETIC_HELD_OUT_FIXTURES_DO_NOT_PROVE_REAL_COMPOSITION_SUPERIORITY_OR_ECONOMIC_VALUE."
+  "truthBoundary": "SOURCE_IMPLEMENTATION_AND_SYNTHETIC_HELD_OUT_FIXTURES_DO_NOT_PROVE_REAL_COMPOSITION_SUPERIORITY_OR_ECONOMIC_VALUE.",
+  "focusedVerification": {
+    "executed": true,
+    "passed": 9,
+    "failed": 0,
+    "runner": "local-node-v22.16.0",
+    "capabilityGenomeContract": "capability-genome-runtime-1.0.4",
+    "proofBoundary": "Chimera source exercised against a faithful focused copy of current selectMinimumCapabilityBundle and evaluateBenchmark contracts because sandbox cannot clone GitHub"
+  }
 }

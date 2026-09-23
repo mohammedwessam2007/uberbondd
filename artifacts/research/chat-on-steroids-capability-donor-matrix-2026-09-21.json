@@ -1,0 +1,329 @@
+{
+  "schemaVersion": "uberbond.external-capability-forensic-donor.v1",
+  "recordedAt": "2026-09-21",
+  "donor": {
+    "repository": "totec448-spec/chat-on-steroids",
+    "exactCommit": "7777e517603289696bb5febddb9bbf51cdde9aea",
+    "repositoryReportedSizeKb": 68710,
+    "packageVersion": "2.1.14",
+    "license": "MIT",
+    "classification": [
+      "REFERENCE_ONLY",
+      "CLEAN_ROOM_MECHANISM_DONOR",
+      "OPTIONAL_PROVIDER_ADAPTER_BENCHMARK"
+    ]
+  },
+  "comparison": {
+    "uberBondRepository": "mohammedwessam2007/uberbondd",
+    "uberBondMain": "3940399365b7243b4af62c35955f66b532e5672d"
+  },
+  "auditScope": {
+    "status": "DEEP_TRACKED_SOURCE_FORENSIC_AUDIT__WHOLE_ARCHIVE_BYTE_HASH_CLOSURE_PENDING",
+    "inspectedFamilies": [
+      "root/package/license/config",
+      "src/main",
+      "src/main/session",
+      "src/main/mcp",
+      "src/main/codex",
+      "src/main/computer",
+      "src/main/plugins",
+      "src/main/tunnel",
+      "src/renderer",
+      "src/shared",
+      "src/preload",
+      "extension",
+      "native",
+      "scripts",
+      "test",
+      "docs/release-notes",
+      "docs/worklogs",
+      "security documentation",
+      "live GitHub issues"
+    ],
+    "limitations": [
+      "Current execution environment could not materialize the complete upstream Git archive for an independent whole-tree SHA-256 pass.",
+      "GitHub code-search directory enumeration is capped; capped families are recorded as 100+ rather than an invented exact count.",
+      "Open issue reports are evidence candidates, not automatically confirmed universal defects."
+    ]
+  },
+  "capabilityDonors": [
+    {
+      "id": "cos.session.transactional-rebind",
+      "priority": "P0",
+      "upstream": [
+        "src/main/session/continuation.ts",
+        "src/main/session/handoff.ts",
+        "src/main/session/resume-gate.ts"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_MECHANISM",
+      "atoms": [
+        "durable-local-session",
+        "provider-conversation-binding",
+        "single-claim-continuation",
+        "preflight-freeze",
+        "durable-rebind",
+        "publish-after-durable",
+        "abort-keeps-source-authoritative"
+      ]
+    },
+    {
+      "id": "cos.send.semantic-checkpoints",
+      "priority": "P0",
+      "upstream": [
+        "src/main/session/continuation.ts",
+        "extension/background.js"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_MECHANISM",
+      "atoms": [
+        "not-attempted",
+        "attempted-unresolved",
+        "dispatched-unresolved",
+        "sent",
+        "never-auto-replay-ambiguous-dispatch",
+        "durable-ack-custody"
+      ]
+    },
+    {
+      "id": "cos.request.exact-correlation",
+      "priority": "P0",
+      "upstream": [
+        "src/main/session/correlation.ts",
+        "src/main/mcp/inbound.ts"
+      ],
+      "uberBondState": "MISSING_OR_PARTIAL",
+      "action": "INTERNALIZE_MECHANISM",
+      "atoms": [
+        "x-request-id-normalization",
+        "page-request-id-proof",
+        "conversation-binding",
+        "session-epoch-binding",
+        "first-proof-wins",
+        "late-proof",
+        "conflicting-claim-refusal"
+      ]
+    },
+    {
+      "id": "cos.browser.document-epochs",
+      "priority": "P0",
+      "upstream": [
+        "extension/background.js",
+        "extension/content.js",
+        "extension/fiber.js"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_BEHIND_PROVIDER_ADAPTER",
+      "atoms": [
+        "tab-conversation-map",
+        "browser-document-id",
+        "spa-navigation-epoch",
+        "terminal-document-lease",
+        "durable-command-ack-outbox"
+      ]
+    },
+    {
+      "id": "cos.workspace.chat-ownership",
+      "priority": "P1",
+      "upstream": [
+        "src/main/workspace.ts"
+      ],
+      "uberBondState": "MISSING_OR_PARTIAL",
+      "action": "INTERNALIZE_MECHANISM",
+      "atoms": [
+        "chat-scoped-workspace",
+        "request-scoped-provisional-workspace",
+        "project-marker-bounded-walk",
+        "continuation-workspace-transfer"
+      ]
+    },
+    {
+      "id": "cos.workers.sleep-wake",
+      "priority": "P1",
+      "upstream": [
+        "src/main/agents.ts"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "MERGE_WITH_EXISTING_AGENT_MESH",
+      "atoms": [
+        "prime-owned-family",
+        "run-incarnation",
+        "exact-conversation-worker-identity",
+        "sleep-with-history",
+        "bounded-wake",
+        "durable-critical-mutation-barrier"
+      ]
+    },
+    {
+      "id": "cos.mcp.surface-separation",
+      "priority": "P1",
+      "upstream": [
+        "src/main/mcp/surfaces.ts",
+        "src/main/mcp/kernel.ts"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_MECHANISM",
+      "atoms": [
+        "core-surface",
+        "desktop-surface",
+        "plugins-surface",
+        "live-permission-recheck",
+        "monotonic-exposed-schema",
+        "tool-disabled-not-unknown"
+      ]
+    },
+    {
+      "id": "cos.code.bounded-composition",
+      "priority": "P1",
+      "upstream": [
+        "src/main/mcp/code-mode-runtime.ts",
+        "src/main/mcp/code-mode-worker.ts"
+      ],
+      "uberBondState": "MISSING_OR_PARTIAL",
+      "action": "BENCHMARK_AND_INTERNALIZE_PATTERN",
+      "atoms": [
+        "fresh-interpreter",
+        "surface-tool-allowlist",
+        "cpu-wall-call-concurrency-bounds",
+        "result-output-bounds",
+        "unemitted-private",
+        "no-side-effect-rollback-fiction"
+      ]
+    },
+    {
+      "id": "cos.plugins.generation-rollback",
+      "priority": "P1",
+      "upstream": [
+        "src/main/plugins/manager.ts",
+        "src/main/plugins/exposure.ts",
+        "src/main/plugins/oauth.ts"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "MERGE_WITH_CAPABILITY_ASSIMILATION",
+      "atoms": [
+        "install-generation",
+        "failed-update-rollback",
+        "tool-name-conflict-refusal",
+        "disabled-name-reservation",
+        "schema-byte-budget",
+        "secure-credential-separation",
+        "endpoint-bound-oauth"
+      ]
+    },
+    {
+      "id": "cos.desktop.frame-authority",
+      "priority": "P2",
+      "upstream": [
+        "src/main/computer/index.ts",
+        "src/main/computer/helper.ts",
+        "native/macos-desktop-helper/main.swift",
+        "native/macos-desktop-addon/addon.cc"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_PROVIDER_NEUTRAL_PATTERN",
+      "atoms": [
+        "frame-id",
+        "snapshot-ui-ref",
+        "helper-generation",
+        "geometry-revalidation",
+        "serialized-input",
+        "partial-completion-receipt"
+      ]
+    },
+    {
+      "id": "cos.privacy.release-gates",
+      "priority": "P1",
+      "upstream": [
+        "docs/public-history-privacy-incident-2026-08-24.md",
+        "scripts/verify-public-history.mjs",
+        ".githooks"
+      ],
+      "uberBondState": "PARTIAL",
+      "action": "INTERNALIZE_PREVENTION_STACK",
+      "atoms": [
+        "noreply-identity",
+        "session-url-block",
+        "private-path-block",
+        "authoring-gate",
+        "ci-gate",
+        "release-gate"
+      ]
+    },
+    {
+      "id": "cos.evidence.error-rate-audit",
+      "priority": "P2",
+      "upstream": [
+        "docs/tool-error-rate-2026-08-23.md"
+      ],
+      "uberBondState": "CONCEPT_PRESENT",
+      "action": "ADOPT_METHOD",
+      "atoms": [
+        "frozen-denominator",
+        "mechanistic-fix-eligibility",
+        "no-projected-fix-inflation",
+        "tool-specific-failure-strata"
+      ]
+    }
+  ],
+  "rejectOrIsolate": [
+    {
+      "pattern": "broad-shell-as-logged-in-os-user",
+      "reason": "Capability is too broad for UberBond authority defaults; must sit below OMNIA and mission-scoped effect policy."
+    },
+    {
+      "pattern": "provider-private-dom-fiber-in-sovereign-core",
+      "reason": "Provider UI internals are brittle and must remain replaceable adapter code."
+    },
+    {
+      "pattern": "broad-browser-debugger-host-permissions-by-default",
+      "reason": "Only grant when mission-required and explicitly bounded."
+    },
+    {
+      "pattern": "detailed-local-history-unencrypted-as-universal-default",
+      "reason": "Data-minimization/privacy risk."
+    },
+    {
+      "pattern": "approved-root-described-as-kernel-sandbox",
+      "reason": "Upstream correctly documents that it is an application boundary, not OS isolation."
+    },
+    {
+      "pattern": "provider-safety-bypass",
+      "reason": "Neither donor capability nor UberBond authority permits routing around provider safety/access restrictions."
+    }
+  ],
+  "preserveExisting": [
+    "UberBond capability-authority separation",
+    "attenuation-only delegation",
+    "recursive revocation",
+    "OMNIA external-effect gates",
+    "SAFE_RETRY / UNCERTAIN / QUARANTINE recovery semantics",
+    "UberSocket encrypted ChatGPT peer coordination",
+    "GitHub proof-carrying agent relay",
+    "repository-native Total Brain and continuity canon",
+    "capability assimilation canon",
+    "deployment/payment/customer/economic truth boundaries"
+  ],
+  "proposedSynthesis": [
+    "UBERBOND_CONSTITUTION",
+    "SCC_SESSION_KERNEL",
+    "REPLACEABLE_PROVIDER_ADAPTERS",
+    "CAPABILITY_SURFACES",
+    "DURABLE_OUTBOX_ACK_UNCERTAINTY_LEDGER",
+    "WORKER_FAMILY_SLEEP_WAKE",
+    "UBERSOCKET",
+    "PROOF_CARRYING_JOB_RELAY",
+    "OMNIA_EFFECT_GATES",
+    "REAL_WORLD_ACTION"
+  ],
+  "byteCompletionGate": [
+    "enumerate complete pinned Git tree",
+    "record every blob SHA/path/mode",
+    "materialize every tracked blob",
+    "compute independent SHA-256 for every blob",
+    "classify submodule/LFS/binary/generated/vendor artifacts",
+    "reconcile manifest against root tree",
+    "store final manifest and aggregate digest in UberBond",
+    "rerun donor diff from complete corpus"
+  ],
+  "externalEffectsAuthorized": false
+}

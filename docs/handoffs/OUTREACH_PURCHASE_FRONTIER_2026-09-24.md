@@ -18,6 +18,15 @@ This additive checkpoint updates the September 20 activation frontier. It does n
 - The cart advanced to login/registration, where no authenticated Netcup account was observed. No order was submitted, no payment was made, and no server exists on this evidence.
 - Netcup's current official firewall documentation says its default Mail block prevents SMTP and gives an owner action to remove that firewall policy. This is documentation, not physical proof of outbound TCP/25, PTR control, suitable IP history or policy acceptance on an assigned instance.
 
+
+## Recovered higher-ticket commercial lineage
+
+The Library research artifact `UberBond Proven Business Genome and Combination Engine.pdf` (2026-08-05) preserves a wider near-term catalog. Its price hypotheses include Agency Revenue Assurance Portfolio Pilot USD 1,000–2,000; White-Label Evidence Report Backend Starter USD 1,500–3,000/month; MSP AI Workflow Reliability Diagnostic USD 1,500–4,000; Arabic-English Website and AI QA Pilot USD 1,200–3,000; CRM Lead-Routing Reconciliation Diagnostic USD 1,000–3,000; Payment/Webhook Evidence Reconciliation Diagnostic USD 1,000–4,000. The same report selected three immediate pilot lanes: agency assurance USD 1,000–2,000, white-label AI workflow reliability USD 1,500–4,000 and Arabic-English revenue/AI QA USD 1,200–3,000. These are historical offer and price hypotheses, not proof of four later founder-approved offers or buyer acceptance. Preserve the wider catalog and do not silently substitute the four current lower-price launch SKUs for it.
+
+## Cost boundary
+
+One Netcup server, the already-owned domains and community mail software could cover the *cash infrastructure floor* for an initial small canary if the account-specific order, server SMTP/PTR and provider policy physically pass, and usable recipient/identity/suppression evidence is supplied. This is not a guarantee of zero later spend. The longer-horizon 100,000/month research model required more sender domains and two mail cells plus a separate verifier; its quantities were capacity hypotheses, not receiver limits. Domain portfolio ownership (30 total) does not prove enough healthy domains or one-IP reputation for that target. A paid mailbox SaaS, sequencer, AI subscription or lead database is not a mandatory first-canary purchase on current evidence, but actual data quality, postal-address privacy choices, payment processing, replacement infrastructure and renewals can create later costs.
+
 ## Next external boundary
 
 The founder must authenticate or register with Netcup and review the account-specific final order amount and terms. Final financial submission belongs to the founder. Only after a real server and IP are assigned can UberBond test PTR↔A, outbound TCP/25 and STARTTLS, deploy the owned mail runtime, derive exact SPF/DKIM/MX/DMARC records, publish DNS, test replies/bounces/suppression and run a small authorized canary. Do not buy more domains based on this checkpoint. Do not infer 100,000 monthly sending capacity or USD 100,000 monthly revenue from a purchased VPS.

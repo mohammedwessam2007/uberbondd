@@ -6,8 +6,11 @@ import {
   revokeConsentReceipt,
   consentRelationshipFor,
   verifyConsentReceiptIntegrity,
+  attentionPermitFromConsent,
+  evaluateConsentBackedAttention,
   CONSENT_WORDINGS
 } from '../src/consent-receipt.mjs';
+import { evaluateAttentionRequest } from '../src/uberattention-protocol.mjs';
 import { compileRecipientEligibility } from '../src/uberoutbound-recipient-eligibility.mjs';
 import { compileUberPostalIdentity } from '../src/uberpostal-identity.mjs';
 
@@ -149,4 +152,47 @@ test('the public intake stores a sealed consent receipt beside the legacy boolea
   } finally {
     await fs.rm(dir, { recursive: true, force: true });
   }
+});
+
+const attentionRequest = purpose => ({ requestId: 'req_1', purpose, evidenceRefs: ['audit:lead_1'], senderIdentityVerified: true });
+
+test('a consent receipt is the evidence behind an UberAttention permit, for exactly the purposes it covers', () => {
+  const receipt = intake().receipt;
+  const derived = attentionPermitFromConsent({ receipts: [receipt], recipientEmail: 'owner@agency.example', now: hours(1) });
+  assert.equal(derived.ok, true);
+  assert.deepEqual(derived.grantedPurposes, ['REPORT_DELIVERY']);
+  assert.deepEqual(derived.permit.acceptedPurposes, ['REPORT_DELIVERY']);
+  assert.match(derived.permit.authorizationEvidenceRef, new RegExp(`^consent-receipt:${receipt.receiptId}#`));
+  assert.equal(JSON.stringify(derived.permit).includes('agency.example'), false, 'the permit names a subject digest, not the address');
+  assert.ok(derived.refusedPurposes.MARKETING_EMAIL.includes('consent-does-not-cover-marketing_email'));
+  assert.equal(derived.permit.expiresAt, new Date(hours(1).getTime() + 30 * 86400000).toISOString());
+
+  const report = evaluateConsentBackedAttention({ receipts: [receipt], recipientEmail: 'owner@agency.example', request: attentionRequest('REPORT_DELIVERY'), now: hours(2) });
+  assert.equal(report.state, 'RECIPIENT_PERMIT_MATCHED');
+  assert.equal(report.automaticDeliveryAuthority, false);
+  const pitch = evaluateConsentBackedAttention({ receipts: [receipt], recipientEmail: 'owner@agency.example', request: attentionRequest('MARKETING_EMAIL'), now: hours(2) });
+  assert.equal(pitch.state, 'REFUSED');
+  assert.ok(pitch.consentReasons.includes('consent-does-not-cover-marketing_email'));
+});
+
+test('a withdrawal made after a permit was issued still refuses the next request', () => {
+  const receipt = intake().receipt;
+  const issued = attentionPermitFromConsent({ receipts: [receipt], recipientEmail: 'owner@agency.example', now: hours(1) });
+  const revoked = revokeConsentReceipt({ receipt, now: hours(3) }).receipt;
+  assert.equal(evaluateAttentionRequest({ permit: issued.permitInput, request: attentionRequest('REPORT_DELIVERY'), now: hours(4) }).state, 'RECIPIENT_PERMIT_MATCHED', 'a stored permit alone cannot see the withdrawal');
+  const decision = evaluateConsentBackedAttention({ receipts: [receipt, revoked], recipientEmail: 'owner@agency.example', request: attentionRequest('REPORT_DELIVERY'), now: hours(4) });
+  assert.equal(decision.state, 'REFUSED');
+  assert.ok(decision.consentReasons.includes('consent-revoked-for-this-purpose'));
+});
+
+test('unconfirmed, tampered or foreign consent never yields a permit', () => {
+  const pending = marketing().receipt;
+  const none = attentionPermitFromConsent({ receipts: [pending], recipientEmail: 'owner@agency.example', purposes: ['MARKETING_EMAIL'], now: hours(1) });
+  assert.equal(none.ok, false);
+  assert.ok(none.permit.reasonCodes.includes('recipient-authorization-required'));
+  assert.ok(none.refusedPurposes.MARKETING_EMAIL.includes('consent-awaiting-double-opt-in-confirmation'));
+  const tampered = { ...intake().receipt, purposes: ['REPORT_DELIVERY', 'MARKETING_EMAIL'] };
+  assert.equal(attentionPermitFromConsent({ receipts: [tampered], recipientEmail: 'owner@agency.example', purposes: ['MARKETING_EMAIL'], now: hours(1) }).ok, false);
+  assert.equal(attentionPermitFromConsent({ receipts: [intake().receipt], recipientEmail: 'someone@else.example', now: hours(1) }).ok, false);
+  assert.deepEqual(attentionPermitFromConsent({ receipts: [intake().receipt], recipientEmail: 'owner@agency.example', validDays: 365, now: hours(1) }).reasonCodes, ['permit-validity-1-to-90-days-required']);
 });

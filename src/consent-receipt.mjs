@@ -11,9 +11,16 @@
 // the relationship and evidence reference that engine accepts, and refuses
 // when the purpose is not covered, the subject differs, the receipt was
 // revoked or tampered with, or marketing consent was never confirmed.
+//
+// They are also the evidence behind UberAttention permits, so UberBond has one
+// permission system rather than two: attentionPermitFromConsent() turns the
+// usable receipts for a recipient into a recipient-issued permit, and
+// evaluateConsentBackedAttention() re-derives that permit at the moment of use,
+// so a withdrawal made after a permit was issued still wins.
 
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { issueRecipientAttentionPermit, evaluateAttentionRequest } from './uberattention-protocol.mjs';
 
 export const CONSENT_RECEIPT_VERSION = 'uberbond.consent-receipt.v1';
 export const CONSENT_PURPOSES = Object.freeze(['REPORT_DELIVERY', 'SERVICE_FOLLOW_UP', 'MARKETING_EMAIL']);
@@ -173,6 +180,52 @@ export function consentRelationshipFor({ receipts = [], recipientEmail, purpose,
     relationship: best.relationship,
     relationshipEvidenceRef: `${best.receiptId}#${best.receiptDigest.slice(0, 16)}`,
     receiptId: best.receiptId,
+    externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
+  };
+}
+
+export const CONSENT_PERMIT_MAX_DAYS = 90;
+
+export function attentionPermitFromConsent({ receipts = [], recipientEmail, purposes = CONSENT_PURPOSES, maxMessages = 1, validDays = 30, now = new Date(), maxAgeDays = DEFAULT_MAX_CONSENT_AGE_DAYS } = {}) {
+  const at = new Date(now);
+  const days = Math.floor(Number(validDays));
+  if (!(days >= 1 && days <= CONSENT_PERMIT_MAX_DAYS)) return refuse([`permit-validity-1-to-${CONSENT_PERMIT_MAX_DAYS}-days-required`]);
+  const wanted = [...new Set((Array.isArray(purposes) ? purposes : []).map(p => clean(p, 40).toUpperCase()))];
+  if (!wanted.length || wanted.some(p => !CONSENT_PURPOSES.includes(p))) return refuse(['known-consent-purpose-required']);
+  const byPurpose = Object.fromEntries(wanted.map(purpose => [purpose, consentRelationshipFor({ receipts, recipientEmail, purpose, now: at, maxAgeDays })]));
+  const granted = wanted.filter(p => byPurpose[p].ok);
+  const evidenceRefs = [...new Set(granted.map(p => byPurpose[p].relationshipEvidenceRef))].sort();
+  const subjectDigest = sha256(email(recipientEmail));
+  const permitInput = {
+    permitId: `consent:${sha256([subjectDigest, ...evidenceRefs, ...granted].join('|')).slice(0, 32)}`,
+    recipientId: `subject:${subjectDigest}`,
+    recipientAuthorized: granted.length > 0,
+    authorizationEvidenceRef: evidenceRefs.map(ref => `consent-receipt:${ref}`).join(','),
+    acceptedPurposes: granted,
+    maxMessages,
+    expiresAt: new Date(at.getTime() + days * 86400000).toISOString()
+  };
+  const permit = issueRecipientAttentionPermit(permitInput, { now: at });
+  const consentReasons = Object.fromEntries(wanted.filter(p => !byPurpose[p].ok).map(p => [p, byPurpose[p].reasonCodes]));
+  return {
+    ok: permit.valid,
+    version: CONSENT_RECEIPT_VERSION,
+    permit,
+    permitInput,
+    grantedPurposes: granted,
+    refusedPurposes: consentReasons,
+    externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
+  };
+}
+
+export function evaluateConsentBackedAttention({ receipts = [], recipientEmail, request = {}, now = new Date(), maxAgeDays } = {}) {
+  const purpose = clean(request.purpose, 40).toUpperCase();
+  const derived = attentionPermitFromConsent({ receipts, recipientEmail, purposes: CONSENT_PURPOSES.includes(purpose) ? [purpose] : CONSENT_PURPOSES, now, maxAgeDays });
+  const decision = evaluateAttentionRequest({ permit: derived.permitInput || {}, request: { ...request, purpose }, now });
+  return {
+    ...decision,
+    consentCheckedAt: new Date(now).toISOString(),
+    consentReasons: derived.refusedPurposes?.[purpose] || derived.reasonCodes || [],
     externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
   };
 }

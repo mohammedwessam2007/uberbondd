@@ -62,7 +62,7 @@ Proof that it changes outcomes, as tested:
 |---|---|---|---|
 | **Hand-out cards** (Track A) | **$0** (home printer) | Live audit page, launch facts, invitation secret | Businesses you can visit; ~15 founder minutes each (router estimate) |
 | Posted letters | Postage per letter (`--postage-cents`) | The above, plus a counsel confirmation if you send from EG/SA/AE | US/GB/CA/AU businesses |
-| Owned mail cell (Track B) | **€29.52** (Netcup VPS Lite, 6-month minimum at the observed €4.92/month, 0% VAT display; account total unobserved) | Terms check, PTR, port 25, DNS credential | Tens of recipients in month 1 (modeled) |
+| Owned mail cell (Track B, **paused**: Netcup prohibits bulk mailing) | **€29.52** (Netcup VPS Lite, 6-month minimum at the observed €4.92/month, 0% VAT display; account total unobserved) | Terms check, PTR, port 25, DNS credential | Tens of recipients in month 1 (modeled) |
 | Payment rail | $0 upfront. Lemon Squeezy checkout links are already reconciled by `api/webhooks/billing.mjs`; a fee per sale | A checkout URL in `FULL_AUDIT_CHECKOUT_URL` (founder account) | Deferred until the first "yes" |
 
 Nothing else is a mandatory purchase: no mailbox SaaS, sequencer, lead database or AI subscription.
@@ -211,7 +211,7 @@ Run `npm run outreach:launch-facts` until it prints `LAUNCH_FACTS_COMPLETE`.
 **If you send from Egypt:** the engine will hold every cold recipient until a lawyer confirms how PDPL Articles 17–18 treat B2B email. Say so, and the first-cash route shifts to opt-in and inbound channels instead of cold email.
 
 **A3. Print and hand out 10 cards** (~1 hour including the visits, $0).
-- **Put this branch live first.** The code capture and the new follow-up box are on this branch, not on `main`. Say "open the PR" and I'll open it; once it merges and Render redeploys, confirm `https://uberbond-control-plane.onrender.com/` shows two boxes. (This sandbox can't reach Render, and the connected Vercel team has no projects, so I couldn't check it.)
+- **Confirm the site is live.** PR #1002 merged into `main` as `c922b43` on 2026-09-25. Once Render redeploys, `https://uberbond-control-plane.onrender.com/?code=ABCD-EFGH-JKMN` should show the pre-filled code field and the optional follow-up box. (This sandbox can't reach Render, so it wasn't checked from here.)
 - **List the businesses** in `~/.uberbond/bridge-prospects.json`: `[{ "company": "...", "website": "https://...", "jurisdiction": "EG" }, ...]`. Up to 50; the file never enters git.
 - **Print:** `UBERBOND_INVITATION_SECRET=<32+ random characters, keep them> npm run outreach:bridge-letters -- --site https://uberbond-control-plane.onrender.com`. It skips any business whose pages show nothing verifiable and writes `in_person-cards.html` plus `invitations.json` under `~/.uberbond/bridge/<date>/`.
 - **Hand each card over in person** to the business. Handing it over by email or social message would make it an electronic message, and the email rules apply. For posted letters, add `--channel POSTAL_LETTER --postage-cents <cost>`; from EG/SA/AE the router also needs `--counsel-ref <your lawyer's confirmation>`.
@@ -219,7 +219,9 @@ Run `npm run outreach:launch-facts` until it prints `LAUNCH_FACTS_COMPLETE`.
 
 ### Track B: the cold-email machine (queued)
 
-**B1. Netcup: check the terms, then buy the server** (~25 min, €29.52 per 6 months plus any tax on the account-specific total)
+**B1 is paused: don't buy Netcup for outreach.** On 2026-09-25 a ChatGPT agent read Netcup's terms: "The following activities are expressly prohibited: 'Bulk mailing'". Its abuse guidance adds that spam sent through a customer application is stopped. The terms don't settle whether a few individually addressed B2B emails with an opt-out are allowed. An Egypt-based sender holds every cold recipient anyway, so a server bought for cold email now would sit idle. Track B resumes only when both change: a host whose terms explicitly permit this, and a sender jurisdiction or legal confirmation that lets cold recipients pass. Consented follow-up needs no dedicated server yet. The original steps are kept below for when that happens.
+
+**B1 (original, on hold). Netcup: check the terms, then buy the server** (~25 min, €29.52 per 6 months plus any tax on the account-specific total)
 
 a. Open https://www.netcup.com/en/terms-and-conditions and search the page for "spam", "advertis" and "E-Mail". If it forbids unsolicited advertising email, **stop and don't buy**; tell UberBond and the transport switches. If it allows individually addressed B2B email with an opt-out, continue.
 

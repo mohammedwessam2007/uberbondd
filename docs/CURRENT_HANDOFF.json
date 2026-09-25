@@ -403,7 +403,7 @@
           "3. Fill ~/.uberbond/launch-facts.json (legal name, postal address, sender jurisdiction, reply-to, offer lineage, canary authorization) until LAUNCH_FACTS_COMPLETE."
       ],
       "genuineBlockers": [
-          "netcup-terms-unverified",
+          "netcup-terms-prohibit-bulk-mailing-track-b-paused",
           "server-not-purchased",
           "ptr-and-port25-unobserved",
           "dns-credential-absent",
@@ -446,6 +446,13 @@
             },
             "observations": { "vercelTeamProjects": 0, "renderAuditPageReachableFromSandbox": false },
             "externalEffects": "0 messages, 0 DNS changes, 0 purchases, 0 deployments; one read-only Vercel project listing"
+        },
+        "round4": {
+            "merged": "PR #1002 merged into main as c922b43 on exact-head evidence for a3978c7: 8137 tests, 8081 pass, 2 known corpus failures, syntax 2365 files, browser 3/3. GitHub Actions jobs were zero-step runner failures (as on every main run since 2026-09-20); the Vercel build passes all test steps and stops at terminal-realization, which refuses identically on main.",
+            "netcupTerms": "ChatGPT agent, 2026-09-25: Netcup T&Cs expressly prohibit 'Bulk mailing'; abuse guidance stops spam from customer applications. Verdict UNCLEAR for individually addressed B2B email; Track B paused, no purchase.",
+            "launchFacts": "Prepared outside git by the ChatGPT agent (Egypt, Giza, Sheikh Zayed City); incomplete only on offer choice and canary items, which the card path does not need.",
+            "transcript": "Original moonshot transcript not found in ChatGPT history; the 2 corpus tests stay red until the founder supplies the 189,166-byte file.",
+            "renderRedeploy": "UNVERIFIED from sandbox"
         }
   }
 }

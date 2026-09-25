@@ -1,0 +1,574 @@
+{
+  "ok": true,
+  "policyVersion": "wallbreaker-1.1.1",
+  "status": "CANDIDATE_SELECTED",
+  "problem": {
+    "ok": true,
+    "policyVersion": "wallbreaker-1.1.1",
+    "problemId": "wall_254f40cd9167117582245b53",
+    "problem": {
+      "objective": "Obtain UberBond’s first lawful cleared payment from outreach",
+      "successCriteria": [
+        "one cleared payment with provider-origin evidence",
+        "every contact lawful under compiled eligibility or a consent receipt"
+      ],
+      "hardConstraints": [
+        "no unsolicited email without PASSED eligibility",
+        "no provider-terms evasion",
+        "no fabricated consent or evidence"
+      ],
+      "assumptions": [
+        "cold email is the only acquisition channel"
+      ],
+      "unknowns": [
+        "Netcup terms on unsolicited advertising email",
+        "sender jurisdiction",
+        "conversion of any channel",
+        "which price lineage the founder chooses"
+      ],
+      "requiredCapabilities": [
+        "consent-creation",
+        "lawful-routing",
+        "evidence-of-value"
+      ],
+      "requiredCapabilityAtomIds": [],
+      "ownerReservedAuthority": [
+        "spend",
+        "deploy",
+        "send",
+        "dns-change",
+        "legal-attestation"
+      ],
+      "riskBudget": 5,
+      "maxSpendCents": 0,
+      "maxFounderMinutes": 60,
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+        "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+        "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+        "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+        "artifacts/outreach/fleet-dns-observation-2026-09-25.json",
+        "UBERBOND_NIGHT_WAR_FINAL.md"
+      ]
+    },
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "candidateCount": 8,
+  "eligibleCount": 5,
+  "familyCount": 5,
+  "selected": {
+    "candidate": {
+      "id": "own-domain-proof",
+      "family": "SELF_CASE_STUDY",
+      "mechanism": "Fix the observed uberbond.cloud parking leak and keep before/after receipts as proof",
+      "requiredCapabilities": [],
+      "requiredCapabilityAtomIds": [],
+      "assumptions": [],
+      "constraintViolations": [],
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+        "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+        "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+        "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+      ],
+      "reversible": true,
+      "successProbability": 0,
+      "expectedContributionCents": 0,
+      "costCents": 0,
+      "founderMinutes": 1,
+      "risk": 0,
+      "evidenceStrength": 7,
+      "novelty": 5,
+      "robustness": 7,
+      "signature": "c94782dd0c9190e97f7a4f65e115a069"
+    },
+    "eligible": true,
+    "score": 52,
+    "netExpectedContributionCents": 0,
+    "reasonCodes": [],
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "fallbacks": [
+    {
+      "candidate": {
+        "id": "offer-decision",
+        "family": "OFFER_TRUTH",
+        "mechanism": "Founder chooses the launch price lineage in the launch-facts file",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 5,
+        "risk": 0,
+        "evidenceStrength": 5,
+        "novelty": 1,
+        "robustness": 8,
+        "signature": "d5abde65d7a8308ceadf630036d02e54"
+      },
+      "eligible": true,
+      "score": 42.5,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "partner-intro",
+        "family": "PARTNER_FIRST_TOUCH",
+        "mechanism": "Ask agencies with existing client relationships to hand out consent-bridge codes",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 30,
+        "risk": 2,
+        "evidenceStrength": 3,
+        "novelty": 6,
+        "robustness": 6,
+        "signature": "f4cae453ad377c6605b664b5565cb02f"
+      },
+      "eligible": true,
+      "score": 39,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "founder-network",
+        "family": "FOUNDER_NETWORK",
+        "mechanism": "Hand codes personally to businesses the founder already knows",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 30,
+        "risk": 1,
+        "evidenceStrength": 4,
+        "novelty": 3,
+        "robustness": 5,
+        "signature": "bd5da65f1afca4d7810e0359b24d2e78"
+      },
+      "eligible": true,
+      "score": 35,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "hiring-signal-research",
+        "family": "SIGNAL_PROSPECTING",
+        "mechanism": "Read public job postings to find companies with the problem, company and website only",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 0,
+        "risk": 1,
+        "evidenceStrength": 2,
+        "novelty": 7,
+        "robustness": 5,
+        "signature": "9fc93a416aec8d26b82398f1b02b697f"
+      },
+      "eligible": true,
+      "score": 35,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "candidate": {
+        "id": "cold-email-canary",
+        "family": "COLD_EMAIL",
+        "mechanism": "Buy the Netcup cell and run a 20-recipient cold canary",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [
+          "cold email is the only acquisition channel"
+        ],
+        "constraintViolations": [],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 2952,
+        "founderMinutes": 40,
+        "risk": 5,
+        "evidenceStrength": 3,
+        "novelty": 2,
+        "robustness": 3,
+        "signature": "81c0c5cf40783840384035d8151c60b6"
+      },
+      "eligible": false,
+      "score": null,
+      "netExpectedContributionCents": -2952,
+      "reasonCodes": [
+        "spend-ceiling-violation",
+        "relies-on-falsified-assumption"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "postal-bridge",
+        "family": "POSTAL_BRIDGE",
+        "mechanism": "Send 20 letters with consent-bridge codes through a print-and-mail supplier",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 3000,
+        "founderMinutes": 10,
+        "risk": 2,
+        "evidenceStrength": 2,
+        "novelty": 8,
+        "robustness": 5,
+        "signature": "5fea056742b990e78310e05aa6fcbe8a"
+      },
+      "eligible": false,
+      "score": null,
+      "netExpectedContributionCents": -3000,
+      "reasonCodes": [
+        "spend-ceiling-violation"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "public-xray-deploy",
+        "family": "INBOUND_SELF_SERVE",
+        "mechanism": "Deploy the public audit funnel with ?code= attribution",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [
+          "authority:deploy-requires-founder"
+        ],
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 5,
+        "risk": 2,
+        "evidenceStrength": 4,
+        "novelty": 4,
+        "robustness": 7,
+        "signature": "85a22be29ac35c403184895e1cc3832d"
+      },
+      "eligible": false,
+      "score": null,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [
+        "authority-boundary-violation"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "failures": [
+    {
+      "ok": true,
+      "policyVersion": "wallbreaker-1.1.1",
+      "failureClass": "WRONG_ASSUMPTION",
+      "candidateId": "cold-email-only",
+      "failedSignature": null,
+      "evidenceRefs": [
+        "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+      ],
+      "invalidatedAssumptions": [
+        "cold email is the only acquisition channel"
+      ],
+      "discoveredConstraints": [
+        "EG/SA/AE sender jurisdiction holds all cold email",
+        "DE/CH/SA recipients reject cold email",
+        "no proven cold-capable transport"
+      ],
+      "missingCapabilities": [],
+      "missingCapabilityAtomIds": [],
+      "safeToRetrySameMechanism": false,
+      "hardStop": false,
+      "countermoveTypes": [
+        "invalidate-assumption",
+        "recompile-problem",
+        "expand-solution-families"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "counterplans": [
+    {
+      "ok": true,
+      "policyVersion": "wallbreaker-1.1.1",
+      "failure": {
+        "ok": true,
+        "policyVersion": "wallbreaker-1.1.1",
+        "failureClass": "WRONG_ASSUMPTION",
+        "candidateId": "cold-email-only",
+        "failedSignature": null,
+        "evidenceRefs": [
+          "https://github.com/mohammedwessam2007/uberbondd/commit/0896398"
+        ],
+        "invalidatedAssumptions": [
+          "cold email is the only acquisition channel"
+        ],
+        "discoveredConstraints": [
+          "EG/SA/AE sender jurisdiction holds all cold email",
+          "DE/CH/SA recipients reject cold email",
+          "no proven cold-capable transport"
+        ],
+        "missingCapabilities": [],
+        "missingCapabilityAtomIds": [],
+        "safeToRetrySameMechanism": false,
+        "hardStop": false,
+        "countermoveTypes": [
+          "invalidate-assumption",
+          "recompile-problem",
+          "expand-solution-families"
+        ],
+        "businessEffectAuthority": "NONE",
+        "externalEffectLedger": {
+          "providerCalls": 0,
+          "messages": 0,
+          "purchases": 0,
+          "deployments": 0,
+          "credentialChanges": 0,
+          "dnsChanges": 0,
+          "productionMutations": 0,
+          "spendCents": 0
+        }
+      },
+      "actions": [
+        {
+          "id": "counter-1",
+          "type": "invalidate-assumption",
+          "priority": 1
+        },
+        {
+          "id": "counter-2",
+          "type": "recompile-problem",
+          "priority": 2
+        },
+        {
+          "id": "counter-3",
+          "type": "expand-solution-families",
+          "priority": 3
+        }
+      ],
+      "capabilityQueries": [],
+      "forbidden": [],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "missingCapabilities": [
+    "consent-creation",
+    "lawful-routing",
+    "evidence-of-value"
+  ],
+  "requiredCapabilityAtomIds": [],
+  "capabilityResolution": {
+    "ok": true,
+    "policyVersion": "wallbreaker-1.1.1",
+    "status": "GENOME_QUERY_NOT_SCOPED",
+    "requiredAtomIds": [],
+    "reasonCodes": [
+      "explicit-capability-atom-ids-required-for-genome-resolution"
+    ],
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "computeTier": "DEEP",
+  "nextSearchInstruction": "Execute only through existing consequence gates; on failure, record evidence and replan instead of blind retry.",
+  "wallbreakerReceiptId": "wbr_7f1b075e00336b0b4835ae53",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  }
+}

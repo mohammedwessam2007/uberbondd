@@ -1,0 +1,374 @@
+{
+  "schemaVersion": "uberbond.genesis-live-nursery.v1",
+  "burstId": "genesis-burst-20260925-outreach-first-cash",
+  "generatedAt": "2026-09-25T02:00:00Z",
+  "signal": {
+    "id": "uberbond-outreach-first-cash-wall-2026-09-25",
+    "summary": "UberBond first-cash outreach wall: no cold-capable email transport is proven, the chosen host terms are unverified, the sender jurisdiction may require consent for electronic marketing, there are zero prospects and zero customer proof, and the payment rail is not live. GENESIS is asked for lawful demand, consent, trust and distribution mechanisms that do not depend on unsolicited email.",
+    "evidenceRefs": [
+      "https://github.com/mohammedwessam2007/uberbondd/commit/b1294fb",
+      "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+      "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+      "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+      "artifacts/outreach/fleet-dns-observation-2026-09-25.json",
+      "UBERBOND_NIGHT_WAR_FINAL.md"
+    ],
+    "observedAt": "2026-09-25T02:00:00Z",
+    "truthClass": "CURRENT_EXACT_SOURCE_SIGNAL"
+  },
+  "affectedDomains": [
+    "wealth-business-capital",
+    "relationships-social-intelligence",
+    "opportunity-world-discovery",
+    "software-agents-intelligence",
+    "sensing-data-reality-capture"
+  ],
+  "activationPolicy": {
+    "maxGenerators": 12,
+    "candidateBudgetPerGenerator": 50
+  },
+  "activatedGeneratorKeys": [
+    "relationships-social-intelligence::scarcity-world",
+    "software-agents-intelligence::intergenerational-thinking",
+    "relationships-social-intelligence::friction-collapse",
+    "software-agents-intelligence::cross-domain-translation",
+    "sensing-data-reality-capture::simulation-first",
+    "opportunity-world-discovery::prediction-to-action",
+    "sensing-data-reality-capture::future-backcasting",
+    "sensing-data-reality-capture::ambient-intelligence",
+    "wealth-business-capital::constraint-deletion",
+    "sensing-data-reality-capture::founder-legibility",
+    "opportunity-world-discovery::new-sense",
+    "relationships-social-intelligence::offline-first"
+  ],
+  "selectedGeneratorCount": 12,
+  "selectedFirstGenerationCapacity": 600,
+  "materializedCandidateCount": 12,
+  "candidates": [
+    {
+      "id": "genesis-candidate-20260925-outreach-0001",
+      "title": "Consent Bridge Invitations",
+      "hypothesis": "A non-email first touch carrying a typeable code converts into permissioned email when the prospect asks for their own report.",
+      "mechanism": "HMAC invitation codes printed or handed through letter, partner, in-person or founder-network channels; redemption creates the prospect’s consent receipts and channel attribution.",
+      "falsifier": "Fewer than 2% of delivered invitations are redeemed within 21 days across at least 100 invitations.",
+      "nextProbe": "Issue 20 partner or in-person invitations and measure redemption.",
+      "generatorKey": "relationships-social-intelligence::friction-collapse",
+      "moonshotAffinity": [
+        "founder-moonshot-0161",
+        "founder-moonshot-0160",
+        "founder-moonshot-0464"
+      ],
+      "substrateNeeds": [
+        "CONSENT_BRIDGE",
+        "PUBLIC_INTAKE",
+        "HUMAN_CHANNEL"
+      ],
+      "novelty": 0.82,
+      "leverage": 0.9,
+      "testability": 0.9,
+      "reversibility": 0.97,
+      "realization": {
+        "state": "REALIZED_IN_SOURCE",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+        "module": "src/consent-bridge.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0002",
+      "title": "Evidence-Grade Consent Receipts",
+      "hypothesis": "Consent recorded with exact wording, purpose, channel and time can be demonstrated to a regulator and unlocks jurisdictions where cold email is closed.",
+      "mechanism": "Versioned wording hashes, purposes, double opt-in for marketing, time-ordered revocation; the eligibility engine accepts only receipts that cover the purpose.",
+      "falsifier": "A receipt fails to reconstruct what the person agreed to, or a revoked or unconfirmed receipt ever yields a permissioned relationship.",
+      "nextProbe": "Replay every public-intake lead through consentRelationshipFor and audit the outcomes.",
+      "generatorKey": "sensing-data-reality-capture::founder-legibility",
+      "moonshotAffinity": [
+        "founder-moonshot-0161",
+        "founder-moonshot-0067",
+        "founder-moonshot-0465"
+      ],
+      "substrateNeeds": [
+        "CONSENT_LEDGER",
+        "ELIGIBILITY_ENGINE"
+      ],
+      "novelty": 0.62,
+      "leverage": 0.88,
+      "testability": 0.95,
+      "reversibility": 0.99,
+      "realization": {
+        "state": "REALIZED_IN_SOURCE",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/953aa26",
+        "module": "src/consent-receipt.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0003",
+      "title": "Lawful Channel Router",
+      "hypothesis": "Routing each prospect like a packet to the cheapest permitted channel recovers prospects that cold-email rules would drop.",
+      "mechanism": "Per-prospect route table with legal state, cost and founder minutes; cold email only when eligibility PASSED; letters, partners and in-person as consent-creating fallbacks; monoculture warning.",
+      "falsifier": "Over a 100-prospect cohort the router recovers no targeted route for prospects held or rejected for cold email.",
+      "nextProbe": "Run the router over the first real cohort and report routedTargeted versus cold-eligible.",
+      "generatorKey": "software-agents-intelligence::cross-domain-translation",
+      "moonshotAffinity": [
+        "founder-moonshot-0107",
+        "founder-moonshot-0790",
+        "founder-moonshot-0394",
+        "founder-moonshot-0001"
+      ],
+      "substrateNeeds": [
+        "ELIGIBILITY_ENGINE",
+        "CHANNEL_CATALOG",
+        "BUDGET_LEDGER"
+      ],
+      "novelty": 0.78,
+      "leverage": 0.92,
+      "testability": 0.9,
+      "reversibility": 0.98,
+      "realization": {
+        "state": "REALIZED_IN_SOURCE",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+        "module": "src/lawful-channel-router.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0004",
+      "title": "Evidence Beacon",
+      "hypothesis": "Showing a prospect verified findings on their own public pages is credible without case studies and pre-filters who is worth a first touch.",
+      "mechanism": "Run the read-only auditor before contact; keep same-domain, recent, excerpted, confident findings; no revenue claims; no findings means no invitation.",
+      "falsifier": "Invited prospects with a beacon convert to report requests no better than prospects without one.",
+      "nextProbe": "A/B the landing with and without the beacon on the first 40 invitations.",
+      "generatorKey": "sensing-data-reality-capture::simulation-first",
+      "moonshotAffinity": [
+        "founder-moonshot-0306",
+        "founder-moonshot-0067",
+        "founder-moonshot-0146"
+      ],
+      "substrateNeeds": [
+        "WEBSITE_AUDITOR",
+        "CONSENT_BRIDGE"
+      ],
+      "novelty": 0.74,
+      "leverage": 0.86,
+      "testability": 0.88,
+      "reversibility": 0.99,
+      "realization": {
+        "state": "REALIZED_IN_SOURCE",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+        "module": "src/evidence-beacon.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0005",
+      "title": "Atoms-to-Consent Postal Bridge",
+      "hypothesis": "Inbox attention is scarce and legally fenced; a physical letter to the business is a less crowded, differently regulated first touch that can carry a consent-bridge code.",
+      "mechanism": "Letters addressed to the company (never a named person) from provenance-backed public business addresses, carrying the invitation code and sender identity, sent through a print-and-mail supplier under a founder-authorized budget.",
+      "falsifier": "Redemption per letter stays below 1% over 100 letters, or the cost per redeemed report exceeds the lowest pilot price.",
+      "nextProbe": "Founder authorizes a 20-letter budget; measure redemption and cost per request.",
+      "generatorKey": "relationships-social-intelligence::scarcity-world",
+      "moonshotAffinity": [
+        "founder-moonshot-0744",
+        "founder-moonshot-0814",
+        "founder-moonshot-0257"
+      ],
+      "substrateNeeds": [
+        "PRINT_MAIL_SUPPLIER",
+        "CONSENT_BRIDGE",
+        "POSTAL_ADDRESS_PROVENANCE"
+      ],
+      "novelty": 0.86,
+      "leverage": 0.72,
+      "testability": 0.8,
+      "reversibility": 0.9,
+      "realization": {
+        "state": "ROUTED_IN_SOURCE_SUPPLIER_AND_BUDGET_REQUIRED",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+        "module": "src/lawful-channel-router.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0006",
+      "title": "Partner and In-Person First Touch",
+      "hypothesis": "An existing relationship holder introducing UberBond under its own relationship converts better and is lawful where cold email is not.",
+      "mechanism": "Partner agreement plus the partner’s own attestation of its relationship; the partner hands the invitation code; attribution flows back through the intake source.",
+      "falsifier": "No partner agrees to introduce within 30 days of asking five agencies.",
+      "nextProbe": "Ask five agencies from the partner canary lineage to hand out codes to one client each.",
+      "generatorKey": "relationships-social-intelligence::offline-first",
+      "moonshotAffinity": [
+        "founder-moonshot-0068",
+        "founder-moonshot-0313",
+        "founder-moonshot-0161"
+      ],
+      "substrateNeeds": [
+        "PARTNER_AGREEMENT",
+        "CONSENT_BRIDGE"
+      ],
+      "novelty": 0.55,
+      "leverage": 0.8,
+      "testability": 0.85,
+      "reversibility": 0.97,
+      "realization": {
+        "state": "ROUTED_IN_SOURCE_PARTNERS_REQUIRED",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/0896398",
+        "module": "src/lawful-channel-router.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0007",
+      "title": "Ambient Fleet DNS Observatory",
+      "hypothesis": "Continuously observing public DNS for every owned domain catches authentication and website defects before they cost reputation or trust.",
+      "mechanism": "Resolver sweep over all 30 domains classifying MX, SPF, DMARC and apex state with failure-is-not-absence semantics.",
+      "falsifier": "The observatory misses a defect later found by a provider bounce or a human.",
+      "nextProbe": "Schedule the sweep daily once mail is configured and compare with provider feedback.",
+      "generatorKey": "sensing-data-reality-capture::ambient-intelligence",
+      "moonshotAffinity": [
+        "founder-moonshot-0445",
+        "founder-moonshot-0167"
+      ],
+      "substrateNeeds": [
+        "DNS_RESOLVER",
+        "SCHEDULER"
+      ],
+      "novelty": 0.4,
+      "leverage": 0.66,
+      "testability": 0.97,
+      "reversibility": 1,
+      "realization": {
+        "state": "REALIZED_IN_SOURCE",
+        "ref": "https://github.com/mohammedwessam2007/uberbondd/commit/d16dc80",
+        "module": "src/outreach-fleet-dns-observatory.mjs"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0008",
+      "title": "Own-Domain Leak as Living Case Study",
+      "hypothesis": "UberBond’s own domain shows a real lead-path leak (uberbond.cloud serves registrar parking to part of its traffic); fixing it and publishing the before/after is truthful proof without a customer.",
+      "mechanism": "Record the observed leak, fix it, re-observe, and publish the before/after with both receipts as a demonstration of the audit.",
+      "falsifier": "The before/after cannot be verified by a third party from public DNS and page history.",
+      "nextProbe": "Founder deletes the parked A record; rerun the observatory and keep both receipts.",
+      "generatorKey": "opportunity-world-discovery::new-sense",
+      "moonshotAffinity": [
+        "founder-moonshot-0306",
+        "founder-moonshot-0857",
+        "founder-moonshot-0654"
+      ],
+      "substrateNeeds": [
+        "DNS_OBSERVATORY",
+        "PUBLIC_CONTENT"
+      ],
+      "novelty": 0.7,
+      "leverage": 0.55,
+      "testability": 0.95,
+      "reversibility": 0.99,
+      "realization": {
+        "state": "LEAK_OBSERVED_FIX_PENDING_FOUNDER",
+        "ref": "artifacts/outreach/fleet-dns-observation-2026-09-25.json"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0009",
+      "title": "Causal First-Cash Compiler",
+      "hypothesis": "Backward-chaining from cleared payment to the smallest set of interventions keeps effort on the binding constraint instead of architecture.",
+      "mechanism": "Barrier graph from cleared payment back through buyer, delivery, sender, DNS, host and legal identity, recomputed from doctors and live receipts after every change.",
+      "falsifier": "The compiled next action repeatedly differs from what actually unblocked progress.",
+      "nextProbe": "Recompute the graph after each owner action and log whether the predicted next blocker was the real one.",
+      "generatorKey": "opportunity-world-discovery::prediction-to-action",
+      "moonshotAffinity": [
+        "founder-moonshot-0001",
+        "founder-moonshot-0363",
+        "founder-moonshot-0365"
+      ],
+      "substrateNeeds": [
+        "DOCTORS",
+        "LIVE_RECEIPTS"
+      ],
+      "novelty": 0.5,
+      "leverage": 0.84,
+      "testability": 0.8,
+      "reversibility": 1,
+      "realization": {
+        "state": "COMPILED_AS_REPORT",
+        "ref": "UBERBOND_NIGHT_WAR_FINAL.md"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0010",
+      "title": "Hiring-Signal Chemotaxis",
+      "hypothesis": "Companies publicly hiring for marketing operations, CRO or web analytics already feel the problem UberBond’s offers solve; following those public signals finds buyers without buying data.",
+      "mechanism": "Read public job postings, extract company and website only (no personal data), score problem relevance, and feed the auditor and the consent bridge.",
+      "falsifier": "Companies found by hiring signals show no more audit findings or report requests than random companies in the same category.",
+      "nextProbe": "Pull 50 public postings, audit their sites, compare finding density with 50 OSM businesses.",
+      "generatorKey": "sensing-data-reality-capture::future-backcasting",
+      "moonshotAffinity": [
+        "founder-moonshot-0178",
+        "founder-moonshot-0016",
+        "founder-moonshot-0167"
+      ],
+      "substrateNeeds": [
+        "PUBLIC_JOB_POSTINGS",
+        "WEBSITE_AUDITOR"
+      ],
+      "novelty": 0.68,
+      "leverage": 0.74,
+      "testability": 0.86,
+      "reversibility": 1,
+      "realization": {
+        "state": "HYPOTHESIS"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0011",
+      "title": "Outcome-Priced Pilot",
+      "hypothesis": "Pricing the first pilot against the leak the beacon already evidenced removes the need to win on reputation and may reconcile the 450-950 and 1,000+ price lineages with evidence.",
+      "mechanism": "Free evidence beacon, then a fixed-scope fix sprint whose acceptance test is the re-observed absence of the evidenced leak; price choice stays the founder’s.",
+      "falsifier": "Prospects who requested a report decline an evidence-bound pilot at both price lineages.",
+      "nextProbe": "Offer both lineages to the first 10 report requesters and record accept/decline.",
+      "generatorKey": "wealth-business-capital::constraint-deletion",
+      "moonshotAffinity": [
+        "founder-moonshot-0305",
+        "founder-moonshot-0306",
+        "founder-moonshot-0517"
+      ],
+      "substrateNeeds": [
+        "EVIDENCE_BEACON",
+        "OFFER_GENOME",
+        "FOUNDER_DECISION"
+      ],
+      "novelty": 0.72,
+      "leverage": 0.8,
+      "testability": 0.82,
+      "reversibility": 0.95,
+      "realization": {
+        "state": "HYPOTHESIS_FOUNDER_DECISION"
+      }
+    },
+    {
+      "id": "genesis-candidate-20260925-outreach-0012",
+      "title": "Reputation Capital Conservation",
+      "hypothesis": "Sender reputation compounds across campaign generations; spending it only where expected value exceeds its burn keeps the machine usable for years instead of weeks.",
+      "mechanism": "Per-domain reputation ledger debited by bounces, complaints and silence, credited by replies; a send is allowed only when its expected value clears the debit estimate.",
+      "falsifier": "Domains managed by the ledger show no lower complaint or block rates than unmanaged domains over three months.",
+      "nextProbe": "Enable the ledger on the first sender domain and compare with circuit-breaker-only operation.",
+      "generatorKey": "software-agents-intelligence::intergenerational-thinking",
+      "moonshotAffinity": [
+        "founder-moonshot-0445",
+        "founder-moonshot-0059",
+        "founder-moonshot-0883"
+      ],
+      "substrateNeeds": [
+        "SENDER_HEALTH",
+        "CIRCUIT_BREAKER",
+        "EXPERIMENT_LEDGER"
+      ],
+      "novelty": 0.6,
+      "leverage": 0.7,
+      "testability": 0.75,
+      "reversibility": 0.98,
+      "realization": {
+        "state": "HYPOTHESIS"
+      }
+    }
+  ],
+  "burstDigest": "sha256:42cfb20a2404fea36668fcace7754e1d3f2a824b3969310be3bd44b867764f06",
+  "businessEffectAuthority": "NONE",
+  "externalEffectAuthority": "NONE",
+  "truthBoundary": "Generated hypotheses bound to the immutable 890 corpus. REALIZED_IN_SOURCE means code and tests exist on the branch, not that any prospect, consent, reply or payment has been observed."
+}

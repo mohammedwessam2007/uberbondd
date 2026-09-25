@@ -16,6 +16,13 @@
       "signalId": "uberbond-self-capability-2026-09-22",
       "materializedCandidateCount": 12,
       "selectedFirstGenerationCapacity": 600
+    },
+    {
+      "burstId": "genesis-burst-20260925-outreach-first-cash",
+      "artifactRef": "artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json",
+      "signalId": "uberbond-outreach-first-cash-wall-2026-09-25",
+      "materializedCandidateCount": 12,
+      "selectedFirstGenerationCapacity": 600
     }
   ],
   "truthBoundary": "INDEXED_BURSTS_ARE_GENERATION_RECEIPTS_NOT_DISCOVERY_OR_IMPLEMENTATION_PROOF."

@@ -3,7 +3,11 @@
 # Run inside pinned Postal 3.3.7 with Rails loaded:
 #   bundle exec rails runner /config/uberdoso-postal-provision.rb
 #
-# This creates only UberDoso's organization, Live server, and two fixed domains.
+# This creates only UberDoso's organization, Live server, the two fixed roots,
+# and any outreach-fleet sender domains named explicitly in
+# UBERDOSO_POSTAL_SENDER_DOMAINS (comma-separated). A sender domain must be in
+# OUTREACH_FLEET, which tests keep identical to src/outreach-domain-fleet.mjs.
+# Cold traffic belongs on fleet domains so the brand roots keep their reputation.
 # It never marks domains verified, never creates/export credentials, and never sends mail.
 
 require "json"
@@ -11,6 +15,14 @@ require "digest"
 
 VERSION = "uberbond.uberdoso-postal-provision.v1"
 ROOTS = ["uberbond.agency", "uberbond.cloud"].freeze
+OUTREACH_FLEET = %w[
+  uberbond.site uberbondai.shop uberbondapp.site uberbondcloud.shop uberbondconnect.online
+  uberbondcore.space uberbondengine.website uberbondflow.space uberbondforge.space uberbondglobal.website
+  uberbondgrid.space uberbondgroup.site uberbondgrowth.online uberbondhq.site uberbondinfo.site
+  uberbondlabs.site uberbondlaunch.website uberbondlink.shop uberbondops.website uberbondpartners.online
+  uberbondpilot.website uberbondpro.shop uberbondpro.website uberbondreach.online uberbondsmail.site
+  uberbondstack.website uberbondworks.site uberbondworks.website
+].freeze
 ORG_PERMALINK = "uberdoso"
 SERVER_PERMALINK = "outbound"
 
@@ -65,8 +77,17 @@ def ensure_server!(organization)
   server
 end
 
+def uberdoso_domains(requested_env)
+  requested = text(requested_env, 4000).split(",").map { |name| name.strip.downcase.chomp(".") }.reject(&:empty?)
+  fail!("duplicate-sender-domain") if requested.uniq.length != requested.length
+  requested.each do |name|
+    fail!("sender-domain-not-in-verified-outreach-fleet", name) unless OUTREACH_FLEET.include?(name)
+  end
+  ROOTS + requested
+end
+
 def ensure_domain!(server, root)
-  fail!("domain-not-uberdoso-root", root) unless ROOTS.include?(root)
+  fail!("domain-not-uberdoso-root", root) unless ROOTS.include?(root) || OUTREACH_FLEET.include?(root)
   domain = server.domains.find_or_initialize_by(name: root)
   domain.verification_method = "DNS"
   domain.save!
@@ -74,15 +95,21 @@ def ensure_domain!(server, root)
   domain
 end
 
+# UBERDOSO_PROVISION_LIBRARY_ONLY=1 loads the definitions without touching Postal,
+# so the domain-selection rules can be tested outside the Rails runtime.
+return if ENV["UBERDOSO_PROVISION_LIBRARY_ONLY"] == "1"
+
 begin
+  selected = uberdoso_domains(ENV["UBERDOSO_POSTAL_SENDER_DOMAINS"])
   owner = select_admin!
   organization = ensure_organization!(owner)
   server = ensure_server!(organization)
-  domains = ROOTS.map { |root| ensure_domain!(server, root) }
+  domains = selected.map { |root| ensure_domain!(server, root) }
 
   receipts = domains.map do |domain|
     {
       root: domain.name,
+      role: ROOTS.include?(domain.name) ? "CANONICAL_ROOT" : "OUTREACH_FLEET_SENDER",
       uuid: domain.uuid,
       verified: domain.verified?,
       verificationMethod: domain.verification_method,

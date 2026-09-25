@@ -23,6 +23,10 @@ UBERDOSO_ADMIN_EMAIL="${UBERDOSO_ADMIN_EMAIL:-}"
 UBERDOSO_ADMIN_FIRST_NAME="${UBERDOSO_ADMIN_FIRST_NAME:-Mohamed}"
 UBERDOSO_ADMIN_LAST_NAME="${UBERDOSO_ADMIN_LAST_NAME:-Wessam}"
 [[ "$UBERDOSO_ADMIN_EMAIL" =~ ^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$ ]] || { echo 'REFUSED: set UBERDOSO_ADMIN_EMAIL to the founder-controlled admin email.' >&2; exit 2; }
+# Optional outreach-fleet sender domains (comma-separated, e.g. uberbondhq.site,uberbondlabs.site).
+# The provisioner accepts only names in the verified fleet; cold traffic belongs there, not on the roots.
+UBERDOSO_POSTAL_SENDER_DOMAINS="${UBERDOSO_POSTAL_SENDER_DOMAINS:-}"
+[[ -z "$UBERDOSO_POSTAL_SENDER_DOMAINS" || "$UBERDOSO_POSTAL_SENDER_DOMAINS" =~ ^[a-z0-9.-]+(,[a-z0-9.-]+)*$ ]] || { echo 'REFUSED: UBERDOSO_POSTAL_SENDER_DOMAINS must be a comma-separated list of lowercase domain names.' >&2; exit 2; }
 
 if ! $SKIP_PACKAGES; then
   command -v apt-get >/dev/null 2>&1 || { echo 'REFUSED: automatic package installation supports Ubuntu/Debian only.' >&2; exit 2; }
@@ -136,20 +140,22 @@ install -m 0600 "$PROVISIONER" /opt/postal/config/uberdoso-postal-provision.rb
 RECEIPT=/var/lib/uberdoso/postal-provision-receipt.json
 UBERDOSO_POSTAL_OWNER_EMAIL="$UBERDOSO_ADMIN_EMAIL" postal dc run --rm \
   -e UBERDOSO_POSTAL_OWNER_EMAIL="$UBERDOSO_ADMIN_EMAIL" \
+  -e UBERDOSO_POSTAL_SENDER_DOMAINS="$UBERDOSO_POSTAL_SENDER_DOMAINS" \
   runner bundle exec rails runner /config/uberdoso-postal-provision.rb > "$RECEIPT"
 chmod 0600 "$RECEIPT"
 
-node --input-type=module - "$RECEIPT" "$SOURCE_SHA" <<'NODE'
+node --input-type=module - "$RECEIPT" "$SOURCE_SHA" "$UBERDOSO_POSTAL_SENDER_DOMAINS" <<'NODE'
 import fs from 'node:fs';
-const [path,sourceCommit]=process.argv.slice(2);
+const [path,sourceCommit,senderList]=process.argv.slice(2);
 const x=JSON.parse(fs.readFileSync(path,'utf8'));
-if(x.ok!==true||x.status!=='UBERDOSO_POSTAL_PROVISIONED_UNVERIFIED'||!Array.isArray(x.domains)||x.domains.length!==2) process.exit(2);
+const expected=2+String(senderList||'').split(',').map(s=>s.trim()).filter(Boolean).length;
+if(x.ok!==true||x.status!=='UBERDOSO_POSTAL_PROVISIONED_UNVERIFIED'||!Array.isArray(x.domains)||x.domains.length!==expected) process.exit(2);
 process.stdout.write(JSON.stringify({
   ok:true,
   status:'UBERDOSO_MAIL_CELL_SOFTWARE_BOOTSTRAPPED',
   sourceCommit,
   postalStatus:x.status,
-  roots:x.domains.map(d=>({root:d.root,verified:d.verified,dkimRecordHost:d.dkimRecordHost,dkimRecordValue:d.dkimRecordValue,spfRecordValue:d.spfRecordValue,returnPathHost:d.returnPathHost,returnPathTarget:d.returnPathTarget,mxRecords:d.mxRecords,postalSpfInclude:d.postalSpfInclude,verificationTxtValue:d.verificationTxtValue})),
+  roots:x.domains.map(d=>({root:d.root,role:d.role,verified:d.verified,dkimRecordHost:d.dkimRecordHost,dkimRecordValue:d.dkimRecordValue,spfRecordValue:d.spfRecordValue,returnPathHost:d.returnPathHost,returnPathTarget:d.returnPathTarget,mxRecords:d.mxRecords,postalSpfInclude:d.postalSpfInclude,verificationTxtValue:d.verificationTxtValue})),
   adminCredentialFile:'/var/lib/uberdoso/postal-admin-bootstrap.txt',
   provisionReceipt:path,
   externalEffectAuthority:'LOCAL_HOST_ONLY',

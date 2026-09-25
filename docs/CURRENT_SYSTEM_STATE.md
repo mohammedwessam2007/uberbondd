@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-09-25**
 Branch: `claude/uberbond-night-war-launch-glgsqc`
-Reconciled from current head: `165f051cf2cc2aa8bc382591882b6ff0189e3005`
+Reconciled from current head: `93f3040b4f2ffe1b53eabc98f53d59222d7eb761`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

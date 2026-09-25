@@ -6,6 +6,7 @@ import { encryptJson, decryptJson } from './crypto.mjs';
 import { ConflictError } from './store.mjs';
 import { buildRevenueOfferCatalog, getRevenueOffer, isRevenueOfferId } from './revenue-offers.mjs';
 import { InputError } from './input.mjs';
+import { compileConsentReceipt } from './consent-receipt.mjs';
 
 const DAY = 86400000;
 const sha = value => crypto.createHash('sha256').update(String(value)).digest('hex');
@@ -118,6 +119,11 @@ export class RevenueEngine {
       requestedOffer, requestedOfferAt: requestedOffer === 'snapshot' ? null : now(),
       accessTokenHash: sha(accessToken), accessTokenSecret: protectToken(accessToken, this.cfg.encryptionKey), createdAt: now()
     };
+    // The boolean stays for existing readers; the receipt proves what was agreed.
+    if (lead.consent) {
+      const consent = compileConsentReceipt({ subjectEmail: email, wordingId: 'public-intake-v1', channel: 'PUBLIC_INTAKE_FORM', sourceRef: lead.id, capturedAt: lead.createdAt, ipAddress: ip });
+      lead.consentReceipt = consent.ok ? consent.receipt : null;
+    }
     const prospect = {
       id: id('pros'), company, website, domain, niche: lead.industry, country: lead.country, city: '', contactName: '',
       campaignId: campaign.id, abilityToPay: 10, serviceFit: 12,

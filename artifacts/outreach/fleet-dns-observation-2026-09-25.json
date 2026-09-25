@@ -1,0 +1,1218 @@
+{
+  "schemaVersion": "uberbond.outreach-fleet-dns-observatory.v1",
+  "observedAt": "2026-09-25T00:20:25.854Z",
+  "observer": "vm:linux",
+  "method": "PUBLIC_RECURSIVE_DNS_FROM_OBSERVER_HOST",
+  "domainsObserved": 30,
+  "summary": {
+    "mailState": {
+      "NO_MAIL_CONFIGURED": 30
+    },
+    "nameserverProvider": {
+      "GODADDY": 30
+    },
+    "dmarc": {
+      "GODADDY_DEFAULT": 30
+    },
+    "apex": {
+      "HOSTED": 1,
+      "MIXED_PARKING_AND_HOSTING": 1,
+      "GODADDY_PARKING_ONLY": 28
+    },
+    "findings": {
+      "godaddy-default-dmarc-present__replace-do-not-add": 30,
+      "apex-mixes-godaddy-parking-with-hosting__part-of-traffic-sees-parking": 1,
+      "outreach-domain-apex-is-registrar-parking-page": 28
+    },
+    "authenticatedSenderDomains": 0
+  },
+  "domains": [
+    {
+      "domain": "uberbond.agency",
+      "role": "CANONICAL_ROOT",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns75.domaincontrol.com",
+          "ns76.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "HOSTED",
+        "addresses": [
+          "162.159.143.30",
+          "172.66.3.26"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add"
+      ]
+    },
+    {
+      "domain": "uberbond.cloud",
+      "role": "CANONICAL_ROOT",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns05.domaincontrol.com",
+          "ns06.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "MIXED_PARKING_AND_HOSTING",
+        "addresses": [
+          "15.197.148.33",
+          "162.159.143.30",
+          "172.66.3.26",
+          "3.33.130.190"
+        ],
+        "parkingAddresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "apex-mixes-godaddy-parking-with-hosting__part-of-traffic-sees-parking"
+      ]
+    },
+    {
+      "domain": "uberbond.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns45.domaincontrol.com",
+          "ns46.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondai.shop",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondapp.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns35.domaincontrol.com",
+          "ns36.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondcloud.shop",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondconnect.online",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondcore.space",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondengine.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns07.domaincontrol.com",
+          "ns08.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondflow.space",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns45.domaincontrol.com",
+          "ns46.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondforge.space",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondglobal.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns35.domaincontrol.com",
+          "ns36.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondgrid.space",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondgroup.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns07.domaincontrol.com",
+          "ns08.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondgrowth.online",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns35.domaincontrol.com",
+          "ns36.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondhq.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns07.domaincontrol.com",
+          "ns08.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondinfo.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondlabs.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns35.domaincontrol.com",
+          "ns36.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondlaunch.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondlink.shop",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondops.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondpartners.online",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns35.domaincontrol.com",
+          "ns36.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondpilot.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns07.domaincontrol.com",
+          "ns08.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondpro.shop",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns07.domaincontrol.com",
+          "ns08.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondpro.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondreach.online",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns39.domaincontrol.com",
+          "ns40.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondsmail.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns45.domaincontrol.com",
+          "ns46.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondstack.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondworks.site",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns13.domaincontrol.com",
+          "ns14.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    },
+    {
+      "domain": "uberbondworks.website",
+      "role": "OUTREACH_FLEET",
+      "nameservers": {
+        "state": "ANSWERED",
+        "provider": "GODADDY",
+        "hosts": [
+          "ns07.domaincontrol.com",
+          "ns08.domaincontrol.com"
+        ]
+      },
+      "mx": {
+        "state": "ABSENT",
+        "hosts": []
+      },
+      "spf": {
+        "state": "ABSENT",
+        "records": []
+      },
+      "dmarc": {
+        "state": "GODADDY_DEFAULT",
+        "policy": "quarantine",
+        "records": [
+          "v=DMARC1; p=quarantine; adkim=r; aspf=r; rua=mailto:dmarc_rua@onsecureserver.net;"
+        ]
+      },
+      "apex": {
+        "state": "GODADDY_PARKING_ONLY",
+        "addresses": [
+          "15.197.148.33",
+          "3.33.130.190"
+        ]
+      },
+      "mailState": "NO_MAIL_CONFIGURED",
+      "findings": [
+        "godaddy-default-dmarc-present__replace-do-not-add",
+        "outreach-domain-apex-is-registrar-parking-page"
+      ]
+    }
+  ],
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "truthBoundary": "Public resolver answers from one host at one moment. DKIM is not observed because no selector is known yet; a present MX/SPF/DMARC set is therefore never reported as an authenticated sender. Lookup failures are recorded as incomplete, never as absent. This proves nothing about registrar account state, mailbox readiness, reputation or send authority.",
+  "receiptDigest": "188f5f446cb4fe86019eacc43b46baa75931528685c0fcecec74e4cbd2d87cf6"
+}

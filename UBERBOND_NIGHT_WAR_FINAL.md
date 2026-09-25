@@ -1,0 +1,215 @@
+# UberBond Night War — final report
+
+Date: 2026-09-25 (UTC) · Branch: `claude/uberbond-night-war-launch-glgsqc` · Base: `main` @ `aa037a0`
+External effects tonight: **0 messages, 0 DNS changes, 0 purchases, 0 spend, 0 provider writes.**
+Cleared revenue: **$0.** Customers: **0.**
+
+## 1. Verdict
+
+No email can lawfully leave UberBond tomorrow. Nothing in the software is still missing for a small first batch. What stands between now and a first batch is three founder actions: buy the server, create a DNS credential, and fill one facts file. Every step after those is now one command.
+
+Tonight closed the software gaps that would have blocked first cash even after the server existed:
+
+1. **Nothing decided whether a recipient may lawfully be emailed.** The final launch gate refused every recipient with `recipient-legal-eligibility-not-passed`, and no code produced a PASSED decision. Now a per-recipient eligibility engine does (§4.1).
+2. **The DNS writer could destroy live records.** Publishing SPF would have overwritten an unrelated root TXT record (such as a site-verification token) or created a second SPF record. Fixed (§4.2).
+3. **Cold mail would have gone out from the brand domains.** The mail-cell bootstrap could only create Postal domains for `uberbond.agency` and `uberbond.cloud`. Now it can also create chosen outreach-fleet domains (§4.5).
+4. **Nothing turned the bring-up output into published DNS.** After purchase, someone would have hand-typed about 21 records. Now it's one command (§4.6).
+5. **The founder-only inputs were scattered across 5 gates.** Now they're one file (§4.4).
+6. **DNS state was "UNKNOWN" for all 30 domains.** It is now observed live (§3).
+
+## 2. Current verified state
+
+| Component | Claimed before tonight | Verified tonight | Evidence |
+|---|---|---|---|
+| Domains owned | 30 (registrar UI, 09-20) | 30 resolve in public DNS, all on GoDaddy nameservers | `artifacts/outreach/fleet-dns-observation-2026-09-25.json` |
+| MX / SPF | unknown | **0 / 30** | same |
+| DKIM | unknown | **0 / 30** (no selector exists; no mail host) | same |
+| DMARC | unknown | 30 / 30 carry GoDaddy's default `p=quarantine` with reports sent to GoDaddy. Setup must **replace** it; a second DMARC record would make the policy invalid. | same |
+| Outreach-domain websites | unknown | 28 / 28 show GoDaddy parking | same |
+| `uberbond.cloud` website | "no website role" (activation card) | Returns **both** Cloudflare hosting and GoDaddy parking addresses, so some visitors get the parking page | same |
+| `uberbond.agency` website | "no website role" (activation card) | Hosted behind Cloudflare. **Contradicts** `docs/OUTREACH_ACTIVATION_CARD.md`; recorded here, card not edited. | same |
+| Mail server (Netcup) | in cart (09-24, €4.92/month billed €29.52 per 6 months, 0% VAT display) | **not purchased**; no IP, no PTR, no port 25 | PR #993; no receipt |
+| Mailforge pilot (10 inboxes) | "staged" | **no evidence it was bought** | no receipt found |
+| Cold-capable transport | none | none. The repo's own registry shows 0 of 16 reviewed free sending services permit cold B2B. | `npm run outreach:free-first:doctor` |
+| Netcup's terms on unsolicited advertising email | not checked | **UNKNOWN.** The terms page is blocked from this environment. Netcup is a German host. | §7, owner action 1 |
+| First-cash gate | `NO_CONTACT_PERMITTED` | unchanged: 6 gates unsatisfied | `node scripts/first-cash-canary-packet.mjs` |
+| Payment | sandbox only | Live credentials missing. Checkout existing is not cleared payment. | `node scripts/payment-rail-doctor.mjs` |
+| Offer prices | 450 / 900 / 950 / 750 in code vs founder-recalled >$1,000 | **unresolved.** Both lineages preserved (PR #993); now a single field in the facts file. | §5 |
+| Repository visibility | — | **public.** Launch facts and prospect data must never be committed; `launch-facts*.json` is gitignored. | GitHub metadata |
+
+## 3. Barrier graph (first cash backwards)
+
+| Node | Status | Class | What closes it |
+|---|---|---|---|
+| Cleared payment | missing | PAYMENT | Deferred until the first buyer says yes. A manual invoice through the existing PayPal/Lemon Squeezy rails can clear first cash; live API credentials are needed later for automatic reconciliation. |
+| Qualified buyer / reply | missing | EXTERNAL | Needs delivered outreach |
+| Delivered outreach | missing | TRANSPORT | **Owner action 1** (server + host terms) |
+| Sender authentication (MX/SPF/DKIM/DMARC) | 0/30 | DNS | **Owner action 2** (credential), then `npm run uberdoso:dns-publish` |
+| PTR + outbound port 25 | unknown | NETWORK | Netcup control panel, inside owner action 1 |
+| Mailbox identity on a fleet domain | built tonight | SOFTWARE ✔ | `UBERDOSO_POSTAL_SENDER_DOMAINS` |
+| Recipient legal eligibility | **built tonight** | SOFTWARE ✔ | `npm run outreach:eligibility` |
+| Sender legal identity (name, postal address, jurisdiction) | missing | OWNER_ONLY | **Owner action 3** |
+| Offer choice | unresolved | OWNER_ONLY | **Owner action 3** (one field) |
+| Canary authorization | missing | OWNER_ONLY | **Owner action 3** |
+| Eligible prospect cohort | 0 | DATA | Automatic after action 3, built on the live control plane, never in git |
+| Suppression, unsubscribe, bounce, reply classification, idempotent dispatch | built, tested in source | SOFTWARE ✔ (live 0) | First real test to founder-owned addresses |
+
+Shortest path: **owner action 1 → bootstrap → owner action 2 → DNS publish → owner action 3 → test send to founder addresses → 20-recipient canary.**
+
+## 4. What changed tonight (8 commits)
+
+| Commit | What |
+|---|---|
+| `b1294fb` | **Recipient eligibility engine** (`src/uberoutbound-recipient-eligibility.mjs`) wired into the launch gate and UberProspect |
+| `8ecc857` | **DNS safety:** TXT records reconciled by purpose (SPF / DMARC / DKIM / other); mail routing never changed silently; the whole plan is refused before any write |
+| `d16dc80` | **Fleet DNS observatory** plus the live receipt for all 30 domains (`npm run outreach:fleet-dns`) |
+| `7f84ceb` | Stale startup-config test brought in line with the explicit outbound-provider rule (it failed on `main`) |
+| `41f57ce` | Readiness and constitution files regenerated with the canonical generators (they were stale on `main`). All 33 capability entries unchanged. |
+| `25d2a3b` | **Mail-cell bootstrap takes outreach-fleet senders**, allowlisted and tested in real Ruby |
+| `015c945` | **Launch-facts intake** (`npm run outreach:launch-facts`) |
+| `aef2993` | **One-step DNS publication** from the bring-up receipt (`npm run uberdoso:dns-publish`) |
+
+### 4.1 Recipient eligibility engine (replaces blanket refusal with precise rules)
+
+It decides one recipient at a time from supplied facts and returns ALLOW / ALLOW_WITH_REQUIREMENTS / HOLD_FOR_REVIEW / REJECT. Each decision names the rule, the regulator source and the obligations the message must carry. A decision becomes `legal.status = PASSED` only when every obligation is evidenced.
+
+- **US:** CAN-SPAM rules for business recipients. Checks the postal identity, truthful headers, a non-deceptive subject, identification as an ad, and an opt-out honoured within 10 business days. Addresses scraped automatically from a site that says it doesn't share them are refused. ([FTC guide](https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business))
+- **GB:** PECR corporate subscribers only. Sole traders need consent. Named employees also need a legitimate-interests assessment reference and a privacy notice. ([ICO B2B](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/), [ICO PECR email](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-direct-marketing-using-electronic-mail/how-do-we-comply-with-the-pecr-electronic-mail-marketing-rules/))
+- **CA / AU:** "conspicuous publication" implied consent only when three things are verified: the address was published, no statement refuses unsolicited messages, and the message is relevant to the recipient's role. Australia also refuses automated address harvesting. ([CRTC](https://crtc.gc.ca/eng/com500/guide.htm), [ACMA](https://www.acma.gov.au/avoid-sending-spam))
+- **Rejected:** DE, CH, SA. **Held for review:** FR and the rest of the EU/EEA, AE, EG, and every jurisdiction not encoded.
+- **Sender jurisdiction is required.** An Egypt-based sender holds all cold traffic, because Egypt's PDPL (Law 151/2020, Articles 17–18) regulates electronic marketing with consent and licensing ([law text](https://mcit.gov.eg/Upcont/Documents/Reports%20and%20Documents_1232021000_Law_No_151_2020_Personal_Data_Protection.pdf)).
+- **These always win:** suppression, guessed addresses, system mailboxes, missing or stale provenance, and a transport whose terms forbid cold B2B.
+- UberProspect now requires this evidence-bearing decision instead of a bare `legalEligible: true`.
+- UberDoso's permissioned-relationship policy is unchanged.
+
+This is encoded regulator guidance, **not legal advice**. Anything uncertain holds for human review.
+
+### 4.2–4.6 Other capabilities
+
+- **DNS adapter:** GoDaddy's default DMARC is replaced, not duplicated. Unrelated TXT records survive. Two existing SPF records cause a refusal instead of adding a third. Changing an existing MX needs an explicit flag.
+- **Observatory:** a failed lookup is recorded as "incomplete", never as "absent". A domain is never reported as an authenticated sender without observed DKIM.
+- **Launch facts:** one file outside the repo (mode 0600). Address authorization must be explicit; placeholder evidence doesn't count; brand roots are refused as cold senders. It warns up front when the sender jurisdiction or a recipient jurisdiction will hold cold traffic.
+- **Fleet senders:** `UBERDOSO_POSTAL_SENDER_DOMAINS=uberbondhq.site` adds that domain to the Postal cell and its DNS plan. The default topology digest is byte-identical to `main`.
+- **DNS publication:** host receipt → UberDoso kernel plan → GoDaddy provider plan plus verifier contracts. Dry run by default. `--apply` requires `--owner-authorized` and `GODADDY_PAT`. It refuses without a matching PTR, a static IPv4, or Postal DKIM for every domain.
+
+## 5. Test results
+
+- New or changed suites, all passing: eligibility 14/14, DNS adapter 7/7, observatory 5/5, launch facts 5/5, DNS publication 4/4, UberDoso kernel 9/9, mail-cell bootstrap 6/6, UberLaunch closure 5/5, input config 4/4.
+- **Mutation checks** (a protection deliberately removed, and a test must fail): 23 of 25 caught. Eligibility 14/14, DNS 4/4, observatory 2/2, provisioner 1/1, kernel 1/1. The original adapter fails 4 of the new DNS safety tests.
+  - Two backstop checks in the DNS publication bridge (records outside the owned zones; verifier-contract failure) are unreachable with valid kernel output, so their mutations were not caught. They are defence-in-depth, not tested protections.
+- **Full deterministic suite on this branch (before the fixes):** 8,013 passed, 8 failed, 54 skipped.
+  - 7 of the 8 failed identically on a clean `main` worktree.
+  - 1 (`worker-context-admission`) failed only because the working tree was uncommitted; it passes once committed.
+  - This branch fixed 3 of the `main` failures: canon freshness, constitution freshness and input config.
+  - Still failing on both `main` and the branch, all in GENESIS/moonshot work outside outreach: `causal-compiler-canary-v1`, `founder-moonshot-literal-corpus` (2) and `reachability-ratchet` (32 unclassified GENESIS modules; the list is byte-identical on `main` and this branch).
+  - Final full-suite result on the branch head: see the handoff entry `outreachNightWar20260925.fullSuiteOnHead`.
+- `npm run check:syntax`: 2,343 files parse.
+
+## 6. Scoreboard (evidence-backed only)
+
+| Item | Value | Evidence |
+|---|---|---|
+| Domains inventoried | 100% (30/30) | registrar receipt 09-20 plus live DNS 09-25 |
+| DNS authenticated | 0% (0/30) | live DNS |
+| Mailbox identities operational | 0% | no mail host |
+| Inbound routing | 0% | no MX anywhere |
+| Outbound transport | 0% | no host; terms unverified |
+| Reply / suppression / unsubscribe | source built and tested; 0% live | test suites; no live traffic |
+| Eligible prospect corpus | 0 | none imported |
+| Offer truth | unresolved | two lineages |
+| Payment path | sandbox only; 0% live | payment-rail doctor |
+| First-cash loop | 0% | `NO_CONTACT_PERMITTED` |
+| **Monthly verified capacity** | **0** | — |
+
+**Monthly modeled capacity (not live):**
+
+- 100k/month means messages, not prospects. With a 3-touch sequence that is about 33k unique prospects a month.
+- At roughly 4,500 sends per business day, 30 domains × 3 identities × about 50/day matches the plan. That figure is a planning heuristic, not a measured limit.
+- Reaching it needs more than one mail cell and IP, plus a real ramp. **Level 1 is a 20-recipient canary; every level up requires observed bounce, complaint and reply evidence.**
+
+**Budget bands:**
+
+- **$0:** verified capacity 0; no permitted cold transport.
+- **≤$30/month:** one Netcup cell (€29.52 per 6 months), usable only if its terms, PTR and port 25 pass. Modeled first month: tens of recipients.
+- **≤$100/month:** a second cell plus separate IP reputation. Modeled only.
+
+## 7. Owner action queue (max 3)
+
+**1. Netcup: check the terms, then buy the server** (~25 min, €29.52 per 6 months plus any tax on the account-specific total)
+
+a. Open https://www.netcup.com/en/terms-and-conditions and search the page for "spam", "advertis" and "E-Mail". If it forbids unsolicited advertising email, **stop and don't buy**; tell UberBond and the transport switches. If it allows individually addressed B2B email with an opt-out, continue.
+
+b. Log in to the Customer Control Panel, review the cart (VPS Lite 1 G12.5s iv 6M, IPv4 + IPv6) and submit. The proof is the order confirmation plus the server's IPv4.
+
+c. In Netcup's server control panel:
+   - choose Ubuntu 24.04;
+   - remove the default "Mail" firewall block ([Netcup firewall doc](https://www.netcup.com/en/helpcenter/documentation/server/firewall));
+   - set the reverse DNS (rDNS/PTR) of the IPv4 to `mta.uberbond.cloud`.
+
+   The exact button labels weren't verified from this environment. If Netcup refuses the rDNS until the forward record exists, first add one GoDaddy record: `uberbond.cloud` → DNS → Add → Type `A`, Name `mta`, Value `<server IPv4>`, TTL 600.
+
+d. SSH in as root and paste:
+
+```
+apt-get update && apt-get install -y git
+git clone --branch claude/uberbond-night-war-launch-glgsqc https://github.com/mohammedwessam2007/uberbondd /opt/uberbond-src
+UBERDOSO_ADMIN_EMAIL='<your email>' UBERDOSO_POSTAL_SENDER_DOMAINS=uberbondhq.site bash /opt/uberbond-src/ops/sovereign/bootstrap-uberdoso-mail-cell.sh /opt/uberbond-src
+bash /opt/uberbond-src/ops/sovereign/verify-uberdoso-mail-cell.sh /opt/uberbond-src > /root/uberdoso-verify.json
+cd /opt/uberbond-src && node scripts/uberdoso-dns-publish.mjs --host-verification /root/uberdoso-verify.json --senders uberbondhq.site
+```
+
+The last command prints the exact DNS records and changes nothing.
+
+**2. GoDaddy: create a DNS API credential** (~5 min, $0)
+
+Create a production API credential with DNS write access ([GoDaddy Domains API docs](https://developer.godaddy.com/en/docs/api-users/domains); DNS API access is now available with a single domain, per [GoDaddy](https://www.godaddy.com/resources/news/godaddy-dns-api-now-works-with-a-single-domain)). On the server only, never in chat, run:
+
+```
+GODADDY_PAT='<token>' node scripts/uberdoso-dns-publish.mjs --host-verification /root/uberdoso-verify.json --senders uberbondhq.site --apply --owner-authorized
+```
+
+The proof is `result.ok: true` plus the public DNS summary it prints.
+
+**3. Fill the launch facts** (~10 min, $0)
+
+On any machine with the repo, run `npm run outreach:launch-facts -- --init`, open `~/.uberbond/launch-facts.json`, and fill:
+- legal name, postal address and `postalAddressAuthorized: true`;
+- `publicFooterAuthorized: true`: the address appears in every email, as CAN-SPAM requires;
+- `senderJurisdiction` (2-letter country);
+- a monitored reply-to address;
+- `offerLineage`: `CURRENT_FOUR_OFFER_GENOME` ($450 / $900 / $950 / $750; the only set already wired into reply lanes and delivery) or `HIGH_TICKET_LINEAGE` ($1,000–4,000 hypotheses);
+- canary: `authorized: true`, `maxRecipients` (suggest 20), recipient countries (suggest `["US"]`), and an expiry date.
+
+Run `npm run outreach:launch-facts` until it prints `LAUNCH_FACTS_COMPLETE`.
+
+**If you send from Egypt:** the engine will hold every cold recipient until a lawyer confirms how PDPL Articles 17–18 treat B2B email. Say so, and the first-cash route shifts to opt-in and inbound channels instead of cold email.
+
+Optional (1 min): in GoDaddy → `uberbond.cloud` → DNS, delete the `A @ Parked` record so every visitor reaches the real site.
+
+## 8. Irreducible blockers
+
+1. Server purchase and the host's terms: owner and external.
+2. PTR and outbound port 25 on an assigned IP: physical.
+3. DNS credential: owner.
+4. Legal identity and sender jurisdiction: owner.
+5. Offer choice: owner.
+6. Real buyer demand: reality.
+7. Live payment credentials: owner, deferred until the first "yes".
+8. The Gmail connector in this session needs re-authorisation in claude.ai connector settings, so mailbox receipts (Netcup, Mailforge) couldn't be checked.
+9. This environment's egress policy blocks the UberBond websites, Render and Netcup pages (DNS still works).
+
+## 9. Invented / internalized / deleted
+
+- **Invented:** the per-recipient lawful-eligibility engine, purpose-aware DNS reconciliation, the fleet DNS observatory, a one-file founder facts intake, fleet-sender mail-cell provisioning, one-step DNS publication.
+- **Internalized (no SaaS needed):** DNS automation for mailbox providers, compliance classification, domain health observation.
+- **Deleted:** nothing.
+- **Superseded:** UberProspect's bare `legalEligible` boolean (now requires evidence).
+- **Still recoverable:** all 30 domains, the Mailforge pilot plan, the Contabo cell path, the SES research, both offer lineages, and PR #993 / PR #972.
+
+## 10. Next automatic steps
+
+1. **After owner action 1:** run the bootstrap/verify/publish sequence.
+2. **After DNS:** run `npm run outreach:fleet-dns` until the sender domain shows `MX_SPF_DMARC_PRESENT_DKIM_UNOBSERVED`, then mark the domain verified in Postal.
+3. **First real test to founder-owned addresses:** check headers, SPF, DKIM and DMARC, replies, bounces, unsubscribe and suppression.
+4. **After owner action 3:** build a 20-recipient cohort on the live control plane (never in git). Eligibility → UberProspect → launch gate → governed dispatch, with one authorization receipt per send.
+5. **Measure:** delivery, bounce, reply, positive reply, unsubscribe, complaint, meeting, payment. Promote capacity only on observed evidence.

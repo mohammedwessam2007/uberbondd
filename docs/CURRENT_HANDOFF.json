@@ -375,5 +375,52 @@
     },
     "nextFrontier": "Execute evidence-grade atomization and experiments for 193 internal packets; for 697 external packets advance simulation/formalization/measurement until a lawful authorized reality probe exists. Reality, not software labels, must close those parents.",
     "truthBoundary": "This is 890/890 internal routing closure, not 890/890 physical or scientific realization."
+  },
+  "outreachNightWar20260925": {
+      "checkpointedAt": "2026-09-25T00:50:00Z",
+      "branch": "claude/uberbond-night-war-launch-glgsqc",
+      "baseMain": "aa037a0c74b650ebd4646550a182dfeae9dc9aa0",
+      "report": "UBERBOND_NIGHT_WAR_FINAL.md",
+      "scope": "Additive outreach/first-cash frontier. Does not replace the terminal North Star or the active NULLSTAR mission above.",
+      "verifiedCompletion": [
+          "Per-recipient lawful-eligibility engine (src/uberoutbound-recipient-eligibility.mjs) produces the legal object the launch gate requires; UberProspect now requires that evidence instead of a bare boolean.",
+          "GoDaddy adapter reconciles TXT by purpose, refuses ambiguous or mail-routing-changing writes, decides every zone before writing.",
+          "Live public-DNS receipt for all 30 domains: 0 MX, 0 SPF, 0 DKIM; GoDaddy default DMARC on 30; 28 fleet apexes parked; uberbond.cloud mixes parking and hosting.",
+          "Mail-cell bootstrap and UberDoso topology accept explicitly allowlisted outreach-fleet sender domains; default brand-root topology digest unchanged.",
+          "One-step DNS publication from the mail-host verification receipt (npm run uberdoso:dns-publish), dry-run by default.",
+          "Founder launch-facts intake (npm run outreach:launch-facts) kept outside the public repository."
+      ],
+      "externalEffects": {
+          "messages": 0,
+          "dnsChanges": 0,
+          "purchases": 0,
+          "spendCents": 0,
+          "providerWrites": 0
+      },
+      "ownerActions": [
+          "1. Read Netcup's terms for unsolicited advertising email; if permitted, buy the VPS (EUR 29.52 per 6 months observed), open mail firewall, set PTR to mta.uberbond.cloud, run the bootstrap/verify/publish block in the report.",
+          "2. Create a GoDaddy DNS API credential and run the publish command with --apply --owner-authorized on the mail host.",
+          "3. Fill ~/.uberbond/launch-facts.json (legal name, postal address, sender jurisdiction, reply-to, offer lineage, canary authorization) until LAUNCH_FACTS_COMPLETE."
+      ],
+      "genuineBlockers": [
+          "netcup-terms-unverified",
+          "server-not-purchased",
+          "ptr-and-port25-unobserved",
+          "dns-credential-absent",
+          "sender-legal-identity-and-jurisdiction-absent",
+          "offer-lineage-unresolved",
+          "no-eligible-prospect-corpus",
+          "payment-live-credentials-absent",
+          "gmail-connector-needs-reauth"
+      ],
+      "contradictionsPreserved": [
+          "docs/OUTREACH_ACTIVATION_CARD.md says the roots have no website role; live DNS shows uberbond.agency hosted and uberbond.cloud mixed parking/hosting.",
+          "Offer price lineage 450-950 (code) vs >1,000 (founder recollection / 2026-08-05 genome)."
+      ],
+      "nextAutomaticStep": "After owner action 1: bootstrap, verify, publish DNS dry-run; after action 2 apply and observe; after action 3 build a 20-recipient cohort on the live control plane and send the first test to founder-owned addresses.",
+      "verifiedCapacity30d": 0,
+      "clearedRevenueUsd": 0,
+      "fullSuiteOnHead": "see UBERBOND_NIGHT_WAR_FINAL.md section 5",
+      "truthBoundary": "Source and one live DNS observation only. No mail host, authenticated sender, prospect, send, reply, customer or payment exists."
   }
 }

@@ -102,7 +102,7 @@ This is encoded regulator guidance, **not legal advice**. Anything uncertain hol
   - 1 (`worker-context-admission`) failed only because the working tree was uncommitted; it passes once committed.
   - This branch fixed 3 of the `main` failures: canon freshness, constitution freshness and input config.
   - Still failing on both `main` and the branch, all in GENESIS/moonshot work outside outreach: `causal-compiler-canary-v1`, `founder-moonshot-literal-corpus` (2) and `reachability-ratchet` (32 unclassified GENESIS modules; the list is byte-identical on `main` and this branch).
-  - Final full-suite result on the branch head: see the handoff entry `outreachNightWar20260925.fullSuiteOnHead`.
+  - **Final full suite on branch head `ee6f769`: 8,090 tests; 8,032 passed, 4 failed, 54 skipped.** The 4 failures are exactly the GENESIS/moonshot failures listed above, which also fail on `main`.
 - `npm run check:syntax`: 2,343 files parse.
 
 ## 6. Scoreboard (evidence-backed only)

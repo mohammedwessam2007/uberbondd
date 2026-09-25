@@ -123,6 +123,12 @@ export class RevenueEngine {
     if (lead.consent) {
       const consent = compileConsentReceipt({ subjectEmail: email, wordingId: 'public-intake-v1', channel: 'PUBLIC_INTAKE_FORM', sourceRef: lead.id, capturedAt: lead.createdAt, ipAddress: ip });
       lead.consentReceipt = consent.ok ? consent.receipt : null;
+      // The optional second box is its own receipt with its own wording; an
+      // unticked box, or anything other than a literal true, records nothing.
+      const followUp = input.followUp === true
+        ? compileConsentReceipt({ subjectEmail: email, wordingId: 'report-follow-up-v1', channel: 'PUBLIC_INTAKE_FORM', sourceRef: lead.id, capturedAt: lead.createdAt, ipAddress: ip })
+        : null;
+      lead.consentReceipts = [lead.consentReceipt, followUp?.ok ? followUp.receipt : null].filter(Boolean);
     }
     const prospect = {
       id: id('pros'), company, website, domain, niche: lead.industry, country: lead.country, city: '', contactName: '',

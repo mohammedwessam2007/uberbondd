@@ -91,6 +91,8 @@
     "outreach:launch-facts": "node scripts/outreach-launch-facts.mjs",
     "uberdoso:dns-publish": "node scripts/uberdoso-dns-publish.mjs",
     "outreach:bridge-plan": "node scripts/consent-bridge-plan.mjs",
+    "outreach:bridge-letters": "node scripts/consent-bridge-letters.mjs",
+    "outreach:bridge-attribute": "node scripts/consent-bridge-attribute.mjs",
     "providers:doctor": "node scripts/model-provider-doctor.mjs",
     "payment:doctor": "node scripts/payment-rail-doctor.mjs",
     "absence:doctor": "node scripts/founder-absence-doctor.mjs",

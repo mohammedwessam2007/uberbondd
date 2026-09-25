@@ -120,6 +120,8 @@ test('the registered public-intake wording is the sentence the public form shows
   const fs = await import('node:fs');
   const html = fs.readFileSync(new URL('../public/index.html', import.meta.url), 'utf8');
   assert.ok(html.includes(CONSENT_WORDINGS['public-intake-v1'].text), 'public/index.html must display the exact registered wording');
+  assert.ok(html.includes(CONSENT_WORDINGS['report-follow-up-v1'].text), 'the optional follow-up box must display its exact registered wording');
+  assert.match(html, /<input name="followUp" type="checkbox">/, 'the follow-up box is optional and starts unticked');
 });
 
 test('the public intake stores a sealed consent receipt beside the legacy boolean', async () => {
@@ -149,6 +151,16 @@ test('the public intake stores a sealed consent receipt beside the legacy boolea
     const bare = await store.get('leads', without.leadId);
     assert.equal(bare.consent, false);
     assert.equal(bare.consentReceipt, undefined);
+    assert.deepEqual(lead.consentReceipts.map(r => r.wordingId), ['public-intake-v1'], 'no follow-up receipt without the second box');
+
+    const ticked = await engine.createLead({ company: 'Gamma', website: 'https://gamma.example', email: 'g@gamma.example', consent: true, followUp: true }, '198.51.100.6');
+    const both = await store.get('leads', ticked.leadId);
+    assert.deepEqual(both.consentReceipts.map(r => r.wordingId), ['public-intake-v1', 'report-follow-up-v1']);
+    assert.ok(both.consentReceipts.every(verifyConsentReceiptIntegrity));
+    assert.equal(consentRelationshipFor({ receipts: both.consentReceipts, recipientEmail: 'g@gamma.example', purpose: 'SERVICE_FOLLOW_UP', now: new Date(Date.parse(both.createdAt) + 60000) }).relationship, 'USER_INITIATED');
+
+    const stringy = await engine.createLead({ company: 'Delta', website: 'https://delta.example', email: 'd@delta.example', consent: true, followUp: 'true' }, '198.51.100.7');
+    assert.deepEqual((await store.get('leads', stringy.leadId)).consentReceipts.map(r => r.wordingId), ['public-intake-v1'], 'only a literal true records follow-up consent');
   } finally {
     await fs.rm(dir, { recursive: true, force: true });
   }

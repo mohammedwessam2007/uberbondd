@@ -25,7 +25,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { evaluateConsentBackedAttention } from './consent-receipt.mjs';
 import { evaluateReachEndpoint } from './uberreach-universal-transport.mjs';
-import { DISTRIBUTION_MAX_MOTION_SHARE } from './distribution-control-plane.mjs';
+import { DISTRIBUTION_MAX_MOTION_SHARE } from './distribution-concentration.mjs';
 
 export const LAWFUL_CHANNEL_ROUTER_VERSION = 'uberbond.lawful-channel-router.v1';
 export const ROUTE_STATES = Object.freeze(['ALLOW', 'ALLOW_WITH_UNMET_REQUIREMENTS', 'HOLD', 'REJECT']);

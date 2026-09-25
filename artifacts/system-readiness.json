@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-25T00:40:10.683Z",
+  "generatedAt": "2026-09-25T11:45:40.914Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "d820ddea19f824f6bfaf46c8376f40c032099210",
+    "head": "4101b6958c7c44ffb54ec339c180603d6f1ba142",
     "branch": "claude/uberbond-night-war-launch-glgsqc",
-    "sourceModules": 902,
-    "testSuites": 1080,
-    "workingTreeClean": false
+    "sourceModules": 906,
+    "testSuites": 1085,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 902,
-      "reachableFromProduction": 268,
-      "reachableFromUnattendedOperatorScriptsOnly": 426,
+      "srcModules": 906,
+      "reachableFromProduction": 269,
+      "reachableFromUnattendedOperatorScriptsOnly": 428,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 426,
-      "noEntryPointAtAll": 201,
+      "reachableFromOperatorScriptsOnly": 428,
+      "noEntryPointAtAll": 202,
       "partitionExact": true,
       "allClassified": false,
       "unclassified": [
@@ -85,6 +85,7 @@
         "src/causal-semantic-crystallizer-v1.mjs",
         "src/cubefree-external-v7.mjs",
         "src/epoch-branching-evaluator.mjs",
+        "src/evidence-beacon.mjs",
         "src/external-arithmetic-family-canary-v5.mjs",
         "src/fifth-power-free-v11.mjs",
         "src/fourth-power-free-v9.mjs",

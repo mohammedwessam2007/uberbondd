@@ -6,6 +6,8 @@ Cleared revenue: **$0.** Customers: **0.**
 
 ## 1. Verdict
 
+**Round 2 update:** there is now a first-cash path that needs no server and no spend (§1b, Track A in §7). The cold-email machine below is still valid, but it is now Track B.
+
 No email can lawfully leave UberBond tomorrow. Nothing in the software is still missing for a small first batch. What stands between now and a first batch is three founder actions: buy the server, create a DNS credential, and fill one facts file. Every step after those is now one command.
 
 Tonight closed the software gaps that would have blocked first cash even after the server existed:
@@ -16,6 +18,29 @@ Tonight closed the software gaps that would have blocked first cash even after t
 4. **Nothing turned the bring-up output into published DNS.** After purchase, someone would have hand-typed about 21 records. Now it's one command (§4.6).
 5. **The founder-only inputs were scattered across 5 gates.** Now they're one file (§4.4).
 6. **DNS state was "UNKNOWN" for all 30 domains.** It is now observed live (§3).
+
+## 1b. Round 2 (same night): a lawful path to first cash that needs no server
+
+The first round made cold email possible once a server exists. The harder truth is that cold email may never be lawful for this sender. An Egypt-based sender holds every cold recipient under PDPL Articles 17–18. Germany, Switzerland and Saudi Arabia reject cold email outright. No free transport permits it, and Netcup's terms are unverified. So the second round asked GENESIS (and the 890 founder moonshots) for mechanisms that make the prospect's own action the permission:
+
+| Invention | Moonshot ancestors | What it does | State |
+|---|---|---|---|
+| **Consent receipts** | #161 Consent Protocol, #67 Trust Compiler, #465 | Replaces the intake's bare `consent: true` with a sealed receipt: exact wording hash, purpose, channel, time, double opt-in for marketing, time-ordered withdrawal | Built; wired into the live intake code |
+| **Consent Bridge invitations** | #161, #160 Authority Physics, #464 | Typeable codes (`XXXX-XXXX-XXXX`) handed through a letter, partner, in-person meeting or your own network. The prospect asks for their own report, which creates the permission. | Built; the intake form records `?code=` for attribution |
+| **Lawful Channel Router** | #790 Monoculture Detector, #107 Matter Router, #1 Causal Compiler | For each prospect: every route with its legal state and cost. Cold email only when eligibility PASSED; otherwise a consent-creating first touch. It names exactly what would unlock a held route. | Built |
+| **Evidence Beacon** | #306 Proof-of-Value, #67, #146 Knowledge Packet | The pitch is the prospect's own verifiable findings from UberBond's auditor, with no revenue claims. Nothing real to show means no invitation. | Built |
+| **GENESIS burst + Wallbreaker** | 12 generators, 890-corpus ancestry | 12 candidates recorded in the GENESIS index (4 realized, 4 routed or waiting, 4 hypotheses) plus a Wallbreaker tournament | Receipts committed |
+
+Proof that it changes outcomes, as tested:
+- A German recipient with an Egypt-based sender is **rejected** for cold email, but becomes **eligible** after a confirmed double opt-in.
+- An Egypt-based sender's US prospect routes to letters only after a recorded counsel confirmation; until then it gets inbound content only, and the router names that one missing fact.
+
+**Wallbreaker tournament** (no spend, no deploy tonight, economics honestly unknown):
+- **Selected:** fix and document UberBond's own observed leak (1 founder minute).
+- **Fallbacks:** offer decision, partner introductions, founder network, hiring-signal research.
+- **Rejected:** the Netcup cold canary (spend, and it relies on the now-falsified "cold email is the only channel" assumption), letters (spend), and the public deploy (your authority).
+
+**First GENESIS probe:** hiring-signal chemotaxis over public job postings: `PARTIAL_SUPPORT`. There were 13 US postings, about 4–6 from small agencies by name, but no website field and an empty UK query. Receipt: `artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`.
 
 ## 2. Current verified state
 
@@ -56,7 +81,7 @@ Tonight closed the software gaps that would have blocked first cash even after t
 
 Shortest path: **owner action 1 → bootstrap → owner action 2 → DNS publish → owner action 3 → test send to founder addresses → 20-recipient canary.**
 
-## 4. What changed tonight (8 commits)
+## 4. What changed tonight (round 1: 8 commits; round 2: 7 more, listed in §1b and the git log)
 
 | Commit | What |
 |---|---|
@@ -104,6 +129,11 @@ This is encoded regulator guidance, **not legal advice**. Anything uncertain hol
   - Still failing on both `main` and the branch, all in GENESIS/moonshot work outside outreach: `causal-compiler-canary-v1`, `founder-moonshot-literal-corpus` (2) and `reachability-ratchet` (32 unclassified GENESIS modules; the list is byte-identical on `main` and this branch).
   - **Final full suite on branch head `ee6f769`: 8,090 tests; 8,032 passed, 4 failed, 54 skipped.** The 4 failures are exactly the GENESIS/moonshot failures listed above, which also fail on `main`.
 - `npm run check:syntax`: 2,343 files parse.
+- **Round 2:**
+  - New suites, all passing: consent receipts 9/9, consent bridge 7/7, channel router 7/7, evidence beacon 3/3, GENESIS outreach burst 5/5.
+  - Mutation checks: 24 of 24 protections caught, after two survivors exposed missing tests that were then added (wording drift; a partner agreement without the partner's own relationship).
+  - The GENESIS index doctor reports 3 healthy bursts and 48 candidates.
+  - **Full suite after round 2:** 8,121 tests; 8,062 passed, 54 skipped, 5 failed. Four are the GENESIS/moonshot failures that also fail on `main`. The fifth, `worker-context-admission`, refuses to run on a dirty working tree, and I was editing this report during the run; it passes on the committed tree.
 
 ## 6. Scoreboard (evidence-backed only)
 
@@ -133,9 +163,37 @@ This is encoded regulator guidance, **not legal advice**. Anything uncertain hol
 - **≤$30/month:** one Netcup cell (€29.52 per 6 months), usable only if its terms, PTR and port 25 pass. Modeled first month: tens of recipients.
 - **≤$100/month:** a second cell plus separate IP reputation. Modeled only.
 
-## 7. Owner action queue (max 3)
+## 7. Owner action queue (max 3 at once)
 
-**1. Netcup: check the terms, then buy the server** (~25 min, €29.52 per 6 months plus any tax on the account-specific total)
+Two tracks. **Track A starts now and needs no server and no spend.** Track B, the cold-email machine, is queued behind it and only matters if Track A shows demand or cold email turns out to be lawful for you.
+
+### Track A: now (max 3)
+
+**A1. Fix UberBond's own leak** (1 min, $0; the Wallbreaker selection). In GoDaddy → My Products → `uberbond.cloud` → DNS, delete the `A` record `@` whose value is `Parked`, and leave the two Cloudflare `A` records. Then UberBond reruns `npm run outreach:fleet-dns` and keeps the before/after receipts as a truthful demonstration of the audit.
+
+**A2. Fill the launch facts** (~10 min, $0). This also settles the offer price and your jurisdiction for both tracks.
+
+On any machine with the repo, run `npm run outreach:launch-facts -- --init`, open `~/.uberbond/launch-facts.json`, and fill:
+- legal name, postal address and `postalAddressAuthorized: true`;
+- `publicFooterAuthorized: true`: the address appears in every email, as CAN-SPAM requires;
+- `senderJurisdiction` (2-letter country);
+- a monitored reply-to address;
+- `offerLineage`: `CURRENT_FOUR_OFFER_GENOME` ($450 / $900 / $950 / $750; the only set already wired into reply lanes and delivery) or `HIGH_TICKET_LINEAGE` ($1,000–4,000 hypotheses);
+- canary: `authorized: true`, `maxRecipients` (suggest 20), recipient countries (suggest `["US"]`), and an expiry date.
+
+Run `npm run outreach:launch-facts` until it prints `LAUNCH_FACTS_COMPLETE`.
+
+**If you send from Egypt:** the engine will hold every cold recipient until a lawyer confirms how PDPL Articles 17–18 treat B2B email. Say so, and the first-cash route shifts to opt-in and inbound channels instead of cold email.
+
+**A3. Hand out 10 invitation codes** (~30 min, $0).
+- **Pick the businesses:** 10 you already know, or 2 agencies willing to introduce a client. Put them in a file, one JSON line each: `ref`, `company`, `website`, `jurisdiction`, `recipientType: "CORPORATE"`, and either `existingRelationshipRef` or `partnerAgreementRef` + `partnerRelationshipRef`.
+- **Generate the codes:** run `CONSENT_BRIDGE_SECRET=<32+ random characters> npm run outreach:bridge-plan -- --context ctx.json --prospects prospects.ndjson`. Invitation records go to `~/.uberbond/invitations.ndjson`, outside the repo.
+- **Hand each person their code** in person, by phone or through the partner, with the link `<audit page>/?code=XXXX-XXXX-XXXX`. If you send it by email or social message instead, that is a commercial electronic message and the email rules above apply.
+- **Check first:** confirm the audit page (the Render control plane at `https://uberbond-control-plane.onrender.com/`) loads the form. I couldn't reach it from here. Code attribution needs this branch deployed; without it, requests still work but aren't attributed to the code.
+
+### Track B: the cold-email machine (queued)
+
+**B1. Netcup: check the terms, then buy the server** (~25 min, €29.52 per 6 months plus any tax on the account-specific total)
 
 a. Open https://www.netcup.com/en/terms-and-conditions and search the page for "spam", "advertis" and "E-Mail". If it forbids unsolicited advertising email, **stop and don't buy**; tell UberBond and the transport switches. If it allows individually addressed B2B email with an opt-out, continue.
 
@@ -160,7 +218,7 @@ cd /opt/uberbond-src && node scripts/uberdoso-dns-publish.mjs --host-verificatio
 
 The last command prints the exact DNS records and changes nothing.
 
-**2. GoDaddy: create a DNS API credential** (~5 min, $0)
+**B2. GoDaddy: create a DNS API credential** (~5 min, $0)
 
 Create a production API credential with DNS write access ([GoDaddy Domains API docs](https://developer.godaddy.com/en/docs/api-users/domains); DNS API access is now available with a single domain, per [GoDaddy](https://www.godaddy.com/resources/news/godaddy-dns-api-now-works-with-a-single-domain)). On the server only, never in chat, run:
 
@@ -169,22 +227,6 @@ GODADDY_PAT='<token>' node scripts/uberdoso-dns-publish.mjs --host-verification 
 ```
 
 The proof is `result.ok: true` plus the public DNS summary it prints.
-
-**3. Fill the launch facts** (~10 min, $0)
-
-On any machine with the repo, run `npm run outreach:launch-facts -- --init`, open `~/.uberbond/launch-facts.json`, and fill:
-- legal name, postal address and `postalAddressAuthorized: true`;
-- `publicFooterAuthorized: true`: the address appears in every email, as CAN-SPAM requires;
-- `senderJurisdiction` (2-letter country);
-- a monitored reply-to address;
-- `offerLineage`: `CURRENT_FOUR_OFFER_GENOME` ($450 / $900 / $950 / $750; the only set already wired into reply lanes and delivery) or `HIGH_TICKET_LINEAGE` ($1,000–4,000 hypotheses);
-- canary: `authorized: true`, `maxRecipients` (suggest 20), recipient countries (suggest `["US"]`), and an expiry date.
-
-Run `npm run outreach:launch-facts` until it prints `LAUNCH_FACTS_COMPLETE`.
-
-**If you send from Egypt:** the engine will hold every cold recipient until a lawyer confirms how PDPL Articles 17–18 treat B2B email. Say so, and the first-cash route shifts to opt-in and inbound channels instead of cold email.
-
-Optional (1 min): in GoDaddy → `uberbond.cloud` → DNS, delete the `A @ Parked` record so every visitor reaches the real site.
 
 ## 8. Irreducible blockers
 
@@ -200,16 +242,19 @@ Optional (1 min): in GoDaddy → `uberbond.cloud` → DNS, delete the `A @ Parke
 
 ## 9. Invented / internalized / deleted
 
-- **Invented:** the per-recipient lawful-eligibility engine, purpose-aware DNS reconciliation, the fleet DNS observatory, a one-file founder facts intake, fleet-sender mail-cell provisioning, one-step DNS publication.
+- **Invented (round 2):** consent receipts, Consent Bridge invitations and attribution, the Lawful Channel Router, the Evidence Beacon, the GENESIS outreach burst and Wallbreaker receipts.
+- **Invented (round 1):** the per-recipient lawful-eligibility engine, purpose-aware DNS reconciliation, the fleet DNS observatory, a one-file founder facts intake, fleet-sender mail-cell provisioning, one-step DNS publication.
 - **Internalized (no SaaS needed):** DNS automation for mailbox providers, compliance classification, domain health observation.
 - **Deleted:** nothing.
-- **Superseded:** UberProspect's bare `legalEligible` boolean (now requires evidence).
+- **Superseded:** UberProspect's bare `legalEligible` boolean (now requires evidence). The intake's bare `consent` boolean is kept but no longer the evidence; the sealed receipt is.
 - **Still recoverable:** all 30 domains, the Mailforge pilot plan, the Contabo cell path, the SES research, both offer lineages, and PR #993 / PR #972.
 
 ## 10. Next automatic steps
 
-1. **After owner action 1:** run the bootstrap/verify/publish sequence.
-2. **After DNS:** run `npm run outreach:fleet-dns` until the sender domain shows `MX_SPF_DMARC_PRESENT_DKIM_UNOBSERVED`, then mark the domain verified in Postal.
-3. **First real test to founder-owned addresses:** check headers, SPF, DKIM and DMARC, replies, bounces, unsubscribe and suppression.
-4. **After owner action 3:** build a 20-recipient cohort on the live control plane (never in git). Eligibility → UberProspect → launch gate → governed dispatch, with one authorization receipt per send.
-5. **Measure:** delivery, bounce, reply, positive reply, unsubscribe, complaint, meeting, payment. Promote capacity only on observed evidence.
+1. **After A1:** rerun the fleet observatory and store the before/after pair.
+2. **After A3:** run `attributeBridgeLeads` over new public-intake leads, generate Evidence Beacons for redeemed codes, and send report links only under the consent receipts.
+3. **After B1:** run the bootstrap/verify/publish sequence.
+4. **After DNS:** run `npm run outreach:fleet-dns` until the sender domain shows `MX_SPF_DMARC_PRESENT_DKIM_UNOBSERVED`, then mark the domain verified in Postal.
+5. **First real test to founder-owned addresses:** check headers, SPF, DKIM and DMARC, replies, bounces, unsubscribe and suppression.
+6. **After A2 and B2:** build a 20-recipient cohort on the live control plane (never in git). Eligibility → UberProspect → launch gate → governed dispatch, with one authorization receipt per send.
+7. **Measure:** delivery, bounce, reply, positive reply, unsubscribe, complaint, meeting, payment. Promote capacity only on observed evidence.

@@ -421,6 +421,17 @@
       "verifiedCapacity30d": 0,
       "clearedRevenueUsd": 0,
       "fullSuiteOnHead": "ee6f769: 8090 tests, 8032 pass, 4 fail (pre-existing on main: causal-compiler-canary-v1, founder-moonshot-literal-corpus x2, reachability-ratchet), 54 skipped",
-      "truthBoundary": "Source and one live DNS observation only. No mail host, authenticated sender, prospect, send, reply, customer or payment exists."
+      "truthBoundary": "Source and one live DNS observation only. No mail host, authenticated sender, prospect, send, reply, customer or payment exists.",
+        "round2": "No-server lawful first-cash track: consent receipts (#161), Consent Bridge invitations with ?code= attribution, Lawful Channel Router (#790/#107/#1), Evidence Beacon (#306); GENESIS burst genesis-burst-20260925-outreach-first-cash (12 candidates, 890-corpus ancestry) and Wallbreaker receipt wbr_7f1b075e00336b0b4835ae53.",
+        "trackA": [
+            "A1 delete the Parked A record on uberbond.cloud (Wallbreaker selection)",
+            "A2 fill launch facts",
+            "A3 hand out 10 consent-bridge codes in person, by phone or via a partner"
+        ],
+        "trackB": [
+            "B1 Netcup terms check then purchase",
+            "B2 GoDaddy DNS credential and publish"
+        ],
+        "hiringSignalProbe": "PARTIAL_SUPPORT (artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json)"
   }
 }

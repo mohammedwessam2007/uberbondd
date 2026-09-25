@@ -5,12 +5,12 @@ export const UBERDOSO_DNS_CONTRACT_VERSION='uberbond.uberdoso-dns-contract.v1';
 const zero=()=>structuredClone(ZERO_EXTERNAL_EFFECTS);
 const fail=reasonCodes=>({ok:false,status:'UBERDOSO_DNS_CONTRACT_REFUSED',reasonCodes:[...new Set(reasonCodes.filter(Boolean))],externalEffectAuthority:'NONE',externalEffectLedger:zero()});
 
-export function compileUberDosoVerifierContracts({dnsPlan}={}){
+export function compileUberDosoVerifierContracts({dnsPlan,roots=UBERDOSO_ROOTS}={}){
   if(!dnsPlan||dnsPlan.schemaVersion!=='uberdoso.dns-plan.v1')return fail(['valid-uberdoso-dns-plan-required']);
   if(dnsPlan.status!=='UBERDOSO_DNS_PLAN_READY')return fail(['dns-plan-must-be-ready-before-verifier-contract']);
   const records=Array.isArray(dnsPlan.records)?dnsPlan.records:[];
   const contracts={};
-  for(const root of UBERDOSO_ROOTS){
+  for(const root of roots){
     const mx=records.find(row=>row.host===root&&row.type==='MX');
     const spf=records.find(row=>row.host===root&&row.type==='TXT'&&/^v=spf1/i.test(String(row.value||'')));
     const dkim=records.find(row=>row.type==='TXT'&&String(row.host||'').endsWith(`._domainkey.${root}`));

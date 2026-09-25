@@ -78,3 +78,14 @@ test('cycle energizes missing authentication and warmup while ready mailboxes re
   assert.ok(result.actions.some(a=>a.kind==='START_WARMUP'&&a.mailboxId==='m2'));
   assert.equal(result.externalEffectAuthority,'NONE');
 });
+
+test('topology accepts only explicitly named verified fleet senders beside the brand roots', async () => {
+  const { compileUberDosoTopology: topo } = await import('../src/uberdoso-kernel.mjs');
+  const ok = topo({ senderDomains: ['uberbondhq.site', 'UBERBONDLABS.site.'] });
+  assert.equal(ok.ok, true);
+  assert.deepEqual(ok.topology.roots.map(r => r.root), ['uberbond.agency', 'uberbond.cloud', 'uberbondhq.site', 'uberbondlabs.site']);
+  assert.equal(ok.topology.infrastructure.mtaHost, 'mta.uberbond.cloud');
+  assert.deepEqual(topo({ senderDomains: ['uberbond-evil.site'] }).reasonCodes, ['sender-domain-not-in-verified-outreach-fleet:uberbond-evil.site']);
+  assert.deepEqual(topo({ senderDomains: ['uberbond.agency'] }).reasonCodes, ['sender-domain-not-in-verified-outreach-fleet:uberbond.agency']);
+  assert.deepEqual(topo({ senderDomains: ['uberbondhq.site', 'uberbondhq.site'] }).reasonCodes, ['duplicate-sender-domain']);
+});

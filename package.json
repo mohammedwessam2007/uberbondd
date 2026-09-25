@@ -89,6 +89,7 @@
     "outreach:eligibility": "node scripts/recipient-eligibility.mjs",
     "outreach:fleet-dns": "node scripts/outreach-fleet-dns-observe.mjs --summary",
     "outreach:launch-facts": "node scripts/outreach-launch-facts.mjs",
+    "uberdoso:dns-publish": "node scripts/uberdoso-dns-publish.mjs",
     "providers:doctor": "node scripts/model-provider-doctor.mjs",
     "payment:doctor": "node scripts/payment-rail-doctor.mjs",
     "absence:doctor": "node scripts/founder-absence-doctor.mjs",

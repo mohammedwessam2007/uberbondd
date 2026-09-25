@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   compileMinimumIntervention,
   runCausalCompilerCanaryV1,
@@ -37,14 +38,22 @@ test('pruned and exhaustive search preserve exact minimum intervention cardinali
   assert.ok(a.evaluations<b.evaluations);
 });
 
-test('v1 benchmark preserves correctness and preregistered efficiency threshold',()=>{
+// The preregistered efficiency threshold was 10x and the recorded result is 5x:
+// artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json says the
+// falsifier fired. The test holds the canary to that recorded outcome, so a
+// change that silently turns the falsified run into a pass fails here.
+test('v1 benchmark preserves correctness and reproduces its recorded preregistered outcome',()=>{
   const r=runCausalCompilerCanaryV1();
+  const recorded=JSON.parse(readFileSync(new URL('../artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json',import.meta.url),'utf8')).outcome;
   assert.equal(r.ok,true);
   assert.equal(r.correctnessAgreementRate,1);
   assert.ok(r.benchmarkCaseCount>=24);
-  assert.ok(r.medianDistractorEvaluationReductionFactor>=10);
   assert.ok(r.maximumNegativeControlEvaluationRatio<=1.05);
   assert.equal(r.impossibleCaseAgreement,true);
+  assert.equal(r.falsifierTriggered,r.medianDistractorEvaluationReductionFactor<recorded.requiredMedianReductionFactor);
+  for(const key of ['status','falsifierTriggered','benchmarkCaseCount','distractorCaseCount','negativeControlCount','correctnessAgreementRate','medianDistractorEvaluationReductionFactor','maximumNegativeControlEvaluationRatio','impossibleCaseAgreement']){
+    assert.deepEqual(r[key],recorded[key],key);
+  }
 });
 
 test('a positive result remains narrow and cannot self-promote the founder moonshot',()=>{

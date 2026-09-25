@@ -137,6 +137,10 @@
     "NO_PROVISIONED_FREE_RUNTIME_MESH": {
       "description": "The free runtime mesh schedules one-second burst work across a Cloudflare worker deployment and hibernates with a recovery alarm when there is none. It is deployed by a workflow and a wrangler config that exist in the tree; no worker has been provisioned and no burst has run, so an entry point would be scheduling against a mesh that is not there.",
       "releasedBy": "A provisioned worker reachable at a recorded endpoint, plus one observed burst cycle with its own receipt. The module's own ledger already refuses to treat dispatch as a business effect, so provisioning releases scheduling and nothing more."
+    },
+    "NO_UBERWATT_METER_OBSERVATIONS": {
+      "description": "UberWatt needs real utility-meter intervals read by the founder and measured local inference from an owned compute node. Source cannot manufacture electricity readings or benchmark runs.",
+      "releasedBy": "At least three comparable founder-recorded meter intervals plus one measured local-inference run from the Windows node, recorded with their evidence references."
     }
   },
   "modules": {
@@ -1012,6 +1016,161 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVISIONED_FREE_RUNTIME_MESH",
       "reason": "Reached only by scripts/free-runtime-burst.mjs and its test. It states outright that a dispatch is internal compute intent and not a real-world business effect, which is the right boundary, and there is still no provisioned worker for it to dispatch to."
+    },
+    "src/autonomy-compression-ratio.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "GENESIS Autonomy Compression Ratio (#987): measures founder interventions per accepted task on replayed task sets. A lab measurement with no production caller; it becomes useful only once real task receipts exist to replay."
+    },
+    "src/causal-compiler-canary-v1.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Preregistered causal-compiler canary. Its recorded result (artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json) triggered the falsifier at 5x against a 10x threshold. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/causal-compiler-canary-v2.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Second preregistered causal-compiler canary with independent replication artifacts. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/causal-semantic-crystallizer-v1.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Causal semantic crystallizer lab module built on the v1/v2 canaries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/cubefree-external-v7.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "External arithmetic-family canary (cube-free, v7) in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/epoch-branching-evaluator.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Evaluates moonshot epoch-branching candidates and ancestor ablations for the research ladder. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/external-arithmetic-family-canary-v5.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "External arithmetic-family canary v5, ancestor of the v6-v11 multiplicity line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/fifth-power-free-v11.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Fifth-power-free canary v11 in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/fourth-power-free-v9.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Fourth-power-free canary v9 in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-ancestor-verification.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Verifies shared-ancestor claims across founder moonshots. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-corpus-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Compiles the founder moonshot corpus into portfolio entries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-evidence-propagation.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Propagates evidence between moonshot hypotheses. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-experiment-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Compiles moonshot hypotheses into preregistered experiments. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-mechanism-market.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Mechanism market over moonshot candidates. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-portfolio-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Moonshot portfolio compiler with canonical executable states and recovered aliases. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-reality-doctor.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Moonshot doctor, executed directly as `node src/moonshot-reality-doctor.mjs` by `npm run moonshots:doctor`, which the ratchet cannot see because the entry is the module itself. Read-only report."
+    },
+    "src/moonshot-realization-closure.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Closure accounting for moonshot realization. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-replication-network.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Independent replication network for moonshot results. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-simulation-ecology.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Simulation ecology for moonshot hypotheses; simulations are questions, not evidence. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/multiplicity-depth-memory-v8.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Multiplicity depth-memory canary v8. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/multiplicity-sensitive-memory-canary-v6.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Multiplicity-sensitive memory canary v6. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-novelty-gated-canary-v4.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Novelty-gated ontological canary v4. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-primitive-synthesis-canary-v3.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Ontological primitive-synthesis canary v3 (npm run moonshots:ontological-canary-v3). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-representation-canary-v2.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Ontological representation canary v2 (npm run moonshots:ontological-canary-v2). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-structural-synthesis-canary-v4b.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Ontological structural-synthesis canary v4b (npm run moonshots:ontological-canary-v4b). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-v4b-independent-replication.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Independent replication of the v4b canary (npm run moonshots:ontological-canary-v4b:replicate). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/parameterized-multiplicity-depth-v10.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Parameterized multiplicity-depth canary v10. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/possibility-civilization-kernel.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Possibility-civilization kernel with explicit truth states for moonshot possibilities. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/recursion-civilization-stack.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Recursion-civilization stack research model. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/semantic-novelty-preflight.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Semantic novelty preflight used by the ontological canaries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/uberwatt.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWATT_METER_OBSERVATIONS",
+      "reason": "UberWatt compiles energy intervals, verified savings and energy-backed local compute offers. Its inputs are founder-read utility-meter intervals and measured local inference on the Windows node (docs/UBERWATT_FIRST_WINDOWS_NODE.md); the PowerShell doctor and benchmark scripts produce raw observations but nothing feeds them into this module yet."
     }
   }
 }

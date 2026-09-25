@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { spawnSync } from "node:child_process";
+import { admitUberWormQueuedCommand, UBERWORM_APPROVED_MODELS, UBERWORM_NODE } from "../src/uberworm-policy.mjs";
 
 const ROOT = process.cwd();
 const CACHE = path.join(ROOT, ".cache");
@@ -9,8 +10,8 @@ const TOKEN_FILE = path.join(CACHE, "uberworm-token.dpapi");
 const DISABLE_FILE = path.join(CACHE, "uberworm-disabled");
 const LOG_FILE = path.join(CACHE, "uberworm-agent.log");
 const ENDPOINT = "https://lslifasfebpjbtqmkitm.supabase.co/functions/v1/uberworm-node";
-const NODE_ID = "hp-local";
-const APPROVED_MODELS = new Set(["qwen3:0.6b","qwen3:1.7b","qwen3:4b"]);
+const NODE_ID = UBERWORM_NODE;
+const APPROVED_MODELS = new Set(UBERWORM_APPROVED_MODELS);
 const POLL_MS = 30000;
 
 fs.mkdirSync(CACHE, { recursive: true });
@@ -213,8 +214,10 @@ async function cycle() {
   const polled = await api("poll");
   const command = polled?.command;
   if (!command) return true;
-  if (Date.parse(String(command.expires_at || "")) <= Date.now()) {
-    await api("receipt", { commandId:command.id, ok:false, payload:{ error:"command-expired-locally" } });
+  const admission = admitUberWormQueuedCommand(command, new Date());
+  if (!admission.ok) {
+    log("refused " + command.id + " " + admission.reasonCodes.join(","));
+    await api("receipt", { commandId:command.id, ok:false, payload:{ error:"command-refused-locally", reasonCodes:admission.reasonCodes } });
     return true;
   }
   log("running " + command.id + " " + command.action);

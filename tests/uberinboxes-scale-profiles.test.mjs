@@ -67,3 +67,16 @@ test('profile comparison preserves evidence uncertainty', () => {
   assert.equal(smtp.theoreticalColdDailyCap, null);
   assert.equal(comparison.externalEffectAuthority, 'NONE');
 });
+
+test('a provider-managed profile spreads over chosen fleet domains and refuses foreign ones', async () => {
+  const { OUTREACH_FLEET_DOMAINS } = await import('../src/outreach-domain-fleet.mjs');
+  const base = compileScaledUberInboxesFleet({ now: NOW });
+  const wider = compileScaledUberInboxesFleet({ senderDomains: OUTREACH_FLEET_DOMAINS.slice(0, 3), now: NOW });
+  assert.equal(wider.ok, true);
+  assert.equal(wider.fleet.desiredMailboxCount, base.fleet.desiredMailboxCount / 2 * 5);
+  assert.equal(Object.keys(wider.fleet.byDomain).length, 5);
+  assert.equal('senderDomains' in base.fleet, false);
+  const foreign = compileScaledUberInboxesFleet({ senderDomains: ['someone-else.example'], now: NOW });
+  assert.equal(foreign.status, 'SCALE_PROFILE_REFUSED');
+  assert.deepEqual(foreign.reasonCodes, ['sender-domain-not-in-verified-outreach-fleet:someone-else.example']);
+});

@@ -1,6 +1,7 @@
 import { config } from '../src/config.mjs';
 import { resolveProviderAdapter } from '../src/provider-adapter-contract.mjs';
 import { compileUberInboxesFleet, materializeUberInboxes, reconcileUberInboxes } from '../src/uberinboxes.mjs';
+import { OUTREACH_FLEET_DOMAINS } from '../src/outreach-domain-fleet.mjs';
 
 function bool(value) {
   return String(value || '').trim().toUpperCase() === 'YES';
@@ -9,6 +10,15 @@ function bool(value) {
 function integer(value, fallback = 0) {
   const parsed = Number(value);
   return Number.isFinite(parsed) && parsed >= 0 ? Math.floor(parsed) : fallback;
+}
+
+// Same selection as the UberDoso mail cell, so the mailboxes and the Postal
+// sender domains cannot drift apart. ALL means every name in the verified fleet.
+function senderDomainSelection() {
+  const raw = String(process.env.UBERINBOXES_SENDER_DOMAINS ?? process.env.UBERDOSO_POSTAL_SENDER_DOMAINS ?? '').trim().toLowerCase();
+  if (!raw) return [];
+  if (raw === 'all') return [...OUTREACH_FLEET_DOMAINS];
+  return raw.split(',').map(value => value.trim()).filter(Boolean);
 }
 
 const provider = String(process.env.UBERINBOXES_PROVIDER || 'icemail').trim();
@@ -25,12 +35,14 @@ if (resolution.ok && typeof adapter?.listMailboxes === 'function') {
   if (inventory?.ok && Array.isArray(inventory.mailboxes)) existingMailboxes = inventory.mailboxes;
 }
 
-const compiled = compileUberInboxesFleet({ existingMailboxes });
+const senderDomains = senderDomainSelection();
+const compiled = compileUberInboxesFleet({ senderDomains, existingMailboxes });
 const base = {
   provider,
   adapterReady: resolution.ok,
   adapterReason: resolution.reason,
   executeRequested: execute,
+  domainCount: 2 + (compiled?.fleet?.senderDomains?.length ?? 0),
   desiredMailboxCount: compiled?.fleet?.desiredMailboxCount ?? 0,
   existingMailboxCount: compiled?.fleet?.existingMailboxCount ?? 0,
   missingMailboxCount: compiled?.fleet?.missingMailboxCount ?? 0,

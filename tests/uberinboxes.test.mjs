@@ -153,3 +153,26 @@ test('reconciliation only marks mailboxes observed when provider inventory actua
   assert.equal(result.missingAddresses.length, 11);
   assert.equal(result.sendAuthorityCreated, false);
 });
+
+test('UberInboxes plans founder aliases on every owned outreach domain, not only the two roots', async () => {
+  const { OUTREACH_FLEET_DOMAINS } = await import('../src/outreach-domain-fleet.mjs');
+  const roots = compileUberInboxesFleet();
+  assert.equal(roots.fleet.desiredMailboxCount, 16);
+  assert.equal('senderDomains' in roots.fleet, false, 'the default two-root plan and its digest are unchanged');
+
+  const all = compileUberInboxesFleet({ senderDomains: OUTREACH_FLEET_DOMAINS });
+  assert.equal(all.ok, true);
+  assert.equal(all.fleet.desiredMailboxCount, 30 * DEFAULT_UBERINBOXES_LOCAL_PARTS.length);
+  assert.equal(Object.keys(all.fleet.byDomain).length, 30);
+  assert.deepEqual(all.fleet.senderDomains, [...OUTREACH_FLEET_DOMAINS]);
+  assert.ok(all.fleet.desired.every(row => row.identityClass === 'FOUNDER_ALIAS' && row.desiredState === 'PROVISIONED_NOT_AUTHORIZED_TO_SEND'));
+  assert.notEqual(all.fleet.fleetDigest, roots.fleet.fleetDigest);
+  assert.equal(all.fleet.sendAuthorityCreated, false);
+
+  const existing = compileUberInboxesFleet({ senderDomains: [OUTREACH_FLEET_DOMAINS[0]], existingMailboxes: [{ address: `mohamed@${OUTREACH_FLEET_DOMAINS[0]}` }] });
+  assert.equal(existing.fleet.missingMailboxCount, 23);
+
+  const foreign = compileUberInboxesFleet({ senderDomains: ['someone-else.example'] });
+  assert.equal(foreign.ok, false);
+  assert.deepEqual(foreign.reasonCodes, ['sender-domain-not-in-verified-outreach-fleet:someone-else.example']);
+});

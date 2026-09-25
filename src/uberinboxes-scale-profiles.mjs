@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { UBERDOSO_ROOTS } from './uberdoso-kernel.mjs';
+import { isOutreachFleetDomain } from './outreach-domain-fleet.mjs';
 
 export const UBERINBOXES_SCALE_VERSION = 'uberbond.uberinboxes-scale.v1';
 
@@ -77,9 +78,15 @@ function founderAlias(index) {
 export function compileScaledUberInboxesFleet({
   profile = UBERINBOXES_SCALE_PROFILES.ICEMAIL_AZURE_2026_09_14,
   roots = UBERDOSO_ROOTS,
+  senderDomains = [],
   existingMailboxes = [],
   now = new Date()
 } = {}) {
+  const senders = [...new Set((Array.isArray(senderDomains) ? senderDomains : []).map(value => String(value || '').trim().toLowerCase().replace(/\.$/, '')).filter(Boolean))];
+  const foreign = senders.filter(domain => !isOutreachFleetDomain(domain));
+  if (foreign.length) {
+    return { ok: false, version: UBERINBOXES_SCALE_VERSION, status: 'SCALE_PROFILE_REFUSED', reasonCodes: foreign.map(domain => `sender-domain-not-in-verified-outreach-fleet:${domain}`), externalEffectAuthority: 'NONE' };
+  }
   const normalizedRoots = [...new Set((Array.isArray(roots) ? roots : []).map(value => String(value || '').trim().toLowerCase()).filter(Boolean))];
   const canonical = [...UBERDOSO_ROOTS].sort();
   if (normalizedRoots.length !== canonical.length || normalizedRoots.sort().some((value, index) => value !== canonical[index])) {
@@ -101,7 +108,8 @@ export function compileScaledUberInboxesFleet({
     .filter(Boolean));
 
   const desired = [];
-  for (const root of normalizedRoots) {
+  const domains = [...normalizedRoots, ...senders];
+  for (const root of domains) {
     for (let index = 0; index < density; index += 1) {
       const localPart = founderAlias(index);
       const address = `${localPart}@${root}`;
@@ -136,6 +144,7 @@ export function compileScaledUberInboxesFleet({
     provider: profile.provider,
     infrastructureClass: profile.infrastructureClass,
     roots: [...normalizedRoots],
+    ...(senders.length ? { senderDomains: senders } : {}),
     sourceUrls: [...(profile.sourceUrls || [])],
     providerEvidenceObservedAt: profile.observedAt,
     desiredMailboxCount: desired.length,
@@ -146,7 +155,7 @@ export function compileScaledUberInboxesFleet({
     theoreticalTotalDailyCap,
     desired,
     missing,
-    byDomain: Object.fromEntries(normalizedRoots.map(root => [root, missing.filter(item => item.domain === root)])),
+    byDomain: Object.fromEntries(domains.map(root => [root, missing.filter(item => item.domain === root)])),
     priceEvidence: profile.priceEvidence || null,
     sendAuthorityCreated: false,
     externalEffectAuthority: 'NONE',

@@ -40,8 +40,12 @@ function normalizeExisting(existingMailboxes = []) {
     .filter(Boolean));
 }
 
+// senderDomains extends the fleet from the two roots to chosen names from the
+// 28-domain outreach fleet (all 30 owned domains are outreach senders). UberDoso's
+// topology validates every name against the verified fleet registry.
 export function compileUberInboxesFleet({
   roots = UBERDOSO_ROOTS,
+  senderDomains = [],
   localParts = DEFAULT_UBERINBOXES_LOCAL_PARTS,
   existingMailboxes = []
 } = {}) {
@@ -67,7 +71,7 @@ export function compileUberInboxesFleet({
     };
   }
 
-  const topology = compileUberDosoTopology({ roots, mailboxLocalParts: cleanedParts });
+  const topology = compileUberDosoTopology({ roots, senderDomains, mailboxLocalParts: cleanedParts });
   if (!topology?.ok) {
     return {
       ...topology,
@@ -95,6 +99,7 @@ export function compileUberInboxesFleet({
   const fleet = {
     schemaVersion: 'uberinboxes.fleet.v1',
     roots: [...roots],
+    ...(topology.topology.roots.length > roots.length ? { senderDomains: topology.topology.roots.slice(roots.length).map(row => row.root) } : {}),
     localParts: cleanedParts,
     desiredMailboxCount: desired.length,
     existingMailboxCount: desired.length - missing.length,

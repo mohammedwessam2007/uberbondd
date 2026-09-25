@@ -40,9 +40,13 @@ test('live unattended outbound requires identity, allowlist, OAuth, encryption, 
     adminToken: 'x'.repeat(32), baseUrl: 'https://app.example.com',
     google: { clientId: 'id', clientSecret: 'secret' }, encryptionKey: 'a'.repeat(64), unsubscribeSecret: 'b'.repeat(64),
     sender: { address: 'Valid postal address' },
-    outbound: { enabled: true, dryRun: false, allowedCountries: ['GB'], businessHourStart: 9, businessHourEnd: 17 }
+    outbound: { enabled: true, dryRun: false, provider: 'gmail-api', allowedCountries: ['GB'], businessHourStart: 9, businessHourEnd: 17 }
   };
   assert.equal(validateStartupConfig(base), true);
+  for (const provider of [undefined, '', 'smtp', 'ses']) {
+    assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, provider } }), /provider must be gmail-api or postal/, String(provider));
+  }
+  assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, provider: 'postal' } }), /OUTBOUND_USE_EFFECT_ADAPTER/);
   assert.throws(() => validateStartupConfig({ ...base, sender: { address: '' } }), /BUSINESS_ADDRESS/);
   assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, allowedCountries: [] } }), /OUTBOUND_ALLOWED_COUNTRIES/);
   assert.throws(() => validateStartupConfig({ ...base, google: { clientId: '', clientSecret: '' } }), /Google OAuth/);

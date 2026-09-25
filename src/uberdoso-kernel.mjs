@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { OWNED_ROOT_DOMAINS } from './domain-purpose-plan.mjs';
 import { evaluateCircuitBreaker } from './domain-mailbox-circuit-breaker.mjs';
+import { isOutreachFleetDomain } from './outreach-domain-fleet.mjs';
 
 export const UBERDOSO_POLICY_VERSION = 'uberdoso-sovereign-mail-1.0.0';
 export const UBERDOSO_POSTAL_VERSION = '3.3.7';
@@ -27,8 +28,17 @@ function validateLocalPart(value) {
 }
 function iso(value) { const d=value instanceof Date?value:new Date(value||Date.now()); return Number.isFinite(d.getTime())?d.toISOString():null; }
 
-export function compileUberDosoTopology({ roots=UBERDOSO_ROOTS, mailboxLocalParts=['mohamed'], mtaRoot='uberbond.cloud' }={}) {
+// senderDomains adds explicitly chosen domains from the 28-name outreach fleet
+// beside the two original outreach roots, spreading sending reputation across
+// the portfolio. Only names in the verified fleet registry are accepted; the two
+// roots are always included because the mail host and its SPF/return-path
+// records live under uberbond.cloud.
+export function compileUberDosoTopology({ roots=UBERDOSO_ROOTS, senderDomains=[], mailboxLocalParts=['mohamed'], mtaRoot='uberbond.cloud' }={}) {
   if(!exactOwnedRoots(roots)) return fail(['exact-owned-outreach-roots-required']);
+  const senders=(Array.isArray(senderDomains)?senderDomains:[]).map(v=>clean(v,253).toLowerCase().replace(/\.$/,'')).filter(Boolean);
+  if(new Set(senders).size!==senders.length) return fail(['duplicate-sender-domain']);
+  const foreign=senders.filter(d=>!isOutreachFleetDomain(d));
+  if(foreign.length) return fail(foreign.map(d=>`sender-domain-not-in-verified-outreach-fleet:${d}`));
   const mta=clean(mtaRoot,253).toLowerCase();
   if(!UBERDOSO_ROOTS.includes(mta)) return fail(['mta-root-must-be-owned']);
   const locals=uniq(mailboxLocalParts).map(validateLocalPart);
@@ -38,7 +48,7 @@ export function compileUberDosoTopology({ roots=UBERDOSO_ROOTS, mailboxLocalPart
   const topology={
     schemaVersion:'uberdoso.topology.v1',
     transport:{ engine:'postal', mode:'SELF_HOSTED_SOURCE_OWNED', pinnedVersion:UBERDOSO_POSTAL_VERSION, managedSaasDependency:false },
-    roots:UBERDOSO_ROOTS.map(root=>({
+    roots:[...UBERDOSO_ROOTS,...senders].map(root=>({
       root,
       websiteRole:'NONE_OUTREACH_ONLY',
       outboundIdentityDomain:root,

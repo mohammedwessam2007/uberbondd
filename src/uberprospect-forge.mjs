@@ -23,12 +23,16 @@ export function compileUberProspectPortfolio({records=[],target=2000,perOfferTar
     if(!sourceUrl&&!evidenceRef) reasons.push('public-source-or-verification-evidence-required');
     if(row?.suppressed===true||row?.unsubscribed===true) reasons.push('suppressed-recipient');
     if(row?.safeForOutreach!==true) reasons.push('safe-for-outreach-required');
-    if(row?.legalEligible!==true) reasons.push('legal-eligibility-required');
+    // A bare legalEligible boolean is a claim, not evidence. Eligibility must be
+    // the PASSED decision compiled by src/uberoutbound-recipient-eligibility.mjs
+    // (or an equivalent evidence-bearing legal object the launch gate accepts).
+    const legalEvidenceId=clean(row?.legal?.evidenceId,240);
+    if(row?.legal?.status!=='PASSED'||!legalEvidenceId||!clean(row?.legal?.policyVersion,160)) reasons.push('legal-eligibility-evidence-required');
     if(key&&seen.has(key)) reasons.push('duplicate-recipient');
     if(reasons.length){ rejected.push({key:key||null,reasons}); continue; }
     seen.add(key);
     const offerId=UBERPROSPECT_OFFERS[accepted.length%UBERPROSPECT_OFFERS.length];
-    accepted.push({recipientId:clean(row?.recipientId||`prospect_${sha(key).slice(0,20)}`,120),company:clean(row?.company,240),email:email||null,website:website||null,sourceUrl:sourceUrl||null,evidenceRef:evidenceRef||sourceUrl,offerId,safeForOutreach:true,legalEligible:true,suppressed:false,compiledAt:new Date(now).toISOString()});
+    accepted.push({recipientId:clean(row?.recipientId||`prospect_${sha(key).slice(0,20)}`,120),company:clean(row?.company,240),email:email||null,website:website||null,sourceUrl:sourceUrl||null,evidenceRef:evidenceRef||sourceUrl,offerId,safeForOutreach:true,legalEligible:true,legalEvidenceId:clean(row.legal.evidenceId,240),legalPolicyVersion:clean(row.legal.policyVersion,160),suppressed:false,compiledAt:new Date(now).toISOString()});
     if(accepted.length>=target) break;
   }
   const laneCounts=Object.fromEntries(UBERPROSPECT_OFFERS.map(id=>[id,accepted.filter(x=>x.offerId===id).length]));

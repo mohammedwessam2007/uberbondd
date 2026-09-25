@@ -6,6 +6,8 @@
 // additional sender-domain inventory without widening root-domain safety
 // checks or granting DNS, mailbox, reputation, or send authority.
 
+import { OWNED_ROOT_DOMAINS } from './domain-purpose-plan.mjs';
+
 export const OUTREACH_DOMAIN_FLEET_POLICY_VERSION = 'outreach-domain-fleet-1.0.0';
 
 export const OUTREACH_DOMAIN_FLEET_EVIDENCE = Object.freeze({
@@ -85,6 +87,17 @@ export const OUTREACH_FLEET_DOMAIN_RECORDS = Object.freeze(
     evidencePointers: ['godaddy-portfolio-20260920']
   }))
 );
+
+// Founder statement 2026-09-25: all 30 owned domains are outreach domains,
+// the two original roots included (docs/OUTREACH_ACTIVATION_CARD.md also names
+// both roots as outreach roots). The fleet list above stays the 28 later names;
+// this is the full set any sender identity may use.
+export const OWNED_OUTREACH_DOMAINS = Object.freeze([...OWNED_ROOT_DOMAINS, ...OUTREACH_FLEET_DOMAINS]);
+
+export function isOwnedOutreachDomain(value) {
+  const domain = String(value ?? '').trim().toLowerCase().replace(/\.$/, '');
+  return OWNED_OUTREACH_DOMAINS.includes(domain);
+}
 
 export function isOutreachFleetDomain(value) {
   const domain = String(value ?? '').trim().toLowerCase().replace(/\.$/, '');

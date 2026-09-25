@@ -1,5 +1,8 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { DISTRIBUTION_MAX_MOTION_SHARE } from './distribution-concentration.mjs';
+
+export { DISTRIBUTION_MAX_MOTION_SHARE };
 
 export const DISTRIBUTION_CONTROL_PLANE_POLICY_VERSION = 'distribution-control-plane-1.0.0';
 export const DISTRIBUTION_MOTIONS = Object.freeze([
@@ -9,7 +12,7 @@ export const DISTRIBUTION_MOTIONS = Object.freeze([
 ]);
 
 const MAX_MOTIONS = 50;
-const MAX_ALLOCATION = 0.50;
+const MAX_ALLOCATION = DISTRIBUTION_MAX_MOTION_SHARE;
 const MAX_EVIDENCE_AGE_DAYS = 90;
 const SECRET_KEY = /(?:password|secret|token|authorization|cookie|credential|api[_-]?key|private[_-]?key)/i;
 const RAW_PII_KEY = /(?:email|phone|address|fullname|firstname|lastname|messagebody|contentbody|rawcontent|recipient)/i;

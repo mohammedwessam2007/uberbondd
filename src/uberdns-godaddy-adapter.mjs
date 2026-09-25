@@ -25,6 +25,41 @@ function normalizePlanRecord(record,zone){
   return body;
 }
 
+// TXT is multi-valued: one name can carry SPF, a site-verification token and
+// anything else at once. A record is only ever replaced by one with the same
+// purpose, so publishing SPF can never delete an unrelated token.
+export function txtRecordPurpose(data){
+  const d=clean(data,8000).replace(/^"+|"+$/g,'').trim().toLowerCase();
+  if(d.startsWith('v=spf1')) return 'SPF';
+  if(d.startsWith('v=dmarc1')) return 'DMARC';
+  if(d.startsWith('v=dkim1')) return 'DKIM';
+  return 'OTHER';
+}
+
+export function reconcileDnsRecord({existing=[],desired,allowMxReplacement=false}={}){
+  const sameNameType=(Array.isArray(existing)?existing:[]).filter(r=>clean(r?.name,253).toLowerCase()===desired.name.toLowerCase()&&clean(r?.type,16).toUpperCase()===desired.type);
+  const sameData=r=>clean(r?.data,8000)===desired.data&&Number(r?.priority||0)===Number(desired.priority||0);
+  const identical=r=>sameData(r)&&Number(r?.ttl)===desired.ttl;
+  const settle=record=>identical(record)?{state:'ALREADY_PRESENT',recordId:record.recordId||null}:record?.recordId?{state:'REPLACE',recordId:record.recordId}:{refusal:'existing-record-without-provider-id'};
+
+  let candidates=sameNameType;
+  if(desired.type==='TXT'){
+    const purpose=txtRecordPurpose(desired.data);
+    if(purpose==='OTHER'){
+      const same=sameNameType.find(r=>clean(r?.data,8000)===desired.data);
+      return same?settle(same):{state:'CREATE'};
+    }
+    candidates=sameNameType.filter(r=>txtRecordPurpose(r?.data)===purpose);
+    if(candidates.length>1) return {refusal:`multiple-existing-${purpose.toLowerCase()}-records`};
+  }
+  const sameRouting=candidates.find(sameData);
+  if(sameRouting) return settle(sameRouting);
+  if(desired.type==='MX'&&candidates.length&&!allowMxReplacement) return {refusal:'existing-mx-would-change-mail-routing'};
+  if(candidates.length>1) return {refusal:`multiple-existing-${desired.type.toLowerCase()}-records`};
+  if(candidates.length===1) return settle(candidates[0]);
+  return {state:'CREATE'};
+}
+
 export function createGoDaddyDnsAdapter({pat,fetchFn=globalThis.fetch,baseUrl='https://api.godaddy.com',idempotencyKey=rid}={}){
   const token=clean(pat,5000);
   if(!token||typeof fetchFn!=='function') throw new Error('godaddy-pat-and-fetch-required');
@@ -54,7 +89,10 @@ export function createGoDaddyDnsAdapter({pat,fetchFn=globalThis.fetch,baseUrl='h
     async applyChanges(plan){
       if(plan?.provider!=='GODADDY') return {ok:false,reasonCodes:['godaddy-plan-provider-required'],externalEffects:0};
       if(plan?.ownerAuthorized!==true) return {ok:false,reasonCodes:['owner-dns-mutation-authorization-required'],externalEffects:0};
-      let providerCalls=0; let externalEffects=0; const receipts=[];
+      let providerCalls=0;
+      // Phase 1 reads every zone and decides every action before any write, so
+      // a refusal found in the last zone cannot leave earlier zones half-changed.
+      const actions=[]; const refusals=[];
       for(const zone of plan.roots||[]){
         const z=clean(zone,253).toLowerCase();
         const existing=await this.listRecords(z); providerCalls+=1;
@@ -63,17 +101,23 @@ export function createGoDaddyDnsAdapter({pat,fetchFn=globalThis.fetch,baseUrl='h
           return n===z||n.endsWith(`.${z}`);
         })){
           const desired=normalizePlanRecord(raw,z);
-          const matches=existing.filter(r=>clean(r?.name,253).toLowerCase()===desired.name.toLowerCase()&&clean(r?.type,16).toUpperCase()===desired.type);
-          const identical=matches.find(r=>clean(r?.data,8000)===desired.data&&Number(r?.ttl)===desired.ttl&&Number(r?.priority||0)===Number(desired.priority||0));
-          if(identical){ receipts.push({zone,state:'ALREADY_PRESENT',recordId:identical.recordId||null,name:desired.name,type:desired.type}); continue; }
-          if(matches.length===1&&matches[0]?.recordId){
-            const recordId=encodeURIComponent(clean(matches[0].recordId,240));
-            await request(`/v3/domains/zones/${encodeURIComponent(z)}/dns-records/${recordId}`,{method:'PUT',headers:headers({'Idempotency-Key':idempotencyKey()}),body:JSON.stringify(desired)});
-            providerCalls+=1; externalEffects+=1; receipts.push({zone,state:'REPLACED',recordId:matches[0].recordId,name:desired.name,type:desired.type});
-          }else{
-            await request(`/v3/domains/zones/${encodeURIComponent(z)}/dns-records`,{method:'POST',headers:headers({'Idempotency-Key':idempotencyKey()}),body:JSON.stringify(desired)});
-            providerCalls+=1; externalEffects+=1; receipts.push({zone,state:'CREATED',recordId:null,name:desired.name,type:desired.type});
-          }
+          const decision=reconcileDnsRecord({existing,desired,allowMxReplacement:plan.allowMxReplacement===true});
+          if(decision.refusal) refusals.push(`${decision.refusal}:${z}:${desired.name}`);
+          else actions.push({zone:z,desired,...decision});
+        }
+      }
+      if(refusals.length) return {ok:false,reasonCodes:refusals,providerCalls,externalEffects:0,truthBoundary:'Nothing was written: at least one requested record would have overwritten or duplicated live DNS that the plan does not own.'};
+      let externalEffects=0; const receipts=[];
+      for(const action of actions){
+        const {zone,desired}=action;
+        if(action.state==='ALREADY_PRESENT'){ receipts.push({zone,state:'ALREADY_PRESENT',recordId:action.recordId,name:desired.name,type:desired.type}); continue; }
+        if(action.state==='REPLACE'){
+          const recordId=encodeURIComponent(clean(action.recordId,240));
+          await request(`/v3/domains/zones/${encodeURIComponent(zone)}/dns-records/${recordId}`,{method:'PUT',headers:headers({'Idempotency-Key':idempotencyKey()}),body:JSON.stringify(desired)});
+          providerCalls+=1; externalEffects+=1; receipts.push({zone,state:'REPLACED',recordId:action.recordId,name:desired.name,type:desired.type});
+        }else{
+          await request(`/v3/domains/zones/${encodeURIComponent(zone)}/dns-records`,{method:'POST',headers:headers({'Idempotency-Key':idempotencyKey()}),body:JSON.stringify(desired)});
+          providerCalls+=1; externalEffects+=1; receipts.push({zone,state:'CREATED',recordId:null,name:desired.name,type:desired.type});
         }
       }
       return {ok:true,evidenceRef:`godaddy:dns:${crypto.createHash('sha256').update(JSON.stringify(receipts)).digest('hex')}`,providerCalls,externalEffects,receipts,truthBoundary:'GoDaddy accepted the requested DNS mutations. Public resolver observation is still required before authentication is certified.'};

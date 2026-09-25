@@ -31,7 +31,7 @@ test('a lawful cold-email recipient takes the free automated route', () => {
 
 test('when cold email holds, a consent-creating letter is chosen instead of dropping the prospect', () => {
   const r = routeProspect({ prospect: business(), eligibility: eligibility('US', 'US', 'UNKNOWN'), context: ctx() });
-  assert.equal(r.routes[0].state, 'HOLD');
+  assert.equal(r.routes.find(x => x.channel === 'COLD_EMAIL').state, 'HOLD');
   assert.equal(r.selected.channel, 'POSTAL_LETTER');
   assert.equal(r.selected.createsConsent, true);
   assert.equal(r.selected.costCents, 150);
@@ -52,7 +52,7 @@ test('a German recipient is never cold-emailed and falls back to a partner or in
   const de = eligibility('DE');
   assert.equal(de.decision, 'REJECT');
   const alone = routeProspect({ prospect: business({ jurisdiction: 'DE' }), eligibility: de, context: ctx() });
-  assert.equal(alone.routes[0].state, 'REJECT');
+  assert.equal(alone.routes.find(x => x.channel === 'COLD_EMAIL').state, 'REJECT');
   assert.equal(alone.routes.find(x => x.channel === 'POSTAL_LETTER').state, 'HOLD');
   assert.equal(alone.selected.channel, 'INBOUND_CONTENT');
   const agreementOnly = routeProspect({ prospect: business({ jurisdiction: 'DE', partnerAgreementRef: 'partner:agency-7' }), eligibility: de, context: ctx() });
@@ -89,7 +89,49 @@ test('a cohort spends no more than its postal budget and reports channel monocul
 
   const mono = routeCohort({ prospects: Array.from({ length: 10 }, (_, i) => ({ prospect: business({ ref: `m${i}` }), eligibility: eligibility('US') })), context: ctx() });
   assert.equal(mono.byChannel.COLD_EMAIL, 10);
-  assert.deepEqual(mono.monoculture, { maxTargetedChannelShare: 1, warning: true });
+  assert.deepEqual(mono.monoculture, { maxTargetedChannelShare: 1, capShare: 0.5, warning: true });
   assert.equal(mono.sendAuthority, false);
   assert.ok(Object.values(mono.externalEffectLedger).every(v => v === 0));
+});
+
+test('a prospect who asked through a printed code is followed up by email under that consent, and a withdrawal stops it', async () => {
+  const { compileConsentReceipt, revokeConsentReceipt } = await import('../src/consent-receipt.mjs');
+  const intake = compileConsentReceipt({ subjectEmail: 'office@firm.example', wordingId: 'public-intake-v1', channel: 'CONSENT_BRIDGE:POSTAL_LETTER', sourceRef: 'ubinv_1', capturedAt: '2026-09-25T00:00:00Z' }).receipt;
+  const followUp = compileConsentReceipt({ subjectEmail: 'office@firm.example', wordingId: 'report-follow-up-v1', channel: 'CONSENT_BRIDGE:POSTAL_LETTER', sourceRef: 'ubinv_1', capturedAt: '2026-09-25T00:00:00Z' }).receipt;
+  const de = eligibility('DE');
+  const asked = business({ jurisdiction: 'DE', recipientEmail: 'office@firm.example', consentReceipts: [intake, followUp] });
+  const r = routeProspect({ prospect: asked, eligibility: de, context: ctx({ now: NOW }) });
+  assert.equal(r.routes.find(x => x.channel === 'COLD_EMAIL').state, 'REJECT', 'cold email to Germany stays rejected');
+  assert.equal(r.selected.channel, 'CONSENTED_EMAIL');
+  assert.match(r.selected.reasons[0], /^uberattention:ubattention_/);
+
+  const reportOnly = routeProspect({ prospect: business({ jurisdiction: 'DE', recipientEmail: 'office@firm.example', consentReceipts: [intake] }), eligibility: de, context: ctx({ now: NOW }) });
+  assert.equal(reportOnly.routes.find(x => x.channel === 'CONSENTED_EMAIL').state, 'HOLD', 'report delivery consent is not follow-up consent');
+
+  const withdrawn = revokeConsentReceipt({ receipt: followUp, now: new Date('2026-09-25T12:00:00Z') }).receipt;
+  const after = routeProspect({ prospect: business({ jurisdiction: 'DE', recipientEmail: 'office@firm.example', consentReceipts: [intake, followUp, withdrawn] }), eligibility: de, context: ctx({ now: NOW }) });
+  assert.notEqual(after.selected.channel, 'CONSENTED_EMAIL');
+  assert.ok(after.routes.find(x => x.channel === 'CONSENTED_EMAIL').reasons.includes('consent-revoked-for-this-purpose'));
+});
+
+test('a supplied UberReach email endpoint must be ready before cold email is allowed', () => {
+  const endpoint = (overrides = {}) => ({ endpointId: 'e1', channel: 'EMAIL', recipientId: 'p1', publicOrAuthorized: true, platformTermsCompatible: true, evidenceRef: 'https://firm.example/contact', observedAt: '2026-09-25T20:00:00Z', ...overrides });
+  const ok = routeProspect({ prospect: business({ reachEndpoints: [endpoint()] }), eligibility: eligibility('US'), context: ctx({ now: NOW }) });
+  assert.equal(ok.selected.channel, 'COLD_EMAIL');
+  const stale = routeProspect({ prospect: business({ reachEndpoints: [endpoint({ observedAt: '2026-09-01T00:00:00Z' })] }), eligibility: eligibility('US'), context: ctx({ now: NOW }) });
+  assert.deepEqual(stale.routes.find(x => x.channel === 'COLD_EMAIL').reasons, ['uberreach:endpoint-evidence-stale-or-undated']);
+  assert.equal(stale.selected.channel, 'POSTAL_LETTER');
+  const suppressed = routeProspect({ prospect: business({ reachEndpoints: [endpoint({ suppressed: true })] }), eligibility: eligibility('US'), context: ctx({ now: NOW }) });
+  assert.equal(suppressed.routes.find(x => x.channel === 'COLD_EMAIL').state, 'REJECT');
+});
+
+test('cohort concentration uses the distribution control plane cap', async () => {
+  const { DISTRIBUTION_MAX_MOTION_SHARE } = await import('../src/distribution-control-plane.mjs');
+  const mixed = routeCohort({
+    prospects: Array.from({ length: 10 }, (_, i) => ({ prospect: business({ ref: `x${i}` }), eligibility: i < 6 ? eligibility('US') : eligibility('US', 'US', 'UNKNOWN') })),
+    context: ctx()
+  });
+  assert.deepEqual(mixed.byChannel, { COLD_EMAIL: 6, POSTAL_LETTER: 4 });
+  assert.equal(mixed.monoculture.capShare, DISTRIBUTION_MAX_MOTION_SHARE);
+  assert.equal(mixed.monoculture.warning, true, '60% on one channel breaches the 50% cap');
 });

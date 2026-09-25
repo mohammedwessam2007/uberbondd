@@ -14,9 +14,18 @@
 // first touch that carries a consent-bridge invitation, so any email that
 // follows is something the prospect asked for. Every route states why it is
 // allowed, held or rejected; nothing here sends, spends or prints anything.
+//
+// It composes the existing organs rather than restating them: a prospect who
+// redeemed an invitation is followed up through consent receipts checked by
+// UberAttention at the moment of routing; a supplied UberReach email endpoint
+// must be public, terms-compatible, fresh and unsuppressed before cold email is
+// allowed; and the cohort concentration cap is the distribution control plane's.
 
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { evaluateConsentBackedAttention } from './consent-receipt.mjs';
+import { evaluateReachEndpoint } from './uberreach-universal-transport.mjs';
+import { DISTRIBUTION_MAX_MOTION_SHARE } from './distribution-control-plane.mjs';
 
 export const LAWFUL_CHANNEL_ROUTER_VERSION = 'uberbond.lawful-channel-router.v1';
 export const ROUTE_STATES = Object.freeze(['ALLOW', 'ALLOW_WITH_UNMET_REQUIREMENTS', 'HOLD', 'REJECT']);
@@ -38,7 +47,25 @@ const route = (channel, state, { reasons = [], requirements = [], unmet = [], co
   channel, state, reasons, requirements, unmet, costCents, founderMinutes, createsConsent
 });
 
-function coldEmailRoute(eligibility) {
+function consentedFollowUpRoute(prospect, ctx) {
+  if (!prospect.consentReceipts.length || !prospect.recipientEmail) return route('CONSENTED_EMAIL', 'HOLD', { reasons: ['no-consent-receipt-for-this-prospect'] });
+  const decision = evaluateConsentBackedAttention({
+    receipts: prospect.consentReceipts,
+    recipientEmail: prospect.recipientEmail,
+    request: { requestId: `route:${prospect.ref}`, purpose: ctx.followUpPurpose, evidenceRefs: [`prospect:${prospect.ref}`], senderIdentityVerified: ctx.postalIdentityReady },
+    now: ctx.now
+  });
+  if (decision.state !== 'RECIPIENT_PERMIT_MATCHED') return route('CONSENTED_EMAIL', 'HOLD', { reasons: decision.consentReasons.length ? decision.consentReasons : decision.reasons });
+  return route('CONSENTED_EMAIL', 'ALLOW', { reasons: [`uberattention:${decision.decisionId}`], requirements: ['WITHIN_CONSENTED_PURPOSE_ONLY'] });
+}
+
+function coldEmailRoute(eligibility, prospect, ctx) {
+  const endpoint = prospect.reachEndpoints.find(e => String(e?.channel || '').toUpperCase() === 'EMAIL');
+  if (endpoint) {
+    const checked = evaluateReachEndpoint(endpoint, { now: ctx.now });
+    if (checked.reasonCodes.includes('endpoint-suppressed')) return route('COLD_EMAIL', 'REJECT', { reasons: ['uberreach-endpoint-suppressed'] });
+    if (!checked.ready) return route('COLD_EMAIL', 'HOLD', { reasons: checked.reasonCodes.map(code => `uberreach:${code}`) });
+  }
   if (!eligibility) return route('COLD_EMAIL', 'HOLD', { reasons: ['no-eligibility-decision-for-a-published-address'] });
   const status = eligibility.legal?.status;
   if (status === 'PASSED') return route('COLD_EMAIL', 'ALLOW', { reasons: [eligibility.basis || 'eligibility-passed'] });
@@ -93,6 +120,9 @@ export function routeProspect({ prospect = {}, eligibility = null, context = {} 
     partnerRelationshipRef: prospect.partnerRelationshipRef,
     existingRelationshipRef: prospect.existingRelationshipRef,
     inPersonOpportunityRef: prospect.inPersonOpportunityRef,
+    recipientEmail: clean(prospect.recipientEmail, 320),
+    consentReceipts: Array.isArray(prospect.consentReceipts) ? prospect.consentReceipts : [],
+    reachEndpoints: Array.isArray(prospect.reachEndpoints) ? prospect.reachEndpoints : [],
     suppressed: prospect.suppressed === true
   };
   const ctx = {
@@ -101,14 +131,17 @@ export function routeProspect({ prospect = {}, eligibility = null, context = {} 
     counselAttestationRef: context.counselAttestationRef,
     channels: context.channels || {},
     budgetRemainingCents: nonNegative(context.budgetRemainingCents) ?? 0,
-    founderMinuteValueCents: nonNegative(context.founderMinuteValueCents) ?? 100
+    founderMinuteValueCents: nonNegative(context.founderMinuteValueCents) ?? 100,
+    followUpPurpose: clean(context.followUpPurpose, 40).toUpperCase() || 'SERVICE_FOLLOW_UP',
+    now: context.now ? new Date(context.now) : new Date()
   };
   if (!p.ref) return { ok: false, version: LAWFUL_CHANNEL_ROUTER_VERSION, reasonCodes: ['prospect-reference-required'] };
   if (p.suppressed) {
     return { ok: true, version: LAWFUL_CHANNEL_ROUTER_VERSION, prospectRef: p.ref, selected: null, routes: [route('ANY', 'REJECT', { reasons: ['suppression-dominates-every-channel'] })], state: 'SUPPRESSED', externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS) };
   }
   const routes = [
-    coldEmailRoute(eligibility),
+    consentedFollowUpRoute(p, ctx),
+    coldEmailRoute(eligibility, p, ctx),
     postalRoute(p, ctx),
     partnerRoute(p),
     founderNetworkRoute(p),
@@ -116,11 +149,12 @@ export function routeProspect({ prospect = {}, eligibility = null, context = {} 
     route('INBOUND_CONTENT', 'ALLOW', { reasons: ['untargeted-public-content-needs-no-permission'], createsConsent: true })
   ];
   const weight = r => r.costCents + r.founderMinutes * ctx.founderMinuteValueCents;
-  // Targeted routes beat untargeted content; among targeted routes the cheapest wins,
-  // and a route that creates consent wins ties.
+  // A permission the prospect already gave beats every cold route. Otherwise
+  // targeted routes beat untargeted content; among targeted routes the cheapest
+  // wins, and a route that creates consent wins ties.
   const allowed = routes.filter(r => r.state === 'ALLOW');
   const targeted = allowed.filter(r => r.channel !== 'INBOUND_CONTENT')
-    .sort((a, b) => weight(a) - weight(b) || Number(b.createsConsent) - Number(a.createsConsent) || a.channel.localeCompare(b.channel));
+    .sort((a, b) => Number(b.channel === 'CONSENTED_EMAIL') - Number(a.channel === 'CONSENTED_EMAIL') || weight(a) - weight(b) || Number(b.createsConsent) - Number(a.createsConsent) || a.channel.localeCompare(b.channel));
   const selected = targeted[0] || allowed.find(r => r.channel === 'INBOUND_CONTENT') || null;
   const nearest = routes.filter(r => r.state === 'ALLOW_WITH_UNMET_REQUIREMENTS');
   return {
@@ -161,7 +195,7 @@ export function routeCohort({ prospects = [], context = {} } = {}) {
     suppressed: rows.filter(r => r.state === 'SUPPRESSED').length,
     byChannel,
     plannedSpendCents: (nonNegative(context.budgetRemainingCents) ?? 0) - budget,
-    monoculture: { maxTargetedChannelShare: Math.round(maxShare * 1000) / 1000, warning: targetedTotal >= 10 && maxShare > 0.8 },
+    monoculture: { maxTargetedChannelShare: Math.round(maxShare * 1000) / 1000, capShare: DISTRIBUTION_MAX_MOTION_SHARE, warning: targetedTotal >= 10 && maxShare > DISTRIBUTION_MAX_MOTION_SHARE },
     unlockHistogram: Object.fromEntries(Object.entries(unlocks).sort((a, b) => b[1] - a[1])),
     cohortDigest: sha256(JSON.stringify(rows.map(r => [r.prospectRef, r.selected?.channel || null]))),
     decisions: rows,

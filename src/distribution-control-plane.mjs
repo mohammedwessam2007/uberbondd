@@ -9,7 +9,10 @@ export const DISTRIBUTION_MOTIONS = Object.freeze([
 ]);
 
 const MAX_MOTIONS = 50;
-const MAX_ALLOCATION = 0.50;
+// No single motion may carry more than half of a portfolio; the lawful channel
+// router applies the same cap to its cohort channel mix.
+export const DISTRIBUTION_MAX_MOTION_SHARE = 0.50;
+const MAX_ALLOCATION = DISTRIBUTION_MAX_MOTION_SHARE;
 const MAX_EVIDENCE_AGE_DAYS = 90;
 const SECRET_KEY = /(?:password|secret|token|authorization|cookie|credential|api[_-]?key|private[_-]?key)/i;
 const RAW_PII_KEY = /(?:email|phone|address|fullname|firstname|lastname|messagebody|contentbody|rawcontent|recipient)/i;

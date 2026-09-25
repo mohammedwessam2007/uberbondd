@@ -28,10 +28,11 @@ function validateLocalPart(value) {
 }
 function iso(value) { const d=value instanceof Date?value:new Date(value||Date.now()); return Number.isFinite(d.getTime())?d.toISOString():null; }
 
-// senderDomains adds explicitly chosen outreach-fleet domains beside the two
-// brand roots, so cold traffic can carry its own reputation. Only names in the
-// verified fleet registry are accepted; the brand roots stay mandatory because
-// the mail host and its SPF/return-path records live under uberbond.cloud.
+// senderDomains adds explicitly chosen domains from the 28-name outreach fleet
+// beside the two original outreach roots, spreading sending reputation across
+// the portfolio. Only names in the verified fleet registry are accepted; the two
+// roots are always included because the mail host and its SPF/return-path
+// records live under uberbond.cloud.
 export function compileUberDosoTopology({ roots=UBERDOSO_ROOTS, senderDomains=[], mailboxLocalParts=['mohamed'], mtaRoot='uberbond.cloud' }={}) {
   if(!exactOwnedRoots(roots)) return fail(['exact-owned-outreach-roots-required']);
   const senders=(Array.isArray(senderDomains)?senderDomains:[]).map(v=>clean(v,253).toLowerCase().replace(/\.$/,'')).filter(Boolean);

@@ -14,7 +14,7 @@ Tonight closed the software gaps that would have blocked first cash even after t
 
 1. **Nothing decided whether a recipient may lawfully be emailed.** The final launch gate refused every recipient with `recipient-legal-eligibility-not-passed`, and no code produced a PASSED decision. Now a per-recipient eligibility engine does (§4.1).
 2. **The DNS writer could destroy live records.** Publishing SPF would have overwritten an unrelated root TXT record (such as a site-verification token) or created a second SPF record. Fixed (§4.2).
-3. **Cold mail would have gone out from the brand domains.** The mail-cell bootstrap could only create Postal domains for `uberbond.agency` and `uberbond.cloud`. Now it can also create chosen outreach-fleet domains (§4.5).
+3. **Only 2 of the 30 outreach domains could send.** The mail-cell bootstrap could only create Postal domains for `uberbond.agency` and `uberbond.cloud`. Now any of the other 28 can be added, so sending reputation spreads across the portfolio instead of concentrating on two domains (§4.5).
 4. **Nothing turned the bring-up output into published DNS.** After purchase, someone would have hand-typed about 21 records. Now it's one command (§4.6).
 5. **The founder-only inputs were scattered across 5 gates.** Now they're one file (§4.4).
 6. **DNS state was "UNKNOWN" for all 30 domains.** It is now observed live (§3).
@@ -36,7 +36,7 @@ Proof that it changes outcomes, as tested:
 - An Egypt-based sender's US prospect routes to letters only after a recorded counsel confirmation; until then it gets inbound content only, and the router names that one missing fact.
 
 **Wallbreaker tournament** (no spend, no deploy tonight, economics honestly unknown):
-- **Selected:** fix and document UberBond's own observed leak (1 founder minute).
+- **Selected:** remove the parking page from `uberbond.cloud` and keep the before/after receipts (1 founder minute).
 - **Fallbacks:** offer decision, partner introductions, founder network, hiring-signal research.
 - **Rejected:** the Netcup cold canary (spend, and it relies on the now-falsified "cold email is the only channel" assumption), letters (spend), and the public deploy (your authority).
 
@@ -51,8 +51,8 @@ Proof that it changes outcomes, as tested:
 | DKIM | unknown | **0 / 30** (no selector exists; no mail host) | same |
 | DMARC | unknown | 30 / 30 carry GoDaddy's default `p=quarantine` with reports sent to GoDaddy. Setup must **replace** it; a second DMARC record would make the policy invalid. | same |
 | Outreach-domain websites | unknown | 28 / 28 show GoDaddy parking | same |
-| `uberbond.cloud` website | "no website role" (activation card) | Returns **both** Cloudflare hosting and GoDaddy parking addresses, so some visitors get the parking page | same |
-| `uberbond.agency` website | "no website role" (activation card) | Hosted behind Cloudflare. **Contradicts** `docs/OUTREACH_ACTIVATION_CARD.md`; recorded here, card not edited. | same |
+| `uberbond.cloud` apex | outreach domain (activation card; founder confirmed 2026-09-25) | Returns **both** Cloudflare hosting and GoDaddy parking addresses, so a recipient or filter that opens the domain sometimes gets a parking page | same |
+| `uberbond.agency` apex | outreach domain (activation card; founder confirmed 2026-09-25) | Served through Cloudflare (a hosted page, not parking). No role contradiction: all 30 domains are outreach domains. | same |
 | Mail server (Netcup) | in cart (09-24, €4.92/month billed €29.52 per 6 months, 0% VAT display) | **not purchased**; no IP, no PTR, no port 25 | PR #993; no receipt |
 | Mailforge pilot (10 inboxes) | "staged" | **no evidence it was bought** | no receipt found |
 | Cold-capable transport | none | none. The repo's own registry shows 0 of 16 reviewed free sending services permit cold B2B. | `npm run outreach:free-first:doctor` |
@@ -113,8 +113,8 @@ This is encoded regulator guidance, **not legal advice**. Anything uncertain hol
 
 - **DNS adapter:** GoDaddy's default DMARC is replaced, not duplicated. Unrelated TXT records survive. Two existing SPF records cause a refusal instead of adding a third. Changing an existing MX needs an explicit flag.
 - **Observatory:** a failed lookup is recorded as "incomplete", never as "absent". A domain is never reported as an authenticated sender without observed DKIM.
-- **Launch facts:** one file outside the repo (mode 0600). Address authorization must be explicit; placeholder evidence doesn't count; brand roots are refused as cold senders. It warns up front when the sender jurisdiction or a recipient jurisdiction will hold cold traffic.
-- **Fleet senders:** `UBERDOSO_POSTAL_SENDER_DOMAINS=uberbondhq.site` adds that domain to the Postal cell and its DNS plan. The default topology digest is byte-identical to `main`.
+- **Launch facts:** one file outside the repo (mode 0600). Address authorization must be explicit, and placeholder evidence doesn't count. Any of the 30 owned outreach domains is accepted as a sender; any other domain is refused. It warns up front when the sender jurisdiction or a recipient jurisdiction will hold cold traffic.
+- **More sending domains:** the Postal cell always provisions `uberbond.agency` and `uberbond.cloud`. `UBERDOSO_POSTAL_SENDER_DOMAINS=uberbondhq.site,...` adds any of the other 28 to the cell and its DNS plan. The default topology digest is byte-identical to `main`.
 - **DNS publication:** host receipt → UberDoso kernel plan → GoDaddy provider plan plus verifier contracts. Dry run by default. `--apply` requires `--owner-authorized` and `GODADDY_PAT`. It refuses without a matching PTR, a static IPv4, or Postal DKIM for every domain.
 
 ## 5. Test results
@@ -169,7 +169,7 @@ Two tracks. **Track A starts now and needs no server and no spend.** Track B, th
 
 ### Track A: now (max 3)
 
-**A1. Fix UberBond's own leak** (1 min, $0; the Wallbreaker selection). In GoDaddy → My Products → `uberbond.cloud` → DNS, delete the `A` record `@` whose value is `Parked`, and leave the two Cloudflare `A` records. Then UberBond reruns `npm run outreach:fleet-dns` and keeps the before/after receipts as a truthful demonstration of the audit.
+**A1. Stop a sending domain from showing a parking page** (1 min, $0; the Wallbreaker selection). Recipients and spam filters look at the sending domain, and `uberbond.cloud` currently shows GoDaddy's parking page to part of its traffic. In GoDaddy → My Products → `uberbond.cloud` → DNS, delete the `A` record `@` whose value is `Parked`, and leave the two Cloudflare `A` records. UberBond then reruns `npm run outreach:fleet-dns` and keeps the before/after receipts. The other 28 domains show parking pages too; once the GoDaddy credential exists (B2), point them at the same landing page before they send.
 
 **A2. Fill the launch facts** (~10 min, $0). This also settles the offer price and your jurisdiction for both tracks.
 

@@ -12,7 +12,7 @@
 
 import crypto from 'node:crypto';
 import { compileUberPostalIdentity } from './uberpostal-identity.mjs';
-import { isOutreachFleetDomain } from './outreach-domain-fleet.mjs';
+import { isOwnedOutreachDomain } from './outreach-domain-fleet.mjs';
 import { recipientEligibilityCoverage } from './uberoutbound-recipient-eligibility.mjs';
 
 export const OUTREACH_LAUNCH_FACTS_VERSION = 'uberbond.outreach-launch-facts.v1';
@@ -61,9 +61,9 @@ export function compileOutreachLaunchFacts(facts = {}, { now = new Date() } = {}
   }
 
   const domains = (Array.isArray(facts.senderDomains) ? facts.senderDomains : []).map(d => clean(d, 253).toLowerCase().replace(/\.$/, '')).filter(Boolean);
-  const unknownDomains = domains.filter(d => !isOutreachFleetDomain(d));
-  if (!domains.length) missing.push('at-least-one-outreach-fleet-sender-domain-required');
-  if (unknownDomains.length) missing.push(...unknownDomains.map(d => `sender-domain-not-in-verified-fleet:${d}`));
+  const unknownDomains = domains.filter(d => !isOwnedOutreachDomain(d));
+  if (!domains.length) missing.push('at-least-one-owned-outreach-sender-domain-required');
+  if (unknownDomains.length) missing.push(...unknownDomains.map(d => `sender-domain-not-an-owned-outreach-domain:${d}`));
   if (new Set(domains).size !== domains.length) missing.push('duplicate-sender-domain');
 
   const replyTo = clean(facts.replyToAddress, 320).toLowerCase();
@@ -91,7 +91,9 @@ export function compileOutreachLaunchFacts(facts = {}, { now = new Date() } = {}
     missing,
     warnings,
     postalIdentity: postalIdentity.ok ? { status: postalIdentity.status, identityDigest: postalIdentity.identityDigest, footer: postalIdentity.identity.footer } : { status: postalIdentity.status },
-    mailCellBootstrapEnv: domains.length && !unknownDomains.length ? `UBERDOSO_POSTAL_SENDER_DOMAINS=${domains.join(',')}` : null,
+    // The mail cell always provisions uberbond.agency and uberbond.cloud; the
+    // variable adds the other chosen outreach domains.
+    mailCellBootstrapEnv: domains.length && !unknownDomains.length ? `UBERDOSO_POSTAL_SENDER_DOMAINS=${domains.filter(d => !['uberbond.agency', 'uberbond.cloud'].includes(d)).join(',')}` : null,
     eligibilityContext: {
       senderJurisdiction: senderJurisdiction || null,
       postalIdentityDigest: postalIdentity.ok ? postalIdentity.identityDigest : null

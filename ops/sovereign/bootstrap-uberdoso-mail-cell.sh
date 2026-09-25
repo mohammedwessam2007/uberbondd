@@ -24,7 +24,7 @@ UBERDOSO_ADMIN_FIRST_NAME="${UBERDOSO_ADMIN_FIRST_NAME:-Mohamed}"
 UBERDOSO_ADMIN_LAST_NAME="${UBERDOSO_ADMIN_LAST_NAME:-Wessam}"
 [[ "$UBERDOSO_ADMIN_EMAIL" =~ ^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$ ]] || { echo 'REFUSED: set UBERDOSO_ADMIN_EMAIL to the founder-controlled admin email.' >&2; exit 2; }
 # Optional outreach-fleet sender domains (comma-separated, e.g. uberbondhq.site,uberbondlabs.site).
-# The provisioner accepts only names in the verified fleet; cold traffic belongs there, not on the roots.
+# The two outreach roots are always provisioned; these add more of the verified fleet to spread reputation.
 UBERDOSO_POSTAL_SENDER_DOMAINS="${UBERDOSO_POSTAL_SENDER_DOMAINS:-}"
 [[ -z "$UBERDOSO_POSTAL_SENDER_DOMAINS" || "$UBERDOSO_POSTAL_SENDER_DOMAINS" =~ ^[a-z0-9.-]+(,[a-z0-9.-]+)*$ ]] || { echo 'REFUSED: UBERDOSO_POSTAL_SENDER_DOMAINS must be a comma-separated list of lowercase domain names.' >&2; exit 2; }
 

@@ -7,7 +7,8 @@
 # and any outreach-fleet sender domains named explicitly in
 # UBERDOSO_POSTAL_SENDER_DOMAINS (comma-separated). A sender domain must be in
 # OUTREACH_FLEET, which tests keep identical to src/outreach-domain-fleet.mjs.
-# Cold traffic belongs on fleet domains so the brand roots keep their reputation.
+# All 30 owned domains are outreach domains; adding more of them spreads
+# sending reputation instead of concentrating it on the two roots.
 # It never marks domains verified, never creates/export credentials, and never sends mail.
 
 require "json"

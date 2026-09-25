@@ -79,7 +79,7 @@ test('cycle energizes missing authentication and warmup while ready mailboxes re
   assert.equal(result.externalEffectAuthority,'NONE');
 });
 
-test('topology accepts only explicitly named verified fleet senders beside the brand roots', async () => {
+test('topology accepts only explicitly named verified fleet senders beside the two outreach roots', async () => {
   const { compileUberDosoTopology: topo } = await import('../src/uberdoso-kernel.mjs');
   const ok = topo({ senderDomains: ['uberbondhq.site', 'UBERBONDLABS.site.'] });
   assert.equal(ok.ok, true);

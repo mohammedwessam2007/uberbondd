@@ -414,7 +414,7 @@
           "gmail-connector-needs-reauth"
       ],
       "contradictionsPreserved": [
-          "docs/OUTREACH_ACTIVATION_CARD.md says the roots have no website role; live DNS shows uberbond.agency hosted and uberbond.cloud mixed parking/hosting.",
+          "RESOLVED 2026-09-25 by founder: all 30 owned domains are outreach domains (matches docs/OUTREACH_ACTIVATION_CARD.md); live DNS shows uberbond.agency served through Cloudflare and uberbond.cloud mixing parking with hosting.",
           "Offer price lineage 450-950 (code) vs >1,000 (founder recollection / 2026-08-05 genome)."
       ],
       "nextAutomaticStep": "After owner action 1: bootstrap, verify, publish DNS dry-run; after action 2 apply and observe; after action 3 build a 20-recipient cohort on the live control plane and send the first test to founder-owned addresses.",
@@ -424,7 +424,7 @@
       "truthBoundary": "Source and one live DNS observation only. No mail host, authenticated sender, prospect, send, reply, customer or payment exists.",
         "round2": "No-server lawful first-cash track: consent receipts (#161), Consent Bridge invitations with ?code= attribution, Lawful Channel Router (#790/#107/#1), Evidence Beacon (#306); GENESIS burst genesis-burst-20260925-outreach-first-cash (12 candidates, 890-corpus ancestry) and Wallbreaker receipt wbr_7f1b075e00336b0b4835ae53.",
         "trackA": [
-            "A1 delete the Parked A record on uberbond.cloud (Wallbreaker selection)",
+            "A1 delete the Parked A record on uberbond.cloud so the sending domain stops showing a parking page (Wallbreaker selection)",
             "A2 fill launch facts",
             "A3 hand out 10 consent-bridge codes in person, by phone or via a partner"
         ],

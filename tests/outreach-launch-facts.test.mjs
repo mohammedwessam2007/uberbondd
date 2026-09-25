@@ -51,14 +51,24 @@ test('an Egypt-based sender is warned that cold recipients will hold for legal r
 test('unowned sender domains, duplicates, unencoded recipient jurisdictions and expired canaries are caught', () => {
   const r = compileOutreachLaunchFacts({
     ...complete,
-    senderDomains: ['uberbond.agency', 'uberbondhq.site', 'uberbondhq.site', 'uberbond-fake.site'],
+    senderDomains: ['uberbondhq.site', 'uberbondhq.site', 'uberbond-fake.site'],
     canary: { ...complete.canary, maxRecipients: 5000, recipientJurisdictions: ['US', 'FR'], expiresAt: '2026-09-01T00:00:00Z' }
   }, { now: NOW });
-  assert.ok(r.missing.includes('sender-domain-not-in-verified-fleet:uberbond.agency'), 'brand roots are not cold senders');
-  assert.ok(r.missing.includes('sender-domain-not-in-verified-fleet:uberbond-fake.site'));
+  assert.ok(r.missing.includes('sender-domain-not-an-owned-outreach-domain:uberbond-fake.site'));
   assert.ok(r.missing.includes('duplicate-sender-domain'));
   assert.ok(r.missing.includes('canary-max-recipients-integer-1-to-200-required'));
   assert.ok(r.missing.includes('canary-future-expiry-required'));
   assert.ok(r.warnings.includes('recipient-jurisdiction-fr-not-encoded-cold-recipients-will-hold'));
   assert.equal(r.mailCellBootstrapEnv, null);
+});
+
+test('all 30 owned domains are outreach senders, the two original roots included', async () => {
+  const { OWNED_OUTREACH_DOMAINS } = await import('../src/outreach-domain-fleet.mjs');
+  assert.equal(OWNED_OUTREACH_DOMAINS.length, 30);
+  const r = compileOutreachLaunchFacts({ ...complete, senderDomains: ['uberbond.agency', 'uberbond.cloud', 'uberbondhq.site'] }, { now: NOW });
+  assert.equal(r.status, 'LAUNCH_FACTS_COMPLETE', JSON.stringify(r.missing));
+  assert.equal(r.mailCellBootstrapEnv, 'UBERDOSO_POSTAL_SENDER_DOMAINS=uberbondhq.site', 'the roots are always provisioned by the mail cell');
+  const rootsOnly = compileOutreachLaunchFacts({ ...complete, senderDomains: ['uberbond.agency'] }, { now: NOW });
+  assert.equal(rootsOnly.status, 'LAUNCH_FACTS_COMPLETE');
+  assert.equal(rootsOnly.mailCellBootstrapEnv, 'UBERDOSO_POSTAL_SENDER_DOMAINS=');
 });

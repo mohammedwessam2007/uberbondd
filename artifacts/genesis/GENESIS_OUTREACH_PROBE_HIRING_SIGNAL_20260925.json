@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "uberbond.genesis-probe-receipt.v1",
+  "probeId": "genesis-probe-20260925-hiring-signal-chemotaxis",
+  "candidateId": "genesis-candidate-20260925-outreach-0010",
+  "burstId": "genesis-burst-20260925-outreach-first-cash",
+  "observedAt": "2026-09-25T03:10:00Z",
+  "source": "Indeed job search connector (public job postings, read-only)",
+  "queries": [
+    { "search": "marketing operations manager lead tracking CRM", "location": "remote", "country": "US", "results": 3 },
+    { "search": "conversion rate optimization specialist", "location": "remote", "country": "US", "results": 10 },
+    { "search": "digital agency account manager client reporting", "location": "remote", "country": "GB", "results": 0 }
+  ],
+  "observations": {
+    "postingsReturned": 13,
+    "postingDateRange": ["2026-08-04", "2026-09-24"],
+    "companyNamePresent": true,
+    "companyWebsitePresent": false,
+    "personalDataCollected": false,
+    "namesThatLookLikeSmallMarketingAgencies": { "min": 4, "max": 6, "method": "MANUAL_NAME_JUDGMENT_UNVERIFIED" },
+    "offTargetPostings": "several (for example enrollment and onboarding roles) returned by keyword search"
+  },
+  "verdict": "PARTIAL_SUPPORT",
+  "whatThisShows": "Public hiring postings do surface small agencies and businesses currently staffing lead, conversion and paid-acquisition work, at 3-10 results per query in the US.",
+  "whatThisDoesNotShow": "It does not show these companies have lead-path defects, want an audit, or convert better than other prospects; the falsifier (finding density versus 50 OSM businesses) has not been run. UK coverage through this connector was empty for the query tried.",
+  "nextProbe": "Resolve each company's website from its public listing, run the read-only auditor on 50 hiring-signal companies and 50 OSM businesses, and compare evidence-beacon qualification rates.",
+  "storagePolicy": "Company names and posting links are deliberately not stored in this public repository.",
+  "externalEffectLedger": { "providerCalls": 3, "messages": 0, "purchases": 0, "deployments": 0, "credentialChanges": 0, "dnsChanges": 0, "productionMutations": 0, "spendCents": 0 },
+  "truthBoundary": "Three read-only searches at one moment. Evidence about data availability only, not demand."
+}

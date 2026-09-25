@@ -2,9 +2,9 @@
 
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
-Last reconciled: **2026-09-20**
-Branch: `HEAD`
-Reconciled from current head: `d72e85c5ee0661855619d17d2fbeaf110df34618`
+Last reconciled: **2026-09-25**
+Branch: `claude/uberbond-night-war-launch-glgsqc`
+Reconciled from current head: `7f84cebfa32ef3d0e542733d423027c21724a741`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

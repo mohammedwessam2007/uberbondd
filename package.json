@@ -86,6 +86,7 @@
     "test:wallbreaker": "node --test tests/wallbreaker.test.mjs tests/wallbreaker-retry-safety.test.mjs",
     "event-horizon:doctor": "node scripts/event-horizon-doctor.mjs",
     "outreach:free-first:doctor": "node scripts/free-first-outreach-doctor.mjs",
+    "outreach:eligibility": "node scripts/recipient-eligibility.mjs",
     "providers:doctor": "node scripts/model-provider-doctor.mjs",
     "payment:doctor": "node scripts/payment-rail-doctor.mjs",
     "absence:doctor": "node scripts/founder-absence-doctor.mjs",

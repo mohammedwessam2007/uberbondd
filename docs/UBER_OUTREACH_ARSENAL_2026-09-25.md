@@ -65,11 +65,11 @@ I built these before reading every organ above. The honest reconciliation:
 
 | Tonight | Existing organ | Overlap | What is genuinely new | Consolidation |
 |---|---|---|---|---|
-| Consent receipts | **UberAttention** permits | Both model recipient permission with purposes and evidence | Exact-wording hash, double opt-in with token, time-ordered withdrawal, wiring into the public intake | Make a confirmed consent receipt the `authorizationEvidenceRef` of an UberAttention permit instead of running two permission objects |
-| Lawful Channel Router | **UberReach** universal transport, `distribution-control-plane` | Both pick a route per recipient; both watch channel concentration | Per-jurisdiction legal state, sender-jurisdiction gate, letters/partners/in-person, cost and budget | Feed UberReach endpoint checks into the router for digital channels; hand concentration limits to the distribution control plane |
+| Consent receipts | **UberAttention** permits | Both model recipient permission with purposes and evidence | Exact-wording hash, double opt-in with token, time-ordered withdrawal, wiring into the public intake | **Done (`26f5909`):** `attentionPermitFromConsent` issues the permit from the receipts; `evaluateConsentBackedAttention` re-derives it at use, so withdrawal wins |
+| Lawful Channel Router | **UberReach** universal transport, `distribution-control-plane` | Both pick a route per recipient; both watch channel concentration | Per-jurisdiction legal state, sender-jurisdiction gate, letters/partners/in-person, cost and budget | **Done (`0bbc148`, `93f3040`):** cold email requires a ready UberReach endpoint when one is supplied; the 50% cap is shared through `distribution-concentration`; redeemed codes route to CONSENTED_EMAIL |
 | Recipient eligibility engine | UberOutbound legal matrix, `outreach-governance` route evidence | The matrix was data; nothing interpreted it | The interpreter itself | None needed; it consumes the matrix's jurisdictions |
 | Evidence Beacon | Website auditor, public report page | Reuses the auditor | Same-domain, fresh, confident filter; "don't invite" when nothing qualifies | None needed |
-| Fleet senders / DNS publication | UberDoso, UberInboxes, UberDNS | Extends them | Fleet domains in the cell; bring-up output published as DNS | Next: **UberInboxes should cover all 30 domains**, not only the two roots (16 → up to 30 × N identities) |
+| Fleet senders / DNS publication | UberDoso, UberInboxes, UberDNS | Extends them | Fleet domains in the cell; bring-up output published as DNS | **Done (`3dec16d`):** UberInboxes plans all 30 domains, 240 founder aliases, from the same selection as the mail cell |
 
 ## What is still not true
 

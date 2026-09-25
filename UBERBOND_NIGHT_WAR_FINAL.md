@@ -6,6 +6,8 @@ Cleared revenue: **$0.** Customers: **0.**
 
 ## 1. Verdict
 
+**Round 3 update:** every gap closable from the repository is closed (§1c). The $0 path now runs end to end: print cards with verifiable findings and a code, the prospect asks for the report on the site (optionally ticking follow-up consent), and follow-up email goes out only under that consent. What remains is founder-only (§7) or reality.
+
 **Round 2 update:** there is now a first-cash path that needs no server and no spend (§1b, Track A in §7). The cold-email machine below is still valid, but it is now Track B.
 
 No email can lawfully leave UberBond tomorrow. Nothing in the software is still missing for a small first batch. What stands between now and a first batch is three founder actions: buy the server, create a DNS credential, and fill one facts file. Every step after those is now one command.
@@ -41,6 +43,29 @@ Proof that it changes outcomes, as tested:
 - **Rejected:** the Netcup cold canary (spend, and it relies on the now-falsified "cold email is the only channel" assumption), letters (spend), and the public deploy (your authority).
 
 **First GENESIS probe:** hiring-signal chemotaxis over public job postings: `PARTIAL_SUPPORT`. There were 13 US postings, about 4–6 from small agencies by name, but no website field and an empty UK query. Receipt: `artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`.
+
+## 1c. Round 3: closing the remaining gaps (founder: "close all the gaps, minimal cost")
+
+| Gap | What was wrong | Now | Commit |
+|---|---|---|---|
+| `main` was red | 4 suites failed before tonight's work. The 890-moonshot corpus: every shard had lost its trailing newline. Causal compiler v1: the test asserted a 10× win, but the repo's own result file records the falsifier firing at 5×. Reachability: 33 modules had merged unclassified. | Shards restored to their exact manifest hashes; the test now holds v1 to its recorded outcome (a mutation that lowers the threshold fails it); 30 research canaries and UberWatt classified. **8,137 tests: 8,081 pass, 54 skipped, 2 fail.** Both failures are the one owner gate in §8.10. | `451ef3d` |
+| Laptop agent safety | `scripts/uberworm-agent-v2.mjs` executed queued commands without the policy module written for it | It refuses anything outside the documented contract (allowlist, id shape, 6-hour expiry, approved models) before executing | `451ef3d` |
+| UberInboxes covered 2 of 30 domains | 16 identities on the two roots only | Both planners take the fleet; the apply script shares the mail cell's selection (`ALL` = every fleet name). **30 domains × 8 founder aliases = 240 identities.** The default plan and its digest are unchanged. | `3dec16d` |
+| Two permission systems | UberAttention permits and consent receipts were separate objects | A consent receipt is now the evidence behind an UberAttention permit. It is re-derived at the moment of use, so a withdrawal after issuance still refuses. | `26f5909` |
+| Router restated other organs | Own monoculture threshold; ignored UberReach and consent | A redeemed code routes to **CONSENTED_EMAIL** (beats every cold route; only the consented purpose). A supplied UberReach email endpoint must be fresh and unsuppressed. Concentration uses the control plane's 50% cap. | `0bbc148`, `93f3040` |
+| No way to capture follow-up consent | The public form had one box (report delivery only), so the consented route could never open | An optional, unticked second box shows the registered `report-follow-up-v1` wording and records its own receipt only for a literal `true` | `93f3040` |
+| No way to produce the first touch | Codes existed, but nothing printed them with evidence | `npm run outreach:bridge-letters` routes each business, reads its public pages (robots respected), keeps only verifiable findings, and writes a printable card or letter file with code, stop route and sender identity to `~/.uberbond`. `npm run outreach:bridge-attribute` matches exported leads to codes. Tested through the real HTML crawler against a live local site. | `93f3040` |
+
+**Cost floor (cash, first period):**
+
+| Path | Cash | What it needs | Reach |
+|---|---|---|---|
+| **Hand-out cards** (Track A) | **$0** (home printer) | Live audit page, launch facts, invitation secret | Businesses you can visit; ~15 founder minutes each (router estimate) |
+| Posted letters | Postage per letter (`--postage-cents`) | The above, plus a counsel confirmation if you send from EG/SA/AE | US/GB/CA/AU businesses |
+| Owned mail cell (Track B) | **€29.52** (Netcup VPS Lite, 6-month minimum at the observed €4.92/month, 0% VAT display; account total unobserved) | Terms check, PTR, port 25, DNS credential | Tens of recipients in month 1 (modeled) |
+| Payment rail | $0 upfront. Lemon Squeezy checkout links are already reconciled by `api/webhooks/billing.mjs`; a fee per sale | A checkout URL in `FULL_AUDIT_CHECKOUT_URL` (founder account) | Deferred until the first "yes" |
+
+Nothing else is a mandatory purchase: no mailbox SaaS, sequencer, lead database or AI subscription.
 
 ## 2. Current verified state
 
@@ -185,11 +210,12 @@ Run `npm run outreach:launch-facts` until it prints `LAUNCH_FACTS_COMPLETE`.
 
 **If you send from Egypt:** the engine will hold every cold recipient until a lawyer confirms how PDPL Articles 17–18 treat B2B email. Say so, and the first-cash route shifts to opt-in and inbound channels instead of cold email.
 
-**A3. Hand out 10 invitation codes** (~30 min, $0).
-- **Pick the businesses:** 10 you already know, or 2 agencies willing to introduce a client. Put them in a file, one JSON line each: `ref`, `company`, `website`, `jurisdiction`, `recipientType: "CORPORATE"`, and either `existingRelationshipRef` or `partnerAgreementRef` + `partnerRelationshipRef`.
-- **Generate the codes:** run `CONSENT_BRIDGE_SECRET=<32+ random characters> npm run outreach:bridge-plan -- --context ctx.json --prospects prospects.ndjson`. Invitation records go to `~/.uberbond/invitations.ndjson`, outside the repo.
-- **Hand each person their code** in person, by phone or through the partner, with the link `<audit page>/?code=XXXX-XXXX-XXXX`. If you send it by email or social message instead, that is a commercial electronic message and the email rules above apply.
-- **Check first:** confirm the audit page (the Render control plane at `https://uberbond-control-plane.onrender.com/`) loads the form. I couldn't reach it from here. Code attribution needs this branch deployed; without it, requests still work but aren't attributed to the code.
+**A3. Print and hand out 10 cards** (~1 hour including the visits, $0).
+- **Put this branch live first.** The code capture and the new follow-up box are on this branch, not on `main`. Say "open the PR" and I'll open it; once it merges and Render redeploys, confirm `https://uberbond-control-plane.onrender.com/` shows two boxes. (This sandbox can't reach Render, and the connected Vercel team has no projects, so I couldn't check it.)
+- **List the businesses** in `~/.uberbond/bridge-prospects.json`: `[{ "company": "...", "website": "https://...", "jurisdiction": "EG" }, ...]`. Up to 50; the file never enters git.
+- **Print:** `UBERBOND_INVITATION_SECRET=<32+ random characters, keep them> npm run outreach:bridge-letters -- --site https://uberbond-control-plane.onrender.com`. It skips any business whose pages show nothing verifiable and writes `in_person-cards.html` plus `invitations.json` under `~/.uberbond/bridge/<date>/`.
+- **Hand each card over in person** to the business. Handing it over by email or social message would make it an electronic message, and the email rules apply. For posted letters, add `--channel POSTAL_LETTER --postage-cents <cost>`; from EG/SA/AE the router also needs `--counsel-ref <your lawyer's confirmation>`.
+- **Later:** download `/api/export.json` from the app and run `npm run outreach:bridge-attribute -- --leads <export.json> --invitations ~/.uberbond/bridge/<date>/invitations.json`.
 
 ### Track B: the cold-email machine (queued)
 
@@ -239,9 +265,12 @@ The proof is `result.ok: true` plus the public DNS summary it prints.
 7. Live payment credentials: owner, deferred until the first "yes".
 8. The Gmail connector in this session needs re-authorisation in claude.ai connector settings, so mailbox receipts (Netcup, Mailforge) couldn't be checked.
 9. This environment's egress policy blocks the UberBond websites, Render and Netcup pages (DNS still works).
+10. **The raw moonshot transcript in the repo is a 62,611-byte fragment** of the declared 189,166-byte source (sha256 `8a7be386…`). The 890 shards are intact and hash-exact; the transcript can't be rebuilt exactly because its trailing whitespace varies per line. Re-upload the original `Branch · Branch · New chat.txt` to `artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt` and the last 2 failing tests pass.
+11. **Where the audit page lives:** the Vercel team has no projects; Render is the only recorded host and couldn't be checked from here. Deploying this branch is a merge decision (A3).
 
 ## 9. Invented / internalized / deleted
 
+- **Invented (round 3):** printable consent-bridge letters and cards from Evidence Beacons, follow-up consent capture on the public form, consent-backed UberAttention permits (re-derived at use), the router's CONSENTED_EMAIL route, fleet-wide UberInboxes, and local enforcement of the UberWorm policy on the laptop agent.
 - **Invented (round 2):** consent receipts, Consent Bridge invitations and attribution, the Lawful Channel Router, the Evidence Beacon, the GENESIS outreach burst and Wallbreaker receipts.
 - **Invented (round 1):** the per-recipient lawful-eligibility engine, purpose-aware DNS reconciliation, the fleet DNS observatory, a one-file founder facts intake, fleet-sender mail-cell provisioning, one-step DNS publication.
 - **Internalized (no SaaS needed):** DNS automation for mailbox providers, compliance classification, domain health observation.
@@ -252,7 +281,7 @@ The proof is `result.ok: true` plus the public DNS summary it prints.
 ## 10. Next automatic steps
 
 1. **After A1:** rerun the fleet observatory and store the before/after pair.
-2. **After A3:** run `attributeBridgeLeads` over new public-intake leads, generate Evidence Beacons for redeemed codes, and send report links only under the consent receipts.
+2. **After A3:** run `npm run outreach:bridge-attribute` over exported leads. Report links go out under the intake receipt; follow-up email goes out only through the router's CONSENTED_EMAIL route, which re-checks the receipts each time.
 3. **After B1:** run the bootstrap/verify/publish sequence.
 4. **After DNS:** run `npm run outreach:fleet-dns` until the sender domain shows `MX_SPF_DMARC_PRESENT_DKIM_UNOBSERVED`, then mark the domain verified in Postal.
 5. **First real test to founder-owned addresses:** check headers, SPF, DKIM and DMARC, replies, bounces, unsubscribe and suppression.

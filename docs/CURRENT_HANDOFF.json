@@ -411,7 +411,9 @@
           "offer-lineage-unresolved",
           "no-eligible-prospect-corpus",
           "payment-live-credentials-absent",
-          "gmail-connector-needs-reauth"
+          "gmail-connector-needs-reauth",
+          "moonshot-raw-transcript-truncated-owner-reupload",
+          "branch-not-deployed-audit-page-unverified-from-sandbox"
       ],
       "contradictionsPreserved": [
           "RESOLVED 2026-09-25 by founder: all 30 owned domains are outreach domains (matches docs/OUTREACH_ACTIVATION_CARD.md); live DNS shows uberbond.agency served through Cloudflare and uberbond.cloud mixing parking with hosting.",
@@ -420,18 +422,30 @@
       "nextAutomaticStep": "After owner action 1: bootstrap, verify, publish DNS dry-run; after action 2 apply and observe; after action 3 build a 20-recipient cohort on the live control plane and send the first test to founder-owned addresses.",
       "verifiedCapacity30d": 0,
       "clearedRevenueUsd": 0,
-      "fullSuiteOnHead": "ee6f769: 8090 tests, 8032 pass, 4 fail (pre-existing on main: causal-compiler-canary-v1, founder-moonshot-literal-corpus x2, reachability-ratchet), 54 skipped",
+      "fullSuiteOnHead": "25a83da: 8137 tests, 8081 pass, 2 fail (both founder-moonshot-literal-corpus: the committed raw transcript is a 62,611-byte fragment of the declared 189,166-byte source; owner re-upload required), 54 skipped. Earlier: ee6f769 had 4 failures pre-existing on main.",
       "truthBoundary": "Source and one live DNS observation only. No mail host, authenticated sender, prospect, send, reply, customer or payment exists.",
         "round2": "No-server lawful first-cash track: consent receipts (#161), Consent Bridge invitations with ?code= attribution, Lawful Channel Router (#790/#107/#1), Evidence Beacon (#306); GENESIS burst genesis-burst-20260925-outreach-first-cash (12 candidates, 890-corpus ancestry) and Wallbreaker receipt wbr_7f1b075e00336b0b4835ae53.",
         "trackA": [
             "A1 delete the Parked A record on uberbond.cloud so the sending domain stops showing a parking page (Wallbreaker selection)",
             "A2 fill launch facts",
-            "A3 hand out 10 consent-bridge codes in person, by phone or via a partner"
+            "A3 put this branch live (merge + Render redeploy), then npm run outreach:bridge-letters and hand 10 printed cards to businesses in person"
         ],
         "trackB": [
             "B1 Netcup terms check then purchase",
             "B2 GoDaddy DNS credential and publish"
         ],
-        "hiringSignalProbe": "PARTIAL_SUPPORT (artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json)"
+        "hiringSignalProbe": "PARTIAL_SUPPORT (artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json)",
+        "round3": {
+            "summary": "Closed every repository-closable gap: gates red on main repaired without weakening (moonshot shards restored hash-exact; causal-compiler v1 test held to its recorded falsified outcome; 31 unclassified modules classified); UberWorm laptop agent enforces its policy before executing; UberInboxes plans all 30 outreach domains (240 founder aliases); consent receipts are the evidence behind UberAttention permits, re-derived at use; router gains CONSENTED_EMAIL, UberReach endpoint checks and the shared 50% concentration cap; public form captures optional follow-up consent and a typed invitation code; printable consent-bridge cards/letters (npm run outreach:bridge-letters) and attribution (npm run outreach:bridge-attribute).",
+            "commits": ["451ef3d", "3dec16d", "26f5909", "0bbc148", "93f3040", "25a83da"],
+            "costFloor": {
+                "handOutCards": "USD 0 (home printer)",
+                "postedLetters": "postage per letter; EG/SA/AE sender also needs a counsel attestation",
+                "ownedMailCell": "EUR 29.52 first 6-month period (Netcup VPS Lite, observed cart, account total unobserved)",
+                "paymentRail": "USD 0 upfront; Lemon Squeezy checkout URL reconciled by api/webhooks/billing.mjs; per-sale fee"
+            },
+            "observations": { "vercelTeamProjects": 0, "renderAuditPageReachableFromSandbox": false },
+            "externalEffects": "0 messages, 0 DNS changes, 0 purchases, 0 deployments; one read-only Vercel project listing"
+        }
   }
 }

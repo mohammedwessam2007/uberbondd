@@ -134,7 +134,7 @@ function compileRecipientProviders(rows, inventoryCounts, options) {
   return { evaluations, totalUsableRemainingDailyCap: evaluations.reduce((sum, row) => sum + row.usableRemainingDailyCap, 0) };
 }
 
-export function compileOutreach100kLaunchCertificate({
+function compileOutreachScaleLaunchCertificateCore({
   target = OUTREACH_100K_TARGET,
   inventory = {},
   domains = [],
@@ -151,7 +151,7 @@ export function compileOutreach100kLaunchCertificate({
   const hardStopReasonCodes = [];
   const waitReasonCodes = [];
   const requestedTarget = positiveInt(target);
-  if (requestedTarget !== OUTREACH_100K_TARGET) hardStopReasonCodes.push('exact-100k-target-required');
+  if (requestedTarget == null || requestedTarget < 1 || requestedTarget > OUTREACH_100K_TARGET) hardStopReasonCodes.push('target-must-be-between-1-and-100000');
   if (!Number.isFinite(Number(maxEvidenceAgeHours)) || Number(maxEvidenceAgeHours) <= 0) hardStopReasonCodes.push('positive-evidence-age-window-required');
   const options = { now, maxAgeHours: Math.max(0.001, Number(maxEvidenceAgeHours) || 24) };
 
@@ -218,7 +218,7 @@ export function compileOutreach100kLaunchCertificate({
   if (scheduleRemaining == null) waitReasonCodes.push('dispatch-schedule-capacity-required');
 
   const providerConfirmedToday = positiveInt(outbound?.providerConfirmedToday ?? 0) ?? 0;
-  const targetRemaining = Math.max(0, OUTREACH_100K_TARGET - providerConfirmedToday);
+  const targetRemaining = Math.max(0, (requestedTarget || 0) - providerConfirmedToday);
   const capacities = {
     eligibleInventoryRemaining: eligibleRemaining ?? 0,
     senderAndEgressRemaining: egress.totalUsableRemainingDailyCap,
@@ -228,22 +228,22 @@ export function compileOutreach100kLaunchCertificate({
   };
   const certifiableRemaining = Math.min(...Object.values(capacities));
   const certifiableToday = providerConfirmedToday + certifiableRemaining;
-  const shortfall = Math.max(0, OUTREACH_100K_TARGET - certifiableToday);
+  const shortfall = Math.max(0, (requestedTarget || 0) - certifiableToday);
 
   const hardStops = uniq(hardStopReasonCodes);
   const waits = uniq(waitReasonCodes);
-  if (!hardStops.length && !waits.length && certifiableToday < OUTREACH_100K_TARGET) waits.push('100k-observed-capacity-shortfall');
+  if (!hardStops.length && !waits.length && certifiableToday < requestedTarget) waits.push('scale-observed-capacity-shortfall');
 
   const state = hardStops.length
     ? 'ABSTAIN'
     : waits.length
       ? 'WAIT_EXTERNAL_EVIDENCE'
-      : 'CERTIFIED_100K_READY';
+      : 'CERTIFIED_SCALE_READY';
 
   const seed = {
     version: OUTREACH_100K_CERTIFICATE_VERSION,
     state,
-    target: OUTREACH_100K_TARGET,
+    target: requestedTarget || 0,
     observedAt: new Date(now).toISOString(),
     providerConfirmedToday,
     targetRemaining,
@@ -261,8 +261,8 @@ export function compileOutreach100kLaunchCertificate({
 
   return {
     ...seed,
-    certificateId: `ub100k_${sha256(seed)}`,
-    oneButton100kPressAvailable: state === 'CERTIFIED_100K_READY',
+    certificateId: `ubscale_${sha256(seed)}`,
+    oneButtonScalePressAvailable: state === 'CERTIFIED_SCALE_READY',
     hardStopReasonCodes: hardStops,
     waitReasonCodes: waits,
     domainFleet: domain.rows,
@@ -270,9 +270,9 @@ export function compileOutreach100kLaunchCertificate({
     egressFleet: egress.rows,
     recipientProviderFleet: provider.evaluations,
     guarantees: {
-      exactTarget: OUTREACH_100K_TARGET,
-      uniqueEligibleInventoryAtLeastTarget: state === 'CERTIFIED_100K_READY',
-      observedRemainingCapacityAtLeastTarget: state === 'CERTIFIED_100K_READY',
+      exactTarget: requestedTarget || 0,
+      uniqueEligibleInventoryAtLeastTarget: state === 'CERTIFIED_SCALE_READY',
+      observedRemainingCapacityAtLeastTarget: state === 'CERTIFIED_SCALE_READY',
       noDuplicateCapacityEvidence: Object.values(duplicateEvidence).every(rows => rows.length === 0),
       explicitObservedUsage: state === 'CERTIFIED_100K_READY',
       uncertainProviderOutcomeCount: positiveInt(outbound?.uncertain ?? 0) ?? null
@@ -280,7 +280,83 @@ export function compileOutreach100kLaunchCertificate({
     automaticSendAuthority: false,
     externalEffectAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
-    truthBoundary: 'CERTIFIED_100K_READY proves only that fresh supplied evidence shows enough remaining eligible inventory and governed infrastructure capacity to target 100,000 provider-confirmed sends today, with duplicate capacity evidence rejected and current usage explicitly observed. It cannot guarantee future provider uptime, inbox placement, human replies, meetings, revenue, or recipient behavior. Those require later provider/outcome receipts.'
+    truthBoundary: 'CERTIFIED_SCALE_READY proves only that fresh supplied evidence shows enough remaining eligible inventory and governed infrastructure capacity for the exact requested bounded target today, with duplicate capacity evidence rejected and current usage explicitly observed. It cannot guarantee future provider uptime, inbox placement, human replies, meetings, revenue, or recipient behavior. Those require later provider/outcome receipts.'
+  };
+}
+
+
+export function compileOutreachScaleLaunchCertificate(input = {}) {
+  return compileOutreachScaleLaunchCertificateCore(input);
+}
+
+// Compatibility surface for the historical 100K mission. The generic
+// UberScale compiler above is the canonical mechanism; this wrapper preserves
+// the exact legacy state names/API so existing callers and receipts do not
+// silently change semantics.
+export function compileOutreach100kLaunchCertificate(input = {}) {
+  if (input && Object.prototype.hasOwnProperty.call(input, 'target') && positiveInt(input.target) !== OUTREACH_100K_TARGET) {
+    const base = compileOutreachScaleLaunchCertificateCore({ ...input, target: input.target });
+    return {
+      ...base,
+      state: 'ABSTAIN',
+      oneButtonScalePressAvailable: false,
+      oneButton100kPressAvailable: false,
+      hardStopReasonCodes: uniq([...(base.hardStopReasonCodes || []), 'exact-100k-target-required']),
+      guarantees: { ...(base.guarantees || {}), exactTarget: OUTREACH_100K_TARGET },
+      truthBoundary: 'The legacy compileOutreach100kLaunchCertificate surface accepts exactly 100,000 only. Use compileOutreachScaleLaunchCertificate for smaller governed targets.'
+    };
+  }
+  const generic = compileOutreachScaleLaunchCertificateCore({ ...input, target: OUTREACH_100K_TARGET });
+  const waitReasonCodes = (generic.waitReasonCodes || []).map(code => code === 'scale-observed-capacity-shortfall' ? '100k-observed-capacity-shortfall' : code);
+  const state = generic.state === 'CERTIFIED_SCALE_READY' ? 'CERTIFIED_100K_READY' : generic.state;
+  return {
+    ...generic,
+    state,
+    certificateId: generic.certificateId.replace(/^ubscale_/, 'ub100k_'),
+    oneButtonScalePressAvailable: generic.state === 'CERTIFIED_SCALE_READY',
+    oneButton100kPressAvailable: state === 'CERTIFIED_100K_READY',
+    waitReasonCodes,
+    guarantees: {
+      ...(generic.guarantees || {}),
+      exactTarget: OUTREACH_100K_TARGET,
+      uniqueEligibleInventoryAtLeastTarget: state === 'CERTIFIED_100K_READY',
+      observedRemainingCapacityAtLeastTarget: state === 'CERTIFIED_100K_READY'
+    },
+    truthBoundary: 'CERTIFIED_100K_READY is the legacy exact-100,000 compatibility view of UberScale. It proves only fresh supplied evidence for the governed target and does not prove inbox placement, replies, meetings or revenue.'
+  };
+}
+
+export function compileOutreachScaleCompletion({ dispatchReceipts = [], target = 1, date, now = new Date() } = {}) {
+  const requestedTarget = positiveInt(target);
+  const day = clean(date, 10) || new Date(now).toISOString().slice(0, 10);
+  if (requestedTarget == null || requestedTarget < 1 || requestedTarget > OUTREACH_100K_TARGET) {
+    return { version: OUTREACH_100K_CERTIFICATE_VERSION, state: 'SCALE_COMPLETION_REFUSED', date: day, target: requestedTarget, reasonCodes: ['target-must-be-between-1-and-100000'], completionProven: false };
+  }
+  const valid = [];
+  const uncertain = [];
+  const seenDispatch = new Set();
+  const seenProviderReceipt = new Set();
+  for (const row of Array.isArray(dispatchReceipts) ? dispatchReceipts : []) {
+    if (String(row?.state || '') === 'DISPATCH_OUTCOME_UNCERTAIN') uncertain.push(row);
+    if (String(row?.state || '') !== 'PROVIDER_CONFIRMED_SEND' || Number(row?.messagesSent) !== 1) continue;
+    if (!String(row?.observedAt || row?.sentAt || '').startsWith(day)) continue;
+    const dispatchId = clean(row?.dispatchId, 300);
+    const providerReceiptId = clean(row?.providerReceiptId, 500);
+    if (!dispatchId || !providerReceiptId || seenDispatch.has(dispatchId) || seenProviderReceipt.has(providerReceiptId)) continue;
+    seenDispatch.add(dispatchId); seenProviderReceipt.add(providerReceiptId); valid.push(row);
+  }
+  const confirmed = valid.length;
+  const complete = confirmed >= requestedTarget;
+  return {
+    version: OUTREACH_100K_CERTIFICATE_VERSION,
+    state: complete ? 'SCALE_PROVIDER_CONFIRMED_COMPLETE' : 'SCALE_PROVIDER_CONFIRMED_INCOMPLETE',
+    date: day,
+    target: requestedTarget,
+    providerConfirmedUniqueSends: confirmed,
+    remaining: Math.max(0, requestedTarget - confirmed),
+    uncertainOutcomeCount: uncertain.length,
+    completionProven: complete,
+    truthBoundary: 'UberScale completion counts only unique provider-confirmed send receipts for the target day. Queued, attempted, uncertain, duplicated, inbox-placement, reply and revenue claims do not count.'
   };
 }
 

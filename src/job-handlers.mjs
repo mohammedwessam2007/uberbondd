@@ -113,6 +113,8 @@ import {
   planIncrementalDiscovery
 } from './capability-genome-discovery.mjs';
 import { acquireCapability } from './capability-genome-runtime.mjs';
+import { createUberMaildosoAdapter } from './ubermaildoso.mjs';
+import { syncMaildosoEvidence } from './ubermaildoso-evidence-sync.mjs';
 
 // NOTE (Wave 0 parallel-spine reconciliation -- see
 // docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md): two concurrent
@@ -130,6 +132,10 @@ import { acquireCapability } from './capability-genome-runtime.mjs';
 // both.
 
 export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunner, paymentProviderVerifier = null }) {
+  const maildosoAdapter = createUberMaildosoAdapter({
+    token: cfg?.providers?.maildoso?.apiKey || '',
+    baseUrl: cfg?.providers?.maildoso?.baseUrl || 'https://api.maildoso.com'
+  });
   const configuredPaymentVerifier = paymentProviderVerifier || (cfg?.providers?.paypal?.configured
     ? createPayPalSandboxVerifier({ clientId: cfg.providers.paypal.clientId, clientSecret: cfg.providers.paypal.clientSecret })
     : null);
@@ -148,6 +154,24 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       workspaceId: payload?.workspaceId || '',
       dryRun: Boolean(payload?.dryRun)
     }),
+    'maildoso.evidence.sync': async () => {
+      if (!cfg?.providers?.maildoso?.configured) {
+        return {
+          ok: false,
+          status: 'UBERMAILDOSO_EVIDENCE_SYNC_BLOCKED',
+          reasonCodes: ['maildoso-provider-not-configured'],
+          providerCalls: 0,
+          externalEffects: 0
+        };
+      }
+      const fleetAccounts = await store.list('accounts');
+      return syncMaildosoEvidence({
+        adapter: maildosoAdapter,
+        store,
+        fleetAccounts,
+        now: new Date()
+      });
+    },
     // Read-only visibility snapshot of what this branch can actually do
     // right now -- no adapters exist yet to refresh (see
     // docs/PROMETHEUS_SOURCE_ADAPTERS.md), so there is nothing else
@@ -504,7 +528,15 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const domainState = input.domainId ? await loadSendingDomain(store, input.domainId) : null;
       const mailboxState = input.mailboxId ? await loadSendingMailbox(store, input.mailboxId) : null;
       const resolution = resolveProviderAdapter(cfg, input.provider);
-      const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: resolution.adapter, providerPayload: input.providerPayload, date: input.date });
+      const result = await requestMailboxWarmupStart({
+        domainState,
+        mailboxState,
+        providerAdapter: resolution.adapter,
+        providerPayload: input.providerPayload,
+        ownerApproval: input.ownerApproval,
+        idempotencyKey: input.idempotencyKey || '',
+        date: input.date
+      });
       if (mailboxState) {
         const receipt = recordMailboxWarmupStatus({ store, mailboxId: mailboxState.mailboxId, warmupStatus: result.state, warmupStartTime: result.warmupStartTime, date: input.date });
         if (receipt.ok) await logSendingMailboxEvent(store, receipt.event);
@@ -565,7 +597,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     'domainMailbox.provision.plan': async payload => compileProvisioningPlan(payload && typeof payload === 'object' ? payload : {}),
     'domainMailbox.mailhub.capabilities': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
-      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge'];
+      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge', 'maildoso'];
       const adapters = names.map(name => resolveProviderAdapter(cfg, name).adapter);
       return buildMailHubCapabilityMatrix({ adapters });
     },

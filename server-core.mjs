@@ -44,6 +44,13 @@ import {
   buildLookalikePlan,
   buildProviderPreflight
 } from './src/lead-operations.mjs';
+import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
+import { buildEncryptedImapAccount } from './src/uberimap.mjs';
+import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
+import { buildLeadIntakeRecord } from './src/lead-intelligence-v3.mjs';
+import { compilePublicContactSupply } from './src/ubersupply-public-contact-capacity.mjs';
+import { compileOutreachBuyList } from './src/uberbuy-outreach-bom.mjs';
+import { OWNED_OUTREACH_DOMAINS } from './src/outreach-domain-fleet.mjs';
 import {
   buildNativeCapacityPlan,
   buildNativeTargetProfileRecord,
@@ -83,6 +90,11 @@ if (config.processRole === 'all') {
   localWorkerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 }
 const oauthStates = new Map();
+const leadCaptureHits = new Map();
+const maildoso = createUberMaildosoAdapter({
+  token: config.providers?.maildoso?.apiKey || '',
+  baseUrl: config.providers?.maildoso?.baseUrl || 'https://api.maildoso.com'
+});
 
 const baseHeaders = {
   'cache-control': 'no-store',
@@ -205,7 +217,7 @@ const relayRateLimited = req => {
   return count > Math.max(1, Number(config.agentRelay?.rateLimitPerMinute || 120));
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
-const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/api/public/offer-interest' || pathname === '/webhooks/lemonsqueezy';
+const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/lead-capture' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/api/public/offer-interest' || pathname === '/webhooks/lemonsqueezy';
 const clientIp = req => {
   const hops = Number(config.trustProxyHops) || 0;
   const socketAddress = String(req.socket?.remoteAddress || 'unknown');
@@ -216,6 +228,18 @@ const clientIp = req => {
   if (chain.length < hops) return socketAddress;
   return chain[chain.length - hops] || socketAddress;
 };
+
+const leadCaptureRateLimited = req => {
+  const hour = Math.floor(Date.now() / 3600000);
+  const key = `${clientIp(req)}:${hour}`;
+  const count = (leadCaptureHits.get(key) || 0) + 1;
+  leadCaptureHits.set(key, count);
+  if (leadCaptureHits.size > 5000) {
+    for (const entry of leadCaptureHits.keys()) if (!entry.endsWith(`:${hour}`)) leadCaptureHits.delete(entry);
+  }
+  return count > Math.max(1, Number(config.leadCapture?.rateLimitPerHour || 30));
+};
+
 
 async function summary() {
   const [prospects, jobs, suppressions, accounts, discoveryRuns, revenueSummary, queueStats, pausedState, workers, settings, senderHealth, outboundReservations] = await Promise.all([
@@ -339,20 +363,32 @@ function countReasons(rows) {
   return counts;
 }
 
-function canaryPrerequisites(runtimeConfig = config) {
+function canaryPrerequisites(runtimeConfig = config, accounts = []) {
   const outbound = runtimeConfig.outbound || {};
+  const provider = String(outbound.provider || '').toLowerCase();
+  const smtpFleetConfigured = accounts.some(account =>
+    account?.connected === true &&
+    String(account?.provider || '').toLowerCase() === 'smtp-relay' &&
+    Boolean(account?.tokens) &&
+    account?.smtpRoute?.authorized === true &&
+    account?.smtpRoute?.termsCompatible === true &&
+    Boolean(String(account?.smtpRoute?.evidenceRef || '').trim())
+  );
   return {
     launchPhaseCanary: outbound.launchPhase === 'canary',
-    approvedProvider: ['gmail-api', 'postal'].includes(String(outbound.provider || '').toLowerCase()),
+    approvedProvider: ['gmail-api', 'postal', 'smtp-relay'].includes(provider),
     approvalSecretConfigured: String(outbound.approvalSecret || '').length >= 32,
     approverConfigured: Boolean(String(outbound.approverId || '').trim()),
     senderIdentityConfigured: Boolean(String(runtimeConfig.sender?.address || '').trim()),
     allowedCountriesConfigured: normalizeCountryList(outbound.allowedCountries || []).length > 0,
     googleOAuthConfigured: Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
     postalConfigured: Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true),
-    providerCredentialConfigured: String(outbound.provider || '').toLowerCase() === 'postal'
+    smtpFleetConfigured,
+    providerCredentialConfigured: provider === 'postal'
       ? Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true)
-      : Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
+      : provider === 'smtp-relay'
+        ? Boolean(smtpFleetConfigured && outbound.useEffectAdapter === true)
+        : Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
     encryptionConfigured: /^[a-f0-9]{64}$/i.test(String(runtimeConfig.encryptionKey || '')),
     unsubscribeConfigured: String(runtimeConfig.unsubscribeSecret || '').length >= 32,
     outboundEnabled: outbound.enabled === true,
@@ -387,7 +423,7 @@ async function outreachCanaryStatus() {
   const readyProspectIds = candidates
     .filter((_, index) => evaluations[index]?.ok)
     .map(prospect => prospect.id);
-  const prerequisites = canaryPrerequisites(runtimeConfig);
+  const prerequisites = canaryPrerequisites(runtimeConfig, accounts);
   const connectedSlots = new Set(accounts.filter(account => account.connected === true).map(account => String(account.slot || '')));
   const pausedSlots = new Set(senderHealth.filter(row => row.paused === true).map(row => String(row.inbox || '')));
   const domainMailboxChecks = await Promise.all(governedReady.map(async prospect => {
@@ -416,11 +452,14 @@ async function outreachCanaryStatus() {
   if (prerequisites.dryRun) liveBlockers.push('outbound-dry-run');
   if (!prerequisites.senderIdentityConfigured) liveBlockers.push('business-address-missing');
   if (!prerequisites.allowedCountriesConfigured) liveBlockers.push('allowed-countries-missing');
-  if (!prerequisites.providerCredentialConfigured) liveBlockers.push(
-    String(runtimeConfig.outbound.provider || '').toLowerCase() === 'postal'
+  if (!prerequisites.providerCredentialConfigured) {
+    const provider = String(runtimeConfig.outbound.provider || '').toLowerCase();
+    liveBlockers.push(provider === 'postal'
       ? 'postal-runtime-credential-missing'
-      : 'google-oauth-missing'
-  );
+      : provider === 'smtp-relay'
+        ? 'smtp-fleet-credential-or-route-missing'
+        : 'google-oauth-missing');
+  }
   if (!prerequisites.encryptionConfigured) liveBlockers.push('token-encryption-key-missing');
   if (!prerequisites.unsubscribeConfigured) liveBlockers.push('unsubscribe-secret-missing');
   liveBlockers.push(...liveDomainMailboxBlockers);
@@ -724,6 +763,74 @@ function suppressionMatchesEmail(row, email, domain) {
   return value === email || value === domain || email.endsWith(`@${value.replace(/^@/, '')}`);
 }
 
+async function outreachSaasExtinctionStatus() {
+  const [prospects, suppressions, accounts, settings] = await Promise.all([
+    store.list('prospects'), store.list('suppressions'), store.list('accounts'), store.getSettings()
+  ]);
+  const eligibilityByProspect = Object.fromEntries((prospects || [])
+    .map(prospect => [
+      prospect.id,
+      prospect.recipientEligibility || prospect.legalEligibility || prospect.outreachEligibility || null
+    ])
+    .filter(([, value]) => value));
+  const supply = compilePublicContactSupply({
+    prospects,
+    eligibilityByProspect,
+    suppressions,
+    targetDailyFirstTouches: 1000,
+    targetBusinessDays: 20
+  });
+  const smtpAccounts = (accounts || []).filter(account =>
+    account?.connected === true && String(account?.provider || '').toLowerCase() === 'smtp-relay'
+  );
+  const authorizedSmtp = smtpAccounts.filter(account =>
+    account?.smtpRoute?.authorized === true &&
+    account?.smtpRoute?.termsCompatible === true &&
+    Boolean(String(account?.smtpRoute?.evidenceRef || '').trim())
+  );
+  const regulatoryStatus = String(settings?.outreachRegulatoryStatus || 'UNKNOWN').toUpperCase();
+  const paymentLive = Boolean(settings?.livePaymentRailObserved === true);
+  const buyList = compileOutreachBuyList({
+    domainsOwned: OWNED_OUTREACH_DOMAINS.length,
+    controlPlaneOwned: true,
+    outboundSubstrate: {
+      candidate: authorizedSmtp[0]?.provider || (config.providers?.maildoso?.configured ? 'maildoso' : ''),
+      acquired: authorizedSmtp.length > 0,
+      cashRequired: undefined,
+      authorized: authorizedSmtp.length > 0,
+      configured: authorizedSmtp.length > 0
+    },
+    paymentRail: { live: paymentLive },
+    regulatory: {
+      status: regulatoryStatus,
+      detail: regulatoryStatus === 'PASSED'
+        ? 'Campaign-specific regulatory evidence is recorded in protected runtime state.'
+        : 'Current Egypt-based unsolicited cold-email path remains fail-closed pending applicable legal/regulatory evidence.'
+    },
+    publicContactSupply: supply,
+    optionalModelProvider: Boolean(config.ai?.provider && config.ai.provider !== 'rules')
+  });
+  return {
+    ok: true,
+    version: 'uberbond.outreach-saas-extinction-status.v1',
+    generatedAt: now(),
+    supply,
+    buyList,
+    observed: {
+      ownedOutreachDomains: OWNED_OUTREACH_DOMAINS.length,
+      connectedSmtpAccounts: smtpAccounts.length,
+      authorizedSmtpAccounts: authorizedSmtp.length,
+      maildosoApiConfigured: Boolean(config.providers?.maildoso?.configured),
+      paymentRailObserved: paymentLive,
+      regulatoryStatus
+    },
+    providerCalls: 0,
+    messagesSent: 0,
+    spendCents: 0,
+    truthBoundary: 'This status is read-only and evidence-derived. It never turns account presence, domain ownership, public contact discovery, or configured credentials into permission, deliverability, legal clearance, purchase proof, or revenue.'
+  };
+}
+
 async function ownerSetupStatus() {
   const [settings, accounts, prospects, suppressions, campaigns] = await Promise.all([
     store.getSettings(), store.list('accounts'), store.list('prospects'), store.list('suppressions'), store.list('campaigns')
@@ -995,6 +1102,29 @@ export const requestHandler = async (req, res) => {
         offerCatalog: buildRevenueOfferCatalog(config.revenue)
       });
     }
+    if (method === 'POST' && url.pathname === '/api/public/lead-capture') {
+      if (config.leadCapture?.enabled !== true) return json(res, 404, { error: 'Lead capture is disabled' });
+      const expectedSiteKey = String(config.leadCapture?.siteKey || '');
+      if (!expectedSiteKey) return json(res, 503, { error: 'Lead capture site key is not configured' });
+      if (!safeEqual(String(req.headers['x-uberbond-site-key'] || ''), expectedSiteKey)) return json(res, 401, { error: 'Invalid site key' });
+      if (leadCaptureRateLimited(req)) return json(res, 429, { error: 'Lead capture rate limit exceeded' });
+      const input = await parseBody(req);
+      for (const forbidden of ['ip','ipAddress','cookie','cookies','sessionId','session','fingerprint']) {
+        if (Object.hasOwn(input, forbidden)) throw new HttpError(400, `Privacy-sensitive field is not accepted: ${forbidden}`);
+      }
+      let record;
+      try { record = buildLeadIntakeRecord(input, { now: new Date() }); }
+      catch (error) { throw new HttpError(400, error.message); }
+      const existing = await store.get('leadIntakeEvents', record.id);
+      if (existing) return json(res, 200, { accepted: true, stored: true, idempotentReplay: true, eventId: existing.id, providerCalls: 0, externalEffects: 0 });
+      await store.add('leadIntakeEvents', record);
+      return json(res, 201, {
+        accepted: true, stored: true, eventId: record.id, kind: record.kind,
+        identityMode: record.privacy?.identityMode || 'account-only',
+        providerCalls: 0, externalEffects: 0
+      });
+    }
+
     if (method === 'POST' && url.pathname === '/api/public/audit') {
       return json(res, 202, await revenue.createLead(await parseBody(req), clientIp(req)));
     }
@@ -1387,6 +1517,96 @@ export const requestHandler = async (req, res) => {
       });
     }
 
+    if (method === 'POST' && url.pathname === '/api/outbound/smtp-accounts/import') {
+      const input = await parseBody(req);
+      if (input.confirmCredentialImport !== true) throw new HttpError(400, 'confirmCredentialImport must be true');
+      if (!/^[a-f0-9]{64}$/i.test(String(config.encryptionKey || ''))) throw new HttpError(409, 'TOKEN_ENCRYPTION_KEY must be configured before SMTP credential import');
+      const rows = Array.isArray(input.accounts) ? input.accounts.slice(0, 500) : [];
+      if (!rows.length) throw new HttpError(400, 'accounts must contain at least one SMTP mailbox');
+      const prepared = rows.map(row => buildEncryptedSmtpAccount({
+        ...row,
+        provider: 'smtp-relay',
+        routeAuthorized: row.routeAuthorized === true,
+        termsCompatible: row.termsCompatible === true
+      }, config.encryptionKey));
+      const failed = prepared.map((row,index)=>({index,row})).filter(item=>!item.row.ok);
+      if (failed.length) return json(res, 400, {
+        ok: false,
+        status: 'SMTP_ACCOUNT_IMPORT_REFUSED',
+        failures: failed.map(item=>({index:item.index,reasonCodes:item.row.reasonCodes})),
+        imported: 0
+      });
+      for (const item of prepared) await store.upsert('accounts', { ...item.account, createdAt: now(), updatedAt: now() });
+      await store.log('smtp_account_fleet_imported', {
+        count: prepared.length,
+        provider: 'smtp-relay',
+        slots: prepared.map(item=>item.account.slot),
+        credentialStorage: 'AES_256_GCM_ENCRYPTED',
+        plaintextCredentialsLogged: false
+      });
+      return json(res, 201, {
+        ok: true,
+        status: 'SMTP_ACCOUNT_FLEET_IMPORTED',
+        imported: prepared.length,
+        accounts: prepared.map(item=>({
+          id:item.account.id,slot:item.account.slot,email:item.account.email,provider:item.account.provider,
+          sendingDomainId:item.account.sendingDomainId,sendingMailboxId:item.account.sendingMailboxId
+        }))
+      });
+    }
+
+    const maildosoReadMatch = url.pathname.match(/^\/api\/providers\/maildoso\/read\/([^/]+)$/);
+    if (method === 'GET' && maildosoReadMatch) {
+      const result = await maildoso.read(decodeURIComponent(maildosoReadMatch[1]), {
+        query: Object.fromEntries(url.searchParams.entries())
+      });
+      return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : 400), result);
+    }
+    const maildosoMutationMatch = url.pathname.match(/^\/api\/providers\/maildoso\/mutate\/([^/]+)$/);
+    if (method === 'POST' && maildosoMutationMatch) {
+      const input = await parseBody(req);
+      const result = await maildoso.mutate(decodeURIComponent(maildosoMutationMatch[1]), {
+        body: input.body, params: input.params, query: input.query, approval: input.approval
+      });
+      return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : result.status === 'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN' ? 409 : 400), result);
+    }
+
+    if (method === 'POST' && url.pathname === '/api/outbound/imap-forwarding/import') {
+      const input = await parseBody(req);
+      if (input.confirmCredentialImport !== true) throw new HttpError(400, 'confirmCredentialImport must be true');
+      if (!/^[a-f0-9]{64}$/i.test(String(config.encryptionKey || ''))) throw new HttpError(409, 'TOKEN_ENCRYPTION_KEY must be configured before IMAP credential import');
+      const prepared = buildEncryptedImapAccount({
+        slot: input.slot,
+        email: input.email,
+        host: input.host,
+        port: input.port,
+        secure: input.secure,
+        username: input.username,
+        password: input.password,
+        evidenceRef: input.evidenceRef,
+        authorized: input.authorized === true,
+        termsCompatible: input.termsCompatible === true
+      }, config.encryptionKey);
+      if (!prepared.ok) return json(res, 400, prepared);
+      await store.upsert('accounts', { ...prepared.account, createdAt: now(), updatedAt: now() });
+      await store.log('imap_forwarding_account_imported', {
+        accountId: prepared.account.id,
+        slot: prepared.account.slot,
+        provider: prepared.account.provider,
+        credentialStorage: 'AES_256_GCM_ENCRYPTED',
+        plaintextCredentialsLogged: false
+      });
+      return json(res, 201, {
+        ok: true,
+        status: 'IMAP_FORWARDING_ACCOUNT_IMPORTED',
+        account: { id: prepared.account.id, slot: prepared.account.slot, email: prepared.account.email, provider: prepared.account.provider }
+      });
+    }
+
+    if (method === 'GET' && url.pathname === '/api/outbound/saas-extinction') {
+      return json(res, 200, await outreachSaasExtinctionStatus());
+    }
+
     if (method === 'GET' && url.pathname === '/api/outbound/canary/status') {
       return json(res, 200, await outreachCanaryStatus());
     }
@@ -1409,13 +1629,15 @@ export const requestHandler = async (req, res) => {
     if (method === 'POST' && url.pathname === '/api/outbound/resume') {
       return json(res, 200, await store.setOutboundPaused(false, ''));
     }
-    if (method === 'POST' && /^\/api\/outbound\/sender\/[AB]\/pause$/.test(url.pathname)) {
-      const slot = url.pathname.split('/')[4];
+    const senderPauseMatch = url.pathname.match(/^\/api\/outbound\/sender\/([^/]+)\/pause$/);
+    if (method === 'POST' && senderPauseMatch) {
+      const slot = decodeURIComponent(senderPauseMatch[1]);
       const input = await parseBody(req);
       return json(res, 200, await store.setSenderPaused(slot, true, input.reason || 'Paused from command center'));
     }
-    if (method === 'POST' && /^\/api\/outbound\/sender\/[AB]\/resume$/.test(url.pathname)) {
-      const slot = url.pathname.split('/')[4];
+    const senderResumeMatch = url.pathname.match(/^\/api\/outbound\/sender\/([^/]+)\/resume$/);
+    if (method === 'POST' && senderResumeMatch) {
+      const slot = decodeURIComponent(senderResumeMatch[1]);
       return json(res, 200, await store.setSenderPaused(slot, false, ''));
     }
 

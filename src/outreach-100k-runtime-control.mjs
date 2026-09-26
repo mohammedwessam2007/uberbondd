@@ -7,6 +7,7 @@ import { compileOutreach100kLaunchCertificate } from './outreach-100k-launch-con
 import { evaluateOutreachLaunchGate, OUTREACH_LAUNCH_STATES } from './outreach-launch-gate.mjs';
 import { dispatchGovernedOutreach } from './governed-outreach-dispatch.mjs';
 import { createUberSmtpSubmissionTransport } from './ubersmtp-submission-adapter.mjs';
+import { openSmtpAccountCredential } from './uberfleet.mjs';
 
 export const OUTREACH_100K_RUNTIME_VERSION = 'uberbond.outreach-100k-runtime.v1';
 export const DEFAULT_OUTREACH_100K_BUNDLE_PATH = '/var/lib/uberbond-control/outreach-100k-runtime-bundle.json';
@@ -271,7 +272,8 @@ export async function runOutreach100kBatch({
   bundlePath = process.env.OUTREACH_100K_BUNDLE_PATH || DEFAULT_OUTREACH_100K_BUNDLE_PATH,
   corpusPath = process.env.OUTREACH_100K_CORPUS_PATH || DEFAULT_OUTREACH_100K_CORPUS_PATH,
   now = new Date(),
-  transportFactory = createUberSmtpSubmissionTransport
+  transportFactory = createUberSmtpSubmissionTransport,
+  credentialResolver = null
 } = {}) {
   if (!store || typeof store.reserveOutboundSend !== 'function') return failure(['durable-outbound-store-required']);
   const prepared = await prepareOutreach100kRuntime({ bundlePath, corpusPath, liveSummary: payload.liveSummary || {}, now });
@@ -301,6 +303,36 @@ export async function runOutreach100kBatch({
   let refused = 0;
   let uncertain = 0;
   const receipts = [];
+  const fleetAccounts = typeof store.list === 'function' ? await store.list('accounts') : [];
+
+  async function resolveSmtpCredential(mailbox, smtpRoute) {
+    if (typeof credentialResolver === 'function') {
+      const resolved = await credentialResolver({ mailbox, smtpRoute, store, cfg });
+      if (resolved?.username && resolved?.password) return { ...resolved, source: 'injected-resolver' };
+    }
+    const mailboxId = clean(mailbox?.mailboxId, 240);
+    const address = clean(mailbox?.address, 320).toLowerCase();
+    const account = (fleetAccounts || []).find(row =>
+      row?.connected === true &&
+      String(row?.provider || '').toLowerCase() === 'smtp-relay' &&
+      (
+        clean(row?.slot, 240) === mailboxId ||
+        clean(row?.sendingMailboxId, 240) === mailboxId ||
+        clean(row?.email, 320).toLowerCase() === address
+      )
+    );
+    if (account?.tokens && cfg?.encryptionKey) {
+      try {
+        const credential = openSmtpAccountCredential(account, cfg.encryptionKey);
+        return { ...credential, source: 'uberfleet-encrypted-account', accountId: account.id || null };
+      } catch {
+        return null;
+      }
+    }
+    const username = clean(process.env[clean(smtpRoute?.usernameEnv, 120)] || smtpRoute?.username || '', 500);
+    const password = String(process.env[clean(smtpRoute?.passwordEnv, 120)] || smtpRoute?.password || '');
+    return username && password ? { username, password, source: 'legacy-route-secret' } : null;
+  }
 
   for (const { lineNumber, packet } of batch.rows) {
     const mailboxId = clean(packet.mailboxId, 240);
@@ -351,12 +383,19 @@ export async function runOutreach100kBatch({
 
     attempted += 1;
     await store.markOutboundReservation(reservation.reservation.id, 'dispatching');
+    const credential = await resolveSmtpCredential(mailbox, smtpRoute);
+    if (!credential) {
+      await store.markOutboundReservation(reservation.reservation.id, 'cancelled', { reason: 'smtp-credential-not-ready' });
+      refused += 1;
+      receipts.push({ lineNumber, state: 'DISPATCH_REFUSED', reasonCodes: ['smtp-credential-not-ready'] });
+      continue;
+    }
     const transport = transportFactory({
       host: smtpRoute.host,
       port: smtpRoute.port,
       secure: smtpRoute.secure !== false,
-      username: clean(process.env[clean(smtpRoute.usernameEnv, 120)] || smtpRoute.username || '', 500),
-      password: String(process.env[clean(smtpRoute.passwordEnv, 120)] || smtpRoute.password || ''),
+      username: credential.username,
+      password: credential.password,
       authorized: smtpRoute.authorized === true,
       termsCompatible: smtpRoute.termsCompatible === true,
       evidenceRef: smtpRoute.evidenceRef

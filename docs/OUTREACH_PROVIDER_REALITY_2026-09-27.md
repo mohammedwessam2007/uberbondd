@@ -1,91 +1,116 @@
 # Outreach Provider Reality — 2026-09-27
 
-**Truth class:** first-party public policy/pricing observations + exact-main source review + account/reply/DNS/legal activation unknowns. This receipt does not claim a purchase, provider login, credential, mailbox, DNS change, message send, reputation result, or send capacity.
+**Truth class:** current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does not claim a provider account, usable credential, mailbox, send authorization, DNS change, reputation result, canary, or delivery.
 
 ## Current decision
 
-**No provider is purchase-ready for the intended automated cold-B2B first-touch route.** OutInfra is excluded by its own current Terms, which prohibit unsolicited bulk email. ClayInbox Google is technically the strongest integration path, but Google's current Workspace acceptable-use policy prohibits generating or facilitating unsolicited bulk commercial email. ClayInbox's own retrievable current terms/AUP are still unavailable, so its cold-email marketing cannot clear that upstream policy gate. ClayInbox Azure remains yellow because account credentials, token refresh, inbound replies, and policy terms have not been observed.
+**No sender substrate is purchase-ready for the present prospecting route.** OutInfra's Terms prohibit unsolicited bulk email. Google Workspace's current acceptable-use policy bars generating or facilitating unsolicited mass commercial email. Mailpool's current anti-spam policy permits sending only to recipients with explicit opt-in. Maildoso's Terms contemplate cold corporate outreach but require 14 days of warm-up performed with a third-party tool, continued warm-up thereafter, and a ramp to at most 15 cold messages per mailbox per day including follow-ups. Its current plans also include IP rotation and automatic IP replacement if an IP stops working. UberBond has no verified consented warm-up audience, UberWarm does not send or manufacture warm-up traffic, the Maildoso warm-up API describes artificial messages, and no non-rotating compliant Maildoso mode was observed. Those gates cannot be cleared from marketing claims.
 
-For recipients who have explicitly requested contact or otherwise qualify outside the prohibited unsolicited-bulk use, ClayInbox Google remains only a *conditional* low-cost substrate candidate. That does not clear UberBond's sender-jurisdiction, recipient, source-provenance, identity, DNS, reputation, suppression, or campaign authorization gates.
+A zero-dollar sender trial is **not verified**. Mailpool's live pricing FAQ says no free trial; Maildoso's “300 mailboxes for $0” call-to-action leads to a demo booking page. The competing Maildoso blog comparison table's Mailpool trial claim conflicts with Mailpool's own current FAQ.
 
-## Live facts and evidence classes
+The 30 owned domains and roughly $8/month OVH control plane remain assets, not permission or send capacity. Existing repo state has no eligible prospect corpus, unresolved offer lineage, and an Egypt-sender legal hold. No purchase, provider login, provider inquiry, credential import, DNS mutation, or message send occurred in this review.
+
+## Provider evidence
 
 ### OutInfra
 
-First-party public sources checked on the mission date:
+First-party pages checked 2026-09-27:
 
-- [Pricing](https://outinfra.com/pricing) advertises $0.25 per active mailbox/month; Starter at $25/month for 100 mailboxes and 1 domain; Growth at $125 for 500/5; Scale at $500 for 2,000/20; no minimum; no card required to explore; payment when deployed; and an end-of-period metered charge. It advertises SMTP/IMAP credentials per mailbox and Azure ACS resource provisioning.
-- [Terms](https://outinfra.com/terms), last updated 2026-04-01, describes an M365/Exchange Online provisioning layer and says users may not send “unsolicited bulk email (spam).” It also says subscriptions are billed in advance, renew automatically, and suspended accounts are not refundable.
-- [Refund and cancellation policy](https://outinfra.com/refund), last updated 2026-04-01, says purchases are final/non-refundable except for duplicate billing or failure to provision within seven business days; cancellation stops future billing and gives no prorated refund. This conflicts with the pricing page's “risk-free first month” full-refund claim and end-of-period billing description.
+- [Pricing](https://outinfra.com/pricing) advertises $0.25 per active mailbox/month; Starter at $25/month for 100 mailboxes and one domain; Growth at $125 for 500/5; Scale at $500 for 2,000/20; no minimum; no card to explore; payment when deployed; and SMTP/IMAP credentials per mailbox.
+- [Terms](https://outinfra.com/terms), last updated 2026-04-01, says users may not send unsolicited bulk email (spam). It also says subscriptions are billed in advance, renew automatically, and suspended accounts are not refunded.
+- [Refund policy](https://outinfra.com/refund), also last updated 2026-04-01, says purchases are final/non-refundable except duplicate billing or failure to provision within seven business days. This conflicts with the pricing page's risk-free full-refund and end-of-period-billing claims.
 
-Decision: **not eligible for the intended unsolicited-bulk campaign**, even though its headline mailbox price is lowest. Its account-specific minimum, 30-domain allocation, actual credential export, independent reply path, tenant topology, approval/KYC, tax, and deployed plan were not observed. Its advertised mailboxes must not be treated as independent send pipes. Microsoft documents separate per-user and organization-level sending controls for Exchange Online, but those are technical limits, not permission or a safe cap.
-
-The advertised $25/100-mailbox/1-domain plan would be $3 above the strict $22 sender remainder and about $33 including the existing ~$8 OVH. Its 100 identities remain marketing geometry, not verified sender identities or authorized capacity.
+Decision: excluded for the intended unsolicited-bulk route. The $25 Starter is $3 above the strict $22 sender remainder, includes one domain, and does not establish that 100 advertised mailboxes are independent pipes. The account's domain allocation, actual credential export, inbound reply path, tenant topology, approval, tax, and deployed limits remain unobserved.
 
 ### ClayInbox
 
-First-party pages checked on the mission date:
+First-party pages checked 2026-09-27:
 
-- [Pricing](https://clayinbox.ai/pricing) currently says “Google Admin” starts at $2/mailbox/month.
-- [Homepage](https://clayinbox.ai/) still describes Google Workspace at $2.50/mailbox/month, and the Google Workspace product surface also displays $2.50. Treat the actual price as **unresolved: $2.00–$2.50 before tax/fees**, pending an account-visible quote. No checkout, tax, renewal, cancellation, refund, or card requirement was observed.
-- The public pages advertise free BYO-domain connection, one isolated Workspace per domain, included warm-up, API/MCP, and credential/app-password export. Those remain provider claims until observed on an authorized account.
-- No current retrievable ClayInbox Terms/AUP was found; its linked terms surface did not yield policy text. The already-sent support inquiry (2026-09-26 21:13Z) asked about Azure auth/replies, cold-email policy, limits, and trial scope. Gmail showed the sent inquiry and **no response from support** on this follow-up check. It was not resent.
-- The prior authenticated-workflow attempt ended on a blank ClayInbox sign-in/verification view; no authentication, terms acceptance, card entry, or purchase occurred.
+- [Pricing](https://clayinbox.ai/pricing) says Google Admin starts at $2/mailbox/month; the [homepage](https://clayinbox.ai/) and Google Workspace product surface say $2.50. Exact price remains unresolved at $2.00–$2.50 before unknown tax/fees.
+- Pages claim free BYO-domain connection, one isolated Workspace per domain, included warm-up, API/MCP, and app-password export. These are account-unverified claims. No current retrievable ClayInbox Terms/AUP was found.
+- The already-sent ClayInbox inquiry from 2026-09-26 21:13Z asked about Azure authentication/replies, cold-email policy, limits, and trial scope. No reply was observed on the prior check; it was not resent.
+- Existing donor/source work proves a Google app-password custody path into encrypted UberFleet SMTP and UberIMAP. No ClayInbox provider call or credential import was made this review. Azure remains yellow: the up-to-100/domain marketing claim does not prove one independent credential per identity, OAuth/Graph scopes, refresh/reconnect, or inbound replies.
 
-Google's current [Workspace Acceptable Use Policy](https://workspace.google.com/terms/use_policy/) prohibits use of Workspace to generate, distribute, or facilitate unsolicited mass email, promotions, advertisements, or other solicitations. Google's [Gmail spam and abuse policy](https://knowledge.workspace.google.com/admin/gmail/spam-and-abuse-policy-in-gmail) applies to users on a Workspace domain. This upstream policy prevents the ClayInbox Google marketing claim from authorizing an unsolicited-bulk campaign. The [Google Workspace sending-limits page](https://knowledge.workspace.google.com/admin/gmail/gmail-sending-limits-in-google-workspace) publishes 2,000 messages/user/day on paid accounts and 500/day during a Google Workspace trial, among other recipient limits; the page also states trial limits are lower and paid-limit increases require cumulative domain payment of $100 and may take up to 75 days. These are technical ceilings only, not permission, warm-up, independent-mailbox proof, or practical send caps. A ClayInbox-specific free production trial or quota was not verified.
+Google's current [Workspace Acceptable Use Policy](https://workspace.google.com/terms/use_policy/) prohibits using Workspace to generate, distribute, or facilitate unsolicited mass email, promotions, advertisements, or other solicitations. Google also publishes paid and trial send ceilings in its [sending-limits guidance](https://knowledge.workspace.google.com/admin/gmail/gmail-sending-limits-in-google-workspace); those are technical limits, not permission or safe caps. A ClayInbox-specific free production trial was not verified.
 
-ClayInbox Azure is still yellow: its advertised up-to-100/domain density does not establish one usable UberFleet credential per identity, OAuth/Graph scopes, token refresh/reconnect, or a real IMAP/Graph inbound-reply path. No production trial scope, ToS/AUP fit, or account limits were observed.
+For opted-in/non-unsolicited-bulk recipients, price arithmetic is 8 boxes at $2.50 = $20, or 11 at $2 = $22, before unknown checkout costs. This does not clear the legal, offer, provider-policy, account, DNS, identity, suppression, or reputation gates.
 
-### Microsoft shared controls relevant to OutInfra
+### Maildoso
 
-Microsoft's [Exchange Online outbound limits guidance](https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-sending-limits-troubleshoot) states limits apply at user and organization levels; the published per-user limit is 10,000 recipients in a rolling 24-hour window and 30 messages/minute, while the Tenant External Recipient Rate Limit scales with tenant licenses (5,000 external recipients/day by default for trial organizations). Microsoft also states Exchange Online is not designed for bulk mailing. These numbers do **not** support an inference that 100 accounts are 100 independent pipes or that any cap is authorized.
+First-party public pages checked 2026-09-27:
 
-## Budget and conditional topology
+- [Monthly pricing](https://maildoso.ai/pricing) lists 30 mailboxes/$75 ($2.50 each), 300/$225, and 1,000/$499. Custom mailbox counts are in the authenticated Packages & Add-ons area; the public page says prices start at $0.49 but exposes no custom 1–44 mailbox quote, checkout total, tax, card requirement, or renewal amount. A Maildoso-owned [comparison blog](https://maildoso.ai/blog/tools/mailpool) quotes a $25 SMTP minimum; the live pricing page does not show that minimum, so it is not an exact checkout quote. At $25, arithmetic would be about $33 including existing OVH, but neither quantity nor final price is verified.
+- The [Terms](https://maildoso.ai/resources/terms-of-service), updated 2026-09-17, say Maildoso does not provide mailbox warm-up and requires the client to use a third-party warm-up or sequencing tool. Each new mailbox requires at least 14 warm-up days before a cold campaign, then gradual ramping from 1 to at most 15 cold messages/mailbox/day including follow-ups. It also requires verified addresses, hard bounces below 2%, visible unsubscribe, and corporate addresses only.
+- The same [Terms](https://maildoso.ai/resources/terms-of-service) permit refunds only when Maildoso-caused sending failure lasts at least three consecutive days within 30 days; domains are non-refundable. The [pricing FAQ](https://maildoso.ai/pricing) advertises a 30-day money-back guarantee for monthly SMTP packages. These statements conflict. Cancellation must occur before renewal through the billing page or official support channels.
+- The live pricing page says every plan includes IP rotation. Its FAQ says campaigns send from different IPs and IPs are automatically replaced when they stop working. No stable-IP/no-automatic-replacement control was observed. No use is authorized here that could rotate around provider enforcement, blocks, or reputation penalties.
+- The public [API/Swagger docs](https://api.maildoso.com/docs) expose PAT-authenticated account, forwarding, and domain endpoints. The schema advertises account password plus SMTP/IMAP host/port fields and forwarding accounts; the API materials describe generated/artificial warm-up messages. These are public schema/provider claims only: no account, PAT, actual credential payload, inbound reply, or Message-ID/In-Reply-To/References correlation was observed.
+- UberBond already has an UberMaildoso adapter, but it redacts password-shaped fields; no safe secret-sink import into UberFleet/IMAP was demonstrated. Existing UberWarm explicitly never sends or manufactures warm-up traffic.
+- Existing domains may be attached via provider support or API, with connection advertised within 24 hours; the page says up to 99 boxes/domain but recommends no more than 8. This is not account-observed distribution across our 30 domains.
+- The Maildoso blog's “300 mailboxes for $0” CTA points to a 20-minute demo booking, not a trial activation. Maildoso's public pricing page lists paid plans only.
 
-Existing infrastructure remains approximately $8/month OVH; modeled sender remainder is $22.
+Decision: **conditional cold-capable marketing, not purchase-ready.** The 14-day third-party warm-up condition has no verified, non-artificial, consented audience path in the current system, and the included IP replacement behavior has no verified safe mode. The advertised 15/day is a contractual upper limit after prerequisites, not evidence-earned capacity. The 0.49 unit price is not a small-account quote and does not support a $0.49×N identity count.
 
-| Conditional ClayInbox Google scenario | Identities | Existing domains modeled | Advertised monthly amount | All-in with existing OVH |
-|---|---:|---:|---:|---:|
-| $2.50 surface | 8 | 8, one per isolated workspace | $20 | ~$28 |
-| $2.00 surface | 11 | 11, one per isolated workspace | $22 | ~$30 |
+### Mailpool
 
-This is an account-unverified arithmetic range, not a purchase recommendation or an authorized cold-email configuration. Up to 30 owned domains are already in the repository's outreach frontier; the provider account has not been observed distributing identities across them. No provider has demonstrated an acceptable, authorized send path for the intended cold-bulk use.
+First-party pages checked 2026-09-27:
 
-## Volume geometry — RAW only
+- [Monthly pricing](https://mailpool.ai/pricing) starts at $3 per SMTP inbox/month and its [FAQ](https://mailpool.ai/pricing) says one mailbox starts at $3, there is no free trial, and there are no setup/onboarding fees. The page says plans can be cancelled or changed from the dashboard. No checkout was completed; card, tax, exact renewal, and domain-fee details remain unknown. Conditional arithmetic: 7 inboxes would cost $21 before unknown fees, leaving about $1 of the strict sender remainder and about $29 all-in with OVH.
+- Public product pages describe importing domains, SMTP inboxes, CSV export, automated DNS, and forwarding replies to a master inbox. Public API access requires an account API key; detailed API documentation is provided on request. No actual SMTP/IMAP credential contract or threading/header correlation was observed. BYO connection across all 30 domains and any per-domain charge were not verified.
+- Its current [Anti-Spam & Acceptable Use Policy](https://mailpool.ai/anti-spam-policy), last updated 2026-05-10, requires explicit opt-in for every recipient and bans purchased, rented, harvested, or algorithm-generated lists. It also bans rotating domains or IPs to circumvent spam filters, abuse reports, or reputation systems. This excludes the present cold prospecting route. The linked Terms of Service is a Google document whose content was not retrievable in Work; no terms were accepted.
+- Mailpool's own pricing FAQ says no free trial. A Maildoso comparison blog table claims 300 Mailpool mailboxes for 30 days, but that conflicts with Mailpool's current first-party FAQ; its adjacent $0 CTA links to a demo, not a signup. The trial is not verified.
+- Its policy could allow only a future corpus with documented explicit opt-in and all other law/provider gates green. The inherited current handoff records no eligible prospect corpus.
 
-The ClayInbox matrix below assumes all 8–11 hypothetical Google identities are active from day one, a constant per-identity rate, 22 working days in a 30-day month, zero follow-ups, no warm-up ramp, no deferrals, and no provider/legal/reputation block. It is not safe capacity.
+Decision: **not eligible for the present non-opt-in prospecting route.** It is not a zero-dollar provider. At $3/inbox it does not beat ClayInbox on price per identity, and its live credentials/reply correlation remain unproven.
 
-| Sends/mailbox/working day | Raw per working day | Raw per 22-workday month |
-|---:|---:|---:|
-| 1 | 8–11 | 176–242 |
-| 2 | 16–22 | 352–484 |
-| 3 | 24–33 | 528–726 |
-| 5 | 40–55 | 880–1,210 |
-| 7 | 56–77 | 1,232–1,694 |
-| 10 | 80–110 | 1,760–2,420 |
+### Existing OVH/control plane
 
-For OutInfra's advertised Starter quantity only, raw arithmetic for 100 advertised mailboxes would be 100/200/300/500/700/1,000 per working day and 2,200/4,400/6,600/11,000/15,400/22,000 over 22 workdays at the same six assumed rates. This is excluded from viable capacity: the Starter plan is advertised for one domain, account identity/reply details are unobserved, and the Terms prohibit the intended unsolicited-bulk use.
+The existing roughly $8/month OVH service is recorded as control-plane compute, not an observed sender/mailbox account. Current [OVHcloud documentation](https://docs.ovhcloud.com/en/guides/bare-metal-cloud/dedicated-servers/mail-sending-optimization) says outbound port 25 is not blocked by default on VPS/dedicated servers but may be blocked by its anti-spam system if spam is detected; network reachability is not permission or reputation evidence. The U.S. [service-specific terms](https://us.ovhcloud.com/legal/service-specific-terms/) prohibit mass unsolicited email through allocated IPs; the [general terms](https://us.ovhcloud.com/legal/terms-of-service/) prohibit spam. The actual OVH account region/contract and outbound SMTP state were not observed, so existing compute cannot be counted as an authorized bulk sender.
 
-All first-touch totals above assume an empty follow-up ledger. Any follow-up traffic consumes the same sender/provider limits and must be subtracted from later first-touch slots. Current observed follow-up traffic is zero. No ramp schedule or safe per-mailbox cap has been earned from provider or reputation telemetry.
+## Month-1 comparison and budget
 
-## UberBond gates still red
+The planning band is approximately $30–$35 total, with roughly $8/month already committed to OVH; this implies $22–$27 available for a new sender substrate. No money should be spent until current checkout, policy, credential, reply, and campaign gates are visible.
 
-The newest repository main at verification was `32af2f554482a1e2184d33d3af6d5323fee74ca5` (PR #1008 merged). Its inherited 2026-09-25 outreach handoff records 0 MX/SPF/DKIM observations across the 30 domains, default DMARC on 30, no eligible prospect corpus, unresolved offer lineage, missing sender legal identity/jurisdiction, and zero sends/purchases. These DNS facts are dated inherited observations, not a fresh DNS probe today.
+| Candidate | Public quantity within ~$22 sender remainder | Conditional domains | Cost arithmetic | Current route status |
+|---|---:|---:|---:|---|
+| Mailpool SMTP | 7 at $3 each | 7 one-box domains modeled | $21 before unknown charges; ~$29 including OVH | Explicit opt-in only; not current prospecting |
+| ClayInbox Google | 8 at $2.50 or 11 at $2 | 8–11 one-box domains modeled | $20–$22 before unknown charges; ~$28–$30 all-in | Google AUP blocks unsolicited mass solicitation |
+| Maildoso SMTP | Exact custom count unknown; $0.49 is only a starting price | Custom 30-domain allocation unobserved | Standard 30/$75; blog's $25 floor is not a live quote | Warm-up/rotation/account gates unresolved |
+| OutInfra | 100 advertised on Starter | 1 domain | $25 before unknown charges; ~$33 all-in | Terms prohibit unsolicited bulk |
+| Existing OVH | 0 independent mailboxes observed | Not applicable | No new spend only if a permitted sender capability exists | Control-plane only; terms/account state not verified for sending |
 
-Current source `src/uberoutbound-recipient-eligibility.mjs` holds Egypt-based senders' cold traffic for legal/regulatory review. The first campaign's exact sender jurisdiction, recipient jurisdictions/types, contact provenance, consent/relationship, and offer are not resolved here. No mailbox geography, domain rotation, or transport choice may be used to bypass that hold.
+No candidate beats the policy-eligible capacity-per-dollar objective. The best configuration for the present non-opt-in prospecting route is **none**. Conditional Mailpool arithmetic must not be interpreted as authorization or a purchase recommendation.
 
-- **Raw technical geometry:** tables above only.
-- **Provider-authorized capacity:** 0 first touches for the intended cold-bulk route.
-- **Evidence-earned practical capacity:** 0 first touches; no activated sender, verified DNS, reputation receipt, safe cap, or canary.
-- **Follow-ups:** 0 observed; no authorized sequence has begun.
-- **New spend / DNS changes / messages / credentials imported:** $0 / 0 / 0 / 0.
-- **Owner action:** none now. No exact acceptable provider checkout/authentication boundary exists.
-- **Additional SaaS:** none is evidenced as necessary. The current repo's Outreach Workbench, UberFleet, UberIMAP, UberReply, UberWarm, UberPlacement, UberTruth, UberDNS, UberEconomics, scheduler/queue, lead/prospect state, and existing OVH/control plane cover sequencing, CRM, enrichment workflow, personalization, reply ingestion/classification, warm-up orchestration, DNS, placement, monitoring, analytics, scheduling, and webhook automation.
+## Volume geometry — raw arithmetic only
+
+These scenarios assume every modeled identity exists from day one, sends only first touches, operates on 22 weekdays, and has no ramp, follow-up traffic, deferrals, complaints, or reputation loss. Rates 1/2/3/5/7/10 are hypothetical arithmetic, not provider-approved safe caps.
+
+| Scenario | Identities | 1/day | 2/day | 3/day | 5/day | 7/day | 10/day |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| ClayInbox Google at $2.50 | 8 | 176 | 352 | 528 | 880 | 1,232 | 1,760 |
+| ClayInbox Google at $2.00 | 11 | 242 | 484 | 726 | 1,210 | 1,694 | 2,420 |
+| Mailpool at $3/inbox | 7 | 154 | 308 | 462 | 770 | 1,078 | 1,540 |
+| Maildoso standard plan | 30 | 660 | 1,320 | 1,980 | 3,300 | 4,620 | 6,600 |
+| OutInfra advertised Starter | 100 | 2,200 | 4,400 | 6,600 | 11,000 | 15,400 | 22,000 |
+
+The table is **30-day/monthly aggregate** (per-weekday assumptions × 22 weekdays); daily geometry is the identity count times each assumed rate. Maildoso's Terms limit cold email after warm-up to 15/day/identity including follow-ups, so 30 standard identities would have a provider-declared maximum of 450/day / 9,900 over 22 weekdays if every condition were satisfied. That is not currently authorized or evidence-earned; the standard plan exceeds budget. Mailpool and OutInfra have no usable cold prospecting capacity under their current policies. Any future follow-ups consume the same provider limit and reduce first-touch slots.
+
+- **Provider-authorized first touches on the current route:** 0.
+- **Evidence-earned practical first touches:** 0.
+- **Observed follow-ups / sends / purchases / DNS mutations / credentials imported:** 0 / 0 / $0 / 0 / 0.
+- **Free trial/credit with verified usable send/reply path:** none.
+- **Additional software subscriptions needed for sequencing, CRM, research/enrichment, personalization, reply ingestion/classification, scheduling, DNS, placement, monitoring, analytics, webhook automation, or compute:** none evidenced. Existing UberBond surfaces and OVH control plane cover these categories. Do not add warm-up SaaS; the Maildoso warm-up requirement is not safely satisfied by fake traffic.
+
+## UberBond and legal gates still red
+
+The newest exact main remains 32af2f554482a1e2184d33d3af6d5323fee74ca5 (PR #1008 merged). Its inherited 2026-09-25 outreach handoff records 0 MX/SPF/DKIM observations across 30 domains, default DMARC on 30, no eligible prospect corpus, unresolved offer lineage, missing sender legal identity/jurisdiction, and zero sends/purchases. These DNS facts are dated inherited observations, not a fresh probe today.
+
+The current source src/uberoutbound-recipient-eligibility.mjs holds senders in Egypt for legal/regulatory review. The exact sender legal entity/location, offer, recipient jurisdictions and types, address provenance, consent/relationship, and campaign disclosures are not established. Current source policy cannot be overridden by mailbox geography, provider choice, domain count, or public contact discovery. No external canary is authorized.
+
+**One unavoidable owner input before any provider activation:** a single campaign profile containing the sender legal entity/jurisdiction, actual offer, target countries/recipient types, and contact source/consent basis. It may be recorded here, not passwords or credentials.
 
 ## Source verification
 
-- Live default-branch base: `32af2f554482a1e2184d33d3af6d5323fee74ca5`.
-- Latest relevant merged PRs verified: #1004, #1006, #1008.
-- Existing Google credential integration: source/donor-proven only; no ClayInbox provider API call or credential import was made.
-- OutInfra and ClayInbox pages/terms, Google's Workspace policy and limits, Microsoft's Exchange limits, and the sent support thread were checked read-only.
-- This receipt creates no account, accepts no terms, buys no service, changes no DNS, sends no message, and handles no secret.
+- Live default-branch main: 32af2f554482a1e2184d33d3af6d5323fee74ca5.
+- #1004, #1006, and #1008 are merged. This note updates the open docs-only #1009 branch.
+- First-party pages were inspected for OutInfra, ClayInbox, Maildoso, Mailpool, OVH, Google, and Microsoft. The earlier ClayInbox support inquiry was not resent; no new third-party message was sent.
+- No account was created, Terms accepted, card entered, provider API called, purchase made, secret handled, DNS changed, or message sent.

@@ -45,6 +45,9 @@ import {
   buildProviderPreflight
 } from './src/lead-operations.mjs';
 import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
+import { compilePublicContactSupply } from './src/ubersupply-public-contact-capacity.mjs';
+import { compileOutreachBuyList } from './src/uberbuy-outreach-bom.mjs';
+import { OWNED_OUTREACH_DOMAINS } from './src/outreach-domain-fleet.mjs';
 import {
   buildNativeCapacityPlan,
   buildNativeTargetProfileRecord,
@@ -738,6 +741,73 @@ function suppressionMatchesEmail(row, email, domain) {
   const value = String(row?.value || '').trim().toLowerCase();
   if (!value) return false;
   return value === email || value === domain || email.endsWith(`@${value.replace(/^@/, '')}`);
+}
+
+async function outreachSaasExtinctionStatus() {
+  const [prospects, suppressions, accounts, settings] = await Promise.all([
+    store.list('prospects'), store.list('suppressions'), store.list('accounts'), store.getSettings()
+  ]);
+  const eligibilityByProspect = Object.fromEntries((prospects || [])
+    .map(prospect => [
+      prospect.id,
+      prospect.recipientEligibility || prospect.legalEligibility || prospect.outreachEligibility || null
+    ])
+    .filter(([, value]) => value));
+  const supply = compilePublicContactSupply({
+    prospects,
+    eligibilityByProspect,
+    suppressions,
+    targetDailyFirstTouches: 1000,
+    targetBusinessDays: 20
+  });
+  const smtpAccounts = (accounts || []).filter(account =>
+    account?.connected === true && String(account?.provider || '').toLowerCase() === 'smtp-relay'
+  );
+  const authorizedSmtp = smtpAccounts.filter(account =>
+    account?.smtpRoute?.authorized === true &&
+    account?.smtpRoute?.termsCompatible === true &&
+    Boolean(String(account?.smtpRoute?.evidenceRef || '').trim())
+  );
+  const regulatoryStatus = String(settings?.outreachRegulatoryStatus || 'UNKNOWN').toUpperCase();
+  const paymentLive = Boolean(settings?.livePaymentRailObserved === true);
+  const buyList = compileOutreachBuyList({
+    domainsOwned: OWNED_OUTREACH_DOMAINS.length,
+    controlPlaneOwned: true,
+    outboundSubstrate: {
+      candidate: authorizedSmtp[0]?.provider || (config.providers?.maildoso?.configured ? 'maildoso' : ''),
+      purchased: authorizedSmtp.length > 0,
+      authorized: authorizedSmtp.length > 0,
+      configured: authorizedSmtp.length > 0
+    },
+    paymentRail: { live: paymentLive },
+    regulatory: {
+      status: regulatoryStatus,
+      detail: regulatoryStatus === 'PASSED'
+        ? 'Campaign-specific regulatory evidence is recorded in protected runtime state.'
+        : 'Current Egypt-based unsolicited cold-email path remains fail-closed pending applicable legal/regulatory evidence.'
+    },
+    publicContactSupply: supply,
+    optionalModelProvider: Boolean(config.ai?.provider && config.ai.provider !== 'rules')
+  });
+  return {
+    ok: true,
+    version: 'uberbond.outreach-saas-extinction-status.v1',
+    generatedAt: now(),
+    supply,
+    buyList,
+    observed: {
+      ownedOutreachDomains: OWNED_OUTREACH_DOMAINS.length,
+      connectedSmtpAccounts: smtpAccounts.length,
+      authorizedSmtpAccounts: authorizedSmtp.length,
+      maildosoApiConfigured: Boolean(config.providers?.maildoso?.configured),
+      paymentRailObserved: paymentLive,
+      regulatoryStatus
+    },
+    providerCalls: 0,
+    messagesSent: 0,
+    spendCents: 0,
+    truthBoundary: 'This status is read-only and evidence-derived. It never turns account presence, domain ownership, public contact discovery, or configured credentials into permission, deliverability, legal clearance, purchase proof, or revenue.'
+  };
 }
 
 async function ownerSetupStatus() {
@@ -1439,6 +1509,10 @@ export const requestHandler = async (req, res) => {
           sendingDomainId:item.account.sendingDomainId,sendingMailboxId:item.account.sendingMailboxId
         }))
       });
+    }
+
+    if (method === 'GET' && url.pathname === '/api/outbound/saas-extinction') {
+      return json(res, 200, await outreachSaasExtinctionStatus());
     }
 
     if (method === 'GET' && url.pathname === '/api/outbound/canary/status') {

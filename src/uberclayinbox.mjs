@@ -149,9 +149,6 @@ function readList(data, key) {
   const value = data && typeof data === 'object' ? data[key] : null;
   return Array.isArray(value) ? value : [];
 }
-function generatedPassword() {
-  return `Ub!${crypto.randomBytes(24).toString('base64url')}`;
-}
 
 export function createUberClayInboxAdapter({
   apiKey = '', baseUrl = DEFAULT_BASE_URL, fetchImpl = globalThis.fetch,
@@ -448,11 +445,13 @@ export function createUberClayInboxAdapter({
         const address = lower(box.username || box.address || box.email, 320);
         if (!emailOk(address)) return errorResult('provisionMailboxes', 'FULL_EMAIL_REQUIRED', `Mailbox ${i + 1} must use a full email address.`, { providerCalls: 0 });
         if (address.split('@')[1] !== name) return errorResult('provisionMailboxes', 'DOMAIN_MISMATCH', `${address} is not on ${name}.`, { providerCalls: 0 });
+        const initialPassword=String(box.password || '');
+        if (!initialPassword) return errorResult('provisionMailboxes', 'INITIAL_PASSWORD_REQUIRED', `A protected initial mailbox password is required for ${address}; UberBond will not generate and discard account-recovery credentials.`, { providerCalls: 0 });
         wanted.push({
           username: address,
           first_name: clean(box.firstName || box.first_name, 120),
           last_name: clean(box.lastName || box.last_name, 120),
-          password: String(box.password || generatedPassword())
+          password: initialPassword
         });
       }
 

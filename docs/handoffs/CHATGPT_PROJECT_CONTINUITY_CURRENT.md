@@ -6,7 +6,18 @@
 
 ---
 
-## 0. 2026-09-26 outreach SaaS-extinction checkpoint
+## 0. 2026-09-27 provider-policy follow-through (newer than the 2026-09-26 pricing frontier)
+
+Live first-party policy review changes the provider decision:
+- OutInfra advertises $0.25/mailbox and a $25/100-mailbox Starter plan, but its current Terms prohibit unsolicited bulk email; its pricing-page refund/metering claims also conflict with the Terms and refund policy. It is not eligible for the intended cold-bulk route.
+- ClayInbox Google remains the best *conditional* software-integrated substrate for recipients who are individually eligible and not within prohibited unsolicited-bulk use. Public price surfaces now conflict ($2 “Google Admin” on pricing vs $2.50 Google Workspace on the homepage/product surface). Current retrievable ClayInbox Terms/AUP remain unavailable.
+- Google's Workspace AUP prohibits facilitating unsolicited bulk commercial email. This upstream policy means ClayInbox's cold-email marketing is not send authorization. Azure credential/token refresh and inbound-reply semantics remain unobserved.
+- No provider is purchase-ready for the intended automated cold-bulk route. No zero-dollar mailbox trial was verified, the prior ClayInbox support inquiry received no reply on this follow-up check, and it was not resent.
+- Conditional Google arithmetic only: 8 boxes at $2.50 = $20 or 11 at $2.00 = $22, on 8–11 of the 30 existing domains, before unknown checkout charges. These are not authorized senders or capacity.
+- Authorized first touches: 0. Practical capacity: 0. The inherited Sep 25 repo receipt still records zero MX/SPF/DKIM and no eligible prospect corpus; it has not been freshly DNS-probed today. Egypt-based cold sender remains held by the current recipient-eligibility source.
+- No additional SaaS is required by the current repo ledger. Exact detail and raw-only volume geometry: `docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`.
+
+## Historical 2026-09-26 outreach SaaS-extinction checkpoint
 
 Newest exact `main` evidence for the first-cash outreach lane:
 

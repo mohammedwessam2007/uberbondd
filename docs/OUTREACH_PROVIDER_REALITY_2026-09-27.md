@@ -126,3 +126,30 @@ The current source src/uberoutbound-recipient-eligibility.mjs holds senders in E
 - #1004, #1006, and #1008 are merged. This note updates the open docs-only #1009 branch.
 - First-party pages were inspected for OutInfra, ClayInbox, Maildoso, Mailpool, OVH, Google, and Microsoft. The earlier ClayInbox support inquiry was not resent; no new third-party message was sent.
 - No account was created, Terms accepted, card entered, provider API called, purchase made, secret handled, DNS changed, or message sent.
+
+## Post-merge Maildoso trial and policy verification — 2026-09-27
+
+**Repository reconciliation:** the initial provider receipt was prepared against `main` `32af2f554482a1e2184d33d3af6d5323fee74ca5` and PR #1009. Live `main` is now `a76add2851fab2d95f909c84468a090fdbfbd58c`; PR #1009 merged at that commit. This addendum supersedes the earlier source-verification snapshot above without erasing what was true when it was written.
+
+### Trial claim and activation path
+
+The current [Maildoso trial page](https://maildoso.ai/product/300-mailboxes-trial) markets **300 SMTP mailboxes for 30 days** and shows a “Start Your 30-Day Trial” button. Direct page inspection found that the button only changes the URL to `#trialform`; the form is an embedded Calendly `maildoso_team/special_offer` booking widget, and the page says “Discover more on a call.” It does not expose self-service account activation or checkout.
+
+The page did not show a $0 checkout total, card requirement, account/geographic eligibility, trial terms, post-trial billing, credential delivery, or reply path. No call was booked and no account was created. Classify this as a **provider-marketed trial with activation and price unverified**, not as verified zero-dollar capacity.
+
+### Current price and policy contradictions
+
+- The [live pricing page](https://maildoso.ai/pricing) lists monthly plans at 30/$75, 300/$225, and 1,000/$499. The $0.49 unit price belongs to the 1,000-mailbox tier; the page sends custom quantities to the authenticated Packages & Add-ons area. The exact price for 1–44 boxes remains unknown. Monthly plans can connect existing domains, while paid domain registration is $12/year through September 30 and advertised at $15/year from October 1; no account-level BYO-domain fee or 30-domain allocation has been observed.
+- The [Terms](https://maildoso.ai/resources/terms-of-service) require a third-party warm-up tool, at least 14 days before cold sending, and a gradual ramp from 1 to at most 15 cold messages per mailbox/day including follow-ups. The [pricing FAQ](https://maildoso.ai/pricing) says “no slow ramp-up,” permits up to 15 cold and 80 warm-up messages/day, and says warm-up must continue for each mailbox's lifetime. Use the Terms as the binding ceiling; the contradictory ramp instructions leave the actual ramp schedule unknown.
+- The pricing and [SMTP product page](https://maildoso.ai/product/smtp) say IP rotation is included. The product page says it is used to make campaigns “less visible to spam filters”; the pricing FAQ says IPs are automatically replaced when they stop working. No public opt-out or fixed-IP mode was observed. This conflicts with the mission's ban on evading spam controls unless a compliant account-level mode is proven; none was observed.
+
+### Raw geometry only
+
+If all 300 trial-page mailboxes were actually provisioned, the arithmetic at 1/2/3/5/7/10 sends per mailbox per working day is **300 / 600 / 900 / 1,500 / 2,100 / 3,000 messages/day**. The Terms' 15/day ceiling would be **4,500 total messages/day including follow-ups**, not 4,500 first touches. A full 22-workday multiplier would be 6,600 / 13,200 / 19,800 / 33,000 / 46,200 / 66,000; 99,000 is only the 15/day arithmetic ceiling before follow-ups. A new 30-day trial must first satisfy 14 calendar days of warm-up and the Terms' gradual ramp, whose schedule is unspecified. These numbers are not account-observed identities, a verified trial, authorized capacity, or evidence-earned practical capacity.
+
+### State and effects
+
+- Provider-authorized first touches remain **0**; evidence-earned practical first touches remain **0**.
+- The trial page does not change the decision: no provider is purchase-ready for the present prospecting route, and no zero-dollar sender trial is verified.
+- The existing Egypt-sender/legal, offer-lineage, eligible-corpus, credential-custody, DNS, reply-path, reputation, and owner campaign-profile gates remain unresolved.
+- This review used public pages and a read-only page anchor only. No account, terms acceptance, support message, demo booking, API call, credential, payment, DNS change, or email send occurred.

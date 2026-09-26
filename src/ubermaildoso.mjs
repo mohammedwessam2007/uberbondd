@@ -4,6 +4,13 @@ export const UBERMAILDOSO_VERSION = 'uberbond.ubermaildoso.v1';
 
 const clean=(v,n=2000)=>String(v??'').trim().slice(0,n);
 const digest=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
+const SECRET_KEY=/password|passwd|secret|token|pat|totp|credential|api[_-]?key|private[_-]?key/i;
+function redact(value,depth=0){
+  if(depth>8)return '[TRUNCATED]';
+  if(Array.isArray(value))return value.slice(0,1000).map(item=>redact(item,depth+1));
+  if(!value||typeof value!=='object')return value;
+  return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,SECRET_KEY.test(k)?'[REDACTED]':redact(v,depth+1)]));
+}
 const READ_ROUTES=Object.freeze({
   user:'/v1/user/me',
   userData:'/v1/user/data',
@@ -108,9 +115,10 @@ export function createUberMaildosoAdapter({
     const text=await response.text();
     if(text){try{parsed=JSON.parse(text);}catch{parsed={raw:clean(text,4000)};}}
     const requestId=response.headers?.get?.('x-request-id')||response.headers?.get?.('request-id')||null;
-    const receipt=publicReceipt({action:action||'read',method,path,status:response.status,ok:response.ok,requestId,body:parsed});
-    if(!response.ok)return {ok:false,status:'UBERMAILDOSO_PROVIDER_REJECTED',reasonCodes:[`maildoso-http-${response.status}`],providerCalls:1,automaticRetryAuthorized:false,receipt,response:parsed};
-    return {ok:true,status:mutation?'UBERMAILDOSO_MUTATION_CONFIRMED':'UBERMAILDOSO_READ_CONFIRMED',providerCalls:1,externalEffects:mutation?1:0,receipt,data:parsed};
+    const safeData=redact(parsed);
+    const receipt=publicReceipt({action:action||'read',method,path,status:response.status,ok:response.ok,requestId,body:safeData});
+    if(!response.ok)return {ok:false,status:'UBERMAILDOSO_PROVIDER_REJECTED',reasonCodes:[`maildoso-http-${response.status}`],providerCalls:1,automaticRetryAuthorized:false,receipt,response:safeData};
+    return {ok:true,status:mutation?'UBERMAILDOSO_MUTATION_CONFIRMED':'UBERMAILDOSO_READ_CONFIRMED',providerCalls:1,externalEffects:mutation?1:0,receipt,data:safeData};
   }
   const api={
     configured,

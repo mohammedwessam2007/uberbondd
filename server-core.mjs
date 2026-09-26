@@ -45,6 +45,7 @@ import {
   buildProviderPreflight
 } from './src/lead-operations.mjs';
 import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
+import { buildEncryptedImapAccount } from './src/uberimap.mjs';
 import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
 import { buildLeadIntakeRecord } from './src/lead-intelligence-v3.mjs';
 import { compilePublicContactSupply } from './src/ubersupply-public-contact-capacity.mjs';
@@ -1568,6 +1569,38 @@ export const requestHandler = async (req, res) => {
         body: input.body, params: input.params, query: input.query, approval: input.approval
       });
       return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : result.status === 'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN' ? 409 : 400), result);
+    }
+
+    if (method === 'POST' && url.pathname === '/api/outbound/imap-forwarding/import') {
+      const input = await parseBody(req);
+      if (input.confirmCredentialImport !== true) throw new HttpError(400, 'confirmCredentialImport must be true');
+      if (!/^[a-f0-9]{64}$/i.test(String(config.encryptionKey || ''))) throw new HttpError(409, 'TOKEN_ENCRYPTION_KEY must be configured before IMAP credential import');
+      const prepared = buildEncryptedImapAccount({
+        slot: input.slot,
+        email: input.email,
+        host: input.host,
+        port: input.port,
+        secure: input.secure,
+        username: input.username,
+        password: input.password,
+        evidenceRef: input.evidenceRef,
+        authorized: input.authorized === true,
+        termsCompatible: input.termsCompatible === true
+      }, config.encryptionKey);
+      if (!prepared.ok) return json(res, 400, prepared);
+      await store.upsert('accounts', { ...prepared.account, createdAt: now(), updatedAt: now() });
+      await store.log('imap_forwarding_account_imported', {
+        accountId: prepared.account.id,
+        slot: prepared.account.slot,
+        provider: prepared.account.provider,
+        credentialStorage: 'AES_256_GCM_ENCRYPTED',
+        plaintextCredentialsLogged: false
+      });
+      return json(res, 201, {
+        ok: true,
+        status: 'IMAP_FORWARDING_ACCOUNT_IMPORTED',
+        account: { id: prepared.account.id, slot: prepared.account.slot, email: prepared.account.email, provider: prepared.account.provider }
+      });
     }
 
     if (method === 'GET' && url.pathname === '/api/outbound/saas-extinction') {

@@ -22,6 +22,7 @@ import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
 import { selectFleetMailbox, dispatchSmtpFleetAccount } from './uberfleet.mjs';
 import { evaluateOutreachPersonalization } from './ubertruth-outreach.mjs';
+import { pollImapForwardingAccount } from './uberimap.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -54,6 +55,7 @@ export class Pipeline {
     this.outboundConsequenceGateFn = hooks.outboundConsequenceGate || null;
     this.postalSendFn = hooks.postalSend || dispatchPostalCanary;
     this.smtpSendFn = hooks.smtpSend || dispatchSmtpFleetAccount;
+    this.imapPollFn = hooks.imapPoll || pollImapForwardingAccount;
   }
 
   async selectFleetInbox(prospect, audit = []) {
@@ -902,57 +904,108 @@ export class Pipeline {
 
   async pollReplies() {
     let matched = 0;
-    const accounts = (await this.store.list('accounts')).filter(account => account.connected && String(account.provider || 'gmail-api').toLowerCase() !== 'smtp-relay');
-    for (const account of accounts) {
+    const allAccounts = (await this.store.list('accounts')).filter(account => account.connected);
+    const prospects = await this.store.list('prospects');
+    const sentMessages = await this.store.list('messages');
+
+    const recordReply = async ({ externalId, threadId = '', from = '', fromEmail = '', subject = '', body = '', inReplyTo = '', references = [], accountSlot = '' } = {}) => {
+      if (!externalId) return false;
+      if (await this.store.findOne('replies', { gmailId: externalId })) return false;
+      const replyRefs = new Set([inReplyTo, ...(Array.isArray(references) ? references : [])].filter(Boolean));
+      const linkedMessage = sentMessages.find(message => message.rfcMessageId && replyRefs.has(message.rfcMessageId));
+      const senderEmail = String(fromEmail || '').toLowerCase();
+      const prospect = linkedMessage
+        ? prospects.find(item => item.id === linkedMessage.prospectId)
+        : prospects.find(item => item.contact?.email && senderEmail && item.contact.email.toLowerCase() === senderEmail);
+      if (!prospect) return false;
+
+      const parsedForSignal = { from, subject, body, threadId, id: externalId };
+      const classification = classifyDeliverySignal(parsedForSignal) || await classifyReply(this.cfg.ai, body);
+      try {
+        await this.store.add('replies', {
+          id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
+          from, subject, body, classification, receivedAt: now()
+        });
+      } catch (error) {
+        if (error instanceof ConflictError) return false;
+        throw error;
+      }
+      const terminalDelivery = ['bounce','complaint'].includes(classification.label);
+      const automatic = ['automatic','out_of_office'].includes(classification.label);
+      await this.store.patch('prospects', prospect.id, automatic ? {
+        status: 'sent', replyLabel: classification.label, automaticReplyAt: now(),
+        nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()
+      } : {
+        status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
+        repliedAt: now(), nextFollowupAt: null
+      });
+      if (classification.suppressionRecommended === true || ['optout','negative','bounce','complaint'].includes(classification.label)) {
+        try {
+          await this.store.add('suppressions', {
+            id: id('sup'), value: prospect.contact.email.toLowerCase(), reason: classification.label, createdAt: now()
+          });
+        } catch (error) {
+          if (!(error instanceof ConflictError)) throw error;
+        }
+      }
+      if (terminalDelivery) {
+        await this.store.recordOutboundEvent({
+          inbox: accountSlot || linkedMessage?.inbox || prospect.inbox,
+          eventType: classification.label === 'bounce' ? 'hard_bounce' : 'complaint',
+          prospectId: prospect.id, recipientEmail: prospect.contact?.email || '',
+          detail: { inboundId: externalId }
+        }, this.outboundThresholds());
+      }
+      matched += 1;
+      return true;
+    };
+
+    const gmailAccounts = allAccounts.filter(account => {
+      const provider = String(account.provider || 'gmail-api').toLowerCase();
+      return provider === 'gmail-api' || (!account.provider && account.tokens);
+    });
+    for (const account of gmailAccounts) {
       const after = Math.floor((account.lastReplyPoll || Date.now() - 86400000) / 1000);
       const list = await listMessages(this.cfg.google, account, this.cfg.encryptionKey, `in:inbox after:${after}`, 100);
       if (list.tokens) account.tokens = sealTokens(list.tokens, this.cfg.encryptionKey);
       for (const reference of list.data.messages || []) {
-        if (await this.store.findOne('replies', { gmailId: reference.id })) continue;
         const full = await getMessage(this.cfg.google, account, this.cfg.encryptionKey, reference.id);
         const parsed = parseGmailMessage(full.data);
-        const prospects = await this.store.list('prospects');
-        const prospect = prospects.find(item =>
-          item.threadId === parsed.threadId ||
-          (item.contact?.email && parsed.from.toLowerCase().includes(item.contact.email.toLowerCase()))
-        );
-        if (!prospect) continue;
-        const classification = classifyDeliverySignal(parsed) || await classifyReply(this.cfg.ai, parsed.body);
-        try {
-          await this.store.add('replies', {
-            id: id('reply'), prospectId: prospect.id, gmailId: parsed.id, threadId: parsed.threadId,
-            from: parsed.from, subject: parsed.subject, body: parsed.body, classification, receivedAt: now()
-          });
-        } catch (error) {
-          if (error instanceof ConflictError) continue;
-          throw error;
-        }
-        const terminalDelivery = ['bounce','complaint'].includes(classification.label);
-        const automatic = ['automatic','out_of_office'].includes(classification.label);
-        await this.store.patch('prospects', prospect.id, automatic ? {
-          status: 'sent', replyLabel: classification.label, automaticReplyAt: now(),
-          nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()
-        } : {
-          status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
-          repliedAt: now(), nextFollowupAt: null
+        await recordReply({
+          externalId: parsed.id,
+          threadId: parsed.threadId,
+          from: parsed.from,
+          fromEmail: String(parsed.from || '').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0] || '',
+          subject: parsed.subject,
+          body: parsed.body,
+          accountSlot: account.slot
         });
-        matched += 1;
-        if (['optout', 'negative', 'bounce', 'complaint'].includes(classification.label)) {
-          try {
-            await this.store.add('suppressions', {
-              id: id('sup'), value: prospect.contact.email.toLowerCase(), reason: classification.label, createdAt: now()
-            });
-          } catch (error) {
-            if (!(error instanceof ConflictError)) throw error;
-          }
-        }
-        if (classification.label === 'bounce' || classification.label === 'complaint') {
-          await this.store.recordOutboundEvent({
-            inbox: account.slot, eventType: classification.label === 'bounce' ? 'hard_bounce' : 'complaint',
-            prospectId: prospect.id, recipientEmail: prospect.contact?.email || '', detail: { gmailId: parsed.id }
-          }, this.outboundThresholds());
-        }
       }
+      account.lastReplyPoll = Date.now();
+      await this.store.upsert('accounts', account);
+    }
+
+    const forwardingAccounts = allAccounts.filter(account => String(account.provider || '').toLowerCase() === 'imap-forwarding');
+    for (const account of forwardingAccounts) {
+      const poll = await this.imapPollFn({ account, encryptionKey: this.cfg.encryptionKey, limit: 100 });
+      if (!poll?.ok) {
+        await this.store.log('imap_reply_poll_failed', { accountId: account.id, slot: account.slot, status: poll?.status || 'UNKNOWN', reasonCodes: poll?.reasonCodes || [] });
+        continue;
+      }
+      for (const parsed of poll.messages || []) {
+        await recordReply({
+          externalId: `imap:${account.slot}:${parsed.uid}`,
+          threadId: '',
+          from: parsed.from,
+          fromEmail: parsed.fromEmail,
+          subject: parsed.subject,
+          body: parsed.body,
+          inReplyTo: parsed.inReplyTo,
+          references: parsed.references,
+          accountSlot: account.slot
+        });
+      }
+      account.lastImapUid = Math.max(Number(account.lastImapUid || 0), Number(poll.lastUid || 0));
       account.lastReplyPoll = Date.now();
       await this.store.upsert('accounts', account);
     }

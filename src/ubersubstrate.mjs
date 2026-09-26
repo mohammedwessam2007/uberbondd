@@ -9,7 +9,7 @@ import crypto from 'node:crypto';
 
 export const UBERSUBSTRATE_VERSION='uberbond.ubersubstrate.v1';
 const clean=(v,n=1000)=>String(v??'').trim().slice(0,n);
-const finite=v=>Number.isFinite(Number(v))?Number(v):null;
+const finite=v=>v==null||v===''?null:Number.isFinite(Number(v))?Number(v):null;
 const sha=v=>crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 
 const EVIDENCE_RANK=Object.freeze({

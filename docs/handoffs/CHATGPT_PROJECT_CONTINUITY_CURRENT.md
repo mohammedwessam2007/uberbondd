@@ -6,7 +6,23 @@
 
 ---
 
-## 0. 2026-09-26 outreach SaaS-extinction checkpoint
+## 0. 2026-09-27 provider frontier refresh (supersedes the 2026-09-26 candidate ranking)
+
+Live first-party pricing and policy evidence changes the current provider decision:
+- OutInfra advertises $0.25/mailbox but its current Terms prohibit unsolicited bulk email; its pricing-page refund/billing claims conflict with its Terms/refund page.
+- ClayInbox Google is donor/source integrated, but Google Workspace policy bars use to facilitate unsolicited mass commercial email; ClayInbox's own current Terms/AUP were not retrievable. Azure auth/token/reply semantics remain unknown. Its $2–$2.50 price conflict remains account-unverified.
+- Maildoso's current pricing is 30 SMTP mailboxes/$75, 300/$225, 1,000/$499; the $0.49 price is the 1,000-box tier and its custom page has no public exact small-package quote. Its Terms allow cold corporate campaigns only after a 14-day warm-up via a third-party tool, cap cold traffic at 15/day/mailbox including follow-ups, and require verified corporate addresses, <2% bounces, and unsubscribe. Its pricing FAQ separately says to keep warm-up active for the mailbox lifetime. Its public packages include IP rotation and automatic replacement if IPs stop working. UberWarm does not manufacture warm-up and its API's generated/artificial traffic is disallowed by the mission. No safe fixed-IP/no-replacement mode or real consented warm-up audience has been observed. It is not purchase-ready.
+- Mailpool's current first-party monthly price starts at $3/inbox, it explicitly says no free trial, and its anti-spam policy requires explicit opt-in for every recipient and prohibits rotating IPs/domains to circumvent abuse or reputation controls. It cannot serve the present non-opt-in prospecting route. The “300 mailboxes for $0” lead links to a demo; Mailpool's own page denies a trial.
+- Existing OVH spend is control-plane compute, not an observed sender account. OVH's current documentation says port 25 may be anti-spam blocked, and its U.S. terms prohibit mass unsolicited mail; actual OVH region, terms, and SMTP state were not observed.
+- Consequently there is no verified $0 sender trial and no policy-eligible purchase-ready provider for the present prospecting route. No candidate should be purchased or authenticated yet.
+- Strict planning remainder is ~$22, with a $22–$27 upper range from the $30–$35 all-in budget after the existing ~$8 OVH. Mailpool's conditional 7 boxes at $21 are only arithmetic and require explicit opt-in. Maildoso's exact small custom quote is unavailable; its standard $75 tier is above budget.
+- Provider-authorized first touches on the current route: 0. Evidence-earned practical first touches: 0. Current repo DNS observations (0 MX/SPF/DKIM; default DMARC on 30), empty eligible prospect corpus, unresolved offer lineage, and Egypt-sender legal hold are inherited 2026-09-25 observations; not freshly probed today.
+- No new SaaS is required for CRM, sequencing, research, personalization, reply processing, DNS, placement, monitoring, analytics, scheduling, webhooks, or compute. The sender and legal recipient eligibility are external gates. No third-party inquiry was sent and the previous ClayInbox inquiry was not resent.
+- Before activation, Mohamed must supply one campaign profile with actual legal sender entity/jurisdiction, offer, target countries/recipient types, and contact source/consent basis. No payment or credential-entry action is currently appropriate.
+
+Canonical detail: docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md.
+
+## Historical 2026-09-26 outreach SaaS-extinction checkpoint
 
 Newest exact `main` evidence for the first-cash outreach lane:
 

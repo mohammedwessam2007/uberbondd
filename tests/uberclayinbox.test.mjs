@@ -130,19 +130,19 @@ test('BYO order refuses bare local parts, domain mismatch, missing quote, approv
   assert.equal(mismatch.status,'DOMAIN_MISMATCH');
 
   const noQuote=await adapter.provisionMailboxes({
-    domain:'brand.test',mailboxes:[{username:'ada@brand.test'}],idempotencyKey:'k1',
+    domain:'brand.test',mailboxes:[{username:'ada@brand.test',password:'protected-admin-fixture'}],idempotencyKey:'k1',
     ownerApproval:{granted:true,grantedBy:'owner',scope:['clayinbox:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z',spendLimitCents:1000}
   });
   assert.equal(noQuote.status,'OBSERVED_QUOTE_REQUIRED');
 
   const noApproval=await adapter.provisionMailboxes({
-    domain:'brand.test',mailboxes:[{username:'ada@brand.test'}],
+    domain:'brand.test',mailboxes:[{username:'ada@brand.test',password:'protected-admin-fixture'}],
     quotedTotalCents:1000,quoteEvidenceRef:'quote:1',idempotencyKey:'k1'
   });
   assert.equal(noApproval.status,'OWNER_APPROVAL_REQUIRED');
 
   const noKey=await adapter.provisionMailboxes({
-    domain:'brand.test',mailboxes:[{username:'ada@brand.test'}],
+    domain:'brand.test',mailboxes:[{username:'ada@brand.test',password:'protected-admin-fixture'}],
     quotedTotalCents:1000,quoteEvidenceRef:'quote:1',
     ownerApproval:{granted:true,grantedBy:'owner',scope:['clayinbox:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z',spendLimitCents:1000}
   });
@@ -163,7 +163,7 @@ test('approved BYO order always sets import:true, uses full addresses, checks wa
   });
   const result=await adapter.provisionMailboxes({
     domain:'brand.test',
-    mailboxes:[{username:'ada@brand.test',firstName:'Ada',lastName:'Lovelace'}],
+    mailboxes:[{username:'ada@brand.test',firstName:'Ada',lastName:'Lovelace',password:'protected-admin-fixture'}],
     quotedTotalCents:2250,
     quoteEvidenceRef:'checkout:observed-2026-09-26',
     idempotencyKey:'order-1',
@@ -181,7 +181,7 @@ test('approved BYO order always sets import:true, uses full addresses, checks wa
   assert.equal(body.import,true);
   assert.equal(body.data[0].domain_name,'brand.test');
   assert.equal(body.data[0].mailboxes[0].username,'ada@brand.test');
-  assert.ok(body.data[0].mailboxes[0].password.length>=20);
+  assert.equal(body.data[0].mailboxes[0].password,'protected-admin-fixture');
   assert.equal(JSON.stringify(result).includes(body.data[0].mailboxes[0].password),false);
 });
 
@@ -196,7 +196,7 @@ test('mutation timeout/5xx is outcome-uncertain and never blindly retried',async
     }
   });
   const result=await adapter.provisionMailboxes({
-    domain:'brand.test',mailboxes:[{username:'ada@brand.test'}],
+    domain:'brand.test',mailboxes:[{username:'ada@brand.test',password:'protected-admin-fixture'}],
     quotedTotalCents:1000,quoteEvidenceRef:'quote:x',idempotencyKey:'order-x',
     ownerApproval:{granted:true,grantedBy:'owner',scope:['clayinbox:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z',spendLimitCents:1000}
   });
@@ -296,5 +296,22 @@ test('credential import remains fail-closed until current provider terms are evi
     routeAuthorized:true,termsCompatible:false
   });
   assert.equal(result.status,'PROVIDER_TERMS_EVIDENCE_REQUIRED');
+  assert.equal(calls,0);
+});
+
+
+test('BYO order refuses to generate-and-forget an initial admin password',async()=>{
+  let calls=0;
+  const adapter=createUberClayInboxAdapter({...cfg(),fetchImpl:async()=>{calls+=1;return jsonResponse(200,envelope({available:25}));}});
+  const result=await adapter.provisionMailboxes({
+    domain:'brand.test',
+    mailboxes:[{username:'ada@brand.test'}],
+    quotedTotalCents:1000,
+    quoteEvidenceRef:'quote:password-custody',
+    idempotencyKey:'password-custody',
+    ownerApproval:{granted:true,grantedBy:'owner',scope:['clayinbox:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z',spendLimitCents:1000}
+  });
+  assert.equal(result.ok,false);
+  assert.equal(result.status,'INITIAL_PASSWORD_REQUIRED');
   assert.equal(calls,0);
 });

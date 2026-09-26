@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileOutreach100kLaunchCertificate, compileOutreach100kCompletion } from '../src/outreach-100k-launch-contract.mjs';
+import { compileOutreach100kLaunchCertificate, compileOutreach100kCompletion, compileOutreachScaleLaunchCertificate, compileOutreachScaleCompletion } from '../src/outreach-100k-launch-contract.mjs';
 
 const NOW = new Date('2026-09-15T02:00:00.000Z');
 const fresh = { observedAt: '2026-09-15T01:30:00.000Z', evidenceRef: 'receipt:fresh' };
@@ -149,4 +149,59 @@ test('a subdomain address does not pass as its parent domain', () => {
   const mailbox = certificate.mailboxFleet.find(row => row.mailboxId === 'm1');
   assert.equal(mailbox.ready, false);
   assert.ok(mailbox.reasonCodes.includes('mailbox-authenticated-address-required'));
+});
+
+
+test('UberScale certifies a smaller exact target from the same evidence machinery', () => {
+  const input = readyInput();
+  input.inventory.eligibleVerifiedUnsuppressedRemaining = 1000;
+  input.inventory.recipientProviderCounts = { gmail: 500, microsoft: 500 };
+  input.mailboxes[0].observedColdDailyCap = 500;
+  input.mailboxes[1].observedColdDailyCap = 500;
+  input.egressRoutes[0].observedColdDailyCap = 500;
+  input.egressRoutes[1].observedColdDailyCap = 500;
+  input.recipientProviders[0].observedDailyBudget = 500;
+  input.recipientProviders[1].observedDailyBudget = 500;
+  input.campaign.dailyCeiling = 1000;
+  input.schedule.remainingDispatchCapacityToday = 1000;
+  const r = compileOutreachScaleLaunchCertificate({ ...input, target: 1000 });
+  assert.equal(r.state, 'CERTIFIED_SCALE_READY');
+  assert.equal(r.oneButtonScalePressAvailable, true);
+  assert.equal(r.target, 1000);
+  assert.equal(r.certifiableToday, 1000);
+});
+
+test('UberScale refuses to borrow capacity and reports exact smaller-target shortfall', () => {
+  const input = readyInput();
+  input.inventory.eligibleVerifiedUnsuppressedRemaining = 20;
+  input.inventory.recipientProviderCounts = { gmail: 10, microsoft: 10 };
+  input.mailboxes[0].observedColdDailyCap = 10;
+  input.mailboxes[1].observedColdDailyCap = 9;
+  input.egressRoutes[0].observedColdDailyCap = 10;
+  input.egressRoutes[1].observedColdDailyCap = 9;
+  input.recipientProviders[0].observedDailyBudget = 10;
+  input.recipientProviders[1].observedDailyBudget = 10;
+  input.campaign.dailyCeiling = 20;
+  input.schedule.remainingDispatchCapacityToday = 20;
+  const r = compileOutreachScaleLaunchCertificate({ ...input, target: 20 });
+  assert.equal(r.state, 'WAIT_EXTERNAL_EVIDENCE');
+  assert.equal(r.certifiableToday, 19);
+  assert.equal(r.shortfall, 1);
+  assert.ok(r.waitReasonCodes.includes('scale-observed-capacity-shortfall'));
+});
+
+test('legacy 100K compiler remains exact-target only', () => {
+  const r = compileOutreach100kLaunchCertificate({ ...readyInput(), target: 1000 });
+  assert.equal(r.state, 'ABSTAIN');
+  assert.ok(r.hardStopReasonCodes.includes('exact-100k-target-required'));
+  assert.equal(r.oneButton100kPressAvailable, false);
+});
+
+test('UberScale completion counts unique provider-confirmed receipts for requested target', () => {
+  const rows = Array.from({ length: 20 }, (_, i) => ({ state: 'PROVIDER_CONFIRMED_SEND', messagesSent: 1, dispatchId: `sd${i}`, providerReceiptId: `sp${i}`, observedAt: '2026-09-15T12:00:00.000Z' }));
+  rows.push({ ...rows[0] }, { state: 'DISPATCH_OUTCOME_UNCERTAIN', dispatchId: 'su1', observedAt: '2026-09-15T12:00:00.000Z' });
+  const r = compileOutreachScaleCompletion({ dispatchReceipts: rows, target: 20, date: '2026-09-15' });
+  assert.equal(r.state, 'SCALE_PROVIDER_CONFIRMED_COMPLETE');
+  assert.equal(r.providerConfirmedUniqueSends, 20);
+  assert.equal(r.uncertainOutcomeCount, 1);
 });

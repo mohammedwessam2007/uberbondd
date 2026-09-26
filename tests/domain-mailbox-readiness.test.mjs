@@ -809,3 +809,29 @@ test('warm-up reconciliation uses provider account reference when available', as
   await reconcileMailboxWarmupStatus({ mailboxState, providerAdapter: adapter, date: monday });
   assert.equal(observedMailboxId, 'provider-m1');
 });
+
+
+test('warm-up forwards explicit mutation authorization and idempotency to provider adapter', async () => {
+  const domainState = { dnsState: { status: 'GREEN' } };
+  const mailboxState = { mailboxId: 'm1', authenticationStatus: 'AUTHENTICATED', paused: false };
+  const authorization = { granted: true, grantedBy: 'owner', scope: ['startWarmup'], expiresAt: '2099-01-01T00:00:00.000Z' };
+  let observed = null;
+  const adapter = fakeConfiguredAdapter({
+    startWarmup: async args => {
+      observed = args;
+      return { ok: true, status: 'STARTED' };
+    }
+  });
+  const result = await requestMailboxWarmupStart({
+    domainState,
+    mailboxState,
+    providerAdapter: adapter,
+    providerPayload: { fixture: true },
+    ownerApproval: authorization,
+    idempotencyKey: 'warmup-test-1',
+    date: monday
+  });
+  assert.equal(result.ok, true);
+  assert.equal(observed.ownerApproval, authorization);
+  assert.equal(observed.idempotencyKey, 'warmup-test-1');
+});

@@ -20,3 +20,9 @@ test('no positive replies yields null unit cost rather than fake infinity or zer
  const r=compileOutreachEconomics({messages:[{}],costReceipts:[{stage:'send',costCents:50}]});
  assert.equal(r.unitEconomics.costPerPositiveReplyCents,null);
 });
+
+test('absence of cost receipts is unknown coverage rather than proven free operation',()=>{
+ const r=compileOutreachEconomics({messages:[{}]});
+ assert.equal(r.costs.totalCostCents,0);
+ assert.equal(r.costs.costCoverageStatus,'NO_COST_RECEIPTS');
+});

@@ -775,7 +775,8 @@ async function outreachSaasExtinctionStatus() {
     controlPlaneOwned: true,
     outboundSubstrate: {
       candidate: authorizedSmtp[0]?.provider || (config.providers?.maildoso?.configured ? 'maildoso' : ''),
-      purchased: authorizedSmtp.length > 0,
+      acquired: authorizedSmtp.length > 0,
+      cashRequired: undefined,
       authorized: authorizedSmtp.length > 0,
       configured: authorizedSmtp.length > 0
     },

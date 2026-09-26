@@ -54,6 +54,9 @@ export function startScheduler(queue, cfg, log = console) {
     if (cfg.discovery?.enabled) {
       recurring.push(['discovery.run', Math.max(1, Number(cfg.discovery.runEveryHours || 24)) * HOUR, { scheduled: true }, { maxAttempts: 4 }]);
     }
+    if (cfg.providers?.maildoso?.configured) {
+      recurring.push(['maildoso.evidence.sync', 15 * MINUTE, {}, { maxAttempts: 3 }]);
+    }
     // Read-only Prometheus recomputation jobs -- layered on top of
     // autopilot behind their own explicit flag so no existing autopilot
     // deployment picks these up silently. Neither job ever calls a

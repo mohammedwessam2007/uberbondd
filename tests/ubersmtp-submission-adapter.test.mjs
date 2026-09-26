@@ -27,3 +27,25 @@ test('authorization and terms are mandatory',()=>{
   assert.equal(t.ok,false);
   assert.ok(t.reasonCodes.includes('smtp-route-authorization-required'));
 });
+
+
+test('generated Message-ID uses the external sender domain', async () => {
+  let raw = '';
+  const transport = createUberSmtpSubmissionTransport({
+    host: 'localhost', port: 2525, secure: false,
+    authorized: true, termsCompatible: true, evidenceRef: 'receipt:test',
+    smtpSessionFactory: async () => ({
+      sendMessage: async message => { raw = message.raw; return { accepted: true, response: '250 queued' }; },
+      close: async () => {}
+    })
+  });
+  const result = await transport.send({
+    from: 'sender@outreach-example.com',
+    to: 'lead@example.net',
+    subject: 'Test',
+    body: 'Hello'
+  });
+  assert.equal(result.confirmed, true);
+  assert.match(raw, /Message-ID: <ub-[^>]+@outreach-example\.com>/);
+  assert.doesNotMatch(raw, /@uberbond\.local>/);
+});

@@ -74,7 +74,7 @@ export const config = {
     // live sends.
     v9AdmissionRequired: bool(env.OUTBOUND_V9_ADMISSION_REQUIRED, false),
     // Provider-neutral live-send selection. Legacy Gmail remains the default.
-    // Postal becomes callable only when OUTBOUND_PROVIDER=postal AND
+    // Postal and encrypted SMTP fleet routes become callable only with
     // OUTBOUND_USE_EFFECT_ADAPTER=true; Pipeline then requires the authoritative
     // consequence gate over the exact canary payload before the provider call.
     launchPhase: String(env.OUTBOUND_LAUNCH_PHASE || 'off').trim().toLowerCase(),
@@ -215,6 +215,11 @@ export const config = {
       workspaceId: env.MAILFORGE_WORKSPACE_ID || '',
       configured: Boolean(env.MAILFORGE_API_KEY)
     },
+    maildoso: {
+      apiKey: env.MAILDOSO_PAT || env.MAILDOSO_API_KEY || '',
+      baseUrl: env.MAILDOSO_BASE_URL || 'https://api.maildoso.com',
+      configured: Boolean(env.MAILDOSO_PAT || env.MAILDOSO_API_KEY)
+    },
     // Owned Postal transport. Presence of the key means only that a runtime
     // credential is configured; it does not prove DNS, warm-up, sender health,
     // recipient authority, or permission to send.
@@ -298,7 +303,7 @@ export function validateStartupConfig(cfg = config) {
     if (!cfg.sender?.address) throw new Error('Live outbound requires BUSINESS_ADDRESS');
     if (!Array.isArray(cfg.outbound.allowedCountries) || cfg.outbound.allowedCountries.length === 0) throw new Error('Live outbound requires OUTBOUND_ALLOWED_COUNTRIES');
     const provider = String(cfg.outbound?.provider || '').toLowerCase();
-    if (!['gmail-api', 'postal'].includes(provider)) throw new Error('Live outbound provider must be gmail-api or postal');
+    if (!['gmail-api', 'postal', 'smtp-relay'].includes(provider)) throw new Error('Live outbound provider must be gmail-api, postal, or smtp-relay');
     if (provider === 'gmail-api' && (!cfg.google.clientId || !cfg.google.clientSecret)) {
       throw new Error('Live Gmail outbound requires Google OAuth credentials');
     }
@@ -307,6 +312,9 @@ export function validateStartupConfig(cfg = config) {
       if (!cfg.providers?.postal?.configured) throw new Error('Live Postal outbound requires POSTAL_API_KEY');
       if (!/^https:\/\//i.test(String(cfg.providers?.postal?.baseUrl || ''))) throw new Error('Live Postal outbound requires HTTPS POSTAL_BASE_URL');
       if (!/^[a-z0-9.-]+\.[a-z]{2,}$/i.test(String(cfg.outbound?.messageIdDomain || ''))) throw new Error('Live Postal outbound requires OUTBOUND_MESSAGE_ID_DOMAIN');
+    }
+    if (provider === 'smtp-relay' && cfg.outbound?.useEffectAdapter !== true) {
+      throw new Error('Live SMTP relay outbound requires OUTBOUND_USE_EFFECT_ADAPTER=true');
     }
     if (!/^[a-f0-9]{64}$/i.test(cfg.encryptionKey || '')) throw new Error('Live outbound requires a 64-character hexadecimal TOKEN_ENCRYPTION_KEY');
     if (String(cfg.unsubscribeSecret || '').length < 32) throw new Error('Live outbound requires UNSUBSCRIBE_SECRET with at least 32 characters');

@@ -44,7 +44,8 @@ function daysSince(startIso, at) {
 // success. Anything short of that returns WARMUP_BLOCKED with the exact
 // missing requirement -- it never starts warm-up "optimistically."
 export async function requestMailboxWarmupStart({
-  domainState, mailboxState, providerAdapter, providerPayload = null, date = new Date()
+  domainState, mailboxState, providerAdapter, providerPayload = null,
+  ownerApproval = null, idempotencyKey = '', date = new Date()
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -70,7 +71,13 @@ export async function requestMailboxWarmupStart({
     };
   }
 
-  const started = await providerAdapter.startWarmup({ mailboxId: mailboxState.mailboxId, providerPayload });
+  const providerMailboxRef = mailboxState.providerAccountId || mailboxState.address || mailboxState.mailboxId;
+  const started = await providerAdapter.startWarmup({
+    mailboxId: providerMailboxRef,
+    providerPayload,
+    ownerApproval,
+    idempotencyKey
+  });
   if (!started?.ok) {
     return {
       ok: false, policyVersion: WARMUP_ORCHESTRATOR_POLICY_VERSION, state: 'WARMUP_BLOCKED',
@@ -102,7 +109,8 @@ export async function reconcileMailboxWarmupStatus({
     return { ok: false, policyVersion: WARMUP_ORCHESTRATOR_POLICY_VERSION, state: 'WARMUP_UNCERTAIN', reasonCodes: ['provider-adapter-missing-warmup-status-capability'], timestamp, providerReceipt: null };
   }
 
-  const statusResult = await providerAdapter.warmupStatus({ mailboxId: mailboxState.mailboxId });
+  const providerMailboxRef = mailboxState.providerAccountId || mailboxState.address || mailboxState.mailboxId;
+  const statusResult = await providerAdapter.warmupStatus({ mailboxId: providerMailboxRef });
   if (!statusResult?.ok) {
     return {
       ok: false, policyVersion: WARMUP_ORCHESTRATOR_POLICY_VERSION, state: 'WARMUP_UNCERTAIN',

@@ -427,3 +427,19 @@ test('an unknown path under an admin prefix is not served', async () => {
     assert.notEqual(res.status, 200, `${route} must not be served`);
   }
 });
+
+
+test('SaaS-extinction status exposes the no-surprise buy ledger without external effects', async () => {
+  const res = await call('/api/outbound/saas-extinction', { token: ADMIN_TOKEN });
+  assert.equal(res.status, 200);
+  const body = json(res);
+  assert.equal(body.ok, true);
+  assert.equal(body.observed.ownedOutreachDomains, 30);
+  assert.equal(body.providerCalls, 0);
+  assert.equal(body.messagesSent, 0);
+  assert.equal(body.spendCents, 0);
+  assert.ok(body.buyList.summary.internalReplacementCount >= 10);
+  assert.ok(Array.isArray(body.buyList.external));
+  assert.ok(body.buyList.external.some(item => item.id === 'authorized_outbound_substrate'));
+  assert.ok(body.supply.summary.targetDailyFirstTouches === 1000);
+});

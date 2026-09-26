@@ -70,3 +70,22 @@ test('direct-MX route requires physical egress evidence', () => {
   assert.equal(result.totalReadyColdDailyCap, 0);
   assert.ok(result.topology.routeEvaluations[0].reasonCodes.includes('outbound-port25-not-observed-reachable'));
 });
+
+
+test('authorized HTTP relay requires the same observed provider evidence as SMTP', () => {
+  const result = compileUberEgressTopology({
+    routes: [relay({ type: 'AUTHORIZED_HTTP_RELAY' })],
+    domainBindings: bindings,
+    now: NOW
+  });
+  assert.equal(result.status, 'UBEREGRESS_READY');
+  assert.equal(result.totalReadyColdDailyCap, 1000);
+
+  const blocked = compileUberEgressTopology({
+    routes: [relay({ type: 'AUTHORIZED_HTTP_RELAY', relayAuthenticated: false })],
+    domainBindings: bindings,
+    now: NOW
+  });
+  assert.equal(blocked.totalReadyColdDailyCap, 0);
+  assert.ok(blocked.topology.routeEvaluations[0].reasonCodes.includes('relay-authentication-not-observed'));
+});

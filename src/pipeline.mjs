@@ -20,6 +20,9 @@ import { compileUberReplyCampaignDecision } from './uberreply-four-offer-genome.
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
+import { selectFleetMailbox, dispatchSmtpFleetAccount } from './uberfleet.mjs';
+import { evaluateOutreachPersonalization } from './ubertruth-outreach.mjs';
+import { pollImapForwardingAccount } from './uberimap.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -51,6 +54,26 @@ export class Pipeline {
     // Unlike the shadow observer above, this gate may block a real provider call.
     this.outboundConsequenceGateFn = hooks.outboundConsequenceGate || null;
     this.postalSendFn = hooks.postalSend || dispatchPostalCanary;
+    this.smtpSendFn = hooks.smtpSend || dispatchSmtpFleetAccount;
+    this.imapPollFn = hooks.imapPoll || pollImapForwardingAccount;
+  }
+
+  async selectFleetInbox(prospect, audit = []) {
+    const provider = String(this.cfg.outbound?.provider || 'gmail-api').toLowerCase();
+    if (provider !== 'smtp-relay') return prospect?.inbox || routeInbox(prospect, audit);
+    const [accounts, senderHealth, outboundEvents] = await Promise.all([
+      this.store.list('accounts'), this.store.list('senderHealth'), this.store.list('outboundEvents')
+    ]);
+    const allocation = selectFleetMailbox({
+      prospectId: prospect?.id || prospect?.domain || prospect?.company || '',
+      currentSlot: prospect?.inbox || '',
+      accounts,
+      senderHealth,
+      outboundEvents,
+      provider,
+      date: this.clock()
+    });
+    return allocation.ok ? allocation.slot : '';
   }
 
   async refreshOwnerSender() {
@@ -186,7 +209,7 @@ export class Pipeline {
 
     const score = scoreProspect(prospect, audit, contact);
     const issue = chooseIssue(audit);
-    const inbox = routeInbox(prospect, audit);
+    const inbox = await this.selectFleetInbox(prospect, audit);
     const offerDecision = campaign.offerId
       ? compileUberReplyCampaignDecision({
           offerId: campaign.offerId,
@@ -211,18 +234,22 @@ export class Pipeline {
       : null;
     const researchQualified = Boolean(issue && score.total >= campaign.minScore && (!campaign.offerId || offerDecision?.ok));
     const suppressed = contact?.email ? await this.isSuppressed(prospect, contact.email) : false;
-    const sendEligible = Boolean(
-      researchQualified && contact?.email &&
-      ['valid', 'accept_all', 'unverified', 'unknown'].includes(contact.verified || 'unverified') &&
-      !suppressed
-    );
     const optoutUrl = contact?.email ? unsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const oneClickOptoutUrl = contact?.email ? oneClickUnsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const draft = researchQualified ? buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }) : '';
     const subject = researchQualified ? buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName) : '';
+    const personalizationDecision = researchQualified ? evaluateOutreachPersonalization({
+      prospect, issue, contact: contact || {}, subject, body: draft,
+      minEvidenceConfidence: this.cfg.outbound?.minEvidenceConfidence
+    }) : null;
+    const sendEligible = Boolean(
+      researchQualified && inbox && contact?.email &&
+      ['valid', 'accept_all', 'unverified', 'unknown'].includes(contact.verified || 'unverified') &&
+      !suppressed && personalizationDecision?.autoSendEligible === true
+    );
     const status = researchQualified ? (sendEligible ? 'ready' : 'research-complete') : 'rejected';
     const dossier = buildDossier({ prospect, crawl, audit, contact, score, issue, inbox, subject, draft, aiMeta });
-    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision, draft, subject, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
+    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision, draft, subject, personalizationDecision, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
 
     await this.store.patch('prospects', prospect.id, patch);
     if (this.hooks.onProspectComplete) await this.hooks.onProspectComplete({ ...prospect, ...patch });
@@ -431,8 +458,15 @@ export class Pipeline {
     const eligibility = evaluateSendEligibility({ prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup });
     if (!eligibility.ok) return this.markSendSafety(prospect, { sent: false, ...eligibility });
 
+    if (String(this.cfg.outbound?.provider || '').toLowerCase() === 'smtp-relay') {
+      const assigned = await this.selectFleetInbox(prospect, prospect.audit || []);
+      if (assigned && assigned !== prospect.inbox) {
+        await this.store.patch('prospects', prospect.id, { inbox: assigned });
+        prospect = { ...prospect, inbox: assigned };
+      }
+    }
     const account = await this.store.findOne('accounts', { slot: prospect.inbox });
-    if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-gmail' });
+    if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-connected-sender' });
 
     const domainMailboxGate = await this.evaluateDomainMailboxSendGate({ account, inbox: prospect.inbox, date: this.clock() });
     if (domainMailboxGate) {
@@ -484,15 +518,18 @@ export class Pipeline {
       }
     }
 
-    const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? 0);
+    const observedDaily = Number(domainMailboxGate?.mailboxState?.currentDailyCap ?? account.currentDailyCap ?? account.plannedDailyCap ?? 0);
+    const observedHourly = Number(domainMailboxGate?.mailboxState?.currentHourlyCap ?? account.currentHourlyCap ?? account.plannedHourlyCap ?? 0);
+    const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? observedDaily);
     const campaignDaily = Number(campaign.dailyCaps?.[prospect.inbox] ?? configuredDaily);
     const dailyCap = Math.max(0, Math.min(campaignDaily, configuredDaily));
-    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? 0));
+    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? observedHourly));
+    const minGapSeconds = Math.max(0, Number(account.minGapSeconds ?? this.cfg.outbound?.minGapSeconds ?? 0));
     const idempotencyKey = sendIdempotencyKey(prospect.id, followup);
     const reserved = await this.store.reserveOutboundSend({
       idempotencyKey, prospectId: prospect.id, campaignId: campaign.id, inbox: prospect.inbox,
       recipientEmail: prospect.contact.email, kind: followup ? 'followup' : 'initial', followup,
-      dailyCap, hourlyCap, minGapSeconds: this.cfg.outbound?.minGapSeconds, now: this.clock().toISOString()
+      dailyCap, hourlyCap, minGapSeconds, now: this.clock().toISOString()
     });
     if (!reserved.ok) {
       if (reserved.reason === 'duplicate-sent' && reserved.reservation) {
@@ -577,7 +614,7 @@ export class Pipeline {
 
     const outboundProvider = String(this.cfg.outbound?.provider || 'gmail-api').toLowerCase();
     const effectPayload = {
-      from: outboundProvider === 'postal' ? account.email : `${this.cfg.sender.name} <${account.email}>`,
+      from: ['postal','smtp-relay'].includes(outboundProvider) ? account.email : `${this.cfg.sender.name} <${account.email}>`,
       to: prospect.contact.email,
       subject,
       body,
@@ -623,7 +660,27 @@ export class Pipeline {
     let result;
     let providerMeta = null;
     try {
-      if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
+      if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'smtp-relay') {
+        providerMeta = await this.smtpSendFn({
+          account, encryptionKey: this.cfg.encryptionKey, message: effectPayload
+        });
+        if (providerMeta?.classification === 'REJECTED') {
+          await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+            cancelReason: 'smtp-provider-rejected',
+            providerReasonCodes: providerMeta.reasonCodes || []
+          });
+          return this.markSendSafety(prospect, {
+            sent: false, reason: 'provider-rejected', reservationId: reservation.id,
+            reasonCodes: providerMeta.reasonCodes || []
+          });
+        }
+        if (providerMeta?.classification !== 'ACCEPTED' || !providerMeta?.providerReferenceId) {
+          const uncertain = new Error(providerMeta?.dispatchError || 'smtp-provider-result-uncertain');
+          uncertain.providerMeta = providerMeta;
+          throw uncertain;
+        }
+        result = { data: { id: providerMeta.providerReferenceId, threadId: '' } };
+      } else if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
         providerMeta = await this.postalSendFn({
           cfg: this.cfg, account, reservation, effectPayload, followup, now: this.clock
         });
@@ -676,7 +733,7 @@ export class Pipeline {
     }
 
     let rfcMessageId = providerMeta?.messageId || '';
-    if (outboundProvider !== 'postal') {
+    if (outboundProvider === 'gmail-api') {
       try {
         const sent = await this.getMessageFn(this.cfg.google, account, this.cfg.encryptionKey, result.data.id);
         rfcMessageId = this.parseMessageFn(sent.data).messageId;
@@ -696,7 +753,7 @@ export class Pipeline {
       sentAt,
       provider: outboundProvider,
       providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
-      gmailId: outboundProvider === 'postal' ? null : result.data.id,
+      gmailId: outboundProvider === 'gmail-api' ? result.data.id : null,
       threadId: result.data.threadId || '',
       rfcMessageId
     });
@@ -710,7 +767,7 @@ export class Pipeline {
       to: prospect.contact.email, subject,
       provider: outboundProvider,
       providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
-      gmailId: outboundProvider === 'postal' ? null : result.data.id,
+      gmailId: outboundProvider === 'gmail-api' ? result.data.id : null,
       threadId: result.data.threadId || '',
       rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey
     };
@@ -847,57 +904,108 @@ export class Pipeline {
 
   async pollReplies() {
     let matched = 0;
-    const accounts = (await this.store.list('accounts')).filter(account => account.connected);
-    for (const account of accounts) {
+    const allAccounts = (await this.store.list('accounts')).filter(account => account.connected);
+    const prospects = await this.store.list('prospects');
+    const sentMessages = await this.store.list('messages');
+
+    const recordReply = async ({ externalId, threadId = '', from = '', fromEmail = '', subject = '', body = '', inReplyTo = '', references = [], accountSlot = '' } = {}) => {
+      if (!externalId) return false;
+      if (await this.store.findOne('replies', { gmailId: externalId })) return false;
+      const replyRefs = new Set([inReplyTo, ...(Array.isArray(references) ? references : [])].filter(Boolean));
+      const linkedMessage = sentMessages.find(message => message.rfcMessageId && replyRefs.has(message.rfcMessageId));
+      const senderEmail = String(fromEmail || '').toLowerCase();
+      const prospect = linkedMessage
+        ? prospects.find(item => item.id === linkedMessage.prospectId)
+        : prospects.find(item => item.contact?.email && senderEmail && item.contact.email.toLowerCase() === senderEmail);
+      if (!prospect) return false;
+
+      const parsedForSignal = { from, subject, body, threadId, id: externalId };
+      const classification = classifyDeliverySignal(parsedForSignal) || await classifyReply(this.cfg.ai, body);
+      try {
+        await this.store.add('replies', {
+          id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
+          from, subject, body, classification, receivedAt: now()
+        });
+      } catch (error) {
+        if (error instanceof ConflictError) return false;
+        throw error;
+      }
+      const terminalDelivery = ['bounce','complaint'].includes(classification.label);
+      const automatic = ['automatic','out_of_office'].includes(classification.label);
+      await this.store.patch('prospects', prospect.id, automatic ? {
+        status: 'sent', replyLabel: classification.label, automaticReplyAt: now(),
+        nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()
+      } : {
+        status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
+        repliedAt: now(), nextFollowupAt: null
+      });
+      if (classification.suppressionRecommended === true || ['optout','negative','bounce','complaint'].includes(classification.label)) {
+        try {
+          await this.store.add('suppressions', {
+            id: id('sup'), value: prospect.contact.email.toLowerCase(), reason: classification.label, createdAt: now()
+          });
+        } catch (error) {
+          if (!(error instanceof ConflictError)) throw error;
+        }
+      }
+      if (terminalDelivery) {
+        await this.store.recordOutboundEvent({
+          inbox: accountSlot || linkedMessage?.inbox || prospect.inbox,
+          eventType: classification.label === 'bounce' ? 'hard_bounce' : 'complaint',
+          prospectId: prospect.id, recipientEmail: prospect.contact?.email || '',
+          detail: { inboundId: externalId }
+        }, this.outboundThresholds());
+      }
+      matched += 1;
+      return true;
+    };
+
+    const gmailAccounts = allAccounts.filter(account => {
+      const provider = String(account.provider || 'gmail-api').toLowerCase();
+      return provider === 'gmail-api' || (!account.provider && account.tokens);
+    });
+    for (const account of gmailAccounts) {
       const after = Math.floor((account.lastReplyPoll || Date.now() - 86400000) / 1000);
       const list = await listMessages(this.cfg.google, account, this.cfg.encryptionKey, `in:inbox after:${after}`, 100);
       if (list.tokens) account.tokens = sealTokens(list.tokens, this.cfg.encryptionKey);
       for (const reference of list.data.messages || []) {
-        if (await this.store.findOne('replies', { gmailId: reference.id })) continue;
         const full = await getMessage(this.cfg.google, account, this.cfg.encryptionKey, reference.id);
         const parsed = parseGmailMessage(full.data);
-        const prospects = await this.store.list('prospects');
-        const prospect = prospects.find(item =>
-          item.threadId === parsed.threadId ||
-          (item.contact?.email && parsed.from.toLowerCase().includes(item.contact.email.toLowerCase()))
-        );
-        if (!prospect) continue;
-        const classification = classifyDeliverySignal(parsed) || await classifyReply(this.cfg.ai, parsed.body);
-        try {
-          await this.store.add('replies', {
-            id: id('reply'), prospectId: prospect.id, gmailId: parsed.id, threadId: parsed.threadId,
-            from: parsed.from, subject: parsed.subject, body: parsed.body, classification, receivedAt: now()
-          });
-        } catch (error) {
-          if (error instanceof ConflictError) continue;
-          throw error;
-        }
-        const terminalDelivery = ['bounce','complaint'].includes(classification.label);
-        const automatic = classification.label === 'automatic';
-        await this.store.patch('prospects', prospect.id, automatic ? {
-          status: 'sent', replyLabel: classification.label, automaticReplyAt: now(),
-          nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()
-        } : {
-          status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
-          repliedAt: now(), nextFollowupAt: null
+        await recordReply({
+          externalId: parsed.id,
+          threadId: parsed.threadId,
+          from: parsed.from,
+          fromEmail: String(parsed.from || '').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0] || '',
+          subject: parsed.subject,
+          body: parsed.body,
+          accountSlot: account.slot
         });
-        matched += 1;
-        if (['optout', 'negative', 'bounce', 'complaint'].includes(classification.label)) {
-          try {
-            await this.store.add('suppressions', {
-              id: id('sup'), value: prospect.contact.email.toLowerCase(), reason: classification.label, createdAt: now()
-            });
-          } catch (error) {
-            if (!(error instanceof ConflictError)) throw error;
-          }
-        }
-        if (classification.label === 'bounce' || classification.label === 'complaint') {
-          await this.store.recordOutboundEvent({
-            inbox: account.slot, eventType: classification.label === 'bounce' ? 'hard_bounce' : 'complaint',
-            prospectId: prospect.id, recipientEmail: prospect.contact?.email || '', detail: { gmailId: parsed.id }
-          }, this.outboundThresholds());
-        }
       }
+      account.lastReplyPoll = Date.now();
+      await this.store.upsert('accounts', account);
+    }
+
+    const forwardingAccounts = allAccounts.filter(account => String(account.provider || '').toLowerCase() === 'imap-forwarding');
+    for (const account of forwardingAccounts) {
+      const poll = await this.imapPollFn({ account, encryptionKey: this.cfg.encryptionKey, limit: 100 });
+      if (!poll?.ok) {
+        await this.store.log('imap_reply_poll_failed', { accountId: account.id, slot: account.slot, status: poll?.status || 'UNKNOWN', reasonCodes: poll?.reasonCodes || [] });
+        continue;
+      }
+      for (const parsed of poll.messages || []) {
+        await recordReply({
+          externalId: `imap:${account.slot}:${parsed.uid}`,
+          threadId: '',
+          from: parsed.from,
+          fromEmail: parsed.fromEmail,
+          subject: parsed.subject,
+          body: parsed.body,
+          inReplyTo: parsed.inReplyTo,
+          references: parsed.references,
+          accountSlot: account.slot
+        });
+      }
+      account.lastImapUid = Math.max(Number(account.lastImapUid || 0), Number(poll.lastUid || 0));
       account.lastReplyPoll = Date.now();
       await this.store.upsert('accounts', account);
     }

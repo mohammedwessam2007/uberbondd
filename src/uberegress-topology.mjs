@@ -5,7 +5,8 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 export const UBEREGRESS_VERSION = 'uberbond.uberegress.v1';
 export const UBEREGRESS_ROUTE_TYPES = Object.freeze([
   'SELF_HOSTED_DIRECT_MX',
-  'AUTHORIZED_SMTP_RELAY'
+  'AUTHORIZED_SMTP_RELAY',
+  'AUTHORIZED_HTTP_RELAY'
 ]);
 
 const digest = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
@@ -53,7 +54,7 @@ function evaluateRoute(route = {}, { now, maxEvidenceAgeHours }) {
     if (route.ptrVerified !== true) reasons.push('ptr-not-verified');
     if (route.tlsReady !== true) reasons.push('tls-not-ready');
   }
-  if (type === 'AUTHORIZED_SMTP_RELAY') {
+  if (type === 'AUTHORIZED_SMTP_RELAY' || type === 'AUTHORIZED_HTTP_RELAY') {
     if (route.relayAuthenticated !== true) reasons.push('relay-authentication-not-observed');
     if (route.providerReady !== true) reasons.push('relay-provider-not-ready');
   }

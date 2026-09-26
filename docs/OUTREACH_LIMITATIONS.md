@@ -1,3 +1,22 @@
+# 2026-09-26 reconciliation notice
+
+This file is a **historical snapshot**, not the current outreach gap list. Preserve it for provenance, but do not use its old NOT_IMPLEMENTED/PARTIAL labels as present-tense truth.
+
+Later main work superseded several rows:
+
+- ICP/account search and target profiles now exist in the native Lead OS;
+- budgeted multi-provider enrichment-waterfall planning exists;
+- sequence branching/conditions/variants and variant analytics exist in Outreach Workbench;
+- first-party visitor events exist in Lead Intelligence;
+- the 2026-09-26 SaaS-extinction branch adds UberMaildoso, UberFleet, the full UberReply taxonomy, UberTruth personalization/claim gating, and UberEconomics stage economics;
+- generic encrypted SMTP fleet sending is wired into the canary Pipeline and the scale runtime can resolve the same encrypted fleet credentials.
+
+The current reconciliation and irreducible external blockers are documented in `docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`.
+
+Do not delete the historical text below. It records why later work existed.
+
+---
+
 # Outreach OS Limitations
 
 Explicit, honest gap list. Nothing here is dressed up as "planned" or

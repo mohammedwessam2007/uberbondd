@@ -1,3 +1,4 @@
+import { classifyUberReply, normalizeAiReplyClassification } from './uberreply-taxonomy.mjs';
 import { safeJson } from './utils.mjs';
 
 function extractJson(text) {
@@ -30,11 +31,9 @@ export async function enhanceAudit(cfg, prospect, crawl, ruleIssues) {
   return parsed;
 }
 export async function classifyReply(cfg, text) {
-  const lower = String(text).toLowerCase();
-  if (/unsubscribe|remove me|stop emailing|do not contact|don't contact|no thanks|not interested/.test(lower)) return {label:'optout',confidence:.95,reason:'Explicit rejection or opt-out phrase'};
-  if (/yes|interested|send it|tell me more|book|call|meeting|price|proposal/.test(lower)) return {label:'positive',confidence:.72,reason:'Positive-intent phrase'};
-  if (cfg.provider === 'rules') return {label:'neutral',confidence:.45,reason:'No decisive rule match'};
-  const prompt = `Classify this reply to a B2B outreach email. Return JSON only: {"label":"positive|neutral|negative|optout|automatic","confidence":0-1,"reason":""}.\n\n${String(text).slice(0,10000)}`;
+  const deterministic = classifyUberReply(text);
+  if (deterministic.confidence >= 0.8 || cfg.provider === 'rules') return deterministic;
+  const prompt = `Classify this reply to a B2B outreach email. Return JSON only: {"label":"positive|neutral|negative|optout|automatic|out_of_office|wrong_person|referral|objection","confidence":0-1,"reason":""}. Do not infer intent beyond the reply text.\n\n${String(text).slice(0,10000)}`;
   const raw = cfg.provider === 'anthropic' ? await anthropic(cfg,prompt) : await openai(cfg,prompt);
-  return extractJson(raw) || {label:'neutral',confidence:.3,reason:'Invalid AI result'};
+  return normalizeAiReplyClassification(extractJson(raw) || {label:'neutral',confidence:.3,reason:'Invalid AI result'});
 }

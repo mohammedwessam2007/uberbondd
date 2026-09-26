@@ -16,6 +16,7 @@ const INTERNAL=Object.freeze([
  ['provider_adapter','UberRelay + UberMaildoso/provider adapters'],
  ['dns_dashboard','UberDNS'],
  ['warmup_dashboard','UberWarm + UberQuality'],
+ ['inbox_placement_dashboard','UberPlacement + UberWarm placement ingestion'],
  ['analytics','UberEconomics + workbench analytics'],
  ['forms','Lead Intelligence first-party intake'],
  ['first_party_intent','Lead Intelligence visitor_event intake'],
@@ -47,9 +48,24 @@ export function compileOutreachBuyList({
     {monthlyPurchaseRequired:!controlPlaneOwned}));
   const substrateReady=outboundSubstrate?.acquired===true&&outboundSubstrate?.authorized===true&&outboundSubstrate?.configured===true;
   const substrateCashRequired=outboundSubstrate?.cashRequired===true;
-  external.push(row('authorized_outbound_substrate','EXTERNAL_SUBSTRATE',substrateReady?'SATISFIED':substrateCashRequired?'BUY_REQUIRED':'ACQUIRE_OR_ACTIVATE_REQUIRED',
-    substrateReady?'Authorized reputation-bearing sender substrate is connected':'Acquire or activate one provider-authorized reputation-bearing sending substrate',
-    {monthlyPurchaseRequired:!substrateReady&&substrateCashRequired,cashRequirementKnown:typeof outboundSubstrate?.cashRequired==='boolean',candidate:clean(outboundSubstrate?.candidate,160)||null,observedPriceUsd:Number.isFinite(Number(outboundSubstrate?.observedPriceUsd))?Number(outboundSubstrate.observedPriceUsd):null}));
+  const substrateCapabilities = {
+    outboundSmtp: outboundSubstrate?.outboundSmtp === true,
+    inboundForwarding: outboundSubstrate?.inboundForwarding === true,
+    warmup: outboundSubstrate?.warmup === true
+  };
+  const completeSubstrate = Object.values(substrateCapabilities).every(Boolean);
+  external.push(row('authorized_outbound_substrate','EXTERNAL_SUBSTRATE',substrateReady&&completeSubstrate?'SATISFIED':substrateCashRequired?'BUY_REQUIRED':'ACQUIRE_OR_ACTIVATE_REQUIRED',
+    substrateReady&&completeSubstrate
+      ? 'Authorized sender substrate covers outbound SMTP, inbound forwarding and warm-up'
+      : 'Acquire or activate one provider-authorized reputation-bearing substrate that covers outbound SMTP, inbound forwarding and provider warm-up',
+    {
+      monthlyPurchaseRequired:!(substrateReady&&completeSubstrate)&&substrateCashRequired,
+      cashRequirementKnown:typeof outboundSubstrate?.cashRequired==='boolean',
+      candidate:clean(outboundSubstrate?.candidate,160)||null,
+      observedPriceUsd:Number.isFinite(Number(outboundSubstrate?.observedPriceUsd))?Number(outboundSubstrate.observedPriceUsd):null,
+      requiredCapabilities:substrateCapabilities,
+      missingCapabilities:Object.entries(substrateCapabilities).filter(([,ok])=>!ok).map(([id])=>id)
+    }));
   const paymentReady=paymentRail?.live===true;
   external.push(row('payment_rail','EXTERNAL_FINANCIAL',paymentReady?'SATISFIED':'ACTIVATE_BEFORE_COLLECTION',
     paymentReady?'Live payment rail observed':'A real payment account/rail is required only before collecting buyer funds',
@@ -64,6 +80,9 @@ export function compileOutreachBuyList({
     supplyStatus==='OBSERVED_MONTH_COVERED'?'NOT_REQUIRED':
       supplyStatus==='OBSERVED_ONE_DAY_COVERED'?'DEFER_BUY_MEASURE_FIRST':'OPTIONAL_UNTIL_EMPIRICAL_SHORTFALL_PROVEN',
     'Apollo/Hunter/Clay-style paid data is not mandatory while lawful public/owner contact supply can feed the experiment',
+    {monthlyPurchaseRequired:false}));
+  external.push(row('placement_seed_inboxes','OPTIONAL_EXTERNAL_ASSET','OPTIONAL_UNTIL_PLACEMENT_TESTING',
+    'UberPlacement owns the test logic; real owner-controlled Gmail/Microsoft/Yahoo seed inboxes are only needed when running recipient-network placement probes',
     {monthlyPurchaseRequired:false}));
   external.push(row('model_provider','OPTIONAL_SUPPLIER',optionalModelProvider?'OPTIONAL_CONNECTED':'OPTIONAL_NOT_REQUIRED',
     'External model API is replaceable compute, not a mandatory outreach SaaS purchase',{monthlyPurchaseRequired:false}));

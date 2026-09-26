@@ -6,6 +6,20 @@
 
 ---
 
+## 0. 2026-09-26 outreach SaaS-extinction checkpoint
+
+Newest exact `main` evidence for the first-cash outreach lane:
+
+- PR **#1004** merged as `7b6ce73328571564e217cb99a843ada4e2c152cf`.
+- The merged stack now includes UberFleet, UberSMTP integration, UberIMAP, UberMaildoso, canonical Maildoso provider-contract integration, resident Maildoso evidence reconciliation, UberReply, UberTruth, UberEconomics, UberPlacement, first-party intent intake and the UberBuy/UberSupply no-surprise purchase boundary.
+- Exact-head transformed syntax checks passed across the changed runtime/test surface. Independent V8 behavior probes passed for reply taxonomy, truth gating, economics, placement aggregation, buy-boundary compilation, encrypted SMTP fleet custody, SMTP confirmation/Message-ID behavior, IMAP parsing/custody, warm-up provider identity/authorization propagation and Maildoso mutation gating/redaction.
+- Hosted GitHub workflows on the feature exact head failed with **zero steps executed**. Treat those as infrastructure non-evidence.
+- After merge, both Vercel production pipelines did execute and failed. `uberbondd` failed in `scripts/vercel-command-center-build.mjs`; the immediately preceding `main` deployment failed with the same command/error. `uberbondd-lite-private` failed in `scripts/build-visual-cortex.mjs`; its immediately preceding `main` deployment failed with the same command/error. The deployment failures therefore predate #1004 and are not evidence of a new outreach regression.
+- Current purchase doctrine for this lane: with the existing 30 domains and control-plane compute already owned, sequencing/CRM/personalization/reply ingestion/reply classification/warm-up dashboard/DNS dashboard/placement dashboard/analytics/workflow orchestration do **not** require new outreach SaaS subscriptions. The remaining potentially paid outreach requirement is one provider-authorized reputation-bearing sender substrate that actually supplies outbound SMTP/mailboxes, inbound forwarding and provider-side warm-up. If a provider supplies that through a legitimate free trial, it is an activation rather than a mandatory purchase.
+- Real provider authorization, DNS authentication, elapsed reputation/warm-up, legal eligibility, live payment settlement, real replies and revenue remain external evidence. Zero real sends/provider mutations/DNS mutations/new spend were performed during the source-verification wave.
+
+Canonical detail: `docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`.
+
 ## 1. The terminal goal
 
 UberBond is not merely a SaaS, an outbound tool, an autonomous company or an economic operating system.

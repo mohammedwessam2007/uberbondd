@@ -45,6 +45,8 @@ import {
   buildProviderPreflight
 } from './src/lead-operations.mjs';
 import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
+import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
+import { buildLeadIntakeRecord } from './src/lead-intelligence-v3.mjs';
 import { compilePublicContactSupply } from './src/ubersupply-public-contact-capacity.mjs';
 import { compileOutreachBuyList } from './src/uberbuy-outreach-bom.mjs';
 import { OWNED_OUTREACH_DOMAINS } from './src/outreach-domain-fleet.mjs';
@@ -87,6 +89,11 @@ if (config.processRole === 'all') {
   localWorkerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 }
 const oauthStates = new Map();
+const leadCaptureHits = new Map();
+const maildoso = createUberMaildosoAdapter({
+  token: config.providers?.maildoso?.apiKey || '',
+  baseUrl: config.providers?.maildoso?.baseUrl || 'https://api.maildoso.com'
+});
 
 const baseHeaders = {
   'cache-control': 'no-store',
@@ -209,7 +216,7 @@ const relayRateLimited = req => {
   return count > Math.max(1, Number(config.agentRelay?.rateLimitPerMinute || 120));
 };
 const pct = (numerator, denominator) => denominator ? Math.round(numerator / denominator * 100) : 0;
-const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/api/public/offer-interest' || pathname === '/webhooks/lemonsqueezy';
+const publicApi = pathname => pathname === '/api/health' || pathname === '/api/public/unsubscribe' || pathname === '/api/public/lead-capture' || pathname === '/api/public/config' || pathname === '/api/public/audit' || pathname.startsWith('/api/public/report/') || pathname.startsWith('/api/public/artifacts/') || pathname === '/api/public/checkout' || pathname === '/api/public/offer-interest' || pathname === '/webhooks/lemonsqueezy';
 const clientIp = req => {
   const hops = Number(config.trustProxyHops) || 0;
   const socketAddress = String(req.socket?.remoteAddress || 'unknown');
@@ -220,6 +227,18 @@ const clientIp = req => {
   if (chain.length < hops) return socketAddress;
   return chain[chain.length - hops] || socketAddress;
 };
+
+const leadCaptureRateLimited = req => {
+  const hour = Math.floor(Date.now() / 3600000);
+  const key = `${clientIp(req)}:${hour}`;
+  const count = (leadCaptureHits.get(key) || 0) + 1;
+  leadCaptureHits.set(key, count);
+  if (leadCaptureHits.size > 5000) {
+    for (const entry of leadCaptureHits.keys()) if (!entry.endsWith(`:${hour}`)) leadCaptureHits.delete(entry);
+  }
+  return count > Math.max(1, Number(config.leadCapture?.rateLimitPerHour || 30));
+};
+
 
 async function summary() {
   const [prospects, jobs, suppressions, accounts, discoveryRuns, revenueSummary, queueStats, pausedState, workers, settings, senderHealth, outboundReservations] = await Promise.all([
@@ -1082,6 +1101,29 @@ export const requestHandler = async (req, res) => {
         offerCatalog: buildRevenueOfferCatalog(config.revenue)
       });
     }
+    if (method === 'POST' && url.pathname === '/api/public/lead-capture') {
+      if (config.leadCapture?.enabled !== true) return json(res, 404, { error: 'Lead capture is disabled' });
+      const expectedSiteKey = String(config.leadCapture?.siteKey || '');
+      if (!expectedSiteKey) return json(res, 503, { error: 'Lead capture site key is not configured' });
+      if (!safeEqual(String(req.headers['x-uberbond-site-key'] || ''), expectedSiteKey)) return json(res, 401, { error: 'Invalid site key' });
+      if (leadCaptureRateLimited(req)) return json(res, 429, { error: 'Lead capture rate limit exceeded' });
+      const input = await parseBody(req);
+      for (const forbidden of ['ip','ipAddress','cookie','cookies','sessionId','session','fingerprint']) {
+        if (Object.hasOwn(input, forbidden)) throw new HttpError(400, `Privacy-sensitive field is not accepted: ${forbidden}`);
+      }
+      let record;
+      try { record = buildLeadIntakeRecord(input, { now: new Date() }); }
+      catch (error) { throw new HttpError(400, error.message); }
+      const existing = await store.get('leadIntakeEvents', record.id);
+      if (existing) return json(res, 200, { accepted: true, stored: true, idempotentReplay: true, eventId: existing.id, providerCalls: 0, externalEffects: 0 });
+      await store.add('leadIntakeEvents', record);
+      return json(res, 201, {
+        accepted: true, stored: true, eventId: record.id, kind: record.kind,
+        identityMode: record.privacy?.identityMode || 'account-only',
+        providerCalls: 0, externalEffects: 0
+      });
+    }
+
     if (method === 'POST' && url.pathname === '/api/public/audit') {
       return json(res, 202, await revenue.createLead(await parseBody(req), clientIp(req)));
     }
@@ -1510,6 +1552,22 @@ export const requestHandler = async (req, res) => {
           sendingDomainId:item.account.sendingDomainId,sendingMailboxId:item.account.sendingMailboxId
         }))
       });
+    }
+
+    const maildosoReadMatch = url.pathname.match(/^\/api\/providers\/maildoso\/read\/([^/]+)$/);
+    if (method === 'GET' && maildosoReadMatch) {
+      const result = await maildoso.read(decodeURIComponent(maildosoReadMatch[1]), {
+        query: Object.fromEntries(url.searchParams.entries())
+      });
+      return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : 400), result);
+    }
+    const maildosoMutationMatch = url.pathname.match(/^\/api\/providers\/maildoso\/mutate\/([^/]+)$/);
+    if (method === 'POST' && maildosoMutationMatch) {
+      const input = await parseBody(req);
+      const result = await maildoso.mutate(decodeURIComponent(maildosoMutationMatch[1]), {
+        body: input.body, params: input.params, query: input.query, approval: input.approval
+      });
+      return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : result.status === 'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN' ? 409 : 400), result);
     }
 
     if (method === 'GET' && url.pathname === '/api/outbound/saas-extinction') {

@@ -24,7 +24,7 @@ The target boundary is:
 | Ocean-style lookalikes | UberLookalike candidate expansion | Similarity is not contact permission |
 | Instantly / Smartlead / Lemlist sequencing | Outreach Workbench + automation/governance + reservations + follow-up state | External transport still required |
 | Instantly campaign variants | 12-step/26-variant workbench, deterministic allocation and variant analytics | Optimization needs real observations |
-| Instantly unified inbox / AI inbox | message/reply collections + workbench inbox + **UberReply** taxonomy | SMTP replies need a real inbound/forwarding route |
+| Instantly unified inbox / AI inbox | message/reply collections + workbench inbox + **UberIMAP** + **UberReply** taxonomy | A real inbound/forwarding mailbox still has to exist physically |
 | AI personalization SaaS | evidence-backed copy + **UberTruth** PASS/REVIEW/DENY claim firewall | Model access, if used, is a replaceable compute supplier |
 | AgentMail | **UberMail** + Stalwart foundry/control plane | Public mailbox hosting still needs compute/network substrate |
 | Mailforge / Inframail mailbox control | UberInboxes + **UberFleet** + sending mailbox registry | Mailbox reputation and provider authorization remain external |
@@ -78,6 +78,19 @@ The canonical encrypted SMTP fleet bridge.
 The live Pipeline can now select an arbitrary encrypted `smtp-relay` sender and submit through UberSMTP. Gmail and owned Postal behavior remain unchanged.
 
 The 100K runtime can also resolve credentials from the same encrypted UberFleet account store, so scale no longer requires one environment-variable pair per mailbox.
+
+### UberIMAP
+
+`src/uberimap.mjs`
+
+Read-only inbound bridge for provider forwarding inboxes.
+
+- forwarding inbox credentials are AES-256-GCM encrypted at rest;
+- remote plaintext IMAP is refused;
+- polling uses BODY.PEEK so reading does not mark messages seen;
+- replies are rebound to original sends through Message-ID / In-Reply-To / References when available;
+- ambiguous or unmatched inbound messages do not become prospect replies by inference;
+- Maildoso's forwarding mailbox remains physical provider substrate, while reply ingestion/classification stays UberBond-owned.
 
 ### UberReply
 
@@ -172,7 +185,7 @@ Do not buy another sequencer, CRM, AI inbox, enrichment orchestrator, mailbox da
 - owner legal/business postal identity in protected settings;
 - recipient eligibility evidence;
 - exact canary authorization;
-- live reply/inbound route;
+- a real provider forwarding/inbound mailbox, which UberIMAP can ingest once activated;
 - live payment path before collecting money.
 
 ## Truth boundary

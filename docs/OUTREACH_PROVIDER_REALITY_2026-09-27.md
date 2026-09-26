@@ -84,6 +84,18 @@ No candidate beats the policy-eligible capacity-per-dollar objective. The best c
 
 These scenarios assume every modeled identity exists from day one, sends only first touches, operates on 22 weekdays, and has no ramp, follow-up traffic, deferrals, complaints, or reputation loss. Rates 1/2/3/5/7/10 are hypothetical arithmetic, not provider-approved safe caps.
 
+### Per-workday first-touch geometry
+
+| Scenario | Identities | 1/day | 2/day | 3/day | 5/day | 7/day | 10/day |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| ClayInbox Google at $2.50 | 8 | 8 | 16 | 24 | 40 | 56 | 80 |
+| ClayInbox Google at $2.00 | 11 | 11 | 22 | 33 | 55 | 77 | 110 |
+| Mailpool at $3/inbox | 7 | 7 | 14 | 21 | 35 | 49 | 70 |
+| Maildoso standard plan | 30 | 30 | 60 | 90 | 150 | 210 | 300 |
+| OutInfra advertised Starter | 100 | 100 | 200 | 300 | 500 | 700 | 1,000 |
+
+### 22-workday first-touch geometry
+
 | Scenario | Identities | 1/day | 2/day | 3/day | 5/day | 7/day | 10/day |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | ClayInbox Google at $2.50 | 8 | 176 | 352 | 528 | 880 | 1,232 | 1,760 |
@@ -92,7 +104,7 @@ These scenarios assume every modeled identity exists from day one, sends only fi
 | Maildoso standard plan | 30 | 660 | 1,320 | 1,980 | 3,300 | 4,620 | 6,600 |
 | OutInfra advertised Starter | 100 | 2,200 | 4,400 | 6,600 | 11,000 | 15,400 | 22,000 |
 
-The table is **30-day/monthly aggregate** (per-weekday assumptions × 22 weekdays); daily geometry is the identity count times each assumed rate. Maildoso's Terms limit cold email after warm-up to 15/day/identity including follow-ups, so 30 standard identities would have a provider-declared maximum of 450/day / 9,900 over 22 weekdays if every condition were satisfied. That is not currently authorized or evidence-earned; the standard plan exceeds budget. Mailpool and OutInfra have no usable cold prospecting capacity under their current policies. Any future follow-ups consume the same provider limit and reduce first-touch slots.
+Maildoso's Terms limit cold email after warm-up to 15/day/identity including follow-ups, so 30 standard identities would have a provider-declared maximum of 450/day / 9,900 over 22 weekdays if every condition were satisfied. That is not currently authorized or evidence-earned; the standard plan exceeds budget. Mailpool and OutInfra have no usable cold prospecting capacity under their current policies. Any future follow-ups consume the same provider limit and reduce first-touch slots.
 
 - **Provider-authorized first touches on the current route:** 0.
 - **Evidence-earned practical first touches:** 0.

@@ -894,7 +894,7 @@ export class Pipeline {
 
   async pollReplies() {
     let matched = 0;
-    const accounts = (await this.store.list('accounts')).filter(account => account.connected);
+    const accounts = (await this.store.list('accounts')).filter(account => account.connected && String(account.provider || 'gmail-api').toLowerCase() !== 'smtp-relay');
     for (const account of accounts) {
       const after = Math.floor((account.lastReplyPoll || Date.now() - 86400000) / 1000);
       const list = await listMessages(this.cfg.google, account, this.cfg.encryptionKey, `in:inbox after:${after}`, 100);
@@ -920,7 +920,7 @@ export class Pipeline {
           throw error;
         }
         const terminalDelivery = ['bounce','complaint'].includes(classification.label);
-        const automatic = classification.label === 'automatic';
+        const automatic = ['automatic','out_of_office'].includes(classification.label);
         await this.store.patch('prospects', prospect.id, automatic ? {
           status: 'sent', replyLabel: classification.label, automaticReplyAt: now(),
           nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()

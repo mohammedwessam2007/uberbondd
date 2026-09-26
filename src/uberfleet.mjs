@@ -10,7 +10,7 @@ const stable=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
 export function buildEncryptedSmtpAccount({
   slot='',email='',provider='smtp-relay',host='',port=465,secure=true,username='',password='',
   sendingDomainId='',sendingMailboxId='',sendingWorkspaceId='',routeEvidenceRef='',
-  routeAuthorized=false,termsCompatible=false
+  routeAuthorized=false,termsCompatible=false,plannedDailyCap=0,plannedHourlyCap=0,minGapSeconds=0
 }={},encryptionKey=''){
   const reasons=[];
   const normalizedEmail=clean(email,320).toLowerCase();
@@ -26,6 +26,10 @@ export function buildEncryptedSmtpAccount({
   if(!clean(routeEvidenceRef,1500))reasons.push('route-evidence-required');
   if(routeAuthorized!==true)reasons.push('route-authorization-required');
   if(termsCompatible!==true)reasons.push('route-terms-compatibility-required');
+  const daily=Number(plannedDailyCap), hourly=Number(plannedHourlyCap), gap=Number(minGapSeconds);
+  if(!Number.isFinite(daily)||daily<0)reasons.push('valid-planned-daily-cap-required');
+  if(!Number.isFinite(hourly)||hourly<0)reasons.push('valid-planned-hourly-cap-required');
+  if(!Number.isFinite(gap)||gap<0)reasons.push('valid-min-gap-required');
   if(reasons.length)return {ok:false,status:'UBERFLEET_ACCOUNT_REFUSED',reasonCodes:[...new Set(reasons)]};
   const tokens=encryptJson({kind:'smtp-basic',username:clean(username,500),password:String(password)},encryptionKey);
   return {
@@ -41,6 +45,9 @@ export function buildEncryptedSmtpAccount({
       sendingDomainId:clean(sendingDomainId,120),
       sendingMailboxId:clean(sendingMailboxId,120),
       sendingWorkspaceId:clean(sendingWorkspaceId,120),
+      plannedDailyCap:Math.floor(daily),
+      plannedHourlyCap:Math.floor(hourly),
+      minGapSeconds:Math.floor(gap),
       smtpRoute:{
         host:normalizedHost,port:p,secure:secure!==false,
         evidenceRef:clean(routeEvidenceRef,1500),

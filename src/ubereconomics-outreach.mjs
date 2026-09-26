@@ -28,12 +28,14 @@ export function compileOutreachEconomics({
   const cleared=asArray(orders).filter(o=>['paid','settled','cleared','completed'].includes(lower(o?.status))||/paid|settled|cleared|completed/.test(lower(o?.eventName)));
   const clearedRevenueCents=cleared.reduce((s,o)=>s+cents(o?.amountCents),0);
   const totalCostCents=Object.values(costs).reduce((a,b)=>a+b,0);
+  const suppliedCostReceipts=asArray(costReceipts).length;
+  const costCoverageStatus=suppliedCostReceipts===0?'NO_COST_RECEIPTS':unknownCostCount>0?'PARTIAL_COST_COVERAGE':'COST_RECEIPTS_COMPLETE_FOR_SUPPLIED_EVENTS';
   const contributionCents=clearedRevenueCents-totalCostCents;
   const minutes=Number.isFinite(Number(ownerMinutes))?Math.max(0,Number(ownerMinutes)):0;
   return Object.freeze({
     version:UBERECONOMICS_OUTREACH_VERSION,
     counts:{prospects:asArray(prospects).length,verifiedContacts,drafted,sent,positiveReplies:positiveIds.size,qualifiedConversations:qualifiedIds.size,clearedPayments:cleared.length},
-    costs:{byStage:costs,byProvider:providers,totalCostCents,unknownCostCount},
+    costs:{byStage:costs,byProvider:providers,totalCostCents,unknownCostCount,suppliedCostReceipts,costCoverageStatus},
     unitEconomics:{
       costPerVerifiedContactCents:divide(totalCostCents,verifiedContacts),
       costPerDraftCents:divide(totalCostCents,drafted),
@@ -43,6 +45,6 @@ export function compileOutreachEconomics({
       costPerClearedPaymentCents:divide(totalCostCents,cleared.length)
     },
     revenue:{clearedRevenueCents,contributionCents,contributionProfitPerOwnerMinuteCents:minutes?divide(contributionCents,minutes):null},
-    truthBoundary:'Unknown costs remain unknown; only supplied cost receipts count as cost and only cleared/settled/paid/completed order evidence counts as revenue. Sends, replies and opportunities never become revenue by inference.'
+    truthBoundary:'A zero total is not evidence of zero real-world cost when costCoverageStatus=NO_COST_RECEIPTS or PARTIAL_COST_COVERAGE. Only supplied cost receipts count as cost and only cleared/settled/paid/completed order evidence counts as revenue. Sends, replies and opportunities never become revenue by inference.'
   });
 }

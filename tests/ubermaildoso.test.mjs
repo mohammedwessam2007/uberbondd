@@ -52,3 +52,11 @@ test('thrown mutation is uncertain and never blindly retryable',async()=>{
   assert.equal(r.status,'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN');
   assert.equal(r.automaticRetryAuthorized,false);
 });
+
+test('provider-returned mailbox secrets are redacted',async()=>{
+  const a=createUberMaildosoAdapter({token:'x',fetchImpl:fakeFetch(async()=>({status:200,body:{email:'a@example.com',password:'mailbox-pass',nested:{totp:'123456'}}}))});
+  const r=await a.read('accountsLookup');
+  assert.equal(r.data.password,'[REDACTED]');
+  assert.equal(r.data.nested.totp,'[REDACTED]');
+  assert.equal(JSON.stringify(r).includes('mailbox-pass'),false);
+});

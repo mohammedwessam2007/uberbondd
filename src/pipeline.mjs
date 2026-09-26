@@ -509,17 +509,18 @@ export class Pipeline {
       }
     }
 
-    const observedDaily = Number(domainMailboxGate?.mailboxState?.currentDailyCap ?? 0);
-    const observedHourly = Number(domainMailboxGate?.mailboxState?.currentHourlyCap ?? 0);
-    const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? observedDaily ?? 0);
+    const observedDaily = Number(domainMailboxGate?.mailboxState?.currentDailyCap ?? account.currentDailyCap ?? account.plannedDailyCap ?? 0);
+    const observedHourly = Number(domainMailboxGate?.mailboxState?.currentHourlyCap ?? account.currentHourlyCap ?? account.plannedHourlyCap ?? 0);
+    const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? observedDaily);
     const campaignDaily = Number(campaign.dailyCaps?.[prospect.inbox] ?? configuredDaily);
     const dailyCap = Math.max(0, Math.min(campaignDaily, configuredDaily));
-    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? observedHourly ?? 0));
+    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? observedHourly));
+    const minGapSeconds = Math.max(0, Number(account.minGapSeconds ?? this.cfg.outbound?.minGapSeconds ?? 0));
     const idempotencyKey = sendIdempotencyKey(prospect.id, followup);
     const reserved = await this.store.reserveOutboundSend({
       idempotencyKey, prospectId: prospect.id, campaignId: campaign.id, inbox: prospect.inbox,
       recipientEmail: prospect.contact.email, kind: followup ? 'followup' : 'initial', followup,
-      dailyCap, hourlyCap, minGapSeconds: this.cfg.outbound?.minGapSeconds, now: this.clock().toISOString()
+      dailyCap, hourlyCap, minGapSeconds, now: this.clock().toISOString()
     });
     if (!reserved.ok) {
       if (reserved.reason === 'duplicate-sent' && reserved.reservation) {

@@ -42,7 +42,7 @@ The target boundary is:
 | Scheduling / workflow automation | canonical scheduler/queue/automation plans | No Zapier/n8n subscription required for this lane |
 | Analytics | workbench revenue analytics + **UberEconomics** stage/unit-cost ledger | Unknown cost remains unknown |
 | Payment truth | existing order/revenue/payment-proof spine | Payment processor and transaction fees are external |
-| Provider abstraction | UberRelay (separate PR) + UberFleet + provider adapters | Provider authorization is never inferred from an API key |
+| Provider abstraction | UberRelay + UberFleet + provider adapters | Provider authorization is never inferred from an API key |
 
 ## New source in this branch
 

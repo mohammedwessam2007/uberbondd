@@ -125,7 +125,7 @@ export function compileFirstMonthSubstratePlan({
     status:ranked.some(x=>x.status==='LIVE_SUBSTRATE_EVIDENCED')?'LIVE_OPTION_EXISTS':
       ranked.some(x=>x.status==='PURCHASE_CANDIDATE_NEEDS_ACTIVATION_EVIDENCE')?'PURCHASE_CANDIDATE_EXISTS':
       'NO_FULLY_INTEGRABLE_PURCHASE_CANDIDATE',
-    budget:{totalUsd:money(totalBudgetUsd)||0,alreadyCommittedUsd:money(alreadyCommittedUsd)||0,remainingUsd:money(Math.max(0,(finite(totalBudgetUsd)||0)-(finite(alreadyCommittedUsd)||0))||0},
+    budget:{totalUsd:money(totalBudgetUsd)||0,alreadyCommittedUsd:money(alreadyCommittedUsd)||0,remainingUsd:money(Math.max(0,(finite(totalBudgetUsd)||0)-(finite(alreadyCommittedUsd)||0)))||0},
     candidates:ranked,
     preferredCandidateId:ranked[0]?.id||null,
     planDigest:`sha256:${sha(ranked)}`,

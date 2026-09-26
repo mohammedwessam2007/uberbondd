@@ -58,7 +58,7 @@ export class Pipeline {
 
   async selectFleetInbox(prospect, audit = []) {
     const provider = String(this.cfg.outbound?.provider || 'gmail-api').toLowerCase();
-    if (provider === 'gmail-api') return routeInbox(prospect, audit);
+    if (provider !== 'smtp-relay') return prospect?.inbox || routeInbox(prospect, audit);
     const [accounts, senderHealth, outboundEvents] = await Promise.all([
       this.store.list('accounts'), this.store.list('senderHealth'), this.store.list('outboundEvents')
     ]);

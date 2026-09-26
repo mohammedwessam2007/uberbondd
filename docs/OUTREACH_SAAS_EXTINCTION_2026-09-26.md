@@ -29,6 +29,7 @@ The target boundary is:
 | AgentMail | **UberMail** + Stalwart foundry/control plane | Public mailbox hosting still needs compute/network substrate |
 | Mailforge / Inframail mailbox control | UberInboxes + **UberFleet** + sending mailbox registry | Mailbox reputation and provider authorization remain external |
 | Maildoso dashboard/API operator work | **UberMaildoso** governed REST adapter | Maildoso itself remains a candidate physical/reputation supplier |
+| ClayInbox provisioning/operator work | **UberClayInbox** + **UberSubstrate** | Google app-password custody is donor-proven; Azure high-density auth remains unproven |
 | Generic SMTP client | **UberSMTP** | Requires an authorized relay/account |
 | SMTP fleet credential manager | **UberFleet** encrypted AES-256-GCM account custody | Founder/provider must supply the real credentials |
 | Mailbox assignment / sender rotation | UberFleet + sender-infrastructure mesh | Never rotates to evade enforcement or reset reputation |
@@ -171,7 +172,7 @@ The remaining scarce substrate is:
 
 1. **Domain ownership.** Already purchased: 30 outreach domains.
 2. **General compute/control-plane hosting.** Already purchased: the current OVH server can host orchestration/control-plane work, subject to its provider policy.
-3. **One provider-authorized, reputation-bearing sending substrate.** Month-1 candidate: Maildoso SMTP/mailbox infrastructure if the exact offer, account eligibility and terms are confirmed at activation.
+3. **One provider-authorized, reputation-bearing sending substrate.** Current low-cash candidates are evaluated by UberSubstrate. ClayInbox Google has a proven direct credential path; ClayInbox Azure has much higher advertised density but remains yellow until its direct auth/custody contract is observed. Maildoso remains a fallback candidate.
 4. **A payment rail after a buyer agrees to pay.** No additional monthly outreach SaaS is required; processor transaction costs remain real.
 5. **Regulatory/provider/account approvals that cannot be synthesized in code.** These are not software subscriptions.
 
@@ -202,6 +203,8 @@ This is a legal/activation question, not a missing SaaS.
 ### Candidate new paid item
 
 **One authorized sending/mailbox substrate.**
+
+Current evidence sheet: `docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`. `UberSubstrate` must rank actual integration evidence above advertised mailbox density.
 
 Do not buy another sequencer, CRM, AI inbox, enrichment orchestrator, mailbox dashboard, warm-up dashboard, DNS dashboard, analytics tool, or AgentMail-style API merely to launch this lane.
 

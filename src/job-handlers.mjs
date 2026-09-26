@@ -597,7 +597,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     'domainMailbox.provision.plan': async payload => compileProvisioningPlan(payload && typeof payload === 'object' ? payload : {}),
     'domainMailbox.mailhub.capabilities': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
-      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge', 'maildoso'];
+      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge', 'maildoso', 'clayinbox'];
       const adapters = names.map(name => resolveProviderAdapter(cfg, name).adapter);
       return buildMailHubCapabilityMatrix({ adapters });
     },

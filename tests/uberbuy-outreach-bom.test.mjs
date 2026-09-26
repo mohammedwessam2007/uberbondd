@@ -13,7 +13,7 @@ test('with domains and compute already owned the only possible mandatory outreac
       configured: false,
       cashRequired: true,
       outboundSmtp: false,
-      inboundForwarding: false,
+      inboundReplies: false,
       warmup: false
     },
     paymentRail: { live: false },
@@ -38,7 +38,7 @@ test('a free trial keeps sender substrate an acquisition rather than a fabricate
       configured: false,
       cashRequired: false,
       outboundSmtp: false,
-      inboundForwarding: false,
+      inboundReplies: false,
       warmup: false
     }
   });
@@ -56,13 +56,13 @@ test('sender substrate stays non-green until outbound SMTP, inbound forwarding, 
       configured: true,
       cashRequired: false,
       outboundSmtp: true,
-      inboundForwarding: false,
+      inboundReplies: false,
       warmup: true
     }
   });
   const row = r.external.find(x => x.id === 'authorized_outbound_substrate');
   assert.notEqual(row.status, 'SATISFIED');
-  assert.deepEqual(row.missingCapabilities, ['inboundForwarding']);
+  assert.deepEqual(row.missingCapabilities, ['inboundReplies']);
 });
 
 test('a complete configured authorized substrate removes every mandatory outreach SaaS purchase', () => {
@@ -75,7 +75,7 @@ test('a complete configured authorized substrate removes every mandatory outreac
       configured: true,
       cashRequired: false,
       outboundSmtp: true,
-      inboundForwarding: true,
+      inboundReplies: true,
       warmup: true
     },
     paymentRail: { live: true },
@@ -98,7 +98,7 @@ test('regulatory work, placement seed inboxes, and paid lead data are never misl
       configured: true,
       cashRequired: false,
       outboundSmtp: true,
-      inboundForwarding: true,
+      inboundReplies: true,
       warmup: true
     },
     regulatory: { status: 'UNKNOWN' }
@@ -110,4 +110,24 @@ test('regulatory work, placement seed inboxes, and paid lead data are never misl
   assert.equal(reg.monthlyPurchaseRequired, false);
   assert.equal(placement.monthlyPurchaseRequired, false);
   assert.equal(leadData.classification, 'OPTIONAL_SUPPLIER');
+});
+
+
+test('direct IMAP reply access satisfies the inbound side without a forwarding SaaS', () => {
+  const r = compileOutreachBuyList({
+    domainsOwned: 30,
+    controlPlaneOwned: true,
+    outboundSubstrate: {
+      acquired: true,
+      authorized: true,
+      configured: true,
+      cashRequired: false,
+      outboundSmtp: true,
+      inboundReplies: true,
+      warmup: true
+    }
+  });
+  const substrate = r.external.find(x => x.id === 'authorized_outbound_substrate');
+  assert.equal(substrate.status, 'SATISFIED');
+  assert.equal(r.internal.some(x => x.id === 'substrate_selection'), true);
 });

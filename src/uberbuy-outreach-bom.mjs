@@ -13,7 +13,8 @@ const INTERNAL=Object.freeze([
  ['mail_api','UberMail'],
  ['smtp_client','UberSMTP'],
  ['mailbox_control','UberFleet + UberInboxes'],
- ['provider_adapter','UberRelay + UberMaildoso/provider adapters'],
+ ['provider_adapter','UberRelay + UberMaildoso + UberClayInbox/provider adapters'],
+ ['substrate_selection','UberSubstrate evidence-weighted purchase planner'],
  ['dns_dashboard','UberDNS'],
  ['warmup_dashboard','UberWarm + UberQuality'],
  ['inbox_placement_dashboard','UberPlacement + UberWarm placement ingestion'],
@@ -50,14 +51,14 @@ export function compileOutreachBuyList({
   const substrateCashRequired=outboundSubstrate?.cashRequired===true;
   const substrateCapabilities = {
     outboundSmtp: outboundSubstrate?.outboundSmtp === true,
-    inboundForwarding: outboundSubstrate?.inboundForwarding === true,
+    inboundReplies: outboundSubstrate?.inboundReplies === true || outboundSubstrate?.inboundForwarding === true,
     warmup: outboundSubstrate?.warmup === true
   };
   const completeSubstrate = Object.values(substrateCapabilities).every(Boolean);
   external.push(row('authorized_outbound_substrate','EXTERNAL_SUBSTRATE',substrateReady&&completeSubstrate?'SATISFIED':substrateCashRequired?'BUY_REQUIRED':'ACQUIRE_OR_ACTIVATE_REQUIRED',
     substrateReady&&completeSubstrate
-      ? 'Authorized sender substrate covers outbound SMTP, inbound forwarding and warm-up'
-      : 'Acquire or activate one provider-authorized reputation-bearing substrate that covers outbound SMTP, inbound forwarding and provider warm-up',
+      ? 'Authorized sender substrate covers outbound transport, inbound replies and warm-up'
+      : 'Acquire or activate one provider-authorized reputation-bearing substrate that covers outbound transport, inbound reply access and provider warm-up',
     {
       monthlyPurchaseRequired:!(substrateReady&&completeSubstrate)&&substrateCashRequired,
       cashRequirementKnown:typeof outboundSubstrate?.cashRequired==='boolean',

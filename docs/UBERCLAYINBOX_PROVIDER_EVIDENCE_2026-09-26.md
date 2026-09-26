@@ -188,3 +188,33 @@ This research/implementation wave performed:
 - real DNS changes: 0
 - real sends: 0
 - new spend: $0
+
+
+## Source verification receipt
+
+Exact branch verification before PR:
+
+- changed runtime/test files parse under transformed V8 syntax checks;
+- UberClayInbox fixture behavior passes for:
+  - x-api-key + browser User-Agent;
+  - secret redaction;
+  - HTTP-200 HTML/Cloudflare block refusal;
+  - bounded pagination;
+  - provider-observed DNS flags staying non-authoritative;
+  - BYO full-address/domain validation;
+  - observed quote + owner approval + idempotency gates;
+  - wallet preflight;
+  - import:true on BYO order;
+  - mutation uncertainty / no blind retry;
+  - missing app password => CREDENTIAL_NOT_READY;
+  - Google app-password -> opaque UberFleet/UberIMAP custody with no plaintext escape;
+  - Microsoft/Azure refused from the donor-proven Google path;
+  - missing initial admin-password custody refused before any provider call;
+- UberSubstrate behavior probe:
+  - $30 modeled total minus $8 committed = $22 remainder;
+  - Google standard $2.50/unit => 8 modeled units / $20;
+  - unknown safe send capacity remains null rather than being coerced to zero;
+  - Azure density cannot outrank a direct-custody-proven path merely because it advertises 100 mailboxes;
+- UberBuy behavior probe confirms direct IMAP reply access satisfies the inbound substrate requirement without buying a forwarding SaaS.
+
+External effects during this verification: zero provider calls, zero purchases, zero sends, zero DNS changes, zero new spend.

@@ -218,3 +218,66 @@ Exact branch verification before PR:
 - UberBuy behavior probe confirms direct IMAP reply access satisfies the inbound substrate requirement without buying a forwarding SaaS.
 
 External effects during this verification: zero provider calls, zero purchases, zero sends, zero DNS changes, zero new spend.
+
+
+## 2026-09-27 live verification delta
+
+Newest external verification does **not** justify weakening any gate above.
+
+### Source/repository truth
+
+- PR #1006 is already merged on current `main` as `87d90e2b03d7d1679fb7c04fd0f34ebe53739981`.
+- UberClayInbox + UberSubstrate are therefore canonical source, not pending branch-only work.
+- The Google app-password -> encrypted UberFleet SMTP + UberIMAP path remains the strongest independently evidenced direct-custody route.
+- Azure remains yellow. Public product copy still advertises up to 100 Azure mailboxes/domain for $25, but no independently observed Azure mailbox credential/token fixture, refresh contract, or inbound-reply contract was found.
+
+### Current public-provider verification
+
+On 2026-09-27 the public ClayInbox site still explicitly positions the service as cold-email infrastructure and continues to advertise:
+
+- Google Workspace / Microsoft 365 at $2.50 per mailbox/month;
+- pre-warmed Google at $4.50 per mailbox/month;
+- Azure at $25 per domain/month for up to 100 mailboxes;
+- dedicated IMAP/SMTP at $45 for 2 domains / 20 mailboxes;
+- warm-up, monitoring, API/MCP and credential/app-password export as provider features.
+
+These remain provider claims until account/runtime evidence reconciles them.
+
+The public site exposes a Terms link in its footer, but the current web-observable route did not yield retrievable ToS/AUP text. Direct attempts to fetch the obvious terms/legal paths also did not produce a current policy document. Therefore:
+
+`termsCompatibility = UNKNOWN`
+
+must remain the canonical state. Explicit cold-email marketing is **not** promoted into policy permission.
+
+Current company/founder public posts also advertise a free trial, but the retrieved public evidence does not establish its exact duration, included mailbox products, mailbox count, geographic/account eligibility, or whether a payment method is required. Therefore no zero-dollar capacity is booked into UberSubstrate.
+
+### Provider clarification requested
+
+On 2026-09-27 a direct support inquiry was sent to ClayInbox asking for:
+
+1. the current ToS/AUP URL and the exact rule governing compliant cold B2B outreach;
+2. the exact credential/authorization contract for the $25 Azure product;
+3. whether Azure credentials/tokens can be exported/refreshed through API/MCP;
+4. the Azure inbound-reply mechanism;
+5. current provider/recommended per-mailbox/domain/tenant outbound limits;
+6. exact free-trial scope and duration.
+
+No provider reply was observed at the time this receipt was written.
+
+### First-month decision boundary after verification
+
+With the founder's current planning model of approximately $30 total and approximately $8 already committed to OVH:
+
+1. **If the authenticated ClayInbox account exposes a genuine zero-dollar trial** whose product, policy and credential contract pass UberBuy/UberClayInbox evidence gates, that trial becomes the first economic candidate.
+2. Otherwise the cheapest currently direct-integrable strict-budget configuration remains **8 standard Google mailboxes at $20/month**, leaving the modeled total around $28 including the existing OVH spend.
+3. **4 pre-warmed Google mailboxes at $18/month** remain a speed-oriented alternative if the actual account proves their warm/history state; the provider marketing label alone is not sufficient.
+4. Azure may outrank these only after direct credential/token custody + reply semantics + policy compatibility are observed and the founder accepts the modeled $3 budget stretch to $25 for the sender substrate.
+5. No route receives a safe cold-send/day number from mailbox density or provider marketing. Runtime/account evidence must establish the canary cap.
+
+### Owner-action minimization
+
+No additional outreach SaaS purchase is justified by current evidence.
+
+The next genuine owner boundary is limited to authenticated ClayInbox account access plus explicit authorization of the exact trial/order/quote after current terms are visible. API keys, passwords and mailbox credentials must enter protected runtime custody and must not be pasted into chat, Git, ordinary logs or screenshots.
+
+After that boundary, UberBond should own the routine continuation: provider reconciliation, BYO-domain provisioning, credential import, independent DNS verification, reputation/warm-up evidence, reply-path proof, safe-cap measurement and the smallest governed revenue canary.

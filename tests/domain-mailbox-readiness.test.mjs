@@ -763,3 +763,49 @@ test('job handlers: no module in this suite performs a real network call other t
   // which performs no I/O by construction (see provider-adapter-contract.mjs).
   assert.ok(true);
 });
+
+
+test('warm-up uses provider account reference instead of local mailbox id', async () => {
+  const domainState = { dnsState: { status: 'GREEN' } };
+  const mailboxState = {
+    mailboxId: 'local-m1',
+    providerAccountId: 'provider-m1',
+    address: 'sender@example.test',
+    authenticationStatus: 'AUTHENTICATED',
+    paused: false
+  };
+  let observedMailboxId = null;
+  const adapter = fakeConfiguredAdapter({
+    startWarmup: async args => {
+      observedMailboxId = args.mailboxId;
+      return { ok: true, status: 'STARTED' };
+    }
+  });
+  const result = await requestMailboxWarmupStart({
+    domainState,
+    mailboxState,
+    providerAdapter: adapter,
+    providerPayload: { fixture: true },
+    date: monday
+  });
+  assert.equal(result.ok, true);
+  assert.equal(observedMailboxId, 'provider-m1');
+});
+
+test('warm-up reconciliation uses provider account reference when available', async () => {
+  const mailboxState = {
+    mailboxId: 'local-m1',
+    providerAccountId: 'provider-m1',
+    address: 'sender@example.test',
+    warmupStartTime: monday.toISOString()
+  };
+  let observedMailboxId = null;
+  const adapter = fakeConfiguredAdapter({
+    warmupStatus: async ({ mailboxId }) => {
+      observedMailboxId = mailboxId;
+      return { ok: true, warmupState: 'WARMUP_ACTIVE', currentDailyCap: 5 };
+    }
+  });
+  await reconcileMailboxWarmupStatus({ mailboxState, providerAdapter: adapter, date: monday });
+  assert.equal(observedMailboxId, 'provider-m1');
+});

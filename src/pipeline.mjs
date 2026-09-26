@@ -20,6 +20,8 @@ import { compileUberReplyCampaignDecision } from './uberreply-four-offer-genome.
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
+import { selectFleetMailbox, dispatchSmtpFleetAccount } from './uberfleet.mjs';
+import { evaluateOutreachPersonalization } from './ubertruth-outreach.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -51,6 +53,25 @@ export class Pipeline {
     // Unlike the shadow observer above, this gate may block a real provider call.
     this.outboundConsequenceGateFn = hooks.outboundConsequenceGate || null;
     this.postalSendFn = hooks.postalSend || dispatchPostalCanary;
+    this.smtpSendFn = hooks.smtpSend || dispatchSmtpFleetAccount;
+  }
+
+  async selectFleetInbox(prospect, audit = []) {
+    const provider = String(this.cfg.outbound?.provider || 'gmail-api').toLowerCase();
+    if (provider === 'gmail-api') return routeInbox(prospect, audit);
+    const [accounts, senderHealth, outboundEvents] = await Promise.all([
+      this.store.list('accounts'), this.store.list('senderHealth'), this.store.list('outboundEvents')
+    ]);
+    const allocation = selectFleetMailbox({
+      prospectId: prospect?.id || prospect?.domain || prospect?.company || '',
+      currentSlot: prospect?.inbox || '',
+      accounts,
+      senderHealth,
+      outboundEvents,
+      provider,
+      date: this.clock()
+    });
+    return allocation.ok ? allocation.slot : '';
   }
 
   async refreshOwnerSender() {
@@ -186,7 +207,7 @@ export class Pipeline {
 
     const score = scoreProspect(prospect, audit, contact);
     const issue = chooseIssue(audit);
-    const inbox = routeInbox(prospect, audit);
+    const inbox = await this.selectFleetInbox(prospect, audit);
     const offerDecision = campaign.offerId
       ? compileUberReplyCampaignDecision({
           offerId: campaign.offerId,
@@ -211,18 +232,22 @@ export class Pipeline {
       : null;
     const researchQualified = Boolean(issue && score.total >= campaign.minScore && (!campaign.offerId || offerDecision?.ok));
     const suppressed = contact?.email ? await this.isSuppressed(prospect, contact.email) : false;
-    const sendEligible = Boolean(
-      researchQualified && contact?.email &&
-      ['valid', 'accept_all', 'unverified', 'unknown'].includes(contact.verified || 'unverified') &&
-      !suppressed
-    );
     const optoutUrl = contact?.email ? unsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const oneClickOptoutUrl = contact?.email ? oneClickUnsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const draft = researchQualified ? buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }) : '';
     const subject = researchQualified ? buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName) : '';
+    const personalizationDecision = researchQualified ? evaluateOutreachPersonalization({
+      prospect, issue, contact: contact || {}, subject, body: draft,
+      minEvidenceConfidence: this.cfg.outbound?.minEvidenceConfidence
+    }) : null;
+    const sendEligible = Boolean(
+      researchQualified && inbox && contact?.email &&
+      ['valid', 'accept_all', 'unverified', 'unknown'].includes(contact.verified || 'unverified') &&
+      !suppressed && personalizationDecision?.autoSendEligible === true
+    );
     const status = researchQualified ? (sendEligible ? 'ready' : 'research-complete') : 'rejected';
     const dossier = buildDossier({ prospect, crawl, audit, contact, score, issue, inbox, subject, draft, aiMeta });
-    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision, draft, subject, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
+    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision, draft, subject, personalizationDecision, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
 
     await this.store.patch('prospects', prospect.id, patch);
     if (this.hooks.onProspectComplete) await this.hooks.onProspectComplete({ ...prospect, ...patch });
@@ -432,7 +457,7 @@ export class Pipeline {
     if (!eligibility.ok) return this.markSendSafety(prospect, { sent: false, ...eligibility });
 
     const account = await this.store.findOne('accounts', { slot: prospect.inbox });
-    if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-gmail' });
+    if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-connected-sender' });
 
     const domainMailboxGate = await this.evaluateDomainMailboxSendGate({ account, inbox: prospect.inbox, date: this.clock() });
     if (domainMailboxGate) {
@@ -484,10 +509,12 @@ export class Pipeline {
       }
     }
 
-    const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? 0);
+    const observedDaily = Number(domainMailboxGate?.mailboxState?.currentDailyCap ?? 0);
+    const observedHourly = Number(domainMailboxGate?.mailboxState?.currentHourlyCap ?? 0);
+    const configuredDaily = Number(this.cfg.caps?.[prospect.inbox] ?? observedDaily ?? 0);
     const campaignDaily = Number(campaign.dailyCaps?.[prospect.inbox] ?? configuredDaily);
     const dailyCap = Math.max(0, Math.min(campaignDaily, configuredDaily));
-    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? 0));
+    const hourlyCap = Math.max(0, Number(this.cfg.outbound?.hourlyCaps?.[prospect.inbox] ?? observedHourly ?? 0));
     const idempotencyKey = sendIdempotencyKey(prospect.id, followup);
     const reserved = await this.store.reserveOutboundSend({
       idempotencyKey, prospectId: prospect.id, campaignId: campaign.id, inbox: prospect.inbox,
@@ -577,7 +604,7 @@ export class Pipeline {
 
     const outboundProvider = String(this.cfg.outbound?.provider || 'gmail-api').toLowerCase();
     const effectPayload = {
-      from: outboundProvider === 'postal' ? account.email : `${this.cfg.sender.name} <${account.email}>`,
+      from: ['postal','smtp-relay'].includes(outboundProvider) ? account.email : `${this.cfg.sender.name} <${account.email}>`,
       to: prospect.contact.email,
       subject,
       body,
@@ -623,7 +650,27 @@ export class Pipeline {
     let result;
     let providerMeta = null;
     try {
-      if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
+      if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'smtp-relay') {
+        providerMeta = await this.smtpSendFn({
+          account, encryptionKey: this.cfg.encryptionKey, message: effectPayload
+        });
+        if (providerMeta?.classification === 'REJECTED') {
+          await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+            cancelReason: 'smtp-provider-rejected',
+            providerReasonCodes: providerMeta.reasonCodes || []
+          });
+          return this.markSendSafety(prospect, {
+            sent: false, reason: 'provider-rejected', reservationId: reservation.id,
+            reasonCodes: providerMeta.reasonCodes || []
+          });
+        }
+        if (providerMeta?.classification !== 'ACCEPTED' || !providerMeta?.providerReferenceId) {
+          const uncertain = new Error(providerMeta?.dispatchError || 'smtp-provider-result-uncertain');
+          uncertain.providerMeta = providerMeta;
+          throw uncertain;
+        }
+        result = { data: { id: providerMeta.providerReferenceId, threadId: '' } };
+      } else if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
         providerMeta = await this.postalSendFn({
           cfg: this.cfg, account, reservation, effectPayload, followup, now: this.clock
         });
@@ -676,7 +723,7 @@ export class Pipeline {
     }
 
     let rfcMessageId = providerMeta?.messageId || '';
-    if (outboundProvider !== 'postal') {
+    if (outboundProvider === 'gmail-api') {
       try {
         const sent = await this.getMessageFn(this.cfg.google, account, this.cfg.encryptionKey, result.data.id);
         rfcMessageId = this.parseMessageFn(sent.data).messageId;
@@ -696,7 +743,7 @@ export class Pipeline {
       sentAt,
       provider: outboundProvider,
       providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
-      gmailId: outboundProvider === 'postal' ? null : result.data.id,
+      gmailId: outboundProvider === 'gmail-api' ? result.data.id : null,
       threadId: result.data.threadId || '',
       rfcMessageId
     });
@@ -710,7 +757,7 @@ export class Pipeline {
       to: prospect.contact.email, subject,
       provider: outboundProvider,
       providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
-      gmailId: outboundProvider === 'postal' ? null : result.data.id,
+      gmailId: outboundProvider === 'gmail-api' ? result.data.id : null,
       threadId: result.data.threadId || '',
       rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey
     };

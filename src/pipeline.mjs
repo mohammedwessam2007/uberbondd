@@ -873,7 +873,7 @@ export class Pipeline {
           throw error;
         }
         const terminalDelivery = ['bounce','complaint'].includes(classification.label);
-        const automatic = classification.label === 'automatic';
+        const automatic = ['automatic', 'out_of_office'].includes(classification.label);
         await this.store.patch('prospects', prospect.id, automatic ? {
           status: 'sent', replyLabel: classification.label, automaticReplyAt: now(),
           nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()
@@ -882,7 +882,7 @@ export class Pipeline {
           repliedAt: now(), nextFollowupAt: null
         });
         matched += 1;
-        if (['optout', 'negative', 'bounce', 'complaint'].includes(classification.label)) {
+        if (['optout', 'negative', 'wrong_person', 'bounce', 'complaint'].includes(classification.label)) {
           try {
             await this.store.add('suppressions', {
               id: id('sup'), value: prospect.contact.email.toLowerCase(), reason: classification.label, createdAt: now()

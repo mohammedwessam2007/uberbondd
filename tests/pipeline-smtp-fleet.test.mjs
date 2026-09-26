@@ -24,12 +24,12 @@ const cfg={
  outbound:{
   enabled:true,dryRun:false,launchPhase:'canary',provider:'smtp-relay',useEffectAdapter:true,
   approvalSecret:TEST_OUTREACH_APPROVAL_SECRET,routeEvidenceMaxAgeDays:7,
-  allowedCountries:['GB'],hourlyCaps:{'smtp-1':2},minGapSeconds:0,
+  allowedCountries:['GB'],hourlyCaps:{},minGapSeconds:0,
   businessHourStart:9,businessHourEnd:17,minEvidenceConfidence:.75,maxEvidenceAgeDays:45,
   hardBouncePauseThreshold:2,complaintPauseThreshold:1,failurePauseThreshold:3,domainMailboxGateRequired:false
  },
  sender:{name:'Mohamed',company:'UberBond',address:'Business address'},
- caps:{'smtp-1':5},google:{},encryptionKey:KEY
+ caps:{},google:{},encryptionKey:KEY
 };
 async function store(){
  const dir=await fs.mkdtemp(path.join(os.tmpdir(),'uberbond-smtp-pipeline-'));
@@ -37,7 +37,7 @@ async function store(){
  const built=buildEncryptedSmtpAccount({
   slot:'smtp-1',email:'sender@uberbond.example',host:'smtp.example.com',username:'sender@uberbond.example',password:'secret',
   sendingDomainId:'d1',sendingMailboxId:'m1',sendingWorkspaceId:'w1',routeEvidenceRef:'provider:terms',
-  routeAuthorized:true,termsCompatible:true
+  routeAuthorized:true,termsCompatible:true,plannedDailyCap:5,plannedHourlyCap:2,minGapSeconds:60
  },KEY);
  assert.equal(built.ok,true);
  await s.add('accounts',built.account);

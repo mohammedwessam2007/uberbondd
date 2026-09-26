@@ -447,5 +447,21 @@
             "observations": { "vercelTeamProjects": 0, "renderAuditPageReachableFromSandbox": false },
             "externalEffects": "0 messages, 0 DNS changes, 0 purchases, 0 deployments; one read-only Vercel project listing"
         }
+  },
+  "outreachProviderVerification20260927": {
+    "observedDate": "2026-09-27",
+    "verifiedAgainstMainCommit": "32af2f554482a1e2184d33d3af6d5323fee74ca5",
+    "receipt": "docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md",
+    "status": "BLOCKED_BEFORE_PURCHASE_READY",
+    "rawTechnicalGeometry": "Documented as arithmetic-only in receipt; no safe cap inferred.",
+    "providerAuthorizedFirstTouches": 0,
+    "evidenceEarnedPracticalFirstTouches": 0,
+    "followupTrafficObserved": 0,
+    "supportInquiryResent": false,
+    "newSpendUsd": 0,
+    "dnsChanges": 0,
+    "realMessages": 0,
+    "ownerAction": "NONE",
+    "decision": "OutInfra is excluded for unsolicited bulk by its current Terms; ClayInbox Google is conditional only for eligible non-unsolicited-bulk recipients because Google Workspace AUP bars unsolicited bulk commercial email; Azure auth/reply contract and ClayInbox terms remain unverified."
   }
 }

@@ -79,6 +79,20 @@ The live Pipeline can now select an arbitrary encrypted `smtp-relay` sender and 
 
 The 100K runtime can also resolve credentials from the same encrypted UberFleet account store, so scale no longer requires one environment-variable pair per mailbox.
 
+### UberMaildoso Evidence Sync
+
+`src/ubermaildoso-evidence-sync.mjs`
+
+Resident read-only reconciliation closes the last provider-dashboard dependency.
+
+- when Maildoso is configured, the canonical scheduler queues a reconciliation every 15 minutes;
+- it reads domains, accounts, warm-up services, forwarding state and aggregate stats through the governed adapter;
+- exact Maildoso account addresses are bound only to exact locally known UberFleet addresses;
+- explicit provider health/warm-up facts can enter mailbox receipts;
+- provider domain presence never becomes DNS authentication by inference;
+- provider account presence never becomes inbox placement, legal eligibility or send authority;
+- the sync performs no DNS mutations, sends or purchases.
+
 ### UberIMAP
 
 `src/uberimap.mjs`

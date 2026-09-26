@@ -528,7 +528,15 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
       const domainState = input.domainId ? await loadSendingDomain(store, input.domainId) : null;
       const mailboxState = input.mailboxId ? await loadSendingMailbox(store, input.mailboxId) : null;
       const resolution = resolveProviderAdapter(cfg, input.provider);
-      const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: resolution.adapter, providerPayload: input.providerPayload, date: input.date });
+      const result = await requestMailboxWarmupStart({
+        domainState,
+        mailboxState,
+        providerAdapter: resolution.adapter,
+        providerPayload: input.providerPayload,
+        ownerApproval: input.ownerApproval,
+        idempotencyKey: input.idempotencyKey || '',
+        date: input.date
+      });
       if (mailboxState) {
         const receipt = recordMailboxWarmupStatus({ store, mailboxId: mailboxState.mailboxId, warmupStatus: result.state, warmupStartTime: result.warmupStartTime, date: input.date });
         if (receipt.ok) await logSendingMailboxEvent(store, receipt.event);
@@ -589,7 +597,7 @@ export function createJobHandlers({ store, cfg, pipeline, revenue, discoveryRunn
     'domainMailbox.provision.plan': async payload => compileProvisioningPlan(payload && typeof payload === 'object' ? payload : {}),
     'domainMailbox.mailhub.capabilities': async payload => {
       const input = payload && typeof payload === 'object' ? payload : {};
-      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge'];
+      const names = Array.isArray(input.providers) && input.providers.length ? input.providers : ['icemail', 'mailforge', 'maildoso'];
       const adapters = names.map(name => resolveProviderAdapter(cfg, name).adapter);
       return buildMailHubCapabilityMatrix({ adapters });
     },

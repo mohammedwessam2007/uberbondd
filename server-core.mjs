@@ -44,6 +44,7 @@ import {
   buildLookalikePlan,
   buildProviderPreflight
 } from './src/lead-operations.mjs';
+import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
 import {
   buildNativeCapacityPlan,
   buildNativeTargetProfileRecord,
@@ -339,20 +340,32 @@ function countReasons(rows) {
   return counts;
 }
 
-function canaryPrerequisites(runtimeConfig = config) {
+function canaryPrerequisites(runtimeConfig = config, accounts = []) {
   const outbound = runtimeConfig.outbound || {};
+  const provider = String(outbound.provider || '').toLowerCase();
+  const smtpFleetConfigured = accounts.some(account =>
+    account?.connected === true &&
+    String(account?.provider || '').toLowerCase() === 'smtp-relay' &&
+    Boolean(account?.tokens) &&
+    account?.smtpRoute?.authorized === true &&
+    account?.smtpRoute?.termsCompatible === true &&
+    Boolean(String(account?.smtpRoute?.evidenceRef || '').trim())
+  );
   return {
     launchPhaseCanary: outbound.launchPhase === 'canary',
-    approvedProvider: ['gmail-api', 'postal'].includes(String(outbound.provider || '').toLowerCase()),
+    approvedProvider: ['gmail-api', 'postal', 'smtp-relay'].includes(provider),
     approvalSecretConfigured: String(outbound.approvalSecret || '').length >= 32,
     approverConfigured: Boolean(String(outbound.approverId || '').trim()),
     senderIdentityConfigured: Boolean(String(runtimeConfig.sender?.address || '').trim()),
     allowedCountriesConfigured: normalizeCountryList(outbound.allowedCountries || []).length > 0,
     googleOAuthConfigured: Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
     postalConfigured: Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true),
-    providerCredentialConfigured: String(outbound.provider || '').toLowerCase() === 'postal'
+    smtpFleetConfigured,
+    providerCredentialConfigured: provider === 'postal'
       ? Boolean(runtimeConfig.providers?.postal?.configured && outbound.useEffectAdapter === true)
-      : Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
+      : provider === 'smtp-relay'
+        ? Boolean(smtpFleetConfigured && outbound.useEffectAdapter === true)
+        : Boolean(runtimeConfig.google?.clientId && runtimeConfig.google?.clientSecret),
     encryptionConfigured: /^[a-f0-9]{64}$/i.test(String(runtimeConfig.encryptionKey || '')),
     unsubscribeConfigured: String(runtimeConfig.unsubscribeSecret || '').length >= 32,
     outboundEnabled: outbound.enabled === true,
@@ -387,7 +400,7 @@ async function outreachCanaryStatus() {
   const readyProspectIds = candidates
     .filter((_, index) => evaluations[index]?.ok)
     .map(prospect => prospect.id);
-  const prerequisites = canaryPrerequisites(runtimeConfig);
+  const prerequisites = canaryPrerequisites(runtimeConfig, accounts);
   const connectedSlots = new Set(accounts.filter(account => account.connected === true).map(account => String(account.slot || '')));
   const pausedSlots = new Set(senderHealth.filter(row => row.paused === true).map(row => String(row.inbox || '')));
   const domainMailboxChecks = await Promise.all(governedReady.map(async prospect => {
@@ -416,11 +429,14 @@ async function outreachCanaryStatus() {
   if (prerequisites.dryRun) liveBlockers.push('outbound-dry-run');
   if (!prerequisites.senderIdentityConfigured) liveBlockers.push('business-address-missing');
   if (!prerequisites.allowedCountriesConfigured) liveBlockers.push('allowed-countries-missing');
-  if (!prerequisites.providerCredentialConfigured) liveBlockers.push(
-    String(runtimeConfig.outbound.provider || '').toLowerCase() === 'postal'
+  if (!prerequisites.providerCredentialConfigured) {
+    const provider = String(runtimeConfig.outbound.provider || '').toLowerCase();
+    liveBlockers.push(provider === 'postal'
       ? 'postal-runtime-credential-missing'
-      : 'google-oauth-missing'
-  );
+      : provider === 'smtp-relay'
+        ? 'smtp-fleet-credential-or-route-missing'
+        : 'google-oauth-missing');
+  }
   if (!prerequisites.encryptionConfigured) liveBlockers.push('token-encryption-key-missing');
   if (!prerequisites.unsubscribeConfigured) liveBlockers.push('unsubscribe-secret-missing');
   liveBlockers.push(...liveDomainMailboxBlockers);
@@ -1387,6 +1403,44 @@ export const requestHandler = async (req, res) => {
       });
     }
 
+    if (method === 'POST' && url.pathname === '/api/outbound/smtp-accounts/import') {
+      const input = await parseBody(req);
+      if (input.confirmCredentialImport !== true) throw new HttpError(400, 'confirmCredentialImport must be true');
+      if (!/^[a-f0-9]{64}$/i.test(String(config.encryptionKey || ''))) throw new HttpError(409, 'TOKEN_ENCRYPTION_KEY must be configured before SMTP credential import');
+      const rows = Array.isArray(input.accounts) ? input.accounts.slice(0, 500) : [];
+      if (!rows.length) throw new HttpError(400, 'accounts must contain at least one SMTP mailbox');
+      const prepared = rows.map(row => buildEncryptedSmtpAccount({
+        ...row,
+        provider: 'smtp-relay',
+        routeAuthorized: row.routeAuthorized === true,
+        termsCompatible: row.termsCompatible === true
+      }, config.encryptionKey));
+      const failed = prepared.map((row,index)=>({index,row})).filter(item=>!item.row.ok);
+      if (failed.length) return json(res, 400, {
+        ok: false,
+        status: 'SMTP_ACCOUNT_IMPORT_REFUSED',
+        failures: failed.map(item=>({index:item.index,reasonCodes:item.row.reasonCodes})),
+        imported: 0
+      });
+      for (const item of prepared) await store.upsert('accounts', { ...item.account, createdAt: now(), updatedAt: now() });
+      await store.log('smtp_account_fleet_imported', {
+        count: prepared.length,
+        provider: 'smtp-relay',
+        slots: prepared.map(item=>item.account.slot),
+        credentialStorage: 'AES_256_GCM_ENCRYPTED',
+        plaintextCredentialsLogged: false
+      });
+      return json(res, 201, {
+        ok: true,
+        status: 'SMTP_ACCOUNT_FLEET_IMPORTED',
+        imported: prepared.length,
+        accounts: prepared.map(item=>({
+          id:item.account.id,slot:item.account.slot,email:item.account.email,provider:item.account.provider,
+          sendingDomainId:item.account.sendingDomainId,sendingMailboxId:item.account.sendingMailboxId
+        }))
+      });
+    }
+
     if (method === 'GET' && url.pathname === '/api/outbound/canary/status') {
       return json(res, 200, await outreachCanaryStatus());
     }
@@ -1409,13 +1463,15 @@ export const requestHandler = async (req, res) => {
     if (method === 'POST' && url.pathname === '/api/outbound/resume') {
       return json(res, 200, await store.setOutboundPaused(false, ''));
     }
-    if (method === 'POST' && /^\/api\/outbound\/sender\/[AB]\/pause$/.test(url.pathname)) {
-      const slot = url.pathname.split('/')[4];
+    const senderPauseMatch = url.pathname.match(/^\/api\/outbound\/sender\/([^/]+)\/pause$/);
+    if (method === 'POST' && senderPauseMatch) {
+      const slot = decodeURIComponent(senderPauseMatch[1]);
       const input = await parseBody(req);
       return json(res, 200, await store.setSenderPaused(slot, true, input.reason || 'Paused from command center'));
     }
-    if (method === 'POST' && /^\/api\/outbound\/sender\/[AB]\/resume$/.test(url.pathname)) {
-      const slot = url.pathname.split('/')[4];
+    const senderResumeMatch = url.pathname.match(/^\/api\/outbound\/sender\/([^/]+)\/resume$/);
+    if (method === 'POST' && senderResumeMatch) {
+      const slot = decodeURIComponent(senderResumeMatch[1]);
       return json(res, 200, await store.setSenderPaused(slot, false, ''));
     }
 

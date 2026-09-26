@@ -232,3 +232,41 @@ This branch reduces software subscription dependence. It does **not** prove:
 - cleared revenue.
 
 Those become true only from external receipts and outcomes.
+
+
+## Verification receipt — 2026-09-26 exact-head wave
+
+Source verification was performed without claiming unavailable CI execution.
+
+### Executed evidence
+
+- all changed/new outreach runtime modules and their new test files passed transformed V8 syntax parsing;
+- `server-core.mjs` also parsed after preserving its module-only top-level-await/import-meta semantics in the checker;
+- UberReply behavior probe: opt-out, positive, out-of-office, wrong-person and objection classifications matched the bounded taxonomy;
+- UberTruth behavior probe: an evidence-bound message passed while an invented quantified revenue-loss claim was denied;
+- UberEconomics behavior probe: positive-reply and cleared-payment contribution accounting reconciled;
+- UberPlacement behavior probe: owner-controlled Gmail/Microsoft seed observations produced bounded inbox/spam rates without sending anything;
+- UberBuy behavior probe: with 30 domains and control-plane compute already owned, the only possible mandatory new outreach purchase is the authorized sender substrate; a complete already-acquired substrate yields zero mandatory outreach-SaaS purchases;
+- UberFleet behavior probe: SMTP credentials remained encrypted at rest, decrypted only at dispatch, and a healthy sender could be selected;
+- UberSMTP behavior probe: a provider-accepted fixture produced a confirmation receipt and generated Message-ID on the real sender domain rather than `uberbond.local`;
+- UberIMAP behavior probe: reply From/In-Reply-To parsing and encrypted forwarding-inbox custody worked through an injected reader with zero real network traffic;
+- warm-up orchestration behavior probe: provider account identity, owner approval and idempotency reached the provider mutation boundary and reconciliation used the provider reference rather than a local-only mailbox id;
+- canonical Maildoso provider-adapter behavior probe: account inventory normalized a provider-observed daily limit, warm-up state promoted only explicit matching observations, DNS requirements remained unsupported instead of guessed, and unapproved mutations caused zero provider calls;
+- direct UberMaildoso behavior probe: an unapproved mutation caused zero calls, an approved fixture mutation executed once, and secret-shaped provider response fields remained redacted.
+
+### CI / deployment evidence
+
+GitHub Actions workflows on the exact head reported failure **with zero job steps executed** across deterministic, browser, Postgres, exact-head, Postal-focused and verification jobs. Therefore those runs provide no source-test evidence either way.
+
+The two Vercel status contexts reported `build-rate-limit`. That is deployment-provider capacity/billing evidence, not a source assertion failure.
+
+### External-effects ledger for this verification wave
+
+- real outreach messages sent: 0
+- real provider mutations: 0
+- real DNS mutations: 0
+- real Maildoso account creations: 0
+- real IMAP connections: 0
+- new spend: 0
+
+All provider/network behavior probes used injected fixtures. A real provider account, DNS state, reputation, inbox placement, legal eligibility, replies and cleared payment remain external evidence.

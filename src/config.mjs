@@ -220,6 +220,11 @@ export const config = {
       baseUrl: env.MAILDOSO_BASE_URL || 'https://api.maildoso.com',
       configured: Boolean(env.MAILDOSO_PAT || env.MAILDOSO_API_KEY)
     },
+    clayinbox: {
+      apiKey: env.CLAYINBOX_API_KEY || '',
+      baseUrl: env.CLAYINBOX_BASE_URL || 'https://app.clayinbox.ai/api/v1',
+      configured: Boolean(env.CLAYINBOX_API_KEY)
+    },
     // Owned Postal transport. Presence of the key means only that a runtime
     // credential is configured; it does not prove DNS, warm-up, sender health,
     // recipient authority, or permission to send.

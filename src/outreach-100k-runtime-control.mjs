@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import fsp from 'node:fs/promises';
 import readline from 'node:readline';
 import { inspectOutreach100kPacketCorpus } from './outreach-100k-packet-corpus.mjs';
-import { compileOutreach100kLaunchCertificate } from './outreach-100k-launch-contract.mjs';
+import { compileOutreach100kLaunchCertificate, compileOutreachScaleLaunchCertificate } from './outreach-100k-launch-contract.mjs';
 import { evaluateOutreachLaunchGate, OUTREACH_LAUNCH_STATES } from './outreach-launch-gate.mjs';
 import { dispatchGovernedOutreach } from './governed-outreach-dispatch.mjs';
 import { createUberSmtpSubmissionTransport } from './ubersmtp-submission-adapter.mjs';
@@ -92,6 +92,7 @@ export async function prepareOutreach100kRuntime({
   bundlePath = process.env.OUTREACH_100K_BUNDLE_PATH || DEFAULT_OUTREACH_100K_BUNDLE_PATH,
   corpusPath = process.env.OUTREACH_100K_CORPUS_PATH || DEFAULT_OUTREACH_100K_CORPUS_PATH,
   liveSummary = {},
+  target = 100_000,
   now = new Date()
 } = {}) {
   const bundleRead = await readBoundedJson(bundlePath);
@@ -104,7 +105,7 @@ export async function prepareOutreach100kRuntime({
     filePath: corpusPath,
     mailboxes: bundle.mailboxes,
     campaignId,
-    expectedCount: 100_000,
+    expectedCount: int(target, 100_000, 1, 100_000),
     businessHourStart: int(bundle?.policy?.businessHourStart, 9, 0, 23),
     businessHourEnd: int(bundle?.policy?.businessHourEnd, 17, 1, 24),
     now
@@ -120,8 +121,22 @@ export async function prepareOutreach100kRuntime({
     observedAt: bundle.runtime?.observedAt || bundleRead.observedAt,
     evidenceRef: bundle.runtime?.evidenceRef || bundleRead.evidenceRef
   };
-  const certificate = compileOutreach100kLaunchCertificate({
+  const normalizedTarget = int(target, 100_000, 1, 100_000);
+  const certificate = normalizedTarget === 100_000 ? compileOutreach100kLaunchCertificate({
     target: 100_000,
+    inventory: corpus.inventory,
+    domains: bundle.domains,
+    mailboxes: bundle.mailboxes,
+    egressRoutes: bundle.egressRoutes,
+    recipientProviders: bundle.recipientProviders,
+    campaign: bundle.campaign,
+    runtime,
+    schedule: corpus.schedule,
+    outbound: normalizeOutbound(bundle.outbound || {}, liveSummary),
+    now,
+    maxEvidenceAgeHours: int(bundle?.policy?.maxEvidenceAgeHours, 24, 1, 168)
+  }) : compileOutreachScaleLaunchCertificate({
+    target: normalizedTarget,
     inventory: corpus.inventory,
     domains: bundle.domains,
     mailboxes: bundle.mailboxes,
@@ -142,7 +157,8 @@ export async function prepareOutreach100kRuntime({
     bundleEvidenceRef: bundleRead.evidenceRef,
     corpus,
     certificate,
-    pressable: certificate.oneButton100kPressAvailable === true,
+    target: normalizedTarget,
+    pressable: normalizedTarget === 100_000 ? certificate.oneButton100kPressAvailable === true : certificate.oneButtonScalePressAvailable === true,
     truthBoundary: 'This runtime preparation rebinds the exact 100,000-recipient corpus to fresh infrastructure evidence. It creates no send authority by itself.'
   };
 }
@@ -271,11 +287,14 @@ export async function runOutreach100kBatch({
   bundlePath = process.env.OUTREACH_100K_BUNDLE_PATH || DEFAULT_OUTREACH_100K_BUNDLE_PATH,
   corpusPath = process.env.OUTREACH_100K_CORPUS_PATH || DEFAULT_OUTREACH_100K_CORPUS_PATH,
   now = new Date(),
+  target = null,
   transportFactory = createUberSmtpSubmissionTransport
 } = {}) {
   if (!store || typeof store.reserveOutboundSend !== 'function') return failure(['durable-outbound-store-required']);
-  const prepared = await prepareOutreach100kRuntime({ bundlePath, corpusPath, liveSummary: payload.liveSummary || {}, now });
-  if (!prepared.ok || prepared.certificate?.state !== 'CERTIFIED_100K_READY') {
+  const requestedTarget = int(target ?? payload.target, 100_000, 1, 100_000);
+  const prepared = await prepareOutreach100kRuntime({ bundlePath, corpusPath, liveSummary: payload.liveSummary || {}, target: requestedTarget, now });
+  const readyState = requestedTarget === 100_000 ? 'CERTIFIED_100K_READY' : 'CERTIFIED_SCALE_READY';
+  if (!prepared.ok || prepared.certificate?.state !== readyState) {
     return failure(prepared.certificate?.hardStopReasonCodes || prepared.certificate?.waitReasonCodes || prepared.reasonCodes || ['certified-100k-ready-required'], { prepared });
   }
   if (clean(payload.certificateId, 300) && clean(payload.certificateId, 300) !== prepared.certificate.certificateId) {
@@ -424,18 +443,20 @@ export async function runOutreach100kBatch({
       limit: int(payload.limit, 250, 1, 1000),
       certificateId: prepared.certificate.certificateId,
       recipientSetDigest: prepared.corpus.recipientSetDigest,
-      founderPressReceiptId: clean(payload.founderPressReceiptId, 300)
+      founderPressReceiptId: clean(payload.founderPressReceiptId, 300),
+      target: requestedTarget
     }, {
       maxAttempts: 3,
       runAt,
-      dedupeKey: `outreach100k:${prepared.certificate.certificateId}:${nextCursor}`
+      dedupeKey: `outreach-scale:${requestedTarget}:${prepared.certificate.certificateId}:${nextCursor}`
     });
   }
 
   return {
     ok: uncertain === 0,
     version: OUTREACH_100K_RUNTIME_VERSION,
-    status: uncertain ? 'OUTREACH_100K_QUARANTINED_UNCERTAIN' : batch.eof && !batch.nextRunAt ? 'OUTREACH_100K_BATCH_STREAM_COMPLETE' : 'OUTREACH_100K_BATCH_PROCESSED',
+    status: uncertain ? (requestedTarget === 100_000 ? 'OUTREACH_100K_QUARANTINED_UNCERTAIN' : 'OUTREACH_SCALE_QUARANTINED_UNCERTAIN') : batch.eof && !batch.nextRunAt ? (requestedTarget === 100_000 ? 'OUTREACH_100K_BATCH_STREAM_COMPLETE' : 'OUTREACH_SCALE_BATCH_STREAM_COMPLETE') : (requestedTarget === 100_000 ? 'OUTREACH_100K_BATCH_PROCESSED' : 'OUTREACH_SCALE_BATCH_PROCESSED'),
+    target: requestedTarget,
     certificateId: prepared.certificate.certificateId,
     recipientSetDigest: prepared.corpus.recipientSetDigest,
     cursorStart: int(payload.cursor, 0),
@@ -450,4 +471,17 @@ export async function runOutreach100kBatch({
     automaticRetryAuthorized: false,
     truthBoundary: 'Each batch re-certifies current 100K readiness and each packet re-runs the final launch gate. Any ambiguous provider outcome quarantines the stream; no blind retry is authorized.'
   };
+}
+
+
+// UberScale aliases deliberately reuse the exact 100K runtime implementation.
+// The historical function names remain for compatibility; no second sender,
+// queue, reservation model or provider boundary is introduced.
+export async function prepareOutreachScaleRuntime(options = {}) {
+  return prepareOutreach100kRuntime(options);
+}
+
+export async function runOutreachScaleBatch(options = {}) {
+  const requestedTarget = int(options?.target ?? options?.payload?.target, 1, 1, 100_000);
+  return runOutreach100kBatch({ ...options, target: requestedTarget, payload: { ...(options.payload || {}), target: requestedTarget } });
 }

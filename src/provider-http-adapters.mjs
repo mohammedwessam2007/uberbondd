@@ -241,7 +241,7 @@ function providerDnsExpectedRecords({ provider, data }) {
 
 function normalizeMailboxList(result) {
   const data = dataOf(result);
-  const items = arrayOf(data, ['mailboxes', 'inboxes', 'items', 'results']);
+  const items = arrayOf(data, ['mailboxes', 'inboxes', 'accounts', 'items', 'results']);
   return {
     ...result,
     mailboxes: items.map(item => ({
@@ -251,7 +251,7 @@ function normalizeMailboxList(result) {
       status: normalizeProviderStatus(item?.status),
       forwardingStatus: normalizeProviderStatus(item?.forwarding_status || item?.forwardingStatus),
       providerAccountId: text(item?.account_id || item?.accountId, 160),
-      currentDailyCap: safeNumber(item?.daily_cap ?? item?.dailyCap),
+      currentDailyCap: safeNumber(item?.daily_cap ?? item?.dailyCap ?? item?.daily_limit ?? item?.dailyLimit ?? item?.send_limit ?? item?.sendLimit),
       warmupState: normalizeProviderStatus(item?.warmup_state || item?.warmupState),
       // Credentials are intentionally never returned, even if a provider
       // accepted a with_credentials/include_credentials query.

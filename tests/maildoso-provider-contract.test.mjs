@@ -63,3 +63,35 @@ test('Maildoso warmup status promotes only an explicitly matching observation', 
   assert.equal(missing.ok, false);
   assert.equal(missing.status, 'WARMUP_NOT_OBSERVED');
 });
+
+
+test('Maildoso warmup creation remains owner-approved and idempotent', async () => {
+  const calls = [];
+  const adapter = createMaildosoInfrastructureAdapter(providerConfig(), {
+    fetchImpl: async (url, options) => {
+      calls.push({ url: String(url), method: options.method, body: options.body });
+      return response(200, { id: 'warm-1', status: 'active' });
+    }
+  });
+  const denied = await adapter.startWarmup({
+    providerPayload: { mailbox: 'provider-m1' },
+    idempotencyKey: 'warm-1'
+  });
+  assert.equal(denied.ok, false);
+  assert.equal(denied.status, 'OWNER_APPROVAL_REQUIRED');
+  assert.equal(calls.length, 0);
+
+  const allowed = await adapter.startWarmup({
+    providerPayload: { mailbox: 'provider-m1' },
+    ownerApproval: {
+      granted: true,
+      grantedBy: 'owner',
+      scope: ['maildoso:startWarmup'],
+      expiresAt: '2099-01-01T00:00:00.000Z'
+    },
+    idempotencyKey: 'warm-1'
+  });
+  assert.equal(allowed.ok, true);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].method, 'POST');
+});

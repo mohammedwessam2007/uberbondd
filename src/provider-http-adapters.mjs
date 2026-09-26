@@ -614,6 +614,155 @@ export function createMailforgeAdapter(config = {}, options = {}) {
   });
 }
 
+export function createMaildosoInfrastructureAdapter(config = {}, options = {}) {
+  return createProviderHttpAdapter({
+    providerName: 'maildoso',
+    config: { ...config, termsUrl: config.termsUrl || 'https://maildoso.com/terms' },
+    baseUrl: config.baseUrl || 'https://api.maildoso.com',
+    authHeader: 'Authorization',
+    authPrefix: 'Bearer ',
+    routes: {
+      listMailboxes: '/v1/user/accounts-lookup',
+      mailboxHealth: () => '/v1/user/accounts-lookup',
+      listDomains: '/v1/user/domains',
+      domainAvailability: '/v1/user/domains/provider-availability',
+      provisionDomains: '/v1/user/domains/external',
+      provisionMailboxes: '/v1/user/accounts',
+      domainForward: { method: 'PUT', path: '/v1/user/accounts/forwarding' },
+      warmupStatus: '/v1/user/services/warmups',
+      startWarmup: '/v1/user/services/warmups',
+      exportMailboxes: '/v1/sequencers/export',
+      cancelPrefix: '/v1/user/accounts'
+    },
+    extensions: helpers => {
+      const {
+        requestJson, provider, normalizeMailboxList, normalizeDomainList,
+        providerError, unsupported, nowTimestamp, text: safeText
+      } = helpers;
+      const array = (value, keys = []) => {
+        if (Array.isArray(value)) return value;
+        for (const key of keys) if (Array.isArray(value?.[key])) return value[key];
+        return [];
+      };
+      const data = result => result?.data?.data ?? result?.data ?? null;
+      const mailboxIdentity = row => safeText(row?.id || row?.account_id || row?.accountId || row?.email || row?.address || row?.username, 320).toLowerCase();
+      const warmMailboxRefs = row => [
+        row?.mailbox_id, row?.mailboxId, row?.email, row?.address,
+        ...(Array.isArray(row?.mailboxes) ? row.mailboxes : []),
+        ...(Array.isArray(row?.accounts) ? row.accounts : []),
+        ...(Array.isArray(row?.attached_mailboxes) ? row.attached_mailboxes : [])
+      ].flatMap(value => typeof value === 'string'
+        ? [value.toLowerCase()]
+        : value && typeof value === 'object'
+          ? [mailboxIdentity(value)]
+          : []
+      ).filter(Boolean);
+      const warmState = row => {
+        const raw = String(row?.warmup_state || row?.warmupStatus || row?.status || row?.state || '').trim().toUpperCase().replace(/[\s-]+/g, '_');
+        if (/COMPLETE|COMPLETED|READY|FINISHED/.test(raw)) return 'WARMUP_COMPLETE';
+        if (/PAUSE/.test(raw)) return 'WARMUP_PAUSED';
+        if (/BLOCK|FAIL|ERROR|DISABLED/.test(raw)) return 'WARMUP_BLOCKED';
+        if (/ACTIVE|RUNNING|WARM/.test(raw)) return 'WARMUP_ACTIVE';
+        return 'WARMUP_UNCERTAIN';
+      };
+      return {
+        listWorkspaces: async () => ({
+          ok: true, provider, status: 'SINGLE_TENANT_ACCOUNT',
+          workspaces: [{ id: safeText(config.workspaceId || 'maildoso-account', 160), name: 'Maildoso account' }]
+        }),
+        createWorkspace: async () => unsupported(provider, 'createWorkspace', 'Maildoso public API is account-scoped; UberBond does not invent a workspace-creation endpoint.'),
+        mailboxHealth: async ({ mailboxId } = {}) => {
+          const wanted = safeText(mailboxId, 320).toLowerCase();
+          if (!wanted) return providerError({ provider, capability: 'mailboxHealth', status: 'MAILBOX_ID_REQUIRED', reason: 'A mailbox id or exact address is required.', timestamp: nowTimestamp() });
+          const result = await requestJson({ capability: 'mailboxHealth', method: 'GET', path: '/v1/user/accounts-lookup', query: {} });
+          const normalized = normalizeMailboxList(result);
+          const item = (normalized.mailboxes || []).find(row => [row.id, row.address].map(x => String(x || '').toLowerCase()).includes(wanted));
+          if (!result.ok) return result;
+          return item
+            ? { ...result, mailbox: item, mailboxState: item.status || 'UNKNOWN', currentDailyCap: item.currentDailyCap ?? null }
+            : { ...result, ok: false, status: 'MAILBOX_NOT_OBSERVED', mailbox: null };
+        },
+        dnsRequirements: async () => unsupported(provider, 'dnsRequirements', 'The public API surface does not expose a dedicated authoritative DNS-requirements endpoint. UberDNS must verify exact provider-supplied records independently.'),
+        verifyDns: async () => unsupported(provider, 'verifyDns', 'Provider account/domain state is not accepted as independent public DNS verification. Use UberDNS.'),
+        domainDns: async () => unsupported(provider, 'domainDns', 'Maildoso domain objects are provider state, not a substitute for public DNS observations.'),
+        configureDns: async () => unsupported(provider, 'configureDns', 'DNS publication belongs to the registrar/DNS authority adapter, not Maildoso account state.'),
+        warmupCapable: async () => ({
+          ok: true, provider, status: 'WARMUP_API_DOCUMENTED',
+          capability: 'warmup', mutationRequiresOwnerApproval: true
+        }),
+        warmupStatus: async ({ mailboxId = '' } = {}) => {
+          const wanted = safeText(mailboxId, 320).toLowerCase();
+          const result = await requestJson({ capability: 'warmupStatus', method: 'GET', path: '/v1/user/services/warmups', query: {} });
+          if (!result.ok) return result;
+          const items = array(data(result), ['warmups','services','items','results']);
+          const candidates = wanted ? items.filter(row => warmMailboxRefs(row).includes(wanted)) : items;
+          if (!candidates.length) return { ...result, ok: false, status: 'WARMUP_NOT_OBSERVED', warmupState: 'WARMUP_UNCERTAIN' };
+          const states = candidates.map(warmState);
+          const state = states.includes('WARMUP_BLOCKED') ? 'WARMUP_BLOCKED'
+            : states.includes('WARMUP_PAUSED') ? 'WARMUP_PAUSED'
+              : states.every(x => x === 'WARMUP_COMPLETE') ? 'WARMUP_COMPLETE'
+                : states.includes('WARMUP_ACTIVE') ? 'WARMUP_ACTIVE'
+                  : 'WARMUP_UNCERTAIN';
+          const caps = candidates.map(row => Number(row?.current_daily_cap ?? row?.currentDailyCap ?? row?.daily_limit ?? row?.dailyLimit)).filter(Number.isFinite);
+          return { ...result, status: 'WARMUP_STATUS_OBSERVED', warmupState: state, currentDailyCap: caps.length ? Math.min(...caps) : null };
+        },
+        startWarmup: async ({ providerPayload = null, ownerApproval = null, idempotencyKey = '' } = {}) => {
+          if (!providerPayload || typeof providerPayload !== 'object' || Array.isArray(providerPayload)) {
+            return providerError({ provider, capability: 'startWarmup', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact Maildoso warm-up payload; UberBond will not guess it.', timestamp: nowTimestamp() });
+          }
+          return requestJson({
+            capability: 'startWarmup', method: 'POST', path: '/v1/user/services/warmups',
+            body: providerPayload, ownerApproval, idempotencyKey
+          });
+        },
+        pauseWarmup: async ({ providerPayload = null, ownerApproval = null, idempotencyKey = '' } = {}) => {
+          if (!providerPayload || typeof providerPayload !== 'object' || Array.isArray(providerPayload)) {
+            return providerError({ provider, capability: 'pauseWarmup', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact Maildoso warm-up update payload; UberBond will not guess it.', timestamp: nowTimestamp() });
+          }
+          return requestJson({
+            capability: 'pauseWarmup', method: 'PUT', path: '/v1/user/services/warmups',
+            body: providerPayload, ownerApproval, idempotencyKey
+          });
+        },
+        discoverSendingLimit: async ({ mailboxId = '' } = {}) => {
+          const wanted = safeText(mailboxId, 320).toLowerCase();
+          if (!wanted) return providerError({ provider, capability: 'discoverSendingLimit', status: 'MAILBOX_ID_REQUIRED', reason: 'A mailbox id or exact address is required.', timestamp: nowTimestamp() });
+          const result = await requestJson({ capability: 'discoverSendingLimit', method: 'GET', path: '/v1/user/accounts-lookup', query: {} });
+          const normalized = normalizeMailboxList(result);
+          const item = (normalized.mailboxes || []).find(row => [row.id, row.address].map(x => String(x || '').toLowerCase()).includes(wanted));
+          if (!result.ok) return result;
+          return item
+            ? { ...result, status: 'SENDING_LIMIT_OBSERVED', currentDailyCap: item.currentDailyCap ?? null, mailbox: item }
+            : { ...result, ok: false, status: 'MAILBOX_NOT_OBSERVED', currentDailyCap: null };
+        },
+        provisionDomains: async ({ body = null, ownerApproval = null, idempotencyKey = '', estimatedCostCents = null } = {}) => {
+          if (!body || typeof body !== 'object' || Array.isArray(body)) return providerError({ provider, capability: 'provisionDomains', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact Maildoso external-domain payload; no domain purchase body is guessed.', timestamp: nowTimestamp() });
+          return requestJson({ capability: 'provisionDomains', method: 'POST', path: '/v1/user/domains/external', body, ownerApproval, idempotencyKey, estimatedCostCents });
+        },
+        provisionMailboxes: async ({ body = null, ownerApproval = null, idempotencyKey = '', estimatedCostCents = null } = {}) => {
+          if (!body || typeof body !== 'object' || Array.isArray(body)) return providerError({ provider, capability: 'provisionMailboxes', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact Maildoso account-creation payload; UberBond will not guess a billable shape.', timestamp: nowTimestamp() });
+          return requestJson({ capability: 'provisionMailboxes', method: 'POST', path: '/v1/user/accounts', body, ownerApproval, idempotencyKey, estimatedCostCents });
+        },
+        configureForwarding: async ({ body = null, ownerApproval = null, idempotencyKey = '' } = {}) => {
+          if (!body || typeof body !== 'object' || Array.isArray(body)) return providerError({ provider, capability: 'configureForwarding', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact Maildoso forwarding payload.', timestamp: nowTimestamp() });
+          return requestJson({ capability: 'configureForwarding', method: 'PUT', path: '/v1/user/accounts/forwarding', body, ownerApproval, idempotencyKey });
+        },
+        exportMailboxes: async ({ body = null, ownerApproval = null, idempotencyKey = '' } = {}) => {
+          if (!body || typeof body !== 'object' || Array.isArray(body)) return providerError({ provider, capability: 'exportMailboxes', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact Maildoso sequencer-export payload.', timestamp: nowTimestamp() });
+          return requestJson({ capability: 'exportMailboxes', method: 'POST', path: '/v1/sequencers/export', body, ownerApproval, idempotencyKey });
+        },
+        prewarmPurchase: async ({ body = null, ownerApproval = null, idempotencyKey = '', estimatedCostCents = null } = {}) => {
+          if (!body || typeof body !== 'object' || Array.isArray(body)) return providerError({ provider, capability: 'prewarmPurchase', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the exact provider warm-up payload and approved cost; UberBond never guesses a purchase.', timestamp: nowTimestamp() });
+          return requestJson({ capability: 'prewarmPurchase', method: 'POST', path: '/v1/user/services/warmups', body, ownerApproval, idempotencyKey, estimatedCostCents });
+        },
+        operationStatus: async () => unsupported(provider, 'operationStatus', 'No separate operation-status endpoint is assumed; reconcile resource state through the documented GET endpoints.'),
+        cancel: async () => unsupported(provider, 'cancel', 'Destructive Maildoso actions remain on the dedicated governed Maildoso adapter; no generic delete route is guessed.')
+      };
+    },
+    ...options
+  });
+}
+
 export function createUnsupportedProviderAdapter(providerName, reason = 'No adapter is implemented for this provider.') {
   const provider = text(providerName, 80).toLowerCase() || 'unknown';
   return {

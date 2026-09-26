@@ -43,10 +43,11 @@ export function compileOutreachBuyList({
   external.push(row('control_plane','OWNED_OR_HOSTED',controlPlaneOwned?'SATISFIED':'BUY_OR_ACTIVATE_REQUIRED',
     controlPlaneOwned?'Existing control-plane compute is available':'A durable runtime/control plane is required',
     {monthlyPurchaseRequired:!controlPlaneOwned}));
-  const substrateReady=outboundSubstrate?.purchased===true&&outboundSubstrate?.authorized===true&&outboundSubstrate?.configured===true;
-  external.push(row('authorized_outbound_substrate','EXTERNAL_SUBSTRATE',substrateReady?'SATISFIED':'BUY_OR_ACTIVATE_REQUIRED',
+  const substrateReady=outboundSubstrate?.acquired===true&&outboundSubstrate?.authorized===true&&outboundSubstrate?.configured===true;
+  const substrateCashRequired=outboundSubstrate?.cashRequired===true;
+  external.push(row('authorized_outbound_substrate','EXTERNAL_SUBSTRATE',substrateReady?'SATISFIED':substrateCashRequired?'BUY_REQUIRED':'ACQUIRE_OR_ACTIVATE_REQUIRED',
     substrateReady?'Authorized reputation-bearing sender substrate is connected':'Acquire or activate one provider-authorized reputation-bearing sending substrate',
-    {monthlyPurchaseRequired:!substrateReady,candidate:clean(outboundSubstrate?.candidate,160)||null,observedPriceUsd:Number.isFinite(Number(outboundSubstrate?.observedPriceUsd))?Number(outboundSubstrate.observedPriceUsd):null}));
+    {monthlyPurchaseRequired:!substrateReady&&substrateCashRequired,cashRequirementKnown:typeof outboundSubstrate?.cashRequired==='boolean',candidate:clean(outboundSubstrate?.candidate,160)||null,observedPriceUsd:Number.isFinite(Number(outboundSubstrate?.observedPriceUsd))?Number(outboundSubstrate.observedPriceUsd):null}));
   const paymentReady=paymentRail?.live===true;
   external.push(row('payment_rail','EXTERNAL_FINANCIAL',paymentReady?'SATISFIED':'ACTIVATE_BEFORE_COLLECTION',
     paymentReady?'Live payment rail observed':'A real payment account/rail is required only before collecting buyer funds',
@@ -65,18 +66,21 @@ export function compileOutreachBuyList({
   external.push(row('model_provider','OPTIONAL_SUPPLIER',optionalModelProvider?'OPTIONAL_CONNECTED':'OPTIONAL_NOT_REQUIRED',
     'External model API is replaceable compute, not a mandatory outreach SaaS purchase',{monthlyPurchaseRequired:false}));
 
-  const actualBuy=external.filter(x=>['BUY_REQUIRED','BUY_OR_ACTIVATE_REQUIRED'].includes(x.status));
+  const actualBuy=external.filter(x=>x.status==='BUY_REQUIRED');
+  const acquire=external.filter(x=>x.status==='ACQUIRE_OR_ACTIVATE_REQUIRED');
   const activation=external.filter(x=>['ACTIVATE_BEFORE_COLLECTION','OWNER_OR_REGULATORY_ACTION_REQUIRED'].includes(x.status));
   const summary={
     mandatoryNewPurchaseCount:actualBuy.length,
     mandatoryNewPurchaseIds:actualBuy.map(x=>x.id),
+    externalAcquisitionCount:acquire.length,
+    externalAcquisitionIds:acquire.map(x=>x.id),
     activationOnlyCount:activation.length,
     activationOnlyIds:activation.map(x=>x.id),
     internalReplacementCount:internal.length,
     recurringOutreachSaasRequired:actualBuy.filter(x=>x.id!=='authorized_outbound_substrate').length
   };
   return Object.freeze({
-    version:UBERBUY_VERSION,status:actualBuy.length?'EXTERNAL_PURCHASE_REMAINS':'NO_NEW_PURCHASE_REQUIRED',
+    version:UBERBUY_VERSION,status:actualBuy.length?'EXTERNAL_PURCHASE_REMAINS':acquire.length?'EXTERNAL_ACQUISITION_REMAINS':'NO_NEW_PURCHASE_REQUIRED',
     summary,internal,external,
     bomDigest:`sha256:${sha({summary,external})}`,
     truthBoundary:'UberBuy classifies requirements from supplied evidence. It cannot create domain ownership, provider authorization, regulatory approval, payment accounts, reputation, or live customer outcomes. UNKNOWN remains non-green.'

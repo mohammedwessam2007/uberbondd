@@ -456,6 +456,13 @@ export class Pipeline {
     const eligibility = evaluateSendEligibility({ prospect: candidate, campaign, cfg: this.cfg, date: this.clock(), followup });
     if (!eligibility.ok) return this.markSendSafety(prospect, { sent: false, ...eligibility });
 
+    if (String(this.cfg.outbound?.provider || '').toLowerCase() === 'smtp-relay') {
+      const assigned = await this.selectFleetInbox(prospect, prospect.audit || []);
+      if (assigned && assigned !== prospect.inbox) {
+        await this.store.patch('prospects', prospect.id, { inbox: assigned });
+        prospect = { ...prospect, inbox: assigned };
+      }
+    }
     const account = await this.store.findOne('accounts', { slot: prospect.inbox });
     if (!account?.connected) return this.markSendSafety(prospect, { sent: false, reason: 'needs-connected-sender' });
 

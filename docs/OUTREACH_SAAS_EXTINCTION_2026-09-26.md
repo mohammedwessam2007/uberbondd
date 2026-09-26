@@ -34,7 +34,7 @@ The target boundary is:
 | Mailbox assignment / sender rotation | UberFleet + sender-infrastructure mesh | Never rotates to evade enforcement or reset reputation |
 | DNS setup dashboard | UberDNS + domain registry + verification | Registrar/provider authority and DNS propagation remain external |
 | Warm-up manager | UberWarm + UberQuality + warm-up registry | No fake engagement network; time and real reputation cannot be cloned |
-| Inbox-placement dashboard | provider-observed placement/reputation receipts + deliverability snapshots | UberBond cannot manufacture Gmail/Microsoft inbox placement |
+| Inbox-placement dashboard | **UberPlacement** seed-test compiler + provider observations + UberWarm | Real owner-controlled seed inboxes on recipient networks remain external substrate |
 | Blacklist/reputation dashboard | provider/route/domain/mailbox health receipts + circuit breakers | Third-party reputation observations remain observations |
 | CRM | prospect/opportunity/order/subscription state + lead OS | No extra CRM subscription required for first cash |
 | Forms / inbound intake | first-party lead intelligence and public intake | No extra forms SaaS required |
@@ -132,6 +132,21 @@ It refuses or reviews:
 - missing/weak website evidence.
 
 PASS creates no send authority. It only says the rendered claim set matches the evidence supplied to this layer.
+
+### UberPlacement
+
+`src/uberplacement.mjs`
+
+Provider-neutral placement-test logic now lives inside UberBond.
+
+- builds balanced test plans across owner-controlled seed inboxes;
+- assigns unique probe identities without authorizing a send;
+- ingests observed inbox/spam/missing folder evidence;
+- reports placement by sender and recipient provider;
+- exports observed placement rates directly into UberWarm;
+- never treats a seed test as population-wide deliverability proof.
+
+Google/Microsoft/Yahoo seed inboxes are external identities on those networks. Their existence/reputation cannot be cloned, but the placement dashboard/orchestration around them no longer needs a paid SaaS.
 
 ### UberEconomics
 

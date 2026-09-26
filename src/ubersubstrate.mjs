@@ -94,7 +94,7 @@ export function evaluateSubstrateCandidate(candidate={},{
       outbound,inbound,warmup,directCustody:direct,apiControl:api,coldOutreachPositioning:coldUse,
       termsCompatibility:termsGreen,
       safeSendCapacityPerDay:sendCapacity,
-      safeSendCapacityEvidence
+      safeSendCapacityEvidence:sendCapacityEvidence
     },
     blockers:[...new Set(blockers)],
     evidenceRefs:Array.isArray(candidate.evidenceRefs)?candidate.evidenceRefs.map(x=>clean(x,1000)).filter(Boolean):[],

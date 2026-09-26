@@ -270,3 +270,28 @@ The two Vercel status contexts reported `build-rate-limit`. That is deployment-p
 - new spend: 0
 
 All provider/network behavior probes used injected fixtures. A real provider account, DNS state, reputation, inbox placement, legal eligibility, replies and cleared payment remain external evidence.
+
+
+## Post-merge runtime receipt — 2026-09-26
+
+PR **#1004** merged to `main` as squash commit:
+
+`7b6ce73328571564e217cb99a843ada4e2c152cf`
+
+Live Vercel inspection after the merge showed:
+
+- `uberbondd` production deployment `dpl_CHYo7WGqXrFNS3DkFEuEhaMP5Fs8` reached the build step and failed with `BUILD_UTILS_SPAWN_2`: `node scripts/vercel-command-center-build.mjs` exited with code 2.
+- The immediately preceding `main` deployment at `c922b43310881a696378672a59f2752734555145` failed with the **same command and same error class/code**. Therefore this failure signature predates #1004.
+- `uberbondd-lite-private` production deployment `dpl_4xfLn1daW4C435APmAutkScPYLiV` reached the build step and failed with `BUILD_UTILS_SPAWN_2`: `node scripts/build-visual-cortex.mjs` exited with code 2.
+- The immediately preceding `main` lite deployment at `c922b43310881a696378672a59f2752734555145` also failed in the same `build-visual-cortex.mjs` command. Therefore that failure signature also predates #1004.
+- Earlier healthy production deployments exist in both Vercel projects, so deployment infrastructure itself is not universally unavailable; the current source lineage carries pre-existing build-gate debt.
+
+Truth classification:
+
+- **source merge:** confirmed on `main`;
+- **new outreach source regression from #1004:** not established;
+- **production deployment success:** not established;
+- **current production build debt:** real and pre-existing;
+- **live Maildoso activation / DNS / reputation / sending / replies / cleared revenue:** still not established by this work.
+
+Do not reinterpret the merged source as a successful cloud activation. Do not reinterpret the pre-existing Vercel build failure as evidence that the SaaS-extinction source is broken.

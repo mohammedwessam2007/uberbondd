@@ -93,3 +93,29 @@ After purchase, the next verification sequence is:
 8. only then expand across the remaining paid seats and additional domains.
 
 No claim of production deliverability or safe 250/day volume is made before those live tests.
+
+
+## Paid transaction / entitlement incident
+
+Owner-provided Dodo Payments evidence confirms:
+- payment status: Success
+- paid date: 2026-09-27
+- total: EGP 673.01
+- tax: EGP 0.00
+- product receipt line: Cold Email Mailbox x1 at $12.50
+- checkout success page had previously shown quantity 5
+- Dodo payment ID: pay_0NoVvhth8jZbPcWTWW1ka
+- bank descriptor: DODOPAY_COLDMAILSERVER
+
+Cold Mail Server account state after refresh/logout/login:
+- paid seats: 0
+- available seats: 0
+- no active seat entitlement visible
+
+Dodo View Details returned 403 Forbidden. Cold Mail Server support was contacted; no ticket ID was exposed and no reply had arrived at the time of observation.
+
+Current classification: PAYMENT_SUCCESS_ENTITLEMENT_NOT_APPLIED.
+
+The receipt quantity mismatch (checkout quantity 5 versus receipt line x1 for the $12.50 five-seat package) is a plausible webhook/SKU translation hypothesis, not verified root cause.
+
+Safety rule: do not retry payment while the successful transaction remains unreconciled.

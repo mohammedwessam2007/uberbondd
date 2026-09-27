@@ -16,37 +16,80 @@ Truth class: authenticated account observations supplied from ChatGPT Work/Luna 
 - Dashboard mailbox cap showed 50 sends per active mailbox/day.
 - Shared/default route displayed no separate base subscription price.
 - No authenticated 7-day trial activation was visible.
-- No domain, mailbox, SMTP/IMAP credential, reply test, PTR value, or live send capacity was created/observed.
 - One verified domain is required before mailbox creation.
-- Shared + 5-seat minimum arithmetic: $12.50/month before unknown tax/base charges.
-- Dedicated + 5-seat minimum arithmetic: $61.50/month before unknown tax/fees.
-- Dedicated + 10 seats: $74/month arithmetic.
-- Dedicated + 30 seats: $124/month arithmetic.
-- Dedicated + 100 seats: $299/month arithmetic.
+
+## Shared-cluster checkout verification
+
+The authenticated 5-seat checkout exposed the real current Shared-cluster economics:
+
+- Product: Cold Email Mailbox
+- Quantity: 5
+- Unit rate shown: EGP 134.61/month
+- Subtotal: EGP 673.05
+- Shared-cluster fee: no separate line item
+- Setup fee: no separate line item
+- VAT: EGP 0.00
+- Total due today: EGP 673.01
+- Billing period: monthly
+- Trial: none shown
+- Other required purchase: none listed in the order
+- Address is required before the payment form
+- A verified domain is still required before mailbox creation
+
+The EGP 0.04 difference between displayed subtotal and total is unexplained and should be treated as a minor checkout display discrepancy, not silently normalized.
+
+Current evidence therefore supports:
+
+- Shared-cluster base fee: $0 / no separate charge shown
+- 5-seat Shared configuration: $12.50/month pre-tax equivalent, EGP 673.01 due today as displayed
+- 10-seat Shared configuration: $25/month based on authenticated pricing, but final checkout was not independently captured
+- Per-mailbox cap: 50 sends/day
+- 5-seat platform ceiling: 250 sends/day
+- 10-seat platform ceiling: 500 sends/day
+
+These are platform ceilings, not safe deliverability or campaign-authorized volume.
+
+## Dedicated-cluster economics
+
+- Dedicated cluster is an optional add-on.
+- Public price starts at $49/month.
+- Mailbox seats are separately billed.
+- Authenticated dedicated page shows Starter / Provisioning / PENDING_PAYMENT / 1 allocated, but no authenticated price line.
+- Dedicated + minimum 5 seats is therefore at least $61.50/month before any unseen tax or fee.
 
 ## Public-vs-authenticated contradiction
 
-Current public marketing says Starter is $49/month with unlimited mailboxes/domains and no per-seat pricing, while the authenticated billing UI says mailbox seats are separately billed at $2.50 each and dedicated infrastructure is an optional additional purchase.
+Public marketing says Starter is $49/month with unlimited mailboxes/domains and no per-seat pricing, while authenticated billing says mailbox seats and dedicated infrastructure are separate. Current purchase economics must follow authenticated billing until the vendor resolves the contradiction.
 
-Authenticated billing outranks public marketing for current account economics until vendor clarification resolves the contradiction.
+## Policy status
 
-## Policy discrepancy
+Current public Terms at https://www.coldmailserver.com/terms-conditions prohibit **unlawful spam**, fraud, impersonation, and illegal material. The retrieved public text does not contain a blanket prohibition on all unsolicited or bulk email.
 
-Current public Terms at https://www.coldmailserver.com/terms-conditions (last updated 2025-12-31) prohibit use to transmit **unlawful spam**, fraud, impersonation, or illegal material. They do not, in the retrieved public text, contain a blanket prohibition on all unsolicited bulk email.
+An earlier Luna statement that authenticated Terms prohibited unsolicited bulk mail was not reproduced from any authenticated Terms/AUP page and is therefore withdrawn as unsupported. The authenticated UI exposed no separate Terms/AUP text.
 
-Luna reported authenticated Terms language prohibiting unsolicited bulk email. The exact authenticated text/source was not yet captured. This discrepancy is now the critical gate.
+Policy status remains conditional on lawful targeted B2B outreach, truthful identity, valid opt-out/suppression, and campaign-specific legal eligibility gates.
 
 ## Current decision
 
-Cold Mail Server is NOT purchase-ready yet.
+Cold Mail Server Shared Cluster is now the cheapest authenticated purchase path found inside the product:
 
-The fastest remaining test is:
+- 5 active SMTP/IMAP mailbox seats: EGP 673.01 displayed due today, approximately the advertised $12.50/month rate
+- no separate Shared-cluster fee
+- no setup fee
+- VAT shown as EGP 0.00
+- no other required product listed at checkout
 
-1. capture the exact binding Terms/AUP shown in the authenticated app and determine whether the current route is prohibited;
-2. confirm whether Shared Cluster has any base fee and whether it can be used for lawful B2B cold outreach;
-3. confirm exact checkout totals/tax for the 5-seat and 10-seat Shared configurations;
-4. clarify the public $49 unlimited-mailbox claim versus authenticated separate-seat billing.
+It is purchase-ready only after explicit owner approval of the recurring 5-seat purchase and after the checkout address/payment screen is inspected for any final materially different charge or renewal term.
 
-If Shared Cluster is policy-compatible with no base fee, the current cheapest observed candidate becomes 5 seats for $12.50/month or 10 for $25/month before tax. If authenticated binding policy prohibits the intended route, Cold Mail Server is excluded regardless of price.
+After purchase, the next verification sequence is:
 
-No payment authorization is appropriate until this gate is resolved.
+1. attach one owned domain;
+2. verify DNS;
+3. create one mailbox;
+4. capture SMTP/IMAP credentials into protected runtime custody;
+5. send a controlled test;
+6. receive and ingest a reply;
+7. verify suppression/reply handling;
+8. only then expand across the remaining paid seats and additional domains.
+
+No claim of production deliverability or safe 250/day volume is made before those live tests.

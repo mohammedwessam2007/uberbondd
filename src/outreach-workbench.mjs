@@ -716,10 +716,19 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
     ...asArray(orders).map(item => item.prospectId).filter(Boolean),
     ...asArray(revenueEvents).map(item => item.prospectId).filter(Boolean)
   ]);
-  const clearedRevenueUsd = [...economicProspectIds].reduce((sum, prospectId) => {
-    const evidence = compileObservedClearedEconomicsForProspect(prospectId, orders, revenueEvents);
-    return sum + Number(evidence.clearedRevenueCents || 0) / 100;
-  }, 0);
+  const economicsByProspect = new Map([...economicProspectIds].map(prospectId => [
+    prospectId,
+    compileObservedClearedEconomicsForProspect(prospectId, orders, revenueEvents)
+  ]));
+  const clearedRevenueUsd = [...economicsByProspect.values()].reduce(
+    (sum, evidence) => sum + Number(evidence.clearedRevenueCents || 0) / 100,
+    0
+  );
+  const settledProspectIds = new Set(
+    [...economicsByProspect.entries()]
+      .filter(([, evidence]) => Number(evidence.clearedRevenueCents || 0) > 0)
+      .map(([prospectId]) => prospectId)
+  );
   const counts = {
     prospects: allProspects.length,
     researched: allProspects.filter(item => ['ready', 'research-complete', 'sent', 'replied'].includes(lower(item.status))).length,
@@ -732,7 +741,7 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
     meetings: meeting.size,
     offers: offer.size,
     paymentClaimed: new Set([...paid, ...claimedOrders.map(item => item.prospectId).filter(Boolean)]).size,
-    paymentSettled: settledOrders.length,
+    paymentSettled: settledProspectIds.size,
     deliveryAccepted: accepted.size,
     recurring: recurring.size
   };

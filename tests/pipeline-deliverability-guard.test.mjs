@@ -386,6 +386,14 @@ test('V5 offer campaign can pass its extra gate only with legal evidence, prepar
     uberReplyPreworkArtifact: {
       prepared: true,
       evidenceRefs: ['https://clinic.example/book']
+    },
+    offerDecision: { offer: { offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT' } },
+    uberReplyCandidateSet: {
+      selectedCandidateId: 'candidate-evidence-1',
+      selectedCandidate: {
+        candidateId: 'candidate-evidence-1',
+        strategyAtoms: { structure: 'EVIDENCE_EFFECT_EVIDENCE_OF_WORK_MICRO_ASK', ctaId: 'SEND_IT' }
+      }
     }
   });
   await store.add('prospects', { ...prospect, status: 'ready', createdAt: monday.toISOString() });
@@ -396,4 +404,9 @@ test('V5 offer campaign can pass its extra gate only with legal evidence, prepar
   const gateLogs = (await store.list('auditLog')).filter(entry => entry.type === 'uberreply_v5_pre_send_gate');
   assert.equal(gateLogs.length, 1);
   assert.equal(gateLogs[0].detail.state, 'UBERREPLY_PRE_SEND_GATE_PASSED');
+  const messages = await store.list('messages');
+  assert.equal(messages.length, 1);
+  assert.equal(messages[0].offerId, 'LEAD_TO_BOOKING_LEAK_AUDIT');
+  assert.equal(messages[0].uberReplyCandidateId, 'candidate-evidence-1');
+  assert.equal(messages[0].uberReplyStrategyAtoms.ctaId, 'SEND_IT');
 });

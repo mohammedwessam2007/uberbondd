@@ -30,6 +30,20 @@ const SCOPE_BY_OFFER=Object.freeze({
   })
 });
 
+
+export function classifyUberReplyState({ classification={}, body='' }={}){
+  const label=clean(classification?.label||classification,120).toLowerCase();
+  const text=clean(body,8000).toLowerCase();
+  if(['negative','optout','unsubscribe'].includes(label)) return 'NO';
+  if(['automatic','out_of_office'].includes(label)) return 'AUTO_REPLY';
+  if(label==='wrong_person'||label==='referral') return 'WRONG_PERSON';
+  if(/\b(not now|later|next month|next quarter)\b/.test(text)) return 'NOT_NOW';
+  if(/\b(price|pricing|cost|how much)\b/.test(text)) return 'PRICE';
+  if(/\b(call|zoom|meet|meeting)\b/.test(text)) return 'CALL';
+  if(label==='positive'||label==='interested') return 'YES';
+  return 'UNKNOWN';
+}
+
 function artifactSummary(artifact={}){
   const findings=Array.isArray(artifact?.findings)?artifact.findings.slice(0,3):[];
   if(!findings.length)return'';

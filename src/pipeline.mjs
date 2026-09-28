@@ -878,6 +878,7 @@ export class Pipeline {
     const selectedUberReplyCandidateId = uberReplyTreatment?.candidateId || null;
     const uberReplyStrategyArmId = uberReplyTreatment?.strategyArmId || null;
     const uberReplyAssignmentMode = uberReplyTreatment?.assignmentMode || null;
+    const uberReplyAssignmentProbability = uberReplyTreatment?.assignmentProbability ?? null;
     await this.store.recordOutboundEvent({
       inbox: prospect.inbox, eventType: 'sent', prospectId: prospect.id,
       recipientEmail: prospect.contact.email,
@@ -888,6 +889,7 @@ export class Pipeline {
         uberReplyCandidateId: selectedUberReplyCandidateId,
         uberReplyStrategyArmId,
         uberReplyAssignmentMode,
+        uberReplyAssignmentProbability,
         uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
         uberReplyGenotypeId: uberReplyTreatment?.genotypeId || null,
         uberReplyRenderedMessageId: uberReplyTreatment?.renderedMessageId || null
@@ -906,6 +908,7 @@ export class Pipeline {
       uberReplyCandidateId: selectedUberReplyCandidateId,
       uberReplyStrategyArmId,
       uberReplyAssignmentMode,
+      uberReplyAssignmentProbability,
       uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
       uberReplyGenotypeId: uberReplyTreatment?.genotypeId || null,
       uberReplyRenderedMessageId: uberReplyTreatment?.renderedMessageId || null,
@@ -1108,6 +1111,7 @@ export class Pipeline {
           offerId: replyOfferId,
           uberReplyCandidateId: linkedMessage?.uberReplyCandidateId || null,
           uberReplyStrategyArmId: linkedMessage?.uberReplyStrategyArmId || null,
+          uberReplyAssignmentProbability: linkedMessage?.uberReplyAssignmentProbability ?? null,
           uberReplyGenotypeId: linkedMessage?.uberReplyGenotypeId || null,
           uberReplyRenderedMessageId: linkedMessage?.uberReplyRenderedMessageId || null,
           receivedAt: now()

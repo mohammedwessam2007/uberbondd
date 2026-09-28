@@ -408,5 +408,8 @@ test('V5 offer campaign can pass its extra gate only with legal evidence, prepar
   assert.equal(messages.length, 1);
   assert.equal(messages[0].offerId, 'LEAD_TO_BOOKING_LEAK_AUDIT');
   assert.equal(messages[0].uberReplyCandidateId, 'candidate-evidence-1');
+  assert.match(messages[0].uberReplyStrategyArmId,/^ubv5arm_/);
+  assert.match(messages[0].uberReplyGenotypeId,/^ubog_/);
+  assert.match(messages[0].uberReplyRenderedMessageId,/^ubom_/);
   assert.equal(messages[0].uberReplyStrategyAtoms.ctaId, 'SEND_IT');
 });

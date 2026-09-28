@@ -103,6 +103,10 @@ for (const [index, [command, args]] of steps.entries()) {
       try {
         const diag = JSON.parse(readFileSync('artifacts/sovereign/terminal-realization.json', 'utf8'));
         const reasons = Array.isArray(diag.reasonCodes) ? diag.reasonCodes : [];
+        if (reasons.includes('semantic-requirement-tribunal-refused')) {
+          const n = Number(diag?.semanticDiagnostics?.finiteInvalidContractCount || 0);
+          process.exit(Math.min(125, 20 + n));
+        }
         const matched = terminalReasonOrder.findIndex(reason => reasons.includes(reason));
         process.exit(matched >= 0 ? 50 + matched : 90);
       } catch {

@@ -29,6 +29,9 @@ test('learning loop binds exact reply evidence to treatment lineage and does not
   assert.equal(out.learningPacket.arms[0].arm,'ubv5arm_subject_1');
   assert.equal(out.recordAttempt.nonHardBouncedFirstTouchUniqueProspects,1);
   assert.equal(out.recordAttempt.qualifiedPositiveReplyUniqueProspects,1);
+  assert.equal(out.recordAttempt.qualifiedPositiveReplyRateOnNonHardBouncedProxy,1);
+  assert.equal(out.recordAttempt.recordClaimReady,false);
+  assert.equal(out.recordAttempt.worldRecordClaimAuthorized,false);
   assert.equal(out.automaticPromotionAuthorized,false);
 });
 

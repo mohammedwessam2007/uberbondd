@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { normalizeDomain } from './utils.mjs';
+import { compileObservedClearedEconomicsForProspect, compileUberReplyObservedLearning } from './uberreply-learning-loop.mjs';
 
 /*
  * The workbench is intentionally single-user and provider-neutral.  It owns
@@ -699,6 +700,8 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
   allProspects.forEach(item => { if (item.repliedAt) replyProspectIds.add(item.id); });
   const positive = new Set(allProspects.filter(item => lower(item.replyLabel) === 'positive').map(item => item.id));
   asArray(replies).filter(item => lower(item.classification?.label) === 'positive').forEach(item => positive.add(item.prospectId));
+  const qualifiedPositive = new Set(allProspects.filter(item => item.qualifiedPositive === true).map(item => item.id));
+  asArray(replies).filter(item => item.qualifiedPositiveEvidence?.qualified === true).forEach(item => qualifiedPositive.add(item.prospectId));
   const stage = stageName => new Set(allProspects.filter(item => lower(item.opportunityStage) === stageName).map(item => item.id));
   const opportunity = new Set([...stage('opportunity'), ...stage('meeting'), ...stage('offer'), ...stage('invoice'), ...positive]);
   const meeting = new Set([...stage('meeting')]);
@@ -708,8 +711,24 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
   const paid = new Set([...stage('paid'), ...stage('delivery'), ...stage('accepted'), ...stage('recurring')]);
   const accepted = new Set([...stage('accepted'), ...stage('recurring')]);
   const recurring = new Set([...stage('recurring'), ...asArray(subscriptions).filter(item => ['active', 'trialing'].includes(lower(item.status))).map(item => item.prospectId).filter(Boolean)]);
-  const clearedRevenueUsd = settledOrders.reduce((sum, order) => sum + Number(order.amountCents || 0) / 100, 0)
-    + asArray(revenueEvents).filter(item => ['cleared', 'settled', 'paid'].includes(lower(item.status))).reduce((sum, item) => sum + Number(item.amountCents || 0) / 100, 0);
+  const economicProspectIds = new Set([
+    ...allProspects.map(item => item.id).filter(Boolean),
+    ...asArray(orders).map(item => item.prospectId).filter(Boolean),
+    ...asArray(revenueEvents).map(item => item.prospectId).filter(Boolean)
+  ]);
+  const economicsByProspect = new Map([...economicProspectIds].map(prospectId => [
+    prospectId,
+    compileObservedClearedEconomicsForProspect(prospectId, orders, revenueEvents)
+  ]));
+  const clearedRevenueUsd = [...economicsByProspect.values()].reduce(
+    (sum, evidence) => sum + Number(evidence.clearedRevenueCents || 0) / 100,
+    0
+  );
+  const settledProspectIds = new Set(
+    [...economicsByProspect.entries()]
+      .filter(([, evidence]) => Number(evidence.clearedRevenueCents || 0) > 0)
+      .map(([prospectId]) => prospectId)
+  );
   const counts = {
     prospects: allProspects.length,
     researched: allProspects.filter(item => ['ready', 'research-complete', 'sent', 'replied'].includes(lower(item.status))).length,
@@ -717,11 +736,12 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
     sent: sentProspectIds.size,
     replies: replyProspectIds.size,
     positiveReplies: positive.size,
+    qualifiedPositiveReplies: qualifiedPositive.size,
     opportunities: opportunity.size,
     meetings: meeting.size,
     offers: offer.size,
     paymentClaimed: new Set([...paid, ...claimedOrders.map(item => item.prospectId).filter(Boolean)]).size,
-    paymentSettled: settledOrders.length,
+    paymentSettled: settledProspectIds.size,
     deliveryAccepted: accepted.size,
     recurring: recurring.size
   };
@@ -731,13 +751,14 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
     rates: {
       replyFromSent: counts.sent ? Math.round(counts.replies / counts.sent * 1000) / 10 : 0,
       positiveFromReplies: counts.replies ? Math.round(counts.positiveReplies / counts.replies * 1000) / 10 : 0,
+      qualifiedPositiveFromSent: counts.sent ? Math.round(counts.qualifiedPositiveReplies / counts.sent * 1000) / 10 : 0,
       opportunityFromReplies: counts.replies ? Math.round(counts.opportunities / counts.replies * 1000) / 10 : 0,
       settledFromOpportunities: counts.opportunities ? Math.round(counts.paymentSettled / counts.opportunities * 1000) / 10 : 0,
       recurringFromSettled: counts.paymentSettled ? Math.round(counts.recurring / counts.paymentSettled * 1000) / 10 : 0,
       researchedFromProspects: rate('researched')
     },
     clearedRevenueUsd: Math.round(clearedRevenueUsd * 100) / 100,
-    weightedOutcomeScore: counts.recurring * 1000 + counts.paymentSettled * 800 + counts.deliveryAccepted * 650 + counts.opportunities * 400 + counts.positiveReplies * 250 + counts.replies * 100 + counts.sent * 10,
+    weightedOutcomeScore: counts.recurring * 1000 + counts.paymentSettled * 800 + counts.deliveryAccepted * 650 + counts.opportunities * 400 + counts.qualifiedPositiveReplies * 300 + counts.positiveReplies * 200 + counts.replies * 100 + counts.sent * 10,
     metricOrder: ['clearedRevenue', 'recurring', 'deliveryAccepted', 'opportunities', 'positiveReplies', 'replies', 'sent']
   };
 }
@@ -751,24 +772,32 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
   const prospectIds = new Set(campaignMessages.map(item => item.prospectId).filter(Boolean));
   const campaignProspects = asArray(prospects).filter(item => !campaignId || String(item.campaignId || '') === String(campaignId) || prospectIds.has(item.id));
   const prospectById = new Map(campaignProspects.map(item => [item.id, item]));
-  const repliesByProspect = new Map();
-  asArray(replies).forEach(reply => {
-    if (!prospectById.has(reply.prospectId)) return;
-    repliesByProspect.set(reply.prospectId, [...(repliesByProspect.get(reply.prospectId) || []), reply]);
-  });
+  const uberReplyV5 = Boolean(campaign.offerId || campaign.autoRouteOffer === true || campaignMessages.some(item => item.uberReplyCandidateId));
+
   const eventsByMessage = new Map();
   asArray(outboundEvents).forEach(event => {
-    const messageKey = event.messageId || event.detail?.messageId || event.gmailId || event.detail?.gmailId;
+    const messageKey = event.messageId || event.detail?.messageId || event.gmailId || event.detail?.gmailId || event.detail?.sourceMessageId;
     if (messageKey) eventsByMessage.set(messageKey, [...(eventsByMessage.get(messageKey) || []), event]);
   });
+
   const groups = new Map();
   const ensure = (stepId = 'unknown', variantId = 'unknown') => {
     const key = `${stepId}:${variantId}`;
-    if (!groups.has(key)) groups.set(key, { stepId, variantId, sent: 0, opened: 0, clicked: 0, replies: 0, positiveReplies: 0, opportunities: 0, clearedRevenueUsd: 0, prospectIds: new Set() });
+    if (!groups.has(key)) groups.set(key, {
+      stepId, variantId, sent: 0, opened: 0, clicked: 0, replies: 0,
+      positiveReplies: 0, qualifiedPositiveReplies: 0, opportunities: 0,
+      clearedRevenueUsd: 0, prospectIds: new Set()
+    });
     return groups.get(key);
   };
+  const identityForMessage = message => ({
+    stepId: message.stepId || (message.uberReplyCandidateId ? `uberreply-touch-${Number(message.followup || 0) + 1}` : 'legacy'),
+    variantId: message.variantId || message.uberReplyStrategyArmId || message.uberReplyGenotypeId || message.uberReplyCandidateId || 'unknown'
+  });
+
   for (const message of campaignMessages) {
-    const group = ensure(message.stepId || 'legacy', message.variantId || 'unknown');
+    const identity = identityForMessage(message);
+    const group = ensure(identity.stepId, identity.variantId);
     group.sent += 1;
     if (message.prospectId) group.prospectIds.add(message.prospectId);
     const events = eventsByMessage.get(message.id) || eventsByMessage.get(message.gmailId) || [];
@@ -777,26 +806,70 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     group.opened += opened ? 1 : 0;
     group.clicked += clicked ? 1 : 0;
   }
-  for (const [prospectId, prospectReplies] of repliesByProspect) {
-    const prospect = prospectById.get(prospectId);
-    const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
-    const group = ensure(latestMessage?.stepId || 'legacy', latestMessage?.variantId || 'unknown');
-    if (prospectReplies.length) group.replies += 1;
-    if (prospectReplies.some(item => lower(item.classification?.label || item.label) === 'positive') || lower(prospect?.replyLabel) === 'positive') group.positiveReplies += 1;
-    if (['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(prospect?.opportunityStage))) group.opportunities += 1;
-  }
-  for (const order of asArray(orders)) {
-    if (!prospectById.has(order.prospectId) || ['failed', 'cancelled'].includes(lower(order.status))) continue;
-    if (['paid', 'settled', 'cleared', 'completed'].includes(lower(order.status)) || /paid|settled|cleared|completed/.test(lower(order.eventName))) {
-      const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === order.prospectId);
-      ensure(latestMessage?.stepId || 'legacy', latestMessage?.variantId || 'unknown').clearedRevenueUsd += Number(order.amountCents || 0) / 100;
+
+  let v5Learning = null;
+  if (uberReplyV5) {
+    v5Learning = compileUberReplyObservedLearning({
+      campaignId,
+      prospects: campaignProspects,
+      messages: campaignMessages,
+      replies,
+      orders,
+      revenueEvents,
+      outboundEvents,
+      policy: { minSamplesPerArm: Number(campaign.sequence?.settings?.minimumOptimizationSamples || 100) }
+    });
+    const messageById = new Map(campaignMessages.map(message => [message.id, message]));
+    const humanReplyLabels = new Set(['positive', 'interested', 'neutral', 'objection', 'negative', 'wrong_person', 'referral', 'optout', 'unsubscribe']);
+    const repliesByMessage = new Map();
+    for (const reply of asArray(replies)) {
+      if (!reply?.sourceMessageId || !messageById.has(reply.sourceMessageId)) continue;
+      repliesByMessage.set(reply.sourceMessageId, [...(repliesByMessage.get(reply.sourceMessageId) || []), reply]);
+    }
+    for (const outcome of v5Learning.outcomes || []) {
+      const messageId = String(outcome.decisionId || '').replace(/^uberreply:/, '');
+      const message = messageById.get(messageId);
+      if (!message) continue;
+      const identity = identityForMessage(message);
+      const group = ensure(identity.stepId, identity.variantId);
+      const exactReplies = repliesByMessage.get(messageId) || [];
+      if (exactReplies.some(reply => humanReplyLabels.has(lower(reply?.classification?.label || reply?.label)))) group.replies += 1;
+      if (outcome.conversation?.positiveReply === true) group.positiveReplies += 1;
+      if (outcome.conversation?.qualifiedPositiveReply === true) group.qualifiedPositiveReplies += 1;
+      if (outcome.commercial?.qualifiedOpportunity === true) group.opportunities += 1;
+      if (Number.isFinite(Number(outcome.commercial?.clearedRevenueCents))) {
+        group.clearedRevenueUsd += Number(outcome.commercial.clearedRevenueCents) / 100;
+      }
+    }
+  } else {
+    const repliesByProspect = new Map();
+    asArray(replies).forEach(reply => {
+      if (!prospectById.has(reply.prospectId)) return;
+      repliesByProspect.set(reply.prospectId, [...(repliesByProspect.get(reply.prospectId) || []), reply]);
+    });
+    for (const [prospectId, prospectReplies] of repliesByProspect) {
+      const prospect = prospectById.get(prospectId);
+      const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
+      const identity = identityForMessage(latestMessage || {});
+      const group = ensure(identity.stepId, identity.variantId);
+      if (prospectReplies.length) group.replies += 1;
+      if (prospectReplies.some(item => lower(item.classification?.label || item.label) === 'positive') || lower(prospect?.replyLabel) === 'positive') group.positiveReplies += 1;
+      if (prospectReplies.some(item => item.qualifiedPositiveEvidence?.qualified === true) || prospect?.qualifiedPositive === true) group.qualifiedPositiveReplies += 1;
+      if (['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(prospect?.opportunityStage))) group.opportunities += 1;
+    }
+    const settledOrdersByProspect = new Map();
+    for (const order of asArray(orders)) {
+      if (!prospectById.has(order.prospectId) || ['failed', 'cancelled'].includes(lower(order.status))) continue;
+      if (!(['paid', 'settled', 'cleared', 'completed'].includes(lower(order.status)) || /paid|settled|cleared|completed/.test(lower(order.eventName)))) continue;
+      settledOrdersByProspect.set(order.prospectId, (settledOrdersByProspect.get(order.prospectId) || 0) + Number(order.amountCents || 0));
+    }
+    for (const [prospectId, amountCents] of settledOrdersByProspect) {
+      const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
+      const identity = identityForMessage(latestMessage || {});
+      ensure(identity.stepId, identity.variantId).clearedRevenueUsd += amountCents / 100;
     }
   }
-  for (const event of asArray(revenueEvents)) {
-    if (!prospectById.has(event.prospectId) || !['cleared', 'settled', 'paid'].includes(lower(event.status))) continue;
-    const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === event.prospectId);
-    ensure(latestMessage?.stepId || 'legacy', latestMessage?.variantId || 'unknown').clearedRevenueUsd += Number(event.amountCents || 0) / 100;
-  }
+
   const steps = [...groups.values()].map(group => ({
     ...group,
     prospectIds: [...group.prospectIds],
@@ -804,12 +877,17 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     clickRate: ratio(group.clicked, group.sent),
     replyRate: ratio(group.replies, group.sent),
     positiveReplyRate: ratio(group.positiveReplies, group.sent),
+    qualifiedPositiveReplyRate: ratio(group.qualifiedPositiveReplies, group.sent),
     opportunityRate: ratio(group.opportunities, group.sent)
   })).sort((a, b) => `${a.stepId}:${a.variantId}`.localeCompare(`${b.stepId}:${b.variantId}`));
-  const metric = campaign.sequence?.settings?.autoOptimizeMetric || 'replyRate';
-  const minimumSamples = Number(campaign.sequence?.settings?.minimumOptimizationSamples || 25);
+
+  const metric = campaign.sequence?.settings?.autoOptimizeMetric || (uberReplyV5 ? 'clearedRevenueUsd' : 'replyRate');
+  const minimumSamples = Number(campaign.sequence?.settings?.minimumOptimizationSamples || (uberReplyV5 ? 100 : 25));
   const eligible = steps.filter(item => item.sent >= minimumSamples);
   const winner = eligible.slice().sort((a, b) => Number(b[metric] || 0) - Number(a[metric] || 0) || b.sent - a.sent)[0] || null;
+  const totalReplies = uberReplyV5
+    ? Number(v5Learning?.recordAttempt?.humanReplyUniqueProspects || 0)
+    : new Set(asArray(replies).map(reply => reply.prospectId).filter(id => prospectById.has(id))).size;
   return {
     campaignId,
     campaignName: campaign.name || '',
@@ -819,12 +897,22 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
       sent: campaignMessages.length,
       opened: steps.reduce((sum, item) => sum + item.opened, 0),
       clicked: steps.reduce((sum, item) => sum + item.clicked, 0),
-      replies: new Set([...repliesByProspect.keys()]).size,
+      replies: totalReplies,
       opportunities: new Set(campaignProspects.filter(item => ['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(item.opportunityStage))).map(item => item.id)).size,
       clearedRevenueUsd: Math.round(steps.reduce((sum, item) => sum + item.clearedRevenueUsd, 0) * 100) / 100
     },
     steps,
-    recommendation: winner ? { stepId: winner.stepId, variantId: winner.variantId, metric, value: winner[metric], eligible: true, action: 'owner_review_before_disabling_variants' } : { eligible: false, action: 'collect_more_observations' }
+    v5LearningSummary: uberReplyV5 ? {
+      attributionMode: v5Learning?.attributionMode || null,
+      recordAttempt: v5Learning?.recordAttempt || null,
+      analyzableTreatmentCount: v5Learning?.analyzableTreatmentCount || 0
+    } : null,
+    recommendation: winner
+      ? { stepId: winner.stepId, variantId: winner.variantId, metric, value: winner[metric], eligible: true, action: 'owner_review_before_disabling_variants', automaticPromotionAuthorized: false }
+      : { eligible: false, action: 'collect_more_observations', automaticPromotionAuthorized: false },
+    truthBoundary: uberReplyV5
+      ? 'UberReply V5 dashboard analytics aggregate prospect-specific copy by stable strategy arm and reuse the canonical V5 learning receipt for reply and cleared-revenue attribution. They never auto-promote a winner, and observational revenue attribution is not causal proof.'
+      : 'Variant analytics are observational and never create external-effect or auto-promotion authority.'
   };
 }
 

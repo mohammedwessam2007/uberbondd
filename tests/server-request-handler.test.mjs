@@ -187,7 +187,7 @@ test('campaign creation binds one of the four final offer lanes and rejects unkn
   });
   assert.equal(selected.status, 201);
   assert.equal(json(selected).offerId, 'AI_AGENT_RELEASE_GATE');
-  assert.match(json(selected).offer, /AI Agent Release Gate/);
+  assert.match(json(selected).offer, /AI Agent Production Release Gate/);
 
   const unknown = await call('/api/campaigns', {
     method: 'POST', token: ADMIN_TOKEN,
@@ -196,6 +196,44 @@ test('campaign creation binds one of the four final offer lanes and rejects unkn
   });
   assert.equal(unknown.status, 400);
   assert.match(unknown.body, /four final UberReply offers/);
+});
+
+test('campaign creation supports evidence-based four-offer routing and up to six evidence-bearing follow-ups', async () => {
+  const routed = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      name: 'Auto-routed V5 campaign', niche: 'mixed qualified B2B evidence',
+      autoRouteOffer: true, maxFollowups: 6, approved: true, autoSend: false
+    }),
+    headers: { 'idempotency-key': 'auto-route-offer-test-1' }
+  });
+  assert.equal(routed.status, 201);
+  assert.equal(json(routed).autoRouteOffer, true);
+  assert.equal(json(routed).offerId, undefined);
+  assert.equal(json(routed).maxFollowups, 6);
+  assert.match(json(routed).offer, /Evidence-routed UberReply four-offer portfolio/);
+
+  const conflict = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      name: 'Conflicting V5 routing',
+      offerId: 'AI_AGENT_RELEASE_GATE',
+      autoRouteOffer: true
+    }),
+    headers: { 'idempotency-key': 'auto-route-offer-test-2' }
+  });
+  assert.equal(conflict.status, 400);
+  assert.match(conflict.body, /either a pinned offerId or autoRouteOffer=true/i);
+
+  const legacy = await call('/api/campaigns', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      name: 'Legacy cap test', maxFollowups: 6, approved: true, autoSend: false
+    }),
+    headers: { 'idempotency-key': 'auto-route-offer-test-3' }
+  });
+  assert.equal(legacy.status, 201);
+  assert.equal(json(legacy).maxFollowups, 1);
 });
 
 test('protected owner setup records identity and one exact recipient without external effects', async () => {
@@ -442,4 +480,13 @@ test('SaaS-extinction status exposes the no-surprise buy ledger without external
   assert.ok(Array.isArray(body.buyList.external));
   assert.ok(body.buyList.external.some(item => item.id === 'authorized_outbound_substrate'));
   assert.ok(body.supply.summary.targetDailyFirstTouches === 1000);
+});
+
+
+test('learning endpoint returns a packet', async () => {
+  const response = await call('/api/outbound/learning', { token: ADMIN_TOKEN });
+  assert.equal(response.status, 200);
+  const body = json(response);
+  assert.equal(body.automaticPromotionAuthorized, false);
+  assert.ok(body.learningPacket);
 });

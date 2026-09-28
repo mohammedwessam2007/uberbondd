@@ -34,6 +34,7 @@ import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/lea
 import { buildLeadAccountIntelligence } from './src/lead-generation.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
 import { getUberReplyOffer } from './src/uberreply-four-offer-genome.mjs';
+import { compileUberReplyObservedLearning } from './src/uberreply-learning-loop.mjs';
 import {
   LEAD_OPERATIONS_POLICY,
   LEAD_PROVIDER_CATALOG,
@@ -172,6 +173,7 @@ const digestCampaignRequest = campaign => crypto.createHash('sha256').update(JSO
   niche: campaign.niche,
   offer: campaign.offer,
   offerId: campaign.offerId || undefined,
+  autoRouteOffer: campaign.autoRouteOffer === true,
   allowedCountries: campaign.allowedCountries,
   minScore: campaign.minScore,
   dailyCaps: campaign.dailyCaps,
@@ -1603,6 +1605,32 @@ export const requestHandler = async (req, res) => {
       });
     }
 
+    if (method === 'GET' && url.pathname === '/api/outbound/learning') {
+      const campaignId = String(url.searchParams.get('campaignId') || '').trim();
+      if (campaignId && !(await store.get('campaigns', campaignId))) return json(res, 404, { error: 'Campaign not found' });
+      const [prospects, messages, replies, orders, revenueEvents, outboundEvents] = await Promise.all([
+        store.list('prospects'),
+        store.list('messages'),
+        store.list('replies'),
+        store.list('orders'),
+        store.list('revenueEvents'),
+        store.list('outboundEvents')
+      ]);
+      return json(res, 200, compileUberReplyObservedLearning({
+        campaignId,
+        prospects,
+        messages,
+        replies,
+        orders,
+        revenueEvents,
+        outboundEvents,
+        policy: {
+          maxComplaintRate: Number(url.searchParams.get('maxComplaintRate') || 0.001),
+          minSamplesPerArm: Number(url.searchParams.get('minSamplesPerArm') || 100)
+        }
+      }));
+    }
+
     if (method === 'GET' && url.pathname === '/api/outbound/saas-extinction') {
       return json(res, 200, await outreachSaasExtinctionStatus());
     }
@@ -1648,15 +1676,21 @@ export const requestHandler = async (req, res) => {
       const offerId = String(input.offerId || '').trim().toUpperCase();
       const selectedOffer = offerId ? getUberReplyOffer(offerId) : null;
       if (offerId && !selectedOffer) throw new HttpError(400, 'offerId must be one of the four final UberReply offers');
+      const autoRouteOffer = parseStrictBoolean(input.autoRouteOffer, 'autoRouteOffer', false);
+      if (offerId && autoRouteOffer) throw new HttpError(400, 'Choose either a pinned offerId or autoRouteOffer=true, not both');
+      const v5Campaign = Boolean(offerId || autoRouteOffer);
       const campaign = {
-        id: id('camp'), name: input.name || 'Untitled campaign', niche: input.niche || '', offer: input.offer || selectedOffer?.publicName || '', offerId: offerId || undefined,
+        id: id('camp'), name: input.name || 'Untitled campaign', niche: input.niche || '',
+        offer: input.offer || selectedOffer?.publicName || (autoRouteOffer ? 'Evidence-routed UberReply four-offer portfolio' : ''),
+        offerId: offerId || undefined,
+        autoRouteOffer,
         allowedCountries: normalizeCountryList(Array.isArray(input.allowedCountries) ? input.allowedCountries : String(input.allowedCountries || '').split(',')),
         minScore: Math.max(50, Math.min(95, Number(input.minScore || 60))),
         dailyCaps: {
           A: Math.min(config.caps.A, Number(input.dailyCapA || config.caps.A)),
           B: Math.min(config.caps.B, Number(input.dailyCapB || config.caps.B))
         },
-        maxFollowups: Math.min(1, Math.max(0, Number(input.maxFollowups ?? 0))),
+        maxFollowups: Math.min(v5Campaign ? 6 : 1, Math.max(0, Number(input.maxFollowups ?? 0))),
         autoSend: parseStrictBoolean(input.autoSend, 'autoSend', false),
         approved: parseStrictBoolean(input.approved, 'approved', false),
         idempotencyKey: requestKey,

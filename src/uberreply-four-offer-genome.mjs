@@ -618,25 +618,24 @@ export function compileUberReplyPreSendGate({
 
 export function scoreUberReplyMessageCandidate(candidate = {}) {
   const positive =
-    (0.18 * clamp01(candidate.relevanceSpecificity)) +
-    (0.15 * clamp01(candidate.problemClarity)) +
-    (0.12 * clamp01(candidate.evidenceStrength)) +
-    (0.11 * clamp01(candidate.offerUtility)) +
-    (0.09 * clamp01(candidate.proofSimilarity)) +
-    (0.08 * clamp01(candidate.ctaEase)) +
-    (0.07 * clamp01(candidate.credibility)) +
-    (0.06 * clamp01(candidate.consequenceFit)) +
-    (0.05 * clamp01(candidate.cognitiveEase)) +
+    (0.18 * clamp01(candidate.problemEvidence)) +
+    (0.14 * clamp01(candidate.roleOwnership)) +
+    (0.12 * clamp01(candidate.triggerStrengthFreshness)) +
+    (0.12 * clamp01(candidate.relevanceSpecificity)) +
+    (0.10 * clamp01(candidate.offerUtility)) +
+    (0.08 * clamp01(candidate.proofSimilarity)) +
+    (0.07 * clamp01(candidate.ctaEase)) +
+    (0.06 * clamp01(candidate.credibility)) +
+    (0.05 * clamp01(candidate.messageClarity)) +
     (0.04 * clamp01(candidate.subjectFit)) +
-    (0.03 * clamp01(candidate.toneFit)) +
-    (0.02 * clamp01(candidate.novelty));
+    (0.02 * clamp01(candidate.novelty)) +
+    (0.02 * clamp01(candidate.toneFit));
   const penalty =
-    (0.12 * clamp01(candidate.unsupportedClaimPenalty)) +
-    (0.10 * clamp01(candidate.hypePenalty)) +
-    (0.09 * clamp01(candidate.creepyPersonalizationPenalty)) +
-    (0.08 * clamp01(candidate.askCostPenalty)) +
-    (0.08 * clamp01(candidate.cognitiveLoadPenalty)) +
-    (0.06 * clamp01(candidate.genericnessPenalty));
+    (0.10 * clamp01(candidate.cognitiveLoadPenalty)) +
+    (0.08 * clamp01(candidate.hypePenalty)) +
+    (0.08 * clamp01(candidate.creepyPersonalizationPenalty)) +
+    (0.08 * clamp01(candidate.unsupportedClaimPenalty)) +
+    (0.06 * clamp01(candidate.askCostPenalty));
   return Number(Math.max(0, Math.min(1, positive - penalty)).toFixed(6));
 }
 
@@ -704,6 +703,9 @@ export function compileUberReplyAsyncCloseDecision({ offerId, replyState, qualif
   };
   if (['NO', 'UNSUBSCRIBE', 'STOP'].includes(state)) {
     return { ...base, state: 'SUPPRESS_AND_STOP', nextAction: 'GLOBAL_SUPPRESSION', meetingAllowed: false };
+  }
+  if (state === 'AUTO_REPLY') {
+    return { ...base, state: 'HOLD_FOR_HUMAN_RETURN', nextAction: 'NO_SALES_RESPONSE_TO_AUTOMATIC_REPLY', meetingAllowed: false };
   }
   if (state === 'WRONG_PERSON') {
     return { ...base, state: 'ASK_FOR_OWNER_OF_PROBLEM', nextAction: 'REQUEST_CORRECT_ROLE_ONLY', meetingAllowed: false };

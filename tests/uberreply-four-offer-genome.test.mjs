@@ -216,17 +216,21 @@ test('candidate tournament prefers stronger evidence and lower-friction candidat
   const candidates = [
     {
       candidateId: 'generic',
-      relevanceSpecificity: 0.4, problemClarity: 0.5, evidenceStrength: 0.3, offerUtility: 0.5,
-      proofSimilarity: 0.4, ctaEase: 0.4, credibility: 0.5, consequenceFit: 0.5,
-      cognitiveEase: 0.6, subjectFit: 0.5, toneFit: 0.5, novelty: 0.3,
-      genericnessPenalty: 0.8, hypePenalty: 0.4
+      problemEvidence: 0.4, roleOwnership: 0.3, triggerStrengthFreshness: 0.3,
+      relevanceSpecificity: 0.4, offerUtility: 0.5, proofSimilarity: 0.4,
+      ctaEase: 0.4, credibility: 0.5, messageClarity: 0.5,
+      subjectFit: 0.5, toneFit: 0.5, novelty: 0.3,
+      cognitiveLoadPenalty: 0.4, hypePenalty: 0.4, creepyPersonalizationPenalty: 0.1,
+      unsupportedClaimPenalty: 0.3, askCostPenalty: 0.4
     },
     {
       candidateId: 'evidence-first',
-      relevanceSpecificity: 0.95, problemClarity: 0.9, evidenceStrength: 0.95, offerUtility: 0.9,
-      proofSimilarity: 0.9, ctaEase: 0.95, credibility: 0.9, consequenceFit: 0.9,
-      cognitiveEase: 0.9, subjectFit: 0.8, toneFit: 0.9, novelty: 0.5,
-      genericnessPenalty: 0.05, hypePenalty: 0.05
+      problemEvidence: 0.95, roleOwnership: 0.9, triggerStrengthFreshness: 0.9,
+      relevanceSpecificity: 0.95, offerUtility: 0.9, proofSimilarity: 0.9,
+      ctaEase: 0.95, credibility: 0.9, messageClarity: 0.9,
+      subjectFit: 0.8, toneFit: 0.9, novelty: 0.5,
+      cognitiveLoadPenalty: 0.05, hypePenalty: 0.05, creepyPersonalizationPenalty: 0,
+      unsupportedClaimPenalty: 0, askCostPenalty: 0.05
     }
   ];
   assert.ok(scoreUberReplyMessageCandidate(candidates[1]) > scoreUberReplyMessageCandidate(candidates[0]));

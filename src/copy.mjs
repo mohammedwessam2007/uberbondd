@@ -51,7 +51,8 @@ export function buildUberReplyV5Message({
   sender={},
   artifact=null,
   followup=0,
-  unsubscribeUrl=''
+  unsubscribeUrl='',
+  variantMode='QUOTE'
 }={}) {
   const first=cleanCopy(contact?.firstName||prospect?.contactName?.split(/\s+/)[0]||'',80);
   const greeting=first?`Hi ${first},`:'Hi there,';
@@ -77,7 +78,16 @@ export function buildUberReplyV5Message({
     return [greeting,'',observation,proof,offer,'Want me to send it?'].filter(Boolean).join('\n\n')+optout+signature;
   }
 
-  const observed=sentence(`I checked ${company} and found ${title}`);
+  const mode=String(variantMode||'QUOTE').toUpperCase();
+  const second=findings[1]||null;
+  let observed;
+  if(mode==='DOUBLE_EVIDENCE'&&second?.title){
+    observed=sentence(`I checked ${company} and found ${title}, plus ${cleanCopy(second.title,180).toLowerCase()}`);
+  }else if(mode==='QUOTE'&&evidence){
+    observed=sentence(`I checked ${company} and found ${title}; the current page says “${cleanCopy(evidence,120)}”`);
+  }else{
+    observed=sentence(`I checked ${company} and found ${title}`);
+  }
   const effect=implication?sentence(`That can mean ${implication.charAt(0).toLowerCase()+implication.slice(1)}`):sentence('That creates a visible handoff or decision gap worth checking');
   const work=sentence(`I mapped the evidence into a ${artifactLabel} with the supporting evidence and repair order`);
   return [greeting,'',observed,effect,work,'Want me to send it?'].join('\n\n')+optout+signature;

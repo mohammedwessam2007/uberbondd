@@ -49,3 +49,22 @@ test('V5 follow-up must add another finding or stop',()=>{
   });
   assert.equal(stop,'');
 });
+
+
+test('V5 copy variants change proof density without changing the low-friction ask',()=>{
+  const baseArgs={
+    offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',
+    prospect:{company:'Example Agency'},
+    issue:artifact.findings[0],
+    contact:{firstName:'Sam'},
+    sender:{name:'Mohamed',company:'UberBond',address:'Cairo'},
+    artifact
+  };
+  const base=buildUberReplyV5Message({...baseArgs,variantMode:'BASE'});
+  const quote=buildUberReplyV5Message({...baseArgs,variantMode:'QUOTE'});
+  const double=buildUberReplyV5Message({...baseArgs,variantMode:'DOUBLE_EVIDENCE'});
+  assert.notEqual(base,quote);
+  assert.match(quote,/current page says/i);
+  assert.match(double,/plus mobile call CTA is absent/i);
+  for(const body of [base,quote,double])assert.match(body,/Want me to send it\?/);
+});

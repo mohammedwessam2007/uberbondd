@@ -49,6 +49,12 @@ test('APEX mode preserves frontier semantic quality while compiling bounded Jev 
   assert.equal(out.architecture.reflexLayer.program.instructions.length, 2);
   assert.equal(out.architecture.reflexLayer.consequenceAuthority, 'NONE');
   assert.ok(out.architecture.computePlan.parallelBranches > out.architecture.computePlan.sequentialAggregations);
+  assert.equal(out.architecture.councilPolicy.dynamicDelegation.leadMaySteerActiveBranches, true);
+  assert.equal(out.architecture.contextPolicy.memoryOperations.discard, 'WORKING_CONTEXT_ONLY_NEVER_DURABLE_EVIDENCE_DELETION');
+  assert.equal(out.architecture.artifactPolicy.specialistMayPersistDirectArtifact, true);
+  assert.equal(out.architecture.artifactPolicy.coordinatorReceivesReferenceBeforeCopiedPayload, true);
+  assert.equal(out.architecture.architectureLearning.qualityDiversityArchiveRequired, true);
+  assert.equal(out.architecture.architectureLearning.productionCanaryBeforeReplacement, true);
 });
 
 test('easy task may use one frontier pass but does not silently delegate semantic authority to cheap models', () => {

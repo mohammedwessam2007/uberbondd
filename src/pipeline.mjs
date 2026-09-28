@@ -1080,15 +1080,16 @@ export class Pipeline {
       const classification = classifyDeliverySignal(parsedForSignal) || await classifyReply(this.cfg.ai, body);
       let asyncCloseDecision = null;
       let asyncReplyDraft = null;
-      if (prospect?.offerDecision?.offer?.offerId) {
+      const replyOfferId = linkedMessage?.offerId || prospect?.offerDecision?.selectedOfferId || prospect?.offerDecision?.offer?.offerId || null;
+      if (replyOfferId) {
         const replyState = classifyUberReplyState({ classification, body });
         asyncCloseDecision = compileUberReplyAsyncCloseDecision({
-          offerId: prospect.offerDecision.offer.offerId,
+          offerId: replyOfferId,
           replyState
         });
         const qualifiedPositiveEvidence = classifyUberReplyQualification({ classification, body, replyState });
         asyncReplyDraft = compileUberReplyAsyncResponseDraft({
-          offerId: prospect.offerDecision.offer.offerId,
+          offerId: replyOfferId,
           replyState,
           artifact: prospect.uberReplyPreworkArtifact,
           senderName: this.cfg.sender?.name
@@ -1101,7 +1102,7 @@ export class Pipeline {
           from, subject, body, classification, asyncCloseDecision, asyncReplyDraft,
           qualifiedPositiveEvidence: asyncReplyDraft?.qualifiedPositiveEvidence || null,
           sourceMessageId: linkedMessage?.id || null,
-          offerId: linkedMessage?.offerId || prospect?.offerDecision?.offer?.offerId || null,
+          offerId: replyOfferId,
           uberReplyCandidateId: linkedMessage?.uberReplyCandidateId || null,
           uberReplyGenotypeId: linkedMessage?.uberReplyGenotypeId || null,
           uberReplyRenderedMessageId: linkedMessage?.uberReplyRenderedMessageId || null,

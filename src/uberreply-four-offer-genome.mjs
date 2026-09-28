@@ -719,7 +719,7 @@ export function compileUberReplyAsyncCloseDecision({ offerId, replyState, qualif
       ...base,
       state: 'SEND_FIXED_PRICE_AND_SCOPE',
       nextAction: 'SCOPE_PRICE_PAYMENT_ONBOARDING',
-      priceUsd: finite(qualification.complexWorkflow) && offer.complexWorkflowPriceUsd ? offer.complexWorkflowPriceUsd : offer.standardPriceUsd,
+      priceUsd: qualification.complexWorkflow === true && offer.complexWorkflowPriceUsd ? offer.complexWorkflowPriceUsd : offer.standardPriceUsd,
       meetingAllowed: false
     };
   }

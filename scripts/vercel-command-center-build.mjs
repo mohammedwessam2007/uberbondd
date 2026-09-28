@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
@@ -69,13 +70,47 @@ const steps = [
   ['npm', ['run', 'readiness']]
 ];
 
-for (const [command, args] of steps) {
+const terminalReasonOrder = [
+  'exact-current-truth-receipt-required',
+  'semantic-zero-orphan-tribunal-required',
+  'semantic-tribunal-source-mismatch',
+  'canonical-current-execution-graph-required',
+  'execution-graph-source-mismatch',
+  'zero-orphan-graph-required',
+  'zero-floating-graph-required',
+  'acyclic-graph-required',
+  'execution-graph-integrity-required',
+  'canonical-graph-continuation-composition-proof-required',
+  'all-effect-sinks-must-enforce-exact-composed-authority',
+  'principal-level-recursive-governance-proof-required',
+  'current-cut-set-audit-required',
+  'unresolved-internal-single-point-failures-remain',
+  'finite-behavior-requirements-not-source-closed',
+  'floating-closure-evidence-remains',
+  'semantic-and-execution-denominators-must-be-reciprocal',
+  'terminal-source-tribunal-generator-failed',
+  'terminal-source-tribunal-artifact-missing'
+];
+
+for (const [index, [command, args]] of steps.entries()) {
   const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
   if (result.error) {
     console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
     process.exit(1);
   }
-  if (result.status !== 0) process.exit(result.status ?? 1);
+  if (result.status !== 0) {
+    if (index === 17) {
+      try {
+        const diag = JSON.parse(readFileSync('artifacts/sovereign/terminal-realization.json', 'utf8'));
+        const reasons = Array.isArray(diag.reasonCodes) ? diag.reasonCodes : [];
+        const matched = terminalReasonOrder.findIndex(reason => reasons.includes(reason));
+        process.exit(matched >= 0 ? 50 + matched : 90);
+      } catch {
+        process.exit(91);
+      }
+    }
+    process.exit(result.status ?? 1);
+  }
 }
 
 console.log(JSON.stringify({

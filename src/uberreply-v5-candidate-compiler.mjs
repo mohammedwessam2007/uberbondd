@@ -36,7 +36,7 @@ function wordCount(value){
   return clean(value,10000).split(/\s+/).filter(Boolean).length;
 }
 
-function candidateFeatures({subject,body,artifact,prospect,ctaEase,index}){
+function candidateFeatures({subject,body,artifact,prospect,ctaEase}){
   const evidenceCount=Array.isArray(artifact?.evidenceRefs)?artifact.evidenceRefs.length:0;
   const findingCount=Array.isArray(artifact?.findings)?artifact.findings.length:0;
   const confidence=Array.isArray(artifact?.findings)&&artifact.findings.length
@@ -78,6 +78,40 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase,index}){
 function deterministicUnit(seed){
   const hex=hash(seed).slice(0,13);
   return parseInt(hex,16)/0xfffffffffffff;
+}
+
+
+export function compileUberReplyTreatmentIdentity({
+  offerId,
+  subject='',
+  body='',
+  followup=0,
+  candidateSet=null
+}={}){
+  const position=Math.max(1,Number(followup||0)+1);
+  const assigned=candidateSet?.assignedCandidate||candidateSet?.selectedCandidate||null;
+  const assignedId=candidateSet?.assignedCandidateId||candidateSet?.selectedCandidateId||assigned?.candidateId||null;
+  const payloadDigest=`sha256:${hash([offerId||'',position,subject||'',body||''].join('|'))}`;
+  const firstTouch=position===1;
+  const candidateId=firstTouch&&assignedId
+    ? assignedId
+    : `ubv5_touch_${hash([offerId||'',position,subject||'',body||''].join('|')).slice(0,16)}`;
+  return{
+    candidateId,
+    payloadDigest,
+    sequencePosition:position,
+    assignmentMode:firstTouch?(candidateSet?.assignmentMode||'EXPLOIT_CHAMPION'):'EVIDENCE_SEQUENCE',
+    strategyAtoms:firstTouch&&assigned?.strategyAtoms
+      ? assigned.strategyAtoms
+      : {
+          structure:'NEW_EVIDENCE_EFFECT_PERMISSION_CTA',
+          sequencePosition:position,
+          offerId:String(offerId||'').toUpperCase()
+        },
+    externalEffectAuthority:'NONE',
+    businessEffectAuthority:'NONE',
+    truthBoundary:'Treatment identity binds the exact subject/body and sequence position for outcome attribution. It grants no send authority.'
+  };
 }
 
 export function compileUberReplyExperimentalAssignment({
@@ -166,7 +200,7 @@ export function compileUberReplyV5CandidateSet({
   for(const subject of subjects){
     for(const cta of CTA_VARIANTS){
       const body=replaceFinalCta(baseBody,cta.text);
-      const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase,index:candidates.length});
+      const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase});
       candidates.push({
         candidateId:`ubv5_${hash([offer.offerId,subject,cta.id,body].join('|')).slice(0,16)}`,
         offerId:offer.offerId,

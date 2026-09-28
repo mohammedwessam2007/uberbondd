@@ -34,6 +34,8 @@ const PUBLIC_DONOR_REFS = Object.freeze([
   'https://developers.openai.com/api/docs/guides/agents',
   'https://arxiv.org/abs/2408.08435',
   'https://arxiv.org/abs/2410.06153',
+  'https://arxiv.org/abs/2502.04180',
+  'https://arxiv.org/abs/2510.02669',
   'https://dspy.ai/3.0.2/learn/optimization/optimizers/'
 ]);
 

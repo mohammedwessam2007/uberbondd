@@ -359,6 +359,28 @@ A circuit may answer questions such as:
 
 It cannot create permission to message, spend, deploy, mutate credentials, move money or redefine Mohamed's goals.
 
+## Native frontier transport + same-model cost compression
+
+The APEX crown must not depend on a gateway when a native provider lane exposes stronger exact reasoning controls or economics.
+
+Current source integration now supports evidence-bound direct frontier contracts:
+
+- OpenAI direct: exact cognitive model must equal transport model; reasoning settings accept low / medium / high / xhigh / max. A profile may request `service_tier=flex`; the result is accepted as Flex only when the provider response attests the same service tier.
+- Anthropic direct: exact cognitive model must equal transport model; effort accepts low / medium / high / xhigh / max. Opus 5.5-class strict tool return uses the current `auto + strict` contract rather than the retired forced-tool pattern.
+- Gateway lanes remain valid donors where their exact reasoning/caching behavior is independently evidenced.
+
+A service-tier or cache discount cannot lower a compute reservation unless matching, current pricing evidence exists for that exact lane. Model identity, revision, reasoning setting and economic tier form one evidence contract.
+
+`src/frontier-deferred-compute-planner.mjs` adds a PLAN_ONLY same-model deferred-compute layer:
+
+`exact frontier model + exact revision + exact reasoning setting -> interactive / Flex / Batch`
+
+The planner may change **when and how the same cognition is purchased**, never which cognition is purchased. A delayed Opus 5.5 max job stays Opus 5.5 max; a delayed Astra max job stays Astra max. If a discounted mode lacks verified pricing or availability evidence, the planner refuses the economic claim rather than inventing savings.
+
+This is a central cost law:
+
+> **Compress price, latency and redundant context before compressing reasoning quality.**
+
 ## Public-#1 criterion
 
 UberBond may **target** public frontier leadership but cannot award itself the title.
@@ -417,7 +439,10 @@ The architecture has an explicit mechanism and falsifier for:
 29. canary or side-by-side architecture replacement;
 30. provenance;
 31. authority separation;
-32. rollback/replaceability.
+32. rollback/replaceability;
+33. exact native frontier reasoning controls when stronger than gateway abstractions;
+34. same-model deferred compute planning (Batch/Flex) with verified lane pricing;
+35. current model-universe refresh without deleting superseded donors.
 
 On this rubric the **candidate design is 10/10 for coverage**.
 
@@ -428,6 +453,8 @@ That is not a claim of 10/10 empirical performance.
 The architecture is not allowed to call itself proven until these are observed:
 
 - current 2026-09-29 frontier models have exact live callability and pricing/effort receipts;
+- native Opus 5.5 / Astra frontier lanes are exercised against live provider responses rather than only exact-source stubs;
+- deferred Batch/Flex plans produce real provider completion and billing receipts with the expected unchanged model/reasoning identity;
 - Jev executes real shadow circuits on UberBond workload classes;
 - calibration curves exist per semantic circuit;
 - identity-blind council beats or matches the prior council on sealed holdouts;

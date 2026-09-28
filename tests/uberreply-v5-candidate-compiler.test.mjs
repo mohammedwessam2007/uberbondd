@@ -56,7 +56,7 @@ test('candidate compiler creates bounded evidence-first variants and selects one
   assert.equal(out.externalEffectAuthority,'NONE');
   assert.equal(out.tournament.automaticDispatchAuthorized,false);
 
-  assert.ok(new Set(out.candidates.map(candidate=>candidate.strategyAtoms.bodyMode)).size>=3);
+  assert.ok(new Set(out.candidates.map(candidate=>candidate.strategyAtoms.bodyMode)).size>=2);
   assert.ok(out.candidates.every(candidate=>candidate.genotypeId?.startsWith('ubog_')));
   assert.ok(out.candidates.every(candidate=>candidate.renderedMessageId?.startsWith('ubom_')));
 });

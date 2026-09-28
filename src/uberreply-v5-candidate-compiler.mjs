@@ -241,7 +241,7 @@ export function compileUberReplyExperimentalAssignment({
   let assigned=tournament.champion;
   let mode='EXPLOIT_CHAMPION';
   if(explore){
-      const pool=challengers;
+    const pool=challengers;
     const index=Math.min(pool.length-1,Math.floor(deterministicUnit(`${key}|challenger`)*pool.length));
     assigned=pool[index];
     mode='EXPLORE_CHALLENGER';
@@ -303,8 +303,8 @@ export function compileUberReplyV5CandidateSet({
     artifact,
     unsubscribeUrl
   });
-  const baseSubject=buildUberReplyV5Subject({offerId:offer.offerId,prospect,issue});
-  const subjects=[baseSubject,...(SUBJECT_VARIANTS[offer.offerId]||[])].filter((v,i,a)=>v&&a.indexOf(v)===i);
+  const defaultSubject=buildUberReplyV5Subject({offerId:offer.offerId,prospect,issue});
+  const subjects=[defaultSubject,...(SUBJECT_VARIANTS[offer.offerId]||[])].filter((v,i,a)=>v&&a.indexOf(v)===i);
 
   const candidates=[];
   const activeBodyVariants=(artifact?.findings?.length||0)>1?BODY_VARIANTS:['BASE','QUOTE'];

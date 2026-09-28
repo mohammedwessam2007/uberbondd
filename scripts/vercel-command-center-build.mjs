@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
@@ -69,13 +70,44 @@ const steps = [
   ['npm', ['run', 'readiness']]
 ];
 
-for (const [command, args] of steps) {
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
-  if (result.error) {
-    console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
-    process.exit(1);
+const terminalReasons=[
+  'current-truth-regeneration-failed',
+  'semantic-requirement-tribunal-refused',
+  'terminal-source-tribunal-generator-failed',
+  'terminal-source-tribunal-artifact-missing',
+  'exact-current-truth-receipt-required',
+  'semantic-zero-orphan-tribunal-required',
+  'semantic-tribunal-source-mismatch',
+  'canonical-current-execution-graph-required',
+  'execution-graph-source-mismatch',
+  'zero-orphan-graph-required',
+  'zero-floating-graph-required',
+  'acyclic-graph-required',
+  'execution-graph-integrity-required',
+  'canonical-graph-continuation-composition-proof-required',
+  'all-effect-sinks-must-enforce-exact-composed-authority',
+  'principal-level-recursive-governance-proof-required',
+  'current-cut-set-audit-required',
+  'unresolved-internal-single-point-failures-remain',
+  'finite-behavior-requirements-not-source-closed',
+  'floating-closure-evidence-remains',
+  'semantic-and-execution-denominators-must-be-reciprocal'
+];
+for (const [index,[command,args]] of steps.entries()) {
+  const result=spawnSync(command,args,{cwd:process.cwd(),env:process.env,encoding:'utf8',stdio:'inherit'});
+  if(result.error) process.exit(19);
+  if(result.status!==0){
+    if(index===17){
+      try{
+        const doc=JSON.parse(readFileSync('artifacts/sovereign/terminal-realization.json','utf8'));
+        const reasons=Array.isArray(doc.reasonCodes)?doc.reasonCodes:[];
+        const match=terminalReasons.findIndex(code=>reasons.includes(code));
+        if(match>=0) process.exit(50+match);
+      }catch{}
+      process.exit(90);
+    }
+    process.exit(20+index);
   }
-  if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
 console.log(JSON.stringify({

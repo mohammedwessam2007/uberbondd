@@ -20,6 +20,7 @@ function clearedEconomicEvidenceForProspect(prospectId,orders=[],revenueEvents=[
   let clearedContributionCents=0;
   let hasRevenue=false;
   let hasContribution=false;
+  let observedAt=null;
   for(const row of rows){
     const key=String(row.providerEventId||row.eventId||row.providerReferenceId||row.id||'').trim();
     if(key&&seen.has(key))continue;
@@ -30,6 +31,8 @@ function clearedEconomicEvidenceForProspect(prospectId,orders=[],revenueEvents=[
       clearedRevenueCents+=amount;
       hasRevenue=true;
     }
+    const rowTime=ts(row.createdAt||row.observedAt||row.timestamp||row.paidAt);
+    if(rowTime!=null&&(observedAt==null||rowTime<observedAt))observedAt=rowTime;
     let contribution=num(row.clearedContributionCents??row.contributionCents);
     if(contribution!=null){
       if(lower(row.kind)==='refund'&&contribution>0)contribution=-contribution;
@@ -40,6 +43,7 @@ function clearedEconomicEvidenceForProspect(prospectId,orders=[],revenueEvents=[
   return{
     clearedRevenueCents:hasRevenue?clearedRevenueCents:null,
     clearedContributionCents:hasContribution?clearedContributionCents:null,
+    observedAt,
     source:ledgerRows.length?'VERIFIED_REVENUE_LEDGER':'SETTLED_ORDER_FALLBACK'
   };
 }
@@ -62,9 +66,10 @@ export function compileUberReplyObservedLearning({
     .filter(message=>message?.uberReplyCandidateId&&message?.uberReplyGenotypeId&&message?.uberReplyRenderedMessageId)
     .filter(message=>!campaignId||String(message.campaignId||'')===String(campaignId));
   const prospectById=new Map(arr(prospects).map(row=>[row.id,row]));
-  const replyByMessage=new Map();
+  const repliesByMessage=new Map();
   for(const reply of arr(replies)){
-    if(reply?.sourceMessageId)replyByMessage.set(reply.sourceMessageId,reply);
+    if(!reply?.sourceMessageId)continue;
+    repliesByMessage.set(reply.sourceMessageId,[...(repliesByMessage.get(reply.sourceMessageId)||[]),reply]);
   }
   const eventsByMessage=new Map();
   const legacyEventsByProspect=new Map();
@@ -83,18 +88,36 @@ export function compileUberReplyObservedLearning({
     const currentTime=ts(message.sentAt)||0;
     if(!existing||(ts(existing.sentAt)||0)<=currentTime)latestCandidateByProspect.set(message.prospectId,message);
   }
+  const economicsByProspect=new Map();
+  const economicsMessageByProspect=new Map();
+  for(const prospectId of latestCandidateByProspect.keys()){
+    const evidence=clearedEconomicEvidenceForProspect(prospectId,orders,revenueEvents);
+    economicsByProspect.set(prospectId,evidence);
+    if(evidence.clearedRevenueCents==null&&evidence.clearedContributionCents==null)continue;
+    const eligible=candidateMessages
+      .filter(message=>message.prospectId===prospectId)
+      .filter(message=>evidence.observedAt==null||(ts(message.sentAt)!=null&&ts(message.sentAt)<=evidence.observedAt))
+      .sort((a,b)=>(ts(a.sentAt)||0)-(ts(b.sentAt)||0));
+    const attributed=eligible.at(-1)||(evidence.observedAt==null?latestCandidateByProspect.get(prospectId):null);
+    if(attributed)economicsMessageByProspect.set(prospectId,attributed.id);
+  }
 
   const outcomes=candidateMessages.map(message=>{
     const prospect=prospectById.get(message.prospectId)||{};
-    const reply=replyByMessage.get(message.id)||null;
+    const messageReplies=repliesByMessage.get(message.id)||[];
+    const reply=messageReplies.at(-1)||null;
     const events=eventsByMessage.get(message.id)||(
       latestCandidateByProspect.get(message.prospectId)?.id===message.id
         ? (legacyEventsByProspect.get(message.prospectId)||[])
         : []
     );
-    const replyLabel=lower(reply?.classification?.label||reply?.label||'');
-    const economics=latestCandidateByProspect.get(message.prospectId)?.id===message.id
-      ? clearedEconomicEvidenceForProspect(message.prospectId,orders,revenueEvents)
+    const replyLabels=messageReplies.map(row=>lower(row?.classification?.label||row?.label||'')).filter(Boolean);
+    const replyLabel=replyLabels.at(-1)||'';
+    const positiveReply=replyLabels.some(label=>label==='positive'||label==='interested');
+    const qualifiedPositiveReply=messageReplies.some(row=>row?.qualifiedPositiveEvidence?.qualified===true);
+    const referral=replyLabels.includes('referral');
+    const economics=economicsMessageByProspect.get(message.prospectId)===message.id
+      ? (economicsByProspect.get(message.prospectId)||{clearedRevenueCents:null,clearedContributionCents:null})
       : {clearedRevenueCents:null,clearedContributionCents:null};
     const complaint=events.some(event=>['complaint','spam_complaint'].includes(lower(event.eventType)));
     const hardBounce=events.some(event=>['hard_bounce','bounce_hard'].includes(lower(event.eventType)));
@@ -125,9 +148,9 @@ export function compileUberReplyObservedLearning({
         complaint,
         unsubscribed,
         replyClass:replyLabel||null,
-        positiveReply:replyLabel==='positive'||replyLabel==='interested',
-        qualifiedPositiveReply:reply?.qualifiedPositiveEvidence?.qualified===true,
-        referral:replyLabel==='referral',
+        positiveReply,
+        qualifiedPositiveReply,
+        referral,
         meetingBooked:stageAtLeast(stage,['meeting','offer','invoice','paid','delivery','accepted','recurring']),
         meetingShowed:Boolean(prospect.meetingShowedAt),
         qualifiedOpportunity:stageAtLeast(stage,['opportunity','meeting','offer','invoice','paid','delivery','accepted','recurring']),
@@ -143,7 +166,7 @@ export function compileUberReplyObservedLearning({
         complianceRiskCostCents:null,
         opportunityCostCents:null
       },
-      observedAt:reply?.receivedAt||message.sentAt||new Date()
+      observedAt:messageReplies.map(row=>row?.receivedAt).filter(Boolean).sort().at(0)||message.sentAt||new Date()
     });
   });
 
@@ -159,7 +182,6 @@ export function compileUberReplyObservedLearning({
   const firstTouchIds=new Set(firstTouchMessages.map(message=>message.id));
   const firstTouchOutcomes=outcomes.filter(row=>firstTouchIds.has(String(row.decisionId||'').replace(/^uberreply:/,'')));
   const humanReplyLabels=new Set(['positive','interested','neutral','objection','negative','wrong_person','referral','optout','unsubscribe']);
-  const firstTouchDelivered=firstTouchOutcomes.filter(row=>row?.delivery?.accepted===true&&!row?.delivery?.hardBounce);
   const uniqueDeliveredProspects=new Set(firstTouchMessages.filter(message=>{
     const outcome=firstTouchOutcomes.find(row=>row.decisionId===`uberreply:${message.id}`);
     return outcome?.delivery?.accepted===true&&!outcome?.delivery?.hardBounce;
@@ -186,7 +208,8 @@ export function compileUberReplyObservedLearning({
       humanReplyUniqueProspects:[...humanReplyProspects].filter(id=>uniqueDeliveredProspects.has(id)).length,
       positiveReplyUniqueProspects:[...positiveReplyProspects].filter(id=>uniqueDeliveredProspects.has(id)).length,
       qualifiedPositiveReplyUniqueProspects:[...qualifiedPositiveProspects].filter(id=>uniqueDeliveredProspects.has(id)).length,
-      denominatorPolicy:'UNIQUE_DELIVERED_TRULY_COLD_PROSPECTS; AUTO_REPLY_OOO_BOUNCE_EXCLUDED_FROM_HUMAN_REPLY'
+      denominatorPolicy:'UNIQUE_DELIVERED_PROSPECTS; AUTO_REPLY_OOO_BOUNCE_EXCLUDED_FROM_HUMAN_REPLY',
+      cohortTruthRequirement:'Before any record-attempt claim, separately prove the cohort is eligible and truly cold; this compiler does not infer that status from a sent-message row.'
     },
     learningPacket,
     attributionMode:'EXACT_MESSAGE_FOR_REPLIES_STABLE_STRATEGY_ARM_FOR_EXPERIMENTS_LAST_TOUCH_OBSERVATIONAL_FOR_CLEARED_ECONOMICS',
@@ -194,6 +217,6 @@ export function compileUberReplyObservedLearning({
     automaticPromotionAuthorized:false,
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
-    truthBoundary:'Replies are linked only through exact sourceMessageId when available. Copy experiments aggregate by stable strategy arm while exact candidate, genotype and rendered-message receipts remain preserved. Hard bounces are excluded from the delivered-analysis denominator. Cleared economics prefer the verified revenue ledger and fall back to settled orders without double-counting both; last-touch economics remain observational, not causal incrementality. Missing contribution/reputation/compliance/opportunity-cost terms remain unknown. Promotion requires independent causal analysis, validation traffic and guardrail survival.'
+    truthBoundary:'Replies are linked only through exact sourceMessageId when available. Copy experiments aggregate by stable strategy arm while exact candidate, genotype and rendered-message receipts remain preserved. Hard bounces are excluded from the delivered-analysis denominator. Cleared economics prefer the verified revenue ledger and fall back to settled orders without double-counting both; economics attach only to the latest observed treatment at or before the first economic receipt when timestamps permit, and remain observational rather than causal incrementality. Missing contribution/reputation/compliance/opportunity-cost terms remain unknown. Promotion requires independent causal analysis, validation traffic and guardrail survival.'
   };
 }

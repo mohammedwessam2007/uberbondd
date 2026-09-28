@@ -140,3 +140,34 @@ If the owner says only “continue” or “go,” that is enough. Do not ask hi
 ## APOTHEOSIS orchestration continuation — 2026-09-15
 
 Founder-supplied partial APOTHEOSIS doctrine and checkpoints 1–3 are reconciled in `docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md` with seven native-format contracts at `artifacts/work/apotheosis-continuation-2026-09-15.json`. Preserve P00–P42; add P43–P49 for scarce-model allocation, packet quality, context selection, cheaper routing, return/exit continuity, comparative evaluation and orchestration improvement. Source basis: `f48abf510632135203ced90d983d2d5d4da3a997`. Class: ORCHESTRATION_SPECIFICATION / CHAT_SPEC_GOAL. Runtime execution and cognitive/economic improvement are not established by this import. Earlier omitted transcript remains unrecovered. The decisive dependency correction is P44 → P47 independent of P46; saving a handoff does not prove fleet resumption or unattended duration. Terminal North Star and founder authority remain unchanged.
+
+
+## October 2026 commercial outreach genome — 2026-09-28
+
+Truth class: `CURRENT_COMMERCIAL_DESIGN / UNVALIDATED_MARKET_HYPOTHESIS`.
+
+The current commercial outreach overlay is `docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`. For any future cold-email, offer, first-revenue or campaign mission, recover that overlay plus `docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md` and `docs/OFFER_QUARTET_OCT_2026_10_OF_10.md` before inventing new message formats or offers.
+
+The integrated outbound genome is:
+
+`SELECT -> PROVE -> TIME -> MATCH -> PRE-WORK -> COMPRESS -> MICRO-ASK -> ASYNC-CLOSE -> LEARN`
+
+The first touch sells a useful evidence artifact, not UberBond and not a meeting. Starting priors are a plain 2–5 word subject, roughly 51–100 words, 3–4 sentences, one idea, one CTA, verified problem evidence, consequence at buyer altitude, evidence-of-work, and a low-friction permission ask such as "Want me to send it?" The system may generate multiple bounded candidates, score expected qualified-positive-reply probability, preserve challenger traffic, and abstain with `DO_NOT_SEND` when evidence, fit, legal eligibility or sender health is insufficient.
+
+Sales is async-first. Preferred path:
+
+`cold email -> artifact permission -> artifact delivered -> 1–3 async qualification questions -> fixed scope -> price -> payment -> onboarding -> delivery -> acceptance -> expansion`
+
+Meetings are not the default. They remain available when the buyer requests one or genuine scope/security/multi-stakeholder/regulatory/economic complexity justifies it. The founder-time objective remains expected cleared contribution profit per founder minute.
+
+The October 2026 flagship quartet is:
+1. **Agency Revenue Leak Proof Pack** — agencies serving HVAC/plumbing/electrical/roofing and adjacent home-service businesses. Price hypotheses: $1,500 / 3 client sites; $3,900 / 10 sites; $2,500/month monitoring after successful delivery.
+2. **AI Agent Production Release Gate** — AI agencies/MSPs/internal AI/SaaS teams. Price hypotheses: $3,000 standard; $4,000 complex/tool-heavy workflow; $3,500/month continuous release gate after successful proof.
+3. **Revenue Proof & Renewal Pack** — performance/paid-media agencies, RevOps partners, fractional CMOs. Price hypotheses: $2,500 single client; $4,500 / 3-client pack; $3,000/month after repeat demand.
+4. **GCC Arabic-English Booking Parity & Revenue Leak Sprint** — Saudi/UAE clinic/medspa groups and agencies serving them. Price hypotheses: $1,750 single location; $4,500 / 3 locations; $3,500/month monitoring after paid proof.
+
+These names supersede, but do not erase, the earlier offer donors White-Label Lead-to-Booking Leak Audit; AI Agent Release Gate / Production Acceptance Sprint; Client ROI Proof Sprint / Renewal-Ready ROI Evidence Pack; and Arabic + English Booking Leak Audit / Bilingual Appointment Recovery Sprint. Earlier White-Label AI Workflow Reliability Sprint and CRM/Payment Reconciliation Diagnostic remain recoverable historical high-ticket donors.
+
+"10/10" means design-complete against the current internal rubric only. It does not establish demand, price acceptance, contribution margin, recurring demand, close rate or revenue. Real buyer behavior, cleared payment and accepted delivery outrank this memory.
+
+Sender/provider readiness is dynamic. A future session must refresh current provider entitlement/payment status, current policy, domain/mailbox health, legal eligibility and a controlled canary before cold activation. Never assume a September 2026 provider state remains true next month.

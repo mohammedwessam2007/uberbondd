@@ -861,9 +861,17 @@ export class Pipeline {
       threadId: result.data.threadId || '',
       rfcMessageId
     });
+    const selectedUberReplyCandidate = prospect?.uberReplyCandidateSet?.selectedCandidate || null;
+    const selectedUberReplyCandidateId = prospect?.uberReplyCandidateSet?.selectedCandidateId || selectedUberReplyCandidate?.candidateId || null;
     await this.store.recordOutboundEvent({
       inbox: prospect.inbox, eventType: 'sent', prospectId: prospect.id,
-      recipientEmail: prospect.contact.email, detail: { reservationId: reservation.id, followup }
+      recipientEmail: prospect.contact.email,
+      detail: {
+        reservationId: reservation.id,
+        followup,
+        offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
+        uberReplyCandidateId: selectedUberReplyCandidateId
+      }
     }, this.outboundThresholds());
 
     const message = {
@@ -873,7 +881,10 @@ export class Pipeline {
       providerReferenceId: providerMeta?.providerReferenceId || result.data.id,
       gmailId: outboundProvider === 'gmail-api' ? result.data.id : null,
       threadId: result.data.threadId || '',
-      rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey
+      rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey,
+      offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
+      uberReplyCandidateId: selectedUberReplyCandidateId,
+      uberReplyStrategyAtoms: selectedUberReplyCandidate?.strategyAtoms || null
     };
     try { await this.store.add('messages', message); }
     catch (error) { if (!(error instanceof ConflictError)) throw error; }
@@ -1069,7 +1080,11 @@ export class Pipeline {
       try {
         await this.store.add('replies', {
           id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
-          from, subject, body, classification, asyncCloseDecision, asyncReplyDraft, receivedAt: now()
+          from, subject, body, classification, asyncCloseDecision, asyncReplyDraft,
+          sourceMessageId: linkedMessage?.id || null,
+          offerId: linkedMessage?.offerId || prospect?.offerDecision?.offer?.offerId || null,
+          uberReplyCandidateId: linkedMessage?.uberReplyCandidateId || null,
+          receivedAt: now()
         });
       } catch (error) {
         if (error instanceof ConflictError) return false;

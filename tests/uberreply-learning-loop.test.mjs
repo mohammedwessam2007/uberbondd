@@ -114,3 +114,46 @@ test('hard bounces are excluded from the delivered record-attempt denominator an
   assert.equal(out.recordAttempt.deliveredUniqueProspects,1);
   assert.equal(out.learningPacket.outcomeCount,1);
 });
+
+
+test('learning loop counts a later qualified reply on the same exact message without losing the earlier reply history',()=>{
+  const out=compileUberReplyObservedLearning({
+    campaignId:'camp-multi-reply',
+    prospects:[{id:'p1',campaignId:'camp-multi-reply'}],
+    messages:[{
+      id:'m1',campaignId:'camp-multi-reply',prospectId:'p1',followup:0,sentAt:'2026-09-28T10:00:00.000Z',
+      uberReplyCandidateId:'cand-a',uberReplyStrategyArmId:'arm-a',uberReplyGenotypeId:'ubog_a',uberReplyRenderedMessageId:'ubom_a'
+    }],
+    replies:[
+      {sourceMessageId:'m1',prospectId:'p1',receivedAt:'2026-09-28T10:30:00.000Z',classification:{label:'neutral'}},
+      {sourceMessageId:'m1',prospectId:'p1',receivedAt:'2026-09-28T11:00:00.000Z',classification:{label:'positive'},qualifiedPositiveEvidence:{qualified:true}}
+    ]
+  });
+  assert.equal(out.outcomes[0].conversation.positiveReply,true);
+  assert.equal(out.outcomes[0].conversation.qualifiedPositiveReply,true);
+});
+
+test('economic evidence is not attributed to a treatment sent after the payment receipt',()=>{
+  const out=compileUberReplyObservedLearning({
+    campaignId:'camp-time',
+    prospects:[{id:'p1',campaignId:'camp-time',opportunityStage:'paid'}],
+    messages:[
+      {id:'m1',campaignId:'camp-time',prospectId:'p1',followup:0,sentAt:'2026-09-28T10:00:00.000Z',uberReplyCandidateId:'a',uberReplyStrategyArmId:'arm-a',uberReplyGenotypeId:'ubog_a',uberReplyRenderedMessageId:'ubom_a'},
+      {id:'m2',campaignId:'camp-time',prospectId:'p1',followup:1,sentAt:'2026-09-28T13:00:00.000Z',uberReplyCandidateId:'b',uberReplyStrategyArmId:'arm-b',uberReplyGenotypeId:'ubog_b',uberReplyRenderedMessageId:'ubom_b'}
+    ],
+    revenueEvents:[{id:'r1',providerEventId:'evt1',prospectId:'p1',kind:'sale',amountCents:150000,createdAt:'2026-09-28T12:00:00.000Z'}]
+  });
+  const first=out.outcomes.find(row=>row.decisionId==='uberreply:m1');
+  const second=out.outcomes.find(row=>row.decisionId==='uberreply:m2');
+  assert.equal(first.commercial.clearedRevenueCents,150000);
+  assert.equal(second.commercial.clearedRevenueCents,null);
+});
+
+test('record-attempt receipt refuses to infer that delivered prospects were truly cold',()=>{
+  const out=compileUberReplyObservedLearning({
+    campaignId:'camp-truth',
+    prospects:[{id:'p1',campaignId:'camp-truth'}],
+    messages:[{id:'m1',campaignId:'camp-truth',prospectId:'p1',followup:0,uberReplyCandidateId:'a',uberReplyStrategyArmId:'arm-a',uberReplyGenotypeId:'ubog_a',uberReplyRenderedMessageId:'ubom_a'}]
+  });
+  assert.match(out.recordAttempt.cohortTruthRequirement,/separately prove/i);
+});

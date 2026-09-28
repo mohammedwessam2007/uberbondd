@@ -705,6 +705,9 @@ export function compileUberReplyAsyncCloseDecision({ offerId, replyState, qualif
   if (['NO', 'UNSUBSCRIBE', 'STOP'].includes(state)) {
     return { ...base, state: 'SUPPRESS_AND_STOP', nextAction: 'GLOBAL_SUPPRESSION', meetingAllowed: false };
   }
+  if (state === 'AUTO_REPLY') {
+    return { ...base, state: 'HOLD_FOR_HUMAN_RETURN', nextAction: 'NO_SALES_RESPONSE_TO_AUTOMATIC_REPLY', meetingAllowed: false };
+  }
   if (state === 'WRONG_PERSON') {
     return { ...base, state: 'ASK_FOR_OWNER_OF_PROBLEM', nextAction: 'REQUEST_CORRECT_ROLE_ONLY', meetingAllowed: false };
   }

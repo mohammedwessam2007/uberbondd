@@ -83,3 +83,30 @@ test('experimental assignment is deterministic for the same prospect and bounded
   assert.equal(a.automaticDispatchAuthorized,false);
   assert.equal(a.externalEffectAuthority,'NONE');
 });
+
+
+test('15% exploration prior is actually approximately 15% and reaches all top challengers',()=>{
+  const tournament={
+    ok:true,
+    explorationRate:0.15,
+    champion:{candidateId:'champ',score:0.9,candidate:{candidateId:'champ'}},
+    challengers:[
+      {candidateId:'challenger-a',score:0.8,candidate:{candidateId:'challenger-a'}},
+      {candidateId:'challenger-b',score:0.7,candidate:{candidateId:'challenger-b'}},
+      {candidateId:'challenger-c',score:0.6,candidate:{candidateId:'challenger-c'}}
+    ]
+  };
+  let explored=0;
+  const seen=new Set();
+  const n=10000;
+  for(let i=0;i<n;i+=1){
+    const out=compileUberReplyExperimentalAssignment({tournament,prospectKey:`prospect-${i}`});
+    if(out.mode==='EXPLORE_CHALLENGER'){
+      explored+=1;
+      seen.add(out.assignedCandidateId);
+    }
+  }
+  const rate=explored/n;
+  assert.ok(rate>0.13&&rate<0.17,`expected ~15% exploration, observed ${rate}`);
+  assert.deepEqual([...seen].sort(),['challenger-a','challenger-b','challenger-c']);
+});

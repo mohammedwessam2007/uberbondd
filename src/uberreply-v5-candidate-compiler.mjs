@@ -64,7 +64,7 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase,index}){
     cognitiveEase:clamp(1-cognitivePenalty),
     subjectFit,
     toneFit:0.9,
-    novelty:clamp(0.35+(index*0.04)),
+    novelty:0.5,
     unsupportedClaimPenalty:0,
     hypePenalty:hype,
     creepyPersonalizationPenalty:0,

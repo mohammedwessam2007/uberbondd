@@ -204,3 +204,34 @@ test('a tournament with no challenger assigns the champion with probability one'
   assert.equal(out.assignmentProbability,1);
   assert.equal(out.assignedStrategyArmId,'only-arm');
 });
+
+
+test('equal seed-score leaders share exploitation traffic instead of choosing a hash-tie winner forever',()=>{
+  const tournament={
+    ok:true,
+    explorationRate:0.15,
+    champion:{candidateId:'leader-a',score:0.9,candidate:{candidateId:'leader-a',strategyArmId:'arm-a'}},
+    challengers:[
+      {candidateId:'leader-b',score:0.9,candidate:{candidateId:'leader-b',strategyArmId:'arm-b'}},
+      {candidateId:'lower',score:0.8,candidate:{candidateId:'lower',strategyArmId:'arm-lower'}}
+    ]
+  };
+  const leaders=new Set();
+  let leaderAssignments=0;
+  let lowerAssignments=0;
+  for(let i=0;i<10000;i+=1){
+    const out=compileUberReplyExperimentalAssignment({tournament,prospectKey:`tie-${i}`});
+    if(out.mode==='EXPLOIT_CHAMPION'){
+      leaderAssignments+=1;
+      leaders.add(out.assignedCandidateId);
+      assert.equal(out.assignmentProbability,0.425);
+    }else{
+      lowerAssignments+=1;
+      assert.equal(out.assignedCandidateId,'lower');
+      assert.equal(out.assignmentProbability,0.15);
+    }
+  }
+  assert.deepEqual([...leaders].sort(),['leader-a','leader-b']);
+  assert.ok(leaderAssignments/10000>0.83&&leaderAssignments/10000<0.87);
+  assert.ok(lowerAssignments/10000>0.13&&lowerAssignments/10000<0.17);
+});

@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { normalizeDomain } from './utils.mjs';
+import { compileUberReplyObservedLearning } from './uberreply-learning-loop.mjs';
 
 /*
  * The workbench is intentionally single-user and provider-neutral.  It owns
@@ -755,24 +756,32 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
   const prospectIds = new Set(campaignMessages.map(item => item.prospectId).filter(Boolean));
   const campaignProspects = asArray(prospects).filter(item => !campaignId || String(item.campaignId || '') === String(campaignId) || prospectIds.has(item.id));
   const prospectById = new Map(campaignProspects.map(item => [item.id, item]));
-  const repliesByProspect = new Map();
-  asArray(replies).forEach(reply => {
-    if (!prospectById.has(reply.prospectId)) return;
-    repliesByProspect.set(reply.prospectId, [...(repliesByProspect.get(reply.prospectId) || []), reply]);
-  });
+  const uberReplyV5 = Boolean(campaign.offerId || campaign.autoRouteOffer === true || campaignMessages.some(item => item.uberReplyCandidateId));
+
   const eventsByMessage = new Map();
   asArray(outboundEvents).forEach(event => {
-    const messageKey = event.messageId || event.detail?.messageId || event.gmailId || event.detail?.gmailId;
+    const messageKey = event.messageId || event.detail?.messageId || event.gmailId || event.detail?.gmailId || event.detail?.sourceMessageId;
     if (messageKey) eventsByMessage.set(messageKey, [...(eventsByMessage.get(messageKey) || []), event]);
   });
+
   const groups = new Map();
   const ensure = (stepId = 'unknown', variantId = 'unknown') => {
     const key = `${stepId}:${variantId}`;
-    if (!groups.has(key)) groups.set(key, { stepId, variantId, sent: 0, opened: 0, clicked: 0, replies: 0, positiveReplies: 0, qualifiedPositiveReplies: 0, opportunities: 0, clearedRevenueUsd: 0, prospectIds: new Set() });
+    if (!groups.has(key)) groups.set(key, {
+      stepId, variantId, sent: 0, opened: 0, clicked: 0, replies: 0,
+      positiveReplies: 0, qualifiedPositiveReplies: 0, opportunities: 0,
+      clearedRevenueUsd: 0, prospectIds: new Set()
+    });
     return groups.get(key);
   };
+  const identityForMessage = message => ({
+    stepId: message.stepId || (message.uberReplyCandidateId ? `uberreply-touch-${Number(message.followup || 0) + 1}` : 'legacy'),
+    variantId: message.variantId || message.uberReplyStrategyArmId || message.uberReplyGenotypeId || message.uberReplyCandidateId || 'unknown'
+  });
+
   for (const message of campaignMessages) {
-    const group = ensure(message.stepId || (message.uberReplyCandidateId ? `uberreply-touch-${Number(message.followup || 0) + 1}` : 'legacy'), message.variantId || message.uberReplyCandidateId || 'unknown');
+    const identity = identityForMessage(message);
+    const group = ensure(identity.stepId, identity.variantId);
     group.sent += 1;
     if (message.prospectId) group.prospectIds.add(message.prospectId);
     const events = eventsByMessage.get(message.id) || eventsByMessage.get(message.gmailId) || [];
@@ -781,27 +790,64 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     group.opened += opened ? 1 : 0;
     group.clicked += clicked ? 1 : 0;
   }
-  for (const [prospectId, prospectReplies] of repliesByProspect) {
-    const prospect = prospectById.get(prospectId);
-    const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
-    const group = ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown');
-    if (prospectReplies.length) group.replies += 1;
-    if (prospectReplies.some(item => lower(item.classification?.label || item.label) === 'positive') || lower(prospect?.replyLabel) === 'positive') group.positiveReplies += 1;
-    if (prospectReplies.some(item => item.qualifiedPositiveEvidence?.qualified === true) || prospect?.qualifiedPositive === true) group.qualifiedPositiveReplies += 1;
-    if (['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(prospect?.opportunityStage))) group.opportunities += 1;
-  }
-  for (const order of asArray(orders)) {
-    if (!prospectById.has(order.prospectId) || ['failed', 'cancelled'].includes(lower(order.status))) continue;
-    if (['paid', 'settled', 'cleared', 'completed'].includes(lower(order.status)) || /paid|settled|cleared|completed/.test(lower(order.eventName))) {
-      const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === order.prospectId);
-      ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown').clearedRevenueUsd += Number(order.amountCents || 0) / 100;
+
+  let v5Learning = null;
+  if (uberReplyV5) {
+    v5Learning = compileUberReplyObservedLearning({
+      campaignId,
+      prospects: campaignProspects,
+      messages: campaignMessages,
+      replies,
+      orders,
+      revenueEvents,
+      outboundEvents,
+      policy: { minSamplesPerArm: Number(campaign.sequence?.settings?.minimumOptimizationSamples || 100) }
+    });
+    const messageById = new Map(campaignMessages.map(message => [message.id, message]));
+    const humanReplyLabels = new Set(['POSITIVE', 'INTERESTED', 'NEUTRAL', 'OBJECTION', 'NEGATIVE', 'WRONG_PERSON', 'REFERRAL', 'OPTOUT', 'UNSUBSCRIBE']);
+    for (const outcome of v5Learning.outcomes || []) {
+      const messageId = String(outcome.decisionId || '').replace(/^uberreply:/, '');
+      const message = messageById.get(messageId);
+      if (!message) continue;
+      const identity = identityForMessage(message);
+      const group = ensure(identity.stepId, identity.variantId);
+      if (humanReplyLabels.has(String(outcome.conversation?.replyClass || '').toUpperCase())) group.replies += 1;
+      if (outcome.conversation?.positiveReply === true) group.positiveReplies += 1;
+      if (outcome.conversation?.qualifiedPositiveReply === true) group.qualifiedPositiveReplies += 1;
+      if (outcome.commercial?.qualifiedOpportunity === true) group.opportunities += 1;
+      if (Number.isFinite(Number(outcome.commercial?.clearedRevenueCents))) {
+        group.clearedRevenueUsd += Number(outcome.commercial.clearedRevenueCents) / 100;
+      }
+    }
+  } else {
+    const repliesByProspect = new Map();
+    asArray(replies).forEach(reply => {
+      if (!prospectById.has(reply.prospectId)) return;
+      repliesByProspect.set(reply.prospectId, [...(repliesByProspect.get(reply.prospectId) || []), reply]);
+    });
+    for (const [prospectId, prospectReplies] of repliesByProspect) {
+      const prospect = prospectById.get(prospectId);
+      const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
+      const identity = identityForMessage(latestMessage || {});
+      const group = ensure(identity.stepId, identity.variantId);
+      if (prospectReplies.length) group.replies += 1;
+      if (prospectReplies.some(item => lower(item.classification?.label || item.label) === 'positive') || lower(prospect?.replyLabel) === 'positive') group.positiveReplies += 1;
+      if (prospectReplies.some(item => item.qualifiedPositiveEvidence?.qualified === true) || prospect?.qualifiedPositive === true) group.qualifiedPositiveReplies += 1;
+      if (['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(prospect?.opportunityStage))) group.opportunities += 1;
+    }
+    const settledOrdersByProspect = new Map();
+    for (const order of asArray(orders)) {
+      if (!prospectById.has(order.prospectId) || ['failed', 'cancelled'].includes(lower(order.status))) continue;
+      if (!(['paid', 'settled', 'cleared', 'completed'].includes(lower(order.status)) || /paid|settled|cleared|completed/.test(lower(order.eventName)))) continue;
+      settledOrdersByProspect.set(order.prospectId, (settledOrdersByProspect.get(order.prospectId) || 0) + Number(order.amountCents || 0));
+    }
+    for (const [prospectId, amountCents] of settledOrdersByProspect) {
+      const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
+      const identity = identityForMessage(latestMessage || {});
+      ensure(identity.stepId, identity.variantId).clearedRevenueUsd += amountCents / 100;
     }
   }
-  for (const event of asArray(revenueEvents)) {
-    if (!prospectById.has(event.prospectId) || !['cleared', 'settled', 'paid'].includes(lower(event.status))) continue;
-    const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === event.prospectId);
-    ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown').clearedRevenueUsd += Number(event.amountCents || 0) / 100;
-  }
+
   const steps = [...groups.values()].map(group => ({
     ...group,
     prospectIds: [...group.prospectIds],
@@ -812,11 +858,14 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     qualifiedPositiveReplyRate: ratio(group.qualifiedPositiveReplies, group.sent),
     opportunityRate: ratio(group.opportunities, group.sent)
   })).sort((a, b) => `${a.stepId}:${a.variantId}`.localeCompare(`${b.stepId}:${b.variantId}`));
-  const uberReplyV5 = Boolean(campaign.offerId || campaign.autoRouteOffer === true);
+
   const metric = campaign.sequence?.settings?.autoOptimizeMetric || (uberReplyV5 ? 'clearedRevenueUsd' : 'replyRate');
   const minimumSamples = Number(campaign.sequence?.settings?.minimumOptimizationSamples || (uberReplyV5 ? 100 : 25));
   const eligible = steps.filter(item => item.sent >= minimumSamples);
   const winner = eligible.slice().sort((a, b) => Number(b[metric] || 0) - Number(a[metric] || 0) || b.sent - a.sent)[0] || null;
+  const totalReplies = uberReplyV5
+    ? Number(v5Learning?.recordAttempt?.humanReplyUniqueProspects || 0)
+    : new Set(asArray(replies).map(reply => reply.prospectId).filter(id => prospectById.has(id))).size;
   return {
     campaignId,
     campaignName: campaign.name || '',
@@ -826,13 +875,22 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
       sent: campaignMessages.length,
       opened: steps.reduce((sum, item) => sum + item.opened, 0),
       clicked: steps.reduce((sum, item) => sum + item.clicked, 0),
-      replies: new Set([...repliesByProspect.keys()]).size,
+      replies: totalReplies,
       opportunities: new Set(campaignProspects.filter(item => ['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(item.opportunityStage))).map(item => item.id)).size,
       clearedRevenueUsd: Math.round(steps.reduce((sum, item) => sum + item.clearedRevenueUsd, 0) * 100) / 100
     },
     steps,
-    recommendation: winner ? { stepId: winner.stepId, variantId: winner.variantId, metric, value: winner[metric], eligible: true, action: 'owner_review_before_disabling_variants', automaticPromotionAuthorized: false } : { eligible: false, action: 'collect_more_observations', automaticPromotionAuthorized: false },
-    truthBoundary: uberReplyV5 ? 'UberReply V5 candidate analytics default to cleared revenue, preserve candidate lineage, and never auto-promote from raw replies. Observational totals are not causal proof; randomized assignment and out-of-sample validation remain required.' : 'Variant analytics are observational and never create external-effect or auto-promotion authority.'
+    v5LearningSummary: uberReplyV5 ? {
+      attributionMode: v5Learning?.attributionMode || null,
+      recordAttempt: v5Learning?.recordAttempt || null,
+      analyzableTreatmentCount: v5Learning?.analyzableTreatmentCount || 0
+    } : null,
+    recommendation: winner
+      ? { stepId: winner.stepId, variantId: winner.variantId, metric, value: winner[metric], eligible: true, action: 'owner_review_before_disabling_variants', automaticPromotionAuthorized: false }
+      : { eligible: false, action: 'collect_more_observations', automaticPromotionAuthorized: false },
+    truthBoundary: uberReplyV5
+      ? 'UberReply V5 dashboard analytics aggregate prospect-specific copy by stable strategy arm and reuse the canonical V5 learning receipt for reply and cleared-revenue attribution. They never auto-promote a winner, and observational revenue attribution is not causal proof.'
+      : 'Variant analytics are observational and never create external-effect or auto-promotion authority.'
   };
 }
 

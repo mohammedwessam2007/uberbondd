@@ -7,13 +7,14 @@
 // not grant the model customer messaging, purchasing, deployment, DNS,
 // credential, production or business-spend authority.
 
-export const ANTHROPIC_AGENT_EXECUTOR_POLICY_VERSION = 'anthropic-agent-executor-1.0.0';
+export const ANTHROPIC_AGENT_EXECUTOR_POLICY_VERSION = 'anthropic-agent-executor-1.1.0';
 
 const ENDPOINT = 'https://api.anthropic.com/v1/messages';
 const API_VERSION = '2023-06-01';
 const RESULT_TOOL_NAME = 'submit_uberbond_result';
 const MAX_BODY_BYTES = 300_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
+const EFFORT_LEVELS = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
 
 const EFFECT_KEYS = [
   'providerCalls', 'messages', 'purchases', 'deployments',
@@ -128,10 +129,11 @@ export const ANTHROPIC_AGENT_RESULT_SCHEMA = Object.freeze({
   ]
 });
 
-function requestBody({ task, model, maxTokens }) {
+function requestBody({ task, model, maxTokens, reasoningEffort = null }) {
   return {
     model,
     max_tokens: maxTokens,
+    ...(reasoningEffort ? { output_config: { effort: reasoningEffort } } : {}),
     system: [
       'You are one worker inside the UberBond bounded agent mesh.',
       'Complete only the supplied local-preparation task.',
@@ -231,13 +233,16 @@ export function createAnthropicAgentExecutor({
   pricing,
   fetchImpl = globalThis.fetch,
   endpoint = ENDPOINT,
-  anthropicVersion = API_VERSION
+  anthropicVersion = API_VERSION,
+  reasoningEffort = null
 } = {}) {
   const key = String(apiKey || '');
   const configuredModel = text(defaultModel, 160);
   const validEndpoint = endpoint === ENDPOINT;
   const validVersion = anthropicVersion === API_VERSION;
   const validFetch = typeof fetchImpl === 'function';
+  const normalizedEffort = reasoningEffort == null || String(reasoningEffort).trim() === '' ? null : text(reasoningEffort, 40).toLowerCase();
+  const validReasoning = normalizedEffort == null || EFFORT_LEVELS.has(normalizedEffort);
 
   return async function anthropicAgentExecutor({
     task,
@@ -250,6 +255,7 @@ export function createAnthropicAgentExecutor({
     if (!validEndpoint) return failure(['anthropic-endpoint-not-allowlisted']);
     if (!validVersion) return failure(['anthropic-api-version-not-allowlisted']);
     if (!validFetch) return failure(['fetch-implementation-required']);
+    if (!validReasoning) return failure(['anthropic-reasoning-effort-unsupported']);
     if (!task?.taskId || !task?.objective) return failure(['valid-agent-task-required']);
     if (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION') {
       return failure(['anthropic-worker-only-accepts-local-preparation']);
@@ -263,7 +269,7 @@ export function createAnthropicAgentExecutor({
     const selectedModel = text(model || configuredModel, 160);
     if (!selectedModel) return failure(['model-required']);
 
-    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit });
+    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort: normalizedEffort });
     if (bytes(body) > MAX_BODY_BYTES) return failure(['anthropic-request-body-too-large']);
 
     let response;
@@ -343,6 +349,9 @@ export function createAnthropicAgentExecutor({
       providerRequestId,
       providerStatus: providerStopReason || 'tool_use',
       model: text(raw?.model || selectedModel, 160),
+      identityVerification: raw?.model ? 'OBSERVED' : 'UNVERIFIED',
+      appliedReasoningEffort: normalizedEffort,
+      appliedReasoningEvidence: normalizedEffort ? 'REQUEST_BODY_ATTESTED' : 'NOT_REQUESTED',
       usage: metered,
       pricingEvidence: {
         sourceRef: text(pricing.sourceRef, 500),

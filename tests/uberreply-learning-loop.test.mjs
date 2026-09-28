@@ -27,7 +27,7 @@ test('learning loop binds exact reply evidence to treatment lineage and does not
   assert.equal(out.outcomes[0].commercial.clearedContributionCents,null);
   assert.equal(out.outcomes[0].economics.marginalSendValueCents,null);
   assert.equal(out.learningPacket.arms[0].arm,'ubv5arm_subject_1');
-  assert.equal(out.recordAttempt.deliveredUniqueProspects,1);
+  assert.equal(out.recordAttempt.nonHardBouncedFirstTouchUniqueProspects,1);
   assert.equal(out.recordAttempt.qualifiedPositiveReplyUniqueProspects,1);
   assert.equal(out.automaticPromotionAuthorized,false);
 });
@@ -111,7 +111,7 @@ test('hard bounces are excluded from the delivered record-attempt denominator an
   });
   assert.equal(out.deliveryAccounting.hardBounceTreatmentCount,1);
   assert.equal(out.deliveryAccounting.analyzableDeliveredTreatmentCount,1);
-  assert.equal(out.recordAttempt.deliveredUniqueProspects,1);
+  assert.equal(out.recordAttempt.nonHardBouncedFirstTouchUniqueProspects,1);
   assert.equal(out.learningPacket.outcomeCount,1);
 });
 
@@ -155,5 +155,25 @@ test('record-attempt receipt refuses to infer that delivered prospects were trul
     prospects:[{id:'p1',campaignId:'camp-truth'}],
     messages:[{id:'m1',campaignId:'camp-truth',prospectId:'p1',followup:0,uberReplyCandidateId:'a',uberReplyStrategyArmId:'arm-a',uberReplyGenotypeId:'ubog_a',uberReplyRenderedMessageId:'ubom_a'}]
   });
+  assert.equal(out.recordAttempt.deliveredUniqueProspects,null);
+  assert.equal(out.recordAttempt.deliveryTruthState,'DELIVERY_PROXY_NOT_FINAL_RECIPIENT_DELIVERY_PROOF');
   assert.match(out.recordAttempt.cohortTruthRequirement,/separately prove/i);
+});
+
+
+test('current downstream opportunity stage is credited only to the latest observed treatment, not every prior touch',()=>{
+  const out=compileUberReplyObservedLearning({
+    campaignId:'camp-stage',
+    prospects:[{id:'p1',campaignId:'camp-stage',opportunityStage:'paid'}],
+    messages:[
+      {id:'m1',campaignId:'camp-stage',prospectId:'p1',followup:0,sentAt:'2026-09-28T09:00:00.000Z',uberReplyCandidateId:'a',uberReplyStrategyArmId:'arm-a',uberReplyGenotypeId:'ubog_a',uberReplyRenderedMessageId:'ubom_a'},
+      {id:'m2',campaignId:'camp-stage',prospectId:'p1',followup:1,sentAt:'2026-09-28T10:00:00.000Z',uberReplyCandidateId:'b',uberReplyStrategyArmId:'arm-b',uberReplyGenotypeId:'ubog_b',uberReplyRenderedMessageId:'ubom_b'}
+    ]
+  });
+  const first=out.outcomes.find(row=>row.decisionId==='uberreply:m1');
+  const second=out.outcomes.find(row=>row.decisionId==='uberreply:m2');
+  assert.equal(first.commercial.closedWon,false);
+  assert.equal(first.commercial.qualifiedOpportunity,false);
+  assert.equal(second.commercial.closedWon,true);
+  assert.equal(second.commercial.qualifiedOpportunity,true);
 });

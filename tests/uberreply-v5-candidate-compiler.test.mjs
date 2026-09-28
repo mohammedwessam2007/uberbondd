@@ -27,7 +27,9 @@ test('candidate compiler creates bounded evidence-first variants and selects one
       problemEvidenceScore:0.9,
       fitEvidenceConfidence:0.9,
       sourceCount:3,
-      sourceFreshness:1
+      sourceFreshness:1,
+      roleOwnershipScore:0.85,
+      trigger:{type:'OBSERVED_PROBLEM',confidence:0.9,freshness:1,problemLinked:true}
     },
     issue:artifact.findings[0],
     contact:{firstName:'Sam'},
@@ -53,6 +55,10 @@ test('candidate compiler creates bounded evidence-first variants and selects one
   assert.ok(out.assignedCandidate.subject.split(/\s+/).length<=5);
   assert.equal(out.externalEffectAuthority,'NONE');
   assert.equal(out.tournament.automaticDispatchAuthorized,false);
+
+  assert.ok(new Set(out.candidates.map(candidate=>candidate.strategyAtoms.bodyMode)).size>=3);
+  assert.ok(out.candidates.every(candidate=>candidate.genotypeId?.startsWith('ubog_')));
+  assert.ok(out.candidates.every(candidate=>candidate.renderedMessageId?.startsWith('ubom_')));
 });
 
 test('candidate compiler refuses to fabricate variants before evidence artifact exists',()=>{

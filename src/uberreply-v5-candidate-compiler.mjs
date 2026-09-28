@@ -206,6 +206,7 @@ export function compileUberReplyTreatmentIdentity({
     contentReceipt:rendered.contentReceipt||null,
     sequencePosition:position,
     assignmentMode:firstTouch?(candidateSet?.assignmentMode||'EXPLOIT_CHAMPION'):'EVIDENCE_SEQUENCE',
+    assignmentProbability:firstTouch&&Number.isFinite(Number(candidateSet?.assignmentProbability))?Number(candidateSet.assignmentProbability):null,
     strategyAtoms:firstTouch&&assigned?.strategyAtoms
       ? assigned.strategyAtoms
       : {

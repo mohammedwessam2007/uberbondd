@@ -108,3 +108,26 @@ The correct benchmark is:
 `NO SEMANTIC MODEL vs CURRENT MECHANISM vs JEV vs OTHER SYSTEM-ONE/STRUCTURED DECISION SUPPLIERS`
 
 measured on quality, calibration, latency, cost, failure modes, escalation quality and downstream economic/reality outcomes.
+
+
+## 2026-09-29 parent-layer integration
+
+Jev/Noetic now sits explicitly beneath the APEX frontier-reasoning architecture documented in `docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`.
+
+The hierarchy is:
+
+`APEX frontier reasoning -> frontier-authored bounded semantic policy -> Noetic semantic program -> Jev/System-One SHADOW/CALIBRATED reflex -> reality outcomes -> deterministic crystallization candidate -> decompile on drift`
+
+This relationship prevents a cost optimizer from converting Jev into a weaker substitute for unresolved frontier reasoning.
+
+A Jev/System-One circuit is eligible only for a bounded judgement whose semantics, escalation conditions and authority ceiling are explicit. The initial promotion state remains `SHADOW_ONLY` until real task-class outcomes establish calibration. Any material drift, novel state outside the applicability domain, low confidence under the declared policy, or failed equivalence check returns the judgement to deeper cognition.
+
+The APEX reasoning hypercompiler may propose semantic decisions for Noetic compilation, but neither the compiler nor Jev may:
+
+- redefine Mohamed's objective;
+- lower an APEX task's required semantic quality because a cheaper route exists;
+- manufacture external truth;
+- grant itself customer, spend, deployment, credential, payment, DNS or production authority;
+- convert a model or vendor benchmark into live calibration evidence.
+
+The Jev truth boundary in this document therefore remains unchanged: source integration is not proof of superiority, calibration or live economic advantage.

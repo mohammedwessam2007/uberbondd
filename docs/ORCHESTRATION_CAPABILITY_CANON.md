@@ -216,3 +216,35 @@ Prefer absorbing a superior mechanism into UberBond's provider-neutral orchestra
 The desired long-term state is not "UberBond uses Fable." It is:
 
 > UberBond continuously owns the strongest evidence-backed orchestration method available, and can replace today's planner, worker graph, review method or runtime without replacing the company.
+
+
+## 2026-09-29 APEX reasoning + Jev integration
+
+The canonical parent layer for high-value reasoning missions is now the **APEX Reasoning Hypercompiler** described in `docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md` and implemented by `src/apex-reasoning-hypercompiler.mjs`.
+
+This does not replace the orchestration modes above. It selects and bounds the reasoning topology that may instantiate them.
+
+For high-value cognitive work:
+
+`mission -> APEX topology compilation -> Frontier Cognitive Fabric / council -> Noetic semantic compilation -> Jev/System-One shadow/reflex -> deterministic crystallization -> reality -> decompile on drift`
+
+Permanent rules:
+
+- APEX optimization is quality-first. Cost, latency and founder minutes may break ties only inside a verified frontier-quality band.
+- A cheap model, router, Jev score, majority vote, benchmark rank or provider brand may not silently lower the semantic reasoning floor for a consequential APEX task.
+- Councils preserve sealed independent first passes; critique and adjudication use identity-blind model-facing packets while runtime provenance remains exact.
+- Test-time compute expands with unresolved uncertainty/novelty/stakes and contracts after verification instead of using a fixed ceremonial swarm.
+- The unit of competition is the **reasoning architecture**, not merely the model. Complete inference graphs compete on sealed task-class holdouts.
+- The offline `Reasoning Architecture Lab` may mutate topology, perspectives, prompts, context, tools, verification, stop rules and reflex boundaries, but it may not mutate authority or activate its own winner.
+- Architecture search keeps a quality-diversity archive so one early local optimum cannot erase distinct high-performing reasoning families.
+- Specialist agents should persist large structured work as immutable artifacts and return compact references when that reduces coordinator information loss; the coordinator still owns integration.
+- Context-management operations may remove material from working context only after durable externalization. Working-context discard is not durable deletion.
+- Long-running APEX work may steer or cancel obsolete independent branches and must not let a straggler block unrelated evidence.
+- Replacement reasoning architectures should enter bounded canary / side-by-side comparison with rollback evidence before displacing an incumbent.
+- Jev remains a replaceable System-One supplier beneath frontier-authored semantic policy. It gains no consequence authority.
+- Repeated verified semantic structure should move down the Noetic/crystallization ladder; material drift moves it back upward.
+- Public-frontier completeness is a dated research claim only. Global '#1' status requires matched empirical evidence and cannot be self-awarded.
+
+The desired long-term state is therefore stronger than "UberBond uses the best model":
+
+> UberBond owns a provider-neutral compiler that continuously discovers which bounded reasoning architecture produces the strongest verified cognition for each task class, preserves frontier quality where it matters, and progressively crystallizes mastered cognition without transferring authority away from Mohamed or reality.

@@ -216,3 +216,46 @@ test('consequenceful task is rejected before any OpenAI request', async () => {
   assert.ok(out.reasonCodes.includes('openai-worker-only-accepts-local-preparation'));
   assert.equal(calls, 0);
 });
+
+
+test('native Astra-style max reasoning with Flex sets service_tier and records provider attestation', async () => {
+  let body;
+  const executor = createOpenAIAgentExecutor({
+    enabled: true,
+    apiKey: 'sk-test-not-real-123456789',
+    pricing,
+    reasoningEffort: 'max',
+    serviceTier: 'flex',
+    fetchImpl: async (_url, init) => {
+      body = JSON.parse(init.body);
+      return fakeResponse({
+        body: { ...completedResponse(), model: 'gpt-6-astra', service_tier: 'flex' }
+      });
+    }
+  });
+  const out = await executor({ task: task(), model: 'gpt-6-astra', maxTokens: 4096, costCeilingCents: 100 });
+  assert.equal(out.ok, true);
+  assert.deepEqual(body.reasoning, { effort: 'max' });
+  assert.equal(body.service_tier, 'flex');
+  assert.equal(out.identityVerification, 'OBSERVED');
+  assert.equal(out.appliedReasoningEffort, 'max');
+  assert.equal(out.appliedReasoningEvidence, 'REQUEST_BODY_ATTESTED');
+  assert.equal(out.requestedServiceTier, 'flex');
+  assert.equal(out.appliedServiceTier, 'flex');
+  assert.equal(out.serviceTierEvidence, 'PROVIDER_RESPONSE_ATTESTED');
+});
+
+test('unsupported OpenAI service tier is refused before any provider call', async () => {
+  let calls = 0;
+  const executor = createOpenAIAgentExecutor({
+    enabled: true,
+    apiKey: 'sk-test-not-real-123456789',
+    pricing,
+    serviceTier: 'mystery',
+    fetchImpl: async () => { calls += 1; return fakeResponse(); }
+  });
+  const out = await executor({ task: task(), maxTokens: 1000, costCeilingCents: 50 });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('openai-service-tier-unsupported'));
+  assert.equal(calls, 0);
+});

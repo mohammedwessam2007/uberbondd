@@ -12,7 +12,7 @@ import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.
 import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
 import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
 
-export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.4.0';
+export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.5.0';
 
 const API_PROVIDER_CONFIG = Object.freeze({
   openai: Object.freeze({
@@ -45,12 +45,19 @@ export function pricingFrom(env = {}, prefix = '') {
   if (!Number.isFinite(input) || input < 0 || !Number.isFinite(output) || output < 0 || !sourceRef || !verifiedAtRaw) return null;
   const verifiedAtMs = Date.parse(verifiedAtRaw);
   if (!Number.isFinite(verifiedAtMs)) return null;
-  return {
+  const base = {
     inputUsdPerMillion: input,
     outputUsdPerMillion: output,
     sourceRef,
     verifiedAt: new Date(verifiedAtMs).toISOString()
   };
+  const cacheWriteRaw = env[`${prefix}_CACHE_WRITE_USD_PER_MILLION`];
+  const cacheReadRaw = env[`${prefix}_CACHE_READ_USD_PER_MILLION`];
+  if (cacheWriteRaw == null && cacheReadRaw == null) return base;
+  const cacheWrite = Number(cacheWriteRaw);
+  const cacheRead = Number(cacheReadRaw);
+  if (!Number.isFinite(cacheWrite) || cacheWrite < 0 || !Number.isFinite(cacheRead) || cacheRead < 0) return null;
+  return { ...base, cacheWriteUsdPerMillion: cacheWrite, cacheReadUsdPerMillion: cacheRead };
 }
 
 function openModelPricingFrom(env = {}) {
@@ -60,7 +67,7 @@ function openModelPricingFrom(env = {}) {
   return { ...base, infrastructureUsdPerRequest };
 }
 
-function apiProviderConfig(env, provider) {
+function apiProviderConfig(env, provider, worker = {}) {
   const mapping = API_PROVIDER_CONFIG[provider];
   if (!mapping) return null;
   const staticCredential = String(env[mapping.apiKeyEnv] || '');
@@ -72,9 +79,16 @@ function apiProviderConfig(env, provider) {
   const vercelOidcCredential = provider === 'ai-gateway'
     ? String(env.VERCEL_OIDC_TOKEN || '')
     : '';
+  const requestedServiceTier = String(worker?.serviceTier || '').trim().toLowerCase();
+  const basePricing = pricingFrom(env, mapping.prefix);
+  const tierPricing = provider === 'openai' && requestedServiceTier === 'flex'
+    ? pricingFrom(env, 'OPENAI_FLEX')
+    : null;
   return {
     apiKey: staticCredential || vercelOidcCredential,
-    pricing: pricingFrom(env, mapping.prefix),
+    pricing: tierPricing || basePricing,
+    pricingTier: tierPricing ? 'FLEX_VERIFIED' : 'BASE_VERIFIED',
+    requestedServiceTier: requestedServiceTier || null,
     enabled: env[mapping.enabledEnv] === 'true'
   };
 }
@@ -96,17 +110,23 @@ function workerReasoningEffort(worker = {}) {
   return raw || null;
 }
 
+function workerServiceTier(worker = {}) {
+  const raw = String(worker.serviceTier || '').trim().toLowerCase();
+  return raw || null;
+}
+
 /** Build the per-worker model executor resolver. */
 export function createModelExecutorFactory({ env = process.env, sandboxIsolationReceipt = null, fetchImpl = globalThis.fetch } = {}) {
   return function modelExecutorFor(worker = {}) {
     const provider = String(worker.provider || '').trim().toLowerCase();
     const reasoningEffort = workerReasoningEffort(worker);
+    const serviceTier = workerServiceTier(worker);
     if (!SUPPORTED_PROVIDERS.includes(provider)) {
       throw new Error(`unsupported provider "${provider}"; supported: ${SUPPORTED_PROVIDERS.join(', ')}`);
     }
 
     if (provider === SANDBOX_PROVIDER) {
-      if (reasoningEffort) throw new Error('reasoning setting not supported by canonical claude-code-sandbox executor');
+      if (reasoningEffort || serviceTier) throw new Error('reasoning/service-tier setting not supported by canonical claude-code-sandbox executor');
       const sandboxRoot = String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim();
       if (!sandboxRoot) throw new Error('claude-code-sandbox worker configured but CLAUDE_CODE_SANDBOX_ROOT is absent');
       if (!sandboxIsolationReceipt) throw new Error('claude-code-sandbox worker configured but no OS isolation receipt was supplied');
@@ -121,7 +141,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
     }
 
     if (provider === OPEN_MODEL_PROVIDER) {
-      if (reasoningEffort) throw new Error('reasoning setting not supported by canonical open-model executor');
+      if (reasoningEffort || serviceTier) throw new Error('reasoning/service-tier setting not supported by canonical open-model executor');
       const config = openModelProviderConfig(env, worker);
       if (!config.runtime) throw new Error('open-model worker configured but OPEN_MODEL_RUNTIME is absent');
       if (!config.model) throw new Error('open-model worker configured but model identity is absent');
@@ -139,7 +159,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       });
     }
 
-    const config = apiProviderConfig(env, provider);
+    const config = apiProviderConfig(env, provider, worker);
     if (!config?.apiKey) throw new Error(`${provider} worker configured but credential is absent`);
     if (!config.pricing) throw new Error(`${provider} worker configured but pricing evidence is absent or incomplete`);
 
@@ -150,21 +170,24 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
         enabled: config.enabled,
         fetchImpl,
         ...(worker.model ? { defaultModel: worker.model } : {}),
-        ...(reasoningEffort ? { reasoningEffort } : {})
+        ...(reasoningEffort ? { reasoningEffort } : {}),
+        ...(serviceTier ? { serviceTier } : {})
       });
     }
 
     if (provider === 'anthropic') {
-      if (reasoningEffort) throw new Error('reasoning setting not supported by canonical anthropic executor');
+      if (serviceTier) throw new Error('service-tier setting not supported by canonical anthropic executor');
       return createAnthropicAgentExecutor({
         apiKey: config.apiKey,
         pricing: config.pricing,
         enabled: config.enabled,
         fetchImpl,
-        ...(worker.model ? { defaultModel: worker.model } : {})
+        ...(worker.model ? { defaultModel: worker.model } : {}),
+        ...(reasoningEffort ? { reasoningEffort } : {})
       });
     }
 
+    if (serviceTier) throw new Error('service-tier setting not supported by canonical ai-gateway executor');
     return createVercelAIGatewayExecutor({
       apiKey: config.apiKey,
       pricing: config.pricing,

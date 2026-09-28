@@ -66,6 +66,106 @@ test('observed profile matching associates identity but does not claim callabili
   assert.match(matched.truthBoundary, /CALLABILITY/);
 });
 
+
+
+test('candidate registry permits discovery-only and strictly evidenced direct-transport candidates without inventing Gateway reachability', () => {
+  const expanded = structuredClone(registry);
+  expanded.candidates.push(
+    {
+      id: 'direct-opus', provider: 'anthropic', canonicalModel: 'claude-opus-5-5',
+      rolePriors: ['planner', 'researcher'], taskClassPriors: ['research'],
+      officialEvidenceRefs: ['https://example.com/opus'], configured: false,
+      directTransportCandidate: {
+        transportProvider: 'anthropic',
+        transportModel: 'claude-opus-5-5',
+        reasoningSettingRefs: ['anthropic:effort=max'],
+        sourceRefs: ['https://example.com/opus-direct'],
+        observedAt: '2026-09-29T00:00:00.000Z',
+        evidenceClass: 'OFFICIAL_SOURCE',
+        runtimeProof: 'REQUIRED_BEFORE_ROUTING',
+        pricingHintUsdPerMillion: {
+          input: 4, output: 20,
+          truth: 'OFFICIAL_LIST_PRICE_DISCOVERY_HINT_NOT_RUNTIME_BILLING_RECEIPT'
+        }
+      }
+    },
+    {
+      id: 'discovery-only', provider: 'future-lab', canonicalModel: 'future-model',
+      rolePriors: ['general'], taskClassPriors: ['general'],
+      officialEvidenceRefs: ['https://example.com/future-model'], configured: false
+    }
+  );
+  const out = validateFrontierModelCandidateRegistry(expanded);
+  assert.equal(out.ok, true, JSON.stringify(out));
+  assert.equal(out.directTransportCandidateCount, 1);
+  assert.equal(out.discoveryOnlyCandidateCount, 1);
+});
+
+test('malformed direct transport is rejected and discovery evidence cannot self-promote to callability', () => {
+  const malformed = structuredClone(registry);
+  malformed.candidates.push({
+    id: 'bad-direct', provider: 'anthropic', canonicalModel: 'claude-opus-5-5',
+    rolePriors: ['planner'], taskClassPriors: ['research'],
+    officialEvidenceRefs: ['https://example.com/opus'], configured: false,
+    directTransportCandidate: {
+      transportProvider: 'openai',
+      transportModel: 'wrong-model',
+      reasoningSettingRefs: [],
+      sourceRefs: [],
+      observedAt: 'not-a-date',
+      evidenceClass: 'SELF_CLAIM',
+      runtimeProof: 'CALLABLE_NOW',
+      pricingHintUsdPerMillion: { truth: 'TRUST_ME' }
+    }
+  });
+  const out = validateFrontierModelCandidateRegistry(malformed);
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.some(code => code.startsWith('direct-transport-provider-must-match-cognitive-provider')));
+  assert.ok(out.reasonCodes.some(code => code.startsWith('direct-runtime-proof-gate-required')));
+  assert.ok(out.reasonCodes.some(code => code.startsWith('direct-pricing-hint-truth-boundary-required')));
+});
+
+test('profile matching supports direct transport but leaves transportless discovery candidates unconfigured', () => {
+  const expanded = structuredClone(registry);
+  expanded.candidates.push(
+    {
+      id: 'direct-opus', provider: 'anthropic', canonicalModel: 'claude-opus-5-5',
+      rolePriors: ['planner'], taskClassPriors: ['research'],
+      officialEvidenceRefs: ['https://example.com/opus'], configured: false,
+      directTransportCandidate: {
+        transportProvider: 'anthropic', transportModel: 'claude-opus-5-5',
+        reasoningSettingRefs: ['anthropic:effort=max'],
+        sourceRefs: ['https://example.com/opus-direct'],
+        observedAt: '2026-09-29T00:00:00.000Z', evidenceClass: 'OFFICIAL_SOURCE',
+        runtimeProof: 'REQUIRED_BEFORE_ROUTING',
+        pricingHintUsdPerMillion: { input: 4, output: 20, truth: 'NOT_RUNTIME_BILLING_RECEIPT' }
+      }
+    },
+    {
+      id: 'watch-only', provider: 'future-lab', canonicalModel: 'future-model',
+      rolePriors: ['general'], taskClassPriors: ['general'],
+      officialEvidenceRefs: ['https://example.com/future'], configured: false
+    }
+  );
+  const matched = matchObservedProfilesToCandidates({
+    registry: expanded,
+    profiles: [
+      {
+        id: 'opus-live', provider: 'anthropic', model: 'claude-opus-5-5', revision: 'r1',
+        transportProvider: 'anthropic', transportModel: 'claude-opus-5-5', enabled: true
+      },
+      {
+        id: 'future-unrouted', provider: 'future-lab', model: 'future-model', revision: 'r1',
+        transportProvider: 'future-lab', transportModel: 'future-model', enabled: true
+      }
+    ]
+  });
+  assert.equal(matched.ok, true);
+  assert.deepEqual(matched.configuredCandidateIds, ['direct-opus']);
+  assert.equal(matched.matches.find(row => row.candidateId === 'direct-opus').directTransportMatches, true);
+  assert.equal(matched.matches.find(row => row.candidateId === 'watch-only').transportCandidateMatches, false);
+});
+
 test('frontier model team mission forces unknown-unknown search before convergence and independent verification after build', () => {
   const plan = compileFrontierModelTeamMission({ objective: 'Improve UberBond safely', complexity: 10, maxParallel: 6 });
   assert.equal(plan.ok, true, JSON.stringify(plan));

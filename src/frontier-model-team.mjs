@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_MODEL_TEAM_POLICY_VERSION = 'uberbond.frontier-model-team-1.1.0';
+export const FRONTIER_MODEL_TEAM_POLICY_VERSION = 'uberbond.frontier-model-team-1.2.0';
 export const FRONTIER_MODEL_CANDIDATE_SCHEMA = 'uberbond.frontier-model-candidates.v1';
 
 const ROLES = Object.freeze(['researcher', 'planner', 'builder', 'critic', 'verifier', 'adjudicator', 'general']);
@@ -24,7 +24,8 @@ function fail(reasonCodes, status = 'FRONTIER_MODEL_TEAM_BLOCKED', extra = {}) {
 
 function validateGatewayTransport(candidate, id) {
   const transport = candidate?.gatewayTransport;
-  if (!transport || typeof transport !== 'object' || Array.isArray(transport)) return [`gateway-transport-required:${id || 'unknown'}`];
+  if (transport == null) return [];
+  if (typeof transport !== 'object' || Array.isArray(transport)) return [`gateway-transport-object-required:${id || 'unknown'}`];
   const reasons = [];
   if (transport.transportProvider !== 'ai-gateway') reasons.push(`gateway-transport-provider-must-be-ai-gateway:${id || 'unknown'}`);
   if (!text(transport.transportModel, 240)?.includes('/')) reasons.push(`gateway-provider-model-slug-required:${id || 'unknown'}`);
@@ -33,6 +34,25 @@ function validateGatewayTransport(candidate, id) {
   if (transport.evidenceClass !== 'OFFICIAL_SOURCE') reasons.push(`gateway-official-source-class-required:${id || 'unknown'}`);
   const pricing = transport.pricingHintUsdPerMillion;
   if (!pricing || finite(pricing.input) == null || finite(pricing.output) == null || !/NOT_PROFILE_PRICING_EVIDENCE/.test(String(pricing.truth || ''))) reasons.push(`gateway-pricing-hint-truth-boundary-required:${id || 'unknown'}`);
+  return reasons;
+}
+
+function validateDirectTransport(candidate, id, provider, model) {
+  const transport = candidate?.directTransportCandidate;
+  if (transport == null) return [];
+  if (typeof transport !== 'object' || Array.isArray(transport)) return [`direct-transport-object-required:${id || 'unknown'}`];
+  const reasons = [];
+  const directProvider = text(transport.transportProvider, 120)?.toLowerCase();
+  const directModel = text(transport.transportModel, 240);
+  if (!directProvider || directProvider !== provider) reasons.push(`direct-transport-provider-must-match-cognitive-provider:${id || 'unknown'}`);
+  if (!directModel || directModel !== model) reasons.push(`direct-transport-model-must-match-canonical-model:${id || 'unknown'}`);
+  if (!Array.isArray(transport.reasoningSettingRefs) || !transport.reasoningSettingRefs.length || transport.reasoningSettingRefs.some(ref => !text(ref, 500))) reasons.push(`direct-reasoning-setting-refs-required:${id || 'unknown'}`);
+  if (!Array.isArray(transport.sourceRefs) || !transport.sourceRefs.length || transport.sourceRefs.some(ref => !String(ref).startsWith('https://'))) reasons.push(`direct-official-source-refs-required:${id || 'unknown'}`);
+  if (!timestamp(transport.observedAt)) reasons.push(`direct-observed-at-required:${id || 'unknown'}`);
+  if (transport.evidenceClass !== 'OFFICIAL_SOURCE') reasons.push(`direct-official-source-class-required:${id || 'unknown'}`);
+  if (transport.runtimeProof !== 'REQUIRED_BEFORE_ROUTING') reasons.push(`direct-runtime-proof-gate-required:${id || 'unknown'}`);
+  const pricing = transport.pricingHintUsdPerMillion;
+  if (!pricing || !/(NOT_RUNTIME_BILLING_RECEIPT|NOT_PROFILE_PRICING_EVIDENCE)/.test(String(pricing.truth || ''))) reasons.push(`direct-pricing-hint-truth-boundary-required:${id || 'unknown'}`);
   return reasons;
 }
 
@@ -57,10 +77,19 @@ export function validateFrontierModelCandidateRegistry(registry = {}) {
     if (!Array.isArray(candidate?.officialEvidenceRefs) || !candidate.officialEvidenceRefs.length || candidate.officialEvidenceRefs.some(ref => !String(ref).startsWith('https://'))) reasons.push(`official-evidence-required:${id || 'unknown'}`);
     if (candidate?.configured !== false) reasons.push(`catalog-candidate-must-not-self-claim-configured:${id || 'unknown'}`);
     reasons.push(...validateGatewayTransport(candidate, id));
+    reasons.push(...validateDirectTransport(candidate, id, provider, model));
     const gatewaySlug = text(candidate?.gatewayTransport?.transportModel, 240);
     if (gatewaySlug) {
-      if (transportIdentities.has(gatewaySlug)) reasons.push(`unique-gateway-transport-model-required:${id || 'unknown'}`);
-      transportIdentities.add(gatewaySlug);
+      const key = `ai-gateway\u0000${gatewaySlug}`;
+      if (transportIdentities.has(key)) reasons.push(`unique-gateway-transport-model-required:${id || 'unknown'}`);
+      transportIdentities.add(key);
+    }
+    const directProvider = text(candidate?.directTransportCandidate?.transportProvider, 120)?.toLowerCase();
+    const directModel = text(candidate?.directTransportCandidate?.transportModel, 240);
+    if (directProvider && directModel) {
+      const key = `${directProvider}\u0000${directModel}`;
+      if (transportIdentities.has(key)) reasons.push(`unique-direct-transport-model-required:${id || 'unknown'}`);
+      transportIdentities.add(key);
     }
   }
   return {
@@ -69,6 +98,8 @@ export function validateFrontierModelCandidateRegistry(registry = {}) {
     reasonCodes: [...new Set(reasons)],
     candidateCount: registry?.candidates?.length || 0,
     gatewayTransportCandidateCount: (registry?.candidates || []).filter(candidate => candidate?.gatewayTransport?.transportProvider === 'ai-gateway').length,
+    directTransportCandidateCount: (registry?.candidates || []).filter(candidate => candidate?.directTransportCandidate?.transportProvider).length,
+    discoveryOnlyCandidateCount: (registry?.candidates || []).filter(candidate => !candidate?.gatewayTransport && !candidate?.directTransportCandidate).length,
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };
@@ -103,25 +134,39 @@ export function matchObservedProfilesToCandidates({ registry = {}, profiles = []
     const model = text(profile?.model, 200);
     const candidate = byIdentity.get(`${provider}\u0000${model}`);
     if (!candidate) unmatchedProfiles.push(profile?.id || `${provider || 'unknown'}:${model || 'unknown'}`);
-    else matches.push({
-      candidateId: candidate.id,
-      profileId: profile?.id || null,
-      provider,
-      model,
-      revision: profile?.revision || null,
-      transportProvider: profile?.transportProvider || null,
-      transportModel: profile?.transportModel || null,
-      gatewayTransportMatches: profile?.transportProvider === candidate.gatewayTransport.transportProvider && profile?.transportModel === candidate.gatewayTransport.transportModel,
-      enabled: profile?.enabled !== false
-    });
+    else {
+      const gatewayTransportMatches = Boolean(
+        candidate.gatewayTransport
+        && profile?.transportProvider === candidate.gatewayTransport.transportProvider
+        && profile?.transportModel === candidate.gatewayTransport.transportModel
+      );
+      const directTransportMatches = Boolean(
+        candidate.directTransportCandidate
+        && profile?.transportProvider === candidate.directTransportCandidate.transportProvider
+        && profile?.transportModel === candidate.directTransportCandidate.transportModel
+      );
+      matches.push({
+        candidateId: candidate.id,
+        profileId: profile?.id || null,
+        provider,
+        model,
+        revision: profile?.revision || null,
+        transportProvider: profile?.transportProvider || null,
+        transportModel: profile?.transportModel || null,
+        gatewayTransportMatches,
+        directTransportMatches,
+        transportCandidateMatches: gatewayTransportMatches || directTransportMatches,
+        enabled: profile?.enabled !== false
+      });
+    }
   }
   return {
     ok: true,
     status: 'FRONTIER_PROFILE_CANDIDATE_MATCH_COMPLETE',
     matches,
     unmatchedProfiles,
-    configuredCandidateIds: [...new Set(matches.filter(item => item.enabled && item.gatewayTransportMatches).map(item => item.candidateId))],
-    truthBoundary: 'A PROFILE MATCH IS IDENTITY AND DECLARED TRANSPORT ASSOCIATION ONLY. CALLABILITY, PRICING, BENCHMARK AND EXECUTION AUTHORITY REMAIN FRONTIER COGNITIVE FABRIC RESPONSIBILITIES.',
+    configuredCandidateIds: [...new Set(matches.filter(item => item.enabled && item.transportCandidateMatches).map(item => item.candidateId))],
+    truthBoundary: 'CATALOG IDENTITY MAY BE DISCOVERY_ONLY. A CONFIGURED MATCH REQUIRES AN EXACT DECLARED GATEWAY OR DIRECT TRANSPORT ASSOCIATION. CALLABILITY, PRICING, BENCHMARK AND EXECUTION AUTHORITY REMAIN FRONTIER COGNITIVE FABRIC RESPONSIBILITIES.',
     businessEffectAuthority: 'NONE',
     externalEffectLedger: zeroEffects()
   };

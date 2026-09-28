@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.frontier-model-candidates.v1",
-  "observedAt": "2026-09-05T20:30:00Z",
+  "observedAt": "2026-09-29T00:00:00Z",
   "truthClass": "PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF",
   "candidates": [
     {
@@ -8,14 +8,34 @@
       "provider": "openai",
       "canonicalModel": "gpt-6-astra",
       "label": "GPT-6 Astra",
-      "rolePriors": ["planner", "researcher", "builder", "critic", "verifier", "adjudicator"],
-      "taskClassPriors": ["complex-reasoning", "coding", "computer-use", "research", "documents"],
+      "rolePriors": [
+        "planner",
+        "researcher",
+        "builder",
+        "critic",
+        "verifier",
+        "adjudicator"
+      ],
+      "taskClassPriors": [
+        "complex-reasoning",
+        "coding",
+        "computer-use",
+        "research",
+        "documents"
+      ],
       "contextTokens": 1050000,
       "maxOutputTokens": 128000,
-      "reasoningEfforts": ["low", "medium", "high", "xhigh"],
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
       "officialEvidenceRefs": [
         "https://developers.openai.com/api/docs/models/gpt-6-astra",
-        "https://openai.com/research/"
+        "https://developers.openai.com/api/docs/guides/flex-processing",
+        "https://developers.openai.com/api/docs/pricing"
       ],
       "gatewayTransport": {
         "transportProvider": "ai-gateway",
@@ -23,9 +43,133 @@
         "sourceRef": "https://vercel.com/ai-gateway/models/gpt-6-astra",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 10, "output": 50, "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 10,
+          "output": 50,
+          "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "ROLLING_OR_ACCOUNT_DEPENDENT__VERIFY_BEFORE_RUNTIME",
+      "configured": false,
+      "directTransportCandidate": {
+        "transportProvider": "openai",
+        "transportModel": "gpt-6-astra",
+        "reasoningSettingRefs": [
+          "openai:reasoning=max",
+          "openai:reasoning=max;service_tier=flex"
+        ],
+        "sourceRefs": [
+          "https://developers.openai.com/api/docs/models/gpt-6-astra",
+          "https://developers.openai.com/api/docs/guides/flex-processing"
+        ],
+        "observedAt": "2026-09-29T00:00:00Z",
+        "evidenceClass": "OFFICIAL_SOURCE",
+        "runtimeProof": "REQUIRED_BEFORE_ROUTING",
+        "pricingHintUsdPerMillion": {
+          "standardInput": 10,
+          "standardOutput": 50,
+          "flexInput": 5,
+          "flexOutput": 25,
+          "truth": "OFFICIAL_LIST_PRICE_DISCOVERY_HINT_NOT_RUNTIME_BILLING_RECEIPT"
+        }
+      }
+    },
+    {
+      "id": "anthropic-claude-opus-5-5",
+      "provider": "anthropic",
+      "canonicalModel": "claude-opus-5-5",
+      "label": "Claude Opus 5.5",
+      "rolePriors": [
+        "planner",
+        "researcher",
+        "builder",
+        "critic",
+        "verifier",
+        "adjudicator"
+      ],
+      "taskClassPriors": [
+        "long-horizon-agentic-work",
+        "coding",
+        "research",
+        "knowledge-work",
+        "documents",
+        "complex-reasoning"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": 128000,
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "officialEvidenceRefs": [
+        "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+        "https://platform.claude.com/docs/en/build-with-claude/effort",
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+        "https://platform.claude.com/docs/en/build-with-claude/batch-processing"
+      ],
+      "directTransportCandidate": {
+        "transportProvider": "anthropic",
+        "transportModel": "claude-opus-5-5",
+        "reasoningSettingRefs": [
+          "anthropic:effort=max",
+          "anthropic:effort=xhigh",
+          "anthropic:effort=high"
+        ],
+        "sourceRefs": [
+          "https://platform.claude.com/docs/en/models/opus-5-5/overview",
+          "https://platform.claude.com/docs/en/build-with-claude/effort"
+        ],
+        "observedAt": "2026-09-29T00:00:00Z",
+        "evidenceClass": "OFFICIAL_SOURCE",
+        "runtimeProof": "REQUIRED_BEFORE_ROUTING",
+        "pricingHintUsdPerMillion": {
+          "input": 4,
+          "output": 20,
+          "cacheRead": 0.2,
+          "cacheWrite5m": 5,
+          "batchInput": 2,
+          "batchOutput": 10,
+          "truth": "OFFICIAL_LIST_PRICE_DISCOVERY_HINT_NOT_RUNTIME_BILLING_RECEIPT"
+        }
+      },
+      "availabilityTruth": "ACTIVE_LATEST_IN_OFFICIAL_DOCS__RUNTIME_STILL_REQUIRES_PROFILE_CALLABILITY_AND_BENCHMARK_PROOF",
+      "configured": false
+    },
+    {
+      "id": "anthropic-claude-sonnet-5-5",
+      "provider": "anthropic",
+      "canonicalModel": "claude-sonnet-5-5",
+      "label": "Claude Sonnet 5.5",
+      "rolePriors": [
+        "builder",
+        "researcher",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "well-scoped-agentic-work",
+        "documents",
+        "knowledge-work",
+        "multimodal"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": 128000,
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "officialEvidenceRefs": [
+        "https://www.anthropic.com/claude-sonnet-5-5",
+        "https://platform.claude.com/docs/en/build-with-claude/effort"
+      ],
+      "availabilityTruth": "OFFICIAL_RELEASE_2026_09_28__RUNTIME_STILL_REQUIRES_PROFILE_CALLABILITY_AND_BENCHMARK_PROOF",
       "configured": false
     },
     {
@@ -33,11 +177,29 @@
       "provider": "anthropic",
       "canonicalModel": "claude-fable-5-1",
       "label": "Claude Fable 5.1",
-      "rolePriors": ["planner", "researcher", "builder", "critic", "verifier", "adjudicator"],
-      "taskClassPriors": ["long-horizon-agentic-work", "coding", "research", "knowledge-work", "documents"],
+      "rolePriors": [
+        "planner",
+        "researcher",
+        "builder",
+        "critic",
+        "verifier",
+        "adjudicator"
+      ],
+      "taskClassPriors": [
+        "long-horizon-agentic-work",
+        "coding",
+        "research",
+        "knowledge-work",
+        "documents"
+      ],
       "contextTokens": 1000000,
       "maxOutputTokens": 128000,
-      "reasoningEfforts": ["low", "medium", "high", "xhigh"],
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
       "officialEvidenceRefs": [
         "https://platform.claude.com/docs/en/models/fable-5-1/overview",
         "https://www.anthropic.com/news"
@@ -48,7 +210,11 @@
         "sourceRef": "https://vercel.com/ai-gateway/models/claude-fable-5.1/api",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 10, "output": 50, "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 10,
+          "output": 50,
+          "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "API_OR_ACCOUNT_DEPENDENT__VERIFY_BEFORE_RUNTIME",
       "configured": false
@@ -58,19 +224,42 @@
       "provider": "openai",
       "canonicalModel": "gpt-5.6-sol",
       "label": "GPT-5.6 Sol",
-      "rolePriors": ["planner", "builder", "critic", "verifier", "adjudicator"],
-      "taskClassPriors": ["coding", "knowledge-work", "cybersecurity", "science", "general"],
+      "rolePriors": [
+        "planner",
+        "builder",
+        "critic",
+        "verifier",
+        "adjudicator"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "knowledge-work",
+        "cybersecurity",
+        "science",
+        "general"
+      ],
       "contextTokens": 1100000,
       "maxOutputTokens": 128000,
-      "reasoningEfforts": ["low", "medium", "high", "xhigh"],
-      "officialEvidenceRefs": ["https://openai.com/index/gpt-5-6/"],
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "officialEvidenceRefs": [
+        "https://openai.com/index/gpt-5-6/"
+      ],
       "gatewayTransport": {
         "transportProvider": "ai-gateway",
         "transportModel": "openai/gpt-5.6-sol",
         "sourceRef": "https://vercel.com/ai-gateway/models/gpt-5.6-sol",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 2, "output": 10, "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 2,
+          "output": 10,
+          "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "GENERAL_AVAILABILITY_REPORTED__RUNTIME_STILL_REQUIRES_PROFILE_PROOF",
       "configured": false
@@ -80,11 +269,26 @@
       "provider": "google",
       "canonicalModel": "gemini-3.8-flash",
       "label": "Gemini 3.8 Flash",
-      "rolePriors": ["researcher", "builder", "critic", "general"],
-      "taskClassPriors": ["high-volume-agents", "software-engineering", "multimodal", "search-grounding", "knowledge-work"],
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "high-volume-agents",
+        "software-engineering",
+        "multimodal",
+        "search-grounding",
+        "knowledge-work"
+      ],
       "contextTokens": 1048576,
       "maxOutputTokens": 65536,
-      "reasoningEfforts": ["low", "medium", "high"],
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high"
+      ],
       "officialEvidenceRefs": [
         "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
         "https://deepmind.google/models/model-cards/gemini-3-8-flash/"
@@ -95,7 +299,11 @@
         "sourceRef": "https://vercel.com/ai-gateway/models/gemini-3.8-flash",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 1.5, "output": 7.5, "truth": "LIST_PRICE_DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 1.5,
+          "output": 7.5,
+          "truth": "LIST_PRICE_DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "GA_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
       "configured": false
@@ -105,20 +313,80 @@
       "provider": "xai",
       "canonicalModel": "grok-4.6",
       "label": "Grok 4.6",
-      "rolePriors": ["researcher", "builder", "critic", "general"],
-      "taskClassPriors": ["long-running-agents", "coding", "interactive-work", "visual-work", "knowledge-work"],
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "long-running-agents",
+        "coding",
+        "interactive-work",
+        "visual-work",
+        "knowledge-work"
+      ],
       "contextTokens": 500000,
       "maxOutputTokens": null,
-      "officialEvidenceRefs": ["https://x.ai/news/grok-4-6"],
+      "officialEvidenceRefs": [
+        "https://x.ai/news/grok-4-6"
+      ],
       "gatewayTransport": {
         "transportProvider": "ai-gateway",
         "transportModel": "spacexai/grok-4.6",
         "sourceRef": "https://vercel.com/ai-gateway/models/grok-4.6",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 2, "output": 6, "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 2,
+          "output": 6,
+          "truth": "DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "PUBLIC_RELEASE_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false,
+      "supersededByCandidateId": "xai-grok-4-7",
+      "supersessionTruth": "PRESERVED_AS_HISTORICAL_DONOR__GROK_4_7_IS_CURRENT_PUBLIC_FLAGSHIP"
+    },
+    {
+      "id": "xai-grok-4-7",
+      "provider": "xai",
+      "canonicalModel": "grok-4.7",
+      "label": "Grok 4.7",
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "agentic-work",
+        "knowledge-work",
+        "multimodal"
+      ],
+      "contextTokens": 500000,
+      "maxOutputTokens": null,
+      "reasoningEfforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "officialEvidenceRefs": [
+        "https://docs.x.ai/developers/grok-4-7",
+        "https://docs.x.ai/developers/release-notes"
+      ],
+      "availabilityTruth": "OFFICIAL_API_RELEASE_2026_09_21__RUNTIME_PROFILE_AND_BENCHMARK_PROOF_REQUIRED",
+      "pricingHintUsdPerMillion": {
+        "input": 2,
+        "cachedInput": 0.5,
+        "output": 6,
+        "longContextInput": 4,
+        "longContextCachedInput": 1,
+        "longContextOutput": 12,
+        "truth": "OFFICIAL_LIST_PRICE_DISCOVERY_HINT_NOT_RUNTIME_BILLING_RECEIPT"
+      },
       "configured": false
     },
     {
@@ -126,11 +394,23 @@
       "provider": "deepseek",
       "canonicalModel": "deepseek-v4-pro",
       "label": "DeepSeek V4 Pro",
-      "rolePriors": ["builder", "critic", "general"],
-      "taskClassPriors": ["coding", "agents", "repository-work", "tool-use"],
+      "rolePriors": [
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "agents",
+        "repository-work",
+        "tool-use"
+      ],
       "contextTokens": 1000000,
       "maxOutputTokens": null,
-      "reasoningEfforts": ["low", "high"],
+      "reasoningEfforts": [
+        "low",
+        "high"
+      ],
       "officialEvidenceRefs": [
         "https://api-docs.deepseek.com/news/news260813/",
         "https://api-docs.deepseek.com/updates/"
@@ -141,9 +421,42 @@
         "sourceRef": "https://vercel.com/ai-gateway/models/deepseek-v4-pro",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 0.66, "output": 1.98, "truth": "FROM_PRICE_DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 0.66,
+          "output": 1.98,
+          "truth": "FROM_PRICE_DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "API_GA_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false,
+      "supersessionTruth": "PRESERVED_AS_HISTORICAL_DONOR__DEEPSEEK_OFFICIAL_DOCS_NOW_POSITION_V4_1_FLASH_AS_CURRENT_FLASH_API_PATH; VERIFY_V4_PRO_ROUTING_BEFORE USE"
+    },
+    {
+      "id": "deepseek-v4-1-flash",
+      "provider": "deepseek",
+      "canonicalModel": "deepseek-flash",
+      "label": "DeepSeek V4.1 Flash",
+      "rolePriors": [
+        "builder",
+        "researcher",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "agents",
+        "repository-work",
+        "tool-use",
+        "multimodal"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": [
+        "https://api-docs.deepseek.com/updates/",
+        "https://api-docs.deepseek.com/news/news260910/"
+      ],
+      "availabilityTruth": "OFFICIAL_API_RELEASE_2026_09_10__EXACT_RUNTIME_PROFILE_REQUIRED",
+      "pricingTruth": "PEAK_OFFPEAK_RATES_ARE_TIME_DEPENDENT__USE_FRESH_OFFICIAL_PRICING_RECEIPT",
       "configured": false
     },
     {
@@ -151,34 +464,138 @@
       "provider": "moonshot",
       "canonicalModel": "kimi-k3",
       "label": "Kimi K3",
-      "rolePriors": ["researcher", "builder", "general"],
-      "taskClassPriors": ["long-context", "repository-work", "coding", "knowledge-work", "reasoning"],
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "general"
+      ],
+      "taskClassPriors": [
+        "long-context",
+        "repository-work",
+        "coding",
+        "knowledge-work",
+        "reasoning"
+      ],
       "contextTokens": 1000000,
       "maxOutputTokens": null,
-      "reasoningEfforts": ["low", "high"],
-      "officialEvidenceRefs": ["https://www.moonshot.ai/"],
+      "reasoningEfforts": [
+        "low",
+        "high"
+      ],
+      "officialEvidenceRefs": [
+        "https://www.moonshot.ai/"
+      ],
       "gatewayTransport": {
         "transportProvider": "ai-gateway",
         "transportModel": "moonshotai/kimi-k3",
         "sourceRef": "https://vercel.com/ai-gateway/models/kimi-k3",
         "observedAt": "2026-09-05T20:30:00Z",
         "evidenceClass": "OFFICIAL_SOURCE",
-        "pricingHintUsdPerMillion": { "input": 2.8, "output": 14, "truth": "FROM_PRICE_DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE" }
+        "pricingHintUsdPerMillion": {
+          "input": 2.8,
+          "output": 14,
+          "truth": "FROM_PRICE_DISCOVERY_HINT_NOT_PROFILE_PRICING_EVIDENCE"
+        }
       },
       "availabilityTruth": "PUBLIC_API_REPORTED__TRANSPORT_AND_RUNTIME_PROFILE_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "alibaba-qwen3-8-max-0902",
+      "provider": "alibaba",
+      "canonicalModel": "qwen3.8-max-0902",
+      "label": "Qwen3.8 Max 0902",
+      "rolePriors": [
+        "planner",
+        "builder",
+        "researcher",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "long-horizon-agents",
+        "multi-tool-orchestration",
+        "multimodal",
+        "knowledge-work"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": null,
+      "reasoningEfforts": [
+        "thinking"
+      ],
+      "officialEvidenceRefs": [
+        "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-max"
+      ],
+      "availabilityTruth": "OFFICIAL_GLOBAL_AND_INTERNATIONAL_API_LISTING__RUNTIME_PROFILE_REQUIRED",
+      "batchInference": false,
+      "configured": false
+    },
+    {
+      "id": "zai-glm-5-3",
+      "provider": "zai",
+      "canonicalModel": "glm-5.3",
+      "label": "GLM-5.3",
+      "rolePriors": [
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "agentic-work",
+        "repository-work"
+      ],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": [
+        "https://z.ai/blog/glm-5.3",
+        "https://www.alibabacloud.com/help/en/model-studio/newly-released-models"
+      ],
+      "availabilityTruth": "OFFICIAL_ZAI_RELEASE_2026_08_14__DIRECT_RUNTIME_SLUG_PRICING_AND_CALLABILITY_PROOF_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "meta-muse-spark-1-3",
+      "provider": "meta",
+      "canonicalModel": "muse-spark-1.3",
+      "label": "Muse Spark 1.3",
+      "rolePriors": [
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "long-horizon-coding",
+        "agentic-work",
+        "computer-use",
+        "multimodal"
+      ],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": [
+        "https://ai.meta.com/events/",
+        "https://ai.meta.com/llama/"
+      ],
+      "availabilityTruth": "META_MODEL_API_PUBLIC_PREVIEW_WITH_EXPANDED_GLOBAL_ACCESS__EXACT_SLUG_PRICING_AND_RUNTIME_PROOF_REQUIRED",
+      "privacyTruth": "DO_NOT_USE_ANY_CONTRIBUTOR_OR_DATA_SHARING_DISCOUNT_WITHOUT_EXPLICIT_FOUNDER_OPT_IN",
       "configured": false
     }
   ],
   "admissionLaw": [
-    "Catalog presence and Gateway slug presence are discovery evidence only.",
-    "A model becomes routable only through an exact Frontier Cognitive Fabric profile with observed model revision, transport evidence, exact pricing evidence and a fresh producer-bound callability receipt.",
+    "Catalog presence, official model documentation, direct-provider documentation and Gateway slug presence are discovery evidence only; none is runtime proof.",
+    "A model becomes routable only through an exact Frontier Cognitive Fabric profile whose declared transport matches an evidenced Gateway or direct-transport candidate, with observed model revision, exact pricing evidence and a fresh producer-bound callability receipt.",
+    "A discovery-only candidate may remain in the watch universe without any callable transport; lack of transport evidence must never be rewritten as nonexistence or callability.",
     "Pricing hints in this catalog are not profile pricing evidence and cannot authorize spend or compute a trusted runtime cost.",
     "Models never inherit repository, deployment, customer, payment, DNS, credential, spend or production authority.",
     "Council agreement is process evidence, never external truth.",
     "Prefer provider and model-family diversity when quality is near the frontier threshold.",
-    "Measure task-specific quality, reliability, latency, economics and founder minutes; update routing from observed outcomes rather than brand reputation."
+    "Measure task-specific quality, reliability, latency, economics and founder minutes; update routing from observed outcomes rather than brand reputation.",
+    "Direct transport candidate evidence is not runtime proof; direct frontier routing requires exact reasoning-setting, model/revision, pricing and observed callability receipts.",
+    "No model is crowned by catalog freshness or provider claims; Opus 5.5, Astra and all successors must win task-specific sealed evaluations."
   ],
-  "discoveryLoop": "Gamechanger detects new model -> candidate catalog -> exact gateway transport discovery -> observed revision/pricing profile evidence -> producer-bound callability probe -> task-specific benchmark -> Avengers/Frontier Cognitive Fabric routing -> MAX Council -> outcome feedback -> replace/degrade/revoke",
+  "discoveryLoop": "Gamechanger detects model -> discovery catalog -> official provenance -> optional Gateway/direct transport candidate evidence -> exact runtime profile + revision/pricing evidence -> producer-bound callability probe -> task-specific benchmark -> Frontier Cognitive Fabric routing -> blind council / APEX topology -> outcome feedback -> replace/degrade/revoke; discovery-only candidates remain WATCH until a transport is evidenced",
   "businessEffectAuthority": "NONE",
   "externalEffectAuthority": "NONE"
 }

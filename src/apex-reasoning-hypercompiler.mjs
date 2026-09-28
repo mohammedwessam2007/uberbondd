@@ -31,7 +31,10 @@ const PUBLIC_DONOR_REFS = Object.freeze([
   'https://www.microsoft.com/en-us/research/publication/act-while-thinking-accelerating-llm-agents-via-pattern-aware-speculative-tool-execution/',
   'https://proceedings.iclr.cc/paper_files/paper/2026/hash/ae8d4084f418bb51575c2ca6c658a05b-Abstract-Conference.html',
   'https://platform.claude.com/docs/en/agents-and-tools/tool-use/manage-tool-context',
-  'https://developers.openai.com/api/docs/guides/agents'
+  'https://developers.openai.com/api/docs/guides/agents',
+  'https://arxiv.org/abs/2408.08435',
+  'https://arxiv.org/abs/2410.06153',
+  'https://dspy.ai/3.0.2/learn/optimization/optimizers/'
 ]);
 
 function zeroEffects() {
@@ -269,6 +272,24 @@ export function compileApexReasoningArchitecture({
       law: 'COST_OPTIMIZATION_MAY_CHANGE_EXECUTION_MECHANICS_BUT_MAY_NOT_SILENTLY_LOWER_THE_REQUIRED_REASONING_QUALITY'
     },
     perspectives,
+    reasoningSearchPolicy: {
+      representationDiversity: [
+        'natural-language-first-principles',
+        'causal-model',
+        'counterfactual',
+        'formal-or-programmatic-when-applicable',
+        'falsification',
+        'evidence-first',
+        'frame-attack'
+      ],
+      independentBranchesBeforeCrossContamination: mode !== 'DIRECT_FRONTIER',
+      verifierGuidedExpansion: mode === 'BLIND_COUNCIL' || mode === 'APEX_SEARCH',
+      branchPruningRequiresEvidenceOrBudgetBoundary: true,
+      preserveDissentingBranchPointers: true,
+      branchResurrectionAllowedOnNewEvidence: true,
+      maximumSequentialAggregationDepth: shape.sequentialAggregations,
+      law: 'SEARCH_REASONING_SPACE_NOT_ONLY_ANSWER_SPACE; DO_NOT COLLAPSE DIVERSE BRANCHES BEFORE THEIR DISCRIMINATING EVIDENCE HAS BEEN EXAMINED'
+    },
     councilPolicy: {
       sealedIndependentFirstPasses: mode === 'BLIND_COUNCIL' || mode === 'APEX_SEARCH',
       identityBlindCritique: mode === 'BLIND_COUNCIL' || mode === 'APEX_SEARCH',
@@ -381,6 +402,97 @@ export function buildIdentityBlindPacket({ candidates = [] } = {}) {
     identityMapReturned: false,
     modelVisibleIdentityMap: false,
     law: 'MODEL_FACING_CRITIQUE_AND_ADJUDICATION_MUST_RECEIVE_BLIND_IDS_ONLY; THE HELPER RETURNS ONLY AN IDENTITY_MAP_DIGEST SO CALLERS CANNOT ACCIDENTALLY SERIALIZE SOURCE IDENTITIES INTO MODEL CONTEXT'
+  });
+}
+
+export const APEX_ARCHITECTURE_MUTATION_FAMILIES = Object.freeze([
+  'TOPOLOGY',
+  'PERSPECTIVES',
+  'DELEGATION',
+  'PROMPTS',
+  'AGGREGATION',
+  'VERIFICATION',
+  'CONTEXT',
+  'TOOLS',
+  'REFLEX_BOUNDARY',
+  'STOP_POLICY'
+]);
+
+export function compileReasoningArchitectureEvolutionExperiment({
+  experimentId,
+  taskClass,
+  parentArchitectureIds = [],
+  failureEvidenceRefs = [],
+  mutationFamilies = APEX_ARCHITECTURE_MUTATION_FAMILIES,
+  trainPartitionRef,
+  sealedHoldoutRef,
+  maxCandidates = 24,
+  maxEvaluationCostUsd = 20
+} = {}) {
+  const id = text(experimentId, 200)?.toLowerCase();
+  const klass = text(taskClass, 160)?.toLowerCase();
+  const parents = Array.isArray(parentArchitectureIds)
+    ? [...new Set(parentArchitectureIds.map(item => text(item, 200)).filter(Boolean))]
+    : [];
+  const failures = Array.isArray(failureEvidenceRefs)
+    ? [...new Set(failureEvidenceRefs.map(item => text(item, 1000)).filter(Boolean))]
+    : [];
+  const mutations = Array.isArray(mutationFamilies)
+    ? [...new Set(mutationFamilies.map(item => text(item, 80)?.toUpperCase()).filter(Boolean))]
+    : [];
+  const trainRef = text(trainPartitionRef, 1000);
+  const holdoutRef = text(sealedHoldoutRef, 1000);
+  const candidateLimit = integer(maxCandidates, 1, 256);
+  const costLimit = finite(maxEvaluationCostUsd, 0, 1_000_000);
+  const reasons = [];
+  if (!id || !klass) reasons.push('experiment-id-and-task-class-required');
+  if (!parents.length) reasons.push('at-least-one-parent-architecture-required');
+  if (!failures.length) reasons.push('failure-evidence-required-before-mutation');
+  if (!mutations.length || mutations.some(item => !APEX_ARCHITECTURE_MUTATION_FAMILIES.includes(item))) reasons.push('recognized-mutation-families-required');
+  if (!trainRef || !holdoutRef || trainRef === holdoutRef) reasons.push('distinct-train-and-sealed-holdout-partitions-required');
+  if (candidateLimit == null || costLimit == null) reasons.push('bounded-evolution-budget-required');
+  if (reasons.length) return fail('REASONING_ARCHITECTURE_EVOLUTION_REFUSED', reasons);
+
+  const experiment = {
+    schemaVersion: 'uberbond.reasoning-architecture-evolution.v1',
+    experimentId: id,
+    taskClass: klass,
+    parentArchitectureIds: parents,
+    failureEvidenceRefs: failures,
+    mutationFamilies: mutations,
+    trainPartitionRef: trainRef,
+    sealedHoldoutRef: holdoutRef,
+    maxCandidates: candidateLimit,
+    maxEvaluationCostUsd: costLimit,
+    searchPolicy: {
+      mutation: 'FAILURE_ANCHORED',
+      recombination: 'ALLOWED_ACROSS_PROVEN_PARENT_MECHANISMS',
+      novelBuildingBlocks: 'ALLOWED_IN_SANDBOX',
+      traceReflection: true,
+      predictorOrPromptOptimization: true,
+      topologyMutation: true,
+      verifierMutation: true,
+      jevReflexBoundaryMutation: true,
+      automaticProductionMutation: false
+    },
+    antiOverfitPolicy: {
+      sealedHoldoutInvisibleToCandidateGenerator: true,
+      repeatedHoldoutPeekingProhibited: true,
+      trainingAndSelectionEvidenceSeparated: true,
+      finalPromotionRequiresFreshHeldOutOrRealOutcomeEvidence: true
+    },
+    authority: {
+      architectureGeneration: 'SANDBOX_ONLY',
+      productionPromotion: 'NONE',
+      consequenceAuthority: 'NONE'
+    },
+    law: 'THE META_OPTIMIZER MAY INVENT A BETTER REASONING ARCHITECTURE BUT MAY NOT JUDGE ITS OWN HOLDOUT, LEAK THE HOLDOUT INTO MUTATION, OR PROMOTE ITSELF TO PRODUCTION'
+  };
+  return envelope({
+    ok: true,
+    status: 'REASONING_ARCHITECTURE_EVOLUTION_EXPERIMENT_READY',
+    experiment,
+    experimentDigest: digest(experiment)
   });
 }
 

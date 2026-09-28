@@ -14,6 +14,8 @@
     "SYNTHETIC_MODEL_OUTPUT"
   ],
   "canonPointers": [
+    "00_OUTREACH_NOW.json",
+    "00_OUTREACH_NOW.md",
     "AGENTS.md",
     "NORTH_STAR.md",
     "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
@@ -189,7 +191,8 @@
     "Search North Star, Total Brain, its overlays, Perpetual Frontier/GENESIS, orchestration lineage, named initiatives, reconciliation, historical lineage, project chats/artifacts and unresolvedNames before concluding an older program or feature never existed.",
     "Dedupe requested work against current code, active shared branches and historical donors while preserving donated goals/mechanisms.",
     "Select the highest-value dependency-satisfied unfinished mission that advances the Personal Civilization Engine; for economic work use risk-adjusted cleared contribution profit per founder minute as the subordinate allocation objective.",
-    "Execute inside the consequence and human-sovereignty charters, verify the exact head, and leave a durable handoff after material work."
+    "Execute inside the consequence and human-sovereignty charters, verify the exact head, and leave a durable handoff after material work.",
+    "For commercial/outreach missions, autoload root 00_OUTREACH_NOW.md and 00_OUTREACH_NOW.json plus docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md after constitutional startup and before proposing offers, copy, campaign structure, or sender actions; refresh live provider/legal/sender truth before activation."
   ],
   "personalCivilizationNorthStarPath": "docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md",
   "personalCivilizationNorthStarIndexPath": "artifacts/personal-civilization-engine-north-star.json",
@@ -213,5 +216,5 @@
     "chatImportInstruction": "When a material ChatGPT/Claude/Codex chat, share, export, transcript, ZIP, research package, draft PR or donor branch becomes available, digest it into repository-native North Star/Total Brain/memory with source title/date, evidence class, named initiatives, durable decisions, capabilities, goals, contradictions, supersession links, unresolved names, and anti-duplication notes. Never rely on the external share URL alone."
   },
   "orchestrationCheckpointPath": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
-  "updatedAt": "2026-09-28T00:20:00+03:00"
+  "updatedAt": "2026-09-28T03:34:00+03:00"
 }

@@ -17,7 +17,7 @@ import { recipientEligibilityCoverage } from './uberoutbound-recipient-eligibili
 
 export const OUTREACH_LAUNCH_FACTS_VERSION = 'uberbond.outreach-launch-facts.v1';
 export const OFFER_LINEAGES = Object.freeze({
-  CURRENT_FOUR_OFFER_GENOME: 'src/uberreply-four-offer-genome.mjs (USD 450 / 900 / 950 / 750 pilot hypotheses)',
+  CURRENT_FOUR_OFFER_GENOME: 'src/uberreply-four-offer-genome.mjs (October 2026 hypotheses: USD 1,500 / 3,000 standard + 4,000 complex / 2,500 / 1,750; bundles and recurring paths remain unvalidated)',
   HIGH_TICKET_LINEAGE: 'Proven Business Genome 2026-08-05 pilot lanes (USD 1,000-4,000 hypotheses; see PR #993 frontier note)'
 });
 

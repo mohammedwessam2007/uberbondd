@@ -22,7 +22,11 @@ const env = {
   OPENAI_INPUT_USD_PER_MILLION: '1',
   OPENAI_OUTPUT_USD_PER_MILLION: '2',
   OPENAI_PRICING_SOURCE: 'official://pricing',
-  OPENAI_PRICING_VERIFIED_AT: '2026-09-04T20:00:00.000Z'
+  OPENAI_PRICING_VERIFIED_AT: '2026-09-04T20:00:00.000Z',
+  OPENAI_FLEX_INPUT_USD_PER_MILLION: '0.5',
+  OPENAI_FLEX_OUTPUT_USD_PER_MILLION: '1',
+  OPENAI_FLEX_PRICING_SOURCE: 'official://flex-pricing',
+  OPENAI_FLEX_PRICING_VERIFIED_AT: '2026-09-29T00:00:00.000Z'
 };
 
 const task = { taskId: 'factory-reasoning', objective: 'Return JSON.', consequenceClass: 'LOCAL_PREPARATION' };
@@ -115,4 +119,7 @@ test('canonical executor factory forwards max reasoning and Flex to native OpenA
   assert.deepEqual(body.reasoning, { effort: 'max' });
   assert.equal(body.service_tier, 'flex');
   assert.equal(out.appliedServiceTier, 'flex');
+  assert.equal(out.pricingEvidence.inputUsdPerMillion, 0.5);
+  assert.equal(out.pricingEvidence.outputUsdPerMillion, 1);
+  assert.equal(out.pricingEvidence.sourceRef, 'official://flex-pricing');
 });

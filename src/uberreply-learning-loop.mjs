@@ -123,6 +123,7 @@ export function compileUberReplyObservedLearning({
     const hardBounce=events.some(event=>['hard_bounce','bounce_hard'].includes(lower(event.eventType)));
     const unsubscribed=replyLabel==='optout'||replyLabel==='unsubscribe'||events.some(event=>['unsubscribe','suppression'].includes(lower(event.eventType)));
     const stage=prospect.opportunityStage;
+    const isLatestObservedTreatment=latestCandidateByProspect.get(message.prospectId)?.id===message.id;
     return compileUberOutboundOutcomeReceipt({
       decisionId:`uberreply:${message.id}`,
       genotypeId:message.uberReplyGenotypeId,
@@ -151,13 +152,13 @@ export function compileUberReplyObservedLearning({
         positiveReply,
         qualifiedPositiveReply,
         referral,
-        meetingBooked:stageAtLeast(stage,['meeting','offer','invoice','paid','delivery','accepted','recurring']),
-        meetingShowed:Boolean(prospect.meetingShowedAt),
-        qualifiedOpportunity:stageAtLeast(stage,['opportunity','meeting','offer','invoice','paid','delivery','accepted','recurring']),
-        proposal:stageAtLeast(stage,['offer','invoice','paid','delivery','accepted','recurring']),
-        closedWon:stageAtLeast(stage,['paid','delivery','accepted','recurring']),
-        retained:stageAtLeast(stage,['recurring']),
-        expanded:Boolean(prospect.expandedAt),
+        meetingBooked:isLatestObservedTreatment&&stageAtLeast(stage,['meeting','offer','invoice','paid','delivery','accepted','recurring']),
+        meetingShowed:isLatestObservedTreatment&&Boolean(prospect.meetingShowedAt),
+        qualifiedOpportunity:isLatestObservedTreatment&&stageAtLeast(stage,['opportunity','meeting','offer','invoice','paid','delivery','accepted','recurring']),
+        proposal:isLatestObservedTreatment&&stageAtLeast(stage,['offer','invoice','paid','delivery','accepted','recurring']),
+        closedWon:isLatestObservedTreatment&&stageAtLeast(stage,['paid','delivery','accepted','recurring']),
+        retained:isLatestObservedTreatment&&stageAtLeast(stage,['recurring']),
+        expanded:isLatestObservedTreatment&&Boolean(prospect.expandedAt),
         clearedRevenueCents:economics.clearedRevenueCents
       },
       economics:{
@@ -182,10 +183,14 @@ export function compileUberReplyObservedLearning({
   const firstTouchIds=new Set(firstTouchMessages.map(message=>message.id));
   const firstTouchOutcomes=outcomes.filter(row=>firstTouchIds.has(String(row.decisionId||'').replace(/^uberreply:/,'')));
   const humanReplyLabels=new Set(['positive','interested','neutral','objection','negative','wrong_person','referral','optout','unsubscribe']);
-  const uniqueDeliveredProspects=new Set(firstTouchMessages.filter(message=>{
+  const providerAcceptedFirstTouchProspects=new Set(firstTouchMessages.map(message=>message.prospectId).filter(Boolean));
+  const observedHardBounceFirstTouchProspects=new Set(firstTouchMessages.filter(message=>{
     const outcome=firstTouchOutcomes.find(row=>row.decisionId===`uberreply:${message.id}`);
-    return outcome?.delivery?.accepted===true&&!outcome?.delivery?.hardBounce;
+    return outcome?.delivery?.hardBounce===true;
   }).map(message=>message.prospectId).filter(Boolean));
+  const nonHardBouncedFirstTouchProspects=new Set(
+    [...providerAcceptedFirstTouchProspects].filter(id=>!observedHardBounceFirstTouchProspects.has(id))
+  );
   const campaignMessageIds=new Set(candidateMessages.map(message=>message.id));
   const exactReplies=arr(replies).filter(reply=>reply?.sourceMessageId&&campaignMessageIds.has(reply.sourceMessageId));
   const humanReplyProspects=new Set(exactReplies.filter(reply=>humanReplyLabels.has(lower(reply?.classification?.label||reply?.label))).map(reply=>reply.prospectId).filter(Boolean));
@@ -205,12 +210,16 @@ export function compileUberReplyObservedLearning({
     },
     recordAttempt:{
       firstTouchCount:firstTouchMessages.length,
-      deliveredUniqueProspects:uniqueDeliveredProspects.size,
-      humanReplyUniqueProspects:[...humanReplyProspects].filter(id=>uniqueDeliveredProspects.has(id)).length,
-      positiveReplyUniqueProspects:[...positiveReplyProspects].filter(id=>uniqueDeliveredProspects.has(id)).length,
-      qualifiedPositiveReplyUniqueProspects:[...qualifiedPositiveProspects].filter(id=>uniqueDeliveredProspects.has(id)).length,
-      denominatorPolicy:'UNIQUE_DELIVERED_PROSPECTS; AUTO_REPLY_OOO_BOUNCE_EXCLUDED_FROM_HUMAN_REPLY',
-      cohortTruthRequirement:'Before any record-attempt claim, separately prove the cohort is eligible and truly cold; this compiler does not infer that status from a sent-message row.'
+      providerAcceptedFirstTouchUniqueProspects:providerAcceptedFirstTouchProspects.size,
+      observedHardBounceFirstTouchUniqueProspects:observedHardBounceFirstTouchProspects.size,
+      nonHardBouncedFirstTouchUniqueProspects:nonHardBouncedFirstTouchProspects.size,
+      deliveredUniqueProspects:null,
+      humanReplyUniqueProspects:[...humanReplyProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length,
+      positiveReplyUniqueProspects:[...positiveReplyProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length,
+      qualifiedPositiveReplyUniqueProspects:[...qualifiedPositiveProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length,
+      denominatorPolicy:'PROVIDER_ACCEPTED_FIRST_TOUCH_MINUS_OBSERVED_HARD_BOUNCES_IS_AN_OPERATIONAL_DELIVERY_PROXY; AUTO_REPLY_OOO_EXCLUDED_FROM_HUMAN_REPLY',
+      deliveryTruthState:'DELIVERY_PROXY_NOT_FINAL_RECIPIENT_DELIVERY_PROOF',
+      cohortTruthRequirement:'Before any record-attempt claim, separately prove the cohort is eligible and truly cold and state whether delivery is measured directly or by the provider-accepted-minus-hard-bounce proxy; this compiler does not infer those facts from a sent-message row.'
     },
     learningPacket,
     attributionMode:'EXACT_MESSAGE_FOR_REPLIES_STABLE_STRATEGY_ARM_FOR_EXPERIMENTS_LAST_TOUCH_OBSERVATIONAL_FOR_CLEARED_ECONOMICS',
@@ -218,6 +227,6 @@ export function compileUberReplyObservedLearning({
     automaticPromotionAuthorized:false,
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
-    truthBoundary:'Replies are linked only through exact sourceMessageId when available. Copy experiments aggregate by stable strategy arm while exact candidate, genotype and rendered-message receipts remain preserved. Hard bounces are excluded from the delivered-analysis denominator. Cleared economics prefer the verified revenue ledger and fall back to settled orders without double-counting both; economics attach only to the latest observed treatment at or before the first economic receipt when timestamps permit, and remain observational rather than causal incrementality. Missing contribution/reputation/compliance/opportunity-cost terms remain unknown. Promotion requires independent causal analysis, validation traffic and guardrail survival.'
+    truthBoundary:'Replies are linked only through exact sourceMessageId when available. Copy experiments aggregate by stable strategy arm while exact candidate, genotype and rendered-message receipts remain preserved. Hard bounces are excluded from the analyzable non-hard-bounced proxy; the compiler does not relabel provider acceptance as proven final recipient delivery. Cleared economics prefer the verified revenue ledger and fall back to settled orders without double-counting both; economics attach only to the latest observed treatment at or before the first economic receipt when timestamps permit, and remain observational rather than causal incrementality. Missing contribution/reputation/compliance/opportunity-cost terms remain unknown. Promotion requires independent causal analysis, validation traffic and guardrail survival.'
   };
 }

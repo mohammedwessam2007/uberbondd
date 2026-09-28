@@ -162,9 +162,10 @@ export function compileUberReplyTreatmentIdentity({
   const candidateId=firstTouch&&assignedId
     ? assignedId
     : `ubv5_touch_${hash([offerId||'',position,subject||'',body||''].join('|')).slice(0,16)}`;
-  const strategyArmId=firstTouch&&(assigned?.strategyArmId||candidateSet?.assignedStrategyArmId)
-    ? (assigned?.strategyArmId||candidateSet.assignedStrategyArmId)
-    : `ubv5arm_${hash([offerId||'', 'FOLLOWUP', position].join('|')).slice(0,16)}`;
+  const firstTouchFallbackKey=assigned?.strategyAtoms?.variantKey||assigned?.strategyAtoms?.ctaId||assigned?.strategyAtoms?.bodyMode||'UNKNOWN';
+  const strategyArmId=firstTouch
+    ? (assigned?.strategyArmId||candidateSet?.assignedStrategyArmId||`ubv5arm_${hash([offerId||'','FIRST_TOUCH_FALLBACK',firstTouchFallbackKey].join('|')).slice(0,16)}`)
+    : `ubv5arm_${hash([offerId||'','FOLLOWUP',position].join('|')).slice(0,16)}`;
   const fallbackMessage={
     candidateId,
     subject,

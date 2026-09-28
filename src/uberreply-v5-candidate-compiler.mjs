@@ -234,18 +234,31 @@ export function compileUberReplyExperimentalAssignment({
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE'
   };
-  const challengers=Array.isArray(tournament.challengers)?tournament.challengers.filter(row=>row?.candidate):[];
-  const rate=Math.max(0,Math.min(0.5,Number.isFinite(Number(explorationRate))?Number(explorationRate):Number(tournament.explorationRate||0)));
+  const allChallengers=Array.isArray(tournament.challengers)?tournament.challengers.filter(row=>row?.candidate):[];
+  const championScore=Number(tournament.champion.score||0);
+  const tiedLeaders=[
+    tournament.champion,
+    ...allChallengers.filter(row=>Math.abs(Number(row.score||0)-championScore)<=1e-12)
+  ];
+  const explorers=allChallengers.filter(row=>Math.abs(Number(row.score||0)-championScore)>1e-12);
+  const configuredRate=Math.max(0,Math.min(0.5,Number.isFinite(Number(explorationRate))?Number(explorationRate):Number(tournament.explorationRate||0)));
+  const rate=explorers.length?configuredRate:0;
   const baseKey=clean(prospectKey,1000)||'unknown-prospect';
   const key=`${baseKey}|${tournament.champion.candidateId}`;
-  const explore=challengers.length>0&&deterministicUnit(`${key}|explore`)<rate;
-  let assigned=tournament.champion;
-  let mode='EXPLOIT_CHAMPION';
+  const explore=explorers.length>0&&deterministicUnit(`${key}|explore`)<rate;
+  let assigned;
+  let mode;
+  let assignmentProbability;
   if(explore){
-    const pool=challengers;
-    const index=Math.min(pool.length-1,Math.floor(deterministicUnit(`${key}|challenger`)*pool.length));
-    assigned=pool[index];
+    const index=Math.min(explorers.length-1,Math.floor(deterministicUnit(`${key}|challenger`)*explorers.length));
+    assigned=explorers[index];
     mode='EXPLORE_CHALLENGER';
+    assignmentProbability=rate/explorers.length;
+  }else{
+    const index=Math.min(tiedLeaders.length-1,Math.floor(deterministicUnit(`${key}|leader`)*tiedLeaders.length));
+    assigned=tiedLeaders[index];
+    mode='EXPLOIT_CHAMPION';
+    assignmentProbability=(1-rate)/tiedLeaders.length;
   }
   return{
     ok:true,
@@ -255,14 +268,17 @@ export function compileUberReplyExperimentalAssignment({
     assignedStrategyArmId:assigned.candidate?.strategyArmId||null,
     assignedCandidate:assigned.candidate,
     assignedSeedScore:assigned.score,
+    configuredExplorationRate:configuredRate,
     explorationRate:rate,
-    challengerCount:challengers.length,
-    assignmentProbability:mode==='EXPLOIT_CHAMPION'?(challengers.length?1-rate:1):(challengers.length?rate/challengers.length:0),
+    leaderTieCount:tiedLeaders.length,
+    challengerCount:allChallengers.length,
+    exploratoryChallengerCount:explorers.length,
+    assignmentProbability,
     assignmentKeyDigest:`sha256:${hash(key)}`,
     automaticDispatchAuthorized:false,
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
-    truthBoundary:'Assignment is deterministic exploration/exploitation over seed-scored candidates. It does not estimate causal lift by itself; downstream randomized outcome accounting is required.'
+    truthBoundary:'Assignment shares exploitation traffic across candidates with indistinguishable seed scores and reserves bounded traffic for lower-prior challengers. Seed scores are not calibrated reply probabilities; downstream propensity-aware outcome analysis is required.'
   };
 }
 

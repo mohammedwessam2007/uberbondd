@@ -277,3 +277,40 @@ test('max-token truncation is quarantined with provider request evidence', async
   assert.equal(out.providerRequestId, 'msg_test_1');
   assert.ok(out.reasonCodes.includes('anthropic-max-tokens-before-canonical-result'));
 });
+
+
+test('Opus-style native max effort is placed in output_config and attested in the executor receipt', async () => {
+  let body;
+  const executor = createAnthropicAgentExecutor({
+    enabled: true,
+    apiKey: 'anthropic-test-not-real-123456789',
+    pricing,
+    reasoningEffort: 'max',
+    fetchImpl: async (_url, init) => {
+      body = JSON.parse(init.body);
+      return fakeResponse({ body: completedResponse(result(), { model: 'claude-opus-5-5' }) });
+    }
+  });
+  const out = await executor({ task: task(), model: 'claude-opus-5-5', maxTokens: 4096, costCeilingCents: 100 });
+  assert.equal(out.ok, true);
+  assert.deepEqual(body.output_config, { effort: 'max' });
+  assert.equal(out.model, 'claude-opus-5-5');
+  assert.equal(out.identityVerification, 'OBSERVED');
+  assert.equal(out.appliedReasoningEffort, 'max');
+  assert.equal(out.appliedReasoningEvidence, 'REQUEST_BODY_ATTESTED');
+});
+
+test('unsupported Anthropic effort is refused before any provider call', async () => {
+  let calls = 0;
+  const executor = createAnthropicAgentExecutor({
+    enabled: true,
+    apiKey: 'anthropic-test-not-real-123456789',
+    pricing,
+    reasoningEffort: 'ultra-secret',
+    fetchImpl: async () => { calls += 1; return fakeResponse(); }
+  });
+  const out = await executor({ task: task(), model: 'claude-opus-5-5', maxTokens: 4096, costCeilingCents: 100 });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('anthropic-reasoning-effort-unsupported'));
+  assert.equal(calls, 0);
+});

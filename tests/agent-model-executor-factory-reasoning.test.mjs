@@ -87,6 +87,8 @@ test('canonical executor factory forwards max effort to native Anthropic transpo
   const out = await executor({ task, maxTokens: 100, costCeilingCents: 100 });
   assert.equal(out.ok, true);
   assert.deepEqual(body.output_config, { effort: 'max' });
+  assert.equal(body.tools[0].strict, true);
+  assert.equal(body.tool_choice.type, 'auto');
   assert.equal(out.appliedReasoningEffort, 'max');
   assert.equal(out.pricingEvidence.cacheReadUsdPerMillion, 0.05);
 });

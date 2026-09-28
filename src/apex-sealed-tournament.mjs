@@ -124,6 +124,7 @@ function normalizeCommitment(raw = {}, { suiteVersion, corpusDigest, manifestDig
   const committedCount = integer(raw?.taskCount, 1, 100000);
   const reasons = [];
   if (!commitmentRef || !committedAt || !sourceFreezeRef || !evaluatorRef) reasons.push('holdout-commitment-provenance-required');
+  if (committedAt && Date.parse(committedAt) > Date.now() + 60_000) reasons.push('future-holdout-commitment-prohibited');
   if (committedSuite !== suiteVersion) reasons.push('holdout-commitment-suite-mismatch');
   if (committedCorpus !== corpusDigest) reasons.push('holdout-commitment-corpus-mismatch');
   if (committedManifest !== manifestDigest) reasons.push('holdout-commitment-manifest-mismatch');
@@ -169,6 +170,7 @@ function normalizeRun(raw, index) {
   if (raw?.verifierIndependent !== true) reasons.push(`run-${index}:independent-verifier-required`);
   if (raw?.holdoutPromptExposedToOptimizer === true) reasons.push(`run-${index}:optimizer-holdout-leakage-prohibited`);
   if (raw?.modelJudgedOwnIdentityMarkedAnswer === true) reasons.push(`run-${index}:identity-marked-self-judging-prohibited`);
+  if (observedAt && Date.parse(observedAt) > Date.now() + 60_000) reasons.push(`run-${index}:future-run-evidence-prohibited`);
   return reasons.length ? { ok: false, reasonCodes: reasons } : {
     ok: true,
     run: {
@@ -214,7 +216,7 @@ export function compileSealedArchitectureTrial({
   const verifier = text(verifierId, 300);
   const designer = architectureDesignerId == null ? null : text(architectureDesignerId, 300);
   const reasons = [];
-  if (!arch || !APEX_ARCHITECTURE_CLASSES.includes(archClass) || !archDigest || !archRevision || !archSource || !frozenAt) reasons.push('complete-frozen-architecture-identity-required');
+  if (!arch || !APEX_ARCHITECTURE_CLASSES.includes(archClass) || !archDigest || !/^[a-f0-9]{64}$/i.test(archDigest) || !archRevision || !archSource || !frozenAt) reasons.push('complete-frozen-architecture-identity-required');
   if (!klass || !suite || !corpus) reasons.push('task-suite-and-corpus-required');
   if (process == null || !processRef || !verifier) reasons.push('independent-process-evidence-required');
   if (designer && verifier === designer) reasons.push('verifier-must-differ-from-architecture-designer');
@@ -451,12 +453,13 @@ export function evaluateSealedArchitectureTournament({
   const minBaselines = integer(minimumPublicBaselines, 1, 64);
   const maxMeanCostUsd = finite(budgetPolicy?.maxMeanCostUsd, 0.000001, 1_000_000);
   const maxMeanFounderMinutes = finite(budgetPolicy?.maxMeanFounderMinutes, 0, 100000);
+  const maxMeanLatencyMs = finite(budgetPolicy?.maxMeanLatencyMs, 1, 86_400_000);
   const normalization = text(budgetPolicy?.normalization, 120)?.toUpperCase();
   const reasons = [];
   if (!incumbentId || minSamples == null) reasons.push('incumbent-and-minimum-sample-required');
   if (!APEX_TOURNAMENT_CLAIM_MODES.includes(mode)) reasons.push('recognized-claim-mode-required');
   if (minBaselines == null) reasons.push('bounded-public-baseline-count-required');
-  if (normalization !== 'COMMON_CEILING' || maxMeanCostUsd == null || maxMeanFounderMinutes == null) reasons.push('common-quality-preserving-budget-ceiling-required');
+  if (normalization !== 'COMMON_CEILING' || maxMeanCostUsd == null || maxMeanFounderMinutes == null || maxMeanLatencyMs == null) reasons.push('common-quality-preserving-budget-ceiling-required');
   if (!Array.isArray(trials) || trials.length < 2 || trials.length > 1000) reasons.push('two-to-1000-trials-required');
   if (reasons.length) return fail('SEALED_ARCHITECTURE_TOURNAMENT_REFUSED', reasons);
 
@@ -482,6 +485,7 @@ export function evaluateSealedArchitectureTournament({
     if (trial.statistics?.sampleSize < minSamples) reasons.push(`trial-${index}:minimum-sample-not-met`);
     if (trial.economics?.meanCostUsd > maxMeanCostUsd) reasons.push(`trial-${index}:common-cost-ceiling-exceeded`);
     if (trial.economics?.meanFounderMinutes > maxMeanFounderMinutes) reasons.push(`trial-${index}:common-founder-minute-ceiling-exceeded`);
+    if (trial.economics?.meanLatencyMs > maxMeanLatencyMs) reasons.push(`trial-${index}:common-latency-ceiling-exceeded`);
     suiteVersion ??= trial.suiteVersion;
     corpusDigest ??= trial.corpusDigest;
     manifestDigest ??= trial.manifestDigest;
@@ -569,7 +573,8 @@ export function evaluateSealedArchitectureTournament({
     budgetPolicy: {
       normalization: 'COMMON_CEILING',
       maxMeanCostUsd,
-      maxMeanFounderMinutes
+      maxMeanFounderMinutes,
+      maxMeanLatencyMs
     },
     arena,
     leaderArchitectureId: leaderId,

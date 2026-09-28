@@ -574,7 +574,7 @@ export class Pipeline {
       await this.store.log('uberreply_v5_pre_send_gate', {
         prospectId: prospect.id,
         campaignId: campaign.id,
-        offerId: campaign.offerId,
+        offerId: effectiveOfferId,
         state: preSend.state,
         reasonCodes: preSend.reasonCodes || [],
         checkedAt: this.clock().toISOString()
@@ -1068,12 +1068,13 @@ export class Pipeline {
         const label = String(classification?.label || '').toLowerCase();
         const text = String(body || '').toLowerCase();
         let replyState = 'UNKNOWN';
-        if (/\b(price|pricing|cost|how much)\b/.test(text)) replyState = 'PRICE';
-        else if (/\b(call|zoom|meet|meeting)\b/.test(text)) replyState = 'CALL';
-        else if (/\b(not now|later|next month|next quarter)\b/.test(text)) replyState = 'NOT_NOW';
-        else if (label === 'positive') replyState = 'YES';
+        if (['negative','optout','unsubscribe'].includes(label)) replyState = 'NO';
+        else if (['automatic','out_of_office'].includes(label)) replyState = 'AUTO_REPLY';
         else if (label === 'wrong_person' || label === 'referral') replyState = 'WRONG_PERSON';
-        else if (['negative','optout'].includes(label)) replyState = 'NO';
+        else if (/\b(not now|later|next month|next quarter)\b/.test(text)) replyState = 'NOT_NOW';
+        else if (/\b(price|pricing|cost|how much)\b/.test(text)) replyState = 'PRICE';
+        else if (/\b(call|zoom|meet|meeting)\b/.test(text)) replyState = 'CALL';
+        else if (label === 'positive') replyState = 'YES';
         asyncCloseDecision = compileUberReplyAsyncCloseDecision({
           offerId: prospect.offerDecision.offer.offerId,
           replyState

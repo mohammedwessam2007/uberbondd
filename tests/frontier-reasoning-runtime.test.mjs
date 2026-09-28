@@ -62,10 +62,113 @@ test('gateway creator cannot disguise a different cognitive provider', () => {
   assert.ok(out.reasonCodes.includes('cognitive-provider-and-gateway-model-creator-mismatch'));
 });
 
-test('unproven direct transport reasoning bridge is blocked', () => {
-  const out = compileFrontierExecutorWorker({ ...member, provider: 'anthropic', model: 'claude-frontier', transportProvider: 'anthropic', transportModel: 'claude-frontier', reasoningSettingRef: 'anthropic:thinking=max' });
-  assert.equal(out.ok, false);
-  assert.ok(out.reasonCodes.some(code => code.startsWith('frontier-reasoning-transport-not-yet-proven:anthropic')));
+test('native Anthropic max effort compiles only through the exact provider/model bridge', () => {
+  const direct = {
+    ...member,
+    profileId: 'anthropic-opus-55',
+    provider: 'anthropic',
+    model: 'claude-opus-5-5',
+    transportProvider: 'anthropic',
+    transportModel: 'claude-opus-5-5',
+    reasoningSettingRef: 'anthropic:effort=max'
+  };
+  const out = compileFrontierExecutorWorker(direct);
+  assert.equal(out.ok, true);
+  assert.deepEqual(out.worker, { provider: 'anthropic', model: 'claude-opus-5-5', reasoningEffort: 'max' });
+
+  const mismatch = compileFrontierExecutorWorker({ ...direct, transportModel: 'claude-sonnet-5-5' });
+  assert.equal(mismatch.ok, false);
+  assert.ok(mismatch.reasonCodes.includes('direct-transport-model-mismatch'));
+});
+
+test('native OpenAI max reasoning may request Flex without changing cognitive model identity', () => {
+  const direct = {
+    ...member,
+    profileId: 'openai-astra',
+    provider: 'openai',
+    model: 'gpt-6-astra',
+    transportProvider: 'openai',
+    transportModel: 'gpt-6-astra',
+    reasoningSettingRef: 'openai:reasoning=max;service_tier=flex'
+  };
+  const out = compileFrontierExecutorWorker(direct);
+  assert.equal(out.ok, true);
+  assert.deepEqual(out.worker, { provider: 'openai', model: 'gpt-6-astra', reasoningEffort: 'max', serviceTier: 'flex' });
+  assert.equal(out.appliedSettingExpectation.serviceTier, 'flex');
+});
+
+test('unrecognized direct reasoning settings fail closed instead of silently downgrading', () => {
+  const anthropic = compileFrontierExecutorWorker({
+    ...member,
+    provider: 'anthropic',
+    model: 'claude-opus-5-5',
+    transportProvider: 'anthropic',
+    transportModel: 'claude-opus-5-5',
+    reasoningSettingRef: 'anthropic:thinking=max'
+  });
+  assert.equal(anthropic.ok, false);
+  assert.ok(anthropic.reasonCodes.includes('anthropic-direct-effort-setting-unrecognized'));
+
+  const openai = compileFrontierExecutorWorker({
+    ...member,
+    provider: 'openai',
+    model: 'gpt-6-astra',
+    transportProvider: 'openai',
+    transportModel: 'gpt-6-astra',
+    reasoningSettingRef: 'openai:reasoning=secret-max'
+  });
+  assert.equal(openai.ok, false);
+  assert.ok(openai.reasonCodes.includes('openai-direct-reasoning-setting-unrecognized'));
+});
+
+test('frontier attestation refuses a requested OpenAI Flex lane unless provider response attests Flex', () => {
+  const direct = {
+    ...member,
+    profileId: 'openai-astra',
+    provider: 'openai',
+    model: 'gpt-6-astra',
+    transportProvider: 'openai',
+    transportModel: 'gpt-6-astra',
+    reasoningSettingRef: 'openai:reasoning=max;service_tier=flex'
+  };
+  const binding = compileFrontierExecutorWorker(direct);
+  const evidence = {
+    profileId: direct.profileId,
+    status: 'CALLABLE_NOW',
+    evidenceClass: 'OBSERVED_RUNTIME',
+    identityVerification: 'OBSERVED',
+    observedProvider: direct.provider,
+    observedModel: direct.model,
+    observedRevision: direct.revision,
+    observedTransportProvider: direct.transportProvider,
+    observedTransportModel: direct.transportModel,
+    observedAt: '2026-09-29T00:00:00.000Z',
+    sourceRef: 'runtime://direct-openai'
+  };
+  const base = {
+    ok: true,
+    providerRequestId: 'req-flex',
+    model: 'gpt-6-astra',
+    identityVerification: 'OBSERVED',
+    appliedReasoningEffort: 'max',
+    appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED',
+    appliedServiceTier: 'default',
+    serviceTierEvidence: 'PROVIDER_RESPONSE_ATTESTED',
+    latencyMs: 42,
+    usage: { costCents: 2 }
+  };
+  const refused = attestFrontierExecution({ member: direct, workerBinding: binding, executorResult: base, callabilityEvidence: evidence });
+  assert.equal(refused.ok, false);
+  assert.ok(refused.reasonCodes.includes('planned-service-tier-not-attested-by-provider'));
+
+  const accepted = attestFrontierExecution({
+    member: direct,
+    workerBinding: binding,
+    executorResult: { ...base, appliedServiceTier: 'flex' },
+    callabilityEvidence: evidence
+  });
+  assert.equal(accepted.ok, true);
+  assert.equal(accepted.execution.appliedServiceTier, 'flex');
 });
 
 test('execution attestation requires transport model, request reasoning and independent observed revision evidence to all agree', () => {

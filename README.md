@@ -1,5 +1,8 @@
 # UberBond
 
+> **CURRENT COMMERCIAL / OUTREACH HOT POINTER:** If the mission is cold email, offers, reply rate, campaigns, agency sales, async closing, first revenue, or "continue outreach", open **[`00_OUTREACH_NOW.md`](00_OUTREACH_NOW.md)** immediately after constitutional startup. It contains the current V5 genome, October 2026 flagship quartet, no-meeting sales law, provider-refresh rule, and next-chat drill. Do not rebuild this context from scratch.
+
+
 > **CURRENT PRIVATE PROJECT STATE:** UberBond's **private internal ASI milestone is achieved at 100%**. Read [`PRIVATE_ASI_STATUS.md`](PRIVATE_ASI_STATUS.md) before interpreting historical ASI percentages. This is an internal project milestone, not an external scientific certification of literal ASI.
 
 > **START HERE:** UberBond's terminal North Star is the **Sovereign Cognitive Continuum**, not the historical website-audit / Revenue Engine wedge.

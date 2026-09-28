@@ -6,7 +6,42 @@
 
 ---
 
-## 0. 2026-09-27 provider frontier refresh (supersedes the 2026-09-26 candidate ranking)
+
+## 0A. 2026-09-28 COMMERCIAL AUTOLOAD — CURRENT
+
+For any ChatGPT Project conversation about **cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine**, do not reconstruct the commercial strategy from old chats.
+
+Autoload in this order after constitutional startup:
+
+1. `00_OUTREACH_NOW.md`
+2. `00_OUTREACH_NOW.json`
+3. `docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`
+4. `docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`
+5. `docs/OFFER_QUARTET_OCT_2026_10_OF_10.md`
+
+Current commercial genome:
+
+`SELECT -> PROVE -> TIME -> MATCH -> PRE-WORK -> COMPRESS -> MICRO-ASK -> ASYNC-CLOSE -> LEARN`
+
+Current flagship quartet:
+- Agency Revenue Leak Proof Pack: $1,500 / 3 sites; $3,900 / 10; $2,500/mo monitoring hypothesis.
+- AI Agent Production Release Gate: $3,000 standard; $4,000 complex; $3,500/mo continuous hypothesis.
+- Revenue Proof & Renewal Pack: $2,500 single client; $4,500 / 3 clients; $3,000/mo hypothesis.
+- GCC Arabic-English Booking Parity & Revenue Leak Sprint: $1,750 location; $4,500 / 3 locations; $3,500/mo hypothesis.
+
+First-touch defaults: evidence-first, 51–100 words, 3–4 sentences, one idea, one CTA, useful pre-work artifact, default ask **"Want me to send it?"** Meeting default = **NONE**. The preferred commercial path is async from artifact permission through scope, price, payment, onboarding, delivery and acceptance.
+
+"10/10" means current internal design completeness only. Demand, price acceptance, contribution margin, recurring demand, sender/provider readiness, cleared payment and customer acceptance remain external truth.
+
+### Last known sender-provider incident at this checkpoint
+
+Cold Mail Server payment evidence showed **EGP 673.01 successful on 2026-09-27**, while the CMS account still showed **0 paid seats / no active subscription** at last observation. CMS support and Dodo buyer support were contacted from the purchase email. **Do not pay again** until current account/payment entitlement state is refreshed. Provider/account state is dynamic and this paragraph becomes historical the moment newer evidence exists.
+
+The older 2026-09-27 provider ranking below predates this authenticated CMS purchase/entitlement incident and must not override this section or newer exact account evidence.
+
+---
+
+## 0B. 2026-09-27 provider frontier refresh (supersedes the 2026-09-26 candidate ranking)
 
 Live first-party pricing and policy evidence changes the current provider decision:
 - OutInfra advertises $0.25/mailbox but its current Terms prohibit unsolicited bulk email; its pricing-page refund/billing claims conflict with its Terms/refund page.

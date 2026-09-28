@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "uberbond-commercial-autoload-1.0.0",
+  "lastReconciled": "2026-09-28",
+  "missionTriggers": [
+    "cold email",
+    "outreach",
+    "offers",
+    "first revenue",
+    "reply rate",
+    "campaign",
+    "agency sales",
+    "async close",
+    "continue outreach"
+  ],
+  "primaryPointer": "docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md",
+  "genomePath": "docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md",
+  "offerPath": "docs/OFFER_QUARTET_OCT_2026_10_OF_10.md",
+  "genome": [
+    "SELECT",
+    "PROVE",
+    "TIME",
+    "MATCH",
+    "PRE-WORK",
+    "COMPRESS",
+    "MICRO-ASK",
+    "ASYNC-CLOSE",
+    "LEARN"
+  ],
+  "meetingDefault": "NONE",
+  "firstTouch": {
+    "subjectWords": "2-5",
+    "wordPrior": "51-100",
+    "sentencePrior": "3-4",
+    "defaultCTA": "Want me to send it?"
+  },
+  "objective": {
+    "recordMode": "maximize qualified positive reply rate among delivered eligible truly-cold prospects",
+    "moneyMode": "maximize expected cleared contribution profit per founder minute"
+  },
+  "offers": [
+    {
+      "id": "agency-revenue-leak-proof-pack",
+      "priceHypothesesUsd": {
+        "threeClientSites": 1500,
+        "tenSites": 3900,
+        "monthlyMonitoring": 2500
+      }
+    },
+    {
+      "id": "ai-agent-production-release-gate",
+      "priceHypothesesUsd": {
+        "standard": 3000,
+        "complexToolHeavy": 4000,
+        "monthlyContinuous": 3500
+      }
+    },
+    {
+      "id": "revenue-proof-renewal-pack",
+      "priceHypothesesUsd": {
+        "singleClient": 2500,
+        "threeClientPack": 4500,
+        "monthly": 3000
+      }
+    },
+    {
+      "id": "gcc-arabic-english-booking-parity-revenue-leak-sprint",
+      "priceHypothesesUsd": {
+        "singleLocation": 1750,
+        "threeLocationPack": 4500,
+        "monthlyMonitoring": 3500
+      }
+    }
+  ],
+  "providerRefreshRequired": true,
+  "lastKnownColdMailServerIncident": {
+    "paymentStatus": "SUCCESS",
+    "amountEgp": 673.01,
+    "paidSeatsLastObserved": 0,
+    "activeSubscriptionLastObserved": false,
+    "safeToPayAgain": false
+  },
+  "truthBoundary": "Internal design completeness is not market validation. External buyer/provider/payment evidence outranks this pointer."
+}

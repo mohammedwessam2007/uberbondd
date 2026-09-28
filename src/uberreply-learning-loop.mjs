@@ -210,6 +210,12 @@ export function compileUberReplyObservedLearning({
   const positiveReplyProspects=new Set(exactReplies.filter(reply=>['positive','interested'].includes(lower(reply?.classification?.label||reply?.label))).map(reply=>reply.prospectId).filter(Boolean));
   const qualifiedPositiveProspects=new Set(exactReplies.filter(reply=>reply?.qualifiedPositiveEvidence?.qualified===true).map(reply=>reply.prospectId).filter(Boolean));
 
+  const nonHardBouncedDenominator=nonHardBouncedFirstTouchProspects.size;
+  const humanReplyCount=[...humanReplyProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length;
+  const positiveReplyCount=[...positiveReplyProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length;
+  const qualifiedPositiveReplyCount=[...qualifiedPositiveProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length;
+  const proxyRate=count=>nonHardBouncedDenominator?Number((count/nonHardBouncedDenominator).toFixed(6)):null;
+
   return{
     version:UBERREPLY_LEARNING_LOOP_VERSION,
     campaignId:campaignId||null,
@@ -227,11 +233,16 @@ export function compileUberReplyObservedLearning({
       observedHardBounceFirstTouchUniqueProspects:observedHardBounceFirstTouchProspects.size,
       nonHardBouncedFirstTouchUniqueProspects:nonHardBouncedFirstTouchProspects.size,
       deliveredUniqueProspects:null,
-      humanReplyUniqueProspects:[...humanReplyProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length,
-      positiveReplyUniqueProspects:[...positiveReplyProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length,
-      qualifiedPositiveReplyUniqueProspects:[...qualifiedPositiveProspects].filter(id=>nonHardBouncedFirstTouchProspects.has(id)).length,
+      humanReplyUniqueProspects:humanReplyCount,
+      positiveReplyUniqueProspects:positiveReplyCount,
+      qualifiedPositiveReplyUniqueProspects:qualifiedPositiveReplyCount,
+      humanReplyRateOnNonHardBouncedProxy:proxyRate(humanReplyCount),
+      positiveReplyRateOnNonHardBouncedProxy:proxyRate(positiveReplyCount),
+      qualifiedPositiveReplyRateOnNonHardBouncedProxy:proxyRate(qualifiedPositiveReplyCount),
       denominatorPolicy:'PROVIDER_ACCEPTED_FIRST_TOUCH_MINUS_OBSERVED_HARD_BOUNCES_IS_AN_OPERATIONAL_DELIVERY_PROXY; AUTO_REPLY_OOO_EXCLUDED_FROM_HUMAN_REPLY',
       deliveryTruthState:'DELIVERY_PROXY_NOT_FINAL_RECIPIENT_DELIVERY_PROOF',
+      recordClaimReady:false,
+      worldRecordClaimAuthorized:false,
       cohortTruthRequirement:'Before any record-attempt claim, separately prove the cohort is eligible and truly cold and state whether delivery is measured directly or by the provider-accepted-minus-hard-bounce proxy; this compiler does not infer those facts from a sent-message row.'
     },
     learningPacket,

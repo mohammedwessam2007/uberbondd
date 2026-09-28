@@ -281,3 +281,18 @@ test('UberReply V5 analytics preserve candidate lineage and default to cleared r
   assert.equal(analytics.steps[0].clearedRevenueUsd, 1500);
   assert.equal(analytics.recommendation.automaticPromotionAuthorized, false);
 });
+
+
+test('revenue analytics separate positive from qualified-positive replies',()=>{
+  const out=buildRevenueWeightedAnalytics({
+    prospects:[{id:'p1',status:'replied',replyLabel:'positive'},{id:'p2',status:'replied',replyLabel:'positive',qualifiedPositive:true}],
+    messages:[{prospectId:'p1'},{prospectId:'p2'}],
+    replies:[
+      {prospectId:'p1',classification:{label:'positive'},qualifiedPositiveEvidence:{qualified:false}},
+      {prospectId:'p2',classification:{label:'positive'},qualifiedPositiveEvidence:{qualified:true}}
+    ]
+  });
+  assert.equal(out.counts.positiveReplies,2);
+  assert.equal(out.counts.qualifiedPositiveReplies,1);
+  assert.equal(out.rates.qualifiedPositiveFromSent,50);
+});

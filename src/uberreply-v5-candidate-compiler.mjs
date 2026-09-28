@@ -96,7 +96,7 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase,research={}})
   const confidence=Array.isArray(artifact?.findings)&&artifact.findings.length
     ? artifact.findings.reduce((sum,row)=>sum+clamp(row.confidence),0)/artifact.findings.length
     : 0;
-  const bodyWords=wordCount(body);
+  const bodyWords=wordCount(coreCopy(body));
   const subjectWords=wordCount(subject);
   const company=clean(prospect?.company,160).toLowerCase();
   const lower=clean(body,10000).toLowerCase();
@@ -298,11 +298,12 @@ export function compileUberReplyV5CandidateSet({
   const subjects=[baseSubject,...(SUBJECT_VARIANTS[offer.offerId]||[])].filter((v,i,a)=>v&&a.indexOf(v)===i);
 
   const candidates=[];
+  const activeBodyVariants=(artifact?.findings?.length||0)>1?BODY_VARIANTS:['BASE','QUOTE'];
   const limit=Math.max(1,Math.min(24,Number(maxCandidates)||12));
   for(let index=0;index<limit;index+=1){
     const subject=subjects[index%subjects.length];
     const cta=CTA_VARIANTS[index%CTA_VARIANTS.length];
-    const bodyMode=BODY_VARIANTS[Math.floor(index/CTA_VARIANTS.length)%BODY_VARIANTS.length];
+    const bodyMode=activeBodyVariants[Math.floor(index/CTA_VARIANTS.length)%activeBodyVariants.length];
     const variantBody=buildUberReplyV5Message({
       offerId:offer.offerId,
       prospect,

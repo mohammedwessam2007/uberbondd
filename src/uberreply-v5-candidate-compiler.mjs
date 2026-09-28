@@ -77,7 +77,7 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase,index}){
 
 function deterministicUnit(seed){
   const hex=hash(seed).slice(0,13);
-  return parseInt(hex,16)/0x1fffffffffffff;
+  return parseInt(hex,16)/0xfffffffffffff;
 }
 
 export function compileUberReplyExperimentalAssignment({
@@ -94,7 +94,8 @@ export function compileUberReplyExperimentalAssignment({
   };
   const challengers=Array.isArray(tournament.challengers)?tournament.challengers.filter(row=>row?.candidate):[];
   const rate=Math.max(0,Math.min(0.5,Number.isFinite(Number(explorationRate))?Number(explorationRate):Number(tournament.explorationRate||0)));
-  const key=clean(prospectKey,1000)||tournament.champion.candidateId;
+  const baseKey=clean(prospectKey,1000)||'unknown-prospect';
+  const key=`${baseKey}|${tournament.champion.candidateId}`;
   const explore=challengers.length>0&&deterministicUnit(`${key}|explore`)<rate;
   let assigned=tournament.champion;
   let mode='EXPLOIT_CHAMPION';

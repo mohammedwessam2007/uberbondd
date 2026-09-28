@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileUberReplyV5CandidateSet } from '../src/uberreply-v5-candidate-compiler.mjs';
+import { compileUberReplyV5CandidateSet, compileUberReplyExperimentalAssignment } from '../src/uberreply-v5-candidate-compiler.mjs';
 
 const artifact={
   prepared:true,
@@ -46,9 +46,11 @@ test('candidate compiler creates bounded evidence-first variants and selects one
   assert.ok(out.candidateCount>=4);
   assert.ok(out.candidateCount<=12);
   assert.ok(out.selectedCandidate);
-  assert.match(out.selectedCandidate.body,/Want me to send it\?|Worth sending over\?|Want the screenshots\?|Useful if I send the one-pager\?/);
-  assert.ok(out.selectedCandidate.subject.split(/\s+/).length>=2);
-  assert.ok(out.selectedCandidate.subject.split(/\s+/).length<=5);
+  assert.ok(out.assignedCandidate);
+  assert.ok(['EXPLOIT_CHAMPION','EXPLORE_CHALLENGER'].includes(out.assignmentMode));
+  assert.match(out.assignedCandidate.body,/Want me to send it\?|Worth sending over\?|Want the screenshots\?|Useful if I send the one-pager\?/);
+  assert.ok(out.assignedCandidate.subject.split(/\s+/).length>=2);
+  assert.ok(out.assignedCandidate.subject.split(/\s+/).length<=5);
   assert.equal(out.externalEffectAuthority,'NONE');
   assert.equal(out.tournament.automaticDispatchAuthorized,false);
 });
@@ -61,4 +63,23 @@ test('candidate compiler refuses to fabricate variants before evidence artifact 
   });
   assert.equal(out.ok,false);
   assert.ok(out.reasonCodes.includes('prepared-artifact-required'));
+});
+
+
+test('experimental assignment is deterministic for the same prospect and bounded to tournament candidates',()=>{
+  const tournament={
+    ok:true,
+    explorationRate:0.5,
+    champion:{candidateId:'champ',score:0.9,candidate:{candidateId:'champ'}},
+    challengers:[
+      {candidateId:'challenger-a',score:0.8,candidate:{candidateId:'challenger-a'}},
+      {candidateId:'challenger-b',score:0.7,candidate:{candidateId:'challenger-b'}}
+    ]
+  };
+  const a=compileUberReplyExperimentalAssignment({tournament,prospectKey:'prospect-123'});
+  const b=compileUberReplyExperimentalAssignment({tournament,prospectKey:'prospect-123'});
+  assert.deepEqual(a,b);
+  assert.ok(['champ','challenger-a','challenger-b'].includes(a.assignedCandidateId));
+  assert.equal(a.automaticDispatchAuthorized,false);
+  assert.equal(a.externalEffectAuthority,'NONE');
 });

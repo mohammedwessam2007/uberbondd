@@ -18,6 +18,7 @@ import { dispatchPostalCanary } from './postal-live-send.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyCampaignDecision, compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
 import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
+import { compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
@@ -246,9 +247,33 @@ export class Pipeline {
           maxFindings: 3
         })
       : null;
+    const uberReplyCandidateSet = researchQualified && campaign.offerId && offerDecision?.ok && uberReplyPreworkArtifact?.prepared
+      ? compileUberReplyV5CandidateSet({
+          offerId: campaign.offerId,
+          prospect: {
+            ...prospect,
+            problemEvidenceScore: Math.min(1, score.total / 100),
+            fitEvidenceConfidence: issue?.confidence || Math.min(1, score.total / 100)
+          },
+          issue,
+          audit,
+          contact,
+          sender: this.cfg.sender,
+          artifact: uberReplyPreworkArtifact,
+          unsubscribeUrl: optoutUrl,
+          research: {
+            accountValueScore: Math.min(1, score.total / 100),
+            signalStrength: issue?.confidence || 0,
+            artifactFeasibility: 1,
+            evidenceDensity: Math.min(1, audit.length / 3),
+            estimatedResearchMinutes: Math.max(1, crawl.pages.length * 2 + audit.length)
+          },
+          maxCandidates: 12
+        })
+      : null;
     const draft = researchQualified
       ? (campaign.offerId && offerDecision?.ok
-          ? buildUberReplyV5Message({
+          ? (uberReplyCandidateSet?.selectedCandidate?.body || buildUberReplyV5Message({
               offerId: campaign.offerId,
               prospect,
               issue,
@@ -257,12 +282,12 @@ export class Pipeline {
               sender: this.cfg.sender,
               artifact: uberReplyPreworkArtifact,
               unsubscribeUrl: optoutUrl
-            })
+            }))
           : buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }))
       : '';
     const subject = researchQualified
       ? (campaign.offerId && offerDecision?.ok
-          ? buildUberReplyV5Subject({ offerId: campaign.offerId, prospect, issue, followup: 0 })
+          ? (uberReplyCandidateSet?.selectedCandidate?.subject || buildUberReplyV5Subject({ offerId: campaign.offerId, prospect, issue, followup: 0 }))
           : buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName))
       : '';
     const personalizationDecision = researchQualified ? evaluateOutreachPersonalization({
@@ -286,6 +311,7 @@ export class Pipeline {
     const patch = {
       status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision,
       uberReplyPreworkArtifact,
+      uberReplyCandidateSet,
       draft, subject, personalizationDecision,
       unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl,
       dossier, completedAt: now()

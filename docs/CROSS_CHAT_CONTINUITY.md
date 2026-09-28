@@ -8,7 +8,7 @@ Long chats can end, shared-chat URLs may be unavailable to a later runtime, codi
 
 ## Repository-native brain
 
-UberBond continuity is anchored in eleven layers:
+UberBond continuity is anchored in twelve layers:
 
 1. `AGENTS.md` — startup and engineering law for repo-aware agents.
 2. `UBERBOND_CANON.md` — durable product/constitutional doctrine.
@@ -21,6 +21,7 @@ UberBond continuity is anchored in eleven layers:
 9. `docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md` — fast-moving execution overlay for the latest active branch/PR, current acceleration mechanism, already-earned scoped evidence, exact acceptance contract and immediate resume instruction. This is the first place to recover minute-by-minute execution state after a chat crash.
 10. `docs/handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md` — durable no-amputation law that heavy UberBond compute belongs on remote owner-controlled Linux nodes while Mohamed's iPad remains a thin founder cockpit; Vercel/GitHub-hosted control planes are not the terminal runtime or recovery root.
 11. `src/uberbond-brain-context.mjs` — fail-closed compiler that validates/digests bootstrap + Master Memory index into a context identity.
+12. `docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md` — current commercial/outreach overlay preserving the October 2026 flagship offer quartet, the integrated V5 evidence-first cold-email genome, async-first/no-meeting close law, truth class, provider-refresh law and next-month continuation drill. It is subordinate to current source and external provider/customer/payment truth.
 
 The current repository and durable external receipts remain separate sources of present-tense truth. A stale handoff or rich historical memory never outranks a newer merged commit or provider/customer receipt.
 
@@ -28,7 +29,7 @@ The current repository and durable external receipts remain separate sources of 
 
 A new UberBond session should execute:
 
-`refresh main -> AGENTS -> CANON -> BOOTSTRAP -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> CHATGPT_PROJECT_CONTINUITY_CURRENT -> UBERBOND_WORMHOLE_CURRENT -> SOVEREIGN_AIR_FABRIC_CURRENT -> open/recent PRs/issues -> reconcile wormhole overlay against exact current source -> requested mission -> dedupe -> execute`
+`refresh main -> AGENTS -> CANON -> BOOTSTRAP -> MASTER_MEMORY -> MEMORY_INDEX -> every canonPointer -> CURRENT_HANDOFF -> current readiness -> CHATGPT_PROJECT_CONTINUITY_CURRENT -> UBERBOND_WORMHOLE_CURRENT -> SOVEREIGN_AIR_FABRIC_CURRENT -> OUTREACH_COMMERCIAL_CURRENT when the mission is commercial/outreach -> open/recent PRs/issues -> reconcile overlays against exact current source -> requested mission -> dedupe -> execute`
 
 If the user says only `continue`, `go`, `finish it`, `wormhole`, or equivalent, the session should execute that recovery sequence instead of asking for a project retelling.
 
@@ -51,6 +52,8 @@ It may summarize project-chat context and external/File-Library donor packages, 
 `docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md` is the hot execution overlay. Update it whenever a material active wave would otherwise be recoverable only from the current conversation: active branch/PR, exact observed head, acceleration method, scoped proof already earned, failed acceptance seam, closure contract and immediate next executor. It must never turn a branch claim into merged/runtime/commercial truth.
 
 `docs/handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md` is the durable bridge for the founder's remote-compute intent. A future session must not silently reinterpret self-hosting as running heavy workloads on the iPad or making a hosted deployment company the runtime root. It records architecture and intent only; actual owned-host receipts remain the source of runtime truth.
+
+`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md` is the durable bridge for the founder's current commercial outreach doctrine. A future session handling offers or cold outreach must recover the integrated V5 message genome and October 2026 offer quartet instead of brainstorming from zero. It preserves internal design decisions only; real demand, price acceptance, sender/provider readiness and revenue remain external truth.
 
 ## Handoff update law
 

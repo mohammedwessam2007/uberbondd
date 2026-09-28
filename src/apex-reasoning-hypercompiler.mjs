@@ -299,7 +299,13 @@ export function compileApexReasoningArchitecture({
       explicitCalibratedConfidenceRequested: mode === 'BLIND_COUNCIL' || mode === 'APEX_SEARCH',
       majorityAgreementIsNotProof: true,
       dissentPreserved: true,
-      adjudicatorIndependentWhenCapacityExists: true
+      adjudicatorIndependentWhenCapacityExists: true,
+      dynamicDelegation: {
+        leadMaySpawnOnEmergentEvidence: mode !== 'DIRECT_FRONTIER',
+        leadMayCancelDeadBranches: mode !== 'DIRECT_FRONTIER',
+        leadMaySteerActiveBranches: mode === 'APEX_SEARCH',
+        stragglerMayNotBlockIndependentEvidence: true
+      }
     },
     contextPolicy: {
       residentKernel: 'SMALL',
@@ -309,7 +315,22 @@ export function compileApexReasoningArchitecture({
       derivedStateExternalization: 'REQUIRED_BEFORE_AGGRESSIVE_REASONING_HISTORY_COMPRESSION',
       repeatedSummaryOfSummary: 'PROHIBITED_AS_SOLE_EVIDENCE',
       compressionFailureMode: 'RETURN_TO_HIGHER_FIDELITY_SOURCE',
-      contextManagementCallable: true
+      contextManagementCallable: true,
+      memoryOperations: {
+        store: 'DURABLE_REFERENCE_OR_DERIVED_STATE',
+        retrieve: 'ON_DEMAND_BY_TASK_RELEVANCE',
+        update: 'VERSIONED_NEVER_SILENTLY_OVERWRITE_PROVENANCE',
+        summarize: 'WORKING_CONTEXT_ONLY_RAW_SOURCE_REMAINS_RECOVERABLE',
+        discard: 'WORKING_CONTEXT_ONLY_NEVER_DURABLE_EVIDENCE_DELETION'
+      }
+    },
+    artifactPolicy: {
+      specialistMayPersistDirectArtifact: true,
+      coordinatorReceivesReferenceBeforeCopiedPayload: true,
+      immutableContentDigestRequired: true,
+      provenanceRequired: true,
+      directArtifactBypassPurpose: 'REDUCE_COORDINATOR_TELEPHONE_LOSS_AND_REPEATED_TOKEN_COPYING',
+      coordinatorStillOwnsIntegrationDecision: true
     },
     toolPolicy: {
       deterministicToolBeforeLLMForExactOperations: true,
@@ -357,6 +378,11 @@ export function compileApexReasoningArchitecture({
       taskClassSpecific: true,
       recordCostLatencyFounderMinutes: true,
       recordErrorCorrelation: true,
+      qualityDiversityArchiveRequired: true,
+      failureAnchoredMutationPreferred: true,
+      productionCanaryBeforeReplacement: true,
+      rainbowOrSideBySideComparisonPreferred: true,
+      rollbackReceiptRequired: true,
       promotionAuthority: 'NONE',
       publicDonorRefs: [...PUBLIC_DONOR_REFS]
     },

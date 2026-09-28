@@ -138,10 +138,13 @@ Public work on Automated Design of Agentic Systems (ADAS) and AgentSquare demons
 
 - https://arxiv.org/abs/2408.08435
 - https://arxiv.org/abs/2410.06153
+- https://arxiv.org/abs/2502.04180
+- https://arxiv.org/abs/2510.02669
 - https://dspy.ai/3.0.2/learn/optimization/optimizers/
 
 Donation:
 - the reasoning architecture itself becomes a candidate object;
+- query-dependent architecture selection is preferable to one static multi-agent graph when difficulty and domain vary;
 - mutation is anchored to observed failures rather than aesthetic rewrites;
 - topology, perspectives, delegation, prompts, aggregation, verification, context, tools, reflex boundaries and stopping policy may all mutate in sandbox;
 - training evidence and sealed holdouts remain separated;

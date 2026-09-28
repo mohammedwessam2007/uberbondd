@@ -50,6 +50,30 @@ function artifactSummary(artifact={}){
   return findings.map((row,index)=>`${index+1}. ${clean(row.title,240)}${row.evidenceExcerpt?` — evidence: “${clean(row.evidenceExcerpt,220)}”`:''}`).join('\n');
 }
 
+
+export function classifyUberReplyQualification({ classification={}, body='', replyState }={}){
+  const label=clean(classification?.label||classification,120).toLowerCase();
+  const state=String(replyState||classifyUberReplyState({classification,body})).toUpperCase();
+  const text=clean(body,8000).toLowerCase();
+  if(['NO','AUTO_REPLY','WRONG_PERSON','NOT_NOW','UNKNOWN'].includes(state)){
+    return{qualified:false,state:'NOT_QUALIFIED',reasonCodes:[`reply-state-${state.toLowerCase()}`]};
+  }
+  const signals=[];
+  if(/\b(price|pricing|cost|how much|budget)\b/.test(text))signals.push('commercial-price-question');
+  if(/\b(scope|included|what do you include|deliverables?)\b/.test(text))signals.push('commercial-scope-question');
+  if(/\b(timeline|turnaround|how long|when can|start date|availability)\b/.test(text))signals.push('commercial-timing-question');
+  if(/\b(invoice|payment|pay|checkout|purchase|buy)\b/.test(text))signals.push('commercial-payment-intent');
+  if(/\b(proposal|contract|agreement|statement of work|sow)\b/.test(text))signals.push('commercial-proposal-intent');
+  if(/\b(move ahead|move forward|proceed|go ahead|let'?s do it|we need this|can you fix|can you handle|can you do)\b/.test(text))signals.push('explicit-project-intent');
+  if(state==='CALL'&&['positive','interested','neutral','objection'].includes(label))signals.push('buyer-requested-conversation');
+  return{
+    qualified:signals.length>0,
+    state:signals.length?'QUALIFIED_POSITIVE_EVIDENCE':'POSITIVE_NOT_YET_QUALIFIED',
+    reasonCodes:signals,
+    truthBoundary:'Qualification requires explicit commercial/project intent in the reply. Generic positivity or permission to send an artifact is not automatically treated as a qualified opportunity.'
+  };
+}
+
 export function compileUberReplyAsyncResponseDraft({
   offerId,
   replyState,

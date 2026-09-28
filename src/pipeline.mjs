@@ -876,6 +876,7 @@ export class Pipeline {
       artifact: prospect?.uberReplyPreworkArtifact
     }) : null;
     const selectedUberReplyCandidateId = uberReplyTreatment?.candidateId || null;
+    const uberReplyStrategyArmId = uberReplyTreatment?.strategyArmId || null;
     const uberReplyAssignmentMode = uberReplyTreatment?.assignmentMode || null;
     await this.store.recordOutboundEvent({
       inbox: prospect.inbox, eventType: 'sent', prospectId: prospect.id,
@@ -885,6 +886,7 @@ export class Pipeline {
         followup,
         offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
         uberReplyCandidateId: selectedUberReplyCandidateId,
+        uberReplyStrategyArmId,
         uberReplyAssignmentMode,
         uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
         uberReplyGenotypeId: uberReplyTreatment?.genotypeId || null,
@@ -902,6 +904,7 @@ export class Pipeline {
       rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey,
       offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
       uberReplyCandidateId: selectedUberReplyCandidateId,
+      uberReplyStrategyArmId,
       uberReplyAssignmentMode,
       uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
       uberReplyGenotypeId: uberReplyTreatment?.genotypeId || null,
@@ -1104,6 +1107,7 @@ export class Pipeline {
           sourceMessageId: linkedMessage?.id || null,
           offerId: replyOfferId,
           uberReplyCandidateId: linkedMessage?.uberReplyCandidateId || null,
+          uberReplyStrategyArmId: linkedMessage?.uberReplyStrategyArmId || null,
           uberReplyGenotypeId: linkedMessage?.uberReplyGenotypeId || null,
           uberReplyRenderedMessageId: linkedMessage?.uberReplyRenderedMessageId || null,
           receivedAt: now()
@@ -1139,7 +1143,7 @@ export class Pipeline {
           inbox: accountSlot || linkedMessage?.inbox || prospect.inbox,
           eventType: classification.label === 'bounce' ? 'hard_bounce' : 'complaint',
           prospectId: prospect.id, recipientEmail: prospect.contact?.email || '',
-          detail: { inboundId: externalId }
+          detail: { inboundId: externalId, sourceMessageId: linkedMessage?.id || null }
         }, this.outboundThresholds());
       }
       matched += 1;

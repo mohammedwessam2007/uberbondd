@@ -5,11 +5,12 @@
 // and invoke the returned executor through the compute-budgeted worker.
 // It exposes no business-world tools to the model.
 
-export const OPENAI_AGENT_EXECUTOR_POLICY_VERSION = 'openai-agent-executor-1.0.0';
+export const OPENAI_AGENT_EXECUTOR_POLICY_VERSION = 'openai-agent-executor-1.1.0';
 
 const ENDPOINT = 'https://api.openai.com/v1/responses';
 const MAX_BODY_BYTES = 300_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
+const SERVICE_TIERS = new Set(['auto', 'default', 'flex']);
 
 const EFFECT_KEYS = [
   'providerCalls', 'messages', 'purchases', 'deployments',
@@ -159,10 +160,11 @@ function usage(payload, pricing) {
   };
 }
 
-function requestBody({ task, model, maxTokens, reasoningEffort = 'medium' }) {
+function requestBody({ task, model, maxTokens, reasoningEffort = 'medium', serviceTier = null }) {
   return {
     model,
     reasoning: { effort: reasoningEffort },
+    ...(serviceTier ? { service_tier: serviceTier } : {}),
     max_output_tokens: maxTokens,
     input: [
       {
@@ -231,13 +233,16 @@ export function createOpenAIAgentExecutor({
   pricing,
   fetchImpl = globalThis.fetch,
   endpoint = ENDPOINT,
-  reasoningEffort = 'medium'
+  reasoningEffort = 'medium',
+  serviceTier = null
 } = {}) {
   const key = String(apiKey || '');
   const configuredModel = text(defaultModel, 160);
   const validEndpoint = endpoint === ENDPOINT;
   const validFetch = typeof fetchImpl === 'function';
   const validReasoning = ['none', 'low', 'medium', 'high', 'xhigh', 'max'].includes(reasoningEffort);
+  const normalizedServiceTier = serviceTier == null || String(serviceTier).trim() === '' ? null : text(serviceTier, 40).toLowerCase();
+  const validServiceTier = normalizedServiceTier == null || SERVICE_TIERS.has(normalizedServiceTier);
 
   return async function openAIAgentExecutor({
     task,
@@ -250,6 +255,7 @@ export function createOpenAIAgentExecutor({
     if (!validEndpoint) return failure(['openai-endpoint-not-allowlisted']);
     if (!validFetch) return failure(['fetch-implementation-required']);
     if (!validReasoning) return failure(['invalid-reasoning-effort']);
+    if (!validServiceTier) return failure(['openai-service-tier-unsupported']);
     if (!task?.taskId || !task?.objective) return failure(['valid-agent-task-required']);
     if (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION') {
       return failure(['openai-worker-only-accepts-local-preparation']);
@@ -262,7 +268,7 @@ export function createOpenAIAgentExecutor({
     const selectedModel = text(model || configuredModel, 160);
     if (!selectedModel) return failure(['model-required']);
 
-    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort });
+    const body = requestBody({ task, model: selectedModel, maxTokens: outputLimit, reasoningEffort, serviceTier: normalizedServiceTier });
     if (bytes(body) > MAX_BODY_BYTES) return failure(['openai-request-body-too-large']);
 
     let response;
@@ -340,12 +346,20 @@ export function createOpenAIAgentExecutor({
       });
     }
 
+    const observedServiceTier = text(raw?.service_tier, 40)?.toLowerCase() || null;
+
     return {
       ok: true,
       outcome: 'COMPLETED',
       providerRequestId,
       providerStatus: 'completed',
       model: text(raw?.model || selectedModel, 160),
+      identityVerification: raw?.model ? 'OBSERVED' : 'UNVERIFIED',
+      appliedReasoningEffort: reasoningEffort,
+      appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED',
+      requestedServiceTier: normalizedServiceTier,
+      appliedServiceTier: observedServiceTier,
+      serviceTierEvidence: observedServiceTier ? 'PROVIDER_RESPONSE_ATTESTED' : 'NOT_OBSERVED',
       usage: metered,
       pricingEvidence: {
         sourceRef: text(pricing.sourceRef, 500),

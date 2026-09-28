@@ -104,7 +104,8 @@ test('identity-blind packet hides source identities from model-facing candidates
   assert.equal(out.modelVisibleIdentityMap, false);
   assert.equal(out.publicPacket.length, 3);
   assert.ok(out.publicPacket.every(row => !('sourceId' in row)));
-  assert.equal(Object.keys(out.identityMap).length, 3);
+  assert.equal(out.identityMapReturned, false);
+  assert.equal('identityMap' in out, false);
   assert.match(out.identityMapDigest, /^[a-f0-9]{64}$/);
 });
 

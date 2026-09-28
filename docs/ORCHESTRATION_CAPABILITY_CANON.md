@@ -248,3 +248,26 @@ Permanent rules:
 The desired long-term state is therefore stronger than "UberBond uses the best model":
 
 > UberBond owns a provider-neutral compiler that continuously discovers which bounded reasoning architecture produces the strongest verified cognition for each task class, preserves frontier quality where it matters, and progressively crystallizes mastered cognition without transferring authority away from Mohamed or reality.
+
+
+## 2026-09-29 sealed architecture tournament bridge
+
+APEX architecture search now enters UberBond's existing Nullstar Omega sealed-evidence system through `src/apex-sealed-tournament.mjs`.
+
+Canonical flow:
+
+`Nullstar sealed manifest -> exact architecture runs -> salted digest scoring -> aggregate sealed trial receipt -> APEX Arena -> independent replication candidate -> separately governed promotion`
+
+Permanent rules:
+
+- The optimizer-facing receipt receives aggregate outcomes, not sealed prompts or plaintext answers.
+- A complete run is required for every sealed manifest task; partial cherry-picked coverage is refused.
+- `CORRECT`, `INCORRECT` and `ABSTAINED` remain distinct.
+- Architecture trials carry measured economics plus independent process evidence.
+- Competing trials must bind to the same suite version, corpus digest and task class.
+- A challenger cannot advance beyond **replication candidate** unless its 95% success interval clearly exceeds the incumbent and its false-positive upper bound is not worse.
+- Statistical separation never creates production authority.
+- Historical/pretraining leakage cannot be disproven by the local harness and remains an explicit truth boundary.
+- The bridge reuses Nullstar and the APEX Arena rather than creating a parallel benchmark truth system.
+
+Full contract: `docs/APEX_SEALED_TOURNAMENT_2026-09-29.md`.

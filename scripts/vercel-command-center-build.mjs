@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
@@ -69,13 +70,46 @@ const steps = [
   ['npm', ['run', 'readiness']]
 ];
 
-for (const [command, args] of steps) {
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
-  if (result.error) {
-    console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
-    process.exit(1);
+const truthReasons=[
+  'git-head-status-and-tracked-tree-required',
+  'clean-truth-input-checkout-required-before-regeneration',
+  'readiness-generator-failed',
+  'coverage-generator-failed',
+  'canonical-leaf-graph-generator-failed',
+  'valid-exact-head-required',
+  'readiness-generator-must-exit-zero',
+  'coverage-generator-must-exit-zero',
+  'canonical-leaf-graph-generator-must-exit-zero',
+  'canonical-readiness-generator-required',
+  'readiness-head-mismatch',
+  'readiness-must-be-measured-from-clean-source-checkout',
+  'live-reachability-measurement-required',
+  'canonical-coverage-matrix-required',
+  'coverage-head-mismatch',
+  'canonical-zero-orphan-leaf-graph-required',
+  'leaf-graph-head-mismatch',
+  'leaf-graph-canonical-binding-head-mismatch',
+  'truth-regeneration-mutated-unexpected-path',
+  'current-reality-freeze-must-not-refuse',
+  'freeze-head-mismatch'
+];
+for (const [index,[command,args]] of steps.entries()) {
+  const result=spawnSync(command,args,{cwd:process.cwd(),env:process.env,encoding:'utf8',stdio:'inherit'});
+  if(result.error)process.exit(19);
+  if(result.status!==0){
+    if(index===17){
+      try{
+        const doc=JSON.parse(readFileSync('artifacts/sovereign/terminal-realization.json','utf8'));
+        if((doc.reasonCodes||[]).includes('current-truth-regeneration-failed')){
+          const nested=Array.isArray(doc?.truthReceipt?.reasonCodes)?doc.truthReceipt.reasonCodes:[];
+          const match=truthReasons.findIndex(code=>nested.includes(code));
+          process.exit(match>=0?100+match:149);
+        }
+      }catch{}
+      process.exit(150);
+    }
+    process.exit(20+index);
   }
-  if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
 console.log(JSON.stringify({

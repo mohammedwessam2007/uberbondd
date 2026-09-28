@@ -69,13 +69,16 @@ const steps = [
   ['npm', ['run', 'readiness']]
 ];
 
-for (const [command, args] of steps) {
+for (const [index, [command, args]] of steps.entries()) {
   const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
   if (result.error) {
-    console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
-    process.exit(1);
+    console.error(`build step ${index} failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
+    process.exit(19);
   }
-  if (result.status !== 0) process.exit(result.status ?? 1);
+  if (result.status !== 0) {
+    console.error(`build step ${index} failed with child exit ${result.status}: ${command} ${args.join(' ')}`);
+    process.exit(20 + index);
+  }
 }
 
 console.log(JSON.stringify({

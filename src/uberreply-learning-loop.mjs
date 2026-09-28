@@ -7,7 +7,7 @@ export const UBERREPLY_LEARNING_LOOP_VERSION='uberbond.uberreply-learning-loop.v
 
 const arr=v=>Array.isArray(v)?v:[];
 const lower=v=>String(v??'').trim().toLowerCase();
-const num=v=>Number.isFinite(Number(v))?Number(v):null;
+const num=v=>v===null||v===undefined||v===''?null:(Number.isFinite(Number(v))?Number(v):null);
 const ts=v=>{const n=Date.parse(v||'');return Number.isFinite(n)?n:null;};
 
 export function compileObservedClearedEconomicsForProspect(prospectId,orders=[],revenueEvents=[]){
@@ -175,7 +175,7 @@ export function compileUberReplyObservedLearning({
   const learningPacket=compileUberOutboundLearningPacket({
     outcomes:analyzableOutcomes,
     policy:{
-      maxComplaintRate:num(policy.maxComplaintRate)??0.001,
+      maxComplaintRate:Math.max(0,Math.min(1,num(policy.maxComplaintRate)??0.001)),
       minSamplesPerArm:Math.max(1,Math.floor(num(policy.minSamplesPerArm)??100))
     }
   });

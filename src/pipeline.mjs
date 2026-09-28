@@ -871,7 +871,9 @@ export class Pipeline {
       subject,
       body,
       followup,
-      candidateSet: prospect?.uberReplyCandidateSet
+      candidateSet: prospect?.uberReplyCandidateSet,
+      prospect,
+      artifact: prospect?.uberReplyPreworkArtifact
     }) : null;
     const selectedUberReplyCandidateId = uberReplyTreatment?.candidateId || null;
     const uberReplyAssignmentMode = uberReplyTreatment?.assignmentMode || null;
@@ -884,7 +886,9 @@ export class Pipeline {
         offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
         uberReplyCandidateId: selectedUberReplyCandidateId,
         uberReplyAssignmentMode,
-        uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null
+        uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
+        uberReplyGenotypeId: uberReplyTreatment?.genotypeId || null,
+        uberReplyRenderedMessageId: uberReplyTreatment?.renderedMessageId || null
       }
     }, this.outboundThresholds());
 
@@ -900,6 +904,9 @@ export class Pipeline {
       uberReplyCandidateId: selectedUberReplyCandidateId,
       uberReplyAssignmentMode,
       uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
+      uberReplyGenotypeId: uberReplyTreatment?.genotypeId || null,
+      uberReplyRenderedMessageId: uberReplyTreatment?.renderedMessageId || null,
+      uberReplyContentReceipt: uberReplyTreatment?.contentReceipt || null,
       uberReplyStrategyAtoms: uberReplyTreatment?.strategyAtoms || selectedUberReplyCandidate?.strategyAtoms || null
     };
     try { await this.store.add('messages', message); }
@@ -1096,6 +1103,8 @@ export class Pipeline {
           sourceMessageId: linkedMessage?.id || null,
           offerId: linkedMessage?.offerId || prospect?.offerDecision?.offer?.offerId || null,
           uberReplyCandidateId: linkedMessage?.uberReplyCandidateId || null,
+          uberReplyGenotypeId: linkedMessage?.uberReplyGenotypeId || null,
+          uberReplyRenderedMessageId: linkedMessage?.uberReplyRenderedMessageId || null,
           receivedAt: now()
         });
       } catch (error) {

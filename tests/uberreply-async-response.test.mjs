@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { classifyUberReplyState, compileUberReplyAsyncResponseDraft } from '../src/uberreply-async-response.mjs';
+import { classifyUberReplyQualification, classifyUberReplyState, compileUberReplyAsyncResponseDraft } from '../src/uberreply-async-response.mjs';
 
 const artifact={
   prepared:true,
@@ -76,4 +76,17 @@ test('automatic reply never generates a sales draft',()=>{
   assert.equal(out.draft,'');
   assert.equal(out.draftReady,false);
   assert.equal(out.automaticSendAuthorized,false);
+});
+
+
+test('qualified-positive evidence requires explicit commercial or project intent',()=>{
+  const sendIt=classifyUberReplyQualification({classification:{label:'positive'},body:'Yes, send it.',replyState:'YES'});
+  assert.equal(sendIt.qualified,false);
+  const price=classifyUberReplyQualification({classification:{label:'positive'},body:'Looks relevant. How much does this cost?',replyState:'PRICE'});
+  assert.equal(price.qualified,true);
+  assert.ok(price.reasonCodes.includes('commercial-price-question'));
+  const call=classifyUberReplyQualification({classification:{label:'positive'},body:'Can we have a call tomorrow?',replyState:'CALL'});
+  assert.equal(call.qualified,true);
+  const negative=classifyUberReplyQualification({classification:{label:'negative'},body:'Do not call me about pricing.',replyState:'NO'});
+  assert.equal(negative.qualified,false);
 });

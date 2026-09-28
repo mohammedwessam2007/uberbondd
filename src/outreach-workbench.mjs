@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import { normalizeDomain } from './utils.mjs';
-import { compileUberReplyObservedLearning } from './uberreply-learning-loop.mjs';
+import { compileObservedClearedEconomicsForProspect, compileUberReplyObservedLearning } from './uberreply-learning-loop.mjs';
 
 /*
  * The workbench is intentionally single-user and provider-neutral.  It owns
@@ -711,8 +711,15 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
   const paid = new Set([...stage('paid'), ...stage('delivery'), ...stage('accepted'), ...stage('recurring')]);
   const accepted = new Set([...stage('accepted'), ...stage('recurring')]);
   const recurring = new Set([...stage('recurring'), ...asArray(subscriptions).filter(item => ['active', 'trialing'].includes(lower(item.status))).map(item => item.prospectId).filter(Boolean)]);
-  const clearedRevenueUsd = settledOrders.reduce((sum, order) => sum + Number(order.amountCents || 0) / 100, 0)
-    + asArray(revenueEvents).filter(item => ['cleared', 'settled', 'paid'].includes(lower(item.status))).reduce((sum, item) => sum + Number(item.amountCents || 0) / 100, 0);
+  const economicProspectIds = new Set([
+    ...allProspects.map(item => item.id).filter(Boolean),
+    ...asArray(orders).map(item => item.prospectId).filter(Boolean),
+    ...asArray(revenueEvents).map(item => item.prospectId).filter(Boolean)
+  ]);
+  const clearedRevenueUsd = [...economicProspectIds].reduce((sum, prospectId) => {
+    const evidence = compileObservedClearedEconomicsForProspect(prospectId, orders, revenueEvents);
+    return sum + Number(evidence.clearedRevenueCents || 0) / 100;
+  }, 0);
   const counts = {
     prospects: allProspects.length,
     researched: allProspects.filter(item => ['ready', 'research-complete', 'sent', 'replied'].includes(lower(item.status))).length,
@@ -804,14 +811,20 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
       policy: { minSamplesPerArm: Number(campaign.sequence?.settings?.minimumOptimizationSamples || 100) }
     });
     const messageById = new Map(campaignMessages.map(message => [message.id, message]));
-    const humanReplyLabels = new Set(['POSITIVE', 'INTERESTED', 'NEUTRAL', 'OBJECTION', 'NEGATIVE', 'WRONG_PERSON', 'REFERRAL', 'OPTOUT', 'UNSUBSCRIBE']);
+    const humanReplyLabels = new Set(['positive', 'interested', 'neutral', 'objection', 'negative', 'wrong_person', 'referral', 'optout', 'unsubscribe']);
+    const repliesByMessage = new Map();
+    for (const reply of asArray(replies)) {
+      if (!reply?.sourceMessageId || !messageById.has(reply.sourceMessageId)) continue;
+      repliesByMessage.set(reply.sourceMessageId, [...(repliesByMessage.get(reply.sourceMessageId) || []), reply]);
+    }
     for (const outcome of v5Learning.outcomes || []) {
       const messageId = String(outcome.decisionId || '').replace(/^uberreply:/, '');
       const message = messageById.get(messageId);
       if (!message) continue;
       const identity = identityForMessage(message);
       const group = ensure(identity.stepId, identity.variantId);
-      if (humanReplyLabels.has(String(outcome.conversation?.replyClass || '').toUpperCase())) group.replies += 1;
+      const exactReplies = repliesByMessage.get(messageId) || [];
+      if (exactReplies.some(reply => humanReplyLabels.has(lower(reply?.classification?.label || reply?.label)))) group.replies += 1;
       if (outcome.conversation?.positiveReply === true) group.positiveReplies += 1;
       if (outcome.conversation?.qualifiedPositiveReply === true) group.qualifiedPositiveReplies += 1;
       if (outcome.commercial?.qualifiedOpportunity === true) group.opportunities += 1;

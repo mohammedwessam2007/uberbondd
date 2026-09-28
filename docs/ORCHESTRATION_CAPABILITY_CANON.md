@@ -256,18 +256,25 @@ APEX architecture search now enters UberBond's existing Nullstar Omega sealed-ev
 
 Canonical flow:
 
-`Nullstar sealed manifest -> exact architecture runs -> salted digest scoring -> aggregate sealed trial receipt -> APEX Arena -> independent replication candidate -> separately governed promotion`
+`precommitted Nullstar holdout -> frozen architecture identity -> exact runs -> salted digest scoring -> aggregate sealed trial receipt -> matched-ceiling APEX Arena -> independent replication candidate -> separately governed promotion`
 
 Permanent rules:
 
+- The holdout commitment binds suite version, corpus digest, manifest digest and task count before evaluation.
+- Raw holdouts remain outside the repository; optimizer/candidate pre-evaluation access and plaintext-answer exposure must be false in the commitment.
 - The optimizer-facing receipt receives aggregate outcomes, not sealed prompts or plaintext answers.
+- Every architecture carries a frozen digest/revision/source/time identity; public baselines additionally require reproduction evidence.
+- Runs predating architecture freeze or holdout commitment, and future-dated evidence, are refused.
 - A complete run is required for every sealed manifest task; partial cherry-picked coverage is refused.
 - `CORRECT`, `INCORRECT` and `ABSTAINED` remain distinct.
 - Architecture trials carry measured economics plus independent process evidence.
-- Competing trials must bind to the same suite version, corpus digest and task class.
+- Competing trials bind to the same suite version, corpus digest, manifest digest, holdout commitment and task class.
+- Competitors run under common cost, founder-minute and latency ceilings.
 - A challenger cannot advance beyond **replication candidate** unless its 95% success interval clearly exceeds the incumbent and its false-positive upper bound is not worse.
+- `PUBLIC_FRONTIER` mode requires a declared minimum set of reproducible public baselines and may only produce a **public-reviewed-set leader replication candidate**.
+- `globalRankAuthority = NONE`; `percentileAuthority = REVIEWED_SET_ONLY`.
 - Statistical separation never creates production authority.
-- Historical/pretraining leakage cannot be disproven by the local harness and remains an explicit truth boundary.
+- Historical/pretraining leakage, external commitment custody and reproduction fidelity cannot be proven by the local harness alone and remain explicit truth boundaries.
 - The bridge reuses Nullstar and the APEX Arena rather than creating a parallel benchmark truth system.
 
 Full contract: `docs/APEX_SEALED_TOURNAMENT_2026-09-29.md`.

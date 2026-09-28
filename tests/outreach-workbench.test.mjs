@@ -292,6 +292,8 @@ test('UberReply V5 analytics aggregate exact copy by stable strategy arm and reu
   assert.equal(analytics.steps[0].qualifiedPositiveReplies, 1);
   assert.equal(analytics.steps[0].clearedRevenueUsd, 1500, 'order + ledger must not double-count one cleared payment');
   assert.equal(analytics.v5LearningSummary.recordAttempt.qualifiedPositiveReplyUniqueProspects, 1);
+  assert.equal(analytics.v5LearningSummary.recordAttempt.deliveredUniqueProspects, null);
+  assert.equal(analytics.v5LearningSummary.recordAttempt.nonHardBouncedFirstTouchUniqueProspects, 1);
   assert.equal(analytics.recommendation.automaticPromotionAuthorized, false);
 });
 

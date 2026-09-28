@@ -74,6 +74,52 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase,index}){
   };
 }
 
+
+function deterministicUnit(seed){
+  const hex=hash(seed).slice(0,13);
+  return parseInt(hex,16)/0x1fffffffffffff;
+}
+
+export function compileUberReplyExperimentalAssignment({
+  tournament,
+  prospectKey='',
+  explorationRate
+}={}){
+  if(!tournament?.ok||!tournament?.champion?.candidate)return{
+    ok:false,
+    state:'UBERREPLY_ASSIGNMENT_REFUSED',
+    reasonCodes:['valid-tournament-required'],
+    externalEffectAuthority:'NONE',
+    businessEffectAuthority:'NONE'
+  };
+  const challengers=Array.isArray(tournament.challengers)?tournament.challengers.filter(row=>row?.candidate):[];
+  const rate=Math.max(0,Math.min(0.5,Number.isFinite(Number(explorationRate))?Number(explorationRate):Number(tournament.explorationRate||0)));
+  const key=clean(prospectKey,1000)||tournament.champion.candidateId;
+  const explore=challengers.length>0&&deterministicUnit(`${key}|explore`)<rate;
+  let assigned=tournament.champion;
+  let mode='EXPLOIT_CHAMPION';
+  if(explore){
+    const pool=challengers.slice(0,Math.min(3,challengers.length));
+    const index=Math.min(pool.length-1,Math.floor(deterministicUnit(`${key}|challenger`)*pool.length));
+    assigned=pool[index];
+    mode='EXPLORE_CHALLENGER';
+  }
+  return{
+    ok:true,
+    state:'UBERREPLY_EXPERIMENT_ASSIGNMENT_READY',
+    mode,
+    assignedCandidateId:assigned.candidateId,
+    assignedCandidate:assigned.candidate,
+    assignedSeedScore:assigned.score,
+    explorationRate:rate,
+    assignmentKeyDigest:`sha256:${hash(key)}`,
+    automaticDispatchAuthorized:false,
+    externalEffectAuthority:'NONE',
+    businessEffectAuthority:'NONE',
+    truthBoundary:'Assignment is deterministic exploration/exploitation over seed-scored candidates. It does not estimate causal lift by itself; downstream randomized outcome accounting is required.'
+  };
+}
+
 export function compileUberReplyV5CandidateSet({
   offerId,
   prospect={},
@@ -155,6 +201,11 @@ export function compileUberReplyV5CandidateSet({
     businessEffectAuthority:'NONE'
   };
 
+  const assignment=compileUberReplyExperimentalAssignment({
+    tournament,
+    prospectKey:prospect.id||prospect.website||prospect.company||offer.offerId,
+    explorationRate:tournament.explorationRate
+  });
   return{
     ok:true,
     version:UBERREPLY_V5_CANDIDATE_COMPILER_VERSION,
@@ -167,8 +218,12 @@ export function compileUberReplyV5CandidateSet({
     selectedCandidate:tournament.champion.candidate,
     selectedCandidateId:tournament.champion.candidateId,
     selectionScore:tournament.champion.score,
+    assignment,
+    assignedCandidate:assignment.assignedCandidate,
+    assignedCandidateId:assignment.assignedCandidateId,
+    assignmentMode:assignment.mode,
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
-    truthBoundary:'The selected candidate maximizes the current deterministic seed score among evidence-bound variants. The score is not a calibrated reply probability and must yield to randomized real-world outcome evidence.'
+    truthBoundary:'Champion selection maximizes the deterministic seed score, while a bounded deterministic exploration slice assigns challengers for real-world learning. Neither score nor assignment is a calibrated reply probability.'
   };
 }

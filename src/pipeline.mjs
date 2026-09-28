@@ -19,7 +19,7 @@ import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
 import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
 import { compileUberReplyTreatmentIdentity, compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
-import { classifyUberReplyState, compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
+import { classifyUberReplyQualification, classifyUberReplyState, compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
 import { compileUberReplyRuntimeOfferDecision } from './uberreply-offer-router.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
@@ -1079,17 +1079,20 @@ export class Pipeline {
           offerId: prospect.offerDecision.offer.offerId,
           replyState
         });
+        const qualifiedPositiveEvidence = classifyUberReplyQualification({ classification, body, replyState });
         asyncReplyDraft = compileUberReplyAsyncResponseDraft({
           offerId: prospect.offerDecision.offer.offerId,
           replyState,
           artifact: prospect.uberReplyPreworkArtifact,
           senderName: this.cfg.sender?.name
         });
+        asyncReplyDraft = { ...asyncReplyDraft, qualifiedPositiveEvidence };
       }
       try {
         await this.store.add('replies', {
           id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
           from, subject, body, classification, asyncCloseDecision, asyncReplyDraft,
+          qualifiedPositiveEvidence: asyncReplyDraft?.qualifiedPositiveEvidence || null,
           sourceMessageId: linkedMessage?.id || null,
           offerId: linkedMessage?.offerId || prospect?.offerDecision?.offer?.offerId || null,
           uberReplyCandidateId: linkedMessage?.uberReplyCandidateId || null,
@@ -1108,7 +1111,9 @@ export class Pipeline {
         status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
         repliedAt: now(), nextFollowupAt: null,
         asyncCloseDecision,
-        asyncReplyDraft
+        asyncReplyDraft,
+        qualifiedPositive: asyncReplyDraft?.qualifiedPositiveEvidence?.qualified === true,
+        qualifiedPositiveEvidence: asyncReplyDraft?.qualifiedPositiveEvidence || null
       });
       if (classification.suppressionRecommended === true || ['optout','negative','bounce','complaint'].includes(classification.label)) {
         try {

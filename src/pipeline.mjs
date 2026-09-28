@@ -19,7 +19,7 @@ import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
 import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
 import { compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
-import { compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
+import { classifyUberReplyState, compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
 import { compileUberReplyRuntimeOfferDecision } from './uberreply-offer-router.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
@@ -1065,16 +1065,7 @@ export class Pipeline {
       let asyncCloseDecision = null;
       let asyncReplyDraft = null;
       if (prospect?.offerDecision?.offer?.offerId) {
-        const label = String(classification?.label || '').toLowerCase();
-        const text = String(body || '').toLowerCase();
-        let replyState = 'UNKNOWN';
-        if (['negative','optout','unsubscribe'].includes(label)) replyState = 'NO';
-        else if (['automatic','out_of_office'].includes(label)) replyState = 'AUTO_REPLY';
-        else if (label === 'wrong_person' || label === 'referral') replyState = 'WRONG_PERSON';
-        else if (/\b(not now|later|next month|next quarter)\b/.test(text)) replyState = 'NOT_NOW';
-        else if (/\b(price|pricing|cost|how much)\b/.test(text)) replyState = 'PRICE';
-        else if (/\b(call|zoom|meet|meeting)\b/.test(text)) replyState = 'CALL';
-        else if (label === 'positive') replyState = 'YES';
+        const replyState = classifyUberReplyState({ classification, body });
         asyncCloseDecision = compileUberReplyAsyncCloseDecision({
           offerId: prospect.offerDecision.offer.offerId,
           replyState

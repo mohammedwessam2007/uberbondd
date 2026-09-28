@@ -48,6 +48,7 @@
     "docs/CURRENT_SYSTEM_STATE.md",
     "artifacts/system-readiness.json",
     "docs/DISTRIBUTION_OS_CANON.md",
+    "docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md",
     "docs/DISTRIBUTION_VENDOR_MAP.md",
     "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
     "docs/CAPABILITY_GENOME_CANON.md",
@@ -102,7 +103,8 @@
     "Keep historical named initiatives discoverable even when superseded. Silence is not deletion: before concluding a program never existed, search Total Brain, all overlays, Perpetual Frontier/GENESIS, named initiatives, lineage artifacts and unresolved names.",
     "Preserve as discoverable lineage: Personal Civilization Engine and its life systems, all Singularities, Kilimanjaro waves, Ragnarok, Night/Nightfall/Trinity lanes, OMNIA generations, Prometheus/World Brain, Event Horizon, Capability Genome, SaaS Cannibal, Open Model Universe, Gamechanger Mesh, Fable N+1 orchestration, Perpetual Frontier/GENESIS, Offline Revenue Factory, Demand Recovery, and source-backed Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation lineage.",
     "Keep engineering readiness, commercial proof, autonomy/founder minutes, self-improvement/economic lift and life-North-Star distance as separate scoreboards rather than one vanity completion percentage.",
-    "Keep lite/ protected unless a separately justified mission explicitly requires changing it."
+    "Keep lite/ protected unless a separately justified mission explicitly requires changing it.",
+    "For October 2026 commercial outreach, recover docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md plus the integrated V5 cold-email system and flagship offer quartet before generating campaigns; default to evidence-first micro-cohorts, async/no-meeting closing, qualified-positive-reply and cleared-profit-per-founder-minute optimization, while refreshing sender/provider/legal truth before every activation."
   ],
   "architectureSpine": [
     "CONSTITUTION",
@@ -210,5 +212,6 @@
     "updateInstruction": "After every material mission, update the durable handoff and checkpoint pointer; when new durable history appears, update North Star/Total Brain/memory index/master memory or record an explicit supersession so the next session can resume without reconstructing the previous conversation.",
     "chatImportInstruction": "When a material ChatGPT/Claude/Codex chat, share, export, transcript, ZIP, research package, draft PR or donor branch becomes available, digest it into repository-native North Star/Total Brain/memory with source title/date, evidence class, named initiatives, durable decisions, capabilities, goals, contradictions, supersession links, unresolved names, and anti-duplication notes. Never rely on the external share URL alone."
   },
-  "orchestrationCheckpointPath": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md"
+  "orchestrationCheckpointPath": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
+  "updatedAt": "2026-09-28T00:20:00+03:00"
 }

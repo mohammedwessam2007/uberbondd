@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const fixturePreparation = process.platform === 'linux' && process.arch === 'x64'
@@ -69,13 +70,24 @@ const steps = [
   ['npm', ['run', 'readiness']]
 ];
 
-for (const [command, args] of steps) {
+for (const [index,[command,args]] of steps.entries()) {
   const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
   if (result.error) {
     console.error(`build step failed to start: ${command} ${args.join(' ')}: ${result.error.message}`);
     process.exit(1);
   }
-  if (result.status !== 0) process.exit(result.status ?? 1);
+  if (result.status !== 0) {
+    if (index === 17) {
+      try {
+        const doc=JSON.parse(readFileSync('artifacts/sovereign/terminal-realization.json','utf8'));
+        if ((doc.reasonCodes||[]).includes('semantic-requirement-tribunal-refused')) {
+          const count=Math.max(0,Math.min(100,Number(doc?.semanticDiagnostics?.finiteInvalidContractCount||0)));
+          process.exit(100+count);
+        }
+      } catch {}
+    }
+    process.exit(result.status ?? 1);
+  }
 }
 
 console.log(JSON.stringify({

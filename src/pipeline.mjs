@@ -277,7 +277,7 @@ export class Pipeline {
       : null;
     const draft = researchQualified
       ? (effectiveOfferId && offerDecision?.ok
-          ? (uberReplyCandidateSet?.selectedCandidate?.body || buildUberReplyV5Message({
+          ? (uberReplyCandidateSet?.assignedCandidate?.body || uberReplyCandidateSet?.selectedCandidate?.body || buildUberReplyV5Message({
               offerId: effectiveOfferId,
               prospect,
               issue,
@@ -291,7 +291,7 @@ export class Pipeline {
       : '';
     const subject = researchQualified
       ? (effectiveOfferId && offerDecision?.ok
-          ? (uberReplyCandidateSet?.selectedCandidate?.subject || buildUberReplyV5Subject({ offerId: effectiveOfferId, prospect, issue, followup: 0 }))
+          ? (uberReplyCandidateSet?.assignedCandidate?.subject || uberReplyCandidateSet?.selectedCandidate?.subject || buildUberReplyV5Subject({ offerId: effectiveOfferId, prospect, issue, followup: 0 }))
           : buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName))
       : '';
     const personalizationDecision = researchQualified ? evaluateOutreachPersonalization({
@@ -865,8 +865,9 @@ export class Pipeline {
       threadId: result.data.threadId || '',
       rfcMessageId
     });
-    const selectedUberReplyCandidate = prospect?.uberReplyCandidateSet?.selectedCandidate || null;
-    const selectedUberReplyCandidateId = prospect?.uberReplyCandidateSet?.selectedCandidateId || selectedUberReplyCandidate?.candidateId || null;
+    const selectedUberReplyCandidate = prospect?.uberReplyCandidateSet?.assignedCandidate || prospect?.uberReplyCandidateSet?.selectedCandidate || null;
+    const selectedUberReplyCandidateId = prospect?.uberReplyCandidateSet?.assignedCandidateId || prospect?.uberReplyCandidateSet?.selectedCandidateId || selectedUberReplyCandidate?.candidateId || null;
+    const uberReplyAssignmentMode = prospect?.uberReplyCandidateSet?.assignmentMode || 'EXPLOIT_CHAMPION';
     await this.store.recordOutboundEvent({
       inbox: prospect.inbox, eventType: 'sent', prospectId: prospect.id,
       recipientEmail: prospect.contact.email,
@@ -874,7 +875,8 @@ export class Pipeline {
         reservationId: reservation.id,
         followup,
         offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
-        uberReplyCandidateId: selectedUberReplyCandidateId
+        uberReplyCandidateId: selectedUberReplyCandidateId,
+        uberReplyAssignmentMode
       }
     }, this.outboundThresholds());
 
@@ -888,6 +890,7 @@ export class Pipeline {
       rfcMessageId, followup, sentAt, reservationId: reservation.id, idempotencyKey,
       offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
       uberReplyCandidateId: selectedUberReplyCandidateId,
+      uberReplyAssignmentMode,
       uberReplyStrategyAtoms: selectedUberReplyCandidate?.strategyAtoms || null
     };
     try { await this.store.add('messages', message); }

@@ -3,7 +3,9 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { scoreSealedResponse } from './nullstar-omega-holdout.mjs';
 import { evaluateReasoningArchitectureArena } from './apex-reasoning-hypercompiler.mjs';
 
-export const APEX_SEALED_TOURNAMENT_VERSION = 'uberbond.apex-sealed-tournament.v1';
+export const APEX_SEALED_TOURNAMENT_VERSION = 'uberbond.apex-sealed-tournament.v1.1';
+export const APEX_TOURNAMENT_CLAIM_MODES = Object.freeze(['TASK_CLASS', 'PUBLIC_FRONTIER']);
+export const APEX_ARCHITECTURE_CLASSES = Object.freeze(['INCUMBENT', 'CHALLENGER', 'PUBLIC_BASELINE']);
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function envelope(extra = {}) {
@@ -35,6 +37,10 @@ function integer(value, min = 0, max = Number.MAX_SAFE_INTEGER) {
   const n = Number(value);
   return Number.isSafeInteger(n) && n >= min && n <= max ? n : null;
 }
+function timestamp(value) {
+  const date = new Date(value);
+  return Number.isFinite(date.getTime()) ? date.toISOString() : null;
+}
 function stable(value) {
   if (Array.isArray(value)) return value.map(stable);
   if (!value || typeof value !== 'object') return value;
@@ -43,7 +49,21 @@ function stable(value) {
 function digest(value) {
   return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex');
 }
-
+function rawDigest(value) {
+  return crypto.createHash('sha256').update(String(value)).digest('hex');
+}
+function manifestCorpusDigest(rows) {
+  return rawDigest(JSON.stringify(rows.map(row => [row.taskId, row.family, row.tier, row.answerDigest])));
+}
+function manifestCommitmentDigest(rows) {
+  return digest(rows.map(row => ({
+    taskId: row.taskId,
+    family: row.family,
+    tier: row.tier,
+    difficulty: row.difficulty,
+    answerDigest: row.answerDigest
+  })));
+}
 function wilson(successes, total, z = 1.959963984540054) {
   if (!Number.isSafeInteger(successes) || !Number.isSafeInteger(total) || total <= 0 || successes < 0 || successes > total) return null;
   const p = successes / total;
@@ -83,30 +103,86 @@ function normalizeManifest(manifest = []) {
   return reasons.length ? { ok: false, reasonCodes: reasons } : { ok: true, rows };
 }
 
+function normalizeCommitment(raw = {}, { suiteVersion, corpusDigest, manifestDigest, taskCount } = {}) {
+  const commitmentRef = text(raw?.commitmentRef, 1200);
+  const committedAt = timestamp(raw?.committedAt);
+  const sourceFreezeRef = text(raw?.sourceFreezeRef, 1200);
+  const evaluatorRef = text(raw?.evaluatorRef, 1200);
+  const committedSuite = text(raw?.suiteVersion, 120);
+  const committedCorpus = text(raw?.corpusDigest, 128);
+  const committedManifest = text(raw?.manifestDigest, 128);
+  const committedCount = integer(raw?.taskCount, 1, 100000);
+  const reasons = [];
+  if (!commitmentRef || !committedAt || !sourceFreezeRef || !evaluatorRef) reasons.push('holdout-commitment-provenance-required');
+  if (committedSuite !== suiteVersion) reasons.push('holdout-commitment-suite-mismatch');
+  if (committedCorpus !== corpusDigest) reasons.push('holdout-commitment-corpus-mismatch');
+  if (committedManifest !== manifestDigest) reasons.push('holdout-commitment-manifest-mismatch');
+  if (committedCount !== taskCount) reasons.push('holdout-commitment-task-count-mismatch');
+  if (raw?.rawHoldoutsStoredInRepository !== false) reasons.push('raw-holdouts-must-remain-outside-repository');
+  if (raw?.optimizerAccessBeforeEvaluation !== false) reasons.push('optimizer-holdout-access-must-be-false');
+  if (raw?.candidateAccessBeforeEvaluation !== false) reasons.push('candidate-holdout-access-must-be-false');
+  if (raw?.plaintextAnswersExposedBeforeEvaluation !== false) reasons.push('plaintext-answer-exposure-must-be-false');
+  if (raw?.evaluatorIndependent !== true) reasons.push('independent-evaluator-required');
+  return reasons.length ? { ok: false, reasonCodes: reasons } : {
+    ok: true,
+    commitment: {
+      commitmentRef,
+      committedAt,
+      sourceFreezeRef,
+      evaluatorRef,
+      suiteVersion: committedSuite,
+      corpusDigest: committedCorpus,
+      manifestDigest: committedManifest,
+      taskCount: committedCount,
+      rawHoldoutsStoredInRepository: false,
+      optimizerAccessBeforeEvaluation: false,
+      candidateAccessBeforeEvaluation: false,
+      plaintextAnswersExposedBeforeEvaluation: false,
+      evaluatorIndependent: true
+    }
+  };
+}
+
 function normalizeRun(raw, index) {
   const taskId = text(raw?.taskId, 200);
   const evidenceRef = text(raw?.evidenceRef, 1000);
   const runId = text(raw?.runId, 300);
+  const observedAt = timestamp(raw?.observedAt);
   const response = raw?.response == null ? null : text(raw.response, 20000);
   const costUsd = finite(raw?.costUsd, 0, 1_000_000);
   const latencyMs = finite(raw?.latencyMs, 0, 86_400_000);
   const founderMinutes = finite(raw?.founderMinutes, 0, 100000);
   const reasons = [];
-  if (!taskId || !runId || !evidenceRef) reasons.push(`run-${index}:identity-and-evidence-required`);
+  if (!taskId || !runId || !evidenceRef || !observedAt) reasons.push(`run-${index}:identity-time-and-evidence-required`);
   if (raw?.response != null && response == null) reasons.push(`run-${index}:bounded-response-required`);
   if ([costUsd, latencyMs, founderMinutes].some(value => value == null)) reasons.push(`run-${index}:bounded-economics-required`);
+  if (raw?.verifierIndependent !== true) reasons.push(`run-${index}:independent-verifier-required`);
+  if (raw?.holdoutPromptExposedToOptimizer === true) reasons.push(`run-${index}:optimizer-holdout-leakage-prohibited`);
+  if (raw?.modelJudgedOwnIdentityMarkedAnswer === true) reasons.push(`run-${index}:identity-marked-self-judging-prohibited`);
   return reasons.length ? { ok: false, reasonCodes: reasons } : {
     ok: true,
-    run: { taskId, runId, evidenceRef, response, costUsd, latencyMs, founderMinutes }
+    run: {
+      taskId, runId, evidenceRef, observedAt, response, costUsd, latencyMs, founderMinutes,
+      verifierIndependent: true,
+      holdoutPromptExposedToOptimizer: false,
+      modelJudgedOwnIdentityMarkedAnswer: false
+    }
   };
 }
 
 export function compileSealedArchitectureTrial({
   architectureId,
+  architectureClass = 'CHALLENGER',
+  architectureDigest,
+  architectureRevision,
+  architectureSourceRef,
+  architectureFrozenAt,
+  reproductionEvidenceRef = null,
   taskClass,
   suiteVersion,
   corpusDigest,
   sealedManifest = [],
+  holdoutCommitment,
   runs = [],
   processScore,
   processEvidenceRef,
@@ -114,6 +190,12 @@ export function compileSealedArchitectureTrial({
   architectureDesignerId = null
 } = {}) {
   const arch = text(architectureId, 200)?.toLowerCase();
+  const archClass = text(architectureClass, 80)?.toUpperCase();
+  const archDigest = text(architectureDigest, 128);
+  const archRevision = text(architectureRevision, 240);
+  const archSource = text(architectureSourceRef, 1200);
+  const frozenAt = timestamp(architectureFrozenAt);
+  const reproductionRef = reproductionEvidenceRef == null ? null : text(reproductionEvidenceRef, 1200);
   const klass = text(taskClass, 160)?.toLowerCase();
   const suite = text(suiteVersion, 120);
   const corpus = text(corpusDigest, 128);
@@ -122,14 +204,33 @@ export function compileSealedArchitectureTrial({
   const verifier = text(verifierId, 300);
   const designer = architectureDesignerId == null ? null : text(architectureDesignerId, 300);
   const reasons = [];
-  if (!arch || !klass || !suite || !corpus) reasons.push('architecture-task-suite-corpus-required');
+  if (!arch || !APEX_ARCHITECTURE_CLASSES.includes(archClass) || !archDigest || !archRevision || !archSource || !frozenAt) reasons.push('complete-frozen-architecture-identity-required');
+  if (!klass || !suite || !corpus) reasons.push('task-suite-and-corpus-required');
   if (process == null || !processRef || !verifier) reasons.push('independent-process-evidence-required');
   if (designer && verifier === designer) reasons.push('verifier-must-differ-from-architecture-designer');
+  if (archClass === 'PUBLIC_BASELINE' && !reproductionRef) reasons.push('public-baseline-reproduction-evidence-required');
 
   const manifest = normalizeManifest(sealedManifest);
   if (!manifest.ok) reasons.push(...manifest.reasonCodes);
   if (!Array.isArray(runs) || runs.length === 0 || runs.length > 100000) reasons.push('bounded-run-list-required');
   if (reasons.length) return fail('SEALED_ARCHITECTURE_TRIAL_REFUSED', reasons);
+
+  const computedCorpusDigest = manifestCorpusDigest(manifest.rows);
+  const computedManifestDigest = manifestCommitmentDigest(manifest.rows);
+  if (computedCorpusDigest !== corpus) {
+    return fail('SEALED_ARCHITECTURE_TRIAL_REFUSED', ['declared-corpus-digest-does-not-bind-sealed-manifest'], {
+      declaredCorpusDigest: corpus,
+      computedCorpusDigest
+    });
+  }
+  const commitment = normalizeCommitment(holdoutCommitment, {
+    suiteVersion: suite,
+    corpusDigest: computedCorpusDigest,
+    manifestDigest: computedManifestDigest,
+    taskCount: manifest.rows.length
+  });
+  if (!commitment.ok) return fail('SEALED_ARCHITECTURE_TRIAL_REFUSED', commitment.reasonCodes);
+  if (Date.parse(frozenAt) > Date.now() + 60_000) return fail('SEALED_ARCHITECTURE_TRIAL_REFUSED', ['future-architecture-freeze-prohibited']);
 
   const manifestByTask = new Map(manifest.rows.map(row => [row.taskId, row]));
   const seenTaskIds = new Set();
@@ -149,6 +250,8 @@ export function compileSealedArchitectureTrial({
       runReasons.push(`run-${index}:task-not-in-sealed-manifest`);
       continue;
     }
+    if (Date.parse(run.observedAt) < Date.parse(frozenAt)) runReasons.push(`run-${index}:observation-predates-architecture-freeze`);
+    if (Date.parse(run.observedAt) < Date.parse(commitment.commitment.committedAt)) runReasons.push(`run-${index}:observation-predates-holdout-commitment`);
     if (seenTaskIds.has(run.taskId)) runReasons.push(`run-${index}:one-run-per-task-required`);
     if (seenRunIds.has(run.runId)) runReasons.push(`run-${index}:unique-run-id-required`);
     if (seenEvidenceRefs.has(run.evidenceRef)) runReasons.push(`run-${index}:independent-run-evidence-required`);
@@ -174,6 +277,7 @@ export function compileSealedArchitectureTrial({
       outcome: scored.outcome,
       runId: run.runId,
       evidenceRef: run.evidenceRef,
+      observedAt: run.observedAt,
       costUsd: run.costUsd,
       latencyMs: run.latencyMs,
       founderMinutes: run.founderMinutes
@@ -203,11 +307,22 @@ export function compileSealedArchitectureTrial({
   const successInterval95 = wilson(correct, sampleSize);
   const falsePositiveInterval95 = wilson(incorrect, sampleSize);
 
-  const evidenceSummary = {
+  const architectureIdentity = {
     architectureId: arch,
+    architectureClass: archClass,
+    architectureDigest: archDigest,
+    architectureRevision: archRevision,
+    architectureSourceRef: archSource,
+    architectureFrozenAt: frozenAt,
+    reproductionEvidenceRef: reproductionRef
+  };
+  const evidenceSummary = {
+    architectureIdentity,
     taskClass: klass,
     suiteVersion: suite,
-    corpusDigest: corpus,
+    corpusDigest: computedCorpusDigest,
+    manifestDigest: computedManifestDigest,
+    holdoutCommitmentRef: commitment.commitment.commitmentRef,
     sampleSize,
     correct,
     incorrect,
@@ -250,9 +365,12 @@ export function compileSealedArchitectureTrial({
     ok: true,
     status: 'SEALED_ARCHITECTURE_TRIAL_COMPILED',
     suiteVersion: suite,
-    corpusDigest: corpus,
+    corpusDigest: computedCorpusDigest,
+    manifestDigest: computedManifestDigest,
     architectureId: arch,
+    architectureIdentity,
     taskClass: klass,
+    holdoutCommitment: commitment.commitment,
     arenaTrial,
     statistics: {
       sampleSize,
@@ -275,15 +393,17 @@ export function compileSealedArchitectureTrial({
     verifier: {
       verifierId: verifier,
       architectureDesignerId: designer,
-      processEvidenceRef: processRef
+      processEvidenceRef: processRef,
+      evaluatorRef: commitment.commitment.evaluatorRef
     },
     taskOutcomeDigest: digest(evidenceSummary.taskOutcomes),
     receiptDigest,
     optimizerVisiblePayload: {
-      architectureId: arch,
+      architectureIdentity,
       taskClass: klass,
       suiteVersion: suite,
-      corpusDigest: corpus,
+      corpusDigest: computedCorpusDigest,
+      manifestDigest: computedManifestDigest,
       arenaTrial,
       statistics: {
         sampleSize,
@@ -302,20 +422,31 @@ export function compileSealedArchitectureTrial({
     plaintextAnswerAccessGranted: false,
     promotionAuthority: 'NONE',
     executionAuthority: 'NONE',
-    truthBoundary: 'THE BRIDGE SCORES AGAINST SEALED ANSWER DIGESTS AND RETURNS AGGREGATES. IT DOES NOT REVEAL SEALED PROMPTS OR PLAINTEXT ANSWERS, PROVE ZERO HISTORICAL LEAKAGE, OR GRANT PRODUCTION PROMOTION.'
+    truthBoundary: 'THE BRIDGE BINDS THE SUPPLIED SEALED MANIFEST TO THE DECLARED CORPUS AND PRECOMMITTED HOLDOUT RECEIPT, SCORES SALTED ANSWER DIGESTS, AND RETURNS AGGREGATES. IT DOES NOT PROVE ZERO HISTORICAL LEAKAGE OUTSIDE THE HARNESS OR GRANT PRODUCTION PROMOTION.'
   });
 }
 
 export function evaluateSealedArchitectureTournament({
   trials = [],
   incumbentArchitectureId,
+  claimMode = 'TASK_CLASS',
+  minimumPublicBaselines = 3,
+  budgetPolicy = {},
   minimumSampleSize = 20,
   qualityFloorDelta = 0.01
 } = {}) {
   const incumbentId = text(incumbentArchitectureId, 200)?.toLowerCase();
+  const mode = text(claimMode, 80)?.toUpperCase();
   const minSamples = integer(minimumSampleSize, 1, 1_000_000);
+  const minBaselines = integer(minimumPublicBaselines, 1, 64);
+  const maxMeanCostUsd = finite(budgetPolicy?.maxMeanCostUsd, 0.000001, 1_000_000);
+  const maxMeanFounderMinutes = finite(budgetPolicy?.maxMeanFounderMinutes, 0, 100000);
+  const normalization = text(budgetPolicy?.normalization, 120)?.toUpperCase();
   const reasons = [];
   if (!incumbentId || minSamples == null) reasons.push('incumbent-and-minimum-sample-required');
+  if (!APEX_TOURNAMENT_CLAIM_MODES.includes(mode)) reasons.push('recognized-claim-mode-required');
+  if (minBaselines == null) reasons.push('bounded-public-baseline-count-required');
+  if (normalization !== 'COMMON_CEILING' || maxMeanCostUsd == null || maxMeanFounderMinutes == null) reasons.push('common-quality-preserving-budget-ceiling-required');
   if (!Array.isArray(trials) || trials.length < 2 || trials.length > 1000) reasons.push('two-to-1000-trials-required');
   if (reasons.length) return fail('SEALED_ARCHITECTURE_TOURNAMENT_REFUSED', reasons);
 
@@ -324,10 +455,12 @@ export function evaluateSealedArchitectureTournament({
   const seenReceipts = new Set();
   let suiteVersion = null;
   let corpusDigest = null;
+  let manifestDigest = null;
+  let commitmentRef = null;
   let taskClass = null;
 
   for (const [index, trial] of trials.entries()) {
-    if (!trial?.ok || trial?.status !== 'SEALED_ARCHITECTURE_TRIAL_COMPILED' || !trial?.arenaTrial) {
+    if (!trial?.ok || trial?.status !== 'SEALED_ARCHITECTURE_TRIAL_COMPILED' || !trial?.arenaTrial || !trial?.architectureIdentity) {
       reasons.push(`trial-${index}:compiled-sealed-trial-required`);
       continue;
     }
@@ -337,15 +470,26 @@ export function evaluateSealedArchitectureTournament({
     if (!trial.receiptDigest || seenReceipts.has(trial.receiptDigest)) reasons.push(`trial-${index}:independent-receipt-required`);
     else seenReceipts.add(trial.receiptDigest);
     if (trial.statistics?.sampleSize < minSamples) reasons.push(`trial-${index}:minimum-sample-not-met`);
+    if (trial.economics?.meanCostUsd > maxMeanCostUsd) reasons.push(`trial-${index}:common-cost-ceiling-exceeded`);
+    if (trial.economics?.meanFounderMinutes > maxMeanFounderMinutes) reasons.push(`trial-${index}:common-founder-minute-ceiling-exceeded`);
     suiteVersion ??= trial.suiteVersion;
     corpusDigest ??= trial.corpusDigest;
+    manifestDigest ??= trial.manifestDigest;
+    commitmentRef ??= trial.holdoutCommitment?.commitmentRef;
     taskClass ??= trial.taskClass;
     if (trial.suiteVersion !== suiteVersion) reasons.push(`trial-${index}:suite-version-mismatch`);
     if (trial.corpusDigest !== corpusDigest) reasons.push(`trial-${index}:corpus-digest-mismatch`);
+    if (trial.manifestDigest !== manifestDigest) reasons.push(`trial-${index}:manifest-digest-mismatch`);
+    if (trial.holdoutCommitment?.commitmentRef !== commitmentRef) reasons.push(`trial-${index}:holdout-commitment-mismatch`);
     if (trial.taskClass !== taskClass) reasons.push(`trial-${index}:task-class-mismatch`);
     accepted.push(trial);
   }
 
+  const publicBaselines = accepted.filter(trial => trial.architectureIdentity.architectureClass === 'PUBLIC_BASELINE');
+  if (mode === 'PUBLIC_FRONTIER') {
+    if (publicBaselines.length < minBaselines) reasons.push('minimum-public-baseline-coverage-not-met');
+    if (publicBaselines.some(trial => !trial.architectureIdentity.reproductionEvidenceRef)) reasons.push('public-baseline-reproduction-evidence-required');
+  }
   if (reasons.length) return fail('SEALED_ARCHITECTURE_TOURNAMENT_REFUSED', reasons);
   if (!seenArchitectures.has(incumbentId)) return fail('SEALED_ARCHITECTURE_TOURNAMENT_REFUSED', ['incumbent-trial-required']);
 
@@ -361,35 +505,70 @@ export function evaluateSealedArchitectureTournament({
   const leader = accepted.find(trial => trial.architectureId === leaderId) ?? null;
   const incumbent = accepted.find(trial => trial.architectureId === incumbentId) ?? null;
   const challenger = Boolean(leader && leader.architectureId !== incumbentId);
-  const clearSuccessSeparation = Boolean(
+  const alternatives = accepted.filter(trial => trial.architectureId !== leaderId);
+  const clearSuccessSeparationVsIncumbent = Boolean(
     challenger
     && leader?.statistics?.successInterval95
     && incumbent?.statistics?.successInterval95
     && leader.statistics.successInterval95.lower > incumbent.statistics.successInterval95.upper
   );
-  const falsePositiveNotWorse = Boolean(
+  const falsePositiveNotWorseVsIncumbent = Boolean(
     leader?.statistics?.falsePositiveInterval95
     && incumbent?.statistics?.falsePositiveInterval95
     && leader.statistics.falsePositiveInterval95.upper <= incumbent.statistics.falsePositiveInterval95.upper
   );
+  const separatedFromAllReviewed = Boolean(
+    leader?.statistics?.successInterval95
+    && alternatives.length
+    && alternatives.every(other =>
+      other?.statistics?.successInterval95
+      && leader.statistics.successInterval95.lower > other.statistics.successInterval95.upper
+    )
+  );
+  const falsePositiveNotWorseThanAllReviewed = Boolean(
+    leader?.statistics?.falsePositiveInterval95
+    && alternatives.length
+    && alternatives.every(other =>
+      other?.statistics?.falsePositiveInterval95
+      && leader.statistics.falsePositiveInterval95.upper <= other.statistics.falsePositiveInterval95.upper
+    )
+  );
 
   let status = 'SEALED_INCUMBENT_RETAINS_LEAD';
-  if (challenger && clearSuccessSeparation && falsePositiveNotWorse) status = 'SEALED_CHALLENGER_REPLICATION_CANDIDATE';
+  if (challenger && clearSuccessSeparationVsIncumbent && falsePositiveNotWorseVsIncumbent) status = 'SEALED_CHALLENGER_REPLICATION_CANDIDATE';
   else if (challenger) status = 'SEALED_CHALLENGER_SIGNAL_REQUIRES_REPLICATION';
+  if (
+    mode === 'PUBLIC_FRONTIER'
+    && challenger
+    && separatedFromAllReviewed
+    && falsePositiveNotWorseThanAllReviewed
+  ) status = 'PUBLIC_REVIEW_SET_LEADER_REPLICATION_CANDIDATE';
 
   return envelope({
     ok: true,
     status,
+    claimMode: mode,
     suiteVersion,
     corpusDigest,
+    manifestDigest,
+    holdoutCommitmentRef: commitmentRef,
     taskClass,
     incumbentArchitectureId: incumbentId,
+    reviewedArchitectureCount: accepted.length,
+    publicBaselineCount: publicBaselines.length,
+    budgetPolicy: {
+      normalization: 'COMMON_CEILING',
+      maxMeanCostUsd,
+      maxMeanFounderMinutes
+    },
     arena,
     leaderArchitectureId: leaderId,
     confidenceGate: {
-      clearSuccessSeparation,
-      falsePositiveNotWorse,
-      rule: 'A CHALLENGER MAY ADVANCE TO INDEPENDENT REPLICATION ONLY WHEN ITS 95% SUCCESS INTERVAL IS CLEARLY ABOVE THE INCUMBENT AND ITS FALSE-POSITIVE UPPER BOUND IS NOT WORSE.'
+      clearSuccessSeparationVsIncumbent,
+      falsePositiveNotWorseVsIncumbent,
+      separatedFromAllReviewed,
+      falsePositiveNotWorseThanAllReviewed,
+      rule: 'A CHALLENGER MAY ADVANCE TO INDEPENDENT REPLICATION ONLY AFTER QUALITY-FIRST SEALED EVALUATION. PUBLIC-REVIEW-SET LEADERSHIP REQUIRES CLEAR SUCCESS SEPARATION FROM EVERY REVIEWED BASELINE UNDER THE SAME CEILING AND NO WORSE FALSE-POSITIVE UPPER BOUND.'
     },
     optimizerVisibleResults: accepted.map(trial => trial.optimizerVisiblePayload),
     sealedPromptAccessGranted: false,
@@ -397,6 +576,8 @@ export function evaluateSealedArchitectureTournament({
     replicationRequiredBeforePromotion: challenger,
     promotionAuthority: 'NONE',
     productionActivationAuthorized: false,
-    truthBoundary: 'A SEALED TOURNAMENT MAY NOMINATE A REPLICATION CANDIDATE. IT CANNOT PROMOTE OR ACTIVATE A REASONING ARCHITECTURE, AND IT DOES NOT PROVE THE HOLDOUT WAS NEVER SEEN OUTSIDE THIS HARNESS.'
+    globalRankAuthority: 'NONE',
+    percentileAuthority: 'REVIEWED_SET_ONLY',
+    truthBoundary: 'A SEALED TOURNAMENT MAY NOMINATE A TASK-CLASS OR PUBLIC-REVIEW-SET REPLICATION CANDIDATE. EVEN CLEAR SEPARATION ACROSS THE REVIEWED SET DOES NOT ESTABLISH WORLD-BEST STATUS OR A GLOBAL PERCENTILE WITHOUT REPRESENTATIVE COVERAGE, INDEPENDENT REPLICATION, FRESH MODEL IDENTITIES AND APPROPRIATE EXTERNAL SETTLEMENT.'
   });
 }

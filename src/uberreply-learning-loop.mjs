@@ -172,13 +172,26 @@ export function compileUberReplyObservedLearning({
   });
 
   const analyzableOutcomes=outcomes.filter(row=>row?.delivery?.accepted===true&&row?.delivery?.hardBounce!==true);
+  const learningPolicy={
+    maxComplaintRate:Math.max(0,Math.min(1,num(policy.maxComplaintRate)??0.001)),
+    minSamplesPerArm:Math.max(1,Math.floor(num(policy.minSamplesPerArm)??100))
+  };
   const learningPacket=compileUberOutboundLearningPacket({
     outcomes:analyzableOutcomes,
-    policy:{
-      maxComplaintRate:Math.max(0,Math.min(1,num(policy.maxComplaintRate)??0.001)),
-      minSamplesPerArm:Math.max(1,Math.floor(num(policy.minSamplesPerArm)??100))
-    }
+    policy:learningPolicy
   });
+  const experimentGroups=new Map();
+  for(const outcome of analyzableOutcomes){
+    const experimentId=String(outcome?.experimentAssignment?.experimentId||'UNASSIGNED');
+    experimentGroups.set(experimentId,[...(experimentGroups.get(experimentId)||[]),outcome]);
+  }
+  const experimentPackets=[...experimentGroups.entries()].map(([experimentId,experimentOutcomes])=>({
+    experimentId,
+    treatmentDimension:experimentOutcomes[0]?.experimentAssignment?.treatmentDimension||null,
+    assignmentDesign:'DETERMINISTIC_HASHED_CHAMPION_EXPLOITATION_PLUS_BOUNDED_CHALLENGER_EXPLORATION',
+    analysisProtocol:'PROPENSITY_AWARE_CONTEXTUAL_ANALYSIS_REQUIRED; NAIVE_ARM_RATE_RANKING_PROHIBITED',
+    packet:compileUberOutboundLearningPacket({outcomes:experimentOutcomes,policy:learningPolicy})
+  })).sort((a,b)=>a.experimentId.localeCompare(b.experimentId));
   const firstTouchMessages=candidateMessages.filter(message=>Number(message.followup||0)===0);
   const firstTouchIds=new Set(firstTouchMessages.map(message=>message.id));
   const firstTouchOutcomes=outcomes.filter(row=>firstTouchIds.has(String(row.decisionId||'').replace(/^uberreply:/,'')));
@@ -222,11 +235,14 @@ export function compileUberReplyObservedLearning({
       cohortTruthRequirement:'Before any record-attempt claim, separately prove the cohort is eligible and truly cold and state whether delivery is measured directly or by the provider-accepted-minus-hard-bounce proxy; this compiler does not infer those facts from a sent-message row.'
     },
     learningPacket,
+    experimentPackets,
+    causalAnalysisReadyExperimentCount:experimentPackets.filter(row=>row.packet?.eligibleForCausalAnalysis===true).length,
+    causalDesignState:'PROPENSITY_AWARE_CONTEXTUAL_ANALYSIS_REQUIRED',
     attributionMode:'EXACT_MESSAGE_FOR_REPLIES_STABLE_STRATEGY_ARM_FOR_EXPERIMENTS_LAST_TOUCH_OBSERVATIONAL_FOR_CLEARED_ECONOMICS',
     automaticWinner:null,
     automaticPromotionAuthorized:false,
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
-    truthBoundary:'Replies are linked only through exact sourceMessageId when available. Copy experiments aggregate by stable strategy arm while exact candidate, genotype and rendered-message receipts remain preserved. Hard bounces are excluded from the analyzable non-hard-bounced proxy; the compiler does not relabel provider acceptance as proven final recipient delivery. Cleared economics prefer the verified revenue ledger and fall back to settled orders without double-counting both; economics attach only to the latest observed treatment at or before the first economic receipt when timestamps permit, and remain observational rather than causal incrementality. Missing contribution/reputation/compliance/opportunity-cost terms remain unknown. Promotion requires independent causal analysis, validation traffic and guardrail survival.'
+    truthBoundary:'Replies are linked only through exact sourceMessageId when available. Copy experiments aggregate by stable strategy arm while exact candidate, genotype and rendered-message receipts remain preserved. Hard bounces are excluded from the analyzable non-hard-bounced proxy; the compiler does not relabel provider acceptance as proven final recipient delivery. Cleared economics prefer the verified revenue ledger and fall back to settled orders without double-counting both; economics attach only to the latest observed treatment at or before the first economic receipt when timestamps permit, and remain observational rather than causal incrementality. Missing contribution/reputation/compliance/opportunity-cost terms remain unknown. Naive arm-rate ranking is prohibited because treatment propensities are unequal; promotion requires propensity-aware independent causal analysis, validation traffic and guardrail survival.'
   };
 }

@@ -16,10 +16,11 @@ import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omn
 import { buildOutboundConsequenceContext, enforceOutboundConsequence } from './omnia-v9/integrations/outbound-consequence-gate.mjs';
 import { dispatchPostalCanary } from './postal-live-send.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
-import { compileUberReplyCampaignDecision, compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
+import { compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
 import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
 import { compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
 import { compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
+import { compileUberReplyRuntimeOfferDecision } from './uberreply-offer-router.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
@@ -213,44 +214,46 @@ export class Pipeline {
     const score = scoreProspect(prospect, audit, contact);
     const issue = chooseIssue(audit);
     const inbox = await this.selectFleetInbox(prospect, audit);
-    const offerDecision = campaign.offerId
-      ? compileUberReplyCampaignDecision({
-          offerId: campaign.offerId,
-          prospect: {
-            ...prospect,
-            industry: prospect.industry || prospect.niche,
-            tags: [...(Array.isArray(prospect.tags) ? prospect.tags : []), prospect.niche, issue?.service],
-            sourceCount: audit.length,
-            sourceFreshness: 1,
-            problemEvidenceScore: Math.min(1, score.total / 100),
-            fitEvidenceConfidence: issue?.confidence || Math.min(1, score.total / 100)
-          },
-          research: {
-            accountValueScore: Math.min(1, score.total / 100),
-            signalStrength: issue?.confidence || 0,
-            artifactFeasibility: issue ? 1 : 0,
-            evidenceDensity: Math.min(1, audit.length / 3),
-            estimatedResearchMinutes: Math.max(1, crawl.pages.length * 2 + audit.length)
-          },
-          sequencePosition: 1
-        })
-      : null;
-    const researchQualified = Boolean(issue && score.total >= campaign.minScore && (!campaign.offerId || offerDecision?.ok));
+    const uberReplyProspect = {
+      ...prospect,
+      industry: prospect.industry || prospect.niche,
+      tags: [...(Array.isArray(prospect.tags) ? prospect.tags : []), prospect.niche, issue?.service],
+      sourceCount: audit.length,
+      sourceFreshness: 1,
+      problemEvidenceScore: Math.min(1, score.total / 100),
+      fitEvidenceConfidence: issue?.confidence || Math.min(1, score.total / 100)
+    };
+    const uberReplyResearch = {
+      accountValueScore: Math.min(1, score.total / 100),
+      signalStrength: issue?.confidence || 0,
+      artifactFeasibility: issue ? 1 : 0,
+      evidenceDensity: Math.min(1, audit.length / 3),
+      estimatedResearchMinutes: Math.max(1, crawl.pages.length * 2 + audit.length)
+    };
+    const offerDecision = compileUberReplyRuntimeOfferDecision({
+      campaign,
+      prospect: uberReplyProspect,
+      research: uberReplyResearch,
+      sequencePosition: 1
+    });
+    const effectiveOfferId = offerDecision?.selectedOfferId || null;
+    const offerRoutingRequired = Boolean(campaign.offerId || campaign.autoRouteOffer === true);
+    const researchQualified = Boolean(issue && score.total >= campaign.minScore && (!offerRoutingRequired || offerDecision?.ok));
     const suppressed = contact?.email ? await this.isSuppressed(prospect, contact.email) : false;
     const optoutUrl = contact?.email ? unsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const oneClickOptoutUrl = contact?.email ? oneClickUnsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
-    const uberReplyPreworkArtifact = researchQualified && campaign.offerId && offerDecision?.ok
+    const uberReplyPreworkArtifact = researchQualified && effectiveOfferId && offerDecision?.ok
       ? compileUberReplyPreworkArtifact({
-          offerId: campaign.offerId,
+          offerId: effectiveOfferId,
           prospect,
           issue,
           audit,
           maxFindings: 3
         })
       : null;
-    const uberReplyCandidateSet = researchQualified && campaign.offerId && offerDecision?.ok && uberReplyPreworkArtifact?.prepared
+    const uberReplyCandidateSet = researchQualified && effectiveOfferId && offerDecision?.ok && uberReplyPreworkArtifact?.prepared
       ? compileUberReplyV5CandidateSet({
-          offerId: campaign.offerId,
+          offerId: effectiveOfferId,
           prospect: {
             ...prospect,
             problemEvidenceScore: Math.min(1, score.total / 100),
@@ -273,9 +276,9 @@ export class Pipeline {
         })
       : null;
     const draft = researchQualified
-      ? (campaign.offerId && offerDecision?.ok
+      ? (effectiveOfferId && offerDecision?.ok
           ? (uberReplyCandidateSet?.selectedCandidate?.body || buildUberReplyV5Message({
-              offerId: campaign.offerId,
+              offerId: effectiveOfferId,
               prospect,
               issue,
               audit,
@@ -287,8 +290,8 @@ export class Pipeline {
           : buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }))
       : '';
     const subject = researchQualified
-      ? (campaign.offerId && offerDecision?.ok
-          ? (uberReplyCandidateSet?.selectedCandidate?.subject || buildUberReplyV5Subject({ offerId: campaign.offerId, prospect, issue, followup: 0 }))
+      ? (effectiveOfferId && offerDecision?.ok
+          ? (uberReplyCandidateSet?.selectedCandidate?.subject || buildUberReplyV5Subject({ offerId: effectiveOfferId, prospect, issue, followup: 0 }))
           : buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName))
       : '';
     const personalizationDecision = researchQualified ? evaluateOutreachPersonalization({
@@ -297,7 +300,7 @@ export class Pipeline {
     }) : null;
     const legalRecord = prospect.recipientEligibility || prospect.legalEligibility || prospect.outreachEligibility || null;
     const legalStatus = legalRecord?.legal?.status || legalRecord?.status || '';
-    const v5PreparationReady = !campaign.offerId || (
+    const v5PreparationReady = !effectiveOfferId || (
       uberReplyPreworkArtifact?.prepared === true
       && legalStatus === 'PASSED'
     );
@@ -548,10 +551,11 @@ export class Pipeline {
       }
     }
 
-    if (campaign.offerId) {
+    const effectiveOfferId = campaign.offerId || prospect?.offerDecision?.selectedOfferId || prospect?.offerDecision?.offer?.offerId || null;
+    if (effectiveOfferId) {
       const legalRecord = prospect.recipientEligibility || prospect.legalEligibility || prospect.outreachEligibility || null;
       const preSend = compileUberReplyPreSendGate({
-        offerId: campaign.offerId,
+        offerId: effectiveOfferId,
         prospect: {
           ...prospect,
           problemEvidenceScore: Math.min(1, Number(prospect?.score?.total || 0) / 100)
@@ -1009,9 +1013,10 @@ export class Pipeline {
         await this.store.patch('prospects', prospect.id, { status: 'suppressed', nextFollowupAt: null });
         continue;
       }
-      const body = campaign.offerId && prospect.offerDecision?.ok
+      const effectiveOfferId = campaign.offerId || prospect?.offerDecision?.selectedOfferId || prospect?.offerDecision?.offer?.offerId || null;
+      const body = effectiveOfferId && prospect.offerDecision?.ok
         ? buildUberReplyV5Message({
-            offerId: campaign.offerId,
+            offerId: effectiveOfferId,
             prospect,
             issue: prospect.issue,
             audit: prospect.audit || [],
@@ -1026,8 +1031,8 @@ export class Pipeline {
         await this.store.patch('prospects', prospect.id, { nextFollowupAt: null, sequenceStopReason: 'no-new-evidence-for-v5-followup' });
         continue;
       }
-      const subject = campaign.offerId && prospect.offerDecision?.ok
-        ? buildUberReplyV5Subject({ offerId: campaign.offerId, prospect, issue: prospect.issue, followup })
+      const subject = effectiveOfferId && prospect.offerDecision?.ok
+        ? buildUberReplyV5Subject({ offerId: effectiveOfferId, prospect, issue: prospect.issue, followup })
         : buildSubject(prospect, prospect.issue, followup, prospect.offerDecision?.offer?.publicName);
       const result = await this.maybeSend(prospect, campaign, { followup, body, subject });
       if (result?.sent) processed += 1;

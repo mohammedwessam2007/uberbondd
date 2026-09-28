@@ -768,7 +768,7 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     return groups.get(key);
   };
   for (const message of campaignMessages) {
-    const group = ensure(message.stepId || 'legacy', message.variantId || 'unknown');
+    const group = ensure(message.stepId || (message.uberReplyCandidateId ? `uberreply-touch-${Number(message.followup || 0) + 1}` : 'legacy'), message.variantId || message.uberReplyCandidateId || 'unknown');
     group.sent += 1;
     if (message.prospectId) group.prospectIds.add(message.prospectId);
     const events = eventsByMessage.get(message.id) || eventsByMessage.get(message.gmailId) || [];
@@ -780,7 +780,7 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
   for (const [prospectId, prospectReplies] of repliesByProspect) {
     const prospect = prospectById.get(prospectId);
     const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === prospectId);
-    const group = ensure(latestMessage?.stepId || 'legacy', latestMessage?.variantId || 'unknown');
+    const group = ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown');
     if (prospectReplies.length) group.replies += 1;
     if (prospectReplies.some(item => lower(item.classification?.label || item.label) === 'positive') || lower(prospect?.replyLabel) === 'positive') group.positiveReplies += 1;
     if (['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(prospect?.opportunityStage))) group.opportunities += 1;
@@ -789,13 +789,13 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     if (!prospectById.has(order.prospectId) || ['failed', 'cancelled'].includes(lower(order.status))) continue;
     if (['paid', 'settled', 'cleared', 'completed'].includes(lower(order.status)) || /paid|settled|cleared|completed/.test(lower(order.eventName))) {
       const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === order.prospectId);
-      ensure(latestMessage?.stepId || 'legacy', latestMessage?.variantId || 'unknown').clearedRevenueUsd += Number(order.amountCents || 0) / 100;
+      ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown').clearedRevenueUsd += Number(order.amountCents || 0) / 100;
     }
   }
   for (const event of asArray(revenueEvents)) {
     if (!prospectById.has(event.prospectId) || !['cleared', 'settled', 'paid'].includes(lower(event.status))) continue;
     const latestMessage = [...campaignMessages].reverse().find(item => item.prospectId === event.prospectId);
-    ensure(latestMessage?.stepId || 'legacy', latestMessage?.variantId || 'unknown').clearedRevenueUsd += Number(event.amountCents || 0) / 100;
+    ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown').clearedRevenueUsd += Number(event.amountCents || 0) / 100;
   }
   const steps = [...groups.values()].map(group => ({
     ...group,
@@ -806,8 +806,9 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     positiveReplyRate: ratio(group.positiveReplies, group.sent),
     opportunityRate: ratio(group.opportunities, group.sent)
   })).sort((a, b) => `${a.stepId}:${a.variantId}`.localeCompare(`${b.stepId}:${b.variantId}`));
-  const metric = campaign.sequence?.settings?.autoOptimizeMetric || 'replyRate';
-  const minimumSamples = Number(campaign.sequence?.settings?.minimumOptimizationSamples || 25);
+  const uberReplyV5 = Boolean(campaign.offerId || campaign.autoRouteOffer === true);
+  const metric = campaign.sequence?.settings?.autoOptimizeMetric || (uberReplyV5 ? 'clearedRevenueUsd' : 'replyRate');
+  const minimumSamples = Number(campaign.sequence?.settings?.minimumOptimizationSamples || (uberReplyV5 ? 100 : 25));
   const eligible = steps.filter(item => item.sent >= minimumSamples);
   const winner = eligible.slice().sort((a, b) => Number(b[metric] || 0) - Number(a[metric] || 0) || b.sent - a.sent)[0] || null;
   return {
@@ -824,7 +825,8 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
       clearedRevenueUsd: Math.round(steps.reduce((sum, item) => sum + item.clearedRevenueUsd, 0) * 100) / 100
     },
     steps,
-    recommendation: winner ? { stepId: winner.stepId, variantId: winner.variantId, metric, value: winner[metric], eligible: true, action: 'owner_review_before_disabling_variants' } : { eligible: false, action: 'collect_more_observations' }
+    recommendation: winner ? { stepId: winner.stepId, variantId: winner.variantId, metric, value: winner[metric], eligible: true, action: 'owner_review_before_disabling_variants', automaticPromotionAuthorized: false } : { eligible: false, action: 'collect_more_observations', automaticPromotionAuthorized: false },
+    truthBoundary: uberReplyV5 ? 'UberReply V5 candidate analytics default to cleared revenue, preserve candidate lineage, and never auto-promote from raw replies. Observational totals are not causal proof; randomized assignment and out-of-sample validation remain required.' : 'Variant analytics are observational and never create external-effect or auto-promotion authority.'
   };
 }
 

@@ -362,3 +362,38 @@ test('a spy proves zero provider calls across every denied, review-required, and
 
   assert.equal(sends, 0, 'no denied, review-required, malformed, or kill-switch-disabled path may ever reach the provider');
 });
+
+
+test('V5 offer campaign refuses provider dispatch without recipient legal evidence and prepared artifact', async () => {
+  const store = await connectedStore();
+  const campaign = baseCampaign({ offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT' });
+  await store.upsert('campaigns', campaign);
+  const { pipeline, sends } = spyPipeline(store, baseCfg());
+  const result = await pipeline.maybeSend(baseProspect(), campaign);
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'uberreply-v5-pre-send-gate-denied');
+  assert.ok(result.reasonCodes.includes('legal-eligibility-not-proven'));
+  assert.ok(result.reasonCodes.includes('prework-artifact-not-prepared'));
+  assert.equal(sends(), 0);
+});
+
+test('V5 offer campaign can pass its extra gate only with legal evidence, prepared evidence refs and healthy sender', async () => {
+  const store = await connectedStore();
+  const campaign = baseCampaign({ offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT' });
+  await store.upsert('campaigns', campaign);
+  const prospect = baseProspect({
+    recipientEligibility: { legal: { status: 'PASSED' } },
+    uberReplyPreworkArtifact: {
+      prepared: true,
+      evidenceRefs: ['https://clinic.example/book']
+    }
+  });
+  await store.add('prospects', { ...prospect, status: 'ready', createdAt: monday.toISOString() });
+  const { pipeline, sends } = spyPipeline(store, baseCfg());
+  const result = await pipeline.maybeSend(prospect, campaign);
+  assert.equal(result.sent, true);
+  assert.equal(sends(), 1);
+  const gateLogs = (await store.list('auditLog')).filter(entry => entry.type === 'uberreply_v5_pre_send_gate');
+  assert.equal(gateLogs.length, 1);
+  assert.equal(gateLogs[0].detail.state, 'UBERREPLY_PRE_SEND_GATE_PASSED');
+});

@@ -67,7 +67,7 @@ function openModelPricingFrom(env = {}) {
   return { ...base, infrastructureUsdPerRequest };
 }
 
-function apiProviderConfig(env, provider) {
+function apiProviderConfig(env, provider, worker = {}) {
   const mapping = API_PROVIDER_CONFIG[provider];
   if (!mapping) return null;
   const staticCredential = String(env[mapping.apiKeyEnv] || '');
@@ -79,9 +79,16 @@ function apiProviderConfig(env, provider) {
   const vercelOidcCredential = provider === 'ai-gateway'
     ? String(env.VERCEL_OIDC_TOKEN || '')
     : '';
+  const requestedServiceTier = String(worker?.serviceTier || '').trim().toLowerCase();
+  const basePricing = pricingFrom(env, mapping.prefix);
+  const tierPricing = provider === 'openai' && requestedServiceTier === 'flex'
+    ? pricingFrom(env, 'OPENAI_FLEX')
+    : null;
   return {
     apiKey: staticCredential || vercelOidcCredential,
-    pricing: pricingFrom(env, mapping.prefix),
+    pricing: tierPricing || basePricing,
+    pricingTier: tierPricing ? 'FLEX_VERIFIED' : 'BASE_VERIFIED',
+    requestedServiceTier: requestedServiceTier || null,
     enabled: env[mapping.enabledEnv] === 'true'
   };
 }
@@ -152,7 +159,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       });
     }
 
-    const config = apiProviderConfig(env, provider);
+    const config = apiProviderConfig(env, provider, worker);
     if (!config?.apiKey) throw new Error(`${provider} worker configured but credential is absent`);
     if (!config.pricing) throw new Error(`${provider} worker configured but pricing evidence is absent or incomplete`);
 

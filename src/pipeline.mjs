@@ -18,7 +18,7 @@ import { dispatchPostalCanary } from './postal-live-send.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
 import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
-import { compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
+import { compileUberReplyTreatmentIdentity, compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
 import { classifyUberReplyState, compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
 import { compileUberReplyRuntimeOfferDecision } from './uberreply-offer-router.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
@@ -866,8 +866,15 @@ export class Pipeline {
       rfcMessageId
     });
     const selectedUberReplyCandidate = prospect?.uberReplyCandidateSet?.assignedCandidate || prospect?.uberReplyCandidateSet?.selectedCandidate || null;
-    const selectedUberReplyCandidateId = prospect?.uberReplyCandidateSet?.assignedCandidateId || prospect?.uberReplyCandidateSet?.selectedCandidateId || selectedUberReplyCandidate?.candidateId || null;
-    const uberReplyAssignmentMode = prospect?.uberReplyCandidateSet?.assignmentMode || 'EXPLOIT_CHAMPION';
+    const uberReplyTreatment = effectiveOfferId ? compileUberReplyTreatmentIdentity({
+      offerId: effectiveOfferId,
+      subject,
+      body,
+      followup,
+      candidateSet: prospect?.uberReplyCandidateSet
+    }) : null;
+    const selectedUberReplyCandidateId = uberReplyTreatment?.candidateId || null;
+    const uberReplyAssignmentMode = uberReplyTreatment?.assignmentMode || null;
     await this.store.recordOutboundEvent({
       inbox: prospect.inbox, eventType: 'sent', prospectId: prospect.id,
       recipientEmail: prospect.contact.email,
@@ -876,7 +883,8 @@ export class Pipeline {
         followup,
         offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
         uberReplyCandidateId: selectedUberReplyCandidateId,
-        uberReplyAssignmentMode
+        uberReplyAssignmentMode,
+        uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null
       }
     }, this.outboundThresholds());
 
@@ -891,7 +899,8 @@ export class Pipeline {
       offerId: prospect?.offerDecision?.offer?.offerId || campaign.offerId || null,
       uberReplyCandidateId: selectedUberReplyCandidateId,
       uberReplyAssignmentMode,
-      uberReplyStrategyAtoms: selectedUberReplyCandidate?.strategyAtoms || null
+      uberReplyPayloadDigest: uberReplyTreatment?.payloadDigest || null,
+      uberReplyStrategyAtoms: uberReplyTreatment?.strategyAtoms || selectedUberReplyCandidate?.strategyAtoms || null
     };
     try { await this.store.add('messages', message); }
     catch (error) { if (!(error instanceof ConflictError)) throw error; }

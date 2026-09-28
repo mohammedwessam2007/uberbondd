@@ -15,7 +15,8 @@ import {
   buildUberReplyV5Subject
 } from './copy.mjs';
 
-export const UBERREPLY_V5_CANDIDATE_COMPILER_VERSION='uberbond.uberreply-v5-candidate-compiler.v1';
+export const UBERREPLY_V5_CANDIDATE_COMPILER_VERSION='uberbond.uberreply-v5-candidate-compiler.v2';
+export const UBERREPLY_V5_EXPERIMENT_DESIGN_VERSION='uberbond.uberreply-v5-oat-experiment.v1';
 
 const clean=(v,n=1000)=>String(v??'').trim().replace(/\s+/g,' ').slice(0,n);
 const clamp=v=>Math.max(0,Math.min(1,Number.isFinite(Number(v))?Number(v):0));
@@ -313,7 +314,7 @@ export function compileUberReplyV5CandidateSet({
   const baseCta=CTA_VARIANTS[0];
   const specs=[
     {controlledDimension:'BASELINE',variantKey:'BASELINE',subject:baseSubject,cta:baseCta,bodyMode:'BASE'},
-    ...subjects.slice(1).map((subject,index)=>({controlledDimension:'SUBJECT',variantKey:`SUBJECT_${index+1}`,subject,cta:baseCta,bodyMode:'BASE'})),
+    ...subjects.slice(1).map(subject=>({controlledDimension:'SUBJECT',variantKey:`SUBJECT:${subject}`,subject,cta:baseCta,bodyMode:'BASE'})),
     ...CTA_VARIANTS.slice(1).map(cta=>({controlledDimension:'CTA',variantKey:cta.id,subject:baseSubject,cta,bodyMode:'BASE'})),
     ...activeBodyVariants.filter(mode=>mode!=='BASE').map(bodyMode=>({controlledDimension:'PROOF_DENSITY',variantKey:bodyMode,subject:baseSubject,cta:baseCta,bodyMode}))
   ].slice(0,limit);
@@ -333,7 +334,7 @@ export function compileUberReplyV5CandidateSet({
     });
     const body=replaceFinalCta(variantBody||baseBody,cta.text);
     const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase,research});
-    const strategyArmId=`ubv5arm_${hash([offer.offerId,controlledDimension,variantKey].join('|')).slice(0,16)}`;
+    const strategyArmId=`ubv5arm_${hash([UBERREPLY_V5_EXPERIMENT_DESIGN_VERSION,offer.offerId,controlledDimension,variantKey].join('|')).slice(0,16)}`;
     const seedCandidate={
       candidateId:`ubv5_${hash([offer.offerId,subject,cta.id,bodyMode,body].join('|')).slice(0,16)}`,
       strategyArmId,
@@ -342,6 +343,7 @@ export function compileUberReplyV5CandidateSet({
       body,
       strategyAtoms:{
         structure:'EVIDENCE_EFFECT_EVIDENCE_OF_WORK_MICRO_ASK',
+        experimentDesignVersion:UBERREPLY_V5_EXPERIMENT_DESIGN_VERSION,
         controlledDimension,
         variantKey,
         subject,
@@ -388,6 +390,7 @@ export function compileUberReplyV5CandidateSet({
   return{
     ok:true,
     version:UBERREPLY_V5_CANDIDATE_COMPILER_VERSION,
+    experimentDesignVersion:UBERREPLY_V5_EXPERIMENT_DESIGN_VERSION,
     state:'UBERREPLY_V5_CANDIDATE_SET_READY',
     offerId:offer.offerId,
     publicName:offer.publicName,

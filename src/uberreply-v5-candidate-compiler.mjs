@@ -4,6 +4,12 @@ import {
   getUberReplyOffer
 } from './uberreply-four-offer-genome.mjs';
 import {
+  compileUberOutboundMessageGenotype,
+  compileUberOutboundRenderedMessageReceipt,
+  outboundPersonalizationPrior,
+  outboundProblemAltitude
+} from './uberoutbound-genome.mjs';
+import {
   buildUberReplyV5Message,
   buildUberReplyV5Subject
 } from './copy.mjs';
@@ -34,6 +40,51 @@ function replaceFinalCta(body,cta){
 
 function wordCount(value){
   return clean(value,10000).split(/\s+/).filter(Boolean).length;
+}
+
+function coreCopy(body){
+  return String(body||'')
+    .split(/\n\n(?:Stop future messages:|Reply [“"]no[”"])/)[0]
+    .replace(/^Hi[^\n]*,\s*/i,'')
+    .trim();
+}
+
+function sentenceCount(value){
+  return coreCopy(value).split(/(?<=[.!?])\s+/).map(v=>v.trim()).filter(Boolean).length;
+}
+
+function candidateExperimentMessage({candidate,prospect,artifact,ctaId}){
+  const body=coreCopy(candidate.body);
+  const ctaType=['SEND_IT','WORTH_SENDING','WANT_SCREENSHOTS','USEFUL_IF_SEND'].includes(ctaId)?'SEND_ASSET':'LOW_FRICTION_REPLY';
+  return{
+    candidateId:candidate.candidateId,
+    subject:candidate.subject,
+    body:candidate.body,
+    wordCount:wordCount(body),
+    sentenceCount:sentenceCount(body),
+    subjectWordCount:wordCount(candidate.subject),
+    ctaType,
+    personalizationClass:outboundPersonalizationPrior(prospect?.seniority)[0],
+    problemAltitude:outboundProblemAltitude(prospect?.seniority),
+    problemBeforeProduct:true,
+    productHeavy:false,
+    relevantProof:true,
+    triggerMentioned:false,
+    newInformation:false,
+    sequencePosition:1,
+    offerType:artifact?.artifactType||null,
+    proofType:'PROSPECT_SPECIFIC_OBSERVATION',
+    proofSimilarityDimension:'SAME_PROBLEM_OR_WORKFLOW',
+    subjectArchitecture:'SHORT_PLAIN_RELEVANT',
+    openingArchitecture:'EVIDENCE',
+    problemArchitecture:'SPECIFIC_OBSERVED_PROBLEM',
+    mechanismClass:'EVIDENCE_FIRST_MICRO_ARTIFACT',
+    tone:'PLAIN_SPECIFIC_LOW_PRESSURE',
+    researchDepth:'EVIDENCE_BOUND',
+    sourceCount:artifact?.evidenceRefs?.length||0,
+    sourceFreshness:1,
+    evidenceSnapshotDigest:artifact?.artifactId||null
+  };
 }
 
 function candidateFeatures({subject,body,artifact,prospect,ctaEase}){
@@ -86,7 +137,9 @@ export function compileUberReplyTreatmentIdentity({
   subject='',
   body='',
   followup=0,
-  candidateSet=null
+  candidateSet=null,
+  prospect={},
+  artifact=null
 }={}){
   const position=Math.max(1,Number(followup||0)+1);
   const assigned=candidateSet?.assignedCandidate||candidateSet?.selectedCandidate||null;
@@ -96,9 +149,44 @@ export function compileUberReplyTreatmentIdentity({
   const candidateId=firstTouch&&assignedId
     ? assignedId
     : `ubv5_touch_${hash([offerId||'',position,subject||'',body||''].join('|')).slice(0,16)}`;
+  const fallbackMessage={
+    candidateId,
+    subject,
+    body,
+    wordCount:wordCount(coreCopy(body)),
+    sentenceCount:sentenceCount(body),
+    subjectWordCount:wordCount(subject),
+    ctaType:'SEND_ASSET',
+    personalizationClass:outboundPersonalizationPrior(prospect?.seniority)[0],
+    problemAltitude:outboundProblemAltitude(prospect?.seniority),
+    problemBeforeProduct:true,
+    productHeavy:false,
+    relevantProof:true,
+    triggerMentioned:false,
+    newInformation:position>1,
+    sequencePosition:position,
+    offerType:artifact?.artifactType||null,
+    proofType:'PROSPECT_SPECIFIC_OBSERVATION',
+    proofSimilarityDimension:'SAME_PROBLEM_OR_WORKFLOW',
+    subjectArchitecture:'SHORT_PLAIN_RELEVANT',
+    openingArchitecture:position>1?'NEW_EVIDENCE':'EVIDENCE',
+    problemArchitecture:'SPECIFIC_OBSERVED_PROBLEM',
+    mechanismClass:'EVIDENCE_FIRST_MICRO_ARTIFACT',
+    tone:'PLAIN_SPECIFIC_LOW_PRESSURE',
+    evidenceSnapshotDigest:artifact?.artifactId||null
+  };
+  const genotype=firstTouch&&assigned?.genotypeId
+    ? {genotypeId:assigned.genotypeId}
+    : compileUberOutboundMessageGenotype(fallbackMessage,prospect);
+  const rendered=firstTouch&&assigned?.renderedMessageId
+    ? {renderedMessageId:assigned.renderedMessageId,contentReceipt:assigned.contentReceipt||null}
+    : compileUberOutboundRenderedMessageReceipt(fallbackMessage,genotype);
   return{
     candidateId,
     payloadDigest,
+    genotypeId:genotype.genotypeId,
+    renderedMessageId:rendered.renderedMessageId,
+    contentReceipt:rendered.contentReceipt||null,
     sequencePosition:position,
     assignmentMode:firstTouch?(candidateSet?.assignmentMode||'EXPLOIT_CHAMPION'):'EVIDENCE_SEQUENCE',
     strategyAtoms:firstTouch&&assigned?.strategyAtoms
@@ -110,7 +198,7 @@ export function compileUberReplyTreatmentIdentity({
         },
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
-    truthBoundary:'Treatment identity binds the exact subject/body and sequence position for outcome attribution. It grants no send authority.'
+    truthBoundary:'Treatment identity binds the exact subject/body, reusable genotype, rendered-message receipt and sequence position for outcome attribution. It grants no send authority.'
   };
 }
 
@@ -201,7 +289,7 @@ export function compileUberReplyV5CandidateSet({
     for(const cta of CTA_VARIANTS){
       const body=replaceFinalCta(baseBody,cta.text);
       const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase});
-      candidates.push({
+      const seedCandidate={
         candidateId:`ubv5_${hash([offer.offerId,subject,cta.id,body].join('|')).slice(0,16)}`,
         offerId:offer.offerId,
         subject,
@@ -215,6 +303,16 @@ export function compileUberReplyV5CandidateSet({
           findingCount:artifact.findings?.length||0
         },
         ...features
+      };
+      const experimentMessage=candidateExperimentMessage({candidate:seedCandidate,prospect,artifact,ctaId:cta.id});
+      const genotype=compileUberOutboundMessageGenotype(experimentMessage,prospect);
+      const rendered=compileUberOutboundRenderedMessageReceipt(experimentMessage,genotype);
+      candidates.push({
+        ...seedCandidate,
+        experimentMessage,
+        genotypeId:genotype.genotypeId,
+        renderedMessageId:rendered.renderedMessageId,
+        contentReceipt:rendered.contentReceipt
       });
       if(candidates.length>=Math.max(1,Math.min(24,Number(maxCandidates)||12)))break;
     }

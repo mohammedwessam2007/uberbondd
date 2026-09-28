@@ -70,10 +70,44 @@ const steps = [
   ['npm', ['run', 'readiness']]
 ];
 
+const terminalReasonOrder=[
+  'current-truth-regeneration-failed',
+  'semantic-requirement-tribunal-refused',
+  'terminal-source-tribunal-generator-failed',
+  'terminal-source-tribunal-artifact-missing',
+  'exact-current-truth-receipt-required',
+  'semantic-zero-orphan-tribunal-required',
+  'semantic-tribunal-source-mismatch',
+  'canonical-current-execution-graph-required',
+  'execution-graph-source-mismatch',
+  'zero-orphan-graph-required',
+  'zero-floating-graph-required',
+  'acyclic-graph-required',
+  'execution-graph-integrity-required',
+  'canonical-graph-continuation-composition-proof-required',
+  'all-effect-sinks-must-enforce-exact-composed-authority',
+  'principal-level-recursive-governance-proof-required',
+  'current-cut-set-audit-required',
+  'unresolved-internal-single-point-failures-remain',
+  'finite-behavior-requirements-not-source-closed',
+  'floating-closure-evidence-remains',
+  'semantic-and-execution-denominators-must-be-reciprocal'
+];
 for (const [index,[command,args]] of steps.entries()) {
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, encoding:'utf8', stdio:'inherit' });
-  if (result.error) process.exit(19);
-  if (result.status !== 0) process.exit(20 + index);
+  const result=spawnSync(command,args,{cwd:process.cwd(),env:process.env,encoding:'utf8',stdio:'inherit'});
+  if(result.error)process.exit(19);
+  if(result.status!==0){
+    if(index===17){
+      try{
+        const doc=JSON.parse(readFileSync('artifacts/sovereign/terminal-realization.json','utf8'));
+        const reasons=Array.isArray(doc.reasonCodes)?doc.reasonCodes:[];
+        const found=terminalReasonOrder.findIndex(code=>reasons.includes(code));
+        if(found>=0)process.exit(50+found);
+      }catch{}
+      process.exit(90);
+    }
+    process.exit(20+index);
+  }
 }
 
 console.log(JSON.stringify({

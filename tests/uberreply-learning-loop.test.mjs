@@ -177,3 +177,21 @@ test('current downstream opportunity stage is credited only to the latest observ
   assert.equal(second.commercial.closedWon,true);
   assert.equal(second.commercial.qualifiedOpportunity,true);
 });
+
+
+test('learning loop partitions experiments by touch and forbids naive rate ranking under unequal propensities',()=>{
+  const out=compileUberReplyObservedLearning({
+    campaignId:'camp-exp',
+    prospects:[{id:'p1',campaignId:'camp-exp'},{id:'p2',campaignId:'camp-exp'}],
+    messages:[
+      {id:'m1',campaignId:'camp-exp',prospectId:'p1',followup:0,uberReplyCandidateId:'a',uberReplyStrategyArmId:'arm-a',uberReplyAssignmentProbability:0.85,uberReplyGenotypeId:'ubog_a',uberReplyRenderedMessageId:'ubom_a'},
+      {id:'m2',campaignId:'camp-exp',prospectId:'p2',followup:1,uberReplyCandidateId:'b',uberReplyStrategyArmId:'arm-b',uberReplyAssignmentProbability:null,uberReplyGenotypeId:'ubog_b',uberReplyRenderedMessageId:'ubom_b'}
+    ],
+    policy:{minSamplesPerArm:1}
+  });
+  assert.equal(out.experimentPackets.length,2);
+  assert.match(out.experimentPackets[0].analysisProtocol,/PROPENSITY_AWARE/);
+  assert.equal(out.causalDesignState,'PROPENSITY_AWARE_CONTEXTUAL_ANALYSIS_REQUIRED');
+  const followup=out.outcomes.find(row=>row.decisionId==='uberreply:m2');
+  assert.equal(followup.experimentAssignment.assignmentProbability,null);
+});

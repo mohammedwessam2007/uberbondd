@@ -33,10 +33,16 @@ const PUBLIC_DONOR_REFS = Object.freeze([
   'https://platform.claude.com/docs/en/agents-and-tools/tool-use/manage-tool-context',
   'https://developers.openai.com/api/docs/guides/agents',
   'https://arxiv.org/abs/2408.08435',
-  'https://arxiv.org/abs/2410.06153',
+  'https://proceedings.iclr.cc/paper_files/paper/2025/hash/0ae94013da7cd459402fd77874e09ee3-Abstract-Conference.html',
+  'https://proceedings.iclr.cc/paper_files/paper/2025/hash/5492ecbce4439401798dcd2c90be94cd-Abstract-Conference.html',
   'https://arxiv.org/abs/2502.04180',
   'https://arxiv.org/abs/2510.02669',
-  'https://dspy.ai/3.0.2/learn/optimization/optimizers/'
+  'https://proceedings.iclr.cc/paper_files/paper/2026/hash/0e9e708b6f48e14fd0ac29e167413f76-Abstract-Conference.html',
+  'https://aclanthology.org/2025.emnlp-demos.47/',
+  'https://github.com/stanfordnlp/dspy/blob/main/docs/docs/learn/optimization/optimizers.md',
+  'https://www.anthropic.com/engineering/multi-agent-research-system',
+  'https://aclanthology.org/2026.acl-long.981/',
+  'https://arxiv.org/abs/2607.23809'
 ]);
 
 function zeroEffects() {

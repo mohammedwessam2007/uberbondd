@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileUberReplyV5CandidateSet, compileUberReplyExperimentalAssignment } from '../src/uberreply-v5-candidate-compiler.mjs';
+import { compileUberReplyTreatmentIdentity, compileUberReplyV5CandidateSet, compileUberReplyExperimentalAssignment } from '../src/uberreply-v5-candidate-compiler.mjs';
 
 const artifact={
   prepared:true,
@@ -109,4 +109,34 @@ test('15% exploration prior is actually approximately 15% and reaches all top ch
   const rate=explored/n;
   assert.ok(rate>0.13&&rate<0.17,`expected ~15% exploration, observed ${rate}`);
   assert.deepEqual([...seen].sort(),['challenger-a','challenger-b','challenger-c']);
+});
+
+
+test('exact treatment identity preserves first-touch assignment and gives each follow-up its own payload identity',()=>{
+  const candidateSet={
+    assignedCandidateId:'ubv5_first',
+    assignmentMode:'EXPLORE_CHALLENGER',
+    assignedCandidate:{candidateId:'ubv5_first',strategyAtoms:{ctaId:'SEND_IT'}}
+  };
+  const first=compileUberReplyTreatmentIdentity({
+    offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',
+    subject:'lead handoff',
+    body:'first body',
+    followup:0,
+    candidateSet
+  });
+  const second=compileUberReplyTreatmentIdentity({
+    offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',
+    subject:'lead handoff',
+    body:'second body with new evidence',
+    followup:1,
+    candidateSet
+  });
+  assert.equal(first.candidateId,'ubv5_first');
+  assert.equal(first.assignmentMode,'EXPLORE_CHALLENGER');
+  assert.notEqual(second.candidateId,first.candidateId);
+  assert.equal(second.assignmentMode,'EVIDENCE_SEQUENCE');
+  assert.equal(second.sequencePosition,2);
+  assert.notEqual(second.payloadDigest,first.payloadDigest);
+  assert.equal(second.externalEffectAuthority,'NONE');
 });

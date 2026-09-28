@@ -6,6 +6,7 @@ import {
 import {
   compileUberOutboundMessageGenotype,
   compileUberOutboundRenderedMessageReceipt,
+  compileOutboundTriggerPrior,
   outboundPersonalizationPrior,
   outboundProblemAltitude
 } from './uberoutbound-genome.mjs';
@@ -26,6 +27,8 @@ const CTA_VARIANTS=Object.freeze([
   Object.freeze({id:'WANT_SCREENSHOTS',text:'Want the screenshots?',ctaEase:0.95}),
   Object.freeze({id:'USEFUL_IF_SEND',text:'Useful if I send the one-pager?',ctaEase:0.90})
 ]);
+
+const BODY_VARIANTS=Object.freeze(['BASE','QUOTE','DOUBLE_EVIDENCE']);
 
 const SUBJECT_VARIANTS=Object.freeze({
   LEAD_TO_BOOKING_LEAK_AUDIT:Object.freeze(['lead handoff','client lead path','booking handoff']),
@@ -87,7 +90,7 @@ function candidateExperimentMessage({candidate,prospect,artifact,ctaId}){
   };
 }
 
-function candidateFeatures({subject,body,artifact,prospect,ctaEase}){
+function candidateFeatures({subject,body,artifact,prospect,ctaEase,research={}}){
   const evidenceCount=Array.isArray(artifact?.evidenceRefs)?artifact.evidenceRefs.length:0;
   const findingCount=Array.isArray(artifact?.findings)?artifact.findings.length:0;
   const confidence=Array.isArray(artifact?.findings)&&artifact.findings.length
@@ -103,16 +106,23 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase}){
   const hype=/guarantee|skyrocket|revolutionary|game[- ]?changer|10x/.test(lower)?1:0;
   const cognitivePenalty=bodyWords>100?Math.min(1,(bodyWords-100)/100):0;
   const subjectFit=subjectWords>=2&&subjectWords<=5?1:0.35;
+  const triggerPrior=compileOutboundTriggerPrior(prospect?.trigger||{});
+  const coreSentences=sentenceCount(body);
+  const messageClarity=clamp(
+    (bodyWords>=51&&bodyWords<=100?0.55:bodyWords<=100?0.42:0.20)
+    +(coreSentences>=3&&coreSentences<=4?0.35:0.15)
+    +(subjectFit===1?0.10:0)
+  );
   return{
+    problemEvidence:clamp(prospect?.problemEvidenceScore??confidence),
+    roleOwnership:clamp(prospect?.roleOwnershipScore),
+    triggerStrengthFreshness:clamp(prospect?.triggerStrengthFreshness??triggerPrior.score??research?.signalStrength),
     relevanceSpecificity:clamp(0.7+0.15*companyMention+0.15*Math.min(1,findingCount/2)),
-    problemClarity:clamp(0.72+0.18*Math.min(1,findingCount/2)),
-    evidenceStrength:clamp(0.5+0.25*Math.min(1,evidenceCount/2)+0.25*confidence),
     offerUtility:clamp(artifact?.prepared===true?0.9:0.45),
     proofSimilarity:clamp(0.65+0.25*Math.min(1,findingCount/2)),
     ctaEase:clamp(ctaEase),
     credibility:clamp(0.55+0.2*evidencePhrase+0.25*confidence),
-    consequenceFit:clamp(0.78),
-    cognitiveEase:clamp(1-cognitivePenalty),
+    messageClarity,
     subjectFit,
     toneFit:0.9,
     novelty:0.5,
@@ -121,7 +131,10 @@ function candidateFeatures({subject,body,artifact,prospect,ctaEase}){
     creepyPersonalizationPenalty:0,
     askCostPenalty:askCost,
     cognitiveLoadPenalty:cognitivePenalty,
-    genericnessPenalty:companyMention?0.05:0.25
+    unknownPriorComponents:[
+      ...(prospect?.roleOwnershipScore==null?['roleOwnership']:[]),
+      ...(prospect?.trigger==null&&prospect?.triggerStrengthFreshness==null?['triggerStrengthFreshness']:[])
+    ]
   };
 }
 
@@ -285,38 +298,50 @@ export function compileUberReplyV5CandidateSet({
   const subjects=[baseSubject,...(SUBJECT_VARIANTS[offer.offerId]||[])].filter((v,i,a)=>v&&a.indexOf(v)===i);
 
   const candidates=[];
-  for(const subject of subjects){
-    for(const cta of CTA_VARIANTS){
-      const body=replaceFinalCta(baseBody,cta.text);
-      const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase});
-      const seedCandidate={
-        candidateId:`ubv5_${hash([offer.offerId,subject,cta.id,body].join('|')).slice(0,16)}`,
-        offerId:offer.offerId,
+  const limit=Math.max(1,Math.min(24,Number(maxCandidates)||12));
+  for(let index=0;index<limit;index+=1){
+    const subject=subjects[index%subjects.length];
+    const cta=CTA_VARIANTS[index%CTA_VARIANTS.length];
+    const bodyMode=BODY_VARIANTS[Math.floor(index/CTA_VARIANTS.length)%BODY_VARIANTS.length];
+    const variantBody=buildUberReplyV5Message({
+      offerId:offer.offerId,
+      prospect,
+      issue,
+      audit,
+      contact,
+      sender,
+      artifact,
+      unsubscribeUrl,
+      variantMode:bodyMode
+    });
+    const body=replaceFinalCta(variantBody||baseBody,cta.text);
+    const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase,research});
+    const seedCandidate={
+      candidateId:`ubv5_${hash([offer.offerId,subject,cta.id,bodyMode,body].join('|')).slice(0,16)}`,
+      offerId:offer.offerId,
+      subject,
+      body,
+      strategyAtoms:{
+        structure:'EVIDENCE_EFFECT_EVIDENCE_OF_WORK_MICRO_ASK',
         subject,
-        body,
-        strategyAtoms:{
-          structure:'EVIDENCE_EFFECT_EVIDENCE_OF_WORK_MICRO_ASK',
-          subject,
-          ctaId:cta.id,
-          artifactType:artifact.artifactType,
-          evidenceRefCount:artifact.evidenceRefs?.length||0,
-          findingCount:artifact.findings?.length||0
-        },
-        ...features
-      };
-      const experimentMessage=candidateExperimentMessage({candidate:seedCandidate,prospect,artifact,ctaId:cta.id});
-      const genotype=compileUberOutboundMessageGenotype(experimentMessage,prospect);
-      const rendered=compileUberOutboundRenderedMessageReceipt(experimentMessage,genotype);
-      candidates.push({
-        ...seedCandidate,
-        experimentMessage,
-        genotypeId:genotype.genotypeId,
-        renderedMessageId:rendered.renderedMessageId,
-        contentReceipt:rendered.contentReceipt
-      });
-      if(candidates.length>=Math.max(1,Math.min(24,Number(maxCandidates)||12)))break;
-    }
-    if(candidates.length>=Math.max(1,Math.min(24,Number(maxCandidates)||12)))break;
+        ctaId:cta.id,
+        bodyMode,
+        artifactType:artifact.artifactType,
+        evidenceRefCount:artifact.evidenceRefs?.length||0,
+        findingCount:artifact.findings?.length||0
+      },
+      ...features
+    };
+    const experimentMessage=candidateExperimentMessage({candidate:seedCandidate,prospect,artifact,ctaId:cta.id});
+    const genotype=compileUberOutboundMessageGenotype(experimentMessage,prospect);
+    const rendered=compileUberOutboundRenderedMessageReceipt(experimentMessage,genotype);
+    candidates.push({
+      ...seedCandidate,
+      experimentMessage,
+      genotypeId:genotype.genotypeId,
+      renderedMessageId:rendered.renderedMessageId,
+      contentReceipt:rendered.contentReceipt
+    });
   }
 
   const tournament=compileUberReplyCandidateTournament({

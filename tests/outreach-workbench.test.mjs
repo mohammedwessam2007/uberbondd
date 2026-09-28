@@ -255,30 +255,42 @@ test('campaign diagnostics and reply drafting fail closed into owner review', ()
 });
 
 
-test('UberReply V5 analytics preserve candidate lineage and default to cleared revenue rather than raw reply rate', () => {
+test('UberReply V5 analytics aggregate exact copy by stable strategy arm and reuse canonical revenue truth', () => {
   const analytics = buildVariantAnalytics({
     campaignId: 'camp-v5',
     campaign: { id: 'camp-v5', autoRouteOffer: true },
     prospects: [{ id: 'p1', campaignId: 'camp-v5', opportunityStage: 'paid' }],
     messages: [{
-      id: 'm1', campaignId: 'camp-v5', prospectId: 'p1',
-      uberReplyCandidateId: 'ubv5_candidate_1', followup: 0
+      id: 'm1', campaignId: 'camp-v5', prospectId: 'p1', sentAt: '2026-09-28T09:00:00.000Z',
+      uberReplyCandidateId: 'ubv5_candidate_1',
+      uberReplyStrategyArmId: 'ubv5arm_subject_1',
+      uberReplyGenotypeId: 'ubog_1',
+      uberReplyRenderedMessageId: 'ubom_1',
+      uberReplyStrategyAtoms: { controlledDimension: 'SUBJECT' },
+      followup: 0
     }],
     replies: [{
+      sourceMessageId: 'm1',
       prospectId: 'p1',
       classification: { label: 'positive' },
+      qualifiedPositiveEvidence: { qualified: true },
       receivedAt: '2026-09-28T10:00:00.000Z'
     }],
     orders: [{
-      prospectId: 'p1', status: 'paid', amountCents: 150000
+      id: 'order1', prospectId: 'p1', status: 'paid', amountCents: 150000, createdAt: '2026-09-28T11:00:00.000Z'
+    }],
+    revenueEvents: [{
+      id: 'rev1', providerEventId: 'evt1', prospectId: 'p1', kind: 'sale', amountCents: 150000, createdAt: '2026-09-28T11:00:00.000Z'
     }]
   });
   assert.equal(analytics.metric, 'clearedRevenueUsd');
   assert.equal(analytics.minimumSamples, 100);
   assert.equal(analytics.steps.length, 1);
   assert.equal(analytics.steps[0].stepId, 'uberreply-touch-1');
-  assert.equal(analytics.steps[0].variantId, 'ubv5_candidate_1');
-  assert.equal(analytics.steps[0].clearedRevenueUsd, 1500);
+  assert.equal(analytics.steps[0].variantId, 'ubv5arm_subject_1');
+  assert.equal(analytics.steps[0].qualifiedPositiveReplies, 1);
+  assert.equal(analytics.steps[0].clearedRevenueUsd, 1500, 'order + ledger must not double-count one cleared payment');
+  assert.equal(analytics.v5LearningSummary.recordAttempt.qualifiedPositiveReplyUniqueProspects, 1);
   assert.equal(analytics.recommendation.automaticPromotionAuthorized, false);
 });
 
@@ -295,4 +307,23 @@ test('revenue analytics separate positive from qualified-positive replies',()=>{
   assert.equal(out.counts.positiveReplies,2);
   assert.equal(out.counts.qualifiedPositiveReplies,1);
   assert.equal(out.rates.qualifiedPositiveFromSent,50);
+});
+
+
+test('UberReply V5 dashboard keeps personalized rendered messages in one stable experimental arm', () => {
+  const analytics = buildVariantAnalytics({
+    campaignId: 'camp-v5-arm',
+    campaign: { id: 'camp-v5-arm', autoRouteOffer: true },
+    prospects: [
+      { id: 'p1', campaignId: 'camp-v5-arm' },
+      { id: 'p2', campaignId: 'camp-v5-arm' }
+    ],
+    messages: [
+      { id: 'm1', campaignId: 'camp-v5-arm', prospectId: 'p1', followup: 0, uberReplyCandidateId: 'exact-a', uberReplyStrategyArmId: 'stable-cta-arm', uberReplyGenotypeId: 'ubog_a', uberReplyRenderedMessageId: 'ubom_a' },
+      { id: 'm2', campaignId: 'camp-v5-arm', prospectId: 'p2', followup: 0, uberReplyCandidateId: 'exact-b', uberReplyStrategyArmId: 'stable-cta-arm', uberReplyGenotypeId: 'ubog_b', uberReplyRenderedMessageId: 'ubom_b' }
+    ]
+  });
+  assert.equal(analytics.steps.length, 1);
+  assert.equal(analytics.steps[0].variantId, 'stable-cta-arm');
+  assert.equal(analytics.steps[0].sent, 2);
 });

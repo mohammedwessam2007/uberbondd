@@ -1,3 +1,4 @@
+// verification trigger: exact source branch focused gate
 import { spawnSync } from 'node:child_process';
 
 const checks=[

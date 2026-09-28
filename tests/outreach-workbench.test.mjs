@@ -253,3 +253,31 @@ test('campaign diagnostics and reply drafting fail closed into owner review', ()
   assert.match(draft.body, /Calvin/);
   assert.match(draft.body, /USD 250/);
 });
+
+
+test('UberReply V5 analytics preserve candidate lineage and default to cleared revenue rather than raw reply rate', () => {
+  const analytics = buildVariantAnalytics({
+    campaignId: 'camp-v5',
+    campaign: { id: 'camp-v5', autoRouteOffer: true },
+    prospects: [{ id: 'p1', campaignId: 'camp-v5', opportunityStage: 'paid' }],
+    messages: [{
+      id: 'm1', campaignId: 'camp-v5', prospectId: 'p1',
+      uberReplyCandidateId: 'ubv5_candidate_1', followup: 0
+    }],
+    replies: [{
+      prospectId: 'p1',
+      classification: { label: 'positive' },
+      receivedAt: '2026-09-28T10:00:00.000Z'
+    }],
+    orders: [{
+      prospectId: 'p1', status: 'paid', amountCents: 150000
+    }]
+  });
+  assert.equal(analytics.metric, 'clearedRevenueUsd');
+  assert.equal(analytics.minimumSamples, 100);
+  assert.equal(analytics.steps.length, 1);
+  assert.equal(analytics.steps[0].stepId, 'uberreply-touch-1');
+  assert.equal(analytics.steps[0].variantId, 'ubv5_candidate_1');
+  assert.equal(analytics.steps[0].clearedRevenueUsd, 1500);
+  assert.equal(analytics.recommendation.automaticPromotionAuthorized, false);
+});

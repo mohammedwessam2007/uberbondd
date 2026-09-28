@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compileUberReplyAsyncResponseDraft } from '../src/uberreply-async-response.mjs';
+import { classifyUberReplyState, compileUberReplyAsyncResponseDraft } from '../src/uberreply-async-response.mjs';
 
 const artifact={
   prepared:true,
@@ -55,4 +55,25 @@ test('negative or unsubscribe state produces no persuasion draft',()=>{
   assert.equal(out.decision.state,'SUPPRESS_AND_STOP');
   assert.equal(out.draft,'');
   assert.equal(out.draftReady,false);
+});
+
+
+test('reply-state classifier gives stop and routing labels precedence over tempting keywords',()=>{
+  assert.equal(classifyUberReplyState({classification:{label:'negative'},body:'Do not call me about pricing.'}),'NO');
+  assert.equal(classifyUberReplyState({classification:{label:'optout'},body:'Call me? No. Remove me.'}),'NO');
+  assert.equal(classifyUberReplyState({classification:{label:'wrong_person'},body:'Call Sarah about price.'}),'WRONG_PERSON');
+  assert.equal(classifyUberReplyState({classification:{label:'automatic'},body:'For pricing call the office.'}),'AUTO_REPLY');
+  assert.equal(classifyUberReplyState({classification:{label:'positive'},body:'What is the price?'}),'PRICE');
+});
+
+test('automatic reply never generates a sales draft',()=>{
+  const out=compileUberReplyAsyncResponseDraft({
+    offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',
+    replyState:'AUTO_REPLY',
+    artifact
+  });
+  assert.equal(out.decision.state,'HOLD_FOR_HUMAN_RETURN');
+  assert.equal(out.draft,'');
+  assert.equal(out.draftReady,false);
+  assert.equal(out.automaticSendAuthorized,false);
 });

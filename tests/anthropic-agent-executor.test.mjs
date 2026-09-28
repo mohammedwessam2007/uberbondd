@@ -294,6 +294,8 @@ test('Opus-style native max effort is placed in output_config and attested in th
   const out = await executor({ task: task(), model: 'claude-opus-5-5', maxTokens: 4096, costCeilingCents: 100 });
   assert.equal(out.ok, true);
   assert.deepEqual(body.output_config, { effort: 'max' });
+  assert.equal(body.tools[0].strict, true);
+  assert.deepEqual(body.tool_choice, { type: 'auto', disable_parallel_tool_use: true });
   assert.equal(out.model, 'claude-opus-5-5');
   assert.equal(out.identityVerification, 'OBSERVED');
   assert.equal(out.appliedReasoningEffort, 'max');

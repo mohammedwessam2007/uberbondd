@@ -15,6 +15,7 @@ const RESULT_TOOL_NAME = 'submit_uberbond_result';
 const MAX_BODY_BYTES = 300_000;
 const MAX_RESPONSE_BYTES = 1_000_000;
 const EFFORT_LEVELS = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
+const AUTO_STRICT_ONLY_MODELS = new Set(['claude-opus-5-5', 'claude-fable-5-1', 'claude-mythos-5-1']);
 
 const EFFECT_KEYS = [
   'providerCalls', 'messages', 'purchases', 'deployments',
@@ -130,6 +131,7 @@ export const ANTHROPIC_AGENT_RESULT_SCHEMA = Object.freeze({
 });
 
 function requestBody({ task, model, maxTokens, reasoningEffort = null }) {
+  const autoStrict = AUTO_STRICT_ONLY_MODELS.has(String(model || '').trim().toLowerCase());
   return {
     model,
     max_tokens: maxTokens,
@@ -167,10 +169,13 @@ function requestBody({ task, model, maxTokens, reasoningEffort = null }) {
       {
         name: RESULT_TOOL_NAME,
         description: 'Return the canonical UberBond bounded agent-worker result. This records a result only and performs no external action.',
+        ...(autoStrict ? { strict: true } : {}),
         input_schema: ANTHROPIC_AGENT_RESULT_SCHEMA
       }
     ],
-    tool_choice: { type: 'tool', name: RESULT_TOOL_NAME }
+    tool_choice: autoStrict
+      ? { type: 'auto', disable_parallel_tool_use: true }
+      : { type: 'tool', name: RESULT_TOOL_NAME }
   };
 }
 

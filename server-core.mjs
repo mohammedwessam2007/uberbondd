@@ -34,6 +34,7 @@ import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/lea
 import { buildLeadAccountIntelligence } from './src/lead-generation.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
 import { getUberReplyOffer } from './src/uberreply-four-offer-genome.mjs';
+import { compileUberReplyObservedLearning } from './src/uberreply-learning-loop.mjs';
 import {
   LEAD_OPERATIONS_POLICY,
   LEAD_PROVIDER_CATALOG,
@@ -1602,6 +1603,32 @@ export const requestHandler = async (req, res) => {
         status: 'IMAP_FORWARDING_ACCOUNT_IMPORTED',
         account: { id: prepared.account.id, slot: prepared.account.slot, email: prepared.account.email, provider: prepared.account.provider }
       });
+    }
+
+    if (method === 'GET' && url.pathname === '/api/outbound/learning') {
+      const campaignId = String(url.searchParams.get('campaignId') || '').trim();
+      if (campaignId && !(await store.get('campaigns', campaignId))) return json(res, 404, { error: 'Campaign not found' });
+      const [prospects, messages, replies, orders, revenueEvents, outboundEvents] = await Promise.all([
+        store.list('prospects'),
+        store.list('messages'),
+        store.list('replies'),
+        store.list('orders'),
+        store.list('revenueEvents'),
+        store.list('outboundEvents')
+      ]);
+      return json(res, 200, compileUberReplyObservedLearning({
+        campaignId,
+        prospects,
+        messages,
+        replies,
+        orders,
+        revenueEvents,
+        outboundEvents,
+        policy: {
+          maxComplaintRate: Number(url.searchParams.get('maxComplaintRate') || 0.001),
+          minSamplesPerArm: Number(url.searchParams.get('minSamplesPerArm') || 100)
+        }
+      }));
     }
 
     if (method === 'GET' && url.pathname === '/api/outbound/saas-extinction') {

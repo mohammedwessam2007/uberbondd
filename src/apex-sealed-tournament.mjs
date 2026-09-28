@@ -103,6 +103,16 @@ function normalizeManifest(manifest = []) {
   return reasons.length ? { ok: false, reasonCodes: reasons } : { ok: true, rows };
 }
 
+export function sealedManifestCommitmentDigest(sealedManifest = []) {
+  const normalized = normalizeManifest(sealedManifest);
+  return normalized.ok ? manifestCommitmentDigest(normalized.rows) : null;
+}
+
+export function sealedCorpusDigestFromManifest(sealedManifest = []) {
+  const normalized = normalizeManifest(sealedManifest);
+  return normalized.ok ? manifestCorpusDigest(normalized.rows) : null;
+}
+
 function normalizeCommitment(raw = {}, { suiteVersion, corpusDigest, manifestDigest, taskCount } = {}) {
   const commitmentRef = text(raw?.commitmentRef, 1200);
   const committedAt = timestamp(raw?.committedAt);

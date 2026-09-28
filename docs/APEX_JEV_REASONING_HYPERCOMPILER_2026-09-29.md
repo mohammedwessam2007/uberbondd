@@ -134,22 +134,60 @@ Donation:
 
 ### Automated agent-architecture search
 
-Public work on Automated Design of Agentic Systems (ADAS) and AgentSquare demonstrates that agent topology and modules can themselves be searched/evolved rather than permanently hand-designed. DSPy optimizers such as MIPROv2 and GEPA similarly optimize prompts/program components from task traces and metrics.
+Public work on ADAS, AgentSquare, AFlow, MaAS, AutoMaAS, GEPA, DSPy and EvoAgentX makes one point impossible to ignore: the **reasoning graph itself** must be treated as an evolvable candidate, not a sacred hand-authored diagram.
 
 - https://arxiv.org/abs/2408.08435
-- https://arxiv.org/abs/2410.06153
+- https://proceedings.iclr.cc/paper_files/paper/2025/hash/0ae94013da7cd459402fd77874e09ee3-Abstract-Conference.html
+- https://proceedings.iclr.cc/paper_files/paper/2025/hash/5492ecbce4439401798dcd2c90be94cd-Abstract-Conference.html
 - https://arxiv.org/abs/2502.04180
 - https://arxiv.org/abs/2510.02669
-- https://dspy.ai/3.0.2/learn/optimization/optimizers/
+- https://proceedings.iclr.cc/paper_files/paper/2026/hash/0e9e708b6f48e14fd0ac29e167413f76-Abstract-Conference.html
+- https://aclanthology.org/2025.emnlp-demos.47/
+- https://github.com/stanfordnlp/dspy/blob/main/docs/docs/learn/optimization/optimizers.md
 
 Donation:
 - the reasoning architecture itself becomes a candidate object;
-- query-dependent architecture selection is preferable to one static multi-agent graph when difficulty and domain vary;
+- query-dependent architecture selection replaces the assumption that one static graph is optimal for every task;
 - mutation is anchored to observed failures rather than aesthetic rewrites;
-- topology, perspectives, delegation, prompts, aggregation, verification, context, tools, reflex boundaries and stopping policy may all mutate in sandbox;
+- topology, perspectives, delegation, prompts, aggregation, verification, context, tools, reflex boundaries and stopping policy may mutate in sandbox;
+- a quality-diversity archive preserves multiple strong, behaviorally distinct architectures rather than collapsing prematurely to one local optimum;
+- candidate generation, evaluation and production promotion are separate authority classes;
 - training evidence and sealed holdouts remain separated;
-- the architecture generator cannot see the sealed holdout or promote itself to production;
+- the candidate generator cannot inspect the sealed holdout or promote itself;
 - successful mechanisms enter the reasoning Arena like any other challenger.
+
+The source implementation is split deliberately:
+
+- `src/apex-reasoning-hypercompiler.mjs` defines the quality floor, adaptive reasoning families and sealed evaluation contract;
+- `src/reasoning-architecture-lab.mjs` performs guarded offline mutation, quality-diversity archiving, bounded search-plan compilation and generation evaluation;
+- no Architecture Lab result has production activation authority.
+
+### Production multi-agent donor: artifact-first delegation
+
+Anthropic's production research architecture reports several mechanisms worth absorbing without copying its product-specific implementation: dynamic research plans, parallel subagents, direct persistence of specialist outputs to external artifacts, compact references back to the lead agent, explicit stopping heuristics, and the observation that multi-agent systems are useful only when the task has enough independent breadth to justify their much higher token use.
+
+- https://www.anthropic.com/engineering/multi-agent-research-system
+
+Donation:
+- **artifact-first delegation**: specialist work should persist directly with immutable provenance and return references rather than forcing every large result through the coordinator;
+- **dynamic delegation**: the lead may spawn, steer or cancel branches as evidence changes;
+- **straggler tolerance**: one slow independent branch should not freeze all unrelated evidence;
+- **task-fit gating**: use multi-agent breadth when parallelism has value, not because a swarm looks impressive;
+- **side-by-side rollout**: architecture replacements should canary or rainbow against the incumbent before displacement.
+
+### Long-horizon memory as an agent action
+
+2026 long-horizon memory work such as AgeMem and Agentic Context Management treats memory/context operations themselves as decisions rather than fixed truncation heuristics.
+
+- https://aclanthology.org/2026.acl-long.981/
+- https://arxiv.org/abs/2607.23809
+
+Donation:
+- store, retrieve, update and summarize are first-class context operations;
+- removing something from **working context** must never silently delete durable evidence;
+- summaries are navigation aids, not substitutes for raw evidence;
+- context pressure should trigger loss-aware offload and later on-demand retrieval;
+- no-amputation remains stronger than any memory-compression heuristic.
 
 ## Integrated architecture
 
@@ -371,10 +409,15 @@ The architecture has an explicit mechanism and falsifier for:
 21. architecture-level Arena;
 22. quality-first Pareto selection;
 23. failure-anchored architecture mutation/recombination;
-24. sealed-holdout anti-overfit boundary for meta-optimization;
-25. provenance;
-26. authority separation;
-27. rollback/replaceability.
+24. quality-diversity architecture archive;
+25. sealed-holdout anti-overfit boundary for meta-optimization;
+26. artifact-first specialist persistence without coordinator telephone loss;
+27. adaptive memory/context operations with durable raw-evidence recoverability;
+28. asynchronous branch steering / cancellation / straggler tolerance;
+29. canary or side-by-side architecture replacement;
+30. provenance;
+31. authority separation;
+32. rollback/replaceability.
 
 On this rubric the **candidate design is 10/10 for coverage**.
 

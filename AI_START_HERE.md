@@ -4,6 +4,15 @@ If you are an AI, coding agent, research agent, IDE assistant, terminal agent, o
 
 UberBond is a long-lived accumulated organism. A new context window is not a new project.
 
+
+## Hot mission auto-routing
+
+After the constitutional startup is mounted, classify the founder's actual request before brainstorming.
+
+If it concerns **cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine**, immediately read root `00_OUTREACH_NOW.md` and its machine companion `00_OUTREACH_NOW.json`, then follow their canonical pointers. Do not restart from generic cold-email advice, invent a fifth offer by default, or rely on stale provider state.
+
+This route is automatic for commercial/outreach missions but remains subordinate to the Sovereign Cognitive Continuum and current external truth.
+
 ## Mandatory first action
 
 1. Refresh the latest `main` and record the exact head SHA.

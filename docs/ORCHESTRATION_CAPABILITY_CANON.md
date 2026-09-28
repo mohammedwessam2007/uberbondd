@@ -235,6 +235,12 @@ Permanent rules:
 - Councils preserve sealed independent first passes; critique and adjudication use identity-blind model-facing packets while runtime provenance remains exact.
 - Test-time compute expands with unresolved uncertainty/novelty/stakes and contracts after verification instead of using a fixed ceremonial swarm.
 - The unit of competition is the **reasoning architecture**, not merely the model. Complete inference graphs compete on sealed task-class holdouts.
+- The offline `Reasoning Architecture Lab` may mutate topology, perspectives, prompts, context, tools, verification, stop rules and reflex boundaries, but it may not mutate authority or activate its own winner.
+- Architecture search keeps a quality-diversity archive so one early local optimum cannot erase distinct high-performing reasoning families.
+- Specialist agents should persist large structured work as immutable artifacts and return compact references when that reduces coordinator information loss; the coordinator still owns integration.
+- Context-management operations may remove material from working context only after durable externalization. Working-context discard is not durable deletion.
+- Long-running APEX work may steer or cancel obsolete independent branches and must not let a straggler block unrelated evidence.
+- Replacement reasoning architectures should enter bounded canary / side-by-side comparison with rollback evidence before displacing an incumbent.
 - Jev remains a replaceable System-One supplier beneath frontier-authored semantic policy. It gains no consequence authority.
 - Repeated verified semantic structure should move down the Noetic/crystallization ladder; material drift moves it back upward.
 - Public-frontier completeness is a dated research claim only. Global '#1' status requires matched empirical evidence and cannot be self-awarded.

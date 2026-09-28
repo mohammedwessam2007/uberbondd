@@ -256,7 +256,7 @@ export function compileUberReplyExperimentalAssignment({
     assignedSeedScore:assigned.score,
     explorationRate:rate,
     challengerCount:challengers.length,
-    assignmentProbability:mode==='EXPLOIT_CHAMPION'?(1-rate):(challengers.length?rate/challengers.length:0),
+    assignmentProbability:mode==='EXPLOIT_CHAMPION'?(challengers.length?1-rate:1):(challengers.length?rate/challengers.length:0),
     assignmentKeyDigest:`sha256:${hash(key)}`,
     automaticDispatchAuthorized:false,
     externalEffectAuthority:'NONE',

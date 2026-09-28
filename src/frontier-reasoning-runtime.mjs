@@ -1,8 +1,11 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
-export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.2.1';
+export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.3.0';
 
 const GATEWAY_EFFORTS = new Set(['none', 'minimal', 'low', 'medium', 'high', 'xhigh']);
+const DIRECT_OPENAI_EFFORTS = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
+const DIRECT_ANTHROPIC_EFFORTS = new Set(['low', 'medium', 'high', 'xhigh', 'max']);
+const OPENAI_SERVICE_TIERS = new Set(['auto', 'default', 'flex']);
 
 function text(value, max = 1000) {
   const out = String(value ?? '').trim();
@@ -23,7 +26,21 @@ function failure(reasonCodes, status = 'FRONTIER_REASONING_RUNTIME_BLOCKED', ext
 function parseGatewaySetting(ref) {
   const match = /^ai-gateway:reasoning=(none|minimal|low|medium|high|xhigh)$/.exec(String(ref || '').trim().toLowerCase());
   if (!match || !GATEWAY_EFFORTS.has(match[1])) return null;
-  return match[1];
+  return { reasoningEffort: match[1], serviceTier: null };
+}
+
+function parseOpenAISetting(ref) {
+  const match = /^openai:reasoning=(low|medium|high|xhigh|max)(?:;service_tier=(auto|default|flex))?$/.exec(String(ref || '').trim().toLowerCase());
+  if (!match || !DIRECT_OPENAI_EFFORTS.has(match[1])) return null;
+  const serviceTier = match[2] || null;
+  if (serviceTier && !OPENAI_SERVICE_TIERS.has(serviceTier)) return null;
+  return { reasoningEffort: match[1], serviceTier };
+}
+
+function parseAnthropicSetting(ref) {
+  const match = /^anthropic:effort=(low|medium|high|xhigh|max)$/.exec(String(ref || '').trim().toLowerCase());
+  if (!match || !DIRECT_ANTHROPIC_EFFORTS.has(match[1])) return null;
+  return { reasoningEffort: match[1], serviceTier: null };
 }
 
 export function compileFrontierExecutorWorker(member = {}) {
@@ -41,26 +58,47 @@ export function compileFrontierExecutorWorker(member = {}) {
   if (!transportProvider || !transportModel) reasons.push('complete-transport-identity-required');
   if (!reasoningTier || !reasoningSettingRef) reasons.push('reasoning-tier-and-setting-required');
 
-  let reasoningEffort = null;
+  let setting = null;
   if (transportProvider === 'ai-gateway' && transportModel) {
-    reasoningEffort = parseGatewaySetting(reasoningSettingRef);
-    if (!reasoningEffort) reasons.push('ai-gateway-reasoning-setting-unrecognized');
+    setting = parseGatewaySetting(reasoningSettingRef);
+    if (!setting) reasons.push('ai-gateway-reasoning-setting-unrecognized');
     const creator = transportModel.includes('/') ? transportModel.split('/')[0].toLowerCase() : null;
     if (!creator) reasons.push('ai-gateway-provider-model-slug-required');
     else if (creator !== provider) reasons.push('cognitive-provider-and-gateway-model-creator-mismatch');
-  } else if (transportProvider && transportProvider !== 'ai-gateway') {
+  } else if (transportProvider === 'openai') {
+    setting = parseOpenAISetting(reasoningSettingRef);
+    if (!setting) reasons.push('openai-direct-reasoning-setting-unrecognized');
+    if (provider !== 'openai') reasons.push('cognitive-provider-and-direct-transport-mismatch');
+    if (model !== transportModel) reasons.push('direct-transport-model-mismatch');
+  } else if (transportProvider === 'anthropic') {
+    setting = parseAnthropicSetting(reasoningSettingRef);
+    if (!setting) reasons.push('anthropic-direct-effort-setting-unrecognized');
+    if (provider !== 'anthropic') reasons.push('cognitive-provider-and-direct-transport-mismatch');
+    if (model !== transportModel) reasons.push('direct-transport-model-mismatch');
+  } else if (transportProvider) {
     reasons.push(`frontier-reasoning-transport-not-yet-proven:${transportProvider}`);
   }
 
   if (reasons.length) return failure(reasons);
+  const worker = {
+    provider: transportProvider,
+    model: transportModel,
+    reasoningEffort: setting?.reasoningEffort ?? null,
+    ...(setting?.serviceTier ? { serviceTier: setting.serviceTier } : {})
+  };
   return envelope({
     ok: true,
     status: 'FRONTIER_EXECUTOR_WORKER_READY',
     profileId,
     cognitiveIdentity: { provider, model, revision },
-    worker: { provider: transportProvider, model: transportModel, reasoningEffort },
-    appliedSettingExpectation: { reasoningTier, reasoningSettingRef, reasoningEffort },
-    truthBoundary: 'TRANSLATION_IS_NOT_EXECUTION; EXECUTION_RESULT_MUST_ATTEST_THE_REQUESTED_SETTING_AND_OBSERVED_MODEL'
+    worker,
+    appliedSettingExpectation: {
+      reasoningTier,
+      reasoningSettingRef,
+      reasoningEffort: setting?.reasoningEffort ?? null,
+      serviceTier: setting?.serviceTier ?? null
+    },
+    truthBoundary: 'TRANSLATION_IS_NOT_EXECUTION; EXECUTION_RESULT_MUST_ATTEST_THE_REQUESTED_REASONING_SETTING, ANY REQUESTED SERVICE TIER, AND OBSERVED_MODEL'
   });
 }
 
@@ -91,12 +129,16 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
   const identityVerification = text(executorResult.identityVerification, 80)?.toUpperCase();
   const appliedReasoningEffort = text(executorResult.appliedReasoningEffort, 40)?.toLowerCase();
   const appliedReasoningEvidence = text(executorResult.appliedReasoningEvidence, 80)?.toUpperCase();
+  const appliedServiceTier = text(executorResult.appliedServiceTier, 40)?.toLowerCase();
+  const serviceTierEvidence = text(executorResult.serviceTierEvidence, 80)?.toUpperCase();
   const providerRequestId = text(executorResult.providerRequestId, 1000);
   const latencyMs = integer(executorResult.latencyMs, 0, 86_400_000);
   const costCents = integer(executorResult?.usage?.costCents, 0, 100_000_000);
   const reasons = callabilityReasons(workerBinding, profileId, callabilityEvidence);
   if (!observedTransportModel || observedTransportModel !== workerBinding.worker.model || identityVerification !== 'OBSERVED') reasons.push('transport-model-identity-not-observed-as-planned');
   if (appliedReasoningEffort !== workerBinding.worker.reasoningEffort || appliedReasoningEvidence !== 'REQUEST_BODY_ATTESTED') reasons.push('planned-reasoning-setting-not-attested-by-executor');
+  const expectedServiceTier = workerBinding.appliedSettingExpectation.serviceTier;
+  if (expectedServiceTier && (appliedServiceTier !== expectedServiceTier || serviceTierEvidence !== 'PROVIDER_RESPONSE_ATTESTED')) reasons.push('planned-service-tier-not-attested-by-provider');
   if (!providerRequestId) reasons.push('provider-request-id-required');
   if (latencyMs == null) reasons.push('measured-latency-required');
   if (costCents == null) reasons.push('metered-cost-required');
@@ -116,13 +158,14 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
       identityVerification: 'OBSERVED',
       appliedReasoningSettingRef: workerBinding.appliedSettingExpectation.reasoningSettingRef,
       appliedReasoningEffort,
+      appliedServiceTier: workerBinding.appliedSettingExpectation.serviceTier ? appliedServiceTier : null,
       resultRef: `provider-request://${providerRequestId}`,
       latencyMs,
       costCents,
       claims: []
     },
     evidenceRefs: [text(callabilityEvidence?.sourceRef, 1000)].filter(Boolean),
-    truthBoundary: 'REVISION_IDENTITY_COMES_FROM_SEPARATE_OBSERVED_RUNTIME_CALLABILITY_EVIDENCE; REQUEST_BODY_ATTESTATION_PROVES_REQUESTED_REASONING_SETTING_NOT_PROVIDER_INTERNAL_COMPUTE'
+    truthBoundary: 'REVISION_IDENTITY_COMES_FROM_SEPARATE_OBSERVED_RUNTIME_CALLABILITY_EVIDENCE; REQUEST_BODY_ATTESTATION_PROVES_REQUESTED_REASONING_SETTING NOT PROVIDER_INTERNAL_COMPUTE; REQUESTED_OPENAI_SERVICE_TIER_IS_ACCEPTED_ONLY WHEN THE PROVIDER RESPONSE ATTESTS THE SAME TIER'
   });
 }
 

@@ -10,7 +10,7 @@ const lower=v=>String(v??'').trim().toLowerCase();
 const num=v=>Number.isFinite(Number(v))?Number(v):null;
 const ts=v=>{const n=Date.parse(v||'');return Number.isFinite(n)?n:null;};
 
-function clearedEconomicEvidenceForProspect(prospectId,orders=[],revenueEvents=[]){
+export function compileObservedClearedEconomicsForProspect(prospectId,orders=[],revenueEvents=[]){
   const ledgerRows=arr(revenueEvents).filter(row=>row?.prospectId===prospectId);
   const rows=ledgerRows.length
     ? ledgerRows.filter(row=>['sale','refund'].includes(lower(row.kind))||/(paid|settled|cleared|completed|refund)/.test(lower(row.status||row.eventName)))
@@ -91,7 +91,7 @@ export function compileUberReplyObservedLearning({
   const economicsByProspect=new Map();
   const economicsMessageByProspect=new Map();
   for(const prospectId of latestCandidateByProspect.keys()){
-    const evidence=clearedEconomicEvidenceForProspect(prospectId,orders,revenueEvents);
+    const evidence=compileObservedClearedEconomicsForProspect(prospectId,orders,revenueEvents);
     economicsByProspect.set(prospectId,evidence);
     if(evidence.clearedRevenueCents==null&&evidence.clearedContributionCents==null)continue;
     const eligible=candidateMessages
@@ -186,7 +186,8 @@ export function compileUberReplyObservedLearning({
     const outcome=firstTouchOutcomes.find(row=>row.decisionId===`uberreply:${message.id}`);
     return outcome?.delivery?.accepted===true&&!outcome?.delivery?.hardBounce;
   }).map(message=>message.prospectId).filter(Boolean));
-  const exactReplies=arr(replies).filter(reply=>reply?.sourceMessageId);
+  const campaignMessageIds=new Set(candidateMessages.map(message=>message.id));
+  const exactReplies=arr(replies).filter(reply=>reply?.sourceMessageId&&campaignMessageIds.has(reply.sourceMessageId));
   const humanReplyProspects=new Set(exactReplies.filter(reply=>humanReplyLabels.has(lower(reply?.classification?.label||reply?.label))).map(reply=>reply.prospectId).filter(Boolean));
   const positiveReplyProspects=new Set(exactReplies.filter(reply=>['positive','interested'].includes(lower(reply?.classification?.label||reply?.label))).map(reply=>reply.prospectId).filter(Boolean));
   const qualifiedPositiveProspects=new Set(exactReplies.filter(reply=>reply?.qualifiedPositiveEvidence?.qualified===true).map(reply=>reply.prospectId).filter(Boolean));

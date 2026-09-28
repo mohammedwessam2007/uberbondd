@@ -45,7 +45,7 @@ test('candidate compiler creates bounded evidence-first variants and selects one
   });
   assert.equal(out.ok,true);
   assert.equal(out.state,'UBERREPLY_V5_CANDIDATE_SET_READY');
-  assert.ok(out.candidateCount>=4);
+  assert.ok(out.candidateCount>=8);
   assert.ok(out.candidateCount<=12);
   assert.ok(out.selectedCandidate);
   assert.ok(out.assignedCandidate);
@@ -57,6 +57,22 @@ test('candidate compiler creates bounded evidence-first variants and selects one
   assert.equal(out.tournament.automaticDispatchAuthorized,false);
 
   assert.ok(new Set(out.candidates.map(candidate=>candidate.strategyAtoms.bodyMode)).size>=2);
+  assert.equal(new Set(out.candidates.map(candidate=>candidate.strategyArmId)).size,out.candidates.length);
+  assert.ok(out.candidates.every(candidate=>candidate.strategyArmId?.startsWith('ubv5arm_')));
+  const baseline=out.candidates.find(candidate=>candidate.strategyAtoms.controlledDimension==='BASELINE');
+  assert.ok(baseline);
+  for(const candidate of out.candidates.filter(candidate=>candidate.strategyAtoms.controlledDimension==='SUBJECT')){
+    assert.equal(candidate.strategyAtoms.ctaId,baseline.strategyAtoms.ctaId);
+    assert.equal(candidate.strategyAtoms.bodyMode,baseline.strategyAtoms.bodyMode);
+  }
+  for(const candidate of out.candidates.filter(candidate=>candidate.strategyAtoms.controlledDimension==='CTA')){
+    assert.equal(candidate.subject,baseline.subject);
+    assert.equal(candidate.strategyAtoms.bodyMode,baseline.strategyAtoms.bodyMode);
+  }
+  for(const candidate of out.candidates.filter(candidate=>candidate.strategyAtoms.controlledDimension==='PROOF_DENSITY')){
+    assert.equal(candidate.subject,baseline.subject);
+    assert.equal(candidate.strategyAtoms.ctaId,baseline.strategyAtoms.ctaId);
+  }
   assert.ok(out.candidates.every(candidate=>candidate.genotypeId?.startsWith('ubog_')));
   assert.ok(out.candidates.every(candidate=>candidate.renderedMessageId?.startsWith('ubom_')));
 });
@@ -86,6 +102,7 @@ test('experimental assignment is deterministic for the same prospect and bounded
   const b=compileUberReplyExperimentalAssignment({tournament,prospectKey:'prospect-123'});
   assert.deepEqual(a,b);
   assert.ok(['champ','challenger-a','challenger-b'].includes(a.assignedCandidateId));
+  assert.ok(a.assignmentProbability>0&&a.assignmentProbability<=1);
   assert.equal(a.automaticDispatchAuthorized,false);
   assert.equal(a.externalEffectAuthority,'NONE');
 });
@@ -144,12 +161,35 @@ test('exact treatment identity preserves first-touch assignment and gives each f
   });
   assert.equal(first.candidateId,'ubv5_first');
   assert.equal(first.assignmentMode,'EXPLORE_CHALLENGER');
+  assert.match(first.strategyArmId,/^ubv5arm_/);
   assert.notEqual(second.candidateId,first.candidateId);
   assert.equal(second.assignmentMode,'EVIDENCE_SEQUENCE');
+  assert.match(second.strategyArmId,/^ubv5arm_/);
+  assert.notEqual(second.strategyArmId,first.strategyArmId);
   assert.equal(second.sequencePosition,2);
   assert.notEqual(second.payloadDigest,first.payloadDigest);
 
   assert.match(second.genotypeId,/^ubog_/);
   assert.match(second.renderedMessageId,/^ubom_/);
   assert.equal(second.externalEffectAuthority,'NONE');
+});
+
+
+test('exploration samples every challenger rather than starving lower-prior arms',()=>{
+  const tournament={
+    ok:true,
+    explorationRate:0.5,
+    champion:{candidateId:'champ',score:0.9,candidate:{candidateId:'champ',strategyArmId:'arm-champ'}},
+    challengers:Array.from({length:7},(_,index)=>({
+      candidateId:`challenger-${index+1}`,
+      score:0.8-index*0.01,
+      candidate:{candidateId:`challenger-${index+1}`,strategyArmId:`arm-${index+1}`}
+    }))
+  };
+  const seen=new Set();
+  for(let i=0;i<5000;i+=1){
+    const out=compileUberReplyExperimentalAssignment({tournament,prospectKey:`p-${i}`});
+    if(out.mode==='EXPLORE_CHALLENGER')seen.add(out.assignedCandidateId);
+  }
+  assert.equal(seen.size,7);
 });

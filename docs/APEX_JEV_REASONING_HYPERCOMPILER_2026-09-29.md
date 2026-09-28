@@ -131,6 +131,23 @@ Donation:
 - benchmark the **whole harness**, not only model identity;
 - treat every provider harness as a donor and competitor beneath UberBond's own authority and truth layers.
 
+
+### Automated agent-architecture search
+
+Public work on Automated Design of Agentic Systems (ADAS) and AgentSquare demonstrates that agent topology and modules can themselves be searched/evolved rather than permanently hand-designed. DSPy optimizers such as MIPROv2 and GEPA similarly optimize prompts/program components from task traces and metrics.
+
+- https://arxiv.org/abs/2408.08435
+- https://arxiv.org/abs/2410.06153
+- https://dspy.ai/3.0.2/learn/optimization/optimizers/
+
+Donation:
+- the reasoning architecture itself becomes a candidate object;
+- mutation is anchored to observed failures rather than aesthetic rewrites;
+- topology, perspectives, delegation, prompts, aggregation, verification, context, tools, reflex boundaries and stopping policy may all mutate in sandbox;
+- training evidence and sealed holdouts remain separated;
+- the architecture generator cannot see the sealed holdout or promote itself to production;
+- successful mechanisms enter the reasoning Arena like any other challenger.
+
 ## Integrated architecture
 
 ```text
@@ -350,9 +367,11 @@ The architecture has an explicit mechanism and falsifier for:
 20. decompilation on drift;
 21. architecture-level Arena;
 22. quality-first Pareto selection;
-23. provenance;
-24. authority separation;
-25. rollback/replaceability.
+23. failure-anchored architecture mutation/recombination;
+24. sealed-holdout anti-overfit boundary for meta-optimization;
+25. provenance;
+26. authority separation;
+27. rollback/replaceability.
 
 On this rubric the **candidate design is 10/10 for coverage**.
 
@@ -370,6 +389,7 @@ The architecture is not allowed to call itself proven until these are observed:
 - context policies preserve success on long-horizon missions;
 - speculative execution shows net latency benefit without side effects or waste dominating;
 - the architecture Arena has enough task-class samples to promote winners;
+- architecture-evolution experiments beat hand-authored parents on untouched sealed holdouts without leakage;
 - full end-to-end external outcomes exist where the task claims external success.
 
 ## Permanent invariant

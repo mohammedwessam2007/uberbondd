@@ -123,14 +123,18 @@ test('exact treatment identity preserves first-touch assignment and gives each f
     subject:'lead handoff',
     body:'first body',
     followup:0,
-    candidateSet
+    candidateSet,
+    prospect:{company:'Example Agency',seniority:'Director'},
+    artifact:{artifactType:'ONE_PAGE_REVENUE_LEAK_EVIDENCE_MAP',artifactId:'ubart_1'}
   });
   const second=compileUberReplyTreatmentIdentity({
     offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',
     subject:'lead handoff',
     body:'second body with new evidence',
     followup:1,
-    candidateSet
+    candidateSet,
+    prospect:{company:'Example Agency',seniority:'Director'},
+    artifact:{artifactType:'ONE_PAGE_REVENUE_LEAK_EVIDENCE_MAP',artifactId:'ubart_1'}
   });
   assert.equal(first.candidateId,'ubv5_first');
   assert.equal(first.assignmentMode,'EXPLORE_CHALLENGER');
@@ -138,5 +142,8 @@ test('exact treatment identity preserves first-touch assignment and gives each f
   assert.equal(second.assignmentMode,'EVIDENCE_SEQUENCE');
   assert.equal(second.sequencePosition,2);
   assert.notEqual(second.payloadDigest,first.payloadDigest);
+
+  assert.match(second.genotypeId,/^ubog_/);
+  assert.match(second.renderedMessageId,/^ubom_/);
   assert.equal(second.externalEffectAuthority,'NONE');
 });

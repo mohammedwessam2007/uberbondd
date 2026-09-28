@@ -3,7 +3,7 @@ import { crawlSiteBrowser } from './browser-crawler.mjs';
 import { deterministicAudit, scoreProspect, chooseIssue } from './audit-rules.mjs';
 import { enhanceAudit, classifyReply } from './ai.mjs';
 import { discoverContacts, verifyEmail } from './contacts.mjs';
-import { buildMessage, buildSubject, routeInbox } from './copy.mjs';
+import { buildMessage, buildSubject, buildUberReplyV5Message, buildUberReplyV5Subject, routeInbox } from './copy.mjs';
 import { buildDossier } from './dossier.mjs';
 import { sendEmail, listMessages, getMessage, parseGmailMessage, sealTokens } from './gmail.mjs';
 import { ConflictError } from './store.mjs';
@@ -16,7 +16,8 @@ import { buildOutboundShadowContext, observeOutboundFinalAdmission } from './omn
 import { buildOutboundConsequenceContext, enforceOutboundConsequence } from './omnia-v9/integrations/outbound-consequence-gate.mjs';
 import { dispatchPostalCanary } from './postal-live-send.mjs';
 import { evaluateOutreachGovernance } from './outreach-governance.mjs';
-import { compileUberReplyCampaignDecision } from './uberreply-four-offer-genome.mjs';
+import { compileUberReplyCampaignDecision, compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
+import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
@@ -236,20 +237,59 @@ export class Pipeline {
     const suppressed = contact?.email ? await this.isSuppressed(prospect, contact.email) : false;
     const optoutUrl = contact?.email ? unsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
     const oneClickOptoutUrl = contact?.email ? oneClickUnsubscribeUrl(this.cfg.baseUrl, prospect.id, this.cfg.unsubscribeSecret) : '';
-    const draft = researchQualified ? buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }) : '';
-    const subject = researchQualified ? buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName) : '';
+    const uberReplyPreworkArtifact = researchQualified && campaign.offerId && offerDecision?.ok
+      ? compileUberReplyPreworkArtifact({
+          offerId: campaign.offerId,
+          prospect,
+          issue,
+          audit,
+          maxFindings: 3
+        })
+      : null;
+    const draft = researchQualified
+      ? (campaign.offerId && offerDecision?.ok
+          ? buildUberReplyV5Message({
+              offerId: campaign.offerId,
+              prospect,
+              issue,
+              audit,
+              contact,
+              sender: this.cfg.sender,
+              artifact: uberReplyPreworkArtifact,
+              unsubscribeUrl: optoutUrl
+            })
+          : buildMessage({ prospect, issue, contact, sender: this.cfg.sender, offerName: offerDecision?.offer?.publicName, unsubscribeUrl: optoutUrl }))
+      : '';
+    const subject = researchQualified
+      ? (campaign.offerId && offerDecision?.ok
+          ? buildUberReplyV5Subject({ offerId: campaign.offerId, prospect, issue, followup: 0 })
+          : buildSubject(prospect, issue, 0, offerDecision?.offer?.publicName))
+      : '';
     const personalizationDecision = researchQualified ? evaluateOutreachPersonalization({
       prospect, issue, contact: contact || {}, subject, body: draft,
       minEvidenceConfidence: this.cfg.outbound?.minEvidenceConfidence
     }) : null;
+    const legalRecord = prospect.recipientEligibility || prospect.legalEligibility || prospect.outreachEligibility || null;
+    const legalStatus = legalRecord?.legal?.status || legalRecord?.status || '';
+    const v5PreparationReady = !campaign.offerId || (
+      uberReplyPreworkArtifact?.prepared === true
+      && legalStatus === 'PASSED'
+    );
     const sendEligible = Boolean(
       researchQualified && inbox && contact?.email &&
       ['valid', 'accept_all', 'unverified', 'unknown'].includes(contact.verified || 'unverified') &&
-      !suppressed && personalizationDecision?.autoSendEligible === true
+      !suppressed && personalizationDecision?.autoSendEligible === true &&
+      v5PreparationReady
     );
     const status = researchQualified ? (sendEligible ? 'ready' : 'research-complete') : 'rejected';
     const dossier = buildDossier({ prospect, crawl, audit, contact, score, issue, inbox, subject, draft, aiMeta });
-    const patch = { status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision, draft, subject, personalizationDecision, unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl, dossier, completedAt: now() };
+    const patch = {
+      status, crawl, audit, contacts, contact, score, issue, inbox, offerDecision,
+      uberReplyPreworkArtifact,
+      draft, subject, personalizationDecision,
+      unsubscribeUrl: optoutUrl, oneClickUnsubscribeUrl: oneClickOptoutUrl,
+      dossier, completedAt: now()
+    };
 
     await this.store.patch('prospects', prospect.id, patch);
     if (this.hooks.onProspectComplete) await this.hooks.onProspectComplete({ ...prospect, ...patch });
@@ -477,6 +517,43 @@ export class Pipeline {
           reason: 'domain-mailbox-gate-denied',
           decision: domainMailboxGate.decision,
           reasonCodes: domainMailboxGate.reasonCodes
+        });
+      }
+    }
+
+    if (campaign.offerId) {
+      const legalRecord = prospect.recipientEligibility || prospect.legalEligibility || prospect.outreachEligibility || null;
+      const preSend = compileUberReplyPreSendGate({
+        offerId: campaign.offerId,
+        prospect: {
+          ...prospect,
+          problemEvidenceScore: Math.min(1, Number(prospect?.score?.total || 0) / 100)
+        },
+        evidence: { refs: prospect?.uberReplyPreworkArtifact?.evidenceRefs || [] },
+        eligibility: {
+          legalEligible: (legalRecord?.legal?.status || legalRecord?.status) === 'PASSED',
+          suppressed: false,
+          validContactRoute: Boolean(prospect?.contact?.email)
+        },
+        sender: {
+          healthy: Boolean(account?.connected) && (!domainMailboxGate || domainMailboxGate.decision === 'NOT_BLOCKED_BY_DOMAIN_MAILBOX_GATE')
+        },
+        artifact: { prepared: prospect?.uberReplyPreworkArtifact?.prepared === true }
+      });
+      await this.store.log('uberreply_v5_pre_send_gate', {
+        prospectId: prospect.id,
+        campaignId: campaign.id,
+        offerId: campaign.offerId,
+        state: preSend.state,
+        reasonCodes: preSend.reasonCodes || [],
+        checkedAt: this.clock().toISOString()
+      });
+      if (!preSend.ok) {
+        return this.markSendSafety(prospect, {
+          sent: false,
+          reason: 'uberreply-v5-pre-send-gate-denied',
+          decision: preSend.state,
+          reasonCodes: preSend.reasonCodes
         });
       }
     }
@@ -894,8 +971,26 @@ export class Pipeline {
         await this.store.patch('prospects', prospect.id, { status: 'suppressed', nextFollowupAt: null });
         continue;
       }
-      const body = buildMessage({ prospect, issue: prospect.issue, contact: prospect.contact, sender: this.cfg.sender, offerName: prospect.offerDecision?.offer?.publicName, followup, unsubscribeUrl: prospect.unsubscribeUrl });
-      const subject = buildSubject(prospect, prospect.issue, followup, prospect.offerDecision?.offer?.publicName);
+      const body = campaign.offerId && prospect.offerDecision?.ok
+        ? buildUberReplyV5Message({
+            offerId: campaign.offerId,
+            prospect,
+            issue: prospect.issue,
+            audit: prospect.audit || [],
+            contact: prospect.contact,
+            sender: this.cfg.sender,
+            artifact: prospect.uberReplyPreworkArtifact,
+            followup,
+            unsubscribeUrl: prospect.unsubscribeUrl
+          })
+        : buildMessage({ prospect, issue: prospect.issue, contact: prospect.contact, sender: this.cfg.sender, offerName: prospect.offerDecision?.offer?.publicName, followup, unsubscribeUrl: prospect.unsubscribeUrl });
+      if (!body) {
+        await this.store.patch('prospects', prospect.id, { nextFollowupAt: null, sequenceStopReason: 'no-new-evidence-for-v5-followup' });
+        continue;
+      }
+      const subject = campaign.offerId && prospect.offerDecision?.ok
+        ? buildUberReplyV5Subject({ offerId: campaign.offerId, prospect, issue: prospect.issue, followup })
+        : buildSubject(prospect, prospect.issue, followup, prospect.offerDecision?.offer?.publicName);
       const result = await this.maybeSend(prospect, campaign, { followup, body, subject });
       if (result?.sent) processed += 1;
     }
@@ -921,10 +1016,26 @@ export class Pipeline {
 
       const parsedForSignal = { from, subject, body, threadId, id: externalId };
       const classification = classifyDeliverySignal(parsedForSignal) || await classifyReply(this.cfg.ai, body);
+      let asyncCloseDecision = null;
+      if (prospect?.offerDecision?.offer?.offerId) {
+        const label = String(classification?.label || '').toLowerCase();
+        const text = String(body || '').toLowerCase();
+        let replyState = 'UNKNOWN';
+        if (label === 'positive') replyState = 'YES';
+        else if (label === 'wrong_person' || label === 'referral') replyState = 'WRONG_PERSON';
+        else if (['negative','optout'].includes(label)) replyState = 'NO';
+        else if (/\b(price|pricing|cost|how much)\b/.test(text)) replyState = 'PRICE';
+        else if (/\b(call|zoom|meet|meeting)\b/.test(text)) replyState = 'CALL';
+        else if (/\b(not now|later|next month|next quarter)\b/.test(text)) replyState = 'NOT_NOW';
+        asyncCloseDecision = compileUberReplyAsyncCloseDecision({
+          offerId: prospect.offerDecision.offer.offerId,
+          replyState
+        });
+      }
       try {
         await this.store.add('replies', {
           id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
-          from, subject, body, classification, receivedAt: now()
+          from, subject, body, classification, asyncCloseDecision, receivedAt: now()
         });
       } catch (error) {
         if (error instanceof ConflictError) return false;
@@ -937,7 +1048,8 @@ export class Pipeline {
         nextFollowupAt: new Date(Date.now() + 7 * 86400000).toISOString()
       } : {
         status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
-        repliedAt: now(), nextFollowupAt: null
+        repliedAt: now(), nextFollowupAt: null,
+        asyncCloseDecision
       });
       if (classification.suppressionRecommended === true || ['optout','negative','bounce','complaint'].includes(classification.label)) {
         try {

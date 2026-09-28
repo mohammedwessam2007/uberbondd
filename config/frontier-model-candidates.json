@@ -550,9 +550,10 @@
       "contextTokens": null,
       "maxOutputTokens": null,
       "officialEvidenceRefs": [
+        "https://z.ai/blog/glm-5.3",
         "https://www.alibabacloud.com/help/en/model-studio/newly-released-models"
       ],
-      "availabilityTruth": "OFFICIAL_ALIBABA_MARKETPLACE_LISTING_ONLY__DIRECT_ZAI_RUNTIME_AND_PRICING_PROOF_REQUIRED",
+      "availabilityTruth": "OFFICIAL_ZAI_RELEASE_2026_08_14__DIRECT_RUNTIME_SLUG_PRICING_AND_CALLABILITY_PROOF_REQUIRED",
       "configured": false
     },
     {
@@ -574,7 +575,7 @@
       "contextTokens": null,
       "maxOutputTokens": null,
       "officialEvidenceRefs": [
-        "https://ai.meta.com/",
+        "https://ai.meta.com/events/",
         "https://ai.meta.com/llama/"
       ],
       "availabilityTruth": "META_MODEL_API_PUBLIC_PREVIEW_WITH_EXPANDED_GLOBAL_ACCESS__EXACT_SLUG_PRICING_AND_RUNTIME_PROOF_REQUIRED",

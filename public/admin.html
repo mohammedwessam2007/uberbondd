@@ -106,19 +106,21 @@
       <label>Campaign name<input name="name" value="Global Digital Opportunity Scan"></label>
       <label>Target market<input name="niche" value="SaaS, hospitality, premium brands, agencies, medical and scientific organizations"></label>
       <label>Offer<input name="offer" value="Evidence-backed digital opportunity audit"></label>
-      <label>Final offer lane (optional)<select name="offerId" id="campaign-offer-id">
-        <option value="">Choose one of the four final offers</option>
-        <option value="LEAD_TO_BOOKING_LEAK_AUDIT">A · White-Label Lead-to-Booking Leak Audit · $450 founding pilot</option>
-        <option value="AI_AGENT_RELEASE_GATE">B · AI Agent Release Gate · $900 founding pilot</option>
-        <option value="CLIENT_ROI_PROOF_SPRINT">C · Client ROI Proof Sprint · $950 founding pilot</option>
-        <option value="BILINGUAL_BOOKING_LEAK_AUDIT">D · Arabic + English Booking Leak Audit · $750 founding pilot</option>
+      <label>Offer routing<select name="offerId" id="campaign-offer-id">
+        <option value="">No pinned offer</option>
+        <option value="LEAD_TO_BOOKING_LEAK_AUDIT">A · Agency Revenue Leak Proof Pack · $1,500</option>
+        <option value="AI_AGENT_RELEASE_GATE">B · AI Agent Production Release Gate · $3,000 standard / $4,000 complex</option>
+        <option value="CLIENT_ROI_PROOF_SPRINT">C · Revenue Proof & Renewal Pack · $2,500</option>
+        <option value="BILINGUAL_BOOKING_LEAK_AUDIT">D · GCC Arabic-English Booking Parity & Revenue Leak Sprint · $1,750</option>
       </select></label>
-      <small class="hint">This lane is separate from the older public inbound catalog. Selecting it pins the final offer in research and draft preparation; it does not authorize sending or create a payment.</small>
+      <label class="check"><input name="autoRouteOffer" id="campaign-auto-route-offer" type="checkbox" checked> Let UberReply route each researched prospect to the strongest of the four offers</label>
+      <small class="hint">Choose either a pinned offer or evidence-based auto-routing. Routing only prepares the commercial lane; legal eligibility, suppression, sender health, exact evidence and dispatch authority remain separate gates.</small>
       <label>Allowed countries<input name="allowedCountries" placeholder="United Kingdom, Germany"></label>
       <small class="hint">Sending remains blocked unless each country is also present in the server OUTBOUND_ALLOWED_COUNTRIES setting.</small>
-      <div class="row"><label>Minimum score<input name="minScore" type="number" value="60" min="50" max="95"></label><label>Follow-ups<input name="maxFollowups" type="number" value="0" min="0" max="1"></label></div>
+      <div class="row"><label>Minimum score<input name="minScore" type="number" value="60" min="50" max="95"></label><label>Follow-ups<input name="maxFollowups" type="number" value="6" min="0" max="6"></label></div>
+      <small class="hint">UberReply can use up to 7 total touches only while each follow-up adds new evidence. It stops when the evidence queue is exhausted.</small>
       <label class="check"><input name="approved" type="checkbox" checked> Approve research under this contract</label>
-      <label class="check"><input name="autoSend" type="checkbox"> Enable Gmail sending after credentials are connected</label>
+      <label class="check"><input name="autoSend" type="checkbox"> Allow sending only after the provider-neutral sender route and every downstream gate pass</label>
       <button class="gold">Create campaign</button>
     </form>
   </article>
@@ -186,7 +188,7 @@
     <p class="hint">This models the operating requirement without pretending that a sender, provider, domain, permissioned corpus, deliverability, or revenue already exists.</p>
     <form id="capacity-plan-form">
       <div class="row"><label>Monthly messages<input name="monthlyMessages" type="number" value="100000" min="1"></label><label>Active days<input name="activeDaysPerMonth" type="number" value="30" min="1" max="31"></label></div>
-      <div class="row"><label>Average offer USD<input name="averagePriceUsd" type="number" value="450" min="0"></label><label>Target reply rate<input name="targetReplyRate" type="number" value="0.02" min="0" max="1" step="0.001"></label></div>
+      <div class="row"><label>Average offer USD<input name="averagePriceUsd" type="number" value="2500" min="0"></label><label>Target reply rate<input name="targetReplyRate" type="number" value="0.02" min="0" max="1" step="0.001"></label></div>
       <label>Target close rate after reply<input name="targetCloseRate" type="number" value="0.05" min="0" max="1" step="0.001"></label>
       <button>Calculate plan · no send</button>
       <small id="capacity-status" class="hint">Planning only. No provider calls or external effects.</small>

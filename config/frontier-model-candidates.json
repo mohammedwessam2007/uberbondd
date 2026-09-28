@@ -583,17 +583,18 @@
     }
   ],
   "admissionLaw": [
-    "Catalog presence and Gateway slug presence are discovery evidence only.",
-    "A model becomes routable only through an exact Frontier Cognitive Fabric profile with observed model revision, transport evidence, exact pricing evidence and a fresh producer-bound callability receipt.",
+    "Catalog presence, official model documentation, direct-provider documentation and Gateway slug presence are discovery evidence only; none is runtime proof.",
+    "A model becomes routable only through an exact Frontier Cognitive Fabric profile whose declared transport matches an evidenced Gateway or direct-transport candidate, with observed model revision, exact pricing evidence and a fresh producer-bound callability receipt.",
+    "A discovery-only candidate may remain in the watch universe without any callable transport; lack of transport evidence must never be rewritten as nonexistence or callability.",
     "Pricing hints in this catalog are not profile pricing evidence and cannot authorize spend or compute a trusted runtime cost.",
     "Models never inherit repository, deployment, customer, payment, DNS, credential, spend or production authority.",
     "Council agreement is process evidence, never external truth.",
     "Prefer provider and model-family diversity when quality is near the frontier threshold.",
     "Measure task-specific quality, reliability, latency, economics and founder minutes; update routing from observed outcomes rather than brand reputation.",
-    "Direct transport candidate evidence is not runtime proof; direct OpenAI/Anthropic frontier routing requires exact reasoning-setting, model/revision, pricing and observed callability receipts.",
+    "Direct transport candidate evidence is not runtime proof; direct frontier routing requires exact reasoning-setting, model/revision, pricing and observed callability receipts.",
     "No model is crowned by catalog freshness or provider claims; Opus 5.5, Astra and all successors must win task-specific sealed evaluations."
   ],
-  "discoveryLoop": "Gamechanger detects new model -> candidate catalog -> exact gateway transport discovery -> observed revision/pricing profile evidence -> producer-bound callability probe -> task-specific benchmark -> Avengers/Frontier Cognitive Fabric routing -> MAX Council -> outcome feedback -> replace/degrade/revoke",
+  "discoveryLoop": "Gamechanger detects model -> discovery catalog -> official provenance -> optional Gateway/direct transport candidate evidence -> exact runtime profile + revision/pricing evidence -> producer-bound callability probe -> task-specific benchmark -> Frontier Cognitive Fabric routing -> blind council / APEX topology -> outcome feedback -> replace/degrade/revoke; discovery-only candidates remain WATCH until a transport is evidenced",
   "businessEffectAuthority": "NONE",
   "externalEffectAuthority": "NONE"
 }

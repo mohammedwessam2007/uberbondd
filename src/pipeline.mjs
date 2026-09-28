@@ -19,6 +19,7 @@ import { evaluateOutreachGovernance } from './outreach-governance.mjs';
 import { compileUberReplyCampaignDecision, compileUberReplyPreSendGate, compileUberReplyAsyncCloseDecision } from './uberreply-four-offer-genome.mjs';
 import { compileUberReplyPreworkArtifact } from './uberreply-prework-artifact.mjs';
 import { compileUberReplyV5CandidateSet } from './uberreply-v5-candidate-compiler.mjs';
+import { compileUberReplyAsyncResponseDraft } from './uberreply-async-response.mjs';
 import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from './domain-mailbox-gate.mjs';
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
@@ -1043,25 +1044,32 @@ export class Pipeline {
       const parsedForSignal = { from, subject, body, threadId, id: externalId };
       const classification = classifyDeliverySignal(parsedForSignal) || await classifyReply(this.cfg.ai, body);
       let asyncCloseDecision = null;
+      let asyncReplyDraft = null;
       if (prospect?.offerDecision?.offer?.offerId) {
         const label = String(classification?.label || '').toLowerCase();
         const text = String(body || '').toLowerCase();
         let replyState = 'UNKNOWN';
-        if (label === 'positive') replyState = 'YES';
-        else if (label === 'wrong_person' || label === 'referral') replyState = 'WRONG_PERSON';
-        else if (['negative','optout'].includes(label)) replyState = 'NO';
-        else if (/\b(price|pricing|cost|how much)\b/.test(text)) replyState = 'PRICE';
+        if (/\b(price|pricing|cost|how much)\b/.test(text)) replyState = 'PRICE';
         else if (/\b(call|zoom|meet|meeting)\b/.test(text)) replyState = 'CALL';
         else if (/\b(not now|later|next month|next quarter)\b/.test(text)) replyState = 'NOT_NOW';
+        else if (label === 'positive') replyState = 'YES';
+        else if (label === 'wrong_person' || label === 'referral') replyState = 'WRONG_PERSON';
+        else if (['negative','optout'].includes(label)) replyState = 'NO';
         asyncCloseDecision = compileUberReplyAsyncCloseDecision({
           offerId: prospect.offerDecision.offer.offerId,
           replyState
+        });
+        asyncReplyDraft = compileUberReplyAsyncResponseDraft({
+          offerId: prospect.offerDecision.offer.offerId,
+          replyState,
+          artifact: prospect.uberReplyPreworkArtifact,
+          senderName: this.cfg.sender?.name
         });
       }
       try {
         await this.store.add('replies', {
           id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
-          from, subject, body, classification, asyncCloseDecision, receivedAt: now()
+          from, subject, body, classification, asyncCloseDecision, asyncReplyDraft, receivedAt: now()
         });
       } catch (error) {
         if (error instanceof ConflictError) return false;
@@ -1075,7 +1083,8 @@ export class Pipeline {
       } : {
         status: terminalDelivery ? classification.label : 'replied', replyLabel: classification.label,
         repliedAt: now(), nextFollowupAt: null,
-        asyncCloseDecision
+        asyncCloseDecision,
+        asyncReplyDraft
       });
       if (classification.suppressionRecommended === true || ['optout','negative','bounce','complaint'].includes(classification.label)) {
         try {

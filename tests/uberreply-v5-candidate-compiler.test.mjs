@@ -193,3 +193,14 @@ test('exploration samples every challenger rather than starving lower-prior arms
   }
   assert.equal(seen.size,7);
 });
+
+
+test('a tournament with no challenger assigns the champion with probability one',()=>{
+  const out=compileUberReplyExperimentalAssignment({
+    tournament:{ok:true,explorationRate:0.15,champion:{candidateId:'only',score:0.9,candidate:{candidateId:'only',strategyArmId:'only-arm'}},challengers:[]},
+    prospectKey:'p-only'
+  });
+  assert.equal(out.mode,'EXPLOIT_CHAMPION');
+  assert.equal(out.assignmentProbability,1);
+  assert.equal(out.assignedStrategyArmId,'only-arm');
+});

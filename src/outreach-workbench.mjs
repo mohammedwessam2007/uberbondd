@@ -699,6 +699,8 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
   allProspects.forEach(item => { if (item.repliedAt) replyProspectIds.add(item.id); });
   const positive = new Set(allProspects.filter(item => lower(item.replyLabel) === 'positive').map(item => item.id));
   asArray(replies).filter(item => lower(item.classification?.label) === 'positive').forEach(item => positive.add(item.prospectId));
+  const qualifiedPositive = new Set(allProspects.filter(item => item.qualifiedPositive === true).map(item => item.id));
+  asArray(replies).filter(item => item.qualifiedPositiveEvidence?.qualified === true).forEach(item => qualifiedPositive.add(item.prospectId));
   const stage = stageName => new Set(allProspects.filter(item => lower(item.opportunityStage) === stageName).map(item => item.id));
   const opportunity = new Set([...stage('opportunity'), ...stage('meeting'), ...stage('offer'), ...stage('invoice'), ...positive]);
   const meeting = new Set([...stage('meeting')]);
@@ -717,6 +719,7 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
     sent: sentProspectIds.size,
     replies: replyProspectIds.size,
     positiveReplies: positive.size,
+    qualifiedPositiveReplies: qualifiedPositive.size,
     opportunities: opportunity.size,
     meetings: meeting.size,
     offers: offer.size,
@@ -731,13 +734,14 @@ export function buildRevenueWeightedAnalytics({ prospects = [], messages = [], r
     rates: {
       replyFromSent: counts.sent ? Math.round(counts.replies / counts.sent * 1000) / 10 : 0,
       positiveFromReplies: counts.replies ? Math.round(counts.positiveReplies / counts.replies * 1000) / 10 : 0,
+      qualifiedPositiveFromSent: counts.sent ? Math.round(counts.qualifiedPositiveReplies / counts.sent * 1000) / 10 : 0,
       opportunityFromReplies: counts.replies ? Math.round(counts.opportunities / counts.replies * 1000) / 10 : 0,
       settledFromOpportunities: counts.opportunities ? Math.round(counts.paymentSettled / counts.opportunities * 1000) / 10 : 0,
       recurringFromSettled: counts.paymentSettled ? Math.round(counts.recurring / counts.paymentSettled * 1000) / 10 : 0,
       researchedFromProspects: rate('researched')
     },
     clearedRevenueUsd: Math.round(clearedRevenueUsd * 100) / 100,
-    weightedOutcomeScore: counts.recurring * 1000 + counts.paymentSettled * 800 + counts.deliveryAccepted * 650 + counts.opportunities * 400 + counts.positiveReplies * 250 + counts.replies * 100 + counts.sent * 10,
+    weightedOutcomeScore: counts.recurring * 1000 + counts.paymentSettled * 800 + counts.deliveryAccepted * 650 + counts.opportunities * 400 + counts.qualifiedPositiveReplies * 300 + counts.positiveReplies * 200 + counts.replies * 100 + counts.sent * 10,
     metricOrder: ['clearedRevenue', 'recurring', 'deliveryAccepted', 'opportunities', 'positiveReplies', 'replies', 'sent']
   };
 }
@@ -764,7 +768,7 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
   const groups = new Map();
   const ensure = (stepId = 'unknown', variantId = 'unknown') => {
     const key = `${stepId}:${variantId}`;
-    if (!groups.has(key)) groups.set(key, { stepId, variantId, sent: 0, opened: 0, clicked: 0, replies: 0, positiveReplies: 0, opportunities: 0, clearedRevenueUsd: 0, prospectIds: new Set() });
+    if (!groups.has(key)) groups.set(key, { stepId, variantId, sent: 0, opened: 0, clicked: 0, replies: 0, positiveReplies: 0, qualifiedPositiveReplies: 0, opportunities: 0, clearedRevenueUsd: 0, prospectIds: new Set() });
     return groups.get(key);
   };
   for (const message of campaignMessages) {
@@ -783,6 +787,7 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     const group = ensure(latestMessage?.stepId || (latestMessage?.uberReplyCandidateId ? `uberreply-touch-${Number(latestMessage.followup || 0) + 1}` : 'legacy'), latestMessage?.variantId || latestMessage?.uberReplyCandidateId || 'unknown');
     if (prospectReplies.length) group.replies += 1;
     if (prospectReplies.some(item => lower(item.classification?.label || item.label) === 'positive') || lower(prospect?.replyLabel) === 'positive') group.positiveReplies += 1;
+    if (prospectReplies.some(item => item.qualifiedPositiveEvidence?.qualified === true) || prospect?.qualifiedPositive === true) group.qualifiedPositiveReplies += 1;
     if (['opportunity', 'meeting', 'offer', 'invoice', 'paid', 'delivery', 'accepted', 'recurring'].includes(lower(prospect?.opportunityStage))) group.opportunities += 1;
   }
   for (const order of asArray(orders)) {
@@ -804,6 +809,7 @@ export function buildVariantAnalytics({ campaignId = '', campaign = {}, prospect
     clickRate: ratio(group.clicked, group.sent),
     replyRate: ratio(group.replies, group.sent),
     positiveReplyRate: ratio(group.positiveReplies, group.sent),
+    qualifiedPositiveReplyRate: ratio(group.qualifiedPositiveReplies, group.sent),
     opportunityRate: ratio(group.opportunities, group.sent)
   })).sort((a, b) => `${a.stepId}:${a.variantId}`.localeCompare(`${b.stepId}:${b.variantId}`));
   const uberReplyV5 = Boolean(campaign.offerId || campaign.autoRouteOffer === true);

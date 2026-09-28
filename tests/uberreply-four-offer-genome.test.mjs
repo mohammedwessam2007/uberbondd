@@ -11,7 +11,11 @@ import {
   validateUberReplyRenderedMessage,
   compareUberReplyFitness,
   compileUberReplyOfferLifecycle,
-  compileUberReplyStrategyLifecycle
+  compileUberReplyStrategyLifecycle,
+  compileUberReplyPreSendGate,
+  scoreUberReplyMessageCandidate,
+  compileUberReplyCandidateTournament,
+  compileUberReplyAsyncCloseDecision
 } from '../src/uberreply-four-offer-genome.mjs';
 
 const evidenceProspect = overrides => ({
@@ -166,4 +170,90 @@ test('strategy lifecycle cannot promote on raw reply vanity evidence', () => {
   assert.equal(lifecycle.rawReplyRateCanPromotePolicy, false);
   assert.equal(lifecycle.promotion.state, 'REVOKED');
   assert.ok(lifecycle.promotion.fatalReasonCodes.includes('vanity-metric-cannot-promote-policy'));
+});
+
+
+test('October 2026 public offer names and price hypotheses are executable', () => {
+  const byId = Object.fromEntries(UBERREPLY_OFFER_PORTFOLIO.map(row => [row.offerId, row]));
+  assert.equal(byId.LEAD_TO_BOOKING_LEAK_AUDIT.publicName, 'Agency Revenue Leak Proof Pack');
+  assert.equal(byId.LEAD_TO_BOOKING_LEAK_AUDIT.standardPriceUsd, 1500);
+  assert.equal(byId.AI_AGENT_RELEASE_GATE.publicName, 'AI Agent Production Release Gate');
+  assert.equal(byId.AI_AGENT_RELEASE_GATE.standardPriceUsd, 3000);
+  assert.equal(byId.AI_AGENT_RELEASE_GATE.complexWorkflowPriceUsd, 4000);
+  assert.equal(byId.CLIENT_ROI_PROOF_SPRINT.publicName, 'Revenue Proof & Renewal Pack');
+  assert.equal(byId.CLIENT_ROI_PROOF_SPRINT.standardPriceUsd, 2500);
+  assert.equal(byId.BILINGUAL_BOOKING_LEAK_AUDIT.publicName, 'GCC Arabic-English Booking Parity & Revenue Leak Sprint');
+  assert.equal(byId.BILINGUAL_BOOKING_LEAK_AUDIT.standardPriceUsd, 1750);
+});
+
+test('pre-send gate abstains until evidence, eligibility, sender health and artifact are real', () => {
+  const refused = compileUberReplyPreSendGate({
+    offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT',
+    prospect: { problemEvidenceScore: 0.9 },
+    evidence: { refs: ['evidence:1'] },
+    eligibility: { legalEligible: true, suppressed: false, validContactRoute: true },
+    sender: { healthy: true },
+    artifact: { prepared: false }
+  });
+  assert.equal(refused.ok, false);
+  assert.equal(refused.state, 'DO_NOT_SEND');
+  assert.ok(refused.reasonCodes.includes('prework-artifact-not-prepared'));
+
+  const passed = compileUberReplyPreSendGate({
+    offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT',
+    prospect: { problemEvidenceScore: 0.9 },
+    evidence: { refs: ['evidence:1'] },
+    eligibility: { legalEligible: true, suppressed: false, validContactRoute: true },
+    sender: { healthy: true },
+    artifact: { prepared: true }
+  });
+  assert.equal(passed.ok, true);
+  assert.equal(passed.state, 'UBERREPLY_PRE_SEND_GATE_PASSED');
+  assert.equal(passed.externalEffectAuthority, 'NONE');
+});
+
+test('candidate tournament prefers stronger evidence and lower-friction candidate but cannot dispatch', () => {
+  const candidates = [
+    {
+      candidateId: 'generic',
+      relevanceSpecificity: 0.4, problemClarity: 0.5, evidenceStrength: 0.3, offerUtility: 0.5,
+      proofSimilarity: 0.4, ctaEase: 0.4, credibility: 0.5, consequenceFit: 0.5,
+      cognitiveEase: 0.6, subjectFit: 0.5, toneFit: 0.5, novelty: 0.3,
+      genericnessPenalty: 0.8, hypePenalty: 0.4
+    },
+    {
+      candidateId: 'evidence-first',
+      relevanceSpecificity: 0.95, problemClarity: 0.9, evidenceStrength: 0.95, offerUtility: 0.9,
+      proofSimilarity: 0.9, ctaEase: 0.95, credibility: 0.9, consequenceFit: 0.9,
+      cognitiveEase: 0.9, subjectFit: 0.8, toneFit: 0.9, novelty: 0.5,
+      genericnessPenalty: 0.05, hypePenalty: 0.05
+    }
+  ];
+  assert.ok(scoreUberReplyMessageCandidate(candidates[1]) > scoreUberReplyMessageCandidate(candidates[0]));
+  const tournament = compileUberReplyCandidateTournament({
+    offerId: 'LEAD_TO_BOOKING_LEAK_AUDIT',
+    prospect: evidenceProspect({ tags: ['agency', 'HVAC', 'booking'] }),
+    research: { accountValueScore: 0.8, signalStrength: 0.9, artifactFeasibility: 1, evidenceDensity: 0.9 },
+    candidates
+  });
+  assert.equal(tournament.ok, true);
+  assert.equal(tournament.champion.candidateId, 'evidence-first');
+  assert.equal(tournament.automaticDispatchAuthorized, false);
+});
+
+test('async close keeps meetings off by default and exposes current fixed price', () => {
+  const yes = compileUberReplyAsyncCloseDecision({ offerId: 'CLIENT_ROI_PROOF_SPRINT', replyState: 'YES' });
+  assert.equal(yes.meetingDefault, 'NONE');
+  assert.equal(yes.meetingAllowed, false);
+  assert.equal(yes.state, 'SEND_ARTIFACT_THEN_OFFER_ASYNC_SCOPE');
+
+  const price = compileUberReplyAsyncCloseDecision({ offerId: 'AI_AGENT_RELEASE_GATE', replyState: 'PRICE' });
+  assert.equal(price.priceUsd, 3000);
+  assert.equal(price.meetingAllowed, false);
+
+  const complex = compileUberReplyAsyncCloseDecision({ offerId: 'AI_AGENT_RELEASE_GATE', replyState: 'PRICE', qualification: { complexWorkflow: true } });
+  assert.equal(complex.priceUsd, 4000);
+
+  const call = compileUberReplyAsyncCloseDecision({ offerId: 'AI_AGENT_RELEASE_GATE', replyState: 'CALL' });
+  assert.equal(call.meetingAllowed, true);
 });

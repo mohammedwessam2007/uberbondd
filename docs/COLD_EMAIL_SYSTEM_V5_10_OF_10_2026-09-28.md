@@ -79,29 +79,34 @@ These weights are seed priors only. Replace with learned coefficients from outco
 
 # 4. Message candidate score
 
-For each qualified prospect generate 8–20 candidate messages.
+For each qualified prospect generate a bounded candidate set. The current executable compiler emits at least eight first-touch strategy arms when the evidence packet supports them.
+
+Current initialization prior, reconciled with `ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md`:
 
 CandidateScore =
-0.18 RelevanceSpecificity
-+ 0.15 ProblemClarity
-+ 0.12 EvidenceStrength
-+ 0.11 OfferUtility
-+ 0.09 ProofSimilarity
-+ 0.08 CTAEase
-+ 0.07 Credibility
-+ 0.06 ConsequenceFit
-+ 0.05 CognitiveEase
+0.18 ProblemEvidence
++ 0.14 RoleOwnership
++ 0.12 TriggerStrengthFreshness
++ 0.12 RelevanceSpecificity
++ 0.10 OfferUtility
++ 0.08 ProofSimilarity
++ 0.07 CTAEase
++ 0.06 Credibility
++ 0.05 MessageClarity
 + 0.04 SubjectFit
-+ 0.03 ToneFit
 + 0.02 Novelty
-- 0.12 UnsupportedClaimPenalty
-- 0.10 HypePenalty
-- 0.09 CreepyPersonalizationPenalty
-- 0.08 AskCostPenalty
-- 0.08 CognitiveLoadPenalty
-- 0.06 GenericnessPenalty
++ 0.02 ToneFit
+- 0.10 CognitiveLoadPenalty
+- 0.08 HypePenalty
+- 0.08 CreepyPersonalizationPenalty
+- 0.08 UnsupportedClaimPenalty
+- 0.06 AskCostPenalty
 
-Again: priors, not permanent constants.
+The current experiment generator changes one controlled atom at a time around a baseline: subject, CTA wording, or proof-density mode. Every prospect-specific rendered message keeps an exact fingerprint, while a stable strategy-arm ID lets outcomes aggregate across prospects without pretending personalized copy is identical.
+
+The current pre-outcome allocation is deliberately provisional: the seed-score champion receives most traffic and a bounded 15% exploration slice is distributed across all challengers. Assignment propensity is stored with the treatment receipt. This is not Thompson sampling, not a calibrated reply probability, and not permission to auto-promote a winner.
+
+Unknown prior components remain recorded as unknown. These weights are initialization priors only, not permanent constants or causal coefficients.
 
 # 5. The E4X first-touch compiler
 

@@ -31,10 +31,10 @@ const CTA_VARIANTS=Object.freeze([
 const BODY_VARIANTS=Object.freeze(['BASE','QUOTE','DOUBLE_EVIDENCE']);
 
 const SUBJECT_VARIANTS=Object.freeze({
-  LEAD_TO_BOOKING_LEAK_AUDIT:Object.freeze(['lead handoff','client lead path','booking handoff']),
-  AI_AGENT_RELEASE_GATE:Object.freeze(['agent release gate','release evidence','agent failure gate']),
-  CLIENT_ROI_PROOF_SPRINT:Object.freeze(['revenue proof gap','attribution evidence','renewal proof']),
-  BILINGUAL_BOOKING_LEAK_AUDIT:Object.freeze(['booking parity','Arabic English booking','booking journey parity'])
+  LEAD_TO_BOOKING_LEAK_AUDIT:Object.freeze(['lead handoff','client lead path','booking handoff','lead path evidence']),
+  AI_AGENT_RELEASE_GATE:Object.freeze(['agent release gate','release evidence','agent failure gate','release test evidence']),
+  CLIENT_ROI_PROOF_SPRINT:Object.freeze(['revenue proof gap','attribution evidence','renewal proof','revenue evidence']),
+  BILINGUAL_BOOKING_LEAK_AUDIT:Object.freeze(['booking parity','Arabic English booking','booking journey parity','bilingual booking evidence'])
 });
 
 function replaceFinalCta(body,cta){
@@ -162,6 +162,9 @@ export function compileUberReplyTreatmentIdentity({
   const candidateId=firstTouch&&assignedId
     ? assignedId
     : `ubv5_touch_${hash([offerId||'',position,subject||'',body||''].join('|')).slice(0,16)}`;
+  const strategyArmId=firstTouch&&(assigned?.strategyArmId||candidateSet?.assignedStrategyArmId)
+    ? (assigned?.strategyArmId||candidateSet.assignedStrategyArmId)
+    : `ubv5arm_${hash([offerId||'', 'FOLLOWUP', position].join('|')).slice(0,16)}`;
   const fallbackMessage={
     candidateId,
     subject,
@@ -196,6 +199,7 @@ export function compileUberReplyTreatmentIdentity({
     : compileUberOutboundRenderedMessageReceipt(fallbackMessage,genotype);
   return{
     candidateId,
+    strategyArmId,
     payloadDigest,
     genotypeId:genotype.genotypeId,
     renderedMessageId:rendered.renderedMessageId,
@@ -235,7 +239,7 @@ export function compileUberReplyExperimentalAssignment({
   let assigned=tournament.champion;
   let mode='EXPLOIT_CHAMPION';
   if(explore){
-    const pool=challengers.slice(0,Math.min(3,challengers.length));
+      const pool=challengers;
     const index=Math.min(pool.length-1,Math.floor(deterministicUnit(`${key}|challenger`)*pool.length));
     assigned=pool[index];
     mode='EXPLORE_CHALLENGER';
@@ -245,9 +249,12 @@ export function compileUberReplyExperimentalAssignment({
     state:'UBERREPLY_EXPERIMENT_ASSIGNMENT_READY',
     mode,
     assignedCandidateId:assigned.candidateId,
+    assignedStrategyArmId:assigned.candidate?.strategyArmId||null,
     assignedCandidate:assigned.candidate,
     assignedSeedScore:assigned.score,
     explorationRate:rate,
+    challengerCount:challengers.length,
+    assignmentProbability:mode==='EXPLOIT_CHAMPION'?(1-rate):(challengers.length?rate/challengers.length:0),
     assignmentKeyDigest:`sha256:${hash(key)}`,
     automaticDispatchAuthorized:false,
     externalEffectAuthority:'NONE',
@@ -300,10 +307,17 @@ export function compileUberReplyV5CandidateSet({
   const candidates=[];
   const activeBodyVariants=(artifact?.findings?.length||0)>1?BODY_VARIANTS:['BASE','QUOTE'];
   const limit=Math.max(1,Math.min(24,Number(maxCandidates)||12));
-  for(let index=0;index<limit;index+=1){
-    const subject=subjects[index%subjects.length];
-    const cta=CTA_VARIANTS[index%CTA_VARIANTS.length];
-    const bodyMode=activeBodyVariants[Math.floor(index/CTA_VARIANTS.length)%activeBodyVariants.length];
+  const baseSubject=subjects[0]||buildUberReplyV5Subject({offerId:offer.offerId,prospect,issue});
+  const baseCta=CTA_VARIANTS[0];
+  const specs=[
+    {controlledDimension:'BASELINE',variantKey:'BASELINE',subject:baseSubject,cta:baseCta,bodyMode:'BASE'},
+    ...subjects.slice(1).map((subject,index)=>({controlledDimension:'SUBJECT',variantKey:`SUBJECT_${index+1}`,subject,cta:baseCta,bodyMode:'BASE'})),
+    ...CTA_VARIANTS.slice(1).map(cta=>({controlledDimension:'CTA',variantKey:cta.id,subject:baseSubject,cta,bodyMode:'BASE'})),
+    ...activeBodyVariants.filter(mode=>mode!=='BASE').map(bodyMode=>({controlledDimension:'PROOF_DENSITY',variantKey:bodyMode,subject:baseSubject,cta:baseCta,bodyMode}))
+  ].slice(0,limit);
+
+  for(const spec of specs){
+    const {subject,cta,bodyMode,controlledDimension,variantKey}=spec;
     const variantBody=buildUberReplyV5Message({
       offerId:offer.offerId,
       prospect,
@@ -317,13 +331,17 @@ export function compileUberReplyV5CandidateSet({
     });
     const body=replaceFinalCta(variantBody||baseBody,cta.text);
     const features=candidateFeatures({subject,body,artifact,prospect,ctaEase:cta.ctaEase,research});
+    const strategyArmId=`ubv5arm_${hash([offer.offerId,controlledDimension,variantKey].join('|')).slice(0,16)}`;
     const seedCandidate={
       candidateId:`ubv5_${hash([offer.offerId,subject,cta.id,bodyMode,body].join('|')).slice(0,16)}`,
+      strategyArmId,
       offerId:offer.offerId,
       subject,
       body,
       strategyAtoms:{
         structure:'EVIDENCE_EFFECT_EVIDENCE_OF_WORK_MICRO_ASK',
+        controlledDimension,
+        variantKey,
         subject,
         ctaId:cta.id,
         bodyMode,
@@ -380,7 +398,9 @@ export function compileUberReplyV5CandidateSet({
     assignment,
     assignedCandidate:assignment.assignedCandidate,
     assignedCandidateId:assignment.assignedCandidateId,
+    assignedStrategyArmId:assignment.assignedStrategyArmId,
     assignmentMode:assignment.mode,
+    assignmentProbability:assignment.assignmentProbability,
     externalEffectAuthority:'NONE',
     businessEffectAuthority:'NONE',
     truthBoundary:'Champion selection maximizes the deterministic seed score, while a bounded deterministic exploration slice assigns challengers for real-world learning. Neither score nor assignment is a calibrated reply probability.'

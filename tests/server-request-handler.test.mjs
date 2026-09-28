@@ -481,3 +481,12 @@ test('SaaS-extinction status exposes the no-surprise buy ledger without external
   assert.ok(body.buyList.external.some(item => item.id === 'authorized_outbound_substrate'));
   assert.ok(body.supply.summary.targetDailyFirstTouches === 1000);
 });
+
+
+test('learning endpoint returns a packet', async () => {
+  const response = await call('/api/outbound/learning', { token: ADMIN_TOKEN });
+  assert.equal(response.status, 200);
+  const body = json(response);
+  assert.equal(body.automaticPromotionAuthorized, false);
+  assert.ok(body.learningPacket);
+});

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   buildIdentityBlindPacket,
   compileApexReasoningArchitecture,
+  compileReasoningArchitectureEvolutionExperiment,
   evaluateReasoningArchitectureArena
 } from '../src/apex-reasoning-hypercompiler.mjs';
 
@@ -189,4 +190,38 @@ test('invalid private or unclassified data class is refused before reasoning com
   });
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('safe-data-class-required'));
+});
+
+
+test('architecture evolution is failure-anchored, holdout-sealed and cannot self-promote', () => {
+  const out = compileReasoningArchitectureEvolutionExperiment({
+    experimentId: 'research-evolution-1',
+    taskClass: 'research',
+    parentArchitectureIds: ['apex-search-v1', 'blind-council-v1'],
+    failureEvidenceRefs: ['failure://missed-counterexample', 'failure://context-loss'],
+    mutationFamilies: ['TOPOLOGY', 'VERIFICATION', 'CONTEXT', 'REFLEX_BOUNDARY'],
+    trainPartitionRef: 'dataset://research/train-v1',
+    sealedHoldoutRef: 'dataset://research/holdout-v1',
+    maxCandidates: 16,
+    maxEvaluationCostUsd: 10
+  });
+  assert.equal(out.ok, true);
+  assert.equal(out.experiment.searchPolicy.automaticProductionMutation, false);
+  assert.equal(out.experiment.antiOverfitPolicy.sealedHoldoutInvisibleToCandidateGenerator, true);
+  assert.equal(out.experiment.authority.productionPromotion, 'NONE');
+  assert.match(out.experimentDigest, /^[a-f0-9]{64}$/);
+});
+
+test('architecture evolution refuses holdout leakage and mutation without failure evidence', () => {
+  const out = compileReasoningArchitectureEvolutionExperiment({
+    experimentId: 'bad',
+    taskClass: 'research',
+    parentArchitectureIds: ['a'],
+    failureEvidenceRefs: [],
+    trainPartitionRef: 'dataset://same',
+    sealedHoldoutRef: 'dataset://same'
+  });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('failure-evidence-required-before-mutation'));
+  assert.ok(out.reasonCodes.includes('distinct-train-and-sealed-holdout-partitions-required'));
 });

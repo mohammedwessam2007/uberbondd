@@ -248,7 +248,7 @@ export class Pipeline {
           prospect,
           issue,
           audit,
-          maxFindings: 3
+          maxFindings: 7
         })
       : null;
     const uberReplyCandidateSet = researchQualified && effectiveOfferId && offerDecision?.ok && uberReplyPreworkArtifact?.prepared

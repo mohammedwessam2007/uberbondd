@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import crypto from 'node:crypto';
 import { compileSealedArchitectureTrial, sealedAnswerDigest } from '../src/apex-sealed-tournament.mjs';
 import { certifyCanonicalZeroLoss } from '../src/canonical-zero-loss-certificate.mjs';
 import {
@@ -89,7 +90,6 @@ test('deterministic compilation requires canonical sealed paired zero-loss proof
     const answer = `answer-${index}`;
     return { taskId, family: 'SEMANTIC_REFLEX', tier: 'SEALED_HOLDOUT', difficulty: 0.8, answerDigest: sealedAnswerDigest({ suiteVersion, taskId, answer }) };
   });
-  const crypto = await import('node:crypto');
   const stable = value => Array.isArray(value) ? value.map(stable) : (!value || typeof value !== 'object') ? value : Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
   const digest = value => crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex');
   const rawDigest = value => crypto.createHash('sha256').update(String(value)).digest('hex');

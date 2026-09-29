@@ -59,7 +59,28 @@ const sourceContracts = {
   ],
   'src/frontier-reasoning-runtime.mjs': [
     "validateQualityInvariantAttestation",
-    "absoluteQualityInvariant"
+    "validateAdmittedFrontierPlan",
+    "isFrontierSimulationExecutorFactory",
+    "isCanonicalModelExecutorFactory",
+    "member-object-does-not-match-admitted-plan"
+  ],
+  'src/frontier-cognitive-admission.mjs': [
+    "const admittedPlans = new WeakMap()",
+    "validateAdmittedFrontierPlan",
+    "process-bound-admitted-frontier-plan-required"
+  ],
+  'src/frontier-council-runtime.mjs': [
+    "validateAdmittedFrontierPlan",
+    "absolute-frontier-degraded-council-prohibited",
+    "independent-adjudicator-required"
+  ],
+  'src/agent-model-executor-factory.mjs': [
+    "const canonicalModelExecutorFactories = new WeakSet()",
+    "isCanonicalModelExecutorFactory"
+  ],
+  'src/avengers-execution-guard.mjs': [
+    "executeFrontierCouncil({",
+    "executeFrontierMember({ planResult"
   ],
   'src/reasoning-architecture-lab.mjs': [
     "qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA"

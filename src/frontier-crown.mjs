@@ -9,6 +9,7 @@ import {
 import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST } from './absolute-frontier-quality-invariant.mjs';
 
 export const FRONTIER_CROWN_VERSION = 'uberbond.frontier-crown.v1';
+export const FRONTIER_CROWN_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const canonicalCrowns = new WeakMap();
 
 function zeroEffects(){ return structuredClone(ZERO_EXTERNAL_EFFECTS); }
@@ -184,9 +185,7 @@ export function certifyCampaignFrontierCrown({ campaignPlan, trials = [] } = {})
 export function validateCampaignFrontierCrownCertificate(certificate={}, {
   expectedCampaignDigest=null,
   expectedBaselineArchitectureId=null,
-  expectedBaselineTrialReceiptDigest=null,
-  now=new Date(),
-  maxAgeMs=24*60*60*1000
+  expectedBaselineTrialReceiptDigest=null
 } = {}) {
   const reasons=[];
   const expected=certificate && typeof certificate==='object' ? canonicalCrowns.get(certificate) : null;
@@ -200,8 +199,8 @@ export function validateCampaignFrontierCrownCertificate(certificate={}, {
   if(certificate?.schemaVersion!==FRONTIER_CROWN_VERSION) reasons.push('frontier-crown-schema-required');
   if(certificate?.absoluteQualityPolicyDigest!==ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST) reasons.push('frontier-crown-quality-policy-digest-mismatch');
   const certifiedAtMs=Date.parse(certificate?.certifiedAt||'');
-  const nowMs=now instanceof Date?now.getTime():Date.parse(now||'');
-  if(!Number.isFinite(certifiedAtMs)||!Number.isFinite(nowMs)||certifiedAtMs>nowMs||nowMs-certifiedAtMs>maxAgeMs){
+  const nowMs=Date.now();
+  if(!Number.isFinite(certifiedAtMs)||certifiedAtMs>nowMs+60_000||nowMs-certifiedAtMs>FRONTIER_CROWN_MAX_AGE_MS){
     reasons.push('frontier-crown-stale-or-invalid-time');
   }
   if(expectedCampaignDigest!=null && certificate?.campaignDigest!==expectedCampaignDigest) reasons.push('frontier-crown-campaign-digest-mismatch');

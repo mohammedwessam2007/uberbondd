@@ -555,8 +555,11 @@ export function assessFreshCampaignRuntimeReadiness({
   }
 
   for (const requiredKey of requiredRuntimeKeys) {
-    if (!runtimeMap.has(requiredKey)) reasons.push(`missing-runtime-proof:${requiredKey}`);
-    const candidateId = requiredKey.split('::')[0];
+    const [candidateId, reasoningSettingRef, transportClass] = requiredKey.split('::');
+    const runtimeSatisfied = transportClass === 'ANY_VERIFIED'
+      ? [...runtimeMap.values()].some(row => row.candidateId === candidateId && row.reasoningSettingRef === reasoningSettingRef)
+      : runtimeMap.has(requiredKey);
+    if (!runtimeSatisfied) reasons.push(`missing-runtime-proof:${requiredKey}`);
     if (![...pricingMap.keys()].some(key => key.startsWith(`${candidateId}::`))) {
       reasons.push(`missing-pricing-proof:${candidateId}`);
     }

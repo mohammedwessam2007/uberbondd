@@ -14,7 +14,8 @@ const pricing = {
 const task = {
   taskId: 'or-test-1',
   objective: 'Produce a bounded JSON research artifact.',
-  consequenceClass: 'LOCAL_PREPARATION'
+  consequenceClass: 'LOCAL_PREPARATION',
+  dataClass: 'PUBLIC'
 };
 
 test('OpenRouter executor sends price/ZDR/sticky-cache policy and never model fallbacks', async () => {
@@ -116,4 +117,25 @@ test('OpenRouter executor refuses unverified pricing before network use', async 
   assert.equal(out.ok, false);
   assert.equal(calls, 0);
   assert.ok(out.reasonCodes.includes('verified-openrouter-model-pricing-required'));
+});
+
+
+test('OpenRouter response caching is refused for non-public task data', async () => {
+  let calls = 0;
+  const executor = createOpenRouterAgentExecutor({
+    apiKey: 'sk-or-v1-test-secret-token',
+    enabled: true,
+    defaultModel: 'vendor/model',
+    pricing,
+    fetchImpl: async () => { calls += 1; throw new Error('should not call'); }
+  });
+  const out = await executor({
+    task: { ...task, dataClass: 'INTERNAL_NON_SECRET' },
+    maxTokens: 20,
+    costCeilingCents: 10,
+    responseCacheEligible: true
+  });
+  assert.equal(out.ok, false);
+  assert.equal(calls, 0);
+  assert.ok(out.reasonCodes.includes('openrouter-response-cache-public-data-only'));
 });

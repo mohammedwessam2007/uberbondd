@@ -14,6 +14,10 @@ export const SEMANTIC_OPS = Object.freeze(['NOUL', 'CHOICE', 'SCORE']);
 export const SEMANTIC_MODES = Object.freeze(['PLAN_ONLY', 'SHADOW']);
 export const MAX_SEMANTIC_INSTRUCTIONS = 256;
 
+const compiledSemanticPrograms = new WeakMap();
+const cognitiveCompilationProposals = new WeakMap();
+const realityDriftAssessments = new WeakMap();
+
 const ZERO_EFFECTS = Object.freeze({
   customerMessages: 0, providerCalls: 0, spendCents: 0, deployments: 0,
   dnsChanges: 0, credentialChanges: 0, paymentMutations: 0, productionMutations: 0
@@ -83,14 +87,59 @@ export function compileSemanticProgram({ programId, version = '1', purpose, inst
     authority: 'NONE',
     consequenceClass: 'JUDGEMENT_ONLY'
   };
+  const program = Object.freeze({ ...body, programDigest: `sha256:${digest(body)}` });
+  compiledSemanticPrograms.set(program, digest(program));
   return {
     ok: true,
     status: 'SEMANTIC_PROGRAM_COMPILED',
-    program: Object.freeze({ ...body, programDigest: `sha256:${digest(body)}` }),
+    program,
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
+}
+
+
+export function validateSemanticProgramOrigin(program) {
+  const expected = program && typeof program === 'object' ? compiledSemanticPrograms.get(program) : null;
+  const actual = program && typeof program === 'object' ? digest(program) : null;
+  const reasons = [];
+  if (!expected || expected !== actual) reasons.push('canonical-untampered-semantic-program-required');
+  if (!program?.programDigest || program?.programDigest !== `sha256:${digest({
+    schemaVersion: program?.schemaVersion,
+    programId: program?.programId,
+    version: program?.version,
+    purpose: program?.purpose,
+    instructions: program?.instructions,
+    authority: program?.authority,
+    consequenceClass: program?.consequenceClass
+  })}`) reasons.push('semantic-program-content-digest-mismatch');
+  return reasons.length
+    ? fail('SEMANTIC_PROGRAM_PROVENANCE_BLOCKED', reasons)
+    : {
+        ok: true,
+        status: 'SEMANTIC_PROGRAM_PROVENANCE_VALID',
+        programDigest: program.programDigest,
+        businessEffectAuthority: 'NONE',
+        externalEffectAuthority: 'NONE',
+        externalEffectLedger: { ...ZERO_EFFECTS }
+      };
+}
+
+export function validateRealityDriftAssessmentOrigin(assessment) {
+  const expected = assessment && typeof assessment === 'object' ? realityDriftAssessments.get(assessment) : null;
+  const actual = assessment && typeof assessment === 'object' ? digest(assessment) : null;
+  return expected && expected === actual
+    ? { ok: true, status: 'REALITY_DRIFT_ASSESSMENT_PROVENANCE_VALID', assessmentDigest: actual }
+    : fail('REALITY_DRIFT_ASSESSMENT_PROVENANCE_BLOCKED', ['canonical-untampered-reality-drift-assessment-required']);
+}
+
+export function validateCognitiveCompilationProposalOrigin(proposal) {
+  const expected = proposal && typeof proposal === 'object' ? cognitiveCompilationProposals.get(proposal) : null;
+  const actual = proposal && typeof proposal === 'object' ? digest(proposal) : null;
+  return expected && expected === actual
+    ? { ok: true, status: 'COGNITIVE_COMPILATION_PROPOSAL_PROVENANCE_VALID', proposalDigest: actual }
+    : fail('COGNITIVE_COMPILATION_PROPOSAL_PROVENANCE_BLOCKED', ['canonical-untampered-cognitive-compilation-proposal-required']);
 }
 
 function normalizedRegisters(program, observed) {
@@ -108,6 +157,8 @@ function normalizedRegisters(program, observed) {
 export function planSemanticExecution({ program, state, mode = 'PLAN_ONLY' } = {}) {
   const reasons = [];
   if (!program?.programDigest || !Array.isArray(program.instructions)) reasons.push('compiled-program-required');
+  const programOrigin = validateSemanticProgramOrigin(program);
+  if (!programOrigin.ok) reasons.push(...programOrigin.reasonCodes);
   const selectedMode = text(mode, 20).toUpperCase();
   if (!SEMANTIC_MODES.includes(selectedMode)) reasons.push('valid-mode-required');
   if (state === undefined) reasons.push('state-required');
@@ -182,7 +233,7 @@ export function assessRealityDrift({ baseline = {}, recent = {} } = {}) {
   const accuracyDrop = baseAccuracy - recentAccuracy;
   const calibrationWorsening = recentCalibrationError - baseCalibrationError;
   const drift = accuracyDrop > 0 || calibrationWorsening > 0;
-  return {
+  const assessment = {
     ok: true,
     status: drift ? 'REALITY_DRIFT_DETECTED__DECOMPILE' : 'NO_MATERIAL_DRIFT_OBSERVED',
     drift,
@@ -194,18 +245,24 @@ export function assessRealityDrift({ baseline = {}, recent = {} } = {}) {
     externalEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
+  realityDriftAssessments.set(assessment, digest(assessment));
+  return assessment;
 }
 
 export function proposeCognitiveCompilation({
-  programDigest, outcomeCount = 0, accuracy, calibrationError, stableWindows = 0,
+  program = null, programDigest = null, outcomeCount = 0, accuracy, calibrationError, stableWindows = 0,
   drift = false, minimumOutcomes = 100, minimumAccuracy = 1, maximumCalibrationError = 0,
   zeroLossCertificate = null
 } = {}) {
   const reasons = [];
   const acc = finite(accuracy);
   const cal = finite(calibrationError);
-  const expectedCandidateArchitectureId = text(programDigest, 120);
+  const programOrigin = validateSemanticProgramOrigin(program);
+  if (!programOrigin.ok) reasons.push(...programOrigin.reasonCodes);
+  const suppliedProgramDigest = programDigest == null ? null : text(programDigest, 120);
+  const expectedCandidateArchitectureId = programOrigin.ok ? program.programDigest : suppliedProgramDigest;
   if (!expectedCandidateArchitectureId) reasons.push('program-digest-required');
+  if (suppliedProgramDigest && programOrigin.ok && suppliedProgramDigest !== program.programDigest) reasons.push('program-digest-does-not-match-canonical-program');
   if (!Number.isInteger(outcomeCount) || outcomeCount < minimumOutcomes) reasons.push('insufficient-reality-outcomes');
   if (minimumAccuracy !== 1) reasons.push('minimum-accuracy-must-remain-one');
   if (maximumCalibrationError !== 0) reasons.push('maximum-calibration-error-must-remain-zero');
@@ -229,19 +286,23 @@ export function proposeCognitiveCompilation({
     zeroLossCertificationDigest: zeroLoss.ok ? zeroLoss.certificationDigest : null,
     absoluteQualityPolicyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST
   };
-  return {
+  const proposal = {
     ok: true,
     policyVersion: NOETIC_AUTOCOMPILER_VERSION,
     status: eligible ? 'DETERMINISTIC_COMPILATION_CANDIDATE' : 'KEEP_SEMANTIC_OR_FRONTIER_TIER',
     eligible,
     reasonCodes: unique(reasons),
     evidence,
+    canonicalProgramDigest: programOrigin.ok ? program.programDigest : null,
     candidateId: eligible ? `jit_${digest(evidence).slice(0, 24)}` : null,
     absoluteQualityInvariant: qualityInvariantAttestation(),
+    promotionEvidenceAuthority: 'NONE__CANONICAL_PROMOTION_GATE_REQUIRED',
     automaticCodeMutationAuthorized: false,
     actionAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
   };
+  cognitiveCompilationProposals.set(proposal, digest(proposal));
+  return proposal;
 }

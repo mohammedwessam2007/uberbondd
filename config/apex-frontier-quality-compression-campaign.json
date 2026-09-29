@@ -48,7 +48,8 @@
           "role": "SOVEREIGN_REASONER",
           "reasoningSettingRef": "anthropic:effort=max",
           "count": 1,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "INTERACTIVE"
         }
       ]
     },
@@ -73,7 +74,8 @@
           "role": "SOVEREIGN_REASONER",
           "reasoningSettingRef": "anthropic:effort=max",
           "count": 1,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "ANTHROPIC_BATCH"
         }
       ]
     },
@@ -98,21 +100,24 @@
           "role": "ORCHESTRATOR_AND_FINAL_JUDGE",
           "reasoningSettingRef": "anthropic:effort=max",
           "count": 1,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "ANTHROPIC_BATCH"
         },
         {
           "candidateId": "xiaomi-mimo-v2-6-pro",
           "role": "HIGH_POWER_REASONING_WORKER",
           "reasoningSettingRef": "xiaomi:thinking=provider-default",
           "count": 6,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "XIAOMI_BATCH"
         },
         {
           "candidateId": "xiaomi-mimo-v2-6-flash",
           "role": "MASS_EXPLORATION_WORKER",
           "reasoningSettingRef": "xiaomi:thinking=provider-default",
           "count": 16,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "XIAOMI_BATCH"
         }
       ]
     },
@@ -137,28 +142,32 @@
           "role": "ORCHESTRATOR_AND_FINAL_JUDGE",
           "reasoningSettingRef": "anthropic:effort=max",
           "count": 1,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "ANTHROPIC_BATCH"
         },
         {
           "candidateId": "deepseek-v4-1-flash",
           "role": "MASS_REASONING_WORKER",
           "reasoningSettingRef": "deepseek:effort=max",
           "count": 12,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "OFF_PEAK_INTERACTIVE"
         },
         {
           "candidateId": "alibaba-qwen3-8-flash",
           "role": "INDEPENDENT_REASONING_WORKER",
           "reasoningSettingRef": "alibaba:thinking=provider-default",
           "count": 6,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "INTERACTIVE"
         },
         {
           "candidateId": "zai-glm-5-3-flash",
           "role": "INDEPENDENT_REASONING_WORKER",
           "reasoningSettingRef": "zai:reasoning=provider-default",
           "count": 6,
-          "transportClass": "ANY_VERIFIED"
+          "transportClass": "ANY_VERIFIED",
+          "pricingModeRef": "INTERACTIVE"
         }
       ]
     }

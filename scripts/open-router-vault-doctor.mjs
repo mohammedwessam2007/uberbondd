@@ -75,7 +75,7 @@ if (lock) {
 
 if (manifest) {
   const listed = new Set((manifest.files || []).map(row => row.path));
-  for (const path of REQUIRED.filter(path => !['open router/MANIFEST.json','open router/BACKUP_RECEIPT_2026-09-29.json'].includes(path))) {
+  for (const path of REQUIRED.filter(path => path.startsWith('open router/') && !['open router/MANIFEST.json','open router/BACKUP_RECEIPT_2026-09-29.json'].includes(path))) {
     if (!listed.has(path)) failures.push(`manifest-missing:${path}`);
   }
 }

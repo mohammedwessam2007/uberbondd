@@ -1,5 +1,8 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
+import { validateAdmittedFrontierPlan } from './frontier-cognitive-admission.mjs';
+import { isFrontierSimulationExecutorFactory } from './frontier-simulation-executor.mjs';
+import { isCanonicalModelExecutorFactory } from './agent-model-executor-factory.mjs';
 
 export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.3.0';
 
@@ -177,6 +180,7 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
 }
 
 export async function executeFrontierMember({
+  planResult,
   member,
   task,
   modelExecutorFactory,
@@ -185,6 +189,28 @@ export async function executeFrontierMember({
   costCeilingCents,
   clock = () => Date.now()
 } = {}) {
+  const provenance = validateAdmittedFrontierPlan(planResult);
+  if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_EXECUTION_BLOCKED');
+  const plannedMembers = planResult.plan.mode === 'COUNCIL_MAX'
+    ? planResult.plan.members
+    : [planResult.plan.selected];
+  const planned = Array.isArray(plannedMembers)
+    ? plannedMembers.find(item => item?.profileId === member?.profileId)
+    : null;
+  if (!planned) return failure(['member-not-present-in-admitted-frontier-plan'], 'FRONTIER_EXECUTION_BLOCKED');
+  if (JSON.stringify(planned) !== JSON.stringify(member)) return failure(['member-object-does-not-match-admitted-plan'], 'FRONTIER_EXECUTION_BLOCKED');
+  if (provenance.simulationOnly) {
+    if (!isFrontierSimulationExecutorFactory(modelExecutorFactory)) {
+      return failure(['synthetic-frontier-plan-requires-branded-no-network-simulation-factory'], 'FRONTIER_EXECUTION_BLOCKED');
+    }
+  } else {
+    if (provenance.trustedForLiveExecution !== true) {
+      return failure(['live-frontier-plan-provenance-not-trusted'], 'FRONTIER_EXECUTION_BLOCKED');
+    }
+    if (!isCanonicalModelExecutorFactory(modelExecutorFactory)) {
+      return failure(['live-frontier-plan-requires-branded-canonical-model-executor-factory'], 'FRONTIER_EXECUTION_BLOCKED');
+    }
+  }
   const binding = compileFrontierExecutorWorker(member);
   if (!binding.ok) return binding;
   const preflight = callabilityReasons(binding, binding.profileId, callabilityEvidence);

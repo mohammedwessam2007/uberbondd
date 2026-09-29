@@ -443,3 +443,8 @@ E6 fresh frontier
 The target is to push recurring work into E0-E4. Open-ended novel semantics remain E6 and page to the moving Crown.
 
 Every important artifact should carry a semantic proof tree whose leaves terminate in current-valid Crown atoms, exact reality facts, deterministic derivations, or verified transformations.
+
+
+## Project Infinite Opus execution prompt
+
+`23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md` is the execution prompt for the next phase: research, invent, implement and set up the strongest lawful architecture for approximately $1/day, 24/7, moving-Crown-quality work. It inherits files 18-22 and explicitly forbids plan-only completion, cheap-model semantic authority, fake reference multipliers and quality downgrade under budget pressure.

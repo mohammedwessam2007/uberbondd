@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 47,
+  "expectedFinalFolderFileCount": 48,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "5c95a1c9febbd2333de5b4dfec3cb1e752e3db56",
-      "size": 20813
+      "blobSha": "a5d3ddfd9dc3ebe9a968e6aee675a99db8b1e22e",
+      "size": 21265
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -237,6 +237,11 @@
       "path": "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
       "blobSha": "ef1377de3e3d1d4dfc85a53ac0e0c17e159cf78c",
       "size": 15631
+    },
+    {
+      "path": "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md",
+      "blobSha": "86453960fcb454f1c0dbc9ced7473372c4d9ae94",
+      "size": 44651
     }
   ],
   "layers": {
@@ -280,7 +285,8 @@
     "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
     "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
     "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
-    "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md"
+    "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+    "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -305,12 +311,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault includes the by-construction Opus equivalence architecture. E0-E4 equivalence is only valid where exact identity, deterministic derivation, formal transformation proof, closed-world exhaustive policy, or proof-carrying bounded circuits establish authority. Arbitrary open-ended semantic novelty remains frontier work and cannot be made theorem-like by architecture alone.",
+  "truthBoundary": "The vault now includes the Project Infinite Opus execution prompt. It is an execution mission artifact, not proof that almost-unlimited Crown-quality work or 33,333x compression has been achieved. It directs future work to maximize by-construction E0-E4 regions, preserve the moving-Crown quality floor, and implement safe dependency-complete mechanisms before stopping.",
   "recovery": "Refresh main; read README, machine canon, live model snapshot, 20/21/22 architecture files, Million-Dollar target/lab, V5 activation/proof files; run doctors; continue by maximizing E0-E4 recurring work and paging E6 novelty to the moving Crown.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 46,
+  "indexedFilesExcludingSelf": 47,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",

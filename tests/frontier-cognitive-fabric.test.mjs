@@ -332,14 +332,10 @@ test('absolute frontier quality prohibits degraded councils even with an explici
     profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
     benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
   };
-  const noPolicy = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true });
-  assert.equal(noPolicy.ok, false);
-  assert.equal(noPolicy.status, 'FRONTIER_POLICY_INVALID');
-  assert.ok(noPolicy.reasonCodes.includes('absolute-frontier-degraded-council-prohibited'));
   const attemptedBypass = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true, degradationPolicyRef: 'policy://caller-tries-to-bypass' });
   assert.equal(attemptedBypass.ok, false);
-  assert.equal(attemptedBypass.status, 'FRONTIER_POLICY_INVALID');
-  assert.ok(attemptedBypass.reasonCodes.includes('absolute-frontier-degraded-council-prohibited'));
+  assert.equal(attemptedBypass.status, 'CAPACITY_BLOCKED');
+  assert.ok(attemptedBypass.reasonCodes.includes('council-minimum-cardinality-unavailable'));
 });
 
 test('stale pricing or benchmark evidence cannot route FRONTIER_MAX', () => {

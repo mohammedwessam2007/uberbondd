@@ -97,6 +97,11 @@ function compileSubjectTrial({ withSubject = true } = {}) {
       costUsd: 0.001,
       latencyMs: 100,
       founderMinutes: 0,
+      observedProvider: profile.provider,
+      observedModel: profile.model,
+      observedRevision: profile.revision,
+      providerRequestId: `req-mimo-pro-${i}`,
+      identityVerification: 'OBSERVED',
       verifierIndependent: true,
       holdoutPromptExposedToOptimizer: false,
       modelJudgedOwnIdentityMarkedAnswer: false
@@ -172,4 +177,48 @@ test('post-hoc profile substitution is rejected even when the trial itself is ca
   });
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('sealed-benchmark-subject-profile-mismatch'));
+});
+
+
+test('a trial labeled as one model cannot use another model in even one sealed run', () => {
+  const rows = manifest();
+  const runs = rows.map((row, i) => ({
+    taskId: row.taskId,
+    runId: `identity-run-${i}`,
+    evidenceRef: `runtime://mimo-pro/identity/${i}`,
+    observedAt: OBSERVED_AT,
+    response: `answer-${i + 1}`,
+    costUsd: 0.001,
+    latencyMs: 100,
+    founderMinutes: 0,
+    observedProvider: profile.provider,
+    observedModel: i === 3 ? 'mimo-v2.6-flash' : profile.model,
+    observedRevision: profile.revision,
+    providerRequestId: `req-identity-${i}`,
+    identityVerification: 'OBSERVED',
+    verifierIndependent: true,
+    holdoutPromptExposedToOptimizer: false,
+    modelJudgedOwnIdentityMarkedAnswer: false
+  }));
+  const trial = compileSealedArchitectureTrial({
+    architectureId: 'mimo-pro-with-one-substituted-run',
+    architectureClass: 'CHALLENGER',
+    architectureDigest: digest({ architecture: 'mimo-pro-with-one-substituted-run', revision: 'r1' }),
+    architectureRevision: 'r1',
+    architectureSourceRef: 'source://mimo-pro-with-one-substituted-run',
+    architectureFrozenAt: FROZEN_AT,
+    taskClass: 'reasoning',
+    suiteVersion,
+    corpusDigest: corpusDigestFor(rows),
+    sealedManifest: rows,
+    holdoutCommitment: commitmentFor(rows),
+    runs,
+    processScore: 1,
+    processEvidenceRef: 'review://identity-substitution',
+    verifierId: 'independent-verifier',
+    architectureDesignerId: 'architecture-builder',
+    benchmarkSubject: { ...profile, exclusiveCognitiveSubject: true }
+  });
+  assert.equal(trial.ok, false);
+  assert.ok(trial.reasonCodes.some(code => code.includes('benchmark-subject-runtime-identity-not-proven')));
 });

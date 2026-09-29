@@ -1005,6 +1005,15 @@
         "candidateOnly": true,
         "goal": "Use frontier calls preferentially to create reusable descendants rather than disposable prose when task semantics permit."
       }
+    },
+    "millionDollarInventionLab": {
+      "status": "ACTIVE_RESEARCH_PROGRAM_NOT_PROVEN",
+      "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+      "currentTeacherCrownCandidate": "anthropic/claude-opus-5.5",
+      "observedAt": "2026-09-29",
+      "permanentCrown": false,
+      "centralThesis": "Use the strongest verified current frontier as an intelligence-capital issuer whose valuable outputs become reusable semantic assets, Jev circuits, verifiers, task compilers and deterministic code.",
+      "nextInternalExperiment": "Measure semantic duplication and repeated decision obligations in real UberBond workloads before claiming multiplicative compression."
     }
   },
   "wessamSingularityOverlay": {

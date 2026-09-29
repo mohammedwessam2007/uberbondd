@@ -8,7 +8,9 @@ import {
   compileLosslessFrontierDeltaPacket,
   compileExactCacheDecision,
   governMonthlyCognitionBudget,
-  compileOpenRouterProviderPolicy
+  compileOpenRouterProviderPolicy,
+  compileSpeculativeReadOnlyPlan,
+  compileShadowEscalationThresholdCandidate
 } from '../src/frontier-quality-market-compiler.mjs';
 
 const sha = char => char.repeat(64);
@@ -154,4 +156,38 @@ test('OpenRouter provider policy permits same-model price routing but not model 
   assert.equal(out.provider.data_collection, 'deny');
   assert.equal(out.modelFallbacks, 'PROHIBITED_UNLESS_SEPARATELY_ZERO_LOSS_CERTIFIED');
   assert.equal(out.providerFailoverScope, 'SAME_MODEL_ONLY');
+});
+
+
+test('speculative execution is limited to read-only reversible work', () => {
+  const safe = compileSpeculativeReadOnlyPlan({
+    missionId: 'm1',
+    operations: [
+      { operationId: 'r1', kind: 'FILE_READ', targetRef: 'file://artifact', readOnly: true, reversible: true },
+      { operationId: 'r2', kind: 'TEST_RUN', targetRef: 'repo://tests', readOnly: true, reversible: true }
+    ]
+  });
+  assert.equal(safe.ok, true);
+  assert.equal(safe.consequenceAuthority, 'NONE');
+
+  const unsafe = compileSpeculativeReadOnlyPlan({
+    missionId: 'm2',
+    operations: [{ operationId: 'x', kind: 'DEPLOY', targetRef: 'prod://service', readOnly: false, reversible: false }]
+  });
+  assert.equal(unsafe.ok, false);
+  assert.ok(unsafe.reasonCodes.includes('only-read-only-reversible-speculation-allowed'));
+});
+
+test('online threshold optimization stays shadow-only until canonical zero-loss evidence exists', () => {
+  const out = compileShadowEscalationThresholdCandidate({
+    taskClass: 'research',
+    disagreementThreshold: 0.2,
+    uncertaintyThreshold: 0.3,
+    minimumSamples: 500,
+    evidenceRef: 'experiment://threshold-candidate'
+  });
+  assert.equal(out.ok, true);
+  assert.equal(out.routingAuthority, 'SHADOW_ONLY');
+  assert.equal(out.promotionAuthority, 'NONE');
+  assert.ok(out.requiredPromotionEvidence.includes('canonical zero-loss certificate'));
 });

@@ -983,6 +983,37 @@
       "pairedRequiredQualityRegressionsAllowed": 0,
       "interpretation": "Literal matched direct-frontier reference-work/economic equivalence, not an unsupported raw-GPU/FLOP equivalence claim.",
       "nextEvidence": "Live activation -> paired burn-in -> realized compilation -> measured 100x -> 1000x -> 10000x -> 33333.333x"
+    },
+    "millionDollarIntelligenceInventionLab": {
+      "status": "RESEARCH_PROGRAM_READY__NOT_LIVE_PROVEN",
+      "spec": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+      "highestLeverageHypotheses": [
+        "Verified Semantic Hashing",
+        "Decision Franchises",
+        "Exception-Only Crown",
+        "Verifier Foundry",
+        "Living Evidence Graph",
+        "Semantic Demand Exchange",
+        "Self-Evolving Task-Class Compilers"
+      ],
+      "firstInternalExperiment": "MEASURE_SEMANTIC_DUPLICATION_AND_RECURRENCE_IN_REAL_UBERBOND_WORK",
+      "nextAfterActivation": "RUN_PAIRED_BURN_IN_THEN_BEGIN_E1_TO_E7_IN_ORDER",
+      "truthBoundary": "These are invention hypotheses and donor mechanisms, not measured 33,333x results.",
+      "teacherCrownCapitalIssuer": {
+        "role": "MOVING_FRONTIER_CAPITAL_ISSUER",
+        "currentPublicCandidate": "anthropic/claude-opus-5.5",
+        "candidateOnly": true,
+        "goal": "Use frontier calls preferentially to create reusable descendants rather than disposable prose when task semantics permit."
+      }
+    },
+    "millionDollarInventionLab": {
+      "status": "ACTIVE_RESEARCH_PROGRAM_NOT_PROVEN",
+      "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+      "currentTeacherCrownCandidate": "anthropic/claude-opus-5.5",
+      "observedAt": "2026-09-29",
+      "permanentCrown": false,
+      "centralThesis": "Use the strongest verified current frontier as an intelligence-capital issuer whose valuable outputs become reusable semantic assets, Jev circuits, verifiers, task compilers and deterministic code.",
+      "nextInternalExperiment": "Measure semantic duplication and repeated decision obligations in real UberBond workloads before claiming multiplicative compression."
     }
   },
   "wessamSingularityOverlay": {

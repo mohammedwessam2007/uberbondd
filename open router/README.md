@@ -321,3 +321,42 @@ Crown novelty
 Canonical specification: `open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`.
 
 The earlier 10x -> 1000x ladder remains preserved as intermediate milestones. The new ladder extends through 2,500x, 5,000x, 10,000x, 25,000x, 33,333.333x, 50,000x and 100,000x. Reality decides which levels are achievable.
+
+
+## Million-Dollar Intelligence Invention Lab
+
+`19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md` turns the 33,333.333x upper research target into a concrete invention and falsification program.
+
+Highest-leverage new hypotheses include:
+
+- Verified Semantic Hashing;
+- Decision Franchises;
+- Exception-Only Crown;
+- Verifier Foundry;
+- Solver Transpiler;
+- Living Evidence Graph / Delta Research Compiler;
+- Semantic Demand Exchange;
+- Cognitive Capsules / Semantic ABI;
+- Counterexample Boundary Mining;
+- self-evolving task-class compilers;
+- Intelligence Capital accounting;
+- Semantic E-Graphs;
+- Ghost Agents;
+- Crown Boundary Querying;
+- a separately-accounted lawful Compute-Donation Mesh.
+
+The first experiment is not another architecture rewrite. It is to measure how much exact/semantic recurrence actually exists in real UberBond workloads, because the million-dollar target cannot be honestly reached by reuse if the work is mostly irreducibly novel.
+
+Anti-fantasy law:
+
+```
+Never multiply isolated paper savings.
+Only end-to-end measured compression on the same quality-gated workload counts.
+```
+
+
+### Moving Teacher-Crown as Intelligence Capital Issuer
+
+The strongest verified task-appropriate frontier model should be used not only to answer hard tasks but to issue reusable intelligence capital: decision boundaries, applicability predicates, verifier specifications, semantic normalizers, task compilers, Jev candidates, deterministic-code candidates, regression tests and cross-domain primitives.
+
+As of 2026-09-29 public evidence, Claude Opus 5.5 is the current strongest general candidate, but this is a dated candidate state rather than permanent model loyalty. The **role** survives Crown succession.

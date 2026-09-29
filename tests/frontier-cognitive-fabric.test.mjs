@@ -297,7 +297,7 @@ test('COUNCIL_MAX uses independent first-pass responders and a distinct adjudica
   const result = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }),
     profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a, { quality: 0.98 }), benchmark(b, { quality: 0.97 }), benchmark(c, { quality: 0.96 })],
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)],
     contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(result.ok, true);
@@ -381,7 +381,7 @@ test('duplicate execution cannot fake council cardinality or verification', () =
   const c = profile({ id: 'c', provider: 'google', model: 'c' });
   const plan = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }), profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b, { quality: 0.96 }), benchmark(c, { quality: 0.95 })], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(plan.ok, true);
   const duplicate = buildFrontierCognitiveReceipt({
@@ -402,7 +402,7 @@ test('council receipt requires independent verifier evidence and rejects majorit
   const c = profile({ id: 'c', provider: 'google', model: 'c' });
   const plan = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }), profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b, { quality: 0.96 }), benchmark(c, { quality: 0.95 })], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(plan.ok, true);
   const executions = plan.plan.members.map(executionFor);

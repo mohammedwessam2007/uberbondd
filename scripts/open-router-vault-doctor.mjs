@@ -36,7 +36,10 @@ const REQUIRED = [
   'tests/frontier-vm-longitudinal-evaluator.test.mjs',
   'config/frontier-vm-v5-longitudinal-campaign.json',
   'scripts/frontier-vm-v5-doctor.mjs',
-  'src/cognitive-superoptimizer.mjs'
+  'src/cognitive-superoptimizer.mjs',
+  'src/frontier-vm-activation-readiness.mjs',
+  'tests/frontier-vm-activation-readiness.test.mjs',
+  'open router/V5_ACTIVATION_READINESS_RECEIPT_2026-09-29.json'
 ];
 
 const failures = [];
@@ -90,14 +93,20 @@ if (liveQualityLock) {
     'src/frontier-intelligence-vm.mjs',
     'src/cognitive-superoptimizer.mjs',
     'src/frontier-vm-longitudinal-evaluator.mjs',
-    'src/frontier-vm-burnin.mjs'
+    'src/frontier-vm-burnin.mjs',
+    'src/frontier-vm-activation-readiness.mjs',
+    'scripts/frontier-vm-v5-doctor.mjs',
+    'config/ubermind-cloud-cognition-resources.json'
   ]) {
     if (!liveQualityLock.protectedSurfaces?.includes(surface)) failures.push(`live-quality-lock-missing-protected-surface:${surface}`);
   }
   for (const law of [
     'COGNITIVE_BACKEND_AUTHORITY_MUST_MEET_OR_EXCEED_REQUIRED_QUALITY_TYPE',
     'COGNITIVE_SUPEROPTIMIZER_CANNOT_SELF_PROMOTE',
-    'BURNIN_PROMOTION_REQUIRES_CANONICAL_UNTAMPERED_ZERO_LOSS_CERTIFICATE'
+    'BURNIN_PROMOTION_REQUIRES_CANONICAL_UNTAMPERED_ZERO_LOSS_CERTIFICATE',
+    'V5_ACTIVATION_REQUIRES_LIVE_CROWN_SNAPSHOT_AND_FRESH_TASK_SOURCE',
+    'V5_ACTIVATION_READINESS_NEVER_GRANTS_SPEND_OR_PROMOTION_AUTHORITY',
+    'V5_MONTHLY_TARGET_IS_30_USD_WITH_AT_LEAST_15_USD_PROTECTED_CROWN_ESCROW'
   ]) {
     if (!liveQualityLock.laws?.includes(law)) failures.push(`live-quality-lock-missing-law:${law}`);
   }
@@ -136,9 +145,16 @@ for (const token of ['zero stale indexed entries', 'byte-consistent', 'Git blob 
 }
 
 const v5Receipt = readJson('open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json');
+const v5ActivationReceipt = readJson('open router/V5_ACTIVATION_READINESS_RECEIPT_2026-09-29.json');
 if (v5Receipt) {
   if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
   if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
+}
+if (v5ActivationReceipt) {
+  if (v5ActivationReceipt?.status !== 'V5_ACTIVATION_READINESS_SOURCE_IMPLEMENTED_EXTERNAL_GATES_UNPROVEN') failures.push('v5-activation-receipt-status-invalid');
+  if (v5ActivationReceipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-activation-quality-delta-not-zero');
+  if (v5ActivationReceipt?.qualityLaw?.monthlyAllInTargetUsd !== 30) failures.push('v5-activation-budget-not-30');
+  if (v5ActivationReceipt?.qualityLaw?.protectedCrownEscrowUsd < 15) failures.push('v5-activation-crown-escrow-below-15');
 }
 
 const readme = fs.existsSync('open router/README.md') ? fs.readFileSync('open router/README.md', 'utf8') : '';
@@ -167,7 +183,8 @@ console.log(JSON.stringify({
   v3UpgradeCount: canon?.newV3Upgrades?.length ?? 0,
   v4ExactReceipt: exactV4?.status ?? null,
   v4IndexedFileCountBeforeReceipt: exactV4?.indexedFileCountBeforeReceipt ?? null,
-  v5FrontierVm: v5Receipt?.status ?? null
+  v5FrontierVm: v5Receipt?.status ?? null,
+  v5ActivationReadiness: v5ActivationReceipt?.status ?? null
 }, null, 2));
 
 if (failures.length) process.exitCode = 1;

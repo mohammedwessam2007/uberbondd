@@ -501,5 +501,34 @@
     ],
     "currentGeneralCrown": "anthropic/claude-opus-5.5",
     "noAutomaticPaidSpendBeyondAuthorizedCeiling": true
+  },
+  "byConstructionOpusEquivalence": {
+    "status": "FOUNDER_DIRECTED_FORMAL_EQUIVALENCE_ARCHITECTURE_PRE_LIVE_PROOF",
+    "path": "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+    "coreLaw": "RUNTIME_MAY_NOT_INVENT_MATERIAL_SEMANTICS_OUTSIDE_CURRENT_CROWN_OR_REALITY_AUTHORITY",
+    "crownClosureLeaves": [
+      "CURRENT_CROWN_AUTHORIZED_ATOM",
+      "VALID_PRIOR_CROWN_AUTHORIZED_ATOM",
+      "REALITY_SETTLED_EXACT_FACT",
+      "DETERMINISTIC_DERIVATION",
+      "FORMALLY_VERIFIED_TRANSFORMATION"
+    ],
+    "equivalenceClasses": {
+      "E0": "IDENTICAL_REPLAY",
+      "E1": "DETERMINISTIC_DERIVATION",
+      "E2": "FORMALLY_VERIFIED_TRANSFORMATION",
+      "E3": "CLOSED_WORLD_EXHAUSTIVE_POLICY",
+      "E4": "PROOF_CARRYING_CERTIFIED_SEMANTIC_CIRCUIT",
+      "E5": "EMPIRICAL_EQUIVALENCE_ONLY",
+      "E6": "FRESH_FRONTIER"
+    },
+    "primaryMetrics": [
+      "BY_CONSTRUCTION_SHARE",
+      "FRONTIER_SEMANTIC_SHARE",
+      "OPUS_QUALITY_FANOUT"
+    ],
+    "theoremLikeAuthorityMax": "E0_E4_ONLY_WITH_VALID_PROOF_OBLIGATIONS",
+    "openEndedNoveltyStillRequiresFrontier": true,
+    "cheapModelRole": "PROPOSAL_AND_RENDERING_ENGINE_WITH_NO_UNVERIFIED_SEMANTIC_AUTHORITY"
   }
 }

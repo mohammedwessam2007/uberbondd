@@ -327,7 +327,14 @@ export function buildFrontierAdmissionBundle({
       observedRevision: item.observedRevision,
       observedAt: item.observedAt,
       evidenceRef: item.evidenceRef,
-      benchmarkId: item.benchmarkId ?? null
+      benchmarkId: item.benchmarkId ?? null,
+      absoluteFrontierBaseline: item.absoluteFrontierBaseline === true,
+      frontierBaselineArchitectureId: item.frontierBaselineArchitectureId ?? null,
+      frontierCandidateArchitectureId: item.frontierCandidateArchitectureId ?? null,
+      pairedZeroLossCertified: item.pairedZeroLossCertified === true,
+      pairedZeroLossCertificationDigest: item.pairedZeroLossCertificationDigest ?? null,
+      sealedTrialReceiptDigest: item.sealedTrialReceiptDigest ?? null,
+      baselineSealedTrialReceiptDigest: item.baselineSealedTrialReceiptDigest ?? null
     }))
   });
 

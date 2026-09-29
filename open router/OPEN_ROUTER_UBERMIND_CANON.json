@@ -462,5 +462,44 @@
       "primaryCheapDiverseWorker": "deepseek/deepseek-v4.1-flash-20260910",
       "shadowUtilityWorker": "openai/gpt-6-luna"
     }
+  },
+  "oneDollarDay247OpusQualityMode": {
+    "status": "FOUNDER_DIRECTED_OPERATING_ARCHITECTURE_PRE_LIVE_PROOF",
+    "path": "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+    "dailyAiSpendTargetUsd": 1,
+    "monthlyAiSpendTargetUsd": 30,
+    "protectedCrownEscrowUsd": 15,
+    "dailyConceptualEnvelope": {
+      "crownEscrow": 0.5,
+      "ultraCheapMassCognition": 0.2,
+      "cheapStrongDiverseCognition": 0.15,
+      "strongerSpecialistEscalation": 0.1,
+      "reserveVarianceAudit": 0.05
+    },
+    "law": "24_7_MEANS_ALWAYS_AVAILABLE_EVENT_DRIVEN_COGNITION__NOT_CONTINUOUS_PAID_DECODING",
+    "qualityLaw": "QUEUE_OR_WAIT_BEFORE_LOWERING_CURRENT_CROWN_QUALITY_FLOOR",
+    "primaryMetric": "OPUS_QUALITY_FANOUT",
+    "supportingMetrics": [
+      "FRONTIER_PAGE_FAULT_RATE",
+      "NOVELTY_TAX",
+      "COMPILED_COGNITION_SHARE",
+      "REFERENCE_COMPRESSION_FACTOR"
+    ],
+    "currentPreferredVolumePool": [
+      "xiaomi/mimo-v2.6-flash-20260921",
+      "deepseek/deepseek-v4.1-flash-20260910",
+      "z-ai/glm-5.3-flash"
+    ],
+    "cheapStrongPool": [
+      "xiaomi/mimo-v2.6-pro"
+    ],
+    "strongerEscalationPool": [
+      "openai/gpt-6.1-sol__PENDING_ROUTE_PRICE_VERIFICATION",
+      "anthropic/claude-sonnet-5.5",
+      "openai/gpt-6-sol",
+      "qwen/qwen3.8-max-0902"
+    ],
+    "currentGeneralCrown": "anthropic/claude-opus-5.5",
+    "noAutomaticPaidSpendBeyondAuthorizedCeiling": true
   }
 }

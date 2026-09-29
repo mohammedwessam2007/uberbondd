@@ -106,19 +106,21 @@ function normalizeModelRequirement(raw, index) {
   const candidateId = text(raw?.candidateId, 240)?.toLowerCase();
   const role = text(raw?.role, 160)?.toUpperCase();
   const reasoningSettingRef = text(raw?.reasoningSettingRef, 500);
+  const pricingModeRef = text(raw?.pricingModeRef, 160)?.toUpperCase();
   const count = integer(raw?.count ?? 1, 1, 10000);
   const transportClass = text(raw?.transportClass ?? 'ANY_VERIFIED', 80)?.toUpperCase();
   const reasons = [];
   if (!candidateId) reasons.push(`model-${index}:candidate-id-required`);
   if (!role) reasons.push(`model-${index}:role-required`);
   if (!reasoningSettingRef) reasons.push(`model-${index}:reasoning-setting-required`);
+  if (!pricingModeRef) reasons.push(`model-${index}:pricing-mode-required`);
   if (count == null) reasons.push(`model-${index}:bounded-count-required`);
   if (!['ANY_VERIFIED', 'DIRECT', 'GATEWAY'].includes(transportClass)) {
     reasons.push(`model-${index}:recognized-transport-class-required`);
   }
   return reasons.length ? { ok: false, reasonCodes: reasons } : {
     ok: true,
-    value: { candidateId, role, reasoningSettingRef, count, transportClass }
+    value: { candidateId, role, reasoningSettingRef, pricingModeRef, count, transportClass }
   };
 }
 
@@ -166,7 +168,7 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
 
   const seenModelRoles = new Set();
   for (const model of models) {
-    const key = `${model.candidateId}::${model.role}::${model.reasoningSettingRef}::${model.transportClass}`;
+    const key = `${model.candidateId}::${model.role}::${model.reasoningSettingRef}::${model.pricingModeRef}::${model.transportClass}`;
     if (seenModelRoles.has(key)) reasons.push(`architecture-${index}:duplicate-model-requirement`);
     seenModelRoles.add(key);
   }
@@ -508,6 +510,7 @@ export function assessFreshCampaignRuntimeReadiness({
   const prerequisiteSet = new Set((prerequisiteReceipts || []).map(row => text(row?.evidenceRef, 1600)).filter(Boolean));
   const reasons = [];
   const requiredRuntimeKeys = new Set();
+  const requiredPricingKeys = new Set();
 
   for (const architecture of campaignPlan.architectureRoster) {
     for (const requirement of architecture.modelRequirements) {
@@ -516,6 +519,7 @@ export function assessFreshCampaignRuntimeReadiness({
         requirement.reasoningSettingRef,
         requirement.transportClass
       ));
+      requiredPricingKeys.add(`${requirement.candidateId}::${requirement.pricingModeRef}`);
     }
     for (const prerequisite of architecture.evidencePrerequisites) {
       if (!prerequisiteSet.has(prerequisite)) {
@@ -575,9 +579,10 @@ export function assessFreshCampaignRuntimeReadiness({
       ? [...runtimeMap.values()].some(row => row.candidateId === candidateId && row.reasoningSettingRef === reasoningSettingRef)
       : runtimeMap.has(requiredKey);
     if (!runtimeSatisfied) reasons.push(`missing-runtime-proof:${requiredKey}`);
-    if (![...pricingMap.keys()].some(key => key.startsWith(`${candidateId}::`))) {
-      reasons.push(`missing-pricing-proof:${candidateId}`);
-    }
+  }
+
+  for (const requiredPricingKey of requiredPricingKeys) {
+    if (!pricingMap.has(requiredPricingKey)) reasons.push(`missing-pricing-proof:${requiredPricingKey}`);
   }
 
   if (reasons.length) {
@@ -585,6 +590,7 @@ export function assessFreshCampaignRuntimeReadiness({
       campaignId: campaignPlan.campaignId,
       requiredRuntimeKeys: [...requiredRuntimeKeys].sort(),
       observedRuntimeKeys: [...runtimeMap.keys()].sort(),
+      requiredPricingKeys: [...requiredPricingKeys].sort(),
       observedPricingKeys: [...pricingMap.keys()].sort(),
       providerCallsPerformedByThisAssessment: 0,
       spendUsd: 0
@@ -607,6 +613,7 @@ export function assessFreshCampaignRuntimeReadiness({
     admittedDigest: admittedCampaign.admittedDigest,
     readinessDigest,
     requiredRuntimeKeys: [...requiredRuntimeKeys].sort(),
+    requiredPricingKeys: [...requiredPricingKeys].sort(),
     runtimeEvidenceRefs: [...runtimeMap.values()].map(row => row.evidenceRef).sort(),
     pricingEvidenceRefs: [...pricingMap.values()].map(row => row.evidenceRef).sort(),
     prerequisiteEvidenceRefs: [...prerequisiteSet].sort(),

@@ -33,6 +33,7 @@ function architectures() {
           candidateId: 'anthropic-claude-opus-5-5',
           role: 'SOVEREIGN_REASONER',
           reasoningSettingRef: 'anthropic:effort=max',
+          pricingModeRef: 'INTERACTIVE',
           count: 1,
           transportClass: 'ANY_VERIFIED'
         }
@@ -57,6 +58,7 @@ function architectures() {
           candidateId: 'anthropic-claude-opus-5-5',
           role: 'PRIMARY',
           reasoningSettingRef: 'anthropic:effort=max',
+          pricingModeRef: 'INTERACTIVE',
           count: 1,
           transportClass: 'DIRECT'
         },
@@ -64,6 +66,7 @@ function architectures() {
           candidateId: 'openai-gpt-6-astra',
           role: 'INDEPENDENT_APEX_CHALLENGER',
           reasoningSettingRef: 'openai:reasoning=max',
+          pricingModeRef: 'INTERACTIVE',
           count: 1,
           transportClass: 'DIRECT'
         }
@@ -88,6 +91,7 @@ function architectures() {
           candidateId: 'anthropic-claude-opus-5-5',
           role: 'ORCHESTRATOR_AND_FINAL_JUDGE',
           reasoningSettingRef: 'anthropic:effort=max',
+          pricingModeRef: 'INTERACTIVE',
           count: 1,
           transportClass: 'DIRECT'
         },
@@ -95,6 +99,7 @@ function architectures() {
           candidateId: 'deepseek-v4-1-flash',
           role: 'DIVERSE_WORKER',
           reasoningSettingRef: 'deepseek:effort=max',
+          pricingModeRef: 'INTERACTIVE',
           count: 8,
           transportClass: 'DIRECT'
         },
@@ -102,6 +107,7 @@ function architectures() {
           candidateId: 'zai-glm-5-3',
           role: 'DIVERSE_WORKER',
           reasoningSettingRef: 'zai:reasoning=high',
+          pricingModeRef: 'INTERACTIVE',
           count: 4,
           transportClass: 'DIRECT'
         }

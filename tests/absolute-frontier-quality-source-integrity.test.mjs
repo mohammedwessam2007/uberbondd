@@ -46,7 +46,7 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
     'src/frontier-cognitive-fabric.mjs': [
       'DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA',
       'ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE',
-      'validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil })',
+      'validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false })',
       'absoluteQualityInvariant: qualityInvariantAttestation()'
     ],
     'src/frontier-reasoning-runtime.mjs': [

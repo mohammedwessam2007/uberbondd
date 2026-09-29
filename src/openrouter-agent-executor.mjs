@@ -176,6 +176,9 @@ export function createOpenRouterAgentExecutor({
     if (task.consequenceClass && task.consequenceClass !== 'LOCAL_PREPARATION') {
       return fail(['openrouter-worker-only-accepts-local-preparation']);
     }
+    if (responseCacheEligible && String(task?.dataClass || '').trim().toUpperCase() !== 'PUBLIC') {
+      return fail(['openrouter-response-cache-public-data-only']);
+    }
 
     const selectedModel = text(model || configuredModel, 240);
     const outputLimit = integer(maxTokens, 1, 128_000);

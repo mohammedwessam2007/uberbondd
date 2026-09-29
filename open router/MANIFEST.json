@@ -4,7 +4,7 @@
   "createdAt": "2026-09-29",
   "branch": "open-router/frontier-intelligence-virtualization-20260929",
   "baseCurrentMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
-  "observedBranchHeadBeforeManifest": "fea3dd4390f157fd67501bc648ff004eeb144adb",
+  "observedBranchHeadBeforeManifest": "cbf5bad5b939b464b957a077c854edc7841fb68e",
   "folder": "open router/",
   "expectedFinalFolderFileCount": 40,
   "files": [
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "b88def51e45b322913dc293d66dee1a7d1f843f9",
-      "size": 12266
+      "blobSha": "56803a947e2e99c3a610c297af87ee22ad9fc2f5",
+      "size": 12777
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -200,8 +200,8 @@
     },
     {
       "path": "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
-      "blobSha": "02c467bb93d30e2ec77b2530dcc9888246fe146b",
-      "size": 7362
+      "blobSha": "f8e93604f05fc5a2778d04c2e0cb90f9d5681728",
+      "size": 7443
     }
   ],
   "layers": {

@@ -129,7 +129,7 @@ export function assessFrontierVmActivationReadiness({
     },
     quality: {
       maxIntentionalDelta,
-      pairedTaskRegressionAllowed,
+      pairedTaskRegressionAllowed: pairedRegressionAllowed,
       budgetPressureAction: 'QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE'
     },
     activationAuthority: 'CONTROLLED_BURN_IN_ONLY',

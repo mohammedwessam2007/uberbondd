@@ -31,6 +31,12 @@ const benchmark = normalizeModelBenchmark({
 }, new Date(FRESH));
 benchmark.observedRevision = profile.revision;
 benchmark.evidenceRef = 'benchmark://google-gemini-frontier-rev-2026-09';
+benchmark.absoluteFrontierBaseline = true;
+benchmark.frontierBaselineArchitectureId = 'baseline-google-gemini-frontier';
+benchmark.frontierCandidateArchitectureId = 'baseline-google-gemini-frontier';
+benchmark.pairedZeroLossCertified = true;
+benchmark.sealedTrialReceiptDigest = 'trial-google-gemini-frontier';
+benchmark.baselineSealedTrialReceiptDigest = 'trial-google-gemini-frontier';
 const task = {
   missionId: 'frontier-e2e', taskId: 'frontier-e2e', objective: 'Solve one bounded frontier task.',
   taskClass: 'general', role: 'general', dataClass: 'INTERNAL_NON_SECRET', reasoningTier: 'FRONTIER_MAX',

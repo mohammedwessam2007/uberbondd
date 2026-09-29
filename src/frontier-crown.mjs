@@ -148,6 +148,7 @@ export function certifyCampaignFrontierCrown({ campaignPlan, trials = [] } = {})
   const reviewSetDigest=digest(reviewedTrialReceipts);
   const body={
     schemaVersion:FRONTIER_CROWN_VERSION,
+    certifiedAt:new Date().toISOString(),
     absoluteQualityPolicyDigest:ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST,
     campaignId:campaignPlan.campaignId,
     campaignDigest:campaignPlan.campaignDigest,
@@ -183,7 +184,9 @@ export function certifyCampaignFrontierCrown({ campaignPlan, trials = [] } = {})
 export function validateCampaignFrontierCrownCertificate(certificate={}, {
   expectedCampaignDigest=null,
   expectedBaselineArchitectureId=null,
-  expectedBaselineTrialReceiptDigest=null
+  expectedBaselineTrialReceiptDigest=null,
+  now=new Date(),
+  maxAgeMs=24*60*60*1000
 } = {}) {
   const reasons=[];
   const expected=certificate && typeof certificate==='object' ? canonicalCrowns.get(certificate) : null;
@@ -196,6 +199,11 @@ export function validateCampaignFrontierCrownCertificate(certificate={}, {
   }
   if(certificate?.schemaVersion!==FRONTIER_CROWN_VERSION) reasons.push('frontier-crown-schema-required');
   if(certificate?.absoluteQualityPolicyDigest!==ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST) reasons.push('frontier-crown-quality-policy-digest-mismatch');
+  const certifiedAtMs=Date.parse(certificate?.certifiedAt||'');
+  const nowMs=now instanceof Date?now.getTime():Date.parse(now||'');
+  if(!Number.isFinite(certifiedAtMs)||!Number.isFinite(nowMs)||certifiedAtMs>nowMs||nowMs-certifiedAtMs>maxAgeMs){
+    reasons.push('frontier-crown-stale-or-invalid-time');
+  }
   if(expectedCampaignDigest!=null && certificate?.campaignDigest!==expectedCampaignDigest) reasons.push('frontier-crown-campaign-digest-mismatch');
   if(expectedBaselineArchitectureId!=null && certificate?.baselineArchitectureId!==expectedBaselineArchitectureId) reasons.push('frontier-crown-baseline-architecture-mismatch');
   if(expectedBaselineTrialReceiptDigest!=null && certificate?.baselineTrialReceiptDigest!==expectedBaselineTrialReceiptDigest) reasons.push('frontier-crown-baseline-receipt-mismatch');

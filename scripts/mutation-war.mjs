@@ -35,6 +35,47 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /** @type {Mutation[]} */
 export const MUTATIONS = [
+  // ---- Cognitive sovereignty: frontier quality may never be traded away ----
+  {
+    id: 'COG-QUALITY-01',
+    guard: 'Frontier quality delta is exactly zero',
+    file: 'src/absolute-frontier-quality-invariant.mjs',
+    find: 'export const ABSOLUTE_FRONTIER_QUALITY_DELTA = 0;',
+    replace: 'export const ABSOLUTE_FRONTIER_QUALITY_DELTA = 0.01;',
+    suites: ['tests/absolute-frontier-quality-invariant.test.mjs', 'tests/apex-reasoning-hypercompiler.test.mjs']
+  },
+  {
+    id: 'COG-QUALITY-02',
+    guard: 'A paired task regression blocks zero-loss certification',
+    file: 'src/absolute-frontier-quality-invariant.mjs',
+    find: "  if (regressions.length) reasons.push('paired-task-regression-detected');",
+    replace: '  void regressions;',
+    suites: ['tests/absolute-frontier-quality-invariant.test.mjs', 'tests/apex-sealed-tournament.test.mjs']
+  },
+  {
+    id: 'COG-QUALITY-03',
+    guard: 'Frontier runtime requires the canonical quality attestation',
+    file: 'src/frontier-reasoning-runtime.mjs',
+    find: '    const quality = validateQualityInvariantAttestation(member?.absoluteQualityInvariant);',
+    replace: '    const quality = { ok: true, reasonCodes: [] };',
+    suites: ['tests/frontier-reasoning-execution-bridge.test.mjs']
+  },
+  {
+    id: 'COG-QUALITY-04',
+    guard: 'Semantic missions never fall below FRONTIER_MAX',
+    file: 'src/ubermind-cognitive-exchange.mjs',
+    find: "  let reasoningTier='FRONTIER_MAX',roles=['planner'];",
+    replace: "  let reasoningTier='FAST',roles=['planner'];",
+    suites: ['tests/ubermind-cognitive-exchange.test.mjs']
+  },
+  {
+    id: 'COG-QUALITY-05',
+    guard: 'Degraded councils remain prohibited',
+    file: 'src/frontier-cognitive-fabric.mjs',
+    find: "  if (allowDegradedCouncil === true) reasons.push('absolute-frontier-degraded-council-prohibited');",
+    replace: '  void allowDegradedCouncil;',
+    suites: ['tests/frontier-cognitive-fabric.test.mjs', 'tests/avengers-frontier-execution-guard.test.mjs']
+  },
   // ---- Authority: whether a message may reach a real person ---------------
   {
     id: 'AUTH-01', guard: 'Outbound authority is read from durable storage',

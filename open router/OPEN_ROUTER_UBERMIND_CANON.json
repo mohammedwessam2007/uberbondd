@@ -109,7 +109,10 @@
     "thousandDollarReferenceEquivalent": false,
     "globalNumberOne": false,
     "permanentZeroRegression": false,
-    "currentOptimalRoster": false
+    "currentOptimalRoster": false,
+    "globalNoveltyProven": false,
+    "V5LongitudinalCompressionProven": false,
+    "V5CrownSuccessionRecompilationProven": false
   },
   "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
   "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
@@ -200,6 +203,23 @@
       "metacognitive credit assignment",
       "zero-loss deoptimization"
     ],
-    "proofBoundary": "Architecture and pure core implementation exist. Global novelty, market-best compression, and $30 frontier-equivalent operation are empirical claims not yet proven."
+    "proofBoundary": "Architecture and pure core implementation exist. Global novelty, market-best compression, and $30 frontier-equivalent operation are empirical claims not yet proven.",
+    "machineSpec": "open router/14_COGNITIVE_COMPILER_SPEC.json",
+    "noveltyBoundary": "open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md",
+    "priorArt": "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
+    "longitudinalProtocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+    "longitudinalEvaluator": "src/frontier-vm-longitudinal-evaluator.mjs",
+    "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
+    "activationDoctor": "scripts/frontier-vm-v5-doctor.mjs",
+    "primaryResearchMetrics": [
+      "FRONTIER_RESIDUAL_RATIO",
+      "PAIRED_TASK_REGRESSIONS",
+      "REFERENCE_COMPRESSION_FACTOR",
+      "SEMANTIC_PAGE_FAULTS_PER_USEFUL_TASK",
+      "COMPILED_HIT_SHARE",
+      "RECOMPILATION_SURVIVAL_RATE",
+      "ROUTING_REGRET"
+    ],
+    "upgradeCeiling": "NO_MORE_NAMED_LAYERS_UNLESS_THEY_IMPROVE_MEASURED_QUALITY_COMPRESSION_VERIFICATION_LATENCY_FOUNDER_TIME_RECOVERABILITY_OR_AUTHORITY_SAFETY"
   }
 }

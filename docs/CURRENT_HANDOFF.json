@@ -330,7 +330,7 @@
       "docs/CURRENT_HANDOFF.json: merged structurally. Main's seven blockers were verified byte-present among this branch's thirteen before taking the superset."
     ]
   },
-  "updatedAt": "2026-09-20T19:20:00+03:00",
+  "updatedAt": "2026-09-29T21:00:00+03:00",
   "moonshotRealityClosure": {
     "status": "INTERNAL_REALIZATION_ARCHITECTURE_CLOSED__EXTERNAL_REALITY_REMAINS",
     "branch": "research/moonshot-reality-compiler-20260920",
@@ -942,5 +942,35 @@
       "providerInferenceCallsPerformed": 0,
       "spendUsd": 0
     }
+  },
+  "wessamSingularityOverlay": {
+    "status": "FOUNDER_META_NORTH_STAR_CANONICALIZED_SOURCE_ONLY",
+    "recordedAt": "2026-09-29T21:00:00+03:00",
+    "hierarchy": [
+      "WESSAM_SINGULARITY",
+      "SOVEREIGN_COGNITIVE_CONTINUUM",
+      "PERSONAL_CIVILIZATION",
+      "UBERBOND",
+      "UBERMIND",
+      "REPLACEABLE_COGNITIVE_INFRASTRUCTURE"
+    ],
+    "humanCanon": "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
+    "recoveryReceipt": "artifacts/wessam-singularity-prompt-recovery-2026-09-29.json",
+    "sourcePromptSha256": "9a652af926ca512f773f7d6298199f8112e3ea34fcb87b2a20838a82f7c0359d",
+    "sourcePromptLines": 25782,
+    "sourcePromptBytes": 2076353,
+    "crossExaminationLattice": {
+      "lenses": 106,
+      "domains": 68,
+      "cells": 7208,
+      "missingPairs": 0
+    },
+    "relation": "Founder-level meta program above UberBond. Sovereign Cognitive Continuum remains UberBond terminal internal identity.",
+    "currentExecutionFrontier": "Recover complete -> market refresh complete -> cockpit connection remains owner-held external gate -> no paid burn-in without explicit authorization.",
+    "truthBoundary": [
+      "Canonization does not prove a personal singularity occurred.",
+      "Prompt architecture is not lived-reality proof.",
+      "Current task-class Crown remains an empirical challenge, not a brand declaration."
+    ]
   }
 }

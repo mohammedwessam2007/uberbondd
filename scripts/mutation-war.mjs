@@ -71,10 +71,10 @@ export const MUTATIONS = [
   {
     id: 'COG-QUALITY-05',
     guard: 'Degraded councils remain prohibited',
-    file: 'src/frontier-cognitive-fabric.mjs',
+    file: 'src/absolute-frontier-quality-invariant.mjs',
     find: "  if (allowDegradedCouncil === true) reasons.push('absolute-frontier-degraded-council-prohibited');",
     replace: '  void allowDegradedCouncil;',
-    suites: ['tests/frontier-cognitive-fabric.test.mjs', 'tests/avengers-frontier-execution-guard.test.mjs']
+    suites: ['tests/absolute-frontier-quality-invariant.test.mjs', 'tests/frontier-cognitive-fabric.test.mjs', 'tests/avengers-frontier-execution-guard.test.mjs']
   },
   // ---- Authority: whether a message may reach a real person ---------------
   {

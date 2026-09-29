@@ -93,14 +93,20 @@ if (liveQualityLock) {
     'src/frontier-intelligence-vm.mjs',
     'src/cognitive-superoptimizer.mjs',
     'src/frontier-vm-longitudinal-evaluator.mjs',
-    'src/frontier-vm-burnin.mjs'
+    'src/frontier-vm-burnin.mjs',
+    'src/frontier-vm-activation-readiness.mjs',
+    'config/ubermind-cloud-cognition-resources.json',
+    'scripts/ubermind-cloud-market-doctor.mjs'
   ]) {
     if (!liveQualityLock.protectedSurfaces?.includes(surface)) failures.push(`live-quality-lock-missing-protected-surface:${surface}`);
   }
   for (const law of [
     'COGNITIVE_BACKEND_AUTHORITY_MUST_MEET_OR_EXCEED_REQUIRED_QUALITY_TYPE',
     'COGNITIVE_SUPEROPTIMIZER_CANNOT_SELF_PROMOTE',
-    'BURNIN_PROMOTION_REQUIRES_CANONICAL_UNTAMPERED_ZERO_LOSS_CERTIFICATE'
+    'BURNIN_PROMOTION_REQUIRES_CANONICAL_UNTAMPERED_ZERO_LOSS_CERTIFICATE',
+    'V5_ACTIVATION_REQUIRES_30_USD_MONTHLY_TARGET_AND_AT_LEAST_15_USD_PROTECTED_CROWN_ESCROW',
+    'V5_ACTIVATION_READINESS_NEVER_GRANTS_SPEND_OR_PROMOTION_AUTHORITY',
+    'V5_TYPINGMIND_MODE_REQUIRES_CONNECTION_EVIDENCE_BUT_NOT_REPOSITORY_RUNTIME_SECRET'
   ]) {
     if (!liveQualityLock.laws?.includes(law)) failures.push(`live-quality-lock-missing-law:${law}`);
   }

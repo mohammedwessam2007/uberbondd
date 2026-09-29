@@ -22,7 +22,12 @@ const REQUIRED = [
   'open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json',
   'open router/FINAL_CHAT_DELTA_V4_2026-09-29.md',
   'open router/RECOVERY_AUDIT_V4_2026-09-29.md',
-  'open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json'
+  'open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json',
+  'open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md',
+  'open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md',
+  'open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json',
+  'src/frontier-intelligence-vm.mjs',
+  'tests/frontier-intelligence-vm.test.mjs'
 ];
 
 const failures = [];
@@ -55,10 +60,12 @@ if (spec) {
 }
 
 if (canon) {
-  if (canon?.schemaVersion !== 'uberbond.open-router.frontier-max.v3') failures.push('machine-canon-not-v3');
+  if (canon?.schemaVersion !== 'uberbond.open-router.frontier-max.v5') failures.push('machine-canon-not-v5');
   if (canon?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('canon-quality-delta-not-zero');
   if (canon?.founderIntent?.acceptedMonthlyTargetUsd !== 30) failures.push('canon-monthly-budget-not-30');
   if (!Array.isArray(canon?.newV3Upgrades) || !canon.newV3Upgrades.includes('Cognitive Multicast')) failures.push('v3-not-linked-from-machine-canon');
+  if (canon?.frontierIntelligenceVirtualization?.implementation !== 'src/frontier-intelligence-vm.mjs') failures.push('v5-frontier-vm-not-linked-from-machine-canon');
+  if (!Array.isArray(canon?.frontierIntelligenceVirtualization?.qualityTypeSystem) || !canon.frontierIntelligenceVirtualization.qualityTypeSystem.includes('Q_UNKNOWN')) failures.push('v5-quality-type-system-missing');
 }
 
 if (lock) {
@@ -74,7 +81,7 @@ if (manifest) {
 }
 
 if (handoff?.openRouterFrontierMaxFolder20260929?.canonicalFolder !== 'open router/') failures.push('handoff-pointer-missing');
-if (manifest?.status !== 'V2_PLUS_V3_CONTENT_COMPLETE') failures.push('manifest-not-complete');
+if (manifest?.status !== 'V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_CONTENT_COMPLETE') failures.push('manifest-not-v5-complete');
 if (backup?.status !== 'V2_PLUS_V3_BACKUP_CONTENT_COMPLETE') failures.push('backup-receipt-not-complete');
 if (completion?.status !== 'OPEN_ROUTER_VAULT_COMPLETE') failures.push('final-completion-receipt-not-complete');
 if (completion?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('completion-quality-delta-not-zero');
@@ -98,6 +105,12 @@ for (const token of ['zero stale indexed entries', 'byte-consistent', 'Git blob 
   if (!v4Audit.includes(token)) failures.push(`v4-audit-token-missing:${token}`);
 }
 
+const v5Receipt = readJson('open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json');
+if (v5Receipt) {
+  if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
+  if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
+}
+
 const readme = fs.existsSync('open router/README.md') ? fs.readFileSync('open router/README.md', 'utf8') : '';
 for (const token of [
   'Cognitive Multicast',
@@ -105,14 +118,17 @@ for (const token of [
   'Common Semantic Subexpression Elimination',
   'Decision-DAG',
   'Crown Thought Capital Ledger',
-  'Negative Knowledge Cache'
+  'Negative Knowledge Cache',
+  'V5 frontier intelligence virtualization',
+  'COMPILE THE COGNITION',
+  'VIRTUALIZE THE FRONTIER'
 ]) {
   if (!readme.includes(token)) failures.push(`readme-v3-token-missing:${token}`);
 }
 
 console.log(JSON.stringify({
   ok: failures.length === 0,
-  status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V4_VAULT_COMPLETE_AND_EXACTLY_RECOVERABLE',
+  status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V5_FRONTIER_VM_VAULT_COMPLETE_AND_RECOVERABLE',
   failures,
   qualityDelta: spec?.objective?.maxQualityDelta ?? null,
   monthlyBudgetUsd: spec?.budget?.monthlyAllInTarget ?? null,
@@ -120,7 +136,8 @@ console.log(JSON.stringify({
   market: spec?.market?.primaryTransport ?? null,
   v3UpgradeCount: canon?.newV3Upgrades?.length ?? 0,
   v4ExactReceipt: exactV4?.status ?? null,
-  v4IndexedFileCountBeforeReceipt: exactV4?.indexedFileCountBeforeReceipt ?? null
+  v4IndexedFileCountBeforeReceipt: exactV4?.indexedFileCountBeforeReceipt ?? null,
+  v5FrontierVm: v5Receipt?.status ?? null
 }, null, 2));
 
 if (failures.length) process.exitCode = 1;

@@ -7,6 +7,8 @@ import {closeInterpretation} from '../src/interpretation-closure.mjs';
 import {verifyRenderedSurface} from '../src/proof-carrying-renderer.mjs';
 import {partialEvaluateSemanticProgram,verifySpecialization,buildVerifiedSemanticEGraph,selectActiveBoundaryCases,microcodeVerdict} from '../src/semantic-reuse-foundry.mjs';
 import {createOpenRouterGovernedAdapter} from '../src/openrouter-governed-adapter.mjs';
+import {cognitionRouteInventory} from '../src/cognition-route-inventory.mjs';
+import {enhanceAudit} from '../src/ai.mjs';
 const h=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 
 test('economic perimeter closes at 20 runtime + 8 cockpit under $30 all-in planning envelope',()=>{
@@ -69,4 +71,13 @@ test('OpenRouter wrong-model response is refused and not Crown authority',async(
  const seq=[{data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}},{id:'g',model:'wrong/model',choices:[],usage:{cost:.001}}];let i=0;
  const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(seq[i++])})});
  const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'x'}],maxTokens:1});assert.equal(r.status,'OPENROUTER_WRONG_MODEL_SERVED');
+});
+
+test('cash-metered route inventory has no unclassified budget bypass',()=>{
+ const inventory=cognitionRouteInventory();
+ assert.equal(inventory.globalBudgetClaimAllowed,true);
+ assert.equal(inventory.routes.filter(r=>r.cashMetered===true && !String(r.status).startsWith('GOVERNED') && r.status!=='FAIL_CLOSED_WITHOUT_ADMISSION').length,0);
+});
+test('legacy pipeline AI refuses direct paid inference without perimeter admission',async()=>{
+ await assert.rejects(()=>enhanceAudit({provider:'openai',openaiKey:'not-used'}, {id:'p'}, {combinedText:''}, []), /cognition-economic-perimeter-admission-required/);
 });

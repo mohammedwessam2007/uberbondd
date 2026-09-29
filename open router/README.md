@@ -219,9 +219,16 @@ The required quality type does not silently weaken.
 ### V5 core files
 
 - `13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md` — model-independent Cognitive IR, quality types, compiler passes, semantic page faults, proof-carrying cognition, frontier residualization and recompilation on Crown succession.
+- `14_COGNITIVE_COMPILER_SPEC.json` — machine-readable VM/IR/quality-type/compiler contract.
 - `14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md` — profile-guided cognition, hot-path migration, semantic page faults, frontier novelty accounting, cognitive RAID, counterfactual route sampling, quality debt, zero-loss deoptimization and self-hosting compiler discipline.
+- `15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md` — anti-hype law, closest conceptual neighbors, falsifiers, and the point where more architecture becomes theater.
+- `16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md` — current public-neighbor matrix and candidate research contribution.
+- `17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md` — frozen burn-in, recurrence, ablation, and Crown-succession evidence protocol.
 - `src/frontier-intelligence-vm.mjs` — pure executable core for quality-typed Cognitive IR, backend authority checks, exact semantic CSE candidates, Crown escrow, frontier residual packets and proof-carrying cognition packets.
 - `tests/frontier-intelligence-vm.test.mjs` — hostile tests proving weaker backends cannot satisfy stronger quality types and that unknown states page upward.
+- `src/frontier-vm-longitudinal-evaluator.mjs` + tests — measures paired regressions, Frontier Residual Ratio, compression, deoptimizations, and Crown-succession evidence over time.
+- `config/frontier-vm-v5-longitudinal-campaign.json` — frozen no-spend evidence campaign.
+- `scripts/frontier-vm-v5-doctor.mjs` — zero-spend activation gate.
 
 ### V5 conceptual shift
 

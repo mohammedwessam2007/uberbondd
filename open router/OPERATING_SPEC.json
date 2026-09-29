@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "uberbond.open-router.operating-spec.v1",
+  "status": "FOUNDER_APPROVED_PRE_LIVE_EMPIRICAL_PROOF",
+  "objective": {
+    "formal": "min Cost(A) subject to Quality(A) >= strongest_verified_market_quality(taskClass)",
+    "qualityFirst": true,
+    "costSecond": true,
+    "maxQualityDelta": 0
+  },
+  "budget": {
+    "currency": "USD",
+    "monthlyAllInTarget": 30,
+    "hardTarget": true,
+    "pressureRelief": [
+      "QUEUE",
+      "DEFER",
+      "BATCH",
+      "WAIT_FOR_EQUIVALENT_ROUTE",
+      "EXACT_REUSE"
+    ],
+    "forbidden": [
+      "WEAKER_FINAL_AUTHORITY",
+      "SKIP_REQUIRED_CROWN",
+      "UNPROVEN_LOSSY_CONTEXT_DROP"
+    ]
+  },
+  "cockpit": {
+    "device": "iPad",
+    "ui": "TypingMind",
+    "role": "INTERACTIVE_COCKPIT_ONLY",
+    "localGpuRequired": false,
+    "localModelRequired": false
+  },
+  "market": {
+    "primaryTransport": "OpenRouter",
+    "directProviders": "OPTIONAL_DONORS_IF_MEASURED_ADVANTAGE",
+    "permanentModelLoyalty": false,
+    "CrownSelection": "TASK_CLASS_VERIFIED_QUALITY_FIRST"
+  },
+  "cognitionOrder": [
+    "DETERMINISTIC_CODE_AND_EXACT_RETRIEVAL",
+    "CERTIFIED_JEV_REFLEX",
+    "CHEAP_HETEROGENEOUS_EXPLORATION",
+    "ADVERSARIAL_SYNTHESIS",
+    "FRONTIER_CROWN",
+    "REALITY_COURT",
+    "CRYSTALLIZATION"
+  ],
+  "jev": {
+    "role": "SEMANTIC_CONTROL_PLANE",
+    "primitives": [
+      "NOUL",
+      "CHOICE",
+      "SCORE"
+    ],
+    "initialAuthority": "SHADOW_ONLY",
+    "confidenceIsProof": false,
+    "mayAlwaysEscalate": true,
+    "maySuppressRequiredCrownOnlyInsideZeroLossCertifiedDomain": true
+  },
+  "swarm": {
+    "adaptiveN": true,
+    "defaultShape": "MINIMUM_DIVERSE_SET_THEN_EXPAND_ON_UNCERTAINTY",
+    "majorityVoteAuthority": "NONE",
+    "optimizeFor": "INDEPENDENT_USEFUL_INFORMATION_PER_DOLLAR"
+  },
+  "frontier": {
+    "independentBaseline": true,
+    "finalAdjudication": true,
+    "deltaOnlyPreferred": true,
+    "outputForms": [
+      "ACCEPT",
+      "REJECT",
+      "PATCH",
+      "CHANGED_CLAIMS",
+      "DECISION_BOUNDARY",
+      "ESCALATION_CONDITION"
+    ]
+  },
+  "upgrades": {
+    "cognitiveMulticast": true,
+    "CrownCallCoalescing": true,
+    "commonSemanticSubexpressionElimination": true,
+    "decisionDagMemoization": true,
+    "CrownThoughtCapitalLedger": true,
+    "negativeKnowledgeCache": true,
+    "errorPortfolioOptimizer": true,
+    "shadowRouterTournament": true,
+    "valueOfInformationComputeAuction": true,
+    "frontierOutputMinimizer": true,
+    "crossTaskCrownBatching": true,
+    "cognitiveFuturesMarket": true
+  },
+  "crystallization": {
+    "path": [
+      "CROWN",
+      "SEMANTIC_POLICY",
+      "JEV_SHADOW",
+      "ZERO_LOSS_CERTIFICATION",
+      "JEV_REFLEX",
+      "DETERMINISTIC_CANDIDATE",
+      "CODE"
+    ],
+    "driftAction": [
+      "FREEZE",
+      "DECOMPILE",
+      "CROWN",
+      "REVALIDATE"
+    ]
+  },
+  "alwaysOn": {
+    "logicalAgentsPersistent": true,
+    "inferenceStreamsPersistent": false,
+    "scheduler": "EVENT_AND_INFORMATION_VALUE_DRIVEN",
+    "idleInferenceSpendTarget": "NEAR_ZERO"
+  },
+  "successMetric": [
+    "VERIFIED_FRONTIER_QUALITY_USEFUL_WORK_PER_DOLLAR",
+    "REFERENCE_COST_EQUIVALENT_DIVIDED_BY_ACTUAL_COST",
+    "CROWN_CALLS_AVOIDED_BY_CERTIFIED_REFLEXES",
+    "FOUNDER_MINUTES"
+  ],
+  "truthBoundary": [
+    "$30 frontier-equivalent 24/7 novel cognition is not yet proven",
+    "thousands-of-dollars reference-equivalent compression is a target, not a fact",
+    "current Crown must be refreshed from live evidence",
+    "Jev circuits require paired evidence before authority",
+    "unknown stays unknown"
+  ],
+  "nextFrontier": [
+    "PLUG_IN",
+    "COLLECT_LIVE_RECEIPTS",
+    "PAIR_CROWN_VS_UBERMIND",
+    "SHADOW_JEV",
+    "CERTIFY_BOUNDED_CIRCUITS",
+    "ACTIVATE_MULTICAST_AND_DECISION_DAG_REUSE",
+    "MEASURE_COMPRESSION_FACTOR",
+    "MUTATE_FROM_EVIDENCE"
+  ]
+}

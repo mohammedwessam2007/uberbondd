@@ -734,7 +734,10 @@
       "open router/06_24_7_NIGHT_SHIFT.md",
       "open router/07_1000X_COMPRESSION_LAB.md",
       "open router/08_PROMPTS.md",
-      "open router/09_SCOREBOARD_SCHEMA.json"
+      "open router/09_SCOREBOARD_SCHEMA.json",
+      "open router/10_ACTIVATION_CHECKLIST.md",
+      "open router/11_MODEL_MARKET_REFRESH.md",
+      "open router/12_REFERENCE_VALUE_LEDGER.md"
     ],
     "founderObjective": "Highest verified market intelligence at lowest achievable all-in cost, with the accepted initial hard target around USD 30/month and no intentional quality reduction.",
     "v2Upgrades": [
@@ -757,6 +760,6 @@
     "market": "OpenRouter",
     "localHardwareRequired": false,
     "truthBoundary": "This durable package is an operating doctrine and experiment system, not proof that USD 30 already equals thousands of dollars of direct-frontier work. That claim requires matched live receipts and paired quality evidence.",
-    "nextAction": "Activate TypingMind + OpenRouter, collect receipts, run burn-in paired Crown-vs-UberMind trials, calibrate Jev, certify bounded regions, then enter certified compression and measure RCE."
+    "nextAction": "ACTIVATE: TypingMind + OpenRouter key + ~$30 spend ceiling; then run burn-in paired trials and populate the Reference-Value Ledger before promoting compression claims."
   }
 }

@@ -1117,8 +1117,8 @@
     ]
   },
   "infiniteOpusExecution20260929": {
-    "status": "BOUNDED_SOURCE_IMPLEMENTED_PRELIVE",
-    "sourceCommit": "9e52531c850db048460c8fc33d0af182075a54e0",
+    "status": "SOURCE_VERIFIED_PRELIVE",
+    "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
     "implementation": "src/infinite-opus-native-runtime.mjs",
     "closure": "src/semantic-closure-kernel.mjs",
     "budget": "src/cognition-ledger.mjs",
@@ -1131,6 +1131,7 @@
     "crownPromoted": false,
     "qualityBoundary": "Exact typed programs and independently admitted, pinned authority only. Arbitrary prose, current frontier equivalence, economic compression and live availability remain unproven. Legacy independently authorized routes are outside this new governor.",
     "historicalEvidenceBlocker": "Original founder raw transcript has 62611 bytes versus declared 189166; retain integrity block and canonical shards without rewriting the historical hash.",
-    "postgresProof": "scripts/infinite-opus-postgres-proof.mjs"
+    "postgresProof": "scripts/infinite-opus-postgres-proof.mjs",
+    "terminalSourceTribunal": "PASS_WITH_SEPARATE_REALITY_BOUNDARIES"
   }
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.infinite-opus.execution-receipt.v1",
-  "sourceCommit": "9e52531c850db048460c8fc33d0af182075a54e0",
+  "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
   "baseMain": "9c78a59291950fb072b2227f7e8e061197ed72d7",
   "status": "SOURCE_GATE_PASS_PRELIVE",
   "nativePostgresProof": {
@@ -46,23 +46,25 @@
       "failure": "Stale reachability classifications; corrected without weakening ratchet.",
       "correctedReachabilityTests": 13
     },
-    "tests": 8450,
-    "passed": 8395,
+    "tests": 8457,
+    "passed": 8402,
     "failed": 0,
     "skipped": 55,
-    "logSha256": "12d41f50d4941f68e668ab19a888d193e500b28e5df1ad2f00491cd23c13eb01",
+    "logSha256": "7516249dea41e357392796a750dd5d1ef1ea245a984406ca892e2e39c8c8db43",
     "summary": [
-      "\u2714 a local copy of a canonical ledger may not diverge from it (34.935264ms)",
-      "\u2714 a module that reuses a canonical name is reusing the canonical shape (31.726661ms)",
-      "\u2139 tests 8450",
+      "\u2714 a local copy of a canonical ledger may not diverge from it (46.829341ms)",
+      "\u2714 a module that reuses a canonical name is reusing the canonical shape (36.956528ms)",
+      "\u2139 tests 8457",
       "\u2139 suites 18",
-      "\u2139 pass 8395",
+      "\u2139 pass 8402",
       "\u2139 fail 0",
       "\u2139 cancelled 0",
       "\u2139 skipped 55",
       "\u2139 todo 0",
-      "\u2139 duration_ms 150406.930605"
-    ]
+      "\u2139 duration_ms 188240.604157"
+    ],
+    "startedAtCommit": "f9ff5ca8ae289f7f07622cae47d39b8eca7d0a3e",
+    "classificationCorrectionAppliedAndSeparatelyVerified": true
   },
   "baselineRepairs": "Provider nested-data preservation and secret redaction, null-cost unknown accounting, negative reply precedence, explicit current quality/consequence admission fixtures, historical raw-source integrity remains blocked.",
   "proofBoundary": "Synthetic programs and independently pinned bounded authority. No arbitrary-language equivalence, production promotion or savings claim.",
@@ -84,23 +86,38 @@
   ],
   "rawLogs": "Execution log digests and tails retained here; transient raw logs are not claimed as permanent hosted artifacts.",
   "publication": {
-    "sourceCommit": "9e52531c850db048460c8fc33d0af182075a54e0",
+    "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
     "sourceTree": "a0589f55a79f24ea14dd924c8e7156d7a50364f1",
     "locallyTestedSourceCommit": "97de098",
     "sourceTreeIdentityVerified": true,
     "transport": "Connected GitHub Git-data API; local HTTPS push lacked credential helper",
-    "postPublicationSourceAndCanonTests": "PASS; 103 tests, zero failures",
+    "postPublicationSourceAndCanonTests": "PASS; 107 tests, zero failures",
     "summary": [
-      "\u2714 every gate states what it is and what would release it (0.37882ms)",
-      "\u2714 a module may not sit in NEEDS_TRIAGE while also claiming a gate (0.616558ms)",
-      "\u2139 tests 103",
+      "\u2714 every gate states what it is and what would release it (0.481235ms)",
+      "\u2714 a module may not sit in NEEDS_TRIAGE while also claiming a gate (0.452792ms)",
+      "\u2139 tests 107",
       "\u2139 suites 0",
-      "\u2139 pass 103",
+      "\u2139 pass 107",
       "\u2139 fail 0",
       "\u2139 cancelled 0",
       "\u2139 skipped 0",
       "\u2139 todo 0",
-      "\u2139 duration_ms 344.450645"
+      "\u2139 duration_ms 369.948118"
     ]
-  }
+  },
+  "canonicalBindingTests": {
+    "passed": 98,
+    "failed": 0
+  },
+  "sourceDifferentialSinceFullGate": [
+    "config/reachability-classification.json: corrected reachable dispatcher record",
+    "artifacts/sovereign/implementation-manifest.json: explicit existing bounded source/test bindings"
+  ],
+  "hostedCi": {
+    "status": "BLOCKED_BEFORE_JOBS_START",
+    "reason": "The job was not started because your account is locked due to a billing issue.",
+    "sourceTestsExecutedByGitHub": false
+  },
+  "terminalSourceVerification": "docs/receipts/INFINITE_OPUS_TERMINAL_VERIFICATION_2026-09-29.json",
+  "postalSafetyChange": "Standalone direct adapter dispatch removed. Pipeline uses host-configured canonical durable execution, evidence store and exact fresh admission; absent runtime refuses before provider calls."
 }

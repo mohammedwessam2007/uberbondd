@@ -1,0 +1,272 @@
+{
+  "ok": true,
+  "status": "FINITE_REALIZATION_TRIBUNAL_PASSED_WITH_SEPARATE_REALITY_BOUNDARIES",
+  "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
+  "separatedStatus": {
+    "FINITE_ENGINEERING_CLOSURE": "100_PERCENT_OF_DECLARED_FINITE_ENGINEERING_SCOPE",
+    "NAMED_RUNTIME_STATUS": "NOT_MEASURED",
+    "OBSERVED_AUTONOMY_STATUS": "ELAPSED_EVIDENCE_PENDING",
+    "EXTERNAL_COMMERCIAL_STATUS": "NO_REAL_CUSTOMERS_OR_CLEARED_REVENUE",
+    "PERSONAL_REALITY_STATUS": "LONGITUDINAL_EVIDENCE_PENDING",
+    "ASI_EVIDENCE_STATUS": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+    "OPEN_ENDED_FRONTIER_STATUS": "OPEN"
+  },
+  "finiteOpenRequirements": [],
+  "componentReceipts": {
+    "currentTruth": {
+      "ok": true,
+      "version": "uberbond.current-truth-regeneration.v1.7",
+      "status": "CURRENT_TRUTH_AND_ZERO_ORPHAN_GRAPH_REGENERATED_FOR_EXACT_SOURCE_HEAD",
+      "headSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
+      "coverageContentDigest": "90ea8a1a3f6dd90a0fe9a3911d53a25e3aee084de17ffb831d192cb00480b78f",
+      "sourceCleanliness": {
+        "preRegenerationDirtyPathsObserved": true,
+        "preRegenerationDirtyPathCount": 0,
+        "preRegenerationTruthInputDirtyPaths": [],
+        "wholeWorkspaceCleanWhenReadinessMeasured": true,
+        "truthBoundary": "ONLY_PREEXISTING_DIRT_OUTSIDE_CANONICAL_TRUTH_INPUT_PATHS_MAY_COEXIST_WITH_SOURCE_CLEANLINESS. ANY SRC_SCRIPT_TEST_API_CONFIG_ARTIFACT_DOC_OR_ROOT_TRUTH_INPUT_DIRT_FAILS_CLOSED."
+      },
+      "readiness": {
+        "generatedAt": "2026-09-29T22:54:07.396Z",
+        "sourceModules": 948,
+        "testSuites": 1131,
+        "reachability": {
+          "srcModules": 948,
+          "production": 286,
+          "unattendedOperatorOnly": 441,
+          "founderInteractiveOnly": 7,
+          "unreachable": 214,
+          "partitionExact": true,
+          "allClassified": true,
+          "denominatorConserved": true
+        }
+      },
+      "coverage": {
+        "rows": 1041,
+        "extractedConcepts": 1071,
+        "byState": {
+          "ALIAS_OF_CANONICAL_CONCEPT": 45,
+          "COVERED_BY_PARENT_ORGAN": 125,
+          "ENFORCED_BY_CODE": 50,
+          "EXTERNAL_BLOCKED": 18,
+          "HISTORICAL_DONOR_PRESERVED": 200,
+          "OWNER_BOUNDARY": 13,
+          "PARTIAL_CURRENT": 1,
+          "REFERENCE_ONLY_BY_CANON": 33,
+          "STRUCTURAL_NOT_A_BUILD_TARGET": 214,
+          "VERIFIED_CURRENT": 342
+        },
+        "byLane": {
+          "OMEGA-14": 301,
+          "OMEGA-03": 123,
+          "OMEGA-01": 16,
+          "OMEGA-04": 113,
+          "OMEGA-12": 1,
+          "OMEGA-05": 87,
+          "OMEGA-06": 6,
+          "OMEGA-07": 18,
+          "OMEGA-02": 152,
+          "OMEGA-13": 18,
+          "OMEGA-11": 4,
+          "OMEGA-09": 176,
+          "OMEGA-10": 1,
+          "OMEGA-08": 25
+        },
+        "denominatorConserved": true,
+        "stateEvidenceIntegrity": "INDEPENDENTLY_VERIFIED"
+      },
+      "executionLeafGraph": {
+        "requirements": 1041,
+        "leaves": 1041,
+        "orphanRequirements": 0,
+        "floatingLeaves": 0,
+        "dependencyCycles": 0,
+        "dependencyDepth": 1,
+        "maxSafeParallelWidth": 1041,
+        "graphDigest": "aa3f113e0d25c8e3e746cb9fd07bd7d9ed5851e7042c7c1c5422ef46d2b24fc3",
+        "canonicalBindingDigest": "94da834e25c8d50f819e3c7f32e9b158c7cfe4c82499bce2720623115b36f242",
+        "coverageContentDigest": "90ea8a1a3f6dd90a0fe9a3911d53a25e3aee084de17ffb831d192cb00480b78f",
+        "digestsIndependentlyRecomputed": true,
+        "denominatorConserved": true
+      },
+      "regeneratedPaths": [
+        "artifacts/sovereign/canonical-execution-leaf-graph.json",
+        "artifacts/sovereign/implementation-coverage-matrix.json",
+        "artifacts/system-readiness.json",
+        "docs/CURRENT_SYSTEM_STATE.md"
+      ],
+      "closureBoundary": {
+        "sourceTruth": "EXACT_HEAD_GENERATED_AND_CROSS_CHECKED",
+        "requirementAccountingTruth": "ZERO_ORPHAN_AGAINST_EXACT_CANONICAL_COVERAGE_CONTENT_CONSERVED_EXTRACTION_DENOMINATOR_AND_RECOMPUTED_GRAPH_BINDINGS",
+        "coverageStateTruth": "CURRENT_IMPLEMENTATION_STATES_INDEPENDENTLY_BOUND_TO_ROW_EVIDENCE",
+        "deterministicExecutionTruth": "ONLY_GENERATOR_AND_VERIFIER_EXECUTION_PROVEN_BY_THIS_RECEIPT",
+        "namedRuntimeTruth": "NOT_INFERRED",
+        "commercialTruth": "NOT_INFERRED",
+        "lifeOutcomeTruth": "NOT_INFERRED",
+        "asiTruth": "SYSTEM_LEVEL_ASI_NOT_ESTABLISHED",
+        "internalEvidenceReferenceTruth": "EXACT_REPOSITORY_REFERENCES_RESOLVED_AND_EXACT_ROW_REQUIREMENT_LEAF_ASSIGNMENTS_BOUND_TO_CANONICAL_COVERAGE_STATE"
+      },
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "customerMessages": 0,
+        "providerCalls": 0,
+        "spendCents": 0,
+        "deployments": 0,
+        "dnsChanges": 0,
+        "credentialChanges": 0,
+        "paymentMutations": 0,
+        "productionMutations": 0
+      },
+      "evidenceReferenceIntegrity": {
+        "wrapperVersion": "uberbond.current-truth-reference-integrity.v1",
+        "verifierVersion": "uberbond.evidence-reference-integrity.v1.1",
+        "status": "INTERNAL_EVIDENCE_REFERENCES_RESOLVE_ON_EXACT_REPOSITORY_TREE",
+        "referenceDigest": "5276b5daf41ef32d7446e88f5d0f2c30585f150eed6fed89f773bb3439012f25",
+        "trackedPathCount": 3802,
+        "checkedRepositoryPathCount": 1231,
+        "bindingCounts": {
+          "rows": 1041,
+          "requirements": 1041,
+          "leafAssignments": 1041
+        }
+      }
+    },
+    "semanticTribunal": {
+      "ok": true,
+      "status": "SEMANTIC_ZERO_ORPHAN_REQUIREMENTS_VERIFIED",
+      "receiptDigest": "sha256:e12aad037eddd468d7ca3a875a4cb99148301d35c42288447c8ba1e534aab8cf"
+    },
+    "continuation": {
+      "ok": true,
+      "status": "EXECUTION_LEAF_CONTINUATION_READY",
+      "graphDigest": "aa3f113e0d25c8e3e746cb9fd07bd7d9ed5851e7042c7c1c5422ef46d2b24fc3"
+    },
+    "effectAuthority": {
+      "ok": true,
+      "status": "ALL_DECLARED_EFFECT_SINKS_AUTHORITY_BOUND",
+      "receiptDigest": "sha256:af714a850de5198ff111c754a8e02c259aaebf5ac0faff865a0f7a76eca183a9"
+    },
+    "recursiveGovernance": {
+      "ok": true,
+      "status": "RECURSIVE_GOVERNANCE_PRINCIPAL_CONTROL_VERIFIED",
+      "receiptDigest": "sha256:527de4eae505f9b77584b8b475bb8949d117c2ab25cf3ec7515b0d975c77d490",
+      "truthBoundary": "Principal, credential and custody separation is structurally verified for the declared generations. This is not runtime custody evidence and grants no self-modification, deployment or external-effect authority."
+    },
+    "cutSets": {
+      "ok": true,
+      "status": "SOVEREIGN_CUT_SET_AUDIT_CURRENT",
+      "receiptDigest": "sha256:740cbfa9e2319d75f80febf97701f19b62ed0cd0656ee056d4ab34431e01d341",
+      "runtimeProofRequiredCuts": [
+        "SOURCE_REPOSITORY_HOST",
+        "DATABASE_STATE",
+        "WEB_RUNTIME_HOST",
+        "WORKER_SCHEDULER_PROCESS"
+      ],
+      "externalProviderCuts": [
+        "MODEL_PROVIDER",
+        "MESSAGING_PROVIDER",
+        "PAYMENT_PROVIDER",
+        "DEPLOYMENT_PROVIDER"
+      ],
+      "ownerCustodyCuts": [
+        "CREDENTIAL_CUSTODY",
+        "SOVEREIGN_IDENTITY"
+      ],
+      "runtimeEvidenceOverlay": {
+        "version": "uberbond.runtime-cut-evidence-overlay.v2",
+        "acceptedSourceRepositoryHost": false,
+        "acceptedRestartRecovery": false,
+        "acceptedWebRuntimeHost": false,
+        "closedRuntimeCuts": [],
+        "remainingRuntimeCuts": [
+          "SOURCE_REPOSITORY_HOST",
+          "DATABASE_STATE",
+          "WEB_RUNTIME_HOST",
+          "WORKER_SCHEDULER_PROCESS"
+        ],
+        "sourceRepositoryHost": null,
+        "restartRecovery": null,
+        "webRuntimeHost": null,
+        "evidenceRef": null,
+        "receiptDigest": null,
+        "sourceCommit": null,
+        "businessEffectAuthority": "NONE",
+        "truthBoundary": "RUNTIME_CUTS_CLOSE_ONLY_FOR_THEIR_EXACT_SOURCE_CANONICAL_RECEIPTS; RUNTIME HOST EVIDENCE DOES NOT CLOSE EXTERNAL PROVIDER OR OWNER CUSTODY CUTS"
+      },
+      "providerEvidenceOverlay": {
+        "version": "uberbond.provider-cut-evidence-overlay.v1",
+        "acceptedModelProvider": false,
+        "closedProviderCuts": [],
+        "remainingProviderCuts": [
+          "MODEL_PROVIDER",
+          "MESSAGING_PROVIDER",
+          "PAYMENT_PROVIDER",
+          "DEPLOYMENT_PROVIDER"
+        ],
+        "modelProvider": null,
+        "businessEffectAuthority": "NONE",
+        "truthBoundary": "MODEL PROVIDER EVIDENCE MAY CLOSE ONLY MODEL_PROVIDER; IT MUST NOT CLOSE MESSAGING, PAYMENT, DEPLOYMENT OR OWNER-CUSTODY CUTS"
+      },
+      "remainingCutEvidenceOverlay": {
+        "version": "uberbond.remaining-cut-evidence-overlay.v1",
+        "acceptedCuts": [],
+        "rejectedClaims": [],
+        "remainingProviderCuts": [
+          "MODEL_PROVIDER",
+          "MESSAGING_PROVIDER",
+          "PAYMENT_PROVIDER",
+          "DEPLOYMENT_PROVIDER"
+        ],
+        "remainingOwnerCuts": [
+          "CREDENTIAL_CUSTODY",
+          "SOVEREIGN_IDENTITY"
+        ],
+        "evidence": {
+          "MESSAGING_PROVIDER": {
+            "accepted": false,
+            "reasonCodes": [
+              "external-evidence-reference-required",
+              "canonical-remaining-cut-receipt-required"
+            ]
+          },
+          "PAYMENT_PROVIDER": {
+            "accepted": false,
+            "reasonCodes": [
+              "external-evidence-reference-required",
+              "canonical-remaining-cut-receipt-required"
+            ]
+          },
+          "DEPLOYMENT_PROVIDER": {
+            "accepted": false,
+            "reasonCodes": [
+              "external-evidence-reference-required",
+              "canonical-remaining-cut-receipt-required"
+            ]
+          },
+          "CREDENTIAL_CUSTODY": {
+            "accepted": false,
+            "reasonCodes": [
+              "external-evidence-reference-required",
+              "canonical-remaining-cut-receipt-required"
+            ]
+          },
+          "SOVEREIGN_IDENTITY": {
+            "accepted": false,
+            "reasonCodes": [
+              "external-evidence-reference-required",
+              "canonical-remaining-cut-receipt-required"
+            ]
+          }
+        },
+        "businessEffectAuthority": "NONE",
+        "truthBoundary": "EACH EXACT-SOURCE SECRET-FREE RECEIPT MAY CLOSE ONLY ITS OWN NAMED CUT. MESSAGING, PAYMENT, DEPLOYMENT, CREDENTIAL CUSTODY AND SOVEREIGN IDENTITY EVIDENCE ARE NON-TRANSITIVE AND NEVER CREATE AUTHORITY."
+      }
+    }
+  },
+  "truthBoundary": "TERMINAL_REALIZATION IS A FINITE ENGINEERING TRIBUNAL. IT MUST NEVER REWRITE ABSENT RUNTIME, OWNER, PROVIDER, CUSTOMER, REVENUE, LIFE-OUTCOME OR ASI EVIDENCE AS COMPLETE.",
+  "observedAt": "2026-09-29T22:56:08.673368+00:00",
+  "generator": "scripts/terminal-realization.mjs",
+  "artifactSha256": "21e94b851536d11b3a8da7ff0f0d23e7aed5df266a9ade4656fdcaceea8235cf",
+  "inferenceCallsThisMission": 0,
+  "productionDeploymentObserved": false
+}

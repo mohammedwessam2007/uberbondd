@@ -1,6 +1,6 @@
 {
   "CURRENT_MAIN": "9c78a59291950fb072b2227f7e8e061197ed72d7",
-  "SOURCE_READY": "FULL_SOURCE_GATE_PASS; 8395 PASS, 55 EXTERNAL/SPECIALIZED SKIPS",
+  "SOURCE_READY": "8402 PASSED, 0 FAILED, 55 SKIPPED; FINAL CANON 107 PASSED; FINITE SOURCE TRIBUNAL PASSED",
   "LIVE_CONNECTED": "NOT_OBSERVED",
   "TODAY_AI_SPEND": "UNKNOWN",
   "MONTH_AI_SPEND": "UNKNOWN",
@@ -37,7 +37,8 @@
   "SOURCE_BLOCKERS": [],
   "OWNER_ONLY_BLOCKERS": [
     "Secure account connection and explicit bounded paid authorization",
-    "Production host/deployment authority and observation"
+    "Production host/deployment authority and observation",
+    "GitHub Actions account billing lock prevents hosted jobs from starting"
   ],
   "UNPROVEN_CLAIMS": [
     "Moving-Crown equivalence on real tasks",
@@ -57,5 +58,7 @@
   },
   "verificationReceipt": "docs/receipts/INFINITE_OPUS_EXECUTION_2026-09-29.json",
   "syntheticDemandScaleReceipt": "open router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json",
-  "historicalEvidenceDebt": "Original founder transcript 62611 bytes vs declared 189166; integrity remains blocked."
+  "historicalEvidenceDebt": "Original founder transcript 62611 bytes vs declared 189166; integrity remains blocked.",
+  "observedAt": "2026-09-29T22:56:08.669465+00:00",
+  "phase": "PRE_MERGE_CHECKPOINT"
 }

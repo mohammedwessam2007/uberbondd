@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { assessFrontierVmActivationReadiness } from '../src/frontier-vm-activation-readiness.mjs';
 
 const CONFIG_PATH='config/frontier-vm-v5-longitudinal-campaign.json';
 const REQUIRED=[
@@ -9,9 +10,15 @@ const REQUIRED=[
   'open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md',
   'open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md',
   'src/frontier-intelligence-vm.mjs',
+  'src/frontier-vm-activation-readiness.mjs',
   'src/frontier-vm-longitudinal-evaluator.mjs',
+  'src/cognitive-superoptimizer.mjs',
+  'src/frontier-vm-burnin.mjs',
   'tests/frontier-intelligence-vm.test.mjs',
+  'tests/frontier-vm-activation-readiness.test.mjs',
   'tests/frontier-vm-longitudinal-evaluator.test.mjs',
+  'tests/cognitive-superoptimizer.test.mjs',
+  'tests/frontier-vm-burnin.test.mjs',
   CONFIG_PATH
 ];
 
@@ -30,39 +37,33 @@ if(config){
   if(config?.budget?.automaticSpendAuthority!==false) failures.push('automatic-spend-authority-must-be-false');
   if(config?.crown?.permanentVendorLoyalty!==false) failures.push('permanent-vendor-loyalty-forbidden');
   if(config?.crown?.liveSnapshotRequired!==true) failures.push('live-crown-snapshot-required');
+  if(config?.activation?.defaultMode!=='TYPINGMIND_EXTERNAL_COCKPIT') failures.push('typingmind-must-remain-default-interactive-activation-mode');
+  if(config?.activation?.repoRuntimeCredentialRequiredForTypingMind!==false) failures.push('typingmind-must-not-require-repo-runtime-secret');
   const burn=config?.phases?.find(row=>row.id==='BURN_IN');
   if(!burn||burn.minimumFreshPairedTasks<40||burn.directCrownBaselineRequired!==true) failures.push('burn-in-contract-invalid');
   if(!Array.isArray(config?.ablations)||!config.ablations.includes('V5_FULL')||!config.ablations.includes('DIRECT_CROWN')) failures.push('required-ablations-missing');
 }
 
-const credentialPresent=Boolean(String(process.env.OPENROUTER_API_KEY||'').trim());
-const liveCrownSnapshotRef=String(process.env.UBERMIND_LIVE_CROWN_SNAPSHOT_REF||'').trim();
-const freshTaskSourceRef=String(process.env.UBERMIND_FRESH_TASK_SOURCE_REF||'').trim();
-
-const externalBlockers=[];
-if(!credentialPresent) externalBlockers.push('OPENROUTER_API_KEY_REQUIRED');
-if(!liveCrownSnapshotRef) externalBlockers.push('LIVE_CROWN_SNAPSHOT_REF_REQUIRED');
-if(!freshTaskSourceRef) externalBlockers.push('FRESH_TASK_SOURCE_REF_REQUIRED');
-
 const sourceReady=failures.length===0;
-console.log(JSON.stringify({
-  ok:sourceReady&&externalBlockers.length===0,
-  status:!sourceReady
-    ? 'FRONTIER_VM_V5_SOURCE_BROKEN'
-    : externalBlockers.length
-      ? 'FRONTIER_VM_V5_PRE_LIVE_BLOCKED'
-      : 'FRONTIER_VM_V5_READY_FOR_CONTROLLED_LIVE_BURN_IN',
+const activationMode=String(process.env.UBERMIND_ACTIVATION_MODE||config?.activation?.defaultMode||'TYPINGMIND_EXTERNAL_COCKPIT').trim();
+const readiness=assessFrontierVmActivationReadiness({
+  activationMode,
   sourceReady,
+  typingMindOpenRouterConnectionRef:process.env.UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF,
+  runtimeOpenRouterCredentialPresent:Boolean(String(process.env.OPENROUTER_API_KEY||'').trim()),
+  liveCrownSnapshotRef:process.env.UBERMIND_LIVE_CROWN_SNAPSHOT_REF,
+  freshTaskSourceRef:process.env.UBERMIND_FRESH_TASK_SOURCE_REF
+});
+
+console.log(JSON.stringify({
+  ...readiness,
+  status:!sourceReady?'FRONTIER_VM_V5_SOURCE_BROKEN':readiness.status,
   failures,
-  externalBlockers,
-  credentialPresent,
-  liveCrownSnapshotRefPresent:Boolean(liveCrownSnapshotRef),
-  freshTaskSourceRefPresent:Boolean(freshTaskSourceRef),
   monthlyBudgetTargetUsd:config?.budget?.monthlyAllInTargetUsd??null,
   protectedCrownEscrowUsd:config?.budget?.protectedCrownEscrowUsd??null,
-  automaticSpendAuthority:false,
+  cockpit:config?.activation?.interactiveCockpit??null,
   providerCallsPerformed:0,
-  truthBoundary:'READY means prerequisites for a controlled experiment are present. It does not prove quality equivalence, compression, or novelty and does not itself spend money.'
+  truthBoundary:'READY means prerequisites for a controlled experiment are present. TypingMind cockpit mode does not require the OpenRouter secret in the repository runtime. This doctor does not call providers, spend money, or prove quality equivalence.'
 },null,2));
 
 if(!sourceReady) process.exitCode=1;

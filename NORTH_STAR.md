@@ -1,5 +1,16 @@
 # UberBond North Star
 
+## Founder-level hierarchy overlay
+
+The highest founder-level meta North Star is now **Wessam Singularity**, defined in `docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`.
+
+Canonical relation:
+
+`WESSAM SINGULARITY -> SOVEREIGN COGNITIVE CONTINUUM -> PERSONAL CIVILIZATION -> UBERBOND -> UBERMIND -> cognitive infrastructure`
+
+This does not erase the Sovereign Cognitive Continuum. The Continuum remains the terminal identity and objective **inside UberBond**. Wessam Singularity sits above the project as the founder-level regime-change research/execution program. No architecture document may convert that research target into an achievement claim without reality evidence.
+
+
 UberBond's **terminal, highest-level North Star** is the **Sovereign Cognitive Continuum**.
 
 > **UberBond is a lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding one sovereign human source of free will, whose purpose is to make the greatest physically and lawfully reachable intelligence, understanding, capability, possibility, prediction quality, and reality-navigation power available to Mohamed without ever claiming ownership over what Mohamed should want or become.**

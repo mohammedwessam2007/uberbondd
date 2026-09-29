@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "uberbond.wessam-singularity.prompt-recovery.v1",
+  "status": "FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ",
+  "recordedAt": "2026-09-29",
+  "source": {
+    "title": "WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt",
+    "sha256": "9a652af926ca512f773f7d6298199f8112e3ea34fcb87b2a20838a82f7c0359d",
+    "bytes": 2076353,
+    "lines": 25782,
+    "rawBytesRetainedInRepository": false,
+    "rawSourceLocation": "founder-provided ChatGPT Project attachment",
+    "identityLaw": "The exact attachment is identified by sha256+byte+line count. This receipt records complete reading/structure; the repository human canon preserves the material doctrine rather than claiming byte-for-byte archival of the attachment."
+  },
+  "coverage": {
+    "topLevelSectionsRead": "I-XXVI",
+    "inheritedHandoffSectionsRead": "0-44",
+    "lattice": {
+      "lenses": 106,
+      "domains": 68,
+      "cells": 7208,
+      "expectedCells": 7208,
+      "missingPairs": 0,
+      "outputContract": [
+        "one structural distinction",
+        "one mechanism",
+        "one falsifier or evidence path",
+        "one successor question",
+        "one warning against false grandeur"
+      ]
+    }
+  },
+  "hierarchy": [
+    "WESSAM_SINGULARITY",
+    "SOVEREIGN_COGNITIVE_CONTINUUM",
+    "PERSONAL_CIVILIZATION",
+    "UBERBOND",
+    "UBERMIND",
+    "REPLACEABLE_COGNITIVE_INFRASTRUCTURE"
+  ],
+  "canonicalHuman": "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
+  "activationWarRoom": "docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json",
+  "freshTaskCustodian": "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
+  "truthBoundary": {
+    "promptRead": true,
+    "semanticCanonDurable": true,
+    "rawAttachmentCopiedIntoGit": false,
+    "singularityAchieved": false,
+    "currentTaskClassCrownProven": false,
+    "liveThirtyDollarFrontierEquivalenceProven": false
+  }
+}

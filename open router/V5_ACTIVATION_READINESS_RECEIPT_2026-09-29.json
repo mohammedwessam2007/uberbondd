@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "uberbond.open-router.v5-activation-readiness-receipt.v1",
+  "status": "V5_ACTIVATION_READINESS_SOURCE_IMPLEMENTED_EXTERNAL_GATES_UNPROVEN",
+  "date": "2026-09-29",
+  "branch": "open-router/v5-activation-doctor-20260929",
+  "observedBranchHeadBeforeReceipt": "08abc1079e6162e3ab863ed155d0bc8f9949c845",
+  "baseMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
+  "qualityLaw": {
+    "maxIntentionalDelta": 0,
+    "pairedTaskRegressionAllowed": 0,
+    "monthlyAllInTargetUsd": 30,
+    "protectedCrownEscrowUsd": 15,
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE"
+  },
+  "activationModes": {
+    "interactive": {
+      "cockpit": "TypingMind",
+      "backendExecutorRequired": false,
+      "controlledBurnInOnly": true
+    },
+    "unattended": {
+      "backendExecutorRequired": true,
+      "requiredSetting": "OPENROUTER_AGENT_ENABLED=true",
+      "controlledBurnInOnly": true
+    }
+  },
+  "requiredExternalEvidence": [
+    "OPENROUTER_API_KEY_IN_OWNER_CONTROLLED_SECRET_STORE",
+    "LIVE_TASK_CLASS_CROWN_SNAPSHOT_REF",
+    "FRESH_TASK_SOURCE_OR_CUSTODIAN_REF"
+  ],
+  "implemented": {
+    "pureReadinessContract": true,
+    "zeroSpendDoctor": true,
+    "stale20BudgetRefused": true,
+    "crownEscrowBelow15Refused": true,
+    "missingCrownSnapshotRefused": true,
+    "missingFreshTaskSourceRefused": true,
+    "unattendedBackendDisabledRefused": true,
+    "interactiveBackendDisabledAllowed": true,
+    "readinessGrantsSpendAuthority": false,
+    "readinessGrantsPromotionAuthority": false
+  },
+  "verification": {
+    "manualBehaviorHarness": {
+      "interactiveReadyWithBackendDisabled": true,
+      "unattendedBlockedWithBackendDisabled": true,
+      "unattendedReadyWithBackendEnabled": true,
+      "stale20Blocked": true,
+      "lowEscrowBlocked": true,
+      "missingCrownSnapshotBlocked": true
+    },
+    "liveProviderInferenceCalls": 0,
+    "spendUsd": 0
+  },
+  "files": [
+    {
+      "path": "src/frontier-vm-activation-readiness.mjs",
+      "blobSha": "a40149df8dad54f584c2babed114ad211c7b45d0",
+      "size": 6201
+    },
+    {
+      "path": "tests/frontier-vm-activation-readiness.test.mjs",
+      "blobSha": "78ea41240d4bc81fdb004fca78d504a33384e112",
+      "size": 4886
+    },
+    {
+      "path": "scripts/frontier-vm-v5-doctor.mjs",
+      "blobSha": "adf4bc83361ec3c2fef571c220fc76212ca700e7",
+      "size": 4767
+    },
+    {
+      "path": "scripts/ubermind-cloud-market-doctor.mjs",
+      "blobSha": "aadad8700c1ce601c7e10e967ef301e4efedf7b3",
+      "size": 4189
+    },
+    {
+      "path": "config/frontier-vm-v5-longitudinal-campaign.json",
+      "blobSha": "f1ededf2f6397b7bc3abff3839a9851a5eb3643f",
+      "size": 2849
+    },
+    {
+      "path": "config/ubermind-cloud-cognition-resources.json",
+      "blobSha": "914b223c0fe93ef4ef3d321e3e0e1e78683fd73b",
+      "size": 3980
+    },
+    {
+      "path": "config/absolute-frontier-quality-lock.json",
+      "blobSha": "e130568c5222309b9c2c959a349aa448d599809a",
+      "size": 4555
+    },
+    {
+      "path": ".env.example",
+      "blobSha": "0d5fcb89a4a420fb0fc8aba0e2168e95d120ab62",
+      "size": 6051
+    },
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "d811e5743a342c39975f519c59638f86357db6fc",
+      "size": 6333
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "9c358491ac180450f73bf537637c862b13b48b3f",
+      "size": 10755
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "012b858c82216223c400c2f84b054846d22b1479",
+      "size": 7953
+    },
+    {
+      "path": "package.json",
+      "blobSha": "11f0ddf4b4307244e91605ff77e36c51ea83144e",
+      "size": 24475
+    }
+  ],
+  "truthBoundary": [
+    "This receipt proves repository implementation and source-level hostile behavior checks for the V5 activation gate.",
+    "It does not prove an OpenRouter key exists, TypingMind is configured, the current Crown is identified, fresh tasks exist, a paid call succeeded, or $30/month frontier equivalence.",
+    "Live activation begins only after owner-controlled external prerequisites are present and controlled paired burn-in is executed."
+  ],
+  "selfHashExcludedReason": "The receipt cannot contain its own final Git blob SHA without recursion; the vault manifest indexes the finalized receipt after creation."
+}

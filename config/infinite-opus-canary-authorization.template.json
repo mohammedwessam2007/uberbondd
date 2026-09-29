@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.canary-authorization.v1",
+  "ownerApproved": false,
+  "authorizationId": "OWNER_TO_FILL_AFTER_APPROVAL",
+  "expiresAt": "OWNER_TO_FILL_ISO_TIMESTAMP",
+  "maximumSpendUsd": 0.05,
+  "model": "xiaomi/mimo-v2.6-flash",
+  "task": "credential-model-billing-tool-smoke-only",
+  "externalEffects": [],
+  "providerPolicy": {"data_collection":"deny"},
+  "truthBoundary": "This file is a non-secret authorization template. Key possession alone is not spend authority."
+}

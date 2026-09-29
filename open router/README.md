@@ -290,3 +290,34 @@ CONNECT TYPINGMIND/OPENROUTER
 ```
 
 No model in the dated snapshot has production Crown authority merely because it leads a public benchmark.
+
+
+## Million-Dollar Intelligence target
+
+The founder-approved upper research target is now:
+
+```
+actual UberMind all-in cognition spend <= $30
+matched direct-frontier reference cost equivalent >= $1,000,000
+paired required-quality regressions = 0 inside counted scope
+```
+
+This corresponds to approximately **33,333.333x measured reference compression**.
+
+This is a literal reference-work/economic target, not a metaphor and not a current achievement. It does **not** authorize claiming that $1,000,000 of raw GPU/FLOP compute was physically consumed for $30. Raw-compute equivalence requires direct telemetry.
+
+The target cannot be reached honestly through provider price arbitrage alone. The intended path is cumulative cognition amortization:
+
+```
+Crown novelty
+-> reusable thought capital
+-> semantic CSE / multicast / exact reuse
+-> certified Jev
+-> deterministic code
+-> lower future frontier residual
+-> reinvest savings into new novelty
+```
+
+Canonical specification: `open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`.
+
+The earlier 10x -> 1000x ladder remains preserved as intermediate milestones. The new ladder extends through 2,500x, 5,000x, 10,000x, 25,000x, 33,333.333x, 50,000x and 100,000x. Reality decides which levels are achievable.

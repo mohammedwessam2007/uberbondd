@@ -3,6 +3,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 import { validateCompiledSealedArchitectureTrial } from './apex-sealed-tournament.mjs';
+import { certifyPairedZeroLoss } from './absolute-frontier-quality-invariant.mjs';
 
 export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.1';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
@@ -95,10 +96,24 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
   sealedTrial,
   profile,
   taskClasses = ['general'],
+  frontierBaseline = false,
+  baselineSealedTrial = null,
   now = new Date()
 } = {}) {
   const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
   if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+
+  let zeroLoss = null;
+  if (frontierBaseline !== true) {
+    const baselineProvenance = validateCompiledSealedArchitectureTrial(baselineSealedTrial);
+    if (!baselineProvenance.ok) return failure(['canonical-frontier-baseline-sealed-trial-required'], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    zeroLoss = certifyPairedZeroLoss({
+      baselineTrial: baselineSealedTrial,
+      candidateTrial: sealedTrial,
+      provenanceValidator: validateCompiledSealedArchitectureTrial
+    });
+    if (!zeroLoss.ok) return failure(['paired-zero-loss-against-frontier-baseline-required', ...(zeroLoss.reasonCodes || [])], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+  }
 
   const subject = sealedTrial?.architectureIdentity?.benchmarkSubject;
   const profileId = text(profile?.id, 120)?.toLowerCase();
@@ -149,7 +164,17 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     sealedTrialReceiptDigest: sealedTrial.receiptDigest,
     sealedTrialTaskOutcomeDigest: sealedTrial.taskOutcomeDigest,
     benchmarkSubject: structuredClone(subject),
-    liveRoutingAuthority: 'SEALED_TRIAL_DERIVED_ONLY'
+    absoluteFrontierBaseline: frontierBaseline === true,
+    frontierBaselineArchitectureId: frontierBaseline === true
+      ? sealedTrial.architectureId
+      : zeroLoss.baselineArchitectureId,
+    frontierCandidateArchitectureId: sealedTrial.architectureId,
+    pairedZeroLossCertified: frontierBaseline === true ? true : zeroLoss.ok === true,
+    pairedZeroLossCertificationDigest: frontierBaseline === true ? null : zeroLoss.certificationDigest,
+    baselineSealedTrialReceiptDigest: frontierBaseline === true ? sealedTrial.receiptDigest : baselineSealedTrial.receiptDigest,
+    liveRoutingAuthority: frontierBaseline === true
+      ? 'CANONICAL_FRONTIER_BASELINE_SEALED_TRIAL'
+      : 'CANONICAL_PAIRED_ZERO_LOSS_SEALED_TRIAL'
   };
   canonicalLiveBenchmarks.set(benchmark, sha256(benchmark));
   return envelope({
@@ -158,7 +183,7 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     benchmark,
     benchmarkDigest: sha256(benchmark),
     promotionAuthority: 'NONE',
-    truthBoundary: 'LIVE ROUTING BENCHMARK AUTHORITY EXISTS ONLY FOR AN UNMODIFIED BENCHMARK DERIVED IN PROCESS FROM A CANONICAL UNTAMPERED SEALED TRIAL WHOSE EXCLUSIVE MODEL SUBJECT WAS FROZEN BEFORE EVALUATION.'
+    truthBoundary: 'LIVE ROUTING BENCHMARK AUTHORITY EXISTS ONLY FOR AN UNMODIFIED CANONICAL SEALED FRONTIER BASELINE OR A CANONICAL SEALED CANDIDATE PROVEN PAIRED-ZERO-LOSS AGAINST THAT BASELINE; AGGREGATE SCORE EQUALITY ALONE CREATES NO ROUTING AUTHORITY.'
   });
 }
 

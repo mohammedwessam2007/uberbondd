@@ -13,6 +13,8 @@ If it concerns **cold email, outreach, offers, first revenue, reply rate, campai
 
 This route is automatic for commercial/outreach missions but remains subordinate to the Sovereign Cognitive Continuum and current external truth.
 
+If the mission concerns **OpenRouter, TypingMind, Jev, frontier-quality-per-dollar, the $30 cognition budget, AI swarms/subagents, the moving Frontier Crown/Pantheon, or maximizing market intelligence without quality loss**, immediately read `open router/README.md`, `open router/OPEN_ROUTER_UBERMIND_CANON.json`, and `open router/MANIFEST.json` after the normal constitutional startup. Do not restart from generic model recommendations or assume any September 2026 model remains the current Crown.
+
 ## Mandatory first action
 
 1. Refresh the latest `main` and record the exact head SHA.

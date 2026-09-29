@@ -142,11 +142,13 @@ export function validateFounderMoonshotLiteralCorpus(corpus) {
     source: {
       fileName: manifest.source.fileName,
       sha256: rawSourceSha256,
-      bytes: manifest.source.bytes,
-      renderedLineCount: manifest.source.renderedLineCount
+      bytes: Buffer.byteLength(corpus.rawSource || ''),
+      declaredBytes: manifest.source.bytes,
+      renderedLineCount: (corpus.rawSource || '').split('\n').length,
+      declaredRenderedLineCount: manifest.source.renderedLineCount
     },
     canonicalEntriesSha256,
-    truthClass: 'DIRECT_PROJECT_TRANSCRIPT_EXACT_LITERAL_RECOVERY',
+    truthClass: errors.length ? 'RECOVERY_INTEGRITY_BLOCKED_NOT_CURRENT_AUTHORITY' : 'DIRECT_PROJECT_TRANSCRIPT_EXACT_LITERAL_RECOVERY',
     noDropLaw: 'DUPLICATE_TITLES_REMAIN_DISTINCT_BY_ORDINAL_AND_SOURCE_TEXT__SEMANTIC_DEDUPE_CANNOT_DELETE_A_LITERAL_SOURCE_ENTRY'
   };
 }

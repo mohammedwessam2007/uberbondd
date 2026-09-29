@@ -8,7 +8,7 @@ const REDACT_KEY_PATTERN = /password|passwd|secret|token|apikey|api_key|refresht
 const ALLOWED_VALUE_TYPES = new Set(['string', 'number', 'boolean']);
 const MAX_STRING_VALUE_LENGTH = 200;
 const MAX_ARRAY_ITEMS = 50;
-const MAX_DEPTH = 3;
+const MAX_DEPTH = 5;
 
 // This function intentionally drops secret-shaped fields instead of masking
 // them. A masked value can still be mistaken for safe material and later be

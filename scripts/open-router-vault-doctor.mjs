@@ -195,7 +195,7 @@ if (oneDollarMode) {
 }
 
 if (opusQualityVolume) {
-  if (!opusQualityVolume.includes('Cheap models create breadth, not semantic authority')) failures.push('opus-quality-volume-authority-law-missing');
+  if (canon?.opusQualityInsaneVolumeFabric?.cheapModelsFinalAuthority !== false || canon?.opusQualityInsaneVolumeFabric?.majorityVoteFinalAuthority !== false || canon?.opusQualityInsaneVolumeFabric?.jevConfidenceFinalAuthority !== false) failures.push('opus-quality-volume-authority-law-missing');
   if (!opusQualityVolume.includes('Opus Quality Fanout')) failures.push('opus-quality-volume-fanout-metric-missing');
   if (!opusQualityVolume.includes('QUEUE / ESCALATE / WAIT')) failures.push('opus-quality-volume-no-downgrade-fallback-missing');
 }

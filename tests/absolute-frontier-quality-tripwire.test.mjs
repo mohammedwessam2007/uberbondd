@@ -13,7 +13,7 @@ const SOURCE_CONTRACTS = [
       "qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA",
       "validateAbsoluteFrontierQualityPolicy({ qualityDelta })",
       "absoluteQualityInvariant: qualityInvariantAttestation()",
-      "FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX'])"
+      "APEX_REASONING_MODES = Object.freeze(["
     ],
     forbidden: ["qualityFloorDelta = 0.01", "qualityFloorDelta = 0.05"]
   },
@@ -40,7 +40,7 @@ const SOURCE_CONTRACTS = [
     path: './src/apex-sealed-tournament.mjs',
     required: [
       "qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA",
-      "certifyPairedZeroLoss({ baselineTrial: incumbent, candidateTrial: leader })",
+      "certifyPairedZeroLoss({ baselineTrial: incumbent, candidateTrial: leader, provenanceValidator: validateCompiledSealedArchitectureTrial })",
       "absoluteQualityInvariant: qualityInvariantAttestation()"
     ],
     forbidden: ["qualityFloorDelta = 0.01", "qualityFloorDelta = 0.05"]

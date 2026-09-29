@@ -10,6 +10,7 @@ export function allowOutboundConsequenceForTest(context) {
     reservationId: context.reservation.id,
     actionIntentDigest: context.actionIntentDigest,
     effectPayloadDigest: context.effectPayloadDigest,
+    authorizationPayloadDigest: context.authorizationPayloadDigest,
     authorizationDigest: sha256(`test-authorization:${context.actionIntentDigest}`),
     policyDigest: sha256('test-policy'),
     constitutionDigest: sha256('test-constitution'),

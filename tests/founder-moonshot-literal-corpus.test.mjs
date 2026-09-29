@@ -6,11 +6,14 @@ import {
   validateFounderMoonshotLiteralCorpus
 } from '../src/founder-moonshot-literal-corpus.mjs';
 
-test('founder moonshot literal corpus is exactly 890 contiguous source entries', async () => {
+test('literal shards retain 890 contiguous entries; original source integrity remains a separate gate', async () => {
   const corpus = await loadFounderMoonshotLiteralCorpus();
   const result = validateFounderMoonshotLiteralCorpus(corpus);
-  assert.equal(result.ok, true);
-  assert.equal(result.status, 'FOUNDER_MOONSHOT_CORPUS_EXACT_890_OF_890');
+  // Shard completeness never repairs a truncated original transcript.
+  const sourceMatches = corpus.rawSourceSha256 === corpus.manifest.source.sha256;
+  assert.equal(result.ok, sourceMatches);
+  assert.deepEqual(result.errors.filter(e => !e.startsWith('raw-source-sha-mismatch:')), []);
+  if (!sourceMatches) assert.equal(result.truthClass, 'RECOVERY_INTEGRITY_BLOCKED_NOT_CURRENT_AUTHORITY');
   assert.equal(result.counts.expected, 890);
   assert.equal(result.counts.recovered, 890);
   assert.equal(result.counts.shards, 10);
@@ -37,9 +40,15 @@ test('first and last source identities are preserved', async () => {
   assert.equal(corpus.entries.at(-1).stableId, 'founder-moonshot-0890');
 });
 
-test('atomization queue covers every source entry exactly once', async () => {
+test('atomization blocks corrupt original evidence and covers each entry only when integrity closes', async () => {
   const corpus = await loadFounderMoonshotLiteralCorpus();
   const queue = buildFounderMoonshotAtomizationQueue(corpus, { batchSize: 25 });
+  if (!validateFounderMoonshotLiteralCorpus(corpus).ok) {
+    assert.equal(queue.ok, false);
+    assert.equal(queue.status, 'FOUNDER_MOONSHOT_ATOMIZATION_QUEUE_BLOCKED');
+    assert.ok(queue.reasonCodes.some(r => r.startsWith('raw-source-sha-mismatch:')));
+    return;
+  }
   assert.equal(queue.ok, true);
   assert.equal(queue.sourceEntryCount, 890);
   assert.equal(queue.batchCount, 36);

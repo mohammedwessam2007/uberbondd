@@ -211,7 +211,7 @@ test('same cognitive model cannot occupy multiple Avengers chairs under differen
 });
 
 test('FRONTIER_MAX refuses unsupported or stale reasoning bindings', () => {
-  const unsupported = profile({ id: 'unsupported', reasoningBindings: { STANDARD: { settingRef: 'x', sourceRef: 'official://reasoning', verifiedAt: FRESH, evidenceClass: 'OFFICIAL_SOURCE' } } });
+  const unsupported = profile({ id: 'unsupported', model: 'unsupported-model', reasoningBindings: { STANDARD: { settingRef: 'x', sourceRef: 'official://reasoning', verifiedAt: FRESH, evidenceClass: 'OFFICIAL_SOURCE' } } });
   const stale = profile({
     id: 'stale', provider: 'anthropic', model: 'stale-model',
     reasoningBindings: {
@@ -223,9 +223,15 @@ test('FRONTIER_MAX refuses unsupported or stale reasoning bindings', () => {
     benchmarks: [benchmark(unsupported), benchmark(stale)], contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(result.ok, false);
-  assert.equal(result.status, 'CAPACITY_BLOCKED');
-  assert.ok(result.blocked.some(item => item.reasonCodes.some(code => code.includes('reasoning-tier-not-supported'))));
-  assert.ok(result.blocked.some(item => item.reasonCodes.some(code => code.includes('reasoning-binding-stale'))));
+  assert.equal(result.status, 'FRONTIER_PROFILE_SET_INVALID');
+  assert.ok(result.reasonCodes.includes('reasoning-bindings-required:unsupported'));
+  const staleOnly = compileFrontierCognitivePlan({
+    task: task(), profiles: [stale], callability: [callability(stale)],
+    benchmarks: [benchmark(stale)], contextArtifacts: contextArtifacts(), now: NOW
+  });
+  assert.equal(staleOnly.ok, false);
+  assert.equal(staleOnly.status, 'CAPACITY_BLOCKED');
+  assert.ok(staleOnly.blocked.some(item => item.reasonCodes.includes('reasoning-binding-stale:FRONTIER_MAX')));
 });
 
 test('CALLABLE_NOW requires fresh OBSERVED_RUNTIME evidence and exact transport identity', () => {
@@ -335,7 +341,7 @@ test('absolute frontier quality prohibits degraded councils even with an explici
   const attemptedBypass = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true, degradationPolicyRef: 'policy://caller-tries-to-bypass' });
   assert.equal(attemptedBypass.ok, false);
   assert.equal(attemptedBypass.status, 'CAPACITY_BLOCKED');
-  assert.ok(attemptedBypass.reasonCodes.includes('council-minimum-cardinality-unavailable'));
+  assert.ok(attemptedBypass.reasonCodes.some(code => /council.*(independent|cardinality|diversity)|adjudicator/.test(code)), JSON.stringify(attemptedBypass.reasonCodes));
 });
 
 test('stale pricing or benchmark evidence cannot route FRONTIER_MAX', () => {

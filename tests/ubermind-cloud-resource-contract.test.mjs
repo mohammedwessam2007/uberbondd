@@ -15,7 +15,7 @@ test('first activation needs only one external cognition credential', () => {
   const secrets = config.requiredResources.filter(row => row.kind === 'SECRET_CREDENTIAL');
   assert.equal(secrets.length, 1);
   assert.equal(secrets[0].env, 'OPENROUTER_API_KEY');
-  assert.equal(config.requiredResources.find(row => row.id === 'cognition-budget').default, '20');
+  assert.equal(config.requiredResources.find(row => row.id === 'cognition-budget').default, '30');
   assert.equal(config.requiredResources.find(row => row.id === 'openrouter-enable').requiredValue, 'true');
 });
 

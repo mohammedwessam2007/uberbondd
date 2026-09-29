@@ -7,11 +7,16 @@ import { runEconomicRepairJob } from './economic-repair-job-handler.mjs';
 import { planWallbreakerCycle } from './wallbreaker.mjs';
 import { runUberDosoJob } from './uberdoso-job-handler.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { createInfiniteOpusJobHandlers } from './infinite-opus-native-runtime.mjs';
 
 const residentRoot=input=>input.root||process.env.UBERBOND_RUNTIME_ROOT||process.cwd();
 
 export function createMissionAwareJobHandlers({ enqueueJob = null, ...options } = {}) {
   const handlers = createJobHandlers(options);
+  // Event driven, inference free by default. Only governed host configuration can
+  // supply trusted context/authority; a queued task cannot grant either itself.
+  Object.assign(handlers, createInfiniteOpusJobHandlers({ store: options.store,
+    ...(options.infiniteOpus ?? {}) }));
   handlers['founder.outcome.mission.pulse'] = async payload => {
     const input = payload && typeof payload === 'object' ? payload : {};
     if (typeof enqueueJob !== 'function') return {

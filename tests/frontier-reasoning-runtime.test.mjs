@@ -2,7 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileFrontierExecutorWorker, attestFrontierExecution } from '../src/frontier-reasoning-runtime.mjs';
 
+import { qualityInvariantAttestation } from '../src/absolute-frontier-quality-invariant.mjs';
+
 const member = {
+  absoluteQualityInvariant: qualityInvariantAttestation(),
   profileId: 'google-gemini-frontier',
   provider: 'google',
   model: 'gemini-frontier',

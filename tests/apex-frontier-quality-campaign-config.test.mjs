@@ -4,7 +4,6 @@ import assert from 'node:assert/strict';
 import { prepareFreshApexCampaign } from '../src/apex-fresh-campaign.mjs';
 import { validateFrontierModelCandidateRegistry } from '../src/frontier-model-team.mjs';
 import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST } from '../src/absolute-frontier-quality-invariant.mjs';
-import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST } from '../src/absolute-frontier-quality-invariant.mjs';
 
 const campaign = JSON.parse(fs.readFileSync('./config/apex-frontier-quality-compression-campaign.json', 'utf8'));
 const registry = JSON.parse(fs.readFileSync('./config/frontier-model-candidates.json', 'utf8'));

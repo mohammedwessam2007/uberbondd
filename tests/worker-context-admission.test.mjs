@@ -21,13 +21,15 @@ function tempTask(root, baseRevision) {
 test('native isolated worker refuses before model access when Context Projection is absent', () => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-worker-context-admission-'));
   try {
+    const sourceRoot = path.join(tmp, 'source');
+    execFileSync('git', ['clone', '--shared', '--quiet', process.cwd(), sourceRoot]);
     const head = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     const { task, result } = tempTask(tmp, head);
     const execution = spawnSync(process.execPath, ['scripts/sovereign-native-local-model-worker.mjs', task, result], {
-      cwd: process.cwd(),
+      cwd: sourceRoot,
       env: {
         ...process.env,
-        UBERBOND_SOURCE_ROOT: process.cwd(),
+        UBERBOND_SOURCE_ROOT: sourceRoot,
         UBERBOND_WORKER_CONTEXT_PATH: path.join(tmp, 'missing-context.json'),
         UBERBOND_MODEL_PROXY_SOCKET: path.join(tmp, 'must-not-be-contacted.sock')
       },

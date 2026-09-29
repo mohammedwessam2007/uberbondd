@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { scoreSealedResponse } from './nullstar-omega-holdout.mjs';
+export { sealedAnswerDigest } from './nullstar-omega-holdout.mjs';
 import { evaluateReasoningArchitectureArena } from './apex-reasoning-hypercompiler.mjs';
 import { ABSOLUTE_FRONTIER_QUALITY_DELTA, certifyPairedZeroLoss, qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy } from './absolute-frontier-quality-invariant.mjs';
 

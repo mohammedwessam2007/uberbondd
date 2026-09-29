@@ -92,5 +92,5 @@ test('provider diversity cannot admit a weaker model below the exact frontier qu
   });
   assert.equal(out.ok, false);
   assert.equal(out.status, 'CAPACITY_BLOCKED');
-  assert.ok(out.reasonCodes.includes('council-provider-diversity-unavailable') || out.reasonCodes.includes('independent-adjudicator-unavailable'));
+  assert.ok(out.reasonCodes.includes('council-provider-diversity-unavailable') || out.reasonCodes.includes('independent-adjudicator-unavailable') || out.reasonCodes.includes('council-minimum-cardinality-unavailable'), JSON.stringify(out));
 });

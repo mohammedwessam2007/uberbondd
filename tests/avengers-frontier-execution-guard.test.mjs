@@ -81,7 +81,7 @@ test('synthetic FRONTIER_MAX executes only through the branded deterministic no-
   const out = await executeAdmittedFrontierAvenger({
     ...baseArgs(p, calls), modelExecutorFactory, clock: () => times.shift()
   });
-  assert.equal(out.ok, true);
+  assert.equal(out.ok, true, JSON.stringify(out));
   assert.equal(out.status, 'FRONTIER_AVENGER_EXECUTION_COMPLETE');
   assert.equal(out.simulationOnly, true);
   assert.equal(out.providerCalls, 0);
@@ -138,7 +138,7 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   const profiles = [
     profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
     profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.99 }),
-    profile({ id: 'anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.99 })
+    profile({ id: 'z-anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.99 })
   ];
   const calls = profiles.map(callability);
   const modelExecutorFactory = createFrontierSimulationExecutorFactory({
@@ -154,7 +154,7 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   const out = await executeAdmittedFrontierAvenger({
     ...baseArgs(profiles, calls, 'COUNCIL_MAX'), modelExecutorFactory, costCeilingCents: 100, clock: () => ++tick
   });
-  assert.equal(out.ok, true);
+  assert.equal(out.ok, true, JSON.stringify(out));
   assert.equal(out.status, 'FRONTIER_COUNCIL_AVENGERS_EXECUTION_COMPLETE');
   assert.equal(out.simulationOnly, true);
   assert.equal(out.executionCount, 5);
@@ -175,10 +175,10 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   assert.deepEqual(new Set(out.receipt.crossCritiqueProfiles), new Set(['google', 'openai']));
   assert.deepEqual(new Set(out.receipt.contradictions), new Set(['google contradiction', 'openai contradiction']));
   assert.equal(out.receipt.adjudication.decisionBasis, 'EVIDENCE_WEIGHTED');
-  assert.equal(out.receipt.adjudication.adjudicatorProfileId, 'anthropic');
+  assert.equal(out.receipt.adjudication.adjudicatorProfileId, 'z-anthropic');
   assert.equal(out.receipt.adjudication.independentFromResponders, true);
   assert.equal(out.receipt.adjudicatorReusedFromResponders, false);
-  assert.equal(out.receipt.adjudicationExecution.profileId, 'anthropic');
+  assert.equal(out.receipt.adjudicationExecution.profileId, 'z-anthropic');
   assert.equal(out.receipt.councilBudgetCents, 100);
   assert.equal(out.receipt.councilSpentCents, 31);
   assert.equal(out.spentCents, 31);

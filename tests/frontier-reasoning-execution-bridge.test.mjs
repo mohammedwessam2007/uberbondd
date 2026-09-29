@@ -79,7 +79,7 @@ const task = {
   minCouncilSize: 2,
   maxCouncilSize: 2
 };
-const contextArtifacts = [{
+const contextArtifacts = [{ id: 'constitution', kind: 'CONSTITUTION', contentRef: 'repo://AGENTS.md', tags: [], dependencies: [], estimatedTokens: 100, priority: 100, immutable: true }, {
   id: 'frontier',
   kind: 'EVIDENCE',
   contentRef: 'repo://frontier',

@@ -26,6 +26,7 @@ function architectures() {
       promptContractRef: 'apex://frontier-max-contract',
       jevMode: 'NONE',
       deterministicCrystallization: false,
+      trialSpendCeilingUsd: 4,
       modelRequirements: [
         {
           candidateId: 'anthropic-claude-opus-5-5',
@@ -48,6 +49,7 @@ function architectures() {
       promptContractRef: 'apex://frontier-max-contract',
       jevMode: 'NONE',
       deterministicCrystallization: false,
+      trialSpendCeilingUsd: 3,
       modelRequirements: [
         {
           candidateId: 'anthropic-claude-opus-5-5',
@@ -77,6 +79,7 @@ function architectures() {
       promptContractRef: 'apex://frontier-quality-compression',
       jevMode: 'SHADOW_ONLY',
       deterministicCrystallization: true,
+      trialSpendCeilingUsd: 3,
       modelRequirements: [
         {
           candidateId: 'anthropic-claude-opus-5-5',
@@ -121,7 +124,8 @@ function plan(extra = {}) {
       normalization: 'COMMON_CEILING',
       maxMeanCostUsd: 2,
       maxMeanLatencyMs: 300000,
-      maxMeanFounderMinutes: 0.1
+      maxMeanFounderMinutes: 0.1,
+      maxTotalCampaignSpendUsd: 10
     },
     custodianPolicy: {
       rawStorage: 'OUTSIDE_REPOSITORY',
@@ -162,10 +166,22 @@ test('campaign plan freezes architecture identities and preserves frontier-first
   assert.equal(out.qualityFloorPolicy.frontierBaselineArchitectureId, 'opus-frontier-baseline');
   assert.equal(out.qualityFloorPolicy.maxQualityDelta, 0);
   assert.equal(out.custodianPolicy.rawStorage, 'OUTSIDE_REPOSITORY');
+  assert.equal(out.budgetPolicy.maxTotalCampaignSpendUsd, 10);
+  assert.equal(out.budgetPolicy.sumTrialSpendCeilingsUsd, 10);
   assert.equal(out.providerCallAuthority, 'NONE');
   assert.equal(out.spendAuthority, 'NONE');
   assert.equal(out.executionAuthority, 'NONE');
   for (const row of out.architectureRoster) assert.match(row.architectureDigest, /^[a-f0-9]{64}$/);
+});
+
+
+
+test('campaign plan refuses architecture budgets that exceed total experiment cap', () => {
+  const rows = architectures();
+  rows[0].trialSpendCeilingUsd = 8;
+  const out = plan({ architectures: rows });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('architecture-trial-ceilings-exceed-total-campaign-spend-cap'));
 });
 
 test('campaign plan refuses raw holdout material and previously-evaluated reuse policy', () => {

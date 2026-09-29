@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "9940be9a6912ee34ed7fa2272772bc1df450ca86",
-      "size": 15043
+      "blobSha": "224b9d1246cfbf29e288d8c095218472875a9103",
+      "size": 15927
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "bdb3480639f71122c6399e8215f6072e63ea3b3e",
-      "size": 16690
+      "blobSha": "08e9b8821ac8e3a2172f0f3bb3ba9827656af715",
+      "size": 17304
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -220,8 +220,8 @@
     },
     {
       "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
-      "blobSha": "15255af6d381de48c6da70e8b8084b28b68d6404",
-      "size": 25200
+      "blobSha": "5644e76f60cbce4c20e1ece45324dd9110851b02",
+      "size": 32662
     }
   ],
   "layers": {

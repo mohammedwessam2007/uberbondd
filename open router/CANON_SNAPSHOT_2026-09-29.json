@@ -1,0 +1,447 @@
+{
+  "schemaVersion": "uberbond.ubermind.frontier-max-canon.v1",
+  "canonDate": "2026-09-29",
+  "status": "FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF",
+  "inheritance": {
+    "law": "This extends, does not replace, prior UberBond/APEX/Jev/Frontier Quality Compression/Sovereign Cognitive Continuum canon. Omission is not deletion.",
+    "noAmputation": true
+  },
+  "founderIntent": {
+    "informalFraming": "number-one AI abuser",
+    "objective": "Continuously obtain the highest verified intelligence commercially available in the market at the lowest achievable total cost, without reducing quality.",
+    "analogy": "grades up while study time down -> verified intelligence quality up while cost and founder effort down",
+    "keyDistinction": "Do not optimize for the smartest system personally affordable. First identify the strongest available market intelligence, then minimize the cost of reproducing or exceeding its finished-work quality."
+  },
+  "objective": {
+    "formal": "min Cost(A) subject to Quality(A) >= strongest_verified_market_quality(taskClass)",
+    "qualityFirst": true,
+    "costSecond": true,
+    "preferredMetric": "verified frontier-quality useful work per dollar",
+    "secondaryMetrics": [
+      "verified frontier-quality decisions per dollar",
+      "frontier calls avoided by certified Jev circuits per Jev dollar",
+      "reference frontier cost avoided divided by actual UberMind spend",
+      "verified useful work per founder minute"
+    ]
+  },
+  "absoluteQualityLaw": {
+    "maxQualityDelta": 0,
+    "law": "QUALITY_NEVER_PAYS_FOR_COST_SAVINGS",
+    "fixed": [
+      "required final quality",
+      "monthly budget"
+    ],
+    "flexible": [
+      "latency",
+      "throughput",
+      "queue depth",
+      "batch delay"
+    ],
+    "budgetExhaustionAction": "QUEUE_DEFER_BATCH_OR_NEXT_BUDGET_WINDOW_NEVER_DOWNGRADE",
+    "prohibited": [
+      "weaker final model because cheaper",
+      "lower reasoning setting without zero-loss proof",
+      "skip required frontier review",
+      "lossy context deletion",
+      "semantic-cache authority without proof",
+      "silent model substitution"
+    ]
+  },
+  "physicalArchitecture": {
+    "cloudOnly": true,
+    "localGpuRequired": false,
+    "localModelRequired": false,
+    "workstationInferenceRequired": false,
+    "ipadRole": "cockpit",
+    "interactiveUi": "TypingMind",
+    "modelMarket": "OpenRouter",
+    "directProviderApis": "optional donors when materially better on price/features/exact controls",
+    "doctrine": "Hardware is rented. Models are replaceable suppliers. Price is attacked through orchestration."
+  },
+  "typingMindDecision": {
+    "role": "PRIMARY_INTERACTIVE_IPAD_COCKPIT",
+    "notBrain": true,
+    "ubermindOwns": [
+      "reasoning doctrine",
+      "model-role definitions",
+      "Crown/Pantheon selection",
+      "Jev Hyperreflex policy",
+      "quality gates",
+      "adaptive swarm logic",
+      "adversarial synthesis",
+      "caching/crystallization law",
+      "evidence/tournament policy",
+      "cost-control doctrine"
+    ],
+    "pr1027Reconciliation": {
+      "merged": true,
+      "mergeCommit": "8d57f17add2328b1f4a219962df7456e564cebfe",
+      "clarification": "Founder later clarified TypingMind remains the interactive UI rather than a custom UberBond chat frontend.",
+      "retainedValue": "PR #1027 OpenRouter executor remains a backend/donor/unattended-worker capability for night shift, tournaments, or automation when TypingMind is closed.",
+      "supersedes": "Any implication that UberBond must build a new interactive chat UI."
+    }
+  },
+  "frontierCrown": {
+    "permanentModelLoyalty": false,
+    "definition": "strongest verified current model or task-specific frontier model",
+    "formal": "F*(t)=argmax_m Quality(m,t)",
+    "succession": [
+      "new model appears",
+      "quarantine",
+      "fresh hidden evaluation",
+      "task-class Arena",
+      "if it beats incumbent under required evidence, promote Crown/Pantheon role",
+      "revalidate important Jev circuits against new Crown"
+    ],
+    "rule": "Frontier improvement automatically raises UberMind's quality floor."
+  },
+  "practicalSequence": {
+    "interactiveStrict": [
+      "Crown independent baseline",
+      "cheap heterogeneous explorers",
+      "Jev/control-layer routing and dispute triage",
+      "Adversarial Synthesis",
+      "lossless unresolved-claims packet",
+      "Crown final adjudication",
+      "final artifact"
+    ],
+    "crownFinalizerLaw": [
+      "do not majority-vote the swarm",
+      "preserve strongest independent Crown baseline",
+      "treat other models as evidence, attacks, counterexamples, alternate frames, and minority hypotheses",
+      "change baseline only when independently justified",
+      "retain baseline if swarm adds no verified improvement"
+    ],
+    "adaptiveN": "2 -> 4 -> 8 -> 16 -> specialist -> second Crown only around real uncertainty",
+    "candidateCheapFamilies": [
+      "MiMo Flash/Pro",
+      "DeepSeek Flash",
+      "Qwen Flash",
+      "GLM Flash",
+      "Gemini Flash",
+      "MiniMax",
+      "future high-value cloud models"
+    ],
+    "candidateRosterIsCanon": false
+  },
+  "jevHyperreflex": {
+    "role": "SEMANTIC_CONTROL_PLANE_NOT_SOVEREIGN_REASONER",
+    "coreFlywheel": "Crown discovers -> semantic decomposition -> Jev typed reflexes -> repeated stability -> deterministic code",
+    "primitives": [
+      "Noul",
+      "Choice",
+      "Score"
+    ],
+    "decisionBundling": "Prefer one shared state with many typed decisions rather than repeated state ingestion.",
+    "aggressiveUses": [
+      "pre-routing",
+      "relevance",
+      "evidence sufficiency",
+      "contradiction detection",
+      "claim materiality",
+      "novelty detection",
+      "model/agent selection",
+      "reasoning-effort proposal",
+      "adaptive-N expansion",
+      "stopping",
+      "branch killing",
+      "minority-hypothesis preservation",
+      "context loading priority",
+      "cache candidate admission",
+      "tool selection",
+      "search-again decisions",
+      "output QA tripwires",
+      "anomaly detection",
+      "drift detection",
+      "Crown escalation",
+      "capability benchmark prioritization",
+      "architecture experiment prioritization"
+    ],
+    "notFor": [
+      "arithmetic",
+      "exact sums",
+      "date math",
+      "deterministic comparisons",
+      "exact database lookups",
+      "novel multi-hop frontier reasoning"
+    ],
+    "decompositionLaw": "Exact problem -> code; bounded fuzzy semantic judgment -> Jev; novel generative search -> cheap swarm; irreducible novel reasoning -> Crown.",
+    "confidenceLaw": "Jev confidence is routing evidence, never proof."
+  },
+  "crownToJevToCode": {
+    "mandatoryPostCrownQuestions": [
+      "what was genuinely novel?",
+      "which decision boundaries were discovered?",
+      "under what conditions are they valid?",
+      "what invalidates them?",
+      "can fuzzy parts become typed Jev circuits?",
+      "can exact parts become deterministic code?",
+      "which tests establish equivalence?",
+      "what drift signal should decompile the circuit?"
+    ],
+    "goal": "Every expensive Crown call should solve the present task and create reusable cognitive capital when safe.",
+    "law": "Crown thinks once -> Jev decides cheaply many times -> code eventually executes near-zero marginal cost."
+  },
+  "jevCertification": {
+    "initialState": "SHADOW_ONLY",
+    "promotionRequires": [
+      "explicit bounded applicability domain",
+      "fresh paired Crown-vs-Jev evaluation",
+      "zero observed paired regressions under canonical gate",
+      "no relevant false-positive regression",
+      "current provenance",
+      "current Crown reference",
+      "current drift monitoring",
+      "canonical zero-loss certificate where applicable"
+    ],
+    "driftAction": "FREEZE -> DECOMPILE -> FRONTIER CROWN -> REVALIDATE",
+    "continuousAudit": "Sample certified Jev circuits against current Crown forever. Crown succession reopens important circuits to shadow."
+  },
+  "jevAdaptiveCompute": {
+    "principle": "Jev decides where cheap computation expands and may freely trigger more review.",
+    "example": "2 workers -> Jev tests material disagreement/new information value -> stop or expand -> repeat -> Crown when unresolved",
+    "authorityBoundary": "Jev may suppress required Crown review only inside explicitly zero-loss-certified routing domains."
+  },
+  "jevClaimFirewall": {
+    "functions": [
+      "atomize cheap outputs into claims",
+      "classify factual/material/relevant",
+      "score evidence support",
+      "detect contradiction",
+      "detect novelty and duplication",
+      "flag remaining uncertainty",
+      "flag Crown-review requirement"
+    ],
+    "outputRouting": {
+      "cheap": "duplicates/irrelevant/stable certified recurring claims",
+      "expensive": "material unresolved claims -> Adversarial Synthesis -> Crown"
+    },
+    "purpose": "Semantic garbage collection so Crown sees signal instead of transcript sludge."
+  },
+  "adversarialSynthesis": {
+    "majorityVoteAuthority": "NONE",
+    "preserve": [
+      "falsifiers",
+      "framebreakers",
+      "counterfactual attacks",
+      "evidence hunters",
+      "minority hypotheses",
+      "contradiction maps",
+      "disconfirming evidence"
+    ],
+    "output": "dispute dossier of exact unresolved atoms, not a vote"
+  },
+  "frontierDelta": {
+    "principle": "The most expensive model receives only information necessary to decide.",
+    "stableContext": [
+      "doctrine",
+      "tools",
+      "memory refs",
+      "project state",
+      "artifact refs"
+    ],
+    "freshDelta": [
+      "changed facts",
+      "unresolved claims",
+      "strongest attacks",
+      "evidence refs",
+      "requested verdict"
+    ],
+    "preferredOutputs": [
+      "ACCEPT",
+      "REJECT",
+      "PATCH",
+      "changed claims",
+      "exact decision boundary"
+    ],
+    "compressionLaw": "A token cheaper than a cached token is a token never sent.",
+    "preferredMethods": [
+      "artifact hashes",
+      "content-addressed references",
+      "exact diffs",
+      "deterministic source slicing",
+      "stable prefix caches"
+    ],
+    "lossySummarizationAuthority": false
+  },
+  "caching": {
+    "exact": "authoritative reuse candidate only when request identity and relevant source-state identity match",
+    "semantic": "suggestion/prefetch/shadow only unless separately zero-loss certified",
+    "law": "Semantic similarity is not logical equivalence."
+  },
+  "alwaysOn24x7": {
+    "meaning": "UberMind is continuously alive, monitoring, queuing, preparing, retrieving, testing, crystallizing, and waking expensive cognition when justified.",
+    "notMeaning": "Every model emits tokens continuously.",
+    "architecture": "Persistent logical agents behave like OS processes. Inference streams wake only when queues/events/uncertainty justify them.",
+    "canonicalScheduling": "event-driven and information-value-driven",
+    "fixedHeartbeatNotCanon": true
+  },
+  "interactiveVsNightShift": {
+    "interactive": "TypingMind on iPad for normal chat, model switching, multi-model comparison, prompts/agents, and final Crown interaction.",
+    "unattended": "Existing UberBond cloud worker may run queues, research, retrieval, cheap exploration, Jev circuits, tests, artifact preparation, dispute packets, and authorized deferred/Batch frontier jobs while TypingMind is closed.",
+    "uiLaw": "No second human-facing UI required."
+  },
+  "monthlyBudget": {
+    "acceptedByFounderUsd": 30,
+    "hardTarget": true,
+    "status": "TARGET_NOT_EMPIRICAL_PROOF",
+    "initialConceptualAllocationUsd": {
+      "jevHyperreflex": 2,
+      "cheapHeterogeneousSwarm": 6,
+      "frontierCrown": 16,
+      "independentCrownOrSpecialistReserve": 4,
+      "feesAndUncertaintyReserve": 2
+    },
+    "allocationIsAdaptive": true,
+    "crownGetsLargestShareBecause": "quality is sacred",
+    "currentEconomicGame": "never buy less intelligence; buy less computation to obtain it"
+  },
+  "jawDroppingCompressionGoal": {
+    "aspiration": "Make about $30/month behave like vastly more expensive frontier usage, potentially thousands-of-dollars-class reference compute/work value.",
+    "status": "RESEARCH_TARGET_NOT_CURRENT_FACT",
+    "referenceCostEquivalent": "Cost of strongest verified baseline performing matched work directly.",
+    "compressionFactor": "Reference Cost Equivalent / actual UberMind all-in cost.",
+    "targetLadder": [
+      "10x",
+      "25x",
+      "50x",
+      "100x",
+      "250x",
+      "500x",
+      "1000x"
+    ],
+    "promotionGate": "Matched task quality must satisfy UberMind >= reference frontier. Cheap-but-worse does not count."
+  },
+  "budgetStrategy": [
+    "spend almost nothing when nothing useful is happening",
+    "prefer exact code/retrieval/cache before semantic inference",
+    "use Jev for abundant bounded microdecisions",
+    "start minimum diverse cheap workers",
+    "expand only on uncertainty",
+    "run Adversarial Synthesis",
+    "send lossless dispute delta to Crown",
+    "feed Reality Court outcomes back",
+    "compile recurring cognition downward to Jev/code"
+  ],
+  "scoreboard": [
+    "all-in spend",
+    "reference-cost equivalent",
+    "compression factor",
+    "tasks/artifacts completed",
+    "paired quality regressions",
+    "Crown task success",
+    "Crown escalation rate",
+    "Crown calls/input/output/reasoning tokens",
+    "Crown calls avoided by certified reflexes",
+    "Jev decisions/input tokens/circuits in shadow/certified/decompiled",
+    "cheap swarm calls",
+    "average adaptive N",
+    "model-lineage diversity",
+    "branches killed early",
+    "exact cache hit rate",
+    "frontier prefix-cache hit rate",
+    "artifact-reference savings",
+    "deterministic code paths crystallized",
+    "reality drift events",
+    "frontier Crown changes",
+    "founder minutes"
+  ],
+  "qualityComparison": {
+    "baseline": "Strongest verified market Crown solves task directly.",
+    "candidate": "UberMind with cloud market, cheap heterogeneous workers, tools/retrieval/code, Jev control, adversarial synthesis, sparse Crown adjudication.",
+    "preferredEvaluation": "blinded paired evaluation on important new task classes",
+    "failure": "UberMind worse on any required dimension",
+    "success": "UberMind equal-or-better and cheaper",
+    "superadditivity": "UberMind better and cheaper",
+    "globalRankClaimsRequireEvidence": true
+  },
+  "empiricalTruth": {
+    "implemented": [
+      "absolute frontier quality lock",
+      "sealed APEX tournament architecture",
+      "canonical zero-loss certificate path",
+      "Noetic/Jev shadow and crystallization machinery",
+      "dynamic model-market architecture",
+      "OpenRouter backend capability",
+      "provider-price and exact-model identity controls",
+      "adaptive-N and adversarial-synthesis source",
+      "exact-cache and delta-packet laws",
+      "conserved compute budget",
+      "TypingMind cockpit decision preserved by this canon",
+      "$30 doctrine preserved by this canon"
+    ],
+    "notYetProven": [
+      "$30/month sustains arbitrary frontier-equivalent novel cognition",
+      "thousands-of-dollars reference-equivalent compression",
+      "optimal live model sequence",
+      "current Crown for every task class",
+      "optimal Jev circuit set",
+      "production Jev calibration across UberMind workloads",
+      "global #1 quality-per-dollar",
+      "100x/500x/1000x compression",
+      "permanent zero-regression on future distributions"
+    ],
+    "law": "Unknown stays unknown."
+  },
+  "minimalActivationResources": [
+    "TypingMind on iPad",
+    "one OpenRouter API key",
+    "$30 hard monthly all-in cognition budget",
+    "current Crown + cheap worker + Jev model access through OpenRouter where available",
+    "existing UberBond cloud/backend only when unattended night-shift work is needed"
+  ],
+  "optionalLaterResources": [
+    "direct Anthropic key if native Batch/cache/control economics materially win",
+    "direct OpenAI key if native Flex/Batch/cache/control economics materially win",
+    "direct TypeSafe/Jev key if direct Jev economics/features materially win",
+    "other direct providers only after measured advantage"
+  ],
+  "activationSequence": [
+    "configure TypingMind",
+    "create/connect OpenRouter API key",
+    "set hard spend control around $30/month",
+    "import current Crown, cheap workers, and Jev",
+    "install UberMind agent/finalizer prompts",
+    "run direct-Crown baseline tasks",
+    "run paired UberMind tasks",
+    "record real token/cost receipts",
+    "shadow Jev circuits",
+    "start zero-loss circuit certification",
+    "turn on unattended cloud night shift only when interactive path is verified",
+    "continuously run Crown succession Arena"
+  ],
+  "recovery": {
+    "instruction": "Do not restart architecture design in a new chat. Recover this canon and continue from activation/empirical proof.",
+    "order": [
+      "refresh main",
+      "read AI_START_HERE.md",
+      "read AGENTS.md",
+      "read docs/UNIVERSAL_CONTEXT_PROTOCOL.md",
+      "recover Total Brain / Master Memory / Current Handoff",
+      "read docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json",
+      "read docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md",
+      "read docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md",
+      "read absolute frontier quality lock and current model registry",
+      "refresh live model/pricing reality",
+      "continue from activation and empirical proof"
+    ],
+    "never": [
+      "restart from which models should we use",
+      "reduce UberMind to Opus plus cheap agents",
+      "assume any current model is permanently best",
+      "replace TypingMind with custom interactive UI without founder instruction",
+      "convert $30 target into quality compromise",
+      "claim thousands-of-dollars equivalent without matched live evidence"
+    ]
+  },
+  "nextFrontier": "PLUG_IN -> COLLECT_LIVE_RECEIPTS -> RUN_PAIRED_CROWN_VS_UBERMIND_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REFLEXES -> MEASURE_COMPRESSION_FACTOR -> MUTATE_ARCHITECTURE_FROM_EVIDENCE",
+  "finalInvariant": "Highest verified intelligence available in the market at the lowest achievable all-in price. Crown thinks once, Jev decides cheaply many times, code eventually executes near-zero marginal cost; anything new, uncertain, drifted, or outside certification returns to the Crown.",
+  "snapshotMetadata": {
+    "snapshotPath": "open router/CANON_SNAPSHOT_2026-09-29.json",
+    "copiedFrom": "docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json",
+    "sourceMainSha": "34abf0b651b07be43fc0898b9afa8419076d6c08",
+    "authority": "RECOVERY_SNAPSHOT_ONLY",
+    "precedence": "Current main/source/runtime/live evidence outrank this snapshot.",
+    "noAmputation": "This snapshot exists to prevent chat-loss, not to fork or replace canon."
+  }
+}

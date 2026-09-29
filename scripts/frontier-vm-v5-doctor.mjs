@@ -52,7 +52,12 @@ const readiness=assessFrontierVmActivationReadiness({
   typingMindOpenRouterConnectionRef:process.env.UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF,
   runtimeOpenRouterCredentialPresent:Boolean(String(process.env.OPENROUTER_API_KEY||'').trim()),
   liveCrownSnapshotRef:process.env.UBERMIND_LIVE_CROWN_SNAPSHOT_REF,
-  freshTaskSourceRef:process.env.UBERMIND_FRESH_TASK_SOURCE_REF
+  freshTaskSourceRef:process.env.UBERMIND_FRESH_TASK_SOURCE_REF,
+  monthlyAllInTargetUsd:config?.budget?.monthlyAllInTargetUsd,
+  protectedCrownEscrowUsd:config?.budget?.protectedCrownEscrowUsd,
+  maxIntentionalDelta:config?.quality?.maxIntentionalDelta,
+  pairedTaskRegressionAllowed:config?.quality?.pairedTaskRegressionAllowed,
+  automaticSpendAuthority:config?.budget?.automaticSpendAuthority
 });
 
 console.log(JSON.stringify({

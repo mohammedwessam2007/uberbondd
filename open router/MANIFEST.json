@@ -84,6 +84,11 @@
       "size": 8289
     },
     {
+      "path": "open router/BACKUP_RECEIPT_2026-09-29.json",
+      "blobSha": "f79aef379c67e88277adbea9ba9031c19dc814e5",
+      "size": 7011
+    },
+    {
       "path": "open router/CANON_SNAPSHOT_2026-09-29.json",
       "blobSha": "3bd6863eddfd0a44192d15dfb3dfd376dc0d435a",
       "size": 18784
@@ -105,8 +110,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "9a3de7889c3007e90653f5efc6b56262e51be39d",
-      "size": 5227
+      "blobSha": "46d27d87f085ac1759e8c39fe2d4ac5a39e2c667",
+      "size": 5729
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -115,8 +120,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "cfef505a1711365ace01e86b596765990be5665a",
-      "size": 6893
+      "blobSha": "9e6ce08a2a9542f758c17d056f5ab849f3c8c874",
+      "size": 7531
     },
     {
       "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
@@ -188,5 +193,7 @@
   "recovery": "Refresh main, run normal UberBond startup, then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json. Continue from activation and empirical proof.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
-  "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json"
+  "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
+  "indexedFilesExcludingSelf": 28,
+  "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; FINAL_COMPLETION_RECEIPT hashes this manifest after finalization."
 }

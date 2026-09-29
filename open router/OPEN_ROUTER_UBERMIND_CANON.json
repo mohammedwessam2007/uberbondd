@@ -112,5 +112,29 @@
     "currentOptimalRoster": false
   },
   "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
-  "recovery": "Read open router/README.md and this canon after normal UberBond startup. Do not restart the system design."
+  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, and MANIFEST.json after normal UberBond startup. Preserve v2 and v3; continue from activation/empirical proof.",
+  "newV3Upgrades": [
+    "Cognitive Multicast",
+    "Crown Call Coalescing",
+    "Common Semantic Subexpression Elimination",
+    "Decision-DAG Incremental Recomputation",
+    "Crown Thought Capital Ledger",
+    "Negative Knowledge Cache",
+    "Error Portfolio Optimizer",
+    "Value-of-Information Compute Auction",
+    "Shadow Router Tournament",
+    "Frontier Output Minimizer",
+    "Cross-task Crown Batching",
+    "Cognitive Futures Market"
+  ],
+  "v3Recovery": {
+    "architecture": "open router/ARCHITECTURE.md",
+    "jev": "open router/JEV_HYPERREFLEX.md",
+    "economics": "open router/ECONOMICS_AND_SCOREBOARD.md",
+    "typingMind": "open router/TYPINGMIND_AND_24_7.md",
+    "activation": "open router/ACTIVATION_CHECKLIST.md",
+    "prompts": "open router/TYPINGMIND_PROMPT_PACK.md",
+    "proof": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+    "machineSpec": "open router/OPERATING_SPEC.json"
+  }
 }

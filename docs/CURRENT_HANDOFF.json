@@ -720,7 +720,7 @@
     "recoveryLaw": "A new/sluggish/crashed chat must read the canon above and continue from activation/empirical proof. Do not restart model-selection architecture."
   },
   "openRouterFrontierMaxFolder20260929": {
-    "status": "FOUNDER_APPROVED_CANON_PACKAGE_PRE_LIVE_ECONOMIC_PROOF",
+    "status": "CANONICAL_FOLDER_V2_PLUS_V3_ARBITRAGE_LAYER_PRE_LIVE_ECONOMIC_PROOF",
     "canonicalFolder": "open router/",
     "primaryPointers": [
       "open router/README.md",
@@ -755,11 +755,37 @@
       "second-Crown insurance",
       "reference-cost-equivalent and reuse-dividend accounting"
     ],
-    "qualityLaw": "ABSOLUTE_FRONTIER_QUALITY_DELTA=0; UNKNOWN_OR_DRIFTED_STATE_RETURNS_TO_CROWN",
+    "qualityLaw": "MAX_INTENTIONAL_QUALITY_DELTA_0__BUDGET_PRESSURE_HITS_LATENCY_THROUGHPUT_QUEUE_DEPTH_FIRST",
     "cockpit": "TypingMind on iPad",
     "market": "OpenRouter",
     "localHardwareRequired": false,
     "truthBoundary": "This durable package is an operating doctrine and experiment system, not proof that USD 30 already equals thousands of dollars of direct-frontier work. That claim requires matched live receipts and paired quality evidence.",
-    "nextAction": "ACTIVATE: TypingMind + OpenRouter key + ~$30 spend ceiling; then run burn-in paired trials and populate the Reference-Value Ledger before promoting compression claims."
+    "nextAction": "ACTIVATE TypingMind + OpenRouter with ~$30 hard target, refresh current Crown/prices, run paired burn-in trials, shadow Jev, measure real compression, then promote only bounded zero-loss regions.",
+    "v3Upgrades": [
+      "Cognitive Multicast",
+      "Crown Call Coalescing",
+      "Common Semantic Subexpression Elimination",
+      "Decision-DAG Incremental Recomputation",
+      "Crown Thought Capital Ledger",
+      "Negative Knowledge Cache",
+      "Error Portfolio Optimizer",
+      "Value-of-Information Compute Auction",
+      "Shadow Router Tournament",
+      "Frontier Output Minimizer",
+      "Cross-task Crown Batching",
+      "Cognitive Futures Market"
+    ],
+    "v3Pointers": [
+      "open router/ARCHITECTURE.md",
+      "open router/JEV_HYPERREFLEX.md",
+      "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "open router/TYPINGMIND_AND_24_7.md",
+      "open router/ACTIVATION_CHECKLIST.md",
+      "open router/TYPINGMIND_PROMPT_PACK.md",
+      "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "open router/OPERATING_SPEC.json",
+      "open router/MANIFEST.json"
+    ],
+    "recovery": "Read open router/README.md + OPEN_ROUTER_UBERMIND_CANON.json + MANIFEST.json. Preserve v2 and v3. Do not redesign from scratch."
   }
 }

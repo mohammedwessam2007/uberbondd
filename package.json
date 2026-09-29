@@ -212,7 +212,8 @@
     "test:absolute:quality": "node --test tests/absolute-frontier-quality-invariant.test.mjs tests/absolute-frontier-quality-tripwire.test.mjs tests/absolute-frontier-quality-source-integrity.test.mjs tests/frontier-cognitive-fabric.test.mjs tests/frontier-reasoning-execution-bridge.test.mjs tests/frontier-producer-origin.test.mjs tests/ubermind-cognitive-exchange.test.mjs tests/apex-reasoning-hypercompiler.test.mjs tests/apex-sealed-tournament.test.mjs tests/apex-fresh-campaign.test.mjs tests/apex-frontier-quality-campaign-config.test.mjs tests/avengers-frontier-execution-guard.test.mjs tests/reasoning-architecture-lab.test.mjs",
     "ubermind:cloud:doctor": "node scripts/ubermind-cloud-market-doctor.mjs",
     "ubermind:cloud:catalog": "node scripts/ubermind-cloud-market-doctor.mjs --live-catalog",
-    "test:ubermind:market": "node --test tests/openrouter-agent-executor.test.mjs tests/openrouter-market-catalog.test.mjs tests/openrouter-factory-integration.test.mjs tests/open-model-factory-integration.test.mjs tests/frontier-quality-market-compiler.test.mjs tests/ubermind-cloud-resource-contract.test.mjs"
+    "test:ubermind:market": "node --test tests/openrouter-agent-executor.test.mjs tests/openrouter-market-catalog.test.mjs tests/openrouter-factory-integration.test.mjs tests/open-model-factory-integration.test.mjs tests/frontier-quality-market-compiler.test.mjs tests/ubermind-cloud-resource-contract.test.mjs",
+    "open-router:vault:doctor": "node scripts/open-router-vault-doctor.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

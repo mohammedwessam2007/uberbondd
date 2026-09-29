@@ -192,3 +192,12 @@ The v2 upgrade adds the missing mechanisms needed to pursue orders-of-magnitude 
 The target ladder is 10x -> 25x -> 50x -> 100x -> 250x -> 500x -> 1000x. These are research targets, not current claims. Any compression factor is invalid if required finished-work quality falls below the matched strongest verified frontier baseline. Unknown or drifted regions return to the Crown. The accepted first all-in target remains approximately USD 30/month; budget pressure changes latency/throughput, not intelligence.
 
 New chats must recover `open router/README.md` and `open router/OPEN_ROUTER_UBERMIND_CANON.json` after normal UberBond startup and continue from activation/empirical proof rather than redesigning the architecture.
+
+
+## 2026-09-29 — Open Router Frontier-Max v3 Cognitive Arbitrage
+
+The canonical `open router/` folder was extended additively, not replaced. V2 retains Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Cognitive CDN, Evidence Multicast, Champion-Challenger shadow routing, Swarm Stop-Loss, Second-Crown Insurance, and RCE accounting. V3 adds Cognitive Multicast, Crown-call coalescing, common semantic subexpression elimination, decision-DAG incremental recomputation, Crown Thought Capital ledger, Negative Knowledge Cache, error-portfolio optimization, value-of-information compute auctions, shadow router tournaments, frontier output minimization, cross-task Crown batching, and cognitive futures scheduling.
+
+The objective remains unchanged: strongest verified market intelligence first, cost minimization second, with zero intentional quality reduction. TypingMind remains the iPad cockpit and OpenRouter the default replaceable model-market transport. The ~$30 monthly target is a hard economic experiment, not permission to use a weaker final brain. The aspiration to create hundreds/thousands of dollars of direct-frontier reference-equivalent work from ~$30 remains a measured compression target, not a fact until live paired quality and billing receipts prove it.
+
+Recovery: read `open router/README.md`, `open router/OPEN_ROUTER_UBERMIND_CANON.json`, and `open router/MANIFEST.json` after normal startup. Continue from activation and empirical proof, not model-selection brainstorming.

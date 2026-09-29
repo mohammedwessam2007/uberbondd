@@ -381,3 +381,78 @@ export function compileOpenRouterProviderPolicy({
     policyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST
   });
 }
+
+
+export function compileSpeculativeReadOnlyPlan({
+  missionId,
+  operations = [],
+  maximumOperations = 16
+} = {}) {
+  const id = text(missionId, 240);
+  const max = integer(maximumOperations, 1, 64);
+  if (!id || max == null || !Array.isArray(operations) || !operations.length || operations.length > max) {
+    return fail('SPECULATIVE_READ_ONLY_PLAN_REFUSED', ['bounded-mission-and-operation-list-required']);
+  }
+  const forbiddenKinds = new Set(['MESSAGE', 'PURCHASE', 'DEPLOY', 'DNS_WRITE', 'CREDENTIAL_CHANGE', 'PAYMENT', 'PRODUCTION_MUTATION']);
+  const normalized = operations.map((row, index) => ({
+    operationId: text(row?.operationId || `spec-${index + 1}`, 240),
+    kind: text(row?.kind, 80).toUpperCase(),
+    targetRef: text(row?.targetRef, 1000),
+    reversible: row?.reversible === true,
+    readOnly: row?.readOnly === true
+  }));
+  const unsafe = normalized.filter(row => !row.operationId || !row.kind || !row.targetRef || !row.readOnly || !row.reversible || forbiddenKinds.has(row.kind));
+  if (unsafe.length) {
+    return fail('SPECULATIVE_READ_ONLY_PLAN_REFUSED', ['only-read-only-reversible-speculation-allowed'], {
+      refusedOperationIds: unsafe.map(row => row.operationId)
+    });
+  }
+  return envelope({
+    ok: true,
+    status: 'SPECULATIVE_READ_ONLY_PLAN_READY',
+    missionId: id,
+    operations: normalized,
+    cancellationAuthority: 'NONE',
+    consequenceAuthority: 'NONE',
+    law: 'SPECULATION_MAY_PREFETCH_READ_ONLY_EVIDENCE_OR_RUN_REVERSIBLE_COMPUTATION_WHILE_FRONTIER_REASONING_PROCEEDS; IT_MAY_NOT_CAUSE_EXTERNAL_EFFECTS_OR_CANCEL_REQUIRED_FRONTIER_ADJUDICATION'
+  });
+}
+
+export function compileShadowEscalationThresholdCandidate({
+  taskClass,
+  disagreementThreshold,
+  uncertaintyThreshold,
+  minimumSamples = 100,
+  evidenceRef
+} = {}) {
+  const klass = text(taskClass, 120);
+  const disagreement = finite(disagreementThreshold, 0, 1);
+  const uncertainty = finite(uncertaintyThreshold, 0, 1);
+  const samples = integer(minimumSamples, 20, 1_000_000);
+  const evidence = text(evidenceRef, 1000);
+  if (!klass || disagreement == null || uncertainty == null || samples == null || !evidence) {
+    return fail('SHADOW_THRESHOLD_CANDIDATE_REFUSED', ['task-class-thresholds-samples-and-evidence-required']);
+  }
+  const candidate = {
+    taskClass: klass,
+    disagreementThreshold: disagreement,
+    uncertaintyThreshold: uncertainty,
+    minimumSamples: samples,
+    evidenceRef: evidence
+  };
+  return envelope({
+    ok: true,
+    status: 'SHADOW_ESCALATION_THRESHOLD_CANDIDATE',
+    candidate,
+    candidateDigest: digest(candidate),
+    routingAuthority: 'SHADOW_ONLY',
+    promotionAuthority: 'NONE',
+    requiredPromotionEvidence: [
+      'fresh paired sealed evaluation',
+      'zero paired task regressions',
+      'no false-positive regression',
+      'canonical zero-loss certificate'
+    ],
+    law: 'ONLINE_THRESHOLD_OPTIMIZATION_MAY_PROPOSE_CHEAPER_BOUNDARIES_BUT_CANNOT_SELF_PROMOTE_OR_RELAX_FRONTIER_ESCALATION'
+  });
+}

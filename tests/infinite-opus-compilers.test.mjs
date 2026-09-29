@@ -69,3 +69,8 @@ test('residual-cut falsifiers reject hidden resolved cycles, missing nodes and d
     {id:'p',roots:['a','a'],nodes:[{id:'a',resolved:true}]}
   ]) assert.throws(() => factorFrontierResidualCut([program]));
 });
+
+test('typed lead capacity arithmetic remains preparation only and never grants outreach authority',()=>{
+ const result=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'LEAD_CAPACITY_ARITHMETIC',payload:{}});
+ assert.equal(result.semanticAuthority,'PROPOSAL_ONLY');assert.equal(result.releaseAuthorized,false);
+});

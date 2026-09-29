@@ -1,3 +1,4 @@
+import { buildNativeCapacityPlan } from './uberbond-native-lead-ops.mjs';
 import { semanticHash, executeExactOpcode, impactedSemanticNodes, canonicalSemanticJson } from './semantic-closure-kernel.mjs';
 
 // Verifier foundry: strict typed equality, not a rubric or language-model judge.
@@ -53,6 +54,7 @@ export function executeTypedTaskCompiler(task) {
   const payload = task.payload;
   switch (task.taskClass) {
     case 'RESEARCH_SOURCE_DELTA': return impactedSemanticNodes(payload.nodes, payload.changedIds);
+    case 'LEAD_CAPACITY_ARITHMETIC': return {...buildNativeCapacityPlan(payload), semanticAuthority:'PROPOSAL_ONLY', releaseAuthorized:false};
     case 'BUSINESS_EXACT_INTEGER_TOTAL': return { total: executeExactOpcode('SUM_INTEGER', payload.values) };
     case 'REPLY_FINITE_POLICY': return executeExactOpcode('LOOKUP', [payload.admittedRows, payload.typedReply]);
     case 'OUTREACH_STRUCTURED_ENVELOPE': return compileExactVerifier(payload.admittedSemantics).verify(payload.candidate);

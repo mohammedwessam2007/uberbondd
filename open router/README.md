@@ -398,3 +398,27 @@ The durable law is:
 NO WORKER IS DEFAULT BY BRAND OR PRICE.
 QUALITY / COST / LATENCY / CALLABILITY MUST BE RE-EARNED PER TASK CLASS.
 ```
+
+
+## $1/day 24/7 Opus-quality operating mode
+
+`21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md` translates the USD 30/month target into a continuous event-driven operating policy.
+
+Core law:
+
+```
+24/7 alive != 24/7 paid inference
+```
+
+The control plane stays alive continuously; expensive cognition wakes only on information-bearing events.
+
+Default conceptual daily envelope:
+- $0.50 protected Crown capacity;
+- $0.20 ultra-cheap mass cognition;
+- $0.15 cheap-strong/diverse cognition;
+- $0.10 stronger specialist escalation;
+- $0.05 reserve/variance/audit.
+
+Unused budget rolls forward inside the monthly ceiling. Budget pressure queues novelty rather than lowering required final quality.
+
+Primary metric: **Opus Quality Fanout** — important Crown-quality artifacts per live Crown-equivalent semantic adjudication.

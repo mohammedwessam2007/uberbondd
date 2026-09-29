@@ -1043,6 +1043,17 @@
         "luna": "DEMOTED_TO_SHADOW_UTILITY",
         "truthBoundary": "No live owner-route performance/pricing receipt yet; this is current public candidate evidence."
       }
+    },
+    "oneDollarDay247OpusQualityMode": {
+      "status": "SOURCE_OPERATING_ARCHITECTURE_ADDED_PRE_LIVE_PROOF",
+      "path": "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+      "dailyAiSpendTargetUsd": 1,
+      "monthlyAiSpendTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "operatingLaw": "Always-on event-driven control plane; inference sleeps when no information-bearing event exists.",
+      "qualityLaw": "Important unresolved novelty queues before any quality downgrade.",
+      "primaryMetric": "Opus Quality Fanout",
+      "nextEvidence": "Connect TypingMind/OpenRouter -> verify owner-route prices -> run tiny authorized smoke -> begin paired burn-in -> measure real daily spend and fanout."
     }
   },
   "wessamSingularityOverlay": {

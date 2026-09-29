@@ -35,6 +35,7 @@ const REQUIRED = [
   'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md',
   'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md',
   'open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md',
+  'open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md',
   'docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json',
   'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md',
   'src/frontier-intelligence-vm.mjs',
@@ -158,6 +159,10 @@ if (v5Receipt) {
   if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
   if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
 }
+const oneDollarMode = fs.existsSync('open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md')
+  ? fs.readFileSync('open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md', 'utf8')
+  : null;
+
 const opusQualityVolume = fs.existsSync('open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md')
   ? fs.readFileSync('open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md', 'utf8')
   : null;
@@ -169,6 +174,13 @@ const inventionLab = fs.existsSync('open router/19_MILLION_DOLLAR_INTELLIGENCE_I
 const millionDollarTarget = fs.existsSync('open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md')
   ? fs.readFileSync('open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md', 'utf8')
   : null;
+
+if (oneDollarMode) {
+  if (!oneDollarMode.includes('$1.00/day')) failures.push('one-dollar-mode-daily-budget-missing');
+  if (!oneDollarMode.includes('ALWAYS ON')) failures.push('one-dollar-mode-always-on-law-missing');
+  if (!oneDollarMode.includes('QUEUE NOVELTY')) failures.push('one-dollar-mode-no-downgrade-law-missing');
+  if (!oneDollarMode.includes('Opus Quality Fanout')) failures.push('one-dollar-mode-fanout-metric-missing');
+}
 
 if (opusQualityVolume) {
   if (!opusQualityVolume.includes('Cheap models create breadth, not semantic authority')) failures.push('opus-quality-volume-authority-law-missing');
@@ -246,6 +258,7 @@ console.log(JSON.stringify({
   millionDollarIntelligenceTarget: millionDollarTarget ? 'FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN' : null,
   millionDollarInventionLab: inventionLab ? 'RESEARCH_INVENTION_PROGRAM_NOT_PROVEN' : null,
   opusQualityInsaneVolumeFabric: opusQualityVolume ? 'FOUNDER_DIRECTED_ARCHITECTURE_PRE_LIVE_PROOF' : null,
+  oneDollarDay247OpusQualityMode: oneDollarMode ? 'FOUNDER_DIRECTED_OPERATING_ARCHITECTURE_PRE_LIVE_PROOF' : null,
   wessamSingularityWarRoom: warRoom?.schemaVersion ?? null
 }, null, 2));
 

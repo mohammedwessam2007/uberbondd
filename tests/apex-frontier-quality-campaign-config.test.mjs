@@ -1,11 +1,11 @@
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { prepareFreshApexCampaign } from '../src/apex-fresh-campaign.mjs';
 import { validateFrontierModelCandidateRegistry } from '../src/frontier-model-team.mjs';
 
-const campaign = JSON.parse(await fs.readFile(new URL('../config/apex-frontier-quality-compression-campaign.json', import.meta.url), 'utf8'));
-const registry = JSON.parse(await fs.readFile(new URL('../config/frontier-model-candidates.json', import.meta.url), 'utf8'));
+const campaign = JSON.parse(fs.readFileSync('./config/apex-frontier-quality-compression-campaign.json', 'utf8'));
+const registry = JSON.parse(fs.readFileSync('./config/frontier-model-candidates.json', 'utf8'));
 
 test('frontier-quality campaign config is internally valid and capped at ten dollars', () => {
   const out = prepareFreshApexCampaign(campaign);

@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 45,
+  "expectedFinalFolderFileCount": 46,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "7eaafa3e5e02a2e3c50e22f1334a2f8500dd7d47",
-      "size": 20739
+      "blobSha": "dc0adc4edfcf161917fe85795a84cd3a21acf66d",
+      "size": 22165
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "32822cef17a15161c9bf598b001badfcffb383b4",
-      "size": 19159
+      "blobSha": "2fb9fd8d48f80d37d021895015fcf223272caaf0",
+      "size": 19985
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -227,6 +227,11 @@
       "path": "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
       "blobSha": "fadf20fafc06f996a35314ed4a11252baf23b1ec",
       "size": 20689
+    },
+    {
+      "path": "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+      "blobSha": "3fbcd3e2457442edfd1edd5506a701a26bff6bef",
+      "size": 11534
     }
   ],
   "layers": {
@@ -268,7 +273,8 @@
     "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
     "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
     "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
-    "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md"
+    "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+    "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -293,12 +299,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault preserves V2-V5 architecture, Million-Dollar Intelligence, the Opus-quality insane-volume fabric, and the late 2026-09-29 live-market refresh. GPT-6.1 Sol is a newly released strong-worker challenger pending exact owner-route pricing/callability and task-class proof. Xiaomi MiMo-V2.6 Flash/Pro and DeepSeek V4.1 Flash are now preferred cheap-volume candidates from current public evidence; GPT-6 Luna is shadow/utility only until it re-earns a task class. No model is promoted to final authority by public benchmarks alone.",
-  "recovery": "Refresh main; read README, OPEN_ROUTER_UBERMIND_CANON.json, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, 20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md, Million-Dollar target/lab, V5 architecture/proof/activation files, then run the doctors. Treat model roles as a moving tournament: verify exact owner-route GPT-6.1 Sol, Xiaomi, DeepSeek and other candidates before paid promotion.",
+  "truthBoundary": "The vault includes the $1/day 24/7 Opus-quality operating architecture. It means an always-on event-driven control plane plus a $30/month AI cognition ceiling, not continuous paid frontier decoding. Important unresolved novelty must queue before quality is downgraded. Current public pricing and model roles are dated candidate evidence until owner-route callability and receipts are observed.",
+  "recovery": "Refresh main; read README, machine canon, live market snapshot, 20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md, 21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md, Million-Dollar target/lab and V5 activation/proof files; run doctors; continue from owner-held connection and real spend/fanout evidence.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 44,
+  "indexedFilesExcludingSelf": 45,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",

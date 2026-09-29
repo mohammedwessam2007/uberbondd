@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { evaluateReasoningArchitectureArena } from './apex-reasoning-hypercompiler.mjs';
-import { ABSOLUTE_FRONTIER_QUALITY_DELTA, qualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_DELTA, qualityInvariantAttestation, validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const REASONING_ARCHITECTURE_LAB_VERSION = 'uberbond.reasoning-architecture-lab.v1';
 
@@ -90,7 +90,7 @@ function forbiddenPatchReasons(patch) {
     if (raw.includes(`"${key}"`)) reasons.push(`authority-guard-mutation-prohibited:${key}`);
   }
   const upper = raw.toUpperCase();
-  for (const token of ['MAJORITY_ONLY', 'COST_FIRST', 'SKIP_VERIFICATION', 'SELF_PROMOTE', 'AUTO_PROMOTE']) {
+  for (const token of ['MAJORITY_ONLY', 'COST_FIRST', 'SKIP_VERIFICATION', 'SELF_PROMOTE', 'AUTO_PROMOTE', 'QUALITYDELTA', 'ABSOLUTEQUALITYINVARIANT']) {
     if (upper.includes(token)) reasons.push(`quality-guard-lowering-prohibited:${token}`);
   }
   return reasons;
@@ -98,6 +98,8 @@ function forbiddenPatchReasons(patch) {
 
 function architectureInvariantReasons(candidate) {
   const reasons = [];
+  const absoluteQuality = validateQualityInvariantAttestation(candidate?.semanticQualityFloor?.absoluteQualityInvariant);
+  if (!absoluteQuality.ok) reasons.push(...absoluteQuality.reasonCodes);
   if (candidate?.semanticQualityFloor?.cheapGenerativeAuthority !== 'NONE') reasons.push('cheap-generative-authority-must-remain-none');
   if (candidate?.semanticQualityFloor?.majorityVoteAuthority !== 'NONE') reasons.push('majority-vote-authority-must-remain-none');
   if (candidate?.businessEffectAuthority !== 'NONE') reasons.push('business-effect-authority-must-remain-none');

@@ -797,5 +797,88 @@
       "open router/MANIFEST.json"
     ],
     "recovery": "Read open router/README.md + OPEN_ROUTER_UBERMIND_CANON.json + MANIFEST.json. Preserve v2 and v3. Do not redesign from scratch."
+  },
+  "openRouterFrontierVmV5_20260929": {
+    "status": "SOURCE_IMPLEMENTED_PRE_LIVE_EMPIRICAL_PROOF",
+    "branch": "open-router/frontier-intelligence-virtualization-20260929",
+    "objective": "Continuously virtualize the strongest verified market intelligence behind a stable quality contract and minimize all-in cognition cost without intentional quality reduction.",
+    "conceptualShift": "MODELS_ARE_REPLACEABLE_PROCESSORS__COGNITION_IS_THE_PROGRAM",
+    "logicalInterface": "FRONTIER(task,state,quality_contract)",
+    "qualityTypes": [
+      "Q_EXACT",
+      "Q_CERTIFIED_BOUNDED",
+      "Q_FRONTIER",
+      "Q_MULTI_FRONTIER",
+      "Q_REALITY_SETTLED",
+      "Q_UNKNOWN"
+    ],
+    "source": {
+      "vm": "src/frontier-intelligence-vm.mjs",
+      "superoptimizer": "src/cognitive-superoptimizer.mjs",
+      "burnIn": "src/frontier-vm-burnin.mjs",
+      "longitudinalEvaluator": "src/frontier-vm-longitudinal-evaluator.mjs",
+      "qualityLock": "config/absolute-frontier-quality-lock.json",
+      "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
+      "activationDoctor": "scripts/frontier-vm-v5-doctor.mjs",
+      "vaultDoctor": "scripts/open-router-vault-doctor.mjs"
+    },
+    "architecture": [
+      "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+      "open router/14_COGNITIVE_COMPILER_SPEC.json",
+      "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+      "open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md",
+      "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
+      "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md"
+    ],
+    "executableMechanisms": [
+      "quality-typed Cognitive IR",
+      "backend authority type checking",
+      "Q_UNKNOWN page fault upward",
+      "exact semantic CSE candidate detection",
+      "quality escrow",
+      "frontier residual compilation",
+      "proof-carrying cognition packets",
+      "cognitive hot-path profiling",
+      "semantic page invalidation/deoptimization",
+      "Frontier Thought Capital accounting",
+      "counterfactual routing regret",
+      "shadow-only superoptimizer candidates",
+      "canonical zero-loss promotion gate",
+      "short-horizon sealed burn-in",
+      "compiler-pass ablation assessment",
+      "explicit falsification checklist",
+      "longitudinal frontier-residual measurement",
+      "Crown-succession revalidation measurement"
+    ],
+    "evidenceStack": [
+      "APEX sealed tournament",
+      "canonical zero-loss certificate",
+      "Frontier VM burn-in",
+      "longitudinal evaluator",
+      "Crown-succession shock",
+      "Reality Court"
+    ],
+    "qualityLaw": {
+      "maxIntentionalDelta": 0,
+      "unknown": "PAGE_FAULT_TO_FRONTIER",
+      "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE",
+      "selfPromotion": "PROHIBITED",
+      "drift": "DEOPTIMIZE_TO_REQUIRED_FRONTIER"
+    },
+    "budget": {
+      "monthlyAllInTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "automaticSpendAuthority": false
+    },
+    "upgradeCeiling": "Do not add named architecture layers unless they measurably improve quality, compression, verification, latency, founder time, recoverability, or authority safety. Next major progress is live evidence.",
+    "externalBlockers": [
+      "OpenRouter API credential in protected runtime",
+      "live current task-class Crown snapshot",
+      "fresh sealed/custodied task source",
+      "real provider billing receipts",
+      "independent or blind paired evaluation"
+    ],
+    "nextAction": "RUN_FRONTIER_VM_DOCTOR -> SATISFY_EXTERNAL_GATES -> LIVE_BURN_IN_DIRECT_CROWN_VS_V5 -> CANONICAL_ZERO_LOSS_GATE -> LONGITUDINAL_RECURRENCE -> CROWN_SUCCESSION_SHOCK -> ABLATIONS -> INDEPENDENT_REPLICATION",
+    "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence."
   }
 }

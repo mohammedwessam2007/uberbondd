@@ -101,7 +101,7 @@ test('deterministic compilation requires exact paired zero-loss proof, not merel
     taskOutcomeDigest: 'd'.repeat(64),
     economics: { meanCostUsd: 0.001 }
   };
-  const certificate = certifyPairedZeroLoss({ baselineTrial, candidateTrial, requireEconomicsImprovement: true });
+  const certificate = certifyPairedZeroLoss({ baselineTrial, candidateTrial, requireEconomicsImprovement: true, provenanceValidator: () => ({ ok: true }) });
   assert.equal(certificate.ok, true, JSON.stringify(certificate));
 
   const highButNotPerfect = proposeCognitiveCompilation({

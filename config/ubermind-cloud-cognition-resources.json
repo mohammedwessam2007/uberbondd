@@ -18,7 +18,9 @@
       "WEAKER_FINAL_AUTHORITY",
       "SILENT_MODEL_SUBSTITUTION",
       "LOSSY_CONTEXT_DROP_WITHOUT_ZERO_LOSS_PROOF"
-    ]
+    ],
+    "protectedCrownEscrowUsd": 15,
+    "monthlyAllInTargetUsd": 30
   },
   "requiredResources": [
     {
@@ -34,8 +36,8 @@
       "id": "cognition-budget",
       "kind": "POLICY",
       "env": "UBERMIND_MONTHLY_COGNITION_BUDGET_USD",
-      "default": "20",
-      "purpose": "Hard monthly inference ceiling. Budget exhaustion queues work instead of lowering quality."
+      "default": "30",
+      "purpose": "Hard all-in monthly cognition target for V5. Budget exhaustion queues work instead of lowering quality."
     },
     {
       "id": "openrouter-enable",
@@ -43,6 +45,13 @@
       "env": "OPENROUTER_AGENT_ENABLED",
       "requiredValue": "true",
       "purpose": "Explicitly enables the cloud model-market executor after credential placement."
+    },
+    {
+      "id": "crown-escrow",
+      "kind": "POLICY",
+      "env": "UBERMIND_PROTECTED_CROWN_ESCROW_USD",
+      "default": "15",
+      "purpose": "Protected monthly reserve for required Frontier Crown fallback. Cheap experimentation may not consume it."
     }
   ],
   "recommendedPolicies": [

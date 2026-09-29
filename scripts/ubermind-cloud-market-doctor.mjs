@@ -10,8 +10,6 @@ const budget = Number(process.env.UBERMIND_MONTHLY_COGNITION_BUDGET_USD || confi
 const platformFeeRate = Number(process.env.OPENROUTER_PLATFORM_FEE_RATE || config.recommendedPolicies.find(r => r.env === 'OPENROUTER_PLATFORM_FEE_RATE')?.default || 0);
 const blockers = [];
 
-if (!openrouter?.credentialPresent) blockers.push('OPENROUTER_API_KEY_REQUIRED');
-if (!openrouter || openrouter.blockers?.includes('explicitly-disabled')) blockers.push('OPENROUTER_AGENT_ENABLED_TRUE_REQUIRED');
 if (!Number.isFinite(budget) || budget <= 0) blockers.push('VALID_MONTHLY_COGNITION_BUDGET_REQUIRED');
 if (!Number.isFinite(platformFeeRate) || platformFeeRate < 0 || platformFeeRate > 1) blockers.push('VALID_OPENROUTER_PLATFORM_FEE_RATE_REQUIRED');
 
@@ -22,13 +20,20 @@ if (live) {
 }
 
 const out = {
-  status: blockers.length ? 'UBERMIND_CLOUD_PLUG_BLOCKED' : 'UBERMIND_CLOUD_PLUG_READY',
+  status: blockers.length ? 'UBERMIND_CLOUD_POLICY_BLOCKED' : 'UBERMIND_TYPINGMIND_COCKPIT_POLICY_READY',
   cloudOnly: true,
   localModelRequired: false,
   localGpuRequired: false,
   monthlyBudgetUsd: Number.isFinite(budget) ? budget : null,
   platformFeeRate: Number.isFinite(platformFeeRate) ? platformFeeRate : null,
-  openrouter: openrouter ? {
+  interactiveCockpit: {
+    product: 'TypingMind',
+    device: 'iPad',
+    cognitionAuthority: 'NONE',
+    providerKeysManagedInTypingMind: true,
+    backendCredentialRequiredForInteractiveUse: false
+  },
+  openrouterOptionalBackendAdapter: openrouter ? {
     ready: openrouter.ready,
     blockers: openrouter.blockers,
     credentialPresent: openrouter.credentialPresent,
@@ -39,12 +44,12 @@ const out = {
     modelCount: catalog.modelCount,
     snapshotDigest: catalog.snapshotDigest
   } : live ? { ok: false, reasonCodes: catalog?.reasonCodes || ['catalog-unavailable'] } : { status: 'NOT_OBSERVED_USE_--live-catalog' },
-  requiredOwnerActions: blockers.filter(code => code === 'OPENROUTER_API_KEY_REQUIRED').length
-    ? ['Create one OpenRouter API key and place it in the protected runtime as OPENROUTER_API_KEY. Do not commit or paste it into source.']
-    : [],
+  requiredOwnerActions: [],
   requiredRuntimeSettings: {
-    OPENROUTER_AGENT_ENABLED: 'true',
-    UBERMIND_MONTHLY_COGNITION_BUDGET_USD: String(Number.isFinite(budget) ? budget : 20),
+    UBERMIND_MONTHLY_COGNITION_BUDGET_USD: String(Number.isFinite(budget) ? budget : 20)
+  },
+  optionalOpenRouterBackendSettings: {
+    OPENROUTER_AGENT_ENABLED: process.env.OPENROUTER_AGENT_ENABLED || 'false',
     OPENROUTER_PROVIDER_SORT: process.env.OPENROUTER_PROVIDER_SORT || 'price',
     OPENROUTER_REQUIRE_ZDR: process.env.OPENROUTER_REQUIRE_ZDR || 'true',
     OPENROUTER_ALLOW_PROVIDER_FALLBACKS: process.env.OPENROUTER_ALLOW_PROVIDER_FALLBACKS || 'true',
@@ -55,7 +60,7 @@ const out = {
   executionAuthority: 'NONE',
   providerCallsPerformedByDefault: 0,
   liveCatalogReadOnly: live,
-  truthBoundary: 'READY means the cloud market transport can be configured. It does not prove any model is frontier-crown quality, callable with an exact reasoning setting, or zero-loss equivalent. Those require current evidence and sealed trials.'
+  truthBoundary: 'READY means the TypingMind/iPad cockpit policy and budget contract are coherent. TypingMind and OpenRouter have no cognition authority. Direct provider keys may live in TypingMind for interactive use; backend adapters remain optional. Frontier-crown quality and zero-loss equivalence still require current evidence and sealed trials.'
 };
 
 console.log(JSON.stringify(out, null, 2));

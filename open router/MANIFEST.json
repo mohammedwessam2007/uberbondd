@@ -1,13 +1,12 @@
 {
   "schemaVersion": "uberbond.open-router.vault-manifest.v3",
-  "status": "V2_PLUS_V3_CONTENT_INDEXED_PRE_MERGE",
+  "status": "V2_PLUS_V3_CONTENT_COMPLETE",
   "createdAt": "2026-09-29",
   "branch": "docs/open-router-cognitive-arbitrage-vault-rebased-20260929",
   "baseCurrentMainSha": "77b0c3fa87f8916a60d26612046608cd900425a0",
   "observedBranchHeadBeforeManifest": "ecb7f2b602f605e6aca855331ff5572227c7dba7",
   "folder": "open router/",
-  "contentFilesBeforeManifest": 27,
-  "expectedFinalFolderFileCount": 29,
+  "expectedFinalFolderFileCount": 30,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -186,5 +185,8 @@
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
   "truthBoundary": "The vault preserves doctrine, architecture, lineage, and proof requirements. It does not prove live $30 frontier equivalence, current Crown identity, thousands-of-dollars reference-equivalent compression, or global superiority.",
-  "recovery": "Refresh main, run normal UberBond startup, then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, and MANIFEST.json. Continue from activation and empirical proof."
+  "recovery": "Refresh main, run normal UberBond startup, then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json. Continue from activation and empirical proof.",
+  "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
+  "auditedBaseFolderFileCount": 29,
+  "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json"
 }

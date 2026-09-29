@@ -27,7 +27,12 @@ export function assessFrontierVmActivationReadiness({
   typingMindOpenRouterConnectionRef='',
   runtimeOpenRouterCredentialPresent=false,
   liveCrownSnapshotRef='',
-  freshTaskSourceRef=''
+  freshTaskSourceRef='',
+  monthlyAllInTargetUsd=30,
+  protectedCrownEscrowUsd=15,
+  maxIntentionalDelta=0,
+  pairedTaskRegressionAllowed=0,
+  automaticSpendAuthority=false
 }={}){
   const mode=text(activationMode,80).toUpperCase();
   const blockers=[];
@@ -44,6 +49,15 @@ export function assessFrontierVmActivationReadiness({
   if(!text(liveCrownSnapshotRef,1600)) blockers.push('LIVE_CROWN_SNAPSHOT_REF_REQUIRED');
   if(!text(freshTaskSourceRef,1600)) blockers.push('FRESH_TASK_SOURCE_REF_REQUIRED');
 
+  const budget=Number(monthlyAllInTargetUsd);
+  const escrow=Number(protectedCrownEscrowUsd);
+  if(!Number.isFinite(budget)||budget!==30) blockers.push('V5_MONTHLY_ALL_IN_TARGET_MUST_BE_30');
+  if(!Number.isFinite(escrow)||escrow<15) blockers.push('V5_PROTECTED_CROWN_ESCROW_MUST_BE_AT_LEAST_15');
+  if(Number.isFinite(budget)&&Number.isFinite(escrow)&&escrow>budget) blockers.push('CROWN_ESCROW_CANNOT_EXCEED_MONTHLY_BUDGET');
+  if(Number(maxIntentionalDelta)!==0) blockers.push('MAX_INTENTIONAL_QUALITY_DELTA_MUST_BE_ZERO');
+  if(Number(pairedTaskRegressionAllowed)!==0) blockers.push('PAIRED_TASK_REGRESSION_TOLERANCE_MUST_BE_ZERO');
+  if(automaticSpendAuthority!==false) blockers.push('AUTOMATIC_SPEND_AUTHORITY_MUST_REMAIN_FALSE');
+
   const ready=blockers.length===0;
   return envelope({
     ok:ready,
@@ -57,9 +71,17 @@ export function assessFrontierVmActivationReadiness({
     runtimeOpenRouterCredentialPresent:runtimeOpenRouterCredentialPresent===true,
     liveCrownSnapshotRefPresent:Boolean(text(liveCrownSnapshotRef,1600)),
     freshTaskSourceRefPresent:Boolean(text(freshTaskSourceRef,1600)),
+    policy:{
+      monthlyAllInTargetUsd:Number.isFinite(budget)?budget:null,
+      protectedCrownEscrowUsd:Number.isFinite(escrow)?escrow:null,
+      maxIntentionalDelta:Number(maxIntentionalDelta),
+      pairedTaskRegressionAllowed:Number(pairedTaskRegressionAllowed),
+      automaticSpendAuthority:automaticSpendAuthority===true
+    },
+    qualityPressureLaw:'QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE',
     secretHandlingLaw:mode==='TYPINGMIND_EXTERNAL_COCKPIT'
       ? 'OPENROUTER_SECRET_STAYS_IN_TYPINGMIND_OR_PROVIDER_CREDENTIAL_STORE; REPOSITORY_RUNTIME_SECRET_NOT_REQUIRED'
       : 'OPENROUTER_SECRET_STAYS_IN_PROTECTED_RUNTIME; NEVER_COMMIT_OR_LOG_SECRET_VALUE',
-    truthBoundary:'Readiness proves only that the declared activation prerequisites are present. It does not prove quality equivalence, compression, current Crown superiority, or economic success.'
+    truthBoundary:'Readiness proves only that the declared activation prerequisites and frozen V5 budget/quality policy are present. It does not prove quality equivalence, compression, current Crown superiority, economic success, or permission to spend.'
   });
 }

@@ -81,3 +81,47 @@ test('source readiness failure cannot be masked by external credentials',()=>{
   assert.equal(out.ok,false);
   assert.ok(out.externalBlockers.includes('SOURCE_NOT_READY'));
 });
+
+
+test('V5 readiness refuses stale $20 budget and underfunded Crown escrow',()=>{
+  const stale=assessFrontierVmActivationReadiness({
+    activationMode:'TYPINGMIND_EXTERNAL_COCKPIT',
+    sourceReady:true,
+    typingMindOpenRouterConnectionRef:'typingmind://connected',
+    liveCrownSnapshotRef:'crown://snapshot/current',
+    freshTaskSourceRef:'holdout://fresh-custodian',
+    monthlyAllInTargetUsd:20,
+    protectedCrownEscrowUsd:15
+  });
+  assert.equal(stale.ok,false);
+  assert.ok(stale.externalBlockers.includes('V5_MONTHLY_ALL_IN_TARGET_MUST_BE_30'));
+
+  const lowEscrow=assessFrontierVmActivationReadiness({
+    activationMode:'TYPINGMIND_EXTERNAL_COCKPIT',
+    sourceReady:true,
+    typingMindOpenRouterConnectionRef:'typingmind://connected',
+    liveCrownSnapshotRef:'crown://snapshot/current',
+    freshTaskSourceRef:'holdout://fresh-custodian',
+    monthlyAllInTargetUsd:30,
+    protectedCrownEscrowUsd:14.99
+  });
+  assert.equal(lowEscrow.ok,false);
+  assert.ok(lowEscrow.externalBlockers.includes('V5_PROTECTED_CROWN_ESCROW_MUST_BE_AT_LEAST_15'));
+});
+
+test('V5 readiness refuses any quality-loss tolerance or automatic spend authority',()=>{
+  const out=assessFrontierVmActivationReadiness({
+    activationMode:'TYPINGMIND_EXTERNAL_COCKPIT',
+    sourceReady:true,
+    typingMindOpenRouterConnectionRef:'typingmind://connected',
+    liveCrownSnapshotRef:'crown://snapshot/current',
+    freshTaskSourceRef:'holdout://fresh-custodian',
+    maxIntentionalDelta:0.01,
+    pairedTaskRegressionAllowed:1,
+    automaticSpendAuthority:true
+  });
+  assert.equal(out.ok,false);
+  assert.ok(out.externalBlockers.includes('MAX_INTENTIONAL_QUALITY_DELTA_MUST_BE_ZERO'));
+  assert.ok(out.externalBlockers.includes('PAIRED_TASK_REGRESSION_TOLERANCE_MUST_BE_ZERO'));
+  assert.ok(out.externalBlockers.includes('AUTOMATIC_SPEND_AUTHORITY_MUST_REMAIN_FALSE'));
+});

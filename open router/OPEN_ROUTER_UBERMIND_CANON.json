@@ -114,7 +114,7 @@
     "V5LongitudinalCompressionProven": false,
     "V5CrownSuccessionRecompilationProven": false
   },
-  "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
+  "nextAction": "RUN_FRONTIER_VM_DOCTOR -> CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_CONNECTION_EVIDENCE_REF -> REFRESH_LIVE_TASK_CLASS_CROWN -> COMMIT_FRESH_TASK_SOURCE -> CONTROLLED_PAIRED_BURN_IN -> ZERO_LOSS_GATE -> LONGITUDINAL_COMPRESSION",
   "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",
@@ -147,7 +147,7 @@
     "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
     "integrityDoctor": "npm run open-router:vault:doctor",
     "contentState": "V2_V3_V4_PLUS_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_DURABLY_PRESERVED_ON_BRANCH_PRE_MERGE",
-    "activationState": "NOT_YET_LIVE_PROVEN"
+    "activationState": "SOURCE_READY_EXTERNAL_CONNECTION_CROWN_AND_FRESH_TASK_EVIDENCE_REQUIRED"
   },
   "frontierIntelligenceVirtualization": {
     "thesis": "Virtualize the strongest verified market intelligence as a stable logical service and continuously compile recurring cognition into cheaper certified execution.",
@@ -245,6 +245,25 @@
       "activationReadinessSource": "src/frontier-vm-activation-readiness.mjs",
       "readinessDoctor": "scripts/frontier-vm-v5-doctor.mjs",
       "law": "DO_NOT_DUPLICATE_THE_OPENROUTER_SECRET_IN_UBERBOND_RUNTIME_JUST_TO_USE_TYPINGMIND_INTERACTIVELY"
+    },
+    "activation": {
+      "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+      "interactiveCockpit": "TypingMind on iPad",
+      "market": "OpenRouter",
+      "repositoryRuntimeSecretRequiredForInteractive": false,
+      "typingMindConnectionEvidenceRef": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF",
+      "liveCrownSnapshotRef": "UBERMIND_LIVE_CROWN_SNAPSHOT_REF",
+      "freshTaskSourceRef": "UBERMIND_FRESH_TASK_SOURCE_REF",
+      "unattendedMode": "UNATTENDED_RUNTIME",
+      "unattendedProtectedRuntimeSecret": "OPENROUTER_API_KEY",
+      "monthlyAllInTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "maxIntentionalDelta": 0,
+      "pairedTaskRegressionAllowed": 0,
+      "automaticSpendAuthority": false,
+      "readinessCore": "src/frontier-vm-activation-readiness.mjs",
+      "doctor": "scripts/frontier-vm-v5-doctor.mjs",
+      "law": "READINESS_MAY_OPEN_CONTROLLED_BURN_IN_BUT_NEVER_GRANTS_SPEND_PROMOTION_OR_QUALITY_DOWNGRADE_AUTHORITY"
     }
   }
 }

@@ -283,3 +283,36 @@ iPad / TypingMind = interactive cockpit
 UberBond repo      = doctrine, proofs, receipts, compiler
 cloud runtime      = optional unattended night shift only
 ```
+
+
+## V5 activation doctor
+
+Before the first live paired burn-in, run:
+
+```bash
+npm run frontier-vm:doctor
+```
+
+The default activation mode is the **TypingMind external cockpit**. In that mode, the OpenRouter secret may remain entirely in TypingMind/provider credential storage and does not need to be duplicated into the UberBond repository runtime.
+
+Provide evidence pointers:
+
+```
+UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF=
+UBERMIND_LIVE_CROWN_SNAPSHOT_REF=
+UBERMIND_FRESH_TASK_SOURCE_REF=
+```
+
+Frozen V5 policy:
+
+```
+monthly all-in target = $30
+protected Crown escrow >= $15
+intentional quality delta = 0
+paired task regression tolerance = 0
+automatic spend authority = false
+```
+
+For optional unattended runtime activation, the protected runtime additionally needs its own OpenRouter credential and explicit backend enablement.
+
+The doctor performs **zero model calls and zero spend**. Green means only that controlled burn-in prerequisites and the frozen policy are present. It does not prove frontier equivalence, compression, novelty, or permission to spend.

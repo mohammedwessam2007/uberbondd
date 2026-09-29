@@ -103,7 +103,8 @@
     "frontierThoughtCapitalLedger": true,
     "superoptimizerZeroLossGate": true,
     "canonicalBurnInCompiler": true,
-    "longitudinalCompoundingEvaluator": true
+    "longitudinalCompoundingEvaluator": true,
+    "v5TypingMindActivationPolicyReconciled": true
   },
   "crystallization": {
     "path": [
@@ -234,11 +235,16 @@
     },
     "activation": {
       "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
-      "interactiveSecretLocation": "TypingMind/OpenRouter credential configuration",
-      "repoRuntimeSecretRequiredForInteractive": false,
-      "optionalUnattendedMode": "UNATTENDED_RUNTIME",
-      "readinessSource": "src/frontier-vm-activation-readiness.mjs",
-      "nonSecretConnectionEvidence": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF"
+      "readinessCore": "src/frontier-vm-activation-readiness.mjs",
+      "doctorCommand": "npm run frontier-vm:doctor",
+      "interactiveRepoRuntimeSecretRequired": false,
+      "unattendedRepoRuntimeSecretRequired": true,
+      "monthlyAllInTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "maxIntentionalDelta": 0,
+      "pairedTaskRegressionAllowed": 0,
+      "automaticSpendAuthority": false,
+      "controlledBurnInOnly": true
     }
   }
 }

@@ -3,6 +3,8 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 import { validateCompiledSealedArchitectureTrial } from './apex-sealed-tournament.mjs';
+import { certifyCanonicalZeroLoss, validateCanonicalZeroLossCertificate } from './canonical-zero-loss-certificate.mjs';
+import { validateCampaignFrontierCrownCertificate } from './frontier-crown.mjs';
 
 export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.1';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
@@ -95,10 +97,34 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
   sealedTrial,
   profile,
   taskClasses = ['general'],
+  frontierCrownCertificate = null,
+  baselineSealedTrial = null,
   now = new Date()
 } = {}) {
   const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
   if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+
+  const crown = validateCampaignFrontierCrownCertificate(frontierCrownCertificate, { now });
+  if (!crown.ok) return failure(['canonical-frontier-crown-certificate-required', ...(crown.reasonCodes || [])], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+
+  const isBaseline = sealedTrial.architectureId === crown.baselineArchitectureId
+    && sealedTrial.receiptDigest === crown.baselineTrialReceiptDigest;
+  let zeroLoss = null;
+  if (!isBaseline) {
+    const baselineProvenance = validateCompiledSealedArchitectureTrial(baselineSealedTrial);
+    if (!baselineProvenance.ok) return failure(['canonical-frontier-baseline-sealed-trial-required'], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    if (baselineSealedTrial.architectureId !== crown.baselineArchitectureId || baselineSealedTrial.receiptDigest !== crown.baselineTrialReceiptDigest) {
+      return failure(['baseline-sealed-trial-must-match-canonical-frontier-crown'], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    }
+    const certified = certifyCanonicalZeroLoss({ baselineTrial: baselineSealedTrial, candidateTrial: sealedTrial });
+    if (!certified.ok) return failure(['paired-zero-loss-against-frontier-baseline-required', ...(certified.reasonCodes || [])], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    const valid = validateCanonicalZeroLossCertificate(certified.certificate, {
+      expectedCandidateArchitectureId: sealedTrial.architectureId,
+      minimumTaskCount: sealedTrial.statistics?.sampleSize ?? 1
+    });
+    if (!valid.ok) return failure(['paired-zero-loss-against-frontier-baseline-required', ...(valid.reasonCodes || [])], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    zeroLoss = certified;
+  }
 
   const subject = sealedTrial?.architectureIdentity?.benchmarkSubject;
   const profileId = text(profile?.id, 120)?.toLowerCase();
@@ -149,7 +175,17 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     sealedTrialReceiptDigest: sealedTrial.receiptDigest,
     sealedTrialTaskOutcomeDigest: sealedTrial.taskOutcomeDigest,
     benchmarkSubject: structuredClone(subject),
-    liveRoutingAuthority: 'SEALED_TRIAL_DERIVED_ONLY'
+    absoluteFrontierBaseline: isBaseline,
+    frontierCrownDigest: frontierCrownCertificate.crownDigest,
+    frontierCrownCampaignDigest: frontierCrownCertificate.campaignDigest,
+    frontierBaselineArchitectureId: crown.baselineArchitectureId,
+    frontierCandidateArchitectureId: sealedTrial.architectureId,
+    pairedZeroLossCertified: isBaseline ? true : zeroLoss?.ok === true,
+    pairedZeroLossCertificationDigest: isBaseline ? null : zeroLoss?.certificationDigest ?? null,
+    baselineSealedTrialReceiptDigest: crown.baselineTrialReceiptDigest,
+    liveRoutingAuthority: isBaseline
+      ? 'CANONICAL_FRONTIER_CROWN_BASELINE'
+      : 'CANONICAL_FRONTIER_CROWN_PAIRED_ZERO_LOSS_CANDIDATE'
   };
   canonicalLiveBenchmarks.set(benchmark, sha256(benchmark));
   return envelope({
@@ -158,7 +194,7 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     benchmark,
     benchmarkDigest: sha256(benchmark),
     promotionAuthority: 'NONE',
-    truthBoundary: 'LIVE ROUTING BENCHMARK AUTHORITY EXISTS ONLY FOR AN UNMODIFIED BENCHMARK DERIVED IN PROCESS FROM A CANONICAL UNTAMPERED SEALED TRIAL WHOSE EXCLUSIVE MODEL SUBJECT WAS FROZEN BEFORE EVALUATION.'
+    truthBoundary: 'LIVE ROUTING BENCHMARK AUTHORITY EXISTS ONLY FOR THE FRESH CANONICAL FRONTIER CROWN BASELINE OR A CANONICAL SEALED CANDIDATE PROVEN PAIRED-ZERO-LOSS AGAINST THAT EXACT CROWN BASELINE. CALLER-DECLARED BASELINES AND AGGREGATE SCORE TIES CREATE NO ROUTING AUTHORITY.'
   });
 }
 

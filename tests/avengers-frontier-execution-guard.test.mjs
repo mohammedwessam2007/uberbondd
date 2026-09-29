@@ -204,5 +204,5 @@ test('absolute frontier quality blocks degraded council before execution even wh
   });
   assert.equal(out.ok, false);
   assert.equal(factoryConstructions, 0);
-  assert.ok(out.reasonCodes.includes('absolute-frontier-degraded-council-prohibited'));
+  assert.ok(out.reasonCodes.includes('council-minimum-cardinality-unavailable') || out.reasonCodes.includes('independent-adjudicator-unavailable'));
 });

@@ -226,6 +226,8 @@ The required quality type does not silently weaken.
 - `17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md` — frozen burn-in, recurrence, ablation, and Crown-succession evidence protocol.
 - `src/frontier-intelligence-vm.mjs` — pure executable core for quality-typed Cognitive IR, backend authority checks, exact semantic CSE candidates, Crown escrow, frontier residual packets and proof-carrying cognition packets.
 - `tests/frontier-intelligence-vm.test.mjs` — hostile tests proving weaker backends cannot satisfy stronger quality types and that unknown states page upward.
+- `src/cognitive-superoptimizer.mjs` + tests — profiles expensive semantic hot paths, detects semantic page faults, records Frontier Thought Capital, measures routing regret, and proposes cheaper cognition programs with zero self-promotion authority.
+- `src/frontier-vm-burnin.mjs` + tests — compiles the direct-Crown-vs-V5 sealed burn-in, bridges only live untampered trials into the canonical zero-loss certificate, runs compiler-pass ablation accounting, and preserves explicit falsification conditions.
 - `src/frontier-vm-longitudinal-evaluator.mjs` + tests — measures paired regressions, Frontier Residual Ratio, compression, deoptimizations, and Crown-succession evidence over time.
 - `config/frontier-vm-v5-longitudinal-campaign.json` — frozen no-spend evidence campaign.
 - `scripts/frontier-vm-v5-doctor.mjs` — zero-spend activation gate.

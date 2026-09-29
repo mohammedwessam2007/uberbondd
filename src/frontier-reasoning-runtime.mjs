@@ -1,6 +1,7 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 import { validateAdmittedFrontierPlan } from './frontier-cognitive-admission.mjs';
+import { validateFrontierPlanMemberOrigin } from './frontier-cognitive-fabric.mjs';
 import { isFrontierSimulationExecutorFactory } from './frontier-simulation-executor.mjs';
 import { isCanonicalModelExecutorFactory } from './agent-model-executor-factory.mjs';
 
@@ -198,7 +199,9 @@ export async function executeFrontierMember({
     ? plannedMembers.find(item => item?.profileId === member?.profileId)
     : null;
   if (!planned) return failure(['member-not-present-in-admitted-frontier-plan'], 'FRONTIER_EXECUTION_BLOCKED');
-  if (JSON.stringify(planned) !== JSON.stringify(member)) return failure(['member-object-does-not-match-admitted-plan'], 'FRONTIER_EXECUTION_BLOCKED');
+  if (planned !== member) return failure(['member-object-identity-does-not-match-admitted-plan'], 'FRONTIER_EXECUTION_BLOCKED');
+  const memberOrigin = validateFrontierPlanMemberOrigin(member);
+  if (!memberOrigin.ok) return failure(memberOrigin.reasonCodes, 'FRONTIER_EXECUTION_BLOCKED');
   if (provenance.simulationOnly) {
     if (!isFrontierSimulationExecutorFactory(modelExecutorFactory)) {
       return failure(['synthetic-frontier-plan-requires-branded-no-network-simulation-factory'], 'FRONTIER_EXECUTION_BLOCKED');

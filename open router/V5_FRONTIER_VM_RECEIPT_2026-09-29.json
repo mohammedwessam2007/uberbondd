@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "uberbond.open-router.v5-frontier-vm-receipt.v1",
+  "status": "OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED",
+  "date": "2026-09-29",
+  "branch": "open-router/frontier-intelligence-virtualization-20260929",
+  "observedBranchHeadBeforeReceipt": "2debde33c5f0847fa9f97e02a5d881d209d370fe",
+  "baseMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
+  "inheritance": {
+    "noAmputation": true,
+    "preserves": [
+      "V2",
+      "V3",
+      "V4"
+    ],
+    "adds": "V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION"
+  },
+  "qualityLaw": {
+    "maxIntentionalDelta": 0,
+    "qualityFirst": true,
+    "costSecond": true,
+    "unknown": "PAGE_FAULT_TO_FRONTIER",
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE"
+  },
+  "thesis": "Virtualize the strongest verified market intelligence behind a quality-typed cognitive program, compile recurring cognition downward when evidence permits, and deoptimize back to frontier cognition on novelty or drift.",
+  "files": [
+    {
+      "path": "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+      "blobSha": "615bbc36ee6bce7c33421d1c25659bb59ff91bc7",
+      "size": 16349
+    },
+    {
+      "path": "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+      "blobSha": "fcb8f4701e5b74f5e8ccc05fb8cf09ca9682262a",
+      "size": 13115
+    },
+    {
+      "path": "src/frontier-intelligence-vm.mjs",
+      "blobSha": "9e0fc1b62e92ff6770cd57d65d08fe1527c49b96",
+      "size": 15186
+    },
+    {
+      "path": "tests/frontier-intelligence-vm.test.mjs",
+      "blobSha": "8c68bdfd6f7007a5b543d6140a8cd32b0d6cfdf7",
+      "size": 6728
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "84d446cb6076b450737ff285090708f5c3ce5f98",
+      "size": 6112
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "346c66581bd7ab6dde29e6fed0907b1831a3f769",
+      "size": 8081
+    },
+    {
+      "path": "open router/README.md",
+      "blobSha": "25111d67f81f93321ac5d943526e6c1bd9e1764b",
+      "size": 11411
+    },
+    {
+      "path": "config/absolute-frontier-quality-lock.json",
+      "blobSha": "9c179b089554f17f4f287fda89ff22bf05cc2292",
+      "size": 3169
+    },
+    {
+      "path": "scripts/open-router-vault-doctor.mjs",
+      "blobSha": "06cc852e4d05dde223045e20ad93c784292395f2",
+      "size": 7608
+    },
+    {
+      "path": "package.json",
+      "blobSha": "6df745662ccbed1f4bb4e8cf50fb99e0fb887346",
+      "size": 23971
+    }
+  ],
+  "executableClaims": {
+    "cognitiveIRCompiler": "IMPLEMENTED",
+    "qualityTypeAuthorityChecks": "IMPLEMENTED",
+    "qUnknownFailClosed": "IMPLEMENTED",
+    "qualityEscrow": "IMPLEMENTED",
+    "commonSemanticSubexpressionDetection": "IMPLEMENTED_PLAN_ONLY",
+    "frontierResidualCompiler": "IMPLEMENTED",
+    "proofCarryingCognitionPacket": "IMPLEMENTED",
+    "liveModelExecution": "NOT_ADDED_BY_V5",
+    "automaticRuntimePromotion": "NOT_AUTHORIZED"
+  },
+  "truthBoundary": [
+    "This receipt proves repository preservation of V5 files and their observed Git blob identities at the recorded branch state.",
+    "It does not prove global novelty, global superiority, a live $30 frontier-equivalent system, 1000x compression, or zero future regressions.",
+    "Those claims remain subject to current-market research, live paired trials, cost receipts, and canonical zero-loss certification."
+  ],
+  "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json may index the finalized receipt after creation."
+}

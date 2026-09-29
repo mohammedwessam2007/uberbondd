@@ -998,7 +998,13 @@
       ],
       "firstInternalExperiment": "MEASURE_SEMANTIC_DUPLICATION_AND_RECURRENCE_IN_REAL_UBERBOND_WORK",
       "nextAfterActivation": "RUN_PAIRED_BURN_IN_THEN_BEGIN_E1_TO_E7_IN_ORDER",
-      "truthBoundary": "These are invention hypotheses and donor mechanisms, not measured 33,333x results."
+      "truthBoundary": "These are invention hypotheses and donor mechanisms, not measured 33,333x results.",
+      "teacherCrownCapitalIssuer": {
+        "role": "MOVING_FRONTIER_CAPITAL_ISSUER",
+        "currentPublicCandidate": "anthropic/claude-opus-5.5",
+        "candidateOnly": true,
+        "goal": "Use frontier calls preferentially to create reusable descendants rather than disposable prose when task semantics permit."
+      }
     }
   },
   "wessamSingularityOverlay": {

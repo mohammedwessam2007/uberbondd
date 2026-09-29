@@ -1274,3 +1274,251 @@ If these assets have sufficiently high fanout and low depreciation, cumulative r
 If they do not, the 33,333x target fails.
 
 Reality decides.
+
+
+---
+
+## The big twist — strongest current frontier as the capital issuer
+
+As of 2026-09-29, the freshest public evidence available in this research pass places **Claude Opus 5.5 at the top of the Artificial Analysis Intelligence Index at max effort, score 58, rank #1/216**.
+
+Evidence:
+- https://artificialanalysis.ai/models/claude-opus-5-5/
+- https://artificialanalysis.ai/articles/claude-opus-5-5
+- https://openrouter.ai/anthropic/claude-opus-5.5-20260921
+
+Current OpenRouter list economics observed:
+- input: $4 / 1M tokens;
+- output: $20 / 1M tokens;
+- cache read: $0.20 / 1M tokens;
+- context: 1M tokens.
+
+OpenRouter also reports very high observed cache-hit rates on major Opus 5.5 provider routes, which strengthens the case for stable-prefix and cache-locality engineering.
+
+### Interpretation
+
+Do not use Opus 5.5 merely as the final expensive answerer.
+
+Use the strongest verified frontier model of the day as the **Intelligence Capital Issuer**.
+
+The capital-issuer role is:
+
+```
+strongest current frontier
+ -> solve genuinely novel semantic territory
+ -> expose decision boundaries
+ -> define applicability predicates
+ -> generate counterexamples
+ -> specify verifiers
+ -> identify deterministic substructure
+ -> design Jev circuits
+ -> author regression tests
+ -> create semantic rewrite rules
+ -> create task-class compilers
+ -> create reusable reasoning primitives
+ -> challenge its own descendants
+```
+
+Then cheaper machinery executes those descendants repeatedly.
+
+This is the central asymmetry:
+
+```
+BAD:
+Opus 5.5 answers task 1
+Opus 5.5 answers task 2
+Opus 5.5 answers task 3
+...
+Opus 5.5 answers task 1,000,000
+
+GOOD:
+Opus 5.5 solves the deepest recurring semantic structure once
+ -> UberMind extracts a franchise / verifier / Jev circuit / code path
+ -> 1,000s or 1,000,000s of later cases execute without another equivalent frontier reasoning event
+ -> Opus 5.5 only sees exceptions, novelty, drift and unresolved boundary cases
+```
+
+### Teacher-Crown / Student-Fabric architecture
+
+```
+                    CLAUDE OPUS 5.5 MAX
+                  CURRENT TEACHER-CROWN
+                            |
+       +--------------------+--------------------+
+       |                    |                    |
+       v                    v                    v
+  DECISION FRANCHISES   VERIFIER FOUNDRY   TASK COMPILERS
+       |                    |                    |
+       v                    v                    v
+      JEV              CODE / SOLVERS      CHEAP WORKERS
+       |                    |                    |
+       +--------------------+--------------------+
+                            |
+                            v
+                     MASS EXECUTION
+                            |
+                            v
+                    EXCEPTION DETECTOR
+                            |
+                 +----------+----------+
+                 |                     |
+              ordinary                novel
+                 |                     |
+                 v                     v
+            compiled path       OPUS 5.5 PAGE FAULT
+                                       |
+                                       v
+                               NEW CAPITAL ISSUED
+                                       |
+                                       +---------> compile downward again
+```
+
+### Opus-as-compiler doctrine
+
+The highest-value Opus token is not necessarily the token that writes the final prose.
+
+It may be the token that creates a mechanism preventing 10,000 future frontier tokens from ever being needed.
+
+Therefore prioritize Opus 5.5 for outputs with high expected **future fanout**:
+
+1. applicability boundaries;
+2. reusable decision procedures;
+3. verifier specifications;
+4. semantic normalizers;
+5. task-archetype compilers;
+6. adversarial counterexample suites;
+7. exact code-generation specifications;
+8. Jev calibration programs;
+9. source-dependency maps;
+10. failure taxonomy;
+11. cross-domain cognitive primitives;
+12. architecture mutations likely to reduce frontier residual ratio.
+
+### Capital issuance score
+
+For every potential Teacher-Crown call, estimate:
+
+```
+Capital Issuance Score
+=
+(
+immediate value
++ expected future Crown cost avoided
++ expected multicast consumers
++ expected Jev descendants
++ expected code/verifier descendants
++ expected cross-domain reuse
+)
+/
+current Opus call cost
+```
+
+Mandatory high-stakes review still overrides ROI.
+
+But for optional frontier work, prefer calls that can create large reusable descendant trees.
+
+### Opus cache exploitation
+
+Because Opus 5.5 currently offers a large cache-read discount, structure repeated Teacher-Crown calls with:
+
+```
+stable quality law
++ stable task-class compiler
++ stable evidence schema
++ stable tool contract
++ stable reusable corpus prefix
++ tiny per-task delta
+```
+
+This attacks the cost of the frontier calls that cannot yet be compiled away.
+
+Cache savings do not create semantic equivalence and therefore do not relax quality gates.
+
+### Max-effort selectively, not ceremonially
+
+Current public evidence indicates Opus 5.5 max is the strongest general candidate, but max effort should be purchased where the unresolved semantic residual warrants it.
+
+Potential hierarchy:
+
+```
+exact / deterministic
+ -> no model
+
+certified bounded semantic reflex
+ -> Jev
+
+broad cheap exploration
+ -> Luna / MiMo / GLM and other current cheap diverse workers
+
+stronger worker / specialist
+ -> Sonnet 5.5 / GPT-6 Sol / Qwen-class candidates where task evidence supports them
+
+irreducible hard frontier residual
+ -> Opus 5.5 max as current general Teacher-Crown candidate
+
+serious unresolved high-stakes dispute
+ -> Opus 5.5 + independent second-Crown / task-class challenger
+```
+
+This does not permanently crown Opus 5.5.
+
+If a stronger verified model appears tomorrow:
+
+```
+new winner
+ -> Teacher-Crown succession
+ -> re-run high-value franchise audits
+ -> revalidate important Jev circuits
+ -> revalidate task compilers
+ -> preserve old Opus-derived capital that still passes
+ -> decompile only what no longer meets the higher frontier
+```
+
+### The compounding twist
+
+If the Teacher-Crown improves over time while UberMind retains all still-valid compiled cognition, the system can receive two simultaneous gains:
+
+```
+external frontier progress
++
+internal intelligence capitalization
+```
+
+So:
+
+```
+better future Crown
+ -> better new capital
+ -> existing valid capital survives
+ -> invalid capital decompiles
+ -> total quality floor rises
+ -> marginal frontier dependence can still fall
+```
+
+This is potentially stronger than either:
+- model progress alone; or
+- caching/reuse alone.
+
+The whole thesis becomes:
+
+```
+USE THE BEST BRAIN IN THE WORLD
+TO BUILD A MACHINE THAT NEEDS THE BEST BRAIN
+LESS OFTEN FOR EVERYTHING IT HAS ALREADY LEARNED,
+SO THAT ITS LIMITED BUDGET CAN BE CONCENTRATED
+ON THE NEXT UNKNOWN.
+```
+
+### Truth boundary
+
+As of 2026-09-29, Opus 5.5 max is the strongest general candidate in the public benchmark evidence cited above, not a metaphysically or permanently "highest intelligence in the world."
+
+Task-specific winners can differ. For example, current public evidence shows Sonnet 5.5 can match or exceed Opus 5.5 on some terminal/automation evaluations while using many more output tokens.
+
+UberMind therefore keeps:
+- a moving general Teacher-Crown;
+- task-class Crowns;
+- a second-Crown challenge lane;
+- sealed succession tests.
+
+The capital-issuer architecture survives any future Crown change.

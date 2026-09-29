@@ -739,8 +739,8 @@
       "configured": false
     },
     {
-      "id": "bytedance-doubao-seed-2-1-lite",
-      "provider": "bytedance",
+      "id": "volcengine-doubao-seed-2-1-lite",
+      "provider": "volcengine",
       "canonicalModel": "doubao-seed-2-1-lite-260915",
       "label": "Doubao Seed 2.1 Lite",
       "rolePriors": [
@@ -762,7 +762,6 @@
         "deep-thinking"
       ],
       "officialEvidenceRefs": [
-        "https://www.volcengine.com/docs/82379/1330310?lang=zh",
         "https://docs.volcengine.com/docs/ark/model-list?lang=zh",
         "https://docs.volcengine.com/docs/ark/model-pricing?lang=zh"
       ],

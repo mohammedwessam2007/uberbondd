@@ -171,3 +171,12 @@ These names supersede, but do not erase, the earlier offer donors White-Label Le
 "10/10" means design-complete against the current internal rubric only. It does not establish demand, price acceptance, contribution margin, recurring demand, close rate or revenue. Real buyer behavior, cleared payment and accepted delivery outrank this memory.
 
 Sender/provider readiness is dynamic. A future session must refresh current provider entitlement/payment status, current policy, domain/mailbox health, legal eligibility and a controlled canary before cold activation. Never assume a September 2026 provider state remains true next month.
+
+
+## 2026-09-29 — UberMind $30 Frontier-Max Canon
+
+Durable continuation pointer: `docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json`.
+
+Founder-approved operating doctrine: TypingMind on iPad is the interactive cockpit; OpenRouter is the default cloud model market; no local GPU/model is required; the quality invariant remains zero intentional loss; the model Crown/Pantheon is dynamic and follows the strongest verified market intelligence; Jev is the Hyperreflex semantic control plane; cheap heterogeneous swarms explore; Adversarial Synthesis compresses disputes; only unresolved deltas reach the Crown; recurring verified cognition descends Crown -> Jev -> deterministic code; the initial all-in cognition target is approximately USD 30/month; budget pressure queues/deferred work rather than lowering quality. The aspiration is to compress reference frontier compute/work by orders of magnitude, potentially into thousands-of-dollars-class reference value for roughly USD 30, but this remains an empirical target until matched live receipts and paired quality evidence prove it.
+
+PR #1027's merged OpenRouter backend is retained for unattended/night-shift/tournament work, while the founder explicitly superseded any custom interactive-UI implication in favor of TypingMind. Next frontier: activation, live cost/token receipts, paired Crown-vs-UberMind trials, Jev shadow calibration/certification, and measured compression factor. Do not restart the architecture in a new chat.

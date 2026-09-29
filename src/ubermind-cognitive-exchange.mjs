@@ -1,5 +1,6 @@
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { qualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const UBERMIND_COGNITIVE_EXCHANGE_VERSION='uberbond.ubermind-cognitive-exchange.v1';
 const ROLES=Object.freeze(['explorer','researcher','specialist','skeptic','falsifier','synthesizer','planner','judge']);
@@ -19,11 +20,23 @@ export function chooseCognitionTopology({consequence=0,uncertainty=0,reversibili
   if([c,u,r,f].some(v=>v==null))return fail(['bounded-cognition-stakes-required']);
   const irreversibility=1-r;
   const score=0.32*c+0.27*u+0.23*irreversibility+0.18*f;
-  let reasoningTier='FAST',roles=['planner'];
-  if(score>=0.25){reasoningTier='STANDARD';roles=['researcher','planner'];}
-  if(score>=0.50){reasoningTier='DEEP';roles=['researcher','specialist','skeptic','planner'];}
+  let reasoningTier='FRONTIER_MAX',roles=['planner'];
+  if(score>=0.25){roles=['researcher','planner'];}
+  if(score>=0.50){roles=['researcher','specialist','skeptic','planner'];}
   if(score>=0.72){reasoningTier='COUNCIL_MAX';roles=['explorer','researcher','specialist','skeptic','falsifier','synthesizer','planner','judge'];}
-  return {ok:true,status:'COGNITION_TOPOLOGY_SELECTED',score:Number(score.toFixed(6)),reasoningTier,roles,minimumUsefulRoleCount:roles.length,law:'COGNITION_DEPTH_SCALES_WITH_CONSEQUENCE_UNCERTAINTY_IRREVERSIBILITY_AND_FOUNDER_IMPORTANCE; AGENT_COUNT_IS_NOT_AN_OBJECTIVE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',externalEffectLedger:zero()};
+  return {
+    ok:true,
+    status:'COGNITION_TOPOLOGY_SELECTED',
+    score:Number(score.toFixed(6)),
+    reasoningTier,
+    roles,
+    minimumUsefulRoleCount:roles.length,
+    absoluteQualityInvariant:qualityInvariantAttestation(),
+    law:'SEMANTIC_COGNITION_NEVER_FALLS_BELOW_FRONTIER_MAX; HIGHER_STAKES_MAY_ESCALATE_TO_COUNCIL_MAX; COST_REDUCTION_COMES_FROM_ZERO_LOSS_ORCHESTRATION_JEV_CACHE_BATCH_AND_CRYSTALLIZATION_NOT_A_WEAKER_REASONING_TIER',
+    businessEffectAuthority:'NONE',
+    externalEffectAuthority:'NONE',
+    externalEffectLedger:zero()
+  };
 }
 
 /**

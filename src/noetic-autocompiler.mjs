@@ -7,6 +7,7 @@
 
 import crypto from 'node:crypto';
 import { choice, noul, score } from './system-one-decision-adapter.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST, qualityInvariantAttestation, validatePairedZeroLossCertificate } from './absolute-frontier-quality-invariant.mjs';
 
 export const NOETIC_AUTOCOMPILER_VERSION = 'uberbond.noetic-autocompiler.v1';
 export const SEMANTIC_OPS = Object.freeze(['NOUL', 'CHOICE', 'SCORE']);
@@ -180,14 +181,15 @@ export function assessRealityDrift({ baseline = {}, recent = {} } = {}) {
   if (reasons.length) return fail('DRIFT_ASSESSMENT_REFUSED', reasons);
   const accuracyDrop = baseAccuracy - recentAccuracy;
   const calibrationWorsening = recentCalibrationError - baseCalibrationError;
-  const drift = accuracyDrop >= 0.05 || calibrationWorsening >= 0.05;
+  const drift = accuracyDrop > 0 || calibrationWorsening > 0;
   return {
     ok: true,
     status: drift ? 'REALITY_DRIFT_DETECTED__DECOMPILE' : 'NO_MATERIAL_DRIFT_OBSERVED',
     drift,
     accuracyDrop,
     calibrationWorsening,
-    action: drift ? 'PROMOTE_TO_DEEPER_COGNITION_AND_REVALIDATE' : 'KEEP_CURRENT_EXECUTION_TIER',
+    action: drift ? 'IMMEDIATE_DECOMPILE_TO_FRONTIER_AND_REVALIDATE' : 'KEEP_CURRENT_EXECUTION_TIER',
+    absoluteQualityInvariant: qualityInvariantAttestation(),
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EFFECTS }
@@ -196,27 +198,46 @@ export function assessRealityDrift({ baseline = {}, recent = {} } = {}) {
 
 export function proposeCognitiveCompilation({
   programDigest, outcomeCount = 0, accuracy, calibrationError, stableWindows = 0,
-  drift = false, minimumOutcomes = 100, minimumAccuracy = 0.98, maximumCalibrationError = 0.02
+  drift = false, minimumOutcomes = 100, minimumAccuracy = 1, maximumCalibrationError = 0,
+  zeroLossCertificate = null
 } = {}) {
   const reasons = [];
   const acc = finite(accuracy);
   const cal = finite(calibrationError);
-  if (!text(programDigest, 120)) reasons.push('program-digest-required');
+  const expectedCandidateArchitectureId = text(programDigest, 120);
+  if (!expectedCandidateArchitectureId) reasons.push('program-digest-required');
   if (!Number.isInteger(outcomeCount) || outcomeCount < minimumOutcomes) reasons.push('insufficient-reality-outcomes');
-  if (acc == null || acc < minimumAccuracy) reasons.push('accuracy-below-compilation-threshold');
-  if (cal == null || cal > maximumCalibrationError) reasons.push('calibration-error-above-threshold');
+  if (minimumAccuracy !== 1) reasons.push('minimum-accuracy-must-remain-one');
+  if (maximumCalibrationError !== 0) reasons.push('maximum-calibration-error-must-remain-zero');
+  if (acc == null || acc < 1) reasons.push('accuracy-below-zero-loss-threshold');
+  if (cal == null || cal > 0) reasons.push('calibration-error-above-zero-loss-threshold');
   if (!Number.isInteger(stableWindows) || stableWindows < 3) reasons.push('insufficient-stable-windows');
   if (drift === true) reasons.push('drift-present');
+  const zeroLoss = validatePairedZeroLossCertificate(zeroLossCertificate, {
+    expectedCandidateArchitectureId,
+    minimumTaskCount: minimumOutcomes
+  });
+  if (!zeroLoss.ok) reasons.push(...zeroLoss.reasonCodes);
   const eligible = reasons.length === 0;
-  const evidence = { programDigest: text(programDigest, 120), outcomeCount, accuracy: acc, calibrationError: cal, stableWindows, drift: drift === true };
+  const evidence = {
+    programDigest: expectedCandidateArchitectureId,
+    outcomeCount,
+    accuracy: acc,
+    calibrationError: cal,
+    stableWindows,
+    drift: drift === true,
+    zeroLossCertificationDigest: zeroLoss.ok ? zeroLoss.certificationDigest : null,
+    absoluteQualityPolicyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST
+  };
   return {
     ok: true,
     policyVersion: NOETIC_AUTOCOMPILER_VERSION,
     status: eligible ? 'DETERMINISTIC_COMPILATION_CANDIDATE' : 'KEEP_SEMANTIC_OR_FRONTIER_TIER',
     eligible,
-    reasonCodes: reasons,
+    reasonCodes: unique(reasons),
     evidence,
     candidateId: eligible ? `jit_${digest(evidence).slice(0, 24)}` : null,
+    absoluteQualityInvariant: qualityInvariantAttestation(),
     automaticCodeMutationAuthorized: false,
     actionAuthority: 'NONE',
     businessEffectAuthority: 'NONE',

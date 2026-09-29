@@ -799,7 +799,7 @@
     "recovery": "Read open router/README.md + OPEN_ROUTER_UBERMIND_CANON.json + MANIFEST.json. Preserve v2 and v3. Do not redesign from scratch."
   },
   "openRouterFrontierVmV5_20260929": {
-    "status": "MERGED_TO_MAIN_PRE_LIVE_EMPIRICAL_PROOF",
+    "status": "MERGED_TO_MAIN_PRE_LIVE_EMPIRICAL_PROOF__TYPINGMIND_ACTIVATION_BOUNDARY_FIXED",
     "branch": "open-router/frontier-intelligence-virtualization-20260929",
     "objective": "Continuously virtualize the strongest verified market intelligence behind a stable quality contract and minimize all-in cognition cost without intentional quality reduction.",
     "conceptualShift": "MODELS_ARE_REPLACEABLE_PROCESSORS__COGNITION_IS_THE_PROGRAM",
@@ -872,10 +872,10 @@
     },
     "upgradeCeiling": "Do not add named architecture layers unless they measurably improve quality, compression, verification, latency, founder time, recoverability, or authority safety. Next major progress is live evidence.",
     "externalBlockers": [
-      "OpenRouter API credential in protected runtime",
+      "TypingMind connected to OpenRouter with owner-held API key; record non-secret connection evidence reference",
       "live current task-class Crown snapshot",
       "fresh sealed/custodied task source",
-      "real provider billing receipts",
+      "real provider billing receipts after live calls",
       "independent or blind paired evaluation"
     ],
     "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> REFRESH_LIVE_CROWN -> COMMIT_FRESH_TASK_SOURCE -> RUN_CONTROLLED_BURN_IN -> CANONICAL_ZERO_LOSS_GATE -> LONGITUDINAL_RECURRENCE",
@@ -899,7 +899,7 @@
       "vercel": "RATE_LIMITED__NO_SOURCE_FAILURE_INFERRED"
     },
     "formerWorkingBranch": "open-router/frontier-intelligence-virtualization-20260929",
-    "recoveryLaw": "Recover current main first. V5 is merged; do not continue from the obsolete working branch. Read the canonical Open Router V5 files and continue from live activation/empirical proof.",
+    "recoveryLaw": "Recover current main first. V5 and the TypingMind-first activation correction are merged. Do not require a duplicate repo/runtime OpenRouter key for interactive iPad use. Continue from live connection evidence, Crown refresh, fresh paired burn-in and empirical proof.",
     "activationBoundary": {
       "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
       "userDevice": "iPad",
@@ -912,6 +912,16 @@
       "source": "src/frontier-vm-activation-readiness.mjs",
       "test": "tests/frontier-vm-activation-readiness.test.mjs",
       "law": "Do not duplicate the interactive OpenRouter credential into UberBond runtime merely to satisfy a doctor."
+    },
+    "typingMindActivationFix": {
+      "mergedPr": 1036,
+      "mergedMainSha": "3e9db6957cee713158cf38e6616ee08cfe263792",
+      "change": "Interactive iPad/TypingMind mode no longer requires OPENROUTER_API_KEY in the UberBond runtime; only a non-secret TypingMind/OpenRouter connection evidence reference is required. Protected runtime key remains optional for explicit unattended mode.",
+      "source": "src/frontier-vm-activation-readiness.mjs",
+      "doctor": "scripts/frontier-vm-v5-doctor.mjs",
+      "test": "tests/frontier-vm-activation-readiness.test.mjs",
+      "providerCallsPerformed": 0,
+      "spendUsd": 0
     }
   }
 }

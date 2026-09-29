@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond.open-router.frontier-max.v3",
+  "schemaVersion": "uberbond.open-router.frontier-max.v5",
   "canonDate": "2026-09-29",
-  "status": "FOUNDER_APPROVED_V3_VAULT_COMPLETE_PRE_LIVE_ECONOMIC_PROOF",
+  "status": "FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_PRE_LIVE_PROOF",
   "inheritance": {
     "noAmputation": true,
     "extends": [
@@ -112,7 +112,7 @@
     "currentOptimalRoster": false
   },
   "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
-  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve v2 and v3; continue from activation/empirical proof.",
+  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",
     "Crown Call Coalescing",
@@ -143,7 +143,63 @@
     "backupReceipt": "open router/BACKUP_RECEIPT_2026-09-29.json",
     "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
     "integrityDoctor": "npm run open-router:vault:doctor",
-    "contentState": "V2_FOUNDATION_PLUS_V3_COGNITIVE_ARBITRAGE_DURABLY_PRESERVED",
+    "contentState": "V2_V3_V4_PLUS_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_DURABLY_PRESERVED_ON_BRANCH_PRE_MERGE",
     "activationState": "NOT_YET_LIVE_PROVEN"
+  },
+  "frontierIntelligenceVirtualization": {
+    "thesis": "Virtualize the strongest verified market intelligence as a stable logical service and continuously compile recurring cognition into cheaper certified execution.",
+    "architecture": "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "supercompiler": "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "implementation": "src/frontier-intelligence-vm.mjs",
+    "tests": "tests/frontier-intelligence-vm.test.mjs",
+    "qualityTypeSystem": [
+      "Q_EXACT",
+      "Q_CERTIFIED_BOUNDED",
+      "Q_FRONTIER",
+      "Q_MULTI_FRONTIER",
+      "Q_REALITY_SETTLED",
+      "Q_UNKNOWN"
+    ],
+    "coreLaws": [
+      "MODELS_ARE_REPLACEABLE_PROCESSORS",
+      "QUALITY_CONTRACT_IS_STABLE_LOGICAL_INTERFACE",
+      "UNKNOWN_PAGES_UPWARD",
+      "PURCHASE_ONLY_IRREDUCIBLE_FRONTIER_RESIDUAL",
+      "AMORTIZE_VERIFIED_COGNITION_WHEN_EVIDENCE_PERMITS",
+      "DEOPTIMIZE_ON_DRIFT",
+      "FRONTIER_SUCCESSION_TRIGGERS_RECOMPILATION"
+    ],
+    "compilerPasses": [
+      "constant folding",
+      "common semantic subexpression elimination",
+      "dead branch elimination",
+      "loop-invariant cognition hoisting",
+      "partial evaluation",
+      "cognitive vectorization",
+      "evidence multicast",
+      "semantic dead-output elimination",
+      "incremental recompilation",
+      "context locality scheduling",
+      "frontier residualization"
+    ],
+    "profileGuidedRuntime": [
+      "semantic page faults",
+      "frontier novelty ledger",
+      "cognitive hot-path profiler",
+      "semantic branch prediction",
+      "cognitive out-of-order execution",
+      "semantic prefetch",
+      "cognitive RAID",
+      "semantic checksums",
+      "cognitive fork/merge",
+      "counterfactual compute market",
+      "semantic option value",
+      "quality debt",
+      "cognitive garbage collection",
+      "self-hosting compiler",
+      "metacognitive credit assignment",
+      "zero-loss deoptimization"
+    ],
+    "proofBoundary": "Architecture and pure core implementation exist. Global novelty, market-best compression, and $30 frontier-equivalent operation are empirical claims not yet proven."
   }
 }

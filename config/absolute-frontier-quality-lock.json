@@ -12,7 +12,9 @@
     "SEMANTIC_COGNITION_NEVER_FALLS_BELOW_FRONTIER_MAX",
     "COUNCIL_DEGRADATION_IS_NOT_AN_ALLOWED_FRONTIER_FALLBACK",
     "UNKNOWN_OR_STALE_EQUIVALENCE_FAILS_CLOSED_TO_THE_FRONTIER_BASELINE",
-    "JEV_OR_CODE_MAY_REPLACE_FRONTIER_REASONING_ONLY_INSIDE_A_SEPARATELY_VERIFIED_CRYSTALLIZED_DOMAIN"
+    "JEV_OR_CODE_MAY_REPLACE_FRONTIER_REASONING_ONLY_INSIDE_A_SEPARATELY_VERIFIED_CRYSTALLIZED_DOMAIN",
+    "JEV_COMPILATION_REQUIRES_CURRENT_PAIRED_ZERO_LOSS_CERTIFICATION",
+    "ANY_OBSERVED_JEV_OR_CRYSTALLIZED_REGRESSION_DECOMPILES_IMMEDIATELY_TO_FRONTIER"
   ],
   "protectedSurfaces": [
     "src/absolute-frontier-quality-invariant.mjs",
@@ -23,7 +25,9 @@
     "src/frontier-reasoning-runtime.mjs",
     "src/reasoning-architecture-lab.mjs",
     "src/ubermind-cognitive-exchange.mjs",
-    "config/apex-frontier-quality-compression-campaign.json"
+    "config/apex-frontier-quality-compression-campaign.json",
+    "src/noetic-autocompiler.mjs",
+    "scripts/jev-calibration-doctor.mjs"
   ],
   "weakeningAuthority": "NONE",
   "truthBoundary": "THIS LOCK MAKES ACCIDENTAL OR INDIRECT QUALITY-FLOOR WEAKENING FAIL CLOSED INSIDE THE CURRENT SOURCE TREE. A PRIVILEGED ACTOR WHO CAN MODIFY THE LOCK, VERIFIER AND RUNTIME SOURCE TOGETHER REMAINS OUTSIDE THIS SOFTWARE TRUST BOUNDARY."

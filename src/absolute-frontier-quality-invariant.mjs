@@ -6,6 +6,8 @@ export const ABSOLUTE_FRONTIER_QUALITY_DELTA = 0;
 export const ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE = 0.95;
 export const ABSOLUTE_FRONTIER_DEGRADED_COUNCIL_ALLOWED = false;
 
+const liveZeroLossCertificates = new WeakMap();
+
 const OUTCOME_RANK = Object.freeze({
   INCORRECT: 0,
   ABSTAINED: 1,
@@ -171,7 +173,20 @@ export function certifyPairedZeroLoss({
     });
   }
 
-  return envelope({
+  const certificationDigest = digest({
+    policyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST,
+    baselineArchitectureId: baselineTrial.architectureId,
+    candidateArchitectureId: candidateTrial.architectureId,
+    suiteVersion: baselineTrial.suiteVersion,
+    corpusDigest: baselineTrial.corpusDigest,
+    manifestDigest: baselineTrial.manifestDigest,
+    taskClass: baselineTrial.taskClass,
+    baselineTaskOutcomeDigest: baselineTrial.taskOutcomeDigest,
+    candidateTaskOutcomeDigest: candidateTrial.taskOutcomeDigest,
+    baselineMeanCostUsd: bCost,
+    candidateMeanCostUsd: cCost
+  });
+  const certificate = envelope({
     ok: true,
     status: 'PAIRED_ZERO_LOSS_CERTIFIED',
     baselineArchitectureId: baselineTrial.architectureId,
@@ -181,21 +196,11 @@ export function certifyPairedZeroLoss({
     economicsImproved,
     baselineMeanCostUsd: bCost,
     candidateMeanCostUsd: cCost,
-    certificationDigest: digest({
-      policyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST,
-      baselineArchitectureId: baselineTrial.architectureId,
-      candidateArchitectureId: candidateTrial.architectureId,
-      suiteVersion: baselineTrial.suiteVersion,
-      corpusDigest: baselineTrial.corpusDigest,
-      manifestDigest: baselineTrial.manifestDigest,
-      taskClass: baselineTrial.taskClass,
-      baselineTaskOutcomeDigest: baselineTrial.taskOutcomeDigest,
-      candidateTaskOutcomeDigest: candidateTrial.taskOutcomeDigest,
-      baselineMeanCostUsd: bCost,
-      candidateMeanCostUsd: cCost
-    }),
+    certificationDigest,
     truthBoundary: 'ZERO-LOSS HERE MEANS NO REGRESSION ON ANY PAIRED SEALED TASK PLUS NO REGRESSION IN VERIFIED SUCCESS, FALSE POSITIVES OR PROCESS SCORE ON THIS EXACT FRESH EVALUATION SET. UNKNOWN FUTURE DISTRIBUTIONS STILL FAIL CLOSED TO THE FRONTIER BASELINE.'
   });
+  liveZeroLossCertificates.set(certificate, certificationDigest);
+  return certificate;
 }
 
 export function qualityInvariantAttestation() {
@@ -230,6 +235,9 @@ export function validatePairedZeroLossCertificate(certificate = {}, {
   const reasons = [];
   if (certificate?.ok !== true || certificate?.status !== 'PAIRED_ZERO_LOSS_CERTIFIED') reasons.push('paired-zero-loss-certificate-required');
   if (certificate?.policyDigest !== ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST) reasons.push('paired-zero-loss-policy-digest-mismatch');
+  if (!certificate || typeof certificate !== 'object' || liveZeroLossCertificates.get(certificate) !== certificate?.certificationDigest) {
+    reasons.push('paired-zero-loss-canonical-producer-origin-required');
+  }
   if (!Array.isArray(certificate?.regressions) || certificate.regressions.length !== 0) reasons.push('paired-zero-loss-regressions-must-be-empty');
   const taskCount = Number(certificate?.taskCount);
   if (!Number.isSafeInteger(taskCount) || taskCount < minimumTaskCount) reasons.push('paired-zero-loss-minimum-task-count-not-met');

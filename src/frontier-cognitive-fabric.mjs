@@ -18,6 +18,7 @@ const ROLE_NAMES = new Set(['planner', 'researcher', 'builder', 'critic', 'verif
 const EVIDENCE_CLASSES = new Set(['OFFICIAL_SOURCE', 'VERIFIED_RUNTIME']);
 const MAX_PROFILES = 64;
 const MAX_COUNCIL_RESPONDERS = 6;
+const plannedFrontierMembers = new WeakMap();
 const DEFAULT_EVIDENCE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 const DEFAULT_CALLABILITY_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA;
@@ -423,7 +424,7 @@ function compileCouncilGraph(responders, adjudicator, task, contextPacket) {
 }
 
 function planMember(item) {
-  return {
+  const member = {
     profileId: item.profile.id,
     provider: item.profile.provider,
     model: item.profile.model,
@@ -433,8 +434,27 @@ function planMember(item) {
     transportModel: item.profile.transportModel,
     executorWorker: executorWorker(item.profile),
     reasoningTier: item.eligibility.executionTier,
-    reasoningSettingRef: item.eligibility.binding.settingRef
+    reasoningSettingRef: item.eligibility.binding.settingRef,
+    absoluteQualityInvariant: qualityInvariantAttestation()
   };
+  plannedFrontierMembers.set(member, sha256(member));
+  return member;
+}
+
+export function validateFrontierPlanMemberOrigin(member = {}) {
+  const expectedDigest = member && typeof member === 'object' ? plannedFrontierMembers.get(member) : null;
+  const actualDigest = member && typeof member === 'object' ? sha256(member) : null;
+  if (!expectedDigest || expectedDigest !== actualDigest) {
+    return failure(['canonical-untampered-frontier-plan-member-required'], 'FRONTIER_PLAN_MEMBER_ORIGIN_BLOCKED');
+  }
+  const quality = validateQualityInvariantAttestation(member.absoluteQualityInvariant);
+  if (!quality.ok) return failure(quality.reasonCodes, 'FRONTIER_PLAN_MEMBER_ORIGIN_BLOCKED');
+  return envelope({
+    ok: true,
+    status: 'FRONTIER_PLAN_MEMBER_ORIGIN_VALID',
+    memberDigest: actualDigest,
+    absoluteQualityInvariant: member.absoluteQualityInvariant
+  });
 }
 
 export function compileFrontierCognitivePlan({

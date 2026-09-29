@@ -109,6 +109,9 @@ When a new chat or agent resumes:
 - 11_MODEL_MARKET_REFRESH.md — continuous model/provider succession protocol
 - 12_REFERENCE_VALUE_LEDGER.md — proof ledger for $30 -> $1,000+ reference-equivalent claims
 - OPEN_ROUTER_UBERMIND_CANON.json — machine-readable canon
+- MANIFEST.json — content index and recovery pointers
+- BACKUP_RECEIPT_2026-09-29.json — durable backup receipt
+- FINAL_COMPLETION_RECEIPT_2026-09-29.json — final vault-completion audit
 
 
 ## The v3 cognitive arbitrage extension

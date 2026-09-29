@@ -1,9 +1,9 @@
 {
-  "schemaVersion": "uberbond.open-router.v5-frontier-vm-receipt.v3",
+  "schemaVersion": "uberbond.open-router.v5-frontier-vm-receipt.v4",
   "status": "OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED",
   "date": "2026-09-29",
-  "branch": "open-router/frontier-intelligence-virtualization-20260929",
-  "observedBranchHeadBeforeReceipt": "c239d87154ac50ccdd48988c3a98c882a332f0d0",
+  "branch": "open-router/v5-typingmind-cockpit-activation-rebased-20260929",
+  "observedBranchHeadBeforeReceipt": "9a62c70023cec8382888d94cba0c054149f4cd5b",
   "baseMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
   "inheritance": {
     "noAmputation": true,
@@ -21,7 +21,7 @@
     "unknown": "PAGE_FAULT_TO_FRONTIER",
     "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE"
   },
-  "thesis": "Virtualize the strongest verified market intelligence behind a quality-typed cognitive program, compile recurring cognition downward when evidence permits, prove short-horizon equivalence through canonical sealed burn-in, measure self-amortization longitudinally, and deoptimize back to frontier cognition on novelty or drift.",
+  "thesis": "Virtualize the strongest verified market intelligence behind a quality-typed cognitive program, compile recurring cognition downward when evidence permits, prove short-horizon equivalence through canonical sealed burn-in, measure self-amortization longitudinally, deoptimize back to frontier cognition on novelty/drift, and keep the interactive OpenRouter secret in TypingMind rather than duplicating it into the repository runtime.",
   "files": [
     {
       "path": "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
@@ -54,6 +54,31 @@
       "size": 6012
     },
     {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "083873f8a901027c81f66a721b79bbdc3b556c38",
+      "size": 6612
+    },
+    {
+      "path": "open router/TYPINGMIND_AND_24_7.md",
+      "blobSha": "38c081edb0f4d38e993de53e1f53e21069e603b4",
+      "size": 5320
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "8aebfe9490abde67f0eec5dfef3cec44aa92c412",
+      "size": 10700
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "48c41b45f557fdbd9cd2eaef451fcf6a457c7f64",
+      "size": 7895
+    },
+    {
+      "path": "open router/README.md",
+      "blobSha": "19af159b3deaafba470753731b88d611f1646ebe",
+      "size": 13487
+    },
+    {
       "path": "src/frontier-intelligence-vm.mjs",
       "blobSha": "9e0fc1b62e92ff6770cd57d65d08fe1527c49b96",
       "size": 15186
@@ -72,6 +97,11 @@
       "path": "src/frontier-vm-longitudinal-evaluator.mjs",
       "blobSha": "070cc1957b7bd390db8d3d19e0b804940b9184cb",
       "size": 8590
+    },
+    {
+      "path": "src/frontier-vm-activation-readiness.mjs",
+      "blobSha": "fbf65945d5c4763ea9c1a4ec8e33563e87ec02bd",
+      "size": 2765
     },
     {
       "path": "tests/frontier-intelligence-vm.test.mjs",
@@ -94,49 +124,44 @@
       "size": 3063
     },
     {
+      "path": "tests/frontier-vm-activation-readiness.test.mjs",
+      "blobSha": "56268bc0eb8c4d7b6c35bb74e300446108078620",
+      "size": 3341
+    },
+    {
       "path": "config/frontier-vm-v5-longitudinal-campaign.json",
-      "blobSha": "f1ededf2f6397b7bc3abff3839a9851a5eb3643f",
-      "size": 2849
+      "blobSha": "c071db728251774d40d1fa097609ab7e403ff5aa",
+      "size": 3700
     },
     {
       "path": "config/absolute-frontier-quality-lock.json",
-      "blobSha": "113ca2c53031758f3d1f64bdfb657dc9a1027a20",
-      "size": 4128
+      "blobSha": "1a78c6d63fb35fc6db61d3ef6f1a9754e09980d5",
+      "size": 4394
     },
     {
       "path": "scripts/frontier-vm-v5-doctor.mjs",
-      "blobSha": "d7bc1d8dfe2dcb490f42f108cda1984237d447c0",
-      "size": 3454
+      "blobSha": "518503bfba158b01991a9482c14564c90b054165",
+      "size": 3886
     },
     {
       "path": "scripts/open-router-vault-doctor.mjs",
-      "blobSha": "d8aec41abfdae084151a0e072d19b3a0592cb212",
-      "size": 9099
+      "blobSha": "51f82364038de42329539269370729e9a347b5df",
+      "size": 9454
     },
     {
       "path": "tests/absolute-frontier-quality-source-integrity.test.mjs",
-      "blobSha": "ada71c935a03b62cbdad422f427271a670d42333",
-      "size": 7019
+      "blobSha": "0fb1a2f17b071f289238e117bee50e9a5f473f78",
+      "size": 7311
     },
     {
-      "path": "open router/OPERATING_SPEC.json",
-      "blobSha": "6ffa71d159532b0be14800fadacce041f5be7400",
-      "size": 7408
-    },
-    {
-      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "dccb8541895f605d443b0982bfb1dbc177a2c315",
-      "size": 10030
-    },
-    {
-      "path": "open router/README.md",
-      "blobSha": "56803a947e2e99c3a610c297af87ee22ad9fc2f5",
-      "size": 12777
+      "path": "docs/CURRENT_HANDOFF.json",
+      "blobSha": "096de7fff395bd62c555ebccd3a59282cee6b8e5",
+      "size": 72234
     },
     {
       "path": "package.json",
-      "blobSha": "2ae9c100cd3865d9aac70b843f9a6f196d778bdd",
-      "size": 24379
+      "blobSha": "190d2ab34aa361af0bd9ccbc562a47feba7a42b7",
+      "size": 24427
     }
   ],
   "executableClaims": {
@@ -161,7 +186,10 @@
     "canonicalBurnInCampaignCompiler": "IMPLEMENTED",
     "canonicalBurnInZeroLossBridge": "IMPLEMENTED",
     "ablationContributionAssessment": "IMPLEMENTED",
-    "explicitFalsificationChecklist": "IMPLEMENTED"
+    "explicitFalsificationChecklist": "IMPLEMENTED",
+    "typingMindExternalCockpitReadiness": "IMPLEMENTED",
+    "repoRuntimeSecretNotRequiredForInteractive": "IMPLEMENTED_AND_TESTED",
+    "unattendedRuntimeSecretIsolation": "IMPLEMENTED_AND_TESTED"
   },
   "evidenceProgram": {
     "priorArtMatrix": "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
@@ -174,14 +202,27 @@
     "minimumBurnInFreshPairedTasks": 40,
     "zeroObservedPairedRegressionRequirement": true,
     "broadClaimRequiresCrownSuccessionPhase": true,
-    "independentReplicationPreferred": true
+    "independentReplicationPreferred": true,
+    "activationReadinessSource": "src/frontier-vm-activation-readiness.mjs",
+    "activationReadinessTest": "tests/frontier-vm-activation-readiness.test.mjs"
   },
   "truthBoundary": [
-    "This receipt proves repository preservation of V5 architecture, implementation, proof gates, and evidence program at the recorded branch state.",
+    "This receipt proves repository preservation of V5 architecture, implementation, proof gates, evidence program, and TypingMind-first activation boundary at the recorded branch state.",
     "It does not prove global novelty, global superiority, a live $30 frontier-equivalent system, 1000x compression, or zero future regressions.",
-    "The architecture now contains explicit falsification conditions and a canonical sealed burn-in bridge; those still require live fresh tasks and provider receipts.",
-    "Stronger claims require live paired trials, real cost receipts, Crown-succession experiments, ablations, and preferably independent replication."
+    "Interactive TypingMind activation does not require an OpenRouter API key in the UberBond repository runtime; only a non-secret connection evidence reference is expected by the doctor.",
+    "Stronger claims require live paired trials, real cost receipts, Crown-succession experiments, ablations, and preferably independent replication.",
+    "This V5.4 receipt was rebased onto current main after PR #1035 so the merged-state handoff remains authoritative."
   ],
   "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json indexes the finalized receipt after this update.",
-  "reconciledMainShaAtFinalization": "ad80ec3d71028839307fbab02fbb69794a2d4c37"
+  "reconciledMainShaAtFinalization": "2e7b07838adfbde188d3b91cc61951b0ae759431",
+  "activationBoundary": {
+    "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+    "interactiveDevice": "iPad",
+    "interactiveUI": "TypingMind",
+    "market": "OpenRouter",
+    "repoRuntimeOpenRouterSecretRequiredForInteractive": false,
+    "connectionEvidenceRef": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF",
+    "optionalUnattendedMode": "UNATTENDED_RUNTIME",
+    "protectedRuntimeSecretOnlyForUnattended": "OPENROUTER_API_KEY"
+  }
 }

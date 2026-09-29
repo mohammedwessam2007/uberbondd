@@ -177,3 +177,39 @@ TypingMind can be the complete human cockpit while UberBond's cloud runtime hand
 These are complementary.
 
 Do not interpret the existence of the backend executor as a requirement to replace TypingMind.
+
+
+## TypingMind cockpit activation boundary
+
+Interactive iPad activation and unattended cloud execution are separate modes.
+
+Default interactive mode:
+
+```
+UBERMIND_ACTIVATION_MODE=TYPINGMIND_EXTERNAL_COCKPIT
+```
+
+In this mode:
+
+- the OpenRouter secret remains inside TypingMind/provider credential storage;
+- UberBond repository/runtime does **not** need a duplicate `OPENROUTER_API_KEY`;
+- record only a non-secret connection evidence reference as `UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF`;
+- the current Crown snapshot and fresh task source/custodian references are still required before controlled burn-in.
+
+Optional later unattended mode:
+
+```
+UBERMIND_ACTIVATION_MODE=UNATTENDED_RUNTIME
+```
+
+Only this mode requires `OPENROUTER_API_KEY` in the protected UberBond runtime.
+
+The V5 readiness doctor must never print or persist the secret value and performs zero provider calls.
+
+This preserves the intended physical architecture:
+
+```
+iPad / TypingMind = interactive cockpit
+UberBond repo      = doctrine, proofs, receipts, compiler
+cloud runtime      = optional unattended night shift only
+```

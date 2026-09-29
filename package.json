@@ -214,7 +214,7 @@
     "ubermind:cloud:catalog": "node scripts/ubermind-cloud-market-doctor.mjs --live-catalog",
     "test:ubermind:market": "node --test tests/openrouter-agent-executor.test.mjs tests/openrouter-market-catalog.test.mjs tests/openrouter-factory-integration.test.mjs tests/open-model-factory-integration.test.mjs tests/frontier-quality-market-compiler.test.mjs tests/ubermind-cloud-resource-contract.test.mjs",
     "open-router:vault:doctor": "node scripts/open-router-vault-doctor.mjs",
-    "test:frontier-vm": "node --test tests/frontier-intelligence-vm.test.mjs tests/cognitive-superoptimizer.test.mjs tests/frontier-vm-longitudinal-evaluator.test.mjs tests/frontier-vm-burnin.test.mjs",
+    "test:frontier-vm": "node --test tests/frontier-intelligence-vm.test.mjs tests/cognitive-superoptimizer.test.mjs tests/frontier-vm-longitudinal-evaluator.test.mjs tests/frontier-vm-burnin.test.mjs tests/frontier-vm-activation-readiness.test.mjs",
     "test:cognitive-superoptimizer": "node --test tests/cognitive-superoptimizer.test.mjs",
     "frontier-vm:doctor": "node scripts/frontier-vm-v5-doctor.mjs"
   },

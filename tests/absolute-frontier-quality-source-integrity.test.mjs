@@ -139,6 +139,14 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'promotionAuthority: \'NONE\'',
       'quality-regression-tolerance-must-remain-zero'
     ],
+    'src/frontier-vm-activation-readiness.mjs': [
+      'TYPINGMIND_EXTERNAL_COCKPIT',
+      'UNATTENDED_RUNTIME',
+      'REPOSITORY_RUNTIME_SECRET_NOT_REQUIRED',
+      'OPENROUTER_API_KEY_REQUIRED_IN_PROTECTED_RUNTIME',
+      'providerCallsPerformed:0',
+      'spendAuthorized:false'
+    ],
     'scripts/jev-calibration-doctor.mjs': [
       'minimumAccuracy:1',
       'maximumCalibrationError:0',

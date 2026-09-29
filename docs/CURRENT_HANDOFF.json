@@ -718,5 +718,33 @@
     },
     "nextAction": "Activation, not more architecture invention: configure TypingMind + OpenRouter, set ~$30 hard cap, run direct-Crown vs UberMind paired tasks, collect cost/token receipts, shadow/calibrate Jev, certify bounded reflexes, then mutate from evidence.",
     "recoveryLaw": "A new/sluggish/crashed chat must read the canon above and continue from activation/empirical proof. Do not restart model-selection architecture."
+  },
+  "openRouterVault20260929": {
+    "status": "DURABLE_RECOVERY_VAULT_CREATED_PRE_LIVE_ACTIVATION",
+    "folder": "open router/",
+    "index": "open router/README.md",
+    "manifest": "open router/MANIFEST.json",
+    "operatingSpec": "open router/OPERATING_SPEC.json",
+    "activation": "open router/ACTIVATION_CHECKLIST.md",
+    "promptPack": "open router/TYPINGMIND_PROMPT_PACK.md",
+    "proofProtocol": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+    "founderIntent": "Use TypingMind on iPad plus OpenRouter/cloud APIs to continuously obtain the strongest verified market intelligence at the lowest achievable all-in price, with a $30 monthly target and zero intentional quality reduction.",
+    "upgrades": [
+      "Cognitive Multicast",
+      "Crown-call coalescing",
+      "common semantic subexpression elimination",
+      "decision-DAG incremental recomputation",
+      "Crown Thought Capital ledger",
+      "negative-knowledge cache",
+      "error-portfolio optimization",
+      "shadow router tournament",
+      "value-of-information compute auction",
+      "frontier output minimization",
+      "cross-task Crown batching",
+      "cognitive futures market"
+    ],
+    "qualityLaw": "QUALITY_NEVER_PAYS_FOR_COST_SAVINGS__BUDGET_PRESSURE_HITS_LATENCY_THROUGHPUT_QUEUE_DEPTH_FIRST",
+    "activationBoundary": "Not live yet. Needs founder OpenRouter/TypingMind account-key-spend setup plus fresh model/pricing/Crown verification and paired live receipts.",
+    "recovery": "Refresh main, then read open router/README.md and open router/MANIFEST.json. Do not restart architecture design."
   }
 }

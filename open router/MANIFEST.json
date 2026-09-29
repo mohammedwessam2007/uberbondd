@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 44,
+  "expectedFinalFolderFileCount": 45,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "4d325fb51e1991a96593c714a8d5e970820858b3",
-      "size": 18019
+      "blobSha": "374ebae4a10487f5eebc5d1070fa7f5a1b175715",
+      "size": 19832
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "08e9b8821ac8e3a2172f0f3bb3ba9827656af715",
-      "size": 17304
+      "blobSha": "9f26983c31abb0f810de55ebdc7ae93a8e85c2c6",
+      "size": 18183
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -222,6 +222,11 @@
       "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
       "blobSha": "903e6439e0f9bd7ba669e5c67e0896ebe3b3442a",
       "size": 43115
+    },
+    {
+      "path": "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+      "blobSha": "e98248d8c0c3dd351c1e8819838e9f04a044c7e8",
+      "size": 17752
     }
   ],
   "layers": {
@@ -262,7 +267,8 @@
     "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json",
     "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
     "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
-    "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md"
+    "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -287,12 +293,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault preserves V2-V5 architecture, the dated live model-market candidate snapshot, the founder-approved Million-Dollar Intelligence target, and the active Million-Dollar Intelligence Invention Lab. The lab treats the strongest verified current frontier as a replaceable Teacher-Crown / intelligence-capital issuer and contains hypotheses that require end-to-end empirical proof. It does not prove 33,333x compression, permanent model leadership, or raw-compute equivalence.",
-  "recovery": "Refresh main; mount Wessam Singularity startup/canon; then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md, 19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json, docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, 17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md, ACTIVATION_CHECKLIST.md, MANIFEST.json, V5_FRONTIER_VM_RECEIPT_2026-09-29.json, and V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from live activation plus E1 semantic-duplication measurement and Teacher-Crown capital issuance experiments.",
+  "truthBoundary": "The vault preserves V2-V5 architecture, the Million-Dollar Intelligence target/invention lab, and the Opus-quality insane-volume fabric. The dated current general reference is Claude Opus 5.5 max, but task-class Crowns and succession remain evidence-driven. Cheap models create volume but never gain final semantic authority merely from agreement or price. The fabric is pre-live proof: no claim of Opus-quality at insane volume is valid until paired tasks and real receipts establish it.",
+  "recovery": "Refresh main; mount Wessam Singularity startup/canon; read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md, 19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md, 20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, and the V5 architecture/proof/activation files; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from owner-held TypingMind/OpenRouter activation and paired quality/cost evidence.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 43,
+  "indexedFilesExcludingSelf": 44,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",
@@ -310,6 +316,7 @@
     "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
     "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
     "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
-    "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md"
+    "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md"
   ]
 }

@@ -246,3 +246,27 @@ RECOMPILE WHEN THE MARKET FRONTIER MOVES.
 ```
 
 The strongest claim remains unproven until live paired trials exist. V5 is a systems thesis plus executable quality-typing substrate, not proof of global superiority or a guaranteed compression factor.
+
+
+## V5 interactive activation correction
+
+The founder-approved interactive path is:
+
+```
+iPad
+ -> TypingMind
+ -> OpenRouter credential stored in TypingMind/provider configuration
+ -> current model market
+```
+
+For this interactive mode, UberBond does **not** require a duplicate `OPENROUTER_API_KEY` in the repository/runtime.
+
+V5 readiness uses a non-secret connection evidence reference:
+
+```
+UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF
+```
+
+A protected runtime `OPENROUTER_API_KEY` is required only if the optional unattended cloud-worker mode is explicitly activated later.
+
+This reduces credential duplication without changing the quality law, proof protocol, $30 target, or Crown/Pantheon architecture.

@@ -353,3 +353,10 @@ Anti-fantasy law:
 Never multiply isolated paper savings.
 Only end-to-end measured compression on the same quality-gated workload counts.
 ```
+
+
+### Moving Teacher-Crown as Intelligence Capital Issuer
+
+The strongest verified task-appropriate frontier model should be used not only to answer hard tasks but to issue reusable intelligence capital: decision boundaries, applicability predicates, verifier specifications, semantic normalizers, task compilers, Jev candidates, deterministic-code candidates, regression tests and cross-domain primitives.
+
+As of 2026-09-29 public evidence, Claude Opus 5.5 is the current strongest general candidate, but this is a dated candidate state rather than permanent model loyalty. The **role** survives Crown succession.

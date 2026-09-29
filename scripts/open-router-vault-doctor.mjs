@@ -36,6 +36,7 @@ const REQUIRED = [
   'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md',
   'open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md',
   'open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md',
+  'open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md',
   'docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json',
   'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md',
   'src/frontier-intelligence-vm.mjs',
@@ -159,6 +160,10 @@ if (v5Receipt) {
   if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
   if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
 }
+const byConstruction = fs.existsSync('open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md')
+  ? fs.readFileSync('open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md', 'utf8')
+  : null;
+
 const oneDollarMode = fs.existsSync('open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md')
   ? fs.readFileSync('open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md', 'utf8')
   : null;
@@ -174,6 +179,13 @@ const inventionLab = fs.existsSync('open router/19_MILLION_DOLLAR_INTELLIGENCE_I
 const millionDollarTarget = fs.existsSync('open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md')
   ? fs.readFileSync('open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md', 'utf8')
   : null;
+
+if (byConstruction) {
+  if (!byConstruction.includes('Crown Closure Law')) failures.push('by-construction-crown-closure-law-missing');
+  if (!byConstruction.includes('E0 — identical')) failures.push('by-construction-equivalence-ladder-missing');
+  if (!byConstruction.includes('Semantic Proof Tree')) failures.push('by-construction-proof-tree-missing');
+  if (!byConstruction.includes('cannot honestly be made theorem-like')) failures.push('by-construction-truth-boundary-missing');
+}
 
 if (oneDollarMode) {
   if (!oneDollarMode.includes('$1.00/day')) failures.push('one-dollar-mode-daily-budget-missing');
@@ -259,6 +271,7 @@ console.log(JSON.stringify({
   millionDollarInventionLab: inventionLab ? 'RESEARCH_INVENTION_PROGRAM_NOT_PROVEN' : null,
   opusQualityInsaneVolumeFabric: opusQualityVolume ? 'FOUNDER_DIRECTED_ARCHITECTURE_PRE_LIVE_PROOF' : null,
   oneDollarDay247OpusQualityMode: oneDollarMode ? 'FOUNDER_DIRECTED_OPERATING_ARCHITECTURE_PRE_LIVE_PROOF' : null,
+  byConstructionOpusEquivalence: byConstruction ? 'FOUNDER_DIRECTED_FORMAL_EQUIVALENCE_ARCHITECTURE_PRE_LIVE_PROOF' : null,
   wessamSingularityWarRoom: warRoom?.schemaVersion ?? null
 }, null, 2));
 

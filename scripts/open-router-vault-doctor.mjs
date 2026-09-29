@@ -18,7 +18,8 @@ const REQUIRED = [
   'open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md',
   'open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json',
   'open router/MANIFEST.json',
-  'open router/BACKUP_RECEIPT_2026-09-29.json'
+  'open router/BACKUP_RECEIPT_2026-09-29.json',
+  'open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json'
 ];
 
 const failures = [];
@@ -37,6 +38,8 @@ const canon = readJson('open router/OPEN_ROUTER_UBERMIND_CANON.json');
 const manifest = readJson('open router/MANIFEST.json');
 const lock = readJson('open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json');
 const handoff = readJson('docs/CURRENT_HANDOFF.json');
+const backup = readJson('open router/BACKUP_RECEIPT_2026-09-29.json');
+const completion = readJson('open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json');
 
 if (spec) {
   if (spec?.objective?.maxQualityDelta !== 0) failures.push('v3-quality-delta-not-zero');
@@ -48,8 +51,9 @@ if (spec) {
 }
 
 if (canon) {
-  if (canon?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v2-quality-delta-not-zero');
-  if (canon?.founderIntent?.acceptedMonthlyTargetUsd !== 30) failures.push('v2-monthly-budget-not-30');
+  if (canon?.schemaVersion !== 'uberbond.open-router.frontier-max.v3') failures.push('machine-canon-not-v3');
+  if (canon?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('canon-quality-delta-not-zero');
+  if (canon?.founderIntent?.acceptedMonthlyTargetUsd !== 30) failures.push('canon-monthly-budget-not-30');
   if (!Array.isArray(canon?.newV3Upgrades) || !canon.newV3Upgrades.includes('Cognitive Multicast')) failures.push('v3-not-linked-from-machine-canon');
 }
 
@@ -66,6 +70,11 @@ if (manifest) {
 }
 
 if (handoff?.openRouterFrontierMaxFolder20260929?.canonicalFolder !== 'open router/') failures.push('handoff-pointer-missing');
+if (manifest?.status !== 'V2_PLUS_V3_CONTENT_COMPLETE') failures.push('manifest-not-complete');
+if (backup?.status !== 'V2_PLUS_V3_BACKUP_CONTENT_COMPLETE') failures.push('backup-receipt-not-complete');
+if (completion?.status !== 'OPEN_ROUTER_VAULT_COMPLETE') failures.push('final-completion-receipt-not-complete');
+if (completion?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('completion-quality-delta-not-zero');
+if (completion?.budget?.monthlyAllInTargetUsd !== 30) failures.push('completion-budget-not-30');
 
 const readme = fs.existsSync('open router/README.md') ? fs.readFileSync('open router/README.md', 'utf8') : '';
 for (const token of [
@@ -81,7 +90,7 @@ for (const token of [
 
 console.log(JSON.stringify({
   ok: failures.length === 0,
-  status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V2_V3_VAULT_INTACT',
+  status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V3_VAULT_COMPLETE_AND_INTACT',
   failures,
   qualityDelta: spec?.objective?.maxQualityDelta ?? null,
   monthlyBudgetUsd: spec?.budget?.monthlyAllInTarget ?? null,

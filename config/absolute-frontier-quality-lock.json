@@ -58,7 +58,9 @@
     "config/ubermind-cloud-cognition-resources.json",
     "src/frontier-intelligence-vm.mjs",
     "src/cognitive-superoptimizer.mjs",
-    "src/frontier-vm-longitudinal-evaluator.mjs"
+    "src/frontier-vm-longitudinal-evaluator.mjs",
+    "config/frontier-vm-v5-longitudinal-campaign.json",
+    "scripts/frontier-vm-v5-doctor.mjs"
   ],
   "weakeningAuthority": "NONE",
   "truthBoundary": "THIS LOCK MAKES ACCIDENTAL OR INDIRECT QUALITY-FLOOR WEAKENING FAIL CLOSED INSIDE THE CURRENT SOURCE TREE. A PRIVILEGED ACTOR WHO CAN MODIFY THE LOCK, VERIFIER AND RUNTIME SOURCE TOGETHER REMAINS OUTSIDE THIS SOFTWARE TRUST BOUNDARY."

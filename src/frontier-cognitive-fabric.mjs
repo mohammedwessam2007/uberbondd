@@ -5,6 +5,7 @@ import { validateOrchestrationGraph } from './orchestration-frontier.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE, qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy, validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.3.1';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
@@ -19,7 +20,7 @@ const MAX_PROFILES = 64;
 const MAX_COUNCIL_RESPONDERS = 6;
 const DEFAULT_EVIDENCE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 const DEFAULT_CALLABILITY_MAX_AGE_MS = 24 * 60 * 60 * 1000;
-const DEFAULT_FRONTIER_QUALITY_DELTA = 0.05;
+const DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA;
 
 function clone(value) { return structuredClone(value); }
 function zeroEffects() { return clone(ZERO_EXTERNAL_EFFECTS); }
@@ -308,14 +309,26 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
     const evidenced = enriched.filter(item => item.benchmark && item.benchmark.evidenceConfidence >= minimumEvidenceConfidence);
     if (!evidenced.length) return failure(['frontier-tier-requires-fresh-quality-evidence'], 'CAPACITY_BLOCKED');
     const bestQuality = Math.max(...evidenced.map(item => item.benchmark.quality));
-    const floor = bestQuality - frontierQualityDelta;
-    const frontier = evidenced.filter(item => item.benchmark.quality >= floor);
-    frontier.sort((a, b) => {
-      const aScore = a.benchmark.quality * 0.6 + a.benchmark.reliability * 0.32 + a.benchmark.latencyScore * 0.04 + a.benchmark.costEfficiency * 0.04;
-      const bScore = b.benchmark.quality * 0.6 + b.benchmark.reliability * 0.32 + b.benchmark.latencyScore * 0.04 + b.benchmark.costEfficiency * 0.04;
-      return bScore - aScore || a.profile.id.localeCompare(b.profile.id);
+    const qualityExact = evidenced.filter(item => item.benchmark.quality === bestQuality);
+    const bestReliability = Math.max(...qualityExact.map(item => item.benchmark.reliability));
+    const reliabilityExact = qualityExact.filter(item => item.benchmark.reliability === bestReliability);
+    const bestEvidenceConfidence = Math.max(...reliabilityExact.map(item => item.benchmark.evidenceConfidence));
+    const frontier = reliabilityExact.filter(item => item.benchmark.evidenceConfidence === bestEvidenceConfidence);
+    frontier.sort((a, b) =>
+      b.benchmark.costEfficiency - a.benchmark.costEfficiency ||
+      b.benchmark.latencyScore - a.benchmark.latencyScore ||
+      a.profile.id.localeCompare(b.profile.id)
+    );
+    return envelope({
+      ok: true,
+      status: 'FRONTIER_CANDIDATES_RANKED',
+      ranked: frontier,
+      bestQuality,
+      qualityFloor: bestQuality,
+      bestReliability,
+      bestEvidenceConfidence,
+      absoluteQualityInvariant: qualityInvariantAttestation()
     });
-    return envelope({ ok: true, status: 'FRONTIER_CANDIDATES_RANKED', ranked: frontier, bestQuality, qualityFloor: floor });
   }
 
   const candidates = enriched.map(item => item.candidate);
@@ -431,7 +444,7 @@ export function compileFrontierCognitivePlan({
   callabilityProvenance = null,
   benchmarks = [],
   contextArtifacts = [],
-  minimumEvidenceConfidence = 0.6,
+  minimumEvidenceConfidence = ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE,
   evidenceMaxAgeMs = DEFAULT_EVIDENCE_MAX_AGE_MS,
   callabilityMaxAgeMs = DEFAULT_CALLABILITY_MAX_AGE_MS,
   frontierQualityDelta = DEFAULT_FRONTIER_QUALITY_DELTA,
@@ -449,6 +462,11 @@ export function compileFrontierCognitivePlan({
   const callabilityAge = integer(callabilityMaxAgeMs, 1, 7 * 24 * 60 * 60 * 1000);
   const qualityDelta = finite(frontierQualityDelta, 0, 0.1);
   if (confidence == null || evidenceAge == null || callabilityAge == null || qualityDelta == null) return failure(['bounded-frontier-policy-parameters-required'], 'FRONTIER_POLICY_INVALID');
+  const absoluteTier = normalizedTask.task.reasoningTier === 'FRONTIER_MAX' || normalizedTask.task.reasoningTier === 'COUNCIL_MAX';
+  if (absoluteTier) {
+    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil });
+    if (!absolutePolicy.ok) return failure(absolutePolicy.reasonCodes, 'FRONTIER_POLICY_INVALID');
+  }
   if (allowDegradedCouncil && !text(degradationPolicyRef, 1000)) return failure(['degradation-policy-ref-required'], 'FRONTIER_POLICY_INVALID');
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');
 
@@ -505,6 +523,7 @@ export function compileFrontierCognitivePlan({
     callabilityProvenanceDigest: provenance.ok ? provenance.receiptDigest : null,
     simulationOnly,
     trustedForLiveExecution,
+    absoluteQualityInvariant: qualityInvariantAttestation(),
     truthBoundary: simulationOnly
       ? 'SYNTHETIC_PROVENANCE_TEST_PLAN_NOT_LIVE_AUTHORITY; MODEL_OUTPUT_IS_NOT_EXTERNAL_TRUTH'
       : 'LIVE_EXECUTION_AUTHORITY_REQUIRES_CANONICAL_PRODUCER_ORIGIN; MODEL_OUTPUT_IS_NOT_EXTERNAL_TRUTH',
@@ -601,6 +620,8 @@ function cleanReceiptText(value, max, reasons, code) {
 
 export function buildFrontierCognitiveReceipt({ planResult, executions = [], contradictions = [], adjudication = {}, verifierEvidenceRefs = [], now = new Date() } = {}) {
   if (!planResult?.ok || !planResult.plan || !planResult.planDigest) return failure(['verified-frontier-plan-required'], 'FRONTIER_RECEIPT_BLOCKED');
+  const qualityAttestation = validateQualityInvariantAttestation(planResult.plan.absoluteQualityInvariant);
+  if (!qualityAttestation.ok && (planResult.plan.task?.reasoningTier === 'FRONTIER_MAX' || planResult.plan.task?.reasoningTier === 'COUNCIL_MAX')) return failure(qualityAttestation.reasonCodes, 'FRONTIER_RECEIPT_BLOCKED');
   if (planResult.plan.schemaVersion !== FRONTIER_COGNITIVE_PLAN_SCHEMA || sha256(planResult.plan) !== planResult.planDigest) return failure(['frontier-plan-digest-or-schema-mismatch'], 'FRONTIER_RECEIPT_BLOCKED');
   const simulationOnly = planResult.plan.simulationOnly === true || planResult.simulationOnly === true;
   const trustedForLiveExecution = !simulationOnly && (planResult.plan.trustedForLiveExecution === true || planResult.trustedForLiveExecution === true);
@@ -686,6 +707,7 @@ export function buildFrontierCognitiveReceipt({ planResult, executions = [], con
       unresolved
     },
     verifierEvidenceRefs: verifierRefs,
+    absoluteQualityInvariant: planResult.plan.absoluteQualityInvariant,
     semanticClaimAuthority: 'NONE',
     semanticVerificationStatus: 'EXTERNAL_EVIDENCE_REQUIRED',
     processVerificationOnly: true,

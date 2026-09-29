@@ -3,7 +3,7 @@
   "status": "OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED",
   "date": "2026-09-29",
   "branch": "open-router/frontier-intelligence-virtualization-20260929",
-  "observedBranchHeadBeforeReceipt": "f703e2fad82a7220c70723dc93449bda4aee559b",
+  "observedBranchHeadBeforeReceipt": "c239d87154ac50ccdd48988c3a98c882a332f0d0",
   "baseMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
   "inheritance": {
     "noAmputation": true,
@@ -130,8 +130,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "b88def51e45b322913dc293d66dee1a7d1f843f9",
-      "size": 12266
+      "blobSha": "56803a947e2e99c3a610c297af87ee22ad9fc2f5",
+      "size": 12777
     },
     {
       "path": "package.json",
@@ -182,5 +182,6 @@
     "The architecture now contains explicit falsification conditions and a canonical sealed burn-in bridge; those still require live fresh tasks and provider receipts.",
     "Stronger claims require live paired trials, real cost receipts, Crown-succession experiments, ablations, and preferably independent replication."
   ],
-  "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json indexes the finalized receipt after this update."
+  "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json indexes the finalized receipt after this update.",
+  "reconciledMainShaAtFinalization": "ad80ec3d71028839307fbab02fbb69794a2d4c37"
 }

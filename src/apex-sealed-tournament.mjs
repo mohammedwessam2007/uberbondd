@@ -201,7 +201,8 @@ export function compileSealedArchitectureTrial({
   processScore,
   processEvidenceRef,
   verifierId,
-  architectureDesignerId = null
+  architectureDesignerId = null,
+  benchmarkSubject = null
 } = {}) {
   const arch = text(architectureId, 200)?.toLowerCase();
   const archClass = text(architectureClass, 80)?.toUpperCase();
@@ -217,12 +218,22 @@ export function compileSealedArchitectureTrial({
   const processRef = text(processEvidenceRef, 1000);
   const verifier = text(verifierId, 300);
   const designer = architectureDesignerId == null ? null : text(architectureDesignerId, 300);
+  const subject = benchmarkSubject == null ? null : {
+    profileId: text(benchmarkSubject?.profileId, 120)?.toLowerCase(),
+    provider: text(benchmarkSubject?.provider, 80)?.toLowerCase(),
+    model: text(benchmarkSubject?.model, 160),
+    revision: text(benchmarkSubject?.revision, 240),
+    exclusiveCognitiveSubject: benchmarkSubject?.exclusiveCognitiveSubject === true
+  };
   const reasons = [];
   if (!arch || !APEX_ARCHITECTURE_CLASSES.includes(archClass) || !archDigest || !/^[a-f0-9]{64}$/i.test(archDigest) || !archRevision || !archSource || !frozenAt) reasons.push('complete-frozen-architecture-identity-required');
   if (!klass || !suite || !corpus) reasons.push('task-suite-and-corpus-required');
   if (process == null || !processRef || !verifier) reasons.push('independent-process-evidence-required');
   if (designer && verifier === designer) reasons.push('verifier-must-differ-from-architecture-designer');
   if (archClass === 'PUBLIC_BASELINE' && !reproductionRef) reasons.push('public-baseline-reproduction-evidence-required');
+  if (benchmarkSubject != null && (!subject?.profileId || !subject?.provider || !subject?.model || !subject?.revision || subject?.exclusiveCognitiveSubject !== true)) {
+    reasons.push('complete-exclusive-benchmark-subject-required');
+  }
 
   const manifest = normalizeManifest(sealedManifest);
   if (!manifest.ok) reasons.push(...manifest.reasonCodes);
@@ -328,7 +339,8 @@ export function compileSealedArchitectureTrial({
     architectureRevision: archRevision,
     architectureSourceRef: archSource,
     architectureFrozenAt: frozenAt,
-    reproductionEvidenceRef: reproductionRef
+    reproductionEvidenceRef: reproductionRef,
+    benchmarkSubject: subject
   };
   const evidenceSummary = {
     architectureIdentity,

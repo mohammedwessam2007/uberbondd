@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { createComputeBudget } from './ai-compute-budget.mjs';
 import {
   ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST,
   qualityInvariantAttestation
@@ -469,5 +470,46 @@ export function compileShadowEscalationThresholdCandidate({
       'canonical zero-loss certificate'
     ],
     law: 'ONLINE_THRESHOLD_OPTIMIZATION_MAY_PROPOSE_CHEAPER_BOUNDARIES_BUT_CANNOT_SELF_PROMOTE_OR_RELAX_FRONTIER_ESCALATION'
+  });
+}
+
+
+export function createMonthlyCloudCognitionBudget({
+  monthKey,
+  allInBudgetUsd = DEFAULT_MONTHLY_BUDGET_USD,
+  platformFeeRate = 0.055,
+  totalTokenCeiling = 100_000_000
+} = {}) {
+  const month = text(monthKey, 20);
+  const allIn = finite(allInBudgetUsd, 0.01, 1_000_000);
+  const overhead = finite(platformFeeRate, 0, 1);
+  const tokens = integer(totalTokenCeiling, 1, 100_000_000);
+  if (!/^\d{4}-\d{2}$/.test(month) || allIn == null || overhead == null || tokens == null) {
+    return fail('MONTHLY_CLOUD_COGNITION_BUDGET_REFUSED', ['valid-month-budget-overhead-and-token-ceiling-required']);
+  }
+  const allInCents = Math.floor(allIn * 100 + 1e-9);
+  const providerComputeCents = Math.floor(allInCents / (1 + overhead));
+  const overheadReserveCents = allInCents - providerComputeCents;
+  const budget = createComputeBudget({
+    totalCostCents: providerComputeCents,
+    totalTokens: tokens,
+    allowedProviders: ['openrouter'],
+    allowPaidCompute: true,
+    reserveFloorCents: 0,
+    budgetNonce: `ubermind-cloud:${month}`,
+    date: `${month}-01T00:00:00.000Z`
+  });
+  if (!budget.ok) return fail('MONTHLY_CLOUD_COGNITION_BUDGET_REFUSED', budget.reasonCodes);
+  return envelope({
+    ok: true,
+    status: 'MONTHLY_CLOUD_COGNITION_BUDGET_READY',
+    monthKey: month,
+    allInBudgetUsd: allIn,
+    platformFeeRate: overhead,
+    allInBudgetCents: allInCents,
+    providerComputeBudgetCents: providerComputeCents,
+    overheadReserveCents,
+    computeBudget: budget,
+    qualityPressureRelief: 'QUEUE_NOT_DOWNGRADE'
   });
 }

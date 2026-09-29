@@ -9,6 +9,8 @@ import {partialEvaluateSemanticProgram,verifySpecialization,buildVerifiedSemanti
 import {createOpenRouterGovernedAdapter} from '../src/openrouter-governed-adapter.mjs';
 import {cognitionRouteInventory} from '../src/cognition-route-inventory.mjs';
 import {enhanceAudit} from '../src/ai.mjs';
+import {createUnifiedCognitionLedger,appendCognitionEvent,cognitionLedgerSummary} from '../src/unified-cognition-ledger.mjs';
+import {buildInfiniteOpusScoreboard} from '../src/infinite-opus-scoreboard.mjs';
 const h=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 
 test('economic perimeter closes at 20 runtime + 8 cockpit under $30 all-in planning envelope',()=>{
@@ -80,4 +82,17 @@ test('cash-metered route inventory has no unclassified budget bypass',()=>{
 });
 test('legacy pipeline AI refuses direct paid inference without perimeter admission',async()=>{
  await assert.rejects(()=>enhanceAudit({provider:'openai',openaiKey:'not-used'}, {id:'p'}, {combinedText:''}, []), /cognition-economic-perimeter-admission-required/);
+});
+
+test('unified ledger separates cash, plan, credits, donated compute and compression without double counting',()=>{
+ let l=createUnifiedCognitionLedger({month:'2026-09'});
+ const base={task_id:'t',provider_route:'route',timestamp:'2026-09-30T00:00:00Z',authorization_ref:'auth',billing_month:'2026-09',input_tokens:1,output_tokens:1};
+ l=appendCognitionEvent(l,{...base,channel_id:'runtime',call_id:'c1',provider:'openrouter',model:'m',cost_class:'CASH_API_SPEND',actual_cost_usd:0.01,platform_fee_usd:0});
+ l=appendCognitionEvent(l,{...base,channel_id:'chatgpt-plan',call_id:'c2',provider:'openai-plan',model:'plan',cost_class:'PLAN_INCLUDED_COGNITION',actual_cost_usd:0});
+ l=appendCognitionEvent(l,{...base,channel_id:'compiler',call_id:'c3',provider:'deterministic',model:'none',cost_class:'ALGORITHMIC_COMPRESSION',actual_cost_usd:0});
+ const summary=cognitionLedgerSummary(l);assert.equal(summary.actualAllInUsd,0.01);assert.equal(summary.byClass.PLAN_INCLUDED_COGNITION.events,1);assert.equal(summary.doubleCountingPrevented,true);
+});
+test('automatic scoreboard keeps unknown evidence unknown',()=>{
+ const s=buildInfiniteOpusScoreboard({runtimeSnapshot:{budget:{todaySpentMicrousd:0,crownEscrowRemainingMicrousd:15000000},metrics:{}},globalLedgerSummary:{actualAllInUsd:0}});
+ assert.equal(s.TODAY_AI_SPEND,0);assert.equal(s.CROWN_ESCROW_REMAINING,15);assert.equal(s.GENERAL_CROWN,'UNKNOWN');assert.equal(s.REFERENCE_COMPRESSION_FACTOR,'UNKNOWN');
 });

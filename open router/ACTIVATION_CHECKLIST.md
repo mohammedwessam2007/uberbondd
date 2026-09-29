@@ -247,3 +247,38 @@ The subsystem is genuinely live only when:
 - the $30 budget controller is operating.
 
 Architecture alone is not activation.
+
+
+## V5 zero-spend readiness commands
+
+Before any paired burn-in, run:
+
+```bash
+npm run frontier-vm:doctor
+```
+
+Default mode is **interactive TypingMind**. It does not require the UberBond backend executor to be enabled.
+
+For the unattended 24/7 worker path:
+
+```bash
+node scripts/frontier-vm-v5-doctor.mjs --unattended
+```
+
+The V5 doctor requires:
+
+```
+OPENROUTER_API_KEY
+UBERMIND_LIVE_CROWN_SNAPSHOT_REF
+UBERMIND_FRESH_TASK_SOURCE_REF
+UBERMIND_MONTHLY_COGNITION_BUDGET_USD=30
+UBERMIND_PROTECTED_CROWN_ESCROW_USD>=15
+```
+
+Unattended mode additionally requires:
+
+```
+OPENROUTER_AGENT_ENABLED=true
+```
+
+The doctor performs **zero provider inference and zero spend**. Green means only that controlled burn-in prerequisites are present. It does not establish frontier equivalence, compression, novelty, or production authority.

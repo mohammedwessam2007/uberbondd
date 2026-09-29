@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "224b9d1246cfbf29e288d8c095218472875a9103",
-      "size": 15927
+      "blobSha": "4d325fb51e1991a96593c714a8d5e970820858b3",
+      "size": 18019
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -220,8 +220,8 @@
     },
     {
       "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
-      "blobSha": "d493266d216723aa565833b2088d946546fc5d63",
-      "size": 43027
+      "blobSha": "903e6439e0f9bd7ba669e5c67e0896ebe3b3442a",
+      "size": 43115
     }
   ],
   "layers": {
@@ -287,8 +287,8 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault preserves the Million-Dollar Intelligence target and its invention lab. The lab contains researched donor mechanisms and new UberMind hypotheses such as Verified Semantic Hashing, Decision Franchises, Exception-Only Crown, Verifier Foundry, Solver Transpiler, Living Evidence Graphs and Semantic Demand Exchange. None of these are evidence that 33,333.333x has been achieved. Only end-to-end measured compression on the same quality-gated workload counts.",
-  "recovery": "Refresh main; recover Wessam Singularity; read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md, 19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, the V5 VM/supercompiler/longitudinal protocol, activation checklist, manifest and receipts. Continue from live activation, paired burn-in, recurrence measurement and E1-E7 experiments rather than adding unmeasured architecture.",
+  "truthBoundary": "The vault preserves V2-V5 architecture, the dated live model-market candidate snapshot, the founder-approved Million-Dollar Intelligence target, and the active Million-Dollar Intelligence Invention Lab. The lab treats the strongest verified current frontier as a replaceable Teacher-Crown / intelligence-capital issuer and contains hypotheses that require end-to-end empirical proof. It does not prove 33,333x compression, permanent model leadership, or raw-compute equivalence.",
+  "recovery": "Refresh main; mount Wessam Singularity startup/canon; then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md, 19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json, docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, 17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md, ACTIVATION_CHECKLIST.md, MANIFEST.json, V5_FRONTIER_VM_RECEIPT_2026-09-29.json, and V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from live activation plus E1 semantic-duplication measurement and Teacher-Crown capital issuance experiments.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",

@@ -35,7 +35,8 @@ const REQUIRED = [
   'src/frontier-vm-longitudinal-evaluator.mjs',
   'tests/frontier-vm-longitudinal-evaluator.test.mjs',
   'config/frontier-vm-v5-longitudinal-campaign.json',
-  'scripts/frontier-vm-v5-doctor.mjs'
+  'scripts/frontier-vm-v5-doctor.mjs',
+  'src/cognitive-superoptimizer.mjs'
 ];
 
 const failures = [];
@@ -57,6 +58,7 @@ const handoff = readJson('docs/CURRENT_HANDOFF.json');
 const backup = readJson('open router/BACKUP_RECEIPT_2026-09-29.json');
 const completion = readJson('open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json');
 const exactV4 = readJson('open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json');
+const liveQualityLock = readJson('config/absolute-frontier-quality-lock.json');
 
 if (spec) {
   if (spec?.objective?.maxQualityDelta !== 0) failures.push('v3-quality-delta-not-zero');
@@ -79,6 +81,26 @@ if (canon) {
 if (lock) {
   if (lock.qualityDelta !== 0) failures.push('quality-lock-snapshot-delta-not-zero');
   if (lock.degradedCouncilAllowed !== false) failures.push('quality-lock-snapshot-degraded-council-allowed');
+}
+
+if (liveQualityLock) {
+  if (liveQualityLock.qualityDelta !== 0) failures.push('live-quality-lock-delta-not-zero');
+  if (liveQualityLock.degradedCouncilAllowed !== false) failures.push('live-quality-lock-degraded-council-allowed');
+  for (const surface of [
+    'src/frontier-intelligence-vm.mjs',
+    'src/cognitive-superoptimizer.mjs',
+    'src/frontier-vm-longitudinal-evaluator.mjs',
+    'src/frontier-vm-burnin.mjs'
+  ]) {
+    if (!liveQualityLock.protectedSurfaces?.includes(surface)) failures.push(`live-quality-lock-missing-protected-surface:${surface}`);
+  }
+  for (const law of [
+    'COGNITIVE_BACKEND_AUTHORITY_MUST_MEET_OR_EXCEED_REQUIRED_QUALITY_TYPE',
+    'COGNITIVE_SUPEROPTIMIZER_CANNOT_SELF_PROMOTE',
+    'BURNIN_PROMOTION_REQUIRES_CANONICAL_UNTAMPERED_ZERO_LOSS_CERTIFICATE'
+  ]) {
+    if (!liveQualityLock.laws?.includes(law)) failures.push(`live-quality-lock-missing-law:${law}`);
+  }
 }
 
 if (manifest) {

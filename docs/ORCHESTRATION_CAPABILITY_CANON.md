@@ -278,3 +278,32 @@ Permanent rules:
 - The bridge reuses Nullstar and the APEX Arena rather than creating a parallel benchmark truth system.
 
 Full contract: `docs/APEX_SEALED_TOURNAMENT_2026-09-29.md`.
+
+
+## 2026-09-29 Frontier Quality Compression fresh-campaign law
+
+UberBond's cognition-economics frontier now has a pre-execution campaign layer in `src/apex-fresh-campaign.mjs`.
+
+Canonical chain:
+
+`freeze architecture graph -> external fresh holdout commitment -> exact live model/reasoning/transport/pricing proof -> separately authorized execution -> sealed APEX tournament -> independent replication -> governed promotion`
+
+Permanent laws:
+
+- **Frontier quality is lexicographically prior to cost.** Cheap-but-worse is not Frontier Quality Compression.
+- The unit of competition is the complete computation graph, not a model's sticker price.
+- Architecture identity binds topology, context policy, verifier policy, prompt contract, execution mode, Jev boundary, model counts, reasoning settings, transport class and pricing mode.
+- Raw holdouts and plaintext answers remain outside optimizer-visible repository state.
+- Architectures freeze before holdout commitment.
+- Holdouts must be generated fresh for the campaign; previously evaluated items, derivations from evaluated items and legacy evidence cannot be relabeled as fresh.
+- Per-architecture spend ceilings and a total campaign spend ceiling are mandatory.
+- Pricing evidence is exact-mode evidence. Interactive pricing cannot settle a Batch claim for the same model.
+- Discovery-only model candidates cannot become callable by registry inclusion.
+- Readiness planning has zero provider-call, spend and execution authority.
+- A sealed winner remains a replication candidate, not a production king or global-rank claim.
+
+Wave 1 is staged at `config/apex-frontier-quality-compression-campaign.json` with a hard total spend ceiling of **$10**, four frozen candidate architecture families and a strict `maxQualityDelta = 0` frontier floor.
+
+The candidate registry has expanded to 20 current discovery candidates while preserving discovery/transport/callability separation. Six 2026-09-29 efficiency-frontier discoveries are deliberately discovery-only until exact runtime admission: MiMo-V2.6-Pro, MiMo-V2.6-Flash, Qwen3.8 Flash, MiniMax M2.5, GLM-5.3-Flash and Doubao Seed 2.1 Lite.
+
+Full contract: `docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`.

@@ -78,6 +78,11 @@
       "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
       "blobSha": "2d0b23b822de0928d700b4acec9046320ec43498",
       "bytes": 3019
+    },
+    {
+      "path": "open router/BACKUP_RECEIPT_2026-09-29.json",
+      "blobSha": "c28b193b864e6b47c55f729bfab0ee460e7fc2d9",
+      "bytes": 4748
     }
   ],
   "canonicalExternalPointers": [
@@ -103,7 +108,7 @@
   "noAmputation": true,
   "supportingIntegrityDoctor": "scripts/open-router-vault-doctor.mjs",
   "operatorCommand": "npm run open-router:vault:doctor",
-  "directoryFileCount": 14,
-  "backupStatus": "CONTENT_PRESENT_AND_INDEXED_PRE_MERGE",
+  "directoryFileCount": 15,
+  "backupStatus": "CONTENT_PRESENT_INDEXED_AND_RECEIPTED_PRE_MERGE",
   "lastAuditedAt": "2026-09-29T17:52:00+03:00"
 }

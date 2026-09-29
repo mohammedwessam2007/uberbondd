@@ -1,6 +1,6 @@
 # Open Router — UberMind Frontier-Max Program
 
-Status: FOUNDER-APPROVED V3 VAULT / PRE-LIVE ECONOMIC PROOF
+Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF
 Date: 2026-09-29
 
 This folder is the canonical home for UberBond's cloud-only maximum verified intelligence per dollar program.
@@ -90,7 +90,8 @@ When a new chat or agent resumes:
 4. read docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json;
 5. read this folder;
 6. refresh live OpenRouter model/pricing/provider reality;
-7. continue from activation and empirical proof, not architecture reinvention.
+7. read `open router/FINAL_CHAT_DELTA_V4_2026-09-29.md` and `open router/RECOVERY_AUDIT_V4_2026-09-29.md`;
+8. continue from activation and empirical proof, not architecture reinvention.
 
 
 ## File map
@@ -164,3 +165,28 @@ npm run open-router:vault:doctor
 ```
 
 Then continue from activation and empirical proof, not architecture redesign.
+
+
+## V4 exact-recovery addendum
+
+V4 does not replace the v2 foundation or v3 cognitive-arbitrage architecture. It exists because the founder explicitly required the existing `open router/` folder to be inspected word by word and every unique material letter/idea to remain recoverable after the chat became sluggish.
+
+V4 adds:
+
+- `FINAL_CHAT_DELTA_V4_2026-09-29.md` — verbatim final founder-intent excerpts plus their non-lossy architectural meaning;
+- `RECOVERY_AUDIT_V4_2026-09-29.md` — current-repository audit, doctrine coverage, and content-addressed file inventory;
+- `EXACT_CONTENT_RECEIPT_V4_2026-09-29.json` — final v4 Git blob receipt over every pre-existing file in the expanded vault, self-excluded to avoid recursive hashing.
+
+The v4 addendum preserves, explicitly, the final founder intensity that generic summaries can otherwise flatten: "We are greedy", "fucking insane", and the aspiration for "thousands of dollar worth in that 30 dollars jaw drppping." These are founder-intent provenance. The empirical truth boundary remains unchanged: reference-equivalent value counts only after matched quality and live cost evidence prove it.
+
+### V4 recovery order
+
+After the ordinary UberBond startup and the v3 recovery sequence:
+
+1. read `FINAL_CHAT_DELTA_V4_2026-09-29.md`;
+2. read `RECOVERY_AUDIT_V4_2026-09-29.md`;
+3. inspect `EXACT_CONTENT_RECEIPT_V4_2026-09-29.json`;
+4. run `npm run open-router:vault:doctor`;
+5. continue from activation, live receipts, paired Crown-vs-UberMind proof, Jev calibration, bounded certification, and compression measurement.
+
+Do not restart the architecture from chat memory.

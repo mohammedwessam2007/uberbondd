@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { qualityInvariantAttestation } from '../src/absolute-frontier-quality-invariant.mjs';
 
 const member = {
   profileId: 'google-gemini-frontier', provider: 'google', model: 'gemini-frontier', revision: 'rev-2026-09',
   transportProvider: 'ai-gateway', transportModel: 'google/gemini-frontier',
-  reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh'
+  reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh',
+  absoluteQualityInvariant: qualityInvariantAttestation()
 };
 const task = { taskId: 'bridge', objective: 'Return bounded result.', consequenceClass: 'LOCAL_PREPARATION' };
 const callability = {
@@ -51,4 +53,24 @@ test('frontier member preserves uncertain provider outcome as uncertain instead 
   assert.equal(out.ok, false);
   assert.equal(out.status, 'FRONTIER_EXECUTION_UNCERTAIN');
   assert.ok(out.reasonCodes.includes('provider-outcome-uncertain'));
+});
+
+
+test('frontier runtime refuses a forged zero-loss attestation before executor construction', async () => {
+  let constructions = 0;
+  const forged = {
+    ...member,
+    absoluteQualityInvariant: { ...member.absoluteQualityInvariant, qualityDelta: 0.01 }
+  };
+  const out = await executeFrontierMember({
+    member: forged,
+    task,
+    modelExecutorFactory: () => { constructions += 1; return async () => ({ ok: true }); },
+    callabilityEvidence: callability,
+    maxTokens: 100,
+    costCeilingCents: 10
+  });
+  assert.equal(out.ok, false);
+  assert.equal(constructions, 0);
+  assert.ok(out.reasonCodes.includes('absolute-frontier-quality-delta-must-be-zero'));
 });

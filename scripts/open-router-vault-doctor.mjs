@@ -34,6 +34,7 @@ const REQUIRED = [
   'open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json',
   'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md',
   'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md',
+  'open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md',
   'docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json',
   'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md',
   'src/frontier-intelligence-vm.mjs',
@@ -157,13 +158,23 @@ if (v5Receipt) {
   if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
   if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
 }
-const inventionLab = fs.existsSync(path.join(root, 'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md'))
-  ? fs.readFileSync(path.join(root, 'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md'), 'utf8')
+const opusQualityVolume = fs.existsSync('open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md')
+  ? fs.readFileSync('open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md', 'utf8')
   : null;
 
-const millionDollarTarget = fs.existsSync(path.join(root, 'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md'))
-  ? fs.readFileSync(path.join(root, 'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md'), 'utf8')
+const inventionLab = fs.existsSync('open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md')
+  ? fs.readFileSync('open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md', 'utf8')
   : null;
+
+const millionDollarTarget = fs.existsSync('open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md')
+  ? fs.readFileSync('open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md', 'utf8')
+  : null;
+
+if (opusQualityVolume) {
+  if (!opusQualityVolume.includes('Cheap models create breadth, not semantic authority')) failures.push('opus-quality-volume-authority-law-missing');
+  if (!opusQualityVolume.includes('Opus Quality Fanout')) failures.push('opus-quality-volume-fanout-metric-missing');
+  if (!opusQualityVolume.includes('QUEUE / ESCALATE / WAIT')) failures.push('opus-quality-volume-no-downgrade-fallback-missing');
+}
 
 if (inventionLab) {
   if (!inventionLab.includes('Verified Semantic Hashing')) failures.push('invention-lab-vsh-missing');
@@ -229,6 +240,7 @@ console.log(JSON.stringify({
   liveModelMarketSnapshot: liveMarket?.status ?? null,
   millionDollarIntelligenceTarget: millionDollarTarget ? 'FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN' : null,
   millionDollarInventionLab: inventionLab ? 'RESEARCH_INVENTION_PROGRAM_NOT_PROVEN' : null,
+  opusQualityInsaneVolumeFabric: opusQualityVolume ? 'FOUNDER_DIRECTED_ARCHITECTURE_PRE_LIVE_PROOF' : null,
   wessamSingularityWarRoom: warRoom?.schemaVersion ?? null
 }, null, 2));
 

@@ -360,3 +360,21 @@ Only end-to-end measured compression on the same quality-gated workload counts.
 The strongest verified task-appropriate frontier model should be used not only to answer hard tasks but to issue reusable intelligence capital: decision boundaries, applicability predicates, verifier specifications, semantic normalizers, task compilers, Jev candidates, deterministic-code candidates, regression tests and cross-domain primitives.
 
 As of 2026-09-29 public evidence, Claude Opus 5.5 is the current strongest general candidate, but this is a dated candidate state rather than permanent model loyalty. The **role** survives Crown succession.
+
+
+## Opus-quality insane-volume fabric
+
+`20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md` defines the production-quality target:
+
+> Every important finished artifact must meet the current strongest verified general-frontier quality floor, currently represented by Claude Opus 5.5 max in the 2026-09-29 public snapshot, while work volume is supplied by exact reuse, code, solvers, Jev, cheap heterogeneous workers, strong specialists, verifiers and compiled cognition.
+
+Cheap models create breadth, not semantic authority.
+
+An important artifact may finish only through:
+- direct current-Crown authority;
+- a Crown-verified semantic patch;
+- a current bounded path already certified equivalent to the Crown reference;
+- deterministic/reality settlement;
+- otherwise queue/escalate.
+
+The named model roster is replaceable and task-class evidence may promote a different Crown at any time.

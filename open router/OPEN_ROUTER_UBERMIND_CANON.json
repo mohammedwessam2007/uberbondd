@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "uberbond.open-router.frontier-max.v2",
+  "canonDate": "2026-09-29",
+  "status": "FOUNDER_APPROVED_PRE_LIVE_ECONOMIC_PROOF",
+  "inheritance": {
+    "noAmputation": true,
+    "extends": [
+      "docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json",
+      "docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md",
+      "docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md",
+      "config/absolute-frontier-quality-lock.json"
+    ],
+    "law": "This folder supersedes no useful prior capability. It consolidates and extends the $30 Frontier-Max/OpenRouter/Jev program."
+  },
+  "founderIntent": {
+    "informal": "number-one AI abuser",
+    "formal": "Continuously obtain the strongest verified commercially available intelligence at the lowest achievable all-in cost without lowering required quality.",
+    "acceptedMonthlyTargetUsd": 30,
+    "desiredOutcome": "Make the $30 system produce matched-quality work whose direct frontier reference cost is orders of magnitude higher, potentially thousands of dollars, only if live paired evidence proves it."
+  },
+  "cockpit": {
+    "device": "iPad",
+    "ui": "TypingMind",
+    "modelMarket": "OpenRouter",
+    "localGpu": false,
+    "localModel": false
+  },
+  "objective": "min Cost(A) subject to Quality(A,task)>=Quality(strongest_verified_market_frontier,task)",
+  "qualityLaw": {
+    "maxIntentionalDelta": 0,
+    "unknown": "CROWN",
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE",
+    "majorityVoteAuthority": "NONE",
+    "semanticCacheAuthority": "SHADOW_UNLESS_CERTIFIED",
+    "lossyCompressionAuthority": "NONE_UNLESS_SEPARATELY_ZERO_LOSS_CERTIFIED"
+  },
+  "coreStack": [
+    "exact code/cache/retrieval",
+    "Jev Hyperreflex",
+    "Cognitive Compute Auction",
+    "adaptive heterogeneous cheap swarm",
+    "Adversarial Synthesis",
+    "lossless Frontier Delta",
+    "moving Frontier Crown/Pantheon",
+    "Reality Court",
+    "Frontier Thought Bonds",
+    "Crown -> Jev -> code crystallization"
+  ],
+  "newV2Upgrades": [
+    "Proof Burn-In Mode",
+    "Certified Compression Mode",
+    "Protected Crown Escrow",
+    "Counterfactual Spend Estimator",
+    "Swarm Stop-Loss",
+    "Exact Cognitive Dedup Graph",
+    "Evidence Multicast",
+    "Task-Archetype Compiler",
+    "Cognitive CDN",
+    "Frontier Thought Bonds",
+    "Champion-Challenger Shadow Market",
+    "Second-Crown Insurance",
+    "Model/provider price-volatility watch",
+    "Reference-Cost-Equivalent accounting",
+    "Reuse dividend accounting"
+  ],
+  "burnIn": {
+    "purpose": "Earn evidence before removing redundant direct-frontier work.",
+    "sequence": [
+      "direct Crown baseline",
+      "UberMind candidate",
+      "blind paired evaluation",
+      "live cost receipt",
+      "Jev shadow",
+      "failure/archetype capture"
+    ]
+  },
+  "certifiedProduction": {
+    "purpose": "Harvest extreme compression only in bounded proven regions.",
+    "sequence": [
+      "exact applicability check",
+      "code/cache",
+      "certified Jev",
+      "minimum adaptive swarm",
+      "lossless unresolved delta to Crown",
+      "sampled Crown shadow audit"
+    ],
+    "regressionAction": "FREEZE_DECOMPILE_REVALIDATE"
+  },
+  "crownEscrow": {
+    "initialMinimumUsd": 15,
+    "law": "Cheap/Jev layers may not consume protected primary-Crown capacity merely to increase activity."
+  },
+  "compression": {
+    "metric": "referenceCostEquivalentUsd / actualAllInSpendUsd",
+    "ladder": [
+      10,
+      25,
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "invalidIf": "required finished-work quality is lower than matched current frontier baseline"
+  },
+  "truthBoundary": {
+    "provenArchitecturePieces": true,
+    "liveThirtyDollarFrontierEquivalence": false,
+    "thousandDollarReferenceEquivalent": false,
+    "globalNumberOne": false,
+    "permanentZeroRegression": false,
+    "currentOptimalRoster": false
+  },
+  "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
+  "recovery": "Read open router/README.md and this canon after normal UberBond startup. Do not restart the system design."
+}

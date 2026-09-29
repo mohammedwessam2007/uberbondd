@@ -132,6 +132,7 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
   const contextPolicyRef = text(raw?.contextPolicyRef, 1600);
   const verifierPolicyRef = text(raw?.verifierPolicyRef, 1600);
   const promptContractRef = text(raw?.promptContractRef, 1600);
+  const executionModeRef = text(raw?.executionModeRef, 500);
   const jevMode = text(raw?.jevMode ?? 'NONE', 80)?.toUpperCase();
   const deterministicCrystallization = raw?.deterministicCrystallization === true;
   const trialSpendCeilingUsd = finite(raw?.trialSpendCeilingUsd, 0.000001, 1_000_000);
@@ -145,8 +146,8 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
     reasons.push(`architecture-${index}:recognized-class-required`);
   }
   if (!revision || !sourceRef || !frozenAt) reasons.push(`architecture-${index}:revision-source-freeze-required`);
-  if (!topologyRef || !contextPolicyRef || !verifierPolicyRef || !promptContractRef) {
-    reasons.push(`architecture-${index}:complete-policy-refs-required`);
+  if (!topologyRef || !contextPolicyRef || !verifierPolicyRef || !promptContractRef || !executionModeRef) {
+    reasons.push(`architecture-${index}:complete-policy-and-execution-mode-refs-required`);
   }
   if (!['NONE', 'SHADOW_ONLY', 'CALIBRATED_BOUNDED'].includes(jevMode)) {
     reasons.push(`architecture-${index}:recognized-jev-mode-required`);
@@ -182,6 +183,7 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
     contextPolicyRef,
     verifierPolicyRef,
     promptContractRef,
+    executionModeRef,
     jevMode,
     deterministicCrystallization,
     trialSpendCeilingUsd,

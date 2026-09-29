@@ -363,6 +363,17 @@ export function buildFrontierAdmissionBundle({
   }
   if (reasons.length) return failure(reasons, 'FRONTIER_ADMISSION_PROFILE_INVALID');
 
+  if (provenance.trustedForLiveExecution === true) {
+    const profileIds = [...profileById.keys()].sort();
+    const probedIds = provenance.observations.map(item => item.profileId).sort();
+    if (JSON.stringify(profileIds) !== JSON.stringify(probedIds)) {
+      return failure(['live-admission-profile-set-must-exactly-match-callability-probe-universe'], 'FRONTIER_ADMISSION_PROFILE_UNIVERSE_BLOCKED', {
+        profileIds,
+        probedIds
+      });
+    }
+  }
+
   const admittedCallability = [];
   const rejectedCallability = [];
   for (const raw of callability) {
@@ -417,6 +428,24 @@ export function buildFrontierAdmissionBundle({
     admittedBenchmarks.push(raw);
   }
 
+  if (provenance.trustedForLiveExecution === true) {
+    const expectedReceipts = [...(frontierCrownCertificate?.reviewedTrialReceiptDigests ?? [])].sort();
+    const observedReceipts = admittedBenchmarks.map(item => item.sealedTrialReceiptDigest).filter(Boolean).sort();
+    if (expectedReceipts.length !== profileById.size) {
+      return failure(['crown-reviewed-trial-count-must-match-live-profile-universe'], 'FRONTIER_ADMISSION_BENCHMARK_UNIVERSE_BLOCKED', {
+        expectedTrialCount: expectedReceipts.length,
+        profileCount: profileById.size
+      });
+    }
+    if (observedReceipts.length !== admittedBenchmarks.length
+      || JSON.stringify(observedReceipts) !== JSON.stringify(expectedReceipts)) {
+      return failure(['live-benchmark-set-must-exactly-match-crown-reviewed-trial-universe'], 'FRONTIER_ADMISSION_BENCHMARK_UNIVERSE_BLOCKED', {
+        expectedReceipts,
+        observedReceipts
+      });
+    }
+  }
+
   const provenanceMetadata = provenance.ok
     ? {
         receiptDigest: provenance.receiptDigest,
@@ -435,6 +464,8 @@ export function buildFrontierAdmissionBundle({
       crownProfileId: frontierCrownCertificate.crownProfileId,
       crownArchitectureId: frontierCrownCertificate.crownArchitectureId,
       crownTrialReceiptDigest: frontierCrownCertificate.crownTrialReceiptDigest,
+      callabilityReceiptDigest: frontierCrownCertificate.callabilityReceiptDigest,
+      reviewedTrialReceiptDigests: [...frontierCrownCertificate.reviewedTrialReceiptDigests],
       simulationOnly: frontierCrownCertificate.simulationOnly === true,
       trustedForLiveExecution: frontierCrownCertificate.trustedForLiveExecution === true
     } : null,
@@ -469,6 +500,8 @@ export function buildFrontierAdmissionBundle({
       crownProfileId: frontierCrownCertificate.crownProfileId,
       crownArchitectureId: frontierCrownCertificate.crownArchitectureId,
       crownTrialReceiptDigest: frontierCrownCertificate.crownTrialReceiptDigest,
+      callabilityReceiptDigest: frontierCrownCertificate.callabilityReceiptDigest,
+      reviewedTrialReceiptDigests: [...frontierCrownCertificate.reviewedTrialReceiptDigests],
       simulationOnly: frontierCrownCertificate.simulationOnly === true,
       trustedForLiveExecution: frontierCrownCertificate.trustedForLiveExecution === true
     } : null,

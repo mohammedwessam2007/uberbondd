@@ -7,6 +7,7 @@ import { ABSOLUTE_FRONTIER_QUALITY_DELTA, certifyPairedZeroLoss, qualityInvarian
 export const APEX_SEALED_TOURNAMENT_VERSION = 'uberbond.apex-sealed-tournament.v1.1';
 export const APEX_TOURNAMENT_CLAIM_MODES = Object.freeze(['TASK_CLASS', 'PUBLIC_FRONTIER']);
 export const APEX_ARCHITECTURE_CLASSES = Object.freeze(['INCUMBENT', 'CHALLENGER', 'PUBLIC_BASELINE']);
+const compiledSealedTrials = new WeakMap();
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function envelope(extra = {}) {
@@ -374,7 +375,7 @@ export function compileSealedArchitectureTrial({
     evidenceRef
   };
 
-  return envelope({
+  const compiledTrial = envelope({
     ok: true,
     status: 'SEALED_ARCHITECTURE_TRIAL_COMPILED',
     suiteVersion: suite,
@@ -438,6 +439,27 @@ export function compileSealedArchitectureTrial({
     executionAuthority: 'NONE',
     truthBoundary: 'THE BRIDGE BINDS THE SUPPLIED SEALED MANIFEST TO THE DECLARED CORPUS AND PRECOMMITTED HOLDOUT RECEIPT, SCORES SALTED ANSWER DIGESTS, AND RETURNS AGGREGATES. IT DOES NOT PROVE ZERO HISTORICAL LEAKAGE OUTSIDE THE HARNESS OR GRANT PRODUCTION PROMOTION.'
   });
+  compiledSealedTrials.set(compiledTrial, digest(compiledTrial));
+  return compiledTrial;
+}
+
+export function validateCompiledSealedArchitectureTrial(trial) {
+  const expectedDigest = trial && typeof trial === 'object' ? compiledSealedTrials.get(trial) : null;
+  const actualDigest = trial && typeof trial === 'object' ? digest(trial) : null;
+  if (!expectedDigest || expectedDigest !== actualDigest) {
+    return fail('SEALED_ARCHITECTURE_TRIAL_PROVENANCE_REFUSED', ['process-validated-untampered-sealed-trial-required']);
+  }
+  if (trial?.ok !== true || trial?.status !== 'SEALED_ARCHITECTURE_TRIAL_COMPILED') {
+    return fail('SEALED_ARCHITECTURE_TRIAL_PROVENANCE_REFUSED', ['compiled-sealed-trial-required']);
+  }
+  return envelope({
+    ok: true,
+    status: 'SEALED_ARCHITECTURE_TRIAL_PROVENANCE_VALID',
+    architectureId: trial.architectureId,
+    receiptDigest: trial.receiptDigest,
+    taskOutcomeDigest: trial.taskOutcomeDigest,
+    trialDigest: actualDigest
+  });
 }
 
 export function evaluateSealedArchitectureTournament({
@@ -477,7 +499,12 @@ export function evaluateSealedArchitectureTournament({
   let taskClass = null;
 
   for (const [index, trial] of trials.entries()) {
-    if (!trial?.ok || trial?.status !== 'SEALED_ARCHITECTURE_TRIAL_COMPILED' || !trial?.arenaTrial || !trial?.architectureIdentity) {
+    const provenance = validateCompiledSealedArchitectureTrial(trial);
+    if (!provenance.ok) {
+      reasons.push(`trial-${index}:process-validated-untampered-sealed-trial-required`);
+      continue;
+    }
+    if (!trial?.arenaTrial || !trial?.architectureIdentity) {
       reasons.push(`trial-${index}:compiled-sealed-trial-required`);
       continue;
     }

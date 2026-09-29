@@ -2,11 +2,11 @@
   "schemaVersion": "uberbond.open-router.vault-manifest.v5",
   "status": "V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_CONTENT_COMPLETE",
   "createdAt": "2026-09-29",
-  "branch": "open-router/v5-typingmind-cockpit-activation-rebased-20260929",
+  "branch": "open-router/v5-policy-reconcile-20260929",
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
-  "observedBranchHeadBeforeManifest": "e8bfb2b21ef892791688e46f4b64b24ea74bbb86",
+  "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 40,
+  "expectedFinalFolderFileCount": 41,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -105,8 +105,8 @@
     },
     {
       "path": "open router/ACTIVATION_CHECKLIST.md",
-      "blobSha": "083873f8a901027c81f66a721b79bbdc3b556c38",
-      "size": 6612
+      "blobSha": "16db7b64e2dcfaf1917ba4ee2a6ffaf6b597f557",
+      "size": 7681
     },
     {
       "path": "open router/ARCHITECTURE.md",
@@ -155,13 +155,13 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "8aebfe9490abde67f0eec5dfef3cec44aa92c412",
-      "size": 10700
+      "blobSha": "a27b44bbf6ad86a48b29d5d131a0fbfb086cdefa",
+      "size": 11738
     },
     {
       "path": "open router/OPERATING_SPEC.json",
-      "blobSha": "48c41b45f557fdbd9cd2eaef451fcf6a457c7f64",
-      "size": 7895
+      "blobSha": "f19a60296db81d8ddf7b09741b3129f77ba6b943",
+      "size": 8042
     },
     {
       "path": "open router/README.md",
@@ -202,13 +202,19 @@
       "path": "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
       "blobSha": "08d69633c0719d24d33fb82ed1c7d7a7694cfe8d",
       "size": 9266
+    },
+    {
+      "path": "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json",
+      "blobSha": "2957786a462d2d8c7bc7e4b152c9b8cc97ecc374",
+      "size": 4553
     }
   ],
   "layers": {
     "v2": "Existing main lineage: Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Task-Archetype Compiler, Cognitive CDN, Evidence Multicast, Champion-Challenger Shadow Market, Swarm Stop-Loss, Second-Crown Insurance, RCE accounting.",
     "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market.",
     "v4": "Exact recovery addendum preserving founder intent, repository audit, and byte-level receipts over the pre-V5 vault.",
-    "v5": "Frontier Intelligence Virtualization plus TypingMind-first activation: quality-typed Cognitive IR, proof-carrying cognition, semantic page faults, profile-guided supercompilation, Crown-thought capital, quality escrow, canonical sealed burn-in, longitudinal self-amortization measurement, zero-loss deoptimization, counterfactual routing, Crown-succession recompilation, prior-art-aware novelty boundary, and explicit separation of interactive cockpit credentials from optional unattended runtime credentials."
+    "v5": "Frontier Intelligence Virtualization plus TypingMind-first activation: quality-typed Cognitive IR, proof-carrying cognition, semantic page faults, profile-guided supercompilation, Crown-thought capital, quality escrow, canonical sealed burn-in, longitudinal self-amortization measurement, zero-loss deoptimization, counterfactual routing, Crown-succession recompilation, prior-art-aware novelty boundary, and explicit separation of interactive cockpit credentials from optional unattended runtime credentials.",
+    "v5PolicyReconciliation": "TypingMind-first V5 activation policy reconciled to USD 30 all-in target, >=USD 15 protected Crown escrow, zero intentional quality delta, zero paired-regression tolerance, and no automatic spend authority."
   },
   "authorityOrder": [
     "LIVE_EXTERNAL_EVIDENCE",
@@ -237,7 +243,8 @@
     "open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md",
     "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
     "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
-    "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md"
+    "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+    "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -256,16 +263,18 @@
     "scripts/frontier-vm-v5-doctor.mjs",
     "src/cognitive-superoptimizer.mjs",
     "src/frontier-vm-burnin.mjs",
-    "src/frontier-vm-activation-readiness.mjs"
+    "src/frontier-vm-activation-readiness.mjs",
+    "config/ubermind-cloud-cognition-resources.json",
+    "scripts/ubermind-cloud-market-doctor.mjs"
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "V5 is durably preserved with executable quality typing, burn-in and longitudinal proof gates, and TypingMind-first secret isolation. Interactive activation does not require a duplicate OpenRouter key in the repo runtime. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
-  "recovery": "Refresh current main; run normal UberBond startup; recover the Open Router V5 canon; run npm run open-router:vault:doctor and npm run frontier-vm:doctor. Interactive activation defaults to TypingMind external cockpit with no duplicated repo runtime OpenRouter secret.",
+  "truthBoundary": "The vault preserves V2-V5 architecture plus TypingMind-first V5 activation policy reconciliation. It does not prove live OpenRouter/TypingMind activation, current Crown identity, frontier equivalence, compression, novelty, or permanent zero-regression.",
+  "recovery": "Refresh main; read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md, ACTIVATION_CHECKLIST.md, MANIFEST.json, V5_FRONTIER_VM_RECEIPT_2026-09-29.json, and V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from external TypingMind connection, live Crown snapshot, and fresh task evidence.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 39,
+  "indexedFilesExcludingSelf": 40,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",

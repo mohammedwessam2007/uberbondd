@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "uberbond.apex-evidence-contamination-registry.v1",
+  "generatedAt": "2026-09-29",
+  "prohibitedSuiteVersions": [
+    {
+      "suiteVersion": "omega-local-evidence-suite-1.0.0",
+      "reason": "RETIRED_TAUTOLOGICAL_CORPUS",
+      "evidenceRef": "docs/CURRENT_HANDOFF.json"
+    }
+  ],
+  "prohibitedCorpusDigests": [
+    {
+      "digest": "e90ed2b89f6063083958db2e7a988a4a0e41f6021205a1478bca72882471e6c0",
+      "reason": "RETIRED_NULLSTAR_LOCAL_HOLDOUT_ALREADY_KNOWN",
+      "evidenceRef": "artifacts/nullstar-omega/holdout-manifest.json"
+    }
+  ],
+  "prohibitedCommitmentRefs": [
+    {
+      "commitmentRef": "ad4139fd722f333336ac76252d74e8ede43cb94feb32f0616be58d8992b0b487",
+      "reason": "LEGACY_V1_DO_NOT_REUSE",
+      "evidenceRef": "artifacts/omega-private-holdout-commitments-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "8a83c34a923e7153745c8e1d3f40db2aad42a7c2460e71222af35a98a73ecbee",
+      "reason": "LEGACY_V1_DO_NOT_REUSE",
+      "evidenceRef": "artifacts/omega-private-holdout-commitments-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "e5f1ff6564c55a62d30c97307b05492b464aea86fd125ca385129b69d55c0a5e",
+      "reason": "LEGACY_V1_DO_NOT_REUSE",
+      "evidenceRef": "artifacts/omega-private-holdout-commitments-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "d6ae9d0e205b14b2312292400c49b0de34e9e4e5b7a61469f1d59a19897b2c59",
+      "reason": "EVALUATED_V2",
+      "evidenceRef": "artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "1b783a12eecf39d0608d528ef442104f4ab0aa29f588294dead41ffe22b673bd",
+      "reason": "EVALUATED_V2",
+      "evidenceRef": "artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "c1324096dcf43530781e7dddf5ec11a94382f6d9ccb949d21867706173dbca9e",
+      "reason": "EVALUATED_V2",
+      "evidenceRef": "artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "7402c3e3e78ed8655b7b5408f7769a6d79ddd52276ab850d7ba00454213f40ea",
+      "reason": "EVALUATED_V2",
+      "evidenceRef": "artifacts/omega-private-evidence-v2-sealed-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "85f2dd7c1c70a78a6a8603054243e297db406123be9f14067a4df7e451cc55a9",
+      "reason": "VOID_UNOPENED_V3_AFTER_SOURCE_CHANGE",
+      "evidenceRef": "artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "dd5a3010b27a3bffa986b1ba632c2fae5d6f992376d7bc00fc87a391439b2adb",
+      "reason": "VOID_UNOPENED_V3_AFTER_SOURCE_CHANGE",
+      "evidenceRef": "artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "3aa728b3302c557a7bcd7ff03dcae2cd4da1fbfd1f3b51b971da5e0db9b0fb77",
+      "reason": "VOID_UNOPENED_V3_AFTER_SOURCE_CHANGE",
+      "evidenceRef": "artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "6ecffffd60d4abdf99c659e77ba95f54628b41feb7c0c3f747df227cdeef8027",
+      "reason": "VOID_UNOPENED_V3_AFTER_SOURCE_CHANGE",
+      "evidenceRef": "artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "afd31969ee1287a0005d1154b24106493ff2a6d9a491263b7f49a67cfe7b097d",
+      "reason": "VOID_UNOPENED_V3_AFTER_SOURCE_CHANGE",
+      "evidenceRef": "artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json"
+    },
+    {
+      "commitmentRef": "fcb8217cbed560bb790050f4d113bf20c174f3773b031c8aa6a0673b2535adb0",
+      "reason": "EVALUATED_V4",
+      "evidenceRef": "artifacts/omega-v4-evidence.json"
+    },
+    {
+      "commitmentRef": "b453037bb25563703ebd63b2d7416512f4dee18ed56922fdc904d46787f3103b",
+      "reason": "EVALUATED_V4",
+      "evidenceRef": "artifacts/omega-v4-evidence.json"
+    },
+    {
+      "commitmentRef": "632fc8490040ad70a64d221e676f240ce5d5b1cd9a37c7eb284fd4428c8408a7",
+      "reason": "EVALUATED_V4",
+      "evidenceRef": "artifacts/omega-v4-evidence.json"
+    },
+    {
+      "commitmentRef": "9b7d50d9ed57f86ed5f10406cbcf7820b3ff4088c446f0caf72fabadf7bd809c",
+      "reason": "EVALUATED_V4",
+      "evidenceRef": "artifacts/omega-v4-evidence.json"
+    },
+    {
+      "commitmentRef": "9ccc4b776c7fceeba91411c29554b8c8193344c2bfa254771f1ef29dadeaece9",
+      "reason": "EVALUATED_V4",
+      "evidenceRef": "artifacts/omega-v4-evidence.json"
+    }
+  ],
+  "policy": {
+    "evaluatedEvidenceMayDonateMechanisms": true,
+    "evaluatedOrVoidedHoldoutsMayBePromotionEvidence": false,
+    "reuseRequiresFreshGeneration": false,
+    "rawSeedSaltPromptAnswerMayEnterRepository": false
+  },
+  "truthBoundary": "THIS REGISTRY QUARANTINES KNOWN RETIRED EVALUATED OR VOIDED EVIDENCE IDENTITIES. ABSENCE FROM THIS LIST DOES NOT BY ITSELF PROVE FRESHNESS."
+}

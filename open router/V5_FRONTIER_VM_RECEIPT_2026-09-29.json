@@ -1,9 +1,9 @@
 {
-  "schemaVersion": "uberbond.open-router.v5-frontier-vm-receipt.v1",
+  "schemaVersion": "uberbond.open-router.v5-frontier-vm-receipt.v2",
   "status": "OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED",
   "date": "2026-09-29",
   "branch": "open-router/frontier-intelligence-virtualization-20260929",
-  "observedBranchHeadBeforeReceipt": "2debde33c5f0847fa9f97e02a5d881d209d370fe",
+  "observedBranchHeadBeforeReceipt": "51b81e603108d8e793a015ded1ed42bd0fc1b143",
   "baseMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
   "inheritance": {
     "noAmputation": true,
@@ -21,7 +21,7 @@
     "unknown": "PAGE_FAULT_TO_FRONTIER",
     "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE"
   },
-  "thesis": "Virtualize the strongest verified market intelligence behind a quality-typed cognitive program, compile recurring cognition downward when evidence permits, and deoptimize back to frontier cognition on novelty or drift.",
+  "thesis": "Virtualize the strongest verified market intelligence behind a quality-typed cognitive program, compile recurring cognition downward when evidence permits, measure the frontier residual longitudinally, and deoptimize back to frontier cognition on novelty or drift.",
   "files": [
     {
       "path": "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
@@ -29,9 +29,29 @@
       "size": 16349
     },
     {
+      "path": "open router/14_COGNITIVE_COMPILER_SPEC.json",
+      "blobSha": "57315db8758f8c0e167cef126e8e6577d1fc2f3a",
+      "size": 5477
+    },
+    {
       "path": "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
       "blobSha": "fcb8f4701e5b74f5e8ccc05fb8cf09ca9682262a",
       "size": 13115
+    },
+    {
+      "path": "open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md",
+      "blobSha": "3bf59416659369355b13d22e55f3aca45237c11b",
+      "size": 9656
+    },
+    {
+      "path": "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
+      "blobSha": "8422f6cdb1906dc210f29ececff8bc8296a6429c",
+      "size": 10299
+    },
+    {
+      "path": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+      "blobSha": "5e76d7f9f8546531c3c1ebc0248a5c74d785589e",
+      "size": 6012
     },
     {
       "path": "src/frontier-intelligence-vm.mjs",
@@ -39,9 +59,29 @@
       "size": 15186
     },
     {
+      "path": "src/frontier-vm-longitudinal-evaluator.mjs",
+      "blobSha": "070cc1957b7bd390db8d3d19e0b804940b9184cb",
+      "size": 8590
+    },
+    {
       "path": "tests/frontier-intelligence-vm.test.mjs",
       "blobSha": "8c68bdfd6f7007a5b543d6140a8cd32b0d6cfdf7",
       "size": 6728
+    },
+    {
+      "path": "tests/frontier-vm-longitudinal-evaluator.test.mjs",
+      "blobSha": "06effd2b7ebd0578f73f6aa6fd4ace72bc0575b4",
+      "size": 3063
+    },
+    {
+      "path": "config/frontier-vm-v5-longitudinal-campaign.json",
+      "blobSha": "f1ededf2f6397b7bc3abff3839a9851a5eb3643f",
+      "size": 2849
+    },
+    {
+      "path": "scripts/frontier-vm-v5-doctor.mjs",
+      "blobSha": "d7bc1d8dfe2dcb490f42f108cda1984237d447c0",
+      "size": 3454
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -50,28 +90,28 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "346c66581bd7ab6dde29e6fed0907b1831a3f769",
-      "size": 8081
+      "blobSha": "eedd110cc24068c2e614699bee7627958f7367f2",
+      "size": 9167
     },
     {
       "path": "open router/README.md",
-      "blobSha": "25111d67f81f93321ac5d943526e6c1bd9e1764b",
-      "size": 11411
+      "blobSha": "b88def51e45b322913dc293d66dee1a7d1f843f9",
+      "size": 12266
     },
     {
       "path": "config/absolute-frontier-quality-lock.json",
-      "blobSha": "9c179b089554f17f4f287fda89ff22bf05cc2292",
-      "size": 3169
+      "blobSha": "113ca2c53031758f3d1f64bdfb657dc9a1027a20",
+      "size": 4128
     },
     {
       "path": "scripts/open-router-vault-doctor.mjs",
-      "blobSha": "06cc852e4d05dde223045e20ad93c784292395f2",
-      "size": 7608
+      "blobSha": "2e8d2ce58ee251e2697655c23dfc238e0802b7e0",
+      "size": 8071
     },
     {
       "path": "package.json",
-      "blobSha": "6df745662ccbed1f4bb4e8cf50fb99e0fb887346",
-      "size": 23971
+      "blobSha": "2ae9c100cd3865d9aac70b843f9a6f196d778bdd",
+      "size": 24379
     }
   ],
   "executableClaims": {
@@ -82,13 +122,25 @@
     "commonSemanticSubexpressionDetection": "IMPLEMENTED_PLAN_ONLY",
     "frontierResidualCompiler": "IMPLEMENTED",
     "proofCarryingCognitionPacket": "IMPLEMENTED",
+    "longitudinalRegressionAccounting": "IMPLEMENTED",
+    "frontierResidualTrendMeasurement": "IMPLEMENTED",
+    "crownSuccessionObservation": "IMPLEMENTED_EVALUATOR_ONLY",
     "liveModelExecution": "NOT_ADDED_BY_V5",
     "automaticRuntimePromotion": "NOT_AUTHORIZED"
+  },
+  "evidenceProgram": {
+    "priorArtMatrix": "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
+    "longitudinalProtocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+    "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
+    "activationDoctor": "scripts/frontier-vm-v5-doctor.mjs",
+    "minimumBurnInFreshPairedTasks": 40,
+    "zeroObservedPairedRegressionRequirement": true
   },
   "truthBoundary": [
     "This receipt proves repository preservation of V5 files and their observed Git blob identities at the recorded branch state.",
     "It does not prove global novelty, global superiority, a live $30 frontier-equivalent system, 1000x compression, or zero future regressions.",
-    "Those claims remain subject to current-market research, live paired trials, cost receipts, and canonical zero-loss certification."
+    "Public neighboring work exists in routing, adaptive debate, workflow compilation, trajectory JIT, semantic caching, provenance, and System-One routing.",
+    "Stronger claims require live paired trials, real cost receipts, Crown-succession experiments, ablations, and preferably independent replication."
   ],
-  "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json may index the finalized receipt after creation."
+  "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json indexes the finalized receipt after this update."
 }

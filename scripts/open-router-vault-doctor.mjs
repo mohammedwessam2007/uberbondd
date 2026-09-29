@@ -24,10 +24,18 @@ const REQUIRED = [
   'open router/RECOVERY_AUDIT_V4_2026-09-29.md',
   'open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json',
   'open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md',
+  'open router/14_COGNITIVE_COMPILER_SPEC.json',
   'open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md',
+  'open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md',
+  'open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md',
+  'open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md',
   'open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json',
   'src/frontier-intelligence-vm.mjs',
-  'tests/frontier-intelligence-vm.test.mjs'
+  'tests/frontier-intelligence-vm.test.mjs',
+  'src/frontier-vm-longitudinal-evaluator.mjs',
+  'tests/frontier-vm-longitudinal-evaluator.test.mjs',
+  'config/frontier-vm-v5-longitudinal-campaign.json',
+  'scripts/frontier-vm-v5-doctor.mjs'
 ];
 
 const failures = [];

@@ -7,6 +7,7 @@ export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
 
 const admittedBundles = new WeakMap();
+const admittedPlans = new WeakMap();
 const MAX_PROFILES = 64;
 const MAX_BENCHMARKS = 1000;
 const MAX_CALLABILITY = 256;
@@ -244,7 +245,7 @@ export function compileAdmittedFrontierPlan({ task, admissionBundle, ...policy }
     admissionDigest: admissionBundle.identityDigest,
     admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks }
   });
-  return envelope({
+  const output = envelope({
     ...result,
     simulationOnly,
     trustedForLiveExecution,
@@ -253,5 +254,32 @@ export function compileAdmittedFrontierPlan({ task, admissionBundle, ...policy }
     callabilityProvenance: admissionBundle.callabilityProvenance,
     admissionRejectedEvidence: { callability: admissionBundle.rejectedCallability, benchmarks: admissionBundle.rejectedBenchmarks },
     truthBoundary: `${result.plan?.truthBoundary ? `${result.plan.truthBoundary}; ` : ''}${simulationOnly ? 'SYNTHETIC_PROVENANCE_TEST_PLAN_NOT_LIVE_AUTHORITY; ' : ''}PLAN_WAS_COMPILED_ONLY_FROM_PROCESS_VALIDATED_UNTAMPERED_EXACT_REVISION_ADMISSION_EVIDENCE`
+  });
+  admittedPlans.set(output, {
+    planDigest: output.planDigest,
+    planObjectDigest: sha256(output.plan),
+    admissionDigest: output.admissionDigest,
+    simulationOnly,
+    trustedForLiveExecution
+  });
+  return output;
+}
+
+export function validateAdmittedFrontierPlan(planResult) {
+  const trusted = planResult && typeof planResult === 'object' ? admittedPlans.get(planResult) : null;
+  const reasons = [];
+  if (!trusted) reasons.push('process-bound-admitted-frontier-plan-required');
+  if (!planResult?.plan || !planResult?.planDigest) reasons.push('frontier-plan-and-digest-required');
+  if (trusted && trusted.planDigest !== planResult.planDigest) reasons.push('frontier-plan-digest-mutation-detected');
+  if (trusted && trusted.planObjectDigest !== sha256(planResult.plan)) reasons.push('frontier-plan-object-mutation-detected');
+  if (trusted && trusted.admissionDigest !== planResult.admissionDigest) reasons.push('frontier-plan-admission-binding-mutation-detected');
+  if (reasons.length) return failure(reasons, 'FRONTIER_PLAN_PROVENANCE_BLOCKED');
+  return envelope({
+    ok: true,
+    status: 'FRONTIER_ADMITTED_PLAN_PROVENANCE_VALID',
+    admissionDigest: trusted.admissionDigest,
+    planDigest: trusted.planDigest,
+    simulationOnly: trusted.simulationOnly,
+    trustedForLiveExecution: trusted.trustedForLiveExecution
   });
 }

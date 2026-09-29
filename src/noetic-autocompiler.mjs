@@ -7,7 +7,8 @@
 
 import crypto from 'node:crypto';
 import { choice, noul, score } from './system-one-decision-adapter.mjs';
-import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST, qualityInvariantAttestation, validatePairedZeroLossCertificate } from './absolute-frontier-quality-invariant.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST, qualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
+import { validateCanonicalZeroLossCertificate } from './canonical-zero-loss-certificate.mjs';
 
 export const NOETIC_AUTOCOMPILER_VERSION = 'uberbond.noetic-autocompiler.v1';
 export const SEMANTIC_OPS = Object.freeze(['NOUL', 'CHOICE', 'SCORE']);
@@ -213,7 +214,7 @@ export function proposeCognitiveCompilation({
   if (cal == null || cal > 0) reasons.push('calibration-error-above-zero-loss-threshold');
   if (!Number.isInteger(stableWindows) || stableWindows < 3) reasons.push('insufficient-stable-windows');
   if (drift === true) reasons.push('drift-present');
-  const zeroLoss = validatePairedZeroLossCertificate(zeroLossCertificate, {
+  const zeroLoss = validateCanonicalZeroLossCertificate(zeroLossCertificate, {
     expectedCandidateArchitectureId,
     minimumTaskCount: minimumOutcomes
   });

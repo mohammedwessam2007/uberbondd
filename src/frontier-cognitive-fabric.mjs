@@ -468,7 +468,6 @@ export function compileFrontierCognitivePlan({
   evidenceMaxAgeMs = DEFAULT_EVIDENCE_MAX_AGE_MS,
   callabilityMaxAgeMs = DEFAULT_CALLABILITY_MAX_AGE_MS,
   frontierQualityDelta = DEFAULT_FRONTIER_QUALITY_DELTA,
-  allowDegradedCouncil = false,
   now = new Date(),
   random = () => 0.5
 } = {}) {

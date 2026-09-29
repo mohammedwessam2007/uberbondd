@@ -54,6 +54,12 @@ function admittedRuntimePlan(taskId) {
   }, new Date(AT));
   benchmark.observedRevision = runtimeProfile.revision;
   benchmark.evidenceRef = 'benchmark://producer-origin-runtime';
+  benchmark.absoluteFrontierBaseline = true;
+  benchmark.frontierBaselineArchitectureId = 'baseline-producer-origin-runtime';
+  benchmark.frontierCandidateArchitectureId = 'baseline-producer-origin-runtime';
+  benchmark.pairedZeroLossCertified = true;
+  benchmark.sealedTrialReceiptDigest = 'trial-producer-origin-runtime';
+  benchmark.baselineSealedTrialReceiptDigest = 'trial-producer-origin-runtime';
   const admission = buildFrontierAdmissionBundle({
     profiles: [runtimeProfile],
     callability: [{ ...observation, providerRequestId: undefined }],

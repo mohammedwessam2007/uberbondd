@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.live-market-candidates.v1",
+  "observedAt": "2026-09-30T00:00:00Z",
+  "truthBoundary": "Public OpenRouter catalog evidence only. No owner-account callability or task-class winner is established.",
+  "candidates": [
+    {"role":"GENERAL_CROWN_CANDIDATE","model":"anthropic/claude-opus-5.5","inputUsdPerMillion":4,"outputUsdPerMillion":20,"cacheReadUsdPerMillion":0.2,"cacheWriteUsdPerMillion":5,"contextTokens":1000000,"maxOutputTokens":128000,"evidence":"https://openrouter.ai/anthropic/claude-opus-5.5"},
+    {"role":"STRONG_WORKER_CANDIDATE","model":"openai/gpt-6-sol","inputUsdPerMillion":2,"outputUsdPerMillion":10,"cacheReadUsdPerMillion":0.2,"contextTokens":1050000,"maxOutputTokens":128000,"evidence":"https://openrouter.ai/openai/gpt-6-sol"},
+    {"role":"BATCH_STRONG_WORKER_CANDIDATE","model":"openai/gpt-6-sol:batch","inputUsdPerMillion":1,"outputUsdPerMillion":5,"cacheReadUsdPerMillion":0.1,"cacheWriteUsdPerMillion":1.25,"contextTokens":1050000,"maxOutputTokens":128000,"evidence":"https://openrouter.ai/openai/gpt-6-sol:batch"},
+    {"role":"ULTRA_CHEAP_CANARY_AND_WORKER_CANDIDATE","model":"xiaomi/mimo-v2.6-flash","inputUsdPerMillion":0.14,"outputUsdPerMillion":0.28,"cacheReadUsdPerMillion":0.0028,"contextTokens":1048576,"maxOutputTokens":131072,"evidence":"https://openrouter.ai/xiaomi/mimo-v2.6-flash"},
+    {"role":"CHEAP_DIVERSE_WORKER_CANDIDATE","model":"deepseek/deepseek-v4.1-flash","inputUsdPerMillion":0.13,"outputUsdPerMillion":0.52,"cacheReadUsdPerMillion":0.0026,"contextTokens":1048576,"maxOutputTokens":1048576,"evidence":"https://openrouter.ai/deepseek/deepseek-v4.1-flash"},
+    {"role":"DIVERSE_STRONG_WORKER_CANDIDATE","model":"qwen/qwen3.8-max","inputUsdPerMillion":2,"outputUsdPerMillion":6,"contextTokens":1000000,"evidence":"https://openrouter.ai/qwen/"}
+  ],
+  "promotedRoles": {}
+}

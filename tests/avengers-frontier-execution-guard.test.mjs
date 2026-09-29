@@ -137,8 +137,8 @@ test('even a branded synthetic simulation factory cannot be paired with injected
 test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and distinct adjudication under one shared budget', async () => {
   const profiles = [
     profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
-    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.98 }),
-    profile({ id: 'anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.97 })
+    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.99 }),
+    profile({ id: 'anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.99 })
   ];
   const calls = profiles.map(callability);
   const modelExecutorFactory = createFrontierSimulationExecutorFactory({

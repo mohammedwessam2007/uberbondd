@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-handoff-3.2.0",
-  "checkpointedAt": "2026-09-29T03:31:00+03:00",
+  "checkpointedAt": "2026-09-29T16:50:00+03:00",
   "sourceCommit": "3fab434f1e0bf0818daf0b63aa9d5f99f9576c3d",
   "terminalNorthStar": "Sovereign Cognitive Continuum",
   "terminalDefinition": "A lifetime-scale, recursively improving, substrate-agnostic, ontology-generating, reality-coupled private civilization of intelligence surrounding the founder's sovereign free will. The founder provides will. UberBond provides intelligence. Reality provides feedback.",
@@ -682,5 +682,41 @@
       "credentialChanges": 0
     },
     "truthBoundary": "Source is prepared, not activated. No OpenRouter credential, credit purchase, live catalog receipt, current Crown determination, live inference, or $20/month frontier-equivalence proof has been observed."
+  },
+  "ubermindThirtyDollarFrontierMax20260929": {
+    "status": "FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF",
+    "canon": "docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json",
+    "sourceMainAtRecovery": "8d57f17add2328b1f4a219962df7456e564cebfe",
+    "terminalObjective": "Highest verified intelligence available in the market at the lowest achievable all-in price, with quality fixed before cost optimization.",
+    "qualityLaw": {
+      "maxQualityDelta": 0,
+      "budgetUsd": 30,
+      "pressureRelief": "QUEUE_DEFER_BATCH_OR_WAIT_NEVER_DOWNGRADE"
+    },
+    "cockpit": {
+      "device": "iPad",
+      "ui": "TypingMind",
+      "market": "OpenRouter",
+      "localGpuRequired": false,
+      "localModelRequired": false
+    },
+    "cognitionStack": [
+      "moving Frontier Crown/Pantheon",
+      "Jev Hyperreflex semantic control plane",
+      "adaptive heterogeneous cheap swarm",
+      "Adversarial Synthesis",
+      "lossless Frontier Delta Adjudication",
+      "Reality Court",
+      "Crown -> Jev -> deterministic code crystallization"
+    ],
+    "pr1027Reconciliation": "Merged OpenRouter backend remains useful for unattended/night-shift/tournament work, but founder explicitly chose TypingMind as the interactive iPad cockpit. Do not build a replacement interactive UI unless instructed.",
+    "jawDroppingEconomicGoal": {
+      "target": "Potentially thousands-of-dollars-class reference frontier work from about $30 through extreme compression and reuse.",
+      "evidenceStatus": "NOT_YET_PROVEN",
+      "requiredMetric": "ReferenceCostEquivalent / actual all-in UberMind cost under matched quality",
+      "rule": "Never count cheap-but-worse work as compression success."
+    },
+    "nextAction": "Activation, not more architecture invention: configure TypingMind + OpenRouter, set ~$30 hard cap, run direct-Crown vs UberMind paired tasks, collect cost/token receipts, shadow/calibrate Jev, certify bounded reflexes, then mutate from evidence.",
+    "recoveryLaw": "A new/sluggish/crashed chat must read the canon above and continue from activation/empirical proof. Do not restart model-selection architecture."
   }
 }

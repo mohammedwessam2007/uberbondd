@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "uberbond.frontier-vm-v5-longitudinal-campaign.v1",
+  "schemaVersion": "uberbond.frontier-vm-v5-longitudinal-campaign.v2",
   "status": "PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY",
   "objective": "Demonstrate decreasing frontier residual on recurring fresh work while preserving the moving task-class Crown quality floor.",
   "quality": {
@@ -76,10 +76,10 @@
     "FOUNDER_MINUTES"
   ],
   "requiredPreconditions": [
-    "OPENROUTER_API_KEY_PRESENT_IN_PROTECTED_RUNTIME",
+    "OPENROUTER_CONNECTED_IN_TYPINGMIND_OR_EXPLICITLY_AUTHORIZED_PROTECTED_UNATTENDED_RUNTIME",
     "LIVE_CROWN_SNAPSHOT",
     "FRESH_TASK_SOURCE_OR_CUSTODIAN",
-    "REAL_BILLING_RECEIPTS",
+    "REAL_BILLING_RECEIPTS_AFTER_FIRST_LIVE_CALLS",
     "INDEPENDENT_OR_BLIND_PAIRED_EVALUATION"
   ],
   "implementation": {
@@ -88,5 +88,20 @@
     "protocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
     "proofHarness": "src/apex-sealed-tournament.mjs"
   },
-  "truthBoundary": "This config authorizes no spend and proves no equivalence, novelty, or compression. It freezes the evidence program that must be run after live prerequisites exist."
+  "truthBoundary": "This config authorizes no spend and proves no equivalence, novelty, or compression. It freezes the evidence program that must be run after live prerequisites exist.",
+  "activation": {
+    "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+    "interactiveCockpit": "TypingMind on iPad",
+    "transport": "OpenRouter",
+    "repoRuntimeCredentialRequiredForTypingMind": false,
+    "typingMindCredentialLocation": "TypingMind/OpenRouter credential configuration",
+    "unattendedRuntimeMode": "OPTIONAL_LATER",
+    "unattendedRuntimeCredential": "OPENROUTER_API_KEY in protected UberBond runtime only when unattended provider calls are intentionally enabled",
+    "requiredEvidenceRefs": [
+      "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF",
+      "UBERMIND_LIVE_CROWN_SNAPSHOT_REF",
+      "UBERMIND_FRESH_TASK_SOURCE_REF"
+    ],
+    "law": "INTERACTIVE_TYPINGMIND_ACTIVATION_MUST_NOT_REQUIRE_DUPLICATING_THE_OPENROUTER_SECRET_IN_THE_REPOSITORY_RUNTIME"
+  }
 }

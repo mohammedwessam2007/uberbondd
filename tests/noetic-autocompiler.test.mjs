@@ -80,8 +80,9 @@ test('reality drift decompiles a formerly stable reflex', () => {
   assert.equal(result.status, 'REALITY_DRIFT_DETECTED__DECOMPILE');
 });
 
-test('deterministic compilation requires exact paired zero-loss proof, not merely high accuracy', () => {
-  const programDigest = 'sha256:x';
+test('deterministic compilation requires exact paired zero-loss proof and a canonical semantic program, not merely high accuracy', () => {
+  const semanticProgram = program();
+  const programDigest = semanticProgram.programDigest;
   const outcomes = Array.from({ length: 100 }, (_, index) => ({ taskId: `t-${index}`, outcome: 'CORRECT' }));
   const baselineTrial = {
     architectureId: 'frontier-baseline',
@@ -105,6 +106,7 @@ test('deterministic compilation requires exact paired zero-loss proof, not merel
   assert.equal(certificate.ok, true, JSON.stringify(certificate));
 
   const highButNotPerfect = proposeCognitiveCompilation({
+    program: semanticProgram,
     programDigest,
     outcomeCount: 500,
     accuracy: 0.995,
@@ -116,6 +118,7 @@ test('deterministic compilation requires exact paired zero-loss proof, not merel
   assert.ok(highButNotPerfect.reasonCodes.includes('accuracy-below-zero-loss-threshold'));
 
   const noCertificate = proposeCognitiveCompilation({
+    program: semanticProgram,
     programDigest,
     outcomeCount: 500,
     accuracy: 1,
@@ -126,6 +129,7 @@ test('deterministic compilation requires exact paired zero-loss proof, not merel
   assert.ok(noCertificate.reasonCodes.includes('paired-zero-loss-certificate-required'));
 
   const strong = proposeCognitiveCompilation({
+    program: semanticProgram,
     programDigest,
     outcomeCount: 100,
     accuracy: 1,
@@ -160,4 +164,23 @@ test('any measured regression decompiles immediately', () => {
     recent: { accuracy: 1, calibrationError: 0.000001, count: 100 }
   });
   assert.equal(tinyCalibrationLoss.drift, true);
+});
+
+
+test('cloned semantic program, proposal, or drift assessment loses process authority', () => {
+  const semanticProgram = program();
+  const copiedProgram = structuredClone(semanticProgram);
+  const copiedPlan = planSemanticExecution({ program: copiedProgram, state: { x: 1 }, mode: 'SHADOW' });
+  assert.equal(copiedPlan.ok, false);
+  assert.ok(copiedPlan.reasonCodes.includes('canonical-untampered-semantic-program-required'));
+
+  const drift = assessRealityDrift({
+    baseline: { accuracy: 1, calibrationError: 0 },
+    recent: { accuracy: 1, calibrationError: 0, count: 100 }
+  });
+  assert.equal(drift.ok, true);
+  assert.equal(drift.drift, false);
+
+  const copiedDrift = structuredClone(drift);
+  assert.notEqual(copiedDrift, drift);
 });

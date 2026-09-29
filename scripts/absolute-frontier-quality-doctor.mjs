@@ -120,8 +120,14 @@ const sourceContracts = {
     "reasoningTier='FRONTIER_MAX'",
     "SEMANTIC_COGNITION_NEVER_FALLS_BELOW_FRONTIER_MAX"
   ],
+  'src/canonical-zero-loss-certificate.mjs': [
+    "validateCompiledSealedArchitectureTrial",
+    "provenanceValidator: validateCompiledSealedArchitectureTrial",
+    "CANONICAL_UNTAMPERED_SEALED_TRIAL_PAIR",
+    "canonical-zero-loss-certificate-producer-origin-required"
+  ],
   'src/noetic-autocompiler.mjs': [
-    "validatePairedZeroLossCertificate",
+    "validateCanonicalZeroLossCertificate",
     "minimumAccuracy = 1",
     "maximumCalibrationError = 0",
     "accuracyDrop > 0 || calibrationWorsening > 0",

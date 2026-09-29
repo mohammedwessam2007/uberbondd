@@ -213,7 +213,7 @@ function normalizeTask(raw = {}) {
   const taskClass = text(raw.taskClass ?? 'general', 160)?.toLowerCase();
   const role = text(raw.role ?? 'general', 80)?.toLowerCase();
   const dataClass = text(raw.dataClass ?? 'INTERNAL_NON_SECRET', 80)?.toUpperCase();
-  const reasoningTier = text(raw.reasoningTier ?? 'STANDARD', 80)?.toUpperCase();
+  const reasoningTier = text(raw.reasoningTier ?? 'FRONTIER_MAX', 80)?.toUpperCase();
   const requiredTags = list(raw.requiredTags ?? [], 128, 240)?.map(item => item.toLowerCase());
   const contextTokenBudget = integer(raw.contextTokenBudget ?? 32_000, 1, 5_000_000);
   const minCouncilSize = integer(raw.minCouncilSize ?? 2, 2, MAX_COUNCIL_RESPONDERS);
@@ -247,7 +247,19 @@ function renormalizeBenchmark(raw, taskClass, now, maxAgeMs) {
   if (!observedAt || !observedRevision || !evidenceRef) return null;
   const benchmark = normalizeModelBenchmark(source, new Date(observedAt));
   if (!benchmark?.ok || benchmark.taskClass !== taskClass || !evidenceFresh(benchmark.observedAt, now, maxAgeMs)) return null;
-  return { ...benchmark, observedRevision, evidenceRef };
+  return {
+    ...benchmark,
+    observedRevision,
+    evidenceRef,
+    absoluteFrontierBaseline: raw?.absoluteFrontierBaseline === true,
+    frontierBaselineArchitectureId: text(raw?.frontierBaselineArchitectureId, 240)?.toLowerCase() ?? null,
+    frontierCandidateArchitectureId: text(raw?.frontierCandidateArchitectureId, 240)?.toLowerCase() ?? null,
+    pairedZeroLossCertified: raw?.pairedZeroLossCertified === true,
+    pairedZeroLossCertificationDigest: text(raw?.pairedZeroLossCertificationDigest, 128)?.toLowerCase() ?? null,
+    sealedTrialReceiptDigest: text(raw?.sealedTrialReceiptDigest, 128)?.toLowerCase() ?? null,
+    baselineSealedTrialReceiptDigest: text(raw?.baselineSealedTrialReceiptDigest, 128)?.toLowerCase() ?? null,
+    liveRoutingAuthority: text(raw?.liveRoutingAuthority, 160)?.toUpperCase() ?? null
+  };
 }
 
 function latestBenchmarks(benchmarks, taskClass, now, maxAgeMs) {
@@ -309,8 +321,34 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
   if (task.reasoningTier === 'FRONTIER_MAX' || task.reasoningTier === 'COUNCIL_MAX') {
     const evidenced = enriched.filter(item => item.benchmark && item.benchmark.evidenceConfidence >= minimumEvidenceConfidence);
     if (!evidenced.length) return failure(['frontier-tier-requires-fresh-quality-evidence'], 'CAPACITY_BLOCKED');
-    const bestQuality = Math.max(...evidenced.map(item => item.benchmark.quality));
-    const qualityExact = evidenced.filter(item => item.benchmark.quality === bestQuality);
+
+    const baselines = evidenced.filter(item =>
+      item.benchmark.absoluteFrontierBaseline === true
+      && item.benchmark.liveRoutingAuthority === 'CANONICAL_ABSOLUTE_FRONTIER_BASELINE'
+    );
+    if (baselines.length !== 1) {
+      return failure(['exactly-one-canonical-frontier-baseline-benchmark-required'], 'CAPACITY_BLOCKED', {
+        observedBaselineCount: baselines.length
+      });
+    }
+    const baseline = baselines[0];
+    const baselineArchitectureId = baseline.benchmark.frontierBaselineArchitectureId;
+    const baselineReceiptDigest = baseline.benchmark.sealedTrialReceiptDigest;
+    if (!baselineArchitectureId || !baselineReceiptDigest) {
+      return failure(['frontier-baseline-benchmark-binding-incomplete'], 'CAPACITY_BLOCKED');
+    }
+
+    const proofEligible = evidenced.filter(item => {
+      if (item === baseline) return true;
+      return item.benchmark.pairedZeroLossCertified === true
+        && item.benchmark.liveRoutingAuthority === 'CANONICAL_PAIRED_ZERO_LOSS_AGAINST_EXACT_BASELINE'
+        && Boolean(item.benchmark.pairedZeroLossCertificationDigest)
+        && item.benchmark.frontierBaselineArchitectureId === baselineArchitectureId
+        && item.benchmark.baselineSealedTrialReceiptDigest === baselineReceiptDigest;
+    });
+
+    const bestQuality = Math.max(...proofEligible.map(item => item.benchmark.quality));
+    const qualityExact = proofEligible.filter(item => item.benchmark.quality === bestQuality);
     const bestReliability = Math.max(...qualityExact.map(item => item.benchmark.reliability));
     const reliabilityExact = qualityExact.filter(item => item.benchmark.reliability === bestReliability);
     const bestEvidenceConfidence = Math.max(...reliabilityExact.map(item => item.benchmark.evidenceConfidence));
@@ -328,6 +366,10 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
       qualityFloor: bestQuality,
       bestReliability,
       bestEvidenceConfidence,
+      frontierBaselineArchitectureId: baselineArchitectureId,
+      frontierBaselineReceiptDigest: baselineReceiptDigest,
+      zeroLossAuthorizedCandidateCount: proofEligible.length,
+      excludedUncertifiedCandidateCount: evidenced.length - proofEligible.length,
       absoluteQualityInvariant: qualityInvariantAttestation()
     });
   }
@@ -458,6 +500,8 @@ export function compileFrontierCognitivePlan({
   evidenceMaxAgeMs = DEFAULT_EVIDENCE_MAX_AGE_MS,
   callabilityMaxAgeMs = DEFAULT_CALLABILITY_MAX_AGE_MS,
   frontierQualityDelta = DEFAULT_FRONTIER_QUALITY_DELTA,
+  allowDegradedCouncil = false,
+  degradationPolicyRef = null,
   now = new Date(),
   random = () => 0.5
 } = {}) {
@@ -472,8 +516,11 @@ export function compileFrontierCognitivePlan({
   if (confidence == null || evidenceAge == null || callabilityAge == null || qualityDelta == null) return failure(['bounded-frontier-policy-parameters-required'], 'FRONTIER_POLICY_INVALID');
   const absoluteTier = normalizedTask.task.reasoningTier === 'FRONTIER_MAX' || normalizedTask.task.reasoningTier === 'COUNCIL_MAX';
   if (absoluteTier) {
-    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false });
+    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil });
     if (!absolutePolicy.ok) return failure(absolutePolicy.reasonCodes, 'FRONTIER_POLICY_INVALID');
+  }
+  if (allowDegradedCouncil === true || degradationPolicyRef != null) {
+    return failure(['absolute-frontier-degraded-council-prohibited'], 'FRONTIER_POLICY_INVALID');
   }
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');
 

@@ -31,6 +31,9 @@ const REQUIRED = [
   'open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md',
   'open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json',
   'open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json',
+  'open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json',
+  'docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json',
+  'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md',
   'src/frontier-intelligence-vm.mjs',
   'tests/frontier-intelligence-vm.test.mjs',
   'src/frontier-vm-longitudinal-evaluator.mjs',
@@ -146,10 +149,24 @@ for (const token of ['zero stale indexed entries', 'byte-consistent', 'Git blob 
 
 const v5Receipt = readJson('open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json');
 const v5PolicyReceipt = readJson('open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json');
+const liveMarket = readJson('open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json');
+const warRoom = readJson('docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json');
 if (v5Receipt) {
   if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
   if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
 }
+if (liveMarket) {
+  if (liveMarket?.status !== 'PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND') failures.push('live-market-snapshot-status-invalid');
+  if (liveMarket?.promotionBoundary?.currentCrownPromoted !== false) failures.push('live-market-snapshot-illegally-promotes-crown');
+  if (liveMarket?.activationState?.providerCallsPerformedByThisRefresh !== 0) failures.push('live-market-refresh-provider-call-count-not-zero');
+  if (liveMarket?.activationState?.spendUsd !== 0) failures.push('live-market-refresh-spend-not-zero');
+  if (liveMarket?.activationState?.freshTaskCustodianRef !== 'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md') failures.push('live-market-fresh-task-custodian-pointer-invalid');
+}
+if (warRoom) {
+  if (warRoom?.activationState?.liveTaskClassCrownPromotion !== 'NOT_PROMOTED') failures.push('war-room-illegally-promotes-crown');
+  if (warRoom?.activationState?.paidProviderCallsObservedForV5Campaign !== 0) failures.push('war-room-provider-call-count-not-zero');
+}
+
 if (v5PolicyReceipt) {
   if (v5PolicyReceipt?.status !== 'V5_TYPINGMIND_POLICY_RECONCILED_SOURCE_ONLY') failures.push('v5-policy-receipt-status-invalid');
   if (v5PolicyReceipt?.policy?.monthlyAllInTargetUsd !== 30) failures.push('v5-policy-budget-not-30');
@@ -186,7 +203,9 @@ console.log(JSON.stringify({
   v4ExactReceipt: exactV4?.status ?? null,
   v4IndexedFileCountBeforeReceipt: exactV4?.indexedFileCountBeforeReceipt ?? null,
   v5FrontierVm: v5Receipt?.status ?? null,
-  v5PolicyReconciliation: v5PolicyReceipt?.status ?? null
+  v5PolicyReconciliation: v5PolicyReceipt?.status ?? null,
+  liveModelMarketSnapshot: liveMarket?.status ?? null,
+  wessamSingularityWarRoom: warRoom?.schemaVersion ?? null
 }, null, 2));
 
 if (failures.length) process.exitCode = 1;

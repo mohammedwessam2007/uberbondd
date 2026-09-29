@@ -570,7 +570,7 @@
       ],
       "truthBoundary": "These hour-per-dollar bands are architecture scenarios, not observed UberBond production economics."
     },
-    "nextEmpiricalFrontier": "Obtain a genuinely fresh externally hidden holdout commitment from an independent custodian plus exact current runtime callability/model/revision/reasoning/transport/pricing receipts for every required candidate. Then, and only with separately authorized inference spend, execute the precommitted $10 Wave 1 campaign, replicate any winner independently, and update the model mix from measured quality-per-dollar.",
+    "nextEmpiricalFrontier": "Generate the digest-only custodian request, obtain a genuinely fresh externally hidden sealed manifest + secret-free independent custodian receipt, and obtain canonical exact live runtime/reasoning/transport plus exact pricing-mode receipts for every Wave 1 candidate. The evidence packet may then reach READY, but inference still requires separate explicit execution authority under the precommitted $10 cap.",
     "recoveryLaw": "Recover current main and terminal canon first, then read the primary backup and APEX Frontier Quality Compression campaign doc/config. Do not restart design, recycle old evaluated Omega/V4 holdouts, make discovery-only models callable by assertion, collapse UberMind into one provider, or lower the frontier quality floor for better hour-per-dollar optics.",
     "freshCampaign": {
       "campaignId": "apex-fqc-2026-09-29-wave-1",
@@ -596,7 +596,19 @@
       "pricingModeBoundIntoArchitectureRequirements": true,
       "providerCallsPerformedByEngineering": 0,
       "spendUsd": 0,
-      "executionAuthority": "NONE"
+      "executionAuthority": "NONE",
+      "externalEvidenceHandoff": {
+        "source": "src/apex-fqc-external-evidence-packet.mjs",
+        "doctor": "scripts/apex-fqc-external-evidence-doctor.mjs",
+        "doc": "docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md",
+        "test": "tests/apex-fqc-external-evidence-packet.test.mjs",
+        "custodianRequestCommand": "npm run apex:fqc:custodian-request",
+        "evidenceIntakeCommand": "npm run apex:fqc:evidence",
+        "rawHoldoutStorage": "OUTSIDE_REPOSITORY",
+        "providerCallsPerformed": 0,
+        "spendUsd": 0,
+        "executionAuthority": "NONE"
+      }
     },
     "verifiedEngineering": [
       "Fresh campaign architecture identities freeze topology/context/verifier/prompt/execution mode plus model/reasoning/transport/pricing mode.",

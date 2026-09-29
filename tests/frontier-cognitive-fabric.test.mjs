@@ -77,7 +77,33 @@ function benchmark(p, overrides = {}) {
   }, new Date(overrides.observedAt ?? FRESH));
   out.observedRevision = overrides.observedRevision ?? p.revision;
   out.evidenceRef = overrides.evidenceRef ?? `benchmark://${p.id}`;
+  const isBaseline = overrides.absoluteFrontierBaseline !== false;
+  out.absoluteFrontierBaseline = isBaseline;
+  out.frontierCrownDigest = overrides.frontierCrownDigest ?? 'c'.repeat(64);
+  out.frontierCrownCampaignDigest = overrides.frontierCrownCampaignDigest ?? 'd'.repeat(64);
+  out.frontierBaselineArchitectureId = overrides.frontierBaselineArchitectureId ?? (isBaseline ? `baseline-${p.id}` : null);
+  out.frontierCandidateArchitectureId = overrides.frontierCandidateArchitectureId ?? (isBaseline ? out.frontierBaselineArchitectureId : `candidate-${p.id}`);
+  out.pairedZeroLossCertified = overrides.pairedZeroLossCertified ?? isBaseline;
+  out.pairedZeroLossCertificationDigest = overrides.pairedZeroLossCertificationDigest ?? (isBaseline ? null : `cert-${p.id}`);
+  out.sealedTrialReceiptDigest = overrides.sealedTrialReceiptDigest ?? `trial-${p.id}`;
+  out.baselineSealedTrialReceiptDigest = overrides.baselineSealedTrialReceiptDigest ?? (isBaseline ? out.sealedTrialReceiptDigest : null);
   return out;
+}
+
+function benchmarkSet(profiles, overridesById = {}) {
+  const [first, ...rest] = profiles;
+  const baseline = benchmark(first, overridesById[first.id] ?? {});
+  const challengers = rest.map(p => benchmark(p, {
+    ...(overridesById[p.id] ?? {}),
+    absoluteFrontierBaseline: false,
+    frontierCrownDigest: baseline.frontierCrownDigest,
+    frontierCrownCampaignDigest: baseline.frontierCrownCampaignDigest,
+    frontierBaselineArchitectureId: baseline.frontierBaselineArchitectureId,
+    pairedZeroLossCertified: true,
+    pairedZeroLossCertificationDigest: `cert-${p.id}-vs-${baseline.frontierBaselineArchitectureId}`,
+    baselineSealedTrialReceiptDigest: baseline.sealedTrialReceiptDigest
+  }));
+  return [baseline, ...challengers];
 }
 
 function contextArtifacts() {
@@ -166,7 +192,7 @@ test('FRONTIER_MAX keeps materially stronger frontier model ahead of free cheape
   const cheap = profile({ id: 'cheap', provider: 'qwen', model: 'cheap-model', centsPerMillionInputTokens: 0, centsPerMillionOutputTokens: 0 });
   const result = compileFrontierCognitivePlan({
     task: task(), profiles: [elite, cheap], callability: [callability(elite), callability(cheap)],
-    benchmarks: [benchmark(elite, { quality: 0.98, costEfficiency: 0.1 }), benchmark(cheap, { quality: 0.82, costEfficiency: 1 })],
+    benchmarks: benchmarkSet([elite, cheap], { elite: { quality: 0.98, costEfficiency: 0.1 }, cheap: { quality: 0.82, costEfficiency: 1 } }),
     contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(result.ok, true);
@@ -297,7 +323,7 @@ test('COUNCIL_MAX uses independent first-pass responders and a distinct adjudica
   const result = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }),
     profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b), benchmark(c)],
+    benchmarks: benchmarkSet([a, b, c]),
     contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(result.ok, true);
@@ -316,7 +342,7 @@ test('COUNCIL_MAX fails closed if an independent adjudicator is unavailable by d
   const b = profile({ id: 'b', provider: 'anthropic', model: 'b' });
   const result = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }),
-    profiles: [a, b], callability: [callability(a), callability(b)], benchmarks: [benchmark(a), benchmark(b, { quality: 0.96 })], contextArtifacts: contextArtifacts(), now: NOW
+    profiles: [a, b], callability: [callability(a), callability(b)], benchmarks: benchmarkSet([a, b], { b: { quality: 0.96 } }), contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(result.ok, false);
   assert.equal(result.status, 'CAPACITY_BLOCKED');
@@ -330,7 +356,7 @@ test('absolute frontier quality prohibits degraded councils even with an explici
   const base = {
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }),
     profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: benchmarkSet([a, b, c]), contextArtifacts: contextArtifacts(), now: NOW
   };
   const attemptedBypass = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true, degradationPolicyRef: 'policy://caller-tries-to-bypass' });
   assert.equal(attemptedBypass.ok, false);
@@ -377,7 +403,7 @@ test('duplicate execution cannot fake council cardinality or verification', () =
   const c = profile({ id: 'c', provider: 'google', model: 'c' });
   const plan = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }), profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: benchmarkSet([a, b, c]), contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(plan.ok, true);
   const duplicate = buildFrontierCognitiveReceipt({
@@ -398,7 +424,7 @@ test('council receipt requires independent verifier evidence and rejects majorit
   const c = profile({ id: 'c', provider: 'google', model: 'c' });
   const plan = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }), profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: benchmarkSet([a, b, c]), contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(plan.ok, true);
   const executions = plan.plan.members.map(executionFor);

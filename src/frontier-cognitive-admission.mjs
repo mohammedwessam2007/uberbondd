@@ -2,11 +2,13 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
+import { validateCompiledSealedArchitectureTrial } from './apex-sealed-tournament.mjs';
 
 export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.1';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
 
 const admittedBundles = new WeakMap();
+const canonicalLiveBenchmarks = new WeakMap();
 const admittedPlans = new WeakMap();
 const MAX_PROFILES = 64;
 const MAX_BENCHMARKS = 1000;
@@ -87,6 +89,94 @@ function sameProbeObservation(identity, probe) {
     && identity.identityVerification === probe.identityVerification;
 }
 
+
+
+export function buildLiveFrontierBenchmarkFromSealedTrial({
+  sealedTrial,
+  profile,
+  taskClasses = ['general'],
+  now = new Date()
+} = {}) {
+  const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
+  if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+
+  const subject = sealedTrial?.architectureIdentity?.benchmarkSubject;
+  const profileId = text(profile?.id, 120)?.toLowerCase();
+  const provider = text(profile?.provider, 80)?.toLowerCase();
+  const model = text(profile?.model, 120);
+  const revision = text(profile?.revision, 240);
+  const reasons = [];
+  if (!profileId || !provider || !model || !revision) reasons.push('complete-frontier-profile-identity-required');
+  if (!subject || subject.exclusiveCognitiveSubject !== true) reasons.push('exclusive-sealed-benchmark-subject-required');
+  if (subject && (
+    subject.profileId !== profileId ||
+    subject.provider !== provider ||
+    subject.model !== model ||
+    subject.revision !== revision
+  )) reasons.push('sealed-benchmark-subject-profile-mismatch');
+  if (!Array.isArray(taskClasses) || !taskClasses.length || taskClasses.some(item => !text(item, 160))) reasons.push('benchmark-task-classes-required');
+  const observedAt = timestamp(now);
+  if (!observedAt) reasons.push('benchmark-observation-time-required');
+  if (reasons.length) return failure(reasons, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+
+  const quality = Number(sealedTrial?.statistics?.verifiedSuccessRate);
+  const falsePositiveRate = Number(sealedTrial?.statistics?.falsePositiveRate);
+  const meanLatencyMs = Number(sealedTrial?.economics?.meanLatencyMs);
+  const meanCostUsd = Number(sealedTrial?.economics?.meanCostUsd);
+  const processScore = Number(sealedTrial?.arenaTrial?.processScore);
+  if (![quality, falsePositiveRate, meanLatencyMs, meanCostUsd, processScore].every(Number.isFinite)) {
+    return failure(['complete-sealed-benchmark-metrics-required'], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+  }
+
+  const benchmark = {
+    ok: true,
+    benchmarkId: `sealed:${sealedTrial.receiptDigest}`,
+    candidate: {
+      provider,
+      model,
+      taskClasses: [...new Set(taskClasses.map(item => String(item).trim().toLowerCase()).filter(Boolean))]
+    },
+    taskClass: sealedTrial.taskClass,
+    quality,
+    reliability: Math.max(0, Math.min(1, 1 - falsePositiveRate)),
+    latencyScore: 1 / (1 + Math.max(0, meanLatencyMs) / 1000),
+    economicImpact: processScore,
+    evidenceConfidence: 1,
+    costEfficiency: 1 / (1 + Math.max(0, meanCostUsd)),
+    observedAt,
+    observedRevision: revision,
+    evidenceRef: `apex-sealed-benchmark://${sealedTrial.receiptDigest}`,
+    sealedTrialReceiptDigest: sealedTrial.receiptDigest,
+    sealedTrialTaskOutcomeDigest: sealedTrial.taskOutcomeDigest,
+    benchmarkSubject: structuredClone(subject),
+    liveRoutingAuthority: 'SEALED_TRIAL_DERIVED_ONLY'
+  };
+  canonicalLiveBenchmarks.set(benchmark, sha256(benchmark));
+  return envelope({
+    ok: true,
+    status: 'FRONTIER_LIVE_BENCHMARK_READY',
+    benchmark,
+    benchmarkDigest: sha256(benchmark),
+    promotionAuthority: 'NONE',
+    truthBoundary: 'LIVE ROUTING BENCHMARK AUTHORITY EXISTS ONLY FOR AN UNMODIFIED BENCHMARK DERIVED IN PROCESS FROM A CANONICAL UNTAMPERED SEALED TRIAL WHOSE EXCLUSIVE MODEL SUBJECT WAS FROZEN BEFORE EVALUATION.'
+  });
+}
+
+export function validateLiveFrontierBenchmark(benchmark) {
+  const expected = benchmark && typeof benchmark === 'object' ? canonicalLiveBenchmarks.get(benchmark) : null;
+  const actual = benchmark && typeof benchmark === 'object' ? sha256(benchmark) : null;
+  if (!expected || expected !== actual) {
+    return failure(['canonical-untampered-live-frontier-benchmark-required'], 'FRONTIER_LIVE_BENCHMARK_PROVENANCE_BLOCKED');
+  }
+  return envelope({
+    ok: true,
+    status: 'FRONTIER_LIVE_BENCHMARK_PROVENANCE_VALID',
+    benchmarkDigest: actual,
+    evidenceRef: benchmark.evidenceRef,
+    observedRevision: benchmark.observedRevision
+  });
+}
+
 export function buildFrontierAdmissionBundle({
   profiles = [],
   callability = [],
@@ -155,6 +245,7 @@ export function buildFrontierAdmissionBundle({
 
   const admittedBenchmarks = [];
   const rejectedBenchmarks = [];
+  const liveBenchmarkAuthorityRequired = provenance.trustedForLiveExecution === true && provenance.simulationOnly !== true;
   for (const raw of benchmarks) {
     const identity = benchmarkIdentity(raw);
     const exactProfile = identity ? profileByRevision.get(revisionKey(identity.provider, identity.model, identity.revision)) : null;
@@ -167,7 +258,19 @@ export function buildFrontierAdmissionBundle({
       });
       continue;
     }
-    admittedBenchmarks.push({ ...raw, observedRevision: identity.revision, evidenceRef: identity.evidenceRef });
+    if (liveBenchmarkAuthorityRequired) {
+      const benchmarkProvenance = validateLiveFrontierBenchmark(raw);
+      if (!benchmarkProvenance.ok) {
+        rejectedBenchmarks.push({
+          provider: identity.provider,
+          model: identity.model,
+          observedRevision: identity.revision,
+          reason: 'canonical-sealed-live-benchmark-required'
+        });
+        continue;
+      }
+    }
+    admittedBenchmarks.push(raw);
   }
 
   const provenanceMetadata = provenance.ok
@@ -216,7 +319,7 @@ export function buildFrontierAdmissionBundle({
     identityDigest,
     simulationOnly: provenance.simulationOnly === true,
     trustedForLiveExecution: provenance.trustedForLiveExecution === true,
-    truthBoundary: 'CALLER_LABELS_ARE_NOT_PROVENANCE; CALLABLE_NOW_ENTERS_ONLY_WHEN_BOUND_TO_A_VALID_PRODUCER_RECEIPT; SYNTHETIC_PROVENANCE_MAY_PLAN_TESTS_BUT_CAN_NEVER_AUTHORIZE_LIVE_EXECUTION; BENCHMARKS_BIND_EXACT_PROVIDER_MODEL_REVISION'
+    truthBoundary: 'CALLER_LABELS_ARE_NOT_PROVENANCE; CALLABLE_NOW_ENTERS_ONLY_WHEN_BOUND_TO_A_VALID_PRODUCER_RECEIPT; SYNTHETIC_PROVENANCE_MAY_PLAN_TESTS_BUT_CAN_NEVER_AUTHORIZE_LIVE_EXECUTION; LIVE BENCHMARKS REQUIRE CANONICAL UNTAMPERED SEALED-TRIAL PRODUCER ORIGIN AND EXACT PROVIDER_MODEL_REVISION'
   };
   admittedBundles.set(bundle, { digest: sha256(bundle), callabilityProvenance });
   return envelope({ ok: true, status: 'FRONTIER_ADMISSION_READY', bundle });

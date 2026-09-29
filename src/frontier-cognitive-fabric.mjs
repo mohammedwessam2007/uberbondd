@@ -608,7 +608,6 @@ export function compileFrontierCognitivePlan({
     ...basePlan,
     mode: 'COUNCIL_MAX',
     status: 'COUNCIL_PLAN_READY',
-    degradationPolicyRef: null,
     degradationReasonCodes: [],
     providerDiversity,
     responders: responders.map(planMember),

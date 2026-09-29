@@ -97,7 +97,13 @@
     "semanticPageFaults": true,
     "zeroLossDeoptimization": true,
     "counterfactualComputeMarket": true,
-    "frontierNoveltyLedger": true
+    "frontierNoveltyLedger": true,
+    "cognitiveHotPathProfiler": true,
+    "semanticPageFaultEngine": true,
+    "frontierThoughtCapitalLedger": true,
+    "superoptimizerZeroLossGate": true,
+    "canonicalBurnInCompiler": true,
+    "longitudinalCompoundingEvaluator": true
   },
   "crystallization": {
     "path": [
@@ -198,6 +204,32 @@
       "allowedToPropose": true,
       "selfGrantAuthority": false,
       "promotion": "SEALED_PAIRED_ZERO_REGRESSION_ONLY"
+    },
+    "superoptimizer": {
+      "source": "src/cognitive-superoptimizer.mjs",
+      "tests": "tests/cognitive-superoptimizer.test.mjs",
+      "promotionAuthority": "NONE",
+      "hotPathProfiling": true,
+      "semanticPageFaults": true,
+      "frontierThoughtCapitalLedger": true,
+      "counterfactualRoutingRegret": true,
+      "canonicalZeroLossPromotionGate": true
+    },
+    "empiricalBurnIn": {
+      "source": "src/frontier-vm-burnin.mjs",
+      "tests": "tests/frontier-vm-burnin.test.mjs",
+      "directCrownBaselineRequired": true,
+      "identicalSealedTaskPairingRequired": true,
+      "canonicalZeroLossCertificateRequired": true,
+      "ablationsRequired": true,
+      "explicitKillConditions": true,
+      "promotionAuthority": "NONE"
+    },
+    "longitudinalEvidence": {
+      "source": "src/frontier-vm-longitudinal-evaluator.mjs",
+      "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
+      "protocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+      "crownSuccessionPhaseRequiredForBroadClaim": true
     }
   }
 }

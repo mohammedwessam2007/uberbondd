@@ -24,9 +24,9 @@ function openModelEnv(overrides = {}) {
 }
 
 test('factory policy includes first-class open-model runtime without changing legacy providers', () => {
-  assert.equal(AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION, 'agent-model-executor-factory-1.4.0');
+  assert.equal(AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION, 'agent-model-executor-factory-1.6.0');
   const readiness = describeProviderReadiness({ env: openModelEnv() });
-  assert.deepEqual(readiness.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'open-model', 'claude-code-sandbox']);
+  assert.deepEqual(readiness.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'openrouter', 'open-model', 'claude-code-sandbox']);
 });
 
 test('open-model readiness is disabled by default and does not require a credential', () => {

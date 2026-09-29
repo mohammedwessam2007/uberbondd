@@ -619,5 +619,68 @@
       "Hostile verification proved INTERACTIVE Opus pricing cannot satisfy ANTHROPIC_BATCH evidence.",
       "Readiness performs zero provider calls, zero spend and grants no execution authority."
     ]
+  },
+  "ubermindCloudMarketCompression20260929": {
+    "status": "IMPLEMENTED_PRE_ACTIVATION",
+    "objective": "CONTINUOUS_STRONGEST_VERIFIED_FRONTIER_QUALITY_AT_MINIMUM_CLOUD_COST",
+    "cloudOnly": true,
+    "localModelsRequired": false,
+    "localGpuRequired": false,
+    "qualityLaw": {
+      "maxQualityDelta": 0,
+      "budgetPressure": "QUEUE_OR_DEFER_NEVER_DOWNGRADE",
+      "modelLoyalty": "NONE__MOVING_FRONTIER_CROWN_OR_TASK_SPECIFIC_PANTHEON"
+    },
+    "source": {
+      "marketCompiler": "src/frontier-quality-market-compiler.mjs",
+      "openRouterExecutor": "src/openrouter-agent-executor.mjs",
+      "liveCatalog": "src/openrouter-market-catalog.mjs",
+      "resourceContract": "config/ubermind-cloud-cognition-resources.json",
+      "doctor": "scripts/ubermind-cloud-market-doctor.mjs",
+      "doc": "docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md"
+    },
+    "absorbedDonors": [
+      "RouteMoA-style pre-inference pruning",
+      "CascadeDebate-style selective escalation",
+      "adaptive N",
+      "error-correlation diversity",
+      "Adversarial Synthesis",
+      "minority preservation",
+      "lossless frontier delta adjudication",
+      "exact cache authority only",
+      "semantic cache shadow only",
+      "OpenRouter prompt-cache stickiness",
+      "public-only exact response-cache eligibility",
+      "provider price ceilings",
+      "same-model provider failover",
+      "read-only speculative execution",
+      "shadow-only threshold optimization",
+      "Batch/Flex deferred same-model compute",
+      "Noetic/Jev deterministic crystallization"
+    ],
+    "monthlyBudgetTarget": {
+      "allInUsd": 20,
+      "currentOpenRouterStandardPlatformFeePlanningRate": 0.055,
+      "conservedBudgetModule": "src/ai-compute-budget.mjs",
+      "law": "If required frontier cognition cannot fit budget, queue it. Never lower quality."
+    },
+    "oneOwnerAction": {
+      "action": "Create one OpenRouter API key and store it only in the protected UberBond runtime as OPENROUTER_API_KEY, then explicitly set OPENROUTER_AGENT_ENABLED=true.",
+      "spend": "No model spend has occurred in this implementation. Set the OpenRouter account/workspace spend control before live inference.",
+      "secretHandling": "Do not commit the key or place it in public logs."
+    },
+    "commands": {
+      "doctor": "npm run ubermind:cloud:doctor",
+      "liveCatalog": "npm run ubermind:cloud:catalog",
+      "focusedTests": "npm run test:ubermind:market"
+    },
+    "externalEffects": {
+      "providerCalls": 0,
+      "spendUsd": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0
+    },
+    "truthBoundary": "Source is prepared, not activated. No OpenRouter credential, credit purchase, live catalog receipt, current Crown determination, live inference, or $20/month frontier-equivalence proof has been observed."
   }
 }

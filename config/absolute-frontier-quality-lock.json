@@ -19,7 +19,11 @@
     "SYNTHETIC_FRONTIER_EXECUTION_REQUIRES_THE_BRANDED_NO_NETWORK_SIMULATION_FACTORY",
     "LIVE_FRONTIER_EXECUTION_REQUIRES_THE_BRANDED_CANONICAL_MODEL_EXECUTOR_FACTORY",
     "ADMITTED_PLAN_AUTHORITY_IS_NON_SERIALIZABLE_AND_NON_TRANSFERABLE",
-    "JEV_ACCEPTS_ONLY_LIVE_CANONICAL_SEALED_ZERO_LOSS_CERTIFICATES"
+    "JEV_ACCEPTS_ONLY_LIVE_CANONICAL_SEALED_ZERO_LOSS_CERTIFICATES",
+    "OPENROUTER_PROVIDER_FAILOVER_MAY_CHANGE_PROVIDER_BUT_NOT_MODEL",
+    "SEMANTIC_CACHE_NEVER_CREATES_AUTHORITY_WITHOUT_ZERO_LOSS_CERTIFICATION",
+    "BUDGET_EXHAUSTION_QUEUES_WORK_INSTEAD_OF_LOWERING_QUALITY",
+    "MARKET_ROUTING_AND_ADVERSARIAL_SYNTHESIS_HAVE_NO_FINAL_SEMANTIC_AUTHORITY"
   ],
   "protectedSurfaces": [
     "src/absolute-frontier-quality-invariant.mjs",
@@ -37,7 +41,11 @@
     "src/frontier-council-runtime.mjs",
     "src/agent-model-executor-factory.mjs",
     "src/avengers-execution-guard.mjs",
-    "src/canonical-zero-loss-certificate.mjs"
+    "src/canonical-zero-loss-certificate.mjs",
+    "src/openrouter-agent-executor.mjs",
+    "src/frontier-quality-market-compiler.mjs",
+    "src/openrouter-market-catalog.mjs",
+    "config/ubermind-cloud-cognition-resources.json"
   ],
   "weakeningAuthority": "NONE",
   "truthBoundary": "THIS LOCK MAKES ACCIDENTAL OR INDIRECT QUALITY-FLOOR WEAKENING FAIL CLOSED INSIDE THE CURRENT SOURCE TREE. A PRIVILEGED ACTOR WHO CAN MODIFY THE LOCK, VERIFIER AND RUNTIME SOURCE TOGETHER REMAINS OUTSIDE THIS SOFTWARE TRUST BOUNDARY."

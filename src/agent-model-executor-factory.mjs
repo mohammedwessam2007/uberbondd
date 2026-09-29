@@ -11,8 +11,9 @@ import { createAnthropicAgentExecutor } from './anthropic-agent-executor.mjs';
 import { createClaudeCodeSandboxExecutor } from './claude-code-sandbox-executor.mjs';
 import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs';
 import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
+import { createOpenRouterAgentExecutor } from './openrouter-agent-executor.mjs';
 
-export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.5.0';
+export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.6.0';
 const canonicalModelExecutorFactories = new WeakSet();
 
 const API_PROVIDER_CONFIG = Object.freeze({
@@ -30,6 +31,11 @@ const API_PROVIDER_CONFIG = Object.freeze({
     prefix: 'AI_GATEWAY',
     apiKeyEnv: 'AI_GATEWAY_API_KEY',
     enabledEnv: 'AI_GATEWAY_AGENT_ENABLED'
+  }),
+  openrouter: Object.freeze({
+    prefix: 'OPENROUTER',
+    apiKeyEnv: 'OPENROUTER_API_KEY',
+    enabledEnv: 'OPENROUTER_AGENT_ENABLED'
   })
 });
 
@@ -61,6 +67,26 @@ export function pricingFrom(env = {}, prefix = '') {
   return { ...base, cacheWriteUsdPerMillion: cacheWrite, cacheReadUsdPerMillion: cacheRead };
 }
 
+function pricingEvidenceFromObject(raw = {}) {
+  const input = Number(raw?.inputUsdPerMillion);
+  const output = Number(raw?.outputUsdPerMillion);
+  const sourceRef = String(raw?.sourceRef || '').trim();
+  const verifiedAtRaw = String(raw?.verifiedAt || '').trim();
+  if (!Number.isFinite(input) || input < 0 || !Number.isFinite(output) || output < 0 || !sourceRef || !Number.isFinite(Date.parse(verifiedAtRaw))) return null;
+  const out = {
+    inputUsdPerMillion: input,
+    outputUsdPerMillion: output,
+    sourceRef,
+    verifiedAt: new Date(Date.parse(verifiedAtRaw)).toISOString()
+  };
+  if (raw?.cacheReadUsdPerMillion != null) {
+    const cacheRead = Number(raw.cacheReadUsdPerMillion);
+    if (!Number.isFinite(cacheRead) || cacheRead < 0) return null;
+    out.cacheReadUsdPerMillion = cacheRead;
+  }
+  return out;
+}
+
 function openModelPricingFrom(env = {}) {
   const base = pricingFrom(env, 'OPEN_MODEL');
   const infrastructureUsdPerRequest = Number(env.OPEN_MODEL_INFRASTRUCTURE_USD_PER_REQUEST ?? 0);
@@ -81,7 +107,9 @@ function apiProviderConfig(env, provider, worker = {}) {
     ? String(env.VERCEL_OIDC_TOKEN || '')
     : '';
   const requestedServiceTier = String(worker?.serviceTier || '').trim().toLowerCase();
-  const basePricing = pricingFrom(env, mapping.prefix);
+  const basePricing = provider === 'openrouter'
+    ? (pricingEvidenceFromObject(worker?.pricing) || pricingFrom(env, mapping.prefix))
+    : pricingFrom(env, mapping.prefix);
   const tierPricing = provider === 'openai' && requestedServiceTier === 'flex'
     ? pricingFrom(env, 'OPENAI_FLEX')
     : null;
@@ -188,6 +216,28 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       });
     }
 
+    if (provider === 'openrouter') {
+      if (serviceTier) throw new Error('service-tier setting not supported by canonical OpenRouter executor');
+      const providerSort = String(worker.providerSort || env.OPENROUTER_PROVIDER_SORT || 'price').trim().toLowerCase();
+      const requireZdr = String(env.OPENROUTER_REQUIRE_ZDR ?? 'true').toLowerCase() !== 'false';
+      const allowProviderFallbacks = String(env.OPENROUTER_ALLOW_PROVIDER_FALLBACKS ?? 'true').toLowerCase() !== 'false';
+      const maxPromptPriceRaw = worker.maxPromptPrice ?? env.OPENROUTER_MAX_PROMPT_USD_PER_MILLION;
+      const maxCompletionPriceRaw = worker.maxCompletionPrice ?? env.OPENROUTER_MAX_COMPLETION_USD_PER_MILLION;
+      return createOpenRouterAgentExecutor({
+        apiKey: config.apiKey,
+        pricing: config.pricing,
+        enabled: config.enabled,
+        fetchImpl,
+        defaultModel: worker.model,
+        providerSort,
+        requireZdr,
+        allowProviderFallbacks,
+        ...(maxPromptPriceRaw !== '' && maxPromptPriceRaw != null ? { maxPromptPrice: Number(maxPromptPriceRaw) } : {}),
+        ...(maxCompletionPriceRaw !== '' && maxCompletionPriceRaw != null ? { maxCompletionPrice: Number(maxCompletionPriceRaw) } : {}),
+        ...(reasoningEffort ? { reasoningEffort } : {})
+      });
+    }
+
     if (serviceTier) throw new Error('service-tier setting not supported by canonical ai-gateway executor');
     return createVercelAIGatewayExecutor({
       apiKey: config.apiKey,
@@ -212,14 +262,15 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
     const config = apiProviderConfig(env, provider);
     const blockers = [];
     if (!config?.apiKey) blockers.push('credential-absent');
-    if (!config?.pricing) blockers.push('pricing-evidence-absent');
+    if (provider !== 'openrouter' && !config?.pricing) blockers.push('pricing-evidence-absent');
     if (!config?.enabled) blockers.push('explicitly-disabled');
     return {
       provider,
       ready: blockers.length === 0,
       blockers,
       credentialPresent: Boolean(config?.apiKey),
-      pricingEvidencePresent: Boolean(config?.pricing)
+      pricingEvidencePresent: Boolean(config?.pricing),
+      ...(provider === 'openrouter' ? { pricingEvidenceMode: 'PER_MODEL_REQUIRED_AT_EXECUTION' } : {})
     };
   });
 

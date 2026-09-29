@@ -16,7 +16,7 @@
     "informal": "number-one AI abuser",
     "formal": "Continuously obtain the strongest verified commercially available intelligence at the lowest achievable all-in cost without lowering required quality.",
     "acceptedMonthlyTargetUsd": 30,
-    "desiredOutcome": "Make the $30 system produce matched-quality work whose direct frontier reference cost is orders of magnitude higher, potentially thousands of dollars, only if live paired evidence proves it."
+    "desiredOutcome": "Make the $30 system produce matched-quality work whose direct frontier reference cost can reach at least $1,000,000 on bounded recurring workloads, only if live paired evidence proves it."
   },
   "cockpit": {
     "device": "iPad",
@@ -99,9 +99,28 @@
       100,
       250,
       500,
-      1000
+      1000,
+      2500,
+      5000,
+      10000,
+      25000,
+      33333.333333333336,
+      50000,
+      100000
     ],
-    "invalidIf": "required finished-work quality is lower than matched current frontier baseline"
+    "invalidIf": "required finished-work quality is lower than matched current frontier baseline",
+    "millionDollarIntelligenceTarget": {
+      "actualAllInSpendUsdMax": 30,
+      "directFrontierReferenceCostUsdMin": 1000000,
+      "targetCompressionFactor": 33333.333333333336,
+      "actualSpendFractionOfReference": 0.00003,
+      "approximateReferenceSpendAvoidedPercent": 99.997,
+      "pairedRequiredQualityRegressionsAllowed": 0,
+      "status": "FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN",
+      "canonicalSpec": "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
+      "rawComputeEquivalenceClaimAllowedWithoutTelemetry": false,
+      "law": "MATCHED_REFERENCE_WORK_VALUE_NOT_FICTITIOUS_RAW_COMPUTE"
+    }
   },
   "truthBoundary": {
     "provenArchitecturePieces": true,
@@ -112,9 +131,10 @@
     "currentOptimalRoster": false,
     "globalNoveltyProven": false,
     "V5LongitudinalCompressionProven": false,
-    "V5CrownSuccessionRecompilationProven": false
+    "V5CrownSuccessionRecompilationProven": false,
+    "millionDollarReferenceEquivalent": false
   },
-  "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> VERIFY_OWNER_ROUTE_MODEL_CALLABILITY -> FREEZE_TASK_CLASS_CROWN_CANDIDATE_SET -> USE_PRE_REGISTERED_40_TASK_CUSTODIAN -> OWNER_AUTHORIZED_TINY_PAID_SMOKE -> CAPTURE_BILLING_RECEIPT -> RUN_PAIRED_BURN_IN",
+  "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> VERIFY OWNER-ROUTE MODEL CALLABILITY -> FREEZE TASK-CLASS CROWN CANDIDATES -> USE PRE-REGISTERED 40-TASK CUSTODIAN -> OWNER-AUTHORIZED TINY PAID SMOKE -> CAPTURE BILLING RECEIPT -> RUN PAIRED BURN-IN -> COMPILE RECURRING COGNITION -> MEASURE PROGRESSION TOWARD 33,333.333x MILLION-DOLLAR TARGET",
   "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",

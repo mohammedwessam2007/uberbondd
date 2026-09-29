@@ -1054,6 +1054,22 @@
       "qualityLaw": "Important unresolved novelty queues before any quality downgrade.",
       "primaryMetric": "Opus Quality Fanout",
       "nextEvidence": "Connect TypingMind/OpenRouter -> verify owner-route prices -> run tiny authorized smoke -> begin paired burn-in -> measure real daily spend and fanout."
+    },
+    "byConstructionOpusEquivalence": {
+      "status": "SOURCE_ARCHITECTURE_ADDED_PRE_LIVE_PROOF",
+      "path": "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+      "coreLaw": "Cheap/runtime paths may execute authorized semantics but may not invent material semantics outside Crown/reality authority.",
+      "equivalenceClasses": [
+        "E0_IDENTICAL",
+        "E1_DETERMINISTIC",
+        "E2_VERIFIED_TRANSFORM",
+        "E3_CLOSED_WORLD",
+        "E4_PROOF_CARRYING_CIRCUIT",
+        "E5_EMPIRICAL",
+        "E6_FRONTIER"
+      ],
+      "desiredTrajectory": "MAXIMIZE_E0_TO_E4_SHARE__MINIMIZE_E6_TO_NOVELTY_AND_DRIFT_RATE",
+      "truthBoundary": "Arbitrary open-ended novel semantic quality cannot be proven equivalent by architecture alone."
     }
   },
   "wessamSingularityOverlay": {

@@ -4,7 +4,7 @@
   "createdAt": "2026-09-29",
   "branch": "open-router/frontier-intelligence-virtualization-20260929",
   "baseCurrentMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
-  "observedBranchHeadBeforeManifest": "cbf5bad5b939b464b957a077c854edc7841fb68e",
+  "observedBranchHeadBeforeManifest": "d923e47b1269ecfc3d1914c757d07344b2b86de5",
   "folder": "open router/",
   "expectedFinalFolderFileCount": 40,
   "files": [
@@ -105,8 +105,8 @@
     },
     {
       "path": "open router/ACTIVATION_CHECKLIST.md",
-      "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
-      "size": 5508
+      "blobSha": "083873f8a901027c81f66a721b79bbdc3b556c38",
+      "size": 6612
     },
     {
       "path": "open router/ARCHITECTURE.md",
@@ -155,18 +155,18 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "dccb8541895f605d443b0982bfb1dbc177a2c315",
-      "size": 10030
+      "blobSha": "8aebfe9490abde67f0eec5dfef3cec44aa92c412",
+      "size": 10700
     },
     {
       "path": "open router/OPERATING_SPEC.json",
-      "blobSha": "6ffa71d159532b0be14800fadacce041f5be7400",
-      "size": 7408
+      "blobSha": "48c41b45f557fdbd9cd2eaef451fcf6a457c7f64",
+      "size": 7895
     },
     {
       "path": "open router/README.md",
-      "blobSha": "56803a947e2e99c3a610c297af87ee22ad9fc2f5",
-      "size": 12777
+      "blobSha": "19af159b3deaafba470753731b88d611f1646ebe",
+      "size": 13487
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -190,8 +190,8 @@
     },
     {
       "path": "open router/TYPINGMIND_AND_24_7.md",
-      "blobSha": "e79274988487a87703f2541176f8a4e2df3bfc53",
-      "size": 4216
+      "blobSha": "38c081edb0f4d38e993de53e1f53e21069e603b4",
+      "size": 5320
     },
     {
       "path": "open router/TYPINGMIND_PROMPT_PACK.md",
@@ -200,15 +200,15 @@
     },
     {
       "path": "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
-      "blobSha": "f8e93604f05fc5a2778d04c2e0cb90f9d5681728",
-      "size": 7443
+      "blobSha": "ee63639bc2ac0a3de67cbb88ae1e4b704448cdfc",
+      "size": 9141
     }
   ],
   "layers": {
     "v2": "Existing main lineage: Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Task-Archetype Compiler, Cognitive CDN, Evidence Multicast, Champion-Challenger Shadow Market, Swarm Stop-Loss, Second-Crown Insurance, RCE accounting.",
     "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market.",
     "v4": "Exact recovery addendum preserving founder intent, repository audit, and byte-level receipts over the pre-V5 vault.",
-    "v5": "Frontier Intelligence Virtualization: quality-typed Cognitive IR, Frontier VM, proof-carrying cognition, semantic page faults, profile-guided supercompilation, Crown-thought capital, quality escrow, canonical sealed burn-in, explicit falsification, longitudinal self-amortization measurement, zero-loss deoptimization, counterfactual routing, Crown-succession recompilation, and prior-art-aware novelty boundary."
+    "v5": "Frontier Intelligence Virtualization plus TypingMind-first activation: quality-typed Cognitive IR, proof-carrying cognition, semantic page faults, profile-guided supercompilation, Crown-thought capital, quality escrow, canonical sealed burn-in, longitudinal self-amortization measurement, zero-loss deoptimization, counterfactual routing, Crown-succession recompilation, prior-art-aware novelty boundary, and explicit separation of interactive cockpit credentials from optional unattended runtime credentials."
   },
   "authorityOrder": [
     "LIVE_EXTERNAL_EVIDENCE",
@@ -255,12 +255,13 @@
     "config/frontier-vm-v5-longitudinal-campaign.json",
     "scripts/frontier-vm-v5-doctor.mjs",
     "src/cognitive-superoptimizer.mjs",
-    "src/frontier-vm-burnin.mjs"
+    "src/frontier-vm-burnin.mjs",
+    "src/frontier-vm-activation-readiness.mjs"
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "V5 is durably preserved with executable quality typing, hot-path profiling, semantic page faults, canonical sealed burn-in, longitudinal regression accounting, prior-art discipline, and a frozen evidence campaign. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
-  "recovery": "Refresh main; run normal UberBond startup; read README, machine canon, V5 architecture/spec/supercompiler/novelty/prior-art/longitudinal files, MANIFEST and V5 receipt; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; then continue from controlled live burn-in and empirical proof.",
+  "truthBoundary": "V5 is durably preserved with executable quality typing, burn-in and longitudinal proof gates, and TypingMind-first secret isolation. Interactive activation does not require a duplicate OpenRouter key in the repo runtime. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
+  "recovery": "Refresh main; run normal UberBond startup; read the Open Router README/canon/V5 architecture through longitudinal protocol, MANIFEST and V5 receipt; run npm run open-router:vault:doctor and npm run frontier-vm:doctor. Default interactive mode is TypingMind external cockpit with a non-secret connection receipt, then continue from controlled burn-in.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
@@ -270,7 +271,8 @@
     "tests/frontier-intelligence-vm.test.mjs",
     "tests/frontier-vm-longitudinal-evaluator.test.mjs",
     "tests/cognitive-superoptimizer.test.mjs",
-    "tests/frontier-vm-burnin.test.mjs"
+    "tests/frontier-vm-burnin.test.mjs",
+    "tests/frontier-vm-activation-readiness.test.mjs"
   ],
   "v5BaseFolderFileCount": 33
 }

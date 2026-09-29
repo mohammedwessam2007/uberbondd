@@ -76,6 +76,8 @@ if (canon) {
   if (!Array.isArray(canon?.newV3Upgrades) || !canon.newV3Upgrades.includes('Cognitive Multicast')) failures.push('v3-not-linked-from-machine-canon');
   if (canon?.frontierIntelligenceVirtualization?.implementation !== 'src/frontier-intelligence-vm.mjs') failures.push('v5-frontier-vm-not-linked-from-machine-canon');
   if (!Array.isArray(canon?.frontierIntelligenceVirtualization?.qualityTypeSystem) || !canon.frontierIntelligenceVirtualization.qualityTypeSystem.includes('Q_UNKNOWN')) failures.push('v5-quality-type-system-missing');
+  if (canon?.frontierIntelligenceVirtualization?.activationBoundary?.defaultMode !== 'TYPINGMIND_EXTERNAL_COCKPIT') failures.push('v5-typingmind-not-default-activation-mode');
+  if (canon?.frontierIntelligenceVirtualization?.activationBoundary?.repoRuntimeOpenRouterSecretRequired !== false) failures.push('v5-typingmind-illegally-requires-repo-secret');
 }
 
 if (lock) {

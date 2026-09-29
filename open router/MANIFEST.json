@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 41,
+  "expectedFinalFolderFileCount": 42,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "a27b44bbf6ad86a48b29d5d131a0fbfb086cdefa",
-      "size": 11738
+      "blobSha": "9020926bc6da5755738e999f9fff27341b411216",
+      "size": 12779
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "19af159b3deaafba470753731b88d611f1646ebe",
-      "size": 13487
+      "blobSha": "75e7dbb887eb3bcee476d59ee001190ccfd40944",
+      "size": 14325
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -207,6 +207,11 @@
       "path": "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json",
       "blobSha": "2957786a462d2d8c7bc7e4b152c9b8cc97ecc374",
       "size": 4553
+    },
+    {
+      "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+      "blobSha": "0dccb01e51856fd653195895277e35d277cc19fb",
+      "size": 8816
     }
   ],
   "layers": {
@@ -244,7 +249,8 @@
     "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
     "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
     "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
-    "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json"
+    "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json",
+    "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -269,12 +275,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault preserves V2-V5 architecture plus TypingMind-first V5 activation policy reconciliation. It does not prove live OpenRouter/TypingMind activation, current Crown identity, frontier equivalence, compression, novelty, or permanent zero-regression.",
-  "recovery": "Refresh main; read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md, ACTIVATION_CHECKLIST.md, MANIFEST.json, V5_FRONTIER_VM_RECEIPT_2026-09-29.json, and V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from external TypingMind connection, live Crown snapshot, and fresh task evidence.",
+  "truthBoundary": "The vault preserves V2-V5 architecture, TypingMind-first V5 activation policy reconciliation, and a dated 2026-09-29 public model-market candidate snapshot. The Wessam Singularity meta North Star, activation war-room receipt, and 40-task custodian live outside this folder and are linked as higher-level/current evidence. None of these prove live OpenRouter/TypingMind activation, task-class Crown promotion, frontier equivalence, compression, novelty, or permanent zero-regression.",
+  "recovery": "Refresh main; mount Wessam Singularity startup/canon; then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json, docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md, ACTIVATION_CHECKLIST.md, MANIFEST.json, V5_FRONTIER_VM_RECEIPT_2026-09-29.json, and V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from owner-held TypingMind/OpenRouter connection, owner-route callability, explicit tiny paid smoke-test authorization, then pre-registered paired burn-in.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 40,
+  "indexedFilesExcludingSelf": 41,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",
@@ -283,5 +289,13 @@
     "tests/frontier-vm-burnin.test.mjs",
     "tests/frontier-vm-activation-readiness.test.mjs"
   ],
-  "v5BaseFolderFileCount": 33
+  "v5BaseFolderFileCount": 33,
+  "liveMarketSnapshotBaseMainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",
+  "observedBranchHeadBeforeLiveMarketManifest": "3d96695cd929bb93a927c07b6379f44ee8d92e2d",
+  "liveEvidencePointers": [
+    "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+    "docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json",
+    "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
+    "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md"
+  ]
 }

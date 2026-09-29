@@ -114,7 +114,7 @@
     "V5LongitudinalCompressionProven": false,
     "V5CrownSuccessionRecompilationProven": false
   },
-  "nextAction": "RUN_FRONTIER_VM_DOCTOR -> CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_CONNECTION_EVIDENCE_REF -> REFRESH_LIVE_TASK_CLASS_CROWN -> COMMIT_FRESH_TASK_SOURCE -> CONTROLLED_PAIRED_BURN_IN -> ZERO_LOSS_GATE -> LONGITUDINAL_COMPRESSION",
+  "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> VERIFY_OWNER_ROUTE_MODEL_CALLABILITY -> FREEZE_TASK_CLASS_CROWN_CANDIDATE_SET -> USE_PRE_REGISTERED_40_TASK_CUSTODIAN -> OWNER_AUTHORIZED_TINY_PAID_SMOKE -> CAPTURE_BILLING_RECEIPT -> RUN_PAIRED_BURN_IN",
   "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",
@@ -265,5 +265,30 @@
       "doctor": "scripts/frontier-vm-v5-doctor.mjs",
       "law": "READINESS_MAY_OPEN_CONTROLLED_BURN_IN_BUT_NEVER_GRANTS_SPEND_PROMOTION_OR_QUALITY_DOWNGRADE_AUTHORITY"
     }
+  },
+  "liveModelMarketSnapshot20260929": {
+    "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+    "relatedWarRoomReceipt": "docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json",
+    "freshTaskCustodian": "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
+    "status": "PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION",
+    "observedAt": "2026-09-29",
+    "generalCrownCandidate": "anthropic/claude-opus-5.5",
+    "terminalAutomationCandidates": [
+      "anthropic/claude-sonnet-5.5",
+      "anthropic/claude-opus-5.5",
+      "openai/gpt-6-astra"
+    ],
+    "cheapWorkerCandidates": [
+      "openai/gpt-6-luna",
+      "xiaomi/mimo-v2.6-pro",
+      "z-ai/glm-5.3-flash"
+    ],
+    "strongerWorkerOrSpecialistCandidates": [
+      "openai/gpt-6-sol",
+      "qwen/qwen3.8-max-0902"
+    ],
+    "crownPromotionAuthority": "NONE_UNTIL_OWNER_ROUTE_CALLABILITY_PLUS_FRESH_PAIRED_TASK_EVIDENCE",
+    "providerCallsPerformed": 0,
+    "spendUsd": 0
   }
 }

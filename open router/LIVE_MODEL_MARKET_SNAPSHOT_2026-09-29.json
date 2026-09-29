@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "uberbond.open-router.live-model-market-snapshot.v1",
+  "observedAt": "2026-09-29",
+  "sourceMainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",
+  "status": "PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND",
+  "purpose": "Refresh current model-market reality after V5 policy reconciliation without granting any model production Crown authority.",
+  "repositoryTruth": {
+    "mainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",
+    "openRouterFolderFileCountBeforeSnapshot": 41,
+    "currentV5Policy": {
+      "monthlyAllInTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "maxIntentionalQualityDelta": 0,
+      "pairedTaskRegressionAllowed": 0,
+      "automaticSpendAuthority": false,
+      "defaultInteractiveMode": "TYPINGMIND_EXTERNAL_COCKPIT"
+    },
+    "hostedChecks": {
+      "vercel": [
+        {
+          "context": "Vercel – uberbondd-lite-private",
+          "state": "failure",
+          "classification": "BUILD_RATE_LIMIT__INFRASTRUCTURE_NON_EVIDENCE"
+        },
+        {
+          "context": "Vercel – uberbondd",
+          "state": "failure",
+          "classification": "BUILD_RATE_LIMIT__INFRASTRUCTURE_NON_EVIDENCE"
+        }
+      ],
+      "githubPrWorkflowRunsForMainHead": 0
+    },
+    "concurrentWarRoom": {
+      "receipt": "docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json",
+      "freshTaskCustodian": "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
+      "wessamSingularityNorthStar": "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
+      "status": "MERGED_AND_PRESERVED"
+    },
+    "mainMeaning": "Merge PR #1042: mount Wessam Singularity meta North Star"
+  },
+  "publicMarketEvidence": {
+    "artificialAnalysis": {
+      "methodology": "Independent composite benchmark evidence used as discovery/ranking evidence, not production authority.",
+      "generalLeader": {
+        "model": "Claude Opus 5.5",
+        "configuration": "Adaptive Reasoning, Max Effort, Default Fallback",
+        "intelligenceIndex": 58,
+        "rankObserved": 1,
+        "source": "https://artificialanalysis.ai/models/claude-opus-5-5/"
+      },
+      "agenticTerminalChallenger": {
+        "model": "Claude Sonnet 5.5",
+        "configuration": "Adaptive Reasoning, Max Effort, Default Fallback",
+        "intelligenceIndex": 56,
+        "terminalBench4ObservedPercent": 64,
+        "automationBenchAaObservedPercent": 71,
+        "note": "Fresh September 28 evidence places it close to Opus overall and especially strong on terminal/automation tasks; output-token usage is high.",
+        "source": "https://artificialanalysis.ai/articles/claude-sonnet-5-5"
+      },
+      "frontierChallenger": {
+        "model": "GPT-6 Astra",
+        "configuration": "max",
+        "intelligenceIndex": 53,
+        "source": "https://artificialanalysis.ai/models/gpt-6-astra"
+      },
+      "costEfficientHighEnd": {
+        "model": "GPT-6 Sol",
+        "configuration": "max",
+        "intelligenceIndex": 48,
+        "source": "https://artificialanalysis.ai/models/gpt-6-sol"
+      },
+      "openWeightHighValue": [
+        {
+          "model": "MiMo-V2.6-Pro",
+          "intelligenceIndex": 46,
+          "source": "https://artificialanalysis.ai/models/mimo-v2-6-pro/"
+        },
+        {
+          "model": "GLM 5.3 Flash",
+          "intelligenceIndex": 42,
+          "source": "https://artificialanalysis.ai/models/glm-5-3-flash/"
+        },
+        {
+          "model": "Qwen3.8 Max (0902)",
+          "intelligenceIndex": 45,
+          "source": "https://artificialanalysis.ai/models/qwen3-8-max"
+        }
+      ]
+    },
+    "openRouter": {
+      "market": "OpenRouter",
+      "candidates": [
+        {
+          "modelId": "anthropic/claude-opus-5.5",
+          "listedInputUsdPerM": 4,
+          "listedOutputUsdPerM": 20,
+          "contextTokens": 1000000,
+          "role": "GENERAL_CROWN_CANDIDATE",
+          "source": "https://openrouter.ai/anthropic/claude-opus-5.5"
+        },
+        {
+          "modelId": "anthropic/claude-sonnet-5.5",
+          "listedInputUsdPerM": 2,
+          "listedOutputUsdPerM": 10,
+          "contextTokens": 1000000,
+          "role": "TERMINAL_AUTOMATION_CROWN_CHALLENGER",
+          "source": "https://openrouter.ai/anthropic/claude-sonnet-5.5"
+        },
+        {
+          "modelId": "openai/gpt-6-astra",
+          "listedInputUsdPerM": 10,
+          "listedOutputUsdPerM": 50,
+          "contextTokens": 1050000,
+          "role": "FRONTIER_CROWN_CHALLENGER",
+          "source": "https://openrouter.ai/openai/gpt-6-astra"
+        },
+        {
+          "modelId": "openai/gpt-6-sol",
+          "listedInputUsdPerM": 2,
+          "listedOutputUsdPerM": 10,
+          "contextTokens": 1050000,
+          "role": "HIGH_END_WORKER_OR_CHALLENGER",
+          "source": "https://openrouter.ai/openai/gpt-6-sol"
+        },
+        {
+          "modelId": "openai/gpt-6-luna",
+          "listedInputUsdPerM": 0.1,
+          "listedOutputUsdPerM": 0.5,
+          "contextTokens": 1050000,
+          "role": "CHEAP_WORKER_CANDIDATE",
+          "source": "https://openrouter.ai/openai/gpt-6-luna"
+        },
+        {
+          "modelId": "xiaomi/mimo-v2.6-pro",
+          "listedInputUsdPerM": 0.435,
+          "listedOutputUsdPerM": 0.87,
+          "contextTokens": 1048576,
+          "role": "CHEAP_STRONG_DIVERSE_WORKER_CANDIDATE",
+          "source": "https://openrouter.ai/xiaomi/mimo-v2.6-pro/"
+        },
+        {
+          "modelId": "z-ai/glm-5.3-flash",
+          "listedInputUsdPerM": 0.15,
+          "listedOutputUsdPerM": 0.5,
+          "contextTokens": 1300000,
+          "role": "CHEAP_STRONG_DIVERSE_WORKER_CANDIDATE",
+          "note": "Temporary OpenRouter discounts may be lower; use stable list economics for planning until a live receipt exists.",
+          "source": "https://openrouter.ai/z-ai/glm-5.3-flash"
+        },
+        {
+          "modelId": "qwen/qwen3.8-max-0902",
+          "listedInputUsdPerM": 2,
+          "listedOutputUsdPerM": 6,
+          "contextTokens": 1000000,
+          "role": "DIVERSE_CHALLENGER_OR_SPECIALIST",
+          "source": "https://openrouter.ai/qwen/qwen3.8-max-0902"
+        }
+      ]
+    },
+    "typingMind": {
+      "connectionSupported": true,
+      "secretLocation": "TypingMind/OpenRouter credential configuration; never repository or chat for interactive mode.",
+      "source": "https://www.typingmind.com/guide/use-openrouter-api-key-to-chat-with-ai"
+    }
+  },
+  "provisionalRoleSet": {
+    "generalCrownCandidate": "anthropic/claude-opus-5.5",
+    "terminalAutomationCandidates": [
+      "anthropic/claude-sonnet-5.5",
+      "anthropic/claude-opus-5.5",
+      "openai/gpt-6-astra"
+    ],
+    "researchScienceCandidates": [
+      "anthropic/claude-opus-5.5",
+      "openai/gpt-6-astra"
+    ],
+    "cheapWorkerCandidates": [
+      "openai/gpt-6-luna",
+      "xiaomi/mimo-v2.6-pro",
+      "z-ai/glm-5.3-flash"
+    ],
+    "strongerWorkerOrSpecialistCandidates": [
+      "openai/gpt-6-sol",
+      "qwen/qwen3.8-max-0902"
+    ],
+    "jevRole": "UNCHANGED__BOUNDED_SEMANTIC_CONTROL_PLANE__SHADOW_UNTIL_ZERO_LOSS_CERTIFIED"
+  },
+  "promotionBoundary": {
+    "currentCrownPromoted": false,
+    "reason": "Public benchmark and catalog evidence identifies candidates but does not prove exact task-class superiority, owner-route callability, or paired UberBond workload performance.",
+    "requiredBeforePromotion": [
+      "TypingMind/OpenRouter connection evidence",
+      "exact model/revision/effort callability on owner route",
+      "direct Crown baseline receipts",
+      "paired candidate receipts",
+      "independent or blind required-dimension evaluation",
+      "zero observed paired required-quality regressions for any bounded compression promotion",
+      "use pre-registered 40-task custodian and seal each admitted task before generation"
+    ]
+  },
+  "activationState": {
+    "sourceReadyFromRepositoryEvidence": true,
+    "providerCallsPerformedByThisRefresh": 0,
+    "spendUsd": 0,
+    "typingMindOpenRouterConnectionObserved": false,
+    "liveBillingReceiptObserved": false,
+    "freshTaskCustodianObserved": true,
+    "pairedBurnInStarted": false,
+    "nextExternalGate": "OWNER_CONNECTS_OPENROUTER_IN_TYPINGMIND_WITH_OWNER_HELD_KEY_AND_NON_SECRET_CONNECTION_EVIDENCE_IS_RECORDED",
+    "freshTaskCustodianRef": "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md"
+  },
+  "truthBoundary": [
+    "This snapshot is dated market evidence, not a permanent model ranking.",
+    "Artificial Analysis and OpenRouter data identify serious candidates but do not grant production Crown authority.",
+    "No OpenRouter inference call, purchase, credential write, or spend occurred in producing this snapshot.",
+    "A stronger model or new evidence may supersede this snapshot immediately."
+  ]
+}

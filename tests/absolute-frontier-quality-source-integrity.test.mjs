@@ -88,6 +88,24 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'CANONICAL_UNTAMPERED_SEALED_TRIAL_PAIR',
       'canonical-zero-loss-certificate-producer-origin-required'
     ],
+    'src/openrouter-agent-executor.mjs': [
+      "data_collection: 'deny'",
+      "modelFallbacks: 'PROHIBITED_BY_EXECUTOR'",
+      "openrouter-model-identity-mismatch",
+      "actual-cost-exceeds-reserved-ceiling"
+    ],
+    'src/frontier-quality-market-compiler.mjs': [
+      "QUEUE_FOR_BUDGET_NOT_QUALITY_DOWNGRADE",
+      "WEAKER_MODEL_AS_FINAL_AUTHORITY",
+      "SEMANTIC_CACHE_SHADOW_ONLY",
+      "majorityVoteAuthority: 'NONE'",
+      "lossySummarizationAuthorized: false",
+      "modelFallbacks: 'PROHIBITED_UNLESS_SEPARATELY_ZERO_LOSS_CERTIFIED'"
+    ],
+    'src/openrouter-market-catalog.mjs': [
+      "semanticAuthority: 'NONE'",
+      "CATALOG_PRESENCE_AND_LIST_PRICING_ARE_DISCOVERY_EVIDENCE_ONLY"
+    ],
     'src/noetic-autocompiler.mjs': [
       'validateCanonicalZeroLossCertificate',
       'minimumAccuracy = 1',

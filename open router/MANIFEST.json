@@ -3,7 +3,7 @@
   "createdAt": "2026-09-29",
   "branch": "docs/open-router-cognitive-arbitrage-vault-20260929",
   "baseMainSha": "34abf0b651b07be43fc0898b9afa8419076d6c08",
-  "observedBranchHead": "688ae4bc99b51c6fc39c99caf835e1b7053ce607",
+  "observedBranchHead": "4a7950a5da2d1c1dc9c61d515d00eec814e3a335",
   "purpose": "Durable recovery vault for the $30 frontier-max cloud cognition architecture.",
   "authorityOrder": [
     "LIVE_EXTERNAL_EVIDENCE",
@@ -100,5 +100,10 @@
     "pr1028": "Final $30 frontier-max UberMind checkpoint, merged as 34abf0b651b07be43fc0898b9afa8419076d6c08."
   },
   "recoveryRule": "Refresh main first, then read open router/README.md and this manifest. Snapshots prevent amputation but never override newer live evidence or source.",
-  "noAmputation": true
+  "noAmputation": true,
+  "supportingIntegrityDoctor": "scripts/open-router-vault-doctor.mjs",
+  "operatorCommand": "npm run open-router:vault:doctor",
+  "directoryFileCount": 14,
+  "backupStatus": "CONTENT_PRESENT_AND_INDEXED_PRE_MERGE",
+  "lastAuditedAt": "2026-09-29T17:52:00+03:00"
 }

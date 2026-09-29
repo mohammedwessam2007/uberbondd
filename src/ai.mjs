@@ -1,3 +1,4 @@
+import { assertCognitionPerimeterAdmission } from './cognition-transport-guard.mjs';
 import { classifyUberReply, normalizeAiReplyClassification } from './uberreply-taxonomy.mjs';
 import { safeJson } from './utils.mjs';
 
@@ -11,12 +12,14 @@ function promptFor(prospect, crawl, rules) {
   return `You are a restrained B2B website auditor. Return JSON only. Never invent facts, traffic, revenue, conversion impact, credentials or people. Use only evidence in the supplied pages.\n\nPROSPECT:\n${JSON.stringify(prospect)}\n\nRULE ISSUES:\n${JSON.stringify(rules)}\n\nPUBLIC PAGE EXTRACTS:\n${crawl.combinedText.slice(0,70000)}\n\nReturn: {"issues":[{"title":"","severity":1-5,"confidence":0-1,"evidenceUrl":"","evidenceExcerpt":"","implication":"","service":""}],"companySummary":"","recommendedOffer":"","language":"en"}. Reject weak observations. Maximum 5 issues.`;
 }
 async function anthropic(cfg, input) {
+  assertCognitionPerimeterAdmission(cfg?.cognitionPerimeterAdmission);
   const res = await fetch('https://api.anthropic.com/v1/messages', {method:'POST',headers:{'content-type':'application/json','x-api-key':cfg.anthropicKey,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:cfg.anthropicModel,max_tokens:1800,messages:[{role:'user',content:input}]})});
   if (!res.ok) throw new Error(`Anthropic ${res.status}: ${await res.text()}`);
   const data = await res.json();
   return data.content?.filter(x=>x.type==='text').map(x=>x.text).join('\n') || '';
 }
 async function openai(cfg, input) {
+  assertCognitionPerimeterAdmission(cfg?.cognitionPerimeterAdmission);
   const res = await fetch('https://api.openai.com/v1/responses', {method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${cfg.openaiKey}`},body:JSON.stringify({model:cfg.openaiModel,input,temperature:.2})});
   if (!res.ok) throw new Error(`OpenAI ${res.status}: ${await res.text()}`);
   const data = await res.json();

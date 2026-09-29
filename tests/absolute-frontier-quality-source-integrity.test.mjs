@@ -116,6 +116,29 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'accuracyDrop > 0 || calibrationWorsening > 0',
       'IMMEDIATE_DECOMPILE_TO_FRONTIER_AND_REVALIDATE'
     ],
+    'src/frontier-intelligence-vm.mjs': [
+      'BACKEND_AUTHORITY_MUST_MEET_OR_EXCEED_REQUIRED_QUALITY_TYPE',
+      "requiredQualityType === 'Q_UNKNOWN'",
+      "backend = 'MULTI_FRONTIER'",
+      'NEVER_SPEND_THE_REQUIRED_QUALITY_FALLBACK_ON_AN_UNPROVEN_CHEAP_PATH'
+    ],
+    'src/cognitive-superoptimizer.mjs': [
+      'SUPEROPTIMIZATION_CANDIDATE_SHADOW_ONLY',
+      'DECOMPILE_AND_ESCALATE_TO_REQUIRED_FRONTIER',
+      'validateCanonicalZeroLossCertificate',
+      'automaticPromotionAuthorized: false'
+    ],
+    'src/frontier-vm-longitudinal-evaluator.mjs': [
+      'QUALITY_REGRESSION_DETECTED__DEOPTIMIZE',
+      'pairedRegressions',
+      'frontierResidualRatio'
+    ],
+    'src/frontier-vm-burnin.mjs': [
+      'certifyCanonicalZeroLoss',
+      'validateCanonicalZeroLossCertificate',
+      'promotionAuthority: \'NONE\'',
+      'quality-regression-tolerance-must-remain-zero'
+    ],
     'scripts/jev-calibration-doctor.mjs': [
       'minimumAccuracy:1',
       'maximumCalibrationError:0',

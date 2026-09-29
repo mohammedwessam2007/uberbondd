@@ -4,6 +4,7 @@ import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 import { validateCompiledSealedArchitectureTrial } from './apex-sealed-tournament.mjs';
 import { certifyPairedZeroLoss } from './absolute-frontier-quality-invariant.mjs';
+import { validateCampaignFrontierCrownCertificate } from './frontier-crown.mjs';
 
 export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.1';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
@@ -96,17 +97,25 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
   sealedTrial,
   profile,
   taskClasses = ['general'],
-  frontierBaseline = false,
+  frontierCrownCertificate = null,
   baselineSealedTrial = null,
   now = new Date()
 } = {}) {
   const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
   if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
 
+  const crown = validateCampaignFrontierCrownCertificate(frontierCrownCertificate);
+  if (!crown.ok) return failure(['canonical-frontier-crown-certificate-required', ...(crown.reasonCodes || [])], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+
+  const isBaseline = sealedTrial.architectureId === crown.baselineArchitectureId
+    && sealedTrial.receiptDigest === crown.baselineTrialReceiptDigest;
   let zeroLoss = null;
-  if (frontierBaseline !== true) {
+  if (!isBaseline) {
     const baselineProvenance = validateCompiledSealedArchitectureTrial(baselineSealedTrial);
     if (!baselineProvenance.ok) return failure(['canonical-frontier-baseline-sealed-trial-required'], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    if (baselineSealedTrial.architectureId !== crown.baselineArchitectureId || baselineSealedTrial.receiptDigest !== crown.baselineTrialReceiptDigest) {
+      return failure(['baseline-sealed-trial-must-match-canonical-frontier-crown'], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
+    }
     zeroLoss = certifyPairedZeroLoss({
       baselineTrial: baselineSealedTrial,
       candidateTrial: sealedTrial,
@@ -164,15 +173,15 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     sealedTrialReceiptDigest: sealedTrial.receiptDigest,
     sealedTrialTaskOutcomeDigest: sealedTrial.taskOutcomeDigest,
     benchmarkSubject: structuredClone(subject),
-    absoluteFrontierBaseline: frontierBaseline === true,
-    frontierBaselineArchitectureId: frontierBaseline === true
+    absoluteFrontierBaseline: isBaseline,
+    frontierBaselineArchitectureId: isBaseline
       ? sealedTrial.architectureId
       : zeroLoss.baselineArchitectureId,
     frontierCandidateArchitectureId: sealedTrial.architectureId,
-    pairedZeroLossCertified: frontierBaseline === true ? true : zeroLoss.ok === true,
-    pairedZeroLossCertificationDigest: frontierBaseline === true ? null : zeroLoss.certificationDigest,
-    baselineSealedTrialReceiptDigest: frontierBaseline === true ? sealedTrial.receiptDigest : baselineSealedTrial.receiptDigest,
-    liveRoutingAuthority: frontierBaseline === true
+    pairedZeroLossCertified: isBaseline ? true : zeroLoss.ok === true,
+    pairedZeroLossCertificationDigest: isBaseline ? null : zeroLoss.certificationDigest,
+    baselineSealedTrialReceiptDigest: isBaseline ? sealedTrial.receiptDigest : baselineSealedTrial.receiptDigest,
+    liveRoutingAuthority: isBaseline
       ? 'CANONICAL_FRONTIER_BASELINE_SEALED_TRIAL'
       : 'CANONICAL_PAIRED_ZERO_LOSS_SEALED_TRIAL'
   };

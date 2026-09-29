@@ -262,14 +262,15 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
     const config = apiProviderConfig(env, provider);
     const blockers = [];
     if (!config?.apiKey) blockers.push('credential-absent');
-    if (!config?.pricing) blockers.push('pricing-evidence-absent');
+    if (provider !== 'openrouter' && !config?.pricing) blockers.push('pricing-evidence-absent');
     if (!config?.enabled) blockers.push('explicitly-disabled');
     return {
       provider,
       ready: blockers.length === 0,
       blockers,
       credentialPresent: Boolean(config?.apiKey),
-      pricingEvidencePresent: Boolean(config?.pricing)
+      pricingEvidencePresent: Boolean(config?.pricing),
+      ...(provider === 'openrouter' ? { pricingEvidenceMode: 'PER_MODEL_REQUIRED_AT_EXECUTION' } : {})
     };
   });
 

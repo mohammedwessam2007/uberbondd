@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "uberbond.frontier-vm-v5-longitudinal-campaign.v1",
+  "status": "PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY",
+  "objective": "Demonstrate decreasing frontier residual on recurring fresh work while preserving the moving task-class Crown quality floor.",
+  "quality": {
+    "maxIntentionalDelta": 0,
+    "pairedTaskRegressionAllowed": 0,
+    "unknown": "FRONTIER",
+    "aggregateScoreCannotHideTaskRegression": true
+  },
+  "budget": {
+    "monthlyAllInTargetUsd": 30,
+    "protectedCrownEscrowUsd": 15,
+    "automaticSpendAuthority": false,
+    "pressureRelief": [
+      "QUEUE",
+      "DEFER",
+      "BATCH",
+      "EXACT_REUSE",
+      "WAIT_FOR_EQUIVALENT_ROUTE"
+    ],
+    "forbidden": [
+      "WEAKER_FINAL_AUTHORITY",
+      "SKIP_REQUIRED_CROWN",
+      "UNPROVEN_LOSSY_CONTEXT_DROP"
+    ]
+  },
+  "crown": {
+    "selector": "LIVE_STRONGEST_VERIFIED_TASK_CLASS_MARKET_CROWN",
+    "permanentVendorLoyalty": false,
+    "liveSnapshotRequired": true,
+    "revisionBindingRequired": true,
+    "successionPhaseRequiredBeforeBroadResearchClaim": true
+  },
+  "phases": [
+    {
+      "id": "BURN_IN",
+      "minimumFreshPairedTasks": 40,
+      "directCrownBaselineRequired": true,
+      "candidate": "FRONTIER_VM_V5",
+      "productionCompressionAuthority": false
+    },
+    {
+      "id": "CERTIFIED",
+      "minimumFreshRecurringTasks": 100,
+      "directBaselineSampling": "RANDOM_SHADOW_AUDIT",
+      "canonicalZeroLossCertificateRequired": true
+    },
+    {
+      "id": "POST_SUCCESSION",
+      "minimumFreshTasks": 20,
+      "trigger": "VERIFIED_NEW_CROWN",
+      "revalidateHighValueCircuits": true
+    }
+  ],
+  "ablations": [
+    "DIRECT_CROWN",
+    "ROUTER_ONLY",
+    "ROUTER_PLUS_ADAPTIVE_SWARM",
+    "V5_NO_JEV",
+    "V5_NO_CROSS_TASK_CSE",
+    "V5_NO_FRONTIER_RESIDUALIZATION",
+    "V5_NO_PROFILE_GUIDED_COMPILATION",
+    "V5_FULL"
+  ],
+  "primaryMetrics": [
+    "PAIRED_REGRESSIONS",
+    "FRONTIER_RESIDUAL_RATIO",
+    "REFERENCE_COMPRESSION_FACTOR",
+    "FRONTIER_NODE_SHARE",
+    "COMPILED_HIT_SHARE",
+    "SEMANTIC_PAGE_FAULTS",
+    "DEOPTIMIZATIONS",
+    "RECOMPILATION_SURVIVAL_RATE",
+    "ROUTING_REGRET",
+    "FOUNDER_MINUTES"
+  ],
+  "requiredPreconditions": [
+    "OPENROUTER_API_KEY_PRESENT_IN_PROTECTED_RUNTIME",
+    "LIVE_CROWN_SNAPSHOT",
+    "FRESH_TASK_SOURCE_OR_CUSTODIAN",
+    "REAL_BILLING_RECEIPTS",
+    "INDEPENDENT_OR_BLIND_PAIRED_EVALUATION"
+  ],
+  "implementation": {
+    "vm": "src/frontier-intelligence-vm.mjs",
+    "longitudinalEvaluator": "src/frontier-vm-longitudinal-evaluator.mjs",
+    "protocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+    "proofHarness": "src/apex-sealed-tournament.mjs"
+  },
+  "truthBoundary": "This config authorizes no spend and proves no equivalence, novelty, or compression. It freezes the evidence program that must be run after live prerequisites exist."
+}

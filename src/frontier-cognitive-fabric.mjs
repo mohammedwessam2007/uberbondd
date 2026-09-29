@@ -483,7 +483,7 @@ export function compileFrontierCognitivePlan({
   if (confidence == null || evidenceAge == null || callabilityAge == null || qualityDelta == null) return failure(['bounded-frontier-policy-parameters-required'], 'FRONTIER_POLICY_INVALID');
   const absoluteTier = normalizedTask.task.reasoningTier === 'FRONTIER_MAX' || normalizedTask.task.reasoningTier === 'COUNCIL_MAX';
   if (absoluteTier) {
-    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil });
+    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false });
     if (!absolutePolicy.ok) return failure(absolutePolicy.reasonCodes, 'FRONTIER_POLICY_INVALID');
   }
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');

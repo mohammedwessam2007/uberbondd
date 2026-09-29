@@ -190,3 +190,50 @@ After the ordinary UberBond startup and the v3 recovery sequence:
 5. continue from activation, live receipts, paired Crown-vs-UberMind proof, Jev calibration, bounded certification, and compression measurement.
 
 Do not restart the architecture from chat memory.
+
+
+## V5 frontier intelligence virtualization
+
+V5 does not replace v2-v4. It changes the abstraction level.
+
+The system is no longer described primarily as a model router. It is treated as a **quality-typed cognitive compiler and virtual machine** whose stable logical interface is:
+
+```
+FRONTIER(task, state, quality_contract)
+```
+
+Physical processors may change continuously:
+
+```
+code
+exact retrieval/reuse
+certified Jev
+cheap heterogeneous models
+specialists
+frontier Crown/Pantheon
+reality settlement
+```
+
+The required quality type does not silently weaken.
+
+### V5 core files
+
+- `13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md` — model-independent Cognitive IR, quality types, compiler passes, semantic page faults, proof-carrying cognition, frontier residualization and recompilation on Crown succession.
+- `14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md` — profile-guided cognition, hot-path migration, semantic page faults, frontier novelty accounting, cognitive RAID, counterfactual route sampling, quality debt, zero-loss deoptimization and self-hosting compiler discipline.
+- `src/frontier-intelligence-vm.mjs` — pure executable core for quality-typed Cognitive IR, backend authority checks, exact semantic CSE candidates, Crown escrow, frontier residual packets and proof-carrying cognition packets.
+- `tests/frontier-intelligence-vm.test.mjs` — hostile tests proving weaker backends cannot satisfy stronger quality types and that unknown states page upward.
+
+### V5 conceptual shift
+
+```
+DO NOT OPTIMIZE WHICH MODEL ANSWERS.
+
+COMPILE THE COGNITION.
+VIRTUALIZE THE FRONTIER.
+PURCHASE NOVELTY ONCE.
+AMORTIZE IT WHEN PROVEN SAFE.
+DEOPTIMIZE ON DRIFT.
+RECOMPILE WHEN THE MARKET FRONTIER MOVES.
+```
+
+The strongest claim remains unproven until live paired trials exist. V5 is a systems thesis plus executable quality-typing substrate, not proof of global superiority or a guaranteed compression factor.

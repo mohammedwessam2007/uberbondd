@@ -572,7 +572,7 @@ export function compileFrontierCognitivePlan({
   const rankedCouncil = ranked.ranked;
   const responderLimit = Math.min(
     normalizedTask.task.maxCouncilSize,
-    allowDegradedCouncil ? rankedCouncil.length : Math.max(0, rankedCouncil.length - 1)
+    Math.max(0, rankedCouncil.length - 1)
   );
   if (responderLimit < normalizedTask.task.minCouncilSize) {
     return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responderLimit, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
@@ -599,35 +599,26 @@ export function compileFrontierCognitivePlan({
   if (responders.length < normalizedTask.task.minCouncilSize) return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responders.length, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
   const providerDiversity = responderProviders.size;
   const diversityDegraded = providerDiversity < 2;
-  if (diversityDegraded && !allowDegradedCouncil) return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
+  if (diversityDegraded) return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
 
   const responderIds = new Set(responders.map(item => item.profile.id));
-  let adjudicator = rankedCouncil.find(item => !responderIds.has(item.profile.id)) ?? null;
-  let adjudicatorDegraded = false;
-  if (!adjudicator) {
-    if (!allowDegradedCouncil) return failure(['independent-adjudicator-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: [...responderIds], blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
-    adjudicator = responders[0];
-    adjudicatorDegraded = true;
-  }
+  const adjudicator = rankedCouncil.find(item => !responderIds.has(item.profile.id)) ?? null;
+  if (!adjudicator) return failure(['independent-adjudicator-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: [...responderIds], blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
   const graphResult = compileCouncilGraph(responders, adjudicator, normalizedTask.task, context.contextPacket);
   if (!graphResult.ok) return failure(graphResult.reasonCodes, 'FRONTIER_COUNCIL_GRAPH_INVALID', { simulationOnly, trustedForLiveExecution });
-  const degraded = diversityDegraded || adjudicatorDegraded;
   const plan = {
     ...basePlan,
     mode: 'COUNCIL_MAX',
-    status: degraded ? 'COUNCIL_DEGRADED' : 'COUNCIL_PLAN_READY',
-    degradationPolicyRef: degraded ? text(degradationPolicyRef, 1000) : null,
-    degradationReasonCodes: [
-      ...(diversityDegraded ? ['provider-diversity-below-two'] : []),
-      ...(adjudicatorDegraded ? ['adjudicator-not-independent'] : [])
-    ],
+    status: 'COUNCIL_PLAN_READY',
+    degradationPolicyRef: null,
+    degradationReasonCodes: [],
     providerDiversity,
     responders: responders.map(planMember),
     adjudicator: planMember(adjudicator),
     members: [...responders, ...(responderIds.has(adjudicator.profile.id) ? [] : [adjudicator])].map(planMember),
     graph: graphResult.graph,
     graphDigest: graphResult.graphDigest,
-    independenceInvariant: 'first-pass responders have zero council-result dependencies; responder cross-critique begins only after all first passes; adjudicator is distinct from responders unless an explicit degradation policy is recorded'
+    independenceInvariant: 'first-pass responders have zero council-result dependencies; responder cross-critique begins only after all first passes; adjudicator is always distinct from responders; degraded councils are prohibited'
   };
   return envelope({ ok: true, status: plan.status, plan, planDigest: sha256(plan), simulationOnly, trustedForLiveExecution });
 }
@@ -703,8 +694,8 @@ export function buildFrontierCognitiveReceipt({ planResult, executions = [], con
     if (!adjudicationBasis || adjudicationBasis === 'MAJORITY_ONLY') return failure(['majority-only-adjudication-prohibited'], 'FRONTIER_RECEIPT_BLOCKED');
     const adjudicatorProfileId = text(adjudication?.adjudicatorProfileId, 120)?.toLowerCase();
     if (adjudicatorProfileId !== planResult.plan.adjudicator.profileId) return failure(['adjudicator-identity-mismatch'], 'FRONTIER_RECEIPT_BLOCKED');
-    if (planResult.plan.responders.some(item => item.profileId === adjudicatorProfileId) && planResult.plan.status !== 'COUNCIL_DEGRADED') return failure(['adjudicator-not-independent'], 'FRONTIER_RECEIPT_BLOCKED');
-    if (adjudication?.independentFromResponders !== true && planResult.plan.status !== 'COUNCIL_DEGRADED') return failure(['adjudicator-independence-not-proven'], 'FRONTIER_RECEIPT_BLOCKED');
+    if (planResult.plan.responders.some(item => item.profileId === adjudicatorProfileId)) return failure(['adjudicator-not-independent'], 'FRONTIER_RECEIPT_BLOCKED');
+    if (adjudication?.independentFromResponders !== true) return failure(['adjudicator-independence-not-proven'], 'FRONTIER_RECEIPT_BLOCKED');
   }
 
   const receipt = {

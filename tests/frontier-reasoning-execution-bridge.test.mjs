@@ -214,7 +214,7 @@ test('member mutation after admission cannot execute', async () => {
     costCeilingCents: 10
   });
   assert.equal(out.ok, false);
-  assert.ok(out.reasonCodes.includes('member-object-does-not-match-admitted-plan'));
+  assert.ok(out.reasonCodes.includes('member-object-identity-does-not-match-admitted-plan'));
 });
 
 test('actual cost above reserved ceiling remains blocked after provenance passes', async () => {

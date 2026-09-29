@@ -240,7 +240,7 @@ test('tournament can nominate a statistically separated challenger only for inde
     incumbentArchitectureId: 'incumbent',
     budgetPolicy,
     minimumSampleSize: 20,
-    qualityFloorDelta: 0.01
+    qualityFloorDelta: 0
   });
   assert.equal(out.ok, true, JSON.stringify(out));
   assert.equal(out.leaderArchitectureId, 'challenger');
@@ -313,4 +313,20 @@ test('tournament refuses corpus mismatch, duplicate architecture identity and co
   });
   assert.equal(ceiling.ok, false);
   assert.ok(ceiling.reasonCodes.some(code => code.includes('common-latency-ceiling-exceeded')));
+});
+
+
+test('sealed tournament refuses any caller attempt to reopen a nonzero quality delta', () => {
+  const manifest = fixture(30);
+  const incumbent = compile('incumbent-zero-loss-guard', 25, manifest);
+  const challenger = compile('challenger-zero-loss-guard', 25, manifest);
+  const out = evaluateSealedArchitectureTournament({
+    trials: [incumbent, challenger],
+    incumbentArchitectureId: 'incumbent-zero-loss-guard',
+    budgetPolicy,
+    minimumSampleSize: 20,
+    qualityFloorDelta: 0.000001
+  });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('absolute-frontier-quality-delta-must-be-zero'));
 });

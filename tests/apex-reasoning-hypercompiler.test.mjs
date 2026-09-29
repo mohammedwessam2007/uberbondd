@@ -120,7 +120,7 @@ test('Arena keeps verified quality primary over a dramatically cheaper but mater
   const out = evaluateReasoningArchitectureArena({
     taskClass: 'research',
     minimumSampleSize: 20,
-    qualityFloorDelta: 0.01,
+    qualityFloorDelta: 0,
     trials: [
       {
         architectureId: 'apex-council',
@@ -230,4 +230,27 @@ test('architecture evolution refuses holdout leakage and mutation without failur
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('failure-evidence-required-before-mutation'));
   assert.ok(out.reasonCodes.includes('distinct-train-and-sealed-holdout-partitions-required'));
+});
+
+
+test('Arena refuses any nonzero quality slack even when it would save cost', () => {
+  const out = evaluateReasoningArchitectureArena({
+    taskClass: 'research',
+    minimumSampleSize: 20,
+    qualityFloorDelta: 0.000001,
+    trials: [{
+      architectureId: 'frontier',
+      taskClass: 'research',
+      verifiedSuccessRate: 1,
+      processScore: 1,
+      falsePositiveRate: 0,
+      costUsd: 10,
+      latencyMs: 10000,
+      founderMinutes: 1,
+      sampleSize: 100,
+      evidenceRef: 'holdout://frontier'
+    }]
+  });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('absolute-frontier-quality-delta-must-be-zero'));
 });

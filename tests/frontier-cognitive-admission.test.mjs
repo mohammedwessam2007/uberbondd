@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
-import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
+import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan, validateAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
@@ -114,4 +114,29 @@ test('valid admission produces a tamper-evident digest and an admitted frontier 
   assert.equal(plan.ok, true);
   assert.equal(plan.plan.selected.profileId, 'elite');
   assert.equal(plan.admissionDigest, admission.bundle.identityDigest);
+});
+
+
+test('admitted plan authority is process-bound and disappears after clone or JSON round-trip', () => {
+  const admission = build();
+  assert.equal(admission.ok, true);
+  const plan = compileAdmittedFrontierPlan({ task: task(), admissionBundle: admission.bundle, now: NOW });
+  assert.equal(plan.ok, true);
+  assert.equal(validateAdmittedFrontierPlan(plan).ok, true);
+
+  for (const copy of [structuredClone(plan), JSON.parse(JSON.stringify(plan)), { ...plan }]) {
+    const check = validateAdmittedFrontierPlan(copy);
+    assert.equal(check.ok, false);
+    assert.ok(check.reasonCodes.includes('process-bound-admitted-frontier-plan-required'));
+  }
+});
+
+test('mutating the admitted plan after compilation invalidates its process seal', () => {
+  const admission = build();
+  const plan = compileAdmittedFrontierPlan({ task: task(), admissionBundle: admission.bundle, now: NOW });
+  assert.equal(plan.ok, true);
+  plan.plan.selected.model = 'mutated-after-plan-seal';
+  const check = validateAdmittedFrontierPlan(plan);
+  assert.equal(check.ok, false);
+  assert.ok(check.reasonCodes.includes('frontier-plan-object-mutation-detected'));
 });

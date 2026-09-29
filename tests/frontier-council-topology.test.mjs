@@ -56,9 +56,9 @@ const contextArtifacts = [
 
 test('COUNCIL_MAX graph is sealed first passes -> one responder critique each -> distinct adjudicator', () => {
   const profiles = [
-    profile('google', 'google', 'gemini-frontier', 0.99),
-    profile('openai', 'openai', 'gpt-frontier', 0.98),
-    profile('anthropic', 'anthropic', 'claude-frontier', 0.97)
+    profile('google', 'google', 'gemini-frontier', 1),
+    profile('openai', 'openai', 'gpt-frontier', 1),
+    profile('anthropic', 'anthropic', 'claude-frontier', 1)
   ];
   const calls = profiles.map(callability);
   const out = compileFrontierCognitivePlan({

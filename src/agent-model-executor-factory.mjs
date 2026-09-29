@@ -13,6 +13,7 @@ import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs'
 import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
 
 export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.5.0';
+const canonicalModelExecutorFactories = new WeakSet();
 
 const API_PROVIDER_CONFIG = Object.freeze({
   openai: Object.freeze({
@@ -117,7 +118,7 @@ function workerServiceTier(worker = {}) {
 
 /** Build the per-worker model executor resolver. */
 export function createModelExecutorFactory({ env = process.env, sandboxIsolationReceipt = null, fetchImpl = globalThis.fetch } = {}) {
-  return function modelExecutorFor(worker = {}) {
+  const modelExecutorFor = function modelExecutorFor(worker = {}) {
     const provider = String(worker.provider || '').trim().toLowerCase();
     const reasoningEffort = workerReasoningEffort(worker);
     const serviceTier = workerServiceTier(worker);
@@ -197,6 +198,12 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       ...(reasoningEffort ? { reasoningEffort } : {})
     });
   };
+  canonicalModelExecutorFactories.add(modelExecutorFor);
+  return modelExecutorFor;
+}
+
+export function isCanonicalModelExecutorFactory(value) {
+  return typeof value === 'function' && canonicalModelExecutorFactories.has(value);
 }
 
 /** Which providers this environment could actually drive, and why not if not. */

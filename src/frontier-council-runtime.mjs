@@ -3,6 +3,8 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { executeFrontierMember } from './frontier-reasoning-runtime.mjs';
 import { buildFrontierCognitiveReceipt } from './frontier-cognitive-fabric.mjs';
+import { validateAdmittedFrontierPlan } from './frontier-cognitive-admission.mjs';
+import { validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const FRONTIER_COUNCIL_RUNTIME_VERSION = 'uberbond.frontier-council-runtime-1.3.0';
 const MAX_PHASE_TEXT = 20_000;
@@ -20,9 +22,9 @@ function safeText(value, max = MAX_PHASE_TEXT) {
 }
 function callabilityMap(items = []) { return new Map((Array.isArray(items) ? items : []).map(item => [String(item?.profileId || '').toLowerCase(), item])); }
 function phaseTask(plan, phaseId, objective, evidenceRefs = []) { return { taskId: `${plan.task.taskId}:${phaseId}`, objective, consequenceClass: 'LOCAL_PREPARATION', contextRefs: [...plan.contextPacket.contextRefs], evidenceRefs: [...evidenceRefs] }; }
-async function executeMember({ member, task, evidence, modelExecutorFactory, maxTokens, costCeilingCents, clock }) {
+async function executeMember({ planResult, member, task, evidence, modelExecutorFactory, maxTokens, costCeilingCents, clock }) {
   if (!evidence) return failure([`callability-evidence-missing:${member.profileId}`]);
-  const out = await executeFrontierMember({ member, task, modelExecutorFactory, callabilityEvidence: evidence, maxTokens, costCeilingCents, clock });
+  const out = await executeFrontierMember({ planResult, member, task, modelExecutorFactory, callabilityEvidence: evidence, maxTokens, costCeilingCents, clock });
   if (!out.ok) return failure([`council-member-execution-failed:${member.profileId}`, ...(out.reasonCodes || [])], out.status || 'FRONTIER_COUNCIL_EXECUTION_FAILED');
   const resultText = safeText(out.ephemeralResult);
   if (!resultText) return failure([`bounded-secret-free-ephemeral-result-required:${member.profileId}`]);
@@ -67,10 +69,15 @@ function blindPacket(entries = [], { prefix = 'candidate', contentField = 'answe
 
 export async function executeFrontierCouncil({ planResult, callability = [], modelExecutorFactory, maxTokens = 4_000, costCeilingCents = 100, clock = () => Date.now(), now = new Date() } = {}) {
   if (!planResult?.ok || planResult?.plan?.mode !== 'COUNCIL_MAX') return failure(['verified-council-plan-required']);
+  const provenance = validateAdmittedFrontierPlan(planResult);
+  if (!provenance.ok) return failure(provenance.reasonCodes);
   const plan = planResult.plan;
+  const quality = validateQualityInvariantAttestation(plan.absoluteQualityInvariant);
+  if (!quality.ok) return failure(quality.reasonCodes);
+  if (plan.status === 'COUNCIL_DEGRADED') return failure(['absolute-frontier-degraded-council-prohibited']);
   if (!Array.isArray(plan.responders) || plan.responders.length < 2 || !plan.adjudicator) return failure(['bounded-responders-and-adjudicator-required']);
   const adjudicatorIsResponder = plan.responders.some(item => item.profileId === plan.adjudicator.profileId);
-  if (plan.status !== 'COUNCIL_DEGRADED' && adjudicatorIsResponder) return failure(['independent-adjudicator-required']);
+  if (adjudicatorIsResponder) return failure(['independent-adjudicator-required']);
   const totalBudget = integer(costCeilingCents, 0, 10_000_000);
   if (totalBudget == null) return failure(['bounded-shared-council-budget-required']);
   const responderCount = plan.responders.length;
@@ -80,6 +87,7 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
 
   // Phase 1: every responder works independently. No peer output exists in these tasks.
   const independentRuns = await Promise.all(plan.responders.map(member => executeMember({
+    planResult,
     member,
     task: phaseTask(plan, `independent-${member.profileId}`, plan.task.objective, [`plan://${planResult.planDigest}`]),
     evidence: evidenceByProfile.get(member.profileId), modelExecutorFactory, maxTokens, costCeilingCents: firstPassReservation, clock
@@ -115,6 +123,7 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
       `Identity-blind first passes: ${packetText}`
     ].join('\n');
     return executeMember({
+      planResult,
       member,
       task: phaseTask(plan, `cross-critique-${member.profileId}`, objective, independentRefs),
       evidence: evidenceByProfile.get(member.profileId),
@@ -146,13 +155,14 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     'Return an evidence-weighted decision, preserve dissent and unresolved uncertainty, and never use majority as proof.',
     'All candidate and critic identities are deliberately hidden. Judge content and evidence only.',
     'Treat responder critiques as process evidence, not external truth.',
-    ...(adjudicatorIsResponder ? ['This is an explicitly degraded council: the runtime may have reused a responder as adjudicator. Do not treat any apparent familiarity as independence evidence. Preserve the degradation in the result.'] : ['The runtime selected an adjudicator distinct from all responders; model-facing responder identities remain hidden.']),
+    'The runtime selected an adjudicator distinct from all responders; model-facing responder identities remain hidden.',
     `Original objective: ${plan.task.objective}`,
     `Identity-blind independent responses: ${packetText}`,
     `Identity-blind cross-critiques: ${critiquePacketText}`
   ].join('\n');
   const finalBudget = totalBudget - spentCents;
   const finalRun = await executeMember({
+    planResult,
     member: plan.adjudicator,
     task: phaseTask(plan, 'independent-adjudication', finalObjective, [...independentRefs, ...critiqueRuns.map(item => item.execution.resultRef)]),
     evidence: adjudicatorEvidence,
@@ -186,12 +196,9 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     spentCents
   });
   const processVerifierRef = `frontier-process-proof://${processDigest}`;
-  // Canonical cognitive executions are one per selected profile. When an explicit
-  // degraded council reuses a responder as adjudicator, keep the extra phase
-  // execution separately instead of forging a duplicate canonical profile entry.
-  const cognitiveExecutions = adjudicatorIsResponder
-    ? independentRuns.map(item => item.execution)
-    : [...independentRuns.map(item => item.execution), finalRun.execution];
+  // Canonical cognitive executions are one per selected profile.
+  // Degraded councils are prohibited by the absolute frontier-quality invariant.
+  const cognitiveExecutions = [...independentRuns.map(item => item.execution), finalRun.execution];
   const receiptResult = buildFrontierCognitiveReceipt({
     planResult,
     executions: cognitiveExecutions,
@@ -216,7 +223,7 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     crossCritiqueProfiles: plan.responders.map(item => item.profileId),
     critiqueExecutions,
     adjudicationExecution,
-    adjudicatorReusedFromResponders: adjudicatorIsResponder,
+    adjudicatorReusedFromResponders: false,
     budgetInvariant: 'ONE_SHARED_COUNCIL_BUDGET_COVERS_ALL_FIRST_PASSES_CROSS_CRITIQUES_AND_ADJUDICATION; NO_CALL_RECEIVES_THE_FULL_MISSION_CEILING',
     identityBlindCouncil: true,
     independentIdentityMapDigest: blindedIndependent.identityMapDigest,
@@ -236,6 +243,6 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     spentCents,
     receipt,
     receiptDigest: digest(receipt),
-    truthBoundary: `COUNCIL_PROCESS_IS_DETERMINISTICALLY_VERIFIED_BUT_MODEL_SEMANTICS_ARE_NOT_EXTERNAL_TRUTH; FIRST_PASSES_ARE_INDEPENDENT; CRITIQUE_AND_ADJUDICATION_ARE_IDENTITY_BLIND; RESPONDERS_CROSS_CRITIQUE_ONLY_AFTER_ALL_FIRST_PASSES; ${adjudicatorIsResponder ? 'ADJUDICATOR_REUSE_IS_EXPLICITLY_DEGRADED_AND_NOT_INDEPENDENT; ' : 'ADJUDICATOR_IS_DISTINCT; '}MAJORITY_IS_NOT_PROOF; ONE_SHARED_BUDGET_GOVERNS_ALL_COUNCIL_CALLS`
+    truthBoundary: `COUNCIL_PROCESS_IS_DETERMINISTICALLY_VERIFIED_BUT_MODEL_SEMANTICS_ARE_NOT_EXTERNAL_TRUTH; FIRST_PASSES_ARE_INDEPENDENT; CRITIQUE_AND_ADJUDICATION_ARE_IDENTITY_BLIND; RESPONDERS_CROSS_CRITIQUE_ONLY_AFTER_ALL_FIRST_PASSES; ADJUDICATOR_IS_DISTINCT; MAJORITY_IS_NOT_PROOF; ONE_SHARED_BUDGET_GOVERNS_ALL_COUNCIL_CALLS`
   });
 }

@@ -5,11 +5,12 @@ import { validateOrchestrationGraph } from './orchestration-frontier.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE, qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy, validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.3.1';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
 export const FRONTIER_COGNITIVE_RECEIPT_SCHEMA = 'uberbond.frontier-cognitive-receipt.v1';
-export const FRONTIER_REASONING_TIERS = Object.freeze(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
+export const FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX']);
 
 const SAFE_DATA_CLASSES = new Set(['PUBLIC', 'INTERNAL_NON_SECRET', 'SOURCE_CODE']);
 const TRANSPORT_PROVIDERS = new Set(['openai', 'anthropic', 'ai-gateway', 'open-model', 'claude-code-sandbox']);
@@ -17,9 +18,10 @@ const ROLE_NAMES = new Set(['planner', 'researcher', 'builder', 'critic', 'verif
 const EVIDENCE_CLASSES = new Set(['OFFICIAL_SOURCE', 'VERIFIED_RUNTIME']);
 const MAX_PROFILES = 64;
 const MAX_COUNCIL_RESPONDERS = 6;
+const plannedFrontierMembers = new WeakMap();
 const DEFAULT_EVIDENCE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 const DEFAULT_CALLABILITY_MAX_AGE_MS = 24 * 60 * 60 * 1000;
-const DEFAULT_FRONTIER_QUALITY_DELTA = 0.05;
+const DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA;
 
 function clone(value) { return structuredClone(value); }
 function zeroEffects() { return clone(ZERO_EXTERNAL_EFFECTS); }
@@ -308,27 +310,29 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
     const evidenced = enriched.filter(item => item.benchmark && item.benchmark.evidenceConfidence >= minimumEvidenceConfidence);
     if (!evidenced.length) return failure(['frontier-tier-requires-fresh-quality-evidence'], 'CAPACITY_BLOCKED');
     const bestQuality = Math.max(...evidenced.map(item => item.benchmark.quality));
-    const floor = bestQuality - frontierQualityDelta;
-    const frontier = evidenced.filter(item => item.benchmark.quality >= floor);
-    frontier.sort((a, b) => {
-      const aScore = a.benchmark.quality * 0.6 + a.benchmark.reliability * 0.32 + a.benchmark.latencyScore * 0.04 + a.benchmark.costEfficiency * 0.04;
-      const bScore = b.benchmark.quality * 0.6 + b.benchmark.reliability * 0.32 + b.benchmark.latencyScore * 0.04 + b.benchmark.costEfficiency * 0.04;
-      return bScore - aScore || a.profile.id.localeCompare(b.profile.id);
+    const qualityExact = evidenced.filter(item => item.benchmark.quality === bestQuality);
+    const bestReliability = Math.max(...qualityExact.map(item => item.benchmark.reliability));
+    const reliabilityExact = qualityExact.filter(item => item.benchmark.reliability === bestReliability);
+    const bestEvidenceConfidence = Math.max(...reliabilityExact.map(item => item.benchmark.evidenceConfidence));
+    const frontier = reliabilityExact.filter(item => item.benchmark.evidenceConfidence === bestEvidenceConfidence);
+    frontier.sort((a, b) =>
+      b.benchmark.costEfficiency - a.benchmark.costEfficiency ||
+      b.benchmark.latencyScore - a.benchmark.latencyScore ||
+      a.profile.id.localeCompare(b.profile.id)
+    );
+    return envelope({
+      ok: true,
+      status: 'FRONTIER_CANDIDATES_RANKED',
+      ranked: frontier,
+      bestQuality,
+      qualityFloor: bestQuality,
+      bestReliability,
+      bestEvidenceConfidence,
+      absoluteQualityInvariant: qualityInvariantAttestation()
     });
-    return envelope({ ok: true, status: 'FRONTIER_CANDIDATES_RANKED', ranked: frontier, bestQuality, qualityFloor: floor });
   }
 
-  const candidates = enriched.map(item => item.candidate);
-  const weights = task.reasoningTier === 'FAST'
-    ? { quality: 0.25, reliability: 0.25, latency: 0.25, economicImpact: 0.1, costEfficiency: 0.15 }
-    : task.reasoningTier === 'DEEP'
-      ? { quality: 0.5, reliability: 0.3, latency: 0.05, economicImpact: 0.1, costEfficiency: 0.05 }
-      : undefined;
-  const routed = routeModel({ taskClass: task.taskClass, candidates, benchmarks: [...latest.values()], minimumEvidenceConfidence, explorationRate: 0, random, ...(weights ? { weights } : {}) });
-  if (!routed.ok) return failure(routed.reasonCodes, 'CAPACITY_BLOCKED');
-  const selected = enriched.find(item => item.candidate.candidateId === routed.selected.candidateId);
-  const rest = enriched.filter(item => item !== selected).sort((a, b) => (b.benchmark?.quality ?? 0) - (a.benchmark?.quality ?? 0));
-  return envelope({ ok: true, status: 'CANDIDATES_RANKED', ranked: [selected, ...rest].filter(Boolean) });
+  return failure(['frontier-fabric-requires-frontier-max-or-council-max'], 'FRONTIER_TASK_INVALID');
 }
 
 function compileContext(task, artifacts) {
@@ -410,7 +414,7 @@ function compileCouncilGraph(responders, adjudicator, task, contextPacket) {
 }
 
 function planMember(item) {
-  return {
+  const member = {
     profileId: item.profile.id,
     provider: item.profile.provider,
     model: item.profile.model,
@@ -420,8 +424,27 @@ function planMember(item) {
     transportModel: item.profile.transportModel,
     executorWorker: executorWorker(item.profile),
     reasoningTier: item.eligibility.executionTier,
-    reasoningSettingRef: item.eligibility.binding.settingRef
+    reasoningSettingRef: item.eligibility.binding.settingRef,
+    absoluteQualityInvariant: qualityInvariantAttestation()
   };
+  plannedFrontierMembers.set(member, sha256(member));
+  return member;
+}
+
+export function validateFrontierPlanMemberOrigin(member = {}) {
+  const expectedDigest = member && typeof member === 'object' ? plannedFrontierMembers.get(member) : null;
+  const actualDigest = member && typeof member === 'object' ? sha256(member) : null;
+  if (!expectedDigest || expectedDigest !== actualDigest) {
+    return failure(['canonical-untampered-frontier-plan-member-required'], 'FRONTIER_PLAN_MEMBER_ORIGIN_BLOCKED');
+  }
+  const quality = validateQualityInvariantAttestation(member.absoluteQualityInvariant);
+  if (!quality.ok) return failure(quality.reasonCodes, 'FRONTIER_PLAN_MEMBER_ORIGIN_BLOCKED');
+  return envelope({
+    ok: true,
+    status: 'FRONTIER_PLAN_MEMBER_ORIGIN_VALID',
+    memberDigest: actualDigest,
+    absoluteQualityInvariant: member.absoluteQualityInvariant
+  });
 }
 
 export function compileFrontierCognitivePlan({
@@ -431,12 +454,10 @@ export function compileFrontierCognitivePlan({
   callabilityProvenance = null,
   benchmarks = [],
   contextArtifacts = [],
-  minimumEvidenceConfidence = 0.6,
+  minimumEvidenceConfidence = ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE,
   evidenceMaxAgeMs = DEFAULT_EVIDENCE_MAX_AGE_MS,
   callabilityMaxAgeMs = DEFAULT_CALLABILITY_MAX_AGE_MS,
   frontierQualityDelta = DEFAULT_FRONTIER_QUALITY_DELTA,
-  allowDegradedCouncil = false,
-  degradationPolicyRef = null,
   now = new Date(),
   random = () => 0.5
 } = {}) {
@@ -449,7 +470,11 @@ export function compileFrontierCognitivePlan({
   const callabilityAge = integer(callabilityMaxAgeMs, 1, 7 * 24 * 60 * 60 * 1000);
   const qualityDelta = finite(frontierQualityDelta, 0, 0.1);
   if (confidence == null || evidenceAge == null || callabilityAge == null || qualityDelta == null) return failure(['bounded-frontier-policy-parameters-required'], 'FRONTIER_POLICY_INVALID');
-  if (allowDegradedCouncil && !text(degradationPolicyRef, 1000)) return failure(['degradation-policy-ref-required'], 'FRONTIER_POLICY_INVALID');
+  const absoluteTier = normalizedTask.task.reasoningTier === 'FRONTIER_MAX' || normalizedTask.task.reasoningTier === 'COUNCIL_MAX';
+  if (absoluteTier) {
+    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false });
+    if (!absolutePolicy.ok) return failure(absolutePolicy.reasonCodes, 'FRONTIER_POLICY_INVALID');
+  }
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');
 
   const provenance = validateFrontierCallabilityProbeReceipt({ ...(callabilityProvenance ?? {}), allowSynthetic: true });
@@ -505,6 +530,7 @@ export function compileFrontierCognitivePlan({
     callabilityProvenanceDigest: provenance.ok ? provenance.receiptDigest : null,
     simulationOnly,
     trustedForLiveExecution,
+    absoluteQualityInvariant: qualityInvariantAttestation(),
     truthBoundary: simulationOnly
       ? 'SYNTHETIC_PROVENANCE_TEST_PLAN_NOT_LIVE_AUTHORITY; MODEL_OUTPUT_IS_NOT_EXTERNAL_TRUTH'
       : 'LIVE_EXECUTION_AUTHORITY_REQUIRES_CANONICAL_PRODUCER_ORIGIN; MODEL_OUTPUT_IS_NOT_EXTERNAL_TRUTH',
@@ -533,7 +559,7 @@ export function compileFrontierCognitivePlan({
   const rankedCouncil = ranked.ranked;
   const responderLimit = Math.min(
     normalizedTask.task.maxCouncilSize,
-    allowDegradedCouncil ? rankedCouncil.length : Math.max(0, rankedCouncil.length - 1)
+    Math.max(0, rankedCouncil.length - 1)
   );
   if (responderLimit < normalizedTask.task.minCouncilSize) {
     return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responderLimit, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
@@ -560,35 +586,25 @@ export function compileFrontierCognitivePlan({
   if (responders.length < normalizedTask.task.minCouncilSize) return failure(['council-minimum-cardinality-unavailable'], 'CAPACITY_BLOCKED', { available: responders.length, required: normalizedTask.task.minCouncilSize, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
   const providerDiversity = responderProviders.size;
   const diversityDegraded = providerDiversity < 2;
-  if (diversityDegraded && !allowDegradedCouncil) return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
+  if (diversityDegraded) return failure(['council-provider-diversity-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: responders.map(item => item.profile.id), providerDiversity, blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
 
   const responderIds = new Set(responders.map(item => item.profile.id));
-  let adjudicator = rankedCouncil.find(item => !responderIds.has(item.profile.id)) ?? null;
-  let adjudicatorDegraded = false;
-  if (!adjudicator) {
-    if (!allowDegradedCouncil) return failure(['independent-adjudicator-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: [...responderIds], blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
-    adjudicator = responders[0];
-    adjudicatorDegraded = true;
-  }
+  const adjudicator = rankedCouncil.find(item => !responderIds.has(item.profile.id)) ?? null;
+  if (!adjudicator) return failure(['independent-adjudicator-unavailable'], 'CAPACITY_BLOCKED', { responderProfiles: [...responderIds], blocked, contextPacket: context.contextPacket, simulationOnly, trustedForLiveExecution });
   const graphResult = compileCouncilGraph(responders, adjudicator, normalizedTask.task, context.contextPacket);
   if (!graphResult.ok) return failure(graphResult.reasonCodes, 'FRONTIER_COUNCIL_GRAPH_INVALID', { simulationOnly, trustedForLiveExecution });
-  const degraded = diversityDegraded || adjudicatorDegraded;
   const plan = {
     ...basePlan,
     mode: 'COUNCIL_MAX',
-    status: degraded ? 'COUNCIL_DEGRADED' : 'COUNCIL_PLAN_READY',
-    degradationPolicyRef: degraded ? text(degradationPolicyRef, 1000) : null,
-    degradationReasonCodes: [
-      ...(diversityDegraded ? ['provider-diversity-below-two'] : []),
-      ...(adjudicatorDegraded ? ['adjudicator-not-independent'] : [])
-    ],
+    status: 'COUNCIL_PLAN_READY',
+    degradationReasonCodes: [],
     providerDiversity,
     responders: responders.map(planMember),
     adjudicator: planMember(adjudicator),
     members: [...responders, ...(responderIds.has(adjudicator.profile.id) ? [] : [adjudicator])].map(planMember),
     graph: graphResult.graph,
     graphDigest: graphResult.graphDigest,
-    independenceInvariant: 'first-pass responders have zero council-result dependencies; responder cross-critique begins only after all first passes; adjudicator is distinct from responders unless an explicit degradation policy is recorded'
+    independenceInvariant: 'first-pass responders have zero council-result dependencies; responder cross-critique begins only after all first passes; adjudicator is always distinct from responders; degraded councils are prohibited'
   };
   return envelope({ ok: true, status: plan.status, plan, planDigest: sha256(plan), simulationOnly, trustedForLiveExecution });
 }
@@ -601,6 +617,8 @@ function cleanReceiptText(value, max, reasons, code) {
 
 export function buildFrontierCognitiveReceipt({ planResult, executions = [], contradictions = [], adjudication = {}, verifierEvidenceRefs = [], now = new Date() } = {}) {
   if (!planResult?.ok || !planResult.plan || !planResult.planDigest) return failure(['verified-frontier-plan-required'], 'FRONTIER_RECEIPT_BLOCKED');
+  const qualityAttestation = validateQualityInvariantAttestation(planResult.plan.absoluteQualityInvariant);
+  if (!qualityAttestation.ok && (planResult.plan.task?.reasoningTier === 'FRONTIER_MAX' || planResult.plan.task?.reasoningTier === 'COUNCIL_MAX')) return failure(qualityAttestation.reasonCodes, 'FRONTIER_RECEIPT_BLOCKED');
   if (planResult.plan.schemaVersion !== FRONTIER_COGNITIVE_PLAN_SCHEMA || sha256(planResult.plan) !== planResult.planDigest) return failure(['frontier-plan-digest-or-schema-mismatch'], 'FRONTIER_RECEIPT_BLOCKED');
   const simulationOnly = planResult.plan.simulationOnly === true || planResult.simulationOnly === true;
   const trustedForLiveExecution = !simulationOnly && (planResult.plan.trustedForLiveExecution === true || planResult.trustedForLiveExecution === true);
@@ -662,8 +680,8 @@ export function buildFrontierCognitiveReceipt({ planResult, executions = [], con
     if (!adjudicationBasis || adjudicationBasis === 'MAJORITY_ONLY') return failure(['majority-only-adjudication-prohibited'], 'FRONTIER_RECEIPT_BLOCKED');
     const adjudicatorProfileId = text(adjudication?.adjudicatorProfileId, 120)?.toLowerCase();
     if (adjudicatorProfileId !== planResult.plan.adjudicator.profileId) return failure(['adjudicator-identity-mismatch'], 'FRONTIER_RECEIPT_BLOCKED');
-    if (planResult.plan.responders.some(item => item.profileId === adjudicatorProfileId) && planResult.plan.status !== 'COUNCIL_DEGRADED') return failure(['adjudicator-not-independent'], 'FRONTIER_RECEIPT_BLOCKED');
-    if (adjudication?.independentFromResponders !== true && planResult.plan.status !== 'COUNCIL_DEGRADED') return failure(['adjudicator-independence-not-proven'], 'FRONTIER_RECEIPT_BLOCKED');
+    if (planResult.plan.responders.some(item => item.profileId === adjudicatorProfileId)) return failure(['adjudicator-not-independent'], 'FRONTIER_RECEIPT_BLOCKED');
+    if (adjudication?.independentFromResponders !== true) return failure(['adjudicator-independence-not-proven'], 'FRONTIER_RECEIPT_BLOCKED');
   }
 
   const receipt = {
@@ -686,6 +704,7 @@ export function buildFrontierCognitiveReceipt({ planResult, executions = [], con
       unresolved
     },
     verifierEvidenceRefs: verifierRefs,
+    absoluteQualityInvariant: planResult.plan.absoluteQualityInvariant,
     semanticClaimAuthority: 'NONE',
     semanticVerificationStatus: 'EXTERNAL_EVIDENCE_REQUIRED',
     processVerificationOnly: true,

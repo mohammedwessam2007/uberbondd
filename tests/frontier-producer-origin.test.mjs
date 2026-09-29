@@ -8,6 +8,8 @@ import {
 } from '../src/frontier-callability-provenance.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
+import { createFrontierSimulationExecutorFactory } from '../src/frontier-simulation-executor.mjs';
 
 const AT = '2026-09-04T19:00:00.000Z';
 const observation = {
@@ -18,15 +20,70 @@ const observation = {
   identityVerification: 'OBSERVED', evidenceClass: 'OBSERVED_RUNTIME'
 };
 const profile = { id: 'elite', provider: 'google', model: 'elite', revision: 'r1' };
-const member = {
-  profileId: 'elite', provider: 'google', model: 'elite', revision: 'r1',
+const runtimeProfile = {
+  id: 'elite', provider: 'google', model: 'elite', revision: 'r1',
   transportProvider: 'ai-gateway', transportModel: 'google/elite',
-  reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh'
+  transportSourceRef: 'official://transport', transportVerifiedAt: AT, transportEvidenceClass: 'OFFICIAL_SOURCE',
+  taskClasses: ['general'], roles: ['general'], allowedDataClasses: ['INTERNAL_NON_SECRET'],
+  reasoningBindings: {
+    FRONTIER_MAX: { settingRef: 'ai-gateway:reasoning=xhigh', sourceRef: 'official://reasoning', verifiedAt: AT, evidenceClass: 'OFFICIAL_SOURCE' }
+  },
+  pricingVerifiedAt: AT, pricingSourceRef: 'official://pricing', pricingEvidenceClass: 'OFFICIAL_SOURCE',
+  maxContextTokens: 100000, maxOutputTokens: 10000,
+  centsPerMillionInputTokens: 1, centsPerMillionOutputTokens: 1,
+  identityAliases: ['elite'], enabled: true
 };
 const sha256 = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 function syntheticReceipt() {
   return buildFrontierCallabilityProbeReceipt({ observations: [observation], sourceRef: 'synthetic://producer-origin-test', observedAt: AT });
 }
+
+function admittedRuntimePlan(taskId) {
+  const built = syntheticReceipt();
+  const benchmark = normalizeModelBenchmark({
+    provider: runtimeProfile.provider,
+    model: runtimeProfile.model,
+    taskClasses: ['general'],
+    taskClass: 'general',
+    quality: 1,
+    reliability: 1,
+    latencyScore: 1,
+    economicImpact: 1,
+    evidenceConfidence: 1,
+    costEfficiency: 1
+  }, new Date(AT));
+  benchmark.observedRevision = runtimeProfile.revision;
+  benchmark.evidenceRef = 'benchmark://producer-origin-runtime';
+  const admission = buildFrontierAdmissionBundle({
+    profiles: [runtimeProfile],
+    callability: [{ ...observation, providerRequestId: undefined }],
+    benchmarks: [benchmark],
+    contextArtifacts: [],
+    source: { kind: 'TEST', ref: 'test://producer-runtime-admission', observedAt: AT },
+    callabilityProvenance: { receipt: built.receipt, receiptDigest: built.receiptDigest }
+  });
+  assert.equal(admission.ok, true);
+  const plan = compileAdmittedFrontierPlan({
+    task: {
+      missionId: 'producer-origin-runtime',
+      taskId,
+      objective: 'exercise runtime evidence boundaries',
+      taskClass: 'general',
+      role: 'general',
+      dataClass: 'INTERNAL_NON_SECRET',
+      reasoningTier: 'FRONTIER_MAX',
+      requiredTags: [],
+      contextTokenBudget: 1000,
+      minCouncilSize: 2,
+      maxCouncilSize: 2
+    },
+    admissionBundle: admission.bundle,
+    now: new Date(AT)
+  });
+  assert.equal(plan.ok, true, JSON.stringify(plan));
+  return plan;
+}
+
 
 test('public receipt construction is permanently synthetic and cannot mint live producer authority', () => {
   const built = syntheticReceipt();
@@ -161,44 +218,39 @@ test('admission bundle loses process authority after caller mutation', () => {
   assert.ok(result.reasonCodes.includes('process-validated-untampered-frontier-admission-bundle-required'));
 });
 
-test('invalid callability is rejected before executor construction or any provider call', async () => {
-  let constructions = 0;
+test('invalid callability is rejected before any simulated provider dispatch', async () => {
+  const plan = admittedRuntimePlan('preflight');
+  const factory = createFrontierSimulationExecutorFactory({
+    responses: [{ taskId: 'preflight', model: 'google/elite', costCents: 0, result: { answer: 'must never execute' } }]
+  });
   const result = await executeFrontierMember({
-    member,
+    planResult: plan,
+    member: plan.plan.selected,
     task: { taskId: 'preflight', objective: 'must not dispatch', consequenceClass: 'LOCAL_PREPARATION' },
     callabilityEvidence: { ...observation, observedRevision: 'wrong-revision' },
-    modelExecutorFactory: () => { constructions += 1; return async () => ({ ok: true }); },
-    maxTokens: 16, costCeilingCents: 0
+    modelExecutorFactory: factory,
+    maxTokens: 16,
+    costCeilingCents: 0
   });
   assert.equal(result.ok, false);
-  assert.equal(constructions, 0);
   assert.ok(result.reasonCodes.includes('callability-revision-mismatch'));
 });
 
 test('executor cannot report a cost above its reserved member ceiling', async () => {
-  let calls = 0;
+  const plan = admittedRuntimePlan('budget');
+  const factory = createFrontierSimulationExecutorFactory({
+    responses: [{ taskId: 'budget', model: 'google/elite', costCents: 6, result: { answer: 'too expensive' } }]
+  });
   const result = await executeFrontierMember({
-    member,
+    planResult: plan,
+    member: plan.plan.selected,
     task: { taskId: 'budget', objective: 'stay inside reservation', consequenceClass: 'LOCAL_PREPARATION' },
     callabilityEvidence: observation,
-    modelExecutorFactory: () => async () => {
-      calls += 1;
-      return {
-        ok: true,
-        providerRequestId: 'budget-req',
-        model: 'google/elite',
-        identityVerification: 'OBSERVED',
-        appliedReasoningEffort: 'xhigh',
-        appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED',
-        usage: { costCents: 6 },
-        result: { answer: 'too expensive' }
-      };
-    },
+    modelExecutorFactory: factory,
     maxTokens: 16,
     costCeilingCents: 5,
     clock: (() => { let t = 0; return () => ++t; })()
   });
-  assert.equal(calls, 1);
   assert.equal(result.ok, false);
   assert.equal(result.status, 'FRONTIER_EXECUTION_BUDGET_EXCEEDED');
   assert.ok(result.reasonCodes.includes('actual-cost-exceeds-frontier-reservation'));

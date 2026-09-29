@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { sealedAnswerDigest } from '../src/nullstar-omega-holdout.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST } from '../src/absolute-frontier-quality-invariant.mjs';
 import {
   prepareFreshApexCampaign,
   admitFreshCustodianManifest,
@@ -127,6 +128,7 @@ function plan(extra = {}) {
       mode: 'LEXICOGRAPHIC_FRONTIER_FIRST',
       frontierBaselineArchitectureId: 'opus-frontier-baseline',
       maxQualityDelta: 0,
+      absoluteQualityPolicyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST,
       requireNoWorseFalsePositiveUpperBound: true
     },
     budgetPolicy: {
@@ -513,4 +515,30 @@ test('runtime readiness accepts exact receipts, including DIRECT proof for ANY_V
   assert.equal(ready.providerCallsPerformedByThisAssessment, 0);
   assert.equal(ready.spendUsd, 0);
   assert.match(ready.readinessDigest, /^[a-f0-9]{64}$/);
+});
+
+
+test('fresh campaign refuses a missing or forged absolute quality policy digest', () => {
+  const missing = plan({
+    qualityFloorPolicy: {
+      mode: 'LEXICOGRAPHIC_FRONTIER_FIRST',
+      frontierBaselineArchitectureId: 'opus-frontier-baseline',
+      maxQualityDelta: 0,
+      requireNoWorseFalsePositiveUpperBound: true
+    }
+  });
+  assert.equal(missing.ok, false);
+  assert.ok(missing.reasonCodes.includes('absolute-frontier-quality-policy-digest-mismatch'));
+
+  const forged = plan({
+    qualityFloorPolicy: {
+      mode: 'LEXICOGRAPHIC_FRONTIER_FIRST',
+      frontierBaselineArchitectureId: 'opus-frontier-baseline',
+      maxQualityDelta: 0,
+      absoluteQualityPolicyDigest: 'f'.repeat(64),
+      requireNoWorseFalsePositiveUpperBound: true
+    }
+  });
+  assert.equal(forged.ok, false);
+  assert.ok(forged.reasonCodes.includes('absolute-frontier-quality-policy-digest-mismatch'));
 });

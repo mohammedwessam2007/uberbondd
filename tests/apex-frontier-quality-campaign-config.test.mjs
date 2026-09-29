@@ -3,6 +3,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { prepareFreshApexCampaign } from '../src/apex-fresh-campaign.mjs';
 import { validateFrontierModelCandidateRegistry } from '../src/frontier-model-team.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST } from '../src/absolute-frontier-quality-invariant.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST } from '../src/absolute-frontier-quality-invariant.mjs';
 
 const campaign = JSON.parse(fs.readFileSync('./config/apex-frontier-quality-compression-campaign.json', 'utf8'));
 const registry = JSON.parse(fs.readFileSync('./config/frontier-model-candidates.json', 'utf8'));
@@ -13,6 +15,8 @@ test('frontier-quality campaign config is internally valid and capped at ten dol
   assert.equal(out.budgetPolicy.maxTotalCampaignSpendUsd, 10);
   assert.equal(out.budgetPolicy.sumTrialSpendCeilingsUsd, 10);
   assert.equal(out.qualityFloorPolicy.maxQualityDelta, 0);
+  assert.equal(out.qualityFloorPolicy.absoluteQualityPolicyDigest, ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST);
+  assert.equal(out.qualityFloorPolicy.absoluteQualityPolicyDigest, ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST);
   assert.equal(out.providerCallAuthority, 'NONE');
   assert.equal(out.spendAuthority, 'NONE');
   assert.equal(out.executionAuthority, 'NONE');

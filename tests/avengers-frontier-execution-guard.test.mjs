@@ -137,8 +137,8 @@ test('even a branded synthetic simulation factory cannot be paired with injected
 test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and distinct adjudication under one shared budget', async () => {
   const profiles = [
     profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
-    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.98 }),
-    profile({ id: 'anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.97 })
+    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.99 }),
+    profile({ id: 'anthropic', provider: 'anthropic', model: 'claude-frontier', quality: 0.99 })
   ];
   const calls = profiles.map(callability);
   const modelExecutorFactory = createFrontierSimulationExecutorFactory({
@@ -186,40 +186,23 @@ test('COUNCIL_MAX executes sealed first passes, responder cross-critiques and di
   assert.equal(out.receipt.semanticClaimAuthority, 'NONE');
 });
 
-test('explicit COUNCIL_DEGRADED can reuse a responder as adjudicator without forging duplicate canonical execution identity', async () => {
+test('absolute frontier quality blocks degraded council before execution even when caller supplies a degradation policy', async () => {
   const profiles = [
     profile({ id: 'google', provider: 'google', model: 'gemini-frontier', quality: 0.99 }),
-    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.98 })
+    profile({ id: 'openai', provider: 'openai', model: 'gpt-frontier', quality: 0.99 })
   ];
   const calls = profiles.map(callability);
-  const modelExecutorFactory = createFrontierSimulationExecutorFactory({
-    responses: [
-      { taskId: 'avengers-frontier-guard:independent-google', model: 'google/gemini-frontier', costCents: 0, result: { answer: 'independent-google' } },
-      { taskId: 'avengers-frontier-guard:independent-openai', model: 'openai/gpt-frontier', costCents: 0, result: { answer: 'independent-openai' } },
-      { taskId: 'avengers-frontier-guard:cross-critique-google', model: 'google/gemini-frontier', costCents: 0, result: { contradictions: ['degraded-google-critique'] } },
-      { taskId: 'avengers-frontier-guard:cross-critique-openai', model: 'openai/gpt-frontier', costCents: 0, result: { contradictions: ['degraded-openai-critique'] } },
-      { taskId: 'avengers-frontier-guard:independent-adjudication', model: 'google/gemini-frontier', costCents: 0, result: { decision: 'explicit-degraded-synthesis', unresolved: ['adjudicator-reused'] } }
-    ]
-  });
-  let tick = 2000;
+  let factoryConstructions = 0;
   const out = await executeAdmittedFrontierAvenger({
     ...baseArgs(profiles, calls, 'COUNCIL_MAX'),
-    modelExecutorFactory,
-    policy: { allowDegradedCouncil: true, degradationPolicyRef: 'policy://explicit-two-profile-council' },
-    clock: () => ++tick
+    modelExecutorFactory: () => {
+      factoryConstructions += 1;
+      return async () => ({ ok: true });
+    },
+    policy: { allowDegradedCouncil: true, degradationPolicyRef: 'policy://caller-bypass-attempt' },
+    clock: () => 2000
   });
-  assert.equal(out.ok, true);
-  assert.equal(out.plan.status, 'COUNCIL_DEGRADED');
-  assert.ok(out.plan.degradationReasonCodes.includes('adjudicator-not-independent'));
-  assert.equal(out.executionCount, 5);
-  assert.equal(out.providerCalls, 0);
-  assert.equal(out.receipt.executions.length, 2);
-  assert.deepEqual(out.receipt.executions.map(item => item.profileId).sort(), ['google', 'openai']);
-  assert.equal(out.receipt.adjudication.independentFromResponders, false);
-  assert.equal(out.receipt.adjudicatorReusedFromResponders, true);
-  assert.equal(out.receipt.adjudicationExecution.profileId, 'google');
-  assert.equal(out.receipt.critiqueExecutions.length, 2);
-  assert.equal(out.receipt.semanticClaimAuthority, 'NONE');
-  assert.equal(out.receipt.businessEffectAuthority, 'NONE');
-  assert.equal(out.receipt.externalEffectLedger.providerCalls ?? 0, 0);
+  assert.equal(out.ok, false);
+  assert.equal(factoryConstructions, 0);
+  assert.ok(out.reasonCodes.includes('council-minimum-cardinality-unavailable') || out.reasonCodes.includes('independent-adjudicator-unavailable'));
 });

@@ -176,10 +176,10 @@ test('FRONTIER_MAX keeps materially stronger frontier model ahead of free cheape
 
 test('caller cannot widen frontier quality delta enough to turn FRONTIER_MAX into cost-first routing', () => {
   const p = profile({ id: 'p' });
-  const result = singlePlan(p, { frontierQualityDelta: 1 });
+  const result = singlePlan(p, { frontierQualityDelta: 0.01 });
   assert.equal(result.ok, false);
   assert.equal(result.status, 'FRONTIER_POLICY_INVALID');
-  assert.ok(result.reasonCodes.includes('bounded-frontier-policy-parameters-required'));
+  assert.ok(result.reasonCodes.includes('absolute-frontier-quality-delta-must-be-zero'));
 });
 
 test('frontier routing ignores task-supplied arbitrary model or endpoint injection', () => {
@@ -297,7 +297,7 @@ test('COUNCIL_MAX uses independent first-pass responders and a distinct adjudica
   const result = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }),
     profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a, { quality: 0.98 }), benchmark(b, { quality: 0.97 }), benchmark(c, { quality: 0.96 })],
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)],
     contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(result.ok, true);
@@ -323,22 +323,19 @@ test('COUNCIL_MAX fails closed if an independent adjudicator is unavailable by d
   assert.ok(result.reasonCodes.includes('council-minimum-cardinality-unavailable'));
 });
 
-test('degraded council requires an explicit policy reference and reports degradation', () => {
+test('absolute frontier quality prohibits degraded councils even with an explicit caller policy', () => {
   const a = profile({ id: 'a', provider: 'openai', model: 'a' });
   const b = profile({ id: 'b', provider: 'openai', model: 'b' });
   const c = profile({ id: 'c', provider: 'openai', model: 'c' });
   const base = {
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }),
     profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b, { quality: 0.96 }), benchmark(c, { quality: 0.95 })], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
   };
-  const noPolicy = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true });
-  assert.equal(noPolicy.ok, false);
-  assert.equal(noPolicy.status, 'FRONTIER_POLICY_INVALID');
-  const degraded = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true, degradationPolicyRef: 'policy://explicit-same-provider-degradation' });
-  assert.equal(degraded.ok, true);
-  assert.equal(degraded.status, 'COUNCIL_DEGRADED');
-  assert.ok(degraded.plan.degradationReasonCodes.length > 0);
+  const attemptedBypass = compileFrontierCognitivePlan({ ...base, allowDegradedCouncil: true, degradationPolicyRef: 'policy://caller-tries-to-bypass' });
+  assert.equal(attemptedBypass.ok, false);
+  assert.equal(attemptedBypass.status, 'CAPACITY_BLOCKED');
+  assert.ok(attemptedBypass.reasonCodes.includes('council-minimum-cardinality-unavailable'));
 });
 
 test('stale pricing or benchmark evidence cannot route FRONTIER_MAX', () => {
@@ -380,7 +377,7 @@ test('duplicate execution cannot fake council cardinality or verification', () =
   const c = profile({ id: 'c', provider: 'google', model: 'c' });
   const plan = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }), profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b, { quality: 0.96 }), benchmark(c, { quality: 0.95 })], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(plan.ok, true);
   const duplicate = buildFrontierCognitiveReceipt({
@@ -401,7 +398,7 @@ test('council receipt requires independent verifier evidence and rejects majorit
   const c = profile({ id: 'c', provider: 'google', model: 'c' });
   const plan = compileFrontierCognitivePlan({
     task: task({ reasoningTier: 'COUNCIL_MAX', minCouncilSize: 2, maxCouncilSize: 2 }), profiles: [a, b, c], callability: [callability(a), callability(b), callability(c)],
-    benchmarks: [benchmark(a), benchmark(b, { quality: 0.96 }), benchmark(c, { quality: 0.95 })], contextArtifacts: contextArtifacts(), now: NOW
+    benchmarks: [benchmark(a), benchmark(b), benchmark(c)], contextArtifacts: contextArtifacts(), now: NOW
   });
   assert.equal(plan.ok, true);
   const executions = plan.plan.members.map(executionFor);

@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { compileSemanticProgram } from './noetic-autocompiler.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_DELTA, qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy } from './absolute-frontier-quality-invariant.mjs';
 
 export const APEX_REASONING_HYPERCOMPILER_VERSION = 'uberbond.apex-reasoning-hypercompiler.v1';
 export const APEX_REASONING_MODES = Object.freeze([
@@ -273,11 +274,12 @@ export function compileApexReasoningArchitecture({
       law: 'PARALLEL_SEARCH_PRECEDES_SEQUENTIAL_AGGREGATION_WHEN_MULTIPLE_BRANCHES_EXIST; COMPUTE_EXPANDS_ON_UNRESOLVED_UNCERTAINTY_AND_CONTRACTS_AFTER_VERIFICATION'
     },
     semanticQualityFloor: {
+      absoluteQualityInvariant: qualityInvariantAttestation(),
       consequentialSemanticJudgements: 'FRONTIER_REASONING_OR_EXPLICITLY_CALIBRATED_COMPILED_REFLEX_ONLY',
       cheapGenerativeAuthority: 'NONE',
       majorityVoteAuthority: 'NONE',
       modelPrestigeAuthority: 'NONE',
-      law: 'COST_OPTIMIZATION_MAY_CHANGE_EXECUTION_MECHANICS_BUT_MAY_NOT_SILENTLY_LOWER_THE_REQUIRED_REASONING_QUALITY'
+      law: 'COST_OPTIMIZATION_MAY_CHANGE_EXECUTION_MECHANICS_ONLY_INSIDE_THE_SET_PROVEN_NOT_TO_REGRESS_THE_STRONGEST_AVAILABLE_FRONTIER_BASELINE'
     },
     perspectives,
     reasoningSearchPolicy: {
@@ -586,7 +588,7 @@ export function evaluateReasoningArchitectureArena({
   trials = [],
   taskClass,
   minimumSampleSize = 20,
-  qualityFloorDelta = 0.01
+  qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA
 } = {}) {
   const klass = text(taskClass, 160)?.toLowerCase();
   const minSamples = integer(minimumSampleSize, 1, 1_000_000_000);
@@ -594,6 +596,8 @@ export function evaluateReasoningArchitectureArena({
   if (!klass || minSamples == null || qualityDelta == null) {
     return fail('REASONING_ARENA_REFUSED', ['valid-task-class-sample-and-quality-floor-required']);
   }
+  const qualityPolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta });
+  if (!qualityPolicy.ok) return fail('REASONING_ARENA_REFUSED', qualityPolicy.reasonCodes);
   if (!Array.isArray(trials) || trials.length === 0 || trials.length > 10000) {
     return fail('REASONING_ARENA_REFUSED', ['bounded-trial-list-required']);
   }
@@ -619,8 +623,8 @@ export function evaluateReasoningArchitectureArena({
   if (!accepted.length) return fail('REASONING_ARENA_INSUFFICIENT_EVIDENCE', ['no-eligible-trials'], { rejected });
 
   const bestQuality = Math.max(...accepted.map(item => item.verifiedSuccessRate));
-  const qualityFloor = Math.max(0, bestQuality - qualityDelta);
-  const qualityFrontier = accepted.filter(item => item.verifiedSuccessRate >= qualityFloor);
+  const qualityFloor = bestQuality;
+  const qualityFrontier = accepted.filter(item => item.verifiedSuccessRate === bestQuality);
   const pareto = qualityFrontier.filter(candidate => !qualityFrontier.some(other => other !== candidate && dominates(other, candidate)));
 
   const ranked = [...qualityFrontier].sort((a, b) =>
@@ -644,6 +648,7 @@ export function evaluateReasoningArchitectureArena({
     promotionCandidateId: ranked[0]?.architectureId ?? null,
     rejected,
     promotionAuthority: 'NONE',
-    law: 'QUALITY_IS_LEXICOGRAPHICALLY_PRIMARY; COST_LATENCY_AND_FOUNDER_MINUTES_BREAK_TIES_INSIDE_THE_VERIFIED_QUALITY_FRONTIER; A LEADERBOARD RESULT DOES_NOT CREATE PRODUCTION AUTHORITY'
+    absoluteQualityInvariant: qualityInvariantAttestation(),
+    law: 'QUALITY_IS_ABSOLUTE_AND_ZERO_LOSS; COST_LATENCY_AND_FOUNDER_MINUTES_BREAK_TIES_ONLY_AFTER_VERIFIED_QUALITY_IS_IDENTICAL; A_LEADERBOARD_RESULT_DOES_NOT_CREATE_PRODUCTION_AUTHORITY'
   });
 }

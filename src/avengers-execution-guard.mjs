@@ -247,7 +247,7 @@ export async function executeAdmittedFrontierAvenger({
     contextRefs: planResult.plan.contextPacket.contextRefs,
     evidenceRefs: [selectedCallability.sourceRef, `admission://${admission.bundle.identityDigest}`]
   };
-  const execution = await executeFrontierMember({ member: planResult.plan.selected, task: workerTask, modelExecutorFactory: factory, callabilityEvidence: selectedCallability, maxTokens, costCeilingCents, clock });
+  const execution = await executeFrontierMember({ planResult, member: planResult.plan.selected, task: workerTask, modelExecutorFactory: factory, callabilityEvidence: selectedCallability, maxTokens, costCeilingCents, clock });
   if (!execution.ok) return fail(['frontier-execution-failed', ...(execution.reasonCodes || [])], {
     frontierStatus: execution.status,
     providerCalls,

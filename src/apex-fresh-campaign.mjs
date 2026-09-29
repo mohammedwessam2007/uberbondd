@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST, qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy } from './absolute-frontier-quality-invariant.mjs';
 import {
   sealedManifestCommitmentDigest,
   sealedCorpusDigestFromManifest
@@ -249,6 +250,7 @@ export function prepareFreshApexCampaign({
   const frontierBaselineId = text(qualityFloorPolicy?.frontierBaselineArchitectureId, 240)?.toLowerCase();
   const maxQualityDelta = finite(qualityFloorPolicy?.maxQualityDelta ?? 0, 0, 1);
   const requireNoWorseFalsePositiveUpperBound = qualityFloorPolicy?.requireNoWorseFalsePositiveUpperBound !== false;
+  const absoluteQualityPolicyDigest = text(qualityFloorPolicy?.absoluteQualityPolicyDigest, 64)?.toLowerCase();
 
   const normalization = text(budgetPolicy?.normalization ?? 'COMMON_CEILING', 120)?.toUpperCase();
   const maxMeanCostUsd = finite(budgetPolicy?.maxMeanCostUsd, 0.000001, 1_000_000);
@@ -266,6 +268,11 @@ export function prepareFreshApexCampaign({
   if (!id || !suite || !klass || minTasks == null || !freeze) reasons.push('campaign-suite-task-freeze-required');
   if (qualityMode !== 'LEXICOGRAPHIC_FRONTIER_FIRST') reasons.push('lexicographic-frontier-first-quality-policy-required');
   if (!frontierBaselineId || maxQualityDelta == null) reasons.push('frontier-baseline-and-quality-delta-required');
+  const absoluteQuality = validateAbsoluteFrontierQualityPolicy({
+    qualityDelta: maxQualityDelta,
+    qualityPolicyDigest: absoluteQualityPolicyDigest
+  });
+  if (!absoluteQuality.ok) reasons.push(...absoluteQuality.reasonCodes);
   if (normalization !== 'COMMON_CEILING' || [maxMeanCostUsd, maxMeanLatencyMs, maxMeanFounderMinutes, maxTotalCampaignSpendUsd].some(value => value == null)) {
     reasons.push('matched-cost-latency-founder-and-total-spend-ceilings-required');
   }
@@ -307,8 +314,10 @@ export function prepareFreshApexCampaign({
   const quality = {
     mode: 'LEXICOGRAPHIC_FRONTIER_FIRST',
     frontierBaselineArchitectureId: frontierBaselineId,
-    maxQualityDelta,
-    requireNoWorseFalsePositiveUpperBound
+    maxQualityDelta: 0,
+    requireNoWorseFalsePositiveUpperBound,
+    absoluteQualityPolicyDigest: ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST,
+    absoluteQualityInvariant: qualityInvariantAttestation()
   };
   const sumTrialSpendCeilingsUsd = Number(roster.reduce((sum, row) => sum + row.trialSpendCeilingUsd, 0).toFixed(8));
   if (sumTrialSpendCeilingsUsd > maxTotalCampaignSpendUsd + 1e-9) {

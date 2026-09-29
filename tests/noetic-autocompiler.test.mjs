@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { certifyPairedZeroLoss } from '../src/absolute-frontier-quality-invariant.mjs';
 import {
   assessRealityDrift,
   compileSemanticProgram,
@@ -79,11 +80,60 @@ test('reality drift decompiles a formerly stable reflex', () => {
   assert.equal(result.status, 'REALITY_DRIFT_DETECTED__DECOMPILE');
 });
 
-test('deterministic compilation is only a candidate after strong reality evidence', () => {
-  const weak = proposeCognitiveCompilation({ programDigest: 'sha256:x', outcomeCount: 20, accuracy: 1, calibrationError: 0, stableWindows: 3 });
-  assert.equal(weak.eligible, false);
-  const strong = proposeCognitiveCompilation({ programDigest: 'sha256:x', outcomeCount: 500, accuracy: 0.995, calibrationError: 0.01, stableWindows: 5 });
-  assert.equal(strong.eligible, true);
+test('deterministic compilation requires exact paired zero-loss proof, not merely high accuracy', () => {
+  const programDigest = 'sha256:x';
+  const outcomes = Array.from({ length: 100 }, (_, index) => ({ taskId: `t-${index}`, outcome: 'CORRECT' }));
+  const baselineTrial = {
+    architectureId: 'frontier-baseline',
+    suiteVersion: 'jev-zero-loss-v1',
+    corpusDigest: 'a'.repeat(64),
+    manifestDigest: 'b'.repeat(64),
+    taskClass: 'semantic-reflex',
+    taskOutcomeDigest: 'c'.repeat(64),
+    pairedTaskOutcomes: outcomes,
+    statistics: { verifiedSuccessRate: 1, falsePositiveRate: 0 },
+    arenaTrial: { processScore: 1 },
+    economics: { meanCostUsd: 1 }
+  };
+  const candidateTrial = {
+    ...baselineTrial,
+    architectureId: programDigest,
+    taskOutcomeDigest: 'd'.repeat(64),
+    economics: { meanCostUsd: 0.001 }
+  };
+  const certificate = certifyPairedZeroLoss({ baselineTrial, candidateTrial, requireEconomicsImprovement: true, provenanceValidator: () => ({ ok: true }) });
+  assert.equal(certificate.ok, true, JSON.stringify(certificate));
+
+  const highButNotPerfect = proposeCognitiveCompilation({
+    programDigest,
+    outcomeCount: 500,
+    accuracy: 0.995,
+    calibrationError: 0.01,
+    stableWindows: 5,
+    zeroLossCertificate: certificate
+  });
+  assert.equal(highButNotPerfect.eligible, false);
+  assert.ok(highButNotPerfect.reasonCodes.includes('accuracy-below-zero-loss-threshold'));
+
+  const noCertificate = proposeCognitiveCompilation({
+    programDigest,
+    outcomeCount: 500,
+    accuracy: 1,
+    calibrationError: 0,
+    stableWindows: 5
+  });
+  assert.equal(noCertificate.eligible, false);
+  assert.ok(noCertificate.reasonCodes.includes('paired-zero-loss-certificate-required'));
+
+  const strong = proposeCognitiveCompilation({
+    programDigest,
+    outcomeCount: 100,
+    accuracy: 1,
+    calibrationError: 0,
+    stableWindows: 5,
+    zeroLossCertificate: certificate
+  });
+  assert.equal(strong.eligible, true, JSON.stringify(strong));
   assert.equal(strong.status, 'DETERMINISTIC_COMPILATION_CANDIDATE');
   assert.equal(strong.automaticCodeMutationAuthorized, false);
 });
@@ -94,4 +144,20 @@ test('planner exposes the exact typed questions without executing them', () => {
   assert.equal(result.questions.worthResearch.type, 'noul');
   assert.equal(result.questions.route.type, 'choice');
   assert.equal(result.questions.value.type, 'score');
+});
+
+
+test('any measured regression decompiles immediately', () => {
+  const tinyAccuracyLoss = assessRealityDrift({
+    baseline: { accuracy: 1, calibrationError: 0 },
+    recent: { accuracy: 0.999999, calibrationError: 0, count: 100 }
+  });
+  assert.equal(tinyAccuracyLoss.drift, true);
+  assert.equal(tinyAccuracyLoss.action, 'IMMEDIATE_DECOMPILE_TO_FRONTIER_AND_REVALIDATE');
+
+  const tinyCalibrationLoss = assessRealityDrift({
+    baseline: { accuracy: 1, calibrationError: 0 },
+    recent: { accuracy: 1, calibrationError: 0.000001, count: 100 }
+  });
+  assert.equal(tinyCalibrationLoss.drift, true);
 });

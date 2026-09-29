@@ -2,10 +2,12 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { scoreSealedResponse } from './nullstar-omega-holdout.mjs';
 import { evaluateReasoningArchitectureArena } from './apex-reasoning-hypercompiler.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_DELTA, certifyPairedZeroLoss, qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy } from './absolute-frontier-quality-invariant.mjs';
 
 export const APEX_SEALED_TOURNAMENT_VERSION = 'uberbond.apex-sealed-tournament.v1.1';
 export const APEX_TOURNAMENT_CLAIM_MODES = Object.freeze(['TASK_CLASS', 'PUBLIC_FRONTIER']);
 export const APEX_ARCHITECTURE_CLASSES = Object.freeze(['INCUMBENT', 'CHALLENGER', 'PUBLIC_BASELINE']);
+const compiledSealedTrials = new WeakMap();
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
 function envelope(extra = {}) {
@@ -199,7 +201,8 @@ export function compileSealedArchitectureTrial({
   processScore,
   processEvidenceRef,
   verifierId,
-  architectureDesignerId = null
+  architectureDesignerId = null,
+  benchmarkSubject = null
 } = {}) {
   const arch = text(architectureId, 200)?.toLowerCase();
   const archClass = text(architectureClass, 80)?.toUpperCase();
@@ -215,12 +218,22 @@ export function compileSealedArchitectureTrial({
   const processRef = text(processEvidenceRef, 1000);
   const verifier = text(verifierId, 300);
   const designer = architectureDesignerId == null ? null : text(architectureDesignerId, 300);
+  const subject = benchmarkSubject == null ? null : {
+    profileId: text(benchmarkSubject?.profileId, 120)?.toLowerCase(),
+    provider: text(benchmarkSubject?.provider, 80)?.toLowerCase(),
+    model: text(benchmarkSubject?.model, 160),
+    revision: text(benchmarkSubject?.revision, 240),
+    exclusiveCognitiveSubject: benchmarkSubject?.exclusiveCognitiveSubject === true
+  };
   const reasons = [];
   if (!arch || !APEX_ARCHITECTURE_CLASSES.includes(archClass) || !archDigest || !/^[a-f0-9]{64}$/i.test(archDigest) || !archRevision || !archSource || !frozenAt) reasons.push('complete-frozen-architecture-identity-required');
   if (!klass || !suite || !corpus) reasons.push('task-suite-and-corpus-required');
   if (process == null || !processRef || !verifier) reasons.push('independent-process-evidence-required');
   if (designer && verifier === designer) reasons.push('verifier-must-differ-from-architecture-designer');
   if (archClass === 'PUBLIC_BASELINE' && !reproductionRef) reasons.push('public-baseline-reproduction-evidence-required');
+  if (benchmarkSubject != null && (!subject?.profileId || !subject?.provider || !subject?.model || !subject?.revision || subject?.exclusiveCognitiveSubject !== true)) {
+    reasons.push('complete-exclusive-benchmark-subject-required');
+  }
 
   const manifest = normalizeManifest(sealedManifest);
   if (!manifest.ok) reasons.push(...manifest.reasonCodes);
@@ -326,7 +339,8 @@ export function compileSealedArchitectureTrial({
     architectureRevision: archRevision,
     architectureSourceRef: archSource,
     architectureFrozenAt: frozenAt,
-    reproductionEvidenceRef: reproductionRef
+    reproductionEvidenceRef: reproductionRef,
+    benchmarkSubject: subject
   };
   const evidenceSummary = {
     architectureIdentity,
@@ -373,7 +387,7 @@ export function compileSealedArchitectureTrial({
     evidenceRef
   };
 
-  return envelope({
+  const compiledTrial = envelope({
     ok: true,
     status: 'SEALED_ARCHITECTURE_TRIAL_COMPILED',
     suiteVersion: suite,
@@ -409,6 +423,7 @@ export function compileSealedArchitectureTrial({
       evaluatorRef: commitment.commitment.evaluatorRef
     },
     taskOutcomeDigest: digest(evidenceSummary.taskOutcomes),
+    pairedTaskOutcomes: evidenceSummary.taskOutcomes.map(row => ({ taskId: row.taskId, outcome: row.outcome })),
     receiptDigest,
     optimizerVisiblePayload: {
       architectureIdentity,
@@ -436,6 +451,27 @@ export function compileSealedArchitectureTrial({
     executionAuthority: 'NONE',
     truthBoundary: 'THE BRIDGE BINDS THE SUPPLIED SEALED MANIFEST TO THE DECLARED CORPUS AND PRECOMMITTED HOLDOUT RECEIPT, SCORES SALTED ANSWER DIGESTS, AND RETURNS AGGREGATES. IT DOES NOT PROVE ZERO HISTORICAL LEAKAGE OUTSIDE THE HARNESS OR GRANT PRODUCTION PROMOTION.'
   });
+  compiledSealedTrials.set(compiledTrial, digest(compiledTrial));
+  return compiledTrial;
+}
+
+export function validateCompiledSealedArchitectureTrial(trial) {
+  const expectedDigest = trial && typeof trial === 'object' ? compiledSealedTrials.get(trial) : null;
+  const actualDigest = trial && typeof trial === 'object' ? digest(trial) : null;
+  if (!expectedDigest || expectedDigest !== actualDigest) {
+    return fail('SEALED_ARCHITECTURE_TRIAL_PROVENANCE_REFUSED', ['process-validated-untampered-sealed-trial-required']);
+  }
+  if (trial?.ok !== true || trial?.status !== 'SEALED_ARCHITECTURE_TRIAL_COMPILED') {
+    return fail('SEALED_ARCHITECTURE_TRIAL_PROVENANCE_REFUSED', ['compiled-sealed-trial-required']);
+  }
+  return envelope({
+    ok: true,
+    status: 'SEALED_ARCHITECTURE_TRIAL_PROVENANCE_VALID',
+    architectureId: trial.architectureId,
+    receiptDigest: trial.receiptDigest,
+    taskOutcomeDigest: trial.taskOutcomeDigest,
+    trialDigest: actualDigest
+  });
 }
 
 export function evaluateSealedArchitectureTournament({
@@ -445,7 +481,7 @@ export function evaluateSealedArchitectureTournament({
   minimumPublicBaselines = 3,
   budgetPolicy = {},
   minimumSampleSize = 20,
-  qualityFloorDelta = 0.01
+  qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA
 } = {}) {
   const incumbentId = text(incumbentArchitectureId, 200)?.toLowerCase();
   const mode = text(claimMode, 80)?.toUpperCase();
@@ -459,6 +495,8 @@ export function evaluateSealedArchitectureTournament({
   if (!incumbentId || minSamples == null) reasons.push('incumbent-and-minimum-sample-required');
   if (!APEX_TOURNAMENT_CLAIM_MODES.includes(mode)) reasons.push('recognized-claim-mode-required');
   if (minBaselines == null) reasons.push('bounded-public-baseline-count-required');
+  const absoluteQuality = validateAbsoluteFrontierQualityPolicy({ qualityDelta: qualityFloorDelta });
+  if (!absoluteQuality.ok) reasons.push(...absoluteQuality.reasonCodes);
   if (normalization !== 'COMMON_CEILING' || maxMeanCostUsd == null || maxMeanFounderMinutes == null || maxMeanLatencyMs == null) reasons.push('common-quality-preserving-budget-ceiling-required');
   if (!Array.isArray(trials) || trials.length < 2 || trials.length > 1000) reasons.push('two-to-1000-trials-required');
   if (reasons.length) return fail('SEALED_ARCHITECTURE_TOURNAMENT_REFUSED', reasons);
@@ -473,7 +511,12 @@ export function evaluateSealedArchitectureTournament({
   let taskClass = null;
 
   for (const [index, trial] of trials.entries()) {
-    if (!trial?.ok || trial?.status !== 'SEALED_ARCHITECTURE_TRIAL_COMPILED' || !trial?.arenaTrial || !trial?.architectureIdentity) {
+    const provenance = validateCompiledSealedArchitectureTrial(trial);
+    if (!provenance.ok) {
+      reasons.push(`trial-${index}:process-validated-untampered-sealed-trial-required`);
+      continue;
+    }
+    if (!trial?.arenaTrial || !trial?.architectureIdentity) {
       reasons.push(`trial-${index}:compiled-sealed-trial-required`);
       continue;
     }
@@ -520,6 +563,22 @@ export function evaluateSealedArchitectureTournament({
   const incumbent = accepted.find(trial => trial.architectureId === incumbentId) ?? null;
   const challenger = Boolean(leader && leader.architectureId !== incumbentId);
   const alternatives = accepted.filter(trial => trial.architectureId !== leaderId);
+  const zeroLossVsIncumbent = challenger
+    ? certifyPairedZeroLoss({ baselineTrial: incumbent, candidateTrial: leader, provenanceValidator: validateCompiledSealedArchitectureTrial })
+    : null;
+  const zeroLossVsReviewed = challenger
+    ? alternatives.map(other => ({
+        architectureId: other.architectureId,
+        certification: certifyPairedZeroLoss({ baselineTrial: other, candidateTrial: leader, provenanceValidator: validateCompiledSealedArchitectureTrial })
+      }))
+    : [];
+  const zeroLossAgainstAllReviewed = challenger && zeroLossVsReviewed.every(row => row.certification.ok);
+  const strictCostImprovementVsIncumbent = Boolean(
+    challenger
+    && Number.isFinite(leader?.economics?.meanCostUsd)
+    && Number.isFinite(incumbent?.economics?.meanCostUsd)
+    && leader.economics.meanCostUsd < incumbent.economics.meanCostUsd
+  );
   const clearSuccessSeparationVsIncumbent = Boolean(
     challenger
     && leader?.statistics?.successInterval95
@@ -549,11 +608,17 @@ export function evaluateSealedArchitectureTournament({
   );
 
   let status = 'SEALED_INCUMBENT_RETAINS_LEAD';
-  if (challenger && clearSuccessSeparationVsIncumbent && falsePositiveNotWorseVsIncumbent) status = 'SEALED_CHALLENGER_REPLICATION_CANDIDATE';
-  else if (challenger) status = 'SEALED_CHALLENGER_SIGNAL_REQUIRES_REPLICATION';
+  if (challenger && zeroLossVsIncumbent?.ok && strictCostImprovementVsIncumbent) {
+    status = 'SEALED_ZERO_LOSS_COMPRESSION_REPLICATION_CANDIDATE';
+  } else if (challenger && zeroLossVsIncumbent?.ok && clearSuccessSeparationVsIncumbent && falsePositiveNotWorseVsIncumbent) {
+    status = 'SEALED_CHALLENGER_REPLICATION_CANDIDATE';
+  } else if (challenger) {
+    status = 'SEALED_CHALLENGER_SIGNAL_REQUIRES_REPLICATION';
+  }
   if (
     mode === 'PUBLIC_FRONTIER'
     && challenger
+    && zeroLossAgainstAllReviewed
     && separatedFromAllReviewed
     && falsePositiveNotWorseThanAllReviewed
   ) status = 'PUBLIC_REVIEW_SET_LEADER_REPLICATION_CANDIDATE';
@@ -578,12 +643,21 @@ export function evaluateSealedArchitectureTournament({
     },
     arena,
     leaderArchitectureId: leaderId,
+    absoluteQualityInvariant: qualityInvariantAttestation(),
+    zeroLossGate: {
+      certifiedVsIncumbent: challenger ? zeroLossVsIncumbent?.ok === true : true,
+      certificationVsIncumbent: zeroLossVsIncumbent,
+      zeroLossAgainstAllReviewed,
+      reviewedCertifications: zeroLossVsReviewed,
+      strictCostImprovementVsIncumbent,
+      rule: 'COST MAY MATTER ONLY AFTER THE CHALLENGER HAS ZERO PAIRED TASK REGRESSIONS AND NO REGRESSION IN VERIFIED SUCCESS, FALSE POSITIVES OR PROCESS SCORE.'
+    },
     confidenceGate: {
       clearSuccessSeparationVsIncumbent,
       falsePositiveNotWorseVsIncumbent,
       separatedFromAllReviewed,
       falsePositiveNotWorseThanAllReviewed,
-      rule: 'A CHALLENGER MAY ADVANCE TO INDEPENDENT REPLICATION ONLY AFTER QUALITY-FIRST SEALED EVALUATION. PUBLIC-REVIEW-SET LEADERSHIP REQUIRES CLEAR SUCCESS SEPARATION FROM EVERY REVIEWED BASELINE UNDER THE SAME CEILING AND NO WORSE FALSE-POSITIVE UPPER BOUND.'
+      rule: 'CONFIDENCE INTERVALS ARE SECONDARY TO THE PAIRED ZERO-LOSS GATE; NO AGGREGATE SCORE OR PRICE ADVANTAGE MAY HIDE A TASK-LEVEL REGRESSION.'
     },
     optimizerVisibleResults: accepted.map(trial => trial.optimizerVisiblePayload),
     sealedPromptAccessGranted: false,

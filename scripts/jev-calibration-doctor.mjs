@@ -12,10 +12,11 @@ process.stdout.write(`${JSON.stringify({
   result,
   promotionRule:{
     minimumOutcomes:100,
-    minimumAccuracy:0.98,
-    maximumCalibrationError:0.02,
+    minimumAccuracy:1,
+    maximumCalibrationError:0,
+    pairedZeroLossCertificateRequired:true,
     minimumStableWindows:3,
     automaticPromotion:false
   },
-  truthBoundary:'SHADOW_OUTCOMES_ONLY__NO_AUTOMATIC_AUTHORITY_OR_PRODUCTION_PROMOTION'
+  truthBoundary:'SHADOW_OUTCOMES_ONLY__NO_AUTOMATIC_AUTHORITY_OR_PRODUCTION_PROMOTION__FRONTIER_REPLACEMENT_REQUIRES_EXACT_PAIRED_ZERO_LOSS_CERTIFICATION'
 },null,2)}\n`);

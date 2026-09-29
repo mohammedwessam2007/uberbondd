@@ -230,7 +230,7 @@ For high-value cognitive work:
 
 Permanent rules:
 
-- APEX optimization is quality-first. Cost, latency and founder minutes may break ties only inside a verified frontier-quality band.
+- APEX optimization is governed by the Absolute Frontier Quality Invariant (`uberbond.absolute-frontier-quality.v1`). The permitted quality delta is exactly zero. Cost, latency and founder minutes may break ties only after identical verified frontier quality, and compression additionally requires paired-task non-regression. Aggregate equality may not hide a task-level regression. Missing or uncertain proof falls back to the strongest available frontier baseline.
 - A cheap model, router, Jev score, majority vote, benchmark rank or provider brand may not silently lower the semantic reasoning floor for a consequential APEX task.
 - Councils preserve sealed independent first passes; critique and adjudication use identity-blind model-facing packets while runtime provenance remains exact.
 - Test-time compute expands with unresolved uncertainty/novelty/stakes and contracts after verification instead of using a fixed ceremonial swarm.
@@ -307,3 +307,12 @@ Wave 1 is staged at `config/apex-frontier-quality-compression-campaign.json` wit
 The candidate registry has expanded to 20 current discovery candidates while preserving discovery/transport/callability separation. Six 2026-09-29 efficiency-frontier discoveries are deliberately discovery-only until exact runtime admission: MiMo-V2.6-Pro, MiMo-V2.6-Flash, Qwen3.8 Flash, MiniMax M2.5, GLM-5.3-Flash and Doubao Seed 2.1 Lite.
 
 Full contract: `docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`.
+
+
+### Absolute Frontier Quality Invariant
+
+UberBond must never trade frontier semantic quality for cost. `FRONTIER_MAX` is the floor for semantic cognition and `COUNCIL_MAX` is an escalation, not a downgrade target. Cheaper models, Jev reflexes, batching, caching, deferred execution, context compression, deterministic code and specialized substrates are optimization mechanisms only when the exact bounded path is proven not to regress the strongest available frontier baseline.
+
+The executable root of this law is `src/absolute-frontier-quality-invariant.mjs`. Frontier plans and runtime executions carry its policy digest. The reasoning Arena and sealed tournament accept no nonzero quality delta. Zero-loss compression is paired-task based: a candidate may not turn any baseline-correct task into an incorrect or abstained task, may not worsen false positives, verified success or process score, and may not use aggregate score equality to hide swapped failures. Degraded councils are prohibited. Unknown future distribution behavior remains unknown, so uncertainty falls back upward to frontier cognition.
+
+This is a quality law, not a claim that finite tests prove universal equivalence. Promotion, production activation and consequential authority remain separately governed.

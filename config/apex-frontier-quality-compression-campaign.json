@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "uberbond.apex-frontier-quality-compression-campaign-input.v1",
+  "status": "PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED",
+  "campaignId": "apex-fqc-2026-09-29-wave-1",
+  "suiteVersion": "apex-frontier-quality-compression-v1",
+  "taskClass": "hard-general-reasoning",
+  "minimumTaskCount": 40,
+  "architectureFrozenAt": "2026-09-29T00:26:04.000Z",
+  "qualityFloorPolicy": {
+    "mode": "LEXICOGRAPHIC_FRONTIER_FIRST",
+    "frontierBaselineArchitectureId": "opus-5-5-max-interactive-baseline",
+    "maxQualityDelta": 0,
+    "requireNoWorseFalsePositiveUpperBound": true
+  },
+  "budgetPolicy": {
+    "normalization": "COMMON_CEILING",
+    "maxMeanCostUsd": 0.075,
+    "maxMeanLatencyMs": 86400000,
+    "maxMeanFounderMinutes": 0.1,
+    "maxTotalCampaignSpendUsd": 10
+  },
+  "custodianPolicy": {
+    "rawStorage": "OUTSIDE_REPOSITORY",
+    "evaluatorIndependenceRequired": true,
+    "architectureFreezeBeforeCommitmentRequired": true,
+    "freshGenerationRequired": true,
+    "previouslyEvaluatedItemReuseAllowed": false
+  },
+  "architectures": [
+    {
+      "architectureId": "opus-5-5-max-interactive-baseline",
+      "architectureClass": "INCUMBENT",
+      "architectureRevision": "apex-fqc-wave1-baseline-r1",
+      "architectureSourceRef": "github://mohammedwessam2007/uberbondd@5a1384b51a3d0cfacb3d5df2a94e0598e8c477e8",
+      "architectureFrozenAt": "2026-09-29T00:26:04.000Z",
+      "topologyRef": "apex://direct-frontier",
+      "contextPolicyRef": "canon://minimum-sufficient-context",
+      "verifierPolicyRef": "apex://independent-sealed-verifier",
+      "promptContractRef": "apex://frontier-max-quality-contract",
+      "executionModeRef": "INTERACTIVE",
+      "jevMode": "NONE",
+      "deterministicCrystallization": false,
+      "trialSpendCeilingUsd": 3,
+      "evidencePrerequisites": [],
+      "modelRequirements": [
+        {
+          "candidateId": "anthropic-claude-opus-5-5",
+          "role": "SOVEREIGN_REASONER",
+          "reasoningSettingRef": "anthropic:effort=max",
+          "count": 1,
+          "transportClass": "ANY_VERIFIED"
+        }
+      ]
+    },
+    {
+      "architectureId": "opus-5-5-max-deferred-compression",
+      "architectureClass": "CHALLENGER",
+      "architectureRevision": "apex-fqc-wave1-opus-deferred-r1",
+      "architectureSourceRef": "github://mohammedwessam2007/uberbondd@5a1384b51a3d0cfacb3d5df2a94e0598e8c477e8",
+      "architectureFrozenAt": "2026-09-29T00:26:04.000Z",
+      "topologyRef": "apex://direct-frontier",
+      "contextPolicyRef": "canon://prefix-cache-delta-only-context",
+      "verifierPolicyRef": "apex://independent-sealed-verifier",
+      "promptContractRef": "apex://frontier-max-quality-contract",
+      "executionModeRef": "ANTHROPIC_BATCH_OR_EQUIVALENT_DEFERRED",
+      "jevMode": "NONE",
+      "deterministicCrystallization": false,
+      "trialSpendCeilingUsd": 2,
+      "evidencePrerequisites": [],
+      "modelRequirements": [
+        {
+          "candidateId": "anthropic-claude-opus-5-5",
+          "role": "SOVEREIGN_REASONER",
+          "reasoningSettingRef": "anthropic:effort=max",
+          "count": 1,
+          "transportClass": "ANY_VERIFIED"
+        }
+      ]
+    },
+    {
+      "architectureId": "opus-mimo-quality-compression-swarm",
+      "architectureClass": "CHALLENGER",
+      "architectureRevision": "apex-fqc-wave1-mimo-r1",
+      "architectureSourceRef": "github://mohammedwessam2007/uberbondd@5a1384b51a3d0cfacb3d5df2a94e0598e8c477e8",
+      "architectureFrozenAt": "2026-09-29T00:26:04.000Z",
+      "topologyRef": "apex://parallel-frontier-heterogeneous",
+      "contextPolicyRef": "canon://artifact-first-cache-stable-delta-context",
+      "verifierPolicyRef": "apex://identity-blind-frontier-final-adjudication",
+      "promptContractRef": "apex://frontier-quality-compression",
+      "executionModeRef": "DEFERRED_HETEROGENEOUS_BATCH",
+      "jevMode": "SHADOW_ONLY",
+      "deterministicCrystallization": true,
+      "trialSpendCeilingUsd": 2.5,
+      "evidencePrerequisites": [],
+      "modelRequirements": [
+        {
+          "candidateId": "anthropic-claude-opus-5-5",
+          "role": "ORCHESTRATOR_AND_FINAL_JUDGE",
+          "reasoningSettingRef": "anthropic:effort=max",
+          "count": 1,
+          "transportClass": "ANY_VERIFIED"
+        },
+        {
+          "candidateId": "xiaomi-mimo-v2-6-pro",
+          "role": "HIGH_POWER_REASONING_WORKER",
+          "reasoningSettingRef": "xiaomi:thinking=provider-default",
+          "count": 6,
+          "transportClass": "ANY_VERIFIED"
+        },
+        {
+          "candidateId": "xiaomi-mimo-v2-6-flash",
+          "role": "MASS_EXPLORATION_WORKER",
+          "reasoningSettingRef": "xiaomi:thinking=provider-default",
+          "count": 16,
+          "transportClass": "ANY_VERIFIED"
+        }
+      ]
+    },
+    {
+      "architectureId": "opus-diverse-efficiency-swarm",
+      "architectureClass": "CHALLENGER",
+      "architectureRevision": "apex-fqc-wave1-diverse-r1",
+      "architectureSourceRef": "github://mohammedwessam2007/uberbondd@5a1384b51a3d0cfacb3d5df2a94e0598e8c477e8",
+      "architectureFrozenAt": "2026-09-29T00:26:04.000Z",
+      "topologyRef": "apex://parallel-frontier-identity-blind-diversity",
+      "contextPolicyRef": "canon://artifact-first-cache-stable-delta-context",
+      "verifierPolicyRef": "apex://identity-blind-frontier-final-adjudication",
+      "promptContractRef": "apex://frontier-quality-compression",
+      "executionModeRef": "DEFERRED_HETEROGENEOUS_LOW_COST",
+      "jevMode": "SHADOW_ONLY",
+      "deterministicCrystallization": true,
+      "trialSpendCeilingUsd": 2.5,
+      "evidencePrerequisites": [],
+      "modelRequirements": [
+        {
+          "candidateId": "anthropic-claude-opus-5-5",
+          "role": "ORCHESTRATOR_AND_FINAL_JUDGE",
+          "reasoningSettingRef": "anthropic:effort=max",
+          "count": 1,
+          "transportClass": "ANY_VERIFIED"
+        },
+        {
+          "candidateId": "deepseek-v4-1-flash",
+          "role": "MASS_REASONING_WORKER",
+          "reasoningSettingRef": "deepseek:effort=max",
+          "count": 12,
+          "transportClass": "ANY_VERIFIED"
+        },
+        {
+          "candidateId": "alibaba-qwen3-8-flash",
+          "role": "INDEPENDENT_REASONING_WORKER",
+          "reasoningSettingRef": "alibaba:thinking=provider-default",
+          "count": 6,
+          "transportClass": "ANY_VERIFIED"
+        },
+        {
+          "candidateId": "zai-glm-5-3-flash",
+          "role": "INDEPENDENT_REASONING_WORKER",
+          "reasoningSettingRef": "zai:reasoning=provider-default",
+          "count": 6,
+          "transportClass": "ANY_VERIFIED"
+        }
+      ]
+    }
+  ],
+  "marketRefreshWatchlist": [
+    "minimax-m2-5",
+    "volcengine-doubao-seed-2-1-lite",
+    "moonshot-kimi-k3",
+    "google-gemini-3-8-flash",
+    "xai-grok-4-7"
+  ],
+  "truthBoundary": "THIS FILE IS A PRE-EXECUTION EXPERIMENT TEMPLATE. DISCOVERY-ONLY MODELS REMAIN INELIGIBLE FOR EXECUTION UNTIL EXACT TRANSPORT, CALLABILITY, REASONING-SETTING AND PRICING RECEIPTS EXIST. NO RAW HOLDOUTS BELONG IN THIS FILE."
+}

@@ -469,7 +469,6 @@ export function compileFrontierCognitivePlan({
   callabilityMaxAgeMs = DEFAULT_CALLABILITY_MAX_AGE_MS,
   frontierQualityDelta = DEFAULT_FRONTIER_QUALITY_DELTA,
   allowDegradedCouncil = false,
-  degradationPolicyRef = null,
   now = new Date(),
   random = () => 0.5
 } = {}) {
@@ -487,7 +486,6 @@ export function compileFrontierCognitivePlan({
     const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil });
     if (!absolutePolicy.ok) return failure(absolutePolicy.reasonCodes, 'FRONTIER_POLICY_INVALID');
   }
-  if (allowDegradedCouncil && !text(degradationPolicyRef, 1000)) return failure(['degradation-policy-ref-required'], 'FRONTIER_POLICY_INVALID');
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');
 
   const provenance = validateFrontierCallabilityProbeReceipt({ ...(callabilityProvenance ?? {}), allowSynthetic: true });

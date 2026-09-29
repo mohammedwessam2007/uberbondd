@@ -32,6 +32,7 @@ const REQUIRED = [
   'open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json',
   'open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json',
   'open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json',
+  'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md',
   'docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json',
   'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md',
   'src/frontier-intelligence-vm.mjs',
@@ -155,6 +156,16 @@ if (v5Receipt) {
   if (v5Receipt?.status !== 'OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED') failures.push('v5-receipt-not-complete');
   if (v5Receipt?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v5-quality-delta-not-zero');
 }
+const millionDollarTarget = fs.existsSync(path.join(root, 'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md'))
+  ? fs.readFileSync(path.join(root, 'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md'), 'utf8')
+  : null;
+
+if (millionDollarTarget) {
+  if (!millionDollarTarget.includes('33,333.333')) failures.push('million-dollar-target-compression-factor-missing');
+  if (!millionDollarTarget.includes('paired required-quality regression = 0')) failures.push('million-dollar-target-zero-regression-law-missing');
+  if (!millionDollarTarget.includes('Raw-compute equivalence is a separate claim')) failures.push('million-dollar-target-raw-compute-boundary-missing');
+}
+
 if (liveMarket) {
   if (liveMarket?.status !== 'PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND') failures.push('live-market-snapshot-status-invalid');
   if (liveMarket?.promotionBoundary?.currentCrownPromoted !== false) failures.push('live-market-snapshot-illegally-promotes-crown');
@@ -205,6 +216,7 @@ console.log(JSON.stringify({
   v5FrontierVm: v5Receipt?.status ?? null,
   v5PolicyReconciliation: v5PolicyReceipt?.status ?? null,
   liveModelMarketSnapshot: liveMarket?.status ?? null,
+  millionDollarIntelligenceTarget: millionDollarTarget ? 'FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN' : null,
   wessamSingularityWarRoom: warRoom?.schemaVersion ?? null
 }, null, 2));
 

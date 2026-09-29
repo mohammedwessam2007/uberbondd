@@ -973,6 +973,16 @@
         "qwen/qwen3.8-max-0902"
       ],
       "law": "PUBLIC_MARKET_EVIDENCE_IS_CANDIDATE_EVIDENCE_ONLY__NO_CROWN_PROMOTION_WITHOUT_OWNER_ROUTE_CALLABILITY_AND_FRESH_PAIRED_TASK_PROOF"
+    },
+    "millionDollarIntelligenceTarget": {
+      "status": "FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN",
+      "canonicalSpec": "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
+      "actualAllInSpendUsdMax": 30,
+      "directFrontierReferenceCostUsdMin": 1000000,
+      "targetCompressionFactor": 33333.333333333336,
+      "pairedRequiredQualityRegressionsAllowed": 0,
+      "interpretation": "Literal matched direct-frontier reference-work/economic equivalence, not an unsupported raw-GPU/FLOP equivalence claim.",
+      "nextEvidence": "Live activation -> paired burn-in -> realized compilation -> measured 100x -> 1000x -> 10000x -> 33333.333x"
     }
   },
   "wessamSingularityOverlay": {

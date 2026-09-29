@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.open-router.frontier-max.v5",
   "canonDate": "2026-09-29",
-  "status": "FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_PRE_LIVE_PROOF",
+  "status": "FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_READY_FOR_EXTERNAL_ACTIVATION_GATES",
   "inheritance": {
     "noAmputation": true,
     "extends": [
@@ -114,8 +114,8 @@
     "V5LongitudinalCompressionProven": false,
     "V5CrownSuccessionRecompilationProven": false
   },
-  "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
-  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
+  "nextAction": "RUN_FRONTIER_VM_DOCTOR -> COMPLETE_OPENROUTER_TYPINGMIND_OWNER_SETUP -> BIND_LIVE_CROWN_SNAPSHOT -> BIND_FRESH_TASK_SOURCE -> CONTROLLED_PAIRED_BURN_IN -> ZERO_LOSS_CERTIFICATION -> LONGITUDINAL_COMPRESSION_TEST",
+  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, 17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md, ACTIVATION_CHECKLIST.md, MANIFEST.json, and V5_FRONTIER_VM_RECEIPT_2026-09-29.json; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from the newest verified external activation gate.",
   "newV3Upgrades": [
     "Cognitive Multicast",
     "Crown Call Coalescing",
@@ -146,7 +146,7 @@
     "backupReceipt": "open router/BACKUP_RECEIPT_2026-09-29.json",
     "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
     "integrityDoctor": "npm run open-router:vault:doctor",
-    "contentState": "V2_V3_V4_PLUS_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_DURABLY_PRESERVED_ON_BRANCH_PRE_MERGE",
+    "contentState": "V2_V3_V4_PLUS_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_MERGED_AND_ACTIVATION_GATED",
     "activationState": "NOT_YET_LIVE_PROVEN"
   },
   "frontierIntelligenceVirtualization": {
@@ -233,6 +233,21 @@
       "REALITY_COURT"
     ],
     "superoptimizationLaw": "Optimizer may propose cheaper cognition programs, but cannot self-promote. Canonical untampered sealed zero-loss evidence plus real cost improvement is required.",
-    "falsificationLaw": "The system must preserve explicit kill conditions and must deoptimize rather than explain away observed paired regressions."
+    "falsificationLaw": "The system must preserve explicit kill conditions and must deoptimize rather than explain away observed paired regressions.",
+    "activation": {
+      "readinessCore": "src/frontier-vm-activation-readiness.mjs",
+      "doctor": "scripts/frontier-vm-v5-doctor.mjs",
+      "interactiveMode": "TYPINGMIND_CAN_BE_CONTROLLED_BURN_IN_WITH_BACKEND_EXECUTOR_DISABLED",
+      "unattendedMode": "REQUIRES_OPENROUTER_AGENT_ENABLED_TRUE",
+      "monthlyAllInTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "externalRequirements": [
+        "OPENROUTER_API_KEY",
+        "UBERMIND_LIVE_CROWN_SNAPSHOT_REF",
+        "UBERMIND_FRESH_TASK_SOURCE_REF"
+      ],
+      "spendAuthority": "NONE_FROM_READINESS",
+      "promotionAuthority": "NONE_FROM_READINESS"
+    }
   }
 }

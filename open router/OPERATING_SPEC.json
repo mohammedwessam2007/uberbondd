@@ -147,6 +147,7 @@
     "unknown stays unknown"
   ],
   "nextFrontier": [
+    "CONNECT_OPENROUTER_IN_TYPINGMIND_WITHOUT_REPO_SECRET",
     "ACTIVATE_FRONTIER_VM_SHADOW",
     "PLUG_IN",
     "COLLECT_LIVE_RECEIPTS",
@@ -230,6 +231,14 @@
       "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
       "protocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
       "crownSuccessionPhaseRequiredForBroadClaim": true
+    },
+    "activation": {
+      "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+      "interactiveSecretLocation": "TypingMind/OpenRouter credential configuration",
+      "repoRuntimeSecretRequiredForInteractive": false,
+      "optionalUnattendedMode": "UNATTENDED_RUNTIME",
+      "readinessSource": "src/frontier-vm-activation-readiness.mjs",
+      "nonSecretConnectionEvidence": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF"
     }
   }
 }

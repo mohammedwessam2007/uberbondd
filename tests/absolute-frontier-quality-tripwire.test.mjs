@@ -20,15 +20,17 @@ const SOURCE_CONTRACTS = [
     path: './src/frontier-cognitive-fabric.mjs',
     required: [
       "const DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA;",
-      "validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil })",
+      "validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false })",
       "absoluteQualityInvariant: qualityInvariantAttestation()"
     ],
-    forbidden: ["DEFAULT_FRONTIER_QUALITY_DELTA = 0.05", "DEFAULT_FRONTIER_QUALITY_DELTA = 0.01"]
+    forbidden: ["DEFAULT_FRONTIER_QUALITY_DELTA = 0.05", "DEFAULT_FRONTIER_QUALITY_DELTA = 0.01", "allowDegradedCouncil = true", "degradationPolicyRef"]
   },
   {
     path: './src/frontier-reasoning-runtime.mjs',
     required: [
       "validateQualityInvariantAttestation(member?.absoluteQualityInvariant)",
+      "validateAdmittedFrontierPlan(planResult)",
+      "member-object-does-not-match-admitted-plan",
       "absoluteQualityInvariant: member.absoluteQualityInvariant"
     ],
     forbidden: []

@@ -205,7 +205,9 @@
     "genesis:chimera:doctor": "node scripts/genesis-capability-chimera-doctor.mjs",
     "test:genesis:chimera": "node --test tests/capability-chimera-compiler.test.mjs tests/capability-genome-dependency-graph.test.mjs",
     "apex:fqc:doctor": "node scripts/apex-frontier-quality-campaign-doctor.mjs",
-    "test:apex:fqc": "node --test tests/apex-fresh-campaign.test.mjs tests/apex-frontier-quality-campaign-config.test.mjs tests/apex-sealed-tournament.test.mjs tests/frontier-model-team.test.mjs"
+    "test:apex:fqc": "node --test tests/apex-fresh-campaign.test.mjs tests/apex-frontier-quality-campaign-config.test.mjs tests/apex-fqc-external-evidence-packet.test.mjs tests/apex-sealed-tournament.test.mjs tests/frontier-model-team.test.mjs",
+    "apex:fqc:custodian-request": "node scripts/apex-fqc-external-evidence-doctor.mjs --custodian-request-only",
+    "apex:fqc:evidence": "node scripts/apex-fqc-external-evidence-doctor.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

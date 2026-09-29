@@ -109,3 +109,40 @@ When a new chat or agent resumes:
 - 11_MODEL_MARKET_REFRESH.md — continuous model/provider succession protocol
 - 12_REFERENCE_VALUE_LEDGER.md — proof ledger for $30 -> $1,000+ reference-equivalent claims
 - OPEN_ROUTER_UBERMIND_CANON.json — machine-readable canon
+
+
+## The v3 cognitive arbitrage extension
+
+The v2 mechanisms remain active and are not replaced. V3 adds the following orthogonal compression organs:
+
+1. **Cognitive Multicast**: one Crown decision resolves every agent/task blocked on the same proposition.
+2. **Crown-call coalescing**: compatible nonurgent frontier questions share one information-dense adjudication call.
+3. **Common Semantic Subexpression Elimination**: shared semantic dependencies are solved once in a content-addressed decision DAG.
+4. **Decision-DAG incremental recomputation**: source changes invalidate only dependent semantic nodes instead of recomputing whole answers.
+5. **Crown Thought Capital Ledger**: every expensive frontier call tracks reusable decisions, spawned Jev circuits/code paths, future calls avoided, and lifetime ROI.
+6. **Negative Knowledge Cache**: preserve dead hypotheses, broken routes, known failure classes, and why they failed so models do not repeatedly pay to rediscover them.
+7. **Error Portfolio Optimizer**: select workers for complementary error structure and independent information per dollar, not model count.
+8. **Value-of-Information Compute Auction**: optional workers/tools/branches compete on expected uncertainty reduction and reuse value per marginal cost.
+9. **Shadow Router Tournament**: alternate routing policies run without authority until paired outcomes earn promotion.
+10. **Frontier Output Minimizer**: Crown returns verdicts/patches/decision boundaries instead of re-generating stable artifact text.
+11. **Cross-task Crown batching**: materially identical frontier questions across queued missions share one adjudication artifact.
+12. **Cognitive Futures Market**: urgency changes realtime vs deferred/Batch timing, never the required intelligence quality.
+
+### V3 file map
+
+- ARCHITECTURE.md
+- JEV_HYPERREFLEX.md
+- ECONOMICS_AND_SCOREBOARD.md
+- TYPINGMIND_AND_24_7.md
+- ACTIVATION_CHECKLIST.md
+- TYPINGMIND_PROMPT_PACK.md
+- EMPIRICAL_PROOF_PROTOCOL.md
+- OPERATING_SPEC.json
+- CANON_SNAPSHOT_2026-09-29.json
+- SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md
+- SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md
+- SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json
+- MANIFEST.json
+- BACKUP_RECEIPT_2026-09-29.json
+
+V3 does not change the quality law. It exists to reduce repeated frontier computation while preserving the same moving market-frontier quality target.

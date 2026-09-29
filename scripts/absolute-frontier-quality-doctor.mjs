@@ -54,7 +54,7 @@ const sourceContracts = {
   'src/frontier-cognitive-fabric.mjs': [
     "DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA",
     "ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE",
-    "absolute-frontier-degraded-council-prohibited",
+    "validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil })",
     "absoluteQualityInvariant: qualityInvariantAttestation()"
   ],
   'src/frontier-reasoning-runtime.mjs': [

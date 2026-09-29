@@ -103,7 +103,8 @@
     "frontierThoughtCapitalLedger": true,
     "superoptimizerZeroLossGate": true,
     "canonicalBurnInCompiler": true,
-    "longitudinalCompoundingEvaluator": true
+    "longitudinalCompoundingEvaluator": true,
+    "v5ActivationReadiness": true
   },
   "crystallization": {
     "path": [
@@ -137,7 +138,8 @@
     "FRONTIER_DOLLAR_TO_REALIZED_REUSABLE_COGNITION",
     "ROUTING_REGRET",
     "DIRECT_FRONTIER_TOKEN_SHARE",
-    "HOT_PATHS_MIGRATED_CROWN_TO_JEV_TO_CODE"
+    "HOT_PATHS_MIGRATED_CROWN_TO_JEV_TO_CODE",
+    "ACTIVATION_READINESS_WITH_ZERO_SPEND_AUTHORITY"
   ],
   "truthBoundary": [
     "$30 frontier-equivalent 24/7 novel cognition is not yet proven",
@@ -230,6 +232,17 @@
       "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
       "protocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
       "crownSuccessionPhaseRequiredForBroadClaim": true
+    },
+    "activation": {
+      "readinessCore": "src/frontier-vm-activation-readiness.mjs",
+      "doctorCommand": "npm run frontier-vm:doctor",
+      "unattendedDoctorCommand": "node scripts/frontier-vm-v5-doctor.mjs --unattended",
+      "interactiveBackendRequired": false,
+      "unattendedBackendRequired": true,
+      "monthlyAllInTargetUsd": 30,
+      "protectedCrownEscrowUsd": 15,
+      "zeroSpendDoctor": true,
+      "automaticPromotion": false
     }
   }
 }

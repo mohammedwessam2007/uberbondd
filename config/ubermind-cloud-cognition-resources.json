@@ -18,24 +18,29 @@
       "WEAKER_FINAL_AUTHORITY",
       "SILENT_MODEL_SUBSTITUTION",
       "LOSSY_CONTEXT_DROP_WITHOUT_ZERO_LOSS_PROOF"
-    ]
+    ],
+    "monthlyAllInTargetUsd": 30,
+    "protectedCrownEscrowUsd": 15
   },
   "requiredResources": [
     {
       "id": "openrouter-api",
       "kind": "SECRET_CREDENTIAL",
       "env": "OPENROUTER_API_KEY",
-      "purpose": "Unified cloud model-market transport across many model/provider families",
+      "purpose": "Unified cloud model-market transport for unattended UberBond runtime. Interactive TypingMind may keep the OpenRouter credential outside repository runtime.",
       "ownerAction": "Create one OpenRouter API key and store it only in the protected UberBond runtime environment.",
       "recurringCost": "PAY_AS_YOU_GO",
-      "minimumCommitmentUsd": 0
+      "minimumCommitmentUsd": 0,
+      "requiredFor": [
+        "UNATTENDED_RUNTIME"
+      ]
     },
     {
       "id": "cognition-budget",
       "kind": "POLICY",
       "env": "UBERMIND_MONTHLY_COGNITION_BUDGET_USD",
-      "default": "20",
-      "purpose": "Hard monthly inference ceiling. Budget exhaustion queues work instead of lowering quality."
+      "default": "30",
+      "purpose": "Frozen V5 all-in monthly cognition target. Budget pressure queues/defer/batches before quality changes."
     },
     {
       "id": "openrouter-enable",
@@ -43,6 +48,13 @@
       "env": "OPENROUTER_AGENT_ENABLED",
       "requiredValue": "true",
       "purpose": "Explicitly enables the cloud model-market executor after credential placement."
+    },
+    {
+      "id": "crown-escrow",
+      "kind": "POLICY",
+      "env": "UBERMIND_PROTECTED_CROWN_ESCROW_USD",
+      "default": "15",
+      "purpose": "Protected reserve for required current-Crown fallback; unproven cheap paths may not consume it."
     }
   ],
   "recommendedPolicies": [
@@ -108,5 +120,17 @@
     "Vercel as cognition authority",
     "fixed permanent model crown",
     "model fallback to a weaker model merely because it is cheaper"
-  ]
+  ],
+  "activationModes": {
+    "TYPINGMIND_EXTERNAL_COCKPIT": {
+      "openRouterSecretLocation": "TypingMind/provider credential configuration",
+      "repoRuntimeCredentialRequired": false,
+      "evidenceRef": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF"
+    },
+    "UNATTENDED_RUNTIME": {
+      "repoRuntimeCredentialRequired": true,
+      "requiredSecret": "OPENROUTER_API_KEY",
+      "explicitEnablement": "OPENROUTER_AGENT_ENABLED=true"
+    }
+  }
 }

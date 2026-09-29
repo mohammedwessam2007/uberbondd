@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { certifyPairedZeroLoss } from '../src/absolute-frontier-quality-invariant.mjs';
+import crypto from 'node:crypto';
+import { compileSealedArchitectureTrial, sealedAnswerDigest } from '../src/apex-sealed-tournament.mjs';
+import { certifyCanonicalZeroLoss } from '../src/canonical-zero-loss-certificate.mjs';
 import {
   assessRealityDrift,
   compileSemanticProgram,
@@ -80,62 +82,60 @@ test('reality drift decompiles a formerly stable reflex', () => {
   assert.equal(result.status, 'REALITY_DRIFT_DETECTED__DECOMPILE');
 });
 
-test('deterministic compilation requires exact paired zero-loss proof, not merely high accuracy', () => {
+test('deterministic compilation requires canonical sealed paired zero-loss proof, not merely high accuracy', () => {
   const programDigest = 'sha256:x';
-  const outcomes = Array.from({ length: 100 }, (_, index) => ({ taskId: `t-${index}`, outcome: 'CORRECT' }));
-  const baselineTrial = {
-    architectureId: 'frontier-baseline',
-    suiteVersion: 'jev-zero-loss-v1',
-    corpusDigest: 'a'.repeat(64),
-    manifestDigest: 'b'.repeat(64),
-    taskClass: 'semantic-reflex',
-    taskOutcomeDigest: 'c'.repeat(64),
-    pairedTaskOutcomes: outcomes,
-    statistics: { verifiedSuccessRate: 1, falsePositiveRate: 0 },
-    arenaTrial: { processScore: 1 },
-    economics: { meanCostUsd: 1 }
-  };
-  const candidateTrial = {
-    ...baselineTrial,
-    architectureId: programDigest,
-    taskOutcomeDigest: 'd'.repeat(64),
-    economics: { meanCostUsd: 0.001 }
-  };
-  const certificate = certifyPairedZeroLoss({ baselineTrial, candidateTrial, requireEconomicsImprovement: true, provenanceValidator: () => ({ ok: true }) });
-  assert.equal(certificate.ok, true, JSON.stringify(certificate));
-
-  const highButNotPerfect = proposeCognitiveCompilation({
-    programDigest,
-    outcomeCount: 500,
-    accuracy: 0.995,
-    calibrationError: 0.01,
-    stableWindows: 5,
-    zeroLossCertificate: certificate
+  const suiteVersion = 'jev-zero-loss-v1';
+  const manifest = Array.from({ length: 100 }, (_, index) => {
+    const taskId = `jev-${index}`;
+    const answer = `answer-${index}`;
+    return { taskId, family: 'SEMANTIC_REFLEX', tier: 'SEALED_HOLDOUT', difficulty: 0.8, answerDigest: sealedAnswerDigest({ suiteVersion, taskId, answer }) };
   });
-  assert.equal(highButNotPerfect.eligible, false);
+  const stable = value => Array.isArray(value) ? value.map(stable) : (!value || typeof value !== 'object') ? value : Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
+  const digest = value => crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex');
+  const rawDigest = value => crypto.createHash('sha256').update(String(value)).digest('hex');
+  const corpusDigest = rawDigest(JSON.stringify(manifest.map(row => [row.taskId,row.family,row.tier,row.answerDigest])));
+  const manifestDigest = digest(manifest.map(row => ({ taskId:row.taskId,family:row.family,tier:row.tier,difficulty:row.difficulty,answerDigest:row.answerDigest })));
+  const commitment = {
+    commitmentRef:'holdout://jev-zero-loss', committedAt:'2026-09-28T20:00:00.000Z', sourceFreezeRef:'source://jev-zero-loss',
+    evaluatorRef:'evaluator://independent', suiteVersion, corpusDigest, manifestDigest, taskCount:manifest.length,
+    rawHoldoutsStoredInRepository:false, optimizerAccessBeforeEvaluation:false, candidateAccessBeforeEvaluation:false,
+    plaintextAnswersExposedBeforeEvaluation:false, evaluatorIndependent:true
+  };
+  const compile = (architectureId, costUsd) => compileSealedArchitectureTrial({
+    architectureId,
+    architectureClass: architectureId === 'frontier-baseline' ? 'INCUMBENT' : 'CHALLENGER',
+    architectureDigest:digest({architectureId}), architectureRevision:'r1', architectureSourceRef:`source://${architectureId}`,
+    architectureFrozenAt:'2026-09-28T20:01:00.000Z', taskClass:'semantic-reflex', suiteVersion, corpusDigest,
+    sealedManifest:manifest, holdoutCommitment:commitment,
+    runs:manifest.map((row,index)=>({taskId:row.taskId,runId:`${architectureId}-${index}`,evidenceRef:`runtime://${architectureId}/${index}`,
+      observedAt:'2026-09-28T20:02:00.000Z',response:`answer-${index}`,costUsd,latencyMs:1,founderMinutes:0,
+      verifierIndependent:true,holdoutPromptExposedToOptimizer:false,modelJudgedOwnIdentityMarkedAnswer:false})),
+    processScore:1, processEvidenceRef:`review://${architectureId}`, verifierId:'independent', architectureDesignerId:'builder'
+  });
+  const baselineTrial = compile('frontier-baseline', 1);
+  const candidateTrial = compile(programDigest, 0.001);
+  assert.equal(baselineTrial.ok,true);
+  assert.equal(candidateTrial.ok,true);
+  const minted = certifyCanonicalZeroLoss({ baselineTrial, candidateTrial, requireEconomicsImprovement:true });
+  assert.equal(minted.ok,true,JSON.stringify(minted));
+  const certificate = minted.certificate;
+
+  const highButNotPerfect = proposeCognitiveCompilation({ programDigest,outcomeCount:500,accuracy:0.995,calibrationError:0.01,stableWindows:5,zeroLossCertificate:certificate });
+  assert.equal(highButNotPerfect.eligible,false);
   assert.ok(highButNotPerfect.reasonCodes.includes('accuracy-below-zero-loss-threshold'));
 
-  const noCertificate = proposeCognitiveCompilation({
-    programDigest,
-    outcomeCount: 500,
-    accuracy: 1,
-    calibrationError: 0,
-    stableWindows: 5
-  });
-  assert.equal(noCertificate.eligible, false);
-  assert.ok(noCertificate.reasonCodes.includes('paired-zero-loss-certificate-required'));
+  const noCertificate = proposeCognitiveCompilation({ programDigest,outcomeCount:500,accuracy:1,calibrationError:0,stableWindows:5 });
+  assert.equal(noCertificate.eligible,false);
 
-  const strong = proposeCognitiveCompilation({
-    programDigest,
-    outcomeCount: 100,
-    accuracy: 1,
-    calibrationError: 0,
-    stableWindows: 5,
-    zeroLossCertificate: certificate
-  });
-  assert.equal(strong.eligible, true, JSON.stringify(strong));
-  assert.equal(strong.status, 'DETERMINISTIC_COMPILATION_CANDIDATE');
-  assert.equal(strong.automaticCodeMutationAuthorized, false);
+  const strong = proposeCognitiveCompilation({ programDigest,outcomeCount:100,accuracy:1,calibrationError:0,stableWindows:5,zeroLossCertificate:certificate });
+  assert.equal(strong.eligible,true,JSON.stringify(strong));
+  assert.equal(strong.status,'DETERMINISTIC_COMPILATION_CANDIDATE');
+  assert.equal(strong.automaticCodeMutationAuthorized,false);
+
+  const cloned = structuredClone(certificate);
+  const forged = proposeCognitiveCompilation({ programDigest,outcomeCount:100,accuracy:1,calibrationError:0,stableWindows:5,zeroLossCertificate:cloned });
+  assert.equal(forged.eligible,false);
+  assert.ok(forged.reasonCodes.includes('canonical-zero-loss-certificate-producer-origin-required'));
 });
 
 test('planner exposes the exact typed questions without executing them', () => {

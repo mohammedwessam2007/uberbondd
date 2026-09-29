@@ -22,3 +22,14 @@ test('UberMind never invents a callable model when runtime evidence is missing',
   const r=compileUberMindExchange({mission:{missionId:'m1',taskId:'t1',objective:'analyze a bounded choice'},stakes:{consequence:.4,uncertainty:.4,reversibility:.8,founderImportance:.5}});
   assert.equal(r.ok,true);assert.equal(r.status,'UBERMIND_TOPOLOGY_READY_RUNTIME_EVIDENCE_REQUIRED');assert.equal(r.runtimePlan,null);assert.equal(r.businessEffectAuthority,'NONE');
 });
+
+
+test('caller cannot lower semantic cognition below FRONTIER_MAX by understating every stake',()=>{
+  const r=compileUberMindExchange({
+    mission:{missionId:'m-floor',taskId:'t-floor',objective:'make a semantic judgement'},
+    stakes:{consequence:0,uncertainty:0,reversibility:1,founderImportance:0}
+  });
+  assert.equal(r.ok,true);
+  assert.equal(r.task.reasoningTier,'FRONTIER_MAX');
+  assert.equal(r.topology.absoluteQualityInvariant.qualityDelta,0);
+});

@@ -203,7 +203,9 @@
     "genesis:blackout:doctor": "node scripts/genesis-blackout-first-doctor.mjs",
     "test:genesis:blackout": "node --test tests/blackout-first-compute-planner.test.mjs tests/execution-leaf-continuation.test.mjs",
     "genesis:chimera:doctor": "node scripts/genesis-capability-chimera-doctor.mjs",
-    "test:genesis:chimera": "node --test tests/capability-chimera-compiler.test.mjs tests/capability-genome-dependency-graph.test.mjs"
+    "test:genesis:chimera": "node --test tests/capability-chimera-compiler.test.mjs tests/capability-genome-dependency-graph.test.mjs",
+    "apex:fqc:doctor": "node scripts/apex-frontier-quality-campaign-doctor.mjs",
+    "test:apex:fqc": "node --test tests/apex-fresh-campaign.test.mjs tests/apex-frontier-quality-campaign-config.test.mjs tests/apex-sealed-tournament.test.mjs tests/frontier-model-team.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

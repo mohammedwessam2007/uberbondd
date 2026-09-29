@@ -165,6 +165,11 @@ function normalizeRun(raw, index) {
   const costUsd = finite(raw?.costUsd, 0, 1_000_000);
   const latencyMs = finite(raw?.latencyMs, 0, 86_400_000);
   const founderMinutes = finite(raw?.founderMinutes, 0, 100000);
+  const observedProvider = raw?.observedProvider == null ? null : text(raw.observedProvider, 80)?.toLowerCase();
+  const observedModel = raw?.observedModel == null ? null : text(raw.observedModel, 160);
+  const observedRevision = raw?.observedRevision == null ? null : text(raw.observedRevision, 240);
+  const providerRequestId = raw?.providerRequestId == null ? null : text(raw.providerRequestId, 1000);
+  const identityVerification = raw?.identityVerification == null ? null : text(raw.identityVerification, 80)?.toUpperCase();
   const reasons = [];
   if (!taskId || !runId || !evidenceRef || !observedAt) reasons.push(`run-${index}:identity-time-and-evidence-required`);
   if (raw?.response != null && response == null) reasons.push(`run-${index}:bounded-response-required`);
@@ -177,6 +182,7 @@ function normalizeRun(raw, index) {
     ok: true,
     run: {
       taskId, runId, evidenceRef, observedAt, response, costUsd, latencyMs, founderMinutes,
+      observedProvider, observedModel, observedRevision, providerRequestId, identityVerification,
       verifierIndependent: true,
       holdoutPromptExposedToOptimizer: false,
       modelJudgedOwnIdentityMarkedAnswer: false
@@ -271,6 +277,18 @@ export function compileSealedArchitectureTrial({
       continue;
     }
     const run = normalized.run;
+    if (subject) {
+      if (
+        run.observedProvider !== subject.provider ||
+        run.observedModel !== subject.model ||
+        run.observedRevision !== subject.revision ||
+        !run.providerRequestId ||
+        run.identityVerification !== 'OBSERVED'
+      ) {
+        runReasons.push(`run-${index}:benchmark-subject-runtime-identity-not-proven`);
+        continue;
+      }
+    }
     if (!manifestByTask.has(run.taskId)) {
       runReasons.push(`run-${index}:task-not-in-sealed-manifest`);
       continue;
@@ -305,7 +323,8 @@ export function compileSealedArchitectureTrial({
       observedAt: run.observedAt,
       costUsd: run.costUsd,
       latencyMs: run.latencyMs,
-      founderMinutes: run.founderMinutes
+      founderMinutes: run.founderMinutes,
+      benchmarkSubjectIdentityVerified: subject ? true : null
     });
   }
 

@@ -14,6 +14,8 @@
     "SYNTHETIC_MODEL_OUTPUT"
   ],
   "canonPointers": [
+    "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
+    "artifacts/wessam-singularity-prompt-recovery-2026-09-29.json",
     "00_OUTREACH_NOW.json",
     "00_OUTREACH_NOW.md",
     "AGENTS.md",
@@ -216,5 +218,16 @@
     "chatImportInstruction": "When a material ChatGPT/Claude/Codex chat, share, export, transcript, ZIP, research package, draft PR or donor branch becomes available, digest it into repository-native North Star/Total Brain/memory with source title/date, evidence class, named initiatives, durable decisions, capabilities, goals, contradictions, supersession links, unresolved names, and anti-duplication notes. Never rely on the external share URL alone."
   },
   "orchestrationCheckpointPath": "UBERBOND_ORCHESTRATION_CHECKPOINTS.md",
-  "updatedAt": "2026-09-28T03:34:00+03:00"
+  "updatedAt": "2026-09-29T21:00:00+03:00",
+  "founderMetaNorthStar": "WESSAM_SINGULARITY",
+  "founderMetaNorthStarPath": "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
+  "founderMetaNorthStarRecoveryReceipt": "artifacts/wessam-singularity-prompt-recovery-2026-09-29.json",
+  "founderMetaHierarchy": [
+    "WESSAM_SINGULARITY",
+    "SOVEREIGN_COGNITIVE_CONTINUUM",
+    "PERSONAL_CIVILIZATION",
+    "UBERBOND",
+    "UBERMIND",
+    "REPLACEABLE_COGNITIVE_INFRASTRUCTURE"
+  ]
 }

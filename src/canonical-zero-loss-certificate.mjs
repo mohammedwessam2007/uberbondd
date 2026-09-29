@@ -53,7 +53,8 @@ export function certifyCanonicalZeroLoss({
   const comparison = certifyPairedZeroLoss({
     baselineTrial,
     candidateTrial,
-    requireEconomicsImprovement
+    requireEconomicsImprovement,
+    provenanceValidator: validateCompiledSealedArchitectureTrial
   });
   if (!comparison.ok) {
     return fail('CANONICAL_ZERO_LOSS_CERTIFICATION_REFUSED', comparison.reasonCodes, {

@@ -107,7 +107,7 @@ export function compilePreInferenceRoleAuction({
   const cheapest = Math.min(...normalized.map(row => estimatedCallUsd(row, { inputTokens: inTokens, outputTokens: outTokens, cachedInputTokens: cachedTokens })));
   const scored = normalized.map(row => {
     const costUsd = estimatedCallUsd(row, { inputTokens: inTokens, outputTokens: outTokens, cachedInputTokens: cachedTokens });
-    const costRatio = cheapest > 0 ? cheapest / Math.max(costUsd, 1e-12) : 1;
+    const costRatio = cheapest > 0 ? cheapest / Math.max(costUsd, 1e-12) : (costUsd === 0 ? 1 : 0);
     const score = (row.quality * 0.55) + (row.reliability * 0.25) + (row.evidenceConfidence * 0.10) + (Math.min(1, costRatio) * 0.10);
     return { ...row, estimatedCallUsd: costUsd, routingScore: score };
   }).sort((a, b) => b.routingScore - a.routingScore || a.estimatedCallUsd - b.estimatedCallUsd || a.candidateId.localeCompare(b.candidateId));
@@ -245,13 +245,21 @@ export function compileLosslessFrontierDeltaPacket({
   const maxBytes = integer(maximumInlineBytes, 256, 100_000);
   if (!id || !/^[a-f0-9]{64}$/.test(baselineDigest) || maxBytes == null) return fail('FRONTIER_DELTA_PACKET_REFUSED', ['mission-id-baseline-digest-and-bounded-inline-limit-required']);
 
-  const rows = Array.isArray(claimRecords) ? claimRecords.map(row => ({
-    claimId: text(row?.claimId, 240),
-    exactClaim: text(row?.exactClaim, 5000),
-    state: text(row?.state, 80).toUpperCase(),
-    evidenceRefs: Array.isArray(row?.evidenceRefs) ? row.evidenceRefs.map(x => text(x, 1000)).filter(Boolean) : []
-  })) : [];
-  if (!rows.length || rows.some(row => !row.claimId || !row.exactClaim || !row.state)) return fail('FRONTIER_DELTA_PACKET_REFUSED', ['complete-exact-claim-records-required']);
+  const rawRows = Array.isArray(claimRecords) ? claimRecords : [];
+  const rows = rawRows.map(row => {
+    const claimIdRaw = String(row?.claimId ?? '');
+    const exactClaimRaw = String(row?.exactClaim ?? '');
+    const stateRaw = String(row?.state ?? '');
+    const evidenceRaw = Array.isArray(row?.evidenceRefs) ? row.evidenceRefs.map(x => String(x ?? '')) : [];
+    if (!claimIdRaw.trim() || claimIdRaw.length > 240 || !exactClaimRaw.trim() || exactClaimRaw.length > 100_000 || !stateRaw.trim() || stateRaw.length > 80 || evidenceRaw.some(ref => !ref.trim() || ref.length > 4000)) return null;
+    return {
+      claimId: claimIdRaw,
+      exactClaim: exactClaimRaw,
+      state: stateRaw.toUpperCase(),
+      evidenceRefs: evidenceRaw
+    };
+  });
+  if (!rows.length || rows.some(row => row == null)) return fail('FRONTIER_DELTA_PACKET_REFUSED', ['complete-bounded-exact-claim-records-required']);
   const unresolved = [...new Set(unresolvedClaimIds.map(x => text(x, 240)).filter(Boolean))];
   const byId = new Map(rows.map(row => [row.claimId, row]));
   if (unresolved.some(id => !byId.has(id))) return fail('FRONTIER_DELTA_PACKET_REFUSED', ['unresolved-claim-missing-from-exact-records']);
@@ -261,8 +269,8 @@ export function compileLosslessFrontierDeltaPacket({
     missionId: id,
     baselineArtifactDigest: baselineDigest,
     unresolvedClaims: selected,
-    evidenceRefs: [...new Set(evidenceRefs.map(x => text(x, 1000)).filter(Boolean))],
-    artifactRefs: [...new Set(artifactRefs.map(x => text(x, 1000)).filter(Boolean))],
+    evidenceRefs: [...new Set(evidenceRefs.map(x => String(x ?? '')).filter(ref => ref.trim() && ref.length <= 4000))],
+    artifactRefs: [...new Set(artifactRefs.map(x => String(x ?? '')).filter(ref => ref.trim() && ref.length <= 4000))],
     instruction: 'ADJUDICATE_ONLY_THE_UNRESOLVED_CLAIMS. RETURN_VERDICTS_OR_EXACT_PATCHES. DO_NOT_REWRITE_STABLE_ARTIFACT_CONTENT.'
   };
   const inlineBytes = Buffer.byteLength(JSON.stringify(packet), 'utf8');
@@ -304,7 +312,7 @@ export function compileExactCacheDecision({
     ok: true,
     status: exact ? 'EXACT_CACHE_HIT_AUTHORITY_CANDIDATE' : 'EXACT_CACHE_MISS',
     reusableAsAuthority: exact,
-    responseCacheEligible: exact && ['PUBLIC', 'INTERNAL_NON_SECRET', 'SOURCE_CODE'].includes(klass),
+    responseCacheEligible: exact && klass === 'PUBLIC',
     law: 'CACHE_AUTHORITY_REQUIRES_EXACT_REQUEST_AND_EXACT_SOURCE_STATE_IDENTITY; SEMANTIC_SIMILARITY_NEVER_CREATES_AUTHORITY'
   });
 }

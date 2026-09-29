@@ -1221,6 +1221,8 @@ Do not extrapolate from a single cherry-picked circuit.
 
 # Anti-fantasy rule
 
+Machine law: `NO_ISOLATED_SAVINGS_MULTIPLICATION__MEASURE_END_TO_END_ON_SAME_WORKLOAD`
+
 Never multiply isolated paper savings blindly.
 
 For example:

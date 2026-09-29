@@ -247,7 +247,20 @@ function renormalizeBenchmark(raw, taskClass, now, maxAgeMs) {
   if (!observedAt || !observedRevision || !evidenceRef) return null;
   const benchmark = normalizeModelBenchmark(source, new Date(observedAt));
   if (!benchmark?.ok || benchmark.taskClass !== taskClass || !evidenceFresh(benchmark.observedAt, now, maxAgeMs)) return null;
-  return { ...benchmark, observedRevision, evidenceRef };
+  return {
+    ...benchmark,
+    observedRevision,
+    evidenceRef,
+    absoluteFrontierBaseline: raw?.absoluteFrontierBaseline === true,
+    frontierCrownDigest: text(raw?.frontierCrownDigest, 128)?.toLowerCase() ?? null,
+    frontierCrownCampaignDigest: text(raw?.frontierCrownCampaignDigest, 128)?.toLowerCase() ?? null,
+    frontierBaselineArchitectureId: text(raw?.frontierBaselineArchitectureId, 240)?.toLowerCase() ?? null,
+    frontierCandidateArchitectureId: text(raw?.frontierCandidateArchitectureId, 240)?.toLowerCase() ?? null,
+    pairedZeroLossCertified: raw?.pairedZeroLossCertified === true,
+    pairedZeroLossCertificationDigest: text(raw?.pairedZeroLossCertificationDigest, 128)?.toLowerCase() ?? null,
+    sealedTrialReceiptDigest: text(raw?.sealedTrialReceiptDigest, 128)?.toLowerCase() ?? null,
+    baselineSealedTrialReceiptDigest: text(raw?.baselineSealedTrialReceiptDigest, 128)?.toLowerCase() ?? null
+  };
 }
 
 function latestBenchmarks(benchmarks, taskClass, now, maxAgeMs) {
@@ -309,8 +322,27 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
   if (task.reasoningTier === 'FRONTIER_MAX' || task.reasoningTier === 'COUNCIL_MAX') {
     const evidenced = enriched.filter(item => item.benchmark && item.benchmark.evidenceConfidence >= minimumEvidenceConfidence);
     if (!evidenced.length) return failure(['frontier-tier-requires-fresh-quality-evidence'], 'CAPACITY_BLOCKED');
-    const bestQuality = Math.max(...evidenced.map(item => item.benchmark.quality));
-    const qualityExact = evidenced.filter(item => item.benchmark.quality === bestQuality);
+    const baselines = evidenced.filter(item => item.benchmark.absoluteFrontierBaseline === true);
+    if (baselines.length !== 1) return failure(['exactly-one-canonical-frontier-crown-baseline-required'], 'CAPACITY_BLOCKED');
+    const baseline = baselines[0];
+    const baselineArchitectureId = baseline.benchmark.frontierBaselineArchitectureId;
+    const baselineReceiptDigest = baseline.benchmark.sealedTrialReceiptDigest;
+    const crownDigest = baseline.benchmark.frontierCrownDigest;
+    const crownCampaignDigest = baseline.benchmark.frontierCrownCampaignDigest;
+    if (!baselineArchitectureId || !baselineReceiptDigest || !crownDigest || !crownCampaignDigest) {
+      return failure(['frontier-crown-baseline-binding-incomplete'], 'CAPACITY_BLOCKED');
+    }
+    const proofEligible = evidenced.filter(item => {
+      if (item.benchmark.absoluteFrontierBaseline === true) return true;
+      return item.benchmark.pairedZeroLossCertified === true
+        && Boolean(item.benchmark.pairedZeroLossCertificationDigest)
+        && item.benchmark.frontierBaselineArchitectureId === baselineArchitectureId
+        && item.benchmark.baselineSealedTrialReceiptDigest === baselineReceiptDigest
+        && item.benchmark.frontierCrownDigest === crownDigest
+        && item.benchmark.frontierCrownCampaignDigest === crownCampaignDigest;
+    });
+    const bestQuality = Math.max(...proofEligible.map(item => item.benchmark.quality));
+    const qualityExact = proofEligible.filter(item => item.benchmark.quality === bestQuality);
     const bestReliability = Math.max(...qualityExact.map(item => item.benchmark.reliability));
     const reliabilityExact = qualityExact.filter(item => item.benchmark.reliability === bestReliability);
     const bestEvidenceConfidence = Math.max(...reliabilityExact.map(item => item.benchmark.evidenceConfidence));
@@ -328,6 +360,11 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
       qualityFloor: bestQuality,
       bestReliability,
       bestEvidenceConfidence,
+      frontierBaselineArchitectureId: baselineArchitectureId,
+      frontierBaselineReceiptDigest: baselineReceiptDigest,
+      frontierCrownDigest: crownDigest,
+      frontierCrownCampaignDigest: crownCampaignDigest,
+      zeroLossAuthorizedCandidateCount: proofEligible.length,
       absoluteQualityInvariant: qualityInvariantAttestation()
     });
   }

@@ -34,6 +34,7 @@ const REQUIRED = [
   'open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json',
   'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md',
   'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md',
+  'open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md',
   'docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json',
   'docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md',
   'src/frontier-intelligence-vm.mjs',

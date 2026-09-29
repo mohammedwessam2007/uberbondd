@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { evaluateReasoningArchitectureArena } from './apex-reasoning-hypercompiler.mjs';
+import { ABSOLUTE_FRONTIER_QUALITY_DELTA, qualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const REASONING_ARCHITECTURE_LAB_VERSION = 'uberbond.reasoning-architecture-lab.v1';
 
@@ -315,7 +316,7 @@ export function evaluateArchitectureGeneration({
   trials = [],
   incumbentArchitectureId,
   minimumSampleSize = 20,
-  qualityFloorDelta = 0.01
+  qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA
 } = {}) {
   const incumbentId = text(incumbentArchitectureId, 200);
   if (!incumbentId) return fail('ARCHITECTURE_GENERATION_REFUSED', ['incumbent-architecture-id-required']);
@@ -343,6 +344,7 @@ export function evaluateArchitectureGeneration({
     paretoArchitectureIds: arena.paretoArchitectureIds,
     verifiedSuccessRateDeltaVsIncumbent: delta,
     ranked: arena.ranked,
+    absoluteQualityInvariant: qualityInvariantAttestation(),
     promotionAuthority: 'NONE',
     automaticProductionChange: false,
     nextStep: challengerSurvived

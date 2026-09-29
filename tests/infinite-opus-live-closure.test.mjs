@@ -1,0 +1,72 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import {compileCognitionEconomicPerimeter,reconcileChannels} from '../src/cognition-economic-perimeter.mjs';
+import {issueCrownAdmissionReceipt,verifyCrownAdmissionReceipt} from '../src/crown-admission.mjs';
+import {closeInterpretation} from '../src/interpretation-closure.mjs';
+import {verifyRenderedSurface} from '../src/proof-carrying-renderer.mjs';
+import {partialEvaluateSemanticProgram,verifySpecialization,buildVerifiedSemanticEGraph,selectActiveBoundaryCases,microcodeVerdict} from '../src/semantic-reuse-foundry.mjs';
+import {createOpenRouterGovernedAdapter} from '../src/openrouter-governed-adapter.mjs';
+const h=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
+
+test('economic perimeter closes at 20 runtime + 8 cockpit under $30 all-in planning envelope',()=>{
+ const r=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,accountGuardrailUsd:28,purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
+ assert.equal(r.ok,true); assert.equal(r.plan.crownReserveUsd,15); assert.ok(r.plan.worstCaseAllInUsd<30);
+});
+test('two keys cannot exceed aggregate $28 and stray paid routes fail closed',()=>{
+ assert.equal(compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:9,accountGuardrailUsd:28,purchaseFeeRate:.055,limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true}).ok,false);
+ assert.equal(compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,accountGuardrailUsd:28,purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[1],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:false}).ok,false);
+});
+test('delayed or mismatched provider usage holds global capacity',()=>{
+ assert.equal(reconcileChannels({runtimeUsageUsd:1,typingMindUsageUsd:2,providerAccountUsageUsd:3,unsettled:['call']}).status,'UNCERTAIN_CHARGES_HOLD_CAPACITY');
+ assert.equal(reconcileChannels({runtimeUsageUsd:1,typingMindUsageUsd:2,providerAccountUsageUsd:4,unsettled:[]}).status,'PROVIDER_ACCOUNT_RECONCILIATION_MISMATCH');
+ assert.equal(reconcileChannels({runtimeUsageUsd:1,typingMindUsageUsd:2,providerAccountUsageUsd:3,unsettled:[]}).ok,true);
+});
+test('Crown admission refuses forged or incomplete provider answers',()=>{
+ const base={providerCallId:'gen-1',exactModelId:'anthropic/claude-opus-5.5',providerIdentity:'Anthropic',routeIdentity:'openrouter:auto',taskClassRole:'GENERAL_CROWN',promptProgramHash:h('p'),semanticInputHash:h('i'),qualityContractHash:h('q'),sourceDependencyHashes:[h('s')],evidenceReferences:['e1'],outputHash:h('o'),timestamp:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'auth1',costReceiptRef:'bill1',actualCostMicrousd:500,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,roleTournamentEvidenceRef:'tour1'};
+ const r=issueCrownAdmissionReceipt(base); assert.equal(r.ok,true); assert.equal(verifyCrownAdmissionReceipt(r.receipt,{now:Date.parse('2026-09-30T01:00:00Z'),expected:{exactModelId:base.exactModelId}}).ok,true);
+ const forged={...r.receipt,exactModelId:'other/model'}; assert.equal(verifyCrownAdmissionReceipt(forged,{now:Date.parse('2026-09-30T01:00:00Z')}).ok,false);
+ assert.equal(issueCrownAdmissionReceipt({...base,providerBillObserved:false}).ok,false);
+});
+test('natural-language parser agreement is not semantic authority and omitted constraint forces Crown',()=>{
+ const raw=h('do X but never Y'),p={goal:'X',claims:[],constraints:['never Y'],requiredOutputs:['result'],sideEffects:[],ambiguities:[],uncertainties:[]};
+ assert.equal(closeInterpretation({rawTaskHash:raw,parses:[p,p]}).status,'INTERPRETATION_AGREEMENT_NOT_AUTHORITY');
+ const p2={...p,constraints:[]};assert.equal(closeInterpretation({rawTaskHash:raw,parses:[p,p2]}).status,'INTERPRETATION_CROWN_REQUIRED');
+ const c=closeInterpretation({rawTaskHash:raw,parses:[p,p2],crownResolution:{semanticAuthority:'CURRENT_TASK_CLASS_CROWN',rawTaskHash:raw,program:p,authorityReceiptHash:h('r'),preserved:['never Y'],omitted:[],ambiguitiesResolved:['constraint omission']}});assert.equal(c.ok,true);
+});
+test('renderer cannot add claim or number and reverse parser needs authority',()=>{
+ const env={claims:['A'],numbers:['7'],citations:['s1'],constraints:['no B']};
+ assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 7',reverseParse:env}).status,'REVERSE_PARSE_AUTHORITY_REQUIRED');
+ assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 8',reverseParse:{...env,numbers:['8']},reverseParseAdmission:{qualityType:'DETERMINISTIC_EXACT_PARSER'}}).ok,false);
+ assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 7',reverseParse:env,reverseParseAdmission:{qualityType:'DETERMINISTIC_EXACT_PARSER'}}).ok,true);
+});
+test('partial evaluation refuses drift and preserves residual obligations',()=>{
+ const p={programId:'p1',qualityContractHash:h('q'),invalidators:['source-change'],obligations:[{id:'stable'},{id:'novel'}]};
+ const s=partialEvaluateSemanticProgram(p,{stable:7});assert.equal(s.residual.length,1);assert.equal(verifySpecialization({program:p,specialized:s,stableBindings:{stable:7}}).ok,true);assert.equal(verifySpecialization({program:p,specialized:s,stableBindings:{stable:8}}).ok,false);
+});
+test('semantic e-graph merges only proof-backed rewrites, never similarity',()=>{
+ const ex=[{id:'a',text:'same idea'},{id:'b',text:'same idea'},{id:'c',text:'other'}];
+ const none=buildVerifiedSemanticEGraph({expressions:ex,rewriteReceipts:[]});assert.equal(Object.values(none.classes).some(x=>x.length>1),false);
+ const yes=buildVerifiedSemanticEGraph({expressions:ex,rewriteReceipts:[{id:'r',from:'a',to:'b',verifierPassed:true,authority:'E2_VERIFIED_TRANSFORMATION',proofHash:h('proof')}]});assert.equal(Object.values(yes.classes).some(x=>x.length===2),true);
+});
+test('active boundary picks high-information uncertified cases without authority',()=>{
+ const r=selectActiveBoundaryCases([{id:'a',informationGain:1,disagreement:1,certified:false},{id:'b',informationGain:5,disagreement:2,certified:false},{id:'c',informationGain:99,disagreement:99,certified:true}],{maxCases:1});assert.deepEqual(r.selected,['b']);assert.equal(r.semanticAuthority,'NONE');
+ assert.equal(microcodeVerdict(['LOAD_FACT','CHECK_CONSTRAINT']).ok,true);assert.equal(microcodeVerdict(['INVENT_SEMANTICS']).ok,false);
+});
+test('OpenRouter adapter verifies key policy, model, usage, generation bill and never echoes key',async()=>{
+ const secret='sk-or-v1-supersecret-do-not-log';let n=0;
+ const responses=[
+  {status:200,body:{data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}}},
+  {status:200,body:{id:'gen-1',model:'anthropic/claude-opus-5.5',choices:[{message:{role:'assistant',content:'OK'}}],usage:{cost:.001,prompt_tokens:10,completion_tokens:2,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}}},
+  {status:200,body:{data:{provider_name:'Anthropic',model:'anthropic/claude-opus-5.5',total_cost:.001,tokens_prompt:10,tokens_completion:2}}},
+  {status:200,body:{data:{label:'runtime',limit:20,limit_remaining:19.999,usage_monthly:.001,limit_reset:'monthly'}}}
+ ];
+ const fetchImpl=async(url,opts={})=>{assert.ok(String(opts.headers?.Authorization??'').includes(secret));const x=responses[n++];return {ok:x.status<300,status:x.status,text:async()=>JSON.stringify(x.body)};};
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>secret,fetchImpl,expectedKeyLimitUsd:20});
+ const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'reply OK'}],maxTokens:4});assert.equal(r.ok,true);assert.equal(r.semanticAuthority,'NONE');assert.ok(!JSON.stringify(r).includes(secret));
+});
+test('OpenRouter wrong-model response is refused and not Crown authority',async()=>{
+ const seq=[{data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}},{id:'g',model:'wrong/model',choices:[],usage:{cost:.001}}];let i=0;
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(seq[i++])})});
+ const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'x'}],maxTokens:1});assert.equal(r.status,'OPENROUTER_WRONG_MODEL_SERVED');
+});

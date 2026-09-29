@@ -10,7 +10,8 @@ import {
   governMonthlyCognitionBudget,
   compileOpenRouterProviderPolicy,
   compileSpeculativeReadOnlyPlan,
-  compileShadowEscalationThresholdCandidate
+  compileShadowEscalationThresholdCandidate,
+  createMonthlyCloudCognitionBudget
 } from '../src/frontier-quality-market-compiler.mjs';
 
 const sha = char => char.repeat(64);
@@ -190,4 +191,21 @@ test('online threshold optimization stays shadow-only until canonical zero-loss 
   assert.equal(out.routingAuthority, 'SHADOW_ONLY');
   assert.equal(out.promotionAuthority, 'NONE');
   assert.ok(out.requiredPromotionEvidence.includes('canonical zero-loss certificate'));
+});
+
+
+test('$20 all-in monthly target becomes a conserved OpenRouter compute budget with fee reserve', () => {
+  const out = createMonthlyCloudCognitionBudget({
+    monthKey: '2026-10',
+    allInBudgetUsd: 20,
+    platformFeeRate: 0.055,
+    totalTokenCeiling: 50_000_000
+  });
+  assert.equal(out.ok, true, JSON.stringify(out));
+  assert.equal(out.allInBudgetCents, 2000);
+  assert.ok(out.providerComputeBudgetCents < 2000);
+  assert.equal(out.providerComputeBudgetCents + out.overheadReserveCents, 2000);
+  assert.equal(out.computeBudget.allowedProviders[0], 'openrouter');
+  assert.equal(out.computeBudget.allowPaidCompute, true);
+  assert.equal(out.qualityPressureRelief, 'QUEUE_NOT_DOWNGRADE');
 });

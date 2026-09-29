@@ -1,7 +1,9 @@
+import { assertCognitionPerimeterAdmission } from './cognition-transport-guard.mjs';
 const API='https://api.openai.com/v1';
 function required(name,v){ if(!v) throw new Error(`${name}-required`); return v; }
-export function createOpenAIConversationModelAdapter({apiKey=process.env.OPENAI_API_KEY,model='gpt-5'}={}){
+export function createOpenAIConversationModelAdapter({apiKey=process.env.OPENAI_API_KEY,model='gpt-5',cognitionPerimeterAdmission=null}={}){
   required('openai-api-key',apiKey);
+  assertCognitionPerimeterAdmission(cognitionPerimeterAdmission);
   const headers={Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json'};
   async function json(url,init){ const r=await fetch(url,{...init,headers:{...headers,...init?.headers}}); const t=await r.text(); let b={}; try{b=t?JSON.parse(t):{}}catch{b={raw:t}} if(!r.ok) throw new Error(`openai-http-${r.status}:${b?.error?.message||t}`); return b; }
   async function createConversation({metadata={}}={}){

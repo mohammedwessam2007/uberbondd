@@ -873,12 +873,12 @@
     "upgradeCeiling": "Do not add named architecture layers unless they measurably improve quality, compression, verification, latency, founder time, recoverability, or authority safety. Next major progress is live evidence.",
     "externalBlockers": [
       "TypingMind connected to OpenRouter with owner-held API key; record non-secret connection evidence reference",
-      "live current task-class Crown snapshot",
+      "exact owner-route model/revision/effort callability for selected task-class Crown candidates",
       "fresh sealed/custodied task source",
       "real provider billing receipts after live calls",
       "independent or blind paired evaluation"
     ],
-    "nextAction": "RUN_FRONTIER_VM_DOCTOR -> CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> REFRESH_LIVE_TASK_CLASS_CROWN -> COMMIT_FRESH_TASK_SOURCE -> RUN_FIRST_PAIRED_BURN_IN",
+    "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> VERIFY_OWNER_ROUTE_CALLABILITY -> COMMIT_FRESH_TASK_SOURCE -> RUN_FIRST_PAIRED_BURN_IN",
     "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence.",
     "mergedPr": 1038,
     "mergedMainSha": "c92e3fa4dc4b418a6f397213b01362e8f9dfff37",
@@ -895,8 +895,8 @@
       "spendUsd": 0
     },
     "hostedCheckClassification": {
-      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE__ALL_INSPECTED_FAILED_JOBS_HAD_ZERO_STEPS",
-      "vercel": "RATE_LIMITED__NO_SOURCE_FAILURE_INFERRED"
+      "githubActions": "NO_PR_TRIGGERED_WORKFLOW_RUNS_RETURNED_FOR_MAIN_HEAD_523DAF09",
+      "vercel": "TWO_FAILURE_STATUSES_OBSERVED__BUILD_RATE_LIMIT__INFRASTRUCTURE_NON_EVIDENCE"
     },
     "formerWorkingBranch": "open-router/frontier-intelligence-virtualization-20260929",
     "recoveryLaw": "Recover current main first. V5 plus TypingMind-first $30/$15 policy reconciliation are merged. Interactive iPad use does not require duplicating the OpenRouter secret into repository runtime. Continue from external connection evidence, live Crown snapshot, fresh task source, then paired burn-in.",
@@ -941,6 +941,25 @@
       "hostedCheckClassification": "ALL_INSPECTED_GITHUB_FAILURES_ZERO_STEPS__INFRASTRUCTURE_NON_EVIDENCE",
       "providerInferenceCallsPerformed": 0,
       "spendUsd": 0
-    }
+    },
+    "currentObservedMainShaBeforeSnapshot": "523daf09fa594bb2cf8a6266d73ee76a98ff73fe",
+    "liveModelMarketSnapshot": {
+      "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+      "observedAt": "2026-09-29",
+      "status": "PUBLIC_CANDIDATES_REFRESHED__NO_CROWN_PROMOTION",
+      "generalCandidate": "anthropic/claude-opus-5.5",
+      "terminalAutomationCandidates": [
+        "anthropic/claude-sonnet-5.5",
+        "anthropic/claude-opus-5.5",
+        "openai/gpt-6-astra"
+      ],
+      "cheapWorkerCandidates": [
+        "openai/gpt-6-luna",
+        "xiaomi/mimo-v2.6-pro",
+        "z-ai/glm-5.3-flash"
+      ],
+      "promotionBoundary": "Owner-route callability + fresh paired task evidence still required."
+    },
+    "canonicalFolderFileCountAfterLiveMarketSnapshot": 42
   }
 }

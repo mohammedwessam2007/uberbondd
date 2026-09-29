@@ -52,10 +52,10 @@ function digest(value) {
 function rawDigest(value) {
   return crypto.createHash('sha256').update(String(value)).digest('hex');
 }
-function manifestCorpusDigest(rows) {
+export function apexManifestCorpusDigest(rows = []) {
   return rawDigest(JSON.stringify(rows.map(row => [row.taskId, row.family, row.tier, row.answerDigest])));
 }
-function manifestCommitmentDigest(rows) {
+export function apexManifestCommitmentDigest(rows = []) {
   return digest(rows.map(row => ({
     taskId: row.taskId,
     family: row.family,
@@ -105,15 +105,15 @@ function normalizeManifest(manifest = []) {
 
 export function sealedManifestCommitmentDigest(sealedManifest = []) {
   const normalized = normalizeManifest(sealedManifest);
-  return normalized.ok ? manifestCommitmentDigest(normalized.rows) : null;
+  return normalized.ok ? apexManifestCommitmentDigest(normalized.rows) : null;
 }
 
 export function sealedCorpusDigestFromManifest(sealedManifest = []) {
   const normalized = normalizeManifest(sealedManifest);
-  return normalized.ok ? manifestCorpusDigest(normalized.rows) : null;
+  return normalized.ok ? apexManifestCorpusDigest(normalized.rows) : null;
 }
 
-function normalizeCommitment(raw = {}, { suiteVersion, corpusDigest, manifestDigest, taskCount } = {}) {
+export function validateApexHoldoutCommitment(raw = {}, { suiteVersion, corpusDigest, manifestDigest, taskCount } = {}) {
   const commitmentRef = text(raw?.commitmentRef, 1200);
   const committedAt = timestamp(raw?.committedAt);
   const sourceFreezeRef = text(raw?.sourceFreezeRef, 1200);
@@ -227,15 +227,15 @@ export function compileSealedArchitectureTrial({
   if (!Array.isArray(runs) || runs.length === 0 || runs.length > 100000) reasons.push('bounded-run-list-required');
   if (reasons.length) return fail('SEALED_ARCHITECTURE_TRIAL_REFUSED', reasons);
 
-  const computedCorpusDigest = manifestCorpusDigest(manifest.rows);
-  const computedManifestDigest = manifestCommitmentDigest(manifest.rows);
+  const computedCorpusDigest = apexManifestCorpusDigest(manifest.rows);
+  const computedManifestDigest = apexManifestCommitmentDigest(manifest.rows);
   if (computedCorpusDigest !== corpus) {
     return fail('SEALED_ARCHITECTURE_TRIAL_REFUSED', ['declared-corpus-digest-does-not-bind-sealed-manifest'], {
       declaredCorpusDigest: corpus,
       computedCorpusDigest
     });
   }
-  const commitment = normalizeCommitment(holdoutCommitment, {
+  const commitment = validateApexHoldoutCommitment(holdoutCommitment, {
     suiteVersion: suite,
     corpusDigest: computedCorpusDigest,
     manifestDigest: computedManifestDigest,

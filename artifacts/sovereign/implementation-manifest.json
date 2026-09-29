@@ -1872,7 +1872,7 @@
       "tests": [
         "tests/external-capability-control-plane.test.mjs"
       ],
-      "note": "Registered as CANONICAL_METHOD and routed by defaultCapabilityForTask('automation-audit'); the project-local read-only recommender is .claude/skills/claude-automation-recommender/. Governance is implemented and tested. No host runtime is claimed installed — that remains npm run capabilities:doctor's question."
+      "note": "Registered as CANONICAL_METHOD and routed by defaultCapabilityForTask('automation-audit'); the project-local read-only recommender is .claude/skills/claude-automation-recommender/. Governance is implemented and tested. No host runtime is claimed installed \u2014 that remains npm run capabilities:doctor's question."
     },
     {
       "concept": "Fable Orchestrator",
@@ -2092,6 +2092,74 @@
         "tests/capability-genome-body-security-screening.test.mjs"
       ],
       "note": "Secret pattern sweep and format coverage, suppression dominance, the sovereignty type ladder with human-only crossings, memory and salience sovereignty, and capability revocation in genome admission where a revoked record is never selectable."
+    },
+    {
+      "concept": "AI Reliability and Acceptance Cloud",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/economic-reliability-engine.mjs",
+        "src/economic-reliability-control-loop.mjs",
+        "src/economic-reliability-input-builder.mjs"
+      ],
+      "tests": [
+        "tests/economic-reliability-engine.test.mjs",
+        "tests/economic-reliability-control-loop.test.mjs",
+        "tests/economic-reliability-input-builder.test.mjs"
+      ],
+      "note": "Conservative evidence-backed reliability arithmetic and fail-closed action preparation. Missing calibration and shared critical dependencies never count as independent reliability. Internal bounded behavior is not a guarantee or observed commercial success."
+    },
+    {
+      "concept": "Chat Import Protocol",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/chatgpt-project-importer.mjs"
+      ],
+      "tests": [
+        "tests/chatgpt-project-importer.test.mjs"
+      ],
+      "note": "Bulk structured export import preserves provenance and blocks archival peers as current authority. It does not recover absent original transcript bytes or authorize private data publication."
+    },
+    {
+      "concept": "BLACK SKY",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/blackout-first-compute-planner.mjs"
+      ],
+      "tests": [
+        "tests/blackout-first-compute-planner.test.mjs"
+      ],
+      "note": "Trusted signed execution checkpoints replay after blackout; forged, conflicting and changed-source results are refused. Source behavior does not establish physical blackout survival or observed host uptime."
+    },
+    {
+      "concept": "World Capability Genome",
+      "lane": "OMEGA-14",
+      "sources": [
+        "scripts/capability-genome-money-world-pulse.mjs",
+        "src/capability-genome-runtime.mjs",
+        "src/capability-genome-harvest.mjs",
+        "src/capability-genome-admission.mjs"
+      ],
+      "tests": [
+        "tests/capability-genome-money-world-pulse.test.mjs",
+        "tests/capability-genome.test.mjs",
+        "tests/capability-genome-harvest.test.mjs",
+        "tests/capability-genome-economic-fitness-boundaries.test.mjs",
+        "tests/capability-genome-dependency-graph.test.mjs"
+      ],
+      "note": "Bounded public capability planning, normalized candidate admission and dependency-aware reuse. Network harvest requires host read authorization and external corpus. Plan-only default, cooldown restart and malformed-budget refusal have executed tests. No discovered candidate gains semantic, spend, deployment or customer authority; real savings remain unobserved."
+    },
+    {
+      "concept": "UberBond Lead OS / Apollo-style targeting lineage",
+      "lane": "OMEGA-14",
+      "sources": [
+        "src/uberbond-native-lead-ops.mjs",
+        "src/infinite-opus-task-compilers.mjs"
+      ],
+      "tests": [
+        "tests/uberbond-native-lead-ops.test.mjs",
+        "tests/infinite-opus-compilers.test.mjs"
+      ],
+      "note": "Domain dedupe, suppression, exact identity, local enrichment and capacity preparation with a typed caller returning PROPOSAL_ONLY and releaseAuthorized false. This does not authorize provider enrichment or outreach."
     }
   ]
 }

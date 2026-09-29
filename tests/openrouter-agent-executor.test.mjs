@@ -59,7 +59,8 @@ test('OpenRouter executor sends price/ZDR/sticky-cache policy and never model fa
     maxTokens: 200,
     costCeilingCents: 5,
     sessionId: 'mission-123',
-    responseCacheEligible: true
+    responseCacheEligible: true,
+    responseCacheFreshness: 'BOUNDED'
   });
 
   assert.equal(out.ok, true, JSON.stringify(out));

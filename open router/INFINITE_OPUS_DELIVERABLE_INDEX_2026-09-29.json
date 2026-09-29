@@ -1,0 +1,216 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.deliverable-index.v1",
+  "truthBoundary": "Source implementation and tests do not establish deployed moving-Crown quality or realized savings. Bounded scope and unproven generalization remain explicit.",
+  "deliverables": [
+    {
+      "number": 1,
+      "deliverable": "refreshed model-market snapshot",
+      "path": "src/infinite-opus-market.mjs",
+      "status": "PUBLIC_CANDIDATES_NO_PROMOTION"
+    },
+    {
+      "number": 2,
+      "deliverable": "executable $1/day budget governor",
+      "path": "src/cognition-ledger.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 3,
+      "deliverable": "protected Crown escrow",
+      "path": "src/cognition-ledger.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 4,
+      "deliverable": "provider price registry",
+      "path": "open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json",
+      "status": "PUBLIC_PRICES_EXPIRE_ACCOUNT_ROUTES_UNVERIFIED"
+    },
+    {
+      "number": 5,
+      "deliverable": "exact response cache",
+      "path": "src/cognition-ledger.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 6,
+      "deliverable": "prompt cache and sticky routing",
+      "path": "src/openrouter-agent-executor.mjs",
+      "status": "SOURCE_SUPPORTED_HIT_RATE_UNOBSERVED"
+    },
+    {
+      "number": 7,
+      "deliverable": "Semantic IR",
+      "path": "src/frontier-intelligence-vm.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 8,
+      "deliverable": "semantic proof tree",
+      "path": "src/semantic-closure-kernel.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 9,
+      "deliverable": "Crown Closure checker",
+      "path": "src/crown-closure.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 10,
+      "deliverable": "verified semantic hashing",
+      "path": "src/semantic-closure-kernel.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 11,
+      "deliverable": "Decision Franchise store",
+      "path": "src/infinite-opus-native-runtime.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 12,
+      "deliverable": "proof-carrying Jev",
+      "path": "src/crown-closure.mjs",
+      "status": "EXHAUSTIVE_FINITE_POLICY_ONLY_NO_LEARNED_JEV_AUTHORITY"
+    },
+    {
+      "number": 13,
+      "deliverable": "verifier foundry",
+      "path": "src/infinite-opus-task-compilers.mjs",
+      "status": "EXACT_TYPED_EQUALITY_ONLY"
+    },
+    {
+      "number": 14,
+      "deliverable": "solver transpiler",
+      "path": "src/infinite-opus-task-compilers.mjs",
+      "status": "FINITE_EXACT_SPECIFICATION_ONLY_AMBIGUOUS_TRANSLATION_PAGES_CROWN"
+    },
+    {
+      "number": 15,
+      "deliverable": "living evidence graph",
+      "path": "src/semantic-closure-kernel.mjs",
+      "status": "TYPED_DEPENDENCY_INVALIDATION_ONLY"
+    },
+    {
+      "number": 16,
+      "deliverable": "semantic demand exchange",
+      "path": "src/infinite-opus-store.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 17,
+      "deliverable": "semantic debt queue",
+      "path": "src/infinite-opus-native-runtime.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 18,
+      "deliverable": "Crown-call coalescer",
+      "path": "src/frontier-residual-cut.mjs",
+      "status": "EXACT_CUT_PLAN_NO_PAID_EXECUTION"
+    },
+    {
+      "number": 19,
+      "deliverable": "cognitive multicast",
+      "path": "src/frontier-residual-cut.mjs",
+      "status": "SYNTHETIC_PROTOTYPE_LIVE_FANOUT_UNKNOWN"
+    },
+    {
+      "number": 20,
+      "deliverable": "Decision DAG",
+      "path": "src/frontier-intelligence-vm.mjs",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 21,
+      "deliverable": "negative knowledge",
+      "path": "open router/INFINITE_OPUS_NEGATIVE_KNOWLEDGE_2026-09-29.json",
+      "status": "BOUNDED_IMPLEMENTATION_PRE_LIVE"
+    },
+    {
+      "number": 22,
+      "deliverable": "intelligence-capital ledger",
+      "path": "src/infinite-opus-native-runtime.mjs",
+      "status": "DURABLE_ASSETS_ECONOMIC_VALUE_UNKNOWN"
+    },
+    {
+      "number": 23,
+      "deliverable": "task-class compilers",
+      "path": "src/infinite-opus-task-compilers.mjs",
+      "status": "SIX_BOUNDED_TYPED_SUBSTRATES"
+    },
+    {
+      "number": 24,
+      "deliverable": "continuous model tournaments",
+      "path": "src/apex-sealed-tournament.mjs",
+      "status": "EXISTING_SEALED_SOURCE_REAL_TASK_TOURNAMENT_BLOCKED"
+    },
+    {
+      "number": 25,
+      "deliverable": "event-driven scheduler",
+      "path": "src/founder-outcome-job-handlers.mjs",
+      "status": "WIRED_TO_EXISTING_QUEUE_NO_PAID_IDLE_LOOP"
+    },
+    {
+      "number": 26,
+      "deliverable": "exact cost receipts",
+      "path": "src/cognition-ledger.mjs",
+      "status": "MICROUSD_WITH_UNKNOWN_AND_OVERRUN_HOLDS_LIVE_BILLS_ABSENT"
+    },
+    {
+      "number": 27,
+      "deliverable": "Opus Quality Fanout metrics",
+      "path": "src/cognition-ledger.mjs",
+      "status": "REAL_PRODUCER_EVIDENCE_REQUIRED"
+    },
+    {
+      "number": 28,
+      "deliverable": "ByConstructionShare metrics",
+      "path": "src/cognition-ledger.mjs",
+      "status": "TYPED_CLOSURE_SHARE_NOT_GLOBAL_FRONTIER_PROOF"
+    },
+    {
+      "number": 29,
+      "deliverable": "FrontierSemanticShare metrics",
+      "path": "src/cognition-ledger.mjs",
+      "status": "REAL_PRODUCER_EVIDENCE_REQUIRED"
+    },
+    {
+      "number": 30,
+      "deliverable": "hostile tests",
+      "path": "tests/infinite-opus.test.mjs",
+      "status": "EXECUTED_SYNTHETIC_SOURCE_TESTS"
+    },
+    {
+      "number": 31,
+      "deliverable": "new exponent mechanism prototype",
+      "path": "src/frontier-residual-cut.mjs",
+      "status": "4096_SYNTHETIC_CONSUMERS_ONE_MISSING_LEAF_NO_ECONOMIC_CLAIM"
+    },
+    {
+      "number": 32,
+      "deliverable": "current handoff",
+      "path": "docs/CURRENT_HANDOFF.json",
+      "status": "UPDATED_PRESERVING_OLD_MEMORY"
+    },
+    {
+      "number": 33,
+      "deliverable": "updated canon",
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "status": "UPDATED_PRESERVING_V5"
+    },
+    {
+      "number": 34,
+      "deliverable": "updated manifest",
+      "path": "open router/MANIFEST.json",
+      "status": "CONTENT_HASHES_UPDATED"
+    },
+    {
+      "number": 35,
+      "deliverable": "remaining owner blockers",
+      "path": "open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md",
+      "status": "ACCOUNT_CONSENT_PAID_AUTHORIZATION_HOST_DEPLOYMENT"
+    }
+  ]
+}

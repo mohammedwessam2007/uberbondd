@@ -273,7 +273,12 @@ export function findCommonSemanticSubexpressions({ program } = {}) {
       semanticIdentity: node.semanticIdentity,
       sourceStateDigest: node.sourceStateDigest,
       requiredQualityType: node.requiredQualityType,
-      applicabilityDomain: node.applicabilityDomain
+      applicabilityDomain: node.applicabilityDomain,
+      operation: node.operation,
+      dependencies: node.dependencies,
+      evidenceRefs: node.evidenceRefs,
+      sideEffectClass: node.sideEffectClass,
+      metadata: node.metadata
     });
     const rows = groups.get(key) || [];
     rows.push(node.nodeId);

@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.doctor.v1",
+  "observedAt": "2026-09-29T22:20:10.802Z",
+  "status": "BOUNDED_SOURCE_EXERCISED_LIVE_ACTIVATION_BLOCKED",
+  "idle": {
+    "businessEffectAuthority": "NONE",
+    "externalEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    },
+    "schemaVersion": "uberbond.infinite-opus.task.v1",
+    "version": 0,
+    "budget": {
+      "state": "GREEN",
+      "todaySpentMicrousd": 0,
+      "monthSpentMicrousd": 0,
+      "reservedMicrousd": 0,
+      "availableMicrousd": 30000000,
+      "workerAvailableMicrousd": 15000000,
+      "crownEscrowRemainingMicrousd": 15000000,
+      "qualityAction": "QUEUE_NEVER_DOWNGRADE"
+    },
+    "metrics": {
+      "opusQualityFanout": null,
+      "frontierPageFaultRate": null,
+      "compiledCognitionShare": null,
+      "semanticMulticastFactor": null,
+      "verifiedSemanticDedupFactor": null,
+      "exactResponseCacheHits": 0,
+      "promptCacheReadShare": null,
+      "decisionFranchiseFanout": null,
+      "crownCalls": 0,
+      "crownCallsAvoided": null,
+      "noveltyTax": null,
+      "researchRecomputeFraction": null,
+      "crownCapitalROI": null,
+      "cognitiveHalfLife": null,
+      "usefulTasks": 0,
+      "byConstructionShare": null,
+      "frontierSemanticShare": null,
+      "actualAllInMicrousd": null,
+      "conservativeMatchedReferenceMicrousd": null,
+      "referenceCompressionFactor": null,
+      "truthBoundary": "RECEIPTS_ARE_INPUTS_REQUIRING_TRUSTED_PRODUCERS; NO_SAVINGS_CLAIM_FROM_EMPTY_OR_SYNTHETIC_LEDGER"
+    },
+    "taskCount": 0,
+    "pendingDebts": 0,
+    "capitalAssets": 0,
+    "paidConnected": false,
+    "providerCallsPerformedBySnapshot": 0
+  },
+  "market": {
+    "recordCount": 464,
+    "freshFixedPriceRecords": 458,
+    "expiresAt": "2026-09-30T21:50:45.351Z",
+    "ownerAccountCallability": "UNKNOWN"
+  },
+  "syntheticResidualCut": {
+    "rootConsumerCount": 4096,
+    "uniqueMissingLeaves": 1,
+    "elapsedMs": 68.261178,
+    "planHash": "90e937c4897cda044b4c09a1d4fb460e6432e9bade5c0aa7d35c3b33e7184dba",
+    "changedDependencyUniqueLeaves": 2,
+    "adjudicationsPerformed": 0,
+    "realizedSavings": null,
+    "matchedQualityResult": null
+  },
+  "blockers": [
+    "OWNER_ACCOUNT_CONNECTION_NOT_OBSERVED",
+    "EXPLICIT_PAID_AUTHORIZATION_ABSENT",
+    "CURRENT_CROWN_AND_FRESH_HIDDEN_TASK_EVIDENCE_ABSENT",
+    "24_7_HOST_DEPLOYMENT_NOT_OBSERVED"
+  ],
+  "inferenceCallsPerformed": 0,
+  "externalEffectsPerformed": 0
+}

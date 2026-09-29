@@ -52,7 +52,7 @@ function payload() {
   };
 }
 
-test('owned Postal canary bridge submits exactly once and binds a deterministic Message-ID', async () => {
+test('Postal canary refuses credentials and reservation without canonical durable final admission', async () => {
   let calls = 0;
   const fetchImpl = async (_url, options) => {
     calls += 1;
@@ -75,10 +75,10 @@ test('owned Postal canary bridge submits exactly once and binds a deterministic 
     cfg: cfg(), account: account(), reservation: reservation(), effectPayload: payload(),
     fetchImpl, now: () => NOW
   });
-  assert.equal(result.ok, true);
-  assert.equal(result.classification, 'ACCEPTED');
-  assert.equal(result.providerReferenceId, '77');
-  assert.equal(calls, 1);
+  assert.equal(result.ok,false);
+  assert.equal(result.classification,'REJECTED');
+  assert.ok(result.reasonCodes.includes('canonical-durable-execution-and-final-admission-required'));
+  assert.equal(calls,0);
 });
 
 test('Postal follow-up/thread path refuses before any provider call', async () => {
@@ -95,15 +95,15 @@ test('Postal follow-up/thread path refuses before any provider call', async () =
   assert.equal(calls, 0);
 });
 
-test('Postal transport failure stays UNCERTAIN and performs no internal retry', async () => {
+test('Postal standalone retry cannot bypass missing canonical execution authority', async () => {
   let calls = 0;
   const result = await dispatchPostalCanary({
     cfg: cfg(), account: account(), reservation: reservation(), effectPayload: payload(),
     fetchImpl: async () => { calls += 1; throw new Error('connection reset after request'); },
     now: () => NOW
   });
-  assert.equal(result.classification, 'UNCERTAIN');
-  assert.equal(calls, 1);
+  assert.equal(result.classification,'REJECTED');
+  assert.equal(calls,0);
 });
 
 test('Postal does not widen the first-canary contact policy', () => {

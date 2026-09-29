@@ -1,8 +1,5 @@
 import { ADAPTER_OUTCOMES } from './omnia-v9/integrations/external-effect-adapter.mjs';
-import {
-  PostalEffectAdapter,
-  postalProviderEffectIdentity
-} from './omnia-v9/integrations/providers/postal-effect-adapter.mjs';
+import { dispatchReservedPostalCanary } from './omnia-v9/integrations/external-effect-dispatcher.mjs';
 
 export const POSTAL_LIVE_SEND_VERSION = 'uberbond.postal-live-send.v1';
 
@@ -36,7 +33,8 @@ export async function dispatchPostalCanary({
   effectPayload,
   followup = 0,
   fetchImpl = globalThis.fetch,
-  now = () => new Date()
+  now = () => new Date(),
+  canonicalRuntime = null
 } = {}) {
   if (String(cfg?.outbound?.provider || '').toLowerCase() !== 'postal' || cfg?.outbound?.useEffectAdapter !== true) {
     return { handled: false, providerCalls: 0 };
@@ -52,65 +50,6 @@ export async function dispatchPostalCanary({
   if (effectPayload?.threadId || effectPayload?.replyToId) reasons.push('postal-canary-threaded-send-not-enabled');
   if (reasons.length) return { handled: true, ...refusal(reasons) };
 
-  const executionId = `outbound:${reservation.id}`;
-  const providerEffectIdentity = postalProviderEffectIdentity(executionId, cfg.outbound.messageIdDomain);
-  const adapter = new PostalEffectAdapter({
-    baseUrl: cfg.providers.postal.baseUrl,
-    apiKey: cfg.providers.postal.apiKey,
-    fromAddress: account.email,
-    messageIdDomain: cfg.outbound.messageIdDomain,
-    fetchImpl,
-    now
-  });
-
-  let prepared;
-  try {
-    prepared = await adapter.prepare({
-      businessKey: reservation.idempotencyKey,
-      providerEffectIdentity,
-      executionId,
-      effectPayload: {
-        to: effectPayload?.to,
-        from: account.email,
-        subject: effectPayload?.subject,
-        body: effectPayload?.body,
-        listUnsubscribe: effectPayload?.listUnsubscribe
-      }
-    });
-  } catch (error) {
-    return {
-      handled: true,
-      ok: false,
-      classification: ADAPTER_OUTCOMES.REJECTED,
-      reasonCodes: [`postal-prepare-refused:${text(error?.code || error?.message || error, 240)}`],
-      providerCalls: 0
-    };
-  }
-
-  let result;
-  try {
-    result = await adapter.dispatch(prepared);
-  } catch (error) {
-    return {
-      handled: true,
-      ok: false,
-      classification: ADAPTER_OUTCOMES.UNCERTAIN,
-      dispatchError: text(error?.message || error, 500),
-      providerCalls: adapter.dispatchCallCount
-    };
-  }
-
-  return {
-    handled: true,
-    ok: result.classification === ADAPTER_OUTCOMES.ACCEPTED,
-    classification: result.classification,
-    providerReferenceId: result.providerReferenceId || null,
-    messageId: prepared.messageId,
-    providerEffectIdentity,
-    argumentsDigest: prepared.argumentsDigest,
-    evidence: result.evidence || null,
-    dispatchError: result.dispatchError || null,
-    providerCalls: adapter.dispatchCallCount,
-    truthBoundary: 'ACCEPTED proves Postal accepted the exact API submission. It does not prove inbox placement, human receipt, reply, revenue, or future deliverability.'
-  };
+  if (!canonicalRuntime) return {handled:true,...refusal(['canonical-durable-execution-and-final-admission-required'])};
+  return dispatchReservedPostalCanary({...canonicalRuntime,cfg,account,reservation,effectPayload,fetchImpl,now});
 }

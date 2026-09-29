@@ -448,3 +448,8 @@ Every important artifact should carry a semantic proof tree whose leaves termina
 ## Project Infinite Opus execution prompt
 
 `23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md` is the execution prompt for the next phase: research, invent, implement and set up the strongest lawful architecture for approximately $1/day, 24/7, moving-Crown-quality work. It inherits files 18-22 and explicitly forbids plan-only completion, cheap-model semantic authority, fake reference multipliers and quality downgrade under budget pressure.
+
+
+### Infinite Opus source checkpoint — 2026-09-29 UTC
+
+Bounded implementation is at source commit `9e52531c850db048460c8fc33d0af182075a54e0`. Restore through `open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md` and the 35-item `INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json`. Exact closure, reserved cognition capacity, typed task compilers and residual proof-cut coalescing are implemented; current Crown promotion, paid account callability, production deployment and realized savings are not observed. Preserve original founder-transcript integrity failures as historical evidence debt. No confidence, consensus or synthetic fanout result grants semantic or economic authority.

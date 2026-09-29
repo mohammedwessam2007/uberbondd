@@ -103,6 +103,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   // `npm run test:postgres-real` exists for, serially, where it belongs.
   const deterministicEnv = { ...process.env };
   delete deterministicEnv.OMNIA_V9_TEST_DATABASE_URL;
-  const run = spawnSync(process.execPath, ['--test', ...files], { cwd: repoRoot, stdio: 'inherit', env: deterministicEnv });
+  const run = spawnSync(process.execPath, ['--test', '--test-concurrency=4', ...files], { cwd: repoRoot, stdio: 'inherit', env: deterministicEnv });
   process.exit(run.status ?? 1);
 }

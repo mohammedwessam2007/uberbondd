@@ -12,7 +12,7 @@ export function compileOutreachEconomics({
   let unknownCostCount=0;
   for(const row of asArray(costReceipts)){
     const stage=lower(row?.stage);
-    const known=Number.isFinite(Number(row?.costCents));
+    const known=typeof row?.costCents==='number' && Number.isFinite(row.costCents) && row.costCents>=0;
     if(!known){unknownCostCount++;continue;}
     const amount=cents(row.costCents);
     if(STAGES.includes(stage))costs[stage]+=amount;

@@ -22,10 +22,23 @@ const args = new Map(process.argv.slice(2).map(arg => {
   return i < 0 ? [arg, true] : [arg.slice(0, i), arg.slice(i + 1)];
 }));
 const execute = args.has('--execute-github');
-const queryBatchSize = Math.max(1, Math.min(25, Number(args.get('--query-batch-size') || 10)));
-const windowDays = Math.max(1, Math.min(90, Number(args.get('--window-days') || 30)));
-const maxProviderCalls = Math.max(1, Math.min(200, Number(args.get('--max-provider-calls') || 80)));
-const refreshIntervalSec = Math.max(3600, Number(args.get('--refresh-interval-sec') || 21600));
+export function normalizeMoneyWorldCapabilityPulseInput(options = {}) {
+  const bounded = (value, fallback, min, max) => {
+    const number = Number(value ?? fallback);
+    return Number.isFinite(number) ? Math.max(min, Math.min(max, Math.floor(number))) : fallback;
+  };
+  return { queryBatchSize: bounded(options.queryBatchSize, 10, 1, 25),
+    windowDays: bounded(options.windowDays, 30, 1, 90),
+    maxProviderCalls: bounded(options.maxProviderCalls, 80, 1, 200),
+    refreshIntervalSec: bounded(options.refreshIntervalSec, 21600, 3600, 2592000) };
+}
+const pulseInput = normalizeMoneyWorldCapabilityPulseInput({queryBatchSize: args.get('--query-batch-size'),
+  windowDays: args.get('--window-days'), maxProviderCalls: args.get('--max-provider-calls'),
+  refreshIntervalSec: args.get('--refresh-interval-sec')});
+const {queryBatchSize, windowDays, maxProviderCalls, refreshIntervalSec} = pulseInput;
+
+
+
 const earliestDate = String(args.get('--earliest-date') || '2008-01-01');
 const atlas = buildMoneyCapabilitySearchAtlas();
 

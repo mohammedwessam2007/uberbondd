@@ -55,6 +55,7 @@ export class Pipeline {
     // Unlike the shadow observer above, this gate may block a real provider call.
     this.outboundConsequenceGateFn = hooks.outboundConsequenceGate || null;
     this.postalSendFn = hooks.postalSend || dispatchPostalCanary;
+    this.canonicalExternalEffects = hooks.canonicalExternalEffects ?? null;
     this.smtpSendFn = hooks.smtpSend || dispatchSmtpFleetAccount;
     this.imapPollFn = hooks.imapPoll || pollImapForwardingAccount;
   }
@@ -759,7 +760,7 @@ export class Pipeline {
         result = { data: { id: providerMeta.providerReferenceId, threadId: '' } };
       } else if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
         providerMeta = await this.postalSendFn({
-          cfg: this.cfg, account, reservation, effectPayload, followup, now: this.clock
+          cfg: this.cfg, account, reservation, effectPayload, followup, now: this.clock, canonicalRuntime: this.canonicalExternalEffects
         });
         if (providerMeta?.classification === 'REJECTED') {
           await this.store.markOutboundReservation(reservation.id, 'cancelled', {

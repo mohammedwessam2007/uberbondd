@@ -187,7 +187,7 @@ test('campaign creation binds one of the four final offer lanes and rejects unkn
   });
   assert.equal(selected.status, 201);
   assert.equal(json(selected).offerId, 'AI_AGENT_RELEASE_GATE');
-  assert.match(json(selected).offer, /AI Agent Release Gate/);
+  assert.match(json(selected).offer, /AI Agent Production Release Gate/);
 
   const unknown = await call('/api/campaigns', {
     method: 'POST', token: ADMIN_TOKEN,

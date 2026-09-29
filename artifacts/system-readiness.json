@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-25T12:51:53.539Z",
+  "generatedAt": "2026-09-29T22:54:35.931Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "93f3040b4f2ffe1b53eabc98f53d59222d7eb761",
-    "branch": "claude/uberbond-night-war-launch-glgsqc",
-    "sourceModules": 908,
-    "testSuites": 1086,
-    "workingTreeClean": true
+    "head": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
+    "branch": "HEAD",
+    "sourceModules": 948,
+    "testSuites": 1131,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 908,
-      "reachableFromProduction": 270,
-      "reachableFromUnattendedOperatorScriptsOnly": 431,
+      "srcModules": 948,
+      "reachableFromProduction": 286,
+      "reachableFromUnattendedOperatorScriptsOnly": 441,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 431,
-      "noEntryPointAtAll": 200,
+      "reachableFromOperatorScriptsOnly": 441,
+      "noEntryPointAtAll": 214,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],

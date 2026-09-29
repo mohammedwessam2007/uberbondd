@@ -273,5 +273,15 @@
     "A stronger model or new evidence may supersede this snapshot immediately.",
     "GPT-6.1 Sol was released today in Work/Codex, but this refresh does not yet establish exact owner-route OpenRouter/API pricing or task-class superiority.",
     "Luna is demoted from default cheap-worker status based on current comparative evidence; it remains eligible to return if it wins a measured task class."
-  ]
+  ],
+  "infiniteOpusMarketRefresh": {
+    "registry": "open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json",
+    "evidence": "open router/INFINITE_OPUS_MARKET_REFRESH_2026-09-29.json",
+    "observedAt": "2026-09-29T21:50:45.351444Z",
+    "expiry": "2026-09-30T21:50:45.351444Z",
+    "entries": 464,
+    "ownerAccountCallability": "UNKNOWN",
+    "verifiedTaskClassWinners": "UNKNOWN",
+    "priceRegistryDoesNotPromoteCrown": true
+  }
 }

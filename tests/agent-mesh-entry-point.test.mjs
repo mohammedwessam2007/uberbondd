@@ -102,7 +102,7 @@ test('readiness descriptions report presence without ever reporting a value', ()
   // silent one. The list grew by 'open-model' when the Open Model Universe
   // landed, and the assertion below is why that arrived as a failing test
   // instead of an unnoticed fifth executor.
-  assert.deepEqual(providers.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'open-model', 'claude-code-sandbox']);
+  assert.deepEqual(providers.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'openrouter', 'open-model', 'claude-code-sandbox']);
   assert.equal(providers.every(item => item.ready === false), true);
   assert.equal(providers.every(item => item.blockers.length > 0), true,
     'a provider that is not ready must say what is missing, or nobody can act on it');

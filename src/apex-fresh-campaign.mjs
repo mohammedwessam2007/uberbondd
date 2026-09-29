@@ -268,6 +268,7 @@ export function prepareFreshApexCampaign({
   if (!id || !suite || !klass || minTasks == null || !freeze) reasons.push('campaign-suite-task-freeze-required');
   if (qualityMode !== 'LEXICOGRAPHIC_FRONTIER_FIRST') reasons.push('lexicographic-frontier-first-quality-policy-required');
   if (!frontierBaselineId || maxQualityDelta == null) reasons.push('frontier-baseline-and-quality-delta-required');
+  if (absoluteQualityPolicyDigest !== ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST) reasons.push('absolute-frontier-quality-policy-digest-mismatch');
   const absoluteQuality = validateAbsoluteFrontierQualityPolicy({
     qualityDelta: maxQualityDelta,
     qualityPolicyDigest: absoluteQualityPolicyDigest

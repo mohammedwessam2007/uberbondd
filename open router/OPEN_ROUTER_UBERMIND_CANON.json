@@ -113,7 +113,7 @@
       "actualAllInSpendUsdMax": 30,
       "directFrontierReferenceCostUsdMin": 1000000,
       "targetCompressionFactor": 33333.333333333336,
-      "actualSpendFractionOfReference": 0.00003,
+      "actualSpendFractionOfReference": 3e-05,
       "approximateReferenceSpendAvoidedPercent": 99.997,
       "pairedRequiredQualityRegressionsAllowed": 0,
       "status": "FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN",
@@ -530,5 +530,23 @@
     "theoremLikeAuthorityMax": "E0_E4_ONLY_WITH_VALID_PROOF_OBLIGATIONS",
     "openEndedNoveltyStillRequiresFrontier": true,
     "cheapModelRole": "PROPOSAL_AND_RENDERING_ENGINE_WITH_NO_UNVERIFIED_SEMANTIC_AUTHORITY"
+  },
+  "infiniteOpusExecution20260929": {
+    "status": "SOURCE_VERIFIED_PRELIVE",
+    "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
+    "implementation": "src/infinite-opus-native-runtime.mjs",
+    "closure": "src/semantic-closure-kernel.mjs",
+    "budget": "src/cognition-ledger.mjs",
+    "priceRegistry": "open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json",
+    "activation": "open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md",
+    "deliverables": "open router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json",
+    "checkpoint": "open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json",
+    "inferenceCallsObserved": 0,
+    "productionDeploymentObserved": false,
+    "crownPromoted": false,
+    "qualityBoundary": "Exact typed programs and independently admitted, pinned authority only. Arbitrary prose, current frontier equivalence, economic compression and live availability remain unproven. Legacy independently authorized routes are outside this new governor.",
+    "historicalEvidenceBlocker": "Original founder raw transcript has 62611 bytes versus declared 189166; retain integrity block and canonical shards without rewriting the historical hash.",
+    "postgresProof": "scripts/infinite-opus-postgres-proof.mjs",
+    "terminalSourceTribunal": "PASS_WITH_SEPARATE_REALITY_BOUNDARIES"
   }
 }

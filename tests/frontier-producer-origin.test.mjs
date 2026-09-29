@@ -58,7 +58,7 @@ function admittedRuntimePlan(taskId) {
     profiles: [runtimeProfile],
     callability: [{ ...observation, providerRequestId: undefined }],
     benchmarks: [benchmark],
-    contextArtifacts: [],
+    contextArtifacts: [{ id: 'constitution', kind: 'CONSTITUTION', contentRef: 'fixture://constitution', tags: ['core'], dependencies: [], estimatedTokens: 100, priority: 100, immutable: true }],
     source: { kind: 'TEST', ref: 'test://producer-runtime-admission', observedAt: AT },
     callabilityProvenance: { receipt: built.receipt, receiptDigest: built.receiptDigest }
   });
@@ -72,7 +72,7 @@ function admittedRuntimePlan(taskId) {
       role: 'general',
       dataClass: 'INTERNAL_NON_SECRET',
       reasoningTier: 'FRONTIER_MAX',
-      requiredTags: [],
+      requiredTags: ['core'],
       contextTokenBudget: 1000,
       minCouncilSize: 2,
       maxCouncilSize: 2
@@ -181,7 +181,7 @@ test('producer-authoritative live receipt loses authority after clone or JSON ro
         profiles: [profile],
         callability: [{ ...produced.receipt.observations[0], providerRequestId: undefined }],
         benchmarks: [],
-        contextArtifacts: [],
+        contextArtifacts: [{ id: 'constitution', kind: 'CONSTITUTION', contentRef: 'fixture://constitution', tags: ['core'], dependencies: [], estimatedTokens: 100, priority: 100, immutable: true }],
         source: { kind: 'TEST', ref: 'test://clone-admission', observedAt: produced.receipt.generatedAt },
         callabilityProvenance: { receipt: copy, receiptDigest: produced.receiptDigest }
       });
@@ -206,7 +206,7 @@ test('admission bundle loses process authority after caller mutation', () => {
   const admission = buildFrontierAdmissionBundle({
     profiles: [profile],
     callability: [{ ...observation, providerRequestId: undefined }],
-    benchmarks: [], contextArtifacts: [],
+    benchmarks: [], contextArtifacts: [{ id: 'constitution', kind: 'CONSTITUTION', contentRef: 'fixture://constitution', tags: ['core'], dependencies: [], estimatedTokens: 100, priority: 100, immutable: true }],
     source: { kind: 'TEST', ref: 'test://admission', observedAt: AT },
     callabilityProvenance: { receipt: built.receipt, receiptDigest: built.receiptDigest }
   });

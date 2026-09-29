@@ -162,7 +162,10 @@ export function createOpenRouterAgentExecutor({
     maxTokens,
     costCeilingCents,
     sessionId = '',
-    responseCacheEligible = false
+    responseCacheEligible = false,
+    responseCacheFreshness = 'UNCLASSIFIED',
+    responseCacheTtlSeconds = 300,
+    responseCacheClear = false
   } = {}) {
     if (!enabled) return fail(['openrouter-agent-executor-disabled']);
     if (!key || key.length < 12) return fail(['openrouter-api-key-required']);
@@ -178,6 +181,9 @@ export function createOpenRouterAgentExecutor({
     }
     if (responseCacheEligible && String(task?.dataClass || '').trim().toUpperCase() !== 'PUBLIC') {
       return fail(['openrouter-response-cache-public-data-only']);
+    }
+    if (responseCacheEligible && (!['IMMUTABLE', 'BOUNDED'].includes(responseCacheFreshness) || !Number.isSafeInteger(responseCacheTtlSeconds) || responseCacheTtlSeconds < 1 || responseCacheTtlSeconds > 86400)) {
+      return fail(['openrouter-response-cache-freshness-and-ttl-required']);
     }
 
     const selectedModel = text(model || configuredModel, 240);
@@ -208,7 +214,8 @@ export function createOpenRouterAgentExecutor({
         headers: {
           Authorization: `Bearer ${key}`,
           'Content-Type': 'application/json',
-          ...(responseCacheEligible ? { 'X-OpenRouter-Cache': 'true' } : {})
+          'X-OpenRouter-Cache': responseCacheEligible ? 'true' : 'false',
+          ...(responseCacheEligible ? { 'X-OpenRouter-Cache-TTL': String(responseCacheTtlSeconds), ...(responseCacheClear ? { 'X-OpenRouter-Cache-Clear': 'true' } : {}) } : {})
         },
         body: JSON.stringify(body)
       });
@@ -274,6 +281,13 @@ export function createOpenRouterAgentExecutor({
       },
       reasoningSettingEvidence: reasoningEffort ? 'REQUEST_ATTESTED_ONLY' : 'NOT_REQUESTED',
       usage: metered,
+      responseCache: {
+        status: ['HIT', 'MISS'].includes(response.headers?.get?.('X-OpenRouter-Cache-Status')) ? response.headers.get('X-OpenRouter-Cache-Status') : 'UNKNOWN',
+        ageSeconds: response.headers?.get?.('X-OpenRouter-Cache-Age') ?? null,
+        ttlSeconds: response.headers?.get?.('X-OpenRouter-Cache-TTL') ?? null,
+        sourceGenerationId: response.headers?.get?.('X-OpenRouter-Cache-Source-Id') ?? null,
+        freshness: responseCacheFreshness
+      },
       pricingEvidence: {
         sourceRef: text(pricing.sourceRef, 500),
         verifiedAt: text(pricing.verifiedAt, 80),

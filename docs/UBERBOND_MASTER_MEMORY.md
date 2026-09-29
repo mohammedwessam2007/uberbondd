@@ -201,3 +201,8 @@ The canonical `open router/` folder was extended additively, not replaced. V2 re
 The objective remains unchanged: strongest verified market intelligence first, cost minimization second, with zero intentional quality reduction. TypingMind remains the iPad cockpit and OpenRouter the default replaceable model-market transport. The ~$30 monthly target is a hard economic experiment, not permission to use a weaker final brain. The aspiration to create hundreds/thousands of dollars of direct-frontier reference-equivalent work from ~$30 remains a measured compression target, not a fact until live paired quality and billing receipts prove it.
 
 Recovery: read `open router/README.md`, `open router/OPEN_ROUTER_UBERMIND_CANON.json`, and `open router/MANIFEST.json` after normal startup. Continue from activation and empirical proof, not model-selection brainstorming.
+
+
+### Infinite Opus source checkpoint — 2026-09-29 UTC
+
+Bounded implementation is at source commit `9e52531c850db048460c8fc33d0af182075a54e0`. Restore through `open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md` and the 35-item `INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json`. Exact closure, reserved cognition capacity, typed task compilers and residual proof-cut coalescing are implemented; current Crown promotion, paid account callability, production deployment and realized savings are not observed. Preserve original founder-transcript integrity failures as historical evidence debt. No confidence, consensus or synthetic fanout result grants semantic or economic authority.

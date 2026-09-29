@@ -44,7 +44,7 @@ test('live unattended outbound requires identity, allowlist, OAuth, encryption, 
   };
   assert.equal(validateStartupConfig(base), true);
   for (const provider of [undefined, '', 'smtp', 'ses']) {
-    assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, provider } }), /provider must be gmail-api or postal/, String(provider));
+    assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, provider } }), /provider must be gmail-api, postal, or smtp-relay/, String(provider));
   }
   assert.throws(() => validateStartupConfig({ ...base, outbound: { ...base.outbound, provider: 'postal' } }), /OUTBOUND_USE_EFFECT_ADAPTER/);
   assert.throws(() => validateStartupConfig({ ...base, sender: { address: '' } }), /BUSINESS_ADDRESS/);

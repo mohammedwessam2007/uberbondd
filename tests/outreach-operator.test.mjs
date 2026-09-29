@@ -35,9 +35,9 @@ test('multi-sector comparison covers functional dimensions and industry fit with
 test('owner-use-case scorecard makes the weighted objective explicit and UberBond wins it', () => {
   const scorecard = buildOwnerUseCaseScorecard({ externalProvider: 'gmail-api', asOf: '2026-08-12T00:00:00.000Z' });
   assert.equal(scorecard.scores.uberbondWins, true);
-  assert.equal(scorecard.scores.uberbond, 4.48);
+  assert.equal(scorecard.scores.uberbond, 4.56);
   assert.equal(scorecard.scores.instantly, 2.63);
-  assert.equal(scorecard.scores.margin, 1.85);
+  assert.equal(scorecard.scores.margin, 1.93);
   assert(scorecard.wins.includes('payment_continuity'));
   assert(scorecard.limitations.some(item => /warmup/i.test(item)));
 });

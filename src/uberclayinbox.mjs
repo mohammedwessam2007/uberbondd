@@ -243,7 +243,7 @@ export function createUberClayInboxAdapter({
     let truncated = true;
     let providerCalls = 0;
     for (let page = 1; page <= MAX_PAGES; page += 1) {
-      const result = await request({ capability, path, query: { limit: PAGE_SIZE, page, ...(search ? { search } : {}) } });
+      const result = await request({ capability, path, secretRead: true, query: { limit: PAGE_SIZE, page, ...(search ? { search } : {}) } });
       providerCalls += Number(result.providerCalls || 0);
       if (!result.ok) return { ...result, providerCalls };
       const data = unwrap(result.data);

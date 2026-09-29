@@ -64,7 +64,7 @@ test('frontier council hides responder and reviewer identities from critique and
     benchmarks: profiles.map(benchmark),
     contextArtifacts: [{
       id: 'frontier',
-      kind: 'EVIDENCE',
+      kind: 'CONSTITUTION',
       contentRef: 'repo://frontier',
       tags: ['frontier'],
       dependencies: [],

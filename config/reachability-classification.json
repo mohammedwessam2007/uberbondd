@@ -429,11 +429,6 @@
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
       "reason": "Classifies a shadow decision against what the legacy path actually did. The wired hook imports it dynamically and only in compare mode, which nothing currently selects, so static analysis correctly reports no entry point."
     },
-    "src/omnia-v9/integrations/external-effect-dispatcher.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Runs the safe dispatch sequence after an ALLOW and a successful authority reservation."
-    },
     "src/omnia-v9/integrations/external-effect-evidence-store.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
@@ -1171,6 +1166,81 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWATT_METER_OBSERVATIONS",
       "reason": "UberWatt compiles energy intervals, verified savings and energy-backed local compute offers. Its inputs are founder-read utility-meter intervals and measured local inference on the Windows node (docs/UBERWATT_FIRST_WINDOWS_NODE.md); the PowerShell doctor and benchmark scripts produce raw observations but nothing feeds them into this module yet."
+    },
+    "src/cognitive-superoptimizer.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/frontier-deferred-compute-planner.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/frontier-intelligence-vm.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/frontier-quality-market-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/frontier-vm-burnin.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/frontier-vm-longitudinal-evaluator.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-provider.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-runtime.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-store.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-task-compilers.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/reasoning-architecture-lab.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/ubereconomics-outreach.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/uberplacement.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/uberrelay.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/ubersubstrate.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
     }
   }
 }

@@ -1,3 +1,5 @@
+import { PostalEffectAdapter, postalProviderEffectIdentity } from './providers/postal-effect-adapter.mjs';
+import { digestOutboundEffectPayload } from './outbound-consequence-gate.mjs';
 import { ADAPTER_OUTCOMES } from './external-effect-adapter.mjs';
 
 /**
@@ -251,4 +253,22 @@ export async function dispatchExternalEffect({
   }
 
   return { executionId: prepared.executionId, status: bound.execution.status, classification: dispatchResult.classification };
+}
+
+
+// Pipeline can supply a host-configured durable runtime. A reservation or API
+// credential alone never authorizes direct Postal adapter dispatch.
+export async function dispatchReservedPostalCanary({cfg,account,reservation,effectPayload,fetchImpl,now=()=>new Date(),store,evidenceStore,effectIntent,finalAdmissionCheck}={}) {
+  const reject = reason => ({handled:true,ok:false,classification:ADAPTER_OUTCOMES.REJECTED,reasonCodes:[reason],providerCalls:0});
+  if (!store?.prepare || !store?.transition || !store?.getById || !evidenceStore?.append || typeof finalAdmissionCheck!=='function') return reject('canonical-durable-execution-and-final-admission-required');
+  const executionId=`outbound:${reservation.id}`;
+  const providerEffectIdentity=postalProviderEffectIdentity(executionId,cfg.outbound.messageIdDomain);
+  const currentPayload={to:effectPayload?.to,from:account.email,subject:effectPayload?.subject,body:effectPayload?.body,listUnsubscribe:effectPayload?.listUnsubscribe};
+  if (effectIntent?.executionId!==executionId || effectIntent?.businessKey!==reservation.idempotencyKey || effectIntent?.provider!=='postal' || effectIntent?.providerEffectIdentity!==providerEffectIdentity || digestOutboundEffectPayload(effectIntent?.effectPayload)!==digestOutboundEffectPayload(currentPayload)) return reject('canonical-postal-intent-current-binding-mismatch');
+  const adapter=new PostalEffectAdapter({baseUrl:cfg.providers.postal.baseUrl,apiKey:cfg.providers.postal.apiKey,fromAddress:account.email,messageIdDomain:cfg.outbound.messageIdDomain,fetchImpl,now});
+  let result;
+  try { result=await dispatchExternalEffect({store,evidenceStore,adapter,effectIntent,finalAdmissionCheck,now}); }
+  catch(error){return {handled:true,ok:false,classification:adapter.dispatchCallCount?ADAPTER_OUTCOMES.UNCERTAIN:ADAPTER_OUTCOMES.REJECTED,reasonCodes:['canonical-postal-execution-refused-or-uncertain'],providerCalls:adapter.dispatchCallCount};}
+  const durable=await store.getById(executionId);
+  return {handled:true,ok:result.classification===ADAPTER_OUTCOMES.ACCEPTED,classification:result.classification??ADAPTER_OUTCOMES.REJECTED,providerReferenceId:durable?.providerReferenceId??null,providerEffectIdentity,providerCalls:adapter.dispatchCallCount,truthBoundary:'Provider acceptance is submission evidence only; recovery uses the durable canonical execution and never retries blindly.'};
 }

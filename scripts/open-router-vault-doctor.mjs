@@ -12,6 +12,7 @@ const REQUIRED = [
   'open router/ACTIVATION_CHECKLIST.md',
   'open router/TYPINGMIND_PROMPT_PACK.md',
   'open router/EMPIRICAL_PROOF_PROTOCOL.md',
+  'open router/BACKUP_RECEIPT_2026-09-29.json',
   'open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md',
   'open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md',
   'open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json'

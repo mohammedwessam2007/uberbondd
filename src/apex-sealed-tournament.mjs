@@ -564,12 +564,12 @@ export function evaluateSealedArchitectureTournament({
   const challenger = Boolean(leader && leader.architectureId !== incumbentId);
   const alternatives = accepted.filter(trial => trial.architectureId !== leaderId);
   const zeroLossVsIncumbent = challenger
-    ? certifyPairedZeroLoss({ baselineTrial: incumbent, candidateTrial: leader })
+    ? certifyPairedZeroLoss({ baselineTrial: incumbent, candidateTrial: leader, provenanceValidator: validateCompiledSealedArchitectureTrial })
     : null;
   const zeroLossVsReviewed = challenger
     ? alternatives.map(other => ({
         architectureId: other.architectureId,
-        certification: certifyPairedZeroLoss({ baselineTrial: other, candidateTrial: leader })
+        certification: certifyPairedZeroLoss({ baselineTrial: other, candidateTrial: leader, provenanceValidator: validateCompiledSealedArchitectureTrial })
       }))
     : [];
   const zeroLossAgainstAllReviewed = challenger && zeroLossVsReviewed.every(row => row.certification.ok);

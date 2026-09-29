@@ -91,3 +91,21 @@ When a new chat or agent resumes:
 5. read this folder;
 6. refresh live OpenRouter model/pricing/provider reality;
 7. continue from activation and empirical proof, not architecture reinvention.
+
+
+## File map
+
+- 00_FINAL_SYSTEM.md — complete architecture and v2 upgrades
+- 01_PRACTICAL_MODEL_SEQUENCE.md — real interactive/certified model flow
+- 02_JEV_HYPERREFLEX.md — Jev semantic nervous system and applicability passports
+- 03_30_DOLLAR_ECONOMICS.md — Crown escrow, spend estimator, RCE/compression math
+- 04_TYPINGMIND_IPAD_SETUP.md — cockpit configuration
+- 05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md — quality lock and moving Crown
+- 06_24_7_NIGHT_SHIFT.md — always-alive, event-driven unattended cognition
+- 07_1000X_COMPRESSION_LAB.md — experimental path to orders-of-magnitude compression
+- 08_PROMPTS.md — reusable TypingMind role/finalizer prompts
+- 09_SCOREBOARD_SCHEMA.json — monthly measurement schema
+- 10_ACTIVATION_CHECKLIST.md — shortest path to live setup
+- 11_MODEL_MARKET_REFRESH.md — continuous model/provider succession protocol
+- 12_REFERENCE_VALUE_LEDGER.md — proof ledger for $30 -> $1,000+ reference-equivalent claims
+- OPEN_ROUTER_UBERMIND_CANON.json — machine-readable canon

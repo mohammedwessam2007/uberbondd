@@ -96,7 +96,6 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
   sealedTrial,
   profile,
   taskClasses = ['general'],
-  absoluteFrontierBaseline = false,
   now = new Date()
 } = {}) {
   const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
@@ -150,16 +149,16 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     evidenceRef: `apex-sealed-benchmark://${sealedTrial.receiptDigest}`,
     sealedTrialReceiptDigest: sealedTrial.receiptDigest,
     sealedTrialTaskOutcomeDigest: sealedTrial.taskOutcomeDigest,
+    sealedSuiteVersion: sealedTrial.suiteVersion,
+    sealedCorpusDigest: sealedTrial.corpusDigest,
+    sealedManifestDigest: sealedTrial.manifestDigest,
     benchmarkSubject: structuredClone(subject),
-    absoluteFrontierBaseline: absoluteFrontierBaseline === true,
-    frontierBaselineArchitectureId: absoluteFrontierBaseline === true ? sealedTrial.architectureId : null,
-    frontierCandidateArchitectureId: absoluteFrontierBaseline === true ? sealedTrial.architectureId : null,
-    pairedZeroLossCertified: absoluteFrontierBaseline === true,
+    frontierCandidateArchitectureId: sealedTrial.architectureId,
+    pairedZeroLossCertified: false,
     pairedZeroLossCertificationDigest: null,
-    baselineSealedTrialReceiptDigest: absoluteFrontierBaseline === true ? sealedTrial.receiptDigest : null,
-    liveRoutingAuthority: absoluteFrontierBaseline === true
-      ? 'CANONICAL_ABSOLUTE_FRONTIER_BASELINE'
-      : 'SEALED_TRIAL_DERIVED_ONLY'
+    frontierBaselineArchitectureId: null,
+    baselineSealedTrialReceiptDigest: null,
+    liveRoutingAuthority: 'CANONICAL_SEALED_SINGLE_PROFILE_BENCHMARK'
   };
   canonicalLiveBenchmarks.set(benchmark, sha256(benchmark));
   return envelope({
@@ -205,7 +204,6 @@ export function buildZeroLossAuthorizedFrontierBenchmark({
     sealedTrial: candidateTrial,
     profile,
     taskClasses,
-    absoluteFrontierBaseline: false,
     now
   });
   if (!base.ok) return base;

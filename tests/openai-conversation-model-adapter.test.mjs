@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createOpenAIConversationModelAdapter } from '../src/openai-conversation-model-adapter.mjs';
+import { COGNITION_PERIMETER_ADMISSION } from '../src/cognition-transport-guard.mjs';
 
 test('OpenAI adapter creates and reuses persistent conversation context', async () => {
   const seen=[];
@@ -12,7 +13,7 @@ test('OpenAI adapter creates and reuses persistent conversation context', async 
     return new Response('{}',{status:404});
   };
   try{
-    const adapter=createOpenAIConversationModelAdapter({apiKey:'test-key',model:'gpt-5'});
+    const adapter=createOpenAIConversationModelAdapter({apiKey:'test-key',model:'gpt-5',cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION});
     const c=await adapter.createConversation({metadata:{peer:'chat-b'}});
     assert.equal(c.conversationId,'conv_123');
     const r=await adapter.respond({conversationId:c.conversationId,input:'peer prompt',peerEnvelope:{messageId:'m1'}});
@@ -22,3 +23,6 @@ test('OpenAI adapter creates and reuses persistent conversation context', async 
     assert.equal(seen[1].auth,'Bearer test-key');
   } finally { globalThis.fetch=original; }
 });
+
+
+test('OpenAI adapter refuses a key without economic-perimeter admission',()=>{ assert.throws(()=>createOpenAIConversationModelAdapter({apiKey:'test-key',model:'gpt-5'}),/cognition-economic-perimeter-admission-required/); });

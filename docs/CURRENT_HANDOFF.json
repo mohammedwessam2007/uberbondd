@@ -878,7 +878,20 @@
       "real provider billing receipts",
       "independent or blind paired evaluation"
     ],
-    "nextAction": "RUN_FRONTIER_VM_DOCTOR -> SATISFY_EXTERNAL_GATES -> LIVE_BURN_IN_DIRECT_CROWN_VS_V5 -> CANONICAL_ZERO_LOSS_GATE -> LONGITUDINAL_RECURRENCE -> CROWN_SUCCESSION_SHOCK -> ABLATIONS -> INDEPENDENT_REPLICATION",
-    "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence."
+    "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> REFRESH_LIVE_CROWN -> COMMIT_FRESH_TASK_SOURCE -> RUN_CONTROLLED_BURN_IN -> CANONICAL_ZERO_LOSS_GATE -> LONGITUDINAL_RECURRENCE",
+    "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence.",
+    "activationBoundary": {
+      "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+      "userDevice": "iPad",
+      "cockpit": "TypingMind",
+      "market": "OpenRouter",
+      "repositoryRuntimeOpenRouterSecretRequiredForInteractive": false,
+      "requiredNonSecretEvidenceRef": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF",
+      "optionalUnattendedMode": "UNATTENDED_RUNTIME",
+      "unattendedSecret": "OPENROUTER_API_KEY in protected runtime only when explicitly activated",
+      "source": "src/frontier-vm-activation-readiness.mjs",
+      "test": "tests/frontier-vm-activation-readiness.test.mjs",
+      "law": "Do not duplicate the interactive OpenRouter credential into UberBond runtime merely to satisfy a doctor."
+    }
   }
 }

@@ -43,10 +43,10 @@ function provenance(calls) {
 
 test('COUNCIL_MAX does not greedily consume two same-provider seats when a diverse eligible candidate exists', () => {
   const profiles = [
-    p('openai-a', 'openai', 'frontier-a', 0.99),
-    p('openai-b', 'openai', 'frontier-b', 0.985),
-    p('anthropic-c', 'anthropic', 'frontier-c', 0.98),
-    p('google-adjudicator', 'google', 'frontier-d', 0.975)
+    p('openai-a', 'openai', 'frontier-a', 1),
+    p('openai-b', 'openai', 'frontier-b', 1),
+    p('anthropic-c', 'anthropic', 'frontier-c', 1),
+    p('google-adjudicator', 'google', 'frontier-d', 1)
   ];
   const calls = profiles.map(c);
   const out = compileFrontierCognitivePlan({
@@ -64,4 +64,33 @@ test('COUNCIL_MAX does not greedily consume two same-provider seats when a diver
   assert.equal(out.plan.responders.length, 2);
   assert.equal(new Set(out.plan.responders.map(item => item.provider)).size, 2);
   assert.equal(out.plan.responders.some(item => item.profileId === out.plan.adjudicator.profileId), false);
+});
+
+
+test('provider diversity cannot admit a weaker model below the exact frontier quality plateau', () => {
+  const profiles = [
+    p('openai-a', 'openai', 'frontier-a', 1),
+    p('openai-b', 'openai', 'frontier-b', 1),
+    p('anthropic-c', 'anthropic', 'frontier-c', 0.999999),
+    p('google-d', 'google', 'frontier-d', 0.999998)
+  ];
+  const calls = profiles.map(c);
+  const out = compileFrontierCognitivePlan({
+    task: {
+      missionId: 'diversity-zero-loss', taskId: 'diversity-zero-loss',
+      objective: 'Refuse diversity purchased with any verified quality loss.',
+      taskClass: 'general', role: 'general', dataClass: 'INTERNAL_NON_SECRET',
+      reasoningTier: 'COUNCIL_MAX', requiredTags: ['frontier'],
+      contextTokenBudget: 1000, minCouncilSize: 2, maxCouncilSize: 2
+    },
+    profiles,
+    callability: calls,
+    callabilityProvenance: provenance(calls),
+    benchmarks: profiles.map(b),
+    contextArtifacts: [{ id: 'constitution', kind: 'CONSTITUTION', contentRef: 'repo://constitution', tags: ['frontier'], dependencies: [], estimatedTokens: 100, priority: 100, immutable: true }],
+    now: NOW
+  });
+  assert.equal(out.ok, false);
+  assert.equal(out.status, 'CAPACITY_BLOCKED');
+  assert.ok(out.reasonCodes.includes('council-provider-diversity-unavailable') || out.reasonCodes.includes('independent-adjudicator-unavailable'));
 });

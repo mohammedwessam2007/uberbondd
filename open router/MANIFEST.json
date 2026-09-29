@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "uberbond.open-router.vault-manifest.v1",
+  "createdAt": "2026-09-29",
+  "branch": "docs/open-router-cognitive-arbitrage-vault-20260929",
+  "baseMainSha": "34abf0b651b07be43fc0898b9afa8419076d6c08",
+  "observedBranchHead": "688ae4bc99b51c6fc39c99caf835e1b7053ce607",
+  "purpose": "Durable recovery vault for the $30 frontier-max cloud cognition architecture.",
+  "authorityOrder": [
+    "LIVE_EXTERNAL_EVIDENCE",
+    "CURRENT_MAIN_SOURCE_AND_RUNTIME",
+    "CURRENT_CANON_AND_HANDOFF",
+    "OPEN_ROUTER_VAULT",
+    "RECOVERY_SNAPSHOTS",
+    "CHAT_RECOLLECTION"
+  ],
+  "files": [
+    {
+      "path": "open router/README.md",
+      "blobSha": "7eef2ccd426a3b652877411b78a63fc95baf5b6e",
+      "bytes": 13002
+    },
+    {
+      "path": "open router/CANON_SNAPSHOT_2026-09-29.json",
+      "blobSha": "79915193642f929083e3619e4b1cc2a3b9533185",
+      "bytes": 18920
+    },
+    {
+      "path": "open router/ARCHITECTURE.md",
+      "blobSha": "8399f0e5b96c920bae66ca47169871557d29a0ff",
+      "bytes": 8289
+    },
+    {
+      "path": "open router/JEV_HYPERREFLEX.md",
+      "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
+      "bytes": 6929
+    },
+    {
+      "path": "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "blobSha": "b644fff6eb2fa7ae91e5f9a4271588f57c278caa",
+      "bytes": 6290
+    },
+    {
+      "path": "open router/TYPINGMIND_AND_24_7.md",
+      "blobSha": "e79274988487a87703f2541176f8a4e2df3bfc53",
+      "bytes": 4216
+    },
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
+      "bytes": 5508
+    },
+    {
+      "path": "open router/TYPINGMIND_PROMPT_PACK.md",
+      "blobSha": "2500d792fe3ece0d57410873cb0675bd88d0da03",
+      "bytes": 7227
+    },
+    {
+      "path": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "blobSha": "f4e18a1be9080be83a3381642643f9b68322efc5",
+      "bytes": 5203
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "b9793332f7181e6938ed2a9e9e037b266dc24c07",
+      "bytes": 3837
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md",
+      "blobSha": "744d855dae364a71e512a9f7c5058c0e94699e4d",
+      "bytes": 8614
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md",
+      "blobSha": "0f184b8b84803327eb0c8e0610f904fc110db962",
+      "bytes": 21100
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
+      "blobSha": "2d0b23b822de0928d700b4acec9046320ec43498",
+      "bytes": 3019
+    }
+  ],
+  "canonicalExternalPointers": [
+    "docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json",
+    "docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md",
+    "docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md",
+    "config/absolute-frontier-quality-lock.json",
+    "src/noetic-autocompiler.mjs",
+    "src/system-one-decision-adapter.mjs",
+    "src/frontier-quality-market-compiler.mjs",
+    "src/openrouter-agent-executor.mjs",
+    "src/openrouter-market-catalog.mjs",
+    "src/canonical-zero-loss-certificate.mjs",
+    "src/apex-sealed-tournament.mjs",
+    "docs/CURRENT_HANDOFF.json",
+    "docs/UBERBOND_MASTER_MEMORY.md"
+  ],
+  "lineage": {
+    "pr1027": "Cloud model market compression + OpenRouter one-plug path, merged as 8d57f17add2328b1f4a219962df7456e564cebfe.",
+    "pr1028": "Final $30 frontier-max UberMind checkpoint, merged as 34abf0b651b07be43fc0898b9afa8419076d6c08."
+  },
+  "recoveryRule": "Refresh main first, then read open router/README.md and this manifest. Snapshots prevent amputation but never override newer live evidence or source.",
+  "noAmputation": true
+}

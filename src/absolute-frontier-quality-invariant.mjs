@@ -221,3 +221,32 @@ export function validateQualityInvariantAttestation(attestation = {}) {
     ? fail('ABSOLUTE_FRONTIER_QUALITY_ATTESTATION_REFUSED', reasons)
     : envelope({ ok: true, status: 'ABSOLUTE_FRONTIER_QUALITY_ATTESTATION_VALID' });
 }
+
+
+export function validatePairedZeroLossCertificate(certificate = {}, {
+  expectedCandidateArchitectureId = null,
+  minimumTaskCount = 1
+} = {}) {
+  const reasons = [];
+  if (certificate?.ok !== true || certificate?.status !== 'PAIRED_ZERO_LOSS_CERTIFIED') reasons.push('paired-zero-loss-certificate-required');
+  if (certificate?.policyDigest !== ABSOLUTE_FRONTIER_QUALITY_POLICY_DIGEST) reasons.push('paired-zero-loss-policy-digest-mismatch');
+  if (!Array.isArray(certificate?.regressions) || certificate.regressions.length !== 0) reasons.push('paired-zero-loss-regressions-must-be-empty');
+  const taskCount = Number(certificate?.taskCount);
+  if (!Number.isSafeInteger(taskCount) || taskCount < minimumTaskCount) reasons.push('paired-zero-loss-minimum-task-count-not-met');
+  if (expectedCandidateArchitectureId != null && certificate?.candidateArchitectureId !== expectedCandidateArchitectureId) {
+    reasons.push('paired-zero-loss-candidate-binding-mismatch');
+  }
+  if (!text(certificate?.certificationDigest, 64) || !/^[a-f0-9]{64}$/.test(certificate.certificationDigest)) {
+    reasons.push('paired-zero-loss-certification-digest-required');
+  }
+  return reasons.length
+    ? fail('PAIRED_ZERO_LOSS_CERTIFICATE_REFUSED', reasons)
+    : envelope({
+        ok: true,
+        status: 'PAIRED_ZERO_LOSS_CERTIFICATE_VALID',
+        candidateArchitectureId: certificate.candidateArchitectureId,
+        baselineArchitectureId: certificate.baselineArchitectureId,
+        taskCount,
+        certificationDigest: certificate.certificationDigest
+      });
+}

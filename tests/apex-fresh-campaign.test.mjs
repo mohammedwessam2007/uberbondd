@@ -381,8 +381,9 @@ test('runtime readiness requires the exact frozen pricing mode, not merely some 
   });
   assert.equal(admitted.ok, true);
 
-  const batchArchitecture = structuredClone(prepared.architectureRoster.find(row => row.architectureId === 'incumbent'));
-  assert.ok(batchArchitecture);
+  const incumbentArchitecture = prepared.architectureRoster[0];
+  assert.ok(incumbentArchitecture);
+  const batchArchitecture = structuredClone(incumbentArchitecture);
   batchArchitecture.architectureId = 'incumbent-batch';
   batchArchitecture.architectureClass = 'CHALLENGER';
   batchArchitecture.executionModeRef = 'ANTHROPIC_BATCH';
@@ -393,7 +394,7 @@ test('runtime readiness requires the exact frozen pricing mode, not merely some 
   batchArchitecture.architectureDigest = 'a'.repeat(64);
   const campaignWithBatch = {
     ...prepared,
-    architectureRoster: [prepared.architectureRoster.find(row => row.architectureId === 'incumbent'), batchArchitecture],
+    architectureRoster: [incumbentArchitecture, batchArchitecture],
     architectureRosterDigest: 'b'.repeat(64)
   };
 

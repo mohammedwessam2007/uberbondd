@@ -1,6 +1,6 @@
 # Open Router — UberMind Frontier-Max Program
 
-Status: FOUNDER-APPROVED OPERATING DOCTRINE / PRE-LIVE ECONOMIC PROOF
+Status: FOUNDER-APPROVED V3 VAULT / PRE-LIVE ECONOMIC PROOF
 Date: 2026-09-29
 
 This folder is the canonical home for UberBond's cloud-only maximum verified intelligence per dollar program.
@@ -45,7 +45,7 @@ The accepted first operating target is approximately USD 30/month all-in.
 
 The target is not "the smartest AI $30 can buy." The quality target follows the strongest verified market frontier. If the $30 budget cannot clear all hard work, the system queues, defers, batches, or waits. It does not silently downgrade intelligence.
 
-## The v2 upgrade in this folder
+## The v2 foundation in this folder
 
 This package extends the earlier $30 canon with the mechanisms needed to pursue tens, hundreds, and eventually thousands of dollars of direct-frontier reference compute/work for roughly $30, without counting lower-quality output as success:
 
@@ -109,6 +109,9 @@ When a new chat or agent resumes:
 - 11_MODEL_MARKET_REFRESH.md — continuous model/provider succession protocol
 - 12_REFERENCE_VALUE_LEDGER.md — proof ledger for $30 -> $1,000+ reference-equivalent claims
 - OPEN_ROUTER_UBERMIND_CANON.json — machine-readable canon
+- MANIFEST.json — content index and recovery pointers
+- BACKUP_RECEIPT_2026-09-29.json — durable backup receipt
+- FINAL_COMPLETION_RECEIPT_2026-09-29.json — final vault-completion audit
 
 
 ## The v3 cognitive arbitrage extension
@@ -146,3 +149,18 @@ The v2 mechanisms remain active and are not replaced. V3 adds the following orth
 - BACKUP_RECEIPT_2026-09-29.json
 
 V3 does not change the quality law. It exists to reduce repeated frontier computation while preserving the same moving market-frontier quality target.
+
+
+## Vault completion state
+
+The v2 foundation and additive v3 cognitive-arbitrage extension are durably backed up in this folder, with machine-readable canon, recovery snapshots, proof protocol, activation runbook, prompt pack, manifest, backup receipt, and integrity doctor.
+
+This completion claim is about repository preservation and recovery only. It does **not** promote unproven live claims about the current Crown, $30 frontier equivalence, 1000x compression, or global rank.
+
+After normal UberBond startup, run:
+
+```bash
+npm run open-router:vault:doctor
+```
+
+Then continue from activation and empirical proof, not architecture redesign.

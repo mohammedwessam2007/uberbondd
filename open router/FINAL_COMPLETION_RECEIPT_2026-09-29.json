@@ -1,13 +1,14 @@
 {
-  "schemaVersion": "uberbond.open-router.vault-manifest.v3",
-  "status": "V2_PLUS_V3_CONTENT_COMPLETE",
-  "createdAt": "2026-09-29",
-  "branch": "docs/open-router-cognitive-arbitrage-vault-rebased-20260929",
-  "baseCurrentMainSha": "77b0c3fa87f8916a60d26612046608cd900425a0",
-  "observedBranchHeadBeforeManifest": "ecb7f2b602f605e6aca855331ff5572227c7dba7",
-  "folder": "open router/",
-  "expectedFinalFolderFileCount": 30,
-  "files": [
+  "schemaVersion": "uberbond.open-router.final-completion-receipt.v1",
+  "status": "OPEN_ROUTER_VAULT_COMPLETE",
+  "recordedAt": "2026-09-29T17:52:00+03:00",
+  "canonicalFolder": "open router/",
+  "branch": "canon/open-router-vault-finalize-v3-20260929",
+  "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
+  "contentHeadBeforeReceipt": "b87769839e611e448d8b55526d6ff3637ee9487d",
+  "folderFilesBeforeReceipt": 29,
+  "expectedFolderFilesAfterReceipt": 30,
+  "indexedFiles": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
       "blobSha": "b7b2b1810659910c491c274c5ff1a4a2b696414d",
@@ -109,6 +110,11 @@
       "size": 6929
     },
     {
+      "path": "open router/MANIFEST.json",
+      "blobSha": "2d15da4996d264570d99bd7dd3dbbca8860279db",
+      "size": 7457
+    },
+    {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
       "blobSha": "46d27d87f085ac1759e8c39fe2d4ac5a39e2c667",
       "size": 5729
@@ -149,51 +155,98 @@
       "size": 7227
     }
   ],
-  "layers": {
-    "v2": "Existing main lineage: Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Task-Archetype Compiler, Cognitive CDN, Evidence Multicast, Champion-Challenger Shadow Market, Swarm Stop-Loss, Second-Crown Insurance, RCE accounting.",
-    "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market."
+  "recoveryPointers": {
+    "scripts/open-router-vault-doctor.mjs": {
+      "blobSha": "09dd1677ab066dac76af87d6308aa5de7a489f54"
+    },
+    "docs/CURRENT_HANDOFF.json": {
+      "blobSha": "a64faa78005f009258feacd0f659cc0723a344b0"
+    },
+    "docs/UBERBOND_MASTER_MEMORY.md": {
+      "blobSha": "0d8f8018d2e073ca9f5c015d721ffb61b060c747"
+    },
+    "package.json": {
+      "blobSha": "eb85903ecb40d19a00f311fce3446df4ee467d1f"
+    },
+    "AI_START_HERE.md": {
+      "blobSha": "0d7363d4fa90b415434f61e0678576e99019290b"
+    },
+    "AGENTS.md": {
+      "blobSha": "65a1f2f1cf8f83f2d9aa0f7b529c7f2c85b7bbfe"
+    }
   },
-  "authorityOrder": [
-    "LIVE_EXTERNAL_EVIDENCE",
-    "CURRENT_MAIN_SOURCE_AND_RUNTIME",
-    "CURRENT_CANON_AND_HANDOFF",
-    "OPEN_ROUTER_V2_V3_VAULT",
-    "RECOVERY_SNAPSHOTS",
-    "CHAT_RECOLLECTION"
+  "founderObjective": "Continuously obtain the strongest verified commercially available intelligence at the lowest achievable all-in cost, with no intentional quality reduction.",
+  "cockpit": {
+    "device": "iPad",
+    "ui": "TypingMind",
+    "market": "OpenRouter",
+    "localGpuRequired": false,
+    "localModelRequired": false
+  },
+  "qualityLaw": {
+    "maxIntentionalDelta": 0,
+    "unknown": "CROWN",
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE",
+    "majorityVoteAuthority": "NONE",
+    "semanticCacheAuthority": "SHADOW_UNLESS_CERTIFIED",
+    "lossyCompressionAuthority": "NONE_UNLESS_ZERO_LOSS_CERTIFIED"
+  },
+  "budget": {
+    "monthlyAllInTargetUsd": 30,
+    "status": "TARGET_NOT_EMPIRICAL_PROOF",
+    "crownEscrowInitialMinimumUsd": 15
+  },
+  "preservedSystems": [
+    "moving Frontier Crown / task-specific Pantheon",
+    "TypingMind iPad cockpit",
+    "OpenRouter cloud model market",
+    "Jev Hyperreflex",
+    "adaptive heterogeneous cloud swarm",
+    "Adversarial Synthesis",
+    "lossless Frontier Delta",
+    "Reality Court",
+    "Crown -> Jev -> code crystallization",
+    "Proof Burn-In vs Certified Compression",
+    "Protected Crown Escrow",
+    "Cognitive Compute Auction",
+    "Exact Cognitive Dedup Graph",
+    "Task-Archetype Compiler",
+    "Cognitive CDN",
+    "Evidence Multicast",
+    "Frontier Thought Bonds",
+    "Champion-Challenger Shadow Market",
+    "Second-Crown Insurance",
+    "Reference-Cost-Equivalent accounting",
+    "Cognitive Multicast",
+    "Crown Call Coalescing",
+    "Common Semantic Subexpression Elimination",
+    "Decision-DAG Incremental Recomputation",
+    "Crown Thought Capital Ledger",
+    "Negative Knowledge Cache",
+    "Error Portfolio Optimizer",
+    "Value-of-Information Compute Auction",
+    "Shadow Router Tournament",
+    "Frontier Output Minimizer",
+    "Cross-task Crown Batching",
+    "Cognitive Futures Market"
   ],
-  "canonicalPointers": [
-    "open router/README.md",
-    "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-    "open router/00_FINAL_SYSTEM.md",
-    "open router/07_1000X_COMPRESSION_LAB.md",
-    "open router/ARCHITECTURE.md",
-    "open router/JEV_HYPERREFLEX.md",
-    "open router/ECONOMICS_AND_SCOREBOARD.md",
-    "open router/TYPINGMIND_AND_24_7.md",
-    "open router/ACTIVATION_CHECKLIST.md",
-    "open router/TYPINGMIND_PROMPT_PACK.md",
-    "open router/EMPIRICAL_PROOF_PROTOCOL.md",
-    "open router/OPERATING_SPEC.json"
+  "compressionResearchTargets": [
+    "10x",
+    "25x",
+    "50x",
+    "100x",
+    "250x",
+    "500x",
+    "1000x"
   ],
-  "sourceTruthPointers": [
-    "config/absolute-frontier-quality-lock.json",
-    "src/noetic-autocompiler.mjs",
-    "src/system-one-decision-adapter.mjs",
-    "src/frontier-quality-market-compiler.mjs",
-    "src/openrouter-agent-executor.mjs",
-    "src/openrouter-market-catalog.mjs",
-    "src/canonical-zero-loss-certificate.mjs",
-    "src/apex-sealed-tournament.mjs",
-    "docs/CURRENT_HANDOFF.json",
-    "docs/UBERBOND_MASTER_MEMORY.md"
-  ],
-  "operatorCommand": "npm run open-router:vault:doctor",
-  "noAmputation": true,
-  "truthBoundary": "The vault preserves doctrine, architecture, lineage, and proof requirements. It does not prove live $30 frontier equivalence, current Crown identity, thousands-of-dollars reference-equivalent compression, or global superiority.",
-  "recovery": "Refresh main, run normal UberBond startup, then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json. Continue from activation and empirical proof.",
-  "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
-  "auditedBaseFolderFileCount": 29,
-  "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 28,
-  "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; FINAL_COMPLETION_RECEIPT hashes this manifest after finalization."
+  "truthBoundary": {
+    "repositoryBackupComplete": true,
+    "liveThirtyDollarFrontierEquivalenceProven": false,
+    "thousandsDollarReferenceEquivalentProven": false,
+    "currentGlobalNumberOneProven": false,
+    "permanentZeroRegressionProven": false,
+    "currentOptimalRosterProven": false
+  },
+  "nextAction": "ACTIVATE_TYPINGMIND_OPENROUTER_WITH_HARD_30_USD_CEILING -> REFRESH_LIVE_ROSTER -> RUN_PAIRED_BURN_IN -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> MEASURE_RCE -> MUTATE_FROM_EVIDENCE",
+  "note": "This receipt hashes every pre-existing file in the vault. It intentionally cannot hash itself. The vault doctor checks its presence and critical invariants."
 }

@@ -720,7 +720,7 @@
     "recoveryLaw": "A new/sluggish/crashed chat must read the canon above and continue from activation/empirical proof. Do not restart model-selection architecture."
   },
   "openRouterFrontierMaxFolder20260929": {
-    "status": "CANONICAL_FOLDER_V2_PLUS_V3_ARBITRAGE_LAYER_PRE_LIVE_ECONOMIC_PROOF",
+    "status": "FOUNDER_APPROVED_V3_VAULT_COMPLETE_PRE_LIVE_ECONOMIC_PROOF",
     "canonicalFolder": "open router/",
     "primaryPointers": [
       "open router/README.md",
@@ -737,7 +737,17 @@
       "open router/09_SCOREBOARD_SCHEMA.json",
       "open router/10_ACTIVATION_CHECKLIST.md",
       "open router/11_MODEL_MARKET_REFRESH.md",
-      "open router/12_REFERENCE_VALUE_LEDGER.md"
+      "open router/12_REFERENCE_VALUE_LEDGER.md",
+      "open router/ARCHITECTURE.md",
+      "open router/JEV_HYPERREFLEX.md",
+      "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "open router/TYPINGMIND_AND_24_7.md",
+      "open router/TYPINGMIND_PROMPT_PACK.md",
+      "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "open router/OPERATING_SPEC.json",
+      "open router/MANIFEST.json",
+      "open router/BACKUP_RECEIPT_2026-09-29.json",
+      "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json"
     ],
     "founderObjective": "Highest verified market intelligence at lowest achievable all-in cost, with the accepted initial hard target around USD 30/month and no intentional quality reduction.",
     "v2Upgrades": [
@@ -760,7 +770,7 @@
     "market": "OpenRouter",
     "localHardwareRequired": false,
     "truthBoundary": "This durable package is an operating doctrine and experiment system, not proof that USD 30 already equals thousands of dollars of direct-frontier work. That claim requires matched live receipts and paired quality evidence.",
-    "nextAction": "ACTIVATE TypingMind + OpenRouter with ~$30 hard target, refresh current Crown/prices, run paired burn-in trials, shadow Jev, measure real compression, then promote only bounded zero-loss regions.",
+    "nextAction": "ACTIVATE: TypingMind + OpenRouter key + ~$30 hard spend ceiling; refresh live roster; run paired burn-in; calibrate Jev; certify bounded regions; measure RCE/compression; mutate only from evidence.",
     "v3Upgrades": [
       "Cognitive Multicast",
       "Crown Call Coalescing",

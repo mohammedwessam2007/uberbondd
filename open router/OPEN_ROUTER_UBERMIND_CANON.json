@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "uberbond.open-router.frontier-max.v2",
+  "schemaVersion": "uberbond.open-router.frontier-max.v3",
   "canonDate": "2026-09-29",
-  "status": "FOUNDER_APPROVED_PRE_LIVE_ECONOMIC_PROOF",
+  "status": "FOUNDER_APPROVED_V3_VAULT_COMPLETE_PRE_LIVE_ECONOMIC_PROOF",
   "inheritance": {
     "noAmputation": true,
     "extends": [
@@ -112,7 +112,7 @@
     "currentOptimalRoster": false
   },
   "nextAction": "ACTIVATE_TYPINGMIND_AND_OPENROUTER -> COLLECT_LIVE_RECEIPTS -> BURN_IN_PAIRED_TRIALS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> ENTER_CERTIFIED_COMPRESSION -> MEASURE_RCE -> CONTINUOUSLY_MUTATE_FROM_EVIDENCE",
-  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, and MANIFEST.json after normal UberBond startup. Preserve v2 and v3; continue from activation/empirical proof.",
+  "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve v2 and v3; continue from activation/empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",
     "Crown Call Coalescing",
@@ -136,5 +136,14 @@
     "prompts": "open router/TYPINGMIND_PROMPT_PACK.md",
     "proof": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
     "machineSpec": "open router/OPERATING_SPEC.json"
+  },
+  "vault": {
+    "canonicalFolder": "open router/",
+    "manifest": "open router/MANIFEST.json",
+    "backupReceipt": "open router/BACKUP_RECEIPT_2026-09-29.json",
+    "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
+    "integrityDoctor": "npm run open-router:vault:doctor",
+    "contentState": "V2_FOUNDATION_PLUS_V3_COGNITIVE_ARBITRAGE_DURABLY_PRESERVED",
+    "activationState": "NOT_YET_LIVE_PROVEN"
   }
 }

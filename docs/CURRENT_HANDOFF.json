@@ -799,7 +799,7 @@
     "recovery": "Read open router/README.md + OPEN_ROUTER_UBERMIND_CANON.json + MANIFEST.json. Preserve v2 and v3. Do not redesign from scratch."
   },
   "openRouterFrontierVmV5_20260929": {
-    "status": "SOURCE_IMPLEMENTED_PRE_LIVE_EMPIRICAL_PROOF",
+    "status": "MERGED_TO_MAIN_PRE_LIVE_EMPIRICAL_PROOF",
     "branch": "open-router/frontier-intelligence-virtualization-20260929",
     "objective": "Continuously virtualize the strongest verified market intelligence behind a stable quality contract and minimize all-in cognition cost without intentional quality reduction.",
     "conceptualShift": "MODELS_ARE_REPLACEABLE_PROCESSORS__COGNITION_IS_THE_PROGRAM",
@@ -879,6 +879,26 @@
       "independent or blind paired evaluation"
     ],
     "nextAction": "RUN_FRONTIER_VM_DOCTOR -> SATISFY_EXTERNAL_GATES -> LIVE_BURN_IN_DIRECT_CROWN_VS_V5 -> CANONICAL_ZERO_LOSS_GATE -> LONGITUDINAL_RECURRENCE -> CROWN_SUCCESSION_SHOCK -> ABLATIONS -> INDEPENDENT_REPLICATION",
-    "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence."
+    "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence.",
+    "mergedPr": 1034,
+    "mergedMainSha": "bc388da3af7d8e730f3a8e8134d0faca0e402d95",
+    "canonicalFolder": "open router/",
+    "canonicalFolderFileCountAtMerge": 40,
+    "manifestIndexedNonSelfFilesAtMerge": 39,
+    "sourceVerification": {
+      "qualityDelta": 0,
+      "requiredV5SurfacesPresent": true,
+      "manifestMatchesFolder": true,
+      "coreSyntaxHarness": "PASS",
+      "hostileBehaviorHarness": "PASS",
+      "providerCallsPerformed": 0,
+      "spendUsd": 0
+    },
+    "hostedCheckClassification": {
+      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE__ALL_INSPECTED_FAILED_JOBS_HAD_ZERO_STEPS",
+      "vercel": "RATE_LIMITED__NO_SOURCE_FAILURE_INFERRED"
+    },
+    "formerWorkingBranch": "open-router/frontier-intelligence-virtualization-20260929",
+    "recoveryLaw": "Recover current main first. V5 is merged; do not continue from the obsolete working branch. Read the canonical Open Router V5 files and continue from live activation/empirical proof."
   }
 }

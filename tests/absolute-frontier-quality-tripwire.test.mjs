@@ -12,7 +12,8 @@ const SOURCE_CONTRACTS = [
     required: [
       "qualityFloorDelta = ABSOLUTE_FRONTIER_QUALITY_DELTA",
       "validateAbsoluteFrontierQualityPolicy({ qualityDelta })",
-      "absoluteQualityInvariant: qualityInvariantAttestation()"
+      "absoluteQualityInvariant: qualityInvariantAttestation()",
+      "FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX'])"
     ],
     forbidden: ["qualityFloorDelta = 0.01", "qualityFloorDelta = 0.05"]
   },

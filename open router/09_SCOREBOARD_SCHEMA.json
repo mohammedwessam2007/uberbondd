@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "uberbond.open-router.scoreboard.v1",
+  "purpose": "Measure whether the $30 Frontier-Max architecture actually produces equal-or-better work at radically lower all-in cost.",
+  "period": "MONTHLY",
+  "budget": {
+    "allInBudgetUsd": 30,
+    "qualityDeltaAllowed": 0,
+    "budgetExhaustionAction": "QUEUE_OR_DEFER_NEVER_DOWNGRADE"
+  },
+  "coreMetrics": [
+    "actualAllInSpendUsd",
+    "referenceCostEquivalentUsd",
+    "compressionFactor",
+    "matchedTaskCount",
+    "pairedQualityRegressions",
+    "pairedQualityWins",
+    "pairedQualityTies",
+    "founderMinutes",
+    "usefulArtifactsCompleted"
+  ],
+  "crownMetrics": [
+    "primaryCrownCalls",
+    "secondCrownCalls",
+    "crownFreshInputTokens",
+    "crownCachedInputTokens",
+    "crownOutputTokens",
+    "crownReasoningTokensWhereObservable",
+    "crownSpendUsd",
+    "crownCallsAvoidedByCertifiedReflexes",
+    "crownEscrowRemainingUsd",
+    "frontierThoughtBondsCreated",
+    "frontierThoughtBondsReused"
+  ],
+  "jevMetrics": [
+    "jevCalls",
+    "jevInputTokens",
+    "jevQuestions",
+    "jevSpendUsd",
+    "shadowCircuits",
+    "certifiedCircuits",
+    "decompiledCircuits",
+    "jevTriggeredEscalations",
+    "frontierCallsAvoidedPerJevDollar"
+  ],
+  "swarmMetrics": [
+    "cheapCalls",
+    "cheapSpendUsd",
+    "averageAdaptiveN",
+    "lineageDiversity",
+    "branchesKilled",
+    "duplicateBranchesKilled",
+    "evidenceObjectsMulticast",
+    "swarmStopLossEvents"
+  ],
+  "reuseMetrics": [
+    "exactCacheHits",
+    "semanticCacheShadowCandidates",
+    "artifactReferencesUsed",
+    "stablePrefixCacheHitRate",
+    "deduplicatedInferenceAvoided",
+    "deterministicCodePaths",
+    "taskArchetypesCertified",
+    "reuseDividendUsd"
+  ],
+  "marketMetrics": [
+    "crownChanges",
+    "challengerEvaluations",
+    "providerPriceChangesObserved",
+    "sameModelProviderArbitrageSavingsUsd",
+    "batchDeferredSavingsUsd"
+  ],
+  "qualityLaw": "Any compression factor is invalid if required finished-work quality is lower than the matched strongest verified frontier baseline."
+}

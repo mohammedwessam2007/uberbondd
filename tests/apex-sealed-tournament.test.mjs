@@ -330,3 +330,50 @@ test('sealed tournament refuses any caller attempt to reopen a nonzero quality d
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('absolute-frontier-quality-delta-must-be-zero'));
 });
+
+
+test('same aggregate quality with a swapped task regression cannot become a zero-loss compression candidate', () => {
+  const manifest = fixture(20);
+  const incumbent = compile('incumbent', 18, manifest);
+
+  const challengerRuns = runsFor(manifest, 18, 'challenger-swap', { costUsd: 0.005 });
+  challengerRuns[17].response = 'wrong-18';
+  challengerRuns[18].response = 'answer-19';
+
+  const challenger = compileSealedArchitectureTrial({
+    architectureId: 'challenger',
+    architectureClass: 'CHALLENGER',
+    architectureDigest: digest({ architecture: 'challenger-swap', revision: 'r1' }),
+    architectureRevision: 'r1',
+    architectureSourceRef: 'source://challenger-swap',
+    architectureFrozenAt: FROZEN_AT,
+    taskClass: 'reasoning',
+    suiteVersion,
+    corpusDigest: corpusDigestFor(manifest),
+    sealedManifest: manifest,
+    holdoutCommitment: commitmentFor(manifest),
+    runs: challengerRuns,
+    processScore: 0.98,
+    processEvidenceRef: 'review://challenger-swap',
+    verifierId: 'independent-verifier',
+    architectureDesignerId: 'architecture-builder'
+  });
+
+  assert.equal(incumbent.ok, true);
+  assert.equal(challenger.ok, true);
+  assert.equal(incumbent.statistics.verifiedSuccessRate, challenger.statistics.verifiedSuccessRate);
+
+  const out = evaluateSealedArchitectureTournament({
+    trials: [incumbent, challenger],
+    incumbentArchitectureId: 'incumbent',
+    budgetPolicy,
+    minimumSampleSize: 20,
+    qualityFloorDelta: 0
+  });
+
+  assert.equal(out.ok, true, JSON.stringify(out));
+  assert.equal(out.leaderArchitectureId, 'challenger');
+  assert.equal(out.zeroLossGate.certifiedVsIncumbent, false);
+  assert.ok(out.zeroLossGate.certificationVsIncumbent.reasonCodes.includes('paired-task-regression-detected'));
+  assert.equal(out.status, 'SEALED_CHALLENGER_SIGNAL_REQUIRES_REPLICATION');
+});

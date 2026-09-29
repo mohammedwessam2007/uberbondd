@@ -19,7 +19,10 @@ const REQUIRED = [
   'open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json',
   'open router/MANIFEST.json',
   'open router/BACKUP_RECEIPT_2026-09-29.json',
-  'open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json'
+  'open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json',
+  'open router/FINAL_CHAT_DELTA_V4_2026-09-29.md',
+  'open router/RECOVERY_AUDIT_V4_2026-09-29.md',
+  'open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json'
 ];
 
 const failures = [];
@@ -40,6 +43,7 @@ const lock = readJson('open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09
 const handoff = readJson('docs/CURRENT_HANDOFF.json');
 const backup = readJson('open router/BACKUP_RECEIPT_2026-09-29.json');
 const completion = readJson('open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json');
+const exactV4 = readJson('open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json');
 
 if (spec) {
   if (spec?.objective?.maxQualityDelta !== 0) failures.push('v3-quality-delta-not-zero');
@@ -76,6 +80,24 @@ if (completion?.status !== 'OPEN_ROUTER_VAULT_COMPLETE') failures.push('final-co
 if (completion?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('completion-quality-delta-not-zero');
 if (completion?.budget?.monthlyAllInTargetUsd !== 30) failures.push('completion-budget-not-30');
 
+if (exactV4) {
+  if (exactV4?.status !== 'OPEN_ROUTER_V4_EXACT_CONTENT_RECOVERED') failures.push('v4-exact-receipt-not-complete');
+  if (exactV4?.indexedFileCountBeforeReceipt !== 32) failures.push('v4-indexed-file-count-not-32');
+  if (exactV4?.expectedFolderFileCountAfterReceipt !== 33) failures.push('v4-final-folder-count-not-33');
+  if (exactV4?.qualityLaw?.maxIntentionalDelta !== 0) failures.push('v4-quality-delta-not-zero');
+  if (exactV4?.budget?.monthlyAllInTargetUsd !== 30) failures.push('v4-budget-not-30');
+}
+
+const v4Delta = fs.existsSync('open router/FINAL_CHAT_DELTA_V4_2026-09-29.md') ? fs.readFileSync('open router/FINAL_CHAT_DELTA_V4_2026-09-29.md', 'utf8') : '';
+for (const token of ['We are greedy', 'fucking insane', 'thousands of dollar worth in that 30 dollars jaw drppping', 'Continue until every letter is recovered']) {
+  if (!v4Delta.includes(token)) failures.push(`v4-founder-intent-token-missing:${token}`);
+}
+
+const v4Audit = fs.existsSync('open router/RECOVERY_AUDIT_V4_2026-09-29.md') ? fs.readFileSync('open router/RECOVERY_AUDIT_V4_2026-09-29.md', 'utf8') : '';
+for (const token of ['zero stale indexed entries', 'byte-consistent', 'Git blob SHA']) {
+  if (!v4Audit.includes(token)) failures.push(`v4-audit-token-missing:${token}`);
+}
+
 const readme = fs.existsSync('open router/README.md') ? fs.readFileSync('open router/README.md', 'utf8') : '';
 for (const token of [
   'Cognitive Multicast',
@@ -90,13 +112,15 @@ for (const token of [
 
 console.log(JSON.stringify({
   ok: failures.length === 0,
-  status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V3_VAULT_COMPLETE_AND_INTACT',
+  status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V4_VAULT_COMPLETE_AND_EXACTLY_RECOVERABLE',
   failures,
   qualityDelta: spec?.objective?.maxQualityDelta ?? null,
   monthlyBudgetUsd: spec?.budget?.monthlyAllInTarget ?? null,
   cockpit: spec?.cockpit?.ui ?? null,
   market: spec?.market?.primaryTransport ?? null,
-  v3UpgradeCount: canon?.newV3Upgrades?.length ?? 0
+  v3UpgradeCount: canon?.newV3Upgrades?.length ?? 0,
+  v4ExactReceipt: exactV4?.status ?? null,
+  v4IndexedFileCountBeforeReceipt: exactV4?.indexedFileCountBeforeReceipt ?? null
 }, null, 2));
 
 if (failures.length) process.exitCode = 1;

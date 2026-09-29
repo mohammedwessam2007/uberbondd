@@ -322,15 +322,18 @@ export function governMonthlyCognitionBudget({
   spentUsd = 0,
   reservedUsd = 0,
   proposedUsd = 0,
+  billingOverheadRate = 0,
   frontierQualityRequired = true
 } = {}) {
   const budget = finite(monthlyBudgetUsd, 0, 1_000_000);
   const spent = finite(spentUsd, 0, 1_000_000);
   const reserved = finite(reservedUsd, 0, 1_000_000);
   const proposed = finite(proposedUsd, 0, 1_000_000);
-  if ([budget, spent, reserved, proposed].some(value => value == null)) return fail('COGNITION_BUDGET_REFUSED', ['valid-budget-state-required']);
+  const overheadRate = finite(billingOverheadRate, 0, 1);
+  if ([budget, spent, reserved, proposed, overheadRate].some(value => value == null)) return fail('COGNITION_BUDGET_REFUSED', ['valid-budget-state-required']);
+  const allInProposedUsd = proposed * (1 + overheadRate);
   const remaining = Math.max(0, budget - spent - reserved);
-  if (proposed <= remaining) {
+  if (allInProposedUsd <= remaining) {
     return envelope({
       ok: true,
       status: 'COGNITION_SPEND_RESERVATION_ALLOWED',
@@ -338,7 +341,9 @@ export function governMonthlyCognitionBudget({
       spentUsd: spent,
       reservedUsd: reserved,
       proposedUsd: proposed,
-      remainingAfterReservationUsd: remaining - proposed,
+      billingOverheadRate: overheadRate,
+      allInProposedUsd,
+      remainingAfterReservationUsd: remaining - allInProposedUsd,
       qualityAction: 'UNCHANGED'
     });
   }
@@ -349,6 +354,8 @@ export function governMonthlyCognitionBudget({
     spentUsd: spent,
     reservedUsd: reserved,
     proposedUsd: proposed,
+    billingOverheadRate: overheadRate,
+    allInProposedUsd,
     remainingUsd: remaining,
     frontierQualityRequired: frontierQualityRequired === true,
     qualityAction: 'DO_NOT_DOWNGRADE',

@@ -5,6 +5,7 @@ import { buildFrontierCognitiveReceipt } from '../src/frontier-cognitive-fabric.
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { createFrontierSimulationExecutorFactory } from '../src/frontier-simulation-executor.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -64,16 +65,16 @@ test('admitted frontier plan executes through canonical runtime and produces an 
   assert.match(plan.admissionDigest, /^[a-f0-9]{64}$/);
 
   const workerTask = { taskId: task.taskId, objective: task.objective, consequenceClass: 'LOCAL_PREPARATION', contextRefs: plan.plan.contextPacket.contextRefs, evidenceRefs: ['runtime://probe-google-gemini-frontier', plan.admissionDigest] };
-  const factory = worker => async args => {
-    assert.deepEqual(worker, { provider: 'ai-gateway', model: profile.transportModel, reasoningEffort: 'xhigh' });
-    assert.equal(args.model, profile.transportModel);
-    return {
-      ok: true, providerRequestId: 'req_e2e', model: profile.transportModel, identityVerification: 'OBSERVED',
-      appliedReasoningEffort: 'xhigh', appliedReasoningEvidence: 'REQUEST_BODY_ATTESTED', usage: { costCents: 4 }, result: { outcome: 'bounded-result' }
-    };
-  };
+  const factory = createFrontierSimulationExecutorFactory({
+    responses: [{
+      taskId: task.taskId,
+      model: profile.transportModel,
+      costCents: 4,
+      result: { outcome: 'bounded-result' }
+    }]
+  });
   const times = [100, 131];
-  const execution = await executeFrontierMember({ member: plan.plan.selected, task: workerTask, modelExecutorFactory: factory, callabilityEvidence: callability, maxTokens: 1000, costCeilingCents: 50, clock: () => times.shift() });
+  const execution = await executeFrontierMember({ planResult: plan, member: plan.plan.selected, task: workerTask, modelExecutorFactory: factory, callabilityEvidence: callability, maxTokens: 1000, costCeilingCents: 50, clock: () => times.shift() });
   assert.equal(execution.ok, true);
   assert.equal(execution.execution.latencyMs, 31);
   assert.equal(execution.execution.appliedReasoningSettingRef, 'ai-gateway:reasoning=xhigh');

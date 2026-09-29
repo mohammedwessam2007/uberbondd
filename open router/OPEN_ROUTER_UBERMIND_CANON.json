@@ -356,5 +356,54 @@
       "purpose": "Spend scarce frontier cognition on discoveries that create high-fanout descendants: applicability boundaries, verifiers, semantic normalizers, task compilers, Jev circuits, code candidates, regression tests and cross-domain primitives.",
       "successionLaw": "The capital-issuer role persists when the model changes; stronger verified successors trigger revalidation rather than architecture replacement."
     }
+  },
+  "millionDollarInventionLab": {
+    "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "status": "RESEARCH_INVENTION_PROGRAM_NOT_PROVEN",
+    "currentTeacherCrownCandidate": {
+      "model": "anthropic/claude-opus-5.5",
+      "observedAt": "2026-09-29",
+      "basis": "Fresh public benchmark snapshot currently ranks Opus 5.5 max #1 overall; task-class winners may differ.",
+      "evidencePointer": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+      "permanent": false
+    },
+    "centralThesis": "USE_THE_STRONGEST_VERIFIED_CURRENT_FRONTIER_AS_AN_INTELLIGENCE_CAPITAL_ISSUER_NOT_MERELY_AN_ANSWERER",
+    "mechanisms": [
+      "VERIFIED_SEMANTIC_HASHING",
+      "DECISION_FRANCHISES",
+      "EXCEPTION_ONLY_CROWN",
+      "VERIFIER_FOUNDRY",
+      "SOLVER_TRANSPILER",
+      "LIVING_EVIDENCE_GRAPH",
+      "SEMANTIC_DEMAND_EXCHANGE",
+      "COGNITIVE_CAPSULES",
+      "COUNTEREXAMPLE_BOUNDARY_MINER",
+      "FRONTIER_CALL_PORTFOLIO_OPTIMIZER",
+      "WORLD_THOUGHT_CAPITAL_IMPORTER",
+      "SELF_EVOLVING_TASK_CLASS_COMPILERS",
+      "FRONTIER_PATCH_PROTOCOL",
+      "PREDICTIVE_COGNITIVE_PREFETCH",
+      "REFLEX_MICROSTUDENTS",
+      "INTELLIGENCE_CAPITAL_COMPOUNDING_LEDGER",
+      "SEMANTIC_E_GRAPH",
+      "GHOST_AGENTS",
+      "CROWN_BOUNDARY_QUERYING",
+      "CROSS_DOMAIN_PRIMITIVE_MINING",
+      "COMPUTE_DONATION_MESH_SEPARATE_LEDGER",
+      "TEACHER_CROWN_META_COMPILER",
+      "FRONTIER_GENERATED_EVALUATOR_PACKS",
+      "FRONTIER_MINTED_COGNITIVE_CURRENCY",
+      "SEMANTIC_DEBT_MARKET",
+      "CROWN_SEED_SYNTHETIC_CURRICULUM_CERTIFIED_DESCENDANTS",
+      "UNIVERSAL_COGNITIVE_STANDARD_LIBRARY",
+      "COGNITIVE_MACRO_ASSEMBLER",
+      "SEMANTIC_INTERRUPT_HIERARCHY",
+      "FRONTIER_DIVIDEND_REINVESTMENT",
+      "FRONTIER_RESIDUAL_FUTURES",
+      "CROSS_TASK_PREFIX_COMPILER",
+      "OUTPUT_TOKEN_SURGERY"
+    ],
+    "proofLaw": "NO_ISOLATED_SAVINGS_MULTIPLICATION__MEASURE_END_TO_END_ON_SAME_WORKLOAD",
+    "teacherCrownSuccession": "WHEN_STRONGER_VERIFIED_FRONTIER_APPEARS_REPLACE_TEACHER_ROLE_AND_REVALIDATE_HIGH_VALUE_CAPITAL"
   }
 }

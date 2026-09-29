@@ -68,6 +68,12 @@
       "env": "OPENROUTER_MAX_COMPLETION_USD_PER_MILLION",
       "default": "",
       "note": "Optional global transport ceiling; per-model ceilings are preferred."
+    },
+    {
+      "env": "OPENROUTER_PLATFORM_FEE_RATE",
+      "default": "0.055",
+      "observedAt": "2026-09-29",
+      "note": "Current Standard-plan platform-fee planning assumption; reverify before activation and update when OpenRouter pricing changes."
     }
   ],
   "existingUberBondResourcesReused": [

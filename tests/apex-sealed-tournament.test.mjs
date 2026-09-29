@@ -283,36 +283,39 @@ test('public-frontier mode refuses too few reproducible public baselines and can
   assert.equal(reviewed.percentileAuthority, 'REVIEWED_SET_ONLY');
 });
 
-test('tournament refuses corpus mismatch, duplicate architecture identity and common-ceiling violations', () => {
+test('tournament refuses mutated/copied trial evidence before semantic comparison', () => {
   const manifest = fixture(30);
-  const a = compile('a', 25, manifest);
-  const b = compile('b', 26, manifest);
-  b.corpusDigest = 'd'.repeat(64);
+
+  const a1 = compile('a', 25, manifest);
+  const b1 = compile('b', 26, manifest);
+  b1.corpusDigest = 'd'.repeat(64);
   const mismatch = evaluateSealedArchitectureTournament({
-    trials: [a, b],
+    trials: [a1, b1],
     incumbentArchitectureId: 'a',
     budgetPolicy
   });
   assert.equal(mismatch.ok, false);
-  assert.ok(mismatch.reasonCodes.some(code => code.includes('corpus-digest-mismatch')));
+  assert.ok(mismatch.reasonCodes.some(code => code.includes('process-validated-untampered-sealed-trial-required')));
 
+  const a2 = compile('a', 25, manifest);
   const duplicate = evaluateSealedArchitectureTournament({
-    trials: [a, { ...a, receiptDigest: 'e'.repeat(64) }],
+    trials: [a2, { ...a2, receiptDigest: 'e'.repeat(64) }],
     incumbentArchitectureId: 'a',
     budgetPolicy
   });
   assert.equal(duplicate.ok, false);
-  assert.ok(duplicate.reasonCodes.some(code => code.includes('unique-architecture-required')));
+  assert.ok(duplicate.reasonCodes.some(code => code.includes('process-validated-untampered-sealed-trial-required')));
 
+  const a3 = compile('a', 25, manifest);
   const slow = compile('slow', 29, manifest);
   slow.economics.meanLatencyMs = 60_000;
   const ceiling = evaluateSealedArchitectureTournament({
-    trials: [a, slow],
+    trials: [a3, slow],
     incumbentArchitectureId: 'a',
     budgetPolicy
   });
   assert.equal(ceiling.ok, false);
-  assert.ok(ceiling.reasonCodes.some(code => code.includes('common-latency-ceiling-exceeded')));
+  assert.ok(ceiling.reasonCodes.some(code => code.includes('process-validated-untampered-sealed-trial-required')));
 });
 
 
@@ -376,4 +379,19 @@ test('same aggregate quality with a swapped task regression cannot become a zero
   assert.equal(out.zeroLossGate.certifiedVsIncumbent, false);
   assert.ok(out.zeroLossGate.certificationVsIncumbent.reasonCodes.includes('paired-task-regression-detected'));
   assert.equal(out.status, 'SEALED_CHALLENGER_SIGNAL_REQUIRES_REPLICATION');
+});
+
+
+test('a copied sealed trial cannot regain producer authority by preserving every visible field', () => {
+  const manifest = fixture(30);
+  const incumbent = compile('incumbent', 25, manifest);
+  const challenger = compile('challenger', 26, manifest);
+  const copied = structuredClone(challenger);
+  const out = evaluateSealedArchitectureTournament({
+    trials: [incumbent, copied],
+    incumbentArchitectureId: 'incumbent',
+    budgetPolicy
+  });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.some(code => code.includes('process-validated-untampered-sealed-trial-required')));
 });

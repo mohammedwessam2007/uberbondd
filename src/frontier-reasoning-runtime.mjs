@@ -1,4 +1,5 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
 
 export const FRONTIER_REASONING_RUNTIME_VERSION = 'uberbond.frontier-reasoning-runtime-1.3.0';
 
@@ -57,6 +58,10 @@ export function compileFrontierExecutorWorker(member = {}) {
   if (!profileId || !provider || !model || !revision) reasons.push('complete-cognitive-identity-required');
   if (!transportProvider || !transportModel) reasons.push('complete-transport-identity-required');
   if (!reasoningTier || !reasoningSettingRef) reasons.push('reasoning-tier-and-setting-required');
+  if (reasoningTier === 'FRONTIER_MAX') {
+    const quality = validateQualityInvariantAttestation(member?.absoluteQualityInvariant);
+    if (!quality.ok) reasons.push(...quality.reasonCodes);
+  }
 
   let setting = null;
   if (transportProvider === 'ai-gateway' && transportModel) {
@@ -92,6 +97,7 @@ export function compileFrontierExecutorWorker(member = {}) {
     profileId,
     cognitiveIdentity: { provider, model, revision },
     worker,
+    absoluteQualityInvariant: member.absoluteQualityInvariant ?? null,
     appliedSettingExpectation: {
       reasoningTier,
       reasoningSettingRef,
@@ -157,6 +163,7 @@ export function attestFrontierExecution({ member, workerBinding, executorResult,
       observedTransportModel,
       identityVerification: 'OBSERVED',
       appliedReasoningSettingRef: workerBinding.appliedSettingExpectation.reasoningSettingRef,
+      absoluteQualityInvariant: workerBinding.absoluteQualityInvariant,
       appliedReasoningEffort,
       appliedServiceTier: workerBinding.appliedSettingExpectation.serviceTier ? appliedServiceTier : null,
       resultRef: `provider-request://${providerRequestId}`,

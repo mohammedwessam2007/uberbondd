@@ -25,17 +25,25 @@ No local model is required.
 No local GPU is required.
 The founder's iPad is a cockpit, not an inference host.
 
-Default transport:
+Interactive cockpit:
 
 ```
-iPad
-  -> UberBond control plane
-  -> UberMind quality market
-  -> OpenRouter
-  -> cloud model/provider market
+Mohamed on iPad
+  -> TypingMind UI
+  -> UberMind agent/workflow constitution
+  -> provider APIs selected by UberMind policy
+       -> direct Anthropic / OpenAI / Google / DeepSeek / Xiaomi / etc.
+       -> OR OpenRouter as an optional market adapter
+  -> model swarms / Adversarial Synthesis
+  -> frontier adjudication
+  -> Jev / crystallized reflexes only where certified
 ```
 
-Direct Anthropic/OpenAI/etc. transports remain optional donors when measured native Batch/Flex/cache economics or exact controls beat the market transport.
+**TypingMind is the founder-facing cockpit, not the brain.**
+**OpenRouter is an optional transport/marketplace, not the brain.**
+The canonical architecture remains UberMind's own planner, model arena, swarm topology, Adversarial Synthesis, evidence court, Jev boundary, crystallization and zero-loss quality law.
+
+For interactive iPad work, provider API keys may be configured directly inside TypingMind. For unattended 24/7 work, UberBond's cloud scheduler/queue can use the same provider APIs independently of TypingMind; the UI does not need to stay open.
 
 ## Donor capabilities absorbed
 
@@ -154,7 +162,7 @@ Existing Architecture Lab and sealed tournament search model mixes, roles, topol
 
 No candidate self-promotes.
 
-## OpenRouter executor safety
+## Optional OpenRouter executor safety
 
 `src/openrouter-agent-executor.mjs` is a first-class cloud executor.
 
@@ -196,26 +204,24 @@ Forbidden relief:
 - lossy context dropping;
 - skipping required frontier adjudication.
 
-## One-plug resource set
+## Founder cockpit resource set
 
-Required new founder resource:
+Required interactive surface:
 
-1. **One OpenRouter API key**
-   - store as `OPENROUTER_API_KEY` in the protected runtime;
-   - never commit it to Git;
-   - never place it in public logs.
+1. **TypingMind on the iPad**
+   - configure the provider API keys we actually want to use;
+   - create UberMind's custom agents/workflows from our own role map;
+   - keep TypingMind as the interface only.
 
-Required runtime settings:
+There is **no mandatory OpenRouter key**. OpenRouter is convenient when we want one marketplace credential and broad model access, but direct Anthropic/OpenAI/Google/etc. APIs remain first-class.
+
+The only canonical budget setting is:
 
 ```
-OPENROUTER_AGENT_ENABLED=true
 UBERMIND_MONTHLY_COGNITION_BUDGET_USD=20
-OPENROUTER_PROVIDER_SORT=price
-OPENROUTER_REQUIRE_ZDR=true
-OPENROUTER_ALLOW_PROVIDER_FALLBACKS=true
 ```
 
-Optional direct-provider credentials are not required for the first cloud market activation.
+Any backend `OPENROUTER_*` settings apply only when the optional OpenRouter adapter is activated.
 
 ## Operator commands
 
@@ -267,8 +273,10 @@ It has not:
 - proven the USD 20 target;
 - promoted any cheap architecture as frontier-equivalent.
 
-The next external action is intentionally tiny:
+The interactive activation path is intentionally simple:
 
-> Founder creates one OpenRouter API key, sets the monthly spend control, and stores the key in the protected UberBond runtime.
+> Open TypingMind on the iPad, add the provider API credentials we choose, and install/configure the UberMind agent/workflow map.
 
-After that, UberBond can observe the live catalog and begin the fresh sealed quality/cost tournament without requiring local hardware.
+OpenRouter may be one of those credentials, but it is not required. The model crown remains movable and provider-neutral.
+
+A separate cloud worker is needed only for genuinely unattended 24/7 operation while the iPad is asleep. That worker executes the same UberMind constitution and does not replace the TypingMind cockpit.

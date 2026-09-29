@@ -104,7 +104,7 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
   const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
   if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
 
-  const crown = validateCampaignFrontierCrownCertificate(frontierCrownCertificate, { now });
+  const crown = validateCampaignFrontierCrownCertificate(frontierCrownCertificate);
   if (!crown.ok) return failure(['canonical-frontier-crown-certificate-required', ...(crown.reasonCodes || [])], 'FRONTIER_LIVE_BENCHMARK_REFUSED');
 
   const isBaseline = sealedTrial.architectureId === crown.baselineArchitectureId

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "uberbond.wessam-singularity.prompt-recovery.v1",
+  "status": "FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ",
+  "recordedAt": "2026-09-29",
+  "source": {
+    "title": "WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt",
+    "sha256": "9a652af926ca512f773f7d6298199f8112e3ea34fcb87b2a20838a82f7c0359d",
+    "bytes": 2076353,
+    "lines": 25782,
+    "rawBytesRetainedInRepository": false,
+    "rawSourceLocation": "founder-provided ChatGPT Project attachment",
+    "exactIdentityLaw": "Use sha256+byte+line count to distinguish the recovered source; repository canon preserves the material doctrine and topology, not a claim of byte-for-byte archival of the attachment."
+  },
+  "coverage": {
+    "topLevelSectionsRead": "I-XXVI",
+    "inheritedHandoffSectionsRead": "0-44",
+    "lattice": {
+      "lenses": 106,
+      "domains": 68,
+      "cells": 7208,
+      "expectedCells": 7208,
+      "missingPairs": 0,
+      "outputContract": [
+        "one structural distinction",
+        "one mechanism",
+        "one falsifier or evidence path",
+        "one successor question",
+        "one warning against false grandeur"
+      ]
+    }
+  },
+  "hierarchy": [
+    "WESSAM_SINGULARITY",
+    "SOVEREIGN_COGNITIVE_CONTINUUM",
+    "PERSONAL_CIVILIZATION",
+    "UBERBOND",
+    "UBERMIND",
+    "OPENROUTER_TYPINGMIND_JEV_CROWN_SWARMS_CODE_CACHES_TOOLS"
+  ],
+  "canonicalHuman": "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
+  "truthBoundary": {
+    "promptRead": true,
+    "semanticCanonDurable": true,
+    "rawAttachmentCopiedIntoGit": false,
+    "singularityAchieved": false,
+    "globalAiSuperiorityProven": false,
+    "liveThirtyDollarFrontierEquivalenceProven": false
+  }
+}

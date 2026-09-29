@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "uberbond.absolute-frontier-quality-lock.v1",
+  "policyVersion": "uberbond.absolute-frontier-quality.v1",
+  "policyDigest": "e4f03300167ce5834862ef8d70f60b3b4870d07cc8a4754c7619d1ffeb068a52",
+  "qualityDelta": 0,
+  "minimumEvidenceConfidence": 0.95,
+  "degradedCouncilAllowed": false,
+  "uncertaintyFallback": "STRONGEST_AVAILABLE_FRONTIER_BASELINE",
+  "laws": [
+    "QUALITY_NEVER_PAYS_FOR_COST_SAVINGS",
+    "COST_MAY_OPTIMIZE_ONLY_AFTER_ZERO_PAIRED_REGRESSION_IS_PROVEN",
+    "SEMANTIC_COGNITION_NEVER_FALLS_BELOW_FRONTIER_MAX",
+    "COUNCIL_DEGRADATION_IS_NOT_AN_ALLOWED_FRONTIER_FALLBACK",
+    "UNKNOWN_OR_STALE_EQUIVALENCE_FAILS_CLOSED_TO_THE_FRONTIER_BASELINE",
+    "JEV_OR_CODE_MAY_REPLACE_FRONTIER_REASONING_ONLY_INSIDE_A_SEPARATELY_VERIFIED_CRYSTALLIZED_DOMAIN"
+  ],
+  "protectedSurfaces": [
+    "src/absolute-frontier-quality-invariant.mjs",
+    "src/apex-reasoning-hypercompiler.mjs",
+    "src/apex-sealed-tournament.mjs",
+    "src/apex-fresh-campaign.mjs",
+    "src/frontier-cognitive-fabric.mjs",
+    "src/frontier-reasoning-runtime.mjs",
+    "src/reasoning-architecture-lab.mjs",
+    "src/ubermind-cognitive-exchange.mjs",
+    "config/apex-frontier-quality-compression-campaign.json"
+  ],
+  "weakeningAuthority": "NONE",
+  "truthBoundary": "THIS LOCK MAKES ACCIDENTAL OR INDIRECT QUALITY-FLOOR WEAKENING FAIL CLOSED INSIDE THE CURRENT SOURCE TREE. A PRIVILEGED ACTOR WHO CAN MODIFY THE LOCK, VERIFIER AND RUNTIME SOURCE TOGETHER REMAINS OUTSIDE THIS SOFTWARE TRUST BOUNDARY."
+}

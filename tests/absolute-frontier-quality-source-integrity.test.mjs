@@ -41,7 +41,9 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
     'src/apex-fresh-campaign.mjs': [
       'absoluteQualityPolicyDigest',
       'validateAbsoluteFrontierQualityPolicy',
-      'maxQualityDelta: 0'
+      'maxQualityDelta: 0',
+      'const preparedFreshCampaigns = new WeakMap()',
+      'validatePreparedFreshApexCampaign'
     ],
     'src/frontier-cognitive-fabric.mjs': [
       'DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA',
@@ -57,6 +59,14 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'isFrontierSimulationExecutorFactory',
       'isCanonicalModelExecutorFactory',
       'member-object-identity-does-not-match-admitted-plan'
+    ],
+    'src/frontier-crown.mjs': [
+      'const canonicalCrowns = new WeakMap()',
+      'validatePreparedFreshApexCampaign',
+      'validateCompiledSealedArchitectureTrial',
+      'certifyPairedZeroLoss',
+      'FRONTIER_CROWN_REQUIRES_COUNCIL_SYNTHESIS',
+      'validateCampaignFrontierCrownCertificate'
     ],
     'src/frontier-cognitive-admission.mjs': [
       'const admittedPlans = new WeakMap()',
@@ -99,6 +109,8 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'const admittedBundles = new WeakMap()',
       'const canonicalLiveBenchmarks = new WeakMap()',
       'buildLiveFrontierBenchmarkFromSealedTrial',
+      'validateCampaignFrontierCrownCertificate',
+      'canonical-frontier-crown-certificate-required',
       'paired-zero-loss-against-frontier-baseline-required',
       "liveRoutingAuthority: frontierBaseline === true",
       'validateLiveFrontierBenchmark'

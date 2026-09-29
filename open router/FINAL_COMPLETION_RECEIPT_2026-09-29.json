@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "uberbond.open-router.final-completion-receipt.v1",
+  "status": "OPEN_ROUTER_VAULT_COMPLETE",
+  "recordedAt": "2026-09-29T17:52:00+03:00",
+  "canonicalFolder": "open router/",
+  "branch": "canon/open-router-vault-finalize-v3-20260929",
+  "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
+  "contentHeadBeforeReceipt": "b87769839e611e448d8b55526d6ff3637ee9487d",
+  "folderFilesBeforeReceipt": 29,
+  "expectedFolderFilesAfterReceipt": 30,
+  "indexedFiles": [
+    {
+      "path": "open router/00_FINAL_SYSTEM.md",
+      "blobSha": "b7b2b1810659910c491c274c5ff1a4a2b696414d",
+      "size": 6284
+    },
+    {
+      "path": "open router/01_PRACTICAL_MODEL_SEQUENCE.md",
+      "blobSha": "ffecfc433dcbcb6cec1a1b39ccc6fbf3ac5f5891",
+      "size": 3218
+    },
+    {
+      "path": "open router/02_JEV_HYPERREFLEX.md",
+      "blobSha": "adc0d1839455e90ac1b8b4c6845891a314f24ca5",
+      "size": 3342
+    },
+    {
+      "path": "open router/03_30_DOLLAR_ECONOMICS.md",
+      "blobSha": "05a270c9ee0bb93e4dc40172ce85dfbb085463fc",
+      "size": 3078
+    },
+    {
+      "path": "open router/04_TYPINGMIND_IPAD_SETUP.md",
+      "blobSha": "4c9ab34e9f904e229e351fff5fb5208038b41d94",
+      "size": 3047
+    },
+    {
+      "path": "open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md",
+      "blobSha": "732150ef1011e173f839a5cf3559b08a27406348",
+      "size": 2070
+    },
+    {
+      "path": "open router/06_24_7_NIGHT_SHIFT.md",
+      "blobSha": "6d85c547a7a2b85d7ed48260c6eede287efd44cb",
+      "size": 2377
+    },
+    {
+      "path": "open router/07_1000X_COMPRESSION_LAB.md",
+      "blobSha": "58a407a0d57a59f8c06f54f4a5ecae299fef08be",
+      "size": 3187
+    },
+    {
+      "path": "open router/08_PROMPTS.md",
+      "blobSha": "7644a0a2ad2772e82e0ca582d7a40e2189c6c568",
+      "size": 3256
+    },
+    {
+      "path": "open router/09_SCOREBOARD_SCHEMA.json",
+      "blobSha": "bcb1ed72a545568fa4cb311908296b131394c42b",
+      "size": 2060
+    },
+    {
+      "path": "open router/10_ACTIVATION_CHECKLIST.md",
+      "blobSha": "163e906f41a5d57d1ce7c8a1e320f02528e4eff6",
+      "size": 2744
+    },
+    {
+      "path": "open router/11_MODEL_MARKET_REFRESH.md",
+      "blobSha": "7fdc13ec9971d0e1e4a514bd81449a5d5efa08a9",
+      "size": 2121
+    },
+    {
+      "path": "open router/12_REFERENCE_VALUE_LEDGER.md",
+      "blobSha": "f25eb2ff564764df6fba1279733b9dab4d18b161",
+      "size": 2774
+    },
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
+      "size": 5508
+    },
+    {
+      "path": "open router/ARCHITECTURE.md",
+      "blobSha": "8399f0e5b96c920bae66ca47169871557d29a0ff",
+      "size": 8289
+    },
+    {
+      "path": "open router/BACKUP_RECEIPT_2026-09-29.json",
+      "blobSha": "f79aef379c67e88277adbea9ba9031c19dc814e5",
+      "size": 7011
+    },
+    {
+      "path": "open router/CANON_SNAPSHOT_2026-09-29.json",
+      "blobSha": "3bd6863eddfd0a44192d15dfb3dfd376dc0d435a",
+      "size": 18784
+    },
+    {
+      "path": "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "blobSha": "b644fff6eb2fa7ae91e5f9a4271588f57c278caa",
+      "size": 6290
+    },
+    {
+      "path": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "blobSha": "f4e18a1be9080be83a3381642643f9b68322efc5",
+      "size": 5203
+    },
+    {
+      "path": "open router/JEV_HYPERREFLEX.md",
+      "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
+      "size": 6929
+    },
+    {
+      "path": "open router/MANIFEST.json",
+      "blobSha": "2d15da4996d264570d99bd7dd3dbbca8860279db",
+      "size": 7457
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "46d27d87f085ac1759e8c39fe2d4ac5a39e2c667",
+      "size": 5729
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "b9793332f7181e6938ed2a9e9e037b266dc24c07",
+      "size": 3837
+    },
+    {
+      "path": "open router/README.md",
+      "blobSha": "9197c6c192e69287dad499fb8f8b59f1f3383b96",
+      "size": 7723
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
+      "blobSha": "090ef7e1ae668085d27ca01e0068c1942ebb0120",
+      "size": 3019
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md",
+      "blobSha": "f9e15ff766332af25e44962a37db0d358285925f",
+      "size": 21100
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md",
+      "blobSha": "4e12fe9afa660c13d8461afe0b5129358e5f7fa1",
+      "size": 8616
+    },
+    {
+      "path": "open router/TYPINGMIND_AND_24_7.md",
+      "blobSha": "e79274988487a87703f2541176f8a4e2df3bfc53",
+      "size": 4216
+    },
+    {
+      "path": "open router/TYPINGMIND_PROMPT_PACK.md",
+      "blobSha": "2500d792fe3ece0d57410873cb0675bd88d0da03",
+      "size": 7227
+    }
+  ],
+  "recoveryPointers": {
+    "scripts/open-router-vault-doctor.mjs": {
+      "blobSha": "09dd1677ab066dac76af87d6308aa5de7a489f54"
+    },
+    "docs/CURRENT_HANDOFF.json": {
+      "blobSha": "a64faa78005f009258feacd0f659cc0723a344b0"
+    },
+    "docs/UBERBOND_MASTER_MEMORY.md": {
+      "blobSha": "0d8f8018d2e073ca9f5c015d721ffb61b060c747"
+    },
+    "package.json": {
+      "blobSha": "eb85903ecb40d19a00f311fce3446df4ee467d1f"
+    },
+    "AI_START_HERE.md": {
+      "blobSha": "0d7363d4fa90b415434f61e0678576e99019290b"
+    },
+    "AGENTS.md": {
+      "blobSha": "65a1f2f1cf8f83f2d9aa0f7b529c7f2c85b7bbfe"
+    }
+  },
+  "founderObjective": "Continuously obtain the strongest verified commercially available intelligence at the lowest achievable all-in cost, with no intentional quality reduction.",
+  "cockpit": {
+    "device": "iPad",
+    "ui": "TypingMind",
+    "market": "OpenRouter",
+    "localGpuRequired": false,
+    "localModelRequired": false
+  },
+  "qualityLaw": {
+    "maxIntentionalDelta": 0,
+    "unknown": "CROWN",
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE",
+    "majorityVoteAuthority": "NONE",
+    "semanticCacheAuthority": "SHADOW_UNLESS_CERTIFIED",
+    "lossyCompressionAuthority": "NONE_UNLESS_ZERO_LOSS_CERTIFIED"
+  },
+  "budget": {
+    "monthlyAllInTargetUsd": 30,
+    "status": "TARGET_NOT_EMPIRICAL_PROOF",
+    "crownEscrowInitialMinimumUsd": 15
+  },
+  "preservedSystems": [
+    "moving Frontier Crown / task-specific Pantheon",
+    "TypingMind iPad cockpit",
+    "OpenRouter cloud model market",
+    "Jev Hyperreflex",
+    "adaptive heterogeneous cloud swarm",
+    "Adversarial Synthesis",
+    "lossless Frontier Delta",
+    "Reality Court",
+    "Crown -> Jev -> code crystallization",
+    "Proof Burn-In vs Certified Compression",
+    "Protected Crown Escrow",
+    "Cognitive Compute Auction",
+    "Exact Cognitive Dedup Graph",
+    "Task-Archetype Compiler",
+    "Cognitive CDN",
+    "Evidence Multicast",
+    "Frontier Thought Bonds",
+    "Champion-Challenger Shadow Market",
+    "Second-Crown Insurance",
+    "Reference-Cost-Equivalent accounting",
+    "Cognitive Multicast",
+    "Crown Call Coalescing",
+    "Common Semantic Subexpression Elimination",
+    "Decision-DAG Incremental Recomputation",
+    "Crown Thought Capital Ledger",
+    "Negative Knowledge Cache",
+    "Error Portfolio Optimizer",
+    "Value-of-Information Compute Auction",
+    "Shadow Router Tournament",
+    "Frontier Output Minimizer",
+    "Cross-task Crown Batching",
+    "Cognitive Futures Market"
+  ],
+  "compressionResearchTargets": [
+    "10x",
+    "25x",
+    "50x",
+    "100x",
+    "250x",
+    "500x",
+    "1000x"
+  ],
+  "truthBoundary": {
+    "repositoryBackupComplete": true,
+    "liveThirtyDollarFrontierEquivalenceProven": false,
+    "thousandsDollarReferenceEquivalentProven": false,
+    "currentGlobalNumberOneProven": false,
+    "permanentZeroRegressionProven": false,
+    "currentOptimalRosterProven": false
+  },
+  "nextAction": "ACTIVATE_TYPINGMIND_OPENROUTER_WITH_HARD_30_USD_CEILING -> REFRESH_LIVE_ROSTER -> RUN_PAIRED_BURN_IN -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> MEASURE_RCE -> MUTATE_FROM_EVIDENCE",
+  "note": "This receipt hashes every pre-existing file in the vault. It intentionally cannot hash itself. The vault doctor checks its presence and critical invariants."
+}

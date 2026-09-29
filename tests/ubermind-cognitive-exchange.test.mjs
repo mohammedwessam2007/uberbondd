@@ -33,3 +33,14 @@ test('caller cannot lower semantic cognition below FRONTIER_MAX by understating 
   assert.equal(r.task.reasoningTier,'FRONTIER_MAX');
   assert.equal(r.topology.absoluteQualityInvariant.qualityDelta,0);
 });
+
+
+test('caller cannot lower the semantic reasoning tier through mission fields',()=>{
+  const r=compileUberMindExchange({
+    mission:{missionId:'m-floor',taskId:'t-floor',objective:'semantic judgement',reasoningTier:'FAST'},
+    stakes:{consequence:0,uncertainty:0,reversibility:1,founderImportance:0}
+  });
+  assert.equal(r.ok,true);
+  assert.equal(r.task.reasoningTier,'FRONTIER_MAX');
+  assert.equal(r.topology.absoluteQualityInvariant.qualityDelta,0);
+});

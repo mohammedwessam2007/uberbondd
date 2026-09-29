@@ -1,13 +1,13 @@
 {
   "schemaVersion": "uberbond.open-router.backup-receipt.v3",
-  "status": "V2_PLUS_V3_BACKUP_CONTENT_COMPLETE_PRE_MERGE",
+  "status": "V2_PLUS_V3_BACKUP_CONTENT_COMPLETE",
   "recordedAt": "2026-09-29T17:52:00+03:00",
   "branch": "docs/open-router-cognitive-arbitrage-vault-rebased-20260929",
   "contentHeadBeforeReceipt": "c2e08549a8df7ed37e393fccfb989ac7d874f3b6",
   "baseCurrentMainSha": "77b0c3fa87f8916a60d26612046608cd900425a0",
   "folder": "open router/",
   "filesPresentBeforeReceipt": 28,
-  "expectedFinalFolderFileCount": 29,
+  "expectedFinalFolderFileCount": 30,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -193,5 +193,8 @@
   ],
   "v2AndV3Preserved": true,
   "truthBoundary": "This receipt proves durable repository backup presence and recovery wiring. It does not prove live economic compression, current Crown identity, or global rank.",
-  "nextStep": "MERGE_EXACT_AUDITED_HEAD_TO_MAIN_THEN_ACTIVATE_TYPINGMIND_OPENROUTER_AND_COLLECT_LIVE_PAIRED_RECEIPTS"
+  "nextStep": "ACTIVATE_TYPINGMIND_OPENROUTER_AND_COLLECT_LIVE_PAIRED_RECEIPTS",
+  "auditedCanonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
+  "auditedFolderFileCountBeforeFinalReceipt": 29,
+  "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json"
 }

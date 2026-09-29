@@ -152,9 +152,6 @@ function manifest(count = 40) {
   });
 }
 
-function receiptFor(prepared, sealedManifest, overrides = {}) {
-  const crypto = await import('node:crypto');
-}
 
 test('campaign plan freezes architecture identities and preserves frontier-first economics', () => {
   const out = plan();

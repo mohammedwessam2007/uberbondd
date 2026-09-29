@@ -1,5 +1,16 @@
 # UberBond Universal AI Entry Point
 
+## Founder-level meta North Star
+
+Before mission selection, read `docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`.
+
+The current founder-level hierarchy is:
+
+`WESSAM SINGULARITY -> SOVEREIGN COGNITIVE CONTINUUM -> PERSONAL CIVILIZATION -> UBERBOND -> UBERMIND -> replaceable cognitive infrastructure`
+
+This is an additive founder-level overlay. Inside UberBond, the Sovereign Cognitive Continuum remains the terminal project identity. Do not collapse Wessam Singularity into UberBond, UberMind, a model stack, economic machinery, or an achieved empirical claim.
+
+
 If you are an AI, coding agent, research agent, IDE assistant, terminal agent, or fresh chat opening this repository, **do not infer UberBond from the newest file, PR, offer, UI, issue, or active mission**.
 
 UberBond is a long-lived accumulated organism. A new context window is not a new project.

@@ -1,0 +1,61 @@
+{
+  "CURRENT_MAIN": "9c78a59291950fb072b2227f7e8e061197ed72d7",
+  "SOURCE_READY": "FULL_SOURCE_GATE_PASS; 8395 PASS, 55 EXTERNAL/SPECIALIZED SKIPS",
+  "LIVE_CONNECTED": "NOT_OBSERVED",
+  "TODAY_AI_SPEND": "UNKNOWN",
+  "MONTH_AI_SPEND": "UNKNOWN",
+  "CROWN_ESCROW_REMAINING": "UNKNOWN",
+  "CURRENT_GENERAL_CROWN": "UNKNOWN",
+  "CURRENT_TASK_CLASS_CROWNS": "UNKNOWN",
+  "CHEAP_VOLUME_WINNERS": "UNKNOWN",
+  "STRONG_WORKER_WINNERS": "UNKNOWN",
+  "BY_CONSTRUCTION_SHARE": "UNKNOWN",
+  "FRONTIER_SEMANTIC_SHARE": "UNKNOWN",
+  "OPUS_QUALITY_FANOUT": "UNKNOWN",
+  "FRONTIER_PAGE_FAULT_RATE": "UNKNOWN",
+  "COMPILED_COGNITION_SHARE": "UNKNOWN",
+  "SEMANTIC_MULTICAST_FACTOR": "UNKNOWN",
+  "VERIFIED_SEMANTIC_DEDUP_FACTOR": "UNKNOWN",
+  "EXACT_RESPONSE_CACHE_HITS": "UNKNOWN",
+  "PROMPT_CACHE_READ_SHARE": "UNKNOWN",
+  "DECISION_FRANCHISE_FANOUT": "UNKNOWN",
+  "CROWN_CALLS": "UNKNOWN",
+  "CROWN_CALLS_AVOIDED": "UNKNOWN",
+  "ACTUAL_ALL_IN_COST": "UNKNOWN",
+  "CONSERVATIVE_DIRECT_FRONTIER_REFERENCE_COST": "UNKNOWN",
+  "REFERENCE_COMPRESSION_FACTOR": "UNKNOWN",
+  "NEW_MECHANISMS_INVENTED": [
+    "Residual proof-cut factoring across different programs, with independent per-consumer closure; prototype, no invention priority claim"
+  ],
+  "MECHANISMS_FALSIFIED": [
+    "Embedding equality as semantic authority",
+    "Confidence or consensus as release authority",
+    "Provider catalog listing as owner-account callability",
+    "Naive experiment mutation with aliased fixtures",
+    "Raw transcript completeness from historical receipt alone"
+  ],
+  "SOURCE_BLOCKERS": [],
+  "OWNER_ONLY_BLOCKERS": [
+    "Secure account connection and explicit bounded paid authorization",
+    "Production host/deployment authority and observation"
+  ],
+  "UNPROVEN_CLAIMS": [
+    "Moving-Crown equivalence on real tasks",
+    "24/7 deployed availability",
+    "Million-dollar matched reference value",
+    "33333.333x economic compression",
+    "Realized frontier call avoidance",
+    "Global spend cap across independently authorized legacy/consumer routes"
+  ],
+  "measurementBoundary": {
+    "apiInferenceCallsThisMission": 0,
+    "observedPaidApiSpendThisMissionUsd": 0,
+    "planIncludedCognitionCost": "UNKNOWN",
+    "totalActualAllInCognitionCost": "UNKNOWN",
+    "syntheticFixtureResultsExcludedFromEconomicClaims": true,
+    "billingPeriodConvention": "UTC calendar month; founder local reporting timezone Africa/Cairo"
+  },
+  "verificationReceipt": "docs/receipts/INFINITE_OPUS_EXECUTION_2026-09-29.json",
+  "syntheticDemandScaleReceipt": "open router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json",
+  "historicalEvidenceDebt": "Original founder transcript 62611 bytes vs declared 189166; integrity remains blocked."
+}

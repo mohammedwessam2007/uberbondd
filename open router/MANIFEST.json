@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 48,
+  "expectedFinalFolderFileCount": 56,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -104,6 +104,41 @@
       "size": 6012
     },
     {
+      "path": "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
+      "blobSha": "678b2ce27b53a6267c1881ef7fd3d5f7554ed75c",
+      "size": 8317
+    },
+    {
+      "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+      "blobSha": "903e6439e0f9bd7ba669e5c67e0896ebe3b3442a",
+      "size": 43115
+    },
+    {
+      "path": "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+      "blobSha": "7fed895bf4d62b814cf0bdde29fc13cee26e41fd",
+      "size": 20742
+    },
+    {
+      "path": "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+      "blobSha": "3fbcd3e2457442edfd1edd5506a701a26bff6bef",
+      "size": 11534
+    },
+    {
+      "path": "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+      "blobSha": "ef1377de3e3d1d4dfc85a53ac0e0c17e159cf78c",
+      "size": 15631
+    },
+    {
+      "path": "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md",
+      "blobSha": "86453960fcb454f1c0dbc9ced7473372c4d9ae94",
+      "size": 44651
+    },
+    {
+      "path": "open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md",
+      "blobSha": "20f115e4d085039ebfde11047967560de5a9f57e",
+      "size": 11285
+    },
+    {
       "path": "open router/ACTIVATION_CHECKLIST.md",
       "blobSha": "16db7b64e2dcfaf1917ba4ee2a6ffaf6b597f557",
       "size": 7681
@@ -149,14 +184,54 @@
       "size": 8151
     },
     {
+      "path": "open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json",
+      "blobSha": "f006292da7cac68ef1c701f8ba37a04d94c014ef",
+      "size": 2713
+    },
+    {
+      "path": "open router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json",
+      "blobSha": "c7899f56b3eb2fe478aca2e6253c130521499d10",
+      "size": 6734
+    },
+    {
+      "path": "open router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json",
+      "blobSha": "8a984c59325d64b30d62404ad0312884a9bd9c7b",
+      "size": 422
+    },
+    {
+      "path": "open router/INFINITE_OPUS_MARKET_REFRESH_2026-09-29.json",
+      "blobSha": "8374492c06e4bc46a7c86ae77b2e3ff4147cab34",
+      "size": 3555
+    },
+    {
+      "path": "open router/INFINITE_OPUS_NEGATIVE_KNOWLEDGE_2026-09-29.json",
+      "blobSha": "ee51ecbb9501d8c4b1ca7dc41cda93e6ead58ed3",
+      "size": 1341
+    },
+    {
+      "path": "open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json",
+      "blobSha": "89041577692fd1707cde53328ba33f78c986d42c",
+      "size": 774127
+    },
+    {
+      "path": "open router/INFINITE_OPUS_SYNTHETIC_RECEIPT_2026-09-29.json",
+      "blobSha": "f1efef435f01b2177e3410d86272cd5b3b8c4b0e",
+      "size": 2656
+    },
+    {
       "path": "open router/JEV_HYPERREFLEX.md",
       "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
       "size": 6929
     },
     {
+      "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+      "blobSha": "a7d47dd0882feaf799727d0de1bdd64052d26592",
+      "size": 12561
+    },
+    {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "34da9e702e80a79d96bc467f8669685f8b14a819",
-      "size": 23361
+      "blobSha": "eca7064d7f515a66857c9acc859001fe3e993704",
+      "size": 24626
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +240,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "a5d3ddfd9dc3ebe9a968e6aee675a99db8b1e22e",
-      "size": 21265
+      "blobSha": "8344f672730e5e8b3285c672fd70a18511b20fe8",
+      "size": 21961
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -207,41 +282,6 @@
       "path": "open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json",
       "blobSha": "2957786a462d2d8c7bc7e4b152c9b8cc97ecc374",
       "size": 4553
-    },
-    {
-      "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
-      "blobSha": "53acc685b5290df5895c33ed45456f1587d3788b",
-      "size": 12127
-    },
-    {
-      "path": "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
-      "blobSha": "678b2ce27b53a6267c1881ef7fd3d5f7554ed75c",
-      "size": 8317
-    },
-    {
-      "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
-      "blobSha": "903e6439e0f9bd7ba669e5c67e0896ebe3b3442a",
-      "size": 43115
-    },
-    {
-      "path": "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
-      "blobSha": "fadf20fafc06f996a35314ed4a11252baf23b1ec",
-      "size": 20689
-    },
-    {
-      "path": "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
-      "blobSha": "3fbcd3e2457442edfd1edd5506a701a26bff6bef",
-      "size": 11534
-    },
-    {
-      "path": "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
-      "blobSha": "ef1377de3e3d1d4dfc85a53ac0e0c17e159cf78c",
-      "size": 15631
-    },
-    {
-      "path": "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md",
-      "blobSha": "86453960fcb454f1c0dbc9ced7473372c4d9ae94",
-      "size": 44651
     }
   ],
   "layers": {
@@ -316,14 +356,17 @@
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 47,
+  "indexedFilesExcludingSelf": 55,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",
     "tests/frontier-vm-longitudinal-evaluator.test.mjs",
     "tests/cognitive-superoptimizer.test.mjs",
     "tests/frontier-vm-burnin.test.mjs",
-    "tests/frontier-vm-activation-readiness.test.mjs"
+    "tests/frontier-vm-activation-readiness.test.mjs",
+    "tests/infinite-opus.test.mjs",
+    "tests/infinite-opus-kernel.test.mjs",
+    "tests/infinite-opus-compilers.test.mjs"
   ],
   "v5BaseFolderFileCount": 33,
   "liveMarketSnapshotBaseMainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",
@@ -336,5 +379,10 @@
     "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
     "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
     "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md"
-  ]
+  ],
+  "infiniteOpusExecution": {
+    "sourceCommit": "9e52531c850db048460c8fc33d0af182075a54e0",
+    "checkpoint": "open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json",
+    "status": "SOURCE_GATE_PASS_PRELIVE"
+  }
 }

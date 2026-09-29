@@ -1,0 +1,15 @@
+{
+  "observedAt": "2026-09-29T22:26:34.495Z",
+  "status": "SYNTHETIC_DEMAND_SCALE_ONLY",
+  "consumers": 100000,
+  "uniqueCuts": 1,
+  "candidateMulticastFactor": 100000,
+  "elapsedMs": 970.8082860000001,
+  "changedDependencyCuts": 2,
+  "providerCalls": 0,
+  "semanticAuthority": "NONE",
+  "finishedWorkEquivalence": null,
+  "actualCrownCallsAvoided": null,
+  "realizedSavings": null,
+  "referenceCompressionFactor": null
+}

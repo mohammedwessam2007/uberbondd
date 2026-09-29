@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.market-refresh.v1",
+  "observedAt": "2026-09-29T21:50:45.351444Z",
+  "expiresAt": "2026-09-30T21:50:45.351Z",
+  "baseMain": "9c78a59291950fb072b2227f7e8e061197ed72d7",
+  "priceRegistry": "open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json",
+  "publicModelAndRouteCount": 464,
+  "promotedGeneralCrown": null,
+  "promotedTaskClassCrowns": {},
+  "publicDiscoveryCandidates": {
+    "general": [
+      "anthropic/claude-opus-5.5",
+      "openai/gpt-6-astra",
+      "openai/gpt-6.1-sol-pro"
+    ],
+    "coding": [
+      "openai/gpt-6.1-sol",
+      "anthropic/claude-opus-5.5",
+      "anthropic/claude-sonnet-5.5",
+      "qwen/qwen3.8-max-0902"
+    ],
+    "computerUse": [
+      "openai/gpt-6-astra",
+      "openai/gpt-6.1-sol",
+      "anthropic/claude-opus-5.5"
+    ],
+    "researchScience": [
+      "openai/gpt-6-astra",
+      "anthropic/claude-opus-5.5",
+      "openai/gpt-6.1-sol"
+    ],
+    "terminalAutomation": [
+      "anthropic/claude-sonnet-5.5",
+      "openai/gpt-6.1-sol",
+      "anthropic/claude-opus-5.5"
+    ],
+    "cheapMultimodalLongContext": [
+      "xiaomi/mimo-v2.6-flash",
+      "xiaomi/mimo-v2.6-pro",
+      "deepseek/deepseek-v4.1-flash",
+      "z-ai/glm-5.3-flash",
+      "google/gemini-3.5-flash-lite"
+    ],
+    "shadow": [
+      "openai/gpt-6-luna",
+      "qwen/qwen3.8-flash"
+    ]
+  },
+  "sources": [
+    {
+      "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
+      "class": "PROVIDER_RELEASE_AND_SELF_REPORTED_EVALUATION",
+      "finding": "GPT-6.1 Sol API release and standard 2/10 USD per million input/output; cached input 0.10. Vendor evaluation establishes a challenger, not UberBond authority."
+    },
+    {
+      "url": "https://www.anthropic.com/claude-sonnet-5-5",
+      "class": "PROVIDER_RELEASE_AND_SELF_REPORTED_EVALUATION",
+      "finding": "Sonnet 5.5 is a recent terminal and automation challenger; stronger open-ended judgment remains a separate task-class test."
+    },
+    {
+      "url": "https://openrouter.ai/api/v1/models",
+      "class": "PUBLIC_CATALOG",
+      "finding": "464 entries; context, modalities, parameters, cache, Batch and tier prices preserved. Six dynamic/unknown-price entries cannot be admitted as fixed-price paid routes."
+    },
+    {
+      "url": "https://openrouter.ai/api/v1/models/anthropic/claude-opus-5.5/endpoints",
+      "class": "PUBLIC_ROUTE_CANDIDATE",
+      "finding": "Provider routes and capability differences are visible; region and fast variants can cost more. No account-level probe performed."
+    },
+    {
+      "url": "https://openrouter.ai/blog/announcements/response-caching/",
+      "class": "PROVIDER_FEATURE_DOCUMENTATION",
+      "finding": "Opt-in exact cache with HIT/MISS receipts and configurable TTL; local proof/freshness validation remains mandatory."
+    },
+    {
+      "url": "https://openrouter.ai/blog/tutorials/prompt-caching-sticky-routing/",
+      "class": "PROVIDER_FEATURE_DOCUMENTATION",
+      "finding": "Stable prefixes and session locality can preserve provider prompt-cache reuse; actual cached-token usage must be observed."
+    }
+  ],
+  "unknownUntilAuthorizedProbe": [
+    "owner-account API callability",
+    "required ZDR and data collection policy of selected route",
+    "actual tool accuracy",
+    "task-class winners",
+    "throughput and latency",
+    "provider reliability over UberBond tasks",
+    "Flex availability on selected route",
+    "prompt cache hit rate",
+    "realized savings"
+  ],
+  "inferenceCallsPerformed": 0,
+  "qualityPromotionAuthority": "NONE"
+}

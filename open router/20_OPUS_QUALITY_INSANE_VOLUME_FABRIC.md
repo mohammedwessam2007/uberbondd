@@ -267,6 +267,7 @@ The result may exceed the need for model adjudication because reality provides s
 ## Model roles are asymmetrical
 
 Cheap models are not mini-Opus replacements.
+Cheap models create breadth, not semantic authority.
 
 They are **parallel sensory cortex and search labor**.
 

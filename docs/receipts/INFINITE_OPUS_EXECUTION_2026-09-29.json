@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.execution-receipt.v1",
+  "sourceCommit": "9e52531c850db048460c8fc33d0af182075a54e0",
+  "baseMain": "9c78a59291950fb072b2227f7e8e061197ed72d7",
+  "status": "SOURCE_GATE_PASS_PRELIVE",
+  "nativePostgresProof": {
+    "sha256": "912b2fcfd3a93e61851da20f5080e7ea5e097d8841f868e629ea84821b190615",
+    "tail": [
+      "with-real-postgres \u2014 PostgreSQL on 127.0.0.1:27159, database uberbond_test",
+      "{\"status\":\"PASS\",\"backend\":\"REAL_DISPOSABLE_POSTGRES\",\"connections\":2,\"concurrentReservations\":20,\"accepted\":15,\"crownEscrowMicrousd\":15000000,\"rolloverUncertainChargeBlock\":true,\"historicalReconciliationUnblocks\":true,\"providerInferenceCalls\":0,\"economicSavingsClaim\":null}"
+    ]
+  },
+  "existingPostgresGate": {
+    "status": "PASS",
+    "suites": 24,
+    "log": {
+      "sha256": "81d032737631fa4231157c1d3410d5f46cfda2754d152e927a38cfc873241ee9",
+      "tail": [
+        "\u2714 real PostgreSQL refuses the orphan the JSON store accepts (52.552132ms)",
+        "\u2714 everything else the two stores were reconciled on still agrees (13.654398ms)",
+        "\u2139 tests 5",
+        "\u2139 suites 0",
+        "\u2139 pass 5",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 147.628196",
+        "",
+        "test:postgres-real \u2014 24 suites passed."
+      ]
+    }
+  },
+  "syntaxGate": {
+    "status": "PASS",
+    "parsedFiles": 2457,
+    "additionalPostgresProofScript": "parsed and executed directly"
+  },
+  "fullSourceGate": {
+    "status": "PASS",
+    "previousAttempt": {
+      "tests": 8450,
+      "pass": 8394,
+      "fail": 1,
+      "skip": 55,
+      "failure": "Stale reachability classifications; corrected without weakening ratchet.",
+      "correctedReachabilityTests": 13
+    },
+    "tests": 8450,
+    "passed": 8395,
+    "failed": 0,
+    "skipped": 55,
+    "logSha256": "12d41f50d4941f68e668ab19a888d193e500b28e5df1ad2f00491cd23c13eb01",
+    "summary": [
+      "\u2714 a local copy of a canonical ledger may not diverge from it (34.935264ms)",
+      "\u2714 a module that reuses a canonical name is reusing the canonical shape (31.726661ms)",
+      "\u2139 tests 8450",
+      "\u2139 suites 18",
+      "\u2139 pass 8395",
+      "\u2139 fail 0",
+      "\u2139 cancelled 0",
+      "\u2139 skipped 55",
+      "\u2139 todo 0",
+      "\u2139 duration_ms 150406.930605"
+    ]
+  },
+  "baselineRepairs": "Provider nested-data preservation and secret redaction, null-cost unknown accounting, negative reply precedence, explicit current quality/consequence admission fixtures, historical raw-source integrity remains blocked.",
+  "proofBoundary": "Synthetic programs and independently pinned bounded authority. No arbitrary-language equivalence, production promotion or savings claim.",
+  "apiInferenceCallsObserved": 0,
+  "actualAllInCognitionCost": "UNKNOWN",
+  "deploymentObserved": false,
+  "requiredDeliverables": "open router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json",
+  "checkpoint": "open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json",
+  "remainingOwnerActions": [
+    "Secure account consent and explicitly bounded paid authorization",
+    "Existing durable production host deployment consent and observation"
+  ],
+  "remainingEvidenceDebts": [
+    "Fresh hidden matched task-class tournament after authorized account canary",
+    "Historical founder original raw transcript missing exact bytes; retain integrity gate."
+  ],
+  "notExecuted": [
+    "Browser suite: browser binaries unavailable; no UI change in this implementation."
+  ],
+  "rawLogs": "Execution log digests and tails retained here; transient raw logs are not claimed as permanent hosted artifacts.",
+  "publication": {
+    "sourceCommit": "9e52531c850db048460c8fc33d0af182075a54e0",
+    "sourceTree": "a0589f55a79f24ea14dd924c8e7156d7a50364f1",
+    "locallyTestedSourceCommit": "97de098",
+    "sourceTreeIdentityVerified": true,
+    "transport": "Connected GitHub Git-data API; local HTTPS push lacked credential helper",
+    "postPublicationSourceAndCanonTests": "PASS; 103 tests, zero failures",
+    "summary": [
+      "\u2714 every gate states what it is and what would release it (0.37882ms)",
+      "\u2714 a module may not sit in NEEDS_TRIAGE while also claiming a gate (0.616558ms)",
+      "\u2139 tests 103",
+      "\u2139 suites 0",
+      "\u2139 pass 103",
+      "\u2139 fail 0",
+      "\u2139 cancelled 0",
+      "\u2139 skipped 0",
+      "\u2139 todo 0",
+      "\u2139 duration_ms 344.450645"
+    ]
+  }
+}

@@ -916,3 +916,8 @@ If yes, record the donation before removing the implementation.
 ## 33. One-sentence UberBond definition
 
 **UberBond is a no-amputation, evidence-first autonomous economic operating system that continuously senses the world, reconstructs and invents lawful economic opportunities, acquires or builds the smallest missing capabilities, routes work across deterministic software and replaceable local/cloud intelligence suppliers, distributes multiple offers through one governed portfolio, reconciles real money and accepted delivery, compounds retention and reusable learning, attacks its own assumptions, and increasingly operates without founder attention while optimizing risk-adjusted cleared contribution profit per founder minute.**
+
+
+### Infinite Opus source checkpoint — 2026-09-29 UTC
+
+Bounded implementation is at source commit `9e52531c850db048460c8fc33d0af182075a54e0`. Restore through `open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md` and the 35-item `INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json`. Exact closure, reserved cognition capacity, typed task compilers and residual proof-cut coalescing are implemented; current Crown promotion, paid account callability, production deployment and realized savings are not observed. Preserve original founder-transcript integrity failures as historical evidence debt. No confidence, consensus or synthetic fanout result grants semantic or economic authority.

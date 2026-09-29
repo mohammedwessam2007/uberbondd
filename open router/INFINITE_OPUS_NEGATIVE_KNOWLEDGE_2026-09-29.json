@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.negative-knowledge.v1",
+  "truthClass": "SOURCE_AND_SYNTHETIC_TEST_EVIDENCE_ONLY",
+  "records": [
+    {
+      "id": "program-substitution",
+      "failedAssumption": "Any valid fact may fill any output field",
+      "resolution": "Trusted proof program/claim binding is required."
+    },
+    {
+      "id": "mutable-cut-alias",
+      "failedAssumption": "Cloning an array creates independent nested shared fixtures",
+      "resolution": "Clone each consumer separately before changing dependency state."
+    },
+    {
+      "id": "raw-source-truncation",
+      "failedAssumption": "A historical source receipt describes current bytes",
+      "resolution": "Original transcript is 62611 bytes with a mismatching hash; preserve all 890 pinned shards, refuse exact original-source authority and atomization until original is recovered."
+    },
+    {
+      "id": "unknown-cost-zero",
+      "failedAssumption": "Number(null) is evidence of zero economic cost",
+      "resolution": "A known cost requires an actual finite nonnegative number."
+    },
+    {
+      "id": "weak-renderer",
+      "failedAssumption": "Semantic similarity or exact numbers alone prove arbitrary prose",
+      "resolution": "Only fixed structured output is certified; unrestricted prose still requires Crown review."
+    }
+  ]
+}

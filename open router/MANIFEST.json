@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "374ebae4a10487f5eebc5d1070fa7f5a1b175715",
-      "size": 19832
+      "blobSha": "7eaafa3e5e02a2e3c50e22f1334a2f8500dd7d47",
+      "size": 20739
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "9f26983c31abb0f810de55ebdc7ae93a8e85c2c6",
-      "size": 18183
+      "blobSha": "32822cef17a15161c9bf598b001badfcffb383b4",
+      "size": 19159
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -210,8 +210,8 @@
     },
     {
       "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
-      "blobSha": "0dccb01e51856fd653195895277e35d277cc19fb",
-      "size": 8816
+      "blobSha": "53acc685b5290df5895c33ed45456f1587d3788b",
+      "size": 12127
     },
     {
       "path": "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
@@ -225,8 +225,8 @@
     },
     {
       "path": "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
-      "blobSha": "e98248d8c0c3dd351c1e8819838e9f04a044c7e8",
-      "size": 17752
+      "blobSha": "fadf20fafc06f996a35314ed4a11252baf23b1ec",
+      "size": 20689
     }
   ],
   "layers": {
@@ -293,8 +293,8 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault preserves V2-V5 architecture, the Million-Dollar Intelligence target/invention lab, and the Opus-quality insane-volume fabric. The dated current general reference is Claude Opus 5.5 max, but task-class Crowns and succession remain evidence-driven. Cheap models create volume but never gain final semantic authority merely from agreement or price. The fabric is pre-live proof: no claim of Opus-quality at insane volume is valid until paired tasks and real receipts establish it.",
-  "recovery": "Refresh main; mount Wessam Singularity startup/canon; read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md, 19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md, 20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, and the V5 architecture/proof/activation files; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; continue from owner-held TypingMind/OpenRouter activation and paired quality/cost evidence.",
+  "truthBoundary": "The vault preserves V2-V5 architecture, Million-Dollar Intelligence, the Opus-quality insane-volume fabric, and the late 2026-09-29 live-market refresh. GPT-6.1 Sol is a newly released strong-worker challenger pending exact owner-route pricing/callability and task-class proof. Xiaomi MiMo-V2.6 Flash/Pro and DeepSeek V4.1 Flash are now preferred cheap-volume candidates from current public evidence; GPT-6 Luna is shadow/utility only until it re-earns a task class. No model is promoted to final authority by public benchmarks alone.",
+  "recovery": "Refresh main; read README, OPEN_ROUTER_UBERMIND_CANON.json, LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json, 20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md, Million-Dollar target/lab, V5 architecture/proof/activation files, then run the doctors. Treat model roles as a moving tournament: verify exact owner-route GPT-6.1 Sol, Xiaomi, DeepSeek and other candidates before paid promotion.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",

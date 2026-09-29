@@ -13,6 +13,8 @@ export const APEX_FRESH_CAMPAIGN_ARCHITECTURE_CLASSES = Object.freeze([
   'PUBLIC_BASELINE'
 ]);
 
+const preparedFreshCampaigns = new WeakMap();
+
 const FORBIDDEN_RAW_HOLDOUT_KEYS = new Set([
   'prompt',
   'rawPrompt',
@@ -357,7 +359,7 @@ export function prepareFreshApexCampaign({
   const campaignDigest = digest(identity);
   const architectureRosterDigest = digest(roster);
 
-  return envelope({
+  const prepared = envelope({
     ok: true,
     status: 'FRESH_APEX_CAMPAIGN_PREPARED',
     campaignId: id,
@@ -375,6 +377,23 @@ export function prepareFreshApexCampaign({
     nextGate: 'EXTERNAL_FRESH_HOLDOUT_CUSTODIAN_COMMITMENT',
     truthBoundary: 'THIS PLAN FREEZES ARCHITECTURE IDENTITIES AND THE QUALITY/COST EXPERIMENT CONTRACT. IT DOES NOT CREATE, STORE, VIEW OR EVALUATE RAW HOLDOUTS AND DOES NOT AUTHORIZE MODEL CALLS OR SPEND.'
   });
+  preparedFreshCampaigns.set(prepared, digest(prepared));
+  return prepared;
+}
+
+export function validatePreparedFreshApexCampaign(campaignPlan = {}) {
+  const expected = campaignPlan && typeof campaignPlan === 'object' ? preparedFreshCampaigns.get(campaignPlan) : null;
+  const actual = campaignPlan && typeof campaignPlan === 'object' ? digest(campaignPlan) : null;
+  if (!expected || expected !== actual || campaignPlan?.status !== 'FRESH_APEX_CAMPAIGN_PREPARED') {
+    return fail('FRESH_APEX_CAMPAIGN_PROVENANCE_REFUSED', ['canonical-untampered-prepared-fresh-campaign-required']);
+  }
+  return envelope({
+    ok: true,
+    status: 'FRESH_APEX_CAMPAIGN_PROVENANCE_VALID',
+    campaignId: campaignPlan.campaignId,
+    campaignDigest: campaignPlan.campaignDigest,
+    architectureRosterDigest: campaignPlan.architectureRosterDigest
+  });
 }
 
 export function admitFreshCustodianManifest({
@@ -382,8 +401,9 @@ export function admitFreshCustodianManifest({
   sealedManifest = [],
   custodianReceipt = {}
 } = {}) {
-  if (!campaignPlan?.ok || campaignPlan?.status !== 'FRESH_APEX_CAMPAIGN_PREPARED') {
-    return fail('FRESH_CUSTODIAN_MANIFEST_REFUSED', ['prepared-fresh-campaign-plan-required']);
+  const planProvenance = validatePreparedFreshApexCampaign(campaignPlan);
+  if (!planProvenance.ok) {
+    return fail('FRESH_CUSTODIAN_MANIFEST_REFUSED', planProvenance.reasonCodes);
   }
 
   const rawLeak = hasForbiddenRawHoldoutMaterial(custodianReceipt);
@@ -504,8 +524,9 @@ export function assessFreshCampaignRuntimeReadiness({
   pricingReceipts = [],
   prerequisiteReceipts = []
 } = {}) {
-  if (!campaignPlan?.ok || campaignPlan?.status !== 'FRESH_APEX_CAMPAIGN_PREPARED') {
-    return fail('FRESH_CAMPAIGN_RUNTIME_NOT_READY', ['prepared-fresh-campaign-plan-required']);
+  const planProvenance = validatePreparedFreshApexCampaign(campaignPlan);
+  if (!planProvenance.ok) {
+    return fail('FRESH_CAMPAIGN_RUNTIME_NOT_READY', planProvenance.reasonCodes);
   }
   if (!admittedCampaign?.ok || admittedCampaign?.status !== 'FRESH_CUSTODIAN_MANIFEST_ADMITTED') {
     return fail('FRESH_CAMPAIGN_RUNTIME_NOT_READY', ['admitted-fresh-custodian-manifest-required']);

@@ -4,7 +4,7 @@
   "createdAt": "2026-09-29",
   "branch": "open-router/frontier-intelligence-virtualization-20260929",
   "baseCurrentMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
-  "observedBranchHeadBeforeManifest": "e5cb07da9c1ec60bcecada77a51ac747d53700b9",
+  "observedBranchHeadBeforeManifest": "fea3dd4390f157fd67501bc648ff004eeb144adb",
   "folder": "open router/",
   "expectedFinalFolderFileCount": 40,
   "files": [
@@ -155,13 +155,13 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "eedd110cc24068c2e614699bee7627958f7367f2",
-      "size": 9167
+      "blobSha": "dccb8541895f605d443b0982bfb1dbc177a2c315",
+      "size": 10030
     },
     {
       "path": "open router/OPERATING_SPEC.json",
-      "blobSha": "84d446cb6076b450737ff285090708f5c3ce5f98",
-      "size": 6112
+      "blobSha": "6ffa71d159532b0be14800fadacce041f5be7400",
+      "size": 7408
     },
     {
       "path": "open router/README.md",
@@ -200,15 +200,15 @@
     },
     {
       "path": "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
-      "blobSha": "5d408d5ff71e6a968c5ad4e8c77dd6b50a556e55",
-      "size": 5624
+      "blobSha": "02c467bb93d30e2ec77b2530dcc9888246fe146b",
+      "size": 7362
     }
   ],
   "layers": {
     "v2": "Existing main lineage: Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Task-Archetype Compiler, Cognitive CDN, Evidence Multicast, Champion-Challenger Shadow Market, Swarm Stop-Loss, Second-Crown Insurance, RCE accounting.",
     "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market.",
     "v4": "Exact recovery addendum preserving founder intent, repository audit, and byte-level receipts over the pre-V5 vault.",
-    "v5": "Frontier Intelligence Virtualization: quality-typed Cognitive IR, Frontier VM, proof-carrying cognition, semantic page faults, profile-guided supercompilation, quality escrow, zero-loss deoptimization, counterfactual routing, and prior-art-aware novelty boundary."
+    "v5": "Frontier Intelligence Virtualization: quality-typed Cognitive IR, Frontier VM, proof-carrying cognition, semantic page faults, profile-guided supercompilation, Crown-thought capital, quality escrow, canonical sealed burn-in, explicit falsification, longitudinal self-amortization measurement, zero-loss deoptimization, counterfactual routing, Crown-succession recompilation, and prior-art-aware novelty boundary."
   },
   "authorityOrder": [
     "LIVE_EXTERNAL_EVIDENCE",
@@ -253,12 +253,14 @@
     "src/frontier-intelligence-vm.mjs",
     "src/frontier-vm-longitudinal-evaluator.mjs",
     "config/frontier-vm-v5-longitudinal-campaign.json",
-    "scripts/frontier-vm-v5-doctor.mjs"
+    "scripts/frontier-vm-v5-doctor.mjs",
+    "src/cognitive-superoptimizer.mjs",
+    "src/frontier-vm-burnin.mjs"
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "V5 is durably preserved with executable quality typing, longitudinal regression accounting, prior-art discipline, and a frozen evidence campaign. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
-  "recovery": "Refresh main; run normal UberBond startup; read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_COMPILER_SPEC.json, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, 15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md, MANIFEST.json, and V5_FRONTIER_VM_RECEIPT_2026-09-29.json; then run npm run open-router:vault:doctor and continue from live activation/empirical proof.",
+  "truthBoundary": "V5 is durably preserved with executable quality typing, hot-path profiling, semantic page faults, canonical sealed burn-in, longitudinal regression accounting, prior-art discipline, and a frozen evidence campaign. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
+  "recovery": "Refresh main; run normal UberBond startup; read README, machine canon, V5 architecture/spec/supercompiler/novelty/prior-art/longitudinal files, MANIFEST and V5 receipt; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; then continue from controlled live burn-in and empirical proof.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
@@ -266,7 +268,9 @@
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",
-    "tests/frontier-vm-longitudinal-evaluator.test.mjs"
+    "tests/frontier-vm-longitudinal-evaluator.test.mjs",
+    "tests/cognitive-superoptimizer.test.mjs",
+    "tests/frontier-vm-burnin.test.mjs"
   ],
   "v5BaseFolderFileCount": 33
 }

@@ -98,8 +98,7 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
   profile,
   taskClasses = ['general'],
   frontierCrownCertificate = null,
-  baselineSealedTrial = null,
-  now = new Date()
+  baselineSealedTrial = null
 } = {}) {
   const provenance = validateCompiledSealedArchitectureTrial(sealedTrial);
   if (!provenance.ok) return failure(provenance.reasonCodes, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
@@ -141,8 +140,7 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
     subject.revision !== revision
   )) reasons.push('sealed-benchmark-subject-profile-mismatch');
   if (!Array.isArray(taskClasses) || !taskClasses.length || taskClasses.some(item => !text(item, 160))) reasons.push('benchmark-task-classes-required');
-  const observedAt = timestamp(now);
-  if (!observedAt) reasons.push('benchmark-observation-time-required');
+  const observedAt = new Date().toISOString();
   if (reasons.length) return failure(reasons, 'FRONTIER_LIVE_BENCHMARK_REFUSED');
 
   const quality = Number(sealedTrial?.statistics?.verifiedSuccessRate);

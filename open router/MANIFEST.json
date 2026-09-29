@@ -2,9 +2,9 @@
   "schemaVersion": "uberbond.open-router.vault-manifest.v5",
   "status": "V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_CONTENT_COMPLETE",
   "createdAt": "2026-09-29",
-  "branch": "open-router/frontier-intelligence-virtualization-20260929",
-  "baseCurrentMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
-  "observedBranchHeadBeforeManifest": "d923e47b1269ecfc3d1914c757d07344b2b86de5",
+  "branch": "open-router/v5-typingmind-cockpit-activation-rebased-20260929",
+  "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
+  "observedBranchHeadBeforeManifest": "e8bfb2b21ef892791688e46f4b64b24ea74bbb86",
   "folder": "open router/",
   "expectedFinalFolderFileCount": 40,
   "files": [
@@ -200,8 +200,8 @@
     },
     {
       "path": "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
-      "blobSha": "ee63639bc2ac0a3de67cbb88ae1e4b704448cdfc",
-      "size": 9141
+      "blobSha": "08d69633c0719d24d33fb82ed1c7d7a7694cfe8d",
+      "size": 9266
     }
   ],
   "layers": {
@@ -261,7 +261,7 @@
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
   "truthBoundary": "V5 is durably preserved with executable quality typing, burn-in and longitudinal proof gates, and TypingMind-first secret isolation. Interactive activation does not require a duplicate OpenRouter key in the repo runtime. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
-  "recovery": "Refresh main; run normal UberBond startup; read the Open Router README/canon/V5 architecture through longitudinal protocol, MANIFEST and V5 receipt; run npm run open-router:vault:doctor and npm run frontier-vm:doctor. Default interactive mode is TypingMind external cockpit with a non-secret connection receipt, then continue from controlled burn-in.",
+  "recovery": "Refresh current main; run normal UberBond startup; recover the Open Router V5 canon; run npm run open-router:vault:doctor and npm run frontier-vm:doctor. Interactive activation defaults to TypingMind external cockpit with no duplicated repo runtime OpenRouter secret.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",

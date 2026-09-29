@@ -2,8 +2,8 @@
   "schemaVersion": "uberbond.open-router.v5-frontier-vm-receipt.v4",
   "status": "OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED",
   "date": "2026-09-29",
-  "branch": "open-router/frontier-intelligence-virtualization-20260929",
-  "observedBranchHeadBeforeReceipt": "26d571b2f92f405725663a1640a1fc4ea7134629",
+  "branch": "open-router/v5-typingmind-cockpit-activation-rebased-20260929",
+  "observedBranchHeadBeforeReceipt": "9a62c70023cec8382888d94cba0c054149f4cd5b",
   "baseMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
   "inheritance": {
     "noAmputation": true,
@@ -210,10 +210,11 @@
     "This receipt proves repository preservation of V5 architecture, implementation, proof gates, evidence program, and TypingMind-first activation boundary at the recorded branch state.",
     "It does not prove global novelty, global superiority, a live $30 frontier-equivalent system, 1000x compression, or zero future regressions.",
     "Interactive TypingMind activation does not require an OpenRouter API key in the UberBond repository runtime; only a non-secret connection evidence reference is expected by the doctor.",
-    "Stronger claims require live paired trials, real cost receipts, Crown-succession experiments, ablations, and preferably independent replication."
+    "Stronger claims require live paired trials, real cost receipts, Crown-succession experiments, ablations, and preferably independent replication.",
+    "This V5.4 receipt was rebased onto current main after PR #1035 so the merged-state handoff remains authoritative."
   ],
   "selfHashExcludedReason": "This receipt cannot contain its own final Git blob SHA without recursion. MANIFEST.json indexes the finalized receipt after this update.",
-  "reconciledMainShaAtFinalization": "bc388da3af7d8e730f3a8e8134d0faca0e402d95",
+  "reconciledMainShaAtFinalization": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "activationBoundary": {
     "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
     "interactiveDevice": "iPad",

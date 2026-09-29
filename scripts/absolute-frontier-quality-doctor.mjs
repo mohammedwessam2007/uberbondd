@@ -77,6 +77,8 @@ const sourceContracts = {
     "validateCanonicalZeroLossCertificate",
     "FRONTIER_CROWN_REQUIRES_COUNCIL_SYNTHESIS",
     "frontier-crown-stale-or-invalid-time",
+    "FRONTIER_CROWN_MAX_AGE_MS",
+    "const nowMs=Date.now();",
     "validateCampaignFrontierCrownCertificate"
   ],
   'src/frontier-cognitive-admission.mjs': [
@@ -88,7 +90,8 @@ const sourceContracts = {
     "canonical-frontier-crown-certificate-required",
     "paired-zero-loss-against-frontier-baseline-required",
     "CANONICAL_FRONTIER_CROWN_BASELINE",
-    "CANONICAL_FRONTIER_CROWN_PAIRED_ZERO_LOSS_CANDIDATE"
+    "CANONICAL_FRONTIER_CROWN_PAIRED_ZERO_LOSS_CANDIDATE",
+    "const observedAt = new Date().toISOString();"
   ],
   'src/frontier-callability-provenance.mjs': [
     "const liveReceipts = new WeakMap()",

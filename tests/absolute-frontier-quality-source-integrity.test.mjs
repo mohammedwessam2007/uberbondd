@@ -94,6 +94,40 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'minimumAccuracy:1',
       'maximumCalibrationError:0',
       'pairedZeroLossCertificateRequired:true'
+    ],
+    'src/frontier-cognitive-admission.mjs': [
+      'const admittedBundles = new WeakMap()',
+      'const canonicalLiveBenchmarks = new WeakMap()',
+      'buildLiveFrontierBenchmarkFromSealedTrial',
+      'paired-zero-loss-against-frontier-baseline-required',
+      "liveRoutingAuthority: frontierBaseline === true",
+      'validateLiveFrontierBenchmark'
+    ],
+    'src/frontier-callability-provenance.mjs': [
+      'const liveReceipts = new WeakMap()',
+      'canonical-probe-producer-origin-required',
+      'trustedForLiveExecution: !simulationOnly'
+    ],
+    'src/agent-model-executor-factory.mjs': [
+      'const canonicalModelExecutorFactories = new WeakSet()',
+      'canonicalModelExecutorFactories.add(modelExecutorFor)',
+      'isCanonicalModelExecutorFactory'
+    ],
+    'src/frontier-simulation-executor.mjs': [
+      'const simulationFactories = new WeakSet()',
+      'simulationFactories.add(factory)',
+      'isFrontierSimulationExecutorFactory'
+    ],
+    'src/frontier-council-runtime.mjs': [
+      'validateQualityInvariantAttestation',
+      "plan.status === 'COUNCIL_DEGRADED'",
+      'adjudicatorIsResponder'
+    ],
+    'src/avengers-execution-guard.mjs': [
+      'live-frontier-execution-requires-canonical-model-executor-factory',
+      'live-callability-cannot-use-simulation-executor',
+      'synthetic-callability-requires-branded-no-network-simulation-executor'
+
     ]
   };
   for (const [path, tokens] of Object.entries(required)) {

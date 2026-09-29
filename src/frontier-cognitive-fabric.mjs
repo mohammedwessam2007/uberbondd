@@ -213,7 +213,7 @@ function normalizeTask(raw = {}) {
   const taskClass = text(raw.taskClass ?? 'general', 160)?.toLowerCase();
   const role = text(raw.role ?? 'general', 80)?.toLowerCase();
   const dataClass = text(raw.dataClass ?? 'INTERNAL_NON_SECRET', 80)?.toUpperCase();
-  const reasoningTier = text(raw.reasoningTier ?? 'STANDARD', 80)?.toUpperCase();
+  const reasoningTier = text(raw.reasoningTier ?? 'FRONTIER_MAX', 80)?.toUpperCase();
   const requiredTags = list(raw.requiredTags ?? [], 128, 240)?.map(item => item.toLowerCase());
   const contextTokenBudget = integer(raw.contextTokenBudget ?? 32_000, 1, 5_000_000);
   const minCouncilSize = integer(raw.minCouncilSize ?? 2, 2, MAX_COUNCIL_RESPONDERS);
@@ -458,6 +458,8 @@ export function compileFrontierCognitivePlan({
   evidenceMaxAgeMs = DEFAULT_EVIDENCE_MAX_AGE_MS,
   callabilityMaxAgeMs = DEFAULT_CALLABILITY_MAX_AGE_MS,
   frontierQualityDelta = DEFAULT_FRONTIER_QUALITY_DELTA,
+  allowDegradedCouncil = false,
+  degradationPolicyRef = null,
   now = new Date(),
   random = () => 0.5
 } = {}) {
@@ -472,8 +474,11 @@ export function compileFrontierCognitivePlan({
   if (confidence == null || evidenceAge == null || callabilityAge == null || qualityDelta == null) return failure(['bounded-frontier-policy-parameters-required'], 'FRONTIER_POLICY_INVALID');
   const absoluteTier = normalizedTask.task.reasoningTier === 'FRONTIER_MAX' || normalizedTask.task.reasoningTier === 'COUNCIL_MAX';
   if (absoluteTier) {
-    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false });
+    const absolutePolicy = validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil });
     if (!absolutePolicy.ok) return failure(absolutePolicy.reasonCodes, 'FRONTIER_POLICY_INVALID');
+  }
+  if (allowDegradedCouncil === true || degradationPolicyRef != null) {
+    return failure(['absolute-frontier-degraded-council-prohibited'], 'FRONTIER_POLICY_INVALID');
   }
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required'], 'FRONTIER_PROFILE_SET_INVALID');
 

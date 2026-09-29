@@ -67,6 +67,18 @@ const sourceContracts = {
   'src/ubermind-cognitive-exchange.mjs': [
     "reasoningTier='FRONTIER_MAX'",
     "SEMANTIC_COGNITION_NEVER_FALLS_BELOW_FRONTIER_MAX"
+  ],
+  'src/noetic-autocompiler.mjs': [
+    "validatePairedZeroLossCertificate",
+    "minimumAccuracy = 1",
+    "maximumCalibrationError = 0",
+    "accuracyDrop > 0 || calibrationWorsening > 0",
+    "IMMEDIATE_DECOMPILE_TO_FRONTIER_AND_REVALIDATE"
+  ],
+  'scripts/jev-calibration-doctor.mjs': [
+    "minimumAccuracy:1",
+    "maximumCalibrationError:0",
+    "pairedZeroLossCertificateRequired:true"
   ]
 };
 
@@ -82,7 +94,11 @@ const forbiddenPatterns = [
   /DEFAULT_FRONTIER_QUALITY_DELTA\s*=\s*0\.(?!0\b)\d+/,
   /maxQualityDelta\s*:\s*0\.(?!0\b)\d+/,
   /reasoningTier\s*=\s*['"](?:FAST|STANDARD|DEEP)['"]/,
-  /status\s*:\s*['"]COUNCIL_DEGRADED['"]/
+  /status\s*:\s*['"]COUNCIL_DEGRADED['"]/,
+  /minimumAccuracy\s*=\s*0\.98/,
+  /maximumCalibrationError\s*=\s*0\.02/,
+  /accuracyDrop\s*>=\s*0\.05/,
+  /calibrationWorsening\s*>=\s*0\.05/
 ];
 
 for (const path of lock.protectedSurfaces.filter(item => item.endsWith('.mjs'))) {

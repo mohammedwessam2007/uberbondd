@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 46,
+  "expectedFinalFolderFileCount": 47,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -155,8 +155,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "dc0adc4edfcf161917fe85795a84cd3a21acf66d",
-      "size": 22165
+      "blobSha": "34da9e702e80a79d96bc467f8669685f8b14a819",
+      "size": 23361
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -165,8 +165,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "2fb9fd8d48f80d37d021895015fcf223272caaf0",
-      "size": 19985
+      "blobSha": "5c95a1c9febbd2333de5b4dfec3cb1e752e3db56",
+      "size": 20813
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -232,6 +232,11 @@
       "path": "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
       "blobSha": "3fbcd3e2457442edfd1edd5506a701a26bff6bef",
       "size": 11534
+    },
+    {
+      "path": "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+      "blobSha": "ef1377de3e3d1d4dfc85a53ac0e0c17e159cf78c",
+      "size": 15631
     }
   ],
   "layers": {
@@ -274,7 +279,8 @@
     "open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md",
     "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
     "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
-    "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md"
+    "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+    "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -299,12 +305,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault includes the $1/day 24/7 Opus-quality operating architecture. It means an always-on event-driven control plane plus a $30/month AI cognition ceiling, not continuous paid frontier decoding. Important unresolved novelty must queue before quality is downgraded. Current public pricing and model roles are dated candidate evidence until owner-route callability and receipts are observed.",
-  "recovery": "Refresh main; read README, machine canon, live market snapshot, 20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md, 21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md, Million-Dollar target/lab and V5 activation/proof files; run doctors; continue from owner-held connection and real spend/fanout evidence.",
+  "truthBoundary": "The vault includes the by-construction Opus equivalence architecture. E0-E4 equivalence is only valid where exact identity, deterministic derivation, formal transformation proof, closed-world exhaustive policy, or proof-carrying bounded circuits establish authority. Arbitrary open-ended semantic novelty remains frontier work and cannot be made theorem-like by architecture alone.",
+  "recovery": "Refresh main; read README, machine canon, live model snapshot, 20/21/22 architecture files, Million-Dollar target/lab, V5 activation/proof files; run doctors; continue by maximizing E0-E4 recurring work and paging E6 novelty to the moving Crown.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 45,
+  "indexedFilesExcludingSelf": 46,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",

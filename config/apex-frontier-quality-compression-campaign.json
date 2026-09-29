@@ -10,7 +10,8 @@
     "mode": "LEXICOGRAPHIC_FRONTIER_FIRST",
     "frontierBaselineArchitectureId": "opus-5-5-max-interactive-baseline",
     "maxQualityDelta": 0,
-    "requireNoWorseFalsePositiveUpperBound": true
+    "requireNoWorseFalsePositiveUpperBound": true,
+    "absoluteQualityPolicyDigest": "e4f03300167ce5834862ef8d70f60b3b4870d07cc8a4754c7619d1ffeb068a52"
   },
   "budgetPolicy": {
     "normalization": "COMMON_CEILING",

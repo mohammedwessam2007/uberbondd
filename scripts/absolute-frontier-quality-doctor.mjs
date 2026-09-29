@@ -49,14 +49,19 @@ const sourceContracts = {
   'src/apex-fresh-campaign.mjs': [
     "absoluteQualityPolicyDigest",
     "validateAbsoluteFrontierQualityPolicy",
-    "maxQualityDelta: 0"
+    "maxQualityDelta: 0",
+    "const preparedFreshCampaigns = new WeakMap()",
+    "validatePreparedFreshApexCampaign"
   ],
   'src/frontier-cognitive-fabric.mjs': [
     "DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA",
     "ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE",
     "validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false })",
     "absoluteQualityInvariant: qualityInvariantAttestation()",
-    "FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX'])"
+    "FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX'])",
+    "exactly-one-canonical-frontier-crown-baseline-required",
+    "pairedZeroLossCertified",
+    "frontierCrownDigest"
   ],
   'src/frontier-reasoning-runtime.mjs': [
     "validateQualityInvariantAttestation",
@@ -65,10 +70,35 @@ const sourceContracts = {
     "isCanonicalModelExecutorFactory",
     "member-object-does-not-match-admitted-plan"
   ],
+  'src/frontier-crown.mjs': [
+    "const canonicalCrowns = new WeakMap()",
+    "validatePreparedFreshApexCampaign",
+    "certifyCanonicalZeroLoss",
+    "validateCanonicalZeroLossCertificate",
+    "FRONTIER_CROWN_REQUIRES_COUNCIL_SYNTHESIS",
+    "frontier-crown-stale-or-invalid-time",
+    "validateCampaignFrontierCrownCertificate"
+  ],
   'src/frontier-cognitive-admission.mjs': [
     "const admittedPlans = new WeakMap()",
+    "const canonicalLiveBenchmarks = new WeakMap()",
     "validateAdmittedFrontierPlan",
-    "process-bound-admitted-frontier-plan-required"
+    "process-bound-admitted-frontier-plan-required",
+    "validateCampaignFrontierCrownCertificate",
+    "canonical-frontier-crown-certificate-required",
+    "paired-zero-loss-against-frontier-baseline-required",
+    "CANONICAL_FRONTIER_CROWN_BASELINE",
+    "CANONICAL_FRONTIER_CROWN_PAIRED_ZERO_LOSS_CANDIDATE"
+  ],
+  'src/frontier-callability-provenance.mjs': [
+    "const liveReceipts = new WeakMap()",
+    "canonical-probe-producer-origin-required",
+    "trustedForLiveExecution: !simulationOnly"
+  ],
+  'src/frontier-simulation-executor.mjs': [
+    "const simulationFactories = new WeakSet()",
+    "simulationFactories.add(factory)",
+    "isFrontierSimulationExecutorFactory"
   ],
   'src/frontier-council-runtime.mjs': [
     "validateAdmittedFrontierPlan",

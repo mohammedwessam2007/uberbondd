@@ -77,7 +77,7 @@ test('paired zero-loss certification accepts a strict superset of baseline succe
     { taskId: 'b', outcome: 'CORRECT' },
     { taskId: 'c', outcome: 'ABSTAINED' }
   ]);
-  const out = certifyPairedZeroLoss({ baselineTrial: baseline, candidateTrial: candidate, requireEconomicsImprovement: true });
+  const out = certifyPairedZeroLoss({ baselineTrial: baseline, candidateTrial: candidate, requireEconomicsImprovement: true, provenanceValidator: () => ({ ok: true }) });
   assert.equal(out.ok, true, JSON.stringify(out));
   assert.equal(out.status, 'PAIRED_ZERO_LOSS_CERTIFIED');
   assert.equal(out.regressions.length, 0);
@@ -97,8 +97,18 @@ test('same aggregate score with swapped errors is a regression and cannot be cal
     { taskId: 'c', outcome: 'CORRECT' },
     { taskId: 'd', outcome: 'INCORRECT' }
   ]);
-  const out = certifyPairedZeroLoss({ baselineTrial: baseline, candidateTrial: candidate });
+  const out = certifyPairedZeroLoss({ baselineTrial: baseline, candidateTrial: candidate, provenanceValidator: () => ({ ok: true }) });
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('paired-task-regression-detected'));
   assert.deepEqual(out.regressions, [{ taskId: 'b', baseline: 'CORRECT', candidate: 'INCORRECT' }]);
+});
+
+
+test('zero-loss certifier refuses arbitrary hand-built trials without an authoritative provenance validator', () => {
+  const outcomes = [{ taskId: 'a', outcome: 'CORRECT' }];
+  const baseline = trial('baseline', outcomes);
+  const candidate = trial('candidate', outcomes);
+  const out = certifyPairedZeroLoss({ baselineTrial: baseline, candidateTrial: candidate });
+  assert.equal(out.ok, false);
+  assert.ok(out.reasonCodes.includes('paired-zero-loss-authoritative-provenance-validator-required'));
 });

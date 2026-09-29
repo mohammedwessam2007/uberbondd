@@ -4,6 +4,7 @@ import { compileFrontierCognitivePlan } from './frontier-cognitive-fabric.mjs';
 import { validateFrontierCallabilityProbeReceipt } from './frontier-callability-provenance.mjs';
 import { validateCompiledSealedArchitectureTrial } from './apex-sealed-tournament.mjs';
 import { validateCanonicalZeroLossCertificate } from './canonical-zero-loss-certificate.mjs';
+import { validateCanonicalFrontierCrownCertificate } from './frontier-crown-certificate.mjs';
 
 export const FRONTIER_COGNITIVE_ADMISSION_VERSION = 'uberbond.frontier-cognitive-admission-1.2.1';
 export const FRONTIER_ADMISSION_SCHEMA = 'uberbond.frontier-admission-bundle.v1';
@@ -172,9 +173,56 @@ export function buildLiveFrontierBenchmarkFromSealedTrial({
 }
 
 
+
+export function buildCrownedFrontierBenchmark({
+  sealedTrial,
+  crownCertificate,
+  profile,
+  taskClasses = ['general'],
+  now = new Date()
+} = {}) {
+  const subject = sealedTrial?.architectureIdentity?.benchmarkSubject;
+  const profileId = text(profile?.id, 120)?.toLowerCase();
+  const crown = validateCanonicalFrontierCrownCertificate(crownCertificate, {
+    expectedCrownTrialReceiptDigest: sealedTrial?.receiptDigest ?? null,
+    expectedCrownProfileId: profileId
+  });
+  if (!crown.ok) return failure(crown.reasonCodes, 'FRONTIER_CROWN_BENCHMARK_REFUSED');
+  if (crownCertificate.crownArchitectureId !== sealedTrial?.architectureId) {
+    return failure(['frontier-crown-architecture-mismatch'], 'FRONTIER_CROWN_BENCHMARK_REFUSED');
+  }
+  if (!subject || subject.profileId !== profileId) {
+    return failure(['frontier-crown-subject-profile-mismatch'], 'FRONTIER_CROWN_BENCHMARK_REFUSED');
+  }
+
+  const base = buildLiveFrontierBenchmarkFromSealedTrial({ sealedTrial, profile, taskClasses, now });
+  if (!base.ok) return base;
+  const benchmark = {
+    ...base.benchmark,
+    frontierCrownCertified: true,
+    frontierCrownCertificateDigest: crownCertificate.certificateDigest,
+    frontierCrownProfileUniverseDigest: crownCertificate.profileUniverseDigest,
+    frontierCrownCallabilityReceiptDigest: crownCertificate.callabilityReceiptDigest,
+    frontierBaselineArchitectureId: crownCertificate.crownArchitectureId,
+    frontierCandidateArchitectureId: sealedTrial.architectureId,
+    baselineSealedTrialReceiptDigest: crownCertificate.crownTrialReceiptDigest,
+    liveRoutingAuthority: 'CANONICAL_FRONTIER_CROWN'
+  };
+  canonicalLiveBenchmarks.set(benchmark, sha256(benchmark));
+  return envelope({
+    ok: true,
+    status: 'FRONTIER_CROWN_BENCHMARK_READY',
+    benchmark,
+    benchmarkDigest: sha256(benchmark),
+    crownCertificateDigest: crownCertificate.certificateDigest,
+    promotionAuthority: 'NONE'
+  });
+}
+
 export function buildZeroLossAuthorizedFrontierBenchmark({
   baselineTrial,
   candidateTrial,
+  crownCertificate,
   zeroLossCertificate,
   profile,
   taskClasses = ['general'],
@@ -185,6 +233,12 @@ export function buildZeroLossAuthorizedFrontierBenchmark({
   const reasons = [];
   if (!baselineOrigin.ok) reasons.push('canonical-baseline-sealed-trial-required');
   if (!candidateOrigin.ok) reasons.push('canonical-candidate-sealed-trial-required');
+
+  const crown = validateCanonicalFrontierCrownCertificate(crownCertificate, {
+    expectedCrownTrialReceiptDigest: baselineTrial?.receiptDigest ?? null
+  });
+  if (!crown.ok) reasons.push(...crown.reasonCodes);
+  if (crown.ok && crownCertificate.crownArchitectureId !== baselineTrial?.architectureId) reasons.push('zero-loss-baseline-is-not-current-frontier-crown');
 
   const certificate = validateCanonicalZeroLossCertificate(zeroLossCertificate, {
     expectedCandidateArchitectureId: candidateTrial?.architectureId ?? null,
@@ -213,10 +267,14 @@ export function buildZeroLossAuthorizedFrontierBenchmark({
     absoluteFrontierBaseline: false,
     frontierBaselineArchitectureId: baselineTrial.architectureId,
     frontierCandidateArchitectureId: candidateTrial.architectureId,
+    frontierCrownCertified: false,
+    frontierCrownCertificateDigest: crownCertificate.certificateDigest,
+    frontierCrownProfileUniverseDigest: crownCertificate.profileUniverseDigest,
+    frontierCrownCallabilityReceiptDigest: crownCertificate.callabilityReceiptDigest,
     pairedZeroLossCertified: true,
     pairedZeroLossCertificationDigest: zeroLossCertificate.certificationDigest,
     baselineSealedTrialReceiptDigest: baselineTrial.receiptDigest,
-    liveRoutingAuthority: 'CANONICAL_PAIRED_ZERO_LOSS_AGAINST_EXACT_BASELINE'
+    liveRoutingAuthority: 'CANONICAL_PAIRED_ZERO_LOSS_AGAINST_EXACT_CROWN'
   };
   canonicalLiveBenchmarks.set(benchmark, sha256(benchmark));
 
@@ -254,7 +312,8 @@ export function buildFrontierAdmissionBundle({
   benchmarks = [],
   contextArtifacts = [],
   source = {},
-  callabilityProvenance = null
+  callabilityProvenance = null,
+  frontierCrownCertificate = null
 } = {}) {
   if (!Array.isArray(profiles) || profiles.length === 0 || profiles.length > MAX_PROFILES) return failure(['bounded-profile-list-required']);
   if (!Array.isArray(callability) || callability.length > MAX_CALLABILITY) return failure(['bounded-callability-list-required']);
@@ -268,6 +327,20 @@ export function buildFrontierAdmissionBundle({
 
   const provenance = validateFrontierCallabilityProbeReceipt({ ...(callabilityProvenance ?? {}), allowSynthetic: true });
   const trustedProbeByProfileId = provenance.ok ? provenance.observationByProfileId : new Map();
+  const crownValidation = frontierCrownCertificate == null
+    ? null
+    : validateCanonicalFrontierCrownCertificate(frontierCrownCertificate, {
+        expectedCallabilityReceiptDigest: provenance.ok ? provenance.receiptDigest : null
+      });
+  if (provenance.trustedForLiveExecution === true && (!crownValidation || !crownValidation.ok || crownValidation.trustedForLiveExecution !== true)) {
+    return failure(
+      crownValidation?.reasonCodes ?? ['live-frontier-crown-certificate-required'],
+      'FRONTIER_ADMISSION_CROWN_BLOCKED'
+    );
+  }
+  if (frontierCrownCertificate != null && !crownValidation?.ok) {
+    return failure(crownValidation.reasonCodes, 'FRONTIER_ADMISSION_CROWN_BLOCKED');
+  }
 
   const identities = [];
   const profileById = new Map();
@@ -356,6 +429,15 @@ export function buildFrontierAdmissionBundle({
   const identityDigest = sha256({
     source: { kind: sourceKind, ref: sourceRef, observedAt: sourceObservedAt },
     callabilityProvenance: provenanceMetadata,
+    frontierCrown: crownValidation?.ok ? {
+      certificateDigest: frontierCrownCertificate.certificateDigest,
+      profileUniverseDigest: frontierCrownCertificate.profileUniverseDigest,
+      crownProfileId: frontierCrownCertificate.crownProfileId,
+      crownArchitectureId: frontierCrownCertificate.crownArchitectureId,
+      crownTrialReceiptDigest: frontierCrownCertificate.crownTrialReceiptDigest,
+      simulationOnly: frontierCrownCertificate.simulationOnly === true,
+      trustedForLiveExecution: frontierCrownCertificate.trustedForLiveExecution === true
+    } : null,
     profiles: identities,
     callability: admittedCallability.map(item => ({
       profileId: item.profileId,
@@ -381,6 +463,15 @@ export function buildFrontierAdmissionBundle({
     schemaVersion: FRONTIER_ADMISSION_SCHEMA,
     source: { kind: sourceKind, ref: sourceRef, observedAt: sourceObservedAt },
     callabilityProvenance: provenanceMetadata,
+    frontierCrown: crownValidation?.ok ? {
+      certificateDigest: frontierCrownCertificate.certificateDigest,
+      profileUniverseDigest: frontierCrownCertificate.profileUniverseDigest,
+      crownProfileId: frontierCrownCertificate.crownProfileId,
+      crownArchitectureId: frontierCrownCertificate.crownArchitectureId,
+      crownTrialReceiptDigest: frontierCrownCertificate.crownTrialReceiptDigest,
+      simulationOnly: frontierCrownCertificate.simulationOnly === true,
+      trustedForLiveExecution: frontierCrownCertificate.trustedForLiveExecution === true
+    } : null,
     profiles: structuredClone(profiles),
     callability: structuredClone(admittedCallability),
     benchmarks: structuredClone(admittedBenchmarks),

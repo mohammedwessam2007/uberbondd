@@ -55,7 +55,8 @@ const sourceContracts = {
     "DEFAULT_FRONTIER_QUALITY_DELTA = ABSOLUTE_FRONTIER_QUALITY_DELTA",
     "ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE",
     "validateAbsoluteFrontierQualityPolicy({ qualityDelta, minimumEvidenceConfidence: confidence, allowDegradedCouncil: false })",
-    "absoluteQualityInvariant: qualityInvariantAttestation()"
+    "absoluteQualityInvariant: qualityInvariantAttestation()",
+    "FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX'])"
   ],
   'src/frontier-reasoning-runtime.mjs': [
     "validateQualityInvariantAttestation",

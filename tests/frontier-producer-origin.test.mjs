@@ -8,6 +8,7 @@ import {
 } from '../src/frontier-callability-provenance.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { qualityInvariantAttestation } from '../src/absolute-frontier-quality-invariant.mjs';
 
 const AT = '2026-09-04T19:00:00.000Z';
 const observation = {
@@ -21,7 +22,8 @@ const profile = { id: 'elite', provider: 'google', model: 'elite', revision: 'r1
 const member = {
   profileId: 'elite', provider: 'google', model: 'elite', revision: 'r1',
   transportProvider: 'ai-gateway', transportModel: 'google/elite',
-  reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh'
+  reasoningTier: 'FRONTIER_MAX', reasoningSettingRef: 'ai-gateway:reasoning=xhigh',
+  absoluteQualityInvariant: qualityInvariantAttestation()
 };
 const sha256 = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 function syntheticReceipt() {

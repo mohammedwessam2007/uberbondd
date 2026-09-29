@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "uberbond.open-router.backup-receipt.v1",
+  "status": "BACKUP_CONTENT_COMPLETE_PRE_MERGE",
+  "recordedAt": "2026-09-29T17:52:00+03:00",
+  "branch": "docs/open-router-cognitive-arbitrage-vault-20260929",
+  "contentHeadBeforeReceipt": "927db64c67a6c2b6d937e3fc7cf203964d5953dc",
+  "baseMainSha": "34abf0b651b07be43fc0898b9afa8419076d6c08",
+  "vaultFolder": "open router/",
+  "vaultFileCount": 14,
+  "vaultFiles": [
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
+      "size": 5508
+    },
+    {
+      "path": "open router/ARCHITECTURE.md",
+      "blobSha": "8399f0e5b96c920bae66ca47169871557d29a0ff",
+      "size": 8289
+    },
+    {
+      "path": "open router/CANON_SNAPSHOT_2026-09-29.json",
+      "blobSha": "79915193642f929083e3619e4b1cc2a3b9533185",
+      "size": 18920
+    },
+    {
+      "path": "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "blobSha": "b644fff6eb2fa7ae91e5f9a4271588f57c278caa",
+      "size": 6290
+    },
+    {
+      "path": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "blobSha": "f4e18a1be9080be83a3381642643f9b68322efc5",
+      "size": 5203
+    },
+    {
+      "path": "open router/JEV_HYPERREFLEX.md",
+      "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
+      "size": 6929
+    },
+    {
+      "path": "open router/MANIFEST.json",
+      "blobSha": "f97de68494dfc5d98f54c0679871b4b305d6291d",
+      "size": 3933
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "b9793332f7181e6938ed2a9e9e037b266dc24c07",
+      "size": 3837
+    },
+    {
+      "path": "open router/README.md",
+      "blobSha": "7eef2ccd426a3b652877411b78a63fc95baf5b6e",
+      "size": 13002
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
+      "blobSha": "2d0b23b822de0928d700b4acec9046320ec43498",
+      "size": 3019
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md",
+      "blobSha": "0f184b8b84803327eb0c8e0610f904fc110db962",
+      "size": 21100
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md",
+      "blobSha": "744d855dae364a71e512a9f7c5058c0e94699e4d",
+      "size": 8616
+    },
+    {
+      "path": "open router/TYPINGMIND_AND_24_7.md",
+      "blobSha": "e79274988487a87703f2541176f8a4e2df3bfc53",
+      "size": 4216
+    },
+    {
+      "path": "open router/TYPINGMIND_PROMPT_PACK.md",
+      "blobSha": "2500d792fe3ece0d57410873cb0675bd88d0da03",
+      "size": 7227
+    }
+  ],
+  "recoveryPointers": {
+    "aiStartHere": {
+      "path": "AI_START_HERE.md",
+      "blobSha": "85b85a131857ae8fa8aafd79a95ec8766187c920"
+    },
+    "currentHandoff": {
+      "path": "docs/CURRENT_HANDOFF.json",
+      "blobSha": "ef27008f99d6a19db8de206162db1cf2881c672c"
+    },
+    "masterMemory": {
+      "path": "docs/UBERBOND_MASTER_MEMORY.md",
+      "blobSha": "529f877d1baa2b7d544eeecdcfc39acbac3cdf07"
+    },
+    "integrityDoctor": {
+      "path": "scripts/open-router-vault-doctor.mjs",
+      "blobSha": "c51af245b7479bb331acc4a73eeface001e30fa4"
+    },
+    "package": {
+      "path": "package.json",
+      "blobSha": "eb85903ecb40d19a00f311fce3446df4ee467d1f"
+    }
+  },
+  "preservedFounderIntent": [
+    "TypingMind is the iPad cockpit.",
+    "OpenRouter/cloud APIs remove local-hardware dependence.",
+    "The system targets the strongest verified market intelligence, not a favorite model.",
+    "$30/month is the accepted initial hard target.",
+    "Quality is never intentionally reduced to hit the budget.",
+    "Latency, throughput, and queue depth absorb budget pressure.",
+    "Jev is the semantic hyperreflex layer, not the sovereign reasoner.",
+    "The aspiration is hundreds/thousands of dollars of direct-frontier reference-equivalent work from roughly $30, but only if paired quality is equal or better.",
+    "Every frontier thought should be amortized through reuse, Jev, multicast, decision DAGs, negative knowledge, and eventual deterministic code."
+  ],
+  "upgradedMechanisms": [
+    "Cognitive Multicast",
+    "Crown Call Coalescing",
+    "Common Semantic Subexpression Elimination",
+    "Decision-DAG Incremental Recomputation",
+    "Crown Thought Capital Ledger",
+    "Negative Knowledge Cache",
+    "Error Portfolio Optimizer",
+    "Shadow Router Tournament",
+    "Value-of-Information Compute Auction",
+    "Frontier Output Minimizer",
+    "Cross-task Crown Batching",
+    "Cognitive Futures Market"
+  ],
+  "truthBoundary": "This receipt proves repository backup presence and lineage, not live frontier equivalence, live $30 economics, current Crown identity, or global superiority.",
+  "nextStep": "MERGE_EXACT_HEAD_TO_MAIN_THEN_ACTIVATE_WITH_LIVE_OPENROUTER_TYPINGMIND_RECEIPTS"
+}

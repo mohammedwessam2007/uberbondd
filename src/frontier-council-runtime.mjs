@@ -123,6 +123,7 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
       `Identity-blind first passes: ${packetText}`
     ].join('\n');
     return executeMember({
+      planResult,
       member,
       task: phaseTask(plan, `cross-critique-${member.profileId}`, objective, independentRefs),
       evidence: evidenceByProfile.get(member.profileId),
@@ -161,6 +162,7 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
   ].join('\n');
   const finalBudget = totalBudget - spentCents;
   const finalRun = await executeMember({
+    planResult,
     member: plan.adjudicator,
     task: phaseTask(plan, 'independent-adjudication', finalObjective, [...independentRefs, ...critiqueRuns.map(item => item.execution.resultRef)]),
     evidence: adjudicatorEvidence,
@@ -194,9 +196,8 @@ export async function executeFrontierCouncil({ planResult, callability = [], mod
     spentCents
   });
   const processVerifierRef = `frontier-process-proof://${processDigest}`;
-  // Canonical cognitive executions are one per selected profile. When an explicit
-  // degraded council reuses a responder as adjudicator, keep the extra phase
-  // execution separately instead of forging a duplicate canonical profile entry.
+  // Canonical cognitive executions are one per selected profile.
+  // Degraded councils are prohibited by the absolute frontier-quality invariant.
   const cognitiveExecutions = [...independentRuns.map(item => item.execution), finalRun.execution];
   const receiptResult = buildFrontierCognitiveReceipt({
     planResult,

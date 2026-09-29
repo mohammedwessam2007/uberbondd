@@ -799,7 +799,7 @@
     "recovery": "Read open router/README.md + OPEN_ROUTER_UBERMIND_CANON.json + MANIFEST.json. Preserve v2 and v3. Do not redesign from scratch."
   },
   "openRouterFrontierVmV5_20260929": {
-    "status": "MERGED_TO_MAIN_PRE_LIVE_EMPIRICAL_PROOF__TYPINGMIND_POLICY_RECONCILED",
+    "status": "MERGED_TO_MAIN__LIVE_MARKET_REFRESHED__EXTERNAL_OWNER_GATE",
     "branch": "open-router/frontier-intelligence-virtualization-20260929",
     "objective": "Continuously virtualize the strongest verified market intelligence behind a stable quality contract and minimize all-in cognition cost without intentional quality reduction.",
     "conceptualShift": "MODELS_ARE_REPLACEABLE_PROCESSORS__COGNITION_IS_THE_PROGRAM",
@@ -872,14 +872,14 @@
     },
     "upgradeCeiling": "Do not add named architecture layers unless they measurably improve quality, compression, verification, latency, founder time, recoverability, or authority safety. Next major progress is live evidence.",
     "externalBlockers": [
-      "TypingMind connected to OpenRouter with owner-held API key; record non-secret connection evidence reference",
-      "live current task-class Crown snapshot",
-      "fresh sealed/custodied task source",
-      "real provider billing receipts after live calls",
-      "independent or blind paired evaluation"
+      "OWNER_ONLY: create or verify one OpenRouter API key with a USD 30 monthly per-key limit; never paste the secret into chat or Git",
+      "OWNER_ONLY: connect that key privately in TypingMind on iPad and confirm the OpenRouter connection",
+      "OWNER_ONLY: explicitly authorize a tiny paid smoke-test ceiling before any paid model call or credit purchase",
+      "MACHINE_AFTER_CONNECTION: verify exact owner-route model/revision/effort callability and freeze the task-class Crown candidate set",
+      "MACHINE_AFTER_AUTHORIZED_SMOKE: capture real billing/usage receipt and begin the already pre-registered 40-task paired burn-in"
     ],
-    "nextAction": "RUN_FRONTIER_VM_DOCTOR -> CONNECT_OPENROUTER_IN_TYPINGMIND -> RECORD_NON_SECRET_CONNECTION_REF -> REFRESH_LIVE_TASK_CLASS_CROWN -> COMMIT_FRESH_TASK_SOURCE -> RUN_FIRST_PAIRED_BURN_IN",
-    "truthBoundary": "Architecture, source controls, and evidence harness exist. No claim of global novelty, global superiority, live $30 frontier equivalence, 1000x compression, or permanent zero regression is established without the planned live evidence.",
+    "nextAction": "OWNER_CONNECTS_TYPINGMIND_OPENROUTER -> RECORD_NON_SECRET_CONNECTION_REF -> VERIFY_OWNER_ROUTE_CALLABILITY -> OWNER_AUTHORIZES_TINY_PAID_SMOKE -> CAPTURE_BILLING_RECEIPT -> BEGIN_PRE_REGISTERED_40_TASK_PAIRED_BURN_IN",
+    "truthBoundary": "Source/canon/recovery/market-candidate preparation is merged. TypingMind connection, owner-route callability, any paid provider call, billing receipt, Crown promotion, paired burn-in success, frontier equivalence, compression factor, and global superiority remain unproven until externally observed.",
     "mergedPr": 1038,
     "mergedMainSha": "c92e3fa4dc4b418a6f397213b01362e8f9dfff37",
     "canonicalFolder": "open router/",
@@ -895,11 +895,12 @@
       "spendUsd": 0
     },
     "hostedCheckClassification": {
-      "githubActions": "INFRASTRUCTURE_NON_EVIDENCE__ALL_INSPECTED_FAILED_JOBS_HAD_ZERO_STEPS",
-      "vercel": "RATE_LIMITED__NO_SOURCE_FAILURE_INFERRED"
+      "githubActions": "NO_SOURCE_FAILURE_ESTABLISHED_FOR_PR_1043",
+      "vercel": "CURRENT_REPORTED_FAILURES_ARE_BUILD_RATE_LIMIT__INFRASTRUCTURE_NON_EVIDENCE",
+      "deploymentClaim": "DO_NOT_INFER_FRESH_DEPLOYMENT_FROM_MERGE"
     },
     "formerWorkingBranch": "open-router/frontier-intelligence-virtualization-20260929",
-    "recoveryLaw": "Recover current main first. V5 plus TypingMind-first $30/$15 policy reconciliation are merged. Interactive iPad use does not require duplicating the OpenRouter secret into repository runtime. Continue from external connection evidence, live Crown snapshot, fresh task source, then paired burn-in.",
+    "recoveryLaw": "Recover current main, Wessam Singularity meta North Star, PR #1040 war-room/custodian, and PR #1043 live-market snapshot. Do not redesign the architecture or recreate holdouts. The next unresolved boundary is owner-held TypingMind/OpenRouter activation and explicit authorization for the first tiny paid smoke.",
     "activationBoundary": {
       "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
       "userDevice": "iPad",
@@ -941,6 +942,37 @@
       "hostedCheckClassification": "ALL_INSPECTED_GITHUB_FAILURES_ZERO_STEPS__INFRASTRUCTURE_NON_EVIDENCE",
       "providerInferenceCallsPerformed": 0,
       "spendUsd": 0
+    },
+    "latestMergedEvidence": {
+      "mergedPr": 1043,
+      "mergedMainSha": "c9ef4215479f64e35113c55e946811ba2d23f9ea",
+      "liveModelMarketSnapshot": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
+      "liveSnapshotBlobSha": "0dccb01e51856fd653195895277e35d277cc19fb",
+      "warRoomReceipt": "docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json",
+      "freshTaskCustodian": "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
+      "canonicalFolderFileCount": 42,
+      "manifestIndexedNonSelfFiles": 41,
+      "providerCallsPerformed": 0,
+      "spendUsd": 0
+    },
+    "liveCandidateState": {
+      "crownPromoted": false,
+      "generalCrownCandidate": "anthropic/claude-opus-5.5",
+      "terminalAutomationCandidates": [
+        "anthropic/claude-sonnet-5.5",
+        "anthropic/claude-opus-5.5",
+        "openai/gpt-6-astra"
+      ],
+      "cheapWorkerCandidates": [
+        "openai/gpt-6-luna",
+        "xiaomi/mimo-v2.6-pro",
+        "z-ai/glm-5.3-flash"
+      ],
+      "strongerWorkerOrSpecialistCandidates": [
+        "openai/gpt-6-sol",
+        "qwen/qwen3.8-max-0902"
+      ],
+      "law": "PUBLIC_MARKET_EVIDENCE_IS_CANDIDATE_EVIDENCE_ONLY__NO_CROWN_PROMOTION_WITHOUT_OWNER_ROUTE_CALLABILITY_AND_FRESH_PAIRED_TASK_PROOF"
     }
   },
   "wessamSingularityOverlay": {

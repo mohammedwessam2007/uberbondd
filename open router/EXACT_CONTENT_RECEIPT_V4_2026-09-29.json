@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "uberbond.open-router.exact-content-receipt.v4",
+  "status": "OPEN_ROUTER_V4_EXACT_CONTENT_RECOVERED",
+  "recordedAt": "2026-09-29T18:52:00+03:00",
+  "canonicalFolder": "open router/",
+  "branch": "canon/open-router-v4-exact-recovery-20260929",
+  "baseMainBeforeV4": "2fee7f1207586b31987ac6315281b72e7f64ae09",
+  "contentHeadBeforeReceipt": "b1f28447609d84b89ba72beb541a5620bd614099",
+  "indexedFileCountBeforeReceipt": 32,
+  "expectedFolderFileCountAfterReceipt": 33,
+  "selfHashExcludedReason": "A receipt cannot content-hash itself without recursion. This receipt indexes every pre-existing file in the expanded vault; Git stores this receipt itself as a separate immutable blob.",
+  "indexedFiles": [
+    {
+      "path": "open router/00_FINAL_SYSTEM.md",
+      "blobSha": "b7b2b1810659910c491c274c5ff1a4a2b696414d",
+      "size": 6284
+    },
+    {
+      "path": "open router/01_PRACTICAL_MODEL_SEQUENCE.md",
+      "blobSha": "ffecfc433dcbcb6cec1a1b39ccc6fbf3ac5f5891",
+      "size": 3218
+    },
+    {
+      "path": "open router/02_JEV_HYPERREFLEX.md",
+      "blobSha": "adc0d1839455e90ac1b8b4c6845891a314f24ca5",
+      "size": 3342
+    },
+    {
+      "path": "open router/03_30_DOLLAR_ECONOMICS.md",
+      "blobSha": "05a270c9ee0bb93e4dc40172ce85dfbb085463fc",
+      "size": 3078
+    },
+    {
+      "path": "open router/04_TYPINGMIND_IPAD_SETUP.md",
+      "blobSha": "4c9ab34e9f904e229e351fff5fb5208038b41d94",
+      "size": 3047
+    },
+    {
+      "path": "open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md",
+      "blobSha": "732150ef1011e173f839a5cf3559b08a27406348",
+      "size": 2070
+    },
+    {
+      "path": "open router/06_24_7_NIGHT_SHIFT.md",
+      "blobSha": "6d85c547a7a2b85d7ed48260c6eede287efd44cb",
+      "size": 2377
+    },
+    {
+      "path": "open router/07_1000X_COMPRESSION_LAB.md",
+      "blobSha": "58a407a0d57a59f8c06f54f4a5ecae299fef08be",
+      "size": 3187
+    },
+    {
+      "path": "open router/08_PROMPTS.md",
+      "blobSha": "7644a0a2ad2772e82e0ca582d7a40e2189c6c568",
+      "size": 3256
+    },
+    {
+      "path": "open router/09_SCOREBOARD_SCHEMA.json",
+      "blobSha": "bcb1ed72a545568fa4cb311908296b131394c42b",
+      "size": 2060
+    },
+    {
+      "path": "open router/10_ACTIVATION_CHECKLIST.md",
+      "blobSha": "163e906f41a5d57d1ce7c8a1e320f02528e4eff6",
+      "size": 2744
+    },
+    {
+      "path": "open router/11_MODEL_MARKET_REFRESH.md",
+      "blobSha": "7fdc13ec9971d0e1e4a514bd81449a5d5efa08a9",
+      "size": 2121
+    },
+    {
+      "path": "open router/12_REFERENCE_VALUE_LEDGER.md",
+      "blobSha": "f25eb2ff564764df6fba1279733b9dab4d18b161",
+      "size": 2774
+    },
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
+      "size": 5508
+    },
+    {
+      "path": "open router/ARCHITECTURE.md",
+      "blobSha": "8399f0e5b96c920bae66ca47169871557d29a0ff",
+      "size": 8289
+    },
+    {
+      "path": "open router/BACKUP_RECEIPT_2026-09-29.json",
+      "blobSha": "f79aef379c67e88277adbea9ba9031c19dc814e5",
+      "size": 7011
+    },
+    {
+      "path": "open router/CANON_SNAPSHOT_2026-09-29.json",
+      "blobSha": "3bd6863eddfd0a44192d15dfb3dfd376dc0d435a",
+      "size": 18784
+    },
+    {
+      "path": "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "blobSha": "b644fff6eb2fa7ae91e5f9a4271588f57c278caa",
+      "size": 6290
+    },
+    {
+      "path": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "blobSha": "f4e18a1be9080be83a3381642643f9b68322efc5",
+      "size": 5203
+    },
+    {
+      "path": "open router/FINAL_CHAT_DELTA_V4_2026-09-29.md",
+      "blobSha": "d96502f5044692f4c495eed19337bd6efa2af55c",
+      "size": 7994
+    },
+    {
+      "path": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
+      "blobSha": "0520f159f89d844867f0992b624839ee2912318a",
+      "size": 8151
+    },
+    {
+      "path": "open router/JEV_HYPERREFLEX.md",
+      "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
+      "size": 6929
+    },
+    {
+      "path": "open router/MANIFEST.json",
+      "blobSha": "2d15da4996d264570d99bd7dd3dbbca8860279db",
+      "size": 7457
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "46d27d87f085ac1759e8c39fe2d4ac5a39e2c667",
+      "size": 5729
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "b9793332f7181e6938ed2a9e9e037b266dc24c07",
+      "size": 3837
+    },
+    {
+      "path": "open router/README.md",
+      "blobSha": "08086a9d5a32624754fe4256249df64c068f9e2d",
+      "size": 9492
+    },
+    {
+      "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
+      "blobSha": "def1dc1f70154aace5eb63afe76eafc747a894a4",
+      "size": 7625
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
+      "blobSha": "090ef7e1ae668085d27ca01e0068c1942ebb0120",
+      "size": 3019
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md",
+      "blobSha": "f9e15ff766332af25e44962a37db0d358285925f",
+      "size": 21100
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md",
+      "blobSha": "4e12fe9afa660c13d8461afe0b5129358e5f7fa1",
+      "size": 8616
+    },
+    {
+      "path": "open router/TYPINGMIND_AND_24_7.md",
+      "blobSha": "e79274988487a87703f2541176f8a4e2df3bfc53",
+      "size": 4216
+    },
+    {
+      "path": "open router/TYPINGMIND_PROMPT_PACK.md",
+      "blobSha": "2500d792fe3ece0d57410873cb0675bd88d0da03",
+      "size": 7227
+    }
+  ],
+  "recoveryPointers": {
+    "vaultDoctor": {
+      "path": "scripts/open-router-vault-doctor.mjs",
+      "blobSha": "50403a086bb69c57c7189068a462ca3dba5ad53e"
+    },
+    "currentHandoff": {
+      "path": "docs/CURRENT_HANDOFF.json",
+      "blobSha": "a64faa78005f009258feacd0f659cc0723a344b0"
+    },
+    "aiStartHere": {
+      "path": "AI_START_HERE.md",
+      "blobSha": "0d7363d4fa90b415434f61e0678576e99019290b"
+    },
+    "agents": {
+      "path": "AGENTS.md",
+      "blobSha": "65a1f2f1cf8f83f2d9aa0f7b529c7f2c85b7bbfe"
+    }
+  },
+  "founderIntentVerbatim": [
+    "We are greedy",
+    "fucking insane",
+    "thousands of dollar worth in that 30 dollars jaw drppping",
+    "There is open router folder in Uberbond check it all word by word",
+    "Continue until every letter is recovered"
+  ],
+  "qualityLaw": {
+    "maxIntentionalDelta": 0,
+    "strongestVerifiedMarketFrontierFirst": true,
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE",
+    "unknownNovelDriftedOrOutOfDomain": "RETURN_TO_CROWN"
+  },
+  "budget": {
+    "monthlyAllInTargetUsd": 30,
+    "status": "FOUNDER_ACCEPTED_INITIAL_HARD_TARGET_NOT_PROOF_OF_ARBITRARY_CAPACITY"
+  },
+  "cockpit": {
+    "device": "iPad",
+    "ui": "TypingMind",
+    "modelMarket": "OpenRouter",
+    "localGpuRequired": false,
+    "localModelRequired": false
+  },
+  "recoveryAudit": {
+    "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
+    "finalChatDelta": "open router/FINAL_CHAT_DELTA_V4_2026-09-29.md",
+    "previousV3Receipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json"
+  },
+  "truthBoundary": {
+    "repositoryRecoveryProven": true,
+    "allPreReceiptVaultFilesContentAddressed": true,
+    "liveThirtyDollarFrontierEquivalenceProven": false,
+    "thousandDollarReferenceEquivalentProven": false,
+    "globalNumberOneProven": false,
+    "permanentZeroRegressionProven": false,
+    "currentOptimalRosterProven": false
+  },
+  "nextAction": "MERGE_V4_RECOVERY -> RUN_OPEN_ROUTER_VAULT_DOCTOR -> ACTIVATE_TYPINGMIND_OPENROUTER -> COLLECT_LIVE_PAIRED_RECEIPTS -> CALIBRATE_JEV -> CERTIFY_BOUNDED_REGIONS -> MEASURE_REFERENCE_COST_EQUIVALENT_AND_COMPRESSION_FACTOR"
+}

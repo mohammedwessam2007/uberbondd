@@ -581,6 +581,194 @@
       "availabilityTruth": "META_MODEL_API_PUBLIC_PREVIEW_WITH_EXPANDED_GLOBAL_ACCESS__EXACT_SLUG_PRICING_AND_RUNTIME_PROOF_REQUIRED",
       "privacyTruth": "DO_NOT_USE_ANY_CONTRIBUTOR_OR_DATA_SHARING_DISCOUNT_WITHOUT_EXPLICIT_FOUNDER_OPT_IN",
       "configured": false
+    },
+    {
+      "id": "xiaomi-mimo-v2-6-pro",
+      "provider": "xiaomi",
+      "canonicalModel": "mimo-v2.6-pro",
+      "label": "Xiaomi MiMo-V2.6-Pro",
+      "rolePriors": [
+        "researcher",
+        "planner",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "complex-reasoning",
+        "long-horizon-agents",
+        "research",
+        "coding",
+        "tool-use",
+        "multimodal"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": 128000,
+      "reasoningEfforts": [
+        "thinking"
+      ],
+      "officialEvidenceRefs": [
+        "https://mimo.mi.com/models/en-US/mimo-v2.6-pro",
+        "https://mimo.mi.com/docs/en-US/updates/model",
+        "https://mimo.mi.com/docs/quick-start/usage-guide/text-generation/batch-api"
+      ],
+      "availabilityTruth": "OFFICIAL_XIAOMI_RELEASE_2026_09_22__DISCOVERY_ONLY_UNTIL_EXACT_TRANSPORT_AND_RUNTIME_PROFILE_ARE_ADMITTED",
+      "pricingTruth": "OFFICIAL_OVERSEAS_REALTIME_AND_BATCH_RATES_OBSERVED_2026_09_29__FRESH_RUNTIME_PRICING_RECEIPT_REQUIRED_BEFORE_ROUTING",
+      "batchInference": true,
+      "configured": false
+    },
+    {
+      "id": "xiaomi-mimo-v2-6-flash",
+      "provider": "xiaomi",
+      "canonicalModel": "mimo-v2.6-flash",
+      "label": "Xiaomi MiMo-V2.6-Flash",
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "mass-reasoning",
+        "high-concurrency-agents",
+        "coding",
+        "tool-use",
+        "multimodal",
+        "batch-evaluation"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": 128000,
+      "reasoningEfforts": [
+        "thinking"
+      ],
+      "officialEvidenceRefs": [
+        "https://mimo.mi.com/docs/en-US/updates/model",
+        "https://mimo.mi.com/docs/quick-start/usage-guide/text-generation/batch-api",
+        "https://mimo.mi.com/docs/en-US/api/guidance/rate-limit"
+      ],
+      "availabilityTruth": "OFFICIAL_XIAOMI_RELEASE_2026_09_22__DISCOVERY_ONLY_UNTIL_EXACT_TRANSPORT_AND_RUNTIME_PROFILE_ARE_ADMITTED",
+      "pricingTruth": "OFFICIAL_OVERSEAS_REALTIME_AND_BATCH_RATES_OBSERVED_2026_09_29__FRESH_RUNTIME_PRICING_RECEIPT_REQUIRED_BEFORE_ROUTING",
+      "batchInference": true,
+      "configured": false
+    },
+    {
+      "id": "alibaba-qwen3-8-flash",
+      "provider": "alibaba",
+      "canonicalModel": "qwen3.8-flash",
+      "label": "Qwen3.8 Flash",
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "mass-reasoning",
+        "coding",
+        "agentic-work",
+        "multimodal",
+        "long-context",
+        "computer-use"
+      ],
+      "contextTokens": 1000000,
+      "maxOutputTokens": 131072,
+      "reasoningEfforts": [
+        "thinking"
+      ],
+      "officialEvidenceRefs": [
+        "https://www.alibabacloud.com/help/en/model-studio/qwen3-8-flash"
+      ],
+      "availabilityTruth": "OFFICIAL_ALIBABA_MODEL_STUDIO_LISTING_2026_09_08__DISCOVERY_ONLY_UNTIL_REGION_ELIGIBILITY_TRANSPORT_AND_RUNTIME_PROFILE_ARE_PROVEN",
+      "pricingTruth": "OFFICIAL_CHINA_BEIJING_LIST_PRICE_OBSERVED_2026_09_29__REGION_SPECIFIC_FRESH_PRICING_REQUIRED",
+      "batchInference": false,
+      "configured": false
+    },
+    {
+      "id": "minimax-m2-5",
+      "provider": "minimax",
+      "canonicalModel": "MiniMax-M2.5",
+      "label": "MiniMax M2.5",
+      "rolePriors": [
+        "builder",
+        "researcher",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "agentic-tool-use",
+        "search",
+        "office-work",
+        "long-running-agents"
+      ],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": [
+        "https://www.minimax.io/news/minimax-m25",
+        "https://www.minimax.io/models/text"
+      ],
+      "availabilityTruth": "OFFICIAL_MINIMAX_MODEL_AND_API_EXAMPLE_OBSERVED__DISCOVERY_ONLY_UNTIL_EXACT_TRANSPORT_RUNTIME_AND_CURRENT_PRICING_ARE_PROVEN",
+      "pricingTruth": "OFFICIAL_RELEASE_PRICING_IS HISTORICAL_2026_02__FRESH_PRICING_RECEIPT_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "zai-glm-5-3-flash",
+      "provider": "zai",
+      "canonicalModel": "glm-5.3-flash",
+      "label": "GLM-5.3-Flash",
+      "rolePriors": [
+        "builder",
+        "researcher",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "coding",
+        "agentic-work",
+        "multimodal",
+        "efficient-inference",
+        "long-context"
+      ],
+      "contextTokens": null,
+      "maxOutputTokens": null,
+      "officialEvidenceRefs": [
+        "https://z.ai/blog/glm-5.3-flash"
+      ],
+      "availabilityTruth": "OFFICIAL_ZAI_RELEASE_2026_08_26__DISCOVERY_ONLY_UNTIL_EXACT_API_SLUG_TRANSPORT_AND_RUNTIME_PROFILE_ARE_PROVEN",
+      "pricingTruth": "OFFICIAL_VENDOR_DESCRIBES_FLASH_COST_ADVANTAGE__EXACT_DIRECT_PRICING_RECEIPT_REQUIRED",
+      "configured": false
+    },
+    {
+      "id": "bytedance-doubao-seed-2-1-lite",
+      "provider": "bytedance",
+      "canonicalModel": "doubao-seed-2-1-lite-260915",
+      "label": "Doubao Seed 2.1 Lite",
+      "rolePriors": [
+        "researcher",
+        "builder",
+        "critic",
+        "general"
+      ],
+      "taskClassPriors": [
+        "long-context",
+        "multimodal",
+        "tool-use",
+        "structured-output",
+        "high-throughput-agents"
+      ],
+      "contextTokens": 1024000,
+      "maxOutputTokens": 256000,
+      "reasoningEfforts": [
+        "deep-thinking"
+      ],
+      "officialEvidenceRefs": [
+        "https://www.volcengine.com/docs/82379/1330310?lang=zh",
+        "https://docs.volcengine.com/docs/ark/model-list?lang=zh",
+        "https://docs.volcengine.com/docs/ark/model-pricing?lang=zh"
+      ],
+      "availabilityTruth": "OFFICIAL_VOLCENGINE_MODEL_LIST_OBSERVED_2026_09_29__DISCOVERY_ONLY_UNTIL_REGION_ACCOUNT_TRANSPORT_AND_RUNTIME_PROFILE_ARE_PROVEN",
+      "pricingTruth": "OFFICIAL_CNY_PRICING_OBSERVED_2026_09_29__REGION_CURRENCY_AND_FRESH_RUNTIME_PRICING_RECEIPT_REQUIRED",
+      "configured": false
     }
   ],
   "admissionLaw": [

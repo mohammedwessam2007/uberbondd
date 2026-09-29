@@ -347,6 +347,89 @@ test('runtime readiness refuses missing live callability/pricing and remains pla
   assert.equal(blocked.spendUsd, 0);
 });
 
+test('runtime readiness requires the exact frozen pricing mode, not merely some price for the same model', async () => {
+  const prepared = plan();
+  const sealedManifest = manifest(40);
+  const { sealedManifestCommitmentDigest, sealedCorpusDigestFromManifest } = await import('../src/apex-sealed-tournament.mjs');
+  const admitted = admitFreshCustodianManifest({
+    campaignPlan: prepared,
+    sealedManifest,
+    custodianReceipt: {
+      campaignId: prepared.campaignId,
+      campaignDigest: prepared.campaignDigest,
+      suiteVersion: prepared.suiteVersion,
+      manifestDigest: sealedManifestCommitmentDigest(sealedManifest),
+      corpusDigest: sealedCorpusDigestFromManifest(sealedManifest),
+      taskCount: sealedManifest.length,
+      commitmentRef: 'custodian://fresh/apex-fqc-price-mode',
+      committedAt: COMMIT,
+      sourceFreezeRef: 'source://frozen',
+      evaluatorRef: 'evaluator://independent',
+      custodianRef: 'custodian://independent',
+      rawHoldoutsStoredInRepository: false,
+      optimizerAccessBeforeEvaluation: false,
+      candidateAccessBeforeEvaluation: false,
+      plaintextAnswersExposedBeforeEvaluation: false,
+      evaluatorIndependent: true,
+      custodianIndependent: true,
+      freshlyGeneratedForCampaign: true,
+      tasksPreviouslyEvaluated: false,
+      tasksDerivedFromPreviouslyEvaluatedItems: false,
+      legacyEvidenceReuse: false,
+      secretFreeReceipt: true
+    }
+  });
+  assert.equal(admitted.ok, true);
+
+  const batchArchitecture = structuredClone(prepared.architectureRoster.find(row => row.architectureId === 'incumbent'));
+  assert.ok(batchArchitecture);
+  batchArchitecture.architectureId = 'incumbent-batch';
+  batchArchitecture.architectureClass = 'CHALLENGER';
+  batchArchitecture.executionModeRef = 'ANTHROPIC_BATCH';
+  batchArchitecture.modelRequirements = batchArchitecture.modelRequirements.map(row => ({
+    ...row,
+    pricingModeRef: 'ANTHROPIC_BATCH'
+  }));
+  batchArchitecture.architectureDigest = 'a'.repeat(64);
+  const campaignWithBatch = {
+    ...prepared,
+    architectureRoster: [prepared.architectureRoster.find(row => row.architectureId === 'incumbent'), batchArchitecture],
+    architectureRosterDigest: 'b'.repeat(64)
+  };
+
+  const runtimeReceipts = [{
+    candidateId: 'anthropic-claude-opus-5-5',
+    reasoningSettingRef: 'anthropic:effort=max',
+    transportClass: 'DIRECT',
+    observedAt: OBSERVED,
+    evidenceRef: 'runtime://opus-exact',
+    callableNow: true,
+    exactModelIdentityMatched: true,
+    exactReasoningSettingMatched: true,
+    transportVerified: true,
+    providerCallObserved: true
+  }];
+  const pricingReceipts = [{
+    candidateId: 'anthropic-claude-opus-5-5',
+    pricingMode: 'INTERACTIVE',
+    observedAt: OBSERVED,
+    evidenceRef: 'pricing://opus/interactive-only',
+    inputUsdPerMillion: 1,
+    outputUsdPerMillion: 1,
+    cacheReadUsdPerMillion: 0.1,
+    officialOrMeteredEvidence: true
+  }];
+
+  const blocked = assessFreshCampaignRuntimeReadiness({
+    campaignPlan: campaignWithBatch,
+    admittedCampaign: { ...admitted, campaignDigest: campaignWithBatch.campaignDigest },
+    runtimeReceipts,
+    pricingReceipts
+  });
+  assert.equal(blocked.ok, false);
+  assert.ok(blocked.reasonCodes.includes('missing-pricing-proof:anthropic-claude-opus-5-5::ANTHROPIC_BATCH'));
+});
+
 test('runtime readiness accepts exact receipts, including DIRECT proof for ANY_VERIFIED slot, without authorizing execution', async () => {
   const prepared = plan();
   const sealedManifest = manifest(40);

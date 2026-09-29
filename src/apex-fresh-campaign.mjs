@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { qualityInvariantAttestation, validateAbsoluteFrontierQualityPolicy } from './absolute-frontier-quality-invariant.mjs';
 import {
   sealedManifestCommitmentDigest,
   sealedCorpusDigestFromManifest
@@ -266,6 +267,8 @@ export function prepareFreshApexCampaign({
   if (!id || !suite || !klass || minTasks == null || !freeze) reasons.push('campaign-suite-task-freeze-required');
   if (qualityMode !== 'LEXICOGRAPHIC_FRONTIER_FIRST') reasons.push('lexicographic-frontier-first-quality-policy-required');
   if (!frontierBaselineId || maxQualityDelta == null) reasons.push('frontier-baseline-and-quality-delta-required');
+  const absoluteQuality = validateAbsoluteFrontierQualityPolicy({ qualityDelta: maxQualityDelta });
+  if (!absoluteQuality.ok) reasons.push(...absoluteQuality.reasonCodes);
   if (normalization !== 'COMMON_CEILING' || [maxMeanCostUsd, maxMeanLatencyMs, maxMeanFounderMinutes, maxTotalCampaignSpendUsd].some(value => value == null)) {
     reasons.push('matched-cost-latency-founder-and-total-spend-ceilings-required');
   }
@@ -307,8 +310,9 @@ export function prepareFreshApexCampaign({
   const quality = {
     mode: 'LEXICOGRAPHIC_FRONTIER_FIRST',
     frontierBaselineArchitectureId: frontierBaselineId,
-    maxQualityDelta,
-    requireNoWorseFalsePositiveUpperBound
+    maxQualityDelta: 0,
+    requireNoWorseFalsePositiveUpperBound,
+    absoluteQualityInvariant: qualityInvariantAttestation()
   };
   const sumTrialSpendCeilingsUsd = Number(roster.reduce((sum, row) => sum + row.trialSpendCeilingUsd, 0).toFixed(8));
   if (sumTrialSpendCeilingsUsd > maxTotalCampaignSpendUsd + 1e-9) {

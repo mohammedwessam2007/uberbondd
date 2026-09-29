@@ -7,9 +7,10 @@ test('UberMind refuses unbounded cognition stakes',()=>{
   assert.equal(r.ok,false);assert.ok(r.reasonCodes.includes('bounded-cognition-stakes-required'));
 });
 
-test('UberMind does not maximize agent count for a cheap reversible decision',()=>{
+test('UberMind keeps even cheap reversible semantic decisions at the frontier floor',()=>{
   const r=chooseCognitionTopology({consequence:.05,uncertainty:.05,reversibility:1,founderImportance:.05});
-  assert.equal(r.ok,true);assert.equal(r.reasoningTier,'FAST');assert.deepEqual(r.roles,['planner']);
+  assert.equal(r.ok,true);assert.equal(r.reasoningTier,'FRONTIER_MAX');assert.deepEqual(r.roles,['planner']);
+  assert.equal(r.absoluteQualityInvariant.qualityDelta,0);
 });
 
 test('UberMind escalates a consequential uncertain irreversible founder decision to council cognition',()=>{

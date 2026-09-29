@@ -429,11 +429,6 @@
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
       "reason": "Classifies a shadow decision against what the legacy path actually did. The wired hook imports it dynamically and only in compare mode, which nothing currently selects, so static analysis correctly reports no entry point."
     },
-    "src/omnia-v9/integrations/external-effect-dispatcher.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",
-      "reason": "Runs the safe dispatch sequence after an ALLOW and a successful authority reservation."
-    },
     "src/omnia-v9/integrations/external-effect-evidence-store.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_EXTERNAL_EFFECT_AUTHORIZATION",

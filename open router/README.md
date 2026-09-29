@@ -422,3 +422,24 @@ Default conceptual daily envelope:
 Unused budget rolls forward inside the monthly ceiling. Budget pressure queues novelty rather than lowering required final quality.
 
 Primary metric: **Opus Quality Fanout** — important Crown-quality artifacts per live Crown-equivalent semantic adjudication.
+
+
+## By-construction Opus equivalence
+
+`22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md` defines the strongest quality-preserving path: stop asking whether a cheaper runtime "seems as good as Opus" and instead constrain it so it cannot make an unauthorized semantic move.
+
+Equivalence classes:
+
+```
+E0 exact Crown replay
+E1 deterministic derivation
+E2 formally verified transformation
+E3 closed-world exhaustive Crown policy
+E4 proof-carrying certified semantic circuit
+E5 empirical equivalence only
+E6 fresh frontier
+```
+
+The target is to push recurring work into E0-E4. Open-ended novel semantics remain E6 and page to the moving Crown.
+
+Every important artifact should carry a semantic proof tree whose leaves terminate in current-valid Crown atoms, exact reality facts, deterministic derivations, or verified transformations.

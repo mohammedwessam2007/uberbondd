@@ -134,6 +134,7 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
   const promptContractRef = text(raw?.promptContractRef, 1600);
   const jevMode = text(raw?.jevMode ?? 'NONE', 80)?.toUpperCase();
   const deterministicCrystallization = raw?.deterministicCrystallization === true;
+  const trialSpendCeilingUsd = finite(raw?.trialSpendCeilingUsd, 0.000001, 1_000_000);
   const evidencePrerequisites = Array.isArray(raw?.evidencePrerequisites)
     ? [...new Set(raw.evidencePrerequisites.map(value => text(value, 500)).filter(Boolean))]
     : [];
@@ -150,6 +151,7 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
   if (!['NONE', 'SHADOW_ONLY', 'CALIBRATED_BOUNDED'].includes(jevMode)) {
     reasons.push(`architecture-${index}:recognized-jev-mode-required`);
   }
+  if (trialSpendCeilingUsd == null) reasons.push(`architecture-${index}:trial-spend-ceiling-required`);
   if (!Array.isArray(raw?.modelRequirements) || raw.modelRequirements.length === 0 || raw.modelRequirements.length > 1000) {
     reasons.push(`architecture-${index}:bounded-model-requirements-required`);
   }
@@ -182,6 +184,7 @@ function normalizeArchitecture(raw, index, defaultFrozenAt) {
     promptContractRef,
     jevMode,
     deterministicCrystallization,
+    trialSpendCeilingUsd,
     evidencePrerequisites,
     modelRequirements: models
   };
@@ -247,6 +250,7 @@ export function prepareFreshApexCampaign({
   const maxMeanCostUsd = finite(budgetPolicy?.maxMeanCostUsd, 0.000001, 1_000_000);
   const maxMeanLatencyMs = finite(budgetPolicy?.maxMeanLatencyMs, 1, 86_400_000);
   const maxMeanFounderMinutes = finite(budgetPolicy?.maxMeanFounderMinutes, 0, 100000);
+  const maxTotalCampaignSpendUsd = finite(budgetPolicy?.maxTotalCampaignSpendUsd, 0.000001, 1_000_000);
 
   const rawStorage = text(custodianPolicy?.rawStorage ?? 'OUTSIDE_REPOSITORY', 120)?.toUpperCase();
   const evaluatorIndependenceRequired = custodianPolicy?.evaluatorIndependenceRequired !== false;
@@ -258,8 +262,8 @@ export function prepareFreshApexCampaign({
   if (!id || !suite || !klass || minTasks == null || !freeze) reasons.push('campaign-suite-task-freeze-required');
   if (qualityMode !== 'LEXICOGRAPHIC_FRONTIER_FIRST') reasons.push('lexicographic-frontier-first-quality-policy-required');
   if (!frontierBaselineId || maxQualityDelta == null) reasons.push('frontier-baseline-and-quality-delta-required');
-  if (normalization !== 'COMMON_CEILING' || [maxMeanCostUsd, maxMeanLatencyMs, maxMeanFounderMinutes].some(value => value == null)) {
-    reasons.push('matched-cost-latency-founder-ceilings-required');
+  if (normalization !== 'COMMON_CEILING' || [maxMeanCostUsd, maxMeanLatencyMs, maxMeanFounderMinutes, maxTotalCampaignSpendUsd].some(value => value == null)) {
+    reasons.push('matched-cost-latency-founder-and-total-spend-ceilings-required');
   }
   if (rawStorage !== 'OUTSIDE_REPOSITORY') reasons.push('raw-holdouts-must-stay-outside-repository');
   if (!evaluatorIndependenceRequired) reasons.push('independent-evaluator-policy-required');
@@ -302,11 +306,20 @@ export function prepareFreshApexCampaign({
     maxQualityDelta,
     requireNoWorseFalsePositiveUpperBound
   };
+  const sumTrialSpendCeilingsUsd = Number(roster.reduce((sum, row) => sum + row.trialSpendCeilingUsd, 0).toFixed(8));
+  if (sumTrialSpendCeilingsUsd > maxTotalCampaignSpendUsd + 1e-9) {
+    return fail('FRESH_APEX_CAMPAIGN_REFUSED', ['architecture-trial-ceilings-exceed-total-campaign-spend-cap'], {
+      sumTrialSpendCeilingsUsd,
+      maxTotalCampaignSpendUsd
+    });
+  }
   const budget = {
     normalization: 'COMMON_CEILING',
     maxMeanCostUsd,
     maxMeanLatencyMs,
-    maxMeanFounderMinutes
+    maxMeanFounderMinutes,
+    maxTotalCampaignSpendUsd,
+    sumTrialSpendCeilingsUsd
   };
   const custodian = {
     rawStorage: 'OUTSIDE_REPOSITORY',

@@ -270,3 +270,23 @@ UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF
 A protected runtime `OPENROUTER_API_KEY` is required only if the optional unattended cloud-worker mode is explicitly activated later.
 
 This reduces credential duplication without changing the quality law, proof protocol, $30 target, or Crown/Pantheon architecture.
+
+
+## Live market evidence — 2026-09-29
+
+- `LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json` — dated public market evidence for current Crown/Pantheon and cheap-worker candidates. This is candidate evidence only, not Crown promotion.
+- `../docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json` — prompt-bound activation receipt from PR #1040.
+- `../docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md` — pre-registered first 40 fresh paired tasks.
+
+Current continuation boundary:
+
+```
+CONNECT TYPINGMIND/OPENROUTER
+-> VERIFY OWNER-ROUTE CALLABILITY
+-> FREEZE TASK-CLASS CROWN CANDIDATE SET
+-> OWNER-AUTHORIZED TINY PAID SMOKE
+-> CAPTURE REAL BILLING RECEIPT
+-> BEGIN PRE-REGISTERED PAIRED BURN-IN
+```
+
+No model in the dated snapshot has production Crown authority merely because it leads a public benchmark.

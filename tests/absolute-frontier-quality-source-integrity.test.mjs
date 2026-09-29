@@ -92,7 +92,8 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       "data_collection: 'deny'",
       "modelFallbacks: 'PROHIBITED_BY_EXECUTOR'",
       "openrouter-model-identity-mismatch",
-      "actual-cost-exceeds-reserved-ceiling"
+      "actual-cost-exceeds-reserved-ceiling",
+      "openrouter-response-cache-public-data-only"
     ],
     'src/frontier-quality-market-compiler.mjs': [
       "QUEUE_FOR_BUDGET_NOT_QUALITY_DOWNGRADE",
@@ -100,7 +101,9 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       "SEMANTIC_CACHE_SHADOW_ONLY",
       "majorityVoteAuthority: 'NONE'",
       "lossySummarizationAuthorized: false",
-      "modelFallbacks: 'PROHIBITED_UNLESS_SEPARATELY_ZERO_LOSS_CERTIFIED'"
+      "modelFallbacks: 'PROHIBITED_UNLESS_SEPARATELY_ZERO_LOSS_CERTIFIED'",
+      "createMonthlyCloudCognitionBudget",
+      "QUEUE_NOT_DOWNGRADE"
     ],
     'src/openrouter-market-catalog.mjs': [
       "semanticAuthority: 'NONE'",

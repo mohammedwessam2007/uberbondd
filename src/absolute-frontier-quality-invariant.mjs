@@ -120,10 +120,20 @@ function normalizedOutcomeVector(trial) {
 export function certifyPairedZeroLoss({
   baselineTrial,
   candidateTrial,
-  requireEconomicsImprovement = false
+  requireEconomicsImprovement = false,
+  provenanceValidator = null
 } = {}) {
   const reasons = [];
   if (!baselineTrial || !candidateTrial) return fail('ZERO_LOSS_CERTIFICATION_REFUSED', ['baseline-and-candidate-trials-required']);
+  if (typeof provenanceValidator !== 'function') {
+    return fail('ZERO_LOSS_CERTIFICATION_REFUSED', ['paired-zero-loss-authoritative-provenance-validator-required']);
+  }
+  for (const [role, trial] of [['baseline', baselineTrial], ['candidate', candidateTrial]]) {
+    let provenance;
+    try { provenance = provenanceValidator(trial); }
+    catch { provenance = null; }
+    if (!provenance?.ok) reasons.push(`paired-zero-loss-${role}-provenance-invalid`);
+  }
 
   for (const key of ['suiteVersion', 'corpusDigest', 'manifestDigest', 'taskClass']) {
     if (!baselineTrial?.[key] || baselineTrial[key] !== candidateTrial?.[key]) reasons.push(`paired-${key}-mismatch`);

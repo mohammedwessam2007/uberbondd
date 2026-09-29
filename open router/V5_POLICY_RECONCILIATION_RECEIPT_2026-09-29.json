@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "uberbond.open-router.v5-policy-reconciliation-receipt.v1",
+  "status": "V5_TYPINGMIND_POLICY_RECONCILED_SOURCE_ONLY",
+  "date": "2026-09-29",
+  "branch": "open-router/v5-policy-reconcile-20260929",
+  "baseMainSha": "919498ce0dca45057981662d0cb4926c43a34280",
+  "observedBranchHeadBeforeReceipt": "45bd7fd4c241c71d487ffcb4f4cf2aa2f066681a",
+  "policy": {
+    "defaultActivationMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+    "repositoryRuntimeSecretRequiredForInteractive": false,
+    "unattendedRuntimeSecretRequired": true,
+    "monthlyAllInTargetUsd": 30,
+    "protectedCrownEscrowUsd": 15,
+    "maxIntentionalDelta": 0,
+    "pairedTaskRegressionAllowed": 0,
+    "automaticSpendAuthority": false,
+    "budgetPressure": "QUEUE_DEFER_BATCH_WAIT_NEVER_DOWNGRADE"
+  },
+  "hostileBehaviorObserved": {
+    "typingMindConnectedWithoutRepoSecret": "READY_FOR_CONTROLLED_BURN_IN",
+    "stale20Budget": "BLOCKED",
+    "crownEscrowBelow15": "BLOCKED",
+    "nonzeroQualityDelta": "BLOCKED",
+    "nonzeroPairedRegressionTolerance": "BLOCKED",
+    "automaticSpendAuthorityTrue": "BLOCKED",
+    "unattendedWithoutProtectedRuntimeKey": "BLOCKED",
+    "unattendedWithProtectedRuntimeKey": "READY_FOR_CONTROLLED_BURN_IN"
+  },
+  "reconciledTruth": [
+    "Interactive TypingMind use does not require duplicating the owner-held OpenRouter secret into UberBond runtime.",
+    "The old generic cloud resource default of USD 20 is superseded for V5 by the founder-approved USD 30 all-in target.",
+    "At least USD 15 of the V5 budget is protected Crown fallback escrow.",
+    "Readiness never grants spend, production promotion, or quality-downgrade authority."
+  ],
+  "files": [
+    {
+      "path": "src/frontier-vm-activation-readiness.mjs",
+      "blobSha": "624b495813ba06a14e6e2ae1bd60b3dd83fb15a0",
+      "size": 4113
+    },
+    {
+      "path": "tests/frontier-vm-activation-readiness.test.mjs",
+      "blobSha": "2298361513bf30e8ec2203d0bc1d782e7de2fe92",
+      "size": 5201
+    },
+    {
+      "path": "scripts/frontier-vm-v5-doctor.mjs",
+      "blobSha": "270564908da6515b8ec7b5604dbb47117a3c29af",
+      "size": 4219
+    },
+    {
+      "path": "scripts/ubermind-cloud-market-doctor.mjs",
+      "blobSha": "aadad8700c1ce601c7e10e967ef301e4efedf7b3",
+      "size": 4189
+    },
+    {
+      "path": "scripts/open-router-vault-doctor.mjs",
+      "blobSha": "f43c550ec033edb749f5db6c178f81e95a7dce87",
+      "size": 10804
+    },
+    {
+      "path": "config/frontier-vm-v5-longitudinal-campaign.json",
+      "blobSha": "c071db728251774d40d1fa097609ab7e403ff5aa",
+      "size": 3700
+    },
+    {
+      "path": "config/ubermind-cloud-cognition-resources.json",
+      "blobSha": "71125ba45d8ea46f727cafa0a50f49e0faabe731",
+      "size": 4567
+    },
+    {
+      "path": "config/absolute-frontier-quality-lock.json",
+      "blobSha": "1dff28eead95aea5110859cb3e328de1f70e379b",
+      "size": 4699
+    },
+    {
+      "path": ".env.example",
+      "blobSha": "84d95743590334fa4dcdaa077fc30dcfc6576c49",
+      "size": 6011
+    },
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "16db7b64e2dcfaf1917ba4ee2a6ffaf6b597f557",
+      "size": 7681
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "a27b44bbf6ad86a48b29d5d131a0fbfb086cdefa",
+      "size": 11738
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "f19a60296db81d8ddf7b09741b3129f77ba6b943",
+      "size": 8042
+    },
+    {
+      "path": "package.json",
+      "blobSha": "190d2ab34aa361af0bd9ccbc562a47feba7a42b7",
+      "size": 24427
+    }
+  ],
+  "externalEffects": {
+    "providerInferenceCalls": 0,
+    "spendUsd": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialWrites": 0
+  },
+  "externalGatesStillOpen": [
+    "TypingMind/OpenRouter connection evidence reference",
+    "live current task-class Crown snapshot",
+    "fresh task source/custodian",
+    "real provider billing receipt after owner-authorized live call",
+    "paired blind or independent quality evaluation"
+  ],
+  "truthBoundary": [
+    "This receipt proves source reconciliation and the recorded source-level hostile readiness behaviors.",
+    "It does not prove TypingMind is connected, any API key exists, the current Crown has been identified, a live inference succeeded, USD 30 achieves frontier equivalence, or the architecture is globally novel."
+  ],
+  "selfHashExcludedReason": "The receipt cannot contain its own final Git blob SHA without recursion; the vault manifest indexes the finalized receipt after creation."
+}

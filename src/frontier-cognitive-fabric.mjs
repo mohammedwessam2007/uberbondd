@@ -251,13 +251,15 @@ function renormalizeBenchmark(raw, taskClass, now, maxAgeMs) {
     ...benchmark,
     observedRevision,
     evidenceRef,
-    absoluteFrontierBaseline: raw?.absoluteFrontierBaseline === true,
     frontierBaselineArchitectureId: text(raw?.frontierBaselineArchitectureId, 240)?.toLowerCase() ?? null,
     frontierCandidateArchitectureId: text(raw?.frontierCandidateArchitectureId, 240)?.toLowerCase() ?? null,
     pairedZeroLossCertified: raw?.pairedZeroLossCertified === true,
     pairedZeroLossCertificationDigest: text(raw?.pairedZeroLossCertificationDigest, 128)?.toLowerCase() ?? null,
     sealedTrialReceiptDigest: text(raw?.sealedTrialReceiptDigest, 128)?.toLowerCase() ?? null,
     baselineSealedTrialReceiptDigest: text(raw?.baselineSealedTrialReceiptDigest, 128)?.toLowerCase() ?? null,
+    sealedSuiteVersion: text(raw?.sealedSuiteVersion, 120) ?? null,
+    sealedCorpusDigest: text(raw?.sealedCorpusDigest, 128)?.toLowerCase() ?? null,
+    sealedManifestDigest: text(raw?.sealedManifestDigest, 128)?.toLowerCase() ?? null,
     liveRoutingAuthority: text(raw?.liveRoutingAuthority, 160)?.toUpperCase() ?? null
   };
 }
@@ -321,39 +323,54 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
   if (task.reasoningTier === 'FRONTIER_MAX' || task.reasoningTier === 'COUNCIL_MAX') {
     const evidenced = enriched.filter(item => item.benchmark && item.benchmark.evidenceConfidence >= minimumEvidenceConfidence);
     if (!evidenced.length) return failure(['frontier-tier-requires-fresh-quality-evidence'], 'CAPACITY_BLOCKED');
-
-    const baselines = evidenced.filter(item =>
-      item.benchmark.absoluteFrontierBaseline === true
-      && item.benchmark.liveRoutingAuthority === 'CANONICAL_ABSOLUTE_FRONTIER_BASELINE'
-    );
-    if (baselines.length !== 1) {
-      return failure(['exactly-one-canonical-frontier-baseline-benchmark-required'], 'CAPACITY_BLOCKED', {
-        observedBaselineCount: baselines.length
+    if (evidenced.length !== enriched.length) {
+      return failure(['complete-frontier-universe-quality-evidence-required'], 'CAPACITY_BLOCKED', {
+        eligibleProfileIds: enriched.map(item => item.profile.id).sort(),
+        evidencedProfileIds: evidenced.map(item => item.profile.id).sort()
       });
     }
-    const baseline = baselines[0];
-    const baselineArchitectureId = baseline.benchmark.frontierBaselineArchitectureId;
+    if (evidenced.some(item => item.benchmark.liveRoutingAuthority !== 'CANONICAL_SEALED_SINGLE_PROFILE_BENCHMARK'
+      && item.benchmark.liveRoutingAuthority !== 'CANONICAL_PAIRED_ZERO_LOSS_AGAINST_EXACT_BASELINE')) {
+      return failure(['canonical-sealed-frontier-benchmark-authority-required'], 'CAPACITY_BLOCKED');
+    }
+
+    const suiteKeys = new Set(evidenced.map(item =>
+      `${item.benchmark.sealedSuiteVersion}::${item.benchmark.sealedCorpusDigest}::${item.benchmark.sealedManifestDigest}`
+    ));
+    if (suiteKeys.size !== 1 || [...suiteKeys][0].includes('null')) {
+      return failure(['same-sealed-evaluation-set-required-for-frontier-crown'], 'CAPACITY_BLOCKED');
+    }
+
+    const crownOrder = [...evidenced].sort((a, b) =>
+      b.benchmark.quality - a.benchmark.quality ||
+      b.benchmark.economicImpact - a.benchmark.economicImpact ||
+      b.benchmark.reliability - a.benchmark.reliability ||
+      b.benchmark.evidenceConfidence - a.benchmark.evidenceConfidence ||
+      a.profile.id.localeCompare(b.profile.id)
+    );
+    const baseline = crownOrder[0];
+    const baselineArchitectureId = baseline.benchmark.frontierCandidateArchitectureId;
     const baselineReceiptDigest = baseline.benchmark.sealedTrialReceiptDigest;
     if (!baselineArchitectureId || !baselineReceiptDigest) {
-      return failure(['frontier-baseline-benchmark-binding-incomplete'], 'CAPACITY_BLOCKED');
+      return failure(['frontier-crown-benchmark-binding-incomplete'], 'CAPACITY_BLOCKED');
     }
 
     const proofEligible = evidenced.filter(item => {
       if (item === baseline) return true;
-      return item.benchmark.pairedZeroLossCertified === true
+      const sameCrownMetrics =
+        item.benchmark.quality === baseline.benchmark.quality
+        && item.benchmark.economicImpact === baseline.benchmark.economicImpact
+        && item.benchmark.reliability === baseline.benchmark.reliability
+        && item.benchmark.evidenceConfidence === baseline.benchmark.evidenceConfidence;
+      return sameCrownMetrics
+        && item.benchmark.pairedZeroLossCertified === true
         && item.benchmark.liveRoutingAuthority === 'CANONICAL_PAIRED_ZERO_LOSS_AGAINST_EXACT_BASELINE'
         && Boolean(item.benchmark.pairedZeroLossCertificationDigest)
         && item.benchmark.frontierBaselineArchitectureId === baselineArchitectureId
         && item.benchmark.baselineSealedTrialReceiptDigest === baselineReceiptDigest;
     });
 
-    const bestQuality = Math.max(...proofEligible.map(item => item.benchmark.quality));
-    const qualityExact = proofEligible.filter(item => item.benchmark.quality === bestQuality);
-    const bestReliability = Math.max(...qualityExact.map(item => item.benchmark.reliability));
-    const reliabilityExact = qualityExact.filter(item => item.benchmark.reliability === bestReliability);
-    const bestEvidenceConfidence = Math.max(...reliabilityExact.map(item => item.benchmark.evidenceConfidence));
-    const frontier = reliabilityExact.filter(item => item.benchmark.evidenceConfidence === bestEvidenceConfidence);
-    frontier.sort((a, b) =>
+    const frontier = [...proofEligible].sort((a, b) =>
       b.benchmark.costEfficiency - a.benchmark.costEfficiency ||
       b.benchmark.latencyScore - a.benchmark.latencyScore ||
       a.profile.id.localeCompare(b.profile.id)
@@ -362,12 +379,18 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
       ok: true,
       status: 'FRONTIER_CANDIDATES_RANKED',
       ranked: frontier,
-      bestQuality,
-      qualityFloor: bestQuality,
-      bestReliability,
-      bestEvidenceConfidence,
+      bestQuality: baseline.benchmark.quality,
+      qualityFloor: baseline.benchmark.quality,
+      bestProcessScore: baseline.benchmark.economicImpact,
+      bestReliability: baseline.benchmark.reliability,
+      bestEvidenceConfidence: baseline.benchmark.evidenceConfidence,
       frontierBaselineArchitectureId: baselineArchitectureId,
       frontierBaselineReceiptDigest: baselineReceiptDigest,
+      sealedEvaluationSet: {
+        suiteVersion: baseline.benchmark.sealedSuiteVersion,
+        corpusDigest: baseline.benchmark.sealedCorpusDigest,
+        manifestDigest: baseline.benchmark.sealedManifestDigest
+      },
       zeroLossAuthorizedCandidateCount: proofEligible.length,
       excludedUncertifiedCandidateCount: evidenced.length - proofEligible.length,
       absoluteQualityInvariant: qualityInvariantAttestation()

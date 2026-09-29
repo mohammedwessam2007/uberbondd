@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "uberbond.open-router.vault-manifest.v3",
+  "status": "V2_PLUS_V3_CONTENT_INDEXED_PRE_MERGE",
+  "createdAt": "2026-09-29",
+  "branch": "docs/open-router-cognitive-arbitrage-vault-rebased-20260929",
+  "baseCurrentMainSha": "77b0c3fa87f8916a60d26612046608cd900425a0",
+  "observedBranchHeadBeforeManifest": "ecb7f2b602f605e6aca855331ff5572227c7dba7",
+  "folder": "open router/",
+  "contentFilesBeforeManifest": 27,
+  "expectedFinalFolderFileCount": 29,
+  "files": [
+    {
+      "path": "open router/00_FINAL_SYSTEM.md",
+      "blobSha": "b7b2b1810659910c491c274c5ff1a4a2b696414d",
+      "size": 6284
+    },
+    {
+      "path": "open router/01_PRACTICAL_MODEL_SEQUENCE.md",
+      "blobSha": "ffecfc433dcbcb6cec1a1b39ccc6fbf3ac5f5891",
+      "size": 3218
+    },
+    {
+      "path": "open router/02_JEV_HYPERREFLEX.md",
+      "blobSha": "adc0d1839455e90ac1b8b4c6845891a314f24ca5",
+      "size": 3342
+    },
+    {
+      "path": "open router/03_30_DOLLAR_ECONOMICS.md",
+      "blobSha": "05a270c9ee0bb93e4dc40172ce85dfbb085463fc",
+      "size": 3078
+    },
+    {
+      "path": "open router/04_TYPINGMIND_IPAD_SETUP.md",
+      "blobSha": "4c9ab34e9f904e229e351fff5fb5208038b41d94",
+      "size": 3047
+    },
+    {
+      "path": "open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md",
+      "blobSha": "732150ef1011e173f839a5cf3559b08a27406348",
+      "size": 2070
+    },
+    {
+      "path": "open router/06_24_7_NIGHT_SHIFT.md",
+      "blobSha": "6d85c547a7a2b85d7ed48260c6eede287efd44cb",
+      "size": 2377
+    },
+    {
+      "path": "open router/07_1000X_COMPRESSION_LAB.md",
+      "blobSha": "58a407a0d57a59f8c06f54f4a5ecae299fef08be",
+      "size": 3187
+    },
+    {
+      "path": "open router/08_PROMPTS.md",
+      "blobSha": "7644a0a2ad2772e82e0ca582d7a40e2189c6c568",
+      "size": 3256
+    },
+    {
+      "path": "open router/09_SCOREBOARD_SCHEMA.json",
+      "blobSha": "bcb1ed72a545568fa4cb311908296b131394c42b",
+      "size": 2060
+    },
+    {
+      "path": "open router/10_ACTIVATION_CHECKLIST.md",
+      "blobSha": "163e906f41a5d57d1ce7c8a1e320f02528e4eff6",
+      "size": 2744
+    },
+    {
+      "path": "open router/11_MODEL_MARKET_REFRESH.md",
+      "blobSha": "7fdc13ec9971d0e1e4a514bd81449a5d5efa08a9",
+      "size": 2121
+    },
+    {
+      "path": "open router/12_REFERENCE_VALUE_LEDGER.md",
+      "blobSha": "f25eb2ff564764df6fba1279733b9dab4d18b161",
+      "size": 2774
+    },
+    {
+      "path": "open router/ACTIVATION_CHECKLIST.md",
+      "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
+      "size": 5508
+    },
+    {
+      "path": "open router/ARCHITECTURE.md",
+      "blobSha": "8399f0e5b96c920bae66ca47169871557d29a0ff",
+      "size": 8289
+    },
+    {
+      "path": "open router/CANON_SNAPSHOT_2026-09-29.json",
+      "blobSha": "3bd6863eddfd0a44192d15dfb3dfd376dc0d435a",
+      "size": 18784
+    },
+    {
+      "path": "open router/ECONOMICS_AND_SCOREBOARD.md",
+      "blobSha": "b644fff6eb2fa7ae91e5f9a4271588f57c278caa",
+      "size": 6290
+    },
+    {
+      "path": "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+      "blobSha": "f4e18a1be9080be83a3381642643f9b68322efc5",
+      "size": 5203
+    },
+    {
+      "path": "open router/JEV_HYPERREFLEX.md",
+      "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
+      "size": 6929
+    },
+    {
+      "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+      "blobSha": "9a3de7889c3007e90653f5efc6b56262e51be39d",
+      "size": 5227
+    },
+    {
+      "path": "open router/OPERATING_SPEC.json",
+      "blobSha": "b9793332f7181e6938ed2a9e9e037b266dc24c07",
+      "size": 3837
+    },
+    {
+      "path": "open router/README.md",
+      "blobSha": "cfef505a1711365ace01e86b596765990be5665a",
+      "size": 6893
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
+      "blobSha": "090ef7e1ae668085d27ca01e0068c1942ebb0120",
+      "size": 3019
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md",
+      "blobSha": "f9e15ff766332af25e44962a37db0d358285925f",
+      "size": 21100
+    },
+    {
+      "path": "open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md",
+      "blobSha": "4e12fe9afa660c13d8461afe0b5129358e5f7fa1",
+      "size": 8616
+    },
+    {
+      "path": "open router/TYPINGMIND_AND_24_7.md",
+      "blobSha": "e79274988487a87703f2541176f8a4e2df3bfc53",
+      "size": 4216
+    },
+    {
+      "path": "open router/TYPINGMIND_PROMPT_PACK.md",
+      "blobSha": "2500d792fe3ece0d57410873cb0675bd88d0da03",
+      "size": 7227
+    }
+  ],
+  "layers": {
+    "v2": "Existing main lineage: Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Task-Archetype Compiler, Cognitive CDN, Evidence Multicast, Champion-Challenger Shadow Market, Swarm Stop-Loss, Second-Crown Insurance, RCE accounting.",
+    "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market."
+  },
+  "authorityOrder": [
+    "LIVE_EXTERNAL_EVIDENCE",
+    "CURRENT_MAIN_SOURCE_AND_RUNTIME",
+    "CURRENT_CANON_AND_HANDOFF",
+    "OPEN_ROUTER_V2_V3_VAULT",
+    "RECOVERY_SNAPSHOTS",
+    "CHAT_RECOLLECTION"
+  ],
+  "canonicalPointers": [
+    "open router/README.md",
+    "open router/OPEN_ROUTER_UBERMIND_CANON.json",
+    "open router/00_FINAL_SYSTEM.md",
+    "open router/07_1000X_COMPRESSION_LAB.md",
+    "open router/ARCHITECTURE.md",
+    "open router/JEV_HYPERREFLEX.md",
+    "open router/ECONOMICS_AND_SCOREBOARD.md",
+    "open router/TYPINGMIND_AND_24_7.md",
+    "open router/ACTIVATION_CHECKLIST.md",
+    "open router/TYPINGMIND_PROMPT_PACK.md",
+    "open router/EMPIRICAL_PROOF_PROTOCOL.md",
+    "open router/OPERATING_SPEC.json"
+  ],
+  "sourceTruthPointers": [
+    "config/absolute-frontier-quality-lock.json",
+    "src/noetic-autocompiler.mjs",
+    "src/system-one-decision-adapter.mjs",
+    "src/frontier-quality-market-compiler.mjs",
+    "src/openrouter-agent-executor.mjs",
+    "src/openrouter-market-catalog.mjs",
+    "src/canonical-zero-loss-certificate.mjs",
+    "src/apex-sealed-tournament.mjs",
+    "docs/CURRENT_HANDOFF.json",
+    "docs/UBERBOND_MASTER_MEMORY.md"
+  ],
+  "operatorCommand": "npm run open-router:vault:doctor",
+  "noAmputation": true,
+  "truthBoundary": "The vault preserves doctrine, architecture, lineage, and proof requirements. It does not prove live $30 frontier equivalence, current Crown identity, thousands-of-dollars reference-equivalent compression, or global superiority.",
+  "recovery": "Refresh main, run normal UberBond startup, then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, and MANIFEST.json. Continue from activation and empirical proof."
+}

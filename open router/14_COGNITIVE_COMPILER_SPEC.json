@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "uberbond.frontier-intelligence-vm.v1",
+  "status": "ARCHITECTURE_CANDIDATE_NOT_EMPIRICALLY_PROVEN",
+  "objective": {
+    "formal": "minimize all_in_cognition_cost subject to final_quality >= strongest_verified_market_frontier(task_class,time)",
+    "qualityFirst": true,
+    "intentionalQualityDelta": 0,
+    "marketFrontierIsMoving": true
+  },
+  "abstraction": {
+    "logicalProduct": "FRONTIER(task,state,quality_contract)",
+    "physicalBackends": [
+      "DETERMINISTIC_CODE",
+      "EXACT_RETRIEVAL",
+      "CONTENT_ADDRESSED_REUSE",
+      "CERTIFIED_JEV",
+      "CHEAP_HETEROGENEOUS_SWARM",
+      "SPECIALIST_TOOL",
+      "TASK_CLASS_CROWN",
+      "INDEPENDENT_SECOND_CROWN",
+      "REALITY_SETTLEMENT"
+    ],
+    "principle": "MODELS_ARE_REPLACEABLE_PROCESSORS_COGNITION_IS_THE_PROGRAM"
+  },
+  "qualityTypes": [
+    "Q_EXACT",
+    "Q_CERTIFIED_BOUNDED",
+    "Q_FRONTIER",
+    "Q_MULTI_FRONTIER",
+    "Q_REALITY_SETTLED",
+    "Q_UNKNOWN"
+  ],
+  "substitutionLaw": "BACKEND_CERTIFIED_AUTHORITY_MUST_SATISFY_NODE_REQUIRED_QUALITY_TYPE",
+  "cognitiveIR": {
+    "requiredFields": [
+      "node_id",
+      "semantic_identity",
+      "task_archetype",
+      "operation",
+      "inputs",
+      "dependencies",
+      "source_state_digest",
+      "evidence_refs",
+      "required_quality_type",
+      "current_authority",
+      "uncertainty",
+      "stakes",
+      "reversibility",
+      "applicability_domain",
+      "invalidators",
+      "freshness",
+      "selected_backend",
+      "observed_outcomes",
+      "drift_state"
+    ],
+    "modelIndependent": true,
+    "incremental": true,
+    "provenanceRequired": true
+  },
+  "instructionSet": [
+    "EXACT",
+    "RETRIEVE",
+    "DIFF",
+    "HASH",
+    "VALIDATE",
+    "NOUL",
+    "CHOICE",
+    "SCORE",
+    "EXPLORE",
+    "FALSIFY",
+    "COUNTEREXAMPLE",
+    "DIVERSIFY",
+    "EVIDENCE",
+    "CROWN",
+    "CROWN_PATCH",
+    "MULTICROWN",
+    "LINK",
+    "VERIFY",
+    "SETTLE",
+    "CACHE",
+    "INVALIDATE",
+    "DECOMPILE"
+  ],
+  "compilerPasses": [
+    "CONSTANT_FOLDING",
+    "COMMON_SEMANTIC_SUBEXPRESSION_ELIMINATION",
+    "DEAD_BRANCH_ELIMINATION",
+    "LOOP_INVARIANT_COGNITION_HOISTING",
+    "PARTIAL_EVALUATION",
+    "COGNITIVE_VECTORIZATION",
+    "EVIDENCE_MULTICAST",
+    "SEMANTIC_DEAD_OUTPUT_ELIMINATION",
+    "QUALITY_ESCROWED_SPECULATION",
+    "INCREMENTAL_RECOMPILATION",
+    "CONTEXT_LOCALITY_SCHEDULING",
+    "FRONTIER_RESIDUALIZATION"
+  ],
+  "scheduler": {
+    "objective": "MAXIMIZE_VERIFIED_INFORMATION_VALUE_PER_DOLLAR_AND_FOUNDER_MINUTE",
+    "signals": [
+      "urgency",
+      "quality_type",
+      "context_affinity",
+      "evidence_affinity",
+      "batch_compatibility",
+      "cache_affinity",
+      "expected_future_reuse",
+      "error_correlation",
+      "expected_frontier_tokens_avoided"
+    ],
+    "qualityMayBeDowngradedForBudget": false,
+    "allowedPressureRelief": [
+      "QUEUE",
+      "DEFER",
+      "BATCH",
+      "COALESCE",
+      "REUSE",
+      "WAIT_FOR_SAME_MODEL_CHEAPER_ROUTE"
+    ]
+  },
+  "qualityEscrow": {
+    "rule": "RESERVE_REQUIRED_FALLBACK_BEFORE_SPECULATIVE_COMPRESSION",
+    "cheapPreworkStopLoss": true,
+    "epistemicFailureMode": "ESCALATE",
+    "budgetFailureMode": "QUEUE"
+  },
+  "profiling": {
+    "crownThoughtCapitalLedger": true,
+    "hotSemanticCallSites": true,
+    "coldNovelPathsRemainCrownNative": true,
+    "counterfactualRouterSampling": true,
+    "routingRegretLedger": true,
+    "pairwiseErrorCorrelation": true
+  },
+  "superoptimizer": {
+    "enabledAsResearchProgram": true,
+    "searchUnit": "WHOLE_COGNITION_PROGRAM",
+    "mutations": [
+      "REORDER_RETRIEVAL",
+      "CHANGE_WORKER_PORTFOLIO",
+      "CHANGE_ADAPTIVE_N",
+      "CHANGE_JEV_QUESTIONS",
+      "SPLIT_OR_MERGE_IR_NODES",
+      "MOVE_TO_CODE",
+      "SHRINK_CROWN_DELTA",
+      "CHANGE_OUTPUT_GRANULARITY",
+      "ADD_OR_REMOVE_SECOND_CROWN",
+      "CHANGE_CACHE_LOCALITY_POLICY",
+      "CHANGE_BATCH_TIMING",
+      "CHANGE_EVIDENCE_ORDER"
+    ],
+    "promotionRule": "NO_REQUIRED_QUALITY_REGRESSION_ON_SEALED_TASKS_AND_LOWER_ALL_IN_COST"
+  },
+  "metamorphicTests": [
+    "IRRELEVANT_CONTEXT_REORDER",
+    "ENTITY_RENAME",
+    "FORMAT_PERTURBATION",
+    "DISTRACTOR_INSERTION",
+    "DUPLICATE_EVIDENCE_REMOVAL",
+    "PARAPHRASE",
+    "NONMATERIAL_DETAIL_CHANGE",
+    "EQUIVALENT_REPRESENTATION_SPLIT_MERGE"
+  ],
+  "proofPacket": [
+    "RESULT",
+    "CLAIMS",
+    "EVIDENCE",
+    "PROVENANCE",
+    "QUALITY_TYPE",
+    "BACKEND_IDENTITIES",
+    "CROWN_REVISION",
+    "TESTS",
+    "COUNTEREXAMPLES",
+    "UNCERTAINTY",
+    "APPLICABILITY_DOMAIN",
+    "INVALIDATORS",
+    "COST_RECEIPT",
+    "DRIFT_EXPIRY"
+  ],
+  "crystallization": {
+    "path": [
+      "CROWN",
+      "SEMANTIC_POLICY",
+      "JEV_SHADOW",
+      "CERTIFICATION",
+      "JEV_REFLEX",
+      "DETERMINISTIC_CANDIDATE",
+      "CODE"
+    ],
+    "decompileOn": [
+      "NOVEL_STATE",
+      "DRIFT",
+      "FAILED_REPLICATION",
+      "CROWN_SUCCESSION_MISMATCH",
+      "SOURCE_STATE_INVALIDATION"
+    ]
+  },
+  "crownSuccession": {
+    "permanentVendorLoyalty": false,
+    "action": "RECOMPILE_AGAINST_STRONGER_LOGICAL_QUALITY_BASELINE",
+    "highValueCircuitsReturnToShadow": true
+  },
+  "empiricalGate": {
+    "noGlobalNoveltyClaimWithoutPriorArtReview": true,
+    "noFrontierEquivalenceClaimWithoutPairedEvidence": true,
+    "noSavingsClaimWithoutRealReceipts": true,
+    "realityHasFinalAuthority": true
+  },
+  "endState": "FRONTIER_INTELLIGENCE_AS_A_VIRTUALIZED_CONTINUOUSLY_RECOMPILED_SERVICE"
+}

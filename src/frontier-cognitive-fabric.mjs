@@ -10,7 +10,7 @@ import { ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDE
 export const FRONTIER_COGNITIVE_FABRIC_VERSION = 'uberbond.frontier-cognitive-fabric-1.3.1';
 export const FRONTIER_COGNITIVE_PLAN_SCHEMA = 'uberbond.frontier-cognitive-plan.v1';
 export const FRONTIER_COGNITIVE_RECEIPT_SCHEMA = 'uberbond.frontier-cognitive-receipt.v1';
-export const FRONTIER_REASONING_TIERS = Object.freeze(['FAST', 'STANDARD', 'DEEP', 'FRONTIER_MAX', 'COUNCIL_MAX']);
+export const FRONTIER_REASONING_TIERS = Object.freeze(['FRONTIER_MAX', 'COUNCIL_MAX']);
 
 const SAFE_DATA_CLASSES = new Set(['PUBLIC', 'INTERNAL_NON_SECRET', 'SOURCE_CODE']);
 const TRANSPORT_PROVIDERS = new Set(['openai', 'anthropic', 'ai-gateway', 'open-model', 'claude-code-sandbox']);
@@ -332,17 +332,7 @@ function rankEligible({ eligible, latest, task, minimumEvidenceConfidence, front
     });
   }
 
-  const candidates = enriched.map(item => item.candidate);
-  const weights = task.reasoningTier === 'FAST'
-    ? { quality: 0.25, reliability: 0.25, latency: 0.25, economicImpact: 0.1, costEfficiency: 0.15 }
-    : task.reasoningTier === 'DEEP'
-      ? { quality: 0.5, reliability: 0.3, latency: 0.05, economicImpact: 0.1, costEfficiency: 0.05 }
-      : undefined;
-  const routed = routeModel({ taskClass: task.taskClass, candidates, benchmarks: [...latest.values()], minimumEvidenceConfidence, explorationRate: 0, random, ...(weights ? { weights } : {}) });
-  if (!routed.ok) return failure(routed.reasonCodes, 'CAPACITY_BLOCKED');
-  const selected = enriched.find(item => item.candidate.candidateId === routed.selected.candidateId);
-  const rest = enriched.filter(item => item !== selected).sort((a, b) => (b.benchmark?.quality ?? 0) - (a.benchmark?.quality ?? 0));
-  return envelope({ ok: true, status: 'CANDIDATES_RANKED', ranked: [selected, ...rest].filter(Boolean) });
+  return failure(['frontier-fabric-requires-frontier-max-or-council-max'], 'FRONTIER_TASK_INVALID');
 }
 
 function compileContext(task, artifacts) {

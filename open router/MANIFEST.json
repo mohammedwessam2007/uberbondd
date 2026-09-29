@@ -1,12 +1,12 @@
 {
-  "schemaVersion": "uberbond.open-router.vault-manifest.v3",
-  "status": "V2_PLUS_V3_CONTENT_COMPLETE",
+  "schemaVersion": "uberbond.open-router.vault-manifest.v5",
+  "status": "V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_CONTENT_COMPLETE",
   "createdAt": "2026-09-29",
-  "branch": "docs/open-router-cognitive-arbitrage-vault-rebased-20260929",
-  "baseCurrentMainSha": "77b0c3fa87f8916a60d26612046608cd900425a0",
-  "observedBranchHeadBeforeManifest": "ecb7f2b602f605e6aca855331ff5572227c7dba7",
+  "branch": "open-router/frontier-intelligence-virtualization-20260929",
+  "baseCurrentMainSha": "6cb632ca2cc692488541e850c279c7e74bf3bc1b",
+  "observedBranchHeadBeforeManifest": "cbf5bad5b939b464b957a077c854edc7841fb68e",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 30,
+  "expectedFinalFolderFileCount": 40,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -74,6 +74,36 @@
       "size": 2774
     },
     {
+      "path": "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+      "blobSha": "615bbc36ee6bce7c33421d1c25659bb59ff91bc7",
+      "size": 16349
+    },
+    {
+      "path": "open router/14_COGNITIVE_COMPILER_SPEC.json",
+      "blobSha": "57315db8758f8c0e167cef126e8e6577d1fc2f3a",
+      "size": 5477
+    },
+    {
+      "path": "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+      "blobSha": "fcb8f4701e5b74f5e8ccc05fb8cf09ca9682262a",
+      "size": 13115
+    },
+    {
+      "path": "open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md",
+      "blobSha": "3bf59416659369355b13d22e55f3aca45237c11b",
+      "size": 9656
+    },
+    {
+      "path": "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
+      "blobSha": "8422f6cdb1906dc210f29ececff8bc8296a6429c",
+      "size": 10299
+    },
+    {
+      "path": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+      "blobSha": "5e76d7f9f8546531c3c1ebc0248a5c74d785589e",
+      "size": 6012
+    },
+    {
       "path": "open router/ACTIVATION_CHECKLIST.md",
       "blobSha": "d219565cc12740fa8c49653b67552d532eb48e1e",
       "size": 5508
@@ -104,24 +134,44 @@
       "size": 5203
     },
     {
+      "path": "open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json",
+      "blobSha": "a741825634f2255433b0e966e57bb5f675a13ed5",
+      "size": 7677
+    },
+    {
+      "path": "open router/FINAL_CHAT_DELTA_V4_2026-09-29.md",
+      "blobSha": "d96502f5044692f4c495eed19337bd6efa2af55c",
+      "size": 7994
+    },
+    {
+      "path": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
+      "blobSha": "0520f159f89d844867f0992b624839ee2912318a",
+      "size": 8151
+    },
+    {
       "path": "open router/JEV_HYPERREFLEX.md",
       "blobSha": "51edb18e1614dea29eece7bf82da96d7f3c60e39",
       "size": 6929
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "46d27d87f085ac1759e8c39fe2d4ac5a39e2c667",
-      "size": 5729
+      "blobSha": "dccb8541895f605d443b0982bfb1dbc177a2c315",
+      "size": 10030
     },
     {
       "path": "open router/OPERATING_SPEC.json",
-      "blobSha": "b9793332f7181e6938ed2a9e9e037b266dc24c07",
-      "size": 3837
+      "blobSha": "6ffa71d159532b0be14800fadacce041f5be7400",
+      "size": 7408
     },
     {
       "path": "open router/README.md",
-      "blobSha": "9197c6c192e69287dad499fb8f8b59f1f3383b96",
-      "size": 7723
+      "blobSha": "56803a947e2e99c3a610c297af87ee22ad9fc2f5",
+      "size": 12777
+    },
+    {
+      "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
+      "blobSha": "def1dc1f70154aace5eb63afe76eafc747a894a4",
+      "size": 7625
     },
     {
       "path": "open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json",
@@ -147,11 +197,18 @@
       "path": "open router/TYPINGMIND_PROMPT_PACK.md",
       "blobSha": "2500d792fe3ece0d57410873cb0675bd88d0da03",
       "size": 7227
+    },
+    {
+      "path": "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
+      "blobSha": "f8e93604f05fc5a2778d04c2e0cb90f9d5681728",
+      "size": 7443
     }
   ],
   "layers": {
     "v2": "Existing main lineage: Proof Burn-In, Certified Compression, Crown Escrow, Cognitive Compute Auction, Exact Cognitive Dedup, Frontier Thought Bonds, Task-Archetype Compiler, Cognitive CDN, Evidence Multicast, Champion-Challenger Shadow Market, Swarm Stop-Loss, Second-Crown Insurance, RCE accounting.",
-    "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market."
+    "v3": "Additive lineage: Cognitive Multicast, Crown-call coalescing, Common Semantic Subexpression Elimination, Decision-DAG recomputation, Crown Thought Capital, Negative Knowledge, Error Portfolio Optimizer, Value-of-Information Compute Auction, Shadow Router Tournament, Frontier Output Minimizer, Cross-task Crown Batching, Cognitive Futures Market.",
+    "v4": "Exact recovery addendum preserving founder intent, repository audit, and byte-level receipts over the pre-V5 vault.",
+    "v5": "Frontier Intelligence Virtualization: quality-typed Cognitive IR, Frontier VM, proof-carrying cognition, semantic page faults, profile-guided supercompilation, Crown-thought capital, quality escrow, canonical sealed burn-in, explicit falsification, longitudinal self-amortization measurement, zero-loss deoptimization, counterfactual routing, Crown-succession recompilation, and prior-art-aware novelty boundary."
   },
   "authorityOrder": [
     "LIVE_EXTERNAL_EVIDENCE",
@@ -173,7 +230,14 @@
     "open router/ACTIVATION_CHECKLIST.md",
     "open router/TYPINGMIND_PROMPT_PACK.md",
     "open router/EMPIRICAL_PROOF_PROTOCOL.md",
-    "open router/OPERATING_SPEC.json"
+    "open router/OPERATING_SPEC.json",
+    "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "open router/14_COGNITIVE_COMPILER_SPEC.json",
+    "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md",
+    "open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json",
+    "open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md",
+    "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -185,15 +249,28 @@
     "src/canonical-zero-loss-certificate.mjs",
     "src/apex-sealed-tournament.mjs",
     "docs/CURRENT_HANDOFF.json",
-    "docs/UBERBOND_MASTER_MEMORY.md"
+    "docs/UBERBOND_MASTER_MEMORY.md",
+    "src/frontier-intelligence-vm.mjs",
+    "src/frontier-vm-longitudinal-evaluator.mjs",
+    "config/frontier-vm-v5-longitudinal-campaign.json",
+    "scripts/frontier-vm-v5-doctor.mjs",
+    "src/cognitive-superoptimizer.mjs",
+    "src/frontier-vm-burnin.mjs"
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault preserves doctrine, architecture, lineage, and proof requirements. It does not prove live $30 frontier equivalence, current Crown identity, thousands-of-dollars reference-equivalent compression, or global superiority.",
-  "recovery": "Refresh main, run normal UberBond startup, then read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json. Continue from activation and empirical proof.",
+  "truthBoundary": "V5 is durably preserved with executable quality typing, hot-path profiling, semantic page faults, canonical sealed burn-in, longitudinal regression accounting, prior-art discipline, and a frozen evidence campaign. Global novelty, market-best compression, $30 frontier equivalence, 1000x compression, and permanent zero-regression remain unproven until live evidence exists.",
+  "recovery": "Refresh main; run normal UberBond startup; read README, machine canon, V5 architecture/spec/supercompiler/novelty/prior-art/longitudinal files, MANIFEST and V5 receipt; run npm run open-router:vault:doctor and npm run frontier-vm:doctor; then continue from controlled live burn-in and empirical proof.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 28,
-  "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; FINAL_COMPLETION_RECEIPT hashes this manifest after finalization."
+  "indexedFilesExcludingSelf": 39,
+  "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
+  "testTruthPointers": [
+    "tests/frontier-intelligence-vm.test.mjs",
+    "tests/frontier-vm-longitudinal-evaluator.test.mjs",
+    "tests/cognitive-superoptimizer.test.mjs",
+    "tests/frontier-vm-burnin.test.mjs"
+  ],
+  "v5BaseFolderFileCount": 33
 }

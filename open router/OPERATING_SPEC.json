@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "uberbond.open-router.operating-spec.v1",
+  "schemaVersion": "uberbond.open-router.operating-spec.v2",
   "status": "FOUNDER_APPROVED_PRE_LIVE_EMPIRICAL_PROOF",
   "objective": {
     "formal": "min Cost(A) subject to Quality(A) >= strongest_verified_market_quality(taskClass)",
@@ -89,7 +89,21 @@
     "valueOfInformationComputeAuction": true,
     "frontierOutputMinimizer": true,
     "crossTaskCrownBatching": true,
-    "cognitiveFuturesMarket": true
+    "cognitiveFuturesMarket": true,
+    "frontierIntelligenceVirtualMachine": true,
+    "qualityTypedCognitiveIR": true,
+    "profileGuidedCognitiveCompilation": true,
+    "proofCarryingCognition": true,
+    "semanticPageFaults": true,
+    "zeroLossDeoptimization": true,
+    "counterfactualComputeMarket": true,
+    "frontierNoveltyLedger": true,
+    "cognitiveHotPathProfiler": true,
+    "semanticPageFaultEngine": true,
+    "frontierThoughtCapitalLedger": true,
+    "superoptimizerZeroLossGate": true,
+    "canonicalBurnInCompiler": true,
+    "longitudinalCompoundingEvaluator": true
   },
   "crystallization": {
     "path": [
@@ -118,7 +132,12 @@
     "VERIFIED_FRONTIER_QUALITY_USEFUL_WORK_PER_DOLLAR",
     "REFERENCE_COST_EQUIVALENT_DIVIDED_BY_ACTUAL_COST",
     "CROWN_CALLS_AVOIDED_BY_CERTIFIED_REFLEXES",
-    "FOUNDER_MINUTES"
+    "FOUNDER_MINUTES",
+    "FRONTIER_SEMANTIC_PAGE_FAULTS_PER_USEFUL_TASK",
+    "FRONTIER_DOLLAR_TO_REALIZED_REUSABLE_COGNITION",
+    "ROUTING_REGRET",
+    "DIRECT_FRONTIER_TOKEN_SHARE",
+    "HOT_PATHS_MIGRATED_CROWN_TO_JEV_TO_CODE"
   ],
   "truthBoundary": [
     "$30 frontier-equivalent 24/7 novel cognition is not yet proven",
@@ -128,6 +147,7 @@
     "unknown stays unknown"
   ],
   "nextFrontier": [
+    "ACTIVATE_FRONTIER_VM_SHADOW",
     "PLUG_IN",
     "COLLECT_LIVE_RECEIPTS",
     "PAIR_CROWN_VS_UBERMIND",
@@ -136,5 +156,80 @@
     "ACTIVATE_MULTICAST_AND_DECISION_DAG_REUSE",
     "MEASURE_COMPRESSION_FACTOR",
     "MUTATE_FROM_EVIDENCE"
-  ]
+  ],
+  "frontierVirtualMachine": {
+    "status": "IMPLEMENTED_ARCHITECTURE_AND_PURE_CORE_PRE_LIVE_PROOF",
+    "source": "src/frontier-intelligence-vm.mjs",
+    "architecture": "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "supercompiler": "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "logicalProduct": "FRONTIER(task,state,quality_contract)",
+    "qualityTypes": [
+      "Q_EXACT",
+      "Q_CERTIFIED_BOUNDED",
+      "Q_FRONTIER",
+      "Q_MULTI_FRONTIER",
+      "Q_REALITY_SETTLED",
+      "Q_UNKNOWN"
+    ],
+    "unknownPolicy": "SEMANTIC_PAGE_FAULT_TO_FRONTIER",
+    "typeLaw": "A backend may execute a node only when certified authority meets or exceeds the node required quality type.",
+    "compilationPasses": [
+      "CONSTANT_FOLDING",
+      "COMMON_SEMANTIC_SUBEXPRESSION_ELIMINATION",
+      "DEAD_BRANCH_ELIMINATION",
+      "LOOP_INVARIANT_COGNITION_HOISTING",
+      "PARTIAL_EVALUATION",
+      "COGNITIVE_VECTORIZATION",
+      "EVIDENCE_MULTICAST",
+      "SEMANTIC_DEAD_OUTPUT_ELIMINATION",
+      "INCREMENTAL_RECOMPILATION",
+      "CONTEXT_LOCALITY_SCHEDULING",
+      "FRONTIER_RESIDUALIZATION"
+    ],
+    "runtimeMechanisms": [
+      "SEMANTIC_PAGE_FAULTS",
+      "QUALITY_ESCROW",
+      "PROFILE_GUIDED_COGNITION",
+      "COGNITIVE_OUT_OF_ORDER_EXECUTION",
+      "SEMANTIC_PREFETCH",
+      "COGNITIVE_RAID",
+      "SEMANTIC_CHECKSUMS",
+      "COGNITIVE_FORK_MERGE",
+      "COUNTERFACTUAL_COMPUTE_MARKET",
+      "QUALITY_DEBT",
+      "ZERO_LOSS_DEOPTIMIZATION"
+    ],
+    "proofCarryingCognition": true,
+    "selfHostingCompiler": {
+      "allowedToPropose": true,
+      "selfGrantAuthority": false,
+      "promotion": "SEALED_PAIRED_ZERO_REGRESSION_ONLY"
+    },
+    "superoptimizer": {
+      "source": "src/cognitive-superoptimizer.mjs",
+      "tests": "tests/cognitive-superoptimizer.test.mjs",
+      "promotionAuthority": "NONE",
+      "hotPathProfiling": true,
+      "semanticPageFaults": true,
+      "frontierThoughtCapitalLedger": true,
+      "counterfactualRoutingRegret": true,
+      "canonicalZeroLossPromotionGate": true
+    },
+    "empiricalBurnIn": {
+      "source": "src/frontier-vm-burnin.mjs",
+      "tests": "tests/frontier-vm-burnin.test.mjs",
+      "directCrownBaselineRequired": true,
+      "identicalSealedTaskPairingRequired": true,
+      "canonicalZeroLossCertificateRequired": true,
+      "ablationsRequired": true,
+      "explicitKillConditions": true,
+      "promotionAuthority": "NONE"
+    },
+    "longitudinalEvidence": {
+      "source": "src/frontier-vm-longitudinal-evaluator.mjs",
+      "campaign": "config/frontier-vm-v5-longitudinal-campaign.json",
+      "protocol": "open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md",
+      "crownSuccessionPhaseRequiredForBroadClaim": true
+    }
+  }
 }

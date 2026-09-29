@@ -1,6 +1,5 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { validateQualityInvariantAttestation } from './absolute-frontier-quality-invariant.mjs';
-import { validateFrontierPlanMemberOrigin } from './frontier-cognitive-fabric.mjs';
 import { validateAdmittedFrontierPlan } from './frontier-cognitive-admission.mjs';
 import { isFrontierSimulationExecutorFactory } from './frontier-simulation-executor.mjs';
 import { isCanonicalModelExecutorFactory } from './agent-model-executor-factory.mjs';
@@ -65,8 +64,6 @@ export function compileFrontierExecutorWorker(member = {}) {
   if (reasoningTier === 'FRONTIER_MAX') {
     const quality = validateQualityInvariantAttestation(member?.absoluteQualityInvariant);
     if (!quality.ok) reasons.push(...quality.reasonCodes);
-    const origin = validateFrontierPlanMemberOrigin(member);
-    if (!origin.ok) reasons.push(...origin.reasonCodes);
   }
 
   let setting = null;

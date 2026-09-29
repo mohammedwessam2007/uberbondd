@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.postmerge.v1",
+  "observedAt": "2026-09-29T23:01:32.679196+00:00",
+  "verifiedMain": "2984412b6b9ebd0c4087328b8d0cb6815b4db487",
+  "implementationPr": 1053,
+  "reviewedPrHead": "13c09b5d9e4350bc59817ab7987befa9e7c6ba8b",
+  "treeIdentityVerified": true,
+  "verifiedTree": "684cb7970057e4711d480b3db390f499c9fb9072",
+  "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
+  "postMergeTests": {
+    "passed": 107,
+    "failed": 0
+  },
+  "syntaxFilesParsed": 2460,
+  "bootstrapReadOnlyDoctor": "PASS",
+  "vaultDoctor": "PASS",
+  "inferenceFreeRuntimeDoctor": {
+    "schemaVersion": "uberbond.infinite-opus.doctor.v1",
+    "observedAt": "2026-09-29T22:59:13.699Z",
+    "status": "BOUNDED_SOURCE_EXERCISED_LIVE_ACTIVATION_BLOCKED",
+    "idle": {
+      "businessEffectAuthority": "NONE",
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "schemaVersion": "uberbond.infinite-opus.task.v1",
+      "version": 0,
+      "budget": {
+        "state": "GREEN",
+        "todaySpentMicrousd": 0,
+        "monthSpentMicrousd": 0,
+        "reservedMicrousd": 0,
+        "availableMicrousd": 30000000,
+        "workerAvailableMicrousd": 15000000,
+        "crownEscrowRemainingMicrousd": 15000000,
+        "qualityAction": "QUEUE_NEVER_DOWNGRADE"
+      },
+      "metrics": {
+        "opusQualityFanout": null,
+        "frontierPageFaultRate": null,
+        "compiledCognitionShare": null,
+        "semanticMulticastFactor": null,
+        "verifiedSemanticDedupFactor": null,
+        "exactResponseCacheHits": 0,
+        "promptCacheReadShare": null,
+        "decisionFranchiseFanout": null,
+        "crownCalls": 0,
+        "crownCallsAvoided": null,
+        "noveltyTax": null,
+        "researchRecomputeFraction": null,
+        "crownCapitalROI": null,
+        "cognitiveHalfLife": null,
+        "usefulTasks": 0,
+        "byConstructionShare": null,
+        "frontierSemanticShare": null,
+        "actualAllInMicrousd": null,
+        "conservativeMatchedReferenceMicrousd": null,
+        "referenceCompressionFactor": null,
+        "truthBoundary": "RECEIPTS_ARE_INPUTS_REQUIRING_TRUSTED_PRODUCERS; NO_SAVINGS_CLAIM_FROM_EMPTY_OR_SYNTHETIC_LEDGER"
+      },
+      "taskCount": 0,
+      "pendingDebts": 0,
+      "capitalAssets": 0,
+      "paidConnected": false,
+      "providerCallsPerformedBySnapshot": 0
+    },
+    "market": {
+      "recordCount": 464,
+      "freshFixedPriceRecords": 458,
+      "expiresAt": "2026-09-30T21:50:45.351Z",
+      "ownerAccountCallability": "UNKNOWN"
+    },
+    "syntheticResidualCut": {
+      "rootConsumerCount": 4096,
+      "uniqueMissingLeaves": 1,
+      "elapsedMs": 58.18632600000001,
+      "planHash": "90e937c4897cda044b4c09a1d4fb460e6432e9bade5c0aa7d35c3b33e7184dba",
+      "changedDependencyUniqueLeaves": 2,
+      "adjudicationsPerformed": 0,
+      "realizedSavings": null,
+      "matchedQualityResult": null
+    },
+    "blockers": [
+      "OWNER_ACCOUNT_CONNECTION_NOT_OBSERVED",
+      "EXPLICIT_PAID_AUTHORIZATION_ABSENT",
+      "CURRENT_CROWN_AND_FRESH_HIDDEN_TASK_EVIDENCE_ABSENT",
+      "24_7_HOST_DEPLOYMENT_NOT_OBSERVED"
+    ],
+    "inferenceCallsPerformed": 0,
+    "externalEffectsPerformed": 0
+  },
+  "logs": {
+    "postMergeTests": {
+      "sha256": "246d6ca00e6d7b14aa7200dcdd3f241a9823117020f517db77841bc61ff21374",
+      "summary": [
+        "\u2714 every gate states what it is and what would release it (0.379842ms)",
+        "\u2714 a module may not sit in NEEDS_TRIAGE while also claiming a gate (0.773015ms)",
+        "\u2139 tests 107",
+        "\u2139 suites 0",
+        "\u2139 pass 107",
+        "\u2139 fail 0",
+        "\u2139 cancelled 0",
+        "\u2139 skipped 0",
+        "\u2139 todo 0",
+        "\u2139 duration_ms 340.311681"
+      ]
+    },
+    "syntax": {
+      "sha256": "6b925f16689629fd02b762ccb375f84b68d592aa49579c75ac57320ae1f413a6",
+      "summary": [
+        "npm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.",
+        "",
+        "> uberbond-revenue-engine@1.4.0 check:syntax",
+        "> node scripts/check-syntax.mjs",
+        "",
+        "check:syntax \u2014 2460 files parse."
+      ]
+    },
+    "bootstrap": {
+      "sha256": "d1437e5bfc4a12a359cd42c822512d4437073b8685a6c219f6949ac7405a08be",
+      "summary": [
+        "event horizon: EVENT_HORIZON_HEALTHY; champion=lead-path-evidence-sprint; challenger=gcc-einvoice-exception-evidence; customers=0; cleared-revenue=$0",
+        "world brain: WORLD_BRAIN_FIELD_MISSION_HEALTHY; champion=lead-path-attribution-integrity-sprint; corpus-candidates=92; authority=NONE",
+        "initiatives: 36",
+        "lineage: Everest -> SUMMIT 100 -> BLACK SKY -> Reality Activation -> Owner Goals 2026-09-02",
+        "unresolved: Unreconstructed Owner-Recalled UberBond Programs",
+        "handoff: reconcile against live GitHub",
+        "mission: PROJECT NULLSTAR OMEGA ABSOLUTE (406 sections, 2026-09-15). (full text: docs/CURRENT_HANDOFF.json)",
+        "authority: NONE (bootstrap is read-only)",
+        "native capabilities: 15/15 active; optional substitutes=4/4; research/security=2/2",
+        "internal capability gaps: 0; external reality/runtime gaps: 7"
+      ]
+    }
+  },
+  "productionDeploymentObserved": false,
+  "currentTaskClassCrown": "UNKNOWN",
+  "realizedReferenceCompressionFactor": "UNKNOWN",
+  "planIncludedAndAllInCognitionCost": "UNKNOWN",
+  "apiInferenceCallsPerformedThisMission": 0,
+  "ownerOnlyBlockers": [
+    "Secure OpenRouter account connection and explicit bounded paid authorization",
+    "Authorized existing durable host deployment and subsequent runtime observation",
+    "GitHub Actions account billing unlock for hosted checks"
+  ],
+  "providerEvidenceBlockers": [
+    "Fresh matched hidden-task Crown tournament and exact billed/cached provider telemetry"
+  ],
+  "historicalEvidenceDebt": "Original founder raw transcript exact bytes absent; preserve declared hash and integrity refusal.",
+  "documentationCheckpointBoundary": "This is an immutable observation of main at the recorded timestamp; subsequent documentation-only publication preserves the verified source."
+}

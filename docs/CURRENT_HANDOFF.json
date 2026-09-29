@@ -1117,7 +1117,7 @@
     ]
   },
   "infiniteOpusExecution20260929": {
-    "status": "SOURCE_VERIFIED_PRELIVE",
+    "status": "MERGED_SOURCE_VERIFIED_PRELIVE",
     "sourceCommit": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
     "implementation": "src/infinite-opus-native-runtime.mjs",
     "closure": "src/semantic-closure-kernel.mjs",
@@ -1132,6 +1132,9 @@
     "qualityBoundary": "Exact typed programs and independently admitted, pinned authority only. Arbitrary prose, current frontier equivalence, economic compression and live availability remain unproven. Legacy independently authorized routes are outside this new governor.",
     "historicalEvidenceBlocker": "Original founder raw transcript has 62611 bytes versus declared 189166; retain integrity block and canonical shards without rewriting the historical hash.",
     "postgresProof": "scripts/infinite-opus-postgres-proof.mjs",
-    "terminalSourceTribunal": "PASS_WITH_SEPARATE_REALITY_BOUNDARIES"
+    "terminalSourceTribunal": "PASS_WITH_SEPARATE_REALITY_BOUNDARIES",
+    "implementationPr": "https://github.com/mohammedwessam2007/uberbondd/pull/1053",
+    "verifiedMergedMain": "2984412b6b9ebd0c4087328b8d0cb6815b4db487",
+    "postMergeReceipt": "docs/receipts/INFINITE_OPUS_POSTMERGE_2026-09-29.json"
   }
 }

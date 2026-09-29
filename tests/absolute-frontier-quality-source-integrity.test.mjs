@@ -123,7 +123,7 @@ test('protected cognition sources retain all zero-loss enforcement hooks', () =>
       'NEVER_SPEND_THE_REQUIRED_QUALITY_FALLBACK_ON_AN_UNPROVEN_CHEAP_PATH'
     ],
     'src/cognitive-superoptimizer.mjs': [
-      'COGNITIVE_SUPEROPTIMIZER_CANNOT_SELF_PROMOTE',
+      'SUPEROPTIMIZATION_CANDIDATE_SHADOW_ONLY',
       'DECOMPILE_AND_ESCALATE_TO_REQUIRED_FRONTIER',
       'validateCanonicalZeroLossCertificate',
       'automaticPromotionAuthorized: false'

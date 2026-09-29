@@ -1,11 +1,11 @@
 {
-  "schemaVersion": "uberbond.open-router.live-model-market-snapshot.v1",
+  "schemaVersion": "uberbond.open-router.live-model-market-snapshot.v2",
   "observedAt": "2026-09-29",
   "sourceMainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",
   "status": "PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND",
   "purpose": "Refresh current model-market reality after V5 policy reconciliation without granting any model production Crown authority.",
   "repositoryTruth": {
-    "mainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",
+    "mainSha": "61813b6866b24cd54eeb15a7d54cfa6d0a66ea88",
     "openRouterFolderFileCountBeforeSnapshot": 41,
     "currentV5Policy": {
       "monthlyAllInTargetUsd": 30,
@@ -36,7 +36,7 @@
       "wessamSingularityNorthStar": "docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md",
       "status": "MERGED_AND_PRESERVED"
     },
-    "mainMeaning": "Merge PR #1042: mount Wessam Singularity meta North Star"
+    "mainMeaning": "Merge PR #1048: enforce Opus-quality at insane volume"
   },
   "publicMarketEvidence": {
     "artificialAnalysis": {
@@ -85,7 +85,21 @@
           "intelligenceIndex": 45,
           "source": "https://artificialanalysis.ai/models/qwen3-8-max"
         }
-      ]
+      ],
+      "workerComparison": {
+        "openai/gpt-6-luna:max": {
+          "intelligenceIndex": 37,
+          "note": "Cost-efficient but below MiMo-V2.6-Pro and DeepSeek V4.1 Flash on current overall independent index; no longer default mass-worker candidate."
+        },
+        "deepseek/deepseek-v4.1-flash:max": {
+          "intelligenceIndex": 39.5,
+          "note": "Stronger current independent overall score than GPT-6 Luna max; official DeepSeek release emphasizes agentic efficiency and lower cache footprint."
+        },
+        "xiaomi/mimo-v2.6-pro": {
+          "intelligenceIndex": 46,
+          "note": "Current top open-weight-class candidate in the fresh evidence reviewed; materially stronger than Luna and DeepSeek V4.1 Flash on overall index."
+        }
+      }
     },
     "openRouter": {
       "market": "OpenRouter",
@@ -155,12 +169,48 @@
           "role": "DIVERSE_CHALLENGER_OR_SPECIALIST",
           "source": "https://openrouter.ai/qwen/qwen3.8-max-0902"
         }
-      ]
+      ],
+      "currentCheapVolumeEvidence": {
+        "xiaomi/mimo-v2.6-flash": {
+          "listedInputUsdPerM": 0.14,
+          "listedOutputUsdPerM": 0.28,
+          "cacheReadUsdPerM": 0.0028,
+          "contextTokens": 1048576,
+          "role": "PRIMARY_ULTRACHEAP_VOLUME_CANDIDATE",
+          "source": "https://openrouter.ai/xiaomi/mimo-v2.6-flash-20260921"
+        },
+        "xiaomi/mimo-v2.6-pro": {
+          "listedInputUsdPerM": 0.435,
+          "listedOutputUsdPerM": 0.87,
+          "contextTokens": 1048576,
+          "role": "PRIMARY_CHEAP_STRONG_WORKER_CANDIDATE",
+          "source": "https://openrouter.ai/xiaomi/mimo-v2.6-pro"
+        },
+        "deepseek/deepseek-v4.1-flash": {
+          "role": "PRIMARY_CHEAP_DIVERSE_WORKER_CANDIDATE",
+          "pricingNote": "Current public OpenRouter surfaces show route/alias-dependent pricing; verify exact owner-route economics before budgeting.",
+          "source": "https://openrouter.ai/deepseek/deepseek-v4.1-flash-20260910/"
+        },
+        "openai/gpt-6-luna": {
+          "listedInputUsdPerM": 0.1,
+          "listedOutputUsdPerM": 0.5,
+          "contextTokens": 1000000,
+          "role": "SHADOW_UTILITY_WORKER_CANDIDATE_NOT_DEFAULT",
+          "note": "Cheap and fast, but current overall independent intelligence evidence trails MiMo-V2.6-Pro and DeepSeek V4.1 Flash; must win a specific task class to regain default worker status."
+        }
+      }
     },
     "typingMind": {
       "connectionSupported": true,
       "secretLocation": "TypingMind/OpenRouter credential configuration; never repository or chat for interactive mode.",
       "source": "https://www.typingmind.com/guide/use-openrouter-api-key-to-chat-with-ai"
+    },
+    "openAIRelease20260929": {
+      "model": "GPT-6.1 Sol",
+      "releaseStatus": "RELEASED_2026-09-29_IN_CHATGPT_WORK_AND_CODEX",
+      "evidence": "OpenAI Business/Enterprise release notes say GPT-6.1 Sol improves on GPT-6 Sol in agentic coding, computer use, and professional work.",
+      "apiOpenRouterExactPricingVerified": false,
+      "crownPromotionAuthority": "NONE_UNTIL_OWNER_ROUTE_CALLABILITY_PRICING_AND_PAIRED_TASK_EVIDENCE"
     }
   },
   "provisionalRoleSet": {
@@ -175,15 +225,22 @@
       "openai/gpt-6-astra"
     ],
     "cheapWorkerCandidates": [
-      "openai/gpt-6-luna",
+      "xiaomi/mimo-v2.6-flash-20260921",
       "xiaomi/mimo-v2.6-pro",
+      "deepseek/deepseek-v4.1-flash-20260910",
       "z-ai/glm-5.3-flash"
     ],
     "strongerWorkerOrSpecialistCandidates": [
+      "openai/gpt-6.1-sol",
+      "anthropic/claude-sonnet-5.5",
       "openai/gpt-6-sol",
       "qwen/qwen3.8-max-0902"
     ],
-    "jevRole": "UNCHANGED__BOUNDED_SEMANTIC_CONTROL_PLANE__SHADOW_UNTIL_ZERO_LOSS_CERTIFIED"
+    "jevRole": "UNCHANGED__BOUNDED_SEMANTIC_CONTROL_PLANE__SHADOW_UNTIL_ZERO_LOSS_CERTIFIED",
+    "shadowUtilityCandidates": [
+      "openai/gpt-6-luna"
+    ],
+    "rosterLaw": "NO_DEFAULT_MODEL_BY_BRAND__WORKER_ROLES_ARE_REEARNED_FROM_CURRENT_TASK_CLASS_QUALITY_COST_LATENCY_AND_CALLABILITY_EVIDENCE"
   },
   "promotionBoundary": {
     "currentCrownPromoted": false,
@@ -213,6 +270,8 @@
     "This snapshot is dated market evidence, not a permanent model ranking.",
     "Artificial Analysis and OpenRouter data identify serious candidates but do not grant production Crown authority.",
     "No OpenRouter inference call, purchase, credential write, or spend occurred in producing this snapshot.",
-    "A stronger model or new evidence may supersede this snapshot immediately."
+    "A stronger model or new evidence may supersede this snapshot immediately.",
+    "GPT-6.1 Sol was released today in Work/Codex, but this refresh does not yet establish exact owner-route OpenRouter/API pricing or task-class superiority.",
+    "Luna is demoted from default cheap-worker status based on current comparative evidence; it remains eligible to return if it wins a measured task class."
   ]
 }

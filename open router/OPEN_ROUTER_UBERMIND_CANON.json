@@ -233,6 +233,18 @@
       "REALITY_COURT"
     ],
     "superoptimizationLaw": "Optimizer may propose cheaper cognition programs, but cannot self-promote. Canonical untampered sealed zero-loss evidence plus real cost improvement is required.",
-    "falsificationLaw": "The system must preserve explicit kill conditions and must deoptimize rather than explain away observed paired regressions."
+    "falsificationLaw": "The system must preserve explicit kill conditions and must deoptimize rather than explain away observed paired regressions.",
+    "activationBoundary": {
+      "defaultMode": "TYPINGMIND_EXTERNAL_COCKPIT",
+      "interactiveCockpit": "TypingMind on iPad",
+      "modelMarket": "OpenRouter",
+      "repoRuntimeOpenRouterSecretRequired": false,
+      "connectionEvidenceRefEnv": "UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF",
+      "optionalUnattendedMode": "UNATTENDED_RUNTIME",
+      "unattendedRuntimeSecretEnv": "OPENROUTER_API_KEY",
+      "activationReadinessSource": "src/frontier-vm-activation-readiness.mjs",
+      "readinessDoctor": "scripts/frontier-vm-v5-doctor.mjs",
+      "law": "DO_NOT_DUPLICATE_THE_OPENROUTER_SECRET_IN_UBERBOND_RUNTIME_JUST_TO_USE_TYPINGMIND_INTERACTIVELY"
+    }
   }
 }

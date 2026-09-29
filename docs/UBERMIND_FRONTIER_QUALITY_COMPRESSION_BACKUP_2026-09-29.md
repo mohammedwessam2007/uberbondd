@@ -821,3 +821,85 @@ through:
 ]
 
 The system should continually make **mastered cognition cheaper** so the world's strongest available reasoning can spend an increasing fraction of its budget only on what UberBond has never understood before.
+
+
+---
+
+## 15. Continuation after recovery — fresh campaign engineering
+
+Recovery resumed from live main `5a1384b51a3d0cfacb3d5df2a94e0598e8c477e8`, the merge that preserved this backup. No earlier UberMind/APEX/Jev/Nullstar/Omega/Personal Civilization/Sovereign Continuum lineage was retired or narrowed.
+
+The next empirical frontier identified above has now advanced from **missing bridge** to **engineering-ready campaign contract**.
+
+New durable source:
+
+- `src/apex-fresh-campaign.mjs`
+- `config/apex-frontier-quality-compression-campaign.json`
+- `scripts/apex-frontier-quality-campaign-doctor.mjs`
+- `tests/apex-fresh-campaign.test.mjs`
+- `tests/apex-frontier-quality-campaign-config.test.mjs`
+- `docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`
+
+### New hard laws
+
+The fresh campaign layer now requires:
+
+- architecture freeze before holdout commitment;
+- external/raw holdout custody outside Git;
+- fresh campaign generation;
+- no previously evaluated task reuse;
+- no derivation from previously evaluated tasks;
+- no legacy Omega/V4 evidence relabeled as fresh;
+- exact model + reasoning setting + transport evidence;
+- exact **pricing mode** evidence;
+- per-architecture trial spend ceilings;
+- a hard total campaign spend ceiling;
+- zero provider-call, spend or execution authority in readiness planning.
+
+The first machine-readable Wave 1 contract caps the **entire campaign at $10** and allocates the budget across four candidate computation graphs:
+
+1. Opus 5.5 MAX interactive frontier baseline;
+2. same-model Opus 5.5 MAX deferred/batch compression;
+3. Opus + MiMo Pro/Flash quality-compression swarm;
+4. Opus + heterogeneous DeepSeek/Qwen/GLM efficiency swarm.
+
+The quality floor remains strict: `maxQualityDelta = 0` for Wave 1. Cheap-but-worse does not win.
+
+### Refreshed efficiency frontier
+
+The frontier candidate registry expanded from 14 to 20 candidates using current official-source discovery evidence. Added as **discovery-only / configured=false / no invented transport**:
+
+- Xiaomi MiMo-V2.6-Pro;
+- Xiaomi MiMo-V2.6-Flash;
+- Alibaba Qwen3.8 Flash;
+- MiniMax M2.5;
+- Z.ai GLM-5.3-Flash;
+- VolcEngine Doubao Seed 2.1 Lite.
+
+The registry validates with zero role-prior gaps. Discovery evidence still does not imply transport, callability, benchmark superiority or production authority.
+
+### Hostile verification
+
+Exact-source behavioral verification confirmed:
+
+- source and test syntax parse;
+- the four-architecture campaign compiles with a $10 total cap and trial ceilings summing to $10;
+- a 40-task fresh sealed manifest can be admitted only under the new custodian contract;
+- legacy/evaluated evidence is refused;
+- raw holdout material is refused from the campaign plan;
+- readiness remains zero-call / zero-spend / zero-authority;
+- an Opus Batch architecture is **not** satisfied by Opus Interactive pricing evidence.
+
+The last result closes a subtle economics loophole: identical model/reasoning identity does not make different billing/execution tiers interchangeable evidence.
+
+### New exact frontier
+
+The next unsatisfied step is no longer another internal architecture layer.
+
+It is:
+
+`EXTERNAL_FRESH_HOLDOUT_CUSTODIAN_COMMITMENT + EXACT_LIVE_MODEL/REASONING/TRANSPORT/PRICING RECEIPTS`
+
+followed by separately authorized execution under the precommitted $10 campaign cap.
+
+No model has won Wave 1. No $10-to-hours scenario is promoted from hypothesis to observation. Global quality-per-dollar rank remains unknown until this campaign and independent replication actually run.

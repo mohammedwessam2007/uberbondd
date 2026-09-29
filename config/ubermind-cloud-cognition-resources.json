@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "ubermind.cloud-cognition-resources.v1",
+  "schemaVersion": "ubermind.cloud-cognition-resources.v2",
   "objective": "CONTINUOUS_STRONGEST_VERIFIED_FRONTIER_QUALITY_AT_MINIMUM_CLOUD_COST",
   "cloudOnly": true,
   "localModelRequired": false,
@@ -22,37 +22,29 @@
   },
   "requiredResources": [
     {
-      "id": "openrouter-api",
-      "kind": "SECRET_CREDENTIAL",
-      "env": "OPENROUTER_API_KEY",
-      "purpose": "Unified cloud model-market transport across many model/provider families",
-      "ownerAction": "Create one OpenRouter API key and store it only in the protected UberBond runtime environment.",
-      "recurringCost": "PAY_AS_YOU_GO",
-      "minimumCommitmentUsd": 0
+      "id": "typingmind-cockpit",
+      "kind": "USER_INTERFACE",
+      "purpose": "Founder-facing iPad cockpit for chats, custom agents, multi-agent workflows, model switching, plugins/MCP and direct provider API use.",
+      "ownerAction": "Configure the chosen model-provider API keys in TypingMind. No local GPU or local model is required."
     },
     {
       "id": "cognition-budget",
       "kind": "POLICY",
       "env": "UBERMIND_MONTHLY_COGNITION_BUDGET_USD",
       "default": "20",
-      "purpose": "Hard monthly inference ceiling. Budget exhaustion queues work instead of lowering quality."
-    },
-    {
-      "id": "openrouter-enable",
-      "kind": "POLICY",
-      "env": "OPENROUTER_AGENT_ENABLED",
-      "requiredValue": "true",
-      "purpose": "Explicitly enables the cloud model-market executor after credential placement."
+      "purpose": "Target all-in monthly cognition budget. Budget pressure may increase delay/queueing but must not lower the verified quality floor."
     }
   ],
   "recommendedPolicies": [
     {
       "env": "OPENROUTER_PROVIDER_SORT",
-      "default": "price"
+      "default": "price",
+      "scope": "OPENROUTER_ONLY_IF_USED"
     },
     {
       "env": "OPENROUTER_REQUIRE_ZDR",
-      "default": "true"
+      "default": "true",
+      "scope": "OPENROUTER_ONLY_IF_USED"
     },
     {
       "env": "OPENROUTER_ALLOW_PROVIDER_FALLBACKS",
@@ -62,18 +54,21 @@
     {
       "env": "OPENROUTER_MAX_PROMPT_USD_PER_MILLION",
       "default": "",
-      "note": "Optional global transport ceiling; per-model ceilings are preferred."
+      "note": "Optional global transport ceiling; per-model ceilings are preferred.",
+      "scope": "OPENROUTER_ONLY_IF_USED"
     },
     {
       "env": "OPENROUTER_MAX_COMPLETION_USD_PER_MILLION",
       "default": "",
-      "note": "Optional global transport ceiling; per-model ceilings are preferred."
+      "note": "Optional global transport ceiling; per-model ceilings are preferred.",
+      "scope": "OPENROUTER_ONLY_IF_USED"
     },
     {
       "env": "OPENROUTER_PLATFORM_FEE_RATE",
       "default": "0.055",
       "observedAt": "2026-09-29",
-      "note": "Current Standard-plan platform-fee planning assumption; reverify before activation and update when OpenRouter pricing changes."
+      "note": "Current Standard-plan platform-fee planning assumption; reverify before activation and update when OpenRouter pricing changes.",
+      "scope": "OPENROUTER_ONLY_IF_USED"
     }
   ],
   "existingUberBondResourcesReused": [
@@ -99,14 +94,75 @@
     },
     {
       "id": "other-direct-provider",
-      "condition": "Add only after measured cost/quality/reliability advantage. OpenRouter remains the default market abstraction."
+      "condition": "Add only after measured cost/quality/reliability advantage. OpenRouter is one optional market abstraction; TypingMind may use direct provider APIs."
     }
   ],
   "forbiddenResourceAssumptions": [
     "local GPU",
     "local model runtime",
+    "TypingMind as cognition authority",
+    "OpenRouter as cognition authority",
     "Vercel as cognition authority",
     "fixed permanent model crown",
     "model fallback to a weaker model merely because it is cheaper"
+  ],
+  "interactiveCockpit": {
+    "product": "TypingMind",
+    "device": "iPad",
+    "role": "FOUNDER_FACING_UI_ONLY",
+    "cognitionAuthority": "NONE",
+    "modelSelectionAuthority": "UBERMIND_POLICY_AND_FOUNDER",
+    "notes": [
+      "TypingMind is the interactive cockpit, not the UberMind brain.",
+      "Provider API keys may be configured directly in TypingMind for interactive lanes.",
+      "OpenRouter is an optional marketplace/transport adapter, never the architecture center."
+    ]
+  },
+  "executionGeometry": {
+    "interactive": [
+      "FOUNDER_ON_IPAD",
+      "TYPINGMIND_UI",
+      "UBERMIND_AGENT_WORKFLOW",
+      "PROVIDER_APIS_OR_OPENROUTER",
+      "MODEL_SWARMS",
+      "ADVERSARIAL_SYNTHESIS",
+      "FRONTIER_ADJUDICATION",
+      "JEV_OR_CRYSTALLIZED_REFLEX_WHEN_CERTIFIED"
+    ],
+    "unattended24x7": [
+      "UBERBOND_CLOUD_SCHEDULER",
+      "SAME_UBERMIND_POLICY",
+      "PROVIDER_APIS_OR_OPENROUTER",
+      "DURABLE_QUEUE_AND_MEMORY"
+    ],
+    "law": "UI, transport, provider and model are replaceable layers. UberMind policy/topology is the canonical cognition architecture."
+  },
+  "recommendedTransports": [
+    {
+      "id": "openrouter",
+      "kind": "OPTIONAL_MARKET_AGGREGATOR",
+      "typingMindConfiguration": "Import OpenRouter models or add a custom OpenRouter model in TypingMind.",
+      "purpose": "Broad model-market access, provider price routing and convenient model discovery.",
+      "authority": "NONE",
+      "required": false
+    },
+    {
+      "id": "direct-anthropic",
+      "kind": "DIRECT_PROVIDER_API",
+      "purpose": "Use directly in TypingMind when exact Anthropic capability, cache or batch economics are preferable.",
+      "required": false
+    },
+    {
+      "id": "direct-openai",
+      "kind": "DIRECT_PROVIDER_API",
+      "purpose": "Use directly in TypingMind when exact OpenAI capability, reasoning controls, cache or batch economics are preferable.",
+      "required": false
+    },
+    {
+      "id": "direct-google-and-other-frontier-providers",
+      "kind": "DIRECT_PROVIDER_API",
+      "purpose": "Use directly when empirically useful. No provider receives architectural sovereignty.",
+      "required": false
+    }
   ]
 }

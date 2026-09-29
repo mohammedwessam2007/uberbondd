@@ -1522,3 +1522,532 @@ UberMind therefore keeps:
 - sealed succession tests.
 
 The capital-issuer architecture survives any future Crown change.
+
+
+---
+
+## I22 — Teacher-Crown Meta-Compiler
+
+### Thesis
+
+The strongest current Crown should spend part of its budget improving the machinery that decides how future Crown budget is spent.
+
+This is different from ordinary architecture search.
+
+```
+Opus 5.5
+ -> inspect failed / expensive missions
+ -> identify repeated semantic waste
+ -> propose compiler transformation
+ -> produce falsifier and tests
+ -> sandbox
+ -> sealed comparison
+ -> promote only if quality is preserved and total cost falls
+```
+
+Examples of transformations the Teacher-Crown may propose:
+
+- a new semantic rewrite rule;
+- a better task decomposition;
+- a better applicability test;
+- a new solver translation;
+- a stronger verifier;
+- a shorter Crown packet format;
+- a new cache key;
+- a new task-archetype compiler;
+- a new Jev question bundle;
+- a new evidence dependency primitive;
+- a better stopping rule.
+
+The Teacher-Crown cannot self-promote its transformation.
+
+### Goal
+
+Use a small number of frontier calls to improve the productivity of every later frontier call.
+
+Metric:
+
+```
+meta_compiler_roi
+=
+future verified reference-cost avoided by compiler improvement
+/
+cost of discovering + testing + maintaining improvement
+```
+
+---
+
+## I23 — Frontier-Generated Evaluator Packs
+
+### Problem
+
+Many tasks remain expensive because only a frontier model can tell whether the answer is good.
+
+### Invention
+
+When Crown solves a novel task class, require a second artifact:
+
+```
+EVALUATOR PACK
+  - exact invariants
+  - counterexamples
+  - positive fixtures
+  - negative fixtures
+  - edge cases
+  - property tests
+  - rubric dimensions
+  - minimal discriminating tests
+  - abstention conditions
+  - escalation conditions
+```
+
+Then future cheap candidates are judged by the evaluator pack before Crown sees them.
+
+Target transition:
+
+```
+expensive generation + expensive judging
+->
+cheap generation + cheap/deterministic judging + sparse Crown arbitration
+```
+
+The evaluator pack is itself revalidated whenever the Crown changes.
+
+---
+
+## I24 — Frontier-Minted Cognitive Currency
+
+### Idea
+
+Treat a verified frontier decision as a spendable internal asset.
+
+One unit of **Cognitive Currency** is not a token.
+
+It is a certified semantic object that can discharge future reasoning obligations without another Crown call.
+
+Examples:
+
+```
+currency type: VERIFIED_FACT
+currency type: DECISION_BOUNDARY
+currency type: VERIFIED_TRANSFORMATION
+currency type: APPLICABILITY_PREDICATE
+currency type: INVALIDATOR
+currency type: SOLVER_SPEC
+currency type: VERIFIER
+currency type: CERTIFIED_REFLEX
+```
+
+A task pays its cognitive obligations using existing currency first.
+
+Only uncovered obligations create frontier demand.
+
+This creates an explicit accounting identity:
+
+```
+task semantic obligations
+-
+valid cognitive currency holdings
+=
+frontier residual
+```
+
+This may make the Frontier Residual Ratio directly auditable.
+
+---
+
+## I25 — Semantic Debt Market
+
+### Problem
+
+Not every unresolved question deserves immediate Crown spend.
+
+### Invention
+
+Represent unresolved semantic obligations as debt instruments:
+
+```
+semantic_debt_id
+required_quality
+current uncertainty
+consumer_count
+deadline
+expected value
+expected future fanout
+cost if unresolved
+Crown cost
+```
+
+The system can:
+- settle now;
+- batch with equivalent debt;
+- gather cheap evidence first;
+- wait for another mission to create the answer;
+- escalate because deadline/stakes dominate.
+
+When one Crown call settles a debt shared by 500 tasks, all 500 obligations disappear.
+
+This is the accounting partner of the Semantic Demand Exchange.
+
+---
+
+## I26 — Crown Seed → Synthetic Curriculum → Certified Descendants
+
+### Problem
+
+A narrow reusable domain may need hundreds of boundary examples, but asking Crown to solve every example defeats compression.
+
+### Invention
+
+Use Crown to create a small high-information seed set plus generation rules.
+
+Then:
+
+```
+Crown seed examples
+ -> cheap models generate candidate variations
+ -> adversarial mutation creates boundary cases
+ -> deterministic / existing evaluator rejects obvious failures
+ -> Crown labels only uncertain high-information cases
+ -> policy / Jev / tiny student improves
+ -> repeat
+```
+
+This is active-learning-style semantic curriculum construction.
+
+Law:
+
+Synthetic data never creates authority merely because it is large.
+
+Authority comes from:
+- fresh Crown labels;
+- external ground truth;
+- deterministic verification;
+- sealed evaluation.
+
+Metric:
+
+```
+certified_policy_coverage
+/
+Crown_labeled_examples
+```
+
+---
+
+## I27 — Universal Cognitive Standard Library
+
+### Thesis
+
+Across business, research, coding and life tasks, many expensive reasoning operations are the same primitive wearing different nouns.
+
+Mine and certify reusable primitives such as:
+
+```
+COMPARE_EVIDENCE
+CHECK_CONTRADICTION
+FIND_MISSING_PREMISE
+CLASSIFY_NOVELTY
+ESTIMATE_REVERSIBILITY
+VERIFY_CITATION
+MAP_CAUSAL_CHAIN
+GENERATE_COUNTEREXAMPLE
+CHECK_CONSTRAINTS
+IDENTIFY_DECISION_BOUNDARY
+DETECT_DISTRIBUTION_SHIFT
+DECIDE_ESCALATION
+```
+
+Each primitive gets:
+
+```
+semantic ABI
+quality type
+applicability domain
+tests
+Jev implementation candidate
+code implementation where possible
+Crown reference
+drift detector
+```
+
+Task-class compilers become compositions of these primitives rather than fresh prose reasoning.
+
+This is analogous to replacing millions of hand-written machine instructions with a mature standard library.
+
+---
+
+## I28 — Cognitive Macro-Assembler
+
+### Problem
+
+Even if primitives exist, an LLM may repeatedly decide how to combine them.
+
+### Invention
+
+Compile common reasoning motifs into macros:
+
+```
+VERIFY_CLAIM
+=
+RETRIEVE_EVIDENCE
++ CHECK_SOURCE_STATE
++ CHECK_CONTRADICTION
++ TEST_COUNTEREXAMPLE
++ CLASSIFY_CONFIDENCE
++ ESCALATE_IF_NEEDED
+```
+
+```
+RESEARCH_UPDATE
+=
+FETCH_SOURCE_DELTAS
++ INVALIDATE_DEPENDENTS
++ RECOMPUTE_CHANGED_CLAIMS
++ PATCH_ARTIFACT
++ AUDIT_PROVENANCE
+```
+
+```
+PURCHASE_DECISION
+=
+CHECK_REQUIREMENTS
++ QUERY_MARKET
++ NORMALIZE_TOTAL_COST
++ VERIFY_CONSTRAINTS
++ MODEL_FAILURE_MODES
++ PRESERVE_UNCERTAINTY
+```
+
+Macros can be deterministic orchestration even when some internal nodes invoke Jev or Crown.
+
+This moves cost from repeated planning into compiled orchestration.
+
+---
+
+## I29 — Semantic Interrupt Hierarchy
+
+### Problem
+
+Crown should not be polled on every uncertainty.
+
+### Invention
+
+Create interrupt levels:
+
+```
+L0 = code resolves
+L1 = exact memory resolves
+L2 = Jev notices but no action
+L3 = cheap worker investigation
+L4 = specialist investigation
+L5 = Crown page fault
+L6 = multi-Crown / Reality Court
+```
+
+Each level has:
+- trigger threshold;
+- maximum permitted authority;
+- cost ceiling;
+- evidence requirements;
+- escalation conditions.
+
+The objective is analogous to an operating system interrupt controller:
+
+```
+expensive processor sleeps
+until a lower layer proves it needs waking
+```
+
+But a lower layer may not suppress an interrupt outside its certified domain.
+
+---
+
+## I30 — Frontier Dividend Reinvestment
+
+### Problem
+
+Compression savings can disappear into lower spending instead of increasing useful intelligence.
+
+### Invention
+
+Split every verified saving into:
+
+```
+saved Crown dollar
+ -> reserve
+ -> new frontier discovery
+ -> revalidation
+ -> experiment capital
+```
+
+Within the fixed $30 ceiling, money saved from recurrence is reallocated toward previously unaffordable novelty.
+
+Thus the target is not merely:
+
+```
+same work cheaper
+```
+
+but:
+
+```
+same recurring work cheaper
++
+more novel work at the same $30
+```
+
+This creates the desired flywheel:
+
+```
+compile recurrence
+ -> free Crown budget
+ -> explore new territory
+ -> mint new capital
+ -> compile new recurrence
+ -> free more Crown budget
+ -> ...
+```
+
+---
+
+## I31 — Frontier Residual Futures
+
+### Idea
+
+Predict future expensive semantic residuals before they arrive.
+
+From:
+- mission roadmaps;
+- recurring workflows;
+- dependency graphs;
+- upcoming deadlines;
+- likely source changes;
+
+forecast which frontier questions are likely to appear repeatedly.
+
+Then prioritize Teacher-Crown capital issuance for those questions while:
+- relevant evidence is already loaded;
+- adjacent questions can be coalesced;
+- one answer can serve future demand.
+
+No speculative paid Crown call executes automatically.
+
+This is planning and prioritization only until separately authorized.
+
+---
+
+## I32 — Cross-Task Prefix Compiler
+
+### Problem
+
+Even when task deltas are small, repeated static context can dominate input spend.
+
+### Invention
+
+Compile each task class into:
+
+```
+IMMUTABLE_PREFIX
+  quality law
+  role contract
+  stable domain schema
+  stable tools
+  stable policy library
+  stable reference index
+
+MUTABLE_DELTA
+  current task
+  changed evidence
+  unresolved semantic atoms
+```
+
+Keep the immutable prefix byte-identical whenever possible to maximize provider cache hits.
+
+Opus 5.5's current cache-read pricing makes this especially valuable for Teacher-Crown calls.
+
+Metric:
+
+```
+cached_frontier_input_share
+=
+cached Teacher-Crown input tokens
+/
+total Teacher-Crown input tokens
+```
+
+---
+
+## I33 — Output Token Surgery
+
+### Problem
+
+Opus output is materially more expensive than input and can become verbose at max effort.
+
+### Invention
+
+Separate private reasoning quality from requested artifact size.
+
+Ask Teacher-Crown for the smallest authoritative delta sufficient for downstream reconstruction:
+
+```
+decision
+changed claims
+patch
+boundary
+tests
+invalidators
+escalation condition
+```
+
+Stable prose is generated downstream from verified semantic objects when safe.
+
+Never ask a cheaper model to invent missing semantics.
+
+Metric:
+
+```
+frontier_output_equivalent_reduction
+=
+tokens in equivalent full Crown artifact
+/
+actual Crown semantic-delta output tokens
+```
+
+---
+
+# The Teacher-Crown objective function
+
+For ordinary final-answer systems:
+
+```
+maximize answer quality for current task
+```
+
+For Million-Dollar UberMind:
+
+```
+maximize
+(
+current-task quality
++ future tasks enabled without equivalent frontier calls
++ reusable verifier value
++ reusable semantic policy value
++ cross-task multicast value
++ code/Jev descendant value
+)
+/
+frontier dollar
+```
+
+subject to:
+
+```
+current required quality >= current verified frontier
+authority boundaries preserved
+no automatic consequential action
+no fake reuse
+no fake equivalence
+```
+
+This reframes Opus 5.5 from an expensive chatbot into an **intelligence-capital factory**.

@@ -220,6 +220,19 @@
       "RECOMPILATION_SURVIVAL_RATE",
       "ROUTING_REGRET"
     ],
-    "upgradeCeiling": "NO_MORE_NAMED_LAYERS_UNLESS_THEY_IMPROVE_MEASURED_QUALITY_COMPRESSION_VERIFICATION_LATENCY_FOUNDER_TIME_RECOVERABILITY_OR_AUTHORITY_SAFETY"
+    "upgradeCeiling": "ARCHITECTURE_CEILING_REACHED__NEXT_MATERIAL_PROGRESS_REQUIRES_LIVE_EMPIRICAL_EVIDENCE_OR_A_MEASURABLY_BETTER_VERIFICATION_COST_LATENCY_RECOVERABILITY_MECHANISM",
+    "superoptimizer": "src/cognitive-superoptimizer.mjs",
+    "superoptimizerTests": "tests/cognitive-superoptimizer.test.mjs",
+    "burnInCompiler": "src/frontier-vm-burnin.mjs",
+    "burnInTests": "tests/frontier-vm-burnin.test.mjs",
+    "evidenceStack": [
+      "APEX_SEALED_TOURNAMENT_CANONICAL_ZERO_LOSS_JUDGE",
+      "FRONTIER_VM_BURNIN_SHORT_HORIZON_PAIRED_PROOF",
+      "FRONTIER_VM_LONGITUDINAL_COMPOUNDING_PROOF",
+      "CROWN_SUCCESSION_REVALIDATION_SHOCK",
+      "REALITY_COURT"
+    ],
+    "superoptimizationLaw": "Optimizer may propose cheaper cognition programs, but cannot self-promote. Canonical untampered sealed zero-loss evidence plus real cost improvement is required.",
+    "falsificationLaw": "The system must preserve explicit kill conditions and must deoptimize rather than explain away observed paired regressions."
   }
 }

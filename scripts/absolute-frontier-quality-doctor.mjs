@@ -63,7 +63,7 @@ const sourceContracts = {
     "validateAdmittedFrontierPlan",
     "isFrontierSimulationExecutorFactory",
     "isCanonicalModelExecutorFactory",
-    "member-object-does-not-match-admitted-plan"
+    "member-object-identity-does-not-match-admitted-plan"
   ],
   'src/frontier-cognitive-admission.mjs': [
     "const admittedPlans = new WeakMap()",

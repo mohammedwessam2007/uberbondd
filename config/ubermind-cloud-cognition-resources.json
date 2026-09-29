@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "ubermind.cloud-cognition-resources.v1",
+  "objective": "CONTINUOUS_STRONGEST_VERIFIED_FRONTIER_QUALITY_AT_MINIMUM_CLOUD_COST",
+  "cloudOnly": true,
+  "localModelRequired": false,
+  "localGpuRequired": false,
+  "qualityPolicy": {
+    "maxQualityDelta": 0,
+    "budgetPressureRelief": [
+      "QUEUE",
+      "DEFER",
+      "BATCH",
+      "WAIT_FOR_CHEAPER_EQUIVALENT_PROVIDER",
+      "EXACT_CACHE_REUSE",
+      "DETERMINISTIC_EXECUTION"
+    ],
+    "prohibited": [
+      "WEAKER_FINAL_AUTHORITY",
+      "SILENT_MODEL_SUBSTITUTION",
+      "LOSSY_CONTEXT_DROP_WITHOUT_ZERO_LOSS_PROOF"
+    ]
+  },
+  "requiredResources": [
+    {
+      "id": "openrouter-api",
+      "kind": "SECRET_CREDENTIAL",
+      "env": "OPENROUTER_API_KEY",
+      "purpose": "Unified cloud model-market transport across many model/provider families",
+      "ownerAction": "Create one OpenRouter API key and store it only in the protected UberBond runtime environment.",
+      "recurringCost": "PAY_AS_YOU_GO",
+      "minimumCommitmentUsd": 0
+    },
+    {
+      "id": "cognition-budget",
+      "kind": "POLICY",
+      "env": "UBERMIND_MONTHLY_COGNITION_BUDGET_USD",
+      "default": "20",
+      "purpose": "Hard monthly inference ceiling. Budget exhaustion queues work instead of lowering quality."
+    },
+    {
+      "id": "openrouter-enable",
+      "kind": "POLICY",
+      "env": "OPENROUTER_AGENT_ENABLED",
+      "requiredValue": "true",
+      "purpose": "Explicitly enables the cloud model-market executor after credential placement."
+    }
+  ],
+  "recommendedPolicies": [
+    {
+      "env": "OPENROUTER_PROVIDER_SORT",
+      "default": "price"
+    },
+    {
+      "env": "OPENROUTER_REQUIRE_ZDR",
+      "default": "true"
+    },
+    {
+      "env": "OPENROUTER_ALLOW_PROVIDER_FALLBACKS",
+      "default": "true",
+      "scope": "SAME_MODEL_PROVIDER_FAILOVER_ONLY"
+    },
+    {
+      "env": "OPENROUTER_MAX_PROMPT_USD_PER_MILLION",
+      "default": "",
+      "note": "Optional global transport ceiling; per-model ceilings are preferred."
+    },
+    {
+      "env": "OPENROUTER_MAX_COMPLETION_USD_PER_MILLION",
+      "default": "",
+      "note": "Optional global transport ceiling; per-model ceilings are preferred."
+    }
+  ],
+  "existingUberBondResourcesReused": [
+    "durable queue",
+    "Postgres/durable state",
+    "artifact store",
+    "APEX sealed tournament",
+    "absolute frontier quality invariant",
+    "Noetic/Jev crystallization",
+    "Architecture Lab",
+    "Reality Court/evidence receipts"
+  ],
+  "optionalDonors": [
+    {
+      "id": "direct-anthropic",
+      "env": "ANTHROPIC_API_KEY",
+      "condition": "Only activate if native Anthropic Batch/cache economics or capability materially beats OpenRouter for an identical verified model/revision."
+    },
+    {
+      "id": "direct-openai",
+      "env": "OPENAI_API_KEY",
+      "condition": "Only activate if native Batch/Flex/cache economics or exact reasoning controls materially beat OpenRouter."
+    },
+    {
+      "id": "other-direct-provider",
+      "condition": "Add only after measured cost/quality/reliability advantage. OpenRouter remains the default market abstraction."
+    }
+  ],
+  "forbiddenResourceAssumptions": [
+    "local GPU",
+    "local model runtime",
+    "Vercel as cognition authority",
+    "fixed permanent model crown",
+    "model fallback to a weaker model merely because it is cheaper"
+  ]
+}

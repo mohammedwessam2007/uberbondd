@@ -964,15 +964,26 @@
         "openai/gpt-6-astra"
       ],
       "cheapWorkerCandidates": [
-        "openai/gpt-6-luna",
+        "xiaomi/mimo-v2.6-flash-20260921",
         "xiaomi/mimo-v2.6-pro",
+        "deepseek/deepseek-v4.1-flash-20260910",
         "z-ai/glm-5.3-flash"
       ],
       "strongerWorkerOrSpecialistCandidates": [
+        "openai/gpt-6.1-sol",
+        "anthropic/claude-sonnet-5.5",
         "openai/gpt-6-sol",
         "qwen/qwen3.8-max-0902"
       ],
-      "law": "PUBLIC_MARKET_EVIDENCE_IS_CANDIDATE_EVIDENCE_ONLY__NO_CROWN_PROMOTION_WITHOUT_OWNER_ROUTE_CALLABILITY_AND_FRESH_PAIRED_TASK_PROOF"
+      "law": "PUBLIC_MARKET_EVIDENCE_IS_CANDIDATE_EVIDENCE_ONLY__NO_CROWN_OR_WORKER_DEFAULT_WITHOUT_OWNER_ROUTE_CALLABILITY_AND_TASK_CLASS_PROOF",
+      "currentReleaseDelta": {
+        "gpt61Sol": "RELEASED_2026-09-29__STRONG_WORKER_CHALLENGER_PENDING_OWNER_ROUTE_VERIFICATION",
+        "gpt61Astra": "NOT_RELEASED__WITHHELD",
+        "sourceDate": "2026-09-29"
+      },
+      "shadowUtilityCandidates": [
+        "openai/gpt-6-luna"
+      ]
     },
     "millionDollarIntelligenceTarget": {
       "status": "FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN",
@@ -1022,7 +1033,16 @@
       "permanent": false,
       "invariant": "All important finished work is current-Crown quality, certified bounded equivalent, or reality-settled; cheap-model unverified finals are forbidden.",
       "scalingGoal": "Work volume should grow much faster than live Crown-call count by compiling recurrence downward.",
-      "nextEvidence": "Live activation -> real Opus/worker receipts -> first paired tasks -> measure Opus Quality Fanout and Frontier Page-Fault Rate."
+      "nextEvidence": "Live activation -> real Opus/worker receipts -> first paired tasks -> measure Opus Quality Fanout and Frontier Page-Fault Rate.",
+      "workerRosterRefresh": {
+        "observedAt": "2026-09-29",
+        "gpt61Sol": "NEW_STRONG_WORKER_CHALLENGER",
+        "primaryUltraCheapVolume": "xiaomi/mimo-v2.6-flash-20260921",
+        "primaryCheapStrong": "xiaomi/mimo-v2.6-pro",
+        "primaryCheapDiverse": "deepseek/deepseek-v4.1-flash-20260910",
+        "luna": "DEMOTED_TO_SHADOW_UTILITY",
+        "truthBoundary": "No live owner-route performance/pricing receipt yet; this is current public candidate evidence."
+      }
     }
   },
   "wessamSingularityOverlay": {

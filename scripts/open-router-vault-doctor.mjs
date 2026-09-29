@@ -189,6 +189,11 @@ if (millionDollarTarget) {
 }
 
 if (liveMarket) {
+  if (liveMarket?.schemaVersion !== 'uberbond.open-router.live-model-market-snapshot.v2') failures.push('gpt61-worker-roster-refresh-missing');
+  if (!liveMarket?.provisionalRoleSet?.strongerWorkerOrSpecialistCandidates?.includes('openai/gpt-6.1-sol')) failures.push('gpt61-sol-candidate-missing');
+  if (!liveMarket?.provisionalRoleSet?.cheapWorkerCandidates?.includes('xiaomi/mimo-v2.6-pro')) failures.push('mimo-pro-primary-worker-missing');
+  if (!liveMarket?.provisionalRoleSet?.cheapWorkerCandidates?.includes('deepseek/deepseek-v4.1-flash-20260910')) failures.push('deepseek-v41-primary-worker-missing');
+  if (!liveMarket?.provisionalRoleSet?.shadowUtilityCandidates?.includes('openai/gpt-6-luna')) failures.push('luna-not-demoted-to-shadow');
   if (liveMarket?.status !== 'PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND') failures.push('live-market-snapshot-status-invalid');
   if (liveMarket?.promotionBoundary?.currentCrownPromoted !== false) failures.push('live-market-snapshot-illegally-promotes-crown');
   if (liveMarket?.activationState?.providerCallsPerformedByThisRefresh !== 0) failures.push('live-market-refresh-provider-call-count-not-zero');

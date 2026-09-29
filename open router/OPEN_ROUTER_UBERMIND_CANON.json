@@ -290,7 +290,7 @@
     "path": "open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json",
     "relatedWarRoomReceipt": "docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json",
     "freshTaskCustodian": "docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md",
-    "status": "PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION",
+    "status": "PUBLIC_MARKET_CANDIDATE_SNAPSHOT_V2__GPT61_SOL_REFRESH__NO_CROWN_PROMOTION",
     "observedAt": "2026-09-29",
     "generalCrownCandidate": "anthropic/claude-opus-5.5",
     "terminalAutomationCandidates": [
@@ -299,17 +299,33 @@
       "openai/gpt-6-astra"
     ],
     "cheapWorkerCandidates": [
-      "openai/gpt-6-luna",
+      "xiaomi/mimo-v2.6-flash-20260921",
       "xiaomi/mimo-v2.6-pro",
+      "deepseek/deepseek-v4.1-flash-20260910",
       "z-ai/glm-5.3-flash"
     ],
     "strongerWorkerOrSpecialistCandidates": [
+      "openai/gpt-6.1-sol",
+      "anthropic/claude-sonnet-5.5",
       "openai/gpt-6-sol",
       "qwen/qwen3.8-max-0902"
     ],
     "crownPromotionAuthority": "NONE_UNTIL_OWNER_ROUTE_CALLABILITY_PLUS_FRESH_PAIRED_TASK_EVIDENCE",
     "providerCallsPerformed": 0,
-    "spendUsd": 0
+    "spendUsd": 0,
+    "currentReleaseDelta": {
+      "releasedToday": [
+        "openai/gpt-6.1-sol"
+      ],
+      "withheldNotReleased": [
+        "openai/gpt-6.1-astra"
+      ],
+      "note": "GPT-6.1 Sol was released in ChatGPT Work/Codex on 2026-09-29. Exact owner-route API/OpenRouter pricing and performance remain to be verified live."
+    },
+    "shadowUtilityCandidates": [
+      "openai/gpt-6-luna"
+    ],
+    "workerRosterLaw": "NO_DEFAULT_MODEL_BY_BRAND__CHEAP_WORKER_STATUS_MUST_BE_REEARNED_PER_TASK_CLASS"
   },
   "millionDollarInventionLab20260929": {
     "path": "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
@@ -433,15 +449,18 @@
       "teacherCrown": "anthropic/claude-opus-5.5",
       "terminalAutomationChallenger": "anthropic/claude-sonnet-5.5",
       "independentApexChallenger": "openai/gpt-6-astra",
-      "strongWorker": "openai/gpt-6-sol",
-      "ultraCheapWorker": "openai/gpt-6-luna",
-      "cheapDiverseWorker": "xiaomi/mimo-v2.6-pro",
+      "strongWorker": "openai/gpt-6.1-sol__NEW_CHALLENGER_PENDING_ROUTE_VERIFICATION",
       "cheapLongContextSwarm": "z-ai/glm-5.3-flash",
       "cheapFastVariant": "z-ai/glm-5.3-flashx",
       "diverseStrongerSpecialist": "qwen/qwen3.8-max-0902",
       "semanticControlPlane": "JEV",
       "exactSubstrate": "CODE_SOLVERS_EXACT_CACHE_DATABASE",
-      "finalExternalAuthority": "REALITY"
+      "finalExternalAuthority": "REALITY",
+      "incumbentStrongWorker": "openai/gpt-6-sol",
+      "primaryUltraCheapVolumeWorker": "xiaomi/mimo-v2.6-flash-20260921",
+      "primaryCheapStrongWorker": "xiaomi/mimo-v2.6-pro",
+      "primaryCheapDiverseWorker": "deepseek/deepseek-v4.1-flash-20260910",
+      "shadowUtilityWorker": "openai/gpt-6-luna"
     }
   }
 }

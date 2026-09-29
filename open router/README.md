@@ -378,3 +378,23 @@ An important artifact may finish only through:
 - otherwise queue/escalate.
 
 The named model roster is replaceable and task-class evidence may promote a different Crown at any time.
+
+
+## Late 2026-09-29 model-market correction
+
+The candidate roster moved again on the same day.
+
+- **GPT-6.1 Sol** was released in ChatGPT Work/Codex and immediately enters the strong-worker/task-class challenger tournament. Exact owner-route API/OpenRouter price and callability remain unverified here.
+- **MiMo-V2.6-Pro** is promoted to primary cheap-strong worker candidate.
+- **MiMo-V2.6-Flash** is promoted to primary ultra-cheap volume candidate.
+- **DeepSeek V4.1 Flash** is promoted to primary cheap-diverse worker candidate.
+- **GPT-6 Luna** is demoted from default worker to shadow/utility candidate until it wins a measured task class.
+
+Current independent overall evidence reviewed puts MiMo-V2.6-Pro (~46) and DeepSeek V4.1 Flash (~39.5) above GPT-6 Luna max (~37). This is discovery evidence, not production authority.
+
+The durable law is:
+
+```
+NO WORKER IS DEFAULT BY BRAND OR PRICE.
+QUALITY / COST / LATENCY / CALLABILITY MUST BE RE-EARNED PER TASK CLASS.
+```

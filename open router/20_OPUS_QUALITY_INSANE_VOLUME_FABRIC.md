@@ -58,20 +58,43 @@ This role is mobile. A stronger verified model supersedes it.
 - OpenRouter list: $10/M input, $50/M output, $1/M cache read
 - role: independent frontier challenge, scientific/research/agentic dispute resolution where task evidence supports it
 
+### Newly released strong-worker challenger
+- GPT-6.1 Sol
+- released 2026-09-29 in ChatGPT Work and Codex
+- OpenAI says it improves on GPT-6 Sol in agentic coding, computer use, and professional work
+- exact owner-route OpenRouter/API price and callability remain to be verified before budgeting
+- role: immediate strong-worker / task-class Crown challenger candidate
+
 ### Strong high-end worker / specialist
 - GPT-6 Sol
 - OpenRouter list: $2/M input, $10/M output, $0.20/M cache read
-- role: coding, structured research, tool work, long-horizon preparation, strong alternate solution
+- role: incumbent strong worker pending GPT-6.1 Sol live comparison
 
-### Ultra-cheap mass worker
-- GPT-6 Luna
-- OpenRouter list: $0.10/M input, $0.50/M output; Flex can be cheaper
-- role: classification, decomposition, extraction, candidate generation, cheap independent branches, formatting, mechanical agent work
+### Primary ultra-cheap volume candidate
+- MiMo-V2.6-Flash
+- OpenRouter list around $0.14/M input, $0.28/M output, ~$0.0028/M cache read
+- 1M context, multimodal, tool calling
+- role: primary cheap bulk-work candidate until task-class evidence says otherwise
 
-### Cheap diverse worker
+### Primary cheap strong worker
 - MiMo-V2.6-Pro
-- OpenRouter list around $0.43/M input, $0.87/M output with extremely cheap cache reads
-- role: long-context/multimodal exploration, independent error lineage, candidate generation
+- current independent overall index evidence: ~46
+- OpenRouter list around $0.435/M input, $0.87/M output with extremely cheap cache reads
+- role: primary cheap strong long-context/multimodal worker
+
+### Primary cheap diverse worker
+- DeepSeek V4.1 Flash
+- current independent overall index evidence: ~39.5, above GPT-6 Luna max at 37
+- official DeepSeek release emphasizes agentic efficiency, lower cache footprint, native multimodality, and strong benchmark performance
+- public route pricing is provider/alias dependent; verify exact owner-route price before budgeting
+- role: primary diverse cheap worker, especially for coding/agentic/evidence branches
+
+### Shadow utility worker
+- GPT-6 Luna
+- OpenRouter list: $0.10/M input, $0.50/M output
+- current independent overall index at max: ~37
+- demoted from default mass-worker status because MiMo-V2.6-Pro and DeepSeek V4.1 Flash currently offer stronger quality evidence for our use
+- role: utility/shadow candidate only until it wins a measured task class
 
 ### Cheap swarm / long-context worker
 - GLM 5.3 Flash
@@ -247,18 +270,18 @@ Cheap models are not mini-Opus replacements.
 
 They are **parallel sensory cortex and search labor**.
 
-### Luna
-Use for:
-- classification;
-- extraction;
-- decomposition;
-- bulk transforms;
-- candidate hypotheses;
-- cheap agents;
-- repeated tool loops;
-- draft structure.
+### GPT-6 Luna
+Luna is no longer a default worker.
 
-Never trust as final semantic authority merely because N workers agree.
+Use only when a task-class measurement shows it is the best quality/cost/latency choice for that role.
+
+Potential utility:
+- concise classification;
+- simple extraction;
+- low-risk bulk transforms;
+- shadow comparison.
+
+Its low price does not compensate for weaker task quality when Xiaomi/DeepSeek alternatives are stronger.
 
 ### GLM Flash / FlashX
 Use for:
@@ -275,6 +298,16 @@ Use for:
 - independent solution generation;
 - evidence extraction;
 - cheap alternate reasoning paths.
+
+### GPT-6.1 Sol
+Use for:
+- immediate shadow competition against GPT-6 Sol;
+- agentic coding;
+- computer use;
+- professional work;
+- task classes where today's release proves superior under owner-route tests.
+
+Do not assume price or API callability until verified live.
 
 ### GPT-6 Sol
 Use for:
@@ -438,9 +471,11 @@ Decide:
 Spawn the **minimum useful heterogeneous set**, not ceremonial swarms.
 
 Typical:
-- Luna: extraction/decomposition;
-- GLM: alternate exploration;
-- MiMo: diverse multimodal/long-context branch.
+- MiMo-V2.6-Flash: cheapest high-volume extraction/decomposition/tool work;
+- DeepSeek V4.1 Flash: diverse coding/agentic/evidence branch;
+- MiMo-V2.6-Pro: stronger long-context/multimodal branch;
+- GLM: alternate cheap exploration;
+- Luna: optional shadow/utility branch only when task-class evidence justifies it.
 
 ### Stage 4 — strong-worker lift
 
@@ -548,7 +583,7 @@ $30
  +--> savings from cache / compilation are recycled into novelty
 ```
 
-The cheap layer can process orders of magnitude more tokens than Opus, but those tokens are preparation, search, extraction and candidate generation.
+The cheap layer can process orders of magnitude more tokens than Opus, but those tokens are preparation, search, extraction and candidate generation. The preferred default cheap pool is now Xiaomi MiMo-V2.6-Flash + MiMo-V2.6-Pro + DeepSeek V4.1 Flash + GLM-class diversity; Luna is shadow/utility rather than default.
 
 The Opus reserve is spent only on:
 - novel semantic residuals;
@@ -715,4 +750,48 @@ REALITY HAS FINAL VETO.
 
 VOLUME COMES FROM REUSE.
 QUALITY COMES FROM THE MOVING FRONTIER.
+```
+
+
+## 2026-09-29 late-market correction
+
+The roster is refreshed after GPT-6.1 Sol launched on 2026-09-29.
+
+Current changes:
+
+```
+GPT-6.1 Sol
+  -> NEW strong-worker / challenger candidate
+  -> must verify exact API/OpenRouter route + price + task performance
+
+MiMo-V2.6-Pro
+  -> primary cheap strong worker
+  -> current overall independent index ~46
+
+MiMo-V2.6-Flash
+  -> primary ultra-cheap volume candidate
+  -> ~$0.14/M input, ~$0.28/M output, very cheap cache reads
+
+DeepSeek V4.1 Flash
+  -> primary cheap diverse worker
+  -> current overall independent index ~39.5
+
+GPT-6 Luna
+  -> demoted to shadow / utility
+  -> current max overall index ~37
+  -> returns to primary only if it wins a measured task class
+```
+
+The law is stronger than any roster:
+
+```
+THE CHEAP LAYER IS A CONTINUOUS TOURNAMENT.
+
+NO MODEL GETS DEFAULT STATUS BECAUSE IT IS CHEAP,
+FAMOUS,
+NEW,
+OR ALREADY IN THE DIAGRAM.
+
+QUALITY / COST / LATENCY / CALLABILITY
+MUST BE RE-EARNED PER TASK CLASS.
 ```

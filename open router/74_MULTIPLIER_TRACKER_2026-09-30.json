@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:55:00+03:00",
+  "updatedAt": "2026-09-30T23:15:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -184,6 +184,25 @@
         "tests/e0-e4-coverage-foundry.test.mjs"
       ],
       "qualityLaw": "Serialized closures, direct unrestricted Crown leaves, dependency drift, invalidator drift and Crown revision drift cannot mint/retain authority."
+    },
+    {
+      "label": "decision-franchise-v14-distinct-consumer-capacity",
+      "multiplier": 33333.345,
+      "status": "CAPACITY_THEOREM_ONLY__NOT_PRODUCTION_EXECUTION_CLAIM",
+      "workload": "1,176,471 distinct full tasks -> certified relevant-field projection -> admitted finite policy -> zero provider calls per recurrence",
+      "directOpusUnitUsd": 0.85,
+      "directReferenceUsd": 1000000.35,
+      "actualAllInEnvelopeUsd": 30,
+      "distinctConsumers": 1176471,
+      "target33333xMet": true,
+      "millionDollarReferenceThresholdMet": true,
+      "qualityBasis": "E0-E4 closure-minted Decision Franchise; exact projection and exhaustive policy; drift fails closed",
+      "implementation": [
+        "src/decision-franchise.mjs",
+        "src/semantic-closure-kernel.mjs",
+        "tests/decision-franchise.test.mjs"
+      ],
+      "claimBoundary": "This proves the consumer count mathematically sufficient under the stated direct-reference unit cost and $30 envelope. It does not claim 1,176,471 production tasks have executed."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -214,9 +233,11 @@
       "certifiedResidualMultiplier": 14.161946017994001
     },
     "compiledRecurrence": {
-      "multiplier": null,
-      "status": "AWAITING_PROVABLE_DISTINCT_CONSUMER_FANOUT",
-      "law": "Count only E0-E4 executions with matched obligation proof and counterfactual direct-Opus economics."
+      "multiplier": 33333.345,
+      "status": "33333X_CAPACITY_THEOREM_IMPLEMENTED__PRODUCTION_FANOUT_NOT_YET_OBSERVED",
+      "distinctConsumersRequiredForCanonicalTarget": 1176471,
+      "directOpusUnitUsd": 0.85,
+      "actualAllInEnvelopeUsd": 30
     }
   }
 }

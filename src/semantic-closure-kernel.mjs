@@ -331,3 +331,49 @@ export function mintCertifiedCoverageFromClosure({
     return fail(String(error?.message || error));
   }
 }
+
+
+export function mintDecisionFranchiseFromClosure({
+  artifact, closure, context, franchiseClaimId,
+  evidenceRef, expiresAt, now = Date.now()
+} = {}) {
+  const fail = reason => ({ ok:false, status:'DECISION_FRANCHISE_REFUSED', reasons:[reason], semanticAuthority:'NONE' });
+  try {
+    const origin = closureOrigins.get(closure);
+    if (!origin || origin.artifactHash !== semanticHash(artifact) || origin.contextHash !== semanticHash(context)) throw new Error('live-semantic-closure-provenance-required');
+    const current = origin.checker({ artifact, context, now });
+    if (!current.ok) throw new Error('current-semantic-closure-required');
+    if (!name(franchiseClaimId) || typeof evidenceRef !== 'string' || !evidenceRef.length) throw new Error('franchise-evidence-binding-required');
+    const expiry=Date.parse(expiresAt);
+    if (!Number.isFinite(expiry) || expiry<=now) throw new Error('future-franchise-expiry-required');
+
+    const claim=artifact.claims.find(row=>row.id===franchiseClaimId);
+    const spec=claim?.value;
+    if (!plain(spec) || spec.schemaVersion!=='uberbond.decision-franchise.spec.v1') throw new Error('decision-franchise-spec-required');
+    if (!name(spec.taskClass) || spec.qualityContractHash!==context.qualityContractHash || spec.sideEffectClass!=='NONE') throw new Error('franchise-task-quality-effect-contract-mismatch');
+    if (!Array.isArray(spec.relevantKeys) || !spec.relevantKeys.length || new Set(spec.relevantKeys).size!==spec.relevantKeys.length || spec.relevantKeys.some(k=>!name(k))) throw new Error('exact-relevance-projection-required');
+    validateFinitePolicy(spec.policy);
+    for (const state of spec.policy.domain) {
+      if (!plain(state) || !equal(Object.keys(state).sort(), [...spec.relevantKeys].sort())) throw new Error('policy-domain-must-match-relevance-projection');
+    }
+
+    const allowed=new Set(['REALITY','POLICY','DERIVATION','CIRCUIT']);
+    if (artifact.nodes.some(node=>!allowed.has(node.kind))) throw new Error('e0-e4-only-franchise-proof-required');
+    const proofClass=artifact.nodes.some(n=>n.kind==='CIRCUIT')?'E4'
+      :artifact.nodes.some(n=>n.kind==='POLICY')?'E3'
+      :artifact.nodes.some(n=>n.kind==='DERIVATION')?'E1':'E0';
+
+    const record={
+      kind:'DECISION_FRANCHISE',status:'ACTIVE',
+      id:'df:'+semanticHash(spec),spec:structuredClone(spec),
+      crownRevision:context.crownRevision,
+      sourceDependencies:structuredClone(context.sourceHashes),
+      invalidators:structuredClone(context.invalidators),
+      closureArtifactHash:closure.artifactHash,
+      closureContextHash:closure.contextHash,
+      proofClass,evidenceRef,expiresAt,mintedAt:new Date(now).toISOString()
+    };
+    return {ok:true,status:'DECISION_FRANCHISE_MINTED',record,trustPin:semanticHash(record),
+      semanticAuthority:'E0_E4_VERIFIED_FRANCHISE_ONLY',externalEffectAuthority:'NONE'};
+  } catch(error) { return fail(String(error?.message||error)); }
+}

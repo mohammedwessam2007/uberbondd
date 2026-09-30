@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.postmerge-1062.v1",
+  "date": "2026-09-30",
+  "status": "MERGED_PRELIVE_PROOF_LEDGER_FRONTIER",
+  "mergedPr": 1062,
+  "mergedMain": "e5858baead9ec4719669d7cec05da090f46f8224",
+  "source": {
+    "counterfactualCompiler": "src/frontier-counterfactual-compiler.mjs",
+    "proofLedger": "src/provable-execution-ledger.mjs",
+    "runtime": "src/infinite-opus-native-runtime.mjs",
+    "scoreboard": "src/infinite-opus-scoreboard.mjs",
+    "theorem": "open router/28_E0_E4_LIVE_PROOF_LEDGER.md",
+    "megaMap": "docs/INFINITE_OPUS_CONTINUATION_MEGA_MAP_2026-09-30.md",
+    "tests": "tests/provable-execution-ledger.test.mjs"
+  },
+  "validation": {
+    "changedSourceSyntaxAudit": "PASS_10_OF_10_EXECUTABLE_JSON_FILES",
+    "githubActions": "FAILED_BEFORE_STEPS_NO_SOURCE_TEST_EVIDENCE",
+    "vercelLite": "PREEXISTING_BUILD_VISUAL_CORTEX_EXIT_2_DEBT",
+    "paidProviderCalls": 0
+  },
+  "economics": {
+    "currentMeasuredReferenceCompressionFactor": "UNKNOWN",
+    "target33333xClaimAllowed": false,
+    "qualityRetestRequiredForE0E4": false,
+    "law": "E0_E4_PROOF_CLOSES_QUALITY__UNIQUE_EXECUTIONS_PLUS_BOUND_COUNTERFACTUAL_PLUS_OBSERVED_ALL_IN_COST_CLOSE_DOLLARS"
+  },
+  "currentPublicMarketRefresh": {
+    "observedAt": "2026-09-30",
+    "opus55": "$4/M input $20/M output public candidate",
+    "gpt61SolPro": "$2/M input $10/M output; Flex observed $1/$5",
+    "mimo26Flash": "$0.14/$0.28",
+    "deepseekV41Flash": "$0.13/$0.52 current page",
+    "glm53Flash": "conservative $0.15/$0.50; temporary 50% discount observed $0.075/$0.25"
+  },
+  "ownerOnlyFrontier": [
+    "private OpenRouter key/limits",
+    "private TypingMind/runtime secret entry",
+    "explicit bounded paid canary authorization"
+  ],
+  "next": "OWNER_ACTIVATION -> <=$0.05 CANARY -> BILL_RECONCILIATION -> SEALED TASK-CLASS CROWN TOURNAMENT -> PROVIDER_SCREENING REAL WORKLOAD -> AUTOMATIC E0-E4 PROOF RECEIPTS -> LIVE REFERENCE COMPRESSION"
+}

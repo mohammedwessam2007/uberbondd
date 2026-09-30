@@ -34,7 +34,7 @@ export function estimateModelTariffMicrousd({ profile, freshInputTokens = 0, cac
 
 export function compileModelUnderstanding(config, { now = Date.now() } = {}) {
   const observed = Date.parse(config?.observedAt), expires = Date.parse(config?.expiresAt);
-  if (!config || config.schemaVersion !== 'uberbond.infinite-opus.model-understanding.v1' || !Number.isFinite(observed) || !Number.isFinite(expires) || observed > now || expires <= now || !Array.isArray(config.profiles) || !config.profiles.length) throw new Error('fresh-model-understanding-registry-required');
+  if (!config || config.schemaVersion !== 'uberbond.infinite-opus.model-understanding.v1' || !Number.isFinite(observed) || !Number.isFinite(expires) || observed > now || expires <= observed || !Array.isArray(config.profiles) || !config.profiles.length) throw new Error('valid-model-understanding-registry-required');
   const seen = new Set();
   const profiles = config.profiles.map(p => {
     if (!p?.model || seen.has(p.model) || p.authorityFromUnderstandingAlone !== 'NONE' || !Array.isArray(p.sources) || !p.sources.length) throw new Error('non-authoritative-unique-model-profile-required');
@@ -42,7 +42,7 @@ export function compileModelUnderstanding(config, { now = Date.now() } = {}) {
     return structuredClone(p);
   });
   return { schemaVersion:config.schemaVersion, observedAt:config.observedAt, expiresAt:config.expiresAt,
-    profiles, semanticAuthority:'NONE', crownPromotionAllowed:false, empiricalEquivalenceClaimAllowed:false };
+    economicsFresh: expires > now, profiles, semanticAuthority:'NONE', crownPromotionAllowed:false, empiricalEquivalenceClaimAllowed:false };
 }
 
 export function modelPriorForTask({ registry, model, task = {} } = {}) {

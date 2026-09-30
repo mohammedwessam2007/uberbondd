@@ -3,7 +3,7 @@ import { canonicalSemanticJson, semanticHash, validateFinitePolicy, executeExact
 const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const same=(a,b)=>canonicalSemanticJson(a)===canonicalSemanticJson(b);
 
-export function executeDecisionFranchise({record,trustPin,task,currentContext,now=Date.now()}={}){
+export function executeDecisionFranchise({record,trustPin,task,currentContext,now=Date.now(),semanticCanonicalizers={}}={}){
   const reasons=[];
   try{
     if(!plain(record)||record.kind!=='DECISION_FRANCHISE'||record.status!=='ACTIVE'||semanticHash(record)!==trustPin)throw new Error('trusted-active-franchise-required');
@@ -20,10 +20,16 @@ export function executeDecisionFranchise({record,trustPin,task,currentContext,no
     if(task.qualityContractHash!==spec.qualityContractHash||task.sideEffectClass!=='NONE')throw new Error('franchise-quality-or-effect-mismatch');
     if(!plain(task.payload))throw new Error('typed-task-payload-required');
 
-    const projected={};
+    const projected={};let semanticCanonicalizationCount=0;
     for(const key of spec.relevantKeys){
       if(!Object.hasOwn(task.payload,key))throw new Error('relevant-field-missing:'+key);
-      projected[key]=structuredClone(task.payload[key]);
+      const original=structuredClone(task.payload[key]), canonicalizer=semanticCanonicalizers?.[key];
+      if(canonicalizer?.canonicalize){
+        const normalized=canonicalizer.canonicalize(original,{currentContext});
+        if(!normalized.ok)throw new Error('semantic-canonicalizer-refused:'+key+':'+(normalized.reasons??[]).join('|'));
+        projected[key]=structuredClone(normalized.value);
+        if(normalized.transformed)semanticCanonicalizationCount++;
+      }else projected[key]=original;
     }
     validateFinitePolicy(spec.policy);
     const decision=executeExactOpcode('LOOKUP',[spec.policy.rows,projected]);
@@ -32,7 +38,7 @@ export function executeDecisionFranchise({record,trustPin,task,currentContext,no
       taskId:task.taskId,taskHash:semanticHash(task),projectedStateHash:semanticHash(projected),
       franchiseId:record.id,franchiseHash:semanticHash(record),proofClass:record.proofClass,
       semanticAuthority:'CERTIFIED_BOUNDED_POLICY',providerCallsPerformed:0,
-      externalEffectAuthority:'NONE',
+      externalEffectAuthority:'NONE',semanticCanonicalizationCount,
       claimBoundary:'Only the admitted relevantKeys projection and exhaustive finite policy are authoritative; all other task fields are intentionally irrelevant under the certified franchise.'
     };
   }catch(error){reasons.push(String(error?.message||error));}
@@ -78,7 +84,7 @@ export function modelDecisionFranchiseCompression({
 }
 
 
-export function compileDecisionFranchiseExecutor({record,trustPin,currentContext,now=Date.now()}={}){
+export function compileDecisionFranchiseExecutor({record,trustPin,currentContext,now=Date.now(),semanticCanonicalizers={}}={}){
   const reasons=[];
   try{
     if(!plain(record)||record.kind!=='DECISION_FRANCHISE'||record.status!=='ACTIVE'||semanticHash(record)!==trustPin)throw new Error('trusted-active-franchise-required');
@@ -100,10 +106,16 @@ export function compileDecisionFranchiseExecutor({record,trustPin,currentContext
           if(!plain(task)||typeof task.taskId!=='string'||!task.taskId||task.taskClass!==spec.taskClass)throw new Error('franchise-task-class-mismatch');
           if(task.qualityContractHash!==spec.qualityContractHash||task.sideEffectClass!=='NONE')throw new Error('franchise-quality-or-effect-mismatch');
           if(!plain(task.payload))throw new Error('typed-task-payload-required');
-          const projected={};
+          const projected={};let semanticCanonicalizationCount=0;
           for(const key of spec.relevantKeys){
             if(!Object.hasOwn(task.payload,key))throw new Error('relevant-field-missing:'+key);
-            projected[key]=structuredClone(task.payload[key]);
+            const original=structuredClone(task.payload[key]), canonicalizer=semanticCanonicalizers?.[key];
+            if(canonicalizer?.canonicalize){
+              const normalized=canonicalizer.canonicalize(original,{currentContext});
+              if(!normalized.ok)throw new Error('semantic-canonicalizer-refused:'+key+':'+(normalized.reasons??[]).join('|'));
+              projected[key]=structuredClone(normalized.value);
+              if(normalized.transformed)semanticCanonicalizationCount++;
+            }else projected[key]=original;
           }
           const key=canonicalSemanticJson(projected);
           if(!rows.has(key))throw new Error('out-of-domain-or-ambiguous-policy');
@@ -113,7 +125,7 @@ export function compileDecisionFranchiseExecutor({record,trustPin,currentContext
             taskHash:includeTaskHash?semanticHash(task):null,
             projectedStateHash:semanticHash(projected),franchiseId:record.id,franchiseHash,
             proofClass:record.proofClass,semanticAuthority:'CERTIFIED_BOUNDED_POLICY',
-            providerCallsPerformed:0,externalEffectAuthority:'NONE'
+            providerCallsPerformed:0,externalEffectAuthority:'NONE',semanticCanonicalizationCount
           };
         }catch(error){
           return {ok:false,status:'FRANCHISE_PAGE_FAULT_TO_FRONTIER',reasons:[String(error?.message||error)],semanticAuthority:'NONE',providerCallsPerformed:0};

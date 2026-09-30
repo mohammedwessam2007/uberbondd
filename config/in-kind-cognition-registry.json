@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "uberbond.in-kind-cognition-registry.v1",
+  "truthBoundary": "Plan-included, free-route, donated and credit-backed cognition is not cash compression and grants no semantic authority by cost class.",
+  "classes": [
+    {
+      "id": "founder-center-free-gateway",
+      "costClass": "PLAN_INCLUDED_COGNITION",
+      "cashUsd": 0,
+      "allowedUse": "founder-facing bounded chat",
+      "authority": "NONE"
+    },
+    {
+      "id": "chatgpt-or-claude-consumer-plan",
+      "costClass": "PLAN_INCLUDED_COGNITION",
+      "cashUsd": "SUBSCRIPTION_OUTSIDE_API_LEDGER",
+      "allowedUse": "manual/product-permitted work only",
+      "authority": "NONE",
+      "automation": "ONLY_IF_PRODUCT_TERMS_AND_SUPPORTED_CONNECTOR_ALLOW"
+    },
+    {
+      "id": "provider-credits",
+      "costClass": "CREDITS",
+      "cashUsd": 0,
+      "allowedUse": "lawful credited API calls under normal governor",
+      "authority": "NONE"
+    },
+    {
+      "id": "open-source-or-donated-compute",
+      "costClass": "DONATED_COMPUTE",
+      "cashUsd": 0,
+      "allowedUse": "admitted runtime only",
+      "authority": "NONE"
+    }
+  ]
+}

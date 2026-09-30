@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "uberbond.openrouter.recovery-manifest.v2",
+  "createdAt": "2026-09-30T20:36:00+03:00",
+  "backupBranchBase": "d561a74b729a6532dfd85a96c8920b2731f933b6",
+  "goal": "Preserve the complete OpenRouter/JEV/Frontier-VM/TypingMind/model-mechanics/proof-economics operating state inside open router/ without redefining or amputating prior canon.",
+  "canonicalObjective": "OPUS_5_5_QUALITY_OR_BETTER_AT_MINIMUM_ALL_IN_COST",
+  "inheritedCanon": [
+    "00_FINAL_SYSTEM.md",
+    "02_JEV_HYPERREFLEX.md",
+    "13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+    "21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+    "22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+    "28_E0_E4_LIVE_PROOF_LEDGER.md",
+    "ARCHITECTURE.md",
+    "OPEN_ROUTER_UBERMIND_CANON.json"
+  ],
+  "backupFiles": [],
+  "groups": {
+    "processorAndVm": [
+      "31_PROCESSOR_FABRIC_V5_2026-09-30.json",
+      "32_PROCESSOR_AUCTION_V5_2026-09-30.mjs",
+      "33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs",
+      "34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json",
+      "35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json",
+      "36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md",
+      "37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md",
+      "38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs"
+    ],
+    "modelUnderstandingAndCockpit": [
+      "39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json",
+      "40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs",
+      "41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs",
+      "42_TYPINGMIND_ROLE_MAP_2026-09-30.json",
+      "43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md",
+      "44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs",
+      "45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs",
+      "46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs",
+      "47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs",
+      "48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md"
+    ],
+    "runtimeJevAndEconomics": [
+      "49_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs",
+      "50_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs",
+      "51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs",
+      "52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs",
+      "53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json",
+      "54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md",
+      "55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs",
+      "56_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs",
+      "57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs",
+      "58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs",
+      "59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs",
+      "60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs",
+      "61_CROWN_ADMISSION_2026-09-30.mjs",
+      "62_COGNITION_LEDGER_2026-09-30.mjs",
+      "63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs",
+      "64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs",
+      "65_INFINITE_OPUS_TASK_COMPILERS_2026-09-30.mjs",
+      "66_INFINITE_OPUS_MARKET_2026-09-30.mjs",
+      "67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs",
+      "68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs",
+      "69_OPENROUTER_CANARY_2026-09-30.mjs"
+    ],
+    "deploymentEdge": [
+      "70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs",
+      "71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml",
+      "72_ENV_CONTRACT_SNAPSHOT_2026-09-30.example"
+    ]
+  },
+  "noAmputationLaw": [
+    "TypingMind is cockpit only.",
+    "JEV remains a first-class semantic control plane.",
+    "Frontier VM and Cognitive Supercompiler own execution planning.",
+    "Cheap model chains are processor plans, not UberMind itself.",
+    "Reality Court, Crown/Pantheon, Decision Franchises, Living Evidence Graph, proof economics and capital flywheel remain preserved.",
+    "New source supersedes historical backup for execution truth; backup remains recovery evidence."
+  ],
+  "multiplierCheckpoint": {
+    "metric": "DIRECT_OPUS_5_5_REFERENCE_COST / MODELED_UBERMIND_COST",
+    "canonicalColdSourceHeavyWorkload": {
+      "originalSourceTokens": 200000,
+      "compressedAnchoredEvidenceTokens": 5000,
+      "builderOutputTokens": 2500,
+      "redTeamOutputTokens": 300,
+      "crownAcceptTokens": 6,
+      "directOpusUsd": 0.85,
+      "modeledUberMindUsd": 0.096851,
+      "multiplier": 8.77636782273802
+    },
+    "conservativeMixedColdPathFloor": 6,
+    "certifiedJevE0E4FanoutIncluded": false,
+    "currentClaim": "8.776x modeled canonical cold source-heavy path; do not count uncertified recurrence savings."
+  },
+  "recoveryOrder": [
+    "Read inherited canon first.",
+    "Read this manifest.",
+    "Restore current source from canonical paths where available.",
+    "Use dated backups only for recovery/reconciliation, never to override newer verified source blindly.",
+    "Re-run no-amputation and processor-auction tests.",
+    "Refresh live model prices/mechanics before paid routing.",
+    "Keep multiplier checkpoint after every material change."
+  ]
+}

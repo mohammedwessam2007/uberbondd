@@ -76,3 +76,50 @@ export function modelDecisionFranchiseCompression({
     claimBoundary:'Modeled capacity only. Does not claim these consumers executed, demand existed, or actual provider spend occurred.'
   };
 }
+
+
+export function compileDecisionFranchiseExecutor({record,trustPin,currentContext,now=Date.now()}={}){
+  const reasons=[];
+  try{
+    if(!plain(record)||record.kind!=='DECISION_FRANCHISE'||record.status!=='ACTIVE'||semanticHash(record)!==trustPin)throw new Error('trusted-active-franchise-required');
+    const expiry=Date.parse(record.expiresAt);
+    if(!Number.isFinite(expiry)||expiry<=now)throw new Error('franchise-expired');
+    const spec=record.spec;
+    if(!plain(spec)||spec.schemaVersion!=='uberbond.decision-franchise.spec.v1')throw new Error('franchise-spec-required');
+    if(!plain(currentContext))throw new Error('current-franchise-context-required');
+    if(record.crownRevision!==currentContext.crownRevision)throw new Error('franchise-crown-revision-drift');
+    if(!same(record.sourceDependencies,currentContext.sourceHashes??{}))throw new Error('franchise-dependency-drift');
+    if(!same(record.invalidators,currentContext.invalidators??{})||Object.values(currentContext.invalidators??{}).some(v=>v!==false))throw new Error('franchise-invalidator-fired-or-drifted');
+    validateFinitePolicy(spec.policy);
+    const rows=new Map(spec.policy.rows.map(row=>[canonicalSemanticJson(row.input),structuredClone(row.output)]));
+    const franchiseHash=semanticHash(record);
+    return {
+      ok:true,status:'DECISION_FRANCHISE_EXECUTOR_COMPILED',franchiseHash,proofClass:record.proofClass,
+      execute(task,{includeTaskHash=true}={}){
+        try{
+          if(!plain(task)||typeof task.taskId!=='string'||!task.taskId||task.taskClass!==spec.taskClass)throw new Error('franchise-task-class-mismatch');
+          if(task.qualityContractHash!==spec.qualityContractHash||task.sideEffectClass!=='NONE')throw new Error('franchise-quality-or-effect-mismatch');
+          if(!plain(task.payload))throw new Error('typed-task-payload-required');
+          const projected={};
+          for(const key of spec.relevantKeys){
+            if(!Object.hasOwn(task.payload,key))throw new Error('relevant-field-missing:'+key);
+            projected[key]=structuredClone(task.payload[key]);
+          }
+          const key=canonicalSemanticJson(projected);
+          if(!rows.has(key))throw new Error('out-of-domain-or-ambiguous-policy');
+          const decision=structuredClone(rows.get(key));
+          return {
+            ok:true,status:'DECISION_FRANCHISE_EXECUTED',decision,taskId:task.taskId,
+            taskHash:includeTaskHash?semanticHash(task):null,
+            projectedStateHash:semanticHash(projected),franchiseId:record.id,franchiseHash,
+            proofClass:record.proofClass,semanticAuthority:'CERTIFIED_BOUNDED_POLICY',
+            providerCallsPerformed:0,externalEffectAuthority:'NONE'
+          };
+        }catch(error){
+          return {ok:false,status:'FRANCHISE_PAGE_FAULT_TO_FRONTIER',reasons:[String(error?.message||error)],semanticAuthority:'NONE',providerCallsPerformed:0};
+        }
+      }
+    };
+  }catch(error){reasons.push(String(error?.message||error));}
+  return {ok:false,status:'FRANCHISE_COMPILATION_REFUSED',reasons:[...new Set(reasons)],semanticAuthority:'NONE'};
+}

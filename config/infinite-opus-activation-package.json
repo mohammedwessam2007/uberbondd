@@ -83,7 +83,7 @@
       "streaming": "DELAYED_FINAL_ONLY__NO_UNREVIEWED_BUILDER_TOKENS",
       "tools": false,
       "vision": false,
-      "maxOutputTokens": 4096,
+      "maxOutputTokens": 8192,
       "maxRequestBytes": 300000,
       "replayWindowSeconds": 30
     },
@@ -94,7 +94,15 @@
       "authorizationHeader": "Bearer <same private UBERMIND_TYPINGMIND_GATEWAY_TOKEN stored on Render>",
       "directOpenRouterKeyRequired": false,
       "tools": false,
-      "vision": false
+      "vision": false,
+      "maxOutputTokens": 8192,
+      "recommendedContextLengthTokens": 64000,
+      "supportSystemRole": true,
+      "supportStreamingOutput": true,
+      "supportPlugins": false,
+      "supportImageInput": false,
+      "supportThinking": false,
+      "contextTruthBoundary": "TypingMind UI context length is a front-end hint only; UberBond still enforces the 300000-byte request-body limit and exact runtime budget."
     }
   },
   "stopConditions": [

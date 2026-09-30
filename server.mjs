@@ -364,6 +364,24 @@ function sendTypingMindJson(req,res,status,payload){
   res.end(JSON.stringify(payload));
 }
 
+function sendTypingMindStream(req,res,completion){
+  const cors=typingMindCors(req);
+  if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
+  res.writeHead(200,{
+    'content-type':'text/event-stream; charset=utf-8','cache-control':'no-cache, no-transform','connection':'keep-alive',
+    'x-content-type-options':'nosniff','x-frame-options':'DENY','referrer-policy':'no-referrer',
+    ...cors.headers
+  });
+  const content=String(completion?.choices?.[0]?.message?.content??'');
+  const base={id:completion.id,object:'chat.completion.chunk',created:completion.created,model:completion.model};
+  res.write('data: '+JSON.stringify({...base,choices:[{index:0,delta:{role:'assistant'},finish_reason:null}]})+'\n\n');
+  for(let i=0;i<content.length;i+=2048){
+    res.write('data: '+JSON.stringify({...base,choices:[{index:0,delta:{content:content.slice(i,i+2048)},finish_reason:null}]})+'\n\n');
+  }
+  res.write('data: '+JSON.stringify({...base,choices:[{index:0,delta:{},finish_reason:'stop'}],usage:completion.usage,uberbond:completion.uberbond})+'\n\n');
+  res.end('data: [DONE]\n\n');
+}
+
 async function brokerTypingMindInfiniteOpus(req, res, url) {
   const cors=typingMindCors(req);
   if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
@@ -409,8 +427,9 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   const replayKey=request.requestFingerprint;
   const recent=typingMindGatewayRecent.get(replayKey);
   if(recent && recent.expiresAt>Date.now()){
-    return sendTypingMindJson(req,res,200,{...structuredClone(recent.completion),
-      uberbond:{...structuredClone(recent.completion.uberbond),transportReplay:true,additionalProviderCalls:0}});
+    const replay={...structuredClone(recent.completion),
+      uberbond:{...structuredClone(recent.completion.uberbond),transportReplay:true,additionalProviderCalls:0}};
+    return request.streamRequested?sendTypingMindStream(req,res,replay):sendTypingMindJson(req,res,200,replay);
   }
   if(recent)typingMindGatewayRecent.delete(replayKey);
 
@@ -436,6 +455,7 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
     flight.finally(()=>typingMindGatewayFlights.delete(replayKey));
   }
   const response=await flight;
+  if(response.httpStatus===200&&request.streamRequested)return sendTypingMindStream(req,res,response.payload);
   return sendTypingMindJson(req,res,response.httpStatus,response.payload);
 }
 

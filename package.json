@@ -226,7 +226,8 @@
     "infinite-opus:budget:reconcile": "node scripts/infinite-opus-openrouter-budget-reconcile.mjs",
     "infinite-opus:hostile:doctor": "node scripts/infinite-opus-hostile-test-doctor.mjs",
     "test:infinite-opus:proof-economics": "node --test tests/provable-reference-economics.test.mjs",
-    "test:infinite-opus:proof-ledger": "node --test tests/provable-reference-economics.test.mjs tests/provable-execution-ledger.test.mjs"
+    "test:infinite-opus:proof-ledger": "node --test tests/provable-reference-economics.test.mjs tests/provable-execution-ledger.test.mjs",
+    "infinite-opus:activate:owner-gate": "node scripts/infinite-opus-owner-gate-launcher.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

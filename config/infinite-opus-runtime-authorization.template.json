@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.runtime-authorization-request.v1",
+  "ownerApproved": false,
+  "authorizationId": "REPLACE_WITH_UNIQUE_NONSECRET_ID",
+  "month": "2026-09",
+  "maximumMonthlySpendUsd": 20,
+  "expiresAt": "2026-09-30T23:59:59+03:00",
+  "crownRoutes": [
+    "openrouter:anthropic/claude-opus-5.5"
+  ],
+  "externalEffects": [],
+  "purpose": "UberBond governed cognition only",
+  "note": "Private owner authorization input. Do not commit an approved copy."
+}

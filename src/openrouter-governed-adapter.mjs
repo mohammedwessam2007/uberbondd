@@ -1,4 +1,5 @@
 import { assertCognitionPerimeterAdmission } from './cognition-transport-guard.mjs';
+import { validateOpenRouterLocalRequest } from './openrouter-local-request-gate.mjs';
 const BASE='https://openrouter.ai/api/v1';
 const text=async r=>{const t=await r.text();try{return JSON.parse(t)}catch{return {raw:t.slice(0,2000)}}};
 const finite=x=>Number.isFinite(Number(x))&&Number(x)>=0;
@@ -31,6 +32,7 @@ export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,
       generationId:id};
   }
   async function execute(payload){
+    validateOpenRouterLocalRequest(payload,{requireZdr});
     const pre=await inspectKey(); if(!pre.ok)return {ok:false,status:pre.status,providerCalls:0,keyReceipt:pre};
     if(!payload||typeof payload.model!=='string'||!Array.isArray(payload.messages)||payload.messages.length<1) throw new Error('bounded-chat-payload-required');
     if(!Number.isSafeInteger(payload.maxTokens)||payload.maxTokens<1||payload.maxTokens>4096) throw new Error('bounded-max-tokens-required');

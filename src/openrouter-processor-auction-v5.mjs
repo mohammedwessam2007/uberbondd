@@ -110,6 +110,12 @@ export function processorRolesFromConfig(config){
 
 const usdPerToken=(perMillion,tokens)=>perMillion*tokens/1_000_000;
 
+export function estimateJevControlUsd({sharedStateTokens=0,inputUsdPerMillion=.042}={}){
+  if(!Number.isFinite(sharedStateTokens)||sharedStateTokens<0)throw new Error('jev-shared-state-tokens-required');
+  if(!Number.isFinite(inputUsdPerMillion)||inputUsdPerMillion<0)throw new Error('jev-input-tariff-required');
+  return usdPerToken(inputUsdPerMillion,sharedStateTokens);
+}
+
 export function estimateDirectOpusUsd({freshInputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
   return usdPerToken(4,freshInputTokens)+usdPerToken(.2,cachedInputTokens)+usdPerToken(20,outputTokens);
 }

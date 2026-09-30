@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { executeDecisionFranchise } from './decision-franchise.mjs';
+import { compileDecisionFranchiseExecutor } from './decision-franchise.mjs';
 import { semanticHash } from './semantic-closure-kernel.mjs';
 
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
@@ -9,6 +9,8 @@ export function executeSequentialDecisionFranchiseFanout({
 }={}){
   if(!Number.isSafeInteger(count)||count<1||count>maxConsumers)throw new Error('bounded-positive-fanout-count-required');
   if(typeof taskIdPrefix!=='string'||!taskIdPrefix||typeof taskFactory!=='function')throw new Error('task-id-prefix-and-factory-required');
+  const compiled=compileDecisionFranchiseExecutor({record,trustPin,currentContext,now});
+  if(!compiled.ok)return {...compiled,executedCount:0,providerCallsPerformed:0};
   let receiptRoot=sha('uberbond.decision-franchise-fanout.v1'),providerCalls=0;
   const projectedStates=new Set();
   let firstTaskId=null,lastTaskId=null;
@@ -16,14 +18,14 @@ export function executeSequentialDecisionFranchiseFanout({
     const task=taskFactory(i);
     const expected=taskIdPrefix+i;
     if(task?.taskId!==expected)throw new Error('sequential-distinct-task-id-required:'+i);
-    const out=executeDecisionFranchise({record,trustPin,task,currentContext,now});
+    const out=compiled.execute(task,{includeTaskHash:false});
     if(!out.ok)return {ok:false,status:'FANOUT_EXECUTION_REFUSED',failedIndex:i,failedTaskId:task?.taskId??null,reasons:out.reasons,executedCount:i,providerCallsPerformed:providerCalls};
     if(out.providerCallsPerformed!==0)throw new Error('decision-franchise-hit-must-be-zero-model-call');
     if(i===0)firstTaskId=task.taskId;
     lastTaskId=task.taskId;
     projectedStates.add(out.projectedStateHash);
     providerCalls+=out.providerCallsPerformed;
-    receiptRoot=sha(receiptRoot+'|'+i+'|'+out.taskHash+'|'+semanticHash(out.decision)+'|'+out.franchiseHash);
+    receiptRoot=sha(receiptRoot+'|'+i+'|'+task.taskId+'|'+out.projectedStateHash+'|'+semanticHash(out.decision)+'|'+out.franchiseHash);
   }
   return {
     ok:true,status:'DISTINCT_DECISION_FRANCHISE_FANOUT_EXECUTED',

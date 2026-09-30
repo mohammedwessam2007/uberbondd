@@ -3,7 +3,7 @@ import { createInfiniteOpusRuntime } from './infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from './openrouter-governed-adapter.mjs';
 import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-adapter.mjs';
 import { buildGenericJevControlQuestions, cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter,
-  estimateDirectOpusUsd, estimateWriterThenCrownAcceptUsd, estimateIndependentCriticSurchargeUsd,
+  estimateDirectCrownUsd, estimateWriterThenCrownAcceptUsd, estimateIndependentCriticSurchargeUsd,
   shouldRunIndependentCritic } from './openrouter-processor-auction-v5.mjs';
 import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
@@ -145,6 +145,35 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
 
   const routeByModel=new Map([[TYPINGMIND_BUILDER_MODEL,builderRoute],[TYPINGMIND_CROWN_MODEL,crownRoute],
     ...(mimoRoute?[[TYPINGMIND_MIMO_MODEL,mimoRoute]]:[]),...(deepseekRoute?[[TYPINGMIND_DEEPSEEK_MODEL,deepseekRoute]]:[])]);
+  const CACHE_PROFILE_KEY='infinite_opus_typingmind_cache_profiles_v1',CACHE_PROFILE_TTL_MS=240000,CACHE_PROFILE_MAX_SESSIONS=128;
+  async function readWarmCacheProfile(sessionRoot){
+    return store.transaction(async tx=>{
+      const settings=await tx.getSettings(),all=settings[CACHE_PROFILE_KEY]??{},session=all[sessionRoot]??{},now=clock(),out={};
+      for(const [model,row] of Object.entries(session)){
+        const at=Date.parse(row?.observedAt);
+        if(Number.isFinite(at)&&now-at>=0&&now-at<=CACHE_PROFILE_TTL_MS&&Number.isFinite(Number(row?.cachedInputTokens))){
+          out[model]=Math.max(0,Number(row.cachedInputTokens));
+        }
+      }
+      return out;
+    });
+  }
+  async function recordWarmCacheProfile(sessionRoot,model,usage={}){
+    if(!sessionRoot||!model||!Number.isFinite(Number(usage.cachedInputTokens)))return;
+    await store.transaction(async tx=>{
+      const settings=await tx.getSettings(),all=structuredClone(settings[CACHE_PROFILE_KEY]??{});
+      const session=structuredClone(all[sessionRoot]??{});
+      session[model]={cachedInputTokens:Math.max(0,Number(usage.cachedInputTokens)),inputTokens:Math.max(0,Number(usage.inputTokens??0)),observedAt:new Date(clock()).toISOString()};
+      all[sessionRoot]=session;
+      const ordered=Object.entries(all).sort((a,b)=>{
+        const aa=Math.max(...Object.values(a[1]??{}).map(x=>Date.parse(x?.observedAt)||0),0);
+        const bb=Math.max(...Object.values(b[1]??{}).map(x=>Date.parse(x?.observedAt)||0),0);
+        return aa-bb;
+      });
+      while(ordered.length>CACHE_PROFILE_MAX_SESSIONS){const [old]=ordered.shift();delete all[old];}
+      await tx.setSetting(CACHE_PROFILE_KEY,all);
+    });
+  }
   async function call({model,role,qualityClass,messages,maxTokens,inputTokenCeiling,sessionRoot,stage,reasoningEffort=null,responseFormat=null}){
     const route=routeByModel.get(model);
     if(!route)throw new Error('fresh-live-route-required:'+model);
@@ -153,7 +182,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     const taskId='tm-'+stage+'-'+crypto.randomUUID(),callId='or-'+stage+'-'+crypto.randomUUID();
     const prepared=await runtime.preparePaidCall({callId,taskId,model,provider:'openrouter',qualityClass,role,cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd});
     if(!prepared.ok)return {...prepared,stage,providerCallsPerformed:0};
-    return runtime.dispatchPaidCall(callId,{
+    const result=await runtime.dispatchPaidCall(callId,{
       model,
       task:{taskId,objective:'TypingMind UberMind '+stage,consequenceClass:'LOCAL_PREPARATION'},
       messages,
@@ -165,6 +194,8 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       responseCache:false,
       costCeilingCents:centsFor(ceilingMicrousd)
     });
+    if(result?.ok)await recordWarmCacheProfile(sessionRoot,model,result.usage??{});
+    return result;
   }
 
   function jevWorkerEffort(jevShadow){
@@ -256,16 +287,20 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     readiness:()=>ready,
     runtime,
     async execute(request){
-      const directUsd=estimateDirectOpusUsd({
-        freshInputTokens:request.inputTokenCeiling,
-        outputTokens:request.maxTokens
+      const warm=await readWarmCacheProfile(request.sessionRoot);
+      const cappedWarm=Object.fromEntries(Object.entries(warm).map(([model,tokens])=>[model,Math.min(tokens,request.inputTokenCeiling)]));
+      const crownCachedInputTokens=Math.min(Number(cappedWarm[TYPINGMIND_CROWN_MODEL]??0),request.inputTokenCeiling);
+      const directUsd=estimateDirectCrownUsd({
+        crownRoute,inputTokens:request.inputTokenCeiling,cachedInputTokens:crownCachedInputTokens,outputTokens:request.maxTokens
       });
       const lowerBound=cheapestPossibleWriterLowerBound({
         writerRoutes:[mimoRoute,deepseekRoute,builderRoute].filter(Boolean),
         crownRoute,
         inputTokens:request.inputTokenCeiling,
         candidateOutputTokens:request.maxTokens,
-        crownAcceptTokens:6
+        crownAcceptTokens:6,
+        cachedInputByModel:cappedWarm,
+        crownCachedInputTokens
       });
 
       // If even the cheapest physically available candidate-writer path cannot
@@ -290,7 +325,9 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         crownRoute,
         inputTokens:request.inputTokenCeiling,
         candidateOutputTokens:request.maxTokens,
-        crownAcceptTokens:6
+        crownAcceptTokens:6,
+        cachedInputByModel:cappedWarm,
+        crownCachedInputTokens
       }):null;
 
       if(!writerDecision?.selected){
@@ -301,7 +338,8 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
             reason:'JEV_UNAVAILABLE_STRONG_BUILDER_FALLBACK',
             usd:estimateWriterThenCrownAcceptUsd({
               writerRoute:builderRoute,crownRoute,inputTokens:request.inputTokenCeiling,
-              candidateOutputTokens:request.maxTokens,crownAcceptTokens:6
+              candidateOutputTokens:request.maxTokens,crownAcceptTokens:6,
+              writerCachedInputTokens:Number(cappedWarm[TYPINGMIND_BUILDER_MODEL]??0),crownCachedInputTokens
             })
           },
           eligible:[],
@@ -426,6 +464,11 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         criticModel:criticCalls?TYPINGMIND_DEEPSEEK_MODEL:null,
         criticStatus:critic?.status??null,
         crownSawOriginalConversation:true,
+        observedWarmInputTokens:{
+          writer:Number(cappedWarm[writerModel]??0),
+          crown:crownCachedInputTokens
+        },
+        cacheProfileTtlMs:CACHE_PROFILE_TTL_MS,
         cheapWriterSemanticAuthority:'NONE'
       };
 

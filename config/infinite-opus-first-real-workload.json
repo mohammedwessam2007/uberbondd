@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.first-real-workload.v1",
+  "selectedAt": "2026-09-30",
+  "taskClass": "PROVIDER_SCREENING",
+  "reason": "Recurring UberBond provider-screening work is immediately useful, source-heavy, side-effect-free, structurally verifiable, batchable, and exposes semantic recurrence without choosing a flattering benchmark.",
+  "sideEffectClass": "NONE",
+  "qualityContract": {
+    "required": "Q_CURRENT_VERIFIED_TASK_FRONTIER_FOR_UNRESOLVED_SEMANTICS",
+    "hardFacts": "E1_DETERMINISTIC_DERIVATION_FROM_PINNED_CURRENT_SOURCE_STATE",
+    "regressionTolerance": 0,
+    "silentDowngrade": false
+  },
+  "exactEligibility": {
+    "maxMonthlyUsd": 65,
+    "requires": [
+      "smtp",
+      "imap",
+      "incomingReplies",
+      "byoDomain",
+      "usableApiOrSmtp"
+    ],
+    "explicitPolicyProhibitionEliminates": true
+  },
+  "unresolvedFrontierLeaves": [
+    "cold-outreach-policy-when-source-ambiguous",
+    "actual-safe-daily-volume",
+    "ip-and-rdns-operational-quality",
+    "deliverability-reputation",
+    "support-reliability"
+  ],
+  "recurrenceTargets": [
+    "same provider facts reused across architecture comparisons",
+    "same policy source reused across volume tiers",
+    "same SMTP/IMAP/BYO-domain requirements reused across candidates",
+    "same changed-source invalidation graph for refreshes"
+  ],
+  "evidencePlan": {
+    "directFrontierBaseline": "same provider screening performed end-to-end by the current verified task-class Crown",
+    "ubermindCandidate": "exact facts + deterministic eliminations + shared-source reuse + Crown only on unresolved leaves",
+    "blindMatchedQualityRequired": true,
+    "conservativeReferenceEconomics": true
+  },
+  "executionOrder": [
+    "after tiny paid canary and billing reconciliation",
+    "after task-class Crown tournament establishes current research/provider-screening Crown",
+    "compile current provider evidence into typed facts",
+    "run exact eliminations without model inference",
+    "coalesce identical unresolved proof cuts",
+    "submit only residual leaves to current Crown",
+    "issue Crown Admission Receipts for reusable semantic atoms",
+    "record actual cost, direct-frontier matched reference cost, fanout and page-fault rate"
+  ],
+  "metrics": [
+    "FRONTIER_SEMANTIC_SHARE",
+    "OPUS_QUALITY_FANOUT",
+    "SEMANTIC_MULTICAST_FACTOR",
+    "VERIFIED_SEMANTIC_DEDUP_FACTOR",
+    "CROWN_CALLS",
+    "CROWN_CALLS_AVOIDED",
+    "ACTUAL_ALL_IN_COST",
+    "CONSERVATIVE_REFERENCE_COST",
+    "REFERENCE_COMPRESSION_FACTOR"
+  ],
+  "truthBoundary": "This selects and compiles the first live workload. It does not claim that the workload has run, that a Crown has been promoted, or that any compression factor has been achieved."
+}

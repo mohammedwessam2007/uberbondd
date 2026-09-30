@@ -74,3 +74,30 @@ test('typed lead capacity arithmetic remains preparation only and never grants o
  const result=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'LEAD_CAPACITY_ARITHMETIC',payload:{}});
  assert.equal(result.semanticAuthority,'PROPOSAL_ONLY');assert.equal(result.releaseAuthorized,false);
 });
+
+
+test('provider screening exact eliminations do not spend Crown authority',()=>{
+ const payload={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:semanticHash('source'),
+   facts:{monthlyMinimumUsd:80,smtp:true,imap:false,incomingReplies:true,byoDomain:true,usableApiOrSmtp:true,unsolicitedOutreachPolicy:'ALLOWED'},maxMonthlyUsd:65};
+ const r=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'PROVIDER_SCREENING',payload});
+ assert.equal(r.status,'PROVIDER_EXACTLY_ELIMINATED');assert.equal(r.semanticAuthority,'E1_DETERMINISTIC_DERIVATION');
+ assert.ok(r.eliminationReasons.includes('MONTHLY_MINIMUM_EXCEEDS_BOUND'));assert.ok(r.eliminationReasons.includes('MISSING_IMAP'));assert.equal(r.crownPacket,null);
+});
+
+test('provider screening survivors emit only the unresolved frontier residual',()=>{
+ const payload={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:semanticHash('source'),
+   facts:{monthlyMinimumUsd:30,smtp:true,imap:true,incomingReplies:true,byoDomain:true,usableApiOrSmtp:true,unsolicitedOutreachPolicy:'UNKNOWN'},maxMonthlyUsd:65};
+ const r=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'PROVIDER_SCREENING',payload});
+ assert.equal(r.status,'PROVIDER_SCREENING_FRONTIER_RESIDUAL_READY');assert.equal(r.semanticAuthority,'NONE');assert.equal(r.sideEffectAuthority,'NONE');
+ assert.deepEqual(r.unresolvedSemanticLeaves.map(x=>x.id),['cold-outreach-policy','actual-safe-daily-volume','ip-and-rdns-operational-quality','deliverability-reputation','support-reliability']);
+ assert.equal(r.crownPacket.providerId,'p');
+});
+
+test('provider screening refuses untyped or unpinned evidence',()=>{
+ const base={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:semanticHash('source'),
+   facts:{monthlyMinimumUsd:30,smtp:true,imap:true,incomingReplies:true,byoDomain:true,usableApiOrSmtp:true,unsolicitedOutreachPolicy:'ALLOWED'}};
+ for(const mutation of [{sourceStateHash:'loose'},{facts:{...base.facts,imap:'yes'}},{facts:{...base.facts,unsolicitedOutreachPolicy:'probably'}}]){
+   const r=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'PROVIDER_SCREENING',payload:{...base,...mutation}});
+   assert.equal(r.ok,false);
+ }
+});

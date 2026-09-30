@@ -31,7 +31,7 @@ async function transact(store, operation) {
 const zero = extra => ({ businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE',
   externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS), ...extra });
 
-export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [], decisionFranchises = [],
+export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [], decisionFranchises = [], semanticCanonicalizers = {},
   clock = Date.now, paidExecutor = null, paidAuthorization = null, routePrices = [], platformFeeRate = 0.055, referenceContractResolver = null } = {}) {
   const paidMonthlyCapMicrousd = paidAuthorization?.maxMonthlyMicrousd ?? 20_000_000;
   if (!Number.isSafeInteger(paidMonthlyCapMicrousd) || paidMonthlyCapMicrousd < 15_000_000 || paidMonthlyCapMicrousd > 20_000_000 && paidAuthorization) throw new Error('paid-runtime-cap-must-fit-20-dollar-key-and-15-dollar-crown-reserve');
@@ -117,7 +117,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             .filter(row=>row?.record?.spec?.taskClass===task.taskClass)
             .map(row=>({row,out:executeDecisionFranchise({
               record:row.record,trustPin:row.trustPin,task:franchiseTask,
-              currentContext:context,now:clock()
+              currentContext:context,now:clock(),semanticCanonicalizers
             })}))
             .filter(x=>x.out.ok);
           if (candidates.length > 1) {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:59:45+03:00",
+  "updatedAt": "2026-09-30T23:59:55+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -354,6 +354,20 @@
       ],
       "qualityLaw": "Runtime re-runs exhaustive Crown certification before admission. Serialized record alone cannot self-promote; tampered observations fail; vault conflicts cannot overwrite cognition.",
       "nextEvidence": "FIRST_REAL_OPUS_OBSERVATION_SET_AND_REAL_RECURRING_TASK_CLASS"
+    },
+    {
+      "label": "verified-semantic-egraph-hotpath-v21",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_ECONOMIC_MULTIPLIER_CREDIT__E2_EQUIVALENCE_NOW_REACHES_E3_ZERO_CALL_HOT_PATH",
+      "workload": "verified equivalent typed representation -> trust-pinned E2 canonicalizer -> canonical finite-policy state -> E3 Decision Franchise -> zero provider calls",
+      "qualityLaw": "Only independently trust-pinned E2 rewrite receipts can merge semantic states. Similarity alone never merges. Context/dependency drift fails closed.",
+      "implementation": [
+        "src/semantic-reuse-foundry.mjs",
+        "src/decision-franchise.mjs",
+        "src/infinite-opus-native-runtime.mjs",
+        "tests/semantic-egraph-franchise-hotpath.test.mjs"
+      ],
+      "expectedEffect": "Increase certified recurrence hit-rate across verified equivalent representations without granting probabilistic semantic-cache authority."
     }
   ],
   "excludedFromCurrentNumber": [

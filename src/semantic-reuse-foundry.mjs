@@ -51,3 +51,65 @@ export function microcodeVerdict(program=[]){
   const unknown=program.filter(op=>!SEMANTIC_MICROCODE[op]);
   return unknown.length?{ok:false,status:'MICROCODE_PAGE_FAULT',unknown}:{ok:true,status:'MICROCODE_EXACT_SUBSET',semanticAuthority:'BOUNDED_ONLY'};
 }
+
+
+export function compileVerifiedSemanticCanonicalizer({
+  expressions=[],rewriteReceipts=[],rewriteTrustPins={},
+  qualityContractHash,crownRevision,sourceDependencies={},invalidators={},now=Date.now()
+}={}){
+  const fail=reason=>({ok:false,status:'SEMANTIC_CANONICALIZER_REFUSED',reasons:[reason],semanticAuthority:'NONE'});
+  try{
+    if(!Array.isArray(expressions)||!expressions.length||expressions.length>4096||!exact(rewriteTrustPins))throw new Error('bounded-expressions-and-trust-pins-required');
+    if(typeof qualityContractHash!=='string'||!/^(?:sha256:)?[0-9a-f]{64}$/.test(qualityContractHash)||typeof crownRevision!=='string'||!crownRevision)throw new Error('quality-and-crown-binding-required');
+    if(!exact(sourceDependencies)||!exact(invalidators)||Object.values(invalidators).some(v=>v!==false))throw new Error('current-dependency-and-invalidator-state-required');
+    const byId=new Map(),byValue=new Map();
+    for(const expression of expressions){
+      if(!exact(expression)||typeof expression.id!=='string'||!expression.id||byId.has(expression.id)||!Object.hasOwn(expression,'value'))throw new Error('unique-valued-expression-required');
+      const valueKey=JSON.stringify(expression.value);
+      if(byValue.has(valueKey)&&byValue.get(valueKey)!==expression.id)throw new Error('duplicate-exact-value-expression');
+      byId.set(expression.id,structuredClone(expression));byValue.set(valueKey,expression.id);
+    }
+    const parent=new Map([...byId.keys()].map(id=>[id,id]));
+    const find=x=>{while(parent.get(x)!==x){parent.set(x,parent.get(parent.get(x)));x=parent.get(x);}return x;};
+    const union=(a,b)=>{a=find(a);b=find(b);if(a!==b)parent.set(b,a);};
+    for(const receipt of rewriteReceipts){
+      if(!exact(receipt)||typeof receipt.id!=='string'||!receipt.id||!byId.has(receipt.from)||!byId.has(receipt.to))throw new Error('known-rewrite-endpoints-required');
+      const pin=rewriteTrustPins[receipt.id];
+      if(pin!==hash(receipt))throw new Error('trusted-rewrite-receipt-required');
+      if(receipt.verifierPassed!==true||receipt.authority!=='E2_VERIFIED_TRANSFORMATION'||!/^sha256:[0-9a-f]{64}$/.test(String(receipt.proofHash||'')))throw new Error('e2-verified-rewrite-required');
+      if(receipt.qualityContractHash!==qualityContractHash||receipt.crownRevision!==crownRevision)throw new Error('rewrite-quality-or-crown-drift');
+      if(JSON.stringify(receipt.sourceDependencies??{})!==JSON.stringify(sourceDependencies)||JSON.stringify(receipt.invalidators??{})!==JSON.stringify(invalidators))throw new Error('rewrite-dependency-or-invalidator-drift');
+      if(typeof receipt.evidenceRef!=='string'||!receipt.evidenceRef)throw new Error('rewrite-evidence-required');
+      const expiry=Date.parse(receipt.expiresAt);if(!Number.isFinite(expiry)||expiry<=now)throw new Error('rewrite-expired');
+      union(receipt.from,receipt.to);
+    }
+    const classes=new Map();
+    for(const id of byId.keys()){const root=find(id);const members=classes.get(root)??[];members.push(id);classes.set(root,members);}
+    const canonicalById=new Map();
+    for(const members of classes.values()){
+      members.sort();const canonical=members[0];
+      for(const id of members)canonicalById.set(id,canonical);
+    }
+    const canonicalizerHash=hash({
+      expressions:[...byId.values()],rewriteReceipts,qualityContractHash,crownRevision,sourceDependencies,invalidators
+    });
+    return {
+      ok:true,status:'VERIFIED_SEMANTIC_CANONICALIZER_COMPILED',canonicalizerHash,
+      semanticAuthority:'E2_VERIFIED_TRANSFORMATION_ONLY',
+      canonicalize(value,{currentContext}={}){
+        if(!exact(currentContext)||currentContext.crownRevision!==crownRevision||
+           JSON.stringify(currentContext.sourceHashes??{})!==JSON.stringify(sourceDependencies)||
+           JSON.stringify(currentContext.invalidators??{})!==JSON.stringify(invalidators)||
+           Object.values(currentContext.invalidators??{}).some(v=>v!==false)){
+          return fail('canonicalizer-current-context-drift');
+        }
+        const id=byValue.get(JSON.stringify(value));
+        if(!id)return {ok:true,status:'NO_VERIFIED_REWRITE_IDENTITY',value:structuredClone(value),transformed:false,canonicalizerHash};
+        const canonicalId=canonicalById.get(id),canonicalValue=byId.get(canonicalId).value;
+        return {ok:true,status:id===canonicalId?'ALREADY_CANONICAL':'E2_CANONICALIZED',
+          value:structuredClone(canonicalValue),transformed:id!==canonicalId,fromExpressionId:id,toExpressionId:canonicalId,
+          canonicalizerHash,semanticAuthority:'E2_VERIFIED_TRANSFORMATION_ONLY'};
+      }
+    };
+  }catch(error){return fail(String(error?.message||error));}
+}

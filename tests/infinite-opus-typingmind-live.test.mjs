@@ -5,7 +5,7 @@ import { compileInfiniteOpusMarket } from '../src/infinite-opus-market.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 import { compileTypingMindChatRequest, TYPINGMIND_UBERMIND_MODEL } from '../src/infinite-opus-typingmind-gateway.mjs';
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness,
-  TYPINGMIND_BUILDER_MODEL, TYPINGMIND_CROWN_MODEL } from '../src/infinite-opus-typingmind-live.mjs';
+  TYPINGMIND_BUILDER_MODEL, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from '../src/infinite-opus-typingmind-live.mjs';
 
 const h=x=>'sha256:'+crypto.createHash('sha256').update(String(x)).digest('hex');
 const now=Date.parse('2026-09-30T13:30:00Z');
@@ -27,7 +27,7 @@ const market=()=>compileInfiniteOpusMarket({data:[
 ]},{verifiedAt:iso,ttlMs:86400000});
 const admission=(provider='Anthropic')=>{
  const issued=issueCrownAdmissionReceipt({
-  providerCallId:'tournament-opus',exactModelId:TYPINGMIND_CROWN_MODEL,providerIdentity:provider,routeIdentity:'openrouter:auto',
+  providerCallId:'tournament-opus',exactModelId:TYPINGMIND_CROWN_MODEL,providerIdentity:provider,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
   taskClassRole:'GENERAL_CROWN',promptProgramHash:h('prompt'),semanticInputHash:h('input'),qualityContractHash:h('quality'),
   sourceDependencyHashes:[h('source')],evidenceReferences:['fixture://sealed-tournament'],outputHash:h('out'),
   timestamp:iso,expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'fixture-auth',costReceiptRef:'fixture-bill',
@@ -91,12 +91,24 @@ test('upstream provider drift refuses Crown authority after observed paid call a
  assert.equal(out.semanticAuthority,'NONE');assert.equal(out.qualityAction,'QUEUE_NEVER_DOWNGRADE');assert.equal(calls,8);
 });
 
-test('missing router identity refuses Crown authority even when model and provider match',async()=>{
- const rows=providerSequence();delete rows[6].data.router;
+test('missing upstream provider refuses Crown authority even when model matches',async()=>{
+ const rows=providerSequence();delete rows[6].data.provider_name;
  const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
  const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const out=await o.execute(request());
- assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_UNOBSERVED');assert.equal(out.semanticAuthority,'NONE');
+ assert.equal(out.ok,false);assert.equal(out.status,'CROWN_UPSTREAM_PROVIDER_UNOBSERVED');assert.equal(out.semanticAuthority,'NONE');
+});
+
+test('routing-policy mismatch in Crown Admission Receipt refuses authority',async()=>{
+ const rows=providerSequence();
+ const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
+ const wrong={...admission(),routeIdentity:'openrouter:different-policy'};
+ const body={...wrong};delete body.receiptHash;
+ // A forged mutation also invalidates the receipt hash, which is intentionally fail-closed.
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:wrong,marketSnapshot:market(),fetchImpl,clock:()=>now});
+ assert.equal(o.readiness().ok,true);
+ const out=await o.execute(request());
+ assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED');assert.equal(out.semanticAuthority,'NONE');
 });
 
 test('Crown REWRITE becomes direct Crown answer and never authorizes builder prose',async()=>{

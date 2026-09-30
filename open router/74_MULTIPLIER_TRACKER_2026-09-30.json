@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-10-01T00:15:00+03:00",
+  "updatedAt": "2026-09-30T22:55:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -241,6 +241,16 @@
         "src/living-evidence-graph.mjs",
         "tests/living-evidence-graph.test.mjs"
       ]
+    },
+    {
+      "label": "decision-franchise-executor-v14",
+      "multiplier": "UNBOUNDED_WITH_VALID_REUSE_FANOUT",
+      "status": "IMPLEMENTED_ZERO_MODEL_INFERENCE_REUSE_PRIMITIVE",
+      "workload": "E0-E4 certified finite decision franchise reused across N valid consumers under unchanged dependencies/invalidators/Crown revision",
+      "marginalModelInferenceUsd": 0,
+      "qualityLaw": "Franchise is executable only inside its E0-E4-certified relevance projection and exhaustive finite policy; drift page-faults.",
+      "finiteFreshNoveltyMultiplier": 14.161946017994001,
+      "systemwideLaw": "For N valid reuse consumers, matched direct-frontier reference grows with N while marginal model inference remains zero; therefore no finite ceiling under unbounded valid fanout."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -284,5 +294,6 @@
       "directOpusUsd": 0.85,
       "uberMindUsd": 0.002692
     }
-  }
+  },
+  "currentSystemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_DECISION_FRANCHISE_FANOUT"
 }

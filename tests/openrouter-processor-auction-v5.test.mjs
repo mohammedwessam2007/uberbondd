@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig,
-  estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd,
+  estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
   estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
@@ -108,6 +108,24 @@ test('MiMo compression path is considered only when source anchors and lossless 
   assert.equal(allowed.selected.path,'MIMO_COMPRESS_SOL_DEEPSEEK_OPUS');
   const c=estimateCompressedFrontierUsd({originalInputTokens:200000,compressedEvidenceTokens:5000,builderOutputTokens:2500,redTeamOutputTokens:300});
   assert.ok(c < estimateDirectOpusUsd({freshInputTokens:200000,outputTokens:2500}));
+});
+
+test('fused MiMo evidence+candidate path removes the separate Sol builder without removing Crown authority',()=>{
+  const oldPath=estimateCompressedFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,builderOutputTokens:2500,redTeamOutputTokens:300
+  });
+  const fused=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:300
+  });
+  assert.equal(oldPath,0.096851);
+  assert.equal(fused,0.062551);
+  assert.ok(fused<oldPath);
+  assert.ok(0.85/fused>13.58);
+  const chosen=chooseFreshFrontierPath({
+    inputTokens:200000,expectedOutputTokens:2500,compressedEvidenceTokens:5000,
+    redTeamOutputTokens:300,compressionLosslessContract:true,sourceAnchorsRetained:true
+  });
+  assert.equal(chosen.selected.path,'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS');
 });
 
 test('generic Jev control tensor separates execution-shape judgments instead of one vague router label',()=>{

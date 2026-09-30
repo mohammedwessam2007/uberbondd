@@ -470,7 +470,7 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
     const routeInventory = cognitionRouteInventory();
     const perimeter = compileCognitionEconomicPerimeter({
       runtimeKeyLimitUsd: 20,
-      typingMindKeyLimitUsd: 8,
+      typingMindKeyLimitUsd: 0,
       memberGuardrailUsd: 28,
       guardrailScope: 'MEMBER_ALL_KEYS',
       purchaseFeeRate: 0.055,
@@ -493,9 +493,9 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       const scoreboard = buildInfiniteOpusScoreboard({
         runtimeSnapshot: snapshot,
         globalLedgerSummary: {},
-        typingMindPerimeter: { status: perimeter.status, globalBudgetScope: 'PROPOSED_TWO_KEY_28_USD_PROVIDER_ENVELOPE_PRELIVE' },
+        typingMindPerimeter: { status: perimeter.status, globalBudgetScope: 'CANONICAL_ONE_RUNTIME_KEY_20_USD__TYPINGMIND_GATEWAY_ONLY__MEMBER_GUARDRAIL_28_BACKSTOP' },
         routeInventory: { ungoverned: routeInventory.routes.filter(row => !String(row.status).startsWith('GOVERNED') && !String(row.status).startsWith('FAIL_CLOSED') && row.status !== 'ONLY_ZERO_CASH_ALLOWED_IN_INFINITE_OPUS_MODE' && row.status !== 'NONCASH_GOVERNED').map(row => row.id) },
-        deployment: { sourceReady: true, liveConnected: false, productionDeployed: false, ownerOnlyBlockers: ['OPENROUTER_PRIVATE_KEY_AND_LIMIT_CONFIGURATION','TINY_BOUNDED_PAID_CANARY_AUTHORIZATION'] }
+        deployment: { sourceReady: true, liveConnected: false, productionDeployed: false, ownerOnlyBlockers: ['OPENROUTER_RUNTIME_KEY_PRIVATE_CONFIGURATION','TINY_BOUNDED_PAID_CANARY_AUTHORIZATION','SEALED_GENERAL_CROWN_EVIDENCE'] }
       });
       return sendJson(res, 200, { ok: true, perimeter, snapshot, scoreboard });
     }

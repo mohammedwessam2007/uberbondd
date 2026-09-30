@@ -131,18 +131,45 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,expectedRouteIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY};
       const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0);
       const builderUsage=builder.usage??{},crownUsage=crown.usage??{};
+      const completion=openAICompatibleCompletion({request,candidate,crown:crownText,usage:{
+        promptTokens:Number(builderUsage.inputTokens??0)+Number(crownUsage.inputTokens??0),
+        completionTokens:Number(builderUsage.outputTokens??0)+Number(crownUsage.outputTokens??0),
+        builderModel:TYPINGMIND_BUILDER_MODEL,crownModel:TYPINGMIND_CROWN_MODEL,
+        providerCalls:2,actualCostUsd:(builderCost+crownCost)/1e6
+      }});
+      const finalText=String(completion?.choices?.[0]?.message?.content??'');
+      const finalOutputHash='sha256:'+crypto.createHash('sha256').update(finalText).digest('hex');
+      let capitalization;
+      try{
+        capitalization=await runtime.recordCrownInteraction({
+          requestFingerprint:request.requestFingerprint,
+          finalOutputHash,
+          crownAdmissionReceiptHash:crownAdmission.receiptHash,
+          crownProviderRequestId:crown.providerRequestId,
+          observedUpstreamProvider:crown.upstreamProvider,
+          authorityClass:completion.uberbond.authorityClass,
+          builderCostMicrousd:builderCost,
+          crownCostMicrousd:crownCost,
+          sideEffectAuthority:'NONE'
+        });
+      }catch(error){
+        capitalization={ok:false,status:'CROWN_CAPITALIZATION_RECORDING_FAILED_NO_REUSE_AUTHORITY',
+          reason:String(error?.message||error),semanticReuseAuthority:'NONE',providerCallsPerformed:0};
+      }
+      completion.uberbond.crownCapitalization={
+        status:capitalization.status,
+        recurrence:capitalization.recurrence??null,
+        semanticReuseAuthority:'NONE',
+        rawConversationPersisted:false
+      };
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
-        completion:openAICompatibleCompletion({request,candidate,crown:crownText,usage:{
-          promptTokens:Number(builderUsage.inputTokens??0)+Number(crownUsage.inputTokens??0),
-          completionTokens:Number(builderUsage.outputTokens??0)+Number(crownUsage.outputTokens??0),
-          builderModel:TYPINGMIND_BUILDER_MODEL,crownModel:TYPINGMIND_CROWN_MODEL,
-          providerCalls:2,actualCostUsd:(builderCost+crownCost)/1e6
-        }}),
+        completion,
         builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost},
         crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
           upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
           openRouterRouter:crown.generationReceipt?.router??null,
           generationReceipt:crown.generationReceipt??null},
+        capitalization,
         semanticAuthority:'CURRENT_TASK_CLASS_CROWN',
         sideEffectAuthority:'NONE',
         jev:{mode:'SHADOW_ONLY',usedToSuppressCrown:false}

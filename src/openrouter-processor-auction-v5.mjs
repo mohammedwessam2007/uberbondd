@@ -157,6 +157,31 @@ export function estimateCompressedAdaptiveWriterFrontierUsd({
   return compressor+proposal+opus;
 }
 
+export function estimateLivingEvidenceDeltaEconomics({
+  totalSourceTokens=0,changedSourceTokens=0,outputTokens=0,
+  opusFreshInputUsdPerMillion=4,opusCacheReadUsdPerMillion=.2,opusOutputUsdPerMillion=20,
+  jevInputUsdPerMillion=.042,auditRate=.05,crownAuditInputTokens=400,crownAuditOutputTokens=1
+}={}){
+  if(!Number.isSafeInteger(totalSourceTokens)||totalSourceTokens<0||
+     !Number.isSafeInteger(changedSourceTokens)||changedSourceTokens<0||changedSourceTokens>totalSourceTokens||
+     !Number.isSafeInteger(outputTokens)||outputTokens<0)throw new Error('valid-delta-token-geometry-required');
+  const unchanged=totalSourceTokens-changedSourceTokens;
+  const directOpusUsd=
+    usdPerToken(opusFreshInputUsdPerMillion,changedSourceTokens)+
+    usdPerToken(opusCacheReadUsdPerMillion,unchanged)+
+    usdPerToken(opusOutputUsdPerMillion,outputTokens);
+  const jevUsd=usdPerToken(jevInputUsdPerMillion,changedSourceTokens);
+  const oneAuditUsd=usdPerToken(4,crownAuditInputTokens)+usdPerToken(20,crownAuditOutputTokens);
+  const expectedAuditUsd=auditRate*oneAuditUsd;
+  const uberMindUsd=jevUsd+expectedAuditUsd;
+  return {
+    totalSourceTokens,changedSourceTokens,unchangedSourceTokens:unchanged,
+    directOpusUsd,jevUsd,expectedAuditUsd,uberMindUsd,
+    multiplier:uberMindUsd>0?directOpusUsd/uberMindUsd:null,
+    baselineLaw:'DIRECT_OPUS_RECEIVES_CURRENT_PROMPT_CACHE_ECONOMICS_FOR_UNCHANGED_SOURCE'
+  };
+}
+
 export function estimateCertifiedJevMacroLaneUsd({
   sourceTokens=0,jevInputUsdPerMillion=.042,auditRate=0,
   crownAuditInputTokens=0,crownAuditOutputTokens=1

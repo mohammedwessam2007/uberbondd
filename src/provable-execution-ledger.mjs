@@ -21,8 +21,13 @@ export function appendProvableExecution(ledger,receipt={}){
 export function summarizeProvableExecutions({ledger,actualAllInMicrousd}={}){
  if(ledger?.schemaVersion!==PROVABLE_EXECUTION_LEDGER_SCHEMA)throw new Error('provable-execution-ledger-required');
  if(!ledger.executions.length)return{ok:false,status:'NO_PROVABLE_EXECUTIONS'};
- const workItems=ledger.executions.map(r=>({id:r.executionId,equivalenceClass:r.equivalenceClass,proofVerified:r.proofVerified,matchedObligationHash:r.matchedObligationHash,
-  qualityContractHash:r.qualityContractHash,proofRef:r.proofRef,executionCount:1,directReference:r.directReference}));
+ const groups=new Map();
+ for(const r of ledger.executions){
+  const key=sha({equivalenceClass:r.equivalenceClass,matchedObligationHash:r.matchedObligationHash,qualityContractHash:r.qualityContractHash,referenceContractHash:r.referenceContractHash});
+  const g=groups.get(key)??{id:key,equivalenceClass:r.equivalenceClass,proofVerified:true,matchedObligationHash:r.matchedObligationHash,qualityContractHash:r.qualityContractHash,proofRef:'execution-ledger:'+key,executionCount:0,directReference:r.directReference};
+  g.executionCount++;groups.set(key,g);
+ }
+ const workItems=[...groups.values()];
  const economics=proveReferenceEconomics({workItems,actualAllInMicrousd});
  return{...economics,period:ledger.period,uniqueExecutionCount:ledger.executions.length,executionLedgerHash:sha(ledger),
   qualityRetestRequired:false,qualityBasis:'E0_E4_VERIFIED_EQUIVALENCE',claimBoundary:'DOLLAR SAVINGS REQUIRE OBSERVED ACTUAL ALL-IN COST; COUNTERFACTUAL DIRECT COST NEEDS VERIFIED TOKENIZATION AND CURRENT ROUTE ECONOMICS'};

@@ -49,8 +49,9 @@ async function generation(apiKey,id){
   }
   throw new Error('generation-reconciliation-required:'+id);
 }
-async function call(apiKey,{model,messages,maxTokens,provider,tag}){
+async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null}){
   const body={model,messages,max_tokens:maxTokens,stream:false,temperature:0,
+    ...(responseFormat?{response_format:responseFormat}:{}),
     provider:{order:[provider],allow_fallbacks:false,require_parameters:true,data_collection:'deny',zdr:true,
       max_price:PRICE_CAPS[model]}};
   const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
@@ -68,6 +69,28 @@ async function call(apiKey,{model,messages,maxTokens,provider,tag}){
   if(!Number.isFinite(cost)||cost<0)throw new Error('provider-bill-required:'+id);
   return {id,text:content(j),meta,cost,model,providerName:String(meta.provider_name??'')};
 }
+
+function taskResponseFormat(){
+ return {type:'json_schema',json_schema:{name:'sealed_general_crown_tasks',strict:true,schema:{
+   type:'object',additionalProperties:false,required:['tasks'],properties:{tasks:{type:'array',minItems:2,maxItems:2,items:{
+     type:'object',additionalProperties:false,required:['id','prompt','rubric','must_not'],properties:{
+       id:{type:'string'},prompt:{type:'string'},rubric:{type:'array',minItems:5,maxItems:8,items:{type:'string'}},
+       must_not:{type:'array',items:{type:'string'}}
+     }
+   }}}
+ }}};
+}
+function gradeResponseFormat(){
+ return {type:'json_schema',json_schema:{name:'sealed_general_crown_grades',strict:true,schema:{
+   type:'object',additionalProperties:false,required:['grades'],properties:{grades:{type:'array',minItems:4,maxItems:4,items:{
+     type:'object',additionalProperties:false,required:['task_id','candidate','quality_score','required_regressions','canonical_zero_loss','reason'],properties:{
+       task_id:{type:'string'},candidate:{type:'string',enum:['A','B']},quality_score:{type:'number',minimum:0,maximum:100},
+       required_regressions:{type:'integer',minimum:0},canonical_zero_loss:{type:'boolean'},reason:{type:'string'}
+     }
+   }}}
+ }}};
+}
+
 function taskGenerationMessages(){
  return [
   {role:'system',content:'You are an independent sealed benchmark custodian. Create exactly two fresh, difficult GENERAL_CROWN tasks testing broad reasoning, evidence discipline, constraint tracking, counterexample handling, and synthesis. Tasks must be self-contained, text-only, answerable without web/tools, not depend on obscure trivia, and have objective evaluation criteria. Return strict JSON only. Never mention candidate model names.'},
@@ -97,7 +120,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:1000,tag:'custodian-generate'});
+   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:1000,tag:'custodian-generate',responseFormat:taskResponseFormat()});
    const taskDoc=parseJson(gen.text),tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
@@ -131,7 +154,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      blind[t.id]={A:answers[t.id+'|'+order[0]],B:answers[t.id+'|'+order[1]]};
      mapping[t.id]={A:order[0],B:order[1]};
    }
-   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:1100,tag:'custodian-grade'});
+   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:1100,tag:'custodian-grade',responseFormat:gradeResponseFormat()});
    const gradeDoc=parseJson(grade.text),grades=gradeDoc?.grades;
    if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
 

@@ -31,7 +31,13 @@ Canonical provider exposure is one inference key:
    - model ID: `ubermind/auto`
    - endpoint: `https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/chat/completions`
    - header: `Authorization: Bearer <private gateway token>`
-   - tools off, vision off for gateway v1.
+   - context length: 64,000 tokens as the cockpit hint; UberBond's 300,000-byte request cap remains authoritative.
+   - maximum output: 8,192 tokens. This is only a ceiling; routing/budget logic still reserves the requested amount and queues rather than silently downgrading quality.
+   - support system role: on.
+   - streaming output: on. UberBond emits delayed-final streaming only, so unreviewed Builder tokens never leak.
+   - plugins/tools: off.
+   - image input: off.
+   - thinking/reasoning UI toggle: off; UberBond controls reasoning/routing behind the gateway.
    Do not import/directly select Opus/Sol/MiMo as the canonical cockpit route.
 7. Restart/deploy Render after secret changes and verify `/api/typingmind/infinite-opus/v1/models` accepts the bearer and still reports live-not-ready until paid authorization and Crown admission exist. This is expected and performs zero inference.
 8. Ask the founder for the one required paid consent before the first provider call: maximum USD 0.05 transport/billing canary. Do not infer consent from setup authority.

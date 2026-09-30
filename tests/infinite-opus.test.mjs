@@ -281,6 +281,49 @@ test('E0 exact-response replay never inflates Decision Franchise fanout', async 
   assert.equal(snap.metrics.decisionFranchiseFanout,1);
 });
 
+test('Decision Franchise can serve a new non-identical consumer by capitalAssetId with zero model calls', async t => {
+  const { store } = await nativeStore(t);
+  const runtime = createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });
+  const seed=task('franchise-seed'); delete seed.request; seed.obligation={claim:'total',consumer:'seed'};
+  const seeded=await runtime.execute(seed);
+  assert.equal(seeded.ok,true);
+  const consumer={...task('franchise-consumer'),capitalAssetId:seeded.artifactHash,obligation:{claim:'total',consumer:'distinct-consumer'}};
+  delete consumer.artifact; delete consumer.request;
+  const reused=await runtime.execute(consumer);
+  assert.equal(reused.ok,true);
+  assert.equal(reused.status,'CLOSED_VIA_DECISION_FRANCHISE');
+  assert.equal(reused.providerCallsPerformed,0);
+  const snap=await runtime.snapshot();
+  const asset=snap.capital[seeded.artifactHash];
+  assert.equal(asset.compiledNonIdenticalConsumers,2);
+  assert.equal(snap.metrics.decisionFranchiseFanout,2);
+});
+test('Decision Franchise decompiles and pages frontier when dependency state drifts', async t => {
+  const { store } = await nativeStore(t);
+  const seedRuntime=createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });
+  const seed=task('drift-seed'); delete seed.request; seed.obligation={claim:'total',consumer:'seed'};
+  const seeded=await seedRuntime.execute(seed);
+  const drifted=context(); drifted.sourceHashes.source='f'.repeat(64);
+  const driftRuntime=createInfiniteOpusRuntime({ store,contextLoader:()=>drifted,authorityRecords:records(),clock:() => NOW });
+  const consumer={...task('drift-consumer'),capitalAssetId:seeded.artifactHash,obligation:{claim:'total',consumer:'after-drift'}};
+  delete consumer.artifact; delete consumer.request;
+  const r=await driftRuntime.execute(consumer);
+  assert.equal(r.ok,false);
+  assert.equal(r.status,'CROWN_PAGE_FAULT_QUEUED');
+  const snap=await driftRuntime.snapshot();
+  assert.equal(snap.capital[seeded.artifactHash].status,'DEGRADED_REVALIDATION_REQUIRED');
+});
+test('unknown or ambiguous capital reuse is refused before inference', async t => {
+  const { store } = await nativeStore(t);
+  const runtime=createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });
+  const unknown=task('unknown-capital'); unknown.capitalAssetId='f'.repeat(64); delete unknown.artifact; delete unknown.request;
+  await assert.rejects(runtime.execute(unknown),/known-current-capital-asset-required/);
+  const seed=task('ambiguous-seed'); delete seed.request;
+  const seeded=await runtime.execute(seed);
+  const ambiguous=task('ambiguous-reuse'); ambiguous.capitalAssetId=seeded.artifactHash; delete ambiguous.request;
+  await assert.rejects(runtime.execute(ambiguous),/mutually-exclusive/);
+});
+
 test('native persistence survives restart; cached claims are revalidated and duplicate completion is not counted', async t => {
   const { dir,store } = await nativeStore(t);
   const runtime = createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:26:00+03:00",
+  "updatedAt": "2026-09-30T21:32:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -64,6 +64,30 @@
         "src/semantic-closure-kernel.mjs"
       ],
       "deltaVsPriorMultiplierPercent": 104.82789115646258
+    },
+    {
+      "label": "checkpoint-35-certified-jev-evidence-gate-with-audits",
+      "multiplier": 99.05605407295187,
+      "status": "MODELED_CERTIFIED_BOUNDED_JEV_PATH__PASSPORT_AND_ZERO_REGRESSION_REQUIRED",
+      "workload": "200k source -> certified Jev chunk relevance at $0.042/M -> exact code copies admitted source spans -> current E0-E4 closure -> trusted Crown macro render; 5% sampled Opus boundary audits",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.008581,
+      "costBreakdownUsd": {
+        "jevSourceRelevance": 0.0084,
+        "expectedCrownShadowAudit": 0.000181,
+        "macroRenderInference": 0
+      },
+      "auditGeometry": {
+        "auditRate": 0.05,
+        "crownAuditInputTokens": 900,
+        "crownAuditOutputTokens": 1
+      },
+      "qualityLaw": "Only a current independently trusted BOUNDED_REFLEX Applicability Passport with pairedRegressions=0 may enter. Jev decides relevance only; exact code copies source bytes. Any drift freezes/decompiles to Crown.",
+      "executableSources": [
+        "src/jev-applicability-passport.mjs",
+        "src/cognitive-macro-assembler.mjs"
+      ],
+      "deltaVsPriorMultiplierPercent": 242.6195290246478
     }
   ],
   "excludedFromCurrentNumber": [
@@ -82,9 +106,9 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 28.91156462585034,
-  "currentCheckpoint": "checkpoint-34-crown-approved-macro-e2",
-  "nextGate": 50,
+  "currentCanonicalModeledMultiplier": 99.05605407295187,
+  "currentCheckpoint": "checkpoint-35-certified-jev-evidence-gate-with-audits",
+  "nextGate": 100,
   "currentColdModeledMultiplier": 14.1149119893723,
-  "currentBestBoundedRecurringModeledMultiplier": 28.91156462585034
+  "currentBestBoundedRecurringModeledMultiplier": 99.05605407295187
 }

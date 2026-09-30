@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:43:00+03:00",
+  "updatedAt": "2026-09-30T21:58:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -137,6 +137,13 @@
         ],
         "compilerLaw": "EXACT_BEFORE_JEV"
       }
+    },
+    {
+      "label": "recurrence-step-37-38-franchise-runtime",
+      "multiplier": 14.161946017994001,
+      "status": "MULTIPLIER_UNCHANGED__RECURRENCE_INFRASTRUCTURE_IMPLEMENTED_NOT_YET_REALIZED",
+      "evidence": "source + hostile tests on branch; real live descendant receipts still required",
+      "targetFanoutPerSeed": 2358
     }
   ],
   "excludedFromCurrentNumber": [
@@ -157,5 +164,32 @@
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
   "currentCanonicalModeledMultiplier": 14.161946017994001,
   "currentCanonicalModeledUberMindUsd": 0.06002,
-  "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT"
+  "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT",
+  "recurrenceAttack": {
+    "status": "IMPLEMENTED_IN_SOURCE__NOT_COUNTED_UNTIL_REAL_E1_E4_CONSUMERS_AND_OBSERVED_COST_RECEIPTS",
+    "targetMultiplier": 33333.333333333336,
+    "targetReferenceUsd": 1000000,
+    "monthlyAllInCeilingUsd": 30,
+    "currentSeed": {
+      "matchedDirectOpusUsd": 0.85,
+      "modeledUberMindSeedUsd": 0.06002,
+      "maxWholeSeedsUnderThirty": 499
+    },
+    "fanoutTarget": {
+      "requiredCertifiedNonIdenticalDescendantsPerSeed": 2358,
+      "bindingConstraint": "ONE_MILLION_DOLLAR_REFERENCE_THRESHOLD_AT_CURRENT_SEED_UNIT",
+      "marginalExecutionAssumptionUsd": 0,
+      "warning": "If real marginal certified execution cost is nonzero, recompute; the target may rise or become infeasible."
+    },
+    "implementedMechanisms": [
+      "capitalAssetId Decision Franchise reuse with zero model calls",
+      "full semantic closure revalidation on every reuse",
+      "dependency/invalidator/Crown-lineage drift decompiles capital",
+      "semantic fanout dedupes consumerSemanticHash rather than taskId",
+      "E0 exact-response replay excluded from Decision Franchise fanout",
+      "crownCallsAvoided requires PROVABLE_FRANCHISE_USE plus verified direct-frontier counterfactual",
+      "proof ledger remains final dollar authority"
+    ],
+    "currentMultiplierLaw": "DO_NOT_INCREASE_14_161946X_FROM_RECURRENCE_SOURCE_CODE_ALONE"
+  }
 }

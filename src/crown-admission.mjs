@@ -8,7 +8,7 @@ const iso=x=>typeof x==='string'&&Number.isFinite(Date.parse(x));
 const int=x=>Number.isSafeInteger(x)&&x>=0;
 
 export function issueCrownAdmissionReceipt(input={}){
-  const required=['providerCallId','exactModelId','providerIdentity','routeIdentity','taskClassRole','promptProgramHash','semanticInputHash','qualityContractHash','outputHash','timestamp','expiresAt','budgetAuthorizationRef','costReceiptRef'];
+  const required=['providerCallId','exactModelId','providerIdentity','routeIdentity','taskClassRole','promptProgramHash','semanticInputHash','qualityContractHash','outputHash','timestamp','expiresAt','budgetAuthorizationRef','costReceiptRef','modelCallabilityReceiptRef','revalidationPolicy'];
   const reasons=[];
   for(const k of required) if(!id(input[k])) reasons.push(`missing-${k}`);
   for(const k of ['promptProgramHash','semanticInputHash','qualityContractHash','outputHash']) if(input[k]&&!digest(input[k])) reasons.push(`invalid-${k}`);
@@ -20,6 +20,8 @@ export function issueCrownAdmissionReceipt(input={}){
   if(input.providerBillObserved!==true) reasons.push('provider-bill-observation-required');
   if(input.modelIdentityVerified!==true) reasons.push('model-identity-verification-required');
   if(input.roleTournamentEvidenceRef==null) reasons.push('task-class-crown-tournament-evidence-required');
+  if(input.modelRevision!=null&&!id(input.modelRevision)) reasons.push('model-revision-invalid');
+  if(input.authorizationStatus!=='AUTHORIZED_FOR_THIS_CALL') reasons.push('exact-call-authorization-status-required');
   if(reasons.length) return {ok:false,status:'CROWN_ADMISSION_REFUSED',reasons,semanticAuthority:'NONE'};
   const body={schemaVersion:CROWN_ADMISSION_SCHEMA,...input,sideEffectAuthority:'NONE'};
   return {ok:true,status:'CROWN_ADMISSION_RECEIPT_ISSUED',receipt:{...body,receiptHash:hash(body)},semanticAuthority:'CURRENT_TASK_CLASS_CROWN'};

@@ -42,7 +42,9 @@ export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,
     const body={model:payload.model,messages:payload.messages,max_tokens:payload.maxTokens,stream:false,usage:{include:true},
       ...(payload.reasoning?{reasoning:payload.reasoning}:{}),...(payload.sessionId?{session_id:payload.sessionId}:{}),
       ...(Object.keys(providerPolicy).length?{provider:providerPolicy}:{})};
-    const r=await fetchImpl(`${baseUrl}/chat/completions`,{method:'POST',headers:{Authorization:await auth(),'Content-Type':'application/json','HTTP-Referer':'https://uberbond.local','X-Title':'UberBond Infinite Opus'},body:JSON.stringify(body)});
+    const headers={Authorization:await auth(),'Content-Type':'application/json','HTTP-Referer':'https://uberbond.local','X-Title':'UberBond Infinite Opus'};
+    if(payload.responseCache===true)headers['X-OpenRouter-Cache']='true';
+    const r=await fetchImpl(`${baseUrl}/chat/completions`,{method:'POST',headers,body:JSON.stringify(body)});
     const b=await text(r); if(!r.ok)return {ok:false,status:'OPENROUTER_COMPLETION_FAILED',httpStatus:r.status,providerCalls:1,error:secretSafe(b)};
     const usage=b.usage??{},cost=Number(usage.cost),id=b.id,observedModel=b.model;
     if(typeof id!=='string'||!id||typeof observedModel!=='string'||!finite(cost))return {ok:false,status:'OPENROUTER_USAGE_OR_IDENTITY_MISSING',providerCalls:1,providerRequestId:id??null};

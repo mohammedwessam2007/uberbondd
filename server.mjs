@@ -435,24 +435,27 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
 
   let flight=typingMindGatewayFlights.get(replayKey);
   if(!flight){
-    flight=withUberSocketStore(async store => {
-      const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, paidAuthorization, crownAdmission, marketSnapshot });
-      const ready = orchestrator.readiness();
-      if (!ready.ok) return {httpStatus:503,payload:{
-        ok:false,status:ready.status,reasons:ready.reasons,qualityAction:'QUEUE_NEVER_DOWNGRADE',sideEffectAuthority:'NONE',
-        truthBoundary:'The cockpit refuses live answers until the runtime key, current paid authorization, fresh prices and a valid current General-Crown admission all exist.'
-      }};
+    flight=(async()=>{
       try{
-        const result=await orchestrator.execute(request);
-        if(!result.ok)return {httpStatus:/QUEUED|BUDGET/.test(result.status||'')?429:503,payload:result};
-        rememberTypingMindGatewayCompletion(replayKey,result.completion);
-        return {httpStatus:200,payload:result.completion};
+        return await withUberSocketStore(async store => {
+          const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, paidAuthorization, crownAdmission, marketSnapshot });
+          const ready = orchestrator.readiness();
+          if (!ready.ok) return {httpStatus:503,payload:{
+            ok:false,status:ready.status,reasons:ready.reasons,qualityAction:'QUEUE_NEVER_DOWNGRADE',sideEffectAuthority:'NONE',
+            truthBoundary:'The cockpit refuses live answers until the runtime key, current paid authorization, fresh prices and a valid current General-Crown admission all exist.'
+          }};
+          const result=await orchestrator.execute(request);
+          if(!result.ok)return {httpStatus:/QUEUED|BUDGET/.test(result.status||'')?429:503,payload:result};
+          rememberTypingMindGatewayCompletion(replayKey,result.completion);
+          return {httpStatus:200,payload:result.completion};
+        });
       }catch(error){
         return {httpStatus:503,payload:{ok:false,status:'TYPINGMIND_UBERMIND_EXECUTION_REFUSED',error:String(error?.message||error),qualityAction:'QUEUE_NEVER_DOWNGRADE'}};
+      }finally{
+        typingMindGatewayFlights.delete(replayKey);
       }
-    });
+    })();
     typingMindGatewayFlights.set(replayKey,flight);
-    flight.finally(()=>typingMindGatewayFlights.delete(replayKey));
   }
   const response=await flight;
   if(response.httpStatus===200&&request.streamRequested)return sendTypingMindStream(req,res,response.payload);

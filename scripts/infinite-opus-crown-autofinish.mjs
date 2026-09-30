@@ -120,7 +120,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:1000,tag:'custodian-generate',responseFormat:taskResponseFormat()});
+   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:4000,tag:'custodian-generate',responseFormat:taskResponseFormat()});
    const taskDoc=parseJson(gen.text),tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
@@ -154,7 +154,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      blind[t.id]={A:answers[t.id+'|'+order[0]],B:answers[t.id+'|'+order[1]]};
      mapping[t.id]={A:order[0],B:order[1]};
    }
-   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:1100,tag:'custodian-grade',responseFormat:gradeResponseFormat()});
+   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:5000,tag:'custodian-grade',responseFormat:gradeResponseFormat()});
    const gradeDoc=parseJson(grade.text),grades=gradeDoc?.grades;
    if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
 

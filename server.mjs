@@ -1,4 +1,5 @@
 import http from 'node:http';
+import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
@@ -13,6 +14,7 @@ import { createInfiniteOpusRuntime } from './src/infinite-opus-native-runtime.mj
 import { compileCognitionEconomicPerimeter } from './src/cognition-economic-perimeter.mjs';
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
+import { compileUberMindGatewayPlan, gatewayStatus, verifyGatewayBearer } from './src/infinite-opus-gateway.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -28,6 +30,84 @@ let uberMailRuntime = null;
 const publicCapabilityPath = pathname => pathname === '/unsubscribe'
   || pathname === '/api/public/unsubscribe'
   || pathname.startsWith('/api/public/');
+
+const TYPINGMIND_ORIGINS = new Set(['https://www.typingmind.com','https://typingmind.com']);
+const gatewayModelUnderstanding = () => JSON.parse(fs.readFileSync(new URL('./config/infinite-opus-model-understanding.json', import.meta.url), 'utf8'));
+
+function gatewayOrigin(req) {
+  const origin = String(req.headers?.origin || '');
+  return origin && TYPINGMIND_ORIGINS.has(origin) ? origin : null;
+}
+
+function sendGatewayJson(req, res, status, payload) {
+  const origin = gatewayOrigin(req);
+  const headers = {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'referrer-policy': 'no-referrer',
+    'vary': 'Origin'
+  };
+  if (origin) headers['access-control-allow-origin'] = origin;
+  res.writeHead(status, headers);
+  res.end(JSON.stringify(payload));
+}
+
+function requireUberMindGateway(req, res) {
+  const suppliedOrigin = String(req.headers?.origin || '');
+  if (suppliedOrigin && !gatewayOrigin(req)) {
+    sendGatewayJson(req, res, 403, { ok:false, status:'UBERMIND_GATEWAY_ORIGIN_REFUSED' });
+    return false;
+  }
+  const header = String(req.headers?.authorization || '');
+  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+  const expected = process.env.INFINITE_OPUS_GATEWAY_TOKEN || '';
+  if (!verifyGatewayBearer(token, expected)) {
+    sendGatewayJson(req, res, 401, { ok:false, status:'UBERMIND_GATEWAY_AUTH_REQUIRED' });
+    return false;
+  }
+  return true;
+}
+
+async function brokerUberMindGateway(req, res, url) {
+  if (req.method === 'OPTIONS') {
+    const origin = gatewayOrigin(req);
+    if (!origin) return sendGatewayJson(req, res, 403, { ok:false, status:'UBERMIND_GATEWAY_ORIGIN_REFUSED' });
+    res.writeHead(204, {
+      'access-control-allow-origin': origin,
+      'access-control-allow-methods': 'GET,POST,OPTIONS',
+      'access-control-allow-headers': 'Authorization,Content-Type',
+      'access-control-max-age': '600',
+      'cache-control': 'no-store',
+      'vary': 'Origin'
+    });
+    return res.end();
+  }
+  if (!requireUberMindGateway(req, res)) return;
+  let understanding;
+  try { understanding = gatewayModelUnderstanding(); }
+  catch (error) { return sendGatewayJson(req, res, 503, { ok:false, status:'MODEL_UNDERSTANDING_REGISTRY_UNAVAILABLE', detail:String(error?.message||error) }); }
+  const jev = {
+    status: process.env.TYPESAFE_API_KEY && process.env.TYPESAFE_JEV_ENABLED === 'true' ? 'CONFIGURED_UNVERIFIED' : 'NOT_CONNECTED',
+    certified: false
+  };
+  if (req.method === 'GET' && url.pathname === '/api/ubermind/v1/status') {
+    return sendGatewayJson(req, res, 200, gatewayStatus({
+      modelUnderstanding: understanding,
+      jev,
+      runtime: { paidConnected:false, budgetConnected:false, proofLedgerConnected:true }
+    }));
+  }
+  if (req.method === 'POST' && url.pathname === '/api/ubermind/v1/plan') {
+    let body;
+    try { body = await readSmallJsonBody(req, 128 * 1024); }
+    catch (error) { return sendGatewayJson(req, res, 400, { ok:false, status:'COCKPIT_TASK_BODY_REFUSED', detail:String(error?.message||error) }); }
+    const result = compileUberMindGatewayPlan({ task:body, modelUnderstanding:understanding, jev });
+    return sendGatewayJson(req, res, result.ok ? 200 : 409, result);
+  }
+  return sendGatewayJson(req, res, 404, { ok:false, status:'UBERMIND_GATEWAY_ROUTE_NOT_FOUND' });
+}
 
 function sendJson(res, status, payload) {
   res.writeHead(status, {
@@ -338,6 +418,7 @@ function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
     if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
+    if (url.pathname.startsWith('/api/ubermind/v1/')) return brokerUberMindGateway(req, res, url);
     if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') return brokerGoogleOAuthStart(coreHandler, req, res, url);

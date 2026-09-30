@@ -54,15 +54,20 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     expectedKeyLimitUsd:20,
     cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION
   });
-  const paidExecutor=payload=>adapter.execute({
-    model:payload.model,
-    messages:payload.messages,
-    maxTokens:payload.maxTokens,
-    sessionId:payload.sessionId,
-    reasoning:payload.reasoning,
-    providerPolicy:{data_collection:'deny',require_parameters:true},
-    responseCache:payload.responseCache===true
-  });
+  const paidExecutor=async payload=>{
+    const result=await adapter.execute({
+      model:payload.model,
+      messages:payload.messages,
+      maxTokens:payload.maxTokens,
+      sessionId:payload.sessionId,
+      reasoning:payload.reasoning,
+      providerPolicy:{data_collection:'deny',require_parameters:true},
+      responseCache:payload.responseCache===true
+    });
+    // The runtime accounting provider is OpenRouter. Preserve the actual
+    // upstream supplier separately so Crown admission can bind it exactly.
+    return {...result,upstreamProvider:result.provider??null,provider:'openrouter'};
+  };
   const runtime=createInfiniteOpusRuntime({
     store,clock,paidExecutor,paidAuthorization,
     routePrices:[builderRoute,crownRoute],
@@ -111,6 +116,16 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
 
       const crownText=contentText(crown.proposal);
       if(!crownText)return {ok:false,status:'EMPTY_CROWN_PROPOSAL',providerCallsPerformed:2,semanticAuthority:'NONE'};
+      const crownRouteIdentity='openrouter:auto';
+      const exactCrown=verifyCrownAdmissionReceipt(crownAdmission,{now:clock(),expected:{
+        exactModelId:TYPINGMIND_CROWN_MODEL,
+        taskClassRole:'GENERAL_CROWN',
+        providerIdentity:crown.upstreamProvider,
+        routeIdentity:crownRouteIdentity
+      }});
+      if(!exactCrown.ok)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED',
+        reasons:exactCrown.reasons,providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
+        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider??null,observedRouteIdentity:crownRouteIdentity};
       const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0);
       const builderUsage=builder.usage??{},crownUsage=crown.usage??{};
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
@@ -121,7 +136,9 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
           providerCalls:2,actualCostUsd:(builderCost+crownCost)/1e6
         }}),
         builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost},
-        crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost},
+        crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
+          upstreamProvider:crown.upstreamProvider??null,routeIdentity:'openrouter:auto',
+          generationReceipt:crown.generationReceipt??null},
         semanticAuthority:'CURRENT_TASK_CLASS_CROWN',
         sideEffectAuthority:'NONE',
         jev:{mode:'SHADOW_ONLY',usedToSuppressCrown:false}

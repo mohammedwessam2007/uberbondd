@@ -31,6 +31,18 @@ let infiniteOpusPublicMarketCache = null;
 const typingMindGatewayFlights = new Map();
 const typingMindGatewayRecent = new Map();
 const TYPINGMIND_GATEWAY_REPLAY_WINDOW_MS = 30_000;
+const TYPINGMIND_GATEWAY_REPLAY_MAX_ENTRIES = 256;
+
+function rememberTypingMindGatewayCompletion(key,completion){
+  const now=Date.now();
+  for(const [k,v] of typingMindGatewayRecent)if(v.expiresAt<=now)typingMindGatewayRecent.delete(k);
+  while(typingMindGatewayRecent.size>=TYPINGMIND_GATEWAY_REPLAY_MAX_ENTRIES){
+    const oldest=typingMindGatewayRecent.keys().next().value;
+    if(oldest===undefined)break;
+    typingMindGatewayRecent.delete(oldest);
+  }
+  typingMindGatewayRecent.set(key,{expiresAt:now+TYPINGMIND_GATEWAY_REPLAY_WINDOW_MS,completion:structuredClone(completion)});
+}
 
 const publicCapabilityPath = pathname => pathname === '/unsubscribe'
   || pathname === '/api/public/unsubscribe'
@@ -404,7 +416,7 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
       try{
         const result=await orchestrator.execute(request);
         if(!result.ok)return {httpStatus:/QUEUED|BUDGET/.test(result.status||'')?429:503,payload:result};
-        typingMindGatewayRecent.set(replayKey,{expiresAt:Date.now()+TYPINGMIND_GATEWAY_REPLAY_WINDOW_MS,completion:structuredClone(result.completion)});
+        rememberTypingMindGatewayCompletion(replayKey,result.completion);
         return {httpStatus:200,payload:result.completion};
       }catch(error){
         return {httpStatus:503,payload:{ok:false,status:'TYPINGMIND_UBERMIND_EXECUTION_REFUSED',error:String(error?.message||error),qualityAction:'QUEUE_NEVER_DOWNGRADE'}};

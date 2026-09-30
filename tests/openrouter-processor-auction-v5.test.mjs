@@ -141,6 +141,21 @@ test('accepted canonical path uses output-token surgery for RedTeam PASS instead
   assert.ok(0.85/compact>13.88);
 });
 
+test('JEV can omit low-value independent critic while Opus Crown remains mandatory',()=>{
+  const withCritic=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6,
+    includeIndependentCritic:true
+  });
+  const withoutCritic=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6,
+    includeIndependentCritic:false
+  });
+  assert.equal(withCritic,0.06122212);
+  assert.equal(withoutCritic,0.06022);
+  assert.ok(withoutCritic<withCritic);
+  assert.ok(0.85/withoutCritic>14.11);
+});
+
 test('generic Jev control tensor separates execution-shape judgments instead of one vague router label',()=>{
   const q=buildGenericJevControlQuestions();
   assert.equal(q.task_shape.type,'choice');

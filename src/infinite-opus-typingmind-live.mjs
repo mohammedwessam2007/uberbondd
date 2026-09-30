@@ -9,6 +9,7 @@ import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { selectCurrentPrice } from './infinite-opus-market.mjs';
 import { verifyCrownAdmissionReceipt } from './crown-admission.mjs';
+import { verifyCertifiedFrontierResidual, crownResidualMessages } from './certified-frontier-residual.mjs';
 import { buildBuilderMessages, buildCrownReviewMessages, buildDirectCrownMessages,
   CROWN_REVIEW_RESPONSE_FORMAT, openAICompatibleCompletion, openAICompatibleDirectCrownCompletion,
   stableModelSessionId } from './infinite-opus-typingmind-gateway.mjs';
@@ -58,7 +59,7 @@ export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission
     jevRawChatSuppressionAuthority:'NONE'};
 }
 
-export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthorization,crownAdmission,marketSnapshot,fetchImpl=fetch,clock=Date.now}={}){
+export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthorization,crownAdmission,marketSnapshot,fetchImpl=fetch,clock=Date.now,certifiedResidualResolver=null}={}){
   const ready=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(openRouterKey),now:clock()});
   if(!ready.ok)return {readiness:()=>ready,execute:async()=>({ok:false,status:ready.status,reasons:ready.reasons,providerCallsPerformed:0,semanticAuthority:'NONE'})};
   const builderRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,clock());
@@ -425,7 +426,31 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         if(critic.ok)criticText=contentText(critic.proposal);
       }
 
-      const crownMessages=buildCrownReviewMessages(request,candidate,criticText);
+      // A compact Crown context is legal only when an independent coverage
+      // authority certifies the exact source-bound residual. Generic chat keeps
+      // the untouched original conversation. Any resolver error or proof drift
+      // fails closed to the existing full-context Crown path.
+      let residualVerification=null,residualUsed=false,residualBundle=null;
+      if(typeof certifiedResidualResolver==='function'){
+        try{
+          residualBundle=await certifiedResidualResolver({request:structuredClone(request),candidate,criticText});
+          if(residualBundle?.packet){
+            residualBundle.packet={...residualBundle.packet,candidate};
+            residualVerification=verifyCertifiedFrontierResidual({
+              source:residualBundle.source,
+              packet:residualBundle.packet,
+              coverageAuthority:residualBundle.coverageAuthority,
+              now:clock()
+            });
+            residualUsed=residualVerification.ok===true;
+          }
+        }catch(error){
+          residualVerification={ok:false,status:'FULL_CONTEXT_CROWN_REQUIRED',reasons:['residual-resolver-failed:'+String(error?.message||error)]};
+        }
+      }
+      const crownMessages=residualUsed
+        ? crownResidualMessages({packet:residualBundle.packet,verification:residualVerification})
+        : buildCrownReviewMessages(request,candidate,criticText);
       const crownBytes=Buffer.byteLength(JSON.stringify(crownMessages));
       const crownInputCeiling=Math.min(300000,crownBytes+4096);
       const crown=await call({
@@ -469,7 +494,14 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
           crown:crownCachedInputTokens
         },
         cacheProfileTtlMs:CACHE_PROFILE_TTL_MS,
-        cheapWriterSemanticAuthority:'NONE'
+        cheapWriterSemanticAuthority:'NONE',
+        certifiedResidual:{
+          attempted:typeof certifiedResidualResolver==='function',
+          used:residualUsed,
+          status:residualVerification?.status??'NOT_CONFIGURED',
+          packetHash:residualUsed?residualVerification.packetHash:null,
+          fallback:residualUsed?null:'FULL_CONTEXT_CROWN'
+        }
       };
 
       const writerReceipt={providerRequestId:writer.providerRequestId??null,model:writerModel,costMicrousd:writerCost,reasoningEffort};

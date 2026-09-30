@@ -77,6 +77,13 @@
       "maxOutputTokens": 4096,
       "maxRequestBytes": 300000,
       "replayWindowSeconds": 30
+    },
+    "crownCapital": "/api/admin/infinite-opus/capital",
+    "crownCapitalPolicy": {
+      "rawConversationPersisted": false,
+      "semanticReuseAuthority": "NONE",
+      "recurrenceDetection": "EXACT_REQUEST_FINGERPRINT_ONLY",
+      "promotionLaw": "RECURRENCE_IS_COMPILER_PRIORITY_NOT_EXECUTION_AUTHORITY"
     }
   },
   "stopConditions": [
@@ -88,7 +95,8 @@
     "authority-admission-failure",
     "quality-contract-regression",
     "crown-upstream-provider-or-route-drift",
-    "typingmind-gateway-origin-or-bearer-failure"
+    "typingmind-gateway-origin-or-bearer-failure",
+    "crown-recurrence-ledger-write-failure"
   ],
   "evidenceRefs": [
     "https://openrouter.ai/docs/api/api-reference/api-keys/create-a-new-api-key",

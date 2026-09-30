@@ -7,6 +7,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
 import { executeDecisionFranchise } from './decision-franchise.mjs';
+import { certifyExhaustiveCrownDecisionFranchise } from './decision-franchise-certifier.mjs';
 import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash } from './frontier-thought-bond.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
@@ -45,7 +46,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
-      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
+      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, decisionFranchises: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
     // Preserve every historical month; unsettled charges block paid capacity.
@@ -65,6 +66,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     }
     state.proofLedger ??= createProvableExecutionLedger({ period: today().slice(0, 7) });
     state.thoughtBonds ??= {};
+    state.decisionFranchises ??= {};
     if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -104,13 +106,14 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         // Exact-before-JEV: attempt independently admitted Decision Franchises
         // before any semantic page fault or paid cognition. Task-supplied data
         // can never register a franchise or trust pin.
-        if (context && task.payload && admittedDecisionFranchises.length) {
+        const liveDecisionFranchises=[...admittedDecisionFranchises,...Object.values(state.decisionFranchises)];
+        if (context && task.payload && liveDecisionFranchises.length) {
           const franchiseTask = {
             taskId:task.taskId, taskClass:task.taskClass,
             qualityContractHash:context.qualityContractHash,
             sideEffectClass:task.sideEffectClass, payload:structuredClone(task.payload)
           };
-          const candidates=admittedDecisionFranchises
+          const candidates=liveDecisionFranchises
             .filter(row=>row?.record?.spec?.taskClass===task.taskClass)
             .map(row=>({row,out:executeDecisionFranchise({
               record:row.record,trustPin:row.trustPin,task:franchiseTask,
@@ -242,6 +245,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           budget: cognitionBudgetSummary(state.ledger, today()), metrics: cognitionMetrics(state.receipts),
           taskCount: Object.keys(state.tasks).length, pendingDebts: Object.values(state.debts).filter(d => d.status !== 'SETTLED').length,
           capitalAssets: Object.keys(state.capital).length, thoughtBondCount:Object.keys(state.thoughtBonds).length,
+          decisionFranchiseCount:Object.keys(state.decisionFranchises).length,
           paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });
@@ -264,6 +268,39 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         return zero({ok:true,status:existing?'IDEMPOTENT_THOUGHT_BOND_ADMISSION':'FRONTIER_THOUGHT_BOND_ADMITTED',
           cutHash:verified.cutHash,authorityId:verified.authorityId,providerCallsPerformed:0,
           semanticAuthority:'CURRENT_TASK_CLASS_CROWN_BOUND_TO_EXACT_CUT'});
+      });
+    },
+    async admitExhaustiveDecisionFranchise(bundle) {
+      safePayload(bundle);
+      const certified=certifyExhaustiveCrownDecisionFranchise({...bundle,now:clock()});
+      if(!certified.ok)return zero({...certified,providerCallsPerformed:0});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const id=certified.record.id, existing=state.decisionFranchises[id];
+        if(existing){
+          if(existing.trustPin!==certified.trustPin || semanticHash(existing.record)!==semanticHash(certified.record)){
+            return zero({ok:false,status:'DECISION_FRANCHISE_VAULT_CONFLICT',franchiseId:id,providerCallsPerformed:0,semanticAuthority:'NONE'});
+          }
+          return zero({ok:true,status:'IDEMPOTENT_DECISION_FRANCHISE_ADMISSION',franchiseId:id,trustPin:certified.trustPin,providerCallsPerformed:0,semanticAuthority:'CERTIFIED_BOUNDED_POLICY'});
+        }
+        state.decisionFranchises[id]={record:structuredClone(certified.record),trustPin:certified.trustPin};
+        state.receipts.push({kind:'DECISION_FRANCHISE_ADMITTED',franchiseId:id,trustPin:certified.trustPin,
+          observedStateCount:certified.observedStateCount,proofClass:certified.proofClass,observedAt:clock(),providerCallsPerformed:0});
+        await persist(tx,state);
+        return zero({ok:true,status:'DECISION_FRANCHISE_ADMITTED',franchiseId:id,trustPin:certified.trustPin,
+          observedStateCount:certified.observedStateCount,proofClass:certified.proofClass,
+          providerCallsPerformed:0,semanticAuthority:'CERTIFIED_BOUNDED_POLICY'});
+      });
+    },
+    async listDecisionFranchises() {
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const rows=Object.values(state.decisionFranchises).map(({record,trustPin})=>({
+          id:record.id,taskClass:record.spec?.taskClass??null,qualityContractHash:record.spec?.qualityContractHash??null,
+          proofClass:record.proofClass,expiresAt:record.expiresAt,crownRevision:record.crownRevision,
+          observedStateCount:record.certification?.observedStateCount??null,trustPin
+        }));
+        return zero({ok:true,status:'DECISION_FRANCHISE_VAULT',count:rows.length,franchises:rows,providerCallsPerformed:0});
       });
     },
     async preparePaidCall(request) {

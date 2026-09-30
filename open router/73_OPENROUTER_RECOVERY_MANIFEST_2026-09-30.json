@@ -42,8 +42,6 @@
       "48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md"
     ],
     "runtimeJevAndEconomics": [
-      "49_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs",
-      "50_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs",
       "51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs",
       "52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs",
       "53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json",
@@ -102,5 +100,6 @@
     "Re-run no-amputation and processor-auction tests.",
     "Refresh live model prices/mechanics before paid routing.",
     "Keep multiplier checkpoint after every material change."
-  ]
+  ],
+  "integrityNote": "Manifest filenames verified against the fresh current-main backup branch before merge. Runtime and governed adapter are stored as 60_ and 59_ respectively."
 }

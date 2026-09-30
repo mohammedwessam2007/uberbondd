@@ -23,6 +23,8 @@ if(understanding.schemaVersion!=='uberbond.infinite-opus.model-understanding.v1'
 if(!understanding.profiles.some(p=>p.model==='openai/gpt-6.1-sol-pro'&&p.avoidAsDefaultFor?.includes('routine-coding')))reasons.push('sol-pro-escalation-only-prior-missing');
 const server=read('server.mjs');
 if(!server.includes('/api/typingmind/infinite-opus/v1/')||!server.includes('UBERMIND_TYPINGMIND_GATEWAY_TOKEN'))reasons.push('typingmind-ubermind-gateway-route-missing');
+const typingMindBoundary=server.indexOf('function typingMindCors(req)');
+if(typingMindBoundary<0||server.slice(0,typingMindBoundary).includes('sendTypingMindJson(')||server.slice(0,typingMindBoundary).includes('sendTypingMindStream('))reasons.push('typingmind-response-helper-leaked-outside-cockpit-boundary');
 if(!server.includes('CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED')&&!read('src/infinite-opus-typingmind-live.mjs').includes('CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED'))reasons.push('typingmind-crown-provider-drift-gate-missing');
 const envExample=read('.env.example');
 for(const name of ['UBERMIND_TYPINGMIND_GATEWAY_TOKEN','INFINITE_OPUS_PAID_AUTHORIZATION_JSON','INFINITE_OPUS_CROWN_ADMISSION_JSON'])
@@ -42,7 +44,8 @@ for(const p of ['config/infinite-opus-canary-authorization.template.json','confi
 // These deterministic suites make no provider calls and receive no host credentials.
 const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provable-execution-ledger.test.mjs',
  'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs', 'tests/infinite-opus-model-understanding.test.mjs',
- 'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs'];
+ 'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs',
+ 'tests/server-typingmind-boundary.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
  cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
  env: { PATH: process.env.PATH, TZ: 'UTC' }

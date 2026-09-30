@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:18:00+03:00",
+  "updatedAt": "2026-09-30T21:24:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -56,6 +56,26 @@
           "same Opus final semantic gate"
         ]
       }
+    },
+    {
+      "label": "canonical-source-heavy-v8-jev-critic-voi",
+      "multiplier": 14.1149119893723,
+      "status": "MODELED_ACCEPT_PATH__JEV_REMOVES_OPTIONAL_CRITIC_ONLY__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> fused MiMo 5k exact-anchored evidence + 2.5k candidate -> JEV says critic VOI low -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06022,
+      "deltaFromPrior": {
+        "priorMultiplier": 13.883870731689786,
+        "priorUberMindUsd": 0.06122212,
+        "removed": "optional DeepSeek critic call when JEV value-of-information is below threshold",
+        "preserved": [
+          "same source",
+          "same exact-anchored evidence contract",
+          "same candidate",
+          "same mandatory Opus final semantic gate"
+        ],
+        "qualityBoundary": "JEV suppresses only redundant critic work; fresh Q_FRONTIER semantics still page to Crown."
+      }
     }
   ],
   "excludedFromCurrentNumber": [
@@ -74,7 +94,7 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 13.883870731689786,
-  "currentCanonicalModeledUberMindUsd": 0.06122212,
-  "currentCanonicalWorkload": "200k source -> fused MiMo evidence+candidate -> compact DeepSeek PASS -> Opus ACCEPT"
+  "currentCanonicalModeledMultiplier": 14.1149119893723,
+  "currentCanonicalModeledUberMindUsd": 0.06022,
+  "currentCanonicalWorkload": "200k source -> fused MiMo evidence+candidate -> JEV skips low-VOI critic -> Opus ACCEPT"
 }

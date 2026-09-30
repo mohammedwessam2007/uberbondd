@@ -71,7 +71,7 @@
     "typingMindChatCompletions": "/api/typingmind/infinite-opus/v1/chat/completions",
     "typingMindModelId": "ubermind/auto",
     "typingMindGatewayV1": {
-      "streaming": false,
+      "streaming": "DELAYED_FINAL_ONLY__NO_UNREVIEWED_BUILDER_TOKENS",
       "tools": false,
       "vision": false,
       "maxOutputTokens": 4096,

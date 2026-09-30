@@ -185,6 +185,63 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     return {ok:true,crownText};
   }
 
+  const writerModelById={mimo:TYPINGMIND_MIMO_MODEL,deepseek:TYPINGMIND_DEEPSEEK_MODEL,sol:TYPINGMIND_BUILDER_MODEL};
+  function buildAdaptiveWriterMessages(request,writerId){
+    const messages=buildBuilderMessages(request);
+    const extra={
+      mimo:' Use your cheap long-context bandwidth to produce a complete answer candidate. Preserve every material constraint; do not summarize away requirements.',
+      deepseek:' Prioritize rigorous reasoning, coding correctness, counterexamples, and internal consistency. Produce a complete answer candidate, not a critique.',
+      sol:' Use the assigned reasoning effort efficiently. Produce the complete strongest candidate so Crown can accept with minimal output.'
+    }[writerId]??' Produce a complete answer candidate.';
+    messages[0]={...messages[0],content:messages[0].content+extra};
+    return messages;
+  }
+
+  function buildIndependentCriticMessages(request,candidate){
+    return [
+      {role:'system',content:[
+        'You are an independent cheap adversarial auditor.',
+        'Inspect the original user request and the candidate answer.',
+        'Return only material defects that could change correctness, completeness, evidence fidelity, or required quality.',
+        'Do not rewrite the answer. Do not manufacture objections. Keep output under 600 tokens.',
+        'Your output is untrusted advice to the admitted Crown, not authority.'
+      ].join(' ')},
+      ...request.messages,
+      {role:'assistant',content:candidate},
+      {role:'user',content:'List only material MUST_FIX defects. If none, reply PASS.'}
+    ];
+  }
+
+  async function runDirectCrown(request,{jevShadow=null,routeCandidates=[],reason='DIRECT_OPUS_COST_WINNER'}={}){
+    const directMessages=buildDirectCrownMessages(request);
+    const directBytes=Buffer.byteLength(JSON.stringify(directMessages));
+    const crown=await call({
+      model:TYPINGMIND_CROWN_MODEL,role:'CROWN',qualityClass:'Q_FRONTIER_INTERACTIVE',
+      messages:directMessages,maxTokens:request.maxTokens,
+      inputTokenCeiling:Math.min(300000,directBytes+4096),
+      sessionRoot:request.sessionRoot,stage:'direct-crown',reasoningEffort:'high'
+    });
+    const jevCalls=Number(jevShadow?.providerCallsPerformed??0);
+    if(!crown.ok)return {ok:false,status:crown.status??'CROWN_FAILED_OR_QUEUED',
+      providerCallsPerformed:jevCalls+(crown.providerCallsPerformed??0),qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
+    const checked=await verifyCrown(crown,jevCalls+1);if(!checked.ok)return checked;
+    const crownCost=Number(crown.observedCostMicrousd??0),jevCost=Number(jevShadow?.observedCostMicrousd??0),usage=crown.usage??{};
+    return {ok:true,status:'TYPINGMIND_UBERMIND_DIRECT_CROWN_RESPONSE',
+      completion:openAICompatibleDirectCrownCompletion({request,crownText:checked.crownText,usage:{
+        promptTokens:Number(usage.inputTokens??0)+Number(jevShadow?.usage?.inputTokens??0),
+        completionTokens:Number(usage.outputTokens??0)+Number(jevShadow?.usage?.outputTokens??0),
+        crownModel:TYPINGMIND_CROWN_MODEL,providerCalls:jevCalls+1,actualCostUsd:(crownCost+jevCost)/1e6
+      }}),
+      crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
+        upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
+        openRouterRouter:crown.generationReceipt?.router??null,generationReceipt:crown.generationReceipt??null},
+      semanticAuthority:'CURRENT_TASK_CLASS_CROWN',sideEffectAuthority:'NONE',
+      routeDecision:{selected:'DIRECT_OPUS',reason,candidates:routeCandidates},
+      jev:{mode:jevShadow?.ok?'SHADOW_OBSERVED_BEFORE_DIRECT':'NOT_NEEDED_OR_UNAVAILABLE',usedToSuppressCrown:false,
+        answers:jevShadow?.proposal?.answers??null,costMicrousd:jevCost}
+    };
+  }
+
   return {
     readiness:()=>ready,
     runtime,

@@ -37,10 +37,10 @@ Observed provider: `openrouter`; upstream provider and model revision remain nul
 Request ID: `gen-1790803734-sdPeevPvChO5ON1U4LvY`.
 Cost basis: `OPENROUTER_USAGE_COST_OBSERVED`, USD0.00001155.
 External effects: none; semantic and business-effect authority: NONE.
-A full generation reconciliation receipt remains null; do not present this as Crown evidence.
+The runtime adapter generationReceipt remained null. Separately, OpenRouter's visible Generation Data JSON reconciled the same generation ID: provider Venice, canonical model xiaomi/mimo-v2.6-flash-20260921, 50 native prompt tokens, 8 native completion tokens (7 reasoning), usage and usage_upstream both USD0.00001155, finish reason length, request req-1790803734-ur7oCe5WzzaBDDZ2s6uJ. This is transport/billing evidence only; do not present it as Crown evidence.
 The original build command `npm install --omit=dev` was restored and verified after execution. Canonical route price expires 2026-10-01T00:00:00Z; revalidate before any new authorized run.
 ## Exact continuation
-Reconcile the observed canary generation/bill evidence without repeating the paid call, and obtain the separately owner-approved current monthly runtime receipt. Then have an independent sealed custodian run the GENERAL_CROWN tournament, keeping raw tasks/answers outside Git and the optimizing agent's context. Adjudicate and mint only from actual observed provider/model/billing evidence. Set the two non-secret receipts on Render, redeploy, verify live readiness, and finish TypingMind Test & Save.
+The canary generation and bill are reconciled. Obtain the separately owner-approved current monthly runtime receipt. Then have an independent sealed custodian run the GENERAL_CROWN tournament, keeping raw tasks/answers outside Git and the optimizing agent's context. Adjudicate and mint only from actual observed provider/model/billing evidence. Set the two non-secret receipts on Render, redeploy, verify live readiness, and finish TypingMind Test & Save.
 
 Never downgrade quality, fake an OpenAI-compatible successful answer to bypass Test & Save, or substitute direct provider chat for the Frontier VM/JEV parent architecture.
 

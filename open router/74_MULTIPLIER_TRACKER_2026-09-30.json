@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:35:00+03:00",
+  "updatedAt": "2026-09-30T23:50:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -291,6 +291,17 @@
       "actualAllInEnvelopeUsd": 30,
       "qualityLaw": "Every consumer executed through the same certified finite-policy semantics; no model authority was substituted.",
       "truthBoundary": "Execution fanout is observed. Direct-Opus unit cost and all-in $30 economics remain modeled until real task/reference/spend receipts bind them."
+    },
+    {
+      "label": "fair-direct-opus-batch-baseline-correction-v19",
+      "multiplier": 16666.6725,
+      "status": "CORRECTION__PREVIOUS_1_176_471_EXECUTION_FANOUT_REPRICED_AGAINST_CHEAPER_OPUS_BATCH",
+      "workload": "1,176,471 executed E3 consumers; canonical source-heavy direct reference repriced from standard Opus $0.85 to Opus Batch $0.425 when batch latency is acceptable",
+      "directOpusUnitUsd": 0.425,
+      "directReferenceUsd": 500000.175,
+      "actualAllInEnvelopeUsd": 30,
+      "reason": "Quality is fixed while latency is flexible, so cheapest-legitimate direct reference must include Opus Batch when applicable.",
+      "sourceEvidence": "OpenRouter Claude Opus 5.5 Batch public tariff observed 2026-09-30: $2/M input, $10/M output."
     }
   ],
   "excludedFromCurrentNumber": [

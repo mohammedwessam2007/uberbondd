@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T20:36:00+03:00",
+  "updatedAt": "2026-09-30T21:16:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -16,6 +16,21 @@
       "workload": "200k source -> 5k exact-anchored evidence -> Sol 2.5k answer -> DeepSeek 300-token audit -> Opus 6-token ACCEPT",
       "directOpusUsd": 0.85,
       "uberMindUsd": 0.096851
+    },
+    {
+      "label": "checkpoint-32-anchored-compression-cheap-writer",
+      "multiplier": 13.952724885094963,
+      "status": "MODELED_FROM_MERGED_V8_ADAPTIVE_WRITER_MECHANICS_PLUS_EXACT_ANCHORED_COMPRESSION_CONTRACT",
+      "workload": "200k source -> 5k exact-anchored lossless evidence capsule -> MiMo 2.5k complete candidate -> Opus 5.5 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06092,
+      "costBreakdownUsd": {
+        "mimoAnchoredCompression": 0.0294,
+        "mimoCandidateFromCapsule": 0.0014,
+        "opusDeltaAccept": 0.03012
+      },
+      "qualityLaw": "Only valid when the 5k evidence capsule retains the exact source anchors required by the task and admitted Opus returns ACCEPT. PATCH/REWRITE must use observed higher all-in cost.",
+      "deltaVsPriorMultiplierPercent": 58.9808219178082
     }
   ],
   "excludedFromCurrentNumber": [
@@ -33,5 +48,8 @@
     "systemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_REUSE_FANOUT",
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
-  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone."
+  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
+  "currentCanonicalModeledMultiplier": 13.952724885094963,
+  "currentCheckpoint": "checkpoint-32-anchored-compression-cheap-writer",
+  "nextGate": 25
 }

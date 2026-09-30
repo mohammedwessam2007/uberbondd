@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:35:00+03:00",
+  "updatedAt": "2026-09-30T22:55:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -172,6 +172,18 @@
       "implementation": "src/infinite-opus-typingmind-live.mjs",
       "failClosed": "Any missing/tampered/expired/mismatched residual proof routes to untouched full-context Crown.",
       "qualityLaw": "OPUS_5_5_CROWN_REMAINS_MANDATORY_FOR_Q_FRONTIER; CHEAP_WORKER_CANNOT_SELF_CERTIFY_COVERAGE"
+    },
+    {
+      "label": "e0-e4-coverage-foundry-v13",
+      "multiplier": 14.161946017994001,
+      "status": "CERTIFICATE_FACTORY_IMPLEMENTED__NO_MULTIPLIER_INCREASE_UNTIL_CERTIFICATE_SERVES_WORK",
+      "workload": "live E0-E4 semantic closure -> unforgeable in-process provenance -> bounded coverage authority -> compact Crown residual eligibility",
+      "implementation": [
+        "src/semantic-closure-kernel.mjs",
+        "src/certified-frontier-residual.mjs",
+        "tests/e0-e4-coverage-foundry.test.mjs"
+      ],
+      "qualityLaw": "Serialized closures, direct unrestricted Crown leaves, dependency drift, invalidator drift and Crown revision drift cannot mint/retain authority."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -195,5 +207,16 @@
   "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT",
   "currentRuntimeRealizableModeledMultiplier": 1.0118806695078688,
   "currentRuntimeRealizableModeledUberMindUsd": 0.84002,
-  "currentCanonicalStatus": "14.161946X_RUNTIME_WIRED__EARNED_ONLY_WHEN_CERTIFIED_RESIDUAL_AUTHORITY_IS_PRESENT"
+  "currentCanonicalStatus": "14.161946X_RUNTIME_WIRED__EARNED_ONLY_WHEN_CERTIFIED_RESIDUAL_AUTHORITY_IS_PRESENT",
+  "scoreboardLanes": {
+    "freshFrontier": {
+      "runtimeFallbackMultiplier": 1.0118806695078688,
+      "certifiedResidualMultiplier": 14.161946017994001
+    },
+    "compiledRecurrence": {
+      "multiplier": null,
+      "status": "AWAITING_PROVABLE_DISTINCT_CONSUMER_FANOUT",
+      "law": "Count only E0-E4 executions with matched obligation proof and counterfactual direct-Opus economics."
+    }
+  }
 }

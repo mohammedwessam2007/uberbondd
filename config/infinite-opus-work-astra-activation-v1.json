@@ -9,7 +9,9 @@
     "endpointBase": "https://uberbond-control-plane.onrender.com",
     "typingMindChatEndpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/chat/completions",
     "typingMindModelsEndpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/models",
-    "modelId": "ubermind/auto"
+    "modelId": "ubermind/auto",
+    "liveSourceCommitBeforePrivateActivation": "fe54841b7933b03c7edf6d55efe8a742316f8d62",
+    "liveRenderDeployId": "dep-daumg73ncjis73fh3n50"
   },
   "openRouter": {
     "canonicalInferenceKeys": [
@@ -117,5 +119,28 @@
     "legacyTwoKeyDesign": "archived and recoverable",
     "directTypingMindModels": "fallback only",
     "fullFrontierVM": "authoritative parent architecture"
+  },
+  "productionEvidenceCourt": {
+    "benchmarkCapacityMultiplier": 33333.345,
+    "productionRealizedMultiplier": null,
+    "referenceVault": {
+      "endpoints": [
+        "GET /api/admin/infinite-opus/references",
+        "POST /api/admin/infinite-opus/references"
+      ],
+      "law": "EXACT_TASK_BOUND__VERIFIED_TOKENIZER__CHEAPEST_LEGITIMATE_ROUTE__BATCH_CACHE_RETRY_ACCOUNTED"
+    },
+    "cognitiveCapital": {
+      "endpoints": [
+        "GET /api/admin/infinite-opus/capital-campaigns",
+        "POST /api/admin/infinite-opus/capital-campaigns",
+        "POST /api/admin/infinite-opus/capital-campaigns/cost",
+        "POST /api/admin/infinite-opus/capital-campaigns/asset",
+        "POST /api/admin/infinite-opus/capital-campaigns/close"
+      ],
+      "law": "ALL_REQUIRED_COST_CLASSES_PLUS_E0_E4_PROOF_PLUS_NONZERO_OBSERVED_DENOMINATOR_REQUIRED_FOR_REALIZED_MULTIPLIER"
+    },
+    "activationEndpoint": "GET /api/admin/infinite-opus/activation",
+    "claimBoundary": "33,333.345x is executed benchmark-capacity only until real task-bound references and observed all-in production cost receipts close the court."
   }
 }

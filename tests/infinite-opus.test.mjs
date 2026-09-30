@@ -270,7 +270,7 @@ test('paid callback crash holds dispatched budget and refuses duplicate dispatch
   const { store } = await nativeStore(t);
   let calls = 0;
   const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW,
-    paidAuthorization:{ evidenceRef:'synthetic://owner',month:'2026-09',maxMonthlyMicrousd:30000000,expiresAt:'2026-10-01T00:00:00Z' },
+    paidAuthorization:{ evidenceRef:'synthetic://owner',month:'2026-09',maxMonthlyMicrousd:20000000,expiresAt:'2026-10-01T00:00:00Z' },
     routePrices:[{model:'test/model',provider:'openrouter',sourceRef:'synthetic://price',verifiedAt:'2026-09-29T21:00:00Z',expiresAt:'2026-09-30T21:00:00Z',contextTokens:1000000,maxOutputTokens:10000,inputUsdPerMillion:.01,outputUsdPerMillion:.01}],
     paidExecutor:async () => { calls++; throw new Error('connection-lost'); } });
   await runtime.preparePaidCall(call('call-1','WORKER',10000));

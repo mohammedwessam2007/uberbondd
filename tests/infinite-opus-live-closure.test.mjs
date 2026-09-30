@@ -242,3 +242,14 @@ test('Crown admission binds exact revision when provider exposes it',()=>{
  const issued=issueCrownAdmissionReceipt(base);assert.equal(issued.ok,true);
  assert.equal(verifyCrownAdmissionReceipt(issued.receipt,{now:Date.parse('2026-09-30T01:00:00Z'),expected:{modelRevision:'rev-2'}}).ok,false);
 });
+
+test('cached response with inconsistent provider bill is refused',async()=>{
+ let i=0;const rows=[
+  {data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}},
+  {id:'g-cache-bill',model:'m',choices:[{message:{content:'OK'}}],usage:{cost:.001,prompt_tokens:100,completion_tokens:1,prompt_tokens_details:{cached_tokens:90,cache_write_tokens:0}}},
+  {data:{provider_name:'provider',model:'m',total_cost:.002,tokens_prompt:100,tokens_completion:1}}
+ ];
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows[i++])})});
+ const r=await a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,sessionId:'stable-session'});
+ assert.equal(r.status,'OPENROUTER_BILL_MISMATCH');
+});

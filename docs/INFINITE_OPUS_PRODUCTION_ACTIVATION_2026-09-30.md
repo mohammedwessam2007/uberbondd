@@ -32,3 +32,31 @@ Boot verification sequence:
 10. reconcile provider generation receipt and key usage before any tournament.
 
 Rollback: revoke/disable runtime key, stop the Infinite Opus paid executor, restore previous exact release, preserve DB/ledger for reconciliation. Never release a dispatched-uncertain reservation merely to make the dashboard green.
+
+
+## TypingMind UberMind gateway addition
+
+The approved web host now also exposes a dedicated OpenAI-compatible cockpit boundary:
+
+- `GET /api/typingmind/infinite-opus/v1/models`
+- `POST /api/typingmind/infinite-opus/v1/chat/completions`
+- logical model: `ubermind/auto`
+
+Required protected host inputs:
+- `OPENROUTER_API_KEY` = dedicated runtime key, provider-side monthly limit USD 20;
+- `UBERMIND_TYPINGMIND_GATEWAY_TOKEN` = independent random cockpit bearer, >=32 chars, not an inference/admin/management key.
+
+Required current non-secret authority receipts:
+- `INFINITE_OPUS_PAID_AUTHORIZATION_JSON`;
+- `INFINITE_OPUS_CROWN_ADMISSION_JSON`.
+
+Default allowed browser origins are the TypingMind production origins and can be narrowed through `UBERMIND_TYPINGMIND_ALLOWED_ORIGINS`.
+
+The browser preflight performs zero inference. A chat request is refused before paid cognition unless the dedicated bearer, current public price records, bounded monthly authorization and exact Crown admission all pass.
+
+Gateway v1 raw-chat quality law:
+`GPT-6.1 Sol proposal -> admitted Claude Opus 5.5 General-Crown ACCEPT/REWRITE`.
+
+This does not hard-code Opus as permanent Crown. The endpoint refuses service when the stored admission expires or no longer matches the current route/provider. Crown succession must replace the receipt before the role moves.
+
+Rollback addition: remove/revoke `UBERMIND_TYPINGMIND_GATEWAY_TOKEN` to cut cockpit ingress immediately without deleting ledgers or provider receipts. Revoking the runtime OpenRouter key remains the spend kill-switch.

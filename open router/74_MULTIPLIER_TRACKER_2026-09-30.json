@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-10-01T00:15:00+03:00",
+  "updatedAt": "2026-09-30T21:55:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -241,6 +241,21 @@
         "src/living-evidence-graph.mjs",
         "tests/living-evidence-graph.test.mjs"
       ]
+    },
+    {
+      "label": "frontier-thought-bond-v18-500-consumer",
+      "multiplier": 500,
+      "status": "FRONTIER_LEAF_FANOUT_CAPACITY__RUNTIME_ADMISSION_AND_REUSE_IMPLEMENTED__NOT_END_TO_END_TASK_MULTIPLIER",
+      "workload": "500 distinct blocked consumers share one exact unresolved proof cut -> one trusted Opus 5.5 observation -> one Thought Bond -> each enclosing proof closes independently",
+      "crownUnitUsd": 0.00212,
+      "naiveCrownUsd": 1.06,
+      "coalescedCrownUsd": 0.00212,
+      "qualityLaw": "Bond is bound to exact cut, current Opus identity, source hashes, invalidators, quality contract and Crown revision; tamper/drift fails closed.",
+      "implementation": [
+        "src/frontier-thought-bond.mjs",
+        "src/infinite-opus-native-runtime.mjs",
+        "tests/frontier-thought-bond.test.mjs"
+      ]
     }
   ],
   "excludedFromCurrentNumber": [
@@ -283,6 +298,11 @@
       "canonicalChangeFraction": 0.02,
       "directOpusUsd": 0.85,
       "uberMindUsd": 0.002692
+    },
+    "frontierThoughtBond": {
+      "multiplierExample": 500,
+      "status": "N_X_FRONTIER_LEAF_FANOUT_RUNTIME_IMPLEMENTED",
+      "claimBoundary": "Leaf-only compression. Do not multiply mechanically into whole-task multiplier."
     }
   }
 }

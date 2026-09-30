@@ -13,7 +13,7 @@ export function vectorizeJevQuestions(questions=[]){
   const out=[];
   const seen=new Set();
   for(const q of questions){
-    if(!q||typeof q!=='object'||!['Choice','Score','Noul'].includes(q.type)||typeof q.id!=='string'||!q.id)throw new Error('typed-jev-question-required');
+    if(!q||typeof q!=='object'||!['choice','score','noul'].includes(q.type)||typeof q.id!=='string'||!q.id)throw new Error('typed-jev-question-required');
     if(seen.has(q.id))continue;
     seen.add(q.id);out.push(structuredClone(q));
   }

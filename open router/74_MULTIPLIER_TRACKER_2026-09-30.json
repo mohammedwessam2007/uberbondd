@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:59:30+03:00",
+  "updatedAt": "2026-09-30T23:59:45+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -340,6 +340,17 @@
       "priorMultiplier": 315.75037147102523,
       "reason": "A fair direct Opus comparator for repeated 98%-stable source updates may use Opus Batch and prompt-cache reads. Exact direct reference depends on cache/write eligibility and observed prompt layout, so 315.75x is retained historically but not treated as current fair economics.",
       "qualityLaw": "No architecture regression; accounting comparator hardened."
+    },
+    {
+      "label": "cognitive-capital-accounting-v20b",
+      "multiplier": 33333.345,
+      "status": "NO_MULTIPLIER_INCREASE__RECEIPT_GRADE_ECONOMIC_COURT_IMPLEMENTED",
+      "workload": "verified E0-E4 execution receipts + cheapest-legitimate direct-reference contracts + closed observed all-in cost classes -> finite audited compression factor",
+      "qualityLaw": "No modeled envelope, missing cost class, duplicate/tampered receipt, or zero denominator may be presented as realized multiplier.",
+      "implementation": [
+        "src/cognitive-capital-ledger.mjs",
+        "tests/cognitive-capital-ledger.test.mjs"
+      ]
     }
   ],
   "excludedFromCurrentNumber": [
@@ -371,14 +382,16 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__0_PROVIDER_CALLS__FAIR_OPUS_BATCH_REFERENCE_MODELED",
+      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__0_PROVIDER_CALLS__FAIR_OPUS_BATCH_REFERENCE_MODELED__RECEIPT_GRADE_AUDITOR_IMPLEMENTED",
       "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
       "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
       "directOpusRoute": "anthropic/claude-opus-5.5:batch",
       "directOpusUnitUsd": 0.425,
       "directReferenceUsd": 1000000.35,
-      "actualAllInEnvelopeUsd": 30
+      "actualAllInEnvelopeUsd": 30,
+      "realizedEconomicMultiplier": null,
+      "realizedEconomicStatus": "AWAITING_REAL_REFERENCE_CONTRACTS_AND_CLOSED_OBSERVED_COST_LEDGER"
     },
     "deltaResearch": {
       "multiplier": "WORKLOAD_CACHE_DEPENDENT",

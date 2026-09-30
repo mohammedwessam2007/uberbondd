@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 59,
+  "expectedFinalFolderFileCount": 60,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -152,6 +152,11 @@
       "path": "open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md",
       "blobSha": "74c08c2888100ee5ecc25ab45ebb5dd96fb90f6a",
       "size": 27542
+    },
+    {
+      "path": "open router/28_E0_E4_LIVE_PROOF_LEDGER.md",
+      "blobSha": "967636a29b3ee74c65f9db6006019eccbf2391e9",
+      "size": 2528
     },
     {
       "path": "open router/ACTIVATION_CHECKLIST.md",
@@ -344,7 +349,8 @@
     "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md",
     "open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md",
     "open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md",
-    "open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md"
+    "open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md",
+    "open router/28_E0_E4_LIVE_PROOF_LEDGER.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -369,12 +375,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault includes the provable E0-E4 reference-economics engine and new-chat continuation prompt. E0-E4 proof can remove the need for ceremonial quality rebenchmarking, but realized savings still require real certified execution counts, conservative direct-frontier counterfactual pricing, and observed all-in spend. No current 33,333x or $1M-equivalent result is asserted.",
+  "truthBoundary": "The vault includes automatic E0-E4 execution receipts and token/price-bound counterfactual compilation. This removes ceremonial E0-E4 quality retesting, not the requirement for observed actual all-in spend or current counterfactual evidence. No realized 33,333x result is asserted before real executions.",
   "recovery": "Refresh current main and latest continuation PR; read 26_PROVABLE_33333X_REFERENCE_ECONOMICS.md, 27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md, the continuation mega map, CURRENT_HANDOFF, canon and proof engine; continue from owner activation/live evidence frontier without redoing merged source.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 58,
+  "indexedFilesExcludingSelf": 59,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",
@@ -385,7 +391,8 @@
     "tests/infinite-opus.test.mjs",
     "tests/infinite-opus-kernel.test.mjs",
     "tests/infinite-opus-compilers.test.mjs",
-    "tests/provable-reference-economics.test.mjs"
+    "tests/provable-reference-economics.test.mjs",
+    "tests/provable-execution-ledger.test.mjs"
   ],
   "v5BaseFolderFileCount": 33,
   "liveMarketSnapshotBaseMainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",

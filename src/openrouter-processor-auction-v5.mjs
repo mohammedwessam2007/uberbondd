@@ -106,3 +106,79 @@ export function processorRolesFromConfig(config){
     crown:p.opus.model
   };
 }
+
+
+const usdPerToken=(perMillion,tokens)=>perMillion*tokens/1_000_000;
+
+export function estimateDirectOpusUsd({freshInputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
+  return usdPerToken(4,freshInputTokens)+usdPerToken(.2,cachedInputTokens)+usdPerToken(20,outputTokens);
+}
+
+export function estimateSolThenOpusAcceptUsd({inputTokens=0,builderOutputTokens=0,crownAcceptTokens=6,crownCachedPrefixTokens=0}={}){
+  // Sol constructs the full candidate. Opus sees original input + candidate and emits only ACCEPT.
+  return usdPerToken(2,inputTokens)+usdPerToken(10,builderOutputTokens)+
+    usdPerToken(4,inputTokens+builderOutputTokens)+usdPerToken(.2,crownCachedPrefixTokens)+usdPerToken(20,crownAcceptTokens);
+}
+
+export function estimateCompressedFrontierUsd({
+  originalInputTokens=0,compressedEvidenceTokens=0,builderOutputTokens=0,redTeamOutputTokens=0,
+  crownAcceptTokens=6,crownCachedPrefixTokens=0
+}={}){
+  // MiMo ingests original material. Sol sees only evidence capsule. DeepSeek audits the candidate.
+  // Opus sees evidence capsule + candidate + audit, not an untraceable summary; this estimator is
+  // valid as a quality-preserving candidate only when exact source anchors remain retrievable.
+  const mimo=usdPerToken(.14,originalInputTokens)+usdPerToken(.28,compressedEvidenceTokens);
+  const sol=usdPerToken(2,compressedEvidenceTokens)+usdPerToken(10,builderOutputTokens);
+  const deepseek=usdPerToken(.13,compressedEvidenceTokens+builderOutputTokens)+usdPerToken(.52,redTeamOutputTokens);
+  const opusInput=compressedEvidenceTokens+builderOutputTokens+redTeamOutputTokens;
+  const opus=usdPerToken(4,opusInput)+usdPerToken(.2,crownCachedPrefixTokens)+usdPerToken(20,crownAcceptTokens);
+  return mimo+sol+deepseek+opus;
+}
+
+export function chooseFreshFrontierPath({
+  inputTokens,expectedOutputTokens,compressedEvidenceTokens=null,redTeamOutputTokens=300,crownAcceptTokens=6,
+  crownCachedPrefixTokens=0,compressionLosslessContract=false,sourceAnchorsRetained=false
+}={}){
+  if(!Number.isFinite(inputTokens)||inputTokens<0||!Number.isFinite(expectedOutputTokens)||expectedOutputTokens<0)throw new Error('fresh-path-token-estimates-required');
+  const direct=estimateDirectOpusUsd({freshInputTokens:inputTokens,outputTokens:expectedOutputTokens,cachedInputTokens:crownCachedPrefixTokens});
+  const sol=estimateSolThenOpusAcceptUsd({inputTokens,builderOutputTokens:expectedOutputTokens,crownAcceptTokens,crownCachedPrefixTokens});
+  const candidates=[{path:'DIRECT_OPUS',usd:direct},{path:'SOL_THEN_OPUS_ACCEPT',usd:sol}];
+  if(Number.isFinite(compressedEvidenceTokens)&&compressedEvidenceTokens>=0&&compressionLosslessContract===true&&sourceAnchorsRetained===true){
+    candidates.push({path:'MIMO_COMPRESS_SOL_DEEPSEEK_OPUS',usd:estimateCompressedFrontierUsd({
+      originalInputTokens:inputTokens,compressedEvidenceTokens,builderOutputTokens:expectedOutputTokens,
+      redTeamOutputTokens,crownAcceptTokens,crownCachedPrefixTokens
+    })});
+  }
+  candidates.sort((a,b)=>a.usd-b.usd);
+  return {
+    selected:candidates[0],
+    candidates,
+    qualityBoundary:'COST_CHOICE_ONLY__FINAL_OPUS_AUTHORITY_OR_VALID_E0_E4_STILL_REQUIRED',
+    compressionEligible:compressionLosslessContract===true&&sourceAnchorsRetained===true
+  };
+}
+
+export function buildGenericJevControlQuestions(){
+  return {
+    task_shape:{type:'choice',instructions:'Which execution shape best fits the task in state.task?',criteria:{
+      short_direct:'Compact request with little source material or preprocessing value',
+      source_heavy:'Large source or document set where compression and evidence extraction can reduce downstream context',
+      coding:'Software implementation, debugging, code review, or repository work',
+      research:'Evidence gathering, comparison, synthesis, or source-sensitive analysis',
+      agentic_tool:'Long-horizon workflow that requires tools, browser/computer use, or repeated external actions',
+      other:'None of the above dominates'
+    }},
+    source_compression_value:{type:'score',instructions:'How much can cheap preprocessing reduce expensive downstream context while preserving exact source anchors?',criteria:[
+      'Little or no useful reduction',
+      'Moderate reduction',
+      'Large reduction with exact evidence anchors retained'
+    ]},
+    independent_challenge:{type:'noul',instructions:'Would an independent model lineage materially improve error detection for this task?'},
+    hard_reasoning:{type:'score',instructions:'How difficult is the unresolved reasoning after exact/code/retrieval work is removed?',criteria:[
+      'Routine bounded reasoning',
+      'Substantial multi-step reasoning',
+      'Exceptional hard residual likely to need maximum-effort reasoning'
+    ]},
+    crown_necessity:{type:'noul',instructions:'Does the task contain material open-ended semantics that cannot be closed by exact code or an already certified bounded circuit?'}
+  };
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:30:00+03:00",
+  "updatedAt": "2026-09-30T23:59:30+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -305,6 +305,41 @@
         "tests/ghost-agent.test.mjs"
       ],
       "benchmarkSpec": "10,000 idle + 10,000 matching events in deterministic test source, all expected zero inference"
+    },
+    {
+      "label": "fair-opus-batch-reference-correction-v19b",
+      "multiplier": 16666.6725,
+      "status": "CORRECTION__1_176_471_RUN_REPRICED_TO_CHEAPEST_LEGITIMATE_BATCH_ROUTE",
+      "directOpusRoute": "anthropic/claude-opus-5.5:batch",
+      "canonicalGeometry": "200k input + 2.5k output",
+      "directOpusUnitUsd": 0.425,
+      "directReferenceUsd": 500000.175,
+      "actualAllInEnvelopeUsd": 30,
+      "sourceEvidence": "OpenRouter public Opus 5.5 Batch tariff 2026-09-30: $2/M input, $10/M output.",
+      "qualityLaw": "Same Opus 5.5 model quality; only service mode/latency changes."
+    },
+    {
+      "label": "decision-franchise-batch-fair-2_35m-v19b",
+      "multiplier": 33333.345,
+      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__FAIR_BATCH_COUNTERFACTUAL_MODELED",
+      "executedConsumers": 2352942,
+      "elapsedMs": 16066,
+      "providerCallsPerformed": 0,
+      "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
+      "directOpusRoute": "anthropic/claude-opus-5.5:batch",
+      "directOpusUnitUsd": 0.425,
+      "directReferenceUsd": 1000000.35,
+      "actualAllInEnvelopeUsd": 30,
+      "target33333xMet": true,
+      "truthBoundary": "Execution fanout is observed. Per-task 200k/2.5k direct geometry and $30 production all-in spend remain modeled until real receipts bind them; direct prompt/response caching must be credited when a real workload permits it."
+    },
+    {
+      "label": "living-evidence-batch-cache-accounting-correction-v19b",
+      "multiplier": "WORKLOAD_CACHE_DEPENDENT",
+      "status": "PRIOR_315_750X_NOT_CANONICAL_FOR_BATCHABLE_CACHEABLE_UPDATES",
+      "priorMultiplier": 315.75037147102523,
+      "reason": "A fair direct Opus comparator for repeated 98%-stable source updates may use Opus Batch and prompt-cache reads. Exact direct reference depends on cache/write eligibility and observed prompt layout, so 315.75x is retained historically but not treated as current fair economics.",
+      "qualityLaw": "No architecture regression; accounting comparator hardened."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -336,19 +371,22 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "1_176_471_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__REFERENCE_ECONOMICS_MODELED_NOT_PRODUCTION_OBSERVED",
-      "distinctConsumersExecuted": 1176471,
+      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__0_PROVIDER_CALLS__FAIR_OPUS_BATCH_REFERENCE_MODELED",
+      "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
-      "receiptRoot": "sha256:358faf42034683f30e10954e7b64aa30204ac6fac738cea579050fd60ef26b15",
-      "directOpusUnitUsd": 0.85,
+      "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
+      "directOpusRoute": "anthropic/claude-opus-5.5:batch",
+      "directOpusUnitUsd": 0.425,
+      "directReferenceUsd": 1000000.35,
       "actualAllInEnvelopeUsd": 30
     },
     "deltaResearch": {
-      "multiplier": 315.75037147102523,
-      "status": "315X_UPDATE_CAPACITY_MODEL_IMPLEMENTED__PRODUCTION_DELTA_RECEIPTS_REQUIRED",
+      "multiplier": "WORKLOAD_CACHE_DEPENDENT",
+      "status": "EXACT_INVALIDATION_IMPLEMENTED__FAIR_DIRECT_BATCH_AND_PROMPT_CACHE_BASELINE_MUST_BE_BOUND_PER_REAL_UPDATE",
       "canonicalChangeFraction": 0.02,
-      "directOpusUsd": 0.85,
-      "uberMindUsd": 0.002692
+      "uberMindModeledUsd": 0.002692,
+      "priorStandardOpusReferenceUsd": 0.85,
+      "claimBoundary": "Do not reuse the historical 315.75x as a current fair multiplier when direct Opus Batch or prompt caching is legitimate."
     },
     "frontierAuthorityReuse": {
       "semanticMulticastBenchmark": 1000,

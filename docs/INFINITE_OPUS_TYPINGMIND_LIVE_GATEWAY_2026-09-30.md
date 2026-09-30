@@ -70,10 +70,10 @@ A direct raw chat response may ship only after:
 8. the Crown call is durably reserved;
 9. the Crown model identity matches the admitted model;
 10. the **observed upstream provider** matches the Crown Admission Receipt;
-11. the route identity matches `openrouter:auto`;
+11. the Crown Admission Receipt matches the gateway's exact routing-policy identity `openrouter:auto-provider-zdr-deny-required-parameters-v1`; OpenRouter's raw generation `router`, request ID and upstream ID are retained separately when the API returns them;
 12. the Crown either explicitly accepts the candidate or supplies the corrected answer.
 
-Provider/model/route drift blocks the response even after money was spent. That is preferable to laundering a weaker or different supplier into Crown authority.
+Upstream-provider/model/routing-policy drift blocks the response even after money was spent. That is preferable to laundering a weaker or different supplier into Crown authority.
 
 ## Economic corrections implemented
 

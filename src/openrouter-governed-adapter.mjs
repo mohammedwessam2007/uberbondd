@@ -27,6 +27,7 @@ export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,
     const b=await text(r); if(!r.ok)return {ok:false,status:'GENERATION_RECEIPT_PENDING',httpStatus:r.status};
     const d=b?.data??b??{};
     return {ok:true,status:'GENERATION_RECEIPT_OBSERVED',provider:d.provider_name??d.provider??null,model:d.model??d.model_permaslug??null,
+      router:d.router??null,serviceTier:d.service_tier??null,requestId:d.request_id??null,upstreamId:d.upstream_id??null,
       totalCostUsd:Number(d.total_cost??d.usage?.cost),cacheDiscountUsd:finite(d.cache_discount)?Number(d.cache_discount):null,
       tokensPrompt:Number(d.tokens_prompt??d.usage?.prompt_tokens??0),tokensCompletion:Number(d.tokens_completion??d.usage?.completion_tokens??0),
       generationId:id};

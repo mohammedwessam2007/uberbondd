@@ -14,7 +14,7 @@ OpenRouter's current key API exposes `limit`, `limit_remaining`, `limit_reset`, 
 
 ## Cross-key structural guardrail
 
-Assign a **USD 28/month member guardrail** to the founder/member that owns these keys. OpenRouter currently documents member budgets as accumulating across that member's keys, while each key keeps its own limit; the lower applicable limit wins. This prevents the two keys, or an accidentally created extra key under the same member, from jointly exceeding the inference envelope. The management reconciliation still refuses unexpected active keys so account hygiene remains explicit.
+Create a guardrail named **`uberbond-global-28`** and assign a **USD 28/month** budget to the founder/member that owns these keys. OpenRouter currently documents member budgets as accumulating across that member's keys, while each key keeps its own limit; the lower applicable limit wins. This prevents the two keys, or an accidentally created extra key under the same member, from jointly exceeding the inference envelope. The management reconciliation still refuses unexpected active keys so account hygiene remains explicit.
 
 ## Runtime
 
@@ -29,3 +29,11 @@ Disable/revoke the affected OpenRouter key. The software ledger keeps dispatched
 ## Optional machine reconciliation without sharing the TypingMind inference key
 
 Create a dedicated OpenRouter **Management API key** and store it only as `OPENROUTER_MANAGEMENT_KEY` in the approved runtime secret manager. It is administrative-only and is not an inference credential. UberBond can then read both named keys' monthly limits and usage, reconcile the structural $20 + $8 envelope, and emit a non-secret receipt. The management secret itself must never enter Git, chat, receipts, or logs.
+
+## Machine verification
+
+For automated post-setup reconciliation, create a dedicated **Management API key** and store it only as `OPENROUTER_MANAGEMENT_KEY`. OpenRouter documents Management keys as administrative-only and unable to call completion endpoints. Record the founder/member's non-secret member identifier as `OPENROUTER_MEMBER_ID`. Then run:
+
+`node scripts/infinite-opus-openrouter-budget-reconcile.mjs`
+
+The reconciler refuses if either canonical key is missing/mis-capped, an unexpected active inference key is present, or `uberbond-global-28` is not observed at USD 28/month on the expected member.

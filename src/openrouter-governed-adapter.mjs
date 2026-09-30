@@ -42,6 +42,7 @@ export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,
     const providerPolicy={...(payload.providerPolicy??{}),require_parameters:true,...(requireZdr?{zdr:true,data_collection:'deny'}:{})};
     const body={model:payload.model,messages:payload.messages,max_tokens:payload.maxTokens,stream:false,usage:{include:true},
       ...(payload.reasoning?{reasoning:payload.reasoning}:{}),...(payload.sessionId?{session_id:payload.sessionId}:{}),
+      ...(payload.responseFormat?{response_format:payload.responseFormat}:{}),
       ...(Object.keys(providerPolicy).length?{provider:providerPolicy}:{})};
     const headers={Authorization:await auth(),'Content-Type':'application/json','HTTP-Referer':'https://uberbond.local','X-Title':'UberBond Infinite Opus'};
     if(payload.responseCache===true)headers['X-OpenRouter-Cache']='true';

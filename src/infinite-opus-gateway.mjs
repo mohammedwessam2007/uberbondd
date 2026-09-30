@@ -9,6 +9,7 @@ const EFFECTS=new Set(['NONE']);
 const id=x=>typeof x==='string'&&/^[A-Za-z0-9_.:/-]{1,240}$/.test(x);
 const safeInt=x=>Number.isSafeInteger(x)&&x>=0;
 const SECRET_KEY=/password|passwd|secret|token|api[_-]?key|authorization|cookie|private[_-]?key|credential/i;
+const SAFE_TOKEN_COUNT_FIELDS=new Set(['estimatedInputTokens','estimatedCachedInputTokens','maxOutputTokens']);
 const sha=x=>'sha256:'+crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex');
 
 function secretPaths(value,path='',depth=0){
@@ -16,7 +17,7 @@ function secretPaths(value,path='',depth=0){
  const out=[];
  for(const [k,v] of Object.entries(value)){
   const at=path?path+'.'+k:k;
-  if(SECRET_KEY.test(k))out.push(at);
+  if(SECRET_KEY.test(k)&&!SAFE_TOKEN_COUNT_FIELDS.has(k))out.push(at);
   if(v&&typeof v==='object')out.push(...secretPaths(v,at,depth+1));
  }
  return out;

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T20:36:00+03:00",
+  "updatedAt": "2026-09-30T21:43:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -16,6 +16,127 @@
       "workload": "200k source -> 5k exact-anchored evidence -> Sol 2.5k answer -> DeepSeek 300-token audit -> Opus 6-token ACCEPT",
       "directOpusUsd": 0.85,
       "uberMindUsd": 0.096851
+    },
+    {
+      "label": "canonical-source-heavy-v6-fused-mimo",
+      "multiplier": 13.588911448258221,
+      "status": "MODELED_FROM_CURRENT_PUBLIC_TARIFFS_AND_TOKEN_GEOMETRY__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> one MiMo pass emits 5k exact-anchored evidence + 2.5k candidate -> DeepSeek 300-token audit -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.062551,
+      "deltaFromPrior": {
+        "priorMultiplier": 8.77636782273802,
+        "priorUberMindUsd": 0.096851,
+        "removed": "separate GPT-6.1 Sol builder call",
+        "preserved": [
+          "same 200k source",
+          "same 5k exact-anchored evidence contract",
+          "same 2.5k finished candidate",
+          "same DeepSeek audit",
+          "same Opus Crown final semantic gate"
+        ],
+        "qualityLaw": "MiMo remains proposal-only; checkpoint is valid only on Crown ACCEPT/PATCH/REWRITE path."
+      }
+    },
+    {
+      "label": "canonical-source-heavy-v7-compact-redteam-pass",
+      "multiplier": 13.883870731689786,
+      "status": "MODELED_ACCEPT_PATH__OUTPUT_TOKEN_SURGERY__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> fused MiMo 5k evidence + 2.5k candidate -> DeepSeek 6-token PASS -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06122212,
+      "deltaFromPrior": {
+        "priorMultiplier": 13.588911448258221,
+        "priorUberMindUsd": 0.062551,
+        "removed": "294 unnecessary RedTeam output tokens plus their downstream Opus input",
+        "preserved": [
+          "independent DeepSeek audit call",
+          "same candidate",
+          "same anchored evidence",
+          "same Opus final semantic gate"
+        ]
+      }
+    },
+    {
+      "label": "canonical-source-heavy-v8-jev-critic-voi",
+      "multiplier": 14.1149119893723,
+      "status": "MODELED_ACCEPT_PATH__JEV_REMOVES_OPTIONAL_CRITIC_ONLY__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> fused MiMo 5k exact-anchored evidence + 2.5k candidate -> JEV says critic VOI low -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06022,
+      "deltaFromPrior": {
+        "priorMultiplier": 13.883870731689786,
+        "priorUberMindUsd": 0.06122212,
+        "removed": "optional DeepSeek critic call when JEV value-of-information is below threshold",
+        "preserved": [
+          "same source",
+          "same exact-anchored evidence contract",
+          "same candidate",
+          "same mandatory Opus final semantic gate"
+        ],
+        "qualityBoundary": "JEV suppresses only redundant critic work; fresh Q_FRONTIER semantics still page to Crown."
+      }
+    },
+    {
+      "label": "canonical-source-heavy-v8b-jev-all-in-correction",
+      "multiplier": 14.105074507981811,
+      "status": "MODELED_ACCEPT_PATH__ALL_IN_JEV_CONTROL_COST_INCLUDED",
+      "workload": "200k source -> fused MiMo 5k evidence + 2.5k candidate -> 1k-token shared-state JEV critic-VOI decision -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.060262,
+      "correction": {
+        "supersedesCheckpointLabel": "canonical-source-heavy-v8-jev-critic-voi",
+        "addedCostUsd": 0.000042,
+        "reason": "JEV control-plane inference must be counted in all-in economics",
+        "qualityBoundary": "No authority changed; this is accounting hardening."
+      }
+    },
+    {
+      "label": "canonical-source-heavy-v9-fused-worker-auction",
+      "multiplier": 14.152042889014686,
+      "status": "MODELED_ACCEPT_PATH__EXACT_TARIFF_AUCTION__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> JEV 1k shared-state control -> DeepSeek fused 5k exact-anchored evidence + 2.5k candidate -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.060062,
+      "deltaFromPrior": {
+        "priorMultiplier": 14.105074507981811,
+        "priorUberMindUsd": 0.060262,
+        "removed": "hard-coded MiMo source worker when DeepSeek is cheaper for this exact input/output geometry",
+        "preserved": [
+          "same source",
+          "same 5k evidence contract",
+          "same 2.5k candidate",
+          "same paid JEV control packet",
+          "same mandatory Opus final semantic gate"
+        ],
+        "workerAuction": {
+          "mimoUsd": 0.0301,
+          "deepSeekUsd": 0.0299
+        }
+      }
+    },
+    {
+      "label": "canonical-source-heavy-v10-exact-before-jev",
+      "multiplier": 14.161946017994001,
+      "status": "MODELED_ACCEPT_PATH__EXACT_ROUTING_REMOVES_UNNECESSARY_JEV_AND_CRITIC__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> exact task-shape policy -> DeepSeek fused 5k exact-anchored evidence + 2.5k candidate -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06002,
+      "deltaFromPrior": {
+        "priorMultiplier": 14.105074507981811,
+        "priorUberMindUsd": 0.060262,
+        "removed": [
+          "JEV control call when metadata already closes the routing decision",
+          "independent critic because the fused writer is already DeepSeek and no independent-challenge condition is present"
+        ],
+        "preserved": [
+          "same source",
+          "same evidence contract",
+          "same candidate",
+          "same mandatory Opus final semantic gate"
+        ],
+        "compilerLaw": "EXACT_BEFORE_JEV"
+      }
     }
   ],
   "excludedFromCurrentNumber": [
@@ -33,5 +154,8 @@
     "systemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_REUSE_FANOUT",
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
-  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone."
+  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
+  "currentCanonicalModeledMultiplier": 14.161946017994001,
+  "currentCanonicalModeledUberMindUsd": 0.06002,
+  "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT"
 }

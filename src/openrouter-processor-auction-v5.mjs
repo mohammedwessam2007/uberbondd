@@ -110,6 +110,12 @@ export function processorRolesFromConfig(config){
 
 const usdPerToken=(perMillion,tokens)=>perMillion*tokens/1_000_000;
 
+export function estimateJevControlUsd({sharedStateTokens=0,inputUsdPerMillion=.042}={}){
+  if(!Number.isFinite(sharedStateTokens)||sharedStateTokens<0)throw new Error('jev-shared-state-tokens-required');
+  if(!Number.isFinite(inputUsdPerMillion)||inputUsdPerMillion<0)throw new Error('jev-input-tariff-required');
+  return usdPerToken(inputUsdPerMillion,sharedStateTokens);
+}
+
 export function estimateDirectOpusUsd({freshInputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
   return usdPerToken(4,freshInputTokens)+usdPerToken(.2,cachedInputTokens)+usdPerToken(20,outputTokens);
 }
@@ -135,6 +141,26 @@ export function estimateCompressedFrontierUsd({
   return mimo+sol+deepseek+opus;
 }
 
+export function estimateFusedMimoFrontierUsd({
+  originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,redTeamOutputTokens=0,
+  crownAcceptTokens=6,crownCachedPrefixTokens=0,includeIndependentCritic=true
+}={}){
+  // One MiMo pass ingests the original source and emits BOTH:
+  // 1) the exact-anchored evidence capsule and 2) the complete candidate.
+  // This removes the separate Sol-builder call. Final semantic authority remains Opus.
+  // JEV may suppress the optional independent critic when its value-of-information is low;
+  // it may NOT suppress the Crown for fresh frontier semantics.
+  const mimoOutput=compressedEvidenceTokens+candidateOutputTokens;
+  const mimo=usdPerToken(.14,originalInputTokens)+usdPerToken(.28,mimoOutput);
+  const criticInput=compressedEvidenceTokens+candidateOutputTokens;
+  const deepseek=includeIndependentCritic
+    ? usdPerToken(.13,criticInput)+usdPerToken(.52,redTeamOutputTokens)
+    : 0;
+  const opusInput=compressedEvidenceTokens+candidateOutputTokens+(includeIndependentCritic?redTeamOutputTokens:0);
+  const opus=usdPerToken(4,opusInput)+usdPerToken(.2,crownCachedPrefixTokens)+usdPerToken(20,crownAcceptTokens);
+  return mimo+deepseek+opus;
+}
+
 export function chooseFreshFrontierPath({
   inputTokens,expectedOutputTokens,compressedEvidenceTokens=null,redTeamOutputTokens=300,crownAcceptTokens=6,
   crownCachedPrefixTokens=0,compressionLosslessContract=false,sourceAnchorsRetained=false
@@ -146,6 +172,10 @@ export function chooseFreshFrontierPath({
   if(Number.isFinite(compressedEvidenceTokens)&&compressedEvidenceTokens>=0&&compressionLosslessContract===true&&sourceAnchorsRetained===true){
     candidates.push({path:'MIMO_COMPRESS_SOL_DEEPSEEK_OPUS',usd:estimateCompressedFrontierUsd({
       originalInputTokens:inputTokens,compressedEvidenceTokens,builderOutputTokens:expectedOutputTokens,
+      redTeamOutputTokens,crownAcceptTokens,crownCachedPrefixTokens
+    })});
+    candidates.push({path:'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS',usd:estimateFusedMimoFrontierUsd({
+      originalInputTokens:inputTokens,compressedEvidenceTokens,candidateOutputTokens:expectedOutputTokens,
       redTeamOutputTokens,crownAcceptTokens,crownCachedPrefixTokens
     })});
   }
@@ -274,6 +304,17 @@ export function shouldRunIndependentCritic({jevAnswers={},selectedWriterModel,de
   return Number.isFinite(value)&&value>=0.75&&selectedWriterModel!==deepseekModel;
 }
 
+export function exactCriticPolicy({
+  independentChallenge=false,errorCorrelationRisk='normal',highStakes=false,writerModel=null,
+  criticModel='deepseek/deepseek-v4.1-flash'
+}={}){
+  if(writerModel&&writerModel===criticModel)return {run:false,reason:'SAME_LINEAGE_NO_INDEPENDENCE_GAIN'};
+  if(highStakes===true)return {run:true,reason:'HIGH_STAKES_SECOND_LINEAGE'};
+  if(errorCorrelationRisk==='high')return {run:true,reason:'HIGH_ERROR_CORRELATION_RISK'};
+  if(independentChallenge===true)return {run:true,reason:'EXPLICIT_INDEPENDENT_CHALLENGE'};
+  return {run:false,reason:'EXACT_METADATA_SAYS_OPTIONAL_CRITIC_NOT_REQUIRED'};
+}
+
 
 export function estimateIndependentCriticSurchargeUsd({
   criticRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,criticOutputTokens=600
@@ -295,4 +336,15 @@ export function estimateRouteWithCacheUsd({route,inputTokens=0,cachedInputTokens
 
 export function estimateDirectCrownUsd({crownRoute,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
   return estimateRouteWithCacheUsd({route:crownRoute,inputTokens,cachedInputTokens,outputTokens});
+}
+
+export function chooseCheapestFusedSourceWorker({
+  workerRoutes=[],originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0
+}={}){
+  const outputTokens=compressedEvidenceTokens+candidateOutputTokens;
+  const rows=workerRoutes.filter(Boolean).map(route=>({
+    model:route.model,
+    usd:estimateRouteWithCacheUsd({route,inputTokens:originalInputTokens,outputTokens})
+  })).sort((a,b)=>a.usd-b.usd);
+  return rows[0]??null;
 }

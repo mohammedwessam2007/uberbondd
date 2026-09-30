@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig,
-  estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd,
+  estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd, estimateJevControlUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
-  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd, chooseCheapestFusedSourceWorker, exactCriticPolicy } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -110,6 +110,63 @@ test('MiMo compression path is considered only when source anchors and lossless 
   assert.ok(c < estimateDirectOpusUsd({freshInputTokens:200000,outputTokens:2500}));
 });
 
+test('fused MiMo evidence+candidate path removes the separate Sol builder without removing Crown authority',()=>{
+  const oldPath=estimateCompressedFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,builderOutputTokens:2500,redTeamOutputTokens:300
+  });
+  const fused=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:300
+  });
+  assert.equal(oldPath,0.096851);
+  assert.equal(fused,0.062551);
+  assert.ok(fused<oldPath);
+  assert.ok(0.85/fused>13.58);
+  const chosen=chooseFreshFrontierPath({
+    inputTokens:200000,expectedOutputTokens:2500,compressedEvidenceTokens:5000,
+    redTeamOutputTokens:300,compressionLosslessContract:true,sourceAnchorsRetained:true
+  });
+  assert.equal(chosen.selected.path,'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS');
+});
+
+test('accepted canonical path uses output-token surgery for RedTeam PASS instead of 300 prose tokens',()=>{
+  const verbose=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:300
+  });
+  const compact=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6
+  });
+  assert.equal(verbose,0.062551);
+  assert.equal(compact,0.06122212);
+  assert.ok(compact<verbose);
+  assert.ok(0.85/compact>13.88);
+});
+
+test('JEV can omit low-value independent critic while Opus Crown remains mandatory',()=>{
+  const withCritic=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6,
+    includeIndependentCritic:true
+  });
+  const withoutCritic=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6,
+    includeIndependentCritic:false
+  });
+  assert.equal(withCritic,0.06122212);
+  assert.equal(withoutCritic,0.06022);
+  assert.ok(withoutCritic<withCritic);
+  assert.ok(0.85/withoutCritic>14.11);
+});
+
+test('JEV control-plane cost is counted in all-in path economics',()=>{
+  const jev=estimateJevControlUsd({sharedStateTokens:1000});
+  assert.equal(jev,0.000042);
+  const path=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,
+    redTeamOutputTokens:6,includeIndependentCritic:false
+  })+jev;
+  assert.equal(path,0.060262);
+  assert.ok(0.85/path>14.10);
+});
+
 test('generic Jev control tensor separates execution-shape judgments instead of one vague router label',()=>{
   const q=buildGenericJevControlQuestions();
   assert.equal(q.task_shape.type,'choice');
@@ -176,6 +233,27 @@ test('critic surcharge includes both critic inference and extra Crown input',()=
   assert.ok(x<.02);
 });
 
+
+test('fused source worker auction picks DeepSeek over MiMo for the canonical 200k-to-7.5k geometry',()=>{
+  const pick=chooseCheapestFusedSourceWorker({
+    workerRoutes:[mimoRoute,deepseekRoute],
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500
+  });
+  assert.equal(pick.model,'deepseek/deepseek-v4.1-flash');
+  assert.equal(pick.usd,0.0299);
+});
+
+test('exact metadata bypasses JEV when critic decision is already deterministic',()=>{
+  const p=exactCriticPolicy({
+    independentChallenge:false,errorCorrelationRisk:'normal',highStakes:false,
+    writerModel:'deepseek/deepseek-v4.1-flash'
+  });
+  assert.equal(p.run,false);
+  assert.equal(p.reason,'SAME_LINEAGE_NO_INDEPENDENCE_GAIN');
+  const allIn=0.0299+0.03012;
+  assert.equal(allIn,0.06002);
+  assert.ok(0.85/allIn>14.16);
+});
 
 test('observed cache receipts change path economics using current route cache tariffs',()=>{
   const fresh=estimateRouteWithCacheUsd({route:crownRoute,inputTokens:100000,cachedInputTokens:0,outputTokens:1000});

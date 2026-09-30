@@ -2,7 +2,8 @@ import crypto from 'node:crypto';
 import { createInfiniteOpusRuntime } from './infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from './openrouter-governed-adapter.mjs';
 import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-adapter.mjs';
-import { buildGenericJevControlQuestions, chooseFreshFrontierPath } from './openrouter-processor-auction-v5.mjs';
+import { buildGenericJevControlQuestions, cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter,
+  estimateDirectOpusUsd, estimateWriterThenCrownAcceptUsd, shouldRunIndependentCritic } from './openrouter-processor-auction-v5.mjs';
 import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { selectCurrentPrice } from './infinite-opus-market.mjs';
@@ -12,6 +13,8 @@ import { buildBuilderMessages, buildCrownReviewMessages, buildDirectCrownMessage
   stableModelSessionId } from './infinite-opus-typingmind-gateway.mjs';
 
 export const TYPINGMIND_BUILDER_MODEL='openai/gpt-6.1-sol';
+export const TYPINGMIND_MIMO_MODEL='xiaomi/mimo-v2.6-flash';
+export const TYPINGMIND_DEEPSEEK_MODEL='deepseek/deepseek-v4.1-flash';
 export const TYPINGMIND_CROWN_MODEL='anthropic/claude-opus-5.5';
 export const TYPINGMIND_JEV_MODEL='typesafe/jev-1.13';
 export const TYPINGMIND_CROWN_ROUTE_IDENTITY='openrouter:auto-provider-zdr-deny-required-parameters-v1';
@@ -59,7 +62,9 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
   if(!ready.ok)return {readiness:()=>ready,execute:async()=>({ok:false,status:ready.status,reasons:ready.reasons,providerCallsPerformed:0,semanticAuthority:'NONE'})};
   const builderRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,clock());
   const crownRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_CROWN_MODEL,clock());
-  let jevRoute=null;
+  let mimoRoute=null,deepseekRoute=null,jevRoute=null;
+  try{mimoRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_MIMO_MODEL,clock());}catch{}
+  try{deepseekRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_DEEPSEEK_MODEL,clock());}catch{}
   try{
     const observed=selectCurrentPrice(marketSnapshot,TYPINGMIND_JEV_MODEL,clock());
     jevRoute={...observed,contextTokens:Math.min(Number(observed.contextTokens)||32000,32000),maxOutputTokens:1};
@@ -95,7 +100,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
   };
   const runtime=createInfiniteOpusRuntime({
     store,clock,paidExecutor,paidAuthorization,
-    routePrices:[builderRoute,crownRoute,...(jevRoute?[jevRoute]:[])],
+    routePrices:[builderRoute,crownRoute,...(mimoRoute?[mimoRoute]:[]),...(deepseekRoute?[deepseekRoute]:[]),...(jevRoute?[jevRoute]:[])],
     platformFeeRate:PLATFORM_FEE_RATE
   });
 
@@ -130,8 +135,11 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     }
   }
 
-  async function call({model,role,qualityClass,messages,maxTokens,inputTokenCeiling,sessionRoot,stage,reasoningEffort='medium',responseFormat=null}){
-    const route=model===TYPINGMIND_CROWN_MODEL?crownRoute:builderRoute;
+  const routeByModel=new Map([[TYPINGMIND_BUILDER_MODEL,builderRoute],[TYPINGMIND_CROWN_MODEL,crownRoute],
+    ...(mimoRoute?[[TYPINGMIND_MIMO_MODEL,mimoRoute]]:[]),...(deepseekRoute?[[TYPINGMIND_DEEPSEEK_MODEL,deepseekRoute]]:[])]);
+  async function call({model,role,qualityClass,messages,maxTokens,inputTokenCeiling,sessionRoot,stage,reasoningEffort=null,responseFormat=null}){
+    const route=routeByModel.get(model);
+    if(!route)throw new Error('fresh-live-route-required:'+model);
     const estimate=estimateCognitionCeiling({route,inputTokens:inputTokenCeiling,maxOutputTokens:maxTokens,now:clock(),overheadRate:PLATFORM_FEE_RATE});
     const ceilingMicrousd=Math.max(10000,Math.ceil(estimate/10000)*10000);
     const taskId='tm-'+stage+'-'+crypto.randomUUID(),callId='or-'+stage+'-'+crypto.randomUUID();
@@ -142,7 +150,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       task:{taskId,objective:'TypingMind UberMind '+stage,consequenceClass:'LOCAL_PREPARATION'},
       messages,
       sessionId:stableModelSessionId(sessionRoot,model),
-      reasoning:{effort:reasoningEffort},
+      reasoning:reasoningEffort?{effort:reasoningEffort}:null,
       responseFormat,
       maxTokens,
       inputTokenCeiling,

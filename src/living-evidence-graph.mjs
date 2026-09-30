@@ -18,7 +18,15 @@ export function createLivingEvidenceGraph({nodes,roots,qualityContractHash,crown
   }
   for(const node of nodes)for(const dep of node.dependencies)if(!ids.has(dep))throw new Error('evidence-dependency-missing');
   if(new Set(roots).size!==roots.length||roots.some(r=>!ids.has(r)))throw new Error('known-unique-roots-required');
-  // impactedSemanticNodes validates the complete dependency DAG shape.
+  const byId=new Map(nodes.map(n=>[n.id,n])),visiting=new Set(),done=new Set();
+  function visit(nodeId){
+    if(done.has(nodeId))return;
+    if(visiting.has(nodeId))throw new Error('evidence-graph-cycle');
+    visiting.add(nodeId);
+    for(const dep of byId.get(nodeId).dependencies)visit(dep);
+    visiting.delete(nodeId);done.add(nodeId);
+  }
+  for(const node of nodes)visit(node.id);
   impactedSemanticNodes(nodes,[]);
   const graph={schemaVersion:'uberbond.living-evidence-graph.v1',qualityContractHash,crownRevision,createdAt,nodes:structuredClone(nodes),roots:structuredClone(roots)};
   graph.graphHash=semanticHash({...graph,graphHash:undefined});

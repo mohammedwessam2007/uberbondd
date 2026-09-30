@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "uberbond.typingmind.opus-quality-mincost.v3",
+  "objective": "MATCH_OR_EXCEED_CLAUDE_OPUS_5_5_FINAL_WORK_QUALITY_AT_MINIMUM_EXPECTED_TOTAL_COST",
+  "nonGoals": [
+    "maximize number of model calls",
+    "maximize synthetic multiplier",
+    "use cheap models as final authority",
+    "force every task through every agent"
+  ],
+  "modelRoles": {
+    "scout": {
+      "agent": "UberScout",
+      "model": "xiaomi/mimo-v2.6-flash",
+      "routing": "floor-when-no-tools-and-provider-quality-acceptable",
+      "authority": "PROPOSAL_ONLY",
+      "jobs": [
+        "source triage",
+        "retrieval compression",
+        "fact extraction",
+        "decomposition",
+        "candidate search"
+      ]
+    },
+    "critic": {
+      "agent": "UberRedTeam",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "routing": "floor-for-text-audit_without_tools",
+      "authority": "PROPOSAL_ONLY",
+      "jobs": [
+        "post-builder adversarial audit",
+        "counterexamples",
+        "omissions",
+        "arithmetic checks"
+      ]
+    },
+    "builder": {
+      "agent": "UberBuilder",
+      "model": "openai/gpt-6.1-sol",
+      "routing": "standard_or_fastest_below_price_ceiling",
+      "authority": "PROPOSAL_ONLY",
+      "jobs": [
+        "main synthesis",
+        "coding",
+        "reasoning",
+        "artifact construction"
+      ]
+    },
+    "hard": {
+      "agent": "UberDeep",
+      "model": "openai/gpt-6.1-sol-pro",
+      "routing": "escalation_only",
+      "authority": "PROPOSAL_ONLY",
+      "jobs": [
+        "hard residual only"
+      ]
+    },
+    "crown": {
+      "agent": "UberCrown",
+      "model": "anthropic/claude-opus-5.5",
+      "routing": "standard_same_model_no_floor_quality_tradeoff_without_evidence",
+      "authority": "FINAL_SEMANTIC_GATE",
+      "jobs": [
+        "semantic delta review",
+        "accept",
+        "minimal patch",
+        "full rewrite only when required"
+      ]
+    }
+  },
+  "nativeTypingMindFlows": {
+    "DIRECT_CROWN": {
+      "useWhen": [
+        "short prompt",
+        "small context",
+        "novel judgement",
+        "preprocessing expected to cost more than it saves"
+      ],
+      "chain": [
+        "UberCrownDirect"
+      ],
+      "invariant": "direct Opus is the cost floor when chain overhead exceeds avoidable Opus work"
+    },
+    "LEAN_CROWN": {
+      "useWhen": [
+        "long source",
+        "research",
+        "large files",
+        "comparison",
+        "planning",
+        "document-heavy work"
+      ],
+      "chain": [
+        "UberScout",
+        "UberBuilder",
+        "UberRedTeam",
+        "UberCrown"
+      ],
+      "crownPolicy": "review semantic delta, never rewrite correct prose"
+    },
+    "CODE_CROWN": {
+      "useWhen": [
+        "coding",
+        "debugging",
+        "architecture",
+        "repo changes"
+      ],
+      "chain": [
+        "UberBuilder",
+        "UberRedTeam",
+        "UberCrown"
+      ],
+      "crownPolicy": "review patch/diff and tests, not entire repo unless necessary"
+    },
+    "HARD_CROWN": {
+      "useWhen": [
+        "ordinary Sol leaves a material hard residual",
+        "Crown explicitly requests deeper work"
+      ],
+      "chain": [
+        "UberBuilder",
+        "UberRedTeam",
+        "UberDeep",
+        "UberCrown"
+      ],
+      "invariant": "Sol Pro never default"
+    }
+  },
+  "contextEconomics": {
+    "crownPromptCaching": true,
+    "stableCrownPrefixRequired": true,
+    "dynamicContextOnCrown": false,
+    "reason": "TypingMind warns changing Dynamic Context system prompts defeat prompt caching; use Dynamic Context on cheap preparation agents, then pass a compact evidence capsule to Crown.",
+    "dynamicContextPreferredAgents": [
+      "UberScout",
+      "UberBuilder"
+    ],
+    "evidenceCapsule": {
+      "fields": [
+        "objective",
+        "hard constraints",
+        "material facts",
+        "source anchors",
+        "builder final candidate",
+        "red-team defects",
+        "unresolved residuals"
+      ],
+      "omit": [
+        "duplicated prose",
+        "brain dumps",
+        "irrelevant history",
+        "settled reasoning",
+        "full source when targeted evidence spans suffice"
+      ]
+    },
+    "sessionStickiness": {
+      "desired": true,
+      "mechanism": "OpenRouter session_id if exposed through TypingMind custom body params",
+      "verifyBy": [
+        "cached_tokens",
+        "cache_write_tokens",
+        "cache_discount"
+      ],
+      "doNotClaimUntilObserved": true
+    }
+  },
+  "outputEconomics": {
+    "scoutMaxTokens": 800,
+    "criticMaxTokens": 600,
+    "builderMaxTokens": 3200,
+    "crownMaxTokens": 4096,
+    "hardMaxTokens": 2200,
+    "crownDecisionProtocol": [
+      "ACCEPT_BUILDER_VERBATIM",
+      "PATCH_MINIMAL",
+      "REWRITE_COMPLETE",
+      "ESCALATE_SOL_PRO"
+    ],
+    "crownDefault": "ACCEPT_OR_MINIMAL_PATCH",
+    "finalProseGenerator": "UberBuilder unless Crown rewrite required"
+  },
+  "qualityRules": [
+    "Original user objective is canonical.",
+    "Cheap agents cannot lower the final quality floor.",
+    "Crown must independently reject material defects.",
+    "No majority vote creates truth.",
+    "Missing evidence stays missing.",
+    "Direct Opus bypass is preferred when cheaper than orchestration.",
+    "Do not re-run identical work when a valid exact result can be reused.",
+    "Do not use Sol Pro unless an unresolved hard residual exists.",
+    "Do not give Dynamic Context to Crown when it destroys a valuable stable cache prefix.",
+    "For tool-heavy requests use quality-aware provider routing rather than floor-only routing unless tool reliability is independently established."
+  ],
+  "costControls": {
+    "cheapModelProviderPolicy": "floor for non-tool bounded preparation; default/Auto-Exacto for tool calls",
+    "builderPolicy": "standard Sol; batch/flex only for asynchronous work outside interactive Flow",
+    "crownPolicy": "stable prompt + prompt caching; minimize output; reuse Builder prose on ACCEPT",
+    "responseCachePolicy": "only exact identical requests with freshness-safe semantics",
+    "hardSpendPolicy": "fail or bypass rather than silently invoke expensive escalation"
+  },
+  "observability": [
+    "per-agent input_tokens",
+    "per-agent output_tokens",
+    "cached_tokens",
+    "cache_write_tokens",
+    "cache_discount",
+    "actual_cost",
+    "crown_decision",
+    "crown_patch_tokens",
+    "crown_rewrite_rate",
+    "sol_pro_escalation_rate",
+    "direct_opus_bypass_rate",
+    "final_quality_regressions"
+  ],
+  "upgradeCeiling": "No remaining generic upgrade is valid without new evidence, a new model/provider capability, a TypingMind feature change, or measured workload data showing a quality/cost regression.",
+  "scope": "TYPINGMIND_COCKPIT_PROFILE_ONLY",
+  "supersessionLaw": "DOES_NOT_SUPERSEDE_OPEN_ROUTER_00_FINAL_SYSTEM__ARCHITECTURE__JEV__FRONTIER_VM__COGNITIVE_SUPERCOMPILER__INFINITE_OPUS_CANON",
+  "parentCanon": [
+    "open router/00_FINAL_SYSTEM.md",
+    "open router/ARCHITECTURE.md",
+    "open router/02_JEV_HYPERREFLEX.md",
+    "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+    "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+    "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md"
+  ],
+  "jevBoundary": "JEV_EXECUTES_BELOW_TYPINGMIND_AS_SEMANTIC_CONTROL_PLANE__NEVER_REPRESENT_JEV_AS_ANOTHER_CHAT_MODEL",
+  "frontierVmBoundary": "FLOW_MODEL_ASSIGNMENTS_ARE_PROCESSOR_HINTS_ONLY__FRONTIER_VM_RETAINS_AUTHORITY_TO_BYPASS_EXACTLY_REUSE_COMPILE_ROUTE_AUCTION_OR_ESCALATE",
+  "cognitiveCompilerBoundary": "BEFORE_ANY_MODEL_CHAIN__RUN_EXACT_PRECHECK__SEMANTIC_CSE__DEAD_BRANCH_ELIMINATION__PARTIAL_EVALUATION__EVIDENCE_MULTICAST__FRONTIER_RESIDUALIZATION"
+}

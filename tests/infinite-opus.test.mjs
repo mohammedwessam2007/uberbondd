@@ -280,3 +280,15 @@ test('paid callback crash holds dispatched budget and refuses duplicate dispatch
   assert.equal(calls,1);
   assert.equal((await runtime.snapshot()).budget.reservedMicrousd,10000);
 });
+
+test('provider response without observed bill keeps reservation held', async t => {
+  const { store } = await nativeStore(t);
+  const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW,
+    paidAuthorization:{ evidenceRef:'synthetic://owner',month:'2026-09',maxMonthlyMicrousd:20000000,expiresAt:'2026-10-01T00:00:00Z' },
+    routePrices:[{model:'test/model',provider:'openrouter',sourceRef:'synthetic://price',verifiedAt:'2026-09-29T21:00:00Z',expiresAt:'2026-09-30T21:00:00Z',contextTokens:1000000,maxOutputTokens:10000,inputUsdPerMillion:.01,outputUsdPerMillion:.01}],
+    paidExecutor:async () => ({ ok:true,providerRequestId:'provider-call-1',observedModel:'test/model',provider:'openrouter',usage:{} }) });
+  await runtime.preparePaidCall(call('bill-gap','WORKER',10000));
+  const r=await runtime.dispatchPaidCall('bill-gap',{ model:'test/model',task:{taskId:'bill-gap'},costCeilingCents:1,maxTokens:20 });
+  assert.equal(r.status,'OBSERVED_BILL_REQUIRED_RESERVATION_HELD');
+  assert.equal((await runtime.snapshot()).budget.reservedMicrousd,10000);
+});

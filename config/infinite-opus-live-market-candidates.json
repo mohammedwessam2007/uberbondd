@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.infinite-opus.live-market-candidates.v1",
   "observedAt": "2026-09-30T14:00:00+03:00",
-  "truthBoundary": "Fresh public OpenRouter candidate evidence refreshed 2026-09-30. Public catalog/pricing proves candidate existence and listed economics only; it does not promote a Crown. Temporary discounts are observed separately from conservative planning prices and must be re-fetched before reservation.",
+  "truthBoundary": "Fresh public OpenRouter candidate evidence refreshed 2026-09-30. Public catalog/pricing proves candidate existence and listed economics only; it does not promote a Crown. Temporary discounts are observed separately from conservative planning prices and must be re-fetched before reservation. Model-understanding priors may reduce unnecessary live comparisons but never grant semantic authority.",
   "candidates": [
     {
       "role": "GENERAL_CROWN_CANDIDATE",
@@ -15,7 +15,7 @@
       "observed": "2026-09-30"
     },
     {
-      "role": "GENERAL_CROWN_CHALLENGER",
+      "role": "HARD_REASONING_CROWN_CHALLENGER",
       "model": "openai/gpt-6.1-sol-pro",
       "inputUsdPerMillion": 2,
       "outputUsdPerMillion": 10,
@@ -25,6 +25,21 @@
       "cacheReadUsdPerMillion": 0.1,
       "flexInputUsdPerMillion": 1,
       "flexOutputUsdPerMillion": 5,
+      "observed": "2026-09-30",
+      "routingPrior": "ESCALATION_ONLY__SAME_UNDERLYING_SOL_MODEL_IN_PRO_REASONING_MODE__NOT_DEFAULT_ROUTINE_WORKER"
+    },
+    {
+      "role": "STRONG_WORKER_CANDIDATE",
+      "model": "openai/gpt-6.1-sol",
+      "inputUsdPerMillion": 2,
+      "outputUsdPerMillion": 10,
+      "contextTokens": 1050000,
+      "evidence": "https://openrouter.ai/openai/gpt-6.1-sol",
+      "status": "PUBLIC_CANDIDATE_ONLY",
+      "cacheReadUsdPerMillion": 0.1,
+      "flexInputUsdPerMillion": 1,
+      "flexOutputUsdPerMillion": 5,
+      "routingPrior": "DEFAULT_OPENAI_STRONG_WORKER_CANDIDATE__PRO_RESERVED_FOR_HARD_ESCALATION",
       "observed": "2026-09-30"
     },
     {

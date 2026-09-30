@@ -12,6 +12,7 @@ import {enhanceAudit} from '../src/ai.mjs';
 import {COGNITION_PERIMETER_ADMISSION} from '../src/cognition-transport-guard.mjs';
 import {createUnifiedCognitionLedger,appendCognitionEvent,cognitionLedgerSummary} from '../src/unified-cognition-ledger.mjs';
 import {buildInfiniteOpusScoreboard} from '../src/infinite-opus-scoreboard.mjs';
+import {createInfiniteOpusRuntime} from '../src/infinite-opus-native-runtime.mjs';
 import {validateSemanticProgram} from '../src/semantic-isa-v2.mjs';
 import {compileCrownTournament,adjudicateCrownTournament} from '../src/crown-tournament.mjs';
 import {planCrownSuccession,applySuccession} from '../src/crown-succession.mjs';

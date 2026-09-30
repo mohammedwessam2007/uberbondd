@@ -212,3 +212,44 @@ test('OpenRouter provider required-parameter policy cannot be loosened',async()=
  const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify({data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}})})});
  await assert.rejects(()=>a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,providerPolicy:{require_parameters:false}}),/required-parameter-support/);
 });
+
+test('TypingMind cash spend is included in unified monthly cash total',()=>{
+ let l=createUnifiedCognitionLedger({month:'2026-09'});
+ const base={task_id:'t',provider:'openrouter',model:'m',provider_route:'openrouter',timestamp:'2026-09-30T00:00:00Z',authorization_ref:'auth',billing_month:'2026-09',input_tokens:1,output_tokens:1,cost_class:'CASH_API_SPEND',platform_fee_usd:0};
+ l=appendCognitionEvent(l,{...base,channel_id:'runtime',call_id:'r1',actual_cost_usd:0.01});
+ l=appendCognitionEvent(l,{...base,channel_id:'typingmind',call_id:'t1',actual_cost_usd:0.02});
+ assert.equal(cognitionLedgerSummary(l).actualAllInUsd,0.03);
+});
+test('provider key hard-cap mismatch fails before inference',async()=>{
+ let calls=0;
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify({data:{label:'runtime',limit:21,limit_remaining:21,usage_monthly:0,limit_reset:'monthly'}})};}});
+ const r=await a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1});
+ assert.equal(r.status,'OPENROUTER_KEY_POLICY_MISMATCH');assert.equal(r.providerCalls,0);assert.equal(calls,1);
+});
+test('cache miss records zero cached tokens while preserving observed provider cost',async()=>{
+ let i=0;const rows=[
+  {data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}},
+  {id:'g-cache-miss',model:'m',choices:[{message:{content:'OK'}}],usage:{cost:.001,prompt_tokens:10,completion_tokens:1,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
+  {data:{provider_name:'provider',model:'m',total_cost:.001,tokens_prompt:10,tokens_completion:1}},
+  {data:{label:'runtime',limit:20,limit_remaining:19.999,usage_monthly:.001,limit_reset:'monthly'}}
+ ];
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows[i++])})});
+ const r=await a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,sessionId:'stable-session'});
+ assert.equal(r.ok,true);assert.equal(r.usage.cachedInputTokens,0);assert.equal(r.usage.costUsd,.001);
+});
+test('Crown admission binds exact revision when provider exposes it',()=>{
+ const base={providerCallId:'gen-rev',exactModelId:'m',modelRevision:'rev-1',providerIdentity:'p',routeIdentity:'r',taskClassRole:'GENERAL_CROWN',promptProgramHash:h('p'),semanticInputHash:h('i'),qualityContractHash:h('q'),sourceDependencyHashes:[h('s')],evidenceReferences:['e'],outputHash:h('o'),timestamp:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'a',costReceiptRef:'c',modelCallabilityReceiptRef:'mc',revalidationPolicy:'EXPIRE',authorizationStatus:'AUTHORIZED_FOR_THIS_CALL',actualCostMicrousd:1,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,modelCallabilityVerified:true,tournamentEvidenceVerified:true,roleTournamentEvidenceRef:'t'};
+ const issued=issueCrownAdmissionReceipt(base);assert.equal(issued.ok,true);
+ assert.equal(verifyCrownAdmissionReceipt(issued.receipt,{now:Date.parse('2026-09-30T01:00:00Z'),expected:{modelRevision:'rev-2'}}).ok,false);
+});
+
+test('cached response with inconsistent provider bill is refused',async()=>{
+ let i=0;const rows=[
+  {data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}},
+  {id:'g-cache-bill',model:'m',choices:[{message:{content:'OK'}}],usage:{cost:.001,prompt_tokens:100,completion_tokens:1,prompt_tokens_details:{cached_tokens:90,cache_write_tokens:0}}},
+  {data:{provider_name:'provider',model:'m',total_cost:.002,tokens_prompt:100,tokens_completion:1}}
+ ];
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows[i++])})});
+ const r=await a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,sessionId:'stable-session'});
+ assert.equal(r.status,'OPENROUTER_BILL_MISMATCH');
+});

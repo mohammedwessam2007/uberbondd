@@ -29,7 +29,7 @@ const zero = extra => ({ businessEffectAuthority: 'NONE', externalEffectAuthorit
 
 export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [],
   clock = Date.now, paidExecutor = null, paidAuthorization = null, routePrices = [], platformFeeRate = 0.055 } = {}) {
-  const paidMonthlyCapMicrousd = paidAuthorization?.maxMonthlyMicrousd ?? 30_000_000;
+  const paidMonthlyCapMicrousd = paidAuthorization?.maxMonthlyMicrousd ?? 20_000_000;
   if (!Number.isSafeInteger(paidMonthlyCapMicrousd) || paidMonthlyCapMicrousd < 15_000_000 || paidMonthlyCapMicrousd > 20_000_000 && paidAuthorization) throw new Error('paid-runtime-cap-must-fit-20-dollar-key-and-15-dollar-crown-reserve');
   routePrices = structuredClone(routePrices);
   paidAuthorization = paidAuthorization ? structuredClone(paidAuthorization) : null;

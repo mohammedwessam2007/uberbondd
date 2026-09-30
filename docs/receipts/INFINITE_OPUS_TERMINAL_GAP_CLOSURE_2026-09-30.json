@@ -158,7 +158,7 @@
     "observedAt": "2026-09-30T03:48:00+03:00",
     "startingMain": "98b8b5ddc7f6a0d4d3da7699b699fad562b3dcca",
     "branch": "infinite-opus/first-live-workload-20260930",
-    "status": "FIRST_REAL_WORKLOAD_COMPILED__PREOWNER_SOFTWARE_CLOSURE_READY_PENDING_MERGE",
+    "status": "PREOWNER_SOFTWARE_CLOSURE_MERGED__OWNER_GATE",
     "numberedPromptSections": 74,
     "strictlyRealizedSections": 57,
     "strictRealizedShare": 0.77027,
@@ -247,7 +247,7 @@
       "exactEliminationAuthority": "E1_DETERMINISTIC_DERIVATION",
       "survivorAuthority": "NONE_UNTIL_CURRENT_TASK_CLASS_CROWN_CLOSES_RESIDUAL"
     },
-    "preOwnerSoftwareClosure": "COMPLETE_AFTER_BRANCH_MERGE",
+    "preOwnerSoftwareClosure": "MERGED_COMPLETE",
     "remainingOwnerActions": 2,
     "providerCallsPerformed": 0,
     "spendUsd": 0,
@@ -257,6 +257,10 @@
       "production 24/7 endurance",
       "fresh-work frontier equivalence",
       "realized compression"
-    ]
+    ],
+    "mergedMain": "a2920d9385c6913ac77062611804ad3f7251daff",
+    "mergedPullRequest": 1059,
+    "sourceBlockers": [],
+    "next": "OWNER_PRIVATE_OPENROUTER_AND_TYPINGMIND_CONFIGURATION -> MANAGEMENT_RECONCILIATION -> OWNER_AUTHORIZES_NO_EFFECT_CANARY -> SEALED_TOURNAMENT -> PROVIDER_SCREENING_WORKLOAD"
   }
 }

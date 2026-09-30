@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:19:00+03:00",
+  "updatedAt": "2026-09-30T21:26:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -45,6 +45,25 @@
       },
       "qualityLaw": "Fusion changes scheduling only. The Crown receives the same evidence capsule + candidate surface as checkpoint 32; exact source-anchor/lossless contract remains mandatory.",
       "deltaVsPriorMultiplierPercent": 1.1624045167736075
+    },
+    {
+      "label": "checkpoint-34-crown-approved-macro-e2",
+      "multiplier": 28.91156462585034,
+      "status": "MODELED_BOUNDED_RECURRING_E2_PATH__EXECUTABLE_FAIL_CLOSED_MACRO_ASSEMBLER",
+      "workload": "200k source -> 5k exact-anchored closed evidence -> current trusted Crown-approved macro + E0-E4 semantic closure -> deterministic 2.5k artifact; zero live Crown inference on this execution",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.0294,
+      "costBreakdownUsd": {
+        "mimoExactAnchoredEvidencePreparation": 0.0294,
+        "liveCrownInference": 0,
+        "deterministicMacroAssemblyInference": 0
+      },
+      "qualityLaw": "This checkpoint applies only when current E0-E4 semantic closure, current trusted Crown macro, deterministic renderer proof, and current dependencies all hold. Any failed prerequisite pages back upward and this multiplier cannot be claimed.",
+      "executableSources": [
+        "src/cognitive-macro-assembler.mjs",
+        "src/semantic-closure-kernel.mjs"
+      ],
+      "deltaVsPriorMultiplierPercent": 104.82789115646258
     }
   ],
   "excludedFromCurrentNumber": [
@@ -63,7 +82,9 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 14.1149119893723,
-  "currentCheckpoint": "checkpoint-33-fused-anchored-source-writer",
-  "nextGate": 25
+  "currentCanonicalModeledMultiplier": 28.91156462585034,
+  "currentCheckpoint": "checkpoint-34-crown-approved-macro-e2",
+  "nextGate": 50,
+  "currentColdModeledMultiplier": 14.1149119893723,
+  "currentBestBoundedRecurringModeledMultiplier": 28.91156462585034
 }

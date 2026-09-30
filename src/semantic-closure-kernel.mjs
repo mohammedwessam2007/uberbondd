@@ -263,3 +263,71 @@ export function coalesceSemanticProofCuts(tasks) {
     candidateMulticastFactor: groups.size ? tasks.length / groups.size : null,
     actualCrownCallsAvoided: null, semanticAuthority: 'NONE' };
 }
+
+
+// Mint compact-Crown coverage authority only from a live closure produced by
+// this module's checker. The WeakMap provenance makes serialized/copied
+// "closure" objects non-authoritative. Unrestricted Crown prose cannot mint it.
+export function mintCertifiedCoverageFromClosure({
+  artifact, closure, context, coverageClaimId,
+  sourceHash, obligationHash, packetHash,
+  evidenceRef, expiresAt, now = Date.now()
+} = {}) {
+  const fail = reason => ({ ok:false, status:'COVERAGE_AUTHORITY_REFUSED', reasons:[reason], semanticAuthority:'NONE' });
+  try {
+    const origin = closureOrigins.get(closure);
+    if (!origin || origin.artifactHash !== semanticHash(artifact) || origin.contextHash !== semanticHash(context)) throw new Error('live-semantic-closure-provenance-required');
+    const current = origin.checker({ artifact, context, now });
+    if (!current.ok || current.artifactHash !== closure.artifactHash || current.contextHash !== closure.contextHash) throw new Error('current-semantic-closure-required');
+    if (!name(coverageClaimId) || !sha(sourceHash) || !sha(obligationHash) || !sha(packetHash)) throw new Error('coverage-binding-hashes-required');
+    if (typeof evidenceRef !== 'string' || !evidenceRef.length) throw new Error('coverage-evidence-ref-required');
+    const expiry = Date.parse(expiresAt);
+    if (!Number.isFinite(expiry) || expiry <= now) throw new Error('future-coverage-expiry-required');
+
+    const claim = artifact.claims.find(row => row.id === coverageClaimId);
+    if (!claim) throw new Error('coverage-claim-required');
+    const expected = {
+      complete: true,
+      sourceHash,
+      qualityContractHash: context.qualityContractHash,
+      obligationHash,
+      packetHash
+    };
+    if (!equal(claim.value, expected)) throw new Error('coverage-claim-binding-mismatch');
+
+    // Coverage may be inherited from admitted Reality/Policy facts and exact
+    // derivations/circuits, but never directly from an unrestricted Crown leaf.
+    const allowed = new Set(['REALITY','POLICY','DERIVATION','CIRCUIT']);
+    if (artifact.nodes.some(node => !allowed.has(node.kind))) throw new Error('e0-e4-only-coverage-proof-required');
+    const proofClass = artifact.nodes.some(n=>n.kind==='CIRCUIT') ? 'E4'
+      : artifact.nodes.some(n=>n.kind==='POLICY') ? 'E3'
+      : artifact.nodes.some(n=>n.kind==='DERIVATION') ? 'E1'
+      : 'E0';
+
+    return {
+      ok:true,
+      status:'CERTIFIED_COVERAGE_MINTED',
+      authority:{
+        kind:'CERTIFIED_COVERAGE',
+        status:'ACTIVE',
+        sourceHash,
+        qualityContractHash:context.qualityContractHash,
+        obligationHash,
+        packetHash,
+        evidenceRef,
+        expiresAt,
+        proofClass,
+        closureArtifactHash:closure.artifactHash,
+        closureContextHash:closure.contextHash,
+        crownRevision:context.crownRevision,
+        sourceDependencies:structuredClone(context.sourceHashes),
+        invalidators:structuredClone(context.invalidators),
+        mintedAt:new Date(now).toISOString()
+      },
+      semanticAuthority:'E0_E4_VERIFIED_COVERAGE_ONLY',
+      externalEffectAuthority:'NONE'
+    };
+  } catch (error) {
+    return fail(String(error?.message || error));
+  }
+}

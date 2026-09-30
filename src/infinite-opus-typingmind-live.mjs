@@ -440,6 +440,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
               source:residualBundle.source,
               packet:residualBundle.packet,
               coverageAuthority:residualBundle.coverageAuthority,
+              currentCoverageContext:residualBundle.currentCoverageContext ?? null,
               now:clock()
             });
             residualUsed=residualVerification.ok===true;

@@ -5,7 +5,7 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd, estimateJevControlUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
-  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd, chooseCheapestFusedSourceWorker } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -233,6 +233,15 @@ test('critic surcharge includes both critic inference and extra Crown input',()=
   assert.ok(x<.02);
 });
 
+
+test('fused source worker auction picks DeepSeek over MiMo for the canonical 200k-to-7.5k geometry',()=>{
+  const pick=chooseCheapestFusedSourceWorker({
+    workerRoutes:[mimoRoute,deepseekRoute],
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500
+  });
+  assert.equal(pick.model,'deepseek/deepseek-v4.1-flash');
+  assert.equal(pick.usd,0.0299);
+});
 
 test('observed cache receipts change path economics using current route cache tariffs',()=>{
   const fresh=estimateRouteWithCacheUsd({route:crownRoute,inputTokens:100000,cachedInputTokens:0,outputTokens:1000});

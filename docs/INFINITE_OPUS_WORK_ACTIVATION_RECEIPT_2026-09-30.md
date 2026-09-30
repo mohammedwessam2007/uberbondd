@@ -1,0 +1,37 @@
+# Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo
+
+Source main: `cec7015a7a2e5fedc87a2c97ace882bdc656e43f`.
+Canonical parent: `docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`.
+This receipt records observed setup state; it does not grant spend or Crown authority.
+
+## Verified completion
+- Existing OpenRouter key ending 174 matched the masked TypingMind connection; no replacement provider key was created.
+- Account UI showed USD10.00 available and auto top-up disabled.
+- Existing key limit changed from USD100 total to USD20 monthly and persisted after reload; existing expiry remains March 29, 2027.
+- Founder privately supplied that key in Render. Work validated the OpenRouter prefix and approved suffix without displaying the value and saved OPENROUTER_API_KEY.
+- The previously exposed gateway bearer was rotated through Render's merge-only environment API using a cryptographically random 68-character token; TypingMind's prepared Authorization field was updated to match. No token is recorded here.
+- Render deploy `dep-daunocmi4rts73fmdj3g` is live on the source main above.
+- Authenticated TypingMind Test & Save reaches the redeployed gateway. The runtime-openrouter-key-absent reason is gone.
+- Prior direct TypingMind MiMo/GMICloud billing records were recovered: USD0.0000403 and USD0.000093, total USD0.0001333. These are existing direct transport records, not gateway/Crown proof.
+- No new provider inference or credit purchase was performed by Work in this activation.
+
+## Remaining live gate
+Gateway returned `TYPINGMIND_UBERMIND_LIVE_NOT_READY` with:
+1. current-20-dollar-runtime-authorization-required
+2. opus-crown-route-not-authorized
+3. valid-current-general-crown-admission-required
+
+TypingMind's custom-model form is prepared but not saved because Test & Save refuses a not-ready response. System role and delayed-final streaming are enabled; plugins, vision, thinking and TypingMind Cloud proxy are disabled; numeric max_tokens is 8192 and context hint is 64000.
+
+Founder expressly approved provider-key reuse in Render, the USD20/month safety cap, and a canary costing at most USD0.05. A key cap is not independently a paid-runtime authorization receipt. Do not manufacture a receipt or Crown evidence to remove these gates.
+
+## Execution blocker
+The Render Shell UI explicitly reports that Shell, SSH and one-off jobs are unavailable on free compute. No compute upgrade was purchased. The canonical `scripts/infinite-opus-openrouter-canary.mjs` was inspected but not executed. It needs a real host with the protected runtime secret, a current explicit canary authorization and fresh route prices. Its checked-in canary route price expires 2026-10-01T00:00:00Z; revalidate rather than extend timestamps without evidence.
+
+## Exact continuation
+Run the bounded canonical canary on an authorized execution host, reconcile provider generation/bill/key-limit evidence, and obtain the separately owner-approved current monthly runtime receipt. Then have an independent sealed custodian run the GENERAL_CROWN tournament, keeping raw tasks/answers outside Git and the optimizing agent's context. Adjudicate and mint only from actual observed provider/model/billing evidence. Set the two non-secret receipts on Render, redeploy, verify live readiness, and finish TypingMind Test & Save.
+
+Never downgrade quality, fake an OpenAI-compatible successful answer to bypass Test & Save, or substitute direct provider chat for the Frontier VM/JEV parent architecture.
+
+## Multiplier boundary
+33,333.345x remains recorded executed E3 benchmark capacity, not production-observed economic compression. Production realized multiplier remains unknown. Only the receipt-grade Cognitive Capital court can settle it.

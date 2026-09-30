@@ -16,6 +16,7 @@ import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs'
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
+import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -501,6 +502,43 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/queue') {
       return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/activation') {
+      return sendJson(res, 200, { ok:true, ...inspectInfiniteOpusActivationEnvironment(process.env), paidInferenceTriggered:false });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/references') {
+      return sendJson(res, 200, await runtime.listReferenceContracts());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/references') {
+      let body; try { body=await readSmallJsonBody(req,2_000_000); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'REFERENCE_CONTRACT_BODY_REFUSED',error:String(error?.message||error)}); }
+      const out=await runtime.admitReferenceContract(body); return sendJson(res,out.ok?200:409,out);
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/capital-campaigns') {
+      return sendJson(res, 200, await runtime.listCognitiveCapitalCampaigns());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/capital-campaigns') {
+      let body; try { body=await readSmallJsonBody(req); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CAPITAL_CAMPAIGN_BODY_REFUSED',error:String(error?.message||error)}); }
+      const out=await runtime.createCognitiveCapitalCampaign(body); return sendJson(res,out.ok?201:409,out);
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/capital-campaigns/cost') {
+      let body; try { body=await readSmallJsonBody(req); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CAPITAL_COST_BODY_REFUSED',error:String(error?.message||error)}); }
+      try { const out=await runtime.appendCognitiveCapitalCost(body); return sendJson(res,out.ok?200:409,out); }
+      catch(error){ return sendJson(res,409,{ok:false,status:'CAPITAL_COST_REFUSED',error:String(error?.message||error)}); }
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/capital-campaigns/asset') {
+      let body; try { body=await readSmallJsonBody(req); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CAPITAL_ASSET_BODY_REFUSED',error:String(error?.message||error)}); }
+      try { const out=await runtime.registerCognitiveCapitalAsset(body); return sendJson(res,out.ok?200:409,out); }
+      catch(error){ return sendJson(res,409,{ok:false,status:'CAPITAL_ASSET_REFUSED',error:String(error?.message||error)}); }
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/capital-campaigns/close') {
+      let body; try { body=await readSmallJsonBody(req); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CAPITAL_CLOSE_BODY_REFUSED',error:String(error?.message||error)}); }
+      try { const out=await runtime.closeCognitiveCapitalCampaign(body); return sendJson(res,out.ok?200:409,out); }
+      catch(error){ return sendJson(res,409,{ok:false,status:'CAPITAL_CLOSE_REFUSED',error:String(error?.message||error)}); }
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/franchises') {
       return sendJson(res, 200, await runtime.listDecisionFranchises());

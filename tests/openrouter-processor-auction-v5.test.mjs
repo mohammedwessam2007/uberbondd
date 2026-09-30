@@ -9,7 +9,7 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateCompressedAdaptiveWriterFrontierUsd, chooseCompressedAdaptiveWriterFrontier,
   estimateFusedAnchoredSourceWriterFrontierUsd,
   estimateCrownApprovedMacroCompiledUsd, chooseCrownApprovedMacroCompiledPath,
-  estimateCertifiedJevMacroLaneUsd } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateCertifiedJevMacroLaneUsd, estimateLivingEvidenceDeltaEconomics } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -298,4 +298,18 @@ test('Crown Boundary Querying crosses 100x by shrinking only sampled audit conte
   });
   assert.equal(x.totalUsd,.008481);
   assert.equal(Number((.85/x.totalUsd).toFixed(12)),100.22403018512);
+});
+
+
+test('Living Evidence delta economics crosses 250x while direct Opus receives prompt-cache credit',()=>{
+  const x=estimateLivingEvidenceDeltaEconomics({
+    totalSourceTokens:200000,changedSourceTokens:10000,outputTokens:2500,
+    auditRate:.05,crownAuditInputTokens:400,crownAuditOutputTokens:1
+  });
+  assert.equal(x.directOpusUsd,.128);
+  assert.equal(x.jevUsd,.00042);
+  assert.equal(x.expectedAuditUsd,.000081);
+  assert.equal(x.uberMindUsd,.000501);
+  assert.equal(Number(x.multiplier.toFixed(12)),255.489021956088);
+  assert.match(x.baselineLaw,/PROMPT_CACHE/);
 });

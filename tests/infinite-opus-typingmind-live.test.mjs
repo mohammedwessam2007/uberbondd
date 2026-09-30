@@ -9,6 +9,7 @@ import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness,
 
 const h=x=>'sha256:'+crypto.createHash('sha256').update(String(x)).digest('hex');
 const now=Date.parse('2026-09-30T13:30:00Z');
+const recurrenceHmacKey='a'.repeat(64);
 const iso=new Date(now).toISOString();
 const makeStore=()=>{
  let settings={};
@@ -55,8 +56,13 @@ function providerSequence({crownProvider='Anthropic',crownText='ACCEPT'}={}){
  ];
 }
 
+test('readiness refuses missing recurrence HMAC key before any inference',()=>{
+ const r=inspectTypingMindLiveReadiness({paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),openRouterKeyPresent:true,recurrenceHmacKeyPresent:false,now});
+ assert.equal(r.ok,false);assert.ok(r.reasons.includes('runtime-recurrence-hmac-key-absent'));
+});
+
 test('readiness refuses missing current Crown admission before any inference',()=>{
- const r=inspectTypingMindLiveReadiness({paidAuthorization:authorization(),crownAdmission:null,marketSnapshot:market(),openRouterKeyPresent:true,now});
+ const r=inspectTypingMindLiveReadiness({paidAuthorization:authorization(),crownAdmission:null,marketSnapshot:market(),openRouterKeyPresent:true,recurrenceHmacKeyPresent:true,now});
  assert.equal(r.ok,false);assert.ok(r.reasons.includes('valid-current-general-crown-admission-required'));
 });
 
@@ -70,7 +76,7 @@ test('live gateway performs Sol builder then exact-provider Opus Crown ACCEPT an
    return {ok:true,status:200,text:async()=>JSON.stringify(body)};
  };
  const store=makeStore();
- const o=createTypingMindLiveOrchestrator({store,openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store,openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
  assert.equal(o.readiness().ok,true);
  const out=await o.execute(request());
  assert.equal(out.ok,true);assert.equal(out.completion.choices[0].message.content,'Builder candidate');
@@ -89,7 +95,7 @@ test('live gateway performs Sol builder then exact-provider Opus Crown ACCEPT an
 test('upstream provider drift refuses Crown authority after observed paid call and freezes no false answer into cockpit',async()=>{
  const rows=providerSequence({crownProvider:'Unexpected Provider'});let calls=0;
  const fetchImpl=async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify(rows.shift())};};
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission('Anthropic'),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:admission('Anthropic'),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const out=await o.execute(request());
  assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED');
  assert.equal(out.semanticAuthority,'NONE');assert.equal(out.qualityAction,'QUEUE_NEVER_DOWNGRADE');assert.equal(calls,8);
@@ -98,7 +104,7 @@ test('upstream provider drift refuses Crown authority after observed paid call a
 test('missing upstream provider refuses Crown authority even when model matches',async()=>{
  const rows=providerSequence();delete rows[6].data.provider_name;
  const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const out=await o.execute(request());
  assert.equal(out.ok,false);assert.equal(out.status,'CROWN_UPSTREAM_PROVIDER_UNOBSERVED');assert.equal(out.semanticAuthority,'NONE');
 });
@@ -106,7 +112,7 @@ test('missing upstream provider refuses Crown authority even when model matches'
 test('routing-policy mismatch in Crown Admission Receipt refuses before paid inference',async()=>{
  let calls=0;const fetchImpl=async()=>{calls++;throw new Error('provider-must-not-be-called');};
  const wrong=admission('Anthropic','openrouter:different-policy');
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:wrong,marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:wrong,marketSnapshot:market(),fetchImpl,clock:()=>now});
  assert.equal(o.readiness().ok,false);
  const out=await o.execute(request());
  assert.equal(out.ok,false);assert.equal(out.status,'TYPINGMIND_UBERMIND_LIVE_NOT_READY');assert.equal(calls,0);
@@ -115,7 +121,7 @@ test('routing-policy mismatch in Crown Admission Receipt refuses before paid inf
 test('Crown REWRITE becomes direct Crown answer and never authorizes builder prose',async()=>{
  const rows=providerSequence({crownText:'REWRITE\nCorrected frontier answer'});
  const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const out=await o.execute(request());
  assert.equal(out.ok,true);assert.equal(out.completion.choices[0].message.content,'Corrected frontier answer');
  assert.equal(out.completion.uberbond.authorityClass,'DIRECT_CURRENT_CROWN');
@@ -124,7 +130,7 @@ test('Crown REWRITE becomes direct Crown answer and never authorizes builder pro
 test('worker budget cannot consume the protected Crown reserve',async()=>{
  const rows=providerSequence();
  const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const snap=await o.runtime.snapshot();
  assert.equal(snap.budget.crownEscrowRemainingMicrousd,15_000_000);assert.equal(snap.budget.workerAvailableMicrousd,5_000_000);
 });

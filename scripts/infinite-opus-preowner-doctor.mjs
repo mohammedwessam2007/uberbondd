@@ -9,6 +9,8 @@ const json=p=>JSON.parse(read(p));
 const reasons=[];
 const perimeter=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,memberGuardrailUsd:28,guardrailScope:'MEMBER_ALL_KEYS',purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
 if(!perimeter.ok)reasons.push(...perimeter.reasons.map(x=>`perimeter:${x}`));
+const runtimeSource=read('src/infinite-opus-native-runtime.mjs');
+if(!runtimeSource.includes('20_000_000'))reasons.push('native-runtime-default-must-be-20-dollar-envelope');
 const routes=cognitionRouteInventory();
 if(!routes.globalBudgetClaimAllowed)reasons.push('route-inventory-not-closed');
 const canary=json('config/infinite-opus-canary-authorization.template.json');

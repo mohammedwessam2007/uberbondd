@@ -9,6 +9,7 @@ import { buildBuilderMessages, buildCrownReviewMessages, openAICompatibleComplet
 
 export const TYPINGMIND_BUILDER_MODEL='openai/gpt-6.1-sol';
 export const TYPINGMIND_CROWN_MODEL='anthropic/claude-opus-5.5';
+export const TYPINGMIND_CROWN_ROUTE_IDENTITY='openrouter:auto-provider-zdr-deny-required-parameters-v1';
 const PLATFORM_FEE_RATE=.055;
 
 const contentText=message=>{
@@ -116,19 +117,18 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
 
       const crownText=contentText(crown.proposal);
       if(!crownText)return {ok:false,status:'EMPTY_CROWN_PROPOSAL',providerCallsPerformed:2,semanticAuthority:'NONE'};
-      const crownRouteIdentity=crown.generationReceipt?.router??null;
-      if(!crown.upstreamProvider||!crownRouteIdentity)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_UNOBSERVED',
-        reasons:['observed-upstream-provider-and-router-required'],providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
-        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider??null,observedRouteIdentity:crownRouteIdentity};
+      if(!crown.upstreamProvider)return {ok:false,status:'CROWN_UPSTREAM_PROVIDER_UNOBSERVED',
+        reasons:['observed-upstream-provider-required'],providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
+        semanticAuthority:'NONE',observedUpstreamProvider:null};
       const exactCrown=verifyCrownAdmissionReceipt(crownAdmission,{now:clock(),expected:{
         exactModelId:TYPINGMIND_CROWN_MODEL,
         taskClassRole:'GENERAL_CROWN',
         providerIdentity:crown.upstreamProvider,
-        routeIdentity:crownRouteIdentity
+        routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY
       }});
       if(!exactCrown.ok)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED',
         reasons:exactCrown.reasons,providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
-        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,observedRouteIdentity:crownRouteIdentity};
+        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,expectedRouteIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY};
       const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0);
       const builderUsage=builder.usage??{},crownUsage=crown.usage??{};
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
@@ -140,7 +140,8 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         }}),
         builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost},
         crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
-          upstreamProvider:crown.upstreamProvider??null,routeIdentity:crownRouteIdentity,
+          upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
+          openRouterRouter:crown.generationReceipt?.router??null,
           generationReceipt:crown.generationReceipt??null},
         semanticAuthority:'CURRENT_TASK_CLASS_CROWN',
         sideEffectAuthority:'NONE',

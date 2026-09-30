@@ -326,3 +326,14 @@ export function estimateRouteWithCacheUsd({route,inputTokens=0,cachedInputTokens
 export function estimateDirectCrownUsd({crownRoute,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
   return estimateRouteWithCacheUsd({route:crownRoute,inputTokens,cachedInputTokens,outputTokens});
 }
+
+export function chooseCheapestFusedSourceWorker({
+  workerRoutes=[],originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0
+}={}){
+  const outputTokens=compressedEvidenceTokens+candidateOutputTokens;
+  const rows=workerRoutes.filter(Boolean).map(route=>({
+    model:route.model,
+    usd:estimateRouteWithCacheUsd({route,inputTokens:originalInputTokens,outputTokens})
+  })).sort((a,b)=>a.usd-b.usd);
+  return rows[0]??null;
+}

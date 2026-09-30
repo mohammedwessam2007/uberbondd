@@ -119,6 +119,15 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           status: 'VALID_FOR_CURRENT_TYPED_SCOPE', lastValidatedAt: clock() };
         const asset = state.capital[closure.artifactHash];
         asset.lastValidatedAt = clock();
+        asset.compiledConsumerHashes ??= [];
+        asset.compiledTasksServed ??= [];
+        const consumerSemanticHash = semanticHash({
+          taskClass: task.taskClass,
+          obligation: task.obligation ?? null,
+          request: task.request ?? null,
+          qualityContractHash: context.qualityContractHash,
+          sourceHashes: context.sourceHashes
+        });
         if (!asset.tasksServed.includes(task.taskId)) asset.tasksServed.push(task.taskId);
         state.tasks[task.taskId] = { taskHash, status: 'CLOSED', artifactHash: closure.artifactHash };
         if (state.debts[task.taskId]) state.debts[task.taskId].status = 'SETTLED';
@@ -126,7 +135,17 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         if (prior?.status !== 'CLOSED') {
           state.receipts.push({ kind: 'TASK_COMPLETION', taskId: task.taskId,
             closureVerified: true, executionClass, observedAt: clock(),
-            artifactHash: closure.artifactHash, pairedRequiredRegressions: null });
+            artifactHash: closure.artifactHash, consumerSemanticHash, pairedRequiredRegressions: null });
+          if (['E1','E2','E3','E4'].includes(executionClass) && !asset.compiledConsumerHashes.includes(consumerSemanticHash)) {
+            asset.compiledConsumerHashes.push(consumerSemanticHash);
+            asset.compiledTasksServed.push(task.taskId);
+            asset.crownCallsAvoided = Math.max(0, asset.compiledConsumerHashes.length - 1);
+            state.receipts.push({
+              kind:'DECISION_FRANCHISE_USE', assetId:closure.artifactHash, taskId:task.taskId,
+              consumerSemanticHash, executionClass, observedAt:clock(),
+              semanticAuthority:'E1_E4_CLOSURE_ONLY'
+            });
+          }
           if (['E0','E1','E2','E3','E4'].includes(executionClass) && typeof referenceContractResolver === 'function') {
             const reference = await referenceContractResolver({ task: structuredClone(task), context: structuredClone(context), closure: structuredClone(closure), output: structuredClone(output), executionClass });
             if (reference?.ok === true && reference.directReference && reference.referenceContractHash) {
@@ -161,7 +180,14 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         return zero({ schemaVersion: state.schemaVersion, version: state.version,
           budget: cognitionBudgetSummary(state.ledger, today()), metrics: cognitionMetrics(state.receipts),
           taskCount: Object.keys(state.tasks).length, pendingDebts: Object.values(state.debts).filter(d => d.status !== 'SETTLED').length,
-          capitalAssets: Object.keys(state.capital).length, paidConnected: Boolean(paidExecutor && paidAuthorization),
+          capitalAssets: Object.keys(state.capital).length,
+          capital: Object.fromEntries(Object.entries(state.capital).map(([id,a])=>[id,{
+            tasksServed:a.tasksServed?.length??0,
+            compiledNonIdenticalConsumers:a.compiledConsumerHashes?.length??0,
+            crownCallsAvoided:a.crownCallsAvoided??0,
+            status:a.status
+          }])),
+          paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });
     },

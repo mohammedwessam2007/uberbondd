@@ -32,6 +32,11 @@ for(const name of ['UBERMIND_TYPINGMIND_GATEWAY_TOKEN','INFINITE_OPUS_PAID_AUTHO
 const firstWorkload=json('config/infinite-opus-first-real-workload.json');
 if(firstWorkload.taskClass!=='PROVIDER_SCREENING'||firstWorkload.sideEffectClass!=='NONE'||firstWorkload.qualityContract?.regressionTolerance!==0)reasons.push('first-real-workload-contract-missing-or-weakened');
 if(!read('src/infinite-opus-task-compilers.mjs').includes("case 'PROVIDER_SCREENING'"))reasons.push('provider-screening-typed-compiler-missing');
+const liveGateway=read('src/infinite-opus-typingmind-live.mjs');
+if(!liveGateway.includes("chooseFreshFrontierPath")||!liveGateway.includes("DIRECT_OPUS"))reasons.push('live-cost-geometry-router-missing');
+if(!liveGateway.includes("jevWorkerEffort")||!liveGateway.includes("usedToSuppressCrown:false"))reasons.push('jev-effort-control-or-crown-boundary-missing');
+const gatewayKernel=read('src/infinite-opus-typingmind-gateway.mjs');
+if(!gatewayKernel.includes("CROWN_REVIEW_RESPONSE_FORMAT")||!gatewayKernel.includes("CROWN_VERIFIED_EXACT_PATCH"))reasons.push('crown-delta-patch-protocol-missing');
 const hostile=json('config/infinite-opus-hostile-test-matrix.json');
 if(hostile.requiredCount!==27||hostile.cases?.length!==27)reasons.push('hostile-test-matrix-must-bind-all-27-cases');
 for(const p of ['docker-compose.yml','docker-compose.sovereign.yml','render.yaml']){
@@ -45,7 +50,8 @@ for(const p of ['config/infinite-opus-canary-authorization.template.json','confi
 const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provable-execution-ledger.test.mjs',
  'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs', 'tests/infinite-opus-model-understanding.test.mjs',
  'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs',
- 'tests/server-typingmind-boundary.test.mjs'];
+ 'tests/openrouter-jev-governed-adapter.test.mjs', 'tests/openrouter-processor-auction-v5.test.mjs',
+ 'tests/openrouter-full-stack-no-amputation.test.mjs', 'tests/server-typingmind-boundary.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
  cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
  env: { PATH: process.env.PATH, TZ: 'UTC' }

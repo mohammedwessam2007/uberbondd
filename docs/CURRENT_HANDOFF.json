@@ -1204,7 +1204,7 @@
     }
   },
   "infiniteOpusLiveProofLedger20260930": {
-    "status": "SOURCE_IMPLEMENTED_ON_CONTINUATION_BRANCH_PRE_LIVE_EXECUTION",
+    "status": "MERGED_PRELIVE_PROOF_LEDGER_FRONTIER",
     "baseMain": "e2b3b592d08f601230e5ae9d5cf7dece0c9f2e27",
     "branch": "infinite-opus/e0-e4-live-proof-ledger-20260930",
     "theorem": "open router/28_E0_E4_LIVE_PROOF_LEDGER.md",
@@ -1222,6 +1222,9 @@
       "private TypingMind/runtime secret entry",
       "explicit bounded paid canary authorization"
     ],
-    "next": "MERGE_IF_SOURCE_GREEN -> OWNER_PRIVATE_ACTIVATION -> TINY_CANARY -> LIVE_CROWN_TOURNAMENT -> FIRST_REAL_PROVIDER_SCREENING_WORKLOAD -> AUTOMATIC_PROOF_LEDGER"
+    "next": "OWNER_PRIVATE_ACTIVATION -> TINY_CANARY -> LIVE_CROWN_TOURNAMENT -> FIRST_REAL_PROVIDER_SCREENING_WORKLOAD -> AUTOMATIC_PROOF_LEDGER",
+    "mergedPr": 1062,
+    "mergedMain": "e5858baead9ec4719669d7cec05da090f46f8224",
+    "postMergeReceipt": "docs/receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json"
   }
 }

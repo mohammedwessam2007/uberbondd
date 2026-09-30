@@ -1,3 +1,5 @@
+> **SUPERSEDED FOR CANONICAL UBERMIND ON 2026-09-30:** The direct TypingMind OpenRouter-key path below is preserved as historical/fallback lineage only. Current authority is `docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`: TypingMind uses the UberBond `ubermind/auto` gateway and has no direct provider inference key. Do not delete this document; it remains recoverable fallback/provenance.
+
 # Infinite Opus terminal activation handoff — 2026-09-30
 
 ## Truth boundary

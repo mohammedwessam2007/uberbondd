@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond.decision-franchise-batch-fair-execution-receipt.v1",
+  "executedAt": "2026-09-30",
+  "environment": "LOCAL_ISOLATED_NODE_BENCHMARK",
+  "benchmarkOnly": true,
+  "productionTraffic": false,
+  "syntheticTaskClass": true,
+  "executedConsumers": 2352942,
+  "elapsedMs": 16066,
+  "providerCallsPerformed": 0,
+  "firstTaskId": "benchmark-0",
+  "lastTaskId": "benchmark-2352941",
+  "uniqueTaskIdsByConstruction": 2352942,
+  "uniqueProjectedStateCount": 2,
+  "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
+  "franchiseHash": "5fe1d4a37f6de5e32780f4ab01b6a601c29353949be5e475c6ec36e392119ee9",
+  "proofClass": "E3",
+  "semanticAuthority": "CERTIFIED_BOUNDED_POLICY",
+  "modeledEconomics": {
+    "cheapestLegitimateDirectRoute": "anthropic/claude-opus-5.5:batch",
+    "canonicalInputTokens": 200000,
+    "canonicalOutputTokens": 2500,
+    "inputUsdPerMillion": 2,
+    "outputUsdPerMillion": 10,
+    "directOpusUnitUsd": 0.425,
+    "directReferenceUsd": 1000000.35,
+    "actualAllInEnvelopeUsd": 30,
+    "multiplier": 33333.345,
+    "millionDollarReferenceThresholdMet": true,
+    "target33333xMet": true
+  },
+  "truthBoundary": [
+    "2,352,942 Decision Franchise executions and zero provider calls were observed in the isolated benchmark.",
+    "The direct reference uses the cheaper Opus 5.5 Batch tariff because latency flexibility makes Batch a legitimate comparator when applicable.",
+    "This is not production traffic and does not prove demand.",
+    "The 200k-input/2.5k-output direct task geometry and $30 all-in envelope remain modeled until real production task, tokenizer, provider price and spend receipts bind them.",
+    "Prompt/response caching may further reduce a fair direct reference if a real workload permits it and must be credited before a production multiplier claim."
+  ]
+}

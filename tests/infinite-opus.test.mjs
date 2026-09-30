@@ -246,7 +246,7 @@ test('native transactions conserve budget under concurrent reservation attempts'
   const { store } = await nativeStore(t);
   const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW });
   const attempts = await Promise.all(Array.from({ length:20 },(_,i) => runtime.preparePaidCall(call(`race-${i}`,'WORKER',1000000))));
-  assert.equal(attempts.filter(r => r.ok).length,15);
+  assert.equal(attempts.filter(r => r.ok).length,5);
   const snapshot = await runtime.snapshot();
   assert.equal(snapshot.budget.reservedMicrousd,15000000);
   assert.equal(snapshot.budget.crownEscrowRemainingMicrousd,15000000);

@@ -77,7 +77,7 @@ test('typed lead capacity arithmetic remains preparation only and never grants o
 
 
 test('provider screening exact eliminations do not spend Crown authority',()=>{
- const payload={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:semanticHash('source'),
+ const payload={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:'sha256:'+semanticHash('source'),
    facts:{monthlyMinimumUsd:80,smtp:true,imap:false,incomingReplies:true,byoDomain:true,usableApiOrSmtp:true,unsolicitedOutreachPolicy:'ALLOWED'},maxMonthlyUsd:65};
  const r=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'PROVIDER_SCREENING',payload});
  assert.equal(r.status,'PROVIDER_EXACTLY_ELIMINATED');assert.equal(r.semanticAuthority,'E1_DETERMINISTIC_DERIVATION');
@@ -85,7 +85,7 @@ test('provider screening exact eliminations do not spend Crown authority',()=>{
 });
 
 test('provider screening survivors emit only the unresolved frontier residual',()=>{
- const payload={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:semanticHash('source'),
+ const payload={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:'sha256:'+semanticHash('source'),
    facts:{monthlyMinimumUsd:30,smtp:true,imap:true,incomingReplies:true,byoDomain:true,usableApiOrSmtp:true,unsolicitedOutreachPolicy:'UNKNOWN'},maxMonthlyUsd:65};
  const r=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'PROVIDER_SCREENING',payload});
  assert.equal(r.status,'PROVIDER_SCREENING_FRONTIER_RESIDUAL_READY');assert.equal(r.semanticAuthority,'NONE');assert.equal(r.sideEffectAuthority,'NONE');
@@ -94,9 +94,9 @@ test('provider screening survivors emit only the unresolved frontier residual',(
 });
 
 test('provider screening refuses untyped or unpinned evidence',()=>{
- const base={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:semanticHash('source'),
+ const base={providerId:'p',observedAt:'2026-09-30T00:00:00Z',sourceStateHash:'sha256:'+semanticHash('source'),
    facts:{monthlyMinimumUsd:30,smtp:true,imap:true,incomingReplies:true,byoDomain:true,usableApiOrSmtp:true,unsolicitedOutreachPolicy:'ALLOWED'}};
- for(const mutation of [{sourceStateHash:'loose'},{facts:{...base.facts,imap:'yes'}},{facts:{...base.facts,unsolicitedOutreachPolicy:'probably'}}]){
+ for(const mutation of [{sourceStateHash:'loose'},{sourceStateHash:semanticHash('source')},{facts:{...base.facts,imap:'yes'}},{facts:{...base.facts,unsolicitedOutreachPolicy:'probably'}}]){
    const r=executeTypedTaskCompiler({schemaVersion:'uberbond.exact-task.v1',sideEffectClass:'NONE',taskClass:'PROVIDER_SCREENING',payload:{...base,...mutation}});
    assert.equal(r.ok,false);
  }

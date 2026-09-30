@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { compileCognitionEconomicPerimeter } from '../src/cognition-economic-perimeter.mjs';
 import { cognitionRouteInventory } from '../src/cognition-route-inventory.mjs';
 
@@ -28,5 +29,19 @@ for(const p of ['docker-compose.yml','docker-compose.sovereign.yml','render.yaml
 for(const p of ['config/infinite-opus-canary-authorization.template.json','config/infinite-opus-live-market-candidates.json','docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md']){
  const s=read(p);if(/sk-or-v1-[A-Za-z0-9_-]{8,}|Bearer\s+[A-Za-z0-9._-]{12,}/.test(s))reasons.push(`secret-like-material:${p}`);
 }
+// The live launcher must not accept a static path/string inventory as a test gate.
+// These deterministic suites make no provider calls and receive no host credentials.
+const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provable-execution-ledger.test.mjs',
+ 'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs'];
+const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
+ cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
+ env: { PATH: process.env.PATH, TZ: 'UTC' }
+});
+if (testRun.status !== 0 || testRun.error) reasons.push('deterministic-activation-suites-failed');
+// Print only a bounded test summary, not captured worker output or environment data.
+const deterministicGate = { ok: testRun.status === 0 && !testRun.error, exitCode: testRun.status,
+ testPaths, summary: (testRun.stdout ?? '').split('\n').filter(line => /^ℹ (tests|pass|fail|skipped) /.test(line)) };
 const receipt={schemaVersion:'uberbond.infinite-opus.preowner-doctor.v1',observedAt:new Date().toISOString(),ok:reasons.length===0,status:reasons.length?'INFINITE_OPUS_PREOWNER_REFUSED':'INFINITE_OPUS_PREOWNER_SOURCE_READY',reasons,providerCalls:0,spendUsd:0,perimeter:perimeter.plan,routeCount:routes.routes.length,firstRealWorkload:firstWorkload.taskClass,hostileCases:hostile.cases.length,truthBoundary:'This doctor proves only static/source pre-owner readiness. It cannot establish private credentials, provider callability, actual bills, live task-class crowns, production deployment, endurance or savings.'};
+receipt.deterministicGate = deterministicGate;
+receipt.truthBoundary = 'This doctor checks bounded source readiness and executes the listed deterministic suites. It cannot establish private credentials, provider callability, actual bills, live task-class crowns, production deployment, endurance or savings.';
 process.stdout.write(JSON.stringify(receipt,null,2)+'\n');if(!receipt.ok)process.exitCode=2;

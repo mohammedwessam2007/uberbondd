@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.typingmind-recovery.v1",
+  "recoveredMain": "34833d89673a5c23e06a85af2399fc1170d4b656",
+  "latestRecoveredPr": 1064,
+  "preservedPrLineage": [1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1061, 1062, 1063, 1064],
+  "recovery": "Clean local main fast-forwarded to live GitHub main; no branch tail discarded.",
+  "discoveredFailure": "Two provider-screening test fixtures used unprefixed semanticHash strings; the compiler requires sha256-prefixed source pins. Invalid-fixture tests previously passed vacuously for all mutations.",
+  "repair": "Correct the positive/base fixtures, explicitly retain unprefixed hash rejection, and execute four deterministic suites in the pre-owner doctor before the live launcher can proceed. No runtime authority or quality gate weakened.",
+  "validation": {
+    "focusedDeterministicTests": {"tests": 60, "passed": 60, "failed": 0, "skipped": 0},
+    "preownerDoctor": "PASS_WITH_EXECUTED_DETERMINISTIC_GATE",
+    "hostileMatrixBindingDoctor": "PASS_27_SOURCE_BINDINGS_NOT_27_EXTRA_EXECUTIONS",
+    "vaultDoctor": "PASS",
+    "fullRepositorySuite": "NOT_RERUN_THIS_RECOVERY"
+  },
+  "typingMindObservation": {
+    "origin": "https://www.typingmind.com",
+    "surface": "Manage your API keys, OpenRouter field",
+    "cloudBrowserConnection": "NOT_CONFIGURED",
+    "founderIpadConnection": "UNKNOWN",
+    "credentialValuesReadOrEntered": false,
+    "currentDocumentedPath": "Models -> API key -> OpenRouter; Models -> OpenRouter -> enable selected models",
+    "documentation": "https://docs.typingmind.com/manage-and-connect-ai-models/openrouter"
+  },
+  "economics": {
+    "targetMultiplier": "33333.333333333333...",
+    "realizedMultiplier": "UNKNOWN",
+    "runtimeMonthlyKeyCapUsd": 20,
+    "typingMindMonthlyKeyCapUsd": 8,
+    "memberMonthlyGuardrailUsd": 28,
+    "protectedRuntimeCrownReserveUsd": 15,
+    "allInMonthlyTargetUsd": 30,
+    "newPaidProviderCalls": 0,
+    "newApiInferenceSpendUsd": 0,
+    "observedAllInCognitionSpend": "UNKNOWN",
+    "claim": "NO_REALIZED_COMPRESSION_CLAIM; synthetic repeats cannot establish useful work or matched reference value."
+  },
+  "next": "Owner privately connects the USD 8 capped TypingMind key; then selective model/persistent profile setup. Governed runtime activation and <= USD 0.05 canary require their separate private credentials and explicit authorization. Cockpit import alone does not activate compilers or proof accounting."
+}

@@ -3,14 +3,14 @@ import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
 const KEY='infinite_opus_crown_autofinish_20261001_v1';
-const EVALUATOR='google/gemini-3.1-pro-preview';
+const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
 const ROUTE='openrouter:auto-provider-zdr-deny-required-parameters-v1';
 const MAX_NEW_SPEND_USD=.45;
 const OLD_UNCERTAIN_RESERVE_USD=.073277;
 const PRICE_CAPS=Object.freeze({
-  [EVALUATOR]:{prompt:2.01,completion:12.01},
+  [EVALUATOR]:{prompt:1.26,completion:10.01},
   [OPUS]:{prompt:4.01,completion:20.01},
   [SOL]:{prompt:2.01,completion:10.01}
 });
@@ -97,7 +97,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google',messages:taskGenerationMessages(),maxTokens:1000,tag:'custodian-generate'});
+   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:1000,tag:'custodian-generate'});
    const taskDoc=parseJson(gen.text),tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
@@ -131,7 +131,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      blind[t.id]={A:answers[t.id+'|'+order[0]],B:answers[t.id+'|'+order[1]]};
      mapping[t.id]={A:order[0],B:order[1]};
    }
-   const grade=await charge({model:EVALUATOR,provider:'google',messages:evaluationMessages(tasks,blind),maxTokens:1100,tag:'custodian-grade'});
+   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:1100,tag:'custodian-grade'});
    const gradeDoc=parseJson(grade.text),grades=gradeDoc?.grades;
    if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
 

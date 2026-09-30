@@ -19,6 +19,8 @@ export function issueCrownAdmissionReceipt(input={}){
   if(input.sideEffectAuthority!=='NONE') reasons.push('crown-semantic-call-must-not-self-grant-side-effect-authority');
   if(input.providerBillObserved!==true) reasons.push('provider-bill-observation-required');
   if(input.modelIdentityVerified!==true) reasons.push('model-identity-verification-required');
+  if(input.modelCallabilityVerified!==true) reasons.push('model-callability-verification-required');
+  if(input.tournamentEvidenceVerified!==true) reasons.push('task-class-tournament-verification-required');
   if(input.roleTournamentEvidenceRef==null) reasons.push('task-class-crown-tournament-evidence-required');
   if(input.modelRevision!=null&&!id(input.modelRevision)) reasons.push('model-revision-invalid');
   if(input.authorizationStatus!=='AUTHORIZED_FOR_THIS_CALL') reasons.push('exact-call-authorization-status-required');

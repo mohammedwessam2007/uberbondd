@@ -85,6 +85,23 @@ test('duplicate interaction receipt is idempotent and cannot inflate recurrence 
   assert.equal(first.recurrence.occurrences,1);
 });
 
+test('Crown succession lineage survives compaction-level aggregation without granting reuse authority',async()=>{
+  const runtime=createInfiniteOpusRuntime({store:makeStore(),clock:()=>now});
+  await runtime.recordCrownInteraction(base());
+  const second=await runtime.recordCrownInteraction(base({
+    crownProviderRequestId:'gen-crown-successor',
+    crownAdmissionReceiptHash:h('successor-admission'),
+    observedUpstreamProvider:'Successor Provider'
+  }));
+  assert.equal(second.recurrence.distinctAdmissionCount,2);
+  assert.equal(second.recurrence.distinctProviderCount,2);
+  assert.equal(second.recurrence.distinctAuthorityClassCount,1);
+  assert.equal(second.semanticReuseAuthority,'NONE');
+  const plan=await runtime.crownCapitalizationPlan();
+  assert.equal(plan.candidates[0].distinctAdmissionCount,2);
+  assert.equal(plan.candidates[0].distinctProviderCount,2);
+});
+
 test('monthly dedupe witnesses compact to a digest while recurrence aggregates survive',async()=>{
   let clock=Date.parse('2026-09-30T23:59:00Z');
   const runtime=createInfiniteOpusRuntime({store:makeStore(),clock:()=>clock});

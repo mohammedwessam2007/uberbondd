@@ -60,7 +60,7 @@ export function compileVerifiedSemanticCanonicalizer({
   const fail=reason=>({ok:false,status:'SEMANTIC_CANONICALIZER_REFUSED',reasons:[reason],semanticAuthority:'NONE'});
   try{
     if(!Array.isArray(expressions)||!expressions.length||expressions.length>4096||!exact(rewriteTrustPins))throw new Error('bounded-expressions-and-trust-pins-required');
-    if(typeof qualityContractHash!=='string'||!/^sha256:[0-9a-f]{64}$/.test(qualityContractHash)||typeof crownRevision!=='string'||!crownRevision)throw new Error('quality-and-crown-binding-required');
+    if(typeof qualityContractHash!=='string'||!/^(?:sha256:)?[0-9a-f]{64}$/.test(qualityContractHash)||typeof crownRevision!=='string'||!crownRevision)throw new Error('quality-and-crown-binding-required');
     if(!exact(sourceDependencies)||!exact(invalidators)||Object.values(invalidators).some(v=>v!==false))throw new Error('current-dependency-and-invalidator-state-required');
     const byId=new Map(),byValue=new Map();
     for(const expression of expressions){

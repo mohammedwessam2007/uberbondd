@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.postmerge-1056.v1",
+  "observedAt": "2026-09-30T00:31:30Z",
+  "pullRequest": "https://github.com/mohammedwessam2007/uberbondd/pull/1056",
+  "mergeCommit": "e77d223d18a8634f2735ce3440e3cab2fec32578",
+  "mergeTree": "91ec11c94b9c1d08ded66285dc4ecf76e5d66b01",
+  "status": "MERGED_PREOWNER_SOURCE_FRONTIER_VERIFIED",
+  "validationFrontier": {
+    "sourceHead": "838d26b0b3a863783ba2893705d6373c96fe5e7b",
+    "sourceTree": "e80d5cabcb473d0eba0cb59e88a4bddbb66fa1e1",
+    "behavioralHarness": "PASS_16_MODULES_MOCK_ONLY_ZERO_SPEND",
+    "syntaxAudit": "PASS_ROLLING_PLUS_LATEST_DELTA",
+    "hostedCI": "ZERO_STEP_NON_EVIDENCE"
+  },
+  "mainVerification": {
+    "mainHeadObserved": "e77d223d18a8634f2735ce3440e3cab2fec32578",
+    "merged": true,
+    "keySourceBlobs": {
+      "infiniteOpusRuntime": "1afec9e4630968e0cfc606d82eaa0c0bac9b6159",
+      "economicPerimeter": "7d8113e7c1e173238fb00b95c19f3e8bcd5cb591",
+      "crownAdmission": "9eef3223b192b4a5405348e4930391fe6da533a6",
+      "interpretationClosure": "2d3ac1096844efa5c4fafd1ba831dea6bffe8fa7",
+      "crownTournament": "a126e5e83a0809aa9c572e22475c492816c35d6b",
+      "activationPackage": "0b5b832fa221459fdf8485e5a4b8c7c047869c32"
+    }
+  },
+  "currentTruth": {
+    "sourceReady": true,
+    "liveConnected": false,
+    "productionDeployed": false,
+    "providerCallsObserved": 0,
+    "actualAllInSpend": "UNKNOWN",
+    "generalCrown": "UNKNOWN",
+    "taskClassCrowns": "UNKNOWN",
+    "referenceCompressionFactor": "UNKNOWN",
+    "opusQualityFanout": "UNKNOWN"
+  },
+  "ownerOnlyGate": [
+    "Privately configure the capped OpenRouter runtime and TypingMind keys plus the member-wide USD 28 guardrail, connect TypingMind and approved host secrets, and return only non-secret evidence.",
+    "Explicitly authorize the <= USD 0.05 zero-external-effect canary."
+  ],
+  "truthBoundary": "Merge proves source publication only. It does not prove provider callability, production endurance, paid billing, current frontier roles, matched frontier equivalence, realized savings or 33,333x compression."
+}

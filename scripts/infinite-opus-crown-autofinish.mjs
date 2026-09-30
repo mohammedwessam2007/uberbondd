@@ -9,6 +9,11 @@ const SOL='openai/gpt-6.1-sol-pro';
 const ROUTE='openrouter:auto-provider-zdr-deny-required-parameters-v1';
 const MAX_NEW_SPEND_USD=.45;
 const OLD_UNCERTAIN_RESERVE_USD=.073277;
+const PRICE_CAPS=Object.freeze({
+  [EVALUATOR]:{prompt:2.01,completion:12.01},
+  [OPUS]:{prompt:4.01,completion:20.01},
+  [SOL]:{prompt:2.01,completion:10.01}
+});
 const h=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const parseJson=text=>{
@@ -46,7 +51,8 @@ async function generation(apiKey,id){
 }
 async function call(apiKey,{model,messages,maxTokens,provider,tag}){
   const body={model,messages,max_tokens:maxTokens,stream:false,temperature:0,
-    provider:{order:[provider],allow_fallbacks:false,require_parameters:true,data_collection:'deny',zdr:true}};
+    provider:{order:[provider],allow_fallbacks:false,require_parameters:true,data_collection:'deny',zdr:true,
+      max_price:PRICE_CAPS[model]}};
   const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
     method:'POST',headers:{authorization:'Bearer '+apiKey,'content-type':'application/json','x-title':'UberBond Sealed Crown '+tag},
     body:JSON.stringify(body),signal:AbortSignal.timeout(120000)

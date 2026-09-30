@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.model-understanding.v1",
+  "observedAt": "2026-09-30T15:40:00+03:00",
+  "expiresAt": "2026-10-01T15:40:00+03:00",
+  "truthBoundary": "Public architecture, API contracts, system cards, model cards and current price catalogs create routing priors and exact tariff arithmetic. They do not establish task-specific superiority, Crown promotion, E5/E6 equivalence, or realized spend. E0-E4 quality may avoid repeated model-vs-model testing only when the independent proof remains valid and dependencies are current.",
+  "profiles": [
+    {
+      "model": "anthropic/claude-opus-5.5",
+      "architectureKnowledge": "PROPRIETARY_INTERNALS_UNDISCLOSED",
+      "behavioralMechanics": ["adaptive-thinking", "effort-controlled-depth", "tool-calling", "structured-output", "1m-context"],
+      "publishedPositioning": ["demanding-reasoning", "long-horizon-coding", "code-review", "scientific-analysis", "professional-work"],
+      "economicsSource": "LIVE_OPENROUTER_CATALOG",
+      "referenceTariff": {"inputUsdPerMillion":4,"outputUsdPerMillion":20,"cacheReadUsdPerMillion":0.2,"cacheWriteUsdPerMillion":5},
+      "priorRoles": ["GENERAL_CROWN_CANDIDATE","REVIEW_CROWN_CANDIDATE","NOVELTY_EXCEPTION_HANDLER"],
+      "riskNotes": ["proprietary architecture prevents mechanistic capability proof","provider implementation variance must remain observable"],
+      "authorityFromUnderstandingAlone": "NONE",
+      "sources": ["https://openrouter.ai/anthropic/claude-opus-5.5","https://www.anthropic.com/system-cards","https://www.anthropic.com/claude-opus-5-5"]
+    },
+    {
+      "model": "openai/gpt-6.1-sol",
+      "architectureKnowledge": "PROPRIETARY_INTERNALS_UNDISCLOSED",
+      "behavioralMechanics": ["reasoning-effort-low-through-max", "tool-calling-via-responses", "structured-output", "1.05m-context", "cached-input-5-percent-of-input", "batch-and-flex-half-standard"],
+      "publishedPositioning": ["complex-coding","computer-use","professional-work","near-astra-performance"],
+      "economicsSource": "LIVE_OPENROUTER_OR_OPENAI_CATALOG",
+      "referenceTariff": {"inputUsdPerMillion":2,"outputUsdPerMillion":10,"cacheReadUsdPerMillion":0.1,"cacheWriteUsdPerMillion":2.5},
+      "longContextRule": {"thresholdInputTokens":272000,"inputAndCacheMultiplier":2,"outputMultiplier":1.5},
+      "priorRoles": ["STRONG_WORKER_CANDIDATE","CODING_CROWN_CHALLENGER","GENERAL_CROWN_CHALLENGER"],
+      "riskNotes": ["proprietary architecture prevents mechanistic capability proof","reasoning-token use remains workload-dependent"],
+      "authorityFromUnderstandingAlone": "NONE",
+      "sources": ["https://developers.openai.com/api/docs/models/gpt-6.1-sol","https://deploymentsafety.openai.com/gpt-6-1-sol/respecting-auto-review","https://openrouter.ai/openai/gpt-6.1-sol"]
+    },
+    {
+      "model": "openai/gpt-6.1-sol-pro",
+      "architectureKnowledge": "SAME_UNDERLYING_MODEL_AS_GPT_6_1_SOL__PRO_REASONING_MODE",
+      "behavioralMechanics": ["pro-reasoning-mode","higher-reasoning-token-consumption","higher-latency","same-list-token-tariff-as-sol","1.05m-context"],
+      "publishedPositioning": ["hard-high-stakes-problems","extra-accuracy-when-cost-justified"],
+      "economicsSource": "LIVE_OPENROUTER_CATALOG",
+      "referenceTariff": {"inputUsdPerMillion":2,"outputUsdPerMillion":10,"cacheReadUsdPerMillion":0.1,"cacheWriteUsdPerMillion":2.5},
+      "costCaveat": "Typical request may cost several times standard Sol because Pro performs substantially more billed reasoning work even when the posted per-token tariff is identical.",
+      "priorRoles": ["HARD_REASONING_ESCALATION_CANDIDATE","CODING_ESCALATION_CANDIDATE"],
+      "avoidAsDefaultFor": ["routine-coding","ordinary-chat","high-volume-preparation"],
+      "authorityFromUnderstandingAlone": "NONE",
+      "sources": ["https://openrouter.ai/openai/gpt-6.1-sol-pro","https://developers.openai.com/api/docs/guides/reasoning"]
+    },
+    {
+      "model": "xiaomi/mimo-v2.6-flash",
+      "architectureKnowledge": "OPEN_WEIGHTS_FAMILY_WITH_V2_LINEAGE__V2_6_RELEASE_CONFIRMED_FULLY_MULTIMODAL__EXACT_V2_6_INTERNAL_DELTA_NOT_FULLY_BOUND_HERE",
+      "behavioralMechanics": ["thinking-mode","fixed-recommended-sampling-in-thinking-mode","full-modality","large-context","low-cost-reasoning"],
+      "lineageMechanics": ["sparse-moe-lineage","hybrid-local-global-attention-lineage","multi-token-prediction-lineage","agentic-rl-lineage"],
+      "economicsSource": "LIVE_OPENROUTER_CATALOG_ONLY",
+      "priorRoles": ["ULTRA_CHEAP_SCOUT_CANDIDATE","MULTIMODAL_PREPARATION_CANDIDATE","BOUNDED_DRAFTING_CANDIDATE"],
+      "riskNotes": ["do-not-infer-v2.6-exact-architecture-from-v2-lineage-without-current-model-card","current public issue reports motivate bounded tool-call loops rather than unattended authority"],
+      "authorityFromUnderstandingAlone": "NONE",
+      "sources": ["https://mimo.mi.com/docs/en-US/updates/model","https://mimo.mi.com/docs/en-US/news/latest/v2-6","https://mimo.mi.com/docs/en-US/api/guidance/model-hyperparameters","https://github.com/XiaomiMiMo/MiMo-V2-Flash"]
+    },
+    {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "architectureKnowledge": "PUBLIC_ARCHITECTURE_DISCLOSED",
+      "behavioralMechanics": ["552b-sparse-moe-backbone","causal-encoder-decoder","8b-active-input","16b-active-output","reduced-kv-cache","native-multimodal","tool-calling"],
+      "publishedPositioning": ["cost-efficient-high-volume-reasoning","agentic-work","large-context"],
+      "economicsSource": "LIVE_OPENROUTER_CATALOG_ONLY",
+      "referenceTariff": {"inputUsdPerMillion":0.13,"outputUsdPerMillion":0.52,"cacheReadUsdPerMillion":0.0026},
+      "priorRoles": ["CHEAP_DIVERSE_SCOUT_CANDIDATE","HIGH_VOLUME_REASONING_CANDIDATE","COUNTEREXAMPLE_GENERATOR_CANDIDATE"],
+      "riskNotes": ["benchmark strength does not create final semantic authority","provider routes differ in price and implementation"],
+      "authorityFromUnderstandingAlone": "NONE",
+      "sources": ["https://deepseek.com/en/news/deepseek-v4-1-flash/","https://openrouter.ai/deepseek/deepseek-v4.1-flash"]
+    }
+  ]
+}

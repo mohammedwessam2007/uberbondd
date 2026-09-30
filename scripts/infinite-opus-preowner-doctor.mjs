@@ -26,6 +26,7 @@ if(!server.includes('/api/typingmind/infinite-opus/v1/')||!server.includes('UBER
 const typingMindBoundary=server.indexOf('function typingMindCors(req)');
 if(typingMindBoundary<0||server.slice(0,typingMindBoundary).includes('sendTypingMindJson(')||server.slice(0,typingMindBoundary).includes('sendTypingMindStream('))reasons.push('typingmind-response-helper-leaked-outside-cockpit-boundary');
 if(!server.includes('CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED')&&!read('src/infinite-opus-typingmind-live.mjs').includes('CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED'))reasons.push('typingmind-crown-provider-drift-gate-missing');
+if(!server.includes('/api/admin/infinite-opus/capital')||!runtimeSource.includes('recordCrownInteraction')||!runtimeSource.includes('crownCapitalizationPlan'))reasons.push('crown-recurrence-capitalization-loop-missing');
 const envExample=read('.env.example');
 for(const name of ['UBERMIND_TYPINGMIND_GATEWAY_TOKEN','INFINITE_OPUS_PAID_AUTHORIZATION_JSON','INFINITE_OPUS_CROWN_ADMISSION_JSON'])
  if(!envExample.includes(name+'='))reasons.push('typingmind-gateway-env-contract-missing:'+name);
@@ -45,7 +46,7 @@ for(const p of ['config/infinite-opus-canary-authorization.template.json','confi
 const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provable-execution-ledger.test.mjs',
  'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs', 'tests/infinite-opus-model-understanding.test.mjs',
  'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs',
- 'tests/server-typingmind-boundary.test.mjs'];
+ 'tests/server-typingmind-boundary.test.mjs', 'tests/infinite-opus-crown-capital.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
  cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
  env: { PATH: process.env.PATH, TZ: 'UTC' }

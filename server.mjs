@@ -321,7 +321,7 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
         runtimeSnapshot: snapshot,
         globalLedgerSummary: {},
         typingMindPerimeter: { status: perimeter.status, globalBudgetScope: 'PROPOSED_TWO_KEY_28_USD_PROVIDER_ENVELOPE_PRELIVE' },
-        routeInventory: { ungoverned: routeInventory.routes.filter(row => !String(row.status).startsWith('GOVERNED') && row.status !== 'FAIL_CLOSED_WITHOUT_ADMISSION').map(row => row.id) },
+        routeInventory: { ungoverned: routeInventory.routes.filter(row => !String(row.status).startsWith('GOVERNED') && row.status !== 'FAIL_CLOSED_WITHOUT_ADMISSION' && row.status !== 'NONCASH_GOVERNED').map(row => row.id) },
         deployment: { sourceReady: true, liveConnected: false, productionDeployed: false, ownerOnlyBlockers: ['OPENROUTER_PRIVATE_KEY_AND_LIMIT_CONFIGURATION','TINY_BOUNDED_PAID_CANARY_AUTHORIZATION'] }
       });
       return sendJson(res, 200, { ok: true, perimeter, snapshot, scoreboard });

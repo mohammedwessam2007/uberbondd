@@ -30,7 +30,7 @@ function textContent(content){
 }
 
 export function compileTypingMindChatRequest(body={}){
-  if(body.stream===true)throw new Error('typingmind-gateway-nonstreaming-v1');
+  const streamRequested=body.stream===true;
   if(body.model!==TYPINGMIND_UBERMIND_MODEL)throw new Error('ubermind-auto-model-required');
   if(body.tools||body.tool_choice||body.functions||body.function_call)throw new Error('typingmind-gateway-tools-disabled-v1');
   if(!Array.isArray(body.messages)||body.messages.length<1||body.messages.length>MAX_MESSAGES)throw new Error('bounded-chat-messages-required');
@@ -55,6 +55,7 @@ export function compileTypingMindChatRequest(body={}){
     inputTokenCeiling,
     sessionRoot,
     requestFingerprint,
+    streamRequested,
     qualityClass:'Q_FRONTIER_INTERACTIVE',
     sideEffectClass:'NONE',
     semanticAuthority:'NONE',

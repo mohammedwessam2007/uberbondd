@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { createSemanticClosureChecker, semanticHash, renderClosedClaims,
   coalesceSemanticProofCuts, validateSemanticContext } from './semantic-closure-kernel.mjs';
 import { createCognitionLedger, createExactResponseCache, readExactResponse, putExactResponse,
@@ -6,6 +7,8 @@ import { createCognitionLedger, createExactResponseCache, readExactResponse, put
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
+import { validateProvableWorkItem } from './provable-reference-economics.mjs';
+import { createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognitiveCapitalAsset, closeCognitiveCapitalLedger, auditCognitiveCapitalEconomics } from './cognitive-capital-ledger.mjs';
 import { executeDecisionFranchise } from './decision-franchise.mjs';
 import { certifyExhaustiveCrownDecisionFranchise } from './decision-franchise-certifier.mjs';
 import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash } from './frontier-thought-bond.mjs';
@@ -13,6 +16,9 @@ import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
 const identity = value => typeof value === 'string' && /^[a-zA-Z0-9_.:/-]{1,240}$/.test(value);
+const shaJson=value=>'sha256:'+crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
+const bareDigest=value=>typeof value==='string'&&/^[0-9a-f]{64}$/.test(value);
+const prefixedDigest=value=>typeof value==='string'&&/^sha256:[0-9a-f]{64}$/.test(value);
 const safePayload = value => {
   const encoded = JSON.stringify(value);
   if (encoded !== redactSecrets(encoded)) throw new Error('secret-bearing-payload-refused');
@@ -46,7 +52,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
-      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, decisionFranchises: {}, contextSnapshots: {}, activeContextByTaskClass: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
+      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, decisionFranchises: {}, contextSnapshots: {}, activeContextByTaskClass: {}, referenceContracts: {}, cognitiveCapitalCampaigns: {}, activeCognitiveCapitalCampaignId: null, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
     // Preserve every historical month; unsettled charges block paid capacity.
@@ -69,6 +75,10 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     state.decisionFranchises ??= {};
     state.contextSnapshots ??= {};
     state.activeContextByTaskClass ??= {};
+    state.referenceContracts ??= {};
+    state.cognitiveCapitalCampaigns ??= {};
+    state.activeCognitiveCapitalCampaignId ??= null;
+    if(state.activeCognitiveCapitalCampaignId){const active=state.cognitiveCapitalCampaigns[state.activeCognitiveCapitalCampaignId];if(!active||active.period!==today().slice(0,7)||active.closed)state.activeCognitiveCapitalCampaignId=null;}
     if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -150,25 +160,31 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             state.receipts.push({kind:'DECISION_FRANCHISE_HIT',taskId:task.taskId,executionClass:'E3',
               franchiseId:hit.franchiseId,franchiseHash,observedAt:clock(),providerCallsPerformed:0});
 
-            if (typeof referenceContractResolver === 'function') {
-              const reference=await referenceContractResolver({
-                task:structuredClone(task),context:structuredClone(context),closure:null,
-                output:structuredClone(hit.decision),executionClass:'E3',
-                franchise:{id:hit.franchiseId,hash:franchiseHash,proofClass:hit.proofClass}
-              });
-              if (reference?.ok===true && reference.directReference && reference.referenceContractHash) {
-                state.proofLedger=appendProvableExecution(state.proofLedger,{
-                  executionId:semanticHash({taskId:task.taskId,taskHash,franchiseHash,executionClass:'E3'}),
-                  taskId:task.taskId,completedAt:new Date(clock()).toISOString(),equivalenceClass:'E3',
-                  proofVerified:true,matchedObligationHash:'sha256:'+semanticHash(task.obligation??task.request??task),
-                  qualityContractHash:'sha256:'+context.qualityContractHash,
-                  proofRef:'decision-franchise:'+franchiseHash,
-                  referenceContractHash:reference.referenceContractHash,directReference:reference.directReference
-                });
-                state.receipts.push({kind:'PROVABLE_EXECUTION',taskId:task.taskId,executionClass:'E3',
-                  referenceContractHash:reference.referenceContractHash,observedAt:clock()});
-              } else state.receipts.push({kind:'REFERENCE_CONTRACT_MISSING',taskId:task.taskId,executionClass:'E3',observedAt:clock()});
+            let reference=null;
+            if (typeof referenceContractResolver === 'function') reference=await referenceContractResolver({
+              task:structuredClone(task),context:structuredClone(context),closure:null,
+              output:structuredClone(hit.decision),executionClass:'E3',
+              franchise:{id:hit.franchiseId,hash:franchiseHash,proofClass:hit.proofClass}
+            });
+            else {
+              const stored=state.referenceContracts[task.taskId];
+              if(stored && stored.taskHash===taskHash && stored.taskClass===task.taskClass &&
+                 stored.qualityContractHash===context.qualityContractHash && Date.parse(stored.expiresAt)>clock()){
+                reference={ok:true,directReference:stored.directReference,referenceContractHash:stored.referenceContractHash};
+              }
             }
+            if (reference?.ok===true && reference.directReference && reference.referenceContractHash) {
+              state.proofLedger=appendProvableExecution(state.proofLedger,{
+                executionId:semanticHash({taskId:task.taskId,taskHash,franchiseHash,executionClass:'E3'}),
+                taskId:task.taskId,completedAt:new Date(clock()).toISOString(),equivalenceClass:'E3',
+                proofVerified:true,matchedObligationHash:'sha256:'+semanticHash(task.obligation??task.request??task),
+                qualityContractHash:'sha256:'+context.qualityContractHash,
+                proofRef:'decision-franchise:'+franchiseHash,
+                referenceContractHash:reference.referenceContractHash,directReference:reference.directReference
+              });
+              state.receipts.push({kind:'PROVABLE_EXECUTION',taskId:task.taskId,executionClass:'E3',
+                referenceContractHash:reference.referenceContractHash,observedAt:clock()});
+            } else state.receipts.push({kind:'REFERENCE_CONTRACT_MISSING',taskId:task.taskId,executionClass:'E3',observedAt:clock()});
             await persist(tx,state);
             return zero({ok:true,status:'CLOSED_DECISION_FRANCHISE',decision:structuredClone(hit.decision),
               franchiseId:hit.franchiseId,franchiseHash,proofClass:'E3',
@@ -258,6 +274,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           capitalAssets: Object.keys(state.capital).length, thoughtBondCount:Object.keys(state.thoughtBonds).length,
           decisionFranchiseCount:Object.keys(state.decisionFranchises).length,
           contextSnapshotCount:Object.keys(state.contextSnapshots).length,
+          referenceContractCount:Object.keys(state.referenceContracts).length,
+          cognitiveCapitalCampaignCount:Object.keys(state.cognitiveCapitalCampaigns).length,
+          activeCognitiveCapitalCampaignId:state.activeCognitiveCapitalCampaignId,
           paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });
@@ -266,6 +285,89 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       return transact(store, async tx => {
         const state = await stateFor(tx);
         return zero(summarizeProvableExecutions({ ledger: state.proofLedger, actualAllInMicrousd }));
+      });
+    },
+    async admitReferenceContract(bundle={}) {
+      safePayload(bundle);
+      const reasons=[];
+      if(!identity(bundle.taskId)||!bareDigest(bundle.taskHash)||!identity(bundle.taskClass)||!bareDigest(bundle.qualityContractHash))reasons.push('exact-task-binding-required');
+      if(!prefixedDigest(bundle.referenceContractHash)||shaJson(bundle.directReference)!==bundle.referenceContractHash)reasons.push('reference-contract-hash-mismatch');
+      if(typeof bundle.evidenceRef!=='string'||!bundle.evidenceRef)reasons.push('reference-evidence-required');
+      const expiry=Date.parse(bundle.expiresAt);if(!Number.isFinite(expiry)||expiry<=clock())reasons.push('future-reference-expiry-required');
+      try{
+        const v=validateProvableWorkItem({id:'reference:'+String(bundle.taskId),equivalenceClass:'E3',proofVerified:true,
+          matchedObligationHash:'sha256:'+String(bundle.taskHash),qualityContractHash:'sha256:'+String(bundle.qualityContractHash),
+          proofRef:bundle.evidenceRef,executionCount:1,directReference:bundle.directReference});
+        if(!v.ok)reasons.push(...v.reasons);
+      }catch(error){reasons.push(String(error?.message||error));}
+      if(reasons.length)return zero({ok:false,status:'REFERENCE_CONTRACT_REFUSED',reasons:[...new Set(reasons)],providerCallsPerformed:0});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),existing=state.referenceContracts[bundle.taskId];
+        const row={taskId:bundle.taskId,taskHash:bundle.taskHash,taskClass:bundle.taskClass,qualityContractHash:bundle.qualityContractHash,
+          directReference:structuredClone(bundle.directReference),referenceContractHash:bundle.referenceContractHash,
+          evidenceRef:bundle.evidenceRef,expiresAt:bundle.expiresAt,admittedAt:new Date(clock()).toISOString()};
+        if(existing){
+          if(shaJson(existing)!==shaJson(row))return zero({ok:false,status:'REFERENCE_CONTRACT_CONFLICT',providerCallsPerformed:0});
+          return zero({ok:true,status:'IDEMPOTENT_REFERENCE_CONTRACT',taskId:bundle.taskId,referenceContractHash:bundle.referenceContractHash,providerCallsPerformed:0});
+        }
+        state.referenceContracts[bundle.taskId]=row;
+        state.receipts.push({kind:'REFERENCE_CONTRACT_ADMITTED',taskId:bundle.taskId,referenceContractHash:bundle.referenceContractHash,evidenceRef:bundle.evidenceRef,observedAt:clock()});
+        await persist(tx,state);
+        return zero({ok:true,status:'REFERENCE_CONTRACT_ADMITTED',taskId:bundle.taskId,referenceContractHash:bundle.referenceContractHash,providerCallsPerformed:0});
+      });
+    },
+    async listReferenceContracts() {
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const rows=Object.values(state.referenceContracts).map(r=>({taskId:r.taskId,taskClass:r.taskClass,qualityContractHash:r.qualityContractHash,referenceContractHash:r.referenceContractHash,evidenceRef:r.evidenceRef,expiresAt:r.expiresAt}));
+        return zero({ok:true,status:'REFERENCE_CONTRACT_VAULT',count:rows.length,contracts:rows,providerCallsPerformed:0});
+      });
+    },
+    async createCognitiveCapitalCampaign({campaignId,requiredCostClasses=[]}={}) {
+      if(!identity(campaignId))return zero({ok:false,status:'COGNITIVE_CAPITAL_CAMPAIGN_REFUSED',providerCallsPerformed:0});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        if(state.cognitiveCapitalCampaigns[campaignId])return zero({ok:false,status:'COGNITIVE_CAPITAL_CAMPAIGN_ALREADY_EXISTS',providerCallsPerformed:0});
+        const ledger=createCognitiveCapitalLedger({period:today().slice(0,7),campaignId,requiredCostClasses});
+        state.cognitiveCapitalCampaigns[campaignId]=ledger;state.activeCognitiveCapitalCampaignId=campaignId;
+        state.receipts.push({kind:'COGNITIVE_CAPITAL_CAMPAIGN_CREATED',campaignId,observedAt:clock()});await persist(tx,state);
+        return zero({ok:true,status:'COGNITIVE_CAPITAL_CAMPAIGN_CREATED',campaignId,providerCallsPerformed:0});
+      });
+    },
+    async appendCognitiveCapitalCost({campaignId,receipt}={}) {
+      safePayload({campaignId,receipt});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),ledger=state.cognitiveCapitalCampaigns[campaignId];
+        if(!ledger)return zero({ok:false,status:'COGNITIVE_CAPITAL_CAMPAIGN_NOT_FOUND',providerCallsPerformed:0});
+        state.cognitiveCapitalCampaigns[campaignId]=appendObservedCapitalCost(ledger,receipt);
+        await persist(tx,state);return zero({ok:true,status:'COGNITIVE_CAPITAL_COST_RECORDED',campaignId,providerCallsPerformed:0});
+      });
+    },
+    async registerCognitiveCapitalAsset({campaignId,asset}={}) {
+      safePayload({campaignId,asset});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),ledger=state.cognitiveCapitalCampaigns[campaignId];
+        if(!ledger)return zero({ok:false,status:'COGNITIVE_CAPITAL_CAMPAIGN_NOT_FOUND',providerCallsPerformed:0});
+        state.cognitiveCapitalCampaigns[campaignId]=registerCognitiveCapitalAsset(ledger,asset);
+        await persist(tx,state);return zero({ok:true,status:'COGNITIVE_CAPITAL_ASSET_REGISTERED',campaignId,providerCallsPerformed:0});
+      });
+    },
+    async closeCognitiveCapitalCampaign({campaignId,closureEvidenceRef}={}) {
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),ledger=state.cognitiveCapitalCampaigns[campaignId];
+        if(!ledger)return zero({ok:false,status:'COGNITIVE_CAPITAL_CAMPAIGN_NOT_FOUND',providerCallsPerformed:0});
+        const closed=closeCognitiveCapitalLedger(ledger,{closureEvidenceRef,closedAt:new Date(clock()).toISOString()});
+        state.cognitiveCapitalCampaigns[campaignId]=closed;if(state.activeCognitiveCapitalCampaignId===campaignId)state.activeCognitiveCapitalCampaignId=null;
+        const audit=auditCognitiveCapitalEconomics({capitalLedger:closed,provableExecutionLedger:state.proofLedger});
+        state.receipts.push({kind:'COGNITIVE_CAPITAL_CAMPAIGN_CLOSED',campaignId,auditStatus:audit.status,observedAt:clock()});
+        await persist(tx,state);return zero({...audit,campaignId,providerCallsPerformed:0});
+      });
+    },
+    async listCognitiveCapitalCampaigns() {
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const campaigns=Object.values(state.cognitiveCapitalCampaigns).map(x=>({campaignId:x.campaignId,period:x.period,closed:x.closed,requiredCostClasses:x.requiredCostClasses,costReceiptCount:x.costReceipts.length,capitalAssetCount:Object.keys(x.capitalAssets).length}));
+        return zero({ok:true,status:'COGNITIVE_CAPITAL_CAMPAIGNS',activeCampaignId:state.activeCognitiveCapitalCampaignId,campaigns,providerCallsPerformed:0});
       });
     },
     async admitThoughtBond(bond) {

@@ -4,60 +4,46 @@ Current recovery manifest: `73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json`
 
 Current multiplier tracker: `74_MULTIPLIER_TRACKER_2026-09-30.json`
 
+Current live-frontier receipt: `78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md`
+
 ## Current checkpoint
 
-**14.161946017994001× modeled canonical source-heavy cold path.**
+**33,333.345× executed benchmark-capacity.**
 
-Current reference workload:
+Production realized economic multiplier: **UNKNOWN**.
 
-```
-200k source tokens
- -> exact task-shape policy
- -> current tariff auction chooses DeepSeek V4.1 Flash
- -> one fused pass emits:
-      5k exact-anchored evidence capsule
-      2.5k complete candidate
- -> no redundant same-lineage critic
- -> Opus 5.5 6-token ACCEPT
-```
+Observed benchmark:
+- 2,352,942 distinct certified E3 Decision Franchise executions;
+- 0 provider calls;
+- receipt root `sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291`;
+- fair modeled comparator: Claude Opus 5.5 Batch, USD 0.425 per canonical 200k-input / 2.5k-output unit;
+- modeled direct reference USD 1,000,000.35 against the USD 30 target envelope.
 
-Direct Opus 5.5 modeled cost: **$0.85**
+Do not promote this benchmark/counterfactual capacity into production savings.
 
-UberMind modeled cost: **$0.060020**
+## Canonical cockpit
 
-Progression preserved in the tracker:
+`TypingMind -> UberBond ubermind/auto -> one capped OpenRouter runtime key -> Frontier VM/JEV/Supercompiler -> admitted task-class Crown -> Reality Court/proof ledger/Cognitive Capital court`.
 
-- 6× mixed cold-task planning floor
-- 8.77636782273802× canonical v5
-- 13.588911448258221× fused source-worker path
-- 13.883870731689786× compact critic PASS
-- 14.105074507981811× JEV-cost-hardened optional-critic path
-- 14.152042889014686× exact fused-worker tariff auction
-- **14.161946017994001× exact-before-JEV current canonical path**
+Canonical direct TypingMind provider key: **none**. Historical USD 8 route is archived fallback.
 
-## Quality boundary
+## Implemented frontier
 
-This increase does **not** weaken semantic authority.
+JEV, Frontier VM, Cognitive Supercompiler, certified residuals, compute auction, Decision Franchises, Thought Bonds, proof-cut multicast, Living Evidence Graph, Semantic E-Graph, Ghost Agents, trusted context vault, 24/7 worker recurrence, exhaustive real-Crown franchise graduation, gateway-only TypingMind, 8,192-token bounded output headroom, Work/Astra activation chain, exact task-bound reference vault, provable execution ledger, and receipt-grade Cognitive Capital cost court.
 
-DeepSeek remains proposal-only. The evidence capsule must retain exact source anchors. Fresh material semantics still terminate in the current admitted Opus Crown. If Opus does not ACCEPT, the runtime must PATCH/REWRITE/escalate rather than ship a cheaper candidate as if it were Crown-equivalent.
+## Remaining private/evidence frontier
 
-Do not count uncertified JEV/E0-E4/Decision-Franchise/Ghost-Agent/Living-Evidence-Graph fanout in the current number.
-
-## Next exponent
-
-Cold-path token-price routing is no longer the main bottleneck. The next large gains must come from **certified recurrence**:
-
-```
-Crown thought
- -> typed policy / Decision Franchise
- -> E0-E4 or certified JEV
- -> many non-identical consumers
- -> sampled Crown audits / drift invalidation
- -> code where stable
-```
-
-The $33,333.333× target remains a quality-fixed research target, not a current claim.
+1. privately configure/verify `uberbond-runtime-20` and the USD 28 member backstop;
+2. atomically rotate the gateway bearer in Render + TypingMind;
+3. obtain explicit founder consent before any paid canary/runtime spend;
+4. run <= USD 0.05 canary and reconcile provider billing;
+5. run sealed General-Crown tournament;
+6. mint Crown admission only from real model/bill/tournament evidence;
+7. run the first real recurring task class;
+8. bind verified tokenizer + cheapest-legitimate direct reference;
+9. record observed all-in cost classes;
+10. close the Cognitive Capital court and only then report a realized multiplier.
 
 ## Recovery law
 
-Read existing OpenRouter canon first, then the manifest. New verified source is execution truth. Dated backups are recovery evidence and must not silently overwrite newer code.
+Read parent canon first, then the manifest, tracker, this pointer, and the Work/Astra handoff. New verified source is execution truth. Historical files remain recoverable provenance and never silently override newer source.

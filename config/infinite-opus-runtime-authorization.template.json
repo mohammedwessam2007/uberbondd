@@ -2,9 +2,9 @@
   "schemaVersion": "uberbond.infinite-opus.runtime-authorization-request.v1",
   "ownerApproved": false,
   "authorizationId": "REPLACE_WITH_UNIQUE_NONSECRET_ID",
-  "month": "2026-09",
+  "month": "OWNER_TO_FILL_CURRENT_YYYY_MM",
   "maximumMonthlySpendUsd": 20,
-  "expiresAt": "2026-09-30T23:59:59+03:00",
+  "expiresAt": "OWNER_TO_FILL_FUTURE_ISO_TIMESTAMP",
   "crownRoutes": [
     "openrouter:anthropic/claude-opus-5.5"
   ],

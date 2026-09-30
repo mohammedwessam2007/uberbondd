@@ -134,7 +134,7 @@
     "V5CrownSuccessionRecompilationProven": false,
     "millionDollarReferenceEquivalent": false
   },
-  "nextAction": "OWNER_CONFIGURES_CAPPED_OPENROUTER_KEYS_PLUS_UBERBOND_GLOBAL_28_GUARDRAIL_AND_TYPINGMIND_PRIVATELY -> MACHINE_RECONCILES_NONSECRET_LIMITS -> OWNER_AUTHORIZES_TINY_PAID_CANARY -> CAPTURE_LIVE_BILL_MODEL_PROVIDER_RECEIPT -> SEALED_TASK_CLASS_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD",
+  "nextAction": "OWNER_PRIVATE_CAPPED_OPENROUTER_TYPINGMIND_ACTIVATION -> BOUNDED_CANARY -> LIVE_CROWN_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD -> PROVABLE_REFERENCE_ECONOMICS_LEDGER -> ATTACK_33333X",
   "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",
@@ -616,5 +616,39 @@
     "truthBoundary": "Source mechanisms and mock-only validation grant no live Crown authority, provider callability, deployment proof, 24/7 endurance, quality equivalence, reference compression or million-dollar-equivalent claim.",
     "mergedMain": "e77d223d18a8634f2735ce3440e3cab2fec32578",
     "postMergeReceipt": "docs/receipts/INFINITE_OPUS_POSTMERGE_1056_2026-09-30.json"
+  },
+  "provableReferenceEconomics20260930": {
+    "status": "IMPLEMENTED_PRE_LIVE_SCALE_PROOF",
+    "theorem": "open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md",
+    "implementation": "src/provable-reference-economics.mjs",
+    "tests": "tests/provable-reference-economics.test.mjs",
+    "equivalenceScope": [
+      "E0",
+      "E1",
+      "E2",
+      "E3",
+      "E4"
+    ],
+    "excludedFromTheoremScope": [
+      "E5",
+      "E6"
+    ],
+    "law": "Once E0-E4 semantic equivalence is independently proven, quality is no longer re-estimated by an LLM judge; reference economics is deterministic arithmetic over real certified execution counts, conservative direct-frontier counterfactual cost, and observed actual all-in cost.",
+    "counterfactualMustCredit": [
+      "Batch/Flex when eligible",
+      "prompt-cache pricing when eligible",
+      "response-cache economics for identical requests",
+      "provider/route discounts",
+      "retry economics",
+      "platform fees"
+    ],
+    "target": {
+      "maxActualAllInUsd": 30,
+      "minMatchedDirectFrontierReferenceUsd": 1000000,
+      "minReferenceCompressionFactor": 33333.333333333336
+    },
+    "currentMeasuredFactor": "UNKNOWN",
+    "targetClaimAllowedNow": false,
+    "next": "OWNER_ACTIVATION -> TINY_CANARY -> SEALED_TASK_CLASS_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD -> E0_E4_EXECUTION_LEDGER -> PROVABLE_REFERENCE_ECONOMICS"
   }
 }

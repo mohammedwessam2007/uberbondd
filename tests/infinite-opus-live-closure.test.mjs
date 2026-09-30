@@ -11,6 +11,10 @@ import {cognitionRouteInventory} from '../src/cognition-route-inventory.mjs';
 import {enhanceAudit} from '../src/ai.mjs';
 import {createUnifiedCognitionLedger,appendCognitionEvent,cognitionLedgerSummary} from '../src/unified-cognition-ledger.mjs';
 import {buildInfiniteOpusScoreboard} from '../src/infinite-opus-scoreboard.mjs';
+import {validateSemanticProgram} from '../src/semantic-isa-v2.mjs';
+import {compileCrownTournament,adjudicateCrownTournament} from '../src/crown-tournament.mjs';
+import {planCrownSuccession,applySuccession} from '../src/crown-succession.mjs';
+import {buildRecurrenceMap} from '../src/recurrence-map.mjs';
 const h=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 
 test('economic perimeter closes at 20 runtime + 8 cockpit under $30 all-in planning envelope',()=>{
@@ -27,7 +31,7 @@ test('delayed or mismatched provider usage holds global capacity',()=>{
  assert.equal(reconcileChannels({runtimeUsageUsd:1,typingMindUsageUsd:2,providerAccountUsageUsd:3,unsettled:[]}).ok,true);
 });
 test('Crown admission refuses forged or incomplete provider answers',()=>{
- const base={providerCallId:'gen-1',exactModelId:'anthropic/claude-opus-5.5',providerIdentity:'Anthropic',routeIdentity:'openrouter:auto',taskClassRole:'GENERAL_CROWN',promptProgramHash:h('p'),semanticInputHash:h('i'),qualityContractHash:h('q'),sourceDependencyHashes:[h('s')],evidenceReferences:['e1'],outputHash:h('o'),timestamp:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'auth1',costReceiptRef:'bill1',actualCostMicrousd:500,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,roleTournamentEvidenceRef:'tour1'};
+ const base={providerCallId:'gen-1',exactModelId:'anthropic/claude-opus-5.5',providerIdentity:'Anthropic',routeIdentity:'openrouter:auto',taskClassRole:'GENERAL_CROWN',promptProgramHash:h('p'),semanticInputHash:h('i'),qualityContractHash:h('q'),sourceDependencyHashes:[h('s')],evidenceReferences:['e1'],outputHash:h('o'),timestamp:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'auth1',costReceiptRef:'bill1',modelCallabilityReceiptRef:'callability1',revalidationPolicy:'EXPIRE_OR_SUCCESSION',authorizationStatus:'AUTHORIZED_FOR_THIS_CALL',actualCostMicrousd:500,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,roleTournamentEvidenceRef:'tour1'};
  const r=issueCrownAdmissionReceipt(base); assert.equal(r.ok,true); assert.equal(verifyCrownAdmissionReceipt(r.receipt,{now:Date.parse('2026-09-30T01:00:00Z'),expected:{exactModelId:base.exactModelId}}).ok,true);
  const forged={...r.receipt,exactModelId:'other/model'}; assert.equal(verifyCrownAdmissionReceipt(forged,{now:Date.parse('2026-09-30T01:00:00Z')}).ok,false);
  assert.equal(issueCrownAdmissionReceipt({...base,providerBillObserved:false}).ok,false);
@@ -95,4 +99,39 @@ test('unified ledger separates cash, plan, credits, donated compute and compress
 test('automatic scoreboard keeps unknown evidence unknown',()=>{
  const s=buildInfiniteOpusScoreboard({runtimeSnapshot:{budget:{todaySpentMicrousd:0,crownEscrowRemainingMicrousd:15000000},metrics:{}},globalLedgerSummary:{actualAllInUsd:0}});
  assert.equal(s.TODAY_AI_SPEND,0);assert.equal(s.CROWN_ESCROW_REMAINING,15);assert.equal(s.GENERAL_CROWN,'UNKNOWN');assert.equal(s.REFERENCE_COMPRESSION_FACTOR,'UNKNOWN');
+});
+
+test('verified typed compiler can amortize interpretation while cheap parse agreement alone cannot',()=>{
+ const raw=h('repeatable typed task');
+ const program={goal:'sum',claims:[],constraints:['integers only'],requiredOutputs:['total'],sideEffects:[],ambiguities:[],uncertainties:[]};
+ const r=closeInterpretation({rawTaskHash:raw,parses:[program,program],typedCompilerCertificate:{authority:'E2_VERIFIED_TRANSFORMATION',rawTaskHash:raw,compilerHash:h('compiler'),program,proofRef:'test-proof',preserved:['integers only'],omitted:[]}});
+ assert.equal(r.ok,true);assert.equal(r.status,'INTERPRETATION_TYPED_COMPILER_CLOSED');
+});
+test('semantic ISA rejects unknown opcodes and side-effect smuggling',()=>{
+ assert.equal(validateSemanticProgram([{op:'LOAD_FACT',sideEffectAuthority:'NONE'},{op:'CHECK_CONSTRAINT',sideEffectAuthority:'NONE'}]).ok,true);
+ assert.equal(validateSemanticProgram([{op:'INVENT_FACT',sideEffectAuthority:'NONE'}]).ok,false);
+ assert.equal(validateSemanticProgram([{op:'LOAD_FACT',sideEffectAuthority:'SEND_EMAIL'}]).ok,false);
+});
+test('Crown tournament is blind, zero-regression and role-specific',()=>{
+ const plan=compileCrownTournament({candidateSnapshotHash:h('snapshot'),hiddenTasks:[{taskId:'h1',role:'GENERAL_CROWN',qualityDimensions:['accuracy']},{taskId:'h2',role:'GENERAL_CROWN',qualityDimensions:['accuracy']}],candidates:[{model:'a',roles:['GENERAL_CROWN']},{model:'b',roles:['GENERAL_CROWN']}],budgetAuthorizationRef:'auth'});
+ assert.equal(plan.ok,true);assert.equal(plan.plan.blindEvaluation,true);
+ const out=adjudicateCrownTournament({plan:plan.plan,observations:[
+  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
+  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
+  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.01},
+  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.01}
+ ]});assert.equal(out.roles.GENERAL_CROWN.incumbent,'a');
+});
+test('Crown succession changes only roles backed by current admitted Crown receipts',()=>{
+ const p=planCrownSuccession({currentRoles:{GENERAL_CROWN:'a'},marketCandidates:[{model:'b',callability:'VERIFIED',freshness:'CURRENT',roles:['GENERAL_CROWN']}],trigger:'NEW_MODEL_RELEASE',compiledCapital:[{assetId:'x',status:'VALID_FOR_CURRENT_TYPED_SCOPE',crownRevision:'a'}]});
+ assert.equal(p.status,'SUCCESSION_TOURNAMENT_REQUIRED');
+ const no=applySuccession({currentRoles:{GENERAL_CROWN:'a'},tournamentRoles:{GENERAL_CROWN:'b'},admissionReceipts:{}});assert.equal(no.roles.GENERAL_CROWN,'a');
+ const yes=applySuccession({currentRoles:{GENERAL_CROWN:'a'},tournamentRoles:{GENERAL_CROWN:'b'},admissionReceipts:{GENERAL_CROWN:{semanticAuthority:'CURRENT_TASK_CLASS_CROWN',exactModelId:'b'}}});assert.equal(yes.roles.GENERAL_CROWN,'b');assert.equal(yes.decompileCompiledCapital,true);
+});
+test('recurrence map exposes real fanout without claiming semantic equivalence from similarity',()=>{
+ const rows=[
+  {id:'1',taskClass:'research',driftClass:'LOW',obligation:{op:'verify',x:1},claim:'A',sourceDependencies:['s'],verificationStep:'v'},
+  {id:'2',taskClass:'research',driftClass:'LOW',obligation:{op:'verify',x:1},claim:'A',sourceDependencies:['s'],verificationStep:'v'},
+  {id:'3',taskClass:'coding',driftClass:'HIGH',obligation:{op:'verify',x:2},claim:'A-ish',sourceDependencies:['t'],verificationStep:'v2'}
+ ];const r=buildRecurrenceMap(rows);assert.equal(r.dimensions.obligation.maxFanout,2);assert.equal(r.priorityDomains[0].taskClass,'research');
 });

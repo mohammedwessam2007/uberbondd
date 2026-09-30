@@ -5,13 +5,13 @@
   "economicPerimeter": {
     "hardAllInUsd": 30,
     "runtimeOpenRouterKey": {
-      "name": "uberbond-runtime",
+      "name": "uberbond-runtime-20",
       "limitUsd": 20,
       "limitReset": "monthly",
       "includeByokInLimit": true
     },
     "typingMindOpenRouterKey": {
-      "name": "uberbond-typingmind",
+      "name": "uberbond-typingmind-8",
       "limitUsd": 8,
       "limitReset": "monthly",
       "includeByokInLimit": true
@@ -19,7 +19,13 @@
     "feeBufferUsd": 2,
     "protectedRuntimeCrownReserveUsd": 15,
     "dailySoftTargetUsd": 1,
-    "law": "QUEUE_BEFORE_DOWNGRADE"
+    "law": "QUEUE_BEFORE_DOWNGRADE",
+    "memberGuardrail": {
+      "limitUsd": 28,
+      "reset": "monthly",
+      "scope": "MEMBER_ALL_KEYS",
+      "purpose": "aggregate cross-key structural cap"
+    }
   },
   "secrets": {
     "runtime": [

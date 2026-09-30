@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig,
-  estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd,
+  estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd, estimateJevControlUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
   estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
@@ -154,6 +154,17 @@ test('JEV can omit low-value independent critic while Opus Crown remains mandato
   assert.equal(withoutCritic,0.06022);
   assert.ok(withoutCritic<withCritic);
   assert.ok(0.85/withoutCritic>14.11);
+});
+
+test('JEV control-plane cost is counted in all-in path economics',()=>{
+  const jev=estimateJevControlUsd({sharedStateTokens:1000});
+  assert.equal(jev,0.000042);
+  const path=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,
+    redTeamOutputTokens:6,includeIndependentCritic:false
+  })+jev;
+  assert.equal(path,0.060262);
+  assert.ok(0.85/path>14.10);
 });
 
 test('generic Jev control tensor separates execution-shape judgments instead of one vague router label',()=>{

@@ -55,6 +55,7 @@ export function verifyGatewayBearer(candidate,expected){
 }
 
 function candidateCostRows(registry,models,task){
+ if(registry.economicsFresh!==true)return models.map(model=>({model,status:'CURRENT_TARIFF_REFRESH_REQUIRED',exactActualBill:false}));
  const fresh=task.estimatedInputTokens??0,cached=task.estimatedCachedInputTokens??0,maxOut=task.maxOutputTokens??null;
  return models.map(model=>{
   const profile=registry.profiles.find(p=>p.model===model);
@@ -76,7 +77,7 @@ export function compileUberMindGatewayPlan({task,modelUnderstanding,jev={status:
  const base={ok:true,schemaVersion:UBERMIND_GATEWAY_VERSION,taskId:task.taskId,taskHash:sha(task),taskClass:task.taskClass,
   qualityClass:task.qualityClass,sideEffectClass:'NONE',semanticAuthority:analytic.semanticAuthority??'NONE',
   businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',providerCallsAuthorized:0,empiricalModelTestRequired:Boolean(analytic.empiricalModelTestRequired),
-  modelUnderstandingObservedAt:registry.observedAt,modelUnderstandingExpiresAt:registry.expiresAt};
+  modelUnderstandingObservedAt:registry.observedAt,modelUnderstandingExpiresAt:registry.expiresAt,economicsFresh:registry.economicsFresh===true};
 
  if(analytic.lane==='E0_E4_BY_CONSTRUCTION')return{...base,status:'GATEWAY_PLAN_READY',lane:analytic.lane,
   executionOrder:['VERIFY_PROOF_AND_DEPENDENCIES','EXECUTE_CERTIFIED_PATH','REALITY_COURT_IF_REQUIRED','MINT_PROVABLE_EXECUTION_RECEIPT'],
@@ -108,8 +109,8 @@ export function compileUberMindGatewayPlan({task,modelUnderstanding,jev={status:
 
 export function gatewayStatus({modelUnderstanding,jev={status:'NOT_CONNECTED',certified:false},runtime={}}={}){
  let registryStatus='REFUSED',profileCount=0,expiresAt=null;
- try{const r=compileModelUnderstanding(modelUnderstanding);registryStatus='CURRENT';profileCount=r.profiles.length;expiresAt=r.expiresAt;}catch{}
- return{ok:registryStatus==='CURRENT',schemaVersion:UBERMIND_GATEWAY_VERSION,status:registryStatus==='CURRENT'?'UBERMIND_GATEWAY_SOURCE_READY':'UBERMIND_GATEWAY_MODEL_REGISTRY_STALE_OR_INVALID',
+ try{const r=compileModelUnderstanding(modelUnderstanding);registryStatus=r.economicsFresh?'CURRENT':'STRUCTURE_CURRENT_ECONOMICS_STALE';profileCount=r.profiles.length;expiresAt=r.expiresAt;}catch{}
+ return{ok:registryStatus!=='REFUSED',schemaVersion:UBERMIND_GATEWAY_VERSION,status:registryStatus==='CURRENT'?'UBERMIND_GATEWAY_SOURCE_READY':registryStatus==='STRUCTURE_CURRENT_ECONOMICS_STALE'?'UBERMIND_GATEWAY_SOURCE_READY_PRICE_REFRESH_REQUIRED':'UBERMIND_GATEWAY_MODEL_REGISTRY_INVALID',
   modelUnderstanding:{status:registryStatus,profileCount,expiresAt},jev:{status:jev.status??'NOT_CONNECTED',certified:jev.certified===true},
   runtime:{paidConnected:runtime.paidConnected===true,budgetConnected:runtime.budgetConnected===true,proofLedgerConnected:runtime.proofLedgerConnected===true},
   semanticAuthority:'NONE',externalEffectAuthority:'NONE',

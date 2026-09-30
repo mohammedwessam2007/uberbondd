@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:15:00+03:00",
+  "updatedAt": "2026-09-30T22:35:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -161,6 +161,17 @@
       "authorityRequired": "ACTIVE_CERTIFIED_COVERAGE bound to sourceHash + qualityContractHash + obligationHash + packetHash",
       "fallback": "FULL_CONTEXT_CROWN",
       "implementation": "src/certified-frontier-residual.mjs"
+    },
+    {
+      "label": "live-certified-residual-wiring-v12",
+      "multiplier": 14.161946017994001,
+      "status": "RUNTIME_PATH_WIRED__MULTIPLIER_REMAINS_CONDITIONAL_ON_VALID_COVERAGE_AUTHORITY",
+      "workload": "bounded source-heavy request -> certifiedResidualResolver -> exact packet verification -> compact Opus Crown context; otherwise full-context Crown",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06002,
+      "implementation": "src/infinite-opus-typingmind-live.mjs",
+      "failClosed": "Any missing/tampered/expired/mismatched residual proof routes to untouched full-context Crown.",
+      "qualityLaw": "OPUS_5_5_CROWN_REMAINS_MANDATORY_FOR_Q_FRONTIER; CHEAP_WORKER_CANNOT_SELF_CERTIFY_COVERAGE"
     }
   ],
   "excludedFromCurrentNumber": [
@@ -184,5 +195,5 @@
   "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT",
   "currentRuntimeRealizableModeledMultiplier": 1.0118806695078688,
   "currentRuntimeRealizableModeledUberMindUsd": 0.84002,
-  "currentCanonicalStatus": "CERTIFIED_RESIDUAL_TARGET__GENERIC_CHAT_NOT_YET_EARNED"
+  "currentCanonicalStatus": "14.161946X_RUNTIME_WIRED__EARNED_ONLY_WHEN_CERTIFIED_RESIDUAL_AUTHORITY_IS_PRESENT"
 }

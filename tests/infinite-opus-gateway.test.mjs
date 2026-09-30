@@ -55,3 +55,11 @@ test('gateway status never upgrades source readiness into live claims',()=>{
  assert.equal(r.ok,true);assert.equal(r.status,'UBERMIND_GATEWAY_SOURCE_READY');assert.equal(r.semanticAuthority,'NONE');
  assert.equal(r.runtime.paidConnected,false);assert.equal(r.jev.certified,false);
 });
+
+
+test('stale economics blocks price claims without blocking structural routing',()=>{
+ const stale=understanding();stale.expiresAt='2026-09-29T15:40:00+03:00';stale.observedAt='2026-09-28T15:40:00+03:00';
+ const r=compileUberMindGatewayPlan({task:base,modelUnderstanding:stale});
+ assert.equal(r.ok,true);assert.equal(r.economicsFresh,false);
+ assert.ok(r.costEnvelopes.every(x=>x.status==='CURRENT_TARIFF_REFRESH_REQUIRED'));
+});

@@ -507,6 +507,25 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       return sendJson(res, 200, { ok: true, crownCapitalization: await runtime.crownCapitalizationPlan({ limit: 100 }), paidInferenceTriggered: false,
         truthBoundary: 'This surface ranks recurrence/compiler targets from hashes and observed cost only. It stores no raw conversation and grants no semantic reuse authority.' });
     }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/capital/reconcile') {
+      let body;
+      try { body = await readSmallJsonBody(req, 16 * 1024); }
+      catch (error) { return sendJson(res, 400, { ok: false, error: error.message }); }
+      const recovery = body?.recoveryReceipt ?? body;
+      if (recovery?.recoveryAuthority !== 'RECORD_ONLY_NO_SEMANTIC_REUSE_AUTHORITY') {
+        return sendJson(res, 400, { ok: false, status: 'CROWN_CAPITALIZATION_RECOVERY_RECEIPT_REQUIRED' });
+      }
+      const { recoveryAuthority, ...record } = recovery;
+      try {
+        const result = await runtime.recordCrownInteraction(record);
+        return sendJson(res, result.ok ? 200 : 409, { ok: result.ok, result,
+          paidInferenceTriggered: false, semanticReuseAuthority: 'NONE',
+          truthBoundary: 'Recovery records metadata only. It cannot mint semantic authority, trigger inference, or replay the original answer.' });
+      } catch (error) {
+        return sendJson(res, 409, { ok: false, status: 'CROWN_CAPITALIZATION_RECOVERY_REFUSED',
+          error: String(error?.message || error), paidInferenceTriggered: false, semanticReuseAuthority: 'NONE' });
+      }
+    }
     return sendJson(res, 404, { error: 'Infinite Opus route not found' });
   });
 }

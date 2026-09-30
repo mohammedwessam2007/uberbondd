@@ -32,6 +32,15 @@ const typingMindGatewayFlights = new Map();
 const typingMindGatewayRecent = new Map();
 const TYPINGMIND_GATEWAY_REPLAY_WINDOW_MS = 30_000;
 const TYPINGMIND_GATEWAY_REPLAY_MAX_ENTRIES = 256;
+const typingMindGatewayRequestTimes = [];
+
+function admitTypingMindGatewayRequest(){
+  const now=Date.now(),windowMs=60_000;
+  const max=Math.max(1,Math.min(120,Number(process.env.UBERMIND_TYPINGMIND_RATE_LIMIT_PER_MINUTE)||30));
+  while(typingMindGatewayRequestTimes.length&&typingMindGatewayRequestTimes[0]<=now-windowMs)typingMindGatewayRequestTimes.shift();
+  if(typingMindGatewayRequestTimes.length>=max)return false;
+  typingMindGatewayRequestTimes.push(now);return true;
+}
 
 function rememberTypingMindGatewayCompletion(key,completion){
   const now=Date.now();
@@ -364,6 +373,7 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   }
   const expectedToken = String(process.env.UBERMIND_TYPINGMIND_GATEWAY_TOKEN || '');
   if (!verifyTypingMindGatewayBearer(req.headers.authorization, expectedToken)) return sendTypingMindJson(req,res,401,{ error: 'Unauthorized' });
+  if(req.method==='POST'&&!admitTypingMindGatewayRequest())return sendTypingMindJson(req,res,429,{ok:false,status:'TYPINGMIND_GATEWAY_RATE_LIMITED',providerCallsPerformed:0,qualityAction:'WAIT'});
   if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
     const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
     const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');

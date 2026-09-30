@@ -3,7 +3,8 @@ import { createInfiniteOpusRuntime } from './infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from './openrouter-governed-adapter.mjs';
 import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-adapter.mjs';
 import { buildGenericJevControlQuestions, cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter,
-  estimateDirectOpusUsd, estimateWriterThenCrownAcceptUsd, shouldRunIndependentCritic } from './openrouter-processor-auction-v5.mjs';
+  estimateDirectOpusUsd, estimateWriterThenCrownAcceptUsd, estimateIndependentCriticSurchargeUsd,
+  shouldRunIndependentCritic } from './openrouter-processor-auction-v5.mjs';
 import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { selectCurrentPrice } from './infinite-opus-market.mjs';

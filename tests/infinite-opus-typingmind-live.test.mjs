@@ -77,9 +77,13 @@ test('live gateway performs Sol builder then exact-provider Opus Crown ACCEPT an
  assert.equal(out.completion.uberbond.authorityClass,'CROWN_VERIFIED_SEMANTIC_ACCEPT');
  assert.equal(out.completion.uberbond.builderModel,TYPINGMIND_BUILDER_MODEL);assert.equal(out.completion.uberbond.crownModel,TYPINGMIND_CROWN_MODEL);
  assert.equal(out.completion.uberbond.actualCostUsd,.003);assert.equal(out.sideEffectAuthority,'NONE');assert.equal(out.jev.usedToSuppressCrown,false);
+ assert.equal(out.completion.uberbond.crownCapitalization.status,'SINGLETON_CROWN_INTERACTION_SHADOW');
+ assert.equal(out.completion.uberbond.crownCapitalization.semanticReuseAuthority,'NONE');
+ assert.equal(out.completion.uberbond.crownCapitalization.rawConversationPersisted,false);
  assert.equal(calls,8);
  const snap=await o.runtime.snapshot();
  assert.equal(snap.budget.monthSpentMicrousd,3000);assert.equal(snap.budget.crownEscrowRemainingMicrousd,14_998_000);
+ assert.equal(snap.crownInteractionFingerprints,1);assert.equal(snap.recurrentCrownCompilerCandidates,0);
 });
 
 test('upstream provider drift refuses Crown authority after observed paid call and freezes no false answer into cockpit',async()=>{

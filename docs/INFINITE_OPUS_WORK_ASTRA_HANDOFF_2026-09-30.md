@@ -47,7 +47,10 @@ Canonical provider exposure is one inference key:
 12. If and only if the adjudicator reports Opus 5.5 as the supported GENERAL_CROWN candidate, bind a real Opus tournament call's provider/billing/model evidence into `config/infinite-opus-crown-call-evidence.template.json` and run `scripts/infinite-opus-crown-admission-mint.mjs`.
 13. Set the resulting non-secret Crown receipt as `INFINITE_OPUS_CROWN_ADMISSION_JSON` and the owner-approved runtime receipt as `INFINITE_OPUS_PAID_AUTHORIZATION_JSON` on Render.
 14. Deploy/restart Render. Verify the models endpoint reports live readiness. Then make one bounded `ubermind/auto` cockpit request, reconcile all provider calls and costs, and preserve the first real workload receipt.
-15. Feed repeated real task-class observations into the durable context/franchise graduation path. Do not claim 33,333x production compression until real matched reference + observed all-in receipts settle it.
+15. For the first real recurring task class, open a Cognitive Capital campaign through the admin surface. Admit a task-bound direct-Opus reference contract only after verifying the cheapest legitimate same-quality counterfactual, including Batch, prompt cache, response cache, retry economics, provider route, price evidence, and tokenizer/hash evidence. Record every observed provider/runtime/platform cost class.
+16. Feed repeated real task-class observations into the durable context/franchise graduation path. E3 franchise hits should accumulate provable execution receipts against those pre-admitted task references.
+17. Close the Cognitive Capital campaign only when all required observed cost classes are complete. Use the runtime's finite audited `referenceCompressionFactor` as the realized multiplier. A zero denominator, missing cost class, stale/tampered reference, or missing proof must block the claim.
+18. Do not claim 33,333x production compression until the receipt court itself settles it.
 
 ## Hard stop conditions
 
@@ -55,4 +58,4 @@ Stop without workaround on secret leakage, unexpected active inference keys, mod
 
 ## Current truth at handoff
 
-Before this handoff, the production runtime and worker are live and the gateway bearer is present, but the runtime OpenRouter inference key, paid-authorization receipt and Crown-admission receipt are absent. The source has already executed the 2,352,942-consumer zero-provider-call E3 benchmark, but its 33,333.345x economics remain a benchmark/counterfactual capacity result rather than production-observed compression.
+Before this handoff, the production runtime and worker are live and the gateway bearer is present, but the runtime OpenRouter inference key, paid-authorization receipt and Crown-admission receipt are absent. The source has already executed the 2,352,942-consumer zero-provider-call E3 benchmark, but its 33,333.345x economics remain a benchmark/counterfactual capacity result rather than production-observed compression. The receipt-grade production economics court is now wired: task-bound reference vault, Cognitive Capital campaign ledger, observed cost receipts, and finite audited multiplier closure.

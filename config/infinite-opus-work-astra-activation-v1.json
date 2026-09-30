@@ -117,5 +117,21 @@
     "legacyTwoKeyDesign": "archived and recoverable",
     "directTypingMindModels": "fallback only",
     "fullFrontierVM": "authoritative parent architecture"
+  },
+  "productionEconomics": {
+    "activationEndpoint": "/api/admin/infinite-opus/activation",
+    "referenceVaultEndpoint": "/api/admin/infinite-opus/references",
+    "capitalCampaignsEndpoint": "/api/admin/infinite-opus/capital-campaigns",
+    "requiredBeforeRealizedMultiplierClaim": [
+      "verified cheapest-legitimate direct Opus reference contract for the same real task",
+      "batch economics considered",
+      "prompt-cache economics considered",
+      "response-cache economics considered",
+      "retry economics considered",
+      "verified tokenizer hash and receipt",
+      "observed nonzero all-in campaign cost receipts",
+      "closed Cognitive Capital campaign audit"
+    ],
+    "claimLaw": "Do not convert benchmark capacity into realized economics. Use the receipt-grade production court and only report its finite audited referenceCompressionFactor."
   }
 }

@@ -157,8 +157,13 @@ export function cognitionMetrics(receipts) {
   }
   const franchiseConsumers = [...franchiseGroups.values()].reduce((n,set)=>n+set.size,0);
   const decisionFranchiseFanout = franchiseGroups.size ? franchiseConsumers / franchiseGroups.size : null;
-  const franchiseCrownCallsAvoided = franchiseGroups.size
-    ? [...franchiseGroups.values()].reduce((n,set)=>n+Math.max(0,set.size-1),0)
+  const provableFranchiseGroups = new Map();
+  for (const r of receipts.filter(r => r.kind === 'PROVABLE_FRANCHISE_USE' && r.assetId && r.consumerSemanticHash && r.referenceContractHash && ['E1','E2','E3','E4'].includes(r.executionClass))) {
+    const set = provableFranchiseGroups.get(r.assetId) ?? new Set();
+    set.add(r.consumerSemanticHash); provableFranchiseGroups.set(r.assetId,set);
+  }
+  const franchiseCrownCallsAvoided = provableFranchiseGroups.size
+    ? [...provableFranchiseGroups.values()].reduce((n,set)=>n+Math.max(0,set.size-1),0)
     : null;
   const unknown = null;
   return { opusQualityFanout: unknown, frontierPageFaultRate: valid.length + pageFaults ? pageFaults / (valid.length + pageFaults) : unknown,

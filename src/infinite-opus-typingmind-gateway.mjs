@@ -5,7 +5,7 @@ export const TYPINGMIND_UBERMIND_GATEWAY_SCHEMA='uberbond.typingmind-infinite-op
 const ALLOWED_ROLES=new Set(['system','user','assistant']);
 const MAX_MESSAGES=128;
 const MAX_REQUEST_BYTES=300000;
-const MAX_OUTPUT_TOKENS=4096;
+const MAX_OUTPUT_TOKENS=8192;
 
 const hash=value=>'sha256:'+crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
 const digestToken=value=>crypto.createHash('sha256').update(String(value??'')).digest();

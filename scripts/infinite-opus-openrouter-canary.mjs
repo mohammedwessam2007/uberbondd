@@ -5,6 +5,7 @@ import { config } from '../src/config.mjs';
 import { createStore } from '../src/store.mjs';
 import { createInfiniteOpusRuntime } from '../src/infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from '../src/openrouter-governed-adapter.mjs';
+import { COGNITION_PERIMETER_ADMISSION } from '../src/cognition-transport-guard.mjs';
 
 const arg=name=>{const i=process.argv.indexOf(name);return i>=0?process.argv[i+1]:null;};
 const fail=message=>{console.error(JSON.stringify({ok:false,status:'CANARY_REFUSED',reason:String(message)}));process.exit(2);};
@@ -21,7 +22,7 @@ if(!authorization.authorizationId||!Number.isFinite(Date.parse(authorization.exp
 if(Number(authorization.maximumSpendUsd)>0.05||Number(authorization.maximumSpendUsd)<=0)fail('canary-max-spend-must-be-0-to-0.05-usd');
 if(authorization.model!=='xiaomi/mimo-v2.6-flash'||authorization.task!=='credential-model-billing-tool-smoke-only'||!Array.isArray(authorization.externalEffects)||authorization.externalEffects.length)fail('fixed-no-effect-canary-contract-required');
 const route={model:authorization.model,provider:'openrouter',sourceRef:'https://openrouter.ai/xiaomi/mimo-v2.6-flash',verifiedAt:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',contextTokens:1048576,maxOutputTokens:131072,inputUsdPerMillion:0.14,outputUsdPerMillion:0.28,cacheWriteUsdPerMillion:0.14,cacheReadUsdPerMillion:0.0028};
-const adapter=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>key,expectedKeyLimitUsd:20});
+const adapter=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>key,expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION});
 const paidExecutor=async payload=>{
  const result=await adapter.execute({model:payload.model,messages:[{role:'system',content:'Return exactly the word OK. Do not use tools, browse, send messages, mutate external state, or claim any effect.'},{role:'user',content:'Credential, model identity, usage and billing smoke test. Reply OK.'}],maxTokens:payload.maxTokens,providerPolicy:{data_collection:'deny'}});
  return {...result,provider:'openrouter',result:result.ok?{message:result.result,upstreamProvider:result.provider,generationReceipt:result.generationReceipt}:null};

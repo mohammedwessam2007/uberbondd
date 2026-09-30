@@ -157,6 +157,37 @@ export function estimateCompressedAdaptiveWriterFrontierUsd({
   return compressor+proposal+opus;
 }
 
+export function estimateCrownApprovedMacroCompiledUsd({
+  originalInputTokens=0,closedEvidenceTokens=0
+}={}){
+  // Bounded recurring lane only. MiMo may prepare exact-anchored evidence,
+  // but all material output semantics must already close through E0-E4 and a
+  // current independently trusted Crown-approved macro. No live Crown call is
+  // part of this execution because the renderer creates no new semantics.
+  return usdPerToken(.14,originalInputTokens)+usdPerToken(.28,closedEvidenceTokens);
+}
+
+export function chooseCrownApprovedMacroCompiledPath({
+  originalInputTokens=0,closedEvidenceTokens=0,
+  semanticClosureVerified=false,trustedCrownMacroCurrent=false,
+  deterministicRendererVerified=false,dependenciesCurrent=false
+}={}){
+  const reasons=[];
+  if(semanticClosureVerified!==true)reasons.push('CURRENT_E0_E4_SEMANTIC_CLOSURE_REQUIRED');
+  if(trustedCrownMacroCurrent!==true)reasons.push('CURRENT_TRUSTED_CROWN_MACRO_REQUIRED');
+  if(deterministicRendererVerified!==true)reasons.push('DETERMINISTIC_RENDERER_PROOF_REQUIRED');
+  if(dependenciesCurrent!==true)reasons.push('CURRENT_DEPENDENCIES_REQUIRED');
+  if(reasons.length)return {eligible:false,selected:null,reasons};
+  return {
+    eligible:true,
+    selected:{
+      path:'CROWN_APPROVED_MACRO_E2_RENDER',
+      usd:estimateCrownApprovedMacroCompiledUsd({originalInputTokens,closedEvidenceTokens})
+    },
+    qualityBoundary:'NO_NEW_SEMANTICS_AT_EXECUTION__CURRENT_E0_E4_CLOSURE_PLUS_TRUSTED_CROWN_MACRO'
+  };
+}
+
 export function estimateFusedAnchoredSourceWriterFrontierUsd({
   originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,
   crownAcceptTokens=6,crownCachedPrefixTokens=0

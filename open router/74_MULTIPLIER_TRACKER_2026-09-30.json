@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:35:00+03:00",
+  "updatedAt": "2026-09-30T22:30:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -291,6 +291,20 @@
       "actualAllInEnvelopeUsd": 30,
       "qualityLaw": "Every consumer executed through the same certified finite-policy semantics; no model authority was substituted.",
       "truthBoundary": "Execution fanout is observed. Direct-Opus unit cost and all-in $30 economics remain modeled until real task/reference/spend receipts bind them."
+    },
+    {
+      "label": "ghost-agent-crystallization-v19",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_ECONOMIC_MULTIPLIER_CREDIT__ORCHESTRATION_CRYSTALLIZED_TO_ZERO_INFERENCE",
+      "workload": "certified E3 Decision Franchise -> event-triggered Ghost Agent -> unrelated events sleep; matching events execute exact policy; drift/expiry decompile to frontier",
+      "providerCallsPerHit": 0,
+      "idleInferenceUsd": 0,
+      "qualityLaw": "Ghost Agent inherits only the exact certified franchise authority. It creates no new semantics and has no external-effect authority.",
+      "implementation": [
+        "src/ghost-agent.mjs",
+        "tests/ghost-agent.test.mjs"
+      ],
+      "benchmarkSpec": "10,000 idle + 10,000 matching events in deterministic test source, all expected zero inference"
     }
   ],
   "excludedFromCurrentNumber": [
@@ -341,6 +355,13 @@
       "runtimeThoughtBondExample": 500,
       "status": "STATIC_MULTICAST_PLUS_DURABLE_RUNTIME_AUTHORITY_IMPLEMENTED",
       "claimBoundary": "Semantic fanout only. Economic credit requires provable direct-reference receipts."
+    },
+    "ghostAgent": {
+      "economicMultiplierCredit": "NONE_ADDITIONAL",
+      "inferencePerCertifiedHitUsd": 0,
+      "idleInferenceUsd": 0,
+      "status": "DETERMINISTIC_CRYSTALLIZATION_IMPLEMENTED__DECOMPILE_ON_DRIFT",
+      "claimBoundary": "Already counted inside compiled-recurrence economics; do not double-count as another multiplier."
     }
   },
   "currentSystemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_DECISION_FRANCHISE_FANOUT"

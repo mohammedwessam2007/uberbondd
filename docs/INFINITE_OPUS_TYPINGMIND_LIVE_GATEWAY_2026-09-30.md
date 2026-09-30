@@ -39,20 +39,35 @@ UBERMIND GATEWAY
   +--> Reality Court / proof ledger
 ```
 
-Gateway v1 exposes the **raw human-chat** path first. Raw language is not assumed to be E0-E4. Therefore the v1 interactive quality law is:
+Gateway v1 exposes the **raw human-chat** path first. Raw language is not assumed to be E0-E4. The live v8 interactive quality law is now:
 
 ```
-GPT-6.1 Sol candidate
+if direct Opus is cheapest
+        |
+        +--> admitted Opus directly
+
+otherwise
         |
         v
-admitted General Crown review
+governed Jev control tensor
         |
-        +-- ACCEPT  -> reuse the Sol prose, Crown-verified semantics
+        +--> MiMo candidate writer       source-heavy / routine long-context
+        +--> DeepSeek candidate writer   coding / divergent non-hard work
+        +--> GPT-6.1 Sol writer          genuinely hard constructive work
         |
-        +-- REWRITE -> return direct Crown correction
+        +--> optional DeepSeek independent audit
+             only when Jev says high value AND total path remains below direct Opus
         |
-        +-- malformed review / provider drift -> refuse, never silently downgrade
+        v
+admitted General Crown review over the untouched original conversation
+        |
+        +-- ACCEPT  -> reuse cheaper candidate verbatim, Crown-verified semantics
+        +-- PATCH   -> exact localized Crown correction
+        +-- REWRITE -> direct Crown replacement
+        +-- provider/route drift -> refuse, never silently downgrade
 ```
+
+The processor auction is cache-aware: short-lived **observed** provider cache hits for the same stable session are allowed to change the economic choice. Unobserved cache savings are never assumed.
 
 This is intentionally expensive relative to compiled recurring work. The 33,333x program is not supposed to make every novel chat free. It is supposed to make **recurrence** descend out of frontier inference.
 
@@ -204,3 +219,49 @@ SOURCE MERGED
 ```
 
 No step may be skipped by substituting a key, architecture description, benchmark score, or model reputation for the required authority/evidence receipt.
+
+
+## v8 model-mechanics live auction
+
+The raw-chat gateway now uses model mechanics rather than a permanent fixed chain.
+
+### Preflight lower bound
+
+Before buying JEV or any candidate writer, UberMind compares direct Opus against the cheapest physically available writer-plus-Crown path using the fresh market route prices. If direct Opus is already cheaper even before task classification, all preparation is skipped.
+
+The preflight includes the estimated Jev decision-call cost. Routing overhead is therefore not treated as free.
+
+### Adaptive writer roles
+
+- `xiaomi/mimo-v2.6-flash` is eligible for source-heavy/research/routine candidate writing where its low input/output tariff and long-context bandwidth can save substantial output cost.
+- `deepseek/deepseek-v4.1-flash` is eligible for coding-shaped and divergent candidate writing.
+- `openai/gpt-6.1-sol` is forced for hard residuals; JEV selects low/high/max effort rather than paying maximal reasoning on every task.
+- The admitted Opus Crown always sees the original conversation. Cheap writers never become evidence filters whose omissions the Crown cannot inspect.
+
+### Independent critic auction
+
+DeepSeek criticism is not a mandatory stage.
+
+It runs only if:
+1. Jev assigns high independent-challenge value;
+2. the selected writer is not DeepSeek itself;
+3. adding the critic inference plus the extra Crown input still leaves the modeled path below direct Opus.
+
+The audit is marked untrusted in the Crown prompt and has zero semantic authority.
+
+### Writer failure
+
+A candidate-writer failure or empty candidate falls back to direct admitted Opus. Sunk writer and Jev costs remain included in the returned all-in cost receipt. Optimization failure may waste cents; it may not lower final quality.
+
+### Cache-locality economics
+
+For MiMo, DeepSeek, Sol and Opus, successful provider calls record observed `cachedInputTokens` by stable conversation session.
+
+Those observations:
+- expire after four minutes in the v8 router;
+- are bounded to the current original-conversation input size;
+- can reduce modeled input cost only for the same model/session;
+- never create semantic authority;
+- never turn an unobserved cache into a claimed saving.
+
+This lets the auction exploit real warm-prefix economics without pretending every follow-up is cached.

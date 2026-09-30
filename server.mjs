@@ -94,7 +94,7 @@ async function brokerUberMailStatus(coreHandler, req, res) {
 async function brokerUberMailBootstrap(coreHandler, req, res) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   let body = {};
-  try { body = await readSmallJsonBody(req); } catch (error) { return sendJson(res, 400, { error: error.message }); }
+  try { body = await readSmallJsonBody(req); } catch (error) { return sendTypingMindJson(req,res,400,{ error: error.message }); }
   try {
     const root = await getUberMailRuntime().bootstrapRootKey({
       name: String(body.name || 'UberMail Root').slice(0, 200),
@@ -314,19 +314,51 @@ async function currentInfiniteOpusPublicMarket() {
   return infiniteOpusPublicMarketCache;
 }
 
+function typingMindCors(req) {
+  const defaults=['https://www.typingmind.com','https://typingmind.com'];
+  const allowed=new Set(String(process.env.UBERMIND_TYPINGMIND_ALLOWED_ORIGINS || defaults.join(',')).split(',').map(x=>x.trim()).filter(Boolean));
+  const origin=String(req.headers.origin || '').trim();
+  if (!origin) return {ok:true,headers:{}};
+  if (!allowed.has(origin)) return {ok:false,headers:{}};
+  return {ok:true,headers:{
+    'access-control-allow-origin':origin,
+    'access-control-allow-methods':'GET,POST,OPTIONS',
+    'access-control-allow-headers':'authorization,content-type',
+    'access-control-max-age':'600',
+    'vary':'Origin'
+  }};
+}
+
+function sendTypingMindJson(req,res,status,payload){
+  const cors=typingMindCors(req);
+  if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
+  res.writeHead(status,{
+    'content-type':'application/json; charset=utf-8','cache-control':'no-store',
+    'x-content-type-options':'nosniff','x-frame-options':'DENY','referrer-policy':'no-referrer',
+    ...cors.headers
+  });
+  res.end(JSON.stringify(payload));
+}
+
 async function brokerTypingMindInfiniteOpus(req, res, url) {
+  const cors=typingMindCors(req);
+  if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
+  if(req.method==='OPTIONS'){
+    res.writeHead(204,{...cors.headers,'cache-control':'no-store'});
+    return res.end();
+  }
   const expectedToken = String(process.env.UBERMIND_TYPINGMIND_GATEWAY_TOKEN || '');
-  if (!verifyTypingMindGatewayBearer(req.headers.authorization, expectedToken)) return sendJson(res, 401, { error: 'Unauthorized' });
+  if (!verifyTypingMindGatewayBearer(req.headers.authorization, expectedToken)) return sendTypingMindJson(req,res,401,{ error: 'Unauthorized' });
   if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
     const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
     const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
-    return sendJson(res, 200, {
+    return sendTypingMindJson(req,res,200,{
       object: 'list',
       data: [{ id: 'ubermind/auto', object: 'model', created: 0, owned_by: 'uberbond' }],
       uberbond: gatewayStatus({ runtimeConnected: Boolean(process.env.OPENROUTER_API_KEY && paidAuthorization), crownAdmissionValid: Boolean(crownAdmission), jevShadowReady: false })
     });
   }
-  if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendJson(res, 404, { error: 'TypingMind UberMind route not found' });
+  if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendTypingMindJson(req,res,404,{ error: 'TypingMind UberMind route not found' });
 
   let body;
   try { body = await readSmallJsonBody(req, 300_000); }
@@ -334,19 +366,19 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
 
   let request;
   try { request = compileTypingMindChatRequest(body); }
-  catch (error) { return sendJson(res, 400, { error: String(error?.message || error) }); }
+  catch (error) { return sendTypingMindJson(req,res,400,{ error: String(error?.message || error) }); }
 
   const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
   const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
   const openRouterKey = String(process.env.OPENROUTER_API_KEY || '');
   let marketSnapshot;
   try { marketSnapshot = await currentInfiniteOpusPublicMarket(); }
-  catch (error) { return sendJson(res, 503, { ok: false, status: 'PUBLIC_MODEL_MARKET_UNAVAILABLE', error: String(error?.message || error) }); }
+  catch (error) { return sendTypingMindJson(req,res,503,{ ok: false, status: 'PUBLIC_MODEL_MARKET_UNAVAILABLE', error: String(error?.message || error) }); }
 
   return withUberSocketStore(async store => {
     const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, paidAuthorization, crownAdmission, marketSnapshot });
     const ready = orchestrator.readiness();
-    if (!ready.ok) return sendJson(res, 503, {
+    if (!ready.ok) return sendTypingMindJson(req,res,503,{
       ok: false,
       status: ready.status,
       reasons: ready.reasons,
@@ -356,10 +388,10 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
     });
     try {
       const result = await orchestrator.execute(request);
-      if (!result.ok) return sendJson(res, /QUEUED|BUDGET/.test(result.status || '') ? 429 : 503, result);
-      return sendJson(res, 200, result.completion);
+      if (!result.ok) return sendTypingMindJson(req,res,/QUEUED|BUDGET/.test(result.status || '') ? 429 : 503,result);
+      return sendTypingMindJson(req,res,200,result.completion);
     } catch (error) {
-      return sendJson(res, 503, { ok: false, status: 'TYPINGMIND_UBERMIND_EXECUTION_REFUSED', error: String(error?.message || error), qualityAction: 'QUEUE_NEVER_DOWNGRADE' });
+      return sendTypingMindJson(req,res,503,{ ok: false, status: 'TYPINGMIND_UBERMIND_EXECUTION_REFUSED', error: String(error?.message || error), qualityAction: 'QUEUE_NEVER_DOWNGRADE' });
     }
   });
 }

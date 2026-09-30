@@ -16,7 +16,7 @@ Primary configuration:
 - Host cash mode: `INFINITE_OPUS_CASH_ROUTE_MODE=OPENROUTER_ONLY`.
 - Direct OpenAI, Anthropic and Vercel AI Gateway cash paths fail closed in this mode. Zero-cash open-model compute and plan-included sandbox cognition remain separate accounting classes.
 - If other paid OpenRouter keys exist, disable them or reduce their limits so the total maximum of all active cash-metered keys remains <= USD 28.
-- Prefer a member/workspace guardrail of USD 28 monthly when the current account exposes that control. Per-key hard limits remain the primary portable control.
+- Require the `uberbond-global-28` member-wide monthly guardrail for the live $30 claim. The two per-key hard limits remain independent lower ceilings; if the account cannot expose and verify the member-wide guardrail, live activation stays blocked.
 
 OpenRouter supports per-key `limit` and `limit_reset`, including monthly reset, and exposes per-key usage/remaining balance. Current guardrails can also enforce budgets, ZDR, and model/provider restrictions. Provider privacy should require ZDR and deny data collection; the governed runtime also sets those request controls.
 

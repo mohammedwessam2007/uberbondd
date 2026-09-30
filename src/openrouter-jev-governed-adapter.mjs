@@ -89,13 +89,15 @@ export function createOpenRouterJevGovernedAdapter({
 
     return {
       ok:true,status:'JEV_TYPED_DECISION_OBSERVED',
-      model:b.model,provider:b.provider??null,id:b.id,
-      answers:structuredClone(b.answers),
+      model:b.model,observedModel:MODEL,modelRevision:b.model,provider:b.provider??null,
+      upstreamProvider:b.provider??null,id:b.id,providerRequestId:b.id,
+      answers:structuredClone(b.answers),result:{answers:structuredClone(b.answers),modelRevision:b.model},
       usage:{
         inputTokens:Number(usage.input_tokens??0),
         outputTokens:Number(usage.output_tokens??0),
+        cachedInputTokens:0,cacheWriteTokens:0,reasoningTokens:0,
         costUsd:cost,
-        costBasis:'OPENROUTER_DECISIONS_USAGE_COST_OBSERVED'
+        costBasis:'OPENROUTER_USAGE_COST_OBSERVED'
       },
       keyBefore:pre.key,keyAfter:post.key,accountDeltaUsd:accountDelta,
       semanticAuthority:'NONE',

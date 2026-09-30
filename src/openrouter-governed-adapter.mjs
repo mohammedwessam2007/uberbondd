@@ -1,3 +1,4 @@
+import { assertCognitionPerimeterAdmission } from './cognition-transport-guard.mjs';
 const BASE='https://openrouter.ai/api/v1';
 const text=async r=>{const t=await r.text();try{return JSON.parse(t)}catch{return {raw:t.slice(0,2000)}}};
 const finite=x=>Number.isFinite(Number(x))&&Number(x)>=0;
@@ -5,7 +6,8 @@ const secretSafe=x=>JSON.stringify(x??{}).replace(/sk-or-v1-[A-Za-z0-9_-]+/g,'[R
 function bearer(key){if(typeof key!=='string'||key.length<16)throw new Error('openrouter-key-required');return `Bearer ${key}`;}
 function keyData(body){return body?.data??body??{};}
 
-export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,baseUrl=BASE,expectedKeyLimitUsd,expectedLimitReset='monthly',requireZdr=true}={}){
+export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,baseUrl=BASE,expectedKeyLimitUsd,expectedLimitReset='monthly',requireZdr=true,cognitionPerimeterAdmission=null}={}){
+  assertCognitionPerimeterAdmission(cognitionPerimeterAdmission);
   if(typeof apiKeyProvider!=='function'||typeof fetchImpl!=='function'||baseUrl!==BASE) throw new Error('governed-openrouter-adapter-config-required');
   async function auth(){return bearer(await apiKeyProvider());}
   async function inspectKey(){

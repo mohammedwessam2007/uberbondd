@@ -171,12 +171,15 @@ test('verifier authority never exceeds tested scope and full coverage',()=>{
  const full=admitVerifierEvidence({verifierId:'v2',proves:['NUMBER_EQUALITY'],doesNotProve:['SEMANTICS'],mutationCases:10,falsePositiveCases:10,falseNegativeCases:10,independentCrossCheckPassed:true,coverage:1});
  assert.equal(verifierMayCertify(full,'NUMBER_EQUALITY'),true);assert.equal(verifierMayCertify(full,'SEMANTICS'),false);
 });
-test('management reconciler reads bounded key usage without returning secrets',async()=>{
+test('management reconciler reads bounded keys and member guardrail without returning secrets',async()=>{
  const secret='management-secret-xxxxxxxx';
  const a=createOpenRouterManagementReconciler({
    managementKeyProvider:async()=>secret,
-   fetchImpl:async(_u,o)=>{
+   fetchImpl:async(url,o)=>{
      assert.ok(o.headers.Authorization.includes(secret));
+     if(String(url).endsWith('/guardrails')) return {ok:true,status:200,text:async()=>JSON.stringify({data:[
+       {id:'g1',name:'uberbond-global-28',limit_usd:28,reset_interval:'monthly',member_ids:['member-1']}
+     ]})};
      return {ok:true,status:200,text:async()=>JSON.stringify({data:[
        {hash:'h1',name:'uberbond-runtime-20',limit:20,limit_reset:'monthly',usage_monthly:1},
        {hash:'h2',name:'uberbond-typingmind-8',limit:8,limit_reset:'monthly',usage_monthly:2}
@@ -184,7 +187,8 @@ test('management reconciler reads bounded key usage without returning secrets',a
    }
  });
  const r=await a.listKeyUsage({expectedLabels:['uberbond-runtime-20','uberbond-typingmind-8']});
- assert.equal(r.ok,true);assert.equal(r.aggregateLimitUsd,28);assert.equal(r.aggregateUsageMonthlyUsd,3);assert.ok(!JSON.stringify(r).includes(secret));
+ const g=await a.listGuardrails({expectedName:'uberbond-global-28',expectedLimitUsd:28,expectedReset:'monthly',expectedMemberId:'member-1'});
+ assert.equal(r.ok,true);assert.equal(g.ok,true);assert.equal(r.aggregateLimitUsd,28);assert.equal(r.aggregateUsageMonthlyUsd,3);assert.ok(!JSON.stringify({r,g}).includes(secret));
 });
 test('reusable Crown thought without a durable descendant is a capitalization failure',()=>{
  const r=auditCrownCapitalization({crownCallReceipts:[{kind:'CROWN_CALL',callId:'c1',semanticReusableStructure:true}],capitalAssets:[]});assert.equal(r.failures.length,1);assert.equal(r.crownCapitalYield,0);

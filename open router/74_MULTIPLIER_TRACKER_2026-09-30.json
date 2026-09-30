@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:32:00+03:00",
+  "updatedAt": "2026-09-30T21:37:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -88,6 +88,31 @@
         "src/cognitive-macro-assembler.mjs"
       ],
       "deltaVsPriorMultiplierPercent": 242.6195290246478
+    },
+    {
+      "label": "checkpoint-36-crown-boundary-querying",
+      "multiplier": 100.22403018511969,
+      "status": "MODELED_CERTIFIED_JEV_PATH_WITH_TOKEN_BOUNDED_CROWN_AUDITS",
+      "workload": "200k source -> certified Jev relevance -> exact source-copy -> E0-E4 closure -> trusted Crown macro; 5% audits compiled to <=400-token Crown boundary query with 1-token verdict",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.008481,
+      "costBreakdownUsd": {
+        "jevSourceRelevance": 0.0084,
+        "expectedCrownBoundaryAudit": 0.000081,
+        "macroRenderInference": 0
+      },
+      "auditGeometry": {
+        "auditRate": 0.05,
+        "maxVerifiedCrownAuditInputTokens": 400,
+        "crownAuditOutputTokens": 1
+      },
+      "qualityLaw": "Audit rate is unchanged from checkpoint 35. Token reduction is allowed only when an independently verified tokenizer receipt proves the complete Crown audit request is <=400 tokens. Crown audit remains semantically authoritative for sampled Jev boundary checks.",
+      "executableSources": [
+        "src/crown-boundary-query.mjs",
+        "src/jev-applicability-passport.mjs",
+        "src/cognitive-macro-assembler.mjs"
+      ],
+      "deltaVsPriorMultiplierPercent": 1.179105386318085
     }
   ],
   "excludedFromCurrentNumber": [
@@ -106,9 +131,9 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 99.05605407295187,
-  "currentCheckpoint": "checkpoint-35-certified-jev-evidence-gate-with-audits",
-  "nextGate": 100,
+  "currentCanonicalModeledMultiplier": 100.22403018511969,
+  "currentCheckpoint": "checkpoint-36-crown-boundary-querying",
+  "nextGate": 250,
   "currentColdModeledMultiplier": 14.1149119893723,
-  "currentBestBoundedRecurringModeledMultiplier": 99.05605407295187
+  "currentBestBoundedRecurringModeledMultiplier": 100.22403018511969
 }

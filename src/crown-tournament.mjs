@@ -1,0 +1,14 @@
+import crypto from 'node:crypto';
+const hash=x=>'sha256:'+crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex');
+const ROLES=Object.freeze(['GENERAL_CROWN','CODING_CROWN','RESEARCH_CROWN','AUTOMATION_TERMINAL_CROWN','LONG_CONTEXT_CROWN','MULTIMODAL_CROWN','FORMAL_MATH_CROWN','CHEAP_STRONG_WORKER','ULTRA_CHEAP_WORKER']);
+export function compileCrownTournament({candidateSnapshotHash,hiddenTasks=[],candidates=[],budgetAuthorizationRef=null}={}){
+ if(!/^sha256:[0-9a-f]{64}$/.test(String(candidateSnapshotHash||''))||!Array.isArray(hiddenTasks)||hiddenTasks.length<1||!Array.isArray(candidates)||candidates.length<2)return{ok:false,status:'TOURNAMENT_INPUT_REFUSED'};
+ const tasks=hiddenTasks.map(t=>({taskId:t.taskId,role:t.role,qualityDimensions:[...(t.qualityDimensions??[])],sealedExpectedRef:t.sealedExpectedRef??null}));if(tasks.some(t=>!ROLES.includes(t.role)||!t.taskId||!t.qualityDimensions.length))return{ok:false,status:'TOURNAMENT_TASK_CONTRACT_REFUSED'};
+ const plan={schemaVersion:'uberbond.crown-tournament.v1',candidateSnapshotHash,tasks,candidates:candidates.map(c=>({model:c.model,roles:[...(c.roles??[])]})),budgetAuthorizationRef,blindEvaluation:true,pairedRequiredRegressionTolerance:0,brandLoyalty:false,publicBenchmarkAuthority:'NONE'};
+ return{ok:true,status:budgetAuthorizationRef?'TOURNAMENT_READY_AUTHORIZED':'TOURNAMENT_READY_AWAITING_PAID_AUTHORIZATION',plan:{...plan,planHash:hash(plan)}};
+}
+export function adjudicateCrownTournament({plan,observations=[]}={}){
+ if(!plan?.planHash||hash(Object.fromEntries(Object.entries(plan).filter(([k])=>k!=='planHash')))!==plan.planHash)return{ok:false,status:'TOURNAMENT_PLAN_INTEGRITY_FAILED'};
+ const byRole={};for(const role of ROLES){const rows=observations.filter(o=>o.role===role&&o.hiddenTask===true&&o.providerBillObserved===true&&o.modelIdentityVerified===true&&o.requiredRegressions===0&&Number.isFinite(o.qualityScore)&&Number.isFinite(o.costUsd));if(!rows.length)continue;const perModel=new Map();for(const r of rows){const x=perModel.get(r.model)??{model:r.model,n:0,q:0,c:0};x.n++;x.q+=r.qualityScore;x.c+=r.costUsd;perModel.set(r.model,x);}const ranked=[...perModel.values()].map(x=>({...x,meanQuality:x.q/x.n,totalCostUsd:x.c})).sort((a,b)=>b.meanQuality-a.meanQuality||a.totalCostUsd-b.totalCostUsd||a.model.localeCompare(b.model));if(ranked.length>=2&&ranked[0].n>=2)byRole[role]={incumbent:ranked[0].model,evidenceTasks:ranked[0].n,meanQuality:ranked[0].meanQuality,totalCostUsd:ranked[0].totalCostUsd};}
+ return{ok:true,status:Object.keys(byRole).length?'TASK_CLASS_CROWNS_EVIDENCE_PROMOTABLE':'NO_ROLE_HAS_SUFFICIENT_EVIDENCE',roles:byRole,semanticAuthority:'TOURNAMENT_EVIDENCE_ONLY'};
+}

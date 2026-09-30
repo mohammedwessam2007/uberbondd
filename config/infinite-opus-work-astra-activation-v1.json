@@ -51,7 +51,14 @@
     "directOpenRouterKey": false,
     "tools": false,
     "vision": false,
-    "maxOutputTokens": 4096
+    "maxOutputTokens": 8192,
+    "recommendedContextLengthTokens": 64000,
+    "supportSystemRole": true,
+    "supportStreamingOutput": true,
+    "supportPlugins": false,
+    "supportImageInput": false,
+    "supportThinking": false,
+    "contextTruthBoundary": "Front-end context hint only; server hard-enforces 300000 request bytes and budget-aware output reservations."
   },
   "render": {
     "alreadyObserved": {

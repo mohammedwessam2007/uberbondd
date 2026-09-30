@@ -45,6 +45,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
       cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, crownInteractions: {}, crownInteractionReceipts: {},
+      crownInteractionReceiptPeriod: today().slice(0, 7), crownInteractionReceiptArchives: [],
       negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
@@ -66,6 +67,21 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     state.proofLedger ??= createProvableExecutionLedger({ period: today().slice(0, 7) });
     state.crownInteractions ??= {};
     state.crownInteractionReceipts ??= {};
+    state.crownInteractionReceiptArchives ??= [];
+    state.crownInteractionReceiptPeriod ??= today().slice(0, 7);
+    if (state.crownInteractionReceiptPeriod !== today().slice(0, 7)) {
+      const ids = Object.keys(state.crownInteractionReceipts).sort();
+      state.crownInteractionReceiptArchives.push({
+        period: state.crownInteractionReceiptPeriod,
+        receiptCount: ids.length,
+        receiptSetDigest: 'sha256:' + semanticHash(ids),
+        compactedAt: clock(),
+        truthBoundary: 'Individual recurrence receipts are redundant dedupe witnesses; provider request IDs/costs remain in cognition ledgers while recurrence/output/cost aggregates remain in crownInteractions.'
+      });
+      if (state.crownInteractionReceiptArchives.length > 120) throw new Error('crown-recurrence-archive-checkpoint-required');
+      state.crownInteractionReceipts = {};
+      state.crownInteractionReceiptPeriod = today().slice(0, 7);
+    }
     if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -174,7 +190,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             interactionId, recurrence: existing ? structuredClone(existing.summary) : null,
             semanticReuseAuthority: 'NONE', providerCallsPerformed: 0 });
         }
-        if (Object.keys(state.crownInteractionReceipts).length >= 20000) throw new Error('archive-checkpoint-required-before-crown-interaction-growth');
+        if (Object.keys(state.crownInteractionReceipts).length >= 20000) throw new Error('current-period-crown-interaction-dedupe-cap-reached');
         const totalCostMicrousd = record.builderCostMicrousd + record.crownCostMicrousd;
         const entry = state.crownInteractions[record.requestFingerprint] ?? {
           requestFingerprint: record.requestFingerprint,
@@ -284,6 +300,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           capitalAssets: Object.keys(state.capital).length,
           crownInteractionFingerprints: Object.keys(state.crownInteractions).length,
           recurrentCrownCompilerCandidates: Object.values(state.crownInteractions).filter(row => row?.summary?.occurrences >= 2).length,
+          crownInteractionCurrentPeriodReceipts: Object.keys(state.crownInteractionReceipts).length,
+          crownInteractionReceiptArchivePeriods: state.crownInteractionReceiptArchives.length,
           paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });

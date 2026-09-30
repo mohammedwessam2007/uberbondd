@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.infinite-opus.continuation-backup.v1",
   "date": "2026-09-30",
-  "status": "CONTINUATION_BACKED_UP_PRE_PR",
+  "status": "CONTINUATION_BACKED_UP_IN_PR",
   "baseMain": "3e689358de603e97ea2fd44ed274d04e9aeded0d",
   "branch": "infinite-opus/continuation-proof-capital-20260930",
   "inheritedThrough": [
@@ -41,5 +41,10 @@
     "realReferenceCompressionFactor": "UNKNOWN",
     "millionDollarMatchedReferenceAchieved": false
   },
-  "next": "OPEN_PR -> VERIFY_BRANCH -> MERGE_IF_GREEN -> NEW_CHAT_USES_27_PROMPT -> OWNER_PRIVATE_ACTIVATION -> TINY_CANARY -> LIVE_TOURNAMENT -> REAL_WORKLOAD -> PROOF_LEDGER"
+  "next": "VERIFY_PR_1061 -> MERGE_IF_SOURCE_GREEN -> NEW_CHAT_USES_27_PROMPT -> OWNER_PRIVATE_ACTIVATION -> TINY_CANARY -> LIVE_TOURNAMENT -> REAL_WORKLOAD -> PROOF_LEDGER",
+  "pullRequest": {
+    "number": 1061,
+    "url": "https://github.com/mohammedwessam2007/uberbondd/pull/1061",
+    "headAtCreation": "08dd9f9760e1bbc454338ae7d8e4204ab8629af6"
+  }
 }

@@ -7,6 +7,8 @@ envVarGroups:
         value: true
       - key: AI_PROVIDER
         value: rules
+      - key: INFINITE_OPUS_CASH_ROUTE_MODE
+        value: OPENROUTER_ONLY
       - key: AUTOPILOT_ENABLED
         value: false
       - key: DISCOVERY_ENABLED

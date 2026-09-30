@@ -19,9 +19,9 @@ test('processor fabric binds every model to a distinct structural role',()=>{
 
 test('Jev vectorizes multiple typed control questions over one shared state',()=>{
   const qs=vectorizeJevQuestions([
-    {id:'relevance',type:'Noul'},
-    {id:'route',type:'Choice'},
-    {id:'relevance',type:'Noul'}
+    {id:'relevance',type:'noul'},
+    {id:'route',type:'choice'},
+    {id:'relevance',type:'noul'}
   ]);
   assert.equal(qs.length,2);
   const p=selectProcessorPlan({

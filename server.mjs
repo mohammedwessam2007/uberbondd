@@ -502,6 +502,10 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/queue') {
       return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });
     }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/capital') {
+      return sendJson(res, 200, { ok: true, crownCapitalization: await runtime.crownCapitalizationPlan({ limit: 100 }), paidInferenceTriggered: false,
+        truthBoundary: 'This surface ranks recurrence/compiler targets from hashes and observed cost only. It stores no raw conversation and grants no semantic reuse authority.' });
+    }
     return sendJson(res, 404, { error: 'Infinite Opus route not found' });
   });
 }

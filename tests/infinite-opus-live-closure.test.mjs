@@ -9,6 +9,7 @@ import {partialEvaluateSemanticProgram,verifySpecialization,buildVerifiedSemanti
 import {createOpenRouterGovernedAdapter} from '../src/openrouter-governed-adapter.mjs';
 import {cognitionRouteInventory} from '../src/cognition-route-inventory.mjs';
 import {enhanceAudit} from '../src/ai.mjs';
+import {COGNITION_PERIMETER_ADMISSION} from '../src/cognition-transport-guard.mjs';
 import {createUnifiedCognitionLedger,appendCognitionEvent,cognitionLedgerSummary} from '../src/unified-cognition-ledger.mjs';
 import {buildInfiniteOpusScoreboard} from '../src/infinite-opus-scoreboard.mjs';
 import {validateSemanticProgram} from '../src/semantic-isa-v2.mjs';
@@ -70,12 +71,12 @@ test('OpenRouter adapter verifies key policy, model, usage, generation bill and 
   {status:200,body:{data:{label:'runtime',limit:20,limit_remaining:19.999,usage_monthly:.001,limit_reset:'monthly'}}}
  ];
  const fetchImpl=async(url,opts={})=>{assert.ok(String(opts.headers?.Authorization??'').includes(secret));const x=responses[n++];return {ok:x.status<300,status:x.status,text:async()=>JSON.stringify(x.body)};};
- const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>secret,fetchImpl,expectedKeyLimitUsd:20});
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>secret,fetchImpl,expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION});
  const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'reply OK'}],maxTokens:4});assert.equal(r.ok,true);assert.equal(r.semanticAuthority,'NONE');assert.ok(!JSON.stringify(r).includes(secret));
 });
 test('OpenRouter wrong-model response is refused and not Crown authority',async()=>{
  const seq=[{data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}},{id:'g',model:'wrong/model',choices:[],usage:{cost:.001}}];let i=0;
- const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(seq[i++])})});
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(seq[i++])})});
  const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'x'}],maxTokens:1});assert.equal(r.status,'OPENROUTER_WRONG_MODEL_SERVED');
 });
 

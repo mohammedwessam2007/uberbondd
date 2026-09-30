@@ -13,7 +13,7 @@ export function compileDirectFrontierCounterfactual({model,providerRoute,canonic
  for(const k of flags)if(economics[k]!==true)reasons.push(k+'-required');
  if(reasons.length)return{ok:false,status:'DIRECT_FRONTIER_COUNTERFACTUAL_REFUSED',reasons};
  const directReference={model,providerRoute,priceEvidenceRef:priceReceipt.evidenceRef,counterfactualOptimizationEvidenceRef:economics.evidenceRef??priceReceipt.evidenceRef,
-  freshInputTokens:tokenizerReceipt.inputTokens,cachedInputTokens:economics.cachedInputTokens??0,outputTokens:tokenizerReceipt.outputTokens,
+  freshInputTokens:tokenizerReceipt.inputTokens-(economics.cachedInputTokens??0),cachedInputTokens:economics.cachedInputTokens??0,outputTokens:tokenizerReceipt.outputTokens,
   inputUsdPerMillion:priceReceipt.inputUsdPerMillion,cacheReadUsdPerMillion:priceReceipt.cacheReadUsdPerMillion??priceReceipt.inputUsdPerMillion,
   outputUsdPerMillion:priceReceipt.outputUsdPerMillion,batchMultiplier:economics.batchMultiplier??1,providerPriceMultiplier:economics.providerPriceMultiplier??1,
   platformFeeRate:economics.platformFeeRate??0,identicalRequest:economics.identicalRequest===true,responseCacheEligible:economics.responseCacheEligible===true,

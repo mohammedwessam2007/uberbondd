@@ -46,7 +46,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
-      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, decisionFranchises: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
+      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, decisionFranchises: {}, contextSnapshots: {}, activeContextByTaskClass: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
     // Preserve every historical month; unsettled charges block paid capacity.
@@ -67,6 +67,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     state.proofLedger ??= createProvableExecutionLedger({ period: today().slice(0, 7) });
     state.thoughtBonds ??= {};
     state.decisionFranchises ??= {};
+    state.contextSnapshots ??= {};
+    state.activeContextByTaskClass ??= {};
     if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -77,9 +79,18 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     await tx.setSetting(SETTING, state);
   }
   async function getContext(task) {
-    if (typeof contextLoader !== 'function') return null;
-    const context = await contextLoader(task);
-    return validateSemanticContext(context, clock()).length ? null : context;
+    if (typeof contextLoader === 'function') {
+      const context = await contextLoader(task);
+      return validateSemanticContext(context, clock()).length ? null : context;
+    }
+    return transact(store,async tx=>{
+      const state=await stateFor(tx),snapshotHash=state.activeContextByTaskClass?.[task?.taskClass];
+      const row=snapshotHash?state.contextSnapshots?.[snapshotHash]:null;
+      if(!row)return null;
+      if(Date.parse(row.expiresAt)<=clock())return null;
+      if(row.contextHash!==semanticHash(row.context)||validateSemanticContext(row.context,clock()).length)return null;
+      return structuredClone(row.context);
+    });
   }
   return {
     async execute(task) {
@@ -246,6 +257,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           taskCount: Object.keys(state.tasks).length, pendingDebts: Object.values(state.debts).filter(d => d.status !== 'SETTLED').length,
           capitalAssets: Object.keys(state.capital).length, thoughtBondCount:Object.keys(state.thoughtBonds).length,
           decisionFranchiseCount:Object.keys(state.decisionFranchises).length,
+          contextSnapshotCount:Object.keys(state.contextSnapshots).length,
           paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });
@@ -268,6 +280,42 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         return zero({ok:true,status:existing?'IDEMPOTENT_THOUGHT_BOND_ADMISSION':'FRONTIER_THOUGHT_BOND_ADMITTED',
           cutHash:verified.cutHash,authorityId:verified.authorityId,providerCallsPerformed:0,
           semanticAuthority:'CURRENT_TASK_CLASS_CROWN_BOUND_TO_EXACT_CUT'});
+      });
+    },
+    async admitContextSnapshot({taskClass,context,evidenceRef,expiresAt}={}) {
+      if(!identity(taskClass)||typeof evidenceRef!=='string'||!evidenceRef) return zero({ok:false,status:'CONTEXT_SNAPSHOT_REFUSED',reasons:['task-class-and-evidence-required'],providerCallsPerformed:0});
+      safePayload({taskClass,context,evidenceRef,expiresAt});
+      const reasons=validateSemanticContext(context,clock());
+      const expiry=Date.parse(expiresAt);
+      if(!Number.isFinite(expiry)||expiry<=clock())reasons.push('future-context-expiry-required');
+      if(!context?.sourceHashes||!Object.keys(context.sourceHashes).length)reasons.push('nonempty-source-state-required');
+      if(reasons.length)return zero({ok:false,status:'CONTEXT_SNAPSHOT_REFUSED',reasons:[...new Set(reasons)],providerCallsPerformed:0,semanticAuthority:'NONE'});
+      const contextHash=semanticHash(context);
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),existing=state.contextSnapshots[contextHash];
+        state.contextSnapshots[contextHash]=existing??{
+          taskClass,context:structuredClone(context),contextHash,evidenceRef,expiresAt,admittedAt:new Date(clock()).toISOString()
+        };
+        if(existing && (existing.taskClass!==taskClass||existing.evidenceRef!==evidenceRef||existing.expiresAt!==expiresAt)){
+          return zero({ok:false,status:'CONTEXT_SNAPSHOT_HASH_CONFLICT',contextHash,providerCallsPerformed:0,semanticAuthority:'NONE'});
+        }
+        const priorHash=state.activeContextByTaskClass[taskClass]??null;
+        state.activeContextByTaskClass[taskClass]=contextHash;
+        state.receipts.push({kind:'CONTEXT_SNAPSHOT_ACTIVATED',taskClass,contextHash,priorHash,evidenceRef,expiresAt,observedAt:clock(),providerCallsPerformed:0});
+        await persist(tx,state);
+        return zero({ok:true,status:priorHash===contextHash?'IDEMPOTENT_CONTEXT_SNAPSHOT':'CONTEXT_SNAPSHOT_ACTIVATED',
+          taskClass,contextHash,priorHash,expiresAt,providerCallsPerformed:0,semanticAuthority:'NONE',
+          claimBoundary:'Trusted current-state input only; context snapshots do not create semantic decision authority.'});
+      });
+    },
+    async listContextSnapshots() {
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const active=Object.entries(state.activeContextByTaskClass).map(([taskClass,contextHash])=>{
+          const row=state.contextSnapshots[contextHash];
+          return {taskClass,contextHash,evidenceRef:row?.evidenceRef??null,expiresAt:row?.expiresAt??null,active:Boolean(row&&Date.parse(row.expiresAt)>clock())};
+        });
+        return zero({ok:true,status:'CONTEXT_SNAPSHOT_VAULT',active,storedSnapshotCount:Object.keys(state.contextSnapshots).length,providerCallsPerformed:0});
       });
     },
     async admitExhaustiveDecisionFranchise(bundle) {

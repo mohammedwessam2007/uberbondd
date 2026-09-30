@@ -13,6 +13,9 @@ import { createInfiniteOpusRuntime } from './src/infinite-opus-native-runtime.mj
 import { compileCognitionEconomicPerimeter } from './src/cognition-economic-perimeter.mjs';
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
+import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
+import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
+import { createTypingMindLiveOrchestrator } from './src/infinite-opus-typingmind-live.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -24,6 +27,7 @@ let createdHardenedHandler = null;
 let uberSocketRestorePromise = null;
 let uberSocketRestoreReceipt = null;
 let uberMailRuntime = null;
+let infiniteOpusPublicMarketCache = null;
 
 const publicCapabilityPath = pathname => pathname === '/unsubscribe'
   || pathname === '/api/public/unsubscribe'
@@ -290,6 +294,76 @@ async function brokerUberSocket(coreHandler, req, res, url) {
   }
 }
 
+function parseJsonEnvironment(name) {
+  const raw = String(process.env[name] || '').trim();
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : null;
+  } catch { return null; }
+}
+
+async function currentInfiniteOpusPublicMarket() {
+  const now = Date.now();
+  if (infiniteOpusPublicMarketCache && Date.parse(infiniteOpusPublicMarketCache.expiresAt) > now + 60_000) return infiniteOpusPublicMarketCache;
+  const response = await fetch('https://openrouter.ai/api/v1/models', { signal: AbortSignal.timeout(20_000) });
+  if (!response.ok) throw new Error('openrouter-public-model-catalog-unavailable');
+  const raw = await response.text();
+  if (Buffer.byteLength(raw) > 10_000_000) throw new Error('openrouter-public-model-catalog-too-large');
+  infiniteOpusPublicMarketCache = compileInfiniteOpusMarket(JSON.parse(raw), { verifiedAt: new Date(now).toISOString(), ttlMs: 10 * 60 * 1000 });
+  return infiniteOpusPublicMarketCache;
+}
+
+async function brokerTypingMindInfiniteOpus(req, res, url) {
+  const expectedToken = String(process.env.UBERMIND_TYPINGMIND_GATEWAY_TOKEN || '');
+  if (!verifyTypingMindGatewayBearer(req.headers.authorization, expectedToken)) return sendJson(res, 401, { error: 'Unauthorized' });
+  if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
+    const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+    const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
+    return sendJson(res, 200, {
+      object: 'list',
+      data: [{ id: 'ubermind/auto', object: 'model', created: 0, owned_by: 'uberbond' }],
+      uberbond: gatewayStatus({ runtimeConnected: Boolean(process.env.OPENROUTER_API_KEY && paidAuthorization), crownAdmissionValid: Boolean(crownAdmission), jevShadowReady: false })
+    });
+  }
+  if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendJson(res, 404, { error: 'TypingMind UberMind route not found' });
+
+  let body;
+  try { body = await readSmallJsonBody(req, 300_000); }
+  catch (error) { return sendJson(res, 400, { error: error.message }); }
+
+  let request;
+  try { request = compileTypingMindChatRequest(body); }
+  catch (error) { return sendJson(res, 400, { error: String(error?.message || error) }); }
+
+  const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+  const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
+  const openRouterKey = String(process.env.OPENROUTER_API_KEY || '');
+  let marketSnapshot;
+  try { marketSnapshot = await currentInfiniteOpusPublicMarket(); }
+  catch (error) { return sendJson(res, 503, { ok: false, status: 'PUBLIC_MODEL_MARKET_UNAVAILABLE', error: String(error?.message || error) }); }
+
+  return withUberSocketStore(async store => {
+    const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, paidAuthorization, crownAdmission, marketSnapshot });
+    const ready = orchestrator.readiness();
+    if (!ready.ok) return sendJson(res, 503, {
+      ok: false,
+      status: ready.status,
+      reasons: ready.reasons,
+      qualityAction: 'QUEUE_NEVER_DOWNGRADE',
+      sideEffectAuthority: 'NONE',
+      truthBoundary: 'The cockpit refuses live answers until the runtime key, current paid authorization, fresh prices and a valid current General-Crown admission all exist.'
+    });
+    try {
+      const result = await orchestrator.execute(request);
+      if (!result.ok) return sendJson(res, /QUEUED|BUDGET/.test(result.status || '') ? 429 : 503, result);
+      return sendJson(res, 200, result.completion);
+    } catch (error) {
+      return sendJson(res, 503, { ok: false, status: 'TYPINGMIND_UBERMIND_EXECUTION_REFUSED', error: String(error?.message || error), qualityAction: 'QUEUE_NEVER_DOWNGRADE' });
+    }
+  });
+}
+
 async function brokerInfiniteOpus(coreHandler, req, res, url) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   return withUberSocketStore(async store => {
@@ -345,6 +419,7 @@ function harden(coreHandler) {
     if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
     if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
     if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
+    if (url.pathname.startsWith('/api/typingmind/infinite-opus/v1/')) return brokerTypingMindInfiniteOpus(req, res, url);
     if (url.pathname.startsWith('/api/admin/infinite-opus/')) return brokerInfiniteOpus(coreHandler, req, res, url);
     return coreHandler(req, res);
   };

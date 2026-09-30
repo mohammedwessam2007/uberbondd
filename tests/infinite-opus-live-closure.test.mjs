@@ -70,7 +70,7 @@ test('OpenRouter adapter verifies key policy, model, usage, generation bill and 
   {status:200,body:{data:{provider_name:'Anthropic',model:'anthropic/claude-opus-5.5',total_cost:.001,tokens_prompt:10,tokens_completion:2}}},
   {status:200,body:{data:{label:'runtime',limit:20,limit_remaining:19.999,usage_monthly:.001,limit_reset:'monthly'}}}
  ];
- const fetchImpl=async(url,opts={})=>{assert.ok(String(opts.headers?.Authorization??'').includes(secret));const x=responses[n++];return {ok:x.status<300,status:x.status,text:async()=>JSON.stringify(x.body)};};
+ const fetchImpl=async(url,opts={})=>{assert.ok(String(opts.headers?.Authorization??'').includes(secret));if(String(url).includes('/chat/completions')){const body=JSON.parse(opts.body);assert.equal(body.provider.zdr,true);assert.equal(body.provider.data_collection,'deny');}const x=responses[n++];return {ok:x.status<300,status:x.status,text:async()=>JSON.stringify(x.body)};};
  const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>secret,fetchImpl,expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION});
  const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'reply OK'}],maxTokens:4});assert.equal(r.ok,true);assert.equal(r.semanticAuthority,'NONE');assert.ok(!JSON.stringify(r).includes(secret));
 });
@@ -135,4 +135,9 @@ test('recurrence map exposes real fanout without claiming semantic equivalence f
   {id:'2',taskClass:'research',driftClass:'LOW',obligation:{op:'verify',x:1},claim:'A',sourceDependencies:['s'],verificationStep:'v'},
   {id:'3',taskClass:'coding',driftClass:'HIGH',obligation:{op:'verify',x:2},claim:'A-ish',sourceDependencies:['t'],verificationStep:'v2'}
  ];const r=buildRecurrenceMap(rows);assert.equal(r.dimensions.obligation.maxFanout,2);assert.equal(r.priorityDomains[0].taskClass,'research');
+});
+
+test('OpenRouter privacy policy cannot be loosened by a caller',async()=>{
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify({data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}})})});
+ await assert.rejects(()=>a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,providerPolicy:{zdr:false,data_collection:'allow'}}),/privacy-policy-cannot-loosen/);
 });

@@ -1,0 +1,174 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import { compileInfiniteOpusMarket } from '../src/infinite-opus-market.mjs';
+import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
+import { compileTypingMindChatRequest, TYPINGMIND_UBERMIND_MODEL } from '../src/infinite-opus-typingmind-gateway.mjs';
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness,
+  TYPINGMIND_JEV_MODEL,TYPINGMIND_BUILDER_MODEL,TYPINGMIND_CROWN_MODEL,TYPINGMIND_CROWN_ROUTE_IDENTITY } from '../src/infinite-opus-typingmind-live.mjs';
+
+const h=x=>'sha256:'+crypto.createHash('sha256').update(String(x)).digest('hex');
+const now=Date.parse('2026-09-30T13:30:00Z');
+const iso=new Date(now).toISOString();
+const makeStore=()=>{
+ let settings={};
+ return {
+   transaction:async fn=>fn({
+     transactionClient:false,
+     getSettings:async()=>structuredClone(settings),
+     setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v)};}
+   }),
+   dump:()=>structuredClone(settings)
+ };
+};
+const market=()=>compileInfiniteOpusMarket({data:[
+ {id:TYPINGMIND_JEV_MODEL,canonical_slug:'jev-r1',pricing:{prompt:'0.000000042',completion:'0'},context_length:32000,top_provider:{max_completion_tokens:1},supported_parameters:[],architecture:{input_modalities:['text']}},
+ {id:TYPINGMIND_BUILDER_MODEL,canonical_slug:'sol-r1',pricing:{prompt:'0.000002',completion:'0.000010',input_cache_read:'0.0000001',input_cache_write:'0.0000025'},context_length:1050000,top_provider:{max_completion_tokens:128000},supported_parameters:['tools','structured_outputs'],architecture:{input_modalities:['text']}},
+ {id:TYPINGMIND_CROWN_MODEL,canonical_slug:'opus-r1',pricing:{prompt:'0.000004',completion:'0.000020',input_cache_read:'0.0000002',input_cache_write:'0.000005'},context_length:1000000,top_provider:{max_completion_tokens:128000},supported_parameters:['tools','structured_outputs'],architecture:{input_modalities:['text']}}
+]},{verifiedAt:iso,ttlMs:86400000});
+
+const admission=(provider='Anthropic',routeIdentity=TYPINGMIND_CROWN_ROUTE_IDENTITY)=>{
+ const issued=issueCrownAdmissionReceipt({
+  providerCallId:'tournament-opus',exactModelId:TYPINGMIND_CROWN_MODEL,providerIdentity:provider,routeIdentity,
+  taskClassRole:'GENERAL_CROWN',promptProgramHash:h('prompt'),semanticInputHash:h('input'),qualityContractHash:h('quality'),
+  sourceDependencyHashes:[h('source')],evidenceReferences:['fixture://sealed-tournament'],outputHash:h('out'),
+  timestamp:iso,expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'fixture-auth',costReceiptRef:'fixture-bill',
+  modelCallabilityReceiptRef:'fixture-callability',revalidationPolicy:'EXPIRE_OR_SUCCESSION',authorizationStatus:'AUTHORIZED_FOR_THIS_CALL',
+  actualCostMicrousd:2000,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,modelCallabilityVerified:true,
+  tournamentEvidenceVerified:true,roleTournamentEvidenceRef:'fixture://tournament'
+ });
+ assert.equal(issued.ok,true);return issued.receipt;
+};
+const authorization=()=>({evidenceRef:'owner-fixture',month:'2026-09',maxMonthlyMicrousd:20_000_000,expiresAt:'2026-10-01T00:00:00Z',
+ crownRoutes:['openrouter:'+TYPINGMIND_CROWN_MODEL]});
+const builderRequest=()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'Produce a detailed answer.'}],max_tokens:3000});
+const directRequest=()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'Short exact explanation.'}],max_tokens:100});
+const key=usage=>({data:{label:'uberbond-runtime-20',limit:20,limit_remaining:20-usage,usage_monthly:usage,limit_reset:'monthly'}});
+
+function builderSequence({crownProvider='Anthropic',crownReview={verdict:'ACCEPT',patches:[],rewrite:''},hardScore=2}={}){
+ return [
+  key(0),
+  {model:'typesafe/jev-1.13-20260917',answers:{
+    task_shape:{type:'choice',choice:'other',probabilities:{other:.8,coding:.2},confidence:.7},
+    source_compression_value:{type:'score',score:0,confidence:.9},
+    independent_challenge:{type:'noul',noul:.2},
+    hard_reasoning:{type:'score',score:hardScore,confidence:.9},
+    crown_necessity:{type:'noul',noul:.99}
+  },usage:{input_tokens:500,output_tokens:40,cost:.000042},id:'gen-dec-1',provider:'TypeSafe'},
+  key(.000042),
+
+  key(.000042),
+  {id:'g-builder',model:TYPINGMIND_BUILDER_MODEL,choices:[{message:{role:'assistant',content:'Builder answer is 41.'}}],usage:{cost:.001,prompt_tokens:100,completion_tokens:10,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
+  {data:{provider_name:'OpenAI',router:'openrouter/auto',model:TYPINGMIND_BUILDER_MODEL,total_cost:.001,tokens_prompt:100,tokens_completion:10}},
+  key(.001042),
+
+  key(.001042),
+  {id:'g-crown',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:JSON.stringify(crownReview)}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:8,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
+  {data:{provider_name:crownProvider,router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:8}},
+  key(.003042)
+ ];
+}
+
+function directSequence({provider='Anthropic',text='Direct Crown answer'}={}){
+ return [
+  key(0),
+  {id:'g-direct',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:text}}],usage:{cost:.002,prompt_tokens:50,completion_tokens:20,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
+  {data:{provider_name:provider,router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:50,tokens_completion:20}},
+  key(.002)
+ ];
+}
+
+test('readiness refuses missing current Crown admission before any inference',()=>{
+ const r=inspectTypingMindLiveReadiness({paidAuthorization:authorization(),crownAdmission:null,marketSnapshot:market(),openRouterKeyPresent:true,now});
+ assert.equal(r.ok,false);assert.ok(r.reasons.includes('valid-current-general-crown-admission-required'));
+});
+
+test('short input/output chooses one direct Opus call instead of paying fixed-chain tax',async()=>{
+ const rows=directSequence();let calls=0;
+ const fetchImpl=async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify(rows.shift())};};
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(directRequest());
+ assert.equal(out.ok,true);assert.equal(out.status,'TYPINGMIND_UBERMIND_DIRECT_CROWN_RESPONSE');
+ assert.equal(out.completion.choices[0].message.content,'Direct Crown answer');
+ assert.equal(out.completion.uberbond.authorityClass,'DIRECT_CURRENT_CROWN');
+ assert.equal(out.routeDecision.selected,'DIRECT_OPUS');
+ assert.equal(out.jev.mode,'NOT_NEEDED_FOR_DIRECT_COST_WINNER');
+ assert.equal(calls,4);
+});
+
+test('generation-heavy task uses Jev control, Sol builder, then Opus delta ACCEPT with all bills settled',async()=>{
+ const rows=builderSequence();let calls=0,solEffort=null,crownStructured=false;
+ const fetchImpl=async(url,opts={})=>{
+   calls++;
+   if(String(url).includes('/chat/completions')){
+     const req=JSON.parse(opts.body);
+     assert.equal(req.stream,false);assert.equal(req.provider.zdr,true);assert.equal(req.provider.data_collection,'deny');
+     if(req.model===TYPINGMIND_BUILDER_MODEL)solEffort=req.reasoning?.effort;
+     if(req.model===TYPINGMIND_CROWN_MODEL)crownStructured=req.response_format?.type==='json_schema';
+   }
+   const body=rows.shift();assert.ok(body,'unexpected provider call');
+   return {ok:true,status:200,text:async()=>JSON.stringify(body)};
+ };
+ const store=makeStore();
+ const o=createTypingMindLiveOrchestrator({store,openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(builderRequest());
+ assert.equal(out.ok,true);assert.equal(out.completion.choices[0].message.content,'Builder answer is 41.');
+ assert.equal(out.completion.uberbond.authorityClass,'CROWN_VERIFIED_SEMANTIC_ACCEPT');
+ assert.equal(out.routeDecision.selected,'SOL_THEN_OPUS_DELTA');
+ assert.equal(out.jev.mode,'SHADOW_CONTROL_OBSERVED');assert.equal(out.jev.usedToSuppressCrown,false);
+ assert.equal(out.jev.usedToTuneWorker,true);assert.equal(out.jev.reasoningEffort,'max');
+ assert.equal(solEffort,'max');assert.equal(crownStructured,true);
+ assert.equal(out.completion.uberbond.actualCostUsd,.003042);
+ assert.equal(calls,11);
+ const snap=await o.runtime.snapshot();
+ assert.equal(snap.budget.monthSpentMicrousd,3042);
+ assert.equal(snap.budget.crownEscrowRemainingMicrousd,14_998_000);
+});
+
+test('Crown exact PATCH repairs only the unique defect and avoids full rewrite',async()=>{
+ const rows=builderSequence({crownReview:{verdict:'PATCH',patches:[{old:'41',replacement:'42'}],rewrite:''},hardScore:0});
+ const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(builderRequest());
+ assert.equal(out.ok,true);assert.equal(out.completion.choices[0].message.content,'Builder answer is 42.');
+ assert.equal(out.completion.uberbond.authorityClass,'CROWN_VERIFIED_EXACT_PATCH');
+ assert.equal(out.jev.reasoningEffort,'low');
+});
+
+test('Crown structured REWRITE becomes direct Crown answer',async()=>{
+ const rows=builderSequence({crownReview:{verdict:'REWRITE',patches:[],rewrite:'Corrected frontier answer'}});
+ const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(builderRequest());
+ assert.equal(out.ok,true);assert.equal(out.completion.choices[0].message.content,'Corrected frontier answer');
+ assert.equal(out.completion.uberbond.authorityClass,'DIRECT_CURRENT_CROWN');
+});
+
+test('upstream Crown provider drift refuses authority after observed paid calls',async()=>{
+ const rows=builderSequence({crownProvider:'Unexpected Provider'});let calls=0;
+ const fetchImpl=async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify(rows.shift())};};
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission('Anthropic'),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(builderRequest());
+ assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED');
+ assert.equal(out.semanticAuthority,'NONE');assert.equal(out.qualityAction,'QUEUE_NEVER_DOWNGRADE');
+ assert.equal(calls,11);
+});
+
+test('routing-policy mismatch in Crown Admission Receipt refuses before paid inference',async()=>{
+ let calls=0;const fetchImpl=async()=>{calls++;throw new Error('provider-must-not-be-called');};
+ const wrong=admission('Anthropic','openrouter:different-policy');
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:wrong,marketSnapshot:market(),fetchImpl,clock:()=>now});
+ assert.equal(o.readiness().ok,false);
+ const out=await o.execute(builderRequest());
+ assert.equal(out.ok,false);assert.equal(out.status,'TYPINGMIND_UBERMIND_LIVE_NOT_READY');assert.equal(calls,0);
+});
+
+test('worker budget cannot consume protected Crown reserve before any calls',async()=>{
+ const o=createTypingMindLiveOrchestrator({
+   store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),
+   crownAdmission:admission(),marketSnapshot:market(),fetchImpl:async()=>{throw new Error('unused')},clock:()=>now
+ });
+ const snap=await o.runtime.snapshot();
+ assert.equal(snap.budget.crownEscrowRemainingMicrousd,15_000_000);
+ assert.equal(snap.budget.workerAvailableMicrousd,5_000_000);
+});

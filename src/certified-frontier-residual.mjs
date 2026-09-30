@@ -35,7 +35,7 @@ export function residualPacketHash(packet) {
 
 // This verifier deliberately proves only exact source binding and independently
 // certified coverage. It does NOT infer that a compressor preserved semantics.
-export function verifyCertifiedFrontierResidual({ source, packet, coverageAuthority, now = Date.now() } = {}) {
+export function verifyCertifiedFrontierResidual({ source, packet, coverageAuthority, currentCoverageContext = null, now = Date.now() } = {}) {
   const reasons = [];
   if (typeof source !== 'string' || !plain(packet) || packet.schemaVersion !== 'uberbond.certified-frontier-residual.v1') reasons.push('residual-packet-required');
   if (!digest(packet?.sourceHash) || packet?.sourceHash !== sourceDigest(source)) reasons.push('source-hash-mismatch');
@@ -63,6 +63,21 @@ export function verifyCertifiedFrontierResidual({ source, packet, coverageAuthor
   if (typeof coverageAuthority?.evidenceRef !== 'string' || !coverageAuthority.evidenceRef.length) reasons.push('coverage-evidence-reference-required');
   const expiry = Date.parse(coverageAuthority?.expiresAt);
   if (!Number.isFinite(expiry) || expiry <= now) reasons.push('coverage-authority-expired');
+
+  // Certificates minted from E0-E4 closure are valid only under the same
+  // dependency, invalidator and Crown-revision state that was proven.
+  if (coverageAuthority?.proofClass && ['E0','E1','E2','E3','E4'].includes(coverageAuthority.proofClass)) {
+    if (!plain(currentCoverageContext)) reasons.push('current-coverage-context-required');
+    else {
+      if (coverageAuthority.crownRevision !== currentCoverageContext.crownRevision) reasons.push('coverage-crown-revision-drift');
+      const deps = coverageAuthority.sourceDependencies ?? {};
+      const currentDeps = currentCoverageContext.sourceHashes ?? {};
+      if (JSON.stringify(deps) !== JSON.stringify(currentDeps)) reasons.push('coverage-dependency-drift');
+      const invalidators = coverageAuthority.invalidators ?? {};
+      const currentInvalidators = currentCoverageContext.invalidators ?? {};
+      if (JSON.stringify(invalidators) !== JSON.stringify(currentInvalidators) || Object.values(currentInvalidators).some(v => v !== false)) reasons.push('coverage-invalidator-fired-or-drifted');
+    }
+  }
 
   return reasons.length ? {
     ok: false, status: 'FULL_CONTEXT_CROWN_REQUIRED', reasons: [...new Set(reasons)],

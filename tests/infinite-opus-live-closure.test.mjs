@@ -12,6 +12,10 @@ import {enhanceAudit} from '../src/ai.mjs';
 import {COGNITION_PERIMETER_ADMISSION} from '../src/cognition-transport-guard.mjs';
 import {createUnifiedCognitionLedger,appendCognitionEvent,cognitionLedgerSummary} from '../src/unified-cognition-ledger.mjs';
 import {buildInfiniteOpusScoreboard} from '../src/infinite-opus-scoreboard.mjs';
+import {validateCrownSemanticPatch,applyCrownSemanticPatch} from '../src/crown-output-surgery.mjs';
+import {admitVerifierEvidence,verifierMayCertify} from '../src/verifier-trust.mjs';
+import {createOpenRouterManagementReconciler} from '../src/openrouter-management-reconciler.mjs';
+import {auditCrownCapitalization} from '../src/crown-capitalization-audit.mjs';
 import {createInfiniteOpusRuntime} from '../src/infinite-opus-native-runtime.mjs';
 import {validateSemanticProgram} from '../src/semantic-isa-v2.mjs';
 import {compileCrownTournament,adjudicateCrownTournament} from '../src/crown-tournament.mjs';
@@ -154,4 +158,23 @@ test('duplicate tournament observation cannot manufacture evidence count',()=>{
   {taskId:'x1',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.1},
   {taskId:'x2',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.1}
  ]});assert.equal(out.roles.GENERAL_CROWN,undefined);
+});
+
+test('Crown output surgery admits semantic patches but not stable-prose regeneration',()=>{
+ assert.equal(validateCrownSemanticPatch({op:'ACCEPT',target:'artifact'}).ok,true);
+ assert.equal(validateCrownSemanticPatch({op:'ACCEPT',target:'artifact',payload:'rewrite everything'}).ok,false);
+ const r=applyCrownSemanticPatch({a:1},{op:'PATCH',target:'a',payload:2});assert.equal(r.document.a,2);assert.equal(r.stableProseRegenerationAuthorized,false);
+});
+test('verifier authority never exceeds tested scope and full coverage',()=>{
+ const partial=admitVerifierEvidence({verifierId:'v',proves:['NUMBER_EQUALITY'],doesNotProve:['SEMANTICS'],mutationCases:10,falsePositiveCases:10,falseNegativeCases:10,independentCrossCheckPassed:true,coverage:.8});
+ assert.equal(partial.ok,true);assert.equal(verifierMayCertify(partial,'NUMBER_EQUALITY'),false);
+ const full=admitVerifierEvidence({verifierId:'v2',proves:['NUMBER_EQUALITY'],doesNotProve:['SEMANTICS'],mutationCases:10,falsePositiveCases:10,falseNegativeCases:10,independentCrossCheckPassed:true,coverage:1});
+ assert.equal(verifierMayCertify(full,'NUMBER_EQUALITY'),true);assert.equal(verifierMayCertify(full,'SEMANTICS'),false);
+});
+test('management reconciler reads bounded key usage without returning secrets',async()=>{
+ const secret='management-secret-xxxxxxxx';const a=createOpenRouterManagementReconciler({managementKeyProvider:async()=>secret,fetchImpl:async(_u,o)=>{assert.ok(o.headers.Authorization.includes(secret));return {ok:true,status:200,text:async()=>JSON.stringify({data:[{hash:'h1',name:'uberbond-runtime-20',limit:20,limit_reset:'monthly',usage_monthly:1},{hash:'h2',name:'uberbond-typingmind-8',limit:8,limit_reset:'monthly',usage_monthly:2}]})}});const r=await a.listKeyUsage({expectedLabels:['uberbond-runtime-20','uberbond-typingmind-8']});assert.equal(r.ok,true);assert.equal(r.aggregateLimitUsd,28);assert.equal(r.aggregateUsageMonthlyUsd,3);assert.ok(!JSON.stringify(r).includes(secret));
+});
+test('reusable Crown thought without a durable descendant is a capitalization failure',()=>{
+ const r=auditCrownCapitalization({crownCallReceipts:[{kind:'CROWN_CALL',callId:'c1',semanticReusableStructure:true}],capitalAssets:[]});assert.equal(r.failures.length,1);assert.equal(r.crownCapitalYield,0);
+ const ok=auditCrownCapitalization({crownCallReceipts:[{kind:'CROWN_CALL',callId:'c1',semanticReusableStructure:true}],capitalAssets:[{originatingCallId:'c1'}]});assert.equal(ok.failures.length,0);assert.equal(ok.crownCapitalYield,1);
 });

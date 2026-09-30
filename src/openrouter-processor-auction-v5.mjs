@@ -190,21 +190,30 @@ function routeCost(route,inputTokens,outputTokens){
 }
 
 export function estimateWriterThenCrownAcceptUsd({
-  writerRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,crownCachedInputTokens=0
+  writerRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  writerCachedInputTokens=0,crownCachedInputTokens=0
 }={}){
   if(!writerRoute||!crownRoute)return Infinity;
-  const writer=routeCost(writerRoute,inputTokens,candidateOutputTokens);
-  const crownFresh=Math.max(0,inputTokens+candidateOutputTokens-crownCachedInputTokens);
-  const crown=usdPerToken(crownRoute.inputUsdPerMillion,crownFresh)+
-    usdPerToken(crownRoute.cacheReadUsdPerMillion??crownRoute.inputUsdPerMillion,Math.min(crownCachedInputTokens,inputTokens+candidateOutputTokens))+
-    usdPerToken(crownRoute.outputUsdPerMillion,crownAcceptTokens);
+  const writer=estimateRouteWithCacheUsd({
+    route:writerRoute,inputTokens,cachedInputTokens:writerCachedInputTokens,outputTokens:candidateOutputTokens
+  });
+  const crown=estimateRouteWithCacheUsd({
+    route:crownRoute,inputTokens:inputTokens+candidateOutputTokens,
+    cachedInputTokens:crownCachedInputTokens,outputTokens:crownAcceptTokens
+  });
   return writer+crown;
 }
 
-export function cheapestPossibleWriterLowerBound({writerRoutes=[],crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6}={}){
+export function cheapestPossibleWriterLowerBound({
+  writerRoutes=[],crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  cachedInputByModel={},crownCachedInputTokens=0
+}={}){
   const rows=writerRoutes.filter(Boolean).map(route=>({
     model:route.model,
-    usd:estimateWriterThenCrownAcceptUsd({writerRoute:route,crownRoute,inputTokens,candidateOutputTokens,crownAcceptTokens})
+    usd:estimateWriterThenCrownAcceptUsd({
+      writerRoute:route,crownRoute,inputTokens,candidateOutputTokens,crownAcceptTokens,
+      writerCachedInputTokens:Number(cachedInputByModel?.[route.model]??0),crownCachedInputTokens
+    })
   })).sort((a,b)=>a.usd-b.usd);
   return rows[0]??null;
 }
@@ -214,7 +223,8 @@ function jevScore(answers,key){const x=Number(answers?.[key]?.score);return Numb
 function jevNoul(answers,key){const x=Number(answers?.[key]?.noul);return Number.isFinite(x)?x:null;}
 
 export function chooseAdaptiveCandidateWriter({
-  jevAnswers={},availableRoutes={},crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6
+  jevAnswers={},availableRoutes={},crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  cachedInputByModel={},crownCachedInputTokens=0
 }={}){
   const shape=jevChoice(jevAnswers,'task_shape')??'other';
   const hard=jevScore(jevAnswers,'hard_reasoning')??1;
@@ -245,7 +255,8 @@ export function chooseAdaptiveCandidateWriter({
   const priced=eligible.map(row=>({
     ...row,
     usd:estimateWriterThenCrownAcceptUsd({
-      writerRoute:row.route,crownRoute,inputTokens,candidateOutputTokens,crownAcceptTokens
+      writerRoute:row.route,crownRoute,inputTokens,candidateOutputTokens,crownAcceptTokens,
+      writerCachedInputTokens:Number(cachedInputByModel?.[row.route.model]??0),crownCachedInputTokens
     })
   })).sort((a,b)=>a.usd-b.usd);
   if(!priced.length)return {selected:null,eligible:[],shape,hard,independentChallenge:jevNoul(jevAnswers,'independent_challenge')};
@@ -270,4 +281,18 @@ export function estimateIndependentCriticSurchargeUsd({
   if(!criticRoute||!crownRoute)return Infinity;
   return routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens)+
     usdPerToken(crownRoute.inputUsdPerMillion,criticOutputTokens);
+}
+
+
+export function estimateRouteWithCacheUsd({route,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
+  if(!route||!Number.isFinite(route.inputUsdPerMillion)||!Number.isFinite(route.outputUsdPerMillion))return Infinity;
+  const cached=Math.max(0,Math.min(Number(cachedInputTokens)||0,inputTokens));
+  const fresh=Math.max(0,inputTokens-cached);
+  return usdPerToken(route.inputUsdPerMillion,fresh)+
+    usdPerToken(route.cacheReadUsdPerMillion??route.inputUsdPerMillion,cached)+
+    usdPerToken(route.outputUsdPerMillion,outputTokens);
+}
+
+export function estimateDirectCrownUsd({crownRoute,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
+  return estimateRouteWithCacheUsd({route:crownRoute,inputTokens,cachedInputTokens,outputTokens});
 }

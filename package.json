@@ -216,7 +216,14 @@
     "open-router:vault:doctor": "node scripts/open-router-vault-doctor.mjs",
     "test:frontier-vm": "node --test tests/frontier-intelligence-vm.test.mjs tests/cognitive-superoptimizer.test.mjs tests/frontier-vm-longitudinal-evaluator.test.mjs tests/frontier-vm-burnin.test.mjs tests/frontier-vm-activation-readiness.test.mjs",
     "test:cognitive-superoptimizer": "node --test tests/cognitive-superoptimizer.test.mjs",
-    "frontier-vm:doctor": "node scripts/frontier-vm-v5-doctor.mjs"
+    "frontier-vm:doctor": "node scripts/frontier-vm-v5-doctor.mjs",
+    "test:infinite-opus:live-closure": "node --test tests/infinite-opus-live-closure.test.mjs tests/openai-conversation-model-adapter.test.mjs",
+    "infinite-opus:routes:doctor": "node scripts/cognition-route-inventory-doctor.mjs",
+    "infinite-opus:canary": "node scripts/infinite-opus-openrouter-canary.mjs",
+    "infinite-opus:routes": "node scripts/infinite-opus-route-inventory.mjs --output docs/receipts/INFINITE_OPUS_ROUTE_INVENTORY_LATEST.json",
+    "infinite-opus:recurrence": "node scripts/infinite-opus-recurrence-map.mjs --output docs/receipts/INFINITE_OPUS_RECURRENCE_MAP_LATEST.json",
+    "infinite-opus:preowner:doctor": "node scripts/infinite-opus-preowner-doctor.mjs",
+    "infinite-opus:budget:reconcile": "node scripts/infinite-opus-openrouter-budget-reconcile.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

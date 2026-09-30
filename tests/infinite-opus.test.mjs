@@ -246,7 +246,7 @@ test('native transactions conserve budget under concurrent reservation attempts'
   const { store } = await nativeStore(t);
   const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW });
   const attempts = await Promise.all(Array.from({ length:20 },(_,i) => runtime.preparePaidCall(call(`race-${i}`,'WORKER',1000000))));
-  assert.equal(attempts.filter(r => r.ok).length,15);
+  assert.equal(attempts.filter(r => r.ok).length,5);
   const snapshot = await runtime.snapshot();
   assert.equal(snapshot.budget.reservedMicrousd,15000000);
   assert.equal(snapshot.budget.crownEscrowRemainingMicrousd,15000000);
@@ -270,7 +270,7 @@ test('paid callback crash holds dispatched budget and refuses duplicate dispatch
   const { store } = await nativeStore(t);
   let calls = 0;
   const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW,
-    paidAuthorization:{ evidenceRef:'synthetic://owner',month:'2026-09',maxMonthlyMicrousd:30000000,expiresAt:'2026-10-01T00:00:00Z' },
+    paidAuthorization:{ evidenceRef:'synthetic://owner',month:'2026-09',maxMonthlyMicrousd:20000000,expiresAt:'2026-10-01T00:00:00Z' },
     routePrices:[{model:'test/model',provider:'openrouter',sourceRef:'synthetic://price',verifiedAt:'2026-09-29T21:00:00Z',expiresAt:'2026-09-30T21:00:00Z',contextTokens:1000000,maxOutputTokens:10000,inputUsdPerMillion:.01,outputUsdPerMillion:.01}],
     paidExecutor:async () => { calls++; throw new Error('connection-lost'); } });
   await runtime.preparePaidCall(call('call-1','WORKER',10000));

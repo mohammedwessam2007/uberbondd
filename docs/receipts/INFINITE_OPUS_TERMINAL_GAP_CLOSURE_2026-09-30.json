@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.terminal-gap-closure-receipt.v1",
+  "observedAt": "2026-09-30T00:25:00Z",
+  "pullRequest": "https://github.com/mohammedwessam2007/uberbondd/pull/1056",
+  "baseMain": "35639bf7f93c42c98cba652cfa00f46f5016c40f",
+  "validatedSourceHead": "838d26b0b3a863783ba2893705d6373c96fe5e7b",
+  "validatedSourceTree": "e80d5cabcb473d0eba0cb59e88a4bddbb66fa1e1",
+  "status": "PREOWNER_SOFTWARE_GAP_CLOSURE_VALIDATED__LIVE_EVIDENCE_STILL_REQUIRED",
+  "validation": {
+    "historicalMergedBaseline": {
+      "source": "PR #1053/#1054 receipts",
+      "testsPassed": 8402,
+      "testsFailed": 0,
+      "testsSkipped": 55,
+      "appliesTo": "merged pre-gap-closure baseline only",
+      "rerunOnPr1056": false
+    },
+    "currentPr": {
+      "changedFilesAtValidation": 46,
+      "commitsAtValidation": 107,
+      "behindMain": 0,
+      "executableAndJsonSyntaxAudit": "PASS_IN_ROLLING_PASSES_WITH_LATEST_DELTA_RECHECK",
+      "latestDeltaFiles": [
+        "src/infinite-opus-native-runtime.mjs",
+        "src/crown-tournament.mjs",
+        "src/openrouter-governed-adapter.mjs",
+        "tests/infinite-opus-live-closure.test.mjs",
+        "tests/infinite-opus.test.mjs"
+      ],
+      "behavioralHarness": {
+        "status": "PASS",
+        "modules": 16,
+        "providerMode": "MOCK_ONLY",
+        "providerCallsPerformed": 0,
+        "paidSpendUsd": 0,
+        "checks": [
+          "economic perimeter plus member-wide guardrail",
+          "management key and guardrail reconciliation",
+          "interpretation authority",
+          "proof-carrying renderer authority",
+          "complete hidden-task tournament candidate evidence",
+          "Crown succession admission",
+          "verifier trust scope",
+          "Crown output surgery",
+          "Crown Admission Receipt",
+          "semantic partial evaluation/e-graph/microcode",
+          "unified cognition ledger",
+          "UNKNOWN-preserving scoreboard",
+          "semantic ISA",
+          "recurrence mapping",
+          "Crown capitalization audit",
+          "governed OpenRouter privacy/required-parameter policy"
+        ]
+      },
+      "githubActions": {
+        "status": "ZERO_STEP_HOSTED_CI_NON_EVIDENCE",
+        "runs": [
+          {
+            "id": 36650166724,
+            "name": "Night Verification War",
+            "conclusion": "failure",
+            "stepsObserved": false
+          },
+          {
+            "id": 36650166696,
+            "name": "CI",
+            "conclusion": "failure",
+            "stepsObserved": false
+          },
+          {
+            "id": 36650166678,
+            "name": "UberOutbound Exact Head",
+            "conclusion": "failure",
+            "stepsObserved": false
+          },
+          {
+            "id": 36650166795,
+            "name": "Night Postal Focused Verification",
+            "conclusion": "failure",
+            "stepsObserved": false
+          }
+        ],
+        "truthBoundary": "The current jobs expose no steps. This receipt does not call them source-test failures or source-test passes. An earlier analogous run exposed an account billing-lock annotation; the current run reason was not independently retrieved here."
+      }
+    }
+  },
+  "closedSoftwareGaps": [
+    "separate capped OpenRouter runtime and TypingMind paths",
+    "member-wide cross-key budget guardrail plan and management reconciliation",
+    "OpenRouter inference route key-limit, privacy, model-identity and generation-bill checks",
+    "unified cash/plan/donated/credits/compression accounting classes",
+    "repository inference-route inventory plus fail-closed legacy direct routes",
+    "Crown Admission Receipts",
+    "natural-language Interpretation Closure",
+    "proof-carrying high-volume renderer gate",
+    "verifier trust scope",
+    "semantic ISA v2 and microcode subset",
+    "semantic partial evaluation",
+    "verified semantic e-graph",
+    "active boundary-learning selector",
+    "Crown output token surgery",
+    "Crown capitalization audit",
+    "recurrence mapper",
+    "task-class tournament candidate wrapper bound to existing sealed/zero-loss machinery",
+    "Crown succession gate",
+    "24/7 source health/budget/queue operator surfaces",
+    "no-secret TypingMind/OpenRouter/production activation receipts",
+    "tiny explicit-authority canary runner"
+  ],
+  "economicPerimeter": {
+    "targetAllInUsd": 30,
+    "runtimeKey": {
+      "label": "uberbond-runtime-20",
+      "monthlyLimitUsd": 20
+    },
+    "typingMindKey": {
+      "label": "uberbond-typingmind-8",
+      "monthlyLimitUsd": 8
+    },
+    "memberGuardrail": {
+      "name": "uberbond-global-28",
+      "monthlyLimitUsd": 28,
+      "scope": "MEMBER_ALL_KEYS"
+    },
+    "protectedRuntimeCrownReserveUsd": 15,
+    "feeAndUncertaintyAllowanceUsd": 2,
+    "dailySoftTargetUsd": 1,
+    "allInClaimStatus": "PRELIVE_CONFIGURED_TARGET_NOT_YET_CARD_BILL_SETTLED"
+  },
+  "liveTruth": {
+    "liveConnected": false,
+    "productionDeployed": false,
+    "paidInferenceCallsObservedForThisMission": 0,
+    "actualAllInSpendUsd": "UNKNOWN",
+    "currentGeneralCrown": "UNKNOWN",
+    "taskClassCrowns": "UNKNOWN",
+    "cheapWorkerWinners": "UNKNOWN",
+    "opusQualityFanout": "UNKNOWN",
+    "referenceCompressionFactor": "UNKNOWN",
+    "real24x7Endurance": "UNKNOWN"
+  },
+  "ownerOnlyGate": [
+    "Privately configure the two capped OpenRouter inference keys plus uberbond-global-28 member guardrail; connect the TypingMind key and approved host secrets; return only non-secret configuration evidence.",
+    "Explicitly authorize the <= USD 0.05 no-external-effect canary."
+  ],
+  "postOwnerSequence": [
+    "machine-reconcile key limits plus member guardrail",
+    "run tiny governed canary",
+    "capture generation/provider/model/token/actual-cost receipt and settle reservation",
+    "refresh live candidates/prices/callability",
+    "run existing sealed hidden task-class tournament",
+    "issue Crown Admission Receipts",
+    "freeze current task-class roles with expiry",
+    "run first real recurring workload and measure recurrence/fanout/compression"
+  ],
+  "truthBoundary": "Source validation is not provider callability, live deployment, frontier-quality equivalence, economic compression, customer value, or 24/7 endurance. No synthetic or mocked result in this receipt grants those claims."
+}

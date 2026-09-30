@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.live-market-candidates.v1",
+  "observedAt": "2026-09-30T00:00:00Z",
+  "truthBoundary": "Dated public OpenRouter candidate evidence only. Prices can vary by route/discount and must be re-fetched before reservation. No owner-account callability or task-class winner is established.",
+  "candidates": [
+    {
+      "role": "GENERAL_CROWN_CANDIDATE",
+      "model": "anthropic/claude-opus-5.5",
+      "inputUsdPerMillion": 4,
+      "outputUsdPerMillion": 20,
+      "contextTokens": 1000000,
+      "evidence": "https://openrouter.ai/anthropic/claude-opus-5.5",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    },
+    {
+      "role": "GENERAL_CROWN_CHALLENGER",
+      "model": "openai/gpt-6.1-sol-pro",
+      "inputUsdPerMillion": 2,
+      "outputUsdPerMillion": 10,
+      "contextTokens": 1050000,
+      "evidence": "https://openrouter.ai/openai/gpt-6.1-sol-pro",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    },
+    {
+      "role": "STRONG_WORKER_BATCH_CANDIDATE",
+      "model": "openai/gpt-6.1-sol:batch",
+      "inputUsdPerMillion": 1,
+      "outputUsdPerMillion": 5,
+      "contextTokens": 1050000,
+      "evidence": "https://openrouter.ai/openai/gpt-6.1-sol:batch",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    },
+    {
+      "role": "STRONG_WORKER_CANDIDATE",
+      "model": "anthropic/claude-sonnet-5.5",
+      "inputUsdPerMillion": 2,
+      "outputUsdPerMillion": 10,
+      "contextTokens": 1000000,
+      "evidence": "https://openrouter.ai/anthropic/claude-sonnet-5.5",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    },
+    {
+      "role": "MULTIMODAL_DIVERSE_CANDIDATE",
+      "model": "google/gemini-3.8-flash",
+      "inputUsdPerMillion": 0.75,
+      "outputUsdPerMillion": 3.75,
+      "contextTokens": 1048576,
+      "evidence": "https://openrouter.ai/google/gemini-3.8-flash",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    },
+    {
+      "role": "CHEAP_DIVERSE_WORKER_CANDIDATE",
+      "model": "z-ai/glm-5.3-flash",
+      "inputUsdPerMillion": 0.15,
+      "outputUsdPerMillion": 0.5,
+      "contextTokens": 1310720,
+      "evidence": "https://openrouter.ai/z-ai/glm-5.3-flash",
+      "status": "PUBLIC_CANDIDATE_ONLY_ROUTE_DISCOUNT_MAY_DIFFER"
+    },
+    {
+      "role": "DIVERSE_STRONG_WORKER_CANDIDATE",
+      "model": "z-ai/glm-5.3",
+      "inputUsdPerMillion": 1.4,
+      "outputUsdPerMillion": 4.4,
+      "contextTokens": 1310720,
+      "evidence": "https://openrouter.ai/z-ai/glm-5.3",
+      "status": "PUBLIC_CANDIDATE_ONLY_ROUTE_DISCOUNT_MAY_DIFFER"
+    },
+    {
+      "role": "ULTRA_CHEAP_CANARY_AND_WORKER_CANDIDATE",
+      "model": "xiaomi/mimo-v2.6-flash",
+      "inputUsdPerMillion": 0.14,
+      "outputUsdPerMillion": 0.28,
+      "contextTokens": 1048576,
+      "evidence": "https://openrouter.ai/xiaomi/mimo-v2.6-flash",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    },
+    {
+      "role": "CHEAP_DIVERSE_WORKER_CANDIDATE",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "inputUsdPerMillion": 0.13,
+      "outputUsdPerMillion": 0.52,
+      "contextTokens": 1048576,
+      "evidence": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
+      "status": "PUBLIC_CANDIDATE_ONLY_ROUTE_PRICE_MAY_DIFFER"
+    },
+    {
+      "role": "DIVERSE_CHALLENGER",
+      "model": "qwen/qwen3.8-max-0902",
+      "inputUsdPerMillion": 2,
+      "outputUsdPerMillion": 6,
+      "contextTokens": 1000000,
+      "evidence": "https://openrouter.ai/qwen/",
+      "status": "PUBLIC_CANDIDATE_ONLY"
+    }
+  ],
+  "promotedRoles": {}
+}

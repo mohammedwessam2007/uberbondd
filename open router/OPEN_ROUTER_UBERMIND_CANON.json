@@ -113,7 +113,7 @@
       "actualAllInSpendUsdMax": 30,
       "directFrontierReferenceCostUsdMin": 1000000,
       "targetCompressionFactor": 33333.333333333336,
-      "actualSpendFractionOfReference": 3e-05,
+      "actualSpendFractionOfReference": 0.00003,
       "approximateReferenceSpendAvoidedPercent": 99.997,
       "pairedRequiredQualityRegressionsAllowed": 0,
       "status": "FOUNDER_APPROVED_RESEARCH_TARGET_NOT_PROVEN",
@@ -134,7 +134,7 @@
     "V5CrownSuccessionRecompilationProven": false,
     "millionDollarReferenceEquivalent": false
   },
-  "nextAction": "CONNECT_OPENROUTER_IN_TYPINGMIND -> PAIRED BURN_IN -> MEASURE REAL TASK RECURRENCE/SEMANTIC DUPLICATION -> SHADOW VERIFIED SEMANTIC HASHING -> BUILD ONE DECISION FRANCHISE -> BENCHMARK VERIFIER FOUNDRY -> LIVING EVIDENCE GRAPH -> MEASURE END_TO_END COMPRESSION",
+  "nextAction": "MERGE_PR_1056 -> OWNER_CONFIGURES_CAPPED_OPENROUTER_KEYS_PLUS_MEMBER_GUARDRAIL_AND_TYPINGMIND_PRIVATELY -> MACHINE_RECONCILES_NONSECRET_LIMITS -> OWNER_AUTHORIZES_TINY_PAID_CANARY -> CAPTURE_LIVE_BILL_MODEL_PROVIDER_RECEIPT -> SEALED_TASK_CLASS_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD",
   "recovery": "Read open router/README.md, OPEN_ROUTER_UBERMIND_CANON.json, 13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md, 14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md, MANIFEST.json, and FINAL_COMPLETION_RECEIPT_2026-09-29.json after normal UberBond startup. Preserve all prior v2-v4 lineage; continue from live activation and empirical proof.",
   "newV3Upgrades": [
     "Cognitive Multicast",
@@ -551,5 +551,68 @@
     "implementationPr": "https://github.com/mohammedwessam2007/uberbondd/pull/1053",
     "verifiedMergedMain": "2984412b6b9ebd0c4087328b8d0cb6815b4db487",
     "postMergeReceipt": "docs/receipts/INFINITE_OPUS_POSTMERGE_2026-09-29.json"
+  },
+  "infiniteOpusTerminalGapClosure20260930": {
+    "status": "PREOWNER_SOFTWARE_GAP_CLOSURE_VALIDATED__PR_1056_PENDING_MERGE",
+    "validationReceipt": "docs/receipts/INFINITE_OPUS_TERMINAL_GAP_CLOSURE_2026-09-30.json",
+    "validatedSourceHead": "838d26b0b3a863783ba2893705d6373c96fe5e7b",
+    "economicPerimeter": {
+      "runtimeKey": {
+        "label": "uberbond-runtime-20",
+        "limitUsd": 20,
+        "reset": "monthly"
+      },
+      "typingMindKey": {
+        "label": "uberbond-typingmind-8",
+        "limitUsd": 8,
+        "reset": "monthly"
+      },
+      "memberGuardrail": {
+        "name": "uberbond-global-28",
+        "limitUsd": 28,
+        "scope": "MEMBER_ALL_KEYS",
+        "reset": "monthly"
+      },
+      "crownReserveUsd": 15,
+      "dailySoftTargetUsd": 1,
+      "targetAllInUsd": 30,
+      "rule": "QUEUE_BEFORE_DOWNGRADE"
+    },
+    "providerActivation": {
+      "liveConnected": false,
+      "paidCallsObserved": 0,
+      "canaryMaxUsd": 0.05,
+      "canaryExternalEffects": [],
+      "managementReconciler": "src/openrouter-management-reconciler.mjs",
+      "governedAdapter": "src/openrouter-governed-adapter.mjs",
+      "canaryRunner": "scripts/infinite-opus-openrouter-canary.mjs",
+      "budgetReconciler": "scripts/infinite-opus-openrouter-budget-reconcile.mjs"
+    },
+    "authorityClosure": {
+      "crownAdmission": "src/crown-admission.mjs",
+      "interpretationClosure": "src/interpretation-closure.mjs",
+      "proofCarryingRenderer": "src/proof-carrying-renderer.mjs",
+      "verifierTrust": "src/verifier-trust.mjs",
+      "tournamentCandidateWrapper": "src/crown-tournament.mjs",
+      "succession": "src/crown-succession.mjs",
+      "semanticIsa": "src/semantic-isa-v2.mjs"
+    },
+    "exponentMechanisms": {
+      "partialEvaluation": "src/semantic-reuse-foundry.mjs",
+      "verifiedSemanticEGraph": "src/semantic-reuse-foundry.mjs",
+      "activeBoundaryLearning": "src/semantic-reuse-foundry.mjs",
+      "semanticMicrocode": "src/semantic-reuse-foundry.mjs",
+      "priorResidualProofCutFactoring": "src/semantic-closure-kernel.mjs",
+      "realizedEconomicLeverage": "UNKNOWN"
+    },
+    "currentRoles": {
+      "generalCrown": "UNKNOWN",
+      "taskClassCrowns": "UNKNOWN",
+      "cheapStrong": "UNKNOWN",
+      "ultraCheap": "UNKNOWN",
+      "publicCandidatesOnly": "config/infinite-opus-live-market-candidates.json"
+    },
+    "nextAction": "MERGE_PR_1056 -> PRIVATE_OWNER_ACTIVATION -> NONSECRET_BUDGET_RECONCILIATION -> EXPLICIT_TINY_CANARY -> LIVE_RECEIPTS -> SEALED_TOURNAMENT -> CROWN_ADMISSION -> REAL_RECURRING_WORKLOAD",
+    "truthBoundary": "Source mechanisms and mock-only validation grant no live Crown authority, provider callability, deployment proof, 24/7 endurance, quality equivalence, reference compression or million-dollar-equivalent claim."
   }
 }

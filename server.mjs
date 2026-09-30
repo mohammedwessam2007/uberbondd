@@ -9,6 +9,10 @@ import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-prepa
 import { getUberSocketRuntime } from './src/uber-socket-runtime.mjs';
 import { restoreUberSocketState, persistUberSocketState } from './src/uber-socket-durable-state.mjs';
 import { createUberMailRuntime } from './src/ubermail-runtime.mjs';
+import { createInfiniteOpusRuntime } from './src/infinite-opus-native-runtime.mjs';
+import { compileCognitionEconomicPerimeter } from './src/cognition-economic-perimeter.mjs';
+import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
+import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -286,6 +290,50 @@ async function brokerUberSocket(coreHandler, req, res, url) {
   }
 }
 
+async function brokerInfiniteOpus(coreHandler, req, res, url) {
+  if (!(await requireAdmin(coreHandler, req, res))) return;
+  return withUberSocketStore(async store => {
+    const runtime = createInfiniteOpusRuntime({ store });
+    const snapshot = await runtime.snapshot();
+    const routeInventory = cognitionRouteInventory();
+    const perimeter = compileCognitionEconomicPerimeter({
+      runtimeKeyLimitUsd: 20,
+      typingMindKeyLimitUsd: 8,
+      memberGuardrailUsd: 28,
+      guardrailScope: 'MEMBER_ALL_KEYS',
+      purchaseFeeRate: 0.055,
+      otherPaidKeyLimitsUsd: [],
+      limitReset: 'monthly',
+      includeByokInLimits: true,
+      legacySpendRoutesBlocked: routeInventory.globalBudgetClaimAllowed === true
+    });
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/health') {
+      return sendJson(res, 200, {
+        ok: true,
+        status: 'INFINITE_OPUS_SOURCE_READY_PRELIVE',
+        storeBackend: config.storeBackend,
+        paidInferenceTriggered: false,
+        economicPerimeterPlan: perimeter.ok ? perimeter.status : 'REFUSED',
+        truthBoundary: 'This endpoint proves source/runtime availability only. It does not prove OpenRouter credentials, provider callability, deployment endurance, current Crown roles, spend, or savings.'
+      });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {
+      const scoreboard = buildInfiniteOpusScoreboard({
+        runtimeSnapshot: snapshot,
+        globalLedgerSummary: {},
+        typingMindPerimeter: { status: perimeter.status, globalBudgetScope: 'PROPOSED_TWO_KEY_28_USD_PROVIDER_ENVELOPE_PRELIVE' },
+        routeInventory: { ungoverned: routeInventory.routes.filter(row => !String(row.status).startsWith('GOVERNED') && !String(row.status).startsWith('FAIL_CLOSED') && row.status !== 'ONLY_ZERO_CASH_ALLOWED_IN_INFINITE_OPUS_MODE' && row.status !== 'NONCASH_GOVERNED').map(row => row.id) },
+        deployment: { sourceReady: true, liveConnected: false, productionDeployed: false, ownerOnlyBlockers: ['OPENROUTER_PRIVATE_KEY_AND_LIMIT_CONFIGURATION','TINY_BOUNDED_PAID_CANARY_AUTHORIZATION'] }
+      });
+      return sendJson(res, 200, { ok: true, perimeter, snapshot, scoreboard });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/queue') {
+      return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });
+    }
+    return sendJson(res, 404, { error: 'Infinite Opus route not found' });
+  });
+}
+
 function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
@@ -297,6 +345,7 @@ function harden(coreHandler) {
     if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
     if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
     if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
+    if (url.pathname.startsWith('/api/admin/infinite-opus/')) return brokerInfiniteOpus(coreHandler, req, res, url);
     return coreHandler(req, res);
   };
 }

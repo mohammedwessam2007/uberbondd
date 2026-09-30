@@ -7,15 +7,18 @@ import { createUberSocketWholeBrainOrchestrator } from './uber-socket-whole-brai
 import { createUberSocketConnectomeRuntime } from './uber-socket-connectome-runtime.mjs';
 import { importChatGPTProjectExport } from './chatgpt-project-importer.mjs';
 import { readUberSocketOpenAIKey } from './uber-socket-openai-secret.mjs';
+import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 
 let singleton = null;
 
-function makeRuntime({ apiKey = null, model = process.env.UBER_SOCKET_MODEL || 'gpt-5', authorizeModelCall = async () => true, cognitiveJournalPath = process.env.UBER_SOCKET_COGNITIVE_JOURNAL || null, runtimeRoot = process.env.UBERLIT_ROOT || '/var/lib/uberlit/uberbond' } = {}) {
+function makeRuntime({ apiKey = null, model = process.env.UBER_SOCKET_MODEL || 'gpt-5', authorizeModelCall = async () => true, cognitiveJournalPath = process.env.UBER_SOCKET_COGNITIVE_JOURNAL || null, runtimeRoot = process.env.UBERLIT_ROOT || '/var/lib/uberlit/uberbond', cognitionPerimeterAdmission = null } = {}) {
   const resolvedKey = apiKey || readUberSocketOpenAIKey({ runtimeRoot });
-  const configured = Boolean(resolvedKey);
+  const perimeterAdmitted = cognitionPerimeterAdmission === COGNITION_PERIMETER_ADMISSION;
+  const configured = Boolean(resolvedKey && perimeterAdmitted);
+  const blockedKey = Boolean(resolvedKey && !perimeterAdmitted);
   const modelAdapter = configured
-    ? createOpenAIConversationModelAdapter({ apiKey: resolvedKey, model })
-    : { async respond(){ throw new Error('openai-api-key-not-configured'); } };
+    ? createOpenAIConversationModelAdapter({ apiKey: resolvedKey, model, cognitionPerimeterAdmission })
+    : { async respond(){ throw new Error(blockedKey ? 'cognition-economic-perimeter-admission-required' : 'openai-api-key-not-configured'); } };
   const mesh = createProjectMesh({ modelAdapter, authorizeModelCall });
   const fabric = createSharedContentFabric({ mesh, modelAdapter });
   const backplane = createUberSocketCognitiveBackplane({ journalPath: cognitiveJournalPath });
@@ -26,7 +29,7 @@ function makeRuntime({ apiKey = null, model = process.env.UBER_SOCKET_MODEL || '
     const connectomeDoctor = connectome ? connectome.doctor() : null;
     return Object.freeze({
       ok: true,
-      state: configured ? 'ACTIVE' : 'WAITING_FOR_OPENAI_KEY',
+      state: configured ? 'ACTIVE' : blockedKey ? 'BLOCKED_BY_COGNITION_PERIMETER' : 'WAITING_FOR_OPENAI_KEY',
       provider: configured ? 'openai' : null,
       model: configured ? model : null,
       peers: snap.peers.length,

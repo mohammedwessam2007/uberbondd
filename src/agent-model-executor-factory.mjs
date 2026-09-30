@@ -13,7 +13,7 @@ import { createVercelAIGatewayExecutor } from './vercel-ai-gateway-executor.mjs'
 import { createOpenModelRuntimeExecutor } from './open-model-runtime-executor.mjs';
 import { createOpenRouterAgentExecutor } from './openrouter-agent-executor.mjs';
 
-export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.6.0';
+export const AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION = 'agent-model-executor-factory-1.7.0';
 const canonicalModelExecutorFactories = new WeakSet();
 
 const API_PROVIDER_CONFIG = Object.freeze({
@@ -43,6 +43,23 @@ const API_PROVIDERS = Object.freeze(Object.keys(API_PROVIDER_CONFIG));
 const OPEN_MODEL_PROVIDER = 'open-model';
 const SANDBOX_PROVIDER = 'claude-code-sandbox';
 const SUPPORTED_PROVIDERS = Object.freeze([...API_PROVIDERS, OPEN_MODEL_PROVIDER, SANDBOX_PROVIDER]);
+const CASH_PERIMETER_MODES = new Set(['', 'OPENROUTER_ONLY']);
+function cashPerimeterMode(env = {}) {
+  const mode = String(env.INFINITE_OPUS_CASH_ROUTE_MODE || '').trim().toUpperCase();
+  if (!CASH_PERIMETER_MODES.has(mode)) throw new Error('unsupported Infinite Opus cash perimeter mode');
+  return mode;
+}
+function zeroCashPricing(pricing) {
+  return pricing && Number(pricing.inputUsdPerMillion) === 0 && Number(pricing.outputUsdPerMillion) === 0
+    && Number(pricing.infrastructureUsdPerRequest ?? 0) === 0;
+}
+function assertCashPerimeter(env, provider, pricing = null) {
+  const mode = cashPerimeterMode(env);
+  if (mode !== 'OPENROUTER_ONLY') return;
+  if (provider === 'openrouter' || provider === SANDBOX_PROVIDER) return;
+  if (provider === OPEN_MODEL_PROVIDER && zeroCashPricing(pricing)) return;
+  throw new Error(`provider "${provider}" blocked by Infinite Opus OpenRouter-only cash perimeter`);
+}
 
 export function pricingFrom(env = {}, prefix = '') {
   const input = Number(env[`${prefix}_INPUT_USD_PER_MILLION`]);
@@ -155,6 +172,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
     }
 
     if (provider === SANDBOX_PROVIDER) {
+      assertCashPerimeter(env, provider);
       if (reasoningEffort || serviceTier) throw new Error('reasoning/service-tier setting not supported by canonical claude-code-sandbox executor');
       const sandboxRoot = String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim();
       if (!sandboxRoot) throw new Error('claude-code-sandbox worker configured but CLAUDE_CODE_SANDBOX_ROOT is absent');
@@ -176,6 +194,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
       if (!config.model) throw new Error('open-model worker configured but model identity is absent');
       if (!config.endpoint) throw new Error('open-model worker configured but OPEN_MODEL_ENDPOINT is absent');
       if (!config.pricing) throw new Error('open-model worker configured but pricing evidence is absent or incomplete');
+      assertCashPerimeter(env, provider, config.pricing);
       return createOpenModelRuntimeExecutor({
         runtime: config.runtime,
         model: config.model,
@@ -191,6 +210,7 @@ export function createModelExecutorFactory({ env = process.env, sandboxIsolation
     const config = apiProviderConfig(env, provider, worker);
     if (!config?.apiKey) throw new Error(`${provider} worker configured but credential is absent`);
     if (!config.pricing) throw new Error(`${provider} worker configured but pricing evidence is absent or incomplete`);
+    assertCashPerimeter(env, provider, config.pricing);
 
     if (provider === 'openai') {
       return createOpenAIAgentExecutor({
@@ -264,6 +284,7 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
     if (!config?.apiKey) blockers.push('credential-absent');
     if (provider !== 'openrouter' && !config?.pricing) blockers.push('pricing-evidence-absent');
     if (!config?.enabled) blockers.push('explicitly-disabled');
+    if (cashPerimeterMode(env) === 'OPENROUTER_ONLY' && provider !== 'openrouter') blockers.push('infinite-opus-openrouter-only-cash-perimeter');
     return {
       provider,
       ready: blockers.length === 0,
@@ -281,6 +302,7 @@ export function describeProviderReadiness({ env = process.env, sandboxIsolationR
   if (!openModel.endpoint) openModelBlockers.push('runtime-endpoint-absent');
   if (!openModel.pricing) openModelBlockers.push('pricing-evidence-absent');
   if (!openModel.enabled) openModelBlockers.push('explicitly-disabled');
+  if (cashPerimeterMode(env) === 'OPENROUTER_ONLY' && !zeroCashPricing(openModel.pricing)) openModelBlockers.push('infinite-opus-nonzero-open-model-cost-blocked');
 
   const sandboxRoot = Boolean(String(env.CLAUDE_CODE_SANDBOX_ROOT || '').trim());
   const isolation = Boolean(sandboxIsolationReceipt);

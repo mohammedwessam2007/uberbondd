@@ -29,6 +29,8 @@ const zero = extra => ({ businessEffectAuthority: 'NONE', externalEffectAuthorit
 
 export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [],
   clock = Date.now, paidExecutor = null, paidAuthorization = null, routePrices = [], platformFeeRate = 0.055 } = {}) {
+  const paidMonthlyCapMicrousd = paidAuthorization?.maxMonthlyMicrousd ?? 20_000_000;
+  if (!Number.isSafeInteger(paidMonthlyCapMicrousd) || paidMonthlyCapMicrousd < 15_000_000 || paidMonthlyCapMicrousd > 20_000_000 && paidAuthorization) throw new Error('paid-runtime-cap-must-fit-20-dollar-key-and-15-dollar-crown-reserve');
   routePrices = structuredClone(routePrices);
   paidAuthorization = paidAuthorization ? structuredClone(paidAuthorization) : null;
   const checkClosure = createSemanticClosureChecker({ authorityRecords });
@@ -37,7 +39,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const settings = await tx.getSettings();
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
-      ledger: createCognitionLedger({ month: today().slice(0, 7) }),
+      ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
       cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, negativeKnowledge: [], receipts: []
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
@@ -45,8 +47,13 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     if (state.ledger.month !== today().slice(0, 7)) {
       state.archivedLedgers ??= {};
       state.archivedLedgers[state.ledger.month] = structuredClone(state.ledger);
-      state.ledger = createCognitionLedger({ month: today().slice(0, 7) });
+      state.ledger = createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd });
       if (Object.values(state.archivedLedgers).some(l => l.incidents.length || l.calls.some(c => ['RESERVED','DISPATCHED'].includes(c.status)))) state.ledger.incidents.push({ reason: 'HISTORICAL_RECONCILIATION_REQUIRED' });
+    }
+    if (paidAuthorization && state.ledger.monthlyCapMicrousd !== paidMonthlyCapMicrousd) {
+      const clean = state.ledger.calls.length === 0 && state.ledger.incidents.length === 0;
+      if (clean) state.ledger = createCognitionLedger({ month: state.ledger.month, monthlyCapMicrousd: paidMonthlyCapMicrousd });
+      else state.ledger.incidents.push({ reason: 'PAID_RUNTIME_CAP_RECONCILIATION_REQUIRED' });
     }
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -148,7 +155,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       });
     },
     async dispatchPaidCall(callId, payload) {
-      if (!paidAuthorization?.evidenceRef || paidAuthorization.month !== today().slice(0, 7) || paidAuthorization.maxMonthlyMicrousd !== 30000000 || !Number.isFinite(Date.parse(paidAuthorization.expiresAt)) || Date.parse(paidAuthorization.expiresAt) <= clock() || typeof paidExecutor !== 'function') return zero({ ok: false, status: 'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED', providerCallsPerformed: 0 });
+      if (!paidAuthorization?.evidenceRef || paidAuthorization.month !== today().slice(0, 7) || paidAuthorization.maxMonthlyMicrousd !== paidMonthlyCapMicrousd || paidMonthlyCapMicrousd > 20_000_000 || !Number.isFinite(Date.parse(paidAuthorization.expiresAt)) || Date.parse(paidAuthorization.expiresAt) <= clock() || typeof paidExecutor !== 'function') return zero({ ok: false, status: 'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED', providerCallsPerformed: 0 });
       safePayload(payload);
       const call = await transact(store, async tx => {
         const state = await stateFor(tx);

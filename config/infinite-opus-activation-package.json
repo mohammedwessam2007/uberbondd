@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.activation-package.v1",
+  "date": "2026-09-30",
+  "status": "SOURCE_PACKAGE_ONLY__NO_SECRET__NO_SPEND__NO_DEPLOYMENT",
+  "economicPerimeter": {
+    "hardAllInUsd": 30,
+    "runtimeOpenRouterKey": {
+      "name": "uberbond-runtime-20",
+      "limitUsd": 20,
+      "limitReset": "monthly",
+      "includeByokInLimit": true
+    },
+    "typingMindOpenRouterKey": {
+      "name": "uberbond-typingmind-8",
+      "limitUsd": 8,
+      "limitReset": "monthly",
+      "includeByokInLimit": true
+    },
+    "feeBufferUsd": 2,
+    "protectedRuntimeCrownReserveUsd": 15,
+    "dailySoftTargetUsd": 1,
+    "law": "QUEUE_BEFORE_DOWNGRADE",
+    "memberGuardrail": {
+      "name": "uberbond-global-28",
+      "limitUsd": 28,
+      "reset": "monthly",
+      "scope": "MEMBER_ALL_KEYS",
+      "verification": "OPENROUTER_MANAGEMENT_KEY + OPENROUTER_MEMBER_ID"
+    }
+  },
+  "secrets": {
+    "runtime": [
+      "OPENROUTER_API_KEY",
+      "OPENROUTER_MANAGEMENT_KEY"
+    ],
+    "typingMind": [
+      "PRIVATE_OPENROUTER_KEY_IN_TYPINGMIND_ONLY"
+    ],
+    "neverCommit": true
+  },
+  "providerPolicy": {
+    "data_collection": "deny",
+    "zdr": "REQUIRE_WHERE_TASK_DATA_POLICY_REQUIRES_IT",
+    "require_parameters": true,
+    "modelSubstitution": "PROHIBITED_FOR_CROWN_WITHOUT_NEW_ADMISSION",
+    "providerFallback": "SAME_MODEL_ALLOWED_WHEN_POLICY_AND_IDENTITY_EVIDENCE_PASS"
+  },
+  "retryPolicy": {
+    "automaticAfterDispatchedUncertain": false,
+    "reconcileBeforeRetry": true
+  },
+  "cachePolicy": {
+    "exactResponse": "ONLY_FULL_IDENTITY_AND_FRESHNESS_MATCH",
+    "prompt": "STABLE_PREFIX_PLUS_SESSION_ID_AND_OBSERVED_CACHED_TOKENS",
+    "response": "ONLY_ELIGIBLE_REQUESTS_WITH_EXACT_CACHE_RECEIPT"
+  },
+  "canary": {
+    "maxSpendUsd": 0.05,
+    "externalEffects": [],
+    "authorizationTemplate": "config/infinite-opus-canary-authorization.template.json",
+    "runner": "scripts/infinite-opus-openrouter-canary.mjs"
+  },
+  "operations": {
+    "health": "/api/admin/infinite-opus/health",
+    "budget": "/api/admin/infinite-opus/budget",
+    "queue": "/api/admin/infinite-opus/queue",
+    "postgresRequiredForDurableProduction": true,
+    "idleInferenceTarget": 0
+  },
+  "stopConditions": [
+    "provider-model-identity-mismatch",
+    "bill-mismatch",
+    "key-limit-mismatch",
+    "uncertain-charge",
+    "monthly-cap-breach",
+    "authority-admission-failure",
+    "quality-contract-regression"
+  ],
+  "evidenceRefs": [
+    "https://openrouter.ai/docs/api/api-reference/api-keys/create-a-new-api-key",
+    "https://openrouter.ai/docs/api/api-reference/api-keys/get-current-api-key",
+    "https://openrouter.ai/docs/api/api-reference/generations/get-request-&-usage-metadata-for-a-generation",
+    "https://www.typingmind.com/guide/use-openrouter-api-key-to-chat-with-ai"
+  ],
+  "nonSecretRuntimeIdentifiers": [
+    "OPENROUTER_MEMBER_ID"
+  ]
+}

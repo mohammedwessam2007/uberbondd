@@ -23,6 +23,16 @@ test('raw TypingMind chat is bounded, text-only and frontier-reviewed by default
  assert.throws(()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'x'}],tools:[{}]}),/tools-disabled/);
 });
 
+test('transport fingerprint binds the entire conversation and output ceiling',()=>{
+ const base={model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'same'}],max_tokens:100};
+ const a=compileTypingMindChatRequest(base),b=compileTypingMindChatRequest(structuredClone(base));
+ const c=compileTypingMindChatRequest({...base,max_tokens:101});
+ const d=compileTypingMindChatRequest({...base,messages:[{role:'user',content:'changed'}]});
+ assert.equal(a.requestFingerprint,b.requestFingerprint);
+ assert.notEqual(a.requestFingerprint,c.requestFingerprint);
+ assert.notEqual(a.requestFingerprint,d.requestFingerprint);
+});
+
 test('stable per-model session id survives later conversation growth',()=>{
  const a=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'system',content:'s'},{role:'user',content:'first'}]});
  const b=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'system',content:'s'},{role:'user',content:'first'},{role:'assistant',content:'a'},{role:'user',content:'second'}]});

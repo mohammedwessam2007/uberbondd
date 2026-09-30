@@ -157,6 +157,20 @@ export function estimateCompressedAdaptiveWriterFrontierUsd({
   return compressor+proposal+opus;
 }
 
+export function estimateFusedAnchoredSourceWriterFrontierUsd({
+  originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,
+  crownAcceptTokens=6,crownCachedPrefixTokens=0
+}={}){
+  // One MiMo source pass emits both the exact-anchored evidence capsule and the
+  // complete proposal candidate. This removes a duplicated read/generation pass
+  // while leaving the admitted Opus Crown with the same evidence+candidate surface.
+  const mimo=usdPerToken(.14,originalInputTokens)+
+    usdPerToken(.28,compressedEvidenceTokens+candidateOutputTokens);
+  const opus=usdPerToken(4,compressedEvidenceTokens+candidateOutputTokens)+
+    usdPerToken(.2,crownCachedPrefixTokens)+usdPerToken(20,crownAcceptTokens);
+  return mimo+opus;
+}
+
 export function chooseCompressedAdaptiveWriterFrontier({
   originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
   crownCachedPrefixTokens=0,eligibleWriters=['mimo','deepseek','sol'],

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:16:00+03:00",
+  "updatedAt": "2026-09-30T21:19:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -31,6 +31,20 @@
       },
       "qualityLaw": "Only valid when the 5k evidence capsule retains the exact source anchors required by the task and admitted Opus returns ACCEPT. PATCH/REWRITE must use observed higher all-in cost.",
       "deltaVsPriorMultiplierPercent": 58.9808219178082
+    },
+    {
+      "label": "checkpoint-33-fused-anchored-source-writer",
+      "multiplier": 14.1149119893723,
+      "status": "MODELED_ONE_PASS_FUSION_UNDER_SAME_EXACT_ANCHORED_EVIDENCE_AND_OPUS_ACCEPT_CONTRACT",
+      "workload": "200k source -> one MiMo pass emits 5k exact-anchored lossless evidence + 2.5k complete candidate -> Opus 5.5 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06022,
+      "costBreakdownUsd": {
+        "mimoFusedAnchoredEvidenceAndCandidate": 0.0301,
+        "opusDeltaAccept": 0.03012
+      },
+      "qualityLaw": "Fusion changes scheduling only. The Crown receives the same evidence capsule + candidate surface as checkpoint 32; exact source-anchor/lossless contract remains mandatory.",
+      "deltaVsPriorMultiplierPercent": 1.1624045167736075
     }
   ],
   "excludedFromCurrentNumber": [
@@ -49,7 +63,7 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 13.952724885094963,
-  "currentCheckpoint": "checkpoint-32-anchored-compression-cheap-writer",
+  "currentCanonicalModeledMultiplier": 14.1149119893723,
+  "currentCheckpoint": "checkpoint-33-fused-anchored-source-writer",
   "nextGate": 25
 }

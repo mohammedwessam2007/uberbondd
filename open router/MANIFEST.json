@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 56,
+  "expectedFinalFolderFileCount": 58,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -139,6 +139,16 @@
       "size": 11931
     },
     {
+      "path": "open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md",
+      "blobSha": "04b55575f6a679aab9f83f88f252bbe19838a7c2",
+      "size": 4813
+    },
+    {
+      "path": "open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md",
+      "blobSha": "74c08c2888100ee5ecc25ab45ebb5dd96fb90f6a",
+      "size": 27542
+    },
+    {
       "path": "open router/ACTIVATION_CHECKLIST.md",
       "blobSha": "16db7b64e2dcfaf1917ba4ee2a6ffaf6b597f557",
       "size": 7681
@@ -230,8 +240,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "1381867adffd69091641eed30d522172d456773f",
-      "size": 27891
+      "blobSha": "3a57925919596e7d1b4dcbe7b48e10abd671a64c",
+      "size": 29200
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -326,7 +336,9 @@
     "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
     "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
     "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
-    "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md"
+    "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md",
+    "open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md",
+    "open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -351,12 +363,12 @@
   ],
   "operatorCommand": "npm run open-router:vault:doctor",
   "noAmputation": true,
-  "truthBoundary": "The vault now includes the Project Infinite Opus execution prompt. It is an execution mission artifact, not proof that almost-unlimited Crown-quality work or 33,333x compression has been achieved. It directs future work to maximize by-construction E0-E4 regions, preserve the moving-Crown quality floor, and implement safe dependency-complete mechanisms before stopping.",
-  "recovery": "Refresh main; read README, machine canon, live model snapshot, 20/21/22 architecture files, Million-Dollar target/lab, V5 activation/proof files; run doctors; continue by maximizing E0-E4 recurring work and paging E6 novelty to the moving Crown.",
+  "truthBoundary": "The vault includes the provable E0-E4 reference-economics engine and new-chat continuation prompt. E0-E4 proof can remove the need for ceremonial quality rebenchmarking, but realized savings still require real certified execution counts, conservative direct-frontier counterfactual pricing, and observed all-in spend. No current 33,333x or $1M-equivalent result is asserted.",
+  "recovery": "Refresh current main and latest continuation PR; read 26_PROVABLE_33333X_REFERENCE_ECONOMICS.md, 27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md, the continuation mega map, CURRENT_HANDOFF, canon and proof engine; continue from owner activation/live evidence frontier without redoing merged source.",
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 55,
+  "indexedFilesExcludingSelf": 57,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",
@@ -366,7 +378,8 @@
     "tests/frontier-vm-activation-readiness.test.mjs",
     "tests/infinite-opus.test.mjs",
     "tests/infinite-opus-kernel.test.mjs",
-    "tests/infinite-opus-compilers.test.mjs"
+    "tests/infinite-opus-compilers.test.mjs",
+    "tests/provable-reference-economics.test.mjs"
   ],
   "v5BaseFolderFileCount": 33,
   "liveMarketSnapshotBaseMainSha": "e823400f1ee3df14d109aadd85730ee7843e0884",

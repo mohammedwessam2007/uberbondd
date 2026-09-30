@@ -1,0 +1,349 @@
+{
+  "schemaVersion": "uberbond.openrouter.frontier-vm-full-stack.v4",
+  "objective": "MINIMIZE_ALL_IN_COGNITION_COST_SUBJECT_TO_FINAL_REQUIRED_QUALITY_AT_OR_ABOVE_CURRENT_STRONGEST_VERIFIED_TASK_CLASS_FRONTIER",
+  "sourceOfTruth": [
+    "open router/00_FINAL_SYSTEM.md",
+    "open router/ARCHITECTURE.md",
+    "open router/02_JEV_HYPERREFLEX.md",
+    "open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+    "open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+    "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md"
+  ],
+  "stableLogicalInterface": "FRONTIER(task,state,quality_contract)",
+  "layers": [
+    {
+      "id": "L0",
+      "name": "EXACT_SUBSTRATE",
+      "authority": "Q_EXACT",
+      "organs": [
+        "code",
+        "database queries",
+        "exact retrieval",
+        "hashes",
+        "diffs",
+        "parsers",
+        "formal tests",
+        "arithmetic",
+        "schema validation",
+        "content-addressed artifacts",
+        "exact response cache"
+      ]
+    },
+    {
+      "id": "L1",
+      "name": "JEV_HYPERREFLEX",
+      "authority": "Q_CERTIFIED_BOUNDED_ONLY_WHEN_PASSPORT_VALID",
+      "organs": [
+        "Noul",
+        "Choice",
+        "Score",
+        "routing",
+        "relevance",
+        "novelty",
+        "uncertainty",
+        "evidence sufficiency",
+        "contradiction",
+        "branch viability",
+        "stop/continue",
+        "Crown escalation",
+        "tool selection",
+        "cache admission",
+        "drift alarms"
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "CHEAP_HETEROGENEOUS_EXPLORATION",
+      "authority": "PROPOSAL_ONLY",
+      "organs": [
+        "MiMo",
+        "DeepSeek",
+        "GLM",
+        "Qwen",
+        "future market winners",
+        "hypothesis generation",
+        "falsification",
+        "counterexamples",
+        "source discovery",
+        "candidate solutions"
+      ]
+    },
+    {
+      "id": "L3",
+      "name": "ADVERSARIAL_SYNTHESIS_COURT",
+      "authority": "NONE_BY_CONSENSUS",
+      "organs": [
+        "claim normalization",
+        "evidence graph",
+        "attacks",
+        "minority hypotheses",
+        "contradictions",
+        "applicability boundaries",
+        "lossless frontier delta"
+      ]
+    },
+    {
+      "id": "L4",
+      "name": "CROWN_PANTHEON",
+      "authority": "Q_FRONTIER_OR_Q_MULTI_FRONTIER",
+      "organs": [
+        "general Crown",
+        "coding Crown",
+        "research Crown",
+        "tool-use Crown",
+        "formal/math Crown",
+        "multimodal Crown",
+        "second-Crown insurance",
+        "frontier patch protocol"
+      ]
+    },
+    {
+      "id": "L5",
+      "name": "REALITY_COURT",
+      "authority": "Q_REALITY_SETTLED",
+      "organs": [
+        "tests",
+        "external observations",
+        "user/world outcomes",
+        "provider receipts",
+        "acceptance evidence",
+        "drift evidence"
+      ]
+    },
+    {
+      "id": "L6",
+      "name": "CRYSTALLIZATION",
+      "authority": "DOWNWARD_ONLY_AFTER_EVIDENCE",
+      "organs": [
+        "Frontier Thought Bonds",
+        "Decision Franchises",
+        "Jev shadow",
+        "paired evaluation",
+        "bounded reflexes",
+        "Reflex Microstudents",
+        "deterministic compilation",
+        "code"
+      ]
+    }
+  ],
+  "compilerPasses": [
+    "EXACT_PRECHECK",
+    "CONSTANT_FOLDING",
+    "COMMON_SEMANTIC_SUBEXPRESSION_ELIMINATION",
+    "DEAD_BRANCH_ELIMINATION",
+    "LOOP_INVARIANT_COGNITION_HOISTING",
+    "PARTIAL_EVALUATION",
+    "COGNITIVE_VECTORIZATION",
+    "EVIDENCE_MULTICAST",
+    "SEMANTIC_DEAD_OUTPUT_ELIMINATION",
+    "BRANCH_PREDICTION_WITH_RESERVED_FALLBACK",
+    "INCREMENTAL_RECOMPILATION",
+    "CONTEXT_LOCALITY_SCHEDULING",
+    "FRONTIER_RESIDUALIZATION"
+  ],
+  "jev": {
+    "role": "SEMANTIC_CONTROL_PLANE_NOT_SOVEREIGN_REASONER",
+    "decisionTensor": [
+      "novelty",
+      "uncertainty",
+      "evidence sufficiency",
+      "contradiction severity",
+      "materiality",
+      "reversibility",
+      "stakes",
+      "branch viability",
+      "search value",
+      "worker disagreement",
+      "model suitability",
+      "context relevance",
+      "cache equivalence",
+      "Crown necessity",
+      "drift likelihood",
+      "applicability confidence"
+    ],
+    "promotion": [
+      "PROPOSED",
+      "SHADOW",
+      "PAIRED_EVALUATION",
+      "ZERO_LOSS_CANDIDATE",
+      "CANONICAL_CERTIFICATE",
+      "BOUNDED_REFLEX",
+      "DETERMINISTIC_COMPILATION_CANDIDATE",
+      "CODE"
+    ],
+    "regressionAction": [
+      "FREEZE",
+      "DECOMPILE",
+      "CROWN",
+      "REVALIDATE"
+    ],
+    "maySuppressRequiredCrown": false
+  },
+  "computeAuction": {
+    "objective": "MAXIMIZE_EXPECTED_INFORMATION_GAIN_AND_FRONTIER_TOKENS_AVOIDED_PER_DOLLAR_WITH_FIXED_QUALITY_FLOOR",
+    "inputs": [
+      "expected information gain",
+      "expected Crown tokens avoided",
+      "quality risk",
+      "monetary cost",
+      "latency",
+      "reuse potential",
+      "reversibility",
+      "evidence strength"
+    ],
+    "stopLoss": "IF_CHEAP_PREWORK_APPROACHES_DIRECT_CROWN_COST_WITHOUT_SHRINKING_RESIDUAL__BUY_CROWN_DIRECTLY"
+  },
+  "adaptiveSwarm": {
+    "topology": "2_TO_4_TO_8_TO_16_ONLY_WHEN_MARGINAL_INFORMATION_GAIN_JUSTIFIES_COST",
+    "diversityLaw": "ERROR_CORRELATION_MATTERS_MORE_THAN_AGENT_COUNT",
+    "outputs": [
+      "candidate solutions",
+      "counterexamples",
+      "independent evidence",
+      "alternate frames",
+      "minority hypotheses"
+    ],
+    "finalAuthority": false
+  },
+  "crown": {
+    "currentGeneralCandidate": "anthropic/claude-opus-5.5",
+    "permanent": false,
+    "taskClassPantheon": true,
+    "outputPreference": [
+      "ACCEPT",
+      "REJECT",
+      "PATCH",
+      "KEEP",
+      "DELETE",
+      "ADD",
+      "UNRESOLVED",
+      "INVALIDATE"
+    ],
+    "succession": [
+      "QUARANTINE",
+      "HIDDEN_TASKS",
+      "TASK_CLASS_BENCHMARK",
+      "PAIRED_COMPARISON",
+      "PROMOTION_IF_SUPPORTED",
+      "REVALIDATE_HIGH_VALUE_COMPILED_CAPITAL"
+    ]
+  },
+  "cognitionCapital": {
+    "mechanisms": [
+      "FRONTIER_THOUGHT_BONDS",
+      "DECISION_FRANCHISES",
+      "VERIFIER_FOUNDRY",
+      "SOLVER_TRANSPILER",
+      "LIVING_EVIDENCE_GRAPH",
+      "SEMANTIC_DEMAND_EXCHANGE",
+      "COGNITIVE_CAPSULES_SEMANTIC_ABI",
+      "COUNTEREXAMPLE_BOUNDARY_MINER",
+      "FRONTIER_CALL_PORTFOLIO_OPTIMIZER",
+      "WORLD_THOUGHT_CAPITAL_IMPORTER",
+      "SELF_EVOLVING_TASK_CLASS_COMPILERS",
+      "FRONTIER_PATCH_PROTOCOL",
+      "PREDICTIVE_COGNITIVE_PREFETCH",
+      "REFLEX_MICROSTUDENTS",
+      "INTELLIGENCE_CAPITAL_COMPOUNDING_LEDGER",
+      "SEMANTIC_E_GRAPH",
+      "GHOST_AGENTS",
+      "CROWN_BOUNDARY_QUERYING",
+      "CROSS_DOMAIN_PRIMITIVE_MINING",
+      "OUTPUT_TOKEN_SURGERY"
+    ],
+    "keyLaw": "EVERY_EXPENSIVE_CROWN_CALL_SHOULD_CREATE_REUSABLE_DESCENDANTS_WHEN_SEMANTICALLY_SAFE"
+  },
+  "memoryAndReuse": {
+    "hierarchy": [
+      "L0_DETERMINISTIC_STATE",
+      "L1_EXACT_DECISION_ARTIFACTS",
+      "L2_CERTIFIED_JEV_REFLEXES",
+      "L3_CHEAP_SPECIALIST_EXPLORATION",
+      "L4_TASK_CLASS_CROWN",
+      "L5_SECOND_CROWN_PANTHEON",
+      "L6_REALITY_SETTLEMENT"
+    ],
+    "organs": [
+      "Exact Cognitive Dedup Graph",
+      "Semantic E-Graph",
+      "Living Evidence Graph",
+      "Negative Knowledge Cache",
+      "Cognitive CDN",
+      "Evidence Multicast",
+      "Decision-DAG incremental recomputation"
+    ]
+  },
+  "typingMind": {
+    "role": "COCKPIT_ONLY",
+    "nativeProfile": "config/typingmind-opus-quality-mincost-v3.json",
+    "stableLogicalModel": "ubermind/auto",
+    "law": "TYPINGMIND_MODEL_FLOWS_ARE_FALLBACK_PROCESSOR_PLANS__NOT_THE_FRONTIER_VM_ITSELF",
+    "directCrownBypass": true,
+    "longWorkFallback": [
+      "UberScout",
+      "UberBuilder",
+      "UberRedTeam",
+      "UberCrown"
+    ],
+    "hardResidualFallback": [
+      "UberBuilder",
+      "UberRedTeam",
+      "UberDeep",
+      "UberCrown"
+    ]
+  },
+  "economics": {
+    "monthlyTargetUsd": 30,
+    "dailySoftTargetUsd": 1,
+    "protectedCrownEscrowUsd": 15,
+    "laws": [
+      "QUALITY_FIXED",
+      "BUDGET_HARD",
+      "LATENCY_THROUGHPUT_FLEXIBLE",
+      "QUEUE_BEFORE_DOWNGRADE",
+      "IDLE_INFERENCE_APPROX_ZERO"
+    ],
+    "metrics": [
+      "OPUS_QUALITY_FANOUT",
+      "FRONTIER_PAGE_FAULT_RATE",
+      "NOVELTY_TAX_RATE",
+      "COMPILED_COGNITION_SHARE",
+      "SEMANTIC_MULTICAST_FACTOR",
+      "VERIFIED_SEMANTIC_DEDUP_FACTOR",
+      "REFERENCE_COMPRESSION_FACTOR",
+      "RESEARCH_RECOMPUTE_FRACTION",
+      "DECISION_FRANCHISE_FANOUT"
+    ]
+  },
+  "finalInvariant": {
+    "newOrUncertain": "FRONTIER",
+    "boundedCertified": "JEV",
+    "exactStable": "CODE",
+    "drift": "FRONTIER"
+  },
+  "antiAmputation": [
+    "TYPINGMIND_PROFILE_CANNOT_SUPERSEDE_JEV",
+    "MODEL_ROSTER_CANNOT_SUPERSEDE_FRONTIER_VM",
+    "CHEAP_CHAIN_CANNOT_SUPERSEDE_COGNITIVE_SUPERCOMPILER",
+    "CROWN_ACCEPT_PATCH_PROTOCOL_CANNOT_SUPERSEDE_REALITY_COURT",
+    "COST_OPTIMIZATION_CANNOT_DELETE_DECISION_FRANCHISES_EVIDENCE_GRAPH_OR_CAPITAL_FLYWHEEL",
+    "NO_NEW_MODEL_OR_WORKFLOW_REDEFINES_UBERMIND_WHOLE",
+    "MODEL_MECHANICS_ARE_EXECUTION_PRIORS_NOT_PERMISSION_TO_SKIP_REQUIRED_CROWN"
+  ],
+  "processorFabric": "config/openrouter-processor-fabric-v5.json",
+  "processorAuction": "src/openrouter-processor-auction-v5.mjs",
+  "processorLaw": "MODEL_MECHANICS_DEFINE_PRIORS__FRONTIER_VM_AND_QUALITY_TYPES_DEFINE_AUTHORITY",
+  "modelSpecificExecution": {
+    "jev": "VECTORIZE_TYPED_CONTROL_QUESTIONS_OVER_SHARED_STATE",
+    "mimo": "BUY_CHEAP_CONTEXT_BANDWIDTH_AND_MULTIMODAL_PREPARATION",
+    "deepseek": "BUY_DIVERGENT_PERSISTENT_SPARSE_AGENT_BRANCHES",
+    "glmFlash": "BUY_LONG_HORIZON_AGENTIC_TOOL_DIVERSITY",
+    "sonnet": "BUY_MID_TIER_ANTHROPIC_SPECIALISM_WHEN_IT_CAN_SHRINK_OPUS_DELTA",
+    "sol": "BUY_PRIMARY_CONSTRUCTION_WITH_DYNAMIC_REASONING_EFFORT",
+    "solPro": "BUY_ONLY_AFTER_SOL_MAX_LEAVES_HIGH_COST_RESIDUAL",
+    "opus": "BUY_IRREDUCIBLE_SEMANTIC_DELTA_AND_CROWN_REVIEW_ONLY"
+  }
+}

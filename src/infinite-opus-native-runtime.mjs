@@ -7,7 +7,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
 import { executeDecisionFranchise } from './decision-franchise.mjs';
-import { verifyFrontierThoughtBond, thoughtBondAuthorityId } from './frontier-thought-bond.mjs';
+import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash } from './frontier-thought-bond.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
@@ -228,7 +228,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const state = await stateFor(tx);
         const pending = Object.values(state.debts).filter(d => d.status !== 'SETTLED' && d.context);
         const plan = coalesceSemanticProofCuts(pending);
-        const cuts=plan.cuts.map(c=>({...c,thoughtBondAuthorityId:thoughtBondAuthorityId(c.cutHash),
+        const cuts=plan.cuts.map(c=>({...c,thoughtBondAuthorityId:thoughtBondAuthorityId(thoughtBondSlotHash({obligation:c.obligation,context:c.context})),
           thoughtBondPresent:Boolean(state.thoughtBonds[c.cutHash])}));
         return zero({ ...plan,cuts, unconnectedDebtCount: Object.values(state.debts).filter(d => !d.context && d.status !== 'SETTLED').length });
       });

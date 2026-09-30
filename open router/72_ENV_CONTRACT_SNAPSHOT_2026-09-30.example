@@ -1,0 +1,196 @@
+# Core
+# Local development may use json. Production must use postgres.
+STORE_BACKEND=json
+# web = HTTP app only, worker = background jobs only, all = local development only
+PROCESS_ROLE=all
+DATABASE_URL=
+DATABASE_SSL=false
+PORT=8080
+# Proxies in front of this process that may be believed about the caller's IP.
+# 0 ignores x-forwarded-for entirely. Behind one proxy (e.g. Vercel), set 1.
+TRUST_PROXY_HOPS=0
+APP_BASE_URL=http://localhost:8080
+DATA_DIR=./data
+SCREENSHOT_DIR=./data/screenshots
+# PostgreSQL deployments copy screenshots into shared artifact storage for separate services.
+ARTIFACT_MAX_BYTES=6291456
+ARTIFACT_RETENTION_DAYS=90
+ARTIFACT_DELETE_LOCAL_AFTER_UPLOAD=true
+ADMIN_TOKEN=change-this-long-random-string
+TOKEN_ENCRYPTION_KEY=replace-with-64-hex-characters
+UNSUBSCRIBE_SECRET=replace-with-another-long-random-secret
+CHROMIUM_PATH=
+
+# Durable worker queue
+QUEUE_CONCURRENCY=2
+QUEUE_POLL_MS=1000
+QUEUE_MAX_ATTEMPTS=5
+QUEUE_RETRY_BASE_MS=30000
+QUEUE_RETRY_MAX_MS=3600000
+QUEUE_LOCK_TIMEOUT_MS=1200000
+QUEUE_JOB_HEARTBEAT_MS=15000
+WORKER_HEARTBEAT_MS=15000
+WORKER_STALE_MS=90000
+QUEUE_MAX_RUNTIME_MS=900000
+
+# Persistent worker
+AUTOPILOT_ENABLED=false
+MAX_BATCH_SIZE=25
+CRAWL_CONCURRENCY=2
+CRAWL_DELAY_MS=500
+MAX_PAGES_PER_SITE=5
+CRAWL_TIMEOUT_MS=25000
+ALLOW_LOCAL_FIXTURES=false
+
+# Unattended outbound safety. Keep disabled and dry-run true until launch review.
+OUTBOUND_ENABLED=false
+OUTBOUND_DRY_RUN=true
+# Require canonical domain/mailbox/workspace readiness before any live send.
+DOMAIN_MAILBOX_GATE_REQUIRED=true
+# Comma-separated country names or ISO codes. Campaigns must also explicitly allow each country.
+OUTBOUND_ALLOWED_COUNTRIES=
+DEFAULT_DAILY_CAP_A=20
+DEFAULT_DAILY_CAP_B=20
+OUTBOUND_HOURLY_CAP_A=5
+OUTBOUND_HOURLY_CAP_B=5
+OUTBOUND_MIN_GAP_SECONDS=90
+OUTBOUND_BUSINESS_HOUR_START=9
+OUTBOUND_BUSINESS_HOUR_END=17
+OUTBOUND_MIN_EVIDENCE_CONFIDENCE=0.75
+OUTBOUND_HARD_BOUNCE_PAUSE_THRESHOLD=2
+OUTBOUND_COMPLAINT_PAUSE_THRESHOLD=1
+OUTBOUND_FAILURE_PAUSE_THRESHOLD=3
+OUTBOUND_PROCESS_BATCH_SIZE=10
+REPLY_POLL_MINUTES=10
+
+# Governed provider-neutral canary surface.
+# For owned Postal: set provider=postal, effect adapter=true, and point the
+# base URL at the authenticated Postal web API. Keep outbound disabled/dry-run
+# until DNS, mailbox, recipient and approval evidence are all green.
+OUTBOUND_LAUNCH_PHASE=off
+OUTBOUND_PROVIDER=gmail-api
+OUTBOUND_USE_EFFECT_ADAPTER=false
+OUTBOUND_MESSAGE_ID_DOMAIN=
+POSTAL_BASE_URL=https://mta.uberbond.cloud
+POSTAL_API_KEY=
+OUTREACH_APPROVAL_SECRET=
+OUTREACH_WEBHOOK_SECRET=
+OUTREACH_WEBHOOK_MAX_AGE_SECONDS=300
+OUTREACH_APPROVER_ID=
+OUTBOUND_CANARY_DAILY_CAP=3
+OUTBOUND_CANARY_MIN_GAP_SECONDS=1800
+OUTBOUND_ROUTE_EVIDENCE_MAX_AGE_DAYS=7
+OUTBOUND_RECIPIENT_COOLDOWN_DAYS=365
+OUTBOUND_DOMAIN_COOLDOWN_DAYS=90
+LEAD_CAPTURE_ENABLED=false
+LEAD_CAPTURE_SITE_KEY=
+LEAD_CAPTURE_RATE_LIMIT_PER_HOUR=30
+
+# OMNIA V9 shadow/compare mode: off, shadow, compare, or canary_null.
+# This controls only the non-authoritative observer. Real effect-adapter sends
+# have a separate authoritative consequence gate in Pipeline.
+# Unknown/empty values always resolve to 'off'.
+OMNIA_V9_MODE=off
+
+# AI: rules, anthropic, or openai
+AI_PROVIDER=rules
+ANTHROPIC_API_KEY=
+ANTHROPIC_MODEL=claude-sonnet-4-6
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-5-mini
+
+# UberMind cloud-only model market (one-plug default)
+# Keep OPENROUTER_API_KEY only in the protected runtime environment.
+OPENROUTER_API_KEY=
+OPENROUTER_AGENT_ENABLED=false
+OPENROUTER_PROVIDER_SORT=price
+OPENROUTER_REQUIRE_ZDR=true
+OPENROUTER_ALLOW_PROVIDER_FALLBACKS=true
+# Optional hard transport ceilings. Prefer per-model ceilings from the live catalog.
+OPENROUTER_MAX_PROMPT_USD_PER_MILLION=
+OPENROUTER_MAX_COMPLETION_USD_PER_MILLION=
+# Quality never degrades when this budget is exhausted; work queues/deferred instead.
+UBERMIND_MONTHLY_COGNITION_BUDGET_USD=30
+UBERMIND_PROTECTED_CROWN_ESCROW_USD=15
+# Interactive TypingMind evidence refs. These are pointers, never secrets.
+UBERMIND_TYPINGMIND_OPENROUTER_CONNECTED_REF=
+UBERMIND_LIVE_CROWN_SNAPSHOT_REF=
+UBERMIND_FRESH_TASK_SOURCE_REF=
+
+# TypingMind -> UberMind custom OpenAI-compatible gateway.
+# Generate UBERMIND_TYPINGMIND_GATEWAY_TOKEN independently (>=32 random chars).
+# It is a cockpit ingress credential only; never reuse ADMIN_TOKEN or an inference key.
+UBERMIND_TYPINGMIND_GATEWAY_TOKEN=
+UBERMIND_TYPINGMIND_ALLOWED_ORIGINS=https://www.typingmind.com,https://typingmind.com
+UBERMIND_TYPINGMIND_RATE_LIMIT_PER_MINUTE=30
+# Non-secret, bounded runtime authorization and Crown Admission Receipt serialized as JSON.
+# These are authority receipts, not API keys; current/valid receipts are still verified at runtime.
+INFINITE_OPUS_PAID_AUTHORIZATION_JSON=
+INFINITE_OPUS_CROWN_ADMISSION_JSON=
+
+# Reverify against current OpenRouter pricing before activation.
+OPENROUTER_PLATFORM_FEE_RATE=0.055
+AI_GATEWAY_AGENT_ENABLED=false
+AI_GATEWAY_MODEL=openai/gpt-5.4
+# Keep this secret only in the protected runtime environment.
+AI_GATEWAY_API_KEY=
+AI_GATEWAY_INPUT_USD_PER_MILLION=
+AI_GATEWAY_OUTPUT_USD_PER_MILLION=
+AI_GATEWAY_PRICING_SOURCE=
+AI_GATEWAY_PRICING_VERIFIED_AT=
+PAYPAL_SANDBOX_CLIENT_ID=
+PAYPAL_SANDBOX_CLIENT_SECRET=
+PAYPAL_SANDBOX_WEBHOOK_ID=
+
+# Optional contact discovery / verification
+HUNTER_API_KEY=
+
+# Optional Gmail OAuth
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=http://localhost:8080/oauth/google/callback
+
+# Sender identity
+SENDER_NAME=Mohamed Wessam
+SENDER_COMPANY=UberBond
+BUSINESS_ADDRESS=Add your valid postal business address before any commercial email
+
+# Public 24/7 audit funnel
+PUBLIC_AUDIT_ENABLED=true
+PUBLIC_RATE_LIMIT_PER_HOUR=8
+FREE_REPORT_FINDINGS=1
+FULL_AUDIT_PRICE_USD=49
+STRATEGY_AUDIT_PRICE_USD=299
+MONITORING_PRICE_USD=99
+IMPLEMENTATION_FROM_USD=1000
+BOOKING_URL=
+AUTO_EMAIL_REPORTS=false
+REPORT_DELIVERY_INBOX=B
+
+# Hosted checkout links. Lemon Squeezy works with the built-in webhook adapter.
+PAYMENT_PROVIDER=links
+FULL_AUDIT_CHECKOUT_URL=
+STRATEGY_AUDIT_CHECKOUT_URL=
+MONITORING_CHECKOUT_URL=
+LEMONSQUEEZY_WEBHOOK_SECRET=
+ALLOW_TEST_PAYMENT_UNLOCK=false
+
+# Recurring monitoring
+MONITORING_INTERVAL_DAYS=30
+MONITORING_BATCH_SIZE=10
+
+# Automatic public business discovery through OpenStreetMap Overpass
+# Keep dry-run on until the preview is relevant. BBOX format: south,west,north,east.
+DISCOVERY_ENABLED=false
+DISCOVERY_DRY_RUN=true
+DISCOVERY_CAMPAIGN_ID=
+DISCOVERY_BBOX=
+DISCOVERY_CATEGORIES=clinic,dentist,medical
+DISCOVERY_COUNTRY=
+DISCOVERY_CITY=
+DISCOVERY_DAILY_CAP=50
+DISCOVERY_RUN_EVERY_HOURS=24
+DISCOVERY_TIMEOUT_MS=30000
+DISCOVERY_MAX_BBOX_SPAN=5
+DISCOVERY_OVERPASS_ENDPOINT=https://overpass-api.de/api/interpreter
+DISCOVERY_USER_AGENT=UberBondRevenueEngine/1.4

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
+  "updatedAt": "2026-09-30T20:36:00+03:00",
+  "qualityReference": "Claude Opus 5.5-quality or better",
+  "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
+  "checkpoints": [
+    {
+      "label": "mixed-cold-path-floor",
+      "multiplier": 6,
+      "status": "CONSERVATIVE_PLANNING_FLOOR"
+    },
+    {
+      "label": "canonical-source-heavy-v5",
+      "multiplier": 8.77636782273802,
+      "status": "MODELED_FROM_CURRENT_PUBLIC_TARIFFS_AND_TOKEN_GEOMETRY",
+      "workload": "200k source -> 5k exact-anchored evidence -> Sol 2.5k answer -> DeepSeek 300-token audit -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.096851
+    }
+  ],
+  "excludedFromCurrentNumber": [
+    "uncertified JEV shadow savings",
+    "unobserved E0-E4 fanout",
+    "Decision Franchise future reuse",
+    "Ghost Agent future reuse",
+    "Semantic E-Graph future reuse",
+    "Living Evidence Graph future delta savings",
+    "future provider/cache discounts not observed in the workload"
+  ],
+  "ceiling": {
+    "finiteForFreshIrreducibleNovelty": true,
+    "finiteValue": "workload-dependent; cannot beat the information cost of genuinely new frontier cognition without an equivalent authority source",
+    "systemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_REUSE_FANOUT",
+    "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
+  },
+  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone."
+}

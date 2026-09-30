@@ -81,16 +81,15 @@
     "canonicalColdSourceHeavyWorkload": {
       "originalSourceTokens": 200000,
       "compressedAnchoredEvidenceTokens": 5000,
-      "builderOutputTokens": 2500,
-      "redTeamOutputTokens": 300,
-      "crownAcceptTokens": 6,
+      "candidateOutputTokens": 2500,
+      "route": "EXACT_TASK_POLICY -> DEEPSEEK_FUSED_EVIDENCE_AND_CANDIDATE -> OPUS_ACCEPT",
       "directOpusUsd": 0.85,
-      "modeledUberMindUsd": 0.096851,
-      "multiplier": 8.77636782273802
+      "modeledUberMindUsd": 0.06002,
+      "multiplier": 14.161946017994001
     },
     "conservativeMixedColdPathFloor": 6,
     "certifiedJevE0E4FanoutIncluded": false,
-    "currentClaim": "8.776x modeled canonical cold source-heavy path; do not count uncertified recurrence savings."
+    "currentClaim": "14.161946x modeled canonical cold source-heavy path; uncertified recurrence savings remain excluded."
   },
   "recoveryOrder": [
     "Read inherited canon first.",

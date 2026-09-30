@@ -2,13 +2,13 @@ import crypto from 'node:crypto';
 const sha=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 const digest=x=>typeof x==='string'&&/^sha256:[0-9a-f]{64}$/.test(x);
 const safe=x=>Number.isSafeInteger(x)&&x>=0;
-export function compileDirectFrontierCounterfactual({model,providerRoute,canonicalPrompt,matchedOutput,tokenizerReceipt,priceReceipt,economics={}}={}){
+export function compileDirectFrontierCounterfactual({model,providerRoute,canonicalPrompt,matchedOutput,tokenizerReceipt,priceReceipt,economics={},verifyTokenizerReceipt=null,verifyPriceReceipt=null}={}){
  const reasons=[];
  if(!model||!providerRoute)reasons.push('model-and-route-required');
  if(typeof canonicalPrompt!=='string'||typeof matchedOutput!=='string')reasons.push('canonical-prompt-and-matched-output-required');
- if(!tokenizerReceipt?.verified||!safe(tokenizerReceipt.inputTokens)||!safe(tokenizerReceipt.outputTokens)||!digest(tokenizerReceipt.tokenizerHash)||!tokenizerReceipt.evidenceRef)reasons.push('verified-tokenizer-receipt-required');
+ if(typeof verifyTokenizerReceipt!=='function'||verifyTokenizerReceipt(tokenizerReceipt)!==true||!tokenizerReceipt?.verified||!safe(tokenizerReceipt.inputTokens)||!safe(tokenizerReceipt.outputTokens)||!digest(tokenizerReceipt.tokenizerHash)||!tokenizerReceipt.evidenceRef)reasons.push('verified-tokenizer-receipt-required');
  if(tokenizerReceipt.promptHash!==sha(canonicalPrompt)||tokenizerReceipt.outputHash!==sha(matchedOutput))reasons.push('tokenizer-receipt-content-binding-mismatch');
- if(!priceReceipt?.verified||priceReceipt.model!==model||priceReceipt.providerRoute!==providerRoute||!priceReceipt.evidenceRef||!Number.isFinite(priceReceipt.inputUsdPerMillion)||!Number.isFinite(priceReceipt.outputUsdPerMillion))reasons.push('verified-current-price-receipt-required');
+ if(typeof verifyPriceReceipt!=='function'||verifyPriceReceipt(priceReceipt)!==true||!priceReceipt?.verified||priceReceipt.model!==model||priceReceipt.providerRoute!==providerRoute||!priceReceipt.evidenceRef||!Number.isFinite(priceReceipt.inputUsdPerMillion)||!Number.isFinite(priceReceipt.outputUsdPerMillion))reasons.push('verified-current-price-receipt-required');
  if(!safe(economics.cachedInputTokens??0)||(economics.cachedInputTokens??0)>tokenizerReceipt.inputTokens)reasons.push('cached-input-token-bound-required');
  const flags=['cheapestLegitimateRouteVerified','batchEconomicsConsidered','promptCacheEconomicsConsidered','responseCacheEconomicsConsidered','retryEconomicsConsidered'];
  for(const k of flags)if(economics[k]!==true)reasons.push(k+'-required');

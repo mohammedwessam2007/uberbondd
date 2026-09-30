@@ -117,10 +117,10 @@ test('Crown tournament is blind, zero-regression and role-specific',()=>{
  const plan=compileCrownTournament({candidateSnapshotHash:h('snapshot'),hiddenTasks:[{taskId:'h1',role:'GENERAL_CROWN',qualityDimensions:['accuracy']},{taskId:'h2',role:'GENERAL_CROWN',qualityDimensions:['accuracy']}],candidates:[{model:'a',roles:['GENERAL_CROWN']},{model:'b',roles:['GENERAL_CROWN']}],budgetAuthorizationRef:'auth'});
  assert.equal(plan.ok,true);assert.equal(plan.plan.blindEvaluation,true);
  const out=adjudicateCrownTournament({plan:plan.plan,observations:[
-  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
-  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
-  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.01},
-  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.01}
+  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
+  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
+  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01},
+  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01}
  ]});assert.equal(out.roles.GENERAL_CROWN.incumbent,'a');
 });
 test('Crown succession changes only roles backed by current admitted Crown receipts',()=>{

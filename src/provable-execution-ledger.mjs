@@ -8,6 +8,8 @@ export function appendProvableExecution(ledger,receipt={}){
  if(ledger?.schemaVersion!==PROVABLE_EXECUTION_LEDGER_SCHEMA)throw new Error('provable-execution-ledger-required');
  if(!receipt.executionId||!receipt.taskId||!receipt.completedAt||!receipt.referenceContractHash||!digest(receipt.referenceContractHash))throw new Error('bound-execution-receipt-required');
  if(String(receipt.completedAt).slice(0,7)!==ledger.period)throw new Error('execution-period-binding-required');
+ if(sha(receipt.directReference)!==receipt.referenceContractHash)throw new Error('reference-contract-hash-mismatch');
+ if(!digest(receipt.directReference?.promptHash)||!digest(receipt.directReference?.matchedOutputHash)||!digest(receipt.directReference?.tokenizerHash)||!receipt.directReference?.tokenizerReceiptRef)throw new Error('tokenized-counterfactual-binding-required');
  if(ledger.executions.some(x=>x.executionId===receipt.executionId))throw new Error('duplicate-provable-execution-id');
  const item={id:receipt.executionId,equivalenceClass:receipt.equivalenceClass,proofVerified:receipt.proofVerified,matchedObligationHash:receipt.matchedObligationHash,
   qualityContractHash:receipt.qualityContractHash,proofRef:receipt.proofRef,executionCount:1,directReference:receipt.directReference};

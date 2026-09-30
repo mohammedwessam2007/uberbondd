@@ -213,6 +213,38 @@ test('source-heavy routine work uses MiMo as candidate writer while Opus retains
  assert.deepEqual(seenModels,[TYPINGMIND_MIMO_MODEL,TYPINGMIND_CROWN_MODEL]);
 });
 
+test('empty cheap candidate falls back to direct Opus and preserves sunk writer cost',async()=>{
+ const rows=[
+  key(0),
+  {model:'typesafe/jev-1.13-20260917',answers:{
+    task_shape:{type:'choice',choice:'source_heavy',probabilities:{source_heavy:.95},confidence:.9},
+    source_compression_value:{type:'score',score:2,confidence:.9},
+    independent_challenge:{type:'noul',noul:.1},
+    hard_reasoning:{type:'score',score:0,confidence:.9},
+    crown_necessity:{type:'noul',noul:.99}
+  },usage:{input_tokens:500,output_tokens:40,cost:.000042},id:'gen-dec-fallback',provider:'TypeSafe'},
+  key(.000042),
+  key(.000042),
+  {id:'g-empty-writer',model:TYPINGMIND_MIMO_MODEL,choices:[{message:{role:'assistant',content:''}}],usage:{cost:.0002,prompt_tokens:100,completion_tokens:1,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
+  {data:{provider_name:'Xiaomi',router:'openrouter/auto',model:TYPINGMIND_MIMO_MODEL,total_cost:.0002,tokens_prompt:100,tokens_completion:1}},
+  key(.000242),
+  key(.000242),
+  {id:'g-direct-after-empty',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:'Direct Crown fallback'}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:20,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
+  {data:{provider_name:'Anthropic',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:20}},
+  key(.002242)
+ ];
+ const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:adaptiveMarket(),fetchImpl,clock:()=>now});
+ const out=await o.execute(builderRequest());
+ assert.equal(out.ok,true);
+ assert.equal(out.status,'TYPINGMIND_UBERMIND_DIRECT_CROWN_RESPONSE');
+ assert.equal(out.completion.choices[0].message.content,'Direct Crown fallback');
+ assert.equal(out.completion.uberbond.actualCostUsd,.002242);
+ assert.equal(out.completion.uberbond.providerCalls,3);
+ assert.equal(out.routeDecision.sunkCostMicrousd,200);
+ assert.equal(out.routeDecision.reason,'EMPTY_CANDIDATE_FALLBACK_DIRECT_CROWN');
+});
+
 test('coding-shaped non-hard work can use DeepSeek candidate writer instead of paying Sol',async()=>{
  const rows=adaptiveWriterSequence({writerModel:TYPINGMIND_DEEPSEEK_MODEL,shape:'coding',hardScore:1,writerText:'DeepSeek coding candidate'});let seenModels=[];
  const fetchImpl=async(url,opts={})=>{

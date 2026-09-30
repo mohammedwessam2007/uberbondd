@@ -106,6 +106,16 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const closure = context ? checkClosure({ artifact, context, now: clock() }) : { ok: false, reasonCodes: ['TRUSTED_CONTEXT_NOT_CONNECTED'] };
         if (capitalReuse && closure.ok && closure.artifactHash !== task.capitalAssetId) throw new Error('capital-asset-hash-drift');
         if (!closure.ok) {
+          if (capitalReuse) {
+            const stale = state.capital[task.capitalAssetId];
+            stale.driftEvents = Number(stale.driftEvents ?? 0) + 1;
+            stale.status = 'DEGRADED_REVALIDATION_REQUIRED';
+            stale.lastDriftAt = clock();
+            state.receipts.push({
+              kind:'CAPITAL_DECOMPILED', taskId:task.taskId, assetId:task.capitalAssetId,
+              observedAt:clock(), reasons:closure.reasonCodes ?? ['SEMANTIC_CLOSURE_FAILED']
+            });
+          }
           if (!task.obligation) throw new Error('typed-unresolved-obligation-required');
           state.negativeKnowledge.push({ failureId: semanticHash({ taskHash, context, reasons: closure.reasonCodes }), reasons: closure.reasonCodes, taskClass: task.taskClass, observedAt: clock(), semanticAuthority: 'NONE' });
           const debt = { taskId: task.taskId, taskClass: task.taskClass, obligation: task.obligation,

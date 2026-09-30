@@ -19,7 +19,8 @@ test('raw TypingMind chat is bounded, text-only and frontier-reviewed by default
  assert.equal(r.maxTokens,3000);assert.equal(r.qualityClass,'Q_FRONTIER_INTERACTIVE');assert.equal(r.defaultLane,'CROWN_REVIEW_REQUIRED');
  assert.ok(r.inputTokenCeiling<300000);assert.equal(r.semanticAuthority,'NONE');
  assert.throws(()=>compileTypingMindChatRequest({model:'openai/gpt',messages:[{role:'user',content:'x'}]}),/ubermind-auto-model/);
- assert.throws(()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'x'}],stream:true}),/nonstreaming/);
+ const streaming=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'x'}],stream:true});
+ assert.equal(streaming.streamRequested,true);
  assert.throws(()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'x'}],tools:[{}]}),/tools-disabled/);
 });
 

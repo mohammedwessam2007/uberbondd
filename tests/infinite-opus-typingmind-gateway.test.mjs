@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { verifyTypingMindGatewayBearer, compileTypingMindChatRequest, stableModelSessionId,
-  buildBuilderMessages, buildCrownReviewMessages, applyCrownReview, openAICompatibleCompletion, gatewayStatus,
+  buildBuilderMessages, buildCrownReviewMessages, buildDirectCrownMessages, applyCrownReview,
+  openAICompatibleCompletion, openAICompatibleDirectCrownCompletion, CROWN_REVIEW_RESPONSE_FORMAT, gatewayStatus,
   TYPINGMIND_UBERMIND_MODEL } from '../src/infinite-opus-typingmind-gateway.mjs';
 import { createOpenRouterGovernedAdapter } from '../src/openrouter-governed-adapter.mjs';
 import { COGNITION_PERIMETER_ADMISSION } from '../src/cognition-transport-guard.mjs';
@@ -42,13 +43,18 @@ test('stable per-model session id survives later conversation growth',()=>{
  assert.notEqual(stableModelSessionId(a.sessionRoot,'m'),stableModelSessionId(a.sessionRoot,'n'));
 });
 
-test('builder is proposal only and Crown ACCEPT authorizes the candidate without rebuying final prose',()=>{
+test('builder is proposal only and Crown uses deterministic accept/patch/rewrite delta protocol',()=>{
  const request=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'Question'}]});
  assert.match(buildBuilderMessages(request)[0].content,/Do not claim Crown authority/);
- assert.match(buildCrownReviewMessages(request,'candidate')[0].content,/reply exactly ACCEPT/);
- const accept=applyCrownReview('candidate','ACCEPT');assert.equal(accept.finalText,'candidate');assert.equal(accept.authorityClass,'CROWN_VERIFIED_SEMANTIC_ACCEPT');
- const rewrite=applyCrownReview('candidate','REWRITE\ncorrect');assert.equal(rewrite.finalText,'correct');assert.equal(rewrite.authorityClass,'DIRECT_CURRENT_CROWN');
- const drift=applyCrownReview('candidate','direct crown answer');assert.equal(drift.finalText,'direct crown answer');assert.equal(drift.protocolDrift,true);
+ assert.match(buildCrownReviewMessages(request,'candidate')[0].content,/structured JSON/);
+ assert.equal(CROWN_REVIEW_RESPONSE_FORMAT.type,'json_schema');
+ const accept=applyCrownReview('candidate',JSON.stringify({verdict:'ACCEPT',patches:[],rewrite:''}));
+ assert.equal(accept.finalText,'candidate');assert.equal(accept.authorityClass,'CROWN_VERIFIED_SEMANTIC_ACCEPT');
+ const patched=applyCrownReview('The answer is 41.',JSON.stringify({verdict:'PATCH',patches:[{old:'41',replacement:'42'}],rewrite:''}));
+ assert.equal(patched.finalText,'The answer is 42.');assert.equal(patched.authorityClass,'CROWN_VERIFIED_EXACT_PATCH');
+ const rewrite=applyCrownReview('candidate',JSON.stringify({verdict:'REWRITE',patches:[],rewrite:'correct'}));
+ assert.equal(rewrite.finalText,'correct');assert.equal(rewrite.authorityClass,'DIRECT_CURRENT_CROWN');
+ assert.throws(()=>applyCrownReview('x x',JSON.stringify({verdict:'PATCH',patches:[{old:'x',replacement:'y'}],rewrite:''})),/exactly-once/);
 });
 
 test('OpenAI compatible response preserves UberBond authority metadata without claiming multiplier',()=>{
@@ -80,4 +86,15 @@ test('OpenRouter response cache is explicit and never silently enabled',async()=
  await a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,responseCache:true});
  assert.equal(completionHeaders[0]['X-OpenRouter-Cache'],undefined);
  assert.equal(completionHeaders[1]['X-OpenRouter-Cache'],'true');
+});
+
+
+test('direct Crown path returns direct authority without pretending there was a Builder',()=>{
+ const request=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'Short question'}]});
+ assert.match(buildDirectCrownMessages(request)[0].content,/admitted UberMind task-class Crown/);
+ const out=openAICompatibleDirectCrownCompletion({request,crownText:'Direct answer',usage:{promptTokens:5,completionTokens:2,crownModel:'opus',providerCalls:1,actualCostUsd:.001}});
+ assert.equal(out.choices[0].message.content,'Direct answer');
+ assert.equal(out.uberbond.authorityClass,'DIRECT_CURRENT_CROWN');
+ assert.equal(out.uberbond.builderModel,null);
+ assert.equal(out.uberbond.providerCalls,1);
 });

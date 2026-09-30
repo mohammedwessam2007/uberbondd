@@ -4,10 +4,23 @@ const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const digest=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
 const same=(a,b)=>canonicalSemanticJson(a)===canonicalSemanticJson(b);
 
-export const thoughtBondAuthorityId=cutHash=>{
-  if(!digest(cutHash))throw new Error('semantic-cut-hash-required');
-  return 'thought-bond:'+cutHash;
+export const thoughtBondAuthorityId=slotHash=>{
+  if(!digest(slotHash))throw new Error('thought-bond-slot-hash-required');
+  return 'thought-bond:'+slotHash;
 };
+
+export function thoughtBondSlotHash(cut){
+  if(!plain(cut)||!plain(cut.context))throw new Error('complete-proof-cut-required');
+  return semanticHash({
+    obligation:cut.obligation,
+    scope:cut.context.scope,
+    qualityContractHash:cut.context.qualityContractHash,
+    crownRevision:cut.context.crownRevision,
+    sourceHashes:cut.context.sourceHashes,
+    invalidators:cut.context.invalidators,
+    requiredClaimIds:cut.context.requiredClaimIds
+  });
+}
 
 export function mintFrontierThoughtBond({cut,crownObservation,observationTrustPin,expiresAt,now=Date.now()}={}){
   const fail=reason=>({ok:false,status:'FRONTIER_THOUGHT_BOND_REFUSED',reasons:[reason],semanticAuthority:'NONE'});
@@ -25,7 +38,7 @@ export function mintFrontierThoughtBond({cut,crownObservation,observationTrustPi
     const expiry=Date.parse(expiresAt);if(!Number.isFinite(expiry)||expiry<=now)throw new Error('future-bond-expiry-required');
 
     const record={
-      id:thoughtBondAuthorityId(cutHash),kind:'CROWN',status:'ACTIVE',
+      id:thoughtBondAuthorityId(thoughtBondSlotHash(cut)),kind:'CROWN',status:'ACTIVE',
       scope:cut.context.scope,qualityContractHash:cut.context.qualityContractHash,
       crownRevision:cut.context.crownRevision,verifiedAt:crownObservation.observedAt,expiresAt,
       sourceHashes:structuredClone(cut.context.sourceHashes),

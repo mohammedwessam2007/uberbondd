@@ -8,7 +8,8 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd,
   estimateCompressedAdaptiveWriterFrontierUsd, chooseCompressedAdaptiveWriterFrontier,
   estimateFusedAnchoredSourceWriterFrontierUsd,
-  estimateCrownApprovedMacroCompiledUsd, chooseCrownApprovedMacroCompiledPath } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateCrownApprovedMacroCompiledUsd, chooseCrownApprovedMacroCompiledPath,
+  estimateCertifiedJevMacroLaneUsd } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -275,4 +276,16 @@ test('macro compiled lane fails closed if any authority prerequisite is absent',
     assert.equal(r.selected,null,missing);
   }
   assert.equal(estimateCrownApprovedMacroCompiledUsd({originalInputTokens:200000,closedEvidenceTokens:5000}),0.0294);
+});
+
+
+test('certified Jev evidence gate economics include sampled Crown audit tax',()=>{
+  const x=estimateCertifiedJevMacroLaneUsd({
+    sourceTokens:200000,jevInputUsdPerMillion:.042,
+    auditRate:.05,crownAuditInputTokens:900,crownAuditOutputTokens:1
+  });
+  assert.equal(x.jevUsd,.0084);
+  assert.equal(x.expectedAuditUsd,.000181);
+  assert.equal(x.totalUsd,.008581);
+  assert.equal(Number((.85/x.totalUsd).toFixed(12)),99.056054072952);
 });

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:36:00+03:00",
+  "updatedAt": "2026-09-30T21:43:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -114,6 +114,29 @@
           "deepSeekUsd": 0.0299
         }
       }
+    },
+    {
+      "label": "canonical-source-heavy-v10-exact-before-jev",
+      "multiplier": 14.161946017994001,
+      "status": "MODELED_ACCEPT_PATH__EXACT_ROUTING_REMOVES_UNNECESSARY_JEV_AND_CRITIC__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> exact task-shape policy -> DeepSeek fused 5k exact-anchored evidence + 2.5k candidate -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06002,
+      "deltaFromPrior": {
+        "priorMultiplier": 14.105074507981811,
+        "priorUberMindUsd": 0.060262,
+        "removed": [
+          "JEV control call when metadata already closes the routing decision",
+          "independent critic because the fused writer is already DeepSeek and no independent-challenge condition is present"
+        ],
+        "preserved": [
+          "same source",
+          "same evidence contract",
+          "same candidate",
+          "same mandatory Opus final semantic gate"
+        ],
+        "compilerLaw": "EXACT_BEFORE_JEV"
+      }
     }
   ],
   "excludedFromCurrentNumber": [
@@ -132,7 +155,7 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 14.152042889014686,
-  "currentCanonicalModeledUberMindUsd": 0.060062,
-  "currentCanonicalWorkload": "200k source -> paid JEV control -> cheapest fused source worker (DeepSeek on current tariffs) -> Opus ACCEPT"
+  "currentCanonicalModeledMultiplier": 14.161946017994001,
+  "currentCanonicalModeledUberMindUsd": 0.06002,
+  "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT"
 }

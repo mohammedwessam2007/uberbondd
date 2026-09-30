@@ -13,7 +13,6 @@ const identity = value => typeof value === 'string' && /^[a-zA-Z0-9_.:/-]{1,240}
 const sha256Ref = value => typeof value === 'string' && /^sha256:[a-f0-9]{64}$/.test(value);
 const hmacRef = value => typeof value === 'string' && /^hmac-sha256:[a-f0-9]{64}$/.test(value);
 const boundedMicrousd = value => Number.isSafeInteger(value) && value >= 0 && value <= 20_000_000;
-const nonnegativeInt = value => Number.isSafeInteger(value) && value >= 0;
 const boundedText = (value,max=240) => typeof value === 'string' && value.length > 0 && value.length <= max;
 const safePayload = value => {
   const encoded = JSON.stringify(value);

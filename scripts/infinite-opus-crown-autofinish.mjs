@@ -49,9 +49,9 @@ async function generation(apiKey,id){
   }
   throw new Error('generation-reconciliation-required:'+id);
 }
-async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null}){
+async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoning=null}){
   const body={model,messages,max_tokens:maxTokens,stream:false,temperature:0,
-    ...(responseFormat?{response_format:responseFormat}:{}),
+    ...(responseFormat?{response_format:responseFormat}:{}),...(reasoning?{reasoning}:{}),
     provider:{order:[provider],allow_fallbacks:false,require_parameters:true,data_collection:'deny',zdr:true,
       max_price:PRICE_CAPS[model]}};
   const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
@@ -120,7 +120,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:1000,tag:'custodian-generate',responseFormat:taskResponseFormat()});
+   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:1800,tag:'custodian-generate',responseFormat:taskResponseFormat(),reasoning:{max_tokens:128,exclude:true}});
    const taskDoc=parseJson(gen.text),tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
@@ -154,7 +154,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      blind[t.id]={A:answers[t.id+'|'+order[0]],B:answers[t.id+'|'+order[1]]};
      mapping[t.id]={A:order[0],B:order[1]};
    }
-   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:1100,tag:'custodian-grade',responseFormat:gradeResponseFormat()});
+   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:2200,tag:'custodian-grade',responseFormat:gradeResponseFormat(),reasoning:{max_tokens:512,exclude:true}});
    const gradeDoc=parseJson(grade.text),grades=gradeDoc?.grades;
    if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
 

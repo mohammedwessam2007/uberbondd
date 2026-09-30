@@ -5,7 +5,7 @@ import { semanticHash } from './semantic-closure-kernel.mjs';
 const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
 
 export function executeSequentialDecisionFranchiseFanout({
-  record,trustPin,currentContext,count,taskIdPrefix='fanout-',taskFactory,now=Date.now(),maxConsumers=2_000_000
+  record,trustPin,currentContext,count,taskIdPrefix='fanout-',taskFactory,now=Date.now(),maxConsumers=3_000_000
 }={}){
   if(!Number.isSafeInteger(count)||count<1||count>maxConsumers)throw new Error('bounded-positive-fanout-count-required');
   if(typeof taskIdPrefix!=='string'||!taskIdPrefix||typeof taskFactory!=='function')throw new Error('task-id-prefix-and-factory-required');

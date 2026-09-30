@@ -10,6 +10,9 @@ import { createProvableExecutionLedger, appendProvableExecution, summarizeProvab
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
 const identity = value => typeof value === 'string' && /^[a-zA-Z0-9_.:/-]{1,240}$/.test(value);
+const sha256Ref = value => typeof value === 'string' && /^sha256:[a-f0-9]{64}$/.test(value);
+const nonnegativeInt = value => Number.isSafeInteger(value) && value >= 0;
+const boundedText = (value,max=240) => typeof value === 'string' && value.length > 0 && value.length <= max;
 const safePayload = value => {
   const encoded = JSON.stringify(value);
   if (encoded !== redactSecrets(encoded)) throw new Error('secret-bearing-payload-refused');
@@ -41,7 +44,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
-      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
+      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, crownInteractions: {}, crownInteractionReceipts: {},
+      negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
     // Preserve every historical month; unsettled charges block paid capacity.
@@ -60,6 +64,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       else state.ledger.incidents.push({ reason: 'PAID_RUNTIME_CAP_RECONCILIATION_REQUIRED' });
     }
     state.proofLedger ??= createProvableExecutionLedger({ period: today().slice(0, 7) });
+    state.crownInteractions ??= {};
+    state.crownInteractionReceipts ??= {};
     if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -147,6 +153,120 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           unrestrictedProseCertified: false });
       });
     },
+    async recordCrownInteraction(record) {
+      safePayload(record);
+      if (!sha256Ref(record?.requestFingerprint) || !sha256Ref(record?.finalOutputHash) ||
+          !sha256Ref(record?.crownAdmissionReceiptHash) || !boundedText(record?.crownProviderRequestId, 512) ||
+          !boundedText(record?.observedUpstreamProvider, 240) || !boundedText(record?.authorityClass, 120) ||
+          !nonnegativeInt(record?.builderCostMicrousd) || !nonnegativeInt(record?.crownCostMicrousd) ||
+          record.sideEffectAuthority !== 'NONE') throw new Error('bounded-crown-interaction-receipt-required');
+      const interactionId = 'sha256:' + semanticHash({
+        requestFingerprint: record.requestFingerprint,
+        finalOutputHash: record.finalOutputHash,
+        crownAdmissionReceiptHash: record.crownAdmissionReceiptHash,
+        crownProviderRequestId: record.crownProviderRequestId
+      });
+      return transact(store, async tx => {
+        const state = await stateFor(tx);
+        if (state.crownInteractionReceipts[interactionId]) {
+          const existing = state.crownInteractions[record.requestFingerprint];
+          return zero({ ok: true, status: 'IDEMPOTENT_CROWN_INTERACTION_RECORD',
+            interactionId, recurrence: existing ? structuredClone(existing.summary) : null,
+            semanticReuseAuthority: 'NONE', providerCallsPerformed: 0 });
+        }
+        if (Object.keys(state.crownInteractionReceipts).length >= 20000) throw new Error('archive-checkpoint-required-before-crown-interaction-growth');
+        const totalCostMicrousd = record.builderCostMicrousd + record.crownCostMicrousd;
+        const entry = state.crownInteractions[record.requestFingerprint] ?? {
+          requestFingerprint: record.requestFingerprint,
+          occurrences: 0,
+          outputCounts: {},
+          totalObservedCostMicrousd: 0,
+          firstObservedCostMicrousd: totalCostMicrousd,
+          firstSeenAt: clock(),
+          lastSeenAt: clock(),
+          latestAuthorityClass: record.authorityClass,
+          latestCrownAdmissionReceiptHash: record.crownAdmissionReceiptHash,
+          latestObservedUpstreamProvider: record.observedUpstreamProvider,
+          latestCrownProviderRequestId: record.crownProviderRequestId,
+          summary: null
+        };
+        entry.occurrences += 1;
+        entry.outputCounts[record.finalOutputHash] = (entry.outputCounts[record.finalOutputHash] ?? 0) + 1;
+        entry.totalObservedCostMicrousd += totalCostMicrousd;
+        entry.lastSeenAt = clock();
+        entry.latestAuthorityClass = record.authorityClass;
+        entry.latestCrownAdmissionReceiptHash = record.crownAdmissionReceiptHash;
+        entry.latestObservedUpstreamProvider = record.observedUpstreamProvider;
+        entry.latestCrownProviderRequestId = record.crownProviderRequestId;
+        const distinctOutputCount = Object.keys(entry.outputCounts).length;
+        const repeatedFrontierCostMicrousd = Math.max(0, entry.totalObservedCostMicrousd - entry.firstObservedCostMicrousd);
+        const status = entry.occurrences < 2 ? 'SINGLETON_CROWN_INTERACTION_SHADOW'
+          : distinctOutputCount === 1 ? 'RECURRENT_EXACT_OUTPUT_SHADOW_COMPILER_CANDIDATE'
+          : 'RECURRENT_DIVERGENT_OUTPUT_SHADOW_REQUIRES_RECONCILIATION';
+        entry.summary = {
+          status,
+          occurrences: entry.occurrences,
+          distinctOutputCount,
+          totalObservedCostMicrousd: entry.totalObservedCostMicrousd,
+          repeatedFrontierCostMicrousd,
+          compilerPriorityMicrousd: repeatedFrontierCostMicrousd,
+          semanticReuseAuthority: 'NONE',
+          rawConversationPersisted: false
+        };
+        state.crownInteractions[record.requestFingerprint] = entry;
+        state.crownInteractionReceipts[interactionId] = {
+          interactionId,
+          requestFingerprint: record.requestFingerprint,
+          finalOutputHash: record.finalOutputHash,
+          crownAdmissionReceiptHash: record.crownAdmissionReceiptHash,
+          crownProviderRequestId: record.crownProviderRequestId,
+          observedUpstreamProvider: record.observedUpstreamProvider,
+          authorityClass: record.authorityClass,
+          builderCostMicrousd: record.builderCostMicrousd,
+          crownCostMicrousd: record.crownCostMicrousd,
+          observedAt: clock(),
+          sideEffectAuthority: 'NONE'
+        };
+        state.receipts.push({ kind: 'CROWN_CALL', callId: record.crownProviderRequestId,
+          semanticReusableStructure: false, requestFingerprint: record.requestFingerprint,
+          observedAt: clock(), semanticAuthority: record.authorityClass });
+        state.receipts.push({ kind: 'CROWN_INTERACTION_OBSERVED', interactionId,
+          requestFingerprint: record.requestFingerprint, status, occurrences: entry.occurrences,
+          distinctOutputCount, repeatedFrontierCostMicrousd, observedAt: clock(),
+          semanticReuseAuthority: 'NONE', rawConversationPersisted: false });
+        await persist(tx, state);
+        return zero({ ok: true, status, interactionId, recurrence: structuredClone(entry.summary),
+          semanticReuseAuthority: 'NONE', providerCallsPerformed: 0 });
+      });
+    },
+    async crownCapitalizationPlan({ limit = 50 } = {}) {
+      if (!Number.isSafeInteger(limit) || limit < 1 || limit > 200) throw new Error('bounded-capitalization-plan-limit-required');
+      return transact(store, async tx => {
+        const state = await stateFor(tx);
+        const candidates = Object.values(state.crownInteractions)
+          .filter(row => row?.summary?.occurrences >= 2)
+          .map(row => ({
+            requestFingerprint: row.requestFingerprint,
+            status: row.summary.status,
+            occurrences: row.summary.occurrences,
+            distinctOutputCount: row.summary.distinctOutputCount,
+            totalObservedCostMicrousd: row.summary.totalObservedCostMicrousd,
+            repeatedFrontierCostMicrousd: row.summary.repeatedFrontierCostMicrousd,
+            compilerPriorityMicrousd: row.summary.compilerPriorityMicrousd,
+            latestAuthorityClass: row.latestAuthorityClass,
+            latestCrownAdmissionReceiptHash: row.latestCrownAdmissionReceiptHash,
+            latestObservedUpstreamProvider: row.latestObservedUpstreamProvider,
+            rawConversationPersisted: false,
+            semanticReuseAuthority: 'NONE'
+          }))
+          .sort((a,b) => b.compilerPriorityMicrousd - a.compilerPriorityMicrousd || b.occurrences - a.occurrences)
+          .slice(0, limit);
+        return zero({ ok: true, status: 'CROWN_CAPITALIZATION_SHADOW_PLAN',
+          candidates, candidateCount: candidates.length, providerCallsPerformed: 0,
+          semanticReuseAuthority: 'NONE',
+          truthBoundary: 'Recurrence and repeated frontier cost identify compiler targets only. No candidate may execute as semantic authority until it is separately typed, verified and promoted through E0-E4/Crown closure.' });
+      });
+    },
     async demandPlan() {
       return transact(store, async tx => {
         const state = await stateFor(tx);
@@ -161,7 +281,10 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         return zero({ schemaVersion: state.schemaVersion, version: state.version,
           budget: cognitionBudgetSummary(state.ledger, today()), metrics: cognitionMetrics(state.receipts),
           taskCount: Object.keys(state.tasks).length, pendingDebts: Object.values(state.debts).filter(d => d.status !== 'SETTLED').length,
-          capitalAssets: Object.keys(state.capital).length, paidConnected: Boolean(paidExecutor && paidAuthorization),
+          capitalAssets: Object.keys(state.capital).length,
+          crownInteractionFingerprints: Object.keys(state.crownInteractions).length,
+          recurrentCrownCompilerCandidates: Object.values(state.crownInteractions).filter(row => row?.summary?.occurrences >= 2).length,
+          paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });
     },

@@ -3,7 +3,7 @@ import { executeSequentialDecisionFranchiseFanout, modelFanoutReferenceEconomics
 import { semanticHash } from '../src/semantic-closure-kernel.mjs';
 
 const h=x=>crypto.createHash('sha256').update(String(x)).digest('hex');
-const count=1_176_471;
+const count=2_352_942;
 const spec={
  schemaVersion:'uberbond.decision-franchise.spec.v1',taskClass:'CANONICAL_RECURRING_SOURCE_DECISION',
  qualityContractHash:h('opus-5.5-quality-contract'),sideEffectClass:'NONE',relevantKeys:['state'],
@@ -23,7 +23,7 @@ const receipt=executeSequentialDecisionFranchiseFanout({
  now:Date.parse('2026-09-30T20:00:00Z'),
  taskFactory:i=>({taskId:'benchmark-'+i,taskClass:spec.taskClass,qualityContractHash:spec.qualityContractHash,sideEffectClass:'NONE',payload:{state:i%2?'B':'A',consumerNonce:i}})
 });
-const economics=modelFanoutReferenceEconomics({executionReceipt:receipt,directOpusUnitUsd:.85,actualAllInEnvelopeUsd:30});
+const economics=modelFanoutReferenceEconomics({executionReceipt:receipt,directOpusUnitUsd:.425,actualAllInEnvelopeUsd:30});
 console.log(JSON.stringify({
  schemaVersion:'uberbond.decision-franchise-million-benchmark.v1',
  benchmarkOnly:true,syntheticTaskClass:true,elapsedMs:Date.now()-started,receipt,economics

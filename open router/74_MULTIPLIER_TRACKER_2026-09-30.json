@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:59:30+03:00",
+  "updatedAt": "2026-09-30T23:59:45+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -340,6 +340,20 @@
       "priorMultiplier": 315.75037147102523,
       "reason": "A fair direct Opus comparator for repeated 98%-stable source updates may use Opus Batch and prompt-cache reads. Exact direct reference depends on cache/write eligibility and observed prompt layout, so 315.75x is retained historically but not treated as current fair economics.",
       "qualityLaw": "No architecture regression; accounting comparator hardened."
+    },
+    {
+      "label": "durable-production-franchise-graduation-v20",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_MULTIPLIER_CREDIT__PRODUCTION_GRADUATION_LOOP_IMPLEMENTED",
+      "workload": "real trust-pinned current Opus 5.5 observations -> exhaustive finite-domain recertification inside runtime -> durable franchise vault -> survives restart -> zero-call exact-before-frontier recurrence",
+      "providerCallsOnFranchiseHit": 0,
+      "implementation": [
+        "src/infinite-opus-native-runtime.mjs",
+        "server.mjs",
+        "tests/durable-decision-franchise-vault.test.mjs"
+      ],
+      "qualityLaw": "Runtime re-runs exhaustive Crown certification before admission. Serialized record alone cannot self-promote; tampered observations fail; vault conflicts cannot overwrite cognition.",
+      "nextEvidence": "FIRST_REAL_OPUS_OBSERVATION_SET_AND_REAL_RECURRING_TASK_CLASS"
     }
   ],
   "excludedFromCurrentNumber": [
@@ -371,7 +385,7 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__0_PROVIDER_CALLS__FAIR_OPUS_BATCH_REFERENCE_MODELED",
+      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__DURABLE_REAL_CROWN_GRADUATION_LOOP_IMPLEMENTED__AWAITING_FIRST_REAL_CERTIFIED_TASK_CLASS",
       "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
       "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",

@@ -502,6 +502,16 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/queue') {
       return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });
     }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/franchises') {
+      return sendJson(res, 200, await runtime.listDecisionFranchises());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/franchises/certify') {
+      let body;
+      try { body = await readSmallJsonBody(req, 2_000_000); }
+      catch (error) { return sendJson(res, 400, { ok:false,status:'DECISION_FRANCHISE_CERTIFICATION_BODY_REFUSED',error:String(error?.message||error) }); }
+      const admitted=await runtime.admitExhaustiveDecisionFranchise(body);
+      return sendJson(res, admitted.ok ? 200 : 409, admitted);
+    }
     return sendJson(res, 404, { error: 'Infinite Opus route not found' });
   });
 }

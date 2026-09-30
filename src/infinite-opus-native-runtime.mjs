@@ -213,8 +213,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       return { ...settlement, status: settlement.ok ? 'PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY' : settlement.status,
         proposal: response.ok && settlement.ok ? response.result : null,
         semanticAuthority: 'NONE', providerCallsPerformed: 1, requestedModel: call.model,
-        observedModel: response.observedModel ?? null, observedProvider: response.provider ?? null,
-        upstreamProvider: response.upstreamProvider ?? null,
+        observedModel: response.observedModel ?? null, observedModelRevision: response.observedModelRevision ?? null,
+        observedProvider: response.provider ?? null, upstreamProvider: response.upstreamProvider ?? null,
         providerRequestId: response.providerRequestId, observedCostMicrousd,
         generationReceipt: response.generationReceipt ? structuredClone(response.generationReceipt) : null,
         usage: structuredClone(response.usage) };

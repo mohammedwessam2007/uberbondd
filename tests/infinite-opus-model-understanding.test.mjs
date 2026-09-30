@@ -61,3 +61,11 @@ test('analytic lane sends proven recurrence to E0-E4 and novel frontier semantic
  const frontier=chooseAnalyticLane({registry,task:{qualityClass:'Q_FRONTIER'},candidateModels:['openai/gpt-6.1-sol','anthropic/claude-opus-5.5']});
  assert.equal(frontier.lane,'CROWN_PAGE_FAULT');assert.equal(frontier.empiricalModelTestRequired,true);assert.equal(frontier.semanticAuthority,'NONE');
 });
+
+
+test('expired tariff freshness does not erase structural model understanding',()=>{
+ const r=compileModelUnderstanding(config(),{now:Date.parse('2026-10-02T13:00:00Z')});
+ assert.equal(r.economicsFresh,false);
+ assert.ok(r.profiles.some(x=>x.model==='openai/gpt-6.1-sol-pro'));
+ assert.equal(r.semanticAuthority,'NONE');
+});

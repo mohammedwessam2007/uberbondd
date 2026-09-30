@@ -209,9 +209,13 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       if (response?.usage?.costBasis !== 'OPENROUTER_USAGE_COST_OBSERVED' || typeof response.usage.costUsd !== 'number' || !Number.isFinite(response.usage.costUsd) || response.usage.costUsd < 0 || !response.providerRequestId) return zero({ ok: false, status: 'OBSERVED_BILL_REQUIRED_RESERVATION_HELD', providerCallsPerformed: 1 });
       const settlement = await this.reconcileCall({ callId, actualMicrousd: Math.ceil(response.usage.costUsd * 1e6), receiptRef: response.providerRequestId,
         observedModel: response.observedModel, observedProvider: response.provider });
+      const observedCostMicrousd = Math.ceil(response.usage.costUsd * 1e6);
       return { ...settlement, status: settlement.ok ? 'PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY' : settlement.status,
         proposal: response.ok && settlement.ok ? response.result : null,
-        semanticAuthority: 'NONE', providerCallsPerformed: 1, requestedModel: call.model };
+        semanticAuthority: 'NONE', providerCallsPerformed: 1, requestedModel: call.model,
+        observedModel: response.observedModel ?? null, observedProvider: response.provider ?? null,
+        providerRequestId: response.providerRequestId, observedCostMicrousd,
+        usage: structuredClone(response.usage) };
     },
     async reconcileCall(receipt) {
       safePayload(receipt);

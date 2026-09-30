@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:05:00+03:00",
+  "updatedAt": "2026-09-30T23:35:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -275,6 +275,22 @@
         "src/infinite-opus-native-runtime.mjs",
         "tests/frontier-thought-bond.test.mjs"
       ]
+    },
+    {
+      "label": "decision-franchise-million-execution-v18",
+      "multiplier": 33333.345,
+      "status": "1_176_471_DISTINCT_E3_EXECUTIONS_OBSERVED__ECONOMICS_STILL_MODELED",
+      "workload": "1,176,471 sequentially distinct synthetic bounded consumers executed through one admitted E3 Decision Franchise",
+      "executedConsumers": 1176471,
+      "elapsedMs": 8351,
+      "providerCallsPerformed": 0,
+      "receiptRoot": "sha256:358faf42034683f30e10954e7b64aa30204ac6fac738cea579050fd60ef26b15",
+      "executionReceipt": "open router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json",
+      "directOpusUnitUsd": 0.85,
+      "directReferenceUsd": 1000000.35,
+      "actualAllInEnvelopeUsd": 30,
+      "qualityLaw": "Every consumer executed through the same certified finite-policy semantics; no model authority was substituted.",
+      "truthBoundary": "Execution fanout is observed. Direct-Opus unit cost and all-in $30 economics remain modeled until real task/reference/spend receipts bind them."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -306,8 +322,10 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "33333X_CAPACITY_THEOREM_RUNTIME_HOT_PATH_AND_EXHAUSTIVE_OPUS_GRADUATION_IMPLEMENTED__PRODUCTION_FANOUT_NOT_YET_OBSERVED",
-      "distinctConsumersRequiredForCanonicalTarget": 1176471,
+      "status": "1_176_471_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__REFERENCE_ECONOMICS_MODELED_NOT_PRODUCTION_OBSERVED",
+      "distinctConsumersExecuted": 1176471,
+      "providerCallsPerformed": 0,
+      "receiptRoot": "sha256:358faf42034683f30e10954e7b64aa30204ac6fac738cea579050fd60ef26b15",
       "directOpusUnitUsd": 0.85,
       "actualAllInEnvelopeUsd": 30
     },

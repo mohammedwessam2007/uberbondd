@@ -131,3 +131,71 @@ current moving-frontier quality preserved
 cash cognition <= sovereign perimeter
 every multiplier traceable to proofs + counts + prices + bills
 ```
+
+
+## Live proof-ledger expansion
+
+```
+REAL CLOSED TASK
+      |
+      +--> E0 exact replay
+      +--> E1 deterministic derivation
+      +--> E2 verified transformation
+      +--> E3 exhaustive closed-world policy
+      +--> E4 proof-carrying bounded circuit
+      |
+      v
+SEMANTIC CLOSURE VERIFIED
+      |
+      v
+UNIQUE EXECUTION RECEIPT
+      |
+      +--> matched obligation hash
+      +--> quality-contract hash
+      +--> proof ref
+      +--> no duplicate execution ID
+      |
+      v
+CANONICAL DIRECT-CROWN COUNTERFACTUAL
+      |
+      +--> exact prompt hash
+      +--> exact matched-output hash
+      +--> verified tokenizer receipt
+      +--> current cheapest legitimate route
+      +--> Batch/Flex considered
+      +--> prompt cache considered
+      +--> response cache considered
+      +--> retries/fees considered
+      |
+      v
+GROUP IDENTICAL CONTRACTS
+      |
+      +--> direct baseline gets its own response-cache advantage
+      |
+      v
+REFERENCE COST ARITHMETIC
+      |
+      +--------------------+
+      |                    |
+      v                    v
+OBSERVED CASH COST     REFERENCE COST
+      |                    |
+      +---------+----------+
+                |
+                v
+      LIVE COMPRESSION FACTOR
+                |
+      +---------+----------+
+      |                    |
+    < target             >= 33,333.333x
+      |                    |
+compile more          AND >= $1M matched reference
+recurrence            AND <= $30 actual all-in
+      |                    |
+      +---------+----------+
+                |
+                v
+          REALITY RECEIPT
+```
+
+This path removes ceremonial E0-E4 quality re-testing. It does not remove the need for observed actual spend or current counterfactual price/token evidence.

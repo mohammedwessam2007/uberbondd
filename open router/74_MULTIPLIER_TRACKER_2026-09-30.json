@@ -382,6 +382,26 @@
         "tests/infinite-opus-worker-context-vault.test.mjs"
       ],
       "remainingEvidenceBlocker": "FIRST_REAL_CURRENT_OPUS_5_5_OBSERVATION_SET_FOR_A_RECURRING_TASK_CLASS"
+    },
+    {
+      "label": "receipt-grade-production-economic-court-v23",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_MULTIPLIER_CREDIT__REAL_TASK_REFERENCE_VAULT_AND_OBSERVED_COST_COURT_IMPLEMENTED",
+      "workload": "admin-admitted exact task-bound direct-Opus counterfactual -> zero-call E0-E4 execution -> observed all-in cost classes -> closed tamper-evident Cognitive Capital campaign -> finite audited reference compression factor",
+      "qualityLaw": "Reference contract must already prove cheapest legitimate route, batch/cache/retry accounting and verified tokenizer binding. Task payload cannot create its own reference. Zero observed denominator, missing cost class, duplicate/tampered receipt, or failed proof ledger blocks closure.",
+      "implementation": [
+        "src/cognitive-capital-ledger.mjs",
+        "src/infinite-opus-native-runtime.mjs",
+        "server.mjs",
+        "tests/cognitive-capital-ledger.test.mjs",
+        "tests/infinite-opus-receipt-court-runtime.test.mjs"
+      ],
+      "realizedEconomicMultiplier": null,
+      "remainingEvidence": [
+        "REAL_CURRENT_OPUS_5_5_CROWN_OBSERVATIONS_FOR_FIRST_RECURRING_TASK_CLASS",
+        "VERIFIED_TOKENIZER_AND_CHEAPEST_LEGITIMATE_DIRECT_REFERENCE_RECEIPTS_FOR_REAL_TASKS",
+        "OBSERVED_NONZERO_ALL_IN_CAMPAIGN_COST_RECEIPTS"
+      ]
     }
   ],
   "excludedFromCurrentNumber": [
@@ -413,14 +433,16 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__DURABLE_CROWN_GRADUATION_AND_24_7_WORKER_CONTEXT_PATH_IMPLEMENTED__REAL_TASK_EVIDENCE_REQUIRED",
+      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__PRODUCTION_REFERENCE_AND_COST_COURT_WIRED__REAL_RECEIPTS_REQUIRED",
       "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
       "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
       "directOpusRoute": "anthropic/claude-opus-5.5:batch",
       "directOpusUnitUsd": 0.425,
       "directReferenceUsd": 1000000.35,
-      "actualAllInEnvelopeUsd": 30
+      "actualAllInEnvelopeUsd": 30,
+      "realizedEconomicMultiplier": null,
+      "realizedEconomicStatus": "RECEIPT_GRADE_PRODUCTION_AUDITOR_WIRED__AWAITING_REAL_CROWN_REFERENCE_AND_COST_RECEIPTS"
     },
     "deltaResearch": {
       "multiplier": "WORKLOAD_CACHE_DEPENDENT",

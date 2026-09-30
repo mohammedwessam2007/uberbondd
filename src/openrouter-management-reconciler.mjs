@@ -5,6 +5,22 @@ export function createOpenRouterManagementReconciler({managementKeyProvider,fetc
  if(typeof managementKeyProvider!=='function'||typeof fetchImpl!=='function'||baseUrl!==BASE)throw new Error('management-reconciler-config-required');
  async function auth(){const k=await managementKeyProvider();if(typeof k!=='string'||k.length<16)throw new Error('management-key-required');return `Bearer ${k}`;}
  return {
+  async listGuardrails({expectedName,expectedLimitUsd,expectedReset='monthly',expectedMemberId=null}={}){
+   const r=await fetchImpl(`${baseUrl}/guardrails`,{headers:{Authorization:await auth()}});
+   const b=await parse(r);if(!r.ok||!b)return {ok:false,status:'MANAGEMENT_GUARDRAIL_USAGE_UNAVAILABLE'};
+   const rows=Array.isArray(b.data)?b.data:Array.isArray(b.guardrails)?b.guardrails:[];
+   const projected=rows.map(x=>{
+    const rawAssignments=x.assigned_member_ids??x.member_ids??x.members??x.assignments?.members??[];
+    const memberIds=Array.isArray(rawAssignments)?rawAssignments.map(v=>typeof v==='object'?(v.id??v.user_id??v.member_id):v).filter(Boolean).map(String):[];
+    return {id:x.id??x.guardrail_id??null,name:x.name??null,limitUsd:finite(x.limit_usd??x.limit)?Number(x.limit_usd??x.limit):null,resetInterval:x.reset_interval??x.limit_reset??null,memberIds,disabled:x.disabled===true};
+   });
+   const match=projected.find(x=>x.name===expectedName&&x.disabled!==true);
+   const reasons=[];if(!match)reasons.push('expected-guardrail-missing');
+   if(match&&Number(match.limitUsd)!==Number(expectedLimitUsd))reasons.push('guardrail-limit-mismatch');
+   if(match&&match.resetInterval!==expectedReset)reasons.push('guardrail-reset-mismatch');
+   if(expectedMemberId&&match&&!match.memberIds.includes(String(expectedMemberId)))reasons.push('guardrail-member-assignment-unverified');
+   return {ok:reasons.length===0,status:reasons.length?'GUARDRAIL_RECONCILIATION_INCOMPLETE':'GUARDRAIL_RECONCILED',reasons,guardrail:match??null,secretsReturned:false};
+  },
   async listKeyUsage({expectedLabels=[],rejectUnexpectedActiveKeys=true}={}){
    const r=await fetchImpl(`${baseUrl}/keys`,{headers:{Authorization:await auth()}});
    const b=await parse(r);if(!r.ok||!b)return {ok:false,status:'MANAGEMENT_KEY_USAGE_UNAVAILABLE'};

@@ -128,6 +128,19 @@ test('fused MiMo evidence+candidate path removes the separate Sol builder withou
   assert.equal(chosen.selected.path,'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS');
 });
 
+test('accepted canonical path uses output-token surgery for RedTeam PASS instead of 300 prose tokens',()=>{
+  const verbose=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:300
+  });
+  const compact=estimateFusedMimoFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6
+  });
+  assert.equal(verbose,0.062551);
+  assert.equal(compact,0.06122212);
+  assert.ok(compact<verbose);
+  assert.ok(0.85/compact>13.88);
+});
+
 test('generic Jev control tensor separates execution-shape judgments instead of one vague router label',()=>{
   const q=buildGenericJevControlQuestions();
   assert.equal(q.task_shape.type,'choice');

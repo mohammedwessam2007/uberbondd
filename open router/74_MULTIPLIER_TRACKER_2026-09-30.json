@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T20:35:00Z",
+  "updatedAt": "2026-09-30T20:55:00Z",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -423,6 +423,16 @@
         "VERIFIED_TOKENIZER_AND_CHEAPEST_LEGITIMATE_DIRECT_REFERENCE_RECEIPTS_FOR_REAL_TASKS",
         "OBSERVED_NONZERO_ALL_IN_CAMPAIGN_COST_RECEIPTS"
       ]
+    },
+    {
+      "label": "typingmind-quality-ceiling-v24",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_MULTIPLIER_CREDIT__LONG_FORM_GATEWAY_TRUNCATION_RISK_REDUCED",
+      "workload": "TypingMind ubermind/auto transport ceiling increased from 4096 to 8192 output tokens; 64k cockpit context hint; server retains 300k-byte hard request bound and exact budget reservations",
+      "providerCallsPerformed": 0,
+      "spendUsd": 0,
+      "qualityLaw": "Higher output ceiling does not authorize extra spend. Requested token ceiling is priced/reserved before dispatch; exhausted capacity queues rather than downgrades.",
+      "truthBoundary": "This improves transport headroom only. It is not evidence of stronger model quality or a higher realized economic multiplier."
     }
   ],
   "excludedFromCurrentNumber": [

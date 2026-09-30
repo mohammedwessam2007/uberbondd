@@ -398,7 +398,8 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
     let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']};
     try{
       marketSnapshot=await currentInfiniteOpusPublicMarket();
-      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)});
+      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,
+        openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY),recurrenceHmacKeyPresent:/^[a-f0-9]{64}$/i.test(config.encryptionKey||'')});
     }catch{}
     return sendTypingMindJson(req,res,200,{
       object: 'list',
@@ -438,7 +439,7 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
     flight=(async()=>{
       try{
         return await withUberSocketStore(async store => {
-          const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, paidAuthorization, crownAdmission, marketSnapshot });
+          const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, recurrenceHmacKey:config.encryptionKey, paidAuthorization, crownAdmission, marketSnapshot });
           const ready = orchestrator.readiness();
           if (!ready.ok) return {httpStatus:503,payload:{
             ok:false,status:ready.status,reasons:ready.reasons,qualityAction:'QUEUE_NEVER_DOWNGRADE',sideEffectAuthority:'NONE',

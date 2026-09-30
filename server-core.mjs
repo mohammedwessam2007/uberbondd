@@ -19,6 +19,7 @@ import { importProspects } from './src/prospect-import.mjs';
 import { createJobHandlers } from './src/job-handlers.mjs';
 import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, relayHealthSummary, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
+import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
 import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
 import {
   createOutreachApproval,
@@ -1839,7 +1840,10 @@ export default requestHandler;
 const server = http.createServer(requestHandler);
 const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
 if (isEntryPoint) {
-  server.listen(config.port, () => console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`));
+  server.listen(config.port, () => {
+    console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`);
+    console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env)));
+  });
 }
 
 let shuttingDown = false;

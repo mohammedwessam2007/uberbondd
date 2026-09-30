@@ -432,6 +432,5 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
           status:jevShadow.status??null,answers:jevAnswers,costMicrousd:jevCost}
       };
     }
-    }
   };
 }

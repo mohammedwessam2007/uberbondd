@@ -135,6 +135,50 @@ export function estimateCompressedFrontierUsd({
   return mimo+sol+deepseek+opus;
 }
 
+export function estimateCompressedAdaptiveWriterFrontierUsd({
+  originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  crownCachedPrefixTokens=0,writer='mimo'
+}={}){
+  // Compression remains a separate anchored-evidence operation. After that, do not
+  // hard-wire an expensive Sol draft when a cheaper proposal writer can be checked
+  // by the same admitted Opus Crown. This is a modeled ACCEPT path only: if Crown
+  // PATCH/REWRITE is required, observed all-in cost must include that extra output.
+  const compressor=usdPerToken(.14,originalInputTokens)+usdPerToken(.28,compressedEvidenceTokens);
+  const writerTariffs={
+    mimo:{input:.14,output:.28},
+    deepseek:{input:.13,output:.52},
+    sol:{input:2,output:10}
+  };
+  const tariff=writerTariffs[writer];
+  if(!tariff)throw new Error('compressed-writer-must-be-mimo-deepseek-or-sol');
+  const proposal=usdPerToken(tariff.input,compressedEvidenceTokens)+usdPerToken(tariff.output,candidateOutputTokens);
+  const opus=usdPerToken(4,compressedEvidenceTokens+candidateOutputTokens)+
+    usdPerToken(.2,crownCachedPrefixTokens)+usdPerToken(20,crownAcceptTokens);
+  return compressor+proposal+opus;
+}
+
+export function chooseCompressedAdaptiveWriterFrontier({
+  originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  crownCachedPrefixTokens=0,eligibleWriters=['mimo','deepseek','sol'],
+  compressionLosslessContract=false,sourceAnchorsRetained=false
+}={}){
+  if(compressionLosslessContract!==true||sourceAnchorsRetained!==true){
+    return {eligible:false,selected:null,candidates:[],reason:'LOSSLESS_ANCHORED_EVIDENCE_REQUIRED'};
+  }
+  const candidates=eligibleWriters.map(writer=>({
+    writer,
+    usd:estimateCompressedAdaptiveWriterFrontierUsd({
+      originalInputTokens,compressedEvidenceTokens,candidateOutputTokens,crownAcceptTokens,crownCachedPrefixTokens,writer
+    })
+  })).sort((a,b)=>a.usd-b.usd);
+  return {
+    eligible:true,
+    selected:candidates[0]??null,
+    candidates,
+    qualityBoundary:'OPUS_5_5_REMAINS_FINAL_SEMANTIC_AUTHORITY__ACCEPT_PATH_ONLY'
+  };
+}
+
 export function chooseFreshFrontierPath({
   inputTokens,expectedOutputTokens,compressedEvidenceTokens=null,redTeamOutputTokens=300,crownAcceptTokens=6,
   crownCachedPrefixTokens=0,compressionLosslessContract=false,sourceAnchorsRetained=false

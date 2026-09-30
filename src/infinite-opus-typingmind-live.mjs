@@ -139,28 +139,31 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       }});
       const finalText=String(completion?.choices?.[0]?.message?.content??'');
       const finalOutputHash='sha256:'+crypto.createHash('sha256').update(finalText).digest('hex');
+      const capitalizationReceipt={
+        requestFingerprint:request.requestFingerprint,
+        finalOutputHash,
+        crownAdmissionReceiptHash:crownAdmission.receiptHash,
+        crownProviderRequestId:crown.providerRequestId,
+        observedUpstreamProvider:crown.upstreamProvider,
+        authorityClass:completion.uberbond.authorityClass,
+        builderCostMicrousd:builderCost,
+        crownCostMicrousd:crownCost,
+        sideEffectAuthority:'NONE'
+      };
       let capitalization;
       try{
-        capitalization=await runtime.recordCrownInteraction({
-          requestFingerprint:request.requestFingerprint,
-          finalOutputHash,
-          crownAdmissionReceiptHash:crownAdmission.receiptHash,
-          crownProviderRequestId:crown.providerRequestId,
-          observedUpstreamProvider:crown.upstreamProvider,
-          authorityClass:completion.uberbond.authorityClass,
-          builderCostMicrousd:builderCost,
-          crownCostMicrousd:crownCost,
-          sideEffectAuthority:'NONE'
-        });
+        capitalization=await runtime.recordCrownInteraction(capitalizationReceipt);
       }catch(error){
         capitalization={ok:false,status:'CROWN_CAPITALIZATION_RECORDING_FAILED_NO_REUSE_AUTHORITY',
-          reason:String(error?.message||error),semanticReuseAuthority:'NONE',providerCallsPerformed:0};
+          reason:String(error?.message||error),semanticReuseAuthority:'NONE',providerCallsPerformed:0,
+          recoveryReceipt:{...capitalizationReceipt,recoveryAuthority:'RECORD_ONLY_NO_SEMANTIC_REUSE_AUTHORITY'}};
       }
       completion.uberbond.crownCapitalization={
         status:capitalization.status,
         recurrence:capitalization.recurrence??null,
         semanticReuseAuthority:'NONE',
-        rawConversationPersisted:false
+        rawConversationPersisted:false,
+        ...(capitalization.recoveryReceipt?{recoveryReceipt:capitalization.recoveryReceipt}:{})
       };
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
         completion,

@@ -2,12 +2,14 @@ import crypto from 'node:crypto';
 import { createInfiniteOpusRuntime } from './infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from './openrouter-governed-adapter.mjs';
 import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-adapter.mjs';
-import { buildGenericJevControlQuestions } from './openrouter-processor-auction-v5.mjs';
+import { buildGenericJevControlQuestions, chooseFreshFrontierPath } from './openrouter-processor-auction-v5.mjs';
 import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { selectCurrentPrice } from './infinite-opus-market.mjs';
 import { verifyCrownAdmissionReceipt } from './crown-admission.mjs';
-import { buildBuilderMessages, buildCrownReviewMessages, openAICompatibleCompletion, stableModelSessionId } from './infinite-opus-typingmind-gateway.mjs';
+import { buildBuilderMessages, buildCrownReviewMessages, buildDirectCrownMessages,
+  CROWN_REVIEW_RESPONSE_FORMAT, openAICompatibleCompletion, openAICompatibleDirectCrownCompletion,
+  stableModelSessionId } from './infinite-opus-typingmind-gateway.mjs';
 
 export const TYPINGMIND_BUILDER_MODEL='openai/gpt-6.1-sol';
 export const TYPINGMIND_CROWN_MODEL='anthropic/claude-opus-5.5';
@@ -48,7 +50,7 @@ export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission
   catch{reasons.push('fresh-builder-and-crown-price-records-required');}
   return {ok:reasons.length===0,status:reasons.length?'TYPINGMIND_UBERMIND_LIVE_NOT_READY':'TYPINGMIND_UBERMIND_LIVE_READY',reasons,
     builderModel:TYPINGMIND_BUILDER_MODEL,crownModel:TYPINGMIND_CROWN_MODEL,
-    rawChatQualityLaw:'BUILDER_PROPOSAL_THEN_ADMITTED_CROWN_ACCEPT_OR_REWRITE',
+    rawChatQualityLaw:'CHEAPEST_CURRENT_PATH_WITH_ADMITTED_OPUS_CROWN_OR_DIRECT_OPUS',
     jevRawChatSuppressionAuthority:'NONE'};
 }
 
@@ -83,6 +85,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       maxTokens:payload.maxTokens,
       sessionId:payload.sessionId,
       reasoning:payload.reasoning,
+      responseFormat:payload.responseFormat,
       providerPolicy:{data_collection:'deny',require_parameters:true},
       responseCache:payload.responseCache===true
     });
@@ -127,11 +130,9 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     }
   }
 
-  async function call({model,role,qualityClass,messages,maxTokens,inputTokenCeiling,sessionRoot,stage}){
+  async function call({model,role,qualityClass,messages,maxTokens,inputTokenCeiling,sessionRoot,stage,reasoningEffort='medium',responseFormat=null}){
     const route=model===TYPINGMIND_CROWN_MODEL?crownRoute:builderRoute;
     const estimate=estimateCognitionCeiling({route,inputTokens:inputTokenCeiling,maxOutputTokens:maxTokens,now:clock(),overheadRate:PLATFORM_FEE_RATE});
-    // Runtime dispatch speaks integer cents. Reserve at least one cent but no
-    // less than the fresh miss/write ceiling.
     const ceilingMicrousd=Math.max(10000,Math.ceil(estimate/10000)*10000);
     const taskId='tm-'+stage+'-'+crypto.randomUUID(),callId='or-'+stage+'-'+crypto.randomUUID();
     const prepared=await runtime.preparePaidCall({callId,taskId,model,provider:'openrouter',qualityClass,role,cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd});
@@ -141,7 +142,8 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       task:{taskId,objective:'TypingMind UberMind '+stage,consequenceClass:'LOCAL_PREPARATION'},
       messages,
       sessionId:stableModelSessionId(sessionRoot,model),
-      reasoning:{effort:role==='CROWN'?'high':'medium'},
+      reasoning:{effort:reasoningEffort},
+      responseFormat,
       maxTokens,
       inputTokenCeiling,
       responseCache:false,
@@ -149,66 +151,122 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     });
   }
 
+  function jevWorkerEffort(jevShadow){
+    const score=Number(jevShadow?.proposal?.answers?.hard_reasoning?.score);
+    if(score>=2)return 'max';
+    if(score>=1)return 'high';
+    return 'low';
+  }
+
+  async function verifyCrown(crown,providerCallsPerformed){
+    const crownText=contentText(crown.proposal);
+    if(!crownText)return {ok:false,status:'EMPTY_CROWN_PROPOSAL',providerCallsPerformed,semanticAuthority:'NONE'};
+    if(!crown.upstreamProvider)return {ok:false,status:'CROWN_UPSTREAM_PROVIDER_UNOBSERVED',
+      reasons:['observed-upstream-provider-required'],providerCallsPerformed,qualityAction:'QUEUE_NEVER_DOWNGRADE',
+      semanticAuthority:'NONE',observedUpstreamProvider:null};
+    const exactCrown=verifyCrownAdmissionReceipt(crownAdmission,{now:clock(),expected:{
+      exactModelId:TYPINGMIND_CROWN_MODEL,
+      taskClassRole:'GENERAL_CROWN',
+      providerIdentity:crown.upstreamProvider,
+      routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY
+    }});
+    if(!exactCrown.ok)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED',
+      reasons:exactCrown.reasons,providerCallsPerformed,qualityAction:'QUEUE_NEVER_DOWNGRADE',
+      semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,expectedRouteIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY};
+    return {ok:true,crownText};
+  }
+
   return {
     readiness:()=>ready,
     runtime,
     async execute(request){
+      const economicPath=chooseFreshFrontierPath({
+        inputTokens:request.inputTokenCeiling,
+        expectedOutputTokens:request.maxTokens,
+        crownCachedPrefixTokens:0
+      });
+
+      // Do not buy a committee when direct admitted Opus is already the cheapest
+      // quality-preserving path under current worst-case token geometry.
+      if(economicPath.selected.path==='DIRECT_OPUS'){
+        const directMessages=buildDirectCrownMessages(request);
+        const directBytes=Buffer.byteLength(JSON.stringify(directMessages));
+        const crown=await call({
+          model:TYPINGMIND_CROWN_MODEL,role:'CROWN',qualityClass:'Q_FRONTIER_INTERACTIVE',
+          messages:directMessages,maxTokens:request.maxTokens,
+          inputTokenCeiling:Math.min(300000,directBytes+4096),
+          sessionRoot:request.sessionRoot,stage:'direct-crown',reasoningEffort:'high'
+        });
+        if(!crown.ok)return {ok:false,status:crown.status??'CROWN_FAILED_OR_QUEUED',
+          providerCallsPerformed:crown.providerCallsPerformed??0,qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
+        const checked=await verifyCrown(crown,1);if(!checked.ok)return checked;
+        const cost=Number(crown.observedCostMicrousd??0),usage=crown.usage??{};
+        return {ok:true,status:'TYPINGMIND_UBERMIND_DIRECT_CROWN_RESPONSE',
+          completion:openAICompatibleDirectCrownCompletion({request,crownText:checked.crownText,usage:{
+            promptTokens:Number(usage.inputTokens??0),completionTokens:Number(usage.outputTokens??0),
+            crownModel:TYPINGMIND_CROWN_MODEL,providerCalls:1,actualCostUsd:cost/1e6
+          }}),
+          crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:cost,
+            upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
+            openRouterRouter:crown.generationReceipt?.router??null,generationReceipt:crown.generationReceipt??null},
+          semanticAuthority:'CURRENT_TASK_CLASS_CROWN',sideEffectAuthority:'NONE',
+          routeDecision:{selected:'DIRECT_OPUS',candidates:economicPath.candidates},
+          jev:{mode:'SKIPPED_DIRECT_OPUS_COST_WINNER',usedToSuppressCrown:false,costMicrousd:0}
+        };
+      }
+
+      // JEV remains non-authoritative for raw chat. It may cheaply tune Sol's
+      // reasoning effort because admitted Opus still gates final semantics.
       const jevShadow=await callJevShadow(request);
+      const reasoningEffort=jevShadow.ok?jevWorkerEffort(jevShadow):'medium';
+
       const builderMessages=buildBuilderMessages(request);
       const builder=await call({model:TYPINGMIND_BUILDER_MODEL,role:'WORKER',qualityClass:'Q_FRONTIER_PREPARATION',
-        messages:builderMessages,maxTokens:request.maxTokens,inputTokenCeiling:request.inputTokenCeiling,sessionRoot:request.sessionRoot,stage:'builder'});
-      if(!builder.ok)return {ok:false,status:builder.status??'BUILDER_FAILED_OR_QUEUED',providerCallsPerformed:builder.providerCallsPerformed??0,qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
+        messages:builderMessages,maxTokens:request.maxTokens,inputTokenCeiling:request.inputTokenCeiling,
+        sessionRoot:request.sessionRoot,stage:'builder',reasoningEffort});
+      const jevCalls=Number(jevShadow.providerCallsPerformed??0);
+      if(!builder.ok)return {ok:false,status:builder.status??'BUILDER_FAILED_OR_QUEUED',
+        providerCallsPerformed:jevCalls+(builder.providerCallsPerformed??0),qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
 
       const candidate=contentText(builder.proposal);
-      if(!candidate)return {ok:false,status:'EMPTY_BUILDER_PROPOSAL',providerCallsPerformed:1,semanticAuthority:'NONE'};
+      if(!candidate)return {ok:false,status:'EMPTY_BUILDER_PROPOSAL',providerCallsPerformed:jevCalls+1,semanticAuthority:'NONE'};
+
       const crownMessages=buildCrownReviewMessages(request,candidate);
       const crownBytes=Buffer.byteLength(JSON.stringify(crownMessages));
-      const crownInputCeiling=Math.min(300000,request.inputTokenCeiling+crownBytes+4096);
+      // crownBytes already contains the original conversation. Do not reserve it twice.
+      const crownInputCeiling=Math.min(300000,crownBytes+4096);
       const crown=await call({model:TYPINGMIND_CROWN_MODEL,role:'CROWN',qualityClass:'Q_FRONTIER_INTERACTIVE',
-        messages:crownMessages,maxTokens:request.maxTokens,inputTokenCeiling:crownInputCeiling,sessionRoot:request.sessionRoot,stage:'crown'});
-      if(!crown.ok)return {ok:false,status:crown.status??'CROWN_FAILED_OR_QUEUED',providerCallsPerformed:1+(crown.providerCallsPerformed??0),qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
+        messages:crownMessages,maxTokens:request.maxTokens,inputTokenCeiling:crownInputCeiling,
+        sessionRoot:request.sessionRoot,stage:'crown-delta',reasoningEffort:'high',
+        responseFormat:CROWN_REVIEW_RESPONSE_FORMAT});
+      if(!crown.ok)return {ok:false,status:crown.status??'CROWN_FAILED_OR_QUEUED',
+        providerCallsPerformed:jevCalls+1+(crown.providerCallsPerformed??0),qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
 
-      const crownText=contentText(crown.proposal);
-      if(!crownText)return {ok:false,status:'EMPTY_CROWN_PROPOSAL',providerCallsPerformed:2,semanticAuthority:'NONE'};
-      if(!crown.upstreamProvider)return {ok:false,status:'CROWN_UPSTREAM_PROVIDER_UNOBSERVED',
-        reasons:['observed-upstream-provider-required'],providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
-        semanticAuthority:'NONE',observedUpstreamProvider:null};
-      const exactCrown=verifyCrownAdmissionReceipt(crownAdmission,{now:clock(),expected:{
-        exactModelId:TYPINGMIND_CROWN_MODEL,
-        taskClassRole:'GENERAL_CROWN',
-        providerIdentity:crown.upstreamProvider,
-        routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY
-      }});
-      if(!exactCrown.ok)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED',
-        reasons:exactCrown.reasons,providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
-        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,expectedRouteIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY};
+      const checked=await verifyCrown(crown,jevCalls+2);if(!checked.ok)return checked;
       const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0),jevCost=Number(jevShadow.observedCostMicrousd??0);
       const builderUsage=builder.usage??{},crownUsage=crown.usage??{};
-      const completion=openAICompatibleCompletion({request,candidate,crown:crownText,usage:{
-          promptTokens:Number(builderUsage.inputTokens??0)+Number(crownUsage.inputTokens??0),
-          completionTokens:Number(builderUsage.outputTokens??0)+Number(crownUsage.outputTokens??0),
-          builderModel:TYPINGMIND_BUILDER_MODEL,crownModel:TYPINGMIND_CROWN_MODEL,
-          providerCalls:2+Number(jevShadow.providerCallsPerformed??0),actualCostUsd:(builderCost+crownCost+jevCost)/1e6
-        }});
+      const completion=openAICompatibleCompletion({request,candidate,crown:checked.crownText,usage:{
+        promptTokens:Number(builderUsage.inputTokens??0)+Number(crownUsage.inputTokens??0)+Number(jevShadow.usage?.inputTokens??0),
+        completionTokens:Number(builderUsage.outputTokens??0)+Number(crownUsage.outputTokens??0)+Number(jevShadow.usage?.outputTokens??0),
+        builderModel:TYPINGMIND_BUILDER_MODEL,crownModel:TYPINGMIND_CROWN_MODEL,
+        providerCalls:jevCalls+2,actualCostUsd:(builderCost+crownCost+jevCost)/1e6
+      }});
       completion.uberbond.jevShadow={
-        status:jevShadow.status??null,
-        model:TYPINGMIND_JEV_MODEL,
-        semanticAuthority:'NONE',
-        usedToSuppressCrown:false,
-        observedModelRevision:jevShadow.observedModelRevision??null,
-        costUsd:jevCost/1e6,
+        status:jevShadow.status??null,model:TYPINGMIND_JEV_MODEL,semanticAuthority:'NONE',
+        usedToSuppressCrown:false,usedToTuneWorker:jevShadow.ok===true,reasoningEffort,
+        observedModelRevision:jevShadow.observedModelRevision??null,costUsd:jevCost/1e6,
         answers:jevShadow.proposal?.answers??null
       };
-      return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
-        completion,
-        builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost},
+      return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',completion,
+        builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost,reasoningEffort},
         crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
           upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
-          openRouterRouter:crown.generationReceipt?.router??null,
-          generationReceipt:crown.generationReceipt??null},
-        semanticAuthority:'CURRENT_TASK_CLASS_CROWN',
-        sideEffectAuthority:'NONE',
-        jev:{mode:'SHADOW_ONLY',usedToSuppressCrown:false,status:jevShadow.status??null,answers:jevShadow.proposal?.answers??null,costMicrousd:jevCost}
+          openRouterRouter:crown.generationReceipt?.router??null,generationReceipt:crown.generationReceipt??null},
+        semanticAuthority:'CURRENT_TASK_CLASS_CROWN',sideEffectAuthority:'NONE',
+        routeDecision:{selected:'SOL_THEN_OPUS_DELTA',candidates:economicPath.candidates},
+        jev:{mode:jevShadow.ok?'SHADOW_CONTROL_OBSERVED':'SHADOW_SKIPPED_OR_FAILED',usedToSuppressCrown:false,
+          usedToTuneWorker:jevShadow.ok===true,reasoningEffort,status:jevShadow.status??null,
+          answers:jevShadow.proposal?.answers??null,costMicrousd:jevCost}
       };
     }
   };

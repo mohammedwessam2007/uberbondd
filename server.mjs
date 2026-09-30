@@ -17,6 +17,7 @@ import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
+import { runCrownAutoFinish } from './scripts/infinite-opus-crown-autofinish.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -463,6 +464,29 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   return sendTypingMindJson(req,res,response.httpStatus,response.payload);
 }
 
+async function brokerCrownAutofinishTrigger(req,res) {
+  if (req.method !== 'POST') return sendJson(res,405,{ok:false,error:'Method Not Allowed'});
+  const configured=String(process.env.INFINITE_OPUS_AUTOFINISH_TRIGGER_TOKEN||'');
+  const supplied=String(req.headers['x-ubermind-activation-trigger']||'');
+  if(!configured||!supplied||configured.length!==supplied.length||
+     !crypto.timingSafeEqual(Buffer.from(configured),Buffer.from(supplied))){
+    return sendJson(res,401,{ok:false,error:'Unauthorized'});
+  }
+  const store=createStore(config);
+  try { await store.init(); }
+  catch(error){ return sendJson(res,503,{ok:false,status:'AUTOFINISH_STORE_UNAVAILABLE',error:String(error?.message||error)}); }
+  const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+  void runCrownAutoFinish({
+    store,
+    apiKey:String(process.env.OPENROUTER_API_KEY||''),
+    paidAuthorization,
+    mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
+  }).catch(error=>console.error('UBERMIND_CROWN_AUTOFINISH_TRIGGER '+JSON.stringify({ok:false,status:'UNHANDLED',reason:String(error?.message||error)})))
+    .finally(()=>store.close().catch(()=>{}));
+  return sendJson(res,202,{ok:true,status:'AUTOFINISH_CLAIM_REQUEST_ACCEPTED',paidInferenceMayRun:true,
+    hardNewSpendCeilingUsd:0.45,sideEffectAuthority:'NONE'});
+}
+
 async function brokerInfiniteOpus(coreHandler, req, res, url) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   return withUberSocketStore(async store => {
@@ -575,6 +599,7 @@ function harden(coreHandler) {
     if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
     if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
     if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
+    if (url.pathname === '/api/internal/infinite-opus/autofinish') return brokerCrownAutofinishTrigger(req,res);
     if (url.pathname.startsWith('/api/typingmind/infinite-opus/v1/')) return brokerTypingMindInfiniteOpus(req, res, url);
     if (url.pathname.startsWith('/api/admin/infinite-opus/')) return brokerInfiniteOpus(coreHandler, req, res, url);
     return coreHandler(req, res);

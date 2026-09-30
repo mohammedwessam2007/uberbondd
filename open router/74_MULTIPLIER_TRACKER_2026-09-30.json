@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:55:00+03:00",
+  "updatedAt": "2026-09-30T23:10:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -251,6 +251,17 @@
       "qualityLaw": "Franchise is executable only inside its E0-E4-certified relevance projection and exhaustive finite policy; drift page-faults.",
       "finiteFreshNoveltyMultiplier": 14.161946017994001,
       "systemwideLaw": "For N valid reuse consumers, matched direct-frontier reference grows with N while marginal model inference remains zero; therefore no finite ceiling under unbounded valid fanout."
+    },
+    {
+      "label": "proof-cut-multicast-v15",
+      "multiplier": 14.161946017994001,
+      "status": "ECONOMIC_MULTIPLIER_UNCHANGED__SEMANTIC_MULTICAST_1000X_DETERMINISTIC_BENCHMARK",
+      "workload": "1000 distinct dependent roots share one exact unresolved Crown obligation; one admitted adjudication is multicast, each downstream root still requires independent closure",
+      "semanticMulticastFactor": 1000,
+      "admittedCrownAdjudications": 1,
+      "dependentRootsSettled": 1000,
+      "naivePerConsumerCrownCallsAvoided": 999,
+      "economicLaw": "Do not convert fanout directly into dollar multiplier without cheapest-legitimate direct-reference economics including provider/response caching."
     }
   ],
   "excludedFromCurrentNumber": [

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:37:00+03:00",
+  "updatedAt": "2026-09-30T21:43:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -113,6 +113,31 @@
         "src/cognitive-macro-assembler.mjs"
       ],
       "deltaVsPriorMultiplierPercent": 1.179105386318085
+    },
+    {
+      "label": "checkpoint-37-living-evidence-delta",
+      "multiplier": 255.48902195608784,
+      "status": "MODELED_RECURRING_SOURCE_DELTA__CACHE_AWARE_REFERENCE_AND_EXACT_INVALIDATION",
+      "workload": "200k persistent source, 10k verified changed tokens -> Living Evidence Graph invalidates affected descendants -> certified Jev scans only changed chunks -> exact source-copy -> E0-E4/macro; 5% <=400-token Crown boundary audits",
+      "directOpusUsd": 0.128,
+      "uberMindUsd": 0.000501,
+      "costBreakdownUsd": {
+        "jevChangedSourceScan": 0.00042,
+        "expectedCrownBoundaryAudit": 0.000081
+      },
+      "directReferenceBreakdownUsd": {
+        "freshChangedInput": 0.04,
+        "cachedUnchangedInput": 0.038,
+        "output": 0.05
+      },
+      "qualityLaw": "Unchanged source is reused only under identical content hashes. Every current chunk token count must carry an independently verified tokenizer receipt. Changed or removed source invalidates transitive semantic descendants. Direct reference receives prompt-cache economics for unchanged input.",
+      "executableSources": [
+        "src/living-evidence-delta-compiler.mjs",
+        "src/jev-applicability-passport.mjs",
+        "src/crown-boundary-query.mjs",
+        "src/cognitive-macro-assembler.mjs"
+      ],
+      "deltaVsPriorMultiplierPercent": 154.91792595325967
     }
   ],
   "excludedFromCurrentNumber": [
@@ -131,9 +156,9 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 100.22403018511969,
-  "currentCheckpoint": "checkpoint-36-crown-boundary-querying",
-  "nextGate": 250,
+  "currentCanonicalModeledMultiplier": 255.48902195608784,
+  "currentCheckpoint": "checkpoint-37-living-evidence-delta",
+  "nextGate": 500,
   "currentColdModeledMultiplier": 14.1149119893723,
-  "currentBestBoundedRecurringModeledMultiplier": 100.22403018511969
+  "currentBestBoundedRecurringModeledMultiplier": 255.48902195608784
 }

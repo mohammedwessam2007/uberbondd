@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.work-astra-activation.v1",
+  "date": "2026-09-30",
+  "repository": "mohammedwessam2007/uberbondd",
+  "canonicalArchitecture": "TypingMind -> UberBond ubermind/auto -> one capped OpenRouter runtime key -> Frontier VM/JEV -> admitted task-class Crown -> Reality Court/proof ledger",
+  "production": {
+    "renderWorkspaceId": "tea-d96rqhepuehc73et0i40",
+    "renderServiceId": "srv-dali9vijnfac739m4vcg",
+    "endpointBase": "https://uberbond-control-plane.onrender.com",
+    "typingMindChatEndpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/chat/completions",
+    "typingMindModelsEndpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/models",
+    "modelId": "ubermind/auto"
+  },
+  "openRouter": {
+    "canonicalInferenceKeys": [
+      {
+        "label": "uberbond-runtime-20",
+        "limitUsd": 20,
+        "reset": "monthly",
+        "includeByokInLimit": true,
+        "destination": "Render OPENROUTER_API_KEY"
+      }
+    ],
+    "directTypingMindInferenceKey": {
+      "required": false,
+      "status": "ARCHIVED_FALLBACK__DISABLE_IF_PRESENT"
+    },
+    "memberGuardrail": {
+      "name": "uberbond-global-28",
+      "limitUsd": 28,
+      "reset": "monthly",
+      "role": "cross-key catastrophe backstop"
+    },
+    "managementKey": {
+      "optionalForInference": true,
+      "requiredForAutomatedBudgetReconciliation": true,
+      "destination": "private runtime/work session only unless protected Render env is intentionally used"
+    },
+    "providerPolicy": {
+      "data_collection": "deny",
+      "zdr": "required where task policy requires it",
+      "require_parameters": true
+    }
+  },
+  "typingMind": {
+    "createCustomModel": true,
+    "name": "UberMind Auto",
+    "modelId": "ubermind/auto",
+    "endpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/chat/completions",
+    "authorizationHeader": "Bearer <ROTATED_PRIVATE_UBERMIND_TYPINGMIND_GATEWAY_TOKEN>",
+    "directOpenRouterKey": false,
+    "tools": false,
+    "vision": false,
+    "maxOutputTokens": 4096
+  },
+  "render": {
+    "alreadyObserved": {
+      "gatewayTokenPresent": true,
+      "runtimeOpenRouterKeyPresent": false,
+      "paidAuthorizationPresent": false,
+      "crownAdmissionPresent": false
+    },
+    "action": "Rotate gateway bearer as one atomic Work session: generate new random >=48 char token, set Render UBERMIND_TYPINGMIND_GATEWAY_TOKEN, then set the same bearer in TypingMind custom model. Never reveal it in chat or receipts.",
+    "secretsToSet": [
+      "OPENROUTER_API_KEY",
+      "UBERMIND_TYPINGMIND_GATEWAY_TOKEN"
+    ],
+    "nonSecretAuthorityEnvAfterEvidence": [
+      "INFINITE_OPUS_PAID_AUTHORIZATION_JSON",
+      "INFINITE_OPUS_CROWN_ADMISSION_JSON"
+    ]
+  },
+  "spendGates": {
+    "canary": {
+      "maximumSpendUsd": 0.05,
+      "requiresExplicitOwnerApproval": true,
+      "model": "xiaomi/mimo-v2.6-flash",
+      "externalEffects": []
+    },
+    "runtimeMonthly": {
+      "maximumSpendUsd": 20,
+      "requiresExplicitOwnerApproval": true,
+      "queueBeforeDowngrade": true,
+      "protectedCrownReserveUsd": 15
+    }
+  },
+  "crownBootstrap": {
+    "smokeDoesNotPromote": true,
+    "sealedTournamentRequired": true,
+    "minimumGeneralCrownSealedTasks": 2,
+    "independentCustodianRequired": true,
+    "tournamentAdjudicator": "scripts/infinite-opus-crown-tournament-adjudicate.mjs",
+    "crownAdmissionMint": "scripts/infinite-opus-crown-admission-mint.mjs",
+    "crownCandidate": "anthropic/claude-opus-5.5",
+    "challenger": "openai/gpt-6.1-sol-pro"
+  },
+  "stopConditions": [
+    "secret-leak",
+    "unexpected-active-inference-key",
+    "provider-model-identity-mismatch",
+    "bill-mismatch",
+    "uncertain-charge",
+    "runtime-key-limit-not-20",
+    "Crown-tournament-insufficient",
+    "Crown-admission-invalid",
+    "Render-deploy-failure",
+    "TypingMind-bearer-failure"
+  ],
+  "noAmputation": {
+    "legacyTwoKeyDesign": "archived and recoverable",
+    "directTypingMindModels": "fallback only",
+    "fullFrontierVM": "authoritative parent architecture"
+  }
+}

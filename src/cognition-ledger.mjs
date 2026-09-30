@@ -150,11 +150,21 @@ export function cognitionMetrics(receipts) {
   const reference = matched ? valid.reduce((s, r) => s + r.cheapestMatchedReferenceMicrousd, 0) : null;
   const dispatched = receipts.filter(r => r.kind === 'CROWN_DISPATCH');
   const pageFaults = receipts.filter(r => r.kind === 'PAGE_FAULT').length;
+  const franchiseGroups = new Map();
+  for (const r of receipts.filter(r => r.kind === 'DECISION_FRANCHISE_USE' && r.assetId && r.consumerSemanticHash && ['E1','E2','E3','E4'].includes(r.executionClass))) {
+    const set = franchiseGroups.get(r.assetId) ?? new Set();
+    set.add(r.consumerSemanticHash); franchiseGroups.set(r.assetId,set);
+  }
+  const franchiseConsumers = [...franchiseGroups.values()].reduce((n,set)=>n+set.size,0);
+  const decisionFranchiseFanout = franchiseGroups.size ? franchiseConsumers / franchiseGroups.size : null;
+  const franchiseCrownCallsAvoided = franchiseGroups.size
+    ? [...franchiseGroups.values()].reduce((n,set)=>n+Math.max(0,set.size-1),0)
+    : null;
   const unknown = null;
   return { opusQualityFanout: unknown, frontierPageFaultRate: valid.length + pageFaults ? pageFaults / (valid.length + pageFaults) : unknown,
     compiledCognitionShare: valid.length ? compiled / valid.length : unknown, semanticMulticastFactor: unknown, verifiedSemanticDedupFactor: unknown,
-    exactResponseCacheHits: receipts.filter(r => r.kind === 'CACHE_HIT').length, promptCacheReadShare: unknown, decisionFranchiseFanout: unknown,
-    crownCalls: dispatched.length, crownCallsAvoided: unknown, noveltyTax: unknown, researchRecomputeFraction: unknown, crownCapitalROI: unknown, cognitiveHalfLife: unknown,
+    exactResponseCacheHits: receipts.filter(r => r.kind === 'CACHE_HIT').length, promptCacheReadShare: unknown, decisionFranchiseFanout,
+    crownCalls: dispatched.length, crownCallsAvoided: franchiseCrownCallsAvoided, noveltyTax: unknown, researchRecomputeFraction: unknown, crownCapitalROI: unknown, cognitiveHalfLife: unknown,
     usefulTasks: valid.length, byConstructionShare: valid.length ? compiled / valid.length : null,
     frontierSemanticShare: valid.length ? frontier / valid.length : null,
     actualAllInMicrousd: actual, conservativeMatchedReferenceMicrousd: reference,

@@ -46,3 +46,6 @@ Never downgrade quality, fake an OpenAI-compatible successful answer to bypass T
 
 ## Multiplier boundary
 33,333.345x remains recorded executed E3 benchmark capacity, not production-observed economic compression. Production realized multiplier remains unknown. Only the receipt-grade Cognitive Capital court can settle it.
+
+## Runtime authorization update — 21:35 UTC
+Founder directed execution after the remaining monthly runtime authorization was explicitly listed. The canonical mint tool produced evidenceRef owner-typingmind-runtime-20-20260930-213519Z, month2026-09, maxMonthlyMicrousd20000000, expiry2026-10-01T00:00:00Z, Crown route openrouter:anthropic/claude-opus-5.5, zero external effects. Saved via merge-only Render environment update as INFINITE_OPUS_PAID_AUTHORIZATION_JSON. Deployment dep-dauo1kl9fdbs739mkgrg started; verification pending. No provider call was performed by this update. This supersedes the earlier missing-runtime-authorization state. Independent sealed Crown evidence remains absent; repository matches are tooling and synthetic tests only. The September authorization becomes stale at03:00Cairo and must not be represented as an October authorization.

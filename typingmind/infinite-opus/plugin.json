@@ -1,0 +1,143 @@
+{
+  "id": "e7810df6-39c8-4ae9-9d8d-8f30d1c2258a",
+  "uuid": "e7810df6-39c8-4ae9-9d8d-8f30d1c2258a",
+  "title": "UberMind Infinite Opus Gateway",
+  "iconURL": "",
+  "oauthConfig": null,
+  "userSettings": [
+    {
+      "name": "gatewayUrl",
+      "type": "text",
+      "label": "UberMind Gateway Base URL",
+      "required": true,
+      "description": "HTTPS base URL of the authorized UberBond host. Do not include /api/ubermind/v1."
+    },
+    {
+      "name": "gatewayToken",
+      "type": "password",
+      "label": "UberMind Gateway Token",
+      "required": true,
+      "description": "Dedicated scoped gateway token. This is NOT your OpenRouter key or UberBond admin token."
+    }
+  ],
+  "pluginFunctions": [
+    {
+      "id": "193310f7-8fc4-4639-91ec-cf8ab407c3d5",
+      "name": "UberMind Status",
+      "implementationType": "javascript",
+      "code": "async function ubermind_gateway_status(params,userSettings){\n  try{\n    if(!userSettings.gatewayUrl||!userSettings.gatewayToken)throw new Error('UberMind gateway settings are required');\n    const base=userSettings.gatewayUrl.replace(/\\/$/,'');\n    const r=await fetch(base+'/api/ubermind/v1/status',{headers:{Authorization:'Bearer '+userSettings.gatewayToken,Accept:'application/json'}});\n    const body=await r.json().catch(()=>({}));\n    if(!r.ok)throw new Error('Gateway status '+r.status+': '+(body.status||'request refused'));\n    return body;\n  }catch(error){return {ok:false,status:'UBERMIND_PLUGIN_STATUS_FAILED',error:String(error?.message||error)};}\n}",
+      "openaiSpec": {
+        "name": "ubermind_gateway_status",
+        "description": "Check the source/config readiness of the UberMind Infinite Opus gateway. This performs no model inference and grants no semantic or external-effect authority.",
+        "parameters": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "outputType": "respond_to_ai"
+    },
+    {
+      "id": "4b9618c6-6c6f-43d4-9725-51531b721019",
+      "name": "Plan with UberMind",
+      "implementationType": "javascript",
+      "code": "async function ubermind_plan_task(params,userSettings){\n  try{\n    if(!userSettings.gatewayUrl||!userSettings.gatewayToken)throw new Error('UberMind gateway settings are required');\n    const base=userSettings.gatewayUrl.replace(/\\/$/,'');\n    const task={\n      schemaVersion:'uberbond.ubermind.cockpit-task.v1',\n      taskId:params.taskId,\n      taskClass:params.taskClass,\n      qualityClass:params.qualityClass,\n      sideEffectClass:'NONE',\n      stakes:params.stakes,\n      exact:params.exact===true,\n      jevEligible:params.jevEligible===true,\n      equivalenceClass:params.equivalenceClass||undefined,\n      proofVerified:params.proofVerified===true,\n      dependenciesCurrent:params.dependenciesCurrent===true,\n      compositionVerified:params.compositionVerified!==false,\n      preparationAllowed:params.preparationAllowed!==false,\n      estimatedInputTokens:Number.isSafeInteger(params.estimatedInputTokens)?params.estimatedInputTokens:undefined,\n      estimatedCachedInputTokens:Number.isSafeInteger(params.estimatedCachedInputTokens)?params.estimatedCachedInputTokens:undefined,\n      maxOutputTokens:Number.isSafeInteger(params.maxOutputTokens)?params.maxOutputTokens:undefined\n    };\n    const r=await fetch(base+'/api/ubermind/v1/plan',{method:'POST',headers:{Authorization:'Bearer '+userSettings.gatewayToken,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(task)});\n    const body=await r.json().catch(()=>({}));\n    if(!r.ok)throw new Error('Gateway plan '+r.status+': '+(body.status||'request refused'));\n    return body;\n  }catch(error){return {ok:false,status:'UBERMIND_PLUGIN_PLAN_FAILED',error:String(error?.message||error)};}\n}",
+      "openaiSpec": {
+        "name": "ubermind_plan_task",
+        "description": "Ask UberMind to classify a zero-effect task into exact/E0-E4, Jev shadow, scout/challenger, strong-worker, hard-escalation, or Crown-page-fault lanes. Use before expensive reasoning when the task may be recurring, exactly verifiable, or compilation-eligible. The returned plan is not itself final semantic authority.",
+        "parameters": {
+          "type": "object",
+          "required": [
+            "taskId",
+            "taskClass",
+            "qualityClass",
+            "stakes"
+          ],
+          "properties": {
+            "taskId": {
+              "type": "string",
+              "description": "Unique stable task id using letters, digits, dot, slash, colon, underscore or hyphen."
+            },
+            "taskClass": {
+              "type": "string",
+              "description": "Typed task class such as RESEARCH, ROUTINE_CODING, PROVIDER_SCREENING, NOVEL_STRATEGY."
+            },
+            "qualityClass": {
+              "type": "string",
+              "enum": [
+                "Q_EXACT",
+                "Q_CERTIFIED_BOUNDED",
+                "Q_FRONTIER",
+                "Q_MULTI_FRONTIER",
+                "Q_REALITY_SETTLED",
+                "Q_UNKNOWN",
+                "Q_PREPARATION"
+              ],
+              "description": "Required semantic quality class."
+            },
+            "stakes": {
+              "type": "string",
+              "description": "Known stakes class such as LOW, MEDIUM, HIGH. Never UNKNOWN."
+            },
+            "exact": {
+              "type": "boolean"
+            },
+            "jevEligible": {
+              "type": "boolean"
+            },
+            "equivalenceClass": {
+              "type": "string",
+              "enum": [
+                "E0",
+                "E1",
+                "E2",
+                "E3",
+                "E4",
+                "E5",
+                "E6"
+              ]
+            },
+            "proofVerified": {
+              "type": "boolean"
+            },
+            "dependenciesCurrent": {
+              "type": "boolean"
+            },
+            "compositionVerified": {
+              "type": "boolean"
+            },
+            "preparationAllowed": {
+              "type": "boolean"
+            },
+            "estimatedInputTokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "estimatedCachedInputTokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maxOutputTokens": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 131072
+            }
+          }
+        }
+      },
+      "outputType": "respond_to_ai"
+    }
+  ],
+  "authenticationType": "AUTH_TYPE_NONE",
+  "dynamicContextEndpoints": [
+    {
+      "id": "03c8b039-c2a7-47f4-98aa-e3782eefc7d2",
+      "url": "",
+      "name": "UberMind Infinite Opus Law",
+      "method": "GET",
+      "source": "static",
+      "staticContent": "<SYSTEM>UberMind Infinite Opus is active as a planning/proof tool. Before expensive reasoning on recurring or structured tasks, use ubermind_plan_task. E0-E4 current proofs may avoid repeated model-vs-model quality tests. Jev is a bounded semantic control plane, not a Crown. Cheap/strong models create proposals; material open-ended semantics still require exact closure, certified bounded authority, or current Crown admission. Never claim the 33,333.333x target unless the execution/economic ledger proves it. Never put OpenRouter keys, admin tokens, passwords, cookies or credentials into tool arguments.</SYSTEM>",
+      "cacheDurationHours": 1,
+      "cacheRefreshPolicy": "REFRESH_NEVER"
+    }
+  ]
+}

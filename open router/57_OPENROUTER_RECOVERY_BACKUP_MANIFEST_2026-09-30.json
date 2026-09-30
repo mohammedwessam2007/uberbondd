@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "uberbond.openrouter.backup-manifest.2026-09-30.v1",
+  "createdAt": "2026-09-30T20:36:00+03:00",
+  "purpose": "NO_AMPUTATION_RECOVERY_SNAPSHOT_FOR_OPENROUTER_FRONTIER_VM_TYPINGMIND_JEV_MODEL_MECHANICS_AND_PROOF_ECONOMICS",
+  "branch": "infinite-opus/model-mechanics-auction-v5-20260930",
+  "parentMain": "2aa2026b2cd9c0f1b525f514b4fab6248065ce0f",
+  "canonicalGoal": "OPUS_5_5_QUALITY_OR_BETTER_AT_MINIMUM_ALL_IN_COST",
+  "multiplierCheckpoint": {
+    "canonicalWorkload": {
+      "description": "200k source tokens -> 5k anchored evidence capsule -> GPT-6.1 Sol 2.5k-token candidate -> DeepSeek 300-token audit -> Opus 5.5 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindModeledUsd": 0.096851,
+      "multiplier": 8.77636782273802
+    },
+    "conservativeMixedColdPathFloor": 6,
+    "certifiedJevE0E4FanoutCounted": false,
+    "reason": "Do not count shadow/uncertified recurrence savings as achieved."
+  },
+  "backups": [
+    [
+      "31_PROCESSOR_FABRIC_V5_2026-09-30.json",
+      "config/openrouter-processor-fabric-v5.json",
+      "50e68b02f9c431dbbaa3d10e3181df22b0524555"
+    ],
+    [
+      "32_PROCESSOR_AUCTION_V5_2026-09-30.mjs",
+      "src/openrouter-processor-auction-v5.mjs",
+      "70bd771b1f3167e14c78dfed2e223ad86f680c54"
+    ],
+    [
+      "33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs",
+      "tests/openrouter-processor-auction-v5.test.mjs",
+      "a36ebcb20e0490cff843db30d88b1f46d765c31e"
+    ],
+    [
+      "34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json",
+      "config/openrouter-frontier-vm-full-stack-v4.json",
+      "76af175709b2cebe72db616a1ee2ad39a304c5c2"
+    ],
+    [
+      "35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json",
+      "config/typingmind-opus-quality-mincost-v3.json",
+      "96b683285c77439496d86d7db38a7ba76e99c831"
+    ],
+    [
+      "36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md",
+      "docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md",
+      "90a529b5ca070951bed390df386ce0c3b6efc3a5"
+    ],
+    [
+      "37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md",
+      "docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md",
+      "49006866e5464a97f9433da928ff01a6eee83b59"
+    ],
+    [
+      "38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs",
+      "tests/openrouter-full-stack-no-amputation.test.mjs",
+      "24b7a87772e601d291767e37e3bbfb144005ad27"
+    ],
+    [
+      "39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json",
+      "config/infinite-opus-model-understanding.json",
+      "309b14ec250332420023c8f96da3f637f9f011fe"
+    ],
+    [
+      "40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs",
+      "src/infinite-opus-model-understanding.mjs",
+      "db4849797ab5274390a2d6906b026d3ef2b21abb"
+    ],
+    [
+      "41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs",
+      "tests/infinite-opus-model-understanding.test.mjs",
+      "efef226d5a9577dd37bd98bf25ebea90d43707e3"
+    ],
+    [
+      "42_TYPINGMIND_ROLE_MAP_2026-09-30.json",
+      "config/infinite-opus-typingmind-role-map.json",
+      "9cf7b47dad6a70556e92b54a7a49f99a82458fd7"
+    ],
+    [
+      "43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md",
+      "docs/INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md",
+      "3ffad7b161deb83b1ba3b1c829ada214619f6dca"
+    ],
+    [
+      "44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs",
+      "src/infinite-opus-typingmind-gateway.mjs",
+      "c9826a9542690759be1980c99d07725b9256c567"
+    ],
+    [
+      "45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs",
+      "src/infinite-opus-typingmind-live.mjs",
+      "8fb306f69920a8ca0bf5bf60dfe20dffa9f8655d"
+    ],
+    [
+      "46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs",
+      "tests/infinite-opus-typingmind-gateway.test.mjs",
+      "d9822bf41cc84bd3ea075ce09a043527ea7f0629"
+    ],
+    [
+      "47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs",
+      "tests/infinite-opus-typingmind-live.test.mjs",
+      "17b168d6ef5e107e332d2e83883a712188e1cf85"
+    ],
+    [
+      "48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md",
+      "docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md",
+      "9cbcff201ba4fbf37c62a063c276d73989039ad4"
+    ],
+    [
+      "49_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs",
+      "src/infinite-opus-native-runtime.mjs",
+      "561584c9523f3b652aee019de30ff5e971890f35"
+    ],
+    [
+      "50_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs",
+      "src/openrouter-governed-adapter.mjs",
+      "59bf78a939b384fb9c2ed5032eebaf39a873e8a1"
+    ],
+    [
+      "51_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json",
+      "config/infinite-opus-activation-package.json",
+      "e9d4464ab967138563948869d8d0a74582072777"
+    ],
+    [
+      "52_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md",
+      "docs/INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md",
+      "c5af3957509437401123801be7da62f13a3b2008"
+    ],
+    [
+      "53_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs",
+      "scripts/infinite-opus-preowner-doctor.mjs",
+      "581230d4b82bdf5c3287293bbdeffc3046df1f47"
+    ],
+    [
+      "54_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs",
+      "scripts/infinite-opus-owner-gate-launcher.mjs",
+      "fa0da582066fc0c96671e01ba1cbe01f8face836"
+    ],
+    [
+      "55_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs",
+      "src/provable-reference-economics.mjs",
+      "48c406cc915ba98941086b96eafd4f7b9e18db7b"
+    ],
+    [
+      "56_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs",
+      "src/provable-execution-ledger.mjs",
+      "03bcc8001d279e2079e9b642dea88ddd6ae1ce3c"
+    ]
+  ],
+  "preservedCanon": [
+    "00_FINAL_SYSTEM.md",
+    "02_JEV_HYPERREFLEX.md",
+    "13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md",
+    "14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md",
+    "19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md",
+    "20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md",
+    "21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md",
+    "22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
+    "28_E0_E4_LIVE_PROOF_LEDGER.md",
+    "ARCHITECTURE.md",
+    "OPEN_ROUTER_UBERMIND_CANON.json"
+  ],
+  "noAmputationLaw": "TypingMind and any fixed model chain are processor profiles only. JEV, Frontier VM, Supercompiler, Reality Court, Pantheon, capital flywheel, proof economics, and all unique mechanisms remain recoverable."
+}

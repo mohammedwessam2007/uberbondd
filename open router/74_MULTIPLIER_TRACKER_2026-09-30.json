@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:55:00+03:00",
+  "updatedAt": "2026-10-01T00:15:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -226,6 +226,21 @@
         "tests/decision-franchise-certifier.test.mjs"
       ],
       "qualityLaw": "Every finite state must have exactly one independently trust-pinned current-Opus observation. No interpolation or statistical generalization."
+    },
+    {
+      "label": "living-evidence-graph-v17-2pct-delta",
+      "multiplier": 315.75037147102523,
+      "status": "MODELED_UPDATE_WORKLOAD__EXACT_INVALIDATION_IMPLEMENTED__PRODUCTION_UPDATE_RECEIPTS_REQUIRED",
+      "workload": "200k evidence universe -> exact hashes show 2%/4k changed source tokens -> invalidate only dependent graph -> cheap delta worker 100 output -> Opus 500-token residual + 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.002692,
+      "reuseFraction": 0.98,
+      "recomputeFraction": 0.02,
+      "qualityLaw": "Unchanged cognition is reusable only under exact source/dependency/quality/Crown stability; changed descendants require new E0-E4/current-Crown proof.",
+      "implementation": [
+        "src/living-evidence-graph.mjs",
+        "tests/living-evidence-graph.test.mjs"
+      ]
     }
   ],
   "excludedFromCurrentNumber": [
@@ -261,6 +276,13 @@
       "distinctConsumersRequiredForCanonicalTarget": 1176471,
       "directOpusUnitUsd": 0.85,
       "actualAllInEnvelopeUsd": 30
+    },
+    "deltaResearch": {
+      "multiplier": 315.75037147102523,
+      "status": "315X_UPDATE_CAPACITY_MODEL_IMPLEMENTED__PRODUCTION_DELTA_RECEIPTS_REQUIRED",
+      "canonicalChangeFraction": 0.02,
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.002692
     }
   }
 }

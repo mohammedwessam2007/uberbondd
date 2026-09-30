@@ -6,7 +6,8 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
   estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd,
-  estimateCompressedAdaptiveWriterFrontierUsd, chooseCompressedAdaptiveWriterFrontier } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateCompressedAdaptiveWriterFrontierUsd, chooseCompressedAdaptiveWriterFrontier,
+  estimateFusedAnchoredSourceWriterFrontierUsd } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -232,4 +233,17 @@ test('adaptive compressed writer is cheaper than historical Sol plus separate cr
   assert.ok(now<old);
   assert.equal(now,0.06092);
   assert.equal(old,0.096851);
+});
+
+
+test('one-pass anchored MiMo fusion removes duplicated cheap writer pass without changing Crown review surface',()=>{
+  const fused=estimateFusedAnchoredSourceWriterFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,crownAcceptTokens:6
+  });
+  assert.equal(fused,0.06022);
+  assert.equal(Number((0.85/fused).toFixed(12)),14.114911989372);
+  const twoPass=estimateCompressedAdaptiveWriterFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,crownAcceptTokens:6,writer:'mimo'
+  });
+  assert.ok(fused<twoPass);
 });

@@ -105,22 +105,29 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     platformFeeRate:PLATFORM_FEE_RATE
   });
 
+  function buildJevEnvelope(request){
+    const latestUser=[...request.messages].reverse().find(m=>m.role==='user')?.content??'';
+    const state={
+      task:truncateUtf8(latestUser,16000),
+      message_count:request.messages.length,
+      request_bytes:request.requestBytes,
+      input_token_ceiling:request.inputTokenCeiling,
+      quality_class:request.qualityClass,
+      side_effect_class:request.sideEffectClass
+    };
+    const questions=buildGenericJevControlQuestions();
+    const inputTokenCeiling=Math.min(32000,Buffer.byteLength(JSON.stringify({state,questions}))+2048);
+    const estimatedMicrousd=jevRoute?estimateCognitionCeiling({
+      route:jevRoute,inputTokens:inputTokenCeiling,maxOutputTokens:1,now:clock(),overheadRate:PLATFORM_FEE_RATE
+    }):0;
+    return {state,questions,inputTokenCeiling,estimatedMicrousd};
+  }
+
   async function callJevShadow(request){
     if(!jevRoute)return {ok:false,status:'JEV_MARKET_ROUTE_UNAVAILABLE_SHADOW_SKIPPED',providerCallsPerformed:0,semanticAuthority:'NONE'};
     try{
-      const latestUser=[...request.messages].reverse().find(m=>m.role==='user')?.content??'';
-      const state={
-        task:truncateUtf8(latestUser,16000),
-        message_count:request.messages.length,
-        request_bytes:request.requestBytes,
-        input_token_ceiling:request.inputTokenCeiling,
-        quality_class:request.qualityClass,
-        side_effect_class:request.sideEffectClass
-      };
-      const questions=buildGenericJevControlQuestions();
-      const inputTokenCeiling=Math.min(32000,Buffer.byteLength(JSON.stringify({state,questions}))+2048);
-      const estimate=estimateCognitionCeiling({route:jevRoute,inputTokens:inputTokenCeiling,maxOutputTokens:1,now:clock(),overheadRate:PLATFORM_FEE_RATE});
-      const ceilingMicrousd=Math.max(10000,Math.ceil(estimate/10000)*10000);
+      const {state,questions,inputTokenCeiling,estimatedMicrousd}=buildJevEnvelope(request);
+      const ceilingMicrousd=Math.max(10000,Math.ceil(estimatedMicrousd/10000)*10000);
       const taskId='tm-jev-'+crypto.randomUUID(),callId='or-jev-'+crypto.randomUUID();
       const prepared=await runtime.preparePaidCall({callId,taskId,model:TYPINGMIND_JEV_MODEL,provider:'openrouter',
         qualityClass:'Q_SHADOW_CONTROL',role:'WORKER',cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd});
@@ -261,9 +268,10 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       // If even the cheapest physically available candidate-writer path cannot
       // beat direct Opus under the same full-context Crown review contract,
       // skip JEV and all preparation.
-      if(!lowerBound||directUsd<=lowerBound.usd){
+      const jevEstimatedUsd=buildJevEnvelope(request).estimatedMicrousd/1e6;
+      if(!lowerBound||directUsd<=lowerBound.usd+jevEstimatedUsd){
         return runDirectCrown(request,{
-          routeCandidates:[{path:'DIRECT_OPUS',usd:directUsd},...(lowerBound?[{path:'THEORETICAL_CHEAPEST_WRITER_THEN_OPUS',model:lowerBound.model,usd:lowerBound.usd}]:[])],
+          routeCandidates:[{path:'DIRECT_OPUS',usd:directUsd},...(lowerBound?[{path:'THEORETICAL_CHEAPEST_WRITER_THEN_OPUS_PLUS_JEV',model:lowerBound.model,usd:lowerBound.usd+jevEstimatedUsd}]:[])],
           reason:'DIRECT_OPUS_BEATS_THEORETICAL_WRITER_LOWER_BOUND'
         });
       }
@@ -354,7 +362,8 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         candidateOutputTokens:request.maxTokens,
         criticOutputTokens:Math.min(600,request.maxTokens)
       }):Infinity;
-      if(criticWanted && writerDecision.selected.usd+criticSurcharge<directUsd){
+      const jevActualUsd=Number(jevShadow.observedCostMicrousd??0)/1e6;
+      if(criticWanted && writerDecision.selected.usd+criticSurcharge+jevActualUsd<directUsd){
         const criticMessages=buildIndependentCriticMessages(request,candidate);
         const criticBytes=Buffer.byteLength(JSON.stringify(criticMessages));
         critic=await call({

@@ -34,9 +34,11 @@ export function createOpenRouterGovernedAdapter({apiKeyProvider,fetchImpl=fetch,
     const pre=await inspectKey(); if(!pre.ok)return {ok:false,status:pre.status,providerCalls:0,keyReceipt:pre};
     if(!payload||typeof payload.model!=='string'||!Array.isArray(payload.messages)||payload.messages.length<1) throw new Error('bounded-chat-payload-required');
     if(!Number.isSafeInteger(payload.maxTokens)||payload.maxTokens<1||payload.maxTokens>4096) throw new Error('bounded-max-tokens-required');
+    if (requireZdr && (payload.providerPolicy?.zdr === false || payload.providerPolicy?.data_collection === 'allow')) throw new Error('privacy-policy-cannot-loosen-zdr-or-data-collection-deny');
+    const providerPolicy={...(payload.providerPolicy??{}),...(requireZdr?{zdr:true,data_collection:'deny'}:{})};
     const body={model:payload.model,messages:payload.messages,max_tokens:payload.maxTokens,stream:false,usage:{include:true},
       ...(payload.reasoning?{reasoning:payload.reasoning}:{}),...(payload.sessionId?{session_id:payload.sessionId}:{}),
-      ...(requireZdr?{provider:{data_collection:'deny'}}:{}),...(payload.providerPolicy?{provider:{...(requireZdr?{data_collection:'deny'}:{}),...payload.providerPolicy}}:{})};
+      ...(Object.keys(providerPolicy).length?{provider:providerPolicy}:{})};
     const r=await fetchImpl(`${baseUrl}/chat/completions`,{method:'POST',headers:{Authorization:await auth(),'Content-Type':'application/json','HTTP-Referer':'https://uberbond.local','X-Title':'UberBond Infinite Opus'},body:JSON.stringify(body)});
     const b=await text(r); if(!r.ok)return {ok:false,status:'OPENROUTER_COMPLETION_FAILED',httpStatus:r.status,providerCalls:1,error:secretSafe(b)};
     const usage=b.usage??{},cost=Number(usage.cost),id=b.id,observedModel=b.model;

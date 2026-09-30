@@ -122,11 +122,11 @@ test('Crown tournament is blind, zero-regression and role-specific',()=>{
  const plan=compileCrownTournament({candidateSnapshotHash:h('snapshot'),hiddenTasks:[{taskId:'h1',role:'GENERAL_CROWN',qualityDimensions:['accuracy']},{taskId:'h2',role:'GENERAL_CROWN',qualityDimensions:['accuracy']}],candidates:[{model:'a',roles:['GENERAL_CROWN']},{model:'b',roles:['GENERAL_CROWN']}],budgetAuthorizationRef:'auth'});
  assert.equal(plan.ok,true);assert.equal(plan.plan.blindEvaluation,true);
  const out=adjudicateCrownTournament({plan:plan.plan,observations:[
-  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
-  {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
-  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01},
-  {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01}
- ]});assert.equal(out.roles.GENERAL_CROWN.incumbent,'a');
+  {taskId:'h1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:a:h1',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
+  {taskId:'h2',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:a:h2',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
+  {taskId:'h1',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:b:h1',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01},
+  {taskId:'h2',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:b:h2',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01}
+ ]});assert.equal(out.roles.GENERAL_CROWN.candidate,'a');assert.equal(out.semanticAuthority,'NONE');
 });
 test('Crown succession changes only roles backed by current admitted Crown receipts',()=>{
  const p=planCrownSuccession({currentRoles:{GENERAL_CROWN:'a'},marketCandidates:[{model:'b',callability:'VERIFIED',freshness:'CURRENT',roles:['GENERAL_CROWN']}],trigger:'NEW_MODEL_RELEASE',compiledCapital:[{assetId:'x',status:'VALID_FOR_CURRENT_TYPED_SCOPE',crownRevision:'a'}]});
@@ -153,10 +153,10 @@ test('runtime paid authorization cannot exceed the structurally capped $20 provi
 test('duplicate tournament observation cannot manufacture evidence count',()=>{
  const plan=compileCrownTournament({candidateSnapshotHash:h('snapshot2'),hiddenTasks:[{taskId:'x1',role:'GENERAL_CROWN',qualityDimensions:['accuracy']},{taskId:'x2',role:'GENERAL_CROWN',qualityDimensions:['accuracy']}],candidates:[{model:'a',roles:['GENERAL_CROWN']},{model:'b',roles:['GENERAL_CROWN']}],budgetAuthorizationRef:'auth'});
  const out=adjudicateCrownTournament({plan:plan.plan,observations:[
-  {taskId:'x1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
-  {taskId:'x1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
-  {taskId:'x1',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.1},
-  {taskId:'x2',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.1}
+  {taskId:'x1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:a:x1',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
+  {taskId:'x1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:a:x1-dup',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
+  {taskId:'x1',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:b:x1',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.1},
+  {taskId:'x2',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:b:x2',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.1}
  ]});assert.equal(out.roles.GENERAL_CROWN,undefined);
 });
 
@@ -189,4 +189,17 @@ test('management reconciler reads bounded key usage without returning secrets',a
 test('reusable Crown thought without a durable descendant is a capitalization failure',()=>{
  const r=auditCrownCapitalization({crownCallReceipts:[{kind:'CROWN_CALL',callId:'c1',semanticReusableStructure:true}],capitalAssets:[]});assert.equal(r.failures.length,1);assert.equal(r.crownCapitalYield,0);
  const ok=auditCrownCapitalization({crownCallReceipts:[{kind:'CROWN_CALL',callId:'c1',semanticReusableStructure:true}],capitalAssets:[{originatingCallId:'c1'}]});assert.equal(ok.failures.length,0);assert.equal(ok.crownCapitalYield,1);
+});
+
+test('cross-key member guardrail is mandatory for the structural $28 inference envelope',()=>{
+ const missing=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,memberGuardrailUsd:28,purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
+ assert.equal(missing.ok,false);assert.ok(missing.reasons.includes('member-all-keys-cross-key-guardrail-required'));
+});
+test('management reconciliation refuses unexpected active inference keys',async()=>{
+ const a=createOpenRouterManagementReconciler({managementKeyProvider:async()=> 'management-secret-xxxxxxxx',fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify({data:[
+  {hash:'h1',name:'uberbond-runtime-20',limit:20,limit_reset:'monthly',usage_monthly:1},
+  {hash:'h2',name:'uberbond-typingmind-8',limit:8,limit_reset:'monthly',usage_monthly:2},
+  {hash:'h3',name:'forgotten-key',limit:5,limit_reset:'monthly',usage_monthly:0}
+ ]})})});
+ const r=await a.listKeyUsage({expectedLabels:['uberbond-runtime-20','uberbond-typingmind-8']});assert.equal(r.ok,false);assert.equal(r.unexpectedActiveKeys.length,1);
 });

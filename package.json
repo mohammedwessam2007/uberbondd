@@ -227,7 +227,11 @@
     "infinite-opus:hostile:doctor": "node scripts/infinite-opus-hostile-test-doctor.mjs",
     "test:infinite-opus:proof-economics": "node --test tests/provable-reference-economics.test.mjs",
     "test:infinite-opus:proof-ledger": "node --test tests/provable-reference-economics.test.mjs tests/provable-execution-ledger.test.mjs",
-    "infinite-opus:activate:owner-gate": "node scripts/infinite-opus-owner-gate-launcher.mjs"
+    "infinite-opus:activate:owner-gate": "node scripts/infinite-opus-owner-gate-launcher.mjs",
+    "infinite-opus:runtime-auth:mint": "node scripts/infinite-opus-runtime-authorization-mint.mjs",
+    "infinite-opus:crown:tournament": "node scripts/infinite-opus-crown-tournament-adjudicate.mjs",
+    "infinite-opus:crown:admit": "node scripts/infinite-opus-crown-admission-mint.mjs",
+    "test:infinite-opus:astra-activation": "node --test tests/infinite-opus-astra-activation-chain.test.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

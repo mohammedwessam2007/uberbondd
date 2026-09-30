@@ -23,6 +23,11 @@ const contentText=message=>{
 };
 const centsFor=microusd=>Math.max(1,Math.ceil(microusd/10000));
 const routeKey=(provider,model)=>provider+':'+model;
+const truncateUtf8=(value,maxBytes)=>{
+  let out=String(value??'');
+  while(Buffer.byteLength(out)>maxBytes && out.length>1)out=out.slice(0,Math.max(1,Math.floor(out.length*.75)));
+  return out;
+};
 
 function activeAuthorization(paidAuthorization,now=Date.now()){
   return paidAuthorization?.evidenceRef &&
@@ -96,7 +101,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     try{
       const latestUser=[...request.messages].reverse().find(m=>m.role==='user')?.content??'';
       const state={
-        task:latestUser.slice(0,20000),
+        task:truncateUtf8(latestUser,16000),
         message_count:request.messages.length,
         request_bytes:request.requestBytes,
         input_token_ceiling:request.inputTokenCeiling,

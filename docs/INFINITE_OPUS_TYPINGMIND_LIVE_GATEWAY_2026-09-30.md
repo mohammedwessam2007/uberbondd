@@ -204,3 +204,40 @@ SOURCE MERGED
 ```
 
 No step may be skipped by substituting a key, architecture description, benchmark score, or model reputation for the required authority/evidence receipt.
+
+
+## Crown recurrence capitalization loop
+
+Every successful raw-chat Crown review now emits a durable **metadata-only recurrence receipt** before the response leaves the orchestrator.
+
+Persisted:
+- exact request fingerprint;
+- final-output hash;
+- Crown Admission Receipt hash;
+- Crown provider request ID;
+- observed upstream provider;
+- accepted authority class;
+- observed Builder and Crown costs;
+- recurrence count and distinct-output-hash count.
+
+Not persisted:
+- raw user messages;
+- raw assistant answer text;
+- hidden reasoning;
+- provider credentials.
+
+First observation:
+`SINGLETON_CROWN_INTERACTION_SHADOW`.
+
+Exact request recurs and the approved final-output hash remains identical:
+`RECURRENT_EXACT_OUTPUT_SHADOW_COMPILER_CANDIDATE`.
+
+Exact request recurs but final-output hashes diverge:
+`RECURRENT_DIVERGENT_OUTPUT_SHADOW_REQUIRES_RECONCILIATION`.
+
+All three states have:
+`semanticReuseAuthority = NONE`.
+
+The admin surface `GET /api/admin/infinite-opus/capital` ranks only recurring fingerprints by observed repeated frontier cost. It is a compiler work queue, not a cache, answer store or authority registry.
+
+The repeated-cost number is **not claimed savings**. It measures paid frontier cost already spent after the first instance of an exact recurring request, so UberBond can attack the largest recurrence leak first. Promotion still requires a typed compiler plus E0-E4/Crown closure evidence.

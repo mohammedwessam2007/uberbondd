@@ -48,3 +48,45 @@ export function factorFrontierResidualCut(programs) {
   const cuts = [...groups.values()].sort((a,b)=>a.key.localeCompare(b.key));
   return {status:'RESIDUAL_CUT_PLAN_ONLY',cuts,planHash:semanticHash(cuts),totalRootObligations:cuts.reduce((n,c)=>n+c.consumers.length,0),uniqueResidualObligations:cuts.length,adjudicationsPerformed:0,promotionAuthority:'NONE',claimBoundary:'Exact leaf identity and graph factoring only. No global invention priority, quality equivalence, live fanout or realized savings claim.'};
 }
+
+
+export function settleFrontierResidualCut({ plan, adjudications = [], now = Date.now() } = {}) {
+  if (plan?.status !== 'RESIDUAL_CUT_PLAN_ONLY' || !Array.isArray(plan.cuts) || semanticHash(plan.cuts) !== plan.planHash) throw new Error('untampered-residual-plan-required');
+  if (!Array.isArray(adjudications) || adjudications.length > plan.cuts.length) throw new Error('bounded-adjudication-list-required');
+  const byKey = new Map(adjudications.map(row => [row?.key,row]));
+  if (byKey.size !== adjudications.length) throw new Error('unique-adjudication-key-required');
+  const settlements=[];
+  for (const cut of plan.cuts) {
+    const adjudication=byKey.get(cut.key);
+    if (!adjudication) continue;
+    if (exactObligationKey(cut.obligation)!==cut.key) throw new Error('cut-obligation-drift');
+    if (adjudication.status!=='ADMITTED_CROWN_ADJUDICATION' || adjudication.key!==cut.key) throw new Error('admitted-exact-adjudication-required');
+    if (semanticHash(adjudication.obligation)!==semanticHash(cut.obligation)) throw new Error('adjudication-obligation-mismatch');
+    if (!adjudication.evidenceRef || typeof adjudication.evidenceRef!=='string') throw new Error('adjudication-evidence-required');
+    const expiry=Date.parse(adjudication.expiresAt);
+    if (!Number.isFinite(expiry) || expiry<=now) throw new Error('adjudication-expired');
+    if (adjudication.crownRevision!==cut.obligation.crownRevision) throw new Error('adjudication-crown-revision-mismatch');
+    if (semanticHash(adjudication.dependencies)!==semanticHash(cut.obligation.dependencies)) throw new Error('adjudication-dependency-mismatch');
+    if (semanticHash(adjudication.qualityContract)!==semanticHash(cut.obligation.qualityContract)) throw new Error('adjudication-quality-mismatch');
+    for (const consumer of cut.consumers) settlements.push({
+      cutKey:cut.key,programId:consumer.programId,rootId:consumer.rootId,
+      decision:structuredClone(adjudication.decision),
+      evidenceRef:adjudication.evidenceRef,
+      adjudicationHash:semanticHash(adjudication),
+      semanticAuthority:'EXACT_SHARED_CROWN_ADJUDICATION',
+      downstreamClosureRequired:true
+    });
+  }
+  const performed=[...byKey.keys()].filter(key=>plan.cuts.some(c=>c.key===key)).length;
+  return {
+    status:'RESIDUAL_CUT_MULTICAST_SETTLED',
+    adjudicationsPerformed:performed,
+    consumerSettlements:settlements,
+    settledConsumerCount:settlements.length,
+    semanticMulticastFactor:performed?settlements.length/performed:null,
+    crownCallsAvoidedAgainstNaivePerConsumer:performed?Math.max(0,settlements.length-performed):0,
+    economicMultiplierClaim:'NONE_WITHOUT_PROVABLE_REFERENCE_ECONOMICS',
+    downstreamClosureRequired:true,
+    externalEffectAuthority:'NONE'
+  };
+}

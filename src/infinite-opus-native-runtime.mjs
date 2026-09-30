@@ -357,9 +357,10 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const state=await stateFor(tx),ledger=state.cognitiveCapitalCampaigns[campaignId];
         if(!ledger)return zero({ok:false,status:'COGNITIVE_CAPITAL_CAMPAIGN_NOT_FOUND',providerCallsPerformed:0});
         const closed=closeCognitiveCapitalLedger(ledger,{closureEvidenceRef,closedAt:new Date(clock()).toISOString()});
-        state.cognitiveCapitalCampaigns[campaignId]=closed;if(state.activeCognitiveCapitalCampaignId===campaignId)state.activeCognitiveCapitalCampaignId=null;
         const audit=auditCognitiveCapitalEconomics({capitalLedger:closed,provableExecutionLedger:state.proofLedger});
-        state.receipts.push({kind:'COGNITIVE_CAPITAL_CAMPAIGN_CLOSED',campaignId,auditStatus:audit.status,observedAt:clock()});
+        if(!audit.ok)return zero({...audit,status:'COGNITIVE_CAPITAL_CAMPAIGN_AUDIT_BLOCKED',auditStatus:audit.status,campaignId,providerCallsPerformed:0});
+        state.cognitiveCapitalCampaigns[campaignId]=closed;if(state.activeCognitiveCapitalCampaignId===campaignId)state.activeCognitiveCapitalCampaignId=null;
+        state.receipts.push({kind:'COGNITIVE_CAPITAL_CAMPAIGN_CLOSED',campaignId,auditStatus:audit.status,referenceCompressionFactor:audit.referenceCompressionFactor,observedAt:clock()});
         await persist(tx,state);return zero({...audit,campaignId,providerCallsPerformed:0});
       });
     },

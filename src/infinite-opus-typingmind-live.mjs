@@ -1,6 +1,8 @@
 import crypto from 'node:crypto';
 import { createInfiniteOpusRuntime } from './infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from './openrouter-governed-adapter.mjs';
+import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-adapter.mjs';
+import { buildGenericJevControlQuestions } from './openrouter-processor-auction-v5.mjs';
 import { COGNITION_PERIMETER_ADMISSION } from './cognition-transport-guard.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { selectCurrentPrice } from './infinite-opus-market.mjs';
@@ -9,6 +11,7 @@ import { buildBuilderMessages, buildCrownReviewMessages, openAICompatibleComplet
 
 export const TYPINGMIND_BUILDER_MODEL='openai/gpt-6.1-sol';
 export const TYPINGMIND_CROWN_MODEL='anthropic/claude-opus-5.5';
+export const TYPINGMIND_JEV_MODEL='typesafe/jev-1.13';
 export const TYPINGMIND_CROWN_ROUTE_IDENTITY='openrouter:auto-provider-zdr-deny-required-parameters-v1';
 const PLATFORM_FEE_RATE=.055;
 
@@ -49,13 +52,26 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
   if(!ready.ok)return {readiness:()=>ready,execute:async()=>({ok:false,status:ready.status,reasons:ready.reasons,providerCallsPerformed:0,semanticAuthority:'NONE'})};
   const builderRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,clock());
   const crownRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_CROWN_MODEL,clock());
+  let jevRoute=null;
+  try{
+    const observed=selectCurrentPrice(marketSnapshot,TYPINGMIND_JEV_MODEL,clock());
+    jevRoute={...observed,contextTokens:Math.min(Number(observed.contextTokens)||32000,32000),maxOutputTokens:1};
+  }catch{}
   const adapter=createOpenRouterGovernedAdapter({
     apiKeyProvider:async()=>openRouterKey,
     fetchImpl,
     expectedKeyLimitUsd:20,
     cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION
   });
+  const jevAdapter=createOpenRouterJevGovernedAdapter({
+    apiKeyProvider:async()=>openRouterKey,
+    fetchImpl,
+    expectedKeyLimitUsd:20
+  });
   const paidExecutor=async payload=>{
+    if(payload.decisionRequest){
+      return jevAdapter.execute({...payload.decisionRequest,inputTokenCeiling:payload.inputTokenCeiling});
+    }
     const result=await adapter.execute({
       model:payload.model,
       messages:payload.messages,
@@ -71,9 +87,40 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
   };
   const runtime=createInfiniteOpusRuntime({
     store,clock,paidExecutor,paidAuthorization,
-    routePrices:[builderRoute,crownRoute],
+    routePrices:[builderRoute,crownRoute,...(jevRoute?[jevRoute]:[])],
     platformFeeRate:PLATFORM_FEE_RATE
   });
+
+  async function callJevShadow(request){
+    if(!jevRoute)return {ok:false,status:'JEV_MARKET_ROUTE_UNAVAILABLE_SHADOW_SKIPPED',providerCallsPerformed:0,semanticAuthority:'NONE'};
+    try{
+      const latestUser=[...request.messages].reverse().find(m=>m.role==='user')?.content??'';
+      const state={
+        task:latestUser.slice(0,20000),
+        message_count:request.messages.length,
+        request_bytes:request.requestBytes,
+        input_token_ceiling:request.inputTokenCeiling,
+        quality_class:request.qualityClass,
+        side_effect_class:request.sideEffectClass
+      };
+      const questions=buildGenericJevControlQuestions();
+      const inputTokenCeiling=Math.min(32000,Buffer.byteLength(JSON.stringify({state,questions}))+2048);
+      const estimate=estimateCognitionCeiling({route:jevRoute,inputTokens:inputTokenCeiling,maxOutputTokens:1,now:clock(),overheadRate:PLATFORM_FEE_RATE});
+      const ceilingMicrousd=Math.max(10000,Math.ceil(estimate/10000)*10000);
+      const taskId='tm-jev-'+crypto.randomUUID(),callId='or-jev-'+crypto.randomUUID();
+      const prepared=await runtime.preparePaidCall({callId,taskId,model:TYPINGMIND_JEV_MODEL,provider:'openrouter',
+        qualityClass:'Q_SHADOW_CONTROL',role:'WORKER',cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd});
+      if(!prepared.ok)return {...prepared,stage:'jev-shadow',providerCallsPerformed:0,semanticAuthority:'NONE'};
+      return runtime.dispatchPaidCall(callId,{
+        model:TYPINGMIND_JEV_MODEL,
+        task:{taskId,objective:'TypingMind UberMind Jev shadow control tensor',consequenceClass:'LOCAL_PREPARATION'},
+        maxTokens:1,inputTokenCeiling,costCeilingCents:centsFor(ceilingMicrousd),
+        decisionRequest:{model:TYPINGMIND_JEV_MODEL,state,questions}
+      });
+    }catch(error){
+      return {ok:false,status:'JEV_SHADOW_REFUSED_OR_FAILED',reason:String(error?.message||error),providerCallsPerformed:0,semanticAuthority:'NONE'};
+    }
+  }
 
   async function call({model,role,qualityClass,messages,maxTokens,inputTokenCeiling,sessionRoot,stage}){
     const route=model===TYPINGMIND_CROWN_MODEL?crownRoute:builderRoute;
@@ -101,6 +148,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     readiness:()=>ready,
     runtime,
     async execute(request){
+      const jevShadow=await callJevShadow(request);
       const builderMessages=buildBuilderMessages(request);
       const builder=await call({model:TYPINGMIND_BUILDER_MODEL,role:'WORKER',qualityClass:'Q_FRONTIER_PREPARATION',
         messages:builderMessages,maxTokens:request.maxTokens,inputTokenCeiling:request.inputTokenCeiling,sessionRoot:request.sessionRoot,stage:'builder'});
@@ -129,15 +177,25 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       if(!exactCrown.ok)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED',
         reasons:exactCrown.reasons,providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
         semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,expectedRouteIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY};
-      const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0);
+      const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0),jevCost=Number(jevShadow.observedCostMicrousd??0);
       const builderUsage=builder.usage??{},crownUsage=crown.usage??{};
-      return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
-        completion:openAICompatibleCompletion({request,candidate,crown:crownText,usage:{
+      const completion=openAICompatibleCompletion({request,candidate,crown:crownText,usage:{
           promptTokens:Number(builderUsage.inputTokens??0)+Number(crownUsage.inputTokens??0),
           completionTokens:Number(builderUsage.outputTokens??0)+Number(crownUsage.outputTokens??0),
           builderModel:TYPINGMIND_BUILDER_MODEL,crownModel:TYPINGMIND_CROWN_MODEL,
-          providerCalls:2,actualCostUsd:(builderCost+crownCost)/1e6
-        }}),
+          providerCalls:2+Number(jevShadow.providerCallsPerformed??0),actualCostUsd:(builderCost+crownCost+jevCost)/1e6
+        }});
+      completion.uberbond.jevShadow={
+        status:jevShadow.status??null,
+        model:TYPINGMIND_JEV_MODEL,
+        semanticAuthority:'NONE',
+        usedToSuppressCrown:false,
+        observedModelRevision:jevShadow.observedModelRevision??null,
+        costUsd:jevCost/1e6,
+        answers:jevShadow.proposal?.answers??null
+      };
+      return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
+        completion,
         builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost},
         crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
           upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
@@ -145,7 +203,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
           generationReceipt:crown.generationReceipt??null},
         semanticAuthority:'CURRENT_TASK_CLASS_CROWN',
         sideEffectAuthority:'NONE',
-        jev:{mode:'SHADOW_ONLY',usedToSuppressCrown:false}
+        jev:{mode:'SHADOW_ONLY',usedToSuppressCrown:false,status:jevShadow.status??null,answers:jevShadow.proposal?.answers??null,costMicrousd:jevCost}
       };
     }
   };

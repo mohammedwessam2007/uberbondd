@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T22:30:00+03:00",
+  "updatedAt": "2026-09-30T22:50:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -305,6 +305,17 @@
         "tests/ghost-agent.test.mjs"
       ],
       "benchmarkSpec": "10,000 idle + 10,000 matching events in deterministic test source, all expected zero inference"
+    },
+    {
+      "label": "cognitive-capital-accounting-v20",
+      "multiplier": 33333.345,
+      "status": "NO_MULTIPLIER_INCREASE__RECEIPT_GRADE_ECONOMIC_COURT_IMPLEMENTED",
+      "workload": "verified E0-E4 execution receipts + cheapest-legitimate direct-reference contracts + closed observed all-in cost classes -> finite audited compression factor",
+      "qualityLaw": "No modeled envelope, missing cost class, duplicate/tampered receipt, or zero denominator may be presented as realized multiplier.",
+      "implementation": [
+        "src/cognitive-capital-ledger.mjs",
+        "tests/cognitive-capital-ledger.test.mjs"
+      ]
     }
   ],
   "excludedFromCurrentNumber": [
@@ -336,12 +347,14 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "1_176_471_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__REFERENCE_ECONOMICS_MODELED_NOT_PRODUCTION_OBSERVED",
+      "status": "1_176_471_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__RECEIPT_GRADE_ECONOMIC_AUDITOR_IMPLEMENTED__REAL_REFERENCE_AND_ALL_IN_COST_RECEIPTS_STILL_REQUIRED",
       "distinctConsumersExecuted": 1176471,
       "providerCallsPerformed": 0,
       "receiptRoot": "sha256:358faf42034683f30e10954e7b64aa30204ac6fac738cea579050fd60ef26b15",
       "directOpusUnitUsd": 0.85,
-      "actualAllInEnvelopeUsd": 30
+      "actualAllInEnvelopeUsd": 30,
+      "realizedEconomicMultiplier": null,
+      "realizedEconomicStatus": "AWAITING_REAL_REFERENCE_CONTRACTS_AND_CLOSED_OBSERVED_COST_LEDGER"
     },
     "deltaResearch": {
       "multiplier": 315.75037147102523,

@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "uberbond.openrouter.processor-fabric.v5",
+  "observedAt": "2026-09-30T18:46:00+03:00",
+  "expiresAt": "2026-10-02T18:46:00+03:00",
+  "objective": "EXPLOIT_MODEL_MECHANICS_TO_MINIMIZE_COST_WITHOUT_LOWERING_REQUIRED_OPUS_5_5_QUALITY",
+  "truthBoundary": "Public model architecture, API behavior and current tariffs create execution priors. They do not by themselves grant final semantic authority or task-specific Crown promotion.",
+  "processors": {
+    "jev": {
+      "model": "typesafe/jev-1.13",
+      "endpoint": "OPENROUTER_DECISIONS_API",
+      "mechanics": {
+        "primitives": [
+          "Choice",
+          "Score",
+          "Noul"
+        ],
+        "sharedStateMultiQuestion": true,
+        "contextTokens": 32000,
+        "inputUsdPerMillion": 0.042,
+        "outputUsdPerMillion": 0
+      },
+      "bestUses": [
+        "routing",
+        "classification",
+        "relevance",
+        "novelty",
+        "evidence-sufficiency",
+        "contradiction-severity",
+        "stop-continue",
+        "cache-admission",
+        "Crown-necessity",
+        "drift-detection"
+      ],
+      "executionLaw": "PACK_MULTIPLE_TYPED_CONTROL_QUESTIONS_OVER_THE_SAME_STATE_IN_ONE_CALL",
+      "authority": "SHADOW_OR_CERTIFIED_BOUNDED_ONLY",
+      "sources": [
+        "https://openrouter.ai/typesafe/jev-1.13/api",
+        "https://openrouter.ai/blog/insights/what-is-jev/"
+      ]
+    },
+    "mimo": {
+      "model": "xiaomi/mimo-v2.6-flash",
+      "mechanics": {
+        "contextTokens": 1000000,
+        "maxOutputTokens": 128000,
+        "multimodal": true,
+        "deepThinking": true,
+        "toolCalling": true,
+        "structuredOutput": true,
+        "contextCaching": true,
+        "inputUsdPerMillion": 0.14,
+        "outputUsdPerMillion": 0.28,
+        "cacheReadUsdPerMillion": 0.0028
+      },
+      "bestUses": [
+        "huge-context-ingestion",
+        "multimodal-preparation",
+        "cheap-source-triage",
+        "candidate-generation",
+        "bulk-structured-extraction",
+        "high-frequency-prework"
+      ],
+      "executionLaw": "USE_AS_CHEAP_MEMORY_BANDWIDTH_AND_BREADTH_ENGINE__CAP_UNATTENDED_TOOL_LOOPS",
+      "authority": "PROPOSAL_ONLY",
+      "sources": [
+        "https://mimo.mi.com/models/en-US/mimo-v2.6-flash",
+        "https://mimo.mi.com/docs/en-US/news/latest/v2-6"
+      ]
+    },
+    "deepseek": {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "mechanics": {
+        "totalParametersBillions": 552,
+        "activeInputParametersBillions": 8,
+        "activeOutputParametersBillions": 16,
+        "architecture": "CAUSAL_ENCODER_DECODER_SPARSE_MOE",
+        "contextTokens": 1048576,
+        "nativeMultimodal": true,
+        "toolCalling": true,
+        "inputUsdPerMillion": 0.13,
+        "outputUsdPerMillion": 0.52,
+        "cacheReadUsdPerMillion": 0.0026,
+        "kvCacheRelativeHbm": "ONE_QUARTER_PREVIOUS_GENERATION",
+        "kvCacheRelativeSsd": "ONE_EIGHTH_PREVIOUS_GENERATION"
+      },
+      "bestUses": [
+        "persistent-cheap-agent-branches",
+        "counterexamples",
+        "independent-lineage-audit",
+        "long-context-recurring-analysis",
+        "high-cache-affinity-loops",
+        "tool-assisted-cheap-branching"
+      ],
+      "executionLaw": "USE_WHEN_INDEPENDENT_ERROR_MODE_OR_PERSISTENT_CACHE_ECONOMICS_MATTER_MORE_THAN_PROSE_POLISH",
+      "authority": "PROPOSAL_ONLY",
+      "sources": [
+        "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+        "https://openrouter.ai/deepseek/deepseek-v4.1-flash/providers"
+      ]
+    },
+    "glmFlash": {
+      "model": "z-ai/glm-5.3-flash",
+      "mechanics": {
+        "totalParametersBillions": 320,
+        "activeParametersBillions": 18,
+        "architecture": "HYBRID_SPARSE_AND_LINEAR_ATTENTION_WITH_MHC",
+        "multimodal": true,
+        "longContextOptimized": true
+      },
+      "bestUses": [
+        "cheap-agentic-coding-branch",
+        "long-horizon-tool-branch",
+        "multimodal-agent-branch",
+        "third-lineage-diversity"
+      ],
+      "executionLaw": "USE_WHEN_AGENTIC_LONG_CONTEXT_OR_TOOL_LOOP_DIVERSITY_IS_VALUABLE__PRICE_FROM_FRESH_MARKET_SNAPSHOT",
+      "authority": "PROPOSAL_ONLY",
+      "sources": [
+        "https://z.ai/blog/glm-5.3-flash"
+      ]
+    },
+    "sonnet": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "mechanics": {
+        "contextTokens": 1000000,
+        "inputUsdPerMillion": 2,
+        "outputUsdPerMillion": 10,
+        "cacheReadUsdPerMillion": 0.2,
+        "cacheWriteUsdPerMillion": 2.5,
+        "thinkingAlwaysOn": true,
+        "effortControl": true,
+        "relativeGenerationSpeed": "30_PERCENT_PLUS_FASTER_THAN_SONNET_5"
+      },
+      "bestUses": [
+        "well-scoped-feature-work",
+        "bug-fixing",
+        "polished-docs",
+        "slides-spreadsheets",
+        "anthropic-lineage-mid-tier-check",
+        "terminal-automation-specialist"
+      ],
+      "executionLaw": "USE_AS_TASK_CLASS_SPECIALIST_OR_SECOND_LINEAGE_WHEN_ANTHROPIC_STYLE_TOOLING_OR_DOCUMENT_QUALITY_CAN_REDUCE_OPUS_REWRITE_SURFACE",
+      "authority": "PROPOSAL_ONLY_UNLESS_SEPARATELY_PROMOTED_TASK_CLASS_CROWN",
+      "sources": [
+        "https://www.anthropic.com/claude-sonnet-5-5",
+        "https://openrouter.ai/compare/anthropic/claude-sonnet-5.5"
+      ]
+    },
+    "sol": {
+      "model": "openai/gpt-6.1-sol",
+      "mechanics": {
+        "contextTokens": 1050000,
+        "maxOutputTokens": 128000,
+        "inputUsdPerMillion": 2,
+        "outputUsdPerMillion": 10,
+        "cacheReadUsdPerMillion": 0.1,
+        "reasoningEfforts": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max"
+        ],
+        "defaultReasoningEffort": "medium",
+        "toolsViaResponsesApi": true
+      },
+      "bestUses": [
+        "primary-builder",
+        "complex-coding",
+        "computer-use",
+        "professional-work",
+        "multi-step-business-workflows"
+      ],
+      "executionLaw": "SCALE_REASONING_EFFORT_BEFORE_ESCALATING_TO_SOL_PRO",
+      "authority": "PROPOSAL_ONLY",
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+        "https://developers.openai.com/api/docs/guides/reasoning"
+      ]
+    },
+    "solPro": {
+      "model": "openai/gpt-6.1-sol-pro",
+      "mechanics": {
+        "sameUnderlyingModelAs": "openai/gpt-6.1-sol",
+        "reasoningMode": "pro",
+        "contextTokens": 1050000,
+        "inputUsdPerMillion": 2,
+        "outputUsdPerMillion": 10,
+        "cacheReadUsdPerMillion": 0.1,
+        "typicalRequestCost": "SEVERAL_TIMES_STANDARD_SOL_DUE_TO_MORE_REASONING_TOKENS"
+      },
+      "bestUses": [
+        "hard-high-stakes-residual",
+        "difficult-debugging-after-sol-max",
+        "rare-deep-second-opinion"
+      ],
+      "executionLaw": "ONLY_AFTER_SOL_HIGH_OR_MAX_LEAVES_A_MATERIAL_RESIDUAL_AND_EXPECTED_ERROR_COST_JUSTIFIES_PRO_MODE",
+      "authority": "PROPOSAL_ONLY",
+      "sources": [
+        "https://openrouter.ai/openai/gpt-6.1-sol-pro"
+      ]
+    },
+    "opus": {
+      "model": "anthropic/claude-opus-5.5",
+      "mechanics": {
+        "contextTokens": 1000000,
+        "maxOutputTokens": 128000,
+        "inputUsdPerMillion": 4,
+        "outputUsdPerMillion": 20,
+        "cacheReadUsdPerMillion": 0.2,
+        "cacheWriteUsdPerMillion": 5,
+        "adaptiveThinking": true,
+        "toolCalling": true,
+        "structuredOutput": true
+      },
+      "bestUses": [
+        "final-semantic-adjudication",
+        "long-horizon-agent-review",
+        "code-review-and-bug-finding",
+        "scientific-analysis",
+        "financial-analysis",
+        "dense-chart-diagram-screenshot-review",
+        "high-stakes-ambiguity"
+      ],
+      "executionLaw": "BUY_ONLY_IRREDUCIBLE_SEMANTIC_DELTA__PREFER_ACCEPT_OR_PATCH_OVER_REWRITE__KEEP_PREFIX_STABLE_FOR_CACHE",
+      "authority": "GENERAL_CROWN_CANDIDATE_REQUIRES_CURRENT_ADMISSION",
+      "sources": [
+        "https://www.anthropic.com/claude/opus",
+        "https://openrouter.ai/anthropic/claude-opus-5.5/providers"
+      ]
+    }
+  },
+  "auctionRules": [
+    "EXACT_OR_E0_E4_VALID -> NO_GENERATIVE_MODEL",
+    "BOUNDED_TYPED_DECISION_WITH_STATE_LE_32K -> JEV_MULTI_QUESTION",
+    "HUGE_OR_MULTIMODAL_CONTEXT -> MIMO_PREP_FIRST_UNLESS_DIRECT_CROWN_CHEAPER",
+    "NEED_INDEPENDENT_ERROR_MODE -> DEEPSEEK_BRANCH",
+    "LONG_HORIZON_AGENTIC_TOOL_DIVERSITY -> GLM_FLASH_BRANCH_CANDIDATE",
+    "WELL_SCOPED_DOC_FEATURE_OR_ANTHROPIC_LINEAGE_CHECK -> SONNET_5_5_CANDIDATE",
+    "PRIMARY_CONSTRUCTIVE_WORK -> GPT_6_1_SOL_DYNAMIC_EFFORT",
+    "SOL_MAX_RESIDUAL_AND_HIGH_ERROR_COST -> SOL_PRO",
+    "IRREDUCIBLE_OR_HIGH_STAKES_SEMANTICS -> OPUS_CROWN",
+    "IF_PREWORK_COST_APPROACHES_DIRECT_OPUS_WITHOUT_SHRINKING_RESIDUAL -> DIRECT_OPUS"
+  ],
+  "qualityLaw": "CHEAP_PROCESSORS_CREATE_INFORMATION_AND_CANDIDATES__ONLY_CURRENT_AUTHORITY_OR_E0_E4_REALITY_SETTLEMENT_CLOSES_MATERIAL_SEMANTICS",
+  "telemetry": [
+    "processor",
+    "reasoning_effort",
+    "input_tokens",
+    "cached_tokens",
+    "output_tokens",
+    "actual_cost",
+    "latency",
+    "tool_errors",
+    "structured_output_errors",
+    "crown_accept_patch_rewrite",
+    "residual_tokens_before_crown",
+    "frontier_page_fault_reason"
+  ]
+}

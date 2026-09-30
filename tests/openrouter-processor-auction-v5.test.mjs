@@ -5,7 +5,7 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
-  estimateIndependentCriticSurchargeUsd } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -174,4 +174,23 @@ test('critic surcharge includes both critic inference and extra Crown input',()=
   });
   assert.ok(x>0);
   assert.ok(x<.02);
+});
+
+
+test('observed cache receipts change path economics using current route cache tariffs',()=>{
+  const fresh=estimateRouteWithCacheUsd({route:crownRoute,inputTokens:100000,cachedInputTokens:0,outputTokens:1000});
+  const warm=estimateRouteWithCacheUsd({route:crownRoute,inputTokens:100000,cachedInputTokens:90000,outputTokens:1000});
+  assert.ok(warm<fresh);
+  assert.equal(estimateDirectCrownUsd({crownRoute,inputTokens:100000,cachedInputTokens:90000,outputTokens:1000}),warm);
+});
+
+test('writer lower bound honors per-model warm cache rather than assuming every input is fresh',()=>{
+  const cold=cheapestPossibleWriterLowerBound({
+    writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:5000
+  });
+  const warm=cheapestPossibleWriterLowerBound({
+    writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:5000,
+    cachedInputByModel:{'deepseek/deepseek-v4.1-flash':100000}
+  });
+  assert.ok(warm.usd<=cold.usd);
 });

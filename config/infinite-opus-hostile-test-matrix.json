@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.hostile-test-matrix.v1",
+  "requiredCount": 27,
+  "truthBoundary": "Presence of the named executable test source is a coverage binding, not proof that all future implementations are correct. Normal test execution is still required.",
+  "cases": [
+    {
+      "id": "H01",
+      "attack": "TypingMind spend occurs outside runtime ledger",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "TypingMind cash spend is included in unified monthly cash total"
+    },
+    {
+      "id": "H02",
+      "attack": "two API keys overspend aggregate budget",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "two keys cannot exceed aggregate $28 and stray paid routes fail closed"
+    },
+    {
+      "id": "H03",
+      "attack": "provider hard cap disagrees with software ledger",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "provider key hard-cap mismatch fails before inference"
+    },
+    {
+      "id": "H04",
+      "attack": "delayed billing event",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "delayed or mismatched provider usage holds global capacity"
+    },
+    {
+      "id": "H05",
+      "attack": "uncertain charge",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "uncertain calls hold reservations"
+    },
+    {
+      "id": "H06",
+      "attack": "retry after timeout",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "refuses duplicate dispatch"
+    },
+    {
+      "id": "H07",
+      "attack": "cached response billed unexpectedly",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "cached response with inconsistent provider bill is refused"
+    },
+    {
+      "id": "H08",
+      "attack": "prompt cache miss",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "cache miss records zero cached tokens while preserving observed provider cost"
+    },
+    {
+      "id": "H09",
+      "attack": "model ID alias changes",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "OpenRouter wrong-model response is refused and not Crown authority"
+    },
+    {
+      "id": "H10",
+      "attack": "provider serves different revision",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "Crown admission binds exact revision when provider exposes it"
+    },
+    {
+      "id": "H11",
+      "attack": "cheap model injects unsupported claim",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "invented-number"
+    },
+    {
+      "id": "H12",
+      "attack": "semantic parser omits caveat",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "omitted constraint forces Crown"
+    },
+    {
+      "id": "H13",
+      "attack": "reverse parser misses unauthorized addition",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "renderer cannot add claim or number"
+    },
+    {
+      "id": "H14",
+      "attack": "authority receipt forged",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "Crown admission refuses forged or incomplete provider answers"
+    },
+    {
+      "id": "H15",
+      "attack": "stale authority record",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "expired/revoked/future/historical authority is rejected"
+    },
+    {
+      "id": "H16",
+      "attack": "Crown succession",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "Crown succession changes only roles backed by current admitted Crown receipts"
+    },
+    {
+      "id": "H17",
+      "attack": "evidence changed after compilation",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "AUTHORITY_DECOMPILED"
+    },
+    {
+      "id": "H18",
+      "attack": "task schema version drift",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "schemaVersion:'new'"
+    },
+    {
+      "id": "H19",
+      "attack": "proof-cut collision",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "proof-cut multicast coalesces 1000 consumers"
+    },
+    {
+      "id": "H20",
+      "attack": "two similar but nonidentical proof cuts",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "unresolvedCutCount, 3"
+    },
+    {
+      "id": "H21",
+      "attack": "cross-task multicast with differing quality contract",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "qualityContractHash"
+    },
+    {
+      "id": "H22",
+      "attack": "budget rollover",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "2026-10-01"
+    },
+    {
+      "id": "H23",
+      "attack": "host crash before settlement",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "paid callback crash holds dispatched budget"
+    },
+    {
+      "id": "H24",
+      "attack": "host crash after provider call before receipt",
+      "file": "tests/infinite-opus.test.mjs",
+      "needle": "provider response without observed bill keeps reservation held"
+    },
+    {
+      "id": "H25",
+      "attack": "old direct inference path",
+      "file": "tests/open-model-factory-integration.test.mjs",
+      "needle": "Infinite Opus cash perimeter permits only OpenRouter"
+    },
+    {
+      "id": "H26",
+      "attack": "ungoverned SDK call",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "cash-metered route inventory has no unclassified budget bypass"
+    },
+    {
+      "id": "H27",
+      "attack": "plan-included usage accidentally counted as compression",
+      "file": "tests/infinite-opus-live-closure.test.mjs",
+      "needle": "unified ledger separates cash, plan, credits, donated compute and compression without double counting"
+    }
+  ]
+}

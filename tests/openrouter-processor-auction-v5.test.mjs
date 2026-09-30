@@ -5,7 +5,7 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd, estimateJevControlUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
-  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd, chooseCheapestFusedSourceWorker } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd, chooseCheapestFusedSourceWorker, exactCriticPolicy } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -241,6 +241,18 @@ test('fused source worker auction picks DeepSeek over MiMo for the canonical 200
   });
   assert.equal(pick.model,'deepseek/deepseek-v4.1-flash');
   assert.equal(pick.usd,0.0299);
+});
+
+test('exact metadata bypasses JEV when critic decision is already deterministic',()=>{
+  const p=exactCriticPolicy({
+    independentChallenge:false,errorCorrelationRisk:'normal',highStakes:false,
+    writerModel:'deepseek/deepseek-v4.1-flash'
+  });
+  assert.equal(p.run,false);
+  assert.equal(p.reason,'SAME_LINEAGE_NO_INDEPENDENCE_GAIN');
+  const allIn=0.0299+0.03012;
+  assert.equal(allIn,0.06002);
+  assert.ok(0.85/allIn>14.16);
 });
 
 test('observed cache receipts change path economics using current route cache tariffs',()=>{

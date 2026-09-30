@@ -274,7 +274,7 @@ test('paid callback crash holds dispatched budget and refuses duplicate dispatch
     routePrices:[{model:'test/model',provider:'openrouter',sourceRef:'synthetic://price',verifiedAt:'2026-09-29T21:00:00Z',expiresAt:'2026-09-30T21:00:00Z',contextTokens:1000000,maxOutputTokens:10000,inputUsdPerMillion:.01,outputUsdPerMillion:.01}],
     paidExecutor:async () => { calls++; throw new Error('connection-lost'); } });
   await runtime.preparePaidCall(call('call-1','WORKER',10000));
-  const payload = { model:'test/model',task:{ taskId:'call-1' },costCeilingCents:1,maxTokens:20 };
+  const payload = { model:'test/model',task:{ taskId:'call-1' },costCeilingCents:1,maxTokens:20,inputTokenCeiling:2048 };
   assert.equal((await runtime.dispatchPaidCall('call-1',payload)).status,'DISPATCH_UNCERTAIN_RECONCILIATION_REQUIRED');
   await assert.rejects(runtime.dispatchPaidCall('call-1',payload),/undispatched-call-required/);
   assert.equal(calls,1);

@@ -13,6 +13,9 @@ import { createInfiniteOpusRuntime } from './src/infinite-opus-native-runtime.mj
 import { compileCognitionEconomicPerimeter } from './src/cognition-economic-perimeter.mjs';
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
+import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
+import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -24,6 +27,31 @@ let createdHardenedHandler = null;
 let uberSocketRestorePromise = null;
 let uberSocketRestoreReceipt = null;
 let uberMailRuntime = null;
+let infiniteOpusPublicMarketCache = null;
+const typingMindGatewayFlights = new Map();
+const typingMindGatewayRecent = new Map();
+const TYPINGMIND_GATEWAY_REPLAY_WINDOW_MS = 30_000;
+const TYPINGMIND_GATEWAY_REPLAY_MAX_ENTRIES = 256;
+const typingMindGatewayRequestTimes = [];
+
+function admitTypingMindGatewayRequest(){
+  const now=Date.now(),windowMs=60_000;
+  const max=Math.max(1,Math.min(120,Number(process.env.UBERMIND_TYPINGMIND_RATE_LIMIT_PER_MINUTE)||30));
+  while(typingMindGatewayRequestTimes.length&&typingMindGatewayRequestTimes[0]<=now-windowMs)typingMindGatewayRequestTimes.shift();
+  if(typingMindGatewayRequestTimes.length>=max)return false;
+  typingMindGatewayRequestTimes.push(now);return true;
+}
+
+function rememberTypingMindGatewayCompletion(key,completion){
+  const now=Date.now();
+  for(const [k,v] of typingMindGatewayRecent)if(v.expiresAt<=now)typingMindGatewayRecent.delete(k);
+  while(typingMindGatewayRecent.size>=TYPINGMIND_GATEWAY_REPLAY_MAX_ENTRIES){
+    const oldest=typingMindGatewayRecent.keys().next().value;
+    if(oldest===undefined)break;
+    typingMindGatewayRecent.delete(oldest);
+  }
+  typingMindGatewayRecent.set(key,{expiresAt:now+TYPINGMIND_GATEWAY_REPLAY_WINDOW_MS,completion:structuredClone(completion)});
+}
 
 const publicCapabilityPath = pathname => pathname === '/unsubscribe'
   || pathname === '/api/public/unsubscribe'
@@ -90,7 +118,7 @@ async function brokerUberMailStatus(coreHandler, req, res) {
 async function brokerUberMailBootstrap(coreHandler, req, res) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   let body = {};
-  try { body = await readSmallJsonBody(req); } catch (error) { return sendJson(res, 400, { error: error.message }); }
+  try { body = await readSmallJsonBody(req); } catch (error) { return sendTypingMindJson(req,res,400,{ error: error.message }); }
   try {
     const root = await getUberMailRuntime().bootstrapRootKey({
       name: String(body.name || 'UberMail Root').slice(0, 200),
@@ -290,6 +318,150 @@ async function brokerUberSocket(coreHandler, req, res, url) {
   }
 }
 
+function parseJsonEnvironment(name) {
+  const raw = String(process.env[name] || '').trim();
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : null;
+  } catch { return null; }
+}
+
+async function currentInfiniteOpusPublicMarket() {
+  const now = Date.now();
+  if (infiniteOpusPublicMarketCache && Date.parse(infiniteOpusPublicMarketCache.expiresAt) > now + 60_000) return infiniteOpusPublicMarketCache;
+  const response = await fetch('https://openrouter.ai/api/v1/models', { signal: AbortSignal.timeout(20_000) });
+  if (!response.ok) throw new Error('openrouter-public-model-catalog-unavailable');
+  const raw = await response.text();
+  if (Buffer.byteLength(raw) > 10_000_000) throw new Error('openrouter-public-model-catalog-too-large');
+  infiniteOpusPublicMarketCache = compileInfiniteOpusMarket(JSON.parse(raw), { verifiedAt: new Date(now).toISOString(), ttlMs: 10 * 60 * 1000 });
+  return infiniteOpusPublicMarketCache;
+}
+
+function typingMindCors(req) {
+  const defaults=['https://www.typingmind.com','https://typingmind.com'];
+  const allowed=new Set(String(process.env.UBERMIND_TYPINGMIND_ALLOWED_ORIGINS || defaults.join(',')).split(',').map(x=>x.trim()).filter(Boolean));
+  const origin=String(req.headers.origin || '').trim();
+  if (!origin) return {ok:true,headers:{}};
+  if (!allowed.has(origin)) return {ok:false,headers:{}};
+  return {ok:true,headers:{
+    'access-control-allow-origin':origin,
+    'access-control-allow-methods':'GET,POST,OPTIONS',
+    'access-control-allow-headers':'authorization,content-type',
+    'access-control-max-age':'600',
+    'vary':'Origin'
+  }};
+}
+
+function sendTypingMindJson(req,res,status,payload){
+  const cors=typingMindCors(req);
+  if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
+  res.writeHead(status,{
+    'content-type':'application/json; charset=utf-8','cache-control':'no-store',
+    'x-content-type-options':'nosniff','x-frame-options':'DENY','referrer-policy':'no-referrer',
+    ...cors.headers
+  });
+  res.end(JSON.stringify(payload));
+}
+
+function sendTypingMindStream(req,res,completion){
+  const cors=typingMindCors(req);
+  if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
+  res.writeHead(200,{
+    'content-type':'text/event-stream; charset=utf-8','cache-control':'no-cache, no-transform','connection':'keep-alive',
+    'x-content-type-options':'nosniff','x-frame-options':'DENY','referrer-policy':'no-referrer',
+    ...cors.headers
+  });
+  const content=String(completion?.choices?.[0]?.message?.content??'');
+  const base={id:completion.id,object:'chat.completion.chunk',created:completion.created,model:completion.model};
+  res.write('data: '+JSON.stringify({...base,choices:[{index:0,delta:{role:'assistant'},finish_reason:null}]})+'\n\n');
+  for(let i=0;i<content.length;i+=2048){
+    res.write('data: '+JSON.stringify({...base,choices:[{index:0,delta:{content:content.slice(i,i+2048)},finish_reason:null}]})+'\n\n');
+  }
+  res.write('data: '+JSON.stringify({...base,choices:[{index:0,delta:{},finish_reason:'stop'}],usage:completion.usage,uberbond:completion.uberbond})+'\n\n');
+  res.end('data: [DONE]\n\n');
+}
+
+async function brokerTypingMindInfiniteOpus(req, res, url) {
+  const cors=typingMindCors(req);
+  if(!cors.ok)return sendJson(res,403,{error:'Origin refused'});
+  if(req.method==='OPTIONS'){
+    res.writeHead(204,{...cors.headers,'cache-control':'no-store'});
+    return res.end();
+  }
+  const expectedToken = String(process.env.UBERMIND_TYPINGMIND_GATEWAY_TOKEN || '');
+  if (!verifyTypingMindGatewayBearer(req.headers.authorization, expectedToken)) return sendTypingMindJson(req,res,401,{ error: 'Unauthorized' });
+  if(req.method==='POST'&&!admitTypingMindGatewayRequest())return sendTypingMindJson(req,res,429,{ok:false,status:'TYPINGMIND_GATEWAY_RATE_LIMITED',providerCallsPerformed:0,qualityAction:'WAIT'});
+  if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
+    const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+    const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
+    let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']};
+    try{
+      marketSnapshot=await currentInfiniteOpusPublicMarket();
+      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)});
+    }catch{}
+    return sendTypingMindJson(req,res,200,{
+      object: 'list',
+      data: [{ id: 'ubermind/auto', object: 'model', created: 0, owned_by: 'uberbond' }],
+      uberbond: {...gatewayStatus({ runtimeConnected: live.ok, crownAdmissionValid: live.ok, jevShadowReady: false }),
+        liveReadiness:live.status??'TYPINGMIND_UBERMIND_LIVE_NOT_READY',reasons:live.reasons??[]}
+    });
+  }
+  if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendTypingMindJson(req,res,404,{ error: 'TypingMind UberMind route not found' });
+
+  let body;
+  try { body = await readSmallJsonBody(req, 300_000); }
+  catch (error) { return sendTypingMindJson(req,res,400,{ error: error.message }); }
+
+  let request;
+  try { request = compileTypingMindChatRequest(body); }
+  catch (error) { return sendTypingMindJson(req,res,400,{ error: String(error?.message || error) }); }
+
+  const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+  const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
+  const openRouterKey = String(process.env.OPENROUTER_API_KEY || '');
+  let marketSnapshot;
+  try { marketSnapshot = await currentInfiniteOpusPublicMarket(); }
+  catch (error) { return sendTypingMindJson(req,res,503,{ ok: false, status: 'PUBLIC_MODEL_MARKET_UNAVAILABLE', error: String(error?.message || error) }); }
+
+  const replayKey=request.requestFingerprint;
+  const recent=typingMindGatewayRecent.get(replayKey);
+  if(recent && recent.expiresAt>Date.now()){
+    const replay={...structuredClone(recent.completion),
+      uberbond:{...structuredClone(recent.completion.uberbond),transportReplay:true,additionalProviderCalls:0}};
+    return request.streamRequested?sendTypingMindStream(req,res,replay):sendTypingMindJson(req,res,200,replay);
+  }
+  if(recent)typingMindGatewayRecent.delete(replayKey);
+
+  let flight=typingMindGatewayFlights.get(replayKey);
+  if(!flight){
+    flight=(async()=>{
+      try{
+        return await withUberSocketStore(async store => {
+          const orchestrator = createTypingMindLiveOrchestrator({ store, openRouterKey, paidAuthorization, crownAdmission, marketSnapshot });
+          const ready = orchestrator.readiness();
+          if (!ready.ok) return {httpStatus:503,payload:{
+            ok:false,status:ready.status,reasons:ready.reasons,qualityAction:'QUEUE_NEVER_DOWNGRADE',sideEffectAuthority:'NONE',
+            truthBoundary:'The cockpit refuses live answers until the runtime key, current paid authorization, fresh prices and a valid current General-Crown admission all exist.'
+          }};
+          const result=await orchestrator.execute(request);
+          if(!result.ok)return {httpStatus:/QUEUED|BUDGET/.test(result.status||'')?429:503,payload:result};
+          rememberTypingMindGatewayCompletion(replayKey,result.completion);
+          return {httpStatus:200,payload:result.completion};
+        });
+      }catch(error){
+        return {httpStatus:503,payload:{ok:false,status:'TYPINGMIND_UBERMIND_EXECUTION_REFUSED',error:String(error?.message||error),qualityAction:'QUEUE_NEVER_DOWNGRADE'}};
+      }finally{
+        typingMindGatewayFlights.delete(replayKey);
+      }
+    })();
+    typingMindGatewayFlights.set(replayKey,flight);
+  }
+  const response=await flight;
+  if(response.httpStatus===200&&request.streamRequested)return sendTypingMindStream(req,res,response.payload);
+  return sendTypingMindJson(req,res,response.httpStatus,response.payload);
+}
+
 async function brokerInfiniteOpus(coreHandler, req, res, url) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   return withUberSocketStore(async store => {
@@ -345,6 +517,7 @@ function harden(coreHandler) {
     if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
     if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
     if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
+    if (url.pathname.startsWith('/api/typingmind/infinite-opus/v1/')) return brokerTypingMindInfiniteOpus(req, res, url);
     if (url.pathname.startsWith('/api/admin/infinite-opus/')) return brokerInfiniteOpus(coreHandler, req, res, url);
     return coreHandler(req, res);
   };

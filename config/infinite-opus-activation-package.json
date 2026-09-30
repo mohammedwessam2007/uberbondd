@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.infinite-opus.activation-package.v1",
   "date": "2026-09-30",
-  "status": "SOURCE_PACKAGE_ONLY__NO_SECRET__NO_SPEND__NO_DEPLOYMENT",
+  "status": "SOURCE_PACKAGE_WITH_TYPINGMIND_UBERMIND_GATEWAY__NO_PRIVATE_RUNTIME_ACTIVATION_YET",
   "economicPerimeter": {
     "hardAllInUsd": 30,
     "runtimeOpenRouterKey": {
@@ -31,7 +31,8 @@
   "secrets": {
     "runtime": [
       "OPENROUTER_API_KEY",
-      "OPENROUTER_MANAGEMENT_KEY"
+      "OPENROUTER_MANAGEMENT_KEY",
+      "UBERMIND_TYPINGMIND_GATEWAY_TOKEN"
     ],
     "typingMind": [
       "PRIVATE_OPENROUTER_KEY_IN_TYPINGMIND_ONLY"
@@ -65,7 +66,18 @@
     "budget": "/api/admin/infinite-opus/budget",
     "queue": "/api/admin/infinite-opus/queue",
     "postgresRequiredForDurableProduction": true,
-    "idleInferenceTarget": 0
+    "idleInferenceTarget": 0,
+    "typingMindModels": "/api/typingmind/infinite-opus/v1/models",
+    "typingMindChatCompletions": "/api/typingmind/infinite-opus/v1/chat/completions",
+    "typingMindModelId": "ubermind/auto",
+    "typingMindGatewayV1": {
+      "streaming": "DELAYED_FINAL_ONLY__NO_UNREVIEWED_BUILDER_TOKENS",
+      "tools": false,
+      "vision": false,
+      "maxOutputTokens": 4096,
+      "maxRequestBytes": 300000,
+      "replayWindowSeconds": 30
+    }
   },
   "stopConditions": [
     "provider-model-identity-mismatch",
@@ -74,7 +86,9 @@
     "uncertain-charge",
     "monthly-cap-breach",
     "authority-admission-failure",
-    "quality-contract-regression"
+    "quality-contract-regression",
+    "crown-upstream-provider-or-route-drift",
+    "typingmind-gateway-origin-or-bearer-failure"
   ],
   "evidenceRefs": [
     "https://openrouter.ai/docs/api/api-reference/api-keys/create-a-new-api-key",
@@ -84,5 +98,11 @@
   ],
   "nonSecretRuntimeIdentifiers": [
     "OPENROUTER_MEMBER_ID"
-  ]
+  ],
+  "authorityReceipts": {
+    "paidAuthorizationEnv": "INFINITE_OPUS_PAID_AUTHORIZATION_JSON",
+    "crownAdmissionEnv": "INFINITE_OPUS_CROWN_ADMISSION_JSON",
+    "secret": false,
+    "law": "Receipts grant only their explicit bounded authority and remain runtime-verified; possession of OPENROUTER_API_KEY alone does not authorize spend or Crown semantics."
+  }
 }

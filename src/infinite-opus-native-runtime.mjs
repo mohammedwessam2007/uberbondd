@@ -191,8 +191,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         if ((reserved?.role === 'CROWN') !== (paidAuthorization.crownRoutes ?? []).includes(reserved?.provider + ':' + reserved?.model)) throw new Error('paid-role-route-mismatch');
         if (!reserved || reserved.status !== 'RESERVED') throw new Error('undispatched-call-required');
         const route = routePrices.find(r => r.model === reserved.model && r.provider === reserved.provider);
-        if (Buffer.byteLength(JSON.stringify(payload)) > 300000 || !Number.isSafeInteger(payload.maxTokens) || payload.maxTokens < 1) throw new Error('bounded-paid-payload-required');
-        const ceiling = estimateCognitionCeiling({ route, inputTokens: 300000, maxOutputTokens: payload.maxTokens, now: clock(), overheadRate: platformFeeRate });
+        if (Buffer.byteLength(JSON.stringify(payload)) > 300000 || !Number.isSafeInteger(payload.maxTokens) || payload.maxTokens < 1 ||
+            !Number.isSafeInteger(payload.inputTokenCeiling) || payload.inputTokenCeiling < 1 || payload.inputTokenCeiling > 300000) throw new Error('bounded-paid-payload-required');
+        const ceiling = estimateCognitionCeiling({ route, inputTokens: payload.inputTokenCeiling, maxOutputTokens: payload.maxTokens, now: clock(), overheadRate: platformFeeRate });
         if (ceiling > reserved.ceilingMicrousd) throw new Error('fresh-price-reservation-too-small');
         if (payload.model !== reserved.model || payload.task?.taskId !== reserved.taskId || !Number.isSafeInteger(payload.costCeilingCents) || payload.costCeilingCents < 1 || payload.costCeilingCents * 10000 > reserved.ceilingMicrousd) throw new Error('exact-dispatch-reservation-binding-required');
         state.ledger = markCognitionDispatched(state.ledger, callId, today());
@@ -208,9 +209,15 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       if (response?.usage?.costBasis !== 'OPENROUTER_USAGE_COST_OBSERVED' || typeof response.usage.costUsd !== 'number' || !Number.isFinite(response.usage.costUsd) || response.usage.costUsd < 0 || !response.providerRequestId) return zero({ ok: false, status: 'OBSERVED_BILL_REQUIRED_RESERVATION_HELD', providerCallsPerformed: 1 });
       const settlement = await this.reconcileCall({ callId, actualMicrousd: Math.ceil(response.usage.costUsd * 1e6), receiptRef: response.providerRequestId,
         observedModel: response.observedModel, observedProvider: response.provider });
+      const observedCostMicrousd = Math.ceil(response.usage.costUsd * 1e6);
       return { ...settlement, status: settlement.ok ? 'PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY' : settlement.status,
         proposal: response.ok && settlement.ok ? response.result : null,
-        semanticAuthority: 'NONE', providerCallsPerformed: 1, requestedModel: call.model };
+        semanticAuthority: 'NONE', providerCallsPerformed: 1, requestedModel: call.model,
+        observedModel: response.observedModel ?? null, observedProvider: response.provider ?? null,
+        upstreamProvider: response.upstreamProvider ?? null,
+        providerRequestId: response.providerRequestId, observedCostMicrousd,
+        generationReceipt: response.generationReceipt ? structuredClone(response.generationReceipt) : null,
+        usage: structuredClone(response.usage) };
     },
     async reconcileCall(receipt) {
       safePayload(receipt);

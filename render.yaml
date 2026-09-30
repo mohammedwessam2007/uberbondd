@@ -9,6 +9,8 @@ envVarGroups:
         value: rules
       - key: INFINITE_OPUS_CASH_ROUTE_MODE
         value: OPENROUTER_ONLY
+      - key: UBERMIND_TYPINGMIND_ALLOWED_ORIGINS
+        value: https://www.typingmind.com,https://typingmind.com
       - key: AUTOPILOT_ENABLED
         value: false
       - key: DISCOVERY_ENABLED
@@ -44,6 +46,14 @@ services:
       - key: ADMIN_TOKEN
         sync: false
       - key: TOKEN_ENCRYPTION_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: UBERMIND_TYPINGMIND_GATEWAY_TOKEN
+        sync: false
+      - key: INFINITE_OPUS_PAID_AUTHORIZATION_JSON
+        sync: false
+      - key: INFINITE_OPUS_CROWN_ADMISSION_JSON
         sync: false
       - key: DATABASE_URL
         fromDatabase:

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:10:00+03:00",
+  "updatedAt": "2026-09-30T22:05:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -262,6 +262,19 @@
       "dependentRootsSettled": 1000,
       "naivePerConsumerCrownCallsAvoided": 999,
       "economicLaw": "Do not convert fanout directly into dollar multiplier without cheapest-legitimate direct-reference economics including provider/response caching."
+    },
+    {
+      "label": "runtime-thought-bond-v18b",
+      "multiplier": 14.161946017994001,
+      "status": "ECONOMIC_MULTIPLIER_UNCHANGED__DURABLE_SHARED_CROWN_AUTHORITY_RUNTIME_ADDED",
+      "workload": "semantic-closure debt cut -> one trust-pinned Opus Thought Bond -> runtime authority vault -> independent later closures reuse the admitted Crown atom",
+      "relationshipToProofCutMulticast": "PR #1088 handles exact static program-root multicast; this checkpoint adds durable native-runtime authority reuse for semantic-closure debts.",
+      "qualityLaw": "Bond re-verifies full cut/dependencies/invalidators/current Opus identity on every admission/use; expired or drifted bonds disappear from live authority set.",
+      "implementation": [
+        "src/frontier-thought-bond.mjs",
+        "src/infinite-opus-native-runtime.mjs",
+        "tests/frontier-thought-bond.test.mjs"
+      ]
     }
   ],
   "excludedFromCurrentNumber": [
@@ -304,6 +317,12 @@
       "canonicalChangeFraction": 0.02,
       "directOpusUsd": 0.85,
       "uberMindUsd": 0.002692
+    },
+    "frontierAuthorityReuse": {
+      "semanticMulticastBenchmark": 1000,
+      "runtimeThoughtBondExample": 500,
+      "status": "STATIC_MULTICAST_PLUS_DURABLE_RUNTIME_AUTHORITY_IMPLEMENTED",
+      "claimBoundary": "Semantic fanout only. Economic credit requires provable direct-reference receipts."
     }
   },
   "currentSystemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_DECISION_FRANCHISE_FANOUT"

@@ -5,6 +5,7 @@ import { createCognitionLedger, createExactResponseCache, readExactResponse, put
   settleCognitionCall, estimateCognitionCeiling, cognitionBudgetSummary, cognitionMetrics } from './cognition-ledger.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
+import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
@@ -28,7 +29,7 @@ const zero = extra => ({ businessEffectAuthority: 'NONE', externalEffectAuthorit
   externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS), ...extra });
 
 export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [],
-  clock = Date.now, paidExecutor = null, paidAuthorization = null, routePrices = [], platformFeeRate = 0.055 } = {}) {
+  clock = Date.now, paidExecutor = null, paidAuthorization = null, routePrices = [], platformFeeRate = 0.055, referenceContractResolver = null } = {}) {
   const paidMonthlyCapMicrousd = paidAuthorization?.maxMonthlyMicrousd ?? 20_000_000;
   if (!Number.isSafeInteger(paidMonthlyCapMicrousd) || paidMonthlyCapMicrousd < 15_000_000 || paidMonthlyCapMicrousd > 20_000_000 && paidAuthorization) throw new Error('paid-runtime-cap-must-fit-20-dollar-key-and-15-dollar-crown-reserve');
   routePrices = structuredClone(routePrices);
@@ -40,14 +41,17 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
-      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, negativeKnowledge: [], receipts: []
+      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
     // Preserve every historical month; unsettled charges block paid capacity.
     if (state.ledger.month !== today().slice(0, 7)) {
       state.archivedLedgers ??= {};
+      state.archivedProofLedgers ??= {};
+      if (state.proofLedger) state.archivedProofLedgers[state.proofLedger.period] = structuredClone(state.proofLedger);
       state.archivedLedgers[state.ledger.month] = structuredClone(state.ledger);
       state.ledger = createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd });
+      state.proofLedger = createProvableExecutionLedger({ period: today().slice(0, 7) });
       if (Object.values(state.archivedLedgers).some(l => l.incidents.length || l.calls.some(c => ['RESERVED','DISPATCHED'].includes(c.status)))) state.ledger.incidents.push({ reason: 'HISTORICAL_RECONCILIATION_REQUIRED' });
     }
     if (paidAuthorization && state.ledger.monthlyCapMicrousd !== paidMonthlyCapMicrousd) {
@@ -55,6 +59,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       if (clean) state.ledger = createCognitionLedger({ month: state.ledger.month, monthlyCapMicrousd: paidMonthlyCapMicrousd });
       else state.ledger.incidents.push({ reason: 'PAID_RUNTIME_CAP_RECONCILIATION_REQUIRED' });
     }
+    state.proofLedger ??= createProvableExecutionLedger({ period: today().slice(0, 7) });
+    if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
   }
@@ -116,9 +122,25 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         if (!asset.tasksServed.includes(task.taskId)) asset.tasksServed.push(task.taskId);
         state.tasks[task.taskId] = { taskHash, status: 'CLOSED', artifactHash: closure.artifactHash };
         if (state.debts[task.taskId]) state.debts[task.taskId].status = 'SETTLED';
-        if (prior?.status !== 'CLOSED') state.receipts.push({ kind: 'TASK_COMPLETION', taskId: task.taskId,
-          closureVerified: true, executionClass: cacheHit?.ok ? 'E0' : artifact.nodes.some(n => n.kind === 'CIRCUIT') ? 'E4' : artifact.nodes.some(n => n.kind === 'DERIVATION') ? 'E1' : artifact.nodes.some(n => n.kind === 'CROWN') ? 'DIRECT_CURRENT_CROWN' : 'REALITY_SETTLED_EXACT_RESULT', observedAt: clock(),
-          artifactHash: closure.artifactHash, pairedRequiredRegressions: null });
+        const executionClass = cacheHit?.ok ? 'E0' : artifact.nodes.some(n => n.kind === 'CIRCUIT') ? 'E4' : artifact.nodes.some(n => n.kind === 'DERIVATION') ? 'E1' : artifact.nodes.some(n => n.kind === 'CROWN') ? 'DIRECT_CURRENT_CROWN' : 'REALITY_SETTLED_EXACT_RESULT';
+        if (prior?.status !== 'CLOSED') {
+          state.receipts.push({ kind: 'TASK_COMPLETION', taskId: task.taskId,
+            closureVerified: true, executionClass, observedAt: clock(),
+            artifactHash: closure.artifactHash, pairedRequiredRegressions: null });
+          if (['E0','E1','E2','E3','E4'].includes(executionClass) && typeof referenceContractResolver === 'function') {
+            const reference = await referenceContractResolver({ task: structuredClone(task), context: structuredClone(context), closure: structuredClone(closure), output: structuredClone(output), executionClass });
+            if (reference?.ok === true && reference.directReference && reference.referenceContractHash) {
+              state.proofLedger = appendProvableExecution(state.proofLedger, {
+                executionId: semanticHash({ taskId: task.taskId, taskHash, artifactHash: closure.artifactHash, executionClass }),
+                taskId: task.taskId, completedAt: new Date(clock()).toISOString(), equivalenceClass: executionClass,
+                proofVerified: true, matchedObligationHash: 'sha256:' + semanticHash(task.obligation ?? task.request ?? task),
+                qualityContractHash: 'sha256:' + context.qualityContractHash, proofRef: 'semantic-closure:' + closure.artifactHash,
+                referenceContractHash: reference.referenceContractHash, directReference: reference.directReference
+              });
+              state.receipts.push({ kind: 'PROVABLE_EXECUTION', taskId: task.taskId, executionClass, referenceContractHash: reference.referenceContractHash, observedAt: clock() });
+            } else state.receipts.push({ kind: 'REFERENCE_CONTRACT_MISSING', taskId: task.taskId, executionClass, observedAt: clock() });
+          }
+        }
         await persist(tx, state);
         return zero({ ok: true, status: 'CLOSED_TYPED_ARTIFACT', output, artifactHash: closure.artifactHash,
           cacheStatus: cacheHit?.status ?? 'NOT_REQUESTED', providerCallsPerformed: 0,
@@ -141,6 +163,12 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           taskCount: Object.keys(state.tasks).length, pendingDebts: Object.values(state.debts).filter(d => d.status !== 'SETTLED').length,
           capitalAssets: Object.keys(state.capital).length, paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
+      });
+    },
+    async provableEconomics(actualAllInMicrousd) {
+      return transact(store, async tx => {
+        const state = await stateFor(tx);
+        return zero(summarizeProvableExecutions({ ledger: state.proofLedger, actualAllInMicrousd }));
       });
     },
     async preparePaidCall(request) {

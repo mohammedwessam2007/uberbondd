@@ -650,5 +650,28 @@
     "currentMeasuredFactor": "UNKNOWN",
     "targetClaimAllowedNow": false,
     "next": "OWNER_ACTIVATION -> TINY_CANARY -> SEALED_TASK_CLASS_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD -> E0_E4_EXECUTION_LEDGER -> PROVABLE_REFERENCE_ECONOMICS"
+  },
+  "provable33333xReferenceEconomics": {
+    "liveProofLedger": {
+      "status": "IMPLEMENTED_SOURCE_PRE_LIVE_EXECUTION",
+      "theorem": "open router/28_E0_E4_LIVE_PROOF_LEDGER.md",
+      "counterfactualCompiler": "src/frontier-counterfactual-compiler.mjs",
+      "executionLedger": "src/provable-execution-ledger.mjs",
+      "runtimeIntegration": "src/infinite-opus-native-runtime.mjs",
+      "scoreboard": "src/infinite-opus-scoreboard.mjs",
+      "tests": "tests/provable-execution-ledger.test.mjs",
+      "qualityRetestForE0E4": false,
+      "economicsLaw": "VERIFIED_EQUIVALENCE + UNIQUE_EXECUTION + BOUND_TOKENIZATION + CURRENT_CHEAPEST_LEGITIMATE_ROUTE + OBSERVED_ALL_IN_COST",
+      "antiInflation": [
+        "NO_E5_E6",
+        "NO_DUPLICATE_EXECUTIONS",
+        "REFERENCE_CONTRACT_HASH_BOUND",
+        "DIRECT_BASELINE_GETS_RESPONSE_CACHE_ECONOMICS",
+        "UNKNOWN_ACTUAL_SPEND_STAYS_UNKNOWN"
+      ],
+      "currentMeasuredFactor": "UNKNOWN",
+      "targetClaimAllowedNow": false
+    },
+    "next": "OWNER_ACTIVATION -> TINY_CANARY -> SEALED_TASK_CLASS_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD -> AUTOMATIC_E0_E4_EXECUTION_RECEIPTS -> PROVABLE_REFERENCE_ECONOMICS"
   }
 }

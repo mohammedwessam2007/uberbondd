@@ -17,7 +17,8 @@ test('gateway bearer uses dedicated secret and rejects short/unrelated values',(
 
 test('raw TypingMind chat is bounded, text-only and frontier-reviewed by default',()=>{
  const r=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'system',content:'stable'},{role:'user',content:'Solve this.'}],max_tokens:3000});
- assert.equal(r.maxTokens,3000);assert.equal(r.qualityClass,'Q_FRONTIER_INTERACTIVE');assert.equal(r.defaultLane,'CROWN_REVIEW_REQUIRED');
+ assert.equal(r.maxTokens,3000);assert.equal(r.qualityClass,'Q_FRONTIER_INTERACTIVE');
+ const long=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'Long answer'}],max_tokens:50000});assert.equal(long.maxTokens,8192);assert.equal(r.defaultLane,'CROWN_REVIEW_REQUIRED');
  assert.ok(r.inputTokenCeiling<300000);assert.equal(r.semanticAuthority,'NONE');
  assert.throws(()=>compileTypingMindChatRequest({model:'openai/gpt',messages:[{role:'user',content:'x'}]}),/ubermind-auto-model/);
  const streaming=compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'x'}],stream:true});

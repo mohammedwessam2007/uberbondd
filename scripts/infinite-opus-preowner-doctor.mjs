@@ -18,6 +18,9 @@ const canary=json('config/infinite-opus-canary-authorization.template.json');
 if(canary.ownerApproved!==false||canary.maximumSpendUsd>0.05||canary.externalEffects?.length)reasons.push('canary-template-must-be-unapproved-bounded-and-zero-effect');
 const market=json('config/infinite-opus-live-market-candidates.json');
 if(Object.keys(market.promotedRoles??{}).length)reasons.push('prelive-market-must-have-no-promoted-crowns');
+const understanding=json('config/infinite-opus-model-understanding.json');
+if(understanding.schemaVersion!=='uberbond.infinite-opus.model-understanding.v1'||!Array.isArray(understanding.profiles)||understanding.profiles.length<5||understanding.profiles.some(p=>p.authorityFromUnderstandingAlone!=='NONE'))reasons.push('model-understanding-registry-missing-or-authority-inflated');
+if(!understanding.profiles.some(p=>p.model==='openai/gpt-6.1-sol-pro'&&p.avoidAsDefaultFor?.includes('routine-coding')))reasons.push('sol-pro-escalation-only-prior-missing');
 const firstWorkload=json('config/infinite-opus-first-real-workload.json');
 if(firstWorkload.taskClass!=='PROVIDER_SCREENING'||firstWorkload.sideEffectClass!=='NONE'||firstWorkload.qualityContract?.regressionTolerance!==0)reasons.push('first-real-workload-contract-missing-or-weakened');
 if(!read('src/infinite-opus-task-compilers.mjs').includes("case 'PROVIDER_SCREENING'"))reasons.push('provider-screening-typed-compiler-missing');
@@ -32,7 +35,7 @@ for(const p of ['config/infinite-opus-canary-authorization.template.json','confi
 // The live launcher must not accept a static path/string inventory as a test gate.
 // These deterministic suites make no provider calls and receive no host credentials.
 const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provable-execution-ledger.test.mjs',
- 'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs'];
+ 'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs', 'tests/infinite-opus-model-understanding.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
  cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
  env: { PATH: process.env.PATH, TZ: 'UTC' }

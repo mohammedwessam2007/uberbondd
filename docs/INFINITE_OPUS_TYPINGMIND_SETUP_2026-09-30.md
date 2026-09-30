@@ -36,3 +36,18 @@ The agent's cloud browser opened the current key manager and observed an empty O
 TypingMind does not automatically execute the repository's proof ledger, escrow, or deterministic compilers merely because a prompt or model is imported. Direct TypingMind chats are billed cockpit work; durable compilation and measured compression require the approved execution path and independently admitted proof/reference receipts. The USD 8 cockpit cap alone does not enforce the runtime's USD 15 Crown reserve.
 
 Current UI source: https://docs.typingmind.com/manage-and-connect-ai-models/openrouter
+
+
+## Architecture-aware cockpit roles — supersedes the three-box simplification
+
+Use `config/infinite-opus-typingmind-role-map.json` as the current role map:
+
+- **UberMind Scout** → `xiaomi/mimo-v2.6-flash` for bounded multimodal preparation and candidate generation.
+- **UberMind Challenger** → `deepseek/deepseek-v4.1-flash` for cheap independent reasoning/counterexamples.
+- **UberMind Builder** → `openai/gpt-6.1-sol` for normal coding, tool use and professional work.
+- **UberMind Hard Escalation** → `openai/gpt-6.1-sol-pro` only when the ordinary Sol path leaves a hard residual.
+- **UberMind Crown Candidate** → `anthropic/claude-opus-5.5` for irreducible novelty/high-stakes adjudication, still unpromoted until admission evidence exists.
+
+Do not represent Jev as a TypingMind model. Jev remains a runtime semantic-control layer below the cockpit. Direct TypingMind prompt chaining may help preparation, but it must not be confused with semantic closure, Jev certification, Crown admission or the provable execution ledger.
+
+The model-understanding registry in `config/infinite-opus-model-understanding.json` is permitted to create **routing priors and exact tariff arithmetic only**. It grants zero semantic authority.

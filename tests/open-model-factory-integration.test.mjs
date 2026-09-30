@@ -24,7 +24,7 @@ function openModelEnv(overrides = {}) {
 }
 
 test('factory policy includes first-class open-model runtime without changing legacy providers', () => {
-  assert.equal(AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION, 'agent-model-executor-factory-1.6.0');
+  assert.equal(AGENT_MODEL_EXECUTOR_FACTORY_POLICY_VERSION, 'agent-model-executor-factory-1.7.0');
   const readiness = describeProviderReadiness({ env: openModelEnv() });
   assert.deepEqual(readiness.map(item => item.provider), ['openai', 'anthropic', 'ai-gateway', 'openrouter', 'open-model', 'claude-code-sandbox']);
 });
@@ -61,4 +61,20 @@ test('factory fails closed when open-model runtime contract is incomplete', () =
     () => createModelExecutorFactory({ env: openModelEnv({ OPEN_MODEL_RUNTIME: '' }) })({ provider: 'open-model', model: 'example/model-a' }),
     /OPEN_MODEL_RUNTIME|runtime is absent|runtime/i
   );
+});
+
+test('Infinite Opus cash perimeter permits only OpenRouter, zero-cash open models, and plan sandbox', () => {
+  const direct = {
+    OPENAI_API_KEY:'direct-secret', OPENAI_AGENT_ENABLED:'true',
+    OPENAI_INPUT_USD_PER_MILLION:'1', OPENAI_OUTPUT_USD_PER_MILLION:'2',
+    OPENAI_PRICING_SOURCE:'test', OPENAI_PRICING_VERIFIED_AT:'2026-09-30T00:00:00Z',
+    INFINITE_OPUS_CASH_ROUTE_MODE:'OPENROUTER_ONLY'
+  };
+  assert.throws(() => createModelExecutorFactory({ env: direct })({ provider:'openai', model:'gpt-test' }), /OpenRouter-only cash perimeter/);
+  const readiness=describeProviderReadiness({env:direct}).find(row=>row.provider==='openai');
+  assert.ok(readiness.blockers.includes('infinite-opus-openrouter-only-cash-perimeter'));
+  const zero={...openModelEnv(),INFINITE_OPUS_CASH_ROUTE_MODE:'OPENROUTER_ONLY'};
+  assert.doesNotThrow(()=>createModelExecutorFactory({env:zero})({provider:'open-model',model:'example/model-a'}));
+  const paid={...zero,OPEN_MODEL_INFRASTRUCTURE_USD_PER_REQUEST:'0.01'};
+  assert.throws(()=>createModelExecutorFactory({env:paid})({provider:'open-model',model:'example/model-a'}),/OpenRouter-only cash perimeter/);
 });

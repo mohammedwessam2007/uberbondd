@@ -46,6 +46,7 @@ export function compileTypingMindChatRequest(body={}){
   const inputTokenCeiling=Math.min(300000,requestBytes+4096);
   const firstStableTurn=messages.find(m=>m.role==='user')?.content??'';
   const sessionRoot=hash({system:messages.filter(m=>m.role==='system').map(m=>m.content),firstUser:firstStableTurn});
+  const requestFingerprint=hash({model:body.model,messages,maxTokens});
   return {
     schemaVersion:TYPINGMIND_UBERMIND_GATEWAY_SCHEMA,
     messages,
@@ -53,6 +54,7 @@ export function compileTypingMindChatRequest(body={}){
     requestBytes,
     inputTokenCeiling,
     sessionRoot,
+    requestFingerprint,
     qualityClass:'Q_FRONTIER_INTERACTIVE',
     sideEffectClass:'NONE',
     semanticAuthority:'NONE',

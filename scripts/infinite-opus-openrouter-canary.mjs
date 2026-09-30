@@ -30,7 +30,7 @@ const paidExecutor=async payload=>{
 const store=createStore(config);
 try{
  await store.init();
- const runtime=createInfiniteOpusRuntime({store,paidExecutor,paidAuthorization:{evidenceRef:authorization.authorizationId,month,maxMonthlyMicrousd:30000000,expiresAt:authorization.expiresAt,crownRoutes:[]},routePrices:[route],platformFeeRate:0.055});
+ const runtime=createInfiniteOpusRuntime({store,paidExecutor,paidAuthorization:{evidenceRef:authorization.authorizationId,month,maxMonthlyMicrousd:20000000,expiresAt:authorization.expiresAt,crownRoutes:[]},routePrices:[route],platformFeeRate:0.055});
  const taskId=`canary-${crypto.randomUUID()}`,callId=`or-canary-${crypto.randomUUID()}`,ceilingMicrousd=Math.floor(Number(authorization.maximumSpendUsd)*1e6);
  const prepared=await runtime.preparePaidCall({callId,taskId,model:authorization.model,provider:'openrouter',qualityClass:'CANARY_TRANSPORT_ONLY',role:'WORKER',cacheState:'MISS',ceilingMicrousd});
  if(!prepared.ok){console.log(JSON.stringify({ok:false,status:prepared.status,providerCallsPerformed:0},null,2));process.exitCode=2;}

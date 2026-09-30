@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:59:59+03:00",
+  "updatedAt": "2026-09-30T20:30:00Z",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -382,6 +382,25 @@
         "tests/infinite-opus-worker-context-vault.test.mjs"
       ],
       "remainingEvidenceBlocker": "FIRST_REAL_CURRENT_OPUS_5_5_OBSERVATION_SET_FOR_A_RECURRING_TASK_CLASS"
+    },
+    {
+      "label": "work-astra-terminal-activation-v23",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_MULTIPLIER_CREDIT__ALL_NONPRIVATE_ACTIVATION_PLUMBING_CLOSED",
+      "workload": "canonical one-runtime-key economic perimeter + gateway-only TypingMind + owner authorization mint + existing <=$0.05 canary + sealed General Crown evidence adjudicator + evidence-bound Crown admission mint + Work/Astra machine handoff",
+      "providerCallsPerformed": 0,
+      "spendUsd": 0,
+      "canonicalInferenceKeyLimitUsd": 20,
+      "directTypingMindInferenceKeyLimitUsd": 0,
+      "memberGuardrailBackstopUsd": 28,
+      "qualityLaw": "No smoke/public benchmark/self-score can mint Crown authority. Paid authorization and Crown admission remain independently required. Legacy two-key cockpit is archived, not deleted.",
+      "remainingExternalBlockers": [
+        "PRIVATE_OPENROUTER_RUNTIME_KEY_CONFIGURATION",
+        "EXPLICIT_OWNER_CANARY_AND_RUNTIME_SPEND_AUTHORIZATION",
+        "REAL_SEALED_GENERAL_CROWN_PROVIDER_EVIDENCE",
+        "PRIVATE_TYPINGMIND_BROWSER_CONFIGURATION_WITH_GATEWAY_BEARER"
+      ],
+      "handoff": "docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md"
     }
   ],
   "excludedFromCurrentNumber": [
@@ -413,7 +432,7 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__DURABLE_CROWN_GRADUATION_AND_24_7_WORKER_CONTEXT_PATH_IMPLEMENTED__REAL_TASK_EVIDENCE_REQUIRED",
+      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__ALL_NONPRIVATE_ACTIVATION_PLUMBING_CLOSED__WORK_ASTRA_PRIVATE_EVIDENCE_AND_CREDENTIAL_PHASE_NEXT",
       "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
       "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",

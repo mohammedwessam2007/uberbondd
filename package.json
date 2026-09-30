@@ -216,7 +216,10 @@
     "open-router:vault:doctor": "node scripts/open-router-vault-doctor.mjs",
     "test:frontier-vm": "node --test tests/frontier-intelligence-vm.test.mjs tests/cognitive-superoptimizer.test.mjs tests/frontier-vm-longitudinal-evaluator.test.mjs tests/frontier-vm-burnin.test.mjs tests/frontier-vm-activation-readiness.test.mjs",
     "test:cognitive-superoptimizer": "node --test tests/cognitive-superoptimizer.test.mjs",
-    "frontier-vm:doctor": "node scripts/frontier-vm-v5-doctor.mjs"
+    "frontier-vm:doctor": "node scripts/frontier-vm-v5-doctor.mjs",
+    "test:infinite-opus:live-closure": "node --test tests/infinite-opus-live-closure.test.mjs tests/openai-conversation-model-adapter.test.mjs",
+    "infinite-opus:routes:doctor": "node scripts/cognition-route-inventory-doctor.mjs",
+    "infinite-opus:canary": "node scripts/infinite-opus-openrouter-canary.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

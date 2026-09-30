@@ -56,3 +56,29 @@ Stop without workaround on secret leakage, unexpected active inference keys, mod
 ## Current truth at handoff
 
 Before this handoff, the production runtime and worker are live and the gateway bearer is present, but the runtime OpenRouter inference key, paid-authorization receipt and Crown-admission receipt are absent. The source has already executed the 2,352,942-consumer zero-provider-call E3 benchmark, but its 33,333.345x economics remain a benchmark/counterfactual capacity result rather than production-observed compression.
+
+
+## Receipt-grade economics continuation added after live v23b
+
+Current live source before the private Work/Astra phase: `fe54841b7933b03c7edf6d55efe8a742316f8d62`.
+
+After Crown admission and before claiming any production multiplier:
+
+16. Open a Cognitive Capital campaign through the admin surface with every applicable all-in cost class declared up front. Missing required classes must block closure.
+17. For each real recurring task that can become E0–E4, compile and admit an exact task-bound direct-frontier reference contract. The contract must use verified tokenization and the cheapest legitimate current direct route, crediting batch, prompt cache, response cache and retry economics where applicable.
+18. Let the production E3/E0–E4 hot path execute. The runtime appends provable execution receipts only when the exact reference contract matches the task and current quality contract.
+19. Reconcile provider bills and add any other observed runtime/platform costs. Never use the USD 30 envelope itself as observed spend. Evidenced zero-cost receipts are allowed only for cost classes that are genuinely zero.
+20. Close the Cognitive Capital campaign. If any receipt, proof, cost class or denominator is missing, the audit must remain blocked and the campaign must stay open. Only a successful finite audit may populate the production realized multiplier.
+
+Admin surfaces now available:
+- `GET /api/admin/infinite-opus/activation` — redacted activation state, zero inference.
+- `GET|POST /api/admin/infinite-opus/references` — exact task-bound reference contracts.
+- `GET|POST /api/admin/infinite-opus/capital-campaigns` — campaign state.
+- `POST /api/admin/infinite-opus/capital-campaigns/cost` — observed all-in cost receipts.
+- `POST /api/admin/infinite-opus/capital-campaigns/asset` — additional certified capital assets.
+- `POST /api/admin/infinite-opus/capital-campaigns/close` — receipt-grade audit and closure.
+
+Current economic truth:
+- executed benchmark-capacity multiplier: **33,333.345×**;
+- production realized multiplier: **UNKNOWN**;
+- do not promote benchmark/counterfactual capacity into a production savings claim.

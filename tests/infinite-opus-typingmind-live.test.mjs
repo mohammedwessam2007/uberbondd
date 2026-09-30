@@ -92,6 +92,34 @@ test('live gateway performs Sol builder then exact-provider Opus Crown ACCEPT an
  assert.equal(snap.crownInteractionFingerprints,1);assert.equal(snap.recurrentCrownCompilerCandidates,0);
 });
 
+test('paid approved answer remains recoverable if only capitalization persistence fails',async()=>{
+ const rows=providerSequence();let settings={};
+ const store={
+   transaction:async fn=>fn({
+     transactionClient:false,
+     getSettings:async()=>structuredClone(settings),
+     setSetting:async(k,v)=>{
+       if(Object.keys(v?.crownInteractionReceipts??{}).length)throw new Error('capital-store-write-failed');
+       settings={...settings,[k]:structuredClone(v)};
+     }
+   })
+ };
+ const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
+ const o=createTypingMindLiveOrchestrator({store,openRouterKey:'sk-or-v1-'+'x'.repeat(32),recurrenceHmacKey,paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(request());
+ assert.equal(out.ok,true);
+ assert.equal(out.completion.choices[0].message.content,'Builder candidate');
+ const cap=out.completion.uberbond.crownCapitalization;
+ assert.equal(cap.status,'CROWN_CAPITALIZATION_RECORDING_FAILED_NO_REUSE_AUTHORITY');
+ assert.equal(cap.semanticReuseAuthority,'NONE');
+ assert.equal(cap.rawConversationPersisted,false);
+ assert.equal(cap.recoveryReceipt.recoveryAuthority,'RECORD_ONLY_NO_SEMANTIC_REUSE_AUTHORITY');
+ assert.match(cap.recoveryReceipt.recurrenceFingerprint,/^hmac-sha256:[a-f0-9]{64}$/);
+ assert.match(cap.recoveryReceipt.finalOutputFingerprint,/^hmac-sha256:[a-f0-9]{64}$/);
+ assert.equal(JSON.stringify(cap.recoveryReceipt).includes('Give me the exact answer.'),false);
+ assert.equal(JSON.stringify(cap.recoveryReceipt).includes('Builder candidate'),false);
+});
+
 test('upstream provider drift refuses Crown authority after observed paid call and freezes no false answer into cockpit',async()=>{
  const rows=providerSequence({crownProvider:'Unexpected Provider'});let calls=0;
  const fetchImpl=async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify(rows.shift())};};

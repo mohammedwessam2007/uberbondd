@@ -82,8 +82,12 @@
     "crownCapitalPolicy": {
       "rawConversationPersisted": false,
       "semanticReuseAuthority": "NONE",
-      "recurrenceDetection": "EXACT_REQUEST_FINGERPRINT_ONLY",
-      "promotionLaw": "RECURRENCE_IS_COMPILER_PRIORITY_NOT_EXECUTION_AUTHORITY"
+      "recurrenceDetection": "EXACT_REQUEST_CONTRACT_VIA_KEYED_HMAC_SHA256",
+      "promotionLaw": "RECURRENCE_IS_COMPILER_PRIORITY_NOT_EXECUTION_AUTHORITY",
+      "outputIdentity": "APPROVED_FINAL_OUTPUT_VIA_KEYED_HMAC_SHA256",
+      "hmacKeySource": "TOKEN_ENCRYPTION_KEY_WITH_DOMAIN_SEPARATION",
+      "dedupeWitnessRotation": "MONTHLY_DIGEST_COMPACTION__CAPITAL_AGGREGATES_PRESERVED",
+      "maxDedupeArchivePeriods": 120
     }
   },
   "stopConditions": [

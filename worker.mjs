@@ -12,6 +12,7 @@ import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integ
 import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
+import { createInfiniteOpusJobHandlers } from './src/infinite-opus-native-runtime.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -48,6 +49,9 @@ const enqueueResearch = payload => enqueueJob('research.batch', payload, {
 revenue = new RevenueEngine(store, config, pipeline, { enqueueResearch });
 const discoveryRunner = new DiscoveryRunner(store, config);
 const handlers = createMissionAwareJobHandlers({ store, cfg: config, pipeline, revenue, discoveryRunner, enqueueJob });
+// Infinite Opus jobs resolve only admin-admitted durable context snapshots and
+// certified cognition from the shared store. Queue payloads cannot inject authority.
+Object.assign(handlers, createInfiniteOpusJobHandlers({ store }));
 handlers['outreach.100k.process'] = async payload => {
   const liveSummary = await buildLiveOutreach100kSummary({ store, cfg: config });
   const input = payload && typeof payload === 'object' ? payload : {};

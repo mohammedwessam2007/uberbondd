@@ -512,6 +512,16 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       const admitted=await runtime.admitExhaustiveDecisionFranchise(body);
       return sendJson(res, admitted.ok ? 200 : 409, admitted);
     }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/contexts') {
+      return sendJson(res, 200, await runtime.listContextSnapshots());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/contexts') {
+      let body;
+      try { body = await readSmallJsonBody(req, 1_000_000); }
+      catch (error) { return sendJson(res, 400, { ok:false,status:'CONTEXT_SNAPSHOT_BODY_REFUSED',error:String(error?.message||error) }); }
+      const admitted=await runtime.admitContextSnapshot(body);
+      return sendJson(res, admitted.ok ? 200 : 409, admitted);
+    }
     return sendJson(res, 404, { error: 'Infinite Opus route not found' });
   });
 }

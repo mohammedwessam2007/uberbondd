@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:59:55+03:00",
+  "updatedAt": "2026-09-30T23:59:59+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -368,6 +368,20 @@
         "tests/semantic-egraph-franchise-hotpath.test.mjs"
       ],
       "expectedEffect": "Increase certified recurrence hit-rate across verified equivalent representations without granting probabilistic semantic-cache authority."
+    },
+    {
+      "label": "trusted-context-24_7-worker-v22",
+      "multiplier": 33333.345,
+      "status": "NO_NEW_MULTIPLIER_CREDIT__DURABLE_CONTEXT_AND_24_7_WORKER_REACHABILITY_IMPLEMENTED",
+      "workload": "admin-admitted versioned current context -> durable context vault -> 24/7 queue handler -> durable E3 franchise -> zero provider calls",
+      "qualityLaw": "Task payloads cannot inject context or authority. Expired/invalid context yields page fault. Context snapshots create no semantic authority by themselves.",
+      "implementation": [
+        "src/infinite-opus-native-runtime.mjs",
+        "server.mjs",
+        "worker.mjs",
+        "tests/infinite-opus-worker-context-vault.test.mjs"
+      ],
+      "remainingEvidenceBlocker": "FIRST_REAL_CURRENT_OPUS_5_5_OBSERVATION_SET_FOR_A_RECURRING_TASK_CLASS"
     }
   ],
   "excludedFromCurrentNumber": [
@@ -399,7 +413,7 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__DURABLE_REAL_CROWN_GRADUATION_LOOP_IMPLEMENTED__AWAITING_FIRST_REAL_CERTIFIED_TASK_CLASS",
+      "status": "33_333X_EXECUTED_BENCHMARK_CAPACITY__DURABLE_CROWN_GRADUATION_AND_24_7_WORKER_CONTEXT_PATH_IMPLEMENTED__REAL_TASK_EVIDENCE_REQUIRED",
       "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
       "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",

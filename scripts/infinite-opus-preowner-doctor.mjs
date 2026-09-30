@@ -27,6 +27,9 @@ const typingMindBoundary=server.indexOf('function typingMindCors(req)');
 if(typingMindBoundary<0||server.slice(0,typingMindBoundary).includes('sendTypingMindJson(')||server.slice(0,typingMindBoundary).includes('sendTypingMindStream('))reasons.push('typingmind-response-helper-leaked-outside-cockpit-boundary');
 if(!server.includes('CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED')&&!read('src/infinite-opus-typingmind-live.mjs').includes('CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED'))reasons.push('typingmind-crown-provider-drift-gate-missing');
 if(!server.includes('/api/admin/infinite-opus/capital')||!runtimeSource.includes('recordCrownInteraction')||!runtimeSource.includes('crownCapitalizationPlan'))reasons.push('crown-recurrence-capitalization-loop-missing');
+const liveGatewaySource=read('src/infinite-opus-typingmind-live.mjs');
+if(!liveGatewaySource.includes("crypto.createHmac('sha256'")||!liveGatewaySource.includes('runtime-recurrence-hmac-key-required')||!runtimeSource.includes('hmac-sha256:'))reasons.push('private-crown-recurrence-hmac-boundary-missing');
+if(!runtimeSource.includes('crownInteractionReceiptArchives')||!runtimeSource.includes('receiptSetDigest'))reasons.push('bounded-crown-recurrence-dedupe-compaction-missing');
 const envExample=read('.env.example');
 for(const name of ['UBERMIND_TYPINGMIND_GATEWAY_TOKEN','INFINITE_OPUS_PAID_AUTHORIZATION_JSON','INFINITE_OPUS_CROWN_ADMISSION_JSON'])
  if(!envExample.includes(name+'='))reasons.push('typingmind-gateway-env-contract-missing:'+name);

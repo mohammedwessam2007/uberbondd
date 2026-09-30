@@ -299,7 +299,8 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
     const perimeter = compileCognitionEconomicPerimeter({
       runtimeKeyLimitUsd: 20,
       typingMindKeyLimitUsd: 8,
-      accountGuardrailUsd: 28,
+      memberGuardrailUsd: 28,
+      guardrailScope: 'MEMBER_ALL_KEYS',
       purchaseFeeRate: 0.055,
       otherPaidKeyLimitsUsd: [],
       limitReset: 'monthly',

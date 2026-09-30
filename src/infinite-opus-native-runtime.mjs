@@ -258,13 +258,10 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           observedAt: clock(),
           sideEffectAuthority: 'NONE'
         };
-        state.receipts.push({ kind: 'CROWN_CALL', callId: record.crownProviderRequestId,
-          semanticReusableStructure: false, recurrenceFingerprint: record.recurrenceFingerprint,
-          observedAt: clock(), semanticAuthority: record.authorityClass });
-        state.receipts.push({ kind: 'CROWN_INTERACTION_OBSERVED', interactionId,
-          recurrenceFingerprint: record.recurrenceFingerprint, status, occurrences: entry.occurrences,
-          distinctOutputCount, repeatedFrontierCostMicrousd, observedAt: clock(),
-          semanticReuseAuthority: 'NONE', rawConversationPersisted: false });
+        // Do not duplicate every interaction into the generic receipt log.
+        // Paid Crown dispatch/cost evidence already lives in the cognition
+        // ledger; recurrence/idempotency/lineage evidence lives in the bounded
+        // dedicated structures above.
         await persist(tx, state);
         return zero({ ok: true, status, interactionId, recurrence: structuredClone(entry.summary),
           semanticReuseAuthority: 'NONE', providerCallsPerformed: 0 });

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { createInfiniteOpusRuntime } from '../src/infinite-opus-native-runtime.mjs';
 
 const h=value=>'sha256:'+crypto.createHash('sha256').update(String(value)).digest('hex');
+const hm=value=>'hmac-sha256:'+crypto.createHash('sha256').update('test-hmac:'+String(value)).digest('hex');
 const now=Date.parse('2026-09-30T14:30:00Z');
 
 function makeStore(){
@@ -17,8 +18,8 @@ function makeStore(){
   };
 }
 const base=(overrides={})=>({
-  requestFingerprint:h('same-request'),
-  finalOutputHash:h('same-output'),
+  recurrenceFingerprint:hm('same-request'),
+  finalOutputFingerprint:hm('same-output'),
   crownAdmissionReceiptHash:h('crown-admission'),
   crownProviderRequestId:'gen-crown-1',
   observedUpstreamProvider:'Anthropic',
@@ -63,7 +64,7 @@ test('recurrent output disagreement is surfaced as reconciliation debt, never si
   await runtime.recordCrownInteraction(base({crownProviderRequestId:'gen-crown-2'}));
   const third=await runtime.recordCrownInteraction(base({
     crownProviderRequestId:'gen-crown-3',
-    finalOutputHash:h('different-output'),
+    finalOutputFingerprint:hm('different-output'),
     builderCostMicrousd:500,
     crownCostMicrousd:2500
   }));
@@ -82,6 +83,22 @@ test('duplicate interaction receipt is idempotent and cannot inflate recurrence 
   const snapshot=await runtime.snapshot();
   assert.equal(snapshot.crownInteractionFingerprints,1);
   assert.equal(first.recurrence.occurrences,1);
+});
+
+test('monthly dedupe witnesses compact to a digest while recurrence aggregates survive',async()=>{
+  let clock=Date.parse('2026-09-30T23:59:00Z');
+  const runtime=createInfiniteOpusRuntime({store:makeStore(),clock:()=>clock});
+  await runtime.recordCrownInteraction(base());
+  let snap=await runtime.snapshot();
+  assert.equal(snap.crownInteractionCurrentPeriodReceipts,1);
+  assert.equal(snap.crownInteractionReceiptArchivePeriods,0);
+  clock=Date.parse('2026-10-01T00:01:00Z');
+  const second=await runtime.recordCrownInteraction(base({crownProviderRequestId:'gen-crown-oct'}));
+  assert.equal(second.recurrence.occurrences,2);
+  snap=await runtime.snapshot();
+  assert.equal(snap.crownInteractionCurrentPeriodReceipts,1);
+  assert.equal(snap.crownInteractionReceiptArchivePeriods,1);
+  assert.equal(snap.crownInteractionFingerprints,1);
 });
 
 test('capitalization plan rejects unbounded reads and persists no prompt or answer text',async()=>{

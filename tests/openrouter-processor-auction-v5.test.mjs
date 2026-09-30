@@ -289,3 +289,13 @@ test('certified Jev evidence gate economics include sampled Crown audit tax',()=
   assert.equal(x.totalUsd,.008581);
   assert.equal(Number((.85/x.totalUsd).toFixed(12)),99.056054072952);
 });
+
+
+test('Crown Boundary Querying crosses 100x by shrinking only sampled audit context',()=>{
+  const x=estimateCertifiedJevMacroLaneUsd({
+    sourceTokens:200000,jevInputUsdPerMillion:.042,
+    auditRate:.05,crownAuditInputTokens:400,crownAuditOutputTokens:1
+  });
+  assert.equal(x.totalUsd,.008481);
+  assert.equal(Number((.85/x.totalUsd).toFixed(12)),100.22403018512);
+});

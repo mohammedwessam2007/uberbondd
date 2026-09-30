@@ -221,7 +221,8 @@
     "infinite-opus:routes:doctor": "node scripts/cognition-route-inventory-doctor.mjs",
     "infinite-opus:canary": "node scripts/infinite-opus-openrouter-canary.mjs",
     "infinite-opus:routes": "node scripts/infinite-opus-route-inventory.mjs --output docs/receipts/INFINITE_OPUS_ROUTE_INVENTORY_LATEST.json",
-    "infinite-opus:recurrence": "node scripts/infinite-opus-recurrence-map.mjs --output docs/receipts/INFINITE_OPUS_RECURRENCE_MAP_LATEST.json"
+    "infinite-opus:recurrence": "node scripts/infinite-opus-recurrence-map.mjs --output docs/receipts/INFINITE_OPUS_RECURRENCE_MAP_LATEST.json",
+    "infinite-opus:preowner:doctor": "node scripts/infinite-opus-preowner-doctor.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

@@ -32,7 +32,7 @@ test('delayed or mismatched provider usage holds global capacity',()=>{
  assert.equal(reconcileChannels({runtimeUsageUsd:1,typingMindUsageUsd:2,providerAccountUsageUsd:3,unsettled:[]}).ok,true);
 });
 test('Crown admission refuses forged or incomplete provider answers',()=>{
- const base={providerCallId:'gen-1',exactModelId:'anthropic/claude-opus-5.5',providerIdentity:'Anthropic',routeIdentity:'openrouter:auto',taskClassRole:'GENERAL_CROWN',promptProgramHash:h('p'),semanticInputHash:h('i'),qualityContractHash:h('q'),sourceDependencyHashes:[h('s')],evidenceReferences:['e1'],outputHash:h('o'),timestamp:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'auth1',costReceiptRef:'bill1',modelCallabilityReceiptRef:'callability1',revalidationPolicy:'EXPIRE_OR_SUCCESSION',authorizationStatus:'AUTHORIZED_FOR_THIS_CALL',actualCostMicrousd:500,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,roleTournamentEvidenceRef:'tour1'};
+ const base={providerCallId:'gen-1',exactModelId:'anthropic/claude-opus-5.5',providerIdentity:'Anthropic',routeIdentity:'openrouter:auto',taskClassRole:'GENERAL_CROWN',promptProgramHash:h('p'),semanticInputHash:h('i'),qualityContractHash:h('q'),sourceDependencyHashes:[h('s')],evidenceReferences:['e1'],outputHash:h('o'),timestamp:'2026-09-30T00:00:00Z',expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'auth1',costReceiptRef:'bill1',modelCallabilityReceiptRef:'callability1',revalidationPolicy:'EXPIRE_OR_SUCCESSION',authorizationStatus:'AUTHORIZED_FOR_THIS_CALL',actualCostMicrousd:500,sideEffectAuthority:'NONE',providerBillObserved:true,modelIdentityVerified:true,modelCallabilityVerified:true,tournamentEvidenceVerified:true,roleTournamentEvidenceRef:'tour1'};
  const r=issueCrownAdmissionReceipt(base); assert.equal(r.ok,true); assert.equal(verifyCrownAdmissionReceipt(r.receipt,{now:Date.parse('2026-09-30T01:00:00Z'),expected:{exactModelId:base.exactModelId}}).ok,true);
  const forged={...r.receipt,exactModelId:'other/model'}; assert.equal(verifyCrownAdmissionReceipt(forged,{now:Date.parse('2026-09-30T01:00:00Z')}).ok,false);
  assert.equal(issueCrownAdmissionReceipt({...base,providerBillObserved:false}).ok,false);
@@ -46,8 +46,8 @@ test('natural-language parser agreement is not semantic authority and omitted co
 test('renderer cannot add claim or number and reverse parser needs authority',()=>{
  const env={claims:['A'],numbers:['7'],citations:['s1'],constraints:['no B']};
  assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 7',reverseParse:env}).status,'REVERSE_PARSE_AUTHORITY_REQUIRED');
- assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 8',reverseParse:{...env,numbers:['8']},reverseParseAdmission:{qualityType:'DETERMINISTIC_EXACT_PARSER'}}).ok,false);
- assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 7',reverseParse:env,reverseParseAdmission:{qualityType:'DETERMINISTIC_EXACT_PARSER'}}).ok,true);
+ assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 8',reverseParse:{...env,numbers:['8']},reverseParseAdmission:{qualityType:'DETERMINISTIC_EXACT_PARSER'},verifyReverseParseAdmission:()=>true}).ok,false);
+ assert.equal(verifyRenderedSurface({semanticEnvelope:env,rendered:'A 7',reverseParse:env,reverseParseAdmission:{qualityType:'DETERMINISTIC_EXACT_PARSER'},verifyReverseParseAdmission:()=>true}).ok,true);
 });
 test('partial evaluation refuses drift and preserves residual obligations',()=>{
  const p={programId:'p1',qualityContractHash:h('q'),invalidators:['source-change'],obligations:[{id:'stable'},{id:'novel'}]};
@@ -105,7 +105,7 @@ test('automatic scoreboard keeps unknown evidence unknown',()=>{
 test('verified typed compiler can amortize interpretation while cheap parse agreement alone cannot',()=>{
  const raw=h('repeatable typed task');
  const program={goal:'sum',claims:[],constraints:['integers only'],requiredOutputs:['total'],sideEffects:[],ambiguities:[],uncertainties:[]};
- const r=closeInterpretation({rawTaskHash:raw,parses:[program,program],typedCompilerCertificate:{authority:'E2_VERIFIED_TRANSFORMATION',rawTaskHash:raw,compilerHash:h('compiler'),program,proofRef:'test-proof',preserved:['integers only'],omitted:[]}});
+ const r=closeInterpretation({rawTaskHash:raw,parses:[program,program],typedCompilerCertificate:{authority:'E2_VERIFIED_TRANSFORMATION',rawTaskHash:raw,compilerHash:h('compiler'),program,proofRef:'test-proof',preserved:['integers only'],omitted:[]},verifyTypedCompilerCertificate:()=>true});
  assert.equal(r.ok,true);assert.equal(r.status,'INTERPRETATION_TYPED_COMPILER_CLOSED');
 });
 test('semantic ISA rejects unknown opcodes and side-effect smuggling',()=>{
@@ -121,7 +121,7 @@ test('Crown tournament is blind, zero-regression and role-specific',()=>{
   {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
   {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01},
   {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01}
- ]});assert.equal(out.roles.GENERAL_CROWN.incumbent,'a');
+ ]});assert.equal(out.roles.GENERAL_CROWN.candidate,'a');
 });
 test('Crown succession changes only roles backed by current admitted Crown receipts',()=>{
  const p=planCrownSuccession({currentRoles:{GENERAL_CROWN:'a'},marketCandidates:[{model:'b',callability:'VERIFIED',freshness:'CURRENT',roles:['GENERAL_CROWN']}],trigger:'NEW_MODEL_RELEASE',compiledCapital:[{assetId:'x',status:'VALID_FOR_CURRENT_TYPED_SCOPE',crownRevision:'a'}]});
@@ -138,6 +138,19 @@ test('recurrence map exposes real fanout without claiming semantic equivalence f
 });
 
 test('OpenRouter privacy policy cannot be loosened by a caller',async()=>{
- const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify({data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}})})});
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:'UBERBOND_COGNITION_PERIMETER_V1',fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify({data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}})})});
  await assert.rejects(()=>a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,providerPolicy:{zdr:false,data_collection:'allow'}}),/privacy-policy-cannot-loosen/);
+});
+
+test('runtime paid authorization cannot exceed the structurally capped $20 provider key envelope',()=>{
+ assert.throws(()=>createInfiniteOpusRuntime({store:{},paidAuthorization:{maxMonthlyMicrousd:20000001}}),/20-dollar-key/);
+});
+test('duplicate tournament observation cannot manufacture evidence count',()=>{
+ const plan=compileCrownTournament({candidateSnapshotHash:h('snapshot2'),hiddenTasks:[{taskId:'x1',role:'GENERAL_CROWN',qualityDimensions:['accuracy']},{taskId:'x2',role:'GENERAL_CROWN',qualityDimensions:['accuracy']}],candidates:[{model:'a',roles:['GENERAL_CROWN']},{model:'b',roles:['GENERAL_CROWN']}],budgetAuthorizationRef:'auth'});
+ const out=adjudicateCrownTournament({plan:plan.plan,observations:[
+  {taskId:'x1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
+  {taskId:'x1',role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:1,costUsd:.1},
+  {taskId:'x1',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.1},
+  {taskId:'x2',role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,qualityScore:.9,costUsd:.1}
+ ]});assert.equal(out.roles.GENERAL_CROWN,undefined);
 });

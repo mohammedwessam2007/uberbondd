@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:15:00+03:00",
+  "updatedAt": "2026-09-30T23:35:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -203,6 +203,18 @@
         "tests/decision-franchise.test.mjs"
       ],
       "claimBoundary": "This proves the consumer count mathematically sufficient under the stated direct-reference unit cost and $30 envelope. It does not claim 1,176,471 production tasks have executed."
+    },
+    {
+      "label": "native-runtime-decision-franchise-v15",
+      "multiplier": 33333.345,
+      "status": "RUNTIME_HOT_PATH_IMPLEMENTED__OBSERVED_PRODUCTION_FANOUT_STILL_REQUIRED",
+      "workload": "native task -> exact context -> Decision Franchise -> E3 receipt -> proof economics ledger; miss/drift -> existing semantic closure/frontier path",
+      "implementation": [
+        "src/infinite-opus-native-runtime.mjs",
+        "tests/native-runtime-decision-franchise.test.mjs"
+      ],
+      "providerCallsOnHit": 0,
+      "qualityLaw": "Exact-before-frontier only for admitted trusted-pin franchise; ambiguity or drift fails closed."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -234,7 +246,7 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "33333X_CAPACITY_THEOREM_IMPLEMENTED__PRODUCTION_FANOUT_NOT_YET_OBSERVED",
+      "status": "33333X_CAPACITY_THEOREM_PLUS_RUNTIME_HOT_PATH__PRODUCTION_FANOUT_NOT_YET_OBSERVED",
       "distinctConsumersRequiredForCanonicalTarget": 1176471,
       "directOpusUnitUsd": 0.85,
       "actualAllInEnvelopeUsd": 30

@@ -6,6 +6,7 @@ import { createCognitionLedger, createExactResponseCache, readExactResponse, put
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
+import { executeDecisionFranchise } from './decision-franchise.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
@@ -28,13 +29,15 @@ async function transact(store, operation) {
 const zero = extra => ({ businessEffectAuthority: 'NONE', externalEffectAuthority: 'NONE',
   externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS), ...extra });
 
-export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [],
+export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecords = [], decisionFranchises = [],
   clock = Date.now, paidExecutor = null, paidAuthorization = null, routePrices = [], platformFeeRate = 0.055, referenceContractResolver = null } = {}) {
   const paidMonthlyCapMicrousd = paidAuthorization?.maxMonthlyMicrousd ?? 20_000_000;
   if (!Number.isSafeInteger(paidMonthlyCapMicrousd) || paidMonthlyCapMicrousd < 15_000_000 || paidMonthlyCapMicrousd > 20_000_000 && paidAuthorization) throw new Error('paid-runtime-cap-must-fit-20-dollar-key-and-15-dollar-crown-reserve');
   routePrices = structuredClone(routePrices);
   paidAuthorization = paidAuthorization ? structuredClone(paidAuthorization) : null;
   const checkClosure = createSemanticClosureChecker({ authorityRecords });
+  if (!Array.isArray(decisionFranchises) || decisionFranchises.length > 4096) throw new Error('bounded-decision-franchise-registry-required');
+  const admittedDecisionFranchises = structuredClone(decisionFranchises);
   const today = () => new Date(clock()).toISOString().slice(0, 10);
   async function stateFor(tx) {
     const settings = await tx.getSettings();
@@ -85,6 +88,71 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const state = await stateFor(tx), prior = state.tasks[task.taskId];
         if (prior && prior.taskHash !== taskHash) throw new Error('task-idempotency-contradiction');
         if (Object.keys(state.tasks).length >= 10000 && !prior) throw new Error('archive-checkpoint-required-before-capacity-growth');
+        if (prior?.status === 'CLOSED_DECISION_FRANCHISE') {
+          return zero({ ok:true, status:'IDEMPOTENT_DECISION_FRANCHISE_HIT', decision:structuredClone(prior.decision),
+            franchiseId:prior.franchiseId, proofClass:'E3', semanticAuthority:'CERTIFIED_BOUNDED_POLICY', providerCallsPerformed:0 });
+        }
+
+        // Exact-before-JEV: attempt independently admitted Decision Franchises
+        // before any semantic page fault or paid cognition. Task-supplied data
+        // can never register a franchise or trust pin.
+        if (context && task.payload && admittedDecisionFranchises.length) {
+          const franchiseTask = {
+            taskId:task.taskId, taskClass:task.taskClass,
+            qualityContractHash:context.qualityContractHash,
+            sideEffectClass:task.sideEffectClass, payload:structuredClone(task.payload)
+          };
+          const candidates=admittedDecisionFranchises
+            .filter(row=>row?.record?.spec?.taskClass===task.taskClass)
+            .map(row=>({row,out:executeDecisionFranchise({
+              record:row.record,trustPin:row.trustPin,task:franchiseTask,
+              currentContext:context,now:clock()
+            })}))
+            .filter(x=>x.out.ok);
+          if (candidates.length > 1) {
+            state.receipts.push({kind:'DECISION_FRANCHISE_AMBIGUITY',taskId:task.taskId,observedAt:clock(),candidateCount:candidates.length});
+            await persist(tx,state);
+            return zero({ok:false,status:'AMBIGUOUS_DECISION_FRANCHISE_PAGE_FAULT',providerCallsPerformed:0,semanticAuthority:'NONE'});
+          }
+          if (candidates.length === 1) {
+            const hit=candidates[0].out, franchiseHash=hit.franchiseHash;
+            state.tasks[task.taskId]={taskHash,status:'CLOSED_DECISION_FRANCHISE',decision:structuredClone(hit.decision),franchiseId:hit.franchiseId,franchiseHash};
+            const asset=state.capital[franchiseHash]??{
+              assetId:franchiseHash,kind:'DECISION_FRANCHISE',qualityType:'E3_CERTIFIED_BOUNDED_POLICY',
+              createdAt:clock(),tasksServedCount:0,providerCallsAvoided:0,status:'VALID_FOR_CURRENT_TYPED_SCOPE'
+            };
+            asset.tasksServedCount=(asset.tasksServedCount??0)+1;
+            asset.providerCallsAvoided=(asset.providerCallsAvoided??0)+1;
+            asset.lastValidatedAt=clock();
+            state.capital[franchiseHash]=asset;
+            state.receipts.push({kind:'DECISION_FRANCHISE_HIT',taskId:task.taskId,executionClass:'E3',
+              franchiseId:hit.franchiseId,franchiseHash,observedAt:clock(),providerCallsPerformed:0});
+
+            if (typeof referenceContractResolver === 'function') {
+              const reference=await referenceContractResolver({
+                task:structuredClone(task),context:structuredClone(context),closure:null,
+                output:structuredClone(hit.decision),executionClass:'E3',
+                franchise:{id:hit.franchiseId,hash:franchiseHash,proofClass:hit.proofClass}
+              });
+              if (reference?.ok===true && reference.directReference && reference.referenceContractHash) {
+                state.proofLedger=appendProvableExecution(state.proofLedger,{
+                  executionId:semanticHash({taskId:task.taskId,taskHash,franchiseHash,executionClass:'E3'}),
+                  taskId:task.taskId,completedAt:new Date(clock()).toISOString(),equivalenceClass:'E3',
+                  proofVerified:true,matchedObligationHash:'sha256:'+semanticHash(task.obligation??task.request??task),
+                  qualityContractHash:'sha256:'+context.qualityContractHash,
+                  proofRef:'decision-franchise:'+franchiseHash,
+                  referenceContractHash:reference.referenceContractHash,directReference:reference.directReference
+                });
+                state.receipts.push({kind:'PROVABLE_EXECUTION',taskId:task.taskId,executionClass:'E3',
+                  referenceContractHash:reference.referenceContractHash,observedAt:clock()});
+              } else state.receipts.push({kind:'REFERENCE_CONTRACT_MISSING',taskId:task.taskId,executionClass:'E3',observedAt:clock()});
+            }
+            await persist(tx,state);
+            return zero({ok:true,status:'CLOSED_DECISION_FRANCHISE',decision:structuredClone(hit.decision),
+              franchiseId:hit.franchiseId,franchiseHash,proofClass:'E3',
+              semanticAuthority:'CERTIFIED_BOUNDED_POLICY',providerCallsPerformed:0});
+          }
+        }
         let cacheHit = null;
         if (context && task.request) {
           if (task.request.semanticStateHash !== semanticHash(context) || semanticHash(task.request.sourceHashes) !== semanticHash(context.sourceHashes) || task.request.qualityContractHash !== context.qualityContractHash) throw new Error('request-context-binding-mismatch');

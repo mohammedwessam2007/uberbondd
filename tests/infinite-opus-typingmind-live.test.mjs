@@ -46,11 +46,11 @@ function providerSequence({crownProvider='Anthropic',crownText='ACCEPT'}={}){
  return [
   key(0),
   {id:'g-builder',model:TYPINGMIND_BUILDER_MODEL,choices:[{message:{role:'assistant',content:'Builder candidate'}}],usage:{cost:.001,prompt_tokens:100,completion_tokens:10,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:'OpenAI',model:TYPINGMIND_BUILDER_MODEL,total_cost:.001,tokens_prompt:100,tokens_completion:10}},
+  {data:{provider_name:'OpenAI',router:'openrouter/auto',model:TYPINGMIND_BUILDER_MODEL,total_cost:.001,tokens_prompt:100,tokens_completion:10}},
   key(.001),
   key(.001),
   {id:'g-crown',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:crownText}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:1,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:crownProvider,model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:1}},
+  {data:{provider_name:crownProvider,router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:1}},
   key(.003)
  ];
 }
@@ -89,6 +89,14 @@ test('upstream provider drift refuses Crown authority after observed paid call a
  const out=await o.execute(request());
  assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED');
  assert.equal(out.semanticAuthority,'NONE');assert.equal(out.qualityAction,'QUEUE_NEVER_DOWNGRADE');assert.equal(calls,8);
+});
+
+test('missing router identity refuses Crown authority even when model and provider match',async()=>{
+ const rows=providerSequence();delete rows[6].data.router;
+ const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const out=await o.execute(request());
+ assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_UNOBSERVED');assert.equal(out.semanticAuthority,'NONE');
 });
 
 test('Crown REWRITE becomes direct Crown answer and never authorizes builder prose',async()=>{

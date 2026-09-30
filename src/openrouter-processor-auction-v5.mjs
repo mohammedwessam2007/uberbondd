@@ -304,6 +304,17 @@ export function shouldRunIndependentCritic({jevAnswers={},selectedWriterModel,de
   return Number.isFinite(value)&&value>=0.75&&selectedWriterModel!==deepseekModel;
 }
 
+export function exactCriticPolicy({
+  independentChallenge=false,errorCorrelationRisk='normal',highStakes=false,writerModel=null,
+  criticModel='deepseek/deepseek-v4.1-flash'
+}={}){
+  if(writerModel&&writerModel===criticModel)return {run:false,reason:'SAME_LINEAGE_NO_INDEPENDENCE_GAIN'};
+  if(highStakes===true)return {run:true,reason:'HIGH_STAKES_SECOND_LINEAGE'};
+  if(errorCorrelationRisk==='high')return {run:true,reason:'HIGH_ERROR_CORRELATION_RISK'};
+  if(independentChallenge===true)return {run:true,reason:'EXPLICIT_INDEPENDENT_CHALLENGE'};
+  return {run:false,reason:'EXACT_METADATA_SAYS_OPTIONAL_CRITIC_NOT_REQUIRED'};
+}
+
 
 export function estimateIndependentCriticSurchargeUsd({
   criticRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,criticOutputTokens=600

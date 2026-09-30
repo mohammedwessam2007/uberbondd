@@ -32,8 +32,9 @@ const receipt={
  automaticCrownPromotion:false,
  automaticSpendBeyondCanary:false,
  next:[
-  'RUN_SEALED_TASK_CLASS_TOURNAMENT',
-  'ISSUE_CROWN_ADMISSION_ONLY_FROM_VERIFIED_WINNER',
+  'RUN_SEALED_TASK_CLASS_TOURNAMENT_VIA_WORK_ASTRA_PRIVATE_CUSTODIAN',
+  'ADJUDICATE_WITH_scripts/infinite-opus-crown-tournament-adjudicate.mjs',
+  'MINT_CROWN_ADMISSION_WITH_scripts/infinite-opus-crown-admission-mint.mjs_ONLY_FROM_VERIFIED_WINNER',
   'RUN_PROVIDER_SCREENING_FIRST_REAL_WORKLOAD',
   'MINT_E0_E4_EXECUTION_RECEIPTS',
   'COMPUTE_PROVABLE_REFERENCE_COMPRESSION'

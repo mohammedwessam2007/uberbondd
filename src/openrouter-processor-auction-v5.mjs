@@ -135,6 +135,23 @@ export function estimateCompressedFrontierUsd({
   return mimo+sol+deepseek+opus;
 }
 
+export function estimateFusedMimoFrontierUsd({
+  originalInputTokens=0,compressedEvidenceTokens=0,candidateOutputTokens=0,redTeamOutputTokens=0,
+  crownAcceptTokens=6,crownCachedPrefixTokens=0
+}={}){
+  // One MiMo pass ingests the original source and emits BOTH:
+  // 1) the exact-anchored evidence capsule and 2) the complete candidate.
+  // This removes the separate Sol-builder call. Final semantic authority remains Opus;
+  // this path is only quality-eligible when the evidence capsule is lossless/anchored
+  // and the Crown independently ACCEPTs or repairs the candidate.
+  const mimoOutput=compressedEvidenceTokens+candidateOutputTokens;
+  const mimo=usdPerToken(.14,originalInputTokens)+usdPerToken(.28,mimoOutput);
+  const deepseek=usdPerToken(.13,compressedEvidenceTokens+candidateOutputTokens)+usdPerToken(.52,redTeamOutputTokens);
+  const opusInput=compressedEvidenceTokens+candidateOutputTokens+redTeamOutputTokens;
+  const opus=usdPerToken(4,opusInput)+usdPerToken(.2,crownCachedPrefixTokens)+usdPerToken(20,crownAcceptTokens);
+  return mimo+deepseek+opus;
+}
+
 export function chooseFreshFrontierPath({
   inputTokens,expectedOutputTokens,compressedEvidenceTokens=null,redTeamOutputTokens=300,crownAcceptTokens=6,
   crownCachedPrefixTokens=0,compressionLosslessContract=false,sourceAnchorsRetained=false
@@ -146,6 +163,10 @@ export function chooseFreshFrontierPath({
   if(Number.isFinite(compressedEvidenceTokens)&&compressedEvidenceTokens>=0&&compressionLosslessContract===true&&sourceAnchorsRetained===true){
     candidates.push({path:'MIMO_COMPRESS_SOL_DEEPSEEK_OPUS',usd:estimateCompressedFrontierUsd({
       originalInputTokens:inputTokens,compressedEvidenceTokens,builderOutputTokens:expectedOutputTokens,
+      redTeamOutputTokens,crownAcceptTokens,crownCachedPrefixTokens
+    })});
+    candidates.push({path:'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS',usd:estimateFusedMimoFrontierUsd({
+      originalInputTokens:inputTokens,compressedEvidenceTokens,candidateOutputTokens:expectedOutputTokens,
       redTeamOutputTokens,crownAcceptTokens,crownCachedPrefixTokens
     })});
   }

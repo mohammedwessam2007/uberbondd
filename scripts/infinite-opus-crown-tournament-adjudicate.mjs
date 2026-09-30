@@ -17,7 +17,8 @@ const compiled=compileCrownTournament({
 if(!compiled.ok)fail(compiled.status);
 const adjudicated=adjudicateCrownTournament({plan:compiled.plan,observations:input.observations});
 if(!adjudicated.ok||adjudicated.status!=='TASK_CLASS_CROWN_CANDIDATE_EVIDENCE_READY')fail(adjudicated.status);
-const general=adjudicated.roles?.GENERAL_CROWN;
+const selected=adjudicated.roles?.GENERAL_CROWN;
+const general=selected?{...selected,model:selected.candidate}:null;
 if(!general||general.model!=='anthropic/claude-opus-5.5')fail('general-crown-opus-5-5-not-supported-by-sealed-evidence',{observedCandidate:general?.model??null});
 const sealedRefs=[...new Set((input.observations??[]).filter(o=>o.role==='GENERAL_CROWN'&&o.model===general.model).map(o=>o.sealedTrialRef).filter(Boolean))].sort();
 if(sealedRefs.length<2)fail('at-least-two-independent-general-crown-sealed-trials-required');

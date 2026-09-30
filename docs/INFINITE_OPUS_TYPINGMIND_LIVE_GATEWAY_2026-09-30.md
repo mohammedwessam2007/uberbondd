@@ -11,7 +11,7 @@ TypingMind should expose exactly one UberBond custom model for this path:
 - **OpenAI-compatible chat endpoint:** `https://<approved-uberbond-host>/api/typingmind/infinite-opus/v1/chat/completions`
 - **Optional model-list endpoint for diagnostics:** `https://<approved-uberbond-host>/api/typingmind/infinite-opus/v1/models`
 - **Authorization header:** `Bearer <UBERMIND_TYPINGMIND_GATEWAY_TOKEN>`
-- **Streaming:** off in gateway v1
+- **Streaming:** supported as delayed final-only SSE. The gateway finishes Builder + Crown review first, then emits only the approved final answer; unreviewed builder tokens are never streamed
 - **Tools / plugins / function calling:** off in gateway v1
 - **Vision / binary message content:** off in gateway v1
 - **Output ceiling:** 4,096 tokens per stage

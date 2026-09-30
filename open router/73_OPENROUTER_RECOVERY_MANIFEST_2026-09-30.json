@@ -77,19 +77,21 @@
     "New source supersedes historical backup for execution truth; backup remains recovery evidence."
   ],
   "multiplierCheckpoint": {
-    "metric": "DIRECT_OPUS_5_5_REFERENCE_COST / MODELED_UBERMIND_COST",
-    "canonicalColdSourceHeavyWorkload": {
-      "originalSourceTokens": 200000,
-      "compressedAnchoredEvidenceTokens": 5000,
-      "candidateOutputTokens": 2500,
-      "route": "EXACT_TASK_POLICY -> DEEPSEEK_FUSED_EVIDENCE_AND_CANDIDATE -> OPUS_ACCEPT",
-      "directOpusUsd": 0.85,
-      "modeledUberMindUsd": 0.06002,
-      "multiplier": 14.161946017994001
+    "metric": "FAIR_DIRECT_OPUS_5_5_REFERENCE_COST / UBERMIND_ALL_IN_COST",
+    "executedBenchmarkCapacity": {
+      "distinctConsumers": 2352942,
+      "providerCalls": 0,
+      "directRoute": "anthropic/claude-opus-5.5:batch",
+      "modeledUnitUsd": 0.425,
+      "modeledDirectReferenceUsd": 1000000.35,
+      "modeledAllInEnvelopeUsd": 30,
+      "multiplier": 33333.345,
+      "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291"
     },
-    "conservativeMixedColdPathFloor": 6,
-    "certifiedJevE0E4FanoutIncluded": false,
-    "currentClaim": "14.161946x modeled canonical cold source-heavy path; uncertified recurrence savings remain excluded."
+    "productionRealizedMultiplier": null,
+    "currentClaim": "33,333.345x executed benchmark-capacity on certified E3 fanout; production-realized economic multiplier remains UNKNOWN until real task-bound direct-reference and observed all-in receipts close the Cognitive Capital court.",
+    "conservativeMixedColdPathFloorHistorical": 6,
+    "historicalCertifiedResidualModeledMultiplier": 14.161946017994001
   },
   "recoveryOrder": [
     "Read inherited canon first.",
@@ -100,5 +102,33 @@
     "Refresh live model prices/mechanics before paid routing.",
     "Keep multiplier checkpoint after every material change."
   ],
-  "integrityNote": "Manifest filenames verified against the fresh current-main backup branch before merge. Runtime and governed adapter are stored as 60_ and 59_ respectively."
+  "integrityNote": "Manifest filenames verified against the fresh current-main backup branch before merge. Runtime and governed adapter are stored as 60_ and 59_ respectively.",
+  "updatedAt": "2026-09-30T22:30:00+03:00",
+  "postRecoveryContinuations": {
+    "canonicalSourceCommit": "fe54841b7933b03c7edf6d55efe8a742316f8d62",
+    "liveRenderDeployId": "dep-daumg73ncjis73fh3n50",
+    "recoveryPointer": "75_RECOVERY_POINTER_2026-09-30.md",
+    "liveFrontierReceipt": "78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md",
+    "activationHandoff": "docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md",
+    "activationMachineSpec": "config/infinite-opus-work-astra-activation-v1.json",
+    "addedCapabilities": [
+      "certified Frontier residual fail-closed source omission",
+      "zero-inference E3 Decision Franchise execution",
+      "exact Crown proof-cut multicast",
+      "durable Frontier Thought Bonds",
+      "Ghost Agent crystallization",
+      "Living Evidence Graph delta invalidation",
+      "2,352,942-consumer zero-provider-call executed E3 benchmark",
+      "durable real-Crown Decision Franchise graduation",
+      "E2 verified Semantic E-Graph canonicalization into E3 hot path",
+      "trusted durable context snapshots for 24/7 worker",
+      "gateway-only TypingMind canonical cockpit",
+      "owner-bounded runtime authorization mint",
+      "sealed General Crown tournament adjudication and admission mint",
+      "receipt-grade Cognitive Capital cost court",
+      "exact task-bound direct-frontier reference-contract vault",
+      "automatic provable E3 execution receipts and provider-cost capture"
+    ],
+    "noAmputation": "All dated backup files remain recovery evidence; newer canonical source and this continuation map control execution truth."
+  }
 }

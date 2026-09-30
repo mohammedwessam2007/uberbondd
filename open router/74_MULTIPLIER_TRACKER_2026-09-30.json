@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:50:00+03:00",
+  "updatedAt": "2026-09-30T23:59:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -302,6 +302,23 @@
       "actualAllInEnvelopeUsd": 30,
       "reason": "Quality is fixed while latency is flexible, so cheapest-legitimate direct reference must include Opus Batch when applicable.",
       "sourceEvidence": "OpenRouter Claude Opus 5.5 Batch public tariff observed 2026-09-30: $2/M input, $10/M output."
+    },
+    {
+      "label": "decision-franchise-batch-fair-2_35m-v19",
+      "multiplier": 33333.345,
+      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__FAIR_BATCH_COUNTERFACTUAL_MODELED",
+      "workload": "2,352,942 distinct bounded consumers executed through compiled E3 Decision Franchise; direct comparator repriced to Opus 5.5 Batch for 200k-in/2.5k-out canonical geometry",
+      "executedConsumers": 2352942,
+      "elapsedMs": 16066,
+      "providerCallsPerformed": 0,
+      "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
+      "executionReceipt": "open router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json",
+      "directOpusRoute": "anthropic/claude-opus-5.5:batch",
+      "directOpusUnitUsd": 0.425,
+      "directReferenceUsd": 1000000.35,
+      "actualAllInEnvelopeUsd": 30,
+      "target33333xMet": true,
+      "truthBoundary": "Execution fanout is observed. Workload token geometry, direct-reference cache eligibility and all-in production spend remain to be bound by real receipts."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -333,11 +350,13 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "1_176_471_DISTINCT_E3_EXECUTIONS_OBSERVED__ZERO_PROVIDER_CALLS__REFERENCE_ECONOMICS_MODELED_NOT_PRODUCTION_OBSERVED",
-      "distinctConsumersExecuted": 1176471,
+      "status": "2_352_942_DISTINCT_E3_EXECUTIONS_OBSERVED__0_PROVIDER_CALLS__OPUS_BATCH_REFERENCE_MODELED",
+      "distinctConsumersExecuted": 2352942,
       "providerCallsPerformed": 0,
-      "receiptRoot": "sha256:358faf42034683f30e10954e7b64aa30204ac6fac738cea579050fd60ef26b15",
-      "directOpusUnitUsd": 0.85,
+      "receiptRoot": "sha256:e0a509f09d2438ca6027a8176abd849d39d9ba8167343b2ec61c108f22799291",
+      "directOpusRoute": "anthropic/claude-opus-5.5:batch",
+      "directOpusUnitUsd": 0.425,
+      "directReferenceUsd": 1000000.35,
       "actualAllInEnvelopeUsd": 30
     },
     "deltaResearch": {

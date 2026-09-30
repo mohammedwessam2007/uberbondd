@@ -11,3 +11,19 @@ Status: owner-only activation guide. No secret belongs in Git or chat.
 7. Return only non-secret evidence to UberBond: key label/hash identifier if shown, monthly limit, remaining limit/usage, selected model IDs, and connection-success state. Never return the key itself.
 
 Current TypingMind documentation supports direct OpenRouter import from Manage Models, API-key checking and selective model import. OpenRouter supports per-key USD limits and monthly resets.
+
+## Infinite Opus system instruction
+
+Use this as the persistent quality law for the Infinite Opus profile:
+
+> Use the strongest verified task-class frontier required by the task. Never silently substitute a weaker model because it is cheaper. Treat model output as a proposal unless its authority is independently admitted. Preserve uncertainty and evidence. Queue, wait, batch, or escalate when the required quality contract cannot be met. Do not claim external actions that were not observed.
+
+## Handoff into UberBond runtime
+
+TypingMind is the interactive cockpit, not the durable execution ledger. For work that should become durable, recurring, scheduled, capitalized, or economically measured, hand the task to the approved UberBond runtime with the task objective, required outputs, evidence/source references, constraints, stakes, and freshness requirement. Do not paste either OpenRouter key into a task or chat.
+
+## Spend reconciliation
+
+Use OpenRouter as the billing source of truth. The TypingMind key must remain named `uberbond-typingmind-8` with its USD 8 monthly limit. The runtime key is `uberbond-runtime-20`. The member guardrail `uberbond-global-28` is mandatory for the live $30 claim. After configuration, the management reconciler can verify both key limits, reject unexpected active inference keys, and verify the member guardrail without receiving the TypingMind inference secret.
+
+Return only non-secret evidence: the two key labels and displayed limits/reset periods, the non-secret member identifier, guardrail status, imported model IDs, and whether TypingMind's **Check API Key** succeeded. Never return a key, password, cookie, authorization header, or management secret.

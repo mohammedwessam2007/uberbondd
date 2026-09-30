@@ -211,8 +211,8 @@ No step may be skipped by substituting a key, architecture description, benchmar
 Every successful raw-chat Crown review now emits a durable **metadata-only recurrence receipt** before the response leaves the orchestrator.
 
 Persisted:
-- exact request fingerprint;
-- final-output hash;
+- keyed recurrence fingerprint derived from the exact request contract;
+- keyed final-output fingerprint derived from the approved final answer;
 - Crown Admission Receipt hash;
 - Crown provider request ID;
 - observed upstream provider;
@@ -237,6 +237,10 @@ Exact request recurs but final-output hashes diverge:
 
 All three states have:
 `semanticReuseAuthority = NONE`.
+
+Durable recurrence/output fingerprints are HMAC-SHA256 values derived with domain separation from the existing 256-bit `TOKEN_ENCRYPTION_KEY`. Plain SHA-256 content hashes are not persisted, preventing simple dictionary recovery of short prompts/answers from the metadata store.
+
+Current-period interaction IDs are retained only as idempotency witnesses. At UTC month rollover they compact into a count + digest while the non-content recurrence aggregates remain intact. Individual provider cost/request receipts remain in the cognition ledger, so dedupe bookkeeping does not grow without bound or become the only billing evidence.
 
 The admin surface `GET /api/admin/infinite-opus/capital` ranks only recurring fingerprints by observed repeated frontier cost. It is a compiler work queue, not a cache, answer store or authority registry.
 

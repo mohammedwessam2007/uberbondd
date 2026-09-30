@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T23:35:00+03:00",
+  "updatedAt": "2026-09-30T23:55:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -215,6 +215,17 @@
       ],
       "providerCallsOnHit": 0,
       "qualityLaw": "Exact-before-frontier only for admitted trusted-pin franchise; ambiguity or drift fails closed."
+    },
+    {
+      "label": "exhaustive-crown-franchise-certifier-v16",
+      "multiplier": 33333.345,
+      "status": "AUTOMATIC_E3_GRADUATION_IMPLEMENTED__NO_NEW_MULTIPLIER_CREDIT_UNTIL_PRODUCTION_USE",
+      "workload": "trusted Opus 5.5 observations exhaust finite domain -> zero-mismatch certification -> active E3 Decision Franchise -> zero-call recurrence",
+      "implementation": [
+        "src/decision-franchise-certifier.mjs",
+        "tests/decision-franchise-certifier.test.mjs"
+      ],
+      "qualityLaw": "Every finite state must have exactly one independently trust-pinned current-Opus observation. No interpolation or statistical generalization."
     }
   ],
   "excludedFromCurrentNumber": [
@@ -246,7 +257,7 @@
     },
     "compiledRecurrence": {
       "multiplier": 33333.345,
-      "status": "33333X_CAPACITY_THEOREM_PLUS_RUNTIME_HOT_PATH__PRODUCTION_FANOUT_NOT_YET_OBSERVED",
+      "status": "33333X_CAPACITY_THEOREM_RUNTIME_HOT_PATH_AND_EXHAUSTIVE_OPUS_GRADUATION_IMPLEMENTED__PRODUCTION_FANOUT_NOT_YET_OBSERVED",
       "distinctConsumersRequiredForCanonicalTarget": 1176471,
       "directOpusUnitUsd": 0.85,
       "actualAllInEnvelopeUsd": 30

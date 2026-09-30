@@ -223,6 +223,26 @@ test('no reference multiplier from missing/zero/synthetic economics', () => {
   assert.equal(cognitionMetrics([]).referenceCompressionFactor,null);
   assert.equal(cognitionMetrics([{ kind:'TASK_COMPLETION',closureVerified:true,executionClass:'E1' }]).referenceCompressionFactor,null);
 });
+test('Decision Franchise metrics dedupe semantic consumers and require provable receipts for avoided Crown calls', () => {
+  const receipts=[
+    {kind:'DECISION_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c1',executionClass:'E1'},
+    {kind:'DECISION_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c1',executionClass:'E1'},
+    {kind:'DECISION_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c2',executionClass:'E4'},
+    {kind:'PROVABLE_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c1',executionClass:'E1',referenceContractHash:'r1'},
+    {kind:'PROVABLE_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c2',executionClass:'E4',referenceContractHash:'r2'}
+  ];
+  const m=cognitionMetrics(receipts);
+  assert.equal(m.decisionFranchiseFanout,2);
+  assert.equal(m.crownCallsAvoided,1);
+});
+test('semantic franchise fanout without counterfactual proof does not claim avoided Crown calls', () => {
+  const m=cognitionMetrics([
+    {kind:'DECISION_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c1',executionClass:'E1'},
+    {kind:'DECISION_FRANCHISE_USE',assetId:'asset-a',consumerSemanticHash:'c2',executionClass:'E1'}
+  ]);
+  assert.equal(m.decisionFranchiseFanout,2);
+  assert.equal(m.crownCallsAvoided,null);
+});
 
 async function nativeStore(t) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(),'infinite-opus-test-'));
@@ -230,6 +250,37 @@ async function nativeStore(t) {
   const store = new JsonStore(dir); await store.init(); return { dir,store };
 }
 const task = (taskId = 'event-1') => ({ schemaVersion:INFINITE_OPUS_TASK_SCHEMA,taskId,taskClass:'EXACT_TEST',stakes:'LOW',sideEffectClass:'NONE',artifact:artifact(),request:request(),obligation:{ claim:'total' } });
+test('native runtime counts only distinct non-E0 semantic consumers as Decision Franchise fanout', async t => {
+  const { store } = await nativeStore(t);
+  const runtime = createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });
+  const make=(id,consumer)=>{const x=task(id);delete x.request;x.obligation={claim:'total',consumer};return x;};
+  assert.equal((await runtime.execute(make('franchise-1','a'))).ok,true);
+  assert.equal((await runtime.execute(make('franchise-2','b'))).ok,true);
+  assert.equal((await runtime.execute(make('franchise-3','c'))).ok,true);
+  // New task id but identical semantic consumer: must not inflate fanout.
+  assert.equal((await runtime.execute(make('franchise-4','c'))).ok,true);
+  const snap=await runtime.snapshot();
+  assert.equal(snap.capitalAssets,1);
+  const asset=Object.values(snap.capital)[0];
+  assert.equal(asset.compiledNonIdenticalConsumers,3);
+  assert.equal(asset.provableNonIdenticalConsumers,0);
+  assert.equal(asset.crownCallsAvoided,0);
+  assert.equal(snap.metrics.decisionFranchiseFanout,3);
+  assert.equal(snap.metrics.crownCallsAvoided,null);
+});
+test('E0 exact-response replay never inflates Decision Franchise fanout', async t => {
+  const { store } = await nativeStore(t);
+  const runtime = createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });
+  const first=task('cache-franchise-1'); first.obligation={claim:'total',consumer:'first'};
+  const second=task('cache-franchise-2'); second.obligation={claim:'total',consumer:'different-but-request-identical'};
+  assert.equal((await runtime.execute(first)).ok,true);
+  const replay=await runtime.execute(second);
+  assert.equal(replay.ok,true);
+  assert.equal(replay.cacheStatus,'HIT');
+  const snap=await runtime.snapshot();
+  assert.equal(snap.metrics.decisionFranchiseFanout,1);
+});
+
 test('native persistence survives restart; cached claims are revalidated and duplicate completion is not counted', async t => {
   const { dir,store } = await nativeStore(t);
   const runtime = createInfiniteOpusRuntime({ store,contextLoader:context,authorityRecords:records(),clock:() => NOW });

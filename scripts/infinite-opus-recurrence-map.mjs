@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const root=path.resolve(new URL('..',import.meta.url).pathname),out=process.argv[process.argv.indexOf('--output')+1]||null;
+const roots=['src','scripts','api','config'].map(x=>path.join(root,x)).filter(fs.existsSync),files=[];
+function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){if(e.name==='node_modules'||e.name==='.git')continue;const p=path.join(d,e.name);if(e.isDirectory())walk(p);else if(/\.(mjs|js|json)$/.test(e.name))files.push(p);}}
+roots.forEach(walk);
+const exactLines=new Map(),imports=new Map(),taskClasses=new Map(),opcodes=new Map();const opcodeRe=/\b(LOAD_FACT|VERIFY_SOURCE|CHECK_FRESHNESS|COMPARE|FILTER|PROJECT|AGGREGATE|CHECK_CONSTRAINT|APPLY_POLICY|GENERATE_COUNTEREXAMPLE|INVALIDATE|ESCALATE|PATCH|EMIT_CLAIM)\b/g;
+for(const f of files){const rel=path.relative(root,f).replaceAll('\\','/'),text=fs.readFileSync(f,'utf8');for(const raw of text.split(/\r?\n/)){const line=raw.trim().replace(/\s+/g,' ');if(line.length>=40&&!/^(\/\/|\*|#|import )/.test(line)){const x=exactLines.get(line)||{count:0,files:new Set()};x.count++;x.files.add(rel);exactLines.set(line,x);}}
+ for(const m of text.matchAll(/from\s+['"]([^'"]+)['"]/g)){const k=m[1],x=imports.get(k)||{count:0,files:new Set()};x.count++;x.files.add(rel);imports.set(k,x);}for(const m of text.matchAll(/taskClass\s*[:=]\s*['"]([A-Z0-9_.:-]+)['"]/g))taskClasses.set(m[1],(taskClasses.get(m[1])||0)+1);for(const m of text.matchAll(opcodeRe))opcodes.set(m[1],(opcodes.get(m[1])||0)+1);}
+const top=(map,min=2,limit=100)=>[...map.entries()].map(([key,v])=>({key,count:typeof v==='number'?v:v.count,files:typeof v==='number'?null:[...v.files]})).filter(x=>x.count>=min).sort((a,b)=>b.count-a.count||a.key.localeCompare(b.key)).slice(0,limit);
+const receipt={schemaVersion:'uberbond.infinite-opus.recurrence-map.v1',observedAt:new Date().toISOString(),filesScanned:files.length,exactRepeatedProgramLines:top(exactLines,3,100),repeatedModuleDependencies:top(imports,3,100),repeatedTaskClasses:top(taskClasses,2,100),semanticOpcodeFrequency:top(opcodes,1,100),semanticAuthority:'NONE',truthBoundary:'Exact structural recurrence lower bound only. Similar text is not semantic equivalence and cannot be coalesced without certified identity.'};
+const body=JSON.stringify(receipt,null,2)+'\n';if(out)fs.writeFileSync(path.resolve(out),body);process.stdout.write(body);

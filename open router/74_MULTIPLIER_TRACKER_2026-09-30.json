@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:43:00+03:00",
+  "updatedAt": "2026-09-30T22:15:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -137,6 +137,30 @@
         ],
         "compilerLaw": "EXACT_BEFORE_JEV"
       }
+    },
+    {
+      "label": "runtime-full-context-quality-correction-v11",
+      "multiplier": 1.0118806695078688,
+      "status": "MODELED_CURRENT_UNCACHED_RUNTIME_GEOMETRY__QUALITY_PRESERVING_CORRECTION",
+      "workload": "200k source -> DeepSeek fused evidence+candidate proposal -> Opus receives untouched 200k original + 2.5k candidate -> 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.84002,
+      "correction": {
+        "priorModeledResidualMultiplier": 14.161946017994001,
+        "reason": "Live generic-chat Crown currently rereads the untouched original conversation. The 5k residual-context economics may count only after independently certified coverage permits omission of the original source.",
+        "qualityLaw": "NO_SOURCE_OMISSION_WITHOUT_CERTIFIED_FRONTIER_RESIDUAL"
+      }
+    },
+    {
+      "label": "certified-frontier-residual-v11-target",
+      "multiplier": 14.161946017994001,
+      "status": "IMPLEMENTED_PRIMITIVE__NOT_YET_EARNED_FOR_GENERIC_CHAT",
+      "workload": "200k source -> exact source-bound 5k residual evidence + 2.5k candidate -> independently certified coverage -> Opus residual review -> 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06002,
+      "authorityRequired": "ACTIVE_CERTIFIED_COVERAGE bound to sourceHash + qualityContractHash + obligationHash + packetHash",
+      "fallback": "FULL_CONTEXT_CROWN",
+      "implementation": "src/certified-frontier-residual.mjs"
     }
   ],
   "excludedFromCurrentNumber": [
@@ -157,5 +181,8 @@
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
   "currentCanonicalModeledMultiplier": 14.161946017994001,
   "currentCanonicalModeledUberMindUsd": 0.06002,
-  "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT"
+  "currentCanonicalWorkload": "200k source -> exact route -> DeepSeek fused evidence+candidate -> Opus ACCEPT",
+  "currentRuntimeRealizableModeledMultiplier": 1.0118806695078688,
+  "currentRuntimeRealizableModeledUberMindUsd": 0.84002,
+  "currentCanonicalStatus": "CERTIFIED_RESIDUAL_TARGET__GENERIC_CHAT_NOT_YET_EARNED"
 }

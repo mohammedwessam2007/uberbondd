@@ -118,7 +118,7 @@ async function brokerUberMailStatus(coreHandler, req, res) {
 async function brokerUberMailBootstrap(coreHandler, req, res) {
   if (!(await requireAdmin(coreHandler, req, res))) return;
   let body = {};
-  try { body = await readSmallJsonBody(req); } catch (error) { return sendTypingMindJson(req,res,400,{ error: error.message }); }
+  try { body = await readSmallJsonBody(req); } catch (error) { return sendJson(res, 400, { error: error.message }); }
   try {
     const root = await getUberMailRuntime().bootstrapRootKey({
       name: String(body.name || 'UberMail Root').slice(0, 200),

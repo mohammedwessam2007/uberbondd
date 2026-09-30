@@ -40,9 +40,9 @@ OpenRouter supports per-key `limit` and `limit_reset`, including monthly reset, 
 **DESTINATION:** TypingMind only  
 **DO NOT RETURN:** the key itself.
 
-If OpenRouter Guardrails are available in the workspace, set the default/member budget to USD 28 monthly, require Zero Data Retention, deny data-collecting routes, and restrict models/providers as desired. Guardrail budgets layer with key budgets rather than replacing them.
+Create a guardrail named `uberbond-global-28`, set its budget to USD 28 with a monthly reset, and assign it to the founder/member that owns both inference keys. Require Zero Data Retention and deny data-collecting routes for sensitive groups as appropriate. The member guardrail caps combined spend across that member's keys while the two key limits remain independent lower ceilings.
 
-**RETURN ONLY:** key labels, displayed limits/reset periods, remaining balances, and whether ZDR/guardrail enforcement is enabled. Screenshots are fine only after hiding secret values.
+**RETURN ONLY:** key labels, displayed limits/reset periods, remaining balances, the non-secret OpenRouter member identifier for `OPENROUTER_MEMBER_ID`, and whether `uberbond-global-28`/ZDR enforcement is enabled. Screenshots are fine only after hiding secret values.
 
 ## Owner action 2 — TypingMind cockpit + tiny canary authorization
 
@@ -58,12 +58,13 @@ If OpenRouter Guardrails are available in the workspace, set the default/member 
 
 Initial presets are aliases, not permanent winners:
 
-- GENERAL CROWN → `anthropic/claude-opus-5.5` **candidate only** until the sealed tournament.
-- STRONG WORKER → `openai/gpt-6-sol` candidate.
+- GENERAL CROWN → `anthropic/claude-opus-5.5` candidate only until the sealed tournament.
+- GENERAL CHALLENGER → `openai/gpt-6.1-sol-pro` candidate.
+- STRONG WORKER → `anthropic/claude-sonnet-5.5` candidate.
+- BATCH STRONG → `openai/gpt-6.1-sol:batch` candidate for eligible deferred workloads.
 - ULTRA CHEAP → `xiaomi/mimo-v2.6-flash` candidate.
-- CHEAP DIVERSE → `deepseek/deepseek-v4.1-flash` candidate.
-- DIVERSE STRONG → current Qwen candidate from the live registry.
-- BATCH → `openai/gpt-6-sol:batch` for eligible deferred workloads.
+- CHEAP DIVERSE → `deepseek/deepseek-v4.1-flash` or current GLM Flash candidate from the live registry.
+- DIVERSE CHALLENGER → current Qwen candidate from the live registry.
 
 TypingMind supports custom profiles with distinct API keys. Keep the Infinite Opus profile on the capped TypingMind key. Do not install arbitrary TypingMind extensions: extensions can access TypingMind application data.
 

@@ -17,7 +17,7 @@ const contentText=message=>{
   if(Array.isArray(c))return c.filter(x=>x?.type==='text'&&typeof x.text==='string').map(x=>x.text).join('');
   return '';
 };
-const centsFor=microusd=>Math.max(1,Math.floor(microusd/10000));
+const centsFor=microusd=>Math.max(1,Math.ceil(microusd/10000));
 const routeKey=(provider,model)=>provider+':'+model;
 
 function activeAuthorization(paidAuthorization,now=Date.now()){
@@ -79,7 +79,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     const estimate=estimateCognitionCeiling({route,inputTokens:inputTokenCeiling,maxOutputTokens:maxTokens,now:clock(),overheadRate:PLATFORM_FEE_RATE});
     // Runtime dispatch speaks integer cents. Reserve at least one cent but no
     // less than the fresh miss/write ceiling.
-    const ceilingMicrousd=Math.max(10000,estimate);
+    const ceilingMicrousd=Math.max(10000,Math.ceil(estimate/10000)*10000);
     const taskId='tm-'+stage+'-'+crypto.randomUUID(),callId='or-'+stage+'-'+crypto.randomUUID();
     const prepared=await runtime.preparePaidCall({callId,taskId,model,provider:'openrouter',qualityClass,role,cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd});
     if(!prepared.ok)return {...prepared,stage,providerCallsPerformed:0};

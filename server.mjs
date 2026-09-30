@@ -362,7 +362,7 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
 
   let body;
   try { body = await readSmallJsonBody(req, 300_000); }
-  catch (error) { return sendJson(res, 400, { error: error.message }); }
+  catch (error) { return sendTypingMindJson(req,res,400,{ error: error.message }); }
 
   let request;
   try { request = compileTypingMindChatRequest(body); }

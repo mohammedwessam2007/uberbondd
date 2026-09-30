@@ -7,7 +7,8 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
   estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd,
   estimateCompressedAdaptiveWriterFrontierUsd, chooseCompressedAdaptiveWriterFrontier,
-  estimateFusedAnchoredSourceWriterFrontierUsd } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateFusedAnchoredSourceWriterFrontierUsd,
+  estimateCrownApprovedMacroCompiledUsd, chooseCrownApprovedMacroCompiledPath } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -246,4 +247,32 @@ test('one-pass anchored MiMo fusion removes duplicated cheap writer pass without
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,crownAcceptTokens:6,writer:'mimo'
   });
   assert.ok(fused<twoPass);
+});
+
+
+test('current E0-E4 closure plus trusted Crown macro removes live Crown call for recurring bounded rendering',()=>{
+  const r=chooseCrownApprovedMacroCompiledPath({
+    originalInputTokens:200000,closedEvidenceTokens:5000,
+    semanticClosureVerified:true,trustedCrownMacroCurrent:true,
+    deterministicRendererVerified:true,dependenciesCurrent:true
+  });
+  assert.equal(r.eligible,true);
+  assert.equal(r.selected.path,'CROWN_APPROVED_MACRO_E2_RENDER');
+  assert.equal(r.selected.usd,0.0294);
+  assert.equal(Number((0.85/r.selected.usd).toFixed(12)),28.91156462585);
+});
+
+test('macro compiled lane fails closed if any authority prerequisite is absent',()=>{
+  for(const missing of ['semanticClosureVerified','trustedCrownMacroCurrent','deterministicRendererVerified','dependenciesCurrent']){
+    const args={
+      originalInputTokens:200000,closedEvidenceTokens:5000,
+      semanticClosureVerified:true,trustedCrownMacroCurrent:true,
+      deterministicRendererVerified:true,dependenciesCurrent:true
+    };
+    args[missing]=false;
+    const r=chooseCrownApprovedMacroCompiledPath(args);
+    assert.equal(r.eligible,false,missing);
+    assert.equal(r.selected,null,missing);
+  }
+  assert.equal(estimateCrownApprovedMacroCompiledUsd({originalInputTokens:200000,closedEvidenceTokens:5000}),0.0294);
 });

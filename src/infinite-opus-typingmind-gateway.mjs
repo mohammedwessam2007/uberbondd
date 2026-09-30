@@ -247,7 +247,7 @@ export function gatewayStatus({runtimeConnected=false,crownAdmissionValid=false,
     crownAdmissionValid,
     jev:{mode:'SHADOW_ONLY',ready:jevShadowReady,maySuppressCrown:false},
     exactAndE0E4:'INTERNAL_TYPED_RUNTIME_ONLY',
-    rawChatPolicy:'BUILDER_THEN_ADMITTED_CROWN_REVIEW',
+    rawChatPolicy:'DIRECT_CROWN_OR_JEV_ADAPTIVE_MIMO_DEEPSEEK_SOL_WRITER_THEN_ADMITTED_CROWN_REVIEW',
     qualityDowngradeAllowed:false,
     sideEffectAuthority:'NONE'
   };

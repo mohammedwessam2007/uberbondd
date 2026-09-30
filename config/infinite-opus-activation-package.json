@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.infinite-opus.activation-package.v1",
   "date": "2026-09-30",
-  "status": "SOURCE_PACKAGE_WITH_TYPINGMIND_UBERMIND_GATEWAY__NO_PRIVATE_RUNTIME_ACTIVATION_YET",
+  "status": "SOURCE_PACKAGE_WITH_GATEWAY_ONLY_TYPINGMIND__PRIVATE_RUNTIME_ACTIVATION_PENDING",
   "economicPerimeter": {
     "hardAllInUsd": 30,
     "runtimeOpenRouterKey": {
@@ -11,10 +11,16 @@
       "includeByokInLimit": true
     },
     "typingMindOpenRouterKey": {
-      "name": "uberbond-typingmind-8",
-      "limitUsd": 8,
-      "limitReset": "monthly",
-      "includeByokInLimit": true
+      "status": "ARCHIVED_DIRECT_COCKPIT_FALLBACK",
+      "requiredForCanonicalUberMind": false,
+      "activeLimitUsd": 0,
+      "priorDesign": {
+        "name": "uberbond-typingmind-8",
+        "limitUsd": 8,
+        "limitReset": "monthly",
+        "includeByokInLimit": true
+      },
+      "reactivationLaw": "REQUIRES_NEW_EXPLICIT_AUTHORIZATION_AND_RECONCILIATION"
     },
     "feeBufferUsd": 2,
     "protectedRuntimeCrownReserveUsd": 15,
@@ -25,8 +31,11 @@
       "limitUsd": 28,
       "reset": "monthly",
       "scope": "MEMBER_ALL_KEYS",
-      "verification": "OPENROUTER_MANAGEMENT_KEY + OPENROUTER_MEMBER_ID"
-    }
+      "verification": "OPENROUTER_MANAGEMENT_KEY + OPENROUTER_MEMBER_ID",
+      "note": "USD 28 remains a cross-key catastrophe backstop; canonical UberMind itself has only the USD 20 runtime inference key active."
+    },
+    "canonicalAggregateInferenceKeyLimitsUsd": 20,
+    "canonicalPlanningWorstCaseAllInUsd": 21.1
   },
   "secrets": {
     "runtime": [
@@ -35,7 +44,7 @@
       "UBERMIND_TYPINGMIND_GATEWAY_TOKEN"
     ],
     "typingMind": [
-      "PRIVATE_OPENROUTER_KEY_IN_TYPINGMIND_ONLY"
+      "UBERMIND_TYPINGMIND_GATEWAY_TOKEN_AS_AUTHORIZATION_BEARER_ONLY"
     ],
     "neverCommit": true
   },
@@ -77,6 +86,15 @@
       "maxOutputTokens": 4096,
       "maxRequestBytes": 300000,
       "replayWindowSeconds": 30
+    },
+    "typingMindCustomModel": {
+      "name": "UberMind Auto",
+      "endpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/chat/completions",
+      "modelId": "ubermind/auto",
+      "authorizationHeader": "Bearer <same private UBERMIND_TYPINGMIND_GATEWAY_TOKEN stored on Render>",
+      "directOpenRouterKeyRequired": false,
+      "tools": false,
+      "vision": false
     }
   },
   "stopConditions": [
@@ -103,6 +121,14 @@
     "paidAuthorizationEnv": "INFINITE_OPUS_PAID_AUTHORIZATION_JSON",
     "crownAdmissionEnv": "INFINITE_OPUS_CROWN_ADMISSION_JSON",
     "secret": false,
-    "law": "Receipts grant only their explicit bounded authority and remain runtime-verified; possession of OPENROUTER_API_KEY alone does not authorize spend or Crown semantics."
+    "law": "Receipts grant only their explicit bounded authority and remain runtime-verified; possession of OPENROUTER_API_KEY alone does not authorize spend or Crown semantics.",
+    "paidAuthorizationTemplate": "config/infinite-opus-runtime-authorization.template.json",
+    "crownTournamentEvidenceCompiler": "scripts/infinite-opus-crown-tournament-adjudicate.mjs",
+    "crownAdmissionMint": "scripts/infinite-opus-crown-admission-mint.mjs"
+  },
+  "noAmputation": {
+    "priorTwoKeyDesign": "PRESERVED_AS_ARCHIVED_FALLBACK",
+    "directTypingMindModelImports": "PRESERVED_AS_OPTIONAL_FALLBACK_NOT_CANONICAL",
+    "canonicalNow": "TypingMind -> UberBond ubermind/auto -> governed OpenRouter runtime key -> Frontier VM/JEV/Crown/proof ledger"
   }
 }

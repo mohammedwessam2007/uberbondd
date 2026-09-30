@@ -8,10 +8,11 @@ const root=path.resolve(new URL('..',import.meta.url).pathname);
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const json=p=>JSON.parse(read(p));
 const reasons=[];
-const perimeter=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,memberGuardrailUsd:28,guardrailScope:'MEMBER_ALL_KEYS',purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
+const perimeter=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:0,memberGuardrailUsd:28,guardrailScope:'MEMBER_ALL_KEYS',purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
 if(!perimeter.ok)reasons.push(...perimeter.reasons.map(x=>`perimeter:${x}`));
 const runtimeSource=read('src/infinite-opus-native-runtime.mjs');
 if(!runtimeSource.includes('20_000_000'))reasons.push('native-runtime-default-must-be-20-dollar-envelope');
+if(perimeter.plan?.typingMindKeyLimitUsd!==0)reasons.push('canonical-typingmind-cockpit-must-not-have-direct-provider-spend-key');
 const routes=cognitionRouteInventory();
 if(!routes.globalBudgetClaimAllowed)reasons.push('route-inventory-not-closed');
 const canary=json('config/infinite-opus-canary-authorization.template.json');
@@ -52,7 +53,7 @@ const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provabl
  'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs', 'tests/infinite-opus-model-understanding.test.mjs',
  'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs',
  'tests/openrouter-jev-governed-adapter.test.mjs', 'tests/openrouter-processor-auction-v5.test.mjs',
- 'tests/openrouter-full-stack-no-amputation.test.mjs', 'tests/server-typingmind-boundary.test.mjs'];
+ 'tests/openrouter-full-stack-no-amputation.test.mjs', 'tests/server-typingmind-boundary.test.mjs', 'tests/infinite-opus-astra-activation-chain.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
  cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
  env: { PATH: process.env.PATH, TZ: 'UTC' }

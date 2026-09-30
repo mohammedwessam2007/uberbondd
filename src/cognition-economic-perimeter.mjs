@@ -4,7 +4,8 @@ export const ECONOMIC_PERIMETER_SCHEMA='uberbond.cognition-economic-perimeter.v1
 export const HARD_ALL_IN_USD=30;
 export const MAX_INFERENCE_USD=28;
 export const RUNTIME_KEY_LIMIT_USD=20;
-export const TYPINGMIND_KEY_LIMIT_USD=8;
+export const TYPINGMIND_KEY_LIMIT_USD=0;
+export const LEGACY_DIRECT_TYPINGMIND_KEY_LIMIT_USD=8;
 export const CROWN_RESERVE_USD=15;
 export const FEE_BUFFER_USD=2;
 const cents=x=>Math.round(Number(x)*100);
@@ -33,7 +34,8 @@ export function compileCognitionEconomicPerimeter(input={}){
   const plan={schemaVersion:ECONOMIC_PERIMETER_SCHEMA,runtimeKeyLimitUsd:runtime,typingMindKeyLimitUsd:interactive,
     memberGuardrailUsd:account,guardrailScope:'MEMBER_ALL_KEYS',aggregateKeyLimitsUsd:aggregate,purchaseFeeRate:feeRate,worstCaseAllInUsd:Number(worstAllIn.toFixed(6)),
     crownReserveUsd:CROWN_RESERVE_USD,feeBufferUsd:FEE_BUFFER_USD,limitReset:'monthly',includeByokInLimits:true,
-    queueBeforeDowngrade:true,automaticSpendAuthority:false};
+    queueBeforeDowngrade:true,automaticSpendAuthority:false,
+    cockpitArchitecture:interactive===0?'UBERBOND_GATEWAY_ONLY':'DIRECT_PROVIDER_COCKPIT_COMPATIBILITY'};
   return {ok:reasons.length===0,status:reasons.length?'ECONOMIC_PERIMETER_REFUSED':'ECONOMIC_PERIMETER_CLOSED_BY_CONFIGURATION',reasons,plan,planHash:digest(plan)};
 }
 

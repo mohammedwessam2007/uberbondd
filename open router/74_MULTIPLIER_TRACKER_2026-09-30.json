@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T21:10:00+03:00",
+  "updatedAt": "2026-09-30T21:18:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -37,6 +37,25 @@
         ],
         "qualityLaw": "MiMo remains proposal-only; checkpoint is valid only on Crown ACCEPT/PATCH/REWRITE path."
       }
+    },
+    {
+      "label": "canonical-source-heavy-v7-compact-redteam-pass",
+      "multiplier": 13.883870731689786,
+      "status": "MODELED_ACCEPT_PATH__OUTPUT_TOKEN_SURGERY__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> fused MiMo 5k evidence + 2.5k candidate -> DeepSeek 6-token PASS -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.06122212,
+      "deltaFromPrior": {
+        "priorMultiplier": 13.588911448258221,
+        "priorUberMindUsd": 0.062551,
+        "removed": "294 unnecessary RedTeam output tokens plus their downstream Opus input",
+        "preserved": [
+          "independent DeepSeek audit call",
+          "same candidate",
+          "same anchored evidence",
+          "same Opus final semantic gate"
+        ]
+      }
     }
   ],
   "excludedFromCurrentNumber": [
@@ -55,7 +74,7 @@
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
   "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
-  "currentCanonicalModeledMultiplier": 13.588911448258221,
-  "currentCanonicalModeledUberMindUsd": 0.062551,
-  "currentCanonicalWorkload": "200k source -> fused MiMo evidence+candidate -> DeepSeek audit -> Opus Crown"
+  "currentCanonicalModeledMultiplier": 13.883870731689786,
+  "currentCanonicalModeledUberMindUsd": 0.06122212,
+  "currentCanonicalWorkload": "200k source -> fused MiMo evidence+candidate -> compact DeepSeek PASS -> Opus ACCEPT"
 }

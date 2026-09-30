@@ -15,7 +15,7 @@ import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
-import { createTypingMindLiveOrchestrator } from './src/infinite-opus-typingmind-live.mjs';
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -352,10 +352,16 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
     const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
     const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
+    let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']};
+    try{
+      marketSnapshot=await currentInfiniteOpusPublicMarket();
+      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)});
+    }catch{}
     return sendTypingMindJson(req,res,200,{
       object: 'list',
       data: [{ id: 'ubermind/auto', object: 'model', created: 0, owned_by: 'uberbond' }],
-      uberbond: gatewayStatus({ runtimeConnected: Boolean(process.env.OPENROUTER_API_KEY && paidAuthorization), crownAdmissionValid: Boolean(crownAdmission), jevShadowReady: false })
+      uberbond: {...gatewayStatus({ runtimeConnected: live.ok, crownAdmissionValid: live.ok, jevShadowReady: false }),
+        liveReadiness:live.status??'TYPINGMIND_UBERMIND_LIVE_NOT_READY',reasons:live.reasons??[]}
     });
   }
   if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendTypingMindJson(req,res,404,{ error: 'TypingMind UberMind route not found' });

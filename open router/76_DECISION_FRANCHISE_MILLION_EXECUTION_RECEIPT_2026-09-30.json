@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "uberbond.decision-franchise-million-execution-receipt.v1",
+  "executedAt": "2026-09-30",
+  "environment": "LOCAL_ISOLATED_NODE_BENCHMARK",
+  "benchmarkOnly": true,
+  "productionTraffic": false,
+  "syntheticTaskClass": true,
+  "executedConsumers": 1176471,
+  "elapsedMs": 8351,
+  "providerCallsPerformed": 0,
+  "firstTaskId": "benchmark-0",
+  "lastTaskId": "benchmark-1176470",
+  "uniqueTaskIdsByConstruction": 1176471,
+  "uniqueProjectedStateCount": 2,
+  "receiptRoot": "sha256:358faf42034683f30e10954e7b64aa30204ac6fac738cea579050fd60ef26b15",
+  "franchiseHash": "5fe1d4a37f6de5e32780f4ab01b6a601c29353949be5e475c6ec36e392119ee9",
+  "proofClass": "E3",
+  "semanticAuthority": "CERTIFIED_BOUNDED_POLICY",
+  "modeledEconomics": {
+    "directOpusUnitUsd": 0.85,
+    "directReferenceUsd": 1000000.35,
+    "actualAllInEnvelopeUsd": 30,
+    "multiplier": 33333.345,
+    "millionDollarReferenceThresholdMet": true,
+    "target33333xMet": true
+  },
+  "truthBoundary": [
+    "The 1,176,471 decision executions and zero provider-call count were actually observed in the isolated benchmark.",
+    "This is not production traffic and does not prove real customer demand.",
+    "The $0.85 direct-Opus unit counterfactual remains a modeled assumption until bound to real task/tokenizer/price receipts.",
+    "The $30 all-in envelope remains a target envelope, not observed benchmark infrastructure cost.",
+    "Therefore 33,333.345x is executed-fanout capacity with modeled economics, not production-observed reference compression."
+  ]
+}

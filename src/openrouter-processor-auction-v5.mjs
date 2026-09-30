@@ -182,3 +182,117 @@ export function buildGenericJevControlQuestions(){
     crown_necessity:{type:'noul',instructions:'Does the task contain material open-ended semantics that cannot be closed by exact code or an already certified bounded circuit?'}
   };
 }
+
+
+function routeCost(route,inputTokens,outputTokens){
+  if(!route||!Number.isFinite(route.inputUsdPerMillion)||!Number.isFinite(route.outputUsdPerMillion))return Infinity;
+  return usdPerToken(route.inputUsdPerMillion,inputTokens)+usdPerToken(route.outputUsdPerMillion,outputTokens);
+}
+
+export function estimateWriterThenCrownAcceptUsd({
+  writerRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  writerCachedInputTokens=0,crownCachedInputTokens=0
+}={}){
+  if(!writerRoute||!crownRoute)return Infinity;
+  const writer=estimateRouteWithCacheUsd({
+    route:writerRoute,inputTokens,cachedInputTokens:writerCachedInputTokens,outputTokens:candidateOutputTokens
+  });
+  const crown=estimateRouteWithCacheUsd({
+    route:crownRoute,inputTokens:inputTokens+candidateOutputTokens,
+    cachedInputTokens:crownCachedInputTokens,outputTokens:crownAcceptTokens
+  });
+  return writer+crown;
+}
+
+export function cheapestPossibleWriterLowerBound({
+  writerRoutes=[],crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  cachedInputByModel={},crownCachedInputTokens=0
+}={}){
+  const rows=writerRoutes.filter(Boolean).map(route=>({
+    model:route.model,
+    usd:estimateWriterThenCrownAcceptUsd({
+      writerRoute:route,crownRoute,inputTokens,candidateOutputTokens,crownAcceptTokens,
+      writerCachedInputTokens:Number(cachedInputByModel?.[route.model]??0),crownCachedInputTokens
+    })
+  })).sort((a,b)=>a.usd-b.usd);
+  return rows[0]??null;
+}
+
+function jevChoice(answers,key){return answers?.[key]?.choice??null;}
+function jevScore(answers,key){const x=Number(answers?.[key]?.score);return Number.isFinite(x)?x:null;}
+function jevNoul(answers,key){const x=Number(answers?.[key]?.noul);return Number.isFinite(x)?x:null;}
+
+export function chooseAdaptiveCandidateWriter({
+  jevAnswers={},availableRoutes={},crownRoute,inputTokens=0,candidateOutputTokens=0,crownAcceptTokens=6,
+  cachedInputByModel={},crownCachedInputTokens=0
+}={}){
+  const shape=jevChoice(jevAnswers,'task_shape')??'other';
+  const hard=jevScore(jevAnswers,'hard_reasoning')??1;
+  const routes={
+    mimo:availableRoutes.mimo??null,
+    deepseek:availableRoutes.deepseek??null,
+    sol:availableRoutes.sol??null
+  };
+  const eligible=[];
+  if(hard>=2){
+    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'JEV_HARD_RESIDUAL'});
+  }else if(shape==='coding'){
+    if(routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'CODING_DIVERGENT_CED_PRIOR'});
+    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});
+  }else if(shape==='source_heavy'||shape==='research'){
+    if(routes.mimo)eligible.push({id:'mimo',route:routes.mimo,reason:'CHEAP_LONG_CONTEXT_BANDWIDTH'});
+    if(routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'CHEAP_DIVERGENT_LONG_CONTEXT'});
+    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});
+  }else if(shape==='agentic_tool'){
+    // TypingMind gateway v1 has tools disabled, so do not pretend GLM/other tool agents
+    // can execute here. Sol remains the safest text-only candidate writer.
+    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'TOOLS_DISABLED_TEXT_ONLY_GATEWAY'});
+  }else{
+    if(hard<=0&&routes.mimo)eligible.push({id:'mimo',route:routes.mimo,reason:'ROUTINE_CHEAP_DRAFT'});
+    if(hard<=1&&routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'ROUTINE_DIVERGENT_DRAFT'});
+    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});
+  }
+  const priced=eligible.map(row=>({
+    ...row,
+    usd:estimateWriterThenCrownAcceptUsd({
+      writerRoute:row.route,crownRoute,inputTokens,candidateOutputTokens,crownAcceptTokens,
+      writerCachedInputTokens:Number(cachedInputByModel?.[row.route.model]??0),crownCachedInputTokens
+    })
+  })).sort((a,b)=>a.usd-b.usd);
+  if(!priced.length)return {selected:null,eligible:[],shape,hard,independentChallenge:jevNoul(jevAnswers,'independent_challenge')};
+  return {
+    selected:priced[0],
+    eligible:priced,
+    shape,hard,
+    independentChallenge:jevNoul(jevAnswers,'independent_challenge'),
+    crownNecessity:jevNoul(jevAnswers,'crown_necessity')
+  };
+}
+
+export function shouldRunIndependentCritic({jevAnswers={},selectedWriterModel,deepseekModel='deepseek/deepseek-v4.1-flash'}={}){
+  const value=jevNoul(jevAnswers,'independent_challenge');
+  return Number.isFinite(value)&&value>=0.75&&selectedWriterModel!==deepseekModel;
+}
+
+
+export function estimateIndependentCriticSurchargeUsd({
+  criticRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,criticOutputTokens=600
+}={}){
+  if(!criticRoute||!crownRoute)return Infinity;
+  return routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens)+
+    usdPerToken(crownRoute.inputUsdPerMillion,criticOutputTokens);
+}
+
+
+export function estimateRouteWithCacheUsd({route,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
+  if(!route||!Number.isFinite(route.inputUsdPerMillion)||!Number.isFinite(route.outputUsdPerMillion))return Infinity;
+  const cached=Math.max(0,Math.min(Number(cachedInputTokens)||0,inputTokens));
+  const fresh=Math.max(0,inputTokens-cached);
+  return usdPerToken(route.inputUsdPerMillion,fresh)+
+    usdPerToken(route.cacheReadUsdPerMillion??route.inputUsdPerMillion,cached)+
+    usdPerToken(route.outputUsdPerMillion,outputTokens);
+}
+
+export function estimateDirectCrownUsd({crownRoute,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
+  return estimateRouteWithCacheUsd({route:crownRoute,inputTokens,cachedInputTokens,outputTokens});
+}

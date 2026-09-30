@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig,
   estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd,
-  chooseFreshFrontierPath, buildGenericJevControlQuestions } from '../src/openrouter-processor-auction-v5.mjs';
+  chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
+  cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -115,4 +117,80 @@ test('generic Jev control tensor separates execution-shape judgments instead of 
   assert.equal(q.independent_challenge.type,'noul');
   assert.equal(q.hard_reasoning.type,'score');
   assert.equal(q.crown_necessity.type,'noul');
+});
+
+
+const route=(model,input,output,cache=null)=>({model,inputUsdPerMillion:input,outputUsdPerMillion:output,cacheReadUsdPerMillion:cache});
+const crownRoute=route('anthropic/claude-opus-5.5',4,20,.2);
+const mimoRoute=route('xiaomi/mimo-v2.6-flash',.14,.28,.0028);
+const deepseekRoute=route('deepseek/deepseek-v4.1-flash',.13,.52,.0026);
+const solRoute=route('openai/gpt-6.1-sol',2,10,.1);
+
+test('theoretical writer lower bound proves when JEV/prework cannot beat direct Crown',()=>{
+  const low=cheapestPossibleWriterLowerBound({
+    writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:100
+  });
+  assert.equal(low.model,'xiaomi/mimo-v2.6-flash');
+  assert.ok(low.usd>estimateDirectOpusUsd({freshInputTokens:100000,outputTokens:100}));
+});
+
+test('JEV task shape selects MiMo for source-heavy cheap candidate writing',()=>{
+  const d=chooseAdaptiveCandidateWriter({
+    jevAnswers:{task_shape:{choice:'source_heavy'},hard_reasoning:{score:0}},
+    availableRoutes:{mimo:mimoRoute,deepseek:deepseekRoute,sol:solRoute},
+    crownRoute,inputTokens:10000,candidateOutputTokens:3000
+  });
+  assert.equal(d.selected.id,'mimo');
+  assert.ok(d.selected.usd<estimateWriterThenCrownAcceptUsd({writerRoute:solRoute,crownRoute,inputTokens:10000,candidateOutputTokens:3000}));
+});
+
+test('JEV coding shape uses DeepSeek cheap writer before Sol when reasoning is not hard',()=>{
+  const d=chooseAdaptiveCandidateWriter({
+    jevAnswers:{task_shape:{choice:'coding'},hard_reasoning:{score:1}},
+    availableRoutes:{mimo:mimoRoute,deepseek:deepseekRoute,sol:solRoute},
+    crownRoute,inputTokens:4000,candidateOutputTokens:2500
+  });
+  assert.equal(d.selected.id,'deepseek');
+});
+
+test('hard residual refuses cheap writer and selects Sol',()=>{
+  const d=chooseAdaptiveCandidateWriter({
+    jevAnswers:{task_shape:{choice:'research'},hard_reasoning:{score:2}},
+    availableRoutes:{mimo:mimoRoute,deepseek:deepseekRoute,sol:solRoute},
+    crownRoute,inputTokens:4000,candidateOutputTokens:2500
+  });
+  assert.equal(d.selected.id,'sol');
+});
+
+test('independent critic requires high Jev value and a different lineage',()=>{
+  assert.equal(shouldRunIndependentCritic({jevAnswers:{independent_challenge:{noul:.9}},selectedWriterModel:'xiaomi/mimo-v2.6-flash'}),true);
+  assert.equal(shouldRunIndependentCritic({jevAnswers:{independent_challenge:{noul:.4}},selectedWriterModel:'xiaomi/mimo-v2.6-flash'}),false);
+  assert.equal(shouldRunIndependentCritic({jevAnswers:{independent_challenge:{noul:.9}},selectedWriterModel:'deepseek/deepseek-v4.1-flash'}),false);
+});
+
+test('critic surcharge includes both critic inference and extra Crown input',()=>{
+  const x=estimateIndependentCriticSurchargeUsd({
+    criticRoute:deepseekRoute,crownRoute,inputTokens:10000,candidateOutputTokens:3000,criticOutputTokens:500
+  });
+  assert.ok(x>0);
+  assert.ok(x<.02);
+});
+
+
+test('observed cache receipts change path economics using current route cache tariffs',()=>{
+  const fresh=estimateRouteWithCacheUsd({route:crownRoute,inputTokens:100000,cachedInputTokens:0,outputTokens:1000});
+  const warm=estimateRouteWithCacheUsd({route:crownRoute,inputTokens:100000,cachedInputTokens:90000,outputTokens:1000});
+  assert.ok(warm<fresh);
+  assert.equal(estimateDirectCrownUsd({crownRoute,inputTokens:100000,cachedInputTokens:90000,outputTokens:1000}),warm);
+});
+
+test('writer lower bound honors per-model warm cache rather than assuming every input is fresh',()=>{
+  const cold=cheapestPossibleWriterLowerBound({
+    writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:5000
+  });
+  const warm=cheapestPossibleWriterLowerBound({
+    writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:5000,
+    cachedInputByModel:{'deepseek/deepseek-v4.1-flash':100000}
+  });
+  assert.ok(warm.usd<=cold.usd);
 });

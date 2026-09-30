@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "uberbond.infinite-opus.post1059-owner-gate.v1",
+  "observedAt": "2026-09-30T03:48:00+03:00",
+  "main": "a2920d9385c6913ac77062611804ad3f7251daff",
+  "mergedPullRequests": [
+    1053,
+    1054,
+    1055,
+    1056,
+    1057,
+    1058,
+    1059
+  ],
+  "status": "PREOWNER_SOFTWARE_CLOSURE_MERGED__OWNER_LIVE_ACTIVATION_REMAINS",
+  "promptSections": {
+    "total": 74,
+    "sourceClosed": 57,
+    "sourceClosedShare": 0.77027,
+    "ownerOrLivePending": 17
+  },
+  "interpretation": {
+    "preOwnerTechnicallyClosableSoftware": "COMPLETE",
+    "endToEndMission": "NOT_COMPLETE_UNTIL_OWNER_ACTIVATION_AND_LIVE_EVIDENCE",
+    "reason": "The 17 remaining prompt sections require private credentials, real provider calls/bills, elapsed production observation, or empirical live task evidence and therefore cannot be truthfully source-closed."
+  },
+  "firstRealWorkload": {
+    "taskClass": "PROVIDER_SCREENING",
+    "contract": "config/infinite-opus-first-real-workload.json",
+    "exactEliminationAuthority": "E1_DETERMINISTIC_DERIVATION",
+    "unresolvedAuthority": "CURRENT_TASK_CLASS_CROWN_REQUIRED"
+  },
+  "hostileActivationMatrix": {
+    "requiredCases": 27,
+    "status": "MERGED"
+  },
+  "economicPerimeter": {
+    "runtimeKeyUsd": 20,
+    "typingMindKeyUsd": 8,
+    "memberGuardrailUsd": 28,
+    "feeUncertaintyBufferUsd": 2,
+    "targetAllInUsd": 30,
+    "protectedRuntimeCrownReserveUsd": 15
+  },
+  "ownerActions": [
+    "Privately configure the two capped OpenRouter inference keys plus the uberbond-global-28 member guardrail; connect the TypingMind key and approved runtime secrets; return only non-secret evidence.",
+    "Explicitly authorize the <= USD 0.05 no-external-effect canary."
+  ],
+  "postOwnerSequence": [
+    "machine-reconcile key limits plus member guardrail",
+    "run tiny governed canary",
+    "capture provider/model/token/cost receipt and settle reservation",
+    "refresh live market and owner-account callability",
+    "run sealed hidden task-class tournament",
+    "issue Crown Admission Receipts and freeze roles with expiry",
+    "run PROVIDER_SCREENING first real workload",
+    "measure fanout, page-fault rate, actual all-in cost and conservative reference compression"
+  ],
+  "liveUnknowns": [
+    "LIVE_CONNECTED",
+    "PRODUCTION_DEPLOYED",
+    "GENERAL_CROWN",
+    "TASK_CLASS_CROWNS",
+    "ACTUAL_ALL_IN_COST",
+    "REFERENCE_COMPRESSION_FACTOR",
+    "24x7_ENDURANCE"
+  ],
+  "providerCallsPerformedByReceipt": 0,
+  "spendUsdByReceipt": 0,
+  "megaMap": "docs/INFINITE_OPUS_MEGA_MAP_2026-09-30.md",
+  "truthBoundary": "Merged source closure does not establish provider callability, current task-class winners, live deployment, fresh-work frontier equivalence, realized savings or 33,333x compression."
+}

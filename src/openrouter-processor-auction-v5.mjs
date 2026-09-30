@@ -262,3 +262,12 @@ export function shouldRunIndependentCritic({jevAnswers={},selectedWriterModel,de
   const value=jevNoul(jevAnswers,'independent_challenge');
   return Number.isFinite(value)&&value>=0.75&&selectedWriterModel!==deepseekModel;
 }
+
+
+export function estimateIndependentCriticSurchargeUsd({
+  criticRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,criticOutputTokens=600
+}={}){
+  if(!criticRoute||!crownRoute)return Infinity;
+  return routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens)+
+    usdPerToken(crownRoute.inputUsdPerMillion,criticOutputTokens);
+}

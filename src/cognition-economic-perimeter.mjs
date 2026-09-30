@@ -14,7 +14,7 @@ const digest=x=>'sha256:'+crypto.createHash('sha256').update(JSON.stringify(x)).
 export function compileCognitionEconomicPerimeter(input={}){
   const runtime=Number(input.runtimeKeyLimitUsd??RUNTIME_KEY_LIMIT_USD);
   const interactive=Number(input.typingMindKeyLimitUsd??TYPINGMIND_KEY_LIMIT_USD);
-  const account=Number(input.accountGuardrailUsd??MAX_INFERENCE_USD);
+  const account=Number(input.memberGuardrailUsd??input.accountGuardrailUsd??MAX_INFERENCE_USD);
   const feeRate=Number(input.purchaseFeeRate??0.055);
   const other=Array.isArray(input.otherPaidKeyLimitsUsd)?input.otherPaidKeyLimitsUsd.map(Number):[];
   const reasons=[];
@@ -22,7 +22,8 @@ export function compileCognitionEconomicPerimeter(input={}){
   if(cents(runtime)<cents(CROWN_RESERVE_USD)) reasons.push('runtime-key-must-protect-15-dollar-crown-reserve');
   const aggregate=runtime+interactive+other.reduce((a,b)=>a+b,0);
   if(cents(aggregate)>cents(MAX_INFERENCE_USD)) reasons.push('aggregate-key-limits-exceed-28-dollar-inference-envelope');
-  if(cents(account)>cents(MAX_INFERENCE_USD)) reasons.push('account-or-member-guardrail-exceeds-28-dollar-inference-envelope');
+  if(cents(account)>cents(MAX_INFERENCE_USD)) reasons.push('member-guardrail-exceeds-28-dollar-inference-envelope');
+  if(input.guardrailScope!=='MEMBER_ALL_KEYS') reasons.push('member-all-keys-cross-key-guardrail-required');
   if(cents(aggregate)>cents(account)) reasons.push('aggregate-keys-exceed-account-guardrail');
   const worstAllIn=aggregate*(1+feeRate);
   if(cents(worstAllIn)>cents(HARD_ALL_IN_USD)) reasons.push('purchase-fee-adjusted-envelope-exceeds-30-dollars');
@@ -30,7 +31,7 @@ export function compileCognitionEconomicPerimeter(input={}){
   if(input.includeByokInLimits!==true) reasons.push('byok-must-count-toward-provider-limits');
   if(input.legacySpendRoutesBlocked!==true) reasons.push('all-other-cash-metered-routes-must-be-blocked-or-budgeted');
   const plan={schemaVersion:ECONOMIC_PERIMETER_SCHEMA,runtimeKeyLimitUsd:runtime,typingMindKeyLimitUsd:interactive,
-    accountGuardrailUsd:account,aggregateKeyLimitsUsd:aggregate,purchaseFeeRate:feeRate,worstCaseAllInUsd:Number(worstAllIn.toFixed(6)),
+    memberGuardrailUsd:account,guardrailScope:'MEMBER_ALL_KEYS',aggregateKeyLimitsUsd:aggregate,purchaseFeeRate:feeRate,worstCaseAllInUsd:Number(worstAllIn.toFixed(6)),
     crownReserveUsd:CROWN_RESERVE_USD,feeBufferUsd:FEE_BUFFER_USD,limitReset:'monthly',includeByokInLimits:true,
     queueBeforeDowngrade:true,automaticSpendAuthority:false};
   return {ok:reasons.length===0,status:reasons.length?'ECONOMIC_PERIMETER_REFUSED':'ECONOMIC_PERIMETER_CLOSED_BY_CONFIGURATION',reasons,plan,planHash:digest(plan)};

@@ -24,12 +24,12 @@ import {buildRecurrenceMap} from '../src/recurrence-map.mjs';
 const h=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
 
 test('economic perimeter closes at 20 runtime + 8 cockpit under $30 all-in planning envelope',()=>{
- const r=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,accountGuardrailUsd:28,purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
+ const r=compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,memberGuardrailUsd:28,guardrailScope:'MEMBER_ALL_KEYS',purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true});
  assert.equal(r.ok,true); assert.equal(r.plan.crownReserveUsd,15); assert.ok(r.plan.worstCaseAllInUsd<30);
 });
 test('two keys cannot exceed aggregate $28 and stray paid routes fail closed',()=>{
- assert.equal(compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:9,accountGuardrailUsd:28,purchaseFeeRate:.055,limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true}).ok,false);
- assert.equal(compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,accountGuardrailUsd:28,purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[1],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:false}).ok,false);
+ assert.equal(compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:9,memberGuardrailUsd:28,guardrailScope:'MEMBER_ALL_KEYS',purchaseFeeRate:.055,limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:true}).ok,false);
+ assert.equal(compileCognitionEconomicPerimeter({runtimeKeyLimitUsd:20,typingMindKeyLimitUsd:8,memberGuardrailUsd:28,guardrailScope:'MEMBER_ALL_KEYS',purchaseFeeRate:.055,otherPaidKeyLimitsUsd:[1],limitReset:'monthly',includeByokInLimits:true,legacySpendRoutesBlocked:false}).ok,false);
 });
 test('delayed or mismatched provider usage holds global capacity',()=>{
  assert.equal(reconcileChannels({runtimeUsageUsd:1,typingMindUsageUsd:2,providerAccountUsageUsd:3,unsettled:['call']}).status,'UNCERTAIN_CHARGES_HOLD_CAPACITY');

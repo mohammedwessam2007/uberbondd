@@ -7,6 +7,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
 import { executeDecisionFranchise } from './decision-franchise.mjs';
+import { verifyFrontierThoughtBond, thoughtBondAuthorityId } from './frontier-thought-bond.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
@@ -35,7 +36,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
   if (!Number.isSafeInteger(paidMonthlyCapMicrousd) || paidMonthlyCapMicrousd < 15_000_000 || paidMonthlyCapMicrousd > 20_000_000 && paidAuthorization) throw new Error('paid-runtime-cap-must-fit-20-dollar-key-and-15-dollar-crown-reserve');
   routePrices = structuredClone(routePrices);
   paidAuthorization = paidAuthorization ? structuredClone(paidAuthorization) : null;
-  const checkClosure = createSemanticClosureChecker({ authorityRecords });
+  const baseAuthorityRecords = structuredClone(authorityRecords);
   if (!Array.isArray(decisionFranchises) || decisionFranchises.length > 4096) throw new Error('bounded-decision-franchise-registry-required');
   const admittedDecisionFranchises = structuredClone(decisionFranchises);
   const today = () => new Date(clock()).toISOString().slice(0, 10);
@@ -44,7 +45,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     const state = settings[SETTING] ?? {
       schemaVersion: INFINITE_OPUS_TASK_SCHEMA, version: 0,
       ledger: createCognitionLedger({ month: today().slice(0, 7), monthlyCapMicrousd: paidMonthlyCapMicrousd }),
-      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
+      cache: createExactResponseCache(), tasks: {}, debts: {}, capital: {}, thoughtBonds: {}, negativeKnowledge: [], receipts: [], proofLedger: createProvableExecutionLedger({ period: today().slice(0, 7) })
     };
     if (state.schemaVersion !== INFINITE_OPUS_TASK_SCHEMA) throw new Error('runtime-state-schema-drift');
     // Preserve every historical month; unsettled charges block paid capacity.
@@ -63,6 +64,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       else state.ledger.incidents.push({ reason: 'PAID_RUNTIME_CAP_RECONCILIATION_REQUIRED' });
     }
     state.proofLedger ??= createProvableExecutionLedger({ period: today().slice(0, 7) });
+    state.thoughtBonds ??= {};
     if (state.proofLedger.period !== today().slice(0,7)) throw new Error('proof-ledger-month-reconciliation-required');
     cognitionBudgetSummary(state.ledger, today());
     return structuredClone(state);
@@ -86,6 +88,12 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       const taskHash = semanticHash(task), context = await getContext(task);
       return transact(store, async tx => {
         const state = await stateFor(tx), prior = state.tasks[task.taskId];
+        const liveThoughtBondRecords=[];
+        for (const bond of Object.values(state.thoughtBonds)) {
+          const verifiedBond=verifyFrontierThoughtBond({bond,now:clock()});
+          if (verifiedBond.ok) liveThoughtBondRecords.push(verifiedBond.record);
+        }
+        const checkClosure=createSemanticClosureChecker({authorityRecords:[...baseAuthorityRecords,...liveThoughtBondRecords]});
         if (prior && prior.taskHash !== taskHash) throw new Error('task-idempotency-contradiction');
         if (Object.keys(state.tasks).length >= 10000 && !prior) throw new Error('archive-checkpoint-required-before-capacity-growth');
         if (prior?.status === 'CLOSED_DECISION_FRANCHISE') {
@@ -220,7 +228,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const state = await stateFor(tx);
         const pending = Object.values(state.debts).filter(d => d.status !== 'SETTLED' && d.context);
         const plan = coalesceSemanticProofCuts(pending);
-        return zero({ ...plan, unconnectedDebtCount: Object.values(state.debts).filter(d => !d.context && d.status !== 'SETTLED').length });
+        const cuts=plan.cuts.map(c=>({...c,thoughtBondAuthorityId:thoughtBondAuthorityId(c.cutHash),
+          thoughtBondPresent:Boolean(state.thoughtBonds[c.cutHash])}));
+        return zero({ ...plan,cuts, unconnectedDebtCount: Object.values(state.debts).filter(d => !d.context && d.status !== 'SETTLED').length });
       });
     },
     async snapshot() {
@@ -229,7 +239,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         return zero({ schemaVersion: state.schemaVersion, version: state.version,
           budget: cognitionBudgetSummary(state.ledger, today()), metrics: cognitionMetrics(state.receipts),
           taskCount: Object.keys(state.tasks).length, pendingDebts: Object.values(state.debts).filter(d => d.status !== 'SETTLED').length,
-          capitalAssets: Object.keys(state.capital).length, paidConnected: Boolean(paidExecutor && paidAuthorization),
+          capitalAssets: Object.keys(state.capital).length, thoughtBondCount:Object.keys(state.thoughtBonds).length,
+          paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
       });
     },
@@ -237,6 +248,20 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
       return transact(store, async tx => {
         const state = await stateFor(tx);
         return zero(summarizeProvableExecutions({ ledger: state.proofLedger, actualAllInMicrousd }));
+      });
+    },
+    async admitThoughtBond(bond) {
+      const verified=verifyFrontierThoughtBond({bond,now:clock()});
+      if(!verified.ok)return zero({...verified,providerCallsPerformed:0});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),existing=state.thoughtBonds[verified.cutHash];
+        if(existing && existing.bondHash!==bond.bondHash)return zero({ok:false,status:'THOUGHT_BOND_CONFLICT',providerCallsPerformed:0,semanticAuthority:'NONE'});
+        state.thoughtBonds[verified.cutHash]=structuredClone(bond);
+        if(!existing)state.receipts.push({kind:'FRONTIER_THOUGHT_BOND_ADMITTED',cutHash:verified.cutHash,authorityId:verified.authorityId,observedAt:clock()});
+        await persist(tx,state);
+        return zero({ok:true,status:existing?'IDEMPOTENT_THOUGHT_BOND_ADMISSION':'FRONTIER_THOUGHT_BOND_ADMITTED',
+          cutHash:verified.cutHash,authorityId:verified.authorityId,providerCallsPerformed:0,
+          semanticAuthority:'CURRENT_TASK_CLASS_CROWN_BOUND_TO_EXACT_CUT'});
       });
     },
     async preparePaidCall(request) {

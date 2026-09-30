@@ -1,0 +1,23 @@
+export const SEMANTIC_ISA_VERSION='uberbond.semantic-isa.v2';
+const op=(inputTypes,outputType,authority,verifier,costClass,invalidators=[])=>Object.freeze({inputTypes,outputType,preconditions:['TYPED_INPUTS','DEPENDENCIES_CURRENT'],postconditions:['OUTPUT_TYPED','NO_UNDECLARED_SIDE_EFFECT'],authority,verifier,costClass,invalidators});
+export const SEMANTIC_ISA=Object.freeze({
+ LOAD_FACT:op(['FACT_REF'],'FACT','E0_OR_REALITY','HASH_AND_AUTHORITY_CHECK','E0',['SOURCE_CHANGE']),
+ VERIFY_SOURCE:op(['SOURCE_REF'],'SOURCE_STATUS','REALITY_OR_E2','PROVENANCE_FRESHNESS_CHECK','E1',['SOURCE_CHANGE','EXPIRY']),
+ CHECK_FRESHNESS:op(['AUTHORITY_RECORD'],'BOOLEAN','E1','TIMESTAMP_POLICY_CHECK','E0',['CLOCK_OR_POLICY_CHANGE']),
+ COMPARE:op(['TYPED_VALUE','TYPED_VALUE'],'ORDERING','E1','DETERMINISTIC_COMPARATOR','E0',['TYPE_CHANGE']),
+ FILTER:op(['SET','PREDICATE'],'SET','E1','REPLAYABLE_PREDICATE','E0',['PREDICATE_CHANGE','SOURCE_CHANGE']),
+ PROJECT:op(['RECORD','FIELD_SPEC'],'RECORD','E1','SCHEMA_PROJECTION','E0',['SCHEMA_CHANGE']),
+ AGGREGATE:op(['SET','AGGREGATOR'],'TYPED_VALUE','E1','DETERMINISTIC_AGGREGATOR','E0',['INPUT_CHANGE']),
+ CHECK_CONSTRAINT:op(['PROGRAM','CONSTRAINT'],'BOOLEAN','E1','EXACT_CONSTRAINT_CHECK','E0',['CONSTRAINT_CHANGE']),
+ APPLY_POLICY:op(['STATE','POLICY'],'DECISION','E3','EXHAUSTIVE_POLICY_TABLE','E3',['POLICY_CHANGE','STATE_DOMAIN_CHANGE']),
+ GENERATE_COUNTEREXAMPLE:op(['CLAIM','DOMAIN'],'COUNTEREXAMPLE_CANDIDATE','NONE','MUST_BE_INDEPENDENTLY_VERIFIED','WORKER',['DOMAIN_CHANGE']),
+ INVALIDATE:op(['CAPITAL','INVALIDATOR'],'INVALIDATION','E1','EXACT_DEPENDENCY_MATCH','E0',['DEPENDENCY_CHANGE']),
+ ESCALATE:op(['OBLIGATION'],'PAGE_FAULT','NONE','ROUTER_POLICY','E0',[]),
+ PATCH:op(['ARTIFACT','VERIFIED_DELTA'],'ARTIFACT','E2_OR_CROWN','PATCH_EQUIVALENCE_VERIFIER','E2',['BASE_CHANGE','PATCH_CHANGE']),
+ EMIT_CLAIM:op(['CLOSED_ATOM'],'CLAIM','SAME_AS_ATOM','SEMANTIC_CLOSURE_CHECK','E0',['AUTHORITY_EXPIRY'])
+});
+export function validateSemanticProgram(program=[]){
+ const reasons=[]; if(!Array.isArray(program)||program.length>10000)reasons.push('bounded-program-required');
+ for(const [i,row] of program.entries()){if(!row||!SEMANTIC_ISA[row.op])reasons.push(`unknown-op:${i}`);if(row?.sideEffectAuthority&&row.sideEffectAuthority!=='NONE')reasons.push(`side-effect-authority-forbidden:${i}`);}
+ return {ok:reasons.length===0,status:reasons.length?'SEMANTIC_BYTECODE_REFUSED':'SEMANTIC_BYTECODE_VALID',reasons,version:SEMANTIC_ISA_VERSION};
+}

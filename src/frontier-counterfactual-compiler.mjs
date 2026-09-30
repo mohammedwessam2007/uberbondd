@@ -9,6 +9,7 @@ export function compileDirectFrontierCounterfactual({model,providerRoute,canonic
  if(!tokenizerReceipt?.verified||!safe(tokenizerReceipt.inputTokens)||!safe(tokenizerReceipt.outputTokens)||!digest(tokenizerReceipt.tokenizerHash)||!tokenizerReceipt.evidenceRef)reasons.push('verified-tokenizer-receipt-required');
  if(tokenizerReceipt.promptHash!==sha(canonicalPrompt)||tokenizerReceipt.outputHash!==sha(matchedOutput))reasons.push('tokenizer-receipt-content-binding-mismatch');
  if(!priceReceipt?.verified||priceReceipt.model!==model||priceReceipt.providerRoute!==providerRoute||!priceReceipt.evidenceRef||!Number.isFinite(priceReceipt.inputUsdPerMillion)||!Number.isFinite(priceReceipt.outputUsdPerMillion))reasons.push('verified-current-price-receipt-required');
+ if(!safe(economics.cachedInputTokens??0)||(economics.cachedInputTokens??0)>tokenizerReceipt.inputTokens)reasons.push('cached-input-token-bound-required');
  const flags=['cheapestLegitimateRouteVerified','batchEconomicsConsidered','promptCacheEconomicsConsidered','responseCacheEconomicsConsidered','retryEconomicsConsidered'];
  for(const k of flags)if(economics[k]!==true)reasons.push(k+'-required');
  if(reasons.length)return{ok:false,status:'DIRECT_FRONTIER_COUNTERFACTUAL_REFUSED',reasons};

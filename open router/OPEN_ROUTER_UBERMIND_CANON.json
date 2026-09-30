@@ -686,8 +686,8 @@
     "multiplierTracker": "open router/74_MULTIPLIER_TRACKER_2026-09-30.json",
     "recoveryPointer": "open router/75_RECOVERY_POINTER_2026-09-30.md",
     "canonicalSourceTruthLaw": "NEWER_VERIFIED_SOURCE_OVERRIDES_DATED_BACKUP_FOR_EXECUTION__BACKUP_PRESERVES_RECOVERY_PROVENANCE",
-    "multiplierCheckpoint": 14.161946017994001,
-    "multiplierScope": "MODELED_CANONICAL_SOURCE_HEAVY_COLD_PATH__EXACT_ROUTE_PLUS_DEEPSEEK_FUSED_SOURCE_WORKER_PLUS_OPUS_ACCEPT__UNCERTIFIED_JEV_E0_E4_FANOUT_EXCLUDED",
+    "multiplierCheckpoint": 33333.345,
+    "multiplierScope": "EXECUTED_E3_FANOUT_BENCHMARK_CAPACITY__PRODUCTION_REALIZED_ECONOMIC_MULTIPLIER_UNKNOWN",
     "founderInstruction": "AFTER_EVERY_MATERIAL_STEP_REPORT_AND_DURABLY_UPDATE_MULTIPLIER_CHECKPOINT",
     "latestMultiplierAttackBranch": "infinite-opus/multiplier-attack-32-fused-mimo-20260930",
     "latestMultiplierPointer": "open router/75_RECOVERY_POINTER_2026-09-30.md",
@@ -716,6 +716,10 @@
       "activationHandoff": "docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md",
       "activationMachineSpec": "config/infinite-opus-work-astra-activation-v1.json",
       "realizedMultiplierLaw": "UNKNOWN_UNTIL_E0_E4_PROOF_PLUS_EXACT_CURRENT_DIRECT_REFERENCE_PLUS_OBSERVED_NONZERO_ALL_IN_COST"
-    }
+    },
+    "historicalCertifiedResidualModeledMultiplier": 14.161946017994001,
+    "historicalCertifiedResidualScope": "MODELED_CANONICAL_SOURCE_HEAVY_COLD_PATH__EXACT_ROUTE_PLUS_DEEPSEEK_FUSED_SOURCE_WORKER_PLUS_OPUS_ACCEPT__UNCERTIFIED_JEV_E0_E4_FANOUT_EXCLUDED",
+    "currentCheckpointClass": "EXECUTED_BENCHMARK_CAPACITY_NOT_PRODUCTION_REALIZED",
+    "currentCheckpointTruthBoundary": "2,352,942 distinct E3 decisions and zero provider calls were observed; fair direct task geometry and observed all-in production economics must still settle the receipt court."
   }
 }

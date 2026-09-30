@@ -436,6 +436,12 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         state.decisionFranchises[id]={record:structuredClone(certified.record),trustPin:certified.trustPin};
         state.receipts.push({kind:'DECISION_FRANCHISE_ADMITTED',franchiseId:id,trustPin:certified.trustPin,
           observedStateCount:certified.observedStateCount,proofClass:certified.proofClass,observedAt:clock(),providerCallsPerformed:0});
+        const activeCampaign=state.activeCognitiveCapitalCampaignId&&state.cognitiveCapitalCampaigns[state.activeCognitiveCapitalCampaignId];
+        if(activeCampaign&&!activeCampaign.closed&&!activeCampaign.capitalAssets[id]){
+          state.cognitiveCapitalCampaigns[state.activeCognitiveCapitalCampaignId]=registerCognitiveCapitalAsset(activeCampaign,{
+            assetId:id,kind:'DECISION_FRANCHISE',evidenceRef:certified.record.evidenceRef,qualityBasis:'E3_CERTIFIED_BOUNDED_POLICY'
+          });
+        }
         await persist(tx,state);
         return zero({ok:true,status:'DECISION_FRANCHISE_ADMITTED',franchiseId:id,trustPin:certified.trustPin,
           observedStateCount:certified.observedStateCount,proofClass:certified.proofClass,
@@ -510,13 +516,27 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         if (!ledger) throw new Error('known-reconciliation-month-required');
         const settlementDate = month === state.ledger.month ? today() : receipt.settledDate;
         if (typeof settlementDate !== 'string' || settlementDate.slice(0,7) !== month) throw new Error('observed-reconciliation-date-required');
+        const callBefore=ledger.calls.find(c=>c.callId===receipt.callId)??null;
         const settled = settleCognitionCall(ledger, receipt, settlementDate);
         if (month === state.ledger.month) state.ledger = settled.ledger;
         else {
           state.archivedLedgers[month] = settled.ledger;
           if (Object.values(state.archivedLedgers).every(l => !l.incidents.length && !l.calls.some(c => ['RESERVED','DISPATCHED'].includes(c.status)))) state.ledger.incidents = state.ledger.incidents.filter(i => i.reason !== 'HISTORICAL_RECONCILIATION_REQUIRED');
         }
-        if (settled.status !== 'IDEMPOTENT_SETTLEMENT') state.receipts.push({ kind: 'COST', basis: 'OBSERVED_PROVIDER_ONLY', actualMicrousd: receipt.actualMicrousd, receiptRef: receipt.receiptRef });
+        if (settled.status !== 'IDEMPOTENT_SETTLEMENT') {
+          state.receipts.push({ kind: 'COST', basis: 'OBSERVED_PROVIDER_ONLY', actualMicrousd: receipt.actualMicrousd, receiptRef: receipt.receiptRef });
+          const campaignId=state.activeCognitiveCapitalCampaignId, campaign=campaignId?state.cognitiveCapitalCampaigns[campaignId]:null;
+          if(campaign&&!campaign.closed&&month===campaign.period&&Number.isSafeInteger(receipt.actualMicrousd)&&receipt.actualMicrousd>=0&&callBefore){
+            const receiptId='provider:'+receipt.callId;
+            if(!campaign.costReceipts.some(x=>x.receiptId===receiptId)){
+              state.cognitiveCapitalCampaigns[campaignId]=appendObservedCapitalCost(campaign,{
+                receiptId,assetId:callBefore.taskId,costClass:callBefore.role==='CROWN'?'CROWN_INFERENCE':'WORKER_INFERENCE',
+                actualMicrousd:receipt.actualMicrousd,basis:'OBSERVED_EXTERNAL_BILL',evidenceRef:receipt.receiptRef,
+                observedAt:new Date(clock()).toISOString()
+              });
+            }
+          }
+        }
         await persist(tx, state);
         return { ok: settled.ok, status: settled.status, businessEffectAuthority: 'NONE', semanticAuthority: 'NONE' };
       });

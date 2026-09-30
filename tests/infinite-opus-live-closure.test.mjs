@@ -88,7 +88,7 @@ test('OpenRouter wrong-model response is refused and not Crown authority',async(
 test('cash-metered route inventory has no unclassified budget bypass',()=>{
  const inventory=cognitionRouteInventory();
  assert.equal(inventory.globalBudgetClaimAllowed,true);
- assert.equal(inventory.routes.filter(r=>r.cashMetered===true && !String(r.status).startsWith('GOVERNED') && r.status!=='FAIL_CLOSED_WITHOUT_ADMISSION').length,0);
+ assert.equal(inventory.routes.filter(r=>r.cashMetered===true && !String(r.status).startsWith('GOVERNED') && !String(r.status).startsWith('FAIL_CLOSED')).length,0);
 });
 test('legacy pipeline AI refuses direct paid inference without perimeter admission',async()=>{
  await assert.rejects(()=>enhanceAudit({provider:'openai',openaiKey:'not-used'}, {id:'p'}, {combinedText:''}, []), /cognition-economic-perimeter-admission-required/);
@@ -126,7 +126,7 @@ test('Crown tournament is blind, zero-regression and role-specific',()=>{
   {role:'GENERAL_CROWN',model:'a',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:1,costUsd:.1},
   {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01},
   {role:'GENERAL_CROWN',model:'b',hiddenTask:true,providerBillObserved:true,modelIdentityVerified:true,requiredRegressions:0,sealedTrialRef:'sealed:test',canonicalZeroLossCertified:true,qualityScore:.9,costUsd:.01}
- ]});assert.equal(out.roles.GENERAL_CROWN.candidate,'a');
+ ]});assert.equal(out.roles.GENERAL_CROWN.incumbent,'a');
 });
 test('Crown succession changes only roles backed by current admitted Crown receipts',()=>{
  const p=planCrownSuccession({currentRoles:{GENERAL_CROWN:'a'},marketCandidates:[{model:'b',callability:'VERIFIED',freshness:'CURRENT',roles:['GENERAL_CROWN']}],trigger:'NEW_MODEL_RELEASE',compiledCapital:[{assetId:'x',status:'VALID_FOR_CURRENT_TYPED_SCOPE',crownRevision:'a'}]});

@@ -75,7 +75,7 @@ test('OpenRouter adapter verifies key policy, model, usage, generation bill and 
   {status:200,body:{data:{provider_name:'Anthropic',model:'anthropic/claude-opus-5.5',total_cost:.001,tokens_prompt:10,tokens_completion:2}}},
   {status:200,body:{data:{label:'runtime',limit:20,limit_remaining:19.999,usage_monthly:.001,limit_reset:'monthly'}}}
  ];
- const fetchImpl=async(url,opts={})=>{assert.ok(String(opts.headers?.Authorization??'').includes(secret));if(String(url).includes('/chat/completions')){const body=JSON.parse(opts.body);assert.equal(body.provider.zdr,true);assert.equal(body.provider.data_collection,'deny');}const x=responses[n++];return {ok:x.status<300,status:x.status,text:async()=>JSON.stringify(x.body)};};
+ const fetchImpl=async(url,opts={})=>{assert.ok(String(opts.headers?.Authorization??'').includes(secret));if(String(url).includes('/chat/completions')){const body=JSON.parse(opts.body);assert.equal(body.provider.zdr,true);assert.equal(body.provider.data_collection,'deny');assert.equal(body.provider.require_parameters,true);}const x=responses[n++];return {ok:x.status<300,status:x.status,text:async()=>JSON.stringify(x.body)};};
  const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=>secret,fetchImpl,expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION});
  const r=await a.execute({model:'anthropic/claude-opus-5.5',messages:[{role:'user',content:'reply OK'}],maxTokens:4});assert.equal(r.ok,true);assert.equal(r.semanticAuthority,'NONE');assert.ok(!JSON.stringify(r).includes(secret));
 });
@@ -206,4 +206,9 @@ test('management reconciliation refuses unexpected active inference keys',async(
   {hash:'h3',name:'forgotten-key',limit:5,limit_reset:'monthly',usage_monthly:0}
  ]})})});
  const r=await a.listKeyUsage({expectedLabels:['uberbond-runtime-20','uberbond-typingmind-8']});assert.equal(r.ok,false);assert.equal(r.unexpectedActiveKeys.length,1);
+});
+
+test('OpenRouter provider required-parameter policy cannot be loosened',async()=>{
+ const a=createOpenRouterGovernedAdapter({apiKeyProvider:async()=> 'sk-or-v1-xxxxxxxxxxxxxxxx',expectedKeyLimitUsd:20,cognitionPerimeterAdmission:COGNITION_PERIMETER_ADMISSION,fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify({data:{label:'runtime',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}})})});
+ await assert.rejects(()=>a.execute({model:'m',messages:[{role:'user',content:'x'}],maxTokens:1,providerPolicy:{require_parameters:false}}),/required-parameter-support/);
 });

@@ -21,15 +21,17 @@
     "dailySoftTargetUsd": 1,
     "law": "QUEUE_BEFORE_DOWNGRADE",
     "memberGuardrail": {
+      "name": "uberbond-global-28",
       "limitUsd": 28,
       "reset": "monthly",
       "scope": "MEMBER_ALL_KEYS",
-      "purpose": "aggregate cross-key structural cap"
+      "verification": "OPENROUTER_MANAGEMENT_KEY + OPENROUTER_MEMBER_ID"
     }
   },
   "secrets": {
     "runtime": [
-      "OPENROUTER_API_KEY"
+      "OPENROUTER_API_KEY",
+      "OPENROUTER_MANAGEMENT_KEY"
     ],
     "typingMind": [
       "PRIVATE_OPENROUTER_KEY_IN_TYPINGMIND_ONLY"
@@ -79,5 +81,8 @@
     "https://openrouter.ai/docs/api/api-reference/api-keys/get-current-api-key",
     "https://openrouter.ai/docs/api/api-reference/generations/get-request-&-usage-metadata-for-a-generation",
     "https://www.typingmind.com/guide/use-openrouter-api-key-to-chat-with-ai"
+  ],
+  "nonSecretRuntimeIdentifiers": [
+    "OPENROUTER_MEMBER_ID"
   ]
 }

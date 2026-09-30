@@ -116,7 +116,10 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
 
       const crownText=contentText(crown.proposal);
       if(!crownText)return {ok:false,status:'EMPTY_CROWN_PROPOSAL',providerCallsPerformed:2,semanticAuthority:'NONE'};
-      const crownRouteIdentity='openrouter:auto';
+      const crownRouteIdentity=crown.generationReceipt?.router??null;
+      if(!crown.upstreamProvider||!crownRouteIdentity)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_UNOBSERVED',
+        reasons:['observed-upstream-provider-and-router-required'],providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
+        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider??null,observedRouteIdentity:crownRouteIdentity};
       const exactCrown=verifyCrownAdmissionReceipt(crownAdmission,{now:clock(),expected:{
         exactModelId:TYPINGMIND_CROWN_MODEL,
         taskClassRole:'GENERAL_CROWN',
@@ -125,7 +128,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       }});
       if(!exactCrown.ok)return {ok:false,status:'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED',
         reasons:exactCrown.reasons,providerCallsPerformed:2,qualityAction:'QUEUE_NEVER_DOWNGRADE',
-        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider??null,observedRouteIdentity:crownRouteIdentity};
+        semanticAuthority:'NONE',observedUpstreamProvider:crown.upstreamProvider,observedRouteIdentity:crownRouteIdentity};
       const builderCost=Number(builder.observedCostMicrousd??0),crownCost=Number(crown.observedCostMicrousd??0);
       const builderUsage=builder.usage??{},crownUsage=crown.usage??{};
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',
@@ -137,7 +140,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         }}),
         builderReceipt:{providerRequestId:builder.providerRequestId??null,costMicrousd:builderCost},
         crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
-          upstreamProvider:crown.upstreamProvider??null,routeIdentity:'openrouter:auto',
+          upstreamProvider:crown.upstreamProvider??null,routeIdentity:crownRouteIdentity,
           generationReceipt:crown.generationReceipt??null},
         semanticAuthority:'CURRENT_TASK_CLASS_CROWN',
         sideEffectAuthority:'NONE',

@@ -6,11 +6,15 @@ Status: owner-only activation guide. No provider call has been made by this pack
 
 Create two separate keys so compromise of the interactive cockpit cannot consume the protected runtime reserve:
 
-- `uberbond-runtime`: **USD 20/month**, monthly reset, include BYOK usage in limit.
-- `uberbond-typingmind`: **USD 8/month**, monthly reset, include BYOK usage in limit.
+- `uberbond-runtime-20`: **USD 20/month**, monthly reset, include BYOK usage in limit.
+- `uberbond-typingmind-8`: **USD 8/month**, monthly reset, include BYOK usage in limit.
 - Keep **USD 2** outside the inference-key envelope as fee/uncertainty buffer. With the current planning fee allowance of 5.5%, a full USD 28 of key-limited inference remains below the USD 30 all-in target.
 
 OpenRouter's current key API exposes `limit`, `limit_remaining`, `limit_reset`, and monthly usage. The generation endpoint exposes provider/model/token/cost metadata for reconciliation.
+
+## Cross-key structural guardrail
+
+Assign a **USD 28/month member guardrail** to the founder/member that owns these keys. OpenRouter currently documents member budgets as accumulating across that member's keys, while each key keeps its own limit; the lower applicable limit wins. This prevents the two keys, or an accidentally created extra key under the same member, from jointly exceeding the inference envelope. The management reconciliation still refuses unexpected active keys so account hygiene remains explicit.
 
 ## Runtime
 

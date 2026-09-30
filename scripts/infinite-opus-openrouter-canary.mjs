@@ -35,7 +35,7 @@ try{
  const prepared=await runtime.preparePaidCall({callId,taskId,model:authorization.model,provider:'openrouter',qualityClass:'CANARY_TRANSPORT_ONLY',role:'WORKER',cacheState:'MISS',ceilingMicrousd});
  if(!prepared.ok){console.log(JSON.stringify({ok:false,status:prepared.status,providerCallsPerformed:0},null,2));process.exitCode=2;}
  else {
-  const result=await runtime.dispatchPaidCall(callId,{model:authorization.model,task:{taskId,objective:authorization.task,consequenceClass:'LOCAL_PREPARATION'},maxTokens:8,costCeilingCents:Math.max(1,Math.floor(Number(authorization.maximumSpendUsd)*100))});
+  const result=await runtime.dispatchPaidCall(callId,{model:authorization.model,task:{taskId,objective:authorization.task,consequenceClass:'LOCAL_PREPARATION'},maxTokens:8,inputTokenCeiling:2048,costCeilingCents:Math.max(1,Math.floor(Number(authorization.maximumSpendUsd)*100))});
   const receipt={...result,authorizationId:authorization.authorizationId,observedAt:new Date().toISOString(),externalEffects:[],secretReturned:false,semanticPromotion:false};
   if(outputPath)fs.writeFileSync(path.resolve(outputPath),JSON.stringify(receipt,null,2)+'\n',{mode:0o600});
   console.log(JSON.stringify(receipt,null,2)); if(!result.ok)process.exitCode=2;

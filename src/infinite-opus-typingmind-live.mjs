@@ -20,6 +20,11 @@ const contentText=message=>{
 };
 const centsFor=microusd=>Math.max(1,Math.ceil(microusd/10000));
 const routeKey=(provider,model)=>provider+':'+model;
+const validHmacKey=key=>typeof key==='string'&&/^[a-f0-9]{64}$/i.test(key);
+const privateFingerprint=(key,domain,value)=>{
+  if(!validHmacKey(key))throw new Error('runtime-recurrence-hmac-key-required');
+  return 'hmac-sha256:'+crypto.createHmac('sha256',Buffer.from(key,'hex')).update('uberbond-infinite-opus:'+domain+'\0'+String(value)).digest('hex');
+};
 
 function activeAuthorization(paidAuthorization,now=Date.now()){
   return paidAuthorization?.evidenceRef &&
@@ -29,9 +34,10 @@ function activeAuthorization(paidAuthorization,now=Date.now()){
     Date.parse(paidAuthorization.expiresAt)>now;
 }
 
-export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent=false,now=Date.now()}={}){
+export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent=false,recurrenceHmacKeyPresent=false,now=Date.now()}={}){
   const reasons=[];
   if(!openRouterKeyPresent)reasons.push('runtime-openrouter-key-absent');
+  if(!recurrenceHmacKeyPresent)reasons.push('runtime-recurrence-hmac-key-absent');
   if(!activeAuthorization(paidAuthorization,now))reasons.push('current-20-dollar-runtime-authorization-required');
   if(!(paidAuthorization?.crownRoutes??[]).includes(routeKey('openrouter',TYPINGMIND_CROWN_MODEL)))reasons.push('opus-crown-route-not-authorized');
   const crown=verifyCrownAdmissionReceipt(crownAdmission,{now,expected:{exactModelId:TYPINGMIND_CROWN_MODEL,taskClassRole:'GENERAL_CROWN',routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY}});
@@ -44,8 +50,8 @@ export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission
     jevRawChatSuppressionAuthority:'NONE'};
 }
 
-export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthorization,crownAdmission,marketSnapshot,fetchImpl=fetch,clock=Date.now}={}){
-  const ready=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(openRouterKey),now:clock()});
+export function createTypingMindLiveOrchestrator({store,openRouterKey,recurrenceHmacKey,paidAuthorization,crownAdmission,marketSnapshot,fetchImpl=fetch,clock=Date.now}={}){
+  const ready=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(openRouterKey),recurrenceHmacKeyPresent:validHmacKey(recurrenceHmacKey),now:clock()});
   if(!ready.ok)return {readiness:()=>ready,execute:async()=>({ok:false,status:ready.status,reasons:ready.reasons,providerCallsPerformed:0,semanticAuthority:'NONE'})};
   const builderRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,clock());
   const crownRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_CROWN_MODEL,clock());
@@ -138,10 +144,14 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         providerCalls:2,actualCostUsd:(builderCost+crownCost)/1e6
       }});
       const finalText=String(completion?.choices?.[0]?.message?.content??'');
-      const finalOutputHash='sha256:'+crypto.createHash('sha256').update(finalText).digest('hex');
+      // Durable recurrence fingerprints are HMACs, not raw SHA-256 content
+      // hashes, so short prompts/answers cannot be dictionary-recovered from
+      // the persisted intelligence-capital metadata.
+      const recurrenceFingerprint=privateFingerprint(recurrenceHmacKey,'request',request.requestFingerprint);
+      const finalOutputFingerprint=privateFingerprint(recurrenceHmacKey,'approved-output',finalText);
       const capitalizationReceipt={
-        requestFingerprint:request.requestFingerprint,
-        finalOutputHash,
+        recurrenceFingerprint,
+        finalOutputFingerprint,
         crownAdmissionReceiptHash:crownAdmission.receiptHash,
         crownProviderRequestId:crown.providerRequestId,
         observedUpstreamProvider:crown.upstreamProvider,

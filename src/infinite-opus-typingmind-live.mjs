@@ -219,7 +219,8 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     ];
   }
 
-  async function runDirectCrown(request,{jevShadow=null,routeCandidates=[],reason='DIRECT_OPUS_COST_WINNER'}={}){
+  async function runDirectCrown(request,{jevShadow=null,routeCandidates=[],reason='DIRECT_OPUS_COST_WINNER',
+    sunkCostMicrousd=0,sunkProviderCalls=0,sunkUsage={}}={}){
     const directMessages=buildDirectCrownMessages(request);
     const directBytes=Buffer.byteLength(JSON.stringify(directMessages));
     const crown=await call({
@@ -230,20 +231,22 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     });
     const jevCalls=Number(jevShadow?.providerCallsPerformed??0);
     if(!crown.ok)return {ok:false,status:crown.status??'CROWN_FAILED_OR_QUEUED',
-      providerCallsPerformed:jevCalls+(crown.providerCallsPerformed??0),qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE'};
-    const checked=await verifyCrown(crown,jevCalls+1);if(!checked.ok)return checked;
+      providerCallsPerformed:sunkProviderCalls+jevCalls+(crown.providerCallsPerformed??0),qualityAction:'QUEUE_NEVER_DOWNGRADE',semanticAuthority:'NONE',
+      sunkCostMicrousd:Number(sunkCostMicrousd??0)+Number(jevShadow?.observedCostMicrousd??0)};
+    const checked=await verifyCrown(crown,sunkProviderCalls+jevCalls+1);if(!checked.ok)return checked;
     const crownCost=Number(crown.observedCostMicrousd??0),jevCost=Number(jevShadow?.observedCostMicrousd??0),usage=crown.usage??{};
+    const sunkCost=Number(sunkCostMicrousd??0);
     return {ok:true,status:'TYPINGMIND_UBERMIND_DIRECT_CROWN_RESPONSE',
       completion:openAICompatibleDirectCrownCompletion({request,crownText:checked.crownText,usage:{
-        promptTokens:Number(usage.inputTokens??0)+Number(jevShadow?.usage?.inputTokens??0),
-        completionTokens:Number(usage.outputTokens??0)+Number(jevShadow?.usage?.outputTokens??0),
-        crownModel:TYPINGMIND_CROWN_MODEL,providerCalls:jevCalls+1,actualCostUsd:(crownCost+jevCost)/1e6
+        promptTokens:Number(usage.inputTokens??0)+Number(jevShadow?.usage?.inputTokens??0)+Number(sunkUsage?.inputTokens??0),
+        completionTokens:Number(usage.outputTokens??0)+Number(jevShadow?.usage?.outputTokens??0)+Number(sunkUsage?.outputTokens??0),
+        crownModel:TYPINGMIND_CROWN_MODEL,providerCalls:sunkProviderCalls+jevCalls+1,actualCostUsd:(sunkCost+crownCost+jevCost)/1e6
       }}),
       crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
         upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,
         openRouterRouter:crown.generationReceipt?.router??null,generationReceipt:crown.generationReceipt??null},
       semanticAuthority:'CURRENT_TASK_CLASS_CROWN',sideEffectAuthority:'NONE',
-      routeDecision:{selected:'DIRECT_OPUS',reason,candidates:routeCandidates},
+      routeDecision:{selected:'DIRECT_OPUS',reason,candidates:routeCandidates,sunkCostMicrousd:sunkCost},
       jev:{mode:jevShadow?.ok?'SHADOW_OBSERVED_BEFORE_DIRECT':'NOT_NEEDED_OR_UNAVAILABLE',usedToSuppressCrown:false,
         answers:jevShadow?.proposal?.answers??null,costMicrousd:jevCost}
     };
@@ -336,7 +339,10 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         return runDirectCrown(request,{
           jevShadow,
           routeCandidates:[{path:'DIRECT_OPUS',usd:directUsd},{path:writerId.toUpperCase()+'_THEN_OPUS',usd:writerDecision.selected.usd}],
-          reason:'CANDIDATE_WRITER_FAILED_FALLBACK_DIRECT_CROWN'
+          reason:'CANDIDATE_WRITER_FAILED_FALLBACK_DIRECT_CROWN',
+          sunkCostMicrousd:Number(writer.observedCostMicrousd??0),
+          sunkProviderCalls:Number(writer.providerCallsPerformed??0),
+          sunkUsage:writer.usage??{}
         });
       }
 
@@ -345,7 +351,10 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         return runDirectCrown(request,{
           jevShadow,
           routeCandidates:[{path:'DIRECT_OPUS',usd:directUsd},{path:writerId.toUpperCase()+'_THEN_OPUS',usd:writerDecision.selected.usd}],
-          reason:'EMPTY_CANDIDATE_FALLBACK_DIRECT_CROWN'
+          reason:'EMPTY_CANDIDATE_FALLBACK_DIRECT_CROWN',
+          sunkCostMicrousd:Number(writer.observedCostMicrousd??0),
+          sunkProviderCalls:Number(writer.providerCallsPerformed??0),
+          sunkUsage:writer.usage??{}
         });
       }
 

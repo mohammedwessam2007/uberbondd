@@ -121,6 +121,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         asset.lastValidatedAt = clock();
         asset.compiledConsumerHashes ??= [];
         asset.compiledTasksServed ??= [];
+        asset.provableConsumerHashes ??= [];
+        asset.provableTasksServed ??= [];
         const consumerSemanticHash = semanticHash({
           taskClass: task.taskClass,
           obligation: task.obligation ?? null,
@@ -139,7 +141,6 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           if (['E1','E2','E3','E4'].includes(executionClass) && !asset.compiledConsumerHashes.includes(consumerSemanticHash)) {
             asset.compiledConsumerHashes.push(consumerSemanticHash);
             asset.compiledTasksServed.push(task.taskId);
-            asset.crownCallsAvoided = Math.max(0, asset.compiledConsumerHashes.length - 1);
             state.receipts.push({
               kind:'DECISION_FRANCHISE_USE', assetId:closure.artifactHash, taskId:task.taskId,
               consumerSemanticHash, executionClass, observedAt:clock(),
@@ -157,6 +158,16 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
                 referenceContractHash: reference.referenceContractHash, directReference: reference.directReference
               });
               state.receipts.push({ kind: 'PROVABLE_EXECUTION', taskId: task.taskId, executionClass, referenceContractHash: reference.referenceContractHash, observedAt: clock() });
+              if (['E1','E2','E3','E4'].includes(executionClass) && !asset.provableConsumerHashes.includes(consumerSemanticHash)) {
+                asset.provableConsumerHashes.push(consumerSemanticHash);
+                asset.provableTasksServed.push(task.taskId);
+                asset.crownCallsAvoided = Math.max(0, asset.provableConsumerHashes.length - 1);
+                state.receipts.push({
+                  kind:'PROVABLE_FRANCHISE_USE', assetId:closure.artifactHash, taskId:task.taskId,
+                  consumerSemanticHash, executionClass, referenceContractHash:reference.referenceContractHash,
+                  observedAt:clock()
+                });
+              }
             } else state.receipts.push({ kind: 'REFERENCE_CONTRACT_MISSING', taskId: task.taskId, executionClass, observedAt: clock() });
           }
         }
@@ -184,6 +195,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           capital: Object.fromEntries(Object.entries(state.capital).map(([id,a])=>[id,{
             tasksServed:a.tasksServed?.length??0,
             compiledNonIdenticalConsumers:a.compiledConsumerHashes?.length??0,
+            provableNonIdenticalConsumers:a.provableConsumerHashes?.length??0,
             crownCallsAvoided:a.crownCallsAvoided??0,
             status:a.status
           }])),

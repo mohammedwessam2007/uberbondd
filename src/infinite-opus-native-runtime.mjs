@@ -85,15 +85,26 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const state = await stateFor(tx), prior = state.tasks[task.taskId];
         if (prior && prior.taskHash !== taskHash) throw new Error('task-idempotency-contradiction');
         if (Object.keys(state.tasks).length >= 10000 && !prior) throw new Error('archive-checkpoint-required-before-capacity-growth');
+        let capitalReuse = null;
+        if (task.capitalAssetId != null) {
+          if (typeof task.capitalAssetId !== 'string' || !/^[a-f0-9]{64}$/.test(task.capitalAssetId)) throw new Error('valid-capital-asset-id-required');
+          if (task.artifact != null) throw new Error('capital-reuse-and-inline-artifact-are-mutually-exclusive');
+          const stored = state.capital[task.capitalAssetId];
+          if (!stored || stored.status !== 'VALID_FOR_CURRENT_TYPED_SCOPE') throw new Error('known-current-capital-asset-required');
+          capitalReuse = structuredClone(stored);
+        }
         let cacheHit = null;
-        if (context && task.request) {
+        if (context && task.request && !capitalReuse) {
           if (task.request.semanticStateHash !== semanticHash(context) || semanticHash(task.request.sourceHashes) !== semanticHash(context.sourceHashes) || task.request.qualityContractHash !== context.qualityContractHash) throw new Error('request-context-binding-mismatch');
           cacheHit = readExactResponse(state.cache, { request: task.request, context, checkClosure, now: clock() });
           state.cache = cacheHit.cache;
         }
         if (cacheHit?.ok) state.receipts.push({ kind: 'CACHE_HIT', taskId: task.taskId, observedAt: clock() });
-        const artifact = cacheHit?.ok ? cacheHit.artifact : task.artifact;
+        if (capitalReuse) state.receipts.push({ kind:'CAPITAL_REUSE_ATTEMPT', taskId:task.taskId, assetId:task.capitalAssetId, observedAt:clock() });
+        const artifact = cacheHit?.ok ? cacheHit.artifact : capitalReuse ? capitalReuse.artifact : task.artifact;
+        if (!artifact) throw new Error('artifact-or-current-capital-asset-required');
         const closure = context ? checkClosure({ artifact, context, now: clock() }) : { ok: false, reasonCodes: ['TRUSTED_CONTEXT_NOT_CONNECTED'] };
+        if (capitalReuse && closure.ok && closure.artifactHash !== task.capitalAssetId) throw new Error('capital-asset-hash-drift');
         if (!closure.ok) {
           if (!task.obligation) throw new Error('typed-unresolved-obligation-required');
           state.negativeKnowledge.push({ failureId: semanticHash({ taskHash, context, reasons: closure.reasonCodes }), reasons: closure.reasonCodes, taskClass: task.taskClass, observedAt: clock(), semanticAuthority: 'NONE' });
@@ -172,8 +183,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           }
         }
         await persist(tx, state);
-        return zero({ ok: true, status: 'CLOSED_TYPED_ARTIFACT', output, artifactHash: closure.artifactHash,
-          cacheStatus: cacheHit?.status ?? 'NOT_REQUESTED', providerCallsPerformed: 0,
+        return zero({ ok: true, status: capitalReuse ? 'CLOSED_VIA_DECISION_FRANCHISE' : 'CLOSED_TYPED_ARTIFACT', output, artifactHash: closure.artifactHash,
+          cacheStatus: cacheHit?.status ?? 'NOT_REQUESTED', capitalReuse: Boolean(capitalReuse), providerCallsPerformed: 0,
           unrestrictedProseCertified: false });
       });
     },

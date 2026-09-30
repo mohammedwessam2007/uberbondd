@@ -43,7 +43,7 @@
       "id": "H07",
       "attack": "cached response billed unexpectedly",
       "file": "tests/infinite-opus-live-closure.test.mjs",
-      "needle": "cache miss records zero cached tokens while preserving observed provider cost"
+      "needle": "cached response with inconsistent provider bill is refused"
     },
     {
       "id": "H08",
@@ -133,7 +133,7 @@
       "id": "H22",
       "attack": "budget rollover",
       "file": "tests/infinite-opus.test.mjs",
-      "needle": "explicit-month-rollover-required"
+      "needle": "2026-10-01"
     },
     {
       "id": "H23",

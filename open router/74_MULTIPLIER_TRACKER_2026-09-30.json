@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.openrouter.multiplier-tracker.v1",
-  "updatedAt": "2026-09-30T20:36:00+03:00",
+  "updatedAt": "2026-09-30T21:10:00+03:00",
   "qualityReference": "Claude Opus 5.5-quality or better",
   "metric": "matched_direct_opus_5_5_reference_cost / modeled_or_observed_ubermind_all_in_cost",
   "checkpoints": [
@@ -16,6 +16,27 @@
       "workload": "200k source -> 5k exact-anchored evidence -> Sol 2.5k answer -> DeepSeek 300-token audit -> Opus 6-token ACCEPT",
       "directOpusUsd": 0.85,
       "uberMindUsd": 0.096851
+    },
+    {
+      "label": "canonical-source-heavy-v6-fused-mimo",
+      "multiplier": 13.588911448258221,
+      "status": "MODELED_FROM_CURRENT_PUBLIC_TARIFFS_AND_TOKEN_GEOMETRY__OPUS_FINAL_AUTHORITY_UNCHANGED",
+      "workload": "200k source -> one MiMo pass emits 5k exact-anchored evidence + 2.5k candidate -> DeepSeek 300-token audit -> Opus 6-token ACCEPT",
+      "directOpusUsd": 0.85,
+      "uberMindUsd": 0.062551,
+      "deltaFromPrior": {
+        "priorMultiplier": 8.77636782273802,
+        "priorUberMindUsd": 0.096851,
+        "removed": "separate GPT-6.1 Sol builder call",
+        "preserved": [
+          "same 200k source",
+          "same 5k exact-anchored evidence contract",
+          "same 2.5k finished candidate",
+          "same DeepSeek audit",
+          "same Opus Crown final semantic gate"
+        ],
+        "qualityLaw": "MiMo remains proposal-only; checkpoint is valid only on Crown ACCEPT/PATCH/REWRITE path."
+      }
     }
   ],
   "excludedFromCurrentNumber": [
@@ -33,5 +54,8 @@
     "systemwideReuseCeiling": "NO_FINITE_CEILING_UNDER_UNBOUNDED_VALID_REUSE_FANOUT",
     "explanation": "A verified Opus-quality semantic asset can serve arbitrarily many valid consumers while marginal model inference tends toward zero."
   },
-  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone."
+  "updateLaw": "After every material architecture or economics step, recompute and append a checkpoint. Never increase the number from unverified design capability alone.",
+  "currentCanonicalModeledMultiplier": 13.588911448258221,
+  "currentCanonicalModeledUberMindUsd": 0.062551,
+  "currentCanonicalWorkload": "200k source -> fused MiMo evidence+candidate -> DeepSeek audit -> Opus Crown"
 }

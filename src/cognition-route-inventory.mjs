@@ -1,6 +1,7 @@
 export const COGNITION_ROUTE_INVENTORY_SCHEMA='uberbond.cognition-route-inventory.v1';
 export const COGNITION_ROUTES=Object.freeze([
  {id:'openrouter-agent-worker',source:'src/openrouter-agent-executor.mjs',transport:'OPENROUTER',cashMetered:true,admission:'EXISTING_AGENT_WORKER_COMPUTE_BUDGET',status:'GOVERNED_WHEN_CALLED_THROUGH_CANONICAL_FACTORY'},
+ {id:'openrouter-governed-transport',source:'src/openrouter-governed-adapter.mjs',transport:'OPENROUTER',cashMetered:true,costClass:'CASH_API_SPEND',admission:'COGNITION_PERIMETER_CAPABILITY_PLUS_CALLER_LEDGER_RESERVATION',status:'FAIL_CLOSED_WITHOUT_ADMISSION'},
  {id:'openrouter-infinite-opus',source:'src/infinite-opus-provider.mjs',transport:'OPENROUTER',cashMetered:true,admission:'INFINITE_OPUS_DURABLE_LEDGER',status:'GOVERNED'},
  {id:'openai-agent-worker',source:'src/openai-agent-executor.mjs',transport:'OPENAI_DIRECT',cashMetered:true,admission:'INFINITE_OPUS_OPENROUTER_ONLY_FACTORY_GATE',status:'FAIL_CLOSED_IN_OPENROUTER_ONLY_CASH_MODE'},
  {id:'anthropic-agent-worker',source:'src/anthropic-agent-executor.mjs',transport:'ANTHROPIC_DIRECT',cashMetered:true,admission:'INFINITE_OPUS_OPENROUTER_ONLY_FACTORY_GATE',status:'FAIL_CLOSED_IN_OPENROUTER_ONLY_CASH_MODE'},

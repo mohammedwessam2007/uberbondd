@@ -21,3 +21,7 @@ Before any paid call, the runtime must verify its current key reports the expect
 ## Rollback
 
 Disable/revoke the affected OpenRouter key. The software ledger keeps dispatched uncertain reservations held until provider billing is reconciled. Crown roles are not promoted from a failed smoke.
+
+## Optional machine reconciliation without sharing the TypingMind inference key
+
+Create a dedicated OpenRouter **Management API key** and store it only as `OPENROUTER_MANAGEMENT_KEY` in the approved runtime secret manager. It is administrative-only and is not an inference credential. UberBond can then read both named keys' monthly limits and usage, reconcile the structural $20 + $8 envelope, and emit a non-secret receipt. The management secret itself must never enter Git, chat, receipts, or logs.

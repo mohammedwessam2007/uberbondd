@@ -62,3 +62,39 @@ export function proveReferenceEconomics({workItems=[],actualAllInMicrousd,target
     theoremBoundary:'FOR_E0_E4_ONLY: QUALITY_EQUIVALENCE_IS_SUPPLIED_BY THE VERIFIED PROOF. THIS LEDGER PROVES COUNTERFACTUAL DIRECT-FRONTIER COST AVOIDANCE, NOT MARKET VALUE, RAW GPU FLOPS, OR E5/E6 QUALITY.' ,
     rows};
 }
+
+
+export function planCertifiedFanoutTarget({
+  seedActualMicrousd,
+  matchedDirectUnitMicrousd,
+  maxActualMicrousd=30_000_000,
+  targetReferenceMicrousd=1_000_000_000_000,
+  targetMultiplier=33333.333333333336,
+  marginalCertifiedExecutionMicrousd=0
+}={}){
+  for(const [name,value] of Object.entries({seedActualMicrousd,matchedDirectUnitMicrousd,maxActualMicrousd,targetReferenceMicrousd,marginalCertifiedExecutionMicrousd})){
+    if(!safeInt(value)||(name!=='marginalCertifiedExecutionMicrousd'&&value<1))throw new Error('valid-fanout-planning-economics-required:'+name);
+  }
+  if(!Number.isFinite(targetMultiplier)||targetMultiplier<=0)throw new Error('valid-target-multiplier-required');
+  const maxSeeds=Math.floor(maxActualMicrousd/seedActualMicrousd);
+  if(maxSeeds<1)return {ok:false,status:'SEED_COST_EXCEEDS_BUDGET',maxSeeds:0};
+  const fanoutForReference=Math.ceil(targetReferenceMicrousd/(maxSeeds*matchedDirectUnitMicrousd));
+  const denominator=matchedDirectUnitMicrousd-targetMultiplier*marginalCertifiedExecutionMicrousd;
+  const fanoutForRatio=denominator>0
+    ? Math.ceil((targetMultiplier*seedActualMicrousd)/denominator)
+    : Infinity;
+  const requiredFanoutPerSeed=Math.max(fanoutForReference,fanoutForRatio);
+  const referenceAtPlan=maxSeeds*requiredFanoutPerSeed*matchedDirectUnitMicrousd;
+  const actualAtPlan=maxSeeds*(seedActualMicrousd+requiredFanoutPerSeed*marginalCertifiedExecutionMicrousd);
+  const factor=actualAtPlan>0?referenceAtPlan/actualAtPlan:null;
+  return {
+    ok:Number.isFinite(requiredFanoutPerSeed)&&actualAtPlan<=maxActualMicrousd,
+    status:Number.isFinite(requiredFanoutPerSeed)&&actualAtPlan<=maxActualMicrousd?'FANOUT_TARGET_FEASIBLE_UNDER_MODEL':'FANOUT_TARGET_NOT_FEASIBLE_UNDER_MODEL',
+    maxSeeds,requiredFanoutPerSeed,fanoutForReference,fanoutForRatio,
+    referenceAtPlanMicrousd:referenceAtPlan,actualAtPlanMicrousd:actualAtPlan,
+    modeledCompressionFactor:factor,
+    targetReferenceMicrousd,targetMultiplier,maxActualMicrousd,
+    marginalCertifiedExecutionMicrousd,
+    proofBoundary:'PLANNING_ONLY__DOES_NOT_CREATE_EQUIVALENCE_PROOF_FANOUT_OR_REFERENCE_VALUE'
+  };
+}

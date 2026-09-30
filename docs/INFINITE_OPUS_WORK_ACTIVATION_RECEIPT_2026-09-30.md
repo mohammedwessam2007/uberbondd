@@ -13,7 +13,7 @@ This receipt records observed setup state; it does not grant spend or Crown auth
 - Render deploy `dep-daunocmi4rts73fmdj3g` is live on the source main above.
 - Authenticated TypingMind Test & Save reaches the redeployed gateway. The runtime-openrouter-key-absent reason is gone.
 - Prior direct TypingMind MiMo/GMICloud billing records were recovered: USD0.0000403 and USD0.000093, total USD0.0001333. These are existing direct transport records, not gateway/Crown proof.
-- No new provider inference or credit purchase was performed by Work in this activation.
+- One new canonical governed canary was executed under the approved USD0.05 ceiling. Observed provider cost was USD0.00001155 (ledger rounded to 12 microusd). No credit purchase or compute upgrade was made.
 
 ## Remaining live gate
 Gateway returned `TYPINGMIND_UBERMIND_LIVE_NOT_READY` with:
@@ -25,11 +25,22 @@ TypingMind's custom-model form is prepared but not saved because Test & Save ref
 
 Founder expressly approved provider-key reuse in Render, the USD20/month safety cap, and a canary costing at most USD0.05. A key cap is not independently a paid-runtime authorization receipt. Do not manufacture a receipt or Crown evidence to remove these gates.
 
-## Execution blocker
-The Render Shell UI explicitly reports that Shell, SSH and one-off jobs are unavailable on free compute. No compute upgrade was purchased. The canonical `scripts/infinite-opus-openrouter-canary.mjs` was inspected but not executed. It needs a real host with the protected runtime secret, a current explicit canary authorization and fresh route prices. Its checked-in canary route price expires 2026-10-01T00:00:00Z; revalidate rather than extend timestamps without evidence.
+## Supported execution path and receipt
+Free compute still excludes Shell, SSH and one-off jobs. The supported build-command feature executed the canonical canary without changing the compute plan. A PostgreSQL settings INSERT ON CONFLICT DO NOTHING claimed authorization `typingmind-recovery-canary-20260930-once-v1` before the paid script ran; later deployments cannot repeat this authorization automatically. Its final receipt is durably stored under `work:typingmind-recovery-canary-20260930-once-v1`.
 
+Render deployment: `dep-daunu0gjo6nc73dtj89g`, source main unchanged.
+Observed at: 2026-09-30T21:28:55.096Z.
+Status: `PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY`, ok true.
+Provider calls performed: 1.
+Requested and observed model: `xiaomi/mimo-v2.6-flash`.
+Observed provider: `openrouter`; upstream provider and model revision remain null.
+Request ID: `gen-1790803734-sdPeevPvChO5ON1U4LvY`.
+Cost basis: `OPENROUTER_USAGE_COST_OBSERVED`, USD0.00001155.
+External effects: none; semantic and business-effect authority: NONE.
+A full generation reconciliation receipt remains null; do not present this as Crown evidence.
+The original build command `npm install --omit=dev` was restored and verified after execution. Canonical route price expires 2026-10-01T00:00:00Z; revalidate before any new authorized run.
 ## Exact continuation
-Run the bounded canonical canary on an authorized execution host, reconcile provider generation/bill/key-limit evidence, and obtain the separately owner-approved current monthly runtime receipt. Then have an independent sealed custodian run the GENERAL_CROWN tournament, keeping raw tasks/answers outside Git and the optimizing agent's context. Adjudicate and mint only from actual observed provider/model/billing evidence. Set the two non-secret receipts on Render, redeploy, verify live readiness, and finish TypingMind Test & Save.
+Reconcile the observed canary generation/bill evidence without repeating the paid call, and obtain the separately owner-approved current monthly runtime receipt. Then have an independent sealed custodian run the GENERAL_CROWN tournament, keeping raw tasks/answers outside Git and the optimizing agent's context. Adjudicate and mint only from actual observed provider/model/billing evidence. Set the two non-secret receipts on Render, redeploy, verify live readiness, and finish TypingMind Test & Save.
 
 Never downgrade quality, fake an OpenAI-compatible successful answer to bypass Test & Save, or substitute direct provider chat for the Frontier VM/JEV parent architecture.
 

@@ -377,3 +377,39 @@ export function mintDecisionFranchiseFromClosure({
       semanticAuthority:'E0_E4_VERIFIED_FRANCHISE_ONLY',externalEffectAuthority:'NONE'};
   } catch(error) { return fail(String(error?.message||error)); }
 }
+
+
+export function executeDecisionFranchise({ record, trustPin, taskClass, qualityContractHash, state, currentContext, now = Date.now() } = {}) {
+  const fail = reason => ({ ok:false,status:'DECISION_FRANCHISE_PAGE_FAULT',reasons:[reason],providerCalls:0,semanticAuthority:'NONE',externalEffectAuthority:'NONE' });
+  try {
+    if (!plain(record) || record.kind!=='DECISION_FRANCHISE' || record.status!=='ACTIVE') throw new Error('active-decision-franchise-required');
+    if (!sha(trustPin) || semanticHash(record)!==trustPin) throw new Error('decision-franchise-trust-pin-mismatch');
+    const expiry=Date.parse(record.expiresAt);
+    if (!Number.isFinite(expiry) || expiry<=now) throw new Error('decision-franchise-expired');
+    if (!plain(currentContext) || !name(currentContext.crownRevision) || !plain(currentContext.sourceHashes) || !plain(currentContext.invalidators)) throw new Error('current-franchise-context-required');
+    if (record.crownRevision!==currentContext.crownRevision) throw new Error('decision-franchise-crown-succession');
+    if (!equal(record.sourceDependencies,currentContext.sourceHashes)) throw new Error('decision-franchise-dependency-drift');
+    if (!equal(record.invalidators,currentContext.invalidators) || Object.values(currentContext.invalidators).some(v=>v!==false)) throw new Error('decision-franchise-invalidator-fired-or-drifted');
+
+    const spec=record.spec;
+    if (!plain(spec) || spec.schemaVersion!=='uberbond.decision-franchise.spec.v1') throw new Error('decision-franchise-spec-required');
+    if (spec.taskClass!==taskClass || spec.qualityContractHash!==qualityContractHash || spec.sideEffectClass!=='NONE') throw new Error('decision-franchise-contract-mismatch');
+    if (!plain(state)) throw new Error('decision-state-required');
+    const projected=Object.fromEntries(spec.relevantKeys.map(key=>{
+      if (!own(state,key)) throw new Error('decision-relevance-key-missing:'+key);
+      return [key,structuredClone(state[key])];
+    }));
+    // Extra state is deliberately ignored only because the franchise's relevance
+    // projection itself was E0-E4 certified when minted.
+    validateFinitePolicy(spec.policy);
+    const decision=lookupFinitePolicy(spec.policy.rows,projected);
+    return {
+      ok:true,status:'DECISION_FRANCHISE_HIT',decision,
+      franchiseId:record.id,proofClass:record.proofClass,
+      projectionHash:semanticHash(projected),decisionHash:semanticHash(decision),
+      providerCalls:0,semanticAuthority:'E0_E4_VERIFIED_DECISION_FRANCHISE',
+      externalEffectAuthority:'NONE',
+      qualityLaw:'Exact certified relevance projection + exhaustive finite policy under current dependencies, invalidators and Crown revision.'
+    };
+  } catch(error) { return fail(String(error?.message||error)); }
+}

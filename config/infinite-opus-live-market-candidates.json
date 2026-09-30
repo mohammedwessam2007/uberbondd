@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.infinite-opus.live-market-candidates.v1",
-  "observedAt": "2026-09-30T00:00:00Z",
-  "truthBoundary": "Dated public OpenRouter candidate evidence only. Prices can vary by route/discount and must be re-fetched before reservation. No owner-account callability or task-class winner is established.",
+  "observedAt": "2026-09-30T14:00:00+03:00",
+  "truthBoundary": "Fresh public OpenRouter candidate evidence refreshed 2026-09-30. Public catalog/pricing proves candidate existence and listed economics only; it does not promote a Crown. Temporary discounts are observed separately from conservative planning prices and must be re-fetched before reservation.",
   "candidates": [
     {
       "role": "GENERAL_CROWN_CANDIDATE",
@@ -10,7 +10,9 @@
       "outputUsdPerMillion": 20,
       "contextTokens": 1000000,
       "evidence": "https://openrouter.ai/anthropic/claude-opus-5.5",
-      "status": "PUBLIC_CANDIDATE_ONLY"
+      "status": "PUBLIC_CANDIDATE_ONLY",
+      "cacheReadUsdPerMillion": 0.2,
+      "observed": "2026-09-30"
     },
     {
       "role": "GENERAL_CROWN_CHALLENGER",
@@ -19,7 +21,11 @@
       "outputUsdPerMillion": 10,
       "contextTokens": 1050000,
       "evidence": "https://openrouter.ai/openai/gpt-6.1-sol-pro",
-      "status": "PUBLIC_CANDIDATE_ONLY"
+      "status": "PUBLIC_CANDIDATE_ONLY",
+      "cacheReadUsdPerMillion": 0.1,
+      "flexInputUsdPerMillion": 1,
+      "flexOutputUsdPerMillion": 5,
+      "observed": "2026-09-30"
     },
     {
       "role": "STRONG_WORKER_BATCH_CANDIDATE",
@@ -55,7 +61,15 @@
       "outputUsdPerMillion": 0.5,
       "contextTokens": 1310720,
       "evidence": "https://openrouter.ai/z-ai/glm-5.3-flash",
-      "status": "PUBLIC_CANDIDATE_ONLY_ROUTE_DISCOUNT_MAY_DIFFER"
+      "status": "PUBLIC_CANDIDATE_ONLY_TEMPORARY_DISCOUNT_SEPARATE_FROM_CONSERVATIVE_PLANNING_PRICE",
+      "cacheReadUsdPerMillion": 0.03,
+      "observedDiscount": {
+        "inputUsdPerMillion": 0.075,
+        "outputUsdPerMillion": 0.25,
+        "cacheReadUsdPerMillion": 0.015,
+        "label": "50% off",
+        "observed": "2026-09-30"
+      }
     },
     {
       "role": "DIVERSE_STRONG_WORKER_CANDIDATE",
@@ -73,7 +87,9 @@
       "outputUsdPerMillion": 0.28,
       "contextTokens": 1048576,
       "evidence": "https://openrouter.ai/xiaomi/mimo-v2.6-flash",
-      "status": "PUBLIC_CANDIDATE_ONLY"
+      "status": "PUBLIC_CANDIDATE_ONLY",
+      "cacheReadUsdPerMillion": 0.0028,
+      "observed": "2026-09-30"
     },
     {
       "role": "CHEAP_DIVERSE_WORKER_CANDIDATE",
@@ -82,7 +98,9 @@
       "outputUsdPerMillion": 0.52,
       "contextTokens": 1048576,
       "evidence": "https://openrouter.ai/deepseek/deepseek-v4.1-flash",
-      "status": "PUBLIC_CANDIDATE_ONLY_ROUTE_PRICE_MAY_DIFFER"
+      "status": "PUBLIC_CANDIDATE_ONLY_ROUTE_PRICE_MAY_DIFFER",
+      "cacheReadUsdPerMillion": 0.0026,
+      "observed": "2026-09-30"
     },
     {
       "role": "DIVERSE_CHALLENGER",

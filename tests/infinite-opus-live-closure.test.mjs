@@ -172,7 +172,19 @@ test('verifier authority never exceeds tested scope and full coverage',()=>{
  assert.equal(verifierMayCertify(full,'NUMBER_EQUALITY'),true);assert.equal(verifierMayCertify(full,'SEMANTICS'),false);
 });
 test('management reconciler reads bounded key usage without returning secrets',async()=>{
- const secret='management-secret-xxxxxxxx';const a=createOpenRouterManagementReconciler({managementKeyProvider:async()=>secret,fetchImpl:async(_u,o)=>{assert.ok(o.headers.Authorization.includes(secret));return {ok:true,status:200,text:async()=>JSON.stringify({data:[{hash:'h1',name:'uberbond-runtime-20',limit:20,limit_reset:'monthly',usage_monthly:1},{hash:'h2',name:'uberbond-typingmind-8',limit:8,limit_reset:'monthly',usage_monthly:2}]})}});const r=await a.listKeyUsage({expectedLabels:['uberbond-runtime-20','uberbond-typingmind-8']});assert.equal(r.ok,true);assert.equal(r.aggregateLimitUsd,28);assert.equal(r.aggregateUsageMonthlyUsd,3);assert.ok(!JSON.stringify(r).includes(secret));
+ const secret='management-secret-xxxxxxxx';
+ const a=createOpenRouterManagementReconciler({
+   managementKeyProvider:async()=>secret,
+   fetchImpl:async(_u,o)=>{
+     assert.ok(o.headers.Authorization.includes(secret));
+     return {ok:true,status:200,text:async()=>JSON.stringify({data:[
+       {hash:'h1',name:'uberbond-runtime-20',limit:20,limit_reset:'monthly',usage_monthly:1},
+       {hash:'h2',name:'uberbond-typingmind-8',limit:8,limit_reset:'monthly',usage_monthly:2}
+     ]})};
+   }
+ });
+ const r=await a.listKeyUsage({expectedLabels:['uberbond-runtime-20','uberbond-typingmind-8']});
+ assert.equal(r.ok,true);assert.equal(r.aggregateLimitUsd,28);assert.equal(r.aggregateUsageMonthlyUsd,3);assert.ok(!JSON.stringify(r).includes(secret));
 });
 test('reusable Crown thought without a durable descendant is a capitalization failure',()=>{
  const r=auditCrownCapitalization({crownCallReceipts:[{kind:'CROWN_CALL',callId:'c1',semanticReusableStructure:true}],capitalAssets:[]});assert.equal(r.failures.length,1);assert.equal(r.crownCapitalYield,0);

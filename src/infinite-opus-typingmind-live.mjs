@@ -472,8 +472,12 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         cheapWriterSemanticAuthority:'NONE'
       };
 
+      const writerReceipt={providerRequestId:writer.providerRequestId??null,model:writerModel,costMicrousd:writerCost,reasoningEffort};
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',completion,
-        writerReceipt:{providerRequestId:writer.providerRequestId??null,model:writerModel,costMicrousd:writerCost,reasoningEffort},
+        writerReceipt,
+        // Backward-compatible alias for older internal consumers. The model field
+        // makes clear that "builder" is now an adaptive role, not always Sol.
+        builderReceipt:writerReceipt,
         criticReceipt:critic?{providerRequestId:critic.providerRequestId??null,model:TYPINGMIND_DEEPSEEK_MODEL,costMicrousd:criticCost,status:critic.status??null}:null,
         crownReceipt:{providerRequestId:crown.providerRequestId??null,costMicrousd:crownCost,
           upstreamProvider:crown.upstreamProvider??null,routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY,

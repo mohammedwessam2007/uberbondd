@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { JsonStore } from '../src/store.mjs';
 import { canonicalSemanticJson, semanticHash, semanticProgramHash, createSemanticClosureChecker, executeExactOpcode,
   createBoundedCircuitCertificate, validateFinitePolicy, impactedSemanticNodes,
@@ -11,6 +12,7 @@ import { createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, ma
   releaseUndispatchedCognition, settleCognitionCall, estimateCognitionCeiling, createExactResponseCache,
   putExactResponse, readExactResponse, exactRequestFingerprint, cognitionMetrics, compileStickyCrownPacket } from '../src/cognition-ledger.mjs';
 import { createInfiniteOpusRuntime, INFINITE_OPUS_TASK_SCHEMA } from '../src/infinite-opus-native-runtime.mjs';
+import { compileDirectFrontierCounterfactual } from '../src/frontier-counterfactual-compiler.mjs';
 
 const NOW = Date.parse('2026-09-29T22:00:00Z'), DAY = '2026-09-29';
 const H = semanticHash({ source: 'synthetic-fixture' });
@@ -244,6 +246,21 @@ test('semantic franchise fanout without counterfactual proof does not claim avoi
   assert.equal(m.crownCallsAvoided,null);
 });
 
+const hs = x => 'sha256:'+crypto.createHash('sha256').update(String(x)).digest('hex');
+function syntheticReferenceResolver({task,output}) {
+  const canonicalPrompt=JSON.stringify({taskClass:task.taskClass,obligation:task.obligation});
+  const matchedOutput=String(output);
+  return compileDirectFrontierCounterfactual({
+    model:'anthropic/claude-opus-5.5',providerRoute:'openrouter:synthetic-best-current',
+    canonicalPrompt,matchedOutput,
+    tokenizerReceipt:{verified:true,inputTokens:200000,outputTokens:2500,promptHash:hs(canonicalPrompt),outputHash:hs(matchedOutput),tokenizerHash:hs('synthetic-tokenizer'),evidenceRef:'synthetic://tokenizer'},
+    priceReceipt:{verified:true,model:'anthropic/claude-opus-5.5',providerRoute:'openrouter:synthetic-best-current',inputUsdPerMillion:4,outputUsdPerMillion:20,cacheReadUsdPerMillion:.2,evidenceRef:'synthetic://price'},
+    economics:{cheapestLegitimateRouteVerified:true,batchEconomicsConsidered:true,promptCacheEconomicsConsidered:true,responseCacheEconomicsConsidered:true,retryEconomicsConsidered:true,identicalRequest:false,evidenceRef:'synthetic://counterfactual'},
+    verifyTokenizerReceipt:r=>r?.evidenceRef==='synthetic://tokenizer',
+    verifyPriceReceipt:r=>r?.evidenceRef==='synthetic://price'
+  });
+}
+
 async function nativeStore(t) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(),'infinite-opus-test-'));
   t.after(() => fs.rm(dir,{ recursive:true,force:true }));
@@ -322,6 +339,30 @@ test('unknown or ambiguous capital reuse is refused before inference', async t =
   const seeded=await runtime.execute(seed);
   const ambiguous=task('ambiguous-reuse'); ambiguous.capitalAssetId=seeded.artifactHash; delete ambiguous.request;
   await assert.rejects(runtime.execute(ambiguous),/mutually-exclusive/);
+});
+
+test('provable Decision Franchise consumers create avoided-Crown count only after counterfactual proof', async t => {
+  const { store } = await nativeStore(t);
+  const runtime=createInfiniteOpusRuntime({
+    store,contextLoader:context,authorityRecords:records(),clock:() => NOW,
+    referenceContractResolver:syntheticReferenceResolver
+  });
+  const make=(id,consumer)=>{const x=task(id);delete x.request;x.obligation={claim:'total',consumer};return x;};
+  const seed=await runtime.execute(make('provable-franchise-1','a'));
+  for(const [id,consumer] of [['provable-franchise-2','b'],['provable-franchise-3','c']]){
+    const x=make(id,consumer);delete x.artifact;x.capitalAssetId=seed.artifactHash;
+    assert.equal((await runtime.execute(x)).ok,true);
+  }
+  const snap=await runtime.snapshot();
+  const asset=snap.capital[seed.artifactHash];
+  assert.equal(asset.provableNonIdenticalConsumers,3);
+  assert.equal(asset.crownCallsAvoided,2);
+  assert.equal(snap.metrics.decisionFranchiseFanout,3);
+  assert.equal(snap.metrics.crownCallsAvoided,2);
+  const econ=await runtime.provableEconomics(60020);
+  assert.equal(econ.ok,true);
+  assert.equal(econ.certifiedExecutions,3);
+  assert.equal(econ.uniqueExecutionCount,3);
 });
 
 test('native persistence survives restart; cached claims are revalidated and duplicate completion is not counted', async t => {

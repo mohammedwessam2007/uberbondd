@@ -157,6 +157,23 @@ export function estimateCompressedAdaptiveWriterFrontierUsd({
   return compressor+proposal+opus;
 }
 
+export function estimateCertifiedJevMacroLaneUsd({
+  sourceTokens=0,jevInputUsdPerMillion=.042,auditRate=0,
+  crownAuditInputTokens=0,crownAuditOutputTokens=1
+}={}){
+  if(!Number.isFinite(sourceTokens)||sourceTokens<0||!Number.isFinite(jevInputUsdPerMillion)||jevInputUsdPerMillion<0)
+    throw new Error('valid-jev-source-cost-contract-required');
+  if(!Number.isFinite(auditRate)||auditRate<0||auditRate>1)
+    throw new Error('valid-crown-audit-rate-required');
+  const jev=usdPerToken(jevInputUsdPerMillion,sourceTokens);
+  const oneAudit=usdPerToken(4,crownAuditInputTokens)+usdPerToken(20,crownAuditOutputTokens);
+  return {
+    jevUsd:jev,
+    expectedAuditUsd:auditRate*oneAudit,
+    totalUsd:jev+auditRate*oneAudit
+  };
+}
+
 export function estimateCrownApprovedMacroCompiledUsd({
   originalInputTokens=0,closedEvidenceTokens=0
 }={}){

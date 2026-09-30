@@ -5,7 +5,7 @@ export function createOpenRouterManagementReconciler({managementKeyProvider,fetc
  if(typeof managementKeyProvider!=='function'||typeof fetchImpl!=='function'||baseUrl!==BASE)throw new Error('management-reconciler-config-required');
  async function auth(){const k=await managementKeyProvider();if(typeof k!=='string'||k.length<16)throw new Error('management-key-required');return `Bearer ${k}`;}
  return {
-  async listKeyUsage({expectedLabels=[]}={}){
+  async listKeyUsage({expectedLabels=[],rejectUnexpectedActiveKeys=true}={}){
    const r=await fetchImpl(`${baseUrl}/keys`,{headers:{Authorization:await auth()}});
    const b=await parse(r);if(!r.ok||!b)return {ok:false,status:'MANAGEMENT_KEY_USAGE_UNAVAILABLE'};
    const rows=Array.isArray(b.data)?b.data:Array.isArray(b.keys)?b.keys:[];
@@ -13,7 +13,9 @@ export function createOpenRouterManagementReconciler({managementKeyProvider,fetc
    const selected=expectedLabels.length?projected.filter(x=>expectedLabels.includes(x.label)):projected;
    const missing=expectedLabels.filter(l=>!selected.some(x=>x.label===l));
    const incomplete=selected.filter(x=>!finite(x.limitUsd)||!finite(x.usageMonthlyUsd)||x.limitReset!=='monthly');
-   return {ok:missing.length===0&&incomplete.length===0,status:missing.length||incomplete.length?'KEY_USAGE_RECONCILIATION_INCOMPLETE':'KEY_USAGE_RECONCILED',keys:selected,missingLabels:missing,incompleteLabels:incomplete.map(x=>x.label),aggregateLimitUsd:selected.reduce((s,x)=>s+Number(x.limitUsd||0),0),aggregateUsageMonthlyUsd:selected.reduce((s,x)=>s+Number(x.usageMonthlyUsd||0),0),secretsReturned:false};
+   const unexpectedActiveKeys=projected.filter(x=>!expectedLabels.includes(x.label)&&x.disabled!==true&&(x.limitUsd==null||Number(x.limitUsd)>0));
+   const ok=missing.length===0&&incomplete.length===0&&(!rejectUnexpectedActiveKeys||unexpectedActiveKeys.length===0);
+   return {ok,status:ok?'KEY_USAGE_RECONCILED':'KEY_USAGE_RECONCILIATION_INCOMPLETE',keys:selected,missingLabels:missing,incompleteLabels:incomplete.map(x=>x.label),unexpectedActiveKeys:unexpectedActiveKeys.map(x=>({hash:x.hash,label:x.label,limitUsd:x.limitUsd,limitReset:x.limitReset})),aggregateLimitUsd:selected.reduce((s,x)=>s+Number(x.limitUsd||0),0),aggregateUsageMonthlyUsd:selected.reduce((s,x)=>s+Number(x.usageMonthlyUsd||0),0),secretsReturned:false};
   }
  };
 }

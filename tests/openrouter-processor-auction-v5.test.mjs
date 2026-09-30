@@ -5,7 +5,8 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
-  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd,
+  estimateCompressedAdaptiveWriterFrontierUsd, chooseCompressedAdaptiveWriterFrontier } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -193,4 +194,42 @@ test('writer lower bound honors per-model warm cache rather than assuming every 
     cachedInputByModel:{'deepseek/deepseek-v4.1-flash':100000}
   });
   assert.ok(warm.usd<=cold.usd);
+});
+
+
+test('anchored compression auctions the cheapest proposal writer under unchanged Opus authority',()=>{
+  const r=chooseCompressedAdaptiveWriterFrontier({
+    originalInputTokens:200000,
+    compressedEvidenceTokens:5000,
+    candidateOutputTokens:2500,
+    crownAcceptTokens:6,
+    compressionLosslessContract:true,
+    sourceAnchorsRetained:true
+  });
+  assert.equal(r.eligible,true);
+  assert.equal(r.selected.writer,'mimo');
+  assert.equal(r.selected.usd,0.06092);
+  assert.equal(Number((0.85/r.selected.usd).toFixed(12)),13.952724885095);
+});
+
+test('anchored cheap-writer path refuses to exist without lossless source contract',()=>{
+  const r=chooseCompressedAdaptiveWriterFrontier({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500
+  });
+  assert.equal(r.eligible,false);
+  assert.equal(r.selected,null);
+});
+
+test('adaptive compressed writer is cheaper than historical Sol plus separate critic checkpoint',()=>{
+  const now=estimateCompressedAdaptiveWriterFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,
+    crownAcceptTokens:6,writer:'mimo'
+  });
+  const old=estimateCompressedFrontierUsd({
+    originalInputTokens:200000,compressedEvidenceTokens:5000,builderOutputTokens:2500,
+    redTeamOutputTokens:300,crownAcceptTokens:6
+  });
+  assert.ok(now<old);
+  assert.equal(now,0.06092);
+  assert.equal(old,0.096851);
 });

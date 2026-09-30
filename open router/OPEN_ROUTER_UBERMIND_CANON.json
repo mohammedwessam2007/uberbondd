@@ -653,7 +653,7 @@
   },
   "provable33333xReferenceEconomics": {
     "liveProofLedger": {
-      "status": "IMPLEMENTED_SOURCE_PRE_LIVE_EXECUTION",
+      "status": "MERGED_PRELIVE_PROOF_LEDGER_FRONTIER",
       "theorem": "open router/28_E0_E4_LIVE_PROOF_LEDGER.md",
       "counterfactualCompiler": "src/frontier-counterfactual-compiler.mjs",
       "executionLedger": "src/provable-execution-ledger.mjs",
@@ -670,7 +670,10 @@
         "UNKNOWN_ACTUAL_SPEND_STAYS_UNKNOWN"
       ],
       "currentMeasuredFactor": "UNKNOWN",
-      "targetClaimAllowedNow": false
+      "targetClaimAllowedNow": false,
+      "mergedPr": 1062,
+      "mergedMain": "e5858baead9ec4719669d7cec05da090f46f8224",
+      "postMergeReceipt": "docs/receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json"
     },
     "next": "OWNER_ACTIVATION -> TINY_CANARY -> SEALED_TASK_CLASS_TOURNAMENT -> FIRST_REAL_RECURRING_WORKLOAD -> AUTOMATIC_E0_E4_EXECUTION_RECEIPTS -> PROVABLE_REFERENCE_ECONOMICS"
   }

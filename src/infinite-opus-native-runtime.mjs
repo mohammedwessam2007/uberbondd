@@ -11,6 +11,8 @@ export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
 const identity = value => typeof value === 'string' && /^[a-zA-Z0-9_.:/-]{1,240}$/.test(value);
 const sha256Ref = value => typeof value === 'string' && /^sha256:[a-f0-9]{64}$/.test(value);
+const hmacRef = value => typeof value === 'string' && /^hmac-sha256:[a-f0-9]{64}$/.test(value);
+const boundedMicrousd = value => Number.isSafeInteger(value) && value >= 0 && value <= 20_000_000;
 const nonnegativeInt = value => Number.isSafeInteger(value) && value >= 0;
 const boundedText = (value,max=240) => typeof value === 'string' && value.length > 0 && value.length <= max;
 const safePayload = value => {
@@ -171,29 +173,29 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
     },
     async recordCrownInteraction(record) {
       safePayload(record);
-      if (!sha256Ref(record?.requestFingerprint) || !sha256Ref(record?.finalOutputHash) ||
+      if (!hmacRef(record?.recurrenceFingerprint) || !hmacRef(record?.finalOutputFingerprint) ||
           !sha256Ref(record?.crownAdmissionReceiptHash) || !boundedText(record?.crownProviderRequestId, 512) ||
           !boundedText(record?.observedUpstreamProvider, 240) || !boundedText(record?.authorityClass, 120) ||
-          !nonnegativeInt(record?.builderCostMicrousd) || !nonnegativeInt(record?.crownCostMicrousd) ||
+          !boundedMicrousd(record?.builderCostMicrousd) || !boundedMicrousd(record?.crownCostMicrousd) ||
           record.sideEffectAuthority !== 'NONE') throw new Error('bounded-crown-interaction-receipt-required');
       const interactionId = 'sha256:' + semanticHash({
-        requestFingerprint: record.requestFingerprint,
-        finalOutputHash: record.finalOutputHash,
+        recurrenceFingerprint: record.recurrenceFingerprint,
+        finalOutputFingerprint: record.finalOutputFingerprint,
         crownAdmissionReceiptHash: record.crownAdmissionReceiptHash,
         crownProviderRequestId: record.crownProviderRequestId
       });
       return transact(store, async tx => {
         const state = await stateFor(tx);
         if (state.crownInteractionReceipts[interactionId]) {
-          const existing = state.crownInteractions[record.requestFingerprint];
+          const existing = state.crownInteractions[record.recurrenceFingerprint];
           return zero({ ok: true, status: 'IDEMPOTENT_CROWN_INTERACTION_RECORD',
             interactionId, recurrence: existing ? structuredClone(existing.summary) : null,
             semanticReuseAuthority: 'NONE', providerCallsPerformed: 0 });
         }
         if (Object.keys(state.crownInteractionReceipts).length >= 20000) throw new Error('current-period-crown-interaction-dedupe-cap-reached');
         const totalCostMicrousd = record.builderCostMicrousd + record.crownCostMicrousd;
-        const entry = state.crownInteractions[record.requestFingerprint] ?? {
-          requestFingerprint: record.requestFingerprint,
+        const entry = state.crownInteractions[record.recurrenceFingerprint] ?? {
+          recurrenceFingerprint: record.recurrenceFingerprint,
           occurrences: 0,
           outputCounts: {},
           totalObservedCostMicrousd: 0,
@@ -207,8 +209,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           summary: null
         };
         entry.occurrences += 1;
-        entry.outputCounts[record.finalOutputHash] = (entry.outputCounts[record.finalOutputHash] ?? 0) + 1;
+        entry.outputCounts[record.finalOutputFingerprint] = (entry.outputCounts[record.finalOutputFingerprint] ?? 0) + 1;
         entry.totalObservedCostMicrousd += totalCostMicrousd;
+        if (!Number.isSafeInteger(entry.totalObservedCostMicrousd)) throw new Error('crown-interaction-cost-aggregate-overflow');
         entry.lastSeenAt = clock();
         entry.latestAuthorityClass = record.authorityClass;
         entry.latestCrownAdmissionReceiptHash = record.crownAdmissionReceiptHash;
@@ -229,11 +232,11 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           semanticReuseAuthority: 'NONE',
           rawConversationPersisted: false
         };
-        state.crownInteractions[record.requestFingerprint] = entry;
+        state.crownInteractions[record.recurrenceFingerprint] = entry;
         state.crownInteractionReceipts[interactionId] = {
           interactionId,
-          requestFingerprint: record.requestFingerprint,
-          finalOutputHash: record.finalOutputHash,
+          recurrenceFingerprint: record.recurrenceFingerprint,
+          finalOutputFingerprint: record.finalOutputFingerprint,
           crownAdmissionReceiptHash: record.crownAdmissionReceiptHash,
           crownProviderRequestId: record.crownProviderRequestId,
           observedUpstreamProvider: record.observedUpstreamProvider,
@@ -244,10 +247,10 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           sideEffectAuthority: 'NONE'
         };
         state.receipts.push({ kind: 'CROWN_CALL', callId: record.crownProviderRequestId,
-          semanticReusableStructure: false, requestFingerprint: record.requestFingerprint,
+          semanticReusableStructure: false, recurrenceFingerprint: record.recurrenceFingerprint,
           observedAt: clock(), semanticAuthority: record.authorityClass });
         state.receipts.push({ kind: 'CROWN_INTERACTION_OBSERVED', interactionId,
-          requestFingerprint: record.requestFingerprint, status, occurrences: entry.occurrences,
+          recurrenceFingerprint: record.recurrenceFingerprint, status, occurrences: entry.occurrences,
           distinctOutputCount, repeatedFrontierCostMicrousd, observedAt: clock(),
           semanticReuseAuthority: 'NONE', rawConversationPersisted: false });
         await persist(tx, state);
@@ -262,7 +265,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         const candidates = Object.values(state.crownInteractions)
           .filter(row => row?.summary?.occurrences >= 2)
           .map(row => ({
-            requestFingerprint: row.requestFingerprint,
+            recurrenceFingerprint: row.recurrenceFingerprint,
             status: row.summary.status,
             occurrences: row.summary.occurrences,
             distinctOutputCount: row.summary.distinctOutputCount,

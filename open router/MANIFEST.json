@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 58,
+  "expectedFinalFolderFileCount": 59,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -137,6 +137,11 @@
       "path": "open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md",
       "blobSha": "60633e2eda917cd545fa7afff04973608f30ad70",
       "size": 11931
+    },
+    {
+      "path": "open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md",
+      "blobSha": "1aa4b10dd2a10312df92797cce04e514efa6da84",
+      "size": 35853
     },
     {
       "path": "open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md",
@@ -338,7 +343,8 @@
     "open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md",
     "open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md",
     "open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md",
-    "open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md"
+    "open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md",
+    "open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md"
   ],
   "sourceTruthPointers": [
     "config/absolute-frontier-quality-lock.json",
@@ -368,7 +374,7 @@
   "canonicalBaseMainSha": "96ef742c90075a9973f3617d1ac0e2a0db83e39b",
   "auditedBaseFolderFileCount": 29,
   "finalCompletionReceipt": "open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json",
-  "indexedFilesExcludingSelf": 57,
+  "indexedFilesExcludingSelf": 58,
   "selfHashExcludedReason": "A manifest cannot content-hash itself without recursion; the current branch tree and V5 receipt provide the surrounding integrity context.",
   "testTruthPointers": [
     "tests/frontier-intelligence-vm.test.mjs",

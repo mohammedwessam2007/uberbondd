@@ -198,6 +198,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           recurrenceFingerprint: record.recurrenceFingerprint,
           occurrences: 0,
           outputCounts: {},
+          admissionCounts: {},
+          providerCounts: {},
+          authorityCounts: {},
           totalObservedCostMicrousd: 0,
           firstObservedCostMicrousd: totalCostMicrousd,
           firstSeenAt: clock(),
@@ -210,6 +213,12 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         };
         entry.occurrences += 1;
         entry.outputCounts[record.finalOutputFingerprint] = (entry.outputCounts[record.finalOutputFingerprint] ?? 0) + 1;
+        entry.admissionCounts ??= {};
+        entry.providerCounts ??= {};
+        entry.authorityCounts ??= {};
+        entry.admissionCounts[record.crownAdmissionReceiptHash] = (entry.admissionCounts[record.crownAdmissionReceiptHash] ?? 0) + 1;
+        entry.providerCounts[record.observedUpstreamProvider] = (entry.providerCounts[record.observedUpstreamProvider] ?? 0) + 1;
+        entry.authorityCounts[record.authorityClass] = (entry.authorityCounts[record.authorityClass] ?? 0) + 1;
         entry.totalObservedCostMicrousd += totalCostMicrousd;
         if (!Number.isSafeInteger(entry.totalObservedCostMicrousd)) throw new Error('crown-interaction-cost-aggregate-overflow');
         entry.lastSeenAt = clock();
@@ -226,6 +235,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           status,
           occurrences: entry.occurrences,
           distinctOutputCount,
+          distinctAdmissionCount: Object.keys(entry.admissionCounts).length,
+          distinctProviderCount: Object.keys(entry.providerCounts).length,
+          distinctAuthorityClassCount: Object.keys(entry.authorityCounts).length,
           totalObservedCostMicrousd: entry.totalObservedCostMicrousd,
           repeatedFrontierCostMicrousd,
           compilerPriorityMicrousd: repeatedFrontierCostMicrousd,
@@ -269,6 +281,9 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             status: row.summary.status,
             occurrences: row.summary.occurrences,
             distinctOutputCount: row.summary.distinctOutputCount,
+            distinctAdmissionCount: row.summary.distinctAdmissionCount,
+            distinctProviderCount: row.summary.distinctProviderCount,
+            distinctAuthorityClassCount: row.summary.distinctAuthorityClassCount,
             totalObservedCostMicrousd: row.summary.totalObservedCostMicrousd,
             repeatedFrontierCostMicrousd: row.summary.repeatedFrontierCostMicrousd,
             compilerPriorityMicrousd: row.summary.compilerPriorityMicrousd,

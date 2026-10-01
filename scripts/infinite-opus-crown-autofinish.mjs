@@ -43,8 +43,8 @@ const callUpperBoundUsd=({model,messages,maxTokens,responseFormat})=>{
   const inputTokensUpper=inputBytes+4096;
   return (inputTokensUpper*cap.prompt+Number(maxTokens)*cap.completion)/1_000_000;
 };
-async function getState(store){
-  return store.transaction(async tx=>(await tx.getSettings())[KEY]??null);
+async function getState(store,key=KEY){
+  return store.transaction(async tx=>(await tx.getSettings())[key]??null);
 }
 async function setState(store,patch){
   return store.transaction(async tx=>{
@@ -127,6 +127,12 @@ function evaluationMessages(tasks,blind){
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
+ const priorV3=await getState(store,PRIOR_KEY);
+ if(priorV3?.status!=='FAILED_NO_AUTOMATIC_RETRY'||
+    !String(priorV3?.reason||'').includes('Reasoning is mandatory for this endpoint and cannot be disabled')||
+    Number(priorV3?.newSpendUsd)!==0){
+   return {ok:false,status:'AUTOFINISH_V4_PRIOR_STATE_REFUSED',reason:'exact-zero-spend-v3-reasoning-refusal-required'};
+ }
  if(prior)return {
    ok:prior.status==='COMPLETE',
    status:prior.status==='COMPLETE'?'AUTOFINISH_ALREADY_COMPLETE':'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',

@@ -77,6 +77,25 @@ function normalizedRow(row = {}) {
   };
 }
 
+export function inspectWinnrCredentialExport(csvText = '') {
+  const rawRows = objectsFromCsv(csvText);
+  const rows = rawRows.map(normalizedRow).filter(row => emailOk(row.email)).map(row => Object.freeze({
+    email: row.email,
+    domain: row.domain || row.email.split('@')[1] || null,
+    fromName: row.fromName || null
+  }));
+  const domains = [...new Set(rows.map(row => row.domain).filter(Boolean))].sort();
+  return Object.freeze({
+    version: UBERWINNR_CREDENTIAL_IMPORT_VERSION,
+    rowCount: rows.length,
+    rows,
+    domains,
+    sourceDigest: `sha256:${sha256(csvText)}`,
+    secretsReturned: false,
+    truthBoundary: 'This inspection exposes only non-secret mailbox identity metadata from a credential export. Passwords, SMTP credentials and IMAP credentials are never returned.'
+  });
+}
+
 export function compileWinnrCredentialImport({
   csvText = '',
   encryptionKey = '',

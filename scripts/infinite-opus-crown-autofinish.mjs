@@ -115,7 +115,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return {ok:false,status:'AUTOFINISH_V2_PRIOR_STATE_REFUSED',reason:'expected-v1-parse-failure-state-required'};
  }
  if(prior?.status==='COMPLETE')return {ok:true,status:'AUTOFINISH_ALREADY_COMPLETE',receiptHash:prior.crownAdmission?.receiptHash??null};
- if(prior?.status==='RUNNING')return {ok:false,status:'AUTOFINISH_ALREADY_CLAIMED_NO_RETRY'};
+ if(prior)return {ok:false,status:'AUTOFINISH_V2_ALREADY_ATTEMPTED_NO_RETRY',priorStatus:prior.status};
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD

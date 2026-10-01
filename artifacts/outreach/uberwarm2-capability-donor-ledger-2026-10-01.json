@@ -66,7 +66,15 @@
         "manual BYO-domain connection schema",
         "manual DNS record retrieval and verification",
         "credential export selector schema",
-        "write-scoped secret export boundary"
+        "write-scoped secret export boundary",
+        "read-only POST classification for DNS-provider and blocklist checks",
+        "account and usage introspection",
+        "job reconciliation before retry",
+        "pre-warmed inventory browse/get/blocklist reads",
+        "pre-warmed $3/address no-base-plan procurement atom",
+        "three-address minimum pilot",
+        "two-step purchase confirmation pattern",
+        "GET-only rate-limit retry discipline"
       ],
       "directCodeCopied": false,
       "status": "ADAPTER_IMPLEMENTED_PENDING_REAL_ACCOUNT_EVIDENCE",
@@ -77,9 +85,16 @@
         "sha": "945527f5007f4eb09f121448638fcbb67384e0ce"
       },
       "sourceEvidence": {
-        "exportToolSha": "bcec6bccd5600ee264bb16cd057d8ee876222d1c",
+        "clientSha": "09744c56544739f0b7d79cc6744150efa6b0726d",
         "domainToolSha": "54cbacdf3b26cfa5f9c6163e47a84981ef8b3625",
-        "mailboxToolSha": "6e3e3caa7dd1cf4c40b262257693c7ff14021f21"
+        "mailboxToolSha": "6e3e3caa7dd1cf4c40b262257693c7ff14021f21",
+        "exportToolSha": "bcec6bccd5600ee264bb16cd057d8ee876222d1c",
+        "webhookToolSha": "af11d0136e456a534de6034c55acc9de593d4620",
+        "inboxToolSha": "4a2e941963c526241f518cba042a61e99d12bba7",
+        "jobsToolSha": "44ce37e8a83750858f6e73aa47cd0b73b376a308",
+        "warmingToolSha": "ece966717ae0782fbac38a95a8e5a72355ee1df4",
+        "prewarmedToolSha": "72affbb2aa0b5ec179df51283af010b46953e942",
+        "accountToolSha": "9fd4722e2262d73eadca907b8abd04cf89ca40c3"
       }
     }
   ],
@@ -94,7 +109,13 @@
     "post-purchase activation checklist",
     "Winnr manual-DNS domain adapter",
     "Winnr credential-export adapter",
-    "encrypted Winnr generic credential import into UberFleet/UberIMAP"
+    "encrypted Winnr generic credential import into UberFleet/UberIMAP",
+    "Winnr account/usage and job reconciliation reads",
+    "Winnr pre-warmed marketplace evidence adapter",
+    "Winnr pre-warmed procurement frontier compiler",
+    "raw provider write bypass prevention",
+    "webhook HTTPS/event allowlist validation",
+    "credential export selector fail-closed validation"
   ],
   "forbidden": [
     "private source theft",
@@ -114,5 +135,24 @@
     "campaign-specific legal/provider eligibility",
     "customer outcomes and cleared payment"
   ],
-  "truthBoundary": "Capability-donor synthesis is implementation evidence only. It is not provider provisioning, deliverability, legality, demand, or revenue."
+  "truthBoundary": "Capability-donor synthesis is implementation evidence only. It is not provider provisioning, deliverability, legality, demand, or revenue.",
+  "procurementFrontier": {
+    "observedAt": "2026-10-01",
+    "firstCashCandidate": "WINNR_PREWARMED_MINIMUM_CANARY",
+    "minimumAddresses": 3,
+    "publicListMonthlyUsd": 9,
+    "nominalNormalColdDaily": 45,
+    "startupMonthlyUsd": 69,
+    "publicPriceCrossoverAddresses": 23,
+    "publicPriceCrossoverNominalColdDaily": 345,
+    "safeToPurchase": false,
+    "remainingExternal": [
+      "authenticated Egypt checkout",
+      "live green inventory",
+      "exact first charge",
+      "country/card/tax/KYC state",
+      "current terms compatibility",
+      "degraded-at-purchase remedy"
+    ]
+  }
 }

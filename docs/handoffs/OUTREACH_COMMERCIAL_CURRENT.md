@@ -176,7 +176,7 @@ Current internal capability:
 - a guarded Winnr adapter prepared for post-purchase integration;
 - provider warm-up add-ons classified as optional rather than mandatory.
 
-The irreducible external purchase remains one provider-authorized reputation-bearing SMTP/IMAP substrate. Winnr Startup is the current leading procurement candidate, but `SAFE_TO_PURCHASE` remains false until the exact external questions recorded in `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md` are resolved. This refinement supersedes older assumptions that the sender substrate itself must include provider warm-up, without deleting the historical provider research that produced those assumptions.
+The irreducible external purchase remains one provider-authorized reputation-bearing SMTP/IMAP substrate. The current **first-cash** Winnr route is a minimum three-address pre-warmed canary at a public list price of $9/month; Winnr Startup ($69/month / 50 regular mailboxes) becomes the cheaper recurring route once desired capacity rises past roughly 23 pre-warmed addresses, before accounting for fresh-mailbox reputation time. `SAFE_TO_PURCHASE` still remains false until authenticated Egypt checkout, live green inventory, exact first charge, current Terms, and country/card/tax/KYC state are observed. This refinement supersedes older assumptions that the sender substrate itself must include provider warm-up, without deleting the historical provider research that produced those assumptions.
 
 ## Provider/readiness refresh law
 

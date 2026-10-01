@@ -4,6 +4,7 @@
 // available; it does not authorize spending, DNS mutation, mailbox creation or
 // live outreach. Those operations remain individually approval-gated.
 import { createAgentMailAdapter } from './agentmail-adapter.mjs';
+import { createWinnrInfrastructureAdapter } from './uberwinnr-provider-adapter.mjs';
 import { createUberClayInboxAdapter } from './uberclayinbox.mjs';
 import { createIcemailAdapter, createMailforgeAdapter, createMaildosoInfrastructureAdapter } from './provider-http-adapters.mjs';
 
@@ -23,14 +24,15 @@ export const PROVIDER_CAPABILITIES = Object.freeze([
   'exportMailboxes', 'prewarmPurchase', 'operationStatus', 'webhookEvents'
 ]);
 
-export const KNOWN_PROVIDERS = Object.freeze(['instantly', 'googleWorkspace', 'microsoft365', 'icemail', 'mailforge', 'maildoso', 'clayinbox', 'agentmail']);
+export const KNOWN_PROVIDERS = Object.freeze(['instantly', 'googleWorkspace', 'microsoft365', 'icemail', 'mailforge', 'maildoso', 'clayinbox', 'agentmail', 'winnr']);
 
 const PROVIDER_FACTORIES = Object.freeze({
   icemail: createIcemailAdapter,
   mailforge: createMailforgeAdapter,
   maildoso: createMaildosoInfrastructureAdapter,
   clayinbox: createUberClayInboxAdapter,
-  agentmail: createAgentMailAdapter
+  agentmail: createAgentMailAdapter,
+  winnr: createWinnrInfrastructureAdapter
 });
 
 function unconfiguredResult(providerName, capability) {

@@ -617,4 +617,27 @@ try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
 
 export const requestHandler = createdHardenedHandler || harden(core.requestHandler);
+
+if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
+  setTimeout(async()=>{
+    const store=createStore(config);
+    try{
+      await store.init();
+      const result=await runCrownAutoFinish({
+        store,
+        apiKey:String(process.env.OPENROUTER_API_KEY||''),
+        paidAuthorization:parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON'),
+        mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
+      });
+      console.log('UBERMIND_CROWN_AUTOFINISH_STARTUP '+JSON.stringify({
+        ok:result?.ok===true,status:result?.status??'UNKNOWN',receiptHash:result?.receipt?.receiptHash??result?.receiptHash??null
+      }));
+    }catch(error){
+      console.error('UBERMIND_CROWN_AUTOFINISH_STARTUP '+JSON.stringify({ok:false,status:'UNHANDLED',reason:String(error?.message||error)}));
+    }finally{
+      await store.close().catch(()=>{});
+    }
+  },15000);
+}
+
 export default requestHandler;

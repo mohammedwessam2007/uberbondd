@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "uberbond-capability-donor-ledger-1.0.0",
+  "date": "2026-10-01",
+  "program": "UberWarm2",
+  "objective": "Internalize reputation-control software so only reputation-bearing SMTP/IMAP transport remains externally acquired.",
+  "donors": [
+    {
+      "id": "warmbly",
+      "repository": "warmbly/warmbly",
+      "observedRevision": "bada69a408f510f0bca6f4027a0c1473adc9cd65",
+      "license": "Apache-2.0",
+      "licenseEvidence": {
+        "path": "LICENSE",
+        "sha": "ca091504df3e90092cbe39f0fda0e936c36d8a41"
+      },
+      "atoms": [
+        "per-mailbox reputation state",
+        "separate ramp and cold capacity",
+        "partner diversity",
+        "placement seed isolation",
+        "quarantine and recovery states",
+        "placement-over-open evidence",
+        "rolling health windows",
+        "persistent reputation ledger",
+        "provider message-id correlation"
+      ],
+      "directCodeCopied": false,
+      "status": "DONOR_INTERNALIZED_CLEAN_ROOM"
+    },
+    {
+      "id": "warmgrid",
+      "repository": "FassihShah/WarmGrid",
+      "license": "MIT",
+      "licenseEvidence": {
+        "path": "LICENSE",
+        "sha": "acf770e0f7c1ac51ed2b5a626b4bbe9fd99f02f5"
+      },
+      "atoms": [
+        "scheduler/ramp state",
+        "per-mailbox health score",
+        "blacklist observations",
+        "content deduplication",
+        "seed inventory",
+        "SMTP+IMAP provider-neutral loop"
+      ],
+      "rejectedAtoms": [
+        "automatic synthetic reply for reputation manipulation",
+        "automatic spam rescue as manufactured engagement",
+        "closed-loop traffic presented as organic trust"
+      ],
+      "directCodeCopied": false,
+      "status": "DONOR_PARTIALLY_INTERNALIZED_CLEAN_ROOM"
+    },
+    {
+      "id": "winnr",
+      "sourceType": "external_provider_public_api",
+      "atoms": [
+        "API mailbox provisioning",
+        "SMTP/IMAP portability",
+        "async bulk jobs",
+        "signed webhooks",
+        "event-id dedupe",
+        "message-id mapping",
+        "domain readiness events",
+        "bounce complaint inbound events"
+      ],
+      "directCodeCopied": false,
+      "status": "ADAPTER_IMPLEMENTED_PENDING_REAL_ACCOUNT_EVIDENCE"
+    }
+  ],
+  "internalized": [
+    "evidence-ramp state machine",
+    "owner-controlled placement probe planning",
+    "placement-to-ramp evidence bridge",
+    "provider warmup optionality",
+    "guarded Winnr REST adapter",
+    "signed webhook verification",
+    "uncertain-write no-retry behavior",
+    "post-purchase activation checklist"
+  ],
+  "forbidden": [
+    "private source theft",
+    "credential theft",
+    "license stripping",
+    "trade-dress copying",
+    "provider-policy bypass",
+    "fake engagement network",
+    "spam-folder manipulation to evade filters"
+  ],
+  "irreducibleExternal": [
+    "reputation-bearing SMTP/IMAP transport",
+    "real provider account and entitlement",
+    "real recipient-network seed accounts for placement observation",
+    "elapsed reputation",
+    "recipient-network decisions",
+    "campaign-specific legal/provider eligibility",
+    "customer outcomes and cleared payment"
+  ],
+  "truthBoundary": "Capability-donor synthesis is implementation evidence only. It is not provider provisioning, deliverability, legality, demand, or revenue."
+}

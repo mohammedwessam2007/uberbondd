@@ -1,0 +1,255 @@
+{
+  "schema": "uberbond.crown.billing-recovery.v1",
+  "recoveredAt": "2026-10-01",
+  "source": "Authenticated OpenRouter activity generation detail UI",
+  "providerBillingState": "PROVIDER_RECONCILED",
+  "runtimeLedgerState": "UNSETTLED_EXACT_CALL_BINDING_NOT_RECOVERED",
+  "semanticAdmission": "NONE",
+  "newProviderCallsPerformed": 0,
+  "totalObservedUsd": 0.15802525,
+  "generations": [
+    {
+      "generation_id": "gen-1790818139-c72hUUJ1JznYxnwYEgBR",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-10-01T01:28:59.133Z",
+      "tokens_prompt": 198,
+      "tokens_completion": 1024,
+      "native_tokens_prompt": 179,
+      "native_tokens_completion": 1325,
+      "native_tokens_reasoning": 359,
+      "usage": 0.01347375,
+      "usage_upstream": 0.01347375,
+      "finish_reason": "stop",
+      "native_finish_reason": "STOP",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "W7e9ap_sINn_mLAP5ZKGgQo",
+          "is_byok": false,
+          "latency": 4339,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790818139-pgASoEWrxbD0R5nQBkHP"
+    },
+    {
+      "generation_id": "gen-1790817746-uc6iVGGjDYOorXltiBPo",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-10-01T01:22:25.953Z",
+      "tokens_prompt": 198,
+      "tokens_completion": 841,
+      "native_tokens_prompt": 179,
+      "native_tokens_completion": 1415,
+      "native_tokens_reasoning": 498,
+      "usage": 0.01437375,
+      "usage_upstream": 0.01437375,
+      "finish_reason": "stop",
+      "native_finish_reason": "STOP",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "0rW9aq2XGbKsmLAP0P2I0AU",
+          "is_byok": false,
+          "latency": 5238,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790817746-zbfYK8rdG6iEIyZUNxOG"
+    },
+    {
+      "generation_id": "gen-1790817153-hIteL4WkCckUNqnEjrcH",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-10-01T01:12:33.356Z",
+      "tokens_prompt": 198,
+      "tokens_completion": 748,
+      "native_tokens_prompt": 179,
+      "native_tokens_completion": 1082,
+      "native_tokens_reasoning": 379,
+      "usage": 0.01104375,
+      "usage_upstream": 0.01104375,
+      "finish_reason": "stop",
+      "native_finish_reason": "STOP",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "gbO9at7wLMqfmPUPmozUoA0",
+          "is_byok": false,
+          "latency": 5166,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790817153-JLap0HX50CPn4JserD5s"
+    },
+    {
+      "generation_id": "gen-1790816947-Kg2pIiOjb7pNWyJaDiJ6",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-10-01T01:09:07.456Z",
+      "tokens_prompt": 167,
+      "tokens_completion": 1013,
+      "native_tokens_prompt": 148,
+      "native_tokens_completion": 1402,
+      "native_tokens_reasoning": 337,
+      "usage": 0.014205,
+      "usage_upstream": 0.014205,
+      "finish_reason": "stop",
+      "native_finish_reason": "STOP",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "s7K9arPqPMSWvNkPh_a6gQ0",
+          "is_byok": false,
+          "latency": 4963,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790816947-VzEgaKFSKN1lPRikBagM"
+    },
+    {
+      "generation_id": "gen-1790816360-QrnwxpUT0ezrOTwIjNTl",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-10-01T00:59:19.973Z",
+      "tokens_prompt": 167,
+      "tokens_completion": 1172,
+      "native_tokens_prompt": 148,
+      "native_tokens_completion": 3985,
+      "native_tokens_reasoning": 3837,
+      "usage": 0.040035,
+      "usage_upstream": 0.040035,
+      "finish_reason": "length",
+      "native_finish_reason": "MAX_TOKENS",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "aLC9arC6GYKPmLAPi6jRsQg",
+          "is_byok": false,
+          "latency": 2274,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790816360-vbYHZCQuLFIZysMTTi7i"
+    },
+    {
+      "generation_id": "gen-1790812184-RYNlQIGMWovsP4lbVJQB",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-09-30T23:49:44.758Z",
+      "tokens_prompt": 167,
+      "tokens_completion": 413,
+      "native_tokens_prompt": 148,
+      "native_tokens_completion": 984,
+      "native_tokens_reasoning": 957,
+      "usage": 0.010025,
+      "usage_upstream": 0.010025,
+      "finish_reason": "length",
+      "native_finish_reason": "MAX_TOKENS",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "GaC9apKBCbKCz_IP85zc-Qc",
+          "is_byok": false,
+          "latency": 1680,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790812184-vL2Zv108slJuGII7yPf9"
+    },
+    {
+      "generation_id": "gen-1790811927-cmDOEEnTMWJbPmvOu7tg",
+      "provider_name": "Google",
+      "model": "google/gemini-2.5-pro",
+      "created_at": "2026-09-30T23:45:27.7Z",
+      "tokens_prompt": 167,
+      "tokens_completion": 324,
+      "native_tokens_prompt": 148,
+      "native_tokens_completion": 996,
+      "native_tokens_reasoning": 956,
+      "usage": 0.010145,
+      "usage_upstream": 0.010145,
+      "finish_reason": "length",
+      "native_finish_reason": "MAX_TOKENS",
+      "provider_responses": [
+        {
+          "endpoint_id": "43106252-bd69-498f-84f5-1fde678783f7",
+          "id": "GJ-9auf9Bt_vhcIPy-jHuAQ",
+          "is_byok": false,
+          "latency": 2048,
+          "model_permaslug": "google/gemini-2.5-pro",
+          "provider_name": "Google",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790811927-0oeN3XU13bpErbvcIJFR"
+    },
+    {
+      "generation_id": "gen-1790818164-26mCkGn04RIvzS7rK3hE",
+      "provider_name": "Amazon Bedrock",
+      "model": "anthropic/claude-opus-5.5-20260921",
+      "created_at": "2026-10-01T01:29:24.164Z",
+      "tokens_prompt": 208,
+      "tokens_completion": 756,
+      "native_tokens_prompt": 315,
+      "native_tokens_completion": 1612,
+      "native_tokens_reasoning": 752,
+      "usage": 0.0335,
+      "usage_upstream": 0.0335,
+      "finish_reason": "stop",
+      "native_finish_reason": "end_turn",
+      "provider_responses": [
+        {
+          "endpoint_id": "6e63432c-564f-4192-84a8-4f6f8ca7e401",
+          "id": "94c20a12-b882-4788-9a72-13215accd8d5",
+          "is_byok": false,
+          "latency": 2050,
+          "model_permaslug": "anthropic/claude-opus-5.5-20260921",
+          "provider_name": "Amazon Bedrock",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790818164-4tiZkuUuK1fgTrHdc0vi"
+    },
+    {
+      "generation_id": "gen-1790807964-m6HWX42a5VtncUFVBpL1",
+      "provider_name": "Amazon Bedrock",
+      "model": "anthropic/claude-opus-5.5-20260921",
+      "created_at": "2026-09-30T22:39:24.829Z",
+      "tokens_prompt": 495,
+      "tokens_completion": 202,
+      "native_tokens_prompt": 681,
+      "native_tokens_completion": 425,
+      "native_tokens_reasoning": 382,
+      "usage": 0.011224,
+      "usage_upstream": 0.011224,
+      "finish_reason": "stop",
+      "native_finish_reason": "end_turn",
+      "provider_responses": [
+        {
+          "endpoint_id": "6e63432c-564f-4192-84a8-4f6f8ca7e401",
+          "id": "3d96251c-8114-42d0-97ff-cb6d77f0d7da",
+          "is_byok": false,
+          "latency": 2134,
+          "model_permaslug": "anthropic/claude-opus-5.5-20260921",
+          "provider_name": "Amazon Bedrock",
+          "status": 200
+        }
+      ],
+      "request_id": "req-1790807964-Ve3fJIrYt0PXl3LqGRb0"
+    }
+  ]
+}

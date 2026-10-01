@@ -92,6 +92,16 @@ Code-copy classification: **NO WARMGRID SOURCE COPIED INTO THESE NEW MODULES.** 
 Source class: external provider / potential transport supplier.  
 Role: **supplier + API donor, not UberBond's brain.**
 
+Official open-source integration donor inspected:
+- repository: `winnr-app/winnr-mcp`;
+- license: MIT, copyright 2026 winnr-app;
+- LICENSE blob observed: `945527f5007f4eb09f121448638fcbb67384e0ce`;
+- export tool blob observed: `bcec6bccd5600ee264bb16cd057d8ee876222d1c`;
+- domain tool blob observed: `54cbacdf3b26cfa5f9c6163e47a84981ef8b3625`;
+- mailbox tool blob observed: `6e3e3caa7dd1cf4c40b262257693c7ff14021f21`.
+
+That code confirmed the exact interoperability contracts used by UberBond rather than forcing us to guess them: `POST /v1/domains/connect` with `manual_dns`, `GET /v1/domains/{id}/dns-records`, `POST /v1/domains/{id}/verify-dns`, `POST /v1/email-users`, `POST /v1/email-users/bulk`, `GET /v1/export/formats`, and `POST /v1/export` with `format` plus exactly one selector such as `domains`, `emails`, or `getAllDomains`.
+
 Useful atoms extracted from public provider documentation:
 - API-first mailbox provisioning;
 - SMTP/IMAP credential portability;
@@ -111,7 +121,7 @@ UberBond realization:
 - provider event facts become evidence, never automatic outreach authority;
 - provider warm-up add-on is optional because UberWarm² owns the evidence ramp.
 
-No Winnr proprietary implementation is copied. Public API contracts are treated as interoperability facts.
+No Winnr proprietary implementation is copied. UberBond's adapter remains independently implemented in JavaScript. The MIT-licensed official MCP server is preserved as a provenance donor and authoritative interoperability reference.
 
 ### Warmup-network vendors generally
 
@@ -197,6 +207,7 @@ Provider warm-up becomes an **optional experiment**, not a mandatory dependency.
 
 - `src/uberwarm2-sovereign-ramp.mjs`
 - `src/uberwinnr-adapter.mjs`
+- `src/uberwinnr-credential-import.mjs`
 - upgraded `src/uberwarm-reputation-lab.mjs`
 - upgraded `src/uberbuy-outreach-bom.mjs`
 - focused hostile/regression tests for the above.

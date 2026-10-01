@@ -1,6 +1,6 @@
 # 00 — CURRENT COMMERCIAL OUTREACH AUTOLOAD
 
-**Last reconciled:** 2026-09-28  
+**Last reconciled:** 2026-10-01  
 **Truth class:** CURRENT COMMERCIAL DESIGN + CONTINUATION POINTER. Market demand, price acceptance, sender/provider readiness, cleared revenue and customer acceptance remain external truth.
 
 > **If the founder's request involves cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine, READ THIS FILE BEFORE BRAINSTORMING.**
@@ -20,6 +20,8 @@ This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Co
 5. `docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`
 6. `docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`
 7. `docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`
+8. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
+9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`
 
 ## V5 genome
 
@@ -75,6 +77,20 @@ A call is allowed when the buyer asks or genuine complexity/risk makes it ration
 Optimize:
 
 `expected cleared contribution profit / founder minute`
+
+## 2026-10-01 transport frontier
+
+The software boundary moved materially on 2026-10-01:
+
+- **UberWarm²** now provides an evidence-first reputation ramp over UberPlacement + UberWarm + UberQuality;
+- a paid provider warm-up network is **optional**, not a mandatory sender-substrate capability;
+- the physical purchase target is therefore narrower: authorized outbound SMTP + inbound IMAP/replies + BYO-domain/account continuity;
+- a guarded Winnr provider adapter and post-purchase canary sequence are implemented on the current upgrade lineage;
+- Winnr remains a **candidate**, not an approved purchase, until the exact intended-use, Egypt checkout/tax, entitlement/provisioning remedy, API/MCP automation and cancellation facts are confirmed externally;
+- a pre-sales clarification request has already been sent to Winnr support and no reply had been observed at the time of this reconciliation;
+- **do not enable or buy a provider warm-up add-on merely because it is offered**; first use UberWarm² + owner-controlled placement evidence, then add any external warm-up network only as a measured optional experiment.
+
+Current detailed gate: `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`.
 
 ## Dynamic external truth
 

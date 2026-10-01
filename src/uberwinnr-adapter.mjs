@@ -261,6 +261,22 @@ export function createWinnrApiClient({
     token: redactToken(rawToken),
     evidenceRef: clean(evidenceRef, 1500),
     listDomains: () => request('GET', '/domains'),
+    getDomain: ({ domainId } = {}) => request('GET', `/domains/${encodeURIComponent(clean(domainId, 240))}`),
+    getDnsRecords: ({ domainId } = {}) => request('GET', `/domains/${encodeURIComponent(clean(domainId, 240))}/dns-records`),
+    connectOwnedDomains: ({ domains = [], manualDns = true, writeAuthorized = false } = {}) => request('POST', '/domains/connect', {
+      body: {
+        domains: (Array.isArray(domains) ? domains : []).slice(0, 100).map(domain => lower(domain, 253)).filter(Boolean),
+        ...(manualDns ? { manual_dns: true } : {})
+      },
+      writeAuthorized
+    }),
+    verifyDns: ({ domainId, writeAuthorized = false } = {}) => request('POST', `/domains/${encodeURIComponent(clean(domainId, 240))}/verify-dns`, {
+      writeAuthorized
+    }),
+    checkNameservers: ({ domains = [], writeAuthorized = false } = {}) => request('POST', '/domains/check-ns', {
+      body: { domains: (Array.isArray(domains) ? domains : []).slice(0, 100).map(domain => lower(domain, 253)).filter(Boolean) },
+      writeAuthorized
+    }),
     listMailboxes: ({ domain = '' } = {}) => request('GET', `/email-users?filter[domain]=${encodeURIComponent(lower(domain, 253))}`),
     createMailbox: ({ domain, username, name, writeAuthorized = false } = {}) => request('POST', '/email-users', {
       body: { domain: lower(domain, 253), username: lower(username, 120), name: clean(name, 200) },
@@ -271,11 +287,25 @@ export function createWinnrApiClient({
         domain: lower(domain, 253),
         users: (Array.isArray(users) ? users : []).slice(0, 100).map(user => typeof user === 'string'
           ? lower(user, 120)
-          : { username: lower(user?.username, 120), name: clean(user?.name, 200) })
+          : {
+              username: lower(user?.username, 120),
+              name: clean(user?.name, 200),
+              ...(clean(user?.footer, 4000) ? { footer: clean(user.footer, 4000) } : {})
+            })
       },
       writeAuthorized
     }),
     getJob: ({ jobId } = {}) => request('GET', `/jobs/${encodeURIComponent(clean(jobId, 240))}`),
+    listExportFormats: () => request('GET', '/export/formats'),
+    exportMailboxes: ({ format = 'default', domains = [], emails = [], allDomains = false, writeAuthorized = false } = {}) => {
+      const body = { format: lower(format || 'default', 80) || 'default' };
+      const domainRows = (Array.isArray(domains) ? domains : []).map(domain => lower(domain, 253)).filter(Boolean);
+      const emailRows = (Array.isArray(emails) ? emails : []).map(email => lower(email, 320)).filter(emailOk);
+      if (domainRows.length) body.domains = domainRows;
+      if (emailRows.length) body.emails = emailRows;
+      if (allDomains === true) body.getAllDomains = true;
+      return request('POST', '/export', { body, writeAuthorized });
+    },
     createWebhook: ({ url, events = [], description = '', writeAuthorized = false } = {}) => request('POST', '/webhooks', {
       body: { url: clean(url, 1500), events: (Array.isArray(events) ? events : []).map(x => clean(x, 120)).filter(Boolean), description: clean(description, 500) || undefined },
       writeAuthorized

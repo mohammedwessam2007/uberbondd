@@ -135,7 +135,7 @@ Further first-party inspection of the official MIT repository added exact source
 - `inbox.py` `4a2e941963c526241f518cba042a61e99d12bba7`: inbox read/reply interoperability;
 - `jobs.py` `44ce37e8a83750858f6e73aa47cd0b73b376a308`: async-job reconciliation and timeout semantics;
 - `warming.py` `ece966717ae0782fbac38a95a8e5a72355ee1df4`: optional $0.60/mailbox/month warming purchase surface;
-- `prewarmed.py` `72affbb2aa0b5ec179df51283af010b46953e942`: pre-warmed marketplace, $3/address/month, 3-address minimum, no base plan/minimum term, health/blocklist reads and explicit purchase confirmation;
+- `prewarmed.py` `72affbb2aa0b5ec179df51283af010b46953e942`: pre-warmed marketplace, $3/address/month, 3-address minimum, no base plan, health/blocklist reads and explicit purchase confirmation. Its docstrings say **no minimum term / cancel any time**, but current Winnr Help pages linked by support say **90-day minimum term**. That contradiction is preserved and purchase-blocking rather than silently reconciled;
 - `account.py` `9fd4722e2262d73eadca907b8abd04cf89ca40c3`: plan/subscription/usage introspection.
 
 New internalized atoms:
@@ -147,12 +147,12 @@ New internalized atoms:
 - a low-cost **pre-warmed bridge** can be compared against Startup without making the provider's marketplace UberBond's permanent identity layer.
 
 Economic consequence from dated public prices:
-- 3 pre-warmed addresses = $9/month and nominally 45 cold messages/day at the provider's 15/day prior;
+- 3 pre-warmed addresses = $9 first month and nominally 30–45 cold messages/day at Winnr's written 10–15/day recommendation; current Help pages imply a $27 minimum committed spend if their 90-day rule governs;
 - 20 addresses = $60/month and nominally 300/day;
 - 23 addresses = $69/month and nominally 345/day;
 - above that point the $69 Startup plan is cheaper recurring on public list price, but its fresh mailboxes still need real reputation evidence.
 
-UberBond therefore treats pre-warmed inventory as a **first-cash bridge**, not the final sovereign substrate. Cancellation returns that asset to the marketplace, while the 30 owned UberBond outreach domains remain the long-run portable identity fleet.
+UberBond therefore treats pre-warmed inventory as a **first-cash candidate bridge**, not the final sovereign substrate. The binding cancellation/minimum-term rule remains unresolved because official source and current Help pages conflict. No spend is allowed until that conflict and exact commitment are reconciled. The 30 owned UberBond outreach domains remain the long-run portable identity fleet.
 
 ### Warmup-network vendors generally
 

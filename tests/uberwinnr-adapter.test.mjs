@@ -183,3 +183,160 @@ test('Winnr DNS verification remains an explicit consequential provider write', 
   assert.equal(allowed.ok, true);
   assert.equal(calls, 1);
 });
+
+
+test('read-like Winnr POST diagnostics do not need write authority but never create effects', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    return {
+      ok: true,
+      status: 200,
+      headers: { get: () => null },
+      text: async () => JSON.stringify({ data: { observed: true } })
+    };
+  };
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:official',
+    fetchImpl
+  });
+
+  const provider = await client.checkDnsProvider({ domains: ['uberbond.site'] });
+  assert.equal(provider.ok, true);
+  assert.equal(provider.status, 'UBERWINNR_READ_CONFIRMED');
+  assert.equal(calls[0].url.endsWith('/v1/domains/check-provider'), true);
+  assert.deepEqual(JSON.parse(calls[0].options.body), { domains: ['uberbond.site'] });
+
+  const blocklist = await client.checkPrewarmedBlocklist({ domain: 'pilot.test', blocklist: 'spamhaus_dbl' });
+  assert.equal(blocklist.ok, true);
+  assert.equal(blocklist.status, 'UBERWINNR_READ_CONFIRMED');
+  assert.equal(calls[1].url.endsWith('/v1/prewarmed/pilot.test/blocklist-check?list=spamhaus_dbl'), true);
+});
+
+test('rawRequest cannot smuggle readOnlyPost authority into consequential provider writes', async () => {
+  let calls = 0;
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:official',
+    fetchImpl: async () => {
+      calls += 1;
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: () => null },
+        text: async () => JSON.stringify({ data: { ok: true } })
+      };
+    }
+  });
+
+  const result = await client.rawRequest('POST', '/email-users', {
+    body: { username: 'sam', domain: 'uberbond.site' },
+    readOnlyPost: true
+  });
+  assert.equal(result.status, 'UBERWINNR_WRITE_REFUSED');
+  assert.equal(result.providerCalls, 0);
+  assert.equal(calls, 0);
+});
+
+test('credential export requires exactly one selector before any provider call', async () => {
+  let calls = 0;
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:official',
+    fetchImpl: async () => {
+      calls += 1;
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: () => null },
+        text: async () => JSON.stringify({ data: { url: 'https://example.invalid/export.csv' } })
+      };
+    }
+  });
+
+  const none = await client.exportMailboxes({ writeAuthorized: true });
+  assert.equal(none.status, 'UBERWINNR_EXPORT_REFUSED');
+
+  const many = await client.exportMailboxes({
+    domains: ['uberbond.site'],
+    emails: ['sam@uberbond.site'],
+    writeAuthorized: true
+  });
+  assert.equal(many.status, 'UBERWINNR_EXPORT_REFUSED');
+  assert.equal(calls, 0);
+});
+
+test('webhook creation rejects non-HTTPS and unknown events before provider call', async () => {
+  let calls = 0;
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:official',
+    fetchImpl: async () => {
+      calls += 1;
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: () => null },
+        text: async () => JSON.stringify({ data: { id: 'wh_1' } })
+      };
+    }
+  });
+
+  const badUrl = await client.createWebhook({
+    url: 'http://example.com/hook',
+    events: ['email.received'],
+    writeAuthorized: true
+  });
+  assert.equal(badUrl.status, 'UBERWINNR_WEBHOOK_REFUSED');
+
+  const badEvent = await client.createWebhook({
+    url: 'https://example.com/hook',
+    events: ['not.real'],
+    writeAuthorized: true
+  });
+  assert.equal(badEvent.status, 'UBERWINNR_WEBHOOK_REFUSED');
+  assert.equal(calls, 0);
+});
+
+test('account usage, jobs and pre-warmed inventory methods use official read endpoints', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    return {
+      ok: true,
+      status: 200,
+      headers: { get: () => null },
+      text: async () => JSON.stringify({ data: [] })
+    };
+  };
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:official',
+    fetchImpl
+  });
+
+  await client.getAccount();
+  await client.getUsage();
+  await client.listJobs({ limit: 5, status: 'completed', jobType: 'user_create' });
+  await client.browsePrewarmed({ sortBy: 'health', page: 1, perPage: 25 });
+  await client.listMyPrewarmed();
+
+  assert.equal(calls[0].url.endsWith('/v1/account'), true);
+  assert.equal(calls[1].url.endsWith('/v1/account/usage'), true);
+  assert.equal(calls[2].url.includes('/v1/jobs?'), true);
+  assert.equal(calls[2].url.includes('filter%5Bstatus%5D=completed'), true);
+  assert.equal(calls[2].url.includes('filter%5Btype%5D=user_create'), true);
+  assert.equal(calls[3].url.includes('/v1/prewarmed/browse?'), true);
+  assert.equal(calls[4].url.endsWith('/v1/prewarmed/my-domains'), true);
+});

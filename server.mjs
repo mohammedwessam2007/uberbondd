@@ -626,6 +626,7 @@ if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_O
         store,
         apiKey:String(process.env.OPENROUTER_API_KEY||''),
         paidAuthorization:parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON'),
+        replacementAuthorization:parseJsonEnvironment('INFINITE_OPUS_CROWN_REPLACEMENT_AUTHORIZATION_JSON'),
         mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
       });
       console.log('UBERMIND_CROWN_AUTOFINISH_STARTUP '+JSON.stringify({

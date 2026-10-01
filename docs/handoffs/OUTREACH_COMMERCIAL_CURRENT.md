@@ -15,7 +15,9 @@ Then read:
 4. `docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`
 5. `docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`
 6. `docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`
-7. current sender/provider/legal/readiness receipts on live `main`
+7. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
+8. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`
+9. current sender/provider/legal/readiness receipts on live `main`
 
 Do not restart from generic cold-email advice.
 
@@ -160,6 +162,21 @@ These current names supersede but do not erase earlier donors:
 - Arabic + English Booking Leak Audit / Bilingual Appointment Recovery Sprint -> GCC Arabic-English Booking Parity & Revenue Leak Sprint
 
 Earlier high-ticket donor families such as White-Label AI Workflow Reliability Sprint and CRM/Payment Reconciliation Diagnostic remain recoverable historical offer lineage.
+
+## 2026-10-01 sender-substrate refinement
+
+UberBond's internal sender-control boundary now distinguishes **reputation orchestration** from the physical mailbox/transport substrate.
+
+Current internal capability:
+
+- UberWarm² evidence ramp;
+- owner-controlled recipient-network placement probes through UberPlacement;
+- bounce/complaint/placement-aware quarantine and bounded ramping;
+- provider-neutral SMTP/IMAP custody and dispatch;
+- a guarded Winnr adapter prepared for post-purchase integration;
+- provider warm-up add-ons classified as optional rather than mandatory.
+
+The irreducible external purchase remains one provider-authorized reputation-bearing SMTP/IMAP substrate. Winnr Startup is the current leading procurement candidate, but `SAFE_TO_PURCHASE` remains false until the exact external questions recorded in `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md` are resolved. This refinement supersedes older assumptions that the sender substrate itself must include provider warm-up, without deleting the historical provider research that produced those assumptions.
 
 ## Provider/readiness refresh law
 

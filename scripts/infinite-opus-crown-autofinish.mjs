@@ -1,4 +1,6 @@
 import crypto from 'node:crypto';
+import { verifyCrownProviderModel } from '../src/crown-model-identity.mjs';
+import { sealCrownCheckpoint } from '../src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
@@ -93,9 +95,9 @@ async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat
     finishReason:String(j?.choices?.[0]?.finish_reason??meta.finish_reason??''),
     promptTokens:meta.native_tokens_prompt??null,completionTokens:meta.native_tokens_completion??null,
     reasoningTokens:meta.native_tokens_reasoning??null,
-    status:observedModel===model?'PROVIDER_RECONCILED_PENDING_EVIDENCE':'RECONCILED_INVALID_EVIDENCE'
+    status:verifyCrownProviderModel({requestedModel:model,observedModel,provider:String(meta.provider_name??'')})?'PROVIDER_RECONCILED_PENDING_EVIDENCE':'RECONCILED_INVALID_EVIDENCE'
   });
-  if(observedModel!==model)throw new Error('model-identity-drift:'+model+':'+observedModel);
+  if(!verifyCrownProviderModel({requestedModel:model,observedModel,provider:String(meta.provider_name??'')}))throw new Error('model-identity-drift:'+model+':'+observedModel);
   const text=content(j),reasoning=String(j?.choices?.[0]?.message?.reasoning??'');
   return {id,text,meta,cost,model,providerName:String(meta.provider_name??''),
     finishReason:String(j?.choices?.[0]?.finish_reason??meta.finish_reason??''),
@@ -143,7 +145,7 @@ function currentPaidAuthority(authorization,now=Date.now()){
    Date.parse(authorization.expiresAt)>now &&
    (authorization.crownRoutes??[]).includes('openrouter:'+OPUS));
 }
-export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
+export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown',checkpointKey=process.env.TOKEN_ENCRYPTION_KEY}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
  const priorV6=await getState(store,PRIOR_KEY);
@@ -155,6 +157,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    priorStatus:prior.status
  };
  if(!currentPaidAuthority(paidAuthorization))return {ok:false,status:'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
+ if(typeof checkpointKey!=='string'||checkpointKey.length<32)return {ok:false,status:'PRIVATE_SEALED_CHECKPOINT_KEY_REQUIRED',providerCallsPerformed:0};
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
@@ -200,7 +203,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      t.id='sealed-'+(i+1)+'-'+h(t.prompt).slice(7,19);
    }
    const taskCommitment=h(tasks.map(t=>({id:t.id,promptHash:h(t.prompt),rubricHash:h(t.rubric),mustNotHash:h(t.must_not??[])})));
-   await setState(store,{taskCommitment,hiddenTaskCount:2});
+   await setState(store,{taskCommitment,hiddenTaskCount:2,sealedEvidence:sealCrownCheckpoint({tasks,answers:{},calls:[]},{key:checkpointKey,binding:KEY+'|'+taskCommitment})});
 
    const answers={};
    const calls=[];
@@ -215,6 +218,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
        calls.push({taskId:t.id,model,id:r.id,cost:r.cost,providerName:r.providerName,
          answerHash:h(r.text),createdAt:r.meta.created_at??new Date().toISOString(),
          metaModel:r.meta.model??model,promptHash:h(t.prompt),rubricHash:h(t.rubric)});
+       await setState(store,{sealedEvidence:sealCrownCheckpoint({tasks,answers,calls},{key:checkpointKey,binding:KEY+'|'+taskCommitment})});
      }
    }
 
@@ -252,7 +256,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    const observations=calls.map(c=>{
      const g=byPair.get(c.taskId+'|'+c.model);
      return {taskId:c.taskId,model:c.model,role:'GENERAL_CROWN',hiddenTask:true,
-       providerBillObserved:true,modelIdentityVerified:c.metaModel===c.model,
+       providerBillObserved:true,modelIdentityVerified:verifyCrownProviderModel({requestedModel:c.model,observedModel:c.metaModel,provider:c.providerName}),
        requiredRegressions:g.reg,sealedTrialRef:'sealed://trial/'+c.id,
        canonicalZeroLossCertified:g.zero&&g.reg===0,qualityScore:g.score,costUsd:c.cost};
    });
@@ -282,7 +286,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    const task=tasks.find(t=>t.id===opusCall.taskId);
    const evidenceRefs=[...sealedRefs,'openrouter-generation://'+opusCall.id,'tournament://'+tournament.receiptHash];
    const issued=issueCrownAdmissionReceipt({
-     providerCallId:opusCall.id,exactModelId:OPUS,providerIdentity:opusCall.providerName,routeIdentity:ROUTE,
+     providerCallId:opusCall.id,exactModelId:OPUS,modelRevision:opusCall.metaModel,providerIdentity:opusCall.providerName,routeIdentity:ROUTE,
      taskClassRole:'GENERAL_CROWN',promptProgramHash:h('uberbond.runtime-sealed-custodian.v1'),
      semanticInputHash:h(task.prompt),qualityContractHash:h({rubric:task.rubric,must_not:task.must_not??[]}),
      outputHash:opusCall.answerHash,timestamp:new Date(opusCall.createdAt).toISOString(),

@@ -193,3 +193,17 @@ test('UberLookalike excludes suppressed candidates', () => {
   });
   assert.equal(result.returnedCount, 0);
 });
+
+
+test('UberWarm does not convert absent placement or complaint metrics into observed zeroes', () => {
+  const result = evaluateUberWarmMailbox({
+    mailboxState: mailbox(),
+    observations: { warmupDays: 21, providerDailyCap: 40 },
+    now: NOW
+  });
+  assert.equal(result.state, 'LIMITED_CANARY');
+  assert.ok(result.reasonCodes.includes('complaint-rate-unobserved'));
+  assert.ok(result.reasonCodes.includes('hard-bounce-rate-unobserved'));
+  assert.ok(result.reasonCodes.includes('placement-unobserved'));
+  assert.equal(result.reasonCodes.includes('inbox-placement-rate-below-policy'), false);
+});

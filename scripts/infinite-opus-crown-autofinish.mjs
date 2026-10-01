@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v1';
+const KEY='infinite_opus_crown_autofinish_20261001_v2';
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -106,8 +106,12 @@ function evaluationMessages(tasks,blind){
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
- if(prior?.status==='COMPLETE')return {ok:true,status:'AUTOFINISH_ALREADY_COMPLETE',receiptHash:prior.crownAdmission?.receiptHash??null};
- if(prior?.status==='RUNNING')return {ok:false,status:'AUTOFINISH_ALREADY_CLAIMED_NO_RETRY'};
+ if(prior)return {
+   ok:prior.status==='COMPLETE',
+   status:prior.status==='COMPLETE'?'AUTOFINISH_ALREADY_COMPLETE':'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',
+   receiptHash:prior.crownAdmission?.receiptHash??null,
+   priorStatus:prior.status
+ };
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD

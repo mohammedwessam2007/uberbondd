@@ -2,7 +2,9 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v5';
+const KEY='infinite_opus_crown_autofinish_20261001_v6';
+const PRIOR_KEY='infinite_opus_crown_autofinish_20261001_v5';
+const PRIOR_EXPECTED_SPEND_USD=0.01104375;
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -43,8 +45,8 @@ const callUpperBoundUsd=({model,messages,maxTokens,responseFormat})=>{
   const inputTokensUpper=inputBytes+4096;
   return (inputTokensUpper*cap.prompt+Number(maxTokens)*cap.completion)/1_000_000;
 };
-async function getState(store){
-  return store.transaction(async tx=>(await tx.getSettings())[KEY]??null);
+async function getState(store,key=KEY){
+  return store.transaction(async tx=>(await tx.getSettings())[key]??null);
 }
 async function setState(store,patch){
   return store.transaction(async tx=>{
@@ -127,6 +129,8 @@ function evaluationMessages(tasks,blind){
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
+ const priorV5=await getState(store,PRIOR_KEY);
+ if(priorV5?.status!=='FAILED_NO_AUTOMATIC_RETRY'||!String(priorV5?.reason||'').startsWith('provider-call-refused:anthropic/claude-opus-5.5:404:')||Math.abs(Number(priorV5?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9)return {ok:false,status:'AUTOFINISH_V6_PRIOR_STATE_REFUSED',reason:'exact-v5-zdr-provider-refusal-required'};
  if(prior)return {
    ok:prior.status==='COMPLETE',
    status:prior.status==='COMPLETE'?'AUTOFINISH_ALREADY_COMPLETE':'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',
@@ -167,7 +171,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    const answers={};
    const calls=[];
    for(const t of tasks){
-     for(const [model,provider] of [[OPUS,'anthropic'],[SOL,'openai']]){
+     for(const [model,provider] of [[OPUS,'amazon-bedrock'],[SOL,'azure']]){
        const r=await charge({model,provider,messages:[
          {role:'system',content:'Solve the task independently. Follow every explicit constraint. Be precise and self-contained. No tools or web.'},
          {role:'user',content:t.prompt}
@@ -239,12 +243,12 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      return {ok:false,status:'NON_OPUS_GENERAL_CROWN_WON',winner:selected.candidate};
    }
 
-   const opusCall=calls.find(c=>c.model===OPUS&&c.providerName.toLowerCase()==='anthropic');
-   if(!opusCall)throw new Error('observed-anthropic-provider-required');
+   const opusCall=calls.find(c=>c.model===OPUS&&c.providerName.toLowerCase()==='amazon bedrock');
+   if(!opusCall)throw new Error('observed-amazon-bedrock-provider-required');
    const task=tasks.find(t=>t.id===opusCall.taskId);
    const evidenceRefs=[...sealedRefs,'openrouter-generation://'+opusCall.id,'tournament://'+tournament.receiptHash];
    const issued=issueCrownAdmissionReceipt({
-     providerCallId:opusCall.id,exactModelId:OPUS,providerIdentity:'Anthropic',routeIdentity:ROUTE,
+     providerCallId:opusCall.id,exactModelId:OPUS,providerIdentity:opusCall.providerName,routeIdentity:ROUTE,
      taskClassRole:'GENERAL_CROWN',promptProgramHash:h('uberbond.runtime-sealed-custodian.v1'),
      semanticInputHash:h(task.prompt),qualityContractHash:h({rubric:task.rubric,must_not:task.must_not??[]}),
      outputHash:opusCall.answerHash,timestamp:new Date(opusCall.createdAt).toISOString(),

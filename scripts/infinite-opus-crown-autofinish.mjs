@@ -1,4 +1,6 @@
 import crypto from 'node:crypto';
+import { RECOVERY_KEY, reconcileOriginalCrownFinancialState, ORIGINAL_GENERATION } from './infinite-opus-crown-financial-recovery.mjs';
+import { REPLACEMENT_KEY, validReplacementAuthority } from '../src/crown-replacement-authority.mjs';
 import { verifyCrownProviderModel } from '../src/crown-model-identity.mjs';
 import { sealCrownCheckpoint } from '../src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
@@ -50,11 +52,11 @@ const callUpperBoundUsd=({model,messages,maxTokens,responseFormat})=>{
 async function getState(store,key=KEY){
   return store.transaction(async tx=>(await tx.getSettings())[key]??null);
 }
-async function setState(store,patch){
+async function writeState(store,patch,key=KEY){
   return store.transaction(async tx=>{
-    const settings=await tx.getSettings(),prior=settings[KEY]??{};
+    const settings=await tx.getSettings(),prior=settings[key]??{};
     const next={...prior,...patch,updatedAt:new Date().toISOString()};
-    await tx.setSetting(KEY,next); return next;
+    await tx.setSetting(key,next); return next;
   });
 }
 async function generation(apiKey,id){
@@ -145,11 +147,16 @@ function currentPaidAuthority(authorization,now=Date.now()){
    Date.parse(authorization.expiresAt)>now &&
    (authorization.crownRoutes??[]).includes('openrouter:'+OPUS));
 }
-export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown',checkpointKey=process.env.TOKEN_ENCRYPTION_KEY}={}){
+export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown',checkpointKey=process.env.TOKEN_ENCRYPTION_KEY,replacementAuthorization=null}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
- const prior=await getState(store);
+ const replacement=replacementAuthorization!==null;
+ if(replacement&&!validReplacementAuthority(replacementAuthorization))return {ok:false,status:'EXPLICIT_REPLACEMENT_AUTHORITY_REQUIRED',providerCallsPerformed:0};
+ const attemptKey=replacement?REPLACEMENT_KEY:KEY;
+ const readState=()=>getState(store,attemptKey);
+ const setState=(s,p)=>writeState(s,p,attemptKey);
+ const prior=await readState();
  const priorV6=await getState(store,PRIOR_KEY);
- if(priorV6?.status!=='FAILED_NO_AUTOMATIC_RETRY'||!String(priorV6?.reason||'').startsWith('provider-call-refused:anthropic/claude-opus-5.5:404:')||Math.abs(Number(priorV6?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9)return {ok:false,status:'AUTOFINISH_V7_PRIOR_STATE_REFUSED',reason:'exact-v6-parameter-routing-refusal-required'};
+ if(!replacement&&(priorV6?.status!=='FAILED_NO_AUTOMATIC_RETRY'||!String(priorV6?.reason||'').startsWith('provider-call-refused:anthropic/claude-opus-5.5:404:')||Math.abs(Number(priorV6?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9))return {ok:false,status:'AUTOFINISH_V7_PRIOR_STATE_REFUSED',reason:'exact-v6-parameter-routing-refusal-required'};
  if(prior)return {
    ok:prior.status==='COMPLETE',
    status:prior.status==='COMPLETE'?'AUTOFINISH_ALREADY_COMPLETE':'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',
@@ -158,12 +165,30 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
  };
  if(!currentPaidAuthority(paidAuthorization))return {ok:false,status:'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
  if(typeof checkpointKey!=='string'||checkpointKey.length<32)return {ok:false,status:'PRIVATE_SEALED_CHECKPOINT_KEY_REQUIRED',providerCallsPerformed:0};
+ if(replacement){
+  const old=await getState(store,KEY);
+  if(old?.status!=='FAILED_NO_AUTOMATIC_RETRY')return {ok:false,status:'EXACT_FAILED_V7_STATE_REQUIRED',providerCallsPerformed:0};
+  const meta=await generation(apiKey,ORIGINAL_GENERATION);
+  await reconcileOriginalCrownFinancialState({store,generationMetadata:meta});
+  const keyResponse=await fetch('https://openrouter.ai/api/v1/key',{headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)});
+  const keyBody=keyResponse.ok?await keyResponse.json():null,policy=keyBody?.data;
+  if(Number(policy?.limit)!==20||policy?.limit_reset!=='monthly'||Number(policy?.limit_remaining)<15+MAX_NEW_SPEND_USD)
+   return {ok:false,status:'KEY_CAP_OR_PROTECTED_CROWN_RESERVE_REFUSED',providerCallsPerformed:0};
+ }
+ const claimed=await store.transaction(async tx=>{
+  if(tx.transactionClient===true)await tx.pool.query('SELECT pg_advisory_xact_lock($1)',[1347375955]);
+  const settings=await tx.getSettings();
+  if(settings[attemptKey])return false;
+  await tx.setSetting(attemptKey,{status:'CLAIMED',updatedAt:new Date().toISOString()}); return true;
+ });
+ if(!claimed)return {ok:false,status:'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',providerCallsPerformed:0};
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
-   status:'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
+   status:replacement?'FINANCIALLY_RECONCILED_INVALID_EVIDENCE':'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
- },newSpendUsd:0,mainSha});
+ },newSpendUsd:0,mainSha,...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{})});
  let spend=0;
  const charge=async spec=>{
+   if(replacement&&!validReplacementAuthority(replacementAuthorization))throw new Error('replacement-authority-expired');
    if(!currentPaidAuthority(paidAuthorization))throw new Error('current-paid-runtime-authority-required');
    const reserve=callUpperBoundUsd(spec);
    if(spend+reserve>MAX_NEW_SPEND_USD)throw new Error('precall-new-tournament-spend-cap-refused:'+spec.model);
@@ -174,7 +199,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      if(Number.isFinite(observation.costUsd)&&!chargeRecorded){
        spend+=observation.costUsd; chargeRecorded=true;
      }
-     const state=await getState(store);
+     const state=await readState();
      const journal=[...(state?.generationJournal??[])];
      const index=journal.findIndex(row=>row.id===observation.id);
      const row={...(index>=0?journal[index]:{}),...observation,tag:spec.tag,
@@ -203,7 +228,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      t.id='sealed-'+(i+1)+'-'+h(t.prompt).slice(7,19);
    }
    const taskCommitment=h(tasks.map(t=>({id:t.id,promptHash:h(t.prompt),rubricHash:h(t.rubric),mustNotHash:h(t.must_not??[])})));
-   await setState(store,{taskCommitment,hiddenTaskCount:2,sealedEvidence:sealCrownCheckpoint({tasks,answers:{},calls:[]},{key:checkpointKey,binding:KEY+'|'+taskCommitment})});
+   await setState(store,{taskCommitment,hiddenTaskCount:2,sealedEvidence:sealCrownCheckpoint({tasks,answers:{},calls:[]},{key:checkpointKey,binding:attemptKey+'|'+taskCommitment})});
 
    const answers={};
    const calls=[];
@@ -218,7 +243,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
        calls.push({taskId:t.id,model,id:r.id,cost:r.cost,providerName:r.providerName,
          answerHash:h(r.text),createdAt:r.meta.created_at??new Date().toISOString(),
          metaModel:r.meta.model??model,promptHash:h(t.prompt),rubricHash:h(t.rubric)});
-       await setState(store,{sealedEvidence:sealCrownCheckpoint({tasks,answers,calls},{key:checkpointKey,binding:KEY+'|'+taskCommitment})});
+       await setState(store,{sealedEvidence:sealCrownCheckpoint({tasks,answers,calls},{key:checkpointKey,binding:attemptKey+'|'+taskCommitment})});
      }
    }
 
@@ -234,6 +259,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    let gradeDoc;
    try{gradeDoc=parseJson(grade.text);}
    catch{throw new Error('sealed-grade-json-parse-failed:'+grade.id+':finish='+grade.finishReason+':contentBytes='+grade.contentBytes+':reasoningBytes='+grade.reasoningBytes);}
+   await setState(store,{sealedEvidence:sealCrownCheckpoint({tasks,answers,calls,gradeDoc},{key:checkpointKey,binding:attemptKey+'|'+taskCommitment})});
    const grades=gradeDoc?.grades;
    if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
 

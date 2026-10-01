@@ -1,150 +1,123 @@
 # Winnr Pre-Purchase Gate
 
-Date: 2026-10-01  
-Candidate: Winnr Startup  
-State: **WAITING_EXTERNAL_PROVIDER_CONFIRMATION**  
+Date reconciled: 2026-10-02  
+Candidate: **Winnr pre-warmed bridge + Winnr Startup scale path**  
+State: **WAITING_MINIMUM_TERM_RECONCILIATION + AUTHENTICATED_CHECKOUT**  
 Purchase authority: **NONE**
 
 ## Current first-cash frontier
 
-First-party Winnr material observed on 2026-10-01 changed the cheapest plausible pilot materially.
+Winnr remains the narrowest plausible transport purchase because UberBond already owns sequencing, SMTP/IMAP custody, reply ingestion, placement testing, suppression, pacing, health controls and the UberWarm² evidence ramp.
 
-Official Winnr MCP source documents a **pre-warmed marketplace** with:
-- **$3/address/month**;
-- **3-address minimum**;
-- **domain included**;
-- **no base plan required**;
-- **no minimum term**;
-- first month charged at purchase;
-- generic credential export through the normal Winnr export path;
-- pre-warmed inventory health, warming-age and blocklist observations before purchase;
-- cancellation that removes the purchased pre-warmed domain/mailboxes from the account and returns the asset to the marketplace.
+Written Winnr support on 2026-10-01 materially closed many external questions for the exact route:
 
-At the provider's published normal cold-send prior of roughly **15/mailbox/day** (10–20 range), the smallest 3-address pilot is nominally **45/day for $9/month**. UberBond does **not** treat that advertised pacing as launch authority. UberWarm² starts from observed evidence and may hold the real cap at 0 or 2/day per mailbox until placement, bounce and complaint evidence exists.
+- the described lawful B2B outreach use is accepted under Winnr's mailing-list practices;
+- sole proprietor/trade-name use is accepted without an incorporation/KYC requirement;
+- official REST API/MCP automation is authorized;
+- Egypt is supported and international Visa/Mastercard is accepted;
+- Winnr said no setup fee, VAT/tax add-on or business-registration check is required;
+- pre-warmed inventory is live/self-service in Egypt;
+- pre-warmed mailboxes expose standard SMTP + IMAP credentials through normal export;
+- 50 messages/mailbox/day is the hard provider cap and Winnr recommends roughly 10–15 cold messages/mailbox/day;
+- the minimum three-address pre-warmed order is $9 at purchase and $9/month with no base/setup/domain fee;
+- if a pre-warmed domain is materially listed at handover, support said it can be swapped for a clean one or the month refunded;
+- Startup manual DNS at GoDaddy retains SMTP, IMAP and inbound replies.
 
-Public-price crossover:
-- 3 pre-warmed addresses = $9/month, nominal 45/day;
-- 5 = $15/month, nominal 75/day;
-- 20 = $60/month, nominal 300/day;
-- 23 = $69/month, nominal 345/day;
-- Startup = $69/month for 50 regular mailboxes, so above roughly 23 pre-warmed addresses Startup is cheaper on recurring public list price, but fresh Startup mailboxes still require actual reputation/ramp evidence.
+These are written provider representations. They do **not** prove live inventory, authenticated checkout, actual card acceptance on this account, actual charges, inbox placement or campaign legality for every recipient.
 
-Therefore the **first-cash bridge is the minimum pre-warmed canary**, not a $69 Startup purchase, unless authenticated checkout or live inventory disproves the public facts.
+## Material first-party contradiction: pre-warmed minimum term
 
-Implementation: `src/uberwinnr-procurement-frontier.mjs`.
+UberBond found a material conflict that must remain explicit.
 
-## Why Winnr remains the leading transport candidate
+The official MIT Winnr MCP source currently says the pre-warmed marketplace has **no minimum term** and its cancellation tool says cancellation is allowed at any time.
 
-UberBond no longer needs Winnr to supply sequencing, CRM, personalization, reply classification, warm-up intelligence, placement orchestration, DNS dashboards, analytics, or campaign logic.
+The Winnr Help pages linked by support say the opposite:
 
-The candidate is being evaluated only for the scarce physical layer:
+- every pre-warmed purchase has a **90-day minimum term**;
+- cancellation is disabled until day 90;
+- the buyer owes $3/address/month for three months minimum;
+- at the minimum three addresses, the Help-page commitment is therefore **$27 total minimum**: about $9 at purchase, $9 around day 30 and $9 around day 60.
 
-- reputation-bearing mailbox/SMTP infrastructure;
-- IMAP/inbound reply access;
-- BYO-domain provisioning;
-- provider-account continuity.
+The Help-page rule is economically material even though the initial checkout is still $9.
 
-## Software-side pre-purchase closure
+A same-thread follow-up was sent to Winnr asking which rule governs a new purchase today, whether the in-app confirmation shows the 90-day commitment, whether the MCP documentation is stale, and whether the defective-at-handover swap/refund exception still applies. No resolving reply has been observed yet.
+
+**UberBond will not purchase until this contradiction is reconciled.**
+
+Implementation: `src/uberwinnr-procurement-frontier.mjs` now preserves both claims and fails closed on the conflict.
+
+## Current economics, without pretending the term is resolved
+
+Provider-written/public pricing currently supports:
+
+- 3 pre-warmed addresses: **$9 first month**, nominal provider recommendation roughly 30–45 cold/day total;
+- Help-page minimum commitment if its 90-day rule governs: **$27 total minimum** for those 3 addresses;
+- 5 addresses: $15/month;
+- 20 addresses: $60/month;
+- 23 addresses: $69/month;
+- Startup: $69/month for 50 regular mailboxes.
+
+Above roughly 23 pre-warmed addresses, Startup is cheaper on recurring public list price. That does not mean fresh Startup mailboxes are immediately reputation-ready.
+
+The 50/mailbox/day number is a hard provider ceiling, not UberBond launch authority. UberWarm² may hold a new route at 0 or 2/day/mailbox until real placement, bounce and complaint evidence exists.
+
+## Software-side closure
 
 Implemented on branch `feat/uberwarm2-winnr-prepurchase-20261001`:
 
-- UberWarm² evidence ramp;
-- provider-warmup-independent progression;
+- UberWarm² evidence ramp independent of provider-paid warm-up;
 - owner-controlled placement probes;
-- quarantine/hold/ramp states;
-- Winnr guarded API adapter;
-- HMAC webhook verification;
-- event normalization;
-- Message-ID mapping event support;
-- bulk provisioning/job boundary;
-- explicit write authority;
-- uncertain-write reconciliation rule;
-- post-purchase activation checklist;
-- UberBuy no longer marks provider warm-up as mandatory.
+- quarantine / hold / bounded-ramp states;
+- guarded Winnr REST adapter;
+- HMAC webhook verification and event normalization;
+- Message-ID mapping support;
+- canonical Winnr provider adapter;
+- provider-controlled leased-domain truth state without falsely claiming legal ownership;
+- generic credential export compiler that encrypts SMTP/IMAP secrets into UberFleet/UberIMAP;
+- post-purchase entitlement reconciliation before credential import;
+- local canonical SendingDomain/SendingMailbox onboarding;
+- production read/prepurchase/export/postpurchase routes;
+- no automatic Winnr purchase endpoint.
 
-Therefore **Winnr's optional paid warm-up add-on is not required by UberBond's software architecture.**
-
-## API/provisioning unknowns removed by official open-source donor
-
-Inspection of Winnr's official MIT-licensed `winnr-app/winnr-mcp` removed several software-side ambiguities without requiring an account:
-
-- BYO domain connection: `POST /v1/domains/connect` supports `manual_dns=true`;
-- exact DNS records: `GET /v1/domains/{id}/dns-records`;
-- DNS verification: `POST /v1/domains/{id}/verify-dns`;
-- mailbox creation: `POST /v1/email-users` and bulk `POST /v1/email-users/bulk`;
-- credential export: `POST /v1/export`, with passwords available only through write-scoped export rather than ordinary mailbox-list reads;
-- export selection can target domains, specific emails, or every domain;
-- mailbox listing deliberately excludes passwords;
-- the provider's own MCP implementation distinguishes read, write, destructive and purchase actions.
-
-UberBond now has matching guarded REST methods plus a generic credential compiler that encrypts exported SMTP/IMAP secrets directly into UberFleet/UberIMAP objects without returning plaintext credentials from the compiler.
-
-## External questions already sent to Winnr support
-
-From the UberBond mailbox on 2026-10-01:
-
-1. exact permission for lawful unsolicited B2B commercial outreach where applicable law permits;
-2. whether incorporation is required or a sole proprietor/trade name with valid business/postal identity is acceptable;
-3. confirmation that authorized REST API/MCP automation is permitted despite generic non-human-access boilerplate;
-4. shared-IP degradation/blocklist remediation;
-5. exact definition and measurement of the advertised 90% deliverability/refund language;
-6. current warming billing;
-7. support for existing BYO TLDs such as .site/.shop/.online/.website/.space;
-8. full SMTP/IMAP/inbound functionality while DNS remains at GoDaddy using manual records;
-9. remedy if payment succeeds but provisioning/entitlement fails;
-10. exact Egypt checkout/payment/tax/KYC/setup-fee conditions;
-11. cancellation and no annual commitment/cancellation fee.
-
-A second same-thread question set was also sent asking Winnr to confirm:
-- that the pre-warmed marketplace is live/self-service for an Egypt-based customer;
-- that the same lawful B2B use case is permitted;
-- that purchased addresses expose standard SMTP + IMAP credentials;
-- the current safe daily cap;
-- domain/customer dedication and cancellation behavior;
-- that the minimum first charge is really 3 × $3 = $9 with no mandatory Startup base fee/setup charge;
-- the remedy if purchased inventory is materially degraded/blocklisted.
-
-No support reply has been observed yet.
+Therefore Winnr's optional paid warming add-on is **not required** by UberBond's architecture.
 
 ## SAFE_TO_PURCHASE gate
 
-`SAFE_TO_PURCHASE = NO` until the provider answer or authenticated checkout closes these material facts:
+`SAFE_TO_PURCHASE = NO`.
 
-- explicit intended-use compatibility;
-- exact Egypt first charge including tax;
-- exact entitlement immediately after successful payment;
-- provisioning-failure remedy;
-- API/MCP automation compatibility;
-- cancellation/renewal terms;
-- support for the chosen existing outreach domain.
+For the pre-warmed route, purchase readiness requires all of the following:
 
-These are deliberately external. More software cannot truthfully answer them.
+- current intended-use terms remain compatible;
+- the MCP-vs-Help minimum-term contradiction is explicitly resolved;
+- exact binding minimum term is observed;
+- exact minimum committed spend is observed;
+- committed spend fits a separately authorized founder ceiling;
+- authenticated checkout is observed before confirmation;
+- live green inventory is observed immediately before purchase;
+- exact first charge is observed;
+- Egypt/card/tax/KYC state remains consistent with written support at checkout;
+- no unexpected base plan, setup fee or annual commitment appears.
 
-## Once the external gate clears
+A $9 first charge **cannot** by itself authorize a route that may commit $27.
 
-Founder purchase is the only **commercial spend** action.
+## Once the gate clears
 
-The remaining owner/account actions after purchase are authentication actions, not new architecture:
+Founder purchase remains the only commercial-spend action. No automatic purchase authority exists.
 
-1. log in / complete account verification if requested;
-2. create or approve a Winnr API token;
-3. place the token in UberBond's protected secret store;
-4. authorize the first bounded provider write.
+Then:
 
-Then UberBond's prepared sequence is:
-
-`VERIFY CHARGE + ENTITLEMENT -> READ ACCOUNT -> VERIFY PREWARMED INVENTORY -> EXPORT 3 SMTP/IMAP CREDENTIAL SETS -> ENCRYPT INTO UBERFLEET/UBERIMAP -> WEBHOOK -> OWNER SEED CANARY -> REPLY ROUNDTRIP -> UBERWARM² -> BOUNDED REAL COHORT -> EVIDENCE-GATED SCALE`
+`VERIFY TERM + COMMITMENT + CHARGE -> VERIFY ENTITLEMENT -> READ ACCOUNT -> RECHECK GREEN INVENTORY -> EXPORT SMTP/IMAP -> ENCRYPT -> CANONICAL REGISTRY -> OWNER SEED CANARY -> REPLY ROUNDTRIP -> UBERWARM² -> BOUNDED REAL COHORT -> EVIDENCE-GATED SCALE`
 
 No mass cold send occurs during infrastructure proof.
 
 ## No-repeat-failure law
 
-If payment succeeds but entitlement is absent, stop. Do not pay again. Reconcile the provider receipt and invoke support/refund remediation.
+If payment succeeds but entitlement is absent, stop. Do not pay again.
 
-If policy confirmation is ambiguous, stop. Do not infer permission from marketing.
+If a provider write outcome is uncertain, reconcile state before any retry.
 
-If API write outcome is uncertain, stop. Do not blindly retry.
+If provider sources contradict on a material commercial term, preserve the contradiction and stop spend until it is resolved.
 
 ## Truth boundary
 
-This document closes internal implementation/planning work around the candidate. It cannot create provider permission, provider entitlement, card acceptance, taxes, IP reputation, real inbox placement, or customer outcomes before they are observed.
+This document records dated first-party docs, official source and written support representations. It does not transform provider claims into checkout facts, legal advice, inbox placement, sender reputation, cleared revenue or customer demand.

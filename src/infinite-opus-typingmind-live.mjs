@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { OPUS_CANONICAL_REVISION, verifyCrownProviderModel } from './crown-model-identity.mjs';
 import { createInfiniteOpusRuntime } from './infinite-opus-native-runtime.mjs';
 import { createOpenRouterGovernedAdapter } from './openrouter-governed-adapter.mjs';
 import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-adapter.mjs';
@@ -55,7 +56,7 @@ export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission
   if(!openRouterKeyPresent)reasons.push('runtime-openrouter-key-absent');
   if(!activeAuthorization(paidAuthorization,now))reasons.push('current-20-dollar-runtime-authorization-required');
   if(!(paidAuthorization?.crownRoutes??[]).includes(routeKey('openrouter',TYPINGMIND_CROWN_MODEL)))reasons.push('opus-crown-route-not-authorized');
-  const crown=verifyCrownAdmissionReceipt(crownAdmission,{now,expected:{exactModelId:TYPINGMIND_CROWN_MODEL,taskClassRole:'GENERAL_CROWN',routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY}});
+  const crown=verifyCrownAdmissionReceipt(crownAdmission,{now,expected:{exactModelId:TYPINGMIND_CROWN_MODEL,modelRevision:OPUS_CANONICAL_REVISION,taskClassRole:'GENERAL_CROWN',routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY}});
   if(!crown.ok)reasons.push('valid-current-general-crown-admission-required');
   else if(!CROWN_PROVIDER_SLUGS[crownAdmission?.providerIdentity])reasons.push('supported-zdr-crown-provider-required');
   try{selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,now);selectCurrentPrice(marketSnapshot,TYPINGMIND_CROWN_MODEL,now);}
@@ -95,6 +96,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     }
     const result=await adapter.execute({
       model:payload.model,
+      ...(payload.model===TYPINGMIND_CROWN_MODEL?{expectedCanonicalModel:OPUS_CANONICAL_REVISION}:{}),
       messages:payload.messages,
       maxTokens:payload.maxTokens,
       sessionId:payload.sessionId,
@@ -110,6 +112,12 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     });
     // The runtime accounting provider is OpenRouter. Preserve the actual
     // upstream supplier separately so Crown admission can bind it exactly.
+    if(payload.model===TYPINGMIND_CROWN_MODEL && result.generationReceipt){
+      const revision=result.generationReceipt.model;
+      if(!verifyCrownProviderModel({requestedModel:payload.model,observedModel:revision,provider:result.provider}) || result.provider!==crownAdmission.providerIdentity)
+        return {...result,ok:false,status:'CROWN_REVISION_OR_PROVIDER_DRIFT_REFUSED',observedModel:revision,upstreamProvider:result.provider??null,provider:'openrouter'};
+      return {...result,observedModel:payload.model,observedModelRevision:revision,upstreamProvider:result.provider,provider:'openrouter'};
+    }
     return {...result,upstreamProvider:result.provider??null,provider:'openrouter'};
   };
   const runtime=createInfiniteOpusRuntime({
@@ -225,7 +233,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       reasons:['observed-upstream-provider-required'],providerCallsPerformed,qualityAction:'QUEUE_NEVER_DOWNGRADE',
       semanticAuthority:'NONE',observedUpstreamProvider:null};
     const exactCrown=verifyCrownAdmissionReceipt(crownAdmission,{now:clock(),expected:{
-      exactModelId:TYPINGMIND_CROWN_MODEL,
+      exactModelId:TYPINGMIND_CROWN_MODEL,modelRevision:OPUS_CANONICAL_REVISION,
       taskClassRole:'GENERAL_CROWN',
       providerIdentity:crown.upstreamProvider,
       routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY

@@ -8,12 +8,12 @@ test('metadata interruption preserves generation ID and blocks repeat dispatch',
     throw new Error('fixture-metadata-unavailable');
   };
   try{
-    const result=await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization()});
+    const result=await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization(),checkpointKey:'fixture-encryption-key-32-characters-long'});
     assert.equal(result.status,'FAILED_NO_AUTOMATIC_RETRY');
     assert.equal(f.settings[KEY].pendingCall.generationId,'fixture-unsettled');
     assert.equal(f.settings[KEY].generationJournal[0].status,'DISPATCHED_UNRECONCILED');
     assert.equal(f.settings[KEY].newSpendUsd,0);
-    await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization()});
+    await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization(),checkpointKey:'fixture-encryption-key-32-characters-long'});
     assert.equal(requests,2);
   }finally{globalThis.fetch=original;}
 });
@@ -61,12 +61,12 @@ test('billed model drift is journaled before rejection and is never retried',asy
     ]})},finish_reason:'stop'}]}),
     json({data:{model:'google/gemini-2.5-pro',total_cost:.01,provider_name:'Google Vertex'}}),
     json({id:'fixture-drift',choices:[{message:{content:'SYNTHETIC SEALED ANSWER'},finish_reason:'stop'}]}),
-    json({data:{model:'anthropic/claude-opus-5.5-20260921',total_cost:.02,
+    json({data:{model:'anthropic/claude-opus-5.5-20260922',total_cost:.02,
       provider_name:'Amazon Bedrock',native_tokens_prompt:100,native_tokens_completion:200}})
   ];
   globalThis.fetch=async()=>{requests++;return responses.shift();};
   try{
-    const result=await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization(),mainSha:'fixture'});
+    const result=await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization(),checkpointKey:'fixture-encryption-key-32-characters-long',mainSha:'fixture'});
     assert.equal(result.status,'FAILED_NO_AUTOMATIC_RETRY');
     assert.match(result.reason,/model-identity-drift/);
     const state=f.settings[KEY];
@@ -75,7 +75,7 @@ test('billed model drift is journaled before rejection and is never retried',asy
     assert.equal(state.pendingCall.reconciliationStatus,'RECONCILED_INVALID_EVIDENCE');
     const row=state.generationJournal.find(x=>x.id==='fixture-drift');
     assert.equal(row.costUsd,.02);
-    assert.equal(row.observedModel,'anthropic/claude-opus-5.5-20260921');
+    assert.equal(row.observedModel,'anthropic/claude-opus-5.5-20260922');
     assert.equal(row.provider,'Amazon Bedrock');
     assert.equal(row.promptTokens,100);
     assert.equal(row.completionTokens,200);

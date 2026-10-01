@@ -86,8 +86,10 @@ The software boundary moved materially on 2026-10-01:
 - a paid provider warm-up network is **optional**, not a mandatory sender-substrate capability;
 - the physical purchase target is therefore narrower: authorized outbound SMTP + inbound IMAP/replies + BYO-domain/account continuity;
 - a guarded Winnr provider adapter and post-purchase canary sequence are implemented on the current upgrade lineage;
-- Winnr remains a **candidate**, not an approved purchase, until the exact intended-use, Egypt checkout/tax, entitlement/provisioning remedy, API/MCP automation and cancellation facts are confirmed externally;
-- a pre-sales clarification request has already been sent to Winnr support and no reply had been observed at the time of this reconciliation;
+- Winnr's official MIT MCP + public material now expose a smaller **pre-warmed bridge**: $3/address/month, 3-address minimum, no base plan/minimum term, so the public-list minimum canary is $9/month for 3 addresses;
+- the current first-cash procurement route is therefore **one green 3-address pre-warmed domain**, with Startup retained as the scale route once recurring capacity passes the public-price crossover (~23 addresses / nominal 345 cold/day);
+- Winnr remains a **candidate**, not an approved purchase, until authenticated Egypt checkout, live green inventory, exact first charge, current Terms, and country/card/tax/KYC facts are observed;
+- pre-sales clarification requests covering both Startup and pre-warmed inventory have already been sent to Winnr support and no reply had been observed at the time of this reconciliation;
 - **do not enable or buy a provider warm-up add-on merely because it is offered**; first use UberWarm² + owner-controlled placement evidence, then add any external warm-up network only as a measured optional experiment.
 
 Current detailed gate: `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`.

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v3';
+const KEY='infinite_opus_crown_autofinish_20261001_v4';
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -151,7 +151,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:2500,reasoningTokens:0,tag:'custodian-generate',responseFormat:taskResponseFormat()});
+   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:3000,reasoningTokens:512,tag:'custodian-generate',responseFormat:taskResponseFormat()});
    let taskDoc;
    try{taskDoc=parseJson(gen.text);}
    catch{throw new Error('sealed-json-parse-failed:'+gen.id+':finish='+gen.finishReason+':contentBytes='+gen.contentBytes+':reasoningBytes='+gen.reasoningBytes);}

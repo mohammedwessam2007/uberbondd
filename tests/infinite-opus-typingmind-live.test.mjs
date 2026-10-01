@@ -38,7 +38,7 @@ const adaptiveMarket=()=>compileInfiniteOpusMarket({data:[
 
 const admission=(provider='Amazon Bedrock',routeIdentity=TYPINGMIND_CROWN_ROUTE_IDENTITY)=>{
  const issued=issueCrownAdmissionReceipt({
-  providerCallId:'tournament-opus',exactModelId:TYPINGMIND_CROWN_MODEL,providerIdentity:provider,routeIdentity,
+  providerCallId:'tournament-opus',exactModelId:TYPINGMIND_CROWN_MODEL,modelRevision:'anthropic/claude-opus-5.5-20260921',providerIdentity:provider,routeIdentity,
   taskClassRole:'GENERAL_CROWN',promptProgramHash:h('prompt'),semanticInputHash:h('input'),qualityContractHash:h('quality'),
   sourceDependencyHashes:[h('source')],evidenceReferences:['fixture://sealed-tournament'],outputHash:h('out'),
   timestamp:iso,expiresAt:'2026-10-01T00:00:00Z',budgetAuthorizationRef:'fixture-auth',costReceiptRef:'fixture-bill',
@@ -73,7 +73,7 @@ function builderSequence({crownProvider='Amazon Bedrock',crownReview={verdict:'A
 
   key(.001042),
   {id:'g-crown',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:JSON.stringify(crownReview)}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:8,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:crownProvider,router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:8}},
+  {data:{provider_name:crownProvider,router:'openrouter/auto',model:'anthropic/claude-opus-5.5-20260921',total_cost:.002,tokens_prompt:150,tokens_completion:8}},
   key(.003042)
  ];
 }
@@ -82,7 +82,7 @@ function directSequence({provider='Amazon Bedrock',text='Direct Crown answer'}={
  return [
   key(0),
   {id:'g-direct',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:text}}],usage:{cost:.002,prompt_tokens:50,completion_tokens:20,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:provider,router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:50,tokens_completion:20}},
+  {data:{provider_name:provider,router:'openrouter/auto',model:'anthropic/claude-opus-5.5-20260921',total_cost:.002,tokens_prompt:50,tokens_completion:20}},
   key(.002)
  ];
 }
@@ -101,7 +101,7 @@ test('short input/output chooses one direct Opus call instead of paying fixed-ch
  assert.equal(out.completion.choices[0].message.content,'Direct Crown answer');
  assert.equal(out.completion.uberbond.authorityClass,'DIRECT_CURRENT_CROWN');
  assert.equal(out.routeDecision.selected,'DIRECT_OPUS');
- assert.equal(out.jev.mode,'NOT_NEEDED_FOR_DIRECT_COST_WINNER');
+ assert.equal(out.jev.mode,'NOT_NEEDED_OR_UNAVAILABLE');
  assert.equal(calls,4);
 });
 
@@ -154,11 +154,13 @@ test('Crown structured REWRITE becomes direct Crown answer',async()=>{
 });
 
 test('upstream Crown provider drift refuses authority after observed paid calls',async()=>{
- const rows=builderSequence({crownProvider:'Unexpected Provider'});let calls=0;
+ const rows=builderSequence({crownProvider:'Unexpected Provider'});let calls=0;const store=makeStore();
  const fetchImpl=async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify(rows.shift())};};
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission('Amazon Bedrock'),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store,openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission('Amazon Bedrock'),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const out=await o.execute(builderRequest());
- assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED');
+ assert.equal(out.ok,false);assert.equal(out.status,'COST_RECORDED_RUNTIME_FROZEN');
+ assert.equal(store.dump().infiniteOpusRuntimeV1.ledger.calls.find(c=>c.model===TYPINGMIND_CROWN_MODEL).actualMicrousd,2000);
+ assert.ok(store.dump().infiniteOpusRuntimeV1.ledger.incidents.some(i=>i.reason==='PROVIDER_IDENTITY_CHANGED'));
  assert.equal(out.semanticAuthority,'NONE');assert.equal(out.qualityAction,'QUEUE_NEVER_DOWNGRADE');
  assert.equal(calls,11);
 });
@@ -192,7 +194,7 @@ function adaptiveWriterSequence({writerModel,shape='source_heavy',hardScore=0,in
 
   key(.000242),
   {id:'g-crown',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:JSON.stringify({verdict:'ACCEPT',patches:[],rewrite:''})}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:8,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:'Amazon Bedrock',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:8}},
+  {data:{provider_name:'Amazon Bedrock',router:'openrouter/auto',model:'anthropic/claude-opus-5.5-20260921',total_cost:.002,tokens_prompt:150,tokens_completion:8}},
   key(.002242)
  ];
 }
@@ -230,7 +232,7 @@ test('empty cheap candidate falls back to direct Opus and preserves sunk writer 
   key(.000242),
   key(.000242),
   {id:'g-direct-after-empty',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:'Direct Crown fallback'}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:20,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:'Amazon Bedrock',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:20}},
+  {data:{provider_name:'Amazon Bedrock',router:'openrouter/auto',model:'anthropic/claude-opus-5.5-20260921',total_cost:.002,tokens_prompt:150,tokens_completion:20}},
   key(.002242)
  ];
  const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
@@ -295,4 +297,15 @@ test('admitted Bedrock Crown is pinned to the same ZDR transport at live executi
  assert.equal(crownReq.provider.zdr,true);
  assert.equal(crownReq.provider.data_collection,'deny');
  assert.equal(out.crownReceipt.upstreamProvider,'Amazon Bedrock');
+});
+
+test('stale Crown revision refuses readiness with zero provider dispatch',async()=>{
+ const {receiptHash,...body}=admission();const wrong=issueCrownAdmissionReceipt({...body,modelRevision:'anthropic/claude-opus-5.5-20260922'}).receipt;
+ let calls=0;const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'fixture-key-32-characters-long',paidAuthorization:authorization(),crownAdmission:wrong,marketSnapshot:market(),fetchImpl:async()=>{calls++;throw Error('dispatch forbidden')},clock:()=>now});
+ assert.equal(o.readiness().ok,false);assert.equal((await o.execute(directRequest())).providerCallsPerformed,0);assert.equal(calls,0);
+});
+test('served Crown revision drift settles the bill, freezes ledger and emits no answer',async()=>{
+ const rows=directSequence();rows[2].data.model='anthropic/claude-opus-5.5-20260922';const store=makeStore();
+ const o=createTypingMindLiveOrchestrator({store,openRouterKey:'fixture-key-32-characters-long',paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())}),clock:()=>now});
+ const out=await o.execute(directRequest());assert.equal(out.ok,false);assert.equal(out.status,'COST_RECORDED_RUNTIME_FROZEN');assert.equal(out.completion,undefined);const ledger=store.dump().infiniteOpusRuntimeV1.ledger;assert.equal(ledger.calls[0].actualMicrousd,2000);assert.ok(ledger.incidents.some(i=>i.reason==='PROVIDER_IDENTITY_CHANGED'));
 });

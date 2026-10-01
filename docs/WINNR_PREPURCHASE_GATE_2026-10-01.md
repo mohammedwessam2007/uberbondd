@@ -5,6 +5,34 @@ Candidate: Winnr Startup
 State: **WAITING_EXTERNAL_PROVIDER_CONFIRMATION**  
 Purchase authority: **NONE**
 
+## Current first-cash frontier
+
+First-party Winnr material observed on 2026-10-01 changed the cheapest plausible pilot materially.
+
+Official Winnr MCP source documents a **pre-warmed marketplace** with:
+- **$3/address/month**;
+- **3-address minimum**;
+- **domain included**;
+- **no base plan required**;
+- **no minimum term**;
+- first month charged at purchase;
+- generic credential export through the normal Winnr export path;
+- pre-warmed inventory health, warming-age and blocklist observations before purchase;
+- cancellation that removes the purchased pre-warmed domain/mailboxes from the account and returns the asset to the marketplace.
+
+At the provider's published normal cold-send prior of roughly **15/mailbox/day** (10–20 range), the smallest 3-address pilot is nominally **45/day for $9/month**. UberBond does **not** treat that advertised pacing as launch authority. UberWarm² starts from observed evidence and may hold the real cap at 0 or 2/day per mailbox until placement, bounce and complaint evidence exists.
+
+Public-price crossover:
+- 3 pre-warmed addresses = $9/month, nominal 45/day;
+- 5 = $15/month, nominal 75/day;
+- 20 = $60/month, nominal 300/day;
+- 23 = $69/month, nominal 345/day;
+- Startup = $69/month for 50 regular mailboxes, so above roughly 23 pre-warmed addresses Startup is cheaper on recurring public list price, but fresh Startup mailboxes still require actual reputation/ramp evidence.
+
+Therefore the **first-cash bridge is the minimum pre-warmed canary**, not a $69 Startup purchase, unless authenticated checkout or live inventory disproves the public facts.
+
+Implementation: `src/uberwinnr-procurement-frontier.mjs`.
+
 ## Why Winnr remains the leading transport candidate
 
 UberBond no longer needs Winnr to supply sequencing, CRM, personalization, reply classification, warm-up intelligence, placement orchestration, DNS dashboards, analytics, or campaign logic.
@@ -67,7 +95,16 @@ From the UberBond mailbox on 2026-10-01:
 10. exact Egypt checkout/payment/tax/KYC/setup-fee conditions;
 11. cancellation and no annual commitment/cancellation fee.
 
-No reply has been observed yet.
+A second same-thread question set was also sent asking Winnr to confirm:
+- that the pre-warmed marketplace is live/self-service for an Egypt-based customer;
+- that the same lawful B2B use case is permitted;
+- that purchased addresses expose standard SMTP + IMAP credentials;
+- the current safe daily cap;
+- domain/customer dedication and cancellation behavior;
+- that the minimum first charge is really 3 × $3 = $9 with no mandatory Startup base fee/setup charge;
+- the remedy if purchased inventory is materially degraded/blocklisted.
+
+No support reply has been observed yet.
 
 ## SAFE_TO_PURCHASE gate
 
@@ -96,7 +133,7 @@ The remaining owner/account actions after purchase are authentication actions, n
 
 Then UberBond's prepared sequence is:
 
-`VERIFY ENTITLEMENT -> READ ACCOUNT -> ONE DOMAIN -> DNS -> ONE MAILBOX -> SMTP/IMAP -> WEBHOOK -> OWNER SEED CANARY -> REPLY ROUNDTRIP -> UBERWARM² -> 5 -> 10 -> 20 -> 50`
+`VERIFY CHARGE + ENTITLEMENT -> READ ACCOUNT -> VERIFY PREWARMED INVENTORY -> EXPORT 3 SMTP/IMAP CREDENTIAL SETS -> ENCRYPT INTO UBERFLEET/UBERIMAP -> WEBHOOK -> OWNER SEED CANARY -> REPLY ROUNDTRIP -> UBERWARM² -> BOUNDED REAL COHORT -> EVIDENCE-GATED SCALE`
 
 No mass cold send occurs during infrastructure proof.
 

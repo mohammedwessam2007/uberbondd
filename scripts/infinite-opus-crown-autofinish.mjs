@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v2';
+const KEY='infinite_opus_crown_autofinish_20261001_v3';
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -23,8 +23,25 @@ const parseJson=text=>{
   throw new Error('sealed-json-parse-failed');
 };
 const content=j=>{
-  const c=j?.choices?.[0]?.message?.content;
-  return typeof c==='string'?c:Array.isArray(c)?c.filter(x=>x?.type==='text').map(x=>x.text).join(''):'';
+  const m=j?.choices?.[0]?.message??{};
+  if(typeof m.content==='string')return m.content;
+  if(m.parsed&&typeof m.parsed==='object')return JSON.stringify(m.parsed);
+  if(Array.isArray(m.content))return m.content.map(x=>{
+    if(typeof x==='string')return x;
+    if(typeof x?.text==='string')return x.text;
+    if(typeof x?.text?.value==='string')return x.text.value;
+    if(typeof x?.content==='string')return x.content;
+    return '';
+  }).join('');
+  return '';
+};
+const callUpperBoundUsd=({model,messages,maxTokens,responseFormat})=>{
+  const cap=PRICE_CAPS[model]; if(!cap)throw new Error('price-cap-required:'+model);
+  // UTF-8 bytes are a deliberately conservative upper bound on text token count.
+  // Add 4096 input tokens for provider/schema/system framing not represented in messages.
+  const inputBytes=Buffer.byteLength(JSON.stringify({messages,response_format:responseFormat??null}));
+  const inputTokensUpper=inputBytes+4096;
+  return (inputTokensUpper*cap.prompt+Number(maxTokens)*cap.completion)/1_000_000;
 };
 async function getState(store){
   return store.transaction(async tx=>(await tx.getSettings())[KEY]??null);
@@ -49,9 +66,10 @@ async function generation(apiKey,id){
   }
   throw new Error('generation-reconciliation-required:'+id);
 }
-async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null}){
+async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoningTokens=null}){
   const body={model,messages,max_tokens:maxTokens,stream:false,temperature:0,
     ...(responseFormat?{response_format:responseFormat}:{}),
+    ...(Number.isInteger(reasoningTokens)?{reasoning:{max_tokens:reasoningTokens,exclude:true}}:{}),
     provider:{order:[provider],allow_fallbacks:false,require_parameters:true,data_collection:'deny',zdr:true,
       max_price:PRICE_CAPS[model]}};
   const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
@@ -67,7 +85,10 @@ async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat
   if(observedModel!==model)throw new Error('model-identity-drift:'+model+':'+observedModel);
   const cost=Number(meta.total_cost);
   if(!Number.isFinite(cost)||cost<0)throw new Error('provider-bill-required:'+id);
-  return {id,text:content(j),meta,cost,model,providerName:String(meta.provider_name??'')};
+  const text=content(j),reasoning=String(j?.choices?.[0]?.message?.reasoning??'');
+  return {id,text,meta,cost,model,providerName:String(meta.provider_name??''),
+    finishReason:String(j?.choices?.[0]?.finish_reason??meta.finish_reason??''),
+    contentBytes:Buffer.byteLength(text),reasoningBytes:Buffer.byteLength(reasoning)};
 }
 
 function taskResponseFormat(){
@@ -118,14 +139,23 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
  },newSpendUsd:0,mainSha});
  let spend=0;
  const charge=async spec=>{
+   const reserve=callUpperBoundUsd(spec);
+   if(spend+reserve>MAX_NEW_SPEND_USD)throw new Error('precall-new-tournament-spend-cap-refused:'+spec.model);
+   await setState(store,{pendingCall:{model:spec.model,tag:spec.tag,reservedWorstCaseUsd:reserve},newSpendUsd:spend});
    const r=await call(apiKey,spec); spend+=r.cost;
    if(spend>MAX_NEW_SPEND_USD)throw new Error('new-tournament-spend-cap-exceeded');
-   await setState(store,{newSpendUsd:spend,lastGeneration:{id:r.id,model:r.model,costUsd:r.cost,provider:r.providerName}});
+   await setState(store,{newSpendUsd:spend,pendingCall:null,lastGeneration:{
+     id:r.id,model:r.model,costUsd:r.cost,provider:r.providerName,finishReason:r.finishReason,
+     contentBytes:r.contentBytes,reasoningBytes:r.reasoningBytes,reservedWorstCaseUsd:reserve
+   }});
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:4000,tag:'custodian-generate',responseFormat:taskResponseFormat()});
-   const taskDoc=parseJson(gen.text),tasks=taskDoc?.tasks;
+   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:2500,reasoningTokens:0,tag:'custodian-generate',responseFormat:taskResponseFormat()});
+   let taskDoc;
+   try{taskDoc=parseJson(gen.text);}
+   catch{throw new Error('sealed-json-parse-failed:'+gen.id+':finish='+gen.finishReason+':contentBytes='+gen.contentBytes+':reasoningBytes='+gen.reasoningBytes);}
+   const tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
      if(typeof t?.prompt!=='string'||Buffer.byteLength(t.prompt)>900||!Array.isArray(t.rubric)||t.rubric.length<5)throw new Error('hidden-task-contract-refused:'+i);
@@ -141,7 +171,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
        const r=await charge({model,provider,messages:[
          {role:'system',content:'Solve the task independently. Follow every explicit constraint. Be precise and self-contained. No tools or web.'},
          {role:'user',content:t.prompt}
-       ],maxTokens:1200,tag:'candidate'});
+       ],maxTokens:3000,tag:'candidate'});
        if(!r.text)throw new Error('empty-candidate-answer:'+model);
        const key=t.id+'|'+model; answers[key]=r.text;
        calls.push({taskId:t.id,model,id:r.id,cost:r.cost,providerName:r.providerName,
@@ -158,8 +188,11 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      blind[t.id]={A:answers[t.id+'|'+order[0]],B:answers[t.id+'|'+order[1]]};
      mapping[t.id]={A:order[0],B:order[1]};
    }
-   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:5000,tag:'custodian-grade',responseFormat:gradeResponseFormat()});
-   const gradeDoc=parseJson(grade.text),grades=gradeDoc?.grades;
+   const grade=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:evaluationMessages(tasks,blind),maxTokens:4500,reasoningTokens:1500,tag:'custodian-grade',responseFormat:gradeResponseFormat()});
+   let gradeDoc;
+   try{gradeDoc=parseJson(grade.text);}
+   catch{throw new Error('sealed-grade-json-parse-failed:'+grade.id+':finish='+grade.finishReason+':contentBytes='+grade.contentBytes+':reasoningBytes='+grade.reasoningBytes);}
+   const grades=gradeDoc?.grades;
    if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
 
    const byPair=new Map();

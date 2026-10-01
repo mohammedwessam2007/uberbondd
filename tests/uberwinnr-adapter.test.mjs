@@ -107,3 +107,79 @@ test('post-purchase checklist keeps provider warmup optional', () => {
   assert.equal(result.spendAuthorized, false);
   assert.ok(result.phases.includes('ENABLE_UBERWARM2_EVIDENCE_RAMP'));
 });
+
+
+test('Winnr owned-domain and credential-export atoms use documented endpoints and require write authority', async () => {
+  const calls = [];
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    return {
+      ok: true,
+      status: 200,
+      headers: { get: () => null },
+      text: async () => JSON.stringify({ data: { ok: true } })
+    };
+  };
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:MIT:bcec6bcc',
+    fetchImpl
+  });
+
+  const blocked = await client.connectOwnedDomains({ domains: ['uberbond.site'] });
+  assert.equal(blocked.status, 'UBERWINNR_WRITE_REFUSED');
+  assert.equal(calls.length, 0);
+
+  const connected = await client.connectOwnedDomains({
+    domains: ['uberbond.site'],
+    manualDns: true,
+    writeAuthorized: true
+  });
+  assert.equal(connected.ok, true);
+  assert.equal(calls[0].url.endsWith('/v1/domains/connect'), true);
+  assert.deepEqual(JSON.parse(calls[0].options.body), {
+    domains: ['uberbond.site'],
+    manual_dns: true
+  });
+
+  const exported = await client.exportMailboxes({
+    format: 'default',
+    domains: ['uberbond.site'],
+    writeAuthorized: true
+  });
+  assert.equal(exported.ok, true);
+  assert.equal(calls[1].url.endsWith('/v1/export'), true);
+  assert.deepEqual(JSON.parse(calls[1].options.body), {
+    format: 'default',
+    domains: ['uberbond.site']
+  });
+});
+
+test('Winnr DNS verification remains an explicit consequential provider write', async () => {
+  let calls = 0;
+  const client = createWinnrApiClient({
+    token: 'wnr_account_abcdefghijklmnopqrstuvwx',
+    authorized: true,
+    termsCompatible: true,
+    evidenceRef: 'winnr-mcp:MIT:54cbacdf',
+    fetchImpl: async () => {
+      calls += 1;
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: () => null },
+        text: async () => JSON.stringify({ data: { status: 'complete' } })
+      };
+    }
+  });
+
+  const blocked = await client.verifyDns({ domainId: 'dom_123' });
+  assert.equal(blocked.status, 'UBERWINNR_WRITE_REFUSED');
+  assert.equal(calls, 0);
+
+  const allowed = await client.verifyDns({ domainId: 'dom_123', writeAuthorized: true });
+  assert.equal(allowed.ok, true);
+  assert.equal(calls, 1);
+});

@@ -74,7 +74,10 @@
         "pre-warmed $3/address no-base-plan procurement atom",
         "three-address minimum pilot",
         "two-step purchase confirmation pattern",
-        "GET-only rate-limit retry discipline"
+        "GET-only rate-limit retry discipline",
+        "first-party minimum-term contradiction preservation",
+        "MCP no-minimum-term claim vs Help 90-day claim",
+        "separate first-charge vs committed-spend procurement gates"
       ],
       "directCodeCopied": false,
       "status": "ADAPTER_IMPLEMENTED_PENDING_REAL_ACCOUNT_EVIDENCE",
@@ -135,9 +138,9 @@
     "campaign-specific legal/provider eligibility",
     "customer outcomes and cleared payment"
   ],
-  "truthBoundary": "Capability-donor synthesis is implementation evidence only. It is not provider provisioning, deliverability, legality, demand, or revenue.",
+  "truthBoundary": "Winnr is a transport candidate. Written support and first-party source close many policy/API facts, but official MCP source and current Help pages conflict on the pre-warmed minimum term. No purchase authority exists until the binding term and exact committed spend are reconciled.",
   "procurementFrontier": {
-    "observedAt": "2026-10-01",
+    "observedAt": "2026-10-02",
     "firstCashCandidate": "WINNR_PREWARMED_MINIMUM_CANARY",
     "minimumAddresses": 3,
     "publicListMonthlyUsd": 9,
@@ -147,12 +150,24 @@
     "publicPriceCrossoverNominalColdDaily": 345,
     "safeToPurchase": false,
     "remainingExternal": [
-      "authenticated Egypt checkout",
+      "explicit minimum-term reconciliation",
+      "exact minimum committed spend at authenticated checkout",
       "live green inventory",
       "exact first charge",
-      "country/card/tax/KYC state",
-      "current terms compatibility",
-      "degraded-at-purchase remedy"
-    ]
+      "authenticated Egypt/card checkout state"
+    ],
+    "firstChargePublicSupportUsd": 9,
+    "helpPageMinimumCommittedUsd": 27,
+    "mcpMinimumTermMonthsClaim": 0,
+    "helpMinimumTermMonthsClaim": 3,
+    "minimumTermConflictObserved": true,
+    "supportWrittenUseCompatible": true,
+    "egyptWrittenAvailable": true,
+    "smtpImapWrittenSupported": true,
+    "recommendedColdPerMailboxPerDay": [
+      10,
+      15
+    ],
+    "hardProviderMailCeilingPerMailboxPerDay": 50
   }
 }

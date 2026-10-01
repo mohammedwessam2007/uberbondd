@@ -654,6 +654,24 @@ if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_O
           taskCommitment:state.taskCommitment??null,hiddenTaskCount:state.hiddenTaskCount??null
         };
         console.log('UBERMIND_CROWN_STATE_DIAGNOSTIC '+JSON.stringify(safe));
+        if(safe.lastGeneration?.id && process.env.OPENROUTER_API_KEY){
+          try{
+            const r=await fetch('https://openrouter.ai/api/v1/generation?id='+encodeURIComponent(safe.lastGeneration.id),{
+              headers:{authorization:'Bearer '+String(process.env.OPENROUTER_API_KEY)},signal:AbortSignal.timeout(15000)
+            });
+            if(r.ok){
+              const j=await r.json(),d=j?.data??{};
+              console.log('UBERMIND_CROWN_GENERATION_METADATA '+JSON.stringify({
+                id:safe.lastGeneration.id,model:d.model??null,provider:d.provider_name??null,
+                finishReason:d.finish_reason??null,nativeTokensPrompt:d.native_tokens_prompt??null,
+                nativeTokensCompletion:d.native_tokens_completion??null,totalCost:d.total_cost??null,
+                generationTime:d.generation_time??null,latency:d.latency??null
+              }));
+            }else console.log('UBERMIND_CROWN_GENERATION_METADATA '+JSON.stringify({id:safe.lastGeneration.id,status:'metadata-http-'+r.status}));
+          }catch(error){
+            console.log('UBERMIND_CROWN_GENERATION_METADATA '+JSON.stringify({id:safe.lastGeneration.id,status:'metadata-read-failed',reason:String(error?.message||error)}));
+          }
+        }
       }
     }catch(error){
       console.error('UBERMIND_CROWN_STATE_DIAGNOSTIC '+JSON.stringify({status:'DIAGNOSTIC_FAILED',reason:String(error?.message||error)}));

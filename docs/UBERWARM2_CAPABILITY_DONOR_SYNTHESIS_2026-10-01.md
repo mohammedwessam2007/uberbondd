@@ -123,6 +123,37 @@ UberBond realization:
 
 No Winnr proprietary implementation is copied. UberBond's adapter remains independently implemented in JavaScript. The MIT-licensed official MCP server is preserved as a provenance donor and authoritative interoperability reference.
 
+### Winnr official MCP expansion
+
+Further first-party inspection of the official MIT repository added exact source evidence for the broader operational boundary:
+
+- `client.py` `09744c56544739f0b7d79cc6744150efa6b0726d`: one bounded automatic retry only for idempotent GET requests on HTTP 429;
+- `domains.py` `54cbacdf3b26cfa5f9c6163e47a84981ef8b3625`: BYO/manual DNS, DNS reads, provider detection and explicit purchase confirmation;
+- `email_users.py` `6e3e3caa7dd1cf4c40b262257693c7ff14021f21`: mailbox create/list/update/delete + bulk creation;
+- `export.py` `bcec6bccd5600ee264bb16cd057d8ee876222d1c`: write-scoped password export and one-selector contract;
+- `webhooks.py` `af11d0136e456a534de6034c55acc9de593d4620`: HTTPS webhook requirement, event allowlist, delivery history and secret boundary;
+- `inbox.py` `4a2e941963c526241f518cba042a61e99d12bba7`: inbox read/reply interoperability;
+- `jobs.py` `44ce37e8a83750858f6e73aa47cd0b73b376a308`: async-job reconciliation and timeout semantics;
+- `warming.py` `ece966717ae0782fbac38a95a8e5a72355ee1df4`: optional $0.60/mailbox/month warming purchase surface;
+- `prewarmed.py` `72affbb2aa0b5ec179df51283af010b46953e942`: pre-warmed marketplace, $3/address/month, 3-address minimum, no base plan/minimum term, health/blocklist reads and explicit purchase confirmation;
+- `account.py` `9fd4722e2262d73eadca907b8abd04cf89ca40c3`: plan/subscription/usage introspection.
+
+New internalized atoms:
+- read-like POST calls are distinguished from consequential writes without exposing a generic bypass;
+- raw provider calls cannot self-label a mutation as read-only;
+- credential export fails closed unless exactly one selector is supplied;
+- webhook creation fails locally unless HTTPS and an official event are used;
+- live account, job, inventory and blocklist reads can reconcile state before any retry or purchase;
+- a low-cost **pre-warmed bridge** can be compared against Startup without making the provider's marketplace UberBond's permanent identity layer.
+
+Economic consequence from dated public prices:
+- 3 pre-warmed addresses = $9/month and nominally 45 cold messages/day at the provider's 15/day prior;
+- 20 addresses = $60/month and nominally 300/day;
+- 23 addresses = $69/month and nominally 345/day;
+- above that point the $69 Startup plan is cheaper recurring on public list price, but its fresh mailboxes still need real reputation evidence.
+
+UberBond therefore treats pre-warmed inventory as a **first-cash bridge**, not the final sovereign substrate. Cancellation returns that asset to the marketplace, while the 30 owned UberBond outreach domains remain the long-run portable identity fleet.
+
 ### Warmup-network vendors generally
 
 Useful atoms:

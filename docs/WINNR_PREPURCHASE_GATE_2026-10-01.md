@@ -36,6 +36,21 @@ Implemented on branch `feat/uberwarm2-winnr-prepurchase-20261001`:
 
 Therefore **Winnr's optional paid warm-up add-on is not required by UberBond's software architecture.**
 
+## API/provisioning unknowns removed by official open-source donor
+
+Inspection of Winnr's official MIT-licensed `winnr-app/winnr-mcp` removed several software-side ambiguities without requiring an account:
+
+- BYO domain connection: `POST /v1/domains/connect` supports `manual_dns=true`;
+- exact DNS records: `GET /v1/domains/{id}/dns-records`;
+- DNS verification: `POST /v1/domains/{id}/verify-dns`;
+- mailbox creation: `POST /v1/email-users` and bulk `POST /v1/email-users/bulk`;
+- credential export: `POST /v1/export`, with passwords available only through write-scoped export rather than ordinary mailbox-list reads;
+- export selection can target domains, specific emails, or every domain;
+- mailbox listing deliberately excludes passwords;
+- the provider's own MCP implementation distinguishes read, write, destructive and purchase actions.
+
+UberBond now has matching guarded REST methods plus a generic credential compiler that encrypts exported SMTP/IMAP secrets directly into UberFleet/UberIMAP objects without returning plaintext credentials from the compiler.
+
 ## External questions already sent to Winnr support
 
 From the UberBond mailbox on 2026-10-01:

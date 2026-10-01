@@ -4,7 +4,7 @@ import { compileWinnrCredentialImport } from '../src/uberwinnr-credential-import
 import { openSmtpAccountCredential } from '../src/uberfleet.mjs';
 import { openImapCredential } from '../src/uberimap.mjs';
 
-const KEY = Buffer.alloc(32, 7).toString('base64');
+const KEY = '07'.repeat(32);
 
 const CSV = [
   'domain,from_email,from_name,user_name,password,smtp_host,smtp_port,imap_host,imap_port,imap_username,imap_password,footer',
@@ -72,4 +72,21 @@ test('credential import refuses provider routes without authorization or terms e
   assert.equal(result.status, 'IMPORT_REFUSED');
   assert.ok(result.failures[0].reasonCodes.includes('route-authorization-required'));
   assert.ok(result.failures[0].reasonCodes.includes('route-terms-compatibility-required'));
+});
+
+
+test('credential import fails closed on an invalid encryption key', () => {
+  const result = compileWinnrCredentialImport({
+    csvText: CSV,
+    encryptionKey: 'not-a-key',
+    workspaceId: 'ws-1',
+    linksByEmail: {
+      'sam@uberbond.site': { sendingDomainId: 'domain-1', sendingMailboxId: 'mailbox-1' }
+    },
+    routeEvidenceRef: 'winnr:evidence',
+    routeAuthorized: true,
+    termsCompatible: true
+  });
+  assert.equal(result.status, 'IMPORT_REFUSED');
+  assert.deepEqual(result.failures[0].reasonCodes, ['valid-encryption-key-required']);
 });

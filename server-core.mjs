@@ -1726,9 +1726,15 @@ export const requestHandler = async (req, res) => {
         automaticRetryAuthorized:false
       });
 
+      const providerDigest = String(owned.receipt?.responseDigest || '').trim();
+      if (!providerDigest) return json(res, 409, {
+        ok:false,status:'WINNR_POSTPURCHASE_ENTITLEMENT_UNRECONCILED',
+        reasonCodes:['provider-entitlement-receipt-digest-required'],
+        automaticRetryAuthorized:false
+      });
       const applied = await applyWinnrPostPurchaseRegistryPlan({store,plan,date:new Date()});
       if (!applied.ok) return json(res, 409, applied);
-      const routeEvidenceRef = `winnr:list-my-prewarmed:${owned.receipt?.responseDigest || 'provider-observed'}`;
+      const routeEvidenceRef = `winnr:list-my-prewarmed:${providerDigest}`;
       const prepared = compileWinnrCredentialImport({
         csvText,
         encryptionKey: config.encryptionKey,

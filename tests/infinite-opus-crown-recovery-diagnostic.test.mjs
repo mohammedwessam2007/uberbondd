@@ -4,3 +4,8 @@ test('read-only diagnostic retains reconciliation fields and never sealed data',
  const store={transaction:async fn=>fn({getSettings:async()=>{reads++;return s;},setSetting:async()=>{writes++;throw Error('write forbidden')}})};
  const out=await readCrownRecoveryMetadata(store);assert.equal(reads,1);assert.equal(writes,0);assert.equal(out.providerCallsPerformed,0);const raw=JSON.stringify(out);assert.ok(!/HIDDEN_|sk-secret|Bearer secret/.test(raw));assert.equal(out.states.infiniteOpusRuntimeV1.metadata.archivedLedgers['2026-09'].calls[0].callId,'old');assert.equal(out.states.infinite_opus_crown_autofinish_20261001_v7.metadata.lastGeneration.id,'gen-real-123');
 });
+test('older Crown inventory exposes metadata and field presence without hidden content',async()=>{
+ const settings={legacySealedCrownTrial:{tasks:[{prompt:'DO_NOT_EXPOSE'}],answers:{a:'DO_NOT_EXPOSE'},privateEvidenceRef:'DO_NOT_EXPOSE',status:'FAILED',sealedEvidence:{schemaVersion:'uberbond.sealed-crown-checkpoint.v1',ciphertext:'DO_NOT_EXPOSE'}},CROWN_SECRET:'DO_NOT_EXPOSE',infiniteOpusRuntimeV1:{receipts:[{kind:'CROWN_DISPATCH',callId:'sealed-call-1',observedAt:123,prompt:'DO_NOT_EXPOSE'}]}};
+ const out=await readCrownRecoveryMetadata({transaction:async fn=>fn({getSettings:async()=>settings})});
+ assert.equal(out.inventory.length,1);assert.equal(out.inventory[0].encryptedCheckpointPresent,true);assert.equal(out.inventory[0].privateEvidencePointerPresent,true);assert.equal(out.states.infiniteOpusRuntimeV1.metadata.receipts[0].observedAt,123);assert.ok(!JSON.stringify(out).includes('DO_NOT_EXPOSE'));assert.ok(!JSON.stringify(out).includes('CROWN_SECRET'));
+});

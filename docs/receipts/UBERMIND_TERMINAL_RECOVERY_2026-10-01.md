@@ -130,3 +130,40 @@ These are donor evidence from its exact head, not newly observed external realit
 - historical TypingMind prepared/unsaved and Crown absent
 - September receipt was present then; expiration cannot be converted into October authority
 - governed MiMo billing canary already reconciled; never repeat it for this activation
+
+## Refreshed verified checkpoint — 2026-10-01, after recovery
+
+This section supersedes earlier UNKNOWN/current-setting/next-edge statements above while preserving their observation history.
+
+- PR #1125 merged c4db80c8fa83b36bbdd64d84054eaa4e321e8e24.
+- PR #1126 merged 10991f12b69bf3d1511964adc85a0d7a441b068d.
+- Clean LIVE deploy dep-davc0mjbc2fs73ca31v0 uses 10991f12b69bf3d1511964adc85a0d7a441b068d; completed 2026-10-01T20:20:49.993Z.
+- Build restored and reread: npm install --omit=dev.
+- Both autofinish-startup and recovery-diagnostic opt-ins are disabled.
+- Current October authorization exists: owner-typingmind-runtime-20-20261001, month 2026-10, cap 20,000,000 microusd, expires 2026-11-01T00:00:00.000Z; authorized Opus runtime route. This is runtime authority, not permission to blindly repeat a failed tournament.
+- Existing inference key and private gateway bearer are present. No new key or cap change.
+- Worker/web PostgreSQL startup and a successful sanitized durable-state read are observed. Crown admission is absent; readiness refuses for crown-admission-absent.
+- Authenticated OpenRouter generation detail recovered nine historical bills, total USD 0.15802525. Exact non-secret evidence is in UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json.
+- v7 Opus generation gen-1790818164-26mCkGn04RIvzS7rK3hE cost USD 0.0335, observed anthropic/claude-opus-5.5-20260921 through Amazon Bedrock, stop/end_turn. Its bill was excluded from old v7 newSpendUsd 0.01347375.
+- Earlier Opus generation gen-1790807964-m6HWX42a5VtncUFVBpL1 cost USD 0.011224, same canonical model/provider, stop/end_turn. Exact binding to original durable callId is not recovered; do not settle that call by timestamp inference.
+- Provider billing is reconciled; original runtime reservation/settlement binding remains unresolved. No charges are treated as zero.
+- Durable failed v7 state contains commitments and metadata, not recoverable sealed tasks/answers. OpenRouter I/O logging was off. Searched handoffs supplied no retained sealed artifacts. Existing answers cannot be independently adjudicated from generation metadata alone.
+- TypingMind has no saved UberMind Auto. Its custom-model form is being prepared with the canonical gateway; Test & Save awaits legitimate Crown readiness. Historical direct models are preserved.
+
+### Focused pinned-identity and sealed-checkpoint repair
+
+The requested Opus alias is now matched ONLY to the provider-observed exact revision anthropic/claude-opus-5.5-20260921 on Amazon Bedrock. No prefix matching or future-revision acceptance. Admissions retain that exact revision; live provider drift records the bill, freezes runtime, and emits no answer.
+
+Future sealed task/answer checkpoints use authenticated encryption with the existing private TOKEN_ENCRYPTION_KEY and bind ciphertext to the exact attempt key/task commitment. Missing key refuses before dispatch; ciphertext tampering refuses. No plaintext hidden material enters Git or ordinary diagnostics.
+
+The same failed v7 key/prior-state guard remains. These repairs do not restart or reset any old attempt and cannot resurrect lost payloads.
+
+Local verification: 22 focused tests passed, 0 failed (synthetic transport only). Covers exact model/provider drift, current Crown revision, sealed ciphertext/binding tampering, read-only recovery, billing journal, no retry and live gateway paths. This is LOCALLY_TESTED, not independent model-quality evidence or endurance proof.
+
+GitHub Actions for earlier recovery PRs returned failed jobs with no executed steps/logs. CI execution is unavailable; cause is UNKNOWN. Do not claim CI_VERIFIED.
+
+### Exact next edge
+
+Recover a private custodian copy of the lost stimuli/answers and original call-generation binding if one exists. Otherwise an explicitly bounded replacement sealed trial is required, after the old charge is durably reconciled through an evidence-bound repair. Existing failed-state refusal remains until that distinct authority and reconciliation edge exists. Do not expose hidden content, fabricate settlement/admission, or bypass TypingMind readiness.
+
+Fresh full-context modeled lane: 1.0118806695078688x; certified residual modeled lane: 14.161946017994001x; compiled recurrence benchmark: 33,333.345x; production realized multiplier: UNKNOWN.
